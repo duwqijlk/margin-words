@@ -125,7 +125,12 @@ The reader does **not** use the raw EPUB spine files. `src/lib/epub.ts` builds t
 list like this:
 
 1. Read the table of contents (EPUB 3 `nav`, else NCX). Each entry is cut out of its HTML file
-   from its fragment to the next entry's fragment. Contents pages are skipped.
+   from its fragment to the next entry's fragment. A fragment that matches nothing inside the
+   file is skipped. An id on the `<body>` or `<html>` element is the start of that file, but
+   only when other contents entries already make the chapter list. One such entry among entries
+   that name a whole file is kept. If every fragment sits on
+   `<body>` or `<html>`, the contents list is not used and each spine file stays its own chapter.
+   Contents pages are skipped.
 2. A later spine file is appended at the end of that chapter only when both are true.
    Its prefix equals the prefix of the spine file just before it, so `split_000` then
    `split_001` then `split_002` can chain. The prefix is the path with one trailing

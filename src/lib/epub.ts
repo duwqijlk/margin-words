@@ -442,6 +442,19 @@ function findById(root: Document | Element, id: string): Element | null {
   return null;
 }
 
+/**
+ * True when the fragment id is on `<body>` or `<html>` itself.
+ * `findById` only searches inside the body, so it does not see that id.
+ */
+function fragmentOnDocument(doc: Document, id: string): boolean {
+  if (!id) return false;
+  for (const el of [doc.body, doc.documentElement]) {
+    if (!el) continue;
+    if (el.id === id || el.getAttribute("name") === id) return true;
+  }
+  return false;
+}
+
 function sliceBetween(body: Element, start: Element | null, end: Element | null): HTMLElement {
   const range = document.createRange();
   if (start) range.setStartBefore(start);
@@ -942,8 +955,7 @@ export async function parseEpub(
     const prefix = splitPrefix(file);
     prefixCounts.set(prefix, (prefixCounts.get(prefix) ?? 0) + 1);
   }
-  async function push(holder: ParentNode, rawTitle: string, path: string, index: number) {
-    if (chapters.length >= CHAPTER_CAP) return;
+  async function heldChapter(holder: ParentNode, rawTitle: string, path: string, index: number) {
     // Before soft-hyphen and inline joins, so a one-letter drop cap is still one letter.
     markDropCaps(holder);
     stripWordBreaksIn(holder);
@@ -951,7 +963,12 @@ export async function parseEpub(
     const title =
       englishTitle(stripWordBreaks(rawTitle), "") ||
       englishTitle(textOf(heading), `Chapter ${index + 1}`);
-    const chapter = await chapterFromElement(holder, title, zip, path, divParagraphs);
+    return chapterFromElement(holder, title, zip, path, divParagraphs);
+  }
+
+  async function push(holder: ParentNode, rawTitle: string, path: string, index: number) {
+    if (chapters.length >= CHAPTER_CAP) return;
+    const chapter = await heldChapter(holder, rawTitle, path, index);
     if (chapter) chapters.push(chapter);
   }
 
@@ -985,6 +1002,18 @@ export async function parseEpub(
   }
 
   if (toc.length >= 2) {
+    // An id on body or html is not visible to findById. Remember those entries.
+    // They are restored only when other entries already formed the chapter list.
+    // If every fragment is on body or html, this list stays empty and the spine
+    // fallback below is unchanged (one file, one chapter, same titles as today).
+    const onDocument: {
+      at: number;
+      title: string;
+      path: string;
+      body: Element;
+      nextAnchor: string;
+      lastSlice: boolean;
+    }[] = [];
     for (let index = 0; index < toc.length && chapters.length < CHAPTER_CAP; index += 1) {
       const entry = toc[index];
       if (!entry) continue;
@@ -997,7 +1026,19 @@ export async function parseEpub(
       const nextPath = next ? (next.href.split("#")[0] ?? "") : "";
       const nextAnchor = next && nextPath === path ? hashOf(next.href) : "";
       const start = anchor ? findById(body, anchor) : null;
-      if (anchor && !start) continue;
+      if (anchor && !start) {
+        if (fragmentOnDocument(doc, anchor)) {
+          onDocument.push({
+            at: chapters.length,
+            title: entry.title,
+            path,
+            body,
+            nextAnchor,
+            lastSlice: !(next && nextPath === path),
+          });
+        }
+        continue;
+      }
       const end = nextAnchor ? findById(body, nextAnchor) : null;
       const holder = sliceBetween(body, start, end);
       const lastSlice = !(next && nextPath === path);
@@ -1017,6 +1058,27 @@ export async function parseEpub(
       for (const extra of await continuationRenders(path)) {
         last.paragraphs.push(...extra.paragraphs);
         last.html += extra.html;
+      }
+    }
+    if (chapters.length >= 2) {
+      let shift = 0;
+      for (const item of onDocument) {
+        if (chapters.length >= CHAPTER_CAP) break;
+        const end = item.nextAnchor ? findById(item.body, item.nextAnchor) : null;
+        const holder = sliceBetween(item.body, null, end);
+        const index = item.at + shift;
+        const chapter = await heldChapter(holder, item.title, item.path, index);
+        if (!chapter) continue;
+        chapters.splice(index, 0, chapter);
+        shift += 1;
+        if (!item.lastSlice) continue;
+        const letters = englishLetters(chapter.paragraphs.join(" "));
+        const standsAlone = item.at === 0 || letters >= 40;
+        if (!standsAlone) continue;
+        for (const extra of await continuationRenders(item.path)) {
+          chapter.paragraphs.push(...extra.paragraphs);
+          chapter.html += extra.html;
+        }
       }
     }
   }

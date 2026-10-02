@@ -19,9 +19,12 @@ const { epub, format, help, flow } = await loadAppModules();
 
 const LONG = "This sentence is long enough to stand alone as its own paragraph in the reader.";
 
-function page(title, body) {
+function page(title, body, ids = {}) {
+  const htmlId = ids.htmlId ? ` id="${ids.htmlId}"` : "";
+  const bodyId = ids.bodyId ? ` id="${ids.bodyId}"` : "";
+  const bodyClass = ids.bodyClass ? ` class="${ids.bodyClass}"` : "";
   return `<?xml version="1.0" encoding="utf-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>${title}</title></head><body>
+<html xmlns="http://www.w3.org/1999/xhtml"${htmlId}><head><title>${title}</title></head><body${bodyId}${bodyClass}>
 ${body}
 </body></html>`;
 }
@@ -83,20 +86,26 @@ async function buildEpub(spec) {
     );
   }
   if (spec.ncx !== undefined) {
-    const points = (spec.ncx ?? [])
-      .map(
-        (item, index) => `<navPoint id="n${index}"><navLabel><text>${item.title}</text></navLabel><content src="${item.href}"/></navPoint>`,
-      )
-      .join("");
+    const point = (item, index) => {
+      const id = item.id ?? `n${index}`;
+      const order = item.playOrder ? ` playOrder="${item.playOrder}"` : "";
+      const children = (item.children ?? []).map((child, at) => point(child, `${index}-${at}`)).join("");
+      return `<navPoint id="${id}"${order}><navLabel><text>${item.title}</text></navLabel><content src="${item.href}"/>${children}</navPoint>`;
+    };
+    const points = (spec.ncx ?? []).map((item, index) => point(item, index)).join("");
+    const depth = spec.ncxDepth
+      ? `<head><meta name="dtb:uid" content="urn:uuid:extract-test"/><meta name="dtb:depth" content="${spec.ncxDepth}"/><meta name="dtb:totalPageCount" content="0"/><meta name="dtb:maxPageNumber" content="0"/></head>`
+      : "";
     add(
       "OEBPS/toc.ncx",
       `<?xml version="1.0" encoding="utf-8"?>
-<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/"><navMap>${points}</navMap></ncx>`,
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">${depth}<navMap>${points}</navMap></ncx>`,
     );
   }
   if (spec.encryption) add("META-INF/encryption.xml", spec.encryption);
   for (const [href, body] of Object.entries(spec.files)) {
-    add(`OEBPS/${href}`, page(href, body));
+    if (typeof body === "string") add(`OEBPS/${href}`, page(href, body));
+    else add(`OEBPS/${href}`, page(href, body.html, body));
   }
   const bytes = await zip.generateAsync({ type: "nodebuffer" });
   return epub.parseEpub(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), {
@@ -510,6 +519,274 @@ test("accented letters and combining marks are one tappable word", () => {
   assert.equal(words.includes("Yucat"), false);
   assert.equal(format.splitWords("well-known don't café").filter((_, index) => index % 2 === 1).join(","), "well,known,don't,café");
 });
+
+test("a contents fragment on body or html starts at the beginning of that file", async () => {
+  const book = await buildEpub({
+    title: "Body Anchor",
+    toc: [
+      { title: "Chapter One", href: "c01.xhtml" },
+      { title: "Epilogue", href: "epilogue.xhtml#181NK0-epilogue" },
+      { title: "A Note", href: "epilogue.xhtml#inner-note" },
+      { title: "Afterword", href: "afterword.xhtml#html-after" },
+      { title: "Ghost", href: "c01.xhtml#no-such-id" },
+    ],
+    spine: [
+      { id: "c01", href: "c01.xhtml" },
+      { id: "epi", href: "epilogue.xhtml" },
+      { id: "aft", href: "afterword.xhtml" },
+    ],
+    files: {
+      "c01.xhtml": `<h1>Chapter One</h1><p>The opening chapter is a normal file with no fragment. ${LONG}</p>`,
+      "epilogue.xhtml": {
+        bodyId: "181NK0-epilogue",
+        html: `<h1>Epilogue</h1><p>The epilogue opens at the body anchor and this paragraph comes first. ${LONG}</p><h2 id="inner-note">A Note</h2><p>This later note starts at an inner anchor and is its own chapter. ${LONG}</p>`,
+      },
+      "afterword.xhtml": {
+        htmlId: "html-after",
+        html: `<h1>Afterword</h1><p>The afterword id sits on the html element and the whole file is kept. ${LONG}</p>`,
+      },
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["Chapter One", "Epilogue", "A Note", "Afterword"],
+  );
+  assert.deepEqual(paragraphs(book), [
+    ["Chapter One", `The opening chapter is a normal file with no fragment. ${LONG}`],
+    ["Epilogue", `The epilogue opens at the body anchor and this paragraph comes first. ${LONG}`],
+    ["A Note", `This later note starts at an inner anchor and is its own chapter. ${LONG}`],
+    ["Afterword", `The afterword id sits on the html element and the whole file is kept. ${LONG}`],
+  ]);
+  assert.equal(
+    book.chapters[0].paragraphs.some((paragraph) => paragraph.includes("epilogue opens")),
+    false,
+  );
+});
+
+test("duplicate playOrder entries that point at different files stay separate chapters", async () => {
+  const book = await buildEpub({
+    title: "Play Order",
+    toc: [],
+    ncx: [
+      {
+        title: "The Chapters",
+        href: "c21.xhtml#ch21",
+        playOrder: "1",
+        id: "part",
+        children: [
+          { title: "Chapter 21", href: "c21.xhtml#ch21", playOrder: "40", id: "num_40" },
+        ],
+      },
+      { title: "Epilogue", href: "epilogue.xhtml", playOrder: "40", id: "num_40" },
+      { title: "Afterword", href: "after.xhtml", playOrder: "5", id: "after" },
+    ],
+    spine: [
+      { id: "c21", href: "c21.xhtml" },
+      { id: "epi", href: "epilogue.xhtml" },
+      { id: "aft", href: "after.xhtml" },
+    ],
+    files: {
+      "c21.xhtml": `<h1 id="ch21">Chapter 21</h1><p>Chapter twenty one stays its own chapter beside the epilogue. ${LONG}</p>`,
+      "epilogue.xhtml": `<h1>Epilogue</h1><p>The epilogue repeats play order forty and points at its own file. ${LONG}</p>`,
+      "after.xhtml": `<h1>Afterword</h1><p>The afterword has a lower play order and still stays last. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["Chapter 21", "Epilogue", "Afterword"],
+  );
+});
+
+test("duplicate playOrder entries that point at the same file keep today's chapters", async () => {
+  const front = `<h1>Front</h1><p>The opening file holds the dedication and the contents together. ${LONG}</p>`;
+  const book = await buildEpub({
+    title: "Same File Order",
+    toc: [],
+    ncx: [
+      { title: "DEDICATION", href: "book_split_000.xhtml", playOrder: "1", id: "dedication" },
+      { title: "CONTENTS", href: "book_split_000.xhtml", playOrder: "1", id: "contents" },
+      { title: "Chapter One", href: "c01.xhtml", playOrder: "2", id: "c01" },
+    ],
+    spine: [
+      { id: "front", href: "book_split_000.xhtml" },
+      { id: "more", href: "book_split_001.xhtml" },
+      { id: "c01", href: "c01.xhtml" },
+    ],
+    files: {
+      "book_split_000.xhtml": front,
+      "book_split_001.xhtml": `<p>This split continuation must stay out while two contents entries share the file. ${LONG}</p>`,
+      "c01.xhtml": `<h1>Chapter One</h1><p>The first real chapter keeps its place after the shared file. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["DEDICATION", "CONTENTS", "Chapter One"],
+  );
+  assert.deepEqual(book.chapters[0].paragraphs, book.chapters[1].paragraphs);
+  assert.equal(
+    book.chapters.some((chapter) =>
+      chapter.paragraphs.some((paragraph) => paragraph.includes("split continuation")),
+    ),
+    false,
+  );
+  assert.deepEqual(book.chapters[2].paragraphs, [
+    "Chapter One",
+    `The first real chapter keeps its place after the shared file. ${LONG}`,
+  ]);
+});
+
+test("duplicate playOrder entries titled title page and dedication stay on the shared file", async () => {
+  const front = `<h1>Front</h1><p>The opening file holds the title page and the dedication together. ${LONG}</p>`;
+  const book = await buildEpub({
+    title: "Title And Dedication",
+    toc: [],
+    ncx: [
+      { title: "TITLE PAGE", href: "book_split_000.xhtml", playOrder: "1", id: "title" },
+      { title: "DEDICATION", href: "book_split_000.xhtml", playOrder: "1", id: "dedication" },
+      { title: "Chapter One", href: "c01.xhtml", playOrder: "2", id: "c01" },
+    ],
+    spine: [
+      { id: "front", href: "book_split_000.xhtml" },
+      { id: "more", href: "book_split_001.xhtml" },
+      { id: "c01", href: "c01.xhtml" },
+    ],
+    files: {
+      "book_split_000.xhtml": front,
+      "book_split_001.xhtml": `<p>This split continuation must stay out while two contents entries share the file. ${LONG}</p>`,
+      "c01.xhtml": `<h1>Chapter One</h1><p>The first real chapter keeps its place after the shared file. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["TITLE PAGE", "DEDICATION", "Chapter One"],
+  );
+  assert.deepEqual(book.chapters[0].paragraphs, book.chapters[1].paragraphs);
+  assert.equal(
+    book.chapters.some((chapter) =>
+      chapter.paragraphs.some((paragraph) => paragraph.includes("split continuation")),
+    ),
+    false,
+  );
+  assert.deepEqual(book.chapters[2].paragraphs, [
+    "Chapter One",
+    `The first real chapter keeps its place after the shared file. ${LONG}`,
+  ]);
+});
+
+// Mirrors the Wings of Fire 8 tail. Chapters 20 and 21 name whole files. The epilogue
+// is the only fragment, and that id sits on body, so a search inside body misses it.
+// Without the body-id recovery the chapters are CHAPTER 20, CHAPTER 21, ABOUT THE AUTHOR,
+// COPYRIGHT. SNEAK PEEK is one short paragraph (under 20 letters) and is dropped. Its
+// prose is in the next spine file, which is not a `_split_` continuation, so it stays out.
+// ALSO AVAILABLE is the same short-page drop. Neither is merged into a neighbor.
+test("a calibre epilogue fragment on body stays a chapter when other entries have no fragment", async () => {
+  const paras = (count, sentence) =>
+    Array.from({ length: count }, (_, index) => `<p class="para">${sentence} ${index + 1}. ${LONG}</p>`).join("");
+  const bodyId = "181NK0-dd0be4216edd45af83082f2da318fd7a";
+  const book = await buildEpub({
+    title: "Calibre Tail",
+    toc: [],
+    ncxDepth: "3",
+    ncx: [
+      {
+        title: "Part",
+        href: "text/part0040.html",
+        playOrder: "1",
+        id: "num_1",
+        children: [
+          { title: "CHAPTER 20", href: "text/part0040.html", playOrder: "39", id: "num_39" },
+          { title: "CHAPTER 21", href: "text/part0041.html", playOrder: "40", id: "num_40" },
+        ],
+      },
+      {
+        title: "EPILOGUE",
+        href: `text/part0042.html#${bodyId}`,
+        playOrder: "40",
+        id: "num_41",
+      },
+      { title: "SNEAK PEEK", href: "text/part0043.html", playOrder: "41", id: "num_42" },
+      { title: "ABOUT THE AUTHOR", href: "text/part0045.html", playOrder: "42", id: "num_43" },
+      { title: "ALSO AVAILABLE", href: "text/part0046.html", playOrder: "43", id: "num_44" },
+      { title: "COPYRIGHT", href: "text/part0049.html", playOrder: "44", id: "num_45" },
+    ],
+    spine: [
+      "part0040",
+      "part0041",
+      "part0042",
+      "part0043",
+      "part0044",
+      "part0045",
+      "part0046",
+      "part0047",
+      "part0048",
+      "part0049",
+    ].map((id) => ({ id, href: `text/${id}.html` })),
+    files: {
+      "text/part0040.html": `<h1>CHAPTER 20</h1>${paras(3, "Chapter twenty stays its own file.")}`,
+      "text/part0041.html": paras(125, "Chapter twenty one stays inside its own file."),
+      "text/part0042.html": {
+        bodyId,
+        bodyClass: "calibre",
+        html: `<div class="frontmatterpage" id="ch26"><div class="frontmatterpage"><p class="centerimage2"><img src="../images/epilogue.jpg" alt=""/></p></div><p class="paranoindent1">Starflight was working late in the library under the mountain. ${LONG}</p>${paras(40, "The epilogue keeps going after that opening line.")}</div>`,
+      },
+      "text/part0043.html": `<p class="para">Soon.</p>`,
+      "text/part0044.html": paras(34, "The sneak peek story lives in the next spine file."),
+      "text/part0045.html": `<h1>ABOUT THE AUTHOR</h1><p>The author note is long enough to stay its own chapter. ${LONG}</p>`,
+      "text/part0046.html": `<p class="centerimage2"><img src="../images/also.jpg" alt=""/></p><p>Also.</p>`,
+      "text/part0047.html": `<p>This unlisted page must stay out of every chapter. ${LONG}</p>`,
+      "text/part0048.html": `<p>This second unlisted page must stay out of every chapter. ${LONG}</p>`,
+      "text/part0049.html": `<h1>COPYRIGHT</h1><p>The copyright page is long enough to stay its own chapter. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["CHAPTER 20", "CHAPTER 21", "EPILOGUE", "ABOUT THE AUTHOR", "COPYRIGHT"],
+  );
+  assert.equal(book.chapters[1].paragraphs.length, 125);
+  assert.equal(
+    book.chapters[1].paragraphs.some((paragraph) => paragraph.includes("Starflight")),
+    false,
+  );
+  assert.equal(book.chapters[2].paragraphs[0].startsWith("Starflight was working late"), true);
+  assert.equal(book.chapters[2].paragraphs.length, 41);
+  const all = book.chapters.flatMap((chapter) => chapter.paragraphs).join("\n");
+  assert.equal(all.includes("sneak peek story"), false);
+  assert.equal(all.includes("unlisted page"), false);
+  assert.equal(all.includes("Soon."), false);
+});
+
+test("every fragment on body keeps the spine fallback, including its titles", async () => {
+  const book = await buildEpub({
+    title: "All On Body",
+    toc: [
+      { title: "Contents Label One", href: "c01.xhtml#body-one" },
+      { title: "Contents Label Two", href: "c02.xhtml#body-two" },
+    ],
+    spine: [
+      { id: "c01", href: "c01.xhtml" },
+      { id: "c02", href: "c02.xhtml" },
+    ],
+    files: {
+      "c01.xhtml": {
+        bodyId: "body-one",
+        html: `<h1>Opened From The File</h1><p>The first file is a whole chapter from the spine. ${LONG}</p>`,
+      },
+      "c02.xhtml": {
+        bodyId: "body-two",
+        html: `<h1>Second File Heading</h1><p>The second file is also taken from the spine. ${LONG}</p>`,
+      },
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["Opened From The File", "Second File Heading"],
+  );
+  assert.deepEqual(paragraphs(book), [
+    ["Opened From The File", `The first file is a whole chapter from the spine. ${LONG}`],
+    ["Second File Heading", `The second file is also taken from the spine. ${LONG}`],
+  ]);
+});
+
 
 test("a book with no p elements splits innermost text divs into paragraphs", async () => {
   const book = await buildEpub({
