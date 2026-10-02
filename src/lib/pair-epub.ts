@@ -5,7 +5,7 @@
  */
 import { loadCachedText, saveCachedText } from "@/lib/book-db";
 import { editionMatch, matchPercent, type EditionMatch } from "@/lib/edition-match";
-import { parseEpub } from "@/lib/epub";
+import { importedCoverChoice, parseEpub } from "@/lib/epub";
 import { validateGlossary } from "@/lib/glossary-format";
 import { errorText, tr } from "@/lib/i18n";
 import { installPack, resolveAgainst, type InstallResult } from "@/lib/packs";
@@ -56,9 +56,34 @@ export async function previewOwnEpub(file: File, pack: WordListPack, glossaryTex
   return { pack, bytes, parsed, glossaryText, match, percent: matchPercent(match) };
 }
 
+function dataUrlOf(blob: Blob): Promise<string> {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(typeof reader.result === "string" ? reader.result : "");
+    reader.onerror = () => resolve("");
+    reader.readAsDataURL(blob);
+  });
+}
+
+/** The catalog's card cover, when this word list has one. "" if it cannot be fetched. */
+async function catalogCoverData(pack: WordListPack): Promise<string> {
+  if (!pack.cover?.url) return "";
+  try {
+    const response = await fetch(resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url));
+    if (!response.ok) return "";
+    return await dataUrlOf(await response.blob());
+  } catch {
+    return "";
+  }
+}
+
 /** Store a preview the reader has already seen. */
 export async function savePaired(preview: PairPreview): Promise<InstallResult> {
   const { pack, parsed } = preview;
+  const tagged = parsed.coverTagged ? parsed.cover ?? "" : "";
+  // A tagged OPF cover wins. Otherwise the word-list cover. The portrait image
+  // at the start of the book is filled in later, and only when nothing is stored.
+  const catalog = tagged ? "" : await catalogCoverData(pack);
   return installPack({
     packId: pack.id,
     rev: pack.glossary.sha256.slice(0, 12),
@@ -67,7 +92,7 @@ export async function savePaired(preview: PairPreview): Promise<InstallResult> {
     epub: preview.bytes,
     epubSha256: "",
     glossaryText: preview.glossaryText,
-    cover: parsed.cover ?? "",
+    cover: importedCoverChoice(tagged, catalog, ""),
     parsed,
     lexile: pack.lexile,
     isbn: pack.isbn,

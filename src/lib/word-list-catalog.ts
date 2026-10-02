@@ -4,7 +4,9 @@
  * this catalog. A card with no cover draws a generated title and author.
  */
 import { booksUrl } from "@/lib/books-base";
-import { isbnDigits, readSeries } from "@/lib/book-meta";
+import { isbnDigits, matchWordListPack, readSeries } from "@/lib/book-meta";
+
+export { matchWordListPack };
 import { lexileMeasure } from "@/lib/lexile";
 
 export const WORD_LIST_CATALOG_URL = booksUrl("word-lists/catalog.json");

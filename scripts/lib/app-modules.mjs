@@ -55,12 +55,12 @@ export async function loadAppModules() {
     writeFileSync(join(out, `${name}.js`), js);
   }
   // jszip is imported by epub.js: make sure it resolves from this folder.
-  const [epub, format, text, help, edition, basicData, basic, packCheck] = await Promise.all(
-    ["epub", "glossary-format", "text", "help-match", "edition-match", "basic-words-data", "basic-words", "pack-check"].map((name) =>
+  const [epub, format, text, help, edition, basicData, basic, packCheck, meta] = await Promise.all(
+    ["epub", "glossary-format", "text", "help-match", "edition-match", "basic-words-data", "basic-words", "pack-check", "book-meta"].map((name) =>
       import(pathToFileURL(join(out, `${name}.js`)).href),
     ),
   );
-  cached = { epub, format, text, help, edition, basic: { ...basicData, ...basic }, packCheck };
+  cached = { epub, format, text, help, edition, basic: { ...basicData, ...basic }, packCheck, meta };
   return cached;
 }
 

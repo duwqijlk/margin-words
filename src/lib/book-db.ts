@@ -433,21 +433,30 @@ export async function loadPackRecord(bookId: string): Promise<PackRecord | null>
   return value && typeof value === "object" && typeof value.packId === "string" ? value : null;
 }
 
-/** Every pack that is on this device (one record per book). */
+/**
+ * Every pack record on this device. A word-list card is included before its EPUB
+ * is stored, so adding that EPUB attaches to the same card. Removing a book deletes
+ * its pack record (see deleteStoredBook).
+ */
 export async function listPackRecords(): Promise<PackRecord[]> {
   const db = await openDb();
-  const tx = db.transaction([STORE, NOTES], "readonly");
+  const tx = db.transaction(NOTES, "readonly");
   const done = finish(tx, db);
   const range = IDBKeyRange.bound("pack:", "pack:\uffff");
-  const valuesReq = tx.objectStore(NOTES).getAll(range) as IDBRequest<PackRecord[]>;
-  const idsReq = tx.objectStore(STORE).getAllKeys();
-  const [values, ids] = await Promise.all([requestToPromise(valuesReq), requestToPromise(idsReq)]);
+  const values = await requestToPromise(tx.objectStore(NOTES).getAll(range) as IDBRequest<PackRecord[]>);
   await done;
-  const alive = new Set((ids ?? []).filter((id): id is string => typeof id === "string"));
-  // A record whose book is gone is ignored.
   return (values ?? []).filter(
-    (item) => item && typeof item.packId === "string" && alive.has(item.bookId),
+    (item) => item && typeof item.packId === "string" && typeof item.bookId === "string" && item.bookId,
   );
+}
+
+export async function loadCover(id: string): Promise<string> {
+  const db = await openDb();
+  const tx = db.transaction(COVERS, "readonly");
+  const done = finish(tx, db);
+  const value = await requestToPromise(tx.objectStore(COVERS).get(id) as IDBRequest<unknown>);
+  await done;
+  return typeof value === "string" ? value : "";
 }
 
 const writeTail = new Map<string, Promise<void>>();

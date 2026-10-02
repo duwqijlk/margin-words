@@ -380,6 +380,22 @@ async function run(lang, size) {
   await toShelf(page);
   await page.locator("[data-needs-epub]").waitFor({ timeout: 15000 });
   ok(true, `${label}: the word list is on the shelf as needing an e-book`);
+  // The matching EPUB attaches to that card. It must not add a second one.
+  await page.locator("ul li").first().locator("button").first().click();
+  await page.getByRole("heading", { name: t("discover.promptTitle") }).waitFor({ timeout: 20000 });
+  await page.locator("[data-own-epub]:not([disabled])").waitFor({ timeout: 20000 });
+  await page.locator("[data-own-epub]").setInputFiles({
+    name: "charlie.epub",
+    mimeType: "application/epub+zip",
+    buffer: SAMPLE_EPUB,
+  });
+  await page.getByRole("button", { name: t("lists.add") }).click({ timeout: 120000 });
+  await page.getByRole("heading", { name: t("discover.promptTitle") }).waitFor({ state: "hidden", timeout: 120000 });
+  await page.locator("article.book-body").waitFor({ timeout: 120000 });
+  await toShelf(page);
+  await page.locator("ul li").first().waitFor({ timeout: 20000 });
+  ok((await page.locator("ul li").count()) === 1, `${label}: the e-book attaches to the word-list card`);
+  ok((await page.locator("[data-needs-epub]").count()) === 0, `${label}: the card no longer asks for an e-book`);
   await page.locator("ul li").first().locator("button").last().click();
   await removeFromMenu(page);
   await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 15000 });

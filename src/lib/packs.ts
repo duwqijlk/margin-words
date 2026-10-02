@@ -13,6 +13,7 @@ import {
   listPackRecords,
   loadBookExtras,
   loadBookMeta,
+  loadCover,
   loadPackRecord,
   requestPersistentStorage,
   saveCover,
@@ -20,7 +21,7 @@ import {
   saveStoredBook,
   type PackRecord,
 } from "@/lib/book-db";
-import { parseEpub, type ParsedEpub } from "@/lib/epub";
+import { importedCoverChoice, parseEpub, type ParsedEpub } from "@/lib/epub";
 import { validateGlossary } from "@/lib/glossary-format";
 import { errorText, tr, type Key } from "@/lib/i18n";
 import {
@@ -32,8 +33,9 @@ import {
 } from "@/lib/pack-check";
 import { applyPackGlossary, hashBytes } from "@/lib/pack-glossary";
 import { booksUrl } from "@/lib/books-base";
-import { isbnDigits, readSeries } from "@/lib/book-meta";
+import { isbnDigits, matchWordListPack, readSeries } from "@/lib/book-meta";
 import { lexileMeasure } from "@/lib/lexile";
+import { loadWordListCatalog, WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 
 /* ------------------------------------------------------------------ catalog types */
 
@@ -295,6 +297,26 @@ export type InstallResult = {
   seriesNumber: number;
 };
 
+/**
+ * A tagged OPF cover, or a cover passed in (the word-list catalog, or cover.jpg
+ * from a pack), replaces what is stored. A portrait image from the start of the
+ * book is used only when the card has no cover yet, so a catalog cover already
+ * on a "needs your e-book" card is kept.
+ */
+async function storeImportedCover(bookId: string, given: string, parsed: ParsedEpub): Promise<void> {
+  const tagged = parsed.coverTagged ? parsed.cover ?? "" : "";
+  const spine = parsed.coverTagged ? "" : parsed.cover ?? "";
+  // `given` is a catalog cover or a pack cover.jpg. Together with a tagged OPF
+  // cover it wins over the spine image. The spine image fills in only when the
+  // card does not already have a cover.
+  const chosen = given || tagged;
+  if (chosen) {
+    await saveCover(bookId, chosen).catch(() => undefined);
+    return;
+  }
+  if (spine && !(await loadCover(bookId))) await saveCover(bookId, spine).catch(() => undefined);
+}
+
 function bufferOf(bytes: Uint8Array): ArrayBuffer {
   return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
 }
@@ -337,8 +359,7 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
       });
       // Read it back: a browser that silently drops the write would lose the book on refresh.
       if (!(await loadBookMeta(bookId))) throw new Error(tr("err.saveFailedPack"));
-      const cover = input.cover || parsed.cover;
-      if (cover) await saveCover(bookId, cover).catch(() => undefined);
+      await storeImportedCover(bookId, input.cover, parsed);
     }
     let words = 0;
     if (input.glossaryText) {
@@ -426,6 +447,19 @@ async function fetchBytes(
     at += chunk.byteLength;
   }
   return out;
+}
+
+/** The word-list catalog cover for this book, or "" when there is no match or no network. */
+async function catalogCoverFor(book: { title: string; author: string; isbn: string }): Promise<string> {
+  try {
+    const match = matchWordListPack(await loadWordListCatalog(), book);
+    if (!match?.cover?.url) return "";
+    const response = await fetch(resolveAgainst(WORD_LIST_CATALOG_URL, match.cover.url));
+    if (!response.ok) return "";
+    return await dataUrlOf(await response.blob());
+  } catch {
+    return "";
+  }
 }
 
 function dataUrlOf(blob: Blob): Promise<string> {
@@ -646,16 +680,24 @@ async function prepare(zip: JSZip, group: PackGroup): Promise<Prepared> {
       info = {};
     }
   }
-  let cover = "";
-  if (!parsed.cover && group.cover) {
+  const tagged = parsed.coverTagged ? parsed.cover ?? "" : "";
+  let supplied = "";
+  if (!tagged && group.cover) {
     const type = /png$/i.test(group.cover)
       ? "image/png"
       : /webp$/i.test(group.cover)
         ? "image/webp"
         : "image/jpeg";
     const bytes = await (zip.file(group.cover) as JSZip.JSZipObject).async("uint8array");
-    cover = await dataUrlOf(new Blob([bufferOf(bytes)], { type }));
+    supplied = await dataUrlOf(new Blob([bufferOf(bytes)], { type }));
+  } else if (!tagged) {
+    supplied = await catalogCoverFor({
+      title: text(info.title, 160) || parsed.title,
+      author: text(info.author, 120) || parsed.author,
+      isbn: isbnDigits(info.isbn) || isbnDigits(check.file.isbn),
+    });
   }
+  const cover = importedCoverChoice(tagged, supplied, "");
   const wantedId = text(info.id, 64);
   const packId = ID_PATTERN.test(wantedId)
     ? wantedId

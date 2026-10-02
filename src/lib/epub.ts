@@ -13,6 +13,12 @@ export type ParsedEpub = {
   author: string;
   chapters: EpubChapter[];
   cover: string | null;
+  /**
+   * True when `cover` came from an OPF tag (meta name=cover, properties=cover-image,
+   * a guide cover) or from a file whose name says it is the cover. False when `cover`
+   * is only the portrait image at the start of the first spine document.
+   */
+  coverTagged: boolean;
 };
 
 const CJK = /[\u3400-\u9fff\uf900-\ufaff]/;
@@ -418,8 +424,31 @@ function mergeShort(chapters: EpubChapter[]): EpubChapter[] {
   return merged;
 }
 
+function rawCover(bytes: Uint8Array, mime: string): string | null {
+  const url = `data:${mime};base64,${bytesToBase64(bytes)}`;
+  return url.length > 500_000 ? null : url;
+}
+
+function canDraw(): boolean {
+  if (typeof document === "undefined") return false;
+  const viewAgent = document.defaultView?.navigator?.userAgent ?? "";
+  const agent = viewAgent || (typeof navigator !== "undefined" ? navigator.userAgent : "");
+  if (/jsdom/i.test(agent)) return false;
+  try {
+    return Boolean(document.createElement("canvas").getContext("2d"));
+  } catch {
+    return false;
+  }
+}
+
 function shrinkCover(bytes: Uint8Array, mime: string): Promise<string | null> {
-  if (typeof document === "undefined") return Promise.resolve(null);
+  if (!canDraw()) return Promise.resolve(rawCover(bytes, mime));
+  let canvas: HTMLCanvasElement;
+  try {
+    canvas = document.createElement("canvas");
+  } catch {
+    return Promise.resolve(rawCover(bytes, mime));
+  }
   const blob = new Blob([new Uint8Array(bytes)], { type: mime });
   const url = URL.createObjectURL(blob);
   return new Promise((resolve) => {
@@ -429,13 +458,12 @@ function shrinkCover(bytes: Uint8Array, mime: string): Promise<string | null> {
       const scale = Math.min(1, max / Math.max(image.width, image.height));
       const width = Math.max(1, Math.round(image.width * scale));
       const height = Math.max(1, Math.round(image.height * scale));
-      const canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = height;
       const ctx = canvas.getContext("2d");
       if (!ctx) {
         URL.revokeObjectURL(url);
-        resolve(null);
+        resolve(rawCover(bytes, mime));
         return;
       }
       ctx.drawImage(image, 0, 0, width, height);
@@ -445,17 +473,129 @@ function shrinkCover(bytes: Uint8Array, mime: string): Promise<string | null> {
     };
     image.onerror = () => {
       URL.revokeObjectURL(url);
-      resolve(null);
+      resolve(rawCover(bytes, mime));
     };
     image.src = url;
   });
 }
 
-async function extractCover(
+/** Width and height from a PNG, JPEG, or GIF header. Null when the file is not one of those. */
+export function imagePixelSize(bytes: Uint8Array): { width: number; height: number } | null {
+  if (bytes.length >= 24 && bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47) {
+    const width = readU32(bytes, 16);
+    const height = readU32(bytes, 20);
+    return width > 0 && height > 0 ? { width, height } : null;
+  }
+  if (bytes.length >= 10 && bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46) {
+    const width = bytes[6]! + (bytes[7]! << 8);
+    const height = bytes[8]! + (bytes[9]! << 8);
+    return width > 0 && height > 0 ? { width, height } : null;
+  }
+  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) return null;
+  let at = 2;
+  while (at + 8 < bytes.length) {
+    if (bytes[at] !== 0xff) {
+      at += 1;
+      continue;
+    }
+    const marker = bytes[at + 1] ?? 0;
+    if (marker === 0xd8 || marker === 0x01 || (marker >= 0xd0 && marker <= 0xd9)) {
+      at += 2;
+      continue;
+    }
+    const length = ((bytes[at + 2] ?? 0) << 8) + (bytes[at + 3] ?? 0);
+    if (length < 2) return null;
+    const startFrame =
+      (marker >= 0xc0 && marker <= 0xc3) ||
+      (marker >= 0xc5 && marker <= 0xc7) ||
+      (marker >= 0xc9 && marker <= 0xcb) ||
+      (marker >= 0xcd && marker <= 0xcf);
+    if (startFrame) {
+      const height = ((bytes[at + 5] ?? 0) << 8) + (bytes[at + 6] ?? 0);
+      const width = ((bytes[at + 7] ?? 0) << 8) + (bytes[at + 8] ?? 0);
+      return width > 0 && height > 0 ? { width, height } : null;
+    }
+    at += 2 + length;
+  }
+  return null;
+}
+
+function readU32(bytes: Uint8Array, offset: number): number {
+  return (
+    ((bytes[offset] ?? 0) << 24) +
+    ((bytes[offset + 1] ?? 0) << 16) +
+    ((bytes[offset + 2] ?? 0) << 8) +
+    (bytes[offset + 3] ?? 0)
+  );
+}
+
+/**
+ * Cover to keep for an imported EPUB that the OPF did not tag.
+ * A tagged cover wins. Otherwise the word-list catalog cover, otherwise the
+ * portrait image from the start of the book. Empty means the generated cover.
+ */
+export function importedCoverChoice(tagged: string, catalog: string, spine: string): string {
+  if (tagged) return tagged;
+  if (catalog) return catalog;
+  return spine;
+}
+
+/** English letters before this count are not "substantial text" (a title or a caption). */
+const COVER_TEXT_LIMIT = 40;
+
+/**
+ * The src of the first img in `root`, when it appears before any substantial text.
+ * An image after a real paragraph is not a cover.
+ */
+export function leadingImageHref(root: ParentNode): string | null {
+  let letters = 0;
+  const skip = new Set(["script", "style"]);
+  const walk = (node: Node): string | null => {
+    if (letters >= COVER_TEXT_LIMIT) return null;
+    if (node.nodeType === 3) {
+      letters += englishLetters(node.textContent ?? "");
+      return null;
+    }
+    if (node.nodeType !== 1) return null;
+    const el = node as Element;
+    const name = el.localName;
+    if (skip.has(name)) return null;
+    if (name === "img") {
+      const src = (el.getAttribute("src") ?? "").trim();
+      return src && !/^https?:/i.test(src) && !src.startsWith("data:") ? src : null;
+    }
+    for (let child = el.firstChild; child; child = child.nextSibling) {
+      const found = walk(child);
+      if (found) return found;
+    }
+    return null;
+  };
+  return walk(root);
+}
+
+type ManifestItem = { href: string; type: string; props: string };
+
+function isImageItem(item: ManifestItem): boolean {
+  return /image|png|jpe?g|gif|webp/.test(`${item.type} ${item.href}`) && !/svg/i.test(item.type);
+}
+
+async function coverFromFile(zip: JSZip, path: string, mime: string): Promise<string | null> {
+  const file = zip.file(path);
+  if (!file) return null;
+  const bytes = await file.async("uint8array");
+  if (bytes.byteLength < 80 || bytes.byteLength > 4_000_000) return null;
+  const type = mime.startsWith("image/") && !mime.includes("svg") ? mime : mimeFrom(path);
+  if (type === "image/svg+xml") return null;
+  return shrinkCover(bytes, type);
+}
+
+/** An OPF tag, or a file named like a cover. Null when the book does not name one. */
+async function taggedCover(
   zip: JSZip,
   opf: Document,
-  manifest: Map<string, { href: string; type: string; props: string }>,
+  manifest: Map<string, ManifestItem>,
   opfBase: string,
+  loadDoc: (path: string) => Promise<Document | null>,
 ): Promise<string | null> {
   let coverId = "";
   for (const meta of byLocal(opf, "meta")) {
@@ -465,17 +605,60 @@ async function extractCover(
   const found =
     (coverId ? manifest.get(coverId) : undefined) ??
     items.find((item) => item.props.includes("cover-image")) ??
-    items.find(
-      (item) =>
-        /cover/i.test(item.href) && /image|png|jpe?g|gif|webp/.test(`${item.type} ${item.href}`),
+    items.find((item) => /cover/i.test(item.href) && isImageItem(item));
+  if (found && isImageItem(found)) {
+    const url = await coverFromFile(
+      zip,
+      resolveZipPath(opfBase, found.href),
+      found.type.startsWith("image/") ? found.type : mimeFrom(found.href),
     );
-  if (!found) return null;
-  const path = resolveZipPath(opfBase, found.href);
-  const file = zip.file(path);
+    if (url) return url;
+  }
+  for (const ref of byLocal(opf, "reference")) {
+    const kind = (ref.getAttribute("type") ?? "").toLowerCase();
+    if (kind !== "cover" && !kind.startsWith("cover")) continue;
+    const href = ref.getAttribute("href") ?? "";
+    if (!href) continue;
+    const path = resolveZipPath(opfBase, href);
+    if (/\.(png|jpe?g|gif|webp)$/i.test(path)) {
+      const url = await coverFromFile(zip, path, mimeFrom(path));
+      if (url) return url;
+      continue;
+    }
+    const doc = await loadDoc(path);
+    const src = (doc?.body?.querySelector("img")?.getAttribute("src") ?? "").trim();
+    if (!src || /^https?:/i.test(src) || src.startsWith("data:")) continue;
+    const url = await coverFromFile(zip, resolveZipPath(dirOf(path), src), mimeFrom(src));
+    if (url) return url;
+  }
+  return null;
+}
+
+/**
+ * The first image of the first spine document, when it is portrait-shaped and
+ * sits before any substantial text. This is how some converted EPUBs store the
+ * cover (one HTML file, the picture first, no OPF cover tag).
+ */
+async function spineCover(
+  zip: JSZip,
+  spine: ManifestItem[],
+  opfBase: string,
+  loadDoc: (path: string) => Promise<Document | null>,
+): Promise<string | null> {
+  const first = spine[0];
+  if (!first) return null;
+  const path = resolveZipPath(opfBase, first.href);
+  const doc = await loadDoc(path);
+  const src = doc?.body ? leadingImageHref(doc.body) : "";
+  if (!src) return null;
+  const imagePath = resolveZipPath(dirOf(path), src);
+  const file = zip.file(imagePath);
   if (!file) return null;
   const bytes = await file.async("uint8array");
   if (bytes.byteLength < 80 || bytes.byteLength > 4_000_000) return null;
-  const mime = found.type.startsWith("image/") ? found.type : mimeFrom(path);
+  const size = imagePixelSize(bytes);
+  if (!size || size.height <= size.width) return null;
+  const mime = mimeFrom(imagePath);
   if (mime === "image/svg+xml") return null;
   return shrinkCover(bytes, mime);
 }
@@ -616,10 +799,16 @@ export async function parseEpub(
   if (ready.length === 0)
     throw new CodedError("noEnglishText", "Could not find any English text in this EPUB.");
   let cover: string | null = null;
+  let coverTagged = false;
   try {
-    if (options.cover !== false) cover = await extractCover(zip, opf, manifest, opfBase);
+    if (options.cover !== false) {
+      cover = await taggedCover(zip, opf, manifest, opfBase, loadDoc);
+      coverTagged = Boolean(cover);
+      if (!cover) cover = await spineCover(zip, spine, opfBase, loadDoc);
+    }
   } catch {
     cover = null;
+    coverTagged = false;
   }
-  return { title, author, chapters: ready, cover };
+  return { title, author, chapters: ready, cover, coverTagged };
 }

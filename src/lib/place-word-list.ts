@@ -19,11 +19,29 @@ function dataUrlOf(blob: Blob): Promise<string> {
 }
 
 export async function placeWordList(pack: WordListPack): Promise<string> {
+  const { addBook, setBookDetails } = useVocab.getState();
   const existing = (await listPackRecords()).find((record) => record.packId === pack.id);
-  if (existing) return existing.bookId;
+  if (existing) {
+    // The card is already on the shelf (it may still be waiting for an e-book).
+    if (!useVocab.getState().books.some((book) => book.id === existing.bookId)) {
+      addBook(pack.title, pack.author, "notes", existing.bookId);
+      setBookDetails([
+        {
+          id: existing.bookId,
+          lexile: pack.lexile,
+          isbn: pack.isbn,
+          series: pack.series,
+          seriesNumber: pack.seriesNumber,
+          needsEpub: true,
+          oldFashioned: pack.oldFashioned,
+          oldFashionedReason: pack.oldFashionedReason,
+        },
+      ]);
+    }
+    return existing.bookId;
+  }
   await fetchWordList(pack);
   const bookId = crypto.randomUUID();
-  const { addBook, setBookDetails } = useVocab.getState();
   addBook(pack.title, pack.author, "notes", bookId);
   setBookDetails([
     {

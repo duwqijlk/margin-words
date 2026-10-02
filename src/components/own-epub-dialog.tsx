@@ -125,13 +125,14 @@ export function OwnEpubDialog({
                 {t("lists.add")}
               </button>
             ) : (
-              <label className={cn(btn.primary, busy ? "pointer-events-none opacity-60" : "")}>
+              <label className={cn(btn.primary, busy || !pack ? "pointer-events-none opacity-60" : "")}>
                 {busy ? t("lists.working") : t("discover.addEpub")}
                 <input
                   data-own-epub
                   className="sr-only"
                   type="file"
                   accept=".epub,application/epub+zip"
+                  disabled={!pack || busy}
                   onChange={(event) => {
                     const file = event.target.files?.[0];
                     event.target.value = "";

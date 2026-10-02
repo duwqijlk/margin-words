@@ -68,3 +68,30 @@ export function readSeries(source: unknown, numberValue?: unknown): SeriesFields
   const number = series ? seriesNumber(numberSource) : 0;
   return series ? { series, seriesNumber: number } : { series: "", seriesNumber: 0 };
 }
+
+const plainName = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+
+/**
+ * The word-list entry for this book, when there is one.
+ * An ISBN match wins. Otherwise the title, and the author when both sides have one.
+ */
+export function matchWordListPack<T extends { title: string; author: string; isbn: string }>(
+  lists: T[],
+  book: { title: string; author: string; isbn: string },
+): T | null {
+  const isbn = isbnDigits(book.isbn);
+  if (isbn) {
+    const byIsbn = lists.find((item) => item.isbn && item.isbn === isbn);
+    if (byIsbn) return byIsbn;
+  }
+  const title = plainName(book.title);
+  if (!title) return null;
+  const author = plainName(book.author);
+  return (
+    lists.find((item) => {
+      if (plainName(item.title) !== title) return false;
+      const theirs = plainName(item.author);
+      return !author || !theirs || author === theirs;
+    }) ?? null
+  );
+}
