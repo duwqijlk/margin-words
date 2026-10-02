@@ -34,7 +34,7 @@ npx vite build       # static app in dist/
 
 **The reader is a static app.** `dist/` is plain files (HTML, JS, CSS, fonts). It has no server, no server
 functions, and no AI. Open it from any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`).
-The reader loads **twelve free public-domain classics** from the books host (`public-books/`). All twelve are put on your shelf on first run. A book you delete is not added again; downloading it from "Free books" clears that. To add one, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists only** (`word-lists/<id>/glossary.json` on the same host). The reader prepares their own e-book of the ISBN and pairs it in the browser. Those cards draw a generated title-and-author cover. Publisher cover art from `packs/` is not shipped.
+The reader loads **twelve free public-domain classics** from the books host (`public-books/`). A new shelf starts with Alice's Adventures in Wonderland only. The other books are on **Discover** and download when you tap Add to shelf. A book you delete is not added again; adding it from Discover clears that. Books already on a device stay there. To add a classic, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists** on the same host (`word-lists/<id>/glossary.json`, plus a card-sized `cover.jpg` taken from `packs/<id>/cover.jpg` when that file exists). A list with no cover uses the generated title-and-author cover. Adding one downloads the word list only and asks for your own e-book of that ISBN. The copyrighted EPUBs are not on the public host.
 
 All meanings, simple versions, sentence explanations, phrases and examples come from the word list
 (`glossary.json`) of the book. A word that is not in the list shows "No meaning for this word in this book yet."
@@ -61,7 +61,8 @@ Rebuild the folder after you change a book or list: `node scripts/build-packs.mj
    `npm run build:local` leaves book URLs on the same origin for offline tests.
 2. Build the book objects: `npm run build:books` (output: `dist-books/`). Upload every file, using its path as the
    object key (`public-books/...`, `word-lists/...`). There is no per-book zip and no `all-packs.zip` in this folder.
-   The app downloads the loose EPUB, word list and cover.
+   The app downloads a classic's loose EPUB, word list and cover only after Add to shelf. Word-list covers in
+   this folder are the resized JPEGs.
 
    ```
    cd dist-books && find . -type f | sed 's|^\./||' | while read -r key; do
@@ -73,17 +74,23 @@ Rebuild the folder after you change a book or list: `node scripts/build-packs.mj
    (`Access-Control-Allow-Origin` for `https://inputread.site`, `https://www.inputread.site`,
    `https://margin-words.pages.dev`, and localhost). The service worker stores a book only after that
    CORS response, and only after the reader opens or downloads it. The first visit does not precache the books.
-3. **Private packs** stay off the public host. `node scripts/build-site.mjs` writes `site/` = `dist/` + `packs/`
-   for a machine of your own. Do not deploy `packs/` or `site/`.
+3. **Private packs** stay off the public host. `npm run build:private` writes `dist-private/` (each copyrighted
+   EPUB, its glossary, and its cover). Upload that to the private R2 bucket `margin-words-private`, which has
+   no public access and is never fetched by the app. Do not put it in `dist/` or `dist-books/`.
+   `node scripts/build-site.mjs` writes `site/` = `dist/` + `packs/` for a machine of your own. Do not deploy
+   `packs/`, `site/`, or `dist-private/`.
 4. **Another catalog:** each reader can set a catalog address in **Settings**. That host must allow cross-site reads.
 
 File addresses in `catalog.json` are relative to the catalog file, so the folder can be moved anywhere.
 
 ### How a reader uses it, also offline
 
-1. Open the app. Tap **Add book**. Under **Free books** is the list from the catalog address (Settings, Book list address, can change it).
-2. Press **Get** on a book. A bar shows progress. The book and its word list are saved in the browser
-   (IndexedDB). Press **Download all** for everything.
+1. Open the app. A new shelf has Alice's Adventures in Wonderland. Tap **Discover** for every other book
+   (the free classics and the word lists), with search and the difficulty, author, and series filters.
+2. Press **Add to shelf**. A free classic downloads then. A word-list book downloads its word list and asks
+   for your own e-book of the ISBN on the card. A match under 80% is shown before it is saved. The book and
+   its word list are stored in the browser (IndexedDB). **Add book** is still the way to import a pack `.zip`,
+   or to use a catalog address you set in Settings.
 3. After that the book works with **no internet**. The app itself also works offline after the first visit
    (a small service worker keeps the app files; it needs `https://` or `localhost`).
 4. When a book changes (new `rev`), its card says **Update available**. Notes and reading place are kept.

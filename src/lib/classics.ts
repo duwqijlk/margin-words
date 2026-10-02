@@ -4,15 +4,15 @@
  * ADDING MORE BOOKS: nothing here lists book ids. Every pack in public-books/catalog.json is a "classic".
  * To add one, drop a folder public-books/<id>/ with book.epub, glossary.json, optional cover.jpg and
  * info.json ({"title","author","order"}), then run `node scripts/build-packs.mjs --out public-books`
- * (see public-books/README.md). A new book shows up in "Free books" for a one-tap download. Only a book
- * whose info.json has "preinstall": true (the catalog then carries preinstall: true) is put on the shelf
- * by itself. Every public-domain classic is marked that way, so a new shelf gets all of them.
+ * (see public-books/README.md). The other classics are listed on Discover and download when the reader
+ * taps Add to shelf. Only a book whose info.json has "preinstall": true (the catalog then carries
+ * preinstall: true) is put on the shelf by itself. Alice's Adventures in Wonderland is the only one.
  *
  * On start the app installs the preinstall books that are not on the shelf yet, except a book that the
  * user deleted on purpose: deleting a book from the shelf writes a "removed" flag for its pack id
- * (localStorage), and a flagged pack is never added again by itself. Downloading it from "Free books"
- * clears the flag. A book that was never installed (for example the classics that used to be one-tap
- * downloads) is not flagged, so an existing shelf receives those newly-default books once.
+ * (localStorage), and a flagged pack is never added again by itself. Adding it again from Discover
+ * clears the flag. Books already stored on this device stay where they are. A classic that is not
+ * marked preinstall is never downloaded on its own.
  */
 import { create } from "zustand";
 import { useEffect, useState } from "react";

@@ -428,7 +428,14 @@ function BookCard({
         >
           <BookCover title={book.title} author={book.author} cover={cover} />
         </button>
-        {classic ? (
+        {book.needsEpub ? (
+          <span
+            className="pointer-events-none absolute top-2 left-2 rounded-full bg-warn px-2 py-0.5 text-[0.7rem] font-bold text-accent-ink shadow"
+            data-needs-epub
+          >
+            {t("shelf.needsEpub")}
+          </span>
+        ) : classic ? (
           <span
             className="pointer-events-none absolute top-2 left-2 rounded-full bg-accent px-2 py-0.5 text-[0.7rem] font-bold text-accent-ink shadow"
             data-classic-label

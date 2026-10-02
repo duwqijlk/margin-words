@@ -27,7 +27,7 @@ test("the hosted catalog points at loose files only", () => {
   }
 });
 
-test("dist-books has loose classics and word-list glossaries, and no zips or publisher covers", () => {
+test("dist-books has loose classics, word-list glossaries, and card-sized covers", () => {
   const out = mkdtempSync(join(tmpdir(), "mw-books-"));
   const { keys } = writeBookObjects(out);
   const files = walk(out);
@@ -39,9 +39,15 @@ test("dist-books has loose classics and word-list glossaries, and no zips or pub
   const wordLists = files.filter((name) => name.startsWith("word-lists/"));
   assert.ok(wordLists.includes("word-lists/catalog.json"));
   assert.ok(wordLists.includes("word-lists/narnia/glossary.json"));
+  assert.ok(wordLists.includes("word-lists/charlie/cover.jpg"));
+  assert.equal(wordLists.includes("word-lists/narnia/cover.jpg"), false);
+  assert.equal(wordLists.includes("word-lists/wonder/cover.jpg"), false);
   for (const name of wordLists) {
-    assert.match(name, /^word-lists\/(?:catalog\.json|[a-z0-9][a-z0-9_-]*\/glossary\.json)$/);
+    assert.match(name, /^word-lists\/(?:catalog\.json|[a-z0-9][a-z0-9_-]*\/(?:glossary\.json|cover\.jpg))$/);
+    assert.equal(name.endsWith("/book.epub"), false, name);
   }
+  const charlieCover = statSync(join(out, "word-lists/charlie/cover.jpg")).size;
+  assert.ok(charlieCover < 80 * 1024, charlieCover);
   const hosted = JSON.parse(readFileSync(join(out, "public-books/catalog.json"), "utf8"));
   assert.equal(hosted.allPacks, undefined);
   for (const pack of hosted.packs) {

@@ -9,13 +9,13 @@
  *   npm run build:local && npx vite preview --host 127.0.0.1 --port 8090
  * Preview serves ./public-books and ./word-lists from the repo. They are not inside dist/.
  * Runs in English and Chinese, at 1280px and 390px. Checks:
- *   - FIRST OPEN: the shelf shows all 12 free classics with covers, a Lexile measure and the
- *     "Free classic" label; one opens and a word can be looked up
- *   - FREE BOOKS: lists all 12 classics with covers and Lexile measures (each already on the shelf = "Read");
- *     Peter and Wendy and Looking-Glass open, a word is looked up, and it all works offline
- *   - deleting a classic keeps it deleted after a reload (the "removed" flag); deleting all gives the empty shelf
- *   - a fresh visit that goes offline after the first load still shows and opens the classics, and a deleted
- *     small classic can be downloaded again from Free books while offline (the service worker keeps it)
+ *   - FIRST OPEN: the shelf shows only Alice, with a cover, a Lexile measure and the
+ *     "Free classic" label; it opens and a word can be looked up
+ *   - DISCOVER: lists all 12 classics and the 10 word lists (covers, Lexile). Alice is already "Read".
+ *     Adding Peter and Wendy and Looking-Glass downloads them; they open, and they still open offline
+ *   - deleting Alice keeps it deleted after a reload (the "removed" flag); the shelf can be emptied
+ *   - a fresh visit that goes offline after the first load still opens the app and Alice, and Alice
+ *     can be downloaded again from Discover while offline (the service worker keeps that download)
  *   - no standalone EPUB input anywhere; the only file inputs take .zip (and .json for a word list)
  *   - empty shelf with 3 steps; one clear "Add book"
  *   - a good pack (the kit's sample pack) imports and opens; title, author and cover come from the EPUB
@@ -59,7 +59,7 @@ const CLASSICS = [
   { id: "jungle-book", title: /The Jungle Book/, lexile: "1100L" },
   { id: "wizard-of-oz", title: /The Wonderful Wizard of Oz/, lexile: "1030L" },
 ];
-const FREE_COUNT = CLASSICS.length; // 12, all on the shelf from the first start
+const FREE_COUNT = CLASSICS.length; // 12 classics in the catalog. A new shelf installs only Alice.
 
 const dict = (lang) => {
   const src = readFileSync(join(ROOT, "src/lib", `i18n-${lang}.ts`), "utf8");
@@ -176,26 +176,26 @@ async function run(lang, size) {
     await page.locator("#pack-file").waitFor({ state: "attached" });
   };
 
-  // ---- first visit: all 12 free classics are installed from ./public-books/ and shown on the shelf
+  // ---- first visit: only Alice is installed from ./public-books/ and shown on the shelf
   await page.goto(BASE);
-  await page.locator("ul li [data-classic-label]").nth(FREE_COUNT - 1).waitFor({ timeout: 90000 });
+  await page.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
   ok(
-    (await page.locator("ul li [data-classic-label]").count()) === FREE_COUNT,
-    `${label}: first open shows ${FREE_COUNT} books with the "${t("shelf.classic")}" label`,
-  );
-  for (const c of CLASSICS)
-    ok(
-      (await page.getByRole("button", { name: labelRe(t("shelf.openAria"), c.title.source) }).count()) >= 1,
-      `${label}: ${c.id} is on the shelf`,
-    );
-  ok((await page.locator("ul li").count()) === FREE_COUNT, `${label}: exactly ${FREE_COUNT} books on a first open`);
-  ok(
-    (await page.locator("ul li img").count()) >= FREE_COUNT,
-    `${label}: the classics show cover pictures`,
+    (await page.locator("ul li [data-classic-label]").count()) === 1,
+    `${label}: first open shows Alice with the "${t("shelf.classic")}" label`,
   );
   ok(
-    (await page.getByText(t("shelf.classic"), { exact: true }).count()) === FREE_COUNT,
-    `${label}: "${t("shelf.classic")}" label text on ${FREE_COUNT} cards`,
+    (await page.getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") }).count()) >= 1,
+    `${label}: Alice is on the shelf`,
+  );
+  ok(
+    (await page.getByRole("button", { name: labelRe(t("shelf.openAria"), "Treasure Island") }).count()) === 0,
+    `${label}: Treasure Island is not downloaded on the first visit`,
+  );
+  ok((await page.locator("ul li").count()) === 1, `${label}: exactly one book on a first open`);
+  ok((await page.locator("ul li img").count()) >= 1, `${label}: Alice shows a cover picture`);
+  ok(
+    (await page.getByText(t("shelf.classic"), { exact: true }).count()) === 1,
+    `${label}: "${t("shelf.classic")}" label text on Alice's card`,
   );
   ok(
     (await page.locator('[data-lexile="880L"]').count()) >= 1,
@@ -226,32 +226,29 @@ async function run(lang, size) {
   await classicsShot("lookup");
   await page.keyboard.press("Escape");
 
-  // delete one: it stays deleted after a reload (and after another start)
+  // delete Alice: it stays deleted after a reload (and after another start)
   await toShelf(page);
-  await page.locator("ul li").nth(2).waitFor();
+  await page.locator("ul li").first().waitFor();
   await page
-    .getByRole("button", { name: labelRe(t("shelf.moreAria"), "Treasure Island") })
+    .getByRole("button", { name: labelRe(t("shelf.moreAria"), "Alice") })
     .first()
     .click();
   await page.getByRole("menuitem", { name: t("shelf.menuDelete") }).click();
   await page.getByRole("button", { name: t("common.delete"), exact: true }).last().click();
-  await page.waitForFunction(
-    (left) => document.querySelectorAll("ul li").length === left,
-    FREE_COUNT - 1,
-  );
+  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 15000 });
   await page.waitForTimeout(800);
   for (let i = 0; i < 2; i += 1) {
     await page.reload();
-    await page.locator("ul li").first().waitFor({ timeout: 30000 });
+    await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 30000 });
     await page.waitForTimeout(2500); // the start-up check for missing classics has run by now
   }
   ok(
-    (await page.locator("ul li").count()) === FREE_COUNT - 1 &&
-      (await page.getByRole("button", { name: labelRe(t("shelf.openAria"), "Treasure Island") }).count()) === 0,
+    (await page.locator("ul li").count()) === 0 &&
+      (await page.getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") }).count()) === 0,
     `${label}: a deleted classic stays deleted after reload`,
   );
   const flag = await page.evaluate(() => localStorage.getItem("cibian-removed-packs-v1"));
-  ok(/treasure-island/.test(flag ?? ""), `${label}: the removed flag is stored (${flag})`);
+  ok(/alice/.test(flag ?? ""), `${label}: the removed flag is stored (${flag})`);
   await classicsShot("after-delete");
 
   // delete the rest: the empty shelf, which the rest of this test starts from
@@ -329,6 +326,9 @@ async function run(lang, size) {
   );
   await shot("add");
 
+  // Discover lists the classics and the word lists. Nothing there is downloaded until Add to shelf.
+  await page.getByRole("button", { name: t("nav.discover"), exact: true }).first().click();
+  await page.locator("[data-discover]").waitFor({ timeout: 20000 });
   // The seven Narnia novels are one collection. The card is a word list, with the omnibus ISBN.
   await page.locator('[data-word-list="narnia"]').waitFor({ timeout: 20000 });
   const narniaCard = page.locator('[data-word-list="narnia"]');
@@ -349,14 +349,42 @@ async function run(lang, size) {
     `${label}: Narnia collection has no Lexile`,
   );
   ok((await page.locator("[data-word-list]").count()) === 10, `${label}: ten word lists`);
-  const generated = page.locator("[data-word-list] [data-generated-cover]");
-  const coverHeights = await generated.evaluateAll((els) =>
-    els.map((el) => el.getBoundingClientRect().height),
-  );
+  ok((await page.locator("[data-pack]").count()) === FREE_COUNT, `${label}: Discover lists the ${FREE_COUNT} classics`);
+  const photoIds = ["charlie", "george", "james", "magicfinger", "matilda", "twits", "wof1", "wof2"];
+  for (const id of photoIds) {
+    const img = page.locator(`[data-word-list="${id}"] img`);
+    await img.scrollIntoViewIfNeeded();
+    await page.waitForFunction(
+      (bookId) => {
+        const el = document.querySelector(`[data-word-list="${bookId}"] img`);
+        return Boolean(el && el.complete && el.naturalWidth > 0);
+      },
+      id,
+      { timeout: 20000 },
+    );
+  }
+  ok(photoIds.length === 8, `${label}: eight word lists show the cover from the e-book`);
+  for (const id of ["narnia", "wonder"]) {
+    const height = await page
+      .locator(`[data-word-list="${id}"] [data-generated-cover]`)
+      .evaluate((el) => el.getBoundingClientRect().height);
+    ok(height >= 48, `${label}: ${id} uses the generated cover (${Math.round(height)}px)`);
+  }
+  await page.locator('[data-word-list="charlie"]').getByRole("button", { name: labelRe(t("discover.addAria")) }).click();
+  await page.getByRole("heading", { name: t("discover.promptTitle") }).waitFor({ timeout: 60000 });
+  await page.getByRole("dialog").getByText("9780141960616").waitFor({ timeout: 20000 });
   ok(
-    coverHeights.length === 10 && coverHeights.every((height) => height >= 48),
-    `${label}: every word list shows a generated cover (${coverHeights.map((h) => Math.round(h)).join(",")})`,
+    (await page.getByRole("dialog").innerText()).includes("9780141960616"),
+    `${label}: adding a word list asks for the reader's e-book of that ISBN`,
   );
+  await page.getByRole("button", { name: t("common.close") }).first().click();
+  await toShelf(page);
+  await page.locator("[data-needs-epub]").waitFor({ timeout: 15000 });
+  ok(true, `${label}: the word list is on the shelf as needing an e-book`);
+  await page.locator("ul li").first().locator("button").last().click();
+  await page.getByRole("menuitem", { name: t("shelf.menuDelete") }).click();
+  await page.getByRole("button", { name: t("common.delete"), exact: true }).last().click();
+  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 15000 });
   for (const id of [
     "narnia1-magicians-nephew",
     "narnia2-lion-witch-wardrobe",
@@ -604,51 +632,50 @@ async function run(lang, size) {
     const ferrors = [];
     fp.on("pageerror", (e) => ferrors.push(String(e).slice(0, 200)));
     await fp.goto(BASE);
-    await fp.locator("ul li [data-classic-label]").nth(FREE_COUNT - 1).waitFor({ timeout: 90000 });
+    await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
+    ok((await fp.locator("ul li").count()) === 1, `${label}: a new shelf has one classic before going offline`);
     await fp.evaluate(() => navigator.serviceWorker.ready);
     await fp.waitForFunction(
       async () => {
-        const hit = await caches.match("./public-books/anne/book.epub");
+        const hit = await caches.match("./public-books/alice/book.epub");
         const cat = await caches.match("./public-books/catalog.json");
         return Boolean(hit && cat);
       },
       null,
       { timeout: 30000 },
     );
-    ok(true, `${label}: service worker cached public-books/ (catalog + books)`);
+    ok(true, `${label}: service worker cached Alice and the catalog`);
     await fresh.setOffline(true);
     await fp.reload();
-    await fp.locator("ul li [data-classic-label]").nth(FREE_COUNT - 1).waitFor({ timeout: 30000 });
-    await fp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Treasure Island") }).first().click();
+    await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 30000 });
+    await fp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") }).first().click();
     await fp.waitForSelector("button.book-hard", { timeout: 30000 });
     await fp.locator("button.book-hard").first().click();
     await fp.locator("[data-word-card]").waitFor();
-    ok(true, `${label}: offline after the first load: shelf shows the classics, one opens, a word is looked up`);
+    ok(true, `${label}: offline after the first load: the app opens, Alice opens, a word is looked up`);
     await fp.keyboard.press("Escape");
-    // delete Anne, then bring her back from Free books while offline
+    // delete Alice, then bring her back from Discover while offline
     await fp.evaluate(() => localStorage.setItem("cibian-screen-v2", JSON.stringify({ kind: "shelf" })));
     await fp.reload();
-    await fp.locator("ul li").nth(FREE_COUNT - 1).waitFor();
-    await fp.getByRole("button", { name: labelRe(t("shelf.moreAria"), "Anne of Green Gables") }).first().click();
+    await fp.locator("ul li").first().waitFor();
+    await fp.getByRole("button", { name: labelRe(t("shelf.moreAria"), "Alice") }).first().click();
     await fp.getByRole("menuitem", { name: t("shelf.menuDelete") }).click();
     await fp.getByRole("button", { name: t("common.delete"), exact: true }).last().click();
-    await fp.waitForFunction(
-      (left) => document.querySelectorAll("ul li").length === left,
-      FREE_COUNT - 1,
-    );
-    await fp.getByRole("button", { name: t("shelf.add"), exact: true }).first().click();
-    const anne = fp.locator('[data-pack="anne"]');
-    await anne.getByRole("button", { name: labelRe(t("pack.downloadAria")) }).click();
-    await anne.getByRole("button", { name: labelRe(t("pack.openAria")) }).waitFor({ timeout: 60000 });
-    ok(true, `${label}: a deleted classic downloads again from Free books while offline`);
+    await fp.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 15000 });
+    await fp.getByRole("button", { name: t("nav.discover"), exact: true }).first().click();
+    const alice = fp.locator('[data-pack="alice"]');
+    await alice.waitFor({ timeout: 20000 });
+    await alice.getByRole("button", { name: labelRe(t("discover.addAria")) }).click();
+    await alice.getByRole("button", { name: labelRe(t("pack.openAria")) }).waitFor({ timeout: 60000 });
+    ok(true, `${label}: a deleted classic downloads again from Discover while offline`);
     await fp.setViewportSize(viewport);
     await fresh.setOffline(false);
     ok(ferrors.length === 0, `${label}: no page errors in the fresh visit${ferrors.length ? " " + ferrors[0] : ""}`);
     await fresh.close();
   }
 
-  // ---- Free books lists all 12 classics with covers. They are already on the shelf.
-  //      Open Peter and Wendy and the shrunk Looking-Glass, look up a word, then go offline.
+  // ---- Discover lists all 12 classics. A new shelf has only Alice.
+  //      Add Peter and Wendy and the shrunk Looking-Glass, look up a word, then go offline.
   {
     const vctx = await browser.newContext({
       viewport,
@@ -666,19 +693,20 @@ async function run(lang, size) {
       await vp.waitForTimeout(500);
       await vp.screenshot({ path: join(CLASSIC_SHOTS, `classics11-${name}-${size}-${lang}.png`), fullPage });
     };
-    const openFree = async () => {
-      await vp.getByRole("button", { name: t("shelf.add"), exact: true }).first().click();
+    const openDiscover = async () => {
+      await vp.getByRole("button", { name: t("nav.discover"), exact: true }).first().click();
+      await vp.locator("[data-discover]").waitFor({ timeout: 30000 });
       await vp.locator("[data-pack]").first().waitFor({ timeout: 30000 });
     };
     await vp.goto(BASE);
-    await vp.locator("ul li [data-classic-label]").nth(FREE_COUNT - 1).waitFor({ timeout: 90000 });
+    await vp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
     await vp.waitForTimeout(1500);
-    ok((await vp.locator("ul li").count()) === FREE_COUNT, `${label}: first run installs all ${FREE_COUNT} classics`);
+    ok((await vp.locator("ul li").count()) === 1, `${label}: first run installs only Alice`);
     await vp.evaluate(() => navigator.serviceWorker.ready);
-    await openFree();
+    await openDiscover();
     ok(
       (await vp.locator("[data-pack]").count()) === FREE_COUNT,
-      `${label}: Free books lists ${FREE_COUNT} classics (${await vp.locator("[data-pack]").count()})`,
+      `${label}: Discover lists ${FREE_COUNT} classics (${await vp.locator("[data-pack]").count()})`,
     );
     // covers are loaded lazily: scroll down the list so that all of them come into view
     for (let y = 0; y < 8000; y += 400) {
@@ -692,32 +720,45 @@ async function run(lang, size) {
     );
     ok(
       (await vp.locator("[data-pack] img").count()) === FREE_COUNT,
-      `${label}: every classic in Free books shows its cover`,
+      `${label}: every classic on Discover shows its cover`,
     );
-    ok((await vp.locator("[data-free-hint]").count()) === 1, `${label}: Free books explains the classics`);
+    ok(
+      (await vp.locator('[data-pack="alice"]').getByRole("button", { name: labelRe(t("pack.openAria")) }).count()) === 1,
+      `${label}: Alice is already on the shelf (Read)`,
+    );
     for (const c of CLASSICS) {
       const card = vp.locator(`[data-pack="${c.id}"]`);
-      ok(
-        (await card.getByRole("button", { name: labelRe(t("pack.openAria")) }).count()) === 1,
-        `${label}: ${c.id} is already on the shelf (Read)`,
-      );
+      if (c.id !== "alice") {
+        ok(
+          (await card.getByRole("button", { name: labelRe(t("discover.addAria")) }).count()) === 1,
+          `${label}: ${c.id} waits for Add to shelf`,
+        );
+      }
       ok(
         (await card.locator(`[data-lexile="${c.lexile}"]`).count()) === 1,
         `${label}: ${c.id} shows Lexile ${c.lexile}`,
       );
     }
-    ok(!(await overflow2(vp)), `${label}: no horizontal overflow (Free books with 12)`);
+    ok(!(await overflow2(vp)), `${label}: no horizontal overflow (Discover with ${FREE_COUNT} classics)`);
     await vp.evaluate(() => document.fonts.ready);
-    await vshot("free-list", true);
+    await vshot("discover", true);
+
+    for (const id of ["peter-pan", "looking-glass"]) {
+      const card = vp.locator(`[data-pack="${id}"]`);
+      await card.scrollIntoViewIfNeeded();
+      await card.getByRole("button", { name: labelRe(t("discover.addAria")) }).click();
+      await card.getByRole("button", { name: labelRe(t("pack.openAria")) }).waitFor({ timeout: 120000 });
+    }
+    ok(true, `${label}: Peter and Wendy and Looking-Glass were added from Discover`);
 
     await vp.getByRole("button", { name: t("nav.shelf"), exact: true }).first().click();
-    await vp.locator("ul li").nth(FREE_COUNT - 1).waitFor();
-    ok((await vp.locator("ul li").count()) === FREE_COUNT, `${label}: shelf still has all ${FREE_COUNT} classics`);
+    await vp.locator("ul li [data-classic-label]").nth(2).waitFor({ timeout: 30000 });
+    ok((await vp.locator("ul li").count()) === 3, `${label}: shelf has Alice plus the two books that were added`);
     ok(
-      (await vp.locator("ul li [data-classic-label]").count()) === FREE_COUNT,
-      `${label}: every classic carries the "${t("shelf.classic")}" label`,
+      (await vp.locator("ul li [data-classic-label]").count()) === 3,
+      `${label}: the added classics carry the "${t("shelf.classic")}" label`,
     );
-    await vshot("shelf-12");
+    await vshot("shelf-added");
 
     await vp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Peter and Wendy") }).first().click();
     await vp.waitForSelector("button.book-hard", { timeout: 30000 });
@@ -742,10 +783,10 @@ async function run(lang, size) {
     );
     ok(true, `${label}: Through the Looking-Glass (shrunk) opens and shows its illustrations`);
 
-    // offline after the download: reload, open Peter and Wendy, look up a word; Free books still lists 12
+    // offline after the download: reload, open Peter and Wendy, look up a word; Discover still lists 12
     await vctx.setOffline(true);
     await toShelfOn(vp);
-    await vp.locator("ul li").nth(FREE_COUNT - 1).waitFor({ timeout: 30000 });
+    await vp.locator("ul li").nth(2).waitFor({ timeout: 30000 });
     await vp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Peter and Wendy") }).first().click();
     await vp.waitForSelector("button.book-hard", { timeout: 30000 });
     await vp.locator("button.book-hard").first().click();
@@ -753,10 +794,10 @@ async function run(lang, size) {
     ok(true, `${label}: offline: Peter and Wendy opens and a word is looked up`);
     await vp.keyboard.press("Escape");
     await toShelfOn(vp);
-    await openFree();
+    await openDiscover();
     ok(
       (await vp.locator("[data-pack]").count()) === FREE_COUNT,
-      `${label}: offline, Free books still lists ${FREE_COUNT}`,
+      `${label}: offline, Discover still lists ${FREE_COUNT}`,
     );
     await vctx.setOffline(false);
     ok(verrors.length === 0, `${label}: no page errors on the Free books visit${verrors.length ? " " + verrors[0] : ""}`);

@@ -9,8 +9,8 @@
  *   /public-books/... so local and e2e runs need no network. The production build does NOT copy them
  *   into dist/. `npm run build:books` writes them to dist-books/ for the books host.
  *
- * wordLists(): glossary.json and catalog.json only, served in dev and preview. Never an EPUB,
- *   a publisher cover, or a zip. Not copied into dist/.
+ * wordLists(): glossary.json, catalog.json, and a resized cover.jpg when the pack has one.
+ *   Served in dev and preview. Never an EPUB or a zip. Not copied into dist/.
  *
  * offlineShell(): after the build, write dist/sw.js. It precaches the app shell only (HTML, JS, CSS,
  *   fonts, icons). Book EPUBs and glossaries are cached after the app fetches them, including from
@@ -67,8 +67,8 @@ export function packsFolder() {
 }
 
 /**
- * Word lists for the copyrighted books. Dev and preview serve glossary.json and catalog.json only.
- * The production build does not emit them. Never an EPUB, a publisher cover, or a zip from packs/.
+ * Word lists for the copyrighted books. Dev and preview serve glossary.json, catalog.json, and
+ * cover.jpg when the pack has one. The production build does not emit them. Never an EPUB or a zip.
  */
 export function wordLists() {
   let packsDir = "";
@@ -102,6 +102,19 @@ function serveWordLists(dirOf) {
       res.setHeader("content-type", TYPES[".json"]);
       res.setHeader("cache-control", "no-cache");
       res.end(body?.bytes ?? Buffer.from("{}"));
+      return;
+    }
+    const coverMatch = /^([a-z0-9][a-z0-9_-]{0,63})\/cover\.jpg$/.exec(rel);
+    if (coverMatch) {
+      const body = buildWordLists(packsDir).files.find((file) => file.name === `word-lists/${rel}`);
+      if (!body) {
+        res.statusCode = 404;
+        res.end();
+        return;
+      }
+      res.setHeader("content-type", TYPES[".jpg"]);
+      res.setHeader("cache-control", "no-cache");
+      res.end(body.bytes);
       return;
     }
     const match = /^([a-z0-9][a-z0-9_-]{0,63})\/glossary\.json$/.exec(rel);

@@ -30,6 +30,8 @@ export type Book = {
   seriesNumber?: number;
   /** Percent of the word list's snippets found in the reader's own e-book. */
   matchRate?: number;
+  /** The word list is on the shelf, and the reader still needs to add their own e-book. */
+  needsEpub?: boolean;
 };
 
 export type VocabEntry = AnalyzedWord & {

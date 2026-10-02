@@ -76,8 +76,7 @@
     "url": "treasure-island.zip",
     "bytes": 390173,
     "sha256": "2941bf68425a3d5ec071bcc0d5dea379f6e7d8f60d249fc4ddb0a92d6fad2828"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "anne",
@@ -113,8 +112,7 @@
     "url": "anne.zip",
     "bytes": 420378,
     "sha256": "0a94068d9e6318b2a684cec8636072903ad86ecb3652950fe2559ca1060e3076"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "peter-pan",
@@ -150,8 +148,7 @@
     "url": "peter-pan.zip",
     "bytes": 877513,
     "sha256": "66ac8e49720604cce288ceae06990816cd0bc80c48e5e5efe4aa66212d1936c7"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "tom-sawyer",
@@ -187,8 +184,7 @@
     "url": "tom-sawyer.zip",
     "bytes": 805062,
     "sha256": "c0a343caa90ac046953f67c76d65b915c60e1cde2c8c811be49c1628fac3141b"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "wind-in-the-willows",
@@ -224,8 +220,7 @@
     "url": "wind-in-the-willows.zip",
     "bytes": 986007,
     "sha256": "944eb0881fe9d28c15b88a2bbdc9cada6658345a75ac402d0826a898d8fbdc7c"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "little-women",
@@ -261,8 +256,7 @@
     "url": "little-women.zip",
     "bytes": 1130443,
     "sha256": "95dbec86ecadaa96c6432570860b2ee23c769568c5e87f93ece3756d88fbd0ce"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "secret-garden",
@@ -298,8 +292,7 @@
     "url": "secret-garden.zip",
     "bytes": 733772,
     "sha256": "03acf7187e4863568572293bff8c2f9f753eb11d8c265d08a0c53fe0cafe029e"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "black-beauty",
@@ -335,8 +328,7 @@
     "url": "black-beauty.zip",
     "bytes": 575997,
     "sha256": "d5ca2e2197e49ae4f736fdf5e507f4c97dcb38b3c9f2702716bf96414f2fd6e2"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "looking-glass",
@@ -374,8 +366,7 @@
     "url": "looking-glass.zip",
     "bytes": 3453598,
     "sha256": "35cecfe21d96a38836bdf6758f5019b6f749255022f1c59a8d33a787bfa93a44"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "jungle-book",
@@ -411,8 +402,7 @@
     "url": "jungle-book.zip",
     "bytes": 692141,
     "sha256": "2ff806150fa404a74fda553106d449dceb7cbb423f9cc45f084e6f36ee8d926e"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "wizard-of-oz",
@@ -448,13 +438,12 @@
     "url": "wizard-of-oz.zip",
     "bytes": 769125,
     "sha256": "142743e005ef0a02923a84487aed84c6043a47a2cd42f562a75fa1e7deade3b7"
-   },
-   "preinstall": true
+   }
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11061917,
-  "sha256": "dab42b1fd4f8e375fb96e1f7f5c1a962b2495582c00d3c11c1addf1d528f1c81"
+  "bytes": 11061915,
+  "sha256": "f2870b606a720aba415ee8d16adc38fbe8bd987acab153e59adadb795682ae1d"
  }
 }

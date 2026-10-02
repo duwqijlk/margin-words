@@ -19,7 +19,9 @@ import { summarize } from "@/lib/srs";
 import type { VocabEntry } from "@/lib/vocab-model";
 import { markVocabHydrated, normalizeWord, useVocab } from "@/lib/vocab-store";
 import { Notebook } from "@/components/notebook";
+import { DiscoverScreen } from "@/components/discover";
 import { AddBookScreen, SettingsDialog } from "@/components/get-books";
+import { OwnEpubDialog } from "@/components/own-epub-dialog";
 import { ReaderScreen } from "@/components/reader";
 import { ReviewScreen } from "@/components/review";
 import { Shelf, useCovers } from "@/components/shelf";
@@ -30,6 +32,7 @@ import { guideUrl } from "@/lib/guide";
 
 type Screen =
   | { kind: "shelf" }
+  | { kind: "discover" }
   | { kind: "get" }
   | { kind: "words"; bookId: string | null }
   | { kind: "read"; bookId: string }
@@ -47,6 +50,8 @@ function readScreen(): Screen | null {
     switch (data.kind) {
       case "shelf":
         return { kind: "shelf" };
+      case "discover":
+        return { kind: "discover" };
       case "get":
         return { kind: "get" };
       case "words":
@@ -109,6 +114,7 @@ export function MarginApp() {
   const theme = usePrefs((state) => state.theme);
   const [ready, setReady] = useState(false);
   const [screen, setScreen] = useState<Screen>({ kind: "shelf" });
+  const [epubFor, setEpubFor] = useState<string | null>(null);
   const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
   const [bareEpub, setBareEpub] = useState(false);
@@ -300,6 +306,10 @@ export function MarginApp() {
     const book =
       useVocab.getState().books.find((item) => item.id === bookId) ??
       books.find((item) => item.id === bookId);
+    if (book?.needsEpub) {
+      setEpubFor(bookId);
+      return;
+    }
     setScreen(book?.source === "epub" ? { kind: "read", bookId } : { kind: "words", bookId });
   }
 
@@ -371,12 +381,15 @@ export function MarginApp() {
               <BookOpen className="size-6 text-accent" aria-hidden />
               <span className="max-sm:sr-only">{t("common.brand")}</span>
             </button>
-            <nav className="flex flex-1 items-center gap-1" aria-label={t("nav.main")}>
+            <nav className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto" aria-label={t("nav.main")}>
               <NavButton
                 active={screen.kind === "shelf" || screen.kind === "get"}
                 onClick={() => setScreen({ kind: "shelf" })}
               >
                 {t("nav.shelf")}
+              </NavButton>
+              <NavButton active={screen.kind === "discover"} onClick={() => setScreen({ kind: "discover" })}>
+                {t("nav.discover")}
               </NavButton>
               <NavButton
                 active={screen.kind === "words" || screen.kind === "review"}
@@ -447,6 +460,12 @@ export function MarginApp() {
           onBack={() => setScreen({ kind: "shelf" })}
           onNotebook={() => setScreen({ kind: "words", bookId: screen.bookId })}
         />
+      ) : screen.kind === "discover" ? (
+        <DiscoverScreen
+          shelf={orderedBooks}
+          onOpen={openBook}
+          onNeedsEpub={(bookId) => setEpubFor(bookId)}
+        />
       ) : screen.kind === "get" ? (
         <AddBookScreen
           shelf={orderedBooks}
@@ -493,6 +512,14 @@ export function MarginApp() {
           }}
         />
       )}
+      <OwnEpubDialog
+        bookId={epubFor}
+        onClose={() => setEpubFor(null)}
+        onSaved={(bookId) => {
+          setEpubFor(null);
+          openBook(bookId);
+        }}
+      />
       <SettingsDialog
         open={settingsOpen}
         onOpenChange={setSettingsOpen}

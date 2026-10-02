@@ -27,7 +27,6 @@ import {
   type SortChoice,
 } from "@/components/lexile-ui";
 import { bookCardGrid, bookCardShell, ListFilters, type SeriesChoice } from "@/components/list-filters";
-import { WordListSection } from "@/components/word-lists";
 import { compareLexile } from "@/lib/lexile";
 import { btn, cn, field, ProgressBar, Segmented } from "@/components/ui";
 import { usePrefs } from "@/lib/reader-prefs";
@@ -144,8 +143,8 @@ function PackCard({
 }
 
 /**
- * The one place to add a book. Top: your own book pack (a .zip). Then free books.
- * Below those: word lists for other books. A plain EPUB is added only from a word-list card.
+ * Add a book pack (.zip). The catalog of books lives on Discover.
+ * A plain EPUB is added from a word-list card on Discover, after the word list is on the shelf.
  */
 export function AddBookScreen({
   shelf,
@@ -409,8 +408,6 @@ export function AddBookScreen({
           )
         )}
       </section>
-
-      <WordListSection onAdded={onOpen} />
     </div>
   );
 }

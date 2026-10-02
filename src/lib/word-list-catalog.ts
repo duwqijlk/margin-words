@@ -1,7 +1,7 @@
 /**
- * Word lists for the copyrighted books. The books host serves glossary.json only.
- * There is no EPUB, cover image, or zip in this catalog. A card with no shippable
- * cover draws a generated title and author (see BookCover).
+ * Word lists for the copyrighted books. The books host serves glossary.json and, when the
+ * pack has one, a card-sized cover.jpg from that book's EPUB. There is no EPUB or zip in
+ * this catalog. A card with no cover draws a generated title and author.
  */
 import { booksUrl } from "@/lib/books-base";
 import { isbnDigits, readSeries } from "@/lib/book-meta";
@@ -18,6 +18,8 @@ export type WordListPack = {
   series: string;
   seriesNumber: number;
   words: number;
+  /** Card-sized cover from the book's own EPUB, when the pack has one. */
+  cover: { url: string; bytes: number } | null;
   glossary: { url: string; bytes: number; sha256: string };
 };
 
@@ -40,6 +42,12 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
       continue;
     seen.add(id);
     const series = readSeries(row.series, row.seriesNumber);
+    const coverRow = row.cover && typeof row.cover === "object" ? (row.cover as Record<string, unknown>) : null;
+    const coverUrl = text(coverRow?.url, 600);
+    const cover =
+      coverUrl && !coverUrl.includes("..") && !/\.epub$/i.test(coverUrl)
+        ? { url: coverUrl, bytes: typeof coverRow?.bytes === "number" ? coverRow.bytes : 0 }
+        : null;
     out.push({
       id,
       title: text(row.title, 160) || id,
@@ -49,6 +57,7 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
       series: series.series,
       seriesNumber: series.seriesNumber,
       words: typeof row.words === "number" && row.words > 0 ? Math.floor(row.words) : 0,
+      cover,
       glossary: {
         url,
         bytes: typeof glossary?.bytes === "number" ? glossary.bytes : 0,

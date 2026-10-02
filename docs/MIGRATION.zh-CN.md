@@ -34,7 +34,7 @@ npx vite build
 npx wrangler pages deploy dist --project-name margin-words --branch main
 ```
 
-`dist/` 只有网页，没有书。书的文件用 `npm run build:books` 生成，再上传到书籍站点。**绝不要公开部署 `packs/`。** 版权书只上传词表，不上传 EPUB，也不上传出版社封面。
+`dist/` 只有网页，没有书。书的文件用 `npm run build:books` 生成，再上传到书籍站点（公有领域的 EPUB，以及版权书的词表和缩小后的封面）。**绝不要公开部署 `packs/`。** 版权 EPUB 用 `npm run build:private` 生成 `dist-private/`，只放进没有公开访问的私有桶 `margin-words-private`。应用不会请求这个桶。不要把 `dist-private/` 放进 `dist/` 或 `dist-books/`。
 
 ## 添加书
 
@@ -43,4 +43,4 @@ npx wrangler pages deploy dist --project-name margin-words --branch main
 
 ## 没有放进 git 的文件（可重新生成）
 
-`node_modules/`、`dist/`、`site/`、`packs/*.zip`（含 `all-packs.zip`）、`public-books/*.zip`、`classics/**/*.pack.zip`。
+`node_modules/`、`dist/`、`dist-books/`、`dist-private/`、`site/`、`packs/*.zip`（含 `all-packs.zip`）、`public-books/*.zip`、`classics/**/*.pack.zip`。

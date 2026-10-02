@@ -51,10 +51,10 @@ test("Looking-Glass images are compressed and the novel text is still valid", ()
   assert.ok(pack.epub.bytes > 2 * 1024 * 1024, "illustrations are still in the book");
 });
 
-test("every public-domain classic is preinstalled and has a Lexile measure", () => {
+test("only Alice is preinstalled, and every classic has a Lexile measure", () => {
   const pre = catalog.packs.filter((p) => p.preinstall === true).map((p) => p.id);
-  assert.deepEqual(pre, catalog.packs.map((p) => p.id));
-  assert.ok(pre.length >= 12, "12 classics in the catalog");
+  assert.deepEqual(pre, ["alice"]);
+  assert.ok(catalog.packs.length >= 12, "12 classics in the catalog");
   for (const pack of catalog.packs) {
     assert.match(pack.lexile, /^(?:AD|NC|HL|IG|GN|NP)?\d{1,4}L$|^BR\d{1,4}L$/, `${pack.id} lexile`);
   }

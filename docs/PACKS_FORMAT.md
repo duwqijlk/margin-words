@@ -2,8 +2,7 @@
 
 > The short, complete spec for AI agents is [book-pack-spec.md](book-pack-spec.md) (also in the downloadable book-pack-kit.zip). Sample: `examples/sample-book/`.
 
-A **book pack** is one book plus its word list. The reader app contains twelve free public-domain classics (in `public-books/`, same pack format; each is marked `preinstall` and is installed on first run unless the user removed that book). It downloads other packs
-from a **catalog** (a `catalog.json` on any static web host), or imports a pack `.zip` the user picks (Add book).
+A **book pack** is one book plus its word list. The reader app contains twelve free public-domain classics (in `public-books/`, same pack format). Only Alice's Adventures in Wonderland is marked `preinstall` and is installed on a new shelf. The other classics are on Discover and download when the reader adds them. A book the user deleted stays deleted. The app also imports a pack `.zip` the user picks (Add book), or another catalog the user sets.
 
 ## Folder layout (what you host)
 

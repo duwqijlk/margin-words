@@ -11,11 +11,12 @@
  *   public-books/<id>/glossary.json
  *   public-books/<id>/cover.jpg        public-domain covers that already live in public-books/
  *   word-lists/catalog.json
- *   word-lists/<id>/glossary.json      copyrighted titles: glossary only
+ *   word-lists/<id>/glossary.json
+ *   word-lists/<id>/cover.jpg          card-sized JPEG from packs/<id>/cover.jpg, when that file exists
  *
- * No per-book zip, no all-packs.zip, no copyrighted EPUB, no publisher cover from packs/.
- * The app downloads a classic from the loose epub + glossary + cover. Pack zips stay a
- * local sideload (`node scripts/build-packs.mjs`), not a hosted object.
+ * No per-book zip, no all-packs.zip, and no copyrighted EPUB. A word-list book with no cover.jpg
+ * keeps the generated title-and-author cover in the app. Pack zips stay a local sideload
+ * (`node scripts/build-packs.mjs`), not a hosted object. The private EPUBs are `npm run build:private`.
  */
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -57,7 +58,7 @@ export function writeBookObjects(outDir) {
     }
   }
   for (const file of buildWordLists(join(ROOT, "packs")).files) {
-    if (file.name.endsWith(".epub") || file.name.endsWith(".zip") || /\.(jpe?g|png|webp)$/i.test(file.name)) continue;
+    if (file.name.endsWith(".epub") || file.name.endsWith(".zip")) continue;
     files.push(file);
   }
   rmSync(outDir, { recursive: true, force: true });

@@ -40,6 +40,7 @@ function englishBook(book: Book): Book {
   }
   if (match === undefined) delete next.matchRate;
   else next.matchRate = match;
+  if (next.needsEpub !== true) delete next.needsEpub;
   if (next.source === "epub" || !HAS_CJK.test(`${next.title}${next.author}`)) return next;
   return { ...next, title: DEMO_BOOK_TITLE, author: "Example sentences" };
 }
@@ -87,6 +88,8 @@ type VocabState = {
       series?: string;
       seriesNumber?: number;
       matchRate?: number;
+      needsEpub?: boolean;
+      source?: Book["source"];
     }>,
   ) => void;
   renameBook: (id: string, title: string, author: string) => void;
@@ -201,6 +204,9 @@ export const useVocab = create<VocabState>()(
             }
             if (pair.matchRate !== undefined && pair.matchRate >= 0 && pair.matchRate <= 100)
               next.matchRate = Math.round(pair.matchRate);
+            if (pair.needsEpub === true) next.needsEpub = true;
+            else if (pair.needsEpub === false) delete next.needsEpub;
+            if (pair.source) next.source = pair.source;
             return next;
           }),
         }));

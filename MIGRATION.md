@@ -15,9 +15,11 @@ This repo is a full copy of the Margin Words project, moved to a **private** Git
   `book.epub` + `glossary.json` (title, author and cover come from the EPUB). Spec: `docs/book-pack-spec.md`.
 - **Bilingual UI.** Buttons, menus and messages are in Simplified Chinese and English (language button in the top
   bar). The books and their meanings stay in English.
-- Twelve free public-domain classics are loaded from the books host (`public-books/`). All twelve are put on the
-  shelf at first run unless the user removed that book. Word lists for copyrighted titles are `word-lists/` on
-  the same host (glossary only, generated covers).
+- Twelve free public-domain classics are loaded from the books host (`public-books/`). A new shelf gets Alice's
+  Adventures in Wonderland only. The rest, and the copyrighted word lists, are on Discover and download on tap.
+  A deleted book stays deleted. Word lists are `word-lists/` on the same host (glossary, and a resized cover
+  from `packs/<id>/cover.jpg` when that file exists). `npm run build:private` writes `dist-private/` for the
+  private bucket `margin-words-private` (no public access; the app never fetches it).
 
 ## 2. What is in this repo
 
@@ -33,7 +35,7 @@ This repo is a full copy of the Margin Words project, moved to a **private** Git
 | `book-pack-kit.zip` | The guide kit to give to an AI agent that makes a book pack |
 | `screenshots/`, `artifacts/` | Small reference images and notes |
 
-**Not in git (regenerable):** `node_modules/`, `dist/`, `dist-books/`, `site/`, `packs/*.zip` (incl. `packs/all-packs.zip`),
+**Not in git (regenerable):** `node_modules/`, `dist/`, `dist-books/`, `dist-private/`, `site/`, `packs/*.zip` (incl. `packs/all-packs.zip`),
 `public-books/*.zip`, and `classics/**/*.pack.zip`. Rebuild them with the commands below.
 
 ## 3. Rules
