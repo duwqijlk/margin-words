@@ -127,6 +127,27 @@ const toShelf = async (page) => {
 };
 
 const overflow2 = (pg) => pg.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
+
+/** Mount Discover cards that sit past the first page. Search still covers the whole catalog. */
+async function revealDiscover(page, selector) {
+  await page.locator("[data-discover-matches], [role=alert]").first().waitFor({ timeout: 30000 });
+  const start = Date.now();
+  while (Date.now() - start < 20000) {
+    if ((await page.locator(selector).count()) > 0) return;
+    if ((await page.locator("[data-discover-more]").count()) === 0) break;
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page.waitForTimeout(120);
+  }
+}
+
+async function loadWholeDiscover(page) {
+  await page.locator("[data-discover-matches], [role=alert]").first().waitFor({ timeout: 30000 });
+  for (let i = 0; i < 30; i += 1) {
+    if ((await page.locator("[data-discover-more]").count()) === 0) return;
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page.waitForTimeout(120);
+  }
+}
 const toShelfOn = async (pg) => {
   await pg.goto(new URL("shelf", BASE).toString());
 };
@@ -331,6 +352,7 @@ async function run(lang, size) {
   await page.getByRole("button", { name: t("nav.discover"), exact: true }).first().click();
   await page.locator("[data-discover]").waitFor({ timeout: 20000 });
   // The seven Narnia novels are one collection. The card is a word list, with the omnibus ISBN.
+  await revealDiscover(page, '[data-word-list="narnia"]');
   await page.locator('[data-word-list="narnia"]').waitFor({ timeout: 20000 });
   const narniaCard = page.locator('[data-word-list="narnia"]');
   ok(
@@ -349,12 +371,15 @@ async function run(lang, size) {
     (await narniaCard.locator('[data-lexile="unrated"]').count()) === 1,
     `${label}: Narnia collection has no Lexile`,
   );
+  await loadWholeDiscover(page);
   ok((await page.locator("[data-word-list]").count()) === 10, `${label}: ten word lists`);
   ok((await page.locator("[data-pack]").count()) === FREE_COUNT, `${label}: Discover lists the ${FREE_COUNT} classics`);
   const photoIds = ["charlie", "george", "james", "magicfinger", "matilda", "narnia", "twits", "wof1", "wof2", "wonder"];
   for (const id of photoIds) {
-    const img = page.locator(`[data-word-list="${id}"] img`);
-    await img.scrollIntoViewIfNeeded();
+    const card = page.locator(`[data-word-list="${id}"]`);
+    await card.scrollIntoViewIfNeeded();
+    const img = card.locator("img");
+    await img.waitFor({ timeout: 20000 });
     await page.waitForFunction(
       (bookId) => {
         const el = document.querySelector(`[data-word-list="${bookId}"] img`);

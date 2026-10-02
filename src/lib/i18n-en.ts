@@ -138,6 +138,8 @@ export const en = {
   "discover.title": "Discover",
   "discover.hint": "Every book we have. Tap “Add to shelf” to keep a book. Nothing is downloaded until you do.",
   "discover.search": "Search by title or author",
+  "discover.loading": "Loading books…",
+  "discover.loadingMore": "Loading more…",
   "discover.add": "Add to shelf",
   "discover.remove": "Remove from shelf",
   "discover.workingPct": "Adding… {pct}%",

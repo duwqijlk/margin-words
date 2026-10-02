@@ -42,7 +42,7 @@ word lists come from **book packs** (see README.md, "Reader and book packs"). **
 ## App structure notes
 
 - Routes: `/shelf`, `/discover`, `/guide`, `/words`, `/read/<bookId>` (`src/lib/router.ts`, History API; `/` redirects to `/shelf`). Pages are lazy chunks. `public/_redirects` is the SPA fallback; `public/_headers` sets `no-cache` for the shell and `immutable` for `/assets/*`. The service worker stays and is network-first for navigations; `_headers`/`_redirects` are never precached. The static kit page is `/kit/`.
-- The reader always reserves a right gutter at `md+` (word panel or a placeholder), and the panel is a fixed bottom sheet on phones, so opening a panel never shifts the text.
+- On wide screens (`lg`, 1024px and up) the reading column stays centered at the text-width setting. The word, phrase, and paragraph cards float over the text near the tapped word and do not cover that word. Phones keep the bottom sheet. Tablets (`md` up to `lg`) keep the right-hand column. Opening a panel never shifts the text.
 - One book = one shelf card: identity matching is in `src/lib/shelf-identity.ts`. `repairShelf()` (merge duplicates) and `refreshCovers()` (re-derive covers, catalog cover cache-busted by `cover.sha256`) run on load (`src/lib/shelf-repair.ts`).
 - Series stacks: `src/lib/shelf-stacks.ts`, `src/components/series-stack.tsx`.
 - Text extraction treats `<br>`, `<hr>` and block boundaries as one space (`src/lib/flow-text.ts`); stored HTML and token indexes are unchanged, and example matching tolerates words glued at a `<br>`.

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
 import { BookCover } from "@/components/book-cover";
@@ -27,6 +27,20 @@ import type { Book } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 
+/** How many cards to mount at once. The rest of the catalog stays in memory for search and filters. */
+const DISCOVER_PAGE = 12;
+
+function CardSkeleton() {
+  return (
+    <li className={bookCardShell} aria-hidden>
+      <span className="block aspect-[2/3] w-full animate-pulse rounded-md bg-line" />
+      <span className="mt-1 h-4 w-3/4 animate-pulse rounded bg-line" />
+      <span className="h-3 w-1/2 animate-pulse rounded bg-line" />
+      <span className="mt-auto h-11 animate-pulse rounded-lg bg-line" />
+    </li>
+  );
+}
+
 type Row = {
   key: string;
   id: string;
@@ -45,7 +59,8 @@ type Row = {
 };
 
 /**
- * Every book we have, from the books host. Nothing is downloaded until "Add to shelf" is tapped.
+ * Every book we have, from the books host. The two catalog files are one fetch each. Covers load as
+ * they come near the screen. A word list or an e-book is fetched only when "Add to shelf" is tapped.
  */
 export function DiscoverScreen({
   shelf,
@@ -58,6 +73,7 @@ export function DiscoverScreen({
 }) {
   const { t } = useT();
   const [rows, setRows] = useState<Row[]>([]);
+  const [ready, setReady] = useState(false);
   const [records, setRecords] = useState<PackRecord[]>([]);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortChoice>("listed");
@@ -117,6 +133,8 @@ export function DiscoverScreen({
         setError("");
       } catch (reason) {
         if (alive) setError(errorText(reason, "err.catalogLoad"));
+      } finally {
+        if (alive) setReady(true);
       }
     })();
     return () => {
@@ -160,6 +178,42 @@ export function DiscoverScreen({
     if (rest.length) blocks.push({ key: "none", title: "", rows: rest });
     return blocks;
   }, [shown, series]);
+
+  const filterKey = `${query}\0${sort}\0${band}\0${author}\0${series}`;
+  const [windowState, setWindowState] = useState({ key: filterKey, limit: DISCOVER_PAGE });
+  if (windowState.key !== filterKey) setWindowState({ key: filterKey, limit: DISCOVER_PAGE });
+  const limit = windowState.key === filterKey ? windowState.limit : DISCOVER_PAGE;
+  const visible = shown.slice(0, limit);
+  const hasMore = visible.length < shown.length;
+  const moreRef = useRef<HTMLDivElement | null>(null);
+  const visibleGroups = useMemo(() => {
+    let left = limit;
+    const out: typeof groups = [];
+    for (const group of groups) {
+      if (left <= 0) break;
+      const rowsInGroup = group.rows.slice(0, left);
+      left -= rowsInGroup.length;
+      if (rowsInGroup.length) out.push({ ...group, rows: rowsInGroup });
+    }
+    return out;
+  }, [groups, limit]);
+
+  useEffect(() => {
+    const node = moreRef.current;
+    if (!node || !hasMore) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setWindowState((prev) =>
+            prev.key === filterKey ? { key: filterKey, limit: prev.limit + DISCOVER_PAGE } : prev,
+          );
+        }
+      },
+      { rootMargin: "280px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore, filterKey, limit]);
 
   const shelfIds = useMemo(() => new Set(shelf.map((book) => book.id)), [shelf]);
   const byPack = useMemo(() => new Map(records.map((record) => [record.packId, record])), [records]);
@@ -252,10 +306,10 @@ export function DiscoverScreen({
               className="block w-full rounded-md text-left"
               aria-label={t("pack.openAria", { title: row.title })}
             >
-              <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
+              <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
             </button>
           ) : (
-            <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
+            <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
           )}
           <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-1rem)] flex-col items-start gap-1">
             {needs ? (
@@ -311,7 +365,11 @@ export function DiscoverScreen({
   }
 
   return (
-    <div className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-6 sm:gap-6 sm:px-6" data-discover>
+    <div
+      className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-6 sm:gap-6 sm:px-6"
+      data-discover
+      data-discover-matches={ready ? shown.length : undefined}
+    >
       <div className="grid gap-1">
         <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("discover.title")}</h1>
         <p className="max-w-xl text-sm text-muted">{t("discover.hint")}</p>
@@ -339,11 +397,22 @@ export function DiscoverScreen({
           {error}
         </p>
       ) : null}
-      {shown.length === 0 ? (
+      {!ready ? (
+        <div className="grid gap-3" aria-busy="true">
+          <p className="text-sm text-muted" role="status">
+            {t("discover.loading")}
+          </p>
+          <ul className={bookCardGrid} data-discover-loading>
+            {Array.from({ length: 8 }, (_, index) => (
+              <CardSkeleton key={index} />
+            ))}
+          </ul>
+        </div>
+      ) : shown.length === 0 ? (
         <p className="py-10 text-center text-muted">{query.trim() ? t("shelf.noMatch", { query: query.trim() }) : t("shelf.series.empty")}</p>
       ) : series === "grouped" ? (
         <div className="grid gap-8">
-          {groups.map((group) => (
+          {visibleGroups.map((group) => (
             <div key={group.key} className="grid gap-4" data-series-group={group.key}>
               <h2 className="font-display text-lg font-semibold" lang={group.title ? "en" : undefined}>
                 {group.title || t("shelf.series.none")}
@@ -353,8 +422,20 @@ export function DiscoverScreen({
           ))}
         </div>
       ) : (
-        <ul className={bookCardGrid}>{shown.map(renderCard)}</ul>
+        <ul className={bookCardGrid}>{visible.map(renderCard)}</ul>
       )}
+      {ready && hasMore ? (
+        <div ref={moreRef} data-discover-more className="grid gap-3" aria-busy="true">
+          <p className="text-center text-sm text-muted">{t("discover.loadingMore")}</p>
+          <ul className={bookCardGrid}>
+            {Array.from({ length: 4 }, (_, index) => (
+              <CardSkeleton key={index} />
+            ))}
+          </ul>
+        </div>
+      ) : ready && shown.length > 0 ? (
+        <div data-discover-end hidden />
+      ) : null}
     </div>
   );
 }

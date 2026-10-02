@@ -139,6 +139,8 @@ export const zh: Record<Key, string> = {
   "discover.title": "发现",
   "discover.hint": "这里是全部的书。点“加入书架”才会下载。",
   "discover.search": "按书名或作者搜索",
+  "discover.loading": "正在加载书…",
+  "discover.loadingMore": "正在加载更多…",
   "discover.add": "加入书架",
   "discover.remove": "移出书架",
   "discover.workingPct": "正在加入… {pct}%",

@@ -331,6 +331,22 @@
     animation: pop-in 0.16s ease-out;
   }
 
+  /* Wide screens: word and paragraph cards float. Top and left come from the placement script. */
+  @media (min-width: 64rem) {
+    [data-float] {
+      inset: auto;
+      width: min(21rem, calc(100vw - 1.5rem));
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      padding-top: 1.25rem;
+      animation: pop-in 0.16s ease-out;
+    }
+
+    [data-float]:not([data-placed]) {
+      visibility: hidden;
+    }
+  }
+
   @keyframes check-pop {
     0% {
       transform: scale(0.4) rotate(-20deg);

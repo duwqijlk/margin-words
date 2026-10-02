@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { loadAllCovers } from "@/lib/book-db";
 import { coverCrossOrigin } from "@/lib/cover-request";
 import { cn } from "@/components/ui";
@@ -58,37 +58,76 @@ export function BookCover({
   author,
   cover,
   className,
+  whenVisible = false,
 }: {
   title: string;
   author: string;
   cover?: string;
   className?: string;
+  /** Set the image address only once this cover is near the screen. Discover uses this. */
+  whenVisible?: boolean;
 }) {
+  const frame = useRef<HTMLSpanElement>(null);
   // A picture that failed to load is only given up on until the cover changes (a new picture gets a new try).
   const [broken, setBroken] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState<string | null>(null);
+  const [near, setNear] = useState(!whenVisible);
+  useEffect(() => {
+    if (!whenVisible || !cover) {
+      setNear(true);
+      return;
+    }
+    setNear(false);
+    const el = frame.current;
+    if (!el || typeof IntersectionObserver !== "function") {
+      setNear(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "160px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [whenVisible, cover]);
   const pair =
     COVER_PALETTES[hashOf(`${title}|${author}`) % COVER_PALETTES.length] ?? COVER_PALETTES[0];
   const [from, to] = pair as readonly [string, string];
   const size = title.length <= 14 ? "11.5cqw" : title.length <= 30 ? "9.5cqw" : "8cqw";
-  const showImage = Boolean(cover) && broken !== cover;
+  const failed = Boolean(cover) && broken === cover;
+  const showImage = Boolean(cover) && !failed && near;
+  const pending = Boolean(cover) && !failed && !showImage;
+  const showGenerated = !cover || failed;
   return (
     <span
+      ref={frame}
       className={cn(
         "cover-frame relative block aspect-[2/3] w-full shrink-0 overflow-hidden rounded-md bg-line shadow-cover ring-1 ring-ink/10 transition-[transform,box-shadow] duration-200 [container-type:inline-size]",
         className,
       )}
-      {...(showImage ? {} : { "data-generated-cover": "" })}
+      {...(showGenerated ? { "data-generated-cover": "" } : {})}
     >
+      {pending || (showImage && loaded !== cover) ? (
+        <span className="absolute inset-0 animate-pulse bg-line" data-cover-pending="" aria-hidden />
+      ) : null}
       {showImage ? (
         <img
           src={cover}
           alt=""
           crossOrigin={coverCrossOrigin(cover)}
-          className="absolute inset-0 h-full w-full object-cover"
+          className={cn("absolute inset-0 h-full w-full object-cover", loaded !== cover && "opacity-0")}
           loading="lazy"
+          decoding="async"
+          onLoad={() => setLoaded(cover ?? null)}
           onError={() => setBroken(cover ?? null)}
         />
-      ) : (
+      ) : null}
+      {showGenerated ? (
         <span
           className="absolute inset-0 flex flex-col items-center justify-between text-center text-[#fbf6ea]"
           style={{
@@ -125,7 +164,7 @@ export function BookCover({
             ) : null}
           </span>
         </span>
-      )}
+      ) : null}
       {/* spine shading */}
       <span
         className="pointer-events-none absolute inset-y-0 left-0 w-[6%] bg-gradient-to-r from-black/30 via-black/10 to-transparent"

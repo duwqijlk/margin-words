@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Browser test of: one URL per page, the notice bar, the fixed side panel, one card per book (every way a book
+ * Browser test of: one URL per page, the notice bar, the word panel, one card per book (every way a book
  * can reach the shelf, and old data that already has two cards), the cover repair on start, and series stacks.
  *
  *   node scripts/routes-e2e.mjs [baseUrl]
@@ -69,9 +69,23 @@ const newPage = async ({ width = 1280, height = 800, mobile = false, lang = "en"
 const cards = (page) => page.locator("li.book-card");
 const titleOf = (card) => card.locator("h3, button[lang=en]").first().innerText();
 
+/** Scroll Discover until a card that is not on the first page is mounted. */
+async function revealDiscover(page, selector) {
+  await page.locator("[data-discover-matches], [role=alert]").first().waitFor({ timeout: 30000 });
+  const start = Date.now();
+  while (Date.now() - start < 20000) {
+    if ((await page.locator(selector).count()) > 0) return;
+    if ((await page.locator("[data-discover-more]").count()) === 0) break;
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page.waitForTimeout(120);
+  }
+}
+
 /** Add a word list from Discover (card "needs your e-book"), then close the dialog that asks for the e-book. */
 async function addFromDiscover(page, id) {
   await page.goto(at("discover"));
+  await page.locator("[data-discover]").waitFor({ timeout: 30000 });
+  await revealDiscover(page, `[data-word-list="${id}"]`);
   const card = page.locator(`[data-word-list="${id}"]`);
   await card.waitFor({ timeout: 30000 });
   await card.locator("[data-shelf-add]").click();
@@ -177,7 +191,8 @@ async function routes(lang) {
   }
   await page.goto(at("discover"));
   await page.locator("[data-discover]").waitFor({ timeout: 30000 });
-  ok((await page.locator("[data-word-list]").count()) >= 5, `${lang}: /discover opened straight shows the book list`);
+  await page.locator("[data-pack], [data-word-list]").first().waitFor({ timeout: 30000 });
+  ok((await page.locator("[data-pack], [data-word-list]").count()) >= 5, `${lang}: /discover opened straight shows the book list`);
 
   await page.goto(at("no-such-page"));
   await page.locator("li.book-card").first().waitFor({ timeout: 30000 });
@@ -245,6 +260,7 @@ async function panel(label, size) {
   const words = page.locator("article.book-body button.book-hard");
   const count = await words.count();
   const phone = size.width < 768;
+  const wide = size.width >= 1024;
   const seen = [];
   const articleBox = () => page.evaluate(() => {
     const r = document.querySelector("article.book-body").getBoundingClientRect();
@@ -260,6 +276,21 @@ async function panel(label, size) {
     const geo = await page.evaluate(() => {
       const card = document.querySelector("[data-word-card]").getBoundingClientRect();
       const art = document.querySelector("article.book-body").getBoundingClientRect();
+      const on = document.querySelector("article.book-body button.book-on");
+      const w = on ? on.getBoundingClientRect() : null;
+      const overlap = w
+        ? !(w.right <= card.left + 0.5 || w.left >= card.right - 0.5 || w.bottom <= card.top + 0.5 || w.top >= card.bottom - 0.5)
+        : null;
+      const gap = w
+        ? Math.min(
+            Math.abs(card.top - w.bottom),
+            Math.abs(w.top - card.bottom),
+            Math.abs(card.left - w.right),
+            Math.abs(w.left - card.right),
+          )
+        : null;
+      const bar = document.querySelector("header div.mx-auto");
+      const barBox = bar ? bar.getBoundingClientRect() : art;
       return {
         card: [card.left, card.top, card.width, card.bottom].map(Math.round),
         right: card.right,
@@ -267,21 +298,69 @@ async function panel(label, size) {
         top: card.top,
         bottom: card.bottom,
         artRight: art.right,
+        artWidth: art.width,
         vw: document.documentElement.clientWidth,
         vh: innerHeight,
+        overlap,
+        gap,
+        centerDelta: Math.abs((art.left + art.right) / 2 - (barBox.left + barBox.right) / 2),
       };
     });
     seen.push(geo);
-    if (!phone) ok(geo.left >= geo.artRight - 0.5, `${label}: word ${i}: the panel is right of the text column (card ${Math.round(geo.left)} >= text ${Math.round(geo.artRight)})`);
-    else ok(Math.abs(geo.bottom - geo.vh) <= 1 && geo.left <= 1 && geo.right >= geo.vw - 1, `${label}: word ${i}: the card is a bottom sheet across the screen`);
+    if (phone) ok(Math.abs(geo.bottom - geo.vh) <= 1 && geo.left <= 1 && geo.right >= geo.vw - 1, `${label}: word ${i}: the card is a bottom sheet across the screen`);
+    else if (!wide) ok(geo.left >= geo.artRight - 0.5, `${label}: word ${i}: the panel is right of the text column (card ${Math.round(geo.left)} >= text ${Math.round(geo.artRight)})`);
+    else {
+      ok(geo.left >= -1 && geo.top >= -1 && geo.right <= geo.vw + 1 && geo.bottom <= geo.vh + 1, `${label}: word ${i}: the floating card stays in the viewport`);
+      ok(geo.overlap === false, `${label}: word ${i}: the floating card does not cover the tapped word`);
+      ok(geo.gap !== null && geo.gap <= 20, `${label}: word ${i}: the floating card sits next to the word (gap ${geo.gap})`);
+      ok(geo.centerDelta <= 8, `${label}: word ${i}: the reading column stays centered (off by ${geo.centerDelta.toFixed(1)}px)`);
+    }
     await page.keyboard.press("Escape");
     await page.locator("[data-word-card]").waitFor({ state: "hidden" });
   }
-  const first = JSON.stringify(seen[0].card.slice(0, 3));
-  ok(seen.every((s) => JSON.stringify(s.card.slice(0, 3)) === first), `${label}: the panel is in the same place for every tapped word (${seen[0].card.slice(0, 3)})`);
+  if (!wide) {
+    const first = JSON.stringify(seen[0].card.slice(0, 3));
+    ok(seen.every((s) => JSON.stringify(s.card.slice(0, 3)) === first), `${label}: the panel is in the same place for every tapped word (${seen[0].card.slice(0, 3)})`);
+  }
   const after = await articleBox();
   ok(JSON.stringify(before) === JSON.stringify(after), `${label}: the text column did not move or change size across all taps`);
-  if (!phone) {
+  if (wide) {
+    ok(Math.abs(seen[0].artWidth - 39 * 16) <= 2, `${label}: the column uses the text-width setting (${Math.round(seen[0].artWidth)}px)`);
+    ok((await page.locator("[data-side-placeholder]").count()) === 0 || (await page.locator("[data-side-placeholder]").evaluate((el) => getComputedStyle(el).display)) === "none", `${label}: a wide screen has no empty side column`);
+    const word = words.nth(2);
+    await word.scrollIntoViewIfNeeded();
+    await word.click();
+    await page.locator("[data-word-card]").waitFor();
+    await page.waitForFunction(() => {
+      const card = document.querySelector("[data-word-card]");
+      return Boolean(card && card.contains(document.activeElement));
+    });
+    ok(true, `${label}: opening the card moves keyboard focus into it`);
+    await page.keyboard.press("Tab");
+    ok(await page.evaluate(() => {
+      const card = document.querySelector("[data-word-card]");
+      return Boolean(card && card.contains(document.activeElement));
+    }), `${label}: Tab stays inside the card`);
+    await page.keyboard.press("Escape");
+    await page.locator("[data-word-card]").waitFor({ state: "hidden" });
+    await page.waitForFunction(() => document.activeElement?.matches?.("article.book-body button[data-word]") === true);
+    ok(true, `${label}: Escape returns focus to the word`);
+    await page.getByRole("button", { name: "Reading settings: font, size, theme" }).click();
+    await page.locator("[data-reader-width]").evaluate((el) => {
+      const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value")?.set;
+      setter?.call(el, "30");
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(200);
+    const narrowed = await page.evaluate(() => {
+      const art = document.querySelector("article.book-body").getBoundingClientRect();
+      const bar = document.querySelector("header div.mx-auto").getBoundingClientRect();
+      return { width: art.width, center: Math.abs((art.left + art.right) / 2 - (bar.left + bar.right) / 2) };
+    });
+    ok(Math.abs(narrowed.width - 30 * 16) <= 2, `${label}: the text-width slider changes the column (${Math.round(narrowed.width)}px)`);
+    ok(narrowed.center <= 8, `${label}: a narrower column stays centered`);
+  } else if (!phone) {
     ok(
       (await page.locator("[data-side-placeholder]").count()) === 1,
       `${label}: with no word open the same place holds a quiet hint`,
@@ -317,9 +396,11 @@ async function oneCard(lang) {
     ok((await cards(page).count()) === alice, `${lang}: A. the shelf has the same number of cards as before the import`);
     ok((await page.locator("li.book-card [data-needs-epub]").count()) === 0, `${lang}: A. no card says "${needsLabel}" any more`);
     await page.goto(at("discover"));
+    await revealDiscover(page, '[data-word-list="twits"]');
     const state = await page.locator('[data-word-list="twits"] [data-shelf-state]').getAttribute("data-shelf-state");
     ok(state === "on", `${lang}: A. Discover shows The Twits as on the shelf (${state})`);
     await page.reload();
+    await revealDiscover(page, '[data-word-list="twits"]');
     await page.locator('[data-word-list="twits"]').waitFor({ timeout: 30000 });
     await page.goto(at("shelf"));
     await cards(page).first().waitFor();
@@ -334,6 +415,7 @@ async function oneCard(lang) {
     await importZip(page, ZIPS.matilda);
     await page.waitForSelector("article.book-body", { timeout: 60000 });
     await page.goto(at("discover"));
+    await revealDiscover(page, '[data-word-list="matilda"]');
     const card = page.locator('[data-word-list="matilda"]');
     await card.waitFor({ timeout: 30000 });
     const before = await card.locator("[data-shelf-state]").getAttribute("data-shelf-state");
@@ -365,6 +447,7 @@ async function oneCard(lang) {
       }),
     );
     await page.goto(at("discover"));
+    await revealDiscover(page, '[data-word-list="george"]');
     const card = page.locator('[data-word-list="george"]');
     await card.waitFor({ timeout: 30000 });
     ok((await card.locator("[data-shelf-state]").getAttribute("data-shelf-state")) === "off", `${lang}: B2. Discover cannot tell that George is on the shelf (no pack record)`);
@@ -374,6 +457,7 @@ async function oneCard(lang) {
     await cards(page).first().waitFor();
     ok((await page.locator("li.book-card:has-text(\"George\")").count()) === 1, `${lang}: B2. adding it from Discover opens the card it already has (one card)`);
     await page.goto(at("discover"));
+    await revealDiscover(page, '[data-word-list="george"]');
     ok((await page.locator('[data-word-list="george"] [data-shelf-state]').getAttribute("data-shelf-state")) === "on", `${lang}: B2. and Discover now shows it as on the shelf`);
     await ctx.close();
   }

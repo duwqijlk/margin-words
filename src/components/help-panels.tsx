@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { paragraphBlocks } from "@/lib/help-lookup";
 import { useT } from "@/lib/i18n";
 import { loadSentenceView, type ParagraphView, type SentenceView } from "@/lib/help-flow";
+import { FloatingAside } from "@/components/floating-card";
 import { btn, cn } from "@/components/ui";
 import { flowText } from "@/lib/flow-text";
 import { SIDE_PANEL } from "@/components/side-panel";
@@ -266,22 +267,27 @@ export type ParagraphPanelState =
 
 export function ParagraphPanel({
   state,
+  anchor,
   onClose,
   onWord,
 }: {
   state: ParagraphPanelState;
+  /** the paragraph the card should sit next to on a wide screen */
+  anchor: HTMLElement | null;
   onClose: () => void;
   onWord: (word: string) => void;
 }) {
   const { t } = useT();
   const [open, setOpen] = useState(false);
   return (
-    <aside
-      aria-label={t("hp.panelAria")}
-      data-para-panel
+    <FloatingAside
+      anchor={anchor}
+      onClose={onClose}
+      label={t("hp.panelAria")}
+      kind="para"
       className={cn(
         "fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
-        "anim-sheet inset-x-0 bottom-0 max-h-[52dvh] rounded-t-3xl border-t pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]",
+        "inset-x-0 bottom-0 max-h-[52dvh] rounded-t-3xl border-t pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]",
         SIDE_PANEL,
         "md:bottom-auto md:max-h-[calc(100dvh-6.5rem)] md:pb-5",
       )}
@@ -297,6 +303,7 @@ export function ParagraphPanel({
             className={cn(btn.icon, "-mt-2 -mr-2")}
             onClick={onClose}
             aria-label={t("hp.close")}
+            data-panel-close
           >
             <X className="size-5" aria-hidden />
           </button>
@@ -373,7 +380,7 @@ export function ParagraphPanel({
           {t("hp.footer")}
         </p>
       </div>
-    </aside>
+    </FloatingAside>
   );
 }
 

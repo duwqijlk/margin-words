@@ -384,7 +384,17 @@ for (const vp of VIEWPORTS) {
       ({ mobile }) => {
         const c = document.querySelector('aside[aria-label^="Word card"]').getBoundingClientRect();
         if (mobile) return { x: 6, y: c.top < 100 ? window.innerHeight - 24 : Math.round(window.innerHeight * 0.22) };
-        return { x: c.left > 600 ? 60 : window.innerWidth - 40, y: 400 };
+        const spots = [
+          { x: 8, y: 220 },
+          { x: window.innerWidth - 8, y: 220 },
+          { x: 8, y: window.innerHeight - 8 },
+          { x: window.innerWidth - 8, y: window.innerHeight - 8 },
+        ];
+        for (const spot of spots) {
+          const onCard = spot.x >= c.left && spot.x <= c.right && spot.y >= c.top && spot.y <= c.bottom;
+          if (!onCard) return spot;
+        }
+        return { x: 8, y: 8 };
       },
       { mobile: vp.mobile },
     );

@@ -50,6 +50,7 @@ import {
 } from "@/lib/text";
 import { useVocab } from "@/lib/vocab-store";
 import { flowText, flowTextBefore } from "@/lib/flow-text";
+import { FloatingAside } from "@/components/floating-card";
 import { READER_GUTTER, SIDE_PANEL } from "@/components/side-panel";
 import {
   btn,
@@ -459,6 +460,7 @@ function WordCard({
   bookId,
   chapter,
   noList,
+  anchor,
   onClose,
   onToggle,
 }: {
@@ -471,6 +473,8 @@ function WordCard({
   noList: boolean;
   stat: WordStat | undefined;
   saved: boolean;
+  /** the tapped word, so a wide screen can float the card next to it */
+  anchor: HTMLElement | null;
   onClose: () => void;
   onToggle: () => void;
 }) {
@@ -492,15 +496,17 @@ function WordCard({
       </p>
     );
   return (
-    <aside
-      aria-label={t("card.aria", { word: state.key })}
-      data-word-card
+    <FloatingAside
+      anchor={anchor}
+      onClose={onClose}
+      label={t("card.aria", { word: state.key })}
+      kind="word"
       className={cn(
         // Always out of the page flow (fixed): opening, moving or closing it can never move the text.
-        // Phone: a sheet on the bottom edge. Tablet and desktop: a column on the right, in the gutter
-        // the page keeps free for it (see READER_GUTTER), so it never covers the text. Same place every tap.
+        // Phone: a sheet on the bottom edge. Tablet: a column on the right, in the gutter the page
+        // keeps free (see READER_GUTTER). Wide screens float this card next to the tapped word.
         "fixed z-40 max-h-[46dvh] overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
-        "anim-sheet inset-x-0 bottom-0 rounded-t-3xl border-t pt-3",
+        "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3",
         SIDE_PANEL,
       )}
     >
@@ -554,6 +560,7 @@ function WordCard({
             className={cn(btn.icon, "-mt-1 -mr-2")}
             onClick={onClose}
             aria-label={t("card.close")}
+            data-panel-close
           >
             <X className="size-5" aria-hidden />
           </button>
@@ -683,11 +690,11 @@ function WordCard({
           </button>
         </div>
       </div>
-    </aside>
+    </FloatingAside>
   );
 }
 
-/** The empty side panel: it holds the place of the word card, so the page looks the same before a tap. */
+/** Tablet only: a quiet hint in the right-hand column. Wide screens have no column, so this stays hidden. */
 function SidePlaceholder() {
   const { t } = useT();
   return (
@@ -696,7 +703,7 @@ function SidePlaceholder() {
       data-side-placeholder
       className={cn(
         "pointer-events-none fixed z-0 hidden content-start gap-1 border border-dashed border-line px-5 py-5 text-sm text-muted",
-        "md:grid",
+        "md:grid lg:hidden",
         SIDE_PANEL,
         "md:bottom-auto md:h-40",
       )}
@@ -734,6 +741,7 @@ export function ReaderScreen({
     return saved ? saved.chapter : (legacyChapter(bookId) ?? -1);
   });
   const [scrolled, setScrolled] = useState(0);
+  const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [picked, setPicked] = useState<{
     surface: string;
     paragraph: string;
@@ -1005,6 +1013,7 @@ export function ReaderScreen({
     const el = paragraphElement(index);
     if (!el || !book) return;
     const text = flowText(el);
+    setAnchor(el instanceof HTMLElement ? el : null);
     setPicked(null);
     setHelp({ index });
     setHelpState({ status: "loading" });
@@ -1034,6 +1043,7 @@ export function ReaderScreen({
     const before = block ? flowTextBefore(block, button) : "";
     closeHelp();
     setPhraseHit(null);
+    setAnchor(button instanceof HTMLElement ? button : null);
     setPicked({
       surface,
       paragraph,
@@ -1302,6 +1312,7 @@ export function ReaderScreen({
       {help ? (
         <ParagraphPanel
           state={helpState}
+          anchor={anchor}
           onClose={closeHelp}
           onWord={pickFromParagraph}
         />
@@ -1316,6 +1327,7 @@ export function ReaderScreen({
           bookId={bookId}
           noList={noList}
           chapter={safeIndex}
+          anchor={anchor}
           onClose={() => setPicked(null)}
           onToggle={() => {
             if (!picked) return;
