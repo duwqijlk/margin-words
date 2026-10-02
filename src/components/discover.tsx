@@ -1,6 +1,6 @@
-import { BookPlus, Check, Download } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { BookCover } from "@/components/shelf";
+import { ShelfHeart } from "@/components/shelf-heart";
 import { BookMetaLines, DifficultyControls, matchesBand, type BandChoice, type SortChoice } from "@/components/lexile-ui";
 import {
   bookCardGrid,
@@ -10,14 +10,18 @@ import {
   ListFilters,
   type SeriesChoice,
 } from "@/components/list-filters";
-import { btn, cn, field, ProgressBar } from "@/components/ui";
+import { cn, field } from "@/components/ui";
 import { listPackRecords, type PackRecord } from "@/lib/book-db";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst, type CatalogPack } from "@/lib/packs";
 import { useDownloads } from "@/lib/downloads";
 import { errorText, useT } from "@/lib/i18n";
 import { compareLexile } from "@/lib/lexile";
 import { placeWordList } from "@/lib/place-word-list";
+import { useProgress } from "@/lib/progress-store";
+import { bookHasUserWork } from "@/lib/shelf-heart";
+import { useShelfRemove } from "@/lib/shelf-remove";
 import type { Book } from "@/lib/vocab-model";
+import { useVocab } from "@/lib/vocab-store";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 
 type Row = {
@@ -36,7 +40,7 @@ type Row = {
 };
 
 /**
- * Every book we have, from the books host. Nothing is downloaded until Add to shelf.
+ * Every book we have, from the books host. Nothing is downloaded until the heart is tapped.
  */
 export function DiscoverScreen({
   shelf,
@@ -56,8 +60,10 @@ export function DiscoverScreen({
   const [author, setAuthor] = useState("all");
   const [series, setSeries] = useState<SeriesChoice>("all");
   const [error, setError] = useState("");
+  const [listError, setListError] = useState<Record<string, string>>({});
   const [busyId, setBusyId] = useState("");
   const finished = useDownloads((state) => state.finished);
+  const pendingId = useShelfRemove((state) => state.pending?.bookId ?? "");
   const items = useDownloads((state) => state.items);
   const start = useDownloads((state) => state.start);
 
@@ -150,26 +156,57 @@ export function DiscoverScreen({
   const byPack = useMemo(() => new Map(records.map((record) => [record.packId, record])), [records]);
 
   async function addList(pack: WordListPack) {
-    setError("");
+    setListError((prev) => {
+      const next = { ...prev };
+      delete next[pack.id];
+      return next;
+    });
     setBusyId(pack.id);
     try {
       const bookId = await placeWordList(pack);
       setRecords(await listPackRecords());
       onNeedsEpub(bookId);
     } catch (reason) {
-      setError(errorText(reason, "err.bookAddFailed"));
+      setListError((prev) => ({ ...prev, [pack.id]: errorText(reason, "err.bookAddFailed") }));
     } finally {
       setBusyId("");
     }
   }
 
+  function toggle(row: Row, record: PackRecord | undefined, book: Book | undefined, onShelf: boolean) {
+    if (record && pendingId === record.bookId) {
+      useShelfRemove.getState().undo();
+      return;
+    }
+    if (onShelf && book && record) {
+      const savedWords = useVocab.getState().words.filter((word) => word.bookId === book.id).length;
+      useShelfRemove.getState().ask(
+        book,
+        bookHasUserWork({
+          source: book.source,
+          needsEpub: book.needsEpub,
+          classic: row.kind === "classic",
+          savedWords,
+          progress: useProgress.getState().items[book.id] ?? null,
+        }),
+        savedWords,
+      );
+      return;
+    }
+    if (row.kind === "classic" && row.pack) {
+      useDownloads.getState().dismiss(row.pack.id);
+      void start(BUNDLED_CATALOG_URL, row.pack);
+    } else if (row.list) void addList(row.list);
+  }
+
   function renderCard(row: Row) {
     const record = byPack.get(row.id);
-    const onShelf = Boolean(record && shelfIds.has(record.bookId));
-    const book = onShelf ? shelf.find((item) => item.id === record?.bookId) : undefined;
-    const needs = Boolean(book?.needsEpub);
+    const held = Boolean(record && shelfIds.has(record.bookId) && pendingId !== record.bookId);
+    const book = record ? shelf.find((item) => item.id === record.bookId) : undefined;
+    const needs = Boolean(held && book?.needsEpub);
     const item = row.kind === "classic" ? items[row.id] : undefined;
     const busy = Boolean(item && !item.error) || busyId === row.id;
+    const cardError = busy ? "" : item?.error || listError[row.id] || "";
     return (
       <li
         key={row.key}
@@ -177,74 +214,54 @@ export function DiscoverScreen({
         {...(row.kind === "classic" ? { "data-pack": row.id } : { "data-word-list": row.id })}
       >
         <div className="relative">
-          <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
+          {held && record ? (
+            <button
+              type="button"
+              onClick={() => onOpen(record.bookId)}
+              className="block w-full rounded-md text-left"
+              aria-label={t("pack.openAria", { title: row.title })}
+            >
+              <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
+            </button>
+          ) : (
+            <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
+          )}
           <span
             className={cn(
-              "pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-0.9rem)] rounded-full px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold shadow-sm",
+              "pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-3.25rem)] rounded-full px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold shadow-sm",
               needs ? "bg-warn text-accent-ink" : row.kind === "classic" ? "bg-accent text-accent-ink" : "bg-card/95 text-ink ring-1 ring-line",
             )}
             {...(needs ? { "data-needs-epub": "" } : { "data-kind": row.kind })}
           >
             {needs ? t("shelf.needsEpub") : row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}
           </span>
+          <ShelfHeart
+            pressed={held}
+            busy={busy}
+            fraction={busy && item ? item.fraction : undefined}
+            error={cardError}
+            title={row.title}
+            onClick={() => toggle(row, record, book, held)}
+          />
         </div>
         <div className="grid flex-1 content-start gap-1">
           <h3 className={cardTitleClass} lang="en">
-            {row.title}
+            {held && record ? (
+              <button
+                type="button"
+                onClick={() => onOpen(record.bookId)}
+                className="w-full text-left font-[inherit] text-inherit"
+              >
+                {row.title}
+              </button>
+            ) : (
+              row.title
+            )}
           </h3>
           <p className={cardAuthorClass} lang="en">
             {row.author}
           </p>
           <BookMetaLines lexile={row.lexile} isbn={row.isbn} series={row.series} seriesNumber={row.seriesNumber} />
-        </div>
-        <div className="mt-auto grid gap-2" data-card-actions>
-          {busy && item ? (
-            <div className="grid gap-1.5" aria-live="polite">
-              <ProgressBar value={item.fraction} className="h-2" label={t("pack.progressFor", { title: row.title })} />
-              <p className="text-xs tabular-nums text-muted">
-                {t(`pack.stage.${item.stage}`)} · {Math.round(item.fraction * 100)}%
-              </p>
-            </div>
-          ) : onShelf && !needs && record ? (
-            <button
-              type="button"
-              className={cn(btn.ghost, "w-full border border-transparent text-accent")}
-              onClick={() => onOpen(record.bookId)}
-              aria-label={t("pack.openAria", { title: row.title })}
-            >
-              <Check className="size-4" aria-hidden />
-              {t("pack.open")}
-            </button>
-          ) : needs && record ? (
-            <button
-              type="button"
-              className={cn(btn.primary, "w-full")}
-              onClick={() => onNeedsEpub(record.bookId)}
-              aria-label={t("discover.addEpubAria", { title: row.title })}
-            >
-              <BookPlus className="size-4" aria-hidden />
-              {t("discover.addEpub")}
-            </button>
-          ) : (
-            <button
-              type="button"
-              className={cn(btn.primary, "w-full")}
-              disabled={busy}
-              aria-label={t("discover.addAria", { title: row.title })}
-              onClick={() => {
-                if (row.kind === "classic" && row.pack) void start(BUNDLED_CATALOG_URL, row.pack);
-                else if (row.list) void addList(row.list);
-              }}
-            >
-              <Download className="size-4" aria-hidden />
-              {busyId === row.id ? t("discover.working") : t("discover.add")}
-            </button>
-          )}
-          {item?.error ? (
-            <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">
-              {item.error}
-            </p>
-          ) : null}
         </div>
       </li>
     );

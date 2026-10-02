@@ -317,14 +317,37 @@
     animation: pop-in 0.16s ease-out;
   }
 
-  /* Cover lift on hover. Off when the person prefers less motion. */
+  @keyframes heart-in {
+    0% {
+      transform: scale(0.55);
+    }
+    55% {
+      transform: scale(1.18);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* Cover lift on hover, and the heart pop. Off when the person prefers less motion. */
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     .book-card:hover .cover-frame,
+    .book-card:hover .shelf-heart,
     button:hover > .cover-frame {
       transform: translateY(-4px);
+    }
+
+    .book-card:hover .cover-frame,
+    button:hover > .cover-frame {
       box-shadow:
         0 1px 2px rgb(0 0 0 / 0.16),
         0 14px 24px -12px rgb(0 0 0 / 0.38);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .shelf-heart[aria-pressed="true"] .heart-icon {
+      animation: heart-in 0.28s ease;
     }
   }
 
@@ -337,6 +360,7 @@
     }
 
     .book-card:hover .cover-frame,
+    .book-card:hover .shelf-heart,
     button:hover > .cover-frame {
       transform: none;
     }

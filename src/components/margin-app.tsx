@@ -25,6 +25,7 @@ import { OwnEpubDialog } from "@/components/own-epub-dialog";
 import { ReaderScreen } from "@/components/reader";
 import { ReviewScreen } from "@/components/review";
 import { Shelf, useCovers } from "@/components/shelf";
+import { ShelfRemoveHost } from "@/components/shelf-heart";
 import { btn, cn } from "@/components/ui";
 import { LanguageButton } from "@/components/language";
 import { WordListDialog, type ListFlow } from "@/components/word-list";
@@ -525,6 +526,7 @@ export function MarginApp() {
         onOpenChange={setSettingsOpen}
         onSaved={() => setSettingsVersion((n) => n + 1)}
       />
+      <ShelfRemoveHost />
       <WordListDialog
         flow={listFlow}
         books={orderedBooks

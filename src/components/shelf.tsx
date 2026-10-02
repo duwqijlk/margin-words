@@ -11,7 +11,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { deleteStoredBook, loadAllCovers } from "@/lib/book-db";
+import { loadAllCovers } from "@/lib/book-db";
 import {
   overallProgress,
   relativeTime,
@@ -23,7 +23,9 @@ import { useVocab } from "@/lib/vocab-store";
 import type { Book, VocabEntry } from "@/lib/vocab-model";
 import { useT, type Key } from "@/lib/i18n";
 import { useClassicBookIds, useClassicsRunning } from "@/lib/classics";
-import { markPackRemoved } from "@/lib/removed-packs";
+import { bookHasUserWork } from "@/lib/shelf-heart";
+import { forgetBook, useShelfRemove } from "@/lib/shelf-remove";
+import { ShelfHeart } from "@/components/shelf-heart";
 import { btn, cn, ConfirmDialog, field, ProgressBar } from "@/components/ui";
 import { compareLexile } from "@/lib/lexile";
 import {
@@ -437,21 +439,39 @@ function BookCard({
         </button>
         {book.needsEpub ? (
           <span
-            className="pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-0.9rem)] rounded-full bg-warn px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
+            className="pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-3.25rem)] rounded-full bg-warn px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
             data-needs-epub
           >
             {t("shelf.needsEpub")}
           </span>
         ) : classic ? (
           <span
-            className="pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-0.9rem)] rounded-full bg-accent px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
+            className="pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-3.25rem)] rounded-full bg-accent px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
             data-classic-label
           >
             {t("shelf.classic")}
           </span>
         ) : null}
+        <ShelfHeart
+          pressed
+          title={book.title}
+          onClick={() => {
+            const savedWords = row.words;
+            useShelfRemove.getState().ask(
+              book,
+              bookHasUserWork({
+                source: book.source,
+                needsEpub: book.needsEpub,
+                classic,
+                savedWords,
+                progress: row.progress ?? null,
+              }),
+              savedWords,
+            );
+          }}
+        />
         {row.due > 0 ? (
-          <span className="pointer-events-none absolute top-2 right-2 rounded-full bg-warn px-2 py-0.5 text-[0.7rem] font-bold text-accent-ink tabular-nums shadow">
+          <span className="pointer-events-none absolute right-2 bottom-2 z-[1] rounded-full bg-warn px-2 py-0.5 text-[0.7rem] font-bold text-accent-ink tabular-nums shadow">
             {t("shelf.due", { n: row.due })}
           </span>
         ) : null}
@@ -568,8 +588,7 @@ export function Shelf({
 }) {
   const { t, tn } = useT();
   const progress = useProgress((state) => state.items);
-  const removeProgress = useProgress((state) => state.remove);
-  const deleteBook = useVocab((state) => state.deleteBook);
+  const pendingId = useShelfRemove((state) => state.pending?.bookId ?? "");
   const classicIds = useClassicBookIds(books.map((book) => book.id).join("|"));
   const installingClassics = useClassicsRunning((state) => state.running);
   const [query, setQuery] = useState("");
@@ -580,9 +599,13 @@ export function Shelf({
   const [renaming, setRenaming] = useState<Book | null>(null);
   const [deleting, setDeleting] = useState<Book | null>(null);
 
+  const liveBooks = useMemo(
+    () => books.filter((book) => book.id !== pendingId),
+    [books, pendingId],
+  );
   const rows = useMemo<Row[]>(
     () =>
-      books.map((book) => {
+      liveBooks.map((book) => {
         const mine = words.filter((word) => word.bookId === book.id);
         const stat = summarize(mine);
         return {
@@ -593,7 +616,7 @@ export function Shelf({
           due: stat.due,
         };
       }),
-    [books, words, progress],
+    [liveBooks, words, progress],
   );
 
   /** Recent first: the book read last, then the book added last. */
@@ -656,11 +679,11 @@ export function Shelf({
       <header className="flex items-end justify-between gap-3">
         <div className="grid gap-0.5">
           <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("shelf.title")}</h1>
-          {ready && books.length > 0 ? (
-            <p className="text-sm text-muted">{tn("count.book", books.length)}</p>
+          {ready && liveBooks.length > 0 ? (
+            <p className="text-sm text-muted">{tn("count.book", liveBooks.length)}</p>
           ) : null}
         </div>
-        {ready && books.length > 0 ? (
+        {ready && liveBooks.length > 0 ? (
           <button type="button" className={btn.primary} onClick={onAdd} disabled={importing}>
             <Plus className="size-5" aria-hidden />
             {importing ? t("shelf.importing") : t("shelf.add")}
@@ -672,7 +695,7 @@ export function Shelf({
         <ShelfSkeleton />
       ) : books.length === 0 && !importing ? (
         <EmptyShelf importing={importing} onAdd={onAdd} onDemo={onDemo} />
-      ) : (
+      ) : liveBooks.length === 0 ? null : (
         <>
           {hero && !q && !filtering ? (
             <ContinueCard
@@ -685,7 +708,7 @@ export function Shelf({
           <section className="grid gap-4" aria-label={t("shelf.all")}>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="font-display text-xl font-semibold">{t("shelf.all")}</h2>
-              {books.length >= 2 ? (
+              {liveBooks.length >= 2 ? (
                 <div className="flex flex-wrap gap-2">
                   <DifficultyControls
                     sort={sort}
@@ -704,7 +727,7 @@ export function Shelf({
                   />
                 </div>
               ) : null}
-              {books.length >= SEARCH_FROM ? (
+              {liveBooks.length >= SEARCH_FROM ? (
                 <label className="relative w-full max-w-64">
                   <span className="sr-only">{t("shelf.search")}</span>
                   <Search
@@ -797,14 +820,8 @@ export function Shelf({
         onConfirm={() => {
           if (!deleting) return;
           const id = deleting.id;
-          // The "removed" flag needs the pack record, so it is written before the book goes.
-          void markPackRemoved(id)
-            .catch(() => undefined)
-            .then(() => deleteStoredBook(id))
-            .catch(() => undefined);
-          removeProgress(id);
-          deleteBook(id);
           setDeleting(null);
+          void forgetBook(id);
         }}
       />
     </div>

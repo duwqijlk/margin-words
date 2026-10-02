@@ -18,7 +18,7 @@ Dev and `npm run build:local` serve this folder on the same origin so tests run 
    - `info.json`: `{ "title": "...", "author": "...", "order": 13, "notes": "Free classic. Public domain in the USA.", "lexile": "880L" }`
      (`"lexile"` is optional, a published measure such as `880L`; see `docs/LEXILE_SOURCES.md`.
      `"preinstall": true` puts the book on every new shelf. Leave `preinstall` out and the book stays on
-     Discover until the reader taps Add to shelf. Only Alice's Adventures in Wonderland sets `preinstall`.)
+     Discover until the reader taps the heart on the cover. Only Alice's Adventures in Wonderland sets `preinstall`.)
 2. Rebuild the catalog and the local sideload zips: `node scripts/build-packs.mjs --out public-books`
 3. `npm run build:books`, then upload `dist-books/`. The hosted catalog sets each `zip` to null and omits
    `all-packs.zip`. The app downloads the loose files when the reader adds the book.

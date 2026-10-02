@@ -11,8 +11,8 @@
  * Runs in English and Chinese, at 1280px and 390px. Checks:
  *   - FIRST OPEN: the shelf shows only Alice, with a cover, a Lexile measure and the
  *     "Free classic" label; it opens and a word can be looked up
- *   - DISCOVER: lists all 12 classics and the 10 word lists (covers, Lexile). Alice is already "Read".
- *     Adding Peter and Wendy and Looking-Glass downloads them; they open, and they still open offline
+ *   - DISCOVER: lists all 12 classics and the 10 word lists (covers, Lexile). Alice's heart is filled.
+ *     The heart adds Peter and Wendy and Looking-Glass; they open from the cover, and they still open offline
  *   - deleting Alice keeps it deleted after a reload (the "removed" flag); the shelf can be emptied
  *   - a fresh visit that goes offline after the first load still opens the app and Alice, and Alice
  *     can be downloaded again from Discover while offline (the service worker keeps that download)
@@ -718,14 +718,26 @@ async function run(lang, size) {
     );
     ok(
       (await vp.locator('[data-pack="alice"]').getByRole("button", { name: labelRe(t("pack.openAria")) }).count()) === 1,
-      `${label}: Alice is already on the shelf (Read)`,
+      `${label}: Alice's cover opens the book`,
+    );
+    ok(
+      (await vp.locator('[data-pack="alice"] [data-shelf-heart]').getAttribute("aria-pressed")) === "true",
+      `${label}: Alice's heart is filled`,
+    );
+    ok(
+      (await vp.locator("[data-discover] [data-card-actions]").count()) === 0,
+      `${label}: Discover cards have no button under the book`,
     );
     for (const c of CLASSICS) {
       const card = vp.locator(`[data-pack="${c.id}"]`);
       if (c.id !== "alice") {
         ok(
           (await card.getByRole("button", { name: labelRe(t("discover.addAria")) }).count()) === 1,
-          `${label}: ${c.id} waits for Add to shelf`,
+          `${label}: ${c.id} waits for the heart`,
+        );
+        ok(
+          (await card.locator("[data-shelf-heart]").getAttribute("aria-pressed")) === "false",
+          `${label}: ${c.id} heart is empty`,
         );
       }
       ok(
@@ -744,6 +756,39 @@ async function run(lang, size) {
       await card.getByRole("button", { name: labelRe(t("pack.openAria")) }).waitFor({ timeout: 120000 });
     }
     ok(true, `${label}: Peter and Wendy and Looking-Glass were added from Discover`);
+
+    {
+      const peter = vp.locator('[data-pack="peter-pan"]');
+      await peter.scrollIntoViewIfNeeded();
+      await peter.locator("[data-shelf-heart]").click();
+      await vp.locator("[data-undo-toast]").waitFor({ timeout: 10000 });
+      ok(true, `${label}: removing a book that was just added shows undo`);
+      await vp.getByRole("button", { name: t("discover.undo"), exact: true }).click();
+      await vp.locator("[data-undo-toast]").waitFor({ state: "hidden" });
+      ok(
+        (await peter.locator("[data-shelf-heart]").getAttribute("aria-pressed")) === "true",
+        `${label}: undo puts the book back on the shelf`,
+      );
+      await vp.evaluate(() => {
+        const nb = JSON.parse(localStorage.getItem("cibian-notebook-v1"));
+        const book = nb.state.books.find((item) => String(item.title).includes("Peter"));
+        const raw = JSON.parse(localStorage.getItem("cibian-progress-v1") || '{"state":{"items":{}}}');
+        raw.state = raw.state || { items: {} };
+        raw.state.items = raw.state.items || {};
+        raw.state.items[book.id] = { chapter: 2, chapters: 12, scroll: 0.3, updatedAt: Date.now() };
+        localStorage.setItem("cibian-progress-v1", JSON.stringify(raw));
+      });
+      await vp.reload();
+      await openDiscover();
+      const again = vp.locator('[data-pack="peter-pan"]');
+      await again.scrollIntoViewIfNeeded();
+      await again.locator('[data-heart-state="on"]').waitFor({ timeout: 30000 });
+      await again.locator("[data-shelf-heart]").click();
+      await vp.getByRole("alertdialog").waitFor({ timeout: 10000 });
+      ok(true, `${label}: a book with reading progress asks before it is removed`);
+      await vp.getByRole("button", { name: t("common.cancel"), exact: true }).click();
+      await vp.getByRole("alertdialog").waitFor({ state: "hidden" });
+    }
 
     await vp.getByRole("button", { name: t("nav.shelf"), exact: true }).first().click();
     await vp.locator("ul li [data-classic-label]").nth(2).waitFor({ timeout: 30000 });
@@ -796,6 +841,38 @@ async function run(lang, size) {
     await vctx.setOffline(false);
     ok(verrors.length === 0, `${label}: no page errors on the Free books visit${verrors.length ? " " + verrors[0] : ""}`);
     await vctx.close();
+  }
+
+  // A failed download is checked with the service worker blocked: otherwise the worker
+  // answers the aborted request from the network and the book is added anyway.
+  if (size === "desktop") {
+    const fctx = await browser.newContext({
+      viewport,
+      locale: lang === "zh" ? "zh-CN" : "en-US",
+      serviceWorkers: "block",
+    });
+    const fp = await fctx.newPage();
+    await fp.route("**/jungle-book/book.epub", (route) => route.abort());
+    await fp.goto(BASE);
+    await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
+    await fp.getByRole("button", { name: t("nav.discover"), exact: true }).first().click();
+    const failed = fp.locator('[data-pack="jungle-book"]');
+    await failed.waitFor({ timeout: 30000 });
+    await failed.scrollIntoViewIfNeeded();
+    await failed.locator("[data-shelf-heart]").click();
+    await failed.locator('[data-heart-state="error"]').waitFor({ timeout: 20000 });
+    ok(
+      ((await failed.locator("[data-shelf-heart]").getAttribute("aria-label")) || "").startsWith(
+        t("discover.retryAria").split("{")[0],
+      ),
+      `${label}: a failed download offers retry on the heart`,
+    );
+    ok((await failed.getByRole("alert").count()) === 1, `${label}: a failed download shows an error`);
+    await fp.unroute("**/jungle-book/book.epub");
+    await failed.locator("[data-shelf-heart]").click();
+    await failed.locator('[data-heart-state="on"]').waitFor({ timeout: 120000 });
+    ok(true, `${label}: retry from the heart adds the book`);
+    await fctx.close();
   }
 
   ok(errors.length === 0, `${label}: no page errors${errors.length ? " " + errors[0] : ""}`);

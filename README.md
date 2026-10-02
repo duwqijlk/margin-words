@@ -34,7 +34,7 @@ npx vite build       # static app in dist/
 
 **The reader is a static app.** `dist/` is plain files (HTML, JS, CSS, fonts). It has no server, no server
 functions, and no AI. Open it from any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`).
-The reader loads **twelve free public-domain classics** from the books host (`public-books/`). A new shelf starts with Alice's Adventures in Wonderland only. The other books are on **Discover** and download when you tap Add to shelf. A book you delete is not added again; adding it from Discover clears that. Books already on a device stay there. To add a classic, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists** on the same host (`word-lists/<id>/glossary.json`, plus a card-sized `cover.jpg` taken from `packs/<id>/cover.jpg` when that file exists). A list with no cover uses the generated title-and-author cover. Adding one downloads the word list only and asks for your own e-book of that ISBN. The copyrighted EPUBs are not on the public host.
+The reader loads **twelve free public-domain classics** from the books host (`public-books/`). A new shelf starts with Alice's Adventures in Wonderland only. The other books are on **Discover** and download when you tap the heart on the cover. A book you delete is not added again; adding it from Discover clears that. Books already on a device stay there. To add a classic, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists** on the same host (`word-lists/<id>/glossary.json`, plus a card-sized `cover.jpg` taken from `packs/<id>/cover.jpg` when that file exists). A list with no cover uses the generated title-and-author cover. Adding one downloads the word list only and asks for your own e-book of that ISBN. The copyrighted EPUBs are not on the public host.
 
 All meanings, simple versions, sentence explanations, phrases and examples come from the word list
 (`glossary.json`) of the book. A word that is not in the list shows "No meaning for this word in this book yet."
@@ -61,7 +61,7 @@ Rebuild the folder after you change a book or list: `node scripts/build-packs.mj
    `npm run build:local` leaves book URLs on the same origin for offline tests.
 2. Build the book objects: `npm run build:books` (output: `dist-books/`). Upload every file, using its path as the
    object key (`public-books/...`, `word-lists/...`). There is no per-book zip and no `all-packs.zip` in this folder.
-   The app downloads a classic's loose EPUB, word list and cover only after Add to shelf. Word-list covers in
+   The app downloads a classic's loose EPUB, word list and cover only after the heart on its cover is tapped. Word-list covers in
    this folder are the resized JPEGs.
 
    ```
@@ -87,7 +87,9 @@ File addresses in `catalog.json` are relative to the catalog file, so the folder
 
 1. Open the app. A new shelf has Alice's Adventures in Wonderland. Tap **Discover** for every other book
    (the free classics and the word lists), with search and the difficulty, author, and series filters.
-2. Press **Add to shelf**. A free classic downloads then. A word-list book downloads its word list and asks
+2. Tap the heart on a cover. A filled red heart means the book is on the shelf; tap it again to remove it.
+   A fresh book can be undone. A book you have started reading, or one with your own e-book, asks first.
+   A free classic downloads when the heart is tapped. A word-list book downloads its word list and asks
    for your own e-book of the ISBN on the card. A match under 80% is shown before it is saved. The book and
    its word list are stored in the browser (IndexedDB). **Add book** is still the way to import a pack `.zip`,
    or to use a catalog address you set in Settings.

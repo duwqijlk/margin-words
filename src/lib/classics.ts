@@ -5,7 +5,7 @@
  * To add one, drop a folder public-books/<id>/ with book.epub, glossary.json, optional cover.jpg and
  * info.json ({"title","author","order"}), then run `node scripts/build-packs.mjs --out public-books`
  * (see public-books/README.md). The other classics are listed on Discover and download when the reader
- * taps Add to shelf. Only a book whose info.json has "preinstall": true (the catalog then carries
+ * taps the heart on the cover. Only a book whose info.json has "preinstall": true (the catalog then carries
  * preinstall: true) is put on the shelf by itself. Alice's Adventures in Wonderland is the only one.
  *
  * On start the app installs the preinstall books that are not on the shelf yet, except a book that the
