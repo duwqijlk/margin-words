@@ -27,11 +27,14 @@
  * those marks are joined into one text node. A line break that only sits between those
  * tags is joined across too. A space in the text, or a block boundary, is not joined.
  * A normal hyphen is kept. A word is Unicode letters and combining marks, with at most
- * one straight apostrophe inside (`café` and `Yucatán` are one word each). Inline tags
- * do not split a word when there is no space between them. A space, line break, `<br>`,
- * or block boundary still separates words. Words are counted per chapter on the text
- * the reader shows; "occurrence" is the 1-based count of one spelling (lower-cased)
- * within the chapter.
+ * one straight apostrophe inside (`café` and `Yucatán` are one word each). A curly
+ * apostrophe still ends a word for counting: `Coral’s` is `coral` then `s`, `couldn’t`
+ * is `couldn` then `t`. (`--find` prints those counted pieces, which is what anchors
+ * use. The reader joins them into one button only when none of the pieces is itself
+ * an entry.) Inline tags do not split a
+ * word when there is no space between them. A space, line break, `<br>`, or block
+ * boundary still separates words. Words are counted per chapter on the text the reader
+ * shows; "occurrence" is the 1-based count of one spelling (lower-cased) within the chapter.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";

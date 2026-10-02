@@ -20,8 +20,9 @@ import { loadBookMeta, loadStoredBook, type Gloss, type StoredBook } from "@/lib
 import {
   entryAppliesAt,
   pickSense,
+  plainSurface,
   readingHtml,
-  WORD_PATTERN,
+  TAP_WORD_PATTERN,
   type OtherMeaning,
 } from "@/lib/glossary-format";
 import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
@@ -44,7 +45,7 @@ import {
   contextPos,
   indexBook,
   isEasyKey,
-  lookupKey,
+  resolveGlossKey,
   sentenceAround,
   type WordStat,
 } from "@/lib/text";
@@ -417,11 +418,17 @@ type CardState = {
   example?: string;
 };
 
-/** The whole sentence around a tapped word (not shortened). */
-function wholeSentence(paragraph: string, surface: string, at: number): string {
-  const exact = paragraph.slice(at, at + surface.length).toLowerCase() === surface.toLowerCase();
+/** The whole sentence around a tapped word, and where that word starts inside it. */
+function locateSentence(
+  paragraph: string,
+  surface: string,
+  at: number,
+): { text: string; offset: number } {
+  const exact =
+    at >= 0 &&
+    paragraph.slice(at, at + surface.length).toLowerCase() === surface.toLowerCase();
   const idx = exact ? at : paragraph.toLowerCase().indexOf(surface.toLowerCase());
-  if (idx < 0) return paragraph.slice(0, 600);
+  if (idx < 0) return { text: paragraph.slice(0, 600), offset: -1 };
   let start = 0;
   let end = paragraph.length;
   for (const mark of [".", "?", "!"]) {
@@ -430,7 +437,14 @@ function wholeSentence(paragraph: string, surface: string, at: number): string {
     const z = paragraph.indexOf(mark, idx + surface.length);
     if (z >= 0) end = Math.min(end, z + 1);
   }
-  return paragraph.slice(start, end).trim();
+  const raw = paragraph.slice(start, end);
+  const lead = raw.length - raw.trimStart().length;
+  return { text: raw.trim(), offset: idx - start - lead };
+}
+
+/** The whole sentence around a tapped word (not shortened). */
+function wholeSentence(paragraph: string, surface: string, at: number): string {
+  return locateSentence(paragraph, surface, at).text;
 }
 
 type PhraseHit = {
@@ -819,23 +833,25 @@ export function ReaderScreen({
     const sparse = new Map<string, Gloss>();
     // Word lists may name extra forms ("sawn" -> "saw"); the book's own list decides.
     const forms = new Map<string, string>();
+    // Stored key for each straightened spelling, so a curly apostrophe still finds the entry.
+    const keys = new Map<string, string>();
     if (book) {
       for (const [key, gloss] of Object.entries(book.glossary)) {
         ready.add(key);
+        if (!keys.has(key)) keys.set(key, key);
+        const straight = plainSurface(key);
+        if (!keys.has(straight)) keys.set(straight, key);
         if (gloss.senseOnly === true) sparse.set(key, gloss);
-        for (const form of gloss.forms ?? []) if (!forms.has(form)) forms.set(form, key);
+        for (const form of gloss.forms ?? []) {
+          const name = plainSurface(form);
+          if (name && !forms.has(name)) forms.set(name, key);
+        }
       }
     }
-    return { ready, forms, sparse };
+    return { ready, forms, sparse, keys };
   }, [book]);
   const resolveKey = useCallback(
-    (surface: string) => {
-      const plain = lookupKey(surface);
-      if (marked.ready.has(plain)) return plain;
-      const exact = surface.toLowerCase();
-      if (marked.ready.has(exact)) return exact;
-      return marked.forms.get(exact) ?? plain;
-    },
+    (surface: string) => resolveGlossKey(surface, marked.keys, marked.forms),
     [marked],
   );
   const linkedHtml = useMemo(
@@ -986,16 +1002,19 @@ export function ReaderScreen({
 
   const pickedKey = picked ? resolveKey(picked.surface) : "";
   // A phrasal verb or idiom that contains the tapped word (from the word list).
-  const pickedSentence = picked
-    ? wholeSentence(picked.paragraph, picked.surface, picked.before.length)
-    : "";
-  const phraseAt = picked ? `${picked.index}|${picked.surface}|${pickedSentence}` : "";
+  const located = picked
+    ? locateSentence(picked.paragraph, picked.surface, picked.before.length)
+    : null;
+  const pickedSentence = located?.text ?? "";
+  const phraseOffset = located?.offset ?? -1;
+  const phraseAt = picked ? `${picked.index}|${picked.surface}|${pickedSentence}|${phraseOffset}` : "";
   useEffect(() => {
     if (!picked || !pickedSentence) return;
     let alive = true;
     const at = phraseAt;
     const surface = picked.surface;
-    void findPhrase(bookId, pickedSentence, surface).then((hit) => {
+    const offset = phraseOffset;
+    void findPhrase(bookId, pickedSentence, surface, offset >= 0 ? offset : undefined).then((hit) => {
       if (alive) setPhraseHit(hit ? { at, hit } : null);
     });
     return () => {
@@ -1058,11 +1077,11 @@ export function ReaderScreen({
     if (!help) return;
     const el = paragraphElement(help.index);
     if (!el) return;
-    const tokens = (word.match(new RegExp(WORD_PATTERN, "gu")) ?? []).map((t) => t.toLowerCase());
+    const tokens = (word.match(new RegExp(TAP_WORD_PATTERN, "gu")) ?? []).map((t) => plainSurface(t));
     if (tokens.length === 0) return;
     const buttons = [...el.querySelectorAll<HTMLButtonElement>("button[data-word]")];
     const same = (i: number) =>
-      tokens.every((t, k) => (buttons[i + k]?.dataset.word ?? "").toLowerCase() === t);
+      tokens.every((t, k) => plainSurface(buttons[i + k]?.dataset.word ?? "") === t);
     let at = -1;
     for (let i = 0; i < buttons.length; i += 1) {
       if (same(i)) {
@@ -1071,7 +1090,7 @@ export function ReaderScreen({
       }
     }
     if (at < 0) {
-      at = buttons.findIndex((b) => tokens.includes((b.dataset.word ?? "").toLowerCase()));
+      at = buttons.findIndex((b) => tokens.includes(plainSurface(b.dataset.word ?? "")));
       if (at < 0) return;
       pickButton(buttons[at] as Element);
       return;

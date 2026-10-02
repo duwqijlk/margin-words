@@ -85,13 +85,16 @@ export const DEFAULT_WHY_HARD = "This word is harder than everyday English.";
 /* ------------------------------------------------------------------ tokenization */
 
 /**
- * THE word rule. A "word" is a run of Unicode letters (with any combining marks on
- * them), optionally followed by ONE straight apostrophe and more letters. So `café`,
- * `Yucatán`, and `e` plus U+0301 are each one word. A curly apostrophe, a hyphen, or
- * a digit ends a word.
- * The reader, the validator and the text tool all use exactly this rule, on each
- * text node of the chapter. Inline tags do not split a word when nothing between
- * them is a space: `<span class="big">J</span>ack` is `Jack`. A real space, a line
+ * THE word rule for counting. A "word" is a run of Unicode letters (with any combining
+ * marks on them), optionally followed by ONE straight apostrophe and more letters.
+ * So `café`, `Yucatán`, and `e` plus U+0301 are each one word. A curly apostrophe,
+ * a hyphen, or a digit ends a word: `Coral’s` counts as `coral` and `s`, and
+ * `couldn’t` counts as `couldn` and `t`. Anchors were written against this count.
+ * The reader, the validator and the text tool all use exactly this rule when they
+ * number words. The tap button is wider (see `TAP_WORD_PATTERN`): a curly
+ * contraction or possessive is one button, and `countSurface` is the spelling its
+ * `data-n` still uses. Inline tags do not split a word when nothing between them
+ * is a space: `<span class="big">J</span>ack` is `Jack`. A real space, a line
  * break, a `<br>`, or a block boundary still separates words.
  * Soft hyphens are removed first (see `stripWordBreaksIn`). When a soft hyphen, or an
  * in-word zero-width mark, sits between two inline tags, the letters on both sides are
@@ -100,6 +103,35 @@ export const DEFAULT_WHY_HARD = "This word is harder than everyday English.";
  * is kept and still ends a word.
  */
 export const WORD_PATTERN = "(?:\\p{L}\\p{M}*)+(?:'(?:\\p{L}\\p{M}*)+)?";
+
+/**
+ * Widest button boundary. Same as `WORD_PATTERN`, plus one curly single quote
+ * (U+2018 or U+2019) or modifier apostrophe (U+02BC) inside the word.
+ * `readingHtml` keeps that join only when none of the counted pieces is already
+ * in the word list (`tapSegments`). `Cap’n` stays `Cap` + `n` when `cap` is an
+ * entry. `couldn’t` is one button when `couldn` and `t` are not.
+ * Occurrence numbers still use `WORD_PATTERN`.
+ */
+export const TAP_WORD_PATTERN =
+  "(?:\\p{L}\\p{M}*)+(?:['\u2018\u2019\u02BC](?:\\p{L}\\p{M}*)+)?";
+
+const CURLY_APOSTROPHE = /[\u2018\u2019\u02BC]/;
+
+/** Lower case, with typographic apostrophes folded to a straight apostrophe (U+0027). */
+export function plainSurface(surface: string): string {
+  return surface.toLowerCase().replace(CURLY_APOSTROPHE, "'");
+}
+
+/**
+ * The spelling `data-n` counts. A straight apostrophe stays in the word (`don't`).
+ * A curly one still counts as the pieces it made before (`Coral’s` -> `coral`,
+ * `couldn’t` -> `couldn`). The button shows the whole word; this is only its number.
+ */
+export function countSurface(surface: string): string {
+  if (!CURLY_APOSTROPHE.test(surface)) return surface.toLowerCase();
+  const parts = surface.match(new RegExp(WORD_PATTERN, "gu"));
+  return (parts?.[0] ?? surface).toLowerCase();
+}
 
 /**
  * Drop characters that split a word without being visible.
@@ -456,6 +488,59 @@ function joinInlineWords(root: ParentNode) {
 /** Split text into alternating non-word / word parts; the odd indexes are words. */
 export function splitWords(text: string): string[] {
   return text.split(new RegExp(`(${WORD_PATTERN})`, "u"));
+}
+
+/** Like `splitWords`, but a curly apostrophe stays inside the tap button. */
+export function splitTapWords(text: string): string[] {
+  return text.split(new RegExp(`(${TAP_WORD_PATTERN})`, "u"));
+}
+
+const CURLY_ONLY = /^[\u2018\u2019\u02BC]+$/u;
+
+export type TapSegment =
+  | { kind: "text"; text: string }
+  | { kind: "word"; text: string; words: string[] };
+
+/**
+ * Buttons for one text node.
+ * A curly apostrophe joins the pieces into one button only when `pieceInList`
+ * is false for every counted piece. A piece that main already underlines
+ * (`Cap` in `Cap’n`, `clock` in `o’clock`, `ticket` in `ticket’ll`) stays its
+ * own button, with the curly mark left between the buttons.
+ */
+export function tapSegments(text: string, pieceInList: (piece: string) => boolean): TapSegment[] {
+  const parts = splitWords(text);
+  const out: TapSegment[] = [];
+  let i = 0;
+  while (i < parts.length) {
+    const sep = parts[i] ?? "";
+    if (sep) out.push({ kind: "text", text: sep });
+    i += 1;
+    if (i >= parts.length) break;
+    const words = [parts[i] as string];
+    const gaps: string[] = [];
+    let j = i;
+    while (j + 2 < parts.length && CURLY_ONLY.test(parts[j + 1] ?? "")) {
+      gaps.push(parts[j + 1] as string);
+      words.push(parts[j + 2] as string);
+      j += 2;
+    }
+    if (words.length > 1 && !words.some((word) => pieceInList(word))) {
+      let joined = words[0] as string;
+      for (let k = 0; k < gaps.length; k += 1) joined += gaps[k] + words[k + 1];
+      out.push({ kind: "word", text: joined, words });
+    } else {
+      out.push({ kind: "word", text: words[0] as string, words: [words[0] as string] });
+      for (let k = 0; k < gaps.length; k += 1) {
+        const gap = gaps[k] as string;
+        if (gap) out.push({ kind: "text", text: gap });
+        const word = words[k + 1] as string;
+        out.push({ kind: "word", text: word, words: [word] });
+      }
+    }
+    i = j + 1;
+  }
+  return out;
 }
 
 export function wordsIn(text: string): string[] {
@@ -1454,7 +1539,7 @@ export function matchAnchor(
   senses: GlossarySense[],
   tap: TapInfo,
 ): { at: number; via: "anchor" | "context" } | null {
-  const surface = tap.surface.toLowerCase();
+  const surface = countSurface(tap.surface);
   const paragraph = normText(tap.paragraph);
   const holdsWord = (text: string) => wordsIn(text).some((w) => w.toLowerCase() === surface);
   // Where the tapped word starts inside the normalised paragraph (-1: unknown).
@@ -1573,39 +1658,44 @@ export function readingHtml(
     // Kept so a chapter-opening drop cap can still style the first letter.
     if (dropcap) el.setAttribute("class", "dropcap");
   }
-  // Word rule and counting: src/lib/glossary-format.ts (shared with the command-line tools).
+  // A curly join is one button only when none of its counted pieces is in the list.
+  // data-n still counts every piece with WORD_PATTERN, in order.
   const nodes = wordTextNodes(doc, root);
   let order = 0;
   const seenForms = new Map<string, number>();
+  const pieceInList = (piece: string) => ready.has(resolve(piece));
   for (const node of nodes) {
     const fragment = doc.createDocumentFragment();
-    const parts = splitWords(node.data);
     let offset = 0;
-    parts.forEach((part, at) => {
+    for (const seg of tapSegments(node.data, pieceInList)) {
       const start = offset;
-      offset += part.length;
-      if (at % 2 === 1) {
-        const button = doc.createElement("button");
-        button.type = "button";
-        button.dataset.word = part;
-        button.dataset.i = String(order);
-        order += 1;
-        const form = part.toLowerCase();
-        const nth = (seenForms.get(form) ?? 0) + 1;
-        seenForms.set(form, nth);
-        button.dataset.n = String(nth);
-        button.textContent = part;
-        const key = resolve(part);
-        if (ready.has(key)) {
-          const only = sparse.get(key);
-          if (!only || senseOnlyHit(doc, node, start, key, only, part, nth, chapter))
-            button.className = "book-hard";
-        }
-        fragment.append(button);
-      } else if (part) {
-        fragment.append(doc.createTextNode(part));
+      offset += seg.text.length;
+      if (seg.kind === "text") {
+        fragment.append(doc.createTextNode(seg.text));
+        continue;
       }
-    });
+      const button = doc.createElement("button");
+      button.type = "button";
+      button.dataset.word = seg.text;
+      button.dataset.i = String(order);
+      order += 1;
+      let nth = 1;
+      seg.words.forEach((piece, index) => {
+        const form = piece.toLowerCase();
+        const n = (seenForms.get(form) ?? 0) + 1;
+        seenForms.set(form, n);
+        if (index === 0) nth = n;
+      });
+      button.dataset.n = String(nth);
+      button.textContent = seg.text;
+      const key = resolve(seg.text);
+      if (ready.has(key)) {
+        const only = sparse.get(key);
+        if (!only || senseOnlyHit(doc, node, start, key, only, seg.text, nth, chapter))
+          button.className = "book-hard";
+      }
+      fragment.append(button);
+    }
     node.parentNode?.replaceChild(fragment, node);
   }
   return root.innerHTML;
@@ -1651,7 +1741,7 @@ export function pickSense(lemma: string, gloss: GlossLike, tap: TapInfo): Picked
   };
   if (senses.length === 0) return finish("entry", -1, entry);
 
-  const surface = tap.surface.toLowerCase();
+  const surface = countSurface(tap.surface);
   const anchored = matchAnchor(lemma, senses, tap);
   if (anchored) return finish(anchored.via, anchored.at, view(senses[anchored.at] as GlossarySense));
   // 3. default sense

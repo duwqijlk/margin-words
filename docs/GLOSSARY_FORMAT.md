@@ -179,19 +179,29 @@ to get right.
 - In each text node, find words with `(?:\p{L}\p{M}*)+(?:'(?:\p{L}\p{M}*)+)?`: Unicode letters,
   including accented letters and combining marks, with at most one **straight** apostrophe `'`
   and more letters. `café`, `Yucatán`, and `e` plus U+0301 are each one word. A curly apostrophe
-  (`’`), a hyphen, a digit or any other mark ends a word. So `don’t` is the two words `don` and `t`;
-  `Muggle-Wump` is `Muggle` and `Wump`; `Twit's` is one word. Inline tags do not split a word when
-  there is no space between them (`<span class="big">J</span>ack` is `Jack`). A space, a line break,
-  a `<br>`, or a block boundary still separates words (`<span>hello</span> <span>world</span>` is
-  `hello` and `world`).
+  (`’` U+2019, `‘` U+2018) or U+02BC, a hyphen, a digit or any other mark ends a word for counting.
+  So `don’t` is the two counted words `don` and `t`; `Coral’s` is `Coral` and `s`; `Muggle-Wump`
+  is `Muggle` and `Wump`; `Twit's` (straight apostrophe) is one word. Inline tags do not split a
+  word when there is no space between them (`<span class="big">J</span>ack` is `Jack`). A space,
+  a line break, a `<br>`, or a block boundary still separates words
+  (`<span>hello</span> <span>world</span>` is `hello` and `world`).
+- The tap button joins a curly apostrophe only when **none** of the counted pieces is itself
+  in the word list. `couldn’t` is one button (`couldn` and `t` are not entries); the curly glyph
+  stays, and the tap looks up the straight spelling `couldn't`. `Cap’n`, `o’clock` and `ticket’ll`
+  stay split, because `cap`, `clock` and `ticket` are entries, so those taps stay the buttons main
+  drew. `data-n` is the occurrence of the button's first counted piece. Pieces that are not buttons
+  are still counted, so later anchors do not move. A straight apostrophe is unchanged: `Coral's`
+  is already one word and counts as `coral's`, not as `coral`. When `coral` is an entry, `Coral’s`
+  stays the button `Coral` (plus `s`), which is occurrence 1 of `coral`.
 - A word is compared in lower case. `occurrence` counts how many times that exact lower-case
   spelling has appeared **so far in the chapter**, starting at 1, including headings.
   The count starts again at 1 in each chapter. Different spellings do not share a count
-  (`stuck` and `sticks` are counted apart).
-- The tap handler uses the same numbers (`data-n` on each word button in the reader).
+  (`stuck` and `sticks` are counted apart). `Coral’s` still adds one to `coral` and one to `s`.
+- The tap handler uses those numbers (`data-n` on each word button in the reader).
 
-Note that book text uses curly quotes: the word `Twit’s` is `Twit` + `s`. Only the word
+Note that book text uses curly quotes: the word `Twit’s` still counts as `Twit` + `s`. Only the word
 rule above matters for counting; use `extract-epub-text.mjs --find word` and copy the numbers.
+Search for `coral`, not `coral's`, when the book spells it `Coral’s`.
 
 ### 3.3 Context
 

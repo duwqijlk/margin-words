@@ -230,8 +230,15 @@ If you have the project tools, use them (section 8). If not, follow these rules 
 
 A word is a run of Unicode letters, including accented letters and combining marks, with at most one straight
 apostrophe followed by letters: `café` and `Yucatán` are each one word, and so is `e` plus U+0301.
-A curly apostrophe (`’`), a hyphen, a digit or any other character ends a word: `don’t` = `don` + `t`; `Twit's` is one word;
-`Muggle-Wump` = `Muggle` + `Wump`. Inline tags do not split a word when there is no space between them
+A curly apostrophe (`’` U+2019, `‘` U+2018), U+02BC, a hyphen, a digit or any other character ends a word
+for counting: `don’t` = `don` + `t`; `Coral’s` = `Coral` + `s`; `Twit's` (straight apostrophe) is one word;
+`Muggle-Wump` = `Muggle` + `Wump`. The reader joins a curly apostrophe into one button only when none of
+those counted pieces is in the word list: `couldn’t` is one button (the curly glyph stays) and the tap
+looks up `couldn't`. `Cap’n`, `o’clock` and `ticket’ll` stay separate buttons when `cap`, `clock` or
+`ticket` is an entry, so the tap main had still works. The button's occurrence number is the first
+counted piece it shows, and every piece is still counted, so anchors written against this rule do not
+move. A quote that only sits before or after a word does not join it.
+Inline tags do not split a word when there is no space between them
 (`<span class="big">J</span>ack` = `Jack`). A space, a line break, a `<br>`, or a block boundary still separates words.
 Words are compared in lower case. Soft hyphens are removed first, and a zero-width space or word joiner
 inside a word is removed too. When that mark is in its own inline tag between the two halves, the halves
@@ -244,7 +251,8 @@ numbers do not change.
 
 `occurrence` = how many times that exact lower-case spelling has appeared so far in the chapter, counting from 1, in reading
 order, headings included. The count restarts at 1 in each chapter. `stuck` and `sticks` are counted separately. Use `form`
-when the spelling in the book differs from the entry key (`shrinks` vs `shrink`).
+when the spelling in the book differs from the entry key (`shrinks` vs `shrink`). A curly possessive still counts as the
+bare word: `Coral’s` is one occurrence of `coral` (and one of `s`). A straight `Coral's` counts as `coral's`, not `coral`.
 
 ### 5.3 Chapters
 

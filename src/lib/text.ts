@@ -1,5 +1,5 @@
 import { EASY } from "@/lib/easy-words";
-import { WORD_PATTERN } from "@/lib/glossary-format";
+import { plainSurface, WORD_PATTERN } from "@/lib/glossary-format";
 
 export const PREPARE_LIMIT = 240;
 
@@ -19,7 +19,7 @@ const IRREGULAR: Record<string, string> = {
 };
 
 export function lookupKey(token: string): string {
-  const w = token.toLowerCase().replace(/'s$/, "").replace(/'$/, "");
+  const w = plainSurface(token).replace(/'s$/, "").replace(/'$/, "");
   if (IRREGULAR[w]) return IRREGULAR[w];
   if (w.endsWith("ies") && w.length > 4) return `${w.slice(0, -3)}y`;
   if (/(ches|shes|sses|xes|zes|oes)$/.test(w) && w.length > 4) return w.slice(0, -2);
@@ -36,7 +36,7 @@ export function lookupKey(token: string): string {
 }
 
 export function contextPos(surface: string, basePos: string): string {
-  const raw = surface.toLowerCase().replace(/'s$/, "");
+  const raw = plainSurface(surface).replace(/'s$/, "");
   const key = lookupKey(surface);
   if (raw !== key && basePos.includes("noun") && !basePos.startsWith("plural"))
     return "plural noun";
@@ -53,8 +53,9 @@ export function contextPos(surface: string, basePos: string): string {
   return basePos;
 }
 
-// Stems left behind when a contraction is split at a curly apostrophe (don’t -> don + t),
-// and keys whose plural/verb "s" was stripped from a word that is on the easy list (always -> alway).
+// Stems left when a curly contraction is counted (`don’t` -> `don` + `t`). The tap button
+// is the whole word, but these stems stay easy so the counted fragment is not a hard word.
+// Also keys whose plural/verb "s" was stripped from a word on the easy list (`always` -> `alway`).
 const CONTRACTION_STEMS = new Set([
   "don",
   "didn",
@@ -79,6 +80,26 @@ const CONTRACTION_STEMS = new Set([
 
 export function isEasyKey(key: string): boolean {
   return key.length < 3 || EASY.has(key) || CONTRACTION_STEMS.has(key) || EASY.has(`${key}s`);
+}
+
+/**
+ * Glossary key for a tapped word.
+ * `keys` maps a stored spelling (and its straight-apostrophe form) to the stored key.
+ * A plural stem matches a lemma (`carvings` -> `carving` when that entry exists).
+ * It does not match a form of some other entry: `roses` is not `rise` just because
+ * `rose` is a form of `rise`, and `numbers` is not `numb` because `number` is a form.
+ * `forms` is consulted only for the word as written.
+ */
+export function resolveGlossKey(
+  surface: string,
+  keys: ReadonlyMap<string, string>,
+  forms: ReadonlyMap<string, string>,
+): string {
+  const plain = lookupKey(surface);
+  const stored = keys.get(plain);
+  if (stored) return stored;
+  const exact = plainSurface(surface);
+  return keys.get(exact) ?? forms.get(exact) ?? forms.get(surface.toLowerCase()) ?? plain;
 }
 
 export function collectHardWords(paragraphs: string[], limit: number = PREPARE_LIMIT): string[] {

@@ -4,6 +4,7 @@
  * command-line tools can load this file directly. The storage part is help-lookup.ts.
  */
 import { flowText, includesLoose } from "./flow-text.ts";
+import { plainSurface, TAP_WORD_PATTERN } from "./glossary-format.ts";
 import type { ParagraphHelp, PhraseEntry, SentenceHelp } from "./glossary-extras.ts";
 
 /* ------------------------------------------------------------------ text normalising */
@@ -396,14 +397,20 @@ const NO_INFLECT = new Set([
 
 type Token = { w: string; start: number; end: number };
 
-/** Words of a sentence with their positions. A word is letters with at most one inside apostrophe (straight or curly). */
+/**
+ * Words of a sentence with their positions. Same splits as a tap button (`TAP_WORD_PATTERN`):
+ * a hyphen keeps the pieces apart (`good-bye` is `good` and `bye`), so a glossary phrase
+ * written with spaces still matches hyphenated text (`uh oh` in `Uh-oh`). Occurrence
+ * counting still uses `WORD_PATTERN` and is not changed here. A hyphenated run counts as
+ * one word only when a separable phrase measures its gap.
+ */
 export function tokenize(text: string): Token[] {
   const out: Token[] = [];
-  const re = /(?:\p{L}\p{M}*)+(?:['\u2019](?:\p{L}\p{M}*)+)?/gu;
+  const re = new RegExp(TAP_WORD_PATTERN, "gu");
   let m: RegExpExecArray | null = re.exec(text);
   while (m) {
     out.push({
-      w: m[0].toLowerCase().replace(/\u2019/g, "'"),
+      w: plainSurface(m[0]),
       start: m.index,
       end: m.index + m[0].length,
     });
@@ -412,11 +419,7 @@ export function tokenize(text: string): Token[] {
   return out;
 }
 
-const cleanWord = (w: string) =>
-  w
-    .toLowerCase()
-    .replace(/[\u2018\u2019\u02bc]/g, "'")
-    .trim();
+const cleanWord = (w: string) => plainSurface(w).trim();
 
 type Variant = { words: string[]; separable: boolean };
 
@@ -425,12 +428,17 @@ function hasBreak(text: string, from: number, to: number): boolean {
   return /[.,;:!?\u2014\u2013"\u201c\u201d()]|--/.test(text.slice(from, to));
 }
 
+/** Phrase pieces. A hyphen is a word break here too, so `say good-bye` matches the taps `good` and `bye`. */
+function phrasePieces(raw: string): string[] {
+  return cleanWord(raw).split(/[\s-]+/).filter(Boolean);
+}
+
 function variantsOf(key: string, entry: PhraseEntry): Variant[] {
-  const baseWords = cleanWord(key).split(/\s+/).filter(Boolean);
-  if (baseWords.length === 0) return [];
-  const second = baseWords[1];
+  const pieces = phrasePieces(key);
+  if (pieces.length === 0) return [];
+  const second = pieces[1];
   const separable =
-    baseWords.length === 2 &&
+    pieces.length === 2 &&
     PARTICLES.has(second as string) &&
     entry.pos !== "idiom" &&
     entry.pos !== "phrase";
@@ -442,15 +450,19 @@ function variantsOf(key: string, entry: PhraseEntry): Variant[] {
     seen.add(id);
     out.push({ words, separable: sep });
   };
-  // listed forms are written out in full: they match as written, and may be separated when the phrase is a phrasal verb
+  // A listed form is matched as written. "put his pack on" and "paid no attention" stay exact.
+  // A two-word form of a phrasal verb ("puts on") may still take a gap, like the base.
   for (const form of entry.forms ?? []) {
-    const words = cleanWord(form).split(/\s+/).filter(Boolean);
-    add(words, separable && words.length >= 2);
+    const words = phrasePieces(form);
+    add(words, separable && words.length === 2);
   }
-  // the base form, and the same phrase with the first word inflected
-  const first = baseWords[0] as string;
-  const firstForms = NO_INFLECT.has(first) || first.includes("'") ? [first] : verbForms(first);
-  for (const f of firstForms) add([f, ...baseWords.slice(1)], separable);
+  // Inflect the first word only when the glossary did not write it with a hyphen
+  // (`face-to-face` stays one phrase; `say good-bye` still has `said`).
+  const firstRaw = cleanWord(key).split(/\s+/).filter(Boolean)[0] ?? "";
+  const first = pieces[0] as string;
+  const firstForms =
+    firstRaw.includes("-") || NO_INFLECT.has(first) || first.includes("'") ? [first] : verbForms(first);
+  for (const f of firstForms) add([f, ...pieces.slice(1)], separable);
   return out;
 }
 
@@ -459,6 +471,597 @@ function wordFits(expected: string, got: string): boolean {
   if (expected === "someone" || expected === "somebody")
     return OBJECT_PRONOUN.has(got) || got === expected;
   return expected === got;
+}
+
+/**
+ * Particles that head a prepositional phrase and take only a pronoun in the gap
+ * (`come to`, `look after`, `take me to the house`).
+ * `for`, `from` and `into` are separate: a noun phrase in the gap is normal, and so is
+ * a noun phrase after the particle (`keep the team from`, `made straight for`).
+ */
+const PREPOSITION_ENDS = new Set(["to", "at", "with", "of", "after", "about", "by", "across"]);
+
+/**
+ * A particle inside the gap means another phrase has started (`took up in`, `make up for`,
+ * `turned through an arch`). `back`, `around` and `round` are not here: they are fillers
+ * (`put his glasses back on`, `looked around for`). `up` and `down` are fillers only before `into`.
+ */
+const GAP_PARTICLES = new Set(["up", "on", "off", "out", "down", "in", "over", "away", "through"]);
+
+const DEMONSTRATIVE = new Set(["this", "that", "these", "those"]);
+
+const GAP_ADVERBS = new Set([
+  "very",
+  "really",
+  "just",
+  "still",
+  "also",
+  "even",
+  "always",
+  "never",
+  "not",
+  "so",
+  "too",
+  "quite",
+  "rather",
+  "already",
+  "now",
+  "then",
+  "here",
+  "there",
+  "again",
+  "well",
+  "ever",
+  "once",
+  "only",
+  "almost",
+  "enough",
+  "perhaps",
+  "maybe",
+  "soon",
+  "later",
+  "actually",
+  "finally",
+  "suddenly",
+  "quickly",
+  "slowly",
+  "inside",
+  "outside",
+  "upside",
+  "further",
+  "farther",
+  "closer",
+  "nearer",
+  "easier",
+  "harder",
+]);
+
+/** Verbs that are not also ordinary nouns. One of these in the gap is not an object (`jumping`, `find`, `try`). */
+const GAP_VERBS = new Set([
+  "find",
+  "found",
+  "try",
+  "tried",
+  "jump",
+  "jumped",
+  "let",
+  "stuck",
+  "stood",
+  "sat",
+  "went",
+  "came",
+  "ran",
+  "walked",
+  "said",
+  "told",
+  "asked",
+  "saw",
+  "seen",
+  "knew",
+  "thought",
+  "felt",
+  "kept",
+  "going",
+  "coming",
+  "being",
+  "made",
+  "gave",
+  "took",
+  "got",
+  "held",
+  "put",
+  "make",
+  "go",
+  "see",
+  "look",
+  "looks",
+  "give",
+  "take",
+  "get",
+  "hold",
+  "pull",
+  "pulled",
+  "leave",
+  "say",
+  "tell",
+  "ask",
+  "know",
+  "think",
+  "seem",
+  "stand",
+  "sit",
+  "run",
+  "walk",
+  "turn",
+  "turned",
+  "begin",
+  "began",
+  "become",
+  "became",
+  "feel",
+  "showed",
+  "shown",
+  "grow",
+  "grew",
+  "grown",
+  "cry",
+  "cried",
+  "cries",
+  "come",
+  "comes",
+  "break",
+  "broke",
+  "broken",
+  "bring",
+  "brought",
+  "met",
+]);
+
+const ING_NOUNS = new Set([
+  "something",
+  "nothing",
+  "anything",
+  "everything",
+  "morning",
+  "evening",
+  "ceiling",
+  "building",
+  "clothing",
+  "wedding",
+  "painting",
+  "drawing",
+  "during",
+  "opening",
+  "ending",
+  "beginning",
+  "darling",
+  "spring",
+  "string",
+]);
+
+function isIngVerb(w: string): boolean {
+  return w.length >= 6 && w.endsWith("ing") && !ING_NOUNS.has(w);
+}
+
+const ED_NOT_VERBS = new Set(["sacred", "wicked", "rugged", "jagged", "ragged"]);
+
+function isEdVerb(w: string): boolean {
+  return w.length >= 6 && w.endsWith("ed") && !ED_NOT_VERBS.has(w);
+}
+
+function isGapVerb(w: string): boolean {
+  // An -ing word in the gap is allowed (`came running out`). A finite verb or an -ed verb is not.
+  return GAP_VERBS.has(w) || isEdVerb(w);
+}
+
+/** Object pronouns that are not also possessives (`her coat` is a noun phrase; `him stretched` is not). */
+const BARE_PRONOUN = new Set([
+  "it",
+  "him",
+  "me",
+  "us",
+  "you",
+  "them",
+  "himself",
+  "herself",
+  "myself",
+  "yourself",
+  "itself",
+  "ourselves",
+  "themselves",
+  "everyone",
+  "everything",
+  "something",
+  "someone",
+  "nothing",
+  "nobody",
+]);
+
+/** `that`/`this` can be the object (`figure that out`). `up`/`down` before `into` are fillers. */
+function gapWordBreaks(w: string, particle: string): boolean {
+  if (DEMONSTRATIVE.has(w)) return false;
+  if ((w === "up" || w === "down") && particle === "into") return false;
+  if (w === "of") return true;
+  return GAP_BREAKERS.has(w) || GAP_PARTICLES.has(w);
+}
+
+function isPronounGap(words: string[]): boolean {
+  if (words.length === 1 && (OBJECT_PRONOUN.has(words[0] as string) || DEMONSTRATIVE.has(words[0] as string)))
+    return true;
+  if (words.length === 2) {
+    const intens = new Set(["all", "both", "half"]);
+    const [a, b] = words as [string, string];
+    if (OBJECT_PRONOUN.has(a) && intens.has(b)) return true;
+    if (intens.has(a) && OBJECT_PRONOUN.has(b)) return true;
+  }
+  return false;
+}
+
+function isHeadNoun(w: string): boolean {
+  if (w === "one" || w === "ones") return true;
+  if (
+    DETERMINER.has(w) ||
+    OBJECT_PRONOUN.has(w) ||
+    DEMONSTRATIVE.has(w) ||
+    GAP_ADVERBS.has(w) ||
+    GAP_PARTICLES.has(w) ||
+    PREPOSITION_ENDS.has(w) ||
+    PARTICLES.has(w) ||
+    GAP_BREAKERS.has(w) ||
+    isGapVerb(w) ||
+    isIngVerb(w)
+  )
+    return false;
+  return /^[a-z][a-z'-]*$/.test(w);
+}
+
+/** A short object: `it`, `the parkas`, `their new boots`, `all these dangers`, `each one`, `Winter`. */
+function isNounPhrase(words: string[]): boolean {
+  if (words.length === 0 || words.length > 3) return false;
+  const head = words[words.length - 1] as string;
+  const gerund = isIngVerb(head) && words.length >= 2 && DETERMINER.has(words[words.length - 2] as string);
+  if (!gerund && !isHeadNoun(head)) return false;
+  const front = words.slice(0, -1);
+  let dets = 0;
+  for (let i = 0; i < front.length; i += 1) {
+    const w = front[i] as string;
+    if (DETERMINER.has(w)) {
+      dets += 1;
+      if (dets > 2) return false;
+      if (dets === 2 && !["all", "both", "half"].includes(front[0] as string)) return false;
+      continue;
+    }
+    if (isGapVerb(w) || GAP_ADVERBS.has(w) || GAP_PARTICLES.has(w) || GAP_BREAKERS.has(w)) return false;
+    // An -ing word before the noun is an adjective (`the howling wind`, `long snaking trails`).
+  }
+  if (words.length === 3 && dets === 0) {
+    const a = words[0] as string;
+    const b = words[1] as string;
+    if (
+      isGapVerb(a) ||
+      isGapVerb(b) ||
+      GAP_ADVERBS.has(a) ||
+      GAP_ADVERBS.has(b) ||
+      GAP_PARTICLES.has(a) ||
+      GAP_BREAKERS.has(a) ||
+      PARTICLES.has(a)
+    )
+      return false;
+  }
+  return true;
+}
+
+/** Adverb fillers that may sit in a gap beside a real object (`glasses back`, `straight`, `patiently`). */
+const GAP_FILLERS = new Set(["back", "around", "round", "all", "both", "straight", "right"]);
+
+/** Not a real object: `figure a way out`, `took a bite out of`. */
+const LIGHT_HEADS = new Set(["way", "bite"]);
+
+/** Words after a particle that are adverbs, not the start of a noun phrase (`took the masks out first`). */
+const POST_ADVERBS = new Set([
+  "first",
+  "next",
+  "last",
+  "again",
+  "now",
+  "then",
+  "here",
+  "there",
+  "too",
+  "also",
+  "just",
+  "later",
+  "soon",
+  "instead",
+  "already",
+]);
+
+const GET_FORMS = new Set(["get", "gets", "got", "getting"]);
+const MAKE_FORMS = new Set(["make", "makes", "made", "making"]);
+/** `pull the snorkel out of`, `let me out of`, `took her cell out of` stay. `took a bite out of` does not. */
+const OUT_OF_VERBS = new Set([
+  "pull",
+  "pulls",
+  "pulled",
+  "pulling",
+  "let",
+  "lets",
+  "letting",
+  "tear",
+  "tears",
+  "tore",
+  "torn",
+  "tearing",
+  "take",
+  "takes",
+  "took",
+  "taken",
+  "taking",
+  "knock",
+  "knocks",
+  "knocked",
+  "knocking",
+  "come",
+  "comes",
+  "came",
+  "coming",
+]);
+/** `held the painting up to Billy` stays. `took the cape up to his room` does not. */
+const UP_TO_VERBS = new Set([
+  "hold",
+  "holds",
+  "held",
+  "holding",
+  "give",
+  "gives",
+  "gave",
+  "given",
+  "giving",
+  "wake",
+  "wakes",
+  "woke",
+  "woken",
+  "waking",
+]);
+
+function isMannerLy(w: string): boolean {
+  return w.length > 3 && w.endsWith("ly") && !GAP_ADVERBS.has(w);
+}
+
+function isFillerWord(w: string, particle: string): boolean {
+  if (GAP_ADVERBS.has(w)) return false;
+  if (GAP_FILLERS.has(w) || isMannerLy(w)) return true;
+  return (w === "up" || w === "down") && particle === "into";
+}
+
+/** `get all of me back`: `of` is a breaker except in this one shape. */
+function isAllOfPronoun(words: string[]): boolean {
+  if (words.length !== 3) return false;
+  const [a, b, c] = words as [string, string, string];
+  return (a === "all" || a === "both" || a === "half") && b === "of" && (OBJECT_PRONOUN.has(c) || BARE_PRONOUN.has(c));
+}
+
+type GapKind = "pronoun" | "possessive" | "np" | "filler" | "ing" | "bad";
+
+function gapCoreIsBad(words: string[]): boolean {
+  const head = words[words.length - 1] as string;
+  if (LIGHT_HEADS.has(head)) return true;
+  for (let i = 0; i < words.length; i += 1) {
+    const w = words[i] as string;
+    if (isIngVerb(w) && i === words.length - 1 && i > 0) {
+      const prev = words[i - 1] as string;
+      // `turns jumping` is a verb. `the howling wind` keeps the -ing as an adjective.
+      if (!DETERMINER.has(prev)) return true;
+    }
+    if (isGapVerb(w)) return true;
+  }
+  if (words.some((w) => GAP_ADVERBS.has(w) || BARE_PRONOUN.has(w))) return true;
+  return false;
+}
+
+function classifyGap(words: string[], particle: string): GapKind {
+  if (isAllOfPronoun(words)) return "pronoun";
+  if (words.length === 1 && isIngVerb(words[0] as string)) return "ing";
+  if (words.every((w) => isFillerWord(w, particle))) return "filler";
+  const core = [...words];
+  while (core.length > 1 && isFillerWord(core[core.length - 1] as string, particle)) core.pop();
+  if (core.length === 1 && isIngVerb(core[0] as string)) return "ing";
+  if (isPronounGap(core)) return "pronoun";
+  if (core.length === 1 && POSSESSIVE.has(core[0] as string)) return "possessive";
+  if (gapCoreIsBad(core)) return "bad";
+  if (isNounPhrase(core)) return "np";
+  return "bad";
+}
+
+/**
+ * May these words stand between a verb and its particle?
+ * A pronoun, a single possessive (`put his on`), a short noun phrase, or a filler
+ * (`back`, `around`, `straight`, `patiently`, a bare `-ing`) may stand there.
+ * `to` / `after` allow a pronoun only. `for` allows a pronoun or a filler, not a noun
+ * (`made straight for`, not `made a dash for`). `from` and `into` allow a noun phrase.
+ */
+function gapAllowed(words: string[], particle: string, verb: string): boolean {
+  if (words.length < 1 || words.length > 3) return false;
+  if (!isAllOfPronoun(words) && words.some((w) => gapWordBreaks(w, particle))) return false;
+  if (words.includes("show") && particle === "up") return false;
+  const kind = classifyGap(words, particle);
+  if (kind === "bad") return false;
+  if (particle === "for") {
+    // `waited patiently for`, `made straight for`, `ask him for`.
+    // Not `made it especially for` (a pronoun plus an extra adverb).
+    if (kind === "filler" || kind === "ing") return true;
+    if (isPronounGap(words)) return true;
+    return words.length === 1 && POSSESSIVE.has(words[0] as string);
+  }
+  if (particle === "across") return kind === "pronoun" || kind === "filler" || kind === "ing";
+  if (PREPOSITION_ENDS.has(particle)) return kind === "pronoun";
+  if (particle === "into" && GET_FORMS.has(verb) && kind === "np") return false;
+  return true;
+}
+
+const CLAUSE_FOLLOW = new Set([
+  "and",
+  "but",
+  "or",
+  "nor",
+  "so",
+  "when",
+  "while",
+  "because",
+  "if",
+  "then",
+  "although",
+  "though",
+  "where",
+  "until",
+  "unless",
+  "before",
+  "since",
+  "as",
+  "than",
+]);
+
+type Complement = "none" | "np" | "of" | "to" | "and-particle";
+
+/**
+ * What follows the particle. A manner adverb or `first` is not a noun (`took the masks out first`).
+ * An `-ly` word followed by a noun is a name (`Darkly Wynd`), so it counts as a noun phrase.
+ */
+function complementAfter(text: string, tokens: Token[], particleAt: number): Complement {
+  const next = tokens[particleAt + 1];
+  if (!next) return "none";
+  const prev = tokens[particleAt] as Token;
+  if (hasBreak(text, prev.end, next.start)) return "none";
+  const w = next.w;
+  if (w === "and" || w === "or") {
+    const third = tokens[particleAt + 2];
+    const here = tokens[particleAt] as Token;
+    // `up and down` is two particles. `over and over` is the same particle repeated.
+    if (
+      third &&
+      PARTICLES.has(third.w) &&
+      third.w !== here.w &&
+      !hasBreak(text, next.end, third.start)
+    )
+      return "and-particle";
+  }
+  if (CLAUSE_FOLLOW.has(w) && w !== "so") return "none";
+  if (w === "so") {
+    const many = tokens[particleAt + 2];
+    if (many && (many.w === "many" || many.w === "much") && !hasBreak(text, next.end, many.start)) return "np";
+    return "none";
+  }
+  if (POST_ADVERBS.has(w) || GAP_ADVERBS.has(w) || w.endsWith("ward")) return "none";
+  if (
+    w === "beneath" ||
+    w === "under" ||
+    w === "underneath" ||
+    w === "above" ||
+    w === "below" ||
+    w === "inside" ||
+    w === "outside" ||
+    w === "toward" ||
+    w === "towards" ||
+    w === "onto" ||
+    w === "upon" ||
+    w === "without" ||
+    w === "within" ||
+    w === "beside" ||
+    w === "besides" ||
+    w === "against" ||
+    w === "among" ||
+    w === "amid"
+  )
+    return "none";
+  if (isMannerLy(w)) {
+    const after = tokens[particleAt + 2];
+    if (after && !hasBreak(text, next.end, after.start) && (isHeadNoun(after.w) || /^[A-Z]/.test(text.slice(after.start, after.start + 1))))
+      return "np";
+    return "none";
+  }
+  if (w === "of") return "of";
+  if (w === "to") return "to";
+  if (isIngVerb(w)) return "np";
+  if (isGapVerb(w) || GAP_PARTICLES.has(w) || PREPOSITION_ENDS.has(w) || PARTICLES.has(w)) return "none";
+  if (GAP_BREAKERS.has(w) && !DEMONSTRATIVE.has(w) && !DETERMINER.has(w)) return "none";
+  return "np";
+}
+
+/**
+ * A following noun phrase rejects some gaps and keeps others.
+ * Pronoun + `on` + noun phrase is placement (`put it on the table`), not `put on`.
+ * A noun before `on` is the clothing sense (`put his pack on his back`) and stays.
+ * `in` plus a noun phrase is a preposition (`taking place in Darkly Wynd`).
+ * `out of` and `up to` are rejected except for the verbs that really take them
+ * (`pulled the snorkel out of`, `held the painting up to`).
+ */
+function complementRejects(
+  text: string,
+  tokens: Token[],
+  particleAt: number,
+  particle: string,
+  gap: string[],
+  verb: string,
+): boolean {
+  const comp = complementAfter(text, tokens, particleAt);
+  if (comp === "none") return false;
+  if (comp === "and-particle") return true;
+  const kind = classifyGap(gap, particle);
+  if (comp === "of" && particle === "out") {
+    if (kind === "ing") return false;
+    const head = gap[gap.length - 1] as string;
+    if (LIGHT_HEADS.has(head)) return true;
+    return !OUT_OF_VERBS.has(verb);
+  }
+  if (comp === "to" && particle === "up") {
+    if (kind === "filler") return false;
+    return !UP_TO_VERBS.has(verb);
+  }
+  if (comp !== "np") return false;
+  // `came running across the road`: the -ing is the gap, and the road is normal.
+  if (particle === "across" && (kind === "ing" || kind === "filler")) return false;
+  if (PREPOSITION_ENDS.has(particle) || particle === "in") return true;
+  if (particle === "on") {
+    // Pronoun + on + noun is placement (`put it on the table`).
+    if (kind === "pronoun") return true;
+    // A noun before `on` is clothing when what follows is a person, a possessive,
+    // or `all` (`put a costume on him`, `put his pack on his back`, `harnesses on all the dogs`).
+    // `on the ground` / `on the table` stays out.
+    if (kind !== "np") return true;
+    const follow = (tokens[particleAt + 1] as Token).w;
+    const clothing =
+      OBJECT_PRONOUN.has(follow) || POSSESSIVE.has(follow) || follow === "all" || follow === "both" || follow === "half";
+    return !clothing;
+  }
+  // `took them up so many staircases`. `pick you up` and `keep it up all the way` stay.
+  if (particle === "up" && kind === "pronoun") {
+    const follow = tokens[particleAt + 1] as Token;
+    const many = tokens[particleAt + 2];
+    if (follow.w === "so" && many && (many.w === "many" || many.w === "much")) return true;
+  }
+  return false;
+}
+
+function sameHyphen(text: string, a: Token, b: Token): boolean {
+  return a.end + 1 === b.start && text[a.end] === "-";
+}
+
+/** A run of pieces joined by hyphens counts as one word toward the gap limit of 3. */
+function collapseHyphens(text: string, gapTokens: Token[]): string[] {
+  const out: string[] = [];
+  for (let i = 0; i < gapTokens.length; i += 1) {
+    const token = gapTokens[i] as Token;
+    if (i > 0 && sameHyphen(text, gapTokens[i - 1] as Token, token)) out[out.length - 1] = `${out[out.length - 1]}-${token.w}`;
+    else out.push(token.w);
+  }
+  return out;
+}
+
+/** `figuring-things-out` includes the verb. `thumbs-up` does not, so it is not `give up`. */
+function hyphenChainReaches(text: string, tokens: Token[], verbAt: number, particleAt: number): boolean {
+  let i = particleAt;
+  while (i > verbAt && sameHyphen(text, tokens[i - 1] as Token, tokens[i] as Token)) i -= 1;
+  return i === verbAt;
 }
 
 /** All the ways a variant can sit in the sentence tokens, starting at `from`. */
@@ -482,25 +1085,23 @@ function matchAt(
       continue;
     }
     if (k === 1 && variant.separable) {
-      // verb + (up to 3 words) + particle, with nothing that ends a clause in between
+      // verb + a pronoun, a short noun phrase, or a filler + particle.
+      // Up to 3 words, counting a hyphenated run as one word.
       let found = -1;
-      for (let gap = 1; gap <= 3 && at + 1 + gap < tokens.length; gap += 1) {
+      const verb = tokens[at] as Token;
+      for (let gap = 1; gap <= 8 && at + 1 + gap < tokens.length; gap += 1) {
         const cand = tokens[at + 1 + gap] as Token;
-        const gapWords = tokens.slice(at + 1, at + 1 + gap);
-        if (gapWords.some((g) => GAP_BREAKERS.has(g.w))) break;
-        if (hasBreak(text, (tokens[at] as Token).end, cand.start)) break;
-        // "gave her a gift up": a second noun phrase inside the gap means the particle is not part of the verb
-        const second = gapWords[1];
-        if (
-          second &&
-          DETERMINER.has(second.w) &&
-          !["all", "both", "half"].includes((gapWords[0] as Token).w)
-        )
-          break;
-        if (wordFits(want, cand.w)) {
-          found = at + 1 + gap;
-          break;
-        }
+        const gapTokens = tokens.slice(at + 1, at + 1 + gap);
+        const between = collapseHyphens(text, gapTokens);
+        if (between.length > 3) break;
+        if (hasBreak(text, verb.end, cand.start)) break;
+        if (!wordFits(want, cand.w)) continue;
+        const before = tokens[at + gap] as Token;
+        if (sameHyphen(text, before, cand) && !hyphenChainReaches(text, tokens, at, at + 1 + gap)) continue;
+        if (!gapAllowed(between, want, verb.w)) continue;
+        if (complementRejects(text, tokens, at + 1 + gap, want, between, verb.w)) continue;
+        found = at + 1 + gap;
+        break;
       }
       if (found < 0) return null;
       indexes.push(found);
@@ -514,43 +1115,93 @@ function matchAt(
 
 export type PhraseHit = { key: string; entry: PhraseEntry; matched: string };
 
+function gapSize(indexes: number[]): number {
+  return (indexes[indexes.length - 1] as number) - (indexes[0] as number) - (indexes.length - 1);
+}
+
+/** A phrase with no intervening words beats a longer one that jumps a gap. Then more words, then a smaller gap. */
+function phraseScore(indexes: number[]): number {
+  const gap = gapSize(indexes);
+  return (gap === 0 ? 1000 : 0) + indexes.length * 10 - gap;
+}
+
 /**
  * Find the listed phrase that the tapped word belongs to in this sentence.
  * The tapped word must be one of the words of the phrase itself (not a word in the gap).
- * Gives the longest phrase when several fit. Returns null when there is no safe match.
+ * When `tappedAt` is the character offset of the tapped word in `sentenceText`, a phrase
+ * whose match covers that token wins. A match with no gap beats a match that jumps across
+ * other words. If several still cover it, the longest wins, then the smaller gap.
+ * If none covers that token, the same rule is applied to every other match of the word.
+ * Returns null when there is no safe match.
  */
 export function pickPhrase(
   phrases: Record<string, PhraseEntry> | undefined,
   sentenceText: string,
   tappedWord: string,
+  tappedAt?: number,
 ): PhraseHit | null {
   if (!phrases) return null;
   const tapped = cleanWord(tappedWord).replace(/^'+|'+$/g, "");
   if (!tapped) return null;
   const tokens = tokenize(sentenceText);
   if (tokens.length === 0) return null;
-  let best: (PhraseHit & { score: number }) | null = null;
+  let focus = -1;
+  if (typeof tappedAt === "number" && tappedAt >= 0) {
+    focus = tokens.findIndex((token) => tappedAt >= token.start && tappedAt < token.end);
+    if (focus >= 0 && (tokens[focus] as Token).w !== tapped) focus = -1;
+  }
+  const solid: { start: number; indexes: number[] }[] = [];
+  const hits: {
+    key: string;
+    entry: PhraseEntry;
+    matched: string;
+    indexes: number[];
+    covers: boolean;
+    score: number;
+  }[] = [];
   for (const [key, entry] of Object.entries(phrases)) {
     if (!entry || typeof entry.meaning !== "string") continue;
     for (const variant of variantsOf(key, entry)) {
       for (let from = 0; from < tokens.length; from += 1) {
         const hit = matchAt(sentenceText, tokens, from, variant);
         if (!hit) continue;
-        if (!hit.indexes.some((i) => (tokens[i] as Token).w === tapped)) continue;
+        if (gapSize(hit.indexes) === 0) {
+          solid.push({ start: hit.indexes[0] as number, indexes: hit.indexes });
+        }
+        const covers = focus >= 0 && hit.indexes.includes(focus);
+        const wordHit = hit.indexes.some((i) => (tokens[i] as Token).w === tapped);
+        if (!covers && !wordHit) continue;
         const a = tokens[hit.indexes[0] as number] as Token;
         const z = tokens[hit.indexes[hit.indexes.length - 1] as number] as Token;
-        // prefer the phrase with more words; on a tie, the one with the smaller gap
-        const gap =
-          (hit.indexes[hit.indexes.length - 1] as number) -
-          (hit.indexes[0] as number) -
-          (hit.indexes.length - 1);
-        const span = hit.indexes.length * 10 - gap;
-        if (!best || span > best.score) {
-          best = { key, entry, matched: sentenceText.slice(a.start, z.end), score: span };
-        }
+        hits.push({
+          key,
+          entry,
+          matched: sentenceText.slice(a.start, z.end),
+          indexes: hit.indexes,
+          covers,
+          score: phraseScore(hit.indexes),
+        });
       }
     }
   }
+  let bestCover: (typeof hits)[number] | null = null;
+  let bestAny: (typeof hits)[number] | null = null;
+  for (const hit of hits) {
+    const gap = gapSize(hit.indexes);
+    if (gap > 0) {
+      const verbAt = hit.indexes[0] as number;
+      const particleAt = hit.indexes[hit.indexes.length - 1] as number;
+      // "make her show up": `show up` already owns the particle, so `make up` does not.
+      const owned = solid.some(
+        (other) => other.start > verbAt && other.start < particleAt && other.indexes.includes(particleAt),
+      );
+      if (owned) continue;
+    }
+    if (hit.covers) {
+      if (!bestCover || hit.score > bestCover.score) bestCover = hit;
+    } else if (!bestAny || hit.score > bestAny.score) bestAny = hit;
+  }
+  const best = bestCover ?? bestAny;
   return best ? { key: best.key, entry: best.entry, matched: best.matched } : null;
 }
 

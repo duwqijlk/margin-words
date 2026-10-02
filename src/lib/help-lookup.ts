@@ -57,17 +57,20 @@ export async function getSentenceHelp(
 
 /**
  * The listed phrase (phrasal verb or idiom) that the tapped word is part of in this sentence, or null.
+ * `tappedAt` is the character offset of that word inside `sentenceText`, so a sentence with two
+ * phrases that share a word can show the one that covers the tap.
  * `matched` is the text of the phrase as written in the sentence (from its first to its last word).
  */
 export async function findPhrase(
   bookId: string,
   sentenceText: string,
   tappedWord: string,
+  tappedAt?: number,
 ): Promise<{ key: string; entry: PhraseEntry; matched: string } | null> {
   try {
     const extras = await extrasOf(bookId);
     if (!extras || Object.keys(extras.phrases).length === 0) return null;
-    return pickPhrase(extras.phrases, sentenceText, tappedWord);
+    return pickPhrase(extras.phrases, sentenceText, tappedWord, tappedAt);
   } catch {
     return null;
   }
