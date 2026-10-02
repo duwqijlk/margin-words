@@ -72,7 +72,7 @@ export function buildWordLists(packsDir) {
         author: String(info.author ?? data.author ?? ""),
         ...(lexile ? { lexile } : {}),
         ...(isbn ? { isbn } : {}),
-        ...(series && number ? { series, seriesNumber: number } : {}),
+        ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}),
         words: Number(data.count) || Object.keys(data.glossary ?? {}).length,
         glossary: { url: `${id}/glossary.json`, bytes: glossary.length, sha256: sha(glossary) },
       },

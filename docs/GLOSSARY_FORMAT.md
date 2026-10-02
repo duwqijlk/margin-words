@@ -43,8 +43,8 @@ shipped with the app or in the book packs (`src/`, `public/`, `packs/`) must pas
 | `level`, `language` | no | Free text for people. `level` is not shown as the difficulty rating. |
 | `lexile` | no | A Lexile measure for this edition, such as `880L`. The app shows it. Leave it out when you do not have a published measure (the card says unrated). A value that is not a measure is ignored. |
 | `isbn` | no | ISBN-10 or ISBN-13 of this edition. A bad value is ignored. Omit it when you cannot confirm the edition. |
-| `series` | no | Series title. Use with `seriesNumber`. Both are ignored if either is missing. |
-| `seriesNumber` | no | 1-based place in `series`. |
+| `series` | no | Series title. A name alone is kept. |
+| `seriesNumber` | no | 1-based place in `series`. Stored only when `series` is present. A number without a name is ignored. |
 
 Optional top-level parts (section 7): `paragraphs[]`, `sentences[]`, `phrases{}`. Unknown extra fields are allowed and ignored (v1 bundled files carry `example`, `examples`, `count`).
 

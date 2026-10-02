@@ -1,14 +1,24 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildWordLists } from "./lib/word-lists.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const OLD_NARNIA = [
+  "narnia1-magicians-nephew",
+  "narnia2-lion-witch-wardrobe",
+  "narnia3-horse-and-his-boy",
+  "narnia4-prince-caspian",
+  "narnia5-dawn-treader",
+  "narnia6-silver-chair",
+  "narnia7-last-battle",
+];
 
 test("word lists ship glossary files only", () => {
   const { catalog, files } = buildWordLists(join(ROOT, "packs"));
-  assert.ok(catalog.lists.length >= 16);
+  assert.equal(catalog.lists.length, 10);
   for (const file of files) {
     assert.equal(file.name.endsWith(".epub"), false, file.name);
     assert.equal(file.name.endsWith(".zip"), false, file.name);
@@ -19,10 +29,24 @@ test("word lists ship glossary files only", () => {
   assert.equal(charlie.glossary.url, "charlie/glossary.json");
   assert.equal(charlie.cover, undefined);
   assert.equal(charlie.epub, undefined);
-  const narnia = catalog.lists.find((row) => row.id === "narnia1-magicians-nephew");
-  assert.equal(narnia.series, "The Chronicles of Narnia");
-  assert.equal(narnia.seriesNumber, 1);
-  assert.equal(narnia.isbn, undefined);
+  const narnia = catalog.lists.find((row) => row.id === "narnia");
+  assert.equal(narnia.title, "The Chronicles of Narnia (Complete 7-Book Collection)");
+  assert.equal(narnia.author, "C. S. Lewis");
+  assert.equal(narnia.series, "Narnia");
+  assert.equal(narnia.seriesNumber, undefined);
+  assert.equal(narnia.isbn, "9780062245762");
+  assert.equal(narnia.lexile, undefined);
+  assert.equal(narnia.epub, undefined);
+  for (const id of OLD_NARNIA) assert.equal(catalog.lists.some((row) => row.id === id), false, id);
+  const list = JSON.parse(readFileSync(join(ROOT, "packs/narnia/glossary.json"), "utf8"));
+  assert.equal(list.version, 2);
+  assert.equal(list.isbn, "9780062245762");
+  assert.equal(list.series, "Narnia");
+  assert.equal(list.seriesNumber, undefined);
+  assert.equal(list.lexile, undefined);
+  assert.equal(list.sha256, undefined);
+  assert.equal(list.chapters, undefined);
+  assert.ok(list.count > 1000);
   const twits = catalog.lists.find((row) => row.id === "twits");
   assert.equal(twits.isbn, undefined);
 });

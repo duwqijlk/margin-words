@@ -89,9 +89,12 @@ async function rememberFacts(packs: FactSource[]): Promise<void> {
       pair.isbn = fact.isbn;
       changed = true;
     }
-    if (fact.series && fact.seriesNumber && (book.series !== fact.series || book.seriesNumber !== fact.seriesNumber)) {
+    if (
+      fact.series &&
+      (book.series !== fact.series || (book.seriesNumber ?? 0) !== (fact.seriesNumber || 0))
+    ) {
       pair.series = fact.series;
-      pair.seriesNumber = fact.seriesNumber;
+      pair.seriesNumber = fact.seriesNumber || 0;
       changed = true;
     }
     if (changed) pairs.push(pair);

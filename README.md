@@ -41,7 +41,7 @@ All meanings, simple versions, sentence explanations, phrases and examples come 
 
 ### Where the books are
 
-The 16 books are in the top-level folder **`packs/`** (not in `public/`, so they are not in the app bundle):
+The copyrighted books are in the top-level folder **`packs/`** (not in `public/`, so they are not in the app bundle). Nine of them include `book.epub`. The Narnia collection is a word list only (`packs/narnia/glossary.json`, no EPUB):
 
 ```
 packs/catalog.json         list of books (id, title, author, level/notes, sizes, sha256, rev, file URLs)

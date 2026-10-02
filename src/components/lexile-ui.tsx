@@ -51,16 +51,27 @@ export function BookMetaLines({
           {t("isbn.name")} {cleanIsbn}
         </p>
       ) : null}
-      {series && seriesNumber ? (
-        <p
-          className="truncate text-xs text-muted"
-          lang="en"
-          data-series={series}
-          data-series-number={seriesNumber}
-          aria-label={t("series.aria", { name: series, n: seriesNumber })}
-        >
-          {t("series.book", { name: series, n: seriesNumber })}
-        </p>
+      {series ? (
+        seriesNumber ? (
+          <p
+            className="truncate text-xs text-muted"
+            lang="en"
+            data-series={series}
+            data-series-number={seriesNumber}
+            aria-label={t("series.aria", { name: series, n: seriesNumber })}
+          >
+            {t("series.book", { name: series, n: seriesNumber })}
+          </p>
+        ) : (
+          <p
+            className="truncate text-xs text-muted"
+            lang="en"
+            data-series={series}
+            aria-label={t("series.ariaName", { name: series })}
+          >
+            {t("series.name", { name: series })}
+          </p>
+        )
       ) : null}
       {typeof matchRate === "number" ? (
         <p

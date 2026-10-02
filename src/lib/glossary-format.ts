@@ -13,7 +13,7 @@
  */
 
 import type { ParagraphHelp, SentenceHelp, PhraseEntry } from "@/lib/glossary-extras";
-import { isbnDigits, readSeries } from "@/lib/book-meta";
+import { isbnDigits, readSeries, seriesNumber } from "@/lib/book-meta";
 import { lexileMeasure } from "@/lib/lexile";
 
 export type GlossaryAnchor = {
@@ -58,9 +58,9 @@ export type GlossaryFile = {
   lexile?: string;
   /** ISBN-13 of the edition this list was written for. Omitted when unknown. */
   isbn?: string;
-  /** Series title, together with seriesNumber. Omitted when the book is not in a series. */
+  /** Series title. A name alone is enough. Omitted when the book is not in a series. */
   series?: string;
-  /** 1-based place in the series. */
+  /** 1-based place in the series. Omitted when the book has a name but no place. */
   seriesNumber?: number;
   language?: string;
   /** How many chapters the author saw. If the app finds another number, it ignores chapter/occurrence and uses context only. */
@@ -692,8 +692,11 @@ export function validateGlossary(input: unknown): GlossaryCheck {
     const series = readSeries(data.series, data.seriesNumber);
     if (series.series) {
       out.series = series.series;
-      out.seriesNumber = series.seriesNumber;
-    } else issues.warn('"series" needs a name and a number, such as "Narnia" and 1. It was ignored.');
+      if (series.seriesNumber) out.seriesNumber = series.seriesNumber;
+    } else if (seriesNumber(data.seriesNumber))
+      issues.warn('"seriesNumber" needs a series name, such as "Narnia". It was ignored.');
+    else if (data.series !== undefined)
+      issues.warn('"series" should be a short name. It was ignored.');
   }
 
   const rows = Object.entries(data.glossary as Record<string, unknown>);

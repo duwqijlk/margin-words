@@ -45,13 +45,13 @@
     "series": {
       "type": "string",
       "maxLength": 80,
-      "description": "Optional series title. Use with seriesNumber."
+      "description": "Optional series title. A name alone is enough."
     },
     "seriesNumber": {
       "type": "integer",
       "minimum": 1,
       "maximum": 99,
-      "description": "Optional 1-based place in series."
+      "description": "Optional 1-based place in series. Kept only when series is set."
     },
     "language": {
       "type": "string",

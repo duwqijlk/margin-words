@@ -12,10 +12,13 @@ test("isbnDigits keeps a valid ISBN-13 and converts ISBN-10", () => {
   assert.equal(isbnDigits("not an isbn"), "");
 });
 
-test("a series needs both a name and a number", () => {
+test("a series name can stand alone, and a number needs a name", () => {
   assert.deepEqual(readSeries("Alice", 2), { series: "Alice", seriesNumber: 2 });
   assert.deepEqual(readSeries({ name: "Wings of Fire", number: 1 }), { series: "Wings of Fire", seriesNumber: 1 });
-  assert.deepEqual(readSeries("Alice", 0), { series: "", seriesNumber: 0 });
+  assert.deepEqual(readSeries("Narnia"), { series: "Narnia", seriesNumber: 0 });
+  assert.deepEqual(readSeries("Alice", 0), { series: "Alice", seriesNumber: 0 });
+  assert.deepEqual(readSeries({ number: 3 }), { series: "", seriesNumber: 0 });
+  assert.deepEqual(readSeries("", 4), { series: "", seriesNumber: 0 });
 });
 
 test("edition match counts anchor contexts, then other snippets", async () => {

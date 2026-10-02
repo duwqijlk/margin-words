@@ -296,7 +296,10 @@ export function MarginApp() {
   }
 
   function openBook(bookId: string) {
-    const book = books.find((item) => item.id === bookId);
+    // The store updates before React re-renders, so a book just added is visible here.
+    const book =
+      useVocab.getState().books.find((item) => item.id === bookId) ??
+      books.find((item) => item.id === bookId);
     setScreen(book?.source === "epub" ? { kind: "read", bookId } : { kind: "words", bookId });
   }
 

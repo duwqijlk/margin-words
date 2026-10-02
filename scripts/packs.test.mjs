@@ -13,9 +13,21 @@ const catalog = HAS_PACKS ? JSON.parse(readFileSync(join(ROOT, "packs/catalog.js
 const skip = HAS_PACKS ? false : "no packs/ folder (app-only copy)";
 const sha = (file) => createHash("sha256").update(readFileSync(file)).digest("hex");
 
-test("catalog lists 16 packs with the fields readers need", { skip }, () => {
+test("catalog lists 9 packs with the fields readers need", { skip }, () => {
   assert.equal(catalog.format, 1);
-  assert.equal(catalog.packs.length, 16);
+  assert.equal(catalog.packs.length, 9);
+  for (const id of [
+    "narnia",
+    "narnia1-magicians-nephew",
+    "narnia2-lion-witch-wardrobe",
+    "narnia3-horse-and-his-boy",
+    "narnia4-prince-caspian",
+    "narnia5-dawn-treader",
+    "narnia6-silver-chair",
+    "narnia7-last-battle",
+  ]) {
+    assert.equal(catalog.packs.some((pack) => pack.id === id), false, id);
+  }
   for (const pack of catalog.packs) {
     for (const key of ["id", "title", "author", "rev", "epub", "glossary", "zip"]) {
       assert.ok(pack[key], `${pack.id}: missing ${key}`);

@@ -327,6 +327,38 @@ async function run(lang, size) {
   );
   await shot("add");
 
+  // The seven Narnia novels are one collection. The card is a word list, with the omnibus ISBN.
+  await page.locator('[data-word-list="narnia"]').waitFor({ timeout: 20000 });
+  const narniaCard = page.locator('[data-word-list="narnia"]');
+  ok(
+    (await narniaCard.locator("[data-isbn]").getAttribute("data-isbn")) === "9780062245762",
+    `${label}: Narnia collection shows ISBN 9780062245762`,
+  );
+  ok(
+    (await narniaCard.locator("[data-series]").getAttribute("data-series")) === "Narnia",
+    `${label}: Narnia collection series name is Narnia`,
+  );
+  ok(
+    (await narniaCard.locator("[data-series-number]").count()) === 0,
+    `${label}: Narnia collection has no book number`,
+  );
+  ok(
+    (await narniaCard.locator('[data-lexile="unrated"]').count()) === 1,
+    `${label}: Narnia collection has no Lexile`,
+  );
+  ok((await page.locator("[data-word-list]").count()) === 10, `${label}: ten word lists`);
+  for (const id of [
+    "narnia1-magicians-nephew",
+    "narnia2-lion-witch-wardrobe",
+    "narnia3-horse-and-his-boy",
+    "narnia4-prince-caspian",
+    "narnia5-dawn-treader",
+    "narnia6-silver-chair",
+    "narnia7-last-battle",
+  ]) {
+    ok((await page.locator(`[data-word-list="${id}"]`).count()) === 0, `${label}: ${id} is not a separate list`);
+  }
+
   // ---- bare EPUB: friendly message, nothing added (choose)
   await setFile({ name: "my-book.epub", mimeType: "application/epub+zip", buffer: SAMPLE_EPUB });
   await page.locator("[data-bare-epub]").waitFor();

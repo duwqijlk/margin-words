@@ -106,6 +106,8 @@ export const zh: Record<Key, string> = {
   "isbn.aria": "书号 {isbn}",
   "series.book": "{name} 第 {n} 本",
   "series.aria": "{name}，第 {n} 本",
+  "series.name": "系列：{name}",
+  "series.ariaName": "系列 {name}",
   "match.short": "匹配 {n}%",
   "match.aria": "词表匹配百分之 {n}",
   "shelf.authorLabel": "作者",

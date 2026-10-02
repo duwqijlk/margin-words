@@ -3,7 +3,7 @@
 This repo is a full copy of the Margin Words project, moved to a **private** GitHub repo
 (`duwqijlk/margin-words`). Chinese version: [docs/MIGRATION.zh-CN.md](docs/MIGRATION.zh-CN.md).
 
-> **Private repo only.** The 16 books in `packs/` are copyrighted. They are for private use only. This repo must
+> **Private repo only.** The books in `packs/` are copyrighted. They are for private use only. This repo must
 > stay **private**. Never make it public, never fork it to a public place, and never deploy `packs/` to a public site.
 
 ## 1. Overview
@@ -26,7 +26,7 @@ This repo is a full copy of the Margin Words project, moved to a **private** Git
 | `scripts/` | Build, check and test scripts (incl. `build-packs.mjs`, `layout-shift-test.mjs`) |
 | `docs/`, `examples/`, `skills/` | Specs, the sample book, helper skills |
 | `glossary-src/` | Sources of the hand-written word lists |
-| `packs/<id>/` | The **16 copyrighted books**: `book.epub`, `glossary.json`, `cover.jpg`, `info.json` + `packs/catalog.json`. **Private use only.** |
+| `packs/<id>/` | The **copyrighted books** (9 with `book.epub`, plus the Narnia collection word list and no EPUB): `glossary.json`, optional `cover.jpg`, `info.json` + `packs/catalog.json`. **Private use only.** |
 | `public-books/<id>/` | The **12 public-domain classics** (same four files) + `catalog.json`. Deployed with the app. |
 | `classics/<id>/` | Working sources of 9 public-domain books (`book.epub`, `glossary.json`, `work/`) and `WRITER_BRIEF.md` |
 | `book-pack-kit.zip` | The guide kit to give to an AI agent that makes a book pack |
@@ -78,7 +78,7 @@ npx vite build
 npx wrangler pages deploy dist --project-name margin-words --branch main
 ```
 
-`dist/` holds only the 12 public-domain classics. **NEVER deploy `packs/` (or `site/`) to a public host.** The 16
+`dist/` holds only the 12 public-domain classics. **NEVER deploy `packs/` (or `site/`) to a public host.** The
 copyrighted books are for private use only. (`vercel.json` is also in the repo for a static Vercel setup.)
 
 ## 6. Add a book
@@ -95,5 +95,5 @@ copyrighted books are for private use only. (`vercel.json` is also in the repo f
 
 ## 7. Copyright
 
-The 16 copyrighted books in `packs/` are private-use only. Keep this repository private. If you ever need to make it
+The copyrighted books in `packs/` are private-use only. Keep this repository private. If you ever need to make it
 public, delete `packs/` from the whole git history first.

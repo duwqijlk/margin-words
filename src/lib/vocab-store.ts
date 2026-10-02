@@ -30,9 +30,10 @@ function englishBook(book: Book): Book {
   else delete next.lexile;
   if (isbn) next.isbn = isbn;
   else delete next.isbn;
-  if (series && number) {
+  if (series) {
     next.series = series;
-    next.seriesNumber = number;
+    if (number) next.seriesNumber = number;
+    else delete next.seriesNumber;
   } else {
     delete next.series;
     delete next.seriesNumber;
@@ -185,12 +186,18 @@ export const useVocab = create<VocabState>()(
             if (measure) next.lexile = measure;
             const isbn = pair.isbn !== undefined ? isbnDigits(pair.isbn) : isbnDigits(book.isbn);
             if (isbn) next.isbn = isbn;
-            const series = pair.series !== undefined ? seriesName(pair.series) : seriesName(book.series);
-            const number =
-              pair.seriesNumber !== undefined ? seriesNumber(pair.seriesNumber) : seriesNumber(book.seriesNumber);
-            if (series && number) {
-              next.series = series;
-              next.seriesNumber = number;
+            if (pair.series !== undefined || pair.seriesNumber !== undefined) {
+              const series = pair.series !== undefined ? seriesName(pair.series) : seriesName(book.series);
+              const number =
+                pair.seriesNumber !== undefined ? seriesNumber(pair.seriesNumber) : seriesNumber(book.seriesNumber);
+              if (series) {
+                next.series = series;
+                if (number) next.seriesNumber = number;
+                else delete next.seriesNumber;
+              } else {
+                delete next.series;
+                delete next.seriesNumber;
+              }
             }
             if (pair.matchRate !== undefined && pair.matchRate >= 0 && pair.matchRate <= 100)
               next.matchRate = Math.round(pair.matchRate);

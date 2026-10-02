@@ -52,15 +52,19 @@ export function seriesNumber(value: unknown): number {
 
 export type SeriesFields = { series: string; seriesNumber: number };
 
-/** Read a series from flat fields or from `{ name, number }`. Both parts are required. */
+/**
+ * Read a series from flat fields or from `{ name, number }`.
+ * A name alone is kept. A number is kept only together with a name.
+ */
 export function readSeries(source: unknown, numberValue?: unknown): SeriesFields {
+  let nameSource: unknown = source;
+  let numberSource: unknown = numberValue;
   if (source && typeof source === "object") {
     const row = source as Record<string, unknown>;
-    const series = seriesName(row.name);
-    const number = seriesNumber(row.number);
-    return series && number ? { series, seriesNumber: number } : { series: "", seriesNumber: 0 };
+    nameSource = row.name;
+    numberSource = row.number;
   }
-  const series = seriesName(source);
-  const number = seriesNumber(numberValue);
-  return series && number ? { series, seriesNumber: number } : { series: "", seriesNumber: 0 };
+  const series = seriesName(nameSource);
+  const number = series ? seriesNumber(numberSource) : 0;
+  return series ? { series, seriesNumber: number } : { series: "", seriesNumber: 0 };
 }

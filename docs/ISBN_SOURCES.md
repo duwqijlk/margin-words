@@ -16,12 +16,11 @@ Checked 2026-10-02. ISBN-10 values were converted to ISBN-13 after the checksum 
 | matilda | 9780670824397 | Copyright page in the EPUB: `ISBN 0-670-82439-9`. `dc:identifier` is only a uuid. |
 | wof2 | 9780545470100 | `dc:identifier` with `opf:scheme="ISBN"`, same number on the copyright page (`978-0-545-47010-0`) |
 | wonder | 9781448119141 | `dc:identifier` with `opf:scheme="ISBN"`, same number on the copyright page |
+| narnia | 9780062245762 | Copyright page of the HarperCollins EPUB (October 2013), titled "The Chronicles of Narnia Complete 7-Book Collection with Bonus Book". That page reads: "EPUB Edition OCTOBER 2013 ISBN 9780062245762". |
 
 ## Left unset
 
 The public-domain classics (alice, treasure-island, anne, peter-pan, tom-sawyer, wind-in-the-willows, little-women, secret-garden, black-beauty, looking-glass, jungle-book, wizard-of-oz) identify the file with a Project Gutenberg or Standard Ebooks URL. None of those EPUBs contain an ISBN.
-
-The seven Narnia packs set `dc:identifier` to the pack id only. No ISBN appears in the file.
 
 Two packs name two different valid ISBNs, so neither was stored:
 

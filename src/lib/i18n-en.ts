@@ -103,6 +103,8 @@ export const en = {
   "isbn.aria": "ISBN {isbn}",
   "series.book": "Book {n} of {name}",
   "series.aria": "{name}, book {n}",
+  "series.name": "Series: {name}",
+  "series.ariaName": "Series {name}",
   "match.short": "Match {n}%",
   "match.aria": "Word list match {n} percent",
   "shelf.authorLabel": "Author",

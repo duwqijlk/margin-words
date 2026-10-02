@@ -27,8 +27,7 @@ Checked 2026-10-02. Measures are copied as printed (`880` on a publisher page is
 ## Other packs (`packs/`)
 
 These are the trade editions, not retellings. Penguin Random House / Brightly pages are the publisher’s
-reading-level line. Narnia rows that are not a single library record are the Lexile figure printed next to
-the Accelerated Reader quiz for that novel.
+reading-level line.
 
 | Pack | Measure | Edition used | Source |
 | --- | --- | --- | --- |
@@ -40,16 +39,12 @@ the Accelerated Reader quiz for that novel.
 | twits | 750L | Puffin, ISBN 9780425290095 and ISBN 9780593349670 | https://www.readbrightly.com/books/9780425290095/the-twits-by-roald-dahl-illustrated-by-quentin-blake/ |
 | wof1 | 740L | Scholastic, *The Dragonet Prophecy* (2012 prose, not the graphic novel). Wake County catalog MARC 521 is 740L. TeachingBooks lists 740L. | https://catalog.wake.gov/Record/668223 and https://school.teachingbooks.net/tb.cgi?tid=32735 |
 | wof2 | 750L | Scholastic, *The Lost Heir* (prose, not the graphic novel, which is GN310L). Marmot catalog lists 750L. TeachingBooks lists 750L. | https://opac.marmot.org/Record/.b67390948 and https://school.teachingbooks.net/tb.cgi?tid=38212 |
-| narnia1-magicians-nephew | 790L | HarperTrophy / HarperCollins print and ebook. Wake County catalog: Lexile 790L, AR 5.4. | https://catalog.wake.gov/Record/274053 |
-| narnia2-lion-witch-wardrobe | 940L | HarperCollins. Durham Public Library and Marmot catalogs: Lexile 940L. HarperCollins unabridged audiobook (ISBN 9780060854461) is also 940L. | https://du.catalog.lionlibraries.org/Record/.b2168442x |
-| narnia3-horse-and-his-boy | 970L | HarperCollins. Listed as Lexile 970L with AR 5.8, quiz 612. | https://www.kidsbookseries.com/chronicles-of-narnia/the-horse-and-his-boy/ |
-| narnia4-prince-caspian | 870L | HarperCollins paperback ISBN 9780064405003. Listed as Lexile 870L with AR 5.7, quiz 634. | https://www.kidsbookseries.com/chronicles-of-narnia/prince-caspian/ |
-| narnia5-dawn-treader | 970L | HarperCollins. Listed as Lexile 970L with AR 5.9, quiz 649. | https://www.kidsbookseries.com/chronicles-of-narnia/the-voyage-of-the-dawn-treader/ |
-| narnia6-silver-chair | 840L | HarperCollins paperback ISBN 9780064405041. Listed as Lexile 840 with AR 5.7, quiz 639. Box-set catalog records that reuse another book’s measure were not used. | https://www.kidsbookseries.com/chronicles-of-narnia/the-silver-chair/ |
-| narnia7-last-battle | 890L | The novel (chapter titles such as “Ape in its glory”), AR 5.6. Wyoming Libraries grouped work lists 890L. | https://wyld.wyldcatalog.org/GroupedWork/11e85edd-f27c-78c4-bbb9-2ffbc2545065-eng/Home |
 | wonder | 790L | Knopf, ISBN 9780375869020. Penguin Random House lists Lexile 790L. | https://www.penguinrandomhouse.com/books/208913/wonder-by-r-j-palacio/ |
 
 ## Left unset
 
-None of the 12 classics or the 16 packs were left unset. Edited or abridged measures (Townsend Press
-*Treasure Island* 760L, Penguin Readers *The Magic Finger* 540L, Wings of Fire graphic novels) were not used.
+None of the 12 classics or the 9 packs that ship a book file were left unset. The Narnia collection
+word list (`narnia`) is unset: the published measures are for the seven novels one by one, and no
+published Lexile for the complete collection was found. Those per-novel figures were not copied onto
+the collection. Edited or abridged measures (Townsend Press *Treasure Island* 760L, Penguin Readers
+*The Magic Finger* 540L, Wings of Fire graphic novels) were not used.

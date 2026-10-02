@@ -45,7 +45,7 @@ A book pack is **one `.zip` file** with **exactly** these two files at the top l
 | `book.epub` | **yes, exactly one** | The book, unchanged, DRM-free, English text. Maximum 40 MB. Any other single `*.epub` name also works (`my-book.epub`), but `book.epub` is the standard name. |
 | `glossary.json` | **yes, exactly one** | The word list for that book, format in section 4 (`version` 1 or 2, `glossary` with at least 1 word, maximum 8 MB). The kit naming `<name>.glossary.json` (for example `the-lantern-seller.glossary.json`) also works inside a zip. |
 | `cover.jpg` | no | Cover picture (`cover.png` or `cover.webp` also work). Used only when the EPUB has no cover of its own. |
-| `pack.json` | no | `{ "id": "my-book", "title": "...", "author": "...", "rev": "1", "lexile": "880L", "isbn": "9780141960616", "series": "Wings of Fire", "seriesNumber": 1 }`. `id` matches `^[a-z0-9][a-z0-9_-]{0,63}$`. `lexile`, `isbn`, `series` and `seriesNumber` are optional. `isbn` is the ISBN-13 of the edition this list was written for. `series` and `seriesNumber` go together. |
+| `pack.json` | no | `{ "id": "my-book", "title": "...", "author": "...", "rev": "1", "lexile": "880L", "isbn": "9780141960616", "series": "Wings of Fire", "seriesNumber": 1 }`. `id` matches `^[a-z0-9][a-z0-9_-]{0,63}$`. `lexile`, `isbn`, `series` and `seriesNumber` are optional. `isbn` is the ISBN-13 of the edition this list was written for. `series` may stand alone. `seriesNumber` is kept only with a series name. |
 
 Rules that the app checks at import (in this order). If one fails, **nothing is added** and the person sees a plain message:
 
@@ -81,7 +81,7 @@ Make it: `zip my-book.pack.zip book.epub glossary.json` (put the two files at th
 
 ### 3.3 Hosting and copyright
 
-- Hosting a catalog (optional, for people who run a website): `catalog.json` = `{ "format": 1, "name": "...", "packs": [ { "id", "title", "author", "rev", "lexile": "880L", "isbn": "9780141960616", "series": "Alice", "seriesNumber": 1, "epub": { "url", "bytes", "sha256" }, "glossary": { "url", "bytes", "sha256", "rev" } } ] }`. `lexile`, `isbn`, `series` and `seriesNumber` are optional. `url` is relative to the catalog or a full https address. The reader app downloads these packs for the learner (Add book -> Free books) and shows the measure and ISBN on the card.
+- Hosting a catalog (optional, for people who run a website): `catalog.json` = `{ "format": 1, "name": "...", "packs": [ { "id", "title", "author", "rev", "lexile": "880L", "isbn": "9780141960616", "series": "Alice", "seriesNumber": 1, "epub": { "url", "bytes", "sha256" }, "glossary": { "url", "bytes", "sha256", "rev" } } ] }`. `lexile`, `isbn`, `series` and `seriesNumber` are optional. `series` may stand alone. `url` is relative to the catalog or a full https address. The reader app downloads these packs for the learner (Add book -> Free books) and shows the measure and ISBN on the card.
 - A word-list catalog (no book file) is `{ "format": 1, "name": "...", "lists": [ { "id", "title", "author", "lexile", "isbn", "series", "seriesNumber", "glossary": { "url", "bytes", "sha256" } } ] }`. It must not include an EPUB. The reader downloads `glossary.json` only. The person prepares their own e-book of that ISBN and pairs it in the app. The app then shows what share of the list's `context` snippets were found in that e-book.
 - Copyright: put the EPUB in a pack only if the book is public domain or the user owns the right to share it.
   For a copyrighted book, deliver `glossary.json` alone and tell the user to build the pack on their own computer.
@@ -101,8 +101,8 @@ type GlossaryFile = {
   level?: string;              // free text, e.g. "Chinese junior-high (CEFR A2-B1). Simple English meanings."
   lexile?: string;             // optional Lexile measure for this edition, e.g. "880L". Omit when you have no published measure.
   isbn?: string;               // optional ISBN-10 or ISBN-13 of this edition. Omit when you cannot confirm it.
-  series?: string;             // optional series title. Use with seriesNumber.
-  seriesNumber?: number;       // optional 1-based place in the series.
+  series?: string;             // optional series title. A name alone is enough.
+  seriesNumber?: number;       // optional 1-based place in the series. Kept only with series.
   language?: string;           // free text
   glossary: { [lemma: string]: Entry };   // at least 1, at most 30000
   paragraphs?: ParagraphNote[];           // at most 20000

@@ -201,7 +201,7 @@ for (const id of ids) {
   files.push([
     "pack.json",
     Buffer.from(
-      `${JSON.stringify({ id, title, author, rev, level, notes, ...(lexile ? { lexile } : {}), ...(isbn ? { isbn } : {}), ...(series && number ? { series, seriesNumber: number } : {}) }, null, 1)}\n`,
+      `${JSON.stringify({ id, title, author, rev, level, notes, ...(lexile ? { lexile } : {}), ...(isbn ? { isbn } : {}), ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}) }, null, 1)}\n`,
     ),
   ]);
   const zipBytes = await zipPack(files);
@@ -218,7 +218,7 @@ for (const id of ids) {
       notes,
       ...(lexile ? { lexile } : {}),
       ...(isbn ? { isbn } : {}),
-      ...(series && number ? { series, seriesNumber: number } : {}),
+      ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}),
       rev,
       version: stats?.data.version ?? 2,
       chapters: Number(stats?.data.chapters) || 0,
