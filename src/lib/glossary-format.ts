@@ -88,8 +88,11 @@ export const DEFAULT_WHY_HARD = "This word is harder than everyday English.";
  * straight apostrophe and more letters. A curly apostrophe or a hyphen ends a word.
  * The reader, the validator and the text tool all use exactly this rule, on each
  * text node of the chapter (words never run across a tag boundary).
- * Soft hyphens are removed first (see `stripWordBreaks`), so a word printed as
- * "mys\u00ADteriously" is one word. A normal hyphen is kept and still ends a word.
+ * Soft hyphens are removed first (see `stripWordBreaksIn`). When a soft hyphen, or an
+ * in-word zero-width mark, sits between two inline tags, the letters on both sides are
+ * moved into one text node before this rule runs. A line break that only sits between
+ * those tags is not a space in the sentence, so the halves still join. A normal hyphen
+ * is kept and still ends a word. A space in the text, or a block boundary, is never joined.
  */
 export const WORD_PATTERN = "[A-Za-z]+(?:'[A-Za-z]+)?";
 
@@ -117,8 +120,182 @@ export function stripWordBreaks(text: string): string {
 const BREAK_CHARS = /[\u00AD\u200B\u2060]/;
 /** Inlines that must not keep a word split after their only text was a soft hyphen. */
 const BREAK_INLINES = new Set(["span", "em", "strong", "i", "b", "sup", "sub"]);
+/** A join never crosses one of these. `div` is included: many EPUBs use it as a paragraph. */
+const STOP_TAGS = new Set([
+  "p",
+  "div",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "li",
+  "blockquote",
+  "ul",
+  "ol",
+  "table",
+  "tr",
+  "td",
+  "th",
+  "figure",
+  "figcaption",
+  "pre",
+  "section",
+  "article",
+  "br",
+  "hr",
+]);
 
-/** Same cleanup on every text node, so stored HTML and paragraph strings agree. */
+function isBreakChar(ch: string): boolean {
+  return ch === "\u00AD" || ch === "\u200B" || ch === "\u2060";
+}
+
+/** Space, tab, or line break between tags. Not a non-breaking space. */
+function isFormattingWs(ch: string): boolean {
+  return ch === " " || ch === "\t" || ch === "\n" || ch === "\r" || ch === "\f";
+}
+
+function isLetter(ch: string): boolean {
+  return /[A-Za-z]/.test(ch);
+}
+
+/** What a text node in the gap between two halves is made of. Mixed space + mark is "other". */
+function gapTextKind(data: string): "empty" | "ws" | "break" | "other" {
+  let ws = false;
+  let brk = false;
+  for (const ch of data) {
+    if (isBreakChar(ch)) brk = true;
+    else if (isFormattingWs(ch)) ws = true;
+    else return "other";
+  }
+  if (brk && ws) return "other";
+  if (brk) return "break";
+  if (ws) return "ws";
+  return "empty";
+}
+
+function stopAncestor(node: Node): Element | null {
+  let el = node.parentElement;
+  while (el) {
+    if (STOP_TAGS.has(el.localName)) return el;
+    el = el.parentElement;
+  }
+  return null;
+}
+
+function hasStopElement(node: Node): boolean {
+  if (node.nodeType === 1 && STOP_TAGS.has((node as Element).localName)) return true;
+  for (let child = node.firstChild; child; child = child.nextSibling) {
+    if (hasStopElement(child)) return true;
+  }
+  return false;
+}
+
+/**
+ * The nodes between two text halves. Clean when they are only a word-break mark,
+ * inline wrappers that hold nothing but that mark, and whitespace that sits between
+ * the tags (a line break in the file). A space inside a wrapper is not clean: it is
+ * a space in the sentence.
+ */
+function gapShape(fragment: Node): { clean: boolean; sawBreak: boolean } {
+  let sawBreak = false;
+  const visitInside = (node: Node): boolean => {
+    if (node.nodeType === 8) return true;
+    if (node.nodeType === 3) {
+      const kind = gapTextKind((node as Text).data);
+      if (kind === "break") sawBreak = true;
+      return kind === "break" || kind === "empty";
+    }
+    if (node.nodeType !== 1) return false;
+    const el = node as Element;
+    if (!BREAK_INLINES.has(el.localName)) return false;
+    for (let child = el.firstChild; child; child = child.nextSibling) {
+      if (!visitInside(child)) return false;
+    }
+    return true;
+  };
+  for (let child = fragment.firstChild; child; child = child.nextSibling) {
+    if (child.nodeType === 8) continue;
+    if (child.nodeType === 3) {
+      const kind = gapTextKind((child as Text).data);
+      if (kind === "other") return { clean: false, sawBreak: false };
+      if (kind === "break") sawBreak = true;
+      continue;
+    }
+    if (child.nodeType === 1) {
+      if (visitInside(child)) continue;
+      return { clean: false, sawBreak: false };
+    }
+    return { clean: false, sawBreak: false };
+  }
+  return { clean: true, sawBreak };
+}
+
+/**
+ * True when `left` and `right` are the two sides of one word, and the only thing
+ * between them is a soft hyphen or an in-word zero-width mark (plus inline wrappers).
+ * Whitespace that only sits between those tags still joins. A space in the text,
+ * a normal hyphen, or a block boundary keeps the halves apart.
+ */
+function joinAcrossBreak(left: Text, right: Text): boolean {
+  if (stopAncestor(left) !== stopAncestor(right)) return false;
+  const leftStr = left.data;
+  let i = leftStr.length - 1;
+  while (i >= 0 && isBreakChar(leftStr[i] ?? "")) i -= 1;
+  if (i < 0) return false;
+  const leftChar = leftStr[i] ?? "";
+  const rightStr = right.data;
+  let j = 0;
+  while (j < rightStr.length && isBreakChar(rightStr[j] ?? "")) j += 1;
+  if (j >= rightStr.length) return false;
+  const rightChar = rightStr[j] ?? "";
+  const doc = left.ownerDocument;
+  if (!doc) return false;
+  const range = doc.createRange();
+  try {
+    range.setStartAfter(left);
+    range.setEndBefore(right);
+  } catch {
+    return false;
+  }
+  const fragment = range.cloneContents();
+  if (hasStopElement(fragment)) return false;
+  const shape = gapShape(fragment);
+  if (!shape.clean) return false;
+  const edge = leftStr.slice(i + 1) + rightStr.slice(0, j);
+  if (!shape.sawBreak && ![...edge].some(isBreakChar)) return false;
+  // The two sides are real text. A whitespace-only node is the gap, not a half.
+  if (isFormattingWs(leftChar) || isFormattingWs(rightChar)) return false;
+  const marks = [...(edge + (fragment.textContent ?? ""))].filter((ch) => !isFormattingWs(ch));
+  // A soft hyphen is a break inside one run of text, even when a normal hyphen
+  // sits on the edge (`well-` + mark + `known` stays `well-known`, not `well- known`).
+  if (marks.some((ch) => ch === "\u00AD")) return true;
+  if (isLetter(leftChar) && isLetter(rightChar)) return true;
+  // A zero-width mark may also sit beside the one apostrophe inside a word (don't).
+  // This branch is only reached when the gap has no soft hyphen.
+  if (marks.length === 0 || marks.some((ch) => ch !== "\u200B" && ch !== "\u2060")) return false;
+  if (isLetter(leftChar) && rightChar === "'") {
+    return /^[A-Za-z]/.test(rightStr.slice(j + 1).replace(/^[\u200B\u2060]+/, ""));
+  }
+  if (leftChar === "'" && isLetter(rightChar)) return isLetter(leftStr[i - 1] ?? "");
+  return false;
+}
+
+function markAncestors(node: Node, touched: Set<Element>) {
+  let el = node.parentElement;
+  while (el) {
+    touched.add(el);
+    el = el.parentElement;
+  }
+}
+
+/**
+ * Remove soft hyphens and in-word zero-width marks, then put the letters on both
+ * sides of each removed mark into one text node. Inline wrappers (span, em, …)
+ * that held only the mark are dropped. Other empty elements are left alone, and
+ * words that are really separate stay separate.
+ */
 export function stripWordBreaksIn(root: ParentNode) {
   const doc = root.ownerDocument;
   if (!doc) return;
@@ -130,21 +307,53 @@ export function stripWordBreaksIn(root: ParentNode) {
     current = walker.nextNode();
   }
   const touched = new Set<Element>();
+  let left: Text | null = null;
+  // Break-only nodes sitting after `left`, cleared only if a later node actually joins.
+  let gaps: Text[] = [];
+  const clear = (node: Text) => {
+    if (!node.data) return;
+    node.data = "";
+    markAncestors(node, touched);
+  };
+  for (const node of texts) {
+    if (left && stopAncestor(left) !== stopAncestor(node)) {
+      left = null;
+      gaps = [];
+    }
+    if (left && joinAcrossBreak(left, node)) {
+      const merged =
+        left.data.replace(/[\u00AD\u200B\u2060]+$/, "") + node.data.replace(/^[\u00AD\u200B\u2060]+/, "");
+      if (merged !== left.data) {
+        left.data = merged;
+        markAncestors(left, touched);
+      }
+      clear(node);
+      for (const gap of gaps) clear(gap);
+      gaps = [];
+      continue;
+    }
+    // A mark-only node, or whitespace that only sits between tags, stays with `left`
+    // until a later node joins. It is cleared only when that join happens.
+    const kind = gapTextKind(node.data);
+    if (kind === "empty" || kind === "ws" || kind === "break") {
+      if (left && node.data) gaps.push(node);
+      continue;
+    }
+    gaps = [];
+    left = /[A-Za-z]/.test(node.data) ? node : null;
+  }
   for (const node of texts) {
     if (!BREAK_CHARS.test(node.data)) continue;
     const next = stripWordBreaks(node.data);
     if (next === node.data) continue;
     node.data = next;
-    let el = node.parentElement;
-    while (el) {
-      touched.add(el);
-      el = el.parentElement;
-    }
+    markAncestors(node, touched);
   }
-  // A span that held only the soft hyphen would still split "nick" and "name".
-  // Remove that empty inline. Leave every other empty element alone.
+  // Only wrappers we emptied by removing a break. An empty span that was already
+  // empty is left in place, so a book with no soft hyphens keeps its text nodes.
   const doomed = [...touched].filter((el) => {
     if (!BREAK_INLINES.has(el.localName)) return false;
+    if (!el.parentNode) return false;
     if (el.querySelector("img, br")) return false;
     return (el.textContent ?? "").trim() === "";
   });

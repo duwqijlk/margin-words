@@ -21,7 +21,10 @@
  * The chapter heading is a paragraph too when it is inside the chapter html (it then has index 0). *
  * Rules (same as the app): chapters are counted from 0 in the order the reader shows
  * them. Soft hyphens (U+00AD) are removed, and a zero-width space or word joiner inside
- * a word is removed, before words are counted; a normal hyphen is kept. A word is
+ * a word is removed, before words are counted. Halves split across inline tags by one of
+ * those marks are joined into one text node. A line break that only sits between those
+ * tags is joined across too. A space in the text, or a block boundary, is not joined.
+ * A normal hyphen is kept. A word is
  * /[A-Za-z]+(?:'[A-Za-z]+)?/ (letters, one straight apostrophe inside),
  * counted per chapter on the text the reader shows; "occurrence" is the 1-based count
  * of one spelling (lower-cased) within the chapter.

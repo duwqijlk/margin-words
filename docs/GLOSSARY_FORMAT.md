@@ -150,9 +150,13 @@ to get right.
 - Take the chapter's HTML as the app stores it. Look at every text node in reading order
   (script/style-like elements are skipped; the visible reading text is what matters).
 - Before words are counted, soft hyphens (U+00AD) are removed. A zero-width space (U+200B) or
-  word joiner (U+2060) inside a word is removed too. A normal hyphen is kept, so `well-known`
-  stays `well` and `known`. Positions and context are matched against text with soft hyphens
-  removed. Chapter and paragraph numbers do not change.
+  word joiner (U+2060) inside a word is removed too. If that mark sits in its own inline tag
+  between the two halves (`<span>mys</span><span>&#xad;</span><span>teriously</span>`, including
+  a nested span, and a line break that only sits between those tags), the halves are put into
+  one text node, so the word is `mysteriously`. A space in the text, or a block boundary, is
+  not joined. A normal hyphen is kept, so `well-known` stays `well` and
+  `known`. Positions and context are matched against text with soft hyphens removed. Chapter and
+  paragraph numbers do not change.
 - In each text node, find words with `/[A-Za-z]+(?:'[A-Za-z]+)?/g`: ASCII letters, with at most one
   **straight** apostrophe `'` and more letters. A curly apostrophe (`’`), a hyphen, a digit or any
   other mark ends a word. So `don’t` is the two words `don` and `t`; `Muggle-Wump` is `Muggle`

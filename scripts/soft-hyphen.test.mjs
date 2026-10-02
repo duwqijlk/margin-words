@@ -32,17 +32,26 @@ test("stripWordBreaks joins a split word and keeps a normal hyphen", () => {
   );
 });
 
+/** The real EPUB shape: each half, and the soft hyphen, is its own span. */
+const SPAN_SHY =
+  '<span style="color:#111">She smiled mys</span><span style="color:#222">&#xad;</span><span style="color:#333">teriously</span>';
+/** Nested spans around the halves, which the sibling-span join must also cover. */
+const NESTED_SHY =
+  '<span style="color:#111">A <span style="color:#222">rattle</span></span><span style="color:#333">&#xad;</span><span style="color:#444"><span style="color:#555">snake</span> slept</span>';
+
 function chapterHtml(shy) {
-  const mysteriously = shy ? `mys${SHY}teriously` : "mysteriously";
-  const nickname = shy ? `nick<span>&#x00AD;</span>name` : "nickname";
-  const pillow = shy ? `pil&#x200B;low` : "pillow";
-  const blanket = shy ? `blan&#x2060;ket` : "blanket";
-  const goodNight = shy ? `good-&#x00AD;night` : "good-night";
-  const doesnt = shy ? `doesn&#x200B;'t` : "doesn't";
+  const goodNight = shy ? "good-&#x00AD;night" : "good-night";
+  const doesnt = shy ? "doesn&#x200B;'t" : "doesn't";
+  const first = shy
+    ? `<p>${SPAN_SHY} at her <span style="color:#444">nick</span><span style="color:#555">&#xad;</span><span style="color:#666">name</span> on the old <span style="color:#777">pil</span><span style="color:#888">&#x200B;</span><span style="color:#999">low</span> and folded the warm <span style="color:#111"><span style="color:#222">blan</span></span><span style="color:#333">&#x2060;</span><span style="color:#444"><span style="color:#555">ket</span></span>. ${NESTED_SHY}.</p>`
+    : "<p>She smiled mysteriously at her nickname on the old pillow and folded the warm blanket. A rattlesnake slept.</p>";
+  const second = shy
+    ? `<p>The <span style="color:#111">well-</span><span style="color:#222">&#xad;</span><span style="color:#333">known</span> road was a ${goodNight} walk and she ${doesnt} hurry under the stars tonight. Say <span style="color:#111">hello</span> <span style="color:#222">world</span>.</p>`
+    : "<p>The well-known road was a good-night walk and she doesn't hurry under the stars tonight. Say hello world.</p>";
   return [
     "<h1>The Fair</h1>",
-    `<p>She smiled ${mysteriously} at her ${nickname} on the old ${pillow} and folded the warm ${blanket}.</p>`,
-    `<p>The well-known road was a ${goodNight} walk and she ${doesnt} hurry under the stars tonight.</p>`,
+    first,
+    second,
     "<p>* * *</p>",
     "<blockquote><p>A quiet line sits inside this quote and it stays one paragraph.</p></blockquote>",
   ].join("\n");
@@ -121,7 +130,7 @@ function shape(book) {
 }
 
 function underlined(html) {
-  const ready = new Set(["mysteriously", "nickname", "pillow", "blanket"]);
+  const ready = new Set(["mysteriously", "nickname", "pillow", "blanket", "rattlesnake"]);
   const out = format.readingHtml(html, ready, (surface) => surface.toLowerCase(), 0, new Map());
   const doc = new DOMParser().parseFromString(`<div>${out}</div>`, "text/html");
   return [...doc.querySelectorAll("button.book-hard")].map((b) => ({
@@ -158,11 +167,110 @@ test("chapter and paragraph numbers match with and without soft hyphens", () => 
   assert.equal(forms.includes("wellknown"), false);
   assert.ok(forms.includes("good") && forms.includes("night"));
   assert.equal(forms.filter((w) => w === "doesn't").length, 1);
+  assert.equal(forms.filter((w) => w === "rattlesnake").length, 1);
+  assert.equal(forms.includes("rattle"), false);
+  assert.equal(forms.includes("snake"), false);
+  assert.ok(forms.includes("hello") && forms.includes("world"));
+  assert.equal(forms.includes("helloworld"), false);
+});
+
+test("separate spans around &#xad; become one word button", () => {
+  const parse = (html) => new DOMParser().parseFromString(html, "text/html");
+  const raw = `<div>${SPAN_SHY}. ${NESTED_SHY}.</div>`;
+  const tokens = format.indexChapterHtml(raw, parse).tokens.map((t) => t.w);
+  assert.deepEqual(
+    tokens.filter((w) => ["mysteriously", "mys", "teriously", "rattlesnake", "rattle", "snake"].includes(w)),
+    ["mysteriously", "rattlesnake"],
+  );
+  const shown = format.readingHtml(raw, new Set(["mysteriously", "rattlesnake"]), (s) => s.toLowerCase(), 0, new Map());
+  const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
+  const buttons = [...doc.querySelectorAll("button")].map((b) => b.textContent);
+  assert.deepEqual(
+    buttons.filter((w) => w === "mysteriously"),
+    ["mysteriously"],
+  );
+  assert.deepEqual(
+    buttons.filter((w) => w === "rattlesnake"),
+    ["rattlesnake"],
+  );
+  assert.equal(buttons.includes("mys"), false);
+  assert.equal(buttons.includes("teriously"), false);
+  // The same markup, after the EPUB reader stores the chapter, is one token too.
+  const stored = format.indexChapterHtml(shy.chapters[0].html, parse).tokens.map((t) => t.w);
+  assert.equal(stored.filter((w) => w === "mysteriously").length, 1);
+  assert.equal(stored.includes("mys"), false);
+});
+
+test("a line break between the soft-hyphen spans is still one word", () => {
+  const parse = (html) => new DOMParser().parseFromString(html, "text/html");
+  // Pretty-printed chapters put a newline between the three spans. The checker that
+  // verified the book joins across that newline; a space in the sentence stays apart.
+  const pretty = [
+    '<p><span style="color:#111">She smiled mys</span>',
+    '<span style="color:#222">&shy;</span>',
+    '<span style="color:#333">teriously</span> at her <span>nick</span>',
+    '<span>&#173;</span>',
+    '<span>name</span> on the <span>pil</span>',
+    '<span>&#xad;</span>',
+    '<span>low</span>. A <span>rattle</span>',
+    '<span>&#xad;</span>',
+    '<span>snake</span> slept.</p>',
+  ].join("\n");
+  const tokens = format.indexChapterHtml(pretty, parse).tokens.map((t) => t.w);
+  for (const word of ["mysteriously", "nickname", "pillow", "rattlesnake"]) {
+    assert.equal(tokens.filter((w) => w === word).length, 1, word);
+  }
+  for (const half of ["mys", "teriously", "nick", "name", "pil", "low", "rattle", "snake"]) {
+    assert.equal(tokens.includes(half), false, half);
+  }
+  const shown = format.readingHtml(
+    pretty,
+    new Set(["mysteriously", "nickname", "pillow", "rattlesnake"]),
+    (s) => s.toLowerCase(),
+    0,
+    new Map(),
+  );
+  const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
+  const buttons = [...doc.querySelectorAll("button")].map((b) => b.textContent);
+  assert.deepEqual(
+    buttons.filter((w) => w === "mysteriously" || w === "rattlesnake" || w === "nickname" || w === "pillow"),
+    ["mysteriously", "nickname", "pillow", "rattlesnake"],
+  );
+  const spaced = "<p><span>hello</span>\n<span>world</span>. Say <span>cat</span> <span>dog</span>.</p>";
+  const spacedWords = format.indexChapterHtml(spaced, parse).tokens.map((t) => t.w);
+  assert.ok(spacedWords.includes("hello") && spacedWords.includes("world"));
+  assert.equal(spacedWords.includes("helloworld"), false);
+  assert.ok(spacedWords.includes("cat") && spacedWords.includes("dog"));
+  assert.equal(spacedWords.includes("catdog"), false);
+  // The hyphen stays, and the line break around the soft hyphen does not become a space.
+  const hyphen = "<p>The <span>well-</span>\n<span>&#xad;</span>\n<span>known</span> road.</p>";
+  const hyphenWords = format.indexChapterHtml(hyphen, parse).tokens.map((t) => t.w);
+  assert.ok(hyphenWords.includes("well") && hyphenWords.includes("known"));
+  assert.equal(hyphenWords.includes("wellknown"), false);
+  const hyphenDoc = parse(hyphen);
+  format.stripWordBreaksIn(hyphenDoc.body);
+  assert.match(hyphenDoc.body.textContent.replace(/\s+/g, " "), /well-known/);
+  // A space that lives in its own span is a real space, even beside a soft hyphen.
+  const spaceSpan = '<p><span>cat</span><span> </span><span>&#xad;</span><span>dog</span></p>';
+  const spaceWords = format.indexChapterHtml(spaceSpan, parse).tokens.map((t) => t.w);
+  assert.deepEqual(
+    spaceWords.filter((w) => w === "cat" || w === "dog" || w === "catdog"),
+    ["cat", "dog"],
+  );
+});
+
+test("spans with no soft hyphen do not change word positions", () => {
+  const parse = (html) => new DOMParser().parseFromString(html, "text/html");
+  const plain = "<p>She smiled mysteriously at her nickname.</p><p>Hello world today.</p>";
+  const spanned =
+    '<p><span style="color:#111">She smiled mysteriously</span> at her nickname.</p><p>Hello <span style="color:#222">world</span> today.</p>';
+  const words = (html) => format.indexChapterHtml(html, parse).tokens.map((t) => `${t.b}:${t.w}`);
+  assert.deepEqual(words(spanned), words(plain));
 });
 
 test("a word split by U+00AD is underlined, and a normal hyphen is not joined", () => {
   const marks = underlined(shy.chapters[0].html);
-  for (const word of ["mysteriously", "nickname", "pillow", "blanket"]) {
+  for (const word of ["mysteriously", "nickname", "pillow", "blanket", "rattlesnake"]) {
     assert.deepEqual(
       marks.filter((m) => m.word === word),
       [{ word, nth: 1 }],
@@ -173,8 +281,10 @@ test("a word split by U+00AD is underlined, and a normal hyphen is not joined", 
   assert.equal(html.includes(SHY), false);
   assert.equal(html.includes(ZWSP), false);
   assert.equal(html.includes(WJ), false);
-  assert.match(html, /well-known/);
+  assert.match(html, /well-/);
   assert.match(html, /good-night/);
+  assert.match(html, /mysteriously/);
+  assert.equal(html.includes("mys<"), false);
   const shown = format.readingHtml(html, new Set(), (s) => s.toLowerCase(), 0, new Map());
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
   const words = [...doc.querySelectorAll("button")].map((b) => b.textContent);
