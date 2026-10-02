@@ -33,6 +33,8 @@ export async function placeWordList(pack: WordListPack): Promise<string> {
       series: pack.series,
       seriesNumber: pack.seriesNumber,
       needsEpub: true,
+      oldFashioned: pack.oldFashioned,
+      oldFashionedReason: pack.oldFashionedReason,
     },
   ]);
   await savePackRecord({

@@ -20,6 +20,7 @@ import type { VocabEntry } from "@/lib/vocab-model";
 import { markVocabHydrated, normalizeWord, useVocab } from "@/lib/vocab-store";
 import { Notebook } from "@/components/notebook";
 import { DiscoverScreen } from "@/components/discover";
+import { GuideScreen } from "@/components/guide-page";
 import { AddBookScreen, SettingsDialog } from "@/components/get-books";
 import { OwnEpubDialog } from "@/components/own-epub-dialog";
 import { ReaderScreen } from "@/components/reader";
@@ -34,6 +35,7 @@ import { guideUrl } from "@/lib/guide";
 type Screen =
   | { kind: "shelf" }
   | { kind: "discover" }
+  | { kind: "guide" }
   | { kind: "get" }
   | { kind: "words"; bookId: string | null }
   | { kind: "read"; bookId: string }
@@ -53,6 +55,8 @@ function readScreen(): Screen | null {
         return { kind: "shelf" };
       case "discover":
         return { kind: "discover" };
+      case "guide":
+        return { kind: "guide" };
       case "get":
         return { kind: "get" };
       case "words":
@@ -392,6 +396,9 @@ export function MarginApp() {
               <NavButton active={screen.kind === "discover"} onClick={() => setScreen({ kind: "discover" })}>
                 {t("nav.discover")}
               </NavButton>
+              <NavButton active={screen.kind === "guide"} onClick={() => setScreen({ kind: "guide" })}>
+                {t("nav.guide")}
+              </NavButton>
               <NavButton
                 active={screen.kind === "words" || screen.kind === "review"}
                 onClick={() => setScreen({ kind: "words", bookId: null })}
@@ -461,6 +468,8 @@ export function MarginApp() {
           onBack={() => setScreen({ kind: "shelf" })}
           onNotebook={() => setScreen({ kind: "words", bookId: screen.bookId })}
         />
+      ) : screen.kind === "guide" ? (
+        <GuideScreen />
       ) : screen.kind === "discover" ? (
         <DiscoverScreen
           shelf={orderedBooks}

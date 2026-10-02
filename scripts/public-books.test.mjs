@@ -51,6 +51,17 @@ test("Looking-Glass images are compressed and the novel text is still valid", ()
   assert.ok(pack.epub.bytes > 2 * 1024 * 1024, "illustrations are still in the book");
 });
 
+test("old-fashioned flags follow the language rule, and Alice is not flagged", () => {
+  const flagged = catalog.packs.filter((pack) => pack.oldFashioned === true).map((pack) => pack.id).sort();
+  assert.deepEqual(flagged, ["jungle-book", "looking-glass", "peter-pan", "wind-in-the-willows"]);
+  const alice = catalog.packs.find((pack) => pack.id === "alice");
+  assert.notEqual(alice.oldFashioned, true);
+  for (const pack of catalog.packs) {
+    assert.equal(/\bfree\b/i.test(pack.notes ?? ""), false, `${pack.id} notes`);
+    if (pack.oldFashioned) assert.ok(String(pack.oldFashionedReason || "").length > 10, `${pack.id} reason`);
+  }
+});
+
 test("only Alice is preinstalled, and every classic has a Lexile measure", () => {
   const pre = catalog.packs.filter((p) => p.preinstall === true).map((p) => p.id);
   assert.deepEqual(pre, ["alice"]);

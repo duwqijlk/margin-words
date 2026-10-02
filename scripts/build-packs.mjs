@@ -193,6 +193,10 @@ for (const id of ids) {
   const isbn = isbnDigits(info.isbn ?? stats?.data.isbn ?? "");
   const series = seriesName(typeof info.series === "string" ? info.series : stats?.data.series);
   const number = series ? seriesNumber(info.seriesNumber ?? stats?.data.seriesNumber) : 0;
+  // Hand-set in info.json. Era alone is not enough: every public-domain book here is old.
+  // Flag only when the glossary is dense with archaic words, or the Lexile is high and those words are common.
+  const oldReason = String(info.oldFashionedReason ?? "").replace(/\s+/g, " ").trim().slice(0, 240);
+  const oldFields = info.oldFashioned === true ? { oldFashioned: true, ...(oldReason ? { oldFashionedReason: oldReason } : {}) } : {};
   // The pack revision changes when the book file or the word list changes.
   const rev = sha(Buffer.from(`${epubSha}\n${list ? sha(list) : ""}`)).slice(0, 12);
   const files = [["book.epub", epub]];
@@ -201,7 +205,7 @@ for (const id of ids) {
   files.push([
     "pack.json",
     Buffer.from(
-      `${JSON.stringify({ id, title, author, rev, level, notes, ...(lexile ? { lexile } : {}), ...(isbn ? { isbn } : {}), ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}) }, null, 1)}\n`,
+      `${JSON.stringify({ id, title, author, rev, level, notes, ...(lexile ? { lexile } : {}), ...(isbn ? { isbn } : {}), ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}), ...oldFields }, null, 1)}\n`,
     ),
   ]);
   const zipBytes = await zipPack(files);
@@ -219,6 +223,7 @@ for (const id of ids) {
       ...(lexile ? { lexile } : {}),
       ...(isbn ? { isbn } : {}),
       ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}),
+      ...oldFields,
       rev,
       version: stats?.data.version ?? 2,
       chapters: Number(stats?.data.chapters) || 0,

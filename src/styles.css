@@ -331,6 +331,12 @@
 
   /* Cover lift on hover, and the heart pop. Off when the person prefers less motion. */
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .shelf-heart {
+      transition:
+        opacity 160ms ease,
+        transform 200ms ease;
+    }
+
     .book-card:hover .cover-frame,
     .book-card:hover .shelf-heart,
     button:hover > .cover-frame {
@@ -348,6 +354,49 @@
   @media (prefers-reduced-motion: no-preference) {
     .shelf-heart[aria-pressed="true"] .heart-icon {
       animation: heart-in 0.28s ease;
+    }
+  }
+
+  /*
+   * On a device that can hover, an empty heart stays out of the way until the card is
+   * hovered or focused. A filled heart stays visible: it is the "on the shelf" mark.
+   * A download or an error stays visible too. Opacity keeps the button in the tab order.
+   * A touch screen has no hover, so the empty heart stays visible, a little smaller.
+   */
+  .cover-progress-detail {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .book-card .shelf-heart[data-heart-state="off"] {
+      opacity: 0;
+    }
+
+    .book-card:hover .shelf-heart[data-heart-state="off"],
+    .book-card:focus-within .shelf-heart[data-heart-state="off"],
+    .book-card .shelf-heart[data-heart-state="off"]:focus-visible {
+      opacity: 1;
+    }
+
+    .book-card .cover-progress-bar {
+      opacity: 0;
+    }
+
+    .book-card:hover .cover-progress-bar,
+    .book-card:focus-within .cover-progress-bar {
+      opacity: 1;
+    }
+
+    .book-card:hover .cover-progress-detail,
+    .book-card:focus-within .cover-progress-detail {
+      display: flex;
+    }
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .shelf-heart[data-heart-state="off"] > span {
+      transform: scale(0.78);
+      opacity: 0.72;
     }
   }
 

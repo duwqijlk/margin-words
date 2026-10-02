@@ -1,4 +1,4 @@
-# public-books: the free classics
+# public-books: the public-domain books
 
 Only **public-domain** books go here. They are not copied into `dist/`. `npm run build:books` copies the loose
 files (catalog, `book.epub`, `glossary.json`, `cover.jpg`) into `dist-books/public-books/` for the books host
@@ -15,10 +15,16 @@ Dev and `npm run build:local` serve this folder on the same origin so tests run 
    - `book.epub`
    - `glossary.json` (validate: `node scripts/validate-glossary.mjs public-books/<id>/book.epub public-books/<id>/glossary.json`)
    - `cover.jpg` (optional; the cover image inside the EPUB is a good source)
-   - `info.json`: `{ "title": "...", "author": "...", "order": 13, "notes": "Free classic. Public domain in the USA.", "lexile": "880L" }`
+   - `info.json`: `{ "title": "...", "author": "...", "order": 13, "notes": "Public domain in the USA.", "lexile": "880L" }`
      (`"lexile"` is optional, a published measure such as `880L`; see `docs/LEXILE_SOURCES.md`.
      `"preinstall": true` puts the book on every new shelf. Leave `preinstall` out and the book stays on
-     Discover until the reader taps the heart on the cover. Only Alice's Adventures in Wonderland sets `preinstall`.)
+     Discover until the reader taps the heart on the cover. Only Alice's Adventures in Wonderland sets `preinstall`.
+     `"oldFashioned": true` plus an optional `"oldFashionedReason"` marks English that is too old for a
+     beginner. Do not flag a book only because it was published long ago. The rule used here: the book is
+     from 1911 or earlier (every book in this folder is) AND either the glossary is at least 1.5% archaic
+     lemmas with at least 5 of them (`thou`, `thee`, `hath`, `quoth`, `anon`, and the like), OR the Lexile
+     is 1050L or higher and there are at least 5 archaic lemmas. That flags The Jungle Book, Through the
+     Looking-Glass, Peter and Wendy, and The Wind in the Willows. Alice is not flagged.)
 2. Rebuild the catalog and the local sideload zips: `node scripts/build-packs.mjs --out public-books`
 3. `npm run build:books`, then upload `dist-books/`. The hosted catalog sets each `zip` to null and omits
    `all-packs.zip`. The app downloads the loose files when the reader adds the book.

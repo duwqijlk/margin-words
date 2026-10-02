@@ -25,6 +25,7 @@ import { useT, type Key } from "@/lib/i18n";
 import { useClassicBookIds, useClassicsRunning } from "@/lib/classics";
 import { bookHasUserWork } from "@/lib/shelf-heart";
 import { forgetBook, useShelfRemove } from "@/lib/shelf-remove";
+import { OldFashionedBadge } from "@/components/cover-marks";
 import { ShelfHeart } from "@/components/shelf-heart";
 import { btn, cn, ConfirmDialog, field, ProgressBar } from "@/components/ui";
 import { compareLexile } from "@/lib/lexile";
@@ -437,20 +438,40 @@ function BookCard({
         >
           <BookCover title={book.title} author={book.author} cover={cover} />
         </button>
-        {book.needsEpub ? (
-          <span
-            className="pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-3.25rem)] rounded-full bg-warn px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
-            data-needs-epub
-          >
-            {t("shelf.needsEpub")}
-          </span>
-        ) : classic ? (
-          <span
-            className="pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-3.25rem)] rounded-full bg-accent px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
-            data-classic-label
-          >
-            {t("shelf.classic")}
-          </span>
+        <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-3.25rem)] flex-col items-start gap-1">
+          {book.needsEpub ? (
+            <span
+              className="rounded-full bg-warn px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
+              data-needs-epub
+            >
+              {t("shelf.needsEpub")}
+            </span>
+          ) : classic ? (
+            <span
+              className="rounded-full bg-accent px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
+              data-classic-label
+            >
+              {t("shelf.classic")}
+            </span>
+          ) : null}
+          {book.oldFashioned ? <OldFashionedBadge reason={book.oldFashionedReason} /> : null}
+        </div>
+        {book.source === "epub" ? (
+          <div className="cover-progress pointer-events-none absolute inset-x-0 bottom-0 z-[1]">
+            <p className="cover-progress-detail items-end justify-between gap-2 bg-gradient-to-t from-black/75 via-black/35 to-transparent px-2 pt-7 pb-1 text-[0.68rem] leading-4 font-semibold text-white">
+              <span>{pct > 0 ? `${pct}%` : t("shelf.new")}</span>
+              {row.progress && row.progress.chapters > 0 ? (
+                <span className="truncate text-right">
+                  {t("shelf.chapterOf", { n: row.progress.chapter + 1, total: row.progress.chapters })}
+                </span>
+              ) : null}
+            </p>
+            <ProgressBar
+              value={row.fraction}
+              className="cover-progress-bar h-1 rounded-none bg-black/35"
+              label={t("shelf.progressFor", { title: book.title })}
+            />
+          </div>
         ) : null}
         <ShelfHeart
           pressed
@@ -471,7 +492,7 @@ function BookCard({
           }}
         />
         {row.due > 0 ? (
-          <span className="pointer-events-none absolute right-2 bottom-2 z-[1] rounded-full bg-warn px-2 py-0.5 text-[0.7rem] font-bold text-accent-ink tabular-nums shadow">
+          <span className="pointer-events-none absolute right-2 bottom-3 z-[2] rounded-full bg-warn px-2 py-0.5 text-[0.7rem] font-bold text-accent-ink tabular-nums shadow">
             {t("shelf.due", { n: row.due })}
           </span>
         ) : null}
@@ -533,25 +554,10 @@ function BookCard({
           series={book.series}
           seriesNumber={book.seriesNumber}
           matchRate={book.matchRate}
+          aside={book.oldFashioned ? t("shelf.oldFashionedNote") : undefined}
         />
       </div>
-      {book.source === "epub" ? (
-        <div className="mt-auto flex min-h-11 items-center gap-2" data-card-actions>
-          <ProgressBar
-            value={row.fraction}
-            className="h-1 flex-1"
-            label={t("shelf.progressFor", { title: book.title })}
-          />
-          <span
-            className={cn(
-              "w-9 text-right text-xs tabular-nums",
-              pct > 0 ? "text-muted" : "font-semibold text-accent",
-            )}
-          >
-            {pct > 0 ? `${pct}%` : t("shelf.new")}
-          </span>
-        </div>
-      ) : (
+      {book.source === "epub" ? null : (
         <p className="mt-auto flex min-h-11 items-center text-xs text-muted" data-card-actions>
           {t("shelf.sampleNotebook")}
         </p>

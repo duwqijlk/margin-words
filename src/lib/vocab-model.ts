@@ -32,6 +32,10 @@ export type Book = {
   matchRate?: number;
   /** The word list is on the shelf, and the reader still needs to add their own e-book. */
   needsEpub?: boolean;
+  /** The English is too old for a beginner. Absent when the book is not flagged. */
+  oldFashioned?: boolean;
+  /** Short English reason from the catalog. Book content, so it stays English. */
+  oldFashionedReason?: string;
 };
 
 export type VocabEntry = AnalyzedWord & {

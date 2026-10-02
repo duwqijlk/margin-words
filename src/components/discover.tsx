@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { OldFashionedBadge } from "@/components/cover-marks";
 import { BookCover } from "@/components/shelf";
 import { ShelfHeart } from "@/components/shelf-heart";
 import { BookMetaLines, DifficultyControls, matchesBand, type BandChoice, type SortChoice } from "@/components/lexile-ui";
@@ -34,6 +35,8 @@ type Row = {
   isbn: string;
   series: string;
   seriesNumber: number;
+  oldFashioned: boolean;
+  oldFashionedReason: string;
   coverUrl?: string;
   pack?: CatalogPack;
   list?: WordListPack;
@@ -87,6 +90,8 @@ export function DiscoverScreen({
           isbn: pack.isbn,
           series: pack.series,
           seriesNumber: pack.seriesNumber,
+          oldFashioned: pack.oldFashioned,
+          oldFashionedReason: pack.oldFashionedReason,
           coverUrl: pack.cover?.url ? resolveAgainst(BUNDLED_CATALOG_URL, pack.cover.url) : undefined,
           pack,
         }));
@@ -100,6 +105,8 @@ export function DiscoverScreen({
           isbn: pack.isbn,
           series: pack.series,
           seriesNumber: pack.seriesNumber,
+          oldFashioned: pack.oldFashioned,
+          oldFashionedReason: pack.oldFashionedReason,
           coverUrl: pack.cover?.url ? resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url) : undefined,
           list: pack,
         }));
@@ -226,15 +233,18 @@ export function DiscoverScreen({
           ) : (
             <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
           )}
-          <span
-            className={cn(
-              "pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-3.25rem)] rounded-full px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold shadow-sm",
-              needs ? "bg-warn text-accent-ink" : row.kind === "classic" ? "bg-accent text-accent-ink" : "bg-card/95 text-ink ring-1 ring-line",
-            )}
-            {...(needs ? { "data-needs-epub": "" } : { "data-kind": row.kind })}
-          >
-            {needs ? t("shelf.needsEpub") : row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}
-          </span>
+          <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-3.25rem)] flex-col items-start gap-1">
+            <span
+              className={cn(
+                "rounded-full px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold shadow-sm",
+                needs ? "bg-warn text-accent-ink" : row.kind === "classic" ? "bg-accent text-accent-ink" : "bg-card/95 text-ink ring-1 ring-line",
+              )}
+              {...(needs ? { "data-needs-epub": "" } : { "data-kind": row.kind })}
+            >
+              {needs ? t("shelf.needsEpub") : row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}
+            </span>
+            {row.oldFashioned ? <OldFashionedBadge reason={row.oldFashionedReason} /> : null}
+          </div>
           <ShelfHeart
             pressed={held}
             busy={busy}
@@ -261,7 +271,13 @@ export function DiscoverScreen({
           <p className={cardAuthorClass} lang="en">
             {row.author}
           </p>
-          <BookMetaLines lexile={row.lexile} isbn={row.isbn} series={row.series} seriesNumber={row.seriesNumber} />
+          <BookMetaLines
+            lexile={row.lexile}
+            isbn={row.isbn}
+            series={row.series}
+            seriesNumber={row.seriesNumber}
+            aside={row.oldFashioned ? t("shelf.oldFashionedNote") : undefined}
+          />
         </div>
       </li>
     );

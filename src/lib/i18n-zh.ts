@@ -42,9 +42,25 @@ export const zh: Record<Key, string> = {
   "nav.main": "主菜单",
   "nav.shelf": "书架",
   "nav.discover": "发现",
+  "nav.guide": "使用说明",
   "nav.notebook": "生词本",
   "nav.settings": "设置",
   "nav.dueAria": "有 {n} 个词要复习",
+
+  /* ---- guide */
+  "guide.title": "使用说明",
+  "guide.intro": "几句话，帮你开始用。",
+  "guide.addTitle": "用红心添加书",
+  "guide.addBody":
+    "打开“发现”。点封面上的红心，这本书就到你的书架上。红心填满，表示已经在书架上。再点一次红心，就把它移出书架。",
+  "guide.kindsTitle": "公版书和词表",
+  "guide.kindsBody":
+    "公版书是整本书。点红心就会下载。词表书只有单词表。你要自己添加这本书的 EPUB。应用会核对书号，也会看原文能对上多少。对上 80% 或更多，就比较合适。",
+  "guide.wordsTitle": "点一个词",
+  "guide.wordsBody": "阅读时点一个词，就能看到它的意思。想记住的词可以保存。它们会进入生词本，以后可以复习。",
+  "guide.offlineTitle": "可以离线用",
+  "guide.offlineBody":
+    "第一次打开之后，没有网络也能读。你的书、阅读进度和生词本只留在这个浏览器里。它们不会同步到另一台手机或电脑。",
 
   /* ---- shelf */
   "shelf.title": "书架",
@@ -85,7 +101,9 @@ export const zh: Record<Key, string> = {
   "shelf.add": "添加图书",
   "shelf.all": "全部图书",
   "shelf.new": "新书",
-  "shelf.classic": "免费经典",
+  "shelf.classic": "公版",
+  "shelf.oldFashioned": "语言较古旧",
+  "shelf.oldFashionedNote": "不太适合初学者",
   "shelf.needsEpub": "需要你的电子书",
   "lexile.name": "蓝思",
   "lexile.aria": "蓝思难度 {measure}",
@@ -159,7 +177,7 @@ export const zh: Record<Key, string> = {
   "shelf.due": "{n} 个待复习",
   "shelf.chapterOf": "第 {n} 章，共 {total} 章",
   "shelf.step1": "添加一本书",
-  "shelf.step1Body": "打开“发现”可以添加免费的书，也可以添加自己的图书包。",
+  "shelf.step1Body": "打开“发现”可以添加公版书，也可以添加自己的图书包。",
   "shelf.step2": "点一个难词",
   "shelf.step2Body": "看简单的英文解释。",
   "shelf.step3": "保存并复习",
@@ -170,8 +188,8 @@ export const zh: Record<Key, string> = {
   "add.packBody": "一个 .zip 文件，里面有 book.epub 和 glossary.json。单独的 EPUB 不能用。",
   "add.howTo": "怎样做图书包",
   "add.choose": "选择 .zip 文件",
-  "add.free": "免费图书",
-  "add.freeHint": "这些是公版经典名著，会自动放进你的书架。你删掉的书不会再自动加回来，想读就点“获取”。添加后可以离线阅读。",
+  "add.free": "公版",
+  "add.freeHint": "这些是公版书。新书架会先放上《爱丽丝梦游仙境》。你删掉的书不会自己回来，想读就到“发现”里再添加。添加后可以离线阅读。",
   "settings.advanced": "书目地址",
   "err.bareEpub":
     "不能直接添加 EPUB。请使用图书包：一个 .zip 文件，里面有 book.epub 和 glossary.json。",

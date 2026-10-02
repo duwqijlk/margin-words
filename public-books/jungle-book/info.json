@@ -2,6 +2,8 @@
  "title": "The Jungle Book",
  "author": "Rudyard Kipling",
  "order": 11,
- "notes": "Free classic. Public domain in the USA.",
- "lexile": "1100L"
+ "notes": "Public domain in the USA.",
+ "lexile": "1100L",
+ "oldFashioned": true,
+ "oldFashionedReason": "Kipling's stories use thou, thee and hath. The language is old and the Lexile is 1100L."
 }

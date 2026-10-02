@@ -1,5 +1,5 @@
 /**
- * Free classics that ship with the app (public-domain books in ./public-books/).
+ * Public-domain books that ship with the app (./public-books/).
  *
  * ADDING MORE BOOKS: nothing here lists book ids. Every pack in public-books/catalog.json is a "classic".
  * To add one, drop a folder public-books/<id>/ with book.epub, glossary.json, optional cover.jpg and
@@ -59,9 +59,11 @@ type FactSource = {
   isbn: string;
   series: string;
   seriesNumber: number;
+  oldFashioned: boolean;
+  oldFashionedReason: string;
 };
 
-/** Copy Lexile, ISBN and series from a catalog onto books already on the shelf (no re-download). */
+/** Copy Lexile, ISBN, series and the old-fashioned flag onto books already on the shelf (no re-download). */
 async function rememberFacts(packs: FactSource[]): Promise<void> {
   if (packs.length === 0) return;
   const byPack = new Map(packs.map((pack) => [pack.id, pack]));
@@ -73,6 +75,8 @@ async function rememberFacts(packs: FactSource[]): Promise<void> {
     isbn?: string;
     series?: string;
     seriesNumber?: number;
+    oldFashioned?: boolean;
+    oldFashionedReason?: string;
   }> = [];
   for (const record of records) {
     const fact = byPack.get(record.packId);
@@ -97,6 +101,14 @@ async function rememberFacts(packs: FactSource[]): Promise<void> {
       pair.seriesNumber = fact.seriesNumber || 0;
       changed = true;
     }
+    if (
+      fact.oldFashioned !== Boolean(book.oldFashioned) ||
+      (fact.oldFashioned && (book.oldFashionedReason ?? "") !== fact.oldFashionedReason)
+    ) {
+      pair.oldFashioned = fact.oldFashioned;
+      pair.oldFashionedReason = fact.oldFashionedReason;
+      changed = true;
+    }
     if (changed) pairs.push(pair);
   }
   if (pairs.length > 0) useVocab.getState().setBookDetails(pairs);
@@ -109,6 +121,8 @@ function asFacts(pack: CatalogPack | WordListPack): FactSource {
     isbn: pack.isbn,
     series: pack.series,
     seriesNumber: pack.seriesNumber,
+    oldFashioned: pack.oldFashioned,
+    oldFashionedReason: pack.oldFashionedReason,
   };
 }
 
@@ -182,7 +196,7 @@ function bundledPackIds(): Promise<Set<string>> {
   return bundledIds;
 }
 
-/** Ids of the books on the shelf that came from a bundled classic (to show the "Free classic" label). */
+/** Ids of the books on the shelf that came from a bundled classic (to show the "Public domain" label). */
 export function useClassicBookIds(bookKey: string): Set<string> {
   const [ids, setIds] = useState<Set<string>>(new Set());
   const finished = useDownloads((state) => state.finished);

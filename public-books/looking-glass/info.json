@@ -2,8 +2,10 @@
  "title": "Through the Looking-Glass",
  "author": "Lewis Carroll",
  "order": 10,
- "notes": "Free classic. Public domain in the USA.",
+ "notes": "Public domain in the USA.",
  "lexile": "840L",
  "series": "Alice",
- "seriesNumber": 2
+ "seriesNumber": 2,
+ "oldFashioned": true,
+ "oldFashionedReason": "Poems and talk use thou, quoth and hast. More old-fashioned than Alice."
 }

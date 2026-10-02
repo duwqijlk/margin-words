@@ -46,6 +46,8 @@ export const useDownloads = create<DownloadState>()((set, get) => ({
           isbn: pack.isbn,
           series: pack.series,
           seriesNumber: pack.seriesNumber,
+          oldFashioned: pack.oldFashioned,
+          oldFashionedReason: pack.oldFashionedReason,
         },
       ]);
       if (typeof window !== "undefined") {

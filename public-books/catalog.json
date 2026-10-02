@@ -8,7 +8,7 @@
    "title": "Alice's Adventures in Wonderland",
    "author": "Lewis Carroll",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
-   "notes": "Free classic. Public domain in the USA (Project Gutenberg).",
+   "notes": "Public domain in the USA (Project Gutenberg).",
    "lexile": "880L",
    "series": "Alice",
    "seriesNumber": 1,
@@ -37,8 +37,8 @@
    },
    "zip": {
     "url": "alice.zip",
-    "bytes": 223930,
-    "sha256": "573eafa0c8effc3ee8671091497061a5b66a34c468e161ee5869f83eb982eaa9"
+    "bytes": 223922,
+    "sha256": "16784df637e1366d433029f9cccbbe2998638b1c23ab255b2e22f91477b33cde"
    },
    "preinstall": true
   },
@@ -47,7 +47,7 @@
    "title": "Treasure Island",
    "author": "Robert Louis Stevenson",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
-   "notes": "Free classic. Public domain in the USA (Project Gutenberg).",
+   "notes": "Public domain in the USA (Project Gutenberg).",
    "lexile": "980L",
    "rev": "9092834d047b",
    "version": 2,
@@ -74,8 +74,8 @@
    },
    "zip": {
     "url": "treasure-island.zip",
-    "bytes": 390173,
-    "sha256": "2941bf68425a3d5ec071bcc0d5dea379f6e7d8f60d249fc4ddb0a92d6fad2828"
+    "bytes": 390164,
+    "sha256": "30455992d3c535a11cf01b9eae4797edb97305c8dba014e3e0a5c16404953b79"
    }
   },
   {
@@ -83,7 +83,7 @@
    "title": "Anne of Green Gables",
    "author": "L. M. Montgomery",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
-   "notes": "Free classic. Public domain in the USA (Project Gutenberg).",
+   "notes": "Public domain in the USA (Project Gutenberg).",
    "lexile": "970L",
    "rev": "e4cd5c01904d",
    "version": 2,
@@ -110,8 +110,8 @@
    },
    "zip": {
     "url": "anne.zip",
-    "bytes": 420378,
-    "sha256": "0a94068d9e6318b2a684cec8636072903ad86ecb3652950fe2559ca1060e3076"
+    "bytes": 420369,
+    "sha256": "d7c4b5ed7363e67abdf6aa1fbdfa6393684e0af11db3c1d7a598314a7ef0845f"
    }
   },
   {
@@ -119,8 +119,10 @@
    "title": "Peter and Wendy",
    "author": "J. M. Barrie",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
-   "notes": "Free classic. Public domain in the USA.",
+   "notes": "Public domain in the USA.",
    "lexile": "900L",
+   "oldFashioned": true,
+   "oldFashionedReason": "Barrie uses words like anon, fain and ofttimes.",
    "rev": "1dbdb6ebee06",
    "version": 2,
    "chapters": 21,
@@ -146,8 +148,8 @@
    },
    "zip": {
     "url": "peter-pan.zip",
-    "bytes": 877513,
-    "sha256": "66ac8e49720604cce288ceae06990816cd0bc80c48e5e5efe4aa66212d1936c7"
+    "bytes": 877553,
+    "sha256": "39542032e1700f8ac73d96901fc427f2cef6375bcb2dfe6ea19723b612a387f0"
    }
   },
   {
@@ -155,7 +157,7 @@
    "title": "The Adventures of Tom Sawyer",
    "author": "Mark Twain",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
-   "notes": "Free classic. Public domain in the USA.",
+   "notes": "Public domain in the USA.",
    "lexile": "930L",
    "rev": "34bcdc54feaa",
    "version": 2,
@@ -182,8 +184,8 @@
    },
    "zip": {
     "url": "tom-sawyer.zip",
-    "bytes": 805062,
-    "sha256": "c0a343caa90ac046953f67c76d65b915c60e1cde2c8c811be49c1628fac3141b"
+    "bytes": 805050,
+    "sha256": "b2b3aa417ab21a2d9f762ee2ca17ac8d9e3b4fa2c1db25dd0e3d62cfa3cb13fd"
    }
   },
   {
@@ -191,8 +193,10 @@
    "title": "The Wind in the Willows",
    "author": "Kenneth Grahame",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
-   "notes": "Free classic. Public domain in the USA.",
+   "notes": "Public domain in the USA.",
    "lexile": "1060L",
+   "oldFashioned": true,
+   "oldFashionedReason": "Long, old-fashioned sentences. Lexile 1060L, with thee, thy and anon.",
    "rev": "f381840b6abe",
    "version": 2,
    "chapters": 16,
@@ -218,8 +222,8 @@
    },
    "zip": {
     "url": "wind-in-the-willows.zip",
-    "bytes": 986007,
-    "sha256": "944eb0881fe9d28c15b88a2bbdc9cada6658345a75ac402d0826a898d8fbdc7c"
+    "bytes": 986059,
+    "sha256": "30b58de23b929a00c30c2290c6f6b5758a1ce95ddbc88f50daf6b67970971e59"
    }
   },
   {
@@ -227,7 +231,7 @@
    "title": "Little Women",
    "author": "Louisa May Alcott",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
-   "notes": "Free classic. Public domain in the USA.",
+   "notes": "Public domain in the USA.",
    "lexile": "1090L",
    "rev": "dcc80751831e",
    "version": 2,
@@ -254,8 +258,8 @@
    },
    "zip": {
     "url": "little-women.zip",
-    "bytes": 1130443,
-    "sha256": "95dbec86ecadaa96c6432570860b2ee23c769568c5e87f93ece3756d88fbd0ce"
+    "bytes": 1130433,
+    "sha256": "91f95b022c287645538019d7574c619a2adcbfa6502ded4ab57629da683e8b86"
    }
   },
   {
@@ -263,7 +267,7 @@
    "title": "The Secret Garden",
    "author": "Frances Hodgson Burnett",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
-   "notes": "Free classic. Public domain in the USA.",
+   "notes": "Public domain in the USA.",
    "lexile": "970L",
    "rev": "afb9da65be17",
    "version": 2,
@@ -290,8 +294,8 @@
    },
    "zip": {
     "url": "secret-garden.zip",
-    "bytes": 733772,
-    "sha256": "03acf7187e4863568572293bff8c2f9f753eb11d8c265d08a0c53fe0cafe029e"
+    "bytes": 733763,
+    "sha256": "ac824784f66db26bd7b99024086010ca8861b864c92563eedc6164b1096efce3"
    }
   },
   {
@@ -299,7 +303,7 @@
    "title": "Black Beauty",
    "author": "Anna Sewell",
    "level": "basic",
-   "notes": "Free classic. Public domain in the USA.",
+   "notes": "Public domain in the USA.",
    "lexile": "1020L",
    "rev": "d1f2cc468362",
    "version": 2,
@@ -326,8 +330,8 @@
    },
    "zip": {
     "url": "black-beauty.zip",
-    "bytes": 575997,
-    "sha256": "d5ca2e2197e49ae4f736fdf5e507f4c97dcb38b3c9f2702716bf96414f2fd6e2"
+    "bytes": 575988,
+    "sha256": "3a89bdb95cc22412d0038994c1c743a4c5e20e9bf6eda25a126af0114722c4d2"
    }
   },
   {
@@ -335,10 +339,12 @@
    "title": "Through the Looking-Glass",
    "author": "Lewis Carroll",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
-   "notes": "Free classic. Public domain in the USA.",
+   "notes": "Public domain in the USA.",
    "lexile": "840L",
    "series": "Alice",
    "seriesNumber": 2,
+   "oldFashioned": true,
+   "oldFashionedReason": "Poems and talk use thou, quoth and hast. More old-fashioned than Alice.",
    "rev": "b7c40e99e08d",
    "version": 2,
    "chapters": 19,
@@ -364,8 +370,8 @@
    },
    "zip": {
     "url": "looking-glass.zip",
-    "bytes": 3453598,
-    "sha256": "35cecfe21d96a38836bdf6758f5019b6f749255022f1c59a8d33a787bfa93a44"
+    "bytes": 3453652,
+    "sha256": "53c8fd653877b0092c0eac30cc2402319f5bcb58de064cb449abd36da70fb3aa"
    }
   },
   {
@@ -373,8 +379,10 @@
    "title": "The Jungle Book",
    "author": "Rudyard Kipling",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
-   "notes": "Free classic. Public domain in the USA.",
+   "notes": "Public domain in the USA.",
    "lexile": "1100L",
+   "oldFashioned": true,
+   "oldFashionedReason": "Kipling's stories use thou, thee and hath. The language is old and the Lexile is 1100L.",
    "rev": "983c097e3578",
    "version": 2,
    "chapters": 12,
@@ -400,8 +408,8 @@
    },
    "zip": {
     "url": "jungle-book.zip",
-    "bytes": 692141,
-    "sha256": "2ff806150fa404a74fda553106d449dceb7cbb423f9cc45f084e6f36ee8d926e"
+    "bytes": 692201,
+    "sha256": "ab61bc2b4e9948589ae9e4a9e133e8c165e95511f0b0fcf02545db87bf46a147"
    }
   },
   {
@@ -409,7 +417,7 @@
    "title": "The Wonderful Wizard of Oz",
    "author": "L. Frank Baum",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
-   "notes": "Free classic. Public domain in the USA.",
+   "notes": "Public domain in the USA.",
    "lexile": "1030L",
    "rev": "5819bb794f84",
    "version": 2,
@@ -436,14 +444,14 @@
    },
    "zip": {
     "url": "wizard-of-oz.zip",
-    "bytes": 769125,
-    "sha256": "142743e005ef0a02923a84487aed84c6043a47a2cd42f562a75fa1e7deade3b7"
+    "bytes": 769115,
+    "sha256": "46d4126104b4e570c7640f21c456b0794aa88563778d0fbc83639a890351e887"
    }
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11061915,
-  "sha256": "f2870b606a720aba415ee8d16adc38fbe8bd987acab153e59adadb795682ae1d"
+  "bytes": 11062219,
+  "sha256": "b762c3a96876e64c287515edbf1df3158afebcc96cd487935ab9f08891a12d5a"
  }
 }

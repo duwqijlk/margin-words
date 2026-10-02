@@ -90,6 +90,8 @@ type VocabState = {
       matchRate?: number;
       needsEpub?: boolean;
       source?: Book["source"];
+      oldFashioned?: boolean;
+      oldFashionedReason?: string;
     }>,
   ) => void;
   renameBook: (id: string, title: string, author: string) => void;
@@ -206,6 +208,15 @@ export const useVocab = create<VocabState>()(
               next.matchRate = Math.round(pair.matchRate);
             if (pair.needsEpub === true) next.needsEpub = true;
             else if (pair.needsEpub === false) delete next.needsEpub;
+            if (pair.oldFashioned === true) {
+              next.oldFashioned = true;
+              const reason = (pair.oldFashionedReason ?? "").replace(/\s+/g, " ").trim().slice(0, 240);
+              if (reason) next.oldFashionedReason = reason;
+              else delete next.oldFashionedReason;
+            } else if (pair.oldFashioned === false) {
+              delete next.oldFashioned;
+              delete next.oldFashionedReason;
+            }
             if (pair.source) next.source = pair.source;
             return next;
           }),

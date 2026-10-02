@@ -86,10 +86,10 @@ File addresses in `catalog.json` are relative to the catalog file, so the folder
 ### How a reader uses it, also offline
 
 1. Open the app. A new shelf has Alice's Adventures in Wonderland. Tap **Discover** for every other book
-   (the free classics and the word lists), with search and the difficulty, author, and series filters.
+   (the public-domain books and the word lists), with search and the difficulty, author, and series filters.
 2. Tap the heart on a cover. A filled red heart means the book is on the shelf; tap it again to remove it.
    A fresh book can be undone. A book you have started reading, or one with your own e-book, asks first.
-   A free classic downloads when the heart is tapped. A word-list book downloads its word list and asks
+   A public-domain book downloads when the heart is tapped. A word-list book downloads its word list and asks
    for your own e-book of the ISBN on the card. A match under 80% is shown before it is saved. The book and
    its word list are stored in the browser (IndexedDB). **Add book** is still the way to import a pack `.zip`,
    or to use a catalog address you set in Settings.

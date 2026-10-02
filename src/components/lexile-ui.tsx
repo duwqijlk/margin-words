@@ -3,7 +3,7 @@ import { difficultyBand, lexileMeasure } from "@/lib/lexile";
 import { useT, type Key } from "@/lib/i18n";
 import { cn, selectCls } from "@/components/ui";
 
-/** The measure on a shelf card or a free-books card. Empty means unrated. */
+/** The measure on a shelf card or a Discover card. Empty means unrated. */
 export function LexileBadge({ measure }: { measure?: string }) {
   const { t } = useT();
   const clean = lexileMeasure(measure ?? "");
@@ -30,19 +30,22 @@ export function LexileBadge({ measure }: { measure?: string }) {
   );
 }
 
-/** ISBN, series and match rate under the Lexile line. Missing facts take no space. */
+/** ISBN, series and match rate under the Lexile line. The third row is reserved so cards stay aligned. */
 export function BookMetaLines({
   lexile,
   isbn,
   series,
   seriesNumber,
   matchRate,
+  aside,
 }: {
   lexile?: string;
   isbn?: string;
   series?: string;
   seriesNumber?: number;
   matchRate?: number;
+  /** Short note for the reserved third row, when the book has no series and no match rate. */
+  aside?: string;
 }) {
   const { t } = useT();
   const cleanIsbn = isbnDigits(isbn ?? "");
@@ -92,6 +95,10 @@ export function BookMetaLines({
             aria-label={t("match.aria", { n: matchRate })}
           >
             {t("match.short", { n: matchRate })}
+          </p>
+        ) : aside ? (
+          <p className="truncate text-xs leading-4 text-[#6b3e22]" data-old-note>
+            {aside}
           </p>
         ) : null}
       </div>

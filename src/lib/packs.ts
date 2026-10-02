@@ -69,6 +69,10 @@ export type CatalogPack = {
   series: string;
   /** 1-based place in the series. 0 when there is no series. */
   seriesNumber: number;
+  /** English that is too old for a beginner. Set by hand in info.json. */
+  oldFashioned: boolean;
+  /** Short English reason. "" when the book is not flagged, or when no reason was written. */
+  oldFashionedReason: string;
 };
 
 export type Catalog = {
@@ -78,7 +82,7 @@ export type Catalog = {
   packs: CatalogPack[];
 };
 
-/** The free classics (public-domain books). Fetched from the books host, or from this origin in dev. */
+/** The public-domain books. Fetched from the books host, or from this origin in dev. */
 export const BUNDLED_CATALOG_URL = booksUrl("public-books/catalog.json");
 export const DEFAULT_CATALOG_URL = BUNDLED_CATALOG_URL;
 const URL_KEY = "cibian-catalog-url-v1";
@@ -152,6 +156,8 @@ export function parseCatalog(value: unknown): Catalog | null {
         const series = readSeries(row.series, row.seriesNumber);
         return { series: series.series, seriesNumber: series.seriesNumber };
       })(),
+      oldFashioned: row.oldFashioned === true,
+      oldFashionedReason: row.oldFashioned === true ? text(row.oldFashionedReason, 240) : "",
     });
   }
   return {

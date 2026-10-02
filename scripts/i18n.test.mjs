@@ -69,6 +69,13 @@ test("English texts have no Chinese; Chinese texts are Chinese (apart from names
   assert.deepEqual(same.filter((k) => !allowed.has(k)), [], "zh texts without any Chinese");
 });
 
+test("the UI does not call the books free", async () => {
+  const { en, zh } = await load();
+  for (const [key, value] of Object.entries(en)) assert.equal(/\bfree\b/i.test(value), false, `${key}: ${value}`);
+  for (const [key, value] of Object.entries(zh))
+    assert.equal(String(value).includes("\u514d\u8d39"), false, `${key}: ${value}`);
+});
+
 test("plural pairs exist for both forms", async () => {
   const { en } = await load();
   for (const key of Object.keys(en)) {

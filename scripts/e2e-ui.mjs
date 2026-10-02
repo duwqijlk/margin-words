@@ -10,7 +10,7 @@
  * Preview serves ./public-books and ./word-lists from the repo. They are not inside dist/.
  * Runs in English and Chinese, at 1280px and 390px. Checks:
  *   - FIRST OPEN: the shelf shows only Alice, with a cover, a Lexile measure and the
- *     "Free classic" label; it opens and a word can be looked up
+ *     "Public domain" label; it opens and a word can be looked up
  *   - DISCOVER: lists all 12 classics and the 10 word lists (covers, Lexile). Alice's heart is filled.
  *     The heart adds Peter and Wendy and Looking-Glass; they open from the cover, and they still open offline
  *   - deleting Alice keeps it deleted after a reload (the "removed" flag); the shelf can be emptied
@@ -516,7 +516,7 @@ async function run(lang, size) {
       .getByRole("button", { name: labelRe(t("pack.openAria")) })
       .waitFor({ timeout: 90000 });
   }
-  ok(true, `${label}: ${want.length} free books downloaded`);
+  ok(true, `${label}: ${want.length} public-domain books downloaded`);
   await page
     .getByRole("button", { name: t("nav.shelf"), exact: true })
     .first()
@@ -702,6 +702,11 @@ async function run(lang, size) {
       (await vp.locator("[data-pack]").count()) === FREE_COUNT,
       `${label}: Discover lists ${FREE_COUNT} classics (${await vp.locator("[data-pack]").count()})`,
     );
+    await vp.getByRole("button", { name: t("nav.guide"), exact: true }).click();
+    await vp.getByRole("heading", { name: t("guide.title"), exact: true }).waitFor();
+    ok((await vp.locator("[data-guide-page] li").count()) === 4, `${label}: the guide has four short steps`);
+    ok(!(await overflow2(vp)), `${label}: no horizontal overflow (guide)`);
+    await openDiscover();
     // covers are loaded lazily: scroll down the list so that all of them come into view
     for (let y = 0; y < 8000; y += 400) {
       await vp.evaluate((top) => window.scrollTo(0, top), y);
@@ -728,6 +733,39 @@ async function run(lang, size) {
       (await vp.locator("[data-discover] [data-card-actions]").count()) === 0,
       `${label}: Discover cards have no button under the book`,
     );
+    for (const id of ["jungle-book", "looking-glass", "peter-pan", "wind-in-the-willows"]) {
+      ok(
+        (await vp.locator(`[data-pack="${id}"] [data-old-fashioned]`).count()) === 1,
+        `${label}: ${id} is marked old-fashioned`,
+      );
+    }
+    ok(
+      (await vp.locator('[data-pack="alice"] [data-old-fashioned]').count()) === 0,
+      `${label}: Alice is not marked old-fashioned`,
+    );
+    {
+      const empty = vp.locator('[data-pack="wizard-of-oz"] [data-heart-state="off"]');
+      await empty.scrollIntoViewIfNeeded();
+      const hidden = await empty.evaluate((el) => getComputedStyle(el).opacity);
+      if (mobile) {
+        ok(Number(hidden) > 0.5, `${label}: touch keeps an empty heart visible (${hidden})`);
+      } else {
+        ok(hidden === "0", `${label}: an empty heart waits for hover (${hidden})`);
+        await vp.locator('[data-pack="wizard-of-oz"]').hover();
+        await vp.waitForFunction(
+          () =>
+            getComputedStyle(document.querySelector('[data-pack="wizard-of-oz"] [data-heart-state="off"]')).opacity ===
+            "1",
+          null,
+          { timeout: 2000 },
+        );
+        ok(true, `${label}: hover shows the empty heart`);
+      }
+      const filled = await vp
+        .locator('[data-pack="alice"] [data-heart-state="on"]')
+        .evaluate((el) => getComputedStyle(el).opacity);
+      ok(filled === "1", `${label}: a filled heart stays visible (${filled})`);
+    }
     for (const c of CLASSICS) {
       const card = vp.locator(`[data-pack="${c.id}"]`);
       if (c.id !== "alice") {
@@ -796,6 +834,15 @@ async function run(lang, size) {
     ok(
       (await vp.locator("ul li [data-classic-label]").count()) === 3,
       `${label}: the added classics carry the "${t("shelf.classic")}" label`,
+    );
+    ok(
+      (await vp.locator("ul li .cover-progress [role=progressbar]").count()) === 3,
+      `${label}: reading progress sits on the cover`,
+    );
+    ok((await vp.locator("ul li [data-card-actions]").count()) === 0, `${label}: shelf cards do not keep a progress row`);
+    ok(
+      (await vp.locator("ul li [data-old-fashioned]").count()) === 2,
+      `${label}: Peter and Wendy and Looking-Glass keep the old-fashioned mark on the shelf`,
     );
     await vshot("shelf-added");
 

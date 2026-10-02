@@ -86,6 +86,8 @@ export function buildWordLists(packsDir) {
     const series = seriesName(info.series ?? data.series ?? "");
     const number = seriesNumber(info.seriesNumber ?? data.seriesNumber);
     const lexile = typeof info.lexile === "string" ? info.lexile : typeof data.lexile === "string" ? data.lexile : "";
+    const oldReason = String(info.oldFashionedReason ?? "").replace(/\s+/g, " ").trim().slice(0, 240);
+    const oldFields = info.oldFashioned === true ? { oldFashioned: true, ...(oldReason ? { oldFashionedReason: oldReason } : {}) } : {};
     const coverPath = join(packsDir, id, "cover.jpg");
     let cover;
     if (existsSync(coverPath)) {
@@ -102,6 +104,7 @@ export function buildWordLists(packsDir) {
         ...(lexile ? { lexile } : {}),
         ...(isbn ? { isbn } : {}),
         ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}),
+        ...oldFields,
         ...(cover ? { cover } : {}),
         words: Number(data.count) || Object.keys(data.glossary ?? {}).length,
         glossary: { url: `${id}/glossary.json`, bytes: glossary.length, sha256: sha(glossary) },

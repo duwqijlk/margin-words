@@ -39,9 +39,26 @@ export const en = {
   "nav.main": "Main navigation",
   "nav.shelf": "Shelf",
   "nav.discover": "Discover",
+  "nav.guide": "Guide",
   "nav.notebook": "Notebook",
   "nav.settings": "Settings",
   "nav.dueAria": "{n} to review",
+
+  /* ---- guide */
+  "guide.title": "Guide",
+  "guide.intro": "A few things that help you start.",
+  "guide.addTitle": "Add a book with the heart",
+  "guide.addBody":
+    "Open Discover. Tap the heart on a cover to put that book on your shelf. A filled heart means it is already there. Tap the heart again to take it off.",
+  "guide.kindsTitle": "Public domain and word lists",
+  "guide.kindsBody":
+    "A public-domain book is the whole book. Tap the heart and it downloads. A word-list book is only the word list. You add your own EPUB of that book. The app checks the ISBN, and it checks how much of the text matches. A match of 80% or more is a good fit.",
+  "guide.wordsTitle": "Tap a word",
+  "guide.wordsBody":
+    "While you read, tap a word to see what it means. Save the words you want. They go into your notebook, and you can review them later.",
+  "guide.offlineTitle": "It works offline",
+  "guide.offlineBody":
+    "After the first visit, you can read with no internet. Your books, your progress, and your notebook stay in this browser only. They do not move to another phone or computer.",
 
   /* ---- shelf */
   "shelf.title": "Shelf",
@@ -82,7 +99,9 @@ export const en = {
   "shelf.add": "Add book",
   "shelf.all": "All books",
   "shelf.new": "New",
-  "shelf.classic": "Free classic",
+  "shelf.classic": "Public domain",
+  "shelf.oldFashioned": "Old-fashioned",
+  "shelf.oldFashionedNote": "Not recommended for beginners",
   "shelf.needsEpub": "Needs your e-book",
   "lexile.name": "Lexile",
   "lexile.aria": "Lexile measure {measure}",
@@ -156,7 +175,7 @@ export const en = {
   "shelf.due": "{n} due",
   "shelf.chapterOf": "Chapter {n} of {total}",
   "shelf.step1": "Add a book",
-  "shelf.step1Body": "Open Discover to add a free book, or add your own pack.",
+  "shelf.step1Body": "Open Discover to add a public-domain book, or add your own pack.",
   "shelf.step2": "Tap a hard word",
   "shelf.step2Body": "See a simple English meaning.",
   "shelf.step3": "Save and review",
@@ -168,9 +187,9 @@ export const en = {
     "One .zip file with book.epub and glossary.json inside. A plain EPUB does not work.",
   "add.howTo": "How to make a pack",
   "add.choose": "Choose .zip file",
-  "add.free": "Free books",
+  "add.free": "Public domain",
   "add.freeHint":
-    "Free classics from the public domain. They are put on your shelf for you. A book you delete stays off the shelf until you tap Get. After that it works offline.",
+    "Public-domain books. A new shelf starts with Alice. A book you delete stays off the shelf until you add it again from Discover. After that it works offline.",
   "settings.advanced": "Book list address",
   "err.bareEpub":
     "A plain EPUB cannot be added. Please use a book pack: one .zip with book.epub and glossary.json.",
