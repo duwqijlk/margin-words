@@ -4,6 +4,7 @@
  * sentence `context` snippets are used instead: they are the same kind of quote.
  */
 import { looseText } from "@/lib/help-match";
+import { includesLoose } from "@/lib/flow-text";
 
 export type SnippetSource = {
   glossary?: Record<string, { senses?: Array<{ anchors?: Array<{ context?: string }> }> }>;
@@ -46,11 +47,11 @@ export function collectSnippets(file: SnippetSource): { kind: EditionMatch["kind
 export function editionMatch(file: SnippetSource, paragraphs: readonly string[]): EditionMatch {
   const { kind, snippets } = collectSnippets(file);
   if (snippets.length === 0) return { found: 0, total: 0, rate: 1, kind: "none" };
-  const haystack = ` ${looseText(paragraphs.join("\n"))} `;
+  const haystack = looseText(paragraphs.join("\n"));
   let found = 0;
   for (const snippet of snippets) {
     const needle = looseText(snippet);
-    if (needle && haystack.includes(` ${needle} `)) found += 1;
+    if (includesLoose(haystack, needle)) found += 1;
   }
   return { found, total: snippets.length, rate: found / snippets.length, kind };
 }

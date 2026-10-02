@@ -33,7 +33,8 @@
    },
    "cover": {
     "url": "alice/cover.jpg",
-    "bytes": 53578
+    "bytes": 53578,
+    "sha256": "efd8384ea5b1f430102ea4a9b7fcb75eaac5626a49c22b00b848f104cfb7a571"
    },
    "zip": {
     "url": "alice.zip",
@@ -70,7 +71,8 @@
    },
    "cover": {
     "url": "treasure-island/cover.jpg",
-    "bytes": 63211
+    "bytes": 63211,
+    "sha256": "fa1e52a15c1eb6eaa3f5d07de6e1fbb9979233526fc374f241097d676a5815f9"
    },
    "zip": {
     "url": "treasure-island.zip",
@@ -106,7 +108,8 @@
    },
    "cover": {
     "url": "anne/cover.jpg",
-    "bytes": 40923
+    "bytes": 40923,
+    "sha256": "dbdf68a0056a5083314d9d49b187d2d86824bff4ce2667bc0318a1ea1146b994"
    },
    "zip": {
     "url": "anne.zip",
@@ -144,7 +147,8 @@
    },
    "cover": {
     "url": "peter-pan/cover.jpg",
-    "bytes": 70831
+    "bytes": 70831,
+    "sha256": "0279f42debf140d384d0f0ee44dd4055d5b04df501926ac7647b17ac86600bbd"
    },
    "zip": {
     "url": "peter-pan.zip",
@@ -180,7 +184,8 @@
    },
    "cover": {
     "url": "tom-sawyer/cover.jpg",
-    "bytes": 65710
+    "bytes": 65710,
+    "sha256": "cf7257f8a7b4eeaa60098819434d95efa25a88d9bcc43c352e918d04ad48d52c"
    },
    "zip": {
     "url": "tom-sawyer.zip",
@@ -218,7 +223,8 @@
    },
    "cover": {
     "url": "wind-in-the-willows/cover.jpg",
-    "bytes": 90341
+    "bytes": 90341,
+    "sha256": "e07769df6f57b789ddb51aecb844128a49da672e894baa5dadc600a7b5ba3ee3"
    },
    "zip": {
     "url": "wind-in-the-willows.zip",
@@ -254,7 +260,8 @@
    },
    "cover": {
     "url": "little-women/cover.jpg",
-    "bytes": 80776
+    "bytes": 80776,
+    "sha256": "b59ab47acdcff0a75e0fc9ec52e84a96d6f4a58b9f341318eac3edc8d7dbba8d"
    },
    "zip": {
     "url": "little-women.zip",
@@ -290,7 +297,8 @@
    },
    "cover": {
     "url": "secret-garden/cover.jpg",
-    "bytes": 76963
+    "bytes": 76963,
+    "sha256": "2a8ec33d39b054754c6b727e2842859d818f89750acc8da5c0e81650252e33d2"
    },
    "zip": {
     "url": "secret-garden.zip",
@@ -326,7 +334,8 @@
    },
    "cover": {
     "url": "black-beauty/cover.jpg",
-    "bytes": 41314
+    "bytes": 41314,
+    "sha256": "1396d36d4bac6858d913eb140f6c350cf8b69125228f6499cab50e07e0e425d6"
    },
    "zip": {
     "url": "black-beauty.zip",
@@ -366,7 +375,8 @@
    },
    "cover": {
     "url": "looking-glass/cover.jpg",
-    "bytes": 53350
+    "bytes": 53350,
+    "sha256": "86e3071bc30d0597fcc7ebccd6b45966311751e0b718d50f42e0e1b6dd54732d"
    },
    "zip": {
     "url": "looking-glass.zip",
@@ -404,7 +414,8 @@
    },
    "cover": {
     "url": "jungle-book/cover.jpg",
-    "bytes": 67502
+    "bytes": 67502,
+    "sha256": "92119e83fa0dd2779c8b30c03f67ed6d2b632cf69859f122c3201d50936c7b16"
    },
    "zip": {
     "url": "jungle-book.zip",
@@ -440,7 +451,8 @@
    },
    "cover": {
     "url": "wizard-of-oz/cover.jpg",
-    "bytes": 55751
+    "bytes": 55751,
+    "sha256": "87e294fa378ac1a353e61d51c56866895b0cbc120750203ab87383a09abeb00a"
    },
    "zip": {
     "url": "wizard-of-oz.zip",
@@ -451,7 +463,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11062219,
-  "sha256": "b762c3a96876e64c287515edbf1df3158afebcc96cd487935ab9f08891a12d5a"
+  "bytes": 11062745,
+  "sha256": "9668e0d1fd80780315290bd0294a27c8eaf9b21bdb976a069899230fce943ff4"
  }
 }

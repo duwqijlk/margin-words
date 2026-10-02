@@ -57,6 +57,15 @@ export type PackRecord = {
   installedAt: number;
 };
 
+/**
+ * Where the stored cover of a book came from, so a changed cover can be told from one that is up to date.
+ * Kept in the "notes" store under `coverinfo:<bookId>`.
+ *  - "catalog": the card picture from the word-list or classics catalog. `ref` is its sha256 (the catalog cover version).
+ *  - "epub": a cover named in the book itself.
+ *  - "chapter": the portrait picture found at the start of the stored book.
+ */
+export type CoverInfo = { source: "catalog" | "epub" | "chapter"; ref: string };
+
 export type StoredChapter = {
   title: string;
   paragraphs: string[];
@@ -100,6 +109,7 @@ const GLOSS = NOTES;
 const glossKey = (id: string) => `gloss:${id}`;
 const extrasKey = (id: string) => `extras:${id}`;
 const packKey = (bookId: string) => `pack:${bookId}`;
+const coverInfoKey = (bookId: string) => `coverinfo:${bookId}`;
 // Older versions kept answers from an online helper under `help:`. Nothing writes them now.
 const helpRange = (id: string) => IDBKeyRange.bound(`help:${id}:`, `help:${id}:\uffff`);
 const allHelpRange = () => IDBKeyRange.bound("help:", "help:\uffff");
@@ -365,6 +375,7 @@ export async function deleteStoredBook(id: string): Promise<void> {
   tx.objectStore(GLOSS).delete(glossKey(id));
   tx.objectStore(NOTES).delete(extrasKey(id));
   tx.objectStore(NOTES).delete(packKey(id));
+  tx.objectStore(NOTES).delete(coverInfoKey(id));
   tx.objectStore(NOTES).delete(helpRange(id));
   await done;
 }
@@ -515,13 +526,41 @@ export async function patchStoredBook(
   return next;
 }
 
-export async function saveCover(id: string, cover: string): Promise<void> {
+export async function saveCover(id: string, cover: string, info?: CoverInfo): Promise<void> {
   const db = await openDb();
-  const tx = db.transaction(COVERS, "readwrite");
+  const tx = db.transaction([COVERS, NOTES], "readwrite");
   const done = finish(tx, db);
   tx.objectStore(COVERS).put(cover, id);
+  if (info) tx.objectStore(NOTES).put(info, coverInfoKey(id));
+  else tx.objectStore(NOTES).delete(coverInfoKey(id));
   await done;
   if (typeof window !== "undefined") window.dispatchEvent(new Event("cibian-covers"));
+}
+
+export async function loadAllCoverInfo(): Promise<Record<string, CoverInfo>> {
+  const db = await openDb();
+  const tx = db.transaction(NOTES, "readonly");
+  const done = finish(tx, db);
+  const range = IDBKeyRange.bound("coverinfo:", "coverinfo:\uffff");
+  const store = tx.objectStore(NOTES);
+  const keys = await requestToPromise(store.getAllKeys(range));
+  const values = await requestToPromise(store.getAll(range) as IDBRequest<CoverInfo[]>);
+  await done;
+  const out: Record<string, CoverInfo> = {};
+  keys.forEach((key, index) => {
+    const value = values[index];
+    if (typeof key === "string" && value && typeof value.ref === "string" && typeof value.source === "string")
+      out[key.slice("coverinfo:".length)] = value;
+  });
+  return out;
+}
+
+export async function deletePackRecord(bookId: string): Promise<void> {
+  const db = await openDb();
+  const tx = db.transaction(NOTES, "readwrite");
+  const done = finish(tx, db);
+  tx.objectStore(NOTES).delete(packKey(bookId));
+  await done;
 }
 
 export async function loadAllCovers(): Promise<Record<string, string>> {

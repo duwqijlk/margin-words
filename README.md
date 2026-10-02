@@ -17,7 +17,7 @@ are in [docs/book-pack-spec.md](docs/book-pack-spec.md), section 3.
 Give **`book-pack-kit.zip`** to an AI agent. It holds `book-pack-spec.md` (the full format and workflow, written for
 an AI), a sample book (*The Lantern Seller*, EPUB), its sample word list (`glossary.json`), and
 `the-lantern-seller.pack.zip`, a ready-to-add sample pack (`book.epub` + `glossary.json`).
-Download it in the app: Add book and Settings have a "How to make a book pack" link (page `./guide/`).
+Download it in the app: Add book and Settings have a "How to make a book pack" link (page `/kit/`).
 Make a pack from your own files: `node scripts/make-pack.mjs book.epub glossary.json my-book.pack.zip`.
 Build it yourself: `npm run build:kit` (sources: `docs/book-pack-spec.md` and `examples/sample-book/`).
 Check the sample and the spec: `npm run check:example`.

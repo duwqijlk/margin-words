@@ -12,7 +12,7 @@
  *   4. docs/book-pack-spec.md exists, and the JSON example inside it is a valid word list that fits the sample book.
  *   5. book-pack-kit.zip builds from these files (spec + EPUB + glossary + the-lantern-seller.pack.zip), and the sample
  *      pack inside it is a valid pack: exactly book.epub + glossary.json, and the list belongs to the book.
- *   6. The in-app page ./guide/ builds and links to the kit.
+ *   6. The in-app page /kit/ builds and links to the kit.
  *
  * Exit code 0 = all fine, 1 = a problem (each one is printed).
  */
@@ -148,7 +148,7 @@ if (problems.length === 0) {
 
   // 6. the in-app page
   const guide = node(["scripts/build-guide.mjs", "--check"]);
-  if (guide.status === 0) ok("the in-app page ./guide/ can be built and links to the kit");
+  if (guide.status === 0) ok("the in-app page /kit/ can be built and links to the kit");
   else bad(`guide: ${(guide.stderr || guide.stdout).trim().slice(0, 300)}`);
 }
 

@@ -48,6 +48,8 @@ import {
   type WordStat,
 } from "@/lib/text";
 import { useVocab } from "@/lib/vocab-store";
+import { flowText, flowTextBefore } from "@/lib/flow-text";
+import { READER_GUTTER, SIDE_PANEL } from "@/components/side-panel";
 import {
   btn,
   chip,
@@ -452,8 +454,6 @@ function WordCard({
   state,
   stat,
   saved,
-  dock,
-  side,
   phrase,
   bookId,
   chapter,
@@ -470,10 +470,6 @@ function WordCard({
   noList: boolean;
   stat: WordStat | undefined;
   saved: boolean;
-  /** phone: which edge the sheet sits on (the opposite one from the tapped word) */
-  dock: "bottom" | "top";
-  /** desktop: which side the card sits on (the opposite one from the tapped word) */
-  side: "left" | "right";
   onClose: () => void;
   onToggle: () => void;
 }) {
@@ -498,23 +494,16 @@ function WordCard({
     <aside
       aria-label={t("card.aria", { word: state.key })}
       data-word-card
-      data-dock={dock}
-      data-side={side}
       className={cn(
         // Always out of the page flow (fixed): opening, moving or closing it can never move the text.
+        // Phone: a sheet on the bottom edge. Tablet and desktop: a column on the right, in the gutter
+        // the page keeps free for it (see READER_GUTTER), so it never covers the text. Same place every tap.
         "fixed z-40 max-h-[46dvh] overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
-        // Phone: a sheet on the edge that is away from the tapped word.
-        dock === "bottom"
-          ? "anim-sheet inset-x-0 bottom-0 rounded-t-3xl border-t pt-3"
-          : "anim-sheet-top inset-x-0 top-0 rounded-b-3xl border-b pt-[max(0.75rem,env(safe-area-inset-top))]",
-        // Desktop: a card on the side that is away from the tapped word.
-        "lg:inset-x-auto lg:top-[4.5rem] lg:bottom-5 lg:max-h-none lg:w-[21rem] lg:rounded-2xl lg:border lg:pt-5",
-        side === "left" ? "lg:left-5" : "lg:right-5",
+        "anim-sheet inset-x-0 bottom-0 rounded-t-3xl border-t pt-3",
+        SIDE_PANEL,
       )}
     >
-      {dock === "bottom" ? (
-        <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line lg:hidden" aria-hidden />
-      ) : null}
+      <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden" aria-hidden />
       <div className="grid gap-3.5">
         <div className="flex items-start justify-between gap-3">
           <div className="grid min-w-0 gap-1">
@@ -669,8 +658,7 @@ function WordCard({
         <div
           className={cn(
             // The main action stays in view while the card scrolls.
-            "sticky bottom-0 z-10 -mx-5 grid bg-card px-5 pt-2 lg:pb-5",
-            dock === "bottom" ? "pb-[max(1.25rem,env(safe-area-inset-bottom))]" : "pb-3",
+            "sticky bottom-0 z-10 -mx-5 grid bg-card px-5 pt-2 pb-[max(1.25rem,env(safe-area-inset-bottom))] md:pb-5",
           )}
         >
           <button
@@ -694,9 +682,26 @@ function WordCard({
           </button>
         </div>
       </div>
-      {dock === "top" ? (
-        <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-line lg:hidden" aria-hidden />
-      ) : null}
+    </aside>
+  );
+}
+
+/** The empty side panel: it holds the place of the word card, so the page looks the same before a tap. */
+function SidePlaceholder() {
+  const { t } = useT();
+  return (
+    <aside
+      aria-hidden="true"
+      data-side-placeholder
+      className={cn(
+        "pointer-events-none fixed z-0 hidden content-start gap-1 border border-dashed border-line px-5 py-5 text-sm text-muted",
+        "md:grid",
+        SIDE_PANEL,
+        "md:bottom-auto md:h-40",
+      )}
+    >
+      <p className="font-semibold">{t("reader.sideTitle")}</p>
+      <p>{t("reader.sideHint")}</p>
     </aside>
   );
 }
@@ -737,17 +742,8 @@ export function ReaderScreen({
     /** the paragraph text before the word */
     before: string;
   } | null>(null);
-  // Where the word card sits. Decided when a word is tapped, so the card never covers it.
-  const [place, setPlace] = useState<{ dock: "bottom" | "top"; side: "left" | "right" }>({
-    dock: "bottom",
-    side: "right",
-  });
   // Paragraph help (overlay). `index` is the paragraph number from paragraphBlocks().
-  const [help, setHelp] = useState<{
-    index: number;
-    dock: "bottom" | "top";
-    side: "left" | "right";
-  } | null>(null);
+  const [help, setHelp] = useState<{ index: number } | null>(null);
   const [helpState, setHelpState] = useState<ParagraphPanelState>({ status: "loading" });
   const helpToken = useRef(0);
   const [phraseHit, setPhraseHit] = useState<{ at: string; hit: PhraseHit } | null>(null);
@@ -1007,20 +1003,9 @@ export function ReaderScreen({
   function openHelp(index: number) {
     const el = paragraphElement(index);
     if (!el || !book) return;
-    const text = (el.textContent ?? "").replace(/\s+/g, " ").trim();
-    const r = el.getBoundingClientRect();
-    const art = articleRef.current?.getBoundingClientRect();
-    const vw = document.documentElement.clientWidth;
-    const top = Math.max(r.top, 0);
-    const bottom = Math.min(r.bottom, window.innerHeight);
+    const text = flowText(el);
     setPicked(null);
-    setHelp({
-      index,
-      // phone: the sheet goes on the edge that is away from the middle of the visible paragraph
-      dock: (top + bottom) / 2 > window.innerHeight * 0.5 ? "top" : "bottom",
-      // desktop: the side with more free room
-      side: art && art.left > vw - art.right ? "left" : "right",
-    });
+    setHelp({ index });
     setHelpState({ status: "loading" });
     helpToken.current += 1;
     const token = helpToken.current;
@@ -1044,21 +1029,8 @@ export function ReaderScreen({
   function pickButton(button: Element) {
     const surface = button.getAttribute("data-word") ?? "";
     const block = button.closest("p, li, blockquote, h1, h2, h3, h4");
-    const paragraph = (block?.textContent ?? surface).replace(/\s+/g, " ").trim();
-    let before = "";
-    if (block) {
-      const range = document.createRange();
-      range.setStart(block, 0);
-      range.setEndBefore(button);
-      before = range.toString().replace(/\s+/g, " ").trimStart();
-    }
-    // Put the card on the far side of the tapped word. Nothing here touches the
-    // page: no scrolling, no padding. The text stays exactly where it is.
-    const at = button.getBoundingClientRect();
-    setPlace({
-      dock: at.bottom > window.innerHeight * 0.54 ? "top" : "bottom",
-      side: at.left + at.width / 2 < window.innerWidth / 2 ? "right" : "left",
-    });
+    const paragraph = block ? flowText(block) : surface;
+    const before = block ? flowTextBefore(block, button) : "";
     closeHelp();
     setPhraseHit(null);
     setPicked({
@@ -1253,7 +1225,7 @@ export function ReaderScreen({
         </button>
       ) : null}
 
-      <main className="px-5 pt-8 pb-12 sm:px-8 sm:pt-12">
+      <main className={cn("px-5 pt-8 pb-12 sm:px-8 sm:pt-12", READER_GUTTER)}>
         {linkedHtml ? (
           <article
             ref={articleRef}
@@ -1314,6 +1286,8 @@ export function ReaderScreen({
         </nav>
       </main>
 
+      {!card && !help ? <SidePlaceholder /> : null}
+
       {linkedHtml ? (
         <ParagraphMarker
           articleRef={articleRef}
@@ -1327,8 +1301,6 @@ export function ReaderScreen({
       {help ? (
         <ParagraphPanel
           state={helpState}
-          dock={help.dock}
-          side={help.side}
           onClose={closeHelp}
           onWord={pickFromParagraph}
         />
@@ -1339,8 +1311,6 @@ export function ReaderScreen({
           state={card}
           stat={bookStats[pickedKey]}
           saved={alreadySaved}
-          dock={place.dock}
-          side={place.side}
           phrase={phraseHit && phraseHit.at === phraseAt ? phraseHit.hit : null}
           bookId={bookId}
           noList={noList}

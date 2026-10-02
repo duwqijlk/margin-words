@@ -1,0 +1,128 @@
+/**
+ * Addresses of the app. Every top-menu page has its own path, so back/forward, refresh and
+ * a link to a page all work:
+ *
+ *   /shelf            Bookshelf        /discover         Discover
+ *   /guide            Guide            /words            Word book (all books)
+ *   /words/<bookId>   Word book of one book
+ *   /review[/<id>]    Review           /add              Add book
+ *   /read/<bookId>    the reader
+ *
+ * `/` and unknown paths go to /shelf. A small hand-made router: the app has no server and
+ * eight addresses, so a library would add more code than it saves.
+ */
+import { useSyncExternalStore } from "react";
+
+export type Route =
+  | { kind: "shelf" }
+  | { kind: "add" }
+  | { kind: "discover" }
+  | { kind: "guide" }
+  | { kind: "words"; bookId: string | null }
+  | { kind: "review"; bookId: string | null }
+  | { kind: "read"; bookId: string };
+
+export const DEFAULT_ROUTE: Route = { kind: "shelf" };
+
+/** Book ids are UUIDs or pack ids. Anything else in a path is refused. */
+const ID = /^[A-Za-z0-9_-]{1,80}$/;
+
+function safeDecode(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return "";
+  }
+}
+
+/** The route of a path, or null when the path is not an address of the app. */
+export function parsePath(pathname: string): Route | null {
+  const parts = pathname.split("/").filter(Boolean);
+  const [head, rest, extra] = parts;
+  if (extra !== undefined) return null;
+  const decoded = rest === undefined ? "" : safeDecode(rest);
+  const id = rest !== undefined && ID.test(decoded) ? decoded : null;
+  if (rest !== undefined && id === null) return null;
+  switch (head) {
+    case "shelf":
+      return rest === undefined ? { kind: "shelf" } : null;
+    case "add":
+      return rest === undefined ? { kind: "add" } : null;
+    case "discover":
+      return rest === undefined ? { kind: "discover" } : null;
+    case "guide":
+      return rest === undefined ? { kind: "guide" } : null;
+    case "words":
+      return { kind: "words", bookId: id };
+    case "review":
+      return { kind: "review", bookId: id };
+    case "read":
+      return id === null ? null : { kind: "read", bookId: id };
+    default:
+      return null;
+  }
+}
+
+export function pathFor(route: Route): string {
+  switch (route.kind) {
+    case "words":
+      return route.bookId ? `/words/${encodeURIComponent(route.bookId)}` : "/words";
+    case "review":
+      return route.bookId ? `/review/${encodeURIComponent(route.bookId)}` : "/review";
+    case "read":
+      return `/read/${encodeURIComponent(route.bookId)}`;
+    default:
+      return `/${route.kind}`;
+  }
+}
+
+/** Which top-menu page a route belongs to. */
+export function menuOf(route: Route): "shelf" | "discover" | "guide" | "words" {
+  switch (route.kind) {
+    case "discover":
+      return "discover";
+    case "guide":
+      return "guide";
+    case "words":
+    case "review":
+      return "words";
+    default:
+      return "shelf";
+  }
+}
+
+const CHANGED = "cibian-route";
+
+function currentPath(): string {
+  return typeof window === "undefined" ? "/shelf" : window.location.pathname;
+}
+
+function subscribe(onChange: () => void): () => void {
+  window.addEventListener("popstate", onChange);
+  window.addEventListener(CHANGED, onChange);
+  return () => {
+    window.removeEventListener("popstate", onChange);
+    window.removeEventListener(CHANGED, onChange);
+  };
+}
+
+/** Go to a page. `replace` swaps the current history entry (used for redirects). */
+export function navigate(route: Route, options: { replace?: boolean } = {}): void {
+  const path = pathFor(route);
+  if (window.location.pathname !== path) {
+    if (options.replace) window.history.replaceState(null, "", path);
+    else window.history.pushState(null, "", path);
+  }
+  window.dispatchEvent(new Event(CHANGED));
+}
+
+/** The route of the address bar. An address that is not a page of the app reads as the shelf. */
+export function useRoute(): Route {
+  const path = useSyncExternalStore(subscribe, currentPath, () => "/shelf");
+  return parsePath(path) ?? DEFAULT_ROUTE;
+}
+
+/** True when the address bar is not a page of the app ("/" or a typo): the caller redirects. */
+export function pathNeedsRedirect(): boolean {
+  return parsePath(currentPath()) === null;
+}

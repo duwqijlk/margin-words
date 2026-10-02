@@ -1,0 +1,5 @@
+# Cloudflare Pages. Static files are served first, so /assets/*, /fonts/* and the rest are never
+# rewritten. Every other path is a page of the single-page app (/shelf, /discover, /guide, /words,
+# /read/<id>) and gets index.html. The old address of the book pack kit keeps working.
+/guide/book-pack-kit.zip /kit/book-pack-kit.zip 301
+/* /index.html 200

@@ -5,7 +5,7 @@
 import { create } from "zustand";
 import { tr } from "@/lib/i18n";
 import { downloadPack, type CatalogPack, type DownloadProgress } from "@/lib/packs";
-import { useVocab } from "@/lib/vocab-store";
+import { registerInstalled } from "@/lib/shelf-register";
 import { clearPackRemoved } from "@/lib/removed-packs";
 
 export type DownloadItem = { stage: DownloadProgress["stage"]; fraction: number; error: string };
@@ -34,22 +34,10 @@ export const useDownloads = create<DownloadState>()((set, get) => ({
         })),
       );
       clearPackRemoved(pack.id);
-      const { books, addBook } = useVocab.getState();
-      // A book that is already on the shelf (an update) keeps its place, its name and its cover colour.
-      if (!books.some((book) => book.id === result.bookId)) {
-        addBook(result.title, result.author, "epub", result.bookId);
-      }
-      useVocab.getState().setBookDetails([
-        {
-          id: result.bookId,
-          lexile: pack.lexile,
-          isbn: pack.isbn,
-          series: pack.series,
-          seriesNumber: pack.seriesNumber,
-          oldFashioned: pack.oldFashioned,
-          oldFashionedReason: pack.oldFashionedReason,
-        },
-      ]);
+      registerInstalled(result, {
+        oldFashioned: pack.oldFashioned,
+        oldFashionedReason: pack.oldFashionedReason,
+      });
       if (typeof window !== "undefined") {
         window.dispatchEvent(
           new CustomEvent("cibian-progress", { detail: { bookId: result.bookId } }),

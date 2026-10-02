@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
- * Builds the in-app page at ./guide/ : a title, a few short lines (English and Chinese) and ONE download button
+ * Builds the small offline page at /kit/ (the Guide screen of the app lives at /guide): a title, a few short lines (English and Chinese) and ONE download button
  * for book-pack-kit.zip (scripts/build-kit.mjs). The text is in docs/guide-chrome.json.
  *
  *   node scripts/build-guide.mjs --check          build the page in memory and check it (used by check:example)
- *   node scripts/build-guide.mjs --out some/dir   write guide/ files to a folder (for a look)
+ *   node scripts/build-guide.mjs --out some/dir   write kit/ files to a folder (for a look)
  *
- * `vite build` calls buildGuide() too (scripts/vite-plugins.mjs) and puts the result in dist/guide/, so the page
+ * `vite build` calls buildGuide() too (scripts/vite-plugins.mjs) and puts the result in dist/kit/, so the page
  * is a plain offline page. Nothing is fetched from the internet.
  */
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -52,7 +52,7 @@ function readJson(rel) {
 
 let cache = null;
 
-/** Returns Map<fileName inside dist, string | Buffer>. fileName starts with "guide/". */
+/** Returns Map<fileName inside dist, string | Buffer>. fileName starts with "kit/". */
 export async function buildGuide() {
   if (cache) return cache;
   const chrome = readJson("docs/guide-chrome.json");
@@ -81,8 +81,8 @@ ${sections.join("\n")}
 </html>
 `;
   cache = new Map([
-    ["guide/index.html", page],
-    [`guide/${KIT_NAME}`, await buildKit()],
+    ["kit/index.html", page],
+    [`kit/${KIT_NAME}`, await buildKit()],
   ]);
   return cache;
 }
@@ -90,10 +90,10 @@ ${sections.join("\n")}
 async function check() {
   const problems = [];
   const files = await buildGuide();
-  const page = files.get("guide/index.html");
-  if (!files.has(`guide/${KIT_NAME}`)) problems.push(`${KIT_NAME} was not built`);
+  const page = files.get("kit/index.html");
+  if (!files.has(`kit/${KIT_NAME}`)) problems.push(`${KIT_NAME} was not built`);
   for (const m of page.matchAll(/href="([^"#:]+)"/g)) {
-    if (m[1] !== "../" && !files.has(`guide/${m[1]}`)) problems.push(`the page links to ${m[1]} but that file is not built`);
+    if (m[1] !== "../" && !files.has(`kit/${m[1]}`)) problems.push(`the page links to ${m[1]} but that file is not built`);
   }
   for (const lang of ["en", "zh"]) {
     if (!page.includes(`data-lang-section="${lang}" data-title`)) problems.push(`no ${lang} section`);
@@ -125,6 +125,6 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       mkdirSync(dirname(file), { recursive: true });
       writeFileSync(file, data);
     }
-    console.log(`Wrote the guide to ${join(outDir, "guide")}/`);
+    console.log(`Wrote the kit page to ${join(outDir, "kit")}/`);
   }
 }

@@ -8,7 +8,11 @@ const BOOKS_ORIGIN = __BOOKS_ORIGIN__;
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(FILES)).then(() => self.skipWaiting()),
+    // "reload" skips the HTTP cache, so a new version never precaches an old copy of a file.
+    caches
+      .open(CACHE)
+      .then((cache) => cache.addAll(FILES.map((file) => new Request(file, { cache: "reload" }))))
+      .then(() => self.skipWaiting()),
   );
 });
 
@@ -18,9 +22,9 @@ self.addEventListener("activate", (event) => {
       .keys()
       .then((keys) =>
         Promise.all(
-          keys
-            .filter((key) => key.startsWith("margin-words-shell-") && key !== CACHE)
-            .map((key) => caches.delete(key)),
+          // Every cache of this origin that is not the current shell or the saved books is old
+          // (older shells, and leftovers of earlier workers). Nothing stale may answer a request.
+          keys.filter((key) => key !== CACHE && key !== BOOKS).map((key) => caches.delete(key)),
         ),
       )
       .then(() => self.clients.claim()),
@@ -69,12 +73,15 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   if (url.origin !== self.location.origin) return;
+  // The browser asks for these itself. They must never come from an old copy.
+  if (path === "sw.js" || path === "manifest.webmanifest") return;
   if (request.mode === "navigate") {
-    // Online: the fresh page. Offline: the saved page.
+    // Online: the fresh page, checked with the server every time (never an old HTTP-cached index.html).
+    // Offline: the saved page.
     event.respondWith(
-      fetch(request).catch(() =>
-        // the help page at guide/ is saved too; every other page is the app
-        (path.startsWith("guide/") ? caches.match(request) : Promise.resolve(undefined)).then(
+      fetch(request, { cache: "no-cache" }).catch(() =>
+        // the kit page at kit/ is saved too; every other address (/shelf, /read/...) is the app
+        (path.startsWith("kit/") ? caches.match(request) : Promise.resolve(undefined)).then(
           (hit) => hit || caches.match("./index.html").then((app) => app || caches.match("./")),
         ),
       ),

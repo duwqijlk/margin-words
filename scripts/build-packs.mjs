@@ -236,7 +236,7 @@ for (const id of ids) {
       glossary: list
         ? { url: `${id}/glossary.json`, bytes: list.length, sha256: sha(list), rev: stats.rev }
         : { url: "", bytes: 0, sha256: "", rev: "" },
-      cover: cover ? { url: `${id}/${coverName}`, bytes: cover.length } : null,
+      cover: cover ? { url: `${id}/${coverName}`, bytes: cover.length, sha256: sha(cover) } : null,
       zip: { url: `${id}.zip`, bytes: zipBytes.length, sha256: sha(zipBytes) },
       // Optional: info.json {"preinstall": true} = the app puts this book on the shelf on the first start.
       ...(info.preinstall === true ? { preinstall: true } : {}),

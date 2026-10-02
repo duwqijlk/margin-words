@@ -6,7 +6,7 @@
  * host, or come from a .zip file the user picks. After a pack is stored in this browser (IndexedDB)
  * the reader needs no network at all. See README, "Reader and book packs".
  */
-import JSZip from "jszip";
+import type JSZip from "jszip";
 import {
   deleteStoredBook,
   listBookSummaries,
@@ -19,8 +19,12 @@ import {
   saveCover,
   savePackRecord,
   saveStoredBook,
+  type CoverInfo,
   type PackRecord,
 } from "@/lib/book-db";
+import { dataUrlOf, fetchCoverData } from "@/lib/covers";
+import { findOnShelf, type Identity } from "@/lib/shelf-identity";
+import { useVocab } from "@/lib/vocab-store";
 import { importedCoverChoice, parseEpub, type ParsedEpub } from "@/lib/epub";
 import { validateGlossary } from "@/lib/glossary-format";
 import { errorText, tr, type Key } from "@/lib/i18n";
@@ -59,7 +63,7 @@ export type CatalogPack = {
   coined: number;
   epub: PackFileRef;
   glossary: PackFileRef & { rev: string };
-  cover: { url: string; bytes: number } | null;
+  cover: { url: string; bytes: number; sha256: string } | null;
   zip: PackFileRef | null;
   /** bundled classics only: true = added to the shelf on the first start; false = one-tap download */
   preinstall: boolean;
@@ -149,7 +153,7 @@ export function parseCatalog(value: unknown): Catalog | null {
           text((row.glossary as Record<string, unknown> | undefined)?.rev, 64) ||
           (glossary?.sha256 ?? "").slice(0, 12),
       },
-      cover: cover ? { url: cover.url, bytes: cover.bytes } : null,
+      cover: cover ? { url: cover.url, bytes: cover.bytes, sha256: cover.sha256 } : null,
       zip: fileRef(row.zip),
       preinstall: row.preinstall === true,
       lexile: lexileMeasure(row.lexile),
@@ -275,6 +279,10 @@ export type InstallInput = {
   glossaryText: string;
   /** a data: URL; when empty the cover of the EPUB is used */
   cover: string;
+  /** where `cover` came from; the catalog sha256 lets a later start see that the catalog picture changed */
+  coverInfo?: CoverInfo;
+  /** another name this book is known by (for example the title in its word list), for matching a card */
+  also?: Identity;
   /** the book already opened by the caller (saves opening it twice) */
   parsed?: ParsedEpub;
   /** Lexile measure, or "" */
@@ -303,7 +311,12 @@ export type InstallResult = {
  * book is used only when the card has no cover yet, so a catalog cover already
  * on a "needs your e-book" card is kept.
  */
-async function storeImportedCover(bookId: string, given: string, parsed: ParsedEpub): Promise<void> {
+async function storeImportedCover(
+  bookId: string,
+  given: string,
+  givenInfo: CoverInfo | undefined,
+  parsed: ParsedEpub,
+): Promise<void> {
   const tagged = parsed.coverTagged ? parsed.cover ?? "" : "";
   const spine = parsed.coverTagged ? "" : parsed.cover ?? "";
   // `given` is a catalog cover or a pack cover.jpg. Together with a tagged OPF
@@ -311,10 +324,13 @@ async function storeImportedCover(bookId: string, given: string, parsed: ParsedE
   // card does not already have a cover.
   const chosen = given || tagged;
   if (chosen) {
-    await saveCover(bookId, chosen).catch(() => undefined);
+    const info: CoverInfo =
+      given && given !== tagged ? (givenInfo ?? { source: "epub", ref: "" }) : { source: "epub", ref: "" };
+    await saveCover(bookId, chosen, info).catch(() => undefined);
     return;
   }
-  if (spine && !(await loadCover(bookId))) await saveCover(bookId, spine).catch(() => undefined);
+  if (spine && !(await loadCover(bookId)))
+    await saveCover(bookId, spine, { source: "chapter", ref: "" }).catch(() => undefined);
 }
 
 function bufferOf(bytes: Uint8Array): ArrayBuffer {
@@ -324,6 +340,35 @@ function bufferOf(bytes: Uint8Array): ArrayBuffer {
 async function packRecordFor(packId: string): Promise<PackRecord | null> {
   const all = await listPackRecords();
   return all.find((record) => record.packId === packId) ?? null;
+}
+
+/**
+ * The card this book already has, if any. First by pack id. Then by what the book is (ISBN, or title and
+ * author): a pack .zip often carries a made-up pack id, and a "needs your e-book" card from Discover has
+ * the catalog id, so the pack id alone would put the same book on the shelf twice.
+ */
+async function findInstalled(input: InstallInput): Promise<PackRecord | null> {
+  const records = await listPackRecords();
+  const byId = records.find((record) => record.packId === input.packId);
+  if (byId) return byId;
+  const stored = new Set((await listBookSummaries().catch(() => [])).map((book) => book.id));
+  const shelf = useVocab
+    .getState()
+    .books.map((book) => ({ ...book, stored: stored.has(book.id) }));
+  const names: Identity[] = [{ title: input.title, author: input.author, isbn: input.isbn ?? "" }];
+  if (input.also) names.push({ ...input.also, isbn: input.isbn ?? "" });
+  if (input.parsed) names.push({ title: input.parsed.title, author: input.parsed.author, isbn: input.isbn ?? "" });
+  const hit = findOnShelf(shelf, names);
+  if (!hit) return null;
+  return (
+    records.find((record) => record.bookId === hit.id) ?? {
+      packId: input.packId,
+      bookId: hit.id,
+      rev: "",
+      sha256: "",
+      installedAt: Date.now(),
+    }
+  );
 }
 
 let installTail: Promise<unknown> = Promise.resolve();
@@ -337,7 +382,7 @@ export function installPack(input: InstallInput): Promise<InstallResult> {
 
 async function installNow(input: InstallInput): Promise<InstallResult> {
   void requestPersistentStorage();
-  const existing = await packRecordFor(input.packId);
+  const existing = await findInstalled(input);
   const sameBook = Boolean(existing && existing.sha256 && existing.sha256 === input.epubSha256);
   let bookId = existing?.bookId ?? "";
   let title = input.title;
@@ -359,7 +404,10 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
       });
       // Read it back: a browser that silently drops the write would lose the book on refresh.
       if (!(await loadBookMeta(bookId))) throw new Error(tr("err.saveFailedPack"));
-      await storeImportedCover(bookId, input.cover, parsed);
+      await storeImportedCover(bookId, input.cover, input.coverInfo, parsed);
+    } else if (input.parsed && !(await loadCover(bookId))) {
+      // The same book again (for example the pack is imported once more): fill in a cover that is missing.
+      await storeImportedCover(bookId, input.cover, input.coverInfo, input.parsed);
     }
     let words = 0;
     if (input.glossaryText) {
@@ -372,7 +420,8 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
           .words;
     }
     await savePackRecord({
-      packId: input.packId,
+      // A card that was found by what the book is keeps its catalog pack id, so Discover still shows it.
+      packId: existing?.packId ?? input.packId,
       bookId,
       rev: input.rev,
       sha256: input.epubSha256,
@@ -449,26 +498,20 @@ async function fetchBytes(
   return out;
 }
 
-/** The word-list catalog cover for this book, or "" when there is no match or no network. */
-async function catalogCoverFor(book: { title: string; author: string; isbn: string }): Promise<string> {
+/** The word-list catalog cover for this book, or empty when there is no match or no network. */
+async function catalogCoverFor(book: {
+  title: string;
+  author: string;
+  isbn: string;
+}): Promise<{ cover: string; info: CoverInfo | undefined }> {
   try {
     const match = matchWordListPack(await loadWordListCatalog(), book);
-    if (!match?.cover?.url) return "";
-    const response = await fetch(resolveAgainst(WORD_LIST_CATALOG_URL, match.cover.url));
-    if (!response.ok) return "";
-    return await dataUrlOf(await response.blob());
+    if (!match?.cover?.url) return { cover: "", info: undefined };
+    const cover = await fetchCoverData(resolveAgainst(WORD_LIST_CATALOG_URL, match.cover.url), match.cover.sha256);
+    return { cover, info: cover ? { source: "catalog", ref: match.cover.sha256 } : undefined };
   } catch {
-    return "";
+    return { cover: "", info: undefined };
   }
-}
-
-function dataUrlOf(blob: Blob): Promise<string> {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(typeof reader.result === "string" ? reader.result : "");
-    reader.onerror = () => resolve("");
-    reader.readAsDataURL(blob);
-  });
 }
 
 /** Download one pack of the catalog and store it. */
@@ -512,15 +555,11 @@ export async function downloadPack(
     glossaryText = new TextDecoder().decode(bytes);
   }
 
-  let cover = "";
-  if (!keepBook && pack.cover?.url) {
-    try {
-      const res = await fetch(resolveAgainst(catalogUrl, pack.cover.url));
-      if (res.ok) cover = await dataUrlOf(await res.blob());
-    } catch {
-      // A missing cover is fine: the book makes its own.
-    }
-  }
+  // A missing cover is fine: the book makes its own.
+  const cover =
+    !keepBook && pack.cover?.url
+      ? await fetchCoverData(resolveAgainst(catalogUrl, pack.cover.url), pack.cover.sha256)
+      : "";
 
   onProgress({ stage: "saving", fraction: 0.96 });
   const result = await installPack({
@@ -532,6 +571,7 @@ export async function downloadPack(
     epubSha256: epubSha,
     glossaryText,
     cover,
+    ...(cover ? { coverInfo: { source: "catalog" as const, ref: pack.cover?.sha256 ?? "" } } : {}),
     lexile: pack.lexile,
     isbn: pack.isbn,
     series: pack.series,
@@ -635,6 +675,8 @@ type Prepared = {
   epubSha: string;
   glossaryText: string;
   cover: string;
+  coverInfo: CoverInfo | undefined;
+  also: Identity;
   lexile: string;
   isbn: string;
   series: string;
@@ -682,6 +724,7 @@ async function prepare(zip: JSZip, group: PackGroup): Promise<Prepared> {
   }
   const tagged = parsed.coverTagged ? parsed.cover ?? "" : "";
   let supplied = "";
+  let suppliedInfo: CoverInfo | undefined;
   if (!tagged && group.cover) {
     const type = /png$/i.test(group.cover)
       ? "image/png"
@@ -690,12 +733,15 @@ async function prepare(zip: JSZip, group: PackGroup): Promise<Prepared> {
         : "image/jpeg";
     const bytes = await (zip.file(group.cover) as JSZip.JSZipObject).async("uint8array");
     supplied = await dataUrlOf(new Blob([bufferOf(bytes)], { type }));
+    suppliedInfo = { source: "epub", ref: "" };
   } else if (!tagged) {
-    supplied = await catalogCoverFor({
+    const found = await catalogCoverFor({
       title: text(info.title, 160) || parsed.title,
       author: text(info.author, 120) || parsed.author,
       isbn: isbnDigits(info.isbn) || isbnDigits(check.file.isbn),
     });
+    supplied = found.cover;
+    suppliedInfo = found.info;
   }
   const cover = importedCoverChoice(tagged, supplied, "");
   const wantedId = text(info.id, 64);
@@ -722,6 +768,8 @@ async function prepare(zip: JSZip, group: PackGroup): Promise<Prepared> {
     epubSha,
     glossaryText,
     cover,
+    coverInfo: cover === tagged ? undefined : suppliedInfo,
+    also: { title: text(check.file.title, 160), author: text(check.file.author, 120) },
     lexile,
     isbn,
     series: fromList.series,
@@ -737,7 +785,8 @@ async function prepare(zip: JSZip, group: PackGroup): Promise<Prepared> {
 export async function importPackZip(file: File): Promise<ImportedPack[]> {
   let zip: JSZip;
   try {
-    zip = await JSZip.loadAsync(await file.arrayBuffer());
+    const { default: Zip } = await import("jszip");
+    zip = await Zip.loadAsync(await file.arrayBuffer());
   } catch {
     throw new Error(tr("err.notZip"));
   }
@@ -760,6 +809,8 @@ export async function importPackZip(file: File): Promise<ImportedPack[]> {
         epubSha256: item.epubSha,
         glossaryText: item.glossaryText,
         cover: item.cover,
+        ...(item.coverInfo ? { coverInfo: item.coverInfo } : {}),
+        also: item.also,
         parsed: item.parsed,
         lexile: item.lexile,
         isbn: item.isbn,

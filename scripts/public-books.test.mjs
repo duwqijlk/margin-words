@@ -73,7 +73,7 @@ test("only Alice is preinstalled, and every classic has a Lexile measure", () =>
 
 test("the service worker does not precache book files", async () => {
   const { isShellFile } = await import("./vite-plugins.mjs");
-  const names = ["index.html", "assets/app.js", "guide/index.html", "guide/book-pack-kit.zip"];
+  const names = ["index.html", "assets/app.js", "kit/index.html", "kit/book-pack-kit.zip"];
   for (const pack of catalog.packs) {
     names.push(`public-books/${pack.epub.url}`, `public-books/${pack.glossary.url}`);
     if (pack.cover) names.push(`public-books/${pack.cover.url}`);
@@ -81,5 +81,5 @@ test("the service worker does not precache book files", async () => {
   }
   names.push("word-lists/catalog.json", "word-lists/narnia/glossary.json");
   const shell = names.filter((name) => isShellFile(name));
-  assert.deepEqual(shell, ["index.html", "assets/app.js", "guide/index.html", "guide/book-pack-kit.zip"]);
+  assert.deepEqual(shell, ["index.html", "assets/app.js", "kit/index.html", "kit/book-pack-kit.zip"]);
 });

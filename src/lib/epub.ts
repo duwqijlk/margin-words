@@ -1,6 +1,7 @@
-import JSZip from "jszip";
+import type JSZip from "jszip";
 import { CodedError } from "./errors.ts";
 import { stripWordBreaks, stripWordBreaksIn } from "./glossary-format.ts";
+import { flowText } from "./flow-text.ts";
 
 export type EpubChapter = {
   title: string;
@@ -250,7 +251,7 @@ function sanitize(root: HTMLElement) {
 
 /** Paragraph text the reader stores: spaces collapsed, soft hyphens removed. */
 function paragraphText(block: ParentNode): string {
-  return stripWordBreaks((block.textContent ?? "").replace(/\s+/g, " ").trim());
+  return stripWordBreaks(flowText(block));
 }
 
 function paragraphsOf(root: ParentNode): string[] {
@@ -547,7 +548,7 @@ const COVER_TEXT_LIMIT = 40;
  * The src of the first img in `root`, when it appears before any substantial text.
  * An image after a real paragraph is not a cover.
  */
-export function leadingImageHref(root: ParentNode): string | null {
+export function leadingImageHref(root: ParentNode, options: { data?: boolean } = {}): string | null {
   let letters = 0;
   const skip = new Set(["script", "style"]);
   const walk = (node: Node): string | null => {
@@ -562,7 +563,8 @@ export function leadingImageHref(root: ParentNode): string | null {
     if (skip.has(name)) return null;
     if (name === "img") {
       const src = (el.getAttribute("src") ?? "").trim();
-      return src && !/^https?:/i.test(src) && !src.startsWith("data:") ? src : null;
+      if (!src || /^https?:/i.test(src)) return null;
+      return src.startsWith("data:") && !options.data ? null : src;
     }
     for (let child = el.firstChild; child; child = child.nextSibling) {
       const found = walk(child);
@@ -669,7 +671,9 @@ export async function parseEpub(
 ): Promise<ParsedEpub> {
   let zip: JSZip;
   try {
-    zip = await JSZip.loadAsync(buffer);
+    // Loaded when a book is opened, so the first screen does not carry the zip reader.
+    const { default: Zip } = await import("jszip");
+    zip = await Zip.loadAsync(buffer);
   } catch {
     throw new CodedError("notValidEpub", "This file is not a valid EPUB book.");
   }
@@ -811,4 +815,38 @@ export async function parseEpub(
     coverTagged = false;
   }
   return { title, author, chapters: ready, cover, coverTagged };
+}
+
+function bytesOfDataUrl(url: string): { bytes: Uint8Array; mime: string } | null {
+  const match = /^data:(image\/[a-z0-9.+-]+);base64,([A-Za-z0-9+/=\s]+)$/i.exec(url);
+  if (!match?.[1] || !match[2]) return null;
+  try {
+    const binary = atob(match[2].replace(/\s+/g, ""));
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+    return { bytes, mime: match[1].toLowerCase() };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The cover of a book that is already stored. The EPUB file itself is not kept, but the chapters
+ * keep their pictures, so the same rule as the import can run again: the first portrait image
+ * that sits at the very start of the book, before any real text. Looks at the first two chapters.
+ * Null when there is none (the card keeps its generated cover).
+ */
+export async function coverFromChapters(chapters: ReadonlyArray<{ html?: string }>): Promise<string | null> {
+  for (const chapter of chapters.slice(0, 2)) {
+    if (!chapter.html || typeof document === "undefined") continue;
+    const doc = parseHtml(`<body>${chapter.html}</body>`);
+    const src = doc.body ? leadingImageHref(doc.body, { data: true }) : null;
+    if (!src?.startsWith("data:")) continue;
+    const image = bytesOfDataUrl(src);
+    if (!image || image.mime.includes("svg") || image.bytes.byteLength < 80) continue;
+    const size = imagePixelSize(image.bytes);
+    if (!size || size.height <= size.width) continue;
+    return shrinkCover(image.bytes, image.mime);
+  }
+  return null;
 }

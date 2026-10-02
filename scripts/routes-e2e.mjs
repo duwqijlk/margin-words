@@ -1,0 +1,580 @@
+#!/usr/bin/env node
+/**
+ * Browser test of: one URL per page, the notice bar, the fixed side panel, one card per book (every way a book
+ * can reach the shelf, and old data that already has two cards), the cover repair on start, and series stacks.
+ *
+ *   node scripts/routes-e2e.mjs [baseUrl]
+ *
+ * Needs the same local build as scripts/e2e-ui.mjs:  npm run build:local && npx vite preview --port 8090
+ * Chinese text is never written in this file: Chinese labels are read from src/lib/i18n-zh.ts.
+ */
+import { chromium } from "playwright";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const JSZip = createRequire(join(ROOT, "package.json"))("jszip");
+const BASE = (process.argv.slice(2).find((a) => /^https?:/.test(a)) ?? "http://127.0.0.1:8090/").replace(/\/?$/, "/");
+const at = (path) => new URL(path.replace(/^\//, ""), BASE).toString();
+
+const dict = (lang) => {
+  const src = readFileSync(join(ROOT, "src/lib", `i18n-${lang}.ts`), "utf8");
+  return (key) => {
+    const m = new RegExp(`"${key.replace(/\./g, "\\.")}":\\s*\\n?\\s*"((?:[^"\\\\]|\\\\.)*)"`).exec(src);
+    if (!m) throw new Error(`no ${lang} text for ${key}`);
+    return m[1].replace(/\\"/g, '"');
+  };
+};
+const T = { en: dict("en"), zh: dict("zh") };
+
+const packZip = async (id) => {
+  const zip = new JSZip();
+  zip.file("book.epub", readFileSync(join(ROOT, "packs", id, "book.epub")));
+  zip.file("glossary.json", readFileSync(join(ROOT, "packs", id, "glossary.json")));
+  return zip.generateAsync({ type: "nodebuffer" });
+};
+const ZIPS = { twits: await packZip("twits"), matilda: await packZip("matilda"), george: await packZip("george") };
+
+const browser = await chromium.launch({
+  executablePath: process.env.CHROME || "/usr/bin/google-chrome",
+  args: ["--no-sandbox"],
+});
+
+let failures = 0;
+let checks = 0;
+const ok = (cond, message) => {
+  checks += 1;
+  console.log(`${cond ? "  ok   " : "  FAIL "}${message}`);
+  if (!cond) failures += 1;
+};
+
+const newPage = async ({ width = 1280, height = 800, mobile = false, lang = "en", ctx: existing } = {}) => {
+  const ctx =
+    existing ??
+    (await browser.newContext({
+      viewport: { width, height },
+      isMobile: mobile,
+      hasTouch: mobile,
+      locale: lang === "zh" ? "zh-CN" : "en-US",
+    }));
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(String(e).slice(0, 200)));
+  return { ctx, page, errors };
+};
+
+/** The cards on the shelf (stacks and single cards), not the books inside an open stack. */
+const cards = (page) => page.locator("li.book-card");
+const titleOf = (card) => card.locator("h3, button[lang=en]").first().innerText();
+
+/** Add a word list from Discover (card "needs your e-book"), then close the dialog that asks for the e-book. */
+async function addFromDiscover(page, id) {
+  await page.goto(at("discover"));
+  const card = page.locator(`[data-word-list="${id}"]`);
+  await card.waitFor({ timeout: 30000 });
+  await card.locator("[data-shelf-add]").click();
+  await page.getByRole("dialog").waitFor({ timeout: 15000 });
+  await page.keyboard.press("Escape");
+  await page.getByRole("dialog").waitFor({ state: "hidden" });
+}
+
+async function importZip(page, buffer) {
+  await page.goto(at("add"));
+  await page.locator("#pack-file").setInputFiles({ name: "pack.zip", mimeType: "application/zip", buffer });
+}
+
+/** A raw look into IndexedDB (cibian-books): the notes store and the covers store. */
+const idb = (page, fn, arg) =>
+  page.evaluate(
+    ([source, input]) =>
+      new Promise((resolve, reject) => {
+        const open = indexedDB.open("cibian-books");
+        open.onerror = () => reject(open.error);
+        open.onsuccess = () => {
+          const db = open.result;
+          // eslint-disable-next-line no-new-func
+          new Function("db", "input", `return (${source})(db, input)`)(db, input).then(
+            (value) => (db.close(), resolve(value)),
+            (reason) => (db.close(), reject(reason)),
+          );
+        };
+      }),
+    [fn.toString(), arg],
+  );
+
+const readNotes = (page) =>
+  idb(page, (db) =>
+    new Promise((resolve) => {
+      const tx = db.transaction("notes", "readonly");
+      const store = tx.objectStore("notes");
+      const keys = store.getAllKeys();
+      const values = store.getAll();
+      tx.oncomplete = () => resolve(keys.result.map((key, i) => [key, values.result[i]]));
+    }),
+  );
+
+/** Wait until a card has a stored cover (a picture, not a 1-pixel stand-in). */
+const waitCover = (page, id) =>
+  page.waitForFunction(
+    async (bookId) => {
+      const open = indexedDB.open("cibian-books");
+      const db = await new Promise((r) => (open.onsuccess = () => r(open.result)));
+      const value = await new Promise((r) => {
+        const get = db.transaction("covers").objectStore("covers").get(bookId);
+        get.onsuccess = () => r(get.result);
+      });
+      db.close();
+      return typeof value === "string" && value.length > 1000;
+    },
+    id,
+    { timeout: 30000 },
+  );
+
+const shelfState = (page) =>
+  page.evaluate(() => JSON.parse(localStorage.getItem("cibian-notebook-v1") || "{}").state ?? { books: [], words: [] });
+
+/* ------------------------------------------------------------------ pages and URLs */
+async function routes(lang) {
+  console.log(`\n== routes (${lang})`);
+  const { ctx, page, errors } = await newPage({ lang });
+  const t = T[lang];
+  await page.goto(BASE);
+  await page.locator("li.book-card").first().waitFor({ timeout: 90000 });
+  ok(new URL(page.url()).pathname === "/shelf", `${lang}: "/" goes to /shelf (${new URL(page.url()).pathname})`);
+  ok((await page.evaluate(() => history.length)) <= 2, `${lang}: the redirect from "/" adds no history entry`);
+
+  const tab = (name) => page.getByRole("button", { name, exact: true }).first();
+  for (const [name, path, probe] of [
+    [t("nav.discover"), "/discover", "[data-discover]"],
+    [t("nav.guide"), "/guide", "main, h1"],
+    [t("nav.notebook"), "/words", "h1, h2"],
+    [t("nav.shelf"), "/shelf", "li.book-card"],
+  ]) {
+    await tab(name).click();
+    await page.locator(probe).first().waitFor({ timeout: 30000 });
+    ok(new URL(page.url()).pathname === path, `${lang}: the "${name}" tab opens ${path}`);
+    ok(
+      (await page.locator("nav [aria-current=page]").count()) >= 1,
+      `${lang}: ${path} marks its tab as the current page`,
+    );
+  }
+
+  await page.goBack();
+  await page.locator("h1, h2").first().waitFor();
+  ok(new URL(page.url()).pathname === "/words", `${lang}: back goes to /words`);
+  await page.goBack();
+  ok(new URL(page.url()).pathname === "/guide", `${lang}: back again goes to /guide`);
+  await page.goForward();
+  ok(new URL(page.url()).pathname === "/words", `${lang}: forward goes to /words`);
+
+  for (const path of ["/discover", "/guide", "/words"]) {
+    await page.goto(at(path));
+    await page.reload();
+    await page.locator("header").first().waitFor();
+    ok(new URL(page.url()).pathname === path, `${lang}: a deep link and a refresh stay on ${path}`);
+  }
+  await page.goto(at("discover"));
+  await page.locator("[data-discover]").waitFor({ timeout: 30000 });
+  ok((await page.locator("[data-word-list]").count()) >= 5, `${lang}: /discover opened straight shows the book list`);
+
+  await page.goto(at("no-such-page"));
+  await page.locator("li.book-card").first().waitFor({ timeout: 30000 });
+  ok(new URL(page.url()).pathname === "/shelf", `${lang}: an unknown address goes to /shelf`);
+
+  // Open the first book: /read/<id>. A refresh and the back button keep working.
+  await page.locator("li.book-card button[aria-label]").first().click();
+  await page.waitForSelector("article.book-body", { timeout: 30000 });
+  const readPath = new URL(page.url()).pathname;
+  ok(/^\/read\/[A-Za-z0-9_-]+$/.test(readPath), `${lang}: a book has its own address (${readPath})`);
+  await page.reload();
+  await page.waitForSelector("article.book-body", { timeout: 30000 });
+  ok(new URL(page.url()).pathname === readPath, `${lang}: refreshing the book stays on ${readPath}`);
+  await page.goto(at("read/not-a-book-here"));
+  await page.locator("li.book-card").first().waitFor({ timeout: 30000 });
+  ok(new URL(page.url()).pathname === "/shelf", `${lang}: a book address that does not exist goes to /shelf`);
+
+  // Static files are never rewritten to the page.
+  const js = await page.evaluate(async () => {
+    const src = [...document.scripts].map((s) => s.src).find((s) => /\/assets\//.test(s));
+    const res = await fetch(src);
+    return { type: res.headers.get("content-type") || "", head: (await res.text()).slice(0, 15) };
+  });
+  ok(/javascript/.test(js.type) && !js.head.includes("<!doctype"), `${lang}: /assets files are served as files`);
+  const sw = await page.request.get(at("sw.js"));
+  ok(sw.status() === 200 && /javascript/.test(sw.headers()["content-type"] ?? ""), `${lang}: /sw.js is a file`);
+  ok(errors.length === 0, `${lang}: no page errors${errors[0] ? " " + errors[0] : ""}`);
+  await ctx.close();
+}
+
+/* ------------------------------------------------------------------ notice bar */
+async function notice(lang) {
+  console.log(`\n== notice bar (${lang})`);
+  const { ctx, page } = await newPage({ lang });
+  const t = T[lang];
+  await page.goto(at("shelf"));
+  const bar = page.locator("[data-notice-bar]");
+  await bar.waitFor({ timeout: 30000 });
+  ok((await bar.innerText()).trim() === t("notice.text"), `${lang}: the notice says the right text`);
+  const box = await bar.boundingBox();
+  ok(box !== null && box.y <= 1 && box.height < 80, `${lang}: the notice is a slim bar at the top (${Math.round(box?.height ?? 0)}px)`);
+  for (const path of ["discover", "guide", "words"]) {
+    await page.goto(at(path));
+    ok((await bar.count()) === 1, `${lang}: the notice is on /${path}`);
+  }
+  await page.goto(at("shelf"));
+  await page.locator("[data-notice-close]").click();
+  ok((await bar.count()) === 0, `${lang}: the close button hides the notice`);
+  await page.reload();
+  await page.locator("li.book-card").first().waitFor({ timeout: 30000 });
+  ok((await bar.count()) === 0, `${lang}: the notice stays hidden after a reload`);
+  await page.goto(at("discover"));
+  ok((await bar.count()) === 0, `${lang}: and on the other pages`);
+  await ctx.close();
+}
+
+/* ------------------------------------------------------------------ side panel */
+async function panel(label, size) {
+  console.log(`\n== side panel (${label})`);
+  const { ctx, page, errors } = await newPage(size);
+  await page.goto(at("shelf"));
+  await page.locator("li.book-card").first().waitFor({ timeout: 90000 });
+  await page.locator("li.book-card button[aria-label]").first().click();
+  await page.waitForSelector("button.book-hard", { timeout: 30000 });
+  const words = page.locator("article.book-body button.book-hard");
+  const count = await words.count();
+  const phone = size.width < 768;
+  const seen = [];
+  const articleBox = () => page.evaluate(() => {
+    const r = document.querySelector("article.book-body").getBoundingClientRect();
+    return [r.x + scrollX, r.y + scrollY, r.width, r.height].map((n) => Math.round(n * 10) / 10);
+  });
+  const before = await articleBox();
+  for (const i of [0, Math.floor(count / 3), Math.floor(count / 2), count - 1, 1, Math.floor(count * 0.75)]) {
+    const word = words.nth(i);
+    await word.scrollIntoViewIfNeeded();
+    await word.click();
+    await page.locator("[data-word-card]").waitFor();
+    await page.waitForTimeout(350);
+    const geo = await page.evaluate(() => {
+      const card = document.querySelector("[data-word-card]").getBoundingClientRect();
+      const art = document.querySelector("article.book-body").getBoundingClientRect();
+      return {
+        card: [card.left, card.top, card.width, card.bottom].map(Math.round),
+        right: card.right,
+        left: card.left,
+        top: card.top,
+        bottom: card.bottom,
+        artRight: art.right,
+        vw: document.documentElement.clientWidth,
+        vh: innerHeight,
+      };
+    });
+    seen.push(geo);
+    if (!phone) ok(geo.left >= geo.artRight - 0.5, `${label}: word ${i}: the panel is right of the text column (card ${Math.round(geo.left)} >= text ${Math.round(geo.artRight)})`);
+    else ok(Math.abs(geo.bottom - geo.vh) <= 1 && geo.left <= 1 && geo.right >= geo.vw - 1, `${label}: word ${i}: the card is a bottom sheet across the screen`);
+    await page.keyboard.press("Escape");
+    await page.locator("[data-word-card]").waitFor({ state: "hidden" });
+  }
+  const first = JSON.stringify(seen[0].card.slice(0, 3));
+  ok(seen.every((s) => JSON.stringify(s.card.slice(0, 3)) === first), `${label}: the panel is in the same place for every tapped word (${seen[0].card.slice(0, 3)})`);
+  const after = await articleBox();
+  ok(JSON.stringify(before) === JSON.stringify(after), `${label}: the text column did not move or change size across all taps`);
+  if (!phone) {
+    ok(
+      (await page.locator("[data-side-placeholder]").count()) === 1,
+      `${label}: with no word open the same place holds a quiet hint`,
+    );
+    const hint = await page.evaluate(() => document.querySelector("[data-side-placeholder]").getBoundingClientRect().left);
+    ok(Math.abs(hint - seen[0].left) <= 1, `${label}: the hint sits where the card opens`);
+  } else {
+    ok((await page.locator("[data-side-placeholder]").evaluate((el) => getComputedStyle(el).display)) === "none", `${label}: no empty side area on a phone`);
+  }
+  ok(errors.length === 0, `${label}: no page errors${errors[0] ? " " + errors[0] : ""}`);
+  await ctx.close();
+}
+
+/* ------------------------------------------------------------------ one book = one card */
+async function oneCard(lang) {
+  console.log(`\n== one card per book (${lang})`);
+  const t = T[lang];
+  const needsLabel = t("shelf.needsEpub");
+
+  {
+    // A. Discover first, then import a pack from the shelf's own import page.
+    const { ctx, page, errors } = await newPage({ lang });
+    await addFromDiscover(page, "twits");
+    await page.goto(at("shelf"));
+    await page.locator("li.book-card [data-needs-epub]").waitFor({ timeout: 30000 });
+    const alice = await cards(page).count();
+    await importZip(page, ZIPS.twits);
+    await page.waitForSelector("article.book-body", { timeout: 60000 });
+    await page.goto(at("shelf"));
+    await cards(page).first().waitFor();
+    const twits = await page.locator('li.book-card:has-text("Twits")').count();
+    ok(twits === 1, `${lang}: A. Discover, then import: one card for The Twits (${twits})`);
+    ok((await cards(page).count()) === alice, `${lang}: A. the shelf has the same number of cards as before the import`);
+    ok((await page.locator("li.book-card [data-needs-epub]").count()) === 0, `${lang}: A. no card says "${needsLabel}" any more`);
+    await page.goto(at("discover"));
+    const state = await page.locator('[data-word-list="twits"] [data-shelf-state]').getAttribute("data-shelf-state");
+    ok(state === "on", `${lang}: A. Discover shows The Twits as on the shelf (${state})`);
+    await page.reload();
+    await page.locator('[data-word-list="twits"]').waitFor({ timeout: 30000 });
+    await page.goto(at("shelf"));
+    await cards(page).first().waitFor();
+    ok((await page.locator('li.book-card:has-text("Twits")').count()) === 1, `${lang}: A. still one card after a reload`);
+    ok(errors.length === 0, `${lang}: A. no page errors${errors[0] ? " " + errors[0] : ""}`);
+    await ctx.close();
+  }
+
+  {
+    // B. Import first, then add the same book from Discover.
+    const { ctx, page } = await newPage({ lang });
+    await importZip(page, ZIPS.matilda);
+    await page.waitForSelector("article.book-body", { timeout: 60000 });
+    await page.goto(at("discover"));
+    const card = page.locator('[data-word-list="matilda"]');
+    await card.waitFor({ timeout: 30000 });
+    const before = await card.locator("[data-shelf-state]").getAttribute("data-shelf-state");
+    ok(before === "on", `${lang}: B. an imported book already shows as on the shelf in Discover (${before})`);
+    if (before !== "on") await card.locator("[data-shelf-add]").click();
+    await page.waitForTimeout(500);
+    await page.goto(at("shelf"));
+    await cards(page).first().waitFor();
+    ok((await page.locator('li.book-card:has-text("Matilda")').count()) === 1, `${lang}: B. import, then Discover: one card for Matilda`);
+    ok((await page.locator("li.book-card [data-needs-epub]").count()) === 0, `${lang}: B. no "${needsLabel}" card`);
+    await ctx.close();
+  }
+
+  {
+    // B2. The e-book is on the shelf but nothing links it to the catalog (an older version, or a record that was lost):
+    // pressing Add in Discover must open the card it already has, not make a second one.
+    const { ctx, page } = await newPage({ lang });
+    await importZip(page, ZIPS.george);
+    await page.waitForSelector("article.book-body", { timeout: 60000 });
+    await idb(page, (db) =>
+      new Promise((resolve) => {
+        const tx = db.transaction("notes", "readwrite");
+        const store = tx.objectStore("notes");
+        const keys = store.getAllKeys();
+        keys.onsuccess = () => {
+          for (const key of keys.result) if (typeof key === "string" && key.startsWith("pack:")) store.delete(key);
+        };
+        tx.oncomplete = () => resolve(true);
+      }),
+    );
+    await page.goto(at("discover"));
+    const card = page.locator('[data-word-list="george"]');
+    await card.waitFor({ timeout: 30000 });
+    ok((await card.locator("[data-shelf-state]").getAttribute("data-shelf-state")) === "off", `${lang}: B2. Discover cannot tell that George is on the shelf (no pack record)`);
+    await card.locator("[data-shelf-add]").click();
+    await page.waitForSelector("article.book-body", { timeout: 30000 });
+    await page.goto(at("shelf"));
+    await cards(page).first().waitFor();
+    ok((await page.locator("li.book-card:has-text(\"George\")").count()) === 1, `${lang}: B2. adding it from Discover opens the card it already has (one card)`);
+    await page.goto(at("discover"));
+    ok((await page.locator('[data-word-list="george"] [data-shelf-state]').getAttribute("data-shelf-state")) === "on", `${lang}: B2. and Discover now shows it as on the shelf`);
+    await ctx.close();
+  }
+
+  {
+    // C. Data an older version left behind: a "needs your e-book" card AND an imported card of the same book.
+    const { ctx, page, errors } = await newPage({ lang });
+    await importZip(page, ZIPS.twits);
+    await page.waitForSelector("article.book-body", { timeout: 60000 });
+    const real = await page.evaluate(() => JSON.parse(localStorage.getItem("cibian-notebook-v1")).state.books.find((b) => /Twits/.test(b.title)).id);
+    // a saved word and a reading place on the imported card
+    await page.evaluate((id) => {
+      const raw = JSON.parse(localStorage.getItem("cibian-notebook-v1"));
+      const now = Date.now();
+      raw.state.words.push({ id: "w-real", bookId: id, surface: "grunt", lemma: "grunt", pos: "verb", meaning: "make a low sound", whyHard: "", stage: 2, dueAt: now, createdAt: now, reps: 3, lapses: 0 });
+      // the leftover duplicate: a card made by Discover, with its own saved word
+      raw.state.books.push({ id: "dup-card", title: "The Twits", author: "Roald Dahl", cloth: "cloth", source: "notes", needsEpub: true, createdAt: now - 5000, updatedAt: now - 5000 });
+      raw.state.words.push({ id: "w-dup", bookId: "dup-card", surface: "beastly", lemma: "beastly", pos: "adjective", meaning: "very unpleasant", whyHard: "", stage: 0, dueAt: now, createdAt: now, reps: 0, lapses: 0 });
+      localStorage.setItem("cibian-notebook-v1", JSON.stringify(raw));
+      const progress = JSON.parse(localStorage.getItem("cibian-progress-v1") || '{"state":{"items":{}},"version":0}');
+      progress.state.items[id] = { chapter: 2, chapters: 9, scroll: 0.4, updatedAt: now };
+      localStorage.setItem("cibian-progress-v1", JSON.stringify(progress));
+    }, real);
+    await idb(page, (db) =>
+      new Promise((resolve) => {
+        const tx = db.transaction("notes", "readwrite");
+        tx.objectStore("notes").put({ packId: "twits", bookId: "dup-card", rev: "x", sha256: "", installedAt: Date.now() }, "pack:dup-card");
+        tx.oncomplete = () => resolve(true);
+      }),
+    );
+    await page.goto(at("shelf"));
+    await page.reload();
+    await cards(page).first().waitFor({ timeout: 30000 });
+    await page.waitForTimeout(800);
+    const state = await shelfState(page);
+    const twits = state.books.filter((b) => /Twits/.test(b.title));
+    ok(twits.length === 1, `${lang}: C. old data with two Twits cards becomes one (${twits.length})`);
+    ok(twits[0]?.id === real && !twits[0]?.needsEpub, `${lang}: C. the card with the imported e-book is the one that stays`);
+    ok(state.words.some((w) => w.id === "w-real" && w.bookId === real), `${lang}: C. its saved word is kept`);
+    ok(state.words.some((w) => w.id === "w-dup" && w.bookId === real), `${lang}: C. the saved word of the other card moved over`);
+    const progress = await page.evaluate(() => JSON.parse(localStorage.getItem("cibian-progress-v1")).state.items);
+    ok(Object.keys(progress).length === 1 && progress[real]?.chapter === 2, `${lang}: C. the reading place is kept`);
+    const notes = await readNotes(page);
+    ok(!notes.some(([key]) => key === "pack:dup-card"), `${lang}: C. the leftover pack record is gone`);
+    ok(
+      notes.some(([key, value]) => key === `pack:${real}` && value.packId === "twits"),
+      `${lang}: C. the kept card carries the catalog id "twits", so Discover knows it`,
+    );
+    ok((await page.locator("li.book-card [data-needs-epub]").count()) === 0, `${lang}: C. no "${needsLabel}" card is left`);
+    await page.locator(`li.book-card:has-text("Twits") button[aria-label]`).first().click();
+    await page.waitForSelector("article.book-body", { timeout: 30000 });
+    ok(true, `${lang}: C. the imported e-book still opens`);
+    ok(errors.length === 0, `${lang}: C. no page errors${errors[0] ? " " + errors[0] : ""}`);
+    await ctx.close();
+  }
+}
+
+/* ------------------------------------------------------------------ covers repaired on start */
+async function covers(lang) {
+  console.log(`\n== covers (${lang})`);
+  const { ctx, page, errors } = await newPage({ lang });
+  await addFromDiscover(page, "charlie");
+  await page.goto(at("shelf"));
+  await page.locator("li.book-card [data-needs-epub]").waitFor({ timeout: 30000 });
+  const listed = await (await page.request.get(at("word-lists/catalog.json"))).json();
+  const sha = listed.lists.find((l) => l.id === "charlie").cover.sha256;
+
+  const coverState = () =>
+    idb(page, (db) =>
+      new Promise((resolve) => {
+        const tx = db.transaction(["covers", "notes"], "readonly");
+        const keys = tx.objectStore("covers").getAllKeys();
+        const values = tx.objectStore("covers").getAll();
+        const infoKeys = tx.objectStore("notes").getAllKeys(IDBKeyRange.bound("coverinfo:", "coverinfo:\uffff"));
+        const infoValues = tx.objectStore("notes").getAll(IDBKeyRange.bound("coverinfo:", "coverinfo:\uffff"));
+        tx.oncomplete = () =>
+          resolve({
+            covers: Object.fromEntries(keys.result.map((k, i) => [k, values.result[i].length])),
+            info: Object.fromEntries(infoKeys.result.map((k, i) => [k.slice(10), infoValues.result[i]])),
+          });
+      }),
+    );
+  const bookId = await page.evaluate(() => JSON.parse(localStorage.getItem("cibian-notebook-v1")).state.books.find((b) => /Chocolate/.test(b.title)).id);
+  let state = await coverState();
+  ok(state.covers[bookId] > 1000 && state.info[bookId]?.ref === sha, `${lang}: a card added from Discover keeps its cover and the catalog cover version`);
+
+  // 1. the stored cover is missing (as for a card made by an older version)
+  await idb(page, (db, id) => new Promise((resolve) => {
+    const tx = db.transaction(["covers", "notes"], "readwrite");
+    tx.objectStore("covers").delete(id);
+    tx.objectStore("notes").delete(`coverinfo:${id}`);
+    tx.oncomplete = () => resolve(true);
+  }), bookId);
+  await page.goto(at("shelf"));
+  await page.reload();
+  await waitCover(page, bookId);
+  await page.waitForTimeout(300);
+  state = await coverState();
+  ok(state.covers[bookId] > 1000, `${lang}: a missing cover is fetched again on start`);
+  ok(state.info[bookId]?.ref === sha, `${lang}: and the catalog cover version is saved with it`);
+
+  // 2. the stored cover is an old picture of an older catalog version
+  await idb(page, (db, id) => new Promise((resolve) => {
+    const tx = db.transaction(["covers", "notes"], "readwrite");
+    const tiny = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+    tx.objectStore("covers").put(tiny, id);
+    tx.objectStore("notes").put({ source: "catalog", ref: "0".repeat(64) }, `coverinfo:${id}`);
+    tx.oncomplete = () => resolve(true);
+  }), bookId);
+  await page.reload();
+  await waitCover(page, bookId);
+  await page.waitForTimeout(300);
+  state = await coverState();
+  ok(state.info[bookId]?.ref === sha, `${lang}: a cover from an older catalog version is replaced by the current one`);
+
+  // 3. an old cover saved before versions existed (no cover version at all) is checked against the catalog
+  await idb(page, (db, id) => new Promise((resolve) => {
+    const tx = db.transaction(["covers", "notes"], "readwrite");
+    tx.objectStore("covers").put("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7", id);
+    tx.objectStore("notes").delete(`coverinfo:${id}`);
+    tx.oncomplete = () => resolve(true);
+  }), bookId);
+  await page.reload();
+  await waitCover(page, bookId);
+  ok(true, `${lang}: a cover with no recorded version is replaced when it is not the catalog picture`);
+
+  // 4. an imported e-book whose stored cover is empty gets the catalog cover back
+  await importZip(page, ZIPS.george);
+  await page.waitForSelector("article.book-body", { timeout: 60000 });
+  const george = await page.evaluate(() => JSON.parse(localStorage.getItem("cibian-notebook-v1")).state.books.find((b) => /George/.test(b.title)).id);
+  await idb(page, (db, id) => new Promise((resolve) => {
+    const tx = db.transaction(["covers", "notes"], "readwrite");
+    tx.objectStore("covers").delete(id);
+    tx.objectStore("notes").delete(`coverinfo:${id}`);
+    tx.oncomplete = () => resolve(true);
+  }), george);
+  await page.goto(at("shelf"));
+  await page.reload();
+  await waitCover(page, george);
+  ok(true, `${lang}: an imported book with no cover gets its cover back on start`);
+  ok(errors.length === 0, `${lang}: no page errors${errors[0] ? " " + errors[0] : ""}`);
+  await ctx.close();
+}
+
+/* ------------------------------------------------------------------ series stacks */
+async function stacks(lang, size) {
+  console.log(`\n== series stacks (${lang}/${size.name})`);
+  const t = T[lang];
+  const { ctx, page, errors } = await newPage({ ...size, lang });
+  // Two books of one series, added in the "wrong" order, and one standalone book.
+  await addFromDiscover(page, "wof2");
+  await addFromDiscover(page, "wof1");
+  await addFromDiscover(page, "twits");
+  await page.goto(at("shelf"));
+  await page.locator("[data-series-stack]").waitFor({ timeout: 30000 });
+  const stack = page.locator("[data-series-stack]");
+  ok((await stack.count()) === 1, `${lang}: books of one series are one stack`);
+  ok((await stack.getAttribute("data-stack-count")) === "2", `${lang}: the stack counts 2 books`);
+  ok((await stack.locator("[data-stack-badge]").innerText()).trim() === "2", `${lang}: the count badge shows 2`);
+  ok((await stack.locator("img, [data-generated-cover]").count()) >= 2, `${lang}: the stack shows more than one cover`);
+  ok((await cards(page).count()) === 3, `${lang}: Alice, the stack and The Twits are 3 cards`);
+  ok((await page.locator('li.book-card:has-text("Twits")[data-series-stack]').count()) === 0, `${lang}: a standalone book is not stacked`);
+
+  await stack.locator("[data-stack-toggle]").click();
+  const open = page.locator("[data-series-stack-open]");
+  await open.waitFor();
+  const titles = await open.locator("li.book-card h3, li.book-card button[lang=en]").allInnerTexts();
+  const first = titles.findIndex((x) => /Dragonet|Dragonet Prophecy/i.test(x));
+  const second = titles.findIndex((x) => /Lost Heir/i.test(x));
+  ok(first >= 0 && second >= 0 && first < second, `${lang}: opened, the books are in series order (${titles.slice(0, 4).join(" | ")})`);
+  ok((await open.locator("li.book-card").count()) === 2, `${lang}: the open stack lists both books`);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
+  ok(!overflow, `${lang}: no horizontal overflow with the stack open`);
+  await page.locator("[data-series-stack-open] [data-stack-toggle]").click();
+  await page.locator("[data-series-stack]").waitFor();
+  ok((await open.count()) === 0 && (await cards(page).count()) === 3, `${lang}: closing puts the stack back`);
+
+  // the series filters still work
+  const grouped = page.locator("[data-series-filter]");
+  if ((await grouped.count()) > 0) {
+    await grouped.selectOption("grouped");
+    ok((await page.locator("[data-series-stack]").count()) === 0, `${lang}: "Group by series" shows its own groups, no stacks`);
+  }
+  ok(errors.length === 0, `${lang}: no page errors${errors[0] ? " " + errors[0] : ""}`);
+  await ctx.close();
+}
+
+for (const lang of ["en", "zh"]) {
+  await routes(lang);
+  await notice(lang);
+}
+await panel("desktop 1280", { width: 1280, height: 800 });
+await panel("tablet 820", { width: 820, height: 1100 });
+await panel("phone 390", { width: 390, height: 844, mobile: true });
+for (const lang of ["en", "zh"]) {
+  await oneCard(lang);
+  await covers(lang);
+}
+await stacks("en", { name: "desktop", width: 1280, height: 800 });
+await stacks("zh", { name: "phone", width: 390, height: 844, mobile: true });
+
+await browser.close();
+console.log(failures === 0 ? `\nROUTES E2E OK: ${checks}/${checks} checks passed` : `\nROUTES E2E FAILED: ${failures} of ${checks}`);
+process.exit(failures === 0 ? 0 : 1);

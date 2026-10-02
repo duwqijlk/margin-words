@@ -6,14 +6,15 @@ import { guideFolder, offlineShell, packsFolder, publicBooks, wordLists } from "
 
 /**
  * The reader is a plain static single-page app: `vite build` writes ordinary files to ./dist
- * (index.html, assets/, sw.js, guide/). No server, no server functions. Book files are not in dist.
+ * (index.html, assets/, sw.js, kit/, _headers, _redirects). No server, no server functions. Book files are not in dist.
  * They are fetched from VITE_BOOKS_BASE (production default https://books.inputread.site) or, in dev
  * and in `npm run build:local`, from this server (./public-books and ./word-lists).
- * `base: "./"` makes every URL relative, so the output works from any folder or sub-path of
- * any static host. Copyrighted EPUBs live in ./packs and are never deployed (see README).
+ * `base: "/"`: the app has real paths (/shelf, /discover, /read/<id>), so every file is addressed from the
+ * site root. A host must answer unknown paths with index.html (public/_redirects does that on Cloudflare
+ * Pages). Copyrighted EPUBs live in ./packs and are never deployed (see README).
  */
 export default defineConfig({
-  base: "./",
+  base: "/",
   server: { host: "0.0.0.0", port: 8080, strictPort: true },
   preview: { host: "127.0.0.1", port: 8081, strictPort: true },
   resolve: { tsconfigPaths: true },

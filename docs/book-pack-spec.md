@@ -49,7 +49,7 @@ A book pack is **one `.zip` file** with **exactly** these two files at the top l
 
 Rules that the app checks at import (in this order). If one fails, **nothing is added** and the person sees a plain message:
 
-1. The file is a `.zip`. A bare `.epub` is refused with a message and a link to the guide page (`./guide/`).
+1. The file is a `.zip`. A bare `.epub` is refused with a message and a link to the guide page (`/kit/`).
 2. The zip has one `.epub` and one word list. Zero or more than one of either is an error.
 3. `glossary.json` is valid (every rule of section 4 and 9). The first problems are shown by word name.
 4. The EPUB opens (valid EPUB, no DRM, has a table of contents, has English text).

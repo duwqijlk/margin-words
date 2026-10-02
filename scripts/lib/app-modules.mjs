@@ -15,7 +15,7 @@ import { createRequire } from "node:module";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const require = createRequire(join(ROOT, "package.json"));
 
-const FILES = ["errors", "epub", "lexile", "book-meta", "glossary-format", "pack-check", "text", "easy-words", "help-match", "edition-match", "basic-words-data", "basic-words"];
+const FILES = ["shelf-identity", "shelf-stacks", "cover-plan", "covers", "router", "flow-text", "errors", "epub", "lexile", "book-meta", "glossary-format", "pack-check", "text", "easy-words", "help-match", "edition-match", "basic-words-data", "basic-words"];
 
 function installDom() {
   let JSDOM;
@@ -55,12 +55,12 @@ export async function loadAppModules() {
     writeFileSync(join(out, `${name}.js`), js);
   }
   // jszip is imported by epub.js: make sure it resolves from this folder.
-  const [epub, format, text, help, edition, basicData, basic, packCheck, meta] = await Promise.all(
-    ["epub", "glossary-format", "text", "help-match", "edition-match", "basic-words-data", "basic-words", "pack-check", "book-meta"].map((name) =>
+  const [epub, format, text, help, edition, basicData, basic, packCheck, meta, flow, identity, stacks, coverPlan, covers, router] = await Promise.all(
+    ["epub", "glossary-format", "text", "help-match", "edition-match", "basic-words-data", "basic-words", "pack-check", "book-meta", "flow-text", "shelf-identity", "shelf-stacks", "cover-plan", "covers", "router"].map((name) =>
       import(pathToFileURL(join(out, `${name}.js`)).href),
     ),
   );
-  cached = { epub, format, text, help, edition, basic: { ...basicData, ...basic }, packCheck, meta };
+  cached = { epub, format, text, help, edition, basic: { ...basicData, ...basic }, packCheck, meta, flow, identity, stacks, coverPlan, covers, router };
   return cached;
 }
 

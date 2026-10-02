@@ -3,6 +3,7 @@
  * No browser code and no app imports (only relative ones), so the unit tests and the
  * command-line tools can load this file directly. The storage part is help-lookup.ts.
  */
+import { flowText, includesLoose } from "./flow-text.ts";
 import type { ParagraphHelp, PhraseEntry, SentenceHelp } from "./glossary-extras.ts";
 
 /* ------------------------------------------------------------------ text normalising */
@@ -29,9 +30,7 @@ export function looseText(text: string): string {
 
 /** Is `context` (a snippet of the book) inside `text`, ignoring quotes, spaces, case and punctuation? */
 export function containsContext(text: string, context: string): boolean {
-  const c = looseText(context);
-  if (!c) return false;
-  return ` ${looseText(text)} `.includes(` ${c} `);
+  return includesLoose(looseText(text), looseText(context));
 }
 
 /* ------------------------------------------------------------------ paragraph and sentence help */
@@ -48,12 +47,9 @@ export function pickParagraphHelp(
   paragraph: number,
   paragraphText: string,
 ): ParagraphHelp | null {
-  const text = ` ${looseText(paragraphText)} `;
-  if (text.trim() === "") return null;
-  const fits = (entry: ParagraphHelp) => {
-    const c = looseText(entry.context);
-    return c !== "" && text.includes(` ${c} `);
-  };
+  const text = looseText(paragraphText);
+  if (text === "") return null;
+  const fits = (entry: ParagraphHelp) => includesLoose(text, looseText(entry.context));
   const exact = list.find((e) => e.chapter === chapter && e.paragraph === paragraph && fits(e));
   if (exact) return exact;
   let best: ParagraphHelp | null = null;
@@ -76,13 +72,13 @@ export function pickSentenceHelp(
   chapter: number,
   sentenceText: string,
 ): SentenceHelp | null {
-  const text = ` ${looseText(sentenceText)} `;
-  if (text.trim() === "") return null;
+  const text = looseText(sentenceText);
+  if (text === "") return null;
   let best: SentenceHelp | null = null;
   let bestScore = Number.NEGATIVE_INFINITY;
   for (const entry of list) {
     const c = looseText(entry.context);
-    if (!c || !text.includes(` ${c} `)) continue;
+    if (!includesLoose(text, c)) continue;
     const score = (entry.chapter === chapter ? 100_000 : 0) + c.length;
     if (score > bestScore) {
       best = entry;
@@ -609,7 +605,7 @@ export function paragraphBlocks(root: ParentNode): Element[] {
   for (const block of Array.from(root.querySelectorAll(PARAGRAPH_BLOCKS))) {
     const parent = block.parentElement?.localName;
     if (parent === "p" || parent === "li" || parent === "blockquote") continue;
-    const text = (block.textContent ?? "").replace(/\s+/g, " ").trim();
+    const text = flowText(block);
     if ((text.match(/[A-Za-z]/g)?.length ?? 0) > 1) out.push(block);
   }
   return out;

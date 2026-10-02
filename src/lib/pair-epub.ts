@@ -4,6 +4,7 @@
  * until the reader confirms.
  */
 import { loadCachedText, saveCachedText } from "@/lib/book-db";
+import { fetchCoverData } from "@/lib/covers";
 import { editionMatch, matchPercent, type EditionMatch } from "@/lib/edition-match";
 import { importedCoverChoice, parseEpub } from "@/lib/epub";
 import { validateGlossary } from "@/lib/glossary-format";
@@ -56,25 +57,10 @@ export async function previewOwnEpub(file: File, pack: WordListPack, glossaryTex
   return { pack, bytes, parsed, glossaryText, match, percent: matchPercent(match) };
 }
 
-function dataUrlOf(blob: Blob): Promise<string> {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(typeof reader.result === "string" ? reader.result : "");
-    reader.onerror = () => resolve("");
-    reader.readAsDataURL(blob);
-  });
-}
-
-/** The catalog's card cover, when this word list has one. "" if it cannot be fetched. */
+/** The catalog's card cover, when this word list has one. Empty if it cannot be fetched. */
 async function catalogCoverData(pack: WordListPack): Promise<string> {
   if (!pack.cover?.url) return "";
-  try {
-    const response = await fetch(resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url));
-    if (!response.ok) return "";
-    return await dataUrlOf(await response.blob());
-  } catch {
-    return "";
-  }
+  return fetchCoverData(resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url), pack.cover.sha256);
 }
 
 /** Store a preview the reader has already seen. */
@@ -93,6 +79,10 @@ export async function savePaired(preview: PairPreview): Promise<InstallResult> {
     epubSha256: "",
     glossaryText: preview.glossaryText,
     cover: importedCoverChoice(tagged, catalog, ""),
+    ...(!tagged && catalog
+      ? { coverInfo: { source: "catalog" as const, ref: pack.cover?.sha256 ?? "" } }
+      : {}),
+    also: { title: parsed.title, author: parsed.author },
     parsed,
     lexile: pack.lexile,
     isbn: pack.isbn,

@@ -6,10 +6,10 @@
  *
  * Chinese is allowed ONLY in:
  *   - src/lib/i18n-zh.ts   the Chinese dictionary of the app
- *   - docs/                docs/guide-chrome.json (the Chinese text of the page at ./guide/)
+ *   - docs/                docs/guide-chrome.json (the Chinese text of the page at /kit/)
  *   - README.zh-CN.md
  * Book content (packs/) and every other file in src/ and public/ must stay English.
- * The Chinese text of the in-app page ./guide/ is built from docs/ at build time into dist/guide/ (not public/).
+ * The Chinese text of the in-app page /kit/ is built from docs/ at build time into dist/kit/ (not public/).
  *
  *   node scripts/check-no-cjk.mjs        (npm run check:cjk)
  */

@@ -1,5 +1,5 @@
 {
-  "_readme": "Text of the in-app page at /guide/ (built by scripts/build-guide.mjs). Chinese is allowed here because this file is in docs/. Keep it minimal: a title, a few short lines and one download button.",
+  "_readme": "Text of the in-app page at /kit/ (built by scripts/build-guide.mjs). Chinese is allowed here because this file is in docs/. Keep it minimal: a title, a few short lines and one download button.",
   "en": {
     "title": "Book pack kit",
     "lines": [

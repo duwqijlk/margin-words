@@ -152,19 +152,19 @@ export function publicBooks() {
 }
 
 /**
- * guideFolder(): the tiny offline page at ./guide/ (title, a few lines, one Download button) and the download
- * ./guide/book-pack-kit.zip. They are made by scripts/build-guide.mjs and scripts/build-kit.mjs from docs/ and
- * examples/, so the Chinese text never sits in public/. In the build the files are emitted into dist/guide/;
+ * guideFolder(): the tiny offline page at /kit/ (title, a few lines, one Download button) and the download
+ * /kit/book-pack-kit.zip. (/guide is the Guide screen of the app, a route of the single-page app.) They are made by scripts/build-guide.mjs and scripts/build-kit.mjs from docs/ and
+ * examples/, so the Chinese text never sits in public/. In the build the files are emitted into dist/kit/;
  * in `vite dev` and `vite preview` they are served from memory.
  */
 export function guideFolder() {
   const MIME = { ".html": "text/html; charset=utf-8", ".json": "application/json; charset=utf-8", ".zip": "application/zip" };
   const middleware = async (req, res, next) => {
     const url = (req.url ?? "").split("?", 1)[0] ?? "";
-    if (!url.startsWith("/guide")) return next();
-    if (url === "/guide") {
+    if (!url.startsWith("/kit")) return next();
+    if (url === "/kit") {
       res.statusCode = 301;
-      res.setHeader("location", "/guide/");
+      res.setHeader("location", "/kit/");
       return res.end();
     }
     const rel = decodeURIComponent(url.slice(1)).replace(/\/$/, "/index.html");
@@ -211,6 +211,8 @@ export function booksOriginFromEnv(env, prod) {
 /** True when this build output is part of the app shell, not book data. */
 export function isShellFile(name) {
   if (name.startsWith("public-books/") || name.startsWith("word-lists/")) return false;
+  // Instructions for the host (Cloudflare Pages). The host never serves them as files.
+  if (name === "_headers" || name === "_redirects") return false;
   return true;
 }
 
@@ -227,7 +229,7 @@ export function offlineShell() {
       origin = booksOriginFromEnv(config.env, config.mode === "production");
     },
     generateBundle(_options, bundle) {
-      const files = new Set(["./", "./index.html", "./guide/"]);
+      const files = new Set(["./", "./index.html", "./kit/"]);
       // Book EPUBs, glossaries, covers and catalogs are not in the first install.
       // The worker stores a book the first time the app fetches it.
       for (const name of Object.keys(bundle)) {

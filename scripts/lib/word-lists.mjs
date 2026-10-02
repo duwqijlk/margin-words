@@ -92,7 +92,7 @@ export function buildWordLists(packsDir) {
     let cover;
     if (existsSync(coverPath)) {
       const jpeg = coverJpeg(coverPath);
-      cover = { url: `${id}/cover.jpg`, bytes: jpeg.length };
+      cover = { url: `${id}/cover.jpg`, bytes: jpeg.length, sha256: sha(jpeg) };
       files.push({ name: `word-lists/${id}/cover.jpg`, bytes: jpeg });
     }
     lists.push({

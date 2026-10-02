@@ -21,7 +21,7 @@ export type WordListPack = {
   seriesNumber: number;
   words: number;
   /** Card-sized cover from the book's own EPUB, when the pack has one. */
-  cover: { url: string; bytes: number } | null;
+  cover: { url: string; bytes: number; sha256: string } | null;
   /** English that is too old for a beginner. None of the word lists are flagged today. */
   oldFashioned: boolean;
   oldFashionedReason: string;
@@ -51,7 +51,11 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
     const coverUrl = text(coverRow?.url, 600);
     const cover =
       coverUrl && !coverUrl.includes("..") && !/\.epub$/i.test(coverUrl)
-        ? { url: coverUrl, bytes: typeof coverRow?.bytes === "number" ? coverRow.bytes : 0 }
+        ? {
+            url: coverUrl,
+            bytes: typeof coverRow?.bytes === "number" ? coverRow.bytes : 0,
+            sha256: /^[0-9a-f]{64}$/.test(String(coverRow?.sha256)) ? String(coverRow?.sha256) : "",
+          }
         : null;
     out.push({
       id,
@@ -76,7 +80,7 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
 }
 
 export async function loadWordListCatalog(url = WORD_LIST_CATALOG_URL): Promise<WordListPack[]> {
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "no-cache" });
   if (!response.ok) throw new Error("word list catalog");
   return parseWordListCatalog(await response.json());
 }

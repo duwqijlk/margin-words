@@ -42,6 +42,9 @@ export const en = {
   "nav.guide": "Guide",
   "nav.notebook": "Notebook",
   "nav.settings": "Settings",
+  "notice.text":
+    "We don't provide copyrighted books. We only provide explanations of hard words and sentences; for copyrighted books, please import your own EPUB.",
+  "notice.dismiss": "Hide this notice",
   "nav.dueAria": "{n} to review",
 
   /* ---- guide */
@@ -128,6 +131,9 @@ export const en = {
   "shelf.series.grouped": "Group by series",
   "shelf.series.none": "Not in a series",
   "shelf.series.empty": "No books in this series.",
+  "shelf.stackOpenAria": "{series}, {books}. Show the books in this series",
+  "shelf.stackCloseAria": "Hide the books of {series}",
+  "shelf.stackClose": "Hide",
   "discover.kindList": "Word list",
   "discover.title": "Discover",
   "discover.hint": "Every book we have. Tap “Add to shelf” to keep a book. Nothing is downloaded until you do.",
@@ -330,13 +336,15 @@ export const en = {
   "wl.forExample": "For example: {list}",
   "wl.allNew": "All {n} words are new to this book.",
 
-  /* ---- book pack kit (the page at ./guide/) */
+  /* ---- book pack kit (the page at /kit/) */
   "guide.fullGuideLink": "Book pack kit (for AI)",
 
   /* ---- reader */
   "reader.missingTitle": "The text of this book is missing",
   "reader.missingBody": "Your browser may have cleared its site data. Please add the book again.",
   "reader.backShelf": "Back to shelf",
+  "reader.sideTitle": "Word help",
+  "reader.sideHint": "Tap a word in the text. Its meaning shows here.",
   "reader.opening": "Opening the book…",
   "reader.openNotebook": "Open notebook",
   "reader.progress": "Book reading progress",

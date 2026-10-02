@@ -1,5 +1,5 @@
 import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Library, NotebookPen, Settings, X } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   checkBookStorage,
   listBookSummaries,
@@ -10,6 +10,7 @@ import {
   requestPersistentStorage,
 } from "@/lib/book-db";
 import { readGlossaryFile } from "@/lib/glossary-import";
+import { registerInstalled } from "@/lib/shelf-register";
 import { importPackZip } from "@/lib/packs";
 import { ensureClassics } from "@/lib/classics";
 import { useProgress } from "@/lib/progress-store";
@@ -18,71 +19,18 @@ import { applyTheme, usePrefs } from "@/lib/reader-prefs";
 import { summarize } from "@/lib/srs";
 import type { VocabEntry } from "@/lib/vocab-model";
 import { markVocabHydrated, normalizeWord, useVocab } from "@/lib/vocab-store";
-import { Notebook } from "@/components/notebook";
-import { DiscoverScreen } from "@/components/discover";
-import { GuideScreen } from "@/components/guide-page";
-import { AddBookScreen, SettingsDialog } from "@/components/get-books";
-import { OwnEpubDialog } from "@/components/own-epub-dialog";
-import { ReaderScreen } from "@/components/reader";
-import { ReviewScreen } from "@/components/review";
-import { Shelf, useCovers } from "@/components/shelf";
+import { useCovers } from "@/components/book-cover";
 import { ShelfToastHost } from "@/components/shelf-actions";
 import { finishPendingRemoval, useShelfRemove } from "@/lib/shelf-remove";
 import { btn, cn } from "@/components/ui";
 import { LanguageButton } from "@/components/language";
-import { WordListDialog, type ListFlow } from "@/components/word-list";
+import type { ListFlow } from "@/components/word-list";
+import { NoticeBar } from "@/components/notice-bar";
+import { DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useRoute, type Route } from "@/lib/router";
+import { refreshCovers, repairShelf } from "@/lib/shelf-repair";
 import { guideUrl } from "@/lib/guide";
 
-type Screen =
-  | { kind: "shelf" }
-  | { kind: "discover" }
-  | { kind: "guide" }
-  | { kind: "get" }
-  | { kind: "words"; bookId: string | null }
-  | { kind: "read"; bookId: string }
-  | { kind: "review"; bookId: string | null };
-
-const SCREEN_KEY = "cibian-screen-v2";
-
-function readScreen(): Screen | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = localStorage.getItem(SCREEN_KEY);
-    if (!raw) return null;
-    const data = JSON.parse(raw) as { kind?: unknown; bookId?: unknown };
-    const bookId = typeof data.bookId === "string" ? data.bookId : null;
-    switch (data.kind) {
-      case "shelf":
-        return { kind: "shelf" };
-      case "discover":
-        return { kind: "discover" };
-      case "guide":
-        return { kind: "guide" };
-      case "get":
-        return { kind: "get" };
-      case "words":
-        return { kind: "words", bookId };
-      case "review":
-        return { kind: "review", bookId };
-      case "read":
-      case "prepare":
-        // "prepare" was a waiting room of an older version; it opens the book now.
-        return bookId ? { kind: "read", bookId } : null;
-      default:
-        return null;
-    }
-  } catch {
-    return null;
-  }
-}
-
-function writeScreen(screen: Screen) {
-  try {
-    localStorage.setItem(SCREEN_KEY, JSON.stringify(screen));
-  } catch {
-    // Blocked or full storage must not crash the app.
-  }
-}
+type Screen = Route;
 
 /**
  * Books saved by an older version keep working. This runs once: it removes the saved answers
@@ -109,17 +57,30 @@ async function migrateOldData(): Promise<void> {
   }
 }
 
+// Each page is its own chunk: the first visit loads only the page that was asked for.
+const Shelf = lazy(() => import("@/components/shelf").then((m) => ({ default: m.Shelf })));
+const Notebook = lazy(() => import("@/components/notebook").then((m) => ({ default: m.Notebook })));
+const DiscoverScreen = lazy(() => import("@/components/discover").then((m) => ({ default: m.DiscoverScreen })));
+const GuideScreen = lazy(() => import("@/components/guide-page").then((m) => ({ default: m.GuideScreen })));
+const AddBookScreen = lazy(() => import("@/components/get-books").then((m) => ({ default: m.AddBookScreen })));
+const SettingsDialog = lazy(() => import("@/components/get-books").then((m) => ({ default: m.SettingsDialog })));
+const OwnEpubDialog = lazy(() => import("@/components/own-epub-dialog").then((m) => ({ default: m.OwnEpubDialog })));
+const ReaderScreen = lazy(() => import("@/components/reader").then((m) => ({ default: m.ReaderScreen })));
+const ReviewScreen = lazy(() => import("@/components/review").then((m) => ({ default: m.ReviewScreen })));
+const WordListDialog = lazy(() => import("@/components/word-list").then((m) => ({ default: m.WordListDialog })));
+
+const setScreen = (route: Route) => navigate(route);
+
 export function MarginApp() {
   const { t, tn } = useT();
   const books = useVocab((state) => state.books);
   const words = useVocab((state) => state.words);
-  const addBook = useVocab((state) => state.addBook);
   const addDemo = useVocab((state) => state.addDemo);
   const restoreBooks = useVocab((state) => state.restoreBooks);
   const replaceWords = useVocab((state) => state.replaceWords);
   const theme = usePrefs((state) => state.theme);
   const [ready, setReady] = useState(false);
-  const [screen, setScreen] = useState<Screen>({ kind: "shelf" });
+  const screen: Screen = useRoute();
   const [epubFor, setEpubFor] = useState<string | null>(null);
   const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
@@ -137,6 +98,11 @@ export function MarginApp() {
   useEffect(() => {
     applyTheme(theme);
   }, [theme]);
+
+  // "/" and any address that is not a page go to the bookshelf, without adding a history entry.
+  useEffect(() => {
+    if (pathNeedsRedirect()) navigate(DEFAULT_ROUTE, { replace: true });
+  }, []);
 
   useEffect(() => {
     void (async () => {
@@ -177,29 +143,21 @@ export function MarginApp() {
       } catch {
         // Keep whatever was already on this device.
       }
+      try {
+        await repairShelf();
+      } catch {
+        // Two cards of one book are a nuisance, not a reason to stop: the next start tries again.
+      }
       void migrateOldData();
       // Tell the user up front if this browser cannot keep books.
       void checkBookStorage().then((state) => {
         setStorageWarning(state.ok ? null : state.reason);
         if (state.ok) void requestPersistentStorage();
       });
-      const saved = readScreen();
-      const booksNow = useVocab.getState().books;
-      if (saved) {
-        const bookId = "bookId" in saved ? saved.bookId : null;
-        if (bookId === null || booksNow.some((book) => book.id === bookId)) {
-          setScreen(saved);
-        }
-      }
-      void ensureClassics();
+      void ensureClassics().finally(() => void refreshCovers().catch(() => undefined));
       setReady(true);
     })();
   }, [replaceWords, restoreBooks]);
-
-  useEffect(() => {
-    if (!ready) return;
-    writeScreen(screen);
-  }, [ready, screen]);
 
   const orderedBooks = useMemo(() => [...books].sort((a, b) => b.updatedAt - a.updatedAt), [books]);
   const covers = useCovers(books.map((book) => book.id));
@@ -209,7 +167,7 @@ export function MarginApp() {
   useEffect(() => {
     if (!ready) return;
     if ("bookId" in screen && screen.bookId && !books.some((book) => book.id === screen.bookId)) {
-      setScreen({ kind: "shelf" });
+      navigate(DEFAULT_ROUTE, { replace: true });
     }
   }, [ready, books, screen]);
 
@@ -271,19 +229,7 @@ export function MarginApp() {
     setBareEpub(false);
     try {
       const done = await importPackZip(file);
-      for (const item of done) {
-        if (!useVocab.getState().books.some((book) => book.id === item.bookId))
-          addBook(item.title, item.author, "epub", item.bookId);
-        useVocab.getState().setBookDetails([
-          {
-            id: item.bookId,
-            lexile: item.lexile,
-            isbn: item.isbn,
-            series: item.series,
-            seriesNumber: item.seriesNumber,
-          },
-        ]);
-      }
+      for (const item of done) registerInstalled(item);
       window.dispatchEvent(
         new CustomEvent("cibian-progress", { detail: { bookId: done[0]?.bookId } }),
       );
@@ -324,12 +270,13 @@ export function MarginApp() {
     if (screen.kind === "shelf") useShelfRemove.getState().dismissNotice();
   }, [screen.kind]);
   const reading = screen.kind === "read";
+  const menu = menuOf(screen);
   const tabs = [
     {
       id: "shelf",
       label: t("nav.shelf"),
       Icon: Library,
-      active: screen.kind === "shelf" || screen.kind === "get",
+      active: menu === "shelf",
       go: () => setScreen({ kind: "shelf" }),
       badge: 0,
     },
@@ -337,7 +284,7 @@ export function MarginApp() {
       id: "discover",
       label: t("nav.discover"),
       Icon: Compass,
-      active: screen.kind === "discover",
+      active: menu === "discover",
       go: () => setScreen({ kind: "discover" }),
       badge: 0,
     },
@@ -345,7 +292,7 @@ export function MarginApp() {
       id: "guide",
       label: t("nav.guide"),
       Icon: CircleHelp,
-      active: screen.kind === "guide",
+      active: menu === "guide",
       go: () => setScreen({ kind: "guide" }),
       badge: 0,
     },
@@ -353,12 +300,12 @@ export function MarginApp() {
       id: "notebook",
       label: t("nav.notebook"),
       Icon: NotebookPen,
-      active: screen.kind === "words" || screen.kind === "review",
+      active: menu === "words",
       go: () => setScreen({ kind: "words", bookId: null }),
       badge: due,
     },
   ];
-  const canDrop = !reading && (screen.kind === "shelf" || screen.kind === "get");
+  const canDrop = !reading && (screen.kind === "shelf" || screen.kind === "add");
 
   return (
     <div
@@ -413,6 +360,7 @@ export function MarginApp() {
           {t("drop.here")}
         </div>
       ) : null}
+      {reading ? null : <NoticeBar />}
       {reading ? null : (
         <header className="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-6xl items-center gap-1 px-2 sm:gap-2 sm:px-6">
@@ -519,96 +467,114 @@ export function MarginApp() {
         </div>
       )}
 
-      {screen.kind === "read" ? (
-        <ReaderScreen
-          key={screen.bookId}
-          bookId={screen.bookId}
-          onBack={() => setScreen({ kind: "shelf" })}
-          onNotebook={() => setScreen({ kind: "words", bookId: screen.bookId })}
-        />
-      ) : screen.kind === "guide" ? (
-        <GuideScreen />
-      ) : screen.kind === "discover" ? (
-        <DiscoverScreen
-          shelf={orderedBooks}
-          onOpen={openBook}
-          onNeedsEpub={(bookId) => setEpubFor(bookId)}
-        />
-      ) : screen.kind === "get" ? (
-        <AddBookScreen
-          shelf={orderedBooks}
-          settingsVersion={settingsVersion}
-          importing={importing}
-          onOpen={(bookId) => (bookId ? openBook(bookId) : undefined)}
-          onSettings={() => setSettingsOpen(true)}
-          onImportClick={() => packRef.current?.click()}
-        />
-      ) : screen.kind === "words" ? (
-        <Notebook
-          books={orderedBooks}
-          words={words}
-          bookId={screen.bookId}
-          onBookChange={(bookId) => setScreen({ kind: "words", bookId })}
-          onReview={(bookId) => setScreen({ kind: "review", bookId })}
-          onOpenBook={openBook}
-        />
-      ) : screen.kind === "review" ? (
-        <ReviewScreen
-          books={orderedBooks}
-          words={words}
-          bookId={screen.bookId}
-          onBack={() => setScreen({ kind: "words", bookId: screen.bookId })}
-        />
-      ) : (
-        <Shelf
-          books={orderedBooks}
-          words={words}
-          covers={covers}
-          ready={ready}
-          importing={importing}
-          onOpen={openBook}
-          onNotebook={(bookId) => setScreen({ kind: "words", bookId })}
-          onAdd={() => {
-            clearMessages();
-            setScreen({ kind: "get" });
-          }}
-          onAddList={(bookId) => void openListPicker(bookId)}
-          onDemo={() => {
-            if (!ready) return;
-            const id = addDemo();
-            setScreen({ kind: "words", bookId: id });
-          }}
-        />
-      )}
-      <OwnEpubDialog
-        bookId={epubFor}
-        onClose={() => setEpubFor(null)}
-        onSaved={(bookId) => {
-          setEpubFor(null);
-          openBook(bookId);
-        }}
-      />
-      <SettingsDialog
-        open={settingsOpen}
-        onOpenChange={setSettingsOpen}
-        onSaved={() => setSettingsVersion((n) => n + 1)}
-      />
+      <Suspense fallback={<div className="min-h-[60dvh]" aria-busy="true" />}>
+        {!ready && screen.kind !== "shelf" ? (
+          <div className="min-h-[60dvh]" aria-busy="true" />
+        ) : (
+          <>
+          {screen.kind === "read" ? (
+            <ReaderScreen
+              key={screen.bookId}
+              bookId={screen.bookId}
+              onBack={() => setScreen({ kind: "shelf" })}
+              onNotebook={() => setScreen({ kind: "words", bookId: screen.bookId })}
+            />
+          ) : screen.kind === "guide" ? (
+            <GuideScreen />
+          ) : screen.kind === "discover" ? (
+            <DiscoverScreen
+              shelf={orderedBooks}
+              onOpen={openBook}
+              onNeedsEpub={(bookId) => setEpubFor(bookId)}
+            />
+          ) : screen.kind === "add" ? (
+            <AddBookScreen
+              shelf={orderedBooks}
+              settingsVersion={settingsVersion}
+              importing={importing}
+              onOpen={(bookId) => (bookId ? openBook(bookId) : undefined)}
+              onSettings={() => setSettingsOpen(true)}
+              onImportClick={() => packRef.current?.click()}
+            />
+          ) : screen.kind === "words" ? (
+            <Notebook
+              books={orderedBooks}
+              words={words}
+              bookId={screen.bookId}
+              onBookChange={(bookId) => setScreen({ kind: "words", bookId })}
+              onReview={(bookId) => setScreen({ kind: "review", bookId })}
+              onOpenBook={openBook}
+            />
+          ) : screen.kind === "review" ? (
+            <ReviewScreen
+              books={orderedBooks}
+              words={words}
+              bookId={screen.bookId}
+              onBack={() => setScreen({ kind: "words", bookId: screen.bookId })}
+            />
+          ) : (
+            <Shelf
+              books={orderedBooks}
+              words={words}
+              covers={covers}
+              ready={ready}
+              importing={importing}
+              onOpen={openBook}
+              onNotebook={(bookId) => setScreen({ kind: "words", bookId })}
+              onAdd={() => {
+                clearMessages();
+                setScreen({ kind: "add" });
+              }}
+              onAddList={(bookId) => void openListPicker(bookId)}
+              onDemo={() => {
+                if (!ready) return;
+                const id = addDemo();
+                setScreen({ kind: "words", bookId: id });
+              }}
+            />
+          )}
+          </>
+        )}
+      </Suspense>
+      <Suspense fallback={null}>
+        {epubFor !== null ? (
+          <OwnEpubDialog
+            bookId={epubFor}
+            onClose={() => setEpubFor(null)}
+            onSaved={(bookId) => {
+              setEpubFor(null);
+              openBook(bookId);
+            }}
+          />
+        ) : null}
+        {settingsOpen ? (
+          <SettingsDialog
+            open={settingsOpen}
+            onOpenChange={setSettingsOpen}
+            onSaved={() => setSettingsVersion((n) => n + 1)}
+          />
+        ) : null}
+      </Suspense>
       <ShelfToastHost onViewShelf={() => setScreen({ kind: "shelf" })} aboveTabs={!reading} />
-      <WordListDialog
-        flow={listFlow}
-        books={orderedBooks
-          .filter((book) => book.source === "epub")
-          .map((book) => ({ id: book.id, title: book.title }))}
-        onClose={() => setListFlow(null)}
-        onPickAnother={(bookId) => {
-          setListFlow(null);
-          void openListPicker(bookId);
-        }}
-        onDone={(_bookId, result, extra) => {
-          setListFlow(null);
-          setNotes([listAddedNote(result), ...extra]);
-        }}
-      />
+      <Suspense fallback={null}>
+        {listFlow ? (
+          <WordListDialog
+            flow={listFlow}
+            books={orderedBooks
+              .filter((book) => book.source === "epub")
+              .map((book) => ({ id: book.id, title: book.title }))}
+            onClose={() => setListFlow(null)}
+            onPickAnother={(bookId) => {
+              setListFlow(null);
+              void openListPicker(bookId);
+            }}
+            onDone={(_bookId, result, extra) => {
+              setListFlow(null);
+              setNotes([listAddedNote(result), ...extra]);
+            }}
+          />
+        ) : null}
+      </Suspense>
     </div>
   );
 }

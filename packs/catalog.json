@@ -32,7 +32,8 @@
    },
    "cover": {
     "url": "charlie/cover.jpg",
-    "bytes": 54919
+    "bytes": 54919,
+    "sha256": "b922637b887a4f596f01efaf66addb36a2893d6d0df2eee7a75fa019268daf2a"
    },
    "zip": {
     "url": "charlie.zip",
@@ -69,7 +70,8 @@
    },
    "cover": {
     "url": "george/cover.jpg",
-    "bytes": 42666
+    "bytes": 42666,
+    "sha256": "662b39d6cc505211cb579da6f6e2d3eafd6780818603d5a8d55fcd8e4329ce7e"
    },
    "zip": {
     "url": "george.zip",
@@ -106,7 +108,8 @@
    },
    "cover": {
     "url": "james/cover.jpg",
-    "bytes": 43792
+    "bytes": 43792,
+    "sha256": "98d2f7cdfa28323fa56f426be7e0a8f1a31f491c5e3d3ae9238eb96655adee66"
    },
    "zip": {
     "url": "james.zip",
@@ -143,7 +146,8 @@
    },
    "cover": {
     "url": "matilda/cover.jpg",
-    "bytes": 19962
+    "bytes": 19962,
+    "sha256": "d36aa6356fae15743fa7b010187a745b36af9eb7a098095501303b272cd26321"
    },
    "zip": {
     "url": "matilda.zip",
@@ -180,7 +184,8 @@
    },
    "cover": {
     "url": "magicfinger/cover.jpg",
-    "bytes": 44734
+    "bytes": 44734,
+    "sha256": "22dbd776a7e85c1be6cf6e75ce1ed0462c07291626da38f4bf1595ae34cacf8c"
    },
    "zip": {
     "url": "magicfinger.zip",
@@ -216,7 +221,8 @@
    },
    "cover": {
     "url": "twits/cover.jpg",
-    "bytes": 48595
+    "bytes": 48595,
+    "sha256": "6291f4d41cb2cdf57a0258119fc9f625a4a90465569e01805d1ee1fca3c658da"
    },
    "zip": {
     "url": "twits.zip",
@@ -254,7 +260,8 @@
    },
    "cover": {
     "url": "wof1/cover.jpg",
-    "bytes": 47410
+    "bytes": 47410,
+    "sha256": "142154603a90e23f9325e414448dd28e3c4764b366df5a7ce7adee5ac174a4f8"
    },
    "zip": {
     "url": "wof1.zip",
@@ -293,7 +300,8 @@
    },
    "cover": {
     "url": "wof2/cover.jpg",
-    "bytes": 41987
+    "bytes": 41987,
+    "sha256": "f743ba871c604d83c8f1f5b72b31385afb0cede5437c1aca9a6c0c1208bf9de9"
    },
    "zip": {
     "url": "wof2.zip",
@@ -330,7 +338,8 @@
    },
    "cover": {
     "url": "wonder/cover.jpg",
-    "bytes": 31090
+    "bytes": 31090,
+    "sha256": "ba62a2bacbad47da648ce6c993e9ed0a47eca0a04ddf579c1b8358f4320133fa"
    },
    "zip": {
     "url": "wonder.zip",
@@ -341,7 +350,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 25347159,
-  "sha256": "fe20cf75d5c8cad1383e4bd5031a58dc0807be945ce4e84c6c1f14567043a09e"
+  "bytes": 25347542,
+  "sha256": "5a15bf6cadf062e11db5f8076dcf5340bc661be751f7b222d9562ba332aff883"
  }
 }

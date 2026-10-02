@@ -15,6 +15,7 @@
 import type { ParagraphHelp, SentenceHelp, PhraseEntry } from "@/lib/glossary-extras";
 import { isbnDigits, readSeries, seriesNumber } from "@/lib/book-meta";
 import { lexileMeasure } from "@/lib/lexile";
+import { flowText, flowTextBefore, includesLoose, squash, SQUASH_MIN } from "@/lib/flow-text";
 
 export type GlossaryAnchor = {
   /** 0-based index of the chapter, as the app splits the book (see docs). */
@@ -456,7 +457,7 @@ export function indexChapterHtml(html: string, parse: (html: string) => Document
       else {
         at = blocks.length;
         blockIds.set(block, at);
-        blocks.push(stripWordBreaks((block.textContent ?? "").replace(/\s+/g, " ").trim()));
+        blocks.push(stripWordBreaks(flowText(block)));
       }
     }
     const parts = splitWords(node.data);
@@ -1176,7 +1177,7 @@ export function checkAgainstBook(
             if (
               context &&
               blockAt >= 0 &&
-              !normBlocks[anchor.chapter]?.[blockAt]?.includes(context)
+              !includesText(normBlocks[anchor.chapter]?.[blockAt] ?? "", context)
             ) {
               report(
                 `${where}: occurrence ${anchor.occurrence} of ${q(form)} in chapter ${anchor.chapter} is not inside the text ${q(anchor.context ?? "")}. The chapter or occurrence number is probably wrong.`,
@@ -1188,7 +1189,7 @@ export function checkAgainstBook(
         if (context && blockAt < 0) {
           const scope = anchor.chapter !== undefined ? [anchor.chapter] : chapters.map((_, i) => i);
           const count = scope.reduce(
-            (n, i) => n + (normBlocks[i] ?? []).filter((b) => b.includes(context)).length,
+            (n, i) => n + (normBlocks[i] ?? []).filter((b) => includesText(b, context)).length,
             0,
           );
           if (count === 0) {
@@ -1237,7 +1238,7 @@ export function checkExtrasAgainstBook(
       if (errors.length < MAX_ISSUES) errors.push(message);
     } else if (warnings.length < MAX_ISSUES) warnings.push(message);
   };
-  const has = (text: string, context: string) => ` ${text} `.includes(` ${loose(context)} `);
+  const has = (text: string, context: string) => includesLoose(text, loose(context));
   (file.paragraphs ?? []).forEach((note, at) => {
     checked += 1;
     const where = `Paragraph note ${at + 1} (chapter ${note.chapter}, paragraph ${note.paragraph})`;
@@ -1367,6 +1368,9 @@ export function matchAnchor(
   const holdsWord = (text: string) => wordsIn(text).some((w) => w.toLowerCase() === surface);
   // Where the tapped word starts inside the normalised paragraph (-1: unknown).
   const at = tap.before === undefined ? -1 : normText(`${tap.before}\u0001`).length - 1;
+  // The same two numbers with all white space ignored, for a stored snippet whose words were glued at a line break.
+  const flatParagraph = squash(paragraph);
+  const flatAt = tap.before === undefined ? -1 : squash(normText(`${tap.before}\u0001`)).length - 1;
   // Does the snippet sit around the tapped word (not around another use in the same paragraph)?
   const covers = (context: string): boolean => {
     let from = paragraph.indexOf(context);
@@ -1378,13 +1382,25 @@ export function matchAnchor(
     }
     return false;
   };
+  const coversFlat = (context: string): boolean => {
+    const flat = squash(context);
+    if (flat.length < SQUASH_MIN || !flat.includes(surface)) return false;
+    let from = flatParagraph.indexOf(flat);
+    if (from < 0) return false;
+    if (flatAt < 0) return true;
+    while (from >= 0) {
+      if (flatAt >= from && flatAt + surface.length <= from + flat.length) return true;
+      from = flatParagraph.indexOf(flat, from + 1);
+    }
+    return false;
+  };
   // 1. chapter + occurrence
   for (let i = 0; i < senses.length; i += 1) {
     const sense = senses[i] as GlossarySense;
     for (const anchor of sense.anchors ?? []) {
       if (anchor.chapter !== tap.chapter || anchor.occurrence !== tap.occurrence) continue;
       if ((anchor.form ?? lemma).toLowerCase() !== surface) continue;
-      if (anchor.context && !paragraph.includes(normText(anchor.context))) continue; // stale anchor
+      if (anchor.context && !includesText(paragraph, normText(anchor.context))) continue; // stale anchor
       return { at: i, via: "anchor" };
     }
   }
@@ -1395,10 +1411,16 @@ export function matchAnchor(
       if (!anchor.context) continue;
       if (anchor.chapter !== undefined && anchor.chapter !== tap.chapter) continue;
       const context = normText(anchor.context);
-      if (holdsWord(context) && covers(context)) return { at: i, via: "context" };
+      if ((holdsWord(context) && covers(context)) || coversFlat(context))
+        return { at: i, via: "context" };
     }
   }
   return null;
+}
+
+/** Is `snippet` inside `text` (both from `normText`)? A line break may have glued two words of the snippet. */
+function includesText(text: string, snippet: string): boolean {
+  return text.includes(snippet) || squash(snippet).length >= SQUASH_MIN && squash(text).includes(squash(snippet));
 }
 
 /** Can this place in the book open the entry? Always, unless the entry is `senseOnly` and no anchor names the place. */
@@ -1426,14 +1448,8 @@ export function senseOnlyHit(
   chapter: number,
 ): boolean {
   const block = blockOf(node);
-  const paragraph = stripWordBreaks((block?.textContent ?? surface).replace(/\s+/g, " ").trim());
-  let before = "";
-  if (block) {
-    const range = doc.createRange();
-    range.setStart(block, 0);
-    range.setEnd(node, start);
-    before = range.toString().replace(/\s+/g, " ").trimStart();
-  }
+  const paragraph = block ? stripWordBreaks(flowText(block)) : surface;
+  const before = block ? flowTextBefore(block, node, start) : "";
   return entryAppliesAt(key, gloss, { chapter, surface, occurrence, paragraph, before });
 }
 

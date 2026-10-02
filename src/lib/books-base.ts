@@ -3,7 +3,7 @@
  *
  * Production builds use https://books.inputread.site unless VITE_BOOKS_BASE is set.
  * Dev, and any build with VITE_BOOKS_BASE empty, "." or "./", use same-origin
- * paths (./public-books/..., ./word-lists/...) so tests can run with no network.
+ * paths (/public-books/..., /word-lists/...) so tests can run with no network.
  * Keep the default host in step with scripts/vite-plugins.mjs (the service worker).
  */
 export const DEFAULT_BOOKS_BASE = "https://books.inputread.site";
@@ -19,6 +19,6 @@ export function booksBase(): string {
 export function booksUrl(path: string): string {
   const rel = path.replace(/^\/+/, "");
   const base = booksBase();
-  if (!base) return `./${rel}`;
+  if (!base) return `/${rel}`;
   return `${base}/${rel}`;
 }

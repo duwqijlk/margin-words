@@ -121,18 +121,14 @@ const SIZES = {
   desktop: { viewport: { width: 1280, height: 800 }, mobile: false },
   mobile: { viewport: { width: 390, height: 844 }, mobile: true },
 };
-/** The app opens on the screen it was on. Tests that want the shelf say so. */
+/** Every page has its own address, so a test that wants the shelf opens /shelf. */
 const toShelf = async (page) => {
-  await page.evaluate(() =>
-    localStorage.setItem("cibian-screen-v2", JSON.stringify({ kind: "shelf" })),
-  );
-  await page.goto(BASE);
+  await page.goto(new URL("shelf", BASE).toString());
 };
 
 const overflow2 = (pg) => pg.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
 const toShelfOn = async (pg) => {
-  await pg.evaluate(() => localStorage.setItem("cibian-screen-v2", JSON.stringify({ kind: "shelf" })));
-  await pg.goto(BASE);
+  await pg.goto(new URL("shelf", BASE).toString());
 };
 
 async function run(lang, size) {
@@ -420,9 +416,9 @@ async function run(lang, size) {
     `${label}: bare EPUB (choose) -> "${t("err.bareEpub").slice(0, 40)}..."`,
   );
   const guideHref = await page.locator("[data-bare-epub] a").getAttribute("href");
-  ok(guideHref === "./guide/", `${label}: bare EPUB message links to ${guideHref}`);
+  ok(guideHref === "/kit/", `${label}: bare EPUB message links to ${guideHref}`);
   const guide = await page.request.get(new URL(guideHref, BASE).toString());
-  ok(guide.status() === 200, `${label}: ./guide/ answers 200`);
+  ok(guide.status() === 200, `${label}: /kit/ answers 200`);
   await page
     .getByRole("button", { name: t("common.close") })
     .first()
@@ -669,7 +665,7 @@ async function run(lang, size) {
     ok(true, `${label}: offline after the first load: the app opens, Alice opens, a word is looked up`);
     await fp.keyboard.press("Escape");
     // delete Alice, then bring her back from Discover while offline
-    await fp.evaluate(() => localStorage.setItem("cibian-screen-v2", JSON.stringify({ kind: "shelf" })));
+    await fp.goto(new URL("shelf", BASE).toString());
     await fp.reload();
     await fp.locator("ul li").first().waitFor();
     await fp.getByRole("button", { name: labelRe(t("shelf.moreAria"), "Alice") }).first().click();
@@ -856,8 +852,17 @@ async function run(lang, size) {
     }
 
     await vp.getByRole("button", { name: t("nav.shelf"), exact: true }).first().click();
+    // Alice and Looking-Glass are one series: they sit in one stack. Peter and Wendy is a single card.
+    await vp.locator("[data-series-stack]").waitFor({ timeout: 30000 });
+    ok(
+      (await vp.locator("[data-series-stack]").getAttribute("data-stack-count")) === "2",
+      `${label}: Alice and Looking-Glass are one stack of 2`,
+    );
+    ok((await vp.locator("li.book-card").count()) === 2, `${label}: the shelf shows the stack and Peter and Wendy`);
+    await vp.locator("[data-series-stack] [data-stack-toggle]").click();
+    await vp.locator("[data-series-stack-open]").waitFor();
     await vp.locator("ul li [data-classic-label]").nth(2).waitFor({ timeout: 30000 });
-    ok((await vp.locator("ul li").count()) === 3, `${label}: shelf has Alice plus the two books that were added`);
+    ok((await vp.locator("li.book-card").count()) === 3, `${label}: shelf has Alice plus the two books that were added`);
     ok(
       (await vp.locator("ul li [data-classic-label]").count()) === 3,
       `${label}: the added classics carry the "${t("shelf.classic")}" label`,
@@ -886,6 +891,7 @@ async function run(lang, size) {
 
     // Looking-Glass (shrunk epub): opens and its illustrations load
     await toShelfOn(vp);
+    await vp.locator("[data-series-stack] [data-stack-toggle]").click();
     await vp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Through the Looking") }).first().click();
     await vp.waitForSelector("button.book-hard", { timeout: 30000 });
     await vp.waitForFunction(() => document.querySelectorAll("article.book-body img").length > 0, null, { timeout: 30000 });
@@ -899,7 +905,7 @@ async function run(lang, size) {
     // offline after the download: reload, open Peter and Wendy, look up a word; Discover still lists 12
     await vctx.setOffline(true);
     await toShelfOn(vp);
-    await vp.locator("ul li").nth(2).waitFor({ timeout: 30000 });
+    await vp.locator("li.book-card").nth(1).waitFor({ timeout: 30000 });
     await vp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Peter and Wendy") }).first().click();
     await vp.waitForSelector("button.book-hard", { timeout: 30000 });
     await vp.locator("button.book-hard").first().click();

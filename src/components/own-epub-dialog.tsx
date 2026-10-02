@@ -4,6 +4,7 @@ import { loadPackRecord } from "@/lib/book-db";
 import { EDITION_MATCH_OK } from "@/lib/edition-match";
 import { errorText, useT } from "@/lib/i18n";
 import { fetchWordList, previewOwnEpub, savePaired, type PairPreview } from "@/lib/pair-epub";
+import { registerInstalled } from "@/lib/shelf-register";
 import { useVocab } from "@/lib/vocab-store";
 import { loadWordListCatalog, type WordListPack } from "@/lib/word-list-catalog";
 import { btn, cn } from "@/components/ui";
@@ -99,21 +100,7 @@ export function OwnEpubDialog({
                   setBusy(true);
                   void savePaired(preview)
                     .then((saved) => {
-                      const { books, addBook, setBookDetails } = useVocab.getState();
-                      if (!books.some((book) => book.id === saved.bookId))
-                        addBook(saved.title, saved.author, "epub", saved.bookId);
-                      setBookDetails([
-                        {
-                          id: saved.bookId,
-                          lexile: saved.lexile,
-                          isbn: saved.isbn,
-                          series: saved.series,
-                          seriesNumber: saved.seriesNumber,
-                          matchRate: preview.percent,
-                          needsEpub: false,
-                          source: "epub",
-                        },
-                      ]);
+                      registerInstalled(saved, { matchRate: preview.percent });
                       onSaved(saved.bookId);
                     })
                     .catch((reason) => {

@@ -109,6 +109,12 @@ type VocabState = {
     glossary: Record<string, { pos: string; meaning: string; whyHard: string }>,
   ) => void;
   restoreBooks: (incoming: Array<{ id: string; title: string; author: string }>) => void;
+  /**
+   * Two cards that are the same book become one. The card `keepId` stays and gets the saved words of
+   * `dropId` (a word both have keeps the one that was reviewed more), any detail it lacks, and the older
+   * "added" date. The card `dropId` is removed.
+   */
+  mergeBook: (keepId: string, dropId: string) => void;
   replaceWords: (words: VocabEntry[]) => void;
 };
 
@@ -361,6 +367,51 @@ export const useVocab = create<VocabState>()(
       },
       replaceWords: (words) => {
         set({ words: words.map(normalizeWord) });
+      },
+      mergeBook: (keepId, dropId) => {
+        if (keepId === dropId) return;
+        set((state) => {
+          const keep = state.books.find((book) => book.id === keepId);
+          const drop = state.books.find((book) => book.id === dropId);
+          if (!keep || !drop) return state;
+          const mine = new Map<string, VocabEntry>();
+          for (const word of state.words) {
+            if (word.bookId === keepId) mine.set(word.lemma.toLowerCase(), word);
+          }
+          const words: VocabEntry[] = [];
+          const replaced = new Set<string>();
+          for (const word of state.words) {
+            if (word.bookId !== dropId) continue;
+            const twin = mine.get(word.lemma.toLowerCase());
+            if (!twin) {
+              words.push({ ...word, bookId: keepId });
+            } else if (word.reps > twin.reps || (word.reps === twin.reps && word.stage > twin.stage)) {
+              replaced.add(twin.id);
+              words.push({ ...word, bookId: keepId });
+            }
+          }
+          const next: Book = { ...keep };
+          for (const field of [
+            "lexile",
+            "isbn",
+            "series",
+            "seriesNumber",
+            "matchRate",
+            "oldFashioned",
+            "oldFashionedReason",
+          ] as const) {
+            if (next[field] === undefined && drop[field] !== undefined)
+              (next as Record<string, unknown>)[field] = drop[field];
+          }
+          next.createdAt = Math.min(keep.createdAt, drop.createdAt);
+          return {
+            books: state.books.filter((book) => book.id !== dropId).map((book) => (book.id === keepId ? next : book)),
+            words: [
+              ...state.words.filter((word) => word.bookId !== dropId && !replaced.has(word.id)),
+              ...words,
+            ],
+          };
+        });
       },
     }),
     {

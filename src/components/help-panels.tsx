@@ -4,6 +4,8 @@ import { paragraphBlocks } from "@/lib/help-lookup";
 import { useT } from "@/lib/i18n";
 import { loadSentenceView, type ParagraphView, type SentenceView } from "@/lib/help-flow";
 import { btn, cn } from "@/components/ui";
+import { flowText } from "@/lib/flow-text";
+import { SIDE_PANEL } from "@/components/side-panel";
 
 /*
  * Help for paragraphs and sentences. Everything here is an overlay (position: fixed):
@@ -131,7 +133,7 @@ export function ParagraphMarker({
     if (!root) return;
     blocks.current = paragraphBlocks(root).map((el) => ({
       el,
-      ok: /^(P|BLOCKQUOTE|LI)$/.test(el.tagName) && wordCount(el.textContent) >= 8,
+      ok: /^(P|BLOCKQUOTE|LI)$/.test(el.tagName) && wordCount(flowText(el)) >= 8,
     }));
     hover.current = null;
     focus.current = null;
@@ -264,14 +266,10 @@ export type ParagraphPanelState =
 
 export function ParagraphPanel({
   state,
-  dock,
-  side,
   onClose,
   onWord,
 }: {
   state: ParagraphPanelState;
-  dock: "bottom" | "top";
-  side: "left" | "right";
   onClose: () => void;
   onWord: (word: string) => void;
 }) {
@@ -281,19 +279,14 @@ export function ParagraphPanel({
     <aside
       aria-label={t("hp.panelAria")}
       data-para-panel
-      data-dock={dock}
       className={cn(
         "fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
-        dock === "bottom"
-          ? "anim-sheet inset-x-0 bottom-0 max-h-[52dvh] rounded-t-3xl border-t pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
-          : "anim-sheet-top inset-x-0 top-0 max-h-[52dvh] rounded-b-3xl border-b pt-[max(0.75rem,env(safe-area-inset-top))] pb-3",
-        "lg:inset-x-auto lg:top-[4.5rem] lg:bottom-auto lg:max-h-[calc(100dvh-6.5rem)] lg:w-[21rem] lg:rounded-2xl lg:border lg:pt-5 lg:pb-5",
-        side === "left" ? "lg:left-5" : "lg:right-5",
+        "anim-sheet inset-x-0 bottom-0 max-h-[52dvh] rounded-t-3xl border-t pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]",
+        SIDE_PANEL,
+        "md:bottom-auto md:max-h-[calc(100dvh-6.5rem)] md:pb-5",
       )}
     >
-      {dock === "bottom" ? (
-        <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line lg:hidden" aria-hidden />
-      ) : null}
+      <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden" aria-hidden />
       <div className="grid gap-3.5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 flex-wrap items-center gap-x-2.5 gap-y-1">
@@ -380,9 +373,6 @@ export function ParagraphPanel({
           {t("hp.footer")}
         </p>
       </div>
-      {dock === "top" ? (
-        <div className="mx-auto mt-3 h-1 w-10 rounded-full bg-line lg:hidden" aria-hidden />
-      ) : null}
     </aside>
   );
 }

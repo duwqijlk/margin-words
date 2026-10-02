@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
-import { BookCover } from "@/components/shelf";
+import { BookCover } from "@/components/book-cover";
 import { AddToShelfButton, type ShelfState } from "@/components/shelf-actions";
 import { BookMetaLines, DifficultyControls, matchesBand, type BandChoice, type SortChoice } from "@/components/lexile-ui";
 import {
@@ -19,6 +19,7 @@ import { useDownloads } from "@/lib/downloads";
 import { errorText, useT } from "@/lib/i18n";
 import { compareLexile } from "@/lib/lexile";
 import { placeWordList } from "@/lib/place-word-list";
+import { findOnShelf } from "@/lib/shelf-identity";
 import { useProgress } from "@/lib/progress-store";
 import { bookHasUserWork } from "@/lib/shelf-work";
 import { useShelfRemove } from "@/lib/shelf-remove";
@@ -173,7 +174,8 @@ export function DiscoverScreen({
     try {
       const bookId = await placeWordList(pack);
       setRecords(await listPackRecords());
-      onNeedsEpub(bookId);
+      if (useVocab.getState().books.find((book) => book.id === bookId)?.needsEpub) onNeedsEpub(bookId);
+      else onOpen(bookId);
     } catch (reason) {
       setListError((prev) => ({ ...prev, [pack.id]: errorText(reason, "err.bookAddFailed") }));
     } finally {
@@ -211,8 +213,24 @@ export function DiscoverScreen({
     );
   }
 
+  /**
+   * The pack record of a row. A book that was imported from a .zip has a made-up pack id, so when no record
+   * carries this row's id, the shelf card that IS this book (same ISBN, or title and author) stands in.
+   */
+  function recordFor(row: Row): PackRecord | undefined {
+    const direct = byPack.get(row.id);
+    if (direct) return direct;
+    const known = new Set(records.map((record) => record.bookId));
+    const hit = findOnShelf(
+      shelf.map((book) => ({ ...book, stored: known.has(book.id) && book.source === "epub" && !book.needsEpub })),
+      { title: row.title, author: row.author, isbn: row.isbn },
+    );
+    const mine = hit ? records.find((record) => record.bookId === hit.id) : undefined;
+    return hit && mine ? { ...mine, packId: row.id } : undefined;
+  }
+
   function renderCard(row: Row) {
-    const record = byPack.get(row.id);
+    const record = recordFor(row);
     const held = Boolean(record && shelfIds.has(record.bookId) && pendingId !== record.bookId);
     const book = record ? shelf.find((item) => item.id === record.bookId) : undefined;
     const needs = Boolean(held && book?.needsEpub);

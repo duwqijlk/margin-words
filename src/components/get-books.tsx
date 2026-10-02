@@ -18,7 +18,7 @@ import {
   type CatalogResult,
 } from "@/lib/packs";
 import type { Book } from "@/lib/vocab-model";
-import { BookCover } from "@/components/shelf";
+import { BookCover } from "@/components/book-cover";
 import {
   BookMetaLines,
   DifficultyControls,

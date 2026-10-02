@@ -45,6 +45,8 @@ export const zh: Record<Key, string> = {
   "nav.guide": "使用说明",
   "nav.notebook": "生词本",
   "nav.settings": "设置",
+  "notice.text": "本站不提供非公版书籍，只提供难词与难句解释；非公版书籍需由你自己上传 EPUB。",
+  "notice.dismiss": "关闭这条提示",
   "nav.dueAria": "有 {n} 个词要复习",
 
   /* ---- guide */
@@ -130,6 +132,9 @@ export const zh: Record<Key, string> = {
   "shelf.series.grouped": "按系列分组",
   "shelf.series.none": "不属于系列",
   "shelf.series.empty": "这个系列里没有书。",
+  "shelf.stackOpenAria": "{series}，{books}。点开看这个系列的书",
+  "shelf.stackCloseAria": "收起{series}",
+  "shelf.stackClose": "收起",
   "discover.kindList": "词表",
   "discover.title": "发现",
   "discover.hint": "这里是全部的书。点“加入书架”才会下载。",
@@ -321,13 +326,15 @@ export const zh: Record<Key, string> = {
   "wl.forExample": "例如：{list}",
   "wl.allNew": "这 {n} 个单词对这本书来说都是新的。",
 
-  /* ---- book pack kit (the page at ./guide/) */
+  /* ---- book pack kit (the page at /kit/) */
   "guide.fullGuideLink": "图书包工具包（给 AI 用）",
 
   /* ---- reader */
   "reader.missingTitle": "找不到这本书的文字",
   "reader.missingBody": "浏览器可能清除了网站数据。请重新添加这本书。",
   "reader.backShelf": "回到书架",
+  "reader.sideTitle": "单词帮助",
+  "reader.sideHint": "点一下文字里的单词，意思会显示在这里。",
   "reader.opening": "正在打开这本书…",
   "reader.openNotebook": "打开生词本",
   "reader.progress": "全书阅读进度",

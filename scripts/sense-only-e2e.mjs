@@ -96,8 +96,7 @@ const storedGlossary = () =>
       }),
   );
 const toShelf = async () => {
-  await page.evaluate(() => localStorage.setItem("cibian-screen-v2", JSON.stringify({ kind: "shelf" })));
-  await page.goto(BASE);
+  await page.goto(new URL("shelf", BASE).toString());
 };
 
 async function checkReader(label) {

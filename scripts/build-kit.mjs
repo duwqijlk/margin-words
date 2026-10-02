@@ -12,7 +12,7 @@
  *   node scripts/build-kit.mjs --out FILE      write somewhere else
  *   node scripts/build-kit.mjs --check         exit 1 when the sources are missing or a listed file is empty
  *
- * `vite build` calls buildKit() too (scripts/build-guide.mjs) and puts the zip in dist/guide/book-pack-kit.zip.
+ * `vite build` calls buildKit() too (scripts/build-guide.mjs) and puts the zip in dist/kit/book-pack-kit.zip.
  * The output is always the same bytes (fixed dates, fixed order). Nothing is copied by hand, so the kit cannot
  * go out of date: change the sources, rebuild.
  *
