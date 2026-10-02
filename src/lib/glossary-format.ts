@@ -85,17 +85,21 @@ export const DEFAULT_WHY_HARD = "This word is harder than everyday English.";
 /* ------------------------------------------------------------------ tokenization */
 
 /**
- * THE word rule. A "word" is a run of ASCII letters, optionally followed by ONE
- * straight apostrophe and more letters. A curly apostrophe or a hyphen ends a word.
+ * THE word rule. A "word" is a run of Unicode letters (with any combining marks on
+ * them), optionally followed by ONE straight apostrophe and more letters. So `café`,
+ * `Yucatán`, and `e` plus U+0301 are each one word. A curly apostrophe, a hyphen, or
+ * a digit ends a word.
  * The reader, the validator and the text tool all use exactly this rule, on each
- * text node of the chapter (words never run across a tag boundary).
+ * text node of the chapter. Inline tags do not split a word when nothing between
+ * them is a space: `<span class="big">J</span>ack` is `Jack`. A real space, a line
+ * break, a `<br>`, or a block boundary still separates words.
  * Soft hyphens are removed first (see `stripWordBreaksIn`). When a soft hyphen, or an
  * in-word zero-width mark, sits between two inline tags, the letters on both sides are
  * moved into one text node before this rule runs. A line break that only sits between
  * those tags is not a space in the sentence, so the halves still join. A normal hyphen
- * is kept and still ends a word. A space in the text, or a block boundary, is never joined.
+ * is kept and still ends a word.
  */
-export const WORD_PATTERN = "[A-Za-z]+(?:'[A-Za-z]+)?";
+export const WORD_PATTERN = "(?:\\p{L}\\p{M}*)+(?:'(?:\\p{L}\\p{M}*)+)?";
 
 /**
  * Drop characters that split a word without being visible.
@@ -112,8 +116,8 @@ export function stripWordBreaks(text: string): string {
   while (out !== prev) {
     prev = out;
     out = out
-      .replace(/([A-Za-z])[\u200B\u2060]+(?=[A-Za-z'])/g, "$1")
-      .replace(/'[\u200B\u2060]+(?=[A-Za-z])/g, "'");
+      .replace(/(\p{L}\p{M}*)[\u200B\u2060]+(?=\p{L}|')/gu, "$1")
+      .replace(/'[\u200B\u2060]+(?=\p{L})/gu, "'");
   }
   return out;
 }
@@ -158,7 +162,7 @@ function isFormattingWs(ch: string): boolean {
 }
 
 function isLetter(ch: string): boolean {
-  return /[A-Za-z]/.test(ch);
+  return /\p{L}/u.test(ch);
 }
 
 /** What a text node in the gap between two halves is made of. Mixed space + mark is "other". */
@@ -277,7 +281,7 @@ function joinAcrossBreak(left: Text, right: Text): boolean {
   // This branch is only reached when the gap has no soft hyphen.
   if (marks.length === 0 || marks.some((ch) => ch !== "\u200B" && ch !== "\u2060")) return false;
   if (isLetter(leftChar) && rightChar === "'") {
-    return /^[A-Za-z]/.test(rightStr.slice(j + 1).replace(/^[\u200B\u2060]+/, ""));
+    return /^\p{L}/u.test(rightStr.slice(j + 1).replace(/^[\u200B\u2060]+/, ""));
   }
   if (leftChar === "'" && isLetter(rightChar)) return isLetter(leftStr[i - 1] ?? "");
   return false;
@@ -341,7 +345,7 @@ export function stripWordBreaksIn(root: ParentNode) {
       continue;
     }
     gaps = [];
-    left = /[A-Za-z]/.test(node.data) ? node : null;
+    left = /\p{L}/u.test(node.data) ? node : null;
   }
   for (const node of texts) {
     if (!BREAK_CHARS.test(node.data)) continue;
@@ -360,15 +364,102 @@ export function stripWordBreaksIn(root: ParentNode) {
   });
   doomed.sort((a, b) => (a.contains(b) ? 1 : b.contains(a) ? -1 : 0));
   for (const el of doomed) el.remove();
+  joinInlineWords(root);
+}
+
+/**
+ * True when `left` and `right` are two halves of one word with no space between them.
+ * A straight apostrophe may sit on either edge (`don't` split across tags).
+ */
+function wordEdgesJoin(left: string, right: string): boolean {
+  const lc = left[left.length - 1] ?? "";
+  const rc = right[0] ?? "";
+  if (isLetter(lc) && isLetter(rc)) return true;
+  if (isLetter(lc) && rc === "'" && isLetter(right[1] ?? "")) return true;
+  if (lc === "'" && isLetter(left[left.length - 2] ?? "") && isLetter(rc)) return true;
+  return false;
+}
+
+/** The gap holds only empty inline wrappers. A space, `<br>`, image, or block stops the join. */
+function gapIsBareInline(fragment: Node): boolean {
+  const visit = (node: Node): boolean => {
+    if (node.nodeType === 8) return true;
+    if (node.nodeType === 3) return (node as Text).data.length === 0;
+    if (node.nodeType !== 1) return false;
+    const el = node as Element;
+    if (STOP_TAGS.has(el.localName) || el.localName === "img") return false;
+    for (let child = el.firstChild; child; child = child.nextSibling) {
+      if (!visit(child)) return false;
+    }
+    return true;
+  };
+  for (let child = fragment.firstChild; child; child = child.nextSibling) {
+    if (!visit(child)) return false;
+  }
+  return true;
+}
+
+function canJoinInline(left: Text, right: Text): boolean {
+  if (!wordEdgesJoin(left.data, right.data)) return false;
+  if (stopAncestor(left) !== stopAncestor(right)) return false;
+  const doc = left.ownerDocument;
+  if (!doc) return false;
+  const range = doc.createRange();
+  try {
+    range.setStartAfter(left);
+    range.setEndBefore(right);
+  } catch {
+    return false;
+  }
+  const fragment = range.cloneContents();
+  if (hasStopElement(fragment)) return false;
+  return gapIsBareInline(fragment);
+}
+
+/**
+ * Put letters that sit in neighboring inline tags, with no space between them,
+ * into one text node. `<span class="big">J</span>ack` becomes `Jack`. A space,
+ * a line break, a `<br>`, or a block boundary stays a boundary.
+ */
+function joinInlineWords(root: ParentNode) {
+  const doc = root.ownerDocument;
+  if (!doc) return;
+  const walker = doc.createTreeWalker(root, 4 /* NodeFilter.SHOW_TEXT */);
+  const texts: Text[] = [];
+  let current = walker.nextNode();
+  while (current) {
+    texts.push(current as Text);
+    current = walker.nextNode();
+  }
+  const touched = new Set<Element>();
+  let left: Text | null = null;
+  for (const node of texts) {
+    if (!node.data) continue;
+    if (left && canJoinInline(left, node)) {
+      left.data += node.data;
+      node.data = "";
+      markAncestors(node, touched);
+      continue;
+    }
+    left = node;
+  }
+  const doomed = [...touched].filter((el) => {
+    if (!BREAK_INLINES.has(el.localName)) return false;
+    if (!el.parentNode) return false;
+    if (el.querySelector("img, br")) return false;
+    return (el.textContent ?? "") === "";
+  });
+  doomed.sort((a, b) => (a.contains(b) ? 1 : b.contains(a) ? -1 : 0));
+  for (const el of doomed) el.remove();
 }
 
 /** Split text into alternating non-word / word parts; the odd indexes are words. */
 export function splitWords(text: string): string[] {
-  return text.split(new RegExp(`(${WORD_PATTERN})`));
+  return text.split(new RegExp(`(${WORD_PATTERN})`, "u"));
 }
 
 export function wordsIn(text: string): string[] {
-  return text.match(new RegExp(WORD_PATTERN, "g")) ?? [];
+  return text.match(new RegExp(WORD_PATTERN, "gu")) ?? [];
 }
 
 /** Make two pieces of book text comparable: quotes, dashes, spaces and case are ignored. */
@@ -422,7 +513,7 @@ export function wordTextNodes(doc: Document, root: Element): Text[] {
   while (current) {
     const parent = (current as Text).parentElement;
     const skipped = parent ? SKIPPED_PARENTS.has(parent.localName) : false;
-    if (!skipped && /[A-Za-z]/.test((current as Text).data)) out.push(current as Text);
+    if (!skipped && /\p{L}/u.test((current as Text).data)) out.push(current as Text);
     current = walker.nextNode();
   }
   return out;
@@ -1471,12 +1562,15 @@ export function readingHtml(
   cleanReadingRoot(root);
   stripWordBreaksIn(root);
   for (const el of [...root.querySelectorAll("*")]) {
+    const dropcap = el.classList.contains("dropcap");
     for (const attr of [...el.attributes]) {
       if (attr.name.startsWith("on") || attr.name === "href" || attr.name === "action")
         el.removeAttribute(attr.name);
       // The book's own inline styles would fight the reader's typography settings.
       if (attr.name === "style" || attr.name === "class") el.removeAttribute(attr.name);
     }
+    // Kept so a chapter-opening drop cap can still style the first letter.
+    if (dropcap) el.setAttribute("class", "dropcap");
   }
   // Word rule and counting: src/lib/glossary-format.ts (shared with the command-line tools).
   const nodes = wordTextNodes(doc, root);

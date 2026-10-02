@@ -184,6 +184,19 @@
     margin: 0 0 var(--reader-gap, 1.1em);
   }
 
+  /* The opening letter of a chapter, kept inside the same tappable word. */
+  .book-body .dropcap::first-letter {
+    float: left;
+    font-size: 3.15em;
+    line-height: 0.78;
+    padding-right: 0.08em;
+    font-weight: 650;
+  }
+
+  .book-body .dropcap button {
+    display: inline;
+  }
+
   .book-body h1,
   .book-body h2,
   .book-body h3,

@@ -24,10 +24,12 @@
  * a word is removed, before words are counted. Halves split across inline tags by one of
  * those marks are joined into one text node. A line break that only sits between those
  * tags is joined across too. A space in the text, or a block boundary, is not joined.
- * A normal hyphen is kept. A word is
- * /[A-Za-z]+(?:'[A-Za-z]+)?/ (letters, one straight apostrophe inside),
- * counted per chapter on the text the reader shows; "occurrence" is the 1-based count
- * of one spelling (lower-cased) within the chapter.
+ * A normal hyphen is kept. A word is Unicode letters and combining marks, with at most
+ * one straight apostrophe inside (`café` and `Yucatán` are one word each). Inline tags
+ * do not split a word when there is no space between them. A space, line break, `<br>`,
+ * or block boundary still separates words. Words are counted per chapter on the text
+ * the reader shows; "occurrence" is the 1-based count of one spelling (lower-cased)
+ * within the chapter.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";

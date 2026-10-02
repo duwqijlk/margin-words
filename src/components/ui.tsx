@@ -100,7 +100,7 @@ export function Highlighted({ sentence, surface }: { sentence: string; surface: 
   let length = 0;
   if (surface) {
     const escaped = surface.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
-    const found = new RegExp(`(^|[^A-Za-z])(${escaped})(?![A-Za-z])`, "i").exec(sentence);
+    const found = new RegExp(`(^|[^\\p{L}\\p{M}])(${escaped})(?![\\p{L}\\p{M}])`, "iu").exec(sentence);
     if (found) {
       index = found.index + (found[1]?.length ?? 0);
       length = found[2]?.length ?? 0;

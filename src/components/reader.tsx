@@ -21,6 +21,7 @@ import {
   entryAppliesAt,
   pickSense,
   readingHtml,
+  WORD_PATTERN,
   type OtherMeaning,
 } from "@/lib/glossary-format";
 import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
@@ -1047,7 +1048,7 @@ export function ReaderScreen({
     if (!help) return;
     const el = paragraphElement(help.index);
     if (!el) return;
-    const tokens = (word.match(/[A-Za-z]+(?:'[A-Za-z]+)?/g) ?? []).map((t) => t.toLowerCase());
+    const tokens = (word.match(new RegExp(WORD_PATTERN, "gu")) ?? []).map((t) => t.toLowerCase());
     if (tokens.length === 0) return;
     const buttons = [...el.querySelectorAll<HTMLButtonElement>("button[data-word]")];
     const same = (i: number) =>

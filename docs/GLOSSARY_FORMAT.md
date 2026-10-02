@@ -126,10 +126,24 @@ list like this:
 
 1. Read the table of contents (EPUB 3 `nav`, else NCX). Each entry is cut out of its HTML file
    from its fragment to the next entry's fragment. Contents pages are skipped.
-2. If that gives fewer than 2 chapters, use the spine files, split at `<h1>` (or `<h2>`) headings.
-3. Chapters with fewer than 20 letters are dropped; very short chapters (< 40 letters) are merged into
+2. A later spine file is appended at the end of that chapter only when both are true.
+   Its prefix equals the prefix of the spine file just before it, so `split_000` then
+   `split_001` then `split_002` can chain. The prefix is the path with one trailing
+   `_split_` and digits removed (`story_c01_r1_split_000.xhtml` and
+   `story_c01_r1_split_001.xhtml` share `story_c01_r1.xhtml`; `c01.xhtml` and
+   `c01_split_001.xhtml` share `c01.xhtml`). That prefix is used by exactly one contents
+   entry. A book-wide series such as `index_split_*`, `FLIPPED_split_*`,
+   `Title_split_*`, or `Wings_of_Fire_1__Dragonet_Proph_split_*` is used by many
+   contents entries, so those files are not appended. The listed paragraphs stay at
+   the same indexes; the extra text is added after them. Any other unlisted spine file
+   stays out. A contents entry that is not already kept as its own chapter (a one-word
+   heading, for example) stays dropped, and its split files are not added. The chapter
+   list does not gain a chapter.
+3. If the contents list is missing or has fewer than 2 entries, each spine file is its own chapter,
+   split at `<h1>` (or `<h2>`) headings. A 1-entry contents list does not collapse those files into one chapter.
+4. Chapters with fewer than 20 letters are dropped; very short chapters (< 40 letters) are merged into
    the previous one.
-4. Navigation and scripts are removed, links are unwrapped, other-language blocks are removed.
+5. Navigation and scripts are removed, links are unwrapped, other-language blocks are removed.
 
 `chapter` is the position in the resulting list, starting from **0**. This list depends on the
 EPUB *file* (a different edition may split differently). **It is hard to reproduce without the
@@ -157,11 +171,14 @@ to get right.
   not joined. A normal hyphen is kept, so `well-known` stays `well` and
   `known`. Positions and context are matched against text with soft hyphens removed. Chapter and
   paragraph numbers do not change.
-- In each text node, find words with `/[A-Za-z]+(?:'[A-Za-z]+)?/g`: ASCII letters, with at most one
-  **straight** apostrophe `'` and more letters. A curly apostrophe (`’`), a hyphen, a digit or any
-  other mark ends a word. So `don’t` is the two words `don` and `t`; `Muggle-Wump` is `Muggle`
-  and `Wump`; `Twit's` is one word. Words never run across a tag boundary
-  (`<em>no</em>w` is `no` and `w`).
+- In each text node, find words with `(?:\p{L}\p{M}*)+(?:'(?:\p{L}\p{M}*)+)?`: Unicode letters,
+  including accented letters and combining marks, with at most one **straight** apostrophe `'`
+  and more letters. `café`, `Yucatán`, and `e` plus U+0301 are each one word. A curly apostrophe
+  (`’`), a hyphen, a digit or any other mark ends a word. So `don’t` is the two words `don` and `t`;
+  `Muggle-Wump` is `Muggle` and `Wump`; `Twit's` is one word. Inline tags do not split a word when
+  there is no space between them (`<span class="big">J</span>ack` is `Jack`). A space, a line break,
+  a `<br>`, or a block boundary still separates words (`<span>hello</span> <span>world</span>` is
+  `hello` and `world`).
 - A word is compared in lower case. `occurrence` counts how many times that exact lower-case
   spelling has appeared **so far in the chapter**, starting at 1, including headings.
   The count starts again at 1 in each chapter. Different spellings do not share a count

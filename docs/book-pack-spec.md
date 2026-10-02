@@ -228,9 +228,11 @@ If you have the project tools, use them (section 8). If not, follow these rules 
 
 ### 5.1 Words
 
-A word is a match of `/[A-Za-z]+(?:'[A-Za-z]+)?/`: ASCII letters, with at most one straight apostrophe followed by letters.
+A word is a run of Unicode letters, including accented letters and combining marks, with at most one straight
+apostrophe followed by letters: `café` and `Yucatán` are each one word, and so is `e` plus U+0301.
 A curly apostrophe (`’`), a hyphen, a digit or any other character ends a word: `don’t` = `don` + `t`; `Twit's` is one word;
-`Muggle-Wump` = `Muggle` + `Wump`. Words never run across an HTML tag boundary (`<em>no</em>w` = `no`, `w`).
+`Muggle-Wump` = `Muggle` + `Wump`. Inline tags do not split a word when there is no space between them
+(`<span class="big">J</span>ack` = `Jack`). A space, a line break, a `<br>`, or a block boundary still separates words.
 Words are compared in lower case. Soft hyphens are removed first, and a zero-width space or word joiner
 inside a word is removed too. When that mark is in its own inline tag between the two halves, the halves
 are put into one text node before counting. A line break that only sits between those tags is joined
@@ -249,9 +251,10 @@ when the spelling in the book differs from the entry key (`shrinks` vs `shrink`)
 `chapter` is the 0-based position in the reader's chapter list, not in the EPUB spine:
 
 1. Use the table of contents (EPUB 3 `nav`, else NCX); cut each entry's HTML from its fragment to the next entry's fragment; skip contents pages.
-2. If that gives fewer than 2 chapters, use the spine files, split at `<h1>` (else `<h2>`) headings.
-3. Drop chapters with fewer than 20 letters; merge chapters with fewer than 40 letters into the previous one.
-4. Scripts and navigation are removed, links are unwrapped.
+2. Append a later spine file at the end of that chapter only when its prefix equals the prefix of the spine file just before it, and that prefix is used by exactly one contents entry. The prefix is the path with one trailing `_split_` and digits removed (`story_c01_r1_split_000.xhtml` then `story_c01_r1_split_001.xhtml`, or `c01.xhtml` then `c01_split_001.xhtml`). A chain (`split_001`, then `split_002`) is allowed. A book-wide series such as `index_split_*` or `Title_split_*` is used by many contents entries and is not appended. Listed paragraphs keep their indexes. Other unlisted spine files stay out. A contents entry that is not already kept as its own chapter stays dropped, and its split files are not added. The chapter list does not gain a chapter.
+3. If the contents list is missing or has fewer than 2 entries, each spine file is its own chapter, split at `<h1>` (else `<h2>`) headings. Do not collapse that book into one chapter.
+4. Drop chapters with fewer than 20 letters; merge chapters with fewer than 40 letters into the previous one.
+5. Scripts and navigation are removed, links are unwrapped.
 
 Write `"chapters": N` in the file. If the user's EPUB gives another count, the reader ignores `chapter` and `occurrence`
 and uses `context` only. So `context` is the part that must always be right.

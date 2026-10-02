@@ -399,7 +399,7 @@ type Token = { w: string; start: number; end: number };
 /** Words of a sentence with their positions. A word is letters with at most one inside apostrophe (straight or curly). */
 export function tokenize(text: string): Token[] {
   const out: Token[] = [];
-  const re = /[A-Za-z]+(?:['\u2019][A-Za-z]+)?/g;
+  const re = /(?:\p{L}\p{M}*)+(?:['\u2019](?:\p{L}\p{M}*)+)?/gu;
   let m: RegExpExecArray | null = re.exec(text);
   while (m) {
     out.push({

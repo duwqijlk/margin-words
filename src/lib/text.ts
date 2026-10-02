@@ -1,4 +1,5 @@
 import { EASY } from "@/lib/easy-words";
+import { WORD_PATTERN } from "@/lib/glossary-format";
 
 export const PREPARE_LIMIT = 240;
 
@@ -82,7 +83,7 @@ export function isEasyKey(key: string): boolean {
 
 export function collectHardWords(paragraphs: string[], limit: number = PREPARE_LIMIT): string[] {
   const counts = new Map<string, { count: number; lower: number }>();
-  const token = /[A-Za-z]+(?:'[A-Za-z]+)?/g;
+  const token = new RegExp(WORD_PATTERN, "gu");
   for (const paragraph of paragraphs) {
     for (const match of paragraph.matchAll(token)) {
       const surface = match[0];
@@ -151,7 +152,7 @@ export function indexBook(chapters: { paragraphs: string[] }[]): Record<string, 
     tags: Map<WordUse, number>;
   };
   const map = new Map<string, Acc>();
-  const token = /[A-Za-z]+(?:'[A-Za-z]+)?/g;
+  const token = new RegExp(WORD_PATTERN, "gu");
   chapters.forEach((chapter, chapterIndex) => {
     for (const paragraph of chapter.paragraphs) {
       const tokens = [...paragraph.matchAll(token)];

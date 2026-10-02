@@ -2,7 +2,12 @@
  * Fetching a catalog cover. The books host serves cover.jpg with a long browser cache (4 hours), so a
  * changed cover would not show up in time. The catalog gives every cover a sha256; it is added to the
  * address (`?v=<first 12 letters>`), so a new picture is a new address and is fetched fresh.
+ *
+ * The fetch also skips the HTTP cache. A plain cover `<img>` does not send Origin, and the books host
+ * only adds Access-Control-Allow-Origin when Origin is present, so a cached image response cannot
+ * be read by this fetch.
  */
+import { fetchCover } from "@/lib/cover-request";
 
 export function dataUrlOf(blob: Blob): Promise<string> {
   return new Promise((resolve) => {
@@ -24,7 +29,7 @@ export function coverAddress(url: string, sha256: string): string {
 /** The cover as a data URL, or "" when it cannot be fetched. Never throws. */
 export async function fetchCoverData(url: string, sha256: string): Promise<string> {
   try {
-    const response = await fetch(coverAddress(url, sha256));
+    const response = await fetchCover(coverAddress(url, sha256));
     if (!response.ok) return "";
     return await dataUrlOf(await response.blob());
   } catch {

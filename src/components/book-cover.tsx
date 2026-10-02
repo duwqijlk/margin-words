@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { loadAllCovers } from "@/lib/book-db";
+import { coverCrossOrigin } from "@/lib/cover-request";
 import { cn } from "@/components/ui";
 
 export function useCovers(ids: string[]) {
@@ -82,6 +83,7 @@ export function BookCover({
         <img
           src={cover}
           alt=""
+          crossOrigin={coverCrossOrigin(cover)}
           className="absolute inset-0 h-full w-full object-cover"
           loading="lazy"
           onError={() => setBroken(cover ?? null)}

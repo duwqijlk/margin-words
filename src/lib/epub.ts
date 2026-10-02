@@ -96,6 +96,22 @@ function dirOf(path: string): string {
   return path.includes("/") ? path.slice(0, path.lastIndexOf("/") + 1) : "";
 }
 
+/**
+ * Directory plus the filename with one trailing `_split_NNN` removed.
+ * `story_c01_r1_split_000.xhtml` and `story_c01_r1_split_001.xhtml` share
+ * `story_c01_r1.xhtml`. `c01.xhtml` and `c01_split_001.xhtml` share `c01.xhtml`.
+ * `index_split_004.xhtml` is just `index.xhtml`, the same prefix as every
+ * `index_split_*` file.
+ */
+function splitPrefix(path: string): string {
+  const dir = dirOf(path);
+  const file = path.slice(dir.length);
+  const dot = file.lastIndexOf(".");
+  const stem = dot >= 0 ? file.slice(0, dot) : file;
+  const ext = dot >= 0 ? file.slice(dot) : "";
+  return `${dir}${stem.replace(/_split_\d+$/, "")}${ext}`;
+}
+
 function hashOf(href: string): string {
   const hash = href.split("#")[1] ?? "";
   try {
@@ -218,6 +234,47 @@ const KEEP = new Set([
   "figcaption",
 ]);
 
+/** A one-letter inline at the start of a paragraph, styled as a chapter drop cap. */
+function looksLikeDropCap(el: Element): boolean {
+  const cls = el.getAttribute("class") ?? "";
+  const style = el.getAttribute("style") ?? "";
+  if (/drop[\s_-]?caps?|first[\s_-]?letter|initial-letter/i.test(`${cls} ${style}`)) return true;
+  if (/(?:^|\s)big(?:\s|$)/i.test(cls)) return true;
+  if (/float\s*:\s*left/i.test(style) && /font-size/i.test(style)) return true;
+  return false;
+}
+
+function markDropCaps(root: ParentNode) {
+  for (const el of root.querySelectorAll("span, em, i, b, strong")) {
+    if (!looksLikeDropCap(el)) continue;
+    const text = (el.textContent ?? "").replace(/[\s\u00AD\u200B\u2060]/g, "");
+    if (!/^(?:["'\u2018\u2019\u201C\u201D])?\p{L}\p{M}*$/u.test(text)) continue;
+    const block = el.closest("p, li, blockquote, h1, h2, h3, h4, div");
+    if (!block) continue;
+    const doc = el.ownerDocument;
+    if (!doc) continue;
+    const range = doc.createRange();
+    try {
+      range.setStart(block, 0);
+      range.setEndBefore(el);
+    } catch {
+      continue;
+    }
+    if (range.toString().replace(/[\s\u00AD\u200B\u2060]/g, "")) continue;
+    block.classList.add("dropcap");
+  }
+}
+
+/** The joined word lives on the paragraph; the one-letter wrapper must not swallow the line. */
+function unwrapDropCaps(root: ParentNode) {
+  for (const el of [...root.querySelectorAll("span.dropcap, em.dropcap, i.dropcap, b.dropcap, strong.dropcap")]) {
+    const parent = el.parentNode;
+    if (!parent) continue;
+    while (el.firstChild) parent.insertBefore(el.firstChild, el);
+    el.remove();
+  }
+}
+
 function sanitize(root: HTMLElement) {
   const all = [...root.querySelectorAll("*")];
   for (const el of all) {
@@ -239,12 +296,14 @@ function sanitize(root: HTMLElement) {
       el.remove();
       continue;
     }
+    const dropcap = el.classList.contains("dropcap");
     const src = tag === "img" ? el.getAttribute("src") : null;
     const centered =
       el.getAttribute("align") === "center" ||
       /text-align\s*:\s*center/i.test(el.getAttribute("style") ?? "");
     for (const attr of [...el.attributes]) el.removeAttribute(attr.name);
     if (centered) el.setAttribute("style", "text-align:center");
+    if (dropcap) el.setAttribute("class", "dropcap");
     if (tag === "img" && src?.startsWith("data:image/")) el.setAttribute("src", src);
   }
 }
@@ -281,28 +340,40 @@ function resolveHref(documentPath: string, href: string): string {
   return hash ? `${path}#${hash}` : path;
 }
 
-async function chapterFromElement(
+async function renderFragment(
   source: ParentNode,
-  title: string,
   zip: JSZip,
   path: string,
-): Promise<EpubChapter | null> {
+): Promise<{ paragraphs: string[]; html: string } | null> {
   // An inert document: images with a relative path must not be fetched from the page address.
   const inert = document.implementation.createHTMLDocument("");
   const holder = inert.createElement("div");
   holder.append(...[...source.childNodes].map((node) => inert.importNode(node, true)));
   dropChinese(holder);
   await embedImages(holder, zip, path);
+  markDropCaps(holder);
   sanitize(holder);
   // Before paragraph strings and the stored HTML are taken, so numbering, glossary
   // positions, the import match rate and the text on screen all see the same words.
   stripWordBreaksIn(holder);
+  unwrapDropCaps(holder);
   const paragraphs = paragraphsOf(holder);
-  const letters = englishLetters(paragraphs.join(" "));
-  if (letters < 20) return null;
   const html = holder.innerHTML.trim();
   if (!html) return null;
-  return { title: title.slice(0, 90), paragraphs, html };
+  return { paragraphs, html };
+}
+
+async function chapterFromElement(
+  source: ParentNode,
+  title: string,
+  zip: JSZip,
+  path: string,
+): Promise<EpubChapter | null> {
+  const rendered = await renderFragment(source, zip, path);
+  if (!rendered) return null;
+  const letters = englishLetters(rendered.paragraphs.join(" "));
+  if (letters < 20) return null;
+  return { title: title.slice(0, 90), paragraphs: rendered.paragraphs, html: rendered.html };
 }
 
 function findById(root: Document | Element, id: string): Element | null {
@@ -665,6 +736,41 @@ async function spineCover(
   return shrinkCover(bytes, mime);
 }
 
+/** Adobe and IDPF font mangling. These hide a font file; they do not lock the book. */
+const FONT_OBFUSCATION_ALGORITHMS = new Set([
+  "http://www.idpf.org/2008/embedding",
+  "http://ns.adobe.com/pdf/enc#RC",
+]);
+
+/** xhtml/html, the package and contents files, and pictures. A font file is not one of these. */
+function isEncryptedContent(uri: string): boolean {
+  let path = uri.split("#")[0]?.split("?")[0] ?? "";
+  try {
+    path = decodeURIComponent(path);
+  } catch {
+    // Keep the raw path.
+  }
+  return /\.(xhtml|html|htm|opf|ncx|jpg|jpeg|png|gif|webp|svg|bmp)$/i.test(path);
+}
+
+/**
+ * True when encryption.xml locks the book. An obfuscated font is ignored, so the
+ * reader uses its own fonts. Anything that encrypts the text or pictures, or that
+ * uses some other algorithm, is a lock.
+ */
+function encryptionLocksBook(xml: string): boolean {
+  const doc = new DOMParser().parseFromString(xml, "application/xml");
+  if (byLocal(doc, "parsererror").length > 0) return true;
+  const items = byLocal(doc, "encrypteddata");
+  if (items.length === 0) return false;
+  for (const item of items) {
+    const algorithm = byLocal(item, "encryptionmethod")[0]?.getAttribute("Algorithm") ?? "";
+    const uri = byLocal(item, "cipherreference")[0]?.getAttribute("URI") ?? "";
+    if (!FONT_OBFUSCATION_ALGORITHMS.has(algorithm) || isEncryptedContent(uri)) return true;
+  }
+  return false;
+}
+
 export async function parseEpub(
   buffer: ArrayBuffer,
   options: { cover?: boolean } = {},
@@ -677,7 +783,8 @@ export async function parseEpub(
   } catch {
     throw new CodedError("notValidEpub", "This file is not a valid EPUB book.");
   }
-  if (zip.file("META-INF/encryption.xml")) {
+  const encryptionXml = await zip.file("META-INF/encryption.xml")?.async("string");
+  if (encryptionXml && encryptionLocksBook(encryptionXml)) {
     throw new CodedError(
       "drm",
       "This EPUB is locked (DRM), so Margin Words cannot open it. Please try a book without a lock.",
@@ -705,12 +812,23 @@ export async function parseEpub(
       props: item.getAttribute("properties") ?? "",
     });
   }
-  const spine = byLocal(opf, "itemref")
-    .map((item) => manifest.get(item.getAttribute("idref") ?? ""))
-    .filter((item): item is { href: string; type: string; props: string } => Boolean(item))
-    .filter((item) => !item.props.includes("nav"))
-    .filter((item) => !item.type || item.type.includes("html"))
-    .filter((item) => !/(^|\/)(nav|toc|cover)\b/i.test(item.href));
+  const spineRefs: { href: string; type: string; props: string; path: string; linear: boolean }[] =
+    [];
+  for (const itemref of byLocal(opf, "itemref")) {
+    const ref = manifest.get(itemref.getAttribute("idref") ?? "");
+    if (!ref) continue;
+    if (ref.props.includes("nav")) continue;
+    if (ref.type && !ref.type.includes("html")) continue;
+    if (/(^|\/)(nav|toc|cover)\b/i.test(ref.href)) continue;
+    spineRefs.push({
+      href: ref.href,
+      type: ref.type,
+      props: ref.props,
+      path: resolveZipPath(opfBase, ref.href),
+      linear: (itemref.getAttribute("linear") ?? "yes").toLowerCase() !== "no",
+    });
+  }
+  const spine = spineRefs.map(({ href, type, props }) => ({ href, type, props }));
 
   const docs = new Map<string, Document>();
   async function loadDoc(path: string): Promise<Document | null> {
@@ -750,8 +868,18 @@ export async function parseEpub(
   }
 
   const chapters: EpubChapter[] = [];
+  const tocFiles = new Set(toc.map((entry) => entry.href.split("#")[0] ?? ""));
+  const prefixCounts = new Map<string, number>();
+  for (const entry of toc) {
+    const file = entry.href.split("#")[0] ?? "";
+    if (!file) continue;
+    const prefix = splitPrefix(file);
+    prefixCounts.set(prefix, (prefixCounts.get(prefix) ?? 0) + 1);
+  }
   async function push(holder: ParentNode, rawTitle: string, path: string, index: number) {
     if (chapters.length >= CHAPTER_CAP) return;
+    // Before soft-hyphen and inline joins, so a one-letter drop cap is still one letter.
+    markDropCaps(holder);
     stripWordBreaksIn(holder);
     const heading = holder.querySelector?.("h1, h2, h3");
     const title =
@@ -759,6 +887,35 @@ export async function parseEpub(
       englishTitle(textOf(heading), `Chapter ${index + 1}`);
     const chapter = await chapterFromElement(holder, title, zip, path);
     if (chapter) chapters.push(chapter);
+  }
+
+  /**
+   * Unlisted spine files that continue the file just before them.
+   * A file attaches only when its prefix equals the previous linear spine file
+   * (so `_split_000`, then `_split_001`, then `_split_002` chain) and that prefix
+   * belongs to exactly one contents entry. Book-wide names (`index_split_*`,
+   * `Title_split_*`) belong to many entries, so they stay out. A non-linear spine
+   * item is not a reading file and does not break the chain.
+   */
+  async function continuationRenders(originPath: string): Promise<{ paragraphs: string[]; html: string }[]> {
+    const out: { paragraphs: string[]; html: string }[] = [];
+    const start = spineRefs.findIndex((item) => item.path === originPath);
+    if (start < 0) return out;
+    let previous = originPath;
+    for (let i = start + 1; i < spineRefs.length; i += 1) {
+      const item = spineRefs[i];
+      if (!item || !item.linear) continue;
+      if (tocFiles.has(item.path)) break;
+      const prefix = splitPrefix(item.path);
+      if (prefix !== splitPrefix(previous) || (prefixCounts.get(prefix) ?? 0) !== 1) break;
+      previous = item.path;
+      const extraDoc = await loadDoc(item.path);
+      if (!extraDoc?.body || looksLikeContents(extraDoc)) continue;
+      const extra = await renderFragment(extraDoc.body, zip, item.path);
+      if (!extra) continue;
+      out.push(extra);
+    }
+    return out;
   }
 
   if (toc.length >= 2) {
@@ -777,7 +934,24 @@ export async function parseEpub(
       if (anchor && !start) continue;
       const end = nextAnchor ? findById(body, nextAnchor) : null;
       const holder = sliceBetween(body, start, end);
+      const lastSlice = !(next && nextPath === path);
+      const before = chapters.length;
       await push(holder, entry.title, path, chapters.length);
+      if (!lastSlice || chapters.length !== before + 1) continue;
+      const last = chapters[chapters.length - 1];
+      if (!last) continue;
+      // A heading that is too short to be a chapter is dropped above. Do not build
+      // a new chapter out of its split files. A later chapter under 40 letters is
+      // merged away; adding text could make it survive as a chapter that is not
+      // there today. Only a chapter that already stands on its own gets more text,
+      // and that text is added after the paragraphs it already has.
+      const letters = englishLetters(last.paragraphs.join(" "));
+      const standsAlone = before === 0 || letters >= 40;
+      if (!standsAlone) continue;
+      for (const extra of await continuationRenders(path)) {
+        last.paragraphs.push(...extra.paragraphs);
+        last.html += extra.html;
+      }
     }
   }
 
