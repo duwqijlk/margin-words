@@ -88,8 +88,69 @@ export const DEFAULT_WHY_HARD = "This word is harder than everyday English.";
  * straight apostrophe and more letters. A curly apostrophe or a hyphen ends a word.
  * The reader, the validator and the text tool all use exactly this rule, on each
  * text node of the chapter (words never run across a tag boundary).
+ * Soft hyphens are removed first (see `stripWordBreaks`), so a word printed as
+ * "mys\u00ADteriously" is one word. A normal hyphen is kept and still ends a word.
  */
 export const WORD_PATTERN = "[A-Za-z]+(?:'[A-Za-z]+)?";
+
+/**
+ * Drop characters that split a word without being visible.
+ * Soft hyphen (U+00AD) is removed everywhere. Zero-width space (U+200B) and word
+ * joiner (U+2060) are removed only when they sit inside a word (between letters,
+ * or around the one straight apostrophe a word may contain). A normal hyphen
+ * (U+002D), en dash, or em dash is left as it is.
+ */
+export function stripWordBreaks(text: string): string {
+  const shy = text.replace(/\u00AD/g, "");
+  let out = shy;
+  let prev = "";
+  // Each pass removes at least one mark, so this cannot run forever.
+  while (out !== prev) {
+    prev = out;
+    out = out
+      .replace(/([A-Za-z])[\u200B\u2060]+(?=[A-Za-z'])/g, "$1")
+      .replace(/'[\u200B\u2060]+(?=[A-Za-z])/g, "'");
+  }
+  return out;
+}
+
+const BREAK_CHARS = /[\u00AD\u200B\u2060]/;
+/** Inlines that must not keep a word split after their only text was a soft hyphen. */
+const BREAK_INLINES = new Set(["span", "em", "strong", "i", "b", "sup", "sub"]);
+
+/** Same cleanup on every text node, so stored HTML and paragraph strings agree. */
+export function stripWordBreaksIn(root: ParentNode) {
+  const doc = root.ownerDocument;
+  if (!doc) return;
+  const walker = doc.createTreeWalker(root, 4 /* NodeFilter.SHOW_TEXT */);
+  const texts: Text[] = [];
+  let current = walker.nextNode();
+  while (current) {
+    texts.push(current as Text);
+    current = walker.nextNode();
+  }
+  const touched = new Set<Element>();
+  for (const node of texts) {
+    if (!BREAK_CHARS.test(node.data)) continue;
+    const next = stripWordBreaks(node.data);
+    if (next === node.data) continue;
+    node.data = next;
+    let el = node.parentElement;
+    while (el) {
+      touched.add(el);
+      el = el.parentElement;
+    }
+  }
+  // A span that held only the soft hyphen would still split "nick" and "name".
+  // Remove that empty inline. Leave every other empty element alone.
+  const doomed = [...touched].filter((el) => {
+    if (!BREAK_INLINES.has(el.localName)) return false;
+    if (el.querySelector("img, br")) return false;
+    return (el.textContent ?? "").trim() === "";
+  });
+  doomed.sort((a, b) => (a.contains(b) ? 1 : b.contains(a) ? -1 : 0));
+  for (const el of doomed) el.remove();
+}
 
 /** Split text into alternating non-word / word parts; the odd indexes are words. */
 export function splitWords(text: string): string[] {
@@ -102,12 +163,12 @@ export function wordsIn(text: string): string[] {
 
 /** Make two pieces of book text comparable: quotes, dashes, spaces and case are ignored. */
 export function normText(text: string): string {
-  return text
+  return stripWordBreaks(text)
     .replace(/[\u2018\u2019\u02bc]/g, "'")
     .replace(/[\u201c\u201d]/g, '"')
     .replace(/[\u2013\u2014\u2212]/g, "-")
     .replace(/\u2026/g, "...")
-    .replace(/[\u200b-\u200d\ufeff]/g, "")
+    .replace(/[\u00AD\u200B\u2060\u200C\u200D\uFEFF]/g, "")
     .replace(/\s+/g, " ")
     .trim()
     .toLowerCase();
@@ -175,6 +236,7 @@ export function indexChapterHtml(html: string, parse: (html: string) => Document
   const blocks: string[] = [];
   if (!root) return { tokens, blocks };
   cleanReadingRoot(root);
+  stripWordBreaksIn(root);
   const blockIds = new Map<Element, number>();
   for (const node of wordTextNodes(doc, root)) {
     const block = blockOf(node);
@@ -185,7 +247,7 @@ export function indexChapterHtml(html: string, parse: (html: string) => Document
       else {
         at = blocks.length;
         blockIds.set(block, at);
-        blocks.push((block.textContent ?? "").replace(/\s+/g, " ").trim());
+        blocks.push(stripWordBreaks((block.textContent ?? "").replace(/\s+/g, " ").trim()));
       }
     }
     const parts = splitWords(node.data);
@@ -1155,7 +1217,7 @@ export function senseOnlyHit(
   chapter: number,
 ): boolean {
   const block = blockOf(node);
-  const paragraph = (block?.textContent ?? surface).replace(/\s+/g, " ").trim();
+  const paragraph = stripWordBreaks((block?.textContent ?? surface).replace(/\s+/g, " ").trim());
   let before = "";
   if (block) {
     const range = doc.createRange();
@@ -1165,7 +1227,6 @@ export function senseOnlyHit(
   }
   return entryAppliesAt(key, gloss, { chapter, surface, occurrence, paragraph, before });
 }
-
 
 /**
  * The chapter html as the reader shows it: every word is a tap button. A word that has an entry in the word
@@ -1183,6 +1244,7 @@ export function readingHtml(
   const root = doc.body.firstElementChild;
   if (!root) return "";
   cleanReadingRoot(root);
+  stripWordBreaksIn(root);
   for (const el of [...root.querySelectorAll("*")]) {
     for (const attr of [...el.attributes]) {
       if (attr.name.startsWith("on") || attr.name === "href" || attr.name === "action")

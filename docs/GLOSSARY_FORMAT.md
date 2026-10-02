@@ -149,6 +149,10 @@ to get right.
 
 - Take the chapter's HTML as the app stores it. Look at every text node in reading order
   (script/style-like elements are skipped; the visible reading text is what matters).
+- Before words are counted, soft hyphens (U+00AD) are removed. A zero-width space (U+200B) or
+  word joiner (U+2060) inside a word is removed too. A normal hyphen is kept, so `well-known`
+  stays `well` and `known`. Positions and context are matched against text with soft hyphens
+  removed. Chapter and paragraph numbers do not change.
 - In each text node, find words with `/[A-Za-z]+(?:'[A-Za-z]+)?/g`: ASCII letters, with at most one
   **straight** apostrophe `'` and more letters. A curly apostrophe (`’`), a hyphen, a digit or any
   other mark ends a word. So `don’t` is the two words `don` and `t`; `Muggle-Wump` is `Muggle`
@@ -166,9 +170,11 @@ rule above matters for counting; use `extract-epub-text.mjs --find word` and cop
 ### 3.3 Context
 
 `context` is compared with the text of the **paragraph block** (`p`, `li`, `blockquote`, `h1`-`h4`)
-that holds the tapped word, after the following clean-up on both sides: curly quotes become
+that holds the tapped word, after the following clean-up on both sides: soft hyphens are removed
+(see 3.2), curly quotes become
 straight, dashes become `-`, `…` becomes `...`, runs of spaces become one space, and letters are
-lower-cased. So you may copy the text with either kind of quote. A snippet must lie **inside one paragraph**
+lower-cased. So you may copy the text with either kind of quote. Copy the word as it reads
+(`mysteriously`), not the two halves around a soft hyphen. A snippet must lie **inside one paragraph**
 (it cannot cross a paragraph break) and must contain the tapped word. If the same paragraph uses
 the word twice with different meanings, choose snippets that surround the right use; the app
 checks that the snippet covers the tapped word.
@@ -185,7 +191,8 @@ the blocks it shows with `paragraphBlocks()` in `src/lib/help-match.ts`, which a
 4. If nothing is left, the whole chapter text is one paragraph (index 0).
 
 A chapter heading that is part of the chapter html is a paragraph too (index 0 when it comes first). A paragraph is
-the text of the block with every run of spaces made into one space.
+the text of the block with every run of spaces made into one space, and with soft hyphens removed (3.2).
+The paragraph index is the same as it would be if those characters had not been in the file.
 Use `node scripts/extract-epub-text.mjs book.epub --paragraphs 3` to print chapter 3 with `[0] [1] [2] ...` in front of each
 paragraph, and `--paragraph-search "some words"` to find the chapter and paragraph that hold some words.
 As with words, the number is exact only for the same EPUB file; `context` is the check and the fallback.

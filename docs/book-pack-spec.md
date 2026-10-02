@@ -231,7 +231,9 @@ If you have the project tools, use them (section 8). If not, follow these rules 
 A word is a match of `/[A-Za-z]+(?:'[A-Za-z]+)?/`: ASCII letters, with at most one straight apostrophe followed by letters.
 A curly apostrophe (`’`), a hyphen, a digit or any other character ends a word: `don’t` = `don` + `t`; `Twit's` is one word;
 `Muggle-Wump` = `Muggle` + `Wump`. Words never run across an HTML tag boundary (`<em>no</em>w` = `no`, `w`).
-Words are compared in lower case.
+Words are compared in lower case. Soft hyphens are removed first, and a zero-width space or word joiner
+inside a word is removed too, so positions and context are matched against text with soft hyphens removed.
+A normal hyphen is kept. Chapter and paragraph numbers do not change.
 
 ### 5.2 Occurrence
 

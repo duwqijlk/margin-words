@@ -10,7 +10,8 @@ import type { ParagraphHelp, PhraseEntry, SentenceHelp } from "./glossary-extras
 /**
  * Make two pieces of text comparable: curly quotes, dashes, spaces and case are ignored,
  * and every other mark (comma, full stop, quote) is dropped, so "Hello," and "hello"
- * give the same words. The result is lower-case words joined by one space.
+ * give the same words. Soft hyphens, zero-width spaces and word joiners are dropped
+ * first, so a word split by them still matches. The result is lower-case words joined by one space.
  */
 export function looseText(text: string): string {
   return String(text ?? "")
@@ -18,7 +19,7 @@ export function looseText(text: string): string {
     .replace(/[\u201c\u201d]/g, '"')
     .replace(/[\u2013\u2014\u2212]/g, " ")
     .replace(/\u2026/g, " ")
-    .replace(/[\u200b-\u200d\ufeff]/g, "")
+    .replace(/[\u00ad\u200b-\u200d\u2060\ufeff]/g, "")
     .toLowerCase()
     .replace(/(\w)'(?=\w)/g, "$1\ue000") // keep apostrophes inside words (don't)
     .replace(/[^a-z0-9\ue000]+/g, " ")

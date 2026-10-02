@@ -1,5 +1,6 @@
 import JSZip from "jszip";
 import { CodedError } from "./errors.ts";
+import { stripWordBreaks, stripWordBreaksIn } from "./glossary-format.ts";
 
 export type EpubChapter = {
   title: string;
@@ -241,17 +242,22 @@ function sanitize(root: HTMLElement) {
   }
 }
 
+/** Paragraph text the reader stores: spaces collapsed, soft hyphens removed. */
+function paragraphText(block: ParentNode): string {
+  return stripWordBreaks((block.textContent ?? "").replace(/\s+/g, " ").trim());
+}
+
 function paragraphsOf(root: ParentNode): string[] {
   const blocks = [...root.querySelectorAll("p, h1, h2, h3, h4, li, blockquote")];
   const paragraphs: string[] = [];
   for (const block of blocks) {
     if (block.parentElement && ["p", "li", "blockquote"].includes(localName(block.parentElement)))
       continue;
-    const text = (block.textContent ?? "").replace(/\s+/g, " ").trim();
+    const text = paragraphText(block);
     if (englishLetters(text) > 1) paragraphs.push(text);
   }
   if (paragraphs.length === 0) {
-    const text = (root.textContent ?? "").replace(/\s+/g, " ").trim();
+    const text = paragraphText(root);
     if (englishLetters(text) > 20) paragraphs.push(text);
   }
   return paragraphs;
@@ -281,6 +287,9 @@ async function chapterFromElement(
   dropChinese(holder);
   await embedImages(holder, zip, path);
   sanitize(holder);
+  // Before paragraph strings and the stored HTML are taken, so numbering, glossary
+  // positions, the import match rate and the text on screen all see the same words.
+  stripWordBreaksIn(holder);
   const paragraphs = paragraphsOf(holder);
   const letters = englishLetters(paragraphs.join(" "));
   if (letters < 20) return null;
@@ -556,9 +565,11 @@ export async function parseEpub(
   const chapters: EpubChapter[] = [];
   async function push(holder: ParentNode, rawTitle: string, path: string, index: number) {
     if (chapters.length >= CHAPTER_CAP) return;
+    stripWordBreaksIn(holder);
     const heading = holder.querySelector?.("h1, h2, h3");
     const title =
-      englishTitle(rawTitle, "") || englishTitle(textOf(heading), `Chapter ${index + 1}`);
+      englishTitle(stripWordBreaks(rawTitle), "") ||
+      englishTitle(textOf(heading), `Chapter ${index + 1}`);
     const chapter = await chapterFromElement(holder, title, zip, path);
     if (chapter) chapters.push(chapter);
   }
