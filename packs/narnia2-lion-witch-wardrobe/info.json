@@ -1,5 +1,8 @@
 {
  "title": "Narnia 2: The Lion, the Witch and the Wardrobe",
  "author": "C. S. Lewis",
- "order": 10
+ "order": 10,
+ "lexile": "940L",
+ "series": "The Chronicles of Narnia",
+ "seriesNumber": 2
 }

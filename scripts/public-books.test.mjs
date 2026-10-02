@@ -52,14 +52,17 @@ test("every deployed file is under the Cloudflare Pages limit (25 MiB)", () => {
   }
 });
 
-test("only the first three classics are preinstalled; the rest are one-tap downloads", () => {
+test("every public-domain classic is preinstalled and has a Lexile measure", () => {
   const pre = catalog.packs.filter((p) => p.preinstall === true).map((p) => p.id);
-  assert.deepEqual(pre, ["alice", "treasure-island", "anne"]);
-  assert.ok(catalog.packs.length >= 12, "12 classics in the catalog");
+  assert.deepEqual(pre, catalog.packs.map((p) => p.id));
+  assert.ok(pre.length >= 12, "12 classics in the catalog");
+  for (const pack of catalog.packs) {
+    assert.match(pack.lexile, /^(?:AD|NC|HL|IG|GN|NP)?\d{1,4}L$|^BR\d{1,4}L$/, `${pack.id} lexile`);
+  }
 });
 
-test("the service worker precaches the catalog, covers and preinstall books only", async () => {
-  const { publicBooksPrecache } = await import("./vite-plugins.mjs");
+test("the service worker precaches the catalog, covers and the small preinstall books", async () => {
+  const { PRECACHE_MAX_EPUB_BYTES, publicBooksPrecache } = await import("./vite-plugins.mjs");
   const bundle = {};
   const add = (name, source = "x") => (bundle[`public-books/${name}`] = { source });
   bundle["public-books/catalog.json"] = { source: readFileSync(join(dir, "catalog.json"), "utf8") };
@@ -72,9 +75,10 @@ test("the service worker precaches the catalog, covers and preinstall books only
   const files = publicBooksPrecache(bundle);
   assert.ok(files.has("public-books/catalog.json"));
   for (const pack of catalog.packs) {
+    const small = pack.preinstall === true && pack.epub.bytes <= PRECACHE_MAX_EPUB_BYTES;
     assert.equal(files.has(`public-books/${pack.cover.url}`), true, `${pack.id} cover precached`);
-    assert.equal(files.has(`public-books/${pack.epub.url}`), pack.preinstall === true, `${pack.id} epub`);
-    assert.equal(files.has(`public-books/${pack.glossary.url}`), pack.preinstall === true, `${pack.id} list`);
+    assert.equal(files.has(`public-books/${pack.epub.url}`), small, `${pack.id} epub`);
+    assert.equal(files.has(`public-books/${pack.glossary.url}`), small, `${pack.id} list`);
     assert.equal(files.has(`public-books/${pack.id}.zip`), false);
   }
 });

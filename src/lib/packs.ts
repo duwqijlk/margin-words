@@ -31,6 +31,8 @@ import {
   type PackGroup,
 } from "@/lib/pack-check";
 import { applyPackGlossary, hashBytes } from "@/lib/pack-glossary";
+import { isbnDigits, readSeries } from "@/lib/book-meta";
+import { lexileMeasure } from "@/lib/lexile";
 
 /* ------------------------------------------------------------------ catalog types */
 
@@ -58,6 +60,14 @@ export type CatalogPack = {
   zip: PackFileRef | null;
   /** bundled classics only: true = added to the shelf on the first start; false = one-tap download */
   preinstall: boolean;
+  /** Lexile measure such as "880L". "" when the catalog does not give one. */
+  lexile: string;
+  /** ISBN-13. "" when this edition has none in the pack. */
+  isbn: string;
+  /** Series title. "" when the book is not in a series. */
+  series: string;
+  /** 1-based place in the series. 0 when there is no series. */
+  seriesNumber: number;
 };
 
 export type Catalog = {
@@ -135,6 +145,12 @@ export function parseCatalog(value: unknown): Catalog | null {
       cover: cover ? { url: cover.url, bytes: cover.bytes } : null,
       zip: fileRef(row.zip),
       preinstall: row.preinstall === true,
+      lexile: lexileMeasure(row.lexile),
+      isbn: isbnDigits(row.isbn),
+      ...(() => {
+        const series = readSeries(row.series, row.seriesNumber);
+        return { series: series.series, seriesNumber: series.seriesNumber };
+      })(),
     });
   }
   return {
@@ -252,6 +268,11 @@ export type InstallInput = {
   cover: string;
   /** the book already opened by the caller (saves opening it twice) */
   parsed?: ParsedEpub;
+  /** Lexile measure, or "" */
+  lexile?: string;
+  isbn?: string;
+  series?: string;
+  seriesNumber?: number;
 };
 
 export type InstallResult = {
@@ -260,6 +281,11 @@ export type InstallResult = {
   author: string;
   words: number;
   updated: boolean;
+  /** Lexile measure that came with the pack, or "" */
+  lexile: string;
+  isbn: string;
+  series: string;
+  seriesNumber: number;
 };
 
 function bufferOf(bytes: Uint8Array): ArrayBuffer {
@@ -324,7 +350,18 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
       sha256: input.epubSha256,
       installedAt: Date.now(),
     });
-    return { bookId, title, author, words, updated: Boolean(existing) };
+    const series = readSeries(input.series, input.seriesNumber);
+    return {
+      bookId,
+      title,
+      author,
+      words,
+      updated: Boolean(existing),
+      lexile: lexileMeasure(input.lexile),
+      isbn: isbnDigits(input.isbn),
+      series: series.series,
+      seriesNumber: series.seriesNumber,
+    };
   } catch (reason) {
     if (!existing && bookId) await deleteStoredBook(bookId).catch(() => undefined);
     if (reason instanceof DOMException && reason.name === "QuotaExceededError")
@@ -454,6 +491,10 @@ export async function downloadPack(
     epubSha256: epubSha,
     glossaryText,
     cover,
+    lexile: pack.lexile,
+    isbn: pack.isbn,
+    series: pack.series,
+    seriesNumber: pack.seriesNumber,
   });
   onProgress({ stage: "saving", fraction: 1 });
   return result;
@@ -553,6 +594,10 @@ type Prepared = {
   epubSha: string;
   glossaryText: string;
   cover: string;
+  lexile: string;
+  isbn: string;
+  series: string;
+  seriesNumber: number;
 };
 
 /** Read one pack of the zip and check everything. Nothing is stored yet. Throws a PackProblem. */
@@ -613,7 +658,26 @@ async function prepare(zip: JSZip, group: PackGroup): Promise<Prepared> {
   // Title and author come from the book. A pack.json may give a nicer name; it is optional.
   const title = text(info.title, 160) || parsed.title;
   const author = text(info.author, 120) || parsed.author;
-  return { packId, rev, title, author, parsed, epub, epubSha, glossaryText, cover };
+  // pack.json wins. A list may also carry "lexile". Either may be absent.
+  const lexile = lexileMeasure(info.lexile) || lexileMeasure(check.file.lexile);
+  const isbn = isbnDigits(info.isbn) || isbnDigits(check.file.isbn);
+  const series = readSeries(info.series, info.seriesNumber);
+  const fromList = series.series ? series : readSeries(check.file.series, check.file.seriesNumber);
+  return {
+    packId,
+    rev,
+    title,
+    author,
+    parsed,
+    epub,
+    epubSha,
+    glossaryText,
+    cover,
+    lexile,
+    isbn,
+    series: fromList.series,
+    seriesNumber: fromList.seriesNumber,
+  };
 }
 
 /**
@@ -648,6 +712,10 @@ export async function importPackZip(file: File): Promise<ImportedPack[]> {
         glossaryText: item.glossaryText,
         cover: item.cover,
         parsed: item.parsed,
+        lexile: item.lexile,
+        isbn: item.isbn,
+        series: item.series,
+        seriesNumber: item.seriesNumber,
       });
       results.push({ ...done, packId: item.packId, hadWords: true });
     }

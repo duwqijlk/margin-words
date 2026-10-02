@@ -29,16 +29,16 @@ import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
 import { legacyChapter, overallProgress, useProgress } from "@/lib/progress-store";
 import {
+  COLUMN_MAX,
+  COLUMN_MIN,
   FONT_STACKS,
   LEADINGS,
   readerVars,
   SIZE_MAX,
   SIZE_MIN,
   usePrefs,
-  WIDTHS,
   type FontKey,
   type Theme,
-  type WidthKey,
 } from "@/lib/reader-prefs";
 import {
   contextPos,
@@ -243,16 +243,24 @@ function ReaderSettings() {
           </section>
 
           <section className="grid gap-2" aria-label={t("rs.width")}>
-            <h3 className="text-xs font-semibold text-muted">{t("rs.width")}</h3>
-            <Segmented
-              label={t("rs.width")}
-              value={prefs.width}
-              onChange={(value: WidthKey) => set({ width: value })}
-              options={(Object.keys(WIDTHS) as WidthKey[]).map((key) => ({
-                value: key,
-                label: t(`rs.width.${key}`),
-              }))}
-            />
+            <h3 className="text-xs font-semibold text-muted">
+              {t("rs.width")} <span className="tabular-nums">{prefs.column}</span>
+            </h3>
+            <div className="flex items-center gap-2">
+              <span className="w-10 text-xs text-muted">{t("rs.width.narrow")}</span>
+              <input
+                type="range"
+                min={COLUMN_MIN}
+                max={COLUMN_MAX}
+                step={1}
+                value={prefs.column}
+                onChange={(event) => set({ column: Number(event.target.value) })}
+                aria-label={t("rs.width")}
+                data-reader-width
+                className="h-11 flex-1 accent-[var(--accent)]"
+              />
+              <span className="w-10 text-right text-xs text-muted">{t("rs.width.wide")}</span>
+            </div>
           </section>
 
           <button
@@ -1237,7 +1245,7 @@ export function ReaderScreen({
           focus && "-translate-y-full",
         )}
       >
-        <div className="mx-auto flex h-14 max-w-5xl items-center gap-1 px-2 sm:px-4">
+        <div className="mx-auto flex h-14 w-full max-w-[calc(var(--reader-width,40rem)+4rem)] items-center gap-1 px-2 sm:px-4">
           <button
             type="button"
             className={btn.icon}

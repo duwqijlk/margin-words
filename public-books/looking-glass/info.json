@@ -2,5 +2,9 @@
  "title": "Through the Looking-Glass",
  "author": "Lewis Carroll",
  "order": 10,
- "notes": "Free classic. Public domain in the USA."
+ "notes": "Free classic. Public domain in the USA.",
+ "lexile": "840L",
+ "series": "Alice",
+ "seriesNumber": 2,
+ "preinstall": true
 }

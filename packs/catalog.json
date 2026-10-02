@@ -1,7 +1,7 @@
 {
  "format": 1,
  "name": "Margin Words book packs",
- "updated": "2026-10-01",
+ "updated": "2026-10-02",
  "packs": [
   {
    "id": "charlie",
@@ -9,6 +9,8 @@
    "author": "Roald Dahl",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "810L",
+   "isbn": "9780141960616",
    "rev": "ac3e7c133d14",
    "version": 2,
    "chapters": 34,
@@ -34,8 +36,8 @@
    },
    "zip": {
     "url": "charlie.zip",
-    "bytes": 4227222,
-    "sha256": "d6128bbccabffe791c64e0859190e2dac0c45a4a8f3ff786f72dd17986bca0cf"
+    "bytes": 4227253,
+    "sha256": "3139eff1051b5c69fd60da301579a9077222a80102fa8a91a101e0149850d06c"
    }
   },
   {
@@ -44,6 +46,8 @@
    "author": "Roald Dahl",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "640L",
+   "isbn": "9780141929859",
    "rev": "4fb35bbae625",
    "version": 2,
    "chapters": 15,
@@ -69,8 +73,8 @@
    },
    "zip": {
     "url": "george.zip",
-    "bytes": 3596738,
-    "sha256": "fa12a94c222bc1797058ef3627bb414afc65dbc3120b7d2dfba495fea3726633"
+    "bytes": 3596769,
+    "sha256": "503c8c337b33894daab9d4fda654294193087473f7c3eb8895635ec22e2c5b60"
    }
   },
   {
@@ -79,6 +83,8 @@
    "author": "Roald Dahl",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "790L",
+   "isbn": "9780141929873",
    "rev": "e5a8092901af",
    "version": 2,
    "chapters": 42,
@@ -104,8 +110,8 @@
    },
    "zip": {
     "url": "james.zip",
-    "bytes": 2894556,
-    "sha256": "2de79cdaa5fe3d93869224540319b2ae460927996251d7fa977511d1a1c7f830"
+    "bytes": 2894585,
+    "sha256": "f00c5c6a75b9e24d16aeb8c408bebfd175c91f0a98bda09fb9f62216793d4558"
    }
   },
   {
@@ -114,6 +120,8 @@
    "author": "Roald Dahl",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "840L",
+   "isbn": "9780670824397",
    "rev": "2715e91d6c69",
    "version": 2,
    "chapters": 21,
@@ -139,8 +147,8 @@
    },
    "zip": {
     "url": "matilda.zip",
-    "bytes": 2450152,
-    "sha256": "a28da73bf6cf40f6e663de4deca5dd63fb89e65de18f1f54b8231c99de9a2784"
+    "bytes": 2450180,
+    "sha256": "1bb0c79a787952f2cf843cfa5c3d8e02779c8f5c5b04fa6e0834f113ab19bef7"
    }
   },
   {
@@ -149,6 +157,8 @@
    "author": "Roald Dahl",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "560L",
+   "isbn": "9780141957111",
    "rev": "4f7f4a4ce556",
    "version": 2,
    "chapters": 0,
@@ -174,8 +184,8 @@
    },
    "zip": {
     "url": "magicfinger.zip",
-    "bytes": 3754322,
-    "sha256": "977d44fae258bcc9322c17663f5432809f14808daf177b5aa2c094c92a3ccbc6"
+    "bytes": 3754352,
+    "sha256": "beeab0a489db1ff3f53e297dd83e4d6df470480038877ac3279a57e38424644d"
    }
   },
   {
@@ -184,6 +194,7 @@
    "author": "Roald Dahl",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "750L",
    "rev": "84d89aa4e275",
    "version": 2,
    "chapters": 29,
@@ -209,8 +220,8 @@
    },
    "zip": {
     "url": "twits.zip",
-    "bytes": 2938403,
-    "sha256": "901c65b172c9f045061ba3c0d87e20205831b790e670c50eea27f2df26da1970"
+    "bytes": 2938414,
+    "sha256": "0150b6a22333f203f3a42d59f8f6d1885de0e550b25dd39ed689e4b3bed9c638"
    }
   },
   {
@@ -219,6 +230,9 @@
    "author": "Tui T. Sutherland",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "740L",
+   "series": "Wings of Fire",
+   "seriesNumber": 1,
    "rev": "7c349dd689d9",
    "version": 2,
    "chapters": 44,
@@ -244,8 +258,8 @@
    },
    "zip": {
     "url": "wof1.zip",
-    "bytes": 3128565,
-    "sha256": "7352abf6fb858c701192117843834a74bb2a47e77c4846f3254eb88fe4f3f27c"
+    "bytes": 3128597,
+    "sha256": "26354ef0e42f187b82e0a0a8755471aec235880c520a1ca095c023f4a77ce817"
    }
   },
   {
@@ -254,6 +268,10 @@
    "author": "Tui T. Sutherland",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "750L",
+   "isbn": "9780545470100",
+   "series": "Wings of Fire",
+   "seriesNumber": 2,
    "rev": "3a73691eec4c",
    "version": 2,
    "chapters": 38,
@@ -279,8 +297,8 @@
    },
    "zip": {
     "url": "wof2.zip",
-    "bytes": 1305292,
-    "sha256": "0ac737aca3d93a368979b3038e40e6a1ecbb85922eb5e5c2bb534a8b602c9cb9"
+    "bytes": 1305340,
+    "sha256": "16ef8d11a847eb853e11dae4b1b746ca1a379207631a97c0aa3c06b9e2fac712"
    }
   },
   {
@@ -289,6 +307,9 @@
    "author": "C. S. Lewis",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "790L",
+   "series": "The Chronicles of Narnia",
+   "seriesNumber": 1,
    "rev": "14986b1a815a",
    "version": 1,
    "chapters": 0,
@@ -314,8 +335,8 @@
    },
    "zip": {
     "url": "narnia1-magicians-nephew.zip",
-    "bytes": 1238765,
-    "sha256": "f0b44a152ea8dbee2149244770a7b887de1c4e741bb900f8fcbc06553a665f4d"
+    "bytes": 1238806,
+    "sha256": "855a634e75ef3f529c8ab2a2cc3b1edc9b581b6dfc26e3c2802751fb18d68eb9"
    }
   },
   {
@@ -324,6 +345,9 @@
    "author": "C. S. Lewis",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "940L",
+   "series": "The Chronicles of Narnia",
+   "seriesNumber": 2,
    "rev": "7d1b13ee8c5a",
    "version": 1,
    "chapters": 0,
@@ -349,8 +373,8 @@
    },
    "zip": {
     "url": "narnia2-lion-witch-wardrobe.zip",
-    "bytes": 1354175,
-    "sha256": "0bcc546c2486618c426c638d98d2daaa9f95ac05b549ee4956b718aa299b5564"
+    "bytes": 1354215,
+    "sha256": "fa76984a74f61e643047a8cd2f44b355b828dc705fdee7889f73aed0e26b6a8f"
    }
   },
   {
@@ -359,6 +383,9 @@
    "author": "C. S. Lewis",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "970L",
+   "series": "The Chronicles of Narnia",
+   "seriesNumber": 3,
    "rev": "7c7905285bbd",
    "version": 1,
    "chapters": 0,
@@ -384,8 +411,8 @@
    },
    "zip": {
     "url": "narnia3-horse-and-his-boy.zip",
-    "bytes": 1192456,
-    "sha256": "5c4a7215191b5fb58789e5d7b228c9ba9b1fc47aaed3618fb452142d22e7fb18"
+    "bytes": 1192493,
+    "sha256": "a1a1289d0e970818df54cbb0e181f7a02c76b228b8721c34e7d025384ba7d29c"
    }
   },
   {
@@ -394,6 +421,9 @@
    "author": "C. S. Lewis",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "870L",
+   "series": "The Chronicles of Narnia",
+   "seriesNumber": 4,
    "rev": "408374649c48",
    "version": 1,
    "chapters": 0,
@@ -419,8 +449,8 @@
    },
    "zip": {
     "url": "narnia4-prince-caspian.zip",
-    "bytes": 1405651,
-    "sha256": "684b056a256a897e25f096c96778d1a1135f877e3bf8e0b01c326fc45c22e4a5"
+    "bytes": 1405692,
+    "sha256": "f4eba79d9de3a1007b50af673c836b1ccf648c4fe0dc90e3d2deb5e53723c035"
    }
   },
   {
@@ -429,6 +459,9 @@
    "author": "C. S. Lewis",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "970L",
+   "series": "The Chronicles of Narnia",
+   "seriesNumber": 5,
    "rev": "b0c5de7b56fe",
    "version": 2,
    "chapters": 17,
@@ -454,8 +487,8 @@
    },
    "zip": {
     "url": "narnia5-dawn-treader.zip",
-    "bytes": 1365492,
-    "sha256": "bd97a1506083d4a00fdf818ee9f54e1d6e0b6e1af4b85534f15451023020b998"
+    "bytes": 1365526,
+    "sha256": "cc442647dff1125e0f7783b47acecbd11f28988b72199856226007c8d77c9ecc"
    }
   },
   {
@@ -464,6 +497,9 @@
    "author": "C. S. Lewis",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "840L",
+   "series": "The Chronicles of Narnia",
+   "seriesNumber": 6,
    "rev": "0f5d968c83a4",
    "version": 2,
    "chapters": 17,
@@ -489,8 +525,8 @@
    },
    "zip": {
     "url": "narnia6-silver-chair.zip",
-    "bytes": 1475038,
-    "sha256": "ad6e281c1232c85d19d89bad2410097db7ca94beb6b05fc896f85ea6f38b8f31"
+    "bytes": 1475077,
+    "sha256": "1eb7ed90c19060a74553619d489330bb475b58cdd0153ddcd5f1f80f1dd8b98f"
    }
   },
   {
@@ -499,6 +535,9 @@
    "author": "C. S. Lewis",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "890L",
+   "series": "The Chronicles of Narnia",
+   "seriesNumber": 7,
    "rev": "746bbeff0029",
    "version": 2,
    "chapters": 16,
@@ -524,8 +563,8 @@
    },
    "zip": {
     "url": "narnia7-last-battle.zip",
-    "bytes": 1315488,
-    "sha256": "2d07b3f1445bc40c9a44de2082abde68555833e3295e641b3f567f9fdf73ff31"
+    "bytes": 1315527,
+    "sha256": "13367d89d1e26bfaf4b060ee807953148c5d4c5e8dc49b54e6e96e5562a580f2"
    }
   },
   {
@@ -534,6 +573,8 @@
    "author": "R J Palacio",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "",
+   "lexile": "790L",
+   "isbn": "9781448119141",
    "rev": "96415f7dbc83",
    "version": 1,
    "chapters": 130,
@@ -556,14 +597,14 @@
    "cover": null,
    "zip": {
     "url": "wonder.zip",
-    "bytes": 1018012,
-    "sha256": "9c07f5fdf6bf49c8e14de68419bcdfa52d59b8bcd71191c7132578f6d394e367"
+    "bytes": 1018038,
+    "sha256": "8f9c9a70e0a240a810631b6c3f7f73971fe2bb7819b23327b29da8a2020794ee"
    }
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 34665075,
-  "sha256": "85681acd5df670533fdf8e527778ce94e6d4fbe3c5ffc8a5b28a41696fb232ac"
+  "bytes": 34665779,
+  "sha256": "c83e64ffacf03b3c2064c256a92125c8df2d1a1c476433786b4dacaeaf066d0b"
  }
 }

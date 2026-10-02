@@ -17,6 +17,18 @@ export const WIDTHS: Record<WidthKey, { label: string; rem: number }> = {
   wide: { label: "Wide", rem: 47 },
 };
 
+/** Text column width in rem. The slider runs from a narrow column to a much wider one. */
+export const COLUMN_MIN = 24;
+export const COLUMN_MAX = 90;
+export const COLUMN_DEFAULT = WIDTHS.medium.rem;
+
+export function columnRem(prefs: { column?: number; width?: WidthKey }): number {
+  if (typeof prefs.column === "number" && Number.isFinite(prefs.column)) {
+    return Math.min(COLUMN_MAX, Math.max(COLUMN_MIN, Math.round(prefs.column)));
+  }
+  return WIDTHS[prefs.width ?? "medium"]?.rem ?? COLUMN_DEFAULT;
+}
+
 export const LEADINGS = [
   { label: "Tight", value: 1.6 },
   { label: "Normal", value: 1.8 },
@@ -32,7 +44,10 @@ export type Prefs = {
   /** reading size in px */
   size: number;
   leading: number;
+  /** Older saves use this. `column` wins when it is set. */
   width: WidthKey;
+  /** Text column width in rem. */
+  column: number;
   focus: boolean;
 };
 
@@ -78,6 +93,7 @@ export const usePrefs = create<PrefsState>()(
       size: 20,
       leading: 1.8,
       width: "medium",
+      column: COLUMN_DEFAULT,
       focus: false,
       set: (patch) => set(patch),
     }),
@@ -85,14 +101,19 @@ export const usePrefs = create<PrefsState>()(
       name: PREFS_KEY,
       skipHydration: true,
       storage: createJSONStorage(safeStorage),
-      partialize: ({ theme, font, size, leading, width, focus }) => ({
+      partialize: ({ theme, font, size, leading, width, column, focus }) => ({
         theme,
         font,
         size,
         leading,
         width,
+        column,
         focus,
       }),
+      merge: (persisted, current) => {
+        const saved = (persisted ?? {}) as Partial<Prefs>;
+        return { ...current, ...saved, column: columnRem({ column: saved.column, width: saved.width ?? current.width }) };
+      },
     },
   ),
 );
@@ -114,6 +135,6 @@ export function readerVars(prefs: Prefs): Record<string, string> {
     "--reader-font": FONT_STACKS[prefs.font].css,
     "--reader-size": `${prefs.size / 16}rem`,
     "--reader-leading": String(prefs.leading),
-    "--reader-width": `${WIDTHS[prefs.width].rem}rem`,
+    "--reader-width": `${columnRem(prefs)}rem`,
   };
 }

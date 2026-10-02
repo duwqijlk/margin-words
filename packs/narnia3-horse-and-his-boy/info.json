@@ -1,5 +1,8 @@
 {
  "title": "Narnia 3: The Horse and His Boy",
  "author": "C. S. Lewis",
- "order": 11
+ "order": 11,
+ "lexile": "970L",
+ "series": "The Chronicles of Narnia",
+ "seriesNumber": 3
 }

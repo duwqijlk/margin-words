@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "check:cjk": "node scripts/check-no-cjk.mjs",
-    "test": "node --test scripts/*.test.mjs && node --experimental-strip-types --test src/lib/srs.test.ts",
+    "test": "node --experimental-strip-types --test scripts/*.test.mjs && node --experimental-strip-types --test src/lib/srs.test.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "check:example": "node scripts/check-example.mjs",

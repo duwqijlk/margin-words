@@ -1,9 +1,10 @@
 /**
  * Word list ("glossary") format, versions 1 and 2.
  *
- * Pure code with NO imports, so that the same file is used by the app, by the
+ * Almost no imports, so that the same file is used by the app, by the
  * unit tests and by the command-line tools in `scripts/` (validate-glossary.mjs,
  * extract-epub-text.mjs). The written spec is docs/GLOSSARY_FORMAT.md.
+ * Runtime imports are ./lexile.ts and ./book-meta.ts. Type-only imports are erased.
  *
  * Version 1: { version: 1, glossary: { lemma: { pos, meaning, whyHard } } }
  * Version 2: the same, plus an optional `senses` array on each word. A sense is
@@ -12,6 +13,8 @@
  */
 
 import type { ParagraphHelp, SentenceHelp, PhraseEntry } from "@/lib/glossary-extras";
+import { isbnDigits, readSeries } from "@/lib/book-meta";
+import { lexileMeasure } from "@/lib/lexile";
 
 export type GlossaryAnchor = {
   /** 0-based index of the chapter, as the app splits the book (see docs). */
@@ -51,6 +54,14 @@ export type GlossaryFile = {
   author?: string;
   sha256?: string;
   level?: string;
+  /** Lexile measure for this edition, such as "880L". Omitted when the list has none. */
+  lexile?: string;
+  /** ISBN-13 of the edition this list was written for. Omitted when unknown. */
+  isbn?: string;
+  /** Series title, together with seriesNumber. Omitted when the book is not in a series. */
+  series?: string;
+  /** 1-based place in the series. */
+  seriesNumber?: number;
   language?: string;
   /** How many chapters the author saw. If the app finds another number, it ignores chapter/occurrence and uses context only. */
   chapters?: number;
@@ -666,6 +677,23 @@ export function validateGlossary(input: unknown): GlossaryCheck {
     if (typeof value === "string" && value.trim()) out[name] = value.trim().slice(0, 200);
     else if (value !== undefined && typeof value !== "string")
       issues.warn(`"${name}" should be text. It was ignored.`);
+  }
+  if (data.lexile !== undefined) {
+    const measure = lexileMeasure(data.lexile);
+    if (measure) out.lexile = measure;
+    else issues.warn('"lexile" should look like 880L. It was ignored.');
+  }
+  if (data.isbn !== undefined) {
+    const isbn = isbnDigits(data.isbn);
+    if (isbn) out.isbn = isbn;
+    else issues.warn('"isbn" should be an ISBN-13 or ISBN-10. It was ignored.');
+  }
+  if (data.series !== undefined || data.seriesNumber !== undefined) {
+    const series = readSeries(data.series, data.seriesNumber);
+    if (series.series) {
+      out.series = series.series;
+      out.seriesNumber = series.seriesNumber;
+    } else issues.warn('"series" needs a name and a number, such as "Narnia" and 1. It was ignored.');
   }
 
   const rows = Object.entries(data.glossary as Record<string, unknown>);

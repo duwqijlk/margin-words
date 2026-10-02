@@ -20,6 +20,16 @@ export type Book = {
   createdAt: number;
   updatedAt: number;
   source?: "epub" | "notes";
+  /** Lexile measure for this edition, such as "880L". Absent when the book has none. */
+  lexile?: string;
+  /** ISBN-13 of this edition. Absent when the edition is not known. */
+  isbn?: string;
+  /** Series title. Absent when the book is not in a series. */
+  series?: string;
+  /** 1-based place in `series`. */
+  seriesNumber?: number;
+  /** Percent of the word list's snippets found in the reader's own e-book. */
+  matchRate?: number;
 };
 
 export type VocabEntry = AnalyzedWord & {

@@ -1,5 +1,8 @@
 {
  "title": "Narnia 7: The Last Battle",
  "author": "C. S. Lewis",
- "order": 15
+ "order": 15,
+ "lexile": "890L",
+ "series": "The Chronicles of Narnia",
+ "seriesNumber": 7
 }

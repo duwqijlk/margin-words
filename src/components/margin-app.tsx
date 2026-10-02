@@ -261,6 +261,15 @@ export function MarginApp() {
       for (const item of done) {
         if (!useVocab.getState().books.some((book) => book.id === item.bookId))
           addBook(item.title, item.author, "epub", item.bookId);
+        useVocab.getState().setBookDetails([
+          {
+            id: item.bookId,
+            lexile: item.lexile,
+            isbn: item.isbn,
+            series: item.series,
+            seriesNumber: item.seriesNumber,
+          },
+        ]);
       }
       window.dispatchEvent(
         new CustomEvent("cibian-progress", { detail: { bookId: done[0]?.bookId } }),

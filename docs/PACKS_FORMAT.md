@@ -2,7 +2,7 @@
 
 > The short, complete spec for AI agents is [book-pack-spec.md](book-pack-spec.md) (also in the downloadable book-pack-kit.zip). Sample: `examples/sample-book/`.
 
-A **book pack** is one book plus its word list. The reader app contains twelve free public-domain classics (in `public-books/`, same pack format; three marked `preinstall` are installed on first run unless the user removed them, the others are one-tap downloads in "Free books"). It downloads other packs
+A **book pack** is one book plus its word list. The reader app contains twelve free public-domain classics (in `public-books/`, same pack format; each is marked `preinstall` and is installed on first run unless the user removed that book). It downloads other packs
 from a **catalog** (a `catalog.json` on any static web host), or imports a pack `.zip` the user picks (Add book).
 
 ## Folder layout (what you host)
@@ -15,7 +15,7 @@ packs/
     book.epub             the book (unchanged)
     glossary.json         the word list (docs/GLOSSARY_FORMAT.md; copied unchanged)
     cover.jpg             optional cover
-    info.json             optional input for build-packs (title, author, order)
+    info.json             optional input for build-packs (title, author, order, lexile, isbn, series, preinstall)
   twits.zip               the same pack as ONE file: book.epub, glossary.json, cover.jpg, pack.json
 ```
 
@@ -38,6 +38,7 @@ folder to host.
       "author": "Roald Dahl",
       "level": "Middle-school level. ...",
       "notes": "",
+      "lexile": "750L",
       "rev": "84d89aa4e275",
       "version": 2,
       "chapters": 29, "words": 172, "paragraphs": 12, "sentences": 15, "phrases": 22, "coined": 12,
@@ -55,6 +56,10 @@ folder to host.
 | `format` | Always `1`. |
 | `id` | Letters, digits, `-` and `_`. Same as the folder name. Never change it for a book. |
 | `title`, `author`, `level`, `notes` | Shown on the card in "Add book" -> "Free books". |
+| `lexile` | Optional. A Lexile measure for this edition, such as `750L` or `HL1070L`. The shelf and the free-books list show it and can sort or filter by it. Leave it out when you do not have a published measure; the card then says unrated. See [LEXILE_SOURCES.md](LEXILE_SOURCES.md). |
+| `isbn` | Optional. ISBN-13 of the edition this list was written for. Leave it out when the EPUB has no ISBN you can confirm. See [ISBN_SOURCES.md](ISBN_SOURCES.md). |
+| `series` | Optional series title. Use with `seriesNumber` (1-based). The shelf can group and filter by it, in that order. |
+| `seriesNumber` | Optional. The book's place in `series`. |
 | `rev` | Changes when the book or its word list changes (first 12 letters of the sha256 of the epub + list). When it differs from the installed copy the card shows **Update available**. |
 | `version` | The word list format version (1 or 2). |
 | `chapters`, `words`, `paragraphs`, `sentences`, `phrases`, `coined` | Counts, from the list. |
@@ -75,7 +80,7 @@ The reader needs only `id`, `title`, `rev`, `epub` and `glossary`. The other fie
 | `book.epub` | yes, exactly one | The book. Any single `*.epub` name works. Up to 40 MB. |
 | `glossary.json` | yes, exactly one | The word list ([GLOSSARY_FORMAT.md](GLOSSARY_FORMAT.md)). `<name>.glossary.json` also works. |
 | `cover.jpg` (`.png`, `.webp`) | no | Used only when the EPUB has no cover. |
-| `pack.json` | no | `{ "id", "title", "author", "rev" }`. |
+| `pack.json` | no | `{ "id", "title", "author", "rev", "lexile", "isbn", "series", "seriesNumber" }`. `lexile`, `isbn`, `series` and `seriesNumber` are optional. |
 
 Title, author and cover come from the EPUB. At import the reader checks that the zip has one book and one list, that the
 list is valid, that the EPUB opens, and that the list belongs to the book (`sha256` equals the EPUB's sha256, or `title`

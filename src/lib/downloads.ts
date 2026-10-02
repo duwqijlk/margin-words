@@ -39,6 +39,15 @@ export const useDownloads = create<DownloadState>()((set, get) => ({
       if (!books.some((book) => book.id === result.bookId)) {
         addBook(result.title, result.author, "epub", result.bookId);
       }
+      useVocab.getState().setBookDetails([
+        {
+          id: result.bookId,
+          lexile: pack.lexile,
+          isbn: pack.isbn,
+          series: pack.series,
+          seriesNumber: pack.seriesNumber,
+        },
+      ]);
       if (typeof window !== "undefined") {
         window.dispatchEvent(
           new CustomEvent("cibian-progress", { detail: { bookId: result.bookId } }),

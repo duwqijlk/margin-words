@@ -26,6 +26,7 @@ shipped with the app or in the book packs (`src/`, `public/`, `packs/`) must pas
   "author": "Roald Dahl",
   "sha256": "<sha256 of the EPUB, optional>",
   "level": "free text, optional",
+  "lexile": "750L",
   "language": "free text, optional",
   "chapters": 29,
   "glossary": { "<lemma>": { ... entry ... } }
@@ -39,7 +40,11 @@ shipped with the app or in the book packs (`src/`, `public/`, `packs/`) must pas
 | `title`, `author` | no | The app warns if `title` does not match the book you add the list to. |
 | `sha256` | no | SHA-256 of the EPUB file. The bundled lists use it to find their book. |
 | `chapters` | no | How many chapters the author saw (see 3.1). If the user's copy has a different number, the app **ignores `chapter` and `occurrence`** and uses `context` only. |
-| `level`, `language` | no | Free text for people. Not used by the app. |
+| `level`, `language` | no | Free text for people. `level` is not shown as the difficulty rating. |
+| `lexile` | no | A Lexile measure for this edition, such as `880L`. The app shows it. Leave it out when you do not have a published measure (the card says unrated). A value that is not a measure is ignored. |
+| `isbn` | no | ISBN-10 or ISBN-13 of this edition. A bad value is ignored. Omit it when you cannot confirm the edition. |
+| `series` | no | Series title. Use with `seriesNumber`. Both are ignored if either is missing. |
+| `seriesNumber` | no | 1-based place in `series`. |
 
 Optional top-level parts (section 7): `paragraphs[]`, `sentences[]`, `phrases{}`. Unknown extra fields are allowed and ignored (v1 bundled files carry `example`, `examples`, `count`).
 

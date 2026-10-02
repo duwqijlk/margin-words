@@ -23,7 +23,7 @@ word lists come from **book packs** (see README.md, "Reader and book packs"). **
 ## Commands
 
 - `npm run dev` : dev server (also serves `/packs/*` from the top-level `packs/` folder)
-- `npx vite build` (or `npm run build`) : static app in `dist/` (inside: only the 12 public-domain classics in `public-books/`; 3 preinstalled via `"preinstall": true` in info.json, the rest are downloads; never the copyrighted `packs/`)
+- `npx vite build` (or `npm run build`) : static app in `dist/` (inside: the 12 public-domain classics in `public-books/`, all preinstalled; plus `word-lists/` glossary files only for the copyrighted books; never an EPUB from `packs/`)
 - `node scripts/build-packs.mjs` : rebuild `packs/catalog.json` and the pack zips
 - `node scripts/build-packs.mjs --out public-books` : rebuild the catalog and zips of the bundled free classics (`public-books/`, deployed with the app)
 - `node scripts/build-site.mjs` : `site/` = `dist/` + `packs/` (one folder to host)

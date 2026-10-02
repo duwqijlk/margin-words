@@ -2,5 +2,7 @@
  "title": "Peter and Wendy",
  "author": "J. M. Barrie",
  "order": 4,
- "notes": "Free classic. Public domain in the USA."
+ "notes": "Free classic. Public domain in the USA.",
+ "lexile": "900L",
+ "preinstall": true
 }

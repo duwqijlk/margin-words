@@ -1,5 +1,7 @@
 {
  "title": "Charlie and the Chocolate Factory",
  "author": "Roald Dahl",
- "order": 1
+ "order": 1,
+ "lexile": "810L",
+ "isbn": "9780141960616"
 }

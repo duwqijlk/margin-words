@@ -530,3 +530,21 @@ export async function loadAllCovers(): Promise<Record<string, string>> {
   });
   return covers;
 }
+
+/** A downloaded word list, kept so it can be paired with the reader's own EPUB later. */
+export async function saveCachedText(key: string, text: string): Promise<void> {
+  const db = await openDb();
+  const tx = db.transaction(NOTES, "readwrite");
+  const done = finish(tx, db);
+  tx.objectStore(NOTES).put(text, key);
+  await done;
+}
+
+export async function loadCachedText(key: string): Promise<string> {
+  const db = await openDb();
+  const tx = db.transaction(NOTES, "readonly");
+  const done = finish(tx, db);
+  const value = await requestToPromise(tx.objectStore(NOTES).get(key) as IDBRequest<unknown>);
+  await done;
+  return typeof value === "string" ? value : "";
+}

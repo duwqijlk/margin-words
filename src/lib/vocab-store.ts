@@ -11,12 +11,36 @@ import {
   type Cloth,
   type VocabEntry,
 } from "@/lib/vocab-model";
+import { isbnDigits, seriesName, seriesNumber } from "@/lib/book-meta";
+import { lexileMeasure } from "@/lib/lexile";
 
 /** The sample book saved by an older version had a Chinese title. Rename it to English. */
 const HAS_CJK = new RegExp("[\\u3400-\\u9fff]");
 function englishBook(book: Book): Book {
-  if (book.source === "epub" || !HAS_CJK.test(`${book.title}${book.author}`)) return book;
-  return { ...book, title: DEMO_BOOK_TITLE, author: "Example sentences" };
+  const measure = lexileMeasure(book.lexile);
+  const isbn = isbnDigits(book.isbn);
+  const series = seriesName(book.series);
+  const number = series ? seriesNumber(book.seriesNumber) : 0;
+  const match =
+    typeof book.matchRate === "number" && book.matchRate >= 0 && book.matchRate <= 100
+      ? Math.round(book.matchRate)
+      : undefined;
+  const next: Book = { ...book };
+  if (measure) next.lexile = measure;
+  else delete next.lexile;
+  if (isbn) next.isbn = isbn;
+  else delete next.isbn;
+  if (series && number) {
+    next.series = series;
+    next.seriesNumber = number;
+  } else {
+    delete next.series;
+    delete next.seriesNumber;
+  }
+  if (match === undefined) delete next.matchRate;
+  else next.matchRate = match;
+  if (next.source === "epub" || !HAS_CJK.test(`${next.title}${next.author}`)) return next;
+  return { ...next, title: DEMO_BOOK_TITLE, author: "Example sentences" };
 }
 
 export type ReviewDay = { reviewed: number; correct: number };
@@ -52,6 +76,18 @@ type VocabState = {
   /** answers per local day, for the streak and "reviewed today" numbers */
   log: Record<string, ReviewDay>;
   addBook: (title: string, author: string, source?: "epub" | "notes", id?: string) => string;
+  /** Write Lexile measures onto books already on the shelf. Does not move them. */
+  setBookLexiles: (pairs: Array<{ id: string; lexile: string }>) => void;
+  setBookDetails: (
+    pairs: Array<{
+      id: string;
+      lexile?: string;
+      isbn?: string;
+      series?: string;
+      seriesNumber?: number;
+      matchRate?: number;
+    }>,
+  ) => void;
   renameBook: (id: string, title: string, author: string) => void;
   deleteBook: (id: string) => void;
   addDemo: () => string;
@@ -135,6 +171,32 @@ export const useVocab = create<VocabState>()(
         };
         set((state) => ({ books: [book, ...state.books.filter((item) => item.id !== bookId)] }));
         return bookId;
+      },
+      setBookLexiles: (pairs) => get().setBookDetails(pairs),
+      setBookDetails: (pairs) => {
+        if (pairs.length === 0) return;
+        const map = new Map(pairs.map((pair) => [pair.id, pair]));
+        set((state) => ({
+          books: state.books.map((book) => {
+            const pair = map.get(book.id);
+            if (!pair) return book;
+            const next = { ...book };
+            const measure = pair.lexile !== undefined ? lexileMeasure(pair.lexile) : book.lexile;
+            if (measure) next.lexile = measure;
+            const isbn = pair.isbn !== undefined ? isbnDigits(pair.isbn) : isbnDigits(book.isbn);
+            if (isbn) next.isbn = isbn;
+            const series = pair.series !== undefined ? seriesName(pair.series) : seriesName(book.series);
+            const number =
+              pair.seriesNumber !== undefined ? seriesNumber(pair.seriesNumber) : seriesNumber(book.seriesNumber);
+            if (series && number) {
+              next.series = series;
+              next.seriesNumber = number;
+            }
+            if (pair.matchRate !== undefined && pair.matchRate >= 0 && pair.matchRate <= 100)
+              next.matchRate = Math.round(pair.matchRate);
+            return next;
+          }),
+        }));
       },
       renameBook: (id, title, author) => {
         set((state) => ({

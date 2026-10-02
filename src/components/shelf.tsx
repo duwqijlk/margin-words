@@ -25,6 +25,16 @@ import { useT, type Key } from "@/lib/i18n";
 import { useClassicBookIds, useClassicsRunning } from "@/lib/classics";
 import { markPackRemoved } from "@/lib/removed-packs";
 import { btn, cn, ConfirmDialog, field, ProgressBar } from "@/components/ui";
+import { compareLexile } from "@/lib/lexile";
+import {
+  BookMetaLines,
+  DifficultyControls,
+  LexileBadge,
+  matchesBand,
+  type BandChoice,
+  type SortChoice,
+} from "@/components/lexile-ui";
+import { bookCardGrid, bookCardShell, ListFilters, type SeriesChoice } from "@/components/list-filters";
 
 export function useCovers(ids: string[]) {
   const [covers, setCovers] = useState<Record<string, string>>({});
@@ -265,6 +275,7 @@ function ContinueCard({ row, cover, onOpen }: { row: Row; cover?: string; onOpen
             {book.author}
           </p>
         ) : null}
+        <LexileBadge measure={book.lexile} />
         {started && progress ? (
           <div className="grid gap-1.5 pt-1">
             <ProgressBar value={fraction} className="h-1.5" label={t("shelf.progress")} />
@@ -406,7 +417,7 @@ function BookCard({
   const { book } = row;
   const pct = Math.round(row.fraction * 100);
   return (
-    <li className="grid content-start gap-2.5">
+    <li className={bookCardShell}>
       <div className="relative">
         <button
           type="button"
@@ -430,19 +441,19 @@ function BookCard({
           </span>
         ) : null}
       </div>
-      <div className="grid gap-1">
+      <div className="grid flex-1 content-start gap-1">
         <div className="flex items-start gap-1">
           <button
             type="button"
             onClick={onOpen}
-            className="min-w-0 flex-1 text-left font-display text-[0.97rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
+            className="min-w-0 flex-1 text-left font-display text-[0.97rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] min-h-[2.6em] overflow-hidden"
             lang="en"
           >
             {book.title}
           </button>
           <Menu.Root>
             <Menu.Trigger
-              className="-mt-2 -mr-2.5 inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-accent-soft hover:text-ink"
+              className="-mr-2.5 inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-accent-soft hover:text-ink"
               aria-label={t("shelf.moreAria", { title: book.title })}
             >
               <MoreVertical className="size-4" aria-hidden />
@@ -483,26 +494,35 @@ function BookCard({
             {book.author}
           </p>
         ) : null}
-        {book.source === "epub" ? (
-          <div className="flex items-center gap-2 pt-0.5">
-            <ProgressBar
-              value={row.fraction}
-              className="h-1 flex-1"
-              label={t("shelf.progressFor", { title: book.title })}
-            />
-            <span
-              className={cn(
-                "w-9 text-right text-xs tabular-nums",
-                pct > 0 ? "text-muted" : "font-semibold text-accent",
-              )}
-            >
-              {pct > 0 ? `${pct}%` : t("shelf.new")}
-            </span>
-          </div>
-        ) : (
-          <p className="text-xs text-muted">{t("shelf.sampleNotebook")}</p>
-        )}
+        <BookMetaLines
+          lexile={book.lexile}
+          isbn={book.isbn}
+          series={book.series}
+          seriesNumber={book.seriesNumber}
+          matchRate={book.matchRate}
+        />
       </div>
+      {book.source === "epub" ? (
+        <div className="mt-auto flex min-h-11 items-center gap-2" data-card-actions>
+          <ProgressBar
+            value={row.fraction}
+            className="h-1 flex-1"
+            label={t("shelf.progressFor", { title: book.title })}
+          />
+          <span
+            className={cn(
+              "w-9 text-right text-xs tabular-nums",
+              pct > 0 ? "text-muted" : "font-semibold text-accent",
+            )}
+          >
+            {pct > 0 ? `${pct}%` : t("shelf.new")}
+          </span>
+        </div>
+      ) : (
+        <p className="mt-auto flex min-h-11 items-center text-xs text-muted" data-card-actions>
+          {t("shelf.sampleNotebook")}
+        </p>
+      )}
     </li>
   );
 }
@@ -540,6 +560,10 @@ export function Shelf({
   const classicIds = useClassicBookIds(books.map((book) => book.id).join("|"));
   const installingClassics = useClassicsRunning((state) => state.running);
   const [query, setQuery] = useState("");
+  const [sort, setSort] = useState<SortChoice>("recent");
+  const [band, setBand] = useState<BandChoice>("all");
+  const [author, setAuthor] = useState("all");
+  const [series, setSeries] = useState<SeriesChoice>("all");
   const [renaming, setRenaming] = useState<Book | null>(null);
   const [deleting, setDeleting] = useState<Book | null>(null);
 
@@ -567,10 +591,52 @@ export function Shelf({
 
   const hero = useMemo(() => recent.find((row) => row.book.source === "epub") ?? null, [recent]);
 
+  const authors = useMemo(
+    () => [...new Set(rows.map((row) => row.book.author).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
+    [rows],
+  );
+  const seriesNames = useMemo(
+    () => [...new Set(rows.map((row) => row.book.series ?? "").filter(Boolean))].sort((a, b) => a.localeCompare(b)),
+    [rows],
+  );
   const q = query.trim().toLowerCase();
-  const visible = q
-    ? recent.filter((row) => `${row.book.title} ${row.book.author}`.toLowerCase().includes(q))
-    : recent;
+  const visible = useMemo(() => {
+    const searched = q
+      ? recent.filter((row) => `${row.book.title} ${row.book.author}`.toLowerCase().includes(q))
+      : recent;
+    let banded = searched.filter((row) => matchesBand(row.book.lexile ?? "", band));
+    if (author !== "all") banded = banded.filter((row) => row.book.author === author);
+    if (series === "none") banded = banded.filter((row) => !row.book.series);
+    else if (series !== "all" && series !== "grouped") banded = banded.filter((row) => row.book.series === series);
+    if (series === "grouped") {
+      return [...banded].sort(
+        (a, b) =>
+          (a.book.series ?? "\uffff").localeCompare(b.book.series ?? "\uffff") ||
+          (a.book.seriesNumber ?? 99) - (b.book.seriesNumber ?? 99) ||
+          a.book.title.localeCompare(b.book.title),
+      );
+    }
+    if (sort === "recent" || sort === "listed") return banded;
+    const copy = [...banded];
+    if (sort === "title") copy.sort((a, b) => a.book.title.localeCompare(b.book.title) || a.book.author.localeCompare(b.book.author));
+    else copy.sort((a, b) => compareLexile(a.book.lexile ?? "", b.book.lexile ?? "", sort) || a.book.title.localeCompare(b.book.title));
+    return copy;
+  }, [recent, q, band, sort, author, series]);
+  const groups = useMemo(() => {
+    if (series !== "grouped") return [];
+    const names = [...new Set(visible.map((row) => row.book.series ?? "").filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    const blocks = names.map((name) => ({
+      key: name,
+      title: name,
+      rows: visible
+        .filter((row) => row.book.series === name)
+        .sort((a, b) => (a.book.seriesNumber ?? 0) - (b.book.seriesNumber ?? 0)),
+    }));
+    const rest = visible.filter((row) => !row.book.series);
+    if (rest.length) blocks.push({ key: "none", title: "", rows: rest });
+    return blocks;
+  }, [visible, series]);
+  const filtering = band !== "all" || author !== "all" || series !== "all" || (sort !== "recent" && sort !== "listed");
 
   return (
     <div className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-10">
@@ -595,7 +661,7 @@ export function Shelf({
         <EmptyShelf importing={importing} onAdd={onAdd} onDemo={onDemo} />
       ) : (
         <>
-          {hero && !q ? (
+          {hero && !q && !filtering ? (
             <ContinueCard
               row={hero}
               cover={covers[hero.book.id]}
@@ -604,8 +670,27 @@ export function Shelf({
           ) : null}
 
           <section className="grid gap-4" aria-label={t("shelf.all")}>
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="font-display text-xl font-semibold">{t("shelf.all")}</h2>
+              {books.length >= 2 ? (
+                <div className="flex flex-wrap gap-2">
+                  <DifficultyControls
+                    sort={sort}
+                    sorts={["recent", "easy", "hard", "title"]}
+                    onSort={setSort}
+                    band={band}
+                    onBand={setBand}
+                  />
+                  <ListFilters
+                    authors={authors}
+                    seriesNames={seriesNames}
+                    author={author}
+                    series={series}
+                    onAuthor={setAuthor}
+                    onSeries={setSeries}
+                  />
+                </div>
+              ) : null}
               {books.length >= SEARCH_FROM ? (
                 <label className="relative w-full max-w-64">
                   <span className="sr-only">{t("shelf.search")}</span>
@@ -626,8 +711,36 @@ export function Shelf({
 
             {visible.length === 0 && q ? (
               <p className="py-10 text-center text-muted">{t("shelf.noMatch", { query })}</p>
+            ) : visible.length === 0 ? (
+              <p className="py-10 text-center text-muted">{t("lexile.none")}</p>
             ) : (
-              <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-5">
+              series === "grouped" ? (
+                <div className="grid gap-8">
+                  {groups.map((group) => (
+                    <div key={group.key} className="grid gap-4" data-series-group={group.key}>
+                      <h3 className="font-display text-lg font-semibold" lang={group.title ? "en" : undefined}>
+                        {group.title || t("shelf.series.none")}
+                      </h3>
+                      <ul className={bookCardGrid}>
+                        {group.rows.map((row) => (
+                          <BookCard
+                            key={row.book.id}
+                            row={row}
+                            cover={covers[row.book.id]}
+                            classic={classicIds.has(row.book.id)}
+                            onOpen={() => onOpen(row.book.id)}
+                            onNotebook={() => onNotebook(row.book.id)}
+                            onAddList={() => onAddList(row.book.id)}
+                            onRename={() => setRenaming(row.book)}
+                            onDelete={() => setDeleting(row.book)}
+                          />
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+              <ul className={bookCardGrid}>
                 {importing ? (
                   <li className="grid gap-3" aria-busy="true">
                     <div className="flex aspect-[2/3] animate-pulse items-center justify-center rounded-md bg-line text-sm font-semibold text-muted">
@@ -649,6 +762,7 @@ export function Shelf({
                   />
                 ))}
               </ul>
+              )
             )}
           </section>
         </>

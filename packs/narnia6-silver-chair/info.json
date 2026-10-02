@@ -1,5 +1,8 @@
 {
  "title": "Narnia 6: The Silver Chair",
  "author": "C. S. Lewis",
- "order": 14
+ "order": 14,
+ "lexile": "840L",
+ "series": "The Chronicles of Narnia",
+ "seriesNumber": 6
 }

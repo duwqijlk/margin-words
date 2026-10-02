@@ -33,6 +33,26 @@
       "maxLength": 200,
       "description": "Free text, for example 'CEFR B1, English meanings'."
     },
+    "lexile": {
+      "type": "string",
+      "pattern": "^(?:AD|NC|HL|IG|GN|NP)?[0-9]{1,4}L$|^BR[0-9]{1,4}L$",
+      "description": "Optional Lexile measure for this edition, such as 880L. Omit when you do not have a published measure."
+    },
+    "isbn": {
+      "type": "string",
+      "description": "Optional ISBN-10 or ISBN-13 of the edition this list was written for. Omit when you cannot confirm it. The app stores a valid ISBN-13."
+    },
+    "series": {
+      "type": "string",
+      "maxLength": 80,
+      "description": "Optional series title. Use with seriesNumber."
+    },
+    "seriesNumber": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 99,
+      "description": "Optional 1-based place in series."
+    },
     "language": {
       "type": "string",
       "maxLength": 200,

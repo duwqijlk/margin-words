@@ -9,6 +9,9 @@
    "author": "Lewis Carroll",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Free classic. Public domain in the USA (Project Gutenberg).",
+   "lexile": "880L",
+   "series": "Alice",
+   "seriesNumber": 1,
    "rev": "cd9d78ba7ee7",
    "version": 2,
    "chapters": 13,
@@ -34,8 +37,8 @@
    },
    "zip": {
     "url": "alice.zip",
-    "bytes": 223902,
-    "sha256": "8d183f689d39fa006cb4e53c57dacb03870714775ed6618900d64ebf27d516fb"
+    "bytes": 223930,
+    "sha256": "573eafa0c8effc3ee8671091497061a5b66a34c468e161ee5869f83eb982eaa9"
    },
    "preinstall": true
   },
@@ -45,6 +48,7 @@
    "author": "Robert Louis Stevenson",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Free classic. Public domain in the USA (Project Gutenberg).",
+   "lexile": "980L",
    "rev": "9092834d047b",
    "version": 2,
    "chapters": 36,
@@ -70,8 +74,8 @@
    },
    "zip": {
     "url": "treasure-island.zip",
-    "bytes": 390163,
-    "sha256": "aeb37e1bc682684ce858d53357858389a49c5e0b0f491b72242ae122938802a5"
+    "bytes": 390173,
+    "sha256": "2941bf68425a3d5ec071bcc0d5dea379f6e7d8f60d249fc4ddb0a92d6fad2828"
    },
    "preinstall": true
   },
@@ -81,6 +85,7 @@
    "author": "L. M. Montgomery",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Free classic. Public domain in the USA (Project Gutenberg).",
+   "lexile": "970L",
    "rev": "e4cd5c01904d",
    "version": 2,
    "chapters": 39,
@@ -106,8 +111,8 @@
    },
    "zip": {
     "url": "anne.zip",
-    "bytes": 420366,
-    "sha256": "5bcbdc724fa2d29240649cd60865f682600d31caa10361cfafe59cf4275f96b4"
+    "bytes": 420378,
+    "sha256": "0a94068d9e6318b2a684cec8636072903ad86ecb3652950fe2559ca1060e3076"
    },
    "preinstall": true
   },
@@ -117,6 +122,7 @@
    "author": "J. M. Barrie",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Free classic. Public domain in the USA.",
+   "lexile": "900L",
    "rev": "1dbdb6ebee06",
    "version": 2,
    "chapters": 21,
@@ -142,9 +148,10 @@
    },
    "zip": {
     "url": "peter-pan.zip",
-    "bytes": 877501,
-    "sha256": "f3650d351ea2b00d9615a32007d4502c0f36352151289e081fec7348ce773e70"
-   }
+    "bytes": 877513,
+    "sha256": "66ac8e49720604cce288ceae06990816cd0bc80c48e5e5efe4aa66212d1936c7"
+   },
+   "preinstall": true
   },
   {
    "id": "tom-sawyer",
@@ -152,6 +159,7 @@
    "author": "Mark Twain",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Free classic. Public domain in the USA.",
+   "lexile": "930L",
    "rev": "34bcdc54feaa",
    "version": 2,
    "chapters": 42,
@@ -177,9 +185,10 @@
    },
    "zip": {
     "url": "tom-sawyer.zip",
-    "bytes": 805050,
-    "sha256": "2b027e343dda0e5f10346d88c842175ddcf8ae4beb2e757eb6ceb82f71dab1bb"
-   }
+    "bytes": 805062,
+    "sha256": "c0a343caa90ac046953f67c76d65b915c60e1cde2c8c811be49c1628fac3141b"
+   },
+   "preinstall": true
   },
   {
    "id": "wind-in-the-willows",
@@ -187,6 +196,7 @@
    "author": "Kenneth Grahame",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Free classic. Public domain in the USA.",
+   "lexile": "1060L",
    "rev": "f381840b6abe",
    "version": 2,
    "chapters": 16,
@@ -212,9 +222,10 @@
    },
    "zip": {
     "url": "wind-in-the-willows.zip",
-    "bytes": 985997,
-    "sha256": "ee5669d1e1808e44da8ae0dd29771de082d91fec983024f1872cf021bf1ee4a9"
-   }
+    "bytes": 986007,
+    "sha256": "944eb0881fe9d28c15b88a2bbdc9cada6658345a75ac402d0826a898d8fbdc7c"
+   },
+   "preinstall": true
   },
   {
    "id": "little-women",
@@ -222,6 +233,7 @@
    "author": "Louisa May Alcott",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Free classic. Public domain in the USA.",
+   "lexile": "1090L",
    "rev": "dcc80751831e",
    "version": 2,
    "chapters": 52,
@@ -247,9 +259,10 @@
    },
    "zip": {
     "url": "little-women.zip",
-    "bytes": 1130431,
-    "sha256": "ee8bf8528505e695c9ac790630dee745df063fd1eb108f12625a277b399c4e9e"
-   }
+    "bytes": 1130443,
+    "sha256": "95dbec86ecadaa96c6432570860b2ee23c769568c5e87f93ece3756d88fbd0ce"
+   },
+   "preinstall": true
   },
   {
    "id": "secret-garden",
@@ -257,6 +270,7 @@
    "author": "Frances Hodgson Burnett",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Free classic. Public domain in the USA.",
+   "lexile": "970L",
    "rev": "afb9da65be17",
    "version": 2,
    "chapters": 31,
@@ -282,9 +296,10 @@
    },
    "zip": {
     "url": "secret-garden.zip",
-    "bytes": 733760,
-    "sha256": "f1819e9f941dd709c0eb22a672b8c499e0a2c99ef9e447ad73344365795f13f8"
-   }
+    "bytes": 733772,
+    "sha256": "03acf7187e4863568572293bff8c2f9f753eb11d8c265d08a0c53fe0cafe029e"
+   },
+   "preinstall": true
   },
   {
    "id": "black-beauty",
@@ -292,6 +307,7 @@
    "author": "Anna Sewell",
    "level": "basic",
    "notes": "Free classic. Public domain in the USA.",
+   "lexile": "1020L",
    "rev": "d1f2cc468362",
    "version": 2,
    "chapters": 54,
@@ -317,9 +333,10 @@
    },
    "zip": {
     "url": "black-beauty.zip",
-    "bytes": 575985,
-    "sha256": "9a5ccf567ba3b72c23dba579ea863bcbb5d7cb9ac217e6b0aea2e0a88c3b4175"
-   }
+    "bytes": 575997,
+    "sha256": "d5ca2e2197e49ae4f736fdf5e507f4c97dcb38b3c9f2702716bf96414f2fd6e2"
+   },
+   "preinstall": true
   },
   {
    "id": "looking-glass",
@@ -327,6 +344,9 @@
    "author": "Lewis Carroll",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Free classic. Public domain in the USA.",
+   "lexile": "840L",
+   "series": "Alice",
+   "seriesNumber": 2,
    "rev": "f4bacd58644b",
    "version": 2,
    "chapters": 19,
@@ -352,9 +372,10 @@
    },
    "zip": {
     "url": "looking-glass.zip",
-    "bytes": 9432057,
-    "sha256": "b5abefd7a694efbe4c09c4a53de7515d922cfc71c0876ac33ea130c489cc99df"
-   }
+    "bytes": 9432086,
+    "sha256": "351cfc3ab532aed64800b6a405db12b0151e6e8b375df554e54cc3f86f001d20"
+   },
+   "preinstall": true
   },
   {
    "id": "jungle-book",
@@ -362,6 +383,7 @@
    "author": "Rudyard Kipling",
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Free classic. Public domain in the USA.",
+   "lexile": "1100L",
    "rev": "983c097e3578",
    "version": 2,
    "chapters": 12,
@@ -387,9 +409,10 @@
    },
    "zip": {
     "url": "jungle-book.zip",
-    "bytes": 692130,
-    "sha256": "d322e5575bd80ec573c62d0915ad452797028eaa1cf378c622a3f7699467b0f9"
-   }
+    "bytes": 692141,
+    "sha256": "2ff806150fa404a74fda553106d449dceb7cbb423f9cc45f084e6f36ee8d926e"
+   },
+   "preinstall": true
   },
   {
    "id": "wizard-of-oz",
@@ -397,6 +420,7 @@
    "author": "L. Frank Baum",
    "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
    "notes": "Free classic. Public domain in the USA.",
+   "lexile": "1030L",
    "rev": "5819bb794f84",
    "version": 2,
    "chapters": 29,
@@ -422,14 +446,15 @@
    },
    "zip": {
     "url": "wizard-of-oz.zip",
-    "bytes": 769113,
-    "sha256": "369b1e690d549135ff4881e55fa9b4b736bcdfe630d7a927f831f246205dd4c7"
-   }
+    "bytes": 769125,
+    "sha256": "142743e005ef0a02923a84487aed84c6043a47a2cd42f562a75fa1e7deade3b7"
+   },
+   "preinstall": true
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 17040165,
-  "sha256": "22afd7ff711b56f7b2b5cea5a6fe21eefffd728979efc63a300ebee1529c8571"
+  "bytes": 17040407,
+  "sha256": "6e77e2b5342666375861c2c5625a6b7e7ff28c1ccbe7d2e0026b8efe22d5b0c8"
  }
 }

@@ -34,8 +34,24 @@ self.addEventListener("fetch", (event) => {
   const path = url.pathname.slice(scope.length);
   // Book packs are downloaded by the app into IndexedDB. Never keep them here.
   if (path.startsWith("packs/")) return;
+  // Word lists: glossary.json and the catalog only. An EPUB under this path is never stored.
+  if (path.startsWith("word-lists/")) {
+    if (!path.endsWith(".json")) return;
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok && response.status === 200) {
+            const copy = response.clone();
+            event.waitUntil(caches.open(BOOKS).then((cache) => cache.put(request, copy)).catch(() => undefined));
+          }
+          return response;
+        })
+        .catch(() => caches.match(request).then((hit) => hit || Promise.reject(new Error("offline")))),
+    );
+    return;
+  }
   // The free classics (public-books/). Online: always the fresh file, and keep a copy. Offline: the copy.
-  // Only the catalog, covers and the first books are saved at install; the rest is saved when first fetched.
+  // The catalog, covers and the small preinstall books are saved at install. Larger classics are saved when first fetched.
   if (path.startsWith("public-books/") && !path.endsWith(".zip")) {
     event.respondWith(
       fetch(request)

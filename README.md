@@ -34,7 +34,7 @@ npx vite build       # static app in dist/
 
 **The reader is a static app.** `dist/` is plain files (HTML, JS, CSS, fonts). It has no server, no server
 functions, and no AI. Open it from any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`).
-The reader app ships with **twelve free public-domain classics** in `public-books/`. Three (Alice's Adventures in Wonderland, Treasure Island, Anne of Green Gables) are put on your shelf on first run (a book you delete is not added again); the other nine (Peter and Wendy, Tom Sawyer, The Wind in the Willows, Little Women, The Secret Garden, Black Beauty, Through the Looking-Glass, The Jungle Book, The Wonderful Wizard of Oz) are one-tap downloads in "Free books". To add one, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). All other books come as **book packs**, and the copyrighted packs in `packs/` are never put into `dist`.
+The reader app ships with **twelve free public-domain classics** in `public-books/`. All twelve are put on your shelf on first run. A book you delete is not added again; downloading it from "Free books" clears that. To add one, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). All other books come as **book packs**. The copyrighted packs in `packs/` never put an EPUB into `dist`. The app lists those titles as word lists only (`word-lists/<id>/glossary.json`). The reader prepares their own e-book of the ISBN and pairs it in the browser.
 
 All meanings, simple versions, sentence explanations, phrases and examples come from the word list
 (`glossary.json`) of the book. A word that is not in the list shows "No meaning for this word in this book yet."

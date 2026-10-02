@@ -19,6 +19,16 @@ import {
 } from "@/lib/packs";
 import type { Book } from "@/lib/vocab-model";
 import { BookCover } from "@/components/shelf";
+import {
+  BookMetaLines,
+  DifficultyControls,
+  matchesBand,
+  type BandChoice,
+  type SortChoice,
+} from "@/components/lexile-ui";
+import { bookCardGrid, bookCardShell, ListFilters, type SeriesChoice } from "@/components/list-filters";
+import { WordListSection } from "@/components/word-lists";
+import { compareLexile } from "@/lib/lexile";
 import { btn, cn, field, ProgressBar, Segmented } from "@/components/ui";
 import { usePrefs } from "@/lib/reader-prefs";
 import { LanguageSwitch } from "@/components/language";
@@ -52,10 +62,10 @@ function PackCard({
   const size = megabytes(pack.epub.bytes + pack.glossary.bytes, t("pack.sizeTiny"));
   const coverUrl = pack.cover?.url ? resolveAgainst(catalogUrl, pack.cover.url) : undefined;
   return (
-    <li className="grid content-start gap-2.5" data-pack={pack.id}>
+    <li className={bookCardShell} data-pack={pack.id}>
       <BookCover title={pack.title} author={pack.author} cover={coverUrl} />
-      <div className="grid gap-0.5">
-        <h3 className="font-display text-[0.97rem] leading-snug font-semibold" lang="en">
+      <div className="grid flex-1 content-start gap-0.5">
+        <h3 className="min-h-[2.6em] overflow-hidden font-display text-[0.97rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]" lang="en">
           {pack.title}
         </h3>
         {pack.author ? (
@@ -63,14 +73,25 @@ function PackCard({
             {pack.author}
           </p>
         ) : null}
+        <BookMetaLines
+          lexile={pack.lexile}
+          isbn={pack.isbn}
+          series={pack.series}
+          seriesNumber={pack.seriesNumber}
+        />
         <p className="text-xs text-muted tabular-nums">
           {pack.words > 0 ? tn("count.word", pack.words) : t("pack.noList")}
           {size ? ` · ${size}` : ""}
         </p>
+        {item?.error ? (
+          <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">
+            {item.error}
+          </p>
+        ) : null}
       </div>
 
       {busy && item ? (
-        <div className="grid gap-1.5" aria-live="polite">
+        <div className="mt-auto grid min-h-11 justify-end gap-1.5" aria-live="polite" data-card-actions>
           <ProgressBar
             value={item.fraction}
             className="h-2"
@@ -81,7 +102,7 @@ function PackCard({
           </p>
         </div>
       ) : (
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="mt-auto grid gap-2" data-card-actions>
           {state.kind === "new" || !onShelf ? (
             <button
               type="button"
@@ -118,18 +139,13 @@ function PackCard({
           ) : null}
         </div>
       )}
-      {item?.error ? (
-        <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">
-          {item.error}
-        </p>
-      ) : null}
     </li>
   );
 }
 
 /**
- * The one place to add a book. Top: your own book pack (a .zip). Below: free books to download.
- * A bare EPUB is not accepted here or anywhere else (see docs/book-pack-spec.md, "Required files").
+ * The one place to add a book. Top: your own book pack (a .zip). Then free books.
+ * Below those: word lists for other books. A plain EPUB is added only from a word-list card.
  */
 export function AddBookScreen({
   shelf,
@@ -191,6 +207,43 @@ export function AddBookScreen({
 
   const onShelf = useMemo(() => new Set(shelf.map((book) => book.id)), [shelf]);
   const packs = result?.catalog.packs ?? [];
+  const [sort, setSort] = useState<SortChoice>("listed");
+  const [band, setBand] = useState<BandChoice>("all");
+  const [author, setAuthor] = useState("all");
+  const [series, setSeries] = useState<SeriesChoice>("all");
+  const authors = useMemo(
+    () => [...new Set(packs.map((pack) => pack.author).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
+    [packs],
+  );
+  const seriesNames = useMemo(
+    () => [...new Set(packs.map((pack) => pack.series).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
+    [packs],
+  );
+  const shown = useMemo(() => {
+    let banded = packs.filter((pack) => matchesBand(pack.lexile, band));
+    if (author !== "all") banded = banded.filter((pack) => pack.author === author);
+    if (series === "none") banded = banded.filter((pack) => !pack.series);
+    else if (series !== "all" && series !== "grouped") banded = banded.filter((pack) => pack.series === series);
+    if (sort === "listed" || sort === "recent" || series === "grouped") return banded;
+    const copy = [...banded];
+    if (sort === "title") copy.sort((a, b) => a.title.localeCompare(b.title) || a.author.localeCompare(b.author));
+    else copy.sort((a, b) => compareLexile(a.lexile, b.lexile, sort) || a.title.localeCompare(b.title));
+    return copy;
+  }, [packs, sort, band, author, series]);
+  const groups = useMemo(() => {
+    if (series !== "grouped") return [];
+    const names = [...new Set(shown.map((pack) => pack.series).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    const blocks = names.map((name) => ({
+      key: name,
+      title: name,
+      rows: shown
+        .filter((pack) => pack.series === name)
+        .sort((a, b) => a.seriesNumber - b.seriesNumber || a.title.localeCompare(b.title)),
+    }));
+    const rest = shown.filter((pack) => !pack.series);
+    if (rest.length) blocks.push({ key: "none", title: "", rows: rest });
+    return blocks;
+  }, [shown, series]);
   const todo = packs.filter((pack) => {
     const record = records.find((item) => item.packId === pack.id);
     return (!record || !onShelf.has(record.bookId) || record.rev !== pack.rev) && !items[pack.id];
@@ -236,8 +289,27 @@ export function AddBookScreen({
       </section>
 
       <section className="grid gap-4" aria-label={t("add.free")}>
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-display text-xl font-semibold">{t("add.free")}</h2>
+          {packs.length >= 2 ? (
+            <div className="flex flex-wrap gap-2">
+              <DifficultyControls
+                sort={sort}
+                sorts={["listed", "easy", "hard", "title"]}
+                onSort={setSort}
+                band={band}
+                onBand={setBand}
+              />
+              <ListFilters
+                authors={authors}
+                seriesNames={seriesNames}
+                author={author}
+                series={series}
+                onAuthor={setAuthor}
+                onSeries={setSeries}
+              />
+            </div>
+          ) : null}
           {todo.length > 1 ? (
             <button
               type="button"
@@ -296,9 +368,34 @@ export function AddBookScreen({
           <p className="rounded-2xl border border-dashed border-line bg-card px-6 py-10 text-center text-muted">
             {t("get.none")}
           </p>
+        ) : shown.length === 0 ? (
+          <p className="py-10 text-center text-muted">{t("lexile.none")}</p>
         ) : (
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-5">
-            {packs.map((pack) => (
+          series === "grouped" ? (
+          <div className="grid gap-8">
+            {groups.map((group) => (
+              <div key={group.key} className="grid gap-4" data-series-group={group.key}>
+                <h3 className="font-display text-lg font-semibold" lang={group.title ? "en" : undefined}>
+                  {group.title || t("shelf.series.none")}
+                </h3>
+                <ul className={bookCardGrid}>
+                  {group.rows.map((pack) => (
+                    <PackCard
+                      key={pack.id}
+                      pack={pack}
+                      catalogUrl={url}
+                      record={records.find((item) => item.packId === pack.id)}
+                      onShelf={onShelf.has(records.find((item) => item.packId === pack.id)?.bookId ?? "")}
+                      onOpen={onOpen}
+                    />
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <ul className={bookCardGrid}>
+            {shown.map((pack) => (
               <PackCard
                 key={pack.id}
                 pack={pack}
@@ -309,8 +406,11 @@ export function AddBookScreen({
               />
             ))}
           </ul>
+          )
         )}
       </section>
+
+      <WordListSection onAdded={onOpen} />
     </div>
   );
 }

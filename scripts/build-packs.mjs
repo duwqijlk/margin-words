@@ -45,6 +45,42 @@ const ID = /^[a-z0-9][a-z0-9_-]{0,63}$/;
 const ZIP_DATE = new Date("2026-01-01T00:00:00Z");
 
 const sha = (bytes) => createHash("sha256").update(bytes).digest("hex");
+// Same pattern as src/lib/lexile.ts. A bad or missing value is left off the catalog.
+const LEXILE_RE = /^(?:AD|NC|HL|IG|GN|NP)?\d{1,4}L$|^BR\d{1,4}L$/;
+const lexileMeasure = (value) => {
+  const clean = String(value ?? "").replace(/\s+/g, "").toUpperCase();
+  return LEXILE_RE.test(clean) ? clean : "";
+};
+// Same checks as src/lib/book-meta.ts.
+const isbn13Ok = (digits) => {
+  if (!/^97[89]\d{10}$/.test(digits)) return false;
+  let sum = 0;
+  for (let i = 0; i < 12; i += 1) sum += Number(digits[i]) * (i % 2 ? 3 : 1);
+  return (10 - (sum % 10)) % 10 === Number(digits[12]);
+};
+const isbnDigits = (value) => {
+  const compact = String(value ?? "").toUpperCase().replace(/[^0-9X]/g, "");
+  if (isbn13Ok(compact)) return compact;
+  if (/^\d{9}[\dX]$/.test(compact)) {
+    let sum10 = 0;
+    for (let i = 0; i < 10; i += 1) sum10 += (compact[i] === "X" ? 10 : Number(compact[i])) * (10 - i);
+    if (sum10 % 11 !== 0) return "";
+    const core = `978${compact.slice(0, 9)}`;
+    let sum = 0;
+    for (let i = 0; i < 12; i += 1) sum += Number(core[i]) * (i % 2 ? 3 : 1);
+    return core + String((10 - (sum % 10)) % 10);
+  }
+  return "";
+};
+const seriesName = (value) => {
+  if (typeof value !== "string") return "";
+  const name = value.replace(/\s+/g, " ").trim();
+  return name && name.length <= 80 ? name : "";
+};
+const seriesNumber = (value) => {
+  const n = typeof value === "number" ? value : /^\d{1,2}$/.test(String(value ?? "").trim()) ? Number(value) : 0;
+  return Number.isInteger(n) && n >= 1 && n <= 99 ? n : 0;
+};
 const norm = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "");
 const fail = (message) => {
   console.error(`build-packs: ${message}`);
@@ -153,6 +189,10 @@ for (const id of ids) {
   const author = String(info.author ?? stats?.data.author ?? "");
   const level = String(info.level ?? stats?.data.level ?? "");
   const notes = String(info.notes ?? "");
+  const lexile = lexileMeasure(info.lexile ?? stats?.data.lexile ?? "");
+  const isbn = isbnDigits(info.isbn ?? stats?.data.isbn ?? "");
+  const series = seriesName(typeof info.series === "string" ? info.series : stats?.data.series);
+  const number = series ? seriesNumber(info.seriesNumber ?? stats?.data.seriesNumber) : 0;
   // The pack revision changes when the book file or the word list changes.
   const rev = sha(Buffer.from(`${epubSha}\n${list ? sha(list) : ""}`)).slice(0, 12);
   const files = [["book.epub", epub]];
@@ -160,7 +200,9 @@ for (const id of ids) {
   if (cover) files.push([coverName, cover]);
   files.push([
     "pack.json",
-    Buffer.from(`${JSON.stringify({ id, title, author, rev, level, notes }, null, 1)}\n`),
+    Buffer.from(
+      `${JSON.stringify({ id, title, author, rev, level, notes, ...(lexile ? { lexile } : {}), ...(isbn ? { isbn } : {}), ...(series && number ? { series, seriesNumber: number } : {}) }, null, 1)}\n`,
+    ),
   ]);
   const zipBytes = await zipPack(files);
   zips.set(`${id}.zip`, zipBytes);
@@ -174,6 +216,9 @@ for (const id of ids) {
       author,
       level,
       notes,
+      ...(lexile ? { lexile } : {}),
+      ...(isbn ? { isbn } : {}),
+      ...(series && number ? { series, seriesNumber: number } : {}),
       rev,
       version: stats?.data.version ?? 2,
       chapters: Number(stats?.data.chapters) || 0,
