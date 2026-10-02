@@ -317,34 +317,36 @@
     animation: pop-in 0.16s ease-out;
   }
 
-  @keyframes heart-in {
+  @keyframes check-pop {
     0% {
-      transform: scale(0.55);
+      transform: scale(0.4) rotate(-20deg);
+      opacity: 0;
     }
-    55% {
-      transform: scale(1.18);
+    60% {
+      transform: scale(1.2) rotate(4deg);
+      opacity: 1;
     }
     100% {
-      transform: scale(1);
+      transform: none;
     }
   }
 
-  /* Cover lift on hover, and the heart pop. Off when the person prefers less motion. */
-  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-    .shelf-heart {
-      transition:
-        opacity 160ms ease,
-        transform 200ms ease;
+  @keyframes toast-in {
+    from {
+      transform: translateY(12px);
+      opacity: 0;
     }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
 
+  /* Cover lift on hover, the check pop and the toast. Off when the person prefers less motion. */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     .book-card:hover .cover-frame,
-    .book-card:hover .shelf-heart,
     button:hover > .cover-frame {
       transform: translateY(-4px);
-    }
-
-    .book-card:hover .cover-frame,
-    button:hover > .cover-frame {
       box-shadow:
         0 1px 2px rgb(0 0 0 / 0.16),
         0 14px 24px -12px rgb(0 0 0 / 0.38);
@@ -352,32 +354,24 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .shelf-heart[aria-pressed="true"] .heart-icon {
-      animation: heart-in 0.28s ease;
+    .shelf-check {
+      animation: check-pop 0.32s ease-out;
+    }
+
+    .toast-in {
+      animation: toast-in 0.22s ease-out;
     }
   }
 
   /*
-   * On a device that can hover, an empty heart stays out of the way until the card is
-   * hovered or focused. A filled heart stays visible: it is the "on the shelf" mark.
-   * A download or an error stays visible too. Opacity keeps the button in the tab order.
-   * A touch screen has no hover, so the empty heart stays visible, a little smaller.
+   * Reading progress sits on the cover. On a device that can hover it shows on hover or focus
+   * (so a cover stays clean); on a touch screen the bar is always there and the numbers stay hidden.
    */
   .cover-progress-detail {
     display: none;
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .book-card .shelf-heart[data-heart-state="off"] {
-      opacity: 0;
-    }
-
-    .book-card:hover .shelf-heart[data-heart-state="off"],
-    .book-card:focus-within .shelf-heart[data-heart-state="off"],
-    .book-card .shelf-heart[data-heart-state="off"]:focus-visible {
-      opacity: 1;
-    }
-
     .book-card .cover-progress-bar {
       opacity: 0;
     }
@@ -393,13 +387,6 @@
     }
   }
 
-  @media (hover: none), (pointer: coarse) {
-    .shelf-heart[data-heart-state="off"] > span {
-      transform: scale(0.78);
-      opacity: 0.72;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -409,7 +396,6 @@
     }
 
     .book-card:hover .cover-frame,
-    .book-card:hover .shelf-heart,
     button:hover > .cover-frame {
       transform: none;
     }

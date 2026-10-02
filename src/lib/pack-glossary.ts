@@ -16,6 +16,7 @@ type PackRow = {
   forms?: string[];
   senses?: Gloss["senses"];
   coined?: boolean;
+  senseOnly?: boolean;
 };
 
 type PackFile = {
@@ -37,13 +38,14 @@ export async function hashBytes(buffer: ArrayBuffer | Uint8Array): Promise<strin
 
 function toGloss(
   row: PackRow,
-  extra?: { senses?: Gloss["senses"]; forms?: string[]; coined?: boolean },
+  extra?: { senses?: Gloss["senses"]; forms?: string[]; coined?: boolean; senseOnly?: boolean },
 ): Gloss {
   const gloss: Gloss = { pos: row.pos, meaning: row.meaning, whyHard: row.whyHard };
   // Version 2 lists add other meanings and word forms. Version 1 lists stay as they were.
   if (extra?.senses) gloss.senses = extra.senses;
   if (extra?.forms) gloss.forms = extra.forms;
   if (extra?.coined ?? row.coined) gloss.coined = true;
+  if (extra?.senseOnly ?? row.senseOnly) gloss.senseOnly = true;
   if (typeof row.example === "string" && row.example.trim()) gloss.example = row.example.trim();
   return gloss;
 }

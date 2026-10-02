@@ -58,6 +58,7 @@ Optional top-level parts (section 7): `paragraphs[]`, `sentences[]`, `phrases{}`
 | `forms` | no | Other word shapes in the book that belong to this entry (`["saw","sawn"]`). The app adds a tap target for them. |
 | `senses` | no (v2) | List of 1 to 12 senses. |
 | `coined` | no | `true` when the **author invented** the word (for example `snozzcumber`). The reader can then say "made-up word". |
+| `senseOnly` | no | `true`: the entry exists only to hold position-based senses (7.5). The reader underlines and opens the word only at the places named by the `anchors` of its senses, not at every use in the book. Default: `false`. |
 
 The lemma is a lower-case run of letters; one apostrophe or hyphen inside is allowed. The
 app finds the lemma of a tapped word with its own rules (plural `-s`, `-ies`, some irregular
@@ -107,6 +108,11 @@ When the learner taps a word and the book's list has an entry for it:
 The word card shows the chosen meaning. If the entry has other meanings, a small closed
 "Other meanings in this book" list shows them (with the chapters where they are used). Version 1
 entries have no such list.
+
+**`senseOnly` entries.** Step 1 and 2 above also decide *whether the word is underlined at all*. For an entry
+with `"senseOnly": true`, a place with no matching anchor is treated as if the word had no entry: it is not
+underlined, and a tap opens the normal card for a word that is not in the list (steps 3 and 4 are never used).
+See 7.5.
 
 A list can say that one place has only one meaning: two senses may not claim the same
 `chapter` + `occurrence`; the validator rejects this.
@@ -304,7 +310,40 @@ Idioms and `phrase` entries must be next to each other. List a form in `forms` w
 Put `"coined": true` on a word entry when the **author invented** the word (`snozzcumber`, `frobscottle`). Do not use it for real rare words,
 dialect or words the author only spelled in a funny way (`marvellous`). The `meaning` should say what the word is in the story.
 
-### 7.5 Writing rules for all help text
+### 7.5 `senseOnly` entries (uncommon senses of common words)
+
+Some words are everyday words that are only hard in one or two places: `up` in "the lantern was *up* to him",
+`run` in "the lane *ran* beside the river". A normal entry would underline every `up` and `run` in the book,
+hundreds of times. Put `"senseOnly": true` on the entry instead, and give it `senses` with `anchors`:
+
+```json
+"run": {
+  "senseOnly": true,
+  "pos": "verb",
+  "meaning": "Go along or lie along, like a lane by a river.",
+  "forms": ["ran"],
+  "senses": [
+    {
+      "meaning": "Go along or lie along, like a lane by a river.",
+      "forms": ["ran"],
+      "anchors": [{ "chapter": 1, "form": "ran", "context": "lane that led to her house. It ran beside the river" }]
+    }
+  ]
+}
+```
+
+Rules:
+
+- The field is optional and must be `true` or `false`. An entry without it (or with `false`) behaves exactly as before.
+- Only the places named by an anchor are underlined: an anchor with `chapter` + `occurrence` (counted for that
+  spelling, 3.2), or an anchor with a `context` snippet around the word. All other uses are plain text and their card is the
+  normal "not in the list" card. The `default` sense, `forms` fallback and the entry's own `meaning` are not used to
+  decide where the word is underlined.
+- Write the entry's own `meaning` too (the same text as the sense is fine); it is shown in the notebook and lists.
+- A `senseOnly` entry whose senses have no anchors would never be underlined: the validator gives a warning.
+- `senseOnly` needs `"version": 2` in practice, because anchors live in `senses`.
+
+### 7.6 Writing rules for all help text
 
 - English only. Very common words (the 2000 most common words). Short sentences.
 - Only restate the original. Add no new facts, no opinions, no guesses about what happens next.

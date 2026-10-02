@@ -14,6 +14,8 @@ import type { ParagraphHelp, PhraseEntry, SentenceHelp } from "@/lib/glossary-ex
 export type Gloss = {
   /** `true`: the author of the book invented this word (for example "snozzcumber") */
   coined?: boolean;
+  /** `true`: only the places named in `senses` anchors are underlined and open the card (not every occurrence) */
+  senseOnly?: boolean;
   pos: string;
   meaning: string;
   whyHard: string;

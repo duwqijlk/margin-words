@@ -18,10 +18,9 @@ import {
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { loadBookMeta, loadStoredBook, type Gloss, type StoredBook } from "@/lib/book-db";
 import {
-  cleanReadingRoot,
+  entryAppliesAt,
   pickSense,
-  splitWords,
-  wordTextNodes,
+  readingHtml,
   type OtherMeaning,
 } from "@/lib/glossary-format";
 import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
@@ -67,54 +66,6 @@ import {
 } from "@/components/help-panels";
 
 /* ------------------------------------------------------------------ book HTML */
-
-function readingHtml(
-  html: string,
-  ready: Set<string>,
-  resolve: (surface: string) => string,
-): string {
-  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
-  const root = doc.body.firstElementChild;
-  if (!root) return "";
-  cleanReadingRoot(root);
-  for (const el of [...root.querySelectorAll("*")]) {
-    for (const attr of [...el.attributes]) {
-      if (attr.name.startsWith("on") || attr.name === "href" || attr.name === "action")
-        el.removeAttribute(attr.name);
-      // The book's own inline styles would fight the reader's typography settings.
-      if (attr.name === "style" || attr.name === "class") el.removeAttribute(attr.name);
-    }
-  }
-  // Word rule and counting: src/lib/glossary-format.ts (shared with the command-line tools).
-  const nodes = wordTextNodes(doc, root);
-  let order = 0;
-  const seenForms = new Map<string, number>();
-  for (const node of nodes) {
-    const fragment = doc.createDocumentFragment();
-    const parts = splitWords(node.data);
-    parts.forEach((part, at) => {
-      if (at % 2 === 1) {
-        const button = doc.createElement("button");
-        button.type = "button";
-        button.dataset.word = part;
-        button.dataset.i = String(order);
-        order += 1;
-        const form = part.toLowerCase();
-        const nth = (seenForms.get(form) ?? 0) + 1;
-        seenForms.set(form, nth);
-        button.dataset.n = String(nth);
-        button.textContent = part;
-        const key = resolve(part);
-        if (ready.has(key)) button.className = "book-hard";
-        fragment.append(button);
-      } else if (part) {
-        fragment.append(doc.createTextNode(part));
-      }
-    });
-    node.parentNode?.replaceChild(fragment, node);
-  }
-  return root.innerHTML;
-}
 
 /* ------------------------------------------------------------------ typography panel */
 
@@ -554,10 +505,10 @@ function WordCard({
         "fixed z-40 max-h-[46dvh] overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
         // Phone: a sheet on the edge that is away from the tapped word.
         dock === "bottom"
-          ? "anim-sheet inset-x-0 bottom-0 rounded-t-3xl border-t pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
-          : "anim-sheet-top inset-x-0 top-0 rounded-b-3xl border-b pt-[max(0.75rem,env(safe-area-inset-top))] pb-3",
+          ? "anim-sheet inset-x-0 bottom-0 rounded-t-3xl border-t pt-3"
+          : "anim-sheet-top inset-x-0 top-0 rounded-b-3xl border-b pt-[max(0.75rem,env(safe-area-inset-top))]",
         // Desktop: a card on the side that is away from the tapped word.
-        "lg:inset-x-auto lg:top-[4.5rem] lg:bottom-5 lg:max-h-none lg:w-[21rem] lg:rounded-2xl lg:border lg:pt-5 lg:pb-5",
+        "lg:inset-x-auto lg:top-[4.5rem] lg:bottom-5 lg:max-h-none lg:w-[21rem] lg:rounded-2xl lg:border lg:pt-5",
         side === "left" ? "lg:left-5" : "lg:right-5",
       )}
     >
@@ -715,28 +666,36 @@ function WordCard({
 
         <WordFacts stat={stat} current={state.sentence} />
 
-        <button
-          type="button"
-          className={saved ? btn.quiet : btn.primary}
-          disabled={!saved && !state.ready}
-          onClick={onToggle}
-          aria-pressed={saved}
-        >
-          {saved ? (
-            <>
-              <Check className="size-4 text-accent" aria-hidden />
-              {t("card.saved")}
-            </>
-          ) : (
-            <>
-              <BookMarked className="size-4" aria-hidden />
-              {t("card.add")}
-            </>
+        <div
+          className={cn(
+            // The main action stays in view while the card scrolls.
+            "sticky bottom-0 z-10 -mx-5 grid bg-card px-5 pt-2 lg:pb-5",
+            dock === "bottom" ? "pb-[max(1.25rem,env(safe-area-inset-bottom))]" : "pb-3",
           )}
-        </button>
+        >
+          <button
+            type="button"
+            className={saved ? btn.quiet : btn.primary}
+            disabled={!saved && !state.ready}
+            onClick={onToggle}
+            aria-pressed={saved}
+          >
+            {saved ? (
+              <>
+                <Check className="size-4 text-accent" aria-hidden />
+                {t("card.saved")}
+              </>
+            ) : (
+              <>
+                <BookMarked className="size-4" aria-hidden />
+                {t("card.add")}
+              </>
+            )}
+          </button>
+        </div>
       </div>
       {dock === "top" ? (
-        <div className="mx-auto mt-3 h-1 w-10 rounded-full bg-line lg:hidden" aria-hidden />
+        <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-line lg:hidden" aria-hidden />
       ) : null}
     </aside>
   );
@@ -851,15 +810,18 @@ export function ReaderScreen({
 
   const marked = useMemo(() => {
     const ready = new Set<string>();
+    // Entries that hold only position-based senses: underlined at their anchors, not everywhere.
+    const sparse = new Map<string, Gloss>();
     // Word lists may name extra forms ("sawn" -> "saw"); the book's own list decides.
     const forms = new Map<string, string>();
     if (book) {
       for (const [key, gloss] of Object.entries(book.glossary)) {
         ready.add(key);
+        if (gloss.senseOnly === true) sparse.set(key, gloss);
         for (const form of gloss.forms ?? []) if (!forms.has(form)) forms.set(form, key);
       }
     }
-    return { ready, forms };
+    return { ready, forms, sparse };
   }, [book]);
   const resolveKey = useCallback(
     (surface: string) => {
@@ -872,8 +834,8 @@ export function ReaderScreen({
     [marked],
   );
   const linkedHtml = useMemo(
-    () => (chapterHtml ? readingHtml(chapterHtml, marked.ready, resolveKey) : ""),
-    [chapterHtml, marked, resolveKey],
+    () => (chapterHtml ? readingHtml(chapterHtml, marked.ready, resolveKey, safeIndex, marked.sparse) : ""),
+    [chapterHtml, marked, resolveKey, safeIndex],
   );
   const bookChapters = book?.chapters;
   const bookStats = useMemo(() => (bookChapters ? indexBook(bookChapters) : {}), [bookChapters]);
@@ -894,10 +856,11 @@ export function ReaderScreen({
     if (!root) return;
     for (const button of root.querySelectorAll<HTMLButtonElement>("button[data-word]")) {
       const key = resolveKey(button.dataset.word ?? "");
-      button.classList.toggle("book-saved", savedKeys.has(key));
+      const sparseOff = marked.sparse.has(key) && !button.classList.contains("book-hard");
+      button.classList.toggle("book-saved", savedKeys.has(key) && !sparseOff);
       button.classList.toggle("book-on", pickedIndex !== "" && button.dataset.i === pickedIndex);
     }
-  }, [linkedHtml, savedKeys, pickedIndex, resolveKey]);
+  }, [linkedHtml, savedKeys, pickedIndex, resolveKey, marked]);
 
   // Restore the saved reading position once per chapter, after its text is on screen.
   useLayoutEffect(() => {
@@ -1171,18 +1134,21 @@ export function ReaderScreen({
   function cardFor(tap: NonNullable<typeof picked>): CardState {
     const { surface, paragraph } = tap;
     const key = resolveKey(surface);
-    const gloss: Gloss | undefined = book?.glossary[key];
     const sentence = sentenceAround(paragraph, surface, tap.before.length);
     const fullSentence = wholeSentence(paragraph, surface, tap.before.length);
+    const tapAt = {
+      chapter: safeIndex,
+      surface,
+      occurrence: tap.nth,
+      paragraph,
+      before: tap.before,
+    };
+    let gloss: Gloss | undefined = book?.glossary[key];
+    // A senseOnly entry says nothing about the places its senses do not name.
+    if (gloss && !entryAppliesAt(key, gloss, tapAt)) gloss = undefined;
     if (gloss) {
       // Which meaning fits this place in the book? (word list format version 2)
-      const choice = pickSense(key, gloss, {
-        chapter: safeIndex,
-        surface,
-        occurrence: tap.nth,
-        paragraph,
-        before: tap.before,
-      });
+      const choice = pickSense(key, gloss, tapAt);
       return {
         surface,
         key,
@@ -1226,7 +1192,9 @@ export function ReaderScreen({
   }
 
   const card = picked ? cardFor(picked) : null;
-  const alreadySaved = pickedKey ? savedKeys.has(pickedKey) : false;
+  const alreadySaved = pickedKey
+    ? savedKeys.has(pickedKey) && !(marked.sparse.has(pickedKey) && card?.status !== "ready")
+    : false;
   const noList = Object.keys(book.glossary).length === 0;
   const fraction = overallProgress({
     chapter: safeIndex,

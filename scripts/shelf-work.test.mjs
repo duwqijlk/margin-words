@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { bookHasUserWork } from "../src/lib/shelf-heart.ts";
+import { bookHasUserWork } from "../src/lib/shelf-work.ts";
 
 const fresh = { chapter: 0, scroll: 0, updatedAt: 0 };
 

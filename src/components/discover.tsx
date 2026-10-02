@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { OldFashionedBadge } from "@/components/cover-marks";
+import { Search } from "lucide-react";
+import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
 import { BookCover } from "@/components/shelf";
-import { ShelfHeart } from "@/components/shelf-heart";
+import { AddToShelfButton, type ShelfState } from "@/components/shelf-actions";
 import { BookMetaLines, DifficultyControls, matchesBand, type BandChoice, type SortChoice } from "@/components/lexile-ui";
 import {
   bookCardGrid,
@@ -19,7 +20,7 @@ import { errorText, useT } from "@/lib/i18n";
 import { compareLexile } from "@/lib/lexile";
 import { placeWordList } from "@/lib/place-word-list";
 import { useProgress } from "@/lib/progress-store";
-import { bookHasUserWork } from "@/lib/shelf-heart";
+import { bookHasUserWork } from "@/lib/shelf-work";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import type { Book } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
@@ -43,7 +44,7 @@ type Row = {
 };
 
 /**
- * Every book we have, from the books host. Nothing is downloaded until the heart is tapped.
+ * Every book we have, from the books host. Nothing is downloaded until "Add to shelf" is tapped.
  */
 export function DiscoverScreen({
   shelf,
@@ -180,30 +181,34 @@ export function DiscoverScreen({
     }
   }
 
-  function toggle(row: Row, record: PackRecord | undefined, book: Book | undefined, onShelf: boolean) {
+  function add(row: Row, record: PackRecord | undefined) {
     if (record && pendingId === record.bookId) {
       useShelfRemove.getState().undo();
       return;
     }
-    if (onShelf && book && record) {
-      const savedWords = useVocab.getState().words.filter((word) => word.bookId === book.id).length;
-      useShelfRemove.getState().ask(
-        book,
-        bookHasUserWork({
-          source: book.source,
-          needsEpub: book.needsEpub,
-          classic: row.kind === "classic",
-          savedWords,
-          progress: useProgress.getState().items[book.id] ?? null,
-        }),
-        savedWords,
-      );
-      return;
-    }
     if (row.kind === "classic" && row.pack) {
-      useDownloads.getState().dismiss(row.pack.id);
-      void start(BUNDLED_CATALOG_URL, row.pack);
+      const pack = row.pack;
+      useDownloads.getState().dismiss(pack.id);
+      void start(BUNDLED_CATALOG_URL, pack).then(() => {
+        if (!useDownloads.getState().items[pack.id]?.error) useShelfRemove.getState().announceAdded(row.title);
+      });
     } else if (row.list) void addList(row.list);
+  }
+
+  function remove(row: Row, record: PackRecord | undefined, book: Book | undefined) {
+    if (!record || !book) return;
+    const savedWords = useVocab.getState().words.filter((word) => word.bookId === book.id).length;
+    useShelfRemove.getState().ask(
+      book,
+      bookHasUserWork({
+        source: book.source,
+        needsEpub: book.needsEpub,
+        classic: row.kind === "classic",
+        savedWords,
+        progress: useProgress.getState().items[book.id] ?? null,
+      }),
+      savedWords,
+    );
   }
 
   function renderCard(row: Row) {
@@ -214,6 +219,7 @@ export function DiscoverScreen({
     const item = row.kind === "classic" ? items[row.id] : undefined;
     const busy = Boolean(item && !item.error) || busyId === row.id;
     const cardError = busy ? "" : item?.error || listError[row.id] || "";
+    const state: ShelfState = busy ? "busy" : cardError ? "error" : held ? "on" : "off";
     return (
       <li
         key={row.key}
@@ -233,26 +239,18 @@ export function DiscoverScreen({
           ) : (
             <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
           )}
-          <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-3.25rem)] flex-col items-start gap-1">
-            <span
-              className={cn(
-                "rounded-full px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold shadow-sm",
-                needs ? "bg-warn text-accent-ink" : row.kind === "classic" ? "bg-accent text-accent-ink" : "bg-card/95 text-ink ring-1 ring-line",
-              )}
-              {...(needs ? { "data-needs-epub": "" } : { "data-kind": row.kind })}
-            >
-              {needs ? t("shelf.needsEpub") : row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}
-            </span>
+          <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-1rem)] flex-col items-start gap-1">
+            {needs ? (
+              <CoverBadge tone="needs" data-needs-epub="">
+                {t("shelf.needsEpub")}
+              </CoverBadge>
+            ) : (
+              <CoverBadge tone={row.kind === "classic" ? "publicDomain" : "list"} data-kind={row.kind}>
+                {row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}
+              </CoverBadge>
+            )}
             {row.oldFashioned ? <OldFashionedBadge reason={row.oldFashionedReason} /> : null}
           </div>
-          <ShelfHeart
-            pressed={held}
-            busy={busy}
-            fraction={busy && item ? item.fraction : undefined}
-            error={cardError}
-            title={row.title}
-            onClick={() => toggle(row, record, book, held)}
-          />
         </div>
         <div className="grid flex-1 content-start gap-1">
           <h3 className={cardTitleClass} lang="en">
@@ -279,30 +277,45 @@ export function DiscoverScreen({
             aside={row.oldFashioned ? t("shelf.oldFashionedNote") : undefined}
           />
         </div>
+        <div className="mt-auto pt-1">
+          <AddToShelfButton
+            state={state}
+            fraction={busy && item ? item.fraction : undefined}
+            error={cardError}
+            title={row.title}
+            onAdd={() => add(row, record)}
+            onOpen={() => record && onOpen(record.bookId)}
+            onRemove={() => remove(row, record, book)}
+          />
+        </div>
       </li>
     );
   }
 
   return (
-    <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-6 sm:px-6" data-discover>
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div className="grid gap-1">
-          <h1 className="font-display text-3xl font-semibold">{t("discover.title")}</h1>
-          <p className="max-w-xl text-sm text-muted">{t("discover.hint")}</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
+    <div className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-6 sm:gap-6 sm:px-6" data-discover>
+      <div className="grid gap-1">
+        <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("discover.title")}</h1>
+        <p className="max-w-xl text-sm text-muted">{t("discover.hint")}</p>
+      </div>
+      <div className="grid gap-3">
+        <label className="relative block">
+          <span className="sr-only">{t("discover.search")}</span>
+          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted" aria-hidden />
+          <input
+            className={cn(field, "pl-9")}
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={t("discover.search")}
+            data-discover-search
+          />
+        </label>
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap [&_select]:w-full sm:[&_select]:w-auto [&>div]:contents">
           <DifficultyControls sort={sort} sorts={["listed", "easy", "hard", "title"]} onSort={setSort} band={band} onBand={setBand} />
           <ListFilters authors={authors} seriesNames={seriesNames} author={author} series={series} onAuthor={setAuthor} onSeries={setSeries} />
         </div>
       </div>
-      <input
-        className={field}
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-        placeholder={t("discover.search")}
-        aria-label={t("discover.search")}
-        data-discover-search
-      />
       {error ? (
         <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">
           {error}

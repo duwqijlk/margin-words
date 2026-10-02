@@ -1,4 +1,4 @@
-import { AlertCircle, BookOpen, CheckCircle2, Settings, X } from "lucide-react";
+import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Library, NotebookPen, Settings, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   checkBookStorage,
@@ -26,7 +26,8 @@ import { OwnEpubDialog } from "@/components/own-epub-dialog";
 import { ReaderScreen } from "@/components/reader";
 import { ReviewScreen } from "@/components/review";
 import { Shelf, useCovers } from "@/components/shelf";
-import { ShelfRemoveHost } from "@/components/shelf-heart";
+import { ShelfToastHost } from "@/components/shelf-actions";
+import { finishPendingRemoval, useShelfRemove } from "@/lib/shelf-remove";
 import { btn, cn } from "@/components/ui";
 import { LanguageButton } from "@/components/language";
 import { WordListDialog, type ListFlow } from "@/components/word-list";
@@ -149,6 +150,7 @@ export function MarginApp() {
         // The shelf can still be rebuilt from the saved books.
       }
       markVocabHydrated();
+      await finishPendingRemoval();
       try {
         // Summaries only: loading every chapter and image here made the shelf slow.
         const [storedResult, notesResult] = await Promise.allSettled([
@@ -318,12 +320,49 @@ export function MarginApp() {
     setScreen(book?.source === "epub" ? { kind: "read", bookId } : { kind: "words", bookId });
   }
 
+  useEffect(() => {
+    if (screen.kind === "shelf") useShelfRemove.getState().dismissNotice();
+  }, [screen.kind]);
   const reading = screen.kind === "read";
+  const tabs = [
+    {
+      id: "shelf",
+      label: t("nav.shelf"),
+      Icon: Library,
+      active: screen.kind === "shelf" || screen.kind === "get",
+      go: () => setScreen({ kind: "shelf" }),
+      badge: 0,
+    },
+    {
+      id: "discover",
+      label: t("nav.discover"),
+      Icon: Compass,
+      active: screen.kind === "discover",
+      go: () => setScreen({ kind: "discover" }),
+      badge: 0,
+    },
+    {
+      id: "guide",
+      label: t("nav.guide"),
+      Icon: CircleHelp,
+      active: screen.kind === "guide",
+      go: () => setScreen({ kind: "guide" }),
+      badge: 0,
+    },
+    {
+      id: "notebook",
+      label: t("nav.notebook"),
+      Icon: NotebookPen,
+      active: screen.kind === "words" || screen.kind === "review",
+      go: () => setScreen({ kind: "words", bookId: null }),
+      badge: due,
+    },
+  ];
   const canDrop = !reading && (screen.kind === "shelf" || screen.kind === "get");
 
   return (
     <div
-      className="min-h-dvh bg-paper text-ink"
+      className={cn("min-h-dvh bg-paper text-ink", !reading && "max-sm:pb-[calc(4.25rem+env(safe-area-inset-bottom))]")}
       onDragOver={(event) => {
         if (canDrop && event.dataTransfer.types.includes("Files")) {
           event.preventDefault();
@@ -386,34 +425,15 @@ export function MarginApp() {
               <BookOpen className="size-6 text-accent" aria-hidden />
               <span className="max-sm:sr-only">{t("common.brand")}</span>
             </button>
-            <nav className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto" aria-label={t("nav.main")}>
-              <NavButton
-                active={screen.kind === "shelf" || screen.kind === "get"}
-                onClick={() => setScreen({ kind: "shelf" })}
-              >
-                {t("nav.shelf")}
-              </NavButton>
-              <NavButton active={screen.kind === "discover"} onClick={() => setScreen({ kind: "discover" })}>
-                {t("nav.discover")}
-              </NavButton>
-              <NavButton active={screen.kind === "guide"} onClick={() => setScreen({ kind: "guide" })}>
-                {t("nav.guide")}
-              </NavButton>
-              <NavButton
-                active={screen.kind === "words" || screen.kind === "review"}
-                onClick={() => setScreen({ kind: "words", bookId: null })}
-              >
-                {t("nav.notebook")}
-                {due > 0 ? (
-                  <span
-                    className="rounded-full bg-warn px-1.5 text-[0.7rem] leading-5 font-bold text-accent-ink tabular-nums"
-                    aria-label={t("nav.dueAria", { n: due })}
-                  >
-                    {due}
-                  </span>
-                ) : null}
-              </NavButton>
+            <nav className="hidden min-w-0 flex-1 items-center gap-1 sm:flex" aria-label={t("nav.main")}>
+              {tabs.map((tab) => (
+                <NavButton key={tab.id} active={tab.active} onClick={tab.go}>
+                  {tab.label}
+                  {tab.badge > 0 ? <DueBadge n={tab.badge} /> : null}
+                </NavButton>
+              ))}
             </nav>
+            <div className="min-w-0 flex-1 sm:hidden" />
             <LanguageButton />
             <button
               type="button"
@@ -425,6 +445,44 @@ export function MarginApp() {
             </button>
           </div>
         </header>
+      )}
+
+      {reading ? null : (
+        <nav
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden"
+          aria-label={t("nav.main")}
+          data-tab-bar
+        >
+          <div className="mx-auto grid max-w-md grid-cols-4">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={tab.go}
+                aria-current={tab.active ? "page" : undefined}
+                className={cn(
+                  "group flex min-h-[4.25rem] flex-col items-center justify-center gap-1 px-1 text-[0.72rem] leading-none font-semibold transition-colors",
+                  tab.active ? "text-accent" : "text-muted active:text-ink",
+                )}
+              >
+                <span
+                  className={cn(
+                    "relative flex h-8 w-14 items-center justify-center rounded-full transition-colors",
+                    tab.active ? "bg-accent-soft" : "group-active:bg-accent-soft/60",
+                  )}
+                >
+                  <tab.Icon className="size-[1.35rem]" strokeWidth={tab.active ? 2.4 : 2} aria-hidden />
+                  {tab.badge > 0 ? (
+                    <span className="absolute top-0 right-1.5">
+                      <DueBadge n={tab.badge} />
+                    </span>
+                  ) : null}
+                </span>
+                <span className="max-w-full truncate">{tab.label}</span>
+              </button>
+            ))}
+          </div>
+        </nav>
       )}
 
       {reading ? null : (
@@ -535,7 +593,7 @@ export function MarginApp() {
         onOpenChange={setSettingsOpen}
         onSaved={() => setSettingsVersion((n) => n + 1)}
       />
-      <ShelfRemoveHost />
+      <ShelfToastHost onViewShelf={() => setScreen({ kind: "shelf" })} aboveTabs={!reading} />
       <WordListDialog
         flow={listFlow}
         books={orderedBooks
@@ -601,6 +659,18 @@ function Banner({
         </button>
       ) : null}
     </div>
+  );
+}
+
+function DueBadge({ n }: { n: number }) {
+  const { t } = useT();
+  return (
+    <span
+      className="rounded-full bg-warn px-1.5 text-[0.7rem] leading-5 font-bold text-accent-ink tabular-nums"
+      aria-label={t("nav.dueAria", { n })}
+    >
+      {n}
+    </span>
   );
 }
 

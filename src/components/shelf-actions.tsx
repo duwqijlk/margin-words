@@ -1,0 +1,221 @@
+import * as Popover from "@radix-ui/react-popover";
+import { BookOpen, Check, ChevronDown, Loader2, Plus, RotateCw, Trash2, Undo2 } from "lucide-react";
+import { useRef, useState } from "react";
+import { ConfirmDialog, cn } from "@/components/ui";
+import { useT } from "@/lib/i18n";
+import { forgetBook, useShelfRemove } from "@/lib/shelf-remove";
+
+export type ShelfState = "off" | "busy" | "on" | "error";
+
+/**
+ * The one control that puts a book on the shelf and takes it off again, under a cover on Discover.
+ * It says what it does in words, in every state, on touch and on desktop (no hover needed):
+ *   "+ Add to shelf"  ->  "Adding… 40%"  ->  "✓ On shelf ▾" (a small menu: open the book, or remove it).
+ * It is one button the whole time, so keyboard focus stays on it while the state changes.
+ */
+export function AddToShelfButton({
+  state,
+  fraction,
+  error = "",
+  title,
+  onAdd,
+  onOpen,
+  onRemove,
+}: {
+  state: ShelfState;
+  /** 0..1 while a public-domain book downloads. Omitted for a word list, which has no byte count. */
+  fraction?: number;
+  error?: string;
+  title: string;
+  onAdd: () => void;
+  onOpen: () => void;
+  onRemove: () => void;
+}) {
+  const { t } = useT();
+  const [open, setOpen] = useState(false);
+  const button = useRef<HTMLButtonElement>(null);
+  const pct = fraction == null ? null : Math.round(Math.min(1, Math.max(0, fraction)) * 100);
+  const label =
+    state === "on"
+      ? t("discover.onShelf")
+      : state === "busy"
+        ? pct != null && pct > 0
+          ? t("discover.workingPct", { pct })
+          : t("discover.working")
+        : state === "error"
+          ? t("discover.retry")
+          : t("discover.add");
+  const Icon = state === "on" ? Check : state === "busy" ? Loader2 : state === "error" ? RotateCw : Plus;
+  return (
+    <div className="grid gap-1.5">
+      <Popover.Root open={state === "on" && open} onOpenChange={setOpen}>
+        <Popover.Anchor asChild>
+          <button
+            ref={button}
+            type="button"
+            data-shelf-add=""
+            data-shelf-state={state}
+            aria-busy={state === "busy" || undefined}
+            aria-disabled={state === "busy" || undefined}
+            aria-haspopup={state === "on" ? "dialog" : undefined}
+            aria-expanded={state === "on" ? open : undefined}
+            className={cn(
+              "shelf-add relative inline-flex min-h-11 w-full items-center justify-center gap-2 overflow-hidden rounded-xl border px-3 text-sm font-semibold transition-colors",
+              state === "off" && "border-accent bg-card text-accent hover:bg-accent-soft",
+              state === "on" && "border-transparent bg-accent-soft text-accent hover:bg-accent-soft/70",
+              state === "busy" && "cursor-progress border-line bg-card text-muted",
+              state === "error" && "border-warn bg-warn-soft text-warn hover:opacity-90",
+            )}
+            onClick={() => {
+              if (state === "off" || state === "error") onAdd();
+              else if (state === "on") setOpen((value) => !value);
+            }}
+          >
+            {state === "busy" && pct != null ? (
+              <span
+                className="pointer-events-none absolute inset-y-0 left-0 bg-accent-soft transition-[width] duration-200"
+                style={{ width: `${pct}%` }}
+                aria-hidden
+              />
+            ) : null}
+            <Icon
+              key={state}
+              className={cn("relative size-[1.1rem] shrink-0", state === "busy" && "animate-spin", state === "on" && "shelf-check")}
+              strokeWidth={state === "on" ? 2.75 : 2.25}
+              aria-hidden
+            />
+            <span className="relative truncate">{label}</span>
+            {state === "on" ? <ChevronDown className="relative -ml-0.5 size-4 shrink-0 opacity-70" aria-hidden /> : null}
+            <span className="sr-only">: {title}</span>
+            {state === "busy" ? (
+              <span
+                className="sr-only"
+                role="progressbar"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={pct ?? 0}
+                aria-label={t("pack.progressFor", { title })}
+              />
+            ) : null}
+          </button>
+        </Popover.Anchor>
+        <Popover.Portal>
+          <Popover.Content
+            align="start"
+            sideOffset={6}
+            collisionPadding={8}
+            onCloseAutoFocus={(event) => {
+              event.preventDefault();
+              button.current?.focus();
+            }}
+            className="anim-pop z-50 grid w-[var(--radix-popover-trigger-width)] min-w-48 gap-0.5 rounded-xl border border-line bg-card p-1.5 text-ink shadow-pop"
+          >
+            <button
+              type="button"
+              className="flex min-h-11 items-center gap-2.5 rounded-lg px-3 text-left text-sm font-medium hover:bg-accent-soft"
+              onClick={() => {
+                setOpen(false);
+                onOpen();
+              }}
+            >
+              <BookOpen className="size-4" aria-hidden />
+              {t("discover.openBook")}
+            </button>
+            <button
+              type="button"
+              data-shelf-remove=""
+              className="flex min-h-11 items-center gap-2.5 rounded-lg px-3 text-left text-sm font-medium text-warn hover:bg-warn-soft"
+              onClick={() => {
+                setOpen(false);
+                onRemove();
+              }}
+            >
+              <Trash2 className="size-4" aria-hidden />
+              {t("discover.remove")}
+            </button>
+          </Popover.Content>
+        </Popover.Portal>
+      </Popover.Root>
+      {error ? (
+        <p role="alert" className="line-clamp-3 text-xs leading-4 font-medium text-warn">
+          {error}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+/**
+ * Messages at the bottom of the screen, and the confirm step. Rendered once, so they stay up when the
+ * screen changes. "Removed" has an Undo until the book is really deleted. "Added" says where the book went.
+ */
+export function ShelfToastHost({
+  onViewShelf,
+  aboveTabs = false,
+}: {
+  onViewShelf: () => void;
+  /** True on a phone when the bottom tab bar is showing. */
+  aboveTabs?: boolean;
+}) {
+  const { t, tn } = useT();
+  const pending = useShelfRemove((state) => state.pending);
+  const notice = useShelfRemove((state) => state.notice);
+  const confirm = useShelfRemove((state) => state.confirm);
+  const undo = useShelfRemove((state) => state.undo);
+  const cancel = useShelfRemove((state) => state.cancel);
+  const dismissNotice = useShelfRemove((state) => state.dismissNotice);
+  const shell = cn(
+    "toast-in fixed inset-x-4 z-50 mx-auto flex max-w-md items-center gap-3 rounded-2xl bg-ink py-2.5 pr-2.5 pl-4 text-sm font-medium text-paper shadow-pop",
+    aboveTabs ? "bottom-[calc(4.75rem+env(safe-area-inset-bottom))] sm:bottom-4" : "bottom-[calc(1rem+env(safe-area-inset-bottom))]",
+  );
+  const action =
+    "inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-xl px-3 font-semibold text-accent-soft hover:bg-paper/15";
+  return (
+    <>
+      {pending ? (
+        <div data-undo-toast role="status" className={shell}>
+          <Trash2 className="size-4 shrink-0 opacity-80" aria-hidden />
+          <p className="min-w-0 flex-1 leading-snug">{t("discover.removed", { title: pending.title })}</p>
+          <button type="button" className={action} onClick={undo}>
+            <Undo2 className="size-4" aria-hidden />
+            {t("discover.undo")}
+          </button>
+        </div>
+      ) : notice ? (
+        <div data-added-toast key={notice.id} role="status" className={shell}>
+          <Check className="size-4 shrink-0 text-accent-soft" strokeWidth={3} aria-hidden />
+          <p className="min-w-0 flex-1 leading-snug">{t("discover.added", { title: notice.title })}</p>
+          <button
+            type="button"
+            className={action}
+            onClick={() => {
+              dismissNotice();
+              onViewShelf();
+            }}
+          >
+            {t("discover.viewShelf")}
+          </button>
+        </div>
+      ) : null}
+      <ConfirmDialog
+        open={confirm !== null}
+        onOpenChange={(open) => {
+          if (!open) cancel();
+        }}
+        title={confirm ? t("discover.removeTitle", { title: confirm.book.title }) : t("discover.removeTitle", { title: "" })}
+        description={
+          confirm && confirm.words > 0
+            ? t("discover.removeBodyWords", { words: tn("count.word", confirm.words) })
+            : t("discover.removeBody")
+        }
+        confirmLabel={t("discover.removeConfirm")}
+        onConfirm={() => {
+          if (!confirm) return;
+          const id = confirm.book.id;
+          cancel();
+          void forgetBook(id);
+        }}
+      />
+    </>
+  );
+}

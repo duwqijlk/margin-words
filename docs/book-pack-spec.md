@@ -125,6 +125,7 @@ type Entry = {
   forms?: string[];     // other spellings in the book that belong to this entry (lower case, one plain word each)
   senses?: Sense[];     // 1 to 12 meanings (version 2 only)
   coined?: boolean;     // true only if the AUTHOR INVENTED the word
+  senseOnly?: boolean;  // true: underline/open the word ONLY at the places named by the anchors of its senses (4.7)
 };
 type Sense = {
   meaning: string;      // REQUIRED. Max 600.
@@ -213,6 +214,14 @@ cannot derive. A phrase card shows only when the whole phrase is in the tapped s
 `"coined": true` marks a word the author made up (`moonwick`, `snozzcumber`). Not for rare real words, dialect or funny
 spellings. Start the meaning with "In this story, ...".
 
+### 4.7 `senseOnly`
+
+Use `"senseOnly": true` for an everyday word (`up`, `run`, `light`) that is only hard in one or two places. Without it the reader
+underlines every use of the word in the book. With it, the reader underlines and opens the word ONLY where an anchor of one of its
+`senses` names the place (`chapter` + `occurrence`, or a `context` snippet). Every other use is plain text with the normal "not in the
+list" card. Write at least one anchor (the validator warns if no sense has one), and also write the entry's own `meaning`.
+An entry without the field (or with `false`) behaves as before. Needs `"version": 2`.
+
 ## 5. How the reader numbers the book (needed for anchors and notes)
 
 If you have the project tools, use them (section 8). If not, follow these rules exactly.
@@ -265,6 +274,8 @@ Never fix spelling, never shorten with "...", never paraphrase.
 5. No entry: "No meaning for this word in this book yet."
 
 The card also lists the other senses under "Other meanings in this book".
+
+For a `senseOnly` entry, only steps 1 and 2 count: if no anchor names the tapped place, the word is not underlined and has no entry there.
 
 ## 7. Content rules
 

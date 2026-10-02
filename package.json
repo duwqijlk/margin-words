@@ -18,6 +18,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "check:example": "node scripts/check-example.mjs",
+    "test:sense-only": "node scripts/sense-only-e2e.mjs",
     "make:sample": "node scripts/make-sample-epub.mjs",
     "build:kit": "node scripts/build-kit.mjs"
   },

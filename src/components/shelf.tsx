@@ -23,11 +23,10 @@ import { useVocab } from "@/lib/vocab-store";
 import type { Book, VocabEntry } from "@/lib/vocab-model";
 import { useT, type Key } from "@/lib/i18n";
 import { useClassicBookIds, useClassicsRunning } from "@/lib/classics";
-import { bookHasUserWork } from "@/lib/shelf-heart";
-import { forgetBook, useShelfRemove } from "@/lib/shelf-remove";
-import { OldFashionedBadge } from "@/components/cover-marks";
-import { ShelfHeart } from "@/components/shelf-heart";
-import { btn, cn, ConfirmDialog, field, ProgressBar } from "@/components/ui";
+import { bookHasUserWork } from "@/lib/shelf-work";
+import { useShelfRemove } from "@/lib/shelf-remove";
+import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
+import { btn, cn, field, ProgressBar } from "@/components/ui";
 import { compareLexile } from "@/lib/lexile";
 import {
   BookMetaLines,
@@ -413,7 +412,6 @@ function BookCard({
   onNotebook,
   onAddList,
   onRename,
-  onDelete,
 }: {
   row: Row;
   cover?: string;
@@ -422,7 +420,6 @@ function BookCard({
   onNotebook: () => void;
   onAddList: () => void;
   onRename: () => void;
-  onDelete: () => void;
 }) {
   const { t } = useT();
   const { book } = row;
@@ -438,21 +435,15 @@ function BookCard({
         >
           <BookCover title={book.title} author={book.author} cover={cover} />
         </button>
-        <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-3.25rem)] flex-col items-start gap-1">
+        <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-1rem)] flex-col items-start gap-1">
           {book.needsEpub ? (
-            <span
-              className="rounded-full bg-warn px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
-              data-needs-epub
-            >
+            <CoverBadge tone="needs" data-needs-epub="">
               {t("shelf.needsEpub")}
-            </span>
+            </CoverBadge>
           ) : classic ? (
-            <span
-              className="rounded-full bg-accent px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
-              data-classic-label
-            >
+            <CoverBadge tone="publicDomain" data-classic-label="">
               {t("shelf.classic")}
-            </span>
+            </CoverBadge>
           ) : null}
           {book.oldFashioned ? <OldFashionedBadge reason={book.oldFashionedReason} /> : null}
         </div>
@@ -473,24 +464,6 @@ function BookCard({
             />
           </div>
         ) : null}
-        <ShelfHeart
-          pressed
-          title={book.title}
-          onClick={() => {
-            const savedWords = row.words;
-            useShelfRemove.getState().ask(
-              book,
-              bookHasUserWork({
-                source: book.source,
-                needsEpub: book.needsEpub,
-                classic,
-                savedWords,
-                progress: row.progress ?? null,
-              }),
-              savedWords,
-            );
-          }}
-        />
         {row.due > 0 ? (
           <span className="pointer-events-none absolute right-2 bottom-3 z-[2] rounded-full bg-warn px-2 py-0.5 text-[0.7rem] font-bold text-accent-ink tabular-nums shadow">
             {t("shelf.due", { n: row.due })}
@@ -534,12 +507,26 @@ function BookCard({
                   <Pencil className="size-4" aria-hidden />
                   {t("shelf.menuEdit")}
                 </Menu.Item>
+                <Menu.Separator className="my-1 h-px bg-line" />
                 <Menu.Item
                   className={cn(menuItem, "text-warn data-[highlighted]:bg-warn-soft")}
-                  onSelect={onDelete}
+                  data-shelf-remove=""
+                  onSelect={() =>
+                    useShelfRemove.getState().ask(
+                      book,
+                      bookHasUserWork({
+                        source: book.source,
+                        needsEpub: book.needsEpub,
+                        classic,
+                        savedWords: row.words,
+                        progress: row.progress ?? null,
+                      }),
+                      row.words,
+                    )
+                  }
                 >
                   <Trash2 className="size-4" aria-hidden />
-                  {t("shelf.menuDelete")}
+                  {t("discover.remove")}
                 </Menu.Item>
               </Menu.Content>
             </Menu.Portal>
@@ -603,7 +590,6 @@ export function Shelf({
   const [author, setAuthor] = useState("all");
   const [series, setSeries] = useState<SeriesChoice>("all");
   const [renaming, setRenaming] = useState<Book | null>(null);
-  const [deleting, setDeleting] = useState<Book | null>(null);
 
   const liveBooks = useMemo(
     () => books.filter((book) => book.id !== pendingId),
@@ -774,7 +760,6 @@ export function Shelf({
                             onNotebook={() => onNotebook(row.book.id)}
                             onAddList={() => onAddList(row.book.id)}
                             onRename={() => setRenaming(row.book)}
-                            onDelete={() => setDeleting(row.book)}
                           />
                         ))}
                       </ul>
@@ -800,7 +785,6 @@ export function Shelf({
                     onNotebook={() => onNotebook(row.book.id)}
                     onAddList={() => onAddList(row.book.id)}
                     onRename={() => setRenaming(row.book)}
-                    onDelete={() => setDeleting(row.book)}
                   />
                 ))}
               </ul>
@@ -811,25 +795,6 @@ export function Shelf({
       )}
 
       <RenameDialog book={renaming} onClose={() => setRenaming(null)} />
-      <ConfirmDialog
-        open={deleting !== null}
-        onOpenChange={(open) => !open && setDeleting(null)}
-        title={
-          deleting
-            ? t("shelf.deleteTitle", { title: deleting.title })
-            : t("shelf.deleteTitleGeneric")
-        }
-        description={t("shelf.deleteBody", {
-          n: deleting ? words.filter((word) => word.bookId === deleting.id).length : 0,
-        })}
-        confirmLabel={t("common.delete")}
-        onConfirm={() => {
-          if (!deleting) return;
-          const id = deleting.id;
-          setDeleting(null);
-          void forgetBook(id);
-        }}
-      />
     </div>
   );
 }

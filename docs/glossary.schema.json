@@ -143,6 +143,10 @@
         "coined": {
           "type": "boolean",
           "description": "true: the author of the book invented this word (for example snozzcumber)."
+        },
+        "senseOnly": {
+          "type": "boolean",
+          "description": "true: the entry only holds position-based senses. The word is underlined and opens only at the places named by the anchors of its senses, not at every use."
         }
       },
       "anyOf": [

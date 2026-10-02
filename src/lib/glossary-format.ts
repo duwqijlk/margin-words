@@ -46,6 +46,11 @@ export type GlossaryEntry = {
   senses?: GlossarySense[];
   /** `true`: the author of the book invented this word (for example "snozzcumber"). */
   coined?: boolean;
+  /**
+   * `true`: this entry exists only to hold position-based senses (anchors). The reader underlines and
+   * opens the word ONLY at the places listed in its senses, not at every occurrence in the book.
+   */
+  senseOnly?: boolean;
 };
 
 export type GlossaryFile = {
@@ -795,6 +800,17 @@ export function validateGlossary(input: unknown): GlossaryCheck {
         stats.coined = (stats.coined ?? 0) + 1;
       }
     }
+    if (raw.senseOnly !== undefined) {
+      if (typeof raw.senseOnly !== "boolean")
+        issues.error(`${where}: "senseOnly" must be true or false.`);
+      else if (raw.senseOnly) {
+        entry.senseOnly = true;
+        if (!senses?.some((sense) => sense.anchors?.length))
+          issues.warn(
+            `${where} says "senseOnly": true but none of its meanings has "anchors". It will never be underlined.`,
+          );
+      }
+    }
     if (senses && senses.length) {
       if (!entry.meaning) {
         // No own meaning: the first meaning doubles as the word's default.
@@ -1067,6 +1083,153 @@ type GlossLike = {
 };
 
 /**
+ * Steps 1 and 2 of `pickSense`: the sense whose anchor names this place in the book.
+ * `null` when no anchor matches. A `senseOnly` entry is only underlined and opened where this finds a sense.
+ */
+export function matchAnchor(
+  lemma: string,
+  senses: GlossarySense[],
+  tap: TapInfo,
+): { at: number; via: "anchor" | "context" } | null {
+  const surface = tap.surface.toLowerCase();
+  const paragraph = normText(tap.paragraph);
+  const holdsWord = (text: string) => wordsIn(text).some((w) => w.toLowerCase() === surface);
+  // Where the tapped word starts inside the normalised paragraph (-1: unknown).
+  const at = tap.before === undefined ? -1 : normText(`${tap.before}\u0001`).length - 1;
+  // Does the snippet sit around the tapped word (not around another use in the same paragraph)?
+  const covers = (context: string): boolean => {
+    let from = paragraph.indexOf(context);
+    if (from < 0) return false;
+    if (at < 0) return true;
+    while (from >= 0) {
+      if (at >= from && at + surface.length <= from + context.length) return true;
+      from = paragraph.indexOf(context, from + 1);
+    }
+    return false;
+  };
+  // 1. chapter + occurrence
+  for (let i = 0; i < senses.length; i += 1) {
+    const sense = senses[i] as GlossarySense;
+    for (const anchor of sense.anchors ?? []) {
+      if (anchor.chapter !== tap.chapter || anchor.occurrence !== tap.occurrence) continue;
+      if ((anchor.form ?? lemma).toLowerCase() !== surface) continue;
+      if (anchor.context && !paragraph.includes(normText(anchor.context))) continue; // stale anchor
+      return { at: i, via: "anchor" };
+    }
+  }
+  // 2. context snippet
+  for (let i = 0; i < senses.length; i += 1) {
+    const sense = senses[i] as GlossarySense;
+    for (const anchor of sense.anchors ?? []) {
+      if (!anchor.context) continue;
+      if (anchor.chapter !== undefined && anchor.chapter !== tap.chapter) continue;
+      const context = normText(anchor.context);
+      if (holdsWord(context) && covers(context)) return { at: i, via: "context" };
+    }
+  }
+  return null;
+}
+
+/** Can this place in the book open the entry? Always, unless the entry is `senseOnly` and no anchor names the place. */
+export function entryAppliesAt(
+  lemma: string,
+  gloss: { senseOnly?: boolean; senses?: GlossarySense[] },
+  tap: TapInfo,
+): boolean {
+  if (gloss.senseOnly !== true) return true;
+  return matchAnchor(lemma, gloss.senses ?? [], tap) !== null;
+}
+
+/**
+ * A `senseOnly` entry is underlined only where one of its senses names the place. This builds the
+ * same tap info `pickButton` builds from the live page: the paragraph text, and the text before the word.
+ */
+export function senseOnlyHit(
+  doc: Document,
+  node: Text,
+  start: number,
+  key: string,
+  gloss: { senseOnly?: boolean; senses?: GlossarySense[] },
+  surface: string,
+  occurrence: number,
+  chapter: number,
+): boolean {
+  const block = blockOf(node);
+  const paragraph = (block?.textContent ?? surface).replace(/\s+/g, " ").trim();
+  let before = "";
+  if (block) {
+    const range = doc.createRange();
+    range.setStart(block, 0);
+    range.setEnd(node, start);
+    before = range.toString().replace(/\s+/g, " ").trimStart();
+  }
+  return entryAppliesAt(key, gloss, { chapter, surface, occurrence, paragraph, before });
+}
+
+
+/**
+ * The chapter html as the reader shows it: every word is a tap button. A word that has an entry in the word
+ * list is underlined (`book-hard`), except where the entry is `senseOnly`: that one is underlined only at the
+ * places its senses name. `chapter` is the 0-based chapter index; `sparse` holds the senseOnly entries by key.
+ */
+export function readingHtml(
+  html: string,
+  ready: Set<string>,
+  resolve: (surface: string) => string,
+  chapter: number,
+  sparse: Map<string, { senseOnly?: boolean; senses?: GlossarySense[] }>,
+): string {
+  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
+  const root = doc.body.firstElementChild;
+  if (!root) return "";
+  cleanReadingRoot(root);
+  for (const el of [...root.querySelectorAll("*")]) {
+    for (const attr of [...el.attributes]) {
+      if (attr.name.startsWith("on") || attr.name === "href" || attr.name === "action")
+        el.removeAttribute(attr.name);
+      // The book's own inline styles would fight the reader's typography settings.
+      if (attr.name === "style" || attr.name === "class") el.removeAttribute(attr.name);
+    }
+  }
+  // Word rule and counting: src/lib/glossary-format.ts (shared with the command-line tools).
+  const nodes = wordTextNodes(doc, root);
+  let order = 0;
+  const seenForms = new Map<string, number>();
+  for (const node of nodes) {
+    const fragment = doc.createDocumentFragment();
+    const parts = splitWords(node.data);
+    let offset = 0;
+    parts.forEach((part, at) => {
+      const start = offset;
+      offset += part.length;
+      if (at % 2 === 1) {
+        const button = doc.createElement("button");
+        button.type = "button";
+        button.dataset.word = part;
+        button.dataset.i = String(order);
+        order += 1;
+        const form = part.toLowerCase();
+        const nth = (seenForms.get(form) ?? 0) + 1;
+        seenForms.set(form, nth);
+        button.dataset.n = String(nth);
+        button.textContent = part;
+        const key = resolve(part);
+        if (ready.has(key)) {
+          const only = sparse.get(key);
+          if (!only || senseOnlyHit(doc, node, start, key, only, part, nth, chapter))
+            button.className = "book-hard";
+        }
+        fragment.append(button);
+      } else if (part) {
+        fragment.append(doc.createTextNode(part));
+      }
+    });
+    node.parentNode?.replaceChild(fragment, node);
+  }
+  return root.innerHTML;
+}
+
+/**
  * Which meaning to show when a word is tapped. Order:
  *  1. anchor with chapter + occurrence (the anchor's own context, if any, must also be in the paragraph)
  *  2. anchor whose context text is inside the tapped paragraph (and holds the tapped word)
@@ -1107,42 +1270,8 @@ export function pickSense(lemma: string, gloss: GlossLike, tap: TapInfo): Picked
   if (senses.length === 0) return finish("entry", -1, entry);
 
   const surface = tap.surface.toLowerCase();
-  const paragraph = normText(tap.paragraph);
-  const holdsWord = (text: string) => wordsIn(text).some((w) => w.toLowerCase() === surface);
-  // Where the tapped word starts inside the normalised paragraph (-1: unknown).
-  const at = tap.before === undefined ? -1 : normText(`${tap.before}\u0001`).length - 1;
-  // Does the snippet sit around the tapped word (not around another use in the same paragraph)?
-  const covers = (context: string): boolean => {
-    let from = paragraph.indexOf(context);
-    if (from < 0) return false;
-    if (at < 0) return true;
-    while (from >= 0) {
-      if (at >= from && at + surface.length <= from + context.length) return true;
-      from = paragraph.indexOf(context, from + 1);
-    }
-    return false;
-  };
-
-  // 1. chapter + occurrence
-  for (let i = 0; i < senses.length; i += 1) {
-    const sense = senses[i] as GlossarySense;
-    for (const anchor of sense.anchors ?? []) {
-      if (anchor.chapter !== tap.chapter || anchor.occurrence !== tap.occurrence) continue;
-      if ((anchor.form ?? lemma).toLowerCase() !== surface) continue;
-      if (anchor.context && !paragraph.includes(normText(anchor.context))) continue; // stale anchor
-      return finish("anchor", i, view(sense));
-    }
-  }
-  // 2. context snippet
-  for (let i = 0; i < senses.length; i += 1) {
-    const sense = senses[i] as GlossarySense;
-    for (const anchor of sense.anchors ?? []) {
-      if (!anchor.context) continue;
-      if (anchor.chapter !== undefined && anchor.chapter !== tap.chapter) continue;
-      const context = normText(anchor.context);
-      if (holdsWord(context) && covers(context)) return finish("context", i, view(sense));
-    }
-  }
+  const anchored = matchAnchor(lemma, senses, tap);
+  if (anchored) return finish(anchored.via, anchored.at, view(senses[anchored.at] as GlossarySense));
   // 3. default sense
   let flagged = senses.findIndex((s) => s.default);
   if (flagged < 0) {
