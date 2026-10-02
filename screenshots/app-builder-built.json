@@ -1,0 +1,41 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "词边",
+      "hasCanvas": false,
+      "bodyTextLen": 257,
+      "bodyTextHash": "51c2c78a4668a99855a3d38e61a465c82a664d34f9524c1f780d3ffa48940f80",
+      "bodyTextPrefix": "词边 上传一本 EPUB。难词先备好，阅读时点一下就收藏。 上传 EPUB 书架还是空的。上传一本 EPUB，封面会立在这里。 ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "词边",
+      "hasCanvas": false,
+      "bodyTextLen": 100,
+      "bodyTextHash": "6b6ec92a49bd7bc3674326f0a0f043235e82c0ad972461a92b74c41723c70e7f",
+      "bodyTextPrefix": "词边 上传一本 EPUB。难词先备好，阅读时点一下就收藏。 上传 EPUB 书架还是空的。上传一本 EPUB，封面会立在这里。 ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": true,
+  "baselineReasons": [
+    "desktop: body text changed (218 -> 257 chars, hash mismatch)",
+    "mobile: body text changed (74 -> 100 chars, hash mismatch)"
+  ]
+}

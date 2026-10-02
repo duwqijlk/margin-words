@@ -1,0 +1,110 @@
+{
+ "glossary": {
+  "abnegation": {
+   "pos": "uncountable noun",
+   "meaning": "Giving up your own wishes for others; saying no to yourself."
+  },
+  "humdrum": {
+   "pos": "adjective",
+   "meaning": "Not fun and always the same."
+  },
+  "chastened": {
+   "pos": "past-tense verb",
+   "meaning": "Made more gentle by pain.",
+   "forms": [
+    "chastened",
+    "chasten"
+   ]
+  },
+  "consolation": {
+   "pos": "uncountable noun",
+   "meaning": "Help given to someone who is sad."
+  },
+  "burr": {
+   "pos": "noun",
+   "meaning": "The rough, sharp case round the seed of some trees."
+  },
+  "tracts": {
+   "pos": "plural noun",
+   "meaning": "Short printed papers about religion that are given away to people."
+  },
+  "overhaul": {
+   "pos": "verb",
+   "meaning": "To look through something with care and make changes."
+  },
+  "pathos": {
+   "pos": "uncountable noun",
+   "meaning": "A part of a story that makes the reader feel sorry and sad."
+  },
+  "scatterbrain": {
+   "pos": "noun",
+   "meaning": "A person who is silly and cannot keep their mind on one thing."
+  },
+  "ballast": {
+   "pos": "uncountable noun",
+   "meaning": "Heavy weight carried in a ship to keep it from rolling over."
+  },
+  "mate": {
+   "pos": "noun",
+   "meaning": "An officer on a ship who is next after the captain."
+  },
+  "unsubmissive": {
+   "pos": "adjective",
+   "meaning": "Not willing to accept something or do as told."
+  },
+  "yearning": {
+   "pos": "adjective",
+   "meaning": "Full of a strong, sad wish for something."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 44,
+   "context": "Now, if she had been the heroine of a moral storybook, she ought at this period of her life",
+   "mainIdea": "The writer says Jo is not a perfect heroine but a real girl. She is learning to do her duty, but cheerfulness takes longer.",
+   "simple": "If Jo had been the heroine of a book that teaches good behavior, she would at this time of her life have become quite holy. She would have left the world and gone about doing good in a plain bonnet with religious papers in her pocket. But Jo was not a heroine. She was only a struggling human girl like hundreds of others, and she acted out her nature, being sad, cross, tired or full of energy as her mood suggested. It is very good to say we will be good, but we cannot do it all at once. It takes a long pull, a strong pull and a pull all together before some of us even get our feet on the right road. Jo had got so far that she was learning to do her duty and to feel unhappy if she did not. But to do it cheerfully was another thing. She had often said she wanted to do something splendid, no matter how hard. Now she had her wish, because nothing could be more beautiful than to give her life to father and mother and try to make home as happy for them as they had made it for her.",
+   "hardWords": [
+    "heroine",
+    "tracts",
+    "renounced"
+   ]
+  },
+  {
+   "chapter": 44,
+   "context": "“There is truth in it, Jo, that’s the secret; humor and pathos make it alive",
+   "mainIdea": "Jo's father says her little story succeeded because it is true and written from her heart, with no thought of money or fame.",
+   "simple": "Her father said there is truth in it, and that is the secret. Humor and pathos make it alive, and at last she had found her own style. She had written with no thought of fame or money and had put her heart into it. She had known the bitter, and now came the sweet. He asked her to do her best and to grow as happy in her success as they were.",
+   "hardWords": [
+    "pathos",
+    "style"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 44,
+   "context": "It was easy to promise self-abnegation when self was wrapped up in another",
+   "simple": "It was easy to promise to give up her own wishes when her whole life was wrapped up in another person.",
+   "grammar": "'Self-abnegation' and 'self' are used as abstract nouns. 'Wrapped up in another' means fully busy with someone else. The 'when' clause shows the time when the promise was easy."
+  },
+  {
+   "chapter": 44,
+   "context": "Frost opens chestnut-burrs, ma’am, and it takes a good shake to bring them down.",
+   "simple": "Cold weather opens chestnut cases, ma'am, and it takes a hard shake to make them fall.",
+   "grammar": "Jo answers Meg's picture of a chestnut-burr with another picture. 'It takes a good shake to bring them down' uses 'it takes ... to' for the effort needed."
+  },
+  {
+   "chapter": 44,
+   "context": "it takes a long pull, a strong pull, and a pull all together",
+   "simple": "We need a long effort, a strong effort, and effort by everyone together.",
+   "grammar": "The word 'pull' is repeated three times, with a different adjective each time. This build-up is meant to sound like rowers or workers pulling a rope together."
+  }
+ ],
+ "phrases": {
+  "break away": {
+   "pos": "phrasal verb",
+   "meaning": "To escape from a person or a way of life.",
+   "example": "I shall break away and do something desperate"
+  }
+ }
+}

@@ -1,0 +1,116 @@
+{
+ "glossary": {
+  "promenade": {
+   "pos": "noun",
+   "meaning": "A wide, public walk, often by the sea, where people walk to be seen."
+  },
+  "equipages": {
+   "pos": "plural noun",
+   "meaning": "Fine cars with their horses and the men who work with them."
+  },
+  "flounces": {
+   "pos": "plural noun",
+   "meaning": "Wide extra pieces of cloth on the bottom of a woman's dress."
+  },
+  "diminutive": {
+   "pos": "adjective",
+   "meaning": "Very small."
+  },
+  "aplomb": {
+   "pos": "uncountable noun",
+   "meaning": "Cool, sure way of acting and speaking."
+  },
+  "petulance": {
+   "pos": "uncountable noun",
+   "meaning": "Quick anger over small things, like a child."
+  },
+  "usurper": {
+   "pos": "noun",
+   "meaning": "A person who takes the power or place of another by force."
+  },
+  "cotillon": {
+   "pos": "noun",
+   "meaning": "A lively old dance for many couples, with changes of partners."
+  },
+  "recreant": {
+   "pos": "adjective",
+   "meaning": "Not true to a duty; not doing what was promised."
+  },
+  "piquante": {
+   "pos": "adjective",
+   "meaning": "Lively and a little strong, in a nice way."
+  },
+  "lustre": {
+   "pos": "uncountable noun",
+   "meaning": "A bright light that makes a thing look more important."
+  },
+  "indefatigably": {
+   "pos": "adverb",
+   "meaning": "Without getting tired."
+  },
+  "demoiselles": {
+   "pos": "plural noun",
+   "meaning": "Young unmarried French women."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 39,
+   "context": "At three o’clock in the afternoon, all the fashionable world at Nice may be seen",
+   "mainIdea": "Every afternoon the Promenade at Nice is full of people of many countries, and the sight is as bright as a carnival.",
+   "simple": "At three o'clock in the afternoon, all the fashionable world at Nice can be seen on the Promenade des Anglais. It is a charming place. The wide walk, with palms, flowers and warm-country bushes, has the sea on one side and the grand drive on the other, lined with hotels and villas. Beyond lie orange orchards and the hills. Many nations are there, many languages are spoken, and many costumes are worn. On a sunny day the sight is as gay and bright as a carnival. Proud English, lively French, serious Germans, handsome Spaniards, ugly Russians, quiet Jews and free-and-easy Americans all drive, sit or stroll here. They chat about the news and criticise the latest famous person who has arrived. The carriages are as varied as the people and get as much notice, especially the low basket-barouches in which ladies drive themselves with a pair of dashing ponies. Gay nets keep their wide flounces from spilling over the tiny carriages, and little grooms ride on the perch behind.",
+   "hardWords": [
+    "promenade",
+    "equipages",
+    "flounces",
+    "diminutive"
+   ]
+  },
+  {
+   "chapter": 39,
+   "context": "While Laurie listlessly watched the procession of priests under their canopies",
+   "mainIdea": "Amy sees that Laurie has changed. He is handsomer but tired and sad, and she does not dare ask why.",
+   "simple": "Laurie watched without interest as priests passed under their canopies, with nuns in white veils carrying lighted candles and a group in blue singing as they walked. Amy watched him and felt a new kind of shyness. He was changed, and she could not find the merry-faced boy she had left in the moody man beside her. She thought he was handsomer than ever and much better. But now that the glow of joy at meeting her was gone, he looked tired and without spirit. He was not sick or quite unhappy, but older and more serious than one or two years of easy life should have made him. She could not understand it and did not dare to ask. So she shook her head and touched up her ponies, as the procession wound away over the arches of the Paglioni bridge and went into the church.",
+   "hardWords": [
+    "listlessly",
+    "canopies",
+    "tapers"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 39,
+   "context": "he turned and strained his eyes to see the island which a greater usurper than even Napoleon now made interesting in his sight",
+   "simple": "He turned and strained to see the island. Napoleon had been born there, but now something else made it interesting to Laurie, an even greater usurper.",
+   "grammar": "'Which a greater usurper than even Napoleon now made interesting' is a clause about 'island'. The 'greater usurper' is Laurie's sad love, which has taken over his heart. 'Than even Napoleon' is a comparison."
+  },
+  {
+   "chapter": 39,
+   "context": "the shock she received can better be imagined than described",
+   "simple": "It is easier to imagine her shock than to say how big it was.",
+   "grammar": "'Can better be imagined than described' is a fixed pattern. It uses the passive voice with 'better ... than' to say that words are not enough."
+  },
+  {
+   "chapter": 39,
+   "context": "It’s as old as the hills; you have seen it on dozens of girls",
+   "simple": "It is very old. You have seen it on many girls.",
+   "grammar": "'As old as the hills' is a saying that means very old. The semicolon joins this to a second fact that supports it."
+  }
+ ],
+ "phrases": {
+  "as old as the hills": {
+   "pos": "idiom",
+   "meaning": "Very old.",
+   "example": "It’s as old as the hills"
+  },
+  "at one's ease": {
+   "pos": "idiom",
+   "meaning": "In a relaxed and comfortable way.",
+   "forms": [
+    "at our ease"
+   ],
+   "example": "we can talk at our ease"
+  }
+ }
+}

@@ -1,0 +1,91 @@
+{
+"glossary": {
+"freebooters": {
+"pos": "plural noun",
+"meaning": "Pirates or robbers who take things from others by force."
+},
+"repose": {
+"pos": "noun",
+"meaning": "Rest and peace."
+},
+"obtruded": {
+"pos": "past-tense verb",
+"meaning": "Pushed in where it is not wanted.",
+"forms": [
+"obtruded",
+"obtrude"
+]
+},
+"credulous": {
+"pos": "adjective",
+"meaning": "Too ready to believe things."
+},
+"conflagrations": {
+"pos": "plural noun",
+"meaning": "Very large and dangerous fires.",
+"forms": [
+"conflagration"
+]
+},
+"limpid": {
+"pos": "adjective",
+"meaning": "Clear and bright, so you can see through it."
+},
+"ravenous": {
+"pos": "adjective",
+"meaning": "Very, very hungry."
+},
+"sumptuously": {
+"pos": "adverb",
+"meaning": "In a rich and grand way. Here, they eat well."
+},
+"quicksilver": {
+"pos": "noun",
+"meaning": "The shining silver metal that is liquid, now called mercury."
+},
+"mutiny": {
+"pos": "noun",
+"meaning": "A plan by a crew to refuse the leader's orders and act against him."
+},
+"skiff": {
+"pos": "noun",
+"meaning": "A small, light boat.",
+"forms": [
+"skiffs"
+]
+}
+},
+"paragraphs": [
+{
+"chapter": 16,
+"paragraph": 4,
+"context": "Tom stirred up the other pirates and they all clattered away with a shout",
+"mainIdea": "The boys swim and are glad when their raft floats away, because it cuts them off from home.",
+"simple": "Tom woke the other pirates and they all ran off with a shout. In a minute or two they had taken off their clothes and were chasing and falling over each other in the shallow clear water of the white sandbar. They did not miss the little village that slept far away across the great water. A wandering current or a small rise in the river had carried their raft away. But this only pleased them, as its going was something like burning the bridge between them and the world of towns."
+}
+],
+"sentences": [
+{
+"chapter": 16,
+"context": "They did not know that the quicker a freshwater fish is on the fire after he is caught the better he is",
+"simple": "They did not know that a fish from fresh water tastes better when it goes on the fire very soon after it is caught.",
+"grammar": "'The quicker..., the better...' shows two things that change together: the sooner the fish is cooked, the better it tastes."
+},
+{
+"chapter": 16,
+"context": "for he knew of old that this insect was credulous about conflagrations",
+"simple": "He had known for a long time that this insect believes too easily that a house is on fire.",
+"grammar": "'Of old' means 'for a long time'. 'That this insect was...' is a noun clause that tells what Tom knew."
+}
+],
+"phrases": {
+"take wing": {
+"meaning": "To fly away.",
+"pos": "idiom",
+"forms": [
+"took wing"
+],
+"example": "she took wing and went off to see about it"
+}
+}
+}

@@ -1,0 +1,106 @@
+{
+ "glossary": {
+  "treadmill": {
+   "pos": "noun",
+   "meaning": "A big round thing that people or animals walk on and never get anywhere. Here it means days that never change."
+  },
+  "heiress": {
+   "pos": "noun",
+   "meaning": "A woman who will get a lot of money from a family member when that person dies."
+  },
+  "despondent": {
+   "pos": "adjective",
+   "meaning": "Very sad and without hope."
+  },
+  "spatted": {
+   "pos": "past-tense verb",
+   "meaning": "Hit with the flat hand, quickly and many times.",
+   "forms": [
+    "spatted",
+    "spat"
+   ]
+  },
+  "panacea": {
+   "pos": "noun",
+   "meaning": "Something that people believe will fix every trouble."
+  },
+  "perturbed": {
+   "pos": "adjective",
+   "meaning": "Worried and upset."
+  },
+  "fleet": {
+   "pos": "adjective",
+   "meaning": "Very fast."
+  },
+  "cropped": {
+   "pos": "adjective",
+   "meaning": "Cut very short."
+  },
+  "ninepence": {
+   "pos": "noun",
+   "meaning": "A small amount of money, worth nine old English cents."
+  },
+  "coverlid": {
+   "pos": "noun",
+   "meaning": "A cover for a bed."
+  },
+  "fervent": {
+   "pos": "adjective",
+   "meaning": "Very strong and honest in feeling."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 17,
+   "context": "Everyone scattered like leaves before a gust of wind",
+   "mainIdea": "Mrs. March is overwhelmed by the many jobs, and the girls work for her. The happy home is suddenly broken up.",
+   "simple": "Writing, thinking and giving orders all at once might well confuse the poor lady. Meg begged her to sit quietly in her room for a little while and let the girls work. Everyone ran off in different ways, like leaves in front of a strong wind. The quiet, happy house was broken up as suddenly as if the paper had been an evil spell.",
+   "hardWords": [
+    "bewilder",
+    "scattered",
+    "gust"
+   ]
+  },
+  {
+   "chapter": 17,
+   "context": "As everyone exclaimed, and Beth hugged the cropped head tenderly",
+   "mainIdea": "Jo tries to act as if cutting her hair does not matter. She says it is good for her pride and will be easy to keep tidy.",
+   "simple": "Everyone cried out, and Beth hugged Jo's short-cut head with love. Jo tried to look as if she did not care, but no one believed her. She rubbed her short brown hair and said it was not important, so Beth should not cry. She said it would be good for her pride, because she had become too proud of her thick hair. She said her head felt light and cool and that the barber said she would soon have curly short hair that would be boyish and pretty and easy to keep tidy. She said she was happy and asked them to take the money and have supper.",
+   "hardWords": [
+    "cropped",
+    "indifferent",
+    "vanity",
+    "wig"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 17,
+   "context": "who would as soon have thought of cutting off her head as her pretty hair",
+   "simple": "Amy would have been just as likely to think of cutting off her head as of cutting her pretty hair.",
+   "grammar": "'Would as soon ... as ...' compares two things that are equally unlikely. It means she would never think of cutting her hair."
+  },
+  {
+   "chapter": 17,
+   "context": "for anxiety ill fits one for travelling",
+   "simple": "A worried person is not well prepared for a journey.",
+   "grammar": "'Ill fits' means 'does not fit well'. The word order is old-fashioned: 'ill' goes before the verb, like 'ill-prepared'."
+  }
+ ],
+ "phrases": {
+  "beg, borrow, or steal": {
+   "pos": "idiom",
+   "meaning": "To get something by any means possible, even bad ones.",
+   "example": "I didn't beg, borrow, or steal it"
+  },
+  "break down": {
+   "pos": "phrasal verb",
+   "meaning": "To start to cry, because feelings are too strong.",
+   "forms": [
+    "broke down"
+   ],
+   "example": "they all broke down, and cried bitterly"
+  }
+ }
+}

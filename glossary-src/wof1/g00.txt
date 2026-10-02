@@ -1,0 +1,704 @@
+dragon|n|A huge flying animal with scales, wings, and sharp claws. In this book dragons are the main characters.|
+wing|n|The part of a dragon, bird, or insect that lets it fly.|
+talon|n|A sharp claw on the foot of a dragon or a bird.|
+dragonet|n|A young dragon. In this book, the five main dragonets are chosen by a prophecy.|
+tail|n|The long part that sticks out from the back of an animal.|
+claw|n|A sharp, curved nail on the foot of an animal.|
+cave|n|A large hole in the side of a hill or under the ground.|
+scarlet|n|A bright red colour. Here it is also the name of a SkyWing queen.|
+palace|n|A very large, grand home for a king or queen.|
+prophecy|n|A message about what will happen in the future.|
+snout|n|The long nose and mouth of an animal.|
+tunnel|n|A long passage under the ground.|
+burn|n|Here it is the name of a SkyWing princess. It also means to be on fire.|
+arena|n|A big open place where fights or games take place in front of crowds.|
+glanced|pt|Looked quickly at something.|
+sand|un|Tiny grains of rock found in deserts and on beaches.|
+neck|n|The part of the body between the head and the shoulders.|
+scavenger|n|In this book, a small animal like a human. In real life, an animal that eats leftover food.|
+scroll|n|A long roll of paper with writing on it.|
+mud|un|Wet, soft earth.|
+suddenly|adv|Quickly and without warning.|
+shook|pt|Moved quickly from side to side.|
+flew|pt|Moved through the air. (Past tense of "fly".)|
+dune|n|A hill of sand in a desert. Here it is also a dragon's name.|
+kingdom|n|A land ruled by a king or queen.|
+cliff|n|A high, steep wall of rock.|
+chain|n|A line of metal rings joined together.|
+hole|n|An empty space or opening in something.|
+gill|n|A part on the side of a fish or SeaWing that lets it breathe underwater.|
+waterfall|n|Water that falls down over a high rock.|
+snapped|pt|Said something in a short, angry way.|
+whispered|pt|Spoke in a very quiet voice.|
+breath|n|The air you take in and let out.|
+destiny|n|What will happen to you in the future, as if planned by fate.|
+stripe|n|A long, thin line of colour.|
+swam|pt|Moved through water. (Past tense of "swim".)|
+tiny|adj|Very, very small.|
+pale|adj|Light in colour.|
+hissed|pt|Said something in a long "sss" sound, often in anger.|
+perhap|adv|Maybe. (The book word is "perhaps".)|
+pool|n|A small area of still water.|
+underwater|adv|Below the top of the water.|
+soldier|n|A person (or dragon) who fights in an army.|
+tribe|n|A large group of dragons or people who live together. The dragon tribes are SandWings, SeaWings, and so on.|
+boulder|n|A very big rock.|
+entrance|n|The way into a place.|
+throne|n|A special chair for a king or queen.|
+growled|pt|Said something in a deep, angry voice.|
+expression|n|The look on a face that shows a feeling.|
+nodded|pt|Moved the head up and down to say yes.|
+smoke|un|The grey cloud that comes from a fire.|
+wire|n|A thin piece of metal like a string.|
+guardian|n|A person (or dragon) who watches and protects someone.|
+burst|pt|Came in suddenly. It can also mean broke open.|
+flame|n|The hot, bright, burning part of a fire.|
+flicked|pt|Moved quickly with a small, sharp movement.|
+sharp|adj|Having a point or an edge that can cut.|
+twisted|pt|Turned round or bent.|
+wave|n|A line of water moving across the sea.|
+barely|adv|Only just; almost not.|
+circle|n|A round shape like a ring.|
+escape|v|To get away from a place or danger.|
+horn|n|A hard, pointed part on a dragon's head.|
+spear|n|A long weapon with a sharp point at the end.|
+strange|adj|Unusual or strange.|
+swimming|ing|Moving through water.|
+blinked|pt|Closed and opened your eyes very fast.|
+ducked|pt|Bent down quickly to avoid something.|
+princess|n|The daughter of a king or queen.|
+snarled|pt|Said something in an angry growl.|
+flapped|pt|Moved wings up and down.|
+overhead|adv|Above your head.|
+curled|pt|Bent into a round shape.|
+ledge|n|A narrow flat shelf of rock.|
+poked|pt|Pushed out or pushed something with a finger or nose.|
+shifted|pt|Moved slightly from one place to another.|
+shoved|pt|Pushed roughly.|
+flashed|pt|Shone with a short, bright light.|
+glowing|ing|Shining with a soft light.|
+hatched|pt|Came out of an egg.|
+sunlight|un|Light from the sun.|
+balcony|n|A platform sticking out from the wall of a building.|
+chest|n|The front part of the body between the neck and the stomach.|
+dove|pt|Jumped head-first into water. (Past tense of "dive" in American English.)|
+paused|pt|Stopped for a short time.|
+reed|n|A tall, thin plant that grows near water.|
+sighed|pt|Let out a long breath because you were sad or tired.|
+tongue|n|The soft part inside your mouth for tasting and speaking.|
+flared|pt|Spread out wide.|
+leaned|pt|Bent your body toward something.|
+yelled|pt|Shouted very loudly.|
+lashed|pt|Moved quickly like a whip.|
+bubble|n|A round ball of air in a liquid.|
+grabbed|pt|Took hold of something quickly.|
+protested|pt|Said that you did not agree.|
+snorted|pt|Made a loud noise through the nose.|
+swept|pt|Moved fast and smoothly.|
+echoed|pt|Made a sound that bounced back from a wall.|
+glared|pt|Looked at someone in an angry way.|
+hide|v|To go or put something where it cannot be seen.|
+roared|pt|Made a very loud, deep sound.|
+stretched|pt|Reached out or made your body longer.|
+tip|n|The pointed end of something.|
+treasure|un|Gold, jewels, or other valuable things.|
+venom|un|A poison that some animals put into other animals by biting or stinging.|
+whipped|pt|Moved very fast, like a whip.|
+wingbeat|n|One up-and-down move of a wing.|
+awful|adj|Very bad.|
+darkness|un|A place or time with no light.|
+enormous|adj|Extremely big.|
+fought|pt|Used force to hurt someone, or struggled hard.|
+horizon|n|The line where the sky seems to meet the land.|
+seized|pt|Grabbed something suddenly and hard.|
+survive|v|To stay alive.|
+tilted|pt|Leaned to one side.|
+trapped|adj|Caught in a place and unable to leave.|
+yanked|pt|Pulled hard and fast.|
+bone|n|One of the hard white parts inside a body.|
+golden|adj|Shining yellow, like gold.|
+hurried|pt|Moved fast.|
+muttered|pt|Spoke in a quiet, unclear voice.|
+sank|pt|Went down below the surface.|
+thick|adj|Wide from one side to the other. It can also mean very close together.|
+underbelly|n|The soft lower part of an animal's body.|
+darted|pt|Moved suddenly and quickly.|
+flung|pt|Threw with force.|
+gap|n|An empty space between two things.|
+gaze|n|A long, steady look.|
+hiding|ing|Staying out of sight.|
+leaped|pt|Jumped high or far.|
+shadow|n|A dark shape made when something blocks the light.|
+asleep|adj|Sleeping.|
+blaze|n|Here it is the name of a SkyWing princess. It also means a big, bright fire.|
+blister|n|Here it is the name of a SkyWing princess. It also means a small bubble on the skin.|
+cavern|n|A very large cave.|
+disappeared|pt|Went out of sight.|
+fierce|adj|Wild and strong; ready to fight.|
+giant|adj|Extremely large.|
+glance|n|A quick look.|
+glow|v|To shine with a soft light.|
+hatching|ing|Coming out of an egg.|
+hidden|pp|Put where it cannot be seen. (From the verb "hide".)|
+horrible|adj|Very bad or unpleasant.|
+lit|pp|Made bright with light. (From the verb "light".)|
+peered|pt|Looked carefully, often because it was hard to see.|
+stuck|adj|Unable to move.|
+alliance|n|An agreement between groups to help each other.|
+aside|adv|To one side.|
+clawing|ing|Scratching or grabbing with claws.|
+cow|n|A big farm animal that gives milk. Dragons in the book eat them.|
+crouched|pt|Bent low with knees bent.|
+fault|n|The reason that something bad happened; the blame.|
+hopefully|adv|With hope.|
+shaking|ing|Moving quickly from side to side.|
+silence|un|A time with no sound.|
+threw|pt|Sent through the air with force.|
+thrilling|adj|Very exciting.|
+yelped|pt|Gave a short, sharp cry of pain.|
+dragged|pt|Pulled along the ground with effort.|
+lashing|ing|Moving quickly from side to side like a whip.|
+leaf|n|The flat green part of a plant.|
+monster|n|A scary creature.|
+noise|n|A sound, especially a loud one.|
+slammed|pt|Hit something very hard.|
+slipped|pt|Slid by accident and lost balance.|
+smell|v|To notice something with your nose.|
+spun|pt|Turned round and round quickly.|
+stomach|n|The part inside your body where food goes.|
+whirled|pt|Turned round very fast.|
+bigwing|n|A made-up word for a grown-up dragon, used by young dragonets.|It is an invented word from the book.
+blurted|pt|Said something suddenly without thinking.|
+brave|adj|Not afraid of danger.|
+champion|n|A winner. The Queen's Champion is the best fighter.|
+confused|adj|Not able to think clearly or tell things apart.|
+crashed|pt|Hit something hard with a loud noise.|
+fulfill|v|To make something that was promised or planned come true. (British English: fulfil.)|
+hissing|ing|Making a long "sss" sound.|
+peak|n|The pointed top of a mountain.|
+roaring|ing|Making a very loud sound.|
+scar|n|A mark left on the skin after a wound has healed.|
+sight|n|The ability to see. "Vanished from sight" means could no longer be seen.|
+slid|pt|Moved smoothly over a surface.|
+steal|v|To take something that is not yours.|
+swim|v|To move through water.|
+throat|n|The tube inside the neck that food and air go down.|
+vanished|pt|Disappeared suddenly.|
+weapon|n|A thing such as a spear or sword used to fight.|
+wriggled|pt|Twisted and turned with small movements.|
+animus|n|In this book, a dragon with the magical power to put spells on objects.|It is a special word from the Wings of Fire world.
+bite|v|To cut or hold with your teeth.|
+branch|n|A part of a tree that grows out from the trunk.|
+carefully|adv|With attention, to avoid mistakes.|
+carved|adj|Cut into a shape.|
+cauldron|n|A big round metal pot for cooking over a fire.|
+clawed|pt|Scratched or grabbed with claws.|
+climb|v|To go up using hands, feet, or claws.|
+flapping|ing|Moving up and down in the air.|
+grown|adj|Fully grown up, like an adult.|
+marsh|n|Soft, wet land with grass and reeds.|
+poison|un|A substance that can make you sick or kill you.|
+scraped|pt|Rubbed against a rough surface and made a harsh sound.|
+stalagmite|n|A tall pointed rock in a cave that builds up from the floor.|
+thin|adj|Not thick or wide.|
+wound|pt|Twisted around something.|
+accidentally|adv|By mistake; not on purpose.|
+ally|v|To join with another group to help each other.|
+argue|v|To speak angrily with someone who disagrees.|
+blast|v|To send out a sudden strong burst of flame.|
+climbed|pt|Went up using hands, feet, or claws.|
+coiled|pt|Wound round in a circle or spiral.|
+glancing|ing|Looking quickly.|
+halfway|adv|In the middle of a distance.|
+spiral|n|A shape that curves round and round, like a snail's shell.|
+taught|pt|Showed someone how to do something. (Past tense of "teach".)|
+winced|pt|Made a quick face of pain.|
+allied|adj|Joined with another group to help it.|
+breathed|pt|Took air in and out.|
+burned|pt|Hurt or damaged with fire or heat.|
+ceiling|n|The flat surface at the top of a room.|
+clutched|pt|Held tightly.|
+column|n|A tall, thick pillar.|
+fiercely|adv|In a wild and strong way.|
+forked|adj|Split at the end into two parts, like the letter Y.|
+glare|n|A long, angry look.|
+glittering|adj|Shining with many little flashes of light.|
+hesitated|pt|Paused because you were not sure.|
+hid|pt|Went or put something out of sight. (Past tense of "hide".)|
+joy|un|Great happiness.|
+lay|pt|Rested flat. (Past tense of "lie".)|
+poking|ing|Pushing something with a finger or nose.|
+prey|un|An animal that is hunted and eaten by another.|
+punish|v|To make someone suffer for doing wrong.|
+shrugged|pt|Raised the shoulders to show you do not know or do not care.|
+splashing|ing|Making water fly about.|
+stolen|pp|Taken without permission. (From the verb "steal".)|
+underground|adj|Below the surface of the earth.|
+yell|n|A loud shout.|
+brushed|pt|Touched lightly in passing.|
+burning|adj|On fire.|
+danger|un|The chance that something bad will happen.|
+exciting|adj|Full of excitement.|
+farther|adv|At a greater distance.|
+feasting|ing|Eating a large special meal.|
+formation|n|A shape or pattern, such as a group of rocks or flying dragons.|
+frowned|pt|Pulled your eyebrows together because you were upset.|
+gathered|pt|Came together in one place.|
+insisted|pt|Said firmly that something was true.|
+jagged|adj|Having rough, sharp points.|
+knocking|ing|Hitting something to make a noise or move it.|
+lying|ing|Resting flat on a surface.|
+pile|n|A lot of things lying on top of each other.|
+poisonous|adj|Able to make you ill or kill you.|
+roar|n|A very loud, deep sound.|
+shake|v|To move quickly from side to side.|
+sharply|adv|In a sudden and rough way.|
+silent|adj|Making no sound.|
+singing|ing|Making music with your voice.|
+stream|n|A small river. "A stream of bubbles" means a line of bubbles.|
+terrified|adj|Extremely frightened.|
+tower|n|A tall, narrow building or structure.|
+usual|adj|What happens most often.|
+attached|adj|Joined to something.|
+battlefield|n|A place where a fight between armies takes place.|
+cage|n|A box with bars, for keeping animals.|
+circling|ing|Moving round and round.|
+clever|adj|Quick at learning and thinking.|
+copper|n|A shiny reddish-brown metal.|
+crack|n|A thin line where something is broken.|
+dare|v|To be brave enough to do something.|
+desperately|adv|In a way that shows you badly need something.|
+diamond|n|A very hard, clear, valuable stone.|
+distant|adj|Far away.|
+fallen|pp|Dropped down. (From the verb "fall".)|
+feast|n|A large, special meal.|
+fled|pt|Ran away from danger.|
+frantically|adv|In a wild and hurried way because of fear.|
+huddled|pt|Crowded close together.|
+lightning|un|A bright flash in the sky during a storm.|
+lunged|pt|Moved forward suddenly to attack.|
+moonlight|un|The light of the moon.|
+mound|n|A small hill or a pile of earth.|
+shock|n|A sudden strong surprise.|
+smashed|pt|Broke or hit something with great force.|
+spray|n|Tiny drops of water thrown into the air.|
+swamp|n|Wet, muddy land with many plants.|
+bared|pt|Showed teeth in a threatening way.|
+boring|adj|Not interesting.|
+brilliant|adj|Very clever, or very bright.|
+chose|pt|Picked the one you wanted. (Past tense of "choose".)|
+doorway|n|The opening where a door fits.|
+excitement|un|A strong feeling of being happy and ready for something.|
+flash|n|A short, bright light.|
+guilt|un|The bad feeling you have when you have done something wrong.|
+loose|adj|Not tight or fixed.|
+nest|n|A home built by a bird for its eggs.|
+palm|n|The flat inside part of the hand.|
+print|n|A mark left by a foot or claw.|
+ripple|n|A small wave on water.|
+scratch|n|A small cut made by something sharp.|
+sigh|n|A long breath out that shows sadness or tiredness.|
+splash|n|The sound or sight of water hitting something.|
+stadium|n|A big open building where crowds watch sports.|
+swooped|pt|Flew down quickly.|
+whoever|pron|Any person who.|
+bat|n|A small animal that flies at night.|
+desert|n|A very dry land with little rain and lots of sand.|
+emerald|n|A bright green precious stone.|
+floated|pt|Stayed on the top of water or in the air.|
+freezing|adj|Extremely cold.|
+hunting|ing|Chasing animals to catch and eat them.|
+lazy|adj|Not wanting to work or move.|
+narrow|adj|Not wide.|
+opposite|adj|On the other side; completely different.|
+rocky|adj|Covered with rocks.|
+ruby|n|A deep red precious stone.|
+screamed|pt|Made a loud, high cry because of fear or pain.|
+swung|pt|Moved from side to side in a curve.|
+torch|n|A stick with fire at the end, used to give light.|
+twitched|pt|Made a quick small movement without wanting to.|
+amber|n|A hard, orange-yellow stone, or its colour.|
+blasted|pt|Hit or sent out with a sudden strong force.|
+buried|pp|Put under the ground or hidden under something.|
+crab|n|A sea animal with a hard shell and two big claws.|
+duck|v|To bend down quickly to avoid something.|
+dug|pt|Made a hole by digging.|
+faded|pt|Became less loud or less bright.|
+furious|adj|Extremely angry.|
+grip|n|A tight hold.|
+hatch|v|To come out of an egg.|
+howled|pt|Made a long, loud, sad cry.|
+hung|pt|Was fixed at the top and allowed to swing down.|
+muddy|adj|Covered with mud.|
+nervous|adj|A little afraid or worried.|
+pheasant|n|A large bird with a long tail. Here it is also a dragon's name.|
+platform|n|A raised flat area for standing on.|
+rescue|v|To save someone from danger.|
+ridge|n|A long, narrow raised line, like along a dragon's back.|
+scary|adj|Frightening.|
+silvery|adj|Shining like silver.|
+somehow|adv|In some way you cannot explain.|
+splashed|pt|Made water fly about.|
+spy|n|A person who secretly collects information.|
+squeak|n|A short, high sound.|
+troop|n|A group of soldiers.|
+underneath|prep|Below or under something.|
+vine|n|A plant with long stems that climbs or hangs.|
+anger|un|The strong feeling you have when you are cross.|
+ash|un|The grey powder that remains after something burns.|
+backward|adv|Toward the back.|
+bare|adj|Not covered; empty.|
+bellowed|pt|Shouted in a deep, loud voice.|
+blazing|adj|Burning very brightly.|
+climbing|ing|Going up using hands, feet, or claws.|
+coughed|pt|Forced air out of the throat with a loud sound.|
+drew|pt|Moved. "Drew closer" means came nearer.|
+dying|ing|Slowly losing life.|
+eerie|adj|Strange and a little scary.|
+flown|pp|Moved through the air. (From the verb "fly".)|
+forearm|n|The part of the arm between the elbow and the hand.|
+hiss|n|A long "sss" sound.|
+hovered|pt|Stayed in one place in the air.|
+inhaled|pt|Breathed air in.|
+interjected|pt|Said something suddenly while someone else is talking.|
+interrupted|pt|Spoke while someone else was talking.|
+jump|v|To push yourself up into the air.|
+lecture|n|A long talk to teach people about something.|
+odd|adj|Strange or unusual.|
+pause|n|A short stop.|
+reared|pt|Rose up on the back legs.|
+roof|n|The cover on the top of a building.|
+rubbed|pt|Pressed and moved your hand over something.|
+scattered|adj|Spread in many places.|
+scorch|n|A burnt mark on something.|
+shimmered|pt|Shone with a soft, shaking light.|
+shoving|ing|Pushing roughly.|
+sideway|adv|The word "sideways" means toward the side.|
+slithered|pt|Moved smoothly along the ground, like a snake.|
+smooth|adj|Flat and even; not rough.|
+spire|n|A tall, pointed tower.|
+squinted|pt|Looked with your eyes almost closed because of bright light or to see better.|
+stabbed|pt|Pushed something sharp into someone.|
+stalactite|n|A long rock shape hanging from a cave ceiling.|
+stamped|pt|Put your foot down hard.|
+terribly|adv|Very badly.|
+tight|adj|Fixed firmly; close.|
+trick|n|Something clever done to fool someone.|
+vast|adj|Extremely large.|
+warmth|un|A nice heat.|
+whacked|pt|Hit hard.|
+admit|v|To say that something is true, even if you do not want to.|
+betrayed|pt|Broke someone's trust by hurting them in secret.|
+binding|ing|Tying tightly.|
+bolt|v|To run away suddenly.|
+bounced|pt|Jumped back after hitting something.|
+bowl|n|A deep round dish.|
+corpse|n|A dead body.|
+delta|n|The place where a river spreads out before meeting the sea.|
+deserve|v|To have earned something.|
+distracted|adj|Not able to give full attention.|
+dragging|ing|Pulling along the ground.|
+drown|v|To die from being under water.|
+eyed|pt|Looked at.|
+floating|ing|Staying on top of water.|
+flopped|pt|Fell down heavily.|
+forgot|pt|Could not remember.|
+forth|adv|"Back and forth" means forward and backward again and again.|
+grinned|pt|Smiled very widely.|
+guest|n|A person who is invited to visit.|
+hang|v|To be fixed at the top and let the bottom swing. "Hang on" means hold tight.|
+hauled|pt|Pulled something heavy with effort.|
+heartbeat|n|The regular beat of the heart.|
+helpful|adj|Giving help.|
+hero|n|A brave person who does great things.|
+icy|adj|Very cold, or covered with ice.|
+instantly|adv|At once.|
+lizard|n|A small animal with four legs and a long tail.|
+loomed|pt|Appeared as a large, scary shape.|
+marble|un|A hard, smooth stone used for statues and floors.|
+medallion|n|A large metal disc worn on a chain.|
+minder|n|In this book, a guard who looks after the dragonets.|
+mistake|n|Something wrong done by accident.|
+narrowed|pt|Made smaller or thinner. Eyes narrowed means partly closed.|
+nudged|pt|Pushed gently with the elbow or nose.|
+ourselve|pron|The word "ourselves": used when we do something to ourselves.|
+panic|v|To feel sudden strong fear.|
+peering|ing|Looking closely, often because it is hard to see.|
+permission|un|Agreement that you can do something.|
+pinned|pt|Held in place so it cannot move.|
+poured|pt|Made liquid flow out of a container.|
+rage|un|Very strong anger.|
+ravine|n|A deep, narrow valley with steep sides.|
+row|n|A line of things side by side.|
+sack|n|A big bag made of strong cloth.|
+scorching|adj|Very hot, burning the surface.|
+scraping|ing|Rubbing against something rough.|
+settled|pt|Got comfortable in one place.|
+shield|v|To protect from harm.|
+shrieked|pt|Cried out in a loud, high voice.|
+signal|n|A sign that tells people something, like smoke or a light.|
+snaked|pt|Moved in a long curving line.|
+soared|pt|Flew high and smoothly.|
+soft|adj|Not hard; gentle.|
+sore|adj|Painful.|
+staggered|pt|Moved in a way that is not steady.|
+stammered|pt|Spoke with pauses and repeated sounds because of fear or worry.|
+tear|v|To pull something apart. (Not the same as the drop from the eye.)|
+trail|n|A line or path left behind.|
+twined|pt|Wound around something.|
+useless|adj|Not helpful; not working.|
+wrinkled|adj|Having small lines or folds.|
+agony|un|Very great pain.|
+annoying|adj|Making you a bit angry.|
+anxious|adj|Worried and nervous.|
+anytime|adv|At any time.|
+argued|pt|Spoke angrily with someone who disagrees.|
+banked|pt|Tilted to one side while flying.|
+blind|adj|Not able to see.|
+bloody|adj|Covered in blood, or very violent.|
+bush|n|A small plant with many branches.|
+chained|adj|Held by a chain.|
+clump|n|A small group of plants growing close together.|
+collapsed|pt|Fell down suddenly.|
+complaining|ing|Saying that you are not happy about something.|
+curiously|adv|In a way that shows you want to know more.|
+curse|n|Angry words, or an evil magic wish.|
+dungeon|n|A dark prison under a castle.|
+flinched|pt|Moved back suddenly because of fear or pain.|
+fluttered|pt|Moved wings quickly and lightly.|
+forgotten|pp|Not remembered.|
+frozen|adj|Turned to ice, or not able to move.|
+gasping|ing|Breathing in quickly with an open mouth.|
+gazing|ing|Looking steadily for a long time.|
+glimpse|n|A quick look.|
+glint|n|A small flash of light.|
+glowworm|n|A small insect or worm that gives off light.|
+gosh|int|A word that shows surprise.|
+grab|v|To take hold quickly.|
+hovering|ing|Staying in one place in the air.|
+ignoring|ing|Not paying attention.|
+instinct|n|A natural feeling that tells you what to do without being taught.|
+invisible|adj|Impossible to see.|
+jewel|n|A valuable, shiny stone.|
+knocked|pt|Hit something so that it moves or makes a noise.|
+leaping|ing|Jumping high or far.|
+lump|n|A small, hard piece of something. "Act like a lump" means stay still.|
+melted|pt|Turned from solid to liquid by heat.|
+nearby|adv|Close to this place.|
+nostril|n|One of the two openings of the nose.|
+opponent|n|A person who is against you in a fight or game.|
+outstretched|adj|Stretched out as far as possible.|
+patch|n|A small area that is different from what is around it.|
+peeked|pt|Took a quick look, often secretly.|
+perch|n|A place where a bird sits; a high place to sit.|
+plateau|n|A flat area of high land.|
+pounding|ing|Hitting again and again, or beating very hard.|
+puddle|n|A small pool of water on the ground.|
+raked|pt|Scratched or scraped across.|
+recognized|pt|Knew who or what something was because you had seen it before.|
+relief|un|The good feeling when worry or pain stops.|
+replace|v|To put something new in the place of another.|
+ruff|n|A ring of feathers or fur around the neck.|
+sapphire|n|A deep blue precious stone.|
+scarier|adj|More frightening.|
+shade|n|A place sheltered from the sun. It can also mean a type of colour.|
+shallow|adj|Not deep.|
+smelled|pt|Gave off a smell, or noticed a smell.|
+stole|pt|Took something that did not belong to you.|
+suppose|v|To think that something is probably true.|
+survived|pt|Stayed alive.|
+tipped|pt|Tilted or leaned over.|
+tucked|pt|Pushed something into a small space.|
+vision|n|What you see, or the ability to see.|
+yawned|pt|Opened the mouth wide because of being tired.|
+alongside|prep|Next to the side of something.|
+anxiously|adv|In a worried way.|
+awake|adj|Not sleeping.|
+awkwardly|adv|In a clumsy, uncomfortable way.|
+blinking|ing|Closing and opening your eyes quickly.|
+bowed|pt|Bent the head or body forward to show respect.|
+brushing|ing|Touching lightly.|
+clenched|pt|Closed tightly.|
+convinced|pt|Made someone believe something.|
+crawl|v|To move slowly on hands and knees.|
+crawling|ing|Moving slowly on hands and knees.|
+emerged|pt|Came out of a place.|
+shivered|pt|Shook a little because of cold or fear.|
+squeaked|pt|Made a short high sound.|
+terror|un|Very strong fear.|
+whenever|conj|At any time when.|
+hunt|v|To chase animals to catch and eat them.|
+hurry|n|A need to go fast.|
+mysterious|adj|Strange and hard to explain.|
+pig|n|A farm animal with a flat nose, kept for meat.|
+plummeted|pt|Fell very fast.|
+shifting|ing|Changing or moving slightly.|
+shuddered|pt|Shook suddenly because of fear or disgust.|
+smashing|ing|Breaking something noisily into pieces.|
+snapping|ing|Trying to bite quickly. It can also mean breaking with a sharp noise.|
+stirred|pt|Mixed a liquid with a spoon. It also means moved a little.|
+studded|adj|Covered with small things that stick out.|
+tapped|pt|Hit lightly.|
+tumbled|pt|Fell over and over.|
+charred|adj|Burned black on the outside.|
+curious|adj|Wanting to know more.|
+fill|v|To make something full.|
+flickered|pt|Shone with an unsteady light.|
+froze|pt|Stopped moving because of fear. Also turned to ice.|
+grin|n|A big smile.|
+scrambled|pt|Climbed or moved quickly using hands and feet.|
+shrug|n|A lifting of the shoulders to show you do not know or care.|
+skill|n|The ability to do something well.|
+slashing|ing|Cutting with a long, fast stroke.|
+slope|n|A surface that goes up or down at an angle.|
+spine|n|The line of bones down your back. Also a sharp point on an animal.|
+spitting|ing|Forcing liquid out of the mouth.|
+stinging|ing|Causing a sharp pain.|
+sunshine|un|Light from the sun.|
+tugging|ing|Pulling hard.|
+upset|adj|Unhappy or worried.|
+violent|adj|Using force to hurt people.|
+violet|adj|A purple colour.|
+ached|pt|Felt a continuous pain.|
+admitted|pt|Said that something is true, usually unwillingly.|
+alarm|n|A sudden feeling of fear.|
+amused|adj|Finding something funny.|
+angle|n|The shape made where two lines meet. It can also mean a point of view.|
+batted|pt|Hit lightly with a hand or paw.|
+blazed|pt|Burned with a strong bright flame.|
+bored|adj|Tired because something is not interesting.|
+bubbling|ing|Making small round balls of gas in a liquid.|
+bucket|n|A round open container with a handle for carrying water.|
+bye|int|A short way to say goodbye.|
+camouflage|un|Colours or patterns that help something hide in its surroundings.|
+cheer|v|To shout in joy or give comfort. "Cheer up" means make someone happier.|
+chimed|pt|Made a clear ringing sound. "Chimed in" means joined a talk.|
+choked|adj|Sounding as if it is hard to breathe or speak.|
+chosen|pp|Picked from among others.|
+circled|pt|Moved around in a circle.|
+clamped|pt|Held tightly.|
+clanking|ing|Making a loud metal sound.|
+constantly|adv|All the time.|
+crept|pt|Moved slowly and quietly.|
+crimson|adj|A deep red colour.|
+darting|ing|Moving suddenly and fast.|
+dazzling|adj|So bright that it is hard to look at.|
+delicate|adj|Thin, light, and easy to break.|
+desperate|adj|Willing to do anything because the situation is so bad.|
+disappear|v|To go out of sight.|
+dotted|adj|Covered with small spots.|
+drag|v|To pull something heavy along the ground.|
+drifted|pt|Moved slowly and gently with no control.|
+dripping|ing|Falling in small drops.|
+dust|un|Dry powder of very small bits of dirt.|
+echo|n|A sound that comes back after hitting a wall.|
+ember|n|A piece of wood or coal that is still glowing red after a fire.|
+everywhere|adv|In every place.|
+execute|v|To kill someone as an official punishment.|
+execution|n|The killing of a person as an official punishment.|
+faint|adj|Weak or hard to see or hear.|
+familiar|adj|Well known to you.|
+forgive|v|To stop being angry with someone.|
+furiously|adv|In an extremely angry or fast way.|
+gasp|n|A quick breath through the mouth because of surprise.|
+gasped|pt|Took a quick breath because of surprise.|
+gladiator|n|In ancient Rome, a person who fought in front of crowds.|
+glaring|ing|Looking at someone with an angry stare.|
+grateful|adj|Feeling thankful.|
+gripped|pt|Held tightly.|
+harmless|adj|Not able to hurt.|
+hooray|int|A shout of joy.|
+hopped|pt|Jumped on one foot or with small jumps.|
+horrified|adj|Shocked and very scared.|
+idiot|n|A very silly or stupid person.|
+jaw|n|The bone that holds the teeth. The lower part of the face.|
+jet|n|A fast stream of liquid or gas.|
+laughter|un|The sound of people laughing.|
+legend|n|An old story that may not be true.|
+legendary|adj|Famous from old stories.|
+looped|pt|Made a circle shape.|
+loyal|adj|Always supporting your friends or country.|
+magnificent|adj|Very grand and beautiful.|
+melt|v|To change from solid to liquid because of heat.|
+midair|un|The middle of the air, not touching the ground.|
+midday|un|Twelve o'clock in the day.|
+miserable|adj|Very unhappy.|
+murmur|n|A soft, low sound of voices.|
+nervously|adv|In a worried or afraid way.|
+ordinary|adj|Normal; not special.|
+outcropping|n|A piece of rock that sticks out from the ground.|
+paced|pt|Walked up and down again and again.|
+painfully|adv|In a way that hurts.|
+passageway|n|A narrow way that connects two places.|
+peer|v|To look closely, especially when it is hard to see.|
+plunged|pt|Fell or jumped suddenly into something.|
+pouring|ing|Flowing in a large stream.|
+reflected|pt|Sent back light or an image.|
+ridged|adj|With raised lines.|
+ridiculous|adj|Very silly.|
+rippled|pt|Moved in small waves.|
+rival|n|A person who competes with you.|
+riverbank|n|The land beside a river.|
+rumbled|pt|Made a long, deep sound.|
+rumor|n|A story that many people tell but may not be true.|
+scared|adj|Afraid.|
+scorched|adj|Burned on the surface.|
+scornful|adj|Showing that you think someone is not good.|
+scrabbled|pt|Used hands or claws quickly to climb or search.|
+scratched|pt|Rubbed or cut with nails or claws.|
+screaming|ing|Shouting in a loud, high voice.|
+shiver|n|A small shake of the body because of cold or fear.|
+sleephouse|n|A building where animals or people sleep. (A made-up word in this book.)|
+slit|n|A long, thin cut or opening.|
+snake|n|A long animal with no legs.|
+sniffed|pt|Smelled something by breathing in through the nose.|
+sparkling|ing|Shining with tiny flashes.|
+spat|pt|Forced liquid out of the mouth.|
+spilled|pt|Let liquid fall out by accident.|
+spinning|ing|Turning round and round quickly.|
+spiny|adj|Covered with sharp points.|
+spiraled|pt|Moved in a curve around a point.|
+split|adj|Divided into parts.|
+stubbornly|adv|In a way that refuses to change your mind.|
+stumbled|pt|Nearly fell when walking.|
+sucked|pt|Pulled something strongly with your mouth or by force.|
+suggestion|n|An idea that you offer to someone.|
+swallowed|pt|Moved food or drink down the throat.|
+teased|pt|Made fun of someone in a friendly or unkind way.|
+terrifying|adj|Extremely frightening.|
+thoughtful|adj|Thinking about others. Also deep in thought.|
+thrashed|pt|Moved wildly from side to side.|
+thumped|pt|Hit with a dull, heavy sound.|
+twin|n|One of two children born at the same time to the same mother.|
+understood|pt|Knew the meaning of something.|
+unsib|n|A made-up word in this book for a dragon who is not a brother or sister.|It is an invented word.
+wheeled|pt|Turned quickly in the air.|
+whooshed|pt|Moved quickly with a rushing sound.|
+winging|ing|Flying.|
+worm|n|A long, thin animal with no legs that lives in soil.|
+yelp|n|A short, sharp cry.|
+aching|adj|Hurting with a continuous pain.|
+afford|v|To have enough money or time to do something.|
+afterward|adv|At a later time.|
+ancient|adj|Very old.|
+betrayal|n|An act of harming someone who trusted you.|
+billowed|pt|Filled with wind and spread out.|
+bleeding|ing|Losing blood.|
+bolted|pt|Ran away suddenly.|
+bow|n|A bend of the body to show respect.|
+brief|adj|Lasting a short time.|
+bubbled|pt|Made small round balls of gas in a liquid.|
+calm|adj|Quiet and not worried.|
+cascading|ing|Falling or flowing down in large amounts.|
+chasing|ing|Running after something to catch it.|
+clutch|n|A group of eggs that a bird or snake lays together.|
+clutching|ing|Holding something tightly.|
+coldly|adv|In an unfriendly way.|
+copyright|un|The legal right to be the only person to publish a book.|
+creepy|adj|Strange and frightening.|
+dart|v|To move quickly and suddenly.|
+disappointed|adj|Sad because something was not as good as you hoped.|
+droplet|n|A very small drop of liquid.|
+flipped|pt|Turned over quickly.|
+fury|un|Very strong anger.|
+gash|n|A long, deep cut.|

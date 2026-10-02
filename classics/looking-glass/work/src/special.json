@@ -1,0 +1,90 @@
+{
+ "fast": {
+  "pos": "adverb",
+  "meaning": "Quickly. In some places in this book it means 'held firmly' or 'deeply'.",
+  "whyHard": "This word has more than one meaning.",
+  "senses": [
+   {
+    "pos": "adverb",
+    "meaning": "Quickly; at high speed.",
+    "default": true,
+    "anchors": [
+     {
+      "chapter": 6,
+      "occurrence": 1,
+      "form": "fast",
+      "context": "the Queen went so fast that it was all she could do"
+     }
+    ]
+   },
+   {
+    "pos": "adjective",
+    "meaning": "Held firmly, so that it cannot move or come out. Here the oars are stuck in the water.",
+    "anchors": [
+     {
+      "chapter": 9,
+      "occurrence": 1,
+      "form": "fast",
+      "context": "every now and then the oars got fast in it"
+     },
+     {
+      "chapter": 9,
+      "occurrence": 2,
+      "form": "fast",
+      "context": "which made the oars stick fast in the water"
+     },
+     {
+      "chapter": 9,
+      "occurrence": 3,
+      "form": "fast",
+      "context": "the blade of one of the oars got fast in the water"
+     }
+    ]
+   },
+   {
+    "pos": "adverb",
+    "meaning": "Deeply. It is used to say that someone is sleeping very well.",
+    "anchors": [
+     {
+      "chapter": 13,
+      "occurrence": 1,
+      "form": "fast",
+      "context": "both Queens were fast asleep, and snoring loud"
+     }
+    ]
+   }
+  ]
+ },
+ "guard": {
+  "pos": "noun",
+  "meaning": "On a train, the man who checks who has paid.",
+  "whyHard": "This word has more than one meaning.",
+  "senses": [
+   {
+    "pos": "noun",
+    "meaning": "On a train, the man who checks who has paid.",
+    "default": true,
+    "anchors": [
+     {
+      "chapter": 7,
+      "occurrence": 1,
+      "form": "guard",
+      "context": "\u201cTickets, please!\u201d said the guard, putting his head in at the window"
+     }
+    ]
+   },
+   {
+    "pos": "verb",
+    "meaning": "To keep safe from something bad. \"Guard against\" means to keep safe from.",
+    "anchors": [
+     {
+      "chapter": 12,
+      "occurrence": 1,
+      "form": "guard",
+      "context": "\u201cTo guard against the bites of sharks,\u201d the Knight replied"
+     }
+    ]
+   }
+  ]
+ }
+}

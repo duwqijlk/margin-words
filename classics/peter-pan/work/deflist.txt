@@ -1,0 +1,298 @@
+peter-pan/glossary.json                          296 of   711 meanings use words outside the basic list
+    propose: marry   <- To ask someone to marry you.
+    boast: pride   <- To talk about yourself or your things with too much pride.
+    imploringly: begs   <- In a way that begs for something very strongly.
+    shilling: coin   <- An old British coin of small value.
+    guinea: pound   <- An old British amount of money, a little more than a pound.
+    naught: zero   <- Nothing. Zero.
+    prim: neat, manners   <- Very neat and proper. Too serious about good manners.
+    perambulators: prams, pram, wheels   <- An old word for prams. A pram is a small bed on wheels for a baby.
+    mistress: servants   <- A woman who is the head of a home. Servants work for her.
+    propriety: behaviour   <- Polite and correct behaviour.
+    sedately: calm   <- In a calm, slow and serious way.
+    footer: slang   <- An old slang word for football.
+    forms: wooden   <- Long wooden seats for several people to sit on.
+    affected: pretended   <- Pretended to be or to feel something.
+    inferior: rank   <- Lower in rank. Less good than others.
+    pirouette: spin   <- To spin round and round fast on one foot, like a dancer.
+    perplexing: confused   <- Hard to understand. It makes you confused.
+    romp: noisy   <- A noisy, lively game.
+    rent: tore   <- Tore.
+    lair: hiding   <- A wild animal's hiding place.
+    tedious: boring   <- Long and boring.
+    flamingo: pink   <- A large pink bird with long legs and a long neck.
+    wigwam: tent   <- A round tent that some Native American people lived in.
+    deftly: skill   <- Quickly and with skill.
+    surf: waves, shore   <- The white waves that break on the shore.
+    scrawled: untidy   <- Written in an untidy way.
+    tranquilly: calm   <- In a calm and quiet way.
+    coinage: coins   <- Coins. Money made of metal.
+    upbraided: blamed   <- Told someone off. Blamed someone angrily.
+    fiend: wicked, cruel   <- A very wicked or cruel person.
+    tornado: spins   <- A very strong wind that spins round and round.
+    crumpled: folds   <- Pressed into folds. Not smooth.
+    brute: creature, darling's, tie   <- A rough and unkind creature. Here, it is Mr. Darling's word for the tie.
+    sarcastic: opposite   <- Saying the opposite of what you mean, to hurt someone or to make fun.
+    placid: calm   <- Calm. Not easy to upset.
+    murmur: complaint   <- A soft, low sound. "Without a murmur" means without any complaint.
+    doggedly: stubbornly   <- In a way that does not give up. Stubbornly.
+    cowardy: tease, custard, coward   <- A word that children use to tease someone who is afraid. "Cowardy custard" means a coward.
+    entreated: begged, begs   <- Begged someone very strongly. "Entreatingly" means in a way that begs.
+    breadwinner: earns   <- The person in a family who earns the money.
+    beseechingly: begs   <- In a way that begs for help.
+    whimpered: frightened   <- Cried softly in a sad or frightened way.
+    unwonted: usual   <- Not usual.
+    peppered: dots   <- Covered with many small dots.
+    enchantment: spell   <- A magic spell.
+    commotion: noisy   <- A sudden noisy and excited movement of many things.
+    mischievous: tricks   <- Liking to play tricks and cause small trouble.
+    appalled: shocked   <- Shocked and upset.
+    shudder: shake, disgust   <- A sudden shake of the body, from fear or disgust.
+    exceedingly: usual   <- Very. Much more than usual.
+    hostess: guests   <- A woman who has guests in her home.
+    draggled: dirty   <- Wet and dirty, as if it was pulled along the ground.
+    exulting: joy   <- Feeling and showing great joy about winning or being right.
+    clenched: tightly   <- Pressed tightly together.
+    glee: joy   <- Great joy.
+    rapturously: joy   <- In a way that shows great joy.
+    humiliating: ashamed   <- Making you feel ashamed in front of other people.
+    conceit: pride   <- Too much pride in yourself.
+    aghast: shocked   <- Shocked and afraid.
+    thimble: cap, finger, needle, sew   <- A small cap that you wear on a finger to push a needle when you sew.
+    primness: behaving   <- A very proper and serious way of behaving.
+    customary: usual   <- Usual. What people usually do.
+    agitated: nervous   <- Upset and nervous.
+    gurgles: bubbling   <- Soft sounds like water bubbling.
+    distorted: twisted, usual   <- Twisted out of its usual shape.
+    flattered: praising   <- Made someone feel pleased by praising them.
+    placidly: calm   <- In a calm and quiet way.
+    relenting: strict   <- Becoming less angry and less strict.
+    eaves: roof   <- The edges of a roof that stick out over the walls.
+    tempted: wise   <- Made someone want to do something, often something not wise.
+    cunning: tricky   <- Clever in a tricky way.
+    wriggling: twisting   <- Twisting and turning the body.
+    darn: mend, sewing   <- To mend a hole in clothes by sewing.
+    artfully: tricky   <- In a clever and tricky way.
+    topping: slang   <- An old British slang word that means very good.
+    gallant: bold   <- Brave and bold.
+    ripping: slang   <- Old British slang for very good.
+    elegant: graceful   <- Graceful and fine.
+    mantelpiece: shelf, fireplace   <- The shelf above a fireplace.
+    spires: towers   <- The tall pointed tops of church towers.
+    tiffs: quarrels   <- Small quarrels.
+    rollicking: noisy, cheerful   <- Noisy, cheerful and full of fun.
+    tingle: prickly   <- A light, prickly feeling on the skin.
+    disrespectful: honour   <- Not polite to someone who should be treated with honour.
+    eerie: frightening   <- Strange and a little frightening.
+    halo: circle   <- A circle of light round something.
+    topper: hat   <- A tall hat.
+    rasping: scratchy   <- Rough and scratchy in sound.
+    ford: shallow   <- A shallow place in a river where you can walk across.
+    tremulously: shaky   <- In a shaky way, because of fear.
+    bewildered: confused   <- Confused. Not knowing what to do.
+    staggering: unsteady   <- Walking with unsteady steps, as if about to fall.
+    ay: sailors   <- Yes. It is an old word that sailors use.
+    seething: boiling   <- Full of strong, busy movement, like boiling water.
+    debonair: cheerful, stylish   <- Cheerful, stylish and sure of himself.
+    ecstatically: joy   <- With very great joy.
+    villainous: wicked   <- Looking like a wicked man.
+    tattooed: marked, wash   <- Marked on the skin with pictures that do not wash off.
+    genial: pleasant   <- Friendly and pleasant.
+    ruffian: violent   <- A rough and violent man.
+    cadaverous: pale   <- Very thin and pale, like a dead body.
+    demeanour: behaves   <- The way a person looks and behaves.
+    lurches: unsteadily   <- Moves suddenly and unsteadily to one side.
+    tomahawks: axes   <- Light axes used as weapons by some Native American people.
+    writhing: twisting   <- Twisting the body about, as when in pain or trying to get free.
+    cutlass: sailors   <- A short curved sword that sailors used.
+    petulantly: tempered   <- In a bad-tempered way, like a child who does not get what he wants.
+    fidgeting: nervous, bored   <- Moving the hands or feet about, because you are nervous or bored.
+    exultation: joy   <- Great joy at winning.
+    baying: barking   <- The long, deep barking of big dogs or wolves.
+    defying: obeying   <- Standing up against someone or something and not obeying.
+    plaintive: complaint   <- Sad, and sounding like a complaint.
+    brandished: waved, scares   <- Waved in the air in a way that scares people.
+    avast: sailor's   <- A sailor's word that means "stop".
+    hempen: hemp   <- Made of hemp. Hemp is a plant used to make rope.
+    conqueror: beaten   <- A person who has won a fight and beaten others.
+    saluted: lifting   <- Showed respect by lifting a hand to the head, as soldiers do.
+    dastard: coward   <- A mean coward. It is an old word.
+    hack: blows   <- To cut roughly with heavy blows.
+    hew: axe   <- To cut wood with an axe.
+    fender: frame   <- A low metal frame in front of a fire.
+    sap: juice   <- The sweet juice inside a tree or plant.
+    carousing: noisy   <- Drinking and singing loudly with others in a noisy, happy way.
+    tweaked: twist   <- Gave a quick small pull and twist with the fingers.
+    dignity: calm, earns   <- A calm, serious way of acting that earns respect.
+    mischiefed: harm   <- Done harm to someone. The author makes a verb from the noun "mischief".
+    fibre: thread   <- A thin thread from a plant.
+    suspended: hung   <- Hung from above.
+    chandelier: hangs, ceiling   <- A light that hangs from the ceiling, with many arms for lights.
+    rampagious: noisy   <- Wild and noisy.
+    bandaged: strip, tied   <- With a strip of cloth tied round a hurt place.
+    succulence: juicy, tasty   <- The juicy, soft and tasty quality of food.
+    defiance: refusing, obey   <- Standing up against someone and refusing to obey.
+    glistened: shone   <- Shone, as if wet.
+    stalking: hunt   <- Moving slowly and quietly toward something, to hunt it.
+    ahoy: sailor's   <- A sailor's call to get the attention of a boat or ship.
+    lubber: clumsy, sailor   <- A big, clumsy person. Here, a clumsy sailor.
+    hoist: lift   <- To lift something up with effort.
+    puckered: folds   <- Pulled into small folds.
+    quaking: shaking   <- Shaking with fear.
+    timidly: shy   <- In a shy and afraid way.
+    affrighted: frightened   <- Frightened. It is an old word.
+    bully: hook   <- An old friendly word for a good fellow. Hook uses it for his men.
+    cozening: cheating, tricking   <- Cheating or tricking someone. It is an old word.
+    blanch: pale   <- To turn pale.
+    henchmen: followers   <- Followers of a bad leader who do what he says.
+    scaled: climbed, steep   <- Climbed up something steep.
+    dazed: shock   <- Made unable to think clearly, because of a shock.
+    pestilent: harmful   <- Very bad and harmful. It is an old word.
+    scouring: carefully   <- Searching a place carefully everywhere.
+    tremor: shake   <- A small shake.
+    fanciful: imagination   <- From the imagination. Not real.
+    quacking: duck   <- Talking in a loud, silly way, like a duck.
+    stave: pole   <- A strong stick or pole.
+    buccaneers: pirates   <- Pirates, especially from long ago.
+    moidores: coins   <- Old gold coins from Portugal.
+    brim: hat   <- The wide edge round the bottom of a hat.
+    barque: sailing   <- A sailing ship. Here, it is the author's joking word for Peter's little boat.
+    rejoicings: celebrations   <- Happy celebrations.
+    dodgy: tricky   <- Tricky and not quite honest.
+    scandalised: shocked   <- Shocked because something seems very wrong.
+    glittering: shining, flashes   <- Shining brightly with small flashes of light.
+    mast: pole, sails   <- A tall pole on a ship that holds the sails.
+    grovelled: crawled   <- Lay or crawled on the ground in front of someone, to show you are lower than them.
+    cringe: humble   <- To bend down or move back because of fear, or to be too humble.
+    titbits: tasty   <- Small tasty pieces of food.
+    guzzling: greedy   <- Eating or drinking in a greedy way.
+    recriminations: blame   <- Angry blame that people throw at each other.
+    diffidently: shy, confidence   <- In a shy way, without much confidence.
+    homely: plain   <- Plain and comfortable, like home.
+    insinuated: sly   <- Said something in a sly way, without saying it openly.
+    gratified: satisfied   <- Pleased and satisfied.
+    uproariously: noisy   <- In a very noisy and laughing way.
+    braves: redskin   <- In this book, the fighting men of the redskin camp.
+    abandoned: behaviour   <- Left something and gave it up.
+    descendants: grandchildren   <- Children, grandchildren and others who come after a person in a family.
+    sublime: noble   <- Very great and noble.
+    concealed: hid   <- Hid something. Kept it secret.
+    unworthy: shameful   <- Not good enough. Shameful.
+    stricken: struck   <- Struck hard by a strong feeling, such as fear.
+    hanger: sailors   <- A short sword that sailors carried.
+    insubordination: refusing, obey   <- Refusing to obey someone in charge.
+    negligee: nightgown   <- A thin, light nightgown for a woman.
+    noodles: slang   <- Silly people. It is old British slang.
+    blubbering: noisily   <- Crying noisily.
+    cynicism: belief   <- A bitter belief that people are not good or kind.
+    beseeching: begging   <- Begging very strongly.
+    coaxed: gently   <- Gently tried to make someone do something.
+    wiliness: tricking   <- Cleverness in tricking others.
+    stockade: fence, defence   <- A strong fence of tall posts, used for defence.
+    undulating: waves   <- Rising and falling in gentle waves, like land with many low hills.
+    ghastly: frightening   <- Very bad and frightening.
+    intimation: hint   <- A hint or sign of something.
+    stealthily: carefully   <- Quietly and carefully, so that no one notices.
+    diabolical: wicked, devil   <- Very wicked, like the devil.
+    phlegmatic: calm   <- Calm and not easily excited.
+    squatted: heels   <- Sat low, close to the ground, on the heels.
+    utterance: aloud   <- The act of saying or making a sound aloud.
+    perfidious: loyal   <- Not loyal. Breaking trust.
+    phalanx: fighters   <- A close group of fighters standing together.
+    acquitted: behaved, behave   <- Behaved. "Acquit yourself" means to behave in a certain way.
+    massacre: cruel   <- The cruel killing of many people.
+    beset: surrounded   <- Surrounded on all sides by something.
+    pertinacity: stubbornness   <- Not giving up. Stubbornness.
+    malignant: harm   <- Wanting to do harm. Evil.
+    frenzy: excitement   <- A state of wild, uncontrolled anger or excitement.
+    pandemonium: confusion   <- Wild noise and confusion.
+    avidly: eagerness   <- With great eagerness.
+    base: shameful   <- Low and shameful.
+    ruthless: cruel, pity   <- Cruel, with no pity.
+    ironical: opposite   <- Saying one thing but meaning the opposite.
+    trussing: tying, tightly   <- Tying up tightly.
+    addicted: habit   <- Having a strong habit that you cannot stop.
+    unmolested: harmed   <- Not stopped or harmed.
+    shaft: passage   <- A long, narrow passage going up or down.
+    vex: annoyed   <- To make someone annoyed.
+    piteously: pity   <- In a way that makes people feel pity.
+    riddle: puzzle   <- Something that is hard to understand. A puzzle.
+    indignity: shamed   <- Something that makes you feel shamed.
+    compassion: pity   <- A feeling of pity and a wish to help.
+    harpsichord: musical, instrument, piano, plucked   <- An old musical instrument like a piano, with strings that are plucked.
+    virulent: harmful   <- Very strong and harmful.
+    gloating: joy   <- Looking at someone's trouble with mean joy.
+    guttered: burned   <- Burned weakly and then went out.
+    conjurers: tricks   <- People who do magic tricks.
+    tottering: unsteady   <- Walking in an unsteady way.
+    fitful: steady   <- Stopping and starting. Not steady.
+    astir: awake   <- Awake and moving about.
+    obliterated: rubbed   <- Rubbed out completely.
+    belay: sailor's   <- A sailor's word that means "stop".
+    brig: masts   <- A ship with two tall masts.
+    strewn: untidy   <- Spread about in an untidy way.
+    mangled: torn, crushed   <- Badly torn and crushed.
+    immune: harmed   <- Safe from something. Not able to be harmed by it.
+    essence: commonplace   <- The most important part of something. In "the essence of the commonplace", it is a perfect example.
+    commonplace: ordinary   <- Ordinary. Seen everywhere.
+    bulwarks: deck   <- The sides of a ship above the deck, like a wall.
+    miasma: mist   <- A bad, unhealthy air or mist.
+    grappled: tightly   <- Held tightly in a fight.
+    slouch: lazy   <- A lazy way of standing or walking, with bent shoulders.
+    portals: gates   <- Large doors or gates.
+    perspiration: sweat   <- Sweat.
+    tallow: pale, candles   <- A hard, pale fat used to make candles.
+    doublet: tight, jacket   <- A tight jacket that men wore long ago.
+    sleuthhound: smell   <- A dog that follows a smell to find someone.
+    bacchanalian: noisy   <- Wild and noisy, with much drinking.
+    lolled: lazy   <- Sat or lay in a lazy way.
+    pluck: courage   <- Courage.
+    prudent: wise   <- Careful and wise about what might happen.
+    buffer: shock   <- A thing or person that takes the shock between two sides.
+    glamour: charm   <- A special charm that makes something exciting.
+    grimy: dirt   <- Covered with dirt.
+    anguish: sorrow   <- Very great pain or sorrow.
+    intrinsic: belonging   <- Belonging to the real nature of something.
+    cowering: shrinking   <- Bending down and shrinking back in fear.
+    abject: miserable, frightened   <- In a miserable and frightened state.
+    carrion: pirate   <- A dead body. Here, it is the author's word for the dead pirate.
+    brazenly: shame   <- Openly and without shame.
+    grimacing: ugly   <- Making ugly faces.
+    blithely: cheerful   <- In a cheerful way, without a care.
+    accurst: cursed, spelling   <- Cursed. It is an old spelling.
+    hearten: courage   <- To give someone courage.
+    quailing: shrinking   <- Shrinking back in fear.
+    unstrung: nervous   <- Made weak and nervous.
+    quarry: hunted   <- A person or animal that is hunted.
+    parried: blow   <- Stopped a sword blow by moving his own sword.
+    feint: pretends, trick   <- A move that pretends to go one way, to trick an enemy.
+    flail: swings   <- A tool for beating grain, made of a stick that swings.
+    precarious: steady   <- Not safe or steady.
+    strutted: chest   <- Walked in a proud way, with the chest out.
+    reeking: smell   <- Giving off a strong smell.
+    cat: whip   <- A whip with nine tails, used to hit people.
+    nautical: sailing   <- Of ships and sailing.
+    tars: sailors   <- An old word for sailors.
+    lashed: tied, tightly   <- Tied tightly with rope.
+    bluff: plain   <- Rough and plain in speech.
+    strident: harsh   <- Loud and harsh.
+    lull: calm   <- To make someone calm or less careful.
+    rapture: joy   <- Great joy.
+    pettishly: tempered, childish   <- In a bad-tempered, childish way.
+    jaggy: prickly   <- Sharp and prickly. It is a Scottish word.
+    quixotic: noble, unwise   <- Wanting to do noble things in an unwise way.
+    brats: behave   <- Children who behave badly. The author uses it in a playful way.
+    gratifying: pleasure, satisfaction   <- Giving pleasure and satisfaction.
+    exultantly: joy   <- In a way full of joy at winning.
+    remorse: sorrow   <- A deep feeling of sorrow for doing wrong.
+    drowsy: sleepy   <- Sleepy.
+    cipher: importance, zero   <- A person of no importance. A zero.
+    craftily: sly   <- In a clever and sly way.
+    mauve: pale, purple   <- A pale purple colour.
+    halfpennyworth: penny   <- As much as half a penny can buy. A very small amount.
+    diversions: amuse   <- Things that amuse people. Games.
+    receding: farther   <- Going farther away.
+    artful: sly   <- Clever in a sly way.
+    banns: marry   <- A public notice in church that two people will marry.
+    ecstasy: joy   <- A feeling of very great joy.
+TOTAL 296 of 711

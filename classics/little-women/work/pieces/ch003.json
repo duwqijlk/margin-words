@@ -1,0 +1,97 @@
+{
+ "glossary": {
+  "impertinent": {
+   "pos": "adjective",
+   "meaning": "Rude to a person who should be treated with respect, such as a teacher."
+  },
+  "prim": {
+   "pos": "adjective",
+   "meaning": "Too careful and proper in the way you look and act. Not easy and playful."
+  },
+  "chit": {
+   "pos": "noun",
+   "meaning": "A word for a girl or young woman, used when you think she is silly or too proud."
+  },
+  "tomboy": {
+   "pos": "noun",
+   "meaning": "A girl who likes boys' games and acts like a boy."
+  },
+  "poky": {
+   "pos": "adjective",
+   "meaning": "Slow and not fun, with a small, poor life."
+  },
+  "twilight": {
+   "pos": "noun",
+   "meaning": "The soft, weak light in the evening after the sun has gone down."
+  },
+  "recess": {
+   "pos": "noun",
+   "meaning": "A place in a wall that goes back from the rest of the wall. Books can stand there."
+  },
+  "pervaded": {
+   "pos": "past-tense verb",
+   "meaning": "Spread through every part of a place.",
+   "forms": [
+    "pervaded",
+    "pervade"
+   ]
+  },
+  "chaplain": {
+   "pos": "noun",
+   "meaning": "A church man who goes with an army to help the soldiers."
+  },
+  "drafted": {
+   "pos": "past participle",
+   "meaning": "Chosen and ordered by the government to join the army.",
+   "forms": [
+    "drafted",
+    "draft"
+   ]
+  },
+  "incantation": {
+   "pos": "noun",
+   "meaning": "Magic words that a person says or sings to make magic work."
+  },
+  "asunder": {
+   "pos": "adverb",
+   "meaning": "Into pieces; apart."
+  },
+  "slang": {
+   "pos": "uncountable noun",
+   "meaning": "Rough, friendly words that people use in talk, but not in careful, proper speech."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 3,
+   "context": "Do you remember how you used to play 'Pilgrim's Progress' when you were little things",
+   "mainIdea": "Mrs. March reminds the girls of their old game of Pilgrim's Progress. They played it all through the house.",
+   "simple": "Mrs. March ended the quiet after Jo's words. In her cheerful voice she asked the girls if they remembered playing 'Pilgrim's Progress' when they were small. She said nothing made them happier than when she tied her piece-bags on their backs as heavy loads. She gave them hats, sticks and rolls of paper, and let them travel through the house. They began in the cellar, the City of Destruction, and went up and up to the housetop. There they put all the lovely things they could find, to make a Celestial City.",
+   "hardWords": [
+    "piece-bags",
+    "burdens",
+    "Celestial City"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 3,
+   "context": "Round shoulders had Jo, big hands and feet, a flyaway look to her clothes",
+   "simple": "Jo had round shoulders, big hands and feet, and clothes that looked loose and untidy.",
+   "grammar": "The order is turned around: 'Round shoulders had Jo' means 'Jo had round shoulders'. The writer puts the thing first for style."
+  }
+ ],
+ "phrases": {
+  "cut in": {
+   "pos": "phrasal verb",
+   "meaning": "To start speaking while another person is still speaking.",
+   "example": "but Jo cut in with a decided"
+  },
+  "turn up one's hair": {
+   "pos": "phrase",
+   "meaning": "To put long hair up on the head, as a grown woman does.",
+   "example": "you are so tall, and turn up your hair"
+  }
+ }
+}

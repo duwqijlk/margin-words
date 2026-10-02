@@ -1,0 +1,40 @@
+{
+"glossary": {
+"auspicious": {
+"pos": "adjective",
+"meaning": "Showing good signs for the future; full of hope."
+},
+"blindfold": {
+"pos": "verb",
+"meaning": "To cover something so no light shows. Here, Tom covers the lantern with a towel."
+},
+"lair": {
+"pos": "noun",
+"meaning": "The hiding place of a wild animal or a bad person."
+}
+},
+"paragraphs": [
+{
+"chapter": 30,
+"paragraph": 4,
+"context": "Tom got his lantern, lit it in the hogshead",
+"mainIdea": "Tom goes into the alley with the lantern while Huck watches. Huck is very afraid while he waits, and then Tom runs out and tells him to run.",
+"simple": "Tom got his lantern, lit it inside the big barrel and wrapped it closely in the towel. The two adventurers crept in the dark toward the tavern. Huck stood guard and Tom felt his way into the alley. Then there was a time of anxious waiting that weighed on Huck like a mountain. He began to wish he could see a flash from the lantern. It would frighten him, but at least it would tell him that Tom was still alive. It seemed like hours since Tom had gone. Surely he had fainted, or maybe he was dead, or maybe his heart had burst from fear and excitement. In his worry, Huck found himself moving closer and closer to the alley. He feared all kinds of terrible things and expected at any moment something that would take his breath away. There was not much breath to take, for he could only breathe in tiny amounts and his heart would soon wear out, the way it was beating. Suddenly there was a flash of light and Tom came tearing past him. \"Run!\" he said. \"Run for your life!\""
+}
+],
+"sentences": [
+{
+"chapter": 30,
+"context": "He needn’t have repeated it; once was enough",
+"simple": "It was not necessary for him to say it again; once was enough.",
+"grammar": "'Needn't have + past participle' means that something was done but was not needed. Tom said 'run' twice, but Huck ran at once."
+}
+],
+"phrases": {
+"great caesar's ghost": {
+"meaning": "A cry of great surprise.",
+"pos": "idiom",
+"example": "and, Great Caesar’s Ghost!"
+}
+}
+}

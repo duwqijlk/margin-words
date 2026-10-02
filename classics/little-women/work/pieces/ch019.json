@@ -1,0 +1,64 @@
+{
+ "glossary": {
+  "insensibly": {
+   "pos": "adverb",
+   "meaning": "Slowly, without noticing it."
+  },
+  "praiseworthy": {
+   "pos": "adjective",
+   "meaning": "Good enough that people should say well done."
+  },
+  "pendulum": {
+   "pos": "noun",
+   "meaning": "The part that moves from side to side in a machine that tells the time, and keeps it going."
+  },
+  "relapse": {
+   "pos": "noun",
+   "meaning": "A return to a bad way after a time of getting better.",
+   "forms": [
+    "relapses",
+    "relapse"
+   ]
+  },
+  "belladonna": {
+   "pos": "noun",
+   "meaning": "A medicine made from a plant that can kill. At that time people took it to try to stop a bad sickness with red skin."
+  },
+  "camphor": {
+   "pos": "uncountable noun",
+   "meaning": "A white thing with a sharp, strong feel in the nose, used in medicine."
+  },
+  "wheedlesome": {
+   "pos": "adjective",
+   "meaning": "Sweet and soft in speech, trying to get someone to agree."
+  },
+  "stamina": {
+   "pos": "uncountable noun",
+   "meaning": "The strength to keep going for a long time and stay healthy."
+  },
+  "gallivanting": {
+   "pos": "present participle",
+   "meaning": "Going about for fun with no plan."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 19,
+   "context": "All were unconscious that this experience was a test of character",
+   "mainIdea": "The girls think they did well and deserve praise. They then stop trying hard, and this leads to trouble.",
+   "simple": "None of the girls knew that this time was a test of their character. When the first excitement was over, they thought they had done well and deserved praise. They did, but their mistake was to stop doing well. They learned this lesson through much worry and sorrow.",
+   "hardWords": [
+    "test of character"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 19,
+   "context": "the house seemed like a clock whose pendulum was gone a-visiting",
+   "simple": "The house seemed like a clock whose swinging part had gone away to visit someone.",
+   "grammar": "This is a simile with a relative clause: 'a clock whose pendulum was gone...'. 'Gone a-visiting' is a playful way to say the pendulum is missing, just as Beth is the one who keeps the house going."
+  }
+ ],
+ "phrases": {}
+}

@@ -1,0 +1,81 @@
+{
+ "glossary": {
+  "boon": {
+   "pos": "noun",
+   "meaning": "Something good that you ask for; a great help."
+  },
+  "philander": {
+   "pos": "verb",
+   "meaning": "To play at love in a light, silly way. Here Jo says it is fun to watch other people do it."
+  },
+  "coquetry": {
+   "pos": "uncountable noun",
+   "meaning": "The way a girl acts so that a man likes her, but with no real love."
+  },
+  "capricious": {
+   "pos": "adjective",
+   "meaning": "Changing suddenly, without a good reason."
+  },
+  "peremptorily": {
+   "pos": "adverb",
+   "meaning": "In a way that allows no one to say no; as an order."
+  },
+  "perversity": {
+   "pos": "uncountable noun",
+   "meaning": "A wish to do what is not wanted of you."
+  },
+  "dudgeon": {
+   "pos": "noun",
+   "meaning": "A feeling of anger because someone has been rude to you. 'In high dudgeon' means very angry."
+  },
+  "transfixed": {
+   "pos": "past participle",
+   "meaning": "Held still, because of great surprise or fear.",
+   "forms": [
+    "transfixed"
+   ]
+  },
+  "abject": {
+   "pos": "adjective",
+   "meaning": "Very low, with no good opinion of yourself."
+  },
+  "delusion": {
+   "pos": "noun",
+   "meaning": "A wrong idea that you hold strongly."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 25,
+   "context": "Now Aunt March possessed in perfection the art of rousing the spirit of opposition",
+   "mainIdea": "Aunt March's order not to like John makes Meg decide that she will. When we are young and in love, we like to do the opposite of what we are told.",
+   "simple": "Aunt March was perfect at making even the gentlest people want to oppose her, and she enjoyed it. The best of us have a little wish to do the opposite, especially when we are young and in love. If Aunt March had begged Meg to accept John Brooke, Meg would probably have said she could not think of it. But because she was ordered not to like him, she at once decided that she would. Her own wish as well as this stubborn feeling made the decision easy. She was already very excited, so she opposed the old lady with unusual spirit.",
+   "hardWords": [
+    "perversity",
+    "peremptorily",
+    "inclination"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 25,
+   "context": "If Aunt March had begged Meg to accept John Brooke, she would probably have declared",
+   "simple": "If Aunt March had begged Meg to accept John Brooke, Meg would probably have said she could not think of it.",
+   "grammar": "This is a past unreal 'if' sentence: 'If ... had begged, ... would have declared'. It says what would have happened, but did not."
+  },
+  {
+   "chapter": 25,
+   "context": "Whether it ever rises again, depends upon the reception given to the first act",
+   "simple": "If the curtain will ever go up again depends on how people like the first part of the play.",
+   "grammar": "'Whether it ever rises again' is a noun clause used as the subject of 'depends'. The writer uses a stage curtain as a picture for the book."
+  }
+ ],
+ "phrases": {
+  "on the spot": {
+   "pos": "idiom",
+   "meaning": "Right away; at that moment and place.",
+   "example": "invite you to my wedding on the spot"
+  }
+ }
+}

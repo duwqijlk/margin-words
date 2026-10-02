@@ -1,0 +1,71 @@
+{
+"glossary": {
+"quartering": {
+"pos": "present participle",
+"meaning": "Moving at a slant across a river, not straight across."
+},
+"thwart": {
+"pos": "noun",
+"meaning": "A seat across a small boat.",
+"forms": [
+"thwarts"
+]
+},
+"harum-scarum": {
+"pos": "adjective",
+"meaning": "Wild and careless; not thinking before acting."
+},
+"bereaved": {
+"pos": "adjective",
+"meaning": "Having lost a person close to you through death."
+},
+"ejaculations": {
+"pos": "plural noun",
+"meaning": "Short, sudden cries or words said aloud."
+},
+"conjectured": {
+"pos": "past participle",
+"meaning": "Guessed from the little that is known.",
+"forms": [
+"conjectured",
+"conjecture"
+]
+},
+"weltering": {
+"pos": "present participle",
+"meaning": "Rolling or lying in something. Here, Tom is crying so much that he is lost in tears.",
+"forms": [
+"weltering",
+"welter"
+]
+},
+"true-blue": {
+"pos": "adjective",
+"meaning": "Faithful and loyal; always true to his friends."
+}
+},
+"paragraphs": [
+{
+"chapter": 17,
+"paragraph": 14,
+"context": "He went on listening, and gathered by odds and ends that it was conjectured",
+"mainIdea": "Hiding under the bed, Tom learns what the village thinks. They think the boys drowned, and they plan funerals for Sunday.",
+"simple": "Tom went on listening. From scraps of talk, he learned what the village had guessed. First they thought the boys had drowned while swimming. Then they found the small raft was gone. Some boys said the missing boys had promised that the village would soon hear something. The wise ones put this and that together and decided that the boys had gone off on the raft and would turn up at the next town down the river. But toward noon the raft was found against the Missouri shore, five or six miles below the village, and then hope died. They thought the boys must be drowned. If not, hunger would have driven them home by night. People believed that the search for the bodies had done no good because the drowning was in the middle of the river. The boys were good swimmers, so otherwise they would have reached the shore. This was Wednesday night. If the bodies were still missing by Sunday, all hope would be given up, and the funeral talks would be given that morning. Tom shook."
+}
+],
+"sentences": [
+{
+"chapter": 17,
+"context": "he knew she was tenantless except that there was a watchman, who always turned in",
+"simple": "He knew that nobody was on the boat except a watchman, who always went to bed early.",
+"grammar": "'Tenantless except that...' means 'with nobody in it, apart from...'. The 'who' part gives extra information about the watchman."
+}
+],
+"phrases": {
+"cast off": {
+"meaning": "To untie a boat's ropes and let it leave.",
+"pos": "phrasal verb",
+"example": "a voice gave the order to “cast off.”"
+}
+}
+}

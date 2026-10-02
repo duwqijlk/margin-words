@@ -1,0 +1,87 @@
+{
+"glossary": {
+"hispy": {
+"pos": "noun",
+"meaning": "A children's game of hiding and seeking, short for 'I spy'."
+},
+"chartered": {
+"pos": "past participle",
+"meaning": "Rented for a special purpose.",
+"forms": [
+"chartered",
+"charter"
+]
+},
+"labyrinth": {
+"pos": "noun",
+"meaning": "A place with many winding paths where it is easy to get lost."
+},
+"crevices": {
+"pos": "plural noun",
+"meaning": "Narrow cracks or openings in rock.",
+"forms": [
+"crevice"
+]
+},
+"stile": {
+"pos": "noun",
+"meaning": "Steps that let people climb over a fence or wall."
+},
+"sumach": {
+"pos": "noun",
+"meaning": "A bush with red or brown fruit that grows on hills."
+},
+"stalwart": {
+"pos": "adjective",
+"meaning": "Strong and brave."
+},
+"precarious": {
+"pos": "adjective",
+"meaning": "Not safe; likely to fall or fail."
+},
+"quarry": {
+"pos": "noun",
+"meaning": "A big hole in the ground where stone is cut out."
+},
+"horsewhipped": {
+"pos": "past participle",
+"meaning": "Hit with a whip, as a punishment."
+}
+},
+"paragraphs": [
+{
+"chapter": 31,
+"paragraph": 24,
+"context": "They moved up the river street three blocks, then turned to the left",
+"mainIdea": "Huck follows the two men up Cardiff Hill. He stops when he hears Injun Joe near the Widow Douglas' land.",
+"simple": "The men went up the river street for three blocks, then turned left up a cross street. They went straight on until they came to the path up Cardiff Hill, and they took it. They passed the old Welshman's house, halfway up the hill, without stopping, and climbed higher. Huck thought they would bury the box in the old quarry. But they did not stop at the quarry. They went on to the top and into the narrow path between the tall sumach bushes, and were hidden in the dark. Huck came closer, since they could not see him. He ran for a while, then slowed down, because he was afraid he was gaining on them too fast. He went on a little and then stopped. He listened. There was no sound, only the beat of his own heart. An owl hooted over the hill, an ominous sound. But he heard no footsteps. He thought everything was lost. He was about to run with winged feet when a man cleared his throat not four feet from him. Huck's heart shot into his throat, but he swallowed it again. He stood there shaking as if a dozen fevers had taken him at once, and so weak that he thought he must fall. He knew where he was. He was within five steps of the stile that led into Widow Douglas' land. He thought, very well, let them bury it there. It would not be hard to find."
+},
+{
+"chapter": 31,
+"paragraph": 31,
+"context": "Give it up, and I just leaving this country forever!",
+"mainIdea": "Injun Joe tells why he hates the Widow Douglas' dead husband and says he will take revenge on her.",
+"simple": "Injun Joe cries that he will not give it up when he is just leaving the country for ever. He says he might never have another chance. He says that he does not care for her money and the other man may have it. But her husband was hard on him many times. Most of all, he was the justice of the peace who sent him to jail as a vagrant. And that is not all. That is not a millionth part of it. The man had him whipped in front of the jail, with the whole town watching. Joe asks if he understands. He says the man took advantage of him and died. But he will take it out on her.",
+"hardWords": [
+"vagrant",
+"horsewhipped",
+"jugged"
+]
+}
+],
+"sentences": [
+{
+"chapter": 31,
+"context": "Bundles of candles were procured, and straightway there was a general scamper up the hill",
+"simple": "Many candles were found, and at once all the children ran up the hill.",
+"grammar": "'Were procured' is a passive verb: the person who got the candles is not named. 'Straightway' is an old word for 'at once'."
+},
+{
+"chapter": 31,
+"context": "It was said that one might wander days and nights together",
+"simple": "People said that a person could wander for days and nights without finding the end.",
+"grammar": "'It was said that...' is a passive sentence with 'it' as a placeholder. It tells what people said without naming them. 'One' means 'a person'."
+}
+],
+"phrases": {}
+}

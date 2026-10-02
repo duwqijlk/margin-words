@@ -1,0 +1,62 @@
+@W
+thoroughgoing | adjective | Doing everything fully and with care. | |
+murmur | noun | A soft, low sound or a quiet complaint. | |
+pacified | adjective | Made quiet after being angry. | |
+answerable | adjective | Having to take the blame if something goes wrong. | |
+whimpered | past-tense verb | Made soft, sad cries. | |
+placidly | adverb | In a quiet way, not easily upset. | |
+carouse | present participle | Drinking and enjoying yourself noisily with others. | carousing |
+brandish | present participle | Waving a weapon in the air to show it. | brandishing |
+frenzied | adjective | Wild with strong feeling. | |
+wrathfully | adverb | In a very angry way. | |
+bristling | present participle | Standing up stiffly, like hair on an angry animal. | |
+flourishing | present participle | Waving something in a proud way. | |
+debris | noun | Broken pieces left after something is smashed. | |
+guava | noun | A tropical fruit. | |
+trifle | noun | A soft sweet food of cake, fruit and cream. | |
+apiece | adverb | Each. | |
+penitent | adjective | Sorry for the wrong things you have done. | |
+valour | noun | Great courage in fighting. | |
+consummate | adjective | Complete and perfect in skill. | |
+fractious | adjective | Cross and hard to control. | |
+libel | noun | A false and unkind thing said about someone. | |
+boudoir | noun | A woman's private room. | |
+confiscate | past-tense verb | Took something away from someone. | confiscated |
+unction | noun | A smooth way of speaking that shows strong feeling, often not real. | |
+snubby | adjective | A little unfriendly and cold to someone. | |
+oblivious | adjective | Not noticing or thinking about something. | |
+inflated | adjective | Too full of pride. | |
+uppish | adjective | Proud and thinking you are better than others. | |
+boisterous | adjective | Noisy and full of energy. | |
+assessor | noun | A person who decides how much something is worth. | assessors |
+@P
+ctx: It was cold, and dark, and damp, and low, and narrow
+idea: In the dark passage Toad is afraid and falls behind. When he rushes forward, he knocks the others over, and the Badger nearly shoots him.
+simple: It was cold, and dark, and damp, and low, and narrow, and poor Toad began to shiver. He shivered partly from fear of what might be before him, and partly because he was wet through. The lantern was far ahead, and he could not help staying behind a little in the darkness. Then he heard the Rat call out as a warning, 'Come on, Toad!' A terror took hold of him of being left behind, alone in the darkness, and he 'came on' with such a rush that he knocked the Rat into the Mole, and the Mole into the Badger, and for a moment all was confusion. The Badger thought they were being attacked from behind. There was no room to use a stick or a cutlass, so he drew a pistol, and he was about to put a bullet into Toad. When he found out what had really happened he was very angry indeed, and said, 'Now this time that tiresome Toad shall be left behind!'
+hard: dread; lagging behind; warningly; on the point of; tiresome
+@P
+ctx: Sometimes, in the course of long summer evenings, the friends would take a stroll
+idea: In the end the friends walk in the Wild Wood, where the animals now greet them with respect. The mother-weasels talk about them to their babies.
+simple: Sometimes, on long summer evenings, the friends would take a walk together in the Wild Wood, which was now made safe, as far as they were concerned. It was pleasing to see how respectfully the animals who lived there greeted them. The mother-weasels would bring their young ones to the mouths of their holes and say, pointing, 'Look, baby! There goes the great Mr. Toad! And that is the brave Water Rat, a terrible fighter, walking along with him! And over there comes the famous Mr. Mole, of whom you have so often heard your father tell!' But when their babies were cross and quite beyond control, they would quiet them by telling how the terrible grey Badger would get them if they did not hush them and not fret them. This was a mean and false thing to say about the Badger. He cared little about Society, but he was rather fond of children. Still, it never failed to work.
+hard: in the course of; tamed; gallant; yonder; fractious; up and get; base libel; Society
+@S
+ctx: The Toad was so anxious not to be left out that he took
+simple: Toad was so worried about being left out that he took the lower place they gave him without a word, and the animals set off.
+gram: 'so anxious not to be left out that he took up ...' is a 'so ... that' result clause; 'assigned to him' is a past participle phrase telling which position; 'without a murmur' means 'without complaining'.
+@S
+ctx: Well might the terrified weasels dive under the tables and spring madly
+simple: It was no surprise that the frightened weasels dived under the tables and sprang wildly up at the windows.
+gram: 'Well might + subject + verb' is an old way to put the helper verb first; it means 'it is easy to understand why' they did this.
+@S
+ctx: Through the broken windows the shrieks of terrified weasels escaping across the lawn
+simple: Through the broken windows came the faint sound of the screams of frightened weasels running away across the lawn. On the floor lay about a dozen of the enemy, and the Mole was busy putting handcuffs on them.
+gram: This is a sentence with the order changed: the place 'Through the broken windows' comes first, and the subject 'the shrieks' comes before 'were borne'; 'on whom the Mole was busily engaged in fitting handcuffs' is a relative clause; 'engaged in + -ing' means 'busy doing'.
+@S
+ctx: Toad, after due consultation with his friends, selected a handsome gold chain
+simple: After talking it over properly with his friends, Toad chose a fine gold chain and a locket set with pearls, and sent them to the gaoler's daughter with a letter. Even the Badger agreed that the letter was modest, thankful and full of praise.
+gram: 'after due consultation with his friends' is a phrase placed between commas; 'which he dispatched' is a relative clause; 'a letter that even the Badger admitted to be ...' has 'admitted to be' + adjectives.
+@PH
+make a fool of | idiom | To act in a silly way that makes people laugh at you. | | he made a fool of himself
+look lively | idiom | To hurry and be quick. | | look lively
+stir your stumps | idiom | To hurry up; to start moving. | | Stir your stumps, Toad
+the game is up | idiom | There is no more hope of a clever plan working. | | the game was up

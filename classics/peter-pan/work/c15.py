@@ -1,0 +1,71 @@
+from lib import *
+W('brig','noun','A ship with two tall masts.')
+W('detestable','adjective','Hateful. Very bad.')
+W('strewn','past participle','Spread about in an untidy way.')
+W('mangled','adjective','Badly torn and crushed.')
+W('immune','adjective','Safe from something. Not able to be harmed by it.')
+W('industrious','adjective','Working hard.')
+W('obliging','adjective','Ready to help others.')
+W('essence','noun','The most important part of something. In "the essence of the commonplace", it is a perfect example.')
+W('commonplace','adjective','Ordinary. Seen everywhere.')
+W('bulwarks','plural noun','The sides of a ship above the deck, like a wall.',['bulwark'])
+W('miasma','noun','A bad, unhealthy air or mist.')
+W('sprawled','past-tense verb','Sat or lay with the arms and legs spread out.',['sprawl'])
+W('prone','adjective','Lying flat, face down.')
+W('inscrutable','adjective','Hard to understand. Showing nothing of what he thinks.')
+W('grappled','past-tense verb','Held tightly in a fight.',['grapple'])
+W('adhered','past-tense verb','Kept to something.',['adhere'])
+W('slouch','noun','A lazy way of standing or walking, with bent shoulders.')
+W('degenerated','past-tense verb','Became worse than before.',['degenerate'])
+W('portals','plural noun','Large doors or gates.',['portal'])
+W('bauble','noun','A pretty thing of little value.')
+W('vitals','plural noun','The most important inner parts of the body.')
+W('perspiration','noun','Sweat.')
+W('tallow','noun','A hard, pale fat used to make candles.')
+W('doublet','noun','A tight jacket that men wore long ago.')
+W('ofttimes','adverb','Often. It is an old word.',why='This is an old word.')
+W('presentiment','noun','A feeling that something is going to happen.')
+W('dissolution','noun','The ending of something. Here, his death.')
+W('sleuthhound','noun','A dog that follows a smell to find someone.')
+W('eligible','adjective','Allowed to take part because you have the right qualities.')
+W('impotent','adjective','Without power to act.')
+W('bacchanalian','adjective','Wild and noisy, with much drinking.')
+W('din','noun','A loud, unpleasant noise.')
+W('lolled','past-tense verb','Sat or lay in a lazy way.',['loll'])
+W('pluck','noun','Courage.')
+W('hankering','noun','A strong wish for something.')
+W('prudent','adjective','Careful and wise about what might happen.')
+W('buffer','noun','A thing or person that takes the shock between two sides.')
+W('glamour','noun','A special charm that makes something exciting.')
+W('porthole','noun','A small round window in a ship.')
+W('grimy','adjective','Covered with dirt.')
+W('disdainfully','adverb','In a way that shows you think someone is not good enough.')
+W('anguish','noun','Very great pain or sorrow.')
+W('wring','verb','To get something out of someone by force.')
+W('averted','past participle','Turned away.',['avert'])
+W('intrinsic','adjective','Belonging to the real nature of something.')
+W('hysterically','adverb','In a wild way that cannot be controlled.')
+W('didst','verb','An old form of "did", used when speaking to one person.',why='This is an old word.')
+Ph('walk the plank','To be made to walk off a board at the side of a ship into the sea.','idiom','walk the plank')
+Ph('pick out','To choose one from a group.','phrasal verb','Hook\u2019s picking him out',['picking him out'])
+Ph('read between the lines','To understand what is not said openly.','idiom','read between the lines')
+Ph('break into','To start suddenly to do something.','phrasal verb','they broke into a bacchanalian dance',['broke into'])
+Ph('on board','On a ship.','phrase','on board ship')
+Ph('in advance of','Before. Ahead of.','phrase','in advance of it')
+P(15,"Hook was not his true name. To reveal who he really was would even at this date",
+ "Hook is not his real name. He went to a famous school, and its ways stay with him, above all the wish for good form.",
+ "Hook was not his true name. To tell who he really was would, even at this date, set the country in a blaze. But as those who read between the lines must already have guessed, he had been at a famous public school. Its ways still stayed with him like clothes, which are largely what they are about. So even now he disliked to go on board a ship in the same clothes in which he had fought her. And in his walk he still kept to the school's special slouch. But above all he kept the passion for good form.",
+ ['grappled','adhered','slouch'])
+P(15,"It is sad to know that not a boy was looking at her as Smee tied her to the mast",
+ "The boys stare at the plank and cannot think. None of them looks at Wendy.",
+ "It is sad to know that not a boy was looking at her as Smee tied her to the mast. All their eyes were on the plank, the last little walk they were about to take. They could no longer hope that they would walk it bravely, because they were not able to think any more. They could only stare and shake.",
+ ['manfully','capacity'])
+S(15,"Had the bo’sun good form without knowing it, which is the best form",
+ "Did the bo'sun have good form without knowing it? That is the best form of all.",
+ "'Had the bo'sun good form...?' is an old question style with 'had' as the main verb, in place of 'Did the bo'sun have...'; 'which' points to the whole idea before it.")
+S(15,"Fine gentleman though he was, the intensity of his communings had soiled his ruff",
+ "Although he was a fine gentleman, the strength of his deep thoughts had made his ruff dirty.",
+ "'Fine gentleman though he was' means 'Although he was a fine gentleman'; 'noun + though + subject + verb' is a formal way to say 'although'.")
+S(15,"any other man would have lain with his eyes shut where he fell",
+ "Left so fearfully alone, any other man would have lain where he fell with his eyes shut.",
+ "'Left so fearfully alone' is a phrase that gives the reason; 'would have lain' says what another man would have done, but Hook did not.")

@@ -1,0 +1,66 @@
+{
+"glossary": {
+"superabundance": {
+"pos": "noun",
+"meaning": "A much larger amount than is needed."
+},
+"hieroglyphics": {
+"pos": "plural noun",
+"meaning": "Pictures and signs used as writing. Tom says them as 'hy'roglyphics'."
+},
+"ciphered": {
+"pos": "past participle",
+"meaning": "Worked out as a secret code. Here, the paper must be read slowly to get its meaning.",
+"forms": [
+"ciphered",
+"cipher"
+]
+},
+"sepulchral": {
+"pos": "adjective",
+"meaning": "Sounding deep and sad, like something from a grave."
+},
+"berth": {
+"pos": "noun",
+"meaning": "In 'a wide berth', a safe distance away from something."
+},
+"shroud": {
+"pos": "noun",
+"meaning": "A white cloth used to wrap a dead body."
+},
+"ha'nted": {
+"pos": "adjective",
+"meaning": "A spoken spelling of 'haunted': visited by ghosts."
+}
+},
+"paragraphs": [
+{
+"chapter": 27,
+"paragraph": 11,
+"context": "they generally forget the marks, or else they die",
+"mainIdea": "Tom explains how treasure comes to be found: robbers hide it and forget it, and years later someone finds an old paper.",
+"simple": "Tom says that robbers think they will come back for the treasure, but they usually forget the marks, or they die. So the treasure lies there a long time and gets rusty. Then somebody finds an old yellow paper that tells how to find the marks. It must be worked out for about a week, because it is mostly signs and pictures."
+}
+],
+"sentences": [
+{
+"chapter": 27,
+"context": "Huck was always willing to take a hand in any enterprise that offered entertainment",
+"simple": "Huck was always ready to join any plan that gave fun and did not need money.",
+"grammar": "'Take a hand in' means 'join in'. The clause 'that offered... and required...' tells us what kind of plan Huck liked."
+},
+{
+"chapter": 27,
+"context": "to give the haunted house a wide berth",
+"simple": "to stay far away from the haunted house",
+"grammar": "'Give something a wide berth' is a fixed phrase. It comes from boats keeping a wide space from other boats."
+}
+],
+"phrases": {
+"peg away": {
+"meaning": "To keep working hard at something, little by little.",
+"pos": "phrasal verb",
+"example": "They pegged away in silence for some time"
+}
+}
+}

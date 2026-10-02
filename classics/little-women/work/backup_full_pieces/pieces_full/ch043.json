@@ -1,0 +1,104 @@
+{
+ "glossary": {
+  "vagaries": {
+   "pos": "plural noun",
+   "meaning": "Strange and sudden changes of feeling or action."
+  },
+  "ostentatiously": {
+   "pos": "adverb",
+   "meaning": "In a way meant to show off and be noticed."
+  },
+  "embalm": {
+   "pos": "verb",
+   "meaning": "To keep something safe from change, as a dead body is kept. Here it means to keep a feeling alive in a work of art."
+  },
+  "requiem": {
+   "pos": "noun",
+   "meaning": "A piece of music or a church service for people who have died."
+  },
+  "ethereal": {
+   "pos": "adjective",
+   "meaning": "Very light and soft, as if not of this world."
+  },
+  "intractable": {
+   "pos": "adjective",
+   "meaning": "Hard to control."
+  },
+  "diaphanous": {
+   "pos": "adjective",
+   "meaning": "So thin and light that one can see through it."
+  },
+  "unscathed": {
+   "pos": "adjective",
+   "meaning": "Not hurt at all."
+  },
+  "desultory": {
+   "pos": "adjective",
+   "meaning": "Jumping from one thing to another without a plan."
+  },
+  "pertinaciously": {
+   "pos": "adverb",
+   "meaning": "In a way that will not give up."
+  },
+  "vista": {
+   "pos": "noun",
+   "meaning": "A long view, often between trees or over a great distance."
+  },
+  "wooing": {
+   "pos": "noun",
+   "meaning": "Trying to win the love of a person whom one hopes to be married to."
+  },
+  "quay": {
+   "pos": "noun",
+   "meaning": "A place made of stone where boats stop to put things on land."
+  },
+  "wraith": {
+   "pos": "noun",
+   "meaning": "A ghost, or the image of a person that seems to appear."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 43,
+   "context": "Amy’s lecture did Laurie good, though, of course, he did not own it till long afterward",
+   "mainIdea": "Laurie does not admit that Amy's lecture helped him. He goes back to his grandfather and behaves well but will not return to Nice yet.",
+   "simple": "Amy's lecture did Laurie good, though he did not admit it until long afterward. Men seldom do. When women give advice, men do not follow it until they have told themselves it is just what they planned. Then they act on it. If it works, they give the 'weaker vessel' half the credit, and if it fails, they generously give her all of it. Laurie went back to his grandfather and was so dutiful for several weeks that the old gentleman said the air of Nice had improved him wonderfully and that he should try it again. The young man would have liked nothing better, but elephants could not have dragged him back after the scolding he had got. His pride forbade it, and whenever the longing grew strong he made his mind firm by repeating the words that had hurt him most.",
+   "hardWords": [
+    "vessel",
+    "fortified"
+   ]
+  },
+  {
+   "chapter": 43,
+   "context": "He had rather imagined that the denouement would take place in the château garden by moonlight",
+   "mainIdea": "Laurie imagined a moonlit proposal. In fact the matter is settled on the lake at noon in a few simple words.",
+   "simple": "Laurie had rather imagined that the end would come in the château garden by moonlight, in a most graceful and proper way. It turned out the opposite, because the matter was settled on the lake at noon in a few plain words. They had been floating about all morning from gloomy St. Gingolf to sunny Montreux. The Alps of Savoy were on one side, Mont St. Bernard and the Dent du Midi on the other, pretty Vevay in the valley, and Lausanne on the hill beyond. The sky was cloudless blue overhead, and the lake was a bluer blue below, dotted with pretty boats like white-winged gulls.",
+   "hardWords": [
+    "denouement",
+    "decorous",
+    "picturesque"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 43,
+   "context": "So well that I wish we might always pull in the same boat.",
+   "simple": "We row so well together that I wish we could always share one boat. Will you, Amy?",
+   "grammar": "'Pull in the same boat' is a pun: it means rowing in one boat and also living one life together. 'I wish we might' uses 'might' for something that one hopes for but cannot be sure of."
+  },
+  {
+   "chapter": 43,
+   "context": "men seldom do, for when women are the advisers, the lords of creation don’t take the advice",
+   "simple": "Men seldom admit it, because when women give advice, men do not take it.",
+   "grammar": "'The lords of creation' is a joke name for men. 'When women are the advisers' is a time clause. The 'for' joins a reason to the first idea."
+  }
+ ],
+ "phrases": {
+  "think better of": {
+   "pos": "phrasal verb",
+   "meaning": "To change your mind after thinking again about a plan.",
+   "example": "I was sure she would think better of it"
+  }
+ }
+}

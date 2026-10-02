@@ -1,0 +1,72 @@
+from lib import *
+W('unscrupulous','adjective','Willing to do wrong things to get what you want.')
+W('wiliness','noun','Cleverness in tricking others.')
+W('ebb','noun','The lowest and weakest point of something.')
+W('stockade','noun','A strong fence of tall posts, used for defence.')
+W('summit','noun','The very top of a hill.')
+W('undulating','adjective','Rising and falling in gentle waves, like land with many low hills.')
+W('onslaught','noun','A strong, sudden attack.')
+W('suspense','noun','A worried feeling while you wait to find out what will happen.')
+W('ghastly','adjective','Very bad and frightening.')
+W('intimation','noun','A hint or sign of something.')
+W('stealthily','adverb','Quietly and carefully, so that no one notices.')
+W('hillock','noun','A small hill.')
+W('diabolical','adjective','Very wicked, like the devil.')
+W('phlegmatic','adjective','Calm and not easily excited.')
+W('squatted','past-tense verb','Sat low, close to the ground, on the heels.',['squat'])
+W('treacherous','adjective','Not to be trusted. Breaking promises.')
+W('carnage','noun','The killing of many people.')
+W('subtle','adjective','Clever in a quiet way that is hard to see.')
+W('utterance','noun','The act of saying or making a sound aloud.')
+W('perfidious','adjective','Not loyal. Breaking trust.')
+W('phalanx','noun','A close group of fighters standing together.')
+W('acquitted','past-tense verb','Behaved. "Acquit yourself" means to behave in a certain way.',['acquit'])
+W('stationary','adjective','Not moving.')
+W('massacre','noun','The cruel killing of many people.')
+W('remnant','noun','A small part that is left.')
+W('tactics','plural noun','Plans for how to win a fight.')
+W('beset','adjective','Surrounded on all sides by something.')
+W('reluctant','adjective','Not wanting to do something.')
+W('fain','adverb','Gladly. It is an old word.',why='This is an old word.')
+W('discreet','adjective','Careful not to be noticed or to cause trouble.')
+W('squinted','past-tense verb','Looked with the eyes partly closed.',['squint'])
+W('enigma','noun','A person or thing that is hard to understand.')
+W('pertinacity','noun','Not giving up. Stubbornness.')
+W('malignant','adjective','Wanting to do harm. Evil.')
+W('goaded','past-tense verb','Pushed someone to act by making them angry.',['goad'])
+W('frenzy','noun','A state of wild, uncontrolled anger or excitement.')
+W('scruple','verb','To hold back from doing something because it seems wrong.')
+W('pandemonium','noun','Wild noise and confusion.')
+W('avidly','adverb','With great eagerness.')
+W('inaudibly','adverb','In a way that cannot be heard.')
+W('enjoined','past participle','Ordered strongly.',['enjoin'])
+W('doomed','adjective','Sure to have a bad end.')
+W('base','adjective','Low and shameful.')
+W('smirked','past-tense verb','Smiled in an unpleasant way, pleased with themselves.',['smirk'])
+W('ram','verb','To push something hard into a place.')
+Ph('give vent to','To let a feeling or a sound come out.','idiom','give vent to a wonderful imitation')
+Ph('beat about the bush','To talk round a subject and not say plainly what you mean.','idiom','no beating about the bush',['beating about the bush'])
+Ph('get on one\'s nerves','To annoy someone very much.','idiom','got on Hook\u2019s nerves',['got on Hook\u2019s nerves'])
+Ph('bear down on','To move toward someone in a scary way.','phrasal verb','bearing down upon them',['bearing down upon'])
+Ph('bite the dust','To fall dead.','idiom','bit the dust',['bit the dust'])
+Ph('hold off','To wait before doing something.','phrasal verb','hold off till the night was nearly spent')
+Ph('get at','To reach something.','phrasal verb','get at the honey')
+Ph('stand out','To be easy to see or very different from others.','phrasal verb','stands out in marked contrast',['stands out'])
+Ph('as it were','In a way. So to speak.','idiom','as it were')
+P(13,"Peter was such a small boy that one tends to wonder at the man’s hatred of him",
+ "Hook hates Peter very much, more than the crocodile story explains. The writer says the reason is Peter's cockiness.",
+ "Peter was such a small boy that one wonders at the man's hatred of him. It is true that he had thrown Hook's arm to the crocodile. But even this, and the greater danger to Hook's life that came from the crocodile not giving up, hardly explain such a hatred that would not stop and wished harm. The truth is that there was something about Peter that pushed the pirate captain to wild anger. It was not his courage. It was not his pleasant looks. It was not --. There is no use going round the subject, because we know well what it was, and we have to tell it. It was Peter's cockiness.",
+ ['pertinacity','vindictiveness','malignant','goaded','frenzy','cockiness'])
+P(13,"The doomed children answered with a cheer that was music to the black hearts above",
+ "The boys cheer and say goodbye to Peter again. The pirates are glad that the boys will come up the trees.",
+ "The children, who were doomed, answered with a cheer. It was music to the black hearts above. Almost at once they said their goodbyes to Peter again. This puzzled the pirates, but all their other feelings were swallowed by a low delight that the enemy were about to come up the trees. They smirked at each other and rubbed their hands. Quickly and silently, Hook gave his orders: one man to each tree, and the others to stand in a line two yards apart.",
+ ['doomed','base','smirked'])
+S(13,"Fain would his dogs have known, as breathing heavily",
+ "His men would gladly have known. They were breathing heavily and wiping their cutlasses. They stood at a safe distance from his hook and looked at this strange man through eyes like a ferret's.",
+ "'Fain would his dogs have known' puts 'fain' (gladly) and the verb first, an old style for 'His dogs would gladly have known'.")
+S(13,"Had he waited on the rising ground till the proper hour",
+ "If he had waited on the rising ground until the right time, he and his men would probably have been killed.",
+ "'Had he waited' means 'If he had waited'; 'would probably have been butchered' says what would likely have happened but did not.")
+S(13,"Not all unavenged did they die, for with Lean Wolf fell Alf Mason",
+ "They did not all die without someone getting revenge for them, because Alf Mason fell with Lean Wolf.",
+ "'Not all unavenged did they die' puts the first words forward for stress; the normal order is 'They did not all die unavenged'.")

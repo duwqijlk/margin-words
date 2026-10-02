@@ -1,0 +1,76 @@
+{
+ "glossary": {
+  "unquenchables": {
+   "pos": "plural noun",
+   "meaning": "Here it is the name Jo and Laurie give themselves: people whose happy, playful plans cannot be stopped.",
+   "forms": [
+    "unquenchables"
+   ]
+  },
+  "merino": {
+   "pos": "uncountable noun",
+   "meaning": "A soft, fine cloth made from the hair of a farm animal with thick, soft hair."
+  },
+  "afghan": {
+   "pos": "noun",
+   "meaning": "A warm cover made from thick, soft hair of a farm animal, in many bright colors."
+  },
+  "stampede": {
+   "pos": "noun",
+   "meaning": "A sudden run of many people at once, with a lot of noise."
+  },
+  "estimable": {
+   "pos": "adjective",
+   "meaning": "Good and worth respect."
+  },
+  "blemish": {
+   "pos": "noun",
+   "meaning": "A small spot that makes something look worse.",
+   "forms": [
+    "blemishes",
+    "blemish"
+   ]
+  },
+  "reminisced": {
+   "pos": "past-tense verb",
+   "meaning": "Talked about happy things from the past.",
+   "forms": [
+    "reminisced"
+   ]
+  },
+  "jungfrau": {
+   "pos": "noun",
+   "meaning": "A word from another language for a young girl. Here it is the name for the cold white girl figure that Jo and Laurie made in the garden."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 24,
+   "context": "Several days of unusually mild weather fitly ushered in a splendid Christmas Day",
+   "mainIdea": "Christmas Day is wonderful. Jo and Laurie have made a surprise for Beth: a snow-girl in the garden with gifts.",
+   "simple": "Several days of very mild weather were a fitting start to a fine Christmas Day. Hannah felt in her bones that it would be a very fine day, and she was right, because everyone and everything seemed sure to bring great success. First, Mr. March wrote that he would soon be with them. Then Beth felt unusually well that morning. She was dressed in her mother's gift, a soft red wool wrapper, and was carried like a queen to the window to see the gift from Jo and Laurie. The Unquenchables had done their best to deserve their name. Like elves they had worked at night, and had made a funny surprise. In the garden stood a grand snow-girl with holly on her head. In one hand she held a basket of fruit and flowers, and in the other a big roll of new music. Round her cold shoulders was a wool cover as bright as a rainbow, and a Christmas song came from her lips on a pink paper streamer.",
+   "hardWords": [
+    "ushered in",
+    "merino",
+    "Afghan",
+    "carol",
+    "conjured up"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 24,
+   "context": "straws show which way the wind blows, and I've made several discoveries today",
+   "simple": "Small signs show which way things are going, and I have found out several things today.",
+   "grammar": "'Straws show which way the wind blows' is a saying: small signs tell you what is going to happen. 'Which way the wind blows' is a noun clause, the object of 'show'."
+  },
+  {
+   "chapter": 24,
+   "context": "I don't know whether the shearing sobered our black sheep",
+   "simple": "I do not know if the cutting of her hair made our wild girl more serious.",
+   "grammar": "'Whether' starts a noun clause, the object of 'know'. 'Black sheep' is a picture word for a family member who is wild; 'shearing' joins the sheep picture to the cut hair."
+  }
+ ],
+ "phrases": {}
+}

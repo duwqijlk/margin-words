@@ -1,0 +1,124 @@
+{
+ "glossary": {
+  "crammed": {
+   "pos": "past-tense verb",
+   "meaning": "Pushed in so full that nothing more could fit.",
+   "forms": [
+    "crammed",
+    "cram"
+   ]
+  },
+  "pious": {
+   "pos": "adjective",
+   "meaning": "Good in a quiet, religious way."
+  },
+  "rummage": {
+   "pos": "verb",
+   "meaning": "To search for something by moving things around."
+  },
+  "vittles": {
+   "pos": "plural noun",
+   "meaning": "Food. This is how Hannah says it."
+  },
+  "huddled": {
+   "pos": "past participle",
+   "meaning": "Pressed close together in a small place to keep warm.",
+   "forms": [
+    "huddled",
+    "huddle"
+   ]
+  },
+  "abashed": {
+   "pos": "adjective",
+   "meaning": "Feeling a little bad because people are looking at you."
+  },
+  "impetuously": {
+   "pos": "adverb",
+   "meaning": "Very fast and without thinking, because of strong feeling."
+  },
+  "gruel": {
+   "pos": "uncountable noun",
+   "meaning": "A thin food made by cooking grain in water or milk. Sick people ate it."
+  },
+  "trump": {
+   "pos": "noun",
+   "meaning": "A kind person you can trust and like very much."
+  },
+  "spangle": {
+   "pos": "noun",
+   "meaning": "A small, flat, bright piece of metal put on clothes so that it catches the light."
+  },
+  "doublet": {
+   "pos": "noun",
+   "meaning": "A short, close coat that men wore long ago."
+  },
+  "russet": {
+   "pos": "adjective",
+   "meaning": "Red-brown in colour."
+  },
+  "chintz": {
+   "pos": "uncountable noun",
+   "meaning": "Cloth with a bright picture on it, used for window covers and chairs."
+  },
+  "baize": {
+   "pos": "uncountable noun",
+   "meaning": "Thick, soft green cloth, often used to cover tables."
+  },
+  "philter": {
+   "pos": "noun",
+   "meaning": "A magic drink that makes a person fall in love."
+  },
+  "minion": {
+   "pos": "noun",
+   "meaning": "A person who does what a strong person tells him to do."
+  },
+  "serenade": {
+   "pos": "noun",
+   "meaning": "A love song that a man sings outside the window of the woman he loves."
+  },
+  "bequeaths": {
+   "pos": "third-person verb",
+   "meaning": "Gives away money or things to people after she has died.",
+   "forms": [
+    "bequeaths",
+    "bequeath"
+   ]
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 4,
+   "context": "Very clever were some of their productions",
+   "mainIdea": "The girls were not rich, so they made their own things for the play. Some of them were very clever.",
+   "simple": "The kind acts and ceremonies of the morning took so much time that the rest of the day was used to get ready for the evening party. The girls were still too young to go to the theatre often, and not rich enough to pay much for plays at home. So they used their wits. Need is the mother of invention, and they made everything they needed. Some of their work was very clever: guitars made of pasteboard, old lamps made from old-style butter-boats covered with silver paper, rich robes of old cotton shining with tin spangles from a pickle factory, and armor covered with the same useful diamond-shaped pieces. These were left in sheets when the lids of tin preserve-pots were cut out. The furniture was used to being turned upside down, and the big bedroom was the place of many innocent games.",
+   "hardWords": [
+    "charities",
+    "outlay",
+    "spangles",
+    "preserve-pots",
+    "topsy-turvy",
+    "revels"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 4,
+   "context": "Being still too young to go often to the theatre",
+   "simple": "The girls were still too young to go to the theatre often, and they were not rich enough to pay for private plays, so they used their wits.",
+   "grammar": "'Being still too young...' is a participle phrase. It gives the reason for what the girls did next."
+  }
+ ],
+ "phrases": {
+  "put one's wits to work": {
+   "pos": "idiom",
+   "meaning": "To use your mind with care to find a way to do something.",
+   "example": "the girls put their wits to work"
+  },
+  "fall to work": {
+   "pos": "phrase",
+   "meaning": "To begin working at once.",
+   "example": "and then all fell to work"
+  }
+ }
+}

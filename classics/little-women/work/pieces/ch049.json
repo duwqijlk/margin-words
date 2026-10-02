@@ -1,0 +1,95 @@
+{
+ "glossary": {
+  "voluminous": {
+   "pos": "adjective",
+   "meaning": "Very long, with many pages."
+  },
+  "paradisiacal": {
+   "pos": "adjective",
+   "meaning": "Like a perfect place; perfectly happy and beautiful."
+  },
+  "ragamuffin": {
+   "pos": "noun",
+   "meaning": "A poor child in old clothes."
+  },
+  "hobbledehoy": {
+   "pos": "noun",
+   "meaning": "A boy who is not yet a man and who moves in a way that is not nice to see."
+  },
+  "destitution": {
+   "pos": "uncountable noun",
+   "meaning": "The state of being so poor that one has no food or home."
+  },
+  "apoplectic": {
+   "pos": "adjective",
+   "meaning": "Red in the face and almost ill with strong feeling, such as anger or laughing."
+  },
+  "menagerie": {
+   "pos": "noun",
+   "meaning": "A group of wild animals kept together."
+  },
+  "sere": {
+   "pos": "adjective",
+   "meaning": "Dry and dead, as grass is in the fall."
+  },
+  "tares": {
+   "pos": "plural noun",
+   "meaning": "Bad plants that grow among the food plants and hurt them."
+  },
+  "sheaf": {
+   "pos": "noun",
+   "meaning": "A group of plants cut and held together."
+  },
+  "relinquish": {
+   "pos": "verb",
+   "meaning": "To give up something that one has or hopes for."
+  },
+  "teutonic": {
+   "pos": "adjective",
+   "meaning": "From the land of the Germans."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 49,
+   "context": "“Boys. I want to open a school for little lads",
+   "mainIdea": "Jo says that the crop she will grow at Plumfield is boys. She wants a happy, homelike school, with Fritz to teach them.",
+   "simple": "Jo says 'Boys.' She wants to open a school for little boys. It will be a good, happy, homelike school, with her to take care of them and Fritz to teach them.",
+   "hardWords": [
+    "crop"
+   ]
+  },
+  {
+   "chapter": 49,
+   "context": "Yes; Jo was a very happy woman there, in spite of hard work, much anxiety",
+   "mainIdea": "Jo is very happy at Plumfield in spite of hard work and noise. She has two little boys of her own, who grow up well among the crowd of schoolboys.",
+   "simple": "Yes, Jo was a very happy woman there, in spite of hard work, much worry and constant noise. She enjoyed it fully. She found the praise of her boys more satisfying than any praise from the world, because she now told stories only to her flock of eager believers and admirers. As the years went on, two little boys of her own came to make her happier. They were Rob, named for grandpa, and Teddy, a carefree baby who seemed to have his papa's sunny temper as well as his mother's lively spirit. How they grew up alive in that whirlpool of boys was a mystery to their grandma and aunts. But they did well, like dandelions in spring, and their rough nurses loved and served them well.",
+   "hardWords": [
+    "perpetual",
+    "racket",
+    "whirlpool"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 49,
+   "context": "Nothing could be more natural or proper than for my Professor to open a school, and for me to prefer to reside on my own estate.",
+   "simple": "It is the most natural and right thing for my Professor to open a school and for me to like living on my own land.",
+   "grammar": "'Nothing could be more ... than for X to ... and for Y to ...' is a way to say 'it is the most ... thing'. The two 'for ... to' parts name two actions that Jo calls natural."
+  },
+  {
+   "chapter": 49,
+   "context": "I hope there will be more wheat and fewer tares every year",
+   "simple": "I hope there will be more wheat and fewer weeds each year.",
+   "grammar": "'More ... and fewer ...' compares two amounts. 'More wheat' and 'fewer tares' use a picture from a farm to talk about good and bad in a family."
+  }
+ ],
+ "phrases": {
+  "try one's hand at": {
+   "pos": "idiom",
+   "meaning": "To try to do something new, to see if you can do it.",
+   "example": "He’ll try his hand at it there"
+  }
+ }
+}

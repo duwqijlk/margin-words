@@ -1,0 +1,100 @@
+@W
+scruff | noun | The back of the neck. | |
+hoist | noun | A strong lift upwards. | |
+waterlogged | adjective | Full of water and heavy. | |
+subterfuge | noun | A clever plan used to avoid trouble. | subterfuges |
+disreputable | adjective | Not respectable; having a bad name. | |
+rakishly | adverb | In a way that is a little wild and careless, such as a hat worn to one side. | |
+contemplate | present participle | Looking at something for a long time and thinking about it. | contemplating |
+ignominiously | adverb | In a way that brings shame. | |
+bankrupt | noun | A person who has no money left and cannot pay what he owes. | |
+convict | noun | A person who is in prison for a crime. | |
+gaol | noun | Prison. The word is an old way to write jail. | |
+jaw | past participle | Talked to in a long, angry way. | jawed |
+mutinously | adverb | In a way that does not obey. | |
+infamously | adverb | In a very bad way that people do not forget. | |
+cocky | adjective | Too sure of yourself. | |
+plausibility | noun | The quality of seeming true, so that people believe you. | |
+ferret | noun | A small, thin animal that is used to hunt rabbits. | ferrets |
+skirmishing | adjective | Fighting in small, quick fights. | |
+conservatory | noun | A room made of glass, joined to a house, for plants. | |
+bloodthirsty | adjective | Wanting to hurt or kill. | |
+villain | noun | A bad person. | villains |
+vulgar | adjective | Rude and not polite. | |
+paling | noun | A pointed stick in a fence. | palings |
+parapet | noun | A low wall at the edge of a bridge or roof. | |
+glee | noun | Great happiness, often at someone else's bad luck. | |
+wilful | adjective | Always wanting your own way. | |
+appeased | adjective | Made less angry and more quiet. | |
+portentous | adjective | Seeming to warn of something important. | |
+victuals | plural noun | Food. | |
+despondent | adjective | Sad and without hope. | |
+liberally | adverb | In large amounts. | |
+contrition | noun | A deep feeling of being sorry for something wrong. | |
+bygones | plural noun | Things in the past that are best forgotten. | |
+sentinel | noun | A guard who stands watch. | sentinels |
+unhallowed | adjective | Not holy; a little wicked. | |
+volatile | adjective | Quick to change; not steady. | |
+salon | noun | A gathering of clever people who talk about art or ideas. | |
+sweep | noun | A person whose work is cleaning chimneys. | |
+pantry | noun | A small room where food and dishes are kept. | |
+belabour | present participle | Hitting hard again and again. | belabouring |
+peevishly | adverb | In a cross way. | |
+haughty | adjective | Too proud, and looking down on others. | |
+cutlass | noun | A short, curved sword. | cutlasses |
+accoutrement | noun | A piece of equipment. | |
+raciest | adjective | The most lively and exciting. | |
+@P
+ctx: Now, it was a very comforting point in Toad’s character
+idea: Toad is good-hearted and does not mind when his friends speak to him sharply. He says he is sorry, but he also has a new idea about motorboats.
+simple: Now, it was a very comforting point in Toad's character that he was a thoroughly good-hearted animal. He never minded being scolded by those who were his real friends. Even when he was most set on something, he was always able to see the other side of the question. While the Rat was talking so seriously, Toad kept saying to himself in a rebel way, 'But it was fun, though! Awful fun!' He made strange noises inside him that he held back: k-i-ck-ck-ck, and poop-p-p, and other sounds like hidden snorts or the opening of soda-water bottles. But when the Rat had quite finished, he gave a deep sigh and said, very nicely and humbly, 'Quite right, Ratty! How sound you always are! Yes, I have been a conceited old ass, I can see that. But now I am going to be a good Toad, and not do it any more. As for motorcars, I have not been at all so keen on them since my last ducking in that river of yours. The fact is, while I was hanging on to the edge of your hole and getting my breath, I had a sudden idea, a really clever idea, about motorboats. There, there! Do not get so upset, old chap, and stamp, and knock things over. It was only an idea, and we will not talk any more about it now. We will have our coffee, and a smoke, and a quiet chat. Then I am going to stroll quietly down to Toad Hall, and get into clothes of my own, and start things going again as before. I have had enough of adventures. I shall lead a quiet, steady, respectable life, doing little jobs about my property, and making it better, and doing a little landscape gardening at times. There will always be a bit of dinner for my friends when they come to see me. And I shall keep a pony-chaise to go about the country in, just as I used to in the good old days, before I got restless and wanted to do things.'
+hard: good-hearted; jawed; mutinously; stifled; ducking; motorboats; pottering; landscape gardening; pony-chaise
+@P
+ctx: Well, it was a good deal talked about down here, naturally
+idea: The Rat says the animals took sides when Toad went to prison. The Wild Wood animals said hard things, and the River-bankers stood up for him.
+simple: 'Well, it was talked about a lot down here, naturally,' the Rat went on. 'It was talked about not only along the river, but even in the Wild Wood. The animals took sides, as always happens. The River-bankers stood up for you. They said you had been treated in a shameful way, and that there was no justice to be had in the land nowadays. But the Wild Wood animals said hard things. They said it served you right, and that it was time this sort of thing was stopped. They got very sure of themselves, and went about saying that you were finished this time. They said you would never come back again, never, never!'
+hard: took sides; stuck up for; infamously; served you right; cocky; done for
+@P
+ctx: They argued from history,” continued the Rat. “They said that no criminal laws
+idea: The Mole and the Badger moved into Toad Hall. Then one dark night weasels, ferrets and stoats came in from all sides.
+simple: 'They argued from the past,' the Rat went on. 'They said that no criminal laws had ever been known to win against cheek and good talk like yours, with the power of a full purse. So they arranged to move their things into Toad Hall, and sleep there, and keep it aired, and have it all ready for you when you came back. They did not guess what was going to happen, of course. But they did have their doubts about the Wild Wood animals. Now I come to the most painful and sad part of my story. One dark night (it was a very dark night, with a hard wind and the rain coming down in buckets) a band of weasels, with weapons of every kind, crept up the carriage-drive to the front door. At the same moment a group of fierce ferrets came through the kitchen-garden and took the backyard and the other rooms. A company of stoats, who would stop at nothing, took the conservatory and the billiard-room. They also held the French windows that opened on to the lawn.'
+hard: argued from history; prevail; plausibility; long purse; simply cats and dogs; armed to the teeth; simultaneously; skirmishing; stuck at nothing
+@P
+ctx: The Mole and the Badger were sitting by the fire in the smoking-room
+idea: The weasels and stoats attack the Mole and the Badger and throw them out into the cold and wet.
+simple: 'The Mole and the Badger were sitting by the fire in the smoking-room, telling stories and suspecting nothing, because it was not a night for any animals to be out in. Then those wicked villains broke down the doors and rushed in on them from every side. They fought as well as they could, but what was the good? They had no weapons and were taken by surprise, and what can two animals do against hundreds? The weasels and stoats took them and beat them hard with sticks, those two poor faithful creatures. They turned them out into the cold and the wet, and said many insulting and unfair things.'
+hard: bloodthirsty villains; taken by surprise; uncalled-for
+@S
+ctx: Humbugged everybody —made ’em all do exactly what I wanted
+simple: I tricked everybody and made them all do exactly what I wanted.
+gram: This is a list of short sentences without 'I'; 'humbugged' is a verb made from the noun 'humbug' (a person who pretends); '’em' is a spoken short form of 'them'.
+@S
+ctx: But if you will be mixed up with them —as you generally are
+simple: But if you insist on being mixed up with motorcars, as you usually are five minutes after you have started, why steal them?
+gram: 'if you will be' with a stressed 'will' means 'if you insist on being'; 'as you generally are' is a side comment between dashes.
+@S
+ctx: Now I come to the most painful and tragic part of my story
+simple: Now I come to the most painful and sad part of my story.
+gram: 'the most painful and tragic part' uses 'the most + adjective' for the superlative of long adjectives, joined with 'and'.
+@S
+ctx: They argued from history,” continued the Rat. “They said that no criminal laws
+simple: 'They argued from the past,' the Rat went on. 'They said that no criminal laws had ever been known to win against cheek and good talk like yours, together with the power of a full purse.'
+gram: 'had ever been known to prevail' is the passive past perfect with 'to + verb'; 'such as yours, combined with ...' joins two things that work together.
+@S
+ctx: There are more ways of getting back a place than taking it by storm
+simple: There are other ways to get a place back, besides taking it by force.
+gram: 'more ways of getting back ... than taking ...' compares two '-ing' forms with 'more ... than'; 'by storm' means 'by a strong attack'.
+@PH
+take sides | idiom | To support one person in an argument. | took sides | Animals took sides
+stick up for | phrasal verb | To speak in support of someone. | stuck up for | The River-bankers stuck up for you
+stick out | phrasal verb | To keep saying what you believe, and not change. | stuck out | they stuck out, through thick and thin
+through thick and thin | idiom | In good times and bad times. | | through thick and thin
+armed to the teeth | idiom | Having many weapons. | | armed to the teeth
+cats and dogs | idiom | Very heavily; used for rain. | | raining simply cats and dogs
+take by surprise | idiom | To do something to someone when they do not expect it. | taken by surprise | taken by surprise
+turn out | phrasal verb | To make someone leave a place. | turned out | turned them out into the cold and the wet
+let bygones be bygones | idiom | To forget about what happened in the past. | | let bygones be bygones
+turn over a new leaf | idiom | To start to behave in a better way. | | turn over a new leaf
+take forty winks | idiom | To have a short sleep. | | take forty winks
+get a rise out of | idiom | To make someone angry or upset by a clever plan. | | getting a rise out of the stoats
+egg on | phrasal verb | To make someone do something by urging them. | | don’t you egg him on, Mole

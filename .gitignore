@@ -1,0 +1,23 @@
+# dependencies and build output
+node_modules/
+dist/
+site/
+.vite/
+.node_modules.lock
+*.log
+.DS_Store
+.vercel/
+.wrangler/
+.output/
+.nitro/
+
+# Regenerable zips: `node scripts/build-packs.mjs` (packs/) and
+# `node scripts/build-packs.mjs --out public-books` (public-books/) rebuild them from book.epub + glossary.json.
+packs/*.zip
+public-books/*.zip
+
+# Redundant per-book pack zips in the classics sources (rebuild: node scripts/make-pack.mjs book.epub glossary.json out.pack.zip)
+classics/**/*.pack.zip
+
+# Layout-shift test output
+layout-shift-out/

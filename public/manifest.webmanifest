@@ -1,0 +1,14 @@
+{
+  "name": "Margin Words",
+  "short_name": "Margin Words",
+  "description": "Read English books. Tap a word to see a simple English meaning.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f4ee",
+  "theme_color": "#f6f4ee",
+  "icons": [
+    { "src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./icons/icon-180.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

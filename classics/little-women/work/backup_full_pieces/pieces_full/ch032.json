@@ -1,0 +1,129 @@
+{
+ "glossary": {
+  "akimbo": {
+   "pos": "adverb",
+   "meaning": "With hands on the sides of the body and the arms pointing out."
+  },
+  "eclipsed": {
+   "pos": "past-tense verb",
+   "meaning": "Was so good that it made another thing look less good.",
+   "forms": [
+    "eclipsed",
+    "eclipse"
+   ]
+  },
+  "rankled": {
+   "pos": "past-tense verb",
+   "meaning": "Kept causing a bitter, angry feeling for a long time.",
+   "forms": [
+    "rankled",
+    "rankle"
+   ]
+  },
+  "expediency": {
+   "pos": "uncountable noun",
+   "meaning": "Doing what is useful for a plan, even if it is not fair."
+  },
+  "disconsolately": {
+   "pos": "adverb",
+   "meaning": "In a very sad way that no one can change."
+  },
+  "vellum": {
+   "pos": "uncountable noun",
+   "meaning": "A fine kind of paper made from animal skin, used for special books."
+  },
+  "illuminated": {
+   "pos": "past participle",
+   "meaning": "Drawn with bright colors and gold, like the big letters in old books.",
+   "forms": [
+    "illuminated",
+    "illuminate",
+    "illuminations"
+   ]
+  },
+  "conciliatory": {
+   "pos": "adjective",
+   "meaning": "Meant to stop a fight and make peace."
+  },
+  "phalanx": {
+   "pos": "noun",
+   "meaning": "A close group of people moving together, like soldiers."
+  },
+  "repinings": {
+   "pos": "plural noun",
+   "meaning": "Sad words about not having something."
+  },
+  "magnanimous": {
+   "pos": "adjective",
+   "meaning": "Very kind and good, especially to an enemy."
+  },
+  "uncharitableness": {
+   "pos": "uncountable noun",
+   "meaning": "Being unkind in thought about other people."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 32,
+   "context": "As she spoke, Amy returned her contribution, with a nod and a smile",
+   "mainIdea": "Amy gives May's things back with a friendly smile and leaves quickly, so that no one can thank her.",
+   "simple": "As she spoke, Amy gave back May's things, with a nod and a smile. Then she hurried away, feeling it was easier to do a friendly act than to stay and be thanked for it.",
+   "hardWords": [
+    "contribution"
+   ]
+  },
+  {
+   "chapter": 32,
+   "context": "“I’m afraid it is partly your own fault, dear. When Aunt spoke to me the other day",
+   "mainIdea": "Mrs. March tells Jo that Aunt Carrol chose Amy because of Jo's own words, which Aunt quotes in her letter.",
+   "simple": "Mrs. March says it is partly Jo's fault. When Aunt spoke to her some days before, she was sorry about Jo's blunt manners and too independent spirit. Now she writes as if she is repeating something Jo said. She says she planned first to ask Jo, but since 'favors burden her' and she 'hates French', she will not invite her. Amy is easier to teach, will be a good friend for Flo, and will be thankful for any help the trip gives her.",
+   "hardWords": [
+    "docile",
+    "venture"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 32,
+   "context": "Because they are mean is no reason why I should be.",
+   "simple": "The fact that they are unkind is no reason for me to be unkind.",
+   "grammar": "The whole clause 'Because they are mean' is the subject of the sentence. 'Be' stands for 'be mean'. It is a little unusual to start a sentence this way."
+  },
+  {
+   "chapter": 32,
+   "context": "feeling that virtue was not always its own reward",
+   "simple": "She felt that being good did not always bring its own prize.",
+   "grammar": "'Virtue is its own reward' is a well-known saying. Here the writer says 'not always' to make a gentle joke about it."
+  },
+  {
+   "chapter": 32,
+   "context": "I only did as I’d be done by.",
+   "simple": "I only did to others what I would want them to do to me.",
+   "grammar": "'As I'd be done by' means 'as I would wish to be treated'. It is a short form of the Golden Rule, with 'done by' in the passive."
+  }
+ ],
+ "phrases": {
+  "in the lap of luxury": {
+   "pos": "idiom",
+   "meaning": "In a life with all the money and comfort you could want.",
+   "example": "sit in the lap of luxury all your days"
+  },
+  "heap coals of fire on someone's head": {
+   "pos": "idiom",
+   "meaning": "To be kind to an enemy so that he feels sorry for being unkind.",
+   "forms": [
+    "heaping of coals of fire on"
+   ],
+   "example": "heaping of coals of fire on her enemy’s head"
+  },
+  "bear up": {
+   "pos": "phrasal verb",
+   "meaning": "To stay brave and strong in a hard time.",
+   "forms": [
+    "bore up"
+   ],
+   "example": "Jo bore up very well"
+  }
+ }
+}

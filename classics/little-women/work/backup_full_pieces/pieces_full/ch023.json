@@ -1,0 +1,76 @@
+{
+ "glossary": {
+  "incorrigible": {
+   "pos": "adjective",
+   "meaning": "Not able to be changed or made better, because of a bad way of acting."
+  },
+  "retaliation": {
+   "pos": "uncountable noun",
+   "meaning": "Something bad that you do to pay back someone who did something bad to you."
+  },
+  "disapprobation": {
+   "pos": "uncountable noun",
+   "meaning": "A strong feeling that something is wrong and bad."
+  },
+  "cavalier": {
+   "pos": "adjective",
+   "meaning": "Not caring about what other people feel; rude and careless in the way of speaking."
+  },
+  "insinuatingly": {
+   "pos": "adverb",
+   "meaning": "In a clever, soft way, not saying things straight, to get what you want."
+  },
+  "propitiate": {
+   "pos": "verb",
+   "meaning": "To make an angry person feel more friendly by doing something nice."
+  },
+  "testiness": {
+   "pos": "uncountable noun",
+   "meaning": "A quick, cross way of getting angry about small things."
+  },
+  "decorous": {
+   "pos": "adjective",
+   "meaning": "Polite and proper in behavior."
+  },
+  "penance": {
+   "pos": "noun",
+   "meaning": "A hard thing you do to yourself to show that you are sorry.",
+   "forms": [
+    "penances",
+    "penance"
+   ]
+  },
+  "abase": {
+   "pos": "verb",
+   "meaning": "To make yourself seem low and small, to show you are sorry."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 23,
+   "context": "Jo's face was a study next day, for the secret rather weighed upon her",
+   "mainIdea": "Jo is keeping a secret and finds it hard. Meg does not ask, so Jo acts proud, and Meg is annoyed. Jo fears Laurie will get the secret from her.",
+   "simple": "Next day Jo's face was a sight to see, because the secret was a heavy weight on her and she found it hard not to look mysterious and important. Meg saw this but did not ask questions. She had learned that the best way to deal with Jo was to do the opposite of what Jo expected, so she felt sure that Jo would tell everything if she did not ask. She was surprised that Jo stayed silent, and that Jo acted in a superior way. This made Meg very annoyed, and she became cold and stiff and spent her time with her mother. This left Jo alone, because Mrs. March had taken her place as nurse and told her to rest, take exercise and enjoy herself after her long time indoors. With Amy gone, Laurie was Jo's only refuge. She enjoyed his company, but she rather feared him just then, because he was a tease who could not be stopped, and she was afraid he would coax her secret out of her.",
+   "hardWords": [
+    "law of contraries",
+    "incorrigible",
+    "patronizing"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 23,
+   "context": "She was quite right, for the mischief-loving lad no sooner suspected a mystery than he set himself",
+   "simple": "She was right, because as soon as the mischievous boy thought there was a mystery, he began to try to find it out.",
+   "grammar": "'No sooner ... than ...' means 'as soon as'. The first action came and the second followed at once."
+  }
+ ],
+ "phrases": {
+  "turn over a new leaf": {
+   "pos": "idiom",
+   "meaning": "To start again and try to behave better.",
+   "example": "turn over a new leaf and begin again, Teddy, my son"
+  }
+ }
+}

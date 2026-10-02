@@ -1,0 +1,55 @@
+{
+"glossary": {
+"avocations": {
+"pos": "plural noun",
+"meaning": "The usual jobs or work that people do every day.",
+"forms": [
+"avocation"
+]
+},
+"petitioner": {
+"pos": "noun",
+"meaning": "A person who makes a serious request, here to God in prayer."
+},
+"huzzah": {
+"pos": "interjection",
+"meaning": "A loud cry of joy, like 'hooray'."
+},
+"sheathed": {
+"pos": "past participle",
+"meaning": "Covered with a layer of metal.",
+"forms": [
+"sheathed",
+"sheath"
+]
+},
+"ironically": {
+"pos": "adverb",
+"meaning": "In a way that means the opposite of what is said, often to make fun."
+}
+},
+"paragraphs": [
+{
+"chapter": 34,
+"paragraph": 5,
+"context": "Tom lay upon a sofa with an eager auditory about him",
+"mainIdea": "Tom tells the story of the cave to the people who listen to him. He says he followed three paths and at last saw daylight and the Mississippi.",
+"simple": "Aunt Polly was completely happy, and Mrs. Thatcher almost so. Mrs. Thatcher would be completely happy as soon as the messenger who was sent to the cave told her husband the good news. Tom lay on a sofa with a group of eager listeners around him. He told the story of the wonderful adventure, adding many striking details to decorate it. He ended with how he left Becky and went exploring. He followed two paths as far as his kite-line would reach. He followed a third path to the end of the line, and was about to turn back when he saw a far-off spot that looked like daylight. He dropped the line and felt his way toward it. He pushed his head and shoulders through a small hole and saw the wide Mississippi rolling by.",
+"hardWords": [
+"auditory",
+"withal",
+"expedition",
+"avenues"
+]
+}
+],
+"sentences": [
+{
+"chapter": 34,
+"context": "And if it had only happened to be night he would not have seen that speck of daylight",
+"simple": "If it had been night, he would not have seen the small spot of daylight.",
+"grammar": "'If it had only happened to be night, he would not have seen...' is an unreal past 'if' sentence. It talks about something that did not happen."
+}
+],
+"phrases": {}
+}

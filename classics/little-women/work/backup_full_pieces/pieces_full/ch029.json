@@ -1,0 +1,116 @@
+{
+ "glossary": {
+  "vortex": {
+   "pos": "noun",
+   "meaning": "A fast turn, like water going round and round. Here Jo uses it for a time when she writes and writes."
+  },
+  "afflatus": {
+   "pos": "noun",
+   "meaning": "A strong flow of ideas that seems to come from a higher power."
+  },
+  "rakishly": {
+   "pos": "adverb",
+   "meaning": "In a careless, brave way, a little to one side."
+  },
+  "askew": {
+   "pos": "adverb",
+   "meaning": "Not straight; to one side."
+  },
+  "matrons": {
+   "pos": "plural noun",
+   "meaning": "Older married women, who look serious and proper."
+  },
+  "tatting": {
+   "pos": "uncountable noun",
+   "meaning": "A kind of fine cloth with holes in it, made by hand."
+  },
+  "bandana": {
+   "pos": "noun",
+   "meaning": "A large cloth, often red or yellow, that people wear on the head or round the neck."
+  },
+  "labyrinth": {
+   "pos": "noun",
+   "meaning": "A place with so many ways that it is easy to get lost."
+  },
+  "denouement": {
+   "pos": "noun",
+   "meaning": "The end of a story, where all is made clear."
+  },
+  "elopement": {
+   "pos": "noun",
+   "meaning": "Running away secretly to get married."
+  },
+  "digress": {
+   "pos": "verb",
+   "meaning": "To move away from the main subject while talking or writing."
+  },
+  "perusal": {
+   "pos": "noun",
+   "meaning": "The act of reading something with care."
+  },
+  "ruthlessly": {
+   "pos": "adverb",
+   "meaning": "With no feeling for the pain of others."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 29,
+   "context": "Her “scribbling suit” consisted of a black woollen pinafore on which she could wipe her pen",
+   "mainIdea": "Jo wears a special writing cap. Its position tells her family how her work is going.",
+   "simple": "Jo's 'scribbling suit' was a black wool pinafore, on which she could wipe her pen as she liked, and a cap of the same cloth with a cheerful red bow. She stuffed her hair into the cap when she was ready for hard work. The family saw the cap as a signal and kept away during these times. They only put their heads in now and then to ask, 'Does genius burn, Jo?' They did not always dare even to ask, but looked at the cap and judged. If it was pulled low on her forehead, hard work was going on. In exciting moments it was pushed to one side. When she felt despair, it was pulled off and thrown on the floor. Then anyone who came in quietly went away, and no one dared speak to Jo until the red bow stood up happily on her head again.",
+   "hardWords": [
+    "beacon",
+    "rakishly",
+    "askew"
+   ]
+  },
+  {
+   "chapter": 29,
+   "context": "So, with Spartan firmness, the young authoress laid her firstborn on her table",
+   "mainIdea": "Jo cuts up her book to please everyone. In trying to please all, she pleases no one.",
+   "simple": "So, with the hard strength of a Spartan, the young woman writer put her first book on her table. She cut it up without pity, like a giant in a story. She hoped to please everyone, so she took everyone's advice. Like the old man and his donkey in the old tale, she pleased nobody.",
+   "hardWords": [
+    "authoress",
+    "ruthlessly",
+    "ogre",
+    "fable"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 29,
+   "context": "Not a golden penny, exactly, but I doubt if half a million would have given more real happiness",
+   "simple": "It was not exactly a gold coin. But I doubt that even half a million would have brought more true joy than the small sum she got.",
+   "grammar": "'I doubt if half a million would have given...' uses 'would have given' to talk about an unreal past. The idea is that even much more money could not do better."
+  },
+  {
+   "chapter": 29,
+   "context": "he practised as he preached, having waited patiently thirty years for fruit of his own to ripen",
+   "simple": "He did what he taught. He had waited patiently for thirty years for his own fruit to become ripe.",
+   "grammar": "'He practised as he preached' means he did what he told others to do. 'Having waited' shows an action that was finished before the main one. 'Fruit' is used as a picture for his own work."
+  },
+  {
+   "chapter": 29,
+   "context": "Fame is a very good thing to have in the house, but cash is more convenient",
+   "simple": "It is good to have fame in the home, but money is more useful.",
+   "grammar": "Two parts joined by 'but' show a contrast. 'Convenient' is the comparative 'more convenient'. The joke is that fame cannot pay bills."
+  }
+ ],
+ "phrases": {
+  "fall into a vortex": {
+   "pos": "idiom",
+   "meaning": "To start writing so hard that you forget everything else.",
+   "example": "fall into a vortex"
+  },
+  "set one's heart on": {
+   "pos": "idiom",
+   "meaning": "To want something very much and decide to get it.",
+   "forms": [
+    "set my heart on"
+   ],
+   "example": "I’ve set my heart on it"
+  }
+ }
+}

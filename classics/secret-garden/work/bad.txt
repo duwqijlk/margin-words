@@ -1,0 +1,247 @@
+secret-garden/glossary.json                      245 of   381 meanings use words outside the basic list
+    disagreeable: pleasant   <- Not pleasant. Unkind and not nice to be with.
+    sour: tempered, describes   <- Unhappy and bad-tempered. Here it describes a look on the face.
+    ayah: servant   <- In India, a woman servant who takes care of a child.
+    sahib: mem, servants, missie   <- In India, a word of respect. 'Mem Sahib' is what servants call a European woman. 'Missie Sahib' is used for a girl.
+    fretful: complaining   <- Unhappy, and crying or complaining a lot.
+    stammered: repeated   <- Spoke with many stops and repeated sounds, because of fear.
+    slunk: shame   <- Moved quietly and secretly, because of fear or shame.
+    hibiscus: flowers   <- A plant with big, bright flowers that grows in hot countries.
+    imploringly: begs   <- In a way that begs for help.
+    wrung: twisted   <- Twisted and pressed together. 'Wrung her hands' shows great worry or sadness.
+    bewilderment: confused   <- The state of being very confused.
+    drowsy: sleepy   <- Sleepy.
+    hastily: hurry   <- Very quickly, in a hurry.
+    compound: fence   <- The land with a fence or wall around a group of buildings.
+    clergyman: worship   <- A man whose job is to lead worship in a church.
+    rockery: piles   <- A garden bed made with piles of stones and small plants.
+    contrary: opposite   <- Doing the opposite of what other people want.
+    hunchback: lump   <- A person with a back that is bent and has a lump on it.
+    housekeeper: manage, servants   <- A person whose job is to run a big house and manage the other servants.
+    mantle: loose, sleeves   <- A loose coat without sleeves, worn over other clothes.
+    fringe: threads, hang   <- An edge made of many small threads or strings that hang down.
+    bonnet: hat, tied, chin   <- A hat for women that is tied under the chin.
+    sallow: pale   <- Having a pale yellow colour, not healthy.
+    marred: spoiled, tempered   <- Spoiled. In this book a Yorkshire word for a child who is spoiled and bad-tempered.
+    dreary: dull   <- Dull and sad.
+    lulled: calm, sleepy   <- Made calm and sleepy by a soft, even sound.
+    stationmaster: railway   <- The person in charge of a railway station.
+    thee: object   <- A Yorkshire way to say 'you' (as an object), used to one person.
+    brougham: carriage, wheels   <- A closed carriage pulled by a horse, with four wheels.
+    footman: servant, carriage   <- A man servant who helps people in and out of a carriage and opens doors.
+    coachman: carriage   <- A man whose job is to drive a carriage pulled by horses.
+    cushioned: pillows, pads   <- Made soft with pillows or pads.
+    timid: frightened   <- Easily frightened; not brave.
+    whitewashed: painted, paint, lime   <- Painted white with a cheap white paint made of lime and water.
+    vicarage: vicar   <- The house where the vicar, a church leader, lives.
+    heather: purple, flowers, moors   <- A low wild plant with small purple flowers that grows on moors.
+    gorse: bush, thorns, flowers   <- A wild bush with sharp thorns and yellow flowers.
+    broom: bush, stems, flowers, sweeping   <- A wild bush with long thin stems and yellow flowers. Here it is a plant, not a tool for sweeping.
+    bleak: bare, comfort   <- Cold, bare and without comfort.
+    lodge: gate   <- A small house at the gate of a big house or a park.
+    vault: roof, arch   <- A roof shaped like an arch. Here the trees make it look like the roof of a long dark room.
+    ramble: loose   <- To spread out in a loose, uneven way, as a big house does.
+    tapestry: woven, hung   <- A heavy cloth with a picture woven into it, hung on a wall.
+    embroidered: decorated, needle, thread   <- Decorated with a picture made with needle and thread.
+    turret: tower   <- A small tower on the corner of a castle.
+    obsequious: eager   <- Too eager to please a person who has power over you.
+    servile: servant, pride   <- Acting like a servant who does whatever he is told, without any pride.
+    salaam: bow   <- In India, a low bow with the hand at the head, to show respect.
+    scullery: kitchen, pots, plates, washed, maid, servant   <- A small room next to a kitchen where pots and plates are washed. A scullery-maid is the lowest kitchen servant.
+    vexed: annoyed   <- Annoyed.
+    humiliation: shame, foolish   <- The feeling of shame when you have been made to look foolish.
+    subservient: obey   <- Too ready to obey other people.
+    totter: unsteady   <- To walk with weak, unsteady steps.
+    homely: plain, ordinary, pride   <- Simple and plain, like an ordinary home. Here it means friendly and without pride.
+    marmalade: oranges, bread   <- A sweet food made from oranges, put on bread.
+    ivy: climbing   <- A climbing plant with dark green leaves that grows up walls.
+    surly: tempered   <- Bad-tempered and rude.
+    crustily: tempered   <- In a bad-tempered and rude way.
+    mester: mister   <- A Yorkshire way to say 'master' or 'mister'.
+    blunt: plain   <- Saying what you think in a plain way, without trying to be polite.
+    tapestried: tapestry, woven   <- Having walls covered with tapestry, a heavy cloth with a picture woven into it.
+    preen: arranges, feathers   <- When a bird preens, it cleans and arranges its feathers with its beak.
+    wutherin: blowing, rushing, roar   <- A Yorkshire word for the sound of the wind blowing hard with a low, rushing roar. The book writes it as wutherin'.
+    shuddering: shaking   <- Shaking with fear or cold.
+    moithered: confused   <- A Yorkshire word for confused and upset by too much noise or work.
+    collie: sheep   <- A kind of dog with long hair, used for looking after sheep.
+    perplexed: confused   <- Confused and not sure what to do or think.
+    pewter: grey, plates   <- A grey metal used to make plates and cups.
+    romping: noisy   <- Playing in a noisy, rough way.
+    gallery: passage   <- A long room or passage, here with pictures on the walls.
+    ruffs: stiff, collars, folds   <- Stiff, round collars with many folds, worn around the neck in the past.
+    brocade: pattern, woven   <- A rich cloth with a raised pattern woven into it.
+    inlaid: decorated   <- Decorated with small pieces of another material set into the surface.
+    mantel: shelf, fireplace   <- The shelf above a fireplace.
+    cabinet: furniture, shelves   <- A piece of furniture with doors and shelves, for keeping things.
+    ivory: tusks, elephants   <- The hard white material from the tusks of elephants.
+    mahout: elephant   <- A man who rides and looks after an elephant in India.
+    palanquin: poles   <- A covered seat or bed that is carried on poles by people, or on an animal.
+    soart: nowt, o, th   <- A Yorkshire way to say 'sort'. 'Nowt o' th' soart' means 'nothing of the sort'.
+    vixon: vixen, martha's, tempered   <- A Yorkshire way to say 'vixen', a female fox. Martha's mother uses it for a bad-tempered girl.
+    daffydowndilly: daffodil   <- An old name for a daffodil, a yellow spring flower.
+    mole: digs, tunnels   <- A small animal that lives under the ground and digs tunnels.
+    baffling: confusing   <- Very hard to understand; confusing.
+    glossy: shining   <- Smooth and shining.
+    contrariness: habit, opposite   <- The habit of doing the opposite of what other people want.
+    fumbling: clumsy   <- Moving your hands in a clumsy way to find something.
+    skip: swing   <- To jump over a rope that you swing under your feet and over your head. A skipping-rope is the rope.
+    tuppence: pennies   <- Two pennies, a small amount of old British money.
+    impudence: behaviour   <- Rude behaviour that shows no respect.
+    clumsy: neat   <- Not smooth or neat in how you move.
+    trill: repeated   <- A quick, high song of a bird, with the same sound repeated fast.
+    heathen: ben   <- A person who does not follow the religion of the speaker. Ben uses it for people who are not Christian.
+    pipin: piping   <- Very hot. The book writes it as pipin'; 'piping hot' means very hot.
+    tendril: curling, climbing   <- A thin, curling part of a climbing plant that holds on to things.
+    hazy: mist   <- Not clear, as if seen through a thin mist.
+    alcove: hedge   <- A small space set back into a wall or a hedge.
+    urn: vase   <- A tall vase, often with a foot, used for plants.
+    narcissus: smell, daffodils   <- A spring flower with a sweet smell. Daffodils are one kind.
+    jonquil: daffodil   <- A yellow or white spring flower like a small daffodil.
+    eyeteeth: jaw   <- The two pointed teeth in the upper jaw. 'Like pulling eyeteeth' means very hard to do.
+    dictated: aloud   <- Said words aloud for someone else to write down.
+    restlessly: calm   <- In a way that shows you cannot be calm or still.
+    flightiness: behaviour   <- Behaviour that changes quickly and cannot be trusted.
+    hobnailed: boot, nails   <- Having a boot with thick nails in the bottom to make it strong.
+    bachelder: bachelor   <- A Yorkshire way to say 'bachelor', a man who is not married.
+    rheumatics: stiff, rheumatism   <- A sickness that makes the joints hurt and be stiff. People now say 'rheumatism'.
+    pheasant: hunt   <- A large wild bird with a long tail. People hunt it for food.
+    tremulous: shaking   <- Shaking a little.
+    trowel: digging   <- A small garden tool with a short handle, used for digging small holes.
+    hoe: blade, weeds   <- A garden tool with a long handle and a flat blade, used for cutting weeds.
+    larkspur: pink, flowers   <- A tall garden plant with blue, pink or white flowers.
+    mignonette: flowers, smell   <- A small garden plant with flowers that smell sweet.
+    sidled: sideways   <- Moved sideways, in small quick steps, as a bird does.
+    defiantly: obey   <- In a way that shows you will not obey.
+    creeper: climbs   <- A plant that climbs up walls or trees.
+    lichen: grey, bark   <- A flat, grey-green growth on the bark of trees or on stones.
+    wick: mary   <- A Yorkshire word for alive and full of life. Mary is told that it means alive or lively.
+    whitethorn: thorns, flowers, hawthorn   <- A small tree with thorns and white flowers, also called hawthorn.
+    knobstick: lump   <- A stick with a round lump at the top.
+    spick: span, neat   <- 'Spick and span' means very clean and neat.
+    distended: swollen, stretched   <- Swollen; stretched out because it is full.
+    lily: petals, o, th, flowers, bells   <- A tall garden flower with large petals. 'Lilies o' th' valley' are small white flowers shaped like bells.
+    missel: thrush   <- A kind of large thrush, a brown bird that sings. Here it is part of 'missel thrush'.
+    crabbed: tempered   <- Bad-tempered and hard to please.
+    brooch: jewellery, pin   <- A piece of jewellery with a pin, worn on a dress.
+    quavered: shaking   <- Spoke with a shaking voice.
+    tiresome: annoyed   <- Making you feel tired or annoyed.
+    rebellious: obey   <- Not willing to obey rules or people in charge.
+    agate: grey   <- A hard stone with lines of colour. Here it is used for the grey colour of Colin's eyes.
+    wrapper: loose   <- A loose piece of clothing worn over night clothes.
+    clambered: climbed, awkward   <- Climbed in a rough, awkward way, using hands and feet.
+    bewitched: spell   <- Put under a spell; here, changed by what seems like magic.
+    sylum: asylum   <- Short for asylum, an old word for a place for people who are very ill in the mind.
+    brace: stiff   <- A stiff support worn on the body to hold the back straight.
+    rheumatic: fever, sore   <- Of a sickness that makes the joints hurt. 'Rheumatic fever' is a serious sickness with fever and sore joints.
+    typhoid: fever   <- A serious sickness with a high fever.
+    brocaded: pattern   <- Made of rich cloth with a raised pattern.
+    curtsy: bow   <- A small bow made by a girl or woman, bending the knees.
+    charm: obey   <- To make animals or people listen and obey, as if by magic.
+    scrawny: bony, ugly   <- Thin and bony, in an ugly way.
+    slamp: martha   <- A Yorkshire word meaning to lie down flat. Martha says Mary's hair does not slamp down flat on her head.
+    waft: stream, smell   <- A light stream of air carrying a smell.
+    fluting: flute   <- Making soft, high, sweet sounds like a flute.
+    scores: twenty   <- Many; twenty or more. 'Scores of birds' means very many birds.
+    unbolt: slide, bolt   <- To slide back a bolt, a metal bar that holds a door shut.
+    herbaceous: stems   <- Of plants that have soft stems and die down each winter. 'Herbaceous beds' are garden beds of such plants.
+    unfurling: folded   <- Opening out from a rolled-up or folded shape.
+    plumaged: feathers, glossy   <- Having feathers of a certain kind. 'Glossy-plumaged' means with shiny feathers.
+    tousled: untidy   <- With untidy hair.
+    rook: crow   <- A big black bird of the crow family.
+    condescended: favour   <- Did something as if it were a favour, feeling better than the other person.
+    nutcracker: nuts, mary's, pinched   <- A tool for breaking nuts. Mary's face looked as sharp and pinched as the face of a nutcracker.
+    vixen: tempered   <- A female fox. Used for a girl who is sharp and bad-tempered.
+    monogram: mark   <- Letters of a person's name put together as a mark on something.
+    pampered: comfort   <- Given too much care and every comfort.
+    writhe: twist   <- To twist the body about, as if in pain.
+    hunch: lump, hunchback's   <- A lump on the back; a hunchback's lump.
+    happen: dickon's, bud   <- A Yorkshire word meaning 'perhaps'. Dickon's 'an' happen a bud or two' means 'and perhaps a bud or two'.
+    affectation: behaviour   <- Behaviour that is put on to seem nicer or better than you are.
+    enraptured: joy   <- Filled with joy and wonder.
+    wands: magicians   <- Thin sticks used by magicians to make magic.
+    spires: flowers   <- Tall, thin points. Here, flowers that grow in long tall shapes.
+    bromide: calm, sleepy   <- A medicine that makes a person calm and sleepy.
+    austerely: strict   <- In a strict, serious way.
+    ravenous: describes, lamb   <- Very hungry. Here, it describes how the lamb drinks.
+    bleat: lamb, sheep   <- The thin cry of a lamb or sheep.
+    columbine: petals, bells   <- A garden flower with petals shaped like small bells with tails.
+    snapdragon: blooms   <- A garden flower whose blooms open and close like a mouth.
+    signet: mark, seal   <- A ring with a small mark or seal on it. 'Signet rings' were worn by important people.
+    salaams: bows, forehead, greeting   <- Deep bows with the hand at the forehead, used as a greeting in India.
+    sulky: tempered   <- Quiet and bad-tempered because you are not pleased.
+    primrose: pale   <- A small pale yellow spring flower.
+    uncanny: frightening   <- Strange, in a way that is a little frightening.
+    humped: lump   <- With a lump on the back.
+    servitor: servant   <- A servant.
+    morbid: gloomy   <- Having gloomy thoughts, especially about sickness and death.
+    garlands: flowers   <- Rings of flowers and leaves.
+    tendrils: curling, climbing   <- Thin curling parts of a climbing plant.
+    fanciful: imagination   <- Made up from the imagination.
+    canopy: hangs, roof   <- A cover that hangs or spreads over a place, like a roof.
+    flusters: nervous, confused   <- Makes someone nervous and confused.
+    rhododendron: bush, flowers   <- A bush with large, bright flowers.
+    crumpets: cakes   <- Small round soft cakes eaten hot with butter.
+    lances: rays   <- Long thin spears. Here it means the long thin rays of the sun.
+    besom: tempered, annoying, broom   <- A Yorkshire word for a bad-tempered, annoying woman or girl. It is also the word for a broom.
+    drat: annoyed   <- An old word used when you are annoyed.
+    impidint: ben's, impudent, bold   <- Ben's way to say 'impudent'; rude and bold.
+    imperiously: obey   <- In a proud way that expects people to obey.
+    gnarled: twisted, knotted   <- Rough, twisted and knotted, as old wood or old hands.
+    lath: strip   <- A thin, narrow strip of wood.
+    reigned: delight, joy   <- Ruled, as a king does. 'Delight reigned' means joy was everywhere.
+    jackasses: donkeys, foolish   <- Male donkeys; used for silly or foolish people.
+    brayin: harsh, donkey   <- Making the loud harsh cry of a donkey. The book writes it as brayin'.
+    pluck: courage   <- Courage.
+    exultation: joy   <- Great joy because of a win.
+    hobbled: difficulty   <- Walked slowly and with difficulty.
+    slapping: slaps   <- Hitting with the open hand. 'A slapping sort of man' means a man who slaps people.
+    crevices: cracks, gaps   <- Narrow cracks or gaps in a wall or rock.
+    satiny: satin   <- Smooth and shiny, like satin cloth.
+    sundial: shadow   <- A tool that shows the time by a shadow from the sun.
+    unsheath: buds   <- To take out of a cover. Here it means buds opening out of their covers.
+    fakirs: comforts   <- Holy men in India who go without comforts and are said to do wonderful things.
+    sinetifik: ben's   <- Ben's way to say 'scientific'.
+    devotees: belief   <- People who are very strongly given to a religion or a belief.
+    dervishes: sway, whirl, prayers   <- Holy men of a certain faith who sway or whirl about in their prayers.
+    prizefighter: fists   <- A man who fights with his fists for money.
+    fascination: attract   <- A strong power to interest or attract.
+    twilight: dim   <- The soft, dim light after the sun has gone down.
+    haze: mist   <- A thin mist that makes things hard to see clearly.
+    pother: fuss   <- A state of worry and fuss.
+    currants: cakes, buns   <- Small dried black fruits, used in cakes and buns.
+    bounteous: generous   <- Giving freely and a lot; very generous.
+    bloated: swollen, puffed   <- Swollen and puffed up.
+    clotted: cream   <- Thick. 'Clotted cream' is very thick cream.
+    pantry: dishes   <- A small room where food and dishes are kept.
+    revelation: hidden   <- The telling of something that was hidden.
+    riot: noisy, joy   <- Wild and noisy action. Here, great excited joy.
+    glummest: gloomy   <- The most gloomy and unhappy.
+    secrete: hide, robin, hides, bush   <- To hide something. Here, the robin hides himself in a bush.
+    disconcerting: confused   <- Making you feel uneasy or confused.
+    fledged: feathers   <- Having grown feathers and able to fly.
+    brooded: wings   <- Covered with wings to keep warm. Here, 'brooded over by a great peace' means filled with peace.
+    inordinately: usual   <- Much more than usual.
+    boudoir: bedroom   <- A woman's private sitting room or bedroom.
+    pilgrimage: journey   <- A journey to a special place. Here, Mary's first walk through the empty rooms.
+    parrot: feathers   <- A bird with bright feathers that can copy words.
+    incantations: sung   <- Words said or sung over and over, as if to make magic.
+    rapturous: joy   <- Full of great joy.
+    doxology: praise, sung   <- A short Christian song of praise to God, sung in church.
+    dappling: marking, shade   <- Marking with spots of light and shade.
+    gloating: pleasure   <- Looking with great pleasure.
+    tremulously: shaking, unsteady   <- In a shaking, unsteady way.
+    bandy: outward   <- Bent outward at the knees.
+    rasping: harsh   <- Rough and harsh in sound.
+    wilt: thou, tha   <- An old form of 'will' used with 'thou'. 'Wilt tha'' means 'will you'.
+    drumsticks: drum   <- Sticks used to beat a drum; here, thin legs.
+    thistle: prickles, purple, flowers   <- A wild plant with sharp prickles and purple flowers.
+    fjords: rocky   <- Long, narrow arms of the sea between high rocky hills, in Norway.
+    gentians: flowers   <- Mountain flowers that are a deep blue.
+    stagnant: dirty   <- Not moving or flowing; still and dirty. Said of water.
+    salver: tray   <- A flat tray, used for carrying letters or food.
+    sovereign: coin   <- An old British gold coin.
+    embowered: leafy, shady   <- Shut in by leafy branches, like a shady room.
+    stepladder: ladder   <- A short ladder with steps, which stands by itself.
+    laurels: bushes   <- Bushes with shiny dark green leaves.
+TOTAL 245 of 381

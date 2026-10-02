@@ -1,0 +1,81 @@
+@W
+beseech | present participle | Asking in a strong, begging way. | beseeching |
+triumphal | adjective | Showing a great victory. | |
+toilet | noun | The act of washing and dressing yourself. | |
+dispelled | adjective | Driven away. | |
+heartening | adjective | Giving you hope and courage. | |
+scour | present participle | Searching a place with great care in every part. | scouring |
+uncommunicative | adjective | Not willing to speak or give information. | |
+ambled | past-tense verb | Walked slowly and easily. | |
+traces | plural noun | The ropes or straps that join a horse to a cart or boat. | |
+taut | adjective | Pulled tight. | |
+gunwale | noun | The top edge of the side of a boat. | |
+brawny | adjective | Strong, with big muscles. | |
+tiller | noun | A long handle used to steer a boat. | |
+posthaste | adverb | As fast as possible. | |
+imp | noun | A small, naughty child. | imps |
+hussy | noun | A rude or bad girl. It is an old and unkind word. | hussies |
+trollop | noun | A lazy, untidy woman. It is an old and unkind word. | trollops |
+dote | verb | To love someone or something very much. | dotes |
+shirk | present participle | Avoiding work that you should do. | shirking |
+humbug | noun | A person who pretends to be what he is not. | |
+simmer | past participle | Boiling very softly. | simmering |
+mangle | noun | A machine with two rollers that squeezes water out of washed clothes. | |
+crimp | verb | To press into small folds or waves. | |
+gesticulate | present participle | Making wild movements with the arms and hands. | gesticulating |
+rutty | adjective | Full of deep lines made by wheels. | |
+gorse | noun | A bush with yellow flowers and sharp thorns. | |
+voluptuous | adjective | Giving great joy to the body, such as to the nose or mouth. | |
+solace | noun | Comfort when you are sad. | |
+qualm | noun | A sudden feeling that something is wrong. | |
+cajole | verb | To persuade someone by saying nice things. | |
+hackney | noun | A horse of a good kind that is used for pulling light carriages. | |
+trappings | plural noun | The things that a horse wears for decoration, such as a fine harness. | |
+grudge | past-tense verb | Gave something unwillingly. | grudged |
+encircled | past participle | Having something all round. | |
+yarn | noun | A made-up story. | |
+strutting | present participle | Walking in a proud way. | |
+unscathed | adjective | Without being hurt. | |
+excursionist | noun | A person who goes on a short trip for fun. | excursionists |
+encumbered | adjective | Slowed down by something heavy. | |
+@P
+ctx: He had the world all to himself, that early summer morning
+idea: Toad walks alone in the morning and looks for a road that can tell him the way. He is looking for something that can talk and tell him which way to go.
+simple: He had the world all to himself that early summer morning. The woodland was wet with dew, and he walked through it, and it was lonely and quiet. The green fields after the trees were his own, to do with as he liked. When he reached the road, it seemed to be looking anxiously for company, like a stray dog, in the loneliness that was everywhere. But Toad was looking for something that could talk and tell him clearly which way to go. It is all very well to follow where the road calls and points, without caring where it goes. This is when you have a light heart, a clear conscience and money in your pocket, and nobody is searching the country to drag you off to prison again. But Toad was a practical animal and he cared very much. He could have kicked the road for its helpless silence, when every minute mattered to him.
+hard: solitary; stray; scouring; beckons; whither; practical
+@P
+ctx: A long half-hour passed, and every minute of it saw Toad getting crosser
+idea: Toad tries to wash the clothes, but he cannot do it. He gets very angry and his paws start to get wrinkled.
+simple: A long half-hour passed, and each minute of it saw Toad getting angrier. Nothing he did to the clothes seemed to please them or do them any good. He tried coaxing, he tried slapping, and he tried punching. They smiled back at him from the tub, not changed, and happy in their original sin. Once or twice he looked nervously over his shoulder at the barge-woman, but she seemed to be looking out in front of her and thinking only of her steering. His back ached badly, and he saw with dismay that his paws were starting to get crinkly. Now Toad was very proud of his paws. He said under his breath words that should never pass the lips of washerwomen or of Toads. And he lost the soap for the fiftieth time.
+hard: coaxing; unconverted; original sin; crinkly; muttered; under his breath
+@P
+ctx: He had travelled some miles, his horse and he, and he was feeling drowsy
+idea: Toad finds a gipsy cooking a stew. The smell makes Toad very hungry. He wonders if he can fight the gipsy or charm him.
+simple: He had travelled some miles, he and his horse, and he was feeling sleepy in the hot sun. Then the horse stopped, put his head down and began to bite the grass. Toad woke up, and only just kept himself from falling off. He looked round and found that he was on a wide common with patches of gorse and bramble as far as he could see. Near him stood a dull-looking gipsy caravan. Beside it a man was sitting on a bucket turned upside down. He was very busy smoking and looking out at the wide world. A fire of sticks was burning near by, and an iron pot hung over it. Out of the pot came bubbling and gurgling sounds, and a vague, hinting cloud of steam. There were also smells, warm, rich and of many kinds. They twisted together at last into one complete, perfect smell. It seemed like the very soul of Nature taking form and appearing to her children, a true Goddess, a mother of comfort. Toad now knew well that he had not really been hungry before. What he had felt earlier in the day was only a small sick feeling. This was the real thing at last, and no mistake. It would have to be dealt with fast, or somebody or something would be in trouble. He looked the gipsy over carefully, and wondered if it would be easier to fight him or to charm him. So he sat there, and sniffed and sniffed, and looked at the gipsy. And the gipsy sat and smoked, and looked at him.
+hard: drowsy; gorse; dingy; gurgling; voluptuous; solace; qualm; cajole
+@S
+ctx: He would probably have been aroused much earlier, had he not slept
+simple: He would probably have woken much earlier if he had not slept for some weeks on straw over stone floors. He had almost forgotten how nice thick blankets feel when they are pulled up round the chin.
+gram: 'had he not slept' means 'if he had not slept' (inversion); 'would probably have been aroused' is the third conditional in the passive and talks about the past that did not happen.
+@S
+ctx: It is all very well, when you have a light heart, and a
+simple: It is all very well to follow where the road calls and points, without caring where it goes, when you have a light heart, a clear conscience, money in your pocket, and nobody searching the country to drag you off to prison again.
+gram: 'It is all very well to follow ...' means 'it is fine to follow ...' (but there is a problem); the long 'when you have ...' list comes between 'well' and 'to follow'.
+@S
+ctx: Alas! they should have thought, they ought to have been more prudent
+simple: Alas! They should have thought. They should have been more careful. They should have remembered to stop the motorcar before playing any such tricks.
+gram: 'should have + past participle' and 'ought to have been' both say what was the right thing to do but did not happen; the three clauses repeat the same idea.
+@S
+ctx: Who was it got them to give him a lift?
+simple: Who was it that got them to give him a ride?
+gram: 'Who was it got ...' is a spoken form of 'Who was it that got ...'; 'got them to give' is 'get + person + to + verb', meaning to persuade someone.
+@PH
+play up to | phrasal verb | To be kind and give attention to someone in order to please them. | play up to him | ready to serve him and play up to him
+take aback | phrasal verb | To surprise someone so that they cannot speak. | taken aback | Toad was completely taken aback.
+make over | phrasal verb | To give something to someone else. | | I will make over to you my spirited young horse
+throw in | phrasal verb | To add something extra as a gift. | thrown in | freely thrown in
+cast off | phrasal verb | To untie a rope that holds a boat. | | unfastened the towrope and cast off
+set to | phrasal verb | To begin work. | | and set to
+puff up | phrasal verb | To make someone feel too proud. | puffed up | He got so puffed up with conceit
+be even with | idiom | To get back at someone who did something bad to you. | | to be even with her
+head over ears | idiom | Completely covered; deeply in. | | head over ears in deep water

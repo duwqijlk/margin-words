@@ -1,0 +1,43 @@
+[0] The Chess Game
+
+[1] Alice meets R. Q.
+
+[2] Alice Through Q.’s 3rd (by railway) to Q.’s 4th (Tweedledum And Tweedledee)
+
+[3] Alice meets W. Q. (with shawl)
+
+[4] Alice to Q.’s 5th (shop, river, shop)
+
+[5] Alice to Q.’s 6th (Humpty Dumpty)
+
+[6] Alice to Q.’s 7th (forest)
+
+[7] W. Kt. takes R. Kt.
+
+[8] Alice to Q.’s 8th (Coronation)
+
+[9] Alice becomes Queen
+
+[10] Alice Castles (feast)
+
+[11] Alice takes R. Q. and wins
+
+[12] R. Q. to K. R.’s 4th
+
+[13] W. Q. to Q. B.’s 4th (after shawl)
+
+[14] W. Q. to Q. B.’s 5th (becomes sheep)
+
+[15] W. Q. to K. B.’s 8th (leaves egg on shelf)
+
+[16] W. Q. to Q. B.’s 8th (flying from R. Kt.)
+
+[17] R. Kt. to K.’s 2nd (check)
+
+[18] W. Kt. to K. B.’s 5th
+
+[19] R. Q. to K.’s Sq. (Examination)
+
+[20] Queens castle
+
+[21] W. to Q. R.’s 6th (soup)

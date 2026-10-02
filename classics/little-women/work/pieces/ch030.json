@@ -1,0 +1,102 @@
+{
+ "glossary": {
+  "dyspeptic": {
+   "pos": "adjective",
+   "meaning": "Having a bad stomach because of food that is too rich."
+  },
+  "bounteous": {
+   "pos": "adjective",
+   "meaning": "Very kind in giving; more than enough."
+  },
+  "frugal": {
+   "pos": "adjective",
+   "meaning": "Careful not to spend much money."
+  },
+  "pungent": {
+   "pos": "adjective",
+   "meaning": "Having a strong, sharp taste or nose feeling."
+  },
+  "derisive": {
+   "pos": "adjective",
+   "meaning": "Showing that you think someone is silly; laughing at them."
+  },
+  "furbelows": {
+   "pos": "plural noun",
+   "meaning": "Extra pieces of cloth on a dress, for show."
+  },
+  "countermanded": {
+   "pos": "past-tense verb",
+   "meaning": "Said no to an order that was given before.",
+   "forms": [
+    "countermanded",
+    "countermand"
+   ]
+  },
+  "gingerly": {
+   "pos": "adverb",
+   "meaning": "In a very careful way, as if afraid of breaking something."
+  },
+  "greatcoat": {
+   "pos": "noun",
+   "meaning": "A long, heavy coat worn in cold weather."
+  },
+  "phlegm": {
+   "pos": "uncountable noun",
+   "meaning": "A quiet way of acting that does not get excited."
+  },
+  "conducive": {
+   "pos": "adjective",
+   "meaning": "Helping to bring about a certain result."
+  },
+  "repose": {
+   "pos": "uncountable noun",
+   "meaning": "Rest; a quiet state."
+  },
+  "assuage": {
+   "pos": "verb",
+   "meaning": "To make a pain or bad feeling less strong."
+  },
+  "bemoan": {
+   "pos": "verb",
+   "meaning": "To show sadness about something with loud, sorry words."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 30,
+   "context": "Fired with a housewifely wish to see her storeroom stocked with homemade preserves",
+   "mainIdea": "Meg tries to make currant jelly like Hannah. She works all day, but the jelly will not set.",
+   "simple": "Meg wished very much to see her storeroom full of jelly and fruit she had made herself. So she decided to make her own currant jelly. John was asked to send home a dozen little pots and extra sugar, because their own currants were ripe and had to be dealt with at once. John firmly believed his wife could do anything, and he was proud of her skill. He wanted her to be pleased and to save their only crop of fruit for winter. Home came four dozen little pots, half a barrel of sugar, and a small boy to pick the currants. Meg tucked her hair into a cap, bared her arms to the elbow, and put on a checked apron. She began work sure of success, because she had seen Hannah do it hundreds of times. The many pots surprised her, but John loved jelly and the jars would look nice on the top shelf, so she decided to fill them all. She spent a long day picking, boiling, straining and fussing. She did her best, asked Mrs. Cornelius for advice, and tried to remember what Hannah did. She boiled and sugared it again, but that dreadful stuff would not 'jell'.",
+   "hardWords": [
+    "preserves",
+    "currant",
+    "coquettish",
+    "reboiled"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 30,
+   "context": "John Brooke laughed then as he never dared to laugh afterward",
+   "simple": "John laughed then in a way that he never dared to laugh again.",
+   "grammar": "'As he never dared to laugh afterward' is a comparison clause. It tells us how big this laugh was: John never laughed like that again."
+  },
+  {
+   "chapter": 30,
+   "context": "for even turtledoves will peck when ruffled",
+   "simple": "Even gentle doves will peck when they are upset.",
+   "grammar": "'For' gives a reason. 'When ruffled' is short for 'when they are ruffled'. It means that even loving people can become sharp."
+  }
+ ],
+ "phrases": {
+  "put one's pride in one's pocket": {
+   "pos": "idiom",
+   "meaning": "To stop being proud so that you can do something hard.",
+   "forms": [
+    "put her pride in her pocket"
+   ],
+   "example": "she put her pride in her pocket"
+  }
+ }
+}

@@ -1,0 +1,125 @@
+{
+ "glossary": {
+  "evaded": {
+   "pos": "past-tense verb",
+   "meaning": "Got away from a question without a direct answer.",
+   "forms": [
+    "evaded",
+    "evade"
+   ]
+  },
+  "disquietude": {
+   "pos": "uncountable noun",
+   "meaning": "A feeling of worry and not being at peace."
+  },
+  "conjectures": {
+   "pos": "plural noun",
+   "meaning": "Guesses made with little proof."
+  },
+  "reverie": {
+   "pos": "noun",
+   "meaning": "A state of thinking about nice things, like a dream."
+  },
+  "pummelled": {
+   "pos": "past participle",
+   "meaning": "Hit again and again with the hands or something hard.",
+   "forms": [
+    "pummelled",
+    "pummel"
+   ]
+  },
+  "coxcomb": {
+   "pos": "noun",
+   "meaning": "A silly young man who is too proud of his looks and clothes."
+  },
+  "eligible": {
+   "pos": "adjective",
+   "meaning": "Good enough to be chosen, especially as a husband, because of money or position."
+  },
+  "admonitory": {
+   "pos": "adjective",
+   "meaning": "Giving a warning or a gentle telling-off."
+  },
+  "acquiesced": {
+   "pos": "past-tense verb",
+   "meaning": "Agreed to something without saying no.",
+   "forms": [
+    "acquiesced",
+    "acquiesce"
+   ]
+  },
+  "assiduity": {
+   "pos": "uncountable noun",
+   "meaning": "Great care and attention that does not stop."
+  },
+  "patriarch": {
+   "pos": "noun",
+   "meaning": "A very old and respected man who is the head of a family."
+  },
+  "horsehair": {
+   "pos": "uncountable noun",
+   "meaning": "Hair from a horse, used in chairs."
+  },
+  "insinuating": {
+   "pos": "adjective",
+   "meaning": "Trying in a clever, soft way to make someone like you."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 34,
+   "context": "Now, the old sofa was a regular patriarch of a sofa",
+   "mainIdea": "The old family sofa has been used by the girls all their lives. Jo's hard round pillow is her tool to keep people away.",
+   "simple": "The old sofa was a true grandfather of sofas: long, broad, well-stuffed and low. It was a little shabby, as it well might be. The girls had slept and sprawled on it as babies, fished over its back, ridden on its arms, and kept animal shows under it as children. As young women they had rested tired heads on it, dreamed dreams, and heard loving talk there. They all loved it as a family refuge, and one corner had always been Jo's favorite lounging place. Among the many pillows that decorated the old couch was one that was hard, round, covered with prickly horsehair, and had a knobby button at each end. This ugly pillow was Jo's own. She used it as a weapon of defence, as a barricade, or as a stern way to stop too much sleep.",
+   "hardWords": [
+    "patriarch",
+    "horsehair",
+    "menageries",
+    "venerable"
+   ]
+  },
+  {
+   "chapter": 34,
+   "context": "Laurie knew this pillow well, and had cause to regard it with deep aversion",
+   "mainIdea": "Laurie dislikes the pillow. If it stands on end he may sit near Jo, but if it lies flat nobody may disturb it.",
+   "simple": "Laurie knew this pillow well and had good reason to dislike it. In earlier days, when rough play was allowed, Jo had hit him hard with it. Now it often kept him from the seat he wanted most, next to Jo in the sofa corner. If 'the sausage', as they called it, stood on end, it was a sign that he could come near and rest. But if it lay flat across the sofa, anyone who dared to move it would be in trouble. That evening Jo forgot to block her corner. She had not been in her seat five minutes when a large form appeared beside her. He spread both arms over the back of the sofa, stretched both long legs out in front, and cried out.",
+   "hardWords": [
+    "aversion",
+    "pummelled",
+    "barricade"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 34,
+   "context": "Anything more wheedlesome than that touching appeal was seldom heard",
+   "simple": "It was seldom that anyone heard a more coaxing, touching request than that.",
+   "grammar": "'Anything more X than that' is a comparison. The sentence is a way to say that this was the most coaxing request one could hear. It is built with a passive verb: 'was ... heard'."
+  },
+  {
+   "chapter": 34,
+   "context": "Sensible girls, for whom I do care whole papers of pins, won’t let me send them",
+   "simple": "The sensible girls, whom I care about very much, will not let me send them flowers and things.",
+   "grammar": "'Don't care two pins' is a saying for 'care very little'. Laurie turns it into 'care whole papers of pins' to joke that he cares a lot. 'For whom' is a formal pattern with a preposition first."
+  },
+  {
+   "chapter": 34,
+   "context": "Jo looked up and Jo looked down, then said slowly",
+   "simple": "Jo looked up and then looked down, and then spoke slowly.",
+   "grammar": "Two short sentences joined by 'and' put the same name in each. The repeated 'Jo looked' shows that she is unsure and shy."
+  }
+ ],
+ "phrases": {
+  "get over": {
+   "pos": "phrasal verb",
+   "meaning": "To become well after a sad time or trouble.",
+   "example": "will soon get over his love-lornity"
+  },
+  "fly to": {
+   "pos": "phrasal verb",
+   "meaning": "To go quickly and eagerly to someone.",
+   "example": "made her fly to Beth’s bedside"
+  }
+ }
+}

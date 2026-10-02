@@ -1,0 +1,81 @@
+{
+ "glossary": {
+  "incoherent": {
+   "pos": "adjective",
+   "meaning": "Not clear and not making sense, because the person is ill or mixed up."
+  },
+  "stupor": {
+   "pos": "noun",
+   "meaning": "A heavy, sleep-like state in which a person cannot think or feel."
+  },
+  "piteous": {
+   "pos": "adjective",
+   "meaning": "Very sad to see; making you feel sorry for someone."
+  },
+  "parched": {
+   "pos": "adjective",
+   "meaning": "Very dry, because you are very hot or have not had a drink."
+  },
+  "wan": {
+   "pos": "adjective",
+   "meaning": "Looking tired and not well, with a white face."
+  },
+  "vigil": {
+   "pos": "noun",
+   "meaning": "A time of staying up at night to watch over someone."
+  },
+  "pallor": {
+   "pos": "uncountable noun",
+   "meaning": "A very white face, from illness or fear."
+  },
+  "hysterically": {
+   "pos": "adverb",
+   "meaning": "In a wild way that you cannot control, between laughing and crying."
+  },
+  "electrified": {
+   "pos": "past-tense verb",
+   "meaning": "Gave someone a sudden, strong surprise.",
+   "forms": [
+    "electrified"
+   ]
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 20,
+   "context": "Hannah, quite worn out, lay down on the sofa at the bed's foot",
+   "mainIdea": "The night of waiting begins. The sisters stay awake, while Hannah sleeps and the men wait downstairs.",
+   "simple": "Hannah was very tired. She lay down on the sofa at the foot of the bed and fell fast asleep. Mr. Laurence walked up and down in the parlor. He felt that he would rather face an enemy gun than Mrs. March's worried face when she came in. Laurie lay on the rug and pretended to rest, but he looked into the fire with the thoughtful look that made his black eyes soft and clear.",
+   "hardWords": [
+    "battery",
+    "countenance"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 20,
+   "context": "Down went Jo's face into the wet handkerchief, and she cried despairingly",
+   "simple": "Jo put her face into the wet handkerchief and cried without hope.",
+   "grammar": "The order is turned around: 'Down went Jo's face' means 'Jo's face went down'. A short word of place goes first for a strong effect."
+  },
+  {
+   "chapter": 20,
+   "context": "Hannah most took my head off when I proposed a telegram",
+   "simple": "Hannah almost bit my head off when I said we should send a telegram.",
+   "grammar": "'Most' is a short, spoken form of 'almost'. 'Took my head off' is an idiom for speaking very angrily to someone."
+  }
+ ],
+ "phrases": {
+  "pull through": {
+   "pos": "phrasal verb",
+   "meaning": "To get better after a serious illness.",
+   "example": "I think the little girl will pull through this time"
+  },
+  "hold on to": {
+   "pos": "phrasal verb",
+   "meaning": "To keep your hand tightly on someone or something.",
+   "example": "Hold on to me, Jo, dear!"
+  }
+ }
+}

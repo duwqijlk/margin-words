@@ -1,0 +1,80 @@
+{
+ "glossary": {
+  "covetousness": {
+   "pos": "uncountable noun",
+   "meaning": "A strong wish to have something that is someone else's."
+  },
+  "salubrious": {
+   "pos": "adjective",
+   "meaning": "Good for the health, as nice air is."
+  },
+  "balmy": {
+   "pos": "adjective",
+   "meaning": "Warm, soft and nice, as air or weather."
+  },
+  "bootjack": {
+   "pos": "noun",
+   "meaning": "A tool used to help take off what is worn on the foot."
+  },
+  "philanthropic": {
+   "pos": "adjective",
+   "meaning": "Wishing to do good by giving money and help to other people."
+  },
+  "endow": {
+   "pos": "verb",
+   "meaning": "To give money to start something and keep it going."
+  },
+  "blarneying": {
+   "pos": "adjective",
+   "meaning": "Using sweet words that flatter to get something."
+  },
+  "legacies": {
+   "pos": "plural noun",
+   "meaning": "Money or things left to people in a will after a person dies."
+  },
+  "whiffle": {
+   "pos": "noun",
+   "meaning": "A small, sudden turn of the wind."
+  },
+  "salon": {
+   "pos": "noun",
+   "meaning": "A regular meeting at a rich home where important and clever people talk."
+  },
+  "quizzical": {
+   "pos": "adjective",
+   "meaning": "Showing a look of questioning, often with a little fun."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 46,
+   "context": "“We have our plans; we don’t mean to say much about them yet, because we are such very new brooms",
+   "mainIdea": "Laurie says they are new brooms with plans of their own. He will work hard at business so that his grandfather is pleased and he stays steady.",
+   "simple": "Laurie says they have plans but will not say much yet, because they are such very new brooms. They do not mean to be idle. He will go into business with so much effort that his grandfather will be delighted and see that Laurie is not spoilt. He needs something like that to keep him steady. He is tired of wasting time and means to work like a man.",
+   "hardWords": [
+    "dawdling"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 46,
+   "context": "Not being a dog in the manger, but the happiest fellow alive, I assure you I can dance at Jo’s wedding",
+   "simple": "I am not selfish like a dog in the manger. I am the happiest man alive, and I promise you I can dance at Jo's wedding with a heart as light as my heels.",
+   "grammar": "'Not being ... but ...' gives a reason, a way of saying 'because I am not ... but ...'. A 'dog in the manger' is a person who will not let others have what he cannot use."
+  },
+  {
+   "chapter": 46,
+   "context": "it takes a gentleman to do it",
+   "simple": "Only a true gentleman can do it.",
+   "grammar": "'It takes + noun + to + verb' shows what is needed. Amy says it takes a gentleman, and the word 'it' means helping others in a delicate way."
+  }
+ ],
+ "phrases": {
+  "do someone a good turn": {
+   "pos": "idiom",
+   "meaning": "To do something kind for someone.",
+   "example": "do them a good turn in spite of themselves"
+  }
+ }
+}

@@ -1,0 +1,102 @@
+# Margin Words
+
+A reader for English novels. Tap a word to see a simple English meaning. Made for Chinese junior-high
+learners. The app (buttons, menus, messages) comes in **Simplified Chinese and English**: use the
+**中文 / English** button in the top bar, or Settings. The books and their meanings stay in English.
+
+中文简介：[README.zh-CN.md](README.zh-CN.md)
+
+Moving the project to a new machine or repo: see [MIGRATION.md](MIGRATION.md).
+
+## Make your own book pack
+
+**The app does not accept a standalone EPUB.** Only a processed book, a **book pack**, can be added: ONE `.zip` with
+exactly `book.epub` + `glossary.json` (title, author and cover come from the EPUB). The exact rules ("Required files")
+are in [docs/book-pack-spec.md](docs/book-pack-spec.md), section 3.
+
+Give **`book-pack-kit.zip`** to an AI agent. It holds `book-pack-spec.md` (the full format and workflow, written for
+an AI), a sample book (*The Lantern Seller*, EPUB), its sample word list (`glossary.json`), and
+`the-lantern-seller.pack.zip`, a ready-to-add sample pack (`book.epub` + `glossary.json`).
+Download it in the app: Add book and Settings have a "How to make a book pack" link (page `./guide/`).
+Make a pack from your own files: `node scripts/make-pack.mjs book.epub glossary.json my-book.pack.zip`.
+Build it yourself: `npm run build:kit` (sources: `docs/book-pack-spec.md` and `examples/sample-book/`).
+Check the sample and the spec: `npm run check:example`.
+
+## Run it
+
+```
+npm install
+npm run dev          # http://localhost:8080 (also serves ./packs)
+npx vite build       # static app in dist/
+```
+
+## Reader and book packs
+
+**The reader is a static app.** `dist/` is plain files (HTML, JS, CSS, fonts). It has no server, no server
+functions, and no AI. Open it from any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`).
+The reader app ships with **twelve free public-domain classics** in `public-books/`. Three (Alice's Adventures in Wonderland, Treasure Island, Anne of Green Gables) are put on your shelf on first run (a book you delete is not added again); the other nine (Peter and Wendy, Tom Sawyer, The Wind in the Willows, Little Women, The Secret Garden, Black Beauty, Through the Looking-Glass, The Jungle Book, The Wonderful Wizard of Oz) are one-tap downloads in "Free books". To add one, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). All other books come as **book packs**, and the copyrighted packs in `packs/` are never put into `dist`.
+
+All meanings, simple versions, sentence explanations, phrases and examples come from the word list
+(`glossary.json`) of the book. A word that is not in the list shows "No meaning for this word in this book yet."
+
+### Where the books are
+
+The 16 books are in the top-level folder **`packs/`** (not in `public/`, so they are not in the app bundle):
+
+```
+packs/catalog.json         list of books (id, title, author, level/notes, sizes, sha256, rev, file URLs)
+packs/<id>/book.epub       the book
+packs/<id>/glossary.json   its word list
+packs/<id>.zip             the same pack as one file
+packs/all-packs.zip        all packs in one zip
+```
+
+Full format: [docs/PACKS_FORMAT.md](docs/PACKS_FORMAT.md). Word list format: [docs/GLOSSARY_FORMAT.md](docs/GLOSSARY_FORMAT.md).
+Rebuild the folder after you change a book or list: `node scripts/build-packs.mjs`.
+
+### Host the app and the packs
+
+1. Build the app: `npx vite build` (output: `dist/`).
+2. Put books next to it: `node scripts/build-site.mjs` writes `site/` = `dist/` + `packs/`.
+   Host the `site/` folder. The default catalog address is `./packs/catalog.json`.
+3. **Vercel:** import the project (`vercel.json` is ready: static, output `dist`). To ship books too, run
+   `node scripts/build-site.mjs` and deploy `site/` (or host `packs/` somewhere else).
+4. **Packs on another website:** upload the `packs/` folder anywhere static. Each reader sets the address of its
+   `catalog.json` in **Settings**. A different website must allow cross-site reads
+   (header `Access-Control-Allow-Origin: *`).
+
+File addresses in `catalog.json` are relative to the catalog file, so the folder can be moved anywhere.
+
+### How a reader uses it, also offline
+
+1. Open the app. Tap **Add book**. Under **Free books** is the list from the catalog address (Settings, Book list address, can change it).
+2. Press **Get** on a book. A bar shows progress. The book and its word list are saved in the browser
+   (IndexedDB). Press **Download all** for everything.
+3. After that the book works with **no internet**. The app itself also works offline after the first visit
+   (a small service worker keeps the app files; it needs `https://` or `localhost`).
+4. When a book changes (new `rev`), its card says **Update available**. Notes and reading place are kept.
+5. No internet or no host at all? Tap **Add book**, then **Choose .zip file** (or drop a pack `.zip` on the shelf). Share
+   `packs/<id>.zip` by any means (USB, chat, mail). A bare `.epub` is refused with a message and a link to the guide.
+   A bad pack (no word list, a list for another book, an invalid list) is refused with a message that says what to fix.
+
+A book's menu on the shelf has **Add word list** (a `.json` for a book that is already there).
+Books that older versions saved in the browser still work and are marked "On your shelf".
+
+### Checks
+
+```
+npx tsc --noEmit
+npm run check:cjk          # Chinese text only in src/lib/i18n-zh.ts, docs/ and README.zh-CN.md
+npm run check:example      # the sample in examples/, the JSON example in the spec, the kit and the in-app page
+node scripts/validate-glossary.mjs packs/twits/book.epub packs/twits/glossary.json
+node scripts/build-packs.mjs --check
+npm test
+```
+
+### Languages (UI)
+
+All visible text of the app is in two dictionaries with the same keys: `src/lib/i18n-en.ts` and
+`src/lib/i18n-zh.ts` (`src/lib/i18n.ts` is the tiny switch; no library). A missing key fails `npx tsc --noEmit`, and
+`npm test` checks that both dictionaries have the same keys and placeholders. The first visit uses the browser language
+(Chinese -> Chinese, anything else -> English); the choice is saved in the browser. Book content (meanings, paragraph and
+sentence help, phrases, titles) is never translated.

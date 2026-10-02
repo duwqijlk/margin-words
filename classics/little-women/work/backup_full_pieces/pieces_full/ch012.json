@@ -1,0 +1,110 @@
+{
+ "glossary": {
+  "plantation": {
+   "pos": "noun",
+   "meaning": "A large place where one kind of plant is grown. Here Jo plans a big bed of tall yellow flower."
+  },
+  "aspiring": {
+   "pos": "adjective",
+   "meaning": "Growing up high, as if it wants to reach something great."
+  },
+  "mignonette": {
+   "pos": "noun",
+   "meaning": "A garden plant with small, sweet flower."
+  },
+  "larkspur": {
+   "pos": "noun",
+   "meaning": "A tall garden plant with blue or white flower."
+  },
+  "bower": {
+   "pos": "noun",
+   "meaning": "A cool place in a garden, under plants that grow over a stick shape."
+  },
+  "earwiggy": {
+   "pos": "adjective",
+   "meaning": "Full of small insects with sharp parts at the back."
+  },
+  "portfolio": {
+   "pos": "noun",
+   "meaning": "A flat case that holds papers. Here it is the name of the girls' club paper."
+  },
+  "rite": {
+   "pos": "noun",
+   "meaning": "A serious act done in a fixed way, such as at a church."
+  },
+  "troubadour": {
+   "pos": "noun",
+   "meaning": "A man who made love songs and played music long ago."
+  },
+  "alcove": {
+   "pos": "noun",
+   "meaning": "A small part of a room set back in the wall."
+  },
+  "ruse": {
+   "pos": "noun",
+   "meaning": "A clever plan to make people believe something that is not true."
+  },
+  "prostrate": {
+   "pos": "adjective",
+   "meaning": "Lying flat on the ground, face down."
+  },
+  "stratagem": {
+   "pos": "noun",
+   "meaning": "A clever plan used to get something."
+  },
+  "jiffy": {
+   "pos": "noun",
+   "meaning": "A very short time."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 12,
+   "context": "As spring came on, a new set of amusements became the fashion",
+   "mainIdea": "In spring the sisters work in the garden. Each has her own plot, and each plot shows the girl's character.",
+   "simple": "When spring came, a new set of games became fashionable, and the longer days gave long afternoons for work and play. The garden had to be put in order, and each sister had one quarter of the small piece of land to do what she liked with. Hannah used to say that she would know which garden belonged to which girl, even if she saw them in China. She was right, because the girls' tastes were as different as their characters. Meg's garden had roses, heliotrope, myrtle and a small orange-tree. Jo's bed was never the same two years, because she always tried new things. This year it was to be a big bed of sunflowers, whose seeds were to feed 'Aunt Cockle-top' and her chicks. Beth grew old-style, sweet-smelling flowers, such as sweet peas, mignonette, larkspur, pinks, pansies and southernwood, with chickweed for the bird and catnip for the cats. Amy had a shady corner in hers. It was small and full of earwigs, but very pretty, with honeysuckles and morning-glories hanging their colored flowers over it, tall white lilies, soft ferns and as many bright, pretty plants as would agree to grow there.",
+   "hardWords": [
+    "plantation",
+    "aspiring",
+    "mignonette",
+    "larkspur",
+    "bower",
+    "earwiggy"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 12,
+   "context": "Hannah used to say, “I’d know which each of them gardings belonged to",
+   "simple": "Hannah used to say she would know which garden belonged to which girl.",
+   "grammar": "Hannah speaks in dialect: 'gardings' for 'gardens' and 'ef I see 'em' for 'if I saw them'. 'Which each of them gardings belonged to' is an indirect question."
+  },
+  {
+   "chapter": 12,
+   "context": "I wish to propose the admission of a new member",
+   "simple": "I want to suggest that we let a new person join the club.",
+   "grammar": "'I wish to propose' is a formal, club-meeting style. 'One who highly deserves the honor' is a relative clause that describes the new member."
+  }
+ ],
+ "phrases": {
+  "take time by the fetlock": {
+   "pos": "idiom",
+   "meaning": "To act at once and not wait.",
+   "example": "there's nothing like ‘taking time by the fetlock,’"
+  },
+  "come out": {
+   "pos": "phrasal verb",
+   "meaning": "To become known; no longer a secret.",
+   "example": "when the secret came out"
+  },
+  "break up": {
+   "pos": "phrasal verb",
+   "meaning": "To end a meeting and let people go home.",
+   "forms": [
+    "broke up"
+   ],
+   "example": "when it broke up with three shrill cheers"
+  }
+ }
+}

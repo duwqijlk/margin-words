@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "title": "The Twits",
+  "author": "Roald Dahl",
+  "level": "Middle school. English meanings in simple words.",
+  "chapters": 29,
+  "glossary": {
+    "sight": {
+      "pos": "singular noun",
+      "meaning": "Something that you see, especially something strange or beautiful.",
+      "whyHard": "This word has more than one meaning.",
+      "forms": ["sight", "sights"],
+      "senses": [
+        {
+          "pos": "singular noun",
+          "meaning": "Something that you see, especially something strange or beautiful.",
+          "default": true,
+          "anchors": [
+            { "chapter": 10, "occurrence": 1, "context": "What a pretty sight!" }
+          ]
+        },
+        {
+          "pos": "singular noun",
+          "meaning": "To \u201ccatch sight of\u201d something means to see it suddenly.",
+          "anchors": [
+            {
+              "chapter": 4,
+              "occurrence": 1,
+              "context": "he caught sight of Mrs Twit\u2019s awful glass eye staring up at him"
+            }
+          ]
+        },
+        {
+          "pos": "singular noun",
+          "meaning": "\u201cOut of sight\u201d means hidden, or too far away to be seen.",
+          "anchors": [
+            { "context": "sunk out of sight in the fatty folds of his flabby neck" }
+          ]
+        }
+      ]
+    },
+    "beastly": {
+      "pos": "adjective",
+      "meaning": "Very unpleasant or cruel."
+    }
+  }
+}

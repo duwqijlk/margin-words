@@ -1,0 +1,117 @@
+{
+"glossary": {
+"ensconced": {
+"pos": "past-tense verb",
+"meaning": "Settled in a safe, hidden place.",
+"forms": [
+"ensconced",
+"ensconce"
+]
+},
+"caterwauling": {
+"pos": "noun",
+"meaning": "The loud, ugly crying sound that cats make at night."
+},
+"deathwatch": {
+"pos": "noun",
+"meaning": "A small insect that makes a ticking sound in wood. People believed it meant that someone would die."
+},
+"ingenuity": {
+"pos": "noun",
+"meaning": "Skill in thinking of clever ways to do things."
+},
+"damper": {
+"pos": "noun",
+"meaning": "Something that takes away the fun or the hope. Here, it ends the boys' talk."
+},
+"pard": {
+"pos": "noun",
+"meaning": "A short, spoken form of 'partner'; a close friend."
+},
+"pallid": {
+"pos": "adjective",
+"meaning": "Very pale, without color."
+},
+"sawbones": {
+"pos": "noun",
+"meaning": "A rude word for a doctor."
+},
+"combatants": {
+"pos": "plural noun",
+"meaning": "The people who are fighting."
+},
+"inarticulately": {
+"pos": "adverb",
+"meaning": "Without clear words; in sounds that cannot be understood."
+},
+"stolid": {
+"pos": "adjective",
+"meaning": "Calm and without any show of feeling."
+},
+"fuddled": {
+"pos": "adjective",
+"meaning": "Confused, especially because of drink."
+},
+"ruffian": {
+"pos": "noun",
+"meaning": "A rough and violent man."
+}
+},
+"paragraphs": [
+{
+"chapter": 11,
+"paragraph": 2,
+"context": "Tom lay awake and waited, in restless impatience",
+"mainIdea": "Tom waits in bed for midnight. Every small night sound frightens him. Then he sneaks out to meet Huck.",
+"simple": "At half-past nine that night, Tom and Sid were sent to bed, as usual. They said their prayers, and Sid was soon asleep. Tom lay awake and waited, and could not be still inside. He thought it must be nearly morning, but then he heard the clock strike ten, and he was in despair. He wanted to turn and move, but he was afraid he would wake Sid, so he lay still. Everything was sad and quiet. Then small sounds he could hardly hear grew stronger: the clock, the old beams that cracked, the stairs that creaked. Aunt Polly snored in her room, and a cricket he could not find began its tiresome chirping. A deathwatch ticked in the wall by his bed, and Tom shook, because it meant that someone would die. Then a dog howled far off, and another answered from farther away. Tom was in pain from fear. At last he felt that time had stopped. He began to doze against his will, and the clock struck eleven without his hearing it. Then a sad cat noise came into his half-dreams. A neighbor opened a window, shouted at the cat and threw a bottle against the woodshed. That woke Tom completely. A minute later he was dressed and out of the window, creeping on all fours along the roof. He meowed carefully once or twice, then jumped to the woodshed roof and to the ground. Huckleberry Finn was there with his dead cat. They went off into the dark, and half an hour later they were walking through the tall grass of the graveyard.",
+"hardWords": [
+"fidgeted",
+"perceptible",
+"deathwatch",
+"ingenuity",
+"caterwauling",
+"gloom"
+]
+},
+{
+"chapter": 11,
+"paragraph": 51,
+"context": "seized the heavy headboard of Williams’ grave and felled Potter to the earth",
+"mainIdea": "Injun Joe and the doctor fight. The doctor knocks Potter down, and Injun Joe kills the doctor with Potter's knife.",
+"simple": "Potter said \"Don't hit my friend!\" and the next moment he was fighting the doctor. They struggled with all their strength, stamping on the grass and tearing up the ground. Injun Joe jumped up, with eyes full of anger, and picked up Potter's knife. He crept round and round the two fighters, low like a cat, waiting for his chance. Suddenly the doctor freed himself, took the heavy wooden board from Williams' grave and knocked Potter to the ground. At the same moment, the half-breed saw his chance and pushed the knife all the way into the young man's chest. The doctor fell partly on Potter, covering him with blood. At that moment the clouds hid the terrible sight, and the two frightened boys ran away in the dark.",
+"hardWords": [
+"grappled",
+"might and main",
+"combatants",
+"felled",
+"hilt",
+"reeled"
+]
+}
+],
+"sentences": [
+{
+"chapter": 11,
+"context": "When it seemed to him that it must be nearly daylight, he heard the clock strike ten",
+"simple": "Tom thought it must be nearly morning, but then he heard the clock strike ten.",
+"grammar": "'It seemed to him that it must be...' uses 'must' to show a strong guess. The clause with 'when' sets up a surprise that comes in the main clause."
+}
+],
+"phrases": {
+"might and main": {
+"meaning": "With all your strength.",
+"pos": "idiom",
+"example": "struggling with might and main"
+},
+"get even with": {
+"meaning": "To hurt someone because he hurt you.",
+"pos": "idiom",
+"example": "I’d get even with you if it took a hundred years"
+},
+"keep mum": {
+"meaning": "To say nothing; to keep a secret.",
+"pos": "idiom",
+"example": "you sure you can keep mum?"
+}
+}
+}

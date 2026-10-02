@@ -1,0 +1,93 @@
+{
+"glossary": {
+"regalia": {
+"pos": "noun",
+"meaning": "Special clothes and signs worn by members of a group on important days."
+},
+"shackles": {
+"pos": "plural noun",
+"meaning": "Metal rings for the hands or feet. Here, a joke about the promise Tom made."
+},
+"convalescent": {
+"pos": "adjective",
+"meaning": "Getting better slowly after being ill."
+},
+"relapse": {
+"pos": "noun",
+"meaning": "Becoming ill again after getting better.",
+"forms": [
+"relapsed"
+]
+},
+"minstrel": {
+"pos": "noun",
+"meaning": "In this story, a show with songs and jokes, put on by performers."
+},
+"mesmerizer": {
+"pos": "noun",
+"meaning": "A person who puts others in a sleep-like state to show tricks."
+},
+"phrenologist": {
+"pos": "noun",
+"meaning": "A person who says he can tell what a person is like by feeling the shape of the head."
+},
+"tract": {
+"pos": "noun",
+"meaning": "A short paper about religion, given to people to read.",
+"forms": [
+"tracts"
+]
+},
+"forbearance": {
+"pos": "noun",
+"meaning": "Patience; holding back from anger or punishment."
+},
+"incongruous": {
+"pos": "adjective",
+"meaning": "Strange because it does not fit with the other things."
+},
+"listlessly": {
+"pos": "adverb",
+"meaning": "Without energy or interest."
+}
+},
+"paragraphs": [
+{
+"chapter": 24,
+"paragraph": 14,
+"context": "During two long weeks Tom lay a prisoner",
+"mainIdea": "After Tom's illness, everyone in town has become religious. Tom finds nobody to play with, and he feels he is the only lost person left.",
+"simple": "For two long weeks Tom lay sick like a prisoner, shut away from the world. He was very ill and cared about nothing. When at last he got up and walked weakly downtown, a sad change had come over everything and everyone. There had been a revival, and everybody, even the boys and girls, had become religious. Tom went around hoping against hope to see one sinful face, but he was disappointed everywhere. He found Joe Harper studying the Testament, and turned sadly away. He looked for Ben Rogers and found him visiting poor people with a basket of religious papers. He found Jim Hollis, who told him that his measles was a good warning for him. Every boy he met made him feel heavier with sadness. In his need he went to Huckleberry Finn, but Huck greeted him with a line from the Bible. His heart broke. He crept home to bed, sure that he alone in the whole town was lost, for ever and ever.",
+"hardWords": [
+"revival",
+"got religion",
+"Testament",
+"tracts",
+"depression",
+"refuge",
+"bosom"
+]
+}
+],
+"sentences": [
+{
+"chapter": 24,
+"context": "to promise not to do a thing is the surest way in the world to make a body want",
+"simple": "If you promise not to do something, you will certainly want to do it.",
+"grammar": "'To promise not to do a thing' is a to-infinitive used as the subject of the sentence. 'A body' means 'a person'."
+},
+{
+"chapter": 24,
+"context": "It might have seemed to him a waste of pomp and ammunition to kill a bug",
+"simple": "He might have thought it a waste of great show and guns to kill a bug.",
+"grammar": "'It might have seemed... a waste' is about a thing that could have been true. 'Nothing incongruous' that follows says that Tom thought it was right."
+}
+],
+"phrases": {
+"on the mend": {
+"meaning": "Getting better after an illness.",
+"pos": "idiom",
+"example": "At last he was pronounced upon the mend"
+}
+}
+}

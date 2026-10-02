@@ -1,0 +1,242 @@
+[
+ {
+  "chapter": 5,
+  "context": "that the white kitten had had nothing to do with it",
+  "simple": "The white kitten was not part of it at all.",
+  "grammar": "\"had had\" is the past perfect of \"have\": \"had\" is the helper and \"had\" is the main verb. \"Have nothing to do with\" means to have no part in something."
+ },
+ {
+  "chapter": 5,
+  "context": "the ball of worsted Alice had been trying to wind up",
+  "simple": "the ball of wool thread that Alice had been trying to wind up",
+  "grammar": "\"Alice had been trying...\" is a relative clause with \"that\" left out: \"the ball of worsted (that) Alice had been trying to wind up\". It uses the past perfect continuous."
+ },
+ {
+  "chapter": 5,
+  "context": "Suppose they had saved up all my punishments",
+  "simple": "Think what would happen if they had kept all my punishments for later.",
+  "grammar": "\"Suppose + past perfect\" means \"What if...?\" Alice asks about something that did not happen."
+ },
+ {
+  "chapter": 5,
+  "context": "you never can tell, you know, unless our fire smokes",
+  "simple": "You cannot know, unless our fire makes smoke.",
+  "grammar": "\"Unless\" means \"if not\". \"You never can tell\" means that nobody can know."
+ },
+ {
+  "chapter": 5,
+  "context": "I might have won, if it hadn’t been for that nasty Knight",
+  "simple": "Perhaps I would have won, but the nasty Knight stopped me.",
+  "grammar": "\"If it hadn't been for X\" means \"without X\". \"Might have won\" says it was possible, but it did not happen."
+ },
+ {
+  "chapter": 5,
+  "context": "that she mightn’t take his breath away",
+  "simple": "so that she would not take his breath away",
+  "grammar": "\"that she mightn't\" means \"so that she might not\". It tells the purpose of lifting him slowly."
+ },
+ {
+  "chapter": 6,
+  "context": "if I could get to the top of that hill",
+  "simple": "I would see the garden much better if I could get to the top of that hill.",
+  "grammar": "\"if I could get...\" talks about something Alice cannot do now. \"I should see\" tells what would happen if she could."
+ },
+ {
+  "chapter": 6,
+  "context": "I could show you hills, in comparison with which you’d call that a valley",
+  "simple": "I know of hills that are so high that you would call this one a valley.",
+  "grammar": "\"in comparison with which\" means \"when you put it next to them\". \"Which\" stands for \"hills\" and joins this part to the word \"hills\"."
+ },
+ {
+  "chapter": 6,
+  "context": "I’ve heard nonsense, compared with which that would be as sensible as a dictionary",
+  "simple": "I have heard nonsense that was so much worse that this would seem as sensible as a dictionary.",
+  "grammar": "\"compared with which\" means \"when you put it next to that\". \"Which\" stands for \"nonsense\" and joins this part to the word \"nonsense\"."
+ },
+ {
+  "chapter": 6,
+  "context": "it takes all the running you can do, to keep in the same place",
+  "simple": "You must run as much as you can, just to stay where you are.",
+  "grammar": "\"all the running you can do\" means \"as much running as you can do\". \"To keep in the same place\" is an infinitive of purpose, meaning \"in order to stay\"."
+ },
+ {
+  "chapter": 7,
+  "context": "something about ‘horse’ and ‘hoarse,’ you know",
+  "simple": "You could make a joke about the words \"horse\" and \"hoarse\", you know.",
+  "grammar": "Wordplay: \"horse\" and \"hoarse\" are spelled differently but sound the same. Just before, the voice was hoarse, and Alice thought it sounded like a horse."
+ },
+ {
+  "chapter": 7,
+  "context": "if the governess wanted to call you to your lessons",
+  "simple": "For example, if the teacher wanted to call you to your lessons",
+  "grammar": "\"If + past tense\" (\"wanted\") with \"would\" in the next part (\"she would call out\") is a conditional that talks about something that is only imagined."
+ },
+ {
+  "chapter": 7,
+  "context": "the governess would never think of excusing me lessons for that",
+  "simple": "The teacher would never think of letting me miss lessons because of that.",
+  "grammar": "\"excuse me lessons\" means \"let me off lessons\": the verb \"excuse\" has two objects, \"me\" and \"lessons\"."
+ },
+ {
+  "chapter": 7,
+  "context": "of course you’d miss your lessons",
+  "simple": "Of course, you would not go to your lessons.",
+  "grammar": "Wordplay: \"Miss\" (the word the governess calls) and \"miss\" (to not go to something) sound the same. The Gnat then says, \"That's a joke.\""
+ },
+ {
+  "chapter": 8,
+  "context": "Waxworks weren’t made to be looked at for nothing, nohow!",
+  "simple": "People did not make waxworks so that you could look at them without paying.",
+  "grammar": "\"for nothing\" means \"without paying\". \"Nohow\" is a non-standard word for \"not at all\", so the sentence has a double negative, with \"weren't\" and \"nohow\"."
+ },
+ {
+  "chapter": 8,
+  "context": "if it were so, it would be; but as it isn’t, it ain’t",
+  "simple": "If it were so, it would be so. But because it is not so, it is not.",
+  "grammar": "\"If it were so, it would be\" is a conditional with \"were\" for an unreal idea. \"Ain't\" is a spoken short form of \"isn't\"."
+ },
+ {
+  "chapter": 8,
+  "context": "so that the Carpenter couldn’t count how many he took",
+  "simple": "He did this so that the Carpenter could not count the number he took.",
+  "grammar": "\"so that\" begins a clause of purpose. It says why the Walrus held his handkerchief in front."
+ },
+ {
+  "chapter": 8,
+  "context": "If I wasn’t real,” Alice said —half-laughing through her tears",
+  "simple": "Alice said, half laughing through her tears: if I were not real, I would not be able to cry.",
+  "grammar": "\"If I wasn't real\" is an idea that is not true: Alice says she is real. The main part comes after the words \"Alice said\": \"I shouldn't be able to cry\"."
+ },
+ {
+  "chapter": 8,
+  "context": "shouldn’t have minded it so much,” said Tweedledum, “if it hadn’t been",
+  "simple": "I would not have minded so much if it had not been a new one.",
+  "grammar": "\"shouldn't have minded... if it hadn't been\" is a past conditional: it talks about something that did not happen in the past. \"Hadn't been\" means \"had not been\"."
+ },
+ {
+  "chapter": 9,
+  "context": "Well, yes, if you call that a-dressing",
+  "simple": "Yes, if you want to call that \"a-dressing\".",
+  "grammar": "Wordplay: Alice said \"addressing\" (speaking to someone), but the Queen hears \"a-dressing\", which sounds the same. Her next words are about dressing herself."
+ },
+ {
+  "chapter": 9,
+  "context": "You couldn’t have it if you did want it",
+  "simple": "You could not have it even if you wanted it.",
+  "grammar": "\"if you did want it\": \"did\" is a stress word that makes \"want\" stronger. \"Couldn't have\" here means you would not be allowed to have it."
+ },
+ {
+  "chapter": 9,
+  "context": "there’s one great advantage in it, that one’s memory works both ways",
+  "simple": "There is one big good point: a person's memory works forwards and backwards.",
+  "grammar": "\"One's\" means \"a person's\" and is a formal way to talk about people in general. The \"that\" clause tells what the advantage is."
+ },
+ {
+  "chapter": 9,
+  "context": "it wouldn’t be all the better his being punished",
+  "simple": "It would not be better if he were punished.",
+  "grammar": "\"his being punished\" is a phrase with a possessive (\"his\") before an \"-ing\" word. It means \"that he is punished\". \"All the better\" means \"even better\"."
+ },
+ {
+  "chapter": 9,
+  "context": "The egg seems to get further away the more I walk towards it",
+  "simple": "The more I walk towards the egg, the further away it seems to get.",
+  "grammar": "\"the more I walk\" means \"as I walk more\". Two things change together: more walking, more distance."
+ },
+ {
+  "chapter": 10,
+  "context": "If I’d meant that, I’d have said it",
+  "simple": "If I had meant that, I would have said it.",
+  "grammar": "\"I'd\" is short for \"I had\" in the first part and \"I would\" in the second. It is a past conditional about something that did not happen."
+ },
+ {
+  "chapter": 10,
+  "context": "One can’t, perhaps,” said Humpty Dumpty, “but two can",
+  "simple": "One person cannot, perhaps, but two people can.",
+  "grammar": "\"but two can\" leaves out words, as \"but two can help it\". Humpty Dumpty means that with help from another person you could have left off at seven."
+ },
+ {
+  "chapter": 10,
+  "context": "it means just what I choose it to mean",
+  "simple": "It means exactly the thing that I choose it to mean.",
+  "grammar": "\"just what I choose it to mean\" is a noun clause: \"what\" means \"the thing which\". \"Neither more nor less\" follows and means exactly that."
+ },
+ {
+  "chapter": 11,
+  "context": "I only wish I had such eyes,” the King remarked",
+  "simple": "I wish I had such eyes, but I do not.",
+  "grammar": "\"wish + past tense\" (\"had\") talks about something that is not true now."
+ },
+ {
+  "chapter": 11,
+  "context": "You might as well try to stop a Bandersnatch",
+  "simple": "Trying to stop a minute is as hopeless as trying to stop a Bandersnatch.",
+  "grammar": "\"You might as well try to...\" says that something is as hopeless as the thing named. Here the King says that stopping a minute is as hard as stopping a Bandersnatch."
+ },
+ {
+  "chapter": 12,
+  "context": "it’s as well to be provided for everything",
+  "simple": "It is wise to be ready for everything.",
+  "grammar": "\"it's as well to\" means \"it is wise to\". \"Provided for\" means \"made ready for\"."
+ },
+ {
+  "chapter": 12,
+  "context": "To guard against the bites of sharks",
+  "simple": "They are to keep the horse safe from shark bites.",
+  "grammar": "This is an infinitive of purpose with no subject. It answers Alice's question \"What are they for?\" and \"guard against\" means \"keep safe from\"."
+ },
+ {
+  "chapter": 12,
+  "context": "the more head downwards I am, the more I keep inventing new things",
+  "simple": "When my head is lower, I think of more new things.",
+  "grammar": "\"the more..., the more...\" shows that two things grow together: more upside down, more new things."
+ },
+ {
+  "chapter": 12,
+  "context": "I was as fast as —as lightning, you know",
+  "simple": "I was as fast as lightning, you know. Here \"fast\" means held in place, not quick.",
+  "grammar": "Wordplay on \"fast\": it can mean held in place, or very quick. The Knight was stuck in the helmet, but \"as fast as lightning\" usually means very quick. Alice says it is a different kind of fastness."
+ },
+ {
+  "chapter": 12,
+  "context": "That’s what the name is called. The name really is ‘The Aged Aged Man.’",
+  "simple": "That is what the name is called. The name itself is \"The Aged Aged Man\".",
+  "grammar": "The Knight separates \"what the name is called\" from \"what the name really is\". The song has four different names in this part."
+ },
+ {
+  "chapter": 13,
+  "context": "And the sooner we begin it, the better",
+  "simple": "If we begin sooner, it will be better.",
+  "grammar": "\"the sooner..., the better\" is a pattern with \"the\" and a word like \"sooner\" or \"better\". It shows that two things change together: sooner is better."
+ },
+ {
+  "chapter": 13,
+  "context": "What do you suppose is the use of a child without any meaning",
+  "simple": "What use do you think a child is without any meaning?",
+  "grammar": "\"do you suppose\" is put into the question \"What is the use of...?\". After it, the word order is like a statement: \"is the use\", with no \"does\"."
+ },
+ {
+  "chapter": 13,
+  "context": "I said you couldn’t if you tried",
+  "simple": "I said that you could not deny it, even if you tried.",
+  "grammar": "\"you couldn't\" leaves out \"deny it\", which comes from the sentence before. The Red Queen answers Alice's \"I don't deny things with my hands\"."
+ },
+ {
+  "chapter": 13,
+  "context": "I speaks English, doesn’t I?",
+  "simple": "I speak English, do I not?",
+  "grammar": "The Frog uses non-standard grammar: \"I speaks\" and \"doesn't I\" use the third-person verb forms with \"I\". The standard forms are \"I speak\" and \"don't I\"."
+ },
+ {
+  "chapter": 13,
+  "context": "I’ll shake you into a kitten, that I will",
+  "simple": "I will shake you until you are a kitten, I really will.",
+  "grammar": "\"that I will\" is added at the end for emphasis: it repeats \"I will\" to show that Alice means what she says."
+ },
+ {
+  "chapter": 15,
+  "context": "it must have been either me or the Red King",
+  "simple": "I am sure it was either me or the Red King.",
+  "grammar": "\"must have been\" shows that Alice is sure about something in the past. \"Either... or\" gives two possible answers."
+ }
+]

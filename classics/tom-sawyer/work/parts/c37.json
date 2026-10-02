@@ -1,0 +1,74 @@
+{
+"glossary": {
+"magnanimous": {
+"pos": "adjective",
+"meaning": "Generous and kind, especially to someone who has done wrong."
+},
+"insipid": {
+"pos": "adjective",
+"meaning": "Without taste or interest; dull."
+},
+"vittles": {
+"pos": "plural noun",
+"meaning": "A spoken spelling of 'victuals': food."
+},
+"ornery": {
+"pos": "adjective",
+"meaning": "A country word meaning bad-tempered, mean or common."
+},
+"initiation": {
+"pos": "noun",
+"meaning": "A special act in which a person is made a member of a group."
+},
+"picturesque": {
+"pos": "adjective",
+"meaning": "Pretty and interesting to look at."
+},
+"refugee": {
+"pos": "noun",
+"meaning": "A person who has run away from a place to be safe."
+}
+},
+"paragraphs": [
+{
+"chapter": 37,
+"paragraph": 6,
+"context": "Huck Finn’s wealth and the fact that he was now under the Widow Douglas’ protection",
+"mainIdea": "Huck must live in a clean, proper way in the Widow's house. He feels shut in by the rules of a polite life.",
+"simple": "Huck Finn's money, and the fact that he was now under the Widow Douglas' care, brought him into good society. Or rather, it dragged him and threw him into it, and he could hardly bear his suffering. The widow's servants kept him clean and neat, combed and brushed. At night they put him in unfriendly sheets that had not one little spot or stain that he could hold to his heart as a friend. He had to eat with a knife and fork. He had to use a napkin, cup and plate. He had to learn his book and go to church. He had to talk so properly that speech became dull in his mouth. Wherever he turned, the bars and chains of a civilized life shut him in and tied his hands and feet.",
+"hardWords": [
+"insipid",
+"whithersoever",
+"shackles",
+"civilization"
+]
+},
+{
+"chapter": 37,
+"paragraph": 10,
+"context": "Tom, it don’t make no difference. I ain’t everybody, and I can’t stand it",
+"mainIdea": "Huck explains why he ran away. He hates the rules, the clothes and the praying, and he says being rich is only worry.",
+"simple": "Huck says it makes no difference to him what everybody thinks. He is not everybody, and he cannot stand it. It is awful to be tied up like that. Food comes too easily, so he has no interest in it. He has to ask to go fishing and swimming. He has to ask to do everything. He had to talk so nicely that it gave him no comfort. Every day he had to go up to the attic and shout for a while to get a taste in his mouth, or he would have died. The widow would not let him smoke, yell, yawn, stretch or scratch in front of people. And she prayed all the time. He had to leave. Also, the school was going to open and he would have to go. He would not stand that. Being rich is not what people say. It is just worry and sweat and wishing you were dead all the time. These old clothes and this barrel suit him, and he will never give them up. He would not be in this trouble but for the money. He asks Tom to take his share along with his own, give him a ten-cent piece sometimes, and ask the widow to forgive him, because he does not care for a thing unless it is hard to get."
+}
+],
+"sentences": [
+{
+"chapter": 37,
+"context": "I’ll stick to the widder till I rot, Tom",
+"simple": "I will stay with the widow for ever, Tom.",
+"grammar": "'Stick to' means 'stay with'. 'Till I rot' is a strong spoken way to say 'for as long as I live', and it shows how serious Huck is."
+}
+],
+"phrases": {
+"turn up missing": {
+"meaning": "To be found to be gone; to disappear.",
+"pos": "idiom",
+"example": "one day turned up missing"
+},
+"let up on": {
+"meaning": "To be less hard on someone.",
+"pos": "phrasal verb",
+"example": "I’ll ask the widow to let up on you a little"
+}
+}
+}

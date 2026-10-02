@@ -1,0 +1,569 @@
+{
+ "format": 1,
+ "name": "Margin Words book packs",
+ "updated": "2026-10-01",
+ "packs": [
+  {
+   "id": "charlie",
+   "title": "Charlie and the Chocolate Factory",
+   "author": "Roald Dahl",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "ac3e7c133d14",
+   "version": 2,
+   "chapters": 34,
+   "words": 607,
+   "paragraphs": 30,
+   "sentences": 38,
+   "phrases": 46,
+   "coined": 10,
+   "epub": {
+    "url": "charlie/book.epub",
+    "bytes": 4086036,
+    "sha256": "9ff7eb997d657990ab00832036eba42be317b26801fb7775126f8a2d6a3f4717"
+   },
+   "glossary": {
+    "url": "charlie/glossary.json",
+    "bytes": 446643,
+    "sha256": "decbcefef703113538aa90fe934e511031ec27cb75f504818e9324f7ad10751f",
+    "rev": "decbcefef703"
+   },
+   "cover": {
+    "url": "charlie/cover.jpg",
+    "bytes": 54919
+   },
+   "zip": {
+    "url": "charlie.zip",
+    "bytes": 4227222,
+    "sha256": "d6128bbccabffe791c64e0859190e2dac0c45a4a8f3ff786f72dd17986bca0cf"
+   }
+  },
+  {
+   "id": "george",
+   "title": "George’s Marvellous Medicine",
+   "author": "Roald Dahl",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "4fb35bbae625",
+   "version": 2,
+   "chapters": 15,
+   "words": 293,
+   "paragraphs": 26,
+   "sentences": 36,
+   "phrases": 44,
+   "coined": 5,
+   "epub": {
+    "url": "george/book.epub",
+    "bytes": 3516765,
+    "sha256": "125850915c85478de9c492f6678ae6956eba160209aa7f7d7a4ed86f885da517"
+   },
+   "glossary": {
+    "url": "george/glossary.json",
+    "bytes": 197443,
+    "sha256": "42f7f9fc2c225bf24eb60f4e42f3ff14d1b28638f0cfaaf337062212360d6184",
+    "rev": "42f7f9fc2c22"
+   },
+   "cover": {
+    "url": "george/cover.jpg",
+    "bytes": 42666
+   },
+   "zip": {
+    "url": "george.zip",
+    "bytes": 3596738,
+    "sha256": "fa12a94c222bc1797058ef3627bb414afc65dbc3120b7d2dfba495fea3726633"
+   }
+  },
+  {
+   "id": "james",
+   "title": "James and the Giant Peach",
+   "author": "Roald Dahl",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "e5a8092901af",
+   "version": 2,
+   "chapters": 42,
+   "words": 556,
+   "paragraphs": 29,
+   "sentences": 38,
+   "phrases": 36,
+   "coined": 14,
+   "epub": {
+    "url": "james/book.epub",
+    "bytes": 2772425,
+    "sha256": "5c6b33edc886f7f32fbb39d8836b4cd4817f1bbd6cf02d653d3a462ce865c228"
+   },
+   "glossary": {
+    "url": "james/glossary.json",
+    "bytes": 406407,
+    "sha256": "f4b0c3ec033dbb5324bb4709c2de6bd38bde8c3fddfa4243c12781a0aee54099",
+    "rev": "f4b0c3ec033d"
+   },
+   "cover": {
+    "url": "james/cover.jpg",
+    "bytes": 43792
+   },
+   "zip": {
+    "url": "james.zip",
+    "bytes": 2894556,
+    "sha256": "2de79cdaa5fe3d93869224540319b2ae460927996251d7fa977511d1a1c7f830"
+   }
+  },
+  {
+   "id": "matilda",
+   "title": "Matilda",
+   "author": "Roald Dahl",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "2715e91d6c69",
+   "version": 2,
+   "chapters": 21,
+   "words": 699,
+   "paragraphs": 27,
+   "sentences": 41,
+   "phrases": 44,
+   "coined": 0,
+   "epub": {
+    "url": "matilda/book.epub",
+    "bytes": 2333126,
+    "sha256": "eb337e339897df0a7027ef046fee58fba33d7ebe70d751043951d3e1d337610b"
+   },
+   "glossary": {
+    "url": "matilda/glossary.json",
+    "bytes": 461142,
+    "sha256": "b9fdd6373d5f5a4e2db5fa6c0dcdc4e80c663e870e2c86ff98140ba3940f66a3",
+    "rev": "b9fdd6373d5f"
+   },
+   "cover": {
+    "url": "matilda/cover.jpg",
+    "bytes": 19962
+   },
+   "zip": {
+    "url": "matilda.zip",
+    "bytes": 2450152,
+    "sha256": "a28da73bf6cf40f6e663de4deca5dd63fb89e65de18f1f54b8231c99de9a2784"
+   }
+  },
+  {
+   "id": "magicfinger",
+   "title": "The Magic Finger",
+   "author": "Roald Dahl",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "4f7f4a4ce556",
+   "version": 2,
+   "chapters": 0,
+   "words": 68,
+   "paragraphs": 16,
+   "sentences": 30,
+   "phrases": 34,
+   "coined": 10,
+   "epub": {
+    "url": "magicfinger/book.epub",
+    "bytes": 3696114,
+    "sha256": "1b24c1ed6bb4c0e2d8a50a2e683b1de5dfa5f166e6567d05ff3b9995828adbbb"
+   },
+   "glossary": {
+    "url": "magicfinger/glossary.json",
+    "bytes": 62949,
+    "sha256": "b759ffff4c988a762ae4a8ff44e9bf283066e954ee935fede2227bab725a8746",
+    "rev": "b759ffff4c98"
+   },
+   "cover": {
+    "url": "magicfinger/cover.jpg",
+    "bytes": 44734
+   },
+   "zip": {
+    "url": "magicfinger.zip",
+    "bytes": 3754322,
+    "sha256": "977d44fae258bcc9322c17663f5432809f14808daf177b5aa2c094c92a3ccbc6"
+   }
+  },
+  {
+   "id": "twits",
+   "title": "The Twits",
+   "author": "Roald Dahl",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "84d89aa4e275",
+   "version": 2,
+   "chapters": 29,
+   "words": 172,
+   "paragraphs": 12,
+   "sentences": 15,
+   "phrases": 22,
+   "coined": 12,
+   "epub": {
+    "url": "twits/book.epub",
+    "bytes": 2867199,
+    "sha256": "4804c3bd16c4c15a0e55ea64206ae8ed1c9fa932458d3027e3f9f8b76795e460"
+   },
+   "glossary": {
+    "url": "twits/glossary.json",
+    "bytes": 118682,
+    "sha256": "e037af75f48efeedd290afa1b78668990cdb00974c8d9b20eb11d578a8511101",
+    "rev": "e037af75f48e"
+   },
+   "cover": {
+    "url": "twits/cover.jpg",
+    "bytes": 48595
+   },
+   "zip": {
+    "url": "twits.zip",
+    "bytes": 2938403,
+    "sha256": "901c65b172c9f045061ba3c0d87e20205831b790e670c50eea27f2df26da1970"
+   }
+  },
+  {
+   "id": "wof1",
+   "title": "Wings of Fire 1: The Dragonet Prophecy",
+   "author": "Tui T. Sutherland",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "7c349dd689d9",
+   "version": 2,
+   "chapters": 44,
+   "words": 711,
+   "paragraphs": 21,
+   "sentences": 37,
+   "phrases": 29,
+   "coined": 3,
+   "epub": {
+    "url": "wof1/book.epub",
+    "bytes": 2998883,
+    "sha256": "bfa5cd9227c6bb3a40fc402765d9c1405a415daa08ac749b41ff16b7982797c5"
+   },
+   "glossary": {
+    "url": "wof1/glossary.json",
+    "bytes": 410515,
+    "sha256": "b59e8b458ef05de150a41ba2ac1e884d0ac566671dd5035606bec917a25b8019",
+    "rev": "b59e8b458ef0"
+   },
+   "cover": {
+    "url": "wof1/cover.jpg",
+    "bytes": 47410
+   },
+   "zip": {
+    "url": "wof1.zip",
+    "bytes": 3128565,
+    "sha256": "7352abf6fb858c701192117843834a74bb2a47e77c4846f3254eb88fe4f3f27c"
+   }
+  },
+  {
+   "id": "wof2",
+   "title": "Wings of Fire 2: The Lost Heir",
+   "author": "Tui T. Sutherland",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "3a73691eec4c",
+   "version": 2,
+   "chapters": 38,
+   "words": 719,
+   "paragraphs": 23,
+   "sentences": 37,
+   "phrases": 28,
+   "coined": 0,
+   "epub": {
+    "url": "wof2/book.epub",
+    "bytes": 1177306,
+    "sha256": "1630a6447c2bb0ed92d67931db19e7e755f249ab68cde6ce679cbae13b6e2ddf"
+   },
+   "glossary": {
+    "url": "wof2/glossary.json",
+    "bytes": 422927,
+    "sha256": "c7e827170b8bad6d9ce506c478c21ea68f395ab8c8783587d1c7698ea9792d35",
+    "rev": "c7e827170b8b"
+   },
+   "cover": {
+    "url": "wof2/cover.jpg",
+    "bytes": 41987
+   },
+   "zip": {
+    "url": "wof2.zip",
+    "bytes": 1305292,
+    "sha256": "0ac737aca3d93a368979b3038e40e6a1ecbb85922eb5e5c2bb534a8b602c9cb9"
+   }
+  },
+  {
+   "id": "narnia1-magicians-nephew",
+   "title": "Narnia 1: The Magician’s Nephew",
+   "author": "C. S. Lewis",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "14986b1a815a",
+   "version": 1,
+   "chapters": 0,
+   "words": 621,
+   "paragraphs": 28,
+   "sentences": 34,
+   "phrases": 52,
+   "coined": 1,
+   "epub": {
+    "url": "narnia1-magicians-nephew/book.epub",
+    "bytes": 1099577,
+    "sha256": "3054aaee343cbf7c73c81bec8ed7bcf23a8815a233ed74e096392eca0293579a"
+   },
+   "glossary": {
+    "url": "narnia1-magicians-nephew/glossary.json",
+    "bytes": 445152,
+    "sha256": "0c6ad25b855d721fdb20c8492705488897f26066f228a286e1f70eaaf151e087",
+    "rev": "0c6ad25b855d"
+   },
+   "cover": {
+    "url": "narnia1-magicians-nephew/cover.jpg",
+    "bytes": 47860
+   },
+   "zip": {
+    "url": "narnia1-magicians-nephew.zip",
+    "bytes": 1238765,
+    "sha256": "f0b44a152ea8dbee2149244770a7b887de1c4e741bb900f8fcbc06553a665f4d"
+   }
+  },
+  {
+   "id": "narnia2-lion-witch-wardrobe",
+   "title": "Narnia 2: The Lion, the Witch and the Wardrobe",
+   "author": "C. S. Lewis",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "7d1b13ee8c5a",
+   "version": 1,
+   "chapters": 0,
+   "words": 578,
+   "paragraphs": 26,
+   "sentences": 34,
+   "phrases": 32,
+   "coined": 0,
+   "epub": {
+    "url": "narnia2-lion-witch-wardrobe/book.epub",
+    "bytes": 1212747,
+    "sha256": "39759ccfcfe585387be49e49e85845e072711695e35ddea3352afbebed6472c2"
+   },
+   "glossary": {
+    "url": "narnia2-lion-witch-wardrobe/glossary.json",
+    "bytes": 448719,
+    "sha256": "094c85d2955ae69a12c4c2320d6915d0e1b80d7b4d15078dedd436d0e96f2eff",
+    "rev": "094c85d2955a"
+   },
+   "cover": {
+    "url": "narnia2-lion-witch-wardrobe/cover.jpg",
+    "bytes": 52641
+   },
+   "zip": {
+    "url": "narnia2-lion-witch-wardrobe.zip",
+    "bytes": 1354175,
+    "sha256": "0bcc546c2486618c426c638d98d2daaa9f95ac05b549ee4956b718aa299b5564"
+   }
+  },
+  {
+   "id": "narnia3-horse-and-his-boy",
+   "title": "Narnia 3: The Horse and His Boy",
+   "author": "C. S. Lewis",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "7c7905285bbd",
+   "version": 1,
+   "chapters": 0,
+   "words": 709,
+   "paragraphs": 26,
+   "sentences": 33,
+   "phrases": 33,
+   "coined": 0,
+   "epub": {
+    "url": "narnia3-horse-and-his-boy/book.epub",
+    "bytes": 1027149,
+    "sha256": "a1d70be4a6db087ec39af622fb8f282e4eaaba94cedb6cb595f8a070cee06fc0"
+   },
+   "glossary": {
+    "url": "narnia3-horse-and-his-boy/glossary.json",
+    "bytes": 502161,
+    "sha256": "afaff2a91760a4da627c9901d5f1b864f89eed3cd432264957aae7b6e18ca749",
+    "rev": "afaff2a91760"
+   },
+   "cover": {
+    "url": "narnia3-horse-and-his-boy/cover.jpg",
+    "bytes": 56538
+   },
+   "zip": {
+    "url": "narnia3-horse-and-his-boy.zip",
+    "bytes": 1192456,
+    "sha256": "5c4a7215191b5fb58789e5d7b228c9ba9b1fc47aaed3618fb452142d22e7fb18"
+   }
+  },
+  {
+   "id": "narnia4-prince-caspian",
+   "title": "Narnia 4: Prince Caspian",
+   "author": "C. S. Lewis",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "408374649c48",
+   "version": 1,
+   "chapters": 0,
+   "words": 650,
+   "paragraphs": 25,
+   "sentences": 41,
+   "phrases": 42,
+   "coined": 0,
+   "epub": {
+    "url": "narnia4-prince-caspian/book.epub",
+    "bytes": 1247832,
+    "sha256": "4989265ec4008b3ed547b65d3a4f32d14533f1539ce4d1d36efad1c681e66303"
+   },
+   "glossary": {
+    "url": "narnia4-prince-caspian/glossary.json",
+    "bytes": 497646,
+    "sha256": "fc42ed5bbf505fdac03f212ed38cab54d88803b5ca983db2f8fb541d72f36e8d",
+    "rev": "fc42ed5bbf50"
+   },
+   "cover": {
+    "url": "narnia4-prince-caspian/cover.jpg",
+    "bytes": 54041
+   },
+   "zip": {
+    "url": "narnia4-prince-caspian.zip",
+    "bytes": 1405651,
+    "sha256": "684b056a256a897e25f096c96778d1a1135f877e3bf8e0b01c326fc45c22e4a5"
+   }
+  },
+  {
+   "id": "narnia5-dawn-treader",
+   "title": "Narnia 5: The Voyage of the Dawn Treader",
+   "author": "C. S. Lewis",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "b0c5de7b56fe",
+   "version": 2,
+   "chapters": 17,
+   "words": 699,
+   "paragraphs": 21,
+   "sentences": 36,
+   "phrases": 25,
+   "coined": 1,
+   "epub": {
+    "url": "narnia5-dawn-treader/book.epub",
+    "bytes": 1210510,
+    "sha256": "932c5f65535f84e2c1e17cf96d6bda747291e1040825dd6a45c825cc5f7f4125"
+   },
+   "glossary": {
+    "url": "narnia5-dawn-treader/glossary.json",
+    "bytes": 517931,
+    "sha256": "a856263be8eef874101d530fcfdafb1b37013281cbb0353499efe088200e7383",
+    "rev": "a856263be8ee"
+   },
+   "cover": {
+    "url": "narnia5-dawn-treader/cover.jpg",
+    "bytes": 48156
+   },
+   "zip": {
+    "url": "narnia5-dawn-treader.zip",
+    "bytes": 1365492,
+    "sha256": "bd97a1506083d4a00fdf818ee9f54e1d6e0b6e1af4b85534f15451023020b998"
+   }
+  },
+  {
+   "id": "narnia6-silver-chair",
+   "title": "Narnia 6: The Silver Chair",
+   "author": "C. S. Lewis",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "0f5d968c83a4",
+   "version": 2,
+   "chapters": 17,
+   "words": 731,
+   "paragraphs": 21,
+   "sentences": 38,
+   "phrases": 26,
+   "coined": 2,
+   "epub": {
+    "url": "narnia6-silver-chair/book.epub",
+    "bytes": 1323122,
+    "sha256": "e33317fad98119f955a6d504413596cbffaf0ae89e69cc19b85359163c9e6dc0"
+   },
+   "glossary": {
+    "url": "narnia6-silver-chair/glossary.json",
+    "bytes": 492808,
+    "sha256": "16a46d155346847c98d8a9c68aa40ecbd443215e18cf2b52be13903690aff6cc",
+    "rev": "16a46d155346"
+   },
+   "cover": {
+    "url": "narnia6-silver-chair/cover.jpg",
+    "bytes": 46112
+   },
+   "zip": {
+    "url": "narnia6-silver-chair.zip",
+    "bytes": 1475038,
+    "sha256": "ad6e281c1232c85d19d89bad2410097db7ca94beb6b05fc896f85ea6f38b8f31"
+   }
+  },
+  {
+   "id": "narnia7-last-battle",
+   "title": "Narnia 7: The Last Battle",
+   "author": "C. S. Lewis",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "746bbeff0029",
+   "version": 2,
+   "chapters": 16,
+   "words": 639,
+   "paragraphs": 21,
+   "sentences": 42,
+   "phrases": 27,
+   "coined": 1,
+   "epub": {
+    "url": "narnia7-last-battle/book.epub",
+    "bytes": 1179657,
+    "sha256": "23c443b07da3e965992981b90dd3dc57cb62a5604e7dcb7b2573d6bddae19e7b"
+   },
+   "glossary": {
+    "url": "narnia7-last-battle/glossary.json",
+    "bytes": 428532,
+    "sha256": "3c9009399f07d967d6d97366847c017caf300b307ede5ccb985c3b507c6ab4c0",
+    "rev": "3c9009399f07"
+   },
+   "cover": {
+    "url": "narnia7-last-battle/cover.jpg",
+    "bytes": 44664
+   },
+   "zip": {
+    "url": "narnia7-last-battle.zip",
+    "bytes": 1315488,
+    "sha256": "2d07b3f1445bc40c9a44de2082abde68555833e3295e641b3f567f9fdf73ff31"
+   }
+  },
+  {
+   "id": "wonder",
+   "title": "Wonder",
+   "author": "R J Palacio",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "",
+   "rev": "96415f7dbc83",
+   "version": 1,
+   "chapters": 130,
+   "words": 957,
+   "paragraphs": 28,
+   "sentences": 32,
+   "phrases": 35,
+   "coined": 0,
+   "epub": {
+    "url": "wonder/book.epub",
+    "bytes": 893611,
+    "sha256": "08664288e6c26e23ac4989c94b915d0436ab81aca56d2d53341b17f710615898"
+   },
+   "glossary": {
+    "url": "wonder/glossary.json",
+    "bytes": 583331,
+    "sha256": "3cda8d540d1c746e1e8dab6d16eab40f8da488141f8b708b067d384213b9c556",
+    "rev": "3cda8d540d1c"
+   },
+   "cover": null,
+   "zip": {
+    "url": "wonder.zip",
+    "bytes": 1018012,
+    "sha256": "9c07f5fdf6bf49c8e14de68419bcdfa52d59b8bcd71191c7132578f6d394e367"
+   }
+  }
+ ],
+ "allPacks": {
+  "url": "all-packs.zip",
+  "bytes": 34665075,
+  "sha256": "85681acd5df670533fdf8e527778ce94e6d4fbe3c5ffc8a5b28a41696fb232ac"
+ }
+}

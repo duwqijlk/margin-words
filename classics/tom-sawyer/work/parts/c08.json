@@ -1,0 +1,169 @@
+{
+"glossary": {
+"odious": {
+"pos": "adjective",
+"meaning": "Very unpleasant; hateful."
+},
+"canvassed": {
+"pos": "past-tense verb",
+"meaning": "Looked at carefully, one part after another. Tom checks his body for signs of sickness.",
+"forms": [
+"canvassed",
+"canvass"
+]
+},
+"mortified": {
+"pos": "adjective",
+"meaning": "In this story, said of a body part that has died and is going bad. Tom says this about his sore toe."
+},
+"expectorate": {
+"pos": "verb",
+"meaning": "To spit."
+},
+"adherent": {
+"pos": "noun",
+"meaning": "A follower; a person who stays with someone and supports him."
+},
+"pariah": {
+"pos": "noun",
+"meaning": "A person that everyone avoids and does not accept."
+},
+"gaudy": {
+"pos": "adjective",
+"meaning": "Too bright and showy. Here, Tom admires Huck's wild, outcast life."
+},
+"perennial": {
+"pos": "adjective",
+"meaning": "Lasting all the time, or coming back every year."
+},
+"hogshead": {
+"pos": "noun",
+"meaning": "A very large barrel.",
+"forms": [
+"hogsheads"
+]
+},
+"harassed": {
+"pos": "adjective",
+"meaning": "Always troubled and pushed by other people."
+},
+"spunk": {
+"pos": "noun",
+"meaning": "In 'spunk-water', rain water that stays in a rotten tree stump. The boys believe it can take away warts."
+},
+"wart": {
+"pos": "noun",
+"meaning": "A small hard lump on the skin.",
+"forms": [
+"warts"
+]
+},
+"ferule": {
+"pos": "noun",
+"meaning": "A flat stick or ruler that a teacher used to hit pupils on the hand."
+},
+"wistfully": {
+"pos": "adverb",
+"meaning": "With a sad and longing look, wanting something you cannot easily have."
+},
+"caricature": {
+"pos": "noun",
+"meaning": "A drawing that is funny because it makes things look wrong or too big."
+},
+"gable": {
+"pos": "noun",
+"meaning": "The three-sided top part of a house wall, under the roof.",
+"forms": [
+"gables"
+]
+},
+"portentous": {
+"pos": "adjective",
+"meaning": "Looking very important and a little frightening."
+},
+"juncture": {
+"pos": "noun",
+"meaning": "A point in time, especially an important one."
+},
+"jubilant": {
+"pos": "adjective",
+"meaning": "Full of joy because of a success."
+},
+"botch": {
+"pos": "noun",
+"meaning": "A job done badly. 'Made a botch of it' means did it very badly."
+},
+"afeard": {
+"pos": "adjective",
+"meaning": "A country way of saying 'afraid'."
+}
+},
+"paragraphs": [
+{
+"chapter": 8,
+"paragraph": 3,
+"context": "Tom lay thinking. Presently it occurred to him that he wished he was sick",
+"mainIdea": "On Monday, Tom tries to find a sickness so that he can stay home from school.",
+"simple": "Tom lay in bed thinking. Soon he wished he was sick, because then he could stay home from school. It seemed a small chance. He checked his body for any sickness, and found none. He checked again. This time he thought he felt some stomach pains, and he hoped they would grow. But they soon became weak and died away. He thought some more and found something. One of his upper front teeth was loose. This was lucky. He was about to start groaning with it, as a first step, when he thought of his aunt. If he told her this, she would pull the tooth out, and that would hurt. So he kept the tooth for later and looked for something else. For a while he found nothing. Then he remembered that he had heard the doctor tell about an illness that kept a patient in bed for two or three weeks and nearly made him lose a finger. So he eagerly pulled his sore toe out from under the sheet and held it up to look at. But he did not know the signs of that illness. Still, it seemed worth trying, so he began to groan with a lot of feeling.",
+"hardWords": [
+"intervening",
+"canvassed",
+"colicky",
+"symptoms",
+"laid up",
+"inspection"
+]
+},
+{
+"chapter": 8,
+"paragraph": 44,
+"context": "Huckleberry came and went, at his own free will",
+"mainIdea": "Huck lives with no rules, and every boy in the village thinks he has the best life.",
+"simple": "Huckleberry came and went as he liked. In good weather he slept on doorsteps, and in wet weather in empty big barrels. He did not have to go to school or church. He did not have to call anyone master or obey anyone. He could go fishing or swimming when and where he wanted and stay as long as he liked. Nobody stopped him from fighting. He could stay up as late as he liked. In spring he was always the first boy to go without shoes, and in autumn the last to put on leather again. He never had to wash or put on clean clothes. He could swear very well. In a word, that boy had everything that makes life worth having. That is what every troubled, held-back, well-behaved boy in St. Petersburg thought.",
+"hardWords": [
+"hogsheads",
+"harassed",
+"hampered",
+"respectable",
+"resume"
+]
+}
+],
+"sentences": [
+{
+"chapter": 8,
+"context": "so handsomely was his imagination working",
+"simple": "His imagination was working so well.",
+"grammar": "'So handsomely was his imagination working' puts 'so + adverb' first, so the subject comes after 'was'. In normal order: 'his imagination was working so handsomely'."
+},
+{
+"chapter": 8,
+"context": "he wouldn’t have a wart on him if he’d knowed how to work spunk-water",
+"simple": "He would not have any warts if he knew how to use spunk-water.",
+"grammar": "This is an 'if' sentence in speech: 'wouldn't have... if he'd knowed' (known) means 'would not have... if he knew'. The speaker uses 'knowed' for 'knew'."
+}
+],
+"phrases": {
+"lay up": {
+"meaning": "To make a person stay in bed because of illness or hurt.",
+"pos": "phrasal verb",
+"forms": [
+"laid up"
+],
+"example": "laid up a patient for two or three weeks"
+},
+"fall to": {
+"meaning": "To start doing something with energy.",
+"pos": "phrasal verb",
+"forms": [
+"fell to"
+],
+"example": "he fell to groaning with considerable spirit"
+},
+"take refuge in": {
+"meaning": "To go to something to be safe. Here, Tom is about to tell a lie to avoid trouble.",
+"pos": "idiom",
+"example": "Tom was about to take refuge in a lie"
+}
+}
+}

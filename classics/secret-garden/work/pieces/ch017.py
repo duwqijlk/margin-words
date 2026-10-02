@@ -1,0 +1,47 @@
+words = [
+("wilderness","noun","A wild place where plants grow freely and no one looks after them."),
+("soared","past-tense verb","Flew high up in the air."),
+("tweaked","past-tense verb","Pulled something quickly and lightly."),
+("doleful","adjective","Sad and showing sadness."),
+("condescended","past-tense verb","Did something as if it were a favour, feeling better than the other person."),
+("ferociously","adverb","In a fierce, angry way."),
+("sneered","past-tense verb","Spoke in a mean way that shows you think someone is low."),
+("pathetic","adjective","Making you feel sorry for someone."),
+("indignation","noun","Anger at something that seems unfair."),
+("nutcracker","noun","A tool for breaking nuts. Mary's face looked as sharp and pinched as the face of a nutcracker."),
+("vixen","noun","A female fox. Used for a girl who is sharp and bad-tempered."),
+("hysterics","plural noun","Wild crying and screaming that a person cannot control."),
+("unrelenting","adjective","Not becoming softer or kinder."),
+("monogram","noun","Letters of a person's name put together as a mark on something."),
+("pampered","adjective","Given too much care and every comfort."),
+("retorted","past-tense verb","Answered back quickly and angrily."),
+("clench","verb","To close tightly, as teeth or a hand."),
+("stringy","adjective","Thin and hanging like string."),
+("pitifulness","noun","The state of making people feel sorry."),
+]
+paras = [
+(17,20,"She was no more used to considering other people than Colin was",
+ "Mary is not used to thinking about other people, just like Colin. She sees no reason why a bad-tempered boy should stop her doing what she likes best.",
+ "Mary pressed her lips tightly together. She was no more used to thinking about other people than Colin was. She saw no reason why a bad-tempered boy should get in the way of the thing she liked best. She knew nothing about how sad it is for people who have been ill and nervous, and who do not know that they can control their tempers. They need not make other people ill and nervous too. When she had had a headache in India, she had done her best to see that everybody else also had a headache, or something as bad. She felt she was quite right. But now she felt that Colin was quite wrong.",
+ ["considering","interfere","pitifulness","nervous"]),
+(17,65,"If she had been friends with Colin she would have run to show him",
+ "Mary thinks about how Colin is afraid of a lump on his back. His fear began when he heard Mrs Medlock whisper about his father's back.",
+ "If she had been friends with Colin, she would have run to show him her presents at once. They would have looked at the pictures and read some of the gardening books, and perhaps tried the games. He would have enjoyed himself so much that he would never once have thought he was going to die. He would not have put his hand on his back to see if there was a lump coming. He had a way of doing that which she could not bear. It gave her an uncomfortable frightened feeling, because he always looked so frightened himself.",
+ ["spine","hunch"]),
+]
+sents = [
+("They were a nice agreeable pair as they glared at each other",
+ "They were not a nice pair at all, as they looked at each other with anger.",
+ "'a nice agreeable pair' is said as a joke to mean the opposite; 'as they glared' tells what they were doing at that time."),
+("It’s the best thing that could happen to the sickly pampered thing",
+ "It is the best thing that could happen to the weak, spoiled boy.",
+ "'the best thing that could happen' uses 'could' for what is possible; 'sickly pampered thing' puts two describing words before 'thing'."),
+]
+phrases = [
+("fly into a passion","idiom","To suddenly become very angry.",["fly into a passion","flew into a passion"],"Mary flew into a fine passion"),
+("get the better of","idiom","To win against someone.",["get the better of"],"she was beginning to get the better of him"),
+("put out of humor","idiom","To make someone bad-tempered.",["put him all out of humor"],"it may put him all out of humor"),
+("work away","phrasal verb","To keep working hard.",["working away"],"working away with all his might"),
+("run away","phrasal verb","To leave quickly.",["ran away"],"she ran away"),
+("clear out","phrasal verb","To take away what is not wanted.",["cleared out"],"nearly all the weeds were cleared out of the garden"),
+]

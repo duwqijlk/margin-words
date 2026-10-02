@@ -1,0 +1,85 @@
+{
+"glossary": {
+"vagabond": {
+"pos": "adjective",
+"meaning": "Wandering from place to place, with no home."
+},
+"posse": {
+"pos": "noun",
+"meaning": "A group of men called by a sheriff to help catch a criminal."
+},
+"embellishment": {
+"pos": "noun",
+"meaning": "A made-up extra detail added to a story."
+},
+"jaded": {
+"pos": "adjective",
+"meaning": "Very tired, and without energy."
+},
+"beholden": {
+"pos": "adjective",
+"meaning": "Owing thanks to someone for help."
+},
+"swooned": {
+"pos": "past-tense verb",
+"meaning": "Fainted; fell down without knowing anything.",
+"forms": [
+"swooned",
+"swoon"
+]
+},
+"stupor": {
+"pos": "noun",
+"meaning": "A dull state in which you cannot think or feel well."
+},
+"powwow": {
+"pos": "noun",
+"meaning": "A noisy meeting or gathering with much talk."
+},
+"constable": {
+"pos": "noun",
+"meaning": "A police officer in a small town.",
+"forms": [
+"constables"
+]
+},
+"reverberations": {
+"pos": "plural noun",
+"meaning": "Sounds that go on and on, bouncing back many times.",
+"forms": [
+"reverberation"
+]
+}
+},
+"paragraphs": [
+{
+"chapter": 32,
+"paragraph": 10,
+"context": "Well, poor chap, you do look as if you’d had a hard night of it",
+"mainIdea": "The Welshman tells Huck how he and his sons chased the men, and how a sneeze gave them away. The men escaped.",
+"simple": "The old man says Huck looks as if he had a hard night. There is a bed for him after breakfast. The men are not dead, and the Welshman is sorry for that. They knew where to find the men from Huck's description. They crept up on tiptoe in the dark sumach path until they were fifteen feet away. Just then the old man found he was going to sneeze. It was the worst luck. He tried to hold it back, but he could not. In front, with his pistol raised, he sneezed, and the men began to rustle away. He called \"Fire, boys!\" and shot at the place of the rustling. His sons did too. But the villains were gone in a moment, and the Welshman and his sons chased them down through the woods. He thinks they never hit them. The men fired one shot each, but the bullets whizzed past and did no harm. When they lost the sound of feet, they stopped chasing, and went down and woke the constables. The constables got a group together and went to guard the river bank. As soon as it is light, the sheriff and a gang will search the woods. The Welshman's sons will be with them soon. He wishes they had a description of those men, and asks if Huck could see what they were like in the dark."
+},
+{
+"chapter": 32,
+"paragraph": 44,
+"context": "Huck was in a close place —the inquiring eye was upon him",
+"mainIdea": "Huck is in a tight spot, and the old man is looking at him. He has no good answer, so he says the first silly thing that comes to his mind.",
+"simple": "Huck was in a tight spot. The old man's eyes were on him. He would have given anything for a good answer, but nothing came to him. The eyes looked deeper and deeper. A silly answer came to him, and there was no time to think about it. He said it weakly, at a risk, without knowing if it was wise."
+}
+],
+"sentences": [
+{
+"chapter": 32,
+"context": "Pity but somebody could find Tom Sawyer!",
+"simple": "It is a pity that nobody can find Tom Sawyer!",
+"grammar": "'Pity but...' is an old way to say 'it is a pity that...not'. Here it means: it is sad that nobody can find Tom."
+},
+{
+"chapter": 32,
+"context": "I wouldn’t hurt a hair of your head for all the world",
+"simple": "I would never harm you, even for everything in the world.",
+"grammar": "'For all the world' is a fixed phrase meaning 'for any reason at all'. 'Wouldn't hurt a hair of your head' is a strong way to say 'I would never hurt you'."
+}
+],
+"phrases": {}
+}

@@ -1,0 +1,3 @@
+cupboard|A big box with doors, where you keep food.
+scent|A nice thing in the air that your nose can find.
+perfume|A nice thing in the air that your nose can find, or a liquid that has it.

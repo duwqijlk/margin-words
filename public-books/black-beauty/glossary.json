@@ -1,0 +1,5690 @@
+{
+ "version": 2,
+ "title": "Black Beauty",
+ "author": "Anna Sewell",
+ "sha256": "6966a8c6669e36854d50d9d6a489c6e9a9d13d90e633c5765d4e67a0bef47b5a",
+ "chapters": 54,
+ "level": "basic",
+ "language": "en",
+ "glossary": {
+  "meadow": {
+   "pos": "noun",
+   "meaning": "A field with grass."
+  },
+  "hedge": {
+   "pos": "noun",
+   "meaning": "A line of small trees and plants that makes a wall around a field."
+  },
+  "grove": {
+   "pos": "noun",
+   "meaning": "A small group of trees."
+  },
+  "brook": {
+   "pos": "noun",
+   "meaning": "A small river."
+  },
+  "steep": {
+   "pos": "adjective",
+   "meaning": "Going up or down very sharply, like the side of a hill."
+  },
+  "colt": {
+   "pos": "noun",
+   "meaning": "A young male horse."
+  },
+  "gallop": {
+   "pos": "verb",
+   "meaning": "To run very fast, as a horse does.",
+   "forms": [
+    "galloped",
+    "galloping",
+    "galloped"
+   ]
+  },
+  "trot": {
+   "pos": "verb",
+   "meaning": "To move at a speed between walking and running, as a horse does.",
+   "forms": [
+    "trotted",
+    "trotting"
+   ]
+  },
+  "whinny": {
+   "pos": "verb",
+   "meaning": "To make a soft, high sound, as a horse does.",
+   "forms": [
+    "whinnied",
+    "whinnies"
+   ]
+  },
+  "carthorse": {
+   "pos": "noun",
+   "meaning": "A big, strong horse used to pull heavy things on the road or in the fields."
+  },
+  "wellborn": {
+   "pos": "adjective",
+   "meaning": "Born to good parents. Here it is said of a horse from a good family."
+  },
+  "temper": {
+   "pos": "noun",
+   "meaning": "The way a person or animal usually feels and acts, such as gentle or angry."
+  },
+  "lodging": {
+   "pos": "noun",
+   "meaning": "A place to sleep and live."
+  },
+  "neigh": {
+   "pos": "verb",
+   "meaning": "To make the loud sound that a horse makes."
+  },
+  "gig": {
+   "pos": "noun",
+   "meaning": "A light open vehicle with two big round parts that roll, pulled by one horse."
+  },
+  "plowboy": {
+   "pos": "noun",
+   "meaning": "A boy who works on a farm and helps to turn over the earth in the fields."
+  },
+  "pluck": {
+   "pos": "verb",
+   "meaning": "To pick fruit from a plant with your fingers."
+  },
+  "frost": {
+   "pos": "noun",
+   "meaning": "Thin white ice that forms on the ground in cold weather."
+  },
+  "mist": {
+   "pos": "noun",
+   "meaning": "Very small drops of water in the air near the ground, which make it hard to see far."
+  },
+  "hound": {
+   "pos": "noun",
+   "meaning": "A dog that people use to follow and chase wild animals."
+  },
+  "hare": {
+   "pos": "noun",
+   "meaning": "A wild animal with long back legs that runs very fast and jumps; dogs chase it."
+  },
+  "scent": {
+   "pos": "noun",
+   "meaning": "What an animal leaves in the air or on the ground, so that dogs can find it with their noses."
+  },
+  "canter": {
+   "pos": "verb",
+   "meaning": "To run at an easy, smooth speed, not very fast and not slow, as a horse does.",
+   "forms": [
+    "cantered"
+   ]
+  },
+  "huntsman": {
+   "pos": "noun",
+   "meaning": "A man who rides after the dogs when they chase wild animals.",
+   "forms": [
+    "huntsmen"
+   ]
+  },
+  "squire": {
+   "pos": "noun",
+   "meaning": "In the country, the rich man who owns the land and the big house."
+  },
+  "farrier": {
+   "pos": "noun",
+   "meaning": "A man who puts iron shoes on horses and looks after their health."
+  },
+  "stag": {
+   "pos": "noun",
+   "meaning": "The male of a large wild animal of the woods that men chase for sport."
+  },
+  "toll": {
+   "pos": "verb",
+   "meaning": "To make slow, deep ringing sounds, for example when someone has died.",
+   "forms": [
+    "tolling",
+    "tolled"
+   ],
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To make slow, deep ringing sounds, for example when someone has died.",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "In 'toll-bar', money that you pay to use a road or bridge.",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "toll",
+       "context": "we came to the toll-bar and the low"
+      }
+     ]
+    }
+   ]
+  },
+  "churchyard": {
+   "pos": "noun",
+   "meaning": "The ground around a church where dead people are put into the earth."
+  },
+  "shriek": {
+   "pos": "noun",
+   "meaning": "A loud, high cry of fear or pain."
+  },
+  "astonished": {
+   "pos": "adjective",
+   "meaning": "Very surprised."
+  },
+  "vice": {
+   "pos": "noun",
+   "meaning": "A bad way of acting in a horse, such as biting or kicking."
+  },
+  "circumstance": {
+   "pos": "noun",
+   "meaning": "A thing that happens; an event."
+  },
+  "saddle": {
+   "pos": "noun",
+   "meaning": "A seat for a rider, put on a horse's back."
+  },
+  "bridle": {
+   "pos": "noun",
+   "meaning": "The set of bands and metal parts that go on a horse's head, used to control it."
+  },
+  "collar": {
+   "pos": "noun",
+   "meaning": "A thick, hard ring round a horse's neck and shoulders, used to pull a vehicle."
+  },
+  "crupper": {
+   "pos": "noun",
+   "meaning": "A band that goes under a horse's tail to keep the other bands from moving forward."
+  },
+  "breeching": {
+   "pos": "noun",
+   "meaning": "A wide band round the back legs of a horse that lets it hold back the vehicle it pulls."
+  },
+  "chaise": {
+   "pos": "noun",
+   "meaning": "A light vehicle with two big round parts that roll, pulled by a horse."
+  },
+  "harness": {
+   "pos": "noun",
+   "meaning": "All the bands and parts that a horse wears to pull a vehicle."
+  },
+  "halter": {
+   "pos": "noun",
+   "meaning": "A rope or band round a horse's head, used to lead it."
+  },
+  "oats": {
+   "pos": "noun",
+   "meaning": "A grain that is given to horses as food."
+  },
+  "coax": {
+   "pos": "verb",
+   "meaning": "To get someone to do something by being gentle and patient.",
+   "forms": [
+    "coaxing",
+    "coaxed"
+   ]
+  },
+  "girth": {
+   "pos": "noun",
+   "meaning": "A band under a horse's body that keeps the rider's seat in place."
+  },
+  "forge": {
+   "pos": "noun",
+   "meaning": "A place with a fire, where iron is heated and shaped, for example into shoes for horses."
+  },
+  "blinkers": {
+   "pos": "noun",
+   "meaning": "Two pieces at the sides of a horse's eyes that stop it from seeing to the side."
+  },
+  "fortnight": {
+   "pos": "noun",
+   "meaning": "Two weeks."
+  },
+  "restive": {
+   "pos": "adjective",
+   "meaning": "Not willing to stay still or be quiet; hard to control."
+  },
+  "accustomed": {
+   "pos": "adjective",
+   "meaning": "Used to something."
+  },
+  "skirt": {
+   "pos": "verb",
+   "meaning": "To go along the edge of something.",
+   "forms": [
+    "skirted",
+    "skirting"
+   ]
+  },
+  "lodge": {
+   "pos": "noun",
+   "meaning": "A small house at the way into a big park or house."
+  },
+  "paddock": {
+   "pos": "noun",
+   "meaning": "A small field near the house where horses can walk and eat grass."
+  },
+  "orchard": {
+   "pos": "noun",
+   "meaning": "A field with fruit trees."
+  },
+  "stall": {
+   "pos": "noun",
+   "meaning": "A small space for one horse, in the building where horses are kept."
+  },
+  "rack": {
+   "pos": "noun",
+   "meaning": "A holder fixed to the wall that keeps dry grass for a horse to eat."
+  },
+  "manger": {
+   "pos": "noun",
+   "meaning": "A long open box that holds food for a horse."
+  },
+  "groom": {
+   "pos": "noun",
+   "meaning": "A person who looks after horses and keeps them clean."
+  },
+  "pert": {
+   "pos": "adjective",
+   "meaning": "Lively and full of fun, in a nice way."
+  },
+  "mane": {
+   "pos": "noun",
+   "meaning": "The long hair on a horse's neck."
+  },
+  "mare": {
+   "pos": "noun",
+   "meaning": "A female horse."
+  },
+  "chestnut": {
+   "pos": "adjective",
+   "meaning": "Red-brown in colour, like a horse with a red-brown coat."
+  },
+  "snap": {
+   "pos": "verb",
+   "meaning": "To bite at someone quickly. 'In a snap' means in a moment.",
+   "forms": [
+    "snapping",
+    "snapped"
+   ]
+  },
+  "hall": {
+   "pos": "noun",
+   "meaning": "In this book, the big house of a rich family."
+  },
+  "coachman": {
+   "pos": "noun",
+   "meaning": "A man whose job is to drive a vehicle pulled by horses for a rich family."
+  },
+  "cob": {
+   "pos": "noun",
+   "meaning": "A short, strong horse."
+  },
+  "hunter": {
+   "pos": "noun",
+   "meaning": "A strong horse that people ride when they chase wild animals with dogs."
+  },
+  "roan": {
+   "pos": "adjective",
+   "meaning": "Having a coat in which white hairs are mixed with brown or black ones; used of horses."
+  },
+  "fleet": {
+   "pos": "adjective",
+   "meaning": "Moving very fast."
+  },
+  "counsel": {
+   "pos": "noun",
+   "meaning": "Good advice."
+  },
+  "ticklish": {
+   "pos": "adjective",
+   "meaning": "Easily made to jump or laugh when touched lightly."
+  },
+  "slacken": {
+   "pos": "verb",
+   "meaning": "To become slower or less strong.",
+   "forms": [
+    "slackening",
+    "slackened"
+   ]
+  },
+  "urge": {
+   "pos": "verb",
+   "meaning": "To push someone to go faster."
+  },
+  "plucky": {
+   "pos": "adjective",
+   "meaning": "Brave and not afraid to try hard things."
+  },
+  "sociable": {
+   "pos": "adjective",
+   "meaning": "Friendly and liking to be with others."
+  },
+  "mount": {
+   "pos": "verb",
+   "meaning": "To get up on a horse to ride it."
+  },
+  "luggage": {
+   "pos": "noun",
+   "meaning": "The bags and boxes that a person takes on a trip."
+  },
+  "common": {
+   "pos": "noun",
+   "meaning": "A big piece of open land that everyone can use.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A big piece of open land that everyone can use.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "common",
+       "context": "breakfast; go by the common and the Highwood, and"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "common",
+       "context": "we were on the common he gave me a"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "common",
+       "context": "the end of the common we met one of"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "common",
+       "context": "To the common, to the common, sir"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "form": "common",
+       "context": "the common, to the common, sir; she has turned"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 3,
+       "form": "common",
+       "context": "I knew this common very well; it was"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 4,
+       "form": "common",
+       "context": "hardly turned on the common, when we caught sight"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Found everywhere; not special.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "common",
+       "context": "gate; the others were common stalls, good stalls, but"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "common",
+       "context": "but they are not common, and I know many"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "In 'common sense', good thinking that most people have.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "common",
+       "context": "half a pint of common sense, and given to"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "common",
+       "context": "little more according to common sense, and a good"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "common",
+       "context": "those who have got common sense and a good"
+      }
+     ]
+    }
+   ]
+  },
+  "pace": {
+   "pos": "noun",
+   "meaning": "The speed at which a horse walks or runs.",
+   "forms": [
+    "paces"
+   ]
+  },
+  "intimate": {
+   "pos": "adjective",
+   "meaning": "Very close, like a good friend."
+  },
+  "liberty": {
+   "pos": "noun",
+   "meaning": "Freedom to do what you like."
+  },
+  "discontented": {
+   "pos": "adjective",
+   "meaning": "Not happy with what you have."
+  },
+  "fling": {
+   "pos": "verb",
+   "meaning": "To throw something, or to throw something up suddenly.",
+   "forms": [
+    "flung"
+   ]
+  },
+  "toss": {
+   "pos": "verb",
+   "meaning": "To throw something up with a quick move.",
+   "forms": [
+    "tossed",
+    "tossing"
+   ]
+  },
+  "prance": {
+   "pos": "verb",
+   "meaning": "To move with high, happy steps, as a lively horse does."
+  },
+  "spanking": {
+   "pos": "adjective",
+   "meaning": "Fast and lively."
+  },
+  "fidgets": {
+   "pos": "plural noun",
+   "meaning": "A feeling that makes you unable to keep still."
+  },
+  "skittish": {
+   "pos": "adjective",
+   "meaning": "Easily scared or excited; likely to jump and move around a lot."
+  },
+  "nibble": {
+   "pos": "verb",
+   "meaning": "To eat with small bites."
+  },
+  "rein": {
+   "pos": "noun",
+   "meaning": "A long band fixed to a horse's head, held by the rider or driver to control the horse.",
+   "forms": [
+    "reins"
+   ]
+  },
+  "weaned": {
+   "pos": "adjective",
+   "meaning": "Taken away from its mother's milk, so that it now eats other food."
+  },
+  "forelock": {
+   "pos": "noun",
+   "meaning": "The hair at the top of a horse's head that falls down in front, between the eyes."
+  },
+  "wrench": {
+   "pos": "verb",
+   "meaning": "To pull or turn something hard and suddenly.",
+   "forms": [
+    "wrenched"
+   ]
+  },
+  "flog": {
+   "pos": "verb",
+   "meaning": "To hit hard again and again, to make an animal or person go faster or to hurt them.",
+   "forms": [
+    "flogging",
+    "flogged"
+   ]
+  },
+  "pine": {
+   "pos": "verb",
+   "meaning": "To be sad and weak because you want something very much.",
+   "forms": [
+    "pined"
+   ]
+  },
+  "fret": {
+   "pos": "verb",
+   "meaning": "To be worried or unhappy and not able to be quiet or still.",
+   "forms": [
+    "fretted"
+   ]
+  },
+  "humble": {
+   "pos": "adjective",
+   "meaning": "Quiet and not proud; ready to do what others say."
+  },
+  "obedient": {
+   "pos": "adjective",
+   "meaning": "Doing what you are told."
+  },
+  "horseflesh": {
+   "pos": "noun",
+   "meaning": "The body of a horse. Here the man thinks of horses only as bodies to use."
+  },
+  "rear": {
+   "pos": "verb",
+   "meaning": "To stand up on the back legs, as a horse does.",
+   "forms": [
+    "reared"
+   ]
+  },
+  "plunge": {
+   "pos": "verb",
+   "meaning": "To jump or move forward suddenly and with force."
+  },
+  "persecutor": {
+   "pos": "noun",
+   "meaning": "A person who hurts or troubles someone again and again."
+  },
+  "flank": {
+   "pos": "noun",
+   "meaning": "The side of an animal's body, behind the middle and above the back leg.",
+   "forms": [
+    "flanks"
+   ]
+  },
+  "sieve": {
+   "pos": "noun",
+   "meaning": "A round holder with many small holes in it. Here it holds food for the horse."
+  },
+  "lassie": {
+   "pos": "noun",
+   "meaning": "A girl; here the old master uses the word for the young horse."
+  },
+  "vexed": {
+   "pos": "adjective",
+   "meaning": "Angry and upset."
+  },
+  "filly": {
+   "pos": "noun",
+   "meaning": "A young female horse."
+  },
+  "mash": {
+   "pos": "noun",
+   "meaning": "A warm, soft food for horses made from the rough outside of grain and hot water."
+  },
+  "bran": {
+   "pos": "noun",
+   "meaning": "The brown outer part of grain; it is used as food for horses."
+  },
+  "mettled": {
+   "pos": "adjective",
+   "meaning": "Full of life and very brave. 'High-mettled' means a lively, brave horse."
+  },
+  "breaker": {
+   "pos": "noun",
+   "meaning": "A man whose job is to break in horses."
+  },
+  "checkrein": {
+   "pos": "noun",
+   "meaning": "A band that holds a horse's head up high and back.",
+   "forms": [
+    "checkreins"
+   ]
+  },
+  "stylish": {
+   "pos": "adjective",
+   "meaning": "Looking fashionable and fine."
+  },
+  "jerk": {
+   "pos": "noun",
+   "meaning": "A short, quick, sudden pull or movement."
+  },
+  "chafe": {
+   "pos": "verb",
+   "meaning": "To pull against something that holds you and feel angry and restless about it.",
+   "forms": [
+    "chafed"
+   ]
+  },
+  "froth": {
+   "pos": "noun",
+   "meaning": "White bubbles that come out of a horse's mouth when it pulls hard."
+  },
+  "turnout": {
+   "pos": "noun",
+   "meaning": "A vehicle and its horses, as they look to other people."
+  },
+  "surly": {
+   "pos": "adjective",
+   "meaning": "Rude and unfriendly in the way you speak."
+  },
+  "windpipe": {
+   "pos": "noun",
+   "meaning": "The long inside part of the neck that air goes through when you take it in."
+  },
+  "buckle": {
+   "pos": "verb",
+   "meaning": "To hold something in place with a band and a metal piece that closes it.",
+   "forms": [
+    "buckled"
+   ]
+  },
+  "warranted": {
+   "pos": "adjective",
+   "meaning": "Promised by the seller to be good. Here the seller says the horse has no bad ways."
+  },
+  "hock": {
+   "pos": "noun",
+   "meaning": "The joint in the middle of a horse's back leg.",
+   "forms": [
+    "hocks"
+   ]
+  },
+  "aggravate": {
+   "pos": "verb",
+   "meaning": "To make someone angrier or more upset.",
+   "forms": [
+    "aggravated"
+   ]
+  },
+  "defiant": {
+   "pos": "adjective",
+   "meaning": "Showing that you will not do what you are told."
+  },
+  "physic": {
+   "pos": "noun",
+   "meaning": "Medicine."
+  },
+  "vicious": {
+   "pos": "adjective",
+   "meaning": "Very rough and angry, and likely to hurt others."
+  },
+  "dealer": {
+   "pos": "noun",
+   "meaning": "A man who buys and sells horses."
+  },
+  "vicar": {
+   "pos": "noun",
+   "meaning": "A man who leads the church in a village."
+  },
+  "rogue": {
+   "pos": "noun",
+   "meaning": "A person who is a little bad, but in a funny way; here said in a friendly way to an animal."
+  },
+  "pitch": {
+   "pos": "verb",
+   "meaning": "To throw someone or something with force.",
+   "forms": [
+    "pitched"
+   ]
+  },
+  "offended": {
+   "pos": "adjective",
+   "meaning": "Hurt and angry because of what someone said or did."
+  },
+  "unsteady": {
+   "pos": "adjective",
+   "meaning": "Not firm; likely to fall."
+  },
+  "preach": {
+   "pos": "verb",
+   "meaning": "To tell people in a long way what is right, when they do not want to hear it.",
+   "forms": [
+    "preaching"
+   ]
+  },
+  "agreeable": {
+   "pos": "adjective",
+   "meaning": "Happy to do what others want."
+  },
+  "hazel": {
+   "pos": "noun",
+   "meaning": "A tree with thin sticks that bend easily; here a stick cut from it."
+  },
+  "hind": {
+   "pos": "adjective",
+   "meaning": "At the back, as in 'hind legs'."
+  },
+  "drover": {
+   "pos": "noun",
+   "meaning": "A man whose job is to take farm animals from one place to another on foot.",
+   "forms": [
+    "drovers"
+   ]
+  },
+  "gypsy": {
+   "pos": "noun",
+   "meaning": "A person from a group of people who have no fixed home and move from place to place.",
+   "forms": [
+    "gypsies"
+   ]
+  },
+  "entrusted": {
+   "pos": "past participle",
+   "meaning": "Given to someone to look after because you trust them."
+  },
+  "trustworthy": {
+   "pos": "adjective",
+   "meaning": "Good and able to be trusted."
+  },
+  "ungrateful": {
+   "pos": "adjective",
+   "meaning": "Not thankful for what someone has done for you."
+  },
+  "jiffy": {
+   "pos": "noun",
+   "meaning": "A very short time. 'In a jiffy' means very quickly."
+  },
+  "spree": {
+   "pos": "noun",
+   "meaning": "A short, lively time of fun, often with drinking."
+  },
+  "slave": {
+   "pos": "verb",
+   "meaning": "To make someone work very hard, like a slave. 'Slaved about' means made to work hard and treated badly.",
+   "forms": [
+    "slaved"
+   ]
+  },
+  "breed": {
+   "pos": "noun",
+   "meaning": "A kind of horse; horses of this kind have the same family and are much the same."
+  },
+  "sprightly": {
+   "pos": "adjective",
+   "meaning": "Full of life and quick in movement."
+  },
+  "tassel": {
+   "pos": "noun",
+   "meaning": "A small group of hairs joined at one end, with the other end free."
+  },
+  "dock": {
+   "pos": "verb",
+   "meaning": "To cut short an animal's tail.",
+   "forms": [
+    "docked"
+   ]
+  },
+  "indignity": {
+   "pos": "noun",
+   "meaning": "Something done to you that makes you feel you are less important."
+  },
+  "whisk": {
+   "pos": "verb",
+   "meaning": "To move something quickly from side to side."
+  },
+  "torment": {
+   "pos": "noun",
+   "meaning": "Very great pain or trouble that goes on for a long time."
+  },
+  "lash": {
+   "pos": "verb",
+   "meaning": "To hit hard and quickly, again and again."
+  },
+  "forsooth": {
+   "pos": "interjection",
+   "meaning": "An old word, used here to show that the speaker thinks something is silly."
+  },
+  "terrier": {
+   "pos": "noun",
+   "meaning": "A kind of small dog."
+  },
+  "litter": {
+   "pos": "noun",
+   "meaning": "A group of baby animals born to one mother at the same time."
+  },
+  "distended": {
+   "pos": "adjective",
+   "meaning": "Made wide and big, as when something presses from inside."
+  },
+  "nostril": {
+   "pos": "noun",
+   "meaning": "One of the two holes in the nose.",
+   "forms": [
+    "nostrils"
+   ]
+  },
+  "blockhead": {
+   "pos": "noun",
+   "meaning": "A very stupid person.",
+   "forms": [
+    "blockheads"
+   ]
+  },
+  "brute": {
+   "pos": "noun",
+   "meaning": "A rough, unkind person or animal.",
+   "forms": [
+    "brutes"
+   ]
+  },
+  "shy": {
+   "pos": "verb",
+   "meaning": "To jump to the side suddenly because of fear.",
+   "forms": [
+    "shying"
+   ]
+  },
+  "hearse": {
+   "pos": "noun",
+   "meaning": "A long vehicle that carries a dead person to the place where he will be put in the earth."
+  },
+  "foal": {
+   "pos": "noun",
+   "meaning": "A baby horse.",
+   "forms": [
+    "foals"
+   ]
+  },
+  "slug": {
+   "pos": "noun",
+   "meaning": "A small, soft animal with no legs that eats plants.",
+   "forms": [
+    "slugs"
+   ]
+  },
+  "oppressed": {
+   "pos": "adjective",
+   "meaning": "Treated in a hard, unfair way by someone who has power over you."
+  },
+  "laden": {
+   "pos": "adjective",
+   "meaning": "Carrying a lot of heavy things."
+  },
+  "bay": {
+   "pos": "adjective",
+   "meaning": "Red-brown in colour, with black hair on the legs and tail; used of horses."
+  },
+  "haunches": {
+   "pos": "plural noun",
+   "meaning": "The back part of an animal's body, above its back legs."
+  },
+  "stern": {
+   "pos": "adjective",
+   "meaning": "Serious and hard, and not smiling."
+  },
+  "unmanly": {
+   "pos": "adjective",
+   "meaning": "Not fit for a good man to do."
+  },
+  "hobby": {
+   "pos": "noun",
+   "meaning": "Something you love to do or talk about. Here it is the master's strong idea about how horses are driven."
+  },
+  "regiment": {
+   "pos": "noun",
+   "meaning": "A large group of soldiers."
+  },
+  "parade": {
+   "pos": "noun",
+   "meaning": "A show where soldiers walk together in lines to be looked at."
+  },
+  "bayonet": {
+   "pos": "noun",
+   "meaning": "A long, sharp point of metal fixed to the end of a gun, used in a fight."
+  },
+  "fatigue": {
+   "pos": "verb",
+   "meaning": "To make someone very tired."
+  },
+  "withstand": {
+   "pos": "verb",
+   "meaning": "To be strong enough not to give way to something."
+  },
+  "grieve": {
+   "pos": "verb",
+   "meaning": "To make someone feel very sad.",
+   "forms": [
+    "grieved"
+   ]
+  },
+  "scheme": {
+   "pos": "noun",
+   "meaning": "A plan. Here it is a plan that a man loves more than all others."
+  },
+  "sensitive": {
+   "pos": "adjective",
+   "meaning": "Quick to feel things, even a very light touch."
+  },
+  "dogcart": {
+   "pos": "noun",
+   "meaning": "A light open vehicle with two high round rolling parts, pulled by one horse."
+  },
+  "bait": {
+   "pos": "noun",
+   "meaning": "Food and rest given to a horse on the way during a trip."
+  },
+  "sway": {
+   "pos": "verb",
+   "meaning": "To move slowly from side to side.",
+   "forms": [
+    "swaying"
+   ]
+  },
+  "twig": {
+   "pos": "noun",
+   "meaning": "A very thin stick from a tree.",
+   "forms": [
+    "twigs"
+   ]
+  },
+  "substantial": {
+   "pos": "adjective",
+   "meaning": "Strong and solid."
+  },
+  "awkward": {
+   "pos": "adjective",
+   "meaning": "Not easy or comfortable; causing trouble."
+  },
+  "tollgate": {
+   "pos": "noun",
+   "meaning": "A place on a road or bridge where people stop and pay money to go through."
+  },
+  "torch": {
+   "pos": "noun",
+   "meaning": "A stick with a fire at the end, used as a light."
+  },
+  "lull": {
+   "pos": "verb",
+   "meaning": "To become quieter and softer.",
+   "forms": [
+    "lulled"
+   ]
+  },
+  "current": {
+   "pos": "noun",
+   "meaning": "The moving water in a river."
+  },
+  "prompt": {
+   "pos": "adjective",
+   "meaning": "Quick; done at once."
+  },
+  "inquiry": {
+   "pos": "noun",
+   "meaning": "The act of asking questions to find something out."
+  },
+  "halloo": {
+   "pos": "interjection",
+   "meaning": "A loud shout used to get someone's attention."
+  },
+  "flood": {
+   "pos": "noun",
+   "meaning": "Water that covers land that is usually dry.",
+   "forms": [
+    "floods"
+   ]
+  },
+  "thrash": {
+   "pos": "verb",
+   "meaning": "To beat someone hard.",
+   "forms": [
+    "thrashing"
+   ]
+  },
+  "rile": {
+   "pos": "verb",
+   "meaning": "To make someone angry.",
+   "forms": [
+    "riles"
+   ]
+  },
+  "swagger": {
+   "pos": "verb",
+   "meaning": "To walk and act in a proud way, to show that you think you are important."
+  },
+  "bully": {
+   "pos": "verb",
+   "meaning": "To be rough and unkind to people who are weaker than you."
+  },
+  "sprawl": {
+   "pos": "verb",
+   "meaning": "To lie with your arms and legs spread out wide.",
+   "forms": [
+    "sprawling"
+   ]
+  },
+  "bellow": {
+   "pos": "verb",
+   "meaning": "To shout very loudly.",
+   "forms": [
+    "bellowed"
+   ]
+  },
+  "sham": {
+   "pos": "noun",
+   "meaning": "Something that looks real but is not."
+  },
+  "chuckle": {
+   "pos": "verb",
+   "meaning": "To laugh quietly.",
+   "forms": [
+    "chuckling"
+   ]
+  },
+  "coward": {
+   "pos": "noun",
+   "meaning": "A person who is afraid and runs away from danger."
+  },
+  "cowardly": {
+   "pos": "adjective",
+   "meaning": "Showing fear and not brave."
+  },
+  "trademark": {
+   "pos": "noun",
+   "meaning": "A sign that shows who made something. Here, hurting others is said to be the sign of the Devil."
+  },
+  "tormentor": {
+   "pos": "noun",
+   "meaning": "A person who causes pain to others over and over."
+  },
+  "laborer": {
+   "pos": "noun",
+   "meaning": "A person who does hard physical work for money.",
+   "forms": [
+    "laborers"
+   ]
+  },
+  "industrious": {
+   "pos": "adjective",
+   "meaning": "Working hard."
+  },
+  "slight": {
+   "pos": "adjective",
+   "meaning": "Small in size or amount; not much.",
+   "forms": [
+    "slights"
+   ]
+  },
+  "suspect": {
+   "pos": "verb",
+   "meaning": "To think that something bad may be true."
+  },
+  "acquaintance": {
+   "pos": "noun",
+   "meaning": "A person you know a little, but who is not a close friend.",
+   "forms": [
+    "acquaintances"
+   ]
+  },
+  "livery": {
+   "pos": "noun",
+   "meaning": "Special clothes of the same kind that the workers of a rich house wear.",
+   "forms": [
+    "liveries"
+   ]
+  },
+  "droll": {
+   "pos": "adjective",
+   "meaning": "Funny in a quiet, strange way."
+  },
+  "pension": {
+   "pos": "verb",
+   "meaning": "To let an old worker stop working and still give him money.",
+   "forms": [
+    "pensioned"
+   ]
+  },
+  "postscript": {
+   "pos": "noun",
+   "meaning": "A short note added at the end of a letter."
+  },
+  "cautious": {
+   "pos": "adjective",
+   "meaning": "Careful to avoid trouble."
+  },
+  "omnibus": {
+   "pos": "noun",
+   "meaning": "A large vehicle pulled by horses that carries many people along a road for money.",
+   "forms": [
+    "omnibuses"
+   ]
+  },
+  "errand": {
+   "pos": "noun",
+   "meaning": "A short trip to do a small job for someone."
+  },
+  "cab": {
+   "pos": "noun",
+   "meaning": "A vehicle with a driver, pulled by a horse, that people pay to take them from place to place.",
+   "forms": [
+    "cabs"
+   ]
+  },
+  "brake": {
+   "pos": "noun",
+   "meaning": "A part on a vehicle that is used to make it go slower."
+  },
+  "downhill": {
+   "pos": "adverb",
+   "meaning": "Going down a hill."
+  },
+  "hostler": {
+   "pos": "noun",
+   "meaning": "A man who looks after the horses at a hotel.",
+   "forms": [
+    "hostlers"
+   ]
+  },
+  "archway": {
+   "pos": "noun",
+   "meaning": "A way through a building, with a curved top."
+  },
+  "waistcoat": {
+   "pos": "noun",
+   "meaning": "A short piece of clothing with no arms, worn on the top half of the body under a coat."
+  },
+  "unbuckle": {
+   "pos": "verb",
+   "meaning": "To open a band that is held closed by a metal piece."
+  },
+  "jockey": {
+   "pos": "noun",
+   "meaning": "A person who rides horses in races."
+  },
+  "turf": {
+   "pos": "noun",
+   "meaning": "Short grass; here it means the grass of the ground where horses race."
+  },
+  "fidgety": {
+   "pos": "adjective",
+   "meaning": "Not able to keep still."
+  },
+  "fretty": {
+   "pos": "adjective",
+   "meaning": "Easily upset and worried."
+  },
+  "timid": {
+   "pos": "adjective",
+   "meaning": "Easily scared."
+  },
+  "lounge": {
+   "pos": "verb",
+   "meaning": "To walk or stand around slowly, with nothing to do.",
+   "forms": [
+    "lounged"
+   ]
+  },
+  "gossip": {
+   "pos": "verb",
+   "meaning": "To talk about other people and what they do."
+  },
+  "loft": {
+   "pos": "noun",
+   "meaning": "A room high up under the top of a building, where dry grass for horses is kept."
+  },
+  "trapdoor": {
+   "pos": "noun",
+   "meaning": "A small door in a floor, that opens up or down."
+  },
+  "crackle": {
+   "pos": "verb",
+   "meaning": "To make short, sharp sounds, like a fire.",
+   "forms": [
+    "crackling"
+   ]
+  },
+  "lantern": {
+   "pos": "noun",
+   "meaning": "A light with a handle that you can carry, with the fire inside glass."
+  },
+  "flicker": {
+   "pos": "verb",
+   "meaning": "To give light that goes bright and weak again and again.",
+   "forms": [
+    "flickering"
+   ]
+  },
+  "smother": {
+   "pos": "noun",
+   "meaning": "Thick smoke that makes it hard to take in air."
+  },
+  "shrill": {
+   "pos": "adjective",
+   "meaning": "High and sharp, as a sound."
+  },
+  "din": {
+   "pos": "noun",
+   "meaning": "A very loud, unpleasant noise."
+  },
+  "blaze": {
+   "pos": "noun",
+   "meaning": "A large, strong fire."
+  },
+  "rafter": {
+   "pos": "noun",
+   "meaning": "One of the long pieces of wood that hold up the top of a building.",
+   "forms": [
+    "rafters"
+   ]
+  },
+  "tap": {
+   "pos": "noun",
+   "meaning": "A place where beer is sold and drunk.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A place where beer is sold and drunk.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "tap",
+       "context": "and went to the tap for another. Then the"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "A light hit on a door, to ask to come in.",
+     "anchors": [
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "form": "tap",
+       "context": "in the stable, a tap came at the door"
+      }
+     ]
+    }
+   ]
+  },
+  "clatter": {
+   "pos": "verb",
+   "meaning": "To make a loud noise by hitting hard things together.",
+   "forms": [
+    "clattering"
+   ]
+  },
+  "dart": {
+   "pos": "verb",
+   "meaning": "To move quickly and suddenly.",
+   "forms": [
+    "darted"
+   ]
+  },
+  "hasten": {
+   "pos": "verb",
+   "meaning": "To go quickly."
+  },
+  "snug": {
+   "pos": "adjective",
+   "meaning": "Small, warm and comfortable."
+  },
+  "shift": {
+   "pos": "verb",
+   "meaning": "To look after yourself, with no one to help you."
+  },
+  "workhouse": {
+   "pos": "noun",
+   "meaning": "A place where poor people lived and worked for food in the old days."
+  },
+  "needlework": {
+   "pos": "noun",
+   "meaning": "Work done by hand to make or fix clothes."
+  },
+  "hoe": {
+   "pos": "verb",
+   "meaning": "To work the ground with a small tool to cut down plants that you do not want.",
+   "forms": [
+    "hoeing"
+   ]
+  },
+  "turnip": {
+   "pos": "noun",
+   "meaning": "A round, white food plant that grows under the ground.",
+   "forms": [
+    "turnips"
+   ]
+  },
+  "heathenish": {
+   "pos": "adjective",
+   "meaning": "Not kind and not good, as if the person did not know God."
+  },
+  "maul": {
+   "pos": "verb",
+   "meaning": "To handle in a rough way.",
+   "forms": [
+    "mauled"
+   ]
+  },
+  "confidentially": {
+   "pos": "adverb",
+   "meaning": "In a private way, as a secret."
+  },
+  "downhearted": {
+   "pos": "adjective",
+   "meaning": "Sad."
+  },
+  "shilling": {
+   "pos": "noun",
+   "meaning": "An old piece of British money.",
+   "forms": [
+    "shillings"
+   ]
+  },
+  "kindhearted": {
+   "pos": "adjective",
+   "meaning": "Kind and caring."
+  },
+  "rouse": {
+   "pos": "verb",
+   "meaning": "To wake someone up.",
+   "forms": [
+    "roused"
+   ]
+  },
+  "spur": {
+   "pos": "noun",
+   "meaning": "A small sharp metal point worn on a rider's foot, used to make a horse go faster."
+  },
+  "nightcap": {
+   "pos": "noun",
+   "meaning": "A soft thing worn on the head in bed at night."
+  },
+  "loins": {
+   "pos": "plural noun",
+   "meaning": "The lower part of the back, at the top of the back legs."
+  },
+  "gruel": {
+   "pos": "noun",
+   "meaning": "A thin, warm food for a sick person or horse, made from grain and hot water."
+  },
+  "inflammation": {
+   "pos": "noun",
+   "meaning": "A painful, red swelling in a part of the body."
+  },
+  "pant": {
+   "pos": "verb",
+   "meaning": "To take in air very quickly and often, after running."
+  },
+  "moan": {
+   "pos": "noun",
+   "meaning": "A low sound of pain."
+  },
+  "stoop": {
+   "pos": "verb",
+   "meaning": "To bend your body down.",
+   "forms": [
+    "stooping"
+   ]
+  },
+  "spent": {
+   "pos": "verb",
+   "meaning": "Past of 'spend': used time or money.",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "Past of 'spend': used time or money.",
+     "default": true
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Very tired, with no strength left.",
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "spent",
+       "context": "for I was nearly spent, but that breathing helped"
+      }
+     ]
+    }
+   ]
+  },
+  "pailful": {
+   "pos": "noun",
+   "meaning": "As much as a large water container with a handle can hold."
+  },
+  "thump": {
+   "pos": "verb",
+   "meaning": "To hit something hard so that it makes a loud sound.",
+   "forms": [
+    "thumped"
+   ]
+  },
+  "nurse": {
+   "pos": "verb",
+   "meaning": "To look after a sick person or animal.",
+   "forms": [
+    "nursed"
+   ]
+  },
+  "bleed": {
+   "pos": "verb",
+   "meaning": "To lose blood. As an old treatment, doctors also took blood from a sick person or animal to make them better.",
+   "forms": [
+    "bled"
+   ]
+  },
+  "faint": {
+   "pos": "adjective",
+   "meaning": "Weak, as if you might fall."
+  },
+  "draught": {
+   "pos": "noun",
+   "meaning": "A drink of medicine."
+  },
+  "brokenhearted": {
+   "pos": "adjective",
+   "meaning": "Very sad, with a feeling that your heart is broken."
+  },
+  "mischief": {
+   "pos": "noun",
+   "meaning": "Trouble or damage caused by what someone does."
+  },
+  "dose": {
+   "pos": "verb",
+   "meaning": "To give someone medicine.",
+   "forms": [
+    "dosed"
+   ]
+  },
+  "syrup": {
+   "pos": "noun",
+   "meaning": "A thick, sweet liquid, often used as medicine.",
+   "forms": [
+    "syrups"
+   ]
+  },
+  "manslaughter": {
+   "pos": "noun",
+   "meaning": "The crime of killing someone without meaning to."
+  },
+  "hothouse": {
+   "pos": "noun",
+   "meaning": "A glass building that is kept warm for growing plants."
+  },
+  "cutting": {
+   "pos": "verb",
+   "meaning": "Using something sharp to take a piece off something.",
+   "forms": [
+    "cuttings"
+   ],
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "Using something sharp to take a piece off something.",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "A piece cut from a plant, to grow a new plant.",
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "cuttings",
+       "context": "one of the tender cuttings that was not nipped"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "A long hole cut in the ground.",
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "cutting",
+       "context": "the earth from the cutting was cast up roughly"
+      }
+     ]
+    }
+   ]
+  },
+  "nip": {
+   "pos": "verb",
+   "meaning": "To hurt or kill a plant with cold.",
+   "forms": [
+    "nipped"
+   ]
+  },
+  "ghost": {
+   "pos": "noun",
+   "meaning": "The spirit of a dead person that some people believe they can see."
+  },
+  "idiot": {
+   "pos": "noun",
+   "meaning": "A person who cannot think or learn well, because of an illness of the mind."
+  },
+  "startle": {
+   "pos": "verb",
+   "meaning": "To surprise someone and make them jump.",
+   "forms": [
+    "startled"
+   ]
+  },
+  "rut": {
+   "pos": "noun",
+   "meaning": "A deep line in the road made by a vehicle going over it again and again.",
+   "forms": [
+    "ruts"
+   ]
+  },
+  "carter": {
+   "pos": "noun",
+   "meaning": "A man whose job is to drive a heavy horse vehicle that carries things."
+  },
+  "fore": {
+   "pos": "adjective",
+   "meaning": "In front."
+  },
+  "unmercifully": {
+   "pos": "adverb",
+   "meaning": "Without any kindness."
+  },
+  "heed": {
+   "pos": "noun",
+   "meaning": "Careful attention."
+  },
+  "impudent": {
+   "pos": "adjective",
+   "meaning": "Rude and not showing respect."
+  },
+  "rascal": {
+   "pos": "noun",
+   "meaning": "A bad person, especially a young one who makes trouble."
+  },
+  "towering": {
+   "pos": "adjective",
+   "meaning": "Very great and strong; here, a man who is full of great anger."
+  },
+  "magistrate": {
+   "pos": "noun",
+   "meaning": "A judge who decides small cases in a town or county."
+  },
+  "summons": {
+   "pos": "noun",
+   "meaning": "An order to come to a court of law."
+  },
+  "interfere": {
+   "pos": "verb",
+   "meaning": "To step into other people's business."
+  },
+  "oppression": {
+   "pos": "noun",
+   "meaning": "Hard, unfair treatment by someone with power."
+  },
+  "exhausted": {
+   "pos": "adjective",
+   "meaning": "Very tired."
+  },
+  "evidence": {
+   "pos": "noun",
+   "meaning": "What a person says in court to show what really happened."
+  },
+  "establishment": {
+   "pos": "noun",
+   "meaning": "A big house with all the workers and animals that live and work there."
+  },
+  "governess": {
+   "pos": "noun",
+   "meaning": "A woman who is paid to teach the children in a rich family at home."
+  },
+  "earl": {
+   "pos": "noun",
+   "meaning": "A British lord of high position."
+  },
+  "situation": {
+   "pos": "noun",
+   "meaning": "A job."
+  },
+  "faithful": {
+   "pos": "adjective",
+   "meaning": "True to someone and always ready to help."
+  },
+  "repay": {
+   "pos": "verb",
+   "meaning": "To give something back to someone who gave to you, such as money or kindness."
+  },
+  "cushion": {
+   "pos": "noun",
+   "meaning": "A soft bag that you sit on or put behind your back.",
+   "forms": [
+    "cushions"
+   ]
+  },
+  "glide": {
+   "pos": "verb",
+   "meaning": "To move smoothly and quietly.",
+   "forms": [
+    "glided"
+   ]
+  },
+  "guard": {
+   "pos": "noun",
+   "meaning": "On a train, the man who looks after it and tells it when to go."
+  },
+  "puff": {
+   "pos": "verb",
+   "meaning": "To send out smoke in short, quick pushes.",
+   "forms": [
+    "puffing"
+   ]
+  },
+  "slam": {
+   "pos": "verb",
+   "meaning": "To shut with a loud noise.",
+   "forms": [
+    "slammed"
+   ]
+  },
+  "vicarage": {
+   "pos": "noun",
+   "meaning": "The house where the church leader of a village lives."
+  },
+  "adjoining": {
+   "pos": "adjective",
+   "meaning": "Next to each other."
+  },
+  "refreshment": {
+   "pos": "noun",
+   "meaning": "Food and drink."
+  },
+  "peculiarity": {
+   "pos": "noun",
+   "meaning": "Something strange or special about a person or animal.",
+   "forms": [
+    "peculiarities"
+   ]
+  },
+  "snappish": {
+   "pos": "adjective",
+   "meaning": "Likely to bite or speak in an angry way."
+  },
+  "suspicious": {
+   "pos": "adjective",
+   "meaning": "Not trusting others; thinking something bad may happen."
+  },
+  "irritable": {
+   "pos": "adjective",
+   "meaning": "Easily made angry."
+  },
+  "constitution": {
+   "pos": "noun",
+   "meaning": "The natural state of a body or mind; here, how easily a horse gets upset."
+  },
+  "tease": {
+   "pos": "verb",
+   "meaning": "Here, to bother a horse again and again, as flies do."
+  },
+  "lordship": {
+   "pos": "noun",
+   "meaning": "A way to speak to or about a lord; 'his lordship' means the lord."
+  },
+  "humor": {
+   "pos": "verb",
+   "meaning": "To do what someone wants so that they will not be upset.",
+   "forms": [
+    "humoring"
+   ]
+  },
+  "drab": {
+   "pos": "adjective",
+   "meaning": "A yellow-brown colour that is not bright."
+  },
+  "breeches": {
+   "pos": "plural noun",
+   "meaning": "Short clothes for the legs, close at the bottom, worn by men long ago."
+  },
+  "rustle": {
+   "pos": "verb",
+   "meaning": "To make a soft sound, like dry leaves moving.",
+   "forms": [
+    "rustling"
+   ]
+  },
+  "nuisance": {
+   "pos": "noun",
+   "meaning": "Something that causes trouble or makes you cross."
+  },
+  "imperious": {
+   "pos": "adjective",
+   "meaning": "Proud and used to telling others what to do."
+  },
+  "terret": {
+   "pos": "noun",
+   "meaning": "A metal ring on a horse's back, through which the long bands held by the driver pass."
+  },
+  "intolerable": {
+   "pos": "adjective",
+   "meaning": "So bad that you cannot bear it."
+  },
+  "winch": {
+   "pos": "noun",
+   "meaning": "A tool with a handle that you turn, used to move heavy things up or take metal pieces apart."
+  },
+  "unscrew": {
+   "pos": "verb",
+   "meaning": "To take out by turning."
+  },
+  "trace": {
+   "pos": "noun",
+   "meaning": "One of the bands that join the horse to the vehicle it pulls."
+  },
+  "unhitch": {
+   "pos": "verb",
+   "meaning": "To set a horse free from the vehicle it pulls."
+  },
+  "confound": {
+   "pos": "verb",
+   "meaning": "A word people say when they are very angry at something, a bit like 'bother it!'"
+  },
+  "sorely": {
+   "pos": "adverb",
+   "meaning": "Very much."
+  },
+  "lotion": {
+   "pos": "noun",
+   "meaning": "A liquid that you put on the skin to make it better."
+  },
+  "sponge": {
+   "pos": "verb",
+   "meaning": "To clean something with a soft thing that holds water.",
+   "forms": [
+    "sponged"
+   ]
+  },
+  "bruised": {
+   "pos": "adjective",
+   "meaning": "Having a dark place on the skin from being hit.",
+   "forms": [
+    "bruises"
+   ]
+  },
+  "constrained": {
+   "pos": "adjective",
+   "meaning": "Held in a place with no freedom to move."
+  },
+  "depressed": {
+   "pos": "adjective",
+   "meaning": "Very sad and without energy."
+  },
+  "foam": {
+   "pos": "verb",
+   "meaning": "To have white bubbles at the mouth."
+  },
+  "harass": {
+   "pos": "verb",
+   "meaning": "To trouble someone again and again.",
+   "forms": [
+    "harassed"
+   ]
+  },
+  "invalid": {
+   "pos": "noun",
+   "meaning": "A person who is ill or weak for a long time."
+  },
+  "horsewoman": {
+   "pos": "noun",
+   "meaning": "A woman who rides horses well."
+  },
+  "thoroughbred": {
+   "pos": "adjective",
+   "meaning": "Having a long line of fine racing horses as its family."
+  },
+  "sidesaddle": {
+   "pos": "noun",
+   "meaning": "A seat for a horse made so that a woman can sit with both legs on one side."
+  },
+  "amiable": {
+   "pos": "adjective",
+   "meaning": "Friendly and kind."
+  },
+  "curb": {
+   "pos": "noun",
+   "meaning": "A band under a horse's mouth that works with the bit to give the driver more control."
+  },
+  "evergreen": {
+   "pos": "noun",
+   "meaning": "A tree that keeps its green leaves all through the year.",
+   "forms": [
+    "evergreens"
+   ]
+  },
+  "alight": {
+   "pos": "verb",
+   "meaning": "To get down from a horse or a vehicle.",
+   "forms": [
+    "alighted"
+   ]
+  },
+  "frolicsome": {
+   "pos": "adjective",
+   "meaning": "Playful and full of life."
+  },
+  "bolt": {
+   "pos": "verb",
+   "meaning": "To run away suddenly, in fear.",
+   "forms": [
+    "bolted"
+   ]
+  },
+  "blunder": {
+   "pos": "verb",
+   "meaning": "To move in a heavy, careless way and hit things.",
+   "forms": [
+    "blundered"
+   ]
+  },
+  "headlong": {
+   "pos": "adjective",
+   "meaning": "Very fast and without care."
+  },
+  "unseat": {
+   "pos": "verb",
+   "meaning": "To make a rider fall from a horse.",
+   "forms": [
+    "unseated"
+   ]
+  },
+  "heather": {
+   "pos": "noun",
+   "meaning": "A low plant that grows on open hills and covers the ground."
+  },
+  "furze": {
+   "pos": "noun",
+   "meaning": "A wild plant with many sharp points and bright yellow colour when it is in flower."
+  },
+  "dike": {
+   "pos": "noun",
+   "meaning": "A long, narrow hole cut in the ground, often with water in it."
+  },
+  "clod": {
+   "pos": "noun",
+   "meaning": "A hard piece of earth.",
+   "forms": [
+    "clods"
+   ]
+  },
+  "ghastly": {
+   "pos": "adjective",
+   "meaning": "Looking very white and ill, like a dead person."
+  },
+  "overtake": {
+   "pos": "verb",
+   "meaning": "To catch up with someone and pass them."
+  },
+  "veterinary": {
+   "pos": "adjective",
+   "meaning": "To do with the care of sick animals, as a doctor for animals does."
+  },
+  "tandem": {
+   "pos": "noun",
+   "meaning": "A vehicle pulled by two horses, one in front of the other."
+  },
+  "bout": {
+   "pos": "noun",
+   "meaning": "A short time of doing something, here drinking too much."
+  },
+  "hush": {
+   "pos": "verb",
+   "meaning": "To keep quiet; 'hushed up' means kept secret.",
+   "forms": [
+    "hushed"
+   ]
+  },
+  "dismiss": {
+   "pos": "verb",
+   "meaning": "To tell a worker that he must leave his job.",
+   "forms": [
+    "dismissed"
+   ]
+  },
+  "intercede": {
+   "pos": "verb",
+   "meaning": "To ask someone with power to be kind to another person.",
+   "forms": [
+    "interceded"
+   ]
+  },
+  "brougham": {
+   "pos": "noun",
+   "meaning": "A closed vehicle with four round rolling parts, pulled by one horse."
+  },
+  "prig": {
+   "pos": "noun",
+   "meaning": "A person who thinks he is better than others."
+  },
+  "turnpike": {
+   "pos": "noun",
+   "meaning": "A place on a road where people stop and pay money to go through."
+  },
+  "quick": {
+   "pos": "adjective",
+   "meaning": "Fast; taking a short time.",
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "Fast; taking a short time.",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "The soft part of a horse's foot under the hard outside, which feels pain easily.",
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "quick",
+       "context": "down to the very quick, and the inside was"
+      }
+     ]
+    }
+   ]
+  },
+  "nightingale": {
+   "pos": "noun",
+   "meaning": "A small brown bird that sings at night."
+  },
+  "flit": {
+   "pos": "verb",
+   "meaning": "To fly or move quickly from place to place.",
+   "forms": [
+    "flitted"
+   ]
+  },
+  "offhand": {
+   "pos": "adjective",
+   "meaning": "Showing no care; speaking in a rough, quick way."
+  },
+  "poultice": {
+   "pos": "noun",
+   "meaning": "A soft, warm, wet mix put on a hurt place to make it better."
+  },
+  "blemish": {
+   "pos": "noun",
+   "meaning": "A bad spot on the skin that makes something look worse."
+  },
+  "caustic": {
+   "pos": "noun",
+   "meaning": "A very strong thing that eats into the skin, once used by doctors on hurt places."
+  },
+  "blister": {
+   "pos": "verb",
+   "meaning": "To make the skin rise up with water under it.",
+   "forms": [
+    "blistering"
+   ]
+  },
+  "inquest": {
+   "pos": "noun",
+   "meaning": "An official meeting to find out why someone died."
+  },
+  "intoxicated": {
+   "pos": "adjective",
+   "meaning": "Drunk."
+  },
+  "hobble": {
+   "pos": "verb",
+   "meaning": "To walk with pain or trouble, with small, uneven steps.",
+   "forms": [
+    "hobbled"
+   ]
+  },
+  "distinguish": {
+   "pos": "verb",
+   "meaning": "To tell one thing from another by hearing or seeing."
+  },
+  "pity": {
+   "pos": "noun",
+   "meaning": "A sad thing, or a feeling of being sorry for someone. 'What a pity' means 'how sad'.",
+   "forms": [
+    "pitied"
+   ],
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A sad thing, or a feeling of being sorry for someone. 'What a pity' means 'how sad'.",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "To feel sorry for someone.",
+     "anchors": [
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "pitied",
+       "context": "Everybody pitied Susan. She was nearly"
+      }
+     ]
+    }
+   ]
+  },
+  "cursed": {
+   "pos": "adjective",
+   "meaning": "Very bad; hated."
+  },
+  "gloomy": {
+   "pos": "adjective",
+   "meaning": "Dark and sad."
+  },
+  "steeplechase": {
+   "pos": "noun",
+   "meaning": "A horse race across open land, with walls and holes to jump over."
+  },
+  "foremost": {
+   "pos": "adjective",
+   "meaning": "Ahead of the others; first."
+  },
+  "utmost": {
+   "pos": "noun",
+   "meaning": "The most that you can do."
+  },
+  "prime": {
+   "pos": "noun",
+   "meaning": "The best time of life, when you are strongest."
+  },
+  "drunkard": {
+   "pos": "noun",
+   "meaning": "A person who drinks too much beer or wine and is often drunk."
+  },
+  "lime": {
+   "pos": "noun",
+   "meaning": "A tall tree with soft green leaves."
+  },
+  "twelvemonth": {
+   "pos": "noun",
+   "meaning": "A year."
+  },
+  "recommendation": {
+   "pos": "noun",
+   "meaning": "A good word said for someone to help him get a job or a place."
+  },
+  "warrant": {
+   "pos": "noun",
+   "meaning": "Something that gives good reason to trust."
+  },
+  "horsebox": {
+   "pos": "noun",
+   "meaning": "A closed box on a train that carries a horse."
+  },
+  "tolerably": {
+   "pos": "adverb",
+   "meaning": "Fairly well, but not very well."
+  },
+  "fatiguing": {
+   "pos": "adjective",
+   "meaning": "Making you very tired."
+  },
+  "slope": {
+   "pos": "noun",
+   "meaning": "A surface that goes up or down, not flat."
+  },
+  "hire": {
+   "pos": "verb",
+   "meaning": "To pay to use something for a short time. 'For hire' means that you can use it if you pay."
+  },
+  "insensible": {
+   "pos": "adjective",
+   "meaning": "Not able to feel."
+  },
+  "relax": {
+   "pos": "verb",
+   "meaning": "To let go; to stop pulling hard.",
+   "forms": [
+    "relaxing"
+   ]
+  },
+  "slovenly": {
+   "pos": "adjective",
+   "meaning": "Careless in the way you work or dress."
+  },
+  "phaeton": {
+   "pos": "noun",
+   "meaning": "A light open vehicle with four big rolling parts, pulled by one or two horses."
+  },
+  "flop": {
+   "pos": "verb",
+   "meaning": "To let something move up and down in a weak way, without care.",
+   "forms": [
+    "flopped"
+   ]
+  },
+  "wedge": {
+   "pos": "verb",
+   "meaning": "To push something hard into a narrow space so that it cannot move.",
+   "forms": [
+    "wedged"
+   ]
+  },
+  "frog": {
+   "pos": "noun",
+   "meaning": "The soft part under the middle of a horse's foot."
+  },
+  "liable": {
+   "pos": "adjective",
+   "meaning": "Likely to do something bad."
+  },
+  "flip": {
+   "pos": "verb",
+   "meaning": "To move something with a quick, light hit.",
+   "forms": [
+    "flipped"
+   ]
+  },
+  "dislodge": {
+   "pos": "verb",
+   "meaning": "To move something out of the place where it is stuck."
+  },
+  "contemptuously": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you think someone is not worth your respect."
+  },
+  "lameness": {
+   "pos": "noun",
+   "meaning": "Not being able to walk well because of a hurt leg or foot."
+  },
+  "cockney": {
+   "pos": "noun",
+   "meaning": "A person from London, here used by the horse for people from the city who do not know horses.",
+   "forms": [
+    "cockneys"
+   ]
+  },
+  "plied": {
+   "pos": "past-tense verb",
+   "meaning": "Used hard and many times; here the driver keeps hitting the horse."
+  },
+  "slash": {
+   "pos": "noun",
+   "meaning": "A long, quick cut or hit."
+  },
+  "considerate": {
+   "pos": "adjective",
+   "meaning": "Careful about what others feel and need."
+  },
+  "consideration": {
+   "pos": "noun",
+   "meaning": "Care about what other people feel and need."
+  },
+  "jag": {
+   "pos": "verb",
+   "meaning": "To pull hard with a sudden pull that hurts.",
+   "forms": [
+    "jagged"
+   ]
+  },
+  "shaft": {
+   "pos": "noun",
+   "meaning": "One of the two long pieces of wood between which a horse stands to pull a vehicle."
+  },
+  "stagger": {
+   "pos": "verb",
+   "meaning": "To move as if you will fall."
+  },
+  "dun": {
+   "pos": "adjective",
+   "meaning": "A brown-yellow colour; used of horses."
+  },
+  "dappled": {
+   "pos": "adjective",
+   "meaning": "Covered with spots of a darker or lighter colour."
+  },
+  "desponding": {
+   "pos": "adjective",
+   "meaning": "Sad and without hope."
+  },
+  "shuffling": {
+   "pos": "adjective",
+   "meaning": "Moving with the feet low on the ground, in short, slow steps."
+  },
+  "clergyman": {
+   "pos": "noun",
+   "meaning": "A man who works for the church and leads its services."
+  },
+  "capital": {
+   "pos": "adjective",
+   "meaning": "Very good."
+  },
+  "shindy": {
+   "pos": "noun",
+   "meaning": "A loud noise and trouble made by people."
+  },
+  "disabled": {
+   "pos": "adjective",
+   "meaning": "Not able to do things because of a hurt body."
+  },
+  "vetch": {
+   "pos": "noun",
+   "meaning": "A small plant that is grown as food for animals.",
+   "forms": [
+    "vetches"
+   ]
+  },
+  "rye": {
+   "pos": "noun",
+   "meaning": "A plant grown for its grain. Here it is a kind of grass that is food for horses."
+  },
+  "fiddlesticks": {
+   "pos": "interjection",
+   "meaning": "A word used to say that something is silly or not true."
+  },
+  "scoundrel": {
+   "pos": "noun",
+   "meaning": "A bad man who does wrong things.",
+   "forms": [
+    "scoundrels"
+   ]
+  },
+  "stint": {
+   "pos": "verb",
+   "meaning": "To give too little of something."
+  },
+  "ajar": {
+   "pos": "adjective",
+   "meaning": "A little open."
+  },
+  "bin": {
+   "pos": "noun",
+   "meaning": "A big box for keeping food, such as grain."
+  },
+  "bluster": {
+   "pos": "verb",
+   "meaning": "To talk in a loud, angry way when you are in the wrong.",
+   "forms": [
+    "blustered"
+   ]
+  },
+  "lockup": {
+   "pos": "noun",
+   "meaning": "A small prison, where people are held for a short time."
+  },
+  "cultivate": {
+   "pos": "verb",
+   "meaning": "To grow plants for use.",
+   "forms": [
+    "cultivated"
+   ]
+  },
+  "fatten": {
+   "pos": "verb",
+   "meaning": "To feed animals so that they become fat.",
+   "forms": [
+    "fattened"
+   ]
+  },
+  "poultry": {
+   "pos": "noun",
+   "meaning": "Birds, such as chickens, that people keep for eggs and meat."
+  },
+  "humbug": {
+   "pos": "noun",
+   "meaning": "A person who says he is good or kind but is not."
+  },
+  "civil": {
+   "pos": "adjective",
+   "meaning": "Polite."
+  },
+  "rusty": {
+   "pos": "adjective",
+   "meaning": "Covered with red-brown spots because of water on metal."
+  },
+  "whiskers": {
+   "pos": "plural noun",
+   "meaning": "Hair that grows on a man's face, at the sides."
+  },
+  "conceited": {
+   "pos": "adjective",
+   "meaning": "Too proud of yourself."
+  },
+  "indolent": {
+   "pos": "adjective",
+   "meaning": "Not wanting to work or move."
+  },
+  "vapor": {
+   "pos": "noun",
+   "meaning": "A gas that comes up from something wet or bad.",
+   "forms": [
+    "vapors"
+   ]
+  },
+  "inflame": {
+   "pos": "verb",
+   "meaning": "To make a part of the body red, hot and painful."
+  },
+  "scrub": {
+   "pos": "noun",
+   "meaning": "A very hard cleaning, done with a lot of strong work."
+  },
+  "drain": {
+   "pos": "noun",
+   "meaning": "A way under the ground that carries used water away from a building.",
+   "forms": [
+    "drains"
+   ]
+  },
+  "bricklayer": {
+   "pos": "noun",
+   "meaning": "A man whose job is to build walls from small hard blocks."
+  },
+  "amiss": {
+   "pos": "adjective",
+   "meaning": "Wrong."
+  },
+  "feverish": {
+   "pos": "adjective",
+   "meaning": "Hot and ill, as when your body is too hot because of illness."
+  },
+  "thrush": {
+   "pos": "noun",
+   "meaning": "A painful illness of a horse's foot that comes when it stands in wet and bad places."
+  },
+  "liniment": {
+   "pos": "noun",
+   "meaning": "A liquid that you put on a painful place to make it better."
+  },
+  "tow": {
+   "pos": "noun",
+   "meaning": "Rough pieces from a plant, pressed into a hole."
+  },
+  "disgusted": {
+   "pos": "adjective",
+   "meaning": "Angry and upset because of something bad."
+  },
+  "marsh": {
+   "pos": "noun",
+   "meaning": "Soft, wet land.",
+   "forms": [
+    "marshes"
+   ]
+  },
+  "drove": {
+   "pos": "verb",
+   "meaning": "Past of 'drive': made a horse or vehicle go along.",
+   "forms": [
+    "droves"
+   ],
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "Past of 'drive': made a horse or vehicle go along.",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "A group of animals that are driven together.",
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "droves",
+       "context": "from the marshes; and droves of shaggy little Welsh"
+      }
+     ]
+    }
+   ]
+  },
+  "shaggy": {
+   "pos": "adjective",
+   "meaning": "Having long, rough hair."
+  },
+  "braid": {
+   "pos": "verb",
+   "meaning": "To join three parts of hair together by crossing them over and over.",
+   "forms": [
+    "braided"
+   ]
+  },
+  "knuckle": {
+   "pos": "verb",
+   "meaning": "To bend. 'Knuckling over' is when a horse's leg bends forward at the joint.",
+   "forms": [
+    "knuckling"
+   ]
+  },
+  "dejected": {
+   "pos": "adjective",
+   "meaning": "Sad and without hope."
+  },
+  "trickery": {
+   "pos": "noun",
+   "meaning": "Clever lies and plans used to take money from people."
+  },
+  "flashy": {
+   "pos": "adjective",
+   "meaning": "Very bright to look at, but not of good quality."
+  },
+  "hayloft": {
+   "pos": "noun",
+   "meaning": "A room high up where dry grass for horses is kept."
+  },
+  "salesman": {
+   "pos": "noun",
+   "meaning": "A man whose job is to sell things."
+  },
+  "monstrous": {
+   "pos": "adjective",
+   "meaning": "Very big or very bad."
+  },
+  "thoroughfare": {
+   "pos": "noun",
+   "meaning": "A main road, with a lot of traffic."
+  },
+  "sixpence": {
+   "pos": "noun",
+   "meaning": "An old piece of British money; a small amount."
+  },
+  "governor": {
+   "pos": "noun",
+   "meaning": "A name used in a friendly way for an older man or a master."
+  },
+  "dumpling": {
+   "pos": "noun",
+   "meaning": "A small ball of soft, cooked food."
+  },
+  "plump": {
+   "pos": "adjective",
+   "meaning": "Round and a little fat, in a nice way."
+  },
+  "trim": {
+   "pos": "adjective",
+   "meaning": "Looking clean and well kept."
+  },
+  "frank": {
+   "pos": "adjective",
+   "meaning": "Open and honest in speaking."
+  },
+  "cavalry": {
+   "pos": "noun",
+   "meaning": "Soldiers who fight on horses."
+  },
+  "hereafter": {
+   "pos": "adverb",
+   "meaning": "Later; after this."
+  },
+  "brick": {
+   "pos": "noun",
+   "meaning": "Here, a word for a very good person that you can trust."
+  },
+  "snaffle": {
+   "pos": "noun",
+   "meaning": "A simple, mild kind of bit for a horse, with a ring at each side."
+  },
+  "palisades": {
+   "pos": "plural noun",
+   "meaning": "A line of tall iron or wood posts that stops people from going through."
+  },
+  "rank": {
+   "pos": "noun",
+   "meaning": "A line of vehicles waiting to take people for money, one behind another.",
+   "forms": [
+    "ranks"
+   ],
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A line of vehicles waiting to take people for money, one behind another.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "rank",
+       "context": "pulled up in the rank at the back of"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "rank",
+       "context": "Jerry’s return to the rank there was a good"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "form": "rank",
+       "context": "who came to our rank with tins of hot"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "rank",
+       "context": "station than for this rank"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "rank",
+       "context": "poor fellows in our rank if they saw you"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 2,
+       "form": "rank",
+       "context": "at standing in the rank, but he confessed to"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "A person's place or level in society.",
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "rank",
+       "context": "gentlemen of his own rank as to those below"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "A line of soldiers or horses side by side.",
+     "anchors": [
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "ranks",
+       "context": "wildly out of the ranks; then terrified at being"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "form": "ranks",
+       "context": "back. Every moment the ranks were thinned, but as"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 3,
+       "form": "ranks",
+       "context": "to join in the ranks and gallop with them"
+      }
+     ]
+    }
+   ]
+  },
+  "comforter": {
+   "pos": "noun",
+   "meaning": "A long, warm cloth worn round the neck."
+  },
+  "grunt": {
+   "pos": "noun",
+   "meaning": "A short, low sound made in the throat."
+  },
+  "dispute": {
+   "pos": "noun",
+   "meaning": "An angry talk between people who do not agree.",
+   "forms": [
+    "disputes"
+   ]
+  },
+  "moisten": {
+   "pos": "verb",
+   "meaning": "To make something a little wet."
+  },
+  "gulp": {
+   "pos": "verb",
+   "meaning": "To swallow quickly and in big amounts."
+  },
+  "bucketful": {
+   "pos": "noun",
+   "meaning": "As much as a large water container with a handle can hold."
+  },
+  "noble": {
+   "pos": "adjective",
+   "meaning": "Having a good, fine character and appearance."
+  },
+  "olden": {
+   "pos": "adjective",
+   "meaning": "Of old; from long ago."
+  },
+  "trying": {
+   "pos": "verb",
+   "meaning": "Making an effort to do something.",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "Making an effort to do something.",
+     "default": true
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Hard to bear; causing trouble or worry.",
+     "anchors": [
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "trying",
+       "context": "cab horse was very trying. I had never been"
+      }
+     ]
+    }
+   ]
+  },
+  "halt": {
+   "pos": "verb",
+   "meaning": "To stop.",
+   "forms": [
+    "halting"
+   ]
+  },
+  "trumpet": {
+   "pos": "noun",
+   "meaning": "A shiny metal thing that makes a loud, clear sound when air is sent through it with the mouth."
+  },
+  "vessel": {
+   "pos": "noun",
+   "meaning": "A large boat; a ship."
+  },
+  "haul": {
+   "pos": "verb",
+   "meaning": "To pull with force.",
+   "forms": [
+    "hauled"
+   ]
+  },
+  "hardship": {
+   "pos": "noun",
+   "meaning": "A thing that makes life hard, such as cold, pain or having no food.",
+   "forms": [
+    "hardships"
+   ]
+  },
+  "bullet": {
+   "pos": "noun",
+   "meaning": "A small piece of metal shot from a gun.",
+   "forms": [
+    "bullets"
+   ]
+  },
+  "bombshell": {
+   "pos": "noun",
+   "meaning": "A metal ball shot from a big gun that breaks into pieces.",
+   "forms": [
+    "bombshells"
+   ]
+  },
+  "lance": {
+   "pos": "noun",
+   "meaning": "A long stick with a sharp metal point, used as a weapon by soldiers on horses.",
+   "forms": [
+    "lances"
+   ]
+  },
+  "gash": {
+   "pos": "verb",
+   "meaning": "To make a long, deep cut.",
+   "forms": [
+    "gashed"
+   ]
+  },
+  "saber": {
+   "pos": "noun",
+   "meaning": "A heavy sword that is curved."
+  },
+  "caparison": {
+   "pos": "verb",
+   "meaning": "To dress a horse in its full covering and fine things for a special day or a war.",
+   "forms": [
+    "caparisoned"
+   ]
+  },
+  "champ": {
+   "pos": "verb",
+   "meaning": "To bite on something again and again with a loud sound.",
+   "forms": [
+    "champing"
+   ]
+  },
+  "musket": {
+   "pos": "noun",
+   "meaning": "An old kind of gun with a long, thin front part."
+  },
+  "charge": {
+   "pos": "noun",
+   "meaning": "A fast attack by soldiers who run or ride at the enemy.",
+   "forms": [
+    "charges"
+   ],
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A fast attack by soldiers who run or ride at the enemy.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "be in a bayonet charge against the enemy, when"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "I was ready to charge up to the very"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "form": "charge",
+       "context": "tell of the last charge that we made together"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 3,
+       "form": "charge",
+       "context": "with them to the charge"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 4,
+       "form": "charge",
+       "context": "the force of their charge I was driven from"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "The job of looking after someone or something. 'In charge' means looking after it.",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "children are under my charge when they are riding"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "rather have them in charge with him than with"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "was to have full charge of him, under John"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "groom was left in charge"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "who was left in charge of the stables when"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "I give him in charge to you"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 2,
+       "form": "charge",
+       "context": "was proud of his charge, and undertook it in"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To ask a price for something. A 'charge' is the price that is asked.",
+     "anchors": [
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "with the masters who charge us so much, or"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 2,
+       "form": "charge",
+       "context": "I haven’t. We can’t charge more than sixpence a"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "were angry at the charge; however, as Jerry never"
+      }
+     ]
+    }
+   ]
+  },
+  "comrade": {
+   "pos": "noun",
+   "meaning": "A friend who fights or works with you.",
+   "forms": [
+    "comrades"
+   ]
+  },
+  "whiz": {
+   "pos": "verb",
+   "meaning": "To make a high sound as it flies very fast through the air.",
+   "forms": [
+    "whizzing"
+   ]
+  },
+  "slaughter": {
+   "pos": "noun",
+   "meaning": "The killing of many people or animals."
+  },
+  "shatter": {
+   "pos": "verb",
+   "meaning": "To break into many small pieces.",
+   "forms": [
+    "shattered"
+   ]
+  },
+  "quarrel": {
+   "pos": "noun",
+   "meaning": "An angry talk between people who do not agree."
+  },
+  "loiter": {
+   "pos": "verb",
+   "meaning": "To stand or walk around slowly with no reason.",
+   "forms": [
+    "loitering"
+   ]
+  },
+  "tavern": {
+   "pos": "noun",
+   "meaning": "A place where people go to drink beer and wine."
+  },
+  "cabby": {
+   "pos": "noun",
+   "meaning": "A man whose job is to drive a horse vehicle that people pay to use."
+  },
+  "jaded": {
+   "pos": "adjective",
+   "meaning": "Very tired from too much work."
+  },
+  "fare": {
+   "pos": "noun",
+   "meaning": "A person who pays to be driven somewhere; also the money that he pays."
+  },
+  "portmanteau": {
+   "pos": "noun",
+   "meaning": "A big bag or case that people use for clothes on trips."
+  },
+  "stun": {
+   "pos": "verb",
+   "meaning": "To hit someone so hard that he cannot think clearly.",
+   "forms": [
+    "stunned"
+   ]
+  },
+  "chirrup": {
+   "pos": "noun",
+   "meaning": "A short, light sound made with the mouth to tell a horse to go."
+  },
+  "wagon": {
+   "pos": "noun",
+   "meaning": "A big vehicle with four rolling parts, pulled by horses, for carrying heavy things.",
+   "forms": [
+    "wagons"
+   ]
+  },
+  "chaff": {
+   "pos": "verb",
+   "meaning": "To make fun of someone in a friendly way.",
+   "forms": [
+    "chaffing"
+   ]
+  },
+  "gammon": {
+   "pos": "interjection",
+   "meaning": "A word used to say 'That is not true!'"
+  },
+  "pocket": {
+   "pos": "noun",
+   "meaning": "A small part of clothes, shaped like a bag, where you keep small things."
+  },
+  "porter": {
+   "pos": "noun",
+   "meaning": "A person who carries bags at a station."
+  },
+  "slyly": {
+   "pos": "adverb",
+   "meaning": "In a secret way, as if you know something that others do not."
+  },
+  "commandment": {
+   "pos": "noun",
+   "meaning": "A rule that God gave to people to follow.",
+   "forms": [
+    "commandments"
+   ]
+  },
+  "shafts": {
+   "pos": "plural noun",
+   "meaning": "The two long pieces of wood between which a horse stands to pull a vehicle."
+  },
+  "license": {
+   "pos": "noun",
+   "meaning": "A paper from the government that says you may do something, such as drive a vehicle for money."
+  },
+  "alter": {
+   "pos": "verb",
+   "meaning": "To change."
+  },
+  "oblige": {
+   "pos": "verb",
+   "meaning": "To do a kind thing for someone."
+  },
+  "worship": {
+   "pos": "noun",
+   "meaning": "The act of showing love and respect to God, for example in church."
+  },
+  "bade": {
+   "pos": "past-tense verb",
+   "meaning": "Told someone to do something."
+  },
+  "savings": {
+   "pos": "noun",
+   "meaning": "Money that you keep and do not spend."
+  },
+  "sovereign": {
+   "pos": "noun",
+   "meaning": "An old British piece of gold money."
+  },
+  "cabman": {
+   "pos": "noun",
+   "meaning": "A man whose job is to drive a horse vehicle that people pay to use.",
+   "forms": [
+    "cabmen"
+   ]
+  },
+  "applaud": {
+   "pos": "verb",
+   "meaning": "To show that you like something by hitting your hands together.",
+   "forms": [
+    "applauded"
+   ]
+  },
+  "foundling": {
+   "pos": "noun",
+   "meaning": "A baby that someone has found, left by its parents."
+  },
+  "mackintosh": {
+   "pos": "noun",
+   "meaning": "A coat that keeps out the rain.",
+   "forms": [
+    "mackintoshes"
+   ]
+  },
+  "chapel": {
+   "pos": "noun",
+   "meaning": "A small church."
+  },
+  "privilege": {
+   "pos": "noun",
+   "meaning": "A special right that only some people have.",
+   "forms": [
+    "privileges"
+   ]
+  },
+  "horrid": {
+   "pos": "adjective",
+   "meaning": "Very bad and unpleasant."
+  },
+  "minister": {
+   "pos": "noun",
+   "meaning": "A person who leads the services in a church."
+  },
+  "sermon": {
+   "pos": "noun",
+   "meaning": "A talk about right and wrong that a minister gives in church."
+  },
+  "trap": {
+   "pos": "noun",
+   "meaning": "A light open vehicle with two big round parts that roll, pulled by one horse."
+  },
+  "hawthorn": {
+   "pos": "noun",
+   "meaning": "A small tree with sharp points on it that is white in spring when it is in flower."
+  },
+  "spray": {
+   "pos": "noun",
+   "meaning": "A small piece of a plant with leaves and a flower on it.",
+   "forms": [
+    "sprays"
+   ]
+  },
+  "ivy": {
+   "pos": "noun",
+   "meaning": "A plant with green leaves that grows up walls and trees."
+  },
+  "hymn": {
+   "pos": "noun",
+   "meaning": "A song for singing in church to God.",
+   "forms": [
+    "hymns"
+   ]
+  },
+  "cowshed": {
+   "pos": "noun",
+   "meaning": "A small building where farm animals that give milk are kept."
+  },
+  "pinch": {
+   "pos": "verb",
+   "meaning": "To cause trouble or pain; 'that's where it pinches' means that is the hard part."
+  },
+  "sheer": {
+   "pos": "adjective",
+   "meaning": "Complete; nothing but."
+  },
+  "tut": {
+   "pos": "interjection",
+   "meaning": "A sound made to show that you are not happy about something."
+  },
+  "compliments": {
+   "pos": "plural noun",
+   "meaning": "Polite words that show someone is thinking of you."
+  },
+  "sleet": {
+   "pos": "noun",
+   "meaning": "Cold rain with small bits of ice in it."
+  },
+  "keen": {
+   "pos": "adjective",
+   "meaning": "Very sharp and cold, as a wind."
+  },
+  "waterproof": {
+   "pos": "adjective",
+   "meaning": "Not letting water through."
+  },
+  "exhausting": {
+   "pos": "adjective",
+   "meaning": "Making someone very tired."
+  },
+  "rough": {
+   "pos": "adjective",
+   "meaning": "Not smooth or gentle; hard.",
+   "forms": [
+    "roughed"
+   ],
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "Not smooth or gentle; hard.",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "Of a horse's shoes: made with sharp parts, so that the horse can walk on ice without falling.",
+     "anchors": [
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "form": "roughed",
+       "context": "indeed our shoes are roughed, but that makes us"
+      }
+     ]
+    }
+   ]
+  },
+  "tin": {
+   "pos": "noun",
+   "meaning": "A metal can or box for food.",
+   "forms": [
+    "tins"
+   ]
+  },
+  "pudding": {
+   "pos": "noun",
+   "meaning": "A sweet, soft food, eaten after the main food."
+  },
+  "basin": {
+   "pos": "noun",
+   "meaning": "A round, deep bowl for food or water."
+  },
+  "vaults": {
+   "pos": "plural noun",
+   "meaning": "Rooms under a building, used to keep wine."
+  },
+  "arrest": {
+   "pos": "verb",
+   "meaning": "To take someone away because he has broken the law.",
+   "forms": [
+    "arrested"
+   ]
+  },
+  "brutal": {
+   "pos": "adjective",
+   "meaning": "Very rough and unkind."
+  },
+  "abusive": {
+   "pos": "adjective",
+   "meaning": "Using rude and angry words."
+  },
+  "wrongdoer": {
+   "pos": "noun",
+   "meaning": "A person who does bad things."
+  },
+  "doctrine": {
+   "pos": "noun",
+   "meaning": "An idea or rule that a person holds to be true and teaches to others."
+  },
+  "guilt": {
+   "pos": "noun",
+   "meaning": "The fact of having done wrong."
+  },
+  "thronged": {
+   "pos": "adjective",
+   "meaning": "Full of people."
+  },
+  "grim": {
+   "pos": "adjective",
+   "meaning": "Serious and unfriendly."
+  },
+  "shabby": {
+   "pos": "adjective",
+   "meaning": "Old, worn and in poor condition."
+  },
+  "tattered": {
+   "pos": "adjective",
+   "meaning": "Old and broken into pieces at the edges, with holes."
+  },
+  "desperate": {
+   "pos": "adjective",
+   "meaning": "Very bad; showing no hope. Also: willing to do anything because things are so bad."
+  },
+  "pledge": {
+   "pos": "verb",
+   "meaning": "To give something to a person in return for money, to get it back later."
+  },
+  "radius": {
+   "pos": "noun",
+   "meaning": "The area within a certain distance from a place."
+  },
+  "twopence": {
+   "pos": "noun",
+   "meaning": "An old piece of British money; a very small amount.",
+   "forms": [
+    "twopences"
+   ]
+  },
+  "mockery": {
+   "pos": "noun",
+   "meaning": "Something that makes fun of a person or a serious thing in an unkind way."
+  },
+  "gentry": {
+   "pos": "noun",
+   "meaning": "Rich people, who have a high place in the country."
+  },
+  "overcharge": {
+   "pos": "verb",
+   "meaning": "To ask for too much money.",
+   "forms": [
+    "overcharging"
+   ]
+  },
+  "pickpocket": {
+   "pos": "noun",
+   "meaning": "A person who takes things out of the clothes of other people without asking.",
+   "forms": [
+    "pickpockets"
+   ]
+  },
+  "cram": {
+   "pos": "verb",
+   "meaning": "To push too many things into a small space."
+  },
+  "dram": {
+   "pos": "noun",
+   "meaning": "A small drink of a strong drink that makes you drunk."
+  },
+  "rave": {
+   "pos": "verb",
+   "meaning": "To talk in a wild way, as someone does when very ill and hot.",
+   "forms": [
+    "raving"
+   ]
+  },
+  "overwork": {
+   "pos": "verb",
+   "meaning": "To make a person or animal work too much."
+  },
+  "starve": {
+   "pos": "verb",
+   "meaning": "To be very hungry, or to die, because you have no food."
+  },
+  "knuckled": {
+   "pos": "adjective",
+   "meaning": "Bent forward at the joint of the leg, so that the leg cannot hold the body up well."
+  },
+  "foreleg": {
+   "pos": "noun",
+   "meaning": "One of the two front legs of an animal.",
+   "forms": [
+    "forelegs"
+   ]
+  },
+  "lock": {
+   "pos": "noun",
+   "meaning": "A small group of hairs or dry grass that stay together."
+  },
+  "glossy": {
+   "pos": "adjective",
+   "meaning": "Smooth and shiny."
+  },
+  "lank": {
+   "pos": "adjective",
+   "meaning": "Thin and soft, not firm."
+  },
+  "fetlock": {
+   "pos": "noun",
+   "meaning": "The part of a horse's leg just above its foot, where there is often long hair.",
+   "forms": [
+    "fetlocks"
+   ]
+  },
+  "heave": {
+   "pos": "verb",
+   "meaning": "To move up and down with effort, as sides do when taking in air hard.",
+   "forms": [
+    "heaving"
+   ]
+  },
+  "sidle": {
+   "pos": "verb",
+   "meaning": "To move to the side slowly, as if you do not want to be seen.",
+   "forms": [
+    "sidled"
+   ]
+  },
+  "knacker": {
+   "pos": "noun",
+   "meaning": "A man who buys old horses and kills them.",
+   "forms": [
+    "knackers"
+   ]
+  },
+  "tug": {
+   "pos": "noun",
+   "meaning": "A hard pull."
+  },
+  "merciful": {
+   "pos": "adjective",
+   "meaning": "Kind to those who are in pain."
+  },
+  "sunken": {
+   "pos": "adjective",
+   "meaning": "Low and pushed in, deeper than it should be."
+  },
+  "lifeless": {
+   "pos": "adjective",
+   "meaning": "Without life."
+  },
+  "doctor": {
+   "pos": "noun",
+   "meaning": "A person whose job is to help sick people get well.",
+   "forms": [
+    "doctored"
+   ],
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A person whose job is to help sick people get well.",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "To give medicine or care to a sick animal or person.",
+     "anchors": [
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "form": "doctored",
+       "context": "after being rested and doctored she was again sold"
+      }
+     ]
+    }
+   ]
+  },
+  "reasonably": {
+   "pos": "adverb",
+   "meaning": "In a fair way."
+  },
+  "belly": {
+   "pos": "noun",
+   "meaning": "The part of an animal's body that faces the ground."
+  },
+  "displeased": {
+   "pos": "adjective",
+   "meaning": "Not happy; a little angry."
+  },
+  "bail": {
+   "pos": "noun",
+   "meaning": "Money paid so that someone does not have to stay in prison before a trial."
+  },
+  "sullen": {
+   "pos": "adjective",
+   "meaning": "Angry and not wanting to speak."
+  },
+  "dogged": {
+   "pos": "adjective",
+   "meaning": "Firm and not willing to give up."
+  },
+  "mutton": {
+   "pos": "noun",
+   "meaning": "A kind of meat from a farm animal, often cooked for dinner."
+  },
+  "coster": {
+   "pos": "noun",
+   "meaning": "A man who sells fruit and green food from a small vehicle in the street."
+  },
+  "plod": {
+   "pos": "verb",
+   "meaning": "To walk slowly with heavy steps."
+  },
+  "accord": {
+   "pos": "noun",
+   "meaning": "A person's own will; 'of his own accord' means without being told."
+  },
+  "election": {
+   "pos": "noun",
+   "meaning": "A time when people vote to choose a person to make laws for the country."
+  },
+  "vote": {
+   "pos": "noun",
+   "meaning": "A choice that a person makes to help decide who will lead or make the laws."
+  },
+  "voter": {
+   "pos": "noun",
+   "meaning": "A person who has a vote.",
+   "forms": [
+    "voters"
+   ]
+  },
+  "insult": {
+   "pos": "noun",
+   "meaning": "A rude word or act that hurts someone's feelings."
+  },
+  "conscience": {
+   "pos": "noun",
+   "meaning": "The sense inside you of what is right and wrong."
+  },
+  "frock": {
+   "pos": "noun",
+   "meaning": "A girl's dress."
+  },
+  "pinafore": {
+   "pos": "noun",
+   "meaning": "A cloth worn over a dress to keep it clean."
+  },
+  "spatter": {
+   "pos": "verb",
+   "meaning": "To cover with small drops of wet earth or water.",
+   "forms": [
+    "spattered"
+   ]
+  },
+  "ragamuffin": {
+   "pos": "noun",
+   "meaning": "A child in old clothes that are not clean."
+  },
+  "blackguard": {
+   "pos": "noun",
+   "meaning": "A bad man who is rude and not honest.",
+   "forms": [
+    "blackguards"
+   ]
+  },
+  "premises": {
+   "pos": "plural noun",
+   "meaning": "A house or other building and the land around it."
+  },
+  "poll": {
+   "pos": "noun",
+   "meaning": "A place where people go to vote."
+  },
+  "hoarse": {
+   "pos": "adjective",
+   "meaning": "Having a rough, low voice, for example after shouting."
+  },
+  "rascally": {
+   "pos": "adjective",
+   "meaning": "Bad and not honest."
+  },
+  "politics": {
+   "pos": "plural noun",
+   "meaning": "Ideas about how a country should be run."
+  },
+  "stout": {
+   "pos": "adjective",
+   "meaning": "Strong and thick. For a person it also means rather fat."
+  },
+  "puffy": {
+   "pos": "adjective",
+   "meaning": "Round and a little fat, and taking in air hard."
+  },
+  "nosebag": {
+   "pos": "noun",
+   "meaning": "A bag of food that is put over a horse's nose so it can eat."
+  },
+  "munch": {
+   "pos": "verb",
+   "meaning": "To eat with your mouth working, often with a sound."
+  },
+  "refreshing": {
+   "pos": "adjective",
+   "meaning": "Making you feel less tired and more lively."
+  },
+  "hurrah": {
+   "pos": "verb",
+   "meaning": "To shout 'Hurrah!', a happy shout of support.",
+   "forms": [
+    "hurrahing"
+   ]
+  },
+  "bewildered": {
+   "pos": "adjective",
+   "meaning": "Very surprised and not sure what to do."
+  },
+  "pining": {
+   "pos": "adjective",
+   "meaning": "Weak and sad from pain or from wanting something."
+  },
+  "dodge": {
+   "pos": "noun",
+   "meaning": "A clever plan to get out of something."
+  },
+  "stoppage": {
+   "pos": "noun",
+   "meaning": "A stop in something that was moving."
+  },
+  "veil": {
+   "pos": "noun",
+   "meaning": "A thin cloth that a woman wears over her face."
+  },
+  "buttonhole": {
+   "pos": "noun",
+   "meaning": "A small hole in a coat, where a small flower or a coloured band can be put.",
+   "forms": [
+    "buttonholes"
+   ]
+  },
+  "candidate": {
+   "pos": "noun",
+   "meaning": "A person who is trying to be chosen by votes.",
+   "forms": [
+    "candidates"
+   ]
+  },
+  "dray": {
+   "pos": "noun",
+   "meaning": "A strong, flat vehicle pulled by horses, used to carry heavy things such as beer."
+  },
+  "drayman": {
+   "pos": "noun",
+   "meaning": "A man who drives a big flat vehicle that carries heavy things."
+  },
+  "brewer": {
+   "pos": "noun",
+   "meaning": "A person who makes beer."
+  },
+  "splinter": {
+   "pos": "verb",
+   "meaning": "To break into thin, sharp pieces.",
+   "forms": [
+    "splintered"
+   ]
+  },
+  "damages": {
+   "pos": "plural noun",
+   "meaning": "Money that a court says must be paid for a wrong done to someone."
+  },
+  "compensation": {
+   "pos": "noun",
+   "meaning": "Money paid to someone for a wrong or a loss."
+  },
+  "lunatic": {
+   "pos": "noun",
+   "meaning": "A person who is mad."
+  },
+  "asylum": {
+   "pos": "noun",
+   "meaning": "An old word for a place where people with illness of the mind were kept."
+  },
+  "craving": {
+   "pos": "noun",
+   "meaning": "A very strong need or wish for something."
+  },
+  "canker": {
+   "pos": "verb",
+   "meaning": "To slowly eat away at something and make it bad."
+  },
+  "martingale": {
+   "pos": "noun",
+   "meaning": "A band that goes from under a horse's body to its head, used to keep the horse's head down."
+  },
+  "clip": {
+   "pos": "verb",
+   "meaning": "To cut the hair of a horse short.",
+   "forms": [
+    "clipped"
+   ]
+  },
+  "guinea": {
+   "pos": "noun",
+   "meaning": "An old piece of British money that was worth a lot; a 'hundred-guinea' horse was very costly."
+  },
+  "comedown": {
+   "pos": "noun",
+   "meaning": "A fall from a high place to a lower one."
+  },
+  "degrading": {
+   "pos": "adjective",
+   "meaning": "Making you lose respect for yourself."
+  },
+  "repent": {
+   "pos": "verb",
+   "meaning": "To feel sorry about something bad you did."
+  },
+  "monument": {
+   "pos": "noun",
+   "meaning": "A tall building or stone that people build so that they remember something."
+  },
+  "fine": {
+   "pos": "adjective",
+   "meaning": "Very good; of high quality.",
+   "forms": [
+    "fined"
+   ],
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "Very good; of high quality.",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "To make someone pay money because he broke a rule.",
+     "anchors": [
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "fined",
+       "context": "very drunk, and was fined, and the brewer had"
+      }
+     ]
+    }
+   ]
+  },
+  "harvest": {
+   "pos": "noun",
+   "meaning": "The time when farm plants are cut and brought in; here, a time when a lot of money is made."
+  },
+  "shiver": {
+   "pos": "verb",
+   "meaning": "To move your body in small quick moves because you are cold.",
+   "forms": [
+    "shivering"
+   ]
+  },
+  "weary": {
+   "pos": "adjective",
+   "meaning": "Very tired."
+  },
+  "punctual": {
+   "pos": "adjective",
+   "meaning": "Coming at the right time and not late."
+  },
+  "chime": {
+   "pos": "verb",
+   "meaning": "To make a clear ringing sound at set times to tell the hour.",
+   "forms": [
+    "chimed"
+   ]
+  },
+  "squall": {
+   "pos": "noun",
+   "meaning": "A short, sudden, strong wind with rain.",
+   "forms": [
+    "squalls"
+   ]
+  },
+  "numb": {
+   "pos": "adjective",
+   "meaning": "Not able to feel anything."
+  },
+  "bronchitis": {
+   "pos": "noun",
+   "meaning": "A serious illness that makes it hard to take in air."
+  },
+  "slush": {
+   "pos": "noun",
+   "meaning": "Wet, soft ice and water on the street."
+  },
+  "pageboy": {
+   "pos": "noun",
+   "meaning": "A young boy who works for a rich family and wears special clothes."
+  },
+  "henhouse": {
+   "pos": "noun",
+   "meaning": "A small building for birds that lay eggs."
+  },
+  "rubdown": {
+   "pos": "noun",
+   "meaning": "Cleaning and drying the body by pushing a cloth over it hard."
+  },
+  "consultation": {
+   "pos": "noun",
+   "meaning": "A talk between people to decide something.",
+   "forms": [
+    "consultations"
+   ]
+  },
+  "remove": {
+   "pos": "verb",
+   "meaning": "To move to a new home."
+  },
+  "whisper": {
+   "pos": "noun",
+   "meaning": "A very quiet way of speaking."
+  },
+  "puzzled": {
+   "pos": "adjective",
+   "meaning": "Not able to understand."
+  },
+  "overload": {
+   "pos": "verb",
+   "meaning": "To put too much weight on a horse or vehicle.",
+   "forms": [
+    "overloaded",
+    "overloading"
+   ]
+  },
+  "foreman": {
+   "pos": "noun",
+   "meaning": "A man in charge of a group of workers."
+  },
+  "overrule": {
+   "pos": "verb",
+   "meaning": "To say that someone else's choice or idea must not be followed.",
+   "forms": [
+    "overruled"
+   ]
+  },
+  "hundredweight": {
+   "pos": "noun",
+   "meaning": "A measure of weight; one of them is about 50 kilograms."
+  },
+  "persuasively": {
+   "pos": "adverb",
+   "meaning": "In a way that tries to make someone agree."
+  },
+  "hitch": {
+   "pos": "verb",
+   "meaning": "To fix something up in place with a band."
+  },
+  "detain": {
+   "pos": "verb",
+   "meaning": "To keep someone from going on."
+  },
+  "purblind": {
+   "pos": "adjective",
+   "meaning": "Almost not able to see."
+  },
+  "threshold": {
+   "pos": "noun",
+   "meaning": "The floor at the door of a room, where you step in."
+  },
+  "glare": {
+   "pos": "noun",
+   "meaning": "A very strong, bright light that hurts the eyes."
+  },
+  "permanent": {
+   "pos": "adjective",
+   "meaning": "Lasting for a long time or forever."
+  },
+  "depressing": {
+   "pos": "adjective",
+   "meaning": "Making you feel sad and without hope."
+  },
+  "hooked": {
+   "pos": "adjective",
+   "meaning": "Bent and curved, like the beak of a bird."
+  },
+  "harsh": {
+   "pos": "adjective",
+   "meaning": "Rough and unpleasant to hear."
+  },
+  "utter": {
+   "pos": "adjective",
+   "meaning": "Complete."
+  },
+  "niter": {
+   "pos": "noun",
+   "meaning": "A white medicine, once used to cool a sick horse."
+  },
+  "wretched": {
+   "pos": "adjective",
+   "meaning": "Very unhappy and in a bad state."
+  },
+  "beseeching": {
+   "pos": "adjective",
+   "meaning": "Asking in a way that shows you need help very much."
+  },
+  "goad": {
+   "pos": "verb",
+   "meaning": "To push or hit an animal to make it go on.",
+   "forms": [
+    "goaded"
+   ]
+  },
+  "cordial": {
+   "pos": "noun",
+   "meaning": "A drink that gives strength."
+  },
+  "linseed": {
+   "pos": "noun",
+   "meaning": "The seed of a plant, given to animals as food."
+  },
+  "exhaustion": {
+   "pos": "noun",
+   "meaning": "A state of being very tired and with no strength left."
+  },
+  "injustice": {
+   "pos": "noun",
+   "meaning": "Unfair treatment."
+  },
+  "gasping": {
+   "pos": "adjective",
+   "meaning": "Taking in air in quick, loud pulls because of trouble or pain."
+  },
+  "poverty": {
+   "pos": "noun",
+   "meaning": "The state of having very little money."
+  },
+  "tottering": {
+   "pos": "adjective",
+   "meaning": "Walking in a way that looks as if you will fall, as an old or weak person does."
+  },
+  "ruddy": {
+   "pos": "adjective",
+   "meaning": "Having a healthy, red colour in the face."
+  },
+  "grandpapa": {
+   "pos": "noun",
+   "meaning": "The father of a child's father or mother."
+  },
+  "horsey": {
+   "pos": "adjective",
+   "meaning": "Loving horses and knowing a lot about them."
+  },
+  "speculation": {
+   "pos": "noun",
+   "meaning": "Buying something when you are not sure if it will bring you gain or loss."
+  },
+  "benefactor": {
+   "pos": "noun",
+   "meaning": "A person who gives help or money to others."
+  },
+  "oversight": {
+   "pos": "noun",
+   "meaning": "The job of looking after something."
+  },
+  "caress": {
+   "pos": "noun",
+   "meaning": "A soft, loving touch.",
+   "forms": [
+    "caresses"
+   ]
+  },
+  "crony": {
+   "pos": "noun",
+   "meaning": "A close friend."
+  },
+  "genteel": {
+   "pos": "adjective",
+   "meaning": "Polite and fine, in the way of rich people."
+  },
+  "midsummer": {
+   "pos": "noun",
+   "meaning": "The middle of the summer."
+  },
+  "polish": {
+   "pos": "noun",
+   "meaning": "What you put on something to make it bright, or the bright look it gives."
+  },
+  "lawn": {
+   "pos": "noun",
+   "meaning": "An area of short grass next to a house."
+  },
+  "shrubbery": {
+   "pos": "noun",
+   "meaning": "A group of small plants and trees growing close together in a garden."
+  },
+  "shawl": {
+   "pos": "noun",
+   "meaning": "A large piece of cloth that a woman wears over her shoulders."
+  },
+  "stately": {
+   "pos": "adjective",
+   "meaning": "Tall, proud and fine in the way she moves."
+  },
+  "incline": {
+   "pos": "verb",
+   "meaning": "To feel that you would like to do something."
+  },
+  "adviser": {
+   "pos": "noun",
+   "meaning": "A person who gives you ideas about what to do."
+  },
+  "blemished": {
+   "pos": "adjective",
+   "meaning": "Having a bad spot that makes it look worse."
+  },
+  "knot": {
+   "pos": "noun",
+   "meaning": "A hard small piece under the skin."
+  },
+  "threepenny": {
+   "pos": "adjective",
+   "meaning": "Worth three of the smallest pieces of old British money; 'threepenny bit' was a small old piece of money."
+  },
+  "overjoyed": {
+   "pos": "adjective",
+   "meaning": "Very happy."
+  },
+  "extraordinary": {
+   "pos": "adjective",
+   "meaning": "Much more than is normal."
+  },
+  "tarbrush": {
+   "pos": "noun",
+   "meaning": "A tool used to put something black and shiny on a horse's feet to make them look dark and bright."
+  },
+  "bit": {
+   "pos": "noun",
+   "meaning": "A metal bar that goes in a horse's mouth, held by bands over its head, used to control it.",
+   "forms": [
+    "bits"
+   ],
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A metal bar that goes in a horse's mouth, held by bands over its head, used to control it.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "was to have a bit and bridle; my master"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "bit",
+       "context": "coaxing he got the bit into my mouth, and"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "form": "bit",
+       "context": "have never had a bit in their mouths cannot"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 4,
+       "form": "bit",
+       "context": "got to wear my bit and bridle"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 5,
+       "form": "bit",
+       "context": "as bad as the bit. I never felt more"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "and straps there, a bit in my mouth, and"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "bit",
+       "context": "a new kind of bit. I could never quite"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "form": "bit",
+       "context": "the rein. The new bit was very painful, and"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "in, and the gag bit in London, that her"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "it was the gag-bit that spoiled the other’s"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "form": "bit",
+       "context": "out against the gag-bit, and shall do so"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "and down against the bit, as was her way"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "form": "bit",
+       "context": "action of the sharp bit on my tongue and"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "saddle, looked to the bit and curb, gave the"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "mouths jagged with the bit —they call that pulling"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "form": "bit",
+       "context": "he looked at the bit and bridle, and just"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "cow. He left my bit rusty, my saddle damp"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 3,
+       "form": "bit",
+       "context": "that with an easy bit and plenty of work"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "A small amount or piece. 'A bit' means 'a little'.",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "bit",
+       "context": "never to have a bit more liberty to do"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "form": "bit",
+       "context": "would say, “wait a bit, and we will have"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "care for us one bit further than to see"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "bit",
+       "context": "You are a good bit happier than when you"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "John, you’d say a bit of a kind word"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "Put yourself a bit straight,” said John. Joe"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "she was not a bit anxious, and talked of"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "get along for a bit, but soon find yourself"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "put me up a bit of bread and cheese"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "peppermint, or read a bit in my book, and"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 2,
+       "form": "bit",
+       "context": "There is not a bit of vice in him"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "and giving me a bit of carrot, or something"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "Past of 'bite': took something between the teeth.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "much. One day she bit James in the arm"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "bit",
+       "context": "told him I never bit anything but grass, hay"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "more than usual I bit him, which of course"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "In an old name for a small piece of money.",
+     "anchors": [
+      {
+       "chapter": 50,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "to call ‘Beauty’s threepenny bit’. It must be Black"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 2,
+   "paragraph": 1,
+   "context": "a large pleasant meadow with a pond of clear water in it",
+   "mainIdea": "The horse remembers his first home: a field with a pond, trees, a gate, a house, and a brook.",
+   "simple": "The first place I can remember well was a big, nice field of grass with a pond of clear water in it. Some shady trees leaned over the pond, and rushes and water-lilies grew at the deep end. On one side, over the hedge, we looked into a plowed field. On the other side, we looked over a gate at our master’s house, which stood by the road. At the top of the field there was a small group of fir trees. At the bottom there was a running brook with a steep bank hanging over it.",
+   "hardWords": [
+    "meadow",
+    "shady",
+    "rushes",
+    "hedge",
+    "plowed",
+    "grove",
+    "brook",
+    "overhung",
+    "steep"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 15,
+   "context": "to the doctor’s, to the farrier’s, and no doubt to Squire Gordon’s",
+   "mainIdea": "People ride off to bring help. The farrier looks at the black horse. It has a broken leg, and the horse is shot.",
+   "simple": "People now rode off in every direction: to the doctor’s, to the farrier’s, and without doubt to Squire Gordon’s, to let him know about his son. Mr. Bond, the farrier, came to look at the black horse that lay groaning on the grass. He felt him all over and shook his head. One of the horse’s legs was broken. Then someone ran to our master’s house and came back with a gun. Soon there was a loud bang and a terrible cry, and then everything was still. The black horse moved no more.",
+   "hardWords": [
+    "farrier",
+    "presently",
+    "bang",
+    "dreadful",
+    "shriek"
+   ],
+   "main": "Men ride off to tell people. The farrier finds that the black horse has a broken leg. A gun is brought, there is a loud bang, and the black horse moves no more."
+  },
+  {
+   "chapter": 4,
+   "paragraph": 4,
+   "context": "Everyone may not know what breaking in is, therefore I will describe it",
+   "mainIdea": "Black Beauty explains breaking in. A horse must learn to wear a saddle, a bridle and harness, and to obey. He must keep calm and do what his master wants.",
+   "simple": "Not everyone may know what breaking in is, so I will tell you. It means teaching a horse to wear a saddle and bridle and to carry a man, a woman or a child on his back. The horse must go just the way they want, and go quietly. He must also learn to wear a collar, a crupper and a breeching, and to stand still while they are put on. Then a cart or a chaise is fixed behind him, so that he cannot walk or trot without pulling it after him. He must go fast or slow, just as his driver wants. He must never jump with fear at what he sees. He must not speak to other horses, or bite, or kick, or have any wish of his own. He must always do what his master wants, even if he is very tired or hungry. The worst thing is that once his harness is on, he cannot jump for joy or lie down when he is tired. So you see, breaking in is a big thing.",
+   "hardWords": [
+    "breaking in",
+    "saddle",
+    "bridle",
+    "collar",
+    "crupper",
+    "breeching",
+    "chaise",
+    "harness",
+    "weariness"
+   ],
+   "main": "Black Beauty explains what breaking in is. A horse must learn to wear a saddle, a bridle and a harness, to pull a cart, and to always do what his master wants."
+  },
+  {
+   "chapter": 5,
+   "paragraph": 3,
+   "context": "Squire Gordon’s park skirted the village of Birtwick",
+   "mainIdea": "The horse tells us about the park at Birtwick and the stable where he is taken: it is large, airy and has four good stalls.",
+   "simple": "Squire Gordon’s park went along the edge of the village of Birtwick. You came in by a large iron gate, with the first lodge beside it. Then you went along at a trot on a smooth road between groups of large old trees. Then came another lodge and another gate, which brought you to the house and the gardens. Past this were the home paddock, the old orchard and the stables. There was room for many horses and carriages. But I only need to tell about the stable that I was taken into. It was very large, with four good stalls. A big window that swung open looked onto the yard, which made it nice and full of fresh air.",
+   "hardWords": [
+    "skirted",
+    "lodge",
+    "trotted",
+    "paddock",
+    "orchard",
+    "accommodation",
+    "roomy",
+    "stalls",
+    "swinging",
+    "airy"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 3,
+   "context": "After breakfast he came and fitted me with a bridle",
+   "mainIdea": "John puts a bridle and a saddle on the new horse and rides him. They go slowly, then trot, canter and gallop on the common.",
+   "simple": "After breakfast John came and put a bridle on me. He was very careful to make the straps looser or tighter so that it would fit my head well. Then he brought a saddle, but it was not wide enough for my back. He saw this at once and went for another one, which fitted well. First he rode me slowly, then at a trot, then at a canter. When we were on the common he touched me lightly with his whip, and we had a splendid gallop.",
+   "hardWords": [
+    "bridle",
+    "straps",
+    "saddle",
+    "trot",
+    "canter",
+    "common",
+    "whip",
+    "splendid",
+    "gallop"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 2,
+   "context": "I was quite happy in my new place, and if there was one thing",
+   "mainIdea": "Black Beauty is happy in his new home, but he misses his freedom. A young horse full of life finds it hard to stand in a stable all day. John is patient with him.",
+   "simple": "I was quite happy in my new place. If there was one thing I missed, you must not think that I was not happy. Everyone who had to do with me was good, I had a light stable with plenty of fresh air, and I had the best food. What more could I want? Freedom! For three and a half years of my life I had all the freedom I could wish for. But now, week after week and month after month, and no doubt year after year, I must stand in a stable night and day, except when I am wanted. And then I must be as steady and quiet as any old horse who has worked for twenty years. There are straps here and straps there, a bit in my mouth, and blinkers over my eyes. I am not complaining, because I know it must be so. I only mean to say that it is hard for a young horse full of strength and spirit. He is used to a big field or open land, where he can throw up his head and his tail and gallop away at full speed, then turn and come back with a snort to his friends. I say it is hard never to have a little more freedom to do what you like. Sometimes, when I have had less exercise than usual, I feel so full of life and energy that I really cannot keep quiet when John takes me out to exercise. Whatever I do, it seems I must jump or dance or prance, and I know I must have given him many a good shake, especially at the start. But he was always good and patient.",
+   "hardWords": [
+    "liberty",
+    "discontented",
+    "airy",
+    "steady",
+    "blinkers",
+    "fling",
+    "toss",
+    "gallop",
+    "snort",
+    "prance"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 6,
+   "context": "There was one —the old master, Mr. Ryder —who, I think",
+   "mainIdea": "Ginger says that old Mr. Ryder was kind, but his son Samson was hard and cruel. Samson wanted to take all the spirit out of her.",
+   "simple": "Ginger went on: There was one man, the old master, Mr. Ryder, who she thinks could soon have brought her round and could have done anything with her. But he had given up all the hard work of the trade to his son and to another man who knew the work, and he only came now and then to watch over things. His son was a strong, tall, bold man. They called him Samson, and he liked to say that he had never found a horse that could throw him. He had no gentleness in him, as his father had. He was only hard: a hard voice, a hard eye and a hard hand. From the start, Ginger felt that he wanted to take all the spirit out of her and make her into a quiet, humble horse that did what it was told. He thought of her as nothing but horseflesh. Ginger stamped her foot as if the very thought of him made her angry.",
+   "hardWords": [
+    "oversee",
+    "bold",
+    "boast",
+    "gentleness",
+    "humble",
+    "obedient",
+    "horseflesh",
+    "stamped"
+   ],
+   "main": "Ginger says that old Mr. Ryder could have brought her round, but he left the hard work to his son Samson. Samson was hard, and wanted to take all the spirit out of her."
+  },
+  {
+   "chapter": 9,
+   "paragraph": 3,
+   "context": "After my breaking in,” she said, “I was bought by a dealer",
+   "mainIdea": "After breaking in, a dealer buys Ginger and sells her to a fashionable gentleman in London. There she is made to wear a checkrein that is pulled even tighter, and she hates it.",
+   "simple": "Ginger said that after her breaking in she was bought by a dealer to make a pair with another chestnut horse. For some weeks he drove them together. Then they were sold to a gentleman who liked the newest styles, and they were sent up to London. The dealer had driven her with a checkrein, and she hated it more than anything else. But in this place they pulled the reins much tighter, because the coachman and his master thought they looked more stylish that way. They were often driven around in the park and other places where fashionable people went. Ginger says that Black Beauty, who never had a checkrein on, does not know what it is, but she can tell him that it is terrible.",
+   "hardWords": [
+    "dealer",
+    "fashionable",
+    "checkrein",
+    "reined",
+    "stylish",
+    "dreadful"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 12,
+   "context": "Besides,” he went on, “if I took to kicking where should I be",
+   "mainIdea": "Merrylegs says that if he began to kick he would soon be sold. He could end up with a cruel owner who works him very hard.",
+   "simple": "Merrylegs went on: if he began to kick, where would he be? He would be sold in a very short time, and he would have no good name. He might be worked very hard by a butcher’s boy, or worked to death at some place by the sea, where no one cared about him except to find out how fast he could go. Or he might be beaten along in some cart with three or four big men in it, going out for a Sunday of noisy fun. He has often seen this in the place where he lived before he came here. He shook his head and said that he hoped he would never come to that.",
+   "hardWords": [
+    "jiffy",
+    "slaved",
+    "seaside",
+    "flogged",
+    "spree"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 19,
+   "context": "I consider,” said Sir Oliver, “that blinkers are dangerous things",
+   "mainIdea": "Sir Oliver says that blinkers are dangerous at night because horses can see better in the dark than men. He gives two examples of accidents that blinkers may have caused.",
+   "simple": "Sir Oliver says that he thinks blinkers are dangerous things at night. Horses can see much better in the dark than men can, and many accidents would not have happened if horses had the full use of their eyes. He remembers that some years ago a hearse with two horses was coming back one dark night, by Farmer Sparrow’s house, where the pond is close to the road. The wheels went too near the edge, and the hearse fell over into the water. Both horses drowned, and the driver only just got away. After this accident they put up a strong white rail that could be seen easily. But if those horses had not been partly blind, they would have stayed further from the edge themselves, and there would have been no accident. When their master’s carriage fell over, before Black Beauty came, people said that John would have seen the big hole that the road-makers had left if the lamp on the left side had not gone out. Sir Oliver says that may be so, but if old Colin had not had blinkers on, he would have seen the hole with or without a lamp, because he was far too clever an old horse to run into danger. As it was, Colin was badly hurt and the carriage was broken, and nobody knew how John got away.",
+   "hardWords": [
+    "blinkers",
+    "hearse",
+    "overturned",
+    "stout",
+    "rail",
+    "blinded",
+    "road-makers",
+    "knowing"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 14,
+   "context": "So do I,” said master, “as well as any man",
+   "mainIdea": "The master says he likes horses to hold their heads up, but not when the head is held up by force. He says horses were meant to have their heads free, and fashion is a poor guide.",
+   "simple": "The master says that he likes to see horses hold their heads up as much as any man does, but he does not like to see them held up. That takes away all the pleasure. He tells Langley, who is a military man, that Langley likes to see his soldiers look good on parade, with their heads up. But he would not be proud of their drill if all his men had their heads tied to a board. It might do little harm on parade, except to worry and tire them. But in a charge with bayonets against the enemy, when they need to use every muscle and push all their strength forward, he would not give much for their chance of winning. It is the same with horses. If you worry them and make them upset, you take away their power. You do not let them throw their weight against their work, so they have to do too much with their joints and muscles, and it wears them out faster. You can be sure that horses were meant to have their heads free, as free as men’s heads. If people acted a little more by common sense and a good deal less by fashion, many things would work more easily. And if a horse makes a wrong step, it has much less chance to get back on its feet if its head and neck are fastened back. The master laughs and says that he has taken his hobby out for a good trot, and asks whether the captain cannot make up his mind to get on it too, because his example would go a long way.",
+   "hardWords": [
+    "regiment",
+    "parade",
+    "drill",
+    "backboard",
+    "bayonet",
+    "muscle",
+    "fatigue",
+    "hobby",
+    "trot"
+   ]
+  },
+  {
+   "chapter": 13,
+   "paragraph": 16,
+   "context": "“You Beauty!” said John, and took the bridle",
+   "mainIdea": "The men learn that the bridge is broken, and they are glad the horse did not go on. Master and John speak about how animals know things without reason, and how they have saved the lives of men.",
+   "simple": "“Thank God!” said my master. “You Beauty!” said John. He took the bridle and gently turned me to the right-hand road by the river. The sun had gone down some time before. The wind seemed to have become calmer after the wild gust that tore up the tree. It grew darker and darker, and stiller and stiller. I trotted quietly along, and the wheels hardly made a sound on the soft road. For a good while neither master nor John spoke. Then master began to speak in a serious voice. I could not understand much of what they said, but I found that they thought this: if I had gone on as the master wanted, the bridge would most likely have broken under us. Then horse, chaise, master and man would have fallen into the river. The water was flowing very strongly, and there was no light and no help near, so we would more than likely all have drowned. Master said that God had given men reason, so that they could find things out for themselves. But he had given animals a kind of knowledge that does not depend on reason. It is much quicker and more perfect in its way, and by it animals have often saved the lives of men. John had many stories to tell about dogs and horses and the wonderful things they had done. He thought people did not value their animals half enough and did not make friends of them as they should. I am sure he makes friends of them if any man ever did.",
+   "hardWords": [
+    "lulled",
+    "blast",
+    "current",
+    "reason",
+    "prompt",
+    "value"
+   ]
+  },
+  {
+   "chapter": 14,
+   "paragraph": 11,
+   "context": "So we went on, John chuckling all the way home",
+   "mainIdea": "James tells how he once found Bill pulling the wings off flies and hit him. The master later said that cruelty is the devil’s own mark, and kindness is God’s mark.",
+   "simple": "So they went on, with John laughing quietly all the way home. Then he told James about it. James said, “Serve him right.” James knew that boy at school. Bill was proud because he was a farmer’s son, and he would walk around in a proud way and be cruel to the small boys. The older boys did not allow that. They told him that in the school and the playground the sons of farmers and the sons of workers were all the same. One day, before school in the afternoon, James found Bill at the big window, catching flies and pulling off their wings. Bill did not see him, and James hit him on the ears so that he fell down flat on the floor. James was angry, but he was almost afraid too, because Bill roared and shouted so loudly. The boys ran in from the playground, and the master ran in from the road to see who was being killed. James told the truth at once about what he had done and why. He showed the master the flies, some crushed and some crawling about, and the wings on the window sill. James had never seen the master so angry. But Bill was still howling and crying like the coward he was, so the master did not punish him any more in that way. He put Bill on a stool for the rest of the afternoon and said that he could not go out to play for that week. Then the master spoke to all the boys in a serious way about cruelty. He said that it was hard-hearted and cowardly to hurt the weak and those who cannot help themselves. What stayed in James’s mind was this: the master said that cruelty was the devil’s own trademark. If we saw anyone who liked being cruel, we might know whom he belonged to, because the devil was a murderer from the beginning and a tormentor to the end. But where we saw people who loved their neighbors, and were kind to man and beast, we might know that this was God’s mark.",
+   "hardWords": [
+    "chuckling",
+    "swagger",
+    "bully",
+    "sprawling",
+    "bellowed",
+    "trademark",
+    "tormentor",
+    "hard-hearted"
+   ]
+  },
+  {
+   "chapter": 15,
+   "paragraph": 18,
+   "context": "it was fully settled that James should go to Clifford Hall",
+   "mainIdea": "It is settled that James will go to Clifford Hall in a month or six weeks, and meanwhile he gets driving practice. The carriage goes out more often, and James drives.",
+   "simple": "A few days after this talk it was all decided that James would go to Clifford Hall in a month or six weeks, as it suited his master. In the meantime he was to get all the practice in driving that he could. I had never known the carriage to go out so often before. When the mistress did not go out, the master drove himself in the chaise with two wheels. But now, whether it was the master or the young ladies, or only a small job for someone, Ginger and I were put in the carriage and James drove us. At first John rode on the box with him and told him this and that, and after that James drove alone.",
+   "hardWords": [
+    "settled",
+    "chaise",
+    "errand",
+    "box"
+   ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 2,
+   "context": "After this it was decided by my master and mistress to pay a visit",
+   "mainIdea": "On the journey James drives carefully. He uses the brake going downhill, keeps the horses on smooth ground and gives them a rest on long hills.",
+   "simple": "After this my master and mistress decided to pay a visit to some friends who lived about forty-six miles from our home, and James was to drive them. The first day we traveled thirty-two miles. There were some long, heavy hills, but James drove so carefully and thoughtfully that we were not troubled at all. He never forgot to put on the brake as we went downhill, or to take it off at the right place. He kept our feet on the smoothest part of the road. If the hill going up was very long, he put the wheels of the carriage a little across the road so that it would not run back, and he let us stop to get our breath. All these little things help a horse very much, especially if he gets kind words as well.",
+   "hardWords": [
+    "harassed",
+    "brake",
+    "downhill",
+    "smoothest",
+    "uphill",
+    "breathing",
+    "bargain"
+   ]
+  },
+  {
+   "chapter": 17,
+   "paragraph": 8,
+   "context": "No doubt we were very foolish, but danger seemed to be all round",
+   "mainIdea": "The horses are afraid and will not move. Smoke and a red light show the fire is near, and the old hostler comes to help.",
+   "simple": "No doubt we were very foolish, but danger seemed to be all around, and there was nobody we knew and could trust, and everything was strange and not clear. The fresh air that came in through the open door made it easier to breathe, but the rushing sound over our heads grew louder. As I looked up through the bars of my empty rack, I saw a red light moving up and down on the wall. Then I heard a cry of “Fire!” outside, and the old hostler came in quietly and quickly. He got one horse out and went to another, but the flames were playing round the trapdoor, and the roaring overhead was terrible.",
+   "hardWords": [
+    "flickering",
+    "flames",
+    "trapdoor",
+    "roaring",
+    "dreadful"
+   ],
+   "main": "The horses are afraid, and there is nobody they know to trust. A red light shows on the wall. The old hostler comes in and gets a horse out, but the fire is near the trapdoor."
+  },
+  {
+   "chapter": 18,
+   "paragraph": 14,
+   "context": "I don’t often speak of myself,” said John, “but as you are going",
+   "mainIdea": "John tells James how he lost his parents when he was young and was helped by the mistress and by Norman, and says that is why he is glad to help little Joe.",
+   "simple": "John says he does not often speak about himself. But as James is going away from them out into the world to manage for himself, John will tell him how he looks at these things. He was just as old as Joseph is when his father and mother died of a fever, within ten days of each other. They left him and his sister Nelly, who could not walk well, alone in the world with no relation to help them. He was a farm boy and did not earn enough to keep himself, and much less both of them. She would have had to go to the workhouse if it were not for their mistress. Nelly calls her her angel, and she is right to. The mistress got a room for Nelly with old Widow Mallet. She gave her knitting and sewing work when she could do it. When Nelly was ill she sent her dinners and many nice, comfortable things, and she was like a mother to her. Then the master took John into the stable under old Norman, who was the coachman then. John had his food at the house, a bed in the loft, a suit of clothes and three shillings a week, so he could help Nelly. Norman could have said that at his age he could not be troubled with a raw boy from the plow, but he was like a father to John and took great trouble with him. When the old man died some years later, John took his place. Now he has the best pay and can save money for a rainy day or a sunny day, and Nelly is as happy as a bird. So John is not the man to look down on a little boy and upset a good, kind master. He will miss James very much, but they will get through. He says nothing is better than doing a kindness when it comes your way, and he is glad he can do it.",
+   "hardWords": [
+    "workhouse",
+    "needlework",
+    "raw",
+    "plow-tail",
+    "wages",
+    "rainy day",
+    "pull through"
+   ],
+   "main": "John tells James how he lost his parents when he was young, and how the mistress and old Norman helped him and his sister Nelly. He says he would not look down on a little boy."
+  },
+  {
+   "chapter": 19,
+   "paragraph": 16,
+   "context": "I will not tell about our way back. The doctor was a heavier",
+   "mainIdea": "On the way back, the doctor lets the horse breathe, then Joe makes a mistake: he does not put the warm cloth on the hot horse and gives cold water. Black Beauty gets very cold and ill, and John comes and helps him.",
+   "simple": "I will not tell about our way back. The doctor was a heavier man than John and not so good a rider, but I did my very best. The man at the tollgate had it open. When we came to the hill, the doctor stopped me. “Now, my good fellow,” he said, “take some breath.” I was glad he did, because I was nearly worn out, but that rest helped me on, and soon we were in the park. Joe was at the lodge gate, and my master was at the hall door, because he had heard us coming. He did not say a word. The doctor went into the house with him, and Joe led me to the stable. I was glad to get home. My legs shook under me, and I could only stand and breathe hard. I did not have a dry hair on my body, the water ran down my legs, and I steamed all over, like a pot on the fire, as Joe used to say. Poor Joe was young and small, and as yet he knew very little, and his father, who would have helped him, had been sent to the next village. But I am sure he did the very best he knew. He rubbed my legs and my chest, but he did not put my warm cloth on me, because he thought I was so hot that I would not like it. Then he gave me a pail of water to drink. It was cold and very good, and I drank it all. Then he gave me some hay and some corn, and thinking he had done right, he went away. Soon I began to shake and tremble, and I turned very cold. My legs ached, my loins ached and my chest ached, and I felt sore all over. How I wished for my warm, thick cloth as I stood and trembled! I wished for John, but he had eight miles to walk. So I lay down in my straw and tried to go to sleep. After a long time I heard John at the door. I gave a low moan, because I was in great pain. He was at my side in a moment, bending down by me. I could not tell him how I felt, but he seemed to know it all. He covered me up with two or three warm cloths and then ran to the house for hot water. He made me some warm gruel, which I drank, and then I think I went to sleep.",
+   "hardWords": [
+    "drew me up",
+    "spent",
+    "pant",
+    "steamed",
+    "pailful",
+    "loins",
+    "ached",
+    "moan",
+    "stooping",
+    "gruel"
+   ],
+   "main": "On the way back the doctor lets the horse breathe. At home Joe rubs him but does not put on the warm cloth, and gives him cold water. The horse shakes with cold and pain until John comes and helps him."
+  },
+  {
+   "chapter": 20,
+   "paragraph": 9,
+   "context": "Only ignorance! only ignorance! how can you talk about only",
+   "mainIdea": "John says that ignorance is the worst thing in the world next to wickedness. People who say \"I did not know\" can still do great harm, and he gives the example of Martha Mulwash.",
+   "simple": "John says: “Only ignorance! Only ignorance! How can you talk about only ignorance? Don’t you know that it is the worst thing in the world, after wickedness? And only heaven knows which does the most harm. If people can say, ‘Oh! I did not know, I did not mean any harm,’ they think it is all right. I suppose Martha Mulwash did not mean to kill that baby when she gave it Dalby and soothing syrups. But she did kill it, and she was tried for killing someone without meaning to.”",
+   "hardWords": [
+    "ignorance",
+    "wickedness",
+    "mischief",
+    "dosed",
+    "soothing syrups",
+    "manslaughter"
+   ]
+  },
+  {
+   "chapter": 21,
+   "paragraph": 3,
+   "context": "we were quietly returning when we came to the brick-field",
+   "mainIdea": "Joe sees a carter beating two horses that are stuck with a heavy load of bricks. The horses are working very hard and the man is cruel.",
+   "simple": "The note was delivered, and we were riding home quietly when we came to the brick-field. Here we saw a cart heavily loaded with bricks. The wheels had stuck fast in the thick mud of some deep ruts, and the carter was shouting and beating the two horses without any pity. Joe pulled up. It was a sad sight. The two horses were pulling and fighting with all their strength to drag the cart out, but they could not move it. Sweat ran down their legs and sides, their sides were going up and down, and every muscle was pulled tight. The man pulled hard and fiercely at the head of the front horse, swore, and beat the horses in a very cruel way.",
+   "hardWords": [
+    "laden",
+    "ruts",
+    "carter",
+    "flogging",
+    "unmercifully",
+    "flanks",
+    "heaved",
+    "muscle",
+    "strained",
+    "brutally"
+   ]
+  },
+  {
+   "chapter": 22,
+   "paragraph": 14,
+   "context": "When we reached the railway station I think mistress walked from the carriage",
+   "mainIdea": "At the station the mistress says goodbye to John. John cannot answer. The train leaves with sad people on it.",
+   "simple": "When they reached the railway station, Black Beauty thinks the mistress walked from the carriage to the waiting-room. He heard her say in her own sweet voice, “Goodbye, John. God bless you.” He felt the rein move with a pull, but John did not answer. Maybe he could not speak. As soon as Joe had taken the things out of the carriage, John told him to stand by the horses while he went on the platform. Poor Joe stood close to the horses’ heads to hide his tears. Very soon the train came into the station with a puffing sound. Then two or three minutes later the doors were shut with a bang, the guard blew his whistle, and the train moved smoothly away. It left behind only clouds of white smoke and some very sad hearts.",
+   "hardWords": [
+    "twitch",
+    "puffing",
+    "slammed",
+    "guard",
+    "glided"
+   ],
+   "main": "At the station the mistress says goodbye to John, and John cannot answer. The train goes away and leaves sad hearts behind."
+  },
+  {
+   "chapter": 23,
+   "paragraph": 20,
+   "context": "York came round to our heads and shortened the rein himself",
+   "mainIdea": "York shortens the rein by one hole, and Black Beauty finds it hard to go uphill with his head up. Ginger says it is not so bad yet.",
+   "simple": "York came round to the horses' heads and shortened the rein himself, by one hole, Black Beauty thinks. Every little bit makes a difference, for better or worse, and that day they had a steep hill to go up. Then Black Beauty began to understand what he had heard about. He wanted to put his head forward and pull the carriage up with all his will, as they used to do. But now he had to pull with his head up. That took all the spirit out of him, and the strain came on his back and legs. When they came in, Ginger said, “Now you see what it is like. But this is not bad. If it does not get much worse than this I shall say nothing about it, because we are very well treated here. But if they pull me up tight, they had better take care! I can’t bear it, and I won’t.”",
+   "hardWords": [
+    "shortened",
+    "strain",
+    "steep"
+   ]
+  },
+  {
+   "chapter": 24,
+   "paragraph": 4,
+   "context": "York came to me first, while the groom stood at Ginger’s head",
+   "mainIdea": "York pulls the rein tight. Ginger rears, kicks and falls over the carriage pole, and York sits on her head. Beauty is freed and led to his box, angry and sore.",
+   "simple": "York came to me first, while the groom stood at Ginger’s head. He pulled my head back and fixed the rein so tight that it was almost too much to bear. Then he went to Ginger, who was jerking her head up and down against the bit without patience, as she did now. She had a good idea of what was coming. The moment York took the rein off the terret to make it shorter, she used her chance and reared up so suddenly that York’s nose was hit hard and his hat was knocked off. The groom was nearly thrown off his feet. At once they both ran to her head. But she was strong enough for them, and went on plunging, rearing and kicking in a wild way. At last she kicked right over the carriage pole and fell down, after giving me a hard blow on my near quarter. No one can know what more harm she might have done if York had not quickly sat down flat on her head to stop her struggling. At the same time he called out, “Unbuckle the black horse! Run for the winch and unscrew the carriage pole! Cut the trace here, somebody, if you can’t unhitch it!” One of the footmen ran for the winch, and another brought a knife from the house. The groom soon set me free from Ginger and the carriage and led me to my box. He just put me in as I was and ran back to York. What had happened excited me very much. If I had ever been used to kick or rear, I am sure I would have done it then. But I never had. So there I stood, angry, with a sore leg, my head still pulled up to the terret on the saddle, and no power to get it down. I was very unhappy and wanted very much to kick the first person who came near me.",
+   "hardWords": [
+    "intolerable",
+    "terret",
+    "reared",
+    "carriage pole",
+    "promptly",
+    "winch",
+    "unscrew",
+    "trace",
+    "unhitch",
+    "strained"
+   ]
+  },
+  {
+   "chapter": 25,
+   "paragraph": 14,
+   "context": "He hung my rein on one of the iron spikes",
+   "mainIdea": "A colt bumps Lizzie and a boy cracks a whip. Lizzie kicks and runs off wildly with Lady Anne. Black Auster neighs for help, and Blantyre comes running and rides after them.",
+   "simple": "Blantyre hung my rein on one of the iron spikes and was soon out of sight among the trees. Lizzie was standing quietly at the side of the road a few steps away, with her back to me. My young mistress was sitting easily with a loose rein, softly singing a little song. I listened to my rider’s steps until they reached the house, and I heard him knock at the door. There was a field on the other side of the road, and its gate stood open. Just then some cart horses and several young colts came trotting out in a very wild way, with a boy behind them cracking a big whip. The colts were wild and playful, and one of them ran across the road and bumped into Lizzie’s back legs. I cannot say whether it was the stupid colt, or the loud cracking of the whip, or both together, but she gave a hard kick and ran off at a wild gallop. It was so sudden that Lady Anne was nearly thrown off, but she soon got her balance back. I gave a loud, high neigh for help. Again and again I neighed, hitting the ground with my foot in my hurry, and tossing my head to get the rein loose. I did not have to wait long. Blantyre came running to the gate. He looked about with worry and just saw the flying shape, now far away on the road. In a moment he jumped into the saddle. I needed no whip and no spur, because I was as eager as my rider. He saw it, and gave me a free rein, and leaned a little forward, and we raced after them.",
+   "hardWords": [
+    "spikes",
+    "frolicsome",
+    "bolted",
+    "blundered",
+    "hind",
+    "headlong",
+    "unseated",
+    "shrill",
+    "pawing",
+    "eager"
+   ]
+  },
+  {
+   "chapter": 26,
+   "paragraph": 10,
+   "context": "This could not go on; no horse could keep his footing under such circumstances",
+   "mainIdea": "Black Beauty falls on both knees from pain. Smith is thrown off and does not get up. The horse stands in pain and listens for help.",
+   "simple": "This could not go on. No horse could keep his feet under such a strain, because the pain was too great. I fell hard on both knees. Smith was thrown off by my fall, and because of my speed he must have fallen with great force. I soon got up and limped to the side of the road, where there were no stones. The moon had just come up over the hedge, and by its light I could see Smith lying a few yards from me. He did not get up. He tried a little to do so, and then there was a heavy groan. I could have groaned too, because I was in great pain in my foot and knees. But horses are used to bearing their pain without a sound, so I made no sound. I stood there and listened. I heard one more heavy groan from Smith. He now lay in full moonlight, but I could see no movement. I could do nothing for him or for myself, but how I listened for the sound of a horse, or wheels, or steps! Not many people used the road, and at that time of night we might wait for hours before help came. I stood watching and listening. It was a calm, sweet April night. There were no sounds except a few low notes of a nightingale, and nothing moved except the white clouds near the moon and a brown owl that flew quickly over the hedge. It made me think of the summer nights long ago, when I used to lie beside my mother in the green, pleasant meadow at Farmer Grey’s.",
+   "hardWords": [
+    "footing",
+    "circumstances",
+    "limped",
+    "intense",
+    "uttered",
+    "frequented",
+    "nightingale",
+    "owl",
+    "flitted"
+   ]
+  },
+  {
+   "chapter": 27,
+   "paragraph": 12,
+   "context": "The next day after the farrier had examined my wounds, he said he hoped",
+   "mainIdea": "The farrier hopes the joint is not hurt. The horse might still work, but would always have a mark. The cure was long and painful.",
+   "simple": "The next day, after the farrier had looked at my wounds, he said he hoped the joint was not hurt. If it was not, I would not be spoiled for work, but I would always keep the mark. I believe they did their best to make a good cure, but it was a long and painful one. What they called proud flesh came up in my knees and was burned out with a strong chemical. When it was at last healed, they put a liquid on the front of both knees to make all the hair come off. They had some reason for this, and I think it was all right.",
+   "hardWords": [
+    "examined",
+    "blemish",
+    "caustic",
+    "blistering fluid"
+   ]
+  },
+  {
+   "chapter": 28,
+   "paragraph": 2,
+   "context": "As soon as my knees were sufficiently healed I was turned",
+   "mainIdea": "Black Beauty is left alone in a meadow and feels lonely. Then Ginger is brought in; she has been ruined by hard riding.",
+   "simple": "As soon as my knees were well enough, I was put in a small meadow for a month or two. No other animal was there, and although I enjoyed the freedom and the sweet grass, I had lived with other horses for so long that I felt very lonely. Ginger and I had become close friends, and now I missed her very much. I often neighed when I heard horses’ feet passing in the road, but I seldom got an answer. Then one morning the gate was opened, and who should come in but dear old Ginger! The man took off her halter and left her there. I trotted up to her with a happy whinny. We were both glad to meet, but I soon found that she was not brought to be with me for our pleasure. Her story would be too long to tell, but the end of it was that hard riding had ruined her, and she was now sent away to see what rest would do.",
+   "hardWords": [
+    "sufficiently",
+    "society",
+    "neighed",
+    "halter",
+    "joyful",
+    "whinny",
+    "ruined",
+    "turned off"
+   ]
+  },
+  {
+   "chapter": 29,
+   "paragraph": 7,
+   "context": "Besides, these drivers are often careless altogether",
+   "mainIdea": "A careless driver lets a stone get into the horse's foot. He laughs and jokes with the lady and children, and does not look at the road or his horse.",
+   "simple": "These drivers are also often careless altogether, and pay attention to anything else more than their horses. One day I went out in the phaeton with one of them. He had a lady and two children behind. He moved the reins about loosely as we started, and gave me several cuts with the whip for no reason, although I had already started well. There had been a lot of road-mending, and even where the stones were not freshly laid there were many loose ones about. My driver was laughing and joking with the lady and the children and talking about the country on the right and the left. But he never thought it worth the trouble to watch his horse or to drive on the smoothest parts of the road. So it easily happened that I got a stone in one of my front feet.",
+   "hardWords": [
+    "flopped",
+    "unmeaning",
+    "phaeton",
+    "fore"
+   ]
+  },
+  {
+   "chapter": 30,
+   "paragraph": 8,
+   "context": "I well remember one spring evening I and Rory had been out",
+   "mainIdea": "Rory and Black Beauty meet a gig coming fast round a corner. The shaft of the gig runs into Rory's chest, and Rory is badly hurt.",
+   "simple": "I remember well one spring evening when Rory and I had been out for the day. Rory was the horse that mostly went with me when a pair was asked for, and he was a good honest fellow. We had our own driver, and he was always kind and careful with us, so we had a very nice day. We were coming home at a good fast pace, about twilight. Our road turned sharp to the left. But we were close to the hedge on our own side and there was plenty of room to pass, so our driver did not pull us in. As we got near the corner, I heard a horse and two wheels coming quickly down the hill toward us. The hedge was high and I could see nothing, but the next moment we were upon each other. Luckily for me, I was on the side next to the hedge. Rory was on the left side of the pole, and he did not even have a shaft to protect him. The man driving was heading straight for the corner, and when he saw us he had no time to pull over to his own side. The whole shock came upon Rory. The shaft of the gig ran right into his chest and made him stagger back with a cry that I shall never forget. The other horse was thrown onto his back legs and one shaft was broken. It turned out that it was a horse from our own stables with the high-wheeled gig that the young men liked so much.",
+   "hardWords": [
+    "twilight",
+    "shaft",
+    "gig",
+    "haunches",
+    "stagger",
+    "stables"
+   ]
+  },
+  {
+   "chapter": 31,
+   "paragraph": 3,
+   "context": "For a few days all went on well. I found that my groom",
+   "mainIdea": "At first the groom does his job well, but then the horse's oats become fewer and fewer. The horse becomes weaker, but cannot complain.",
+   "simple": "For a few days all went well. I found that my groom knew his job. He kept the stable clean and full of fresh air, and he cleaned me well, and was always gentle. He had been a hostler in one of the great hotels in Bath. He had given that up, and now he grew fruit and vegetables to sell at the market, and his wife raised poultry and rabbits and made them fat for sale. After a while it seemed to me that my oats were coming very short. I had the beans, but bran was mixed with them instead of oats, of which there were very few, certainly not more than a quarter of what there should have been. In two or three weeks this began to show in my strength and spirits. The grass food, although very good, was not enough to keep me in good shape without corn. But I could not complain or make my needs known. So it went on for about two months, and I wondered that my master did not see that something was wrong. But one afternoon he rode out into the country to see a friend of his, a gentleman farmer who lived on the road to Wells.",
+   "hardWords": [
+    "thoroughly",
+    "hostler",
+    "cultivated",
+    "bred",
+    "fattened",
+    "poultry",
+    "tell upon",
+    "condition"
+   ]
+  },
+  {
+   "chapter": 32,
+   "paragraph": 3,
+   "context": "Alfred Smirk considered himself very handsome; he spent a great deal of time",
+   "mainIdea": "Alfred Smirk is vain and lazy and does not clean the box. The smell and fumes make the horse's eyes sore and take away his wish to eat.",
+   "simple": "Alfred Smirk thought he was very handsome. He spent a great deal of time on his hair, whiskers and necktie, in front of a little looking-glass in the harness-room. When his master was speaking to him, it was always, “Yes, sir; yes, sir,” and he touched his hat at every word. Everyone thought he was a very nice young man and that Mr. Barry was lucky to find him. I would say that he was the laziest man I ever came near, and the one who thought most highly of himself. Of course it was a great thing not to be treated badly, but a horse needs more than that. I had a loose box and might have been very comfortable if he had not been too lazy to clean it out. He never took all the straw away, and the smell from what lay underneath was very bad. The strong gases that rose up made my eyes sore and red, and I did not feel the same wish to eat my food.",
+   "hardWords": [
+    "conceited",
+    "indolent",
+    "vapors",
+    "inflame",
+    "appetite",
+    "fortunate"
+   ]
+  },
+  {
+   "chapter": 33,
+   "paragraph": 3,
+   "context": "Long strings of young horses out of the country, fresh from the marshes",
+   "mainIdea": "The horse fair has many kinds of horses: young ones, small ponies, cart horses, and fine horses that have a fault. Some tired old horses look sad and hopeless.",
+   "simple": "There were long lines of young horses from the country, fresh from the wet land, and groups of shaggy little Welsh ponies no taller than Merrylegs. There were hundreds of cart horses of all kinds, some with their long tails twisted up and tied with red cord. There were many like me, handsome and from a good family, but they had fallen into the middle class through some accident or fault, or weak breathing, or some other problem. Some fine animals were in their best years and fit for anything. They were throwing out their legs and showing off their paces in fine style as they were trotted out on a leading rein, with the groom running by the side. But in the background there were a number of poor horses, sadly worn out by hard work. Their knees were bending forward and their back legs were swinging out at every step. There were some very sad-looking old horses, with the lower lip hanging down and the ears lying back heavily, as if there was no more pleasure in life and no more hope. Some were so thin that you could see all their ribs, and some had old sores on their backs and hips. These were sad things for a horse to look at, who does not know whether he may come to the same state.",
+   "hardWords": [
+    "marshes",
+    "droves",
+    "shaggy",
+    "braided",
+    "blemish",
+    "knuckling",
+    "dejected",
+    "sores"
+   ]
+  },
+  {
+   "chapter": 34,
+   "paragraph": 7,
+   "context": "After driving through the side street we came to the large",
+   "mainIdea": "The new cab horse sees the cab stand with its row of cabs, men and horses. Some of the cab men look at him and say what they think about him.",
+   "simple": "After driving through the side street we came to the large cab stand where Jerry had said “Good night.” On one side of this wide street were tall houses with wonderful shop fronts. On the other side was an old church and churchyard, with an iron fence round it. Along this fence a number of cabs were waiting for passengers, and bits of hay were lying on the ground. Some of the men were standing together and talking, and some were sitting on their boxes reading the newspaper. One or two were feeding their horses with bits of hay and giving them a drink of water. We stopped in the line behind the last cab. Two or three men came round and began to look at me and give their opinions about me.",
+   "hardWords": [
+    "cab stand",
+    "palisades",
+    "rank",
+    "pass their remarks"
+   ]
+  },
+  {
+   "chapter": 35,
+   "paragraph": 15,
+   "context": "My master, my dear master was cheering on his comrades",
+   "mainIdea": "Captain's master is hit by a ball in the charge, and falls from the saddle. Captain is driven away by the other riders.",
+   "simple": "Captain says that his master, his dear master, was cheering on his friends with his right arm up in the air when one of the balls, flying close to Captain’s head, hit him. Captain felt him stagger with the shock, though he made no cry. Captain tried to slow down, but the sword fell from his master’s right hand, the rein fell loose from the left, and he sank backward from the saddle and fell to the ground. The other riders went past them, and the force of their charge drove Captain away from that place.",
+   "hardWords": [
+    "comrades",
+    "whizzing",
+    "stagger",
+    "shock",
+    "uttered",
+    "sinking"
+   ]
+  },
+  {
+   "chapter": 36,
+   "paragraph": 23,
+   "context": "Just then the cart in front of us began to move on",
+   "mainIdea": "The cart in front moves on, and Jerry and Jack get through the traffic fast. They reach the station just before twelve o'clock.",
+   "simple": "Just then the cart in front of us began to move on, and we had a good run. We went in and out, in and out, as fast as a horse could go. Surprisingly, we had a good, clear run on London Bridge, because a whole line of cabs and carriages were all going our way at a quick trot, perhaps wanting to catch that same train. In any case, we rushed into the station with many others, just as the great clock showed eight minutes to twelve o’clock.",
+   "hardWords": [
+    "horseflesh",
+    "for a wonder",
+    "whirled"
+   ]
+  },
+  {
+   "chapter": 37,
+   "paragraph": 6,
+   "context": "I should be glad to oblige the lady, sir, but I had",
+   "mainIdea": "Jerry explains why he does not want to work on Sundays. He had a seven-day license before, but it was too hard for him and his horses. He wants Sundays for rest, with his family, and to go to church.",
+   "simple": "Jerry says he would be glad to do a kind thing for the lady, but he had a seven-day license once, and the work was too hard for him and for his horses. It was year in and year out, not a day’s rest, and never a Sunday with his wife and children. He was never able to go to a place of worship, which he had always been used to do before he took to the driving box. So for the last five years he has only had a six-day license, and he finds it better all round.",
+   "hardWords": [
+    "oblige",
+    "license",
+    "worship",
+    "driving box"
+   ],
+   "main": "Jerry explains why he does not want to work on Sundays. He once had a seven-day license, but it was too hard for him and his horses. He wants Sundays for rest, for his family, and for a place of worship."
+  },
+  {
+   "chapter": 38,
+   "paragraph": 13,
+   "context": "Why, Polly, you are as good as the minister, and so",
+   "mainIdea": "Jerry agrees to take Dinah in his cab, with a light trap borrowed from the butcher. He jokes that Polly is as good as the minister, and says he has had his sermon early.",
+   "simple": "Jerry says that Polly is as good as the minister. He has had his Sunday-morning sermon early today, so she may go and tell Dinah that he will be ready for her when the clock strikes ten. But first she must go to butcher Braydon’s house with his kind words and ask if he will lend Jerry his light trap. Jerry knows that the butcher never uses it on Sunday, and it would make a great difference to the horse.",
+   "hardWords": [
+    "minister",
+    "sermon",
+    "strikes",
+    "compliments",
+    "trap"
+   ],
+   "main": "Jerry says that Polly is as good as the minister. He will be ready for Dinah at ten, and asks Polly to go and ask the butcher for his light trap."
+  },
+  {
+   "chapter": 39,
+   "paragraph": 3,
+   "context": "When the streets were slippery with frost or snow",
+   "mainIdea": "Slippery streets are the worst thing for horses. They must work hard to keep their balance, and they fear falling.",
+   "simple": "When the streets were slippery with frost or snow, that was the worst of all for the horses. One mile of such traveling, with a weight to pull and no firm place for the feet, took more out of them than four miles on a good road. Every nerve and muscle of their bodies is under strain to keep their balance. On top of this, the fear of falling is more tiring than anything else. If the roads are very bad indeed, the horses’ shoes are roughed, but that makes them feel nervous at first.",
+   "hardWords": [
+    "slippery",
+    "footing",
+    "nerve",
+    "muscle",
+    "strain",
+    "exhausting",
+    "roughed",
+    "nervous"
+   ]
+  },
+  {
+   "chapter": 40,
+   "paragraph": 4,
+   "context": "The man flung his tattered rug over the horse, turned full round",
+   "mainIdea": "Sam says that the masters ask too much money, and the fares are too low. He and the horses must work too long, and he has no Sunday and no warm coat.",
+   "simple": "The man threw his torn rug over the horse and turned right round to the Governor. In a voice that sounded almost hopeless he said that if the police had any business with the matter, it ought to be with the masters who charge so much, or with the fares that are fixed so low. A man has to pay eighteen shillings a day for a cab and two horses, as many of them must in the season, and he must make that money before he earns a penny for himself. Sam says that is more than hard work. He says that nine shillings a day must be got out of each horse before a man begins to get his own living. He says the Governor knows it is true. If the horses do not work, they must starve, and Sam and his children have known what that is. He has six children, and only one earns anything. He is on the stand fourteen or sixteen hours a day, and he has not had a Sunday for these ten or twelve weeks. He says that Skinner never gives a day if he can help it. He wants a warm coat and a mackintosh, but with so many to feed, how can he get them? He had to give his clock to a man for money a week ago, to pay Skinner, and he will never see it again.",
+   "hardWords": [
+    "tattered",
+    "desperate",
+    "shillings",
+    "earn",
+    "starve",
+    "mackintosh",
+    "pledge"
+   ],
+   "main": "Sam says that the masters charge too much and the fares are too low. He and the horses must work very long hours, and he has had no Sunday for weeks and has no warm coat."
+  },
+  {
+   "chapter": 41,
+   "paragraph": 3,
+   "context": "It was Ginger! but how changed! The beautifully arched and glossy neck",
+   "mainIdea": "Ginger is very changed. Her neck is thin and straight, her legs are swollen and her face is full of suffering. She coughs and breathes badly.",
+   "simple": "It was Ginger! But how changed! Her neck, once beautifully curved and shiny, was now straight and thin and fallen in. Her clean, straight legs and fine lower legs were swollen. Her joints had grown out of shape with hard work. Her face, which was once so full of spirit and life, was now full of suffering. By the movement of her sides and her frequent cough, I could tell how bad her breathing was.",
+   "hardWords": [
+    "arched",
+    "glossy",
+    "lank",
+    "delicate",
+    "fetlocks",
+    "swelled",
+    "heaving"
+   ]
+  },
+  {
+   "chapter": 42,
+   "paragraph": 5,
+   "context": "How many times shall I tell you not to drive in this way",
+   "mainIdea": "The butcher is angry with his son for driving the horse too hard, and says that he has ruined a horse before. He says he must look out for himself.",
+   "simple": "The butcher asks how many times he must tell the lad not to drive in this way. The lad ruined the last horse and broke its breathing, and he is going to ruin this one in the same way. If the lad were not his own son, the butcher would send him away at once. It is a disgrace to have a horse brought to the shop in a state like that. The lad might be taken by the police for such driving, and if he is, he need not look to his father for bail money, because the father has spoken to him until he is tired. The lad must look out for himself.",
+   "hardWords": [
+    "ruined",
+    "dismiss",
+    "disgrace",
+    "liable",
+    "bail"
+   ]
+  },
+  {
+   "chapter": 43,
+   "paragraph": 15,
+   "context": "My boy, Liberty does not come from colors",
+   "mainIdea": "Jerry tells Harry that liberty does not come from colors. A color only shows a party, and often it brings only the liberty to get drunk, abuse others and shout at an election.",
+   "simple": "Jerry tells Harry that liberty does not come from colors. They only show which party a person is with. All the liberty a person can get out of them is the liberty to get drunk at other people’s cost, the liberty to ride to the voting place in a dirty old cab, the liberty to say bad things to anyone who does not wear your color, and the liberty to shout until your voice is rough at something you only half understand. Jerry says that is Harry’s liberty!",
+   "hardWords": [
+    "liberty",
+    "expense",
+    "poll",
+    "abuse",
+    "hoarse"
+   ]
+  },
+  {
+   "chapter": 44,
+   "paragraph": 3,
+   "context": "I found I had a good feed of crushed oats wetted",
+   "mainIdea": "The streets are full on election day, with cabs rushing about. Many horses have a bad time, and the voters inside do not think about them.",
+   "simple": "I found that I had a good feed of crushed oats made wet with a little bran. This would be a treat any day, but it was very refreshing then. Jerry was so thoughtful and kind. What horse would not do his best for such a master? Then he took out one of Polly’s meat pies and began to eat it, standing near me. The streets were very full, and the cabs with the candidates’ colors on them were rushing about through the crowd as if life and body were of no value. We saw two people knocked down that day, and one was a woman. The horses were having a bad time, poor things! But the voters inside did not think about that. Many of them were half-drunk and were shouting “Hurrah” out of the cab windows if their own party came by. It was the first election I had seen, and I do not want to be in another, though I have heard that things are better now.",
+   "hardWords": [
+    "wetted",
+    "refreshing",
+    "candidates",
+    "limb",
+    "consequence",
+    "hurrahing"
+   ]
+  },
+  {
+   "chapter": 45,
+   "paragraph": 10,
+   "context": "I had hard work at it for several weeks; you see",
+   "mainIdea": "Jerry tells Grant how he stopped drinking. It was hard work, but his wife helped him, and now for ten years he has not tasted a drop.",
+   "simple": "Jerry says that he had hard work at it for several weeks. He never did get drunk, but he found that he was not his own master, and that when the craving came on, it was hard to say no. He saw that one of them must give way, the drink devil or Jerry Barker. He said it should not be Jerry Barker, with God’s help. It was a struggle, and he wanted all the help he could get. Until he tried to break the habit, he did not know how strong it was. But Polly took great trouble to make sure that he had good food. When the craving came, he would get a cup of coffee or some peppermint, or read a little in his book, and that helped him. Sometimes he had to say over and over to himself, “Give up the drink or lose your soul! Give up the drink or break Polly’s heart!” But thanks be to God and his dear wife, his chains were broken, and now for ten years he has not tasted a drop and never wishes for it.",
+   "hardWords": [
+    "craving",
+    "knock under",
+    "habit",
+    "peppermint",
+    "chains",
+    "tasted"
+   ]
+  },
+  {
+   "chapter": 46,
+   "paragraph": 6,
+   "context": "The wind had been very changeable, with squalls of rain during the day",
+   "mainIdea": "On New Year's night Jerry waits in cold sleet outside a house with no shelter. He starts to cough and sits in the cab with his feet on the pavement.",
+   "simple": "The wind had been very changeable, with short, strong gusts of rain during the day. But now it came on sharp, driving sleet that seemed to come from all sides. It was very cold and there was no shelter. Jerry got off his box and came and pulled one of my cloths a little more over my neck. Then he walked up and down a few times, stamping his feet. Then he began to beat his arms, but that made him cough. So he opened the cab door and sat at the bottom with his feet on the pavement, and had a little shelter. The clock still rang the quarter hours, and no one came. At half-past twelve he rang the bell and asked the servant if he would be wanted that night.",
+   "hardWords": [
+    "changeable",
+    "squalls",
+    "sleet",
+    "stamping",
+    "pavement",
+    "sheltered"
+   ]
+  },
+  {
+   "chapter": 47,
+   "paragraph": 5,
+   "context": "Again I started the heavy load, and struggled on a few yards",
+   "mainIdea": "The horse tries again and again to pull the load, and Jakes whips him. The horse is hurt in his mind as much as his body. Then a lady steps up and asks Jakes to stop.",
+   "simple": "I started the heavy load again and struggled on a few yards. Again the whip came down, and again I struggled forward. The pain of that great cart whip was sharp, but my mind was hurt just as much as my poor sides. It was so hard to be punished and abused when I was doing my very best that it took the heart out of me. A third time he was beating me cruelly when a lady stepped quickly up to him and said in a sweet, serious voice, “Oh! Please do not whip your good horse any more. I am sure he is doing all he can, and the road is very steep. I am sure he is doing his best.”",
+   "hardWords": [
+    "flogging",
+    "earnest",
+    "steep",
+    "pray"
+   ],
+   "main": "The horse tries again and again to pull the load, and the carter whips him. The pain in his mind is as bad as the pain in his body. Then a lady steps up and asks the carter not to whip the horse any more."
+  },
+  {
+   "chapter": 48,
+   "paragraph": 17,
+   "context": "I got along fairly till we came to Ludgate Hill",
+   "mainIdea": "On Ludgate Hill the horse falls from the heavy load and exhaustion. He thinks he will die. The girl says it is their fault, and people loosen his harness and give him cordial.",
+   "simple": "I got along fairly well until we came to Ludgate Hill. But there the heavy load and my own tiredness were too much. I was struggling to keep on, pushed forward by constant pulls on the rein and use of the whip, when in a single moment my feet slipped from under me. I cannot tell how it happened. I fell heavily to the ground on my side. The suddenness and the force with which I fell seemed to beat all the breath out of my body. I lay perfectly still. I had no power to move, and I thought I was going to die. I heard a kind of confusion round me, with loud, angry voices and the getting down of the luggage, but it was all like a dream. I thought I heard that sweet, sad voice saying, “Oh! That poor horse! It is all our fault.” Someone came and loosened the throat strap of my bridle and undid the traces which kept the collar so tight on me. Someone said, “He’s dead, he’ll never get up again.” Then I could hear a policeman giving orders, but I did not even open my eyes. I could only draw a gasping breath now and then. Some cold water was thrown over my head and some cordial was poured into my mouth, and something was covered over me. I cannot tell how long I lay there, but I found my life coming back, and a man with a kind voice was patting me and encouraging me to rise. After I had been given some more cordial, and after one or two attempts, I staggered to my feet, and was gently led to some stables close by. Here I was put into a stall with plenty of straw, and some warm gruel was brought to me, which I drank thankfully.",
+   "hardWords": [
+    "exhaustion",
+    "goaded",
+    "chucks",
+    "suddenness",
+    "loosened",
+    "traces",
+    "cordial",
+    "staggered",
+    "littered",
+    "gruel"
+   ],
+   "main": "On Ludgate Hill the horse falls from the heavy load and from tiredness. He thinks he will die. He hears a sad voice say it is all their fault. People loosen his harness and give him cordial."
+  },
+  {
+   "chapter": 49,
+   "paragraph": 3,
+   "context": "The buyers and sellers, too, many of them, looked not much better off",
+   "mainIdea": "At the sale, the buyers and sellers are poor too. Some look hard from hard times, others are kind. A man with a boy comes to the horse and looks at him with pity.",
+   "simple": "The buyers and sellers, many of them, did not look much better off than the poor animals they were bargaining about. There were poor old men trying to get a horse or a pony for a few pounds, to pull some little wood or coal cart. There were poor men trying to sell a worn-out horse for two or three pounds, rather than have the greater loss of killing him. Some of them looked as if poverty and hard times had made them hard all over. But there were others for whom I would gladly have used the last of my strength. They were poor and shabby, but kind and human, with voices that I could trust. One old man who walked in a shaky way liked me very much, and I liked him, but I was not strong enough. It was an anxious time! Coming from the better part of the fair, I noticed a man who looked like a gentleman farmer, with a young boy by his side. He had a broad back and round shoulders and a kind, red face, and he wore a hat with a wide edge. When he came up to me and my companions, he stood still and gave a look full of pity round at us. I saw his eye rest on me. I still had a good mane and tail, which did something for how I looked. I raised my ears and looked at him.",
+   "hardWords": [
+    "bargaining",
+    "poverty",
+    "shabby",
+    "tottering",
+    "pitiful",
+    "pricked"
+   ]
+  },
+  {
+   "chapter": 50,
+   "paragraph": 13,
+   "context": "White star in the forehead, one white foot on the off side",
+   "mainIdea": "The groom checks the horse's marks: the white star, the white foot, the knot in the neck and the white patch on the back. He knows it is Black Beauty and says that he is Joe Green.",
+   "simple": "The groom says out loud: a white star on the forehead, one white foot on the off side, and this little knot in just that place. Then, looking at the middle of the horse’s back, he says that there is the little patch of white hair that John used to call “Beauty’s threepenny bit.” He says it must be Black Beauty. He asks, “Beauty, do you know me? I am little Joe Green, who almost killed you.” And he began to pat and pat the horse as if he was very happy.",
+   "hardWords": [
+    "knot",
+    "patch",
+    "threepenny",
+    "overjoyed"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 2,
+   "context": "nor the second, but it shall be the last",
+   "simple": "This is not the first time, and it is not the second time, but it will be the last.",
+   "grammar": "'nor the second' carries on the negative ('not the first, nor the second'); 'shall' is the master's firm promise, not just the future."
+  },
+  {
+   "chapter": 3,
+   "context": "I never yet could make out why men are so fond of this sport",
+   "simple": "Up to now I have never been able to understand why men like this sport so much.",
+   "grammar": "'never yet could' means 'up to now I have never been able to'; 'make out' means 'understand'; 'so fond of' means 'like very much'."
+  },
+  {
+   "chapter": 4,
+   "context": "Those who have never had a bit in their mouths",
+   "simple": "Those who have never had a bit in their mouths cannot imagine how bad it feels.",
+   "grammar": "'Those who...' means 'the ones who...' (here, horses); 'cannot think how bad it feels' means 'cannot imagine' and 'how bad' starts an indirect question."
+  },
+  {
+   "chapter": 5,
+   "context": "I never was in a better box than that",
+   "simple": "That was the best box I was ever in.",
+   "grammar": "'never ... a better box than that' says it was the best box he was ever in; 'was in' is the simple past of 'to be in'."
+  },
+  {
+   "chapter": 6,
+   "context": "If it was not for bringing back the past",
+   "simple": "If it were not for bringing back the past.",
+   "grammar": "'If it was not for X, I should have...' means 'Without X, I would have...'; 'should have named' is the same as 'would have named'."
+  },
+  {
+   "chapter": 7,
+   "context": "Spirited horses, when not enough exercised, are often called skittish",
+   "simple": "Lively horses that do not get enough exercise are often called skittish, when really they are only playing.",
+   "grammar": "'when not enough exercised' is a short form of 'when they are not exercised enough'; the last 'when' means 'while in fact'."
+  },
+  {
+   "chapter": 8,
+   "context": "he had only just mounted me on the training ground",
+   "simple": "He had only just got up on my back on the training ground.",
+   "grammar": "'had only just mounted' is the past perfect: the mounting happened right before another past event (something I did put him out of temper)."
+  },
+  {
+   "chapter": 9,
+   "context": "Did not your master take any thought for you",
+   "simple": "Did your master not think about you at all?",
+   "grammar": "This question puts 'not' after 'Did' and before the subject, which is an old way of saying 'Didn't your master...'."
+  },
+  {
+   "chapter": 10,
+   "context": "I would not do such a thing for the best oats",
+   "simple": "I would not do such a thing for the very best oats that ever came into the stable.",
+   "grammar": "'would not do ... for the best oats' uses 'would' for a made-up case; 'that ever came' uses 'ever' to stress 'the best of all time'."
+  },
+  {
+   "chapter": 11,
+   "context": "if the lamp on the left side had not gone out",
+   "simple": "If the lamp on the left side had not gone out, John would have seen the great hole.",
+   "grammar": "'if ... had not gone out, John would have seen' is the third conditional: it talks about something in the past that did not happen."
+  },
+  {
+   "chapter": 12,
+   "context": "if a horse makes a false step, he has much less chance",
+   "simple": "If a horse takes a wrong step, he has much less chance to get his balance back.",
+   "grammar": "'recovering himself' uses the reflexive 'himself' after the -ing form to mean 'getting back his balance'; 'of' links 'chance' to the action."
+  },
+  {
+   "chapter": 13,
+   "context": "it would be rather awkward if one of these branches came down upon us",
+   "simple": "It would be rather awkward if one of these branches came down on us.",
+   "grammar": "'would be ... if one of these branches came' is a second-type 'if' sentence: it talks about something that might happen, using the past tense after 'if'."
+  },
+  {
+   "chapter": 14,
+   "context": "I love horses, and it riles me to see them badly used",
+   "simple": "I love horses, and it makes me angry to see them treated badly.",
+   "grammar": "'it riles me to see them badly used' puts 'it' first for the real subject, 'to see them badly used'; 'used' here is a past participle meaning 'treated'."
+  },
+  {
+   "chapter": 15,
+   "context": "I would rather have them in charge with him than with half",
+   "simple": "I would prefer to leave the horses with him than with half the young men I know.",
+   "grammar": "'would rather ... than ...' says what someone prefers; here 'in charge with him' means he has the care of them."
+  },
+  {
+   "chapter": 16,
+   "context": "I never was cleaned so lightly and quickly as by that little old man",
+   "simple": "No one ever cleaned me so lightly and so quickly as that little old man did.",
+   "grammar": "'never ... so lightly and quickly as ...' compares two things as equal in the negative; 'was cleaned' is the passive, with 'by that little old man' naming who did it."
+  },
+  {
+   "chapter": 17,
+   "context": "had she not heard me outside she would never have had courage",
+   "simple": "If she had not heard me outside, she would never have had the courage to come out.",
+   "grammar": "'had she not heard' is the same as 'if she had not heard'; 'if' is left out and the helping verb 'had' is put first."
+  },
+  {
+   "chapter": 18,
+   "context": "she must have gone to the workhouse but for our mistress",
+   "simple": "She would have had to go to the workhouse if it had not been for our mistress.",
+   "grammar": "'must have gone' here means 'would certainly have gone'; 'but for our mistress' means 'if it had not been for our mistress'."
+  },
+  {
+   "chapter": 19,
+   "context": "if we had been a little longer it would have been too late",
+   "simple": "If we had taken a little more time, it would have been too late.",
+   "grammar": "'if we had been ... it would have been' is the third conditional: it talks about something in the past that did not happen."
+  },
+  {
+   "chapter": 20,
+   "context": "Don’t you know that it is the worst thing in the world",
+   "simple": "Do you not know that it is the worst thing in the world, after wickedness?",
+   "grammar": "A negative question, 'Don’t you know...?', is used to say strongly that the person does know; 'next to' here means 'after'."
+  },
+  {
+   "chapter": 21,
+   "context": "Many folks would have ridden by and said it was not their business",
+   "simple": "Many people would have ridden past and said it was not their job to get involved.",
+   "grammar": "'would have ridden by and said' is the third conditional: it tells what many people would have done in the past, but Joe did not."
+  },
+  {
+   "chapter": 22,
+   "context": "Many young animals are frightened and spoiled by wrong treatment",
+   "simple": "Many young animals are scared and made bad by wrong treatment.",
+   "grammar": "'frightened and spoiled' are two past participles used as passive verbs with 'are', and 'by wrong treatment' says what causes it."
+  },
+  {
+   "chapter": 23,
+   "context": "if she were ill-used or unfairly treated she would not be unlikely",
+   "simple": "If she were treated badly or unfairly, she would quite likely pay people back in the same way.",
+   "grammar": "'would not be unlikely' uses two negatives to say 'it is quite likely'; 'if she were' is the second conditional."
+  },
+  {
+   "chapter": 24,
+   "context": "had not York promptly sat himself down flat on her head",
+   "simple": "There is no knowing what more harm she might have done if York had not quickly sat down flat on her head.",
+   "grammar": "'had not York ... sat' puts 'had' before the subject to mean 'if York had not sat'; 'might have done' tells about a possible result in the past."
+  },
+  {
+   "chapter": 25,
+   "context": "I needed no whip, no spur, for I was as eager as my rider",
+   "simple": "I did not need a whip or a spur, because I wanted to go as much as my rider did.",
+   "grammar": "'as eager as my rider' compares two things that are equal with 'as ... as'; 'no whip, no spur' uses 'no' twice to stress that neither was needed."
+  },
+  {
+   "chapter": 26,
+   "context": "If Smith had been in his right senses he would have been sensible",
+   "simple": "If Smith had been thinking clearly, he would have known that something was wrong with my pace.",
+   "grammar": "'in his right senses' means 'thinking clearly'; 'sensible of' means 'aware of'; the 'if ... had been ... would have been' form is the third conditional."
+  },
+  {
+   "chapter": 27,
+   "context": "if he had been in his right senses he would just as soon",
+   "simple": "If he had been thinking clearly, he would just as soon have tried to ride him over the moon.",
+   "grammar": "'would just as soon have tried' means 'would as willingly have tried' (here, not at all); it is a third conditional with a joke."
+  },
+  {
+   "chapter": 28,
+   "context": "The mare shall have a twelvemonth’s run, and we shall see",
+   "simple": "The mare will have a year in the field, and we will see what that will do for her.",
+   "grammar": "'shall' with 'the mare' and 'we' shows the earl's decision, not just the future; 'twelvemonth’s run' is a year of free time in a field."
+  },
+  {
+   "chapter": 29,
+   "context": "a practiced hand would have felt by the rein that there was something",
+   "simple": "A driver who knew his job would have felt through the rein that something was wrong with the horse's step.",
+   "grammar": "'would have felt' is the third conditional result: it says what a good driver would have done, but this driver did not."
+  },
+  {
+   "chapter": 30,
+   "context": "I wish I could have done so; I would have had long legs then",
+   "simple": "I wish I had made myself, because then I would have had long legs.",
+   "grammar": "'I wish I could have done so' is about a past that cannot change, and 'I would have had' is the result of that unreal wish."
+  },
+  {
+   "chapter": 30,
+   "context": "I think if he would have let me just look at things quietly",
+   "simple": "I think that if he had let me just look at things quietly and see that there was nothing to hurt me, it would have been all right, and I would have got used to them.",
+   "grammar": "'if he would have let me' is a spoken way of saying 'if he had let me'; the result is 'it would have been all right'."
+  },
+  {
+   "chapter": 31,
+   "context": "I am much mistaken if your horse gets it",
+   "simple": "I would be very surprised if your horse gets it.",
+   "grammar": "'I am much mistaken if' is a polite old way to say that you are sure about something: here he is sure the horse does not get the corn."
+  },
+  {
+   "chapter": 32,
+   "context": "I should not like to do him an injury, but I’ll do it",
+   "simple": "I would not want to hurt him, but I will do it if you want me to, sir.",
+   "grammar": "'if you please' is a polite, old way to say 'if you want me to'; 'I should not like' is the same as 'I would not like'."
+  },
+  {
+   "chapter": 33,
+   "context": "if a horse may speak his mind so far as he understands",
+   "simple": "If a horse can say what he thinks, as far as he understands.",
+   "grammar": "'may speak his mind' uses 'may' to mean 'is allowed to'; 'speak his mind' means 'say what he thinks'; 'so far as' means 'as far as'."
+  },
+  {
+   "chapter": 34,
+   "context": "I suppose I need not find it out till it finds me out",
+   "simple": "I think I do not have to find out about something wrong until it shows itself.",
+   "grammar": "'it finds me out' turns the sentence round, so that the fault, not the man, is the one that finds; 'need not' means 'do not have to'."
+  },
+  {
+   "chapter": 35,
+   "context": "I believe so long as we felt our rider firm in the saddle",
+   "simple": "I believe that as long as we felt our rider was steady in the saddle, none of us gave way to fear.",
+   "grammar": "'so long as' means 'as long as'; it begins a clause that gives the condition under which none of the horses gave way to fear."
+  },
+  {
+   "chapter": 36,
+   "context": "It’s against his conscience to go beyond a jog-trot",
+   "simple": "He feels that it is wrong to go faster than a slow trot.",
+   "grammar": "'It’s against his conscience' means 'his sense of right and wrong does not let him'; it is Larry's joke about Jerry."
+  },
+  {
+   "chapter": 37,
+   "context": "I would not have you a seven-days’ cabman again",
+   "simple": "I would not want you to be a seven-day cab driver again.",
+   "grammar": "'would not have you a seven-days’ cabman' is an older pattern: 'have' with a person and a noun means 'want or allow you to be'."
+  },
+  {
+   "chapter": 38,
+   "context": "we should do to other people as we should like",
+   "simple": "We should do to other people what we would like them to do to us.",
+   "grammar": "'as we should like they should do' is an old way to say 'what we would like them to do'; it is the Golden Rule from the chapter title."
+  },
+  {
+   "chapter": 39,
+   "context": "Do you know why this world is as bad as it is",
+   "simple": "Do you know the reason this world is as bad as it is?",
+   "grammar": "'as bad as it is' means 'as bad as it now is'; 'why' starts an indirect question after 'know'."
+  },
+  {
+   "chapter": 40,
+   "context": "I wish some of ’em had got to sit on my box",
+   "simple": "I wish some of them had to sit on my box sixteen hours a day.",
+   "grammar": "'wish some of them had got to sit' uses the past tense after 'wish' for something that is not true now; 'had got to' means 'had to'."
+  },
+  {
+   "chapter": 41,
+   "context": "I wish I may drop down dead at my work, and not be sent",
+   "simple": "I hope that I will fall down dead while I work, and not be sent away to be killed.",
+   "grammar": "'I wish I may' is an older way to say 'I hope that I will'; it is followed by two actions joined with 'and not'."
+  },
+  {
+   "chapter": 42,
+   "context": "If you were not my own son I would dismiss you on the spot",
+   "simple": "If you were not my own son, I would send you away from your job right now.",
+   "grammar": "'If you were not ... I would dismiss' is the second conditional: it says what would happen if something that is not true were true; 'on the spot' means 'at once'."
+  },
+  {
+   "chapter": 43,
+   "context": "I could not in my conscience send him up to make",
+   "simple": "I could not, with a clear sense of what is right, send him up to make laws.",
+   "grammar": "'in my conscience' means 'with my sense of right and wrong'; 'send him up' means to choose him for the job of making the laws."
+  },
+  {
+   "chapter": 44,
+   "context": "I’d be ashamed of myself to let a woman and a sick child",
+   "simple": "I would feel shame if I let a woman and a sick child take a risk like that.",
+   "grammar": "'I’d be ashamed ... to let' uses 'would be' for an imagined case; 'run a risk' means 'take a chance of something bad happening'."
+  },
+  {
+   "chapter": 45,
+   "context": "it was an ill wind that blew nobody good",
+   "simple": "It was a bad wind that blew good to nobody.",
+   "grammar": "'it was an ill wind that blew nobody good' is a well-known saying: a bad event for one person often gives good luck to another; here it points to the cabman's gain."
+  },
+  {
+   "chapter": 46,
+   "context": "if ever he gave up the cab work she would like to know",
+   "simple": "She told father that if he ever stopped doing cab work, she would like to hear about it.",
+   "grammar": "'if ever he gave up' joins 'if' with 'ever' to mean 'if at any time'; 'she would like to know' is what she said to Jerry in the past."
+  },
+  {
+   "chapter": 47,
+   "context": "Is it not better,” she said, “to lead a good fashion",
+   "simple": "Is it not better to start a good fashion than to follow a bad one?",
+   "grammar": "'Is it not better...?' is a question that expects the answer 'yes'; 'one' stands for 'fashion' so the word is not said twice."
+  },
+  {
+   "chapter": 48,
+   "context": "I wished I might, like Ginger, drop down dead at my work",
+   "simple": "I wished that I could drop down dead at my work, as Ginger did, and be free from my sadness.",
+   "grammar": "'wished I might' uses 'might' for a hope; 'like Ginger' compares him with Ginger; 'be out of my misery' means 'be free from my pain'."
+  },
+  {
+   "chapter": 49,
+   "context": "I’ll be bound he’d be worth twenty pounds next spring",
+   "simple": "I am sure he will be worth twenty pounds next spring.",
+   "grammar": "'I’ll be bound' means 'I am sure'; 'he’d be worth' is 'he would be worth', and it is a guess about next spring."
+  },
+  {
+   "chapter": 50,
+   "context": "it won’t be my fault if you haven’t good times of it now",
+   "simple": "If you do not have good times now, it will not be because of me.",
+   "grammar": "'it won’t be my fault if' uses the present tense after 'if' for the future; 'good times of it' is a spoken way to say 'a good life'."
+  }
+ ],
+ "phrases": {
+  "make out": {
+   "meaning": "To understand something or see it clearly.",
+   "pos": "phrasal verb",
+   "forms": [
+    "make out",
+    "made out"
+   ],
+   "example": "I never yet could make out why men are so fond of this sport"
+  },
+  "break in": {
+   "meaning": "To teach a young horse to carry a rider or pull a vehicle and to do what it is told.",
+   "pos": "phrasal verb",
+   "forms": [
+    "broken in",
+    "breaking in",
+    "broke in",
+    "break me in",
+    "break him in"
+   ],
+   "example": "When he has been well broken in he will do very well"
+  },
+  "get rid of": {
+   "meaning": "To make something go away or stop having it.",
+   "pos": "phrase",
+   "forms": [
+    "get rid of"
+   ],
+   "example": "you get rid of the nasty hard thing"
+  },
+  "get used to": {
+   "meaning": "To start to feel something is normal.",
+   "pos": "phrase",
+   "forms": [
+    "got used to",
+    "get used to"
+   ],
+   "example": "in time I got used to it"
+  },
+  "turn out": {
+   "meaning": "To make someone leave a place. It can also mean to end up in a certain way.",
+   "pos": "phrasal verb",
+   "forms": [
+    "turned out",
+    "turned me out",
+    "turning out",
+    "turn me out"
+   ],
+   "example": "you who have turned me out of my box"
+  },
+  "pull up": {
+   "meaning": "To stop a horse by pulling on the long bands.",
+   "pos": "phrasal verb",
+   "forms": [
+    "pulled up",
+    "pulled me up",
+    "pulling up"
+   ],
+   "example": "as he pulled me up"
+  },
+  "give up": {
+   "meaning": "To stop doing something, or to let someone else have it.",
+   "pos": "phrasal verb",
+   "forms": [
+    "gave up",
+    "given up",
+    "giving up"
+   ],
+   "example": "he had given up all the hard part of the trade"
+  },
+  "put out": {
+   "meaning": "To make someone angry or unhappy.",
+   "pos": "phrasal verb",
+   "forms": [
+    "put out",
+    "putting out"
+   ],
+   "example": "he would get put out"
+  },
+  "by and by": {
+   "meaning": "After a short time; soon.",
+   "pos": "idiom",
+   "example": "she’ll be as good as Black Beauty by and by"
+  },
+  "make up one's mind": {
+   "meaning": "To decide.",
+   "pos": "idiom",
+   "forms": [
+    "made up my mind",
+    "make up his mind",
+    "made up her mind"
+   ],
+   "example": "I had then made up my mind"
+  },
+  "go to the bad": {
+   "meaning": "To become bad and end badly.",
+   "pos": "idiom",
+   "forms": [
+    "go to the bad"
+   ],
+   "example": "such a fine horse should go to the bad"
+  },
+  "take thought for": {
+   "meaning": "To think about and care about someone.",
+   "pos": "phrase",
+   "forms": [
+    "take thought for",
+    "take any thought for"
+   ],
+   "example": "take any thought for you"
+  },
+  "show off": {
+   "meaning": "To try to make people look at you and think you are good.",
+   "pos": "phrasal verb",
+   "forms": [
+    "show off"
+   ],
+   "example": "he did not want to show off in London parks"
+  },
+  "depend upon": {
+   "meaning": "To be sure about something; to trust it completely.",
+   "pos": "phrase",
+   "forms": [
+    "depend upon"
+   ],
+   "example": "You may depend upon it"
+  },
+  "give way": {
+   "meaning": "To stop holding out and let something control you.",
+   "pos": "phrasal verb",
+   "forms": [
+    "giving way",
+    "gave way"
+   ],
+   "example": "by giving way to such passion"
+  },
+  "look out for": {
+   "meaning": "To watch for someone who is coming, or to try to find someone.",
+   "pos": "phrasal verb",
+   "forms": [
+    "looking out for"
+   ],
+   "example": "the gardener looking out for us"
+  },
+  "serve him right": {
+   "meaning": "Used to say that the bad thing that happens to someone is fair.",
+   "pos": "idiom",
+   "forms": [
+    "served him right",
+    "serve her right",
+    "serve them right"
+   ],
+   "example": "Served him right"
+  },
+  "keep one's wits about one": {
+   "meaning": "To stay ready and think quickly.",
+   "pos": "idiom",
+   "forms": [
+    "keep their wits about them"
+   ],
+   "example": "keep their wits about them"
+  },
+  "look sharp": {
+   "meaning": "To be quick and careful.",
+   "pos": "idiom",
+   "forms": [
+    "look sharp"
+   ],
+   "example": "if they did not look sharp"
+  },
+  "make way": {
+   "meaning": "To move out of the way so that others can pass.",
+   "pos": "idiom",
+   "forms": [
+    "make way"
+   ],
+   "example": "make way"
+  },
+  "take care of number one": {
+   "meaning": "To look after yourself only and not care about others.",
+   "pos": "idiom",
+   "forms": [
+    "taking care of number one"
+   ],
+   "example": "take care of number one"
+  },
+  "turn up one's nose at": {
+   "meaning": "To think something is not good enough for you.",
+   "pos": "idiom",
+   "forms": [
+    "turn up his nose at"
+   ],
+   "example": "turn up his nose at a little boy"
+  },
+  "draw up": {
+   "meaning": "To stop a horse or a vehicle. Vehicles that are drawn up stand in a line.",
+   "pos": "phrasal verb",
+   "forms": [
+    "drew up",
+    "drew me up",
+    "draw me up",
+    "drawn up"
+   ],
+   "example": "we drew up at Dr. White’s door"
+  },
+  "ride for one's life": {
+   "meaning": "To ride as fast as you can because someone may die.",
+   "pos": "idiom",
+   "example": "ride for your life"
+  },
+  "mind one's own business": {
+   "meaning": "To not get into what other people are doing.",
+   "pos": "idiom",
+   "example": "Mind your own business"
+  },
+  "in high spirits": {
+   "meaning": "Very happy and full of energy.",
+   "pos": "idiom",
+   "example": "he was in high spirits"
+  },
+  "take in hand": {
+   "meaning": "To start to look after and train.",
+   "pos": "idiom",
+   "forms": [
+    "take them in hand",
+    "took them in hand"
+   ],
+   "example": "took them in hand"
+  },
+  "tit for tat": {
+   "meaning": "Doing the same bad thing to someone as they did to you.",
+   "pos": "idiom",
+   "example": "give tit for tat"
+  },
+  "bearing rein": {
+   "meaning": "A band that holds a horse's head up high and back.",
+   "pos": "phrase",
+   "forms": [
+    "bearing reins"
+   ],
+   "example": "our bearing reins were shortened"
+  },
+  "make the best of": {
+   "meaning": "To do as well as you can in a bad case.",
+   "pos": "idiom",
+   "forms": [
+    "make the best of"
+   ],
+   "example": "make the best of it"
+  },
+  "by degrees": {
+   "meaning": "Slowly, a little at a time.",
+   "pos": "idiom",
+   "forms": [
+    "by degrees"
+   ],
+   "example": "it all went off by degrees"
+  },
+  "wash one's hands of": {
+   "meaning": "To stop having anything to do with a problem.",
+   "pos": "idiom",
+   "forms": [
+    "wash my hands of"
+   ],
+   "example": "I wash my hands of it"
+  },
+  "on account of": {
+   "meaning": "Because of.",
+   "pos": "phrase",
+   "forms": [
+    "on account of"
+   ],
+   "example": "on account of her fine action"
+  },
+  "make believe": {
+   "meaning": "To act as if something is true when it is not.",
+   "pos": "idiom",
+   "forms": [
+    "made believe"
+   ],
+   "example": "She made believe she was not a bit anxious"
+  },
+  "in spite of": {
+   "meaning": "Even though something bad is there.",
+   "pos": "phrase",
+   "example": "slept in spite of the pain"
+  },
+  "come to pass": {
+   "meaning": "To happen.",
+   "pos": "idiom",
+   "example": "it came to pass that in the summer I was sold"
+  },
+  "all of a sudden": {
+   "meaning": "Very quickly, when you do not expect it.",
+   "pos": "idiom",
+   "example": "all of a sudden the wheel came against some great heavy thing"
+  },
+  "speak one's mind": {
+   "meaning": "To say what you really think.",
+   "pos": "idiom",
+   "example": "speak his mind"
+  },
+  "make much of": {
+   "meaning": "To treat someone as very important and show them love.",
+   "pos": "idiom",
+   "forms": [
+    "made as much of me",
+    "make much of",
+    "made much of"
+   ],
+   "example": "made as much of me as if I had been the Black Beauty"
+  },
+  "take pains": {
+   "meaning": "To work hard and with great care.",
+   "pos": "idiom",
+   "forms": [
+    "took as much pains",
+    "took a great deal of pains",
+    "take pains"
+   ],
+   "example": "took as much pains to see if the collar"
+  },
+  "keep up one's spirits": {
+   "meaning": "To stay happy and not lose hope.",
+   "pos": "idiom",
+   "forms": [
+    "keep up my spirits"
+   ],
+   "example": "I’ll keep up my spirits a little longer"
+  },
+  "so long as": {
+   "meaning": "As long as; if.",
+   "pos": "phrase",
+   "forms": [
+    "so long as"
+   ],
+   "example": "so long as we felt our rider firm in the saddle"
+  },
+  "put on the steam": {
+   "meaning": "To go faster.",
+   "pos": "idiom",
+   "forms": [
+    "putting on the steam"
+   ],
+   "example": "put on the steam"
+  },
+  "for a wonder": {
+   "meaning": "Which is a surprise.",
+   "pos": "idiom",
+   "forms": [
+    "for a wonder"
+   ],
+   "example": "for a wonder had a good clear time"
+  },
+  "take it to heart": {
+   "meaning": "To feel very sad about something.",
+   "pos": "idiom",
+   "forms": [
+    "took it to heart"
+   ],
+   "example": "Jerry took it to heart a good deal"
+  },
+  "out of sorts": {
+   "meaning": "Feeling unwell or unhappy.",
+   "pos": "idiom",
+   "example": "we are all out of sorts in the house"
+  },
+  "hard lines": {
+   "meaning": "Bad luck; a bad, unfair situation.",
+   "pos": "idiom",
+   "example": "it is hard lines for man"
+  },
+  "on the spot": {
+   "meaning": "At once; right there.",
+   "pos": "idiom",
+   "example": "I would dismiss you on the spot"
+  },
+  "go to one's heart": {
+   "meaning": "To make you feel very sad.",
+   "pos": "idiom",
+   "forms": [
+    "went to my heart"
+   ],
+   "example": "It often went to my heart"
+  },
+  "in no time": {
+   "meaning": "Very quickly.",
+   "pos": "idiom",
+   "example": "be back in no time"
+  },
+  "a great mind to": {
+   "meaning": "A wish or plan to do something.",
+   "pos": "idiom",
+   "example": "I’ve a great mind to try at it"
+  },
+  "while there's life there's hope": {
+   "meaning": "As long as a person is alive, there is a chance.",
+   "pos": "idiom",
+   "example": "while there’s life there’s hope"
+  },
+  "take the heart out of": {
+   "meaning": "To make someone lose hope or the wish to try.",
+   "pos": "idiom",
+   "forms": [
+    "took the heart out of"
+   ],
+   "example": "it took the heart out of me"
+  },
+  "I'll be bound": {
+   "meaning": "Used to show that you are sure of something.",
+   "pos": "idiom",
+   "example": "I’ll be bound for it"
+  },
+  "go to the dogs": {
+   "meaning": "To fall into a very bad state.",
+   "pos": "idiom",
+   "forms": [
+    "go to the dogs"
+   ],
+   "example": "go to the dogs"
+  },
+  "hold one's tongue": {
+   "meaning": "To say nothing.",
+   "pos": "idiom",
+   "forms": [
+    "hold your tongue"
+   ],
+   "example": "hold your tongue"
+  },
+  "out of hand": {
+   "meaning": "At once, without waiting.",
+   "pos": "idiom",
+   "example": "killed out of hand"
+  },
+  "come round": {
+   "meaning": "To come again, as a season does.",
+   "pos": "phrasal verb",
+   "forms": [
+    "came round"
+   ],
+   "example": "The spring came round"
+  },
+  "take a fancy to": {
+   "meaning": "To start to like someone.",
+   "pos": "idiom",
+   "forms": [
+    "took a great fancy to",
+    "take a fancy to"
+   ],
+   "example": "took a great fancy to me"
+  },
+  "handsome is that handsome does": {
+   "meaning": "A person is good by what he does, not by how he looks.",
+   "pos": "idiom",
+   "example": "Handsome is that handsome does"
+  },
+  "on trial": {
+   "meaning": "For a short time, to see if someone or something is good.",
+   "pos": "phrase",
+   "example": "have him on trial"
+  }
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "glossary": {
+  "mantua": {
+   "pos": "noun",
+   "meaning": "A woman's dress that is not close to the body. A 'mantua-maker' makes dresses."
+  },
+  "organdie": {
+   "pos": "uncountable noun",
+   "meaning": "A very thin, hard cloth, used for summer dresses."
+  },
+  "demure": {
+   "pos": "adjective",
+   "meaning": "Quiet and serious in a polite way, often to look good."
+  },
+  "blandly": {
+   "pos": "adverb",
+   "meaning": "In a smooth way that shows no feeling."
+  },
+  "volubly": {
+   "pos": "adverb",
+   "meaning": "In a way that talks a lot and very fast."
+  },
+  "effusion": {
+   "pos": "uncountable noun",
+   "meaning": "A showing of feeling that is too strong and goes on too long."
+  },
+  "connoisseur": {
+   "pos": "noun",
+   "meaning": "A person who knows a lot about art or fine things and can judge them well."
+  },
+  "mollified": {
+   "pos": "past participle",
+   "meaning": "Made less angry.",
+   "forms": [
+    "mollified"
+   ]
+  },
+  "puritanical": {
+   "pos": "adjective",
+   "meaning": "Too hard about what is right and wrong, and against fun."
+  },
+  "morose": {
+   "pos": "adjective",
+   "meaning": "Sad, cross and quiet."
+  },
+  "brusque": {
+   "pos": "adjective",
+   "meaning": "Quick and rude in speaking, with no polite words."
+  },
+  "parasol": {
+   "pos": "noun",
+   "meaning": "A light cover that a woman holds up to keep the sun off her."
+  },
+  "irreproachable": {
+   "pos": "adjective",
+   "meaning": "Perfect; with nothing that anyone can find wrong."
+  },
+  "ravishing": {
+   "pos": "adjective",
+   "meaning": "Very beautiful and lovely."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 31,
+   "context": "Jo sat as if blandly unconscious of it all",
+   "mainIdea": "Jo does exactly what Amy asked and stays silent and cold on the first call.",
+   "simple": "Amy looked relieved, but naughty Jo took her at her word. During the first call she sat with every part of her body calm and every fold of her dress right. She was as calm as a summer sea, as cool as a snowbank, and as silent as a sphinx. Mrs. Chester spoke of her 'charming novel', and the Misses Chester spoke of parties, picnics, the opera and fashions. Jo gave all of them just a smile, a bow, and a polite 'Yes' or 'No', in a cold way. Amy sent her the message 'Talk' and tried to draw her out, and even kicked her softly. Jo sat as if she did not know about any of it. Her manner was like Maud's face: 'icily regular, splendidly null'.",
+   "hardWords": [
+    "demure",
+    "telegraphed",
+    "covert"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 31,
+   "context": "If it was fair —that was in the bond; and I stand to the letter of my bond, Shylock.",
+   "simple": "The promise was only for fair weather, and I keep exactly to the words of my promise, as Shylock did.",
+   "grammar": "'Bond' is an old word for a signed promise. Jo makes a joke about Shylock, a person in a play by Shakespeare, who kept strictly to the words of his deal."
+  },
+  {
+   "chapter": 31,
+   "context": "It’s a greater not to be able to hide them.",
+   "simple": "It is a bigger misfortune not to be able to hide those feelings.",
+   "grammar": "'A greater' stands for 'a greater misfortune'. The noun is left out because it was in the sentence before."
+  }
+ ],
+ "phrases": {}
+}

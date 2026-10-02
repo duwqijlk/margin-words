@@ -1,0 +1,199 @@
+{
+"glossary": {
+"benediction": {
+"pos": "noun",
+"meaning": "A prayer or blessing, often said at the end of a church service."
+},
+"scarify": {
+"pos": "verb",
+"meaning": "To make small cuts or scratches on a surface. Here, Tom scratches the cupboard with his new knife."
+},
+"counterfeited": {
+"pos": "past participle",
+"meaning": "Copied to fool people. Here it means a false copy of a Barlow knife.",
+"forms": [
+"counterfeited",
+"counterfeit"
+]
+},
+"contrived": {
+"pos": "past-tense verb",
+"meaning": "Found a way to do something, with some trouble.",
+"forms": [
+"contrived",
+"contrive"
+]
+},
+"disconcerted": {
+"pos": "adjective",
+"meaning": "Upset and confused because something went wrong."
+},
+"galled": {
+"pos": "past-tense verb",
+"meaning": "Made someone feel sore and angry.",
+"forms": [
+"galled",
+"gall"
+]
+},
+"persuasively": {
+"pos": "adverb",
+"meaning": "In a way that tries to make a person agree."
+},
+"accosted": {
+"pos": "past-tense verb",
+"meaning": "Went up to someone and spoke to him.",
+"forms": [
+"accosted",
+"accost"
+]
+},
+"waylaid": {
+"pos": "past-tense verb",
+"meaning": "Stopped people on their way to speak to them.",
+"forms": [
+"waylaid",
+"waylay"
+]
+},
+"reprimand": {
+"pos": "noun",
+"meaning": "Words of anger from a person with power, because you did wrong."
+},
+"superintendent": {
+"pos": "noun",
+"meaning": "The person in charge of a school or of a church school like this one."
+},
+"pulpit": {
+"pos": "noun",
+"meaning": "A raised place in a church where the speaker stands."
+},
+"pew": {
+"pos": "noun",
+"meaning": "A long wooden seat in a church.",
+"forms": [
+"pews"
+]
+},
+"cravat": {
+"pos": "noun",
+"meaning": "A wide cloth that a man wears around his neck, like a tie."
+},
+"mien": {
+"pos": "noun",
+"meaning": "The way a person looks or acts."
+},
+"prodigious": {
+"pos": "adjective",
+"meaning": "Very great and surprising."
+},
+"august": {
+"pos": "adjective",
+"meaning": "Great and grand; making people feel respect."
+},
+"wily": {
+"pos": "adjective",
+"meaning": "Clever in a tricky way."
+},
+"preposterous": {
+"pos": "adjective",
+"meaning": "Very foolish and impossible to believe."
+},
+"sheepish": {
+"pos": "adjective",
+"meaning": "Shy and a little ashamed."
+}
+},
+"paragraphs": [
+{
+"chapter": 6,
+"paragraph": 3,
+"context": "Then Tom girded up his loins, so to speak",
+"mainIdea": "Tom has to learn five Bible verses. He chooses the shortest ones, but after half an hour he still does not know them.",
+"simple": "Then Tom got ready for hard work, so to speak, and began to learn his verses. Sid had learned his lesson days before. Tom used all his strength to learn five verses by heart. He chose part of the Sermon on the Mount, because no verses were shorter. After half an hour Tom had only a rough idea of the lesson. His mind was wandering over everything in the world, and his hands were busy with games that kept him from the work. Mary took his book to hear him say the verses. He tried to find his way through the fog.",
+"hardWords": [
+"girded up his loins",
+"memorizing",
+"vague",
+"traversing",
+"recreations",
+"recite"
+]
+},
+{
+"chapter": 6,
+"paragraph": 43,
+"context": "Tom Sawyer came forward with nine yellow tickets, nine red tickets, and ten blue ones",
+"mainIdea": "Tom shows his tickets and asks for a Bible. The school is shocked. The boys who sold him tickets are very angry with themselves.",
+"simple": "At this moment, when hope was gone, Tom Sawyer came forward with nine yellow tickets, nine red tickets and ten blue ones, and asked for a Bible. It was a great shock, like lightning from a clear sky. Mr. Walters did not expect a request from this boy for the next ten years. But he could not avoid it. Here were the tickets, and they were good for their full value. So Tom was lifted up to a place with the Judge and the other chosen people, and the big news was told from the front. It was the biggest surprise in ten years. It was such a strong feeling that the new hero was raised up as high as the Judge, and the school had two wonders to look at instead of one. The boys were full of envy. The ones who suffered most were those who saw too late that they had helped to make this hated glory. They had traded tickets to Tom for the wealth he got by selling the chance to whitewash. They hated themselves, because a clever cheat had fooled them, like a sly snake in the grass.",
+"hardWords": [
+"certified",
+"elect",
+"envy",
+"amassed",
+"dupes",
+"wily",
+"guileful"
+]
+}
+],
+"sentences": [
+{
+"chapter": 6,
+"context": "How many of my readers would have the industry and application to memorize two thousand verses",
+"simple": "Not many of my readers would work hard enough to learn two thousand verses by heart.",
+"grammar": "It is a question that expects the answer 'very few'. The writer asks it only to make a point. It is not a real question."
+},
+{
+"chapter": 6,
+"context": "the clean territory stopped short at his chin and his jaws, like a mask",
+"simple": "The clean skin stopped at his chin and jaws, so it looked like a mask.",
+"grammar": "'Territory' is used for skin to be funny. 'Like a mask' is a simile, which compares the clean part of his face to a mask."
+},
+{
+"chapter": 6,
+"context": "when she was done with him he was a man and a brother, without distinction of color",
+"simple": "When Mary finished with him, he looked clean enough to be called a man and a brother, whatever the color of his skin.",
+"grammar": "'Without distinction of color' means 'with no difference in color'. It is a funny joke: the dirty and the clean skin now look the same."
+},
+{
+"chapter": 6,
+"context": "Two of the children always remained for the sermon voluntarily, and the other always remained too",
+"simple": "Sid and Mary always stayed for the sermon because they wanted to. Tom always stayed too, but for stronger reasons.",
+"grammar": "The second clause leaves out 'for the sermon'. The words 'for stronger reasons' that follow are a joke: Tom is made to stay."
+}
+],
+"phrases": {
+"gird up one's loins": {
+"meaning": "To get ready to do hard work.",
+"pos": "idiom",
+"forms": [
+"girded up his loins"
+],
+"example": "Then Tom girded up his loins, so to speak"
+},
+"show off": {
+"meaning": "To act in a way that makes other people look at you and think well of you.",
+"pos": "phrasal verb",
+"example": "he was “showing off” with all his might"
+},
+"hang fire": {
+"meaning": "To wait and not act or answer, because you are not sure what to do.",
+"pos": "idiom",
+"forms": [
+"hung fire"
+],
+"example": "Tom still hung fire."
+},
+"put to rights": {
+"meaning": "To put something in good order. Here, Mary makes Tom's clothes neat.",
+"pos": "idiom",
+"example": "The girl “put him to rights” after he had dressed himself"
+},
+"take in hand": {
+"meaning": "To take charge of someone and make him better. Here, Mary washes Tom properly.",
+"pos": "idiom",
+"example": "Mary took him in hand, and when she was done"
+}
+}
+}

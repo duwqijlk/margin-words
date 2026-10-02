@@ -1,0 +1,129 @@
+{
+ "glossary": {
+  "trudge": {
+   "pos": "verb",
+   "meaning": "To walk a long way slowly, with heavy steps, because you are tired."
+  },
+  "midget": {
+   "pos": "noun",
+   "meaning": "A very small person. Here Meg uses it in an angry way for the small children she teaches."
+  },
+  "toil": {
+   "pos": "verb",
+   "meaning": "To work very hard for a long time."
+  },
+  "grumps": {
+   "pos": "plural noun",
+   "meaning": "A bad, cross way of feeling. 'Had the grumps' means felt bad and cross."
+  },
+  "turnover": {
+   "pos": "noun",
+   "meaning": "A small food made of a soft, flat cover with sweet fruit inside."
+  },
+  "bleak": {
+   "pos": "adjective",
+   "meaning": "Cold, empty and not nice, with nothing to keep you safe from the wind."
+  },
+  "wretch": {
+   "pos": "noun",
+   "meaning": "A person who is very sad or very bad. Here Jo uses it as a joke name."
+  },
+  "irascible": {
+   "pos": "adjective",
+   "meaning": "Easily made angry."
+  },
+  "shrill": {
+   "pos": "adjective",
+   "meaning": "High and sharp in sound."
+  },
+  "infirm": {
+   "pos": "adjective",
+   "meaning": "Weak or broken. Here it is used for old, hurt things."
+  },
+  "repulsive": {
+   "pos": "adjective",
+   "meaning": "Very bad to look at; it makes you want to turn away."
+  },
+  "lavished": {
+   "pos": "past participle",
+   "meaning": "Given in very large amounts.",
+   "forms": [
+    "lavished"
+   ]
+  },
+  "caricature": {
+   "pos": "noun",
+   "meaning": "A funny drawing that makes a person's face look strange, to make people laugh."
+  },
+  "deportment": {
+   "pos": "noun",
+   "meaning": "The way a person walks, stands and acts, especially in front of others."
+  },
+  "reprimand": {
+   "pos": "noun",
+   "meaning": "Angry words from a teacher or someone with power, for something you did wrong."
+  },
+  "specs": {
+   "pos": "plural noun",
+   "meaning": "Glasses that people wear on their eyes to see better."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 6,
+   "context": "When Mr. March lost his property in trying to help an unfortunate friend",
+   "mainIdea": "Mr. March lost his money, so Meg took a job as a governess. She finds being poor hard because she remembers better days and sees rich girls' pleasures.",
+   "simple": "When Mr. March lost his money trying to help a friend in trouble, the two oldest girls asked to be allowed to do something to support themselves, at least. Their parents thought the girls could not start too early to build up energy, hard work and independence. So they agreed, and both girls began work with a hearty good will which, in spite of all troubles, is sure to win in the end. Margaret found a job as a nursery governess and felt rich with her small pay. As she said, she was 'fond of luxury', and her main trouble was being poor. She found this harder to bear than the others did, because she remembered a time when home was beautiful, life was full of ease and pleasure, and nobody needed anything. She tried not to be jealous or unhappy, but it was natural for a young girl to long for pretty things, happy friends, skills like music, and a happy life. At the Kings' house she saw every day all that she wanted. The older sisters of the children had just come out into society. Meg often saw pretty ball-dresses and bouquets, heard lively talk about theatres, concerts, sleigh parties and fun of every kind, and saw money spent freely on small things which would have meant so much to her. Poor Meg seldom complained, but a feeling that life was unfair sometimes made her bitter toward everyone. She had not yet learned how rich she was in the blessings which alone can make life happy.",
+   "hardWords": [
+    "nursery governess",
+    "accomplishments",
+    "lavished",
+    "trifles"
+   ]
+  },
+  {
+   "chapter": 6,
+   "context": "Amy was in a fair way to be spoilt",
+   "mainIdea": "Amy is a little spoilt, but wearing her cousin's clothes spoils her pride. She does not like the colours and shapes.",
+   "simple": "Amy was likely to be spoilt, because everyone made a pet of her, and her small pride and selfish ways were growing well. One thing, however, took some of her pride away: she had to wear her cousin's clothes. Florence's mother had no taste at all. Amy suffered deeply at having to wear a red bonnet instead of a blue one, gowns that did not suit her, and fussy aprons that did not fit. Everything was good, well made and not much worn. But Amy's artistic eyes were badly hurt, especially this winter, when her school dress was a dull purple with yellow dots and no trimming.",
+   "hardWords": [
+    "vanities",
+    "quenched",
+    "bonnet",
+    "unbecoming",
+    "afflicted"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 6,
+   "context": "Believing that they could not begin too early to cultivate energy",
+   "simple": "The parents thought it was never too early for the girls to build up energy, hard work and independence, so they agreed.",
+   "grammar": "'Believing that...' is a participle phrase giving the parents' reason. 'Could not begin too early' means 'it is never too early to begin'."
+  },
+  {
+   "chapter": 6,
+   "context": "it had been tried, but she suffered so much that it was given up",
+   "simple": "Beth had tried going to school, but she suffered so much that her parents stopped it.",
+   "grammar": "'It had been tried' and 'it was given up' are passive sentences. 'Give up' is a phrasal verb meaning 'stop'. 'So much that...' shows a result."
+  }
+ ],
+ "phrases": {
+  "wait upon": {
+   "pos": "phrasal verb",
+   "meaning": "To serve a person and do small jobs for her.",
+   "example": "needed an active person to wait upon her"
+  },
+  "take it to heart": {
+   "pos": "idiom",
+   "meaning": "To feel something deeply and think about it seriously.",
+   "example": "she took it to heart as much as any of them"
+  },
+  "drop off": {
+   "pos": "phrasal verb",
+   "meaning": "To fall asleep.",
+   "example": "for aunt soon drops off"
+  }
+ }
+}

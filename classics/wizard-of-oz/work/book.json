@@ -1,0 +1,181 @@
+{
+ "title": "The Wonderful Wizard of Oz",
+ "author": "L. Frank Baum",
+ "sha256": "be8f7802b737cf2f402960d4c691238ccd51b67de0cd69b909e35a2108da47a3",
+ "chapters": [
+  {
+   "chapter": 0,
+   "title": "Titlepage",
+   "words": 9,
+   "paragraphs": 2
+  },
+  {
+   "chapter": 1,
+   "title": "Imprint",
+   "words": 193,
+   "paragraphs": 5
+  },
+  {
+   "chapter": 2,
+   "title": "Introduction. The Wonderful Wizard of Oz",
+   "words": 189,
+   "paragraphs": 7
+  },
+  {
+   "chapter": 3,
+   "title": "I: The Cyclone",
+   "words": 1151,
+   "paragraphs": 21
+  },
+  {
+   "chapter": 4,
+   "title": "II: The Council with the Munchkins",
+   "words": 2013,
+   "paragraphs": 61
+  },
+  {
+   "chapter": 5,
+   "title": "III: How Dorothy Saved the Scarecrow",
+   "words": 1978,
+   "paragraphs": 58
+  },
+  {
+   "chapter": 6,
+   "title": "IV: The Road Through the Forest",
+   "words": 1446,
+   "paragraphs": 39
+  },
+  {
+   "chapter": 7,
+   "title": "V: The Rescue of the Tin Woodman",
+   "words": 2066,
+   "paragraphs": 53
+  },
+  {
+   "chapter": 8,
+   "title": "VI: The Cowardly Lion",
+   "words": 1532,
+   "paragraphs": 49
+  },
+  {
+   "chapter": 9,
+   "title": "VII: The Journey to the Great Oz",
+   "words": 1819,
+   "paragraphs": 43
+  },
+  {
+   "chapter": 10,
+   "title": "VIII: The Deadly Poppy Field",
+   "words": 1947,
+   "paragraphs": 58
+  },
+  {
+   "chapter": 11,
+   "title": "IX: The Queen of the Field Mice",
+   "words": 1394,
+   "paragraphs": 43
+  },
+  {
+   "chapter": 12,
+   "title": "X: The Guardian of the Gate",
+   "words": 1963,
+   "paragraphs": 58
+  },
+  {
+   "chapter": 13,
+   "title": "XI: The Wonderful City of Oz",
+   "words": 3621,
+   "paragraphs": 103
+  },
+  {
+   "chapter": 14,
+   "title": "XII: The Search for the Wicked Witch",
+   "words": 3695,
+   "paragraphs": 85
+  },
+  {
+   "chapter": 15,
+   "title": "XIII: The Rescue",
+   "words": 1202,
+   "paragraphs": 31
+  },
+  {
+   "chapter": 16,
+   "title": "XIV: The Winged Monkeys",
+   "words": 1904,
+   "paragraphs": 45
+  },
+  {
+   "chapter": 17,
+   "title": "XV: The Discovery of Oz, the Terrible",
+   "words": 2798,
+   "paragraphs": 94
+  },
+  {
+   "chapter": 18,
+   "title": "XVI: The Magic Art of the Great Humbug",
+   "words": 945,
+   "paragraphs": 43
+  },
+  {
+   "chapter": 19,
+   "title": "XVII: How the Balloon Was Launched",
+   "words": 1166,
+   "paragraphs": 35
+  },
+  {
+   "chapter": 20,
+   "title": "XVIII: Away to the South",
+   "words": 1175,
+   "paragraphs": 49
+  },
+  {
+   "chapter": 21,
+   "title": "XIX: Attacked by the Fighting Trees",
+   "words": 1022,
+   "paragraphs": 29
+  },
+  {
+   "chapter": 22,
+   "title": "XX: The Dainty China Country",
+   "words": 1525,
+   "paragraphs": 47
+  },
+  {
+   "chapter": 23,
+   "title": "XXI: The Lion Becomes the King of Beasts",
+   "words": 903,
+   "paragraphs": 27
+  },
+  {
+   "chapter": 24,
+   "title": "XXII: The Country of the Quadlings",
+   "words": 949,
+   "paragraphs": 31
+  },
+  {
+   "chapter": 25,
+   "title": "XXIII: Glinda the Good Witch Grants Dorothy’s Wish",
+   "words": 1263,
+   "paragraphs": 42
+  },
+  {
+   "chapter": 26,
+   "title": "XXIV: Home Again",
+   "words": 78,
+   "paragraphs": 5
+  },
+  {
+   "chapter": 27,
+   "title": "Colophon",
+   "words": 166,
+   "paragraphs": 6
+  },
+  {
+   "chapter": 28,
+   "title": "Uncopyright",
+   "words": 351,
+   "paragraphs": 5
+  }
+ ]
+}

@@ -1,0 +1,86 @@
+{
+ "glossary": {
+  "solace": {
+   "pos": "noun",
+   "meaning": "Help that you get when you are sad or in trouble."
+  },
+  "prudent": {
+   "pos": "adjective",
+   "meaning": "Careful and sensible in what you do."
+  },
+  "lamentation": {
+   "pos": "noun",
+   "meaning": "Loud crying that shows great sadness."
+  },
+  "bulletin": {
+   "pos": "noun",
+   "meaning": "A short, official report that gives the latest news."
+  },
+  "despatch": {
+   "pos": "noun",
+   "meaning": "An official message sent quickly.",
+   "forms": [
+    "despatches",
+    "despatch"
+   ]
+  },
+  "mandarin": {
+   "pos": "noun",
+   "meaning": "A play man whose head moves up and down."
+  },
+  "detains": {
+   "pos": "third-person verb",
+   "meaning": "Keeps someone in a place for longer than he wants.",
+   "forms": [
+    "detains",
+    "detain"
+   ]
+  },
+  "forehanded": {
+   "pos": "adjective",
+   "meaning": "Careful to be ready in good time; thinking ahead."
+  },
+  "didoes": {
+   "pos": "plural noun",
+   "meaning": "Silly jokes and games. Here Hannah uses it for the way Laurie plays.",
+   "forms": [
+    "didoes"
+   ]
+  },
+  "pewmonia": {
+   "pos": "noun",
+   "meaning": "A wrong way of saying the name of a very bad sickness that makes it hard to take air in."
+  },
+  "picket": {
+   "pos": "noun",
+   "meaning": "A man who guards a camp at night. 'Picket duty' means this job."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 18,
+   "context": "In the cold gray dawn the sisters lit their lamp",
+   "mainIdea": "The sisters decide to be brave and not cry when their mother leaves. It is hard, because the house feels strange and their mother looks tired.",
+   "simple": "In the cold gray early morning the sisters lit their lamp and read their chapter very seriously. A real trouble had come, so the little books were full of help and comfort. As they dressed, they agreed to say goodbye with hope and cheer, and not to make their mother sad with tears or complaints on her worried journey. Everything seemed strange when they went down. It was dim and still outside, but full of light and noise inside. Breakfast so early seemed odd, and even Hannah's face looked strange as she hurried round the kitchen in her nightcap. The big trunk stood ready in the hall, and mother's cloak and bonnet lay on the sofa. Mother sat trying to eat, but she was so pale and tired from lack of sleep and worry that the girls found it very hard to keep their plan. Meg's eyes kept filling with tears. Jo had to hide her face in the kitchen roller more than once. The two little girls looked serious and troubled, as if sorrow were new to them.",
+   "hardWords": [
+    "resolution",
+    "unsaddened"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 18,
+   "context": "Hannah wisely allowed them to relieve their feelings, and, when the shower showed signs of clearing up",
+   "simple": "Hannah wisely let the girls cry, and when their crying was nearly over, she came to help them with a coffeepot.",
+   "grammar": "'The shower' is a picture word for the girls' tears, like a rain shower. 'Showed signs of clearing up' means it was ending."
+  }
+ ],
+ "phrases": {
+  "see off": {
+   "pos": "phrasal verb",
+   "meaning": "To go with a person to say goodbye when he leaves.",
+   "example": "came over to see her off"
+  }
+ }
+}

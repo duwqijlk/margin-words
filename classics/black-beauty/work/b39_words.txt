@@ -1,0 +1,18 @@
+# ch39 Dolly and a Real Gentleman
+w("sleet","noun","Rain with snow or ice in it.")
+w("keen","adjective","Very sharp and cold, as a wind.")
+w("waterproof","adjective","Not letting water through.")
+w("soaking","adjective","Very wet.")
+w("exhausting","adjective","Making someone very tired.")
+w("rough","verb","To put sharp nails in a horse's shoes so that it can walk on ice.",["roughed"]) if False else None
+w("tin","noun","A metal can or box for food.",["tins"])
+w("pudding","noun","A sweet, soft food, eaten at the end of a meal.")
+w("basin","noun","A round, deep dish.")
+w("vault","noun","A room under a building.",["vaults"]) if False else None
+w("arrest","verb","To take someone away because he has broken the law.",["arrested"])
+w("brutal","adjective","Cruel and rough.")
+w("abusive","adjective","Using rude and angry words.")
+w("wrongdoer","noun","A person who does bad things.")
+w("doctrine","noun","A belief or rule that people are taught.")
+w("guilt","noun","The fact of having done wrong.")
+w("thronged","adjective","Full of people.")

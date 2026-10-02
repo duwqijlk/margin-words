@@ -1,0 +1,92 @@
+@W
+shuffle | verb | To walk slowly without lifting the feet from the floor. | shuffling, shuffled |
+gruff | adjective | Having a rough, unfriendly voice. | |
+exceedingly | adverb | Very; extremely. | |
+perished | adjective | Very, very cold. | |
+paternally | adverb | In the kind way of a father. | |
+prank | noun | A joke that you play on someone for fun. | pranks |
+summons | noun | A call to come to a place. | |
+hearth | noun | The floor in front of a fireplace. | |
+draught | noun | A flow of cold air in a room. | |
+settle | noun | A long wooden seat with a high back. | settles |
+trestle | noun | A wooden frame that holds up the top of a table. | trestles |
+ample | adjective | More than enough. | |
+dresser | noun | A tall cupboard with shelves for plates and cups. | |
+rafter | noun | A long piece of wood that holds up a roof. | rafters |
+mirth | noun | Happy laughter. | |
+ruddy | adjective | Red and healthy-looking. | |
+bade | past-tense verb | Told someone to do something. | bade |
+plaster | noun | A piece of cloth that sticks to the skin to cover a cut. In the book it is 'sticking-plaster'. | |
+anchorage | noun | A safe place where a ship can stop. | |
+repast | noun | A meal. | |
+embers | plural noun | Pieces of wood or coal that are still red and hot after a fire has burned low. | |
+incapable | adjective | Not able to do something well. | |
+assent | past-tense verb | Said yes; agreed. | assented |
+strenuous | adjective | Needing a lot of effort and strength. | |
+arduous | adjective | Very hard and tiring. | |
+fidgety | adjective | Not able to keep still. | |
+oppressive | adjective | Heavy and hard to bear, like air that is too warm. | |
+loft | noun | A room just under the roof. | |
+injunction | noun | An order; something you are told to do. | injunctions |
+rasher | noun | A thin piece of bacon. | rashers |
+somnolence | noun | The state of being very sleepy. | |
+chivvy | present participle | Chasing someone and troubling them. | chivvying |
+cuff | verb | To hit lightly with the hand. | |
+perky | adjective | Happy and full of life. | |
+famished | adjective | Very hungry. | |
+tranquillity | noun | A feeling of being quiet and at peace. | |
+imposing | adjective | Large and grand. | |
+ramification | noun | One of the many branches or parts of something large. | ramifications |
+masonry | noun | Building work made of stone. | |
+flourish | verb | To grow and do very well. | |
+enduring | adjective | Lasting for a long time. | |
+obliterate | past-tense verb | Destroyed and removed completely. | obliterated |
+freshet | noun | A sudden flow of water after rain. | freshets |
+sapling | noun | A young tree. | saplings |
+bramble | noun | A wild bush with thorns. | brambles |
+beeline | noun | The straight way from one place to another. | |
+stile | noun | Steps that let people climb over a fence or wall. | |
+furrow | noun | A long line cut in the earth by a plough. | |
+asperity | noun | A hard or rough quality. | asperities |
+@P
+ctx: When at last they were thoroughly toasted, the Badger summoned them to the table
+idea: The Badger gives his guests a big supper. They are too hungry to talk, and he does not mind their bad manners.
+simple: When they were warm all through, the Badger called them to the table, where he had been busy putting out a meal. They had felt quite hungry before. But when they saw the supper that was set out for them, the only question was what to eat first, where everything looked so good. They also wondered if the other things would be kind enough to wait until they had time for them. They could not talk for a long time. When they began to talk again, it was the sad kind of talk you get when you talk with your mouth full. The Badger did not mind this at all. He did not notice elbows on the table, or everybody talking at once. He did not go into Society himself, so he had an idea that these things did not really matter. (We know, of course, that he was wrong and saw it in too narrow a way, because they do matter very much. But it would take too long to say why.) He sat in his armchair at the head of the table. He nodded in a serious way now and then as the animals told their story. He did not seem surprised or shocked at anything. He never said, 'I told you so,' or 'Just what I always said,' or that they should have done this, or should not have done that. The Mole began to feel very friendly towards him.
+hard: summoned; repast; obligingly; resumed; regrettable; Society; narrow a view; gravely
+@P
+ctx: His two friends assented, quite understanding his point
+idea: The Rat and the Mole understand that no animal is expected to do hard things in winter. In winter all animals are sleepy and resting.
+simple: His two friends agreed. They understood what he meant. By the rules of animal etiquette, no animal is ever expected to do anything that takes great effort, or anything brave, or even anything fairly active, in the winter, when there is little to do. All of them are sleepy, and some are really asleep. All are kept indoors by the weather, more or less. All are resting after hard days and nights, when every muscle has been tested hard and all their strength has been used to the full.
+hard: assented; etiquette; strenuous; heroic; off-season; weather-bound; arduous; at full stretch
+@P
+ctx: It would be astonishing indeed,” said the Badger simply
+idea: The Badger says that he did not build the tunnels. He says that a city of people stood there long ago.
+simple: 'It would be astonishing indeed,' said the Badger plainly, 'if I had done it. But in fact I did none of it. I only cleaned out the passages and rooms, as far as I needed them. There is a lot more of it, all round. I see you do not understand, and I must explain it to you. Well, very long ago, on the place where the Wild Wood waves now, before it had planted itself and grown to what it is now, there was a city. It was a city of people. Here, where we are standing, they lived and walked and talked and slept, and did their business. Here they kept their horses and had feasts. From here they rode out to fight, or drove out to trade. They were a strong, rich people, and great builders. They built to last, because they thought their city would last for ever.'
+hard: astonishing; as a matter of fact; chambers; stabled; trade; powerful
+@S
+ctx: which was intelligent of Mole, because that was exactly what it was
+simple: It seemed, as the Mole said to the Rat, like someone walking in carpet slippers that were too big for him and worn down at the heel. This was clever of the Mole, because that was just what it was.
+gram: 'which' begins a relative clause that talks about the whole remark before it (the Mole's guess), not about one noun.
+@S
+ctx: they ought to have done so-and-so, or ought not to have done something else
+simple: As he did not go into Society himself, he had an idea that these things did not really matter. He sat in his armchair at the head of the table and nodded in a serious way now and then as the animals told their story. He did not seem surprised or shocked at anything. He never said, 'I told you so,' or 'Just what I always said,' or that they should have done this, or should not have done something else.
+gram: 'ought to have + past participle' says what was the right thing to do in the past; 'ought not to have' says what was the wrong thing.
+@S
+ctx: walks where he likes in this country, or I’ll know the reason why
+simple: Any friend of mine may walk wherever he likes in this country. If he cannot, I will find out why.
+gram: 'X, or I'll know the reason why' uses 'or' to mean 'if not'; it is a warning that the Badger will find out why if his friend is stopped.
+@S
+ctx: The Mole was staggered at the size, the extent, the ramifications of it all
+simple: The Mole was amazed at the size of it all, how far it went, and how many branches it had. He was amazed at the length of the dim passages, the solid arched roofs of the crowded store-rooms, and the stonework everywhere, the pillars, the arches and the paved floors.
+gram: 'was staggered at' is followed by three nouns in a list ('the size, the extent, the ramifications'), each beginning with 'the'; a second list of 'the' nouns follows after the semicolon.
+@PH
+down at heel | phrase | Worn out at the back of the shoe, as old slippers are. | | slippers that were too large for him and down at heel
+put in | phrasal verb | To say something in a talk, when others are also talking. | | put in the Mole
+from bad to worse | idiom | Getting more and more bad. | | from bad to worse
+live and let live | idiom | To accept other people's ways and leave them alone. | | we must all live and let live
+on no account | phrase | Never; for no reason at all. | | on no account was he to be disturbed
+settle down | phrasal verb | To make a place your home, or to become quiet and settled. | settled down | settled down, spread, and flourished
+take in hand | idiom | To deal with something or someone firmly. | | take Toad seriously in hand
+get on one's nerves | idiom | To make someone feel nervous or upset. | getting on his nerves | getting on his nerves
+take charge | phrase | To be the person who leads. | took charge | took charge of the party
+be off | phrasal verb | To go away. | | be off home to your mother

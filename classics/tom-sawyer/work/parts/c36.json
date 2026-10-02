@@ -1,0 +1,59 @@
+{
+"glossary": {
+"slope": {
+"pos": "verb",
+"meaning": "A slang word meaning to leave quickly and secretly."
+},
+"blowout": {
+"pos": "noun",
+"meaning": "A big, noisy party or feast."
+},
+"clamorous": {
+"pos": "adjective",
+"meaning": "Loud, with many people shouting."
+},
+"effusive": {
+"pos": "adjective",
+"meaning": "Showing joy or thanks in a very strong way."
+},
+"laudations": {
+"pos": "plural noun",
+"meaning": "Words of praise.",
+"forms": [
+"laudation"
+]
+},
+"unanimous": {
+"pos": "adjective",
+"meaning": "Agreed on by everyone."
+},
+"counterfeit": {
+"pos": "adjective",
+"meaning": "False; made to look real. Here, the surprise of the people was not real."
+}
+},
+"paragraphs": [
+{
+"chapter": 36,
+"paragraph": 19,
+"context": "He sprung his secret about Huck’s share in the adventure",
+"mainIdea": "Mr. Jones tells Huck's secret to the party, but the surprise is weak because many people already know. The widow still praises Huck, and he feels very uncomfortable.",
+"simple": "Mr. Jones told his secret about Huck's part in the adventure in the best dramatic way he could. But the surprise was mostly false and not as loud and warm as it might have been in happier times. Still, the widow made a fair show of surprise, and she gave Huck so many compliments and so much thanks that he nearly forgot the terrible discomfort of his new clothes. The new problem was even worse: being the target of everyone's eyes and praise."
+}
+],
+"sentences": [
+{
+"chapter": 36,
+"context": "Nothing but a heavy strain upon the good manners of the company kept back the due and proper complimentary laugh",
+"simple": "Only the strong effort of the guests to be polite stopped them from giving the laugh that was expected after a joke.",
+"grammar": "'Nothing but...kept back...' means 'only... stopped...'. The subject is a long noun phrase that names the force that held the laugh back."
+}
+],
+"phrases": {
+"spring something on": {
+"meaning": "To surprise people with news or a plan.",
+"pos": "phrasal verb",
+"example": "going to try to spring something on the people here tonight"
+}
+}
+}

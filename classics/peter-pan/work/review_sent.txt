@@ -1,0 +1,264 @@
+=== # 1 ch 2
+BOOK: If you could keep awake (but of course you can’t) you would see your own mother doing this, and you would find it very interesting to watch her.
+SIMPLE: If you could stay awake, you would see your own mother doing this. But of course you cannot stay awake.
+GRAM: 'If you could ... you would ...' talks about something that is not real, and the writer says in brackets that you cannot do it.
+=== # 2 ch 2
+BOOK: Darling won her was this: the many gentlemen who had been boys when she was a girl discovered simultaneously that they loved her, and they all ran to her house to propose to her except Mr.
+SIMPLE: This is how Mr. Darling won her. Many men had been boys when she was a girl. They all found out at the same time that they loved her. They all ran to her house to ask her to marry them, except Mr. Darling, who took a cab and got there first. So he got her.
+GRAM: 'The way ... was this:' uses a colon to start the story; 'had been boys' is the past perfect for a time before she was a girl.
+=== # 3 ch 2
+BOOK: On these magic shores children at play are forever beaching their coracles.
+SIMPLE: On these magic shores, children who are playing are always pulling their little boats onto the beach.
+GRAM: 'are forever + -ing' (present continuous with 'forever') shows something that happens again and again.
+=== # 4 ch 2
+BOOK: She had believed in him at the time, but now that she was married and full of sense she quite doubted whether there was any such person.
+SIMPLE: She had believed in him at that time, but now she was married and full of sense, and she quite doubted that there was any such person.
+GRAM: 'had believed' (past perfect) is an earlier time than 'now'; 'now that' means 'because now'.
+=== # 5 ch 3
+BOOK: “If only I had not accepted that invitation to dine at 27,”
+SIMPLE: I wish I had not said yes to the invitation to have dinner at 27.
+GRAM: 'If only + had + past participle' is a wish about the past: it happened and she is sorry.
+=== # 6 ch 3
+BOOK: They sat thus night after night recalling that fatal Friday, till every detail of it was stamped on their brains and came through on the other side like the faces on a bad coinage.
+SIMPLE: They sat like this night after night and remembered that terrible Friday, until every small thing about it was pressed into their minds. It showed through on the other side, like the faces on bad coins.
+GRAM: 'recalling' (-ing) tells what they were doing while they sat; 'till' means 'until'; 'like the faces on a bad coinage' is a comparison.
+=== # 7 ch 3
+BOOK: Some men would have resented her being able to do it so easily, but Mr.
+SIMPLE: Some men would have been angry that she could do it so easily.
+GRAM: 'would have resented' says what some men would have felt; 'her being able to' means 'that she was able to'.
+=== # 8 ch 3
+BOOK: Darling said bravely, “and I would take it now as an example to you, Michael, if I hadn’t lost the bottle.”
+SIMPLE: I would take it now to show you how, Michael, if I had not lost the bottle.
+GRAM: 'I would take it ... if I hadn't lost' is an unreal condition: he says he would do it now, but he says he cannot because the bottle is lost.
+=== # 9 ch 4
+BOOK: They would have reached the nursery in time had it not been that the little stars were watching them.
+SIMPLE: They would have reached the nursery in time if the little stars had not been watching them.
+GRAM: 'Had it not been that...' means 'If it had not been that...'. The word order is turned round to talk about something that did not happen.
+=== # 10 ch 4
+BOOK: Wendy had lived such a home life that to know fairies struck her as quite delightful.
+SIMPLE: Wendy had lived such a quiet life at home that knowing fairies seemed very lovely to her.
+GRAM: 'such a ... that ...' shows a result; 'to know fairies' is the subject of the verb 'struck'.
+=== # 11 ch 4
+BOOK: Of course Peter had been trifling with them, for no one can fly unless the fairy dust has been blown on him.
+SIMPLE: No one can fly unless someone has blown the fairy dust on him.
+GRAM: 'unless' means 'if not'; 'has been blown' is the present perfect passive, so the person who blows the dust is not named.
+=== # 12 ch 4
+BOOK: “O Peter,” she cried, “if she would only stand still and let me see her!”
+SIMPLE: I wish she would just stand still and let me see her!
+GRAM: 'If ... would only' is a strong wish; 'let me see her' is 'let + object + base verb'.
+=== # 13 ch 4
+BOOK: “It was because I heard father and mother,” he explained in a low voice, “talking about what I was to be when I became a man.”
+SIMPLE: He heard them talking about what he would be when he became a man.
+GRAM: 'what I was to be' means 'what I would be'; 'was to + verb' talks about the future from a time in the past.
+=== # 14 ch 4
+BOOK: It was not really a happy question to ask him; it was like an examination paper that asks grammar, when what you want to be asked is Kings of England.
+SIMPLE: It was like an exam paper that asks about grammar when you want it to ask about the Kings of England.
+GRAM: 'what you want to be asked' is a clause that works as the subject of 'is'; 'to be asked' is passive.
+=== # 15 ch 5
+BOOK: They could now fly strongly, though they still kicked far too much; but if they saw a cloud in front of them, the more they tried to avoid it, the more certainly did they bump into it.
+SIMPLE: They tried to keep away from a cloud in front of them, but the harder they tried, the more surely they hit it.
+GRAM: 'The more..., the more...' means that as one thing grows, the other grows too; 'did they bump' puts the verb before the subject.
+=== # 16 ch 5
+BOOK: It would have been well for Wendy if at that moment she had dropped the hat.
+SIMPLE: It would have been good for Wendy if she had dropped the hat at that moment.
+GRAM: 'would have been ... if she had dropped' is an unreal past: she did not drop the hat.
+=== # 17 ch 5
+BOOK: John said that if the worst came to the worst, all they had to do was to go straight on, for the world was round, and so in time they must come back to their own window.
+SIMPLE: John said that if things went as badly as they could, all they had to do was fly straight on. The world was round, and in time they must come back to their own window.
+GRAM: 'if the worst came to the worst' is a fixed phrase for 'if things go as badly as they can'; 'said that ... was round' is reported speech.
+=== # 18 ch 5
+BOOK: Peter was a little annoyed with them for knowing so much; but if he wanted to lord it over them his triumph was at hand, for have I not told you that anon fear fell upon them?
+SIMPLE: Have I not told you that soon fear came over them?
+GRAM: 'Have I not told you...?' is a question that needs no answer; the writer reminds the reader. 'Anon' is an old word for 'soon'.
+=== # 19 ch 6
+BOOK: Take care lest an adventure is now offered you, which, if accepted, will plunge you in deepest woe.
+SIMPLE: Take care that an adventure is not offered to you, because if you accept it, it will bring you deep sorrow.
+GRAM: 'if accepted' is short for 'if it is accepted'; 'lest' earlier in the sentence means 'in case'.
+=== # 20 ch 6
+BOOK: Would that he could hear us, but we are not really on the island, and he passes by, biting his knuckles.
+SIMPLE: I wish he could hear us, but we are not really on the island.
+GRAM: 'Would that...' is an old way to say 'I wish that...'; 'could' shows a wish that is not real.
+=== # 21 ch 6
+BOOK: “I have seen a wonderfuller thing,” he cried, as they gathered round him eagerly.
+SIMPLE: I have seen something more wonderful.
+GRAM: 'Wonderfuller' adds -er to a long adjective, which is a child's way to make a comparative; the usual form is 'more wonderful'.
+=== # 22 ch 6
+BOOK: It was at first such a tiny sound that a leaf might have fallen on it and smothered it, but as it came nearer it was more distinct.
+SIMPLE: At first it was such a tiny sound that a leaf could have fallen on it and covered it.
+GRAM: 'such a ... that ...' shows a result; 'might have fallen' says it was possible, which shows how small the sound was.
+=== # 23 ch 7
+BOOK: Any of the other boys obstructing the fairy path at night they would have mischiefed, but they just tweaked Peter’s nose and passed on.
+SIMPLE: If any of the other boys had stood in the fairy path at night, the fairies would have done them harm. But they only gave Peter's nose a little pull and passed on.
+GRAM: 'Any of the other boys...' is put first for effect; the normal order is 'they would have mischiefed any of the other boys'. 'would have + -ed' says what would have happened but did not.
+=== # 24 ch 7
+BOOK: The difference between him and the other boys at such a time was that they knew it was make-believe, while to him make-believe and true were exactly the same thing.
+SIMPLE: The other boys knew it was make-believe, but for Peter make-believe and true were the same thing.
+GRAM: 'while' joins two different ideas: what the boys knew and how Peter felt.
+=== # 25 ch 7
+BOOK: If Wendy’s heart had been beating they would all have heard it.
+SIMPLE: If Wendy's heart had been beating, they would all have heard it.
+GRAM: 'If ... had been beating, ... would have heard' is an unreal past: it talks about something that did not happen.
+=== # 26 ch 8
+BOOK: But you simply must fit, and Peter measures you for your tree as carefully as for a suit of clothes: the only difference being that the clothes are made to fit you, while you have to be made to fit the tree.
+SIMPLE: Peter measures you for your tree as carefully as for a suit of clothes. The only difference is that clothes are made to fit you, but you have to be made to fit the tree.
+GRAM: 'the only difference being that...' gives the difference after a colon; 'are made to fit' and 'have to be made to fit' are passive.
+=== # 27 ch 8
+BOOK: As time wore on did she think much about the beloved parents she had left behind her?
+SIMPLE: As time passed, did she think much about the dear parents she had left behind?
+GRAM: 'As time wore on' is a time clause that means 'as time passed slowly'; 'she had left' is the past perfect for an earlier time.
+=== # 28 ch 8
+BOOK: He could eat, really eat, if it was part of a game, but he could not stodge just to feel stodgy, which is what most children like better than anything else; the next best thing being to talk about it.
+SIMPLE: He could really eat if it was part of a game, but he could not stuff himself with heavy food just to feel stuffed.
+GRAM: 'just to feel stodgy' (to + verb) gives the reason; 'stodge' is a verb and 'stodgy' is an adjective from the same word.
+=== # 29 ch 9
+BOOK: Had it been so with Peter at that moment I would admit it.
+SIMPLE: If it had been so with Peter at that moment, I would admit it.
+GRAM: 'Had it been so...' means 'If it had been so...'. The word order is turned round to talk about something that did not happen.
+=== # 30 ch 9
+BOOK: Not the pain of this but its unfairness was what dazed Peter.
+SIMPLE: It was not the pain of the bite that shocked Peter, but the unfairness of it.
+GRAM: 'Not the pain ... but its unfairness' is put first to stress it; 'what dazed Peter' is a noun clause after 'was'.
+=== # 31 ch 9
+BOOK: She was to be left on the rock to perish, an end to one of her race more terrible than death by fire or torture, for is it not written in the book of the tribe that there is no path through water to the happy hunting-ground?
+SIMPLE: The plan was to leave her on the rock to die.
+GRAM: 'was to be left' (was to + passive) says what was planned for the future, seen from a time in the past.
+=== # 32 ch 9
+BOOK: Peter may have been about to crow, but his face puckered in a whistle of surprise instead.
+SIMPLE: Perhaps Peter was just going to crow, but his face pulled into a whistle of surprise instead.
+GRAM: 'may have been about to crow' is a guess about the past: it was possible that he was just going to crow.
+=== # 33 ch 10
+BOOK: In fanciful stories people can talk to the birds freely, and I wish for the moment I could pretend that this was such a story, and say that Peter replied intelligently to the Never bird; but truth is best, and I want to tell only what really happened.
+SIMPLE: I wish I could pretend for a moment that this was such a story.
+GRAM: 'I wish ... could pretend' is a wish about something that is not true; 'such a story' points back to 'fanciful stories'.
+=== # 34 ch 10
+BOOK: It was not to receive his thanks, however, that she hung there in the sky; it was not even to watch him get into the nest; it was to see what he did with her eggs.
+SIMPLE: She did not hang there in the sky to receive his thanks. She did not even hang there to watch him get into the nest. She hung there to see what he did with her eggs.
+GRAM: 'It was not to receive his thanks ... that she hung there' is a cleft sentence: it puts the reason first to stress it; the true reason comes in the third part.
+=== # 35 ch 10
+BOOK: As we shall not see her again, it may be worth mentioning here that all Never birds now build in that shape of nest, with a broad brim on which the youngsters take an airing.
+SIMPLE: We shall not see her again, so it may be good to say here that all Never birds now build their nests in that shape, with a broad brim.
+GRAM: 'As' gives the reason; 'it may be worth mentioning' uses 'it' for the real subject, 'that all Never birds now build...'.
+=== # 36 ch 11
+BOOK: If she had known she would not have snapped.
+SIMPLE: If she had known, she would not have snapped.
+GRAM: 'If she had known, she would not have...' is an unreal past: she did not know, and she did snap.
+=== # 37 ch 11
+BOOK: Such a deliciously creepy song it was, in which they pretended to be frightened at their own shadows; little witting that so soon shadows would close in upon them, from whom they would shrink in real fear.
+SIMPLE: They hardly knew that so soon shadows would close in on them.
+GRAM: 'little witting that...' is an old way to say 'hardly knowing that...'; here 'little' means 'hardly at all'.
+=== # 38 ch 11
+BOOK: There was a fixed rule that they must never hit back at meals, but should refer the matter of dispute to Wendy by raising the right arm politely and saying, “I complain of so-and-so”; but what usually happened was that they forgot to do this or did it too much.
+SIMPLE: There was a fixed rule that they must never hit back at meals. They should take the matter to Wendy.
+GRAM: 'must never' and 'should' are modal verbs for rules; 'but' adds what to do instead.
+=== # 39 ch 11
+BOOK: So uproariously gay was the dance, and how they buffeted each other on the bed and out of it!
+SIMPLE: The dance was so noisy and happy, and how they pushed and hit each other on the bed and off it!
+GRAM: 'So uproariously gay was the dance' puts the adjective first for stress; the normal order is 'The dance was so uproariously gay'.
+=== # 40 ch 12
+BOOK: “I had rather he had been a lady,”
+SIMPLE: I would prefer him to be a lady.
+GRAM: 'I had rather he had been' is an old way to say 'I would prefer that he was'; it shows a wish.
+=== # 41 ch 12
+BOOK: “If you knew how great is a mother’s love,”
+SIMPLE: If you knew how great a mother's love is, you would have no fear.
+GRAM: 'how great is a mother's love' puts the verb before the subject in an old style; 'If you knew ... you would have' talks about something that is not true now.
+=== # 42 ch 12
+BOOK: Not so much as a sorry-to-lose-you between them!
+SIMPLE: They did not say even one 'sorry to lose you' to each other!
+GRAM: 'Not so much as...' means 'not even'; the sentence has no verb, which shows strong feeling.
+=== # 43 ch 12
+BOOK: If she did not mind the parting, he was going to show her, was Peter, that neither did he.
+SIMPLE: If she did not mind saying goodbye, Peter was going to show her that he did not mind either.
+GRAM: 'was Peter' is added to name the person, as in speech; 'neither did he' puts the verb before the subject and means 'he did not mind either'.
+=== # 44 ch 12
+BOOK: They all gathered round him in affright, so alarming was his agitation; and with a fine candour he told them what he had hitherto concealed.
+SIMPLE: They all gathered round him in fear, because he was so upset that it was frightening.
+GRAM: 'so alarming was his agitation' puts 'so + adjective' first, so the verb comes before the subject; the normal order is 'his agitation was so alarming'.
+=== # 45 ch 13
+BOOK: Fain would his dogs have known, as breathing heavily and wiping their cutlasses, they gathered at a discreet distance from his hook, and squinted through their ferret eyes at this extraordinary man.
+SIMPLE: His men would gladly have known. They were breathing heavily and wiping their cutlasses. They stood at a safe distance from his hook and looked at this strange man through eyes like a ferret's.
+GRAM: 'Fain would his dogs have known' puts 'fain' (gladly) and the verb first, an old style for 'His dogs would gladly have known'.
+=== # 46 ch 13
+BOOK: Had he waited on the rising ground till the proper hour he and his men would probably have been butchered; and in judging him it is only fair to take this into account.
+SIMPLE: If he had waited on the rising ground until the right time, he and his men would probably have been killed.
+GRAM: 'Had he waited' means 'If he had waited'; 'would probably have been butchered' says what would likely have happened but did not.
+=== # 47 ch 13
+BOOK: Not all unavenged did they die, for with Lean Wolf fell Alf Mason, to disturb the Spanish Main no more; and among others who bit the dust were Geo.
+SIMPLE: They did not all die without someone getting revenge for them, because Alf Mason fell with Lean Wolf.
+GRAM: 'Not all unavenged did they die' puts the first words forward for stress; the normal order is 'They did not all die unavenged'.
+=== # 48 ch 14
+BOOK: Had she haughtily unhanded him (and we should have loved to write it of her), she would have been hurled through the air like the others, and then Hook would probably not have been present at the tying of the children; and had he not been at the tying he would not have discovered Slightly’s secret, and without the secret he could not presently have made his foul attempt on Peter’s life.
+SIMPLE: If he had not been at the tying of the children, he would not have found out Slightly's secret. Without the secret he could not have made his foul try on Peter's life.
+GRAM: 'Had he not been' means 'If he had not been'; the word order is turned round to talk about something that did not happen.
+=== # 49 ch 14
+BOOK: Dark as were his thoughts his blue eyes were as soft as the periwinkle.
+SIMPLE: Although his thoughts were dark, his blue eyes were as soft as the periwinkle.
+GRAM: 'Dark as were his thoughts' means 'Although his thoughts were dark'; 'adjective + as + verb + subject' is a formal way to say 'although'.
+=== # 50 ch 14
+BOOK: Lest he should be taken alive, Hook always carried about his person a dreadful drug, blended by himself of all the death-dealing rings that had come into his possession.
+SIMPLE: Hook always carried a terrible drug on his body, in case he was taken alive.
+GRAM: 'Lest he should be taken alive' means 'in case he was taken alive'; 'lest' is a formal word for something you want to avoid.
+=== # 51 ch 15
+BOOK: Had the bo’sun good form without knowing it, which is the best form of all?
+SIMPLE: Did the bo'sun have good form without knowing it? That is the best form of all.
+GRAM: 'Had the bo'sun good form...?' is an old question style with 'had' as the main verb, in place of 'Did the bo'sun have...'; 'which' points to the whole idea before it.
+=== # 52 ch 15
+BOOK: Fine gentleman though he was, the intensity of his communings had soiled his ruff, and suddenly he knew that she was gazing at it.
+SIMPLE: Although he was a fine gentleman, the strength of his deep thoughts had made his ruff dirty.
+GRAM: 'Fine gentleman though he was' means 'Although he was a fine gentleman'; 'noun + though + subject + verb' is a formal way to say 'although'.
+=== # 53 ch 15
+BOOK: Left so fearfully alone, any other man would have lain with his eyes shut where he fell: but the gigantic brain of Hook was still working, and under its guidance he crawled on his knees along the deck as far from the sound as he could go.
+SIMPLE: Left so fearfully alone, any other man would have lain where he fell with his eyes shut.
+GRAM: 'Left so fearfully alone' is a phrase that gives the reason; 'would have lain' says what another man would have done, but Hook did not.
+=== # 54 ch 16
+BOOK: No sooner did Peter remember it than he heard the ticking.
+SIMPLE: As soon as Peter remembered it, he heard the ticking.
+GRAM: 'No sooner did ... than ...' means 'as soon as'; the helper verb 'did' comes before the subject because 'No sooner' is at the front.
+=== # 55 ch 16
+BOOK: Had the pirates kept together it is certain that they would have won; but the onset came when they were all unstrung, and they ran hither and thither, striking wildly, each thinking himself the last survivor of the crew.
+SIMPLE: If the pirates had kept together, they would certainly have won.
+GRAM: 'Had the pirates kept together' means 'If the pirates had kept together'; it talks about something that did not happen.
+=== # 56 ch 16
+BOOK: Misguided man though he was, we may be glad, without sympathising with him, that in the end he was true to the traditions of his race.
+SIMPLE: Although he was a misguided man, we may be glad, without feeling sorry for him, that in the end he was true to the ways of his people.
+GRAM: 'Misguided man though he was' means 'Although he was a misguided man'; 'though' comes after the noun.
+=== # 57 ch 16
+BOOK: He did not know that the crocodile was waiting for him; for we purposely stopped the clock that this knowledge might be spared him: a little mark of respect from us at the end.
+SIMPLE: We stopped the clock on purpose so that he would not have this knowledge.
+GRAM: 'that ... might be spared him' means 'so that ... would be kept from him'; 'might be spared' is passive.
+=== # 58 ch 17
+BOOK: Would it not serve them jolly well right if they came back and found that their parents were spending the weekend in the country?
+SIMPLE: It would serve them right if they came back and found that their parents were spending the weekend in the country.
+GRAM: 'Would it not serve them right if...' is a question with 'not' that expects the answer yes; 'if they came back and found' uses the past for an idea that is not real.
+=== # 59 ch 17
+BOOK: In the bitterness of his remorse he swore that he would never leave the kennel until his children came back. Of course this was a pity; but whatever Mr. Darling did he had to do in excess; otherwise he soon gave up doing it. And there never was a more humble man than the once proud George Darling, as he sat in the kennel of an evening talking with his wife of their children and all their pretty ways.
+SIMPLE: Whatever Mr. Darling did, he had to do too much of it, or he soon stopped doing it.
+GRAM: 'whatever Mr. Darling did' is a clause that means 'anything that he did'; 'in excess' means 'too much'.
+=== # 60 ch 17
+BOOK: Of course, as we have seen, he was quite a simple man; indeed he might have passed for a boy again if he had been able to take his baldness off; but he had also a noble sense of justice and a lion courage to do what seemed right to him; and having thought the matter out with anxious care after the flight of the children, he went down on all fours and crawled into the kennel.
+SIMPLE: He might have been taken for a boy again if he had been able to take off his baldness.
+GRAM: 'might have passed ... if he had been able' is an unreal past: he could not take his baldness off, so it did not happen.
+=== # 61 ch 17
+BOOK: Why on earth should their beds be properly aired, seeing that they left them in such a thankless hurry?
+SIMPLE: Why on earth should their beds be aired well, since they left them in such a hurry and gave no thanks?
+GRAM: 'seeing that' means 'because'; 'should' in a 'why' question shows the speaker thinks there is no reason.
+=== # 62 ch 17
+BOOK: “Surely,” said John, like one who had lost faith in his memory, “he used not to sleep in the kennel?”
+SIMPLE: Did he not use to sleep in the kennel?
+GRAM: 'used not to' is an old way to say 'did not use to'; it talks about a habit in the past.
+=== # 63 ch 18
+BOOK: In the end she grew up of her own free will a day quicker than other girls.
+SIMPLE: In the end she grew up because she wanted to, a day sooner than other girls.
+GRAM: 'a day quicker than other girls' is a comparison with 'than'; 'of her own free will' means 'because she chose to'.
+=== # 64 ch 18
+BOOK: It is strange to think that Peter did not alight in the church and forbid the banns.
+SIMPLE: It is strange to think that Peter did not land in the church and say that the wedding must not go on.
+GRAM: 'It is strange to think that...' uses 'it' for the real subject, the 'that' clause; 'forbid the banns' means to say that the marriage must not go on.
+=== # 65 ch 18
+BOOK: This ought not to be written in ink but in a golden splash.
+SIMPLE: This should not be written in ink but in a splash of gold.
+GRAM: 'ought not to be written' is a passive with 'ought to' (a should-not idea); 'not in ink but in...' sets two things against each other.
+=== # 66 ch 18
+BOOK: When Margaret grows up she will have a daughter, who is to be Peter’s mother in turn; and thus it will go on, so long as children are gay and innocent and heartless.
+SIMPLE: And so it will go on, as long as children are gay and innocent and heartless.
+GRAM: 'so long as' means 'as long as'; it joins the future 'will go on' to a condition in the present, 'are'.

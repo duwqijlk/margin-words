@@ -1,0 +1,105 @@
+{
+ "glossary": {
+  "shirked": {
+   "pos": "past-tense verb",
+   "meaning": "Avoided work that he should have done.",
+   "forms": [
+    "shirked",
+    "shirk"
+   ]
+  },
+  "aromatic": {
+   "pos": "adjective",
+   "meaning": "Sweet to the nose, in a strong way."
+  },
+  "hemlock": {
+   "pos": "noun",
+   "meaning": "A kind of tree with soft green leaves that stay green all year, and with small, hard cases that hold its seed."
+  },
+  "espied": {
+   "pos": "past-tense verb",
+   "meaning": "Saw something, often something hard to see.",
+   "forms": [
+    "espied",
+    "espy"
+   ]
+  },
+  "stints": {
+   "pos": "plural noun",
+   "meaning": "Fixed amounts of work that a person has to finish.",
+   "forms": [
+    "stints",
+    "stint"
+   ]
+  },
+  "delectable": {
+   "pos": "adjective",
+   "meaning": "Very nice. In the story it is the name the girls give their hill."
+  },
+  "musingly": {
+   "pos": "adverb",
+   "meaning": "In a thoughtful way, as if dreaming."
+  },
+  "steed": {
+   "pos": "noun",
+   "meaning": "A horse, especially a fine one. An old, grand word.",
+   "forms": [
+    "steeds",
+    "steed"
+   ]
+  },
+  "brake": {
+   "pos": "noun",
+   "meaning": "A thick group of tall plants. Here Meg holds a group of them in front of her face."
+  },
+  "subjection": {
+   "pos": "noun",
+   "meaning": "The state of being ruled and having to do what someone says."
+  },
+  "pique": {
+   "pos": "noun",
+   "meaning": "A short feeling of anger because someone has hurt your feelings."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 15,
+   "context": "Laurie lay luxuriously swinging to and fro in his hammock",
+   "mainIdea": "Laurie is in a bad mood after a lazy, unhappy day. He sees the Marches go out and wonders what they are doing.",
+   "simple": "On a warm September afternoon, Laurie lay in his hammock, swinging gently. He wondered what his neighbors were doing, but was too lazy to go and find out. He was in one of his moods. The day had brought him nothing good, and he wished he could live it again. The hot weather made him lazy. He had avoided his studies and tested Mr. Brooke's patience to the limit. He had made his grandfather angry by playing the piano for half the afternoon. He had scared the maids almost out of their minds by saying for fun that one of his dogs was going mad. After an angry talk with the stableman about a horse he thought was not cared for, he had thrown himself into the hammock. He was angry at the stupidity of the world until the peace of the lovely day made him calm in spite of himself. He looked up into the dark green of the horse-chestnut trees and dreamed many dreams. He was just imagining himself on the sea, on a trip round the world, when voices brought him back at once. He looked through the net of the hammock and saw the Marches coming out, as if they were going on a journey.",
+   "hardWords": [
+    "indolent",
+    "shirked",
+    "fume",
+    "meshes",
+    "expedition"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 15,
+   "context": "Though possessed of half a dozen hats, it took him some time to find one",
+   "simple": "Although he owned six hats, it took him some time to find one.",
+   "grammar": "'Though possessed of...' leaves out 'he was': it means 'Though he was possessed of (owned) half a dozen hats'. 'It took him some time to find one' uses 'it took + person + time + to...'."
+  },
+  {
+   "chapter": 15,
+   "context": "I've got the key to my castle in the air; but whether I can unlock the door remains to be seen",
+   "simple": "I have the key to my dream castle, but we do not know yet if I can open the door.",
+   "grammar": "'Whether I can unlock the door' is a noun clause that is the subject of 'remains to be seen'. The sentence also uses a key as a picture of a way to reach a dream."
+  }
+ ],
+ "phrases": {
+  "castles in the air": {
+   "pos": "idiom",
+   "meaning": "Happy plans and dreams that are not real and may never come true.",
+   "example": "all the castles in the air which we make could come true"
+  },
+  "against the grain": {
+   "pos": "idiom",
+   "meaning": "Against what you naturally like to do; hard for you.",
+   "example": "it's working against the grain, you see, and comes hard"
+  }
+ }
+}

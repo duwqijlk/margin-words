@@ -1,0 +1,46 @@
+# Margin Words 迁移说明（中文）
+
+本仓库是 Margin Words 项目的完整副本，已迁移到 **私有** GitHub 仓库 `duwqijlk/margin-words`。英文完整版见根目录 [MIGRATION.md](../MIGRATION.md)。
+
+> **只能放在私有仓库。** `packs/` 里的 16 本书有版权，仅供私人使用。本仓库必须保持私有；不要公开，也不要把 `packs/` 部署到任何公开网站。
+
+## 概览
+
+- 静态阅读器（Vite + React 19 + Tailwind 4 + zustand），没有服务器，没有 AI 调用。
+- 只能导入"书包"：一个 `.zip`，里面正好是 `book.epub` + `glossary.json`。不接受单独的 EPUB。
+- 界面有中文和英文两种语言；书和释义始终是英文。
+- 词表（glossary）必须人工手写，不用 AI 生成。
+
+## 规则
+
+- 不能有布局抖动：运行 `node scripts/layout-shift-test.mjs after --quick`，结果必须是 `max shift 0px`、`0 failing`。
+- 界面文字用简单英文（中文在 `src/lib/i18n-zh.ts`）。
+- 中文只允许出现在 `src/lib/i18n-zh.ts`、`docs/`、`README.zh-CN.md`；用 `npm run check:cjk` 检查。
+
+## 安装与构建（Node 24）
+
+```
+npm ci
+npx vite build
+node scripts/build-packs.mjs --out public-books
+```
+
+## 部署
+
+Cloudflare Pages 项目 `margin-words`，域名 `inputread.site`：
+
+```
+npx vite build
+npx wrangler pages deploy dist --project-name margin-words --branch main
+```
+
+`dist/` 只含 12 本公有领域的书。**绝不要公开部署 `packs/`。**
+
+## 添加书
+
+- 公有领域的书：放进 `public-books/<id>/`（`book.epub`、`glossary.json`、`cover.jpg`、`info.json`），再运行 `node scripts/build-packs.mjs --out public-books`。
+- 有版权的书：放进 `packs/<id>/`，运行 `node scripts/build-packs.mjs`，只供私人使用。
+
+## 没有放进 git 的文件（可重新生成）
+
+`node_modules/`、`dist/`、`site/`、`packs/*.zip`（含 `all-packs.zip`）、`public-books/*.zip`、`classics/**/*.pack.zip`。

@@ -1,0 +1,3095 @@
+{
+ "version": 2,
+ "title": "The Twits",
+ "author": "Roald Dahl",
+ "sha256": "4804c3bd16c4c15a0e55ea64206ae8ed1c9fa932458d3027e3f9f8b76795e460",
+ "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+ "chapters": 29,
+ "count": 172,
+ "glossary": {
+  "twit": {
+   "pos": "singular noun",
+   "meaning": "A silly or stupid person. It is a rude word, but not a very strong one.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mr Twit was one of these very hairy-faced men.",
+   "examples": [
+    "Mr Twit was one of these very hairy-faced men.",
+    "Mr Twit didn’t even bother to open his mouth wide when he ate."
+   ],
+   "forms": [
+    "twit",
+    "twits"
+   ],
+   "count": 210
+  },
+  "monkey": {
+   "pos": "singular noun",
+   "meaning": "An animal with a long tail that climbs trees and uses its hands like a person.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The House, the Tree and the Monkey Cage",
+   "examples": [
+    "The House, the Tree and the Monkey Cage",
+    "On one Tuesday evening after Mr Twit had been up the ladder and smeared the tree with HUGTIGHT, four little boys crept into the garden to look at the monkeys."
+   ],
+   "forms": [
+    "monkeys",
+    "monkey"
+   ],
+   "count": 52
+  },
+  "cried": {
+   "pos": "past-tense verb",
+   "meaning": "Shouted or called out loudly. It can also mean wept.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ cried Mr Twit, poking around in it with his fork.",
+   "examples": [
+    "’ cried Mr Twit, poking around in it with his fork.",
+    "‘Just look at you sitting there in your same old chair,’ he cried, ‘and you’ve shrunk so much your feet are dangling in the air!"
+   ],
+   "forms": [
+    "cried"
+   ],
+   "count": 41
+  },
+  "wump": {
+   "pos": "singular noun",
+   "meaning": "Part of the name \"Muggle-Wump\", a monkey in The Twits.",
+   "whyHard": "It is a character name.",
+   "example": "They were Muggle-Wump and his wife and their two small children.",
+   "examples": [
+    "They were Muggle-Wump and his wife and their two small children.",
+    "Muggle-Wump and his family longed to escape from the cage in Mr Twit’s garden and go back to the African jungle where they came from."
+   ],
+   "forms": [
+    "wump"
+   ],
+   "count": 40,
+   "coined": true
+  },
+  "upside": {
+   "pos": "singular noun",
+   "meaning": "\"Upside down\" means with the top part at the bottom.",
+   "whyHard": "The word \"upside\" is part of the phrase \"upside down\".",
+   "example": "The Great Upside Down Monkey Circus",
+   "examples": [
+    "The Great Upside Down Monkey Circus",
+    "‘Upside down all of you and jump to it!"
+   ],
+   "forms": [
+    "upside"
+   ],
+   "count": 29
+  },
+  "glue": {
+   "pos": "singular noun",
+   "meaning": "A sticky liquid that joins things together.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush.",
+   "examples": [
+    "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush.",
+    "It’s just been smeared all over with sticky glue!"
+   ],
+   "forms": [
+    "glue"
+   ],
+   "count": 23
+  },
+  "ceiling": {
+   "pos": "singular noun",
+   "meaning": "The flat surface at the top of a room, over your head.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "I want everyone to paint sticky glue all over the ceiling!",
+   "examples": [
+    "I want everyone to paint sticky glue all over the ceiling!",
+    "The Carpet Goes on the Ceiling"
+   ],
+   "forms": [
+    "ceiling"
+   ],
+   "count": 21
+  },
+  "cage": {
+   "pos": "singular noun",
+   "meaning": "A box or room with bars where animals or birds are kept.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The House, the Tree and the Monkey Cage",
+   "examples": [
+    "The House, the Tree and the Monkey Cage",
+    "The four monkeys in the cage in the garden were all one family."
+   ],
+   "forms": [
+    "cage"
+   ],
+   "count": 20
+  },
+  "pie": {
+   "pos": "singular noun",
+   "meaning": "Baked food with a crust, filled with fruit or meat.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Once a week, on Wednesdays, the Twits had Bird Pie for supper.",
+   "examples": [
+    "Once a week, on Wednesdays, the Twits had Bird Pie for supper.",
+    "‘As there are no birds for my pie tonight,’ he shouted, ‘then it’ll have to be boys instead!"
+   ],
+   "forms": [
+    "pie"
+   ],
+   "count": 20
+  },
+  "sticky": {
+   "pos": "adjective",
+   "meaning": "Able to stick to things, like glue or honey.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It’s just been smeared all over with sticky glue!",
+   "examples": [
+    "It’s just been smeared all over with sticky glue!",
+    "This time he smeared all the top bars of the monkey cage with sticky glue, as well as the branches of The Big Dead Tree."
+   ],
+   "forms": [
+    "sticky"
+   ],
+   "count": 17
+  },
+  "stuck": {
+   "pos": "past-tense verb",
+   "meaning": "Joined firmly to something, with glue or a pin, so that it stays there.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It grew in spikes that stuck out straight like the bristles of a nailbrush.",
+   "examples": [
+    "It grew in spikes that stuck out straight like the bristles of a nailbrush.",
+    "But if you looked closely (not that you’d ever want to) you would see tiny little specks of dried-up scrambled eggs stuck to the hairs, and spinach and tomato ketchup and fish fingers and minced chicken livers and all the other disgusting things Mr Twit liked to eat."
+   ],
+   "forms": [
+    "stuck"
+   ],
+   "count": 17,
+   "senses": [
+    {
+     "pos": "past-tense verb",
+     "meaning": "Joined firmly to something, with glue or a pin, so that it stays there.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "The moment they landed on a branch, their feet stuck and that was that"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "all the wretched birds that were stuck to the tree"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "and finally hoisted up on to the ceiling. And there it stuck"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Not able to move or to get away.",
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "We are only stuck by the seats of our pants"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "context": "They were stuck. They were pinned down, cemented, glued"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "Now we’ll never get free! We’re stuck here for ever!"
+      }
+     ]
+    },
+    {
+     "pos": "past-tense verb",
+     "meaning": "Pushed out, or pointing out, from something.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "It grew in spikes that stuck out straight like the bristles of a nailbrush"
+      }
+     ]
+    }
+   ]
+  },
+  "hairy": {
+   "pos": "adjective",
+   "meaning": "Covered with a lot of hair.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "What a lot of hairy-faced men there are around nowadays.",
+   "examples": [
+    "What a lot of hairy-faced men there are around nowadays.",
+    "Mr Twit was one of these very hairy-faced men."
+   ],
+   "forms": [
+    "hairy"
+   ],
+   "count": 15
+  },
+  "shouted": {
+   "pos": "past-tense verb",
+   "meaning": "Said something in a very loud voice.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "As soon as Mrs Twit sat down, Mr Twit pointed at her and shouted, ‘There you are!",
+   "examples": [
+    "As soon as Mrs Twit sat down, Mr Twit pointed at her and shouted, ‘There you are!",
+    "‘As there are no birds for my pie tonight,’ he shouted, ‘then it’ll have to be boys instead!"
+   ],
+   "forms": [
+    "shouted"
+   ],
+   "count": 14
+  },
+  "shrink": {
+   "pos": "base verb",
+   "meaning": "To become smaller. In this book, \"the shrinks\" is a made-up illness that makes you smaller.",
+   "whyHard": "Roald Dahl uses it as a made-up illness in \"George's Marvellous Medicine\".",
+   "example": "You’ve got the shrinks, that’s what you’ve got!",
+   "examples": [
+    "You’ve got the shrinks, that’s what you’ve got!",
+    "Mrs Twit Has the Shrinks"
+   ],
+   "forms": [
+    "shrinks",
+    "shrink"
+   ],
+   "count": 14
+  },
+  "balloon": {
+   "pos": "singular noun",
+   "meaning": "A thin rubber bag you fill with air.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "He had one hundred balloons and lots of string.",
+   "examples": [
+    "He had one hundred balloons and lots of string.",
+    "‘How lovely all those balloons look in the sky!"
+   ],
+   "forms": [
+    "balloons",
+    "balloon"
+   ],
+   "count": 12
+  },
+  "screamed": {
+   "pos": "past-tense verb",
+   "meaning": "Made a very loud, high cry because of fear, pain, or excitement.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ screamed Mrs Twit, bouncing about.",
+   "examples": [
+    "’ screamed Mrs Twit, bouncing about.",
+    "’ Mr Twit screamed at the birds."
+   ],
+   "forms": [
+    "screamed"
+   ],
+   "count": 12
+  },
+  "string": {
+   "pos": "singular noun",
+   "meaning": "A thin rope used for tying things.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mr Twit started eating, Twitsing the long tomato-covered strings around his fork and shovelling them into his mouth.",
+   "examples": [
+    "Mr Twit started eating, Twitsing the long tomato-covered strings around his fork and shovelling them into his mouth.",
+    "He had one hundred balloons and lots of string."
+   ],
+   "forms": [
+    "string",
+    "strings"
+   ],
+   "count": 12
+  },
+  "paint": {
+   "pos": "base verb",
+   "meaning": "To put coloured liquid on something. As a noun, it is the coloured liquid.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush.",
+   "examples": [
+    "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush.",
+    "I want everyone to paint sticky glue all over the ceiling!"
+   ],
+   "forms": [
+    "paint"
+   ],
+   "count": 9
+  },
+  "branch": {
+   "pos": "singular noun",
+   "meaning": "A part of a tree that grows out from the trunk.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush.",
+   "examples": [
+    "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush.",
+    "The next morning, when Mr Twit went out to collect the birds, he found four miserable little boys sitting in the tree, stuck as tight as could be by the seats of their pants to the branches."
+   ],
+   "forms": [
+    "branches",
+    "branch"
+   ],
+   "count": 8
+  },
+  "carpet": {
+   "pos": "singular noun",
+   "meaning": "A thick cover for a floor, made of soft cloth.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The Carpet Goes on the Ceiling",
+   "examples": [
+    "The Carpet Goes on the Ceiling",
+    "All the furniture, the big table, the chairs, the sofa, the lamps, the little side tables, the cabinet with bottles of beer in it, the ornaments, the electric fire, the carpet, everything was stuck upside down to the ceiling."
+   ],
+   "forms": [
+    "carpet"
+   ],
+   "count": 8
+  },
+  "flew": {
+   "pos": "past-tense verb",
+   "meaning": "Moved through the air, like a bird or a plane.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mrs Twit leapt out of bed and flew downstairs and spent the night on the sofa.",
+   "examples": [
+    "Mrs Twit leapt out of bed and flew downstairs and spent the night on the sofa.",
+    "Then one day, a truly magnificent bird flew down out of the sky and landed on the monkey cage."
+   ],
+   "forms": [
+    "flew"
+   ],
+   "count": 8
+  },
+  "frog": {
+   "pos": "singular noun",
+   "meaning": "A small animal that jumps and lives near water.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "To pay her back for the glass eye in his beer, Mr Twit decided he would put a frog in Mrs Twit’s bed.",
+   "examples": [
+    "To pay her back for the glass eye in his beer, Mr Twit decided he would put a frog in Mrs Twit’s bed.",
+    "The next day, to pay Mr Twit back for the frog trick, Mrs Twit sneaked out into the garden and dug up some worms."
+   ],
+   "forms": [
+    "frog",
+    "frogs"
+   ],
+   "count": 8
+  },
+  "hurry": {
+   "pos": "base verb",
+   "meaning": "To move or act fast because you do not have much time.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘Then we must hurry,’ said Muggle-Wump.",
+   "examples": [
+    "‘Then we must hurry,’ said Muggle-Wump.",
+    "We have to hurry, don’t you understand that?"
+   ],
+   "forms": [
+    "hurry"
+   ],
+   "count": 8
+  },
+  "neck": {
+   "pos": "singular noun",
+   "meaning": "The part of the body between the head and the shoulders.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘Your head SHRINKS into your neck…",
+   "examples": [
+    "‘Your head SHRINKS into your neck…",
+    "Some he tied round her neck, some under her arms, some to her wrists and some even to her hair."
+   ],
+   "forms": [
+    "neck",
+    "necks"
+   ],
+   "count": 8
+  },
+  "spaghetti": {
+   "pos": "uncountable noun",
+   "meaning": "Long, thin pasta cooked in water.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "At one o’clock, she cooked spaghetti for lunch and she mixed the worms in with the spaghetti, but only on her husband’s plate.",
+   "examples": [
+    "At one o’clock, she cooked spaghetti for lunch and she mixed the worms in with the spaghetti, but only on her husband’s plate.",
+    "To pay Mrs Twit back for the worms in his spaghetti, Mr Twit thought up a really clever nasty trick."
+   ],
+   "forms": [
+    "spaghetti"
+   ],
+   "count": 8
+  },
+  "trick": {
+   "pos": "singular noun",
+   "meaning": "Something clever you do to fool someone or to amuse people.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "You can play a lot of tricks with a glass eye because you can take it out and pop it back in again any time you like.",
+   "examples": [
+    "You can play a lot of tricks with a glass eye because you can take it out and pop it back in again any time you like.",
+    "The next day, to pay Mr Twit back for the frog trick, Mrs Twit sneaked out into the garden and dug up some worms."
+   ],
+   "forms": [
+    "trick",
+    "tricks"
+   ],
+   "count": 8,
+   "senses": [
+    {
+     "pos": "singular noun",
+     "meaning": "A mean joke that you play on someone to fool them.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "trying to think up a really nasty trick he could play on his wife"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "to pay Mr Twit back for the frog trick, Mrs Twit sneaked out"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "Mr Twit thought up a really clever nasty trick"
+      }
+     ]
+    },
+    {
+     "pos": "singular noun",
+     "meaning": "A clever act or plan that surprises or amazes people.",
+     "anchors": [
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "Now for the greatest upside down trick of all time!"
+      }
+     ]
+    }
+   ]
+  },
+  "ugly": {
+   "pos": "adjective",
+   "meaning": "Not nice to look at.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "But the funny thing is that Mrs Twit wasn’t born ugly.",
+   "examples": [
+    "But the funny thing is that Mrs Twit wasn’t born ugly.",
+    "Mrs Twit may have been ugly and she may have been beastly, but she was not stupid."
+   ],
+   "forms": [
+    "ugly"
+   ],
+   "count": 8
+  },
+  "worm": {
+   "pos": "singular noun",
+   "meaning": "A long, soft creature with no legs that lives in the ground.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The next day, to pay Mr Twit back for the frog trick, Mrs Twit sneaked out into the garden and dug up some worms.",
+   "examples": [
+    "The next day, to pay Mr Twit back for the frog trick, Mrs Twit sneaked out into the garden and dug up some worms.",
+    "To pay Mrs Twit back for the worms in his spaghetti, Mr Twit thought up a really clever nasty trick."
+   ],
+   "forms": [
+    "worms"
+   ],
+   "count": 8
+  },
+  "bucket": {
+   "pos": "singular noun",
+   "meaning": "A round container with a handle, used for carrying water. Here it is also a family name.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush.",
+   "examples": [
+    "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush.",
+    "In they went, all four monkeys, with their buckets of sticky glue."
+   ],
+   "forms": [
+    "bucket",
+    "buckets"
+   ],
+   "count": 7
+  },
+  "ladder": {
+   "pos": "singular noun",
+   "meaning": "Two long poles joined by steps, used for climbing up and down.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush.",
+   "examples": [
+    "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush.",
+    "On one Tuesday evening after Mr Twit had been up the ladder and smeared the tree with HUGTIGHT, four little boys crept into the garden to look at the monkeys."
+   ],
+   "forms": [
+    "ladder"
+   ],
+   "count": 7
+  },
+  "shrinking": {
+   "pos": "present participle",
+   "meaning": "Getting smaller.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Then their necks began SHRINKING into their bodies…",
+   "examples": [
+    "Then their necks began SHRINKING into their bodies…"
+   ],
+   "forms": [
+    "shrinking"
+   ],
+   "count": 7
+  },
+  "tiny": {
+   "pos": "adjective",
+   "meaning": "Very, very small.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "But if you looked closely (not that you’d ever want to) you would see tiny little specks of dried-up scrambled eggs stuck to the hairs, and spinach and tomato ketchup and fish fingers and minced chicken livers and all the other disgusting things Mr Twit liked to eat.",
+   "examples": [
+    "But if you looked closely (not that you’d ever want to) you would see tiny little specks of dried-up scrambled eggs stuck to the hairs, and spinach and tomato ketchup and fish fingers and minced chicken livers and all the other disgusting things Mr Twit liked to eat.",
+    "There he stuck a tiny round piece of wood (no thicker than a penny) on to the bottom of the stick."
+   ],
+   "forms": [
+    "tiny"
+   ],
+   "count": 7
+  },
+  "roof": {
+   "pos": "singular noun",
+   "meaning": "The cover on the top of a building.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "They were all perched happily on the roof of Mr Twit’s house.",
+   "examples": [
+    "They were all perched happily on the roof of Mr Twit’s house.",
+    "’ Muggle-Wump called out to the Roly-Poly Bird, who was still sitting on the roof of the house."
+   ],
+   "forms": [
+    "roof"
+   ],
+   "count": 6
+  },
+  "beastly": {
+   "pos": "adjective",
+   "meaning": "Very unpleasant or unkind.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mrs Twit may have been ugly and she may have been beastly, but she was not stupid.",
+   "examples": [
+    "Mrs Twit may have been ugly and she may have been beastly, but she was not stupid.",
+    "He kept them practising for six hours every day and if they didn’t do as they were told, Mrs Twit would soon come running with her beastly stick."
+   ],
+   "forms": [
+    "beastly"
+   ],
+   "count": 5
+  },
+  "climb": {
+   "pos": "base verb",
+   "meaning": "To go up something using your hands and feet.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Each time she bit through a string and let the balloon float away, the upward pull got less and her rate of climb slowed down.",
+   "examples": [
+    "Each time she bit through a string and let the balloon float away, the upward pull got less and her rate of climb slowed down.",
+    "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush."
+   ],
+   "forms": [
+    "climb"
+   ],
+   "count": 5
+  },
+  "gasped": {
+   "pos": "past-tense verb",
+   "meaning": "Took in a quick breath because of surprise or shock.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ gasped Mr Twit as they entered the living-room.",
+   "examples": [
+    "’ gasped Mr Twit as they entered the living-room."
+   ],
+   "forms": [
+    "gasped"
+   ],
+   "count": 5
+  },
+  "horrid": {
+   "pos": "adjective",
+   "meaning": "Very unpleasant or mean.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "He was also an extremely horrid old man, as you will find out in a moment.",
+   "examples": [
+    "He was also an extremely horrid old man, as you will find out in a moment.",
+    "He went on drinking his beer, and his evil mind kept working away on the latest horrid trick he was going to play on the old woman."
+   ],
+   "forms": [
+    "horrid"
+   ],
+   "count": 5
+  },
+  "nasty": {
+   "pos": "adjective",
+   "meaning": "Very unpleasant or unkind.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "He was trying to think up a really nasty trick he could play on his wife that day.",
+   "examples": [
+    "He was trying to think up a really nasty trick he could play on his wife that day.",
+    "‘And why it had a nasty bitter taste?"
+   ],
+   "forms": [
+    "nasty"
+   ],
+   "count": 5
+  },
+  "raven": {
+   "pos": "singular noun",
+   "meaning": "A large black bird, like a crow.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "There were buzzards, magpies, rooks, ravens and many more.",
+   "examples": [
+    "There were buzzards, magpies, rooks, ravens and many more.",
+    "Just as Mr and Mrs Twit were about to enter the house, two black ravens swooped low over their heads."
+   ],
+   "forms": [
+    "ravens"
+   ],
+   "count": 5
+  },
+  "sight": {
+   "pos": "singular noun",
+   "meaning": "The power to see. \"Within sight\" means close enough to be seen.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Suddenly, as Mr Twit tipped the last drop of beer down his throat, he caught sight of Mrs Twit’s awful glass eye staring up at him from the bottom of the mug.",
+   "examples": [
+    "Suddenly, as Mr Twit tipped the last drop of beer down his throat, he caught sight of Mrs Twit’s awful glass eye staring up at him from the bottom of the mug.",
+    "‘ What a pretty sight!"
+   ],
+   "forms": [
+    "sight"
+   ],
+   "count": 5,
+   "senses": [
+    {
+     "pos": "singular noun",
+     "meaning": "Something that you see, especially something strange or beautiful.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "What a pretty sight!"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "It was a grand sight on a glorious day"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "to catch a glimpse of this extraordinary sight"
+      }
+     ]
+    },
+    {
+     "pos": "singular noun",
+     "meaning": "To “catch sight of” something means to see it suddenly.",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "he caught sight of Mrs Twit’s awful glass eye staring up at him"
+      }
+     ]
+    },
+    {
+     "pos": "singular noun",
+     "meaning": "“Out of sight” means hidden, or too far away to be seen.",
+     "anchors": [
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "sunk out of sight in the fatty folds of his flabby neck"
+      }
+     ]
+    }
+   ]
+  },
+  "smeared": {
+   "pos": "past-tense verb",
+   "meaning": "Spread something sticky or dirty over a surface.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "They didn’t know, poor things, that the branches were all smeared with horrible HUGTIGHT.",
+   "examples": [
+    "They didn’t know, poor things, that the branches were all smeared with horrible HUGTIGHT.",
+    "On one Tuesday evening after Mr Twit had been up the ladder and smeared the tree with HUGTIGHT, four little boys crept into the garden to look at the monkeys."
+   ],
+   "forms": [
+    "smeared"
+   ],
+   "count": 5
+  },
+  "tied": {
+   "pos": "past-tense verb",
+   "meaning": "Fixed with a rope or string.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "He then tied Mrs Twit’s ankles to the iron ring.",
+   "examples": [
+    "He then tied Mrs Twit’s ankles to the iron ring."
+   ],
+   "forms": [
+    "tied"
+   ],
+   "count": 5
+  },
+  "tomato": {
+   "pos": "singular noun",
+   "meaning": "A soft, round, red fruit used in salads and sauces.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "But if you looked closely (not that you’d ever want to) you would see tiny little specks of dried-up scrambled eggs stuck to the hairs, and spinach and tomato ketchup and fish fingers and minced chicken livers and all the other disgusting things Mr Twit liked to eat.",
+   "examples": [
+    "But if you looked closely (not that you’d ever want to) you would see tiny little specks of dried-up scrambled eggs stuck to the hairs, and spinach and tomato ketchup and fish fingers and minced chicken livers and all the other disgusting things Mr Twit liked to eat.",
+    "The worms didn’t show because everything was covered with tomato sauce and sprinkled with cheese."
+   ],
+   "forms": [
+    "tomato"
+   ],
+   "count": 5
+  },
+  "ankle": {
+   "pos": "singular noun",
+   "meaning": "The joint where your foot meets your leg.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "He then tied Mrs Twit’s ankles to the iron ring.",
+   "examples": [
+    "He then tied Mrs Twit’s ankles to the iron ring.",
+    "‘Put some more string around my ankles quickly!"
+   ],
+   "forms": [
+    "ankles"
+   ],
+   "count": 4
+  },
+  "bang": {
+   "pos": "singular noun",
+   "meaning": "A sudden loud noise.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘We’ll buy those big shotguns that spray out fifty bullets or more with each bang!",
+   "examples": [
+    "‘We’ll buy those big shotguns that spray out fifty bullets or more with each bang!",
+    "Let’s go inside and load our lovely new guns and then it’ll be bang bang bang and Bird Pie for supper."
+   ],
+   "forms": [
+    "bang"
+   ],
+   "count": 4
+  },
+  "beak": {
+   "pos": "singular noun",
+   "meaning": "The hard, pointed mouth of a bird.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘I’ll wipe that silly laugh off your beaks!",
+   "examples": [
+    "‘I’ll wipe that silly laugh off your beaks!",
+    "The Roly-Poly Bird flew down and came back with the key in his beak."
+   ],
+   "forms": [
+    "beak",
+    "beaks"
+   ],
+   "count": 4
+  },
+  "bundle": {
+   "pos": "singular noun",
+   "meaning": "A group of things tied together.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "And in the end there’s nothing left except a pair of shoes and a bundle of old clothes.",
+   "examples": [
+    "And in the end there’s nothing left except a pair of shoes and a bundle of old clothes.",
+    "’ And before Mr Twit had time to run away, this bundle of balloons and petticoats and fiery fury landed right on top of him, lashing out with the stick and cracking him all over his body."
+   ],
+   "forms": [
+    "bundle",
+    "bundles"
+   ],
+   "count": 4
+  },
+  "downstair": {
+   "pos": "adverb",
+   "meaning": "To a lower floor of a house. (The book word is \"downstairs\".)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mrs Twit leapt out of bed and flew downstairs and spent the night on the sofa.",
+   "examples": [
+    "Mrs Twit leapt out of bed and flew downstairs and spent the night on the sofa.",
+    "One night, when the old woman was asleep, he crept out of bed and took her walking-stick downstairs to his workshed."
+   ],
+   "forms": [
+    "downstairs"
+   ],
+   "count": 4
+  },
+  "filthy": {
+   "pos": "adjective",
+   "meaning": "Extremely dirty. It can also mean very rude.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘I’ll get you next time, you filthy feathery frumps!",
+   "examples": [
+    "‘I’ll get you next time, you filthy feathery frumps!",
+    "Any moment now, those two filthy freaks are going to come rushing in with their guns!"
+   ],
+   "forms": [
+    "filthy"
+   ],
+   "count": 4
+  },
+  "sauce": {
+   "pos": "singular noun",
+   "meaning": "A thick liquid you put on food.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Watch carefully next time you see a hairy man eating his lunch and you will notice that even if he opens his mouth very wide, it is impossible for him to get a spoonful of beef-stew or ice-cream and chocolate sauce into it without leaving some of it on the hairs.",
+   "examples": [
+    "Watch carefully next time you see a hairy man eating his lunch and you will notice that even if he opens his mouth very wide, it is impossible for him to get a spoonful of beef-stew or ice-cream and chocolate sauce into it without leaving some of it on the hairs.",
+    "The worms didn’t show because everything was covered with tomato sauce and sprinkled with cheese."
+   ],
+   "forms": [
+    "sauce"
+   ],
+   "count": 4
+  },
+  "shrunk": {
+   "pos": "past participle",
+   "meaning": "Became smaller. (From the verb \"shrink\".)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Why, you must have shrunk at least a foot in the last few days!",
+   "examples": [
+    "Why, you must have shrunk at least a foot in the last few days!",
+    "You’re sitting in your old chair and you’ve shrunk so much your feet aren’t even touching the ground!"
+   ],
+   "forms": [
+    "shrunk"
+   ],
+   "count": 4
+  },
+  "silly": {
+   "pos": "adjective",
+   "meaning": "Not sensible; funny in a foolish way.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "In fact, he was just about to leave when Mrs Twit opened her big mouth and said something silly.",
+   "examples": [
+    "In fact, he was just about to leave when Mrs Twit opened her big mouth and said something silly.",
+    "All this sounds pretty silly to you and me."
+   ],
+   "forms": [
+    "silly"
+   ],
+   "count": 4
+  },
+  "stretching": {
+   "pos": "present participle",
+   "meaning": "Pulling something to make it longer.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mrs Twit Gets a Stretching",
+   "examples": [
+    "Mrs Twit Gets a Stretching"
+   ],
+   "forms": [
+    "stretching"
+   ],
+   "count": 4
+  },
+  "suddenly": {
+   "pos": "adverb",
+   "meaning": "Quickly and without warning.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Suddenly, as Mr Twit tipped the last drop of beer down his throat, he caught sight of Mrs Twit’s awful glass eye staring up at him from the bottom of the mug.",
+   "examples": [
+    "Suddenly, as Mr Twit tipped the last drop of beer down his throat, he caught sight of Mrs Twit’s awful glass eye staring up at him from the bottom of the mug.",
+    "‘It must suddenly have grown longer."
+   ],
+   "forms": [
+    "suddenly"
+   ],
+   "count": 4
+  },
+  "wipe": {
+   "pos": "base verb",
+   "meaning": "To clean by rubbing with a cloth.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "You and I can wipe our smooth faces with a flannel and we quickly look more or less all right again, but the hairy man cannot do that.",
+   "examples": [
+    "You and I can wipe our smooth faces with a flannel and we quickly look more or less all right again, but the hairy man cannot do that.",
+    "‘I’ll wipe that silly laugh off your beaks!"
+   ],
+   "forms": [
+    "wipe"
+   ],
+   "count": 4
+  },
+  "workshed": {
+   "pos": "singular noun",
+   "meaning": "A small building where someone works with tools.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "One night, when the old woman was asleep, he crept out of bed and took her walking-stick downstairs to his workshed.",
+   "examples": [
+    "One night, when the old woman was asleep, he crept out of bed and took her walking-stick downstairs to his workshed.",
+    "‘It’s hanging on a nail in the workshed."
+   ],
+   "forms": [
+    "workshed"
+   ],
+   "count": 4
+  },
+  "yelled": {
+   "pos": "past-tense verb",
+   "meaning": "Shouted very loudly, often because of anger or excitement.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘The filthy dirty brutes,’ yelled Mr Twit.",
+   "examples": [
+    "‘The filthy dirty brutes,’ yelled Mr Twit.",
+    "’ yelled Mr Twit, thrashing his legs in the air."
+   ],
+   "forms": [
+    "yelled"
+   ],
+   "count": 4
+  },
+  "circus": {
+   "pos": "singular noun",
+   "meaning": "A show with clowns, animals, and people doing tricks.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The Great Upside Down Monkey Circus",
+   "examples": [
+    "The Great Upside Down Monkey Circus"
+   ],
+   "forms": [
+    "circus"
+   ],
+   "count": 3
+  },
+  "claw": {
+   "pos": "singular noun",
+   "meaning": "A sharp, curved nail on an animal's foot.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Then came the Roly-Poly Bird flying in after them, with a bucket in his beak and a brush in his claw.",
+   "examples": [
+    "Then came the Roly-Poly Bird flying in after them, with a bucket in his beak and a brush in his claw.",
+    "All the other birds who had been sitting on the roof flew in to help, carrying paint-brushes in their claws and beaks."
+   ],
+   "forms": [
+    "claw",
+    "claws"
+   ],
+   "count": 3
+  },
+  "crept": {
+   "pos": "past-tense verb",
+   "meaning": "Moved very quietly and slowly.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "One night, when the old woman was asleep, he crept out of bed and took her walking-stick downstairs to his workshed.",
+   "examples": [
+    "One night, when the old woman was asleep, he crept out of bed and took her walking-stick downstairs to his workshed.",
+    "On one Tuesday evening after Mr Twit had been up the ladder and smeared the tree with HUGTIGHT, four little boys crept into the garden to look at the monkeys."
+   ],
+   "forms": [
+    "crept"
+   ],
+   "count": 3
+  },
+  "disgusting": {
+   "pos": "adjective",
+   "meaning": "Making you feel sick; very unpleasant.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "But if you looked closely (not that you’d ever want to) you would see tiny little specks of dried-up scrambled eggs stuck to the hairs, and spinach and tomato ketchup and fish fingers and minced chicken livers and all the other disgusting things Mr Twit liked to eat.",
+   "examples": [
+    "But if you looked closely (not that you’d ever want to) you would see tiny little specks of dried-up scrambled eggs stuck to the hairs, and spinach and tomato ketchup and fish fingers and minced chicken livers and all the other disgusting things Mr Twit liked to eat.",
+    "We can’t go on forever watching these two disgusting people doing disgusting things to each other."
+   ],
+   "forms": [
+    "disgusting"
+   ],
+   "count": 3
+  },
+  "dreaded": {
+   "pos": "adjective",
+   "meaning": "Feared; something you do not want to meet.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "You’ve got the dreaded shrinks!",
+   "examples": [
+    "You’ve got the dreaded shrinks!",
+    "‘I’m getting THE DREADED SHRINKS!"
+   ],
+   "forms": [
+    "dreaded"
+   ],
+   "count": 3
+  },
+  "enormous": {
+   "pos": "adjective",
+   "meaning": "Extremely big.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Inside Mr Twit’s workshed there was an enormous barrel of HUGTIGHT sticky glue, the stuff he used for catching birds.",
+   "examples": [
+    "Inside Mr Twit’s workshed there was an enormous barrel of HUGTIGHT sticky glue, the stuff he used for catching birds."
+   ],
+   "forms": [
+    "enormous"
+   ],
+   "count": 3
+  },
+  "escape": {
+   "pos": "base verb",
+   "meaning": "To get away from a place or from danger.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Muggle-Wump and his family longed to escape from the cage in Mr Twit’s garden and go back to the African jungle where they came from.",
+   "examples": [
+    "Muggle-Wump and his family longed to escape from the cage in Mr Twit’s garden and go back to the African jungle where they came from.",
+    "Before we escape from this beastly place we have one very important thing to do."
+   ],
+   "forms": [
+    "escape"
+   ],
+   "count": 3
+  },
+  "floating": {
+   "pos": "present participle",
+   "meaning": "Staying on top of water or in the air without sinking.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Soon there were fifty coloured balloons floating in the air above Mrs Twit’s head.",
+   "examples": [
+    "Soon there were fifty coloured balloons floating in the air above Mrs Twit’s head.",
+    "Silently, Mrs Twit came floating down."
+   ],
+   "forms": [
+    "floating"
+   ],
+   "count": 3
+  },
+  "freak": {
+   "pos": "singular noun",
+   "meaning": "A strange, unusual person or thing.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘The grand and glorious living-room where those two fearful frumptious freaks eat Bird Pie every week for supper!",
+   "examples": [
+    "‘The grand and glorious living-room where those two fearful frumptious freaks eat Bird Pie every week for supper!",
+    "Any moment now, those two filthy freaks are going to come rushing in with their guns!"
+   ],
+   "forms": [
+    "freaks"
+   ],
+   "count": 3
+  },
+  "furniture": {
+   "pos": "uncountable noun",
+   "meaning": "Things like chairs, tables, and beds in a room.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘Pull this huge carpet out from under the furniture and stick it on to the ceiling!",
+   "examples": [
+    "‘Pull this huge carpet out from under the furniture and stick it on to the ceiling!",
+    "All the furniture, the big table, the chairs, the sofa, the lamps, the little side tables, the cabinet with bottles of beer in it, the ornaments, the electric fire, the carpet, everything was stuck upside down to the ceiling."
+   ],
+   "forms": [
+    "furniture"
+   ],
+   "count": 3
+  },
+  "giant": {
+   "pos": "singular noun",
+   "meaning": "A huge, strong person in stories. As an adjective it means very big.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘I’ll bet it’s that Giant Skillywiggler I saw on the floor just now,’ Mr Twit said.",
+   "examples": [
+    "‘I’ll bet it’s that Giant Skillywiggler I saw on the floor just now,’ Mr Twit said.",
+    "Mr Twit jumped as though he’d been stung by a giant wasp."
+   ],
+   "forms": [
+    "giant"
+   ],
+   "count": 3
+  },
+  "grinning": {
+   "pos": "present participle",
+   "meaning": "Smiling widely.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ said Mr Twit, grinning horribly.",
+   "examples": [
+    "’ said Mr Twit, grinning horribly.",
+    "‘Boy Pie might be better than Bird Pie,’ he went on, grinning horribly."
+   ],
+   "forms": [
+    "grinning"
+   ],
+   "count": 3
+  },
+  "hag": {
+   "pos": "singular noun",
+   "meaning": "An ugly, mean old woman.",
+   "whyHard": "It is an unkind word for an old woman.",
+   "example": "‘Oh, do shut up, you old hag,’ Mr Twit said.",
+   "examples": [
+    "‘Oh, do shut up, you old hag,’ Mr Twit said.",
+    "Dirty old hags like her always have itchy tummies."
+   ],
+   "forms": [
+    "hag",
+    "hags"
+   ],
+   "count": 3
+  },
+  "jump": {
+   "pos": "base verb",
+   "meaning": "To push yourself up off the ground into the air.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘Upside down all of you and jump to it!",
+   "examples": [
+    "‘Upside down all of you and jump to it!"
+   ],
+   "forms": [
+    "jump"
+   ],
+   "count": 3,
+   "senses": [
+    {
+     "pos": "base verb",
+     "meaning": "To make a quick, sudden movement because you are surprised or frightened.",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "awful glass eye staring up at him from the bottom of the mug. It made him jump"
+      }
+     ]
+    },
+    {
+     "pos": "base verb",
+     "meaning": "“Jump to it” means to start at once and do it quickly.",
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "Upside down all of you and jump to it!"
+      }
+     ]
+    },
+    {
+     "pos": "base verb",
+     "meaning": "To push yourself up off the ground into the air.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "Come on, come on! Jump on the table! Stand on the chairs!"
+      }
+     ]
+    }
+   ]
+  },
+  "marvellous": {
+   "pos": "adjective",
+   "meaning": "Wonderful; very, very good. (American English: marvelous.)",
+   "whyHard": "British spelling with double \"l\".",
+   "example": "And what a marvellous bit of luck for me!",
+   "examples": [
+    "And what a marvellous bit of luck for me!",
+    "’ He fluffed his marvellous coloured feathers and looked down rather grandly at the monkeys."
+   ],
+   "forms": [
+    "marvellous"
+   ],
+   "count": 3
+  },
+  "mug": {
+   "pos": "singular noun",
+   "meaning": "A large cup with a handle, used for hot drinks.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "One morning she took out her glass eye and dropped it into Mr Twit’s mug of beer when he wasn’t looking.",
+   "examples": [
+    "One morning she took out her glass eye and dropped it into Mr Twit’s mug of beer when he wasn’t looking.",
+    "Mr Twit, who thought he had seen his ugly wife for the last time, was sitting in the garden celebrating with a mug of beer."
+   ],
+   "forms": [
+    "mug"
+   ],
+   "count": 3
+  },
+  "nettle": {
+   "pos": "singular noun",
+   "meaning": "A wild plant with hairs that sting.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "She was very good at growing thistles and stinging-nettles.",
+   "examples": [
+    "She was very good at growing thistles and stinging-nettles.",
+    "They didn’t care about the thistles and stinging-nettles, not when there were monkeys to look at."
+   ],
+   "forms": [
+    "nettles"
+   ],
+   "count": 3
+  },
+  "painting": {
+   "pos": "present participle",
+   "meaning": "Putting colour on a surface with a brush.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘Today is Tuesday and over there you can already see the revolting Mr Twit up the ladder painting sticky glue on all the branches of The Big Dead Tree.",
+   "examples": [
+    "‘Today is Tuesday and over there you can already see the revolting Mr Twit up the ladder painting sticky glue on all the branches of The Big Dead Tree.",
+    "The Great Glue Painting Begins"
+   ],
+   "forms": [
+    "painting"
+   ],
+   "count": 3,
+   "senses": [
+    {
+     "pos": "present participle",
+     "meaning": "Putting paint, or glue, on a surface with a brush.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "up the ladder painting sticky glue on all the branches"
+      }
+     ]
+    },
+    {
+     "pos": "singular noun",
+     "meaning": "The job of covering a surface with paint or glue.",
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "And so the great glue painting of the ceiling began"
+      }
+     ]
+    }
+   ]
+  },
+  "pant": {
+   "pos": "singular noun",
+   "meaning": "\"Pants\" in British English means underwear. In American English it means trousers.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The next morning, when Mr Twit went out to collect the birds, he found four miserable little boys sitting in the tree, stuck as tight as could be by the seats of their pants to the branches.",
+   "examples": [
+    "The next morning, when Mr Twit went out to collect the birds, he found four miserable little boys sitting in the tree, stuck as tight as could be by the seats of their pants to the branches."
+   ],
+   "forms": [
+    "pants"
+   ],
+   "count": 3
+  },
+  "plotting": {
+   "pos": "present participle",
+   "meaning": "Making a secret plan to do something bad.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘You’re plotting something,’ Mrs Twit said, keeping her back turned so he wouldn’t see that she had taken out her glass eye.",
+   "examples": [
+    "‘You’re plotting something,’ Mrs Twit said, keeping her back turned so he wouldn’t see that she had taken out her glass eye."
+   ],
+   "forms": [
+    "plotting"
+   ],
+   "count": 3
+  },
+  "roost": {
+   "pos": "base verb",
+   "meaning": "To rest or sleep, as birds do.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "As the sun went down, birds would fly in from all around to roost for the night in The Big Dead Tree.",
+   "examples": [
+    "As the sun went down, birds would fly in from all around to roost for the night in The Big Dead Tree.",
+    "This evening when the birds come in to roost, you must warn them not to perch on that tree or they will be made into Bird Pie."
+   ],
+   "forms": [
+    "roost"
+   ],
+   "count": 3
+  },
+  "sho": {
+   "pos": "singular noun",
+   "meaning": "The word \"shoes\": things you wear on your feet.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "And in the end there’s nothing left except a pair of shoes and a bundle of old clothes.",
+   "examples": [
+    "And in the end there’s nothing left except a pair of shoes and a bundle of old clothes.",
+    "When nobody answered the door, Fred peeped into the house and there he saw, on the floor of the living-room, two bundles of old clothes, two pairs of shoes and a walking-stick."
+   ],
+   "forms": [
+    "shoes"
+   ],
+   "count": 3
+  },
+  "sleeve": {
+   "pos": "singular noun",
+   "meaning": "The part of a coat or shirt that covers your arm.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "They weren’t big bits, mind you, because he used to wipe those off with the back of his hand or on his sleeve while he was eating.",
+   "examples": [
+    "They weren’t big bits, mind you, because he used to wipe those off with the back of his hand or on his sleeve while he was eating.",
+    "He wiped the white froth on to his sleeve and wiped his sleeve on his trousers."
+   ],
+   "forms": [
+    "sleeve"
+   ],
+   "count": 3
+  },
+  "sofa": {
+   "pos": "singular noun",
+   "meaning": "A long soft seat for two or three people.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mrs Twit leapt out of bed and flew downstairs and spent the night on the sofa.",
+   "examples": [
+    "Mrs Twit leapt out of bed and flew downstairs and spent the night on the sofa.",
+    "All the furniture, the big table, the chairs, the sofa, the lamps, the little side tables, the cabinet with bottles of beer in it, the ornaments, the electric fire, the carpet, everything was stuck upside down to the ceiling."
+   ],
+   "forms": [
+    "sofa"
+   ],
+   "count": 3
+  },
+  "stinging": {
+   "pos": "adjective",
+   "meaning": "Causing a sharp pain.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "She was very good at growing thistles and stinging-nettles.",
+   "examples": [
+    "She was very good at growing thistles and stinging-nettles.",
+    "They didn’t care about the thistles and stinging-nettles, not when there were monkeys to look at."
+   ],
+   "forms": [
+    "stinging"
+   ],
+   "count": 3
+  },
+  "thistle": {
+   "pos": "singular noun",
+   "meaning": "A wild plant with sharp, prickly leaves and purple flowers.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "She was very good at growing thistles and stinging-nettles.",
+   "examples": [
+    "She was very good at growing thistles and stinging-nettles.",
+    "They didn’t care about the thistles and stinging-nettles, not when there were monkeys to look at."
+   ],
+   "forms": [
+    "thistles"
+   ],
+   "count": 3
+  },
+  "tummy": {
+   "pos": "singular noun",
+   "meaning": "A child's word for stomach.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "She lay there in the dark scratching her tummy.",
+   "examples": [
+    "She lay there in the dark scratching her tummy."
+   ],
+   "forms": [
+    "tummy",
+    "tummies"
+   ],
+   "count": 3
+  },
+  "uglier": {
+   "pos": "adjective",
+   "meaning": "Less pleasant to look at.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Have you ever seen a woman with an uglier face than that?",
+   "examples": [
+    "Have you ever seen a woman with an uglier face than that?"
+   ],
+   "forms": [
+    "uglier"
+   ],
+   "count": 3
+  },
+  "upward": {
+   "pos": "adverb",
+   "meaning": "Toward a higher place.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The upward pull became very strong.",
+   "examples": [
+    "The upward pull became very strong.",
+    "Each time she bit through a string and let the balloon float away, the upward pull got less and her rate of climb slowed down."
+   ],
+   "forms": [
+    "upward",
+    "upwards"
+   ],
+   "count": 3
+  },
+  "washed": {
+   "pos": "past participle",
+   "meaning": "Cleaned with water.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "He hadn’t washed it for years.",
+   "examples": [
+    "He hadn’t washed it for years.",
+    "As you know, an ordinary unhairy face like yours or mine simply gets a bit smudgy if it is not washed often enough, and there’s nothing so awful about that."
+   ],
+   "forms": [
+    "washed"
+   ],
+   "count": 3
+  },
+  "wiped": {
+   "pos": "past-tense verb",
+   "meaning": "Cleaned by rubbing with a cloth.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "He wiped the white froth on to his sleeve and wiped his sleeve on his trousers.",
+   "examples": [
+    "He wiped the white froth on to his sleeve and wiped his sleeve on his trousers.",
+    "Mr Twit wiped the tomato sauce from his beard with a corner of the tablecloth."
+   ],
+   "forms": [
+    "wiped"
+   ],
+   "count": 3
+  },
+  "awful": {
+   "pos": "adjective",
+   "meaning": "Very bad or unpleasant.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "As you know, an ordinary unhairy face like yours or mine simply gets a bit smudgy if it is not washed often enough, and there’s nothing so awful about that.",
+   "examples": [
+    "As you know, an ordinary unhairy face like yours or mine simply gets a bit smudgy if it is not washed often enough, and there’s nothing so awful about that.",
+    "Suddenly, as Mr Twit tipped the last drop of beer down his throat, he caught sight of Mrs Twit’s awful glass eye staring up at him from the bottom of the mug."
+   ],
+   "forms": [
+    "awful"
+   ],
+   "count": 2
+  },
+  "basket": {
+   "pos": "singular noun",
+   "meaning": "A container woven from thin strips, used for carrying things.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The next morning when Mr Twit came out with his huge basket to snatch all the birds from The Big Dead Tree, there wasn’t a single one on it.",
+   "examples": [
+    "The next morning when Mr Twit came out with his huge basket to snatch all the birds from The Big Dead Tree, there wasn’t a single one on it.",
+    "The next morning when Mr Twit came out with his huge basket, not a single bird was sitting on either the monkey cage or The Big Dead Tree."
+   ],
+   "forms": [
+    "basket"
+   ],
+   "count": 2
+  },
+  "beard": {
+   "pos": "singular noun",
+   "meaning": "The hair that grows on a man's chin and cheeks.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mr Twit wiped the tomato sauce from his beard with a corner of the tablecloth.",
+   "examples": [
+    "Mr Twit wiped the tomato sauce from his beard with a corner of the tablecloth."
+   ],
+   "forms": [
+    "beard",
+    "beards"
+   ],
+   "count": 2
+  },
+  "bite": {
+   "pos": "singular noun",
+   "meaning": "The act of cutting into food with your teeth. It can also be the piece you cut off.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘It’ll bite off your toes,’ said Mr Twit.",
+   "examples": [
+    "‘It’ll bite off your toes,’ said Mr Twit."
+   ],
+   "forms": [
+    "bite"
+   ],
+   "count": 2
+  },
+  "brilliant": {
+   "pos": "adjective",
+   "meaning": "Very bright. It can also mean extremely clever or very good.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘Now and again,’ he said, ‘but not very often, I have a brilliant idea.",
+   "examples": [
+    "‘Now and again,’ he said, ‘but not very often, I have a brilliant idea."
+   ],
+   "forms": [
+    "brilliant"
+   ],
+   "count": 2
+  },
+  "bristle": {
+   "pos": "singular noun",
+   "meaning": "A short stiff hair.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It grew in spikes that stuck out straight like the bristles of a nailbrush.",
+   "examples": [
+    "It grew in spikes that stuck out straight like the bristles of a nailbrush.",
+    "If you looked closer still (hold your noses, ladies and gentlemen), if you peered deep into the moustachy bristles sticking out over his upper lip, you would probably see much larger objects that had escaped the wipe of his hand, things that had been there for months and months,…"
+   ],
+   "forms": [
+    "bristles"
+   ],
+   "count": 2
+  },
+  "brushed": {
+   "pos": "past-tense verb",
+   "meaning": "Touched lightly. It can also mean cleaned with a brush.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "As the ravens whizzed over, they brushed a streak of sticky glue on to the tops of Mr and Mrs Twit’s heads.",
+   "examples": [
+    "As the ravens whizzed over, they brushed a streak of sticky glue on to the tops of Mr and Mrs Twit’s heads.",
+    "So they stood on their heads, and of course, the moment the tops of their heads touched the floor, the sticky glue that the ravens had brushed on a few moments before did its job."
+   ],
+   "forms": [
+    "brushed"
+   ],
+   "count": 2
+  },
+  "calm": {
+   "pos": "adjective",
+   "meaning": "Quiet and not worried.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It was a calm day.",
+   "examples": [
+    "It was a calm day."
+   ],
+   "forms": [
+    "calm"
+   ],
+   "count": 2
+  },
+  "carefully": {
+   "pos": "adverb",
+   "meaning": "In a way that avoids mistakes or damage.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Watch carefully next time you see a hairy man eating his lunch and you will notice that even if he opens his mouth very wide, it is impossible for him to get a spoonful of beef-stew or ice-cream and chocolate sauce into it without leaving some of it on the hairs.",
+   "examples": [
+    "Watch carefully next time you see a hairy man eating his lunch and you will notice that even if he opens his mouth very wide, it is impossible for him to get a spoonful of beef-stew or ice-cream and chocolate sauce into it without leaving some of it on the hairs.",
+    "Mrs Twit got the key from under the doormat (where Muggle-Wump had carefully replaced it) and into the house they went."
+   ],
+   "forms": [
+    "carefully"
+   ],
+   "count": 2
+  },
+  "cheese": {
+   "pos": "uncountable noun",
+   "meaning": "A food made from milk, often yellow.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The worms didn’t show because everything was covered with tomato sauce and sprinkled with cheese.",
+   "examples": [
+    "The worms didn’t show because everything was covered with tomato sauce and sprinkled with cheese."
+   ],
+   "forms": [
+    "cheese"
+   ],
+   "count": 2
+  },
+  "clever": {
+   "pos": "adjective",
+   "meaning": "Quick at learning and understanding; smart.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "To pay Mrs Twit back for the worms in his spaghetti, Mr Twit thought up a really clever nasty trick.",
+   "examples": [
+    "To pay Mrs Twit back for the worms in his spaghetti, Mr Twit thought up a really clever nasty trick.",
+    "Mr Twit, you see, had been just as clever with the chair as he’d been with the walking-stick."
+   ],
+   "forms": [
+    "clever"
+   ],
+   "count": 2
+  },
+  "coloured": {
+   "pos": "adjective",
+   "meaning": "Having a colour. (American English: colored.)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Soon there were fifty coloured balloons floating in the air above Mrs Twit’s head.",
+   "examples": [
+    "Soon there were fifty coloured balloons floating in the air above Mrs Twit’s head.",
+    "’ He fluffed his marvellous coloured feathers and looked down rather grandly at the monkeys."
+   ],
+   "forms": [
+    "coloured"
+   ],
+   "count": 2
+  },
+  "crow": {
+   "pos": "singular noun",
+   "meaning": "A large black bird.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It didn’t matter what kind they were – song thrushes, blackbirds, sparrows, crows, little jenny wrens, robins, anything – they all went into the pot for Wednesday’s Bird Pie supper.",
+   "examples": [
+    "It didn’t matter what kind they were – song thrushes, blackbirds, sparrows, crows, little jenny wrens, robins, anything – they all went into the pot for Wednesday’s Bird Pie supper.",
+    "All the birds, especially the big ones, the crows and rooks and magpies, made their nests around the tree-house so that nobody could see it from the ground."
+   ],
+   "forms": [
+    "crows"
+   ],
+   "count": 2
+  },
+  "disappeared": {
+   "pos": "past-tense verb",
+   "meaning": "Went out of sight; was gone.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "As soon as Mr and Mrs Twit had disappeared down the road, the monkeys all flipped back on to their feet the right way up.",
+   "examples": [
+    "As soon as Mr and Mrs Twit had disappeared down the road, the monkeys all flipped back on to their feet the right way up.",
+    "Quite soon, it had disappeared completely, sunk out of sight in the fatty folds of his flabby neck."
+   ],
+   "forms": [
+    "disappeared"
+   ],
+   "count": 2
+  },
+  "extraordinary": {
+   "pos": "adjective",
+   "meaning": "Very unusual and amazing.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It was a grand sight on a glorious day, and thousands of birds came flying in from miles around to stare at this extraordinary old woman in the sky.",
+   "examples": [
+    "It was a grand sight on a glorious day, and thousands of birds came flying in from miles around to stare at this extraordinary old woman in the sky.",
+    "And all the other birds flew in and out to catch a glimpse of this extraordinary sight."
+   ],
+   "forms": [
+    "extraordinary"
+   ],
+   "count": 2
+  },
+  "fearful": {
+   "pos": "adjective",
+   "meaning": "Terrible; very bad. It can also mean afraid.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It was a pity she didn’t because that at any rate would have hidden some of her fearful ugliness.",
+   "examples": [
+    "It was a pity she didn’t because that at any rate would have hidden some of her fearful ugliness.",
+    "‘The grand and glorious living-room where those two fearful frumptious freaks eat Bird Pie every week for supper!"
+   ],
+   "forms": [
+    "fearful"
+   ],
+   "count": 2
+  },
+  "fearsome": {
+   "pos": "adjective",
+   "meaning": "Frightening to see.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ he barked in his fearsome monkey-trainer’s voice.",
+   "examples": [
+    "’ he barked in his fearsome monkey-trainer’s voice.",
+    "A moment later, Mr and Mrs Twit came marching into the garden, each carrying a fearsome-looking gun."
+   ],
+   "forms": [
+    "fearsome"
+   ],
+   "count": 2
+  },
+  "finger": {
+   "pos": "singular noun",
+   "meaning": "One of the long parts at the end of your hand.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "But if you looked closely (not that you’d ever want to) you would see tiny little specks of dried-up scrambled eggs stuck to the hairs, and spinach and tomato ketchup and fish fingers and minced chicken livers and all the other disgusting things Mr Twit liked to eat.",
+   "examples": [
+    "But if you looked closely (not that you’d ever want to) you would see tiny little specks of dried-up scrambled eggs stuck to the hairs, and spinach and tomato ketchup and fish fingers and minced chicken livers and all the other disgusting things Mr Twit liked to eat.",
+    "’ cried Mr Twit, pointing his finger at her like a pistol."
+   ],
+   "forms": [
+    "finger",
+    "fingers"
+   ],
+   "count": 2
+  },
+  "float": {
+   "pos": "base verb",
+   "meaning": "To stay on the top of water or in the air.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Each time she bit through a string and let the balloon float away, the upward pull got less and her rate of climb slowed down.",
+   "examples": [
+    "Each time she bit through a string and let the balloon float away, the upward pull got less and her rate of climb slowed down."
+   ],
+   "forms": [
+    "float"
+   ],
+   "count": 2
+  },
+  "fork": {
+   "pos": "singular noun",
+   "meaning": "A tool with points used for eating.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ cried Mr Twit, poking around in it with his fork.",
+   "examples": [
+    "’ cried Mr Twit, poking around in it with his fork."
+   ],
+   "forms": [
+    "fork"
+   ],
+   "count": 2
+  },
+  "froth": {
+   "pos": "uncountable noun",
+   "meaning": "Many small bubbles on top of a liquid.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The froth made a white ring on the hairs around his mouth.",
+   "examples": [
+    "The froth made a white ring on the hairs around his mouth."
+   ],
+   "forms": [
+    "froth"
+   ],
+   "count": 2
+  },
+  "frumptious": {
+   "pos": "adjective",
+   "meaning": "A made-up word. The monkeys use it to describe the Twits.",
+   "whyHard": "It is a made-up word. The monkeys use it for the Twits.",
+   "example": "‘The grand and glorious living-room where those two fearful frumptious freaks eat Bird Pie every week for supper!",
+   "examples": [
+    "‘The grand and glorious living-room where those two fearful frumptious freaks eat Bird Pie every week for supper!",
+    "And will one of you birds please fly out on to the road and watch to see when those frumptious freaks are coming back."
+   ],
+   "forms": [
+    "frumptious"
+   ],
+   "count": 2,
+   "coined": true
+  },
+  "ghastly": {
+   "pos": "adjective",
+   "meaning": "Very bad or horrible.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "And what do you think of that ghastly garden?",
+   "examples": [
+    "And what do you think of that ghastly garden?"
+   ],
+   "forms": [
+    "ghastly"
+   ],
+   "count": 2
+  },
+  "giddy": {
+   "pos": "adjective",
+   "meaning": "Feeling that everything is spinning.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It made them giddy standing on their heads for hours on end.",
+   "examples": [
+    "It made them giddy standing on their heads for hours on end.",
+    "I’m beginning to feel giddy!"
+   ],
+   "forms": [
+    "giddy"
+   ],
+   "count": 2
+  },
+  "glorious": {
+   "pos": "adjective",
+   "meaning": "Very beautiful or wonderful.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It was a grand sight on a glorious day, and thousands of birds came flying in from miles around to stare at this extraordinary old woman in the sky.",
+   "examples": [
+    "It was a grand sight on a glorious day, and thousands of birds came flying in from miles around to stare at this extraordinary old woman in the sky.",
+    "‘The grand and glorious living-room where those two fearful frumptious freaks eat Bird Pie every week for supper!"
+   ],
+   "forms": [
+    "glorious"
+   ],
+   "count": 2
+  },
+  "golly": {
+   "pos": "interjection",
+   "meaning": "An old-fashioned word that shows surprise.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘By golly it is a Giant Skillywiggler!",
+   "examples": [
+    "‘By golly it is a Giant Skillywiggler!",
+    "Mrs Twit looked down at her feet and by golly the man was right."
+   ],
+   "forms": [
+    "golly"
+   ],
+   "count": 2
+  },
+  "grab": {
+   "pos": "base verb",
+   "meaning": "To take hold of something quickly and roughly.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The next morning, which was Bird Pie day, Mr Twit would climb up the ladder again and grab all the wretched birds that were stuck to the tree.",
+   "examples": [
+    "The next morning, which was Bird Pie day, Mr Twit would climb up the ladder again and grab all the wretched birds that were stuck to the tree.",
+    "Mr Twit had reached the top of the ladder and was just about to make a grab for the nearest boy when they all suddenly tumbled out of the tree and ran for home with their naked bottoms winking at the sun."
+   ],
+   "forms": [
+    "grab"
+   ],
+   "count": 2
+  },
+  "gradually": {
+   "pos": "adverb",
+   "meaning": "Slowly, little by little.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Gradually, but oh so gradually, Mrs Twit’s walking-stick was getting longer and longer.",
+   "examples": [
+    "Gradually, but oh so gradually, Mrs Twit’s walking-stick was getting longer and longer."
+   ],
+   "forms": [
+    "gradually"
+   ],
+   "count": 2
+  },
+  "grin": {
+   "pos": "singular noun",
+   "meaning": "A wide smile.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘You won’t last long if you don’t,’ said Mr Twit, giving her another grizzly grin.",
+   "examples": [
+    "‘You won’t last long if you don’t,’ said Mr Twit, giving her another grizzly grin.",
+    "ghoulish grin on his lips he knelt down at her feet."
+   ],
+   "forms": [
+    "grin"
+   ],
+   "count": 2
+  },
+  "grizzly": {
+   "pos": "adjective",
+   "meaning": "Grey or ugly in a rough way.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘You won’t last long if you don’t,’ said Mr Twit, giving her another grizzly grin.",
+   "examples": [
+    "‘You won’t last long if you don’t,’ said Mr Twit, giving her another grizzly grin.",
+    "When she was about the height of the house above Mr Twit, she suddenly called out at the top of her voice, ‘Here I come, you grizzly old grunion!"
+   ],
+   "forms": [
+    "grizzly"
+   ],
+   "count": 2
+  },
+  "grown": {
+   "pos": "adjective",
+   "meaning": "Fully grown up, like an adult. A \"grown-up\" is an adult.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The ugliness had grown upon her year by year as she got older.",
+   "examples": [
+    "The ugliness had grown upon her year by year as she got older.",
+    "‘It must suddenly have grown longer."
+   ],
+   "forms": [
+    "grown"
+   ],
+   "count": 2
+  },
+  "heaven": {
+   "pos": "singular noun",
+   "meaning": "The place where good people are said to go after death. \"Good heavens!\" shows surprise.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Get on with it, for heaven’s sake!",
+   "examples": [
+    "Get on with it, for heaven’s sake!"
+   ],
+   "forms": [
+    "heaven",
+    "heavens"
+   ],
+   "count": 2
+  },
+  "hidden": {
+   "pos": "past participle",
+   "meaning": "Put where it cannot be seen. (From the verb \"hide\".)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It was a pity she didn’t because that at any rate would have hidden some of her fearful ugliness.",
+   "examples": [
+    "It was a pity she didn’t because that at any rate would have hidden some of her fearful ugliness.",
+    "Mrs Twit had hidden the key to the front door under the mat and Muggle-Wump had seen her doing it, so it was easy for them to get in."
+   ],
+   "forms": [
+    "hidden"
+   ],
+   "count": 2
+  },
+  "hoisted": {
+   "pos": "past-tense verb",
+   "meaning": "Lifted something up using force or a rope.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "With the monkeys and the birds all pulling and puffing, the carpet was dragged off the floor and finally hoisted up on to the ceiling.",
+   "examples": [
+    "With the monkeys and the birds all pulling and puffing, the carpet was dragged off the floor and finally hoisted up on to the ceiling.",
+    "The monkeys, with the birds helping them, put glue on the bottom of each chair leg and hoisted them up to the ceiling."
+   ],
+   "forms": [
+    "hoisted"
+   ],
+   "count": 2
+  },
+  "holiday": {
+   "pos": "singular noun",
+   "meaning": "A time away from school or work. (American English: vacation.)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘I’ve come for a holiday,’ said the Roly-Poly Bird.",
+   "examples": [
+    "‘I’ve come for a holiday,’ said the Roly-Poly Bird."
+   ],
+   "forms": [
+    "holiday"
+   ],
+   "count": 2
+  },
+  "hopping": {
+   "pos": "present participle",
+   "meaning": "Jumping on one foot, or taking small jumps.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ He was like a demon hopping round the room and telling everyone what to do.",
+   "examples": [
+    "’ He was like a demon hopping round the room and telling everyone what to do.",
+    "‘You’re the one, you ugly old cow, who went hopping around shouting, “We’re upside down!"
+   ],
+   "forms": [
+    "hopping"
+   ],
+   "count": 2
+  },
+  "horrible": {
+   "pos": "adjective",
+   "meaning": "Very bad or unpleasant.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ cried Mrs Twit, clapping her hands and stamping her feet on the floor and rocking with horrible laughter.",
+   "examples": [
+    "’ cried Mrs Twit, clapping her hands and stamping her feet on the floor and rocking with horrible laughter.",
+    "They didn’t know, poor things, that the branches were all smeared with horrible HUGTIGHT."
+   ],
+   "forms": [
+    "horrible"
+   ],
+   "count": 2
+  },
+  "horribly": {
+   "pos": "adverb",
+   "meaning": "In a very bad or frightening way.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ said Mr Twit, grinning horribly.",
+   "examples": [
+    "’ said Mr Twit, grinning horribly.",
+    "‘Boy Pie might be better than Bird Pie,’ he went on, grinning horribly."
+   ],
+   "forms": [
+    "horribly"
+   ],
+   "count": 2
+  },
+  "jungle": {
+   "pos": "singular noun",
+   "meaning": "A thick forest in a hot country.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "By sticking out his tongue and curling it sideways to explore the hairy jungle around his mouth, he was always able to find a tasty morsel here and there to nibble on.",
+   "examples": [
+    "By sticking out his tongue and curling it sideways to explore the hairy jungle around his mouth, he was always able to find a tasty morsel here and there to nibble on.",
+    "Muggle-Wump and his family longed to escape from the cage in Mr Twit’s garden and go back to the African jungle where they came from."
+   ],
+   "forms": [
+    "jungle"
+   ],
+   "count": 2
+  },
+  "lamp": {
+   "pos": "singular noun",
+   "meaning": "A light with a cover, which stands on a table or the floor.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "All the furniture, the big table, the chairs, the sofa, the lamps, the little side tables, the cabinet with bottles of beer in it, the ornaments, the electric fire, the carpet, everything was stuck upside down to the ceiling.",
+   "examples": [
+    "All the furniture, the big table, the chairs, the sofa, the lamps, the little side tables, the cabinet with bottles of beer in it, the ornaments, the electric fire, the carpet, everything was stuck upside down to the ceiling."
+   ],
+   "forms": [
+    "lamps"
+   ],
+   "count": 2
+  },
+  "laughter": {
+   "pos": "uncountable noun",
+   "meaning": "The sound of people laughing.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ cried Mrs Twit, clapping her hands and stamping her feet on the floor and rocking with horrible laughter.",
+   "examples": [
+    "’ cried Mrs Twit, clapping her hands and stamping her feet on the floor and rocking with horrible laughter.",
+    "The Roly-Poly Bird was up there as well, and the monkeys were in the cage and the whole lot of them were hooting with laughter at Mr Twit."
+   ],
+   "forms": [
+    "laughter"
+   ],
+   "count": 2
+  },
+  "leaf": {
+   "pos": "singular noun",
+   "meaning": "The flat green part of a plant that grows from a branch or stem.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It never has any leaves on it because it’s dead.",
+   "examples": [
+    "It never has any leaves on it because it’s dead.",
+    "‘Because when the first leaves start falling from the trees in the autumn, you can all fly home to Africa with me."
+   ],
+   "forms": [
+    "leaves"
+   ],
+   "count": 2
+  },
+  "leapt": {
+   "pos": "past-tense verb",
+   "meaning": "Jumped high or far. (Past tense of \"leap\".)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mrs Twit leapt out of bed and flew downstairs and spent the night on the sofa.",
+   "examples": [
+    "Mrs Twit leapt out of bed and flew downstairs and spent the night on the sofa.",
+    "All four monkeys leapt out together."
+   ],
+   "forms": [
+    "leapt"
+   ],
+   "count": 2
+  },
+  "lip": {
+   "pos": "singular noun",
+   "meaning": "One of the two soft edges of your mouth.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "If you looked closer still (hold your noses, ladies and gentlemen), if you peered deep into the moustachy bristles sticking out over his upper lip, you would probably see much larger objects that had escaped the wipe of his hand, things that had been there for months and months,…",
+   "examples": [
+    "If you looked closer still (hold your noses, ladies and gentlemen), if you peered deep into the moustachy bristles sticking out over his upper lip, you would probably see much larger objects that had escaped the wipe of his hand, things that had been there for months and months,…",
+    "ghoulish grin on his lips he knelt down at her feet."
+   ],
+   "forms": [
+    "lip",
+    "lips"
+   ],
+   "count": 2
+  },
+  "lock": {
+   "pos": "singular noun",
+   "meaning": "A fastener on a door that you open with a key. \"Locks\" can also mean strands of hair.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘Lock up the house while I go and make sure the monkeys are safely shut away.",
+   "examples": [
+    "‘Lock up the house while I go and make sure the monkeys are safely shut away.",
+    "He put it in the lock and turned it."
+   ],
+   "forms": [
+    "lock"
+   ],
+   "count": 2,
+   "senses": [
+    {
+     "pos": "base verb",
+     "meaning": "To shut a door or gate with a key, so that nobody can open it.",
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "Lock up the house while I go and make sure the monkeys"
+      }
+     ]
+    },
+    {
+     "pos": "singular noun",
+     "meaning": "The part of a door that you open with a key.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "He put it in the lock and turned it"
+      }
+     ]
+    }
+   ]
+  },
+  "maggoty": {
+   "pos": "adjective",
+   "meaning": "Full of maggots, the small worms that grow on rotten food.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘How can we possibly turn those two maggoty old monsters upside down?",
+   "examples": [
+    "‘How can we possibly turn those two maggoty old monsters upside down?"
+   ],
+   "forms": [
+    "maggoty"
+   ],
+   "count": 2
+  },
+  "magpy": {
+   "pos": "singular noun",
+   "meaning": "The word \"magpies\": black and white birds.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "There were buzzards, magpies, rooks, ravens and many more.",
+   "examples": [
+    "There were buzzards, magpies, rooks, ravens and many more.",
+    "All the birds, especially the big ones, the crows and rooks and magpies, made their nests around the tree-house so that nobody could see it from the ground."
+   ],
+   "forms": [
+    "magpies"
+   ],
+   "count": 2
+  },
+  "meal": {
+   "pos": "singular noun",
+   "meaning": "The food you eat at one time, such as breakfast or dinner.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "We can also, if we are careful, eat our meals without spreading food all over our faces.",
+   "examples": [
+    "We can also, if we are careful, eat our meals without spreading food all over our faces.",
+    "It was his favourite meal."
+   ],
+   "forms": [
+    "meal",
+    "meals"
+   ],
+   "count": 2
+  },
+  "miserable": {
+   "pos": "adjective",
+   "meaning": "Very unhappy. It can also mean bad-tempered.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The next morning, when Mr Twit went out to collect the birds, he found four miserable little boys sitting in the tree, stuck as tight as could be by the seats of their pants to the branches.",
+   "examples": [
+    "The next morning, when Mr Twit went out to collect the birds, he found four miserable little boys sitting in the tree, stuck as tight as could be by the seats of their pants to the branches.",
+    "They hated Mr and Mrs Twit for making their lives so miserable."
+   ],
+   "forms": [
+    "miserable"
+   ],
+   "count": 2
+  },
+  "nail": {
+   "pos": "singular noun",
+   "meaning": "The hard part at the end of a finger or toe. It is also a thin metal pin hit with a hammer.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Do they go to a barber to have their hairy faces cut and trimmed or do they do it themselves in front of the bathroom mirror with nail-scissors?",
+   "examples": [
+    "Do they go to a barber to have their hairy faces cut and trimmed or do they do it themselves in front of the bathroom mirror with nail-scissors?",
+    "‘It’s hanging on a nail in the workshed."
+   ],
+   "forms": [
+    "nail"
+   ],
+   "count": 2,
+   "senses": [
+    {
+     "pos": "singular noun",
+     "meaning": "The hard, flat part at the end of a finger or toe.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "in front of the bathroom mirror with nail-scissors"
+      }
+     ]
+    },
+    {
+     "pos": "singular noun",
+     "meaning": "A thin metal pin with a sharp point. People hit it into wood to hang or join things.",
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "It’s hanging on a nail in the workshed"
+      }
+     ]
+    }
+   ]
+  },
+  "nonsense": {
+   "pos": "uncountable noun",
+   "meaning": "Words or ideas that make no sense.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "They used to teach monkeys to do tricks and to dress up in human clothes and to smoke pipes and all the rest of that nonsense.",
+   "examples": [
+    "They used to teach monkeys to do tricks and to dress up in human clothes and to smoke pipes and all the rest of that nonsense."
+   ],
+   "forms": [
+    "nonsense"
+   ],
+   "count": 2
+  },
+  "ordinary": {
+   "pos": "adjective",
+   "meaning": "Normal; nothing special.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "As you know, an ordinary unhairy face like yours or mine simply gets a bit smudgy if it is not washed often enough, and there’s nothing so awful about that.",
+   "examples": [
+    "As you know, an ordinary unhairy face like yours or mine simply gets a bit smudgy if it is not washed often enough, and there’s nothing so awful about that.",
+    "‘It’s not as good as the ordinary kind,’ he said, talking with his mouth full."
+   ],
+   "forms": [
+    "ordinary"
+   ],
+   "count": 2
+  },
+  "ornament": {
+   "pos": "singular noun",
+   "meaning": "A pretty object used to decorate a room.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "All the furniture, the big table, the chairs, the sofa, the lamps, the little side tables, the cabinet with bottles of beer in it, the ornaments, the electric fire, the carpet, everything was stuck upside down to the ceiling.",
+   "examples": [
+    "All the furniture, the big table, the chairs, the sofa, the lamps, the little side tables, the cabinet with bottles of beer in it, the ornaments, the electric fire, the carpet, everything was stuck upside down to the ceiling."
+   ],
+   "forms": [
+    "ornaments"
+   ],
+   "count": 2
+  },
+  "penny": {
+   "pos": "singular noun",
+   "meaning": "A small British coin.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "There he stuck a tiny round piece of wood (no thicker than a penny) on to the bottom of the stick.",
+   "examples": [
+    "There he stuck a tiny round piece of wood (no thicker than a penny) on to the bottom of the stick.",
+    "You will travel by the Roly-Poly Super Jet and it won’t cost you a penny!"
+   ],
+   "forms": [
+    "penny"
+   ],
+   "count": 2
+  },
+  "petticoat": {
+   "pos": "singular noun",
+   "meaning": "A thin piece of clothing worn under a skirt.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "As she floated gently down, Mrs Twit’s petticoat billowed out like a parachute, showing her long knickers.",
+   "examples": [
+    "As she floated gently down, Mrs Twit’s petticoat billowed out like a parachute, showing her long knickers.",
+    "’ And before Mr Twit had time to run away, this bundle of balloons and petticoats and fiery fury landed right on top of him, lashing out with the stick and cracking him all over his body."
+   ],
+   "forms": [
+    "petticoat",
+    "petticoats"
+   ],
+   "count": 2
+  },
+  "pillow": {
+   "pos": "singular noun",
+   "meaning": "A soft bag that you rest your head on in bed.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It started jumping about on the pillow.",
+   "examples": [
+    "It started jumping about on the pillow."
+   ],
+   "forms": [
+    "pillow"
+   ],
+   "count": 2
+  },
+  "pot": {
+   "pos": "singular noun",
+   "meaning": "A deep round container used for cooking.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It didn’t matter what kind they were – song thrushes, blackbirds, sparrows, crows, little jenny wrens, robins, anything – they all went into the pot for Wednesday’s Bird Pie supper.",
+   "examples": [
+    "It didn’t matter what kind they were – song thrushes, blackbirds, sparrows, crows, little jenny wrens, robins, anything – they all went into the pot for Wednesday’s Bird Pie supper.",
+    "I’ll wring your necks, the whole lot of you, and have you bubbling in the pot for Bird Pie before this day is out!"
+   ],
+   "forms": [
+    "pot"
+   ],
+   "count": 2
+  },
+  "revolting": {
+   "pos": "adjective",
+   "meaning": "Very disgusting.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The stuff even sprouted in revolting tufts out of his nostrils and ear-holes.",
+   "examples": [
+    "The stuff even sprouted in revolting tufts out of his nostrils and ear-holes.",
+    "‘Today is Tuesday and over there you can already see the revolting Mr Twit up the ladder painting sticky glue on all the branches of The Big Dead Tree."
+   ],
+   "forms": [
+    "revolting"
+   ],
+   "count": 2
+  },
+  "ridiculous": {
+   "pos": "adjective",
+   "meaning": "Very silly; so strange that people laugh at it.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘Don’t be ridiculous,’ the Roly-Poly Bird said.",
+   "examples": [
+    "‘Don’t be ridiculous,’ the Roly-Poly Bird said.",
+    "‘Don’t be ridiculous,’ Muggle-Wump said."
+   ],
+   "forms": [
+    "ridiculous"
+   ],
+   "count": 2
+  },
+  "rook": {
+   "pos": "singular noun",
+   "meaning": "A black bird like a crow.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "There were buzzards, magpies, rooks, ravens and many more.",
+   "examples": [
+    "There were buzzards, magpies, rooks, ravens and many more.",
+    "All the birds, especially the big ones, the crows and rooks and magpies, made their nests around the tree-house so that nobody could see it from the ground."
+   ],
+   "forms": [
+    "rooks"
+   ],
+   "count": 2
+  },
+  "sheet": {
+   "pos": "singular noun",
+   "meaning": "A large piece of cloth for a bed.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "That night, when Mrs Twit was in the bathroom getting ready for bed, Mr Twit slipped the frog between her sheets.",
+   "examples": [
+    "That night, when Mrs Twit was in the bathroom getting ready for bed, Mr Twit slipped the frog between her sheets."
+   ],
+   "forms": [
+    "sheets"
+   ],
+   "count": 2
+  },
+  "shock": {
+   "pos": "singular noun",
+   "meaning": "A sudden feeling of surprise or fear.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mr Twit Gets a Horrid Shock",
+   "examples": [
+    "Mr Twit Gets a Horrid Shock",
+    "If you stand on your head for a very long time, a horrid thing happens, and this was where Mr Twit got his biggest shock of all."
+   ],
+   "forms": [
+    "shock"
+   ],
+   "count": 2
+  },
+  "singing": {
+   "pos": "present participle",
+   "meaning": "Making music with your voice.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "That evening, the Roly-Poly Bird flew round and round The Big Dead Tree singing out,",
+   "examples": [
+    "That evening, the Roly-Poly Bird flew round and round The Big Dead Tree singing out,",
+    "And that evening, as the sun went down and all the birds came in again to roost, the Roly-Poly Bird flew round and round the monkey cage and The Big Dead Tree, singing out his warning,"
+   ],
+   "forms": [
+    "singing"
+   ],
+   "count": 2
+  },
+  "slimy": {
+   "pos": "adjective",
+   "meaning": "Wet, slippery, and nasty to touch.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Then all at once she felt something cold and slimy crawling over her feet.",
+   "examples": [
+    "Then all at once she felt something cold and slimy crawling over her feet."
+   ],
+   "forms": [
+    "slimy"
+   ],
+   "count": 2
+  },
+  "smearing": {
+   "pos": "present participle",
+   "meaning": "Spreading something sticky over a surface.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘I won’t have you smearing sticky glue all over the roof of our house!",
+   "examples": [
+    "‘I won’t have you smearing sticky glue all over the roof of our house!",
+    "‘It’s the special bird-catching bird-killing glue for smearing on trees!"
+   ],
+   "forms": [
+    "smearing"
+   ],
+   "count": 2
+  },
+  "smooth": {
+   "pos": "adjective",
+   "meaning": "Flat and even, with no rough parts.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The hair on Mr Twit’s face didn’t grow smooth and matted as it does on most hairy-faced men.",
+   "examples": [
+    "The hair on Mr Twit’s face didn’t grow smooth and matted as it does on most hairy-faced men.",
+    "You and I can wipe our smooth faces with a flannel and we quickly look more or less all right again, but the hairy man cannot do that."
+   ],
+   "forms": [
+    "smooth"
+   ],
+   "count": 2
+  },
+  "squishy": {
+   "pos": "adjective",
+   "meaning": "Soft and wet; easy to squeeze.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Then she said, ‘You want to know why your spaghetti was squishy?",
+   "examples": [
+    "Then she said, ‘You want to know why your spaghetti was squishy?"
+   ],
+   "forms": [
+    "squishy"
+   ],
+   "count": 2
+  },
+  "stew": {
+   "pos": "singular noun",
+   "meaning": "A dish of meat and vegetables cooked slowly in liquid.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Watch carefully next time you see a hairy man eating his lunch and you will notice that even if he opens his mouth very wide, it is impossible for him to get a spoonful of beef-stew or ice-cream and chocolate sauce into it without leaving some of it on the hairs.",
+   "examples": [
+    "Watch carefully next time you see a hairy man eating his lunch and you will notice that even if he opens his mouth very wide, it is impossible for him to get a spoonful of beef-stew or ice-cream and chocolate sauce into it without leaving some of it on the hairs."
+   ],
+   "forms": [
+    "stew"
+   ],
+   "count": 2
+  },
+  "swooping": {
+   "pos": "present participle",
+   "meaning": "Flying down quickly.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The monkeys crouched inside the cage watching all this, and later on, when the Roly-Poly Bird came swooping in for an evening chat, they shouted out, ‘Don’t land on our cage, Roly-Poly Bird!",
+   "examples": [
+    "The monkeys crouched inside the cage watching all this, and later on, when the Roly-Poly Bird came swooping in for an evening chat, they shouted out, ‘Don’t land on our cage, Roly-Poly Bird!",
+    "They had only just finished the job when the Roly-Poly Bird came swooping in, screaming, ‘They’re coming back!"
+   ],
+   "forms": [
+    "swooping"
+   ],
+   "count": 2
+  },
+  "tasty": {
+   "pos": "adjective",
+   "meaning": "Having a good flavour.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "By sticking out his tongue and curling it sideways to explore the hairy jungle around his mouth, he was always able to find a tasty morsel here and there to nibble on.",
+   "examples": [
+    "By sticking out his tongue and curling it sideways to explore the hairy jungle around his mouth, he was always able to find a tasty morsel here and there to nibble on.",
+    "‘I find it very tasty’ Mrs Twit said."
+   ],
+   "forms": [
+    "tasty"
+   ],
+   "count": 2
+  },
+  "throat": {
+   "pos": "singular noun",
+   "meaning": "The tube at the back of your mouth that food and air go down.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Suddenly, as Mr Twit tipped the last drop of beer down his throat, he caught sight of Mrs Twit’s awful glass eye staring up at him from the bottom of the mug.",
+   "examples": [
+    "Suddenly, as Mr Twit tipped the last drop of beer down his throat, he caught sight of Mrs Twit’s awful glass eye staring up at him from the bottom of the mug.",
+    "They even had to eat and drink upside down and that is not an easy thing to do because the food and water has to go up your throat instead of down it."
+   ],
+   "forms": [
+    "throat"
+   ],
+   "count": 2
+  },
+  "tin": {
+   "pos": "singular noun",
+   "meaning": "A metal can or box used to keep food or other things.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "She chose big long ones and put them in a tin and carried the tin back to the house under her apron.",
+   "examples": [
+    "She chose big long ones and put them in a tin and carried the tin back to the house under her apron."
+   ],
+   "forms": [
+    "tin"
+   ],
+   "count": 2
+  },
+  "ugliness": {
+   "pos": "uncountable noun",
+   "meaning": "The quality of being ugly.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It was a pity she didn’t because that at any rate would have hidden some of her fearful ugliness.",
+   "examples": [
+    "It was a pity she didn’t because that at any rate would have hidden some of her fearful ugliness."
+   ],
+   "forms": [
+    "ugliness"
+   ],
+   "count": 2
+  },
+  "wrist": {
+   "pos": "singular noun",
+   "meaning": "The joint between the hand and the arm.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Some he tied round her neck, some under her arms, some to her wrists and some even to her hair.",
+   "examples": [
+    "Some he tied round her neck, some under her arms, some to her wrists and some even to her hair.",
+    "She began biting through the strings that held the balloons to her wrists and arms and neck and hair."
+   ],
+   "forms": [
+    "wrists"
+   ],
+   "count": 2
+  },
+  "hugtight": {
+   "pos": "singular noun",
+   "meaning": "The name of the very sticky glue that Mr Twit uses to catch birds. The writer made up this word.",
+   "whyHard": "It is a made-up word. It puts ‘hug’ and ‘tight’ together.",
+   "example": "The glue he used was something called HUGTIGHT and it was stickier than any other glue in the world.",
+   "examples": [
+    "The glue he used was something called HUGTIGHT and it was stickier than any other glue in the world.",
+    "They didn’t know, poor things, that the branches were all smeared with horrible HUGTIGHT."
+   ],
+   "forms": [
+    "hugtight"
+   ],
+   "count": 5,
+   "coined": true
+  },
+  "skillywiggler": {
+   "pos": "singular noun",
+   "meaning": "A made-up animal. Mr Twit says one is in the bed so that Mrs Twit is afraid.",
+   "whyHard": "It is a made-up word.",
+   "example": "I’ll bet it’s that Giant Skillywiggler I saw on the floor just now,’ Mr Twit said.",
+   "examples": [
+    "I’ll bet it’s that Giant Skillywiggler I saw on the floor just now,’ Mr Twit said.",
+    "By golly it is a Giant Skillywiggler!’"
+   ],
+   "forms": [
+    "skillywiggler"
+   ],
+   "count": 2,
+   "coined": true
+  },
+  "frumpet": {
+   "pos": "singular noun",
+   "meaning": "A made-up word. Mrs Twit shouts it at Mr Twit as an insult.",
+   "whyHard": "It is a made-up word. It has no real meaning.",
+   "example": "You filthy old frumpet!’",
+   "examples": [
+    "You filthy old frumpet!’"
+   ],
+   "forms": [
+    "frumpet"
+   ],
+   "count": 1,
+   "coined": true
+  },
+  "swazzle": {
+   "pos": "singular noun",
+   "meaning": "A made-up word with no real meaning. Mrs Twit shouts it when she is very angry.",
+   "whyHard": "It is a made-up word.",
+   "example": "I’ll swish you to a swazzle!’",
+   "examples": [
+    "I’ll swish you to a swazzle!’"
+   ],
+   "forms": [
+    "swazzle"
+   ],
+   "count": 1,
+   "coined": true
+  },
+  "gnozzle": {
+   "pos": "singular noun",
+   "meaning": "A made-up word with no real meaning. Mrs Twit shouts it when she is very angry.",
+   "whyHard": "It is a made-up word.",
+   "example": "I’ll gnash you to a gnozzle!",
+   "examples": [
+    "I’ll gnash you to a gnozzle!"
+   ],
+   "forms": [
+    "gnozzle"
+   ],
+   "count": 1,
+   "coined": true
+  },
+  "gnazzle": {
+   "pos": "singular noun",
+   "meaning": "A made-up word with no real meaning. Mrs Twit shouts it when she is very angry.",
+   "whyHard": "It is a made-up word.",
+   "example": "I’ll gnosh you to a gnazzle!’",
+   "examples": [
+    "I’ll gnosh you to a gnazzle!’"
+   ],
+   "forms": [
+    "gnazzle"
+   ],
+   "count": 1,
+   "coined": true
+  },
+  "choggled": {
+   "pos": "past-tense verb",
+   "meaning": "A made-up word for a way of moving. Mr Twit moves like this when he tries to get free.",
+   "whyHard": "It is a made-up word. It sounds like a funny way to move.",
+   "example": "Mr Twit wriggled and squirmed, and he squiggled and wormed, and he twisted and turned, and he choggled and churned, but the sticky glue held him to the floor just as tightly as it had once held the poor birds in The Big Dead Tree.",
+   "examples": [
+    "Mr Twit wriggled and squirmed, and he squiggled and wormed, and he twisted and turned, and he choggled and churned, but the sticky glue held him to the floor just as tightly as it had once held the poor birds in The Big Dead Tree."
+   ],
+   "forms": [
+    "choggled"
+   ],
+   "count": 1,
+   "coined": true
+  },
+  "twitsing": {
+   "pos": "present participle",
+   "meaning": "A made-up word. It is like ‘twisting’, but with ‘Twit’ in it. Mr Twit twists the spaghetti round his fork.",
+   "whyHard": "It is a made-up word.",
+   "example": "Mr Twit started eating, Twitsing the long tomato-covered strings around his fork and shovelling them into his mouth.",
+   "examples": [
+    "Mr Twit started eating, Twitsing the long tomato-covered strings around his fork and shovelling them into his mouth."
+   ],
+   "forms": [
+    "twitsing"
+   ],
+   "count": 1,
+   "coined": true
+  },
+  "nailbrushy": {
+   "pos": "adjective",
+   "meaning": "A made-up word. It means like a nailbrush (a small stiff brush): stiff hair that sticks out.",
+   "whyHard": "It is a made-up word.",
+   "example": "And how often did Mr Twit wash this bristly nailbrushy face of his?",
+   "examples": [
+    "And how often did Mr Twit wash this bristly nailbrushy face of his?"
+   ],
+   "forms": [
+    "nailbrushy"
+   ],
+   "count": 1,
+   "coined": true
+  },
+  "moustachy": {
+   "pos": "adjective",
+   "meaning": "Like a moustache (hair above the mouth). The writer made up this word.",
+   "whyHard": "It is a made-up word.",
+   "example": "If you looked closer still (hold your noses, ladies and gentlemen), if you peered deep into the moustachy bristles sticking out over his upper lip, you would probably see much larger objects that had escaped the wipe of his hand, things that had been there for months and months, like a piece of maggoty green cheese or a mouldy old cornflake or even the slimy tail of a tinned sardine.",
+   "examples": [
+    "If you looked closer still (hold your noses, ladies and gentlemen), if you peered deep into the moustachy bristles sticking out over his upper lip, you would probably see much larger objects that had escaped the wipe of his hand, things that had been there for months and months, like a piece of maggoty green cheese or a mouldy old cornflake or even the slimy tail of a tinned sardine."
+   ],
+   "forms": [
+    "moustachy"
+   ],
+   "count": 1,
+   "coined": true
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 1,
+   "paragraph": 2,
+   "context": "Mr Twit felt that this hairiness made him look terrifically wise and grand",
+   "mainIdea": "Mr Twit thinks his hair makes him look smart and important. But he is just a twit, and he gets worse as he gets older.",
+   "simple": "Mr Twit thought that all his hair made him look very smart and important. But that was not true. He was not smart and he was not important. Mr Twit was a twit. He was a twit from the day he was born. Now he was 60 years old, and he was a bigger twit than ever.",
+   "hardWords": [
+    "terrifically",
+    "wise",
+    "grand",
+    "in truth",
+    "neither"
+   ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 5,
+   "context": "if you peered deep into the moustachy bristles sticking out over his upper lip",
+   "mainIdea": "Look closely at the hair above Mr Twit’s mouth and you will find old bad food. Some of it has been there for months.",
+   "simple": "Look even closer. Look deep into the hair above his mouth. You would probably see much bigger bits of food. These bits had been missed by his hand. They had been there for months and months. You might see a piece of old green cheese with worms in it, or an old cornflake gone bad, or even the wet, slippery tail of a small fish from a can.",
+   "hardWords": [
+    "peered",
+    "moustachy",
+    "bristles",
+    "maggoty",
+    "mouldy",
+    "slimy",
+    "sardine"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 7,
+   "context": "until it gets so ugly you can hardly bear to look at it",
+   "mainIdea": "Ugly thoughts show on the face. If you have them every day, your face gets more and more ugly.",
+   "simple": "If you have ugly thoughts, your face starts to show it. If you have ugly thoughts every day, every week and every year, your face gets more and more ugly. In the end it is so ugly that you can hardly stand to look at it.",
+   "hardWords": [
+    "uglier",
+    "hardly",
+    "bear"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 6,
+   "context": "You yourself, for example, are actually growing taller every day that goes by",
+   "mainIdea": "Things that grow very slowly are hard to see. This is why Mrs Twit does not see her stick getting longer.",
+   "simple": "When something grows very slowly, you can hardly see it happen. For example, you are growing taller every day. But you do not think so, do you? It is happening so slowly that you cannot see it from one week to the next.",
+   "hardWords": [
+    "impossible to notice",
+    "actually",
+    "goes by",
+    "from one week to the next"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 3,
+   "context": "Mr Twit, you see, had been just as clever with the chair",
+   "mainIdea": "Mr Twit made the legs of the chair longer too, in the same way as the stick. So Mrs Twit’s feet do not touch the ground.",
+   "simple": "You see, Mr Twit had been as smart with the chair as he had been with the stick. Every night he went downstairs and stuck a little extra bit on the stick. He did the same to the four legs of Mrs Twit’s chair.",
+   "hardWords": [
+    "had been",
+    "walking-stick"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 6,
+   "context": "Each balloon was on a long string and when it was filled with gas",
+   "mainIdea": "Mr Twit puts gas in the balloons and ties them to the top half of Mrs Twit’s body. The balloons pull her up.",
+   "simple": "When that was done, Mr Twit began to put gas in the balloons. Every balloon was on a long string. When a balloon was full of gas, it pulled on its string. It tried to go up and up. Mr Twit tied the ends of the strings to the top half of Mrs Twit’s body. He tied some round her neck, some under her arms, some to her wrists and some even to her hair.",
+   "hardWords": [
+    "wrists",
+    "tied",
+    "filled with gas"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 4,
+   "context": "before Mr Twit had time to run away, this bundle of balloons and petticoats",
+   "mainIdea": "Mrs Twit comes down on Mr Twit and hits him with her stick. She shouts funny made-up words because she is so angry.",
+   "simple": "‘I will get you for this!’ shouted Mrs Twit. She was coming down right on top of him. Her face was purple with rage. She was hitting the air with her long walking-stick. In some way she had kept hold of it all the time. She called out funny made-up words. Mr Twit had no time to run away. Mrs Twit came down in a bundle of balloons and petticoats, and she was very, very angry. She landed right on top of him. She hit him again and again all over his body with the stick.",
+   "hardWords": [
+    "slashing",
+    "hang on to",
+    "swazzle",
+    "gnozzle",
+    "fiery fury",
+    "lashing out"
+   ]
+  },
+  {
+   "chapter": 13,
+   "paragraph": 3,
+   "context": "occur to Mr Twit that windows were meant mainly for looking out of",
+   "mainIdea": "Mr Twit does not want windows because people could look in. He forgets that windows are mostly for looking out.",
+   "simple": "‘Who wants windows?’ Mr Twit had said when they were building the house. ‘Who wants every Tom, Dick and Harry (any person) peeping in to see what you are doing?’ He never thought that windows are mostly for looking out of, not for looking into.",
+   "hardWords": [
+    "Tom, Dick and Harry",
+    "peeping",
+    "occur to",
+    "mainly"
+   ]
+  },
+  {
+   "chapter": 14,
+   "paragraph": 2,
+   "context": "The glue he used was something called HUGTIGHT and it was stickier",
+   "mainIdea": "Mr Twit catches birds with a very sticky glue called HUGTIGHT. He puts it on the branches the day before Bird Pie day.",
+   "simple": "Mr Twit was good at catching birds. Every week, on the day before Bird Pie day, he would put the ladder against The Big Dead Tree. He would go up into the branches with a bucket of glue and a paint-brush. The glue was called HUGTIGHT. It was more sticky than any other glue in the world. He would paint it along the tops of all the branches. Then he would go away.",
+   "hardWords": [
+    "HUGTIGHT",
+    "ladder",
+    "stickier",
+    "branches"
+   ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 6,
+   "context": "They even had to eat and drink upside down and that is not",
+   "mainIdea": "The monkeys must do everything upside down, even eat and drink. It is almost impossible, but they get nothing if they do not do it.",
+   "simple": "So the monkeys had to do everything upside down. They had to dance on their hands with their feet in the air. They had to play football upside down. They had to stand on top of each other upside down. Muggle-Wump was at the bottom and the smallest baby monkey was at the very top. They even had to eat and drink upside down. That is not easy, because the food and water must go up instead of down. It is almost impossible. But the monkeys had to do it. If they did not, they got nothing.",
+   "hardWords": [
+    "balance",
+    "throat",
+    "otherwise",
+    "simply",
+    "upside down"
+   ]
+  },
+  {
+   "chapter": 23,
+   "paragraph": 14,
+   "context": "He was like a demon hopping round the room and telling everyone",
+   "mainIdea": "The carpet is big and hard to pull. Muggle-Wump is so wild because he wants the Twits to stand on their heads too.",
+   "simple": "The carpet was very big. It covered the whole floor from wall to wall. It had a red and gold pattern. It is not easy to pull a big carpet off the floor when the room is full of tables and chairs. ‘Pull!’ yelled Muggle-Wump. ‘Pull, pull, pull!’ He jumped around the room like a wild thing and told everyone what to do. But you could understand why. He and his family had stood on their heads for months and months. He wanted very much to see the terrible Twits do the same. At least, that was what he hoped.",
+   "hardWords": [
+    "enormous",
+    "entire",
+    "demon",
+    "blame",
+    "at least"
+   ]
+  },
+  {
+   "chapter": 28,
+   "paragraph": 6,
+   "context": "But heads are not made to be stood upon",
+   "mainIdea": "If you stand on your head for a long time, something bad happens. The weight pushes Mr Twit’s head down into his body.",
+   "simple": "But heads are not made for standing on. If you stand on your head for a very long time, something very bad happens. This was the biggest shock of all for Mr Twit. All the weight of his body was pushing down on his head. His head began to be pushed down into his body.",
+   "hardWords": [
+    "horrid",
+    "shock",
+    "squashed"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 2,
+   "context": "things that had been there for months and months, like a piece",
+   "simple": "Some bits of food had stayed there for many months. One was a piece of old green cheese.",
+   "grammar": "‘had been there for months’ means the food was there for a long time before the moment you look."
+  },
+  {
+   "chapter": 3,
+   "context": "The ugliness had grown upon her year by year",
+   "simple": "She got more ugly year by year as she got older.",
+   "grammar": "‘had grown’ looks back over her life: the change was finished before the Mrs Twit we see now. ‘year by year’ means one year after another."
+  },
+  {
+   "chapter": 3,
+   "context": "She used to tell people that this was because she had warts",
+   "simple": "She often told people that she carried a stick because she had warts on her left foot and it hurt to walk.",
+   "grammar": "‘used to + verb’ means she did it again and again in the past. ‘she had warts’ is what she said (she said: ‘I have warts’)."
+  },
+  {
+   "chapter": 8,
+   "context": "Mr Twit, you see, had been just as clever with the chair",
+   "simple": "You see, Mr Twit had been as smart with the chair as he had been with the stick.",
+   "grammar": "‘had been’ looks back at an earlier time; ‘just as smart ... as’ says the two are the same."
+  },
+  {
+   "chapter": 9,
+   "context": "Mr Twit had intended to go away and leave her like that",
+   "simple": "Mr Twit had planned to go away and leave her like that for two days and nights.",
+   "grammar": "‘had intended to go’ says what he planned earlier, before something new happened."
+  },
+  {
+   "chapter": 12,
+   "context": "Mr Twit, who thought he had seen his ugly wife for the last time",
+   "simple": "Mr Twit thought he would never see his ugly wife again. He was sitting in the garden with a mug of beer, happy about it.",
+   "grammar": "‘who thought ...’ adds more facts about Mr Twit; ‘had seen’ is earlier than ‘thought’."
+  },
+  {
+   "chapter": 12,
+   "context": "walking-stick which she had somehow managed to hang on to all the time",
+   "simple": "She had a long walking-stick. In some way she had kept hold of it all the time.",
+   "grammar": "‘which she had ... managed to hang on to’ adds more facts about the stick; ‘had managed’ is earlier than the time she came down."
+  },
+  {
+   "chapter": 15,
+   "context": "who had more sense than the others, whispered",
+   "simple": "But the fourth little boy had more sense than the others. He whispered to them.",
+   "grammar": "‘who had more sense than the others’ is a who-clause: it gives more facts about the boy."
+  },
+  {
+   "chapter": 2,
+   "context": "even if he opens his mouth very wide, it is impossible for him",
+   "simple": "He cannot get a spoonful of food into his mouth without leaving some on his hair, even if he opens his mouth very wide.",
+   "grammar": "‘even if’ means ‘it does not matter if’; ‘it is impossible for him to get’ means he cannot get."
+  },
+  {
+   "chapter": 2,
+   "context": "But not so the hairy man",
+   "simple": "But the hairy man cannot do that.",
+   "grammar": "‘But not so the hairy man’ is short for ‘But it is not so for the hairy man’: we can eat without spreading food, but he cannot."
+  },
+  {
+   "chapter": 11,
+   "context": "I can get rid of some of these balloons,’ she said to herself",
+   "simple": "If I can let some of these balloons go, I will stop going up and start to come down.",
+   "grammar": "‘If + present verb, will + verb’ talks about something that can really happen."
+  },
+  {
+   "chapter": 24,
+   "context": "How would you like it if it was Monkey Pie they made every Wednesday",
+   "simple": "Think about it. What if people made Monkey Pie every Wednesday, and all your friends had been boiled up, and I kept on talking about it? Would you like that?",
+   "grammar": "‘How would you like it if ...?’ uses ‘would’ and a past form to ask you to think of something that is not real."
+  },
+  {
+   "chapter": 17,
+   "context": "or they will be made into Bird Pie",
+   "simple": "Warn them not to sit on that tree. If they do, they will be made into Bird Pie.",
+   "grammar": "‘will be made’ (will be + past form) tells what will happen to the birds. ‘or’ here means ‘if they do not obey the warning’."
+  },
+  {
+   "chapter": 26,
+   "context": "What’s more, it had been painted white to look like the ceiling",
+   "simple": "The floor had been painted white so that it looked like the ceiling.",
+   "grammar": "‘had been painted’ (had been + past form) says that someone did this earlier, before they came in; ‘to look like’ gives the reason."
+  },
+  {
+   "chapter": 17,
+   "context": "no good going to a country and not knowing the language",
+   "simple": "There is no use in going to a country if you do not know the language.",
+   "grammar": "‘It’s no good + -ing’ means ‘it is useless to do something’. Here the useless thing is ‘going to a country and not knowing the language’."
+  }
+ ],
+ "phrases": {
+  "pay back": {
+   "meaning": "To do something bad to someone because they did something bad to you.",
+   "pos": "phrasal verb",
+   "forms": [
+    "pay her back",
+    "pay Mr Twit back",
+    "pay Mrs Twit back"
+   ],
+   "example": "To pay her back for the glass eye in his beer"
+  },
+  "get rid of": {
+   "meaning": "To make something go away, or to stop having it.",
+   "pos": "idiom",
+   "forms": [
+    "get rid of"
+   ],
+   "example": "If I can get rid of some of these balloons"
+  },
+  "shut up": {
+   "meaning": "To stop talking. It is a rude way to tell someone to be quiet.",
+   "pos": "phrasal verb",
+   "forms": [
+    "shut up"
+   ],
+   "example": "if you don’t shut up!"
+  },
+  "go on": {
+   "meaning": "To keep doing something, or to say more.",
+   "pos": "phrasal verb",
+   "forms": [
+    "go on",
+    "went on"
+   ],
+   "example": "He went on drinking his beer"
+  },
+  "keep out": {
+   "meaning": "To stop someone or something from coming in.",
+   "pos": "phrasal verb",
+   "forms": [
+    "keep out"
+   ],
+   "example": "They keep out nasty nosey little children.’"
+  },
+  "dig up": {
+   "meaning": "To take something out of the ground.",
+   "pos": "phrasal verb",
+   "forms": [
+    "dug up"
+   ],
+   "example": "Mrs Twit sneaked out into the garden and dug up some worms"
+  },
+  "think up": {
+   "meaning": "To make a new plan or idea in your head.",
+   "pos": "phrasal verb",
+   "forms": [
+    "think up",
+    "thought up"
+   ],
+   "example": "He was trying to think up a really nasty trick"
+  },
+  "put out": {
+   "meaning": "To turn off a light.",
+   "pos": "phrasal verb",
+   "forms": [
+    "put out"
+   ],
+   "example": "Mrs Twit came back and climbed into her bed and put out the light."
+  },
+  "come to": {
+   "meaning": "To wake up after you have fainted.",
+   "pos": "phrasal verb",
+   "forms": [
+    "came to"
+   ],
+   "example": "When Mrs Twit came to, the frog had just jumped on to her face."
+  },
+  "get away": {
+   "meaning": "To escape from someone who is trying to catch you.",
+   "pos": "phrasal verb",
+   "forms": [
+    "get away",
+    "got away"
+   ],
+   "example": "I tried to kill it but it got away"
+  },
+  "catch sight of": {
+   "meaning": "To see something suddenly.",
+   "pos": "idiom",
+   "forms": [
+    "caught sight of"
+   ],
+   "example": "he caught sight of Mrs Twit’s awful glass eye"
+  },
+  "take no notice": {
+   "meaning": "To pay no attention.",
+   "pos": "idiom",
+   "forms": [
+    "took no notice"
+   ],
+   "example": "So they took no notice"
+  },
+  "hang on to": {
+   "meaning": "To keep holding something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "hang on to"
+   ],
+   "example": "which she had somehow managed to hang on to all the time"
+  },
+  "get on with": {
+   "meaning": "To keep doing a job, or start it now, without wasting time.",
+   "pos": "phrasal verb",
+   "forms": [
+    "get on with"
+   ],
+   "example": "Get on with it or you’ll feel Mrs Twit’s stick across your backsides!"
+  },
+  "calm down": {
+   "meaning": "To stop being so excited.",
+   "pos": "phrasal verb",
+   "forms": [
+    "calm down"
+   ],
+   "example": "Calm down, everybody."
+  },
+  "teach someone a lesson": {
+   "meaning": "To punish someone so that they learn not to do it again.",
+   "pos": "idiom",
+   "forms": [
+    "teach her a lesson"
+   ],
+   "example": "to teach her a lesson"
+  },
+  "for the life of me": {
+   "meaning": "Used to say you cannot do something, even though you try very hard.",
+   "pos": "idiom",
+   "forms": [
+    "for the life of me"
+   ],
+   "example": "I couldn’t for the life of me think what it was"
+  },
+  "all at once": {
+   "meaning": "Suddenly.",
+   "pos": "idiom",
+   "forms": [
+    "all at once"
+   ],
+   "example": "Then all at once she felt something cold and slimy crawling over her feet."
+  },
+  "now and again": {
+   "meaning": "Sometimes, but not often.",
+   "pos": "idiom",
+   "forms": [
+    "now and again"
+   ],
+   "example": "Now and again,’ he said, ‘but not very often, I have a brilliant idea."
+  },
+  "on purpose": {
+   "meaning": "Not by accident; because you want to do it.",
+   "pos": "idiom",
+   "forms": [
+    "on purpose"
+   ],
+   "example": "I’ll bet they did it on purpose!"
+  },
+  "stick out": {
+   "meaning": "To go out past the edge of something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "stuck out",
+    "sticking out"
+   ],
+   "example": "It grew in spikes that stuck out straight like the bristles of a nailbrush."
+  },
+  "give a hand": {
+   "meaning": "To help someone.",
+   "pos": "idiom",
+   "forms": [
+    "give me a hand"
+   ],
+   "example": "do stop shouting such rubbish and give me a hand"
+  }
+ }
+}

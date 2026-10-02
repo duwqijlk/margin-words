@@ -1,0 +1,95 @@
+{
+"glossary": {
+"hilarity": {
+"pos": "noun",
+"meaning": "Loud fun and laughing."
+},
+"soliloquized": {
+"pos": "past-tense verb",
+"meaning": "Spoke to herself, aloud, when alone.",
+"forms": [
+"soliloquized",
+"soliloquize"
+]
+},
+"reverent": {
+"pos": "adjective",
+"meaning": "Showing deep respect, as in a holy place."
+},
+"pregnant": {
+"pos": "adjective",
+"meaning": "Full of meaning. In this story, 'pregnant with prophecy' means full of hidden signs of what would happen."
+},
+"funereal": {
+"pos": "adjective",
+"meaning": "Sad and slow, like a funeral."
+},
+"transfixed": {
+"pos": "past participle",
+"meaning": "Unable to move because of shock."
+},
+"rascalities": {
+"pos": "plural noun",
+"meaning": "Naughty and dishonest acts."
+},
+"cowhide": {
+"pos": "noun",
+"meaning": "A strong whip made of cow leather, used to beat people."
+},
+"abashed": {
+"pos": "adjective",
+"meaning": "Ashamed and not knowing what to do."
+},
+"slink": {
+"pos": "verb",
+"meaning": "To go away quietly and in a shy way, because you feel ashamed."
+},
+"juveniles": {
+"pos": "plural noun",
+"meaning": "Young people; children."
+}
+},
+"paragraphs": [
+{
+"chapter": 19,
+"paragraph": 13,
+"context": "There was a rustle in the gallery, which nobody noticed",
+"mainIdea": "The three boys, who were thought dead, walk into the church during their own funeral.",
+"simple": "There was a small noise in the gallery, and nobody saw it. A moment later the church door made a sound. The minister lifted his wet eyes over his handkerchief, and he stood still with shock. Then one pair of eyes after another followed his. Almost together, all the people stood up and stared. The three dead boys were coming up the aisle: Tom first, then Joe, and Huck last, in torn, hanging rags, creeping in with shame. They had been hiding in the gallery that nobody used, and they had been listening to their own funeral sermon."
+},
+{
+"chapter": 19,
+"paragraph": 12,
+"context": "As the service proceeded, the clergyman drew such pictures of the graces",
+"mainIdea": "The minister praises the lost boys. The people feel sorry that they had seen only faults in them, and the whole church weeps.",
+"simple": "As the service went on, the minister told of the good qualities, the pleasing ways and the great promise of the lost boys. Everyone thought he knew these pictures. Each felt sorry that he had always refused to see these good things and had seen only faults in the poor boys. The minister told many touching stories from their lives, which showed their kind and generous natures. Now the people could see how fine those stories were. They remembered with sadness that, at the time, those acts had seemed plain bad behavior that deserved a beating. The people were moved more and more as the sad story went on. At last everyone broke down and joined the crying family in a chorus of painful sobs. Even the preacher gave way to his feelings and wept in the pulpit.",
+"hardWords": [
+"graces",
+"persistently",
+"flaws",
+"rascalities",
+"cowhide",
+"pathetic",
+"anguished"
+]
+}
+],
+"sentences": [
+{
+"chapter": 19,
+"context": "although it was ordinarily quiet enough, in all conscience",
+"simple": "although it was already quiet enough, to be fair",
+"grammar": "'In all conscience' means 'to be fair' or 'in honesty'. It adds the writer's comment about the village."
+}
+],
+"phrases": {
+"break down": {
+"meaning": "To lose control of your feelings and cry.",
+"pos": "phrasal verb",
+"forms": [
+"broke down"
+],
+"example": "the whole company broke down and joined the weeping mourners"
+}
+}
+}

@@ -1,0 +1,103 @@
+{
+ "glossary": {
+  "concocted": {
+   "pos": "past-tense verb",
+   "meaning": "Made up a story or plan by putting ideas together.",
+   "forms": [
+    "concocted",
+    "concoct"
+   ]
+  },
+  "discomfiture": {
+   "pos": "uncountable noun",
+   "meaning": "A feeling of being upset and mixed up when things go wrong."
+  },
+  "banditti": {
+   "pos": "plural noun",
+   "meaning": "Bad men who live in the hills and take things from people on the road."
+  },
+  "emaciated": {
+   "pos": "adjective",
+   "meaning": "Very thin because of too little food. Here it is a joke about a bag with no money in it."
+  },
+  "harrowing": {
+   "pos": "present participle",
+   "meaning": "Causing great fear or pain in the mind.",
+   "forms": [
+    "harrowing",
+    "harrow"
+   ]
+  },
+  "didactic": {
+   "pos": "adjective",
+   "meaning": "Meant to teach, especially about right and wrong."
+  },
+  "lucre": {
+   "pos": "uncountable noun",
+   "meaning": "Money, as something low. It is a joke name for money."
+  },
+  "inconsolable": {
+   "pos": "adjective",
+   "meaning": "So sad that no one can make them feel better."
+  },
+  "levee": {
+   "pos": "noun",
+   "meaning": "A party where many people come to meet an important person."
+  },
+  "inflammable": {
+   "pos": "adjective",
+   "meaning": "Easy to set on fire. Here it means very easy to move to strong feeling."
+  },
+  "cumbrous": {
+   "pos": "adjective",
+   "meaning": "Heavy and hard to move in."
+  },
+  "threshold": {
+   "pos": "noun",
+   "meaning": "The bottom part of a door, where you step in."
+  },
+  "novice": {
+   "pos": "noun",
+   "meaning": "A person who is new to a job and has little experience."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 36,
+   "context": "She took to writing sensation stories; for in those dark ages, even all-perfect America read rubbish.",
+   "mainIdea": "Jo secretly writes sensation stories. She goes alone to the editor, dressed in her best, and feels uneasy in the messy, smoky office.",
+   "simple": "Jo began to write sensation stories, because in those dark times even perfect America read rubbish. She told no one. She made up a 'thrilling tale' and boldly took it herself to Mr. Dashwood, the editor of the Weekly Volcano. She had never read Sartor Resartus, but she had a woman's feeling that clothes can have more power over many people than good character or good manners. So she put on her best clothes. She tried to tell herself that she was neither excited nor nervous, and bravely climbed two flights of dark, dirty stairs. She found a messy room, a cloud of cigar smoke and three men with their heels higher than their hats. None of them took off his hat for her. This welcome made her a little afraid, and she stopped at the door and spoke with much embarrassment.",
+   "hardWords": [
+    "concocted",
+    "editor",
+    "daunted",
+    "threshold"
+   ]
+  },
+  {
+   "chapter": 36,
+   "context": "Jo wrote no more sensational stories, deciding that the money did not pay for her share of the sensation",
+   "mainIdea": "Jo stops writing sensation stories. She then writes a story full of morals, but no one buys it.",
+   "simple": "Jo wrote no more sensation stories. She decided that the money did not pay for her part of the sensation. Then she went to the other extreme, as people like her do. She read Mrs. Sherwood, Miss Edgeworth and Hannah More, and then wrote a tale that was more an essay or a sermon, it was so full of morals. She doubted it from the start, because her lively mind and girlish love of romance felt as uneasy in the new style as she would feel in the stiff and heavy clothes of the last century. She sent this teaching gem to several places, but no one bought it, and she began to agree with Mr. Dashwood that morals did not sell.",
+   "hardWords": [
+    "didactic",
+    "cumbrous"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 36,
+   "context": "We’ll take this” (editors never say I)",
+   "simple": "We will take this. (The writer jokes that editors never say 'I'.)",
+   "grammar": "The part in brackets is the writer's own comment. It is a present-tense remark about all editors: 'never say I' means they always say 'we'."
+  },
+  {
+   "chapter": 36,
+   "context": "but, thanks to the life-preserver thrown her by a friend, she came up again, not much the worse for her ducking",
+   "simple": "But a friend threw her a life-saver, and she came up again, not much harmed by her dip in the water.",
+   "grammar": "This is a picture: Jo took 'a plunge' into a 'sea' of sensation stories. 'Thrown her' is short for 'thrown to her'. 'Not much the worse for' means 'not badly hurt by'."
+  }
+ ],
+ "phrases": {}
+}

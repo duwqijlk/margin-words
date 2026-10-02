@@ -1,0 +1,331 @@
+{
+ "title": "Black Beauty",
+ "author": "Anna Sewell",
+ "sha256": "6966a8c6669e36854d50d9d6a489c6e9a9d13d90e633c5765d4e67a0bef47b5a",
+ "chapters": [
+  {
+   "chapter": 0,
+   "title": "Titlepage",
+   "words": 5,
+   "paragraphs": 2
+  },
+  {
+   "chapter": 1,
+   "title": "Imprint",
+   "words": 194,
+   "paragraphs": 5
+  },
+  {
+   "chapter": 2,
+   "title": "I: My Early Home",
+   "words": 787,
+   "paragraphs": 12
+  },
+  {
+   "chapter": 3,
+   "title": "II: The Hunt",
+   "words": 1031,
+   "paragraphs": 18
+  },
+  {
+   "chapter": 4,
+   "title": "III: My Breaking In",
+   "words": 1463,
+   "paragraphs": 15
+  },
+  {
+   "chapter": 5,
+   "title": "IV: Birtwick Park",
+   "words": 992,
+   "paragraphs": 20
+  },
+  {
+   "chapter": 6,
+   "title": "V: A Fair Start",
+   "words": 1261,
+   "paragraphs": 26
+  },
+  {
+   "chapter": 7,
+   "title": "VI: Liberty",
+   "words": 563,
+   "paragraphs": 6
+  },
+  {
+   "chapter": 8,
+   "title": "VII: Ginger",
+   "words": 1593,
+   "paragraphs": 10
+  },
+  {
+   "chapter": 9,
+   "title": "VIII: Ginger’s Story Continued",
+   "words": 1315,
+   "paragraphs": 17
+  },
+  {
+   "chapter": 10,
+   "title": "IX: Merrylegs",
+   "words": 1004,
+   "paragraphs": 13
+  },
+  {
+   "chapter": 11,
+   "title": "X: A Talk in the Orchard",
+   "words": 1965,
+   "paragraphs": 23
+  },
+  {
+   "chapter": 12,
+   "title": "XI: Plain Speaking",
+   "words": 1071,
+   "paragraphs": 16
+  },
+  {
+   "chapter": 13,
+   "title": "XII: A Stormy Day",
+   "words": 1165,
+   "paragraphs": 20
+  },
+  {
+   "chapter": 14,
+   "title": "XIII: The Devil’s Trade Mark",
+   "words": 1018,
+   "paragraphs": 13
+  },
+  {
+   "chapter": 15,
+   "title": "XIV: James Howard",
+   "words": 973,
+   "paragraphs": 20
+  },
+  {
+   "chapter": 16,
+   "title": "XV: The Old Hostler",
+   "words": 1018,
+   "paragraphs": 16
+  },
+  {
+   "chapter": 17,
+   "title": "XVI: The Fire",
+   "words": 1346,
+   "paragraphs": 24
+  },
+  {
+   "chapter": 18,
+   "title": "XVII: John Manly’s Talk",
+   "words": 1302,
+   "paragraphs": 26
+  },
+  {
+   "chapter": 19,
+   "title": "XVIII: Going for the Doctor",
+   "words": 1326,
+   "paragraphs": 19
+  },
+  {
+   "chapter": 20,
+   "title": "XIX: Only Ignorance",
+   "words": 770,
+   "paragraphs": 15
+  },
+  {
+   "chapter": 21,
+   "title": "XX: Joe Green",
+   "words": 933,
+   "paragraphs": 20
+  },
+  {
+   "chapter": 22,
+   "title": "XXI: The Parting",
+   "words": 926,
+   "paragraphs": 17
+  },
+  {
+   "chapter": 23,
+   "title": "XXII: Earlshall",
+   "words": 1362,
+   "paragraphs": 22
+  },
+  {
+   "chapter": 24,
+   "title": "XXIII: A Strike for Liberty",
+   "words": 1120,
+   "paragraphs": 15
+  },
+  {
+   "chapter": 25,
+   "title": "XXIV: The Lady Anne, or a Runaway Horse",
+   "words": 2062,
+   "paragraphs": 37
+  },
+  {
+   "chapter": 26,
+   "title": "XXV: Reuben Smith",
+   "words": 1227,
+   "paragraphs": 11
+  },
+  {
+   "chapter": 27,
+   "title": "XXVI: How It Ended",
+   "words": 943,
+   "paragraphs": 15
+  },
+  {
+   "chapter": 28,
+   "title": "XXVII: Ruined and Going Downhill",
+   "words": 934,
+   "paragraphs": 13
+  },
+  {
+   "chapter": 29,
+   "title": "XXVIII: A Job Horse and His Drivers",
+   "words": 1235,
+   "paragraphs": 22
+  },
+  {
+   "chapter": 30,
+   "title": "XXIX: Cockneys",
+   "words": 2211,
+   "paragraphs": 31
+  },
+  {
+   "chapter": 31,
+   "title": "XXX: A Thief",
+   "words": 849,
+   "paragraphs": 16
+  },
+  {
+   "chapter": 32,
+   "title": "XXXI: A Humbug",
+   "words": 964,
+   "paragraphs": 17
+  },
+  {
+   "chapter": 33,
+   "title": "XXXII: A Horse Fair",
+   "words": 1187,
+   "paragraphs": 25
+  },
+  {
+   "chapter": 34,
+   "title": "XXXIII: A London Cab Horse",
+   "words": 1367,
+   "paragraphs": 17
+  },
+  {
+   "chapter": 35,
+   "title": "XXXIV: An Old War Horse",
+   "words": 1687,
+   "paragraphs": 24
+  },
+  {
+   "chapter": 36,
+   "title": "XXXV: Jerry Barker",
+   "words": 1907,
+   "paragraphs": 41
+  },
+  {
+   "chapter": 37,
+   "title": "XXXVI: The Sunday Cab",
+   "words": 1603,
+   "paragraphs": 28
+  },
+  {
+   "chapter": 38,
+   "title": "XXXVII: The Golden Rule",
+   "words": 1175,
+   "paragraphs": 26
+  },
+  {
+   "chapter": 39,
+   "title": "XXXVIII: Dolly and a Real Gentleman",
+   "words": 1338,
+   "paragraphs": 19
+  },
+  {
+   "chapter": 40,
+   "title": "XXXIX: Seedy Sam",
+   "words": 1262,
+   "paragraphs": 18
+  },
+  {
+   "chapter": 41,
+   "title": "XL: Poor Ginger",
+   "words": 730,
+   "paragraphs": 12
+  },
+  {
+   "chapter": 42,
+   "title": "XLI: The Butcher",
+   "words": 1029,
+   "paragraphs": 12
+  },
+  {
+   "chapter": 43,
+   "title": "XLII: The Election",
+   "words": 565,
+   "paragraphs": 18
+  },
+  {
+   "chapter": 44,
+   "title": "XLIII: A Friend in Need",
+   "words": 1415,
+   "paragraphs": 29
+  },
+  {
+   "chapter": 45,
+   "title": "XLIV: Old Captain and His Successor",
+   "words": 1505,
+   "paragraphs": 21
+  },
+  {
+   "chapter": 46,
+   "title": "XLV: Jerry’s New Year",
+   "words": 1987,
+   "paragraphs": 46
+  },
+  {
+   "chapter": 47,
+   "title": "XLVI: Jakes and the Lady",
+   "words": 1231,
+   "paragraphs": 24
+  },
+  {
+   "chapter": 48,
+   "title": "XLVII: Hard Times",
+   "words": 1477,
+   "paragraphs": 22
+  },
+  {
+   "chapter": 49,
+   "title": "XLVIII: Farmer Thoroughgood and His Grandson Willie",
+   "words": 1257,
+   "paragraphs": 31
+  },
+  {
+   "chapter": 50,
+   "title": "XLIX: My Last Home",
+   "words": 1074,
+   "paragraphs": 22
+  },
+  {
+   "chapter": 51,
+   "title": "Endnotes",
+   "words": 28,
+   "paragraphs": 2
+  },
+  {
+   "chapter": 52,
+   "title": "Colophon",
+   "words": 174,
+   "paragraphs": 6
+  },
+  {
+   "chapter": 53,
+   "title": "Uncopyright",
+   "words": 351,
+   "paragraphs": 5
+  }
+ ]
+}

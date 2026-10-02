@@ -1,0 +1,26 @@
+{
+"glossary": {
+"chronicle": {
+"pos": "noun",
+"meaning": "A story that tells events in the order they happened."
+}
+},
+"paragraphs": [
+{
+"chapter": 38,
+"paragraph": 1,
+"context": "So endeth this chronicle. It being strictly a history of a boy",
+"mainIdea": "The writer ends the book here, because it is the story of a boy and not of a man.",
+"simple": "So this story ends. It is the history of a boy only, so it must stop here, or it would turn into the history of a man. When a writer writes a story about grown people, he knows where to stop: with a marriage. But when he writes about young people, he must stop where it is best."
+}
+],
+"sentences": [
+{
+"chapter": 38,
+"context": "It being strictly a history of a boy, it must stop here",
+"simple": "Because this is only the story of a boy, it must stop here.",
+"grammar": "'It being...' is a short clause that gives the reason. It means 'because it is...'. 'Endeth' is an old form of 'ends'."
+}
+],
+"phrases": {}
+}

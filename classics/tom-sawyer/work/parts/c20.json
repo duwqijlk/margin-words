@@ -1,0 +1,93 @@
+{
+"glossary": {
+"repentant": {
+"pos": "adjective",
+"meaning": "Feeling sorry for what you did wrong."
+},
+"vivacity": {
+"pos": "noun",
+"meaning": "The quality of being lively and full of energy."
+},
+"swarthy": {
+"pos": "adjective",
+"meaning": "Having dark skin."
+},
+"vindictive": {
+"pos": "adjective",
+"meaning": "Wanting to hurt someone because of a wrong they did to you."
+},
+"lacerate": {
+"pos": "verb",
+"meaning": "To hurt deeply. Here, Tom wants to cause Becky pain by his actions with Amy."
+},
+"prattle": {
+"pos": "noun",
+"meaning": "Quick, silly talk about small things."
+},
+"artlessly": {
+"pos": "adverb",
+"meaning": "In a simple, honest way, with no plan to trick anyone."
+},
+"humiliated": {
+"pos": "adjective",
+"meaning": "Feeling ashamed and made to look foolish."
+},
+"mercury": {
+"pos": "noun",
+"meaning": "In 'a sudden falling of his mercury', it means the shining metal in a warmth-measuring tube. Here, Tom's good feeling suddenly goes down."
+},
+"prophesying": {
+"pos": "present participle",
+"meaning": "Saying what will happen in the future, as if by a gift from God.",
+"forms": [
+"prophesying",
+"prophesy"
+]
+}
+},
+"paragraphs": [
+{
+"chapter": 20,
+"paragraph": 59,
+"context": "Tom decided that he could be independent of Becky Thatcher now",
+"mainIdea": "Tom decides to ignore Becky and live for glory. Becky tries to get his notice, and he pretends not to see her. He talks to Amy Lawrence.",
+"simple": "Tom decided that he did not need Becky Thatcher now. Glory was enough, and he would live for it. Now that he was famous, maybe she would want to make up with him. Well, let her. She would see that he could be as cold as some other people. Soon she came in. Tom acted as if he did not see her. He moved away and joined a group of boys and girls and started to talk. Soon he saw her running about happily, with a red face and dancing eyes. She pretended to be busy chasing her schoolmates and screamed with laughter when she caught one. But he saw that she always caught them near him and that she seemed to glance toward him at those times. This pleased his bad pride. So it did not win him over. It only made him more proud, and he tried harder not to show that he knew she was there. Soon she stopped playing. She moved about without knowing what to do, sighed once or twice and looked at Tom in secret, with longing. Then she saw that Tom was talking more to Amy Lawrence than to anyone else. She felt a sharp pain and at once became upset and uneasy. She tried to go away, but her feet did not obey her, and carried her to the group instead. She spoke to a girl almost at Tom's elbow, with false liveliness.",
+"hardWords": [
+"vicious",
+"vanity",
+"irresolutely",
+"furtively",
+"wistfully",
+"treacherous",
+"sham",
+"vivacity"
+]
+}
+],
+"sentences": [
+{
+"chapter": 20,
+"context": "Sid had better judgment than to utter the thought that was in his mind",
+"simple": "Sid was wise enough not to say what he was thinking.",
+"grammar": "'Had better judgment than to say...' means 'was too wise to say...'. It uses 'than to + verb' after a comparison."
+},
+{
+"chapter": 20,
+"context": "if only the worthy ones got His blessings and had His hand to help them",
+"simple": "If God gave His help only to people who deserve it, few people would be happy.",
+"grammar": "'If only the worthy ones got...' is an unreal 'if' sentence in a long speech. The result comes after: 'there's few enough would smile here'."
+}
+],
+"phrases": {
+"make up": {
+"meaning": "To become friends again after a fight.",
+"pos": "phrasal verb",
+"example": "maybe she would be wanting to “make up.”"
+},
+"set up": {
+"meaning": "To make someone feel proud or more sure of himself.",
+"pos": "phrasal verb",
+"example": "it only “set him up” the more"
+}
+}
+}

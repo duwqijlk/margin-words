@@ -1,0 +1,120 @@
+{
+ "glossary": {
+  "mantua": {
+   "pos": "noun",
+   "meaning": "A woman's dress that is not close to the body. A 'mantua-maker' makes dresses."
+  },
+  "organdie": {
+   "pos": "uncountable noun",
+   "meaning": "A very thin, hard cloth, used for summer dresses."
+  },
+  "demure": {
+   "pos": "adjective",
+   "meaning": "Quiet and serious in a polite way, often to look good."
+  },
+  "blandly": {
+   "pos": "adverb",
+   "meaning": "In a smooth way that shows no feeling."
+  },
+  "volubly": {
+   "pos": "adverb",
+   "meaning": "In a way that talks a lot and very fast."
+  },
+  "effusion": {
+   "pos": "uncountable noun",
+   "meaning": "A showing of feeling that is too strong and goes on too long."
+  },
+  "connoisseur": {
+   "pos": "noun",
+   "meaning": "A person who knows a lot about art or fine things and can judge them well."
+  },
+  "mollified": {
+   "pos": "past participle",
+   "meaning": "Made less angry.",
+   "forms": [
+    "mollified"
+   ]
+  },
+  "puritanical": {
+   "pos": "adjective",
+   "meaning": "Too hard about what is right and wrong, and against fun."
+  },
+  "morose": {
+   "pos": "adjective",
+   "meaning": "Sad, cross and quiet."
+  },
+  "brusque": {
+   "pos": "adjective",
+   "meaning": "Quick and rude in speaking, with no polite words."
+  },
+  "parasol": {
+   "pos": "noun",
+   "meaning": "A light cover that a woman holds up to keep the sun off her."
+  },
+  "irreproachable": {
+   "pos": "adjective",
+   "meaning": "Perfect; with nothing that anyone can find wrong."
+  },
+  "ravishing": {
+   "pos": "adjective",
+   "meaning": "Very beautiful and lovely."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 31,
+   "context": "Jo sat as if blandly unconscious of it all",
+   "mainIdea": "Jo does exactly what Amy asked and stays silent and cold on the first call.",
+   "simple": "Amy told Jo to be calm, cool and quiet, and Jo took her at her word. During the first call she sat with every part of her body calm and every fold of her dress right. She was as calm as a summer sea, as cool as a snowbank, and as silent as a sphinx. Mrs. Chester spoke of her 'charming novel', and the Misses Chester spoke of parties, picnics, the opera and fashions. Jo gave all of them just a smile, a bow, and a polite 'Yes' or 'No', in a cold way. Amy sent her the message 'Talk' and tried to draw her out, and even kicked her softly. Jo sat as if she did not know about any of it.",
+   "hardWords": [
+    "demure",
+    "telegraphed",
+    "covert"
+   ]
+  },
+  {
+   "chapter": 31,
+   "context": "If Jo had only known what a great happiness was wavering in the balance for one of them",
+   "mainIdea": "The writer says we cannot see into other people's minds. Jo's rude words cost her years of pleasure.",
+   "simple": "If Jo had known that a great joy was not yet settled for one of the sisters, she would have been as gentle as a dove at once. But we do not have windows in our hearts to see what our friends think. Usually it is better so, but sometimes it would save time and bad temper. By her next words, Jo lost several years of pleasure, and she got a timely lesson in keeping her tongue still.",
+   "hardWords": [
+    "wavering"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 31,
+   "context": "If it was fair —that was in the bond; and I stand to the letter of my bond, Shylock.",
+   "simple": "The promise was only for fair weather, and I keep exactly to the words of my promise, as Shylock did.",
+   "grammar": "'Bond' is an old word for a signed promise. Jo makes a joke about Shylock, a person in a play by Shakespeare, who kept strictly to the words of his deal."
+  },
+  {
+   "chapter": 31,
+   "context": "It’s a greater not to be able to hide them.",
+   "simple": "It is a bigger misfortune not to be able to hide those feelings.",
+   "grammar": "'A greater' stands for 'a greater misfortune'. The noun is left out because it was in the sentence before."
+  },
+  {
+   "chapter": 31,
+   "context": "I only know that it’s the way of the world; and people who set themselves against it only get laughed at for their pains.",
+   "simple": "I only know that this is how the world is, and people who go against it just get laughed at for their trouble.",
+   "grammar": "'For their pains' means 'for their effort'. 'Only get laughed at' is a passive form: others laugh at them."
+  }
+ ],
+ "phrases": {
+  "give in": {
+   "pos": "phrasal verb",
+   "meaning": "To stop saying no and agree.",
+   "forms": [
+    "gave in"
+   ],
+   "example": "she gave in, put away her work"
+  },
+  "draw out": {
+   "pos": "phrasal verb",
+   "meaning": "To make a quiet person talk.",
+   "example": "tried to draw her out"
+  }
+ }
+}

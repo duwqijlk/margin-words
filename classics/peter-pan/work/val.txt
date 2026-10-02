@@ -1,0 +1,219 @@
+217 warning(s):
+  - The word "cave", meaning 2, anchor 1: the context is very short (2 words). It may match in the wrong place. Use 6 to 12 words.
+  - Paragraph note 1 (chapter 2, paragraph 1), "mainIdea" uses words outside the basic list: wendy.
+  - Paragraph note 1 (chapter 2, paragraph 1), "simple" uses words outside the basic list: wendy, darling, cried, can't.
+  - Paragraph note 2 (chapter 2, paragraph 16), "mainIdea" uses words outside the basic list: darling, tidies.
+  - Paragraph note 2 (chapter 2, paragraph 16), "simple" uses words outside the basic list: darling, tidying, asleep, awake, can't, drawers, knees, cheek, kitten, sight, naughty, folded.
+  - Paragraph note 3 (chapter 3, paragraph 94), "mainIdea" uses words outside the basic list: darling, drags, nursery, ties, ashamed.
+  - Paragraph note 3 (chapter 3, paragraph 94), "simple" uses words outside the basic list: kennel, roughly, dragged, nursery, ashamed, admire, tied, backyard, passage, knuckles.
+  - Paragraph note 4 (chapter 3, paragraph 104), "mainIdea" uses words outside the basic list: punishment.
+  - Paragraph note 4 (chapter 3, paragraph 104), "simple" uses words outside the basic list: yards, snow, carefully, punishment, glassy, seldom, winking, creep, blow, darling, noise, excitement, screamed.
+  - Paragraph note 5 (chapter 4, paragraph 9), "mainIdea" uses words outside the basic list: peter, shadow, shocked, cries.
+  - Paragraph note 5 (chapter 4, paragraph 9), "simple" uses words outside the basic list: shadow, shocked, soap, bathroom, shake, cried.
+  - Paragraph note 6 (chapter 4, paragraph 59), "mainIdea" uses words outside the basic list: peter.
+  - Paragraph note 6 (chapter 4, paragraph 59), "simple" uses words outside the basic list: peter, upset, fairies.
+  - Paragraph note 7 (chapter 4, paragraph 61), "mainIdea" uses words outside the basic list: peter, fairies.
+  - Paragraph note 7 (chapter 4, paragraph 61), "simple" uses words outside the basic list: fairies.
+  - Paragraph note 8 (chapter 5, paragraph 8), "mainIdea" uses words outside the basic list: peter, odd, birds.
+  - Paragraph note 8 (chapter 5, paragraph 8), "simple" uses words outside the basic list: hungry, pretending, jolly, chase, birds, gentle, odd, bread.
+  - Paragraph note 9 (chapter 5, paragraph 130), "mainIdea" uses words outside the basic list: tink, jealousy.
+  - Paragraph note 9 (chapter 5, paragraph 130), "simple" uses words outside the basic list: tink, fairies, wendy, plainly.
+  - Paragraph note 10 (chapter 6, paragraph 6), "mainIdea" uses words outside the basic list: tootles, brave, adventures, tink, trick.
+  - Paragraph note 10 (chapter 6, paragraph 6), "simple" uses words outside the basic list: brave, bold, adventures, quiet, gather, firewood, sweeping, gentle, sour, humble, danger, adventure, sorrow, tootles, fairy, tool, trick, beware.
+  - Paragraph note 11 (chapter 6, paragraph 57), "mainIdea" uses words outside the basic list: hook, cake, lagoon.
+  - Paragraph note 11 (chapter 6, paragraph 57), "simple" uses words outside the basic list: cook, cake, jolly, thick, chimney, silly, moles, shore, mermaids, lagoon, swimming, damp, burst, laughter, hollow, aha.
+  - Paragraph note 12 (chapter 7, paragraph 85), "mainIdea" uses words outside the basic list: peter.
+  - Paragraph note 12 (chapter 7, paragraph 85), "simple" uses words outside the basic list: pretend.
+  - Paragraph note 13 (chapter 7, paragraph 119), "mainIdea" uses words outside the basic list: peter, chimney, hat.
+  - Paragraph note 13 (chapter 7, paragraph 119), "simple" uses words outside the basic list: chimney, hat, knocked, roof.
+  - Paragraph note 14 (chapter 8, paragraph 2), "mainIdea" uses words outside the basic list: hollow.
+  - Paragraph note 14 (chapter 8, paragraph 2), "simple" uses words outside the basic list: measure, hollow, hook, breath, wriggled.
+  - Paragraph note 15 (chapter 8, paragraph 16), "mainIdea" uses words outside the basic list: peter, invents, pretending, adventures.
+  - Paragraph note 15 (chapter 8, paragraph 16), "simple" uses words outside the basic list: adventures, invented, pretend, stools, grizzly, sight, stool, john.
+  - Paragraph note 16 (chapter 9, paragraph 2), "mainIdea" uses words outside the basic list: colours, lagoon, mainland.
+  - Paragraph note 16 (chapter 9, paragraph 2), "simple" uses words outside the basic list: pale, colours, squeeze, tighter, bright, lagoon, mainland, heavenly, mermaids, singing.
+  - Paragraph note 17 (chapter 9, paragraph 136), "mainIdea" uses words outside the basic list: hook's, bite, shocks.
+  - Paragraph note 17 (chapter 9, paragraph 136), "simple" uses words outside the basic list: bite, shocked, stare, horror, afterwards.
+  - Paragraph note 18 (chapter 10, paragraph 5), "mainIdea" uses words outside the basic list: bird, nest.
+  - Paragraph note 18 (chapter 10, paragraph 5), "simple" uses words outside the basic list: bird, nest, wings, strange, extent, eggs, cruel, darling.
+  - Paragraph note 19 (chapter 10, paragraph 23), "mainIdea" uses words outside the basic list: bird, screams, peter, sails, nest, eggs, hat.
+  - Paragraph note 19 (chapter 10, paragraph 23), "simple" uses words outside the basic list: bird, screamed, admired, crowed, nest, stave, mast, hung, shirt, sail, hat, eggs, drifted, cheering.
+  - Paragraph note 20 (chapter 11, paragraph 8), "mainIdea" uses words outside the basic list: meal.
+  - Paragraph note 20 (chapter 11, paragraph 8), "simple" uses words outside the basic list: adventures, quiet, quietly, gathering, redskins, blankets, meal, crocodile, clock, struck.
+  - Paragraph note 21 (chapter 11, paragraph 97), "mainIdea" uses words outside the basic list: sing, pillow.
+  - Paragraph note 21 (chapter 11, paragraph 97), "simple" uses words outside the basic list: sixty, sang, nightgowns, deliciously, creepy, pretended, frightened, shadows, shrink, noisy, pillow, pillows, dull, shocked.
+  - Paragraph note 22 (chapter 12, paragraph 74), "mainIdea" uses words outside the basic list: peter, breathes, breath.
+  - Paragraph note 22 (chapter 12, paragraph 74), "simple" uses words outside the basic list: anger, usual, spoiling, breathed, breaths, breathe.
+  - Paragraph note 23 (chapter 12, paragraph 54), "mainIdea" uses words outside the basic list: hug.
+  - Paragraph note 23 (chapter 12, paragraph 54), "simple" uses words outside the basic list: skip, attractive, selfish, nobly, hugged.
+  - Paragraph note 24 (chapter 13, paragraph 12), "mainIdea" uses words outside the basic list: hook, crocodile, cockiness.
+  - Paragraph note 24 (chapter 13, paragraph 12), "simple" uses words outside the basic list: peter, hatred, crocodile, danger, harm, pirate, anger, courage, pleasant.
+  - Paragraph note 25 (chapter 13, paragraph 22), "mainIdea" uses words outside the basic list: cheer, redskins, pirates.
+  - Paragraph note 25 (chapter 13, paragraph 22), "simple" uses words outside the basic list: cheer, goodbyes, puzzled, pirates, swallowed, delight, rubbed, silently, yards.
+  - Paragraph note 26 (chapter 14, paragraph 12), "mainIdea" uses words outside the basic list: peter, pipes, asleep.
+  - Paragraph note 26 (chapter 14, paragraph 12), "simple" uses words outside the basic list: peter, pipes, annoy, tucked, cried, asleep.
+  - Paragraph note 27 (chapter 14, paragraph 65), "mainIdea" uses words outside the basic list: clapping.
+  - Paragraph note 27 (chapter 14, paragraph 65), "simple" uses words outside the basic list: clapping, rushed, nurseries, flashing, merry, rude.
+  - Paragraph note 28 (chapter 15, paragraph 8), "mainIdea" uses words outside the basic list: hook.
+  - Paragraph note 28 (chapter 15, paragraph 8), "simple" uses words outside the basic list: hook, blaze, passion.
+  - Paragraph note 29 (chapter 15, paragraph 69), "mainIdea" uses words outside the basic list: stare, plank.
+  - Paragraph note 29 (chapter 15, paragraph 69), "simple" uses words outside the basic list: tied, mast, plank, bravely, stare, shake.
+  - Paragraph note 30 (chapter 16, paragraph 2), "mainIdea" uses words outside the basic list: peter, crocodile, ticking, clock.
+  - Paragraph note 30 (chapter 16, paragraph 2), "simple" uses words outside the basic list: odd, deaf, ear, creeping, finger, lips, dagger, crocodile, strange, ticking, frightening, clock.
+  - Paragraph note 31 (chapter 16, paragraph 96), "mainIdea" uses words outside the basic list: hook, peter, stabbing, crocodile.
+  - Paragraph note 31 (chapter 16, paragraph 96), "simple" uses words outside the basic list: refuse, stab.
+  - Paragraph note 32 (chapter 17, paragraph 14), "mainIdea" uses words outside the basic list: darling, fault, kennel.
+  - Paragraph note 32 (chapter 17, paragraph 14), "simple" uses words outside the basic list: nursery, kennel, darling, blame, chained, wiser, noble, courage, lion, knees, crawled.
+  - Paragraph note 33 (chapter 17, paragraph 73), "mainIdea" uses words outside the basic list: darling.
+  - Paragraph note 33 (chapter 17, paragraph 73), "simple" uses words outside the basic list: darling, nursery, asleep, cry, joy, hanging.
+  - Paragraph note 34 (chapter 18, paragraph 72), "mainIdea" uses words outside the basic list: wendy, marries.
+  - Paragraph note 34 (chapter 18, paragraph 72), "simple" uses words outside the basic list: sake, loyal, prize, dust, toys, wendy.
+  - Paragraph note 35 (chapter 18, paragraph 168), "mainIdea" uses words outside the basic list: peter, gay, innocent.
+  - Paragraph note 35 (chapter 18, paragraph 168), "simple" uses words outside the basic list: jane, ordinary, eagerly, gay, innocent.
+  - Sentence note 1 (chapter 2), "simple" uses words outside the basic list: awake.
+  - Sentence note 1 (chapter 2), "grammar" uses words outside the basic list: brackets.
+  - Sentence note 2 (chapter 2), "simple" uses words outside the basic list: darling, marry, cab.
+  - Sentence note 2 (chapter 2), "grammar" uses words outside the basic list: colon.
+  - Sentence note 3 (chapter 2), "simple" uses words outside the basic list: shores.
+  - Sentence note 3 (chapter 2), "grammar" uses words outside the basic list: ing, continuous.
+  - Sentence note 5 (chapter 3), "simple" uses words outside the basic list: invitation.
+  - Sentence note 5 (chapter 3), "grammar" uses words outside the basic list: participle.
+  - Sentence note 6 (chapter 3), "simple" uses words outside the basic list: coins.
+  - Sentence note 6 (chapter 3), "grammar" uses words outside the basic list: recalling, ing, coinage, comparison.
+  - Sentence note 7 (chapter 3), "grammar" uses words outside the basic list: resented.
+  - Sentence note 8 (chapter 3), "simple" uses words outside the basic list: bottle.
+  - Sentence note 8 (chapter 3), "grammar" uses words outside the basic list: bottle.
+  - Sentence note 9 (chapter 4), "simple" uses words outside the basic list: nursery.
+  - Sentence note 10 (chapter 4), "simple" uses words outside the basic list: wendy, quiet, fairies.
+  - Sentence note 10 (chapter 4), "grammar" uses words outside the basic list: fairies, verb, struck.
+  - Sentence note 11 (chapter 4), "simple" uses words outside the basic list: blown, fairy, dust.
+  - Sentence note 11 (chapter 4), "grammar" uses words outside the basic list: blown, passive, blows, dust.
+  - Sentence note 12 (chapter 4), "grammar" uses words outside the basic list: object, verb.
+  - Sentence note 13 (chapter 4), "grammar" uses words outside the basic list: verb.
+  - Sentence note 14 (chapter 4), "simple" uses words outside the basic list: exam, grammar.
+  - Sentence note 14 (chapter 4), "grammar" uses words outside the basic list: clause, passive.
+  - Sentence note 15 (chapter 5), "simple" uses words outside the basic list: cloud.
+  - Sentence note 15 (chapter 5), "grammar" uses words outside the basic list: bump, verb.
+  - Sentence note 16 (chapter 5), "simple" uses words outside the basic list: hat.
+  - Sentence note 16 (chapter 5), "grammar" uses words outside the basic list: hat.
+  - Sentence note 17 (chapter 5), "simple" uses words outside the basic list: john.
+  - Sentence note 17 (chapter 5), "grammar" uses words outside the basic list: phrase.
+  - Sentence note 18 (chapter 5), "grammar" uses words outside the basic list: reminds, anon.
+  - Sentence note 19 (chapter 6), "simple" uses words outside the basic list: adventure, sorrow.
+  - Sentence note 19 (chapter 6), "grammar" uses words outside the basic list: lest, sentence.
+  - Sentence note 21 (chapter 6), "grammar" uses words outside the basic list: er, adjective, comparative, usual.
+  - Sentence note 22 (chapter 6), "simple" uses words outside the basic list: tiny, leaf.
+  - Sentence note 23 (chapter 7), "simple" uses words outside the basic list: fairy, fairies, harm, nose.
+  - Sentence note 23 (chapter 7), "grammar" uses words outside the basic list: mischiefed, ed.
+  - Sentence note 26 (chapter 8), "simple" uses words outside the basic list: peter, carefully.
+  - Sentence note 26 (chapter 8), "grammar" uses words outside the basic list: colon, passive.
+  - Sentence note 27 (chapter 8), "grammar" uses words outside the basic list: clause.
+  - Sentence note 28 (chapter 8), "grammar" uses words outside the basic list: stodgy, verb, stodge, adjective.
+  - Sentence note 29 (chapter 9), "simple" uses words outside the basic list: admit.
+  - Sentence note 30 (chapter 9), "simple" uses words outside the basic list: bite, shocked.
+  - Sentence note 30 (chapter 9), "grammar" uses words outside the basic list: dazed, noun, clause.
+  - Sentence note 31 (chapter 9), "grammar" uses words outside the basic list: passive.
+  - Sentence note 32 (chapter 9), "simple" uses words outside the basic list: crow, whistle.
+  - Sentence note 32 (chapter 9), "grammar" uses words outside the basic list: crow.
+  - Sentence note 33 (chapter 10), "simple" uses words outside the basic list: pretend.
+  - Sentence note 33 (chapter 10), "grammar" uses words outside the basic list: pretend, fanciful.
+  - Sentence note 34 (chapter 10), "simple" uses words outside the basic list: hang, nest, hung, eggs.
+  - Sentence note 34 (chapter 10), "grammar" uses words outside the basic list: hung, cleft, sentence.
+  - Sentence note 35 (chapter 10), "simple" uses words outside the basic list: birds, nests, broad, brim.
+  - Sentence note 35 (chapter 10), "grammar" uses words outside the basic list: birds.
+  - Sentence note 36 (chapter 11), "simple" uses words outside the basic list: snapped.
+  - Sentence note 36 (chapter 11), "grammar" uses words outside the basic list: snap.
+  - Sentence note 37 (chapter 11), "simple" uses words outside the basic list: shadows.
+  - Sentence note 37 (chapter 11), "grammar" uses words outside the basic list: witting.
+  - Sentence note 38 (chapter 11), "simple" uses words outside the basic list: meals.
+  - Sentence note 38 (chapter 11), "grammar" uses words outside the basic list: modal, verbs.
+  - Sentence note 39 (chapter 11), "simple" uses words outside the basic list: noisy.
+  - Sentence note 39 (chapter 11), "grammar" uses words outside the basic list: uproariously, gay, adjective.
+  - Sentence note 40 (chapter 12), "simple" uses words outside the basic list: prefer.
+  - Sentence note 40 (chapter 12), "grammar" uses words outside the basic list: prefer.
+  - Sentence note 41 (chapter 12), "grammar" uses words outside the basic list: verb.
+  - Sentence note 42 (chapter 12), "grammar" uses words outside the basic list: sentence, verb.
+  - Sentence note 43 (chapter 12), "simple" uses words outside the basic list: goodbye.
+  - Sentence note 43 (chapter 12), "grammar" uses words outside the basic list: verb.
+  - Sentence note 44 (chapter 12), "simple" uses words outside the basic list: gathered, upset, frightening.
+  - Sentence note 44 (chapter 12), "grammar" uses words outside the basic list: alarming, agitation, adjective, verb.
+  - Sentence note 45 (chapter 13), "simple" uses words outside the basic list: breathing, wiping, cutlasses, hook, strange, ferret's.
+  - Sentence note 45 (chapter 13), "grammar" uses words outside the basic list: fain, verb.
+  - Sentence note 46 (chapter 13), "grammar" uses words outside the basic list: butchered.
+  - Sentence note 47 (chapter 13), "simple" uses words outside the basic list: revenge.
+  - Sentence note 47 (chapter 13), "grammar" uses words outside the basic list: unavenged.
+  - Sentence note 48 (chapter 14), "simple" uses words outside the basic list: tying, foul.
+  - Sentence note 49 (chapter 14), "simple" uses words outside the basic list: periwinkle.
+  - Sentence note 49 (chapter 14), "grammar" uses words outside the basic list: adjective, verb, formal.
+  - Sentence note 50 (chapter 14), "simple" uses words outside the basic list: hook.
+  - Sentence note 50 (chapter 14), "grammar" uses words outside the basic list: lest, formal.
+  - Sentence note 51 (chapter 15), "simple" uses words outside the basic list: bo'sun.
+  - Sentence note 51 (chapter 15), "grammar" uses words outside the basic list: bo'sun, verb.
+  - Sentence note 52 (chapter 15), "simple" uses words outside the basic list: gentleman, ruff, dirty.
+  - Sentence note 52 (chapter 15), "grammar" uses words outside the basic list: gentleman, noun, verb, formal.
+  - Sentence note 53 (chapter 15), "simple" uses words outside the basic list: fearfully.
+  - Sentence note 53 (chapter 15), "grammar" uses words outside the basic list: fearfully, phrase.
+  - Sentence note 54 (chapter 16), "simple" uses words outside the basic list: ticking.
+  - Sentence note 54 (chapter 16), "grammar" uses words outside the basic list: verb.
+  - Sentence note 55 (chapter 16), "simple" uses words outside the basic list: pirates.
+  - Sentence note 55 (chapter 16), "grammar" uses words outside the basic list: pirates.
+  - Sentence note 56 (chapter 16), "simple" uses words outside the basic list: misguided.
+  - Sentence note 56 (chapter 16), "grammar" uses words outside the basic list: misguided, noun.
+  - Sentence note 57 (chapter 16), "simple" uses words outside the basic list: clock.
+  - Sentence note 57 (chapter 16), "grammar" uses words outside the basic list: spared, passive.
+  - Sentence note 59 (chapter 17), "simple" uses words outside the basic list: darling.
+  - Sentence note 59 (chapter 17), "grammar" uses words outside the basic list: darling, clause, excess.
+  - Sentence note 60 (chapter 17), "simple" uses words outside the basic list: baldness.
+  - Sentence note 60 (chapter 17), "grammar" uses words outside the basic list: baldness.
+  - Sentence note 61 (chapter 17), "simple" uses words outside the basic list: hurry.
+  - Sentence note 62 (chapter 17), "simple" uses words outside the basic list: kennel.
+  - Sentence note 62 (chapter 17), "grammar" uses words outside the basic list: habit.
+  - Sentence note 63 (chapter 18), "grammar" uses words outside the basic list: comparison.
+  - Sentence note 64 (chapter 18), "simple" uses words outside the basic list: strange.
+  - Sentence note 64 (chapter 18), "grammar" uses words outside the basic list: strange, clause, forbid, banns.
+  - Sentence note 65 (chapter 18), "simple" uses words outside the basic list: ink, splash.
+  - Sentence note 65 (chapter 18), "grammar" uses words outside the basic list: ought, passive, ink.
+  - Sentence note 66 (chapter 18), "simple" uses words outside the basic list: gay, innocent.
+  - The phrase "narrow squeak", "meaning" uses words outside the basic list: escape.
+  - The phrase "in the offing", "meaning" uses words outside the basic list: shore, sight.
+  - The phrase "mea culpa", "meaning" uses words outside the basic list: fault.
+  - The phrase "break down", "meaning" uses words outside the basic list: cry.
+  - The phrase "in the dead of night", "meaning" uses words outside the basic list: quiet.
+  - The phrase "pick one's way", "meaning" uses words outside the basic list: carefully.
+  - The phrase "rap out", "meaning" uses words outside the basic list: sharp.
+  - The phrase "tuck in", "meaning" uses words outside the basic list: bedclothes.
+  - The phrase "give someone a hiding", "meaning" uses words outside the basic list: punishment.
+  - The phrase "stick on", "meaning" uses words outside the basic list: sticky.
+  - The phrase "shut up", "meaning" uses words outside the basic list: rude.
+  - The phrase "show off", "meaning" uses words outside the basic list: admire.
+  - The phrase "set off", "meaning" uses words outside the basic list: journey.
+  - The phrase "pop off", "meaning" uses words outside the basic list: asleep.
+  - The phrase "at one's ease", "meaning" uses words outside the basic list: relaxed.
+  - The phrase "eyes peeled", "meaning" uses words outside the basic list: carefully.
+  - The phrase "on the prowl", "meaning" uses words outside the basic list: quietly, hunt.
+  - The phrase "tuck up", "meaning" uses words outside the basic list: bedclothes.
+  - The phrase "get one's word in", "meaning" uses words outside the basic list: manage.
+  - The phrase "keep watch", "meaning" uses words outside the basic list: danger.
+  - The phrase "toss for it", "meaning" uses words outside the basic list: coin.
+  - The phrase "on the contrary", "meaning" uses words outside the basic list: opposite.
+  - The phrase "hang up", "meaning" uses words outside the basic list: hook.
+  - The phrase "clear away", "meaning" uses words outside the basic list: plates, meal.
+  - The phrase "hold up", "meaning" uses words outside the basic list: lift.
+  - The phrase "beat about the bush", "meaning" uses words outside the basic list: plainly.
+  - The phrase "get on one's nerves", "meaning" uses words outside the basic list: annoy.
+  - The phrase "bear down on", "meaning" uses words outside the basic list: scary.
+  - The phrase "dispose of", "meaning" uses words outside the basic list: rid.
+  - The phrase "set out", "meaning" uses words outside the basic list: journey.
+  - The phrase "steal away", "meaning" uses words outside the basic list: quietly.
+  - The phrase "fall to", "meaning" uses words outside the basic list: eagerly.
+  - The phrase "die away", "meaning" uses words outside the basic list: weaker.
+  - The phrase "sing out", "meaning" uses words outside the basic list: loudly.
+  - The phrase "ring out", "meaning" uses words outside the basic list: loudly.
+  - The phrase "taken aback", "meaning" uses words outside the basic list: shocked.
+  - The phrase "keep an eye on", "meaning" uses words outside the basic list: carefully.
+  - The phrase "serve them right", "meaning" uses words outside the basic list: deserve.
+  - The phrase "burst into tears", "meaning" uses words outside the basic list: cry.
+  - The phrase "look forward to", "meaning" uses words outside the basic list: joy.
+  - The phrase "turn up", "meaning" uses words outside the basic list: brighter, louder.
+  - The phrase "come and go", "meaning" uses words outside the basic list: arrive.
+OK: 711 words, 4 extra meanings, 6 anchors, 35 paragraph notes, 66 sentence notes, 162 phrases, 0 coined words (6 anchors and 101 notes checked against 21 chapters of the book).

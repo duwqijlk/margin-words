@@ -1,0 +1,3960 @@
+{
+ "version": 2,
+ "title": "The Wonderful Wizard of Oz",
+ "author": "L. Frank Baum",
+ "sha256": "be8f7802b737cf2f402960d4c691238ccd51b67de0cd69b909e35a2108da47a3",
+ "chapters": 29,
+ "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+ "language": "English",
+ "glossary": {
+  "wholesome": {
+   "pos": "adjective",
+   "meaning": "Good for the body or the mind."
+  },
+  "instinctive": {
+   "pos": "adjective",
+   "meaning": "Felt naturally, without being taught."
+  },
+  "manifestly": {
+   "pos": "adverb",
+   "meaning": "In a way that anyone can see clearly."
+  },
+  "fantastic": {
+   "pos": "adjective",
+   "meaning": "Strange and from the mind, not real."
+  },
+  "stereotyped": {
+   "pos": "adjective",
+   "meaning": "Always the same, used again and again without any change."
+  },
+  "eliminated": {
+   "pos": "past participle",
+   "meaning": "Taken out; removed."
+  },
+  "bloodcurdling": {
+   "pos": "adjective",
+   "meaning": "So bad that you feel very afraid."
+  },
+  "devised": {
+   "pos": "past participle",
+   "meaning": "Thought up; planned."
+  },
+  "fearsome": {
+   "pos": "adjective",
+   "meaning": "Causing fear."
+  },
+  "dispenses": {
+   "pos": "third-person verb",
+   "meaning": "\"Dispenses with\" means does without."
+  },
+  "aspires": {
+   "pos": "third-person verb",
+   "meaning": "Hopes very much to be or to do something."
+  },
+  "wonderment": {
+   "pos": "noun",
+   "meaning": "A feeling of surprise and happiness at something wonderful."
+  },
+  "heartaches": {
+   "pos": "plural noun",
+   "meaning": "Deep sadness in the heart."
+  },
+  "genie": {
+   "pos": "noun",
+   "meaning": "A magic spirit in old stories."
+  },
+  "dwarf": {
+   "pos": "noun",
+   "meaning": "A very small man in old magic stories."
+  },
+  "legend": {
+   "pos": "noun",
+   "meaning": "An old story that many people know. It may not be true.",
+   "forms": [
+    "legends"
+   ]
+  },
+  "myth": {
+   "pos": "noun",
+   "meaning": "An old story about gods, heroes or magic.",
+   "forms": [
+    "myths"
+   ]
+  },
+  "youngster": {
+   "pos": "noun",
+   "meaning": "A child or young person."
+  },
+  "prairie": {
+   "pos": "noun",
+   "meaning": "A large, flat area of land with grass and almost no trees.",
+   "forms": [
+    "prairies"
+   ]
+  },
+  "lumber": {
+   "pos": "noun",
+   "meaning": "Wood that is cut into boards for building."
+  },
+  "rusty": {
+   "pos": "adjective",
+   "meaning": "Covered with the red-brown color that old iron gets."
+  },
+  "cookstove": {
+   "pos": "noun",
+   "meaning": "A metal box with a fire inside, used for cooking food."
+  },
+  "garret": {
+   "pos": "noun",
+   "meaning": "A small room right under the top of a house."
+  },
+  "cellar": {
+   "pos": "noun",
+   "meaning": "A room under a house, below the ground."
+  },
+  "cyclone": {
+   "pos": "noun",
+   "meaning": "A very strong wind that turns round and round. It can break houses."
+  },
+  "whirlwind": {
+   "pos": "noun",
+   "meaning": "A strong wind that turns round and round very fast.",
+   "forms": [
+    "whirlwinds"
+   ]
+  },
+  "mighty": {
+   "pos": "adjective",
+   "meaning": "Very strong."
+  },
+  "blistered": {
+   "pos": "past-tense verb",
+   "meaning": "Made the color come off in little pieces, by heat."
+  },
+  "gaunt": {
+   "pos": "adjective",
+   "meaning": "Very thin, in a way that looks tired and unwell."
+  },
+  "orphan": {
+   "pos": "noun",
+   "meaning": "A child whose mother and father are both dead."
+  },
+  "startled": {
+   "pos": "past participle",
+   "meaning": "Made to feel sudden surprise."
+  },
+  "merry": {
+   "pos": "adjective",
+   "meaning": "Happy and full of fun."
+  },
+  "twinkled": {
+   "pos": "past-tense verb",
+   "meaning": "Gave small, quick lights, like a star."
+  },
+  "ripples": {
+   "pos": "plural noun",
+   "meaning": "Small moving lines on water or grass, like the sea when it moves."
+  },
+  "shriek": {
+   "pos": "noun",
+   "meaning": "A loud, high cry or sound."
+  },
+  "footing": {
+   "pos": "noun",
+   "meaning": "A safe place for your feet on the ground."
+  },
+  "whined": {
+   "pos": "past-tense verb",
+   "meaning": "Made a long, high, sad sound, as a dog does."
+  },
+  "dismally": {
+   "pos": "adverb",
+   "meaning": "In a sad way, without hope."
+  },
+  "greensward": {
+   "pos": "noun",
+   "meaning": "Ground covered with short green grass."
+  },
+  "luscious": {
+   "pos": "adjective",
+   "meaning": "Very sweet and full of water; good to eat."
+  },
+  "stately": {
+   "pos": "adjective",
+   "meaning": "Tall and grand, in a quiet and proud way."
+  },
+  "plumage": {
+   "pos": "noun",
+   "meaning": "All the soft covering on a bird."
+  },
+  "murmuring": {
+   "pos": "present participle",
+   "meaning": "Making a soft, low sound that goes on and on."
+  },
+  "grateful": {
+   "pos": "adjective",
+   "meaning": "Feeling thanks for something good that someone did."
+  },
+  "queer": {
+   "pos": "adjective",
+   "meaning": "Strange; not like most things.",
+   "forms": [
+    "queerest",
+    "queerly"
+   ]
+  },
+  "pleats": {
+   "pos": "plural noun",
+   "meaning": "Lines in cloth made by turning one part over another."
+  },
+  "brims": {
+   "pos": "plural noun",
+   "meaning": "The parts of a head cover that stick out all around."
+  },
+  "glistened": {
+   "pos": "past-tense verb",
+   "meaning": "Gave a bright light, as if wet."
+  },
+  "doubtless": {
+   "pos": "adverb",
+   "meaning": "Without doubt; surely."
+  },
+  "wrinkles": {
+   "pos": "plural noun",
+   "meaning": "Lines in the skin that old people have."
+  },
+  "noble": {
+   "pos": "adjective",
+   "meaning": "Great and good; of a high place in the world."
+  },
+  "sorceress": {
+   "pos": "noun",
+   "meaning": "A woman who has magic power.",
+   "forms": [
+    "sorceresses"
+   ]
+  },
+  "bondage": {
+   "pos": "noun",
+   "meaning": "The life of a person who must work for another and is not free."
+  },
+  "clasping": {
+   "pos": "present participle",
+   "meaning": "Holding something very hard in the hands."
+  },
+  "dismay": {
+   "pos": "noun",
+   "meaning": "A feeling of fear and sadness at bad news."
+  },
+  "dwelt": {
+   "pos": "past-tense verb",
+   "meaning": "Lived in a place."
+  },
+  "charm": {
+   "pos": "noun",
+   "meaning": "Magic power in a thing or in words."
+  },
+  "grieve": {
+   "pos": "verb",
+   "meaning": "To make someone feel deep sadness."
+  },
+  "straightway": {
+   "pos": "adverb",
+   "meaning": "At once; right away."
+  },
+  "gingham": {
+   "pos": "noun",
+   "meaning": "Cloth with small squares of color on it."
+  },
+  "frock": {
+   "pos": "noun",
+   "meaning": "A girl's dress."
+  },
+  "sunbonnet": {
+   "pos": "noun",
+   "meaning": "A soft cover for a girl's head that keeps the sun off her face."
+  },
+  "settee": {
+   "pos": "noun",
+   "meaning": "A long seat with a back, for two or more people."
+  },
+  "dwellings": {
+   "pos": "plural noun",
+   "meaning": "Houses; places to live in."
+  },
+  "dome": {
+   "pos": "noun",
+   "meaning": "A round top of a building, like half a ball."
+  },
+  "fiddlers": {
+   "pos": "plural noun",
+   "meaning": "People who play a kind of small music box with strings."
+  },
+  "bade": {
+   "pos": "past-tense verb",
+   "meaning": "Said. Here, she said it to her friends as she left."
+  },
+  "perched": {
+   "pos": "past participle",
+   "meaning": "Sitting on something high."
+  },
+  "whisked": {
+   "pos": "past participle",
+   "meaning": "Taken away quickly and suddenly."
+  },
+  "crowed": {
+   "pos": "past-tense verb",
+   "meaning": "Made happy sounds, as a baby does."
+  },
+  "stalks": {
+   "pos": "plural noun",
+   "meaning": "The long thin parts of plants."
+  },
+  "puzzled": {
+   "pos": "past participle",
+   "meaning": "Not able to understand; mixed up."
+  },
+  "stuffed": {
+   "pos": "past participle",
+   "meaning": "Filled full of something soft."
+  },
+  "mishap": {
+   "pos": "noun",
+   "meaning": "A small bad thing that happens by accident."
+  },
+  "dismal": {
+   "pos": "adjective",
+   "meaning": "Sad and dark; without hope."
+  },
+  "lonesome": {
+   "pos": "adjective",
+   "meaning": "Feeling alone and sad; with no people near."
+  },
+  "fortunate": {
+   "pos": "adjective",
+   "meaning": "Lucky."
+  },
+  "dreary": {
+   "pos": "adjective",
+   "meaning": "Sad and not bright; not happy."
+  },
+  "reproachfully": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you think someone did wrong."
+  },
+  "glimpse": {
+   "pos": "noun",
+   "meaning": "A quick look at something."
+  },
+  "deserted": {
+   "pos": "past participle",
+   "meaning": "Left alone by someone who went away."
+  },
+  "clumsy": {
+   "pos": "adjective",
+   "meaning": "Not good at moving or at making things."
+  },
+  "untilled": {
+   "pos": "adjective",
+   "meaning": "Not used for growing food."
+  },
+  "stake": {
+   "pos": "noun",
+   "meaning": "A thin, strong stick put in the ground."
+  },
+  "inconvenient": {
+   "pos": "adjective",
+   "meaning": "Not easy or comfortable; causing trouble."
+  },
+  "groan": {
+   "pos": "noun",
+   "meaning": "A long, low sound that a person makes when he is in pain or sad."
+  },
+  "jointed": {
+   "pos": "adjective",
+   "meaning": "Having joints, so that the parts can bend."
+  },
+  "motionless": {
+   "pos": "adjective",
+   "meaning": "Not moving at all."
+  },
+  "joint": {
+   "pos": "noun",
+   "meaning": "A place where two parts meet and can bend, like the middle of your arm.",
+   "forms": [
+    "joints"
+   ]
+  },
+  "rusted": {
+   "pos": "past-tense verb",
+   "meaning": "Got the red-brown color that old iron gets."
+  },
+  "woodchopper": {
+   "pos": "noun",
+   "meaning": "A man whose work is cutting down trees."
+  },
+  "tinsmith": {
+   "pos": "noun",
+   "meaning": "A man who makes things out of a soft, light metal.",
+   "forms": [
+    "tinsmiths"
+   ]
+  },
+  "enchanted": {
+   "pos": "past-tense verb",
+   "meaning": "Used magic on something."
+  },
+  "daunted": {
+   "pos": "adjective",
+   "meaning": "Made afraid or less brave."
+  },
+  "maiden": {
+   "pos": "noun",
+   "meaning": "A young girl or woman."
+  },
+  "alas": {
+   "pos": "interjection",
+   "meaning": "A word that shows sadness."
+  },
+  "misfortune": {
+   "pos": "noun",
+   "meaning": "Bad luck."
+  },
+  "undergo": {
+   "pos": "verb",
+   "meaning": "To go through something bad."
+  },
+  "thereupon": {
+   "pos": "adverb",
+   "meaning": "Right after that; because of that."
+  },
+  "comrade": {
+   "pos": "noun",
+   "meaning": "A friend who shares your work or your travels.",
+   "forms": [
+    "comrades"
+   ]
+  },
+  "uplifted": {
+   "pos": "adjective",
+   "meaning": "Raised up high."
+  },
+  "shouldered": {
+   "pos": "past-tense verb",
+   "meaning": "Put something on the shoulder to carry it."
+  },
+  "retorted": {
+   "pos": "past-tense verb",
+   "meaning": "Answered back in a sharp way."
+  },
+  "blunted": {
+   "pos": "past-tense verb",
+   "meaning": "Made less sharp."
+  },
+  "mar": {
+   "pos": "verb",
+   "meaning": "To make something good less good."
+  },
+  "hinges": {
+   "pos": "plural noun",
+   "meaning": "Parts that let a door or a head move on its side."
+  },
+  "beetle": {
+   "pos": "noun",
+   "meaning": "A small animal with six legs and a hard back."
+  },
+  "unbearable": {
+   "pos": "adjective",
+   "meaning": "Too bad to stand."
+  },
+  "coward": {
+   "pos": "noun",
+   "meaning": "A person or animal that is afraid when there is danger."
+  },
+  "claws": {
+   "pos": "plural noun",
+   "meaning": "The sharp, curved parts at the end of an animal's feet."
+  },
+  "paw": {
+   "pos": "noun",
+   "meaning": "The foot of an animal like a dog or a cat."
+  },
+  "jaws": {
+   "pos": "plural noun",
+   "meaning": "The two parts of the mouth that open and close to bite."
+  },
+  "peculiar": {
+   "pos": "adjective",
+   "meaning": "Strange or unusual."
+  },
+  "padded": {
+   "pos": "adjective",
+   "meaning": "Filled with soft material."
+  },
+  "ditch": {
+   "pos": "noun",
+   "meaning": "A long, narrow hole in the ground."
+  },
+  "jagged": {
+   "pos": "adjective",
+   "meaning": "Having rough, sharp points."
+  },
+  "gulf": {
+   "pos": "noun",
+   "meaning": "A very wide, deep hole in the ground."
+  },
+  "mane": {
+   "pos": "noun",
+   "meaning": "The long hair on the neck of a Lion or a horse."
+  },
+  "shaggy": {
+   "pos": "adjective",
+   "meaning": "Covered with long, rough hair."
+  },
+  "panted": {
+   "pos": "past-tense verb",
+   "meaning": "Took quick air in and out with the mouth open."
+  },
+  "monstrous": {
+   "pos": "adjective",
+   "meaning": "Very big and very strong; making people afraid."
+  },
+  "brutes": {
+   "pos": "plural noun",
+   "meaning": "Wild animals that are strong and not kind."
+  },
+  "tremble": {
+   "pos": "verb",
+   "meaning": "To move a little because you are afraid or cold."
+  },
+  "despairingly": {
+   "pos": "adverb",
+   "meaning": "With no hope."
+  },
+  "raft": {
+   "pos": "noun",
+   "meaning": "A flat boat made of long pieces of wood joined together."
+  },
+  "dented": {
+   "pos": "adjective",
+   "meaning": "Pushed in, so that the surface is not smooth."
+  },
+  "discouragements": {
+   "pos": "plural noun",
+   "meaning": "Things that make you lose hope."
+  },
+  "clinging": {
+   "pos": "present participle",
+   "meaning": "Holding on very hard."
+  },
+  "wistfully": {
+   "pos": "adverb",
+   "meaning": "In a sad way, wishing for something."
+  },
+  "dazzled": {
+   "pos": "past-tense verb",
+   "meaning": "Made it hard to see, because of too much bright light."
+  },
+  "poppies": {
+   "pos": "plural noun",
+   "meaning": "A kind of red flower. In this story, it makes people go to sleep.",
+   "forms": [
+    "poppy"
+   ]
+  },
+  "fragrance": {
+   "pos": "noun",
+   "meaning": "A sweet, nice thing that your nose can find in the air."
+  },
+  "carpeted": {
+   "pos": "past participle",
+   "meaning": "Covered all over, like a floor with a soft cover."
+  },
+  "odor": {
+   "pos": "noun",
+   "meaning": "A thing that your nose can find in the air."
+  },
+  "aroused": {
+   "pos": "past-tense verb",
+   "meaning": "Woke up; made himself wake up."
+  },
+  "spicy": {
+   "pos": "adjective",
+   "meaning": "Strong and sharp, but nice, to the nose."
+  },
+  "indignantly": {
+   "pos": "adverb",
+   "meaning": "In an angry way, because you think you were not treated fairly."
+  },
+  "shrill": {
+   "pos": "adjective",
+   "meaning": "High and sharp, in a way that hurts to hear."
+  },
+  "scampered": {
+   "pos": "past-tense verb",
+   "meaning": "Ran quickly with small, light steps."
+  },
+  "clump": {
+   "pos": "noun",
+   "meaning": "A small group of plants growing close together."
+  },
+  "timid": {
+   "pos": "adjective",
+   "meaning": "Afraid to speak or to act."
+  },
+  "timidly": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you are afraid to speak or to act."
+  },
+  "dignified": {
+   "pos": "adjective",
+   "meaning": "Quiet and serious, in a way that makes people respect you."
+  },
+  "curtsy": {
+   "pos": "noun",
+   "meaning": "A small movement down that a girl or woman makes to show respect."
+  },
+  "harnessed": {
+   "pos": "past participle",
+   "meaning": "Joined with strong string to the thing it pulls."
+  },
+  "unharnessed": {
+   "pos": "past participle",
+   "meaning": "Let go from the string that joined it to the thing it pulled."
+  },
+  "truck": {
+   "pos": "noun",
+   "meaning": "A strong thing on four round parts, used to carry heavy things."
+  },
+  "pegs": {
+   "pos": "plural noun",
+   "meaning": "Short pieces of wood used to hold things together."
+  },
+  "lest": {
+   "pos": "conjunction",
+   "meaning": "For fear that."
+  },
+  "brownie": {
+   "pos": "noun",
+   "meaning": "A small, kind spirit in old magic stories."
+  },
+  "porridge": {
+   "pos": "noun",
+   "meaning": "A soft, hot food made from a grain, milk and water."
+  },
+  "scrambled": {
+   "pos": "adjective",
+   "meaning": "Mixed up and cooked. Eggs can be cooked this way."
+  },
+  "studded": {
+   "pos": "adjective",
+   "meaning": "Covered with many small things that stick out of the surface."
+  },
+  "glittered": {
+   "pos": "past-tense verb",
+   "meaning": "Gave many small, bright lights."
+  },
+  "brilliancy": {
+   "pos": "noun",
+   "meaning": "Very bright light."
+  },
+  "perplexity": {
+   "pos": "noun",
+   "meaning": "A feeling of being mixed up and not sure what to do."
+  },
+  "spectacles": {
+   "pos": "plural noun",
+   "meaning": "Glasses that a person wears over the eyes."
+  },
+  "portal": {
+   "pos": "noun",
+   "meaning": "A big, grand door."
+  },
+  "pavement": {
+   "pos": "noun",
+   "meaning": "The hard ground that people walk on."
+  },
+  "assorted": {
+   "pos": "adjective",
+   "meaning": "Of different kinds; mixed together."
+  },
+  "prosperous": {
+   "pos": "adjective",
+   "meaning": "Having plenty of money and good things."
+  },
+  "counterpane": {
+   "pos": "noun",
+   "meaning": "A cover for a bed."
+  },
+  "brocaded": {
+   "pos": "adjective",
+   "meaning": "Made of rich cloth with a picture in it."
+  },
+  "lodged": {
+   "pos": "past participle",
+   "meaning": "Given a place to stay."
+  },
+  "gauze": {
+   "pos": "noun",
+   "meaning": "Very thin, light cloth that you can see through."
+  },
+  "dominions": {
+   "pos": "plural noun",
+   "meaning": "Lands that a ruler rules."
+  },
+  "bestow": {
+   "pos": "verb",
+   "meaning": "To give something as a gift."
+  },
+  "singed": {
+   "pos": "past-tense verb",
+   "meaning": "Made a little black by fire at the edges."
+  },
+  "compel": {
+   "pos": "verb",
+   "meaning": "To force someone to do something."
+  },
+  "tremblingly": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you are afraid or cold."
+  },
+  "enchant": {
+   "pos": "verb",
+   "meaning": "To use magic on someone."
+  },
+  "grindstone": {
+   "pos": "noun",
+   "meaning": "A round stone that turns, used for making tools sharp."
+  },
+  "telescope": {
+   "pos": "noun",
+   "meaning": "A long thing you look through to see far places close."
+  },
+  "forthwith": {
+   "pos": "adverb",
+   "meaning": "At once; right away."
+  },
+  "gnashed": {
+   "pos": "past-tense verb",
+   "meaning": "Ground the teeth together in anger."
+  },
+  "rage": {
+   "pos": "noun",
+   "meaning": "Very strong anger."
+  },
+  "swarm": {
+   "pos": "noun",
+   "meaning": "A large group of insects flying together."
+  },
+  "stings": {
+   "pos": "plural noun",
+   "meaning": "The sharp parts that bees use to hurt people."
+  },
+  "immense": {
+   "pos": "adjective",
+   "meaning": "Very big."
+  },
+  "cunning": {
+   "pos": "adjective",
+   "meaning": "Clever in a way that is not honest."
+  },
+  "snatched": {
+   "pos": "past-tense verb",
+   "meaning": "Took something quickly and roughly."
+  },
+  "chariot": {
+   "pos": "noun",
+   "meaning": "An old kind of thing that horses pull, with two round parts under it."
+  },
+  "harsh": {
+   "pos": "adjective",
+   "meaning": "Rough and unkind.",
+   "forms": [
+    "harshly"
+   ]
+  },
+  "severely": {
+   "pos": "adverb",
+   "meaning": "In a hard way, without being kind."
+  },
+  "meekly": {
+   "pos": "adverb",
+   "meaning": "In a quiet way, without saying no."
+  },
+  "shapeless": {
+   "pos": "adjective",
+   "meaning": "Without a clear form."
+  },
+  "dread": {
+   "pos": "noun",
+   "meaning": "Great fear."
+  },
+  "spears": {
+   "pos": "plural noun",
+   "meaning": "Long sticks with a sharp point, used as weapons."
+  },
+  "strap": {
+   "pos": "noun",
+   "meaning": "A long, thin piece of something strong, used to hold things."
+  },
+  "coils": {
+   "pos": "plural noun",
+   "meaning": "Rings made when a rope is turned round and round."
+  },
+  "tempted": {
+   "pos": "past participle",
+   "meaning": "Feeling a strong wish to do something."
+  },
+  "wailing": {
+   "pos": "adjective",
+   "meaning": "Making a long, sad cry."
+  },
+  "despairing": {
+   "pos": "adjective",
+   "meaning": "Having no hope."
+  },
+  "tenderly": {
+   "pos": "adverb",
+   "meaning": "In a kind and gentle way."
+  },
+  "plight": {
+   "pos": "noun",
+   "meaning": "A bad and difficult state."
+  },
+  "battered": {
+   "pos": "adjective",
+   "meaning": "Hurt and damaged by being hit many times."
+  },
+  "dents": {
+   "pos": "plural noun",
+   "meaning": "Places where metal is pushed in."
+  },
+  "solder": {
+   "pos": "verb",
+   "meaning": "To join two pieces of metal using another metal that is hot."
+  },
+  "vain": {
+   "pos": "adjective",
+   "meaning": "Too proud of how you look."
+  },
+  "goldsmith": {
+   "pos": "noun",
+   "meaning": "A person who makes things from gold."
+  },
+  "burnished": {
+   "pos": "adjective",
+   "meaning": "Made smooth and bright by hard work with the hand."
+  },
+  "inlaid": {
+   "pos": "adjective",
+   "meaning": "Put into the top part as a picture."
+  },
+  "bracelet": {
+   "pos": "noun",
+   "meaning": "A band of metal that is worn around the arm."
+  },
+  "behold": {
+   "pos": "verb",
+   "meaning": "A word used to tell people to look at something surprising."
+  },
+  "tinsmiths": {
+   "pos": "plural noun",
+   "meaning": "People who make and fix things out of a soft, light metal."
+  },
+  "reunited": {
+   "pos": "adjective",
+   "meaning": "Together again."
+  },
+  "whimper": {
+   "pos": "noun",
+   "meaning": "A soft, sad sound made by a person who is afraid or upset."
+  },
+  "grumble": {
+   "pos": "verb",
+   "meaning": "To talk in a low voice about what you do not like."
+  },
+  "tramping": {
+   "pos": "present participle",
+   "meaning": "Walking with heavy steps for a long way."
+  },
+  "mischief": {
+   "pos": "noun",
+   "meaning": "Playful behavior that causes small trouble."
+  },
+  "manly": {
+   "pos": "adjective",
+   "meaning": "Strong and brave, as a man should be."
+  },
+  "pleaded": {
+   "pos": "past-tense verb",
+   "meaning": "Asked in a strong, sad way."
+  },
+  "whosoever": {
+   "pos": "pronoun",
+   "meaning": "Any person at all."
+  },
+  "enslave": {
+   "pos": "verb",
+   "meaning": "To make someone work for you and not be free."
+  },
+  "hastened": {
+   "pos": "past-tense verb",
+   "meaning": "Went very fast."
+  },
+  "vexed": {
+   "pos": "adjective",
+   "meaning": "Angry and upset a little."
+  },
+  "mortals": {
+   "pos": "plural noun",
+   "meaning": "People. Only people, not gods, die."
+  },
+  "converse": {
+   "pos": "verb",
+   "meaning": "To talk with someone."
+  },
+  "bewilderment": {
+   "pos": "noun",
+   "meaning": "A feeling of being very mixed up."
+  },
+  "ventriloquist": {
+   "pos": "noun",
+   "meaning": "A person who can speak without moving his lips, so that the voice seems to come from somewhere else."
+  },
+  "slats": {
+   "pos": "plural noun",
+   "meaning": "Thin, flat pieces of wood."
+  },
+  "balloonist": {
+   "pos": "noun",
+   "meaning": "A person who goes up in a big bag filled with hot air."
+  },
+  "gradually": {
+   "pos": "adverb",
+   "meaning": "Slowly, a little at a time."
+  },
+  "abounding": {
+   "pos": "adjective",
+   "meaning": "Having a very large number of something."
+  },
+  "humbug": {
+   "pos": "noun",
+   "meaning": "A person who tells people he is something that he is not."
+  },
+  "murmur": {
+   "pos": "noun",
+   "meaning": "A soft, low sound. \"Without a murmur\" means without saying a word against it."
+  },
+  "deceive": {
+   "pos": "verb",
+   "meaning": "To make someone believe something that is not true.",
+   "forms": [
+    "deceived"
+   ]
+  },
+  "confidence": {
+   "pos": "noun",
+   "meaning": "A strong feeling that you can do it."
+  },
+  "engaged": {
+   "pos": "adjective",
+   "meaning": "Busy with something."
+  },
+  "bran": {
+   "pos": "noun",
+   "meaning": "The rough outer part of grain."
+  },
+  "needles": {
+   "pos": "plural noun",
+   "meaning": "Thin, sharp pieces of metal for joining cloth with string."
+  },
+  "bulged": {
+   "pos": "past-tense verb",
+   "meaning": "Stuck out in a round shape."
+  },
+  "shears": {
+   "pos": "plural noun",
+   "meaning": "Big tools with two sharp parts, for cutting."
+  },
+  "sawdust": {
+   "pos": "noun",
+   "meaning": "Very small pieces of wood that fall when wood is cut."
+  },
+  "soldering": {
+   "pos": "present participle",
+   "meaning": "Joining two pieces of metal using another metal that is hot."
+  },
+  "hesitated": {
+   "pos": "past-tense verb",
+   "meaning": "Stopped for a short time because you were not sure."
+  },
+  "sniffed": {
+   "pos": "past-tense verb",
+   "meaning": "Took air in through the nose, to find out about a thing."
+  },
+  "fulfillment": {
+   "pos": "noun",
+   "meaning": "The coming true of a wish."
+  },
+  "airtight": {
+   "pos": "adjective",
+   "meaning": "Not letting any air in or out."
+  },
+  "swelled": {
+   "pos": "past-tense verb",
+   "meaning": "Became bigger and rounder."
+  },
+  "launched": {
+   "pos": "past participle",
+   "meaning": "Sent up into the air."
+  },
+  "grieved": {
+   "pos": "past-tense verb",
+   "meaning": "Felt deep sadness."
+  },
+  "tugging": {
+   "pos": "present participle",
+   "meaning": "Pulling hard."
+  },
+  "ungrateful": {
+   "pos": "adjective",
+   "meaning": "Not showing thanks for kindness."
+  },
+  "mourn": {
+   "pos": "verb",
+   "meaning": "To feel and show deep sadness because someone has gone."
+  },
+  "modestly": {
+   "pos": "adverb",
+   "meaning": "In a quiet way, without being proud."
+  },
+  "tenderhearted": {
+   "pos": "adjective",
+   "meaning": "Kind and easily made sad."
+  },
+  "summoned": {
+   "pos": "past participle",
+   "meaning": "Called to come."
+  },
+  "steeples": {
+   "pos": "plural noun",
+   "meaning": "The tall, pointed tops of church buildings."
+  },
+  "spires": {
+   "pos": "plural noun",
+   "meaning": "The tall, thin points on top of big buildings."
+  },
+  "twined": {
+   "pos": "past-tense verb",
+   "meaning": "Turned round something."
+  },
+  "flung": {
+   "pos": "past participle",
+   "meaning": "Thrown with force."
+  },
+  "headlong": {
+   "pos": "adverb",
+   "meaning": "With the head going first."
+  },
+  "platter": {
+   "pos": "noun",
+   "meaning": "A big, flat thing that food is put on."
+  },
+  "milkmaids": {
+   "pos": "plural noun",
+   "meaning": "Girls whose work is to get milk from animals.",
+   "forms": [
+    "milkmaid"
+   ]
+  },
+  "shepherdesses": {
+   "pos": "plural noun",
+   "meaning": "Girls who take care of small animals in a field."
+  },
+  "bodices": {
+   "pos": "plural noun",
+   "meaning": "The top part of a woman's dress."
+  },
+  "breeches": {
+   "pos": "plural noun",
+   "meaning": "Short clothes for the legs that end above the knees."
+  },
+  "buckles": {
+   "pos": "plural noun",
+   "meaning": "Metal parts used to close clothes or shoes."
+  },
+  "ermine": {
+   "pos": "noun",
+   "meaning": "The white hair of a small animal. Kings wore it."
+  },
+  "doublets": {
+   "pos": "plural noun",
+   "meaning": "Short, close coats that men wore long ago."
+  },
+  "ruffled": {
+   "pos": "adjective",
+   "meaning": "With many small turns of cloth at the edge."
+  },
+  "brittle": {
+   "pos": "adjective",
+   "meaning": "Hard but easy to break."
+  },
+  "sulkily": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you are angry and will not talk."
+  },
+  "reproachful": {
+   "pos": "adjective",
+   "meaning": "Showing that you think someone did wrong."
+  },
+  "mender": {
+   "pos": "noun",
+   "meaning": "A person who fixes broken things."
+  },
+  "saucily": {
+   "pos": "adverb",
+   "meaning": "In a way that is a little rude but funny."
+  },
+  "prim": {
+   "pos": "adjective",
+   "meaning": "Very serious and correct."
+  },
+  "mantel": {
+   "pos": "noun",
+   "meaning": "A flat part above the place for a fire in a room."
+  },
+  "cabinets": {
+   "pos": "plural noun",
+   "meaning": "Big boxes with doors and flat parts inside, where people keep things."
+  },
+  "stiffen": {
+   "pos": "verb",
+   "meaning": "To become hard and not able to bend."
+  },
+  "rank": {
+   "pos": "adjective",
+   "meaning": "Growing too thickly and too tall."
+  },
+  "marshes": {
+   "pos": "plural noun",
+   "meaning": "Wet land covered with grass."
+  },
+  "underbrush": {
+   "pos": "noun",
+   "meaning": "Small plants that grow under tall trees."
+  },
+  "assemblage": {
+   "pos": "noun",
+   "meaning": "A large group of people or animals who have come together."
+  },
+  "snarling": {
+   "pos": "present participle",
+   "meaning": "Making an angry sound with the teeth showing."
+  },
+  "yonder": {
+   "pos": "adverb",
+   "meaning": "Over there."
+  },
+  "forefoot": {
+   "pos": "noun",
+   "meaning": "One of the two front feet of an animal."
+  },
+  "pudgy": {
+   "pos": "adjective",
+   "meaning": "Short and fat."
+  },
+  "slender": {
+   "pos": "adjective",
+   "meaning": "Thin in a nice way."
+  },
+  "wasp": {
+   "pos": "noun",
+   "meaning": "A flying animal with a thin middle. It can hurt you with its sharp end."
+  },
+  "foe": {
+   "pos": "noun",
+   "meaning": "An enemy."
+  },
+  "disgust": {
+   "pos": "noun",
+   "meaning": "A strong feeling of dislike."
+  },
+  "wiggling": {
+   "pos": "present participle",
+   "meaning": "Moving from side to side with small, quick movements."
+  },
+  "boisterous": {
+   "pos": "adjective",
+   "meaning": "Loud and full of energy."
+  },
+  "armless": {
+   "pos": "adjective",
+   "meaning": "Having no arms."
+  },
+  "vexation": {
+   "pos": "noun",
+   "meaning": "A feeling of being angry and upset a little."
+  },
+  "withstand": {
+   "pos": "verb",
+   "meaning": "To not be hurt by something; to stand against it."
+  },
+  "braid": {
+   "pos": "noun",
+   "meaning": "A thin piece of cloth put on clothes to make them nice."
+  },
+  "bruised": {
+   "pos": "adjective",
+   "meaning": "With a dark place on the skin after being hit."
+  },
+  "ringlets": {
+   "pos": "plural noun",
+   "meaning": "Long pieces of hair that turn round and round."
+  },
+  "presentable": {
+   "pos": "adjective",
+   "meaning": "Clean and good enough for people to see."
+  },
+  "deprive": {
+   "pos": "verb",
+   "meaning": "To take something away from someone."
+  },
+  "forevermore": {
+   "pos": "adverb",
+   "meaning": "For all time."
+  },
+  "scarecrow": {
+   "pos": "noun",
+   "meaning": "A man made of old clothes and dry plants. People put it in a field to make birds afraid.",
+   "forms": [
+    "scarecrows"
+   ]
+  },
+  "oilcan": {
+   "pos": "noun",
+   "meaning": "A small can that you use to put oil on parts that move."
+  },
+  "hereafter": {
+   "pos": "adverb",
+   "meaning": "From now on."
+  },
+  "whereupon": {
+   "pos": "adverb",
+   "meaning": "And then; right after that."
+  },
+  "congratulate": {
+   "pos": "verb",
+   "meaning": "To tell someone that you are happy about his good luck or his success."
+  },
+  "quadling": {
+   "pos": "noun",
+   "meaning": "In this story, a person who lives in the South of the Land of Oz.",
+   "forms": [
+    "quadlings"
+   ]
+  },
+  "winkie": {
+   "pos": "noun",
+   "meaning": "In this story, a person who lives in the West of the Land of Oz.",
+   "forms": [
+    "winkies"
+   ]
+  },
+  "kalidah": {
+   "pos": "noun",
+   "meaning": "In this story, a huge animal with a body like a bear and a head like a big cat with lines.",
+   "forms": [
+    "kalidahs"
+   ]
+  },
+  "wound": {
+   "pos": "past-tense verb",
+   "meaning": "Turned something round and round."
+  },
+  "munchkin": {
+   "pos": "noun",
+   "meaning": "In this story, a small person who lives in the East of the Land of Oz. The author first used this word in this book.",
+   "forms": [
+    "munchkins"
+   ],
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "coated": {
+   "pos": "past participle",
+   "meaning": "Covered all over with a thin skin of something."
+  },
+  "respectfully": {
+   "pos": "adverb",
+   "meaning": "In a way that shows respect."
+  },
+  "courageous": {
+   "pos": "adjective",
+   "meaning": "Brave; not afraid of danger."
+  },
+  "plowed": {
+   "pos": "adjective",
+   "meaning": "Turned over with a farm tool, so that plants can grow."
+  },
+  "blade": {
+   "pos": "noun",
+   "meaning": "A thin, flat part of a plant like grass.",
+   "forms": [
+    "blades"
+   ]
+  },
+  "tinkled": {
+   "pos": "past-tense verb",
+   "meaning": "Made a light, high ringing sound."
+  },
+  "abundance": {
+   "pos": "noun",
+   "meaning": "A very large amount."
+  },
+  "resolved": {
+   "pos": "adjective",
+   "meaning": "Having made up your mind to do something."
+  },
+  "rhinoceros": {
+   "pos": "noun",
+   "meaning": "A very big animal with thick skin and a long point on its nose."
+  },
+  "commanded": {
+   "pos": "past-tense verb",
+   "meaning": "Told someone to do something, as a ruler does.",
+   "forms": [
+    "command"
+   ]
+  },
+  "exhausted": {
+   "pos": "adjective",
+   "meaning": "Used up completely."
+  },
+  "invisible": {
+   "pos": "adjective",
+   "meaning": "That cannot be seen."
+  },
+  "skinny": {
+   "pos": "adjective",
+   "meaning": "Very thin."
+  },
+  "curiosity": {
+   "pos": "noun",
+   "meaning": "A strong wish to know or see something."
+  },
+  "contentedly": {
+   "pos": "adverb",
+   "meaning": "In a happy way, with what you have."
+  },
+  "coarse": {
+   "pos": "adjective",
+   "meaning": "Rough, not soft or smooth."
+  },
+  "rapped": {
+   "pos": "past-tense verb",
+   "meaning": "Hit something quickly with the hand, to make a sound."
+  },
+  "rattling": {
+   "pos": "present participle",
+   "meaning": "Making many short, hard sounds, as hard things hit each other."
+  },
+  "jeweled": {
+   "pos": "adjective",
+   "meaning": "Having small, bright stones for beauty on it."
+  },
+  "solemnly": {
+   "pos": "adverb",
+   "meaning": "In a serious and quiet way."
+  },
+  "whirling": {
+   "pos": "present participle",
+   "meaning": "Turning round and round very fast."
+  },
+  "thereafter": {
+   "pos": "adverb",
+   "meaning": "From that time on."
+  },
+  "nevertheless": {
+   "pos": "adverb",
+   "meaning": "Even so; but still."
+  },
+  "boldly": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you are not afraid."
+  },
+  "summon": {
+   "pos": "verb",
+   "meaning": "To send for someone and tell him to come."
+  },
+  "uttered": {
+   "pos": "past-tense verb",
+   "meaning": "Said something out loud."
+  },
+  "gloom": {
+   "pos": "noun",
+   "meaning": "A place or time that is dark and sad."
+  },
+  "farewell": {
+   "pos": "noun",
+   "meaning": "Words said when people leave each other, to wish them well."
+  },
+  "extend": {
+   "pos": "verb",
+   "meaning": "To make longer."
+  },
+  "dizzy": {
+   "pos": "adjective",
+   "meaning": "Feeling that everything is turning round you."
+  },
+  "kingdom": {
+   "pos": "noun",
+   "meaning": "A land that a king or queen rules."
+  },
+  "afford": {
+   "pos": "verb",
+   "meaning": "To have enough money to pay for something."
+  },
+  "curious": {
+   "pos": "adjective",
+   "meaning": "Strange and interesting; or wanting to know."
+  },
+  "mourning": {
+   "pos": "noun",
+   "meaning": "Showing sadness because someone has died."
+  },
+  "brisk": {
+   "pos": "adjective",
+   "meaning": "Quick and full of energy."
+  },
+  "contented": {
+   "pos": "adjective",
+   "meaning": "Happy with what you have."
+  },
+  "amuse": {
+   "pos": "verb",
+   "meaning": "To make someone laugh or enjoy himself."
+  },
+  "tiresome": {
+   "pos": "adjective",
+   "meaning": "Making you feel tired; it takes too long."
+  },
+  "thoroughly": {
+   "pos": "adverb",
+   "meaning": "Completely; with great care."
+  },
+  "advise": {
+   "pos": "verb",
+   "meaning": "To tell someone what you think is a good thing to do."
+  },
+  "palace": {
+   "pos": "noun",
+   "meaning": "A very big, grand house where a king or queen lives."
+  },
+  "handsome": {
+   "pos": "adjective",
+   "meaning": "Good-looking; pleasing to see."
+  },
+  "seized": {
+   "pos": "past-tense verb",
+   "meaning": "Took hold of something quickly and strongly."
+  },
+  "dreadful": {
+   "pos": "adjective",
+   "meaning": "Very bad; making you afraid."
+  },
+  "terror": {
+   "pos": "noun",
+   "meaning": "A feeling of very great fear."
+  },
+  "grant": {
+   "pos": "verb",
+   "meaning": "To give someone what he asks for."
+  },
+  "mercy": {
+   "pos": "noun",
+   "meaning": "Kindness to a person you could hurt."
+  },
+  "audience": {
+   "pos": "noun",
+   "meaning": "A talk with an important person; or people who come to watch."
+  },
+  "velvet": {
+   "pos": "noun",
+   "meaning": "A soft, thick cloth."
+  },
+  "marble": {
+   "pos": "noun",
+   "meaning": "A hard, smooth stone used in grand buildings."
+  },
+  "glare": {
+   "pos": "noun",
+   "meaning": "A very strong, bright light that hurts the eyes."
+  },
+  "tint": {
+   "pos": "noun",
+   "meaning": "A light kind of a color."
+  },
+  "guardian": {
+   "pos": "noun",
+   "meaning": "A person who keeps a place or a person safe."
+  },
+  "scent": {
+   "pos": "noun",
+   "meaning": "A nice thing in the air that your nose can find."
+  },
+  "presently": {
+   "pos": "adverb",
+   "meaning": "After a short time; soon."
+  },
+  "mystery": {
+   "pos": "noun",
+   "meaning": "Something that no one can explain."
+  },
+  "astonished": {
+   "pos": "adjective",
+   "meaning": "Very surprised."
+  },
+  "remarkably": {
+   "pos": "adverb",
+   "meaning": "In a way that is strange and wonderful."
+  },
+  "scarcely": {
+   "pos": "adverb",
+   "meaning": "Almost not; only just."
+  },
+  "uneven": {
+   "pos": "adjective",
+   "meaning": "Not flat or smooth."
+  },
+  "declared": {
+   "pos": "past-tense verb",
+   "meaning": "Said something in a strong, sure way."
+  },
+  "comforted": {
+   "pos": "past-tense verb",
+   "meaning": "Made someone feel less sad."
+  },
+  "dainty": {
+   "pos": "adjective",
+   "meaning": "Small, light and pretty."
+  },
+  "tedious": {
+   "pos": "adjective",
+   "meaning": "Slow and not interesting; you want it to end."
+  },
+  "innocent": {
+   "pos": "adjective",
+   "meaning": "Not having done anything bad."
+  },
+  "civilized": {
+   "pos": "adjective",
+   "meaning": "Having a way of life with laws and good ways of acting."
+  },
+  "tear": {
+   "pos": "noun",
+   "meaning": "A drop of water that comes from the eye when you cry.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A drop of water that comes from the eye when you cry.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "tear",
+       "context": "the Lion, wiping a tear from his eye with"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "tear",
+       "context": "had to wipe every tear carefully from his face"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To pull something apart with force.",
+     "forms": [
+      "tore"
+     ],
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "tear",
+       "context": "sharp that they could tear me in two as"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "tear",
+       "context": "for they will surely tear us to pieces with"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "tear",
+       "context": "said the Witch, “and tear them to pieces.”"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "tear",
+       "context": "work, so you may tear them into small pieces.”"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "tear",
+       "context": "out their eyes and tear them to pieces.”"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "tore",
+       "context": "stamped her foot and tore her hair and gnashed"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "tore"
+   ]
+  },
+  "bear": {
+   "pos": "verb",
+   "meaning": "To carry something, or to have it on you.",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To carry something, or to have it on you.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "the Scarecrow, while you bear upon your forehead the"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "the silver shoes, which bear a powerful charm. There"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To stand something bad without being upset.",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "glowing he could scarcely bear to gaze upon it."
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "his bride could not bear the sight of us,"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "my part, I will bear all the unhappiness without"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "A big, strong wild animal with thick hair.",
+     "forms": [
+      "bears"
+     ],
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "bears",
+       "context": "the tigers and the bears had ever tried to"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "bears",
+       "context": "beasts with bodies like bears and heads like tigers,”"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "bears",
+       "context": "beasts with bodies like bears and heads like tigers."
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "bears",
+       "context": "tigers and elephants and bears and wolves and foxes"
+      }
+     ]
+    }
+   ]
+  },
+  "set": {
+   "pos": "verb",
+   "meaning": "To put something down in a place.",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To put something down in a place.",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "To fix something into another thing, as a stone is put in gold.",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "set",
+       "context": "were rows of emeralds, set closely, and glittering in"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "form": "set",
+       "context": "and lovely green furniture set with emeralds. The soldier"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 3,
+       "form": "set",
+       "context": "covered with large emeralds set closely together. In the"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 4,
+       "form": "set",
+       "context": "inlaid with gold and set with precious jewels."
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To begin to do something.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "set",
+       "context": "cool, clear water, she set about making ready for"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "set",
+       "context": "But the Tin Woodman set to work with his"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "set",
+       "context": "for her; so I set to work harder than"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "set",
+       "context": "more the little company set off upon the journey,"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "set",
+       "context": "The Woodman set to work at once,"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "set",
+       "context": "Winkies her slaves, and set herself to rule over"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "form": "set",
+       "context": "as ever. So they set to work in one"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To make someone free.",
+     "forms": [
+      "setting"
+     ],
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "set",
+       "context": "Now they are all set free, and are grateful"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "form": "set",
+       "context": "or I should have set the people free myself.”"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "set",
+       "context": "of his prison and set him free. They went"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "set",
+       "context": "for Dorothy, who had set them free from bondage."
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "set",
+       "context": "off the branch and set the little dog free."
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "setting",
+       "context": "the East, and for setting our people free from"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "setting",
+       "context": "the Wicked Witch and setting them free from bondage."
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To go down, as the sun does at the end of the day.",
+     "forms": [
+      "sets"
+     ],
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "sets",
+       "context": "West, where the sun sets, and you cannot fail"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To see. \"Set eyes on\" means to see something.",
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "set",
+       "context": "she could never again set eyes on a Winged"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "sets",
+    "setting"
+   ]
+  },
+  "spring": {
+   "pos": "noun",
+   "meaning": "A place where water comes out of the ground.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A place where water comes out of the ground.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "they found a little spring of clear water, where"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "A quick jump.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "Then giving a great spring, he shot through the"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "he gave a great spring and landed directly upon"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To jump quickly at someone.",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "I shall pretend to spring upon her, and so"
+      }
+     ]
+    }
+   ]
+  },
+  "fit": {
+   "pos": "verb",
+   "meaning": "To be the right size or the right thing for someone or something.",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To be the right size or the right thing for someone or something.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "fit",
+       "context": "wonder if they will fit me,” she said to"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "fit",
+       "context": "pair that would just fit Dorothy and put them"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "fitted",
+       "context": "the silver ones, which fitted her as well as"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "fitted",
+       "context": "and all of them fitted Dorothy exactly."
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "fitted",
+       "context": "and found that it fitted her exactly. She did"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "fit",
+       "context": "to make the name fit better I put green"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To put something in place so that it is right.",
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "fitted",
+       "context": "Then the green man fitted spectacles for the Scarecrow"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "fitted",
+       "context": "of solid gold and fitted it to the Woodman’s"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Good enough or strong enough for something.",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "fit",
+       "context": "None of them is fit to work, so you"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "fitted"
+   ]
+  },
+  "spot": {
+   "pos": "noun",
+   "meaning": "A place.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A place.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "spot",
+       "context": "girl to a pretty spot beside the river, far"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "spot",
+       "context": "stood stupidly in one spot, just within the doorway,"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "form": "spot",
+       "context": "back tremblingly to a spot nearer the door."
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "spot",
+       "context": "standing in just the spot the screen had hidden,"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To make a dark place on something.",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 3,
+       "form": "spot",
+       "context": "green silk gown and spot it.”"
+      }
+     ]
+    }
+   ]
+  },
+  "draw": {
+   "pos": "verb",
+   "meaning": "To pull something along.",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To pull something along.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "mice who were to draw it; but when all"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "sure, to make him draw her chariot whenever she"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "and by they were drawn out of the current,"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "on it, and were drawn swiftly by their queer"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To make people come to a place.",
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "day, so as to draw a crowd of people"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "drawn"
+   ]
+  },
+  "beat": {
+   "pos": "verb",
+   "meaning": "To hit someone again and again.",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To hit someone again and again.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "beat",
+       "context": "castle the Wicked Witch beat them well with a"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "beat",
+       "context": "the Witch threatened to beat her with the same"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To move with a regular push, as a heart does.",
+     "forms": [
+      "beating"
+     ],
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "beat",
+       "context": "the little girl’s heart beat fast, for she did"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "beat",
+       "context": "my heart begins to beat fast.”"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "beat",
+       "context": "I had a heart to beat.”"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "beat",
+       "context": "for it would have beat loud and fast from"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "beating",
+       "context": "that my heart is beating yet.”"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To win against someone.",
+     "forms": [
+      "beaten"
+     ],
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "beaten",
+       "context": "“I thought I had beaten the Wicked Witch then,"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "beaten",
+    "beating"
+   ]
+  },
+  "fellow": {
+   "pos": "noun",
+   "meaning": "A man or a boy.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A man or a boy.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "fellow",
+       "context": "“ ‘This fellow will scare the crows"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "fellow",
+       "context": "palace, and the old fellow loved a joke better"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "fellow",
+       "context": "‘Swim out, my fine fellow,’ cried my grandfather, ‘and"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "In the same group as you, or doing the same thing as you.",
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "fellow",
+       "context": "flung headlong among his fellow travelers."
+      }
+     ]
+    }
+   ]
+  },
+  "obliged": {
+   "pos": "adjective",
+   "meaning": "Having to do something; not free to say no.",
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "Having to do something; not free to say no.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "obliged",
+       "context": "road. Indeed he was obliged to call to her"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "obliged",
+       "context": "They were obliged to camp out that"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "obliged",
+       "context": "wet, and he was obliged to go out into"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Thankful to someone for help.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "obliged",
+       "context": "I shall be greatly obliged to you.”"
+      }
+     ]
+    }
+   ]
+  },
+  "dashed": {
+   "pos": "past-tense verb",
+   "meaning": "Thrown against something hard so that it breaks.",
+   "senses": [
+    {
+     "pos": "past participle",
+     "meaning": "Thrown against something hard so that it breaks.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "dashed",
+       "context": "if she would be dashed to pieces when the"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "dashed",
+       "context": "it, and both were dashed to pieces on the"
+      }
+     ]
+    },
+    {
+     "pos": "past-tense verb",
+     "meaning": "Ran very fast.",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "dashed",
+       "context": "the wolf, and he dashed away at full speed,"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "dashed",
+       "context": "echoed like thunder, he dashed up the hill."
+      }
+     ]
+    },
+    {
+     "pos": "past-tense verb",
+     "meaning": "Threw something fast.",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "dashed",
+       "context": "that stood near and dashed it over the Witch,"
+      }
+     ]
+    }
+   ]
+  },
+  "stout": {
+   "pos": "adjective",
+   "meaning": "Thick and strong.",
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "Thick and strong.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "stout",
+       "context": "Monkeys threw pieces of stout rope around the Lion"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "A little fat.",
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "stout",
+       "context": "was quite short and stout and had a big"
+      }
+     ]
+    }
+   ]
+  },
+  "figure": {
+   "pos": "noun",
+   "meaning": "The shape of a person's body.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "The shape of a person's body.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "figure",
+       "context": "the rest of the figure was a blue suit"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "figure",
+       "context": "this country, and the figure was raised above the"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "form": "figure",
+       "context": "wink; but presently the figure nodded its head to"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "form": "figure",
+       "context": "arms and lifted the figure off the pole, for,"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To find the answer by thinking.",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "figure",
+       "context": "it required brains to figure it out, I never"
+      }
+     ]
+    }
+   ]
+  },
+  "sober": {
+   "pos": "adjective",
+   "meaning": "Not bright in color; sad-looking.",
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "Not bright in color; sad-looking.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "sober",
+       "context": "and left them a sober gray; they had taken"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Serious and sad; quiet.",
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "sober",
+       "context": "and the Lion looking sober and sorry. When they"
+      }
+     ]
+    }
+   ]
+  },
+  "current": {
+   "pos": "noun",
+   "meaning": "Water that moves in one direction.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "Water that moves in one direction.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "current",
+       "context": "the river the swift current swept the raft downstream,"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "current",
+       "context": "drawn out of the current, and then Dorothy took"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "Air that moves in one direction.",
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "current",
+       "context": "so far that a current of air struck it"
+      }
+     ]
+    }
+   ]
+  },
+  "mind": {
+   "pos": "noun",
+   "meaning": "The part of a person that thinks.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "The part of a person that thinks.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "mind",
+       "context": "Having this thought in mind, the story of The"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "mind",
+       "context": "the distance carefully in his mind."
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "mind",
+       "context": "each in his own mind, if ever they would"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To be upset by something, or to care about it.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "mind",
+       "context": "continued confidentially, “I don’t mind my legs and arms"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "mind",
+       "context": "“Don’t mind Toto,” said Dorothy to"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "form": "mind",
+       "context": "you. I shall not mind it, for I can’t"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "mind",
+       "context": "“ ‘Never mind,’ said the farmer. ‘They"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "mind",
+       "context": "“Then, if you don’t mind, I’ll go with you,”"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "mind",
+       "context": "of course I needn’t mind so much.”"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "mind",
+       "context": "the Scarecrow did not mind how long it took"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "mind",
+       "context": "man he did not mind the patches at all."
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "mind",
+       "context": "“Never mind the patch,” exclaimed the"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "mind",
+       "context": "“Don’t mind Mr. Joker,” said the"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "mind",
+       "context": "“Oh, I don’t mind him a bit,” said"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To do what you are told.",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "mind",
+       "context": "and see that you mind everything I tell you,"
+      }
+     ]
+    }
+   ]
+  },
+  "kind": {
+   "pos": "adjective",
+   "meaning": "Good and helpful to other people.",
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "Good and helpful to other people.",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "A type of thing.",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "kind",
+       "context": "nor animals of any kind; the men carried things"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "kind",
+       "context": "I can imitate any kind of a bird or"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "kind",
+       "context": "are afraid, and that kind of courage you have"
+      }
+     ]
+    }
+   ]
+  },
+  "light": {
+   "pos": "noun",
+   "meaning": "Brightness that lets you see.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "Brightness that lets you see.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "light",
+       "context": "hour or so the light faded away, and they"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "light",
+       "context": "roof was a great light, as bright as the"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Not heavy.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "light",
+       "context": "with straw, it was quite light."
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "form": "light",
+       "context": "in color and so light that they fluttered if"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Not strong in color; nearly white.",
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "light",
+       "context": "was a strip of light green silk, then a"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To come down on something after flying.",
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "light",
+       "context": "took pains not to light on his head and"
+      }
+     ]
+    }
+   ]
+  },
+  "mean": {
+   "pos": "verb",
+   "meaning": "To want to say something; to have as a meaning.",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To want to say something; to have as a meaning.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "the little woman possibly mean by calling her a"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "again. What do you mean by coming here and"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To plan or want to do something.",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "the Scarecrow, “for we mean to destroy her.”"
+      }
+     ]
+    }
+   ]
+  },
+  "fine": {
+   "pos": "adjective",
+   "meaning": "Good or nice.",
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "Good or nice.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "fine",
+       "context": "Dorothy. Toto was a fine curiosity to all the"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "fine",
+       "context": "a tree full of fine fruit. This pleased Dorothy,"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "fine",
+       "context": "cheerfully, and had a fine time looking at the"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "fine",
+       "context": "“ ‘Swim out, my fine fellow,’ cried my grandfather,"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Made of very small pieces.",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "fine",
+       "context": "like little heaps of fine coal."
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "fine",
+       "context": "in little heaps like fine coal that she stamped"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 3,
+   "paragraph": 1,
+   "context": "Dorothy lived in the midst of the great Kansas prairies,",
+   "mainIdea": "Dorothy lives with Uncle Henry and Aunt Em in a small one-room house on the Kansas prairie. The only safe place from a cyclone is a small hole under the floor.",
+   "simple": "Dorothy lived in the middle of the great Kansas prairies with Uncle Henry, a farmer, and Aunt Em, the farmer's wife. Their house was small, because the wood to build it had to be carried by wagon for many miles. It had four walls, a floor and a roof, and these made one room. In the room were a rusty-looking cookstove, a cupboard for the dishes, a table, three or four chairs, and the beds. Uncle Henry and Aunt Em had a big bed in one corner, and Dorothy had a little bed in another corner. There was no garret at all, and no cellar. There was only a small hole dug in the ground, called a cyclone cellar. The family could go there if one of those great whirlwinds came, strong enough to crush any building in its path. It was reached by a trap door in the middle of the floor. A ladder led down from the door into the small, dark hole.",
+   "hardWords": [
+    "prairies",
+    "lumber",
+    "rusty",
+    "cookstove",
+    "garret",
+    "cellar",
+    "cyclone",
+    "whirlwinds"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 2,
+   "context": "she could see nothing but the great gray prairie on every side",
+   "mainIdea": "Everything around the house is gray and flat. The sun has made even the house and the grass gray.",
+   "simple": "When Dorothy stood in the doorway and looked around, she could see only the great gray prairie on every side. Not one tree or house broke the wide flat country, which reached to the edge of the sky in all directions. The sun had baked the plowed land into a gray mass with little cracks running through it. Even the grass was not green, because the sun had burned the tops of the long blades until they were the same gray color that could be seen everywhere. Once the house had been painted, but the sun made the paint come up in bubbles and the rains washed it away. Now the house was as dull and gray as everything else.",
+   "hardWords": [
+    "prairie",
+    "plowed",
+    "blades",
+    "blistered"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 3,
+   "context": "They had taken the sparkle from her eyes and left them a sober gray",
+   "mainIdea": "Aunt Em was once a young, pretty wife, but the sun and wind have made her gray, thin and sad. She is amazed that Dorothy can laugh.",
+   "simple": "When Aunt Em came there to live, she was a young, pretty wife. The sun and wind had changed her too. They had taken the sparkle from her eyes and left them a sober gray. They had taken the red from her cheeks and lips, and these were gray also. She was thin and gaunt, and never smiled now. Dorothy was an orphan. When she first came to Aunt Em, Aunt Em was so startled by the child's laughter that she would scream and press her hand on her heart whenever Dorothy's merry voice reached her ears. She still looked at the little girl with wonder that she could find anything to laugh at.",
+   "hardWords": [
+    "sober",
+    "gaunt",
+    "orphan",
+    "startled",
+    "merry"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 4,
+   "context": "The cyclone had set the house down very gently",
+   "mainIdea": "The cyclone puts the house down softly in a beautiful country full of fruit trees, flowers, birds and a little brook. After the dry gray prairie, Dorothy likes the sound of the water.",
+   "simple": "The cyclone had set the house down very gently, for a cyclone, in the middle of a country of wonderful beauty. There were lovely patches of greensward all about, with tall, grand trees that had rich and very sweet fruits. Banks of beautiful flowers were on every hand. Birds with rare and bright feathers sang and flew about in the trees and bushes. A little way off was a small brook, rushing and sparkling along between green banks. It made a sound that Dorothy was very glad to hear, because she was a little girl who had lived so long on the dry, gray prairies.",
+   "hardWords": [
+    "greensward",
+    "stately",
+    "luscious",
+    "plumage",
+    "murmuring",
+    "grateful"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 6,
+   "context": "all were oddly dressed",
+   "mainIdea": "Four people come up to Dorothy: three men and one woman. They are strangely dressed in blue and white, with bells on their pointed hats.",
+   "simple": "There were three men and one woman, and all of them were dressed in a strange way. They wore round hats that rose to a small point a foot above their heads. There were little bells around the brims that rang sweetly as they moved. The hats of the men were blue. The little woman's hat was white, and she wore a white gown that hung in pleats from her shoulders. Little stars were sprinkled over it, and they shone in the sun like diamonds. The men were dressed in blue, of the same shade as their hats. They wore well-polished boots with a deep roll of blue at the tops. Dorothy thought that the men were about as old as Uncle Henry, because two of them had beards. But the little woman was without doubt much older. Her face was covered with wrinkles, her hair was nearly white, and she walked rather stiffly.",
+   "hardWords": [
+    "brims",
+    "tinkled",
+    "pleats",
+    "glistened",
+    "doubtless",
+    "wrinkles"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 8,
+   "context": "You are welcome, most noble Sorceress, to the land of the Munchkins.",
+   "mainIdea": "The woman thanks Dorothy for killing the Wicked Witch of the East. The Witch had kept the Munchkin people as slaves.",
+   "simple": "The little woman says, \"You are welcome, most noble Sorceress, to the land of the Munchkins. We are so thankful to you for having killed the Wicked Witch of the East, and for setting our people free from bondage.\"",
+   "hardWords": [
+    "noble",
+    "sorceress",
+    "bondage"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 4,
+   "context": "Dorothy had only one other dress, but that happened to be clean",
+   "mainIdea": "Dorothy gets ready for the journey. She puts on her clean blue and white dress, takes a basket of bread, and sees that her shoes are old.",
+   "simple": "Dorothy had only one other dress, but it happened to be clean and was hanging on a peg beside her bed. It was gingham, with checks of white and blue. The blue had become a little pale from many washings, but it was still a pretty frock. The girl washed herself carefully, dressed herself in the clean gingham, and tied her pink sunbonnet on her head. She took a little basket and filled it with bread from the cupboard, and laid a white cloth over the top. Then she looked down at her feet and saw how old and worn her shoes were.",
+   "hardWords": [
+    "gingham",
+    "frock",
+    "sunbonnet"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 12,
+   "context": "There were several roads nearby, but it did not take her long",
+   "mainIdea": "Dorothy soon finds the road paved with yellow bricks and walks fast toward the Emerald City. The day is bright and she does not feel as bad as you might think, after being taken far from her own country.",
+   "simple": "There were several roads nearby, but it did not take her long to find the one paved with yellow bricks. In a short time she was walking quickly toward the Emerald City, with her silver shoes ringing happily on the hard, yellow road. The sun shone bright and the birds sang sweetly. Dorothy did not feel nearly so bad as you might think a little girl would feel, who had been suddenly taken away from her own country and put down in the middle of a strange land.",
+   "hardWords": [
+    "whisked"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 13,
+   "context": "She was surprised, as she walked along, to see how pretty",
+   "mainIdea": "The Munchkin country is pretty, with blue fences, fields and round blue houses. People bow to Dorothy because she helped free them from the Witch.",
+   "simple": "As she walked along, Dorothy was surprised to see how pretty the country was around her. There were neat fences at the sides of the road, painted a dainty blue color. Beyond them were fields of grain and vegetables in large amounts. It was clear that the Munchkins were good farmers and able to grow large crops. Once in a while she would pass a house, and the people came out to look at her and bow low as she went by. Everyone knew that she had been the one who destroyed the Wicked Witch and set them free from bondage. The houses of the Munchkins were odd-looking homes, because each was round, with a big dome for a roof. All were painted blue, because in this country of the East blue was the favorite color.",
+   "hardWords": [
+    "dainty",
+    "abundance",
+    "bondage",
+    "dwellings",
+    "dome"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 29,
+   "context": "Dorothy leaned her chin upon her hand and gazed thoughtfully",
+   "mainIdea": "Dorothy looks at the Scarecrow. He is a sack head with a painted face and old blue clothes, all stuffed with straw, and he is held up on a pole in the corn.",
+   "simple": "Dorothy rested her chin on her hand and looked at the Scarecrow, thinking. His head was a small sack stuffed with straw, with eyes, nose and mouth painted on it to be a face. An old, pointed blue hat, that had belonged to some Munchkin, was on his head. The rest of the figure was a blue suit of clothes, worn and faded, which had also been stuffed with straw. On the feet were some old boots with blue tops, such as every man wore in this country. The figure was raised above the stalks of corn by the pole that was stuck up its back.",
+   "hardWords": [
+    "stuffed",
+    "stalks",
+    "figure",
+    "perched"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 14,
+   "context": "My life has been so short that I really know nothing",
+   "mainIdea": "The Scarecrow says he was only made the day before yesterday and knows nothing. He heard the farmer talk about his ears.",
+   "simple": "The Scarecrow says, \"My life has been so short that I really know nothing at all. I was only made the day before yesterday. What happened in the world before that time is all unknown to me. Luckily, when the farmer made my head, one of the first things he did was to paint my ears, so that I heard what was going on. There was another Munchkin with him, and the first thing I heard was the farmer saying, 'How do you like those ears?'\"",
+   "hardWords": []
+  },
+  {
+   "chapter": 7,
+   "paragraph": 45,
+   "context": "This at first seemed a great misfortune, for I knew a one-legged",
+   "mainIdea": "The Tin Woodman tells how the Witch's spell made his axe cut off his leg, arms and head. Each time the tinsmith made a new part out of tin.",
+   "simple": "The Tin Woodman says, \"At first this seemed a great bad luck, because I knew that a man with one leg could not do very well as a woodchopper. So I went to a tinsmith and had him make me a new leg out of tin. The leg worked very well once I was used to it. But what I did made the Wicked Witch of the East angry, because she had promised the old woman that I should not marry the pretty Munchkin girl. When I began chopping again, my axe slipped and cut off my right leg. Again I went to the tinsmith, and again he made me a leg out of tin. After this the enchanted axe cut off my arms, one after the other. But I did not give up, and I had them put back with tin ones. Then the Wicked Witch made the axe slip and cut off my head, and at first I thought that was the end of me. But the tinsmith happened to come along, and he made me a new head out of tin.\"",
+   "hardWords": [
+    "misfortune",
+    "woodchopper",
+    "tinsmith",
+    "enchanted",
+    "daunted"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 47,
+   "context": "My body shone so brightly in the sun that I felt very proud",
+   "mainIdea": "The Tin Woodman's joints rusted in the rain and he stood still for a year. He decided that the loss of his heart was the worst thing, so he wants to ask Oz for one.",
+   "simple": "The Tin Woodman says, \"My body shone so brightly in the sun that I felt very proud of it. It did not matter now if my axe slipped, because it could not cut me. There was only one danger, that my joints would rust. But I kept an oilcan in my cottage and took care to oil myself whenever I needed it. However, there came a day when I forgot to do this. I was caught in a rainstorm, and before I thought of the danger my joints had rusted. I was left to stand in the woods until you came to help me. It was a terrible thing to go through, but during the year I stood there I had time to think that the greatest loss I had known was the loss of my heart. While I was in love I was the happiest man on earth. But no one can love who has not a heart, and so I have decided to ask Oz to give me one. If he does, I will go back to the Munchkin maiden and marry her.\"",
+   "hardWords": [
+    "oilcan",
+    "rusted",
+    "undergo",
+    "resolved",
+    "maiden"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 25,
+   "context": "It’s a mystery,” replied the Lion.",
+   "mainIdea": "The Lion says that he was born a coward. Animals think he is brave because he roars, and they run away, but he would run from the bigger animals if they fought him.",
+   "simple": "\"It is a mystery,\" said the Lion. \"I suppose I was born that way. All the other animals in the forest naturally expect me to be brave, because the Lion is thought everywhere to be the King of Beasts. I learned that if I roared very loudly, every living thing was frightened and got out of my way. Whenever I have met a man I have been very scared. But I just roared at him, and he has always run away as fast as he could go. If the elephants and the tigers and the bears had ever tried to fight me, I should have run myself, because I am such a coward. But just as soon as they hear me roar, they all try to get away from me, and of course I let them go.\"",
+   "hardWords": [
+    "mystery",
+    "coward"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 7,
+   "context": "This was to be an eventful day for the travelers.",
+   "mainIdea": "The travelers come to a very wide, deep ditch with sharp rocks at the bottom. The sides are too steep to climb, so it seems that their journey must end.",
+   "simple": "This was to be a day full of events for the travelers. They had hardly been walking for an hour when they saw in front of them a great ditch. It crossed the road and cut the forest in two as far as they could see on either side. It was a very wide ditch, and when they crept up to the edge and looked into it, they could see that it was also very deep. There were many big, jagged rocks at the bottom. The sides were so steep that none of them could climb down, and for a moment it seemed that their journey must end.",
+   "hardWords": [
+    "ditch",
+    "jagged"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 45,
+   "context": "They now came upon more and more of the big scarlet poppies",
+   "mainIdea": "The friends walk into a big field of red poppies. The smell of these flowers puts people to sleep, and Dorothy does not know it, so she feels she must sit down and sleep.",
+   "simple": "Now they came on more and more of the big scarlet poppies, and fewer and fewer of the other flowers. Soon they found themselves in the middle of a great meadow of poppies. Now it is well known that when there are many of these flowers together, their smell is so strong that anyone who breathes it falls asleep. If the sleeper is not carried away from the smell of the flowers, he sleeps on and on forever. But Dorothy did not know this, and she could not get away from the bright red flowers that were everywhere about. So soon her eyes grew heavy, and she felt she must sit down to rest and to sleep.",
+   "hardWords": [
+    "poppies",
+    "odor",
+    "scent",
+    "presently"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 3,
+   "context": "The Tin Woodman was about to reply when he heard a low growl",
+   "mainIdea": "The Tin Woodman sees a Wildcat chase a little field mouse. He has no heart, but he knows it is wrong to kill such a harmless animal.",
+   "simple": "The Tin Woodman was about to answer when he heard a low growl. He turned his head, which worked very well on hinges, and saw a strange beast come bounding over the grass toward them. It was a great yellow Wildcat. The Woodman thought it must be chasing something, because its ears were lying close to its head and its mouth was wide open. It showed two rows of ugly teeth, and its red eyes glowed like balls of fire. As it came nearer, the Tin Woodman saw that a little gray field mouse was running in front of the beast. Although he had no heart, he knew it was wrong for the Wildcat to try to kill such a pretty, harmless creature.",
+   "hardWords": [
+    "hinges"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 26,
+   "context": "That is hard to tell,” said the man thoughtfully.",
+   "mainIdea": "The man says that Oz can take any form he wants, so people say different things about him. No living person can tell what Oz looks like in his own form.",
+   "simple": "\"That is hard to tell,\" said the man, thinking. \"You see, Oz is a Great Wizard, and can take any form he wishes. So some say he looks like a bird, and some say he looks like an elephant, and some say he looks like a cat. To others he looks like a beautiful fairy, or a brownie, or any other form that he likes. But who the real Oz is, when he is in his own form, no living person can tell.\"",
+   "hardWords": [
+    "brownie"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 55,
+   "context": "He opened the big box, and Dorothy saw that it was filled",
+   "mainIdea": "The Guardian puts green spectacles on Dorothy and locks them with a little key. She does not mind, because the glare of the Emerald City would hurt her eyes.",
+   "simple": "He opened the big box, and Dorothy saw that it was filled with spectacles of every size and shape. All of them had green glasses in them. The Guardian of the Gates found a pair that would just fit Dorothy and put them over her eyes. Two golden bands were fastened to them and passed around the back of her head. There they were locked together by a little key at the end of a chain that the Guardian of the Gates wore around his neck. When they were on, Dorothy could not take them off if she had wished. But of course she did not wish to be blinded by the glare of the Emerald City, so she said nothing.",
+   "hardWords": [
+    "spectacles",
+    "glare",
+    "guardian"
+   ]
+  },
+  {
+   "chapter": 13,
+   "paragraph": 2,
+   "context": "Even with eyes protected by the green spectacles",
+   "mainIdea": "The Emerald City is so bright that even with green spectacles the friends are dazzled. The houses, streets and windows are all green, and emeralds shine everywhere.",
+   "simple": "Dorothy and her friends had eyes protected by the green spectacles, but at first they were still dazzled by the brightness of the wonderful City. The streets were lined with beautiful houses, all built of green marble and covered everywhere with shining emeralds. They walked over a pavement of the same green marble. Where the blocks were joined together were rows of emeralds, set close together and shining in the brightness of the sun. The window panes were of green glass. Even the sky above the City had a green color, and the rays of the sun were green.",
+   "hardWords": [
+    "dazzled",
+    "brilliancy",
+    "studded",
+    "pavement",
+    "tint"
+   ]
+  },
+  {
+   "chapter": 13,
+   "paragraph": 15,
+   "context": "So Dorothy said goodbye to all her friends except Toto",
+   "mainIdea": "Dorothy says goodbye to her friends and goes with the green girl to a sweet little room at the front of the Palace. It has a soft bed with green silk sheets, a green fountain that sprays green perfume, green flowers, and green books with funny pictures.",
+   "simple": "So Dorothy said goodbye to all her friends except Toto. She took the dog in her arms and followed the green girl through seven passages and up three flights of stairs, until they came to a room at the front of the Palace. It was the sweetest little room in the world. It had a soft, comfortable bed with sheets of green silk and a green velvet cover. There was a tiny fountain in the middle of the room that sent a spray of green perfume into the air, to fall back into a beautifully carved green marble basin. Beautiful green flowers stood in the windows, and there was a shelf with a row of little green books. When Dorothy had time to open these books, she found them full of strange green pictures that made her laugh, because they were so funny.",
+   "hardWords": [
+    "counterpane"
+   ]
+  },
+  {
+   "chapter": 13,
+   "paragraph": 70,
+   "context": "But when the Woodman entered the great Throne Room",
+   "mainIdea": "Oz shows himself to the Tin Woodman as a terrible Beast with five eyes, five arms and five legs. The Woodman is not afraid, because he is made of tin and has no heart.",
+   "simple": "When the Woodman went into the great Throne Room, he saw neither the Head nor the Lady, because Oz had taken the shape of a most terrible Beast. It was nearly as big as an elephant, and the green throne seemed hardly strong enough to hold its weight. The Beast had a head like that of a rhinoceros, but there were five eyes in its face. There were five long arms growing out of its body, and it also had five long, thin legs. Thick, woolly hair covered every part of it. A more frightening monster could not be imagined. It was lucky that the Tin Woodman had no heart at that moment, because it would have beat loud and fast from fear. But he was only tin, so he was not at all afraid, although he was very disappointed.",
+   "hardWords": [
+    "rhinoceros",
+    "dreadful",
+    "fortunate",
+    "terror"
+   ]
+  },
+  {
+   "chapter": 14,
+   "paragraph": 40,
+   "context": "There was, in her cupboard, a Golden Cap, with a circle of diamonds",
+   "mainIdea": "The Witch has a Golden Cap that lets her call the Winged Monkeys three times. She has used it twice, so only one use is left, and she keeps it for her last chance to destroy Dorothy.",
+   "simple": "In her cupboard there was a Golden Cap, with a circle of diamonds and rubies running round it. This Golden Cap had a charm. Whoever owned it could call three times on the Winged Monkeys, who would obey any order they were given. But no person could command these strange creatures more than three times. The Wicked Witch had already used the charm of the Cap twice. The first time was when she made the Winkies her slaves and set herself to rule over their country. The Winged Monkeys had helped her do this. The second time was when she had fought against the Great Oz himself and driven him out of the land of the West. The Winged Monkeys had also helped her in doing this. She could use this Golden Cap only once more, and for this reason she did not like to do so until all her other powers were used up. But now her fierce wolves and her wild crows and her stinging bees were gone, and her slaves had been scared away by the Cowardly Lion. She saw that there was only one way left to destroy Dorothy and her friends.",
+   "hardWords": [
+    "charm",
+    "commanded",
+    "exhausted"
+   ]
+  },
+  {
+   "chapter": 14,
+   "paragraph": 71,
+   "context": "But the wicked creature was very cunning",
+   "mainIdea": "The Witch puts an invisible iron bar on the floor. Dorothy falls over it, and the Witch takes one of the Silver Shoes.",
+   "simple": "But the wicked creature was very clever in a bad way, and at last she thought of a trick that would give her what she wanted. She put a bar of iron in the middle of the kitchen floor, and then by her magic made the iron so that human eyes could not see it. So when Dorothy walked across the floor, she fell over the bar, because she could not see it, and fell flat on the floor. She was not much hurt, but in her fall one of the Silver Shoes came off. Before she could reach it, the Witch took it quickly and put it on her own thin foot.",
+   "hardWords": [
+    "cunning",
+    "invisible",
+    "snatched",
+    "skinny"
+   ]
+  },
+  {
+   "chapter": 15,
+   "paragraph": 12,
+   "context": "The tinsmiths looked the Woodman over carefully",
+   "mainIdea": "The tinsmiths mend the Tin Woodman in three days and four nights. He has some patches, but he does not mind, because he is not a vain man.",
+   "simple": "The tinsmiths looked the Woodman over carefully and then said that they thought they could mend him so that he would be as good as ever. So they began work in one of the big yellow rooms of the castle. They worked for three days and four nights, hammering and twisting and bending and soldering and polishing and pounding at the legs and body and head of the Tin Woodman. At last he was straightened out into his old form, and his joints worked as well as ever. It is true that there were several patches on him, but the tinsmiths did a good job. The Woodman was not a vain man, so he did not mind the patches at all.",
+   "hardWords": [
+    "tinsmiths",
+    "soldering",
+    "vain"
+   ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 35,
+   "context": "There lived here then, away at the North, a beautiful princess",
+   "mainIdea": "A Winged Monkey tells a story about a powerful, good sorceress named Gayelette. She wanted to marry a wise boy named Quelala, and she used all her magic to make him strong and good.",
+   "simple": "The Winged Monkey says, \"A beautiful princess, who was also a powerful sorceress, lived here then, away in the North. All her magic was used to help the people, and she was never known to hurt anyone who was good. Her name was Gayelette, and she lived in a handsome palace built from great blocks of ruby. Everyone loved her, but her greatest sorrow was that she could find no one to love in return, because all the men were much too stupid and ugly to marry one so beautiful and wise. At last, however, she found a boy who was handsome and manly and wise beyond his years. Gayelette decided that when he grew to be a man she would make him her husband. So she took him to her ruby palace and used all her magic powers to make him as strong and good and lovely as any woman could wish. When he grew to manhood, Quelala, as he was called, was said to be the best and wisest man in all the land. His manly beauty was so great that Gayelette loved him dearly, and went fast to make everything ready for the wedding.\"",
+   "hardWords": [
+    "sorceress",
+    "palace",
+    "handsome",
+    "manly",
+    "hastened"
+   ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 36,
+   "context": "My grandfather was at that time the King of the Winged Monkeys",
+   "mainIdea": "The monkey's grandfather, the King of the Winged Monkeys, loved jokes. Just before the wedding, he and his band dropped Quelala into the river.",
+   "simple": "The Winged Monkey says, \"My grandfather was at that time the King of the Winged Monkeys who lived in the forest near Gayelette's palace. The old fellow loved a joke better than a good dinner. One day, just before the wedding, my grandfather was flying out with his band. He saw Quelala walking beside the river. Quelala was dressed in a rich costume of pink silk and purple velvet, and my grandfather thought he would see what he could do. At his word the band flew down and took hold of Quelala. They carried him in their arms until they were over the middle of the river, and then dropped him into the water.\"",
+   "hardWords": [
+    "fellow",
+    "velvet",
+    "seized"
+   ]
+  },
+  {
+   "chapter": 17,
+   "paragraph": 59,
+   "context": "Oh, I am a ventriloquist,” said the little man.",
+   "mainIdea": "The little man says that he is a ventriloquist, so he could make his voice come from the Head. He shows the things he used to trick them: a dress, a mask, skins sewn together, and a ball of cotton.",
+   "simple": "\"Oh, I am a ventriloquist,\" said the little man. \"I can throw the sound of my voice wherever I wish, so that you thought it was coming out of the Head. Here are the other things I used to trick you.\" He showed the Scarecrow the dress and the mask that he had worn when he seemed to be the lovely Lady. The Tin Woodman saw that his terrible Beast was only a lot of skins, sewn together, with slats to keep their sides out. As for the Ball of Fire, the false Wizard had hung that also from the ceiling. It was really a ball of cotton, but when oil was poured on it, the ball burned fiercely.",
+   "hardWords": [
+    "ventriloquist",
+    "deceive",
+    "slats"
+   ]
+  },
+  {
+   "chapter": 17,
+   "paragraph": 71,
+   "context": "Just to amuse myself, and keep the good people busy",
+   "mainIdea": "Oz says that he had the people build the City just for fun. He called it the Emerald City and gave them green spectacles so that everything they saw was green.",
+   "simple": "The Wizard says, \"Just to have some fun, and to keep the good people busy, I told them to build this City and my Palace. They did it all willingly and well. Then I thought that the country was so green and beautiful that I would call it the Emerald City. To make the name fit better, I put green spectacles on all the people, so that everything they saw was green.\"",
+   "hardWords": [
+    "amuse",
+    "spectacles"
+   ]
+  },
+  {
+   "chapter": 18,
+   "paragraph": 11,
+   "context": "So the Wizard unfastened his head and emptied out the straw.",
+   "mainIdea": "The Wizard takes out the straw from the Scarecrow's head and puts in bran mixed with many pins and needles. Then he fills the rest of the space with straw.",
+   "simple": "So the Wizard took off the Scarecrow's head and emptied out the straw. Then he went into the back room and took a measure of bran, which he mixed with a great many pins and needles. He shook them together well, and filled the top of the Scarecrow's head with the mixture. He stuffed the rest of the space with straw, to keep it in place.",
+   "hardWords": [
+    "bran",
+    "needles",
+    "thoroughly"
+   ]
+  },
+  {
+   "chapter": 18,
+   "paragraph": 23,
+   "context": "So Oz brought a pair of tinsmith’s shears and cut a small",
+   "mainIdea": "Oz cuts a small, square hole in the left side of the Tin Woodman's chest. He takes a pretty heart, made all of silk and stuffed with sawdust, out of a chest of drawers.",
+   "simple": "So Oz brought a pair of tinsmith's shears and cut a small, square hole in the left side of the Tin Woodman's breast. Then he went to a chest of drawers and took out a pretty heart. It was made all of silk and stuffed with sawdust.",
+   "hardWords": [
+    "shears",
+    "tinsmith",
+    "sawdust"
+   ]
+  },
+  {
+   "chapter": 19,
+   "paragraph": 22,
+   "context": "Oz ordered the balloon carried out in front of the Palace",
+   "mainIdea": "Oz has the balloon carried out in front of the Palace. The Tin Woodman makes a fire, and Oz holds the bottom of the balloon over it, so that hot air fills the silk bag and the balloon rises.",
+   "simple": "Oz told them to carry the balloon out in front of the Palace, and the people looked at it with great interest. The Tin Woodman had chopped a big pile of wood, and now he made a fire of it. Oz held the bottom of the balloon over the fire so that the hot air that came up from it would be caught in the silk bag. Slowly the balloon swelled out and rose into the air, until at last the basket just touched the ground.",
+   "hardWords": [
+    "curiosity",
+    "gradually",
+    "swelled"
+   ]
+  },
+  {
+   "chapter": 20,
+   "paragraph": 6,
+   "context": "The Scarecrow was now the ruler of the Emerald City",
+   "mainIdea": "The Scarecrow is now the ruler of the Emerald City. The people are proud of him, because no other city in the world is ruled by a stuffed man.",
+   "simple": "The Scarecrow was now the ruler of the Emerald City, and although he was not a Wizard, the people were proud of him. \"For,\" they said, \"there is not another city in all the world that is ruled by a stuffed man.\" And as far as they knew, they were quite right.",
+   "hardWords": [
+    "stuffed"
+   ]
+  },
+  {
+   "chapter": 21,
+   "paragraph": 17,
+   "context": "The Scarecrow, who was in the lead, finally discovered a big tree",
+   "mainIdea": "The Scarecrow walks under a big tree with wide branches. The branches bend down, hold him and throw him among the other travelers.",
+   "simple": "The Scarecrow, who was in the lead, at last found a big tree with such wide-spreading branches that there was room for the party to pass under it. So he walked forward to the tree, but just as he came under the first branches, they bent down and turned around him. The next minute he was lifted from the ground and thrown head first among his fellow travelers.",
+   "hardWords": [
+    "twined",
+    "headlong",
+    "flung"
+   ]
+  },
+  {
+   "chapter": 22,
+   "paragraph": 12,
+   "context": "But the strangest of all were the people who lived in this queer country.",
+   "mainIdea": "The people in the china country are the strangest. They are milkmaids, shepherdesses, princesses, shepherds, princes and clowns in bright clothes. All of them are made of china, and the tallest is no higher than Dorothy's knee.",
+   "simple": "But the strangest of all were the people who lived in this strange country. There were milkmaids and shepherdesses, with brightly colored bodices and golden spots all over their gowns. There were princesses with most beautiful frocks of silver and gold and purple. There were shepherds dressed in knee breeches with pink and yellow and blue stripes down them, and golden buckles on their shoes. There were princes with crowns of jewels on their heads, wearing ermine robes and satin doublets. There were funny clowns in ruffled gowns, with round red spots on their cheeks and tall, pointed caps. And strangest of all, these people were all made of china, even to their clothes, and were so small that the tallest of them was no higher than Dorothy's knee.",
+   "hardWords": [
+    "milkmaids",
+    "shepherdesses",
+    "bodices",
+    "breeches",
+    "buckles",
+    "ermine",
+    "doublets",
+    "ruffled"
+   ]
+  },
+  {
+   "chapter": 22,
+   "paragraph": 40,
+   "context": "That would make me very unhappy,” answered the china Princess.",
+   "mainIdea": "The china Princess says that she would be unhappy in Dorothy's world. In their own country the china people can move and talk. If they are taken away, their joints become stiff and they can only stand and look pretty.",
+   "simple": "\"That would make me very unhappy,\" said the china Princess. \"You see, here in our country we live happily, and can talk and move around as we like. But whenever any of us are taken away, our joints at once become stiff, and we can only stand straight and look pretty. Of course that is all that is expected of us when we are on mantels and cabinets and drawing-room tables. But our lives are much nicer here in our own country.\"",
+   "hardWords": [
+    "contentedly",
+    "stiffen",
+    "cabinets"
+   ]
+  },
+  {
+   "chapter": 23,
+   "paragraph": 23,
+   "context": "The great spider was lying asleep when the Lion found him",
+   "mainIdea": "The Lion finds the great spider asleep. He sees that its head is joined to its body by a very thin neck, so he jumps on its back and knocks its head off with one blow of his paw.",
+   "simple": "The great spider was lying asleep when the Lion found him, and it looked so ugly that its foe turned up his nose in disgust. Its legs were as long as the tiger had said, and its body was covered with rough black hair. It had a great mouth, with a row of sharp teeth a foot long. But its head was joined to its fat body by a neck as thin as a wasp's waist. This gave the Lion a hint of the best way to attack the creature. He knew it was easier to fight it asleep than awake, so he gave a great spring and landed right on the monster's back. Then, with one blow of his heavy paw, with all its sharp claws, he knocked the spider's head from its body. He jumped down and watched it until the long legs stopped moving, and then he knew it was quite dead.",
+   "hardWords": [
+    "foe",
+    "disgust",
+    "coarse",
+    "pudgy",
+    "slender",
+    "wasp",
+    "spring",
+    "paw",
+    "wiggling"
+   ]
+  },
+  {
+   "chapter": 24,
+   "paragraph": 9,
+   "context": "He was quite short and stout and had a big head",
+   "mainIdea": "The man of the hill is short and stout, with a big, flat head and a thick, wrinkled neck, but he has no arms. The Scarecrow thinks that such a helpless man cannot stop them, and he walks boldly forward.",
+   "simple": "The man was quite short and stout and had a big head. The head was flat at the top and held up by a thick neck full of wrinkles. But he had no arms at all. Seeing this, the Scarecrow did not fear that so helpless a creature could stop them from climbing the hill. So he said, \"I am sorry not to do as you wish, but we must pass over your hill whether you like it or not.\" And he walked boldly forward.",
+   "hardWords": [
+    "stout",
+    "wrinkles",
+    "boldly"
+   ]
+  },
+  {
+   "chapter": 24,
+   "paragraph": 10,
+   "context": "As quick as lightning the man’s head shot forward",
+   "mainIdea": "The man's head shoots forward on its long neck, hits the Scarecrow in the middle and sends him rolling down the hill. Then the head goes back to the body and the man laughs and says that it is not as easy as the Scarecrow thinks.",
+   "simple": "As quick as lightning, the man's head shot forward, and his neck stretched out until the top of the head, where it was flat, hit the Scarecrow in the middle and sent him rolling over and over down the hill. Almost as quickly as it came, the head went back to the body, and the man laughed in a hard way as he said, \"It is not as easy as you think!\"",
+   "hardWords": [
+    "harshly"
+   ]
+  },
+  {
+   "chapter": 25,
+   "paragraph": 30,
+   "context": "The Silver Shoes,” said the Good Witch, “have wonderful powers.",
+   "mainIdea": "The Good Witch says that the Silver Shoes can carry Dorothy to any place in the world in three steps, each as fast as the wink of an eye. She only has to knock the heels together three times and tell the shoes where to go.",
+   "simple": "\"The Silver Shoes,\" said the Good Witch, \"have wonderful powers. One of the strangest things about them is that they can carry you to any place in the world in three steps, and each step will be made in the wink of an eye. All you have to do is to knock the heels together three times and tell the shoes to carry you wherever you wish to go.\"",
+   "hardWords": [
+    "curious",
+    "command"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 3,
+   "context": "Not a tree nor a house broke the broad sweep of flat country",
+   "simple": "Not one tree and not one house broke the wide, flat land.",
+   "grammar": "'Not a tree nor a house' starts the sentence, so the verb 'broke' comes right after it. 'Not ... nor ...' means 'neither ... nor ...': not one thing, and not the other."
+  },
+  {
+   "chapter": 4,
+   "context": "nor was it dark, for the bright sunshine came in at the window",
+   "simple": "It was not dark either, because the bright sunshine came in at the window.",
+   "grammar": "'Nor' at the start of a clause turns the verb and subject round ('nor was it' not 'nor it was'). It adds one more thing that was not true: the house was not moving, and it was not dark."
+  },
+  {
+   "chapter": 4,
+   "context": "they were, so far as looks go, many years older",
+   "simple": "As far as how they looked, they were many years older than Dorothy.",
+   "grammar": "'So far as looks go' is a short phrase that means 'if you judge by how they look'. It is put between commas in the middle of the sentence."
+  },
+  {
+   "chapter": 4,
+   "context": "I am not as powerful as the Wicked Witch was who ruled here",
+   "simple": "She says she is not as strong as the Wicked Witch who ruled here. If she were, she would have set the people free herself.",
+   "grammar": "'Not as ... as ...' compares two things that are not equal. 'Or' here means 'if that were not true'. 'I should have set' means 'I would have set' and tells what she would have done."
+  },
+  {
+   "chapter": 4,
+   "context": "Whether he is a man or not I cannot tell",
+   "simple": "I cannot say if he is a man or not.",
+   "grammar": "'Whether ... or not' is a noun clause that is the object of 'cannot tell'. It is put first in the sentence for strong effect; the usual order is 'I cannot tell whether he is a man or not'."
+  },
+  {
+   "chapter": 5,
+   "context": "began to wonder where she should pass the night",
+   "simple": "She started to ask herself where she could spend the night.",
+   "grammar": "'Where she should pass the night' is an indirect question after 'wonder'. It uses the order 'subject + verb' (where she should pass), not a question order. 'Should' here asks what is the best thing to do."
+  },
+  {
+   "chapter": 5,
+   "context": "such as every man wore in this country",
+   "simple": "They were the kind of boots that every man in this country wore.",
+   "grammar": "'Such as' brings in an example of a kind: 'boots such as every man wore' means 'the kind of boots that every man wore'. 'Wore' is the past simple of 'wear'."
+  },
+  {
+   "chapter": 6,
+   "context": "the farther they went the more dismal and lonesome the country became",
+   "simple": "The more they went on, the sadder and lonelier the country was.",
+   "grammar": "'The + comparative ..., the + comparative ...' shows that two things change together: 'the farther ..., the more dismal ...'. When one grows, the other grows too."
+  },
+  {
+   "chapter": 6,
+   "context": "in any other country, be it ever so beautiful",
+   "simple": "Even if another country is very beautiful, people like Dorothy would still choose home.",
+   "grammar": "'Be it ever so beautiful' is an old way to say 'even if it is very beautiful'. The verb 'be' comes first, with no 'if', to make a condition. We now say 'however beautiful it is'."
+  },
+  {
+   "chapter": 6,
+   "context": "If it required brains to figure it out, I never should have said it",
+   "simple": "If you needed brains to work it out, I would never have said it.",
+   "grammar": "This is a mixed conditional: 'If it required' uses the past form, and 'I never should have said' looks at what was done. 'Should have said' here means 'would have said'."
+  },
+  {
+   "chapter": 6,
+   "context": "having in this world, no matter whether one is a crow or a man",
+   "simple": "Brains are the only things worth having in this world, whether you are a crow or a man.",
+   "grammar": "'No matter whether ... or ...' means 'it makes no difference if it is this or that'. 'Worth having' is 'worth' + the -ing form: a thing that is good to have."
+  },
+  {
+   "chapter": 7,
+   "context": "But no one can love who has not a heart",
+   "simple": "Only a person who has a heart can love.",
+   "grammar": "'Who has not a heart' is an old way to say 'who does not have a heart'; there is no 'do' with 'not'. The 'who' clause tells us which person cannot love: one who has no heart."
+  },
+  {
+   "chapter": 7,
+   "context": "if I should get caught in the rain, and rust again, I would need",
+   "simple": "If I get caught in the rain and rust again, I will need the oilcan very much.",
+   "grammar": "'If I should get caught' is a polite, less sure way to say 'if I get caught'. 'Should' after 'if' shows that this may happen, but he thinks it is not likely. 'Get caught' uses 'get' with a past participle to mean 'become'."
+  },
+  {
+   "chapter": 7,
+   "context": "I little knew how cruel my enemy could be",
+   "simple": "I did not know at all how cruel my enemy could be.",
+   "grammar": "'Little' put before the verb means 'not at all' or 'hardly', in an old-fashioned way. 'I little knew' is the same as 'I did not know'. 'How cruel my enemy could be' is a noun clause."
+  },
+  {
+   "chapter": 7,
+   "context": "but, nothing daunted, I had them replaced with tin ones",
+   "simple": "But I was not afraid, and I had new arms made of tin put on in their place.",
+   "grammar": "'Nothing daunted' is a short phrase that means 'not made afraid at all'. 'I had them replaced' is 'have + object + past participle': someone else did the work for me."
+  },
+  {
+   "chapter": 8,
+   "context": "If the elephants and the tigers and the bears had ever tried to fight",
+   "simple": "If the elephants, the tigers or the bears had ever tried to fight me, I would have run away.",
+   "grammar": "This is a third conditional sentence: 'If + had + past participle' ..., 'I should have run' (in the next part). It is about the past and about something that did not happen."
+  },
+  {
+   "chapter": 8,
+   "context": "if I had no heart I should not be a coward",
+   "simple": "If I had no heart, I would not be a coward.",
+   "grammar": "This is a second conditional sentence: 'If + past simple, should/would + verb'. It is about something that is not true now. 'Should' with 'I' is an old-fashioned way to say 'would'."
+  },
+  {
+   "chapter": 9,
+   "context": "so sharp was his axe that the tree was soon chopped nearly through",
+   "simple": "His axe was so sharp that the tree was soon cut nearly through.",
+   "grammar": "The words 'so sharp' come first, so the verb 'was' comes before the subject 'his axe'. The usual order is 'his axe was so sharp that ...'. 'So ... that ...' shows a result."
+  },
+  {
+   "chapter": 9,
+   "context": "he gave so loud and terrible a roar that Dorothy screamed",
+   "simple": "He gave such a loud and terrible roar that Dorothy screamed.",
+   "grammar": "'So + adjective + a + noun + that ...' is another way to say 'such a + adjective + noun + that ...'. The 'a' comes after the adjectives. It shows the result."
+  },
+  {
+   "chapter": 9,
+   "context": "“I haven’t the faintest idea,” said the Tin Woodman",
+   "simple": "I have no idea at all.",
+   "grammar": "'Haven't the faintest idea' uses 'have' without 'do', which is an old British way to say 'I do not have'. 'The faintest' is a superlative that means 'the least'. So it means 'no idea at all'."
+  },
+  {
+   "chapter": 10,
+   "context": "had they not felt so sorry for the poor Scarecrow, they could have been",
+   "simple": "If they had not felt so sorry for the poor Scarecrow, they could have been very happy.",
+   "grammar": "'Had they not felt' starts with 'had' instead of 'if', and so it means 'if they had not felt'. This is the third conditional: it is about the past. The result is 'could have been'."
+  },
+  {
+   "chapter": 11,
+   "context": "would have bitten him had he not known very well",
+   "simple": "Toto would have bitten him if he had not known very well that the Woodman was made of tin.",
+   "grammar": "'Had he not known' means 'if he had not known'. The 'if' is left out and 'had' is put before the subject. The result part is 'would have bitten', a third conditional."
+  },
+  {
+   "chapter": 11,
+   "context": "many though they were, could hardly stir the heavily loaded truck",
+   "simple": "Even though there were many mice, they could hardly move the truck full of heavy things.",
+   "grammar": "'Many though they were' means 'although they were many'. 'Though' comes after the adjective, and the adjective goes first. 'Could hardly' means 'could only just'."
+  },
+  {
+   "chapter": 11,
+   "context": "lest he should run after her and frighten her",
+   "simple": "Dorothy held Toto so that he would not run after the Queen and frighten her.",
+   "grammar": "'Lest' means 'so that ... not' or 'for fear that'. It is a formal, old word. The verb after it is 'should + verb': 'lest he should run'. It gives a reason for the action in the first part."
+  },
+  {
+   "chapter": 12,
+   "context": "When they were on, Dorothy could not take them off had she wished",
+   "simple": "When the spectacles were on, Dorothy could not take them off, even if she had wanted to.",
+   "grammar": "'Had she wished' means 'if she had wished'. The word 'if' is left out and 'had' goes before 'she'. It is a third conditional that is put at the end of the sentence."
+  },
+  {
+   "chapter": 13,
+   "context": "It was fortunate the Tin Woodman had no heart at that moment",
+   "simple": "It was lucky that the Tin Woodman had no heart at that moment, because it would have beat loud and fast from fear.",
+   "grammar": "The sentence is 'It was fortunate (that) the Tin Woodman had no heart ...'. The word 'that' is left out. 'It' is an empty subject, and the real idea is in the clause after 'fortunate'."
+  },
+  {
+   "chapter": 13,
+   "context": "But being only tin, the Woodman was not at all afraid",
+   "simple": "But the Woodman was made only of tin, so he was not afraid at all.",
+   "grammar": "'Being only tin' is a participle phrase at the start. It gives a reason and means 'because he was only tin'. The subject of 'being' is the same as the subject of the main clause: the Woodman."
+  },
+  {
+   "chapter": 13,
+   "context": "If he is a Beast when I go to see him, I shall roar",
+   "simple": "If he is a Beast when I go to see him, I will roar as loud as I can.",
+   "grammar": "This is a first conditional sentence: 'If + present simple, shall + verb'. 'Shall' with 'I' is an old-fashioned way to say 'will'. 'My loudest' means 'as loud as I can'."
+  },
+  {
+   "chapter": 14,
+   "context": "neither the Winged Monkeys nor she, herself, dare hurt the girl in any way",
+   "simple": "The Witch knew well that neither the Winged Monkeys nor she herself dared to hurt the girl.",
+   "grammar": "'Neither ... nor ...' links two subjects, and the verb is 'dare', with no -s. 'Dare' here is used like a modal verb, followed by 'hurt' with no 'to'. 'Herself' makes 'she' stronger."
+  },
+  {
+   "chapter": 14,
+   "context": "he lay so battered and dented that he could neither move nor groan",
+   "simple": "He lay so hurt and bent out of shape that he could not move and could not make a sound.",
+   "grammar": "'So ... that ...' shows a result. 'Could neither move nor groan' uses 'neither ... nor ...' with two verbs, and it means he could not do either one."
+  },
+  {
+   "chapter": 16,
+   "context": "owner of the Golden Cap, whosoever he may be",
+   "simple": "Whoever the owner of the Golden Cap is, the Monkeys are his slaves three times.",
+   "grammar": "'Whosoever' is an old, formal word for 'whoever'. 'May be' here shows that we do not know who it is. The clause says it does not matter who it is."
+  },
+  {
+   "chapter": 17,
+   "context": "had they not thought I was more powerful than they themselves",
+   "simple": "If the two Witches had not thought I was stronger than they were, they would have destroyed me.",
+   "grammar": "'Had they not thought' means 'if they had not thought'. 'More powerful than they themselves' is a comparison, and 'themselves' makes 'they' stronger. The result part is 'they would surely have destroyed me'."
+  },
+  {
+   "chapter": 17,
+   "context": "the longer you are on earth the more experience you are sure to get",
+   "simple": "The longer you live, the more experience you will get.",
+   "grammar": "'The + comparative ..., the + comparative ...' shows that two things grow together: 'the longer you are ..., the more experience ...'. 'Are sure to get' means you will certainly get."
+  },
+  {
+   "chapter": 17,
+   "context": "I should never be found out",
+   "simple": "I thought that I would never be found out.",
+   "grammar": "'I thought I should never be found out' is reported thought in the past. 'Should' is used like 'would' for 'I'. 'Be found out' is a passive verb that means 'be discovered'."
+  },
+  {
+   "chapter": 20,
+   "context": "If it wasn’t for Dorothy I should never have had brains",
+   "simple": "If Dorothy had not helped me, I would never have had brains.",
+   "grammar": "'If it wasn't for Dorothy' means 'without Dorothy'. 'I should never have had' means 'I would never have had', and it is about the past."
+  },
+  {
+   "chapter": 22,
+   "context": "I cannot think why this wall is here, nor what it is made of",
+   "simple": "I cannot think why this wall is here, and I cannot think what it is made of.",
+   "grammar": "'Why this wall is here' and 'what it is made of' are noun clauses after 'think'. 'Nor' adds a second thing that is also not known. 'Made of' tells us what stuff it is."
+  },
+  {
+   "chapter": 24,
+   "context": "It is useless to fight people with shooting heads; no one can withstand them",
+   "simple": "It is no use to fight people with shooting heads. No one can stand against them.",
+   "grammar": "'It is useless to fight' uses an empty 'it' as the subject; the real subject is 'to fight people'. 'Withstand' is a verb that means 'stand against'. The two parts are joined with a semicolon."
+  }
+ ],
+ "phrases": {
+  "get over": {
+   "meaning": "To go across or past something, such as a hill. It can also mean to stop feeling bad about something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "gets over",
+    "got over",
+    "getting over"
+   ],
+   "example": "we must get over the hill"
+  },
+  "set to work": {
+   "meaning": "To begin to work.",
+   "pos": "idiom",
+   "forms": [
+    "sets to work",
+    "setting to work"
+   ],
+   "example": "the Tin Woodman set to work with his axe"
+  },
+  "make up one's mind": {
+   "meaning": "To decide.",
+   "pos": "idiom",
+   "forms": [
+    "made up my mind",
+    "made up her mind",
+    "makes up his mind"
+   ],
+   "example": "I made up my mind that instead of living alone"
+  },
+  "in spite of": {
+   "meaning": "Even though something is true; not stopped by something.",
+   "pos": "phrase",
+   "example": "in spite of the many years she has lived"
+  },
+  "keep away": {
+   "meaning": "To stay far from someone or something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "keeps away",
+    "kept away",
+    "keeping away"
+   ],
+   "example": "It is better for people to keep away from Oz"
+  },
+  "look after": {
+   "meaning": "To take care of someone or something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "looks after",
+    "looked after",
+    "looking after"
+   ],
+   "example": "I’ll go look after the stock"
+  },
+  "pass the night": {
+   "meaning": "To spend the night in a place.",
+   "pos": "idiom",
+   "forms": [
+    "passes the night",
+    "passed the night",
+    "passing the night"
+   ],
+   "example": "where she should pass the night"
+  },
+  "take care of": {
+   "meaning": "To look after someone; to make sure someone is safe.",
+   "pos": "idiom",
+   "forms": [
+    "takes care of",
+    "took care of",
+    "taking care of"
+   ],
+   "example": "how to take care of ourselves"
+  },
+  "take care to": {
+   "meaning": "To be careful to do something.",
+   "pos": "idiom",
+   "forms": [
+    "took care to",
+    "takes care to"
+   ],
+   "example": "took care to oil myself whenever I needed it"
+  },
+  "no matter": {
+   "meaning": "It does not change anything; it is not important.",
+   "pos": "idiom",
+   "example": "no matter whether one is a crow or a man"
+  },
+  "by and by": {
+   "meaning": "After a short time; soon.",
+   "pos": "idiom",
+   "example": "by and by they were drawn out of the current"
+  },
+  "on and on": {
+   "meaning": "Without stopping; for a very long time.",
+   "pos": "idiom",
+   "example": "he sleeps on and on forever"
+  },
+  "turn back": {
+   "meaning": "To go back the way you came.",
+   "pos": "phrasal verb",
+   "forms": [
+    "turned back",
+    "turns back",
+    "turning back"
+   ],
+   "example": "she bravely resolved not to turn back"
+  },
+  "put on": {
+   "meaning": "To place clothes or other things on your body.",
+   "pos": "phrasal verb",
+   "forms": [
+    "puts on",
+    "put on",
+    "putting on"
+   ],
+   "example": "you must put on the spectacles"
+  },
+  "fall asleep": {
+   "meaning": "To start sleeping.",
+   "pos": "idiom",
+   "forms": [
+    "falls asleep",
+    "fell asleep",
+    "falling asleep"
+   ],
+   "example": "if you should fall asleep you are too big to be carried"
+  },
+  "fast asleep": {
+   "meaning": "Sleeping very deeply.",
+   "pos": "phrase",
+   "example": "fell among the poppies, fast asleep"
+  },
+  "come along": {
+   "meaning": "To come to a place; to happen to be there.",
+   "pos": "phrasal verb",
+   "forms": [
+    "comes along",
+    "came along",
+    "coming along"
+   ],
+   "example": "the tinsmith happened to come along"
+  },
+  "set off": {
+   "meaning": "To start to go somewhere.",
+   "pos": "phrasal verb",
+   "forms": [
+    "sets off",
+    "setting off"
+   ],
+   "example": "the little company set off upon the journey"
+  },
+  "set free": {
+   "meaning": "To let someone go; to make someone free.",
+   "pos": "phrasal verb",
+   "forms": [
+    "sets free",
+    "setting free"
+   ],
+   "example": "they are all set free"
+  },
+  "all the same": {
+   "meaning": "Even so; it makes no difference.",
+   "pos": "idiom",
+   "example": "All the same,” said the Scarecrow"
+  },
+  "take pains": {
+   "meaning": "To be very careful or to work hard to do something.",
+   "pos": "idiom",
+   "forms": [
+    "took pains",
+    "takes pains"
+   ],
+   "example": "they took pains not to light on his head"
+  },
+  "in the midst of": {
+   "meaning": "In the middle of something.",
+   "pos": "phrase",
+   "example": "in the midst of the great Kansas prairies"
+  },
+  "get out of": {
+   "meaning": "To leave a place; to get away from something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "gets out of",
+    "got out of",
+    "getting out of"
+   ],
+   "example": "to get out of the forest"
+  },
+  "lie down": {
+   "meaning": "To put your body flat on a bed or the ground.",
+   "pos": "phrasal verb",
+   "forms": [
+    "lies down",
+    "lay down",
+    "lying down"
+   ],
+   "example": "lie down beside me"
+  },
+  "used to": {
+   "meaning": "Having done something many times so that it is easy for you (used with 'be').",
+   "pos": "phrase",
+   "example": "once I was used to it"
+  },
+  "get along": {
+   "meaning": "To move forward; to do well enough.",
+   "pos": "phrasal verb",
+   "forms": [
+    "gets along",
+    "got along",
+    "getting along"
+   ],
+   "example": "managed to get along fairly well"
+  },
+  "find out": {
+   "meaning": "To learn a fact that you did not know.",
+   "pos": "phrasal verb",
+   "forms": [
+    "finds out",
+    "found out",
+    "finding out"
+   ],
+   "example": "find out whether he kept his promises"
+  },
+  "look for": {
+   "meaning": "To try to find something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "looks for",
+    "looked for",
+    "looking for"
+   ],
+   "example": "they looked for the place where it would be easiest"
+  },
+  "go on": {
+   "meaning": "To keep doing something; to continue.",
+   "pos": "phrasal verb",
+   "forms": [
+    "goes on",
+    "went on",
+    "going on"
+   ],
+   "example": "went on eating her bread"
+  },
+  "keep on": {
+   "meaning": "To continue to go or to do something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "keeps on",
+    "kept on",
+    "keeping on"
+   ],
+   "example": "we can keep on to the Emerald City"
+  },
+  "to be sure": {
+   "meaning": "It is true that; certainly (used before a 'but' idea).",
+   "pos": "idiom",
+   "example": "To be sure, neither the Woodman nor the Scarecrow ever ate anything"
+  },
+  "one after the other": {
+   "meaning": "First one, and then the next one.",
+   "pos": "idiom",
+   "example": "cut off my arms, one after the other"
+  },
+  "once in a while": {
+   "meaning": "Sometimes, but not often.",
+   "pos": "idiom",
+   "example": "Once in a while she would pass a house"
+  },
+  "run away": {
+   "meaning": "To leave a place fast, often because of fear.",
+   "pos": "phrasal verb",
+   "forms": [
+    "runs away",
+    "ran away",
+    "running away"
+   ],
+   "example": "he has always run away as fast as he could go"
+  },
+  "a great deal": {
+   "meaning": "A large amount.",
+   "pos": "phrase",
+   "example": "with a great deal of curiosity"
+  },
+  "after all": {
+   "meaning": "Even if what was said or thought before was different.",
+   "pos": "idiom",
+   "example": "not such a good Scarecrow after all"
+  },
+  "so as to": {
+   "meaning": "In order to; for the purpose of.",
+   "pos": "phrase",
+   "example": "so as to draw a crowd of people together"
+  },
+  "instead of": {
+   "meaning": "In the place of something else.",
+   "pos": "phrase",
+   "example": "instead of living alone I would marry"
+  },
+  "in front of": {
+   "meaning": "Before something; at the front of something.",
+   "pos": "phrase",
+   "example": "in front of the Palace"
+  },
+  "for fear of": {
+   "meaning": "Because you are afraid that something bad may happen.",
+   "pos": "phrase",
+   "example": "for fear of getting lost"
+  },
+  "by means of": {
+   "meaning": "By using something; with the help of something.",
+   "pos": "phrase",
+   "example": "by means of joints"
+  },
+  "do away with": {
+   "meaning": "To stop or kill someone or something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "does away with",
+    "did away with",
+    "doing away with"
+   ],
+   "example": "do away with the other Witch"
+  },
+  "tired out": {
+   "meaning": "Very tired.",
+   "pos": "phrase",
+   "example": "They were all tired out when they reached the shore"
+  },
+  "look out": {
+   "meaning": "To look from inside a place to the outside.",
+   "pos": "phrasal verb",
+   "forms": [
+    "looks out",
+    "looked out",
+    "looking out"
+   ],
+   "example": "just far enough to look out"
+  },
+  "come back": {
+   "meaning": "To return to a place.",
+   "pos": "phrasal verb",
+   "forms": [
+    "comes back",
+    "came back",
+    "coming back"
+   ],
+   "example": "I can’t come back, my dear"
+  },
+  "go back": {
+   "meaning": "To return to a place.",
+   "pos": "phrasal verb",
+   "forms": [
+    "goes back",
+    "went back",
+    "going back"
+   ],
+   "example": "go back to the dry, gray place"
+  },
+  "pick up": {
+   "meaning": "To take something up from the ground or from a table.",
+   "pos": "phrasal verb",
+   "forms": [
+    "picks up",
+    "picked up",
+    "picking up"
+   ],
+   "example": "as he watched her pick up the Scarecrow"
+  },
+  "turn out": {
+   "meaning": "To end in a certain way.",
+   "pos": "phrasal verb",
+   "forms": [
+    "turns out",
+    "turned out",
+    "turning out"
+   ],
+   "example": "my new brain is going to turn out"
+  },
+  "as fast as": {
+   "meaning": "At the same speed as; as quickly as it is possible.",
+   "pos": "phrase",
+   "example": "as fast as he could go"
+  },
+  "as soon as": {
+   "meaning": "At the very time that; right after.",
+   "pos": "phrase",
+   "example": "as soon as it was finished I found myself"
+  },
+  "run after": {
+   "meaning": "To follow someone fast, in order to catch up with them.",
+   "pos": "phrase",
+   "forms": [
+    "run after",
+    "runs after",
+    "running after"
+   ],
+   "example": "so she ran after her"
+  },
+  "wait for": {
+   "meaning": "To stay in a place until something happens.",
+   "pos": "phrasal verb",
+   "forms": [
+    "waits for",
+    "waited for",
+    "waiting for"
+   ],
+   "example": "waited for the fresh breeze to waken her"
+  },
+  "ask for": {
+   "meaning": "To say that you want something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "asks for",
+    "asked for",
+    "asking for"
+   ],
+   "example": "I shall ask for brains instead of a heart"
+  },
+  "fall off": {
+   "meaning": "To drop down from something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "falls off",
+    "fell off",
+    "falling off"
+   ],
+   "example": "the Scarecrow fell off the wall"
+  },
+  "get up": {
+   "meaning": "To stand after sitting or lying down.",
+   "pos": "phrasal verb",
+   "forms": [
+    "gets up",
+    "got up",
+    "getting up"
+   ],
+   "example": "Dorothy and the Lion got up"
+  }
+ }
+}

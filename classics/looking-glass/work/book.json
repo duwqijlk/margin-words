@@ -1,0 +1,121 @@
+{
+ "title": "Through the Looking-Glass",
+ "author": "Lewis Carroll",
+ "sha256": "525d25c41032130351b7075c5e6ca7518eae721198d46782da0c54e6f3a8b8e1",
+ "chapters": [
+  {
+   "chapter": 0,
+   "title": "Titlepage",
+   "words": 11,
+   "paragraphs": 3
+  },
+  {
+   "chapter": 1,
+   "title": "Imprint",
+   "words": 192,
+   "paragraphs": 5
+  },
+  {
+   "chapter": 2,
+   "title": "The Chess Game",
+   "words": 158,
+   "paragraphs": 22
+  },
+  {
+   "chapter": 3,
+   "title": "Epigraph",
+   "words": 218,
+   "paragraphs": 1
+  },
+  {
+   "chapter": 4,
+   "title": "Through the Looking-Glass",
+   "words": 9,
+   "paragraphs": 2
+  },
+  {
+   "chapter": 5,
+   "title": "I: Looking-Glass House",
+   "words": 3332,
+   "paragraphs": 43
+  },
+  {
+   "chapter": 6,
+   "title": "II: The Garden of Live Flowers",
+   "words": 2970,
+   "paragraphs": 87
+  },
+  {
+   "chapter": 7,
+   "title": "III: Looking-Glass Insects",
+   "words": 2988,
+   "paragraphs": 81
+  },
+  {
+   "chapter": 8,
+   "title": "IV: Tweedledum and Tweedledee",
+   "words": 3006,
+   "paragraphs": 96
+  },
+  {
+   "chapter": 9,
+   "title": "V: Wool and Water",
+   "words": 3216,
+   "paragraphs": 104
+  },
+  {
+   "chapter": 10,
+   "title": "VI: Humpty Dumpty",
+   "words": 3129,
+   "paragraphs": 127
+  },
+  {
+   "chapter": 11,
+   "title": "VII: The Lion and the Unicorn",
+   "words": 2695,
+   "paragraphs": 96
+  },
+  {
+   "chapter": 12,
+   "title": "VIII: “It’s My Own Invention”",
+   "words": 4160,
+   "paragraphs": 105
+  },
+  {
+   "chapter": 13,
+   "title": "IX: Queen Alice",
+   "words": 4236,
+   "paragraphs": 142
+  },
+  {
+   "chapter": 14,
+   "title": "X: Shaking. XI: Waking",
+   "words": 71,
+   "paragraphs": 6
+  },
+  {
+   "chapter": 15,
+   "title": "XII: Which Dreamed It?",
+   "words": 608,
+   "paragraphs": 13
+  },
+  {
+   "chapter": 16,
+   "title": "A Boat Beneath a Sunny Sky",
+   "words": 108,
+   "paragraphs": 1
+  },
+  {
+   "chapter": 17,
+   "title": "Colophon",
+   "words": 165,
+   "paragraphs": 6
+  },
+  {
+   "chapter": 18,
+   "title": "Uncopyright",
+   "words": 351,
+   "paragraphs": 5
+  }
+ ]
+}

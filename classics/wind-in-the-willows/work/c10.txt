@@ -1,0 +1,94 @@
+@W
+wayfarer | noun | A person who travels on foot. | wayfarers |
+pomp | noun | Grand and splendid show. | |
+rowan | noun | A tree with red berries. | rowans |
+tawny | adjective | Yellow-brown in colour. | |
+premonition | noun | A feeling that something is going to happen. | premonitions |
+evensong | noun | A song or a service in the evening. Here it means the evening song of birds. | |
+unwearied | adjective | Not tired. | |
+pinion | noun | The wing of a bird. | pinions |
+peremptory | adjective | Making you obey at once, without any argument. | |
+boarder | noun | A person who pays to live and eat in a house or hotel. | boarders |
+flitting | noun | The act of moving quickly from one place to another. | flittings |
+querulous | adjective | Always complaining in a weak, unhappy voice. | |
+resentful | adjective | Angry about something that seems unfair. | |
+sluggish | adjective | Slow and heavy. | |
+pasturage | noun | Land covered with grass where animals eat. | |
+murmurous | adjective | Making a low, soft sound. | |
+shamefacedly | adverb | In a way that shows you feel a little ashamed. | |
+grumpily | adverb | In a cross way. | |
+despondently | adverb | In a sad way, without hope. | |
+homing | adjective | Flying back home. | |
+beckon | verb | To call someone to come, as if with a wave of the hand. | |
+clammy | adjective | Cold and a little wet. | |
+reminiscence | noun | The act of remembering and talking about happy times in the past. | |
+dormant | adjective | Asleep; not active now. | |
+treachery | noun | The act of being false to a person who trusts you. | |
+drab | adjective | Dull and without colour. | |
+lush | adjective | Green, thick and healthy. | |
+eaves | plural noun | The lower edges of a roof. | |
+homesick | adjective | Sad because you miss your home. | |
+panorama | noun | A wide view of a large area. | |
+gallant | adjective | Brave and fine. | |
+canopied | adjective | Covered above with a cloth that hangs over. | |
+bodyguard | noun | A group of soldiers who protect an important person. | |
+circumscribed | adjective | Limited; kept inside narrow limits. | |
+epitome | noun | A perfect example of something. | |
+balmy | adjective | Warm and gentle. | |
+cistern | noun | A big tank for holding water. | |
+gondola | noun | A long, narrow boat with a high end, used on the canals of Venice. | gondolas |
+enthralled | adjective | Held by wonder so that you cannot stop listening. | |
+vaporous | adjective | Full of mist. | |
+inadvertently | adverb | Without meaning to. | |
+assuage | past participle | Made less strong; made easier. | assuaged |
+heralding | noun | A sign that something is coming. | heraldings |
+vibrant | adjective | Strong and full of life. | |
+vintage | noun | Wine made in a certain year, or wine in general. | |
+sonorous | adjective | Having a deep, full sound. | |
+shingle | noun | Small stones on a beach. | |
+valerian | noun | A garden plant with small pink flowers. | |
+stanchion | noun | An upright post or bar that holds something. | stanchions |
+irrevocable | adjective | That cannot be changed or taken back. | |
+blithesome | adjective | Happy and without worries. | |
+resolutely | adverb | In a firm way, with a clear purpose. | |
+unenlightened | adjective | Not knowing or understanding. | |
+sheaf | noun | A bundle of cut corn tied together. | sheaves |
+lyrical | adjective | Full of feeling, as in a poem or song. | |
+@P
+ctx: Nature’s Grand Hotel has its Season, like the others
+idea: The book compares the year to a grand hotel. In autumn the guests leave one by one, and those who stay feel unsettled.
+simple: The Grand Hotel of Nature has its Season, like all the others. The guests pack, pay and leave one by one. At each meal there are fewer seats at the shared table. Suites of rooms are closed, carpets are taken up, and waiters are sent away. Those guests who are staying on until the hotel opens fully next year cannot help being a little affected by all these comings and goings. They hear the eager talk of plans, routes and new places, and they see the stream of friends become smaller each day. One gets unsettled, sad and likely to complain. Why this wish for change? Why not stay on quietly here, like us, and be happy? You do not know this hotel out of the season, or what fun we have among ourselves, we who stay and see the whole interesting year out. 'All very true, no doubt,' the others always answer. 'We quite envy you. Some other year, perhaps. But just now we have things to do, and the bus is at the door. Our time is up!' So they leave, with a smile and a nod, and we miss them and feel angry. The Rat was an animal who needed nothing from others, and was fixed to the land. Whoever went, he stayed. Still, he could not help seeing what was in the air, and feeling some of its power in his bones.
+hard: Season; pack, pay, and depart; suites; boarders; flittings; querulous; resentful; self-sufficing; out of the season
+@P
+ctx: I tried ‘stopping on’ one year,” said the third swallow
+idea: The third swallow says that it once stayed behind and had a bad winter. It then flew south and was happy, and it has always obeyed the call since.
+simple: 'I tried "stopping on" one year,' said the third swallow. 'I had grown so fond of the place that when the time came I hung back and let the others go on without me. For a few weeks it was all well enough. But afterwards, oh, the weary length of the nights! The shivering days with no sun! The air so cold and wet, and not an insect in a whole acre of it! No, it was no good. My courage broke down, and one cold, stormy night I took wing. I flew well inland, because of the strong east winds. It was snowing hard as I beat my way through the passes of the great mountains, and I had a hard fight to get through. But I shall never forget the happy feeling of the hot sun on my back again as I flew down to the lakes that lay so blue and calm below me, and the taste of my first fat insect! The past was like a bad dream. The future was all happy holiday as I moved south week by week, easily and lazily, staying as long as I dared, but always listening to the call. No, I had had my warning. Never again did I think of disobeying.'
+hard: stopping on; hung back; clammy; took wing; inland; gales; passes; stiff fight; placid; heeding; disobedience
+@P
+ctx: The wayfarer was lean and keen-featured, and somewhat bowed at the shoulders
+idea: The new rat who comes along the road is thin and sharp-faced. He wears small gold earrings and blue clothes.
+simple: The traveller was thin, with a sharp face, and his shoulders were a little bent. His paws were thin and long, and his eyes had many lines at the corners. He wore small gold earrings in his neat, well-shaped ears. His knitted jersey was a faded blue. His trousers were mended and stained, but they were blue underneath. The small things that he carried were tied up in a blue cotton handkerchief.
+hard: lean; keen-featured; bowed; ear rings; jersey; breeches; belongings
+@S
+ctx: Rat, ever observant of all winged movement, saw that it was
+simple: The Rat, who always watched anything that flew, saw that the flying was going more towards the south each day.
+gram: 'ever observant of ...' is a phrase that describes Rat and is put between commas; 'it was taking daily a southing tendency' has an old word order, with 'daily' between the verb and its object.
+@S
+ctx: One gets unsettled, depressed, and inclined to be querulous
+simple: One becomes unsettled, sad and likely to complain.
+gram: 'One' means 'a person in general'; 'inclined to be ...' means 'likely to be ...'; the three words that follow 'gets' are joined in a list.
+@S
+ctx: and the fortunes and adventures they had gone to seek or found unseeking
+simple: There, half-hidden in the thick, cool tangle under the hedge, he could think about the hard road and all the wonderful world that it led to. He could think about all the travellers who might have walked on it, and the good luck and adventures that they had gone to look for, or had found without looking.
+gram: 'they had gone to seek or found unseeking' joins two verbs with 'or'; 'unseeking' means 'not looking for it'; 'had gone' and 'found' share the subject 'they'.
+@S
+ctx: Take the adventure, heed the call, now ere the irrevocable moment passes
+simple: Take the adventure, listen to the call, now before the moment that cannot be taken back goes by!
+gram: 'Take ..., heed ...' are commands; 'ere' is an old word meaning 'before'; the order of words is old and poetic.
+@PH
+put up with | phrasal verb | To accept something that is not good. | | you have to put up with anything
+pack up | phrasal verb | To put your things away and leave, or to stop working. | packed up | which never packed up, flitted, or went
+hang back | phrasal verb | To stay behind and not go forward. | hung back | I hung back and let the others go on without me
+take wing | idiom | To fly away. | took wing | I took wing
+make out | phrasal verb | To hear or see something with difficulty. | | he thought he could make out
+slip away | phrasal verb | To go away quietly. | slipped away | Presently the tactful Mole slipped away

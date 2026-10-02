@@ -1,0 +1,79 @@
+{
+ "title": "The Jungle Book",
+ "author": "Rudyard Kipling",
+ "sha256": "df99cc727f88a339b3ec026a4459ff88793e7d25fed792b1475d2a17d42c005b",
+ "chapters": [
+  {
+   "chapter": 0,
+   "title": "Titlepage",
+   "words": 6,
+   "paragraphs": 2
+  },
+  {
+   "chapter": 1,
+   "title": "Imprint",
+   "words": 194,
+   "paragraphs": 5
+  },
+  {
+   "chapter": 2,
+   "title": "Epigraph",
+   "words": 58,
+   "paragraphs": 1
+  },
+  {
+   "chapter": 3,
+   "title": "Mowgli’s Brothers",
+   "words": 7665,
+   "paragraphs": 158
+  },
+  {
+   "chapter": 4,
+   "title": "Kaa’s Hunting",
+   "words": 9427,
+   "paragraphs": 195
+  },
+  {
+   "chapter": 5,
+   "title": "“Tiger! Tiger!”",
+   "words": 7084,
+   "paragraphs": 118
+  },
+  {
+   "chapter": 6,
+   "title": "The White Seal",
+   "words": 7566,
+   "paragraphs": 111
+  },
+  {
+   "chapter": 7,
+   "title": "“Rikki-Tikki-Tavi”",
+   "words": 6221,
+   "paragraphs": 116
+  },
+  {
+   "chapter": 8,
+   "title": "Toomai of the Elephants",
+   "words": 7712,
+   "paragraphs": 87
+  },
+  {
+   "chapter": 9,
+   "title": "Her Majesty’s Servants",
+   "words": 6536,
+   "paragraphs": 152
+  },
+  {
+   "chapter": 10,
+   "title": "Colophon",
+   "words": 168,
+   "paragraphs": 6
+  },
+  {
+   "chapter": 11,
+   "title": "Uncopyright",
+   "words": 351,
+   "paragraphs": 5
+  }
+ ]
+}

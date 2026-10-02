@@ -1,0 +1,116 @@
+{
+ "glossary": {
+  "nosegay": {
+   "pos": "noun",
+   "meaning": "A small group of sweet flower."
+  },
+  "gingham": {
+   "pos": "uncountable noun",
+   "meaning": "Cloth with small squares on it."
+  },
+  "commendation": {
+   "pos": "noun",
+   "meaning": "Words that say that someone has done well."
+  },
+  "anointed": {
+   "pos": "past-tense verb",
+   "meaning": "Put oil on the skin.",
+   "forms": [
+    "anointed"
+   ]
+  },
+  "atone": {
+   "pos": "verb",
+   "meaning": "To do something to make up for a wrong."
+  },
+  "remonstrated": {
+   "pos": "past-tense verb",
+   "meaning": "Said that she did not agree and asked someone not to do something.",
+   "forms": [
+    "remonstrated"
+   ]
+  },
+  "wherry": {
+   "pos": "noun",
+   "meaning": "A light, small boat that people move with long sticks."
+  },
+  "aversion": {
+   "pos": "noun",
+   "meaning": "A strong dislike."
+  },
+  "ubiquitous": {
+   "pos": "adjective",
+   "meaning": "Seeming to be in every place at the same time."
+  },
+  "venerable": {
+   "pos": "adjective",
+   "meaning": "Old and worth respect."
+  },
+  "ruinous": {
+   "pos": "adjective",
+   "meaning": "Broken down and falling to pieces."
+  },
+  "sepulchral": {
+   "pos": "adjective",
+   "meaning": "Deep, low and sad, like a voice from under the ground."
+  },
+  "rigmarole": {
+   "pos": "noun",
+   "meaning": "A long, silly story that goes on and on. Here it is the name of a game in which each person adds to a story."
+  },
+  "lackadaisical": {
+   "pos": "adjective",
+   "meaning": "Showing a weak, dream-like way of acting, as if too tired or too sad to care."
+  },
+  "patronizing": {
+   "pos": "adjective",
+   "meaning": "Acting kind but showing that you think you are better than the other person."
+  },
+  "fastidious": {
+   "pos": "adjective",
+   "meaning": "Hard to please; careful about small things."
+  },
+  "impromptu": {
+   "pos": "adjective",
+   "meaning": "Done without any plan or practice."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 14,
+   "context": "Oh, yes; of course it's very nice and proper in them to do so",
+   "mainIdea": "Miss Kate talks as if Meg's work as a governess is a little shameful. Her proud tone hurts Meg's feelings.",
+   "simple": "Miss Kate said that of course it was very nice and right for the American girls to work. She said that many fine, respectable young women in her country did the same and worked for noble families. They were the daughters of gentlemen, so they were well brought up and had many skills. Miss Kate spoke in a proud, 'I am better than you' way. This hurt Meg's pride and made her work seem not only less pleasant but also low and shameful to her.",
+   "hardWords": [
+    "respectable",
+    "nobility",
+    "patronizing",
+    "distasteful",
+    "degrading"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 14,
+   "context": "Tents, lunch, and croquet utensils having been sent on beforehand",
+   "simple": "The tents, the lunch and the croquet things had been sent ahead, so the party was soon in the boats.",
+   "grammar": "'Tents... having been sent on beforehand' is an absolute phrase in the past passive. It tells what was already done before the main action."
+  }
+ ],
+ "phrases": {
+  "break the ice": {
+   "pos": "idiom",
+   "meaning": "To say or do something that makes people feel easy and ready to talk.",
+   "example": "it broke the ice in the beginning, by producing a laugh"
+  },
+  "turn up one's nose at": {
+   "pos": "idiom",
+   "meaning": "To think that something is not good enough for you.",
+   "forms": [
+    "turn up their noses at"
+   ],
+   "example": "English people rather turn up their noses at governesses"
+  }
+ }
+}

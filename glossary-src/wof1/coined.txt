@@ -1,0 +1,4 @@
+# Words the author invented (coined: true). One lemma per line.
+bigwing
+sleephouse
+unsib

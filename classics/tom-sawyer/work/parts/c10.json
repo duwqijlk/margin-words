@@ -1,0 +1,124 @@
+{
+"glossary": {
+"zephyr": {
+"pos": "noun",
+"meaning": "A soft, light wind."
+},
+"baffled": {
+"pos": "past-tense verb",
+"meaning": "Confused and stopped from working something out. Here, to cross water was thought to stop someone following.",
+"forms": [
+"baffled",
+"baffle"
+]
+},
+"illustrious": {
+"pos": "adjective",
+"meaning": "Famous and greatly respected."
+},
+"grisly": {
+"pos": "adjective",
+"meaning": "Horrible and frightening to look at."
+},
+"zenith": {
+"pos": "noun",
+"meaning": "The highest point."
+},
+"doublet": {
+"pos": "noun",
+"meaning": "A short, tight jacket that men wore in past times."
+},
+"cutlass": {
+"pos": "noun",
+"meaning": "A short, heavy, curved sword that pirates and sailors used."
+},
+"incantation": {
+"pos": "noun",
+"meaning": "Magic words that a person says to make something happen.",
+"forms": [
+"incantations"
+]
+},
+"shingle": {
+"pos": "noun",
+"meaning": "A thin flat piece of wood, used on a roof.",
+"forms": [
+"shingles"
+]
+},
+"cogitating": {
+"pos": "present participle",
+"meaning": "Thinking deeply.",
+"forms": [
+"cogitating",
+"cogitate"
+]
+},
+"infallible": {
+"pos": "adjective",
+"meaning": "Never wrong; always certain to work."
+},
+"futility": {
+"pos": "noun",
+"meaning": "The fact that something is useless and cannot work."
+},
+"caitiff": {
+"pos": "noun",
+"meaning": "An old word for a bad, weak or cowardly person."
+},
+"accoutrements": {
+"pos": "plural noun",
+"meaning": "The things you carry or wear for a purpose, such as weapons and clothes."
+},
+"lath": {
+"pos": "noun",
+"meaning": "A thin, narrow strip of wood. The boys use laths as toy swords."
+},
+"doodlebug": {
+"pos": "noun",
+"meaning": "A small bug that lives in a sandy hole. The boys believe it can answer questions."
+},
+"nettle": {
+"pos": "noun",
+"meaning": "A plant with hairs that sting the skin."
+}
+},
+"paragraphs": [
+{
+"chapter": 10,
+"paragraph": 8,
+"context": "a superstition of his had failed, here",
+"mainIdea": "Tom's marble charm does not work. He decides that a witch broke it, and he goes to call into a small hole in the sand.",
+"simple": "Then Tom threw the marble away in a bad mood and stood thinking. The truth was that one of his beliefs had failed, a belief that he and his friends had always thought could not fail. You bury a marble with the right magic words and leave it for two weeks. Then you open the place with the words he had just used. All the marbles you ever lost will have come together there, however far apart they were. But now this had really failed, without any doubt. Tom's whole belief was badly shaken. He had often heard of it working, but never of its failing. He did not think of the fact that he had tried it several times himself but could never find the hiding places afterward. He thought about it for some time and decided that a witch had got in the way and broken the magic. He wanted to be sure of this. So he looked around until he found a small sandy place with a hole shaped like a funnel in it. He lay down and put his mouth close to the hole and called.",
+"hardWords": [
+"superstition",
+"incantations",
+"infallible",
+"fortnight",
+"charm",
+"funnel-shaped"
+]
+}
+],
+"sentences": [
+{
+"chapter": 10,
+"context": "If he only had a clean Sunday-school record he could be willing to go",
+"simple": "If only his Sunday-school record were clean, he would be ready to die.",
+"grammar": "'If he only had..., he could be...' is an unreal 'if' sentence: he does not have a clean record, so he is not ready."
+},
+{
+"chapter": 10,
+"context": "Right gladly will I dispute with thee the passes of the merry wood",
+"simple": "I will happily fight you for the right to cross the happy wood.",
+"grammar": "This is old-style speech copied from a book. 'Will I' puts the verb before the subject, and 'thee' is an old word for 'you'."
+}
+],
+"phrases": {
+"go on the warpath": {
+"meaning": "To go out to fight, like a warrior.",
+"pos": "idiom",
+"example": "go on the warpath in the mountain ranges"
+}
+}
+}

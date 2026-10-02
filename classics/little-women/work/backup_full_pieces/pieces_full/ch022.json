@@ -1,0 +1,75 @@
+{
+ "glossary": {
+  "reposeful": {
+   "pos": "adjective",
+   "meaning": "Quiet and restful; full of peace."
+  },
+  "miser": {
+   "pos": "noun",
+   "meaning": "A person who loves money and keeps it all for himself, never spending it."
+  },
+  "affable": {
+   "pos": "adjective",
+   "meaning": "Friendly and easy to talk to."
+  },
+  "benignity": {
+   "pos": "noun",
+   "meaning": "Kindness and gentleness."
+  },
+  "privations": {
+   "pos": "plural noun",
+   "meaning": "The lack of things that you need, such as food, heat or nice things.",
+   "forms": [
+    "privations",
+    "privation"
+   ]
+  },
+  "weathercock": {
+   "pos": "noun",
+   "meaning": "A person who changes his mind or feelings very often. Mrs. March uses it for Laurie."
+  },
+  "disconsolate": {
+   "pos": "adjective",
+   "meaning": "Very sad and with no one to help."
+  },
+  "crisscross": {
+   "pos": "adverb",
+   "meaning": "In a wrong, mixed-up way, with lines going across each other."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 22,
+   "context": "Money is a good and useful thing, Jo; and I hope my girls",
+   "mainIdea": "Mrs. March says money is useful, but she does not want a rich husband for Meg. She believes a good man's heart is worth more than a fortune.",
+   "simple": "Mrs. March said money is a good and useful thing and she hoped her girls would never need it too badly or be tempted by too much of it. She wanted John to have a good business with enough pay to stay out of debt and keep Meg comfortable. She did not want a great fortune, a high place in society or a famous name for her girls. If high rank and money came with love and goodness, she would gladly accept them. But she knew from her own life how much true happiness a plain little house could hold, where the daily bread is earned and having less makes the few pleasures sweeter. She was content to see Meg begin humbly, because she would be rich in having a good man's heart, and that was better than a fortune.",
+   "hardWords": [
+    "income",
+    "privations",
+    "ambitious",
+    "rank"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 22,
+   "context": "for the sincere wish to be good is half the battle",
+   "simple": "Truly wanting to be good is already half of the fight.",
+   "grammar": "'Half the battle' is an idiom: the hardest part is already done. The 'for' gives the reason for 'I think you will prosper'."
+  },
+  {
+   "chapter": 22,
+   "context": "I wish wearing flatirons on our heads would keep us from growing up",
+   "simple": "I wish that wearing heavy irons on our heads would stop us from growing taller.",
+   "grammar": "'I wish ... would keep' wishes for something that is not true or possible. It uses 'would' after 'wish'."
+  }
+ ],
+ "phrases": {
+  "all up with": {
+   "pos": "idiom",
+   "meaning": "Finished; with no hope left for someone.",
+   "example": "then it will be all up with her"
+  }
+ }
+}

@@ -1,0 +1,109 @@
+@W
+personage | noun | An important person. | |
+evasively | adverb | In a way that avoids a direct answer. | |
+miry | adjective | Wet and muddy. | |
+persistence | noun | The quality of not stopping or giving up. | |
+solitary | adjective | Alone; without other people. | |
+scribble | past-tense verb | Wrote quickly and carelessly. | scribbled |
+domestic | adjective | Of the home. | |
+pageant | noun | A show with many people in fine clothes, who walk or act in a line. | |
+stately | adjective | Slow, grand and dignified. | |
+luxuriant | adjective | Growing thickly and richly. | |
+diffident | adjective | Shy and not sure of yourself. | |
+debonair | adjective | Happy and with fine manners. | |
+odorous | adjective | Having a strong smell. | |
+jerkin | noun | A short jacket without sleeves, worn long ago. | |
+drowsy | adjective | Sleepy. | |
+scamper | noun | A quick run with short steps. | |
+radiant | adjective | Very bright and happy-looking. | |
+languorous | adjective | Slow and lazy, because it is hot. | |
+siesta | noun | A rest or sleep in the middle of the day. | |
+slumber | noun | Sleep. | |
+dell | noun | A small valley with trees. | dells |
+quarry | noun | A big hole in the ground where stone is cut out. | quarries |
+masquerade | noun | A party where people wear masks and special clothes. | |
+entice | verb | To make someone want to come by showing something nice. | |
+exhilarating | adjective | Making you feel very happy and full of life. | |
+finery | noun | Fine, bright clothes and decorations. | |
+quickset | noun | A hedge made of small bushes that grow fast. | |
+billowy | adjective | Moving in big soft waves. | |
+drapery | noun | Cloth hung in loose folds. | |
+caricature | noun | A picture or shape that makes someone look funny. | caricatures |
+crouch | past-tense verb | Bent low with the knees bent. | crouched |
+dusk | noun | The time of evening when the light is almost gone. | |
+indistinctly | adverb | In a way that is not clear. | |
+malice | noun | A wish to hurt other people. | |
+hearken | verb | To listen. | |
+slacken | verb | To become slower. | |
+snuggle | verb | To lie in a warm, comfortable place. | |
+verdant | adjective | Green with grass or leaves. | |
+pore | past-tense verb | Looked at something for a long time, with great attention. | pored |
+golosh | noun | A rubber shoe worn over other shoes in wet weather. | goloshes |
+cudgel | noun | A short, thick stick used as a weapon. | |
+brace | noun | A pair. | |
+valorous | adjective | Brave. | |
+traverse | verb | To go across a place. | |
+forsake | present participle | Leaving a place or a person for good. | forsaking |
+retreat | noun | A quiet place where you can be safe. | |
+pitfall | noun | A hidden hole that is a danger to people. | pitfalls |
+menace | noun | Something that may do harm. | menaces |
+faery | noun | Fairyland: a place of magic. Here it describes the snow. | |
+bole | noun | The main part of a tree, called the trunk. | boles |
+invincible | adjective | That cannot be beaten. | |
+dispirited | adjective | Sad and without hope. | |
+hummocky | adjective | With many small round hills. | |
+obtuse | adjective | Slow to understand. | obtuseness |
+exasperating | adjective | Making you very angry. | |
+rodent | noun | An animal such as a rat or a mouse. | |
+ardour | noun | Strong and excited feeling. | |
+incredulous | adjective | Not willing to believe. | |
+bellpull | noun | A handle that you pull to ring a bell. | |
+penitence | noun | A feeling of being sorry for something wrong that you did. | |
+intellect | noun | The power of the mind to think and understand. | |
+@P
+ctx: It was a cold, still afternoon with a hard, steely sky overhead
+idea: The Mole walks into the winter country. It is bare, and he likes its plain look. He goes on towards the Wild Wood.
+simple: It was a cold, quiet afternoon. The sky above was hard and grey like steel. The Mole slipped out of the warm parlour into the open air. The land around him was bare, with no leaves at all. He thought he had never seen so far, and so closely, into the inside of things as on that winter day. Nature was deep in her yearly sleep, and seemed to have kicked the clothes off. The small woods, valleys, quarries and all hidden places had been secret mines to explore in leafy summer. Now they showed themselves and their secrets in a sad way. They seemed to ask him to forgive their poor, shabby look for a while, until they could play wild in rich dress again as before, and trick him and pull him in with the old tricks. In a way it was sad, and yet it was cheering, even exciting. He was glad that he liked the country plain and hard, with its fine dress taken away. He had come down to its bare bones, and they were fine and strong and simple. He did not want the warm clover or the seeding grasses. The thick hedges and the waving cover of beech and elm trees seemed better away. With great happiness he went on towards the Wild Wood. It lay in front of him, low and threatening, like a black reef in a quiet southern sea.
+hard: steely; intimately; slumber; copses; dells; quarries; masquerade; entice; exhilarating; finery; quickset; billowy drapery
+@P
+ctx: The pattering increased till it sounded like sudden hail
+idea: The Mole runs in panic and hides in a hollow tree. There he knows the Terror of the Wild Wood.
+simple: The pattering grew until it sounded like sudden hail on the dry leaves spread around him. The whole wood seemed to be running now, running hard, hunting, chasing, closing in on something, or on someone. In a panic he began to run too, with no aim, and he did not know where. He ran into things, fell over things and into things, ran under things and went round things. At last he found shelter in the deep, dark hollow of an old beech tree. It gave shelter and hiding, and perhaps even safety, but who could tell? Anyway, he was too tired to run any further. He could only curl up in the dry leaves that had blown into the hollow, and hope he was safe for a time. He lay there panting and trembling, and listened to the whistling and the pattering outside. At last he knew it fully: the dreadful thing that other little animals of field and hedge had met here, and had known as their darkest moment. It was the thing that the Rat had tried in vain to keep him from. It was the Terror of the Wild Wood!
+hard: pattering; aimlessly; whither; dodged; took refuge; hollow; concealment; snuggle; dread; encountered; vainly; shield
+@P
+ctx: The Mole came and crouched beside him, and, looking out
+idea: The snow changes how the Wild Wood looks. The dark places are disappearing under a beautiful soft white cover.
+simple: The Mole came and crouched beside the Rat. He looked out, and saw that the wood that had been so dreadful to him looked quite different. Holes, hollows, pools, hidden pits and other black dangers for the traveller were fast disappearing. A shining carpet like something from fairyland was growing everywhere. It looked too delicate for rough feet to walk on. A fine powder filled the air and touched the cheek with a tingle. The black trunks of the trees showed up in a light that seemed to come from below.
+hard: crouched; wayfarer; menaces; faery; delicate; trodden; tingle; boles
+@S
+ctx: he had never seen so far and so intimately into the insides of things
+simple: He thought he had never seen so far, and so closely, into the inside of things as on that winter day, when Nature was deep in her yearly sleep and seemed to have kicked the clothes off.
+gram: 'had never seen' is the past perfect inside what he thought; 'so far and so intimately' joins two adverbs, and 'as on that winter day' compares.
+@S
+ctx: and as if it had been so all the time, every hole
+simple: Then suddenly, as if it had been like this all the time, every hole, near and far, seemed to have its face. There were hundreds of them. All the faces came and went fast, and every one looked at him with hate and a wish to hurt him, hard-eyed and evil and sharp.
+gram: 'as if it had been so' uses the past perfect after 'as if' to say how things seemed; the words 'and there were hundreds of them' are a side remark between commas.
+@S
+ctx: it broke out on either side, and seemed to be caught up
+simple: As he stopped, not able to decide, the whistle came from both sides. It seemed that others took it up and passed it on along the whole wood, to its farthest end.
+gram: 'seemed to be caught up and passed on' is 'seemed to be' plus two past participles (a passive infinitive); 'it' means the whistling.
+@S
+ctx: Remembering what he had been engaged upon, he reached down to the floor
+simple: He remembered what he had been working on. He reached down to the floor for his verses, looked hard at them for a minute, and then looked round for the Mole, to ask him if he knew a good rhyme for something or other.
+gram: 'Remembering ...' is a participle phrase with the same subject as the main clause ('he'); 'what he had been engaged upon' is a noun clause with the preposition at the end.
+@S
+ctx: never mind what done it,” said the Mole, forgetting his grammar
+simple: 'Well, never mind what did it,' said the Mole. He forgot his grammar because of the pain.
+gram: 'what done it' is wrong in standard English, which says 'what did it'; the book itself says the Mole forgets his grammar because of pain.
+@PH
+put off | phrasal verb | To make someone wait, or to say no in a polite way. | | he always found himself put off
+drop in | phrasal verb | To visit someone for a short time without telling them first. | dropping in | there were always animals dropping in for a chat
+slip out | phrasal verb | To go out quietly. | slipped out | when he slipped out of the warm parlour
+take refuge | idiom | To go to a place for safety. | took refuge | At last he took refuge in the deep, dark hollow
+pull oneself together | idiom | To get control of your feelings and be quiet. | pull ourselves together, pull yourself together | we really must pull ourselves together
+dead beat | idiom | Very, very tired. | | I’m simply dead beat
+drop off | phrasal verb | To fall asleep. | dropped off | presently dropped off into sleep
+set out | phrasal verb | To begin a trip. | | they set out bravely
+set to work | idiom | To begin to work. | | And he set to work again
+trip up | phrasal verb | To catch your foot and fall, or to make someone fall. | tripped up | the Mole tripped up and fell forward
+make a start | idiom | To begin to go. | | We must make a start

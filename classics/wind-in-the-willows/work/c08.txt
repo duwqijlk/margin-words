@@ -1,0 +1,109 @@
+@W
+twitter | present participle | Making short, quick, high sounds, as small birds do. | twittering |
+selvedge | noun | The edge of something. Here it means the edge of the river bank, like the edge of a cloth. | |
+lingering | adjective | Staying for a long time before it goes. | |
+sullen | adjective | Heavy and gloomy. | |
+torrid | adjective | Very hot and dry. | |
+disperse | present participle | Making something go away in different directions. | dispersing |
+parched | adjective | Very dry from the heat. | |
+straying | present participle | Wandering away from where you should be. | |
+hereabouts | adverb | Near this place. | |
+fascination | noun | A strong power to attract your interest. | |
+ford | noun | A shallow place where you can walk or drive across a river. | |
+bygone | adjective | Of the past. | |
+spit | noun | A narrow piece of land that goes out into the water. | |
+vocation | noun | A job or work. | vocations |
+repose | noun | Rest. | |
+articulate | adjective | Clear, like words that a person says. | |
+phosphorescence | noun | A soft light that shines in the dark. | |
+majesty | noun | Grand and noble beauty. | |
+moorings | plural noun | The ropes or chains that hold a boat in place. | |
+disclosed | past participle | Shown; made known. | |
+raiment | noun | Clothes. It is an old, grand word. | |
+apparel | noun | Clothes. | |
+runnel | noun | A small stream. | runnels |
+culvert | noun | A pipe or tunnel that lets water go under a road. | culverts |
+serene | adjective | Quiet and peaceful. | |
+bulrush | noun | A tall plant that grows near water. | bulrushes |
+intentness | noun | A state of paying very close attention. | |
+osier | noun | A kind of willow tree whose thin branches are used to make baskets. | osiers |
+rapt | adjective | So full of wonder that you notice nothing else. | |
+dandle | past-tense verb | Moved a baby up and down softly on the knees. | dandled |
+rudder | noun | A flat piece at the back of a boat, used to steer. | |
+gem | past-tense verb | Covered with small bright things, as jewels cover a crown. | gemmed |
+transfixed | adjective | Not able to move because of wonder or fear. | |
+imperious | adjective | Used to being obeyed; strong in a way that you cannot say no to. | |
+unsurpassable | adjective | Better than anything else. | |
+pervading | adjective | Filling every part of a place. | |
+eddy | noun | A small circle of water that turns round in a river. | eddies |
+tumultuous | adjective | Loud and wild. | |
+herbage | noun | Green plants and grass. | |
+sloe | noun | A small, dark fruit that grows on a wild bush. | |
+awe | noun | A feeling of great respect and wonder, with a little fear. | |
+smite | past-tense verb | Hit hard. | smote |
+august | adjective | Very grand and noble. | |
+cowed | adjective | Made afraid, so that you do not dare to move. | |
+dominant | adjective | Stronger than all other things. | |
+imminent | adjective | About to happen very soon. | |
+sward | noun | Short, thick grass. | |
+podgy | adjective | Short and a little fat. | |
+unutterable | adjective | Too great to say in words. | |
+capricious | adjective | Changing suddenly and without a reason. | |
+aspen | noun | A kind of tree with leaves that shake in the wind. | aspens |
+oblivion | noun | The state of having forgotten everything. | |
+demigod | noun | A being that is partly a god. | |
+slumbering | adjective | Sleeping. | |
+lustily | adverb | Loudly and with strength. | |
+vigil | noun | A time of staying awake to watch or wait. | |
+amble | noun | A slow, easy walk. | |
+waddle | verb | To walk with short steps, swinging from side to side. | waddled |
+lilting | adjective | Having a light, happy rhythm. | |
+waif | noun | A small, lost child or animal with no home. | waifs |
+frolic | noun | A time of happy play. | |
+@P
+ctx: The Willow-Wren was twittering his thin little song
+idea: It is a hot summer night. The Mole lies on the bank and waits for the Rat, who is out late with Otter.
+simple: The Willow-Wren was singing his thin little song, hidden in the dark edge of the river bank. It was past ten o'clock at night, but the sky still held some last light from the day that had gone. The heavy heat of the very hot afternoon broke up and rolled away at the cool touch of the short midsummer night. The Mole lay stretched on the bank, still breathing hard after the fierce day. It had been cloudless from dawn to late sunset. He waited for his friend to come back. He had been on the river with some friends, and the Water Rat had been free to keep an old plan with Otter. When he came home, he found the house dark and empty, and no sign of Rat, who was probably staying out late with his old friend. It was still too hot to think of staying indoors. So he lay on some cool dock leaves, and thought over the day and what had happened in it, and how very good it all had been.
+hard: twittering; selvedge; lingering; sullen; torrid; dispersing; engagement of long standing; doubtless; keeping it up late
+@P
+ctx: Well, it seems that it was there he gave Portly his first swimming-lesson
+idea: The Rat explains why Otter watches by the ford. It is where he taught Portly to swim and to fish.
+simple: 'Well, it seems that he gave Portly his first swimming lesson there,' the Rat went on. 'It was from that shallow, stony spit of land near the bank. He also used to teach him to fish there, and there young Portly caught his first fish. He was very proud of it. The child loved the place. Otter thinks that Portly may come wandering back from wherever he is, if he is anywhere by now, poor little chap. He might make for the ford that he was so fond of. Or if he came across it, he would remember it well and stop there and play, perhaps. So Otter goes there every night and watches, on the chance, you know, just on the chance!'
+hard: ford; spit; on the chance; make for; came across
+@P
+ctx: Perhaps he would never have dared to raise his eyes
+idea: The Mole is afraid, but he must look. He sees the Friend and Helper with the baby otter asleep between his hooves.
+simple: Perhaps he would never have dared to raise his eyes. But the piping had stopped, and the call and the summons still seemed strong and had to be obeyed. He could not say no, even if Death himself were waiting to strike him at once, after he had looked with human eyes on things that should stay hidden. He obeyed, trembling, and raised his humble head. Then, in the clear light of the dawn that was about to come, while Nature was filled with colours too bright to be believed and seemed to hold her breath for what would happen, he looked into the very eyes of the Friend and Helper. He saw the curved horns sweeping back, shining in the growing daylight. He saw the stern, hooked nose between the kind eyes, which were looking down on them with amusement. The bearded mouth was breaking into a half-smile at the corners. He saw the moving muscles on the arm that lay across the broad chest. He saw the long, strong hand that still held the pan-pipes, which had only just fallen away from the open lips. He saw the fine curves of the rough, hairy legs, resting in grand ease on the grass. Last of all he saw the little, round, fat, childish shape of the baby otter. It was sleeping soundly in perfect peace between his very hooves. He saw all this for one moment, breathless and strong, bright against the morning sky. And still, as he looked, he lived; and still, as he lived, he wondered.
+hard: dominant; imperious; humble; imminent; the Friend and Helper; pan-pipes; shaggy; sward; podgy
+@P
+ctx: As they stared blankly, in dumb misery deepening as they slowly realised
+idea: A breeze makes the two animals forget what they saw. This gift of forgetting keeps the memory from spoiling their lives.
+simple: They stared with no thought in their eyes. They were silent and sad, and the sadness grew as they slowly understood all they had seen and all they had lost. Then a little breeze that changed its way for no reason came dancing up from the water. It shook the aspen trees and the roses with dew on them, and blew gently on their faces. With its soft touch came sudden forgetting. This is the last and best gift that the kind demigod is careful to give to those he has shown himself to when he helped them. It is the gift of forgetting. It is given so that the awful memory should not stay and grow and cast a shadow on their happiness and fun. It is given so that the great memory that would not leave them should not spoil all the later lives of little animals who have been helped out of trouble. In this way they can be happy and light-hearted as before.
+hard: capricious; aspens; oblivion; demigod; bestow; overshadow; haunting
+@S
+ctx: Though it was past ten o’clock at night, the sky still clung to
+simple: It was past ten o'clock at night, but the sky still held some last light from the day that had gone. The heavy heat of the very hot afternoon broke up and rolled away at the cool touch of the short midsummer night.
+gram: 'Though ...' starts a clause of contrast; the main clause with 'clung to and retained' has two verbs sharing one object ('skirts of light'); after the semicolon a second main clause tells what the heat did.
+@S
+ctx: Since it was to end so soon, I almost wish I had never
+simple: Since it was going to end so soon, I almost wish I had never heard it.
+gram: 'Since' means 'because'; 'was to end' is a future in the past; 'I wish I had never heard' is the past perfect after 'wish' and talks about something that cannot be changed.
+@S
+ctx: He might not refuse, were Death himself waiting to strike him instantly
+simple: He could not refuse, even if Death himself were waiting to strike him at once, after he had looked with human eyes on things that should stay hidden.
+gram: 'were Death himself waiting' means 'even if Death were waiting'; the verb 'were' is put first (inversion) instead of 'if'; 'might not' here means 'was not able to'.
+@S
+ctx: As one wakened suddenly from a beautiful dream, who struggles to recall it
+simple: Think of a person who is woken suddenly from a beautiful dream and tries hard to remember it. He can keep only a dim feeling of how beautiful it was, until that too fades away, and he sadly accepts the hard, cold waking and all it costs him. So Mole, after struggling with his memory for a short time, shook his head sadly and followed the Rat.
+gram: This is a long comparison: 'As one ... so Mole ...'; the 'who' clause adds more about the person, 'Till that, too, fades away' starts a new part, and 'so Mole' finally says who is like him.
+@S
+ctx: Lest the awful remembrance should remain and grow, and overshadow mirth and pleasure
+simple: It is given so that the awful memory should not stay and grow and cast a shadow on happiness and fun. It is also given so that the great memory that would not leave them should not spoil all the later lives of little animals who have been helped out of trouble. In this way they can be happy and light-hearted as before.
+gram: 'Lest ... should ...' means 'so that ... will not'; it is an old, formal way to say what must be avoided.
+@PH
+pick up | phrasal verb | To get a piece of news by chance. | | we may pick up some news of him
+come across | phrasal verb | To find something or someone by chance. | came across | some animal or other will come across him
+draw out | phrasal verb | To make someone say something that they do not want to say. | drew out | so I drew him out and pumped him
+on the chance | idiom | In case something good may happen. | | on the chance, you know
+come back | phrasal verb | To return. | | if he came wandering back from wherever he is
+shove out | phrasal verb | To push a boat out into the water. | shoved out | and shoved out into midstream

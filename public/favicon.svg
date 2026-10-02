@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Margin Words">
+  <rect width="32" height="32" rx="6" fill="#F3EFE6"/>
+  <rect x="4" y="3" width="24" height="26" rx="2" fill="#1E4A3A"/>
+  <rect x="4" y="3" width="4" height="26" fill="#143328"/>
+  <path d="M17.5 3h5.2v15.2l-2.6 2.5-2.6-2.5V3z" fill="#8F3E1F"/>
+</svg>

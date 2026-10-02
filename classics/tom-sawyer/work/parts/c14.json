@@ -1,0 +1,94 @@
+{
+"glossary": {
+"infatuated": {
+"pos": "adjective",
+"meaning": "Filled with a strong love for something that is foolish or not good for you."
+},
+"newfangled": {
+"pos": "adjective",
+"meaning": "New and strange; not liked by people who like old ways."
+},
+"inveterate": {
+"pos": "adjective",
+"meaning": "Doing something as a habit for a long time, and not likely to stop."
+},
+"quack": {
+"pos": "adjective",
+"meaning": "Not real or not honest. A 'quack' medicine is a false medicine that does not work."
+},
+"windfall": {
+"pos": "noun",
+"meaning": "A lucky thing that comes without being expected."
+},
+"dejected": {
+"pos": "adjective",
+"meaning": "Sad and without hope."
+},
+"consternation": {
+"pos": "noun",
+"meaning": "Strong shock and worry."
+},
+"clandestinely": {
+"pos": "adverb",
+"meaning": "In a secret way, so that nobody knows."
+},
+"avariciously": {
+"pos": "adverb",
+"meaning": "With a strong wish to get something for oneself."
+},
+"havoc": {
+"pos": "noun",
+"meaning": "Great damage and mess."
+},
+"remorse": {
+"pos": "noun",
+"meaning": "A deep feeling of being sorry for something wrong you did."
+},
+"numskull": {
+"pos": "noun",
+"meaning": "A foolish person."
+},
+"crestfallen": {
+"pos": "adjective",
+"meaning": "Sad and ashamed because you did not get what you hoped for."
+}
+},
+"paragraphs": [
+{
+"chapter": 14,
+"paragraph": 13,
+"context": "So Tom pried his mouth open and poured down the Painkiller",
+"mainIdea": "The cat Peter takes Painkiller and goes wild. Aunt Polly comes in and sees the end of it.",
+"simple": "Peter agreed, so Tom opened his mouth and poured the Painkiller down. Peter jumped a couple of yards in the air, gave a wild shout and ran round and round the room. He hit the furniture, knocked over flowerpots and made a great mess. Then he stood on his back feet and danced around, wild with joy, with his head over his shoulder and his voice telling of his happiness. Then he tore around the house again, leaving chaos and ruin behind him. Aunt Polly came in just in time to see him turn a few somersaults, give a last loud cheer and go out through the open window, taking the rest of the flowerpots with him. The old lady stood frozen with surprise and looked over her glasses. Tom lay on the floor, almost dying from laughing.",
+"hardWords": [
+"war-whoop",
+"havoc",
+"frenzy",
+"unappeasable",
+"summersets",
+"petrified"
+]
+}
+],
+"sentences": [
+{
+"chapter": 14,
+"context": "armed with death, went about on her pale horse, metaphorically speaking",
+"simple": "Carrying her false medicines, she went about like Death on a pale horse, if I may speak in a picture.",
+"grammar": "'Metaphorically speaking' tells us the words are a picture and not true. Aunt Polly is compared to Death on a horse, because she brings her medicines everywhere."
+},
+{
+"chapter": 14,
+"context": "If it had been Sid, she would have had no misgivings to alloy her delight",
+"simple": "If it had been Sid, she would have felt only joy, with no doubts to spoil it.",
+"grammar": "'If it had been Sid, she would have had...' is an unreal past 'if' sentence: it was Tom, not Sid, so she did have doubts."
+}
+],
+"phrases": {
+"in the dumps": {
+"meaning": "Sad and low in spirit.",
+"pos": "idiom",
+"example": "he dropped hopelessly into the dumps"
+}
+}
+}

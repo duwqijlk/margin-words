@@ -1,0 +1,52 @@
+{
+"glossary": {
+"ingenious": {
+"pos": "adjective",
+"meaning": "Clever and full of new ideas."
+},
+"refrained": {
+"pos": "past-tense verb",
+"meaning": "Stopped herself from doing something.",
+"forms": [
+"refrained",
+"refrain"
+]
+},
+"fortified": {
+"pos": "past-tense verb",
+"meaning": "Made herself stronger and braver.",
+"forms": [
+"fortified",
+"fortify"
+]
+},
+"softy": {
+"pos": "noun",
+"meaning": "A person who is too gentle or easy to fool."
+}
+},
+"paragraphs": [
+{
+"chapter": 21,
+"paragraph": 31,
+"context": "She put the jacket away, and stood by musing a minute",
+"mainIdea": "Aunt Polly is afraid that Tom lied, but she looks in the jacket pocket anyway. She finds the bark and weeps with joy.",
+"simple": "She put the jacket away and stood thinking for a minute. Twice she put out her hand to take the jacket again, and twice she stopped herself. She tried once more, and this time she made herself stronger with the thought: \"It's a good lie. It's a good lie. I won't let it make me sad.\" So she looked in the jacket pocket. A moment later she was reading Tom's piece of bark through flowing tears. She said she could forgive the boy now, even if he had done a million sins."
+}
+],
+"sentences": [
+{
+"chapter": 21,
+"context": "had brought his sorrows to an unpromising market",
+"simple": "He had taken his troubles to a place where he was not likely to find comfort.",
+"grammar": "This is a picture from selling things: he 'brought his sorrows to a market' that gave a poor price. It means the aunt was not going to be kind."
+}
+],
+"phrases": {
+"lo and behold": {
+"meaning": "A way of saying that something surprising has just been found.",
+"pos": "idiom",
+"example": "lo and behold you she’d found out from Joe"
+}
+}
+}

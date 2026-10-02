@@ -1,0 +1,99 @@
+{
+ "glossary": {
+  "bridled": {
+   "pos": "past-tense verb",
+   "meaning": "Held the head high and showed anger because of something said.",
+   "forms": [
+    "bridled",
+    "bridle"
+   ]
+  },
+  "fiddlesticks": {
+   "pos": "interjection",
+   "meaning": "A word that means 'what a silly thing to say!'"
+  },
+  "skirmish": {
+   "pos": "noun",
+   "meaning": "A short, small fight.",
+   "forms": [
+    "skirmishes",
+    "skirmish"
+   ]
+  },
+  "curb": {
+   "pos": "verb",
+   "meaning": "To hold back or control."
+  },
+  "fib": {
+   "pos": "noun",
+   "meaning": "A small lie."
+  },
+  "pacify": {
+   "pos": "verb",
+   "meaning": "To make an angry person quiet and happy again."
+  },
+  "breach": {
+   "pos": "noun",
+   "meaning": "A break between people who were friends."
+  },
+  "overtures": {
+   "pos": "plural noun",
+   "meaning": "First steps made to be friends again after a fight.",
+   "forms": [
+    "overtures",
+    "overture"
+   ]
+  },
+  "plume": {
+   "pos": "verb",
+   "meaning": "To feel proud of yourself and show it. 'Plume herself' means feel proud of herself."
+  },
+  "crosspatch": {
+   "pos": "noun",
+   "meaning": "A person who is often cross and in a bad way."
+  },
+  "refractory": {
+   "pos": "adjective",
+   "meaning": "Hard to control; not doing what you want it to do."
+  },
+  "blowzy": {
+   "pos": "adjective",
+   "meaning": "Red in the face, with hair that is not in good order."
+  },
+  "dishevelled": {
+   "pos": "adjective",
+   "meaning": "Not in good order. It is used for hair or clothes."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 10,
+   "context": "The patience and the humility of the face she loved so well",
+   "mainIdea": "Jo learns from her mother's example. Knowing her mother has the same fault helps her to want to change.",
+   "simple": "The patience and gentle, humble look on the face she loved so much taught Jo more than the wisest talk or the hardest words of blame. She felt comfort at once from her mother's kindness and trust in her. Knowing that her mother had a fault like hers, and tried to fix it, made her own fault easier to bear. It also made her more sure that she would cure it. But forty years seemed a long time to watch and pray, to a girl of fifteen.",
+   "hardWords": [
+    "humility",
+    "reproof",
+    "resolution"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 10,
+   "context": "Although the oldest, Jo had the least self-control",
+   "simple": "Jo was the oldest girl, but she had the least control over herself.",
+   "grammar": "'Although the oldest' leaves out 'she was': it means 'Although she was the oldest'. 'The least' is the superlative of 'little'."
+  }
+ ],
+ "phrases": {
+  "hold one's tongue": {
+   "pos": "idiom",
+   "meaning": "To stay quiet and not say what you think.",
+   "forms": [
+    "held her tongue"
+   ],
+   "example": "Amy held her tongue, but used her eyes"
+  }
+ }
+}

@@ -1,0 +1,108 @@
+{
+ "glossary": {
+  "abdicate": {
+   "pos": "verb",
+   "meaning": "To give up a position of power, such as the place of a king."
+  },
+  "seclusion": {
+   "pos": "uncountable noun",
+   "meaning": "A state of being kept away from other people."
+  },
+  "brooded": {
+   "pos": "past-tense verb",
+   "meaning": "Sat over something with worry, as a bird sits on eggs.",
+   "forms": [
+    "brooded",
+    "brood"
+   ]
+  },
+  "bereft": {
+   "pos": "past participle",
+   "meaning": "Left without something dear.",
+   "forms": [
+    "bereft"
+   ]
+  },
+  "precincts": {
+   "pos": "plural noun",
+   "meaning": "The area around a place, especially a place that is special."
+  },
+  "fender": {
+   "pos": "noun",
+   "meaning": "A low metal guard in front of a fire, to stop pieces of wood falling out."
+  },
+  "incumbrances": {
+   "pos": "plural noun",
+   "meaning": "Things, such as children, that make life harder and take time and money."
+  },
+  "delinquencies": {
+   "pos": "plural noun",
+   "meaning": "Small wrong things done, such as not doing one's duty."
+  },
+  "perjured": {
+   "pos": "adjective",
+   "meaning": "Having broken a promise. Here it is a joke about a small child who has broken his word."
+  },
+  "ignominiously": {
+   "pos": "adverb",
+   "meaning": "In a way that brings great loss of respect."
+  },
+  "practicability": {
+   "pos": "uncountable noun",
+   "meaning": "The fact that something can really be done and works."
+  },
+  "millinery": {
+   "pos": "uncountable noun",
+   "meaning": "Women's things worn on the head, and the making of them."
+  },
+  "harangue": {
+   "pos": "noun",
+   "meaning": "A long, loud speech that tries to make people listen."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 40,
+   "context": "In France the young girls have a dull time of it till they are married",
+   "mainIdea": "In France girls have a dull life until they marry. In America, the writer says, young wives are put on the shelf after the wedding.",
+   "simple": "In France young girls have a dull time until they are married, and then 'Long live liberty' becomes their motto. In America, as everyone knows, girls sign the declaration of independence early and enjoy their freedom with republican spirit. But young wives usually give up their power when the first heir comes, and go into a life almost as shut away as a French nunnery, though not as quiet. Whether they like it or not, they are as good as put on the shelf as soon as the wedding excitement is over. Most could say, as a very pretty woman did the other day, 'I am as handsome as ever, but no one notices me because I am married.'",
+   "hardWords": [
+    "abdicate",
+    "seclusion",
+    "republican"
+   ]
+  },
+  {
+   "chapter": 40,
+   "context": "The poor man was very uncomfortable, for the children had bereft him of his wife",
+   "mainIdea": "John feels shut out from home, so after six months he starts to spend evenings at the Scotts'.",
+   "simple": "The poor man was very uncomfortable, because the children had taken his wife from him. Home was only a nursery. The endless 'hushing' made him feel like a rough stranger whenever he went into the holy area of Babyland. He bore it patiently for six months. When nothing got better, he did what other fathers in his state do and tried to find a little comfort elsewhere. Scott had married and set up house not far away. John got into the habit of running over for an hour or two in the evening when his own parlor was empty and his own wife was singing lullabies that never seemed to end. Mrs. Scott was a lively, pretty girl with nothing to do but be pleasant, and she did it very well. Her parlor was always bright and nice, with the chessboard ready, the piano in tune, plenty of gay gossip and a nice little supper set out in a tempting way.",
+   "hardWords": [
+    "bereft",
+    "precincts",
+    "amendment"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 40,
+   "context": "if John goes on so much longer I might as well be widowed",
+   "simple": "If John goes on like this much longer, it would be the same as being a widow.",
+   "grammar": "'If John goes on ... I might as well be' mixes a real 'if' with 'might as well', which says that one thing is no different from the other. 'Widowed' means that a husband has died."
+  },
+  {
+   "chapter": 40,
+   "context": "as if he felt that justice was tempered with mercy",
+   "simple": "It was as if Demi felt that being fair can be softened by being kind.",
+   "grammar": "'As if' introduces something that only seems true. 'Tempered with' means 'made softer by'. The verb phrase is in the passive: 'justice was tempered'."
+  }
+ ],
+ "phrases": {
+  "come to the rescue": {
+   "pos": "idiom",
+   "meaning": "To come and help someone who is in trouble.",
+   "example": "father came to the rescue"
+  }
+ }
+}

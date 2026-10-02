@@ -1,0 +1,105 @@
+{
+ "glossary": {
+  "dawdling": {
+   "pos": "present participle",
+   "meaning": "Wasting time and moving slowly.",
+   "forms": [
+    "dawdling",
+    "dawdle"
+   ]
+  },
+  "immaculate": {
+   "pos": "adjective",
+   "meaning": "Perfectly clean and in good order."
+  },
+  "panniers": {
+   "pos": "plural noun",
+   "meaning": "Large bags on each side of a horse to carry things."
+  },
+  "distaff": {
+   "pos": "noun",
+   "meaning": "A stick that holds soft hair or plant parts while they are made into string by hand."
+  },
+  "gnarled": {
+   "pos": "adjective",
+   "meaning": "Rough and bent with age, as an old tree is."
+  },
+  "recumbent": {
+   "pos": "adjective",
+   "meaning": "Lying down."
+  },
+  "indolence": {
+   "pos": "uncountable noun",
+   "meaning": "A dislike of work; a wish to do nothing."
+  },
+  "imperturbable": {
+   "pos": "adjective",
+   "meaning": "Always quiet and cool; not easy to upset."
+  },
+  "effigy": {
+   "pos": "noun",
+   "meaning": "A figure or picture of a person, such as the one on a stone over a dead person."
+  },
+  "apathy": {
+   "pos": "uncountable noun",
+   "meaning": "A lack of interest or energy; not caring."
+  },
+  "supine": {
+   "pos": "adjective",
+   "meaning": "Lying flat on the back; not wanting to do anything."
+  },
+  "efficacious": {
+   "pos": "adjective",
+   "meaning": "Having the effect that was wanted."
+  },
+  "depravity": {
+   "pos": "uncountable noun",
+   "meaning": "A very bad state of mind."
+  },
+  "grotto": {
+   "pos": "noun",
+   "meaning": "A small, room-like place in a hill or rock; also a cool place in a garden made to look like one."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 41,
+   "context": "Valrosa well deserved its name, for, in that climate of perpetual summer",
+   "mainIdea": "The villa Valrosa is covered with roses everywhere, in a place where it is always summer.",
+   "simple": "Valrosa was rightly named, because in that land of never-ending summer, roses bloomed everywhere. They hung over the archway and pushed between the bars of the big gate to welcome people passing by. They lined the avenue that wound through lemon trees and feathery palms up to the villa on the hill. Every shady corner with seats for resting was full of flowers. Every cool grotto had its marble nymph smiling from a veil of flowers, and every fountain showed red, white or pale pink roses bending down to smile at their own beauty. Roses covered the walls of the house, hung from its edges, climbed the pillars and grew wild over the rail of the wide terrace. From there one could look down on the sunny Mediterranean and the white-walled city on its shore.",
+   "hardWords": [
+    "perpetual",
+    "grotto",
+    "nymph",
+    "cornices",
+    "balustrade"
+   ]
+  },
+  {
+   "chapter": 41,
+   "context": "It was not nearly so well done, but there was a life and spirit in it",
+   "mainIdea": "Amy's second sketch shows Laurie as he used to be, strong and brave while taming a horse. It is a strong contrast to the lazy picture.",
+   "simple": "The second sketch was not nearly so well drawn, but it had so much life and spirit that it made up for many faults. It brought back the past so strongly that a sudden change came over the young man's face as he looked. It was only a rough sketch of Laurie taming a horse. His hat and coat were off, and every line of the active figure, the firm face and the commanding stand was full of energy and meaning. The handsome animal, just beaten, stood with its neck curved under the tight rein. One foot pawed the ground impatiently, and its ears were up as if listening for the voice that had mastered it. In the ruffled mane, the rider's windblown hair and straight stand, there was a feeling of sudden stopped movement, of strength, courage and young life. It was in sharp contrast with the lazy grace of the 'Dolce far niente' sketch.",
+   "hardWords": [
+    "atoned",
+    "supine",
+    "buoyancy"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 41,
+   "context": "Stir away; it won’t hurt me and it may amuse you, as the big man said when his little wife beat him.",
+   "simple": "Go ahead and stir me up. It won't hurt me, and it might amuse you, as the big man said when his small wife hit him.",
+   "grammar": "'Stir away' is an order that means 'go on stirring'. 'As the big man said ...' adds a joke with a short story. 'It' stands for the stirring."
+  },
+  {
+   "chapter": 41,
+   "context": "It takes two flints to make a fire: you are as cool and soft as snow.",
+   "simple": "You need two flints to make a fire. You are as cool and soft as snow.",
+   "grammar": "The first part says 'It takes + noun + to + verb'. The second part uses 'as ... as' to compare Amy to snow, which cannot make fire."
+  }
+ ],
+ "phrases": {}
+}

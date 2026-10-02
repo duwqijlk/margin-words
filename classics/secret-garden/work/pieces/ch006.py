@@ -1,0 +1,48 @@
+words = [
+("tapestried","adjective","Having walls covered with tapestry, a heavy cloth with a picture woven into it."),
+("languid","adjective","Slow and weak, with no wish to do anything."),
+("preen","verb","When a bird preens, it cleans and arranges its feathers with its beak."),
+("wutherin","present participle","A Yorkshire word for the sound of the wind blowing hard with a low, rushing roar. The book writes it as wutherin'."),
+("buffeting","present participle","Hitting something again and again, as the wind does."),
+("chattered","past-tense verb","Talked quickly about things that are not important."),
+("novelty","noun","Something new and different."),
+("persisted","past-tense verb","Kept on asking or doing something and did not stop."),
+("distinguish","verb","To see or hear that one thing is different from another."),
+("draft","noun","A current of cold air that moves through a room."),
+("stubbornly","adverb","In a way that does not change, even when others disagree."),
+("shuddering","adjective","Shaking with fear or cold."),
+("twittered","past-tense verb","Made a series of short, high sounds, as a small bird does."),
+]
+paras = [
+(6,34,"Mrs. Medlock said it’s not to be talked about",
+ "Martha tells Mary why Mr Craven hates the garden. It was his wife's garden, and she died after a branch broke.",
+ "'Mind,' she said, 'Mrs. Medlock said we must not talk about it. There are many things in this place that we must not talk about. Those are Mr. Craven's orders. He says his troubles are not the servants' business. But if it were not for the garden, he would not be as he is. It was Mrs. Craven's garden. She made it when they were first married, and she loved it. They used to look after the flowers themselves. None of the gardeners was ever let in. He and she used to go in and shut the door and stay there for hours and hours, reading and talking. She was just a girl, and there was an old tree with a branch bent like a seat. She made roses grow over it, and she used to sit there. But one day, when she was sitting there, the branch broke and she fell to the ground. She was hurt so badly that she died the next day. The doctors thought he would go out of his mind and die too. That is why he hates it. Nobody has gone in since, and he will not let anyone talk about it.'",
+ ["none servants’ business","’tend","go out o’ his mind","hours an’ hours"]),
+(6,36,"At that moment a very good thing was happening to her",
+ "Mary has had four good things happen to her at Misselthwaite. The paragraph lists them.",
+ "At that moment a very good thing was happening to her. In fact, four good things had happened to her since she came to Misselthwaite Manor. She had felt as if she had understood a robin and he had understood her. She had run in the wind until her blood had grown warm. She had been healthily hungry for the first time in her life. And she had found out what it was to be sorry for someone. She was getting on.",
+ ["found out","getting on"]),
+]
+sents = [
+("Sometimes the wind sounded rather like a child crying",
+ "At times the wind sounded a little like a child crying. But soon Mary was quite sure that the sound was inside the house.",
+ "'sounded like + -ing' compares the sound with something; 'felt quite sure that ...' starts a noun clause that says what she was sure of."),
+("It must mean that hollow shuddering sort of roar",
+ "Mary thought it must mean the low, shaking, roaring sound that went round and round the house.",
+ "'must mean' shows that Mary is almost sure; 'that hollow shuddering sort of roar' is the thing she thinks the word means."),
+("a great rushing draft blew along the passage",
+ "A strong rush of air blew along the passage, and the door of their room was blown open.",
+ "'was blown open' is a passive form; 'they sat in' is a relative clause with 'that' left out, and the 'in' stays at the end."),
+("But for th’ garden he wouldn’t be like he is",
+ "If it were not for the garden, he would not be as he is.",
+ "'But for + noun' means 'if it were not for'; the result uses 'wouldn't be'. 'th'' is Yorkshire for 'the'."),
+]
+phrases = [
+("go on","phrasal verb","To keep doing something.",["went on","go on"],"went on eating it until her bowl was empty"),
+("turn away","phrasal verb","To move so that you face another way.",["turned away"],"picked up his spade and turned away"),
+("stand up","phrasal verb","To rise from sitting, or to stay on your feet.",["stand up"],"You could bare stand up on the moor"),
+("make fun of","idiom","To laugh at someone in an unkind way.",["made fun of"],"made fun of her Yorkshire speech"),
+("give up","phrasal verb","To let go of something you had.",["gave up"],"Martha gave up her store of knowledge"),
+("run after","phrasal verb","To run behind someone to catch them or to follow them.",["ran after"],"she ran after him"),
+("blow out","phrasal verb","To stop a flame by blowing; the wind can do this too.",["blown out"],"the light was blown out"),
+]

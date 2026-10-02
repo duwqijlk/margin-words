@@ -1,0 +1,87 @@
+{
+"glossary": {
+"discreet": {
+"pos": "adjective",
+"meaning": "Careful not to tell secrets or cause trouble."
+},
+"solitary": {
+"pos": "adjective",
+"meaning": "Single; only one."
+},
+"befriended": {
+"pos": "past-tense verb",
+"meaning": "Acted as a friend to someone and helped.",
+"forms": [
+"befriended",
+"befriend"
+]
+},
+"toils": {
+"pos": "plural noun",
+"meaning": "A trap made of nets or ropes. Here, the law is closing around Potter like a trap."
+},
+"deposed": {
+"pos": "past-tense verb",
+"meaning": "Said under oath, in court, what one knows.",
+"forms": [
+"deposed",
+"depose"
+]
+},
+"foreshadowed": {
+"pos": "past-tense verb",
+"meaning": "Gave an early sign of what would come.",
+"forms": [
+"foreshadowed",
+"foreshadow"
+]
+},
+"delirium": {
+"pos": "noun",
+"meaning": "A wild state of mind in which you do not know what you are doing."
+},
+"diffident": {
+"pos": "adjective",
+"meaning": "Shy and not sure of oneself."
+},
+"lynch": {
+"pos": "verb",
+"meaning": "To kill a person by a mob, without a court."
+},
+"counsel": {
+"pos": "noun",
+"meaning": "A lawyer in a court case."
+},
+"prosecution": {
+"pos": "noun",
+"meaning": "The lawyers who try to show that a person did a crime."
+}
+},
+"paragraphs": [
+{
+"chapter": 25,
+"paragraph": 30,
+"context": "You’ve been mighty good to me, boys —better’n anybody else in this town",
+"mainIdea": "Potter thanks the boys for being his friends in jail. He says he did a terrible thing and tells them not to get drunk.",
+"simple": "Potter said the boys had been very good to him, better than anyone else in the town, and he did not forget it. He often said to himself that he used to mend all the boys' kites and show them good fishing places, but now they all forgot old Muff in his trouble. Tom and Huck did not forget him, and he did not forget them. He said he did an awful thing, when he was drunk and crazy, and that was the only way he could explain it. Now he must hang for it, and that is right, and maybe best too. But he did not want to talk about that and make them feel bad. They had been his friends. He told them never to get drunk, then they would never end up in a place like this. He asked them to stand a little farther west. He said it was a great comfort to see friendly faces when a man is in so much trouble, and no one came but them. He asked them to climb on each other's backs so he could touch their faces. He said to shake hands: theirs would come through the bars, but his was too big. They were little hands and weak, but they had helped Muff Potter a lot, and would help him more if they could."
+}
+],
+"sentences": [
+{
+"chapter": 25,
+"context": "It was hours before he got to sleep",
+"simple": "He could not sleep for hours.",
+"grammar": "'It was hours before...' means 'a long time passed before...'. The word 'before' links a time to the event, like 'It was a long time before he slept'."
+}
+],
+"phrases": {
+"stand by": {
+"meaning": "To stay with someone and support him when he is in trouble.",
+"pos": "phrasal verb",
+"forms": [
+"stood by"
+],
+"example": "he’s kind of stood by me when I was out of luck"
+}
+}
+}

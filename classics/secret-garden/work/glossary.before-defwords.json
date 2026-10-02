@@ -1,0 +1,2810 @@
+{
+ "version": 2,
+ "title": "The Secret Garden",
+ "author": "Frances Hodgson Burnett",
+ "sha256": "7ec06b87caff764e298733a0c38821d3838666082bddbfffe1a3cdacd1f36c12",
+ "chapters": 31,
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+ "language": "English",
+ "glossary": {
+  "disagreeable": {
+   "pos": "adjective",
+   "meaning": "Not pleasant. Unkind and not nice to be with."
+  },
+  "sour": {
+   "pos": "adjective",
+   "meaning": "Unhappy and bad-tempered. Here it describes a look on the face."
+  },
+  "ayah": {
+   "pos": "noun",
+   "meaning": "In India, a woman servant who takes care of a child."
+  },
+  "sahib": {
+   "pos": "noun",
+   "meaning": "In India, a word of respect. 'Mem Sahib' is what servants call a European woman. 'Missie Sahib' is used for a girl."
+  },
+  "fretful": {
+   "pos": "adjective",
+   "meaning": "Unhappy, and crying or complaining a lot."
+  },
+  "tyrannical": {
+   "pos": "adjective",
+   "meaning": "Using power over other people in a hard and unkind way."
+  },
+  "governess": {
+   "pos": "noun",
+   "meaning": "A woman who is paid to teach children at their home."
+  },
+  "stammered": {
+   "pos": "past-tense verb",
+   "meaning": "Spoke with many stops and repeated sounds, because of fear."
+  },
+  "passion": {
+   "pos": "noun",
+   "meaning": "A sudden, wild anger."
+  },
+  "slunk": {
+   "pos": "past-tense verb",
+   "meaning": "Moved quietly and secretly, because of fear or shame."
+  },
+  "veranda": {
+   "pos": "noun",
+   "meaning": "A covered place with a floor along the side of a house, open to the air."
+  },
+  "hibiscus": {
+   "pos": "noun",
+   "meaning": "A plant with big, bright flowers that grows in hot countries."
+  },
+  "scarlet": {
+   "pos": "adjective",
+   "meaning": "Bright red."
+  },
+  "disdaining": {
+   "pos": "present participle",
+   "meaning": "Showing that you think something is not good enough for you."
+  },
+  "imploringly": {
+   "pos": "adverb",
+   "meaning": "In a way that begs for help."
+  },
+  "wrung": {
+   "pos": "past-tense verb",
+   "meaning": "Twisted and pressed together. 'Wrung her hands' shows great worry or sadness."
+  },
+  "cholera": {
+   "pos": "noun",
+   "meaning": "A very bad illness that spreads fast and can kill people."
+  },
+  "bungalow": {
+   "pos": "noun",
+   "meaning": "A house with only one floor, often in a hot country."
+  },
+  "bewilderment": {
+   "pos": "noun",
+   "meaning": "The state of being very confused."
+  },
+  "drowsy": {
+   "pos": "adjective",
+   "meaning": "Sleepy."
+  },
+  "hastily": {
+   "pos": "adverb",
+   "meaning": "Very quickly, in a hurry."
+  },
+  "compound": {
+   "pos": "noun",
+   "meaning": "The land with a fence or wall around a group of buildings."
+  },
+  "desolation": {
+   "pos": "noun",
+   "meaning": "A sad, empty place where everyone has gone."
+  },
+  "clergyman": {
+   "pos": "noun",
+   "meaning": "A man whose job is to lead worship in a church."
+  },
+  "shabby": {
+   "pos": "adjective",
+   "meaning": "Old and worn, not looking good."
+  },
+  "impudent": {
+   "pos": "adjective",
+   "meaning": "Rude and not showing respect."
+  },
+  "rockery": {
+   "pos": "noun",
+   "meaning": "A garden bed made with piles of stones and small plants."
+  },
+  "contrary": {
+   "pos": "adjective",
+   "meaning": "Doing the opposite of what other people want."
+  },
+  "hunchback": {
+   "pos": "noun",
+   "meaning": "A person with a back that is bent and has a lump on it."
+  },
+  "housekeeper": {
+   "pos": "noun",
+   "meaning": "A person whose job is to run a big house and manage the other servants."
+  },
+  "stout": {
+   "pos": "adjective",
+   "meaning": "Fat and strong."
+  },
+  "mantle": {
+   "pos": "noun",
+   "meaning": "A loose coat without sleeves, worn over other clothes."
+  },
+  "fringe": {
+   "pos": "noun",
+   "meaning": "An edge made of many small threads or strings that hang down."
+  },
+  "bonnet": {
+   "pos": "noun",
+   "meaning": "A hat for women that is tied under the chin."
+  },
+  "sallow": {
+   "pos": "adjective",
+   "meaning": "Having a pale yellow colour, not healthy."
+  },
+  "marred": {
+   "pos": "adjective",
+   "meaning": "Spoiled. In this book a Yorkshire word for a child who is spoiled and bad-tempered."
+  },
+  "discomfited": {
+   "pos": "adjective",
+   "meaning": "Feeling uncomfortable and not sure what to do."
+  },
+  "gloomy": {
+   "pos": "adjective",
+   "meaning": "Dark and sad."
+  },
+  "moor": {
+   "pos": "noun",
+   "meaning": "A large area of high, open land with rough grass and no trees."
+  },
+  "crooked": {
+   "pos": "adjective",
+   "meaning": "Not straight; bent."
+  },
+  "dreary": {
+   "pos": "adjective",
+   "meaning": "Dull and sad."
+  },
+  "lulled": {
+   "pos": "past-tense verb",
+   "meaning": "Made calm and sleepy by a soft, even sound."
+  },
+  "stationmaster": {
+   "pos": "noun",
+   "meaning": "The person in charge of a railway station."
+  },
+  "tha": {
+   "pos": "pronoun",
+   "meaning": "A Yorkshire way to say 'you'. In the book it is often written tha'."
+  },
+  "thee": {
+   "pos": "pronoun",
+   "meaning": "A Yorkshire way to say 'you' (as an object), used to one person."
+  },
+  "thy": {
+   "pos": "determiner",
+   "meaning": "A Yorkshire and old way to say 'your'."
+  },
+  "th": {
+   "pos": "determiner",
+   "meaning": "A short Yorkshire way to say 'the', written th' in the book."
+  },
+  "aye": {
+   "pos": "interjection",
+   "meaning": "Yes. It is used in Yorkshire."
+  },
+  "enow": {
+   "pos": "adjective",
+   "meaning": "A Yorkshire way to say 'enough'."
+  },
+  "browt": {
+   "pos": "past-tense verb",
+   "meaning": "A Yorkshire way to say 'brought'."
+  },
+  "brougham": {
+   "pos": "noun",
+   "meaning": "A closed carriage pulled by a horse, with four wheels."
+  },
+  "footman": {
+   "pos": "noun",
+   "meaning": "A man servant who helps people in and out of a carriage and opens doors."
+  },
+  "burly": {
+   "pos": "adjective",
+   "meaning": "Big, strong and heavy."
+  },
+  "coachman": {
+   "pos": "noun",
+   "meaning": "A man whose job is to drive a carriage pulled by horses."
+  },
+  "cushioned": {
+   "pos": "adjective",
+   "meaning": "Made soft with pillows or pads."
+  },
+  "timid": {
+   "pos": "adjective",
+   "meaning": "Easily frightened; not brave."
+  },
+  "whitewashed": {
+   "pos": "adjective",
+   "meaning": "Painted white with a cheap white paint made of lime and water."
+  },
+  "vicarage": {
+   "pos": "noun",
+   "meaning": "The house where the vicar, a church leader, lives."
+  },
+  "singular": {
+   "pos": "adjective",
+   "meaning": "Strange; not like other things."
+  },
+  "heather": {
+   "pos": "noun",
+   "meaning": "A low wild plant with small purple flowers that grows on moors."
+  },
+  "gorse": {
+   "pos": "noun",
+   "meaning": "A wild bush with sharp thorns and yellow flowers."
+  },
+  "broom": {
+   "pos": "noun",
+   "meaning": "A wild bush with long thin stems and yellow flowers. Here it is a plant, not a tool for sweeping."
+  },
+  "bleak": {
+   "pos": "adjective",
+   "meaning": "Cold, bare and without comfort."
+  },
+  "lodge": {
+   "pos": "noun",
+   "meaning": "A small house at the gate of a big house or a park."
+  },
+  "vault": {
+   "pos": "noun",
+   "meaning": "A roof shaped like an arch. Here the trees make it look like the roof of a long dark room."
+  },
+  "ramble": {
+   "pos": "verb",
+   "meaning": "To spread out in a loose, uneven way, as a big house does."
+  },
+  "portraits": {
+   "pos": "plural noun",
+   "meaning": "Pictures of people."
+  },
+  "tapestry": {
+   "pos": "noun",
+   "meaning": "A heavy cloth with a picture woven into it, hung on a wall."
+  },
+  "embroidered": {
+   "pos": "adjective",
+   "meaning": "Decorated with a picture made with needle and thread."
+  },
+  "fantastically": {
+   "pos": "adverb",
+   "meaning": "In a very strange or surprising way."
+  },
+  "turret": {
+   "pos": "noun",
+   "meaning": "A small tower on the corner of a castle."
+  },
+  "obsequious": {
+   "pos": "adjective",
+   "meaning": "Too eager to please a person who has power over you."
+  },
+  "servile": {
+   "pos": "adjective",
+   "meaning": "Acting like a servant who does whatever he is told, without any pride."
+  },
+  "salaam": {
+   "pos": "noun",
+   "meaning": "In India, a low bow with the hand at the head, to show respect."
+  },
+  "scullery": {
+   "pos": "noun",
+   "meaning": "A small room next to a kitchen where pots and plates are washed. A scullery-maid is the lowest kitchen servant."
+  },
+  "indignantly": {
+   "pos": "adverb",
+   "meaning": "In an angry way, because something seems unfair."
+  },
+  "vexed": {
+   "pos": "adjective",
+   "meaning": "Annoyed."
+  },
+  "humiliation": {
+   "pos": "noun",
+   "meaning": "The feeling of shame when you have been made to look foolish."
+  },
+  "subservient": {
+   "pos": "adjective",
+   "meaning": "Too ready to obey other people."
+  },
+  "totter": {
+   "pos": "verb",
+   "meaning": "To walk with weak, unsteady steps."
+  },
+  "homely": {
+   "pos": "adjective",
+   "meaning": "Simple and plain, like an ordinary home. Here it means friendly and without pride."
+  },
+  "treacle": {
+   "pos": "noun",
+   "meaning": "A thick, sweet, dark liquid used on food."
+  },
+  "victuals": {
+   "pos": "plural noun",
+   "meaning": "Food. This is an old word."
+  },
+  "marmalade": {
+   "pos": "noun",
+   "meaning": "A sweet food made from oranges, put on bread."
+  },
+  "ivy": {
+   "pos": "noun",
+   "meaning": "A climbing plant with dark green leaves that grows up walls."
+  },
+  "surly": {
+   "pos": "adjective",
+   "meaning": "Bad-tempered and rude."
+  },
+  "crustily": {
+   "pos": "adverb",
+   "meaning": "In a bad-tempered and rude way."
+  },
+  "meddlin": {
+   "pos": "noun",
+   "meaning": "Taking part in things that are not your business. The book writes it as meddlin'."
+  },
+  "wench": {
+   "pos": "noun",
+   "meaning": "An old word for a girl or young woman."
+  },
+  "mester": {
+   "pos": "noun",
+   "meaning": "A Yorkshire way to say 'master' or 'mister'."
+  },
+  "nowt": {
+   "pos": "pronoun",
+   "meaning": "A Yorkshire way to say 'nothing'."
+  },
+  "forrad": {
+   "pos": "adjective",
+   "meaning": "A Yorkshire way to say 'forward'. Here it means too early."
+  },
+  "blunt": {
+   "pos": "adjective",
+   "meaning": "Saying what you think in a plain way, without trying to be polite."
+  },
+  "warrant": {
+   "pos": "verb",
+   "meaning": "To say you are sure of something. 'I warrant' means 'I am sure'."
+  },
+  "tapestried": {
+   "pos": "adjective",
+   "meaning": "Having walls covered with tapestry, a heavy cloth with a picture woven into it."
+  },
+  "preen": {
+   "pos": "verb",
+   "meaning": "When a bird preens, it cleans and arranges its feathers with its beak."
+  },
+  "wutherin": {
+   "pos": "present participle",
+   "meaning": "A Yorkshire word for the sound of the wind blowing hard with a low, rushing roar. The book writes it as wutherin'."
+  },
+  "buffeting": {
+   "pos": "present participle",
+   "meaning": "Hitting something again and again, as the wind does."
+  },
+  "shuddering": {
+   "pos": "adjective",
+   "meaning": "Shaking with fear or cold."
+  },
+  "moithered": {
+   "pos": "adjective",
+   "meaning": "A Yorkshire word for confused and upset by too much noise or work."
+  },
+  "collie": {
+   "pos": "noun",
+   "meaning": "A kind of dog with long hair, used for looking after sheep."
+  },
+  "perplexed": {
+   "pos": "adjective",
+   "meaning": "Confused and not sure what to do or think."
+  },
+  "pewter": {
+   "pos": "noun",
+   "meaning": "A grey metal used to make plates and cups."
+  },
+  "romping": {
+   "pos": "noun",
+   "meaning": "Playing in a noisy, rough way."
+  },
+  "gallery": {
+   "pos": "noun",
+   "meaning": "A long room or passage, here with pictures on the walls."
+  },
+  "ruffs": {
+   "pos": "plural noun",
+   "meaning": "Stiff, round collars with many folds, worn around the neck in the past."
+  },
+  "brocade": {
+   "pos": "noun",
+   "meaning": "A rich cloth with a raised pattern woven into it."
+  },
+  "inlaid": {
+   "pos": "adjective",
+   "meaning": "Decorated with small pieces of another material set into the surface."
+  },
+  "mantel": {
+   "pos": "noun",
+   "meaning": "The shelf above a fireplace."
+  },
+  "cabinet": {
+   "pos": "noun",
+   "meaning": "A piece of furniture with doors and shelves, for keeping things."
+  },
+  "ivory": {
+   "pos": "noun",
+   "meaning": "The hard white material from the tusks of elephants."
+  },
+  "mahout": {
+   "pos": "noun",
+   "meaning": "A man who rides and looks after an elephant in India."
+  },
+  "palanquin": {
+   "pos": "noun",
+   "meaning": "A covered seat or bed that is carried on poles by people, or on an animal."
+  },
+  "dialect": {
+   "pos": "noun",
+   "meaning": "A way of speaking that is special to one part of a country."
+  },
+  "soart": {
+   "pos": "noun",
+   "meaning": "A Yorkshire way to say 'sort'. 'Nowt o' th' soart' means 'nothing of the sort'."
+  },
+  "vixon": {
+   "pos": "noun",
+   "meaning": "A Yorkshire way to say 'vixen', a female fox. Martha's mother uses it for a bad-tempered girl."
+  },
+  "daffydowndilly": {
+   "pos": "noun",
+   "meaning": "An old name for a daffodil, a yellow spring flower."
+  },
+  "mole": {
+   "pos": "noun",
+   "meaning": "A small animal that lives under the ground and digs tunnels."
+  },
+  "baffling": {
+   "pos": "adjective",
+   "meaning": "Very hard to understand; confusing."
+  },
+  "howsoever": {
+   "pos": "adverb",
+   "meaning": "However. This is an old way to say it."
+  },
+  "glossy": {
+   "pos": "adjective",
+   "meaning": "Smooth and shining."
+  },
+  "contrariness": {
+   "pos": "noun",
+   "meaning": "The habit of doing the opposite of what other people want."
+  },
+  "fumbling": {
+   "pos": "present participle",
+   "meaning": "Moving your hands in a clumsy way to find something."
+  },
+  "skip": {
+   "pos": "verb",
+   "meaning": "To jump over a rope that you swing under your feet and over your head. A skipping-rope is the rope.",
+   "forms": [
+    "skipped",
+    "skipping"
+   ]
+  },
+  "tuppence": {
+   "pos": "noun",
+   "meaning": "Two pennies, a small amount of old British money."
+  },
+  "impudence": {
+   "pos": "noun",
+   "meaning": "Rude behaviour that shows no respect."
+  },
+  "clumsy": {
+   "pos": "adjective",
+   "meaning": "Not smooth or neat in how you move."
+  },
+  "trill": {
+   "pos": "noun",
+   "meaning": "A quick, high song of a bird, with the same sound repeated fast."
+  },
+  "knob": {
+   "pos": "noun",
+   "meaning": "A round handle on a door."
+  },
+  "heathen": {
+   "pos": "noun",
+   "meaning": "A person who does not follow the religion of the speaker. Ben uses it for people who are not Christian."
+  },
+  "pipin": {
+   "pos": "adjective",
+   "meaning": "Very hot. The book writes it as pipin'; 'piping hot' means very hot."
+  },
+  "tendril": {
+   "pos": "noun",
+   "meaning": "A thin, curling part of a climbing plant that holds on to things."
+  },
+  "hazy": {
+   "pos": "adjective",
+   "meaning": "Not clear, as if seen through a thin mist."
+  },
+  "alcove": {
+   "pos": "noun",
+   "meaning": "A small space set back into a wall or a hedge."
+  },
+  "urn": {
+   "pos": "noun",
+   "meaning": "A tall vase, often with a foot, used for plants."
+  },
+  "bulb": {
+   "pos": "noun",
+   "meaning": "A round part of a plant under the ground, from which a flower grows."
+  },
+  "narcissus": {
+   "pos": "noun",
+   "meaning": "A spring flower with a sweet smell. Daffodils are one kind."
+  },
+  "jonquil": {
+   "pos": "noun",
+   "meaning": "A yellow or white spring flower like a small daffodil."
+  },
+  "forevermore": {
+   "pos": "adverb",
+   "meaning": "For all time to come."
+  },
+  "eyeteeth": {
+   "pos": "plural noun",
+   "meaning": "The two pointed teeth in the upper jaw. 'Like pulling eyeteeth' means very hard to do."
+  },
+  "dictated": {
+   "pos": "past-tense verb",
+   "meaning": "Said words aloud for someone else to write down."
+  },
+  "restlessly": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you cannot be calm or still."
+  },
+  "intimate": {
+   "pos": "adjective",
+   "meaning": "Close and friendly."
+  },
+  "flightiness": {
+   "pos": "noun",
+   "meaning": "Behaviour that changes quickly and cannot be trusted."
+  },
+  "hobnailed": {
+   "pos": "adjective",
+   "meaning": "Having a boot with thick nails in the bottom to make it strong."
+  },
+  "danged": {
+   "pos": "adjective",
+   "meaning": "A mild way to say 'damned', used by Ben in the book to show surprise."
+  },
+  "bachelder": {
+   "pos": "noun",
+   "meaning": "A Yorkshire way to say 'bachelor', a man who is not married."
+  },
+  "rheumatics": {
+   "pos": "plural noun",
+   "meaning": "A sickness that makes the joints hurt and be stiff. People now say 'rheumatism'."
+  },
+  "pheasant": {
+   "pos": "noun",
+   "meaning": "A large wild bird with a long tail. People hunt it for food."
+  },
+  "tremulous": {
+   "pos": "adjective",
+   "meaning": "Shaking a little."
+  },
+  "trowel": {
+   "pos": "noun",
+   "meaning": "A small garden tool with a short handle, used for digging small holes."
+  },
+  "hoe": {
+   "pos": "noun",
+   "meaning": "A garden tool with a long handle and a flat blade, used for cutting weeds."
+  },
+  "larkspur": {
+   "pos": "noun",
+   "meaning": "A tall garden plant with blue, pink or white flowers."
+  },
+  "mignonette": {
+   "pos": "noun",
+   "meaning": "A small garden plant with flowers that smell sweet."
+  },
+  "flout": {
+   "pos": "verb",
+   "meaning": "To show that you do not respect someone, in an open way."
+  },
+  "sidled": {
+   "pos": "past-tense verb",
+   "meaning": "Moved sideways, in small quick steps, as a bird does."
+  },
+  "obstinate": {
+   "pos": "adjective",
+   "meaning": "Not willing to change your mind, even when other people ask you to."
+  },
+  "defiantly": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you will not obey."
+  },
+  "creeper": {
+   "pos": "noun",
+   "meaning": "A plant that climbs up walls or trees."
+  },
+  "lichen": {
+   "pos": "noun",
+   "meaning": "A flat, grey-green growth on the bark of trees or on stones."
+  },
+  "upholding": {
+   "pos": "present participle",
+   "meaning": "Holding up; carrying the weight of something."
+  },
+  "reverent": {
+   "pos": "adjective",
+   "meaning": "Showing deep respect."
+  },
+  "wick": {
+   "pos": "adjective",
+   "meaning": "A Yorkshire word for alive and full of life. Mary is told that it means alive or lively."
+  },
+  "thrived": {
+   "pos": "past-tense verb",
+   "meaning": "Grew strong and well."
+  },
+  "nesh": {
+   "pos": "adjective",
+   "meaning": "A Yorkshire word for weak or easily hurt by cold."
+  },
+  "whitethorn": {
+   "pos": "noun",
+   "meaning": "A small tree with thorns and white flowers, also called hawthorn."
+  },
+  "knobstick": {
+   "pos": "noun",
+   "meaning": "A stick with a round lump at the top."
+  },
+  "spick": {
+   "pos": "adjective",
+   "meaning": "'Spick and span' means very clean and neat."
+  },
+  "distended": {
+   "pos": "adjective",
+   "meaning": "Swollen; stretched out because it is full."
+  },
+  "lily": {
+   "pos": "noun",
+   "meaning": "A tall garden flower with large petals. 'Lilies o' th' valley' are small white flowers shaped like bells."
+  },
+  "missel": {
+   "pos": "noun",
+   "meaning": "A kind of large thrush, a brown bird that sings. Here it is part of 'missel thrush'."
+  },
+  "trusty": {
+   "pos": "adjective",
+   "meaning": "Able to be trusted."
+  },
+  "crabbed": {
+   "pos": "adjective",
+   "meaning": "Bad-tempered and hard to please."
+  },
+  "brooch": {
+   "pos": "noun",
+   "meaning": "A piece of jewellery with a pin, worn on a dress."
+  },
+  "quavered": {
+   "pos": "past-tense verb",
+   "meaning": "Spoke with a shaking voice."
+  },
+  "faltered": {
+   "pos": "past-tense verb",
+   "meaning": "Spoke in a weak, unsure way."
+  },
+  "wretched": {
+   "pos": "adjective",
+   "meaning": "Very unhappy."
+  },
+  "tiresome": {
+   "pos": "adjective",
+   "meaning": "Making you feel tired or annoyed."
+  },
+  "ajar": {
+   "pos": "adjective",
+   "meaning": "A little open. A door that is ajar is not fully closed."
+  },
+  "rebellious": {
+   "pos": "adjective",
+   "meaning": "Not willing to obey rules or people in charge."
+  },
+  "agate": {
+   "pos": "noun",
+   "meaning": "A hard stone with lines of colour. Here it is used for the grey colour of Colin's eyes."
+  },
+  "wrapper": {
+   "pos": "noun",
+   "meaning": "A loose piece of clothing worn over night clothes."
+  },
+  "invalid": {
+   "pos": "noun",
+   "meaning": "A person who is ill or weak for a long time."
+  },
+  "clambered": {
+   "pos": "past-tense verb",
+   "meaning": "Climbed in a rough, awkward way, using hands and feet."
+  },
+  "tramp": {
+   "pos": "verb",
+   "meaning": "To walk with heavy steps through a place."
+  },
+  "hindustani": {
+   "pos": "noun",
+   "meaning": "A language spoken in India."
+  },
+  "tantrum": {
+   "pos": "noun",
+   "meaning": "A sudden fit of anger, like a child's."
+  },
+  "bewitched": {
+   "pos": "past-tense verb",
+   "meaning": "Put under a spell; here, changed by what seems like magic."
+  },
+  "sylum": {
+   "pos": "noun",
+   "meaning": "Short for asylum, an old word for a place for people who are very ill in the mind."
+  },
+  "raved": {
+   "pos": "past-tense verb",
+   "meaning": "Spoke wildly, as if out of his mind."
+  },
+  "brace": {
+   "pos": "noun",
+   "meaning": "A stiff support worn on the body to hold the back straight."
+  },
+  "rheumatic": {
+   "pos": "adjective",
+   "meaning": "Of a sickness that makes the joints hurt. 'Rheumatic fever' is a serious sickness with fever and sore joints."
+  },
+  "typhoid": {
+   "pos": "noun",
+   "meaning": "A serious sickness with a high fever."
+  },
+  "brocaded": {
+   "pos": "adjective",
+   "meaning": "Made of rich cloth with a raised pattern."
+  },
+  "curtsy": {
+   "pos": "noun",
+   "meaning": "A small bow made by a girl or woman, bending the knees."
+  },
+  "rajah": {
+   "pos": "noun",
+   "meaning": "An Indian prince or king."
+  },
+  "charm": {
+   "pos": "verb",
+   "meaning": "To make animals or people listen and obey, as if by magic."
+  },
+  "burrows": {
+   "pos": "plural noun",
+   "meaning": "Holes in the ground made by animals to live in."
+  },
+  "sly": {
+   "pos": "adjective",
+   "meaning": "Clever in a quiet way, in order to find out things or get what you want."
+  },
+  "scrawny": {
+   "pos": "adjective",
+   "meaning": "Thin and bony, in an ugly way."
+  },
+  "slamp": {
+   "pos": "verb",
+   "meaning": "A Yorkshire word meaning to lie down flat. Martha says Mary's hair does not slamp down flat on her head."
+  },
+  "yeller": {
+   "pos": "adjective",
+   "meaning": "A Yorkshire way to say 'yellow'."
+  },
+  "nigh": {
+   "pos": "adverb",
+   "meaning": "A Yorkshire and old word for near. 'Not nigh so' means 'not nearly so'."
+  },
+  "waft": {
+   "pos": "noun",
+   "meaning": "A light stream of air carrying a smell."
+  },
+  "fluting": {
+   "pos": "adjective",
+   "meaning": "Making soft, high, sweet sounds like a flute."
+  },
+  "scores": {
+   "pos": "plural noun",
+   "meaning": "Many; twenty or more. 'Scores of birds' means very many birds."
+  },
+  "unbolt": {
+   "pos": "verb",
+   "meaning": "To slide back a bolt, a metal bar that holds a door shut."
+  },
+  "herbaceous": {
+   "pos": "adjective",
+   "meaning": "Of plants that have soft stems and die down each winter. 'Herbaceous beds' are garden beds of such plants."
+  },
+  "unfurling": {
+   "pos": "present participle",
+   "meaning": "Opening out from a rolled-up or folded shape."
+  },
+  "plumaged": {
+   "pos": "adjective",
+   "meaning": "Having feathers of a certain kind. 'Glossy-plumaged' means with shiny feathers."
+  },
+  "alighted": {
+   "pos": "past-tense verb",
+   "meaning": "Came down and landed, as a bird does."
+  },
+  "tousled": {
+   "pos": "adjective",
+   "meaning": "With untidy hair."
+  },
+  "rook": {
+   "pos": "noun",
+   "meaning": "A big black bird of the crow family."
+  },
+  "mould": {
+   "pos": "noun",
+   "meaning": "Soft, rich earth."
+  },
+  "munnot": {
+   "pos": "verb",
+   "meaning": "A Yorkshire way to say 'must not'."
+  },
+  "meddle": {
+   "pos": "verb",
+   "meaning": "To get into something that is not your business."
+  },
+  "cripple": {
+   "pos": "noun",
+   "meaning": "An old word for a person who cannot walk or move well. Here it means someone whose body does not grow straight."
+  },
+  "gauze": {
+   "pos": "noun",
+   "meaning": "Very thin, light cloth that you can see through."
+  },
+  "veil": {
+   "pos": "noun",
+   "meaning": "A thin cloth that covers the face or something else."
+  },
+  "doleful": {
+   "pos": "adjective",
+   "meaning": "Sad and showing sadness."
+  },
+  "condescended": {
+   "pos": "past-tense verb",
+   "meaning": "Did something as if it were a favour, feeling better than the other person."
+  },
+  "nutcracker": {
+   "pos": "noun",
+   "meaning": "A tool for breaking nuts. Mary's face looked as sharp and pinched as the face of a nutcracker."
+  },
+  "vixen": {
+   "pos": "noun",
+   "meaning": "A female fox. Used for a girl who is sharp and bad-tempered."
+  },
+  "hysterics": {
+   "pos": "plural noun",
+   "meaning": "Wild crying and screaming that a person cannot control."
+  },
+  "unrelenting": {
+   "pos": "adjective",
+   "meaning": "Not becoming softer or kinder."
+  },
+  "monogram": {
+   "pos": "noun",
+   "meaning": "Letters of a person's name put together as a mark on something."
+  },
+  "pampered": {
+   "pos": "adjective",
+   "meaning": "Given too much care and every comfort."
+  },
+  "retorted": {
+   "pos": "past-tense verb",
+   "meaning": "Answered back quickly and angrily."
+  },
+  "restrain": {
+   "pos": "verb",
+   "meaning": "To hold someone back from doing something."
+  },
+  "writhe": {
+   "pos": "verb",
+   "meaning": "To twist the body about, as if in pain."
+  },
+  "huddled": {
+   "pos": "past participle",
+   "meaning": "Pressed close together."
+  },
+  "hunch": {
+   "pos": "noun",
+   "meaning": "A lump on the back; a hunchback's lump."
+  },
+  "relented": {
+   "pos": "past-tense verb",
+   "meaning": "Became kinder and less hard."
+  },
+  "graidely": {
+   "pos": "adjective",
+   "meaning": "A Yorkshire word for fine, great or very good."
+  },
+  "mun": {
+   "pos": "verb",
+   "meaning": "A Yorkshire way to say 'must'."
+  },
+  "canna": {
+   "pos": "verb",
+   "meaning": "A Yorkshire way to say 'cannot'."
+  },
+  "ax": {
+   "pos": "verb",
+   "meaning": "A Yorkshire way to say 'ask'."
+  },
+  "happen": {
+   "pos": "adverb",
+   "meaning": "A Yorkshire word meaning 'perhaps'. Dickon's 'an' happen a bud or two' means 'and perhaps a bud or two'."
+  },
+  "hearken": {
+   "pos": "verb",
+   "meaning": "An old word for 'listen'."
+  },
+  "chap": {
+   "pos": "noun",
+   "meaning": "A man or boy. Here it is used in a friendly way."
+  },
+  "wiry": {
+   "pos": "adjective",
+   "meaning": "Thin but strong."
+  },
+  "affectation": {
+   "pos": "noun",
+   "meaning": "Behaviour that is put on to seem nicer or better than you are."
+  },
+  "enraptured": {
+   "pos": "adjective",
+   "meaning": "Filled with joy and wonder."
+  },
+  "wands": {
+   "pos": "plural noun",
+   "meaning": "Thin sticks used by magicians to make magic."
+  },
+  "spires": {
+   "pos": "plural noun",
+   "meaning": "Tall, thin points. Here, flowers that grow in long tall shapes."
+  },
+  "unscrupulous": {
+   "pos": "adjective",
+   "meaning": "Willing to do wrong things to get what you want."
+  },
+  "bromide": {
+   "pos": "noun",
+   "meaning": "A medicine that makes a person calm and sleepy."
+  },
+  "volubly": {
+   "pos": "adverb",
+   "meaning": "In a way that uses many words, talking easily."
+  },
+  "shrewd": {
+   "pos": "adjective",
+   "meaning": "Clever about people and money; having good sense."
+  },
+  "recluse": {
+   "pos": "noun",
+   "meaning": "A person who lives alone and keeps away from other people."
+  },
+  "austerely": {
+   "pos": "adverb",
+   "meaning": "In a strict, serious way."
+  },
+  "ravenous": {
+   "pos": "adjective",
+   "meaning": "Very hungry. Here, it describes how the lamb drinks."
+  },
+  "bleat": {
+   "pos": "noun",
+   "meaning": "The thin cry of a lamb or sheep."
+  },
+  "columbine": {
+   "pos": "noun",
+   "meaning": "A garden flower with petals shaped like small bells with tails."
+  },
+  "snapdragon": {
+   "pos": "noun",
+   "meaning": "A garden flower whose blooms open and close like a mouth."
+  },
+  "signet": {
+   "pos": "noun",
+   "meaning": "A ring with a small mark or seal on it. 'Signet rings' were worn by important people."
+  },
+  "salaams": {
+   "pos": "plural noun",
+   "meaning": "Deep bows with the hand at the forehead, used as a greeting in India."
+  },
+  "sulky": {
+   "pos": "adjective",
+   "meaning": "Quiet and bad-tempered because you are not pleased."
+  },
+  "primrose": {
+   "pos": "noun",
+   "meaning": "A small pale yellow spring flower."
+  },
+  "transported": {
+   "pos": "past participle",
+   "meaning": "Carried from one place to another."
+  },
+  "rumors": {
+   "pos": "plural noun",
+   "meaning": "Stories that people tell, without knowing if they are true."
+  },
+  "uncanny": {
+   "pos": "adjective",
+   "meaning": "Strange, in a way that is a little frightening."
+  },
+  "humped": {
+   "pos": "adjective",
+   "meaning": "With a lump on the back."
+  },
+  "menagerie": {
+   "pos": "noun",
+   "meaning": "A collection of wild animals kept together."
+  },
+  "leniently": {
+   "pos": "adverb",
+   "meaning": "In a kind, mild way."
+  },
+  "servitor": {
+   "pos": "noun",
+   "meaning": "A servant."
+  },
+  "morbid": {
+   "pos": "adjective",
+   "meaning": "Having gloomy thoughts, especially about sickness and death."
+  },
+  "garlands": {
+   "pos": "plural noun",
+   "meaning": "Rings of flowers and leaves."
+  },
+  "procession": {
+   "pos": "noun",
+   "meaning": "A long line of people moving along together."
+  },
+  "tendrils": {
+   "pos": "plural noun",
+   "meaning": "Thin curling parts of a climbing plant."
+  },
+  "fanciful": {
+   "pos": "adjective",
+   "meaning": "Made up from the imagination."
+  },
+  "undignified": {
+   "pos": "adjective",
+   "meaning": "Not serious or proper; silly."
+  },
+  "consort": {
+   "pos": "noun",
+   "meaning": "The husband or wife of a king or queen. 'Prince Consort' was the title of Queen Victoria's husband."
+  },
+  "canopy": {
+   "pos": "noun",
+   "meaning": "A cover that hangs or spreads over a place, like a roof."
+  },
+  "flusters": {
+   "pos": "verb",
+   "meaning": "Makes someone nervous and confused."
+  },
+  "squawks": {
+   "pos": "plural noun",
+   "meaning": "Loud, rough cries of birds."
+  },
+  "foraging": {
+   "pos": "present participle",
+   "meaning": "Searching for food."
+  },
+  "rhododendron": {
+   "pos": "noun",
+   "meaning": "A bush with large, bright flowers."
+  },
+  "crumpets": {
+   "pos": "plural noun",
+   "meaning": "Small round soft cakes eaten hot with butter."
+  },
+  "lances": {
+   "pos": "plural noun",
+   "meaning": "Long thin spears. Here it means the long thin rays of the sun."
+  },
+  "harangued": {
+   "pos": "past-tense verb",
+   "meaning": "Spoke angrily and for a long time."
+  },
+  "besom": {
+   "pos": "noun",
+   "meaning": "A Yorkshire word for a bad-tempered, annoying woman or girl. It is also the word for a broom."
+  },
+  "drat": {
+   "pos": "interjection",
+   "meaning": "An old word used when you are annoyed."
+  },
+  "impidint": {
+   "pos": "adjective",
+   "meaning": "Ben's way to say 'impudent'; rude and bold."
+  },
+  "imperiously": {
+   "pos": "adverb",
+   "meaning": "In a proud way that expects people to obey."
+  },
+  "gnarled": {
+   "pos": "adjective",
+   "meaning": "Rough, twisted and knotted, as old wood or old hands."
+  },
+  "tactless": {
+   "pos": "adjective",
+   "meaning": "Saying things without thinking how they may hurt."
+  },
+  "disentangle": {
+   "pos": "verb",
+   "meaning": "To free from something that holds it."
+  },
+  "gabbled": {
+   "pos": "past-tense verb",
+   "meaning": "Spoke very fast and not clearly."
+  },
+  "lath": {
+   "pos": "noun",
+   "meaning": "A thin, narrow strip of wood."
+  },
+  "wraith": {
+   "pos": "noun",
+   "meaning": "A ghost."
+  },
+  "mon": {
+   "pos": "noun",
+   "meaning": "A Yorkshire way to say 'man'."
+  },
+  "thowt": {
+   "pos": "verb",
+   "meaning": "A Yorkshire way to say 'thought'."
+  },
+  "abide": {
+   "pos": "verb",
+   "meaning": "To bear or put up with someone."
+  },
+  "majesty": {
+   "pos": "noun",
+   "meaning": "Great beauty and power that make people feel respect."
+  },
+  "reigned": {
+   "pos": "past-tense verb",
+   "meaning": "Ruled, as a king does. 'Delight reigned' means joy was everywhere."
+  },
+  "jackasses": {
+   "pos": "plural noun",
+   "meaning": "Male donkeys; used for silly or foolish people."
+  },
+  "brayin": {
+   "pos": "present participle",
+   "meaning": "Making the loud harsh cry of a donkey. The book writes it as brayin'."
+  },
+  "pluck": {
+   "pos": "noun",
+   "meaning": "Courage."
+  },
+  "exultation": {
+   "pos": "noun",
+   "meaning": "Great joy because of a win."
+  },
+  "persevered": {
+   "pos": "past-tense verb",
+   "meaning": "Kept trying and did not give up."
+  },
+  "hobbled": {
+   "pos": "past-tense verb",
+   "meaning": "Walked slowly and with difficulty."
+  },
+  "overexert": {
+   "pos": "verb",
+   "meaning": "To work your body too hard."
+  },
+  "slapping": {
+   "pos": "adjective",
+   "meaning": "Hitting with the open hand. 'A slapping sort of man' means a man who slaps people."
+  },
+  "prejudice": {
+   "pos": "noun",
+   "meaning": "A bad opinion formed before you know the facts. 'Without prejudice' means with a fair mind."
+  },
+  "crevices": {
+   "pos": "plural noun",
+   "meaning": "Narrow cracks or gaps in a wall or rock."
+  },
+  "satiny": {
+   "pos": "adjective",
+   "meaning": "Smooth and shiny, like satin cloth."
+  },
+  "sundial": {
+   "pos": "noun",
+   "meaning": "A tool that shows the time by a shadow from the sun."
+  },
+  "unsheath": {
+   "pos": "verb",
+   "meaning": "To take out of a cover. Here it means buds opening out of their covers."
+  },
+  "acquaintance": {
+   "pos": "noun",
+   "meaning": "Knowledge of a person or thing. 'Make the acquaintance of' means get to know."
+  },
+  "fakirs": {
+   "pos": "plural noun",
+   "meaning": "Holy men in India who go without comforts and are said to do wonderful things."
+  },
+  "imposing": {
+   "pos": "adjective",
+   "meaning": "Making people feel respect because it seems great."
+  },
+  "orator": {
+   "pos": "noun",
+   "meaning": "A person who makes a speech."
+  },
+  "sinetifik": {
+   "pos": "adjective",
+   "meaning": "Ben's way to say 'scientific'."
+  },
+  "devotees": {
+   "pos": "plural noun",
+   "meaning": "People who are very strongly given to a religion or a belief."
+  },
+  "majestic": {
+   "pos": "adjective",
+   "meaning": "Grand and beautiful, like a king."
+  },
+  "dervishes": {
+   "pos": "plural noun",
+   "meaning": "Holy men of a certain faith who sway or whirl about in their prayers."
+  },
+  "athlete": {
+   "pos": "noun",
+   "meaning": "A person who is very good at sports and is strong."
+  },
+  "prizefighter": {
+   "pos": "noun",
+   "meaning": "A man who fights with his fists for money."
+  },
+  "experiment": {
+   "pos": "noun",
+   "meaning": "A test that you make to find out if something is true."
+  },
+  "scientific": {
+   "pos": "adjective",
+   "meaning": "Of science; done in a careful way to find out facts."
+  },
+  "fascination": {
+   "pos": "noun",
+   "meaning": "A strong power to interest or attract."
+  },
+  "twilight": {
+   "pos": "noun",
+   "meaning": "The soft, dim light after the sun has gone down."
+  },
+  "haze": {
+   "pos": "noun",
+   "meaning": "A thin mist that makes things hard to see clearly."
+  },
+  "pother": {
+   "pos": "noun",
+   "meaning": "A state of worry and fuss."
+  },
+  "currants": {
+   "pos": "plural noun",
+   "meaning": "Small dried black fruits, used in cakes and buns."
+  },
+  "bounteous": {
+   "pos": "adjective",
+   "meaning": "Giving freely and a lot; very generous."
+  },
+  "copious": {
+   "pos": "adjective",
+   "meaning": "In large amounts."
+  },
+  "bloated": {
+   "pos": "adjective",
+   "meaning": "Swollen and puffed up."
+  },
+  "clotted": {
+   "pos": "adjective",
+   "meaning": "Thick. 'Clotted cream' is very thick cream."
+  },
+  "pantry": {
+   "pos": "noun",
+   "meaning": "A small room where food and dishes are kept."
+  },
+  "mystic": {
+   "pos": "adjective",
+   "meaning": "Having a secret or holy meaning."
+  },
+  "tinge": {
+   "pos": "noun",
+   "meaning": "A small amount of a colour."
+  },
+  "wrestler": {
+   "pos": "noun",
+   "meaning": "A person who fights by holding and throwing the other person."
+  },
+  "muscle": {
+   "pos": "noun",
+   "meaning": "A part of the body that lets you move and be strong."
+  },
+  "revelation": {
+   "pos": "noun",
+   "meaning": "The telling of something that was hidden."
+  },
+  "riot": {
+   "pos": "noun",
+   "meaning": "Wild and noisy action. Here, great excited joy."
+  },
+  "glummest": {
+   "pos": "adjective",
+   "meaning": "The most gloomy and unhappy."
+  },
+  "nourishment": {
+   "pos": "noun",
+   "meaning": "Food that keeps a body healthy and growing."
+  },
+  "grandeur": {
+   "pos": "noun",
+   "meaning": "Great and proud style."
+  },
+  "fowl": {
+   "pos": "noun",
+   "meaning": "A bird such as a chicken, used for food."
+  },
+  "gibberish": {
+   "pos": "noun",
+   "meaning": "Talk that has no meaning, or that someone cannot understand."
+  },
+  "secrete": {
+   "pos": "verb",
+   "meaning": "To hide something. Here, the robin hides himself in a bush."
+  },
+  "disconcerting": {
+   "pos": "adjective",
+   "meaning": "Making you feel uneasy or confused."
+  },
+  "fledged": {
+   "pos": "adjective",
+   "meaning": "Having grown feathers and able to fly."
+  },
+  "brooded": {
+   "pos": "past participle",
+   "meaning": "Covered with wings to keep warm. Here, 'brooded over by a great peace' means filled with peace."
+  },
+  "restive": {
+   "pos": "adjective",
+   "meaning": "Not able to keep still; restless."
+  },
+  "inordinately": {
+   "pos": "adverb",
+   "meaning": "Much more than usual."
+  },
+  "boudoir": {
+   "pos": "noun",
+   "meaning": "A woman's private sitting room or bedroom."
+  },
+  "pilgrimage": {
+   "pos": "noun",
+   "meaning": "A journey to a special place. Here, Mary's first walk through the empty rooms."
+  },
+  "parrot": {
+   "pos": "noun",
+   "meaning": "A bird with bright feathers that can copy words."
+  },
+  "incantations": {
+   "pos": "plural noun",
+   "meaning": "Words said or sung over and over, as if to make magic."
+  },
+  "devouring": {
+   "pos": "adjective",
+   "meaning": "Looking hungrily, as if wanting to take in everything."
+  },
+  "rapturous": {
+   "pos": "adjective",
+   "meaning": "Full of great joy."
+  },
+  "doxology": {
+   "pos": "noun",
+   "meaning": "A short Christian song of praise to God, sung in church."
+  },
+  "dappling": {
+   "pos": "present participle",
+   "meaning": "Marking with spots of light and shade."
+  },
+  "gloating": {
+   "pos": "adjective",
+   "meaning": "Looking with great pleasure."
+  },
+  "tremulously": {
+   "pos": "adverb",
+   "meaning": "In a shaking, unsteady way."
+  },
+  "bandy": {
+   "pos": "adjective",
+   "meaning": "Bent outward at the knees."
+  },
+  "worrit": {
+   "pos": "verb",
+   "meaning": "A Yorkshire way to say 'worry'."
+  },
+  "rasping": {
+   "pos": "adjective",
+   "meaning": "Rough and harsh in sound."
+  },
+  "aught": {
+   "pos": "pronoun",
+   "meaning": "An old word meaning 'anything'."
+  },
+  "wilt": {
+   "pos": "verb",
+   "meaning": "An old form of 'will' used with 'thou'. 'Wilt tha'' means 'will you'."
+  },
+  "drumsticks": {
+   "pos": "plural noun",
+   "meaning": "Sticks used to beat a drum; here, thin legs."
+  },
+  "astounding": {
+   "pos": "adjective",
+   "meaning": "Very surprising."
+  },
+  "hypochondriac": {
+   "pos": "noun",
+   "meaning": "A person who is always afraid that he is ill, even when he is not."
+  },
+  "detestation": {
+   "pos": "noun",
+   "meaning": "Very strong hate."
+  },
+  "thistle": {
+   "pos": "noun",
+   "meaning": "A wild plant with sharp prickles and purple flowers."
+  },
+  "fjords": {
+   "pos": "plural noun",
+   "meaning": "Long, narrow arms of the sea between high rocky hills, in Norway."
+  },
+  "gentians": {
+   "pos": "plural noun",
+   "meaning": "Mountain flowers that are a deep blue."
+  },
+  "stagnant": {
+   "pos": "adjective",
+   "meaning": "Not moving or flowing; still and dirty. Said of water."
+  },
+  "verdure": {
+   "pos": "noun",
+   "meaning": "Fresh green plants and leaves."
+  },
+  "salver": {
+   "pos": "noun",
+   "meaning": "A flat tray, used for carrying letters or food."
+  },
+  "sovereign": {
+   "pos": "noun",
+   "meaning": "An old British gold coin."
+  },
+  "embowered": {
+   "pos": "adjective",
+   "meaning": "Shut in by leafy branches, like a shady room."
+  },
+  "scuffling": {
+   "pos": "adjective",
+   "meaning": "Making the sound of feet moving about in a rough way."
+  },
+  "stepladder": {
+   "pos": "noun",
+   "meaning": "A short ladder with steps, which stands by itself."
+  },
+  "villa": {
+   "pos": "noun",
+   "meaning": "A large house in the country, often in a warm place."
+  },
+  "sup": {
+   "pos": "verb",
+   "meaning": "To drink a little at a time."
+  },
+  "laurels": {
+   "pos": "plural noun",
+   "meaning": "Bushes with shiny dark green leaves."
+  },
+  "germ": {
+   "pos": "noun",
+   "meaning": "A very small living thing that can cause disease."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 2,
+   "paragraph": 1,
+   "context": "everybody said she was the most disagreeable-looking child ever seen",
+   "mainIdea": "Mary was an unpleasant-looking, selfish child. Her mother did not want her, and the servants did what she said.",
+   "simple": "When Mary Lennox was sent to Misselthwaite Manor to live with her uncle, everybody said that she was the child with the most unpleasant look they had ever seen. It was true, too. She had a little thin face and a little thin body, thin light hair and a sour look. Her hair was yellow, and her face was yellow, because she had been born in India and had always been ill in one way or another. Her father had had a job under the English Government. He had always been busy and ill himself. Her mother had been a great beauty who cared only to go to parties and have fun with happy people. She had not wanted a little girl at all. When Mary was born, she gave her to an Ayah to look after. The Ayah was made to understand that if she wanted to please the Mem Sahib, she must keep the child out of sight as much as possible. So when Mary was a sick, crying, ugly baby, she was kept out of the way. When she was a sick, crying child just learning to walk, she was kept out of the way too. She never remembered knowing any faces well except the dark faces of her Ayah and the other servants from India. They always did what she said and gave her her own way in everything, because the Mem Sahib would be angry if Mary's crying disturbed her. So by the time she was six years old, she was as selfish and bossy a little pig as ever lived. The young English governess who came to teach her to read and write did not like her, and left after three months. When other governesses came to try to take the job, they always went away in a shorter time than the first one. So if Mary had not chosen to really want to learn to read books, she would never have learned her letters at all.",
+   "hardWords": [
+    "disagreeable-looking",
+    "sour expression",
+    "beauty",
+    "amuse",
+    "gay",
+    "Ayah",
+    "Mem Sahib",
+    "sickly",
+    "fretful",
+    "toddling",
+    "tyrannical",
+    "governess"
+   ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 17,
+   "context": "Mary alternately cried and slept through the hours",
+   "mainIdea": "Mary is alone in the house during the second day of the sickness. She drinks some wine and falls asleep.",
+   "simple": "During the confusion of the second day, Mary hid in the nursery, and everyone forgot her. Nobody thought of her and nobody wanted her. Strange things happened that she knew nothing about. Mary cried and then slept, and cried and then slept again, through the hours. She only knew that people were ill and that she heard strange and frightening sounds. Once she went quietly into the dining-room and found it empty. But a meal that was only half finished was on the table. The chairs and plates looked as if the people had pushed them back in a hurry when they got up suddenly for some reason. The child ate some fruit and biscuits. She was thirsty, so she drank a glass of wine that stood nearly full. It was sweet, and she did not know how strong it was. Very soon it made her very sleepy. She went back to her nursery and shut herself in again. She was afraid because of the cries she heard in the huts and the sound of feet hurrying. The wine made her so sleepy that she could hardly keep her eyes open. She lay down on her bed and knew nothing more for a long time.",
+   "hardWords": [
+    "alternately",
+    "hastily",
+    "diners",
+    "intensely",
+    "drowsy",
+    "scarcely"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 20,
+   "context": "She was a stout woman, with very red cheeks and sharp black eyes",
+   "mainIdea": "Mary goes to England with an officer's wife. Mr Craven's housekeeper, Mrs Medlock, meets her in London.",
+   "simple": "Mary made the long trip to England by ship, with an officer's wife. The woman was taking her own children to leave them at a boarding-school. She thought only about her own little boy and girl. She was rather glad to give Mary to the woman that Mr. Archibald Craven sent to meet her in London. This woman was his housekeeper at Misselthwaite Manor, and her name was Mrs. Medlock. She was a fat woman, with very red cheeks and sharp black eyes. She wore a very purple dress, a black silk coat with a hanging black fringe on it, and a black bonnet with purple velvet flowers that stuck up and shook when she moved her head. Mary did not like her at all. But Mary very seldom liked people, so there was nothing special in that. Also, it was very clear that Mrs. Medlock did not think much of Mary.",
+   "hardWords": [
+    "voyage",
+    "absorbed",
+    "housekeeper",
+    "stout",
+    "mantle",
+    "fringe",
+    "bonnet",
+    "remarkable"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 39,
+   "context": "it’s a grand big place in a gloomy way",
+   "mainIdea": "Mrs Medlock tells Mary about Misselthwaite Manor. It is a very big old house at the edge of the moor, with many rooms shut up.",
+   "simple": "'It is a big, fine place in a sad and dark way,' Mrs. Medlock said, 'and Mr. Craven is proud of it in his way. And that is sad enough, too. The house is six hundred years old and it is at the edge of the moor. There are nearly a hundred rooms in it, though most of them are shut up and locked. There are pictures and fine old furniture and things that have been there for ages. There is a big park round it, and gardens, and trees with branches hanging down to the ground, some of them.' She stopped and took another breath. 'But there is nothing else,' she ended suddenly.",
+   "hardWords": [
+    "grand",
+    "gloomy",
+    "moor",
+    "trailing"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 16,
+   "context": "The carriage lamps shed a yellow light on a rough-looking road",
+   "mainIdea": "The carriage reaches the moor in the dark. Mary hears the wind, which makes a strange sound.",
+   "simple": "The lamps of the carriage threw a yellow light on a rough-looking road. The road seemed to be cut through bushes and low plants. These ended in a great wide area of dark that seemed to spread out in front of them and all around them. A wind was rising and making a strange, wild, low, rushing sound.",
+   "hardWords": [
+    "shed",
+    "expanse",
+    "singular"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 27,
+   "context": "The entrance door was a huge one made of massive, curiously shaped panels",
+   "mainIdea": "Mary enters the great hall of Misselthwaite Manor. It is so dark that she feels small and lost.",
+   "simple": "The door at the front was a huge one. It was made of heavy, oddly shaped pieces of oak, with big iron nails in them, and it was held together with great iron bars. It opened into an enormous hall. The hall was so dimly lit that the faces in the pictures on the walls, and the figures in the metal suits, made Mary feel she did not want to look at them. She stood on the stone floor and looked like a very small, strange, black figure. She felt as small and lost and strange as she looked.",
+   "hardWords": [
+    "massive",
+    "panels",
+    "studded",
+    "portraits",
+    "armor",
+    "dimly"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 12,
+   "context": "The native servants she had been used to in India",
+   "mainIdea": "Mary is surprised that Martha talks to her in such a free way. In India servants did not do that.",
+   "simple": "Mary listened to Martha with a serious, puzzled look. The servants from India that she had been used to were not at all like this. They were too eager to please, and always did what they were told. They did not dare to talk to their masters as if they were equals. They made salaams and called them 'protector of the poor' and names like that. Indian servants were ordered to do things, and not asked. It was not the custom to say 'please' and 'thank you', and Mary had always slapped her Ayah in the face when she was angry. She wondered a little what this girl would do if someone slapped her in the face. Martha was a round, rosy girl who looked good-natured. But she had a strong way about her. It made Mistress Mary wonder if she might even slap back, if the person who hit her was only a little girl.",
+   "hardWords": [
+    "native servants",
+    "obsequious",
+    "servile",
+    "salaams",
+    "slapped",
+    "sturdy"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 49,
+   "context": "It had not been the custom that Mistress Mary should do anything but stand",
+   "mainIdea": "Mary begins to see that life at Misselthwaite will teach her new things. Martha is not a trained servant.",
+   "simple": "It had not been the custom for Mistress Mary to do anything but stand and let herself be dressed like a doll. But before she was ready for breakfast, she began to think that her life at Misselthwaite Manor would end by teaching her a number of new things. These were things like putting on her own shoes and stockings, and picking up things that she dropped. If Martha had been a well-trained maid for a fine young lady, she would have been more ready to obey and be respectful. She would have known that it was her job to brush hair, and button boots, and pick things up and put them away. But Martha was only an untrained country girl from Yorkshire. She had grown up in a cottage on the moor, with a crowd of little brothers and sisters. They had never dreamed of doing anything but looking after themselves and the younger ones, who were babies in arms or just learning to walk.",
+   "hardWords": [
+    "subservient",
+    "rustic",
+    "moorland",
+    "swarm",
+    "totter"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 34,
+   "context": "Mrs. Medlock said it’s not to be talked about",
+   "mainIdea": "Martha tells Mary why Mr Craven hates the garden. It was his wife's garden, and she died after a branch broke.",
+   "simple": "'Mind,' she said, 'Mrs. Medlock said we must not talk about it. There are many things in this place that we must not talk about. Those are Mr. Craven's orders. He says his troubles are not the servants' business. But if it were not for the garden, he would not be as he is. It was Mrs. Craven's garden. She made it when they were first married, and she loved it. They used to look after the flowers themselves. None of the gardeners was ever let in. He and she used to go in and shut the door and stay there for hours and hours, reading and talking. She was just a girl, and there was an old tree with a branch bent like a seat. She made roses grow over it, and she used to sit there. But one day, when she was sitting there, the branch broke and she fell to the ground. She was hurt so badly that she died the next day. The doctors thought he would go out of his mind and die too. That is why he hates it. Nobody has gone in since, and he will not let anyone talk about it.'",
+   "hardWords": [
+    "none servants’ business",
+    "’tend",
+    "go out o’ his mind",
+    "hours an’ hours"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 22,
+   "context": "She opened the door of the room and went into the corridor",
+   "mainIdea": "Mary walks through the corridors and looks at the pictures in the gallery. She feels the faces are looking at her.",
+   "simple": "Mary opened the door of the room and went into the corridor, and then she began her wanderings. It was a long corridor, and it branched into other corridors. It led her up short flights of steps which went up to others again. There were doors and doors, and there were pictures on the walls. Sometimes they were pictures of dark, strange landscapes, but most often they were portraits of men and women in strange, grand clothes made of satin and velvet. She found herself in one long gallery whose walls were covered with these portraits. She had never thought there could be so many in any house. She walked slowly down this place and stared at the faces, which also seemed to stare at her. She felt as if they were wondering what a little girl from India was doing in their house. Some were pictures of children. There were little girls in thick satin frocks which reached to their feet and stood out about them. There were boys with puffed sleeves and lace collars and long hair, or with big ruffs around their necks. She always stopped to look at the children and to wonder what their names were, and where they had gone, and why they wore such odd clothes. There was a stiff, plain little girl rather like herself. She wore a green brocade dress and held a green parrot on her finger. Her eyes had a sharp, curious look.",
+   "hardWords": [
+    "branched",
+    "landscapes",
+    "portraits",
+    "satin",
+    "velvet",
+    "puffed",
+    "ruffs",
+    "brocade"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 4,
+   "context": "The rainstorm had ended and the gray mist and clouds had been swept away",
+   "mainIdea": "The storm is over and the sky is a deep, bright blue. Mary has never seen a sky like it.",
+   "simple": "The rainstorm had ended. The wind had swept away the gray mist and clouds in the night. The wind itself had stopped, and a bright, deep blue sky curved high over the moorland. Mary had never dreamed of a sky so blue. In India the skies were hot and blazing. This sky was a deep cool blue that almost seemed to sparkle like the water of a lovely lake with no bottom. Here and there, high up in the curved blueness, small clouds of snow-white wool floated. The moor, which went on a long way, looked softly blue. It no longer looked dark purple-black or awful gray.",
+   "hardWords": [
+    "rainstorm",
+    "arched",
+    "fleece",
+    "far-reaching",
+    "dreary"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 2,
+   "context": "She looked at the key quite a long time",
+   "mainIdea": "Mary thinks about the key. She would like to open the closed garden and play there alone.",
+   "simple": "She looked at the key for quite a long time. She turned it over and over and thought about it. As the writer has said before, she was not a child who had been taught to ask permission or ask older people about things. All she thought about the key was this: if it was the key to the closed garden, and she could find where the door was, she could perhaps open it. She could see what was inside the walls and what had happened to the old rose-trees. She wanted to see the garden because it had been shut up for so long. It seemed that it must be different from other places, and that something strange must have happened to it in ten years. Besides, if she liked it, she could go into it every day and shut the door behind her. She could make up some play of her own and play it quite alone. Nobody would know where she was, but would think that the door was still locked and the key buried in the earth. The thought of that pleased her very much.",
+   "hardWords": [
+    "consult",
+    "shut up",
+    "play of her own"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 2,
+   "context": "It was the sweetest, most mysterious-looking place anyone could imagine",
+   "mainIdea": "Mary sees the secret garden. Climbing roses cover the walls and trees. She cannot tell if they are dead or alive.",
+   "simple": "It was the sweetest, most mysterious-looking place that anyone could imagine. The high walls that shut it in were covered with the bare stems of climbing roses, so thick that they were twisted together. Mary Lennox knew they were roses, because she had seen a great many roses in India. All the ground was covered with grass of a winter brown. Out of it grew groups of bushes which were surely rosebushes, if they were alive. There were many standard roses that had spread their branches so much that they were like little trees. There were other trees in the garden. One of the things that made the place look strangest and loveliest was that climbing roses had run all over these trees. They had swung down long thin curling stems which made light swinging curtains. Here and there the roses had caught hold of each other, or of a branch that reached far, and had crept from one tree to another and made lovely bridges of themselves. There were no leaves and no roses on them now, and Mary did not know if they were dead or alive. But their thin gray or brown branches looked like a kind of misty cloak spreading over everything, walls, trees, and even the brown grass, where they had fallen from their ties and run along the ground. It was this misty tangle from tree to tree that made it all look so mysterious. Mary had thought it must be different from other gardens which had not been left all by themselves for so long. And it was different from any other place she had ever seen in her life.",
+   "hardWords": [
+    "matted",
+    "standard roses",
+    "tendrils",
+    "far-reaching",
+    "hazy",
+    "mantle",
+    "fastenings",
+    "tangle"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 3,
+   "context": "During that week of sunshine, she became more intimate with Ben Weatherstaff",
+   "mainIdea": "Mary becomes friendlier with Ben Weatherstaff. He does not mind her as much as before, and she is more polite.",
+   "simple": "During that week of sunshine, Mary became closer to Ben Weatherstaff. She surprised him several times by seeming to start up beside him, as if she had sprung out of the earth. The truth was that she was afraid he would pick up his tools and go away if he saw her coming. So she always walked toward him as quietly as she could. But he did not mind her as strongly as he had at first. Perhaps he was secretly rather pleased that she clearly wanted to be with an old man. Also, she was more polite than she had been. He did not know that when she first saw him, she spoke to him as she would have spoken to a native of India. She had not known that a cross, strong old Yorkshire man was not used to bowing to his masters and just being ordered by them to do things.",
+   "hardWords": [
+    "intimate",
+    "flattered",
+    "evident",
+    "civil",
+    "native",
+    "salaam"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 54,
+   "context": "It was a very strange thing indeed",
+   "mainIdea": "Mary sees Dickon for the first time. He plays a pipe, and wild animals come near to listen.",
+   "simple": "It was a very strange thing. She stopped to look at it, and for a moment she could hardly breathe. A boy was sitting under a tree with his back against it, playing on a rough wooden pipe. He was a funny-looking boy of about twelve. He looked very clean. His nose turned up and his cheeks were as red as poppies. Mistress Mary had never seen such round and such blue eyes in any boy's face. On the trunk of the tree he leaned against, a brown squirrel was holding on and watching him. From behind a bush nearby, a male pheasant was carefully stretching his neck to peep out. Quite near him were two rabbits sitting up and sniffing with shaking noses. It really seemed as if they were all coming nearer to watch him and listen to the strange low little call that his pipe made.",
+   "hardWords": [
+    "pheasant",
+    "delicately",
+    "tremulous",
+    "poppies",
+    "pipe"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 42,
+   "context": "I never ketched cold since I was born",
+   "mainIdea": "Dickon says he never catches cold because he has always been out in all kinds of weather.",
+   "simple": "'Not me,' he said, with a grin. 'I have never caught a cold since I was born. I was not brought up weak. I have run about on the moor in all weathers, like the rabbits do. Mother says I have sniffed in too much fresh air for twelve years to ever start sniffing because of a cold. I am as tough as a stick from a hawthorn tree.'",
+   "hardWords": [
+    "ketched",
+    "nesh",
+    "whitethorn",
+    "knobstick"
+   ]
+  },
+  {
+   "chapter": 13,
+   "paragraph": 31,
+   "context": "Mrs. Medlock says it’s because o’ mother",
+   "mainIdea": "Martha tells why Mr Craven wants to see Mary. Martha's mother stopped him on the road and spoke about Mary.",
+   "simple": "'Well,' explained Martha, 'Mrs. Medlock says it is because of mother. Mother was walking to Thwaite village and she met him. She had never spoken to him before, but Mrs. Craven had been to our cottage two or three times. He had forgotten, but mother had not, and she dared to stop him. I do not know what she said to him about you, but she said something that put it in his mind to see you before he goes away again tomorrow.'",
+   "hardWords": [
+    "made bold",
+    "put him in th’ mind"
+   ]
+  },
+  {
+   "chapter": 14,
+   "paragraph": 12,
+   "context": "The door of her room was ajar and the sound came down the corridor",
+   "mainIdea": "Mary hears crying again at night. She decides to find out what it is.",
+   "simple": "The door of her room was a little open, and the sound came down the corridor. It was a far-off faint sound of unhappy crying. She listened for a few minutes, and each minute she became more and more sure. She felt that she must find out what it was. It seemed even stranger than the secret garden and the buried key. Perhaps she was in a mood to break rules, and this made her brave. She put her foot out of bed and stood on the floor.",
+   "hardWords": [
+    "ajar",
+    "fretful",
+    "rebellious",
+    "bold"
+   ]
+  },
+  {
+   "chapter": 14,
+   "paragraph": 117,
+   "context": "He lay quite still and listened while she went on talking",
+   "mainIdea": "Mary tells Colin about the garden, the robin and Ben Weatherstaff. The talk about the robin makes Colin smile.",
+   "simple": "He lay quite still and listened while she went on talking. She spoke about the roses, which might have climbed from tree to tree and hung down. She spoke about the many birds which might have built their nests there because it was so safe. Then she told him about the robin and Ben Weatherstaff. There was so much to tell about the robin, and it was so easy and safe to talk about it, that she stopped feeling afraid. The robin pleased him so much that he smiled until he looked almost beautiful. At first Mary had thought that he was even plainer than herself, with his big eyes and heavy locks of hair.",
+   "hardWords": [
+    "clambered",
+    "ceased",
+    "locks"
+   ]
+  },
+  {
+   "chapter": 15,
+   "paragraph": 28,
+   "context": "Nobody knows for sure and certain",
+   "mainIdea": "Martha tells Mary what is wrong with Colin. Mr Craven went out of his mind when Colin was born because Mrs Craven died.",
+   "simple": "'Nobody knows for sure and certain,' said Martha. 'Mr. Craven went out of his mind when the baby was born. The doctors thought he would have to be put in an asylum. It was because Mrs. Craven died, like I told you. He would not set eyes on the baby. He just raved and said it would be another hunchback like him, and it had better die.'",
+   "hardWords": [
+    "sylum",
+    "raved",
+    "hunchback"
+   ]
+  },
+  {
+   "chapter": 15,
+   "paragraph": 105,
+   "context": "It was the best thing she could have said",
+   "mainIdea": "Talking about Dickon and the moor makes Mary and Colin laugh like two ordinary healthy children.",
+   "simple": "It was the best thing she could have said. To talk about Dickon meant to talk about the moor and the cottage, and the fourteen people who lived in it on sixteen shillings a week. It meant the children who got fat on the moor grass like the wild ponies. It meant Dickon's mother and the skipping-rope, and the moor with the sun on it, and the pale green points sticking up out of the black earth. It was all so alive that Mary talked more than she had ever talked before, and Colin both talked and listened as he had never done either before. They began to laugh over nothing, as children do when they are happy together. In the end they were making as much noise as two ordinary, healthy, natural ten-year-old children, instead of a hard, little, unloving girl and a sickly boy who believed that he was going to die.",
+   "hardWords": [
+    "sod",
+    "nothings",
+    "sickly"
+   ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 4,
+   "context": "In her talks with Colin, Mary had tried to be very cautious",
+   "mainIdea": "Mary is careful about the secret garden when she talks with Colin. She wants to know if he can keep a secret and if she could take him there without anyone knowing.",
+   "simple": "In her talks with Colin, Mary had tried to be very careful about the secret garden. There were certain things she wanted to find out from him, but she felt that she must find them out without asking him direct questions. First, as she began to like being with him, she wanted to know if he was the kind of boy you could tell a secret to. He was not at all like Dickon, but he was so pleased with the idea of a garden no one knew about that she thought he could perhaps be trusted. But she had not known him long enough to be sure. The second thing she wanted to find out was this. If he could be trusted, would it be possible to take him to the garden without anyone finding out? The grand doctor had said that he must have fresh air, and Colin had said that he would not mind fresh air in a secret garden. Perhaps if he had a great deal of fresh air, and knew Dickon and the robin, and saw things growing, he might not think so much about dying. Mary had seen herself in the glass sometimes lately. She had seen that she looked quite different from the child she had seen when she arrived from India. This child looked nicer. Even Martha had seen a change in her.",
+   "hardWords": [
+    "cautious",
+    "direct",
+    "trusted"
+   ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 68,
+   "context": "Everybody as knowed about Mester Craven knowed there was a little lad",
+   "mainIdea": "Dickon explains how he knew about Colin. People who knew Mr Craven knew about the boy, and Mrs Medlock talks about him at the Sowerby cottage.",
+   "simple": "'Everybody who knew about Mr. Craven knew there was a little boy who was likely to be a cripple. They knew Mr. Craven did not like him to be talked about. People are sorry for Mr. Craven because Mrs. Craven was such a pretty young lady, and they were so fond of each other. Mrs. Medlock stops in our cottage whenever she goes to Thwaite. She does not mind talking to mother in front of us children, because she knows we have been brought up to be trusty. How did you find out about him? Martha was in a lot of trouble the last time she came home. She said you had heard him crying and you were asking questions, and she did not know what to say.'",
+   "hardWords": [
+    "mester",
+    "cripple",
+    "trusty",
+    "frettin"
+   ]
+  },
+  {
+   "chapter": 17,
+   "paragraph": 20,
+   "context": "She was no more used to considering other people than Colin was",
+   "mainIdea": "Mary is not used to thinking about other people, just like Colin. She sees no reason why a bad-tempered boy should stop her doing what she likes best.",
+   "simple": "Mary pressed her lips tightly together. She was no more used to thinking about other people than Colin was. She saw no reason why a bad-tempered boy should get in the way of the thing she liked best. She knew nothing about how sad it is for people who have been ill and nervous, and who do not know that they can control their tempers. They need not make other people ill and nervous too. When she had had a headache in India, she had done her best to see that everybody else also had a headache, or something as bad. She felt she was quite right. But now she felt that Colin was quite wrong.",
+   "hardWords": [
+    "considering",
+    "interfere",
+    "pitifulness",
+    "nervous"
+   ]
+  },
+  {
+   "chapter": 18,
+   "paragraph": 34,
+   "context": "No one but Colin himself knew what effect those crossly spoken childish words",
+   "mainIdea": "Colin had never talked about his secret fears. Now Mary says he is not as ill as he thinks, and he starts to feel she may be right.",
+   "simple": "No one but Colin himself knew what effect those angry childish words had on him. If he had ever had anyone to talk to about his secret terrors, and if he had ever dared to ask questions, he would have found out that most of his fright and illness was made by himself. If he had had childish companions, and had not lain on his back in the huge closed house, breathing an atmosphere heavy with the fears of people who were mostly ignorant and tired of him, he would have found this out. But he had lain and thought of himself and his aches and tiredness for hours and days and months and years. Now an angry little girl, with no sympathy, said firmly that he was not as ill as he thought. He actually felt as if she might be telling the truth.",
+   "hardWords": [
+    "atmosphere",
+    "ignorant",
+    "obstinately"
+   ]
+  },
+  {
+   "chapter": 19,
+   "paragraph": 17,
+   "context": "Aye, that we mun,” she said (which meant",
+   "mainIdea": "Mary tries to speak Yorkshire to Dickon and tells him what they will do first. Dickon is amused.",
+   "simple": "'Aye, that we mun,' she said, which meant 'Yes, indeed, we must.' 'I will tell you what we will do first,' she went on. Dickon grinned, because it amused him very much when the little girl tried to twist her tongue to speak Yorkshire. 'He has taken a great fancy to you. He wants to see you and he wants to see Soot and Captain. When I go back to the house to talk to him, I will ask him if you cannot come and see him tomorrow morning, and bring your creatures with you. Then in a little while, when there are more leaves out, and perhaps a bud or two, we will get him to come out. You will push him in his chair and we will bring him here and show him everything.'",
+   "hardWords": [
+    "happen",
+    "graidely",
+    "canna",
+    "ax"
+   ]
+  },
+  {
+   "chapter": 20,
+   "paragraph": 4,
+   "context": "Well, sir,” answered Mrs. Medlock, “you’ll scarcely believe your eyes",
+   "mainIdea": "Mrs Medlock tells Dr Craven that Mary has changed Colin. Mary stood up to him last night and made him stop screaming.",
+   "simple": "'Well, sir,' answered Mrs. Medlock, 'you will hardly believe your eyes when you see him. That plain sour-faced child, who is almost as bad as he is, has just put a spell on him. There is no telling how she did it. The Lord knows she is nothing to look at, and you hardly ever hear her speak. But she did what none of us dare to do. She flew at him like a little cat last night, and stamped her feet and ordered him to stop screaming. Somehow she startled him so much that he did stop. And this afternoon, well, just come up and see, sir. It is hard to believe.'",
+   "hardWords": [
+    "bewitched",
+    "crediting",
+    "stamped"
+   ]
+  },
+  {
+   "chapter": 20,
+   "paragraph": 52,
+   "context": "And then she paused for breath",
+   "mainIdea": "Dickon found a newborn lamb on the moor three days ago. He fed it with warm milk, and Mary held it on her lap.",
+   "simple": "And then she stopped for breath. Dickon had found the newborn lamb three days before, lying by its dead mother among the gorse bushes on the moor. It was not the first lamb without a mother that he had found, and he knew what to do with it. He had taken it to the cottage wrapped in his jacket, and had let it lie near the fire and had fed it with warm milk. It was a soft thing with a darling silly baby face and legs rather long for its body. Dickon had carried it over the moor in his arms, and its feeding bottle was in his pocket with a squirrel. When Mary had sat under a tree with its limp warmth in her lap, she had felt too full of strange joy to speak. A lamb, a lamb! A living lamb who lay on your lap like a baby!",
+   "hardWords": [
+    "limp",
+    "huddled",
+    "gorse"
+   ]
+  },
+  {
+   "chapter": 21,
+   "paragraph": 13,
+   "context": "It was perhaps well he had been prepared or he might have been startled",
+   "mainIdea": "Mr Roach goes into Colin's room. A crow on a chair says 'Caw' and he almost jumps back.",
+   "simple": "It was perhaps good that he had been told what to expect, or he might have been startled. When the bedroom door was opened, a large crow sat on the high back of a carved chair. It seemed quite at home there. It said 'Caw, Caw' quite loudly to tell that a visitor had come in. In spite of Mrs. Medlock's warning, Mr. Roach only just stopped himself from jumping backward, which would have been very undignified.",
+   "hardWords": [
+    "prepared",
+    "undignified",
+    "announced"
+   ]
+  },
+  {
+   "chapter": 21,
+   "paragraph": 71,
+   "context": "But Colin had actually dropped back against his cushions",
+   "mainIdea": "Colin covers his eyes until the chair is inside the garden. Then he looks around and sees the green leaves, the flowers and the sun.",
+   "simple": "But Colin had actually dropped back against his cushions, even though he gasped with delight. He had covered his eyes with his hands and held them there, shutting out everything, until they were inside and the chair stopped as if by magic and the door was closed. Not until then did he take them away and look round and round and round, as Dickon and Mary had done. Over walls and earth and trees and swinging sprays and tendrils the fair green veil of tender little leaves had crept. In the grass under the trees and the gray urns in the alcoves, and here and there everywhere, were touches or splashes of gold and purple and white. The trees were showing pink and snow above his head. There were fluttering of wings and faint sweet pipes and humming and scents and scents. The sun fell warm upon his face like a hand with a lovely touch. In wonder Mary and Dickon stood and stared at him. He looked so strange and different because a pink glow of color had actually crept all over him, ivory face and neck and hands and all.",
+   "hardWords": [
+    "tendrils",
+    "veil",
+    "ivory"
+   ]
+  },
+  {
+   "chapter": 22,
+   "paragraph": 2,
+   "context": "One of the strange things about living in the world",
+   "mainIdea": "The author says that now and then a person feels sure that he will live for ever. This can happen at dawn, at sunset, at night or in someone's eyes.",
+   "simple": "One of the strange things about living in the world is that only now and then is one quite sure one is going to live for ever and ever. One knows it sometimes when one gets up at the soft, serious time of dawn and goes out and stands alone. One throws one's head far back and looks up and up, and watches the pale sky slowly changing and flushing, and wonderful unknown things happening, until the East almost makes one cry out, and one's heart stands still at the strange unchanging greatness of the rising of the sun. It has been happening every morning for thousands and thousands and thousands of years. One knows it then for a moment or so. One knows it sometimes when one stands by oneself in a wood at sunset, and the mysterious deep gold stillness coming through and under the branches seems to be saying something slowly, again and again, that one cannot quite hear, however much one tries. Then sometimes the great quiet of the dark blue at night, with millions of stars waiting and watching, makes one sure. Sometimes a sound of far-off music makes it true, and sometimes a look in someone's eyes.",
+   "hardWords": [
+    "tender",
+    "solemn",
+    "majesty",
+    "immense"
+   ]
+  },
+  {
+   "chapter": 22,
+   "paragraph": 81,
+   "context": "It was too much. The strength which Colin usually threw into his tantrums",
+   "mainIdea": "Ben asks if Colin has crooked legs. Colin is so angry that he finds a new strength.",
+   "simple": "It was too much. The strength which Colin usually threw into his tantrums rushed through him now in a new way. Never yet had he been accused of crooked legs, even in whispers. Ben Weatherstaff's voice showed that he simply believed they were crooked, and this was more than a Rajah's flesh and blood could stand. His anger and hurt pride made him forget everything but this one moment. They filled him with a power he had never known before, an almost unnatural strength.",
+   "hardWords": [
+    "accused",
+    "endure",
+    "unnatural"
+   ]
+  },
+  {
+   "chapter": 23,
+   "paragraph": 46,
+   "context": "She was so fond of it —she was!” said Ben Weatherstaff slowly",
+   "mainIdea": "Ben says Mrs Craven asked him to take care of her roses if she was ill or went away. He climbed over the wall once a year until his rheumatism stopped him.",
+   "simple": "'She was so fond of it, she was!' said Ben Weatherstaff slowly. 'And she was such a pretty young thing. She said to me once, laughing, \"Ben, if ever I am ill or if I go away, you must take care of my roses.\" When she did go away, the orders were that no one was ever to come near. But I came,' he said, with grumpy stubbornness. 'I came over the wall, until the rheumatism stopped me, and I did a bit of work once a year. She had given her order first.'",
+   "hardWords": [
+    "nigh",
+    "obstinacy",
+    "rheumatics"
+   ]
+  },
+  {
+   "chapter": 24,
+   "paragraph": 39,
+   "context": "The great scientific discoveries I am going to make",
+   "mainIdea": "Colin says his discoveries will be about Magic. He says there is Magic in everything and people do not yet know how to use it.",
+   "simple": "'The great scientific discoveries I am going to make,' he went on, 'will be about Magic. Magic is a great thing, and hardly anyone knows anything about it except a few people in old books, and Mary a little, because she was born in India where there are fakirs. I believe Dickon knows some Magic, but perhaps he does not know he knows it. He charms animals and people. I would never have let him come to see me if he had not been an animal charmer, which is a boy charmer too, because a boy is an animal. I am sure there is Magic in everything, only we have not sense enough to get hold of it and make it do things for us, like electricity and horses and steam.'",
+   "hardWords": [
+    "scientific",
+    "discoveries",
+    "fakirs"
+   ]
+  },
+  {
+   "chapter": 25,
+   "paragraph": 14,
+   "context": "He does it to keep them from guessin’ what’s happened",
+   "mainIdea": "Dickon explains that Colin still complains so that no one guesses what has happened. Colin wants to show his father that he is as straight as other boys.",
+   "simple": "'He does it to keep them from guessing what has happened. If the doctor knew he had found out he could stand on his feet, he would likely write and tell Mr. Craven. Master Colin is saving the secret to tell himself. He is going to practise his Magic on his legs every day till his father comes back. Then he is going to march into his room and show him he is as straight as other boys. But he and Miss Mary think it is best to do a bit of groaning and fretting now and then to throw people off the scent.'",
+   "hardWords": [
+    "groanin",
+    "scent"
+   ]
+  },
+  {
+   "chapter": 26,
+   "paragraph": 2,
+   "context": "And the secret garden bloomed and bloomed",
+   "mainIdea": "The robin's mate sits on eggs in the nest. The robin and his mate feel that everything in the garden understands how precious eggs are.",
+   "simple": "And the secret garden bloomed and bloomed, and every morning showed new wonders. In the robin's nest there were eggs, and the robin's mate sat upon them, keeping them warm with her feathery little breast and careful wings. At first she was very nervous, and the robin himself watched angrily. Even Dickon did not go near the close-grown corner in those days. He waited until, by some quiet mysterious spell, he seemed to have made the little pair understand that in the garden there was nothing which was not quite like themselves. Nothing there failed to understand the wonderfulness of what was happening to them, the great, tender, terrible, heartbreaking beauty and seriousness of Eggs. If there had been one person in that garden who had not known, deep inside, that if an Egg were taken away or hurt the whole world would whirl round and crash through space and come to an end, and if there had been even one who did not feel it and act as it demanded, there could have been no happiness even in that golden springtime air. But they all knew it and felt it, and the robin and his mate knew they knew it.",
+   "hardWords": [
+    "indignantly",
+    "conveyed",
+    "solemnity"
+   ]
+  },
+  {
+   "chapter": 26,
+   "paragraph": 4,
+   "context": "But at the outset it seemed necessary to be on guard",
+   "mainIdea": "The robin is afraid of Mary and Colin at first. He sees Colin move in a strange slow way and thinks he may be getting ready to pounce, like a cat.",
+   "simple": "But at the start it seemed necessary to be on guard against the other two. First, the boy creature did not come into the garden on his legs. He was pushed in on a thing with wheels, and the skins of wild animals were thrown over him. That in itself was doubtful. Then when he began to stand up and move about, he did it in a strange way that was new to him, and the others seemed to have to help him. The robin used to hide himself in a bush and watch this anxiously, his head tilted first on one side and then on the other. He thought that the slow movements might mean that the boy was getting ready to pounce, as cats do. When cats are getting ready to pounce they creep over the ground very slowly. The robin talked this over with his mate a great deal for a few days. After that he decided not to speak of it, because her fear was so great that he was afraid it might hurt the Eggs.",
+   "hardWords": [
+    "outset",
+    "secrete",
+    "pounce",
+    "unaccustomed"
+   ]
+  },
+  {
+   "chapter": 27,
+   "paragraph": 66,
+   "context": "That I do, lad,” she answered",
+   "mainIdea": "Susan Sowerby tells Colin that she does believe in Magic, though she never knew it by that name. She says the same Good Thing that makes seeds swell and the sun shine made him well.",
+   "simple": "'That I do, lad,' she answered. 'I never knew it by that name, but what does the name matter? I am sure they call it a different name in France and a different one in Germany. The same thing that made the seeds swell and the sun shine made you a well lad, and it is the Good Thing. It is not like us poor fools who think it matters if we are called out of our names. The Big Good Thing does not stop to worry, bless you. It goes on making worlds by the million, worlds like us. Never you stop believing in the Big Good Thing and knowing the world is full of it. Call it what you like. You were singing to it when I came into the garden.'",
+   "hardWords": [
+    "warrant",
+    "worrit"
+   ]
+  },
+  {
+   "chapter": 28,
+   "paragraph": 2,
+   "context": "In each century since the beginning of the world wonderful things have been discovered",
+   "mainIdea": "The author says that people at first refuse to believe new things, and later they happen. One new thing is that thoughts are as powerful as electric batteries and can be as good as sunlight or as bad as poison.",
+   "simple": "In each century since the beginning of the world, wonderful things have been found. In the last century more amazing things were found out than in any century before. In this new century hundreds of things that are still more surprising will be brought to light. At first people refuse to believe that a strange new thing can be done. Then they begin to hope it can be done. Then they see it can be done. Then it is done, and all the world wonders why it was not done centuries ago. One of the new things people began to find out in the last century was that thoughts, just mere thoughts, are as powerful as electric batteries. They are as good for one as sunlight is, or as bad for one as poison. To let a sad thought or a bad one get into your mind is as dangerous as letting a scarlet fever germ get into your body. If you let it stay there after it has got in, you may never get over it as long as you live.",
+   "hardWords": [
+    "astounding",
+    "electric",
+    "germ",
+    "scarlet"
+   ]
+  },
+  {
+   "chapter": 28,
+   "paragraph": 9,
+   "context": "As he sat gazing into the clear running of the water",
+   "mainIdea": "Mr Craven sits by a stream in the valley and looks at blue forget-me-nots. His mind and body become quiet, and something seems to be freed in him.",
+   "simple": "As he sat looking into the clear running of the water, Archibald Craven slowly felt his mind and body both grow quiet, as quiet as the valley itself. He wondered if he were going to sleep, but he was not. He sat and looked at the sunlit water, and his eyes began to see things growing at its edge. There was one lovely mass of blue forget-me-nots growing so close to the stream that its leaves were wet. He found himself looking at these, as he remembered he had looked at such things years ago. He was thinking tenderly how lovely it was and what wonders of blue its hundreds of little blossoms were. He did not know that just that simple thought was slowly filling his mind, filling and filling it until other things were softly pushed aside. It was as if a sweet clear spring had begun to rise in a still, dirty pool, and had risen and risen until at last it swept the dark water away. But of course he did not think of this himself. He only knew that the valley seemed to grow quieter and quieter as he sat and stared at the bright delicate blueness. He did not know how long he sat there or what was happening to him. At last he moved as if he were waking up, and he got up slowly and stood on the moss carpet, drawing a long, deep, soft breath and wondering at himself. Something seemed to have been untied and set free in him, very quietly.",
+   "hardWords": [
+    "forget-me-nots",
+    "stagnant",
+    "released"
+   ]
+  },
+  {
+   "chapter": 28,
+   "paragraph": 23,
+   "context": "And then the dream ended. But he did not awaken.",
+   "mainIdea": "The dream ends, and Mr Craven sleeps until morning. An Italian servant brings him letters, and he remembers the dream.",
+   "simple": "And then the dream ended. But he did not wake. He slept soundly and sweetly all through the lovely night. When he did wake at last, it was bright morning and a servant was standing staring at him. He was an Italian servant. He was used, as all the servants of the villa were, to accepting without question any strange thing his foreign master might do. No one ever knew when he would go out or come in, or where he would choose to sleep, or if he would roam about the garden or lie in the boat on the lake all night. The man held a tray with some letters on it, and he waited quietly until Mr. Craven took them. When he had gone away, Mr. Craven sat a few moments holding them in his hand and looking at the lake. His strange calm was still upon him, and something more. It was a lightness, as if the cruel thing which had been done had not happened as he thought, as if something had changed. He was remembering the dream, the real, real dream.",
+   "hardWords": [
+    "salver",
+    "roam",
+    "accustomed"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 2,
+   "context": "You ought to have gone to the hills two weeks ago",
+   "simple": "You should have gone to the hills two weeks ago, but you did not.",
+   "grammar": "'ought to have + past participle' says what was the right thing to do in the past, but it was not done."
+  },
+  {
+   "chapter": 2,
+   "context": "who was made to understand that if she wished to please the Mem Sahib",
+   "simple": "Someone told the Ayah clearly that if she wanted to please the Mem Sahib, she must keep the child out of sight.",
+   "grammar": "'was made to understand' is a passive form: someone made her know it; 'if she wished ... she must' gives the rule the Ayah had to follow."
+  },
+  {
+   "chapter": 3,
+   "context": "What you’re to be kept at Misselthwaite Manor for I don’t know",
+   "simple": "I do not know why they are keeping you at Misselthwaite Manor.",
+   "grammar": "The word order is not the usual one: 'what ... for' means 'why', and the sentence means 'I don't know why you are to be kept at Misselthwaite Manor'; 'are to be kept' tells what is planned."
+  },
+  {
+   "chapter": 3,
+   "context": "If the pretty wife had been alive she might have made things cheerful",
+   "simple": "If the pretty wife had been alive, she could perhaps have made things happier.",
+   "grammar": "'If + had been, might have + past participle' is about the past: the wife was not alive, so it did not happen."
+  },
+  {
+   "chapter": 4,
+   "context": "it seemed quite proper that other people should wait on one",
+   "simple": "It seemed right to Mary that other people should serve her.",
+   "grammar": "'should' here means it is the right thing to do; 'one' means 'a person like her'; 'wait on' means 'serve'."
+  },
+  {
+   "chapter": 4,
+   "context": "the trees (which nearly met overhead) made it seem as if they were driving",
+   "simple": "The trees nearly touched each other above them, and it seemed as if they were driving through a long dark room.",
+   "grammar": "'(which nearly met overhead)' is a side comment about the trees; 'made it seem as if ...' means 'gave the feeling that ...'."
+  },
+  {
+   "chapter": 5,
+   "context": "it’s time tha’ should learn. Tha’ cannot begin younger",
+   "simple": "It is time that you learned. You cannot begin at a younger age.",
+   "grammar": "'It's time (that) + subject + should + verb' means it is the right time to do something now; 'tha'' is Yorkshire for 'you'."
+  },
+  {
+   "chapter": 5,
+   "context": "I can’t abide to see good victuals go to waste",
+   "simple": "I cannot stand to see good food wasted.",
+   "grammar": "'can't abide' means 'cannot bear'; 'see + noun + go to waste' is a pattern: see something happen. Martha uses 'victuals', an old word for food."
+  },
+  {
+   "chapter": 6,
+   "context": "It must mean that hollow shuddering sort of roar",
+   "simple": "Mary thought it must mean the low, shaking, roaring sound that went round and round the house.",
+   "grammar": "'must mean' shows that Mary is almost sure; 'that hollow shuddering sort of roar' is the thing she thinks the word means."
+  },
+  {
+   "chapter": 6,
+   "context": "But for th’ garden he wouldn’t be like he is",
+   "simple": "If it were not for the garden, he would not be as he is.",
+   "grammar": "'But for + noun' means 'if it were not for'; the result uses 'wouldn't be'. 'th'' is Yorkshire for 'the'."
+  },
+  {
+   "chapter": 7,
+   "context": "Since so many rooms had been built, people must have lived in them",
+   "simple": "Because so many rooms were built, people must have lived in them.",
+   "grammar": "'must have + past participle' is a guess about the past; 'Since' here means 'because'."
+  },
+  {
+   "chapter": 7,
+   "context": "It was not until she climbed to the second floor that she thought",
+   "simple": "Only after she climbed to the second floor did she think of turning the handle of a door.",
+   "grammar": "'It was not until ... that ...' puts the focus on the time: the thing happened only then, and not before."
+  },
+  {
+   "chapter": 8,
+   "context": "Tha’s never used tha’ legs since tha’ was born, it seems to me",
+   "simple": "It seems to me that you have never used your legs since you were born.",
+   "grammar": "'Tha's never used' is Yorkshire for 'You have never used'; 'it seems to me' is an extra comment placed at the end."
+  },
+  {
+   "chapter": 8,
+   "context": "He knows every cabbage stump in th’ gardens, let alone th’ people",
+   "simple": "He knows every cabbage stump in the gardens, and he knows the people even better.",
+   "grammar": "'let alone' adds a second thing that is even more sure than the first: if he knows the cabbage stumps, he surely knows the people."
+  },
+  {
+   "chapter": 9,
+   "context": "Living as it were, all by herself in a house with a hundred",
+   "simple": "Living, so to speak, all alone in a house with a hundred rooms that were closed in a mysterious way, had set her mind to work.",
+   "grammar": "'Living ... had set her ... to working' has an -ing phrase as its subject; 'as it were' means 'so to speak'."
+  },
+  {
+   "chapter": 9,
+   "context": "If tha’d been our ’Lizabeth Ellen tha’d have give me a kiss",
+   "simple": "If you had been our Lizabeth Ellen, you would have given me a kiss.",
+   "grammar": "'If + had been, would have + past participle' is about the past and what did not happen; Martha's Yorkshire says 'give' for 'given'."
+  },
+  {
+   "chapter": 10,
+   "context": "If she had been Ben Weatherstaff she could have told",
+   "simple": "If Mary had been Ben Weatherstaff, she could have told by looking whether the wood was alive.",
+   "grammar": "'If she had been ... she could have told' is about the past and what did not happen: Mary was not Ben; the next words in the book, 'by looking at it', tell how she could tell."
+  },
+  {
+   "chapter": 10,
+   "context": "A woman as brings up twelve children learns something besides her A.B.C.",
+   "simple": "A woman who raises twelve children learns something besides her letters.",
+   "grammar": "'as' here is Yorkshire for 'who' in a relative clause; 'brings up' means raises; 'besides' means 'in addition to'."
+  },
+  {
+   "chapter": 11,
+   "context": "he would not have stirred for the world, lest his robin should start away",
+   "simple": "He did not move at all, because he was afraid his robin would fly away.",
+   "grammar": "'lest ... should' means 'in case' or 'for fear that'; it is an old way to say what you want to avoid."
+  },
+  {
+   "chapter": 11,
+   "context": "Birds is rare choosers an’ a robin can flout a body",
+   "simple": "Birds are very careful about who they choose, and a robin can treat a person with more disrespect than a man can.",
+   "grammar": "'Birds is' is Yorkshire for 'Birds are'; 'a body' means 'a person'; 'rare choosers' means birds that choose with great care."
+  },
+  {
+   "chapter": 12,
+   "context": "I’ve sniffed up too much fresh air for twelve year’",
+   "simple": "I have breathed in so much fresh air for twelve years that I will never sniff because of a cold.",
+   "grammar": "'too much ... to ever get to ...' means the amount is so big that the result cannot happen; 'twelve year'' is Yorkshire for 'twelve years'."
+  },
+  {
+   "chapter": 12,
+   "context": "Whatever happens, you —you never would tell?",
+   "simple": "Whatever happens, you would never tell anyone, would you?",
+   "grammar": "'Whatever happens' means 'no matter what happens'; 'you never would tell?' is a question made from a statement, and 'would' is about what he is willing to do."
+  },
+  {
+   "chapter": 13,
+   "context": "I thought her rather bold to stop me on the moor",
+   "simple": "I thought she was rather bold, or forward, to stop me on the moor.",
+   "grammar": "'I thought her rather bold' is 'thought + object + adjective' (I had the opinion that she was bold); 'to stop me' tells in what way she was bold."
+  },
+  {
+   "chapter": 14,
+   "context": "If I were to live, this place would sometime belong to me",
+   "simple": "If I lived, this place would one day be mine.",
+   "grammar": "'If I were to live' is an imagined case about the future; 'would' shows the result."
+  },
+  {
+   "chapter": 14,
+   "context": "If she had lived I believe I should not have been ill always",
+   "simple": "I believe that if my mother had lived, I would not have been ill all the time.",
+   "grammar": "'If she had lived ... should not have been' is about the past and what did not happen; 'ill always' puts 'always' after the word."
+  },
+  {
+   "chapter": 15,
+   "context": "He knows us daren’t call our souls our own",
+   "simple": "He knows we do not dare to say that anything is ours.",
+   "grammar": "'us' is Yorkshire for 'we'; 'daren't' is 'dare not'; 'call our souls our own' is a saying: the servants have no freedom."
+  },
+  {
+   "chapter": 15,
+   "context": "Have you to do what I please or have you not?",
+   "simple": "Do you have to do what I want, or do you not?",
+   "grammar": "'Have you to do' is an old way of asking 'Do you have to do'; 'or have you not' ends the question."
+  },
+  {
+   "chapter": 16,
+   "context": "Tha’ knew how to build tha’ nest before tha’ came out o’ th’ egg",
+   "simple": "You knew how to build your nest before you came out of the egg.",
+   "grammar": "'Tha'' is Yorkshire for 'you' and 'tha' nest' for 'your nest'; 'knew how to build' is 'knew' plus 'how' plus 'to' and a verb."
+  },
+  {
+   "chapter": 16,
+   "context": "way o’ thinkin’ and doin’ things an’ a body had better not meddle",
+   "simple": "They have their own way of thinking and doing things, and a person had better not mix in.",
+   "grammar": "'had better not meddle' means 'should not meddle'; 'a body' means 'a person'."
+  },
+  {
+   "chapter": 17,
+   "context": "It’s the best thing that could happen to the sickly pampered thing",
+   "simple": "It is the best thing that could happen to the weak, spoiled boy.",
+   "grammar": "'the best thing that could happen' uses 'could' for what is possible; 'sickly pampered thing' puts two describing words before 'thing'."
+  },
+  {
+   "chapter": 18,
+   "context": "If he had ever had anyone to talk to about his secret terrors",
+   "simple": "If he had ever had anyone to talk to about his secret fears.",
+   "grammar": "This 'if' clause starts a long sentence about the past that did not happen; 'had had' is 'had' in the past perfect, and the result comes later with 'he would have found out'."
+  },
+  {
+   "chapter": 19,
+   "context": "He’s been spoiled till salt won’t save him",
+   "simple": "He has been spoiled so much that not even salt can save him.",
+   "grammar": "'He's been spoiled' is the present perfect passive; 'till salt won't save him' is a saying that compares him to spoiled meat which even salt cannot save."
+  },
+  {
+   "chapter": 20,
+   "context": "it is not to be wondered at that his doctor felt somewhat startled",
+   "simple": "It is no surprise that his doctor felt a little startled.",
+   "grammar": "'it is not to be wondered at that ...' is a formal way to say 'it is not strange that'; 'that' starts the reason."
+  },
+  {
+   "chapter": 21,
+   "context": "I’d rather give up the case this moment, sir, than even stay here",
+   "simple": "I would rather stop working on this case right now than even stay here.",
+   "grammar": "'would rather ... than' shows a choice; 'give up the case' means stop caring for the patient."
+  },
+  {
+   "chapter": 22,
+   "context": "If I wasn’t a bachelder, an’ tha’ was a wench o’ mine",
+   "simple": "If I were not a bachelor, and you were a girl of mine.",
+   "grammar": "'If I wasn't ... and you were' starts an imagined case that is finished in the next words; 'bachelder' is Ben's way to say 'bachelor'."
+  },
+  {
+   "chapter": 22,
+   "context": "Layin’ tha’ badness on a robin —not but what he’s impidint enow",
+   "simple": "You put the blame for your badness on a robin, though he is rude enough for anything.",
+   "grammar": "'Layin'' (laying) starts the phrase without 'You are'; 'not but what' means 'though'."
+  },
+  {
+   "chapter": 23,
+   "context": "Th’ world’s full o’ jackasses brayin’ an’ they never bray nowt but lies",
+   "simple": "The world is full of fools who bray like donkeys, and all they ever say is lies.",
+   "grammar": "'jackasses brayin'' joins a noun and an '-ing' word to say what they are doing; 'never ... nowt' is a double 'no' in Yorkshire, but the meaning is only 'nothing'."
+  },
+  {
+   "chapter": 24,
+   "context": "If you had been his own boy and he had been a slapping sort",
+   "simple": "If you had been his own son, and he had been a man who slaps.",
+   "grammar": "Both parts use 'if ... had been' for what did not happen; the result comes next, 'he would have slapped you'."
+  },
+  {
+   "chapter": 25,
+   "context": "Anything’ll grow for him. His ’taters and cabbages is twice th’ size",
+   "simple": "Anything will grow for him. His potatoes and cabbages are twice the size of other people's.",
+   "grammar": "'Anything'll' is 'Anything will'; 'is' for 'are' and ''taters' for 'potatoes' are Yorkshire speech."
+  },
+  {
+   "chapter": 26,
+   "context": "If there had been one person in that garden who had not known",
+   "simple": "If there had been even one person in that garden who had not known.",
+   "grammar": "'If there had been ... who had not known' is about the past and what did not happen; 'who had not known' tells about the person."
+  },
+  {
+   "chapter": 27,
+   "context": "is that a chap can get up an’ say aught he pleases",
+   "simple": "The best thing about giving talks is that a man can get up and say anything he likes.",
+   "grammar": "'is that' starts a clause that tells what the best thing is; 'aught' is an old word for 'anything'; 'a chap' is a man."
+  },
+  {
+   "chapter": 28,
+   "context": "At first people refuse to believe that a strange new thing can be done",
+   "simple": "At first people will not believe that a strange new thing can be done.",
+   "grammar": "'At first ... then ... then' puts the steps in order; 'that a strange new thing can be done' is a passive clause that tells what they refuse to believe."
+  },
+  {
+   "chapter": 28,
+   "context": "Of course this was the wrong Magic —to begin by saying “too late.”",
+   "simple": "Of course this was the wrong Magic, to begin by saying 'too late'.",
+   "grammar": "The words after the dash explain what 'the wrong Magic' was; 'to begin by saying' is 'to begin' plus 'by' and an '-ing' verb."
+  }
+ ],
+ "phrases": {
+  "break out": {
+   "meaning": "To start suddenly. It is used for fires, wars and illnesses.",
+   "pos": "phrasal verb",
+   "forms": [
+    "broke out",
+    "broken out"
+   ],
+   "example": "The cholera had broken out in its most fatal form"
+  },
+  "give up": {
+   "meaning": "To stop doing something, or to leave it.",
+   "pos": "phrasal verb",
+   "forms": [
+    "gave up"
+   ],
+   "example": "she gave up her place in three months"
+  },
+  "hand over": {
+   "meaning": "To give something or someone to another person.",
+   "pos": "phrasal verb",
+   "forms": [
+    "handed over",
+    "handed her over"
+   ],
+   "example": "she handed her over to the care of an Ayah"
+  },
+  "out of sight": {
+   "meaning": "Where nobody can see.",
+   "pos": "phrase",
+   "example": "keep the child out of sight as much as possible"
+  },
+  "find out": {
+   "meaning": "To learn a fact that you did not know.",
+   "pos": "phrasal verb",
+   "forms": [
+    "found out"
+   ],
+   "example": "Mary found out that she had neither father nor mother left"
+  },
+  "stand no nonsense": {
+   "meaning": "To not allow silly or bad behaviour.",
+   "pos": "idiom",
+   "forms": [
+    "stand no nonsense"
+   ],
+   "example": "stand no nonsense from young ones"
+  },
+  "shut oneself up": {
+   "meaning": "To go into a room or a place and stay there alone.",
+   "pos": "phrasal verb",
+   "forms": [
+    "shuts himself up",
+    "shut himself up"
+   ],
+   "example": "he shuts himself up in the West Wing"
+  },
+  "set out": {
+   "meaning": "To start a trip.",
+   "pos": "phrasal verb",
+   "forms": [
+    "set out"
+   ],
+   "example": "they set out on their journey to Yorkshire"
+  },
+  "in spite of": {
+   "meaning": "Although something is true; when something does not stop you.",
+   "pos": "phrase",
+   "forms": [
+    "in spite of herself"
+   ],
+   "example": "Mary had begun to listen in spite of herself"
+  },
+  "go on": {
+   "meaning": "To keep talking or doing something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "went on"
+   ],
+   "example": "after taking a breath, she went on"
+  },
+  "hand down": {
+   "meaning": "To pass something to a younger person in the family.",
+   "pos": "phrasal verb",
+   "forms": [
+    "handed down"
+   ],
+   "example": "She hasn’t handed much of it down"
+  },
+  "make faces": {
+   "meaning": "To show a funny or unkind look by moving your face.",
+   "pos": "idiom",
+   "forms": [
+    "made faces"
+   ],
+   "example": "made faces and sang and laughed"
+  },
+  "cheer up": {
+   "meaning": "To become happier.",
+   "pos": "phrasal verb",
+   "forms": [
+    "cheered up"
+   ],
+   "example": "Mrs. Medlock cheered up very much over her tea"
+  },
+  "look out": {
+   "meaning": "To look through a window or a door to the outside.",
+   "pos": "phrasal verb",
+   "forms": [
+    "looked out"
+   ],
+   "example": "Look out of the window in about ten minutes"
+  },
+  "catch sight of": {
+   "meaning": "To see something for a short time.",
+   "pos": "idiom",
+   "forms": [
+    "caught sight of"
+   ],
+   "example": "she first caught sight of a light"
+  },
+  "at all events": {
+   "meaning": "In any case; whatever happens.",
+   "pos": "idiom",
+   "example": "We shall get a good cup of tea after a bit, at all events"
+  },
+  "pick up": {
+   "meaning": "To lift something from the ground or a table.",
+   "pos": "phrasal verb",
+   "forms": [
+    "picking up",
+    "picked up"
+   ],
+   "example": "picking up things she let fall"
+  },
+  "wait on": {
+   "meaning": "To serve someone, doing things for them.",
+   "pos": "phrasal verb",
+   "forms": [
+    "waiting on",
+    "wait on"
+   ],
+   "example": "wait on you a bit"
+  },
+  "go to waste": {
+   "meaning": "To be thrown away and not used.",
+   "pos": "idiom",
+   "example": "I can’t abide to see good victuals go to waste"
+  },
+  "put on": {
+   "meaning": "To dress yourself in clothes.",
+   "pos": "phrasal verb",
+   "forms": [
+    "putting on"
+   ],
+   "example": "putting on her own shoes and stockings"
+  },
+  "get on with": {
+   "meaning": "To have a good friendly way with someone.",
+   "pos": "phrasal verb",
+   "forms": [
+    "get on with"
+   ],
+   "example": "if you know how to get on with ’em"
+  },
+  "burst out": {
+   "meaning": "To suddenly make a sound or begin to do something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "burst out into",
+    "burst into"
+   ],
+   "example": "burst out into a scrap of a song"
+  },
+  "make friends with": {
+   "meaning": "To start to be a friend of someone.",
+   "pos": "phrase",
+   "forms": [
+    "make friends with",
+    "made friends with"
+   ],
+   "example": "He’s made up his mind to make friends with thee"
+  },
+  "take a fancy to": {
+   "meaning": "To begin to like someone or something.",
+   "pos": "idiom",
+   "forms": [
+    "took a fancy to"
+   ],
+   "example": "he hasn’t took a fancy to thee"
+  },
+  "make up one's mind": {
+   "meaning": "To decide.",
+   "pos": "idiom",
+   "forms": [
+    "made up his mind",
+    "made up her mind",
+    "make up his mind"
+   ],
+   "example": "He’s made up his mind to make friends with thee"
+  },
+  "burst into": {
+   "meaning": "To begin suddenly to cry or laugh.",
+   "pos": "phrase",
+   "forms": [
+    "burst into"
+   ],
+   "example": "burst into passionate sobbing"
+  },
+  "turn away": {
+   "meaning": "To move so that you face another way.",
+   "pos": "phrasal verb",
+   "forms": [
+    "turned away"
+   ],
+   "example": "picked up his spade and turned away"
+  },
+  "make fun of": {
+   "meaning": "To laugh at someone in an unkind way.",
+   "pos": "idiom",
+   "forms": [
+    "made fun of"
+   ],
+   "example": "made fun of her Yorkshire speech"
+  },
+  "run after": {
+   "meaning": "To run behind someone to catch them or to follow them.",
+   "pos": "phrasal verb",
+   "forms": [
+    "ran after"
+   ],
+   "example": "she ran after him"
+  },
+  "blow out": {
+   "meaning": "To stop a flame by blowing; the wind can do this too.",
+   "pos": "phrasal verb",
+   "forms": [
+    "blown out"
+   ],
+   "example": "the light was blown out"
+  },
+  "look after": {
+   "meaning": "To take care of someone.",
+   "pos": "phrasal verb",
+   "forms": [
+    "look after"
+   ],
+   "example": "You’ll have to play about and look after yourself"
+  },
+  "lose one's way": {
+   "meaning": "To not know the way and become lost.",
+   "pos": "idiom",
+   "forms": [
+    "lost her way"
+   ],
+   "example": "she lost her way by turning down the wrong corridor"
+  },
+  "bring to one's senses": {
+   "meaning": "To make someone stop being foolish.",
+   "pos": "idiom",
+   "forms": [
+    "brought me to my senses"
+   ],
+   "example": "it brought me to my senses in a minute"
+  },
+  "let alone": {
+   "meaning": "Used to say that the next thing is even more true than the first.",
+   "pos": "phrase",
+   "example": "let alone th’ people"
+  },
+  "dig up": {
+   "meaning": "To take out of the ground by digging.",
+   "pos": "phrasal verb",
+   "forms": [
+    "dig up",
+    "digging up"
+   ],
+   "example": "trying to dig up a mole"
+  },
+  "jump for joy": {
+   "meaning": "To be very happy.",
+   "pos": "idiom",
+   "example": "I just jump for joy when I’m crossin’ th’ moor"
+  },
+  "show off": {
+   "meaning": "To do something so that people will look at you and admire you.",
+   "pos": "phrasal verb",
+   "forms": [
+    "shows off"
+   ],
+   "example": "merely to show off"
+  },
+  "come alive": {
+   "meaning": "To begin to live again.",
+   "pos": "phrase",
+   "forms": [
+    "come alive"
+   ],
+   "example": "the garden won’t be dead at all —it will come alive"
+  },
+  "look up": {
+   "meaning": "To lift your eyes to look at something above you.",
+   "pos": "phrasal verb",
+   "forms": [
+    "looked up"
+   ],
+   "example": "looked up at the sprays and tendrils"
+  },
+  "put up with": {
+   "meaning": "To accept someone or something that you do not like.",
+   "pos": "phrasal verb",
+   "example": "Tha’ can put up with me for a bit sometimes"
+  },
+  "get over": {
+   "meaning": "To win someone's good opinion by clever ways.",
+   "pos": "phrasal verb",
+   "forms": [
+    "get over"
+   ],
+   "example": "Tha’ thinks tha’ll get over me by doin’ that"
+  },
+  "die out": {
+   "meaning": "To stop living, one after another.",
+   "pos": "phrasal verb",
+   "forms": [
+    "died out"
+   ],
+   "example": "The delicatest ones has died out"
+  },
+  "run wild": {
+   "meaning": "To grow without anyone looking after it.",
+   "pos": "idiom",
+   "forms": [
+    "run wild",
+    "ran wild"
+   ],
+   "example": "They’ve run wild,” he said"
+  },
+  "fly into a passion": {
+   "meaning": "To suddenly become very angry.",
+   "pos": "idiom",
+   "forms": [
+    "fly into a passion",
+    "flew into a passion"
+   ],
+   "example": "Mary flew into a fine passion"
+  },
+  "get the better of": {
+   "meaning": "To win against someone.",
+   "pos": "idiom",
+   "forms": [
+    "get the better of"
+   ],
+   "example": "she was beginning to get the better of him"
+  },
+  "put out of humor": {
+   "meaning": "To make someone bad-tempered.",
+   "pos": "idiom",
+   "forms": [
+    "put him all out of humor"
+   ],
+   "example": "it may put him all out of humor"
+  },
+  "give way": {
+   "meaning": "To let a feeling or a person win; here, to let your temper control you.",
+   "pos": "idiom",
+   "forms": [
+    "give way"
+   ],
+   "example": "not give way to your temper"
+  },
+  "drop off": {
+   "meaning": "To fall asleep.",
+   "pos": "phrasal verb",
+   "forms": [
+    "drop off"
+   ],
+   "example": "He’ll drop off after a while"
+  },
+  "send for": {
+   "meaning": "To ask for someone to come.",
+   "pos": "phrasal verb",
+   "forms": [
+    "sent for"
+   ],
+   "example": "Dr. Craven had been sent for the morning after"
+  },
+  "speak up": {
+   "meaning": "To say something suddenly and clearly.",
+   "pos": "phrasal verb",
+   "forms": [
+    "spoke up"
+   ],
+   "example": "Mary spoke up suddenly"
+  },
+  "think better of": {
+   "meaning": "To change your mind and decide not to do something.",
+   "pos": "idiom",
+   "forms": [
+    "thought better of"
+   ],
+   "example": "he evidently thought better of it"
+  },
+  "give in": {
+   "meaning": "To stop trying; to let the other side win.",
+   "pos": "phrasal verb",
+   "forms": [
+    "give in"
+   ],
+   "example": "give in before Ben Weatherstaff"
+  },
+  "take off the edge": {
+   "meaning": "To make a strong feeling less strong, such as hunger.",
+   "pos": "idiom",
+   "forms": [
+    "take off th’ edge"
+   ],
+   "example": "take off th’ edge o’ their hunger"
+  },
+  "throw off the scent": {
+   "meaning": "To make people lose the trail or guess wrongly.",
+   "pos": "idiom",
+   "forms": [
+    "throw folk off th’ scent"
+   ],
+   "example": "to throw folk off th’ scent"
+  },
+  "on guard": {
+   "meaning": "Ready to protect yourself from danger.",
+   "pos": "idiom",
+   "forms": [
+    "on guard"
+   ],
+   "example": "necessary to be on guard against the other two"
+  },
+  "hold forth": {
+   "meaning": "To talk for a long time in front of people.",
+   "pos": "phrasal verb",
+   "forms": [
+    "held forth"
+   ],
+   "example": "when Colin held forth under his tree"
+  },
+  "stand to reason": {
+   "meaning": "To be sensible; to be what clear thinking says is true.",
+   "pos": "idiom",
+   "forms": [
+    "stand to reason"
+   ],
+   "example": "It doesn’t stand to reason that a pretty woman"
+  },
+  "make out": {
+   "meaning": "To understand a person.",
+   "pos": "phrasal verb",
+   "forms": [
+    "make him out"
+   ],
+   "example": "can exactly make him out"
+  },
+  "on the spot": {
+   "meaning": "At the place where something happens.",
+   "pos": "idiom",
+   "forms": [
+    "on the spot"
+   ],
+   "example": "he was on the spot"
+  }
+ }
+}

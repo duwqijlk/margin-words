@@ -1,0 +1,121 @@
+{
+"glossary": {
+"electrified": {
+"pos": "past participle",
+"meaning": "Shocked and excited very suddenly, as if by electricity."
+},
+"gory": {
+"pos": "adjective",
+"meaning": "Covered with blood."
+},
+"ransacked": {
+"pos": "past participle",
+"meaning": "Searched very fast and roughly in every place."
+},
+"ostentatiously": {
+"pos": "adverb",
+"meaning": "In a showy way, so that everyone will notice."
+},
+"haggard": {
+"pos": "adjective",
+"meaning": "Looking tired, thin and worried."
+},
+"palsy": {
+"pos": "noun",
+"meaning": "An illness that makes the body shake without control."
+},
+"miscreant": {
+"pos": "noun",
+"meaning": "A bad person who does wicked things."
+},
+"inquest": {
+"pos": "noun",
+"meaning": "An official meeting to find out how a person died.",
+"forms": [
+"inquests"
+]
+},
+"balefully": {
+"pos": "adverb",
+"meaning": "In a way that seems evil and full of danger."
+},
+"blanched": {
+"pos": "past-tense verb",
+"meaning": "Became white in the face, because of fear.",
+"forms": [
+"blanched",
+"blanch"
+]
+},
+"irksome": {
+"pos": "adjective",
+"meaning": "Annoying and tiresome."
+},
+"coroner": {
+"pos": "noun",
+"meaning": "An official who finds out how a person died. In the boys' game, the leader of a pretend inquest."
+},
+"smuggled": {
+"pos": "past-tense verb",
+"meaning": "Secretly took something in or out of a place.",
+"forms": [
+"smuggled",
+"smuggle"
+]
+}
+},
+"paragraphs": [
+{
+"chapter": 13,
+"paragraph": 20,
+"context": "Then Huckleberry and Tom stood dumb and staring",
+"mainIdea": "Injun Joe tells a calm lie, and nothing bad happens to him. The boys decide not to break their oath.",
+"simple": "Huckleberry and Tom stood speechless and stared. They heard the hard-hearted liar tell his calm story. Every moment they expected the clear sky to send God's lightning down on his head, and they wondered why the stroke was so slow. When he finished and was still alive and unhurt, their weak wish to break their oath and save the poor prisoner's life faded and went away. It was clear to them that this evil man had sold himself to Satan, and it would be deadly to meddle with the property of such a power.",
+"hardWords": [
+"stony-hearted",
+"reel off",
+"serene",
+"wavering",
+"miscreant",
+"meddle"
+]
+}
+],
+"sentences": [
+{
+"chapter": 13,
+"context": "the public are not slow in the matter of sifting evidence and arriving at a verdict",
+"simple": "People are quick to look at the proof and decide who is guilty.",
+"grammar": "The words in brackets are a comment from the writer. 'Not slow' means 'quick'. 'Sifting' is used for looking carefully through proof, like through flour."
+},
+{
+"chapter": 13,
+"context": "It seemed to Tom that his schoolmates never would get done holding inquests on dead cats",
+"simple": "Tom felt that his school friends would never stop holding official meetings about dead cats.",
+"grammar": "'Get done holding' uses 'get done' + an -ing form to mean 'finish doing'. 'Never would' puts 'never' before the helper verb for stress."
+}
+],
+"phrases": {
+"come upon": {
+"meaning": "To find or meet by chance.",
+"pos": "phrasal verb",
+"forms": [
+"came upon"
+],
+"example": "a belated citizen had come upon Potter washing himself"
+},
+"sneak off": {
+"meaning": "To go away quietly so that nobody sees.",
+"pos": "phrasal verb",
+"forms": [
+"sneaked off"
+],
+"example": "Potter had at once sneaked off"
+},
+"reel off": {
+"meaning": "To say something quickly and easily, like a long line from a roll.",
+"pos": "phrasal verb",
+"example": "reel off his serene statement"
+}
+}
+}

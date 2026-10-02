@@ -1,0 +1,49 @@
+{
+"glossary": {
+"fickle": {
+"pos": "adjective",
+"meaning": "Changing opinions or feelings often, without good reason."
+},
+"infested": {
+"pos": "past-tense verb",
+"meaning": "Was in a place in large numbers, causing trouble.",
+"forms": [
+"infested",
+"infest"
+]
+},
+"obliterated": {
+"pos": "past participle",
+"meaning": "Completely destroyed so that nothing is left.",
+"forms": [
+"obliterated",
+"obliterate"
+]
+},
+"omniscient": {
+"pos": "adjective",
+"meaning": "Knowing everything."
+},
+"clue": {
+"pos": "noun",
+"meaning": "A fact or sign that helps to find the answer to a crime."
+}
+},
+"paragraphs": [
+{
+"chapter": 26,
+"paragraph": 4,
+"context": "Tom’s days were days of splendor and exultation to him",
+"mainIdea": "Tom is a hero by day, but he has bad dreams of Injun Joe at night. Huck is afraid his part in the story will be known.",
+"simple": "Tom's days were days of glory and joy to him, but his nights were full of horror. Injun Joe was in all his dreams, and always with death in his eye. Hardly anything could make the boy go out after dark. Poor Huck was just as unhappy and afraid. Tom had told the whole story to the lawyer the night before the great day of the trial, and Huck was very afraid that his part in it might become known, even though Injun Joe's flight had saved him from speaking in court. The poor fellow had got the lawyer to promise to keep it secret, but that did not help much. Tom's troubled conscience had made him go to the lawyer's house at night and pull out a terrible story from lips that had been closed with the darkest and most serious of oaths. After that, Huck's trust in people was almost destroyed."
+}
+],
+"sentences": [],
+"phrases": {
+"leak out": {
+"meaning": "To become known when it was meant to be a secret.",
+"pos": "phrasal verb",
+"example": "his share in the business might leak out"
+}
+}
+}

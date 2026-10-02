@@ -1,0 +1,2203 @@
+{
+ "version": 2,
+ "title": "Through the Looking-Glass",
+ "author": "Lewis Carroll",
+ "sha256": "ec36a0458196fbbd288ad5c03ebd3debeb893ea1259313f4da51ab0fe07752bd",
+ "chapters": 19,
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+ "language": "English",
+ "glossary": {
+  "mischief": {
+   "pos": "noun",
+   "meaning": "Bad things that a child or an animal does for fun. They make trouble, but they do no real hurt."
+  },
+  "worsted": {
+   "pos": "noun",
+   "meaning": "Soft string for making clothes. Here Alice has a ball of it."
+  },
+  "romp": {
+   "pos": "noun",
+   "meaning": "Play with a lot of noise and fun, like the play of a young animal.",
+   "forms": [
+    "romps"
+   ]
+  },
+  "hearthrug": {
+   "pos": "noun",
+   "meaning": "A small piece of cloth on the floor in front of the fire."
+  },
+  "hearth": {
+   "pos": "noun",
+   "meaning": "The floor of a place for a fire."
+  },
+  "tangle": {
+   "pos": "noun",
+   "meaning": "String or hair all caught up in itself, so that it is hard to pull apart.",
+   "forms": [
+    "tangles"
+   ]
+  },
+  "reproachfully": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you think someone has done something wrong."
+  },
+  "bonfire": {
+   "pos": "noun",
+   "meaning": "A big fire built outside."
+  },
+  "disgrace": {
+   "pos": "noun",
+   "meaning": "The state of being in trouble because you did something bad."
+  },
+  "quilt": {
+   "pos": "noun",
+   "meaning": "A thick, soft cover for a bed."
+  },
+  "hyaena": {
+   "pos": "noun",
+   "meaning": "A wild animal that looks a little like a dog."
+  },
+  "pretence": {
+   "pos": "noun",
+   "meaning": "Something you do or say to make people believe something that is not true."
+  },
+  "gauze": {
+   "pos": "noun",
+   "meaning": "Very thin, light cloth that you can almost see through."
+  },
+  "chimneypiece": {
+   "pos": "noun",
+   "meaning": "The flat place above a fire, where you can put things."
+  },
+  "cinder": {
+   "pos": "noun",
+   "meaning": "A small piece of what is left after wood or something else has been on fire.",
+   "forms": [
+    "cinders"
+   ]
+  },
+  "fender": {
+   "pos": "noun",
+   "meaning": "A low iron wall in front of a fire, to keep things from falling in."
+  },
+  "shovel": {
+   "pos": "noun",
+   "meaning": "A tool with a wide flat end, for picking up and moving things."
+  },
+  "imperial": {
+   "pos": "adjective",
+   "meaning": "Grand and royal. The White Queen uses it as a name for her child."
+  },
+  "gasp": {
+   "pos": "verb",
+   "meaning": "To pull air in fast and with a sound, for example because you are surprised or you cannot get enough air.",
+   "forms": [
+    "gasped"
+   ]
+  },
+  "memorandum": {
+   "pos": "noun",
+   "meaning": "A short note that you write to help you remember something."
+  },
+  "whisker": {
+   "pos": "noun",
+   "meaning": "A long hair on the face of a man or an animal.",
+   "forms": [
+    "whiskers"
+   ]
+  },
+  "wiggle": {
+   "pos": "verb",
+   "meaning": "To move with small, quick turns from side to side.",
+   "forms": [
+    "wiggling"
+   ]
+  },
+  "poker": {
+   "pos": "noun",
+   "meaning": "An iron stick for moving the wood in a fire."
+  },
+  "scramble": {
+   "pos": "verb",
+   "meaning": "To move fast and with some trouble, using your hands and feet. As a noun, a fast, rough run.",
+   "forms": [
+    "scrambled",
+    "scrambling"
+   ]
+  },
+  "blaze": {
+   "pos": "verb",
+   "meaning": "To have strong, bright fire. As a noun, a strong fire or a bright light.",
+   "forms": [
+    "blazing"
+   ]
+  },
+  "squeak": {
+   "pos": "verb",
+   "meaning": "To make a short, high, thin sound. As a noun, that sound.",
+   "forms": [
+    "squeaked",
+    "squeaking"
+   ]
+  },
+  "giddy": {
+   "pos": "adjective",
+   "meaning": "Feeling that everything is turning round, so that you may fall."
+  },
+  "volcano": {
+   "pos": "noun",
+   "meaning": "A mountain that can throw out fire and hot rock."
+  },
+  "startled": {
+   "pos": "adjective",
+   "meaning": "Surprised and a little afraid because of something sudden."
+  },
+  "beware": {
+   "pos": "verb",
+   "meaning": "A word you use to tell someone to take care and keep away from something dangerous."
+  },
+  "shun": {
+   "pos": "verb",
+   "meaning": "To keep away from something on purpose."
+  },
+  "foe": {
+   "pos": "noun",
+   "meaning": "An enemy."
+  },
+  "sought": {
+   "pos": "past-tense verb",
+   "meaning": "Looked for."
+  },
+  "slain": {
+   "pos": "past participle",
+   "meaning": "Killed. An old word, used in songs and old writing."
+  },
+  "hast": {
+   "pos": "verb",
+   "meaning": "An old word that means \"have\". It goes with the old word for \"you\"."
+  },
+  "thou": {
+   "pos": "pronoun",
+   "meaning": "An old word for \"you\", used when speaking to one person."
+  },
+  "twas": {
+   "pos": "contraction",
+   "meaning": "An old short form of \"it was\"."
+  },
+  "blade": {
+   "pos": "noun",
+   "meaning": "The flat, sharp part of a sword."
+  },
+  "brillig": {
+   "pos": "noun",
+   "meaning": "In this story, a made-up word from Jabberwocky. Later, Humpty Dumpty says it means four in the afternoon, the time when you begin to heat things for dinner.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "slithy": {
+   "pos": "adjective",
+   "meaning": "In this story, a made-up word from Jabberwocky. Later, Humpty Dumpty says it has two meanings packed up into one word. He says one of them is the same as \"active\".",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "tove": {
+   "pos": "noun",
+   "meaning": "In this story, a made-up word from Jabberwocky. Later, Humpty Dumpty says toves are a little like three other things at once, and he says what they eat.",
+   "forms": [
+    "toves"
+   ],
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "gyre": {
+   "pos": "verb",
+   "meaning": "In this story, a word from Jabberwocky. Later, Humpty Dumpty says to \"gyre\" is to go round and round."
+  },
+  "gimble": {
+   "pos": "verb",
+   "meaning": "In this story, a made-up word from Jabberwocky. Later, Humpty Dumpty says to \"gimble\" is to make holes.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "wabe": {
+   "pos": "noun",
+   "meaning": "In this story, a made-up word from Jabberwocky. Later, Humpty Dumpty says it is a piece of grass. He says it goes a long way before it, behind it and beyond it.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "mimsy": {
+   "pos": "adjective",
+   "meaning": "In this story, a made-up word from Jabberwocky. Later, Humpty Dumpty says it is another word with two meanings packed up into one.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "borogove": {
+   "pos": "noun",
+   "meaning": "In this story, a made-up word from Jabberwocky. Later, Humpty Dumpty says it is a thin bird that does not look good, with the covering of its body sticking out all round.",
+   "forms": [
+    "borogoves"
+   ],
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "mome": {
+   "pos": "adjective",
+   "meaning": "In this story, a made-up word from Jabberwocky. Later, Humpty Dumpty says he is not sure what it means. He thinks it is short for \"from home\", meaning that they had lost their way.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "rath": {
+   "pos": "noun",
+   "meaning": "In this story, a made-up word from Jabberwocky. Later, Humpty Dumpty says a rath is a sort of green animal.",
+   "forms": [
+    "raths"
+   ],
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "outgrabe": {
+   "pos": "verb",
+   "meaning": "In this story, a made-up word from Jabberwocky. Later, Humpty Dumpty says it is a noise that is something between two other noises, with another small noise in the middle.",
+   "forms": [
+    "outgrabing"
+   ],
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "jabberwock": {
+   "pos": "noun",
+   "meaning": "In this story, a made-up word from Jabberwocky. Jabberwocky is the name of the song that Alice reads in a Looking-glass book. Its meaning is not told there.",
+   "forms": [
+    "jabberwocky"
+   ],
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "jubjub": {
+   "pos": "noun",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "frumious": {
+   "pos": "adjective",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "bandersnatch": {
+   "pos": "noun",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky. Later the King says it is a thing that is very hard to stop or catch.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "vorpal": {
+   "pos": "adjective",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "manxome": {
+   "pos": "adjective",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "uffish": {
+   "pos": "adjective",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "tulgey": {
+   "pos": "adjective",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "galumphing": {
+   "pos": "present participle",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "beamish": {
+   "pos": "adjective",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "frabjous": {
+   "pos": "adjective",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "callooh": {
+   "pos": "interjection",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "callay": {
+   "pos": "interjection",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "chortled": {
+   "pos": "past-tense verb",
+   "meaning": "In this story, a made-up word from Jabberwocky. Its meaning is not told in Jabberwocky.",
+   "coined": true,
+   "whyHard": "This word is made up by the author."
+  },
+  "corkscrew": {
+   "pos": "noun",
+   "meaning": "A tool that turns round and round as it goes in. The path is more like one than like a path, Alice says."
+  },
+  "willow": {
+   "pos": "noun",
+   "meaning": "A kind of tree. Here one grows in the middle of a flower bed."
+  },
+  "petal": {
+   "pos": "noun",
+   "meaning": "One of the soft, coloured parts of a flower.",
+   "forms": [
+    "petals"
+   ]
+  },
+  "bough": {
+   "pos": "noun",
+   "meaning": "A big part of a tree that grows out from the side.",
+   "forms": [
+    "boughs"
+   ]
+  },
+  "shrill": {
+   "pos": "adjective",
+   "meaning": "High and sharp, and often loud and unpleasant, when you hear it."
+  },
+  "passionately": {
+   "pos": "adverb",
+   "meaning": "In a way that shows very strong feeling."
+  },
+  "soothing": {
+   "pos": "adjective",
+   "meaning": "Making someone feel less upset and more quiet."
+  },
+  "stoop": {
+   "pos": "verb",
+   "meaning": "To bend your body forward and down.",
+   "forms": [
+    "stooping"
+   ]
+  },
+  "wither": {
+   "pos": "verb",
+   "meaning": "To become dry and dead, as a plant does."
+  },
+  "compliment": {
+   "pos": "noun",
+   "meaning": "Something nice that you say about a person."
+  },
+  "awkward": {
+   "pos": "adjective",
+   "meaning": "Not nice in shape. Here, the Rose says Alice has an awkward shape."
+  },
+  "anyhow": {
+   "pos": "adverb",
+   "meaning": "In any way, without care or order."
+  },
+  "fade": {
+   "pos": "verb",
+   "meaning": "To lose colour and freshness, as a flower does when it gets old."
+  },
+  "thorny": {
+   "pos": "adjective",
+   "meaning": "Having sharp points that can hurt you, like a rose plant."
+  },
+  "thorn": {
+   "pos": "noun",
+   "meaning": "A sharp point on a plant, like on a rose.",
+   "forms": [
+    "thorns"
+   ]
+  },
+  "gravel": {
+   "pos": "noun",
+   "meaning": "Small stones used to make a path."
+  },
+  "curtsey": {
+   "pos": "verb",
+   "meaning": "To bend your knees a little as a sign of respect. People did this for a queen.",
+   "forms": [
+    "curtseyed"
+   ]
+  },
+  "twiddle": {
+   "pos": "verb",
+   "meaning": "To play with something, for example your fingers, again and again without thinking."
+  },
+  "wilderness": {
+   "pos": "noun",
+   "meaning": "A wild place where nothing is grown and nobody lives."
+  },
+  "hedge": {
+   "pos": "noun",
+   "meaning": "A line of plants that makes a wall round a field or garden.",
+   "forms": [
+    "hedges"
+   ]
+  },
+  "provoked": {
+   "pos": "adjective",
+   "meaning": "A little angry because of what someone did."
+  },
+  "daresay": {
+   "pos": "verb",
+   "meaning": "An old way to say \"I think it is likely\"."
+  },
+  "resolutely": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you have decided and will not change your mind."
+  },
+  "awe": {
+   "pos": "noun",
+   "meaning": "A feeling of great respect, mixed with a little fear."
+  },
+  "propped": {
+   "pos": "past-tense verb",
+   "meaning": "Held something up by putting it against something else."
+  },
+  "biscuit": {
+   "pos": "noun",
+   "meaning": "A dry, hard thing to eat that is thin and flat."
+  },
+  "quenched": {
+   "pos": "past participle",
+   "meaning": "Made to stop. When you have had enough to drink, your wish for a drink is quenched."
+  },
+  "peg": {
+   "pos": "noun",
+   "meaning": "A short piece of wood that you push into the ground.",
+   "forms": [
+    "pegs"
+   ]
+  },
+  "faltered": {
+   "pos": "past-tense verb",
+   "meaning": "Spoke in a weak, unsure way, with stops."
+  },
+  "skim": {
+   "pos": "verb",
+   "meaning": "To move quickly and lightly just above a surface."
+  },
+  "brook": {
+   "pos": "noun",
+   "meaning": "A small river.",
+   "forms": [
+    "brooks"
+   ]
+  },
+  "survey": {
+   "pos": "noun",
+   "meaning": "A careful look at a wide area to see what it is like."
+  },
+  "principal": {
+   "pos": "adjective",
+   "meaning": "Most important or main."
+  },
+  "tiptoe": {
+   "pos": "noun",
+   "meaning": "The front ends of your feet. To stand on tiptoe is to stand on them so that you are higher."
+  },
+  "proboscis": {
+   "pos": "noun",
+   "meaning": "A long, thin part of an animal's face, like a nose. In this story, an animal pushes it into a flower."
+  },
+  "guard": {
+   "pos": "noun",
+   "meaning": "On a train, the man who checks who has paid.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "On a train, the man who checks who has paid.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "guard",
+       "context": "“Tickets, please!” said the guard, putting his head in at the window"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "To keep safe from something bad. \"Guard against\" means to keep safe from.",
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "guard",
+       "context": "“To guard against the bites of sharks,” the Knight replied"
+      }
+     ]
+    }
+   ]
+  },
+  "carriage": {
+   "pos": "noun",
+   "meaning": "A part of a train where people sit."
+  },
+  "chorus": {
+   "pos": "noun",
+   "meaning": "A group of voices speaking or singing together."
+  },
+  "telescope": {
+   "pos": "noun",
+   "meaning": "A thing that you look through to see things that are far away."
+  },
+  "microscope": {
+   "pos": "noun",
+   "meaning": "A tool that makes very small things look bigger."
+  },
+  "hoarse": {
+   "pos": "adjective",
+   "meaning": "With a rough, low voice, as when your throat hurts."
+  },
+  "luggage": {
+   "pos": "noun",
+   "meaning": "Bags and boxes that you take with you when you travel."
+  },
+  "labelled": {
+   "pos": "past participle",
+   "meaning": "Having a small piece of paper or card fixed to it that tells what it is or where it goes."
+  },
+  "lass": {
+   "pos": "noun",
+   "meaning": "An old word for a girl."
+  },
+  "telegraph": {
+   "pos": "noun",
+   "meaning": "An old way to send news a long way, using electric power."
+  },
+  "pitying": {
+   "pos": "adjective",
+   "meaning": "Feeling sorry for someone who is sad or in trouble."
+  },
+  "sting": {
+   "pos": "verb",
+   "meaning": "To hurt someone with a sharp point, as some insects do."
+  },
+  "drowned": {
+   "pos": "past participle",
+   "meaning": "Made impossible to hear because something else was much louder."
+  },
+  "rejoice": {
+   "pos": "verb",
+   "meaning": "To be very glad about something. The Gnat asks which insects Alice is glad about, or likes."
+  },
+  "melancholy": {
+   "pos": "adjective",
+   "meaning": "Sad, in a quiet way."
+  },
+  "pondering": {
+   "pos": "present participle",
+   "meaning": "Thinking about something for a long time."
+  },
+  "governess": {
+   "pos": "noun",
+   "meaning": "A woman who teaches the children of a rich family in their home."
+  },
+  "convenient": {
+   "pos": "adjective",
+   "meaning": "Easy and useful for you; making things simple."
+  },
+  "sap": {
+   "pos": "noun",
+   "meaning": "The liquid inside a plant or tree."
+  },
+  "sawdust": {
+   "pos": "noun",
+   "meaning": "The very small pieces of wood that fall when you cut wood with a saw."
+  },
+  "brandy": {
+   "pos": "noun",
+   "meaning": "A strong drink that is made from wine."
+  },
+  "fawn": {
+   "pos": "noun",
+   "meaning": "A young wild animal. Here one walks in the wood, and it can talk."
+  },
+  "dart": {
+   "pos": "verb",
+   "meaning": "To move suddenly and very fast.",
+   "forms": [
+    "darted"
+   ]
+  },
+  "vexation": {
+   "pos": "noun",
+   "meaning": "A feeling of being upset and angry about a small thing."
+  },
+  "timid": {
+   "pos": "adjective",
+   "meaning": "Afraid easily, and not brave. \"Timidly\" means in this way.",
+   "forms": [
+    "timidly"
+   ]
+  },
+  "clasped": {
+   "pos": "past participle",
+   "meaning": "Held very hard in your hands or arms."
+  },
+  "advertisement": {
+   "pos": "noun",
+   "meaning": "A notice that tells people about something, for example a lost dog.",
+   "forms": [
+    "advertisements"
+   ]
+  },
+  "embroidered": {
+   "pos": "past participle",
+   "meaning": "Having a name or picture put on cloth with fine string."
+  },
+  "waxworks": {
+   "pos": "plural noun",
+   "meaning": "Models of people that look real but are made of a soft stuff. You pay to look at them."
+  },
+  "nohow": {
+   "pos": "adverb",
+   "meaning": "A way of speaking that is not correct English. It means \"not at all\"."
+  },
+  "contrariwise": {
+   "pos": "adverb",
+   "meaning": "Used to say the other thing is true: the other way round."
+  },
+  "monstrous": {
+   "pos": "adjective",
+   "meaning": "Very big and strange to see."
+  },
+  "rattle": {
+   "pos": "noun",
+   "meaning": "A thing that makes a loud noise when you move it. In the story, Tweedledum says he bought a new one."
+  },
+  "billow": {
+   "pos": "noun",
+   "meaning": "A very big, high rising of the sea.",
+   "forms": [
+    "billows"
+   ]
+  },
+  "beseech": {
+   "pos": "verb",
+   "meaning": "To ask someone in a strong way, as if you really need it."
+  },
+  "briny": {
+   "pos": "adjective",
+   "meaning": "Like water from the sea."
+  },
+  "frothy": {
+   "pos": "adjective",
+   "meaning": "Covered with a lot of small bubbles."
+  },
+  "dismal": {
+   "pos": "adjective",
+   "meaning": "Very sad and bad, with no hope."
+  },
+  "sympathize": {
+   "pos": "verb",
+   "meaning": "To feel sorry for someone and show it."
+  },
+  "puzzler": {
+   "pos": "noun",
+   "meaning": "A hard question or problem that is difficult to answer."
+  },
+  "retorted": {
+   "pos": "past-tense verb",
+   "meaning": "Answered back quickly in an angry or clever way."
+  },
+  "ditto": {
+   "pos": "adverb",
+   "meaning": "The same. A word used to say that the same is true for something else."
+  },
+  "bolster": {
+   "pos": "noun",
+   "meaning": "A long, firm thing for your head to rest on in bed.",
+   "forms": [
+    "bolsters"
+   ]
+  },
+  "helmet": {
+   "pos": "noun",
+   "meaning": "A hard cover that you wear on the head to keep it safe."
+  },
+  "fury": {
+   "pos": "noun",
+   "meaning": "Very strong anger."
+  },
+  "trifle": {
+   "pos": "noun",
+   "meaning": "A thing that is not important."
+  },
+  "obliged": {
+   "pos": "adjective",
+   "meaning": "Thankful to someone for something they have done."
+  },
+  "affectionate": {
+   "pos": "adjective",
+   "meaning": "Showing love and a warm feeling."
+  },
+  "solemn": {
+   "pos": "adjective",
+   "meaning": "Serious, not smiling."
+  },
+  "saucepan": {
+   "pos": "noun",
+   "meaning": "A round metal thing with a handle, used on a fire to heat food."
+  },
+  "entangled": {
+   "pos": "past participle",
+   "meaning": "Caught in something so that it is hard to get free."
+  },
+  "plaster": {
+   "pos": "noun",
+   "meaning": "A small piece of sticky material that you put over a cut on your skin."
+  },
+  "brooch": {
+   "pos": "noun",
+   "meaning": "A pretty thing that you fix on clothes to hold them closed."
+  },
+  "clutched": {
+   "pos": "past-tense verb",
+   "meaning": "Took hold of something fast and very hard."
+  },
+  "pricked": {
+   "pos": "past participle",
+   "meaning": "Hurt by a very sharp point."
+  },
+  "knitting": {
+   "pos": "noun",
+   "meaning": "Making clothes from thick string with two long sticks. Also, the thing being made."
+  },
+  "spectacles": {
+   "pos": "plural noun",
+   "meaning": "Glasses that you wear in front of your eyes to see better."
+  },
+  "porcupine": {
+   "pos": "noun",
+   "meaning": "An animal with a lot of long, sharp points on its back."
+  },
+  "plaintive": {
+   "pos": "adjective",
+   "meaning": "Sounding sad, as if you want people to feel sorry for you."
+  },
+  "provoking": {
+   "pos": "adjective",
+   "meaning": "Making you angry in a small way."
+  },
+  "vainly": {
+   "pos": "adverb",
+   "meaning": "Without success, because you try hard but nothing happens."
+  },
+  "pursuing": {
+   "pos": "present participle",
+   "meaning": "Following something and trying to catch it."
+  },
+  "feather": {
+   "pos": "verb",
+   "meaning": "In this story, the word that the Sheep keeps shouting to Alice while she is in the boat. She does not know what it means."
+  },
+  "rush": {
+   "pos": "noun",
+   "meaning": "A tall plant that grows in water. Here Alice picks some.",
+   "forms": [
+    "rushes"
+   ]
+  },
+  "transport": {
+   "pos": "noun",
+   "meaning": "A very strong happy feeling."
+  },
+  "obstinacy": {
+   "pos": "noun",
+   "meaning": "A strong wish not to change, even when people want you to."
+  },
+  "pleaded": {
+   "pos": "past-tense verb",
+   "meaning": "Asked in a strong way, as if it was very important."
+  },
+  "glided": {
+   "pos": "past-tense verb",
+   "meaning": "Moved smoothly and quietly."
+  },
+  "drift": {
+   "pos": "verb",
+   "meaning": "To be moved slowly by water or wind, with no one controlling it."
+  },
+  "plunged": {
+   "pos": "past participle",
+   "meaning": "Pushed quickly and strongly into water."
+  },
+  "oar": {
+   "pos": "noun",
+   "meaning": "A long stick with a flat end, used to move a boat on water.",
+   "forms": [
+    "oars"
+   ]
+  },
+  "groped": {
+   "pos": "past-tense verb",
+   "meaning": "Moved forward by feeling with your hands, because you cannot see well."
+  },
+  "farthing": {
+   "pos": "noun",
+   "meaning": "An old British piece of money, worth very little."
+  },
+  "twopence": {
+   "pos": "noun",
+   "meaning": "A small amount of money in old Britain."
+  },
+  "fastness": {
+   "pos": "noun",
+   "meaning": "In this story, the Knight uses it for being stuck fast. To Alice, that is a different kind from being very quick."
+  },
+  "cravat": {
+   "pos": "noun",
+   "meaning": "A piece of cloth worn round a man's neck."
+  },
+  "relented": {
+   "pos": "past-tense verb",
+   "meaning": "Became less angry and kinder."
+  },
+  "glory": {
+   "pos": "noun",
+   "meaning": "In this story, Humpty Dumpty uses it in his own way. To Alice, it does not mean what he says it means."
+  },
+  "impenetrability": {
+   "pos": "noun",
+   "meaning": "In this story, a long word that Humpty Dumpty uses. He says he meant that they had had enough of that subject."
+  },
+  "portmanteau": {
+   "pos": "noun",
+   "meaning": "In this story, Humpty Dumpty uses this word for one word with two meanings packed up in it."
+  },
+  "wages": {
+   "pos": "plural noun",
+   "meaning": "Money that you get each week for your work."
+  },
+  "ingenuity": {
+   "pos": "noun",
+   "meaning": "Cleverness in finding new ideas."
+  },
+  "mayhap": {
+   "pos": "adverb",
+   "meaning": "An old word that means \"maybe\"."
+  },
+  "pursed": {
+   "pos": "past-tense verb",
+   "meaning": "Pressed together and made small, as lips do."
+  },
+  "chattering": {
+   "pos": "present participle",
+   "meaning": "Talking fast and a lot about things that are not important."
+  },
+  "humble": {
+   "pos": "adjective",
+   "meaning": "Not proud; ready to say you may be wrong."
+  },
+  "ignorant": {
+   "pos": "adjective",
+   "meaning": "Not knowing something that you should know."
+  },
+  "dismay": {
+   "pos": "noun",
+   "meaning": "A feeling of being upset and worried because something has gone wrong."
+  },
+  "indignant": {
+   "pos": "adjective",
+   "meaning": "Angry because something seems unfair."
+  },
+  "discontented": {
+   "pos": "adjective",
+   "meaning": "Not happy; wanting something different."
+  },
+  "unsatisfactory": {
+   "pos": "adjective",
+   "meaning": "Not good enough."
+  },
+  "yonder": {
+   "pos": "adverb",
+   "meaning": "An old word for \"over there\"."
+  },
+  "folk": {
+   "pos": "noun",
+   "meaning": "People."
+  },
+  "shudder": {
+   "pos": "noun",
+   "meaning": "A quick, sudden movement of the body that you cannot stop, because you are afraid or cold."
+  },
+  "fretful": {
+   "pos": "adjective",
+   "meaning": "Not happy; worried and angry about small things."
+  },
+  "wriggling": {
+   "pos": "present participle",
+   "meaning": "Moving the body from side to side again and again, like a fish."
+  },
+  "eel": {
+   "pos": "noun",
+   "meaning": "A long, thin fish."
+  },
+  "attitude": {
+   "pos": "noun",
+   "meaning": "A way of standing or holding the body.",
+   "forms": [
+    "attitudes"
+   ]
+  },
+  "hideous": {
+   "pos": "adjective",
+   "meaning": "Very bad to look at."
+  },
+  "introduce": {
+   "pos": "verb",
+   "meaning": "To tell two people each other's names when they meet for the first time.",
+   "forms": [
+    "introducing"
+   ]
+  },
+  "devoured": {
+   "pos": "past-tense verb",
+   "meaning": "Ate something very fast, because you were very hungry."
+  },
+  "munched": {
+   "pos": "past-tense verb",
+   "meaning": "Ate slowly with a lot of noise."
+  },
+  "revived": {
+   "pos": "past-tense verb",
+   "meaning": "Made someone feel strong again, after they were weak."
+  },
+  "sulky": {
+   "pos": "adjective",
+   "meaning": "Not happy and not wanting to talk, because you are angry about something."
+  },
+  "trumpet": {
+   "pos": "noun",
+   "meaning": "A long thing with a wide end that makes a loud sound when you put air into it."
+  },
+  "earthquake": {
+   "pos": "noun",
+   "meaning": "A time when the ground moves and everything on it moves too."
+  },
+  "sauntered": {
+   "pos": "past-tense verb",
+   "meaning": "Walked slowly in an easy way, with plenty of time."
+  },
+  "fabulous": {
+   "pos": "adjective",
+   "meaning": "Existing only in stories; not real. Here the Unicorn says children are fabulous monsters."
+  },
+  "bargain": {
+   "pos": "noun",
+   "meaning": "An agreement between two people. Each does something for the other."
+  },
+  "conjuring": {
+   "pos": "noun",
+   "meaning": "Magic that makes things seem to appear or go away."
+  },
+  "tolling": {
+   "pos": "noun",
+   "meaning": "The slow, deep sound of a very big thing that rings."
+  },
+  "hollow": {
+   "pos": "adjective",
+   "meaning": "Sounding deep, as if it comes from an empty space."
+  },
+  "mineral": {
+   "pos": "noun",
+   "meaning": "A natural thing that is not an animal or a plant, such as stone or metal."
+  },
+  "deafened": {
+   "pos": "adjective",
+   "meaning": "Made unable to hear because of too much noise."
+  },
+  "uproar": {
+   "pos": "noun",
+   "meaning": "A lot of loud noise."
+  },
+  "refreshments": {
+   "pos": "plural noun",
+   "meaning": "Food and drink that you have between other things, such as in a break."
+  },
+  "desperate": {
+   "pos": "adjective",
+   "meaning": "Done with all your strength, because you feel you have no other way."
+  },
+  "distinguish": {
+   "pos": "verb",
+   "meaning": "To see the difference between two things, so that you know which is which."
+  },
+  "trickled": {
+   "pos": "past-tense verb",
+   "meaning": "Ran slowly down, in a thin line of drops."
+  },
+  "grasshopper": {
+   "pos": "noun",
+   "meaning": "A green insect that jumps very high."
+  },
+  "crimson": {
+   "pos": "adjective",
+   "meaning": "Deep red."
+  },
+  "armour": {
+   "pos": "noun",
+   "meaning": "Metal clothes that soldiers wore long ago to protect their bodies."
+  },
+  "brandishing": {
+   "pos": "present participle",
+   "meaning": "Moving something such as a sword in the air so that people see it."
+  },
+  "galloping": {
+   "pos": "present participle",
+   "meaning": "Running very fast. Used for a horse."
+  },
+  "bewilderment": {
+   "pos": "noun",
+   "meaning": "The feeling of not understanding at all."
+  },
+  "shaggy": {
+   "pos": "adjective",
+   "meaning": "With long rough hair."
+  },
+  "beehive": {
+   "pos": "noun",
+   "meaning": "A box that is a home for bees."
+  },
+  "anklet": {
+   "pos": "noun",
+   "meaning": "A band that goes round the leg just above the foot. The Knight has them on his horse.",
+   "forms": [
+    "anklets"
+   ]
+  },
+  "saddle": {
+   "pos": "noun",
+   "meaning": "A seat for a rider on a horse's back."
+  },
+  "reins": {
+   "pos": "plural noun",
+   "meaning": "The long bands that a rider holds to guide a horse."
+  },
+  "vexed": {
+   "pos": "adjective",
+   "meaning": "Upset and angry."
+  },
+  "haddock": {
+   "pos": "noun",
+   "meaning": "A kind of sea fish that people eat.",
+   "forms": [
+    "haddocks"
+   ]
+  },
+  "ballad": {
+   "pos": "noun",
+   "meaning": "A story told in a song."
+  },
+  "sieve": {
+   "pos": "noun",
+   "meaning": "A tool with small holes in it. Water goes through it but bigger things stay."
+  },
+  "dye": {
+   "pos": "verb",
+   "meaning": "To change the colour of something by putting it in a coloured liquid."
+  },
+  "halfpenny": {
+   "pos": "noun",
+   "meaning": "An old British piece of money, worth very little."
+  },
+  "distracted": {
+   "pos": "adjective",
+   "meaning": "Unable to think clearly because you are very worried."
+  },
+  "woe": {
+   "pos": "noun",
+   "meaning": "Great sadness."
+  },
+  "aglow": {
+   "pos": "adjective",
+   "meaning": "Bright with a soft light."
+  },
+  "toil": {
+   "pos": "noun",
+   "meaning": "Hard work."
+  },
+  "dazzled": {
+   "pos": "past-tense verb",
+   "meaning": "Made someone unable to see well, because a light is too bright."
+  },
+  "cropping": {
+   "pos": "present participle",
+   "meaning": "Biting off short pieces of grass to eat."
+  },
+  "thee": {
+   "pos": "pronoun",
+   "meaning": "An old word for \"you\", when someone is spoken to."
+  },
+  "sceptre": {
+   "pos": "noun",
+   "meaning": "A stick that a king or queen holds, that shows they have power."
+  },
+  "dignified": {
+   "pos": "adjective",
+   "meaning": "Quiet and serious, in a way that gets respect from others."
+  },
+  "lolling": {
+   "pos": "present participle",
+   "meaning": "Lying about and doing nothing, as if you are too tired to sit up."
+  },
+  "piteous": {
+   "pos": "adjective",
+   "meaning": "Sounding sad in a way that makes others feel sorry."
+  },
+  "moaned": {
+   "pos": "past-tense verb",
+   "meaning": "Said something in a low, sad voice."
+  },
+  "vicious": {
+   "pos": "adjective",
+   "meaning": "Very bad and angry."
+  },
+  "feverish": {
+   "pos": "adjective",
+   "meaning": "Ill and very hot."
+  },
+  "lullaby": {
+   "pos": "noun",
+   "meaning": "A soft, quiet song for making a baby sleep."
+  },
+  "etiquette": {
+   "pos": "noun",
+   "meaning": "The rules that tell you how to act when you are with other people."
+  },
+  "joint": {
+   "pos": "noun",
+   "meaning": "A large piece of meat to be cut up and eaten by many people."
+  },
+  "carve": {
+   "pos": "verb",
+   "meaning": "To cut meat into thin pieces for people to eat."
+  },
+  "tureen": {
+   "pos": "noun",
+   "meaning": "A big, deep bowl with a top, used for serving food."
+  },
+  "impertinence": {
+   "pos": "noun",
+   "meaning": "Speech or acting that is rude to someone who is more important than you."
+  },
+  "extinguisher": {
+   "pos": "noun",
+   "meaning": "Here, a thing that is put over a light to put it out.",
+   "forms": [
+    "extinguishers"
+   ]
+  },
+  "decanter": {
+   "pos": "noun",
+   "meaning": "A pretty glass thing with a narrow top, used for holding wine.",
+   "forms": [
+    "decanters"
+   ]
+  },
+  "lapping": {
+   "pos": "present participle",
+   "meaning": "Drinking with the tongue, as a cat or a dog does."
+  },
+  "trough": {
+   "pos": "noun",
+   "meaning": "A long open container from which animals eat or drink."
+  },
+  "submit": {
+   "pos": "verb",
+   "meaning": "To do what someone says, even if you do not want to."
+  },
+  "dwindled": {
+   "pos": "past participle",
+   "meaning": "Became smaller and smaller."
+  },
+  "treacle": {
+   "pos": "noun",
+   "meaning": "A thick, dark, sticky, sweet liquid."
+  },
+  "quoth": {
+   "pos": "verb",
+   "meaning": "An old word for \"said\"."
+  },
+  "privilege": {
+   "pos": "noun",
+   "meaning": "A special chance that few people have."
+  },
+  "hobbled": {
+   "pos": "past-tense verb",
+   "meaning": "Walked slowly and with trouble, as if hurt."
+  },
+  "admittance": {
+   "pos": "noun",
+   "meaning": "The right to go in."
+  },
+  "drawl": {
+   "pos": "noun",
+   "meaning": "A slow way of speaking, with the sounds made long."
+  },
+  "perplexity": {
+   "pos": "noun",
+   "meaning": "The state of not understanding and not knowing what to do."
+  },
+  "severity": {
+   "pos": "noun",
+   "meaning": "A hard, serious way of acting, with no smiles."
+  },
+  "toilet": {
+   "pos": "noun",
+   "meaning": "Here, the act of getting clean and nice to look at. The White Kitten is still having it."
+  },
+  "prattled": {
+   "pos": "past-tense verb",
+   "meaning": "Talked on and on, in a happy way, about things that are not important."
+  },
+  "sup": {
+   "pos": "verb",
+   "meaning": "An old word that means to eat food in the evening."
+  },
+  "unto": {
+   "pos": "preposition",
+   "meaning": "An old word for \"to\"."
+  },
+  "thence": {
+   "pos": "adverb",
+   "meaning": "An old word for \"from there\"."
+  },
+  "tis": {
+   "pos": "contraction",
+   "meaning": "An old short form of \"it is\"."
+  },
+  "attend": {
+   "pos": "verb",
+   "meaning": "To give your attention; to listen with care."
+  },
+  "counter": {
+   "pos": "noun",
+   "meaning": "The long table in a shop, where you pay for things."
+  },
+  "shawl": {
+   "pos": "noun",
+   "meaning": "A big piece of cloth that you wear round your shoulders."
+  },
+  "pawn": {
+   "pos": "noun",
+   "meaning": "A small piece in a board game. In the story, Alice is one in the big game.",
+   "forms": [
+    "pawns"
+   ]
+  },
+  "castle": {
+   "pos": "noun",
+   "meaning": "In the game of the story, a piece that looks like a small building. Here two walk arm in arm.",
+   "forms": [
+    "castles"
+   ]
+  },
+  "sum": {
+   "pos": "noun",
+   "meaning": "A problem with numbers that you must work out.",
+   "forms": [
+    "sums"
+   ]
+  },
+  "resistance": {
+   "pos": "noun",
+   "meaning": "Trying to stop something. The Red Queen does not try to stop Alice."
+  },
+  "confess": {
+   "pos": "verb",
+   "meaning": "To say that something is true, though you did not want to."
+  },
+  "inconvenient": {
+   "pos": "adjective",
+   "meaning": "Not easy or useful; causing a little trouble."
+  },
+  "fast": {
+   "pos": "adverb",
+   "meaning": "Quickly. In some places in this book it means 'held firmly' or 'deeply'.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "pos": "adverb",
+     "meaning": "Quickly; at high speed.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "the Queen went so fast that it was all she could do"
+      }
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "Held firmly, so that it cannot move or come out. Here the oars are stuck in the water.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "every now and then the oars got fast in it"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "fast",
+       "context": "which made the oars stick fast in the water"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "fast",
+       "context": "the blade of one of the oars got fast in the water"
+      }
+     ]
+    },
+    {
+     "pos": "adverb",
+     "meaning": "Deeply. It is used to say that someone is sleeping very well.",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "both Queens were fast asleep, and snoring loud"
+      }
+     ]
+    }
+   ]
+  },
+  "deal": {
+   "pos": "noun",
+   "meaning": "A large amount, in \"a great deal\" and \"a good deal\". In \"a deal box\", it is a kind of wood."
+  },
+  "check": {
+   "pos": "noun",
+   "meaning": "In the board game, a move that puts the other side's king in danger. In the story, people shout \"Check!\""
+  },
+  "temper": {
+   "pos": "noun",
+   "meaning": "The way you feel at a time. If you lose your temper, you become angry."
+  },
+  "stalk": {
+   "pos": "noun",
+   "meaning": "The long thin part of a flower or plant that holds it up.",
+   "forms": [
+    "stalks"
+   ]
+  },
+  "lithe": {
+   "pos": "adjective",
+   "meaning": "Able to move and bend easily."
+  },
+  "slimy": {
+   "pos": "adjective",
+   "meaning": "Wet and soft in an unpleasant way, so that it is hard to hold."
+  },
+  "sundial": {
+   "pos": "noun",
+   "meaning": "A thing in a garden that tells the time by the sun."
+  },
+  "gimlet": {
+   "pos": "noun",
+   "meaning": "A small tool for making holes."
+  },
+  "mop": {
+   "pos": "noun",
+   "meaning": "A thing with a long handle and soft strings, used for cleaning floors."
+  },
+  "flimsy": {
+   "pos": "adjective",
+   "meaning": "Thin and weak; easily broken."
+  },
+  "miserable": {
+   "pos": "adjective",
+   "meaning": "Very unhappy."
+  },
+  "badger": {
+   "pos": "noun",
+   "meaning": "A wild animal with a black and white face."
+  },
+  "lizard": {
+   "pos": "noun",
+   "meaning": "A small animal with a long tail and four short legs."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 5,
+   "paragraph": 12,
+   "context": "Let’s pretend the glass has got all soft like gauze",
+   "mainIdea": "Alice imagines Looking-glass House and pretends the glass is soft. Then the glass really begins to melt like mist.",
+   "simple": "Alice asks the kitten if it would like to live in Looking-glass House. She wonders if they would give it milk there, and she thinks that Looking-glass milk may not be good to drink. Then she talks about the passage. If you leave the door of their drawing room wide open, you can see a little of the passage in Looking-glass House. It is very like their passage as far as you can see, but it may be quite different further on. She says how nice it would be to get through into the house, and she is sure it has beautiful things in it. She says, let us pretend there is a way to get through, and that the glass has gone soft like gauze. Then she says the glass is turning into a sort of mist. She is up on the chimneypiece as she speaks, though she hardly knows how she got there. And the glass really is beginning to melt away, like a bright silver mist.",
+   "hardWords": [
+    "gauze",
+    "chimneypiece",
+    "mist",
+    "passage"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 40,
+   "context": "’Twas brillig, and the slithy toves Did gyre and gimble in the wabe",
+   "mainIdea": "This is the poem Jabberwocky. It has many made-up words. It tells how a boy kills a creature called the Jabberwock.",
+   "simple": "The poem has many made-up words, so some of its parts are not clear. It begins with a scene that has strange creatures in it, and the creatures have made-up names. Then someone speaks to a boy, calling him \"my son\". He tells him to beware of the Jabberwock, which has jaws that bite and claws that catch. He also tells him to beware of the Jubjub bird and to keep away from the Bandersnatch. The boy takes his sword in his hand and looks for the enemy for a long time. He rests by the Tumtum tree and stands there for a while, thinking. While he stands there, the Jabberwock comes through the wood with eyes of flame, making noises as it comes. The boy hits it again and again with his sword and leaves it dead. He goes back with its head. Then the speaker asks if the boy has killed the Jabberwock and tells him to come to his arms. The speaker shouts glad words about the day and laughs in his joy. The poem ends with the same words that it began with.",
+   "hardWords": [
+    "beware",
+    "shun",
+    "foe",
+    "vorpal",
+    "manxome",
+    "galumphing",
+    "frabjous",
+    "chortled"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 42,
+   "context": "if I don’t make haste I shall have to go back",
+   "mainIdea": "Alice runs out of the room and floats down the stairs without touching them. She is glad to walk again in the usual way.",
+   "simple": "Alice thinks that she must hurry, or she will have to go back through the Looking-glass before she has seen the rest of the house. She says she will look at the garden first. In a moment she is out of the room and goes down the stairs. At least it is not exactly running. It is a new way that she has invented for getting down the stairs quickly and easily. She keeps only the tips of her fingers on the handrail and floats gently down, and her feet do not touch the stairs. Then she floats through the hall. She would have gone straight out of the door in the same way, but she catches hold of the doorpost. She is getting a little giddy from so much floating in the air. She is rather glad to find herself walking again in the natural way.",
+   "hardWords": [
+    "handrail",
+    "doorpost",
+    "giddy",
+    "make haste",
+    "floated"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 58,
+   "context": "I’ve heard nonsense, compared with which that would be as sensible as a dictionary",
+   "mainIdea": "The Red Queen shakes her head. She says she has heard nonsense that was so much worse that this would seem as sensible as a dictionary.",
+   "simple": "The Red Queen shook her head. She told Alice that she may call it nonsense if she likes. But the Queen said she had heard nonsense, and if you compare that nonsense with this, this would seem as sensible as a dictionary.",
+   "hardWords": [
+    "nonsense",
+    "compared with which"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 64,
+   "context": "never changed their places at all: however fast they went",
+   "mainIdea": "Alice and the Queen run fast, but the trees do not move past them. The Queen tells Alice not to talk.",
+   "simple": "The strangest part was that the trees and the other things around them never changed their places. However fast they went, they never seemed to pass anything. Poor, puzzled Alice thought, \"I wonder if all the things move along with us?\" The Queen seemed to guess what she was thinking, and she cried, \"Faster! Do not try to talk!\"",
+   "hardWords": [
+    "puzzled"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 72,
+   "context": "it takes all the running you can do, to keep in the same place",
+   "mainIdea": "The Red Queen says that in her country you must run as fast as you can just to stay in one place. To go somewhere else, you must run twice as fast.",
+   "simple": "The Queen says it is a slow sort of country. She tells Alice that here you must do all the running you can just to stay in the same place. If you want to get somewhere else, you must run at least twice as fast as that.",
+   "hardWords": []
+  },
+  {
+   "chapter": 7,
+   "paragraph": 10,
+   "context": "they all thought in chorus (I hope you understand what thinking in chorus means",
+   "mainIdea": "The voices in the train carriage think as a group that Alice should say nothing. They say that language costs a lot of money.",
+   "simple": "Alice thought to herself, \"Then there is no use in speaking.\" This time the voices did not join in, because she had not spoken. But to her great surprise they all thought together, like a chorus. The writer says he hopes you understand what thinking in chorus means, but he must say that he does not. They thought, \"It is better to say nothing at all. Language is worth a thousand pounds a word!\"",
+   "hardWords": [
+    "chorus",
+    "confess"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 59,
+   "context": "only think how convenient it would be if you could manage to go home without it",
+   "mainIdea": "The Gnat says it would be easy for Alice to lose her name. Then the governess could not call her to lessons.",
+   "simple": "The Gnat went on in a careless voice. He said that he did not know, and told Alice to think how easy it would be if she could go home without her name. For example, if the governess wanted to call Alice to her lessons, she would call out \"come here\" and then she would have to stop, because there would be no name for her to call. Then, of course, Alice would not have to go.",
+   "hardWords": [
+    "convenient",
+    "governess"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 67,
+   "context": "This must be the wood,” she said thoughtfully to herself, “where things have no names",
+   "mainIdea": "Alice thinks about losing her name in the wood where things have no names. She thinks it would be funny but also a little bad.",
+   "simple": "Alice says this must be the wood where things have no names. She wonders what will happen to her own name when she goes in. She would not like to lose it, because they would have to give her another, and it would almost surely be an ugly one. But then the fun would be in trying to find the creature that has her old name. She says it is like the notices when people lose dogs, which say that the dog answers to the name of Dash and had on a brass collar. She says to think of calling everything you met Alice until one of them answered. But she says they would not answer at all, if they were wise.",
+   "hardWords": [
+    "advertisement"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 9,
+   "context": "if it was so, it might be; and if it were so, it would be",
+   "mainIdea": "Tweedledee answers with the opposite idea. He says what would be if it were so, and says it is not so. He calls this logic.",
+   "simple": "Tweedledee said, on the other side, that if it was so, it might be, and if it were so, it would be. But as it is not so, it is not. He said that is logic.",
+   "hardWords": [
+    "contrariwise",
+    "logic"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 33,
+   "context": "But answer came there none — And that was scarcely odd, because",
+   "mainIdea": "This is the last part of the poem. The Carpenter asks the oysters to go home, but no oyster answers, because they have all been eaten.",
+   "simple": "The Carpenter said, \"O Oysters, you have had a pleasant run! Shall we be trotting home again?\" But no answer came. That was hardly strange, because the Walrus and the Carpenter had eaten every one.",
+   "hardWords": [
+    "scarcely"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 49,
+   "context": "“If that there King was to wake,” added Tweedledum, “you’d go out —bang!",
+   "mainIdea": "Tweedledum says that Alice would disappear like a candle if the Red King woke up.",
+   "simple": "Tweedledum added that if the King woke, Alice would go out with a bang, just like a candle.",
+   "hardWords": []
+  },
+  {
+   "chapter": 9,
+   "paragraph": 16,
+   "context": "The rule is, jam tomorrow and jam yesterday —but never jam today",
+   "mainIdea": "The Queen says there is jam on the day before and the day after, but never on the day you are in.",
+   "simple": "The Queen said that Alice could not have jam even if she wanted it. She said the rule is jam tomorrow and jam yesterday, but never jam today.",
+   "hardWords": [
+    "jam"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 26,
+   "context": "things that happened the week after next",
+   "mainIdea": "The Queen remembers things that have not happened yet. She talks about a messenger who is punished before his trial.",
+   "simple": "The Queen answered in a careless voice that she remembers things that happened the week after next. For example, she said, and she stuck a large piece of plaster on her finger as she spoke, the King's Messenger is in prison now, being punished. His trial does not even begin until next Wednesday. And of course the crime comes last of all.",
+   "hardWords": [
+    "plaster",
+    "trial",
+    "crime"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 56,
+   "context": "sometimes I’ve believed as many as six impossible things before breakfast",
+   "mainIdea": "The Queen says that she has had a lot of practice at believing impossible things.",
+   "simple": "The Queen said she supposed Alice had not had much practice. She said that when she was Alice's age, she always did it for half an hour a day. She said that sometimes she had believed as many as six impossible things before breakfast. Then she cried that there goes the shawl again.",
+   "hardWords": [
+    "practice",
+    "daresay"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 66,
+   "context": "it means just what I choose it to mean",
+   "mainIdea": "Humpty Dumpty says a word means just what he chooses it to mean, no more and no less.",
+   "simple": "Humpty Dumpty said, in a rather scornful voice, that when he uses a word, it means exactly what he chooses it to mean. It does not mean more than that or less than that.",
+   "hardWords": [
+    "scornful"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 83,
+   "context": "‘slithy’ means ‘lithe and slimy.’ ‘Lithe’ is the same as ‘active.’",
+   "mainIdea": "Humpty Dumpty explains the made-up word \"slithy\". He says it is like a portmanteau, with two meanings in one word.",
+   "simple": "Humpty Dumpty said that \"slithy\" means \"lithe and slimy\". He said that \"lithe\" is the same as \"active\". He told Alice that it is like a portmanteau, because there are two meanings packed up into one word.",
+   "hardWords": [
+    "slithy",
+    "portmanteau",
+    "lithe"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 95,
+   "context": "a ‘rath’ is a sort of green pig: but ‘mome’ I’m not certain about",
+   "mainIdea": "Humpty Dumpty says what a rath is. He is not sure what \"mome\" means, but he gives his best idea.",
+   "simple": "Humpty Dumpty said that a rath is a sort of green pig. He said he was not certain about \"mome\". He thought it was short for \"from home\", which would mean that they had lost their way.",
+   "hardWords": [
+    "rath",
+    "mome"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 9,
+   "context": "To be able to see Nobody! And at that distance, too!",
+   "mainIdea": "The King speaks as if Nobody were a person that Alice can see. He says his own eyes are not so good.",
+   "simple": "The King said in an unhappy voice that he only wished he had such eyes: to be able to see Nobody, and from so far away! He said that it was as much as he could do to see real people by this light.",
+   "hardWords": [
+    "fretful"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 30,
+   "context": "So of course Nobody walks slower than you",
+   "mainIdea": "The Messenger says he passed Nobody on the road. The King takes \"Nobody\" to be a person who walks slower than the Messenger.",
+   "simple": "The King said that was quite right, because the young lady had seen him too. So, he said, of course Nobody walks slower than the Messenger does.",
+   "hardWords": []
+  },
+  {
+   "chapter": 12,
+   "paragraph": 40,
+   "context": "First you take an upright stick,” said the Knight",
+   "mainIdea": "The Knight describes his plan to stop hair falling off. You make your hair grow up a stick, because things never fall upwards.",
+   "simple": "The Knight said that first you take a stick that stands straight up. Then you make your hair creep up it, like a fruit tree. He said the reason hair falls off is that it hangs down, and things never fall upwards. He said it is a plan of his own invention, and Alice may try it if she likes.",
+   "hardWords": [
+    "upright",
+    "invention"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 60,
+   "context": "The only difficulty is with the feet: the head is high enough already",
+   "mainIdea": "The Knight tells how he planned to get over a gate. He would put his head on the gate and stand on his head.",
+   "simple": "The Knight said he would tell Alice how he came to think of it. He said he told himself that the only difficulty is with the feet, because the head is high enough already. So first he puts his head on the top of the gate. Then he stands on his head, and then the feet are high enough. Then he is over.",
+   "hardWords": []
+  },
+  {
+   "chapter": 12,
+   "paragraph": 76,
+   "context": "I don’t believe that pudding ever was cooked",
+   "mainIdea": "The Knight says he does not think his new pudding was ever cooked, or will be. He still thinks it was a clever pudding to invent.",
+   "simple": "The Knight said again that it was not the next day. He said that, in fact, and he held his head down and his voice got lower and lower, he did not believe that the pudding ever was cooked. He did not believe it ever would be cooked. And yet, he said, it was a very clever pudding to invent.",
+   "hardWords": []
+  },
+  {
+   "chapter": 13,
+   "paragraph": 29,
+   "context": "The bone wouldn’t remain, of course, if I took it",
+   "mainIdea": "Alice answers the sum about taking a bone from a dog. She says the bone, the dog and she herself would not remain.",
+   "simple": "Alice thought about it. She said that of course the bone would not remain if she took it. The dog would not remain either, because it would come to bite her. And she was sure that she would not remain!",
+   "hardWords": [
+    "remain"
+   ]
+  },
+  {
+   "chapter": 13,
+   "paragraph": 61,
+   "context": "we mostly have days and nights two or three at a time",
+   "mainIdea": "The Red Queen says that in her country days and nights come together, and people join nights for warmth.",
+   "simple": "The Red Queen said that Alice's way of having one day at a time is a poor, thin way of doing things. She said that here they mostly have days and nights two or three at a time. Sometimes in the winter they take as many as five nights together, for warmth.",
+   "hardWords": []
+  },
+  {
+   "chapter": 13,
+   "paragraph": 115,
+   "context": "it isn’t etiquette to cut anyone you’ve been introduced to",
+   "mainIdea": "The Red Queen says it is not polite to cut someone you have met. The waiters take the leg of mutton away and bring a pudding.",
+   "simple": "The Red Queen said very firmly, \"Certainly not.\" She said that it is not proper behaviour to cut anyone you have been introduced to. She told the waiters to take the joint away. They carried it off and brought a large plum-pudding in its place.",
+   "hardWords": [
+    "etiquette",
+    "joint"
+   ]
+  },
+  {
+   "chapter": 14,
+   "paragraph": 1,
+   "context": "shook her backwards and forwards with all her might",
+   "mainIdea": "Alice takes the Red Queen off the table and shakes her hard.",
+   "simple": "Alice took the Queen off the table as she spoke. She shook her one way and then the other, as hard as she could.",
+   "hardWords": []
+  },
+  {
+   "chapter": 14,
+   "paragraph": 2,
+   "context": "The Red Queen made no resistance whatever",
+   "mainIdea": "The Red Queen does not try to stop Alice shaking her. She grows smaller, fatter, softer and rounder.",
+   "simple": "The Red Queen did not try to stop her at all. Only her face grew very small, and her eyes got large and green. And Alice went on shaking her, and she kept on growing shorter, fatter, softer and rounder, and ...",
+   "hardWords": [
+    "resistance"
+   ]
+  },
+  {
+   "chapter": 15,
+   "paragraph": 3,
+   "context": "whatever you say to them, they always purr",
+   "mainIdea": "Alice thinks it is a bad habit of kittens that they always purr, whatever you say. This stops a conversation.",
+   "simple": "Alice had once said that it is a very inconvenient habit of kittens that they always purr, whatever you say to them. She had said that if they would only purr for \"yes\" and mew for \"no\", or have any rule of that sort, one could keep up a conversation. But how can you talk with a person if they always say the same thing?",
+   "hardWords": [
+    "inconvenient",
+    "purr"
+   ]
+  },
+  {
+   "chapter": 15,
+   "paragraph": 11,
+   "context": "it must have been either me or the Red King",
+   "mainIdea": "Alice asks Kitty to think who dreamed it all. She decides it was either herself or the Red King, and that each was part of the other's dream.",
+   "simple": "Alice said to Kitty, \"Let us think about who it was that dreamed it all.\" She said it is a serious question, and Kitty should not go on licking her paw, as if Dinah had not washed her that morning. She said it must have been either Alice or the Red King. He was part of her dream, but then she was part of his dream, too. She asked if it was the Red King, and said Kitty was his wife, so she ought to know. She asked Kitty to help to settle it, and said her paw could wait. But the annoying kitten only began on the other paw and pretended it had not heard the question.",
+   "hardWords": [
+    "provoking"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 5,
+   "context": "that the white kitten had had nothing to do with it",
+   "simple": "The white kitten was not part of it at all.",
+   "grammar": "\"had had\" is the past perfect of \"have\": \"had\" is the helper and \"had\" is the main verb. \"Have nothing to do with\" means to have no part in something."
+  },
+  {
+   "chapter": 5,
+   "context": "the ball of worsted Alice had been trying to wind up",
+   "simple": "the ball of wool thread that Alice had been trying to wind up",
+   "grammar": "\"Alice had been trying...\" is a relative clause with \"that\" left out: \"the ball of worsted (that) Alice had been trying to wind up\". It uses the past perfect continuous."
+  },
+  {
+   "chapter": 5,
+   "context": "Suppose they had saved up all my punishments",
+   "simple": "Think what would happen if they had kept all my punishments for later.",
+   "grammar": "\"Suppose + past perfect\" means \"What if...?\" Alice asks about something that did not happen."
+  },
+  {
+   "chapter": 5,
+   "context": "you never can tell, you know, unless our fire smokes",
+   "simple": "You cannot know, unless our fire makes smoke.",
+   "grammar": "\"Unless\" means \"if not\". \"You never can tell\" means that nobody can know."
+  },
+  {
+   "chapter": 5,
+   "context": "I might have won, if it hadn’t been for that nasty Knight",
+   "simple": "Perhaps I would have won, but the nasty Knight stopped me.",
+   "grammar": "\"If it hadn't been for X\" means \"without X\". \"Might have won\" says it was possible, but it did not happen."
+  },
+  {
+   "chapter": 5,
+   "context": "that she mightn’t take his breath away",
+   "simple": "so that she would not take his breath away",
+   "grammar": "\"that she mightn't\" means \"so that she might not\". It tells the purpose of lifting him slowly."
+  },
+  {
+   "chapter": 6,
+   "context": "if I could get to the top of that hill",
+   "simple": "I would see the garden much better if I could get to the top of that hill.",
+   "grammar": "\"if I could get...\" talks about something Alice cannot do now. \"I should see\" tells what would happen if she could."
+  },
+  {
+   "chapter": 6,
+   "context": "I could show you hills, in comparison with which you’d call that a valley",
+   "simple": "I know of hills that are so high that you would call this one a valley.",
+   "grammar": "\"in comparison with which\" means \"when you put it next to them\". \"Which\" stands for \"hills\" and joins this part to the word \"hills\"."
+  },
+  {
+   "chapter": 6,
+   "context": "I’ve heard nonsense, compared with which that would be as sensible as a dictionary",
+   "simple": "I have heard nonsense that was so much worse that this would seem as sensible as a dictionary.",
+   "grammar": "\"compared with which\" means \"when you put it next to that\". \"Which\" stands for \"nonsense\" and joins this part to the word \"nonsense\"."
+  },
+  {
+   "chapter": 6,
+   "context": "it takes all the running you can do, to keep in the same place",
+   "simple": "You must run as much as you can, just to stay where you are.",
+   "grammar": "\"all the running you can do\" means \"as much running as you can do\". \"To keep in the same place\" is an infinitive of purpose, meaning \"in order to stay\"."
+  },
+  {
+   "chapter": 7,
+   "context": "something about ‘horse’ and ‘hoarse,’ you know",
+   "simple": "You could make a joke about the words \"horse\" and \"hoarse\", you know.",
+   "grammar": "Wordplay: \"horse\" and \"hoarse\" are spelled differently but sound the same. Just before, the voice was hoarse, and Alice thought it sounded like a horse."
+  },
+  {
+   "chapter": 7,
+   "context": "if the governess wanted to call you to your lessons",
+   "simple": "For example, if the teacher wanted to call you to your lessons",
+   "grammar": "\"If + past tense\" (\"wanted\") with \"would\" in the next part (\"she would call out\") is a conditional that talks about something that is only imagined."
+  },
+  {
+   "chapter": 7,
+   "context": "the governess would never think of excusing me lessons for that",
+   "simple": "The teacher would never think of letting me miss lessons because of that.",
+   "grammar": "\"excuse me lessons\" means \"let me off lessons\": the verb \"excuse\" has two objects, \"me\" and \"lessons\"."
+  },
+  {
+   "chapter": 7,
+   "context": "of course you’d miss your lessons",
+   "simple": "Of course, you would not go to your lessons.",
+   "grammar": "Wordplay: \"Miss\" (the word the governess calls) and \"miss\" (to not go to something) sound the same. The Gnat then says, \"That's a joke.\""
+  },
+  {
+   "chapter": 8,
+   "context": "Waxworks weren’t made to be looked at for nothing, nohow!",
+   "simple": "People did not make waxworks so that you could look at them without paying.",
+   "grammar": "\"for nothing\" means \"without paying\". \"Nohow\" is a non-standard word for \"not at all\", so the sentence has a double negative, with \"weren't\" and \"nohow\"."
+  },
+  {
+   "chapter": 8,
+   "context": "if it were so, it would be; but as it isn’t, it ain’t",
+   "simple": "If it were so, it would be so. But because it is not so, it is not.",
+   "grammar": "\"If it were so, it would be\" is a conditional with \"were\" for an unreal idea. \"Ain't\" is a spoken short form of \"isn't\"."
+  },
+  {
+   "chapter": 8,
+   "context": "so that the Carpenter couldn’t count how many he took",
+   "simple": "He did this so that the Carpenter could not count the number he took.",
+   "grammar": "\"so that\" begins a clause of purpose. It says why the Walrus held his handkerchief in front."
+  },
+  {
+   "chapter": 8,
+   "context": "If I wasn’t real,” Alice said —half-laughing through her tears",
+   "simple": "Alice said, half laughing through her tears: if I were not real, I would not be able to cry.",
+   "grammar": "\"If I wasn't real\" is an idea that is not true: Alice says she is real. The main part comes after the words \"Alice said\": \"I shouldn't be able to cry\"."
+  },
+  {
+   "chapter": 8,
+   "context": "shouldn’t have minded it so much,” said Tweedledum, “if it hadn’t been",
+   "simple": "I would not have minded so much if it had not been a new one.",
+   "grammar": "\"shouldn't have minded... if it hadn't been\" is a past conditional: it talks about something that did not happen in the past. \"Hadn't been\" means \"had not been\"."
+  },
+  {
+   "chapter": 9,
+   "context": "Well, yes, if you call that a-dressing",
+   "simple": "Yes, if you want to call that \"a-dressing\".",
+   "grammar": "Wordplay: Alice said \"addressing\" (speaking to someone), but the Queen hears \"a-dressing\", which sounds the same. Her next words are about dressing herself."
+  },
+  {
+   "chapter": 9,
+   "context": "You couldn’t have it if you did want it",
+   "simple": "You could not have it even if you wanted it.",
+   "grammar": "\"if you did want it\": \"did\" is a stress word that makes \"want\" stronger. \"Couldn't have\" here means you would not be allowed to have it."
+  },
+  {
+   "chapter": 9,
+   "context": "there’s one great advantage in it, that one’s memory works both ways",
+   "simple": "There is one big good point: a person's memory works forwards and backwards.",
+   "grammar": "\"One's\" means \"a person's\" and is a formal way to talk about people in general. The \"that\" clause tells what the advantage is."
+  },
+  {
+   "chapter": 9,
+   "context": "it wouldn’t be all the better his being punished",
+   "simple": "It would not be better if he were punished.",
+   "grammar": "\"his being punished\" is a phrase with a possessive (\"his\") before an \"-ing\" word. It means \"that he is punished\". \"All the better\" means \"even better\"."
+  },
+  {
+   "chapter": 9,
+   "context": "The egg seems to get further away the more I walk towards it",
+   "simple": "The more I walk towards the egg, the further away it seems to get.",
+   "grammar": "\"the more I walk\" means \"as I walk more\". Two things change together: more walking, more distance."
+  },
+  {
+   "chapter": 10,
+   "context": "If I’d meant that, I’d have said it",
+   "simple": "If I had meant that, I would have said it.",
+   "grammar": "\"I'd\" is short for \"I had\" in the first part and \"I would\" in the second. It is a past conditional about something that did not happen."
+  },
+  {
+   "chapter": 10,
+   "context": "One can’t, perhaps,” said Humpty Dumpty, “but two can",
+   "simple": "One person cannot, perhaps, but two people can.",
+   "grammar": "\"but two can\" leaves out words, as \"but two can help it\". Humpty Dumpty means that with help from another person you could have left off at seven."
+  },
+  {
+   "chapter": 10,
+   "context": "it means just what I choose it to mean",
+   "simple": "It means exactly the thing that I choose it to mean.",
+   "grammar": "\"just what I choose it to mean\" is a noun clause: \"what\" means \"the thing which\". \"Neither more nor less\" follows and means exactly that."
+  },
+  {
+   "chapter": 11,
+   "context": "I only wish I had such eyes,” the King remarked",
+   "simple": "I wish I had such eyes, but I do not.",
+   "grammar": "\"wish + past tense\" (\"had\") talks about something that is not true now."
+  },
+  {
+   "chapter": 11,
+   "context": "You might as well try to stop a Bandersnatch",
+   "simple": "Trying to stop a minute is as hopeless as trying to stop a Bandersnatch.",
+   "grammar": "\"You might as well try to...\" says that something is as hopeless as the thing named. Here the King says that stopping a minute is as hard as stopping a Bandersnatch."
+  },
+  {
+   "chapter": 12,
+   "context": "it’s as well to be provided for everything",
+   "simple": "It is wise to be ready for everything.",
+   "grammar": "\"it's as well to\" means \"it is wise to\". \"Provided for\" means \"made ready for\"."
+  },
+  {
+   "chapter": 12,
+   "context": "To guard against the bites of sharks",
+   "simple": "They are to keep the horse safe from shark bites.",
+   "grammar": "This is an infinitive of purpose with no subject. It answers Alice's question \"What are they for?\" and \"guard against\" means \"keep safe from\"."
+  },
+  {
+   "chapter": 12,
+   "context": "the more head downwards I am, the more I keep inventing new things",
+   "simple": "When my head is lower, I think of more new things.",
+   "grammar": "\"the more..., the more...\" shows that two things grow together: more upside down, more new things."
+  },
+  {
+   "chapter": 12,
+   "context": "I was as fast as —as lightning, you know",
+   "simple": "I was as fast as lightning, you know. Here \"fast\" means held in place, not quick.",
+   "grammar": "Wordplay on \"fast\": it can mean held in place, or very quick. The Knight was stuck in the helmet, but \"as fast as lightning\" usually means very quick. Alice says it is a different kind of fastness."
+  },
+  {
+   "chapter": 12,
+   "context": "That’s what the name is called. The name really is ‘The Aged Aged Man.’",
+   "simple": "That is what the name is called. The name itself is \"The Aged Aged Man\".",
+   "grammar": "The Knight separates \"what the name is called\" from \"what the name really is\". The song has four different names in this part."
+  },
+  {
+   "chapter": 13,
+   "context": "And the sooner we begin it, the better",
+   "simple": "If we begin sooner, it will be better.",
+   "grammar": "\"the sooner..., the better\" is a pattern with \"the\" and a word like \"sooner\" or \"better\". It shows that two things change together: sooner is better."
+  },
+  {
+   "chapter": 13,
+   "context": "What do you suppose is the use of a child without any meaning",
+   "simple": "What use do you think a child is without any meaning?",
+   "grammar": "\"do you suppose\" is put into the question \"What is the use of...?\". After it, the word order is like a statement: \"is the use\", with no \"does\"."
+  },
+  {
+   "chapter": 13,
+   "context": "I said you couldn’t if you tried",
+   "simple": "I said that you could not deny it, even if you tried.",
+   "grammar": "\"you couldn't\" leaves out \"deny it\", which comes from the sentence before. The Red Queen answers Alice's \"I don't deny things with my hands\"."
+  },
+  {
+   "chapter": 13,
+   "context": "I speaks English, doesn’t I?",
+   "simple": "I speak English, do I not?",
+   "grammar": "The Frog uses non-standard grammar: \"I speaks\" and \"doesn't I\" use the third-person verb forms with \"I\". The standard forms are \"I speak\" and \"don't I\"."
+  },
+  {
+   "chapter": 13,
+   "context": "I’ll shake you into a kitten, that I will",
+   "simple": "I will shake you until you are a kitten, I really will.",
+   "grammar": "\"that I will\" is added at the end for emphasis: it repeats \"I will\" to show that Alice means what she says."
+  },
+  {
+   "chapter": 15,
+   "context": "it must have been either me or the Red King",
+   "simple": "I am sure it was either me or the Red King.",
+   "grammar": "\"must have been\" shows that Alice is sure about something in the past. \"Either... or\" gives two possible answers."
+  }
+ ],
+ "phrases": {
+  "make haste": {
+   "meaning": "To hurry; to do something quickly.",
+   "pos": "idiom",
+   "example": "if I don’t make haste I shall have to go back"
+  },
+  "make out": {
+   "meaning": "To see or understand something with some effort. Here, to find out what a thing is.",
+   "pos": "phrasal verb",
+   "example": "to make out what it could possibly be"
+  },
+  "leave off": {
+   "meaning": "To stop doing something.",
+   "pos": "phrasal verb",
+   "example": "it snowed so, they had to leave off"
+  },
+  "wind up": {
+   "meaning": "To wind thread round and round into a ball.",
+   "pos": "phrasal verb",
+   "example": "the ball of worsted Alice had been trying to wind up"
+  },
+  "catch up": {
+   "meaning": "To pick up quickly. Here, Alice takes the kitten up in her hands.",
+   "pos": "phrasal verb",
+   "example": "catching up the kitten"
+  },
+  "make up one's mind": {
+   "meaning": "To decide.",
+   "pos": "idiom",
+   "example": "she made up her mind to go on"
+  },
+  "set out": {
+   "meaning": "To start a trip or a walk.",
+   "pos": "phrasal verb",
+   "example": "she set out once more down the path"
+  },
+  "take one's breath away": {
+   "meaning": "To surprise someone so much that they cannot speak for a moment.",
+   "pos": "idiom",
+   "example": "it quite seemed to take her breath away"
+  },
+  "get on": {
+   "meaning": "To do something and make progress. Here, \"didn't get on very fast\" means she did not make much progress.",
+   "pos": "phrasal verb",
+   "example": "But she didn’t get on very fast"
+  },
+  "at any rate": {
+   "meaning": "Anyway; whatever else is true.",
+   "pos": "idiom",
+   "example": "that’s clear, at any rate"
+  },
+  "come undone": {
+   "meaning": "To open or come loose; to stop being tied or wound.",
+   "pos": "phrase",
+   "example": "till it had all come undone again"
+  },
+  "get in the way": {
+   "meaning": "To be in the place where someone wants to go, so that they cannot pass easily.",
+   "pos": "idiom",
+   "example": "such a house for getting in the way"
+  },
+  "keep up with": {
+   "meaning": "To go as fast as someone else, so as not to fall behind.",
+   "pos": "phrasal verb",
+   "example": "it was all she could do to keep up with her"
+  },
+  "in vain": {
+   "meaning": "Without success; with no result.",
+   "pos": "idiom",
+   "example": "Alice knocked and rang in vain for a long time"
+  },
+  "all the better": {
+   "meaning": "Even better. It adds more to the idea that something is good.",
+   "pos": "phrase",
+   "example": "That would be all the better, wouldn’t it?"
+  },
+  "take care": {
+   "meaning": "To be careful.",
+   "pos": "idiom",
+   "example": "“Take care!” cried Alice"
+  },
+  "give up": {
+   "meaning": "To stop trying, because it is too hard.",
+   "pos": "phrasal verb",
+   "example": "Alice sighed and gave it up"
+  },
+  "have any hand in": {
+   "meaning": "To take part in something.",
+   "pos": "idiom",
+   "example": "have had any hand in the mischief"
+  },
+  "to and fro": {
+   "meaning": "Moving one way and then back again.",
+   "pos": "idiom",
+   "example": "Who rocked his body to and fro"
+  },
+  "in time": {
+   "meaning": "After some time; when enough time has gone by.",
+   "pos": "phrase",
+   "example": "I shall be able to manage it quite well in time"
+  },
+  "no use": {
+   "meaning": "Not helpful; there is no good in doing it.",
+   "pos": "phrase",
+   "example": "It’s no use talking about it"
+  },
+  "on purpose": {
+   "meaning": "Not by chance; meaning to do it.",
+   "pos": "idiom",
+   "example": "almost as if it happened on purpose"
+  },
+  "come off": {
+   "meaning": "To come away from the place where it was fixed.",
+   "pos": "phrasal verb",
+   "example": "the crown might come off"
+  },
+  "beg one's pardon": {
+   "meaning": "A polite way to say \"Please say that again\" or \"I am sorry\".",
+   "pos": "idiom",
+   "example": "“I beg your pardon?” said Alice"
+  },
+  "for fear of": {
+   "meaning": "Because you are afraid that something bad will happen.",
+   "pos": "phrase",
+   "example": "in a whisper, for fear of frightening them"
+  },
+  "I declare": {
+   "meaning": "A way to say strongly that something is true, often when you are surprised.",
+   "pos": "idiom",
+   "example": "it’s turning into a sort of mist now, I declare!"
+  },
+  "out of breath": {
+   "meaning": "Breathing very fast after running, so that it is hard to speak.",
+   "pos": "idiom",
+   "example": "she was getting so much out of breath"
+  },
+  "turn out": {
+   "meaning": "To point outwards, away from each other.",
+   "pos": "phrasal verb",
+   "example": "turn out your toes as you walk"
+  },
+  "hold one's tongue": {
+   "meaning": "To keep quiet; to say nothing.",
+   "pos": "idiom",
+   "example": "If you don’t hold your tongues, I’ll pick you!",
+   "forms": [
+    "hold your tongues"
+   ]
+  },
+  "all the same": {
+   "meaning": "Still; in spite of that.",
+   "pos": "idiom",
+   "example": "My mind goes on working all the same"
+  },
+  "by the way": {
+   "meaning": "A way to add a new thing that you remember while talking.",
+   "pos": "idiom",
+   "example": "By the way, Kitty, if only you’d been really with me"
+  },
+  "take hold of": {
+   "meaning": "To take something in your hand and keep it there.",
+   "pos": "idiom",
+   "example": "she took hold of the end of the pencil"
+  },
+  "set off": {
+   "meaning": "To start a trip or to begin to go.",
+   "pos": "phrasal verb",
+   "example": "as they set off"
+  },
+  "take turns": {
+   "meaning": "To do something one after the other, in order.",
+   "pos": "idiom",
+   "example": "if they really were to take turns in choosing subjects"
+  },
+  "find fault with": {
+   "meaning": "To say that someone or something is bad or has done wrong.",
+   "pos": "idiom",
+   "example": "ready to find fault with anybody"
+  },
+  "catch a crab": {
+   "meaning": "In rowing, to get the oar stuck in the water by mistake. Here the Sheep says Alice will do this.",
+   "pos": "idiom",
+   "example": "You’ll be catching a crab directly"
+  },
+  "make believe": {
+   "meaning": "To pretend; to act as if something is true.",
+   "pos": "phrase",
+   "example": "then you can make believe it’s oysters"
+  },
+  "look on": {
+   "meaning": "To watch without taking part.",
+   "pos": "phrasal verb",
+   "example": "Alice looked on with great interest"
+  },
+  "break off": {
+   "meaning": "To stop speaking suddenly.",
+   "pos": "phrasal verb",
+   "example": "here she broke off with a frown"
+  }
+ }
+}

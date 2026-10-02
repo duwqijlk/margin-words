@@ -1,0 +1,4974 @@
+{
+  "version": 2,
+  "title": "The Wind in the Willows",
+  "author": "Kenneth Grahame",
+  "sha256": "d874ac24670373ea53c0a0d7a52601ca191e95d02270c7571bbd7ccf29cc6b1c",
+  "chapters": 16,
+  "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+  "language": "English",
+  "glossary": {
+    "whitewash": {
+      "pos": "noun",
+      "meaning": "A white liquid that people put on walls to make them white."
+    },
+    "penetrate": {
+      "pos": "present participle",
+      "meaning": "Going into or through something.",
+      "forms": [
+        "penetrating"
+      ]
+    },
+    "lowly": {
+      "pos": "adjective",
+      "meaning": "Small and not grand or important."
+    },
+    "divine": {
+      "pos": "adjective",
+      "meaning": "Very special, as if it came from God."
+    },
+    "discontent": {
+      "pos": "noun",
+      "meaning": "A feeling of not being happy with what you have."
+    },
+    "bolt": {
+      "pos": "past-tense verb",
+      "meaning": "Ran away suddenly and very fast.",
+      "forms": [
+        "bolted"
+      ]
+    },
+    "imperiously": {
+      "pos": "adverb",
+      "meaning": "In a proud way that expects people to do what is said."
+    },
+    "carriage": {
+      "pos": "noun",
+      "meaning": "An old kind of vehicle that horses pull, with seats for people."
+    },
+    "gravelled": {
+      "pos": "adjective",
+      "meaning": "Covered with small stones."
+    },
+    "residence": {
+      "pos": "noun",
+      "meaning": "A house where someone lives."
+    },
+    "scrabble": {
+      "pos": "past-tense verb",
+      "meaning": "Moved the hands or feet fast against something, to get through.",
+      "forms": [
+        "scrabbled"
+      ]
+    },
+    "snout": {
+      "pos": "noun",
+      "meaning": "The long nose of an animal."
+    },
+    "caress": {
+      "pos": "past-tense verb",
+      "meaning": "Touched very softly and with love.",
+      "forms": [
+        "caressed"
+      ]
+    },
+    "seclusion": {
+      "pos": "noun",
+      "meaning": "A state of being alone, away from other people."
+    },
+    "cellarage": {
+      "pos": "noun",
+      "meaning": "Rooms under a house, below the ground, where things are kept."
+    },
+    "carol": {
+      "pos": "noun",
+      "meaning": "A happy song. Here it is the song of birds."
+    },
+    "dulled": {
+      "pos": "adjective",
+      "meaning": "Made less sharp or less strong."
+    },
+    "pursue": {
+      "pos": "past-tense verb",
+      "meaning": "Went after something. 'Pursued his way' means he kept going on his way.",
+      "forms": [
+        "pursued"
+      ]
+    },
+    "privilege": {
+      "pos": "noun",
+      "meaning": "A special right that only some people have."
+    },
+    "contemptuous": {
+      "pos": "adjective",
+      "meaning": "Showing that you think someone is not worth your respect."
+    },
+    "chaff": {
+      "pos": "present participle",
+      "meaning": "Joking with someone in a friendly way and laughing at them.",
+      "forms": [
+        "chaffing"
+      ]
+    },
+    "jeeringly": {
+      "pos": "adverb",
+      "meaning": "In a rude way that makes fun of someone."
+    },
+    "thither": {
+      "pos": "adverb",
+      "meaning": "To that place; there."
+    },
+    "ramble": {
+      "pos": "past-tense verb",
+      "meaning": "Walked about for fun, with no fixed plan.",
+      "forms": [
+        "rambled"
+      ]
+    },
+    "copse": {
+      "pos": "noun",
+      "meaning": "A small group of trees growing close together."
+    },
+    "conscience": {
+      "pos": "noun",
+      "meaning": "The feeling inside you that tells you what is right and wrong."
+    },
+    "meander": {
+      "pos": "past-tense verb",
+      "meaning": "Walked slowly, with no fixed way to go.",
+      "forms": [
+        "meandered"
+      ]
+    },
+    "aimlessly": {
+      "pos": "adverb",
+      "meaning": "With no plan or purpose."
+    },
+    "sleek": {
+      "pos": "adjective",
+      "meaning": "Smooth and bright."
+    },
+    "sinuous": {
+      "pos": "adjective",
+      "meaning": "Having many smooth bends, one after the other."
+    },
+    "gurgle": {
+      "pos": "noun",
+      "meaning": "The low sound that water makes when it moves fast."
+    },
+    "bewitched": {
+      "pos": "past participle",
+      "meaning": "Under the power of magic."
+    },
+    "entranced": {
+      "pos": "adjective",
+      "meaning": "So full of wonder that you cannot think of anything else."
+    },
+    "spellbound": {
+      "pos": "adjective",
+      "meaning": "So interested that you cannot move or look away."
+    },
+    "insatiable": {
+      "pos": "adjective",
+      "meaning": "Never having enough; always wanting more."
+    },
+    "bijou": {
+      "pos": "adjective",
+      "meaning": "Small and pretty."
+    },
+    "glowworm": {
+      "pos": "noun",
+      "meaning": "A small insect with a body that gives out a soft light."
+    },
+    "pettishly": {
+      "pos": "adverb",
+      "meaning": "In a cross way, like a child who is angry."
+    },
+    "scull": {
+      "pos": "noun",
+      "meaning": "One of the light oars used to move a small boat."
+    },
+    "sculled": {
+      "pos": "past-tense verb",
+      "meaning": "Moved a small boat by pulling light oars through the water.",
+      "forms": [
+        "sculling"
+      ]
+    },
+    "painter": {
+      "pos": "noun",
+      "meaning": "A rope at the front of a boat, used to hold it to the bank."
+    },
+    "gingerly": {
+      "pos": "adverb",
+      "meaning": "With great care, afraid that you might fall or be hurt."
+    },
+    "rapture": {
+      "pos": "noun",
+      "meaning": "A feeling of very great happiness."
+    },
+    "stern": {
+      "pos": "noun",
+      "meaning": "The back end of a boat."
+    },
+    "rowlock": {
+      "pos": "noun",
+      "meaning": "A part on the side of a boat where the oars rest."
+    },
+    "composedly": {
+      "pos": "adverb",
+      "meaning": "In a quiet way, in control of your feelings."
+    },
+    "wicker": {
+      "pos": "noun",
+      "meaning": "Thin sticks put together to make things such as chairs."
+    },
+    "ecstasy": {
+      "pos": "noun",
+      "meaning": "A feeling of very great happiness."
+    },
+    "forbear": {
+      "pos": "past-tense verb",
+      "meaning": "Stopped yourself from doing something.",
+      "forms": [
+        "forbore"
+      ]
+    },
+    "forbearance": {
+      "pos": "noun",
+      "meaning": "Patient and quiet actions when you feel angry."
+    },
+    "excursion": {
+      "pos": "noun",
+      "meaning": "A short trip for fun."
+    },
+    "etiquette": {
+      "pos": "noun",
+      "meaning": "The rules for how to act in a polite way."
+    },
+    "allude": {
+      "pos": "verb",
+      "meaning": "To speak about something in a short way, without saying it clearly."
+    },
+    "weir": {
+      "pos": "noun",
+      "meaning": "A low wall across a river that holds back the water."
+    },
+    "moorhen": {
+      "pos": "noun",
+      "meaning": "A small dark bird that lives by the water."
+    },
+    "weasel": {
+      "pos": "noun",
+      "meaning": "A very small, thin animal with a long body that kills other small animals for food."
+    },
+    "stoat": {
+      "pos": "noun",
+      "meaning": "A small, thin animal with a long body and brown back; it kills other small animals."
+    },
+    "provender": {
+      "pos": "noun",
+      "meaning": "Food."
+    },
+    "impromptu": {
+      "pos": "adjective",
+      "meaning": "Done without a plan."
+    },
+    "forthwith": {
+      "pos": "adverb",
+      "meaning": "At once; right away."
+    },
+    "rumpus": {
+      "pos": "noun",
+      "meaning": "A lot of noise and trouble."
+    },
+    "togs": {
+      "pos": "noun",
+      "meaning": "Clothes. A friendly, everyday word."
+    },
+    "punt": {
+      "pos": "verb",
+      "meaning": "To move a flat boat along by pushing a long stick against the bottom of the river.",
+      "forms": [
+        "punting"
+      ]
+    },
+    "stability": {
+      "pos": "noun",
+      "meaning": "The quality of not changing or moving easily."
+    },
+    "errant": {
+      "pos": "adjective",
+      "meaning": "Going from place to place, or going the wrong way."
+    },
+    "athwart": {
+      "pos": "preposition",
+      "meaning": "Across."
+    },
+    "swerve": {
+      "pos": "past-tense verb",
+      "meaning": "Turned suddenly to one side.",
+      "forms": [
+        "swerved"
+      ]
+    },
+    "recollect": {
+      "pos": "past-tense verb",
+      "meaning": "Remembered.",
+      "forms": [
+        "recollected"
+      ]
+    },
+    "forbid": {
+      "pos": "past-tense verb",
+      "meaning": "Did not allow.",
+      "forms": [
+        "forbade"
+      ]
+    },
+    "prostrate": {
+      "pos": "adjective",
+      "meaning": "Lying flat."
+    },
+    "dejected": {
+      "pos": "adjective",
+      "meaning": "Sad and without hope."
+    },
+    "bedraggled": {
+      "pos": "adjective",
+      "meaning": "Wet and in a bad state, with clothes or hair out of place."
+    },
+    "emancipated": {
+      "pos": "adjective",
+      "meaning": "Set free."
+    },
+    "snigger": {
+      "pos": "present participle",
+      "meaning": "Laughing quietly in a rude way.",
+      "forms": [
+        "sniggering"
+      ]
+    },
+    "ass": {
+      "pos": "noun",
+      "meaning": "An animal like a small horse. Here it means a silly person."
+    },
+    "compose": {
+      "pos": "past participle",
+      "meaning": "Made up a song or a piece of music.",
+      "forms": [
+        "composed"
+      ]
+    },
+    "implore": {
+      "pos": "past-tense verb",
+      "meaning": "Asked in a very strong way, because of great need.",
+      "forms": [
+        "implored"
+      ]
+    },
+    "ditty": {
+      "pos": "noun",
+      "meaning": "A short, simple song."
+    },
+    "dabble": {
+      "pos": "present participle",
+      "meaning": "Putting the beak or hands into water and moving about in it for fun.",
+      "forms": [
+        "dabbling"
+      ]
+    },
+    "drake": {
+      "pos": "noun",
+      "meaning": "The male of the common water bird that people keep on farms.",
+      "forms": [
+        "drakes"
+      ]
+    },
+    "quiver": {
+      "pos": "noun",
+      "meaning": "A quick, small movement, as when you are cold or afraid."
+    },
+    "slushy": {
+      "pos": "adjective",
+      "meaning": "Soft, wet and sticky, like earth after rain."
+    },
+    "undergrowth": {
+      "pos": "noun",
+      "meaning": "Small plants and low branches growing thickly under tall trees."
+    },
+    "larder": {
+      "pos": "noun",
+      "meaning": "A cool room or place where food is kept."
+    },
+    "swift": {
+      "pos": "noun",
+      "meaning": "A small bird that flies very fast.",
+      "forms": [
+        "swifts"
+      ]
+    },
+    "candid": {
+      "pos": "adjective",
+      "meaning": "Honest and open about what you think."
+    },
+    "indignantly": {
+      "pos": "adverb",
+      "meaning": "In an angry way, because you feel that something is not fair."
+    },
+    "acquaintance": {
+      "pos": "noun",
+      "meaning": "A person you know a little. 'To make his acquaintance' means to meet him."
+    },
+    "affectionate": {
+      "pos": "adjective",
+      "meaning": "Loving and gentle with other people."
+    },
+    "boastful": {
+      "pos": "adjective",
+      "meaning": "Talking too proudly about yourself."
+    },
+    "conceited": {
+      "pos": "adjective",
+      "meaning": "Having too good an opinion of yourself."
+    },
+    "mellowed": {
+      "pos": "adjective",
+      "meaning": "Soft and warm in colour, because it is old."
+    },
+    "dignified": {
+      "pos": "adjective",
+      "meaning": "Having a serious, proud and quiet look."
+    },
+    "creek": {
+      "pos": "noun",
+      "meaning": "A narrow place where water goes in from a river."
+    },
+    "fad": {
+      "pos": "noun",
+      "meaning": "Something that a person likes very much for a short time.",
+      "forms": [
+        "fads"
+      ]
+    },
+    "disembark": {
+      "pos": "past-tense verb",
+      "meaning": "Got out of a boat.",
+      "forms": [
+        "disembarked"
+      ]
+    },
+    "preoccupied": {
+      "pos": "adjective",
+      "meaning": "Thinking so much about one thing that you do not notice other things."
+    },
+    "boisterously": {
+      "pos": "adverb",
+      "meaning": "In a loud, wild and happy way."
+    },
+    "nudge": {
+      "pos": "past-tense verb",
+      "meaning": "Touched someone softly with the arm, to tell them something.",
+      "forms": [
+        "nudged"
+      ]
+    },
+    "squander": {
+      "pos": "past participle",
+      "meaning": "Wasted; used in a silly way.",
+      "forms": [
+        "squandered"
+      ]
+    },
+    "trivialities": {
+      "pos": "plural noun",
+      "meaning": "Small things that are not important."
+    },
+    "amiable": {
+      "pos": "adjective",
+      "meaning": "Friendly and nice."
+    },
+    "mistrustful": {
+      "pos": "adjective",
+      "meaning": "Not trusting; thinking something may be wrong."
+    },
+    "gipsy": {
+      "pos": "noun",
+      "meaning": "A person who travels from place to place and lives in a small house that a horse pulls."
+    },
+    "caravan": {
+      "pos": "noun",
+      "meaning": "A small house that a horse pulls along the road."
+    },
+    "heath": {
+      "pos": "noun",
+      "meaning": "Wild, open land with low plants and no trees."
+    },
+    "bunk": {
+      "pos": "noun",
+      "meaning": "A narrow bed fixed to a wall, as on a boat.",
+      "forms": [
+        "bunks"
+      ]
+    },
+    "locker": {
+      "pos": "noun",
+      "meaning": "A small box or space with a door, for keeping things.",
+      "forms": [
+        "lockers"
+      ]
+    },
+    "baccy": {
+      "pos": "noun",
+      "meaning": "A dried plant that people smoke. A friendly, everyday word."
+    },
+    "imploringly": {
+      "pos": "adverb",
+      "meaning": "In a way that asks very strongly for help."
+    },
+    "fusty": {
+      "pos": "adjective",
+      "meaning": "Old and closed in, with a bad air, as a room is when the windows are never opened."
+    },
+    "doggedly": {
+      "pos": "adverb",
+      "meaning": "Not giving up, in a firm way."
+    },
+    "wistfully": {
+      "pos": "adverb",
+      "meaning": "In a sad way, wishing for something that you cannot have."
+    },
+    "waver": {
+      "pos": "past-tense verb",
+      "meaning": "Was not sure what to do.",
+      "forms": [
+        "wavered"
+      ]
+    },
+    "oblige": {
+      "pos": "verb",
+      "meaning": "To do something kind for someone."
+    },
+    "diplomatically": {
+      "pos": "adverb",
+      "meaning": "In a careful way, so that no one is upset."
+    },
+    "voluble": {
+      "pos": "adjective",
+      "meaning": "Talking a lot, easily and quickly."
+    },
+    "paddock": {
+      "pos": "noun",
+      "meaning": "A small field for horses."
+    },
+    "nosebag": {
+      "pos": "noun",
+      "meaning": "A bag with food in it, put on a horse's head so that it can eat.",
+      "forms": [
+        "nosebags"
+      ]
+    },
+    "trudge": {
+      "pos": "past-tense verb",
+      "meaning": "Walked slowly, with heavy steps.",
+      "forms": [
+        "trudging",
+        "trudged"
+      ]
+    },
+    "habitation": {
+      "pos": "noun",
+      "meaning": "A place where people live.",
+      "forms": [
+        "habitations"
+      ]
+    },
+    "pathetically": {
+      "pos": "adverb",
+      "meaning": "In a way that makes people feel sorry."
+    },
+    "rouse": {
+      "pos": "verb",
+      "meaning": "To wake someone up."
+    },
+    "platter": {
+      "pos": "noun",
+      "meaning": "A big flat thing for putting food on at the table.",
+      "forms": [
+        "platters"
+      ]
+    },
+    "primitive": {
+      "pos": "adjective",
+      "meaning": "Very simple, like life in the earliest times."
+    },
+    "momentous": {
+      "pos": "adjective",
+      "meaning": "Very important."
+    },
+    "drone": {
+      "pos": "noun",
+      "meaning": "A low sound that goes on and on, without stopping."
+    },
+    "brazen": {
+      "pos": "adjective",
+      "meaning": "Loud and rough, like the sound of metal."
+    },
+    "enwrap": {
+      "pos": "past-tense verb",
+      "meaning": "Covered completely; wrapped around.",
+      "forms": [
+        "enwrapped"
+      ]
+    },
+    "dwindle": {
+      "pos": "past-tense verb",
+      "meaning": "Got smaller and smaller.",
+      "forms": [
+        "dwindled"
+      ]
+    },
+    "plod": {
+      "pos": "past-tense verb",
+      "meaning": "Walked slowly and with effort.",
+      "forms": [
+        "plodded"
+      ]
+    },
+    "rear": {
+      "pos": "present participle",
+      "meaning": "Standing up on the back legs, as a horse does.",
+      "forms": [
+        "rearing"
+      ]
+    },
+    "irredeemable": {
+      "pos": "adjective",
+      "meaning": "Too bad to be put right."
+    },
+    "highwayman": {
+      "pos": "noun",
+      "meaning": "A man on a horse who stopped people on the road and took their money.",
+      "forms": [
+        "highwaymen"
+      ]
+    },
+    "shoal": {
+      "pos": "noun",
+      "meaning": "A place in the sea or river where the water is not deep."
+    },
+    "mariner": {
+      "pos": "noun",
+      "meaning": "A man who works on a ship at sea.",
+      "forms": [
+        "mariners"
+      ]
+    },
+    "placid": {
+      "pos": "adjective",
+      "meaning": "Quiet and not easily upset."
+    },
+    "axle": {
+      "pos": "noun",
+      "meaning": "The bar that the round parts at the two sides of a vehicle turn on.",
+      "forms": [
+        "axles"
+      ]
+    },
+    "trance": {
+      "pos": "noun",
+      "meaning": "A state like a dream, in which you do not notice what is around you."
+    },
+    "monotone": {
+      "pos": "noun",
+      "meaning": "A voice that stays at the same level."
+    },
+    "henceforth": {
+      "pos": "adverb",
+      "meaning": "From now on."
+    },
+    "craze": {
+      "pos": "noun",
+      "meaning": "Something that a person likes very much for a short time."
+    },
+    "distracted": {
+      "pos": "adjective",
+      "meaning": "So worried or upset that you cannot think well."
+    },
+    "vouchsafe": {
+      "pos": "past participle",
+      "meaning": "Given to you as a kindness.",
+      "forms": [
+        "vouchsafed"
+      ]
+    },
+    "entrancing": {
+      "pos": "adjective",
+      "meaning": "So lovely that you cannot think of anything else."
+    },
+    "provoking": {
+      "pos": "adjective",
+      "meaning": "Making you angry."
+    },
+    "twopence": {
+      "pos": "noun",
+      "meaning": "A small amount of old British money."
+    },
+    "personage": {
+      "pos": "noun",
+      "meaning": "An important person."
+    },
+    "evasively": {
+      "pos": "adverb",
+      "meaning": "In a way that avoids a direct answer."
+    },
+    "miry": {
+      "pos": "adjective",
+      "meaning": "Wet and soft, full of sticky earth."
+    },
+    "persistence": {
+      "pos": "noun",
+      "meaning": "The quality of not stopping or giving up."
+    },
+    "solitary": {
+      "pos": "adjective",
+      "meaning": "Alone; without other people."
+    },
+    "scribble": {
+      "pos": "past-tense verb",
+      "meaning": "Wrote quickly, without taking care.",
+      "forms": [
+        "scribbled"
+      ]
+    },
+    "domestic": {
+      "pos": "adjective",
+      "meaning": "Of the home."
+    },
+    "pageant": {
+      "pos": "noun",
+      "meaning": "A show with many people in fine clothes, who walk or act in a line."
+    },
+    "stately": {
+      "pos": "adjective",
+      "meaning": "Slow, grand and serious."
+    },
+    "luxuriant": {
+      "pos": "adjective",
+      "meaning": "Growing thickly and richly."
+    },
+    "diffident": {
+      "pos": "adjective",
+      "meaning": "Not sure of yourself and afraid to speak out."
+    },
+    "debonair": {
+      "pos": "adjective",
+      "meaning": "Happy, nice and easy in the way you act."
+    },
+    "odorous": {
+      "pos": "adjective",
+      "meaning": "Giving something strong for the nose to sense."
+    },
+    "jerkin": {
+      "pos": "noun",
+      "meaning": "A short coat without arms, worn long ago."
+    },
+    "drowsy": {
+      "pos": "adjective",
+      "meaning": "Tired and ready to sleep."
+    },
+    "scamper": {
+      "pos": "noun",
+      "meaning": "A quick run with short steps."
+    },
+    "radiant": {
+      "pos": "adjective",
+      "meaning": "Very bright and happy-looking."
+    },
+    "languorous": {
+      "pos": "adjective",
+      "meaning": "Slow and tired, because it is hot."
+    },
+    "siesta": {
+      "pos": "noun",
+      "meaning": "A rest or sleep in the middle of the day."
+    },
+    "slumber": {
+      "pos": "noun",
+      "meaning": "Sleep."
+    },
+    "dell": {
+      "pos": "noun",
+      "meaning": "A small valley with trees.",
+      "forms": [
+        "dells"
+      ]
+    },
+    "quarry": {
+      "pos": "noun",
+      "meaning": "A big hole in the ground where stone is cut out.",
+      "forms": [
+        "quarries"
+      ]
+    },
+    "masquerade": {
+      "pos": "noun",
+      "meaning": "A party where people cover their faces and wear special clothes."
+    },
+    "entice": {
+      "pos": "verb",
+      "meaning": "To make someone want to come by showing something nice."
+    },
+    "exhilarating": {
+      "pos": "adjective",
+      "meaning": "Making you feel very happy and full of life."
+    },
+    "finery": {
+      "pos": "noun",
+      "meaning": "Fine, bright clothes."
+    },
+    "quickset": {
+      "pos": "noun",
+      "meaning": "Small trees or plants set close together in a line and growing thick."
+    },
+    "billowy": {
+      "pos": "adjective",
+      "meaning": "Rising and falling in big soft rolls, like the sea."
+    },
+    "drapery": {
+      "pos": "noun",
+      "meaning": "Cloth that falls down in soft, long pieces."
+    },
+    "caricature": {
+      "pos": "noun",
+      "meaning": "A picture or shape that makes someone look funny.",
+      "forms": [
+        "caricatures"
+      ]
+    },
+    "crouch": {
+      "pos": "past-tense verb",
+      "meaning": "Bent low with the knees bent.",
+      "forms": [
+        "crouched"
+      ]
+    },
+    "dusk": {
+      "pos": "noun",
+      "meaning": "The time of evening when the light is almost gone."
+    },
+    "indistinctly": {
+      "pos": "adverb",
+      "meaning": "In a way that is not clear."
+    },
+    "malice": {
+      "pos": "noun",
+      "meaning": "A wish to hurt other people."
+    },
+    "hearken": {
+      "pos": "verb",
+      "meaning": "To listen."
+    },
+    "slacken": {
+      "pos": "verb",
+      "meaning": "To become slower."
+    },
+    "snuggle": {
+      "pos": "verb",
+      "meaning": "To lie in a warm, comfortable place."
+    },
+    "verdant": {
+      "pos": "adjective",
+      "meaning": "Green with grass or leaves."
+    },
+    "pore": {
+      "pos": "past-tense verb",
+      "meaning": "Looked at something for a long time, with great attention.",
+      "forms": [
+        "pored"
+      ]
+    },
+    "golosh": {
+      "pos": "noun",
+      "meaning": "A cover worn over your foot in wet weather to keep out water.",
+      "forms": [
+        "goloshes"
+      ]
+    },
+    "cudgel": {
+      "pos": "noun",
+      "meaning": "A short, thick stick used as a weapon."
+    },
+    "brace": {
+      "pos": "noun",
+      "meaning": "A pair."
+    },
+    "valorous": {
+      "pos": "adjective",
+      "meaning": "Brave."
+    },
+    "traverse": {
+      "pos": "verb",
+      "meaning": "To go across a place."
+    },
+    "forsake": {
+      "pos": "present participle",
+      "meaning": "Leaving a place or a person for good.",
+      "forms": [
+        "forsaking"
+      ]
+    },
+    "retreat": {
+      "pos": "noun",
+      "meaning": "A quiet place where you can be safe."
+    },
+    "pitfall": {
+      "pos": "noun",
+      "meaning": "A hole in the ground that you cannot see and that can hurt you.",
+      "forms": [
+        "pitfalls"
+      ]
+    },
+    "menace": {
+      "pos": "noun",
+      "meaning": "Something that can hurt people.",
+      "forms": [
+        "menaces"
+      ]
+    },
+    "faery": {
+      "pos": "noun",
+      "meaning": "Like a place in a story of magic. Here it tells about the white cover on the ground."
+    },
+    "bole": {
+      "pos": "noun",
+      "meaning": "The thick main part of a tree, standing up from the ground.",
+      "forms": [
+        "boles"
+      ]
+    },
+    "invincible": {
+      "pos": "adjective",
+      "meaning": "That nobody can win against."
+    },
+    "dispirited": {
+      "pos": "adjective",
+      "meaning": "Sad and without hope."
+    },
+    "hummocky": {
+      "pos": "adjective",
+      "meaning": "With many small round hills."
+    },
+    "obtuse": {
+      "pos": "adjective",
+      "meaning": "Slow to understand.",
+      "forms": [
+        "obtuseness"
+      ]
+    },
+    "exasperating": {
+      "pos": "adjective",
+      "meaning": "Making you very angry."
+    },
+    "rodent": {
+      "pos": "noun",
+      "meaning": "A small animal with sharp front teeth that it uses to bite things."
+    },
+    "ardour": {
+      "pos": "noun",
+      "meaning": "Strong and excited feeling."
+    },
+    "incredulous": {
+      "pos": "adjective",
+      "meaning": "Not willing to believe."
+    },
+    "bellpull": {
+      "pos": "noun",
+      "meaning": "A handle or rope at a door that you pull to tell people inside that you are there."
+    },
+    "penitence": {
+      "pos": "noun",
+      "meaning": "A feeling of being sorry for something wrong that you did."
+    },
+    "intellect": {
+      "pos": "noun",
+      "meaning": "The power of the mind to think and understand."
+    },
+    "shuffle": {
+      "pos": "verb",
+      "meaning": "To walk slowly, pulling the feet along the floor.",
+      "forms": [
+        "shuffling",
+        "shuffled"
+      ]
+    },
+    "gruff": {
+      "pos": "adjective",
+      "meaning": "Having a rough, unfriendly voice."
+    },
+    "exceedingly": {
+      "pos": "adverb",
+      "meaning": "Very; extremely."
+    },
+    "perished": {
+      "pos": "adjective",
+      "meaning": "Very, very cold."
+    },
+    "paternally": {
+      "pos": "adverb",
+      "meaning": "In the kind way of a father."
+    },
+    "prank": {
+      "pos": "noun",
+      "meaning": "A joke that you play on someone for fun.",
+      "forms": [
+        "pranks"
+      ]
+    },
+    "summons": {
+      "pos": "noun",
+      "meaning": "A call to come to a place."
+    },
+    "hearth": {
+      "pos": "noun",
+      "meaning": "The floor in front of a fire in a room."
+    },
+    "draught": {
+      "pos": "noun",
+      "meaning": "A flow of cold air in a room."
+    },
+    "settle": {
+      "pos": "noun",
+      "meaning": "A long seat made of wood, with a high back.",
+      "forms": [
+        "settles"
+      ]
+    },
+    "trestle": {
+      "pos": "noun",
+      "meaning": "A support made of wood, with legs, that holds up the top of a table.",
+      "forms": [
+        "trestles"
+      ]
+    },
+    "ample": {
+      "pos": "adjective",
+      "meaning": "More than enough."
+    },
+    "dresser": {
+      "pos": "noun",
+      "meaning": "A tall thing made of wood, with places one above another for keeping cups and things for the table."
+    },
+    "rafter": {
+      "pos": "noun",
+      "meaning": "A long piece of wood that holds up the top of a house.",
+      "forms": [
+        "rafters"
+      ]
+    },
+    "mirth": {
+      "pos": "noun",
+      "meaning": "Happy fun and laughing."
+    },
+    "ruddy": {
+      "pos": "adjective",
+      "meaning": "Red and healthy-looking."
+    },
+    "bade": {
+      "pos": "past-tense verb",
+      "meaning": "Told someone to do something.",
+      "forms": [
+        "bade"
+      ]
+    },
+    "plaster": {
+      "pos": "noun",
+      "meaning": "A piece of cloth that sticks to the skin to cover a cut. In the book it is 'sticking-plaster'."
+    },
+    "anchorage": {
+      "pos": "noun",
+      "meaning": "A safe place where a ship can stop."
+    },
+    "repast": {
+      "pos": "noun",
+      "meaning": "Food that you sit down to eat."
+    },
+    "embers": {
+      "pos": "plural noun",
+      "meaning": "Small pieces of wood that are still red and hot after a fire is nearly out."
+    },
+    "incapable": {
+      "pos": "adjective",
+      "meaning": "Not able to do something well."
+    },
+    "assent": {
+      "pos": "past-tense verb",
+      "meaning": "Said yes; agreed.",
+      "forms": [
+        "assented"
+      ]
+    },
+    "strenuous": {
+      "pos": "adjective",
+      "meaning": "Needing a lot of effort and strength."
+    },
+    "arduous": {
+      "pos": "adjective",
+      "meaning": "Very hard and making you very tired."
+    },
+    "fidgety": {
+      "pos": "adjective",
+      "meaning": "Not able to keep still."
+    },
+    "oppressive": {
+      "pos": "adjective",
+      "meaning": "Heavy and hard to bear, like air that is too warm."
+    },
+    "loft": {
+      "pos": "noun",
+      "meaning": "A room just under the top of a house."
+    },
+    "injunction": {
+      "pos": "noun",
+      "meaning": "An order; something you are told to do.",
+      "forms": [
+        "injunctions"
+      ]
+    },
+    "rasher": {
+      "pos": "noun",
+      "meaning": "A thin piece of a special kind of meat, often eaten in the morning.",
+      "forms": [
+        "rashers"
+      ]
+    },
+    "somnolence": {
+      "pos": "noun",
+      "meaning": "The feeling of being ready to sleep."
+    },
+    "chivvy": {
+      "pos": "present participle",
+      "meaning": "Chasing someone and troubling them.",
+      "forms": [
+        "chivvying"
+      ]
+    },
+    "cuff": {
+      "pos": "verb",
+      "meaning": "To hit lightly with the hand."
+    },
+    "perky": {
+      "pos": "adjective",
+      "meaning": "Happy and full of life."
+    },
+    "famished": {
+      "pos": "adjective",
+      "meaning": "Very hungry."
+    },
+    "tranquillity": {
+      "pos": "noun",
+      "meaning": "A feeling of being quiet and at peace."
+    },
+    "imposing": {
+      "pos": "adjective",
+      "meaning": "Large and grand."
+    },
+    "ramification": {
+      "pos": "noun",
+      "meaning": "One of the many branches or parts of something large.",
+      "forms": [
+        "ramifications"
+      ]
+    },
+    "masonry": {
+      "pos": "noun",
+      "meaning": "Building work made of stone."
+    },
+    "flourish": {
+      "pos": "verb",
+      "meaning": "To grow and do very well."
+    },
+    "enduring": {
+      "pos": "adjective",
+      "meaning": "Lasting for a long time."
+    },
+    "obliterate": {
+      "pos": "past-tense verb",
+      "meaning": "Made something go away completely, so that nothing can be seen.",
+      "forms": [
+        "obliterated"
+      ]
+    },
+    "freshet": {
+      "pos": "noun",
+      "meaning": "A sudden flow of water after rain.",
+      "forms": [
+        "freshets"
+      ]
+    },
+    "sapling": {
+      "pos": "noun",
+      "meaning": "A young tree.",
+      "forms": [
+        "saplings"
+      ]
+    },
+    "bramble": {
+      "pos": "noun",
+      "meaning": "A wild plant with sharp points on it that hurt your skin.",
+      "forms": [
+        "brambles"
+      ]
+    },
+    "beeline": {
+      "pos": "noun",
+      "meaning": "The straight way from one place to another."
+    },
+    "stile": {
+      "pos": "noun",
+      "meaning": "Steps that let people go over a wall, but not animals."
+    },
+    "furrow": {
+      "pos": "noun",
+      "meaning": "A long line cut in the earth by a farmer's tool, where the farmer puts the seed."
+    },
+    "asperity": {
+      "pos": "noun",
+      "meaning": "A hard or rough quality.",
+      "forms": [
+        "asperities"
+      ]
+    },
+    "huddle": {
+      "pos": "present participle",
+      "meaning": "Pushing close together in a group.",
+      "forms": [
+        "huddling",
+        "huddled"
+      ]
+    },
+    "hurdle": {
+      "pos": "noun",
+      "meaning": "Sticks joined together to make a light wall in a field.",
+      "forms": [
+        "hurdles"
+      ]
+    },
+    "tributary": {
+      "pos": "adjective",
+      "meaning": "Flowing into a bigger river."
+    },
+    "upland": {
+      "pos": "noun",
+      "meaning": "High land away from the sea or the river.",
+      "forms": [
+        "uplands"
+      ]
+    },
+    "dubiously": {
+      "pos": "adverb",
+      "meaning": "In an unsure way, with doubts."
+    },
+    "metalled": {
+      "pos": "adjective",
+      "meaning": "Made with a hard surface of broken stones."
+    },
+    "beset": {
+      "pos": "past participle",
+      "meaning": "Came around and covered on every side."
+    },
+    "casement": {
+      "pos": "noun",
+      "meaning": "A window that opens like a door.",
+      "forms": [
+        "casements"
+      ]
+    },
+    "latticed": {
+      "pos": "adjective",
+      "meaning": "Made of crossed thin pieces of wood or metal with spaces between."
+    },
+    "inmate": {
+      "pos": "noun",
+      "meaning": "A person living in a house.",
+      "forms": [
+        "inmates"
+      ]
+    },
+    "smouldering": {
+      "pos": "adjective",
+      "meaning": "Giving off smoke and heat, but without a bright fire."
+    },
+    "pulsate": {
+      "pos": "past-tense verb",
+      "meaning": "Beat strongly, like a heart.",
+      "forms": [
+        "pulsated"
+      ]
+    },
+    "silhouette": {
+      "pos": "past participle",
+      "meaning": "Shown as a dark shape against a light background.",
+      "forms": [
+        "silhouetted"
+      ]
+    },
+    "appurtenance": {
+      "pos": "noun",
+      "meaning": "A small thing that goes with a bigger thing."
+    },
+    "plumage": {
+      "pos": "noun",
+      "meaning": "All the soft covering of a bird's body."
+    },
+    "sleet": {
+      "pos": "noun",
+      "meaning": "Cold rain with small bits of ice in it."
+    },
+    "latch": {
+      "pos": "noun",
+      "meaning": "A small bar that holds a door shut."
+    },
+    "filament": {
+      "pos": "noun",
+      "meaning": "A very thin line, as thin as a hair."
+    },
+    "waft": {
+      "pos": "noun",
+      "meaning": "A light movement of air that carries a sound or something for the nose.",
+      "forms": [
+        "wafted",
+        "wafts"
+      ]
+    },
+    "tug": {
+      "pos": "present participle",
+      "meaning": "Pulling hard.",
+      "forms": [
+        "tugging"
+      ]
+    },
+    "reproachfully": {
+      "pos": "adverb",
+      "meaning": "In a way that shows you think someone has done wrong."
+    },
+    "plaintive": {
+      "pos": "adjective",
+      "meaning": "Sounding sad, as if asking for help."
+    },
+    "anguish": {
+      "pos": "noun",
+      "meaning": "Great pain of the mind."
+    },
+    "asunder": {
+      "pos": "adverb",
+      "meaning": "Into pieces."
+    },
+    "tarry": {
+      "pos": "verb",
+      "meaning": "To stay somewhere longer than you should."
+    },
+    "wrench": {
+      "pos": "noun",
+      "meaning": "A sudden hard pull."
+    },
+    "heartstrings": {
+      "pos": "plural noun",
+      "meaning": "Your deepest feelings."
+    },
+    "submissively": {
+      "pos": "adverb",
+      "meaning": "In a way that does what you are told, and does not say no."
+    },
+    "callous": {
+      "pos": "adjective",
+      "meaning": "Not caring about the feelings of others."
+    },
+    "forlornly": {
+      "pos": "adverb",
+      "meaning": "In a sad and lonely way."
+    },
+    "paroxysm": {
+      "pos": "noun",
+      "meaning": "A sudden strong attack of a feeling or a pain."
+    },
+    "intermittent": {
+      "pos": "adjective",
+      "meaning": "Stopping and starting again."
+    },
+    "toilsome": {
+      "pos": "adjective",
+      "meaning": "Needing hard work."
+    },
+    "beguile": {
+      "pos": "verb",
+      "meaning": "To make time pass in a nice way, or to win someone with sweet words."
+    },
+    "unerring": {
+      "pos": "adjective",
+      "meaning": "Never making a mistake."
+    },
+    "sanded": {
+      "pos": "adjective",
+      "meaning": "Covered on the floor with tiny dry pieces of stone, like those on a beach."
+    },
+    "forecourt": {
+      "pos": "noun",
+      "meaning": "An open space in front of a house or building."
+    },
+    "skittle": {
+      "pos": "noun",
+      "meaning": "A game in which you roll a ball to hit tall pieces of wood."
+    },
+    "cockleshell": {
+      "pos": "noun",
+      "meaning": "The shell of a small sea animal, used here to make a border round a small water garden.",
+      "forms": [
+        "cockleshells"
+      ]
+    },
+    "fanciful": {
+      "pos": "adjective",
+      "meaning": "Made in a strange or playful way."
+    },
+    "meagre": {
+      "pos": "adjective",
+      "meaning": "Small and poor."
+    },
+    "doleful": {
+      "pos": "adjective",
+      "meaning": "Sad and sorry for yourself."
+    },
+    "capital": {
+      "pos": "adjective",
+      "meaning": "Very good. It is an old-fashioned way to say 'excellent'."
+    },
+    "inspiriting": {
+      "pos": "adjective",
+      "meaning": "Making you feel brave and happy."
+    },
+    "forage": {
+      "pos": "verb",
+      "meaning": "To search for food.",
+      "forms": [
+        "foraged"
+      ]
+    },
+    "dolorously": {
+      "pos": "adverb",
+      "meaning": "In a very sad way."
+    },
+    "windfall": {
+      "pos": "noun",
+      "meaning": "Money or luck that comes without your working for it."
+    },
+    "expatiate": {
+      "pos": "verb",
+      "meaning": "To talk for a long time about something."
+    },
+    "decoy": {
+      "pos": "present participle",
+      "meaning": "Leading someone away by a clever plan.",
+      "forms": [
+        "decoying"
+      ]
+    },
+    "fallow": {
+      "pos": "adjective",
+      "meaning": "Left with nothing growing for a time, as a field is."
+    },
+    "benison": {
+      "pos": "noun",
+      "meaning": "A good wish for someone, asking for God's kindness."
+    },
+    "anon": {
+      "pos": "adverb",
+      "meaning": "Soon."
+    },
+    "bashful": {
+      "pos": "adjective",
+      "meaning": "Afraid to speak to people because you feel small in front of them."
+    },
+    "clangorous": {
+      "pos": "adjective",
+      "meaning": "Making a loud ringing sound."
+    },
+    "peal": {
+      "pos": "noun",
+      "meaning": "A long, loud ringing sound, such as from a church."
+    },
+    "chilblain": {
+      "pos": "noun",
+      "meaning": "A red place on the skin of the hands or feet that hurts, caused by cold.",
+      "forms": [
+        "chilblains"
+      ]
+    },
+    "mull": {
+      "pos": "verb",
+      "meaning": "To warm a drink and add sugar and other things to it.",
+      "forms": [
+        "mulled"
+      ]
+    },
+    "brew": {
+      "pos": "noun",
+      "meaning": "A drink made by mixing things in hot water."
+    },
+    "corsair": {
+      "pos": "noun",
+      "meaning": "A man who attacks ships at sea to take what is on them."
+    },
+    "galley": {
+      "pos": "noun",
+      "meaning": "An old ship that men moved by pulling long oars."
+    },
+    "coax": {
+      "pos": "past-tense verb",
+      "meaning": "Tried to get someone to do something by being gentle and kind.",
+      "forms": [
+        "coaxed"
+      ]
+    },
+    "swathe": {
+      "pos": "noun",
+      "meaning": "A long line of cut grass or grain."
+    },
+    "rancour": {
+      "pos": "noun",
+      "meaning": "A deep and bitter anger that lasts for a long time."
+    },
+    "wonted": {
+      "pos": "adjective",
+      "meaning": "As always; the same as every other time."
+    },
+    "varnish": {
+      "pos": "present participle",
+      "meaning": "Putting a clear, shiny liquid on wood to make it look good.",
+      "forms": [
+        "varnishing"
+      ]
+    },
+    "undertaking": {
+      "pos": "noun",
+      "meaning": "A job that you agree to do, often a hard one."
+    },
+    "solemnity": {
+      "pos": "noun",
+      "meaning": "A serious and very quiet way of acting."
+    },
+    "trustworthy": {
+      "pos": "adjective",
+      "meaning": "That you can believe and count on."
+    },
+    "array": {
+      "pos": "present participle",
+      "meaning": "Dressing someone in special or fine clothes.",
+      "forms": [
+        "arraying",
+        "arrayed"
+      ]
+    },
+    "singularly": {
+      "pos": "adverb",
+      "meaning": "In a very unusual way."
+    },
+    "hideous": {
+      "pos": "adjective",
+      "meaning": "Very bad to look at."
+    },
+    "habiliments": {
+      "pos": "plural noun",
+      "meaning": "Clothes. It is an old, grand word."
+    },
+    "convert": {
+      "pos": "verb",
+      "meaning": "To change someone's ideas or way of life.",
+      "forms": [
+        "converted"
+      ]
+    },
+    "gaiters": {
+      "pos": "plural noun",
+      "meaning": "Covers worn on the lower legs, from the foot up, to keep them clean and dry."
+    },
+    "swagger": {
+      "pos": "present participle",
+      "meaning": "Walking in a proud way, as if you were very important.",
+      "forms": [
+        "swaggering"
+      ]
+    },
+    "gauntleted": {
+      "pos": "adjective",
+      "meaning": "Wearing long, thick covers on the hands."
+    },
+    "countenance": {
+      "pos": "noun",
+      "meaning": "The face, and the look on it.",
+      "forms": [
+        "countenances"
+      ]
+    },
+    "hustle": {
+      "pos": "past-tense verb",
+      "meaning": "Pushed along quickly and roughly.",
+      "forms": [
+        "hustled"
+      ]
+    },
+    "outrage": {
+      "pos": "noun",
+      "meaning": "A very bad act that makes people very angry."
+    },
+    "blustering": {
+      "pos": "adjective",
+      "meaning": "Talking in a loud way and saying how great you are, but without real strength."
+    },
+    "evaporate": {
+      "pos": "verb",
+      "meaning": "To disappear slowly.",
+      "forms": [
+        "evaporated"
+      ]
+    },
+    "panoply": {
+      "pos": "noun",
+      "meaning": "A full set of clothes or equipment, grand to look at."
+    },
+    "oratory": {
+      "pos": "noun",
+      "meaning": "The art of making long, strong speeches."
+    },
+    "sermon": {
+      "pos": "noun",
+      "meaning": "A long talk about right and wrong, as in a church."
+    },
+    "punctuate": {
+      "pos": "past participle",
+      "meaning": "Broken into parts by other sounds at times.",
+      "forms": [
+        "punctuated"
+      ]
+    },
+    "limp": {
+      "pos": "adjective",
+      "meaning": "Weak and soft, without strength."
+    },
+    "furrowed": {
+      "pos": "adjective",
+      "meaning": "Having deep lines, like the earth cut by a farmer's tool."
+    },
+    "discourse": {
+      "pos": "noun",
+      "meaning": "A long, serious talk."
+    },
+    "misguided": {
+      "pos": "adjective",
+      "meaning": "Wrong, because of bad ideas or advice."
+    },
+    "gratified": {
+      "pos": "adjective",
+      "meaning": "Pleased, because you got what you wanted."
+    },
+    "sullenly": {
+      "pos": "adverb",
+      "meaning": "In a cross way, without much speaking."
+    },
+    "scandalised": {
+      "pos": "adjective",
+      "meaning": "Very surprised and angry, because something seems very wrong."
+    },
+    "backsliding": {
+      "pos": "adjective",
+      "meaning": "Going back to bad ways after promising to change."
+    },
+    "eloquent": {
+      "pos": "adjective",
+      "meaning": "Able to speak well and in a way that moves people."
+    },
+    "repentant": {
+      "pos": "adjective",
+      "meaning": "Feeling sorry for the wrong things you have done."
+    },
+    "emphatically": {
+      "pos": "adverb",
+      "meaning": "In a strong and clear way."
+    },
+    "tedious": {
+      "pos": "adjective",
+      "meaning": "Long and not interesting."
+    },
+    "uncouth": {
+      "pos": "adjective",
+      "meaning": "Rough and strange, and not polite."
+    },
+    "ghastly": {
+      "pos": "adjective",
+      "meaning": "Very bad, and making you afraid."
+    },
+    "somersault": {
+      "pos": "noun",
+      "meaning": "A roll in which you turn over, with your feet going over your head."
+    },
+    "languid": {
+      "pos": "adjective",
+      "meaning": "Slow and weak, without energy.",
+      "forms": [
+        "languidly"
+      ]
+    },
+    "mope": {
+      "pos": "present participle",
+      "meaning": "Being sad and doing nothing.",
+      "forms": [
+        "moping"
+      ]
+    },
+    "affrighted": {
+      "pos": "adjective",
+      "meaning": "Made afraid."
+    },
+    "improvised": {
+      "pos": "adjective",
+      "meaning": "Made quickly from things that were there."
+    },
+    "mullion": {
+      "pos": "noun",
+      "meaning": "A bar that goes up and down in the middle of a window and holds the glass in parts."
+    },
+    "caustic": {
+      "pos": "adjective",
+      "meaning": "Sharp and unkind in what it says about people."
+    },
+    "crestfallen": {
+      "pos": "adjective",
+      "meaning": "Sad and low because you did not get what you hoped."
+    },
+    "turbid": {
+      "pos": "adjective",
+      "meaning": "Not clear, because it is full of earth, as water can be."
+    },
+    "ancestral": {
+      "pos": "adjective",
+      "meaning": "Passed down in a family from people who lived long ago."
+    },
+    "irresponsible": {
+      "pos": "adjective",
+      "meaning": "Not caring about what may happen."
+    },
+    "saunter": {
+      "pos": "past-tense verb",
+      "meaning": "Walked slowly and happily.",
+      "forms": [
+        "sauntered"
+      ]
+    },
+    "incorrigible": {
+      "pos": "adjective",
+      "meaning": "Bad in a way that cannot be changed."
+    },
+    "rogue": {
+      "pos": "noun",
+      "meaning": "A bad man who tells lies and takes what is not his."
+    },
+    "ruffian": {
+      "pos": "noun",
+      "meaning": "A rough man who may hurt people."
+    },
+    "cower": {
+      "pos": "present participle",
+      "meaning": "Bending down in fear.",
+      "forms": [
+        "cowering"
+      ]
+    },
+    "dock": {
+      "pos": "noun",
+      "meaning": "The place in a court where the person who is said to have done wrong stands."
+    },
+    "impertinence": {
+      "pos": "noun",
+      "meaning": "Rude words or actions towards someone who should be respected."
+    },
+    "magistrate": {
+      "pos": "noun",
+      "meaning": "A judge in a local court.",
+      "forms": [
+        "magistrates"
+      ]
+    },
+    "lenient": {
+      "pos": "adjective",
+      "meaning": "Not hard on people who have done wrong; kind in what you decide."
+    },
+    "minion": {
+      "pos": "noun",
+      "meaning": "A person who does what a powerful person says, without asking why.",
+      "forms": [
+        "minions"
+      ]
+    },
+    "hapless": {
+      "pos": "adjective",
+      "meaning": "Unlucky."
+    },
+    "populace": {
+      "pos": "noun",
+      "meaning": "All the people who live in a place."
+    },
+    "assail": {
+      "pos": "past-tense verb",
+      "meaning": "Attacked, here with words and thrown things.",
+      "forms": [
+        "assailed"
+      ]
+    },
+    "drawbridge": {
+      "pos": "noun",
+      "meaning": "A bridge in front of a castle that can be pulled up."
+    },
+    "portcullis": {
+      "pos": "noun",
+      "meaning": "A heavy iron door that is let down in front of the way into a castle."
+    },
+    "abhorrence": {
+      "pos": "noun",
+      "meaning": "A very strong feeling of hate."
+    },
+    "vizard": {
+      "pos": "noun",
+      "meaning": "The front part of a metal head cover worn by a fighter, which covers the face.",
+      "forms": [
+        "vizards"
+      ]
+    },
+    "mastiff": {
+      "pos": "noun",
+      "meaning": "A very big, strong dog.",
+      "forms": [
+        "mastiffs"
+      ]
+    },
+    "warder": {
+      "pos": "noun",
+      "meaning": "A guard in a prison or castle.",
+      "forms": [
+        "warders"
+      ]
+    },
+    "halberd": {
+      "pos": "noun",
+      "meaning": "A long weapon with a sharp metal end on a long stick.",
+      "forms": [
+        "halberds"
+      ]
+    },
+    "flagon": {
+      "pos": "noun",
+      "meaning": "A large container with a handle for drink."
+    },
+    "scaffold": {
+      "pos": "noun",
+      "meaning": "A high stage where people were put to death."
+    },
+    "dungeon": {
+      "pos": "noun",
+      "meaning": "A dark prison room under the ground."
+    },
+    "keep": {
+      "pos": "noun",
+      "meaning": "The strongest part of a castle, where people go to be safe."
+    },
+    "gaoler": {
+      "pos": "noun",
+      "meaning": "A man who guards the people in a prison."
+    },
+    "oddsbodikins": {
+      "pos": "interjection",
+      "meaning": "An old word that shows surprise."
+    },
+    "loon": {
+      "pos": "noun",
+      "meaning": "A silly person."
+    },
+    "murrain": {
+      "pos": "noun",
+      "meaning": "An old word for a sickness of farm animals. Here it is used to wish bad things on someone."
+    },
+    "untoward": {
+      "pos": "adjective",
+      "meaning": "Unlucky or unwanted."
+    },
+    "befall": {
+      "pos": "verb",
+      "meaning": "To happen to someone."
+    },
+    "aught": {
+      "pos": "pronoun",
+      "meaning": "Anything."
+    },
+    "thee": {
+      "pos": "pronoun",
+      "meaning": "An old word for 'you' when speaking to one person."
+    },
+    "thy": {
+      "pos": "determiner",
+      "meaning": "An old word for 'your'."
+    },
+    "twitter": {
+      "pos": "present participle",
+      "meaning": "Making short, quick, high sounds, as small birds do.",
+      "forms": [
+        "twittering"
+      ]
+    },
+    "selvedge": {
+      "pos": "noun",
+      "meaning": "The edge of something. Here it means the edge of the river bank, like the edge of a cloth."
+    },
+    "lingering": {
+      "pos": "adjective",
+      "meaning": "Staying for a long time before it goes."
+    },
+    "sullen": {
+      "pos": "adjective",
+      "meaning": "Heavy, dark and unpleasant."
+    },
+    "torrid": {
+      "pos": "adjective",
+      "meaning": "Very hot and dry."
+    },
+    "disperse": {
+      "pos": "present participle",
+      "meaning": "Making something go away in different directions.",
+      "forms": [
+        "dispersing"
+      ]
+    },
+    "parched": {
+      "pos": "adjective",
+      "meaning": "Very dry from the heat."
+    },
+    "straying": {
+      "pos": "present participle",
+      "meaning": "Going away from where you should be."
+    },
+    "hereabouts": {
+      "pos": "adverb",
+      "meaning": "Near this place."
+    },
+    "fascination": {
+      "pos": "noun",
+      "meaning": "A strong power to hold your interest."
+    },
+    "ford": {
+      "pos": "noun",
+      "meaning": "A place where a river is not deep and you can walk or drive across."
+    },
+    "bygone": {
+      "pos": "adjective",
+      "meaning": "Of the past."
+    },
+    "spit": {
+      "pos": "noun",
+      "meaning": "A narrow piece of land that goes out into the water."
+    },
+    "vocation": {
+      "pos": "noun",
+      "meaning": "A job or work.",
+      "forms": [
+        "vocations"
+      ]
+    },
+    "repose": {
+      "pos": "noun",
+      "meaning": "Rest."
+    },
+    "articulate": {
+      "pos": "adjective",
+      "meaning": "Clear, like words that a person says."
+    },
+    "phosphorescence": {
+      "pos": "noun",
+      "meaning": "A soft light that you see in the dark, without fire."
+    },
+    "majesty": {
+      "pos": "noun",
+      "meaning": "Grand and beautiful, like a king."
+    },
+    "moorings": {
+      "pos": "plural noun",
+      "meaning": "The ropes that hold a boat in place."
+    },
+    "disclosed": {
+      "pos": "past participle",
+      "meaning": "Shown; made known."
+    },
+    "raiment": {
+      "pos": "noun",
+      "meaning": "Clothes. It is an old, grand word."
+    },
+    "apparel": {
+      "pos": "noun",
+      "meaning": "Clothes."
+    },
+    "runnel": {
+      "pos": "noun",
+      "meaning": "A very small river.",
+      "forms": [
+        "runnels"
+      ]
+    },
+    "culvert": {
+      "pos": "noun",
+      "meaning": "A covered way for water to go under a road.",
+      "forms": [
+        "culverts"
+      ]
+    },
+    "serene": {
+      "pos": "adjective",
+      "meaning": "Quiet and peaceful."
+    },
+    "bulrush": {
+      "pos": "noun",
+      "meaning": "A tall plant that grows near water.",
+      "forms": [
+        "bulrushes"
+      ]
+    },
+    "intentness": {
+      "pos": "noun",
+      "meaning": "A state of paying very close attention."
+    },
+    "osier": {
+      "pos": "noun",
+      "meaning": "A kind of tree that grows by water; its thin branches are used to make things by hand.",
+      "forms": [
+        "osiers"
+      ]
+    },
+    "rapt": {
+      "pos": "adjective",
+      "meaning": "So full of wonder that you notice nothing else."
+    },
+    "dandle": {
+      "pos": "past-tense verb",
+      "meaning": "Moved a baby up and down softly on the knees.",
+      "forms": [
+        "dandled"
+      ]
+    },
+    "rudder": {
+      "pos": "noun",
+      "meaning": "A flat piece at the back of a boat, used to turn it."
+    },
+    "gem": {
+      "pos": "past-tense verb",
+      "meaning": "Covered with small bright stones, as a ring is.",
+      "forms": [
+        "gemmed"
+      ]
+    },
+    "transfixed": {
+      "pos": "adjective",
+      "meaning": "Not able to move because of wonder or fear."
+    },
+    "imperious": {
+      "pos": "adjective",
+      "meaning": "Used to having people do as it says; strong in a way that you cannot say no to."
+    },
+    "unsurpassable": {
+      "pos": "adjective",
+      "meaning": "Better than anything else."
+    },
+    "pervading": {
+      "pos": "adjective",
+      "meaning": "Present in every part of a place."
+    },
+    "eddy": {
+      "pos": "noun",
+      "meaning": "A small round movement of water going round and round in a river.",
+      "forms": [
+        "eddies"
+      ]
+    },
+    "tumultuous": {
+      "pos": "adjective",
+      "meaning": "Loud and wild."
+    },
+    "herbage": {
+      "pos": "noun",
+      "meaning": "Green plants and grass."
+    },
+    "sloe": {
+      "pos": "noun",
+      "meaning": "A small, dark fruit that grows on a wild tree."
+    },
+    "awe": {
+      "pos": "noun",
+      "meaning": "A feeling of great respect and wonder, with a little fear."
+    },
+    "smite": {
+      "pos": "past-tense verb",
+      "meaning": "Hit hard.",
+      "forms": [
+        "smote"
+      ]
+    },
+    "august": {
+      "pos": "adjective",
+      "meaning": "Very grand and important."
+    },
+    "cowed": {
+      "pos": "adjective",
+      "meaning": "Made afraid, so that you do not move."
+    },
+    "dominant": {
+      "pos": "adjective",
+      "meaning": "Stronger than all other things."
+    },
+    "imminent": {
+      "pos": "adjective",
+      "meaning": "About to happen very soon."
+    },
+    "sward": {
+      "pos": "noun",
+      "meaning": "Short, thick grass."
+    },
+    "podgy": {
+      "pos": "adjective",
+      "meaning": "Short and a little fat."
+    },
+    "unutterable": {
+      "pos": "adjective",
+      "meaning": "Too great to say in words."
+    },
+    "capricious": {
+      "pos": "adjective",
+      "meaning": "Changing suddenly and without a reason."
+    },
+    "aspen": {
+      "pos": "noun",
+      "meaning": "A kind of tree whose leaves move a lot in the wind.",
+      "forms": [
+        "aspens"
+      ]
+    },
+    "oblivion": {
+      "pos": "noun",
+      "meaning": "The state of having forgotten everything."
+    },
+    "demigod": {
+      "pos": "noun",
+      "meaning": "A being that is partly a god."
+    },
+    "slumbering": {
+      "pos": "adjective",
+      "meaning": "Sleeping."
+    },
+    "lustily": {
+      "pos": "adverb",
+      "meaning": "Loudly and with strength."
+    },
+    "vigil": {
+      "pos": "noun",
+      "meaning": "A time of staying up at night to watch or wait."
+    },
+    "amble": {
+      "pos": "noun",
+      "meaning": "A slow, easy walk."
+    },
+    "waddle": {
+      "pos": "verb",
+      "meaning": "To walk with short steps, moving from side to side, as a fat bird does.",
+      "forms": [
+        "waddled"
+      ]
+    },
+    "lilting": {
+      "pos": "adjective",
+      "meaning": "Having a light, happy sound that goes up and down."
+    },
+    "waif": {
+      "pos": "noun",
+      "meaning": "A small, lost child or animal with no home.",
+      "forms": [
+        "waifs"
+      ]
+    },
+    "frolic": {
+      "pos": "noun",
+      "meaning": "A time of happy play."
+    },
+    "immured": {
+      "pos": "past participle",
+      "meaning": "Shut in a place, as in a prison, so that you cannot leave."
+    },
+    "dank": {
+      "pos": "adjective",
+      "meaning": "Cold, wet and unpleasant."
+    },
+    "noisome": {
+      "pos": "adjective",
+      "meaning": "Having a very bad air that makes you feel ill."
+    },
+    "medieval": {
+      "pos": "adjective",
+      "meaning": "Of the Middle Ages, a time long ago."
+    },
+    "fortress": {
+      "pos": "noun",
+      "meaning": "A strong building made to keep out enemies."
+    },
+    "disport": {
+      "pos": "present participle",
+      "meaning": "Playing and enjoying yourself.",
+      "forms": [
+        "disporting"
+      ]
+    },
+    "hospitable": {
+      "pos": "adjective",
+      "meaning": "Kind to people who come to your home."
+    },
+    "audacious": {
+      "pos": "adjective",
+      "meaning": "Very brave, with no fear of what people think."
+    },
+    "lurid": {
+      "pos": "adjective",
+      "meaning": "Wild and strong, with bright details that make people afraid."
+    },
+    "languish": {
+      "pos": "verb",
+      "meaning": "To stay in a sad place and become weak."
+    },
+    "forsaken": {
+      "pos": "adjective",
+      "meaning": "Left alone by everyone."
+    },
+    "lamentation": {
+      "pos": "noun",
+      "meaning": "A loud show of sadness and crying.",
+      "forms": [
+        "lamentations"
+      ]
+    },
+    "wench": {
+      "pos": "noun",
+      "meaning": "A young woman. It is an old word."
+    },
+    "shroud": {
+      "pos": "past participle",
+      "meaning": "Covered, so that it cannot be seen.",
+      "forms": [
+        "shrouded"
+      ]
+    },
+    "antimacassar": {
+      "pos": "noun",
+      "meaning": "A small cloth put on the back of a chair to keep it clean."
+    },
+    "piebald": {
+      "pos": "adjective",
+      "meaning": "Having large spots of two colours, as black and white."
+    },
+    "sulk": {
+      "pos": "noun",
+      "meaning": "A time of being angry and not speaking.",
+      "forms": [
+        "sulks"
+      ]
+    },
+    "coaxingly": {
+      "pos": "adverb",
+      "meaning": "In a soft way that tries to get someone to agree."
+    },
+    "fragrance": {
+      "pos": "noun",
+      "meaning": "A sweet, nice thing that the nose can sense."
+    },
+    "chivalry": {
+      "pos": "noun",
+      "meaning": "The brave and polite ways of soldiers on horses in old stories."
+    },
+    "browse": {
+      "pos": "present participle",
+      "meaning": "Eating grass or leaves while walking slowly.",
+      "forms": [
+        "browsing"
+      ]
+    },
+    "snapdragon": {
+      "pos": "noun",
+      "meaning": "A garden flower with a mouth-like shape."
+    },
+    "tinge": {
+      "pos": "noun",
+      "meaning": "A small amount of a colour."
+    },
+    "fender": {
+      "pos": "noun",
+      "meaning": "A low metal guard in front of a fire."
+    },
+    "eligible": {
+      "pos": "adjective",
+      "meaning": "Good enough to be chosen; here it is an old way to sell a house."
+    },
+    "replete": {
+      "pos": "adjective",
+      "meaning": "Full of something."
+    },
+    "sanitation": {
+      "pos": "noun",
+      "meaning": "Ways of taking waste away from houses and keeping them clean."
+    },
+    "avidity": {
+      "pos": "noun",
+      "meaning": "A strong wish to have or do something."
+    },
+    "sty": {
+      "pos": "noun",
+      "meaning": "A small building on a farm for fat animals with short legs, kept for their meat.",
+      "forms": [
+        "styes"
+      ]
+    },
+    "sanguine": {
+      "pos": "adjective",
+      "meaning": "Full of hope and happy."
+    },
+    "comely": {
+      "pos": "adjective",
+      "meaning": "Nice to look at."
+    },
+    "affably": {
+      "pos": "adverb",
+      "meaning": "In a friendly and nice way."
+    },
+    "usher": {
+      "pos": "past-tense verb",
+      "meaning": "Showed someone in.",
+      "forms": [
+        "ushered"
+      ]
+    },
+    "sovereign": {
+      "pos": "noun",
+      "meaning": "An old British piece of gold money.",
+      "forms": [
+        "sovereigns"
+      ]
+    },
+    "stipulation": {
+      "pos": "noun",
+      "meaning": "A condition that must be agreed."
+    },
+    "gag": {
+      "pos": "past participle",
+      "meaning": "Put a cloth over someone's mouth to stop them speaking.",
+      "forms": [
+        "gagged"
+      ]
+    },
+    "artifice": {
+      "pos": "noun",
+      "meaning": "A clever plan to make people believe something that is not true."
+    },
+    "picturesque": {
+      "pos": "adjective",
+      "meaning": "Interesting and pretty, like a picture."
+    },
+    "untarnished": {
+      "pos": "adjective",
+      "meaning": "Still clean and bright; not made bad."
+    },
+    "harebrained": {
+      "pos": "adjective",
+      "meaning": "Silly and done without thinking."
+    },
+    "passport": {
+      "pos": "noun",
+      "meaning": "Something that lets you go anywhere. Here it is used in a joking way."
+    },
+    "sally": {
+      "pos": "noun",
+      "meaning": "A quick, clever thing said as a joke.",
+      "forms": [
+        "sallies"
+      ]
+    },
+    "retort": {
+      "pos": "noun",
+      "meaning": "A quick, sharp answer.",
+      "forms": [
+        "retorts"
+      ]
+    },
+    "simulated": {
+      "pos": "adjective",
+      "meaning": "Made to look real, but not real."
+    },
+    "wicket": {
+      "pos": "noun",
+      "meaning": "A small door cut into a big door."
+    },
+    "repartee": {
+      "pos": "noun",
+      "meaning": "Clever, quick talk in answer to someone.",
+      "forms": [
+        "repartees"
+      ]
+    },
+    "stringency": {
+      "pos": "noun",
+      "meaning": "Strong sharpness."
+    },
+    "uncanny": {
+      "pos": "adjective",
+      "meaning": "Strange in a way that makes you a little afraid."
+    },
+    "permissively": {
+      "pos": "adverb",
+      "meaning": "In a way that lets anything happen."
+    },
+    "baulk": {
+      "pos": "past participle",
+      "meaning": "Stopped from doing what you wanted.",
+      "forms": [
+        "baulked"
+      ]
+    },
+    "pettifogging": {
+      "pos": "adjective",
+      "meaning": "Too much concerned with small, unimportant rules."
+    },
+    "revile": {
+      "pos": "past participle",
+      "meaning": "Spoken to in a rude, angry way.",
+      "forms": [
+        "reviled"
+      ]
+    },
+    "burly": {
+      "pos": "adjective",
+      "meaning": "Big and strong."
+    },
+    "frivolous": {
+      "pos": "adjective",
+      "meaning": "Silly; not serious."
+    },
+    "antics": {
+      "pos": "plural noun",
+      "meaning": "Silly, funny actions."
+    },
+    "truncheon": {
+      "pos": "noun",
+      "meaning": "A short thick stick carried by the police.",
+      "forms": [
+        "truncheons"
+      ]
+    },
+    "supplication": {
+      "pos": "noun",
+      "meaning": "A very strong asking for help, with great respect."
+    },
+    "loathsome": {
+      "pos": "adjective",
+      "meaning": "Very bad; making you feel sick."
+    },
+    "motley": {
+      "pos": "adjective",
+      "meaning": "Made of many different kinds, with no order."
+    },
+    "nightjar": {
+      "pos": "noun",
+      "meaning": "A night bird that makes a strange sound.",
+      "forms": [
+        "nightjars"
+      ]
+    },
+    "vex": {
+      "pos": "past-tense verb",
+      "meaning": "Made someone angry.",
+      "forms": [
+        "vexed"
+      ]
+    },
+    "wayfarer": {
+      "pos": "noun",
+      "meaning": "A person who travels on foot.",
+      "forms": [
+        "wayfarers"
+      ]
+    },
+    "pomp": {
+      "pos": "noun",
+      "meaning": "Grand show with fine clothes and big events."
+    },
+    "rowan": {
+      "pos": "noun",
+      "meaning": "A tree with small red fruit.",
+      "forms": [
+        "rowans"
+      ]
+    },
+    "tawny": {
+      "pos": "adjective",
+      "meaning": "Yellow-brown in colour."
+    },
+    "premonition": {
+      "pos": "noun",
+      "meaning": "A feeling that something is going to happen.",
+      "forms": [
+        "premonitions"
+      ]
+    },
+    "evensong": {
+      "pos": "noun",
+      "meaning": "A song or a service in the evening. Here it means the evening song of birds."
+    },
+    "unwearied": {
+      "pos": "adjective",
+      "meaning": "Not tired."
+    },
+    "pinion": {
+      "pos": "noun",
+      "meaning": "The wing of a bird.",
+      "forms": [
+        "pinions"
+      ]
+    },
+    "peremptory": {
+      "pos": "adjective",
+      "meaning": "Making you do what it says at once, with no talking."
+    },
+    "boarder": {
+      "pos": "noun",
+      "meaning": "A person who pays to live and eat in a house or hotel.",
+      "forms": [
+        "boarders"
+      ]
+    },
+    "flitting": {
+      "pos": "noun",
+      "meaning": "The act of moving quickly from one place to another.",
+      "forms": [
+        "flittings"
+      ]
+    },
+    "querulous": {
+      "pos": "adjective",
+      "meaning": "Always saying what is wrong, in a weak, unhappy voice."
+    },
+    "resentful": {
+      "pos": "adjective",
+      "meaning": "Angry about something that seems unfair."
+    },
+    "sluggish": {
+      "pos": "adjective",
+      "meaning": "Slow and heavy."
+    },
+    "pasturage": {
+      "pos": "noun",
+      "meaning": "Land covered with grass where animals eat."
+    },
+    "murmurous": {
+      "pos": "adjective",
+      "meaning": "Making a low, soft sound."
+    },
+    "shamefacedly": {
+      "pos": "adverb",
+      "meaning": "In a way that shows you feel bad about what you did, and look down."
+    },
+    "grumpily": {
+      "pos": "adverb",
+      "meaning": "In a cross way."
+    },
+    "despondently": {
+      "pos": "adverb",
+      "meaning": "In a sad way, without hope."
+    },
+    "homing": {
+      "pos": "adjective",
+      "meaning": "Flying back home."
+    },
+    "beckon": {
+      "pos": "verb",
+      "meaning": "To call someone to come, with a movement of the hand."
+    },
+    "clammy": {
+      "pos": "adjective",
+      "meaning": "Cold and a little wet."
+    },
+    "reminiscence": {
+      "pos": "noun",
+      "meaning": "The act of remembering and talking about happy times in the past."
+    },
+    "dormant": {
+      "pos": "adjective",
+      "meaning": "Not active now, as if sleeping."
+    },
+    "treachery": {
+      "pos": "noun",
+      "meaning": "The wrong act of turning against someone who trusts you."
+    },
+    "drab": {
+      "pos": "adjective",
+      "meaning": "Without colour or interest."
+    },
+    "lush": {
+      "pos": "adjective",
+      "meaning": "Green, thick and healthy."
+    },
+    "eaves": {
+      "pos": "plural noun",
+      "meaning": "The lower edges of the top of a house, reaching out beyond the wall."
+    },
+    "homesick": {
+      "pos": "adjective",
+      "meaning": "Sad because you miss your home."
+    },
+    "panorama": {
+      "pos": "noun",
+      "meaning": "A wide view of a large area."
+    },
+    "gallant": {
+      "pos": "adjective",
+      "meaning": "Brave and fine."
+    },
+    "canopied": {
+      "pos": "adjective",
+      "meaning": "Covered above by a cloth that is held up."
+    },
+    "bodyguard": {
+      "pos": "noun",
+      "meaning": "A group of soldiers who protect an important person."
+    },
+    "circumscribed": {
+      "pos": "adjective",
+      "meaning": "Limited; kept inside narrow limits."
+    },
+    "epitome": {
+      "pos": "noun",
+      "meaning": "A perfect example of something."
+    },
+    "balmy": {
+      "pos": "adjective",
+      "meaning": "Warm and gentle."
+    },
+    "cistern": {
+      "pos": "noun",
+      "meaning": "A big container for holding water."
+    },
+    "gondola": {
+      "pos": "noun",
+      "meaning": "A long, narrow boat with a high end, used in the water streets of Venice.",
+      "forms": [
+        "gondolas"
+      ]
+    },
+    "enthralled": {
+      "pos": "adjective",
+      "meaning": "Held by wonder so that you cannot stop listening."
+    },
+    "vaporous": {
+      "pos": "adjective",
+      "meaning": "Full of thin white air that is hard to see through."
+    },
+    "inadvertently": {
+      "pos": "adverb",
+      "meaning": "Without meaning to."
+    },
+    "assuage": {
+      "pos": "past participle",
+      "meaning": "Made less strong; made easier.",
+      "forms": [
+        "assuaged"
+      ]
+    },
+    "heralding": {
+      "pos": "noun",
+      "meaning": "A sign that something is coming.",
+      "forms": [
+        "heraldings"
+      ]
+    },
+    "vibrant": {
+      "pos": "adjective",
+      "meaning": "Strong and full of life."
+    },
+    "vintage": {
+      "pos": "noun",
+      "meaning": "Wine made in a certain year, or wine in general."
+    },
+    "sonorous": {
+      "pos": "adjective",
+      "meaning": "Having a deep, full sound."
+    },
+    "shingle": {
+      "pos": "noun",
+      "meaning": "Small stones on a beach."
+    },
+    "valerian": {
+      "pos": "noun",
+      "meaning": "A plant that grows on old walls and has small red-white flower heads."
+    },
+    "stanchion": {
+      "pos": "noun",
+      "meaning": "A post or bar that stands up and holds something.",
+      "forms": [
+        "stanchions"
+      ]
+    },
+    "irrevocable": {
+      "pos": "adjective",
+      "meaning": "That cannot be changed or taken back."
+    },
+    "blithesome": {
+      "pos": "adjective",
+      "meaning": "Happy and without worries."
+    },
+    "resolutely": {
+      "pos": "adverb",
+      "meaning": "In a firm way, with a clear purpose."
+    },
+    "unenlightened": {
+      "pos": "adjective",
+      "meaning": "Not knowing or understanding."
+    },
+    "sheaf": {
+      "pos": "noun",
+      "meaning": "A group of cut grain plants, held together.",
+      "forms": [
+        "sheaves"
+      ]
+    },
+    "lyrical": {
+      "pos": "adjective",
+      "meaning": "Full of feeling, like a song."
+    },
+    "beseech": {
+      "pos": "present participle",
+      "meaning": "Asking in a very strong way, with great need.",
+      "forms": [
+        "beseeching"
+      ]
+    },
+    "triumphal": {
+      "pos": "adjective",
+      "meaning": "Showing a great victory."
+    },
+    "toilet": {
+      "pos": "noun",
+      "meaning": "The act of getting yourself clean and dressed."
+    },
+    "dispelled": {
+      "pos": "adjective",
+      "meaning": "Driven away."
+    },
+    "heartening": {
+      "pos": "adjective",
+      "meaning": "Giving you hope and making you feel brave."
+    },
+    "scour": {
+      "pos": "present participle",
+      "meaning": "Searching a place with great care in every part.",
+      "forms": [
+        "scouring"
+      ]
+    },
+    "uncommunicative": {
+      "pos": "adjective",
+      "meaning": "Not willing to speak or give information."
+    },
+    "ambled": {
+      "pos": "past-tense verb",
+      "meaning": "Walked slowly and easily."
+    },
+    "traces": {
+      "pos": "plural noun",
+      "meaning": "The ropes that join a horse to the thing it pulls. Also: small signs that something was there."
+    },
+    "taut": {
+      "pos": "adjective",
+      "meaning": "Pulled straight and hard, with no give."
+    },
+    "gunwale": {
+      "pos": "noun",
+      "meaning": "The top edge of the side of a boat."
+    },
+    "brawny": {
+      "pos": "adjective",
+      "meaning": "Strong, with a big body."
+    },
+    "tiller": {
+      "pos": "noun",
+      "meaning": "A long handle used to turn a boat."
+    },
+    "posthaste": {
+      "pos": "adverb",
+      "meaning": "As fast as possible."
+    },
+    "imp": {
+      "pos": "noun",
+      "meaning": "A small child who does bad things for fun.",
+      "forms": [
+        "imps"
+      ]
+    },
+    "hussy": {
+      "pos": "noun",
+      "meaning": "A rude or bad girl. It is an old and unkind word.",
+      "forms": [
+        "hussies"
+      ]
+    },
+    "trollop": {
+      "pos": "noun",
+      "meaning": "A woman who is not clean or careful in her ways. It is an old and unkind word.",
+      "forms": [
+        "trollops"
+      ]
+    },
+    "dote": {
+      "pos": "verb",
+      "meaning": "To love someone or something very much.",
+      "forms": [
+        "dotes"
+      ]
+    },
+    "shirk": {
+      "pos": "present participle",
+      "meaning": "Avoiding work that you should do.",
+      "forms": [
+        "shirking"
+      ]
+    },
+    "humbug": {
+      "pos": "noun",
+      "meaning": "A person who says things he does not mean, to make people believe him."
+    },
+    "simmer": {
+      "pos": "past participle",
+      "meaning": "Being heated softly, so that small bubbles come up.",
+      "forms": [
+        "simmering"
+      ]
+    },
+    "mangle": {
+      "pos": "noun",
+      "meaning": "A machine with two round parts that press water out of wet clothes."
+    },
+    "crimp": {
+      "pos": "verb",
+      "meaning": "To press into small lines."
+    },
+    "gesticulate": {
+      "pos": "present participle",
+      "meaning": "Making wild movements with the arms and hands.",
+      "forms": [
+        "gesticulating"
+      ]
+    },
+    "rutty": {
+      "pos": "adjective",
+      "meaning": "Full of deep lines made in the ground by vehicles."
+    },
+    "gorse": {
+      "pos": "noun",
+      "meaning": "A wild plant with yellow flower heads and sharp points."
+    },
+    "voluptuous": {
+      "pos": "adjective",
+      "meaning": "Giving great happiness to the body, such as to the nose or mouth."
+    },
+    "solace": {
+      "pos": "noun",
+      "meaning": "Help and rest for someone who is sad."
+    },
+    "qualm": {
+      "pos": "noun",
+      "meaning": "A sudden feeling that something is wrong."
+    },
+    "cajole": {
+      "pos": "verb",
+      "meaning": "To get someone to do something by saying nice things."
+    },
+    "hackney": {
+      "pos": "noun",
+      "meaning": "A horse of a good kind used for pulling light vehicles."
+    },
+    "trappings": {
+      "pos": "plural noun",
+      "meaning": "Fine things put on a horse to make it look grand."
+    },
+    "grudge": {
+      "pos": "past-tense verb",
+      "meaning": "Gave something unwillingly.",
+      "forms": [
+        "grudged"
+      ]
+    },
+    "encircled": {
+      "pos": "past participle",
+      "meaning": "Having something all round."
+    },
+    "yarn": {
+      "pos": "noun",
+      "meaning": "A made-up story."
+    },
+    "strutting": {
+      "pos": "present participle",
+      "meaning": "Walking in a proud way."
+    },
+    "unscathed": {
+      "pos": "adjective",
+      "meaning": "Without being hurt."
+    },
+    "excursionist": {
+      "pos": "noun",
+      "meaning": "A person who goes on a short trip for fun.",
+      "forms": [
+        "excursionists"
+      ]
+    },
+    "encumbered": {
+      "pos": "adjective",
+      "meaning": "Slowed down by something heavy."
+    },
+    "scruff": {
+      "pos": "noun",
+      "meaning": "The back of the neck."
+    },
+    "hoist": {
+      "pos": "noun",
+      "meaning": "A strong pull up."
+    },
+    "waterlogged": {
+      "pos": "adjective",
+      "meaning": "Full of water and heavy."
+    },
+    "subterfuge": {
+      "pos": "noun",
+      "meaning": "A clever plan used to avoid trouble.",
+      "forms": [
+        "subterfuges"
+      ]
+    },
+    "disreputable": {
+      "pos": "adjective",
+      "meaning": "Not respectable; having a bad name."
+    },
+    "rakishly": {
+      "pos": "adverb",
+      "meaning": "In a way that is a little wild and careless, such as a head cover worn to one side."
+    },
+    "contemplate": {
+      "pos": "present participle",
+      "meaning": "Looking at something for a long time and thinking about it.",
+      "forms": [
+        "contemplating"
+      ]
+    },
+    "ignominiously": {
+      "pos": "adverb",
+      "meaning": "In a way that makes you look small and silly in front of others."
+    },
+    "bankrupt": {
+      "pos": "noun",
+      "meaning": "A person who has no money left and cannot pay what he must."
+    },
+    "convict": {
+      "pos": "noun",
+      "meaning": "A person who is in prison for a crime."
+    },
+    "gaol": {
+      "pos": "noun",
+      "meaning": "Prison. This is an old way to write the word."
+    },
+    "jaw": {
+      "pos": "past participle",
+      "meaning": "Talked to in a long, angry way.",
+      "forms": [
+        "jawed"
+      ]
+    },
+    "mutinously": {
+      "pos": "adverb",
+      "meaning": "In a way that will not do what you are told."
+    },
+    "infamously": {
+      "pos": "adverb",
+      "meaning": "In a very bad way that people do not forget."
+    },
+    "cocky": {
+      "pos": "adjective",
+      "meaning": "Too sure of yourself."
+    },
+    "plausibility": {
+      "pos": "noun",
+      "meaning": "The quality of seeming true, so that people believe you."
+    },
+    "ferret": {
+      "pos": "noun",
+      "meaning": "A small, thin animal that people use to chase small animals out of holes.",
+      "forms": [
+        "ferrets"
+      ]
+    },
+    "skirmishing": {
+      "pos": "adjective",
+      "meaning": "Fighting in small, quick fights."
+    },
+    "conservatory": {
+      "pos": "noun",
+      "meaning": "A room made of glass, joined to a house, for plants."
+    },
+    "bloodthirsty": {
+      "pos": "adjective",
+      "meaning": "Wanting to hurt or kill."
+    },
+    "villain": {
+      "pos": "noun",
+      "meaning": "A bad person.",
+      "forms": [
+        "villains"
+      ]
+    },
+    "vulgar": {
+      "pos": "adjective",
+      "meaning": "Rude and not polite."
+    },
+    "paling": {
+      "pos": "noun",
+      "meaning": "One of the pointed sticks that stand up in a line around a garden.",
+      "forms": [
+        "palings"
+      ]
+    },
+    "parapet": {
+      "pos": "noun",
+      "meaning": "A low wall at the edge of a bridge or the top of a house."
+    },
+    "glee": {
+      "pos": "noun",
+      "meaning": "Great happiness, often at someone else's bad luck."
+    },
+    "wilful": {
+      "pos": "adjective",
+      "meaning": "Always wanting your own way."
+    },
+    "appeased": {
+      "pos": "adjective",
+      "meaning": "Made less angry and more quiet."
+    },
+    "portentous": {
+      "pos": "adjective",
+      "meaning": "Seeming to tell of something important that will come."
+    },
+    "victuals": {
+      "pos": "plural noun",
+      "meaning": "Food."
+    },
+    "despondent": {
+      "pos": "adjective",
+      "meaning": "Sad and without hope."
+    },
+    "liberally": {
+      "pos": "adverb",
+      "meaning": "In large amounts."
+    },
+    "contrition": {
+      "pos": "noun",
+      "meaning": "A deep feeling of being sorry for something wrong."
+    },
+    "bygones": {
+      "pos": "plural noun",
+      "meaning": "Things in the past that are best forgotten."
+    },
+    "sentinel": {
+      "pos": "noun",
+      "meaning": "A guard who stands watch.",
+      "forms": [
+        "sentinels"
+      ]
+    },
+    "unhallowed": {
+      "pos": "adjective",
+      "meaning": "Not holy; a little bad."
+    },
+    "volatile": {
+      "pos": "adjective",
+      "meaning": "Quick to change; not firm."
+    },
+    "salon": {
+      "pos": "noun",
+      "meaning": "A meeting of clever people who talk about art or ideas."
+    },
+    "sweep": {
+      "pos": "noun",
+      "meaning": "A person whose work is cleaning the place where smoke goes up from a fire."
+    },
+    "pantry": {
+      "pos": "noun",
+      "meaning": "A small room where food is kept."
+    },
+    "belabour": {
+      "pos": "present participle",
+      "meaning": "Hitting hard again and again.",
+      "forms": [
+        "belabouring"
+      ]
+    },
+    "peevishly": {
+      "pos": "adverb",
+      "meaning": "In a cross way."
+    },
+    "haughty": {
+      "pos": "adjective",
+      "meaning": "Too proud, and looking down on others."
+    },
+    "cutlass": {
+      "pos": "noun",
+      "meaning": "A short, curved sword.",
+      "forms": [
+        "cutlasses"
+      ]
+    },
+    "accoutrement": {
+      "pos": "noun",
+      "meaning": "A piece of equipment."
+    },
+    "raciest": {
+      "pos": "adjective",
+      "meaning": "The most lively and exciting."
+    },
+    "thoroughgoing": {
+      "pos": "adjective",
+      "meaning": "Doing everything fully and with care."
+    },
+    "murmur": {
+      "pos": "noun",
+      "meaning": "A soft, low sound, or a quiet saying that you do not like something."
+    },
+    "pacified": {
+      "pos": "adjective",
+      "meaning": "Made quiet after being angry."
+    },
+    "answerable": {
+      "pos": "adjective",
+      "meaning": "Being the one who must answer for it if something goes wrong."
+    },
+    "whimpered": {
+      "pos": "past-tense verb",
+      "meaning": "Made soft, sad cries."
+    },
+    "placidly": {
+      "pos": "adverb",
+      "meaning": "In a quiet way, not easily upset."
+    },
+    "carouse": {
+      "pos": "present participle",
+      "meaning": "Drinking and having fun in a loud way with others.",
+      "forms": [
+        "carousing"
+      ]
+    },
+    "brandish": {
+      "pos": "present participle",
+      "meaning": "Holding a weapon up and moving it in the air to show it.",
+      "forms": [
+        "brandishing"
+      ]
+    },
+    "frenzied": {
+      "pos": "adjective",
+      "meaning": "Wild with strong feeling."
+    },
+    "wrathfully": {
+      "pos": "adverb",
+      "meaning": "In a very angry way."
+    },
+    "bristling": {
+      "pos": "present participle",
+      "meaning": "Standing up straight and hard, like hair on an angry animal."
+    },
+    "flourishing": {
+      "pos": "present participle",
+      "meaning": "Moving something in the air in a proud way."
+    },
+    "debris": {
+      "pos": "noun",
+      "meaning": "Broken pieces left after something is broken."
+    },
+    "guava": {
+      "pos": "noun",
+      "meaning": "A fruit that grows in hot countries."
+    },
+    "trifle": {
+      "pos": "noun",
+      "meaning": "A soft, sweet food made with fruit and sweet milk."
+    },
+    "apiece": {
+      "pos": "adverb",
+      "meaning": "Each."
+    },
+    "penitent": {
+      "pos": "adjective",
+      "meaning": "Sorry for the wrong things you have done."
+    },
+    "valour": {
+      "pos": "noun",
+      "meaning": "Being very brave when fighting."
+    },
+    "consummate": {
+      "pos": "adjective",
+      "meaning": "Complete and perfect."
+    },
+    "fractious": {
+      "pos": "adjective",
+      "meaning": "Cross and hard to control."
+    },
+    "libel": {
+      "pos": "noun",
+      "meaning": "A lie that is written or said about someone and hurts their name."
+    },
+    "boudoir": {
+      "pos": "noun",
+      "meaning": "A woman's private room."
+    },
+    "confiscate": {
+      "pos": "past-tense verb",
+      "meaning": "Took something away from someone.",
+      "forms": [
+        "confiscated"
+      ]
+    },
+    "unction": {
+      "pos": "noun",
+      "meaning": "A smooth way of speaking that shows strong feeling, often not real."
+    },
+    "snubby": {
+      "pos": "adjective",
+      "meaning": "A little unfriendly and cold to someone."
+    },
+    "oblivious": {
+      "pos": "adjective",
+      "meaning": "Not noticing or thinking about something."
+    },
+    "inflated": {
+      "pos": "adjective",
+      "meaning": "Thinking you are better than you are."
+    },
+    "uppish": {
+      "pos": "adjective",
+      "meaning": "Proud and thinking you are better than others."
+    },
+    "boisterous": {
+      "pos": "adjective",
+      "meaning": "Loud and full of energy."
+    },
+    "assessor": {
+      "pos": "noun",
+      "meaning": "A person who decides how much something is worth.",
+      "forms": [
+        "assessors"
+      ]
+    }
+  },
+  "paragraphs": [
+    {
+      "chapter": 2,
+      "paragraph": 1,
+      "context": "The Mole had been working very hard all the morning",
+      "mainIdea": "The Mole is tired of cleaning his home. He throws down his brush, runs out, digs up through a tunnel and comes out in a sunny meadow.",
+      "simple": "The Mole had worked very hard all morning. He was cleaning his little home for spring. First he used brooms, then dusters. Then he stood on ladders, steps and chairs, and used a brush and a bucket of whitewash. At last he had dust in his throat and eyes, white splashes all over his black fur, an aching back and tired arms. Spring was moving in the air above him and in the earth below and around him. It came even into his dark, low little house, and brought its special feeling of not being happy with what he had, and of wanting more. So it was not strange that he suddenly threw his brush down on the floor. He said, 'Bother!' and 'O blow!' and 'Hang spring-cleaning!' He ran out of the house without waiting to put on his coat. Something above was calling him in a strong way, as if it must be obeyed. He went to the steep little tunnel. For him it was the same as the gravel road in front of the house for animals whose homes are nearer the sun and air. He scraped and scratched and scrabbled and scrooged, and then did it all again in another order. He worked busily with his little paws and said to himself, 'Up we go! Up we go!' At last, pop! his nose came out into the sunlight, and he found himself rolling in the warm grass of a great meadow.",
+      "hardWords": [
+        "whitewash",
+        "penetrating",
+        "lowly",
+        "divine discontent",
+        "bolted",
+        "imperiously",
+        "gravelled",
+        "carriage-drive",
+        "residences",
+        "scrabbled"
+      ]
+    },
+    {
+      "chapter": 2,
+      "paragraph": 5,
+      "context": "He thought his happiness was complete when",
+      "mainIdea": "The Mole sees a river for the first time. It looks to him like a living animal that tells stories.",
+      "simple": "The Mole thought he could not be happier. Then, as he walked slowly along with no plan, he suddenly stood at the edge of a river that was full to the top. He had never seen a river before in his life. To him it was a smooth, curving, full-bodied animal. It chased and chuckled. It took hold of things with a gurgle and let them go with a laugh, and then it threw itself at new playmates. These shook themselves free, and were caught and held again. Everything was shaking and shivering. There were flashes and gleams and sparkles, rustle and swirl, chatter and bubble. The Mole was under a spell, full of wonder, and he could not stop looking. He trotted beside the river, like a small child who trots beside a man telling exciting stories. When he was tired at last, he sat on the bank. The river still chattered to him. It was a bubbling line of the best stories in the world, sent from the heart of the earth to be told at last to the sea that can never have enough.",
+      "hardWords": [
+        "meandered",
+        "aimlessly",
+        "sleek",
+        "sinuous",
+        "gurgle",
+        "bewitched",
+        "entranced",
+        "fascinated",
+        "spellbound",
+        "insatiable"
+      ]
+    },
+    {
+      "chapter": 2,
+      "paragraph": 24,
+      "context": "whether you arrive at your destination or whether you reach somewhere else",
+      "mainIdea": "The Rat says that it does not matter where a boat goes. He says that this is the charm of messing about in boats. He asks the Mole to go down the river with him.",
+      "simple": "'About in boats, or with boats,' the Rat went on calmly. He picked himself up and laughed in a pleasant way. 'In boats or out of them, it does not matter. Nothing seems really to matter, and that is the charm of it. You may get away, or you may not. You may arrive where you meant to go, or you may reach another place, or you may never get anywhere at all. You are always busy, and you never do anything in particular. When you have done it, there is always something else to do. You can do it if you like, but you had much better not. Look here! If you really have nothing else to do this morning, let us go down the river together and have a long day of it.'",
+      "hardWords": [
+        "composedly",
+        "destination",
+        "in particular",
+        "on hand",
+        "drop down"
+      ]
+    },
+    {
+      "chapter": 3,
+      "paragraph": 3,
+      "context": "The Rat was sitting on the river bank, singing a little song",
+      "mainIdea": "The Rat has made up a song and does not listen to the Mole. He has been playing with the ducks, who were angry and sent him away.",
+      "simple": "The Rat was sitting on the river bank and singing a little song. He had just made it up himself, so he was very full of it. He would not give proper attention to the Mole or to anything else. Since early morning he had been swimming in the river with his friends the ducks. When the ducks suddenly stood on their heads, as ducks do, he would dive down and tickle their necks, just under where their chins would be if ducks had chins. He did this until they had to come up again quickly, spluttering and angry and shaking their feathers at him. This is because you cannot say everything you feel when your head is under water. At last they begged him to go away, to look after his own business, and to leave them to look after theirs. So the Rat went away and sat on the river bank in the sun. He made up a song about them, which he called:",
+      "hardWords": [
+        "composed",
+        "in company with",
+        "implored",
+        "attend to his own affairs",
+        "mind theirs"
+      ]
+    },
+    {
+      "chapter": 3,
+      "paragraph": 23,
+      "context": "O, pooh! boating!” interrupted the Toad, in great disgust",
+      "mainIdea": "Toad says boating is a silly waste of time. He says he has found the only real way to spend a life, and he wants Rat and Mole to see it.",
+      "simple": "'Oh, pooh! Boating!' Toad said, in great disgust, as he cut in. 'It is a silly game for boys. I gave it up long ago. It is only a waste of time. It makes me really sorry to see you two, who should know better, use all your strength in that useless way. No, I have found the real thing, the only true work for a whole life. I plan to give the rest of my life to it. I can only be sorry for the wasted years behind me, which I threw away on little things. Come with me, dear Ratty, and your friendly friend too, if he will be so good. Come just as far as the stable-yard, and you will see what you will see!'",
+      "hardWords": [
+        "interrupted",
+        "sheer",
+        "downright",
+        "aimless",
+        "genuine",
+        "occupation",
+        "propose to",
+        "devote",
+        "squandered",
+        "trivialities",
+        "amiable"
+      ]
+    },
+    {
+      "chapter": 3,
+      "paragraph": 36,
+      "context": "When they were quite ready, the now triumphant Toad led his companions",
+      "mainIdea": "Toad makes Rat and Mole catch the old grey horse, which does not want to go. Then they all start out on a golden afternoon.",
+      "simple": "When they were quite ready, Toad was very proud of himself. He led his friends to the paddock and made them catch the old grey horse. Toad had chosen the horse for the dustiest job of this dusty trip, and had not asked him first. The horse was very angry about it. He liked the paddock better, and he took a lot of catching. Meanwhile Toad packed the lockers even tighter with things they needed. He hung nosebags, nets of onions, bundles of hay and baskets from the bottom of the cart. At last the horse was caught and harnessed, and they set off. They all talked at once. Each animal either walked beside the cart or sat on the shaft, as he felt like. It was a golden afternoon. The smell of the dust they kicked up was rich and pleasant. Birds called and whistled to them happily from thick orchards on both sides of the road. Friendly travellers who passed them said 'Good day', or stopped to say nice things about their beautiful cart. Rabbits sat at their front doors in the hedges, held up their front paws and said, 'O my! O my! O my!'",
+      "hardWords": [
+        "triumphant",
+        "paddock",
+        "consulted",
+        "told off",
+        "nosebags",
+        "trudging",
+        "shaft",
+        "humour",
+        "wayfarers",
+        "hedgerows"
+      ]
+    },
+    {
+      "chapter": 4,
+      "paragraph": 13,
+      "context": "It was a cold, still afternoon with a hard, steely sky overhead",
+      "mainIdea": "The Mole walks into the winter country. It is bare, and he likes its plain look. He goes on towards the Wild Wood.",
+      "simple": "It was a cold, quiet afternoon. The sky above was hard and grey like steel. The Mole slipped out of the warm parlour into the open air. The land around him was bare, with no leaves at all. He thought he had never seen so far, and so closely, into the inside of things as on that winter day. Nature was deep in her yearly sleep, and seemed to have kicked the clothes off. The small woods, valleys, quarries and all hidden places had been secret mines to explore in leafy summer. Now they showed themselves and their secrets in a sad way. They seemed to ask him to forgive their poor, shabby look for a while, until they could play wild in rich dress again as before, and trick him and pull him in with the old tricks. In a way it was sad, and yet it was cheering, even exciting. He was glad that he liked the country plain and hard, with its fine dress taken away. He had come down to its bare bones, and they were fine and strong and simple. He did not want the warm clover or the seeding grasses. The thick hedges and the waving cover of beech and elm trees seemed better away. With great happiness he went on towards the Wild Wood. It lay in front of him, low and threatening, like a black reef in a quiet southern sea.",
+      "hardWords": [
+        "steely",
+        "intimately",
+        "slumber",
+        "copses",
+        "dells",
+        "quarries",
+        "masquerade",
+        "entice",
+        "exhilarating",
+        "finery",
+        "quickset",
+        "billowy drapery"
+      ]
+    },
+    {
+      "chapter": 4,
+      "paragraph": 24,
+      "context": "The pattering increased till it sounded like sudden hail",
+      "mainIdea": "The Mole runs in panic and hides in a hollow tree. There he knows the Terror of the Wild Wood.",
+      "simple": "The pattering grew until it sounded like sudden hail on the dry leaves spread around him. The whole wood seemed to be running now, running hard, hunting, chasing, closing in on something, or on someone. In a panic he began to run too, with no aim, and he did not know where. He ran into things, fell over things and into things, ran under things and went round things. At last he found shelter in the deep, dark hollow of an old beech tree. It gave shelter and hiding, and perhaps even safety, but who could tell? Anyway, he was too tired to run any further. He could only curl up in the dry leaves that had blown into the hollow, and hope he was safe for a time. He lay there panting and trembling, and listened to the whistling and the pattering outside. At last he knew it fully: the dreadful thing that other little animals of field and hedge had met here, and had known as their darkest moment. It was the thing that the Rat had tried in vain to keep him from. It was the Terror of the Wild Wood!",
+      "hardWords": [
+        "pattering",
+        "aimlessly",
+        "whither",
+        "dodged",
+        "took refuge",
+        "hollow",
+        "concealment",
+        "snuggle",
+        "dread",
+        "encountered",
+        "vainly",
+        "shield"
+      ]
+    },
+    {
+      "chapter": 4,
+      "paragraph": 47,
+      "context": "The Mole came and crouched beside him, and, looking out",
+      "mainIdea": "The snow changes how the Wild Wood looks. The dark places are disappearing under a beautiful soft white cover.",
+      "simple": "The Mole came and crouched beside the Rat. He looked out, and saw that the wood that had been so dreadful to him looked quite different. Holes, hollows, pools, hidden pits and other black dangers for the traveller were fast disappearing. A shining carpet like something from fairyland was growing everywhere. It looked too delicate for rough feet to walk on. A fine powder filled the air and touched the cheek with a tingle. The black trunks of the trees showed up in a light that seemed to come from below.",
+      "hardWords": [
+        "crouched",
+        "wayfarer",
+        "menaces",
+        "faery",
+        "delicate",
+        "trodden",
+        "tingle",
+        "boles"
+      ]
+    },
+    {
+      "chapter": 5,
+      "paragraph": 12,
+      "context": "When at last they were thoroughly toasted, the Badger summoned them to the table",
+      "mainIdea": "The Badger gives his guests a big supper. They are too hungry to talk, and he does not mind their bad manners.",
+      "simple": "When they were warm all through, the Badger called them to the table, where he had been busy putting out a meal. They had felt quite hungry before. But when they saw the supper that was set out for them, the only question was what to eat first, where everything looked so good. They also wondered if the other things would be kind enough to wait until they had time for them. They could not talk for a long time. When they began to talk again, it was the sad kind of talk you get when you talk with your mouth full. The Badger did not mind this at all. He did not notice elbows on the table, or everybody talking at once. He did not go into Society himself, so he had an idea that these things did not really matter. (We know, of course, that he was wrong and saw it in too narrow a way, because they do matter very much. But it would take too long to say why.) He sat in his armchair at the head of the table. He nodded in a serious way now and then as the animals told their story. He did not seem surprised or shocked at anything. He never said, 'I told you so,' or 'Just what I always said,' or that they should have done this, or should not have done that. The Mole began to feel very friendly towards him.",
+      "hardWords": [
+        "summoned",
+        "repast",
+        "obligingly",
+        "resumed",
+        "regrettable",
+        "Society",
+        "narrow a view",
+        "gravely"
+      ]
+    },
+    {
+      "chapter": 5,
+      "paragraph": 20,
+      "context": "His two friends assented, quite understanding his point",
+      "mainIdea": "The Rat and the Mole understand that no animal is expected to do hard things in winter. In winter all animals are sleepy and resting.",
+      "simple": "His two friends agreed. They understood what he meant. By the rules of animal etiquette, no animal is ever expected to do anything that takes great effort, or anything brave, or even anything fairly active, in the winter, when there is little to do. All of them are sleepy, and some are really asleep. All are kept indoors by the weather, more or less. All are resting after hard days and nights, when every muscle has been tested hard and all their strength has been used to the full.",
+      "hardWords": [
+        "assented",
+        "etiquette",
+        "strenuous",
+        "heroic",
+        "off-season",
+        "weather-bound",
+        "arduous",
+        "at full stretch"
+      ]
+    },
+    {
+      "chapter": 5,
+      "paragraph": 51,
+      "context": "It would be astonishing indeed,” said the Badger simply",
+      "mainIdea": "The Badger says that he did not build the tunnels. He says that a city of people stood there long ago.",
+      "simple": "'It would be astonishing indeed,' said the Badger plainly, 'if I had done it. But in fact I did none of it. I only cleaned out the passages and rooms, as far as I needed them. There is a lot more of it, all round. I see you do not understand, and I must explain it to you. Well, very long ago, on the place where the Wild Wood waves now, before it had planted itself and grown to what it is now, there was a city. It was a city of people. Here, where we are standing, they lived and walked and talked and slept, and did their business. Here they kept their horses and had feasts. From here they rode out to fight, or drove out to trade. They were a strong, rich people, and great builders. They built to last, because they thought their city would last for ever.'",
+      "hardWords": [
+        "astonishing",
+        "as a matter of fact",
+        "chambers",
+        "stabled",
+        "trade",
+        "powerful"
+      ]
+    },
+    {
+      "chapter": 6,
+      "paragraph": 14,
+      "context": "Poor Mole stood alone in the road, his heart torn asunder",
+      "mainIdea": "The Mole wants to go to his old home, but he will not leave his friend. At last he follows the Rat down the road.",
+      "simple": "Poor Mole stood alone in the road. His heart was torn in two, and a big sob was growing low inside him. He knew it would soon jump up in a wild rush. But even now he stayed loyal to his friend. He never thought for a moment of leaving him. Meanwhile the smells from his old home begged and whispered and made a spell on him. At last they called him in a way he had to obey. He did not dare to stay longer in their magic circle. With a hard pull on his deepest feelings, he turned his face down the road and followed the Rat's track without arguing. Faint, thin little smells still followed his nose as it moved away. They blamed him for his new friendship and for forgetting his home in such a hard way.",
+      "hardWords": [
+        "torn asunder",
+        "wafts",
+        "conjured",
+        "imperiously",
+        "tarry",
+        "wrench",
+        "heartstrings",
+        "submissively",
+        "dogging",
+        "reproached",
+        "callous"
+      ]
+    },
+    {
+      "chapter": 6,
+      "paragraph": 16,
+      "context": "The Mole subsided forlornly on a tree stump and tried to control himself",
+      "mainIdea": "The Mole sits on a stump and cries because he cannot go to his old home.",
+      "simple": "The Mole sat down sadly on a tree stump and tried to control himself, because he felt that the sob was surely coming. He had fought it for so long, but it would not be beaten. It forced its way up into the air. Then came another, and another, and others very fast. At last poor Mole gave up the fight. He cried freely and helplessly and in the open, now that he knew it was all over. He had lost something that he could hardly be said to have found.",
+      "hardWords": [
+        "subsided",
+        "forlornly",
+        "sob",
+        "thick and fast"
+      ]
+    },
+    {
+      "chapter": 6,
+      "paragraph": 65,
+      "context": "He clambered into his bunk and rolled himself well up in the blankets",
+      "mainIdea": "The Rat climbs into his bunk and falls asleep at once.",
+      "simple": "He climbed into his bunk and rolled himself well up in the blankets. Sleep took him at once, as a long line of cut corn is taken up by the machine that cuts it.",
+      "hardWords": [
+        "clambered",
+        "bunk",
+        "slumber",
+        "swathe",
+        "reaping machine"
+      ]
+    },
+    {
+      "chapter": 7,
+      "paragraph": 11,
+      "context": "another new and exceptionally powerful motorcar will arrive at Toad Hall",
+      "mainIdea": "The Badger says that Toad will soon have another new motorcar. He says that the three of them must go to Toad Hall now and rescue Toad.",
+      "simple": "'This very morning,' the Badger went on, as he took an armchair, 'another new and very powerful motorcar will arrive at Toad Hall. I learnt this last night from a source I can trust. Toad can keep it, or send it back if he does not like it. Perhaps at this very moment Toad is busy dressing himself in those very ugly clothes that he loves. They change him from a Toad who is fairly good-looking into a thing that makes any decent animal very angry when it sees it. We must get up and do something before it is too late. You two animals will come with me to Toad Hall at once, and we shall do the work of rescue.'",
+      "hardWords": [
+        "exceptionally",
+        "on approval or return",
+        "arraying",
+        "singularly",
+        "hideous",
+        "habiliments",
+        "transform",
+        "comparatively",
+        "ere",
+        "accompany",
+        "accomplished"
+      ]
+    },
+    {
+      "chapter": 7,
+      "paragraph": 22,
+      "context": "They had to lay Toad out on the floor, kicking",
+      "mainIdea": "The Rat and the Mole take off Toad's motor clothes. Without them, Toad is no longer a proud driver.",
+      "simple": "They had to lay Toad out on the floor, while he kicked and called them all sorts of names. Only then could they begin their work. The Rat sat on him, and the Mole took his motor clothes off him bit by bit. They stood him on his legs again. Much of his loud, proud spirit seemed to have gone when his fine clothes were taken away. Now he was only Toad, and no longer the Terror of the Highway. He gave a weak giggle and looked at them one after the other, as if asking for kindness. He seemed to understand the situation well.",
+      "hardWords": [
+        "blustering",
+        "evaporated",
+        "panoply",
+        "Terror of the Highway",
+        "feebly",
+        "appealingly"
+      ]
+    },
+    {
+      "chapter": 7,
+      "paragraph": 81,
+      "context": "the brutal minions of the law fell upon the hapless Toad",
+      "mainIdea": "Toad is judged and taken through a crowd and a castle to a dungeon. At the end they stop at a dungeon door, where an old gaoler sits.",
+      "simple": "Then the cruel servants of the law fell on poor Toad. They put chains on him and dragged him from the Court House, while he screamed, begged and protested. They took him across the marketplace. There the crowd were hard on a crime that had been found, but kind to a man who was only 'wanted'. They shouted mocking words at him, threw carrots and shouted popular sayings. They went past school children who hooted. Their innocent faces were lit up with the pleasure they always get from the sight of a gentleman in trouble. Then they crossed the hollow-sounding drawbridge, went under the spiky gate that is let down, and passed under the dark archway of the grim old castle, whose ancient towers rose high above. They went past guardrooms full of grinning soldiers who were off duty. They went past guards who coughed in a nasty, mocking way, because that is as much as a guard on duty dares to do to show how he hates crime. They went up old, worn, winding stairs, past men in steel armour who gave him threatening looks through their face guards. They crossed courtyards where big dogs pulled on their leads and pawed the air to get at him. They went past old guards, who had leant their long axes on poles against the wall and were dozing over a pie and a large jug of brown ale. On and on they went, past the rack-room and the thumbscrew-room, and past the turning that led to the private place of execution. At last they came to the door of the grimmest dungeon, in the middle of the innermost tower. There they stopped, where an old gaoler sat, playing with a bunch of great keys.",
+      "hardWords": [
+        "minions",
+        "hapless",
+        "populace",
+        "assailed",
+        "drawbridge",
+        "portcullis",
+        "abhorrence",
+        "vizards",
+        "mastiffs",
+        "warders",
+        "halberds",
+        "flagon",
+        "scaffold",
+        "dungeon",
+        "keep",
+        "gaoler"
+      ]
+    },
+    {
+      "chapter": 8,
+      "paragraph": 2,
+      "context": "The Willow-Wren was twittering his thin little song",
+      "mainIdea": "It is a hot summer night. The Mole lies on the bank and waits for the Rat, who is out late with Otter.",
+      "simple": "The Willow-Wren was singing his thin little song, hidden in the dark edge of the river bank. It was past ten o'clock at night, but the sky still held some last light from the day that had gone. The heavy heat of the very hot afternoon broke up and rolled away at the cool touch of the short midsummer night. The Mole lay stretched on the bank, still breathing hard after the fierce day. It had been cloudless from dawn to late sunset. He waited for his friend to come back. He had been on the river with some friends, and the Water Rat had been free to keep an old plan with Otter. When he came home, he found the house dark and empty, and no sign of Rat, who was probably staying out late with his old friend. It was still too hot to think of staying indoors. So he lay on some cool dock leaves, and thought over the day and what had happened in it, and how very good it all had been.",
+      "hardWords": [
+        "twittering",
+        "selvedge",
+        "lingering",
+        "sullen",
+        "torrid",
+        "dispersing",
+        "engagement of long standing",
+        "doubtless",
+        "keeping it up late"
+      ]
+    },
+    {
+      "chapter": 8,
+      "paragraph": 9,
+      "context": "Well, it seems that it was there he gave Portly his first swimming-lesson",
+      "mainIdea": "The Rat explains why Otter watches by the ford. It is where he taught Portly to swim and to fish.",
+      "simple": "'Well, it seems that he gave Portly his first swimming lesson there,' the Rat went on. 'It was from that shallow, stony spit of land near the bank. He also used to teach him to fish there, and there young Portly caught his first fish. He was very proud of it. The child loved the place. Otter thinks that Portly may come wandering back from wherever he is, if he is anywhere by now, poor little chap. He might make for the ford that he was so fond of. Or if he came across it, he would remember it well and stop there and play, perhaps. So Otter goes there every night and watches, on the chance, you know, just on the chance!'",
+      "hardWords": [
+        "ford",
+        "spit",
+        "on the chance",
+        "make for",
+        "came across"
+      ]
+    },
+    {
+      "chapter": 8,
+      "paragraph": 30,
+      "context": "Perhaps he would never have dared to raise his eyes",
+      "mainIdea": "The Mole is afraid, but he must look. He sees the Friend and Helper with the baby otter asleep between his hooves.",
+      "simple": "Perhaps he would never have dared to raise his eyes. But the piping had stopped, and the call and the summons still seemed strong and had to be obeyed. He could not say no, even if Death himself were waiting to strike him at once, after he had looked with human eyes on things that should stay hidden. He obeyed, trembling, and raised his humble head. Then, in the clear light of the dawn that was about to come, while Nature was filled with colours too bright to be believed and seemed to hold her breath for what would happen, he looked into the very eyes of the Friend and Helper. He saw the curved horns sweeping back, shining in the growing daylight. He saw the stern, hooked nose between the kind eyes, which were looking down on them with amusement. The bearded mouth was breaking into a half-smile at the corners. He saw the moving muscles on the arm that lay across the broad chest. He saw the long, strong hand that still held the pan-pipes, which had only just fallen away from the open lips. He saw the fine curves of the rough, hairy legs, resting in grand ease on the grass. Last of all he saw the little, round, fat, childish shape of the baby otter. It was sleeping soundly in perfect peace between his very hooves. He saw all this for one moment, breathless and strong, bright against the morning sky. And still, as he looked, he lived; and still, as he lived, he wondered.",
+      "hardWords": [
+        "dominant",
+        "imperious",
+        "humble",
+        "imminent",
+        "the Friend and Helper",
+        "pan-pipes",
+        "shaggy",
+        "sward",
+        "podgy"
+      ]
+    },
+    {
+      "chapter": 8,
+      "paragraph": 35,
+      "context": "As they stared blankly, in dumb misery deepening as they slowly realised",
+      "mainIdea": "A breeze makes the two animals forget what they saw. This gift of forgetting keeps the memory from spoiling their lives.",
+      "simple": "They stared with no thought in their eyes. They were silent and sad, and the sadness grew as they slowly understood all they had seen and all they had lost. Then a little breeze that changed its way for no reason came dancing up from the water. It shook the aspen trees and the roses with dew on them, and blew gently on their faces. With its soft touch came sudden forgetting. This is the last and best gift that the kind demigod is careful to give to those he has shown himself to when he helped them. It is the gift of forgetting. It is given so that the awful memory should not stay and grow and cast a shadow on their happiness and fun. It is given so that the great memory that would not leave them should not spoil all the later lives of little animals who have been helped out of trouble. In this way they can be happy and light-hearted as before.",
+      "hardWords": [
+        "capricious",
+        "aspens",
+        "oblivion",
+        "demigod",
+        "bestow",
+        "overshadow",
+        "haunting"
+      ]
+    },
+    {
+      "chapter": 9,
+      "paragraph": 2,
+      "context": "When Toad found himself immured in a dank and noisome dungeon",
+      "mainIdea": "Toad is in the dungeon and is very sad. He thinks it is the end of everything, and he is sorry for himself.",
+      "simple": "Toad found himself shut in a cold, wet dungeon with a bad smell. He knew that all the dark of an old castle lay between him and the outside world. In that world there was sunshine, and there were good high roads, where he had lately been so happy, playing as if he had bought every road in England. He threw himself down on the floor at full length, and cried bitter tears, and gave himself up to dark despair. 'This is the end of everything,' he said, 'or at least it is the end of the career of Toad, which is the same thing. The popular and handsome Toad, the rich and kind-to-guests Toad, the Toad so free and careless and gay! How can I hope ever to be free again,' he said, 'when I have been put in prison so fairly? I stole such a handsome motorcar in such a bold way, and I gave such wild and clever cheek to so many fat, red-faced policemen!' (Here his crying stopped his words.) 'What a stupid animal I was,' he said. 'Now I must sit in this dungeon until the people who were proud to say they knew me have forgotten the very name of Toad! O wise old Badger!' he said, 'O clever, intelligent Rat and sensible Mole! What sound judgments, what knowledge of men and things you have! O unhappy and left-alone Toad!' He spent his days and nights like this for several weeks. He would not eat his meals or the light snacks between them. But the old gaoler knew that Toad's pockets were full, and he often said that many comforts, and even luxuries, could be sent in from outside, for a price.",
+      "hardWords": [
+        "immured",
+        "dank",
+        "noisome",
+        "medieval",
+        "disporting",
+        "at large",
+        "audacious",
+        "lurid",
+        "languish",
+        "forsaken",
+        "lamentations",
+        "gaoler",
+        "well lined"
+      ]
+    },
+    {
+      "chapter": 9,
+      "paragraph": 7,
+      "context": "The smell of that buttered toast simply talked to Toad",
+      "mainIdea": "The gaoler's daughter brings tea and buttered toast. The smell reminds Toad of his home, and he begins to talk about himself.",
+      "simple": "When the girl came back some hours later, she carried a tray. On it was a cup of sweet-smelling tea, with steam rising from it, and a plate piled high with very hot buttered toast. It was cut thick and very brown on both sides, and the butter ran through the holes in it in great golden drops, like honey from the honeycomb. The smell of that buttered toast simply talked to Toad, in a voice that he could clearly understand. It talked of warm kitchens, of breakfasts on bright frosty mornings, and of cosy firesides in the parlour on winter evenings, when your walk was over and your feet in slippers were up on the fender. It talked of the purring of happy cats, and the twitter of sleepy canaries. Toad sat up again, dried his eyes, sipped his tea and chewed his toast. Soon he began to talk freely about himself, and the house he lived in, and what he did there, and how important he was, and what a lot his friends thought of him.",
+      "hardWords": [
+        "fragrant",
+        "honeycomb",
+        "fender",
+        "purring",
+        "twitter",
+        "munched"
+      ]
+    },
+    {
+      "chapter": 9,
+      "paragraph": 35,
+      "context": "In his misery he made one desperate effort to carry the thing off",
+      "mainIdea": "Toad has no money for a ticket. He tries to carry it off by acting like a fine gentleman who has left his purse behind.",
+      "simple": "In his misery Toad made one desperate try to carry it off. He went back to his fine old manner, a mix of the Squire and the College Don. He said, 'Look here! I find I have left my purse behind. Just give me that ticket, will you, and I will send the money on tomorrow? I am well known in these parts.'",
+      "hardWords": [
+        "carry the thing off",
+        "Squire",
+        "College Don"
+      ]
+    },
+    {
+      "chapter": 9,
+      "paragraph": 31,
+      "context": "As he walked along, considering, his attention was caught by some red",
+      "mainIdea": "Toad sees the lights of a railway station and thinks it is a piece of luck. He does not want to go through the town.",
+      "simple": "As he walked along, thinking, he saw some red and green lights a little way off, at one side of the town. He heard the puffing and snorting of engines and the banging of trucks that were being moved. 'Aha!' he thought. 'This is a piece of luck! A railway station is the thing I want most in the whole world at this moment. And what is more, I need not go through the town to get it. I shall not have to keep up this shameful part by quick answers. They are very good, but they do not help one's feeling of self-respect.'",
+      "hardWords": [
+        "shunted",
+        "humiliating",
+        "repartees",
+        "self-respect"
+      ]
+    },
+    {
+      "chapter": 10,
+      "paragraph": 3,
+      "context": "Nature’s Grand Hotel has its Season, like the others",
+      "mainIdea": "The book compares the year to a grand hotel. In autumn the guests leave one by one, and those who stay feel unsettled.",
+      "simple": "The Grand Hotel of Nature has its Season, like all the others. The guests pack, pay and leave one by one. At each meal there are fewer seats at the shared table. Suites of rooms are closed, carpets are taken up, and waiters are sent away. Those guests who are staying on until the hotel opens fully next year cannot help being a little affected by all these comings and goings. They hear the eager talk of plans, routes and new places, and they see the stream of friends become smaller each day. One gets unsettled, sad and likely to complain. Why this wish for change? Why not stay on quietly here, like us, and be happy? You do not know this hotel out of the season, or what fun we have among ourselves, we who stay and see the whole interesting year out. 'All very true, no doubt,' the others always answer. 'We quite envy you. Some other year, perhaps. But just now we have things to do, and the bus is at the door. Our time is up!' So they leave, with a smile and a nod, and we miss them and feel angry. The Rat was an animal who needed nothing from others, and was fixed to the land. Whoever went, he stayed. Still, he could not help seeing what was in the air, and feeling some of its power in his bones.",
+      "hardWords": [
+        "Season",
+        "pack, pay, and depart",
+        "suites",
+        "boarders",
+        "flittings",
+        "querulous",
+        "resentful",
+        "self-sufficing",
+        "out of the season"
+      ]
+    },
+    {
+      "chapter": 10,
+      "paragraph": 20,
+      "context": "I tried ‘stopping on’ one year,” said the third swallow",
+      "mainIdea": "The third swallow says that it once stayed behind and had a bad winter. It then flew south and was happy, and it has always obeyed the call since.",
+      "simple": "'I tried \"stopping on\" one year,' said the third swallow. 'I had grown so fond of the place that when the time came I hung back and let the others go on without me. For a few weeks it was all well enough. But afterwards, oh, the weary length of the nights! The shivering days with no sun! The air so cold and wet, and not an insect in a whole acre of it! No, it was no good. My courage broke down, and one cold, stormy night I took wing. I flew well inland, because of the strong east winds. It was snowing hard as I beat my way through the passes of the great mountains, and I had a hard fight to get through. But I shall never forget the happy feeling of the hot sun on my back again as I flew down to the lakes that lay so blue and calm below me, and the taste of my first fat insect! The past was like a bad dream. The future was all happy holiday as I moved south week by week, easily and lazily, staying as long as I dared, but always listening to the call. No, I had had my warning. Never again did I think of disobeying.'",
+      "hardWords": [
+        "stopping on",
+        "hung back",
+        "clammy",
+        "took wing",
+        "inland",
+        "gales",
+        "passes",
+        "stiff fight",
+        "placid",
+        "heeding",
+        "disobedience"
+      ]
+    },
+    {
+      "chapter": 10,
+      "paragraph": 30,
+      "context": "The wayfarer was lean and keen-featured, and somewhat bowed at the shoulders",
+      "mainIdea": "The new rat who comes along the road is thin and sharp-faced. He wears small gold earrings and blue clothes.",
+      "simple": "The traveller was thin, with a sharp face, and his shoulders were a little bent. His paws were thin and long, and his eyes had many lines at the corners. He wore small gold earrings in his neat, well-shaped ears. His knitted jersey was a faded blue. His trousers were mended and stained, but they were blue underneath. The small things that he carried were tied up in a blue cotton handkerchief.",
+      "hardWords": [
+        "lean",
+        "keen-featured",
+        "bowed",
+        "ear rings",
+        "jersey",
+        "breeches",
+        "belongings"
+      ]
+    },
+    {
+      "chapter": 11,
+      "paragraph": 4,
+      "context": "He had the world all to himself, that early summer morning",
+      "mainIdea": "Toad walks alone in the morning and looks for a road that can tell him the way. He is looking for something that can talk and tell him which way to go.",
+      "simple": "He had the world all to himself that early summer morning. The woodland was wet with dew, and he walked through it, and it was lonely and quiet. The green fields after the trees were his own, to do with as he liked. When he reached the road, it seemed to be looking anxiously for company, like a stray dog, in the loneliness that was everywhere. But Toad was looking for something that could talk and tell him clearly which way to go. It is all very well to follow where the road calls and points, without caring where it goes. This is when you have a light heart, a clear conscience and money in your pocket, and nobody is searching the country to drag you off to prison again. But Toad was a practical animal and he cared very much. He could have kicked the road for its helpless silence, when every minute mattered to him.",
+      "hardWords": [
+        "solitary",
+        "stray",
+        "scouring",
+        "beckons",
+        "whither",
+        "practical"
+      ]
+    },
+    {
+      "chapter": 11,
+      "paragraph": 29,
+      "context": "A long half-hour passed, and every minute of it saw Toad getting crosser",
+      "mainIdea": "Toad tries to wash the clothes, but he cannot do it. He gets very angry and his paws start to get wrinkled.",
+      "simple": "A long half-hour passed, and each minute of it saw Toad getting angrier. Nothing he did to the clothes seemed to please them or do them any good. He tried coaxing, he tried slapping, and he tried punching. They smiled back at him from the tub, not changed, and happy in their original sin. Once or twice he looked nervously over his shoulder at the barge-woman, but she seemed to be looking out in front of her and thinking only of her steering. His back ached badly, and he saw with dismay that his paws were starting to get crinkly. Now Toad was very proud of his paws. He said under his breath words that should never pass the lips of washerwomen or of Toads. And he lost the soap for the fiftieth time.",
+      "hardWords": [
+        "coaxing",
+        "unconverted",
+        "original sin",
+        "crinkly",
+        "muttered",
+        "under his breath"
+      ]
+    },
+    {
+      "chapter": 11,
+      "paragraph": 41,
+      "context": "He had travelled some miles, his horse and he, and he was feeling drowsy",
+      "mainIdea": "Toad finds a gipsy cooking a stew. The smell makes Toad very hungry. He wonders if he can fight the gipsy or charm him.",
+      "simple": "He had travelled some miles, he and his horse, and he was feeling sleepy in the hot sun. Then the horse stopped, put his head down and began to bite the grass. Toad woke up, and only just kept himself from falling off. He looked round and found that he was on a wide common with patches of gorse and bramble as far as he could see. Near him stood a dull-looking gipsy caravan. Beside it a man was sitting on a bucket turned upside down. He was very busy smoking and looking out at the wide world. A fire of sticks was burning near by, and an iron pot hung over it. Out of the pot came bubbling and gurgling sounds, and a vague, hinting cloud of steam. There were also smells, warm, rich and of many kinds. They twisted together at last into one complete, perfect smell. It seemed like the very soul of Nature taking form and appearing to her children, a true Goddess, a mother of comfort. Toad now knew well that he had not really been hungry before. What he had felt earlier in the day was only a small sick feeling. This was the real thing at last, and no mistake. It would have to be dealt with fast, or somebody or something would be in trouble. He looked the gipsy over carefully, and wondered if it would be easier to fight him or to charm him. So he sat there, and sniffed and sniffed, and looked at the gipsy. And the gipsy sat and smoked, and looked at him.",
+      "hardWords": [
+        "drowsy",
+        "gorse",
+        "dingy",
+        "gurgling",
+        "voluptuous",
+        "solace",
+        "qualm",
+        "cajole"
+      ]
+    },
+    {
+      "chapter": 12,
+      "paragraph": 8,
+      "context": "Now, it was a very comforting point in Toad’s character",
+      "mainIdea": "Toad is good-hearted and does not mind when his friends speak to him sharply. He says he is sorry, but he also has a new idea about motorboats.",
+      "simple": "Now, it was a very comforting point in Toad's character that he was a thoroughly good-hearted animal. He never minded being scolded by those who were his real friends. Even when he was most set on something, he was always able to see the other side of the question. While the Rat was talking so seriously, Toad kept saying to himself in a rebel way, 'But it was fun, though! Awful fun!' He made strange noises inside him that he held back: k-i-ck-ck-ck, and poop-p-p, and other sounds like hidden snorts or the opening of soda-water bottles. But when the Rat had quite finished, he gave a deep sigh and said, very nicely and humbly, 'Quite right, Ratty! How sound you always are! Yes, I have been a conceited old ass, I can see that. But now I am going to be a good Toad, and not do it any more. As for motorcars, I have not been at all so keen on them since my last ducking in that river of yours. The fact is, while I was hanging on to the edge of your hole and getting my breath, I had a sudden idea, a really clever idea, about motorboats. There, there! Do not get so upset, old chap, and stamp, and knock things over. It was only an idea, and we will not talk any more about it now. We will have our coffee, and a smoke, and a quiet chat. Then I am going to stroll quietly down to Toad Hall, and get into clothes of my own, and start things going again as before. I have had enough of adventures. I shall lead a quiet, steady, respectable life, doing little jobs about my property, and making it better, and doing a little landscape gardening at times. There will always be a bit of dinner for my friends when they come to see me. And I shall keep a pony-chaise to go about the country in, just as I used to in the good old days, before I got restless and wanted to do things.'",
+      "hardWords": [
+        "good-hearted",
+        "jawed",
+        "mutinously",
+        "stifled",
+        "ducking",
+        "motorboats",
+        "pottering",
+        "landscape gardening",
+        "pony-chaise"
+      ]
+    },
+    {
+      "chapter": 12,
+      "paragraph": 18,
+      "context": "Well, it was a good deal talked about down here, naturally",
+      "mainIdea": "The Rat says the animals took sides when Toad went to prison. The Wild Wood animals said hard things, and the River-bankers stood up for him.",
+      "simple": "'Well, it was talked about a lot down here, naturally,' the Rat went on. 'It was talked about not only along the river, but even in the Wild Wood. The animals took sides, as always happens. The River-bankers stood up for you. They said you had been treated in a shameful way, and that there was no justice to be had in the land nowadays. But the Wild Wood animals said hard things. They said it served you right, and that it was time this sort of thing was stopped. They got very sure of themselves, and went about saying that you were finished this time. They said you would never come back again, never, never!'",
+      "hardWords": [
+        "took sides",
+        "stuck up for",
+        "infamously",
+        "served you right",
+        "cocky",
+        "done for"
+      ]
+    },
+    {
+      "chapter": 12,
+      "paragraph": 22,
+      "context": "They argued from history,” continued the Rat. “They said that no criminal laws",
+      "mainIdea": "The Mole and the Badger moved into Toad Hall. Then one dark night weasels, ferrets and stoats came in from all sides.",
+      "simple": "'They argued from the past,' the Rat went on. 'They said that no criminal laws had ever been known to win against cheek and good talk like yours, with the power of a full purse. So they arranged to move their things into Toad Hall, and sleep there, and keep it aired, and have it all ready for you when you came back. They did not guess what was going to happen, of course. But they did have their doubts about the Wild Wood animals. Now I come to the most painful and sad part of my story. One dark night (it was a very dark night, with a hard wind and the rain coming down in buckets) a band of weasels, with weapons of every kind, crept up the carriage-drive to the front door. At the same moment a group of fierce ferrets came through the kitchen-garden and took the backyard and the other rooms. A company of stoats, who would stop at nothing, took the conservatory and the billiard-room. They also held the French windows that opened on to the lawn.'",
+      "hardWords": [
+        "argued from history",
+        "prevail",
+        "plausibility",
+        "long purse",
+        "simply cats and dogs",
+        "armed to the teeth",
+        "simultaneously",
+        "skirmishing",
+        "stuck at nothing"
+      ]
+    },
+    {
+      "chapter": 12,
+      "paragraph": 23,
+      "context": "The Mole and the Badger were sitting by the fire in the smoking-room",
+      "mainIdea": "The weasels and stoats attack the Mole and the Badger and throw them out into the cold and wet.",
+      "simple": "'The Mole and the Badger were sitting by the fire in the smoking-room, telling stories and suspecting nothing, because it was not a night for any animals to be out in. Then those wicked villains broke down the doors and rushed in on them from every side. They fought as well as they could, but what was the good? They had no weapons and were taken by surprise, and what can two animals do against hundreds? The weasels and stoats took them and beat them hard with sticks, those two poor faithful creatures. They turned them out into the cold and the wet, and said many insulting and unfair things.'",
+      "hardWords": [
+        "bloodthirsty villains",
+        "taken by surprise",
+        "uncalled-for"
+      ]
+    },
+    {
+      "chapter": 13,
+      "paragraph": 6,
+      "context": "It was cold, and dark, and damp, and low, and narrow",
+      "mainIdea": "In the dark passage Toad is afraid and falls behind. When he rushes forward, he knocks the others over, and the Badger nearly shoots him.",
+      "simple": "It was cold, and dark, and damp, and low, and narrow, and poor Toad began to shiver. He shivered partly from fear of what might be before him, and partly because he was wet through. The lantern was far ahead, and he could not help staying behind a little in the darkness. Then he heard the Rat call out as a warning, 'Come on, Toad!' A terror took hold of him of being left behind, alone in the darkness, and he 'came on' with such a rush that he knocked the Rat into the Mole, and the Mole into the Badger, and for a moment all was confusion. The Badger thought they were being attacked from behind. There was no room to use a stick or a cutlass, so he drew a pistol, and he was about to put a bullet into Toad. When he found out what had really happened he was very angry indeed, and said, 'Now this time that tiresome Toad shall be left behind!'",
+      "hardWords": [
+        "dread",
+        "lagging behind",
+        "warningly",
+        "on the point of",
+        "tiresome"
+      ]
+    },
+    {
+      "chapter": 13,
+      "paragraph": 62,
+      "context": "Sometimes, in the course of long summer evenings, the friends would take a stroll",
+      "mainIdea": "In the end the friends walk in the Wild Wood, where the animals now greet them with respect. The mother-weasels talk about them to their babies.",
+      "simple": "Sometimes, on long summer evenings, the friends would take a walk together in the Wild Wood, which was now made safe, as far as they were concerned. It was pleasing to see how respectfully the animals who lived there greeted them. The mother-weasels would bring their young ones to the mouths of their holes and say, pointing, 'Look, baby! There goes the great Mr. Toad! And that is the brave Water Rat, a terrible fighter, walking along with him! And over there comes the famous Mr. Mole, of whom you have so often heard your father tell!' But when their babies were cross and quite beyond control, they would quiet them by telling how the terrible grey Badger would get them if they did not hush them and not fret them. This was a mean and false thing to say about the Badger. He cared little about Society, but he was rather fond of children. Still, it never failed to work.",
+      "hardWords": [
+        "in the course of",
+        "tamed",
+        "gallant",
+        "yonder",
+        "fractious",
+        "up and get",
+        "base libel",
+        "Society"
+      ]
+    }
+  ],
+  "sentences": [
+    {
+      "chapter": 2,
+      "context": "penetrating even his dark and lowly little house with its spirit",
+      "simple": "Spring came even into his dark, low little house and brought a special feeling of not being happy with what he had, and of wanting more.",
+      "grammar": "'penetrating ...' is a participle phrase that tells what spring was doing while it moved; 'with its spirit of ...' says what spring brought."
+    },
+    {
+      "chapter": 2,
+      "context": "Never in his life had he seen a river before",
+      "simple": "In all his life he had not seen a river before. This smooth, curving, full-bodied animal chased and chuckled. It took hold of things with a gurgle and let them go with a laugh, and threw itself at new playmates, which shook themselves free and were caught and held again.",
+      "grammar": "Inversion: after 'Never in his life' at the start, 'had' comes before 'he' ('had he seen'). The dash then adds a long description of the river."
+    },
+    {
+      "chapter": 2,
+      "context": "whether you arrive at your destination or whether you reach somewhere else",
+      "simple": "Whether you get away or you do not, whether you arrive where you meant to go or reach some other place, or never get anywhere at all, you are always busy and you never do anything in particular. When you have done it there is always something else to do. You can do it if you like, but you had much better not.",
+      "grammar": "'whether ... or whether ...' gives two choices and says the result is the same for both; 'whether' is used four times, and the main clause 'you're always busy' comes after them."
+    },
+    {
+      "chapter": 2,
+      "context": "What it hasn’t got is not worth having",
+      "simple": "What the river does not have is not worth having, and what it does not know is not worth knowing.",
+      "grammar": "'What it hasn't got' is a noun clause that is the subject of the sentence; 'worth + -ing' means good enough to be done or had."
+    },
+    {
+      "chapter": 3,
+      "context": "Since early morning he had been swimming in the river",
+      "simple": "He had been swimming in the river with his friends the ducks since early in the morning.",
+      "grammar": "'had been swimming' is the past perfect continuous: the swimming began before that moment and went on up to it; 'since' gives the start time."
+    },
+    {
+      "chapter": 3,
+      "context": "and it may be that he is both boastful and conceited",
+      "simple": "And it may be that he both boasts and thinks too much of himself.",
+      "grammar": "'it may be that ...' means 'perhaps'; 'both ... and ...' joins two words that are true together."
+    },
+    {
+      "chapter": 3,
+      "context": "I propose to devote the remainder of mine to it",
+      "simple": "I plan to give the rest of my life to it. I can only be sorry for the wasted years behind me, which I threw away on little things.",
+      "grammar": "'propose to + verb' means 'plan to' in formal speech; 'mine' stands for 'my life', which was said just before; 'squandered in trivialities' is a past participle phrase about 'the wasted years'."
+    },
+    {
+      "chapter": 3,
+      "context": "Disregarding the Rat, he proceeded to play upon the inexperienced Mole",
+      "simple": "Toad did not listen to the Rat. He went on to play on the Mole, who had little experience, as if the Mole were a harp.",
+      "grammar": "'Disregarding the Rat' is a participle phrase that tells what Toad did while he went on; 'proceeded to + verb' means 'went on to'; 'as on a harp' is a comparison."
+    },
+    {
+      "chapter": 3,
+      "context": "Hardly regarding it, they turned to resume their conversation",
+      "simple": "They hardly looked at it. They turned to start their talk again, when in a moment (as it seemed) the peaceful scene was changed. There was a blast of wind and a whirl of sound that made them jump for the nearest ditch.",
+      "grammar": "'Hardly regarding it' is a participle phrase meaning 'paying it almost no attention'; 'when in an instant ...' adds the sudden change."
+    },
+    {
+      "chapter": 4,
+      "context": "he had never seen so far and so intimately into the insides of things",
+      "simple": "He thought he had never seen so far, and so closely, into the inside of things as on that winter day, when Nature was deep in her yearly sleep and seemed to have kicked the clothes off.",
+      "grammar": "'had never seen' is the past perfect inside what he thought; 'so far and so intimately' joins two adverbs, and 'as on that winter day' compares."
+    },
+    {
+      "chapter": 4,
+      "context": "and as if it had been so all the time, every hole",
+      "simple": "Then suddenly, as if it had been like this all the time, every hole, near and far, seemed to have its face. There were hundreds of them. All the faces came and went fast, and every one looked at him with hate and a wish to hurt him, hard-eyed and evil and sharp.",
+      "grammar": "'as if it had been so' uses the past perfect after 'as if' to say how things seemed; the words 'and there were hundreds of them' are a side remark between commas."
+    },
+    {
+      "chapter": 4,
+      "context": "it broke out on either side, and seemed to be caught up",
+      "simple": "As he stopped, not able to decide, the whistle came from both sides. It seemed that others took it up and passed it on along the whole wood, to its farthest end.",
+      "grammar": "'seemed to be caught up and passed on' is 'seemed to be' plus two past participles (a passive infinitive); 'it' means the whistling."
+    },
+    {
+      "chapter": 4,
+      "context": "Remembering what he had been engaged upon, he reached down to the floor",
+      "simple": "He remembered what he had been working on. He reached down to the floor for his verses, looked hard at them for a minute, and then looked round for the Mole, to ask him if he knew a good rhyme for something or other.",
+      "grammar": "'Remembering ...' is a participle phrase with the same subject as the main clause ('he'); 'what he had been engaged upon' is a noun clause with the preposition at the end."
+    },
+    {
+      "chapter": 4,
+      "context": "never mind what done it,” said the Mole, forgetting his grammar",
+      "simple": "'Well, never mind what did it,' said the Mole. He forgot his grammar because of the pain.",
+      "grammar": "'what done it' is wrong in standard English, which says 'what did it'; the book itself says the Mole forgets his grammar because of pain."
+    },
+    {
+      "chapter": 5,
+      "context": "which was intelligent of Mole, because that was exactly what it was",
+      "simple": "It seemed, as the Mole said to the Rat, like someone walking in carpet slippers that were too big for him and worn down at the heel. This was clever of the Mole, because that was just what it was.",
+      "grammar": "'which' begins a relative clause that talks about the whole remark before it (the Mole's guess), not about one noun."
+    },
+    {
+      "chapter": 5,
+      "context": "they ought to have done so-and-so, or ought not to have done something else",
+      "simple": "As he did not go into Society himself, he had an idea that these things did not really matter. He sat in his armchair at the head of the table and nodded in a serious way now and then as the animals told their story. He did not seem surprised or shocked at anything. He never said, 'I told you so,' or 'Just what I always said,' or that they should have done this, or should not have done something else.",
+      "grammar": "'ought to have + past participle' says what was the right thing to do in the past; 'ought not to have' says what was the wrong thing."
+    },
+    {
+      "chapter": 5,
+      "context": "walks where he likes in this country, or I’ll know the reason why",
+      "simple": "Any friend of mine may walk wherever he likes in this country. If he cannot, I will find out why.",
+      "grammar": "'X, or I'll know the reason why' uses 'or' to mean 'if not'; it is a warning that the Badger will find out why if his friend is stopped."
+    },
+    {
+      "chapter": 5,
+      "context": "The Mole was staggered at the size, the extent, the ramifications of it all",
+      "simple": "The Mole was amazed at the size of it all, how far it went, and how many branches it had. He was amazed at the length of the dim passages, the solid arched roofs of the crowded store-rooms, and the stonework everywhere, the pillars, the arches and the paved floors.",
+      "grammar": "'was staggered at' is followed by three nouns in a list ('the size, the extent, the ramifications'), each beginning with 'the'; a second list of 'the' nouns follows after the semicolon."
+    },
+    {
+      "chapter": 6,
+      "context": "We others, who have long lost the more subtle of the physical senses",
+      "simple": "We others, who lost the finer physical senses long ago, do not even have the right words for how an animal talks with the things around it, living or not. We have only the word 'smell', for example, for the whole range of fine feelings that murmur in the animal's nose night and day, calling, warning, urging on and pushing away.",
+      "grammar": "'who have long lost ...' is a relative clause inside the subject; 'have ... lost' is the present perfect, and the main verb 'have' comes much later in the sentence."
+    },
+    {
+      "chapter": 6,
+      "context": "Since his escape on that bright morning he had hardly given it a thought",
+      "simple": "Since he got away on that bright morning he had hardly thought about it. He had been so full of his new life, with all its pleasures, its surprises and its fresh and exciting experiences.",
+      "grammar": "'had hardly given it a thought' is past perfect with 'hardly'; 'so absorbed had he been' that follows puts 'had he been' after 'so absorbed' (inversion) for a strong effect."
+    },
+    {
+      "chapter": 6,
+      "context": "and he had lost what he could hardly be said to have found",
+      "simple": "He had lost something that he could hardly say he had found.",
+      "grammar": "'could hardly be said to have found' is a passive structure ('be said to') plus 'to have found' (perfect infinitive); 'what' means 'the thing that'."
+    },
+    {
+      "chapter": 6,
+      "context": "It did not take long to prepare the brew and thrust the tin heater",
+      "simple": "It did not take long to make the drink and push the tin heater into the red middle of the fire. Soon every field-mouse was sipping and coughing and choking (for a little warm spiced ale goes a long way). They wiped their eyes and laughed, and forgot that they had ever been cold in all their lives.",
+      "grammar": "'It did not take long to + verb' is a common pattern; 'a little mulled ale goes a long way' in the brackets is a saying meaning a small amount is strong."
+    },
+    {
+      "chapter": 6,
+      "context": "in just the frame of mind that the tactful Rat had quietly worked",
+      "simple": "He was now in just the mood that the Rat, who was careful of his feelings, had quietly worked to bring about in him.",
+      "grammar": "'that the tactful Rat had quietly worked to bring about' is a relative clause with 'that' as its object; 'bring about' is a phrasal verb meaning 'cause'."
+    },
+    {
+      "chapter": 7,
+      "context": "which transform him from a (comparatively) good-looking Toad into an Object",
+      "simple": "Those clothes change Toad from a fairly good-looking Toad into an Object. When a decent animal sees that Object, it becomes very angry.",
+      "grammar": "'which transform him from ... into ...' is a relative clause; the second 'which' ('which throws ... into a violent fit') describes the Object; the brackets give a small side remark."
+    },
+    {
+      "chapter": 7,
+      "context": "Since you won’t yield to persuasion, we’ll try what force can do",
+      "simple": "Since you will not give way when we try to persuade you, we will try what force can do.",
+      "grammar": "'Since' here means 'because'; 'what force can do' is a noun clause that is the object of 'try'; 'yield to' means 'give way to'."
+    },
+    {
+      "chapter": 7,
+      "context": "the only difficulty that presents itself in this otherwise very clear case is",
+      "simple": "'In my view,' said the Chairman of the Bench of Magistrates cheerfully, 'the only difficulty in this case, which is otherwise very clear, is how we can possibly make the punishment hard enough for the rogue who never changes and the hardened ruffian that we see shaking with fear in the dock before us.'",
+      "grammar": "'the only difficulty ... is, how we can ...' puts a long subject before 'is'; the noun clause 'how we can possibly make it ...' says what the difficulty is."
+    },
+    {
+      "chapter": 7,
+      "context": "should aught untoward befall, thy old head shall answer for his",
+      "simple": "Guard him with all your skill. And remember well, greybeard, if anything bad should happen, your old head will pay for his, and a curse on both of them!",
+      "grammar": "'should aught untoward befall' means 'if anything bad should happen'; it starts with 'should' (inversion) instead of 'if'; 'thy' is an old word for 'your'."
+    },
+    {
+      "chapter": 8,
+      "context": "Though it was past ten o’clock at night, the sky still clung to",
+      "simple": "It was past ten o'clock at night, but the sky still held some last light from the day that had gone. The heavy heat of the very hot afternoon broke up and rolled away at the cool touch of the short midsummer night.",
+      "grammar": "'Though ...' starts a clause of contrast; the main clause with 'clung to and retained' has two verbs sharing one object ('skirts of light'); after the semicolon a second main clause tells what the heat did."
+    },
+    {
+      "chapter": 8,
+      "context": "Since it was to end so soon, I almost wish I had never",
+      "simple": "Since it was going to end so soon, I almost wish I had never heard it.",
+      "grammar": "'Since' means 'because'; 'was to end' is a future in the past; 'I wish I had never heard' is the past perfect after 'wish' and talks about something that cannot be changed."
+    },
+    {
+      "chapter": 8,
+      "context": "He might not refuse, were Death himself waiting to strike him instantly",
+      "simple": "He could not refuse, even if Death himself were waiting to strike him at once, after he had looked with human eyes on things that should stay hidden.",
+      "grammar": "'were Death himself waiting' means 'even if Death were waiting'; the verb 'were' is put first (inversion) instead of 'if'; 'might not' here means 'was not able to'."
+    },
+    {
+      "chapter": 8,
+      "context": "As one wakened suddenly from a beautiful dream, who struggles to recall it",
+      "simple": "Think of a person who is woken suddenly from a beautiful dream and tries hard to remember it. He can keep only a dim feeling of how beautiful it was, until that too fades away, and he sadly accepts the hard, cold waking and all it costs him. So Mole, after struggling with his memory for a short time, shook his head sadly and followed the Rat.",
+      "grammar": "This is a long comparison: 'As one ... so Mole ...'; the 'who' clause adds more about the person, 'Till that, too, fades away' starts a new part, and 'so Mole' finally says who is like him."
+    },
+    {
+      "chapter": 8,
+      "context": "Lest the awful remembrance should remain and grow, and overshadow mirth and pleasure",
+      "simple": "It is given so that the awful memory should not stay and grow and cast a shadow on happiness and fun. It is also given so that the great memory that would not leave them should not spoil all the later lives of little animals who have been helped out of trouble. In this way they can be happy and light-hearted as before.",
+      "grammar": "'Lest ... should ...' means 'so that ... will not'; it is an old, formal way to say what must be avoided."
+    },
+    {
+      "chapter": 9,
+      "context": "How can I hope to be ever set at large again” (he said)",
+      "simple": "How can I hope ever to be free again, I who have been put in prison so fairly for stealing such a handsome motorcar in such a bold way, and for such wild and clever cheek to so many fat, red-faced policemen?",
+      "grammar": "'set at large' means 'set free'; '(he said)' is put in the middle of Toad's speech; 'who have been imprisoned' is a relative clause that explains why he has no hope."
+    },
+    {
+      "chapter": 9,
+      "context": "She was particularly fond of animals, and, besides her canary",
+      "simple": "She was very fond of animals. Besides her canary, whose cage hung on a nail in the thick wall of the tower by day, to the great annoyance of prisoners who liked an after-dinner sleep, and was covered with a cloth on the parlour table at night, she kept several black-and-white mice and a restless squirrel in a wheel.",
+      "grammar": "This is a long sentence: 'besides her canary' starts a side phrase, and 'whose cage hung ... and was shrouded ...' is a relative clause with two verbs; the main clause comes late ('she kept ...')."
+    },
+    {
+      "chapter": 9,
+      "context": "At last —somehow —he never rightly understood how —he burst the barriers",
+      "simple": "At last, somehow (he never really understood how), he broke through the barriers, reached the goal and arrived at the place where all waistcoat pockets always are. There he found not only no money, but no pocket to hold it, and no waistcoat to hold the pocket!",
+      "grammar": "The dashes put a side remark ('he never rightly understood how') in the middle; 'not only no money, but no pocket ..., and no waistcoat ...' is a list that gets smaller each time."
+    },
+    {
+      "chapter": 9,
+      "context": "I could be sworn that I heard another following us",
+      "simple": "It is very strange. We are the last train running in this direction tonight, and yet I could swear that I heard another following us!",
+      "grammar": "'could be sworn' is an old passive form meaning 'I could swear'; 'heard another following us' uses 'heard + object + -ing'."
+    },
+    {
+      "chapter": 9,
+      "context": "By this not very convincing artifice, she explained, aided by picturesque fiction",
+      "simple": "She explained that by this trick, which was not very convincing, with the help of a colourful story that she could make up herself, she hoped to keep her job, in spite of how suspicious things looked.",
+      "grammar": "'she explained' is a side remark; 'aided by ...' is a participle phrase that says what helped; 'in spite of' at the end gives the opposite."
+    },
+    {
+      "chapter": 10,
+      "context": "Rat, ever observant of all winged movement, saw that it was",
+      "simple": "The Rat, who always watched anything that flew, saw that the flying was going more towards the south each day.",
+      "grammar": "'ever observant of ...' is a phrase that describes Rat and is put between commas; 'it was taking daily a southing tendency' has an old word order, with 'daily' between the verb and its object."
+    },
+    {
+      "chapter": 10,
+      "context": "One gets unsettled, depressed, and inclined to be querulous",
+      "simple": "One becomes unsettled, sad and likely to complain.",
+      "grammar": "'One' means 'a person in general'; 'inclined to be ...' means 'likely to be ...'; the three words that follow 'gets' are joined in a list."
+    },
+    {
+      "chapter": 10,
+      "context": "and the fortunes and adventures they had gone to seek or found unseeking",
+      "simple": "There, half-hidden in the thick, cool tangle under the hedge, he could think about the hard road and all the wonderful world that it led to. He could think about all the travellers who might have walked on it, and the good luck and adventures that they had gone to look for, or had found without looking.",
+      "grammar": "'they had gone to seek or found unseeking' joins two verbs with 'or'; 'unseeking' means 'not looking for it'; 'had gone' and 'found' share the subject 'they'."
+    },
+    {
+      "chapter": 10,
+      "context": "Take the adventure, heed the call, now ere the irrevocable moment passes",
+      "simple": "Take the adventure, listen to the call, now before the moment that cannot be taken back goes by!",
+      "grammar": "'Take ..., heed ...' are commands; 'ere' is an old word meaning 'before'; the order of words is old and poetic."
+    },
+    {
+      "chapter": 11,
+      "context": "He would probably have been aroused much earlier, had he not slept",
+      "simple": "He would probably have woken much earlier if he had not slept for some weeks on straw over stone floors. He had almost forgotten how nice thick blankets feel when they are pulled up round the chin.",
+      "grammar": "'had he not slept' means 'if he had not slept' (inversion); 'would probably have been aroused' is the third conditional in the passive and talks about the past that did not happen."
+    },
+    {
+      "chapter": 11,
+      "context": "It is all very well, when you have a light heart, and a",
+      "simple": "It is all very well to follow where the road calls and points, without caring where it goes, when you have a light heart, a clear conscience, money in your pocket, and nobody searching the country to drag you off to prison again.",
+      "grammar": "'It is all very well to follow ...' means 'it is fine to follow ...' (but there is a problem); the long 'when you have ...' list comes between 'well' and 'to follow'."
+    },
+    {
+      "chapter": 11,
+      "context": "Alas! they should have thought, they ought to have been more prudent",
+      "simple": "Alas! They should have thought. They should have been more careful. They should have remembered to stop the motorcar before playing any such tricks.",
+      "grammar": "'should have + past participle' and 'ought to have been' both say what was the right thing to do but did not happen; the three clauses repeat the same idea."
+    },
+    {
+      "chapter": 11,
+      "context": "Who was it got them to give him a lift?",
+      "simple": "Who was it that got them to give him a ride?",
+      "grammar": "'Who was it got ...' is a spoken form of 'Who was it that got ...'; 'got them to give' is 'get + person + to + verb', meaning to persuade someone."
+    },
+    {
+      "chapter": 12,
+      "context": "Humbugged everybody —made ’em all do exactly what I wanted",
+      "simple": "I tricked everybody and made them all do exactly what I wanted.",
+      "grammar": "This is a list of short sentences without 'I'; 'humbugged' is a verb made from the noun 'humbug' (a person who pretends); '’em' is a spoken short form of 'them'."
+    },
+    {
+      "chapter": 12,
+      "context": "But if you will be mixed up with them —as you generally are",
+      "simple": "But if you insist on being mixed up with motorcars, as you usually are five minutes after you have started, why steal them?",
+      "grammar": "'if you will be' with a stressed 'will' means 'if you insist on being'; 'as you generally are' is a side comment between dashes."
+    },
+    {
+      "chapter": 12,
+      "context": "Now I come to the most painful and tragic part of my story",
+      "simple": "Now I come to the most painful and sad part of my story.",
+      "grammar": "'the most painful and tragic part' uses 'the most + adjective' for the superlative of long adjectives, joined with 'and'."
+    },
+    {
+      "chapter": 12,
+      "context": "They argued from history,” continued the Rat. “They said that no criminal laws",
+      "simple": "'They argued from the past,' the Rat went on. 'They said that no criminal laws had ever been known to win against cheek and good talk like yours, together with the power of a full purse.'",
+      "grammar": "'had ever been known to prevail' is the passive past perfect with 'to + verb'; 'such as yours, combined with ...' joins two things that work together."
+    },
+    {
+      "chapter": 12,
+      "context": "There are more ways of getting back a place than taking it by storm",
+      "simple": "There are other ways to get a place back, besides taking it by force.",
+      "grammar": "'more ways of getting back ... than taking ...' compares two '-ing' forms with 'more ... than'; 'by storm' means 'by a strong attack'."
+    },
+    {
+      "chapter": 13,
+      "context": "The Toad was so anxious not to be left out that he took",
+      "simple": "Toad was so worried about being left out that he took the lower place they gave him without a word, and the animals set off.",
+      "grammar": "'so anxious not to be left out that he took up ...' is a 'so ... that' result clause; 'assigned to him' is a past participle phrase telling which position; 'without a murmur' means 'without complaining'."
+    },
+    {
+      "chapter": 13,
+      "context": "Well might the terrified weasels dive under the tables and spring madly",
+      "simple": "It was no surprise that the frightened weasels dived under the tables and sprang wildly up at the windows.",
+      "grammar": "'Well might + subject + verb' is an old way to put the helper verb first; it means 'it is easy to understand why' they did this."
+    },
+    {
+      "chapter": 13,
+      "context": "Through the broken windows the shrieks of terrified weasels escaping across the lawn",
+      "simple": "Through the broken windows came the faint sound of the screams of frightened weasels running away across the lawn. On the floor lay about a dozen of the enemy, and the Mole was busy putting handcuffs on them.",
+      "grammar": "This is a sentence with the order changed: the place 'Through the broken windows' comes first, and the subject 'the shrieks' comes before 'were borne'; 'on whom the Mole was busily engaged in fitting handcuffs' is a relative clause; 'engaged in + -ing' means 'busy doing'."
+    },
+    {
+      "chapter": 13,
+      "context": "Toad, after due consultation with his friends, selected a handsome gold chain",
+      "simple": "After talking it over properly with his friends, Toad chose a fine gold chain and a locket set with pearls, and sent them to the gaoler's daughter with a letter. Even the Badger agreed that the letter was modest, thankful and full of praise.",
+      "grammar": "'after due consultation with his friends' is a phrase placed between commas; 'which he dispatched' is a relative clause; 'a letter that even the Badger admitted to be ...' has 'admitted to be' + adjectives."
+    }
+  ],
+  "phrases": {
+    "pitch in": {
+      "meaning": "To start to eat or to work with energy.",
+      "pos": "phrasal verb",
+      "forms": [
+        "pitched in"
+      ],
+      "example": "Now, pitch in, old fellow!"
+    },
+    "step lively": {
+      "meaning": "A short order that means: move quickly.",
+      "pos": "phrase",
+      "example": "Now then, step lively!"
+    },
+    "shove off": {
+      "meaning": "To push a boat away from the bank and start to move.",
+      "pos": "phrasal verb",
+      "forms": [
+        "shoved off"
+      ],
+      "example": "as the Rat shoved off and took to the sculls again"
+    },
+    "take to": {
+      "meaning": "To begin to do something often, as a new way of spending time.",
+      "pos": "phrasal verb",
+      "forms": [
+        "took to"
+      ],
+      "example": "Then he tired of that and took to punting."
+    },
+    "pass the time of day": {
+      "meaning": "To say hello and talk for a short time.",
+      "pos": "idiom",
+      "example": "pass the time of day when we meet"
+    },
+    "break out": {
+      "meaning": "To start suddenly to act in a wild or bad way.",
+      "pos": "phrasal verb",
+      "example": "but they break out sometimes, there’s no denying it"
+    },
+    "mess about": {
+      "meaning": "To spend time doing small things for fun, with no real plan.",
+      "pos": "phrasal verb",
+      "forms": [
+        "messing about"
+      ],
+      "example": "simply messing about in boats"
+    },
+    "bowl over": {
+      "meaning": "To hit someone so that they fall down.",
+      "pos": "phrasal verb",
+      "forms": [
+        "bowled over"
+      ],
+      "example": "He was bowled over in an instant"
+    },
+    "be bent on": {
+      "meaning": "To be fully decided to do something.",
+      "pos": "idiom",
+      "forms": [
+        "was bent on"
+      ],
+      "example": "But the Mole was bent on enjoying everything"
+    },
+    "hither and thither": {
+      "meaning": "In many directions; here and there.",
+      "pos": "idiom",
+      "example": "Hither and thither through the meadows he rambled busily"
+    },
+    "full tilt": {
+      "meaning": "At full speed, with great force.",
+      "pos": "idiom",
+      "example": "The boat struck the bank full tilt."
+    },
+    "look up": {
+      "meaning": "To go and visit someone.",
+      "pos": "phrasal verb",
+      "forms": [
+        "look him up"
+      ],
+      "example": "Come along and let’s look him up."
+    },
+    "give up": {
+      "meaning": "To stop doing something.",
+      "pos": "phrasal verb",
+      "forms": [
+        "given up"
+      ],
+      "example": "I’ve given that up long ago."
+    },
+    "turn up": {
+      "meaning": "To come, often when no one expected it.",
+      "pos": "phrasal verb",
+      "forms": [
+        "turning up"
+      ],
+      "example": "You don’t know how lucky it is, your turning up just now!"
+    },
+    "happen upon": {
+      "meaning": "To find someone or something by chance.",
+      "pos": "phrasal verb",
+      "forms": [
+        "happened upon"
+      ],
+      "example": "whom they presently happened upon resting in a wicker garden-chair"
+    },
+    "turn in": {
+      "meaning": "To go to bed.",
+      "pos": "phrasal verb",
+      "forms": [
+        "turned in"
+      ],
+      "example": "At last they turned in to their little bunks in the cart"
+    },
+    "see it out": {
+      "meaning": "To stay until the end of something.",
+      "pos": "idiom",
+      "example": "No, no, we’ll see it out"
+    },
+    "bear a hand": {
+      "meaning": "To help.",
+      "pos": "idiom",
+      "example": "Come and bear a hand, can’t you!"
+    },
+    "let oneself go": {
+      "meaning": "To stop being careful and do what you want.",
+      "pos": "idiom",
+      "forms": [
+        "let himself go"
+      ],
+      "example": "the Toad simply let himself go"
+    },
+    "talk over": {
+      "meaning": "To talk about something to decide what to do.",
+      "pos": "phrasal verb",
+      "forms": [
+        "talk it over"
+      ],
+      "example": "and we’ll talk it over"
+    },
+    "turn to": {
+      "meaning": "To start work in a helpful way.",
+      "pos": "phrasal verb",
+      "forms": [
+        "turned to"
+      ],
+      "example": "So the Mole and Rat turned to, quietly and manfully"
+    },
+    "catch up": {
+      "meaning": "To reach someone who is ahead of you.",
+      "pos": "phrasal verb",
+      "example": "Toad caught them up"
+    },
+    "put to rights": {
+      "meaning": "To make something right again.",
+      "pos": "idiom",
+      "example": "fetched and mended and put to rights"
+    },
+    "put off": {
+      "meaning": "To make someone wait, or to say no in a nice way.",
+      "pos": "phrasal verb",
+      "example": "he always found himself put off"
+    },
+    "drop in": {
+      "meaning": "To visit someone for a short time without telling them first.",
+      "pos": "phrasal verb",
+      "forms": [
+        "dropping in"
+      ],
+      "example": "there were always animals dropping in for a chat"
+    },
+    "slip out": {
+      "meaning": "To go out without being seen or heard.",
+      "pos": "phrasal verb",
+      "forms": [
+        "slipped out"
+      ],
+      "example": "when he slipped out of the warm parlour"
+    },
+    "take refuge": {
+      "meaning": "To go to a place for safety.",
+      "pos": "idiom",
+      "forms": [
+        "took refuge"
+      ],
+      "example": "At last he took refuge in the deep, dark hollow"
+    },
+    "pull oneself together": {
+      "meaning": "To get control of your feelings again.",
+      "pos": "idiom",
+      "forms": [
+        "pull ourselves together",
+        "pull yourself together"
+      ],
+      "example": "we really must pull ourselves together"
+    },
+    "dead beat": {
+      "meaning": "Very, very tired.",
+      "pos": "idiom",
+      "example": "I’m simply dead beat"
+    },
+    "drop off": {
+      "meaning": "To go to sleep.",
+      "pos": "phrasal verb",
+      "forms": [
+        "dropped off"
+      ],
+      "example": "presently dropped off into sleep"
+    },
+    "set out": {
+      "meaning": "To begin a trip.",
+      "pos": "phrasal verb",
+      "example": "they set out bravely"
+    },
+    "set to work": {
+      "meaning": "To begin to work.",
+      "pos": "idiom",
+      "example": "And he set to work again"
+    },
+    "trip up": {
+      "meaning": "To catch your foot and fall, or to make someone fall.",
+      "pos": "phrasal verb",
+      "forms": [
+        "tripped up"
+      ],
+      "example": "the Mole tripped up and fell forward"
+    },
+    "make a start": {
+      "meaning": "To begin to go.",
+      "pos": "idiom",
+      "example": "We must make a start"
+    },
+    "down at heel": {
+      "meaning": "Worn down at the back where your foot goes in, as old things worn on the feet are.",
+      "pos": "phrase",
+      "example": "slippers that were too large for him and down at heel"
+    },
+    "put in": {
+      "meaning": "To say something in a talk, when others are also talking.",
+      "pos": "phrasal verb",
+      "example": "put in the Mole"
+    },
+    "from bad to worse": {
+      "meaning": "Getting more and more bad.",
+      "pos": "idiom",
+      "example": "from bad to worse"
+    },
+    "live and let live": {
+      "meaning": "To accept other people's ways and leave them alone.",
+      "pos": "idiom",
+      "example": "we must all live and let live"
+    },
+    "on no account": {
+      "meaning": "Never; for no reason at all.",
+      "pos": "phrase",
+      "example": "on no account was he to be disturbed"
+    },
+    "settle down": {
+      "meaning": "To make a place your home, or to stop moving about and rest.",
+      "pos": "phrasal verb",
+      "forms": [
+        "settled down"
+      ],
+      "example": "settled down, spread, and flourished"
+    },
+    "take in hand": {
+      "meaning": "To deal with something or someone firmly.",
+      "pos": "idiom",
+      "example": "take Toad seriously in hand"
+    },
+    "get on one's nerves": {
+      "meaning": "To make someone feel worried and cross.",
+      "pos": "idiom",
+      "forms": [
+        "getting on his nerves"
+      ],
+      "example": "getting on his nerves"
+    },
+    "take charge": {
+      "meaning": "To be the person who leads.",
+      "pos": "phrase",
+      "forms": [
+        "took charge"
+      ],
+      "example": "took charge of the party"
+    },
+    "be off": {
+      "meaning": "To go away.",
+      "pos": "phrasal verb",
+      "example": "be off home to your mother"
+    },
+    "hold up": {
+      "meaning": "To stop someone for a time.",
+      "pos": "phrasal verb",
+      "forms": [
+        "held up"
+      ],
+      "example": "where the Mole had been “held up,”"
+    },
+    "hold on": {
+      "meaning": "To wait, or to stop for a moment. Or to keep holding something.",
+      "pos": "phrasal verb",
+      "forms": [
+        "held on"
+      ],
+      "example": "hold on! Come back!"
+    },
+    "come on": {
+      "meaning": "Words that tell someone to be quick or to come with you.",
+      "pos": "phrasal verb",
+      "example": "come on quick, there’s a good fellow!"
+    },
+    "cheer up": {
+      "meaning": "To become happier, or to make someone happier.",
+      "pos": "phrasal verb",
+      "example": "So cheer up, old chap"
+    },
+    "give in": {
+      "meaning": "To stop trying and accept that you have lost.",
+      "pos": "phrasal verb",
+      "forms": [
+        "giving in"
+      ],
+      "example": "What a fellow you are for giving in!"
+    },
+    "fall to": {
+      "meaning": "To begin to eat or to work.",
+      "pos": "phrasal verb",
+      "example": "as they fell to without delay"
+    },
+    "look forward to": {
+      "meaning": "To be happy that something good will happen.",
+      "pos": "phrasal verb",
+      "forms": [
+        "looked forward"
+      ],
+      "example": "looked forward very shortly to winning"
+    },
+    "pay a call": {
+      "meaning": "To make a visit.",
+      "pos": "idiom",
+      "forms": [
+        "pay a formal call"
+      ],
+      "example": "that the Badger should pay a formal call on them"
+    },
+    "take it in turns": {
+      "meaning": "To do something one after another, each person for a time.",
+      "pos": "idiom",
+      "forms": [
+        "take it in turns"
+      ],
+      "example": "We shall have to take it in turns to be with him"
+    },
+    "lay hands on": {
+      "meaning": "To get hold of something or someone.",
+      "pos": "idiom",
+      "forms": [
+        "lay hands"
+      ],
+      "example": "he could lay hands on at the moment"
+    },
+    "come out on top": {
+      "meaning": "To win in the end.",
+      "pos": "idiom",
+      "forms": [
+        "came out on the top",
+        "comes out on the top"
+      ],
+      "example": "brain came out on the top"
+    },
+    "pass off": {
+      "meaning": "To end slowly and go away.",
+      "pos": "phrasal verb",
+      "example": "it may pass off in time"
+    },
+    "look out": {
+      "meaning": "To be careful.",
+      "pos": "phrasal verb",
+      "example": "Now, you look out, Rat!"
+    },
+    "tot up": {
+      "meaning": "To add up to a total.",
+      "pos": "phrasal verb",
+      "example": "tot up to nineteen years"
+    },
+    "fall upon": {
+      "meaning": "To attack someone suddenly.",
+      "pos": "phrasal verb",
+      "forms": [
+        "fell upon"
+      ],
+      "example": "fell upon the hapless Toad"
+    },
+    "make it hot for": {
+      "meaning": "To make a person's life hard, so that he pays for what he did.",
+      "pos": "idiom",
+      "forms": [
+        "make it sufficiently hot for"
+      ],
+      "example": "make it sufficiently hot for the incorrigible rogue"
+    },
+    "on the safe side": {
+      "meaning": "Taking care so that nothing bad can happen.",
+      "pos": "idiom",
+      "example": "It’s best to be on the safe side"
+    },
+    "let things take their course": {
+      "meaning": "To not try to stop what is happening.",
+      "pos": "idiom",
+      "forms": [
+        "let things take their course"
+      ],
+      "example": "we may as well let things take their course"
+    },
+    "pick up": {
+      "meaning": "To get a piece of news by chance.",
+      "pos": "phrasal verb",
+      "example": "we may pick up some news of him"
+    },
+    "come across": {
+      "meaning": "To find something or someone by chance.",
+      "pos": "phrasal verb",
+      "forms": [
+        "came across"
+      ],
+      "example": "some animal or other will come across him"
+    },
+    "draw out": {
+      "meaning": "To make someone say something that they do not want to say.",
+      "pos": "phrasal verb",
+      "forms": [
+        "drew out"
+      ],
+      "example": "so I drew him out and pumped him"
+    },
+    "on the chance": {
+      "meaning": "In case something good may happen.",
+      "pos": "idiom",
+      "example": "on the chance, you know"
+    },
+    "come back": {
+      "meaning": "To return.",
+      "pos": "phrasal verb",
+      "example": "if he came wandering back from wherever he is"
+    },
+    "shove out": {
+      "meaning": "To push a boat out into the water.",
+      "pos": "phrasal verb",
+      "forms": [
+        "shoved out"
+      ],
+      "example": "and shoved out into midstream"
+    },
+    "shed tears": {
+      "meaning": "To let tears fall from your eyes.",
+      "pos": "idiom",
+      "forms": [
+        "shed bitter tears"
+      ],
+      "example": "and shed bitter tears"
+    },
+    "set at large": {
+      "meaning": "To set free from prison.",
+      "pos": "idiom",
+      "example": "set at large again"
+    },
+    "sit up": {
+      "meaning": "To move from lying down to sitting.",
+      "pos": "phrasal verb",
+      "forms": [
+        "sat up"
+      ],
+      "example": "Toad sat up on end once more"
+    },
+    "carry off": {
+      "meaning": "To do something difficult and make it look easy.",
+      "pos": "phrasal verb",
+      "forms": [
+        "carry the thing off"
+      ],
+      "example": "to carry the thing off"
+    },
+    "go on": {
+      "meaning": "To continue.",
+      "pos": "phrasal verb",
+      "example": "encouraged him to go on"
+    },
+    "set forth": {
+      "meaning": "To start a trip.",
+      "pos": "phrasal verb",
+      "example": "Toad set forth cautiously"
+    },
+    "pile on": {
+      "meaning": "To put on more and more.",
+      "pos": "phrasal verb",
+      "forms": [
+        "piled on"
+      ],
+      "example": "They piled on more coals"
+    },
+    "shut off": {
+      "meaning": "To stop something such as steam or power.",
+      "pos": "phrasal verb",
+      "forms": [
+        "shut off steam"
+      ],
+      "example": "I will shut off steam"
+    },
+    "hold with": {
+      "meaning": "To agree with; to think something is good.",
+      "pos": "phrasal verb",
+      "example": "I don’t hold with motorcars"
+    },
+    "pass the time": {
+      "meaning": "To spend your time doing something.",
+      "pos": "idiom",
+      "forms": [
+        "pass their time"
+      ],
+      "example": "to pass their time"
+    },
+    "put up with": {
+      "meaning": "To accept something that is not good.",
+      "pos": "phrasal verb",
+      "example": "you have to put up with anything"
+    },
+    "pack up": {
+      "meaning": "To put your things away and leave, or to stop working.",
+      "pos": "phrasal verb",
+      "forms": [
+        "packed up"
+      ],
+      "example": "which never packed up, flitted, or went"
+    },
+    "hang back": {
+      "meaning": "To stay behind and not go forward.",
+      "pos": "phrasal verb",
+      "forms": [
+        "hung back"
+      ],
+      "example": "I hung back and let the others go on without me"
+    },
+    "take wing": {
+      "meaning": "To fly away.",
+      "pos": "idiom",
+      "forms": [
+        "took wing"
+      ],
+      "example": "I took wing"
+    },
+    "make out": {
+      "meaning": "To see or hear something that is hard to see or hear.",
+      "pos": "phrasal verb",
+      "example": "he thought he could make out"
+    },
+    "slip away": {
+      "meaning": "To go away without being seen or heard.",
+      "pos": "phrasal verb",
+      "forms": [
+        "slipped away"
+      ],
+      "example": "Presently the tactful Mole slipped away"
+    },
+    "play up to": {
+      "meaning": "To be kind and give attention to someone in order to please them.",
+      "pos": "phrasal verb",
+      "forms": [
+        "play up to him"
+      ],
+      "example": "ready to serve him and play up to him"
+    },
+    "take aback": {
+      "meaning": "To surprise someone so that they cannot speak.",
+      "pos": "phrasal verb",
+      "forms": [
+        "taken aback"
+      ],
+      "example": "Toad was completely taken aback."
+    },
+    "make over": {
+      "meaning": "To give something to someone else.",
+      "pos": "phrasal verb",
+      "example": "I will make over to you my spirited young horse"
+    },
+    "throw in": {
+      "meaning": "To add something extra as a gift.",
+      "pos": "phrasal verb",
+      "forms": [
+        "thrown in"
+      ],
+      "example": "freely thrown in"
+    },
+    "cast off": {
+      "meaning": "To let go of the line that holds a boat, so that it can move away.",
+      "pos": "phrasal verb",
+      "example": "unfastened the towrope and cast off"
+    },
+    "set to": {
+      "meaning": "To begin work.",
+      "pos": "phrasal verb",
+      "example": "and set to"
+    },
+    "puff up": {
+      "meaning": "To make someone feel too proud.",
+      "pos": "phrasal verb",
+      "forms": [
+        "puffed up"
+      ],
+      "example": "He got so puffed up with conceit"
+    },
+    "be even with": {
+      "meaning": "To get back at someone who did something bad to you.",
+      "pos": "idiom",
+      "example": "to be even with her"
+    },
+    "head over ears": {
+      "meaning": "Completely covered; deeply in.",
+      "pos": "idiom",
+      "example": "head over ears in deep water"
+    },
+    "take sides": {
+      "meaning": "To be with one person against another in a fight or talk.",
+      "pos": "idiom",
+      "forms": [
+        "took sides"
+      ],
+      "example": "Animals took sides"
+    },
+    "stick up for": {
+      "meaning": "To speak in support of someone.",
+      "pos": "phrasal verb",
+      "forms": [
+        "stuck up for"
+      ],
+      "example": "The River-bankers stuck up for you"
+    },
+    "stick out": {
+      "meaning": "To keep saying what you believe, and not change.",
+      "pos": "phrasal verb",
+      "forms": [
+        "stuck out"
+      ],
+      "example": "they stuck out, through thick and thin"
+    },
+    "through thick and thin": {
+      "meaning": "In good times and bad times.",
+      "pos": "idiom",
+      "example": "through thick and thin"
+    },
+    "armed to the teeth": {
+      "meaning": "Having many weapons.",
+      "pos": "idiom",
+      "example": "armed to the teeth"
+    },
+    "cats and dogs": {
+      "meaning": "Very heavily; used for rain.",
+      "pos": "idiom",
+      "example": "raining simply cats and dogs"
+    },
+    "take by surprise": {
+      "meaning": "To do something to someone when they do not expect it.",
+      "pos": "idiom",
+      "forms": [
+        "taken by surprise"
+      ],
+      "example": "taken by surprise"
+    },
+    "turn out": {
+      "meaning": "To make someone leave a place.",
+      "pos": "phrasal verb",
+      "forms": [
+        "turned out"
+      ],
+      "example": "turned them out into the cold and the wet"
+    },
+    "let bygones be bygones": {
+      "meaning": "To forget about what happened in the past.",
+      "pos": "idiom",
+      "example": "let bygones be bygones"
+    },
+    "turn over a new leaf": {
+      "meaning": "To start to act in a better way.",
+      "pos": "idiom",
+      "example": "turn over a new leaf"
+    },
+    "take forty winks": {
+      "meaning": "To have a short sleep.",
+      "pos": "idiom",
+      "example": "take forty winks"
+    },
+    "get a rise out of": {
+      "meaning": "To make someone angry by a joke or a plan.",
+      "pos": "idiom",
+      "example": "getting a rise out of the stoats"
+    },
+    "egg on": {
+      "meaning": "To make someone do something by telling them to do it again and again.",
+      "pos": "phrasal verb",
+      "example": "don’t you egg him on, Mole"
+    },
+    "make a fool of": {
+      "meaning": "To act in a way that makes people laugh at you.",
+      "pos": "idiom",
+      "example": "he made a fool of himself"
+    },
+    "look lively": {
+      "meaning": "To be quick.",
+      "pos": "idiom",
+      "example": "look lively"
+    },
+    "stir your stumps": {
+      "meaning": "To be quick; to start moving.",
+      "pos": "idiom",
+      "example": "Stir your stumps, Toad"
+    },
+    "the game is up": {
+      "meaning": "There is no more hope that the plan will work.",
+      "pos": "idiom",
+      "example": "the game was up"
+    }
+  }
+}

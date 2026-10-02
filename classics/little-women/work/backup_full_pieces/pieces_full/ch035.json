@@ -1,0 +1,106 @@
+{
+ "glossary": {
+  "slipshod": {
+   "pos": "adjective",
+   "meaning": "Careless and not in good order, as in speech."
+  },
+  "gabble": {
+   "pos": "noun",
+   "meaning": "Fast talk that is hard to understand."
+  },
+  "rummaging": {
+   "pos": "present participle",
+   "meaning": "Searching for something by turning things over.",
+   "forms": [
+    "rummaging",
+    "rummage"
+   ]
+  },
+  "meerschaum": {
+   "pos": "noun",
+   "meaning": "A soft, white stone used to make a thing for smoking."
+  },
+  "hyacinth": {
+   "pos": "noun",
+   "meaning": "A spring flower that is sweet to the nose."
+  },
+  "standish": {
+   "pos": "noun",
+   "meaning": "A stand that holds the things used for writing on a table."
+  },
+  "brocades": {
+   "pos": "plural noun",
+   "meaning": "Rich, heavy cloth with a raised picture in it, often with gold or silver."
+  },
+  "whippersnappers": {
+   "pos": "plural noun",
+   "meaning": "Young people who think they are important, but are not."
+  },
+  "effervescence": {
+   "pos": "uncountable noun",
+   "meaning": "Lively, happy feeling that bubbles up."
+  },
+  "roughshod": {
+   "pos": "adverb",
+   "meaning": "In a hard way, with no care for others' feelings. 'Ride roughshod over' someone means to treat him badly."
+  },
+  "boggled": {
+   "pos": "past participle",
+   "meaning": "Done badly, so that it is out of shape.",
+   "forms": [
+    "boggled",
+    "boggle"
+   ]
+  },
+  "kobolds": {
+   "pos": "plural noun",
+   "meaning": "In German stories, small spirits who live in houses or under the ground."
+  },
+  "bashful": {
+   "pos": "adjective",
+   "meaning": "Not comfortable with people; easily upset in front of them."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 35,
+   "context": "I went in, and while we worked I looked about me, for it was ‘a den,’ to be sure.",
+   "mainIdea": "Jo sees the Professor's very messy room and finds the lost handkerchiefs ruined. Mrs. Kirke says he is too good-natured, and Jo offers to mend his things in secret.",
+   "simple": "Jo went in and, while they worked, she looked around, because it was 'a den' for sure. There were books and papers everywhere. A broken meerschaum pipe and an old flute lay over the mantelpiece as if finished with. A ragged bird without a tail chirped on one window-seat, and a box of white mice stood on the other. Half-made boats and bits of string lay among the papers, and dirty little boots stood drying before the fire. Signs of the boys he loves, for whom he makes himself a slave, were all over the room. After a big search, three of the lost handkerchiefs were found: one over the birdcage, one covered with ink, and one burnt brown from being used as a pot-holder. Mrs. Kirke put them in the ragbag and said she thought the others were torn up to make ship rigging, bandages or kite-tails. She could not scold him, because he was so absent-minded and good-natured that the boys rode over him. She had agreed to do his washing and mending, but he forgot to give out his things and she forgot to look at them, so he sometimes came to a sad state. Jo said she would mend them, without his knowing, because he was so kind to her about bringing her letters and lending books.",
+   "hardWords": [
+    "meerschaum",
+    "rummage",
+    "roughshod"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 35,
+   "context": "Not a very romantic story, but it interested me",
+   "simple": "It is not a very romantic story, but I found it interesting.",
+   "grammar": "The subject and verb 'It is' are left out at the start, as is common in letters and notes. 'But' shows a contrast."
+  },
+  {
+   "chapter": 35,
+   "context": "No one dreamed of the silent, haughty Miss March (for they think I am very stiff and cool, most of them; and so I am to whippersnappers) could dance and dress",
+   "simple": "No one imagined that the silent, proud Miss March could dance and dress up.",
+   "grammar": "'No one dreamed ... could dance' is a short form of 'no one dreamed that ... could dance'. The part in brackets is an extra remark that Jo adds."
+  }
+ ],
+ "phrases": {
+  "take a good look at": {
+   "pos": "phrase",
+   "meaning": "To look at something carefully.",
+   "forms": [
+    "took a good look at"
+   ],
+   "example": "I took a good look at him"
+  },
+  "to rights": {
+   "pos": "idiom",
+   "meaning": "Into the right order; neat and tidy.",
+   "example": "help me put these books to rights"
+  }
+ }
+}

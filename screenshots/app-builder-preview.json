@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "词边",
+      "hasCanvas": false,
+      "bodyTextLen": 93,
+      "bodyTextHash": "a0a6d3e7a7bf1bf84e47d9085ae90e1e194662a9ae16c0fc995ea9852a2b4987",
+      "bodyTextPrefix": "词边 书架 生词 上传 书架 封面点进去就读。书多了也会排满这一整面墙，不再挤在侧边。 上传 EPUB 放进书架 放入一本示例，",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "词边",
+      "hasCanvas": false,
+      "bodyTextLen": 93,
+      "bodyTextHash": "a0a6d3e7a7bf1bf84e47d9085ae90e1e194662a9ae16c0fc995ea9852a2b4987",
+      "bodyTextPrefix": "词边 书架 生词 上传 书架 封面点进去就读。书多了也会排满这一整面墙，不再挤在侧边。 上传 EPUB 放进书架 放入一本示例，",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

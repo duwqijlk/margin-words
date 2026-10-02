@@ -1,0 +1,85 @@
+{
+ "glossary": {
+  "scapegrace": {
+   "pos": "noun",
+   "meaning": "A lively person who gets into trouble but is liked anyway."
+  },
+  "precocious": {
+   "pos": "adjective",
+   "meaning": "Grown up in mind earlier than most children."
+  },
+  "henpecked": {
+   "pos": "adjective",
+   "meaning": "Controlled by one's wife and afraid of her."
+  },
+  "courtliness": {
+   "pos": "uncountable noun",
+   "meaning": "Very polite ways of acting, as in an old royal court."
+  },
+  "sequestered": {
+   "pos": "adjective",
+   "meaning": "Kept away in a quiet place that few people know."
+  },
+  "propitious": {
+   "pos": "adjective",
+   "meaning": "Showing that things will go well."
+  },
+  "circumspection": {
+   "pos": "uncountable noun",
+   "meaning": "Careful watching before acting."
+  },
+  "indissoluble": {
+   "pos": "adjective",
+   "meaning": "Not able to be broken or undone."
+  },
+  "millennium": {
+   "pos": "noun",
+   "meaning": "A time of great happiness and peace that is hoped for in the future."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 45,
+   "context": "Jo was alone in the twilight, lying on the old sofa, looking at the fire, and thinking.",
+   "mainIdea": "Jo is alone at dusk on the eve of her birthday. She feels tired and old and thinks she has done little, though she is wrong.",
+   "simple": "Jo was alone in the dusk, lying on the old sofa, looking at the fire and thinking. This was her favorite way to spend the evening hour. No one disturbed her. She lay on Beth's little red pillow, planning stories, dreaming, or thinking gently of the sister who never seemed far away. Her face looked tired, serious and rather sad. Tomorrow was her birthday, and she was thinking how fast the years go, how old she was getting and how little she had done. She was almost twenty-five, with nothing to show for it. Jo was wrong about that. There was much to show, and later she saw it and was thankful.",
+   "hardWords": [
+    "twilight",
+    "accomplished"
+   ]
+  },
+  {
+   "chapter": 45,
+   "context": "The pillow was gone, but there was a barricade, nevertheless",
+   "mainIdea": "A barrier of time and change stands between Jo and Laurie, but it passes quickly as they talk.",
+   "simple": "The pillow was gone, but there was a barricade all the same. It was a natural one, raised by time, absence and change of heart. Both felt it. For a minute they looked at one another as if this unseen wall cast a small shadow over them. It was gone soon, because Laurie spoke, trying in vain to look serious.",
+   "hardWords": [
+    "barricade"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 45,
+   "context": "Jo was mistaken in that; there was a good deal to show, and by and by she saw, and was grateful for it.",
+   "simple": "Jo was wrong about that. There was much to show, and later she saw it and was thankful.",
+   "grammar": "The writer speaks to the reader with a comment in the past tense. 'Saw, and was grateful for it' has two verbs that share the same subject, 'she'."
+  },
+  {
+   "chapter": 45,
+   "context": "Blest if she ain’t in silk from head to foot?",
+   "simple": "Isn't she dressed in silk from her head to her feet?",
+   "grammar": "Hannah speaks in dialect. 'Blest if she ain't' is a shortened old form of 'I'm blessed if she is not', and here it works as a lively question. 'Ain't' is a non-standard form of 'is not'."
+  }
+ ],
+ "phrases": {
+  "let the cat out of the bag": {
+   "pos": "idiom",
+   "meaning": "To tell a secret by mistake.",
+   "forms": [
+    "letting cats out of bags"
+   ],
+   "example": "letting cats out of bags like that"
+  }
+ }
+}

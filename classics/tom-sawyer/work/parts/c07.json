@@ -1,0 +1,167 @@
+{
+"glossary": {
+"seductive": {
+"pos": "adjective",
+"meaning": "Very attractive, so that you want to go to it. Here, the summer scenes outside pull Tom away from church."
+},
+"venerable": {
+"pos": "adjective",
+"meaning": "Old and respected."
+},
+"lavish": {
+"pos": "adjective",
+"meaning": "Giving or spending very freely; with much more than is needed."
+},
+"simpering": {
+"pos": "adjective",
+"meaning": "Smiling in a silly, false way."
+},
+"matron": {
+"pos": "noun",
+"meaning": "An older married woman.",
+"forms": [
+"matrons"
+]
+},
+"laggard": {
+"pos": "noun",
+"meaning": "A person who is slow and comes late.",
+"forms": [
+"laggards"
+]
+},
+"tittering": {
+"pos": "noun",
+"meaning": "Quiet, nervous laughing."
+},
+"supplication": {
+"pos": "noun",
+"meaning": "A humble and serious request, especially to God."
+},
+"restive": {
+"pos": "adjective",
+"meaning": "Not able to be still, and tired of waiting."
+},
+"interlarded": {
+"pos": "past participle",
+"meaning": "Put in between other things.",
+"forms": [
+"interlarded",
+"interlard"
+]
+},
+"prosy": {
+"pos": "adjective",
+"meaning": "Dull and boring because it is too long and too plain."
+},
+"brimstone": {
+"pos": "noun",
+"meaning": "A yellow stone that burns with a bad smell. 'Fire and brimstone' means the fires of hell, in a very hard sermon."
+},
+"fillip": {
+"pos": "noun",
+"meaning": "A quick push made by pressing a finger against the thumb and letting it go."
+},
+"vagrant": {
+"pos": "adjective",
+"meaning": "Wandering with no home."
+},
+"gingerly": {
+"pos": "adjective",
+"meaning": "Very careful and slow, because of fear of getting hurt."
+},
+"facetious": {
+"pos": "adjective",
+"meaning": "Trying to be funny at a time when it is not the right time."
+},
+"parson": {
+"pos": "noun",
+"meaning": "A man who leads a church; a minister."
+},
+"ordeal": {
+"pos": "noun",
+"meaning": "A long, hard, unpleasant time."
+}
+},
+"paragraphs": [
+{
+"chapter": 7,
+"paragraph": 8,
+"context": "The boy whose history this book relates did not enjoy the prayer",
+"mainIdea": "Tom is bored by the long prayer. A fly walks on the pew in front, and he catches it as soon as the prayer ends.",
+"simple": "There was a sound of dresses as the people sat down. The boy in this book did not enjoy the prayer. He only put up with it, if he even did that. He could not be still all through it. He knew the prayer from long ago, and the minister's usual way through it. Without meaning to, he kept count of the parts. When a little new matter was put in, he noticed it and did not like it. He thought that additions were unfair and mean. In the middle of the prayer a fly sat down on the back of the pew in front of him and made him suffer. The fly calmly rubbed its hands together, held its head with its arms and cleaned it so hard that it nearly came off the body, and its thin neck could be seen. It scraped its wings with its back legs and smoothed them down as if they were coat tails. It did all its washing as calmly as if it knew it was quite safe. It was safe, for Tom's hands wanted badly to catch it, but they did not dare. He believed that his soul would be destroyed at once if he did that during the prayer. But at the last sentence his hand began to bend and move forward. As soon as the \"Amen\" was said, the fly was a prisoner of war. His aunt saw this and made him let it go.",
+"hardWords": [
+"restive",
+"interlarded",
+"scoundrelly",
+"tranquilly",
+"toilet",
+"sorely"
+]
+},
+{
+"chapter": 7,
+"paragraph": 10,
+"context": "It was a large black beetle with formidable jaws",
+"mainIdea": "Tom's beetle pinches him, falls in the aisle, and a dog plays with it. The dog sits on the beetle and runs around the church in pain.",
+"simple": "Now Tom began to suffer again as the dull talk went on. Soon he remembered a treasure he had and took it out. It was a big black beetle with strong jaws. He called it a \"pinchbug\". It was in a small box. The first thing the beetle did was to bite his finger. Tom flicked it away without thinking. The beetle fell into the aisle on its back, and Tom put his hurt finger in his mouth. The beetle lay there moving its helpless legs and could not turn over. Tom looked at it and wanted it, but it was out of his reach. Other people who were not interested in the sermon enjoyed the beetle too. Then a poodle dog without a home came walking in. He was sad, lazy in the soft summer quiet, tired of being shut in, and wishing for a change. He saw the beetle, and his tail lifted and wagged. He looked at it, walked around it, smelled it from a safe distance, and walked around it again. He grew bolder and smelled it more closely. Then he lifted his lip and tried carefully to snatch it, but missed. He tried again and again. He began to enjoy the game. He lay down on his stomach with the beetle between his paws and went on with his tests. At last he grew tired, then did not care, and his mind wandered. His head nodded, and little by little his chin came down and touched the beetle, which seized it. The dog gave a sharp cry and jerked his head, and the beetle fell a couple of yards away and landed on its back again. The people nearby shook with quiet laughter, some faces went behind fans and handkerchiefs, and Tom was completely happy. The dog looked foolish. But he was angry and wanted revenge, so he went at the beetle again, carefully. He jumped at it from every side, landed with his front paws an inch from it, snapped closer with his teeth and shook his head until his ears flapped. But he grew tired again. He tried to play with a fly, but it did not help. He followed an ant with his nose close to the floor and soon grew tired of that. He yawned, sighed, forgot the beetle completely and sat down on it. Then he gave a wild cry of pain and ran up the aisle. The cries went on, and so did the dog. He crossed the church in front of the altar, ran down the other aisle, and crossed in front of the doors. The pain grew as he went, until he was like a woolly comet going round with the shine and speed of light. At last the mad dog turned from his path and jumped into his master's lap. The man threw him out of the window, and the sound of his pain grew thin and died away in the distance.",
+"hardWords": [
+"formidable",
+"pinchbug",
+"fillip",
+"floundering",
+"vagrant",
+"gingerly",
+"diversion",
+"indifferent",
+"clamored",
+"anguish"
+]
+}
+],
+"sentences": [
+{
+"chapter": 7,
+"context": "Tom being placed next the aisle, in order that he might be as far away from the open window",
+"simple": "Tom was put next to the aisle so that he would be as far as possible from the open window.",
+"grammar": "'Tom being placed...' is a short clause that gives extra information with no main verb of its own. 'In order that he might be...' shows the purpose."
+},
+{
+"chapter": 7,
+"context": "Often, the less there is to justify a traditional custom, the harder it is to get rid of it",
+"simple": "If there is less reason for an old custom, it is often harder to stop it.",
+"grammar": "'The less..., the harder...' shows that two things change together: as the reason gets smaller, stopping gets harder."
+},
+{
+"chapter": 7,
+"context": "as sorely as Tom’s hands itched to grab for it they did not dare",
+"simple": "Tom's hands wanted very much to grab it, but they did not dare.",
+"grammar": "'As sorely as...' here means 'however much...'. It starts a clause of contrast, and the main clause follows with 'they did not dare'."
+}
+],
+"phrases": {
+"give out": {
+"meaning": "To say something to a group in a clear voice, so that all can hear it.",
+"pos": "phrasal verb",
+"forms": [
+"gave out"
+],
+"example": "The minister gave out the hymn"
+},
+"part company": {
+"meaning": "To separate from something and go different ways.",
+"pos": "idiom",
+"example": "it seemed to almost part company with the body"
+},
+"keep tally": {
+"meaning": "To keep count of things.",
+"pos": "idiom",
+"example": "he kept tally of the details of the prayer"
+},
+"by and by": {
+"meaning": "After a short time; soon.",
+"pos": "idiom",
+"example": "many a head by and by began to nod"
+}
+}
+}

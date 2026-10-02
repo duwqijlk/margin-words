@@ -1,0 +1,68 @@
+{
+"glossary": {
+"snifter": {
+"pos": "noun",
+"meaning": "A small amount of strong drink, or of smoke. Joe says a little would knock Johnny Miller down."
+},
+"novice": {
+"pos": "noun",
+"meaning": "A person who is new at something.",
+"forms": [
+"novices"
+]
+},
+"charily": {
+"pos": "adverb",
+"meaning": "Carefully, in a way that shows you are not sure."
+},
+"inundation": {
+"pos": "noun",
+"meaning": "A flood; too much water."
+},
+"hendering": {
+"pos": "present participle",
+"meaning": "A country spelling of 'hindering': stopping someone from doing something."
+},
+"spume": {
+"pos": "noun",
+"meaning": "White foam on water. 'Spumeflakes' are flakes of this foam."
+},
+"appalling": {
+"pos": "adjective",
+"meaning": "Shocking and very frightening."
+},
+"scalped": {
+"pos": "past-tense verb",
+"meaning": "Cut the skin and hair from the head of an enemy, as some warriors did.",
+"forms": [
+"scalped",
+"scalp",
+"scalping"
+]
+}
+},
+"paragraphs": [
+{
+"chapter": 18,
+"paragraph": 52,
+"context": "So the talk ran on. But presently it began to flag a trifle",
+"mainIdea": "The boys feel very sick from smoking, but they try not to show it. Then Joe speaks weakly.",
+"simple": "So the talk went on. But soon it began to grow weak and broken. The quiet times grew longer. The spitting increased greatly. The inside of the boys' cheeks became like fountains. They could hardly empty the pools under their tongues fast enough to stop a flood. A little ran down their throats in spite of all they could do, and they felt sick each time. Both boys looked pale and unhappy. Joe's pipe fell from his weak fingers, and then Tom's fell. Both fountains were running hard and both pumps were working with all their strength. Then Joe spoke, in a weak voice."
+}
+],
+"sentences": [
+{
+"chapter": 18,
+"context": "If I’d ’a’ knowed this was all, I’d ’a’ learnt long ago",
+"simple": "If I had known this was all there was to it, I would have learned long ago.",
+"grammar": "'I'd 'a' knowed' and 'I'd 'a' learnt' are spoken short forms of 'I would have known' and 'I would have learned'. It is an unreal past 'if' sentence."
+},
+{
+"chapter": 18,
+"context": "they were prouder and happier in their new acquirement than they would have been in the scalping and skinning",
+"simple": "They were more proud and happy about their new skill than they would have been about taking scalps and skins.",
+"grammar": "'Prouder and happier... than they would have been...' compares two feelings. The second part is an imagined thing that did not happen."
+}
+],
+"phrases": {}
+}

@@ -1,0 +1,119 @@
+{
+ "glossary": {
+  "garret": {
+   "pos": "noun",
+   "meaning": "A small room at the top of a house, just under the top of the house."
+  },
+  "comforter": {
+   "pos": "noun",
+   "meaning": "A thick, warm cover for a bed. Here Jo puts it round herself."
+  },
+  "poplin": {
+   "pos": "noun",
+   "meaning": "A smooth cloth, used for everyday dresses."
+  },
+  "mortified": {
+   "pos": "adjective",
+   "meaning": "Feeling very bad about yourself in front of other people."
+  },
+  "caper": {
+   "pos": "noun",
+   "meaning": "A fast, happy jump or run. 'Cut capers' means to jump and play around."
+  },
+  "blithely": {
+   "pos": "adverb",
+   "meaning": "In a happy way, without worry."
+  },
+  "tongs": {
+   "pos": "plural noun",
+   "meaning": "A tool with two arms. Here it is made hot and used to make hair round and soft."
+  },
+  "ringlet": {
+   "pos": "noun",
+   "meaning": "A long, round piece of hair that goes round and round."
+  },
+  "scorched": {
+   "pos": "adjective",
+   "meaning": "Hurt a little on the outside by too much heat.",
+   "forms": [
+    "scorched"
+   ]
+  },
+  "snood": {
+   "pos": "noun",
+   "meaning": "A soft net or band that a girl wears to hold her hair."
+  },
+  "drab": {
+   "pos": "noun",
+   "meaning": "A brown colour that is not bright."
+  },
+  "jovial": {
+   "pos": "adjective",
+   "meaning": "Happy, loud and friendly."
+  },
+  "rubber": {
+   "pos": "noun",
+   "meaning": "A cover that goes over shoes to keep them dry in the rain."
+  },
+  "blunderbuss": {
+   "pos": "noun",
+   "meaning": "In a joke by Jo, a person who is not careful and breaks things."
+  },
+  "skylarking": {
+   "pos": "gerund",
+   "meaning": "Playing and joking around instead of working."
+  },
+  "forlornly": {
+   "pos": "adverb",
+   "meaning": "In a sad and lonely way.",
+   "forms": [
+    "forlornly"
+   ]
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 5,
+   "context": "After various lesser mishaps, Meg was finished at last",
+   "mainIdea": "The sisters are ready for the party in their simple clothes. Their shoes and pins hurt, but they want to look elegant.",
+   "simple": "After some smaller troubles, Meg was ready at last. With the whole family helping, Jo's hair was put up and her dress put on. They looked very good in their plain clothes. Meg wore a dull silver-gray dress with a blue velvet snood, lace frills and the pearl pin. Jo wore dark red-brown with a stiff, boyish linen collar and one or two white chrysanthemums as her only ornament. Each girl put on one nice light glove and carried one dirty glove, and all said it looked 'quite easy and fine'. Meg's high-heeled slippers were very tight and hurt her, but she would not say so. Jo's nineteen hairpins all seemed to be stuck straight into her head, which was not very comfortable. But dear me, they said, they would be elegant or die!",
+   "hardWords": [
+    "drab",
+    "snood",
+    "maroon",
+    "hairpins"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 5,
+   "context": "Serves me right for trying to be fine",
+   "simple": "It is what I deserve for trying to be fine.",
+   "grammar": "'Serves me right' is short for 'It serves me right'. In talk, people leave out 'It'."
+  },
+  {
+   "chapter": 5,
+   "context": "I wish I'd let my hair alone",
+   "simple": "I wish I had left my hair as it was.",
+   "grammar": "'I wish I'd let...' means 'I wish I had let...'. Wish with 'had' + past participle shows sorrow about something that already happened."
+  }
+ ],
+ "phrases": {
+  "cut capers": {
+   "pos": "idiom",
+   "meaning": "To jump and move about in a playful way.",
+   "example": "I like to fly about and cut capers"
+  },
+  "take a fancy to": {
+   "pos": "idiom",
+   "meaning": "To begin to like a person very much.",
+   "example": "took a fancy to me, and asked me to come"
+  },
+  "go without": {
+   "pos": "phrasal verb",
+   "meaning": "To not have something that you need or want.",
+   "example": "so I shall have to go without"
+  }
+ }
+}

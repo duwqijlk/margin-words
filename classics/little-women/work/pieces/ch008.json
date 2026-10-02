@@ -1,0 +1,120 @@
+{
+ "glossary": {
+  "benefactor": {
+   "pos": "noun",
+   "meaning": "A person who gives money or help to others."
+  },
+  "indolent": {
+   "pos": "adjective",
+   "meaning": "Not wanting to work; liking to do nothing."
+  },
+  "truant": {
+   "pos": "noun",
+   "meaning": "A child who stays away from school without leave. 'Play truant' means to do this."
+  },
+  "coddling": {
+   "pos": "present participle",
+   "meaning": "Taking too much care of someone, as if he were weak or a baby.",
+   "forms": [
+    "coddling",
+    "coddle"
+   ]
+  },
+  "nunnery": {
+   "pos": "noun",
+   "meaning": "A house where religious women live together. Here it is a joke about the girls' house."
+  },
+  "voraciously": {
+   "pos": "adverb",
+   "meaning": "In a very hungry way, wanting a very large amount."
+  },
+  "enticement": {
+   "pos": "noun",
+   "meaning": "Something nice that is offered to make a person do something.",
+   "forms": [
+    "enticements",
+    "enticement"
+   ]
+  },
+  "anecdote": {
+   "pos": "noun",
+   "meaning": "A short, interesting story about something that really happened."
+  },
+  "crotchety": {
+   "pos": "adjective",
+   "meaning": "Easily made angry and hard to please, in a strange way."
+  },
+  "gesticulating": {
+   "pos": "present participle",
+   "meaning": "Moving the hands and arms a lot to show something.",
+   "forms": [
+    "gesticulating"
+   ]
+  },
+  "unseemly": {
+   "pos": "adjective",
+   "meaning": "Not right or proper for the place or person."
+  },
+  "beatitude": {
+   "pos": "noun",
+   "meaning": "A feeling of perfect happiness."
+  },
+  "puckered": {
+   "pos": "past participle",
+   "meaning": "Pulled into small lines, like cloth that is pulled together.",
+   "forms": [
+    "puckered",
+    "pucker"
+   ]
+  },
+  "crustiness": {
+   "pos": "noun",
+   "meaning": "A rough and unfriendly way of speaking or acting."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 8,
+   "context": "But Beth, though yearning for the grand piano, could not pluck up courage",
+   "mainIdea": "Beth is too afraid to go to the Laurence house, so Mr. Laurence finds a clever way to help her.",
+   "simple": "Beth wanted the grand piano very much, but she could not find the courage to go to the 'Mansion of Bliss', as Meg called it. She went once with Jo. But the old gentleman did not know that she was shy. He stared hard at her from under his heavy eyebrows and said 'Hey!' so loudly that she was very afraid. She told her mother that her feet 'chattered on the floor'. She ran away and said she would never go there again, not even for the dear piano. Nothing anyone said or offered could take away her fear. Then Mr. Laurence heard about it in some mysterious way, and he began to put things right. During one of his short visits, he cleverly turned the talk to music. He talked about great singers he had seen and fine organs he had heard, and he told such charming stories that Beth could not stay in her far corner. She came nearer and nearer, as if under a spell. She stopped at the back of his chair and stood listening, with her great eyes wide open and her cheeks red with the excitement. Mr. Laurence paid her no more attention than if she had been a fly. He went on talking about Laurie's lessons and teachers. Then, as if the idea had just come to him, he spoke to Mrs. March.",
+   "hardWords": [
+    "yearning",
+    "persuasions",
+    "enticements",
+    "anecdotes",
+    "fascinated"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 8,
+   "context": "If the roof of the house had suddenly flown off, the old gentleman wouldn't have been more astonished",
+   "simple": "The old gentleman would not have been more surprised if the roof of the house had suddenly flown away.",
+   "grammar": "This is an 'if' sentence about something imaginary: 'If ... had flown ..., ... wouldn't have been ...'. It compares Mr. Laurence's surprise to something that did not happen."
+  }
+ ],
+ "phrases": {
+  "pluck up courage": {
+   "pos": "idiom",
+   "meaning": "To make yourself brave enough to do something that frightens you.",
+   "example": "could not pluck up courage to go to the"
+  },
+  "play truant": {
+   "pos": "idiom",
+   "meaning": "To stay away from lessons or school when you should be there.",
+   "example": "Laurie was always playing truant"
+  },
+  "make up one's mind": {
+   "pos": "idiom",
+   "meaning": "To decide.",
+   "example": "Beth made up her mind to speak"
+  },
+  "take aback": {
+   "pos": "phrasal verb",
+   "meaning": "To surprise someone so much that he does not know what to say.",
+   "example": "who looked quite taken aback, and held out her hand"
+  }
+ }
+}

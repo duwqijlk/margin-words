@@ -1,0 +1,30 @@
+mile|n|A unit of length. One mile is about 1.6 kilometers. (In the book, "Miles" is a boy's name.)|
+sing|v|To make music with your voice.|
+sixth|adj|Number six in order.|
+asleep|adj|Sleeping.|
+bite|v|Here "bites the dust" means falls down or loses. (Bite usually means to cut with the teeth.)|
+bell|n|A metal thing that makes a ringing sound.|
+clock|n|A tool that shows the time.|
+cried|pt|Had tears because you were sad or hurt.|
+drove|pt|Went in a car and controlled it.|
+forgot|pt|Did not remember something.|
+hide|v|To keep something where nobody can see it.|
+rude|adj|Not polite.|
+woke|pt|Stopped sleeping.|
+commencement|n|A school ceremony at the end of the year or when students finish school.|
+concession|n|Here "concession stand" is a small shop at an event that sells food and drinks.|
+decorator|n|A person who makes a place look nice with things like paint and cloth.|
+peephole|n|A small hole in a door for looking out.|
+sincerely|adv|In a true way. It is used before your name at the end of a letter.|
+acknowledgment|n|A short thank-you in a book to the people who helped.|
+brainiac|n|A very smart person, often a student.|
+chop|v|To cut something into pieces with a knife.|
+groggily|adv|Feeling weak and not awake because you just woke up.|
+needle|n|A thin, pointed thing. Here it is the thin part of a compass that points north.|
+penguin|n|A black and white sea bird that cannot fly. Here it is a name of a book company.|
+clothe|n|Things you wear, like shirts and trousers. The book uses the word "clothes".|
+pee|v|A child's word for passing water from the body.|
+bam|int|A word for a sudden loud sound or a sudden event.|
+bravo|int|A word people shout to say "well done" after a show.|
+yep|int|A short, friendly way to say "yes".|
+aye|int|Here "aye, aye, sir" is how a sailor says "yes" to a boss. August says it as a joke.|

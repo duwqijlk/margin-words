@@ -1,0 +1,139 @@
+{
+"glossary": {
+"spectacles": {
+"pos": "plural noun",
+"meaning": "Glasses that a person wears over the eyes to see better."
+},
+"perplexed": {
+"pos": "adjective",
+"meaning": "Puzzled and not sure what to think or do."
+},
+"roundabout": {
+"pos": "noun",
+"meaning": "A short, tight jacket that boys wore in the old days."
+},
+"switch": {
+"pos": "noun",
+"meaning": "A thin stick that bends easily. It was used to hit a child as a punishment."
+},
+"guile": {
+"pos": "noun",
+"meaning": "Clever, tricky ways of fooling someone."
+},
+"dander": {
+"pos": "noun",
+"meaning": "Anger. In 'get my dander up', it means to become angry."
+},
+"hookey": {
+"pos": "noun",
+"meaning": "Staying away from school without permission. 'Play hookey' means to do this."
+},
+"forestalled": {
+"pos": "past-tense verb",
+"meaning": "Acted early to stop another person's plan from working.",
+"forms": [
+"forestalled",
+"forestall"
+]
+},
+"loathed": {
+"pos": "past-tense verb",
+"meaning": "Hated very much.",
+"forms": [
+"loathed",
+"loathe"
+]
+},
+"knack": {
+"pos": "noun",
+"meaning": "A special skill for doing something easily."
+},
+"derision": {
+"pos": "noun",
+"meaning": "Words or looks that show you think someone is silly or weak."
+},
+"ambuscade": {
+"pos": "noun",
+"meaning": "A secret attack from a hiding place. Here, Aunt Polly waits for Tom in the dark."
+},
+"adamantine": {
+"pos": "adjective",
+"meaning": "Very hard and not able to be changed."
+},
+"lick": {
+"pos": "verb",
+"meaning": "To beat someone, in a fight or as a punishment. As a noun, 'a lick' is a hit."
+},
+"obleeged": {
+"pos": "adjective",
+"meaning": "A spelling of 'obliged'. It means forced to do something."
+}
+},
+"paragraphs": [
+{
+"chapter": 3,
+"paragraph": 23,
+"context": "Hang the boy, can’t I never learn anything?",
+"mainIdea": "Aunt Polly talks to herself about Tom. He plays tricks on her, but she cannot make herself punish him.",
+"simple": "Aunt Polly says that she never learns anything. Tom has played tricks on her many times, and she should be careful by now. But she says old fools are the biggest fools, and you cannot teach an old dog new tricks. Tom never plays the same trick two days in a row, so she cannot know what is coming. He knows how long he can make her angry before she loses her temper. If he can put her off for a minute or make her laugh, she cannot hit him. She says she is not doing her duty by the boy. The Bible says that a child is spoiled if you do not punish him. She is making sin and suffering for them both. He is full of the Old Scratch, but he is her dead sister's boy, and she does not have the heart to beat him. When she lets him off, her conscience hurts her. When she hits him, her heart almost breaks. The Bible says that a man has few days and a lot of trouble, and she thinks that is true. Tom will play hookey this evening, so she will have to make him work tomorrow as a punishment. It is hard to make him work on Saturday when all the boys have a holiday. But he hates work more than anything. She must do some of her duty, or she will ruin the child.",
+"hardWords": [
+"hookey",
+"dander",
+"obleeged",
+"conscience",
+"spile",
+"the Old Scratch",
+"ruination"
+]
+},
+{
+"chapter": 3,
+"paragraph": 109,
+"context": "he uncovered an ambuscade, in the person of his aunt",
+"mainIdea": "Tom comes home late and finds his aunt waiting. His dirty clothes make her decide that he must work hard on Saturday.",
+"simple": "Tom got home quite late that night. He climbed carefully in at the window and found his aunt waiting for him, like a hidden attacker. She saw the state of his clothes. Then she made up her mind, and nothing could change it: his Saturday holiday would become hard work, like a prisoner's.",
+"hardWords": [
+"ambuscade",
+"captivity",
+"adamantine",
+"resolution"
+]
+}
+],
+"sentences": [
+{
+"chapter": 3,
+"context": "seldom or never looked through them for so small a thing as a boy",
+"simple": "She almost never looked through them when she wanted to find something as small as a boy.",
+"grammar": "'So small a thing as a boy' puts 'a' after the adjective: 'so + adjective + a + noun + as'. It means 'a thing as small as a boy'."
+},
+{
+"chapter": 3,
+"context": "The more Tom stared at the splendid marvel, the higher he turned up his nose",
+"simple": "Tom stared at the fine new boy for a long time. As he stared more, he held his nose higher in the air.",
+"grammar": "'The more..., the higher...' shows that two things grow together: as the staring grows, the nose goes higher."
+}
+],
+"phrases": {
+"play hookey": {
+"meaning": "To stay away from school without permission.",
+"pos": "idiom",
+"example": "Tom did play hookey, and he had a very good time"
+},
+"get one's dander up": {
+"meaning": "To become angry.",
+"pos": "idiom",
+"example": "before I get my dander up"
+},
+"let off": {
+"meaning": "To not punish someone, or to punish them less than they deserve.",
+"pos": "phrasal verb",
+"example": "Every time I let him off"
+},
+"the old scratch": {
+"meaning": "A name for the devil. Here it means that Tom is full of bad tricks.",
+"pos": "idiom",
+"example": "He’s full of the Old Scratch"
+}
+}
+}

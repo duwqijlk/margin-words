@@ -1,0 +1,202 @@
+{
+  "version": 2,
+  "title": "The Lantern Seller",
+  "author": "A. Sample Writer",
+  "sha256": "dc473516c50e135aa1411efc96263ee073e8bb08010a55f1e02edd1a096665e4",
+  "chapters": 3,
+  "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+  "language": "English",
+  "glossary": {
+    "shabby": {
+      "pos": "adjective",
+      "meaning": "Old and not in good shape, because it has been used for a long time.",
+      "whyHard": "This is a word from a higher level."
+    },
+    "faded": {
+      "pos": "past-tense verb",
+      "meaning": "Lost its strong colour and became less bright.",
+      "whyHard": "This is a word from a higher level.",
+      "forms": [
+        "faded",
+        "fade"
+      ]
+    },
+    "cobbles": {
+      "pos": "plural noun",
+      "meaning": "Round stones that make the road in some old towns.",
+      "whyHard": "This is a word from a higher level.",
+      "forms": [
+        "cobble"
+      ]
+    },
+    "juggler": {
+      "pos": "noun",
+      "meaning": "A person who keeps many things moving in the air with the hands, to make people smile.",
+      "whyHard": "This is a word from a higher level."
+    },
+    "drizzle": {
+      "pos": "noun",
+      "meaning": "Rain that is very light and fine.",
+      "whyHard": "This is a word from a higher level."
+    },
+    "drifted": {
+      "pos": "past-tense verb",
+      "meaning": "Moved slowly, with no clear plan.",
+      "whyHard": "This is a word from a higher level.",
+      "forms": [
+        "drifted",
+        "drift"
+      ]
+    },
+    "glowed": {
+      "pos": "past-tense verb",
+      "meaning": "Gave a soft, warm light.",
+      "whyHard": "This is a word from a higher level.",
+      "forms": [
+        "glowed",
+        "glow"
+      ]
+    },
+    "wick": {
+      "pos": "noun",
+      "meaning": "A thin string that you light to make a small fire for light.",
+      "whyHard": "This is a word from a higher level."
+    },
+    "flicker": {
+      "pos": "verb",
+      "meaning": "To give a light that goes bright and weak again and again.",
+      "whyHard": "This is a word from a higher level."
+    },
+    "hesitate": {
+      "pos": "verb",
+      "meaning": "To stop for a short time before you do something, because you are not sure.",
+      "whyHard": "This is a word from a higher level."
+    },
+    "dusk": {
+      "pos": "noun",
+      "meaning": "The time in the evening just before it gets dark.",
+      "whyHard": "This is a word from a higher level."
+    },
+    "moonwick": {
+      "pos": "noun",
+      "meaning": "In this story, a magic string that makes light. Its fire is blue and the wind cannot stop it.",
+      "whyHard": "This word is made up by the author.",
+      "coined": true
+    },
+    "fair": {
+      "pos": "noun",
+      "meaning": "A happy event in a town, with many games, music and things to buy.",
+      "whyHard": "This word has more than one meaning.",
+      "senses": [
+        {
+          "pos": "noun",
+          "meaning": "A happy event in a town, with many games, music and things to buy.",
+          "default": true,
+          "anchors": [
+            {
+              "chapter": 0,
+              "occurrence": 2,
+              "context": "held a fair in the old market square"
+            },
+            {
+              "chapter": 0,
+              "occurrence": 3,
+              "context": "She had come to the fair with two coins in her pocket"
+            },
+            {
+              "chapter": 2,
+              "occurrence": 1,
+              "context": "Mira went back to the fair"
+            }
+          ]
+        },
+        {
+          "pos": "adjective",
+          "meaning": "Right and honest. Not too high and not too low.",
+          "anchors": [
+            {
+              "chapter": 1,
+              "occurrence": 1,
+              "context": "A fair price for this lantern is one honest answer"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "paragraphs": [
+    {
+      "chapter": 1,
+      "paragraph": 3,
+      "context": "He struck a match and touched it to the wick",
+      "mainIdea": "Tobias lights a lantern. The fire turns blue and the wind cannot move it.",
+      "simple": "Tobias took down a lantern with a simple handle. He made a fire with a match and put it to the wick. At first the fire was yellow and it moved in the wind. Then it turned deep blue and did not move at all. He said that no wind can stop a moonwick.",
+      "hardWords": [
+        "wick",
+        "flicker",
+        "moonwick"
+      ]
+    },
+    {
+      "chapter": 2,
+      "paragraph": 2,
+      "context": "the light fell on a loose stone at the edge of the old bridge",
+      "mainIdea": "The light of the lantern shows Mira a stone that is not fixed, so she does not fall in the water.",
+      "simple": "On the way home, the light showed a stone that was not fixed at the edge of the old bridge. Without the lantern, she would have stepped on it and fallen into the cold water. She stopped and walked around it with great care.",
+      "hardWords": [
+        "loose"
+      ]
+    }
+  ],
+  "sentences": [
+    {
+      "chapter": 2,
+      "context": "Had she not been carrying the lantern, she would have stepped on it",
+      "simple": "If she had not been carrying the lantern, she would have stepped on it.",
+      "grammar": "'Had she not been...' means 'If she had not been...'. It talks about something that did not happen."
+    },
+    {
+      "chapter": 2,
+      "context": "The more she walked, the less she feared the dark",
+      "simple": "As she walked more, she was less afraid of the dark.",
+      "grammar": "'The more..., the less...' shows that two things change together."
+    },
+    {
+      "chapter": 1,
+      "context": "A fair price for this lantern is one honest answer",
+      "simple": "The right price for this lantern is one true answer.",
+      "grammar": "The word 'is' joins two parts, so the two parts mean the same thing: the price is the answer."
+    }
+  ],
+  "phrases": {
+    "set out": {
+      "meaning": "To start a trip.",
+      "pos": "phrasal verb",
+      "example": "Mira set out along the river lane."
+    },
+    "look after": {
+      "meaning": "To take care of something or someone.",
+      "pos": "phrasal verb",
+      "forms": [
+        "looked after"
+      ],
+      "example": "She looked after the lanterns as if they were her own."
+    },
+    "pack up": {
+      "meaning": "To put your things away when you finish.",
+      "pos": "phrasal verb",
+      "forms": [
+        "packed up"
+      ],
+      "example": "The jugglers packed up their apples."
+    },
+    "take down": {
+      "meaning": "To bring something down from a high place.",
+      "pos": "phrasal verb",
+      "forms": [
+        "took down"
+      ],
+      "example": "Tobias took down a lantern with a plain brass handle."
+    }
+  }
+}

@@ -1,0 +1,250 @@
+CH 2 ORIG: This is not the first time, nor the second, but it shall be the last.
+ CTX: nor the second, but it shall be the last
+ SIM: This is not the first time, and it is not the second time, but it will be the last.
+ GR: 'nor the second' carries on the negative ('not the first, nor the second'); 'shall' is the master's firm promise, not just the future.
+
+CH 3 ORIG: “Well, no,” she said, “you must not say that; but though I am an old horse, and have seen and heard a great deal, I never yet could make out why men are so fond of this sport; they often hurt themselves, often spoil good horses, and tear up the fields, and all for a hare or a fox, or a stag, that they could get more easily some other way; but we are only horses, and don't know.”
+ CTX: I never yet could make out why men are so fond of this sport
+ SIM: Up to now I have never been able to understand why men like this sport so much.
+ GR: 'never yet could' means 'up to now I have never been able to'; 'make out' means 'understand'; 'so fond of' means 'like very much'.
+
+CH 4 ORIG: Those who have never had a bit in their mouths cannot think how bad it feels; a great piece of cold hard steel as thick as a man's finger to be pushed into one's mouth, between one's teeth, and over one's tongue, with the ends coming out at the corner of your mouth, and held fast there by straps over your head, under your throat, round your nose, and under your chin; so that no way in the world can you get rid of the nasty hard thing; it is very bad!
+ CTX: Those who have never had a bit in their mouths
+ SIM: Horses that have never had a bit in their mouths cannot imagine how bad it feels.
+ GR: 'Those who...' means 'the ones who...' (here, horses); 'cannot think how bad it feels' means 'cannot imagine' and 'how bad' starts an indirect question.
+
+CH 5 ORIG: I never was in a better box than that, and the sides were not so high but that I could see all that went on through the iron rails that were at the top.
+ CTX: I never was in a better box than that
+ SIM: That was the best box I was ever in.
+ GR: 'never ... a better box than that' says it was the best box he was ever in; 'was in' is the simple past of 'to be in'.
+
+CH 6 ORIG: They both laughed, and James said, “If it was not for bringing back the past, I should have named him Rob Roy, for I never saw two horses more alike.”
+ CTX: If it was not for bringing back the past
+ SIM: If it were not that it would bring back sad things from the past.
+ GR: 'If it was not for X, I should have...' means 'Without X, I would have...'; 'should have named' is the same as 'would have named'.
+
+CH 7 ORIG: Spirited horses, when not enough exercised, are often called skittish, when it is only play; and some grooms will punish them, but our John did not; he knew it was only high spirits.
+ CTX: Spirited horses, when not enough exercised, are often called skittish
+ SIM: Lively horses that do not get enough exercise are often called skittish, when really they are only playing.
+ GR: 'when not enough exercised' is a short form of 'when they are not exercised enough'; the last 'when' means 'while in fact'.
+
+CH 8 ORIG: I could never quite tell how it came about; he had only just mounted me on the training ground, when something I did put him out of temper, and he chucked me hard with the rein.
+ CTX: he had only just mounted me on the training ground
+ SIM: He had only just got up on my back in the training field.
+ GR: 'had only just mounted' is the past perfect: the mounting happened right before another past event (something I did put him out of temper).
+
+CH 9 ORIG: “Did not your master take any thought for you?”
+ CTX: Did not your master take any thought for you
+ SIM: Did your master not think about you at all?
+ GR: This question puts 'not' after 'Did' and before the subject, which is an old way of saying 'Didn't your master...'.
+
+CH 10 ORIG: “Of course not; I would not do such a thing for the best oats that ever came into the stable; why, I am as careful of our young ladies as the master could be, and as for the little ones it is I who teach them to ride.
+ CTX: I would not do such a thing for the best oats
+ SIM: I would not do a thing like that even if I were given the very best oats that the stable ever had.
+ GR: 'would not do ... for the best oats' uses 'would' for a made-up case; 'that ever came' uses 'ever' to stress 'the best of all time'.
+
+CH 11 ORIG: When our master's carriage was overturned, before you came here, it was said that if the lamp on the left side had not gone out, John would have seen the great hole that the road-makers had left; and so he might, but if old Colin had not had blinkers on he would have seen it, lamp or no lamp, for he was far too knowing an old horse to run into danger.
+ CTX: if the lamp on the left side had not gone out
+ SIM: If the lamp on the left side had stayed lit, John would have seen the big hole.
+ GR: 'if ... had not gone out, John would have seen' is the third conditional: it talks about something in the past that did not happen.
+
+CH 12 ORIG: You may depend upon it, horses were intended to have their heads free, as free as men's are; and if we could act a little more according to common sense, and a good deal less according to fashion, we should find many things work easier; besides, you know as well as I that if a horse makes a false step, he has much less chance of recovering himself if his head and neck are fastened back.
+ CTX: if a horse makes a false step, he has much less chance
+ SIM: If a horse takes a wrong step, he has much less chance to get his balance back.
+ GR: 'recovering himself' uses the reflexive 'himself' after the -ing form to mean 'getting back his balance'; 'of' links 'chance' to the action.
+
+CH 13 ORIG: “Yes, sir,” said John, “it would be rather awkward if one of these branches came down upon us.”
+ CTX: it would be rather awkward if one of these branches came down upon us
+ SIM: It would be quite bad for us if one of these branches fell on us.
+ GR: 'would be ... if one of these branches came' is a second-type 'if' sentence: it talks about something that might happen, using the past tense after 'if'.
+
+CH 14 ORIG: I love horses, and it riles me to see them badly used; it is a bad plan to aggravate an animal till he uses his heels; the first time is not always the last.”
+ CTX: I love horses, and it riles me to see them badly used
+ SIM: I love horses, and it makes me angry to see them treated badly.
+ GR: 'it riles me to see them badly used' puts 'it' first for the real subject, 'to see them badly used'; 'used' here is a past participle meaning 'treated'.
+
+CH 15 ORIG: I can trust his word and I can trust his work; he is gentle and clever with the horses, and I would rather have them in charge with him than with half the young fellows I know of in laced hats and liveries; and whoever wants a character of James Howard,” said John, with a decided jerk of his head, “let them come to John Manly.”
+ CTX: I would rather have them in charge with him than with half
+ SIM: I would prefer to leave the horses with him than with half the young men I know.
+ GR: 'would rather ... than ...' says what someone prefers; here 'in charge with him' means he has the care of them.
+
+CH 16 ORIG: I never was cleaned so lightly and quickly as by that little old man.
+ CTX: I never was cleaned so lightly and quickly as by that little old man
+ SIM: No one ever cleaned me so lightly and so quickly as that little old man did.
+ GR: 'never ... so lightly and quickly as ...' compares two things as equal in the negative; 'was cleaned' is the passive, with 'by that little old man' naming who did it.
+
+CH 17 ORIG: Ginger told me afterward that whinny was the best thing I could have done for her, for had she not heard me outside she would never have had courage to come out.
+ CTX: had she not heard me outside she would never have had courage
+ SIM: Because if she had not heard me outside, she would never have been brave enough to come out.
+ GR: 'had she not heard' is the same as 'if she had not heard'; 'if' is left out and the helping verb 'had' is put first.
+
+CH 18 ORIG: I was a farmer's boy, not earning enough to keep myself, much less both of us, and she must have gone to the workhouse but for our mistress (Nelly calls her her angel, and she has good right to do so).
+ CTX: she must have gone to the workhouse but for our mistress
+ SIM: She would have had to go to the workhouse if it had not been for our mistress.
+ GR: 'must have gone' here means 'would certainly have gone'; 'but for our mistress' means 'if it had not been for our mistress'.
+
+CH 19 ORIG: “My poor Beauty,” he said one day, “my good horse, you saved your mistress' life, Beauty; yes, you saved her life.” I was very glad to hear that, for it seems the doctor had said if we had been a little longer it would have been too late.
+ CTX: if we had been a little longer it would have been too late
+ SIM: If we had taken a little more time, it would have been too late.
+ GR: 'if we had been ... it would have been' is the third conditional: it talks about something in the past that did not happen.
+
+CH 20 ORIG: Don't you know that it is the worst thing in the world, next to wickedness?
+ CTX: Don’t you know that it is the worst thing in the world
+ SIM: You know that it is the worst thing in the world, after wickedness, do you not?
+ GR: A negative question, 'Don’t you know...?', is used to say strongly that the person does know; 'next to' here means 'after'.
+
+CH 21 ORIG: Many folks would have ridden by and said it was not their business to interfere.
+ CTX: Many folks would have ridden by and said it was not their business
+ SIM: Many people would have ridden past and said it was not their job to get involved.
+ GR: 'would have ridden by and said' is the third conditional: it tells what many people would have done in the past, but Joe did not.
+
+CH 22 ORIG: Many young animals are frightened and spoiled by wrong treatment, which need not be if the right man took them in hand.
+ CTX: Many young animals are frightened and spoiled by wrong treatment
+ SIM: Many young animals are scared and made bad by wrong treatment.
+ GR: 'frightened and spoiled' are two past participles used as passive verbs with 'are', and 'by wrong treatment' says what causes it.
+
+CH 23 ORIG: But she is naturally a more irritable constitution than the black horse; flies tease her more; anything wrong in the harness frets her more; and if she were ill-used or unfairly treated she would not be unlikely to give tit for tat.
+ CTX: if she were ill-used or unfairly treated she would not be unlikely
+ SIM: If she were treated badly or unfairly, she would quite likely do the same back to people.
+ GR: 'would not be unlikely' uses two negatives to say 'it is quite likely'; 'if she were' is the second conditional.
+
+CH 24 ORIG: There is no knowing what further mischief she might have done had not York promptly sat himself down flat on her head to prevent her struggling, at the same time calling out, “Unbuckle the black horse!
+ CTX: had not York promptly sat himself down flat on her head
+ SIM: If York had not quickly sat down flat on her head.
+ GR: 'had not York ... sat' puts 'had' before the subject to mean 'if York had not sat'; 'might have done' tells about a possible result in the past.
+
+CH 25 ORIG: I needed no whip, no spur, for I was as eager as my rider; he saw it, and giving me a free rein, and leaning a little forward, we dashed after them.
+ CTX: I needed no whip, no spur, for I was as eager as my rider
+ SIM: I did not need a whip or a spur, because I wanted to go as much as my rider did.
+ GR: 'as eager as my rider' compares two things that are equal with 'as ... as'; 'no whip, no spur' uses 'no' twice to stress that neither was needed.
+
+CH 26 ORIG: If Smith had been in his right senses he would have been sensible of something wrong in my pace, but he was too drunk to notice.
+ CTX: If Smith had been in his right senses he would have been sensible
+ SIM: If Smith had been thinking clearly, he would have known that something was wrong with my pace.
+ GR: 'in his right senses' means 'thinking clearly'; 'sensible of' means 'aware of'; the 'if ... had been ... would have been' form is the third conditional.
+
+CH 27 ORIG: Why, if he had been in his right senses he would just as soon have tried to ride him over the moon.
+ CTX: if he had been in his right senses he would just as soon
+ SIM: If he had been thinking clearly, he would just as soon have tried to ride him over the moon as over those stones.
+ GR: 'would just as soon have tried' means 'would as willingly have tried' (here, not at all); it is a third conditional with a joke.
+
+CH 28 ORIG: The mare shall have a twelvemonth's run, and we shall see what that will do for her; but the black one, he must be sold; 'tis a great pity, but I could not have knees like these in my stables.”
+ CTX: The mare shall have a twelvemonth’s run, and we shall see
+ SIM: The mare will have a year in the field, and we will see how good that is for her.
+ GR: 'shall' with 'she' or 'we' here shows the earl's decision, not just the future; 'twelvemonth’s run' is a year of free time in a field.
+
+CH 29 ORIG: Or even if it had been dark a practiced hand would have felt by the rein that there was something wrong in the step, and they would have got down and picked out the stone.
+ CTX: a practiced hand would have felt by the rein that there was something
+ SIM: A driver who knew his job would have felt through the rein that something was wrong with the horse's step.
+ GR: 'would have felt' is the third conditional result: it says what a good driver would have done, but this driver did not.
+
+CH 30 ORIG: I wish I could have done so; I would have had long legs then.
+ CTX: I wish I could have done so; I would have had long legs then
+ SIM: I wish I had made myself, because then I would have had long legs.
+ GR: 'I wish I could have done so' is about a past that cannot change, and 'I would have had' is the result of that unreal wish.
+
+CH 30 ORIG: I think if he would have let me just look at things quietly, and see that there was nothing to hurt me, it would have been all right, and I should have got used to them.
+ CTX: I think if he would have let me just look at things quietly
+ SIM: I think that if he had let me look at things quietly, it would have been all right.
+ GR: 'if he would have let me' is a spoken way of saying 'if he had let me'; the result is 'it would have been all right'.
+
+CH 31 ORIG: “I can't say who eats your corn, my dear fellow, but I am much mistaken if your horse gets it.
+ CTX: I am much mistaken if your horse gets it
+ SIM: I would be very surprised if your horse gets it.
+ GR: 'I am much mistaken if' is a polite old way to say that you are sure about something: here he is sure the horse does not get the corn.
+
+CH 32 ORIG: I should not like to do him an injury, but I'll do it if you please, sir.”
+ CTX: I should not like to do him an injury, but I’ll do it
+ SIM: I would not want to hurt him, but I will do it if you want me to, sir.
+ GR: 'if you please' is a polite, old way to say 'if you want me to'; 'I should not like' is the same as 'I would not like'.
+
+CH 33 ORIG: There was a great deal of bargaining, of running up and beating down; and if a horse may speak his mind so far as he understands, I should say there were more lies told and more trickery at that horse fair than a clever man could give an account of.
+ CTX: if a horse may speak his mind so far as he understands
+ SIM: If a horse can say what he thinks, as far as he understands.
+ GR: 'may speak his mind' uses 'may' to say 'is allowed to', a polite way to give an opinion; 'so far as he understands' limits it to what he knows.
+
+CH 34 ORIG: “Well,” said Jerry pleasantly, “I suppose I need not find it out till it finds me out, eh?
+ CTX: I suppose I need not find it out till it finds me out
+ SIM: I think I do not have to find out about the fault until it shows itself.
+ GR: 'it finds me out' turns the sentence round, so that the fault, not the man, is the one that finds; 'need not' means 'do not have to'.
+
+CH 35 ORIG: I believe so long as we felt our rider firm in the saddle, and his hand steady on the bridle, not one of us gave way to fear, not even when the terrible bombshells whirled through the air and burst into a thousand pieces.
+ CTX: I believe so long as we felt our rider firm in the saddle
+ SIM: I believe that as long as we felt our rider was steady in the saddle, none of us gave way to fear.
+ GR: 'so long as' is a phrase meaning 'if' or 'while'; it begins a clause that gives the condition under which none of the horses gave way to fear.
+
+CH 36 ORIG: take my cab, my horse will get you there all right;” and as he shut them in, with a wink toward Jerry, said, “It's against his conscience to go beyond a jog-trot.”
+ CTX: It’s against his conscience to go beyond a jog-trot
+ SIM: He feels that it is wrong to go faster than a slow trot.
+ GR: 'It’s against his conscience' means 'his sense of right and wrong does not let him'; it is Larry's joke about Jerry.
+
+CH 37 ORIG: Briggs would give you a sovereign every Sunday morning, I would not have you a seven-days' cabman again.
+ CTX: I would not have you a seven-days’ cabman again
+ SIM: I would not want you to be a seven-day cab driver again.
+ GR: 'would not have you a seven-days’ cabman' is an older pattern: 'have' with a person and a noun means 'want or allow you to be'.
+
+CH 38 ORIG: “It pinches all round, for that matter,” said Polly, “for it's only half Sunday without you, but you know we should do to other people as we should like they should do to us; and I know very well what I should like if my mother was dying; and Jerry, dear, I am sure it won't break the Sabbath; for if pulling a poor beast or donkey out of a pit would not spoil it, I am quite sure taking poor Dinah would not do it.”
+ CTX: we should do to other people as we should like
+ SIM: You know that we should do for other people what we would like them to do for us.
+ GR: 'as we should like they should do' is an old way to say 'what we would like them to do'; it is the Golden Rule from the chapter title.
+
+CH 39 ORIG: Our friend stood still for a moment, and throwing his head a little back, “Do you know why this world is as bad as it is?”
+ CTX: Do you know why this world is as bad as it is
+ SIM: Do you know the reason this world is so bad?
+ GR: 'as bad as it is' sets 'bad' against its present state: it means 'so bad as it now is'; 'why' starts an indirect question after 'know'.
+
+CH 40 ORIG: I wish some of 'em had got to sit on my box sixteen hours a day and get a living out of it and eighteen shillings beside, and that in all weathers; they would not be so uncommon particular never to give us a sixpence over or to cram all the luggage inside.
+ CTX: I wish some of ’em had got to sit on my box
+ SIM: I wish some of them had to sit on my box sixteen hours a day.
+ GR: 'wish some of them had got to sit' uses the past tense after 'wish' for something that is not true now; 'had got to' means 'had to'.
+
+CH 41 ORIG: I have seen dead horses, and I am sure they do not suffer pain; I wish I may drop down dead at my work, and not be sent off to the knackers.”
+ CTX: I wish I may drop down dead at my work, and not be sent
+ SIM: I hope that I will fall down dead while I work, and not be sent away to be killed.
+ GR: 'I wish I may' is an older way to say 'I hope that I will'; it is followed by two actions joined with 'and not'.
+
+CH 42 ORIG: If you were not my own son I would dismiss you on the spot; it is a disgrace to have a horse brought to the shop in a condition like that; you are liable to be taken up by the police for such driving, and if you are you need not look to me for bail, for I have spoken to you till I'm tired; you must look out for yourself.”
+ CTX: If you were not my own son I would dismiss you on the spot
+ SIM: If you were not my own son, I would send you away from your job right now.
+ GR: 'If you were not ... I would dismiss' is the second conditional: it says what would happen if something that is not true were true; 'on the spot' means 'at once'.
+
+CH 43 ORIG: “Well, a man who gets rich by that trade may be all very well in some ways, but he is blind as to what workingmen want; I could not in my conscience send him up to make the laws.
+ CTX: I could not in my conscience send him up to make
+ SIM: I could not, with a clear sense of what is right, choose him to go to Parliament to make laws.
+ GR: 'in my conscience' means 'if I do what I believe is right'; 'send him up' means to vote him into a higher job, in Parliament.
+
+CH 44 ORIG: I'd be ashamed of myself to let a woman and a sick child run a risk like that.”
+ CTX: I’d be ashamed of myself to let a woman and a sick child
+ SIM: I would feel shame if I let a woman and a sick child take a risk like that.
+ GR: 'I’d be ashamed ... to let' uses 'would be' for an imagined case; 'run a risk' means 'take a chance of something bad happening'.
+
+CH 45 ORIG: Jerry patted and talked to him a good deal, and very soon they understood each other, and Jerry said that with an easy bit and plenty of work he would be as gentle as a lamb; and that it was an ill wind that blew nobody good, for if his lordship had lost a hundred-guinea favorite, the cabman had gained a good horse with all his strength in him.
+ CTX: it was an ill wind that blew nobody good
+ SIM: It is a bad wind that brings good to nobody.
+ GR: 'it was an ill wind that blew nobody good' is a well-known saying: a bad event for one person often gives good luck to another; here it points to the cabman's gain.
+
+CH 46 ORIG: “Mother wrote to her last week,” said Harry, “you know she told father if ever he gave up the cab work she would like to know.
+ CTX: if ever he gave up the cab work she would like to know
+ SIM: She told father that if he ever stopped doing cab work, she would like to hear about it.
+ GR: 'if ever he gave up' joins 'if' with 'ever' to mean 'if at any time'; 'she would like to know' is what she said to Jerry in the past.
+
+CH 47 ORIG: “Is it not better,” she said, “to lead a good fashion than to follow a bad one?
+ CTX: Is it not better,” she said, “to lead a good fashion
+ SIM: Is it not better to start a good fashion than to follow a bad one?
+ GR: 'Is it not better...?' is a question that expects the answer 'yes'; 'one' stands for 'fashion' so the word is not said twice.
+
+CH 48 ORIG: My life was now so utterly wretched that I wished I might, like Ginger, drop down dead at my work and be out of my misery, and one day my wish very nearly came to pass.
+ CTX: I wished I might, like Ginger, drop down dead at my work
+ SIM: I wished that I could drop down dead at my work, as Ginger did, and be free from my sadness.
+ GR: 'wished I might' uses 'might' for a hope; 'like Ginger' compares him with Ginger; 'be out of my misery' means 'be free from my pain'.
+
+CH 49 ORIG: I'll be bound he'd be worth twenty pounds next spring.”
+ CTX: I’ll be bound he’d be worth twenty pounds next spring
+ SIM: I am sure he will be worth twenty pounds next spring.
+ GR: 'I’ll be bound' means 'I am sure'; 'he’d be worth' is 'he would be worth', and it is a guess about next spring.
+
+CH 50 ORIG: you must have been badly served out somewhere; well, well, it won't be my fault if you haven't good times of it now.
+ CTX: it won’t be my fault if you haven’t good times of it now
+ SIM: If you do not have good times now, it will not be because of me.
+ GR: 'it won’t be my fault if' uses the present tense after 'if' for the future; 'good times of it' is a spoken way to say 'a good life'.
+

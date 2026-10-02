@@ -1,0 +1,435 @@
+{
+ "format": 1,
+ "name": "Margin Words book packs",
+ "updated": "2026-10-02",
+ "packs": [
+  {
+   "id": "alice",
+   "title": "Alice's Adventures in Wonderland",
+   "author": "Lewis Carroll",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Free classic. Public domain in the USA (Project Gutenberg).",
+   "rev": "cd9d78ba7ee7",
+   "version": 2,
+   "chapters": 13,
+   "words": 866,
+   "paragraphs": 21,
+   "sentences": 16,
+   "phrases": 28,
+   "coined": 4,
+   "epub": {
+    "url": "alice/book.epub",
+    "bytes": 136756,
+    "sha256": "08a2de3a58226311915bd87056e59ed4ee49a284dcb5e722fef415bca4032a4b"
+   },
+   "glossary": {
+    "url": "alice/glossary.json",
+    "bytes": 138616,
+    "sha256": "2480763b9aff3b310bad4f3f3616bb2f23c7dd4e68d987e358d9f4f6714d2c0d",
+    "rev": "2480763b9aff"
+   },
+   "cover": {
+    "url": "alice/cover.jpg",
+    "bytes": 53578
+   },
+   "zip": {
+    "url": "alice.zip",
+    "bytes": 223902,
+    "sha256": "8d183f689d39fa006cb4e53c57dacb03870714775ed6618900d64ebf27d516fb"
+   },
+   "preinstall": true
+  },
+  {
+   "id": "treasure-island",
+   "title": "Treasure Island",
+   "author": "Robert Louis Stevenson",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Free classic. Public domain in the USA (Project Gutenberg).",
+   "rev": "9092834d047b",
+   "version": 2,
+   "chapters": 36,
+   "words": 1616,
+   "paragraphs": 44,
+   "sentences": 8,
+   "phrases": 20,
+   "coined": 0,
+   "epub": {
+    "url": "treasure-island/book.epub",
+    "bytes": 274139,
+    "sha256": "6d6781328ac1f559053b88e46a0881d69bf228d08e5d0b0e81ca39bd89b94edd"
+   },
+   "glossary": {
+    "url": "treasure-island/glossary.json",
+    "bytes": 233296,
+    "sha256": "a6b4826f4f3515497b7fc5840358ab9ab0325f407d7159660065438c8c7254fa",
+    "rev": "a6b4826f4f35"
+   },
+   "cover": {
+    "url": "treasure-island/cover.jpg",
+    "bytes": 63211
+   },
+   "zip": {
+    "url": "treasure-island.zip",
+    "bytes": 390163,
+    "sha256": "aeb37e1bc682684ce858d53357858389a49c5e0b0f491b72242ae122938802a5"
+   },
+   "preinstall": true
+  },
+  {
+   "id": "anne",
+   "title": "Anne of Green Gables",
+   "author": "L. M. Montgomery",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Free classic. Public domain in the USA (Project Gutenberg).",
+   "rev": "e4cd5c01904d",
+   "version": 2,
+   "chapters": 39,
+   "words": 2064,
+   "paragraphs": 38,
+   "sentences": 7,
+   "phrases": 23,
+   "coined": 0,
+   "epub": {
+    "url": "anne/book.epub",
+    "bytes": 331188,
+    "sha256": "e001df19fc1ae88ca6aa4131e56a51625c50257b95fff1ff3c2dbeb58b4a8bfe"
+   },
+   "glossary": {
+    "url": "anne/glossary.json",
+    "bytes": 234168,
+    "sha256": "96aa84a60fd84e31a4529127e093975e272eaf8b956c85ec72a53e32e3edca4d",
+    "rev": "96aa84a60fd8"
+   },
+   "cover": {
+    "url": "anne/cover.jpg",
+    "bytes": 40923
+   },
+   "zip": {
+    "url": "anne.zip",
+    "bytes": 420366,
+    "sha256": "5bcbdc724fa2d29240649cd60865f682600d31caa10361cfafe59cf4275f96b4"
+   },
+   "preinstall": true
+  },
+  {
+   "id": "peter-pan",
+   "title": "Peter and Wendy",
+   "author": "J. M. Barrie",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Free classic. Public domain in the USA.",
+   "rev": "1dbdb6ebee06",
+   "version": 2,
+   "chapters": 21,
+   "words": 404,
+   "paragraphs": 35,
+   "sentences": 66,
+   "phrases": 162,
+   "coined": 0,
+   "epub": {
+    "url": "peter-pan/book.epub",
+    "bytes": 773297,
+    "sha256": "606cf8f640dfb5f4031fd319972f239b13600625c173f1d94f3b0e30e4f5e70e"
+   },
+   "glossary": {
+    "url": "peter-pan/glossary.json",
+    "bytes": 128734,
+    "sha256": "8227031c8cc571537396438045a92d9cc9ccd9b4bfc1ef506c657f39c73be21f",
+    "rev": "8227031c8cc5"
+   },
+   "cover": {
+    "url": "peter-pan/cover.jpg",
+    "bytes": 70831
+   },
+   "zip": {
+    "url": "peter-pan.zip",
+    "bytes": 877501,
+    "sha256": "f3650d351ea2b00d9615a32007d4502c0f36352151289e081fec7348ce773e70"
+   }
+  },
+  {
+   "id": "tom-sawyer",
+   "title": "The Adventures of Tom Sawyer",
+   "author": "Mark Twain",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Free classic. Public domain in the USA.",
+   "rev": "34bcdc54feaa",
+   "version": 2,
+   "chapters": 42,
+   "words": 381,
+   "paragraphs": 50,
+   "sentences": 60,
+   "phrases": 50,
+   "coined": 0,
+   "epub": {
+    "url": "tom-sawyer/book.epub",
+    "bytes": 697383,
+    "sha256": "5819605c2b1f5714ba5c1273827422f60ebd18e3d46c939bcec9e2613c37f2a7"
+   },
+   "glossary": {
+    "url": "tom-sawyer/glossary.json",
+    "bytes": 136507,
+    "sha256": "5d2412c302b2388cad2d4f5b7a2c36daf0493bb41bfcf57f30aefa685b534ed9",
+    "rev": "5d2412c302b2"
+   },
+   "cover": {
+    "url": "tom-sawyer/cover.jpg",
+    "bytes": 65710
+   },
+   "zip": {
+    "url": "tom-sawyer.zip",
+    "bytes": 805050,
+    "sha256": "2b027e343dda0e5f10346d88c842175ddcf8ae4beb2e757eb6ceb82f71dab1bb"
+   }
+  },
+  {
+   "id": "wind-in-the-willows",
+   "title": "The Wind in the Willows",
+   "author": "Kenneth Grahame",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Free classic. Public domain in the USA.",
+   "rev": "f381840b6abe",
+   "version": 2,
+   "chapters": 16,
+   "words": 691,
+   "paragraphs": 38,
+   "sentences": 54,
+   "phrases": 110,
+   "coined": 0,
+   "epub": {
+    "url": "wind-in-the-willows/book.epub",
+    "bytes": 848274,
+    "sha256": "d874ac24670373ea53c0a0d7a52601ca191e95d02270c7571bbd7ccf29cc6b1c"
+   },
+   "glossary": {
+    "url": "wind-in-the-willows/glossary.json",
+    "bytes": 181949,
+    "sha256": "43327b5858afc3eecf1e27742b75ae6c0d3b345784b9a858dc9d3aea6171d69e",
+    "rev": "43327b5858af"
+   },
+   "cover": {
+    "url": "wind-in-the-willows/cover.jpg",
+    "bytes": 90341
+   },
+   "zip": {
+    "url": "wind-in-the-willows.zip",
+    "bytes": 985997,
+    "sha256": "ee5669d1e1808e44da8ae0dd29771de082d91fec983024f1872cf021bf1ee4a9"
+   }
+  },
+  {
+   "id": "little-women",
+   "title": "Little Women",
+   "author": "Louisa May Alcott",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Free classic. Public domain in the USA.",
+   "rev": "dcc80751831e",
+   "version": 2,
+   "chapters": 52,
+   "words": 580,
+   "paragraphs": 60,
+   "sentences": 69,
+   "phrases": 54,
+   "coined": 0,
+   "epub": {
+    "url": "little-women/book.epub",
+    "bytes": 998915,
+    "sha256": "095392183d24a7cf84a7333f55a861f79642df2fb52114462c4d35cf73873d3e"
+   },
+   "glossary": {
+    "url": "little-women/glossary.json",
+    "bytes": 170132,
+    "sha256": "5a5949e11655842786d90fb610d6df180783c27b508c16aa57bca3b795bbb9c1",
+    "rev": "5a5949e11655"
+   },
+   "cover": {
+    "url": "little-women/cover.jpg",
+    "bytes": 80776
+   },
+   "zip": {
+    "url": "little-women.zip",
+    "bytes": 1130431,
+    "sha256": "ee8bf8528505e695c9ac790630dee745df063fd1eb108f12625a277b399c4e9e"
+   }
+  },
+  {
+   "id": "secret-garden",
+   "title": "The Secret Garden",
+   "author": "Frances Hodgson Burnett",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Free classic. Public domain in the USA.",
+   "rev": "afb9da65be17",
+   "version": 2,
+   "chapters": 31,
+   "words": 381,
+   "paragraphs": 41,
+   "sentences": 43,
+   "phrases": 59,
+   "coined": 0,
+   "epub": {
+    "url": "secret-garden/book.epub",
+    "bytes": 623513,
+    "sha256": "7ec06b87caff764e298733a0c38821d3838666082bddbfffe1a3cdacd1f36c12"
+   },
+   "glossary": {
+    "url": "secret-garden/glossary.json",
+    "bytes": 115307,
+    "sha256": "86d3130939f48c730f5f6241913fb89f0d6ce85c91068cef663bd9518bfbf0f5",
+    "rev": "86d3130939f4"
+   },
+   "cover": {
+    "url": "secret-garden/cover.jpg",
+    "bytes": 76963
+   },
+   "zip": {
+    "url": "secret-garden.zip",
+    "bytes": 733760,
+    "sha256": "f1819e9f941dd709c0eb22a672b8c499e0a2c99ef9e447ad73344365795f13f8"
+   }
+  },
+  {
+   "id": "black-beauty",
+   "title": "Black Beauty",
+   "author": "Anna Sewell",
+   "level": "basic",
+   "notes": "Free classic. Public domain in the USA.",
+   "rev": "d1f2cc468362",
+   "version": 2,
+   "chapters": 54,
+   "words": 714,
+   "paragraphs": 49,
+   "sentences": 50,
+   "phrases": 61,
+   "coined": 0,
+   "epub": {
+    "url": "black-beauty/book.epub",
+    "bytes": 483404,
+    "sha256": "6966a8c6669e36854d50d9d6a489c6e9a9d13d90e633c5765d4e67a0bef47b5a"
+   },
+   "glossary": {
+    "url": "black-beauty/glossary.json",
+    "bytes": 192022,
+    "sha256": "3f1c20003997206ecba9f43f59f7fb29166842b455534be72c449f9f595d8ffb",
+    "rev": "3f1c20003997"
+   },
+   "cover": {
+    "url": "black-beauty/cover.jpg",
+    "bytes": 41314
+   },
+   "zip": {
+    "url": "black-beauty.zip",
+    "bytes": 575985,
+    "sha256": "9a5ccf567ba3b72c23dba579ea863bcbb5d7cb9ac217e6b0aea2e0a88c3b4175"
+   }
+  },
+  {
+   "id": "looking-glass",
+   "title": "Through the Looking-Glass",
+   "author": "Lewis Carroll",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Free classic. Public domain in the USA.",
+   "rev": "f4bacd58644b",
+   "version": 2,
+   "chapters": 19,
+   "words": 297,
+   "paragraphs": 30,
+   "sentences": 40,
+   "phrases": 39,
+   "coined": 24,
+   "epub": {
+    "url": "looking-glass/book.epub",
+    "bytes": 9357796,
+    "sha256": "ec36a0458196fbbd288ad5c03ebd3debeb893ea1259313f4da51ab0fe07752bd"
+   },
+   "glossary": {
+    "url": "looking-glass/glossary.json",
+    "bytes": 78353,
+    "sha256": "d67473c8780791aa9f8a7190713b56add79676b00af622453c075eba478d14b6",
+    "rev": "d67473c87807"
+   },
+   "cover": {
+    "url": "looking-glass/cover.jpg",
+    "bytes": 53350
+   },
+   "zip": {
+    "url": "looking-glass.zip",
+    "bytes": 9432057,
+    "sha256": "b5abefd7a694efbe4c09c4a53de7515d922cfc71c0876ac33ea130c489cc99df"
+   }
+  },
+  {
+   "id": "jungle-book",
+   "title": "The Jungle Book",
+   "author": "Rudyard Kipling",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Free classic. Public domain in the USA.",
+   "rev": "983c097e3578",
+   "version": 2,
+   "chapters": 12,
+   "words": 219,
+   "paragraphs": 38,
+   "sentences": 46,
+   "phrases": 56,
+   "coined": 0,
+   "epub": {
+    "url": "jungle-book/book.epub",
+    "bytes": 599568,
+    "sha256": "df99cc727f88a339b3ec026a4459ff88793e7d25fed792b1475d2a17d42c005b"
+   },
+   "glossary": {
+    "url": "jungle-book/glossary.json",
+    "bytes": 95314,
+    "sha256": "12a6f1f90aa02b7a577cac021575ae6731266e975fa279a3c45ed796555ea73e",
+    "rev": "12a6f1f90aa0"
+   },
+   "cover": {
+    "url": "jungle-book/cover.jpg",
+    "bytes": 67502
+   },
+   "zip": {
+    "url": "jungle-book.zip",
+    "bytes": 692130,
+    "sha256": "d322e5575bd80ec573c62d0915ad452797028eaa1cf378c622a3f7699467b0f9"
+   }
+  },
+  {
+   "id": "wizard-of-oz",
+   "title": "The Wonderful Wizard of Oz",
+   "author": "L. Frank Baum",
+   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "notes": "Free classic. Public domain in the USA.",
+   "rev": "5819bb794f84",
+   "version": 2,
+   "chapters": 29,
+   "words": 390,
+   "paragraphs": 40,
+   "sentences": 37,
+   "phrases": 55,
+   "coined": 1,
+   "epub": {
+    "url": "wizard-of-oz/book.epub",
+    "bytes": 681182,
+    "sha256": "be8f7802b737cf2f402960d4c691238ccd51b67de0cd69b909e35a2108da47a3"
+   },
+   "glossary": {
+    "url": "wizard-of-oz/glossary.json",
+    "bytes": 128767,
+    "sha256": "ec7f37b3843c400bae91f3789e0f0064658b1cdee88466802c40dde183c777b3",
+    "rev": "ec7f37b3843c"
+   },
+   "cover": {
+    "url": "wizard-of-oz/cover.jpg",
+    "bytes": 55751
+   },
+   "zip": {
+    "url": "wizard-of-oz.zip",
+    "bytes": 769113,
+    "sha256": "369b1e690d549135ff4881e55fa9b4b736bcdfe630d7a927f831f246205dd4c7"
+   }
+  }
+ ],
+ "allPacks": {
+  "url": "all-packs.zip",
+  "bytes": 17040165,
+  "sha256": "22afd7ff711b56f7b2b5cea5a6fe21eefffd728979efc63a300ebee1529c8571"
+ }
+}

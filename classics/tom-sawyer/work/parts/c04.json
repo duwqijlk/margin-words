@@ -1,0 +1,153 @@
+{
+"glossary": {
+"whitewash": {
+"pos": "noun",
+"meaning": "A white paint made of lime and water. People used it to paint fences and walls.",
+"forms": [
+"whitewashed",
+"whitewashing"
+]
+},
+"melancholy": {
+"pos": "noun",
+"meaning": "A deep, quiet sadness."
+},
+"hollow": {
+"pos": "adjective",
+"meaning": "Empty, with no real joy or meaning."
+},
+"skylarking": {
+"pos": "present participle",
+"meaning": "Playing around in a noisy and silly way.",
+"forms": [
+"skylarking",
+"skylark"
+]
+},
+"taw": {
+"pos": "noun",
+"meaning": "The marble that a player uses to hit other marbles."
+},
+"gay": {
+"pos": "adjective",
+"meaning": "Bright and pretty, and full of fun."
+},
+"waver": {
+"pos": "verb",
+"meaning": "To begin to change your mind. You are not sure any more."
+},
+"straitened": {
+"pos": "adjective",
+"meaning": "Small and not enough. Here, it describes Tom's little money and few things."
+},
+"personating": {
+"pos": "present participle",
+"meaning": "Pretending to be another person or thing.",
+"forms": [
+"personating",
+"personate"
+]
+},
+"ponderously": {
+"pos": "adverb",
+"meaning": "In a slow, heavy way."
+},
+"druther": {
+"pos": "noun",
+"meaning": "A spoken form of 'would rather'. 'You'd druther work' means 'you would rather work'."
+},
+"alacrity": {
+"pos": "noun",
+"meaning": "Quick and happy willingness."
+},
+"fagged": {
+"pos": "adjective",
+"meaning": "Very tired from hard work.",
+"forms": [
+"fagged"
+]
+},
+"covet": {
+"pos": "verb",
+"meaning": "To want something very much, especially something that belongs to another person."
+},
+"dilapidated": {
+"pos": "adjective",
+"meaning": "Old and falling to pieces."
+},
+"particular": {
+"pos": "adjective",
+"meaning": "Very careful and hard to please about something."
+}
+},
+"paragraphs": [
+{
+"chapter": 4,
+"paragraph": 45,
+"context": "the retired artist sat on a barrel in the shade close by",
+"mainIdea": "Tom lets other boys pay him to whitewash, and by the afternoon he is rich in small things.",
+"simple": "Tom gave up the brush, and his face showed that he did not want to. But he was very glad inside. While Ben worked hard in the sun, Tom sat on a barrel in the shade nearby, swung his legs and ate Ben's apple. He was already planning to fool more boys. There were plenty of them. Boys came along every few minutes. They came to laugh, but they stayed to whitewash. When Ben was too tired to go on, Tom traded the next turn to Billy Fisher for a kite in good condition. When Billy was tired, Johnny Miller bought a turn for a dead rat and a string to swing it with. This went on hour after hour. By the middle of the afternoon, Tom was no longer a poor boy. He was rich. Besides the things already named, he had twelve marbles, part of a jews-harp, a piece of blue bottle-glass, a spool cannon, a key that opened nothing, a piece of chalk, a glass stopper from a bottle, a tin soldier, a couple of tadpoles, six firecrackers, a kitten with one eye, a brass doorknob, a dog-collar with no dog, a knife handle, four pieces of orange-peel and an old window frame that was falling to pieces.",
+"hardWords": [
+"alacrity",
+"fagged",
+"jews-harp",
+"dilapidated",
+"sash",
+"decanter",
+"spool cannon"
+]
+},
+{
+"chapter": 4,
+"paragraph": 47,
+"context": "in order to make a man or a boy covet a thing",
+"mainIdea": "Tom learns, without knowing it, that people want what is hard to get. The writer then says what work and play really are.",
+"simple": "Tom told himself that the world was not so empty after all. Without knowing it, he had found a great rule about how people act. To make a man or a boy want something, you only have to make it hard to get. A wise thinker, like the writer of this book, would also understand that work is whatever a person has to do, and play is whatever a person does not have to do. That is why making flowers that are not real or walking on a treadmill is work, but rolling ten-pins or climbing Mont Blanc is only fun. Some rich men in England drive a coach with four horses twenty or thirty miles every day in summer, because it costs them a lot of money to do it. But if they were offered pay for it, it would become work and they would stop.",
+"hardWords": [
+"covet",
+"attain",
+"philosopher",
+"treadmill",
+"amusement",
+"wages"
+]
+}
+],
+"sentences": [
+{
+"chapter": 4,
+"context": "in order to make a man or a boy covet a thing, it is only necessary to make the thing difficult to attain",
+"simple": "To make a person want something, you only have to make it hard to get.",
+"grammar": "'In order to make...' gives the purpose. 'It is only necessary to...' is a long way to say 'you only have to...'."
+},
+{
+"chapter": 4,
+"context": "they came to jeer, but remained to whitewash",
+"simple": "They came to laugh at Tom, but they stayed to do the whitewashing.",
+"grammar": "Two 'to + verb' parts show purpose: 'came to jeer' and 'remained to whitewash'. 'But' shows that the purpose changed."
+},
+{
+"chapter": 4,
+"context": "If he hadn’t run out of whitewash he would have bankrupted every boy in the village",
+"simple": "If the whitewash had not finished, Tom would have taken everything from every boy in the village.",
+"grammar": "'If he hadn't... he would have...' is about the past and something that did not happen. 'Bankrupted' is used in a funny way, to mean he would have taken all their things."
+}
+],
+"phrases": {
+"let on": {
+"meaning": "To say or pretend that something is true.",
+"pos": "phrasal verb",
+"example": "you don’t mean to let on that you like it"
+},
+"play out": {
+"meaning": "To be too tired to go on.",
+"pos": "phrasal verb",
+"example": "when he played out, Johnny Miller bought in"
+},
+"stick to": {
+"meaning": "To keep on doing something and not stop.",
+"pos": "phrasal verb",
+"example": "but he stuck to his work"
+}
+}
+}

@@ -1,0 +1,103 @@
+{
+ "title": "The Wind in the Willows",
+ "author": "Kenneth Grahame",
+ "sha256": "d874ac24670373ea53c0a0d7a52601ca191e95d02270c7571bbd7ccf29cc6b1c",
+ "chapters": [
+  {
+   "chapter": 0,
+   "title": "Titlepage",
+   "words": 8,
+   "paragraphs": 2
+  },
+  {
+   "chapter": 1,
+   "title": "Imprint",
+   "words": 194,
+   "paragraphs": 5
+  },
+  {
+   "chapter": 2,
+   "title": "I: The River Bank",
+   "words": 4482,
+   "paragraphs": 93
+  },
+  {
+   "chapter": 3,
+   "title": "II: The Open Road",
+   "words": 4424,
+   "paragraphs": 67
+  },
+  {
+   "chapter": 4,
+   "title": "III: The Wild Wood",
+   "words": 4553,
+   "paragraphs": 80
+  },
+  {
+   "chapter": 5,
+   "title": "IV: Mr. Badger",
+   "words": 4833,
+   "paragraphs": 64
+  },
+  {
+   "chapter": 6,
+   "title": "V: Dulce Domum",
+   "words": 5394,
+   "paragraphs": 67
+  },
+  {
+   "chapter": 7,
+   "title": "VI: Mr. Toad",
+   "words": 4606,
+   "paragraphs": 84
+  },
+  {
+   "chapter": 8,
+   "title": "VII: The Piper at the Gates of Dawn",
+   "words": 3849,
+   "paragraphs": 57
+  },
+  {
+   "chapter": 9,
+   "title": "VIII: Toad’s Adventures",
+   "words": 4958,
+   "paragraphs": 62
+  },
+  {
+   "chapter": 10,
+   "title": "IX: Wayfarers All",
+   "words": 6014,
+   "paragraphs": 74
+  },
+  {
+   "chapter": 11,
+   "title": "X: The Further Adventures of Toad",
+   "words": 6091,
+   "paragraphs": 94
+  },
+  {
+   "chapter": 12,
+   "title": "XI: “Like Summer Tempests Came His Tears”",
+   "words": 6338,
+   "paragraphs": 109
+  },
+  {
+   "chapter": 13,
+   "title": "XII: The Return of Ulysses",
+   "words": 4884,
+   "paragraphs": 63
+  },
+  {
+   "chapter": 14,
+   "title": "Colophon",
+   "words": 171,
+   "paragraphs": 6
+  },
+  {
+   "chapter": 15,
+   "title": "Uncopyright",
+   "words": 351,
+   "paragraphs": 5
+  }
+ ]
+}

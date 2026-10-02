@@ -1,0 +1,86 @@
+{
+"glossary": {
+"tick": {
+"pos": "noun",
+"meaning": "A very small bug that lives on animals and bites. The boys play with one."
+},
+"premature": {
+"pos": "adjective",
+"meaning": "Too early; coming before the right time."
+},
+"embattled": {
+"pos": "adjective",
+"meaning": "Ready to fight; at war."
+},
+"momently": {
+"pos": "adverb",
+"meaning": "From one moment to the next; more with each moment."
+},
+"deftly": {
+"pos": "adverb",
+"meaning": "In a quick and clever way, with skilled hands."
+},
+"wane": {
+"pos": "verb",
+"meaning": "To become smaller or weaker."
+},
+"slathers": {
+"pos": "noun",
+"meaning": "A very large amount of something. 'Slathers of money' means a lot of money."
+},
+"repulsed": {
+"pos": "past participle",
+"meaning": "Pushed away; not allowed to come near.",
+"forms": [
+"repulsed",
+"repulse"
+]
+},
+"andiron": {
+"pos": "noun",
+"meaning": "A metal stand that holds wood in a fireplace."
+},
+"upbraid": {
+"pos": "verb",
+"meaning": "To blame yourself or another person with angry words."
+}
+},
+"paragraphs": [
+{
+"chapter": 9,
+"paragraph": 2,
+"context": "The harder Tom tried to fasten his mind on his book",
+"mainIdea": "It is a hot, sleepy day at school. Tom is bored until he takes out his tick.",
+"simple": "The more Tom tried to keep his mind on his book, the more it wandered, so he sighed, yawned and gave up. Noon seemed far away. The air did not move at all. It was a very sleepy day. The quiet sound of the twenty-five pupils working made him sleepy, like the sound of bees. Far away in the hot sun, Cardiff Hill showed its green sides through the shaking heat, with the purple of distance on them. A few birds floated high in the sky. The only living things in sight were some cows, and they were asleep. Tom wanted to be free, or to have something interesting to do. His hand went into his pocket, and his face lit up with a thankfulness that was like a prayer. Secretly, he took out the percussion-cap box. He let the tick out and put him on the long flat desk. The tick was probably as thankful as Tom, but too soon. When it started happily to walk away, Tom turned it aside with a pin and made it go another way.",
+"hardWords": [
+"recess",
+"soothed",
+"shimmering",
+"furtively",
+"percussion-cap",
+"premature"
+]
+}
+],
+"sentences": [
+{
+"chapter": 9,
+"context": "The harder Tom tried to fasten his mind on his book, the more his ideas wandered",
+"simple": "Tom tried hard to keep his mind on his book. But the harder he tried, the more his thoughts moved away.",
+"grammar": "'The harder..., the more...' shows that two things grow together: more effort leads to more wandering."
+},
+{
+"chapter": 9,
+"context": "Becky hesitating, Tom took silence for consent",
+"simple": "Becky was not sure what to do, and Tom took her silence to mean yes.",
+"grammar": "'Becky hesitating' is a short clause with its own subject and no 'was'. It gives the reason for the main clause. 'Take X for Y' means 'think X means Y'."
+}
+],
+"phrases": {
+"bosom friend": {
+"meaning": "A very close friend.",
+"pos": "phrase",
+"example": "Tom’s bosom friend sat next him"
+}
+}
+}

@@ -1,0 +1,74 @@
+{
+ "glossary": {
+  "treadmill": {
+   "pos": "noun",
+   "meaning": "A big round thing that people or animals walk on and never get anywhere. Here it means days that never change."
+  },
+  "heiress": {
+   "pos": "noun",
+   "meaning": "A woman who will get a lot of money from a family member when that person dies."
+  },
+  "despondent": {
+   "pos": "adjective",
+   "meaning": "Very sad and without hope."
+  },
+  "spatted": {
+   "pos": "past-tense verb",
+   "meaning": "Hit with the flat hand, quickly and many times.",
+   "forms": [
+    "spatted",
+    "spat"
+   ]
+  },
+  "panacea": {
+   "pos": "noun",
+   "meaning": "Something that people believe will fix every trouble."
+  },
+  "perturbed": {
+   "pos": "adjective",
+   "meaning": "Worried and upset."
+  },
+  "fleet": {
+   "pos": "adjective",
+   "meaning": "Very fast."
+  },
+  "cropped": {
+   "pos": "adjective",
+   "meaning": "Cut very short."
+  },
+  "ninepence": {
+   "pos": "noun",
+   "meaning": "A small amount of money; nine small pieces of old English money."
+  },
+  "coverlid": {
+   "pos": "noun",
+   "meaning": "A cover for a bed."
+  },
+  "fervent": {
+   "pos": "adjective",
+   "meaning": "Very strong and honest in feeling."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 17,
+   "context": "Everyone scattered like leaves before a gust of wind",
+   "mainIdea": "Mrs. March is overwhelmed by the many jobs, and the girls work for her. The happy home is suddenly broken up.",
+   "simple": "Writing, thinking and giving orders all at once might well confuse the poor lady. Meg begged her to sit quietly in her room for a little while and let the girls work. Everyone ran off in different ways, like leaves in front of a strong wind. The quiet, happy house was broken up as suddenly as if the paper had been an evil spell.",
+   "hardWords": [
+    "bewilder",
+    "scattered",
+    "gust"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 17,
+   "context": "who would as soon have thought of cutting off her head as her pretty hair",
+   "simple": "Amy would have been just as likely to think of cutting off her head as of cutting her pretty hair.",
+   "grammar": "'Would as soon ... as ...' compares two things that are equally unlikely. It means she would never think of cutting her hair."
+  }
+ ],
+ "phrases": {}
+}

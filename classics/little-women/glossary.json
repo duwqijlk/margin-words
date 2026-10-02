@@ -1,0 +1,4070 @@
+{
+ "version": 2,
+ "title": "Little Women",
+ "author": "Louisa May Alcott",
+ "sha256": "095392183d24a7cf84a7333f55a861f79642df2fb52114462c4d35cf73873d3e",
+ "chapters": 52,
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+ "language": "English",
+ "glossary": {
+  "impertinent": {
+   "pos": "adjective",
+   "meaning": "Rude to a person who should be treated with respect, such as a teacher."
+  },
+  "prim": {
+   "pos": "adjective",
+   "meaning": "Too careful and proper in the way you look and act. Not easy and playful."
+  },
+  "chit": {
+   "pos": "noun",
+   "meaning": "A word for a girl or young woman, used when you think she is silly or too proud."
+  },
+  "tomboy": {
+   "pos": "noun",
+   "meaning": "A girl who likes boys' games and acts like a boy."
+  },
+  "poky": {
+   "pos": "adjective",
+   "meaning": "Slow and not fun, with a small, poor life."
+  },
+  "twilight": {
+   "pos": "noun",
+   "meaning": "The soft, weak light in the evening after the sun has gone down."
+  },
+  "recess": {
+   "pos": "noun",
+   "meaning": "A place in a wall that goes back from the rest of the wall. Books can stand there."
+  },
+  "pervaded": {
+   "pos": "past-tense verb",
+   "meaning": "Spread through every part of a place.",
+   "forms": [
+    "pervaded",
+    "pervade"
+   ]
+  },
+  "chaplain": {
+   "pos": "noun",
+   "meaning": "A church man who goes with an army to help the soldiers."
+  },
+  "drafted": {
+   "pos": "past participle",
+   "meaning": "Chosen and ordered by the government to join the army.",
+   "forms": [
+    "drafted",
+    "draft"
+   ]
+  },
+  "incantation": {
+   "pos": "noun",
+   "meaning": "Magic words that a person says or sings to make magic work."
+  },
+  "asunder": {
+   "pos": "adverb",
+   "meaning": "Into pieces; apart."
+  },
+  "slang": {
+   "pos": "uncountable noun",
+   "meaning": "Rough, friendly words that people use in talk, but not in careful, proper speech."
+  },
+  "crammed": {
+   "pos": "past-tense verb",
+   "meaning": "Pushed in so full that nothing more could fit.",
+   "forms": [
+    "crammed",
+    "cram"
+   ]
+  },
+  "pious": {
+   "pos": "adjective",
+   "meaning": "Good in a quiet, religious way."
+  },
+  "rummage": {
+   "pos": "verb",
+   "meaning": "To search for something by moving things around."
+  },
+  "vittles": {
+   "pos": "plural noun",
+   "meaning": "Food. This is how Hannah says it."
+  },
+  "huddled": {
+   "pos": "past participle",
+   "meaning": "Pressed close together in a small place to keep warm.",
+   "forms": [
+    "huddled",
+    "huddle"
+   ]
+  },
+  "abashed": {
+   "pos": "adjective",
+   "meaning": "Feeling a little bad because people are looking at you."
+  },
+  "impetuously": {
+   "pos": "adverb",
+   "meaning": "Very fast and without thinking, because of strong feeling."
+  },
+  "gruel": {
+   "pos": "uncountable noun",
+   "meaning": "A thin food made by cooking grain in water or milk. Sick people ate it."
+  },
+  "trump": {
+   "pos": "noun",
+   "meaning": "A kind person you can trust and like very much."
+  },
+  "spangle": {
+   "pos": "noun",
+   "meaning": "A small, flat, bright piece of metal put on clothes so that it catches the light."
+  },
+  "doublet": {
+   "pos": "noun",
+   "meaning": "A short, close coat that men wore long ago."
+  },
+  "russet": {
+   "pos": "adjective",
+   "meaning": "Red-brown in colour."
+  },
+  "chintz": {
+   "pos": "uncountable noun",
+   "meaning": "Cloth with a bright picture on it, used for window covers and chairs."
+  },
+  "baize": {
+   "pos": "uncountable noun",
+   "meaning": "Thick, soft green cloth, often used to cover tables."
+  },
+  "philter": {
+   "pos": "noun",
+   "meaning": "A magic drink that makes a person fall in love."
+  },
+  "minion": {
+   "pos": "noun",
+   "meaning": "A person who does what a strong person tells him to do."
+  },
+  "serenade": {
+   "pos": "noun",
+   "meaning": "A love song that a man sings outside the window of the woman he loves."
+  },
+  "bequeaths": {
+   "pos": "third-person verb",
+   "meaning": "Gives away money or things to people after she has died.",
+   "forms": [
+    "bequeaths",
+    "bequeath"
+   ]
+  },
+  "garret": {
+   "pos": "noun",
+   "meaning": "A small room at the top of a house, just under the top of the house."
+  },
+  "comforter": {
+   "pos": "noun",
+   "meaning": "A thick, warm cover for a bed. Here Jo puts it round herself."
+  },
+  "poplin": {
+   "pos": "noun",
+   "meaning": "A smooth cloth, used for everyday dresses."
+  },
+  "mortified": {
+   "pos": "adjective",
+   "meaning": "Feeling very bad about yourself in front of other people."
+  },
+  "caper": {
+   "pos": "noun",
+   "meaning": "A fast, happy jump or run. 'Cut capers' means to jump and play around."
+  },
+  "blithely": {
+   "pos": "adverb",
+   "meaning": "In a happy way, without worry."
+  },
+  "tongs": {
+   "pos": "plural noun",
+   "meaning": "A tool with two arms. Here it is made hot and used to make hair round and soft."
+  },
+  "ringlet": {
+   "pos": "noun",
+   "meaning": "A long, round piece of hair that goes round and round."
+  },
+  "scorched": {
+   "pos": "adjective",
+   "meaning": "Hurt a little on the outside by too much heat.",
+   "forms": [
+    "scorched"
+   ]
+  },
+  "snood": {
+   "pos": "noun",
+   "meaning": "A soft net or band that a girl wears to hold her hair."
+  },
+  "drab": {
+   "pos": "noun",
+   "meaning": "A brown colour that is not bright."
+  },
+  "jovial": {
+   "pos": "adjective",
+   "meaning": "Happy, loud and friendly."
+  },
+  "rubber": {
+   "pos": "noun",
+   "meaning": "A cover that goes over shoes to keep them dry in the rain."
+  },
+  "blunderbuss": {
+   "pos": "noun",
+   "meaning": "In a joke by Jo, a person who is not careful and breaks things."
+  },
+  "skylarking": {
+   "pos": "gerund",
+   "meaning": "Playing and joking around instead of working."
+  },
+  "forlornly": {
+   "pos": "adverb",
+   "meaning": "In a sad and lonely way.",
+   "forms": [
+    "forlornly"
+   ]
+  },
+  "trudge": {
+   "pos": "verb",
+   "meaning": "To walk a long way slowly, with heavy steps, because you are tired."
+  },
+  "midget": {
+   "pos": "noun",
+   "meaning": "A very small person. Here Meg uses it in an angry way for the small children she teaches."
+  },
+  "toil": {
+   "pos": "verb",
+   "meaning": "To work very hard for a long time."
+  },
+  "grumps": {
+   "pos": "plural noun",
+   "meaning": "A bad, cross way of feeling. 'Had the grumps' means felt bad and cross."
+  },
+  "turnover": {
+   "pos": "noun",
+   "meaning": "A small hot food with a soft cover and something sweet inside."
+  },
+  "bleak": {
+   "pos": "adjective",
+   "meaning": "Cold, empty and not nice, with nothing to keep you safe from the wind."
+  },
+  "wretch": {
+   "pos": "noun",
+   "meaning": "A person who is very sad or very bad. Here Jo uses it as a joke name."
+  },
+  "irascible": {
+   "pos": "adjective",
+   "meaning": "Easily made angry."
+  },
+  "shrill": {
+   "pos": "adjective",
+   "meaning": "High and sharp in sound."
+  },
+  "infirm": {
+   "pos": "adjective",
+   "meaning": "Weak or not well. Here it is used for old, hurt things that a girl plays with and keeps."
+  },
+  "repulsive": {
+   "pos": "adjective",
+   "meaning": "Very bad to look at; it makes you want to turn away."
+  },
+  "lavished": {
+   "pos": "past participle",
+   "meaning": "Given in very large amounts.",
+   "forms": [
+    "lavished"
+   ]
+  },
+  "caricature": {
+   "pos": "noun",
+   "meaning": "A funny drawing that makes a person's face look strange, to make people laugh."
+  },
+  "deportment": {
+   "pos": "noun",
+   "meaning": "The way a person walks, stands and acts, especially in front of others."
+  },
+  "reprimand": {
+   "pos": "noun",
+   "meaning": "Angry words from a teacher or someone with power, for something you did wrong."
+  },
+  "specs": {
+   "pos": "plural noun",
+   "meaning": "Glasses that people wear on their eyes to see better."
+  },
+  "betokening": {
+   "pos": "present participle",
+   "meaning": "Showing clearly that something is true; being a sign of it."
+  },
+  "conservatory": {
+   "pos": "noun",
+   "meaning": "A glass room, kept warm, where plants grow all year. It is part of a rich house."
+  },
+  "listless": {
+   "pos": "adjective",
+   "meaning": "Tired and without interest or energy."
+  },
+  "sallied": {
+   "pos": "past-tense verb",
+   "meaning": "Went out quickly and bravely to do something.",
+   "forms": [
+    "sallied",
+    "sally"
+   ]
+  },
+  "pate": {
+   "pos": "noun",
+   "meaning": "The head, or the top of the head. Here it is a funny word for Laurie's hair-covered head."
+  },
+  "blancmange": {
+   "pos": "uncountable noun",
+   "meaning": "A soft, sweet, white food made from milk. It is cold and smooth and is eaten with a spoon."
+  },
+  "fidgety": {
+   "pos": "adjective",
+   "meaning": "Not able to keep still; always moving and worried."
+  },
+  "elated": {
+   "pos": "adjective",
+   "meaning": "Very happy and proud because something good has happened."
+  },
+  "redoubtable": {
+   "pos": "adjective",
+   "meaning": "Strong, and a little hard to face; a person you must respect."
+  },
+  "evolutions": {
+   "pos": "plural noun",
+   "meaning": "Planned movements. Here the boy makes funny movements to make a girl laugh."
+  },
+  "glowered": {
+   "pos": "past-tense verb",
+   "meaning": "Looked at someone with an angry, dark face.",
+   "forms": [
+    "glowered",
+    "glower"
+   ]
+  },
+  "gruff": {
+   "pos": "adjective",
+   "meaning": "Rough and low in voice or manner, but not truly unkind."
+  },
+  "quaint": {
+   "pos": "adjective",
+   "meaning": "Old-fashioned in a pleasing, interesting way."
+  },
+  "woo": {
+   "pos": "verb",
+   "meaning": "To try to win the love of a person so that she will say yes to marriage."
+  },
+  "benefactor": {
+   "pos": "noun",
+   "meaning": "A person who gives money or help to others."
+  },
+  "indolent": {
+   "pos": "adjective",
+   "meaning": "Not wanting to work; liking to do nothing."
+  },
+  "truant": {
+   "pos": "noun",
+   "meaning": "A child who stays away from school without leave. 'Play truant' means to do this."
+  },
+  "coddling": {
+   "pos": "present participle",
+   "meaning": "Taking too much care of someone, as if he were weak or a baby.",
+   "forms": [
+    "coddling",
+    "coddle"
+   ]
+  },
+  "nunnery": {
+   "pos": "noun",
+   "meaning": "A house where religious women live together. Here it is a joke about the girls' house."
+  },
+  "voraciously": {
+   "pos": "adverb",
+   "meaning": "In a very hungry way, wanting a very large amount."
+  },
+  "enticement": {
+   "pos": "noun",
+   "meaning": "Something nice that is offered to make a person do something.",
+   "forms": [
+    "enticements",
+    "enticement"
+   ]
+  },
+  "anecdote": {
+   "pos": "noun",
+   "meaning": "A short, interesting story about something that really happened."
+  },
+  "crotchety": {
+   "pos": "adjective",
+   "meaning": "Easily made angry and hard to please, in a strange way."
+  },
+  "gesticulating": {
+   "pos": "present participle",
+   "meaning": "Moving the hands and arms a lot to show something.",
+   "forms": [
+    "gesticulating"
+   ]
+  },
+  "unseemly": {
+   "pos": "adjective",
+   "meaning": "Not right or proper for the place or person."
+  },
+  "beatitude": {
+   "pos": "noun",
+   "meaning": "A feeling of perfect happiness."
+  },
+  "puckered": {
+   "pos": "past participle",
+   "meaning": "Pulled into small lines, like cloth that is pulled together.",
+   "forms": [
+    "puckered",
+    "pucker"
+   ]
+  },
+  "crustiness": {
+   "pos": "noun",
+   "meaning": "A rough and unfriendly way of speaking or acting."
+  },
+  "countenance": {
+   "pos": "noun",
+   "meaning": "The face, or the look on a person's face."
+  },
+  "twitted": {
+   "pos": "past-tense verb",
+   "meaning": "Made fun of someone about something, in an unkind way.",
+   "forms": [
+    "twitted",
+    "twit"
+   ]
+  },
+  "contraband": {
+   "pos": "adjective",
+   "meaning": "Not allowed by the rules or the law. Here the teacher uses it for a green fruit that is not allowed at school."
+  },
+  "ferrule": {
+   "pos": "verb",
+   "meaning": "To hit a child's hand with a flat piece of wood, as a school way to make the child sorry."
+  },
+  "confiscated": {
+   "pos": "past participle",
+   "meaning": "Taken away from someone by a teacher or other person in power, because of a rule.",
+   "forms": [
+    "confiscated",
+    "confiscate"
+   ]
+  },
+  "neuralgia": {
+   "pos": "noun",
+   "meaning": "A sharp pain in the face or head."
+  },
+  "exulted": {
+   "pos": "past participle",
+   "meaning": "Felt and showed great happiness, often because someone else has lost something.",
+   "forms": [
+    "exulted",
+    "exult"
+   ]
+  },
+  "inexorable": {
+   "pos": "adjective",
+   "meaning": "Not changed by anyone's feelings; hard and strong."
+  },
+  "portentous": {
+   "pos": "adjective",
+   "meaning": "Giving a sign that something important or bad will come."
+  },
+  "infringed": {
+   "pos": "past participle",
+   "meaning": "Broken. Here it is used for rules.",
+   "forms": [
+    "infringed",
+    "infringe"
+   ]
+  },
+  "ignominious": {
+   "pos": "adjective",
+   "meaning": "Bringing great loss of respect, so that one feels bad."
+  },
+  "benignant": {
+   "pos": "adjective",
+   "meaning": "Kind and gentle in the way a person looks or acts."
+  },
+  "demoiselle": {
+   "pos": "noun",
+   "meaning": "A young lady. It is the French word, used here as a joke for school girls.",
+   "forms": [
+    "demoiselles",
+    "demoiselle"
+   ]
+  },
+  "bridled": {
+   "pos": "past-tense verb",
+   "meaning": "Held the head high and showed anger because of something said.",
+   "forms": [
+    "bridled",
+    "bridle"
+   ]
+  },
+  "fiddlesticks": {
+   "pos": "interjection",
+   "meaning": "A word that means 'what a silly thing to say!'"
+  },
+  "skirmish": {
+   "pos": "noun",
+   "meaning": "A short, small fight.",
+   "forms": [
+    "skirmishes",
+    "skirmish"
+   ]
+  },
+  "curb": {
+   "pos": "verb",
+   "meaning": "To hold back or control."
+  },
+  "fib": {
+   "pos": "noun",
+   "meaning": "A small lie."
+  },
+  "pacify": {
+   "pos": "verb",
+   "meaning": "To make an angry person quiet and happy again."
+  },
+  "breach": {
+   "pos": "noun",
+   "meaning": "A break between people who were friends."
+  },
+  "overtures": {
+   "pos": "plural noun",
+   "meaning": "First steps made to be friends again after a fight.",
+   "forms": [
+    "overtures",
+    "overture"
+   ]
+  },
+  "plume": {
+   "pos": "verb",
+   "meaning": "To feel proud of yourself and show it. 'Plume herself' means feel proud of herself."
+  },
+  "crosspatch": {
+   "pos": "noun",
+   "meaning": "A person who is often cross and in a bad way."
+  },
+  "refractory": {
+   "pos": "adjective",
+   "meaning": "Hard to control; not doing what you want it to do."
+  },
+  "blowzy": {
+   "pos": "adjective",
+   "meaning": "Red in the face, with hair that is not in good order."
+  },
+  "dishevelled": {
+   "pos": "adjective",
+   "meaning": "Not in good order. It is used for hair or clothes."
+  },
+  "fortnight": {
+   "pos": "noun",
+   "meaning": "A period of two weeks."
+  },
+  "dilapidated": {
+   "pos": "adjective",
+   "meaning": "Old, broken and in bad condition."
+  },
+  "tarlatan": {
+   "pos": "noun",
+   "meaning": "A thin, hard cloth, used for light party dresses."
+  },
+  "sacque": {
+   "pos": "noun",
+   "meaning": "A coat that a woman wore, not close to the body."
+  },
+  "irksome": {
+   "pos": "adjective",
+   "meaning": "Making you feel tired and cross; hard and not interesting."
+  },
+  "daunted": {
+   "pos": "adjective",
+   "meaning": "Made to feel afraid or less brave."
+  },
+  "sumptuously": {
+   "pos": "adverb",
+   "meaning": "In a rich and costly way. Here it means eating very well."
+  },
+  "repining": {
+   "pos": "gerund",
+   "meaning": "Feeling sad and saying so, because you do not have something."
+  },
+  "dowdy": {
+   "pos": "adjective",
+   "meaning": "Not fashionable; looking old and not smart."
+  },
+  "talisman": {
+   "pos": "noun",
+   "meaning": "A small thing that people believe will keep them safe from bad things."
+  },
+  "frizzled": {
+   "pos": "adjective",
+   "meaning": "Made into many tiny rings, as hair is.",
+   "forms": [
+    "frizzled",
+    "frizzle"
+   ]
+  },
+  "alacrity": {
+   "pos": "noun",
+   "meaning": "A quick, happy readiness to do something."
+  },
+  "champagne": {
+   "pos": "uncountable noun",
+   "meaning": "A French wine with bubbles, drunk at parties."
+  },
+  "discreetly": {
+   "pos": "adverb",
+   "meaning": "In a careful way, so as not to cause trouble or share a secret."
+  },
+  "unmaidenly": {
+   "pos": "adjective",
+   "meaning": "Not right for a young girl of that time."
+  },
+  "plantation": {
+   "pos": "noun",
+   "meaning": "A large place where one kind of plant is grown. Here Jo plans a big bed of tall yellow flower."
+  },
+  "aspiring": {
+   "pos": "adjective",
+   "meaning": "Growing up high, as if it wants to reach something great."
+  },
+  "mignonette": {
+   "pos": "noun",
+   "meaning": "A garden plant with small, sweet flower."
+  },
+  "larkspur": {
+   "pos": "noun",
+   "meaning": "A tall garden plant with blue or white flower."
+  },
+  "bower": {
+   "pos": "noun",
+   "meaning": "A cool place in a garden, under plants that grow over a stick shape."
+  },
+  "earwiggy": {
+   "pos": "adjective",
+   "meaning": "Full of small insects with sharp parts at the back."
+  },
+  "portfolio": {
+   "pos": "noun",
+   "meaning": "A flat case that holds papers. Here it is the name of the girls' club paper."
+  },
+  "rite": {
+   "pos": "noun",
+   "meaning": "A serious act done in a fixed way, such as at a church."
+  },
+  "troubadour": {
+   "pos": "noun",
+   "meaning": "A man who made love songs and played music long ago."
+  },
+  "alcove": {
+   "pos": "noun",
+   "meaning": "A small part of a room set back in the wall."
+  },
+  "ruse": {
+   "pos": "noun",
+   "meaning": "A clever plan to make people believe something that is not true."
+  },
+  "prostrate": {
+   "pos": "adjective",
+   "meaning": "Lying flat on the ground, face down."
+  },
+  "stratagem": {
+   "pos": "noun",
+   "meaning": "A clever plan used to get something."
+  },
+  "jiffy": {
+   "pos": "noun",
+   "meaning": "A very short time."
+  },
+  "complacently": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you are too pleased with yourself and think there will be no trouble."
+  },
+  "grubbing": {
+   "pos": "gerund",
+   "meaning": "Working hard at jobs that are not fun. Here Jo uses it for hard work."
+  },
+  "larder": {
+   "pos": "noun",
+   "meaning": "A small room or box where food is kept."
+  },
+  "saleratus": {
+   "pos": "uncountable noun",
+   "meaning": "A white thing put in food so that it gets big and light when it is cooked."
+  },
+  "palatable": {
+   "pos": "adjective",
+   "meaning": "Good to eat; nice in taste."
+  },
+  "viands": {
+   "pos": "plural noun",
+   "meaning": "Food. An old word."
+  },
+  "chagrin": {
+   "pos": "noun",
+   "meaning": "A feeling of anger and being upset because you have failed."
+  },
+  "culinary": {
+   "pos": "adjective",
+   "meaning": "Having to do with cooking."
+  },
+  "spinster": {
+   "pos": "noun",
+   "meaning": "A woman who is not married and is no longer young."
+  },
+  "tartly": {
+   "pos": "adverb",
+   "meaning": "In a sharp, unkind way of speaking."
+  },
+  "meagre": {
+   "pos": "adjective",
+   "meaning": "Too small in amount; not enough."
+  },
+  "deaconed": {
+   "pos": "past participle",
+   "meaning": "Made to look better than it is, by putting the best fruit on the top. Here the fruit looks good but is not.",
+   "forms": [
+    "deaconed"
+   ]
+  },
+  "precipitately": {
+   "pos": "adverb",
+   "meaning": "Very fast, without thinking or waiting."
+  },
+  "assuaged": {
+   "pos": "past participle",
+   "meaning": "Made less strong. Used for pain or sad feelings.",
+   "forms": [
+    "assuaged",
+    "assuage"
+   ]
+  },
+  "ennui": {
+   "pos": "uncountable noun",
+   "meaning": "A tired feeling because you have nothing to do and are not interested. A French word."
+  },
+  "furbish": {
+   "pos": "verb",
+   "meaning": "To clean and make something old look new again."
+  },
+  "nosegay": {
+   "pos": "noun",
+   "meaning": "A small group of sweet flower."
+  },
+  "gingham": {
+   "pos": "uncountable noun",
+   "meaning": "Cloth with small squares on it."
+  },
+  "commendation": {
+   "pos": "noun",
+   "meaning": "Words that say that someone has done well."
+  },
+  "anointed": {
+   "pos": "past-tense verb",
+   "meaning": "Put oil on the skin.",
+   "forms": [
+    "anointed"
+   ]
+  },
+  "atone": {
+   "pos": "verb",
+   "meaning": "To do something to make up for a wrong."
+  },
+  "remonstrated": {
+   "pos": "past-tense verb",
+   "meaning": "Said that she did not agree and asked someone not to do something.",
+   "forms": [
+    "remonstrated"
+   ]
+  },
+  "wherry": {
+   "pos": "noun",
+   "meaning": "A light, small boat that people move with long sticks."
+  },
+  "aversion": {
+   "pos": "noun",
+   "meaning": "A strong dislike."
+  },
+  "ubiquitous": {
+   "pos": "adjective",
+   "meaning": "Seeming to be in every place at the same time."
+  },
+  "venerable": {
+   "pos": "adjective",
+   "meaning": "Old and worth respect."
+  },
+  "ruinous": {
+   "pos": "adjective",
+   "meaning": "Broken down and falling to pieces."
+  },
+  "sepulchral": {
+   "pos": "adjective",
+   "meaning": "Deep, low and sad, like a voice from under the ground."
+  },
+  "rigmarole": {
+   "pos": "noun",
+   "meaning": "A long, silly story that goes on and on. Here it is the name of a game in which each person adds to a story."
+  },
+  "lackadaisical": {
+   "pos": "adjective",
+   "meaning": "Showing a weak, dream-like way of acting, as if too tired or too sad to care."
+  },
+  "patronizing": {
+   "pos": "adjective",
+   "meaning": "Acting kind but showing that you think you are better than the other person."
+  },
+  "fastidious": {
+   "pos": "adjective",
+   "meaning": "Hard to please; careful about small things."
+  },
+  "impromptu": {
+   "pos": "adjective",
+   "meaning": "Done without any plan or practice."
+  },
+  "shirked": {
+   "pos": "past-tense verb",
+   "meaning": "Avoided work that he should have done.",
+   "forms": [
+    "shirked",
+    "shirk"
+   ]
+  },
+  "aromatic": {
+   "pos": "adjective",
+   "meaning": "Sweet to the nose, in a strong way."
+  },
+  "hemlock": {
+   "pos": "noun",
+   "meaning": "A kind of tree with soft green leaves that stay green all year, and with small, hard cases that hold its seed."
+  },
+  "espied": {
+   "pos": "past-tense verb",
+   "meaning": "Saw something, often something hard to see.",
+   "forms": [
+    "espied",
+    "espy"
+   ]
+  },
+  "stints": {
+   "pos": "plural noun",
+   "meaning": "Fixed amounts of work that a person has to finish.",
+   "forms": [
+    "stints",
+    "stint"
+   ]
+  },
+  "delectable": {
+   "pos": "adjective",
+   "meaning": "Very nice. In the story it is the name the girls give their hill."
+  },
+  "musingly": {
+   "pos": "adverb",
+   "meaning": "In a thoughtful way, as if dreaming."
+  },
+  "steed": {
+   "pos": "noun",
+   "meaning": "A horse, especially a fine one. An old, grand word.",
+   "forms": [
+    "steeds",
+    "steed"
+   ]
+  },
+  "brake": {
+   "pos": "noun",
+   "meaning": "A thick group of tall plants. Here Meg holds a group of them in front of her face."
+  },
+  "subjection": {
+   "pos": "noun",
+   "meaning": "The state of being ruled and having to do what someone says."
+  },
+  "pique": {
+   "pos": "noun",
+   "meaning": "A short feeling of anger because someone has hurt your feelings."
+  },
+  "receptacle": {
+   "pos": "noun",
+   "meaning": "A container for keeping things in."
+  },
+  "ordeal": {
+   "pos": "noun",
+   "meaning": "A hard, painful experience that you must go through."
+  },
+  "nettled": {
+   "pos": "adjective",
+   "meaning": "Slightly angry because of something that was said."
+  },
+  "bandbox": {
+   "pos": "noun",
+   "meaning": "A round box made of thin board, used to keep a woman's things for the head."
+  },
+  "wheedler": {
+   "pos": "noun",
+   "meaning": "A person who gets what he wants by saying sweet things he does not mean."
+  },
+  "plummy": {
+   "pos": "adjective",
+   "meaning": "Very good and nice. Here Laurie uses it for an interesting piece of news."
+  },
+  "woebegone": {
+   "pos": "adjective",
+   "meaning": "Looking very sad."
+  },
+  "jubilee": {
+   "pos": "noun",
+   "meaning": "A time of great happiness and a party."
+  },
+  "bedewed": {
+   "pos": "past-tense verb",
+   "meaning": "Made wet with small drops. Here it means wet with water from the eyes.",
+   "forms": [
+    "bedewed",
+    "bedew"
+   ]
+  },
+  "billiard": {
+   "pos": "noun",
+   "meaning": "A game played on a big table with balls and long sticks. In those days a billiard room was a place respectable girls thought bad."
+  },
+  "treadmill": {
+   "pos": "noun",
+   "meaning": "A big round thing that people or animals walk on and never get anywhere. Here it means days that never change."
+  },
+  "heiress": {
+   "pos": "noun",
+   "meaning": "A woman who will get a lot of money from a family member when that person dies."
+  },
+  "despondent": {
+   "pos": "adjective",
+   "meaning": "Very sad and without hope."
+  },
+  "spatted": {
+   "pos": "past-tense verb",
+   "meaning": "Hit with the flat hand, quickly and many times.",
+   "forms": [
+    "spatted",
+    "spat"
+   ]
+  },
+  "panacea": {
+   "pos": "noun",
+   "meaning": "Something that people believe will fix every trouble."
+  },
+  "perturbed": {
+   "pos": "adjective",
+   "meaning": "Worried and upset."
+  },
+  "fleet": {
+   "pos": "adjective",
+   "meaning": "Very fast."
+  },
+  "cropped": {
+   "pos": "adjective",
+   "meaning": "Cut very short."
+  },
+  "ninepence": {
+   "pos": "noun",
+   "meaning": "A small amount of money; nine small pieces of old English money."
+  },
+  "coverlid": {
+   "pos": "noun",
+   "meaning": "A cover for a bed."
+  },
+  "fervent": {
+   "pos": "adjective",
+   "meaning": "Very strong and honest in feeling."
+  },
+  "solace": {
+   "pos": "noun",
+   "meaning": "Help that you get when you are sad or in trouble."
+  },
+  "prudent": {
+   "pos": "adjective",
+   "meaning": "Careful and sensible in what you do."
+  },
+  "lamentation": {
+   "pos": "noun",
+   "meaning": "Loud crying that shows great sadness."
+  },
+  "bulletin": {
+   "pos": "noun",
+   "meaning": "A short, official report that gives the latest news."
+  },
+  "despatch": {
+   "pos": "noun",
+   "meaning": "An official message sent quickly.",
+   "forms": [
+    "despatches",
+    "despatch"
+   ]
+  },
+  "mandarin": {
+   "pos": "noun",
+   "meaning": "A play man whose head moves up and down."
+  },
+  "detains": {
+   "pos": "third-person verb",
+   "meaning": "Keeps someone in a place for longer than he wants.",
+   "forms": [
+    "detains",
+    "detain"
+   ]
+  },
+  "forehanded": {
+   "pos": "adjective",
+   "meaning": "Careful to be ready in good time; thinking ahead."
+  },
+  "didoes": {
+   "pos": "plural noun",
+   "meaning": "Silly jokes and games. Here Hannah uses it for the way Laurie plays.",
+   "forms": [
+    "didoes"
+   ]
+  },
+  "pewmonia": {
+   "pos": "noun",
+   "meaning": "A wrong way of saying the name of a very bad sickness that makes it hard to take air in."
+  },
+  "picket": {
+   "pos": "noun",
+   "meaning": "A man who guards a camp at night. 'Picket duty' means this job."
+  },
+  "insensibly": {
+   "pos": "adverb",
+   "meaning": "Slowly, without noticing it."
+  },
+  "praiseworthy": {
+   "pos": "adjective",
+   "meaning": "Good enough that people should say well done."
+  },
+  "pendulum": {
+   "pos": "noun",
+   "meaning": "The part that moves from side to side in a machine that tells the time, and keeps it going."
+  },
+  "relapse": {
+   "pos": "noun",
+   "meaning": "A return to a bad way after a time of getting better.",
+   "forms": [
+    "relapses",
+    "relapse"
+   ]
+  },
+  "belladonna": {
+   "pos": "noun",
+   "meaning": "A medicine made from a plant that can kill. At that time people took it to try to stop a bad sickness with red skin."
+  },
+  "camphor": {
+   "pos": "uncountable noun",
+   "meaning": "A white thing with a sharp, strong feel in the nose, used in medicine."
+  },
+  "wheedlesome": {
+   "pos": "adjective",
+   "meaning": "Sweet and soft in speech, trying to get someone to agree."
+  },
+  "stamina": {
+   "pos": "uncountable noun",
+   "meaning": "The strength to keep going for a long time and stay healthy."
+  },
+  "gallivanting": {
+   "pos": "present participle",
+   "meaning": "Going about for fun with no plan."
+  },
+  "incoherent": {
+   "pos": "adjective",
+   "meaning": "Not clear and not making sense, because the person is ill or mixed up."
+  },
+  "stupor": {
+   "pos": "noun",
+   "meaning": "A heavy, sleep-like state in which a person cannot think or feel."
+  },
+  "piteous": {
+   "pos": "adjective",
+   "meaning": "Very sad to see; making you feel sorry for someone."
+  },
+  "parched": {
+   "pos": "adjective",
+   "meaning": "Very dry, because you are very hot or have not had a drink."
+  },
+  "wan": {
+   "pos": "adjective",
+   "meaning": "Looking tired and not well, with a white face."
+  },
+  "vigil": {
+   "pos": "noun",
+   "meaning": "A time of staying up at night to watch over someone."
+  },
+  "pallor": {
+   "pos": "uncountable noun",
+   "meaning": "A very white face, from illness or fear."
+  },
+  "hysterically": {
+   "pos": "adverb",
+   "meaning": "In a wild way that you cannot control, between laughing and crying."
+  },
+  "electrified": {
+   "pos": "past-tense verb",
+   "meaning": "Gave someone a sudden, strong surprise.",
+   "forms": [
+    "electrified"
+   ]
+  },
+  "prosy": {
+   "pos": "adjective",
+   "meaning": "Long and not interesting, with nothing new in it."
+  },
+  "docile": {
+   "pos": "adjective",
+   "meaning": "Quiet and easy to teach or control."
+  },
+  "counteract": {
+   "pos": "verb",
+   "meaning": "To work against something so as to stop its effect."
+  },
+  "reprehensible": {
+   "pos": "adjective",
+   "meaning": "Bad enough that people say it is wrong."
+  },
+  "hoarded": {
+   "pos": "past-tense verb",
+   "meaning": "Kept and saved many things, often more than needed.",
+   "forms": [
+    "hoarded",
+    "hoard"
+   ]
+  },
+  "affianced": {
+   "pos": "adjective",
+   "meaning": "Promised to be married."
+  },
+  "turban": {
+   "pos": "noun",
+   "meaning": "A long cloth that is wrapped round the head."
+  },
+  "brocade": {
+   "pos": "noun",
+   "meaning": "Rich, heavy cloth with a raised picture in it, often with gold or silver."
+  },
+  "rosary": {
+   "pos": "noun",
+   "meaning": "A string of round pieces that some people use when they speak to God."
+  },
+  "covet": {
+   "pos": "verb",
+   "meaning": "To want something very much that is someone else's."
+  },
+  "bequeath": {
+   "pos": "verb",
+   "meaning": "To give your money or things to someone after you die.",
+   "forms": [
+    "bequeathe",
+    "bequeethe"
+   ]
+  },
+  "codicil": {
+   "pos": "noun",
+   "meaning": "A short note added to a will, to change it or add to it.",
+   "forms": [
+    "codicils"
+   ]
+  },
+  "reposeful": {
+   "pos": "adjective",
+   "meaning": "Quiet and restful; full of peace."
+  },
+  "miser": {
+   "pos": "noun",
+   "meaning": "A person who loves money and keeps it all for himself, never spending it."
+  },
+  "affable": {
+   "pos": "adjective",
+   "meaning": "Friendly and easy to talk to."
+  },
+  "benignity": {
+   "pos": "noun",
+   "meaning": "Kindness and gentleness."
+  },
+  "privations": {
+   "pos": "plural noun",
+   "meaning": "The lack of things that you need, such as food, heat or nice things.",
+   "forms": [
+    "privations",
+    "privation"
+   ]
+  },
+  "weathercock": {
+   "pos": "noun",
+   "meaning": "A person who changes his mind or feelings very often. Mrs. March uses it for Laurie."
+  },
+  "disconsolate": {
+   "pos": "adjective",
+   "meaning": "Very sad and with no one to help."
+  },
+  "crisscross": {
+   "pos": "adverb",
+   "meaning": "In a wrong, mixed-up way, with lines going across each other."
+  },
+  "incorrigible": {
+   "pos": "adjective",
+   "meaning": "Not able to be changed or made better, because of a bad way of acting."
+  },
+  "retaliation": {
+   "pos": "uncountable noun",
+   "meaning": "Something bad that you do to pay back someone who did something bad to you."
+  },
+  "disapprobation": {
+   "pos": "uncountable noun",
+   "meaning": "A strong feeling that something is wrong and bad."
+  },
+  "cavalier": {
+   "pos": "adjective",
+   "meaning": "Not caring about what other people feel; rude and careless in the way of speaking."
+  },
+  "insinuatingly": {
+   "pos": "adverb",
+   "meaning": "In a clever, soft way, not saying things straight, to get what you want."
+  },
+  "propitiate": {
+   "pos": "verb",
+   "meaning": "To make an angry person feel more friendly by doing something nice."
+  },
+  "testiness": {
+   "pos": "uncountable noun",
+   "meaning": "A quick, cross way of getting angry about small things."
+  },
+  "decorous": {
+   "pos": "adjective",
+   "meaning": "Polite and proper in behavior."
+  },
+  "penance": {
+   "pos": "noun",
+   "meaning": "A hard thing you do to yourself to show that you are sorry.",
+   "forms": [
+    "penances",
+    "penance"
+   ]
+  },
+  "abase": {
+   "pos": "verb",
+   "meaning": "To make yourself seem low and small, to show you are sorry."
+  },
+  "unquenchables": {
+   "pos": "plural noun",
+   "meaning": "Here it is the name Jo and Laurie give themselves: people whose happy, playful plans cannot be stopped.",
+   "forms": [
+    "unquenchables"
+   ]
+  },
+  "merino": {
+   "pos": "uncountable noun",
+   "meaning": "A soft, fine cloth made from the hair of a farm animal with thick, soft hair."
+  },
+  "afghan": {
+   "pos": "noun",
+   "meaning": "A warm cover made from thick, soft hair of a farm animal, in many bright colors."
+  },
+  "stampede": {
+   "pos": "noun",
+   "meaning": "A sudden run of many people at once, with a lot of noise."
+  },
+  "estimable": {
+   "pos": "adjective",
+   "meaning": "Good and worth respect."
+  },
+  "blemish": {
+   "pos": "noun",
+   "meaning": "A small spot that makes something look worse.",
+   "forms": [
+    "blemishes",
+    "blemish"
+   ]
+  },
+  "reminisced": {
+   "pos": "past-tense verb",
+   "meaning": "Talked about happy things from the past.",
+   "forms": [
+    "reminisced"
+   ]
+  },
+  "jungfrau": {
+   "pos": "noun",
+   "meaning": "A word from another language for a young girl. Here it is the name for the cold white girl figure that Jo and Laurie made in the garden."
+  },
+  "boon": {
+   "pos": "noun",
+   "meaning": "Something good that you ask for; a great help."
+  },
+  "philander": {
+   "pos": "verb",
+   "meaning": "To play at love in a light, silly way. Here Jo says it is fun to watch other people do it."
+  },
+  "coquetry": {
+   "pos": "uncountable noun",
+   "meaning": "The way a girl acts so that a man likes her, but with no real love."
+  },
+  "capricious": {
+   "pos": "adjective",
+   "meaning": "Changing suddenly, without a good reason."
+  },
+  "peremptorily": {
+   "pos": "adverb",
+   "meaning": "In a way that allows no one to say no; as an order."
+  },
+  "perversity": {
+   "pos": "uncountable noun",
+   "meaning": "A wish to do what is not wanted of you."
+  },
+  "dudgeon": {
+   "pos": "noun",
+   "meaning": "A feeling of anger because someone has been rude to you. 'In high dudgeon' means very angry."
+  },
+  "transfixed": {
+   "pos": "past participle",
+   "meaning": "Held still, because of great surprise or fear.",
+   "forms": [
+    "transfixed"
+   ]
+  },
+  "abject": {
+   "pos": "adjective",
+   "meaning": "Very low, with no good opinion of yourself."
+  },
+  "delusion": {
+   "pos": "noun",
+   "meaning": "A wrong idea that you hold strongly."
+  },
+  "premise": {
+   "pos": "verb",
+   "meaning": "To say something first, before the main part of the story."
+  },
+  "august": {
+   "pos": "adjective",
+   "meaning": "Grand and worth great respect."
+  },
+  "bookkeeper": {
+   "pos": "noun",
+   "meaning": "A person whose job is to write down in books the money a business gets and spends."
+  },
+  "dandified": {
+   "pos": "adjective",
+   "meaning": "Too careful about clothes; dressing in a very fine way."
+  },
+  "hazed": {
+   "pos": "past-tense verb",
+   "meaning": "Played rough or unkind games on new students at college.",
+   "forms": [
+    "hazed",
+    "haze"
+   ]
+  },
+  "profusion": {
+   "pos": "noun",
+   "meaning": "A very large amount of something."
+  },
+  "infallible": {
+   "pos": "adjective",
+   "meaning": "Never wrong; sure to work."
+  },
+  "expatiating": {
+   "pos": "present participle",
+   "meaning": "Talking for a long time about something."
+  },
+  "degenerate": {
+   "pos": "adjective",
+   "meaning": "Becoming worse than in the past."
+  },
+  "pinafore": {
+   "pos": "noun",
+   "meaning": "A cover with no arms, worn over a dress to keep it clean."
+  },
+  "damask": {
+   "pos": "uncountable noun",
+   "meaning": "A fine, shiny cloth with a picture in it, used for table covers."
+  },
+  "whatnot": {
+   "pos": "noun",
+   "meaning": "A light stand with open places, one over the other, for small things."
+  },
+  "loath": {
+   "pos": "adjective",
+   "meaning": "Not willing; not wanting to do something."
+  },
+  "indecorous": {
+   "pos": "adjective",
+   "meaning": "Not polite or proper for the time and place."
+  },
+  "moire": {
+   "pos": "uncountable noun",
+   "meaning": "A fine cloth with a look like water moving."
+  },
+  "salver": {
+   "pos": "noun",
+   "meaning": "A flat metal thing for carrying glasses or food."
+  },
+  "nectar": {
+   "pos": "uncountable noun",
+   "meaning": "In old stories, the sweet drink of the gods. Here it is a joke word for the drinks at the wedding."
+  },
+  "quakeress": {
+   "pos": "noun",
+   "meaning": "A woman of the Quaker religion, who wore simple, soft-colored clothes."
+  },
+  "tribute": {
+   "pos": "noun",
+   "meaning": "Something given to show love, thanks or respect."
+  },
+  "cravat": {
+   "pos": "noun",
+   "meaning": "A cloth that a man wears round his neck."
+  },
+  "wrought": {
+   "pos": "past participle",
+   "meaning": "Made or brought about. Here it is used for the changes that time has made.",
+   "forms": [
+    "wrought"
+   ]
+  },
+  "tribulation": {
+   "pos": "uncountable noun",
+   "meaning": "Great trouble and pain."
+  },
+  "audacity": {
+   "pos": "uncountable noun",
+   "meaning": "A brave, rude way of acting that does not fear what others think."
+  },
+  "conflagration": {
+   "pos": "noun",
+   "meaning": "A large and dangerous fire."
+  },
+  "promiscuously": {
+   "pos": "adverb",
+   "meaning": "Here and there, without order or care."
+  },
+  "ardor": {
+   "pos": "uncountable noun",
+   "meaning": "Strong, warm feeling, or great wish to do something."
+  },
+  "lurid": {
+   "pos": "adjective",
+   "meaning": "Very bright in a strange, bad way."
+  },
+  "ogress": {
+   "pos": "noun",
+   "meaning": "A woman in old stories who is a bad, giant monster."
+  },
+  "feasible": {
+   "pos": "adjective",
+   "meaning": "Possible to do."
+  },
+  "suavity": {
+   "pos": "uncountable noun",
+   "meaning": "A smooth and polite way of acting."
+  },
+  "foible": {
+   "pos": "noun",
+   "meaning": "A small weakness or silly way of acting in a person's character.",
+   "forms": [
+    "foibles",
+    "foible"
+   ]
+  },
+  "surfeit": {
+   "pos": "noun",
+   "meaning": "Too much of something, especially food."
+  },
+  "vortex": {
+   "pos": "noun",
+   "meaning": "A fast turn, like water going round and round. Here Jo uses it for a time when she writes and writes."
+  },
+  "afflatus": {
+   "pos": "noun",
+   "meaning": "A strong flow of ideas that seems to come from a higher power."
+  },
+  "rakishly": {
+   "pos": "adverb",
+   "meaning": "In a careless, brave way, a little to one side."
+  },
+  "askew": {
+   "pos": "adverb",
+   "meaning": "Not straight; to one side."
+  },
+  "matrons": {
+   "pos": "plural noun",
+   "meaning": "Older married women, who look serious and proper."
+  },
+  "tatting": {
+   "pos": "uncountable noun",
+   "meaning": "A kind of fine cloth with holes in it, made by hand."
+  },
+  "bandana": {
+   "pos": "noun",
+   "meaning": "A large cloth, often red or yellow, that people wear on the head or round the neck."
+  },
+  "labyrinth": {
+   "pos": "noun",
+   "meaning": "A place with so many ways that it is easy to get lost."
+  },
+  "denouement": {
+   "pos": "noun",
+   "meaning": "The end of a story, where all is made clear."
+  },
+  "elopement": {
+   "pos": "noun",
+   "meaning": "Running away secretly to get married."
+  },
+  "digress": {
+   "pos": "verb",
+   "meaning": "To move away from the main subject while talking or writing."
+  },
+  "perusal": {
+   "pos": "noun",
+   "meaning": "The act of reading something with care."
+  },
+  "ruthlessly": {
+   "pos": "adverb",
+   "meaning": "With no feeling for the pain of others."
+  },
+  "dyspeptic": {
+   "pos": "adjective",
+   "meaning": "Having a bad stomach because of food that is too rich."
+  },
+  "bounteous": {
+   "pos": "adjective",
+   "meaning": "Very kind in giving; more than enough."
+  },
+  "frugal": {
+   "pos": "adjective",
+   "meaning": "Careful not to spend much money."
+  },
+  "pungent": {
+   "pos": "adjective",
+   "meaning": "Having a strong, sharp taste or nose feeling."
+  },
+  "derisive": {
+   "pos": "adjective",
+   "meaning": "Showing that you think someone is silly; laughing at them."
+  },
+  "furbelows": {
+   "pos": "plural noun",
+   "meaning": "Extra pieces of cloth on a dress, for show."
+  },
+  "countermanded": {
+   "pos": "past-tense verb",
+   "meaning": "Said no to an order that was given before.",
+   "forms": [
+    "countermanded",
+    "countermand"
+   ]
+  },
+  "gingerly": {
+   "pos": "adverb",
+   "meaning": "In a very careful way, as if afraid of breaking something."
+  },
+  "greatcoat": {
+   "pos": "noun",
+   "meaning": "A long, heavy coat worn in cold weather."
+  },
+  "phlegm": {
+   "pos": "uncountable noun",
+   "meaning": "A quiet way of acting that does not get excited."
+  },
+  "conducive": {
+   "pos": "adjective",
+   "meaning": "Helping to bring about a certain result."
+  },
+  "repose": {
+   "pos": "uncountable noun",
+   "meaning": "Rest; a quiet state."
+  },
+  "assuage": {
+   "pos": "verb",
+   "meaning": "To make a pain or bad feeling less strong."
+  },
+  "bemoan": {
+   "pos": "verb",
+   "meaning": "To show sadness about something with loud, sorry words."
+  },
+  "mantua": {
+   "pos": "noun",
+   "meaning": "A woman's dress that is not close to the body. A 'mantua-maker' makes dresses."
+  },
+  "organdie": {
+   "pos": "uncountable noun",
+   "meaning": "A very thin, hard cloth, used for summer dresses."
+  },
+  "demure": {
+   "pos": "adjective",
+   "meaning": "Quiet and serious in a polite way, often to look good."
+  },
+  "blandly": {
+   "pos": "adverb",
+   "meaning": "In a smooth way that shows no feeling."
+  },
+  "volubly": {
+   "pos": "adverb",
+   "meaning": "In a way that talks a lot and very fast."
+  },
+  "effusion": {
+   "pos": "uncountable noun",
+   "meaning": "A showing of feeling that is too strong and goes on too long."
+  },
+  "connoisseur": {
+   "pos": "noun",
+   "meaning": "A person who knows a lot about art or fine things and can judge them well."
+  },
+  "mollified": {
+   "pos": "past participle",
+   "meaning": "Made less angry.",
+   "forms": [
+    "mollified"
+   ]
+  },
+  "puritanical": {
+   "pos": "adjective",
+   "meaning": "Too hard about what is right and wrong, and against fun."
+  },
+  "morose": {
+   "pos": "adjective",
+   "meaning": "Sad, cross and quiet."
+  },
+  "brusque": {
+   "pos": "adjective",
+   "meaning": "Quick and rude in speaking, with no polite words."
+  },
+  "parasol": {
+   "pos": "noun",
+   "meaning": "A light cover that a woman holds up to keep the sun off her."
+  },
+  "irreproachable": {
+   "pos": "adjective",
+   "meaning": "Perfect; with nothing that anyone can find wrong."
+  },
+  "ravishing": {
+   "pos": "adjective",
+   "meaning": "Very beautiful and lovely."
+  },
+  "akimbo": {
+   "pos": "adverb",
+   "meaning": "With hands on the sides of the body and the arms pointing out."
+  },
+  "eclipsed": {
+   "pos": "past-tense verb",
+   "meaning": "Was so good that it made another thing look less good.",
+   "forms": [
+    "eclipsed",
+    "eclipse"
+   ]
+  },
+  "rankled": {
+   "pos": "past-tense verb",
+   "meaning": "Kept causing a bitter, angry feeling for a long time.",
+   "forms": [
+    "rankled",
+    "rankle"
+   ]
+  },
+  "expediency": {
+   "pos": "uncountable noun",
+   "meaning": "Doing what is useful for a plan, even if it is not fair."
+  },
+  "disconsolately": {
+   "pos": "adverb",
+   "meaning": "In a very sad way that no one can change."
+  },
+  "vellum": {
+   "pos": "uncountable noun",
+   "meaning": "A fine kind of paper made from animal skin, used for special books."
+  },
+  "illuminated": {
+   "pos": "past participle",
+   "meaning": "Drawn with bright colors and gold, like the big letters in old books.",
+   "forms": [
+    "illuminated",
+    "illuminate",
+    "illuminations"
+   ]
+  },
+  "conciliatory": {
+   "pos": "adjective",
+   "meaning": "Meant to stop a fight and make peace."
+  },
+  "phalanx": {
+   "pos": "noun",
+   "meaning": "A close group of people moving together, like soldiers."
+  },
+  "repinings": {
+   "pos": "plural noun",
+   "meaning": "Sad words about not having something."
+  },
+  "magnanimous": {
+   "pos": "adjective",
+   "meaning": "Very kind and good, especially to an enemy."
+  },
+  "uncharitableness": {
+   "pos": "uncountable noun",
+   "meaning": "Being unkind in thought about other people."
+  },
+  "hansom": {
+   "pos": "noun",
+   "meaning": "A light coach, pulled by one horse, that anyone can pay to ride in. It moves on two big round parts, and the driver sits up behind."
+  },
+  "barouche": {
+   "pos": "noun",
+   "meaning": "A fine open coach, pulled by horses, with a top that can be pushed back."
+  },
+  "postilions": {
+   "pos": "plural noun",
+   "meaning": "Men who ride one of the horses that pull a coach, to guide them."
+  },
+  "dowagers": {
+   "pos": "plural noun",
+   "meaning": "Old ladies of high position, often women whose husbands have died."
+  },
+  "colliery": {
+   "pos": "noun",
+   "meaning": "A place where men get black fuel from under the ground."
+  },
+  "gallows": {
+   "pos": "noun",
+   "meaning": "A wood structure on which bad people were killed with a rope."
+  },
+  "bootblack": {
+   "pos": "noun",
+   "meaning": "A person, often a boy, who cleans people's shoes for money."
+  },
+  "latticed": {
+   "pos": "adjective",
+   "meaning": "Having crossed pieces of wood or metal, as in an old window."
+  },
+  "mercenary": {
+   "pos": "adjective",
+   "meaning": "Thinking too much about money."
+  },
+  "mortifies": {
+   "pos": "verb",
+   "meaning": "Makes someone feel very bad about themselves."
+  },
+  "peppery": {
+   "pos": "adjective",
+   "meaning": "Quick to get angry."
+  },
+  "biddies": {
+   "pos": "plural noun",
+   "meaning": "Birds that give eggs. The word can also mean old women who talk a lot."
+  },
+  "woodbine": {
+   "pos": "noun",
+   "meaning": "A plant that goes up walls, with sweet flower."
+  },
+  "evaded": {
+   "pos": "past-tense verb",
+   "meaning": "Got away from a question without a direct answer.",
+   "forms": [
+    "evaded",
+    "evade"
+   ]
+  },
+  "disquietude": {
+   "pos": "uncountable noun",
+   "meaning": "A feeling of worry and not being at peace."
+  },
+  "conjectures": {
+   "pos": "plural noun",
+   "meaning": "Guesses made with little proof."
+  },
+  "reverie": {
+   "pos": "noun",
+   "meaning": "A state of thinking about nice things, like a dream."
+  },
+  "pummelled": {
+   "pos": "past participle",
+   "meaning": "Hit again and again with the hands or something hard.",
+   "forms": [
+    "pummelled",
+    "pummel"
+   ]
+  },
+  "coxcomb": {
+   "pos": "noun",
+   "meaning": "A silly young man who is too proud of his looks and clothes."
+  },
+  "eligible": {
+   "pos": "adjective",
+   "meaning": "Good enough to be chosen, especially as a husband, because of money or position."
+  },
+  "admonitory": {
+   "pos": "adjective",
+   "meaning": "Giving a warning or a gentle telling-off."
+  },
+  "acquiesced": {
+   "pos": "past-tense verb",
+   "meaning": "Agreed to something without saying no.",
+   "forms": [
+    "acquiesced",
+    "acquiesce"
+   ]
+  },
+  "assiduity": {
+   "pos": "uncountable noun",
+   "meaning": "Great care and attention that does not stop."
+  },
+  "patriarch": {
+   "pos": "noun",
+   "meaning": "A very old and respected man who is the head of a family."
+  },
+  "horsehair": {
+   "pos": "uncountable noun",
+   "meaning": "Hair from a horse, used in chairs."
+  },
+  "insinuating": {
+   "pos": "adjective",
+   "meaning": "Trying in a clever, soft way to make someone like you."
+  },
+  "slipshod": {
+   "pos": "adjective",
+   "meaning": "Careless and not in good order, as in speech."
+  },
+  "gabble": {
+   "pos": "noun",
+   "meaning": "Fast talk that is hard to understand."
+  },
+  "rummaging": {
+   "pos": "present participle",
+   "meaning": "Searching for something by turning things over.",
+   "forms": [
+    "rummaging",
+    "rummage"
+   ]
+  },
+  "meerschaum": {
+   "pos": "noun",
+   "meaning": "A soft, white stone. Here it means a thing for smoking made from this stone."
+  },
+  "hyacinth": {
+   "pos": "noun",
+   "meaning": "A spring flower, sweet to the nose, that grows from a round thing under the ground."
+  },
+  "standish": {
+   "pos": "noun",
+   "meaning": "A stand that holds the things used for writing on a table."
+  },
+  "brocades": {
+   "pos": "plural noun",
+   "meaning": "Rich, heavy cloth with a raised picture in it, often with gold or silver."
+  },
+  "whippersnappers": {
+   "pos": "plural noun",
+   "meaning": "Young people who think they are important, but are not."
+  },
+  "effervescence": {
+   "pos": "uncountable noun",
+   "meaning": "Lively, happy feeling that bubbles up."
+  },
+  "roughshod": {
+   "pos": "adverb",
+   "meaning": "In a hard way, with no care for others' feelings. 'Ride roughshod over' someone means to treat him badly."
+  },
+  "boggled": {
+   "pos": "past participle",
+   "meaning": "Done badly, so that it is out of shape.",
+   "forms": [
+    "boggled",
+    "boggle"
+   ]
+  },
+  "kobolds": {
+   "pos": "plural noun",
+   "meaning": "In German stories, small spirits who live in houses or under the ground."
+  },
+  "bashful": {
+   "pos": "adjective",
+   "meaning": "Not comfortable with people; easily upset in front of them."
+  },
+  "concocted": {
+   "pos": "past-tense verb",
+   "meaning": "Made up a story or plan by putting ideas together.",
+   "forms": [
+    "concocted",
+    "concoct"
+   ]
+  },
+  "discomfiture": {
+   "pos": "uncountable noun",
+   "meaning": "A feeling of being upset and mixed up when things go wrong."
+  },
+  "banditti": {
+   "pos": "plural noun",
+   "meaning": "Bad men who live in the hills and take things from people on the road."
+  },
+  "emaciated": {
+   "pos": "adjective",
+   "meaning": "Very thin because of too little food. Here it is a joke about a bag with no money in it."
+  },
+  "harrowing": {
+   "pos": "present participle",
+   "meaning": "Causing great fear or pain in the mind.",
+   "forms": [
+    "harrowing",
+    "harrow"
+   ]
+  },
+  "didactic": {
+   "pos": "adjective",
+   "meaning": "Meant to teach, especially about right and wrong."
+  },
+  "lucre": {
+   "pos": "uncountable noun",
+   "meaning": "Money, as something low. It is a joke name for money."
+  },
+  "inconsolable": {
+   "pos": "adjective",
+   "meaning": "So sad that no one can make them feel better."
+  },
+  "levee": {
+   "pos": "noun",
+   "meaning": "A party where many people come to meet an important person."
+  },
+  "inflammable": {
+   "pos": "adjective",
+   "meaning": "Easy to set on fire. Here it means very easy to move to strong feeling."
+  },
+  "cumbrous": {
+   "pos": "adjective",
+   "meaning": "Heavy and hard to move in."
+  },
+  "threshold": {
+   "pos": "noun",
+   "meaning": "The bottom part of a door, where you step in."
+  },
+  "novice": {
+   "pos": "noun",
+   "meaning": "A person who is new to a job and has little experience."
+  },
+  "allayed": {
+   "pos": "past-tense verb",
+   "meaning": "Made a fear or worry less strong.",
+   "forms": [
+    "allayed",
+    "allay"
+   ]
+  },
+  "stalwart": {
+   "pos": "adjective",
+   "meaning": "Tall, strong and brave."
+  },
+  "stile": {
+   "pos": "noun",
+   "meaning": "Steps over a wall, so that people can cross but animals cannot."
+  },
+  "impetuosity": {
+   "pos": "uncountable noun",
+   "meaning": "Acting fast and with strong feeling, without thinking first."
+  },
+  "decapitated": {
+   "pos": "past-tense verb",
+   "meaning": "Cut off the head of something.",
+   "forms": [
+    "decapitated",
+    "decapitate"
+   ]
+  },
+  "penitent": {
+   "pos": "adjective",
+   "meaning": "Feeling sorry for having done wrong."
+  },
+  "marplot": {
+   "pos": "noun",
+   "meaning": "A person who gets in the way and makes a plan go wrong."
+  },
+  "superannuated": {
+   "pos": "adjective",
+   "meaning": "Too old to work or be useful."
+  },
+  "unrequited": {
+   "pos": "adjective",
+   "meaning": "Not returned. An unrequited love is not loved back."
+  },
+  "solicitude": {
+   "pos": "uncountable noun",
+   "meaning": "Careful, loving concern for someone."
+  },
+  "blighted": {
+   "pos": "adjective",
+   "meaning": "Hurt and made sad, as a plant can be hurt by disease."
+  },
+  "oasis": {
+   "pos": "noun",
+   "meaning": "A green place with water in a hot, dry land."
+  },
+  "loom": {
+   "pos": "verb",
+   "meaning": "To appear as a large, unclear shape, often in a way that seems a danger.",
+   "forms": [
+    "looming",
+    "loomed"
+   ]
+  },
+  "transparent": {
+   "pos": "adjective",
+   "meaning": "Clear, so that light can pass through; here, so thin that light seems to come through the face."
+  },
+  "immortal": {
+   "pos": "adjective",
+   "meaning": "Living forever. The 'immortal' part of a person is the soul."
+  },
+  "homilies": {
+   "pos": "plural noun",
+   "meaning": "Talks about right and wrong, like short talks in church."
+  },
+  "protestations": {
+   "pos": "plural noun",
+   "meaning": "Strong statements that something is true."
+  },
+  "weaned": {
+   "pos": "past participle",
+   "meaning": "Taken away from something that one is used to.",
+   "forms": [
+    "weaned",
+    "wean"
+   ]
+  },
+  "serenity": {
+   "pos": "uncountable noun",
+   "meaning": "A quiet and peaceful state of mind."
+  },
+  "confiding": {
+   "pos": "adjective",
+   "meaning": "Trusting and ready to tell secrets."
+  },
+  "lapping": {
+   "pos": "noun",
+   "meaning": "The soft sound of small water hitting the edge of the sea."
+  },
+  "tranquil": {
+   "pos": "adjective",
+   "meaning": "Quiet and peaceful."
+  },
+  "promenade": {
+   "pos": "noun",
+   "meaning": "A wide, public walk, often by the sea, where people walk to be seen."
+  },
+  "equipages": {
+   "pos": "plural noun",
+   "meaning": "Fine cars with their horses and the men who work with them."
+  },
+  "flounces": {
+   "pos": "plural noun",
+   "meaning": "Wide extra pieces of cloth on the bottom of a woman's dress."
+  },
+  "diminutive": {
+   "pos": "adjective",
+   "meaning": "Very small."
+  },
+  "aplomb": {
+   "pos": "uncountable noun",
+   "meaning": "Cool, sure way of acting and speaking."
+  },
+  "petulance": {
+   "pos": "uncountable noun",
+   "meaning": "Quick anger over small things, like a child."
+  },
+  "usurper": {
+   "pos": "noun",
+   "meaning": "A person who takes the power or place of another by force."
+  },
+  "cotillon": {
+   "pos": "noun",
+   "meaning": "A lively old dance for many couples, with changes of partners."
+  },
+  "recreant": {
+   "pos": "adjective",
+   "meaning": "Not true to a duty; not doing what was promised."
+  },
+  "piquante": {
+   "pos": "adjective",
+   "meaning": "Lively and a little strong, in a nice way."
+  },
+  "lustre": {
+   "pos": "uncountable noun",
+   "meaning": "A bright light that makes a thing look more important."
+  },
+  "indefatigably": {
+   "pos": "adverb",
+   "meaning": "Without getting tired."
+  },
+  "demoiselles": {
+   "pos": "plural noun",
+   "meaning": "Young unmarried French women."
+  },
+  "abdicate": {
+   "pos": "verb",
+   "meaning": "To give up a position of power, such as the place of a king."
+  },
+  "seclusion": {
+   "pos": "uncountable noun",
+   "meaning": "A state of being kept away from other people."
+  },
+  "brooded": {
+   "pos": "past-tense verb",
+   "meaning": "Sat over something with worry, as a bird sits on eggs.",
+   "forms": [
+    "brooded",
+    "brood"
+   ]
+  },
+  "bereft": {
+   "pos": "past participle",
+   "meaning": "Left without something dear.",
+   "forms": [
+    "bereft"
+   ]
+  },
+  "precincts": {
+   "pos": "plural noun",
+   "meaning": "The area around a place, especially a place that is special."
+  },
+  "fender": {
+   "pos": "noun",
+   "meaning": "A low metal guard in front of a fire, to stop pieces of wood falling out."
+  },
+  "incumbrances": {
+   "pos": "plural noun",
+   "meaning": "Things, such as children, that make life harder and take time and money."
+  },
+  "delinquencies": {
+   "pos": "plural noun",
+   "meaning": "Small wrong things done, such as not doing one's duty."
+  },
+  "perjured": {
+   "pos": "adjective",
+   "meaning": "Having broken a promise. Here it is a joke about a small child who has broken his word."
+  },
+  "ignominiously": {
+   "pos": "adverb",
+   "meaning": "In a way that brings great loss of respect."
+  },
+  "practicability": {
+   "pos": "uncountable noun",
+   "meaning": "The fact that something can really be done and works."
+  },
+  "millinery": {
+   "pos": "uncountable noun",
+   "meaning": "Women's things worn on the head, and the making of them."
+  },
+  "harangue": {
+   "pos": "noun",
+   "meaning": "A long, loud speech that tries to make people listen."
+  },
+  "dawdling": {
+   "pos": "present participle",
+   "meaning": "Wasting time and moving slowly.",
+   "forms": [
+    "dawdling",
+    "dawdle"
+   ]
+  },
+  "immaculate": {
+   "pos": "adjective",
+   "meaning": "Perfectly clean and in good order."
+  },
+  "panniers": {
+   "pos": "plural noun",
+   "meaning": "Large bags on each side of a horse to carry things."
+  },
+  "distaff": {
+   "pos": "noun",
+   "meaning": "A stick that holds soft hair or plant parts while they are made into string by hand."
+  },
+  "gnarled": {
+   "pos": "adjective",
+   "meaning": "Rough and bent with age, as an old tree is."
+  },
+  "recumbent": {
+   "pos": "adjective",
+   "meaning": "Lying down."
+  },
+  "indolence": {
+   "pos": "uncountable noun",
+   "meaning": "A dislike of work; a wish to do nothing."
+  },
+  "imperturbable": {
+   "pos": "adjective",
+   "meaning": "Always quiet and cool; not easy to upset."
+  },
+  "effigy": {
+   "pos": "noun",
+   "meaning": "A figure or picture of a person, such as the one on a stone over a dead person."
+  },
+  "apathy": {
+   "pos": "uncountable noun",
+   "meaning": "A lack of interest or energy; not caring."
+  },
+  "supine": {
+   "pos": "adjective",
+   "meaning": "Lying flat on the back; not wanting to do anything."
+  },
+  "efficacious": {
+   "pos": "adjective",
+   "meaning": "Having the effect that was wanted."
+  },
+  "depravity": {
+   "pos": "uncountable noun",
+   "meaning": "A very bad state of mind."
+  },
+  "grotto": {
+   "pos": "noun",
+   "meaning": "A small, room-like place in a hill or rock; also a cool place in a garden made to look like one."
+  },
+  "pilgrimage": {
+   "pos": "noun",
+   "meaning": "A trip to a holy place, or a special trip made out of love or respect."
+  },
+  "pothooks": {
+   "pos": "plural noun",
+   "meaning": "The curved lines that children make when they first learn to write."
+  },
+  "beseechingly": {
+   "pos": "adverb",
+   "meaning": "In a way that asks with great need."
+  },
+  "charred": {
+   "pos": "adjective",
+   "meaning": "Black on the outside from fire."
+  },
+  "beatified": {
+   "pos": "adjective",
+   "meaning": "Showing great happiness, like a holy person."
+  },
+  "benediction": {
+   "pos": "noun",
+   "meaning": "Words said to ask God to be kind to people."
+  },
+  "placid": {
+   "pos": "adjective",
+   "meaning": "Quiet and peaceful."
+  },
+  "strand": {
+   "pos": "noun",
+   "meaning": "The edge of the sea or of a river."
+  },
+  "sanctifies": {
+   "pos": "verb",
+   "meaning": "Makes a place or thing holy."
+  },
+  "mar": {
+   "pos": "verb",
+   "meaning": "To make something good bad."
+  },
+  "vagaries": {
+   "pos": "plural noun",
+   "meaning": "Strange and sudden changes of feeling or action."
+  },
+  "ostentatiously": {
+   "pos": "adverb",
+   "meaning": "In a way meant to show off and be noticed."
+  },
+  "embalm": {
+   "pos": "verb",
+   "meaning": "To keep something safe from change, as a dead body is kept. Here it means to keep a feeling alive in a work of art."
+  },
+  "requiem": {
+   "pos": "noun",
+   "meaning": "A piece of music or a church service for people who have died."
+  },
+  "ethereal": {
+   "pos": "adjective",
+   "meaning": "Very light and soft, as if not of this world."
+  },
+  "intractable": {
+   "pos": "adjective",
+   "meaning": "Hard to control."
+  },
+  "diaphanous": {
+   "pos": "adjective",
+   "meaning": "So thin and light that one can see through it."
+  },
+  "unscathed": {
+   "pos": "adjective",
+   "meaning": "Not hurt at all."
+  },
+  "desultory": {
+   "pos": "adjective",
+   "meaning": "Jumping from one thing to another without a plan."
+  },
+  "pertinaciously": {
+   "pos": "adverb",
+   "meaning": "In a way that will not give up."
+  },
+  "vista": {
+   "pos": "noun",
+   "meaning": "A long view. Here it is a long look back over many years."
+  },
+  "wooing": {
+   "pos": "noun",
+   "meaning": "Trying to win the love of a person whom one hopes to be married to."
+  },
+  "quay": {
+   "pos": "noun",
+   "meaning": "A place made of stone where boats stop to put things on land."
+  },
+  "wraith": {
+   "pos": "noun",
+   "meaning": "A ghost, or the image of a person that seems to appear."
+  },
+  "abnegation": {
+   "pos": "uncountable noun",
+   "meaning": "Giving up your own wishes for others; saying no to yourself."
+  },
+  "humdrum": {
+   "pos": "adjective",
+   "meaning": "Not fun and always the same."
+  },
+  "chastened": {
+   "pos": "past-tense verb",
+   "meaning": "Made more gentle by pain.",
+   "forms": [
+    "chastened",
+    "chasten"
+   ]
+  },
+  "consolation": {
+   "pos": "uncountable noun",
+   "meaning": "Help given to someone who is sad."
+  },
+  "burr": {
+   "pos": "noun",
+   "meaning": "The rough, sharp case round the seed of some trees."
+  },
+  "tracts": {
+   "pos": "plural noun",
+   "meaning": "Short printed papers about religion that are given away to people."
+  },
+  "overhaul": {
+   "pos": "verb",
+   "meaning": "To look through something with care and make changes."
+  },
+  "pathos": {
+   "pos": "uncountable noun",
+   "meaning": "A part of a story that makes the reader feel sorry and sad."
+  },
+  "scatterbrain": {
+   "pos": "noun",
+   "meaning": "A person who is silly and cannot keep their mind on one thing."
+  },
+  "ballast": {
+   "pos": "uncountable noun",
+   "meaning": "Heavy weight carried in a ship to keep it from rolling over."
+  },
+  "mate": {
+   "pos": "noun",
+   "meaning": "An officer on a ship who is next after the captain."
+  },
+  "unsubmissive": {
+   "pos": "adjective",
+   "meaning": "Not willing to accept something or do as told."
+  },
+  "yearning": {
+   "pos": "adjective",
+   "meaning": "Full of a strong, sad wish for something."
+  },
+  "scapegrace": {
+   "pos": "noun",
+   "meaning": "A lively person who gets into trouble but is liked anyway."
+  },
+  "precocious": {
+   "pos": "adjective",
+   "meaning": "Grown up in mind earlier than most children."
+  },
+  "henpecked": {
+   "pos": "adjective",
+   "meaning": "Controlled by one's wife and afraid of her."
+  },
+  "courtliness": {
+   "pos": "uncountable noun",
+   "meaning": "Very polite ways of acting, as in an old royal court."
+  },
+  "sequestered": {
+   "pos": "adjective",
+   "meaning": "Kept away in a quiet place that few people know."
+  },
+  "propitious": {
+   "pos": "adjective",
+   "meaning": "Showing that things will go well."
+  },
+  "circumspection": {
+   "pos": "uncountable noun",
+   "meaning": "Careful watching before acting."
+  },
+  "indissoluble": {
+   "pos": "adjective",
+   "meaning": "Not able to be broken or undone."
+  },
+  "millennium": {
+   "pos": "noun",
+   "meaning": "A time of great happiness and peace that is hoped for in the future."
+  },
+  "covetousness": {
+   "pos": "uncountable noun",
+   "meaning": "A strong wish to have something that is someone else's."
+  },
+  "salubrious": {
+   "pos": "adjective",
+   "meaning": "Good for the health, as nice air is."
+  },
+  "balmy": {
+   "pos": "adjective",
+   "meaning": "Warm, soft and nice, as air or weather."
+  },
+  "bootjack": {
+   "pos": "noun",
+   "meaning": "A tool used to help take off what is worn on the foot."
+  },
+  "philanthropic": {
+   "pos": "adjective",
+   "meaning": "Wishing to do good by giving money and help to other people."
+  },
+  "endow": {
+   "pos": "verb",
+   "meaning": "To give money to start something and keep it going."
+  },
+  "blarneying": {
+   "pos": "adjective",
+   "meaning": "Using sweet words that flatter to get something."
+  },
+  "legacies": {
+   "pos": "plural noun",
+   "meaning": "Money or things left to people in a will after a person dies."
+  },
+  "whiffle": {
+   "pos": "noun",
+   "meaning": "A small, sudden turn of the wind."
+  },
+  "salon": {
+   "pos": "noun",
+   "meaning": "A regular meeting at a rich home where important and clever people talk."
+  },
+  "quizzical": {
+   "pos": "adjective",
+   "meaning": "Showing a look of questioning, often with a little fun."
+  },
+  "prattling": {
+   "pos": "adjective",
+   "meaning": "Talking in a way like a child, about small things."
+  },
+  "inveterate": {
+   "pos": "adjective",
+   "meaning": "Fixed in a way of acting or feeling for a long time and not likely to change."
+  },
+  "sage": {
+   "pos": "noun",
+   "meaning": "A very clever, old man."
+  },
+  "metaphysics": {
+   "pos": "uncountable noun",
+   "meaning": "The study of very deep questions about life, mind and God."
+  },
+  "ominous": {
+   "pos": "adjective",
+   "meaning": "Showing that something bad will happen."
+  },
+  "evasions": {
+   "pos": "plural noun",
+   "meaning": "Clever ways of getting out of doing something."
+  },
+  "preceptor": {
+   "pos": "noun",
+   "meaning": "A teacher."
+  },
+  "grovellers": {
+   "pos": "plural noun",
+   "meaning": "People who lie face down on the floor."
+  },
+  "sonorous": {
+   "pos": "adjective",
+   "meaning": "Having a deep, full, nice sound."
+  },
+  "philoprogenitiveness": {
+   "pos": "uncountable noun",
+   "meaning": "Love of children."
+  },
+  "bankrupt": {
+   "pos": "adjective",
+   "meaning": "Having no money left. Here it is a joke about having nothing to give."
+  },
+  "socratic": {
+   "pos": "adjective",
+   "meaning": "Using questions and answers to teach, as the Greek thinker Socrates did."
+  },
+  "conjugal": {
+   "pos": "adjective",
+   "meaning": "Having to do with marriage or husband and wife."
+  },
+  "sodden": {
+   "pos": "adjective",
+   "meaning": "Very wet and heavy with water."
+  },
+  "loitering": {
+   "pos": "present participle",
+   "meaning": "Standing or walking slowly about with no clear reason.",
+   "forms": [
+    "loitering",
+    "loiter"
+   ]
+  },
+  "hustled": {
+   "pos": "past participle",
+   "meaning": "Pushed hard by people who want to go fast.",
+   "forms": [
+    "hustled",
+    "hustle"
+   ]
+  },
+  "unavailing": {
+   "pos": "adjective",
+   "meaning": "Not helping; having no result."
+  },
+  "silesia": {
+   "pos": "uncountable noun",
+   "meaning": "A strong, thin cloth, used for the lining inside clothes."
+  },
+  "betrothed": {
+   "pos": "adjective",
+   "meaning": "Promised to be married to someone."
+  },
+  "draggle": {
+   "pos": "verb",
+   "meaning": "To make wet and not clean by pulling along the ground."
+  },
+  "pinnacle": {
+   "pos": "noun",
+   "meaning": "The highest point of something."
+  },
+  "deplorable": {
+   "pos": "adjective",
+   "meaning": "So bad that it makes one sad."
+  },
+  "countinghouses": {
+   "pos": "plural noun",
+   "meaning": "Offices where a business keeps its money and accounts."
+  },
+  "unceremoniously": {
+   "pos": "adverb",
+   "meaning": "In a rough way, without politeness."
+  },
+  "voluminous": {
+   "pos": "adjective",
+   "meaning": "Very long, with many pages."
+  },
+  "paradisiacal": {
+   "pos": "adjective",
+   "meaning": "Like a perfect place; perfectly happy and beautiful."
+  },
+  "ragamuffin": {
+   "pos": "noun",
+   "meaning": "A poor child in old clothes."
+  },
+  "hobbledehoy": {
+   "pos": "noun",
+   "meaning": "A boy who is not yet a man and who moves in a way that is not nice to see."
+  },
+  "destitution": {
+   "pos": "uncountable noun",
+   "meaning": "The state of being so poor that one has no food or home."
+  },
+  "apoplectic": {
+   "pos": "adjective",
+   "meaning": "Red in the face and almost ill with strong feeling, such as anger or laughing."
+  },
+  "menagerie": {
+   "pos": "noun",
+   "meaning": "A group of wild animals kept together."
+  },
+  "sere": {
+   "pos": "adjective",
+   "meaning": "Dry and dead, as grass is in the fall."
+  },
+  "tares": {
+   "pos": "plural noun",
+   "meaning": "Bad plants that grow among the food plants and hurt them."
+  },
+  "sheaf": {
+   "pos": "noun",
+   "meaning": "A group of plants cut and held together."
+  },
+  "relinquish": {
+   "pos": "verb",
+   "meaning": "To give up something that one has or hopes for."
+  },
+  "teutonic": {
+   "pos": "adjective",
+   "meaning": "From the land of the Germans."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 3,
+   "paragraph": 83,
+   "context": "Do you remember how you used to play 'Pilgrim's Progress' when you were little things",
+   "mainIdea": "Mrs. March reminds the girls of their old game of Pilgrim's Progress. They played it all through the house.",
+   "simple": "Mrs. March ended the quiet after Jo's words. In her cheerful voice she asked the girls if they remembered playing 'Pilgrim's Progress' when they were small. She said nothing made them happier than when she tied her piece-bags on their backs as heavy loads. She gave them hats, sticks and rolls of paper, and let them travel through the house. They began in the cellar, the City of Destruction, and went up and up to the housetop. There they put all the lovely things they could find, to make a Celestial City.",
+   "hardWords": [
+    "piece-bags",
+    "burdens",
+    "Celestial City"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 44,
+   "context": "Very clever were some of their productions",
+   "mainIdea": "The girls were not rich, so they made their own things for the play. Some of them were very clever.",
+   "simple": "The kind acts and ceremonies of the morning took so much time that the rest of the day was used to get ready for the evening party. The girls were still too young to go to the theatre often, and not rich enough to pay much for plays at home. So they used their wits. Need is the mother of invention, and they made everything they needed. Some of their work was very clever: guitars made of pasteboard, old lamps made from old-style butter-boats covered with silver paper, rich robes of old cotton shining with tin spangles from a pickle factory, and armor covered with the same useful diamond-shaped pieces. These were left in sheets when the lids of tin preserve-pots were cut out. The furniture was used to being turned upside down, and the big bedroom was the place of many innocent games.",
+   "hardWords": [
+    "charities",
+    "outlay",
+    "spangles",
+    "preserve-pots",
+    "topsy-turvy",
+    "revels"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 31,
+   "context": "After various lesser mishaps, Meg was finished at last",
+   "mainIdea": "The sisters are ready for the party in their simple clothes. Their shoes and pins hurt, but they want to look elegant.",
+   "simple": "After some smaller troubles, Meg was ready at last. With the whole family helping, Jo's hair was put up and her dress put on. They looked very good in their plain clothes. Meg wore a dull silver-gray dress with a blue velvet snood, lace frills and the pearl pin. Jo wore dark red-brown with a stiff, boyish linen collar and one or two white chrysanthemums as her only ornament. Each girl put on one nice light glove and carried one dirty glove, and all said it looked 'quite easy and fine'. Meg's high-heeled slippers were very tight and hurt her, but she would not say so. Jo's nineteen hairpins all seemed to be stuck straight into her head, which was not very comfortable. But dear me, they said, they would be elegant or die!",
+   "hardWords": [
+    "drab",
+    "snood",
+    "maroon",
+    "hairpins"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 25,
+   "context": "When Mr. March lost his property in trying to help an unfortunate friend",
+   "mainIdea": "Mr. March lost his money, so Meg took a job as a governess. She finds being poor hard because she remembers better days and sees rich girls' pleasures.",
+   "simple": "When Mr. March lost his money trying to help a friend in trouble, the two oldest girls asked to be allowed to do something to support themselves, at least. Their parents thought the girls could not start too early to build up energy, hard work and independence. So they agreed, and both girls began work with a hearty good will which, in spite of all troubles, is sure to win in the end. Margaret found a job as a nursery governess and felt rich with her small pay. As she said, she was 'fond of luxury', and her main trouble was being poor. She found this harder to bear than the others did, because she remembered a time when home was beautiful, life was full of ease and pleasure, and nobody needed anything. She tried not to be jealous or unhappy, but it was natural for a young girl to long for pretty things, happy friends, skills like music, and a happy life. At the Kings' house she saw every day all that she wanted. The older sisters of the children had just come out into society. Meg often saw pretty ball-dresses and bouquets, heard lively talk about theatres, concerts, sleigh parties and fun of every kind, and saw money spent freely on small things which would have meant so much to her. Poor Meg seldom complained, but a feeling that life was unfair sometimes made her bitter toward everyone. She had not yet learned how rich she was in the blessings which alone can make life happy.",
+   "hardWords": [
+    "nursery governess",
+    "accomplishments",
+    "lavished",
+    "trifles"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 5,
+   "context": "Meg went back to toast her feet and read Ivanhoe",
+   "mainIdea": "Jo digs paths in the snow. The garden is between the Marches' shabby old house and the rich, lonely Laurence house.",
+   "simple": "Meg went back to warm her feet and read Ivanhoe, and Jo began to dig paths with great energy. The snow was light, and with her broom she soon swept a path all round the garden, for Beth to walk in when the sun came out. The sick dolls needed air. The garden was between the Marches' house and Mr. Laurence's house. Both stood at the edge of the city, which still looked like the country, with small woods, lawns, large gardens and quiet streets. A low hedge divided the two properties. On one side was an old brown house that looked rather bare and shabby, because the vines that covered its walls in summer, and the flowers around it, were gone. On the other side was a fine stone house that clearly showed every kind of comfort and wealth, from the big coach-house and well-kept grounds to the greenhouse and the lovely things people could see between the rich curtains. But it seemed a lonely house with no life in it. No children played on the lawn, no mother's face smiled at the windows, and few people went in or out, except the old gentleman and his grandson.",
+   "hardWords": [
+    "suburb",
+    "groves",
+    "betokening",
+    "conservatory",
+    "frolicked"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 6,
+   "context": "But Beth, though yearning for the grand piano, could not pluck up courage",
+   "mainIdea": "Beth is too afraid to go to the Laurence house, so Mr. Laurence finds a clever way to help her.",
+   "simple": "Beth wanted the grand piano very much, but she could not find the courage to go to the 'Mansion of Bliss', as Meg called it. She went once with Jo. But the old gentleman did not know that she was shy. He stared hard at her from under his heavy eyebrows and said 'Hey!' so loudly that she was very afraid. She told her mother that her feet 'chattered on the floor'. She ran away and said she would never go there again, not even for the dear piano. Nothing anyone said or offered could take away her fear. Then Mr. Laurence heard about it in some mysterious way, and he began to put things right. During one of his short visits, he cleverly turned the talk to music. He talked about great singers he had seen and fine organs he had heard, and he told such charming stories that Beth could not stay in her far corner. She came nearer and nearer, as if under a spell. She stopped at the back of his chair and stood listening, with her great eyes wide open and her cheeks red with the excitement. Mr. Laurence paid her no more attention than if she had been a fly. He went on talking about Laurie's lessons and teachers. Then, as if the idea had just come to him, he spoke to Mrs. March.",
+   "hardWords": [
+    "yearning",
+    "persuasions",
+    "enticements",
+    "anecdotes",
+    "fascinated"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 38,
+   "context": "too proud to cry or beseech, Amy set her teeth",
+   "mainIdea": "Mr. Davis hits Amy's hand. The blows are not hard, but she feels deep shame because it is the first time.",
+   "simple": "'Your hand, Miss March!' was the only answer to her silent begging. Amy was too proud to cry or to beg. She pressed her teeth together, threw back her head, and took several stinging blows on her small hand without pulling away. The blows were not many or hard, but that did not matter to her. It was the first time in her life that anyone had hit her. To her, the shame was as deep as if he had knocked her to the ground.",
+   "hardWords": [
+    "mute",
+    "beseech",
+    "defiantly",
+    "flinching",
+    "tingling"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 73,
+   "context": "The patience and the humility of the face she loved so well",
+   "mainIdea": "Jo learns from her mother's example. Knowing her mother has the same fault helps her to want to change.",
+   "simple": "The patience and gentle, humble look on the face she loved so much taught Jo more than the wisest talk or the hardest words of blame. She felt comfort at once from her mother's kindness and trust in her. Knowing that her mother had a fault like hers, and tried to fix it, made her own fault easier to bear. It also made her more sure that she would cure it. But forty years seemed a long time to watch and pray, to a girl of fifteen.",
+   "hardWords": [
+    "humility",
+    "reproof",
+    "resolution"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 21,
+   "context": "The Moffats were very fashionable, and simple Meg was rather daunted",
+   "mainIdea": "Meg enjoys the rich life at the Moffats' house and begins to copy them. She then feels poor and unhappy about her home.",
+   "simple": "The Moffats were very fashionable, and Meg, who liked simple things, was a little afraid at first because the house was so grand and the people so elegant. But they were kind people in spite of their light, silly way of life, and soon made their guest feel at ease. Perhaps Meg felt, without knowing why, that they were not very educated or clever, and that all their show could not quite hide what they were really made of. It was certainly pleasant to eat rich food, ride in a fine carriage, wear her best dress every day and do nothing but enjoy herself. It suited her well, and soon she began to copy the manners and talk of the people around her. She put on small airs, used French words, curled her hair, made her dresses smaller and talked about fashion as well as she could. The more she saw of Annie Moffat's pretty things, the more she was jealous of her and wished to be rich. Now home looked bare and sad when she thought of it, and work seemed harder than ever. She felt she was a very poor girl who was badly treated, in spite of her new gloves and silk stockings.",
+   "hardWords": [
+    "daunted",
+    "frivolous",
+    "sumptuously",
+    "destitute",
+    "airs and graces"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 1,
+   "context": "As spring came on, a new set of amusements became the fashion",
+   "mainIdea": "In spring the sisters work in the garden. Each has her own plot, and each plot shows the girl's character.",
+   "simple": "When spring came, a new set of games became fashionable, and the longer days gave long afternoons for work and play. The garden had to be put in order, and each sister had one quarter of the small piece of land to do what she liked with. Hannah used to say that she would know which garden belonged to which girl, even if she saw them in China. She was right, because the girls' tastes were as different as their characters. Meg's garden had roses, heliotrope, myrtle and a small orange-tree. Jo's bed was never the same from one season to the next, because she always tried new things. This year it was to be a big bed of sunflowers, whose seeds were to feed 'Aunt Cockle-top' and her chicks. Beth grew old-style, sweet-smelling flowers, such as sweet peas, mignonette, larkspur, pinks, pansies and southernwood, with chickweed for the bird and catnip for the cats. Amy had a shady corner in hers. It was small and full of earwigs, but very pretty, with honeysuckles and morning-glories hanging their colored flowers over it, tall white lilies, soft ferns and as many bright, pretty plants as would agree to grow there.",
+   "hardWords": [
+    "plantation",
+    "aspiring",
+    "mignonette",
+    "larkspur",
+    "bower",
+    "earwiggy"
+   ]
+  },
+  {
+   "chapter": 13,
+   "paragraph": 39,
+   "context": "The unusual spectacle of her busy mother rocking comfortably",
+   "mainIdea": "Jo is amazed to see her always-busy mother resting and reading in the morning.",
+   "simple": "Jo was not used to seeing her busy mother rocking in a chair and reading so early in the morning. It made Jo feel that something unnatural had happened. An eclipse, an earthquake or a volcano would hardly have seemed stranger to her.",
+   "hardWords": [
+    "spectacle",
+    "phenomenon",
+    "eclipse",
+    "volcanic eruption"
+   ]
+  },
+  {
+   "chapter": 14,
+   "paragraph": 132,
+   "context": "Oh, yes; of course it's very nice and proper in them to do so",
+   "mainIdea": "Miss Kate talks as if Meg's work as a governess is a little shameful. Her proud tone hurts Meg's feelings.",
+   "simple": "Miss Kate said that of course it was very nice and right for the American girls to work. She said that many fine, respectable young women in her country did the same and worked for noble families. They were the daughters of gentlemen, so they were well brought up and had many skills. Miss Kate spoke in a proud, 'I am better than you' way. This hurt Meg's pride and made her work seem not only less pleasant but also low and shameful to her.",
+   "hardWords": [
+    "respectable",
+    "nobility",
+    "patronizing",
+    "distasteful",
+    "degrading"
+   ]
+  },
+  {
+   "chapter": 15,
+   "paragraph": 2,
+   "context": "Laurie lay luxuriously swinging to and fro in his hammock",
+   "mainIdea": "Laurie is in a bad mood after a lazy, unhappy day. He sees the Marches go out and wonders what they are doing.",
+   "simple": "On a warm September afternoon, Laurie lay in his hammock, swinging gently. He wondered what his neighbors were doing, but was too lazy to go and find out. He was in one of his moods. The day had brought him nothing good, and he wished he could live it again. The hot weather made him lazy. He had avoided his studies and tested Mr. Brooke's patience to the limit. He had made his grandfather angry by playing the piano for half the afternoon. He had scared the maids almost out of their minds by saying for fun that one of his dogs was going mad. After an angry talk with the stableman about a horse he thought was not cared for, he had thrown himself into the hammock. He was angry at the stupidity of the world until the peace of the lovely day made him calm in spite of himself. He looked up into the dark green of the horse-chestnut trees and dreamed many dreams. He was just imagining himself on the sea, on a trip round the world, when voices brought him back at once. He looked through the net of the hammock and saw the Marches coming out, as if they were going on a journey.",
+   "hardWords": [
+    "indolent",
+    "shirked",
+    "fume",
+    "meshes",
+    "expedition"
+   ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 6,
+   "context": "If anyone had been watching her, he would have thought her movements decidedly peculiar",
+   "mainIdea": "Jo goes to a newspaper office in town but is too nervous to go in. She walks up and down in the street, and Laurie watches her.",
+   "simple": "If anyone had watched Jo, he would have thought her actions very strange. When she got off the bus, she walked very fast to a certain number in a certain busy street. She found the place with some trouble, went to the door and looked up the dirty stairs. After standing completely still for a minute, she suddenly ran back into the street and walked away as fast as she had come. She did this several times, and it greatly amused a black-eyed young man who was resting in a window of the building across the street. When she came back for the third time, Jo gave herself a shake, pulled her hat over her eyes and went up the stairs, looking as if she were going to have all her teeth pulled out.",
+   "hardWords": [
+    "alighting",
+    "maneuver",
+    "lounging"
+   ]
+  },
+  {
+   "chapter": 17,
+   "paragraph": 35,
+   "context": "Everyone scattered like leaves before a gust of wind",
+   "mainIdea": "Mrs. March is overwhelmed by the many jobs, and the girls work for her. The happy home is suddenly broken up.",
+   "simple": "Writing, thinking and giving orders all at once might well confuse the poor lady. Meg begged her to sit quietly in her room for a little while and let the girls work. Everyone ran off in different ways, like leaves in front of a strong wind. The quiet, happy house was broken up as suddenly as if the paper had been an evil spell.",
+   "hardWords": [
+    "bewilder",
+    "scattered",
+    "gust"
+   ]
+  },
+  {
+   "chapter": 18,
+   "paragraph": 2,
+   "context": "In the cold gray dawn the sisters lit their lamp",
+   "mainIdea": "The sisters decide to be brave and not cry when their mother leaves. It is hard, because the house feels strange and their mother looks tired.",
+   "simple": "In the cold gray early morning the sisters lit their lamp and read their chapter very seriously. A real trouble had come, so the little books were full of help and comfort. As they dressed, they agreed to say goodbye with hope and cheer, and not to make their mother sad with tears or complaints on her worried journey. Everything seemed strange when they went down. It was dim and still outside, but full of light and noise inside. Breakfast so early seemed odd, and even Hannah's face looked strange as she hurried round the kitchen in her nightcap. The big trunk stood ready in the hall, and mother's cloak and bonnet lay on the sofa. Mother sat trying to eat, but she was so pale and tired from lack of sleep and worry that the girls found it very hard to keep their plan. Meg's eyes kept filling with tears. Jo had to hide her face in the kitchen roller more than once. The two little girls looked serious and troubled, as if sorrow were new to them.",
+   "hardWords": [
+    "resolution",
+    "unsaddened"
+   ]
+  },
+  {
+   "chapter": 19,
+   "paragraph": 4,
+   "context": "All were unconscious that this experience was a test of character",
+   "mainIdea": "The girls think they did well and deserve praise. They then stop trying hard, and this leads to trouble.",
+   "simple": "None of the girls knew that this time was a test of their character. When the first excitement was over, they thought they had done well and deserved praise. They did, but their mistake was to stop doing well. They learned this lesson through much worry and sorrow.",
+   "hardWords": [
+    "test of character"
+   ]
+  },
+  {
+   "chapter": 20,
+   "paragraph": 37,
+   "context": "Hannah, quite worn out, lay down on the sofa at the bed's foot",
+   "mainIdea": "Hannah sleeps, Mr. Laurence walks up and down, and Laurie lies by the fire. They all wait for Mrs. March to arrive.",
+   "simple": "Hannah was very tired. She lay down on the sofa at the foot of the bed and fell fast asleep. Mr. Laurence walked up and down in the parlor. He felt that he would rather face an enemy gun than Mrs. March's worried face when she came in. Laurie lay on the rug and pretended to rest, but he looked into the fire with the thoughtful look that made his black eyes soft and clear.",
+   "hardWords": [
+    "battery",
+    "countenance"
+   ]
+  },
+  {
+   "chapter": 21,
+   "paragraph": 4,
+   "context": "If it had not been for Laurie, and old Esther, the maid",
+   "mainIdea": "Amy finds life at Aunt March's hard. The parrot and the dog are bad, and only Laurie and Esther make it bearable.",
+   "simple": "Without Laurie and old Esther, the maid, Amy felt she could never have got through that terrible time. The parrot alone was enough to drive her mad. He soon felt that she did not admire him, and he took revenge by being as naughty as he could. He pulled her hair whenever she came near him. He upset his bread and milk to annoy her just after she had cleaned his cage. He made Mop bark by pecking at him while Madam slept. He called her names in front of visitors, and in every way acted like a bad old bird. She could not stand the dog either. He was a fat, cross animal who snarled and barked at her when she washed and brushed him. When he wanted food, which was about twelve times a day, he lay on his back with his legs in the air and a very silly look on his face. The cook was bad-tempered, the old coachman was deaf, and Esther was the only one who ever paid any attention to the young lady.",
+   "hardWords": [
+    "reprehensible",
+    "idiotic",
+    "countenance"
+   ]
+  },
+  {
+   "chapter": 22,
+   "paragraph": 37,
+   "context": "Money is a good and useful thing, Jo; and I hope my girls",
+   "mainIdea": "Mrs. March says money is useful, but she does not want a rich husband for Meg. She believes a good man's heart is worth more than a fortune.",
+   "simple": "Mrs. March said money is a good and useful thing and she hoped her girls would never need it too badly or be tempted by too much of it. She wanted John to have a good business with enough pay to stay out of debt and keep Meg comfortable. She did not want a great fortune, a high place in society or a famous name for her girls. If high rank and money came with love and goodness, she would gladly accept them. But she knew from her own life how much true happiness a plain little house could hold, where the daily bread is earned and having less makes the few pleasures sweeter. She was content to see Meg begin humbly, because she would be rich in having a good man's heart, and that was better than a fortune.",
+   "hardWords": [
+    "income",
+    "privations",
+    "ambitious",
+    "rank"
+   ]
+  },
+  {
+   "chapter": 23,
+   "paragraph": 2,
+   "context": "Jo's face was a study next day, for the secret rather weighed upon her",
+   "mainIdea": "Jo is keeping a secret and finds it hard. Meg does not ask, so Jo acts proud, and Meg is annoyed. Jo fears Laurie will get the secret from her.",
+   "simple": "Next day Jo's face was a sight to see, because the secret was a heavy weight on her and she found it hard not to look mysterious and important. Meg saw this but did not ask questions. She had learned that the best way to deal with Jo was to do the opposite of what Jo expected, so she felt sure that Jo would tell everything if she did not ask. She was surprised that Jo stayed silent, and that Jo acted in a superior way. This made Meg very annoyed, and she became cold and stiff and spent her time with her mother. This left Jo alone, because Mrs. March had taken her place as nurse and told her to rest, take exercise and enjoy herself after her long time indoors. With Amy gone, Laurie was Jo's only refuge. She enjoyed his company, but she rather feared him just then, because he was a tease who could not be stopped, and she was afraid he would coax her secret out of her.",
+   "hardWords": [
+    "law of contraries",
+    "incorrigible",
+    "patronizing"
+   ]
+  },
+  {
+   "chapter": 24,
+   "paragraph": 4,
+   "context": "Several days of unusually mild weather fitly ushered in a splendid Christmas Day",
+   "mainIdea": "Christmas Day is wonderful. Jo and Laurie have made a surprise for Beth: a snow-girl in the garden with gifts.",
+   "simple": "Several days of very mild weather were a fitting start to a fine Christmas Day. Hannah felt in her bones that it would be a very fine day, and she was right, because everyone and everything seemed sure to bring great success. First, Mr. March wrote that he would soon be with them. Then Beth felt unusually well that morning. She was dressed in her mother's gift, a soft red wool wrapper, and was carried like a queen to the window to see the gift from Jo and Laurie. The Unquenchables had done their best to deserve their name. Like elves they had worked at night, and had made a funny surprise. In the garden stood a grand snow-girl with holly on her head. In one hand she held a basket of fruit and flowers, and in the other a big roll of new music. Round her cold shoulders was a wool cover as bright as a rainbow, and a Christmas song came from her lips on a pink paper streamer.",
+   "hardWords": [
+    "ushered in",
+    "merino",
+    "Afghan",
+    "carol",
+    "conjured up"
+   ]
+  },
+  {
+   "chapter": 25,
+   "paragraph": 50,
+   "context": "Now Aunt March possessed in perfection the art of rousing the spirit of opposition",
+   "mainIdea": "Aunt March's order not to like John makes Meg decide that she will. When we are young and in love, we like to do the opposite of what we are told.",
+   "simple": "Aunt March was perfect at making even the gentlest people want to oppose her, and she enjoyed it. The best of us have a little wish to do the opposite, especially when we are young and in love. If Aunt March had begged Meg to accept John Brooke, Meg would probably have said she could not think of it. But because she was ordered not to like him, she at once decided that she would. Her own wish as well as this stubborn feeling made the decision easy. She was already very excited, so she opposed the old lady with unusual spirit.",
+   "hardWords": [
+    "perversity",
+    "peremptorily",
+    "inclination"
+   ]
+  },
+  {
+   "chapter": 26,
+   "paragraph": 3,
+   "context": "The three years that have passed have brought but few changes",
+   "mainIdea": "Three years have passed and the war is over. Mr. March is at home, working quietly as a minister and a scholar.",
+   "simple": "In the three years that have passed, the quiet family has changed very little. The war is over and Mr. March is safe at home, busy with his books and his small church. In him the church found a minister both by nature and by calling. He was a quiet man who liked to study and was rich in a wisdom that is better than learning. He had a kindness that calls all people 'brother', and a goodness that grows into a fine character.",
+   "hardWords": [
+    "parish",
+    "august",
+    "piety",
+    "charity"
+   ]
+  },
+  {
+   "chapter": 27,
+   "paragraph": 13,
+   "context": "There were to be no ceremonious performances, everything was to be as natural",
+   "mainIdea": "The wedding is simple and homelike. Aunt March is shocked to see the bride, the groom and the minister doing everyday things.",
+   "simple": "There were to be no formal shows. Everything was to be as natural and homelike as possible. So when Aunt March arrived, she was shocked. The bride came running to welcome her and lead her in. The bridegroom was putting up a garland that had fallen down. She also saw the minister, the bride's father, marching upstairs with a serious face and a wine-bottle under each arm.",
+   "hardWords": [
+    "ceremonious",
+    "scandalized",
+    "paternal"
+   ]
+  },
+  {
+   "chapter": 28,
+   "paragraph": 6,
+   "context": "If “genius is eternal patience,” as Michelangelo affirms, Amy certainly had some claim",
+   "mainIdea": "Amy never gave up her art in spite of failures. She believed she would one day make real 'high art'.",
+   "simple": "Michelangelo says that genius is patience that never ends. If that is true, Amy had some right to be called a genius, because she went on in spite of all troubles, failures and discouragement. She firmly believed that in time she would make something worth calling 'high art'.",
+   "hardWords": [
+    "affirms",
+    "attribute",
+    "persevered"
+   ]
+  },
+  {
+   "chapter": 29,
+   "paragraph": 3,
+   "context": "Her “scribbling suit” consisted of a black woollen pinafore on which she could wipe her pen",
+   "mainIdea": "Jo wears a special writing cap. Its position tells her family how her work is going.",
+   "simple": "Jo's 'scribbling suit' was a black wool pinafore, on which she could wipe her pen as she liked, and a cap of the same cloth with a cheerful red bow. She stuffed her hair into the cap when she was ready for hard work. The family saw the cap as a signal and kept away during these times. They only put their heads in now and then to ask, 'Does genius burn, Jo?' They did not always dare even to ask, but looked at the cap and judged. If it was pulled low on her forehead, hard work was going on. In exciting moments it was pushed to one side. When she felt despair, it was pulled off and thrown on the floor. Then anyone who came in quietly went away, and no one dared speak to Jo until the red bow stood up happily on her head again.",
+   "hardWords": [
+    "beacon",
+    "rakishly",
+    "askew"
+   ]
+  },
+  {
+   "chapter": 30,
+   "paragraph": 5,
+   "context": "Fired with a housewifely wish to see her storeroom stocked with homemade preserves",
+   "mainIdea": "Meg tries to make currant jelly like Hannah. She works all day, but the jelly will not set.",
+   "simple": "Meg wished very much to see her storeroom full of jelly and fruit she had made herself. So she decided to make her own currant jelly. John was asked to send home a dozen little pots and extra sugar, because their own currants were ripe and had to be dealt with at once. John firmly believed his wife could do anything, and he was proud of her skill. He wanted her to be pleased and to save their only crop of fruit for winter. Home came four dozen little pots, half a barrel of sugar, and a small boy to pick the currants. Meg tucked her hair into a cap, bared her arms to the elbow, and put on a checked apron. She began work sure of success, because she had seen Hannah do it hundreds of times. The many pots surprised her, but John loved jelly and the jars would look nice on the top shelf, so she decided to fill them all. She spent a long day picking, boiling, straining and fussing. She did her best, asked Mrs. Cornelius for advice, and tried to remember what Hannah did. She boiled and sugared it again, but that dreadful stuff would not 'jell'.",
+   "hardWords": [
+    "preserves",
+    "currant",
+    "coquettish",
+    "reboiled"
+   ]
+  },
+  {
+   "chapter": 31,
+   "paragraph": 23,
+   "context": "Jo sat as if blandly unconscious of it all",
+   "mainIdea": "Jo does exactly what Amy asked and stays silent and cold on the first call.",
+   "simple": "Amy looked relieved, but naughty Jo took her at her word. During the first call she sat with every part of her body calm and every fold of her dress right. She was as calm as a summer sea, as cool as a snowbank, and as silent as a sphinx. Mrs. Chester spoke of her 'charming novel', and the Misses Chester spoke of parties, picnics, the opera and fashions. Jo gave all of them just a smile, a bow, and a polite 'Yes' or 'No', in a cold way. Amy sent her the message 'Talk' and tried to draw her out, and even kicked her softly. Jo sat as if she did not know about any of it. Her manner was like Maud's face: 'icily regular, splendidly null'.",
+   "hardWords": [
+    "demure",
+    "telegraphed",
+    "covert"
+   ]
+  },
+  {
+   "chapter": 32,
+   "paragraph": 27,
+   "context": "As she spoke, Amy returned her contribution, with a nod and a smile",
+   "mainIdea": "Amy gives May's things back with a friendly smile and leaves quickly, so that no one can thank her.",
+   "simple": "As she spoke, Amy gave back May's things, with a nod and a smile. Then she hurried away, feeling it was easier to do a friendly act than to stay and be thanked for it.",
+   "hardWords": [
+    "contribution"
+   ]
+  },
+  {
+   "chapter": 33,
+   "paragraph": 6,
+   "context": "“By and by I heard Fred’s voice, and then he came hurrying through the great arch to find me.",
+   "mainIdea": "Fred hears bad news and leaves at once. Before going, he asks Amy not to forget him. Amy says nothing, but she looks at him.",
+   "simple": "Later Amy heard Fred's voice, and he came hurrying through the great arch to find her. He looked so troubled that she forgot herself and asked what was wrong. He said he had just got a letter asking him to come home, because Frank was very ill. He would go at once on the night train and had only time to say goodbye. Amy was sorry for him, and sad for herself, but only for a minute. As he shook her hand, he said in a way she could not mistake, 'I shall soon come back; you won't forget me, Amy?' She did not promise, but she looked at him, and he seemed happy. There was no time for anything but messages and goodbyes, because he left in an hour, and they all miss him. Amy knows he wanted to speak, but she thinks he promised his father not to yet, because Fred is a rash boy and his father fears a foreign daughter-in-law. They will soon meet in Rome. Then, if she does not change her mind, she will say 'Yes, thank you,' when he says 'Will you, please?' She says all this is private, but she wants her mother to know what is going on. She asks her mother not to worry, because she is 'prudent Amy' and will do nothing rashly. She asks for advice, and says she will use it if she can. She wishes she could talk with Marmee and asks her mother to love and trust her.",
+   "hardWords": [
+    "mortifies",
+    "prudent",
+    "rashly"
+   ]
+  },
+  {
+   "chapter": 34,
+   "paragraph": 30,
+   "context": "Now, the old sofa was a regular patriarch of a sofa",
+   "mainIdea": "The old family sofa has been used by the girls all their lives. Jo's hard round pillow is her tool to keep people away.",
+   "simple": "The old sofa was a true grandfather of sofas: long, broad, well-stuffed and low. It was a little shabby, as it well might be. The girls had slept and sprawled on it as babies, fished over its back, ridden on its arms, and kept animal shows under it as children. As young women they had rested tired heads on it, dreamed dreams, and heard loving talk there. They all loved it as a family refuge, and one corner had always been Jo's favorite lounging place. Among the many pillows that decorated the old couch was one that was hard, round, covered with prickly horsehair, and had a knobby button at each end. This ugly pillow was Jo's own. She used it as a weapon of defence, as a barricade, or as a stern way to stop too much sleep.",
+   "hardWords": [
+    "patriarch",
+    "horsehair",
+    "menageries",
+    "venerable"
+   ]
+  },
+  {
+   "chapter": 35,
+   "paragraph": 6,
+   "context": "I went in, and while we worked I looked about me, for it was ‘a den,’ to be sure.",
+   "mainIdea": "In a letter to Beth, Jo tells how she mends the Professor's things in secret. He finds out and offers to teach her German.",
+   "simple": "Jo writes a funny letter to Beth. She teaches the children, Tina, Franz and Emil, and she likes the boys. On Saturdays she and the Professor take them for walks. She has now begun to take lessons. One day Mrs. Kirke asked her to help put the Professor's room in order, because she could not find six new handkerchiefs. The room was a 'den', with books and papers everywhere, a broken meerschaum pipe, a bird with no tail and a box of white mice. They found three of the handkerchiefs. Mrs. Kirke said he was so good-natured that the boys rode over him, and that he forgot to give her his things to mend. Jo said she would mend them, because he was kind to her. She mended his socks, and hoped he would not know. But she also wanted to learn German, because she could hear his lessons through the open door. One day he caught her studying, and laughed quietly. He asked if she wanted to learn German. Jo said he was too busy and she was too stupid. He said he had seen what the kind ladies did for him, and that he would give her a lesson as thanks. After four lessons Jo cried over the grammar, and he threw the book on the floor and went out. He came back happy and said they would read fairy tales together instead. Jo read with all her might, and he read to her from the story of the Tin Soldier, and they both laughed. Now she reads pretty well. She wants to give him something at Christmas, and she asks her mother for ideas. She is glad that Laurie is happy and busy, has stopped smoking and lets his hair grow. She is not jealous, and she thinks Beth manages Laurie better than she did. She thanks Heaven that Beth is comfortable.",
+   "hardWords": [
+    "meerschaum",
+    "rummage",
+    "roughshod"
+   ]
+  },
+  {
+   "chapter": 36,
+   "paragraph": 5,
+   "context": "She took to writing sensation stories; for in those dark ages, even all-perfect America read rubbish.",
+   "mainIdea": "Jo secretly writes sensation stories. She goes alone to the editor, dressed in her best, and feels uneasy in the messy, smoky office.",
+   "simple": "Jo began to write sensation stories, because in those dark times even perfect America read rubbish. She told no one. She made up a 'thrilling tale' and boldly took it herself to Mr. Dashwood, the editor of the Weekly Volcano. She had never read Sartor Resartus, but she had a woman's feeling that clothes can have more power over many people than good character or good manners. So she put on her best clothes. She tried to tell herself that she was neither excited nor nervous, and bravely climbed two flights of dark, dirty stairs. She found a messy room, a cloud of cigar smoke and three men with their heels higher than their hats. None of them took off his hat for her. This welcome made her a little afraid, and she stopped at the door and spoke with much embarrassment.",
+   "hardWords": [
+    "concocted",
+    "editor",
+    "daunted",
+    "threshold"
+   ]
+  },
+  {
+   "chapter": 36,
+   "paragraph": 74,
+   "context": "Jo wrote no more sensational stories, deciding that the money did not pay for her share of the sensation",
+   "mainIdea": "Jo stops writing sensation stories. She then writes a story full of morals, but no one buys it.",
+   "simple": "Jo wrote no more sensation stories. She decided that the money did not pay for her part of the sensation. Then she went to the other extreme, as people like her do. She read Mrs. Sherwood, Miss Edgeworth and Hannah More, and then wrote a tale that was more an essay or a sermon, it was so full of morals. She doubted it from the start, because her lively mind and girlish love of romance felt as uneasy in the new style as she would feel in the stiff and heavy clothes of the last century. She sent this teaching gem to several places, but no one bought it, and she began to agree with Mr. Dashwood that morals did not sell.",
+   "hardWords": [
+    "didactic",
+    "cumbrous"
+   ]
+  },
+  {
+   "chapter": 37,
+   "paragraph": 16,
+   "context": "Laurie was a young lover, but he was in earnest, and meant to “have it out,”",
+   "mainIdea": "Laurie is serious, and he is ready to say everything to Jo, even though his voice shakes.",
+   "simple": "Laurie was a young lover, but he was serious. He meant to 'have it out' even if he died trying. So he began to speak at once, as he always did when his feelings were strong, in a voice that sometimes went husky in spite of his manly effort to keep it steady.",
+   "hardWords": [
+    "impetuosity",
+    "manful"
+   ]
+  },
+  {
+   "chapter": 37,
+   "paragraph": 101,
+   "context": "Now, Laurie felt just then that his heart was entirely broken, and the world a howling wilderness",
+   "mainIdea": "Laurie feels his heart is broken and the world empty. But Mr. Laurence cleverly says some words that give him a little hope.",
+   "simple": "Laurie felt at that moment that his heart was completely broken and the world a howling wilderness. But the old gentleman cleverly put certain words into his last sentence, and at those words the broken heart gave an unexpected jump. A green oasis or two suddenly showed in the howling wilderness. He sighed, and then spoke in a voice with no spirit in it.",
+   "hardWords": [
+    "wilderness",
+    "oasis",
+    "artfully",
+    "spiritless"
+   ]
+  },
+  {
+   "chapter": 38,
+   "paragraph": 22,
+   "context": "Simple, sincere people seldom speak much of their piety",
+   "mainIdea": "Beth does not explain her faith, but it gives her courage to wait for death. She says she tries to be willing, and she holds on to Jo's love.",
+   "simple": "Simple, honest people seldom talk much of their faith. It shows in what they do rather than what they say, and it has more power than speeches. Beth could not explain the faith that gave her courage and patience to give up life and wait for death in a cheerful way. Like a trusting child, she asked no questions. She left everything to God and nature, the Father and mother of us all, sure that only they could teach and strengthen heart and spirit for this life and the life to come. She did not scold Jo with holy speeches. She only loved her better for her strong love, and held more closely to the dear human love, from which our Father never means us to be taken away, but through which He draws us closer to Himself. She could not say 'I am glad to go', because life was very sweet to her. She could only sob out 'I try to be willing', while she held fast to Jo, as the first bitter wave of this great sorrow broke over them both.",
+   "hardWords": [
+    "piety",
+    "homilies",
+    "weaned"
+   ]
+  },
+  {
+   "chapter": 38,
+   "paragraph": 30,
+   "context": "A little gray-coated sand-bird came tripping over the beach",
+   "mainIdea": "A small sand-bird comes close to Beth. It comforts her and reminds her that the world is still pleasant.",
+   "simple": "A little sand-bird in a gray coat came tripping over the beach, 'peeping' softly to itself as if it enjoyed the sun and sea. It came quite close to Beth and looked at her with a friendly eye. Then it sat on a warm stone, cleaning its wet feathers, quite at home. Beth smiled and felt comforted, because the tiny thing seemed to offer its small friendship and to remind her that a pleasant world was still there to enjoy.",
+   "hardWords": [
+    "tripping",
+    "dressing"
+   ]
+  },
+  {
+   "chapter": 39,
+   "paragraph": 2,
+   "context": "At three o’clock in the afternoon, all the fashionable world at Nice may be seen",
+   "mainIdea": "Every afternoon the Promenade at Nice is full of people of many countries, and the sight is as bright as a carnival.",
+   "simple": "At three o'clock in the afternoon, all the fashionable world at Nice can be seen on the Promenade des Anglais. It is a charming place. The wide walk, with palms, flowers and warm-country bushes, has the sea on one side and the grand drive on the other, lined with hotels and villas. Beyond lie orange orchards and the hills. Many nations are there, many languages are spoken, and many costumes are worn. On a sunny day the sight is as gay and bright as a carnival. Proud English, lively French, serious Germans, handsome Spaniards, ugly Russians, quiet Jews and free-and-easy Americans all drive, sit or stroll here. They chat about the news and criticise the latest famous person who has arrived. The carriages are as varied as the people and get as much notice, especially the low basket-barouches in which ladies drive themselves with a pair of dashing ponies. Gay nets keep their wide flounces from spilling over the tiny carriages, and little grooms ride on the perch behind.",
+   "hardWords": [
+    "promenade",
+    "equipages",
+    "flounces",
+    "diminutive"
+   ]
+  },
+  {
+   "chapter": 39,
+   "paragraph": 19,
+   "context": "While Laurie listlessly watched the procession of priests under their canopies",
+   "mainIdea": "Amy sees that Laurie has changed. He is handsomer but tired and sad, and she does not dare ask why.",
+   "simple": "Laurie watched without interest as priests passed under their canopies, with nuns in white veils carrying lighted candles and a group in blue singing as they walked. Amy watched him and felt a new kind of shyness. He was changed, and she could not find the merry-faced boy she had left in the moody man beside her. She thought he was handsomer than ever and much better. But now that the glow of joy at meeting her was gone, he looked tired and without spirit. He was not sick or quite unhappy, but older and more serious than one or two years of easy life should have made him. She could not understand it and did not dare to ask. So she shook her head and touched up her ponies, as the procession wound away over the arches of the Paglioni bridge and went into the church.",
+   "hardWords": [
+    "listlessly",
+    "canopies",
+    "tapers"
+   ]
+  },
+  {
+   "chapter": 40,
+   "paragraph": 2,
+   "context": "In France the young girls have a dull time of it till they are married",
+   "mainIdea": "In France girls have a dull life until they marry. In America, the writer says, young wives are put on the shelf after the wedding.",
+   "simple": "In France young girls have a dull time until they are married, and then 'Long live liberty' becomes their motto. In America, as everyone knows, girls sign the declaration of independence early and enjoy their freedom with republican spirit. But young wives usually give up their power when the first heir comes, and go into a life almost as shut away as a French nunnery, though not as quiet. Whether they like it or not, they are as good as put on the shelf as soon as the wedding excitement is over. Most could say, as a very pretty woman did the other day, 'I am as handsome as ever, but no one notices me because I am married.'",
+   "hardWords": [
+    "abdicate",
+    "seclusion",
+    "republican"
+   ]
+  },
+  {
+   "chapter": 40,
+   "paragraph": 5,
+   "context": "The poor man was very uncomfortable, for the children had bereft him of his wife",
+   "mainIdea": "John feels shut out from home, so after six months he starts to spend evenings at the Scotts'.",
+   "simple": "The poor man was very uncomfortable, because the children had taken his wife from him. Home was only a nursery. The endless 'hushing' made him feel like a rough stranger whenever he went into the holy area of Babyland. He bore it patiently for six months. When nothing got better, he did what other fathers in his state do and tried to find a little comfort elsewhere. Scott had married and set up house not far away. John got into the habit of running over for an hour or two in the evening when his own parlor was empty and his own wife was singing lullabies that never seemed to end. Mrs. Scott was a lively, pretty girl with nothing to do but be pleasant, and she did it very well. Her parlor was always bright and nice, with the chessboard ready, the piano in tune, plenty of gay gossip and a nice little supper set out in a tempting way.",
+   "hardWords": [
+    "bereft",
+    "precincts",
+    "amendment"
+   ]
+  },
+  {
+   "chapter": 41,
+   "paragraph": 11,
+   "context": "Valrosa well deserved its name, for, in that climate of perpetual summer",
+   "mainIdea": "The villa Valrosa is covered with roses everywhere, in a place where it is always summer.",
+   "simple": "Valrosa was rightly named, because in that land of never-ending summer, roses bloomed everywhere. They hung over the archway and pushed between the bars of the big gate to welcome people passing by. They lined the avenue that wound through lemon trees and feathery palms up to the villa on the hill. Every shady corner with seats for resting was full of flowers. Every cool grotto had its marble nymph smiling from a veil of flowers, and every fountain showed red, white or pale pink roses bending down to smile at their own beauty. Roses covered the walls of the house, hung from its edges, climbed the pillars and grew wild over the rail of the wide terrace. From there one could look down on the sunny Mediterranean and the white-walled city on its shore.",
+   "hardWords": [
+    "perpetual",
+    "grotto",
+    "nymph",
+    "cornices",
+    "balustrade"
+   ]
+  },
+  {
+   "chapter": 41,
+   "paragraph": 134,
+   "context": "It was not nearly so well done, but there was a life and spirit in it",
+   "mainIdea": "Amy's second sketch shows Laurie as he used to be, strong and brave while taming a horse. It is a strong contrast to the lazy picture.",
+   "simple": "The second sketch was not nearly so well drawn, but it had so much life and spirit that it made up for many faults. It brought back the past so strongly that a sudden change came over the young man's face as he looked. It was only a rough sketch of Laurie taming a horse. His hat and coat were off, and every line of the active figure, the firm face and the commanding stand was full of energy and meaning. The handsome animal, just beaten, stood with its neck curved under the tight rein. One foot pawed the ground impatiently, and its ears were up as if listening for the voice that had mastered it. In the ruffled mane, the rider's windblown hair and straight stand, there was a feeling of sudden stopped movement, of strength, courage and young life. It was in sharp contrast with the lazy grace of the 'Dolce far niente' sketch.",
+   "hardWords": [
+    "atoned",
+    "supine",
+    "buoyancy"
+   ]
+  },
+  {
+   "chapter": 42,
+   "paragraph": 4,
+   "context": "Here, cherished like a household saint in its shrine, sat Beth, tranquil and busy as ever",
+   "mainIdea": "Beth is loved like a saint at home and keeps busy making small gifts for the schoolchildren who pass her window.",
+   "simple": "Here sat Beth, loved like a holy person of the house in her shrine. She was calm and busy as ever, because nothing could change her sweet, unselfish nature. Even while getting ready to leave life, she tried to make it happier for those who would stay behind. Her weak fingers were never idle. One of her pleasures was to make small things for the schoolchildren who passed by each day. She dropped a pair of mittens from her window for a pair of purple hands, a needle-book for a small girl with many dolls, and pen-wipers for young writers working through forests of pothooks. She also made scrapbooks for children who love pictures, and all kinds of nice things. The children who were unwilling to climb the ladder of learning found their way covered with flowers, and they came to see the kind giver as a sort of fairy godmother who sat above and showered down gifts that suited their tastes and needs. If Beth had wanted a reward, she found it in the bright little faces always turned up to her window, with nods and smiles, and in the funny little letters full of ink blots and thanks.",
+   "hardWords": [
+    "shrine",
+    "pothooks",
+    "penmen",
+    "devices"
+   ]
+  },
+  {
+   "chapter": 42,
+   "paragraph": 21,
+   "context": "Seldom, except in books, do the dying utter memorable words",
+   "mainIdea": "Beth dies quietly and simply, as most people do, in the early morning at home, with one look and one small sigh.",
+   "simple": "Seldom, except in books, do dying people say words that are remembered, see visions, or die with holy faces. Those who have seen many souls go know that for most the end comes as naturally and simply as sleep. As Beth had hoped, the 'tide went out easily'. In the dark hour before dawn, on the breast where she had drawn her first breath, she quietly drew her last. She gave no farewell but one loving look and one little sigh.",
+   "hardWords": [
+    "beatified",
+    "countenances"
+   ]
+  },
+  {
+   "chapter": 43,
+   "paragraph": 2,
+   "context": "Amy’s lecture did Laurie good, though, of course, he did not own it till long afterward",
+   "mainIdea": "Laurie does not admit that Amy's lecture helped him. He goes back to his grandfather and behaves well but will not return to Nice yet.",
+   "simple": "Amy's lecture did Laurie good, though he did not admit it until long afterward. Men seldom do. When women give advice, men do not follow it until they have told themselves it is just what they planned. Then they act on it. If it works, they give the 'weaker vessel' half the credit, and if it fails, they generously give her all of it. Laurie went back to his grandfather and was so dutiful for several weeks that the old gentleman said the air of Nice had improved him wonderfully and that he should try it again. The young man would have liked nothing better, but elephants could not have dragged him back after the scolding he had got. His pride forbade it, and whenever the longing grew strong he made his mind firm by repeating the words that had hurt him most.",
+   "hardWords": [
+    "vessel",
+    "fortified"
+   ]
+  },
+  {
+   "chapter": 43,
+   "paragraph": 44,
+   "context": "He had rather imagined that the denouement would take place in the château garden by moonlight",
+   "mainIdea": "Laurie imagined a moonlit proposal. In fact the matter is settled on the lake at noon in a few simple words.",
+   "simple": "Laurie had rather imagined that the end would come in the château garden by moonlight, in a most graceful and proper way. It turned out the opposite, because the matter was settled on the lake at noon in a few plain words. They had been floating about all morning from gloomy St. Gingolf to sunny Montreux. The Alps of Savoy were on one side, Mont St. Bernard and the Dent du Midi on the other, pretty Vevay in the valley, and Lausanne on the hill beyond. The sky was cloudless blue overhead, and the lake was a bluer blue below, dotted with pretty boats like white-winged gulls.",
+   "hardWords": [
+    "denouement",
+    "decorous",
+    "picturesque"
+   ]
+  },
+  {
+   "chapter": 44,
+   "paragraph": 16,
+   "context": "Now, if she had been the heroine of a moral storybook, she ought at this period of her life",
+   "mainIdea": "The writer says Jo is not a perfect heroine but a real girl. She is learning to do her duty, but cheerfulness takes longer.",
+   "simple": "If Jo had been the heroine of a book that teaches good behavior, she would at this time of her life have become quite holy. She would have left the world and gone about doing good in a plain bonnet with religious papers in her pocket. But Jo was not a heroine. She was only a struggling human girl like hundreds of others, and she acted out her nature, being sad, cross, tired or full of energy as her mood suggested. It is very good to say we will be good, but we cannot do it all at once. It takes a long pull, a strong pull and a pull all together before some of us even get our feet on the right road. Jo had got so far that she was learning to do her duty and to feel unhappy if she did not. But to do it cheerfully was another thing. She had often said she wanted to do something splendid, no matter how hard. Now she had her wish, because nothing could be more beautiful than to give her life to father and mother and try to make home as happy for them as they had made it for her. And if hard things were needed to make the effort more splendid, nothing could be harder for a restless girl with big plans than to give up her own hopes, plans and wishes, and live happily for others.",
+   "hardWords": [
+    "heroine",
+    "tracts",
+    "renounced"
+   ]
+  },
+  {
+   "chapter": 44,
+   "paragraph": 24,
+   "context": "“There is truth in it, Jo, that’s the secret; humor and pathos make it alive",
+   "mainIdea": "Jo's father says her little story succeeded because it is true and written from her heart, with no thought of money or fame.",
+   "simple": "Her father said there is truth in it, and that is the secret. Humor and pathos make it alive, and at last she had found her own style. She had written with no thought of fame or money and had put her heart into it. She had known the bitter, and now came the sweet. He asked her to do her best and to grow as happy in her success as they were.",
+   "hardWords": [
+    "pathos",
+    "style"
+   ]
+  },
+  {
+   "chapter": 45,
+   "paragraph": 2,
+   "context": "Jo was alone in the twilight, lying on the old sofa, looking at the fire, and thinking.",
+   "mainIdea": "Jo is alone at dusk on the eve of her birthday. She feels tired and old and thinks she has done little, though she is wrong.",
+   "simple": "Jo was alone in the dusk, lying on the old sofa, looking at the fire and thinking. This was her favorite way to spend the evening hour. No one disturbed her. She lay on Beth's little red pillow, planning stories, dreaming, or thinking gently of the sister who never seemed far away. Her face looked tired, serious and rather sad. Tomorrow was her birthday, and she was thinking how fast the years go, how old she was getting and how little she had done. She was almost twenty-five, with nothing to show for it. Jo was wrong about that. There was much to show, and later she saw it and was thankful.",
+   "hardWords": [
+    "twilight",
+    "accomplished"
+   ]
+  },
+  {
+   "chapter": 45,
+   "paragraph": 29,
+   "context": "The pillow was gone, but there was a barricade, nevertheless",
+   "mainIdea": "A barrier of time and change stands between Jo and Laurie, but it passes quickly as they talk.",
+   "simple": "The pillow was gone, but there was a barricade all the same. It was a natural one, raised by time, absence and change of heart. Both felt it. For a minute they looked at one another as if this unseen wall cast a small shadow over them. It was gone soon, because Laurie spoke, trying in vain to look serious.",
+   "hardWords": [
+    "barricade"
+   ]
+  },
+  {
+   "chapter": 46,
+   "paragraph": 9,
+   "context": "“We have our plans; we don’t mean to say much about them yet, because we are such very new brooms",
+   "mainIdea": "Laurie says they are new brooms with plans of their own. He will work hard at business so that his grandfather is pleased and he stays steady.",
+   "simple": "Laurie says they have plans but will not say much yet, because they are such very new brooms. They do not mean to be idle. He will go into business with so much effort that his grandfather will be delighted and see that Laurie is not spoilt. He needs something like that to keep him steady. He is tired of wasting time and means to work like a man.",
+   "hardWords": [
+    "dawdling"
+   ]
+  },
+  {
+   "chapter": 47,
+   "paragraph": 2,
+   "context": "I cannot feel that I have done my duty as humble historian of the March family",
+   "mainIdea": "The writer says Daisy and Demi, the twins, are so adored that they are almost spoilt, and praises how early they could do things.",
+   "simple": "The writer says she has not done her duty as the humble historian of the March family unless she gives at least one chapter to its two most precious and important members. Daisy and Demi had reached the age when they could think for themselves. In this fast age, babies of three or four claim their rights, and they get them, which is more than many older people do. If ever there was a pair of twins in danger of being utterly spoilt by love, it was these chattering Brookes. Of course they were the most remarkable children ever born. They walked at eight months and talked well at twelve months. At two years they took their places at table and behaved so well that all who saw them were charmed. At three, Daisy asked for a 'needler' and really made a bag with four stitches in it. She also set up her own house in the sideboard and used a tiny cooking-stove so well that Hannah cried with pride. Demi learned his letters with his grandfather, who made a new way to teach the alphabet by forming the letters with his arms and legs, so that head and heels were both taught. The boy soon showed a gift for machines, which delighted his father and drove his mother mad. He tried to copy every machine he saw and kept the nursery in a mess with his 'sewin-sheen', a strange thing made of string, chairs, clothespins and spools, with wheels that went 'wound and wound'. He also hung a basket over the back of a big chair and tried in vain to pull up his trusting sister in it. Like a loving girl, she let her little head be bumped until she was rescued. Then the young inventor said angrily, 'Why, marmar, dat's my lellywaiter, and me's trying to pull her up.'",
+   "hardWords": [
+    "historian",
+    "discretion",
+    "prattling"
+   ]
+  },
+  {
+   "chapter": 47,
+   "paragraph": 6,
+   "context": "Demi, like a true Yankee, was of an inquiring turn, wanting to know everything",
+   "mainIdea": "Demi always wants to know the reason for everything, and he is upset when he cannot get a good answer.",
+   "simple": "Demi, like a true Yankee, liked to ask questions and wanted to know everything. He often got upset because he could not get answers that satisfied him to his endless 'What for?'",
+   "hardWords": [
+    "Yankee",
+    "philosophic",
+    "Socratic",
+    "precocious"
+   ]
+  },
+  {
+   "chapter": 48,
+   "paragraph": 41,
+   "context": "Mr. Bhaer could read several languages, but he had not learned to read women yet.",
+   "mainIdea": "Mr. Bhaer is confused by Jo's changing moods. Her words and looks seem to go up and down, and he cannot tell what she feels.",
+   "simple": "Mr. Bhaer could read several languages, but he had not yet learned to read women. He thought he knew Jo quite well. So he was very surprised by the opposite signs in her voice, face and manner. She showed him them one after another that day, because she was in half a dozen different moods in half an hour. When she met him, she looked surprised, though he could not help thinking she had come for that very reason. When he offered his arm, she took it with a look that filled him with joy. But when he asked if she missed him, she gave a cold, formal answer, and he lost hope. When she heard his good luck, she almost clapped her hands, and he wondered if the joy was all for the boys. Then, hearing where he was going, she said 'So far away!' in a tone of despair that lifted him to a high point of hope. But a minute later she knocked him down again by speaking like a person who was only thinking of the matter in hand.",
+   "hardWords": [
+    "contradictions",
+    "pinnacle"
+   ]
+  },
+  {
+   "chapter": 48,
+   "paragraph": 75,
+   "context": "It was certainly proposing under difficulties, for, even if he had desired to do so",
+   "mainIdea": "Mr. Bhaer asks for Jo's love in the street, in mud, with both hands full. His joy shines in his face so much that rainbows seem to form in the drops on his beard.",
+   "simple": "It was certainly a proposal made under difficulties. Even if he had wished to, Mr. Bhaer could not kneel because of the mud. He could not offer Jo his hand, except in a manner of speaking, because both were full. He could not show tender feeling in the open street, though it was close. So the only way he could show his joy was to look at her. His face was so glorious that there seemed to be little rainbows in the drops that sparkled on his beard. If he had not loved Jo very much, I do not think he could have done it then, because she looked far from lovely. Her skirts were in a sad state, her rubber boots were splashed to the ankle, and her bonnet was ruined. Luckily, Mr. Bhaer thought her the most beautiful woman alive. And she found him more 'Jove-like' than ever, although the brim of his hat was soft and wet from the small streams running from it onto his shoulders (because he held the umbrella all over Jo), and every finger of his gloves needed mending.",
+   "hardWords": [
+    "rapture",
+    "glorified",
+    "deplorable"
+   ]
+  },
+  {
+   "chapter": 49,
+   "paragraph": 12,
+   "context": "“Boys. I want to open a school for little lads",
+   "mainIdea": "Jo says that the crop she will grow at Plumfield is boys. She wants a happy, homelike school, with Fritz to teach them.",
+   "simple": "Jo says 'Boys.' She wants to open a school for little boys. It will be a good, happy, homelike school, with her to take care of them and Fritz to teach them.",
+   "hardWords": [
+    "crop"
+   ]
+  },
+  {
+   "chapter": 49,
+   "paragraph": 33,
+   "context": "Yes; Jo was a very happy woman there, in spite of hard work, much anxiety",
+   "mainIdea": "Jo is very happy at Plumfield in spite of hard work and noise. She has two little boys of her own, who grow up well among the crowd of schoolboys.",
+   "simple": "Yes, Jo was a very happy woman there, in spite of hard work, much worry and constant noise. She enjoyed it fully. She found the praise of her boys more satisfying than any praise from the world, because she now told stories only to her flock of eager believers and admirers. As the years went on, two little boys of her own came to make her happier. They were Rob, named for grandpa, and Teddy, a carefree baby who seemed to have his papa's sunny temper as well as his mother's lively spirit. How they grew up alive in that whirlpool of boys was a mystery to their grandma and aunts. But they did well, like dandelions in spring, and their rough nurses loved and served them well.",
+   "hardWords": [
+    "perpetual",
+    "racket",
+    "whirlpool"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 3,
+   "context": "Round shoulders had Jo, big hands and feet, a flyaway look to her clothes",
+   "simple": "Jo had round shoulders, big hands and feet, and clothes that looked loose and untidy.",
+   "grammar": "The order is turned around: 'Round shoulders had Jo' means 'Jo had round shoulders'. The writer puts the thing first for style."
+  },
+  {
+   "chapter": 4,
+   "context": "Being still too young to go often to the theatre",
+   "simple": "The girls were still too young to go to the theatre often, and they were not rich enough to pay for private plays, so they used their wits.",
+   "grammar": "'Being still too young...' is a participle phrase. It gives the reason for what the girls did next."
+  },
+  {
+   "chapter": 5,
+   "context": "Serves me right for trying to be fine",
+   "simple": "It is what I deserve for trying to be fine.",
+   "grammar": "'Serves me right' is short for 'It serves me right'. In talk, people leave out 'It'."
+  },
+  {
+   "chapter": 6,
+   "context": "Believing that they could not begin too early to cultivate energy",
+   "simple": "The parents thought it was never too early for the girls to build up energy, hard work and independence, so they agreed.",
+   "grammar": "'Believing that...' is a participle phrase giving the parents' reason. 'Could not begin too early' means 'it is never too early to begin'."
+  },
+  {
+   "chapter": 7,
+   "context": "The atmosphere of the whole house being summer-like, Laurie led the way",
+   "simple": "Because the whole house felt warm like summer, Laurie led the way from room to room.",
+   "grammar": "'The atmosphere ... being summer-like' is an absolute phrase with its own subject. It gives the reason for what follows."
+  },
+  {
+   "chapter": 8,
+   "context": "If the roof of the house had suddenly flown off, the old gentleman wouldn't have been more astonished",
+   "simple": "The old gentleman would not have been more surprised if the roof of the house had suddenly flown away.",
+   "grammar": "This is an 'if' sentence about something imaginary: 'If ... had flown ..., ... wouldn't have been ...'. It compares Mr. Laurence's surprise to something that did not happen."
+  },
+  {
+   "chapter": 9,
+   "context": "pride goes before a fall, and the revengeful Snow turned the tables",
+   "simple": "Being proud leads to a fall, and Snow, who wanted revenge, changed things against Amy with terrible success.",
+   "grammar": "'Pride goes before a fall' is an old saying: proud people soon fail. 'Turned the tables' is an idiom meaning changed the situation so the other person now loses."
+  },
+  {
+   "chapter": 10,
+   "context": "Although the oldest, Jo had the least self-control",
+   "simple": "Jo was the oldest girl, but she had the least control over herself.",
+   "grammar": "'Although the oldest' leaves out 'she was': it means 'Although she was the oldest'. 'The least' is the superlative of 'little'."
+  },
+  {
+   "chapter": 11,
+   "context": "she stood, like the jackdaw in the fable, enjoying her borrowed plumes",
+   "simple": "She stood there enjoying the fine things that belonged to someone else, like the bird in the old story.",
+   "grammar": "'Like the jackdaw in the fable' is a comparison with an old story. A jackdaw is a bird that put on other birds' feathers to look fine. 'Borrowed plumes' means fine things that are not truly yours."
+  },
+  {
+   "chapter": 12,
+   "context": "Hannah used to say, “I’d know which each of them gardings belonged to",
+   "simple": "Hannah used to say she would know which garden belonged to which girl.",
+   "grammar": "Hannah speaks in dialect: 'gardings' for 'gardens' and 'ef I see 'em' for 'if I saw them'. 'Which each of them gardings belonged to' is an indirect question."
+  },
+  {
+   "chapter": 13,
+   "context": "Hoping to impress the lesson more deeply, Mrs. March, who had a good deal of humor",
+   "simple": "Mrs. March had a good sense of humor. She hoped the lesson would stay in the girls' minds, so she decided to end the test in a fitting way.",
+   "grammar": "'Hoping to impress...' is a participle phrase placed first. It tells why Mrs. March acted, and 'who had a good deal of humor' is an extra clause inside it."
+  },
+  {
+   "chapter": 14,
+   "context": "Tents, lunch, and croquet utensils having been sent on beforehand",
+   "simple": "The tents, the lunch and the croquet things had been sent ahead, so the party was soon in the boats.",
+   "grammar": "'Tents... having been sent on beforehand' is an absolute phrase in the past passive. It tells what was already done before the main action."
+  },
+  {
+   "chapter": 15,
+   "context": "Though possessed of half a dozen hats, it took him some time to find one",
+   "simple": "Although he owned six hats, it took him some time to find one.",
+   "grammar": "'Though possessed of...' leaves out 'he was': it means 'Though he was possessed of (owned) half a dozen hats'. 'It took him some time to find one' uses 'it took + person + time + to...'."
+  },
+  {
+   "chapter": 15,
+   "context": "I've got the key to my castle in the air; but whether I can unlock the door remains to be seen",
+   "simple": "I have the key to my dream castle, but we do not know yet if I can open the door.",
+   "grammar": "'Whether I can unlock the door' is a noun clause that is the subject of 'remains to be seen'. The sentence also uses a key as a picture of a way to reach a dream."
+  },
+  {
+   "chapter": 16,
+   "context": "Because if you care much about riches, you will never go and marry a poor man",
+   "simple": "If you care a lot about money, you will never marry a poor man.",
+   "grammar": "This is a real 'if' sentence (first conditional): 'if' + present tense, then 'will never' for the result."
+  },
+  {
+   "chapter": 17,
+   "context": "who would as soon have thought of cutting off her head as her pretty hair",
+   "simple": "Amy would have been just as likely to think of cutting off her head as of cutting her pretty hair.",
+   "grammar": "'Would as soon ... as ...' compares two things that are equally unlikely. It means she would never think of cutting her hair."
+  },
+  {
+   "chapter": 18,
+   "context": "Hannah wisely allowed them to relieve their feelings, and, when the shower showed signs of clearing up",
+   "simple": "Hannah wisely let the girls cry, and when their crying was nearly over, she came to help them with a coffeepot.",
+   "grammar": "'The shower' is a picture word for the girls' tears, like a rain shower. 'Showed signs of clearing up' means it was ending."
+  },
+  {
+   "chapter": 19,
+   "context": "the house seemed like a clock whose pendulum was gone a-visiting",
+   "simple": "The house seemed like a clock whose swinging part had gone away to visit someone.",
+   "grammar": "This is a simile with a relative clause: 'a clock whose pendulum was gone...'. 'Gone a-visiting' is a playful way to say the pendulum is missing, just as Beth is the one who keeps the house going."
+  },
+  {
+   "chapter": 20,
+   "context": "Down went Jo's face into the wet handkerchief, and she cried despairingly",
+   "simple": "Jo put her face into the wet handkerchief and cried without hope.",
+   "grammar": "The order is turned around: 'Down went Jo's face' means 'Jo's face went down'. A short word of place goes first for a strong effect."
+  },
+  {
+   "chapter": 21,
+   "context": "So she took Amy in hand, and taught her as she herself had been taught sixty years ago",
+   "simple": "So she took charge of Amy and taught her in the way she herself had been taught sixty years before.",
+   "grammar": "'Take in hand' is a phrase meaning 'take charge of'. 'As she herself had been taught' is a past passive clause that compares how she taught Amy with how she had been taught."
+  },
+  {
+   "chapter": 22,
+   "context": "for the sincere wish to be good is half the battle",
+   "simple": "Truly wanting to be good is already half of the fight.",
+   "grammar": "'Half the battle' is an idiom: the hardest part is already done. The 'for' gives the reason for 'I think you will prosper'."
+  },
+  {
+   "chapter": 22,
+   "context": "I wish wearing flatirons on our heads would keep us from growing up",
+   "simple": "I wish that wearing heavy irons on our heads would stop us from growing up.",
+   "grammar": "'I wish ... would keep' wishes for something that is not true or possible. It uses 'would' after 'wish'."
+  },
+  {
+   "chapter": 23,
+   "context": "She was quite right, for the mischief-loving lad no sooner suspected a mystery than he set himself",
+   "simple": "She was right, because as soon as the mischievous boy thought there was a mystery, he began to try to find it out.",
+   "grammar": "'No sooner ... than ...' means 'as soon as'. The first action came and the second followed at once."
+  },
+  {
+   "chapter": 24,
+   "context": "straws show which way the wind blows, and I've made several discoveries today",
+   "simple": "Small signs show which way things are going, and I have found out several things today.",
+   "grammar": "'Straws show which way the wind blows' is a saying: small signs tell you what is going to happen. 'Which way the wind blows' is a noun clause, the object of 'show'."
+  },
+  {
+   "chapter": 24,
+   "context": "I don't know whether the shearing sobered our black sheep",
+   "simple": "I do not know if the cutting of her hair made our wild girl more serious.",
+   "grammar": "'Whether' starts a noun clause, the object of 'know'. 'Black sheep' is a picture word for a family member who is wild; 'shearing' joins the sheep picture to the cut hair."
+  },
+  {
+   "chapter": 25,
+   "context": "If Aunt March had begged Meg to accept John Brooke, she would probably have declared",
+   "simple": "If Aunt March had begged Meg to accept John Brooke, Meg would probably have said she could not think of it.",
+   "grammar": "This is a past unreal 'if' sentence: 'If ... had begged, ... would have declared'. It says what would have happened, but did not."
+  },
+  {
+   "chapter": 26,
+   "context": "In order that we may start afresh, and go to Meg's wedding with free minds",
+   "simple": "So that we can begin again and go to Meg's wedding with clear minds, it is good to begin with a little talk about the Marches.",
+   "grammar": "'In order that we may...' shows purpose. 'May' is a formal word here, like 'so that we can'. 'It will be well to begin' means 'it is good to begin'."
+  },
+  {
+   "chapter": 27,
+   "context": "for ridicule is often harder to bear than self-denial",
+   "simple": "Being laughed at is often harder to bear than giving up something you like.",
+   "grammar": "This is a short wise saying. It compares two things with 'harder ... than'. The word 'for' gives the reason why the young man hesitated."
+  },
+  {
+   "chapter": 28,
+   "context": "if they had not objected to taking advice as much as they did salts and senna",
+   "simple": "She would have made the lessons easier if her children had not disliked advice as much as they disliked medicine.",
+   "grammar": "'As much as they did salts and senna' means 'as much as they objected to salts and senna'. The verb is left out. Salts and senna were bad-tasting medicines."
+  },
+  {
+   "chapter": 28,
+   "context": "It takes people a long time to learn the difference between talent and genius",
+   "simple": "People need a long time to learn the difference between talent and genius.",
+   "grammar": "'It takes + people + time + to...' is a common pattern. The word 'It' stands for the whole job of learning."
+  },
+  {
+   "chapter": 29,
+   "context": "Not a golden penny, exactly, but I doubt if half a million would have given more real happiness",
+   "simple": "It was not exactly a gold coin. But I doubt that even half a million would have brought more true joy than the small sum she got.",
+   "grammar": "'I doubt if half a million would have given...' uses 'would have given' to talk about an unreal past. The idea is that even much more money could not do better."
+  },
+  {
+   "chapter": 29,
+   "context": "he practised as he preached, having waited patiently thirty years for fruit of his own to ripen",
+   "simple": "He did what he taught. He had waited patiently for thirty years for his own fruit to become ripe.",
+   "grammar": "'He practised as he preached' means he did what he told others to do. 'Having waited' shows an action that was finished before the main one. 'Fruit' is used as a picture for his own work."
+  },
+  {
+   "chapter": 30,
+   "context": "John Brooke laughed then as he never dared to laugh afterward",
+   "simple": "John laughed then in a way that he never dared to laugh again.",
+   "grammar": "'As he never dared to laugh afterward' is a comparison clause. It tells us how big this laugh was: John never laughed like that again."
+  },
+  {
+   "chapter": 30,
+   "context": "for even turtledoves will peck when ruffled",
+   "simple": "Even gentle doves will peck when they are upset.",
+   "grammar": "'For' gives a reason. 'When ruffled' is short for 'when they are ruffled'. It means that even loving people can become sharp."
+  },
+  {
+   "chapter": 31,
+   "context": "If it was fair —that was in the bond; and I stand to the letter of my bond, Shylock.",
+   "simple": "The promise was only for fair weather, and I keep exactly to the words of my promise, as Shylock did.",
+   "grammar": "'Bond' is an old word for a signed promise. Jo makes a joke about Shylock, a person in a play by Shakespeare, who kept strictly to the words of his deal."
+  },
+  {
+   "chapter": 31,
+   "context": "It’s a greater not to be able to hide them.",
+   "simple": "It is a bigger misfortune not to be able to hide those feelings.",
+   "grammar": "'A greater' stands for 'a greater misfortune'. The noun is left out because it was in the sentence before."
+  },
+  {
+   "chapter": 32,
+   "context": "Because they are mean is no reason why I should be.",
+   "simple": "The fact that they are unkind is no reason for me to be unkind.",
+   "grammar": "The whole clause 'Because they are mean' is the subject of the sentence. 'Be' stands for 'be mean'. It is a little unusual to start a sentence this way."
+  },
+  {
+   "chapter": 32,
+   "context": "feeling that virtue was not always its own reward",
+   "simple": "She felt that being good did not always bring its own prize.",
+   "grammar": "'Virtue is its own reward' is a well-known saying. Here the writer says 'not always' to make a gentle joke about it."
+  },
+  {
+   "chapter": 33,
+   "context": "Don’t laugh, Jo; gentlemen really are very necessary aboard ship",
+   "simple": "Don't laugh, Jo. Men really are very useful on a ship.",
+   "grammar": "'Don't laugh, Jo' is a negative order spoken to Jo. The rest, 'gentlemen really are very necessary', gives Amy's joking reason."
+  },
+  {
+   "chapter": 33,
+   "context": "One of us must marry well; Meg didn’t, Jo won’t, Beth can’t yet, so I shall",
+   "simple": "One of us must marry a rich man. Meg did not, Jo will not, and Beth cannot yet, so I will.",
+   "grammar": "Each short part leaves out 'marry well' after the helper word: 'didn't', 'won't', 'can't', 'shall'. The pattern is a list that shows how Amy reasons, ending with 'so'."
+  },
+  {
+   "chapter": 34,
+   "context": "Anything more wheedlesome than that touching appeal was seldom heard",
+   "simple": "It was seldom that anyone heard a more coaxing, touching request than that.",
+   "grammar": "'Anything more X than that' is a comparison. The sentence is a way to say that this was the most coaxing request one could hear. It is built with a passive verb: 'was ... heard'."
+  },
+  {
+   "chapter": 35,
+   "context": "Not a very romantic story, but it interested me",
+   "simple": "It is not a very romantic story, but I found it interesting.",
+   "grammar": "The subject and verb 'It is' are left out at the start, as is common in letters and notes. 'But' shows a contrast."
+  },
+  {
+   "chapter": 36,
+   "context": "We’ll take this” (editors never say I)",
+   "simple": "We will take this. (The writer jokes that editors never say 'I'.)",
+   "grammar": "The part in brackets is the writer's own comment. It is a present-tense remark about all editors: 'never say I' means they always say 'we'."
+  },
+  {
+   "chapter": 36,
+   "context": "but, thanks to the life-preserver thrown her by a friend, she came up again, not much the worse for her ducking",
+   "simple": "But a friend threw her a life-saver, and she came up again, not much harmed by her dip in the water.",
+   "grammar": "This is a picture: Jo took 'a plunge' into a 'sea' of sensation stories. 'Thrown her' is short for 'thrown to her'. 'Not much the worse for' means 'not badly hurt by'."
+  },
+  {
+   "chapter": 37,
+   "context": "Not if you are the gentleman I think you.",
+   "simple": "You will not stay, if you are the kind of gentleman that I think you are.",
+   "grammar": "'Not' begins a short answer to Laurie's last words. 'The gentleman I think you' leaves out 'to be': 'the gentleman I think you to be'."
+  },
+  {
+   "chapter": 37,
+   "context": "it takes much folly, sin, or misery to send a young man to a violent death",
+   "simple": "It needs a great deal of foolishness, sin or sadness to drive a young man to a violent death.",
+   "grammar": "'It takes + noun + to + verb' is a pattern for what is needed to do something. Here 'It' stands for the whole idea, and 'much folly, sin, or misery' is the thing needed."
+  },
+  {
+   "chapter": 38,
+   "context": "for often between ourselves and those nearest and dearest to us there exists a reserve which it is very hard to overcome",
+   "simple": "Often there is a wall of silence between us and those we love most, and it is very hard to break it.",
+   "grammar": "'There exists a reserve' is a formal way to say 'there is a reserve'. 'Which it is very hard to overcome' describes 'reserve' and has 'it' as a stand-in for 'to overcome it'."
+  },
+  {
+   "chapter": 39,
+   "context": "he turned and strained his eyes to see the island which a greater usurper than even Napoleon now made interesting in his sight",
+   "simple": "He turned and strained his eyes to see the island. A greater taker of power than even Napoleon now made the island interesting to him.",
+   "grammar": "'Which a greater usurper than even Napoleon now made interesting' is a clause that tells more about 'island'. A usurper is a person who takes power that is not his. Here it is a joke: the 'usurper' seems to be Laurie's feeling for Jo. 'Greater ... than even Napoleon' is a comparison."
+  },
+  {
+   "chapter": 39,
+   "context": "the shock she received can better be imagined than described",
+   "simple": "It is easier to imagine her shock than to say how big it was.",
+   "grammar": "'Can better be imagined than described' is a fixed pattern. It uses the passive voice with 'better ... than' to say that words are not enough."
+  },
+  {
+   "chapter": 40,
+   "context": "if John goes on so much longer I might as well be widowed",
+   "simple": "If John goes on like this much longer, it would be the same as being a widow.",
+   "grammar": "'If John goes on ... I might as well be' mixes a real 'if' with 'might as well', which says that one thing is no different from the other. 'Widowed' means that a husband has died."
+  },
+  {
+   "chapter": 40,
+   "context": "as if he felt that justice was tempered with mercy",
+   "simple": "It was as if Demi felt that being fair can be softened by being kind.",
+   "grammar": "'As if' introduces something that only seems true. 'Tempered with' means 'made softer by'. The verb phrase is in the passive: 'justice was tempered'."
+  },
+  {
+   "chapter": 41,
+   "context": "Stir away; it won’t hurt me and it may amuse you, as the big man said when his little wife beat him.",
+   "simple": "Go ahead and stir me up. It won't hurt me, and it might amuse you, as the big man said when his small wife hit him.",
+   "grammar": "'Stir away' is an order that means 'go on stirring'. 'As the big man said ...' adds a joke with a short story. 'It' stands for the stirring."
+  },
+  {
+   "chapter": 41,
+   "context": "It takes two flints to make a fire: you are as cool and soft as snow.",
+   "simple": "You need two flints to make a fire. You are as cool and soft as snow.",
+   "grammar": "The first part says 'It takes + noun + to + verb'. The second part uses 'as ... as' to compare Amy to snow, which cannot make fire."
+  },
+  {
+   "chapter": 42,
+   "context": "Blurred and blotted, faulty and feeble, as the lines were, they brought a look of inexpressible comfort to Beth’s face",
+   "simple": "Although the lines were smudged and blotted, with faults and weak places, they put a look of comfort too great for words on Beth's face.",
+   "grammar": "'Blurred and blotted ... as the lines were' is an 'although' clause in an older pattern: adjective + 'as' + subject + verb. Then 'they brought ...' gives the main idea."
+  },
+  {
+   "chapter": 42,
+   "context": "With the wreck of her frail body, Beth’s soul grew strong",
+   "simple": "As her weak body fell apart, Beth's soul grew strong.",
+   "grammar": "'With + noun' tells us what was happening at the same time. It shows two things going in opposite ways, and the writer sets them next to each other for effect."
+  },
+  {
+   "chapter": 43,
+   "context": "So well that I wish we might always pull in the same boat.",
+   "simple": "We row so well together that I wish we could always share one boat.",
+   "grammar": "'Pull in the same boat' is a pun: it means rowing in one boat and also living one life together. 'I wish we might' uses 'might' for something that one hopes for but cannot be sure of."
+  },
+  {
+   "chapter": 43,
+   "context": "men seldom do, for when women are the advisers, the lords of creation don’t take the advice",
+   "simple": "Men seldom admit it, because when women give advice, men do not take it.",
+   "grammar": "'The lords of creation' is a joke name for men. 'When women are the advisers' is a time clause. The 'for' joins a reason to the first idea."
+  },
+  {
+   "chapter": 44,
+   "context": "It was easy to promise self-abnegation when self was wrapped up in another",
+   "simple": "It was easy to promise to give up her own wishes when her whole life was wrapped up in another person.",
+   "grammar": "'Self-abnegation' and 'self' are used as abstract nouns. 'Wrapped up in another' means fully busy with someone else. The 'when' clause shows the time when the promise was easy."
+  },
+  {
+   "chapter": 44,
+   "context": "Frost opens chestnut-burrs, ma’am, and it takes a good shake to bring them down.",
+   "simple": "Cold weather opens chestnut cases, ma'am, and it takes a hard shake to make them fall.",
+   "grammar": "Jo answers Meg's picture of a chestnut-burr with another picture. 'It takes a good shake to bring them down' uses 'it takes ... to' for the effort needed."
+  },
+  {
+   "chapter": 45,
+   "context": "Jo was mistaken in that; there was a good deal to show, and by and by she saw, and was grateful for it.",
+   "simple": "Jo was wrong about that. There was much to show, and later she saw it and was thankful.",
+   "grammar": "The writer speaks to the reader with a comment in the past tense. 'Saw, and was grateful for it' has two verbs that share the same subject, 'she'."
+  },
+  {
+   "chapter": 45,
+   "context": "Blest if she ain’t in silk from head to foot?",
+   "simple": "Isn't she dressed in silk from her head to her feet?",
+   "grammar": "Hannah speaks in dialect. 'Blest if she ain't' is a shortened old form of 'I'm blessed if she is not', and here it works as a lively question. 'Ain't' is a non-standard form of 'is not'."
+  },
+  {
+   "chapter": 46,
+   "context": "Not being a dog in the manger, but the happiest fellow alive, I assure you I can dance at Jo’s wedding",
+   "simple": "I am not selfish like a dog in the manger. I am the happiest man alive, and I promise you I can dance at Jo's wedding with a heart as light as my heels.",
+   "grammar": "'Not being ... but ...' gives a reason, a way of saying 'because I am not ... but ...'. A 'dog in the manger' is a person who will not let others have what he cannot use."
+  },
+  {
+   "chapter": 46,
+   "context": "it takes a gentleman to do it",
+   "simple": "Only a true gentleman can do it.",
+   "grammar": "'It takes + noun + to + verb' shows what is needed. Amy says it takes a gentleman, and the word 'it' means helping others in a delicate way."
+  },
+  {
+   "chapter": 47,
+   "context": "for honesty is the best policy in love as in law",
+   "simple": "Being honest is the best way in love, as it is in law.",
+   "grammar": "'Honesty is the best policy' is a well-known saying. The pattern 'as in' adds a second area where the same is true."
+  },
+  {
+   "chapter": 47,
+   "context": "If the boy had replied like Alcibiades, “By the gods, Socrates, I cannot tell,” his grandfather would not have been surprised",
+   "simple": "If Demi had answered like Alcibiades, 'By the gods, Socrates, I cannot tell', his grandfather would not have been surprised.",
+   "grammar": "This is an unreal 'if' sentence about the past: 'if ... had replied ... would not have been'. It compares Demi to a student in an old Greek story."
+  },
+  {
+   "chapter": 48,
+   "context": "being a woman as well as a lover, she felt that, though it was too late to save her heart, she might her bonnet",
+   "simple": "Because she was a woman as well as a lover, she felt that it was too late to save her heart but she could still save her bonnet.",
+   "grammar": "'She might her bonnet' leaves out 'save': 'she might save her bonnet'. 'Though' adds a contrast between the heart, which was lost, and the bonnet, which might still be saved."
+  },
+  {
+   "chapter": 48,
+   "context": "he would have been glad of his handkerchief, if he could have got at it",
+   "simple": "The Professor found it so touching that he would have liked to have his handkerchief, if he could have reached it.",
+   "grammar": "This is an unreal 'if' sentence about the past: 'would have been ... if he could have got'. 'Glad of' means 'happy to have'. 'Get at' means to reach."
+  },
+  {
+   "chapter": 49,
+   "context": "Nothing could be more natural or proper than for my Professor to open a school, and for me to prefer to reside on my own estate.",
+   "simple": "It is the most natural and right thing for my Professor to open a school and for me to like living on my own land.",
+   "grammar": "'Nothing could be more ... than for X to ... and for Y to ...' is a way to say 'it is the most ... thing'. The two 'for ... to' parts name two actions that Jo calls natural."
+  },
+  {
+   "chapter": 49,
+   "context": "I hope there will be more wheat and fewer tares every year",
+   "simple": "I hope there will be more wheat and fewer weeds each year.",
+   "grammar": "'More ... and fewer ...' compares two amounts. 'More wheat' and 'fewer tares' use a picture from a farm to talk about good and bad in a family."
+  }
+ ],
+ "phrases": {
+  "cut in": {
+   "pos": "phrasal verb",
+   "meaning": "To start speaking while another person is still speaking.",
+   "example": "but Jo cut in with a decided"
+  },
+  "turn up one's hair": {
+   "pos": "phrase",
+   "meaning": "To put long hair up on the head, as a grown woman does.",
+   "example": "you are so tall, and turn up your hair"
+  },
+  "put one's wits to work": {
+   "pos": "idiom",
+   "meaning": "To use your mind with care to find a way to do something.",
+   "example": "the girls put their wits to work"
+  },
+  "fall to work": {
+   "pos": "phrase",
+   "meaning": "To begin working at once.",
+   "example": "and then all fell to work"
+  },
+  "cut capers": {
+   "pos": "idiom",
+   "meaning": "To jump and move about in a playful way.",
+   "example": "I like to fly about and cut capers"
+  },
+  "take a fancy to": {
+   "pos": "idiom",
+   "meaning": "To begin to like a person very much.",
+   "example": "took a fancy to me, and asked me to come"
+  },
+  "wait upon": {
+   "pos": "phrasal verb",
+   "meaning": "To serve a person and do small jobs for her.",
+   "example": "needed an active person to wait upon her"
+  },
+  "take it to heart": {
+   "pos": "idiom",
+   "meaning": "To feel something deeply and think about it seriously.",
+   "example": "she took it to heart as much as any of them"
+  },
+  "tell on": {
+   "pos": "phrasal verb",
+   "meaning": "To go on with telling something; to keep talking.",
+   "example": "does me no end of good. Tell on, please"
+  },
+  "put on airs": {
+   "pos": "idiom",
+   "meaning": "To act as if you are better than other people.",
+   "example": "and didn't put on any airs"
+  },
+  "pluck up courage": {
+   "pos": "idiom",
+   "meaning": "To make yourself brave enough to do something that frightens you.",
+   "example": "could not pluck up courage to go to the"
+  },
+  "play truant": {
+   "pos": "idiom",
+   "meaning": "To stay away from lessons or school when you should be there.",
+   "example": "Laurie was always playing truant"
+  },
+  "make up one's mind": {
+   "pos": "idiom",
+   "meaning": "To decide.",
+   "example": "Beth made up her mind to speak"
+  },
+  "take aback": {
+   "pos": "phrasal verb",
+   "meaning": "To surprise someone so much that he does not know what to say.",
+   "example": "who looked quite taken aback, and held out her hand"
+  },
+  "turn the tables": {
+   "pos": "idiom",
+   "meaning": "To change a situation so that the person who was winning now loses.",
+   "forms": [
+    "turned the tables"
+   ],
+   "example": "the revengeful Snow turned the tables with disastrous success"
+  },
+  "bury the hatchet": {
+   "pos": "idiom",
+   "meaning": "To stop being angry with someone and be friends again.",
+   "forms": [
+    "buried the hatchet"
+   ],
+   "example": "promptly buried the hatchet, and offered to furnish answers"
+  },
+  "keep one's countenance": {
+   "pos": "idiom",
+   "meaning": "To keep a straight face and not laugh.",
+   "forms": [
+    "keep her countenance"
+   ],
+   "example": "Meg tried to keep her countenance"
+  },
+  "hold one's tongue": {
+   "pos": "idiom",
+   "meaning": "To stay quiet and not say what you think.",
+   "forms": [
+    "held her tongue"
+   ],
+   "example": "Amy held her tongue, but used her eyes"
+  },
+  "get up in style": {
+   "pos": "idiom",
+   "meaning": "To dress a person in fine, fashionable clothes.",
+   "example": "she'd be so nice if she was only got up in style"
+  },
+  "take time by the fetlock": {
+   "pos": "idiom",
+   "meaning": "A joke form of 'take time by the forelock'. It means to act at once and not wait.",
+   "example": "there's nothing like ‘taking time by the fetlock,’"
+  },
+  "out of sorts": {
+   "pos": "idiom",
+   "meaning": "Not as it should be. It can also mean feeling unwell or in a bad mood.",
+   "example": "Everything is out of sorts, somehow,"
+  },
+  "wash one's hands of": {
+   "pos": "idiom",
+   "meaning": "To refuse to take any more responsibility for something.",
+   "example": "I wash my hands of the dinner-party"
+  },
+  "in a huff": {
+   "pos": "idiom",
+   "meaning": "In a short fit of anger because someone has hurt your pride.",
+   "example": "Jo went off in a huff at the doubts"
+  },
+  "break the ice": {
+   "pos": "idiom",
+   "meaning": "To say or do something that makes people feel easy and ready to talk.",
+   "example": "it broke the ice in the beginning, by producing a laugh"
+  },
+  "turn up one's nose at": {
+   "pos": "idiom",
+   "meaning": "To think that something is not good enough for you.",
+   "forms": [
+    "turn up their noses at"
+   ],
+   "example": "English people rather turn up their noses at governesses"
+  },
+  "castles in the air": {
+   "pos": "idiom",
+   "meaning": "Happy plans and dreams that are not real and may never come true.",
+   "example": "all the castles in the air which we make could come true"
+  },
+  "against the grain": {
+   "pos": "idiom",
+   "meaning": "Against what you naturally like to do; hard for you.",
+   "example": "it's working against the grain, you see, and comes hard"
+  },
+  "up to mischief": {
+   "pos": "idiom",
+   "meaning": "Planning or doing something naughty.",
+   "example": "You are up to some mischief, Jo"
+  },
+  "play fair": {
+   "pos": "idiom",
+   "meaning": "To act honestly and follow the rules.",
+   "example": "Play fair, Teddy, or I'll never believe you"
+  },
+  "pull through": {
+   "pos": "phrasal verb",
+   "meaning": "To get better after a serious illness.",
+   "example": "I think the little girl will pull through this time"
+  },
+  "take in hand": {
+   "pos": "idiom",
+   "meaning": "To take charge of someone and teach or control him.",
+   "example": "So she took Amy in hand, and taught her"
+  },
+  "all up with": {
+   "pos": "idiom",
+   "meaning": "Finished; with no hope left for someone.",
+   "example": "then it will be all up with her"
+  },
+  "turn over a new leaf": {
+   "pos": "idiom",
+   "meaning": "To start again and try to behave better.",
+   "example": "turn over a new leaf and begin again, Teddy, my son"
+  },
+  "on the spot": {
+   "pos": "idiom",
+   "meaning": "Right away; at that moment and place.",
+   "example": "invite you to my wedding on the spot"
+  },
+  "nip in the bud": {
+   "pos": "idiom",
+   "meaning": "To stop something at its very start.",
+   "example": "He'd better nip his little passion in the bud"
+  },
+  "make a mountain out of a molehill": {
+   "pos": "idiom",
+   "meaning": "To make a small problem seem very big.",
+   "example": "he made a mountain out of a molehill"
+  },
+  "set one's heart on": {
+   "pos": "idiom",
+   "meaning": "To want something very much and decide to get it.",
+   "forms": [
+    "set my heart on"
+   ],
+   "example": "I’ve set my heart on it"
+  },
+  "put one's pride in one's pocket": {
+   "pos": "idiom",
+   "meaning": "To stop being proud so that you can do something hard.",
+   "forms": [
+    "put her pride in her pocket"
+   ],
+   "example": "she put her pride in her pocket"
+  },
+  "in the lap of luxury": {
+   "pos": "idiom",
+   "meaning": "In a life with all the money and comfort you could want.",
+   "example": "sit in the lap of luxury all your days"
+  },
+  "heap coals of fire on someone's head": {
+   "pos": "idiom",
+   "meaning": "To be kind to an enemy so that he feels sorry for being unkind.",
+   "forms": [
+    "heaping of coals of fire on"
+   ],
+   "example": "heaping of coals of fire on her enemy’s head"
+  },
+  "turn over in one's mind": {
+   "pos": "idiom",
+   "meaning": "To think about something carefully from every side.",
+   "forms": [
+    "turning the matter over in my mind"
+   ],
+   "example": "I’ve been turning the matter over in my mind"
+  },
+  "take a good look at": {
+   "pos": "phrase",
+   "meaning": "To look at something carefully.",
+   "forms": [
+    "took a good look at"
+   ],
+   "example": "I took a good look at him"
+  },
+  "have it out": {
+   "pos": "idiom",
+   "meaning": "To settle a problem by talking about it openly.",
+   "example": "we’ve got to have it out"
+  },
+  "strike while the iron is hot": {
+   "pos": "idiom",
+   "meaning": "To act at once while the time is right.",
+   "forms": [
+    "struck while the iron was hot"
+   ],
+   "example": "struck while the iron was hot"
+  },
+  "as old as the hills": {
+   "pos": "idiom",
+   "meaning": "Very old.",
+   "example": "It’s as old as the hills"
+  },
+  "at one's ease": {
+   "pos": "idiom",
+   "meaning": "In a relaxed and comfortable way.",
+   "forms": [
+    "at our ease"
+   ],
+   "example": "we can talk at our ease"
+  },
+  "come to the rescue": {
+   "pos": "idiom",
+   "meaning": "To come and help someone who is in trouble.",
+   "example": "father came to the rescue"
+  },
+  "think better of": {
+   "pos": "phrasal verb",
+   "meaning": "To change your mind after thinking again about a plan.",
+   "example": "I was sure she would think better of it"
+  },
+  "let the cat out of the bag": {
+   "pos": "idiom",
+   "meaning": "To tell a secret by mistake.",
+   "forms": [
+    "letting cats out of bags"
+   ],
+   "example": "letting cats out of bags like that"
+  },
+  "do someone a good turn": {
+   "pos": "idiom",
+   "meaning": "To do something kind for someone.",
+   "example": "do them a good turn in spite of themselves"
+  },
+  "set one's fears at rest": {
+   "pos": "idiom",
+   "meaning": "To make someone stop worrying.",
+   "forms": [
+    "set her fears at rest"
+   ],
+   "example": "set her fears at rest"
+  },
+  "turn topsy-turvy": {
+   "pos": "idiom",
+   "meaning": "To put things into a state of mess and disorder.",
+   "example": "turned the little house topsy-turvy"
+  },
+  "go by contraries": {
+   "pos": "idiom",
+   "meaning": "To mean the opposite of what one says or shows.",
+   "example": "women, like dreams, go by contraries"
+  },
+  "try one's hand at": {
+   "pos": "idiom",
+   "meaning": "To try to do something new, to see if you can do it.",
+   "example": "He’ll try his hand at it there"
+  }
+ }
+}

@@ -1,0 +1,87 @@
+{
+"glossary": {
+"athwart": {
+"pos": "preposition",
+"meaning": "Across; from one side to the other."
+},
+"unkempt": {
+"pos": "adjective",
+"meaning": "Not neat; with untidy hair and clothes."
+},
+"serape": {
+"pos": "noun",
+"meaning": "A bright cloth blanket that is worn over the shoulders."
+},
+"sombrero": {
+"pos": "noun",
+"meaning": "A wide hat with a high top."
+},
+"milksop": {
+"pos": "noun",
+"meaning": "A weak man who is afraid. It is an insult."
+},
+"swag": {
+"pos": "noun",
+"meaning": "Things that thieves have stolen."
+},
+"auspices": {
+"pos": "plural noun",
+"meaning": "Signs or conditions that show how something will go. 'Under happy auspices' means in good conditions."
+},
+"gloating": {
+"pos": "adjective",
+"meaning": "Showing a selfish joy in something that you have or may get."
+},
+"sachem": {
+"pos": "noun",
+"meaning": "A chief of a Native American tribe. Injun Joe uses it in a strong way of speaking."
+},
+"debris": {
+"pos": "noun",
+"meaning": "The broken pieces left after something is destroyed."
+},
+"measurably": {
+"pos": "adverb",
+"meaning": "To some degree; a little."
+},
+"nobby": {
+"pos": "adjective",
+"meaning": "Fine and stylish; very good."
+}
+},
+"paragraphs": [
+{
+"chapter": 28,
+"paragraph": 81,
+"context": "by the great Sachem, no!",
+"mainIdea": "Injun Joe is about to bury the box again. Then he remembers that the pick had fresh earth on it. He decides to take the box to his hiding place.",
+"simple": "Injun Joe says yes, bury it again. The boys overhead feel great joy. Then he cries out \"No!\" and says he had nearly forgotten that the pick had fresh earth on it. The boys overhead feel deep distress and are sick with fear. He asks what a pick and a shovel are doing here, and why they have fresh earth on them. He asks who brought them and where those people have gone. He asks if his friend has heard or seen anyone. He asks if they should bury the box again and let the people come back and see the ground disturbed. He says that will not do. They will take the box to his den.",
+"hardWords": [
+"Sachem",
+"disturbed",
+"den"
+]
+}
+],
+"sentences": [
+{
+"chapter": 28,
+"context": "But for that, Injun Joe never would have suspected",
+"simple": "If the tools had not been there, Injun Joe would never have suspected anything.",
+"grammar": "'But for that' means 'if that had not happened'. It is followed by 'would have + verb' to talk about the past that did not happen."
+},
+{
+"chapter": 28,
+"context": "hating the ill luck that made them take the spade and the pick there",
+"simple": "They hated the bad luck that made them take the spade and the pick to that place.",
+"grammar": "'That made them take' uses 'make + person + base verb'. 'That' stands for 'the ill luck' and starts a clause that tells us more about it."
+}
+],
+"phrases": {
+"bear a hand": {
+"meaning": "To help; to take part in the work.",
+"pos": "idiom",
+"example": "Here —bear a hand and we’ll see what it’s here for."
+}
+}
+}

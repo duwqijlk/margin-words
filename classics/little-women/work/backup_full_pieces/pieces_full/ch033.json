@@ -1,0 +1,104 @@
+{
+ "glossary": {
+  "hansom": {
+   "pos": "noun",
+   "meaning": "A light car with two big round parts under it, pulled by one horse."
+  },
+  "barouche": {
+   "pos": "noun",
+   "meaning": "A fine open car with four big round parts under it, pulled by horses."
+  },
+  "postilions": {
+   "pos": "plural noun",
+   "meaning": "Men who ride one of the horses that pull a coach, to guide them."
+  },
+  "dowagers": {
+   "pos": "plural noun",
+   "meaning": "Rich and important older women."
+  },
+  "colliery": {
+   "pos": "noun",
+   "meaning": "A place where men get black fuel from under the ground."
+  },
+  "gallows": {
+   "pos": "noun",
+   "meaning": "A wood structure on which bad people were killed with a rope."
+  },
+  "bootblack": {
+   "pos": "noun",
+   "meaning": "A person, often a boy, who cleans people's shoes for money."
+  },
+  "latticed": {
+   "pos": "adjective",
+   "meaning": "Having crossed pieces of wood or metal, as in an old window."
+  },
+  "mercenary": {
+   "pos": "adjective",
+   "meaning": "Thinking too much about money."
+  },
+  "mortifies": {
+   "pos": "verb",
+   "meaning": "Makes someone feel very bad about themselves."
+  },
+  "peppery": {
+   "pos": "adjective",
+   "meaning": "Quick to get angry."
+  },
+  "biddies": {
+   "pos": "plural noun",
+   "meaning": "Birds that give eggs. The word can also mean old women who talk a lot."
+  },
+  "woodbine": {
+   "pos": "noun",
+   "meaning": "A plant that goes up walls, with sweet flower."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 33,
+   "context": "“By and by I heard Fred’s voice, and then he came hurrying through the great arch to find me.",
+   "mainIdea": "Fred hears bad news and leaves at once. Before going, he asks Amy not to forget him. Amy says nothing, but she looks at him.",
+   "simple": "Later Amy heard Fred's voice, and he came hurrying through the great arch to find her. He looked so troubled that she forgot herself and asked what was wrong. He said he had just got a letter asking him to come home, because Frank was very ill. He would go at once on the night train and had only time to say goodbye. Amy was sorry for him, and sad for herself, but only for a minute. As he shook her hand, he said in a way she could not mistake, 'I shall soon come back; you won't forget me, Amy?' She did not promise, but she looked at him, and he seemed happy. There was no time for anything but messages and goodbyes, because he left in an hour, and they all miss him. Amy knows he wanted to speak, but she thinks he promised his father not to yet, because Fred is a rash boy and his father fears a foreign daughter-in-law. They will soon meet in Rome. Then, if she does not change her mind, she will say 'Yes, thank you,' when he says 'Will you, please?' She says all this is private, but she wants her mother to know what is going on. She asks her mother not to worry, because she is 'prudent Amy' and will do nothing rashly. She asks for advice, and says she will use it if she can. She wishes she could talk with Marmee and asks her mother to love and trust her.",
+   "hardWords": [
+    "mortifies",
+    "prudent",
+    "rashly"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 33,
+   "context": "Don’t laugh, Jo; gentlemen really are very necessary aboard ship",
+   "simple": "Don't laugh, Jo. Men really are very useful on a ship.",
+   "grammar": "'Don't laugh, Jo' is a negative order spoken to Jo. The rest, 'gentlemen really are very necessary', gives Amy's joking reason."
+  },
+  {
+   "chapter": 33,
+   "context": "One of us must marry well; Meg didn’t, Jo won’t, Beth can’t yet, so I shall",
+   "simple": "One of us must marry a rich man. Meg did not, Jo will not, and Beth cannot yet, so I will.",
+   "grammar": "Each short part leaves out 'marry well' after the helper word: 'didn't', 'won't', 'can't', 'shall'. The pattern is a list that shows how Amy reasons, ending with 'so'."
+  },
+  {
+   "chapter": 33,
+   "context": "I’d rather have it than any title such as girls snap up so readily",
+   "simple": "I would choose this house and money before any noble title, which girls take so quickly.",
+   "grammar": "'I'd rather have X than Y' states a choice. 'Such as girls snap up' is a clause that describes 'title'; the word 'which' is left out."
+  }
+ ],
+ "phrases": {
+  "snap up": {
+   "pos": "phrasal verb",
+   "meaning": "To take something quickly when it is offered.",
+   "example": "girls snap up so readily"
+  },
+  "turn over in one's mind": {
+   "pos": "idiom",
+   "meaning": "To think about something carefully from every side.",
+   "forms": [
+    "turning the matter over in my mind"
+   ],
+   "example": "I’ve been turning the matter over in my mind"
+  }
+ }
+}

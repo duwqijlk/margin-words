@@ -1,0 +1,131 @@
+{
+ "glossary": {
+  "countenance": {
+   "pos": "noun",
+   "meaning": "The face, or the look on a person's face."
+  },
+  "twitted": {
+   "pos": "past-tense verb",
+   "meaning": "Made fun of someone about something, in an unkind way.",
+   "forms": [
+    "twitted",
+    "twit"
+   ]
+  },
+  "contraband": {
+   "pos": "adjective",
+   "meaning": "Not allowed by the rules or the law. Here it is the name for the green fruit."
+  },
+  "ferrule": {
+   "pos": "verb",
+   "meaning": "To hit a child's hand with a long, thin stick as a way to make the child sorry."
+  },
+  "confiscated": {
+   "pos": "past participle",
+   "meaning": "Taken away from someone by a teacher or other person in power, because of a rule.",
+   "forms": [
+    "confiscated",
+    "confiscate"
+   ]
+  },
+  "neuralgia": {
+   "pos": "noun",
+   "meaning": "A sharp pain in the face or head."
+  },
+  "exulted": {
+   "pos": "past participle",
+   "meaning": "Felt and showed great happiness, often because someone else has lost something.",
+   "forms": [
+    "exulted",
+    "exult"
+   ]
+  },
+  "inexorable": {
+   "pos": "adjective",
+   "meaning": "Not changed by anyone's feelings; hard and strong."
+  },
+  "portentous": {
+   "pos": "adjective",
+   "meaning": "Giving a sign that something important or bad will come."
+  },
+  "infringed": {
+   "pos": "past participle",
+   "meaning": "Broken. Here it is used for rules.",
+   "forms": [
+    "infringed",
+    "infringe"
+   ]
+  },
+  "ignominious": {
+   "pos": "adjective",
+   "meaning": "Bringing great loss of respect, so that one feels bad."
+  },
+  "benignant": {
+   "pos": "adjective",
+   "meaning": "Kind and gentle in the way a person looks or acts."
+  },
+  "demoiselle": {
+   "pos": "noun",
+   "meaning": "A young lady. It is the French word, used here as a joke for school girls.",
+   "forms": [
+    "demoiselles",
+    "demoiselle"
+   ]
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 9,
+   "context": "too proud to cry or beseech, Amy set her teeth",
+   "mainIdea": "Mr. Davis hits Amy's hand. The blows are not hard, but she feels deep shame because it is the first time.",
+   "simple": "'Your hand, Miss March!' was the only answer to her silent begging. Amy was too proud to cry or to beg. She pressed her teeth together, threw back her head, and took several stinging blows on her small hand without pulling away. The blows were not many or hard, but that did not matter to her. It was the first time in her life that anyone had hit her. To her, the shame was as deep as if he had knocked her to the ground.",
+   "hardWords": [
+    "mute",
+    "beseech",
+    "defiantly",
+    "flinching",
+    "tingling"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 9,
+   "context": "pride goes before a fall, and the revengeful Snow turned the tables",
+   "simple": "Being proud leads to a fall, and Snow, who wanted revenge, changed things against Amy with terrible success.",
+   "grammar": "'Pride goes before a fall' is an old saying: proud people soon fail. 'Turned the tables' is an idiom meaning changed the situation so the other person now loses."
+  },
+  {
+   "chapter": 9,
+   "context": "he would have broken his word if the indignation of one irrepressible young lady",
+   "simple": "Mr. Davis would have gone back on his word and not hit Amy, if one angry girl had not hissed because she could not keep quiet.",
+   "grammar": "'Would have broken ... if ... had not found...' is a past unreal 'if' sentence. It says what would have happened but did not."
+  }
+ ],
+ "phrases": {
+  "turn the tables": {
+   "pos": "idiom",
+   "meaning": "To change a situation so that the person who was winning now loses.",
+   "forms": [
+    "turned the tables"
+   ],
+   "example": "the revengeful Snow turned the tables with disastrous success"
+  },
+  "bury the hatchet": {
+   "pos": "idiom",
+   "meaning": "To stop being angry with someone and be friends again.",
+   "forms": [
+    "buried the hatchet"
+   ],
+   "example": "promptly buried the hatchet, and offered to furnish answers"
+  },
+  "keep one's countenance": {
+   "pos": "idiom",
+   "meaning": "To keep a straight face and not laugh.",
+   "forms": [
+    "keep her countenance"
+   ],
+   "example": "Meg tried to keep her countenance"
+  }
+ }
+}

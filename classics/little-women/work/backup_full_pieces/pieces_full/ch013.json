@@ -1,0 +1,128 @@
+{
+ "glossary": {
+  "complacently": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you are too pleased with yourself and think there will be no trouble."
+  },
+  "grubbing": {
+   "pos": "gerund",
+   "meaning": "Working hard at jobs that are not fun. Here Jo uses it for hard work."
+  },
+  "larder": {
+   "pos": "noun",
+   "meaning": "A small room or box where food is kept."
+  },
+  "saleratus": {
+   "pos": "uncountable noun",
+   "meaning": "A white thing put in food so that it gets big and light when it is cooked."
+  },
+  "palatable": {
+   "pos": "adjective",
+   "meaning": "Good to eat; nice in taste."
+  },
+  "viands": {
+   "pos": "plural noun",
+   "meaning": "Food. An old word."
+  },
+  "chagrin": {
+   "pos": "noun",
+   "meaning": "A feeling of anger and being upset because you have failed."
+  },
+  "culinary": {
+   "pos": "adjective",
+   "meaning": "Having to do with cooking."
+  },
+  "spinster": {
+   "pos": "noun",
+   "meaning": "A woman who is not married and is no longer young."
+  },
+  "tartly": {
+   "pos": "adverb",
+   "meaning": "In a sharp, unkind way of speaking."
+  },
+  "meagre": {
+   "pos": "adjective",
+   "meaning": "Too small in amount; not enough."
+  },
+  "deaconed": {
+   "pos": "past participle",
+   "meaning": "Made to look better than it is, by putting the best fruit on the top. Here the fruit looks good but is not.",
+   "forms": [
+    "deaconed"
+   ]
+  },
+  "precipitately": {
+   "pos": "adverb",
+   "meaning": "Very fast, without thinking or waiting."
+  },
+  "assuaged": {
+   "pos": "past participle",
+   "meaning": "Made less strong. Used for pain or sad feelings.",
+   "forms": [
+    "assuaged",
+    "assuage"
+   ]
+  },
+  "ennui": {
+   "pos": "uncountable noun",
+   "meaning": "A tired feeling because you have nothing to do and are not interested. A French word."
+  },
+  "furbish": {
+   "pos": "verb",
+   "meaning": "To clean and make something old look new again."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 13,
+   "context": "The unusual spectacle of her busy mother rocking comfortably",
+   "mainIdea": "Jo is amazed to see her always-busy mother resting and reading in the morning.",
+   "simple": "Jo was not used to seeing her busy mother rocking in a chair and reading so early in the morning. It made Jo feel that something unnatural had happened. An eclipse, an earthquake or a volcano would hardly have seemed stranger to her.",
+   "hardWords": [
+    "spectacle",
+    "phenomenon",
+    "eclipse",
+    "volcanic eruption"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 13,
+   "context": "Hoping to impress the lesson more deeply, Mrs. March, who had a good deal of humor",
+   "simple": "Mrs. March had a good sense of humor. She hoped the lesson would stay in the girls' minds, so she decided to end the test in a fitting way.",
+   "grammar": "'Hoping to impress...' is a participle phrase placed first. It tells why Mrs. March acted, and 'who had a good deal of humor' is an extra clause inside it."
+  },
+  {
+   "chapter": 13,
+   "context": "I wash my hands of the dinner-party",
+   "simple": "I will have nothing to do with the dinner-party.",
+   "grammar": "'Wash my hands of' is an idiom: I refuse to be responsible for it."
+  }
+ ],
+ "phrases": {
+  "out of sorts": {
+   "pos": "idiom",
+   "meaning": "Not feeling well or happy; in a bad mood.",
+   "example": "Everything is out of sorts, somehow,"
+  },
+  "wash one's hands of": {
+   "pos": "idiom",
+   "meaning": "To refuse to take any more responsibility for something.",
+   "example": "I wash my hands of the dinner-party"
+  },
+  "in a huff": {
+   "pos": "idiom",
+   "meaning": "In a short fit of anger because someone has hurt your pride.",
+   "example": "Jo went off in a huff at the doubts"
+  },
+  "take hold": {
+   "pos": "phrasal verb",
+   "meaning": "To begin to do a job.",
+   "forms": [
+    "took hold"
+   ],
+   "example": "they took hold with a will"
+  }
+ }
+}

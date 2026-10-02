@@ -1,0 +1,340 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://margin-words.local/glossary.schema.json",
+  "title": "Margin Words word list (glossary), version 1 or 2, with optional paragraph, sentence and phrase help",
+  "description": "Version 1 has one meaning per word. Version 2 adds optional `senses` (other meanings, with anchors that say where in the book each is used). Every version 1 file is also a valid version 2 file once `version` is changed to 2. Rules that a JSON Schema cannot express (one default sense per word, two senses may not claim the same place, anchors really exist in the book) are checked by scripts/validate-glossary.mjs and by the app.",
+  "type": "object",
+  "required": [
+    "version",
+    "glossary"
+  ],
+  "properties": {
+    "version": {
+      "enum": [
+        1,
+        2
+      ]
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "author": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of the EPUB file (hex). Optional; used to match a bundled list to a book."
+    },
+    "level": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Free text, for example 'CEFR B1, English meanings'."
+    },
+    "language": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Language of the meanings. Free text."
+    },
+    "chapters": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "How many chapters (as the app counts them) the author saw. If the user's copy has another number, the app ignores `chapter` and `occurrence` and uses `context` only."
+    },
+    "glossary": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[A-Za-z]+(?:['\\u2019-][A-Za-z]+)*$",
+        "maxLength": 48
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/entry"
+      }
+    },
+    "paragraphs": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "$ref": "#/$defs/paragraphNote"
+      },
+      "description": "Optional help for whole paragraphs. `paragraph` is the 0-based position among the chapter's paragraphs as the reader counts them (docs/GLOSSARY_FORMAT.md 3.4)."
+    },
+    "sentences": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "$ref": "#/$defs/sentenceNote"
+      },
+      "description": "Optional help for single sentences, found by `context`."
+    },
+    "phrases": {
+      "type": "object",
+      "maxProperties": 5000,
+      "propertyNames": {
+        "pattern": "^[a-z]+(?:['-]?[a-z]+)*(?: [a-z]+(?:['-]?[a-z]+)*)+$",
+        "maxLength": 60
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/phrase"
+      },
+      "description": "Optional phrasal verbs and idioms. The key is the base form in lower case, for example \"give up\"."
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entry": {
+      "type": "object",
+      "properties": {
+        "pos": {
+          "type": "string",
+          "maxLength": 48
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "whyHard": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "forms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Other word shapes in the book that belong to this entry, lower case."
+        },
+        "senses": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 12,
+          "items": {
+            "$ref": "#/$defs/sense"
+          }
+        },
+        "coined": {
+          "type": "boolean",
+          "description": "true: the author of the book invented this word (for example snozzcumber)."
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "meaning"
+          ]
+        },
+        {
+          "required": [
+            "senses"
+          ]
+        }
+      ],
+      "additionalProperties": true
+    },
+    "sense": {
+      "type": "object",
+      "required": [
+        "meaning"
+      ],
+      "properties": {
+        "pos": {
+          "type": "string",
+          "maxLength": 48
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "whyHard": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "default": {
+          "type": "boolean",
+          "description": "Show this sense when no anchor matches. At most one per word."
+        },
+        "forms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "anchors": {
+          "type": "array",
+          "maxItems": 60,
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "anchor": {
+      "type": "object",
+      "properties": {
+        "chapter": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "0-based chapter index, as the app splits the book."
+        },
+        "occurrence": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based: n-th time this word form appears in the chapter."
+        },
+        "form": {
+          "type": "string",
+          "description": "The exact (lower case) word form that `occurrence` counts. Default: the entry's word."
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "description": "About 6 to 12 words copied from the book, containing the word."
+        }
+      },
+      "dependentRequired": {
+        "occurrence": [
+          "chapter"
+        ]
+      },
+      "anyOf": [
+        {
+          "required": [
+            "context"
+          ]
+        },
+        {
+          "required": [
+            "chapter",
+            "occurrence"
+          ]
+        }
+      ],
+      "additionalProperties": true
+    },
+    "paragraphNote": {
+      "type": "object",
+      "required": [
+        "chapter",
+        "paragraph",
+        "context",
+        "mainIdea",
+        "simple"
+      ],
+      "properties": {
+        "chapter": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "paragraph": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "0-based index of the paragraph in the chapter, as the reader counts them."
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "description": "6 to 14 words copied exactly from the paragraph. It must be inside that paragraph."
+        },
+        "mainIdea": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400,
+          "description": "1 or 2 short sentences."
+        },
+        "simple": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 3000,
+          "description": "The whole paragraph in very common words. Only restate the original."
+        },
+        "hardWords": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Hardest words or phrases from the ORIGINAL paragraph."
+        }
+      },
+      "additionalProperties": true
+    },
+    "sentenceNote": {
+      "type": "object",
+      "required": [
+        "chapter",
+        "context",
+        "simple",
+        "grammar"
+      ],
+      "properties": {
+        "chapter": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "description": "6 to 14 words copied exactly from the sentence."
+        },
+        "simple": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 800
+        },
+        "grammar": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400,
+          "description": "ONE line that names the tricky grammar and what it means."
+        }
+      },
+      "additionalProperties": true
+    },
+    "phrase": {
+      "type": "object",
+      "required": [
+        "meaning"
+      ],
+      "properties": {
+        "meaning": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "pos": {
+          "enum": [
+            "phrasal verb",
+            "idiom",
+            "phrase"
+          ]
+        },
+        "forms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Other shapes, written in full, for example [\"gave up\", \"giving up\"]. The reader also knows simple verb forms (gave, giving, gives) without this list."
+        },
+        "example": {
+          "type": "string",
+          "maxLength": 400
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

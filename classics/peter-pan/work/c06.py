@@ -1,0 +1,80 @@
+from lib import *
+W('lethargy','noun','A tired, slow feeling, with no wish to do anything.')
+W('seething','present participle','Full of strong, busy movement, like boiling water.',['seethe'])
+W('debonair','adjective','Cheerful, stylish and sure of himself.')
+W('ecstatically','adverb','With very great joy.')
+W('countenance','noun','A person\'s face and the look on it.')
+W('melancholy','noun','A deep, quiet sadness.')
+W('woe','noun','Very great sadness or trouble.')
+W('pickle','noun','A child who often gets into trouble.')
+W('villainous','adjective','Looking like an evil man.')
+W('gigantic','adjective','Very, very big.')
+W('tattooed','adjective','Marked on the skin with pictures that do not wash off.',['tattoo'])
+W('genial','adjective','Friendly and pleasant.')
+W('ruffian','noun','A rough and violent man.',['ruffians'])
+W('reclined','past-tense verb','Lay back and rested.',['recline'])
+W('propelled','past participle','Pushed forward.',['propel'])
+W('cadaverous','adjective','Very thin and pale, like a dead body.')
+W('raconteur','noun','A person who tells stories well.',why='This is a French word used in English.')
+W('sinister','adjective','Seeming evil, as if something bad will happen.')
+W('demeanour','noun','The way a person looks and behaves.')
+W('indomitable','adjective','Very brave and never giving up.')
+W('aped','past-tense verb','Copied.',['ape'])
+W('contrivance','noun','A thing that someone makes for a special purpose.')
+W('lurches','third-person verb','Moves suddenly and unsteadily to one side.',['lurch'])
+W('pitted','past participle','Set to fight against someone.',['pit'])
+W('tomahawks','plural noun','Light axes used as weapons by some Native American people.',['tomahawk'])
+W('motley','adjective','Made of many different kinds mixed together.')
+W('procession','noun','A line of people or animals moving along one after another.')
+W('innumerable','adjective','Too many to count.')
+W('sward','noun','Short grass.',why='This is an old word.')
+W('reconnoitre','verb','To go out and look at a place to find out about the enemy.')
+W('writhing','present participle','Twisting the body about, as when in pain or trying to get free.',['writhe'])
+W('cutlass','noun','A short curved sword that sailors used.')
+W('wincing','present participle','Making a quick pained face.',['wince'])
+W('petulantly','adverb','In a bad-tempered way, like a child who does not get what he wants.')
+W('haunts','third-person verb','Troubles the mind again and again.',['haunt'])
+W('fidgeting','present participle','Moving the hands or feet about, because you are nervous or bored.',['fidget'])
+W('swarthy','adjective','With dark skin.')
+W('gobble','verb','To eat very fast.')
+W('exultation','noun','Great joy at winning.')
+W('smothered','past-tense verb','Covered so that it cannot be heard.',['smother'])
+W('distinct','adjective','Clear.')
+W('baying','noun','The long, deep barking of big dogs or wolves.',['bay'])
+W('dire','adjective','Very bad. Terrible.')
+W('defying','present participle','Standing up against someone or something and not obeying.',['defy'])
+W('awestruck','adjective','Filled with wonder and a little fear.')
+W('plaintive','adjective','Sad, and sounding like a complaint.')
+W('brandished','past-tense verb','Waved in the air in a way that scares people.',['brandish'])
+W('avast','interjection','A sailor\'s word that means "stop".',why='This is an old sailor\'s word.')
+W('hempen','adjective','Made of hemp. Hemp is a plant used to make rope.')
+Ph('cheek by jowl','Very close together.','idiom','live cheek by jowl')
+Ph('in single file','In a line, one behind the other.','idiom','steal by in single file')
+Ph('under way','Moving or started.','idiom','they are all under way again')
+Ph('bent on','Wanting very much to do something.','phrase','who is bent on mischief this night')
+Ph('at one\'s ease','Relaxed and comfortable.','idiom','He lay at his ease',['at his ease'])
+Ph('ever and anon','From time to time.','idiom','ever and anon he encouraged them')
+Ph('bring up the rear','To be last in a line.','idiom','Bringing up the rear',['bringing up the rear'])
+Ph('eyes peeled','Looking carefully and watching for things.','phrase','with his eyes peeled')
+Ph('cast off','To throw away or stop having something.','phrasal verb','cast off all disguise of friendship')
+Ph('run down','To stop working because the power is used up.','phrasal verb','the clock will run down')
+P(6,"The first to pass is Tootles, not the least brave but the most unfortunate",
+ "Tootles is brave but unlucky. He always misses the big adventures. Tink thinks he is the easiest boy to trick.",
+ "The first to pass is Tootles. He is not the least brave of that bold group, but he is the most unlucky. He had been in fewer adventures than any of them. The big things always happened just when he had stepped round the corner. All would be quiet, he would go off to gather a few sticks for firewood, and when he came back the others would be sweeping up the blood. This bad luck gave a gentle sadness to his face. But it did not make him sour. It made him sweeter, so that he was the most humble of the boys. Poor kind Tootles, there is danger in the air for you tonight. Take care that an adventure is not offered to you which, if you accept it, will bring you deep sorrow. Tootles, the fairy Tink is looking for a tool because she wants to make trouble this night, and she thinks you are the easiest of the boys to trick. Beware of Tinker Bell.",
+ ['gallant','melancholy','countenance','woe','mischief'])
+P(6,"To return to the ship,” Hook replied slowly through his teeth",
+ "Hook plans to make a big, rich cake and leave it by the lagoon. He thinks the boys will eat it and die.",
+ "\"We will go back to the ship,\" Hook said slowly through his teeth, \"and cook a large rich cake, a jolly thick one, with green sugar on it. There can be only one room below, because there is only one chimney. The silly moles did not have the sense to see that they did not need a door each. That shows they have no mother. We will leave the cake on the shore of the mermaids' lagoon. These boys are always swimming there, playing with the mermaids. They will find the cake and eat it up fast, because, having no mother, they do not know how dangerous it is to eat rich damp cake.\" He burst into laughter, not hollow laughter now, but honest laughter. \"Aha, they will die.\"",
+ ['gobble','apiece'])
+S(6,"which, if accepted, will plunge you in deepest woe",
+ "Take care that an adventure is not offered to you, because if you accept it, it will bring you deep sorrow.",
+ "'if accepted' is short for 'if it is accepted'; 'lest' earlier in the sentence means 'in case'.")
+S(6,"Would that he could hear us, but we are not really on the island",
+ "I wish he could hear us, but we are not really on the island.",
+ "'Would that...' is an old way to say 'I wish that...'; 'could' shows a wish that is not real.")
+S(6,"I have seen a wonderfuller thing",
+ "I have seen something more wonderful.",
+ "'Wonderfuller' adds -er to a long adjective, which is a child's way to make a comparative; the usual form is 'more wonderful'.")
+S(6,"such a tiny sound that a leaf might have fallen on it and smothered it",
+ "At first it was such a tiny sound that a leaf could have fallen on it and covered it.",
+ "'such a ... that ...' shows a result; 'might have fallen' says it was possible, which shows how small the sound was.")

@@ -1,0 +1,95 @@
+{
+ "glossary": {
+  "slipshod": {
+   "pos": "adjective",
+   "meaning": "Careless and not in good order, as in speech."
+  },
+  "gabble": {
+   "pos": "noun",
+   "meaning": "Fast talk that is hard to understand."
+  },
+  "rummaging": {
+   "pos": "present participle",
+   "meaning": "Searching for something by turning things over.",
+   "forms": [
+    "rummaging",
+    "rummage"
+   ]
+  },
+  "meerschaum": {
+   "pos": "noun",
+   "meaning": "A soft, white stone. Here it means a thing for smoking made from this stone."
+  },
+  "hyacinth": {
+   "pos": "noun",
+   "meaning": "A spring flower, sweet to the nose, that grows from a round thing under the ground."
+  },
+  "standish": {
+   "pos": "noun",
+   "meaning": "A stand that holds the things used for writing on a table."
+  },
+  "brocades": {
+   "pos": "plural noun",
+   "meaning": "Rich, heavy cloth with a raised picture in it, often with gold or silver."
+  },
+  "whippersnappers": {
+   "pos": "plural noun",
+   "meaning": "Young people who think they are important, but are not."
+  },
+  "effervescence": {
+   "pos": "uncountable noun",
+   "meaning": "Lively, happy feeling that bubbles up."
+  },
+  "roughshod": {
+   "pos": "adverb",
+   "meaning": "In a hard way, with no care for others' feelings. 'Ride roughshod over' someone means to treat him badly."
+  },
+  "boggled": {
+   "pos": "past participle",
+   "meaning": "Done badly, so that it is out of shape.",
+   "forms": [
+    "boggled",
+    "boggle"
+   ]
+  },
+  "kobolds": {
+   "pos": "plural noun",
+   "meaning": "In German stories, small spirits who live in houses or under the ground."
+  },
+  "bashful": {
+   "pos": "adjective",
+   "meaning": "Not comfortable with people; easily upset in front of them."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 35,
+   "context": "I went in, and while we worked I looked about me, for it was ‘a den,’ to be sure.",
+   "mainIdea": "In a letter to Beth, Jo tells how she mends the Professor's things in secret. He finds out and offers to teach her German.",
+   "simple": "Jo writes a funny letter to Beth. She teaches the children, Tina, Franz and Emil, and she likes the boys. On Saturdays she and the Professor take them for walks. She has now begun to take lessons. One day Mrs. Kirke asked her to help put the Professor's room in order, because she could not find six new handkerchiefs. The room was a 'den', with books and papers everywhere, a broken meerschaum pipe, a bird with no tail and a box of white mice. They found three of the handkerchiefs. Mrs. Kirke said he was so good-natured that the boys rode over him, and that he forgot to give her his things to mend. Jo said she would mend them, because he was kind to her. She mended his socks, and hoped he would not know. But she also wanted to learn German, because she could hear his lessons through the open door. One day he caught her studying, and laughed quietly. He asked if she wanted to learn German. Jo said he was too busy and she was too stupid. He said he had seen what the kind ladies did for him, and that he would give her a lesson as thanks. After four lessons Jo cried over the grammar, and he threw the book on the floor and went out. He came back happy and said they would read fairy tales together instead. Jo read with all her might, and he read to her from the story of the Tin Soldier, and they both laughed. Now she reads pretty well. She wants to give him something at Christmas, and she asks her mother for ideas. She is glad that Laurie is happy and busy, has stopped smoking and lets his hair grow. She is not jealous, and she thinks Beth manages Laurie better than she did. She thanks Heaven that Beth is comfortable.",
+   "hardWords": [
+    "meerschaum",
+    "rummage",
+    "roughshod"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 35,
+   "context": "Not a very romantic story, but it interested me",
+   "simple": "It is not a very romantic story, but I found it interesting.",
+   "grammar": "The subject and verb 'It is' are left out at the start, as is common in letters and notes. 'But' shows a contrast."
+  }
+ ],
+ "phrases": {
+  "take a good look at": {
+   "pos": "phrase",
+   "meaning": "To look at something carefully.",
+   "forms": [
+    "took a good look at"
+   ],
+   "example": "I took a good look at him"
+  }
+ }
+}

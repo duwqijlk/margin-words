@@ -1,0 +1,319 @@
+{
+ "title": "Little Women",
+ "author": "Louisa May Alcott",
+ "sha256": "095392183d24a7cf84a7333f55a861f79642df2fb52114462c4d35cf73873d3e",
+ "chapters": [
+  {
+   "chapter": 0,
+   "title": "Titlepage",
+   "words": 6,
+   "paragraphs": 2
+  },
+  {
+   "chapter": 1,
+   "title": "Imprint",
+   "words": 193,
+   "paragraphs": 5
+  },
+  {
+   "chapter": 2,
+   "title": "Epigraph",
+   "words": 105,
+   "paragraphs": 1
+  },
+  {
+   "chapter": 3,
+   "title": "I: Playing Pilgrims",
+   "words": 4278,
+   "paragraphs": 100
+  },
+  {
+   "chapter": 4,
+   "title": "II: A Merry Christmas",
+   "words": 4134,
+   "paragraphs": 78
+  },
+  {
+   "chapter": 5,
+   "title": "III: The Laurence Boy",
+   "words": 4036,
+   "paragraphs": 131
+  },
+  {
+   "chapter": 6,
+   "title": "IV: Burdens",
+   "words": 4884,
+   "paragraphs": 69
+  },
+  {
+   "chapter": 7,
+   "title": "V: Being Neighborly",
+   "words": 4585,
+   "paragraphs": 132
+  },
+  {
+   "chapter": 8,
+   "title": "VI: Beth Finds the Palace Beautiful",
+   "words": 2753,
+   "paragraphs": 46
+  },
+  {
+   "chapter": 9,
+   "title": "VII: Amy’s Valley of Humiliation",
+   "words": 2680,
+   "paragraphs": 63
+  },
+  {
+   "chapter": 10,
+   "title": "VIII: Jo Meets Apollyon",
+   "words": 4372,
+   "paragraphs": 96
+  },
+  {
+   "chapter": 11,
+   "title": "IX: Meg Goes to Vanity Fair",
+   "words": 6501,
+   "paragraphs": 152
+  },
+  {
+   "chapter": 12,
+   "title": "X: The P.C. and P.O.",
+   "words": 3380,
+   "paragraphs": 72
+  },
+  {
+   "chapter": 13,
+   "title": "XI: Experiments",
+   "words": 4352,
+   "paragraphs": 84
+  },
+  {
+   "chapter": 14,
+   "title": "XII: Camp Laurence",
+   "words": 7541,
+   "paragraphs": 190
+  },
+  {
+   "chapter": 15,
+   "title": "XIII: Castles in the Air",
+   "words": 3666,
+   "paragraphs": 95
+  },
+  {
+   "chapter": 16,
+   "title": "XIV: Secrets",
+   "words": 3448,
+   "paragraphs": 129
+  },
+  {
+   "chapter": 17,
+   "title": "XV: A Telegram",
+   "words": 3404,
+   "paragraphs": 80
+  },
+  {
+   "chapter": 18,
+   "title": "XVI: Letters",
+   "words": 2952,
+   "paragraphs": 39
+  },
+  {
+   "chapter": 19,
+   "title": "XVII: Little Faithful",
+   "words": 2742,
+   "paragraphs": 89
+  },
+  {
+   "chapter": 20,
+   "title": "XVIII: Dark Days",
+   "words": 3349,
+   "paragraphs": 55
+  },
+  {
+   "chapter": 21,
+   "title": "XIX: Amy’s Will",
+   "words": 3315,
+   "paragraphs": 43
+  },
+  {
+   "chapter": 22,
+   "title": "XX: Confidential",
+   "words": 2836,
+   "paragraphs": 50
+  },
+  {
+   "chapter": 23,
+   "title": "XXI: Laurie Makes Mischief, and Jo Makes Peace",
+   "words": 4625,
+   "paragraphs": 122
+  },
+  {
+   "chapter": 24,
+   "title": "XXII: Pleasant Meadows",
+   "words": 2551,
+   "paragraphs": 41
+  },
+  {
+   "chapter": 25,
+   "title": "XXIII: Aunt March Settles the Question",
+   "words": 4474,
+   "paragraphs": 102
+  },
+  {
+   "chapter": 26,
+   "title": "XXIV: Gossip",
+   "words": 4526,
+   "paragraphs": 85
+  },
+  {
+   "chapter": 27,
+   "title": "XXV: The First Wedding",
+   "words": 2544,
+   "paragraphs": 44
+  },
+  {
+   "chapter": 28,
+   "title": "XXVI: Artistic Attempts",
+   "words": 4035,
+   "paragraphs": 73
+  },
+  {
+   "chapter": 29,
+   "title": "XXVII: Literary Lessons",
+   "words": 3068,
+   "paragraphs": 43
+  },
+  {
+   "chapter": 30,
+   "title": "XXVIII: Domestic Experiences",
+   "words": 5893,
+   "paragraphs": 95
+  },
+  {
+   "chapter": 31,
+   "title": "XXIX: Calls",
+   "words": 5030,
+   "paragraphs": 102
+  },
+  {
+   "chapter": 32,
+   "title": "XXX: Consequences",
+   "words": 4562,
+   "paragraphs": 93
+  },
+  {
+   "chapter": 33,
+   "title": "XXXI: Our Foreign Correspondent",
+   "words": 4062,
+   "paragraphs": 7
+  },
+  {
+   "chapter": 34,
+   "title": "XXXII: Tender Troubles",
+   "words": 4540,
+   "paragraphs": 118
+  },
+  {
+   "chapter": 35,
+   "title": "XXXIII: Jo’s Journal",
+   "words": 5152,
+   "paragraphs": 8
+  },
+  {
+   "chapter": 36,
+   "title": "XXXIV: A Friend",
+   "words": 6014,
+   "paragraphs": 94
+  },
+  {
+   "chapter": 37,
+   "title": "XXXV: Heartache",
+   "words": 4195,
+   "paragraphs": 111
+  },
+  {
+   "chapter": 38,
+   "title": "XXXVI: Beth’s Secret",
+   "words": 2286,
+   "paragraphs": 36
+  },
+  {
+   "chapter": 39,
+   "title": "XXXVII: New Impressions",
+   "words": 4304,
+   "paragraphs": 85
+  },
+  {
+   "chapter": 40,
+   "title": "XXXVIII: On the Shelf",
+   "words": 4946,
+   "paragraphs": 98
+  },
+  {
+   "chapter": 41,
+   "title": "XXXIX: Lazy Laurence",
+   "words": 5253,
+   "paragraphs": 147
+  },
+  {
+   "chapter": 42,
+   "title": "XL: The Valley of the Shadow",
+   "words": 2119,
+   "paragraphs": 24
+  },
+  {
+   "chapter": 43,
+   "title": "XLI: Learning to Forget",
+   "words": 4990,
+   "paragraphs": 53
+  },
+  {
+   "chapter": 44,
+   "title": "XLII: All Alone",
+   "words": 3219,
+   "paragraphs": 48
+  },
+  {
+   "chapter": 45,
+   "title": "XLIII: Surprises",
+   "words": 6336,
+   "paragraphs": 133
+  },
+  {
+   "chapter": 46,
+   "title": "XLIV: My Lord and Lady",
+   "words": 2004,
+   "paragraphs": 46
+  },
+  {
+   "chapter": 47,
+   "title": "XLV: Daisy and Demi",
+   "words": 2250,
+   "paragraphs": 52
+  },
+  {
+   "chapter": 48,
+   "title": "XLVI: Under the Umbrella",
+   "words": 5152,
+   "paragraphs": 110
+  },
+  {
+   "chapter": 49,
+   "title": "XLVII: Harvest Time",
+   "words": 4241,
+   "paragraphs": 61
+  },
+  {
+   "chapter": 50,
+   "title": "Colophon",
+   "words": 172,
+   "paragraphs": 6
+  },
+  {
+   "chapter": 51,
+   "title": "Uncopyright",
+   "words": 351,
+   "paragraphs": 5
+  }
+ ]
+}

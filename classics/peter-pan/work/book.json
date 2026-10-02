@@ -1,0 +1,133 @@
+{
+ "title": "Peter and Wendy",
+ "author": "J. M. Barrie",
+ "sha256": "606cf8f640dfb5f4031fd319972f239b13600625c173f1d94f3b0e30e4f5e70e",
+ "chapters": [
+  {
+   "chapter": 0,
+   "title": "Titlepage",
+   "words": 7,
+   "paragraphs": 2
+  },
+  {
+   "chapter": 1,
+   "title": "Imprint",
+   "words": 192,
+   "paragraphs": 5
+  },
+  {
+   "chapter": 2,
+   "title": "I: Peter Breaks Through",
+   "words": 3089,
+   "paragraphs": 52
+  },
+  {
+   "chapter": 3,
+   "title": "II: The Shadow",
+   "words": 3011,
+   "paragraphs": 106
+  },
+  {
+   "chapter": 4,
+   "title": "III: Come Away, Come Away!",
+   "words": 4198,
+   "paragraphs": 192
+  },
+  {
+   "chapter": 5,
+   "title": "IV: The Flight",
+   "words": 2922,
+   "paragraphs": 132
+  },
+  {
+   "chapter": 6,
+   "title": "V: The Island Come True",
+   "words": 3608,
+   "paragraphs": 88
+  },
+  {
+   "chapter": 7,
+   "title": "VI: The Little House",
+   "words": 2510,
+   "paragraphs": 139
+  },
+  {
+   "chapter": 8,
+   "title": "VII: The Home Under the Ground",
+   "words": 2423,
+   "paragraphs": 23
+  },
+  {
+   "chapter": 9,
+   "title": "VIII: The Mermaids’ Lagoon",
+   "words": 3952,
+   "paragraphs": 166
+  },
+  {
+   "chapter": 10,
+   "title": "IX: The Never Bird",
+   "words": 1091,
+   "paragraphs": 26
+  },
+  {
+   "chapter": 11,
+   "title": "X: The Happy Home",
+   "words": 1976,
+   "paragraphs": 100
+  },
+  {
+   "chapter": 12,
+   "title": "XI: Wendy’s Story",
+   "words": 2348,
+   "paragraphs": 130
+  },
+  {
+   "chapter": 13,
+   "title": "XII: The Children Are Carried Off",
+   "words": 1656,
+   "paragraphs": 23
+  },
+  {
+   "chapter": 14,
+   "title": "XIII: Do You Believe in Fairies?",
+   "words": 2892,
+   "paragraphs": 73
+  },
+  {
+   "chapter": 15,
+   "title": "XIV: The Pirate Ship",
+   "words": 2331,
+   "paragraphs": 80
+  },
+  {
+   "chapter": 16,
+   "title": "XV: “Hook or Me This Time”",
+   "words": 3214,
+   "paragraphs": 103
+  },
+  {
+   "chapter": 17,
+   "title": "XVI: The Return Home",
+   "words": 3009,
+   "paragraphs": 83
+  },
+  {
+   "chapter": 18,
+   "title": "XVII: When Wendy Grew Up",
+   "words": 3547,
+   "paragraphs": 169
+  },
+  {
+   "chapter": 19,
+   "title": "Colophon",
+   "words": 172,
+   "paragraphs": 6
+  },
+  {
+   "chapter": 20,
+   "title": "Uncopyright",
+   "words": 351,
+   "paragraphs": 5
+  }
+ ]
+}

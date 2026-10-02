@@ -1,0 +1,101 @@
+{
+"glossary": {
+"forsaken": {
+"pos": "adjective",
+"meaning": "Left alone by everyone; with no friends."
+},
+"succumb": {
+"pos": "verb",
+"meaning": "To give up and accept something you cannot fight."
+},
+"hermit": {
+"pos": "noun",
+"meaning": "A person who lives alone, away from other people, often for religious reasons.",
+"forms": [
+"hermits"
+]
+},
+"rendezvous": {
+"pos": "noun",
+"meaning": "A place where people agree to meet."
+},
+"countersign": {
+"pos": "noun",
+"meaning": "A secret word that you must say to be allowed to pass."
+},
+"smouldering": {
+"pos": "present participle",
+"meaning": "Burning slowly, with smoke but no flame.",
+"forms": [
+"smouldering",
+"smoulder"
+]
+},
+"dauntless": {
+"pos": "adjective",
+"meaning": "Not afraid; not able to be frightened."
+},
+"sombre": {
+"pos": "adjective",
+"meaning": "Dark and sad."
+},
+"purloined": {
+"pos": "past participle",
+"meaning": "Stolen, usually something small.",
+"forms": [
+"purloined",
+"purloin"
+]
+},
+"waif": {
+"pos": "noun",
+"meaning": "A child with no home, who has nobody to care for him.",
+"forms": [
+"waifs"
+]
+},
+"sullied": {
+"pos": "past participle",
+"meaning": "Made dirty or spoiled.",
+"forms": [
+"sullied",
+"sully"
+]
+},
+"sweetmeat": {
+"pos": "noun",
+"meaning": "A sweet food, such as candy or fruit with sugar.",
+"forms": [
+"sweetmeats"
+]
+}
+},
+"paragraphs": [
+{
+"chapter": 15,
+"paragraph": 63,
+"context": "They said their prayers inwardly, and lying down",
+"mainIdea": "The two pirates feel that they did wrong by stealing food. They decide to stop stealing while they are pirates, and then they sleep.",
+"simple": "Gradually the talk died, and sleep began to close the eyes of the little boys with no home. Huck's pipe fell from his fingers, and he slept the sleep of a man with a clear conscience who is tired. Tom and Joe found it harder to sleep. They said their prayers in their minds and lying down, since nobody was there to make them kneel and speak aloud. They did not want to say them at all, but they were afraid to go so far, in case a sudden thunderbolt came from heaven. Then they were just about to sleep, but something came that would not go away: their conscience. They began to fear that they were wrong to run away. Then they thought of the stolen meat, and the real pain began. They told their conscience that they had stolen sweets and apples many times. But that did not satisfy it. They saw that taking sweets was only 'hooking', but taking bacon and hams was plain stealing, and the Bible forbids that. So they decided that while they stayed in the pirate business, they would not steal again. Then their conscience stopped bothering them for a while, and these pirates, who did not always think in the same way, fell peacefully asleep.",
+"hardWords": [
+"waifs",
+"imminent",
+"intruder",
+"purloined",
+"plausibilities",
+"sullied",
+"truce",
+"sweetmeats"
+]
+}
+],
+"sentences": [
+{
+"chapter": 15,
+"context": "since nothing would do them but to be rid of him",
+"simple": "since they would be happy with nothing except getting rid of him",
+"grammar": "'Nothing would do them but to...' means 'nothing except ... would please them'. 'Be rid of' means to be free of someone."
+}
+],
+"phrases": {}
+}

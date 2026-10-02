@@ -1,0 +1,127 @@
+{
+ "glossary": {
+  "allayed": {
+   "pos": "past-tense verb",
+   "meaning": "Made a fear or worry less strong.",
+   "forms": [
+    "allayed",
+    "allay"
+   ]
+  },
+  "stalwart": {
+   "pos": "adjective",
+   "meaning": "Tall, strong and brave."
+  },
+  "stile": {
+   "pos": "noun",
+   "meaning": "Steps over a wall, so that people can cross but animals cannot."
+  },
+  "impetuosity": {
+   "pos": "uncountable noun",
+   "meaning": "Acting fast and with strong feeling, without thinking first."
+  },
+  "decapitated": {
+   "pos": "past-tense verb",
+   "meaning": "Cut off the head of something.",
+   "forms": [
+    "decapitated",
+    "decapitate"
+   ]
+  },
+  "penitent": {
+   "pos": "adjective",
+   "meaning": "Feeling sorry for having done wrong."
+  },
+  "marplot": {
+   "pos": "noun",
+   "meaning": "A person who gets in the way and makes a plan go wrong."
+  },
+  "superannuated": {
+   "pos": "adjective",
+   "meaning": "Too old to work or be useful."
+  },
+  "unrequited": {
+   "pos": "adjective",
+   "meaning": "Not returned. An unrequited love is not loved back."
+  },
+  "solicitude": {
+   "pos": "uncountable noun",
+   "meaning": "Careful, loving concern for someone."
+  },
+  "blighted": {
+   "pos": "adjective",
+   "meaning": "Hurt and made sad, as a plant can be hurt by disease."
+  },
+  "oasis": {
+   "pos": "noun",
+   "meaning": "A green place with water in a hot, dry land."
+  },
+  "loom": {
+   "pos": "verb",
+   "meaning": "To appear as a large, unclear shape, often in a way that seems a danger.",
+   "forms": [
+    "looming",
+    "loomed"
+   ]
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 37,
+   "context": "Laurie was a young lover, but he was in earnest, and meant to “have it out,”",
+   "mainIdea": "Laurie tells Jo he has loved her ever since he knew her, and asks for an answer.",
+   "simple": "Laurie was a young lover, but he was serious. He meant to 'have it out' even if he died trying. So he plunged into the subject with his usual quick feeling, in a voice that sometimes went husky, in spite of his manly effort to keep it steady. He said he had loved her ever since he had known her and could not help it, because she had been so good to him. He had tried to show it, but she would not let him. Now he would make her hear him and give an answer, because he could not go on like this any longer.",
+   "hardWords": [
+    "impetuosity",
+    "manful"
+   ]
+  },
+  {
+   "chapter": 37,
+   "context": "Now, Laurie felt just then that his heart was entirely broken, and the world a howling wilderness",
+   "mainIdea": "Laurie feels his heart is broken and the world empty. But when Mr. Laurence cleverly mentions some places in his last words, Laurie feels a little hope.",
+   "simple": "Laurie felt at that moment that his heart was completely broken and the world a howling wilderness. But the old gentleman cleverly put certain words into his last sentence, and at those words the broken heart gave an unexpected jump. A green oasis or two suddenly showed in the howling wilderness. He sighed, and then said in a spiritless tone, 'Just as you like, sir; it does not matter where I go or what I do.'",
+   "hardWords": [
+    "wilderness",
+    "oasis",
+    "artfully",
+    "spiritless"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 37,
+   "context": "Not if you are the gentleman I think you.",
+   "simple": "You will not stay, if you are the kind of gentleman that I think you are.",
+   "grammar": "'Not' begins a short answer to Laurie's last words. 'The gentleman I think you' leaves out 'to be': 'the gentleman I think you to be'."
+  },
+  {
+   "chapter": 37,
+   "context": "it takes much folly, sin, or misery to send a young man to a violent death",
+   "simple": "It needs a great deal of foolishness, sin or sadness to drive a young man to a violent death.",
+   "grammar": "'It takes + noun + to + verb' is a pattern for the amount needed to do something. Here 'much folly, sin, or misery' is the thing needed."
+  },
+  {
+   "chapter": 37,
+   "context": "Being an energetic individual, Mr. Laurence struck while the iron was hot",
+   "simple": "Mr. Laurence was an active man, so he acted at once, while the time was right.",
+   "grammar": "'Being an energetic individual' gives the reason for the main action. 'Strike while the iron is hot' is a well-known saying that means to act at the best moment."
+  }
+ ],
+ "phrases": {
+  "have it out": {
+   "pos": "idiom",
+   "meaning": "To settle a problem by talking about it openly.",
+   "example": "we’ve got to have it out"
+  },
+  "strike while the iron is hot": {
+   "pos": "idiom",
+   "meaning": "To act at once while the time is right.",
+   "forms": [
+    "struck while the iron was hot"
+   ],
+   "example": "struck while the iron was hot"
+  }
+ }
+}

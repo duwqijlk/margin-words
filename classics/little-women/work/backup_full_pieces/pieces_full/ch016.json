@@ -1,0 +1,81 @@
+{
+ "glossary": {
+  "receptacle": {
+   "pos": "noun",
+   "meaning": "A container for keeping things in."
+  },
+  "ordeal": {
+   "pos": "noun",
+   "meaning": "A hard, painful experience that you must go through."
+  },
+  "nettled": {
+   "pos": "adjective",
+   "meaning": "Slightly angry because of something that was said."
+  },
+  "bandbox": {
+   "pos": "noun",
+   "meaning": "A round box made of thin board, used to keep a woman's things for the head."
+  },
+  "wheedler": {
+   "pos": "noun",
+   "meaning": "A person who gets what he wants by saying sweet things he does not mean."
+  },
+  "plummy": {
+   "pos": "adjective",
+   "meaning": "Very good and nice. Here Laurie uses it for an interesting piece of news."
+  },
+  "woebegone": {
+   "pos": "adjective",
+   "meaning": "Looking very sad."
+  },
+  "jubilee": {
+   "pos": "noun",
+   "meaning": "A time of great happiness and a party."
+  },
+  "bedewed": {
+   "pos": "past-tense verb",
+   "meaning": "Made wet with small drops. Here it means wet with water from the eyes.",
+   "forms": [
+    "bedewed",
+    "bedew"
+   ]
+  },
+  "billiard": {
+   "pos": "noun",
+   "meaning": "A game played on a big table with balls and long sticks. In those days a billiard room was a place respectable girls thought bad."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 16,
+   "context": "If anyone had been watching her, he would have thought her movements decidedly peculiar",
+   "mainIdea": "Jo goes to a newspaper office in town but is too nervous to go in. She walks up and down in the street, and Laurie watches her.",
+   "simple": "If anyone had watched Jo, he would have thought her actions very strange. When she got off the bus, she walked very fast to a certain number in a certain busy street. She found the place with some trouble, went to the door and looked up the dirty stairs. After standing completely still for a minute, she suddenly ran back into the street and walked away as fast as she had come. She did this several times, and it greatly amused a black-eyed young man who was resting in a window of the building across the street. When she came back for the third time, Jo gave herself a shake, pulled her hat over her eyes and went up the stairs, looking as if she were going to have all her teeth pulled out.",
+   "hardWords": [
+    "alighting",
+    "maneuver",
+    "lounging"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 16,
+   "context": "Because if you care much about riches, you will never go and marry a poor man",
+   "simple": "If you care a lot about money, you will never marry a poor man.",
+   "grammar": "This is a real 'if' sentence (first conditional): 'if' + present tense, then 'will never' for the result."
+  }
+ ],
+ "phrases": {
+  "up to mischief": {
+   "pos": "idiom",
+   "meaning": "Planning or doing something naughty.",
+   "example": "You are up to some mischief, Jo"
+  },
+  "play fair": {
+   "pos": "idiom",
+   "meaning": "To act honestly and follow the rules.",
+   "example": "Play fair, Teddy, or I'll never believe you"
+  }
+ }
+}

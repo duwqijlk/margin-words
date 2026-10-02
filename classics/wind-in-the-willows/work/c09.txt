@@ -1,0 +1,113 @@
+@W
+immured | past participle | Shut in a place, as in a prison, so that you cannot leave. | |
+dank | adjective | Cold, wet and unpleasant. | |
+noisome | adjective | Having a very bad smell. | |
+medieval | adjective | Of the Middle Ages, a time long ago. | |
+fortress | noun | A strong building made to keep out enemies. | |
+disport | present participle | Playing and enjoying yourself. | disporting |
+hospitable | adjective | Kind and generous to guests. | |
+audacious | adjective | Bold, with no fear of what people think. | |
+lurid | adjective | Shocking, with strong, bright details. | |
+languish | verb | To stay in a sad place and become weak. | |
+forsaken | adjective | Left alone by everyone. | |
+lamentation | noun | A loud show of sadness and crying. | lamentations |
+wench | noun | A young woman. It is an old word. | |
+shroud | past participle | Covered, so that it cannot be seen. | shrouded |
+antimacassar | noun | A small cloth put on the back of a chair to keep it clean. | |
+piebald | adjective | Having patches of two colours, as black and white. | |
+sulk | noun | A time of silent bad temper. | sulks |
+coaxingly | adverb | In a gentle way that tries to persuade. | |
+fragrance | noun | A sweet or nice smell. | |
+chivalry | noun | The brave and polite ways of knights in old stories. | |
+browse | present participle | Eating grass or leaves while walking slowly. | browsing |
+snapdragon | noun | A garden flower with a mouth-like shape. | |
+tinge | noun | A small amount of a colour. | |
+fender | noun | A low metal frame in front of a fire. | |
+eligible | adjective | Good enough to be chosen; here it is an old way to sell a house. | |
+replete | adjective | Full of something. | |
+sanitation | noun | Pipes and drains for waste water, and the way they are kept clean. | |
+avidity | noun | Strong eagerness. | |
+sty | noun | A small building for pigs. | styes |
+sanguine | adjective | Full of hope and happy. | |
+comely | adjective | Nice to look at. | |
+affably | adverb | In a friendly and nice way. | |
+usher | past-tense verb | Showed someone in. | ushered |
+sovereign | noun | An old British gold coin. | sovereigns |
+stipulation | noun | A condition that must be agreed. | |
+gag | past participle | Tied a cloth over someone's mouth to stop them speaking. | gagged |
+artifice | noun | A clever plan to fool someone. | |
+picturesque | adjective | Interesting and pretty, like a picture. | |
+untarnished | adjective | Not spoiled. | |
+harebrained | adjective | Silly and not carefully thought out. | |
+passport | noun | Something that lets you go anywhere. Here it is used in a joking way. | |
+sally | noun | A quick, clever remark. | sallies |
+retort | noun | A quick, sharp answer. | retorts |
+simulated | adjective | Pretended; not real. | |
+wicket | noun | A small door or gate inside a bigger one. | |
+repartee | noun | Clever, quick talk in answer to someone. | repartees |
+stringency | noun | Strong sharpness. | |
+uncanny | adjective | Strange in a way that is a little frightening. | |
+permissively | adverb | In a way that lets anything happen. | |
+baulk | past participle | Stopped from doing what you wanted. | baulked |
+pettifogging | adjective | Too much concerned with small, unimportant rules. | |
+revile | past participle | Spoken to in a rude, angry way. | reviled |
+burly | adjective | Big and strong. | |
+frivolous | adjective | Silly; not serious. | |
+antics | plural noun | Silly, funny actions. | |
+truncheon | noun | A short thick stick carried by a policeman. | truncheons |
+supplication | noun | A humble and strong request for help. | |
+loathsome | adjective | Very bad; making you feel sick. | |
+motley | adjective | Made of many different kinds, with no order. | |
+nightjar | noun | A night bird that makes a strange sound. | nightjars |
+vex | past-tense verb | Made someone angry. | vexed |
+@P
+ctx: When Toad found himself immured in a dank and noisome dungeon
+idea: Toad is in the dungeon and is very sad. He thinks it is the end of everything, and he is sorry for himself.
+simple: Toad found himself shut in a cold, wet dungeon with a bad smell. He knew that all the dark of an old castle lay between him and the outside world. In that world there was sunshine, and there were good high roads, where he had lately been so happy, playing as if he had bought every road in England. He threw himself down on the floor at full length, and cried bitter tears, and gave himself up to dark despair. 'This is the end of everything,' he said, 'or at least it is the end of the career of Toad, which is the same thing. The popular and handsome Toad, the rich and kind-to-guests Toad, the Toad so free and careless and gay! How can I hope ever to be free again,' he said, 'when I have been put in prison so fairly? I stole such a handsome motorcar in such a bold way, and I gave such wild and clever cheek to so many fat, red-faced policemen!' (Here his crying stopped his words.) 'What a stupid animal I was,' he said. 'Now I must sit in this dungeon until the people who were proud to say they knew me have forgotten the very name of Toad! O wise old Badger!' he said, 'O clever, intelligent Rat and sensible Mole! What sound judgments, what knowledge of men and things you have! O unhappy and left-alone Toad!' He spent his days and nights like this for several weeks. He would not eat his meals or the light snacks between them. But the old gaoler knew that Toad's pockets were full, and he often said that many comforts, and even luxuries, could be sent in from outside, for a price.
+hard: immured; dank; noisome; medieval; disporting; at large; audacious; lurid; languish; forsaken; lamentations; gaoler; well lined
+@P
+ctx: The smell of that buttered toast simply talked to Toad
+idea: The gaoler's daughter brings tea and buttered toast. The smell reminds Toad of his home, and he begins to talk about himself.
+simple: When the girl came back some hours later, she carried a tray. On it was a cup of sweet-smelling tea, with steam rising from it, and a plate piled high with very hot buttered toast. It was cut thick and very brown on both sides, and the butter ran through the holes in it in great golden drops, like honey from the honeycomb. The smell of that buttered toast simply talked to Toad, in a voice that he could clearly understand. It talked of warm kitchens, of breakfasts on bright frosty mornings, and of cosy firesides in the parlour on winter evenings, when your walk was over and your feet in slippers were up on the fender. It talked of the purring of happy cats, and the twitter of sleepy canaries. Toad sat up again, dried his eyes, sipped his tea and chewed his toast. Soon he began to talk freely about himself, and the house he lived in, and what he did there, and how important he was, and what a lot his friends thought of him.
+hard: fragrant; honeycomb; fender; purring; twitter; munched
+@P
+ctx: In his misery he made one desperate effort to carry the thing off
+idea: Toad has no money for a ticket. He tries to carry it off by acting like a fine gentleman who has left his purse behind.
+simple: In his misery Toad made one desperate try to carry it off. He went back to his fine old manner, a mix of the Squire and the College Don. He said, 'Look here! I find I have left my purse behind. Just give me that ticket, will you, and I will send the money on tomorrow? I am well known in these parts.'
+hard: carry the thing off; Squire; College Don
+@P
+ctx: As he walked along, considering, his attention was caught by some red
+idea: Toad sees the lights of a railway station and thinks it is a piece of luck. He does not want to go through the town.
+simple: As he walked along, thinking, he saw some red and green lights a little way off, at one side of the town. He heard the puffing and snorting of engines and the banging of trucks that were being moved. 'Aha!' he thought. 'This is a piece of luck! A railway station is the thing I want most in the whole world at this moment. And what is more, I need not go through the town to get it. I shall not have to keep up this shameful part by quick answers. They are very good, but they do not help one's feeling of self-respect.'
+hard: shunted; humiliating; repartees; self-respect
+@S
+ctx: How can I hope to be ever set at large again” (he said)
+simple: How can I hope ever to be free again, I who have been put in prison so fairly for stealing such a handsome motorcar in such a bold way, and for such wild and clever cheek to so many fat, red-faced policemen?
+gram: 'set at large' means 'set free'; '(he said)' is put in the middle of Toad's speech; 'who have been imprisoned' is a relative clause that explains why he has no hope.
+@S
+ctx: She was particularly fond of animals, and, besides her canary
+simple: She was very fond of animals. Besides her canary, whose cage hung on a nail in the thick wall of the tower by day, to the great annoyance of prisoners who liked an after-dinner sleep, and was covered with a cloth on the parlour table at night, she kept several black-and-white mice and a restless squirrel in a wheel.
+gram: This is a long sentence: 'besides her canary' starts a side phrase, and 'whose cage hung ... and was shrouded ...' is a relative clause with two verbs; the main clause comes late ('she kept ...').
+@S
+ctx: At last —somehow —he never rightly understood how —he burst the barriers
+simple: At last, somehow (he never really understood how), he broke through the barriers, reached the goal and arrived at the place where all waistcoat pockets always are. There he found not only no money, but no pocket to hold it, and no waistcoat to hold the pocket!
+gram: The dashes put a side remark ('he never rightly understood how') in the middle; 'not only no money, but no pocket ..., and no waistcoat ...' is a list that gets smaller each time.
+@S
+ctx: I could be sworn that I heard another following us
+simple: It is very strange. We are the last train running in this direction tonight, and yet I could swear that I heard another following us!
+gram: 'could be sworn' is an old passive form meaning 'I could swear'; 'heard another following us' uses 'heard + object + -ing'.
+@S
+ctx: By this not very convincing artifice, she explained, aided by picturesque fiction
+simple: She explained that by this trick, which was not very convincing, with the help of a colourful story that she could make up herself, she hoped to keep her job, in spite of how suspicious things looked.
+gram: 'she explained' is a side remark; 'aided by ...' is a participle phrase that says what helped; 'in spite of' at the end gives the opposite.
+@PH
+shed tears | idiom | To cry. | shed bitter tears | and shed bitter tears
+set at large | idiom | To set free from prison. | | set at large again
+sit up | phrasal verb | To move from lying down to sitting. | sat up | Toad sat up on end once more
+carry off | phrasal verb | To do something difficult and make it look easy. | carry the thing off | to carry the thing off
+go on | phrasal verb | To continue. | | encouraged him to go on
+set forth | phrasal verb | To start a trip. | | Toad set forth cautiously
+pile on | phrasal verb | To put on more and more. | piled on | They piled on more coals
+shut off | phrasal verb | To stop something such as steam or power. | shut off steam | I will shut off steam
+hold with | phrasal verb | To agree with; to think something is good. | | I don’t hold with motorcars
+pass the time | idiom | To fill your time doing something. | pass their time | to pass their time

@@ -1,0 +1,88 @@
+{
+ "glossary": {
+  "transparent": {
+   "pos": "adjective",
+   "meaning": "Clear, so that light can pass through; here, so thin that light seems to come through the face."
+  },
+  "immortal": {
+   "pos": "adjective",
+   "meaning": "Living forever. The 'immortal' part of a person is the soul."
+  },
+  "homilies": {
+   "pos": "plural noun",
+   "meaning": "Talks about right and wrong, like short talks in church."
+  },
+  "protestations": {
+   "pos": "plural noun",
+   "meaning": "Strong statements that something is true."
+  },
+  "weaned": {
+   "pos": "past participle",
+   "meaning": "Taken away from something that one is used to.",
+   "forms": [
+    "weaned",
+    "wean"
+   ]
+  },
+  "serenity": {
+   "pos": "uncountable noun",
+   "meaning": "A quiet and peaceful state of mind."
+  },
+  "confiding": {
+   "pos": "adjective",
+   "meaning": "Trusting and ready to tell secrets."
+  },
+  "lapping": {
+   "pos": "noun",
+   "meaning": "The soft sound of small water hitting the edge of the sea."
+  },
+  "tranquil": {
+   "pos": "adjective",
+   "meaning": "Quiet and peaceful."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 38,
+   "context": "Simple, sincere people seldom speak much of their piety",
+   "mainIdea": "Beth does not explain her faith, but it gives her courage to wait for death. She says she tries to be willing, and she holds on to Jo's love.",
+   "simple": "Simple, honest people seldom talk much of their faith. It shows in what they do rather than what they say, and it has more power than speeches. Beth could not explain the faith that gave her courage and patience to give up life and wait for death in a cheerful way. Like a trusting child, she asked no questions. She left everything to God and nature, the Father and mother of us all, sure that only they could teach and strengthen heart and spirit for this life and the life to come. She did not scold Jo with holy speeches. She only loved her better for her strong love, and held more closely to the dear human love, from which our Father never means us to be taken away, but through which He draws us closer to Himself. She could not say 'I am glad to go', because life was very sweet to her. She could only sob out 'I try to be willing', while she held fast to Jo, as the first bitter wave of this great sorrow broke over them both.",
+   "hardWords": [
+    "piety",
+    "homilies",
+    "weaned"
+   ]
+  },
+  {
+   "chapter": 38,
+   "context": "A little gray-coated sand-bird came tripping over the beach",
+   "mainIdea": "A small sand-bird comes close to Beth. It comforts her and reminds her that the world is still pleasant.",
+   "simple": "A little sand-bird in a gray coat came tripping over the beach, 'peeping' softly to itself as if it enjoyed the sun and sea. It came quite close to Beth and looked at her with a friendly eye. Then it sat on a warm stone, cleaning its wet feathers, quite at home. Beth smiled and felt comforted, because the tiny thing seemed to offer its small friendship and to remind her that a pleasant world was still there to enjoy.",
+   "hardWords": [
+    "tripping",
+    "dressing"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 38,
+   "context": "for often between ourselves and those nearest and dearest to us there exists a reserve which it is very hard to overcome",
+   "simple": "Often there is a wall of silence between us and those we love most, and it is very hard to break it.",
+   "grammar": "'There exists a reserve' is a formal way to say 'there is a reserve'. 'Which it is very hard to overcome' describes 'reserve' and has 'it' as a stand-in for 'to overcome it'."
+  },
+  {
+   "chapter": 38,
+   "context": "It shall be stopped, your tide must not turn so soon, nineteen is too young.",
+   "simple": "I will stop it. Your tide must not turn so soon. Nineteen is too young.",
+   "grammar": "'Shall' here is a strong promise, not a plain future. 'It' is Beth's tide, her life going away. The sentence has three short parts that Jo says quickly in her pain."
+  }
+ ],
+ "phrases": {
+  "stand by": {
+   "pos": "phrasal verb",
+   "meaning": "To stay near someone and support them.",
+   "example": "you must stand by father and mother"
+  }
+ }
+}

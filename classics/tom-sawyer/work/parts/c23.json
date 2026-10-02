@@ -1,0 +1,110 @@
+{
+"glossary": {
+"exacting": {
+"pos": "adjective",
+"meaning": "Asking for a lot; hard to please."
+},
+"retribution": {
+"pos": "noun",
+"meaning": "Punishment given in return for a wrong."
+},
+"worsted": {
+"pos": "adjective",
+"meaning": "Beaten or defeated."
+},
+"dominie": {
+"pos": "noun",
+"meaning": "A Scottish word for a schoolmaster."
+},
+"mellow": {
+"pos": "adjective",
+"meaning": "Soft and relaxed, here because of drink."
+},
+"gawky": {
+"pos": "adjective",
+"meaning": "Tall and awkward, not knowing how to move."
+},
+"declamatory": {
+"pos": "adjective",
+"meaning": "In the style of a loud, formal speech."
+},
+"unpalatable": {
+"pos": "adjective",
+"meaning": "Not pleasant to accept or hear."
+},
+"voluptuous": {
+"pos": "adjective",
+"meaning": "Full of pleasure for the senses."
+},
+"enhance": {
+"pos": "verb",
+"meaning": "To make something stronger or better."
+},
+"gilded": {
+"pos": "past-tense verb",
+"meaning": "Covered with a thin layer of gold paint.",
+"forms": [
+"gilded",
+"gild"
+]
+},
+"scuttle": {
+"pos": "noun",
+"meaning": "A small opening with a lid, in a roof or floor."
+},
+"pate": {
+"pos": "noun",
+"meaning": "The top of the head."
+}
+},
+"paragraphs": [
+{
+"chapter": 23,
+"paragraph": 19,
+"context": "Now the master, mellow almost to the verge of geniality",
+"mainIdea": "The master draws a map, but a cat is lowered from above and takes his wig. His bald head is shown, and it shines because it was painted with gold.",
+"simple": "Now the master, relaxed and almost friendly, put his chair aside, turned his back to the people and began to draw a map of America on the blackboard for the geography class. But his hand was not steady, and he did a bad job. A quiet laugh went through the house. He knew what the matter was and tried to fix it. He rubbed out lines and drew them again, but he only made them worse, and the laughing grew louder. He put all his attention on his work, as if he was set on not letting the fun beat him. He felt that every eye was on him, and he thought he was doing well. But the laughing went on, and even grew. It had good reason. There was an attic above, with a small opening in the roof over his head. Through it came a cat, held by a string round her middle. A rag was tied round her head and jaws so she could not cry out. As she slowly came down, she curved up and clawed at the string, then swung down and clawed at the air. The laughing grew louder and louder. The cat came within six inches of the busy teacher's head. She came lower and lower, and then she grabbed his wig with her desperate claws and held on. In an instant she was pulled up into the attic with her prize. And how the light shone from the master's bald head, because the signpainter's boy had painted it with gold!",
+"hardWords": [
+"geniality",
+"garret",
+"scuttle",
+"haunches",
+"intangible",
+"trophy",
+"pate"
+]
+},
+{
+"chapter": 23,
+"paragraph": 8,
+"context": "A prevalent feature in these compositions was a nursed and petted melancholy",
+"mainIdea": "The writer jokes about the girls' compositions. They are sad and use fancy words, and each one ends with a sermon.",
+"simple": "One common feature of these compositions was a sadness that the writer kept and cared for. Another was a wasteful, rich flow of fine language. Another was the habit of pushing in favorite words and phrases until they were quite worn out. One feature that marked and spoiled them was the long and tiresome sermon at the end of each one. Whatever the subject was, the girl worked very hard to bend it into a form that a moral and religious mind could think about with benefit. The plain falseness of these sermons has not been enough to end the fashion in schools. It is not enough today, and perhaps it never will be. No school in the country has young ladies who do not feel they must end their compositions with a sermon. The sermon of the most silly and least religious girl is always the longest and most strongly good. But enough of this, because plain truth is not pleasant to hear.",
+"hardWords": [
+"prevalent",
+"opulent",
+"inveterate",
+"edification",
+"insincerity",
+"frivolous",
+"pious",
+"unpalatable"
+]
+}
+],
+"sentences": [
+{
+"chapter": 23,
+"context": "Tom Sawyer stepped forward with conceited confidence and soared into the unquenchable",
+"simple": "Tom Sawyer stepped forward, very sure of himself, and began a famous speech about freedom.",
+"grammar": "'Conceited confidence' joins two words that start with the same sound for effect. 'Soared into' is a picture: his voice rises into the speech like a bird."
+},
+{
+"chapter": 23,
+"context": "There was a garret above, pierced with a scuttle over his head",
+"simple": "There was an attic above him, with a small opening over his head.",
+"grammar": "'Pierced with a scuttle' is a past participle phrase. It tells us more about the attic: it has a hole in it."
+}
+],
+"phrases": {}
+}

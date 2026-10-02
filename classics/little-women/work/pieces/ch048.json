@@ -1,0 +1,104 @@
+{
+ "glossary": {
+  "conjugal": {
+   "pos": "adjective",
+   "meaning": "Having to do with marriage or husband and wife."
+  },
+  "sodden": {
+   "pos": "adjective",
+   "meaning": "Very wet and heavy with water."
+  },
+  "loitering": {
+   "pos": "present participle",
+   "meaning": "Standing or walking slowly about with no clear reason.",
+   "forms": [
+    "loitering",
+    "loiter"
+   ]
+  },
+  "hustled": {
+   "pos": "past participle",
+   "meaning": "Pushed hard by people who want to go fast.",
+   "forms": [
+    "hustled",
+    "hustle"
+   ]
+  },
+  "unavailing": {
+   "pos": "adjective",
+   "meaning": "Not helping; having no result."
+  },
+  "silesia": {
+   "pos": "uncountable noun",
+   "meaning": "A strong, thin cloth, used for the lining inside clothes."
+  },
+  "betrothed": {
+   "pos": "adjective",
+   "meaning": "Promised to be married to someone."
+  },
+  "draggle": {
+   "pos": "verb",
+   "meaning": "To make wet and not clean by pulling along the ground."
+  },
+  "pinnacle": {
+   "pos": "noun",
+   "meaning": "The highest point of something."
+  },
+  "deplorable": {
+   "pos": "adjective",
+   "meaning": "So bad that it makes one sad."
+  },
+  "countinghouses": {
+   "pos": "plural noun",
+   "meaning": "Offices where a business keeps its money and accounts."
+  },
+  "unceremoniously": {
+   "pos": "adverb",
+   "meaning": "In a rough way, without politeness."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 48,
+   "context": "Mr. Bhaer could read several languages, but he had not learned to read women yet.",
+   "mainIdea": "Mr. Bhaer is confused by Jo's changing moods. Her words and looks seem to go up and down, and he cannot tell what she feels.",
+   "simple": "Mr. Bhaer could read several languages, but he had not yet learned to read women. He thought he knew Jo quite well. So he was very surprised by the opposite signs in her voice, face and manner. She showed him them one after another that day, because she was in half a dozen different moods in half an hour. When she met him, she looked surprised, though he could not help thinking she had come for that very reason. When he offered his arm, she took it with a look that filled him with joy. But when he asked if she missed him, she gave a cold, formal answer, and he lost hope. When she heard his good luck, she almost clapped her hands, and he wondered if the joy was all for the boys. Then, hearing where he was going, she said 'So far away!' in a tone of despair that lifted him to a high point of hope. But a minute later she knocked him down again by speaking like a person who was only thinking of the matter in hand.",
+   "hardWords": [
+    "contradictions",
+    "pinnacle"
+   ]
+  },
+  {
+   "chapter": 48,
+   "context": "It was certainly proposing under difficulties, for, even if he had desired to do so",
+   "mainIdea": "Mr. Bhaer asks for Jo's love in the street, in mud, with both hands full. His joy shines in his face so much that rainbows seem to form in the drops on his beard.",
+   "simple": "It was certainly a proposal made under difficulties. Even if he had wished to, Mr. Bhaer could not kneel because of the mud. He could not offer Jo his hand, except in a manner of speaking, because both were full. He could not show tender feeling in the open street, though it was close. So the only way he could show his joy was to look at her. His face was so glorious that there seemed to be little rainbows in the drops that sparkled on his beard. If he had not loved Jo very much, I do not think he could have done it then, because she looked far from lovely. Her skirts were in a sad state, her rubber boots were splashed to the ankle, and her bonnet was ruined. Luckily, Mr. Bhaer thought her the most beautiful woman alive. And she found him more 'Jove-like' than ever, although the brim of his hat was soft and wet from the small streams running from it onto his shoulders (because he held the umbrella all over Jo), and every finger of his gloves needed mending.",
+   "hardWords": [
+    "rapture",
+    "glorified",
+    "deplorable"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 48,
+   "context": "being a woman as well as a lover, she felt that, though it was too late to save her heart, she might her bonnet",
+   "simple": "Because she was a woman as well as a lover, she felt that it was too late to save her heart but she could still save her bonnet.",
+   "grammar": "'She might her bonnet' leaves out 'save': 'she might save her bonnet'. 'Though' adds a contrast between the heart, which was lost, and the bonnet, which might still be saved."
+  },
+  {
+   "chapter": 48,
+   "context": "he would have been glad of his handkerchief, if he could have got at it",
+   "simple": "The Professor found it so touching that he would have liked to have his handkerchief, if he could have reached it.",
+   "grammar": "This is an unreal 'if' sentence about the past: 'would have been ... if he could have got'. 'Glad of' means 'happy to have'. 'Get at' means to reach."
+  }
+ ],
+ "phrases": {
+  "go by contraries": {
+   "pos": "idiom",
+   "meaning": "To mean the opposite of what one says or shows.",
+   "example": "women, like dreams, go by contraries"
+  }
+ }
+}

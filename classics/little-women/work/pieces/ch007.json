@@ -1,0 +1,103 @@
+{
+ "glossary": {
+  "betokening": {
+   "pos": "present participle",
+   "meaning": "Showing clearly that something is true; being a sign of it."
+  },
+  "conservatory": {
+   "pos": "noun",
+   "meaning": "A glass room, kept warm, where plants grow all year. It is part of a rich house."
+  },
+  "listless": {
+   "pos": "adjective",
+   "meaning": "Tired and without interest or energy."
+  },
+  "sallied": {
+   "pos": "past-tense verb",
+   "meaning": "Went out quickly and bravely to do something.",
+   "forms": [
+    "sallied",
+    "sally"
+   ]
+  },
+  "pate": {
+   "pos": "noun",
+   "meaning": "The head, or the top of the head. Here it is a funny word for Laurie's hair-covered head."
+  },
+  "blancmange": {
+   "pos": "uncountable noun",
+   "meaning": "A soft, sweet, white food made from milk. It is cold and smooth and is eaten with a spoon."
+  },
+  "fidgety": {
+   "pos": "adjective",
+   "meaning": "Not able to keep still; always moving and worried."
+  },
+  "elated": {
+   "pos": "adjective",
+   "meaning": "Very happy and proud because something good has happened."
+  },
+  "redoubtable": {
+   "pos": "adjective",
+   "meaning": "Strong, and a little hard to face; a person you must respect."
+  },
+  "evolutions": {
+   "pos": "plural noun",
+   "meaning": "Planned movements. Here the boy makes funny movements to make a girl laugh."
+  },
+  "glowered": {
+   "pos": "past-tense verb",
+   "meaning": "Looked at someone with an angry, dark face.",
+   "forms": [
+    "glowered",
+    "glower"
+   ]
+  },
+  "gruff": {
+   "pos": "adjective",
+   "meaning": "Rough and low in voice or manner, but not truly unkind."
+  },
+  "quaint": {
+   "pos": "adjective",
+   "meaning": "Old-fashioned in a pleasing, interesting way."
+  },
+  "woo": {
+   "pos": "verb",
+   "meaning": "To try to win the love of a person so that she will say yes to marriage."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 7,
+   "context": "Meg went back to toast her feet and read Ivanhoe",
+   "mainIdea": "Jo digs paths in the snow. The garden is between the Marches' shabby old house and the rich, lonely Laurence house.",
+   "simple": "Meg went back to warm her feet and read Ivanhoe, and Jo began to dig paths with great energy. The snow was light, and with her broom she soon swept a path all round the garden, for Beth to walk in when the sun came out. The sick dolls needed air. The garden was between the Marches' house and Mr. Laurence's house. Both stood at the edge of the city, which still looked like the country, with small woods, lawns, large gardens and quiet streets. A low hedge divided the two properties. On one side was an old brown house that looked rather bare and shabby, because the vines that covered its walls in summer, and the flowers around it, were gone. On the other side was a fine stone house that clearly showed every kind of comfort and wealth, from the big coach-house and well-kept grounds to the greenhouse and the lovely things people could see between the rich curtains. But it seemed a lonely house with no life in it. No children played on the lawn, no mother's face smiled at the windows, and few people went in or out, except the old gentleman and his grandson.",
+   "hardWords": [
+    "suburb",
+    "groves",
+    "betokening",
+    "conservatory",
+    "frolicked"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 7,
+   "context": "The atmosphere of the whole house being summer-like, Laurie led the way",
+   "simple": "Because the whole house felt warm like summer, Laurie led the way from room to room.",
+   "grammar": "'The atmosphere ... being summer-like' is an absolute phrase with its own subject. It gives the reason for what follows."
+  }
+ ],
+ "phrases": {
+  "tell on": {
+   "pos": "phrasal verb",
+   "meaning": "To go on with telling something; to keep talking.",
+   "example": "does me no end of good. Tell on, please"
+  },
+  "put on airs": {
+   "pos": "idiom",
+   "meaning": "To act as if you are better than other people.",
+   "example": "and didn't put on any airs"
+  }
+ }
+}

@@ -1,0 +1,132 @@
+{
+ "glossary": {
+  "fortnight": {
+   "pos": "noun",
+   "meaning": "A period of two weeks."
+  },
+  "dilapidated": {
+   "pos": "adjective",
+   "meaning": "Old, broken and in bad condition."
+  },
+  "tarlatan": {
+   "pos": "noun",
+   "meaning": "A thin, hard cloth, used for light party dresses."
+  },
+  "sacque": {
+   "pos": "noun",
+   "meaning": "A coat that a woman wore, not close to the body."
+  },
+  "irksome": {
+   "pos": "adjective",
+   "meaning": "Making you feel tired and cross; hard and not interesting."
+  },
+  "daunted": {
+   "pos": "adjective",
+   "meaning": "Made to feel afraid or less brave."
+  },
+  "sumptuously": {
+   "pos": "adverb",
+   "meaning": "In a rich and costly way. Here it means eating very well."
+  },
+  "repining": {
+   "pos": "gerund",
+   "meaning": "Feeling sad and saying so, because you do not have something."
+  },
+  "dowdy": {
+   "pos": "adjective",
+   "meaning": "Not fashionable; looking old and not smart."
+  },
+  "talisman": {
+   "pos": "noun",
+   "meaning": "A small thing that people believe will keep them safe from bad things."
+  },
+  "frizzled": {
+   "pos": "adjective",
+   "meaning": "Made into small, round pieces of hair.",
+   "forms": [
+    "frizzled",
+    "frizzle"
+   ]
+  },
+  "alacrity": {
+   "pos": "noun",
+   "meaning": "A quick, happy readiness to do something."
+  },
+  "champagne": {
+   "pos": "uncountable noun",
+   "meaning": "A French wine with bubbles, drunk at parties."
+  },
+  "discreetly": {
+   "pos": "adverb",
+   "meaning": "In a careful way, so as not to cause trouble or share a secret."
+  },
+  "unmaidenly": {
+   "pos": "adjective",
+   "meaning": "Not right for a young girl of that time."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 11,
+   "context": "The Moffats were very fashionable, and simple Meg was rather daunted",
+   "mainIdea": "Meg enjoys the rich life at the Moffats' house and begins to copy them. She then feels poor and unhappy about her home.",
+   "simple": "The Moffats were very fashionable, and plain Meg was a little afraid at first because the house was so grand and the people so elegant. But they were kind people in spite of their light, silly way of life, and soon made their guest feel at ease. Perhaps Meg felt, without knowing why, that they were not very educated or clever, and that all their show could not quite hide what they were really made of. It was certainly pleasant to eat rich food, ride in a fine carriage, wear her best dress every day and do nothing but enjoy herself. It suited her well, and soon she began to copy the manners and talk of the people around her. She put on small airs, used French words, curled her hair, made her dresses smaller and talked about fashion as well as she could. The more she saw of Annie Moffat's pretty things, the more she was jealous of her and wished to be rich. Now home looked bare and sad when she thought of it, and work seemed harder than ever. She felt she was a very poor girl who was badly treated, in spite of her new gloves and silk stockings.",
+   "hardWords": [
+    "daunted",
+    "frivolous",
+    "sumptuously",
+    "destitute",
+    "airs and graces"
+   ]
+  },
+  {
+   "chapter": 11,
+   "context": "Poor girls don't stand any chance, Belle says, unless they put themselves forward",
+   "mainIdea": "Meg repeats what Belle says about poor girls. Mrs. March and Jo say it is better to be a happy old maid than an unhappy wife.",
+   "simple": "Meg sighed and said that Belle says poor girls have no chance unless they push themselves forward. Jo said firmly that then they would be old maids. Mrs. March agreed. She said it was better to be a happy old maid than an unhappy wife, or a girl who runs about trying to find a husband.",
+   "hardWords": [
+    "old maids",
+    "unmaidenly"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 11,
+   "context": "she stood, like the jackdaw in the fable, enjoying her borrowed plumes",
+   "simple": "She stood there enjoying the fine things that belonged to someone else, like the bird in the old story.",
+   "grammar": "'Like the jackdaw in the fable' is a comparison with an old story. A jackdaw is a bird that put on other birds' feathers to look fine. 'Borrowed plumes' means fine things that are not truly yours."
+  },
+  {
+   "chapter": 11,
+   "context": "it does seem as if the more one gets the more one wants",
+   "simple": "It seems that when you get more, you want more.",
+   "grammar": "'The more..., the more...' shows that two things grow together: as the first goes up, the second goes up."
+  }
+ ],
+ "phrases": {
+  "set off": {
+   "pos": "phrasal verb",
+   "meaning": "To make something look better by being next to it.",
+   "example": "the sash will set it off beautifully"
+  },
+  "make over": {
+   "pos": "phrasal verb",
+   "meaning": "To change a piece of clothing so it looks new or different.",
+   "example": "there isn't time to make it over"
+  },
+  "get up in style": {
+   "pos": "idiom",
+   "meaning": "To dress a person in fine, fashionable clothes.",
+   "example": "she'd be so nice if she was only got up in style"
+  },
+  "turn her head": {
+   "pos": "idiom",
+   "meaning": "To make a person proud and silly by too much praise.",
+   "forms": [
+    "turned her head"
+   ],
+   "example": "was in a fair way to have her head turned"
+  }
+ }
+}

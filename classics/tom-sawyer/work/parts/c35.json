@@ -1,0 +1,81 @@
+{
+"glossary": {
+"abounding": {
+"pos": "adjective",
+"meaning": "Very great; more than enough."
+},
+"oblivion": {
+"pos": "noun",
+"meaning": "The state of being forgotten by everyone."
+},
+"hapless": {
+"pos": "adjective",
+"meaning": "Unlucky; having bad luck."
+},
+"pardon": {
+"pos": "noun",
+"meaning": "An official act that frees a person from punishment."
+},
+"ransom": {
+"pos": "noun",
+"meaning": "Money paid to free a person who is held prisoner."
+},
+"pallet": {
+"pos": "noun",
+"meaning": "A simple bed made of blankets or straw on the floor."
+},
+"orgies": {
+"pos": "plural noun",
+"meaning": "Wild parties with too much food, drink and noise. Tom does not know exactly what they are."
+},
+"lucifer": {
+"pos": "noun",
+"meaning": "In 'lucifer matches', the old name for matches that light when you rub them."
+},
+"waylay": {
+"pos": "verb",
+"meaning": "To wait for people and stop them on the road, in order to rob them."
+}
+},
+"paragraphs": [
+{
+"chapter": 35,
+"paragraph": 4,
+"context": "Injun Joe’s bowie-knife lay close by, its blade broken in two",
+"mainIdea": "Injun Joe died of hunger at the cave door. He tried to cut through the door, he ate candles and bats, and he drank the water that fell drop by drop.",
+"simple": "Injun Joe's big knife lay close by, its blade broken in two. He had cut and hacked through the great bottom beam of the door with long work. But the work was useless, because the rock itself made a step outside the door, and the knife did nothing to the hard stone. The only damage was to the knife. Even without the stone, the work would have been useless. If the beam had been cut away completely, Joe could not have squeezed his body under the door, and he knew it. So he had only hacked there to be doing something, to pass the weary time and to use his tortured mind. Usually there were half a dozen pieces of candle left in the cracks of this entrance by visitors, but there were none now. The prisoner had found them and eaten them. He had also managed to catch a few bats and eat them, leaving only their claws. The poor man had starved to death. Near by, a stone shape had been growing up from the ground for ages from the water that dripped from above. The prisoner had broken it off, put a stone on the stump, and scooped a shallow hollow in it, to catch the precious drop that fell once in every three minutes with the dull steadiness of a clock. It gave about a spoonful in twenty-four hours. That drop was already falling when the Pyramids were new, when Troy fell, when Rome was begun, when Christ was killed on the cross, when William the Conqueror made the British empire, when Columbus sailed, and when the killing at Lexington was news.",
+"hardWords": [
+"bowie-knife",
+"vestibule",
+"contrived",
+"stalagmite",
+"stalactite",
+"crevices"
+]
+}
+],
+"sentences": [
+{
+"chapter": 35,
+"context": "I always reckoned we’d get it",
+"simple": "I always thought that we would get it.",
+"grammar": "'Reckoned we'd get it' uses 'reckon' to mean 'think'. 'We'd' is 'we would' and shows what Tom expected in the past."
+},
+{
+"chapter": 35,
+"context": "That drop was falling when the Pyramids were new",
+"simple": "That drop was already falling when the Pyramids were new.",
+"grammar": "This is the first of a long list of 'when' clauses that go back in history. 'Was falling' shows the drop was falling for a long time."
+}
+],
+"phrases": {
+"get under way": {
+"meaning": "To start moving, as a boat.",
+"pos": "idiom",
+"forms": [
+"got under way"
+],
+"example": "got under way at once"
+}
+}
+}

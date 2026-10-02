@@ -1,0 +1,729 @@
+witch|n|A woman in stories who uses magic, often to do bad things.|
+giant|n|A huge, strong person in stories. As an adjective it means very big.|
+noise|n|A sound, especially a loud or unpleasant one.|
+suddenly|adv|Quickly and without warning.|
+beast|n|A large animal. It can also mean a unpleasant or very unkind person.|
+suppose|v|To think that something is probably true.|
+lay|pt|Rested flat on a surface. (Past tense of "lie".)|
+grew|pt|Became bigger or taller. (Past tense of "grow".)|
+strange|adj|Unusual or strange; not what you expect.|
+sight|n|The power to see. "Within sight" means close enough to be seen.|
+mouse|n|A very small furry animal with a long tail.|
+breath|n|The air that you take in and let out when you breathe.|
+smell|n|What you notice with your nose. As a verb, it means to notice something with your nose.|
+gate|n|A door in a fence or wall that opens and closes.|
+ought|v|Should; used to say what is right or sensible.|
+silence|un|A time with no sound at all.|
+adventure|n|An exciting and sometimes dangerous experience.|
+tail|n|The part that sticks out from the back of an animal. A "tail coat" has long back pieces.|
+whispered|pt|Spoke in a very quiet voice, so only one person can hear.|
+horn|n|A hard pointed part on the head of some animals, like a cow.|
+cave|n|A large hole in a hill or under the ground.|
+grown|adj|Fully grown up, like an adult. A "grown-up" is an adult.|
+bow|n|A wooden stick with hairs used to play a violin.|
+cliff|n|A high steep wall of rock, often by the sea.|
+slave|n|A person who is owned by another and made to work without pay.|
+fool|n|A person who acts in a silly way.|
+lying|ing|Resting flat on a surface. It can also mean telling something untrue.|
+frightened|adj|Feeling afraid.|
+journey|n|A trip from one place to another.|
+lamp|n|A light with a cover, which stands on a table or the floor.|
+stream|n|A small river. It can also mean a long line of people.|
+darkness|un|A place or time with no light.|
+shadow|n|A dark shape made when something blocks the light.|
+golden|adj|Made of gold, or shining yellow like gold.|
+marsh|n|Soft, wet land with grass and reeds.|
+dreadful|adj|Very bad or very unpleasant.|
+horrible|adj|Very bad or unpleasant.|
+asleep|adj|Sleeping.|
+neck|n|The part of the body between the head and the shoulders.|
+rushed|pt|Moved or did something very quickly.|
+pale|adj|Light in colour; not bright or dark.|
+beard|n|The hair that grows on a man's chin and cheeks.|
+hole|n|An empty space or opening in something.|
+soft|adj|Not hard; nice to touch. It can also mean quiet.|
+thick|adj|Not thin; wide from one side to the other. Also very close together, like thick trees.|
+slope|n|A surface that goes up or down at an angle.|
+forgotten|pp|Not remembered. (From the verb "forget".)|
+dare|v|To be brave enough to do something. "How dare you" is an angry question.|
+drew|pt|Moved. "Drew closer" means came nearer.|
+dozen|n|12.|
+shook|pt|Moved quickly from side to side.|
+danger|un|The chance that something bad will happen.|
+meal|n|The food you eat at one time, such as breakfast or dinner.|
+mile|n|A long distance, about 1.6 kilometres.|
+roof|n|The cover on the top of a building.|
+deck|n|The flat floor of a ship. A "deck-chair" is a folding chair for sitting outside.|
+ordinary|adj|Normal; nothing special.|
+silly|adj|Not sensible; funny in a silly way.|
+armor|un|Strong metal covering to protect the body in battle.|
+finger|n|One of the long parts at the end of your hand.|
+hung|pt|Was fixed at the top and allowed to swing down.|
+sharp|adj|Having an edge or point that can cut. It can also mean sudden or clear.|
+smooth|adj|Flat and even, with no rough parts.|
+wing|n|The part of a bird, insect, or plane that lets it fly.|
+lip|n|One of the two soft edges of your mouth.|
+shining|ing|Giving out bright light.|
+tower|n|A tall, narrow building or structure.|
+yard|n|The open space next to a house. It is also a unit of length, about 0.9 metres.|
+pace|n|A step. It can also mean the speed of walking or running.|
+pocket|n|A small bag sewn into clothes for carrying small things.|
+bare|adj|Empty, with nothing on it or in it.|
+moonlight|un|The light from the moon.|
+sand|un|Tiny grains of rock found on beaches.|
+spell|n|Magic words that make something happen. It can also mean the power of magic.|
+wave|n|A move of the hand to say hello. It can also be a moving line of water in the sea.|
+disappeared|pt|Went out of sight; was gone.|
+roar|n|A very loud, deep sound.|
+forgot|pt|Could not remember. (Past tense of "forget".)|
+overhead|adv|Above your head, in the sky.|
+shaking|ing|Moving quickly from side to side or up and down.|
+spear|n|A long weapon with a sharp point at the end.|
+bound|adj|"I'll be bound" is an old way to say "I am sure".|It is an old-fashioned phrase.
+bowed|pt|Bent the head or body forward to show respect.|
+feast|n|A large, special meal.|
+spoken|pp|Said aloud. (From the verb "speak".)|
+struck|pt|Hit something hard.|
+ancient|adj|Very, very old.|
+blow|v|To send out air from your mouth, or to push something with air.|
+burst|pt|Broke open suddenly. "Burst into laughter" means began to laugh suddenly.|
+flung|pt|Threw something with force.|
+knife|n|A tool with a sharp edge for cutting.|
+laid|pt|Put something down gently. (Past tense of "lay".)|
+leaf|n|The flat green part of a plant that grows from a branch or stem.|
+vanished|pt|Disappeared suddenly.|
+climb|v|To go up something using your hands and feet.|
+delicious|adj|Tasting very good.|
+joy|un|A feeling of great happiness.|
+narrow|adj|Not wide.|
+steep|adj|Rising at a sharp angle; not gentle.|
+jump|v|To push yourself up off the ground into the air.|
+rushing|ing|Moving very fast.|
+tongue|n|The soft part inside your mouth that you use to taste and speak.|
+lit|pp|Given light. (From the verb "light".)|
+patch|n|A small area that is different from what is around it.|
+squirrel|n|A small animal with a big furry tail that lives in trees and eats nuts.|
+sunlight|un|Light from the sun.|
+tale|n|A story.|
+cheek|n|The soft part of the face under each eye.|
+horrid|adj|Very unpleasant or mean.|
+jolly|adv|A British word meaning very. "A jolly good one" means a very good one.|
+daylight|un|The light of day.|
+row|n|A line of things or people side by side. As a verb it means to move a boat with oars.|
+shield|v|To protect from harm.|
+silent|adj|Making no sound; quiet.|
+stair|n|"Stairs" are steps that go from one floor to another.|
+begun|pp|Started. (From the verb "begin".)|
+beneath|prep|Below or under something.|
+brave|adj|Not afraid of danger.|
+clock|n|A machine that shows the time.|
+instantly|adv|At once.|
+singing|ing|Making music with your voice.|
+waterfall|n|Water that falls down over a high rock.|
+expression|n|The look on a face that shows a feeling.|
+faint|adj|Weak or hard to hear or see.|
+interrupted|pt|Spoke while someone else was talking.|
+terribly|adv|Very; extremely.|
+circle|n|A round shape like a ring.|
+courage|un|Bravery; being able to face danger.|
+difficulty|n|A problem; something that is hard to do.|
+awake|adj|Not sleeping.|
+clever|adj|Quick at learning and understanding; smart.|
+farther|adv|At a greater distance.|
+somehow|adv|In some way you cannot explain.|
+bell|n|A metal cup that rings when hit.|
+height|n|How tall something is.|
+hunting|ing|Chasing and killing wild animals for food.|
+knocked|pt|Hit a door with your hand to get attention.|
+smoke|un|The grey or black cloud that comes from a fire.|
+cheer|v|To shout in a happy way. "Cheer up" means be happier.|
+climbed|pt|Went up something using hands and feet.|
+fallen|pp|Dropped down. (From the verb "fall".)|
+fault|n|The reason that something bad happened; the blame.|
+muttered|pt|Spoke in a low voice that is hard to hear.|
+nasty|adj|Very unpleasant or unkind.|
+pig|n|A farm animal with a curly tail and a flat nose.|
+rabbit|n|A small furry animal with long ears.|
+roaring|ing|Making a very loud sound.|
+shake|v|To move quickly from side to side.|
+slept|pt|Rested with your eyes closed. (Past tense of "sleep".)|
+slipped|pt|Slid by accident and lost balance.|
+wise|adj|Having good judgement because of experience.|
+arch|n|A curved shape, like the top of a door.|
+blew|pt|Sent air out. It can also mean moved by the wind.|
+enormous|adj|Extremely big.|
+gentlemen|n|Polite men. "Ladies and gentlemen" is how you speak to an audience.|
+string|n|A thin rope used for tying things.|
+bottle|n|A glass or plastic container with a narrow neck, used for liquids.|
+comfortable|adj|Giving you a feeling of ease; not painful.|
+throne|n|A special chair for a king or queen.|
+aside|adv|To one side.|
+chest|n|The front part of the body between the neck and the stomach.|
+nodded|pt|Moved the head up and down to say yes.|
+oar|n|A long pole with a flat end, used to move a boat through water.|
+rowing|ing|Moving a boat with oars.|
+enchanted|adj|Under a magic spell.|
+exciting|adj|Making you feel happy and full of interest.|
+glance|v|To look quickly.|
+passage|n|A narrow way between two places, like a corridor or tunnel.|
+roared|pt|Made a loud, deep sound, like a lion. It can mean laughed loudly.|
+stretched|pt|Pulled to become longer.|
+thin|adj|Not thick. It can also mean not fat.|
+wound|pt|Twisted around something.|
+anxious|adj|Worried and nervous.|
+bye|int|Short for "goodbye".|
+fierce|adj|Wild and angry; very strong.|
+hurry|v|To move or act fast because you do not have much time.|
+steadily|adv|In a regular, even way.|
+swim|v|To move through water using your arms and legs.|
+tunnel|n|A long passage under the ground or through a hill.|
+curious|adj|Wanting to know about something. It can also mean strange.|
+flew|pt|Moved through the air, like a bird or a plane.|
+ghost|n|The spirit of a dead person that some people believe they can see.|
+odd|adj|Strange or unusual.|
+stuck|pt|Pushed or fixed something so that it stays in place. It can also mean unable to move.|
+tiny|adj|Very, very small.|
+weapon|n|A thing like a gun or a sword that is used to fight.|
+wore|pt|Had clothes on your body. (Past tense of "wear".)|
+bath|n|A large tub of water for washing your body.|
+goodness|int|A word that shows surprise. "Goodness knows" means nobody knows.|
+laughter|un|The sound of people laughing.|
+ruined|pt|Spoiled completely.|
+bench|n|A long seat. It can also be a strong table for working.|
+bone|n|One of the hard white parts inside your body.|
+bush|n|A small plant with many branches, smaller than a tree.|
+curtain|n|A piece of cloth that hangs over a window or door.|
+guest|n|A person who is invited to visit.|
+horribly|adv|In a very bad or frightening way.|
+pleasant|adj|Nice; enjoyable.|
+sank|pt|Went down below the surface.|
+sore|adj|Painful.|
+toe|n|One of the five small parts at the end of your foot.|
+wicked|adj|Very bad or evil.|
+buried|pp|Put under the ground or under a thick covering.|
+everywhere|adv|In every place.|
+excitement|un|A strong happy feeling when something good is going to happen.|
+forehead|n|The part of the face above the eyes.|
+frog|n|A small animal that jumps and lives near water.|
+glimpse|n|A quick look at something.|
+inch|n|A small unit of length, about 2.5 centimetres.|
+leaped|pt|Jumped high or far.|
+poured|pt|Made a liquid flow out of a container.|
+sailing|ing|Travelling on water in a boat with sails.|
+settled|pt|Got comfortable in one place.|
+splendid|adj|Very good or very fine.|
+traitor|n|A person who is not loyal and helps the enemy.|
+carefully|adv|In a way that avoids mistakes or damage.|
+digging|ing|Making a hole in the ground with a tool.|
+hang|v|To be fixed at the top and let the bottom swing. "Hang on" means hold tight.|
+hiding|ing|Staying out of sight.|
+pause|v|To stop for a short time.|
+sigh|n|A long breath out that shows sadness or tiredness.|
+swimming|ing|Moving through water with your arms and legs.|
+threw|pt|Sent something through the air with your hand. (Past tense of "throw".)|
+cheering|n|Shouts of joy.|
+drum|n|A musical instrument you hit with sticks.|
+floating|ing|Staying on top of water or in the air without sinking.|
+foam|un|A mass of tiny bubbles.|
+mistake|n|Something wrong done by accident.|
+pipe|n|A long hollow tube that liquid or gas moves through.|
+shallow|adj|Not deep.|
+shock|n|A sudden feeling of surprise or fear.|
+altogether|adv|In total; counting everything.|
+damp|adj|A little wet.|
+glow|v|To shine with a soft light.|
+hullo|int|A different way of writing "hello".|
+relief|un|The good feeling when worry or pain stops.|
+smelled|pt|Gave off a smell, or noticed a smell.|
+sugar|un|A sweet white or brown powder used in food and drinks.|
+wooden|adj|Made of wood.|
+beak|n|The hard, pointed mouth of a bird.|
+blanket|n|A warm cover for a bed.|
+bundle|n|A group of things tied together.|
+cautiously|adv|In a careful way, to avoid danger.|
+climbing|ing|Going up or onto something using your hands and feet.|
+darted|pt|Moved suddenly and quickly.|
+downward|adv|Toward a lower place.|
+feather|n|One of the light, soft parts that cover a bird's body.|
+ledge|n|A narrow flat shelf of rock.|
+locked|pt|Closed with a key so it cannot be opened.|
+object|n|A thing that you can see or touch.|
+salt|un|A white powder used to flavour food, found in sea water.|
+ups|n|In "grown-ups", it means adults.|"Grown-ups" means adults.
+usual|adj|What happens most of the time.|
+diamond|n|A very hard, clear, valuable stone.|
+dish|n|A plate or bowl for food, or the food itself.|
+eel|n|A long, thin fish that looks like a snake.|
+escape|v|To get away from a place or from danger.|
+hollow|adj|Empty inside.|
+kingdom|n|A land ruled by a king or queen.|
+pile|n|A lot of things lying one on top of another.|
+precious|adj|Worth a lot; very special and loved.|
+sake|n|"For heaven's sake" is an angry or surprised way to say "please" or "for goodness' sake".|It is part of a fixed phrase.
+taller|adj|Higher than before or higher than another.|
+waist|n|The narrow part of the body between the ribs and hips.|
+wrist|n|The joint between the hand and the arm.|
+awkward|adj|Difficult or embarrassing.|
+bang|n|A sudden loud noise.|
+burning|adj|On fire.|
+carpet|n|A thick cover for a floor, made of soft cloth.|
+dying|ing|Slowly losing life.|
+hammer|n|A tool for hitting nails. In sport, it is a heavy metal ball that people throw.|
+holiday|n|A time away from school or work. (American English: vacation.)|
+pie|n|Baked food with a crust, filled with fruit or meat.|
+rat|n|A small animal like a big mouse, with a long tail.|
+underground|adj|Below the surface of the earth.|
+worm|n|A long, soft creature with no legs that lives in the ground.|
+absolute|adj|Complete; total.|
+bite|n|The act of cutting into food with your teeth. It can also be the piece you cut off.|
+blind|adj|Not able to see. As a verb, it means to make someone unable to see.|
+boulder|n|A very big rock.|
+downhill|adj|Going down a slope.|
+gigantic|adj|Extremely big, like a giant.|
+grip|n|A tight hold.|
+loose|adj|Not tight or fixed.|
+muddy|adj|Covered with mud.|
+roast|adj|Cooked in an oven.|
+rubbed|pt|Pressed and moved your hand over something.|
+scarlet|adj|Bright red.|
+utter|adj|Complete; total.|
+wheel|n|A round part that turns, as on a car.|
+blast|v|To send out a sudden strong burst of flame.|
+breathed|pt|Took air in and out.|
+crawling|ing|Moving slowly on hands and knees.|
+dig|v|To make a hole in the ground.|
+faded|pt|Became less loud or less bright.|
+gap|n|An empty space between two things.|
+gathering|n|A group of people who meet together.|
+glanced|pt|Looked quickly at something.|
+glancing|ing|Looking quickly.|
+gradually|adv|Slowly, little by little.|
+lump|n|A small, hard piece of something. "Act like a lump" means stay still.|
+poison|un|A substance that can make you sick or kill you.|
+refuse|v|To say no; to not agree to do something.|
+snake|n|A long animal with no legs that slides along the ground.|
+tap|n|A tool you turn to let water out. (American English: faucet.)|
+upward|adv|Toward a higher place.|
+washed|pp|Cleaned with water.|
+anxiously|adv|In a worried way.|
+arranged|pp|Planned or set up beforehand.|
+bacon|un|Thin slices of salted pork, fried for breakfast.|
+bat|n|A small animal that flies at night.|
+beetle|n|An insect with a hard shell on its back.|
+blinking|ing|Closing and opening your eyes quickly.|
+ceiling|n|The flat surface at the top of a room, over your head.|
+corridor|n|A long narrow hall inside a building with doors on the sides.|
+crash|n|A loud noise made when something hits something else.|
+dashed|pt|Ran quickly.|
+drowned|pp|Died because of being under water.|
+forth|adv|"Back and forth" means forward and backward again and again.|
+gazed|pt|Looked steadily for a long time.|
+hairy|adj|Covered with a lot of hair.|
+hissing|ing|Making a long "ssss" sound.|
+mistaken|adj|Wrong about something.|
+rocky|adj|Covered with rocks.|
+sensible|adj|Showing good sense; not silly.|
+anger|un|The strong feeling you have when you are very cross.|
+beg|v|To ask for something in a very strong way.|
+cavern|n|A very large cave.|
+dwarf|n|A very small person in fairy tales who often works with metal. In Narnia, Dwarfs are a talking people.|
+lion|n|A big wild cat with a thick mane around the male's head. Aslan is a lion.|
+sword|n|A long metal weapon with a sharp blade.|
+perhap|adv|Maybe. (The book word is "perhaps".)|
+castle|n|A large strong building with thick walls where a king or lord lives.|
+nearer|adj|Closer.|
+eustace|n|The name of a boy in the story. He is Lucy and Edmund's cousin.|He is a character, not a hard word.
+stable|n|A building where horses are kept.|
+dragon|n|A giant flying animal with scales that breathes fire in stories.|
+owl|n|A bird that hunts at night and has big round eyes.|
+paw|n|The foot of an animal with claws, such as a lion or a dog.|
+wiggle|n|"Marsh-wiggle" is a kind of creature in Narnia. It is a made-up word by C. S. Lewis.|It is an invented word.
+honor|n|Respect and good name. Something you are proud of. (British English: honour.)|
+knee|n|The middle part of your leg where it bends.|
+knight|n|A man in the old days who fought on a horse and served a king.|
+mane|n|The long hair on the neck of a lion or horse.|
+hoof|n|The hard foot of a horse or deer.|
+tear|n|A drop of water that comes from your eye when you cry.|
+pole|n|A long thin piece of wood or metal. Here "Jill Pole" is a girl's name.|
+afterward|adv|At a later time.|
+donkey|n|An animal like a small horse with long ears.|
+badger|n|A wild animal with black and white stripes on its face. In Narnia, badgers can talk.|
+doorway|n|The opening where a door fits.|
+courtyard|n|An open space surrounded by walls or buildings.|
+crying|ing|Having tears fall from your eyes because you are sad.|
+sail|n|A big piece of cloth on a ship that catches the wind.|
+drawn|pp|Pulled along. (From the verb "draw".)|
+replied|pt|Answered.|
+chap|n|A man or boy. (A friendly British word.)|
+centaur|n|A creature in myths that is half man and half horse.|
+woke|pt|Stopped sleeping.|
+gorge|n|A deep, narrow valley with steep sides.|
+eagle|n|A very large bird that hunts with strong claws.|
+queer|adj|Strange or strange. (Old-fashioned use.)|
+whisper|n|A very soft way of speaking.|
+noble|adj|Of high rank, or showing high moral qualities.|
+saddle|n|A seat for a rider on a horse's back.|
+solemn|adj|Serious and not smiling.|
+palace|n|A large, grand house where a king or queen lives.|
+steady|adj|Firm and not moving or shaking.|
+thou|pron|An old word for "you" when speaking to one person.|
+sailed|pt|Travelled on water in a ship. It can also mean floated through the air.|
+rush|n|A fast, strong movement.|
+stern|adj|Serious and strict. As a noun, it is the back end of a ship.|
+whoo|int|A sound that an owl makes, or a sound of surprise.|
+enchantment|n|A magic spell.|
+fro|adv|"To and fro" means back and forth.|
+gnome|n|A small imaginary man who lives underground.|
+merry|adj|Happy and full of fun. "Merry Christmas!" is a greeting.|
+hide|n|The skin of an animal. As a verb it means to go where you cannot be seen.|
+mole|n|A small furry animal that digs tunnels under the ground.|
+serpent|n|A large snake.|
+understood|pt|Knew the meaning of something.|
+kissed|pt|Touched someone with your lips to show love.|
+lantern|n|A lamp in a case that you can carry.|
+rough|adj|Not smooth. It can also mean not gentle.|
+stroke|n|A gentle movement of the hand over something. As a verb, to pet.|
+tight|adv|Firmly; closely.|
+crown|n|A circle of gold worn on a king's or queen's head.|
+dreadfully|adv|Very much; terribly.|
+helmet|n|A hard hat that protects your head.|
+mercy|un|Kindness shown to someone you could punish.|
+ourselve|pron|The word "ourselves": used when we do something to ourselves.|
+broad|adj|Wide. "Broad day" means in the full light of day.|
+elephant|n|A very large animal with a long trunk.|
+lawn|n|An area of short, cut grass.|
+mere|adj|Nothing more than; only.|
+warrior|n|A brave fighter.|
+ashore|adv|On or to the land from the sea.|
+exclaimed|pt|Said something suddenly and loudly because of strong feeling.|
+horror|un|A strong feeling of fear and shock.|
+pillar|n|A tall, thick post that holds up part of a building.|
+poop|n|The raised deck at the back of a ship.|
+rode|pt|Sat on a horse and travelled. (Past tense of "ride".)|
+voyage|n|A long trip on a ship.|
+blackness|un|Complete darkness.|
+chasm|n|A very deep gap in the ground.|
+counsel|n|Advice.|
+doubtless|adv|Without doubt; surely.|
+dull|adj|Boring. It can also mean not bright.|
+ruin|n|A building that is broken down and left empty.|
+stag|n|A male deer.|
+delightful|adj|Very nice.|
+giantess|n|A female giant.|
+heaven|n|The place where good people are said to go after they die.|
+litter|n|A kind of bed carried by people, used by kings in the past.|
+mast|n|A tall pole on a ship that holds the sails.|
+moor|n|A wide area of open wild land, covered with grass and low bushes.|
+thunder|un|The loud noise in the sky during a storm.|
+upstair|adv|The word "upstairs" means to a higher floor.|
+harbor|n|A safe place by the sea where ships stop. (British English: harbour.)|
+spare|adj|Extra; not being used.|
+fur|un|The soft hair that covers the body of some animals.|
+glade|n|An open space in a forest.|
+harm|un|Damage or hurt.|
+heather|un|A low plant with small purple flowers that grows on moors.|
+heel|n|The back part of your foot.|
+horizon|n|The line where the sky seems to meet the land or sea.|
+panting|ing|Breathing fast with short breaths.|
+plain|adj|Simple; clear. "Plain battle" means an open fight.|
+pretend|v|To act as if something is true when it is not.|
+turf|un|Short grass with its roots, like a lawn.|
+warning|n|A sign or message that tells you of danger.|
+firelight|un|The light that comes from a fire.|
+grassy|adj|Covered with grass.|
+kiss|v|To touch someone with your lips to show love.|
+temper|n|The way someone shows anger.|
+brightness|un|The quality of shining strongly.|
+fountain|n|A spray of water shooting up from a pool.|
+hidden|pp|Put out of sight.|
+mortal|adj|Able to die. In slang it can mean very.|
+sleepy|adj|Feeling that you want to sleep.|
+spite|un|A wish to hurt someone because you are angry.|
+bulwark|n|The side wall of a ship above the deck.|
+cheered|pt|Shouted to show approval or to feel happier.|
+cloak|n|A long loose coat without sleeves.|
+cord|n|A thick string.|
+depth|n|How deep something is.|
+dim|adj|Not bright; dark.|
+fancy|n|An idea or imagination. It can also mean a wish.|
+hood|n|A cover for the head that is part of a coat.|
+panted|pt|Breathed quickly with short breaths.|
+shaken|adj|Shocked and upset.|
+sloped|pt|Went up or down at an angle.|
+tone|n|The way a voice sounds. It shows a feeling.|
+wigwam|n|A round tent used in the past by some Native American peoples.|
+courtesy|un|Polite and respectful way of acting.|
+describe|v|To say what something is like.|
+dismounted|pt|Got down from a horse.|
+hillside|n|The sloping side of a hill.|
+hound|n|A dog used for hunting.|
+lonely|adj|Sad because you are alone.|
+moss|un|A soft green plant that grows on rocks and trees.|
+pad|n|A soft, light step. Also the soft part under an animal's foot.|
+precipice|n|A very steep cliff.|
+reflection|n|An image you see in a mirror or on water.|
+ruinous|adj|Partly broken down; in ruins.|
+stooping|ing|Bending forward and down.|
+thirst|un|The feeling that you need to drink.|
+toy|n|An object for children to play with.|
+trumpet|n|A brass musical instrument you blow into.|
+alighted|pt|Came down and landed.|
+burnt|adj|Damaged or marked by fire.|
+courtier|n|A person who attends a king or queen at court.|
+crack|n|A thin line where something has broken.|
+hast|v|An old word meaning "have" ("thou hast").|
+hearth|n|The floor of a fireplace.|
+noon|n|Twelve o'clock in the day.|
+seek|v|To look for.|
+stooped|adj|Bent forward, especially from age.|
+strike|v|To hit. In the poem it means to ring a bell.|
+temple|n|A building used for worship.|
+trench|n|A long, narrow ditch in the ground.|
+trot|v|To move at a speed between a walk and a run.|
+whispering|ing|Speaking very quietly.|
+archer|n|A person who shoots arrows with a bow.|
+attend|v|To pay attention. It can also mean to go to an event.|
+banner|n|A flag, often carried at the front of an army.|
+blame|v|To say that someone did something wrong.|
+cousin|n|The child of your uncle or aunt.|
+crimson|adj|A deep red colour.|
+destroyed|pp|Broken so badly that it can no longer be used.|
+frightful|adj|Terrible; very bad.|
+grace|n|A title used for a queen. It also means smooth, beautiful movement.|
+gym|n|A school room or building for sports.|
+hastily|adv|Very quickly.|
+mistress|n|A woman in charge. In the old days, a woman who is the head of a house.|
+puzzled|adj|Confused and trying to understand.|
+quarrel|n|An angry argument.|
+realm|n|A kingdom.|
+scrambled|pt|Climbed or moved quickly using hands and feet.|
+ankle|n|The joint between the foot and the leg.|
+axe|n|A tool with a sharp blade for cutting wood.|
+bind|v|To tie up.|
+blown|pp|Moved by wind or air; sounded. (From the verb "blow".)|
+flood|n|A large amount of water covering land that is usually dry.|
+handkerchief|n|A small piece of cloth for wiping your nose.|
+occurred|pt|Happened. "It occurred to me" means you thought of it.|
+poppet|n|A friendly name for a small child.|
+pray|v|To speak to God. It can also be an old way to say "please".|
+quest|n|A long search or journey to find something.|
+repeated|pt|Said again.|
+robe|n|A long loose piece of clothing.|
+saddled|pt|Put a saddle on a horse.|
+scullery|n|A small room next to the kitchen where dishes are washed.|
+staircase|n|A set of stairs.|
+sunlit|adj|Lit up by the sun.|
+task|n|A piece of work that must be done.|
+thicket|n|A group of bushes or small trees growing close together.|
+thrum|v|To make a low, steady humming sound.|
+alike|adj|Very similar.|
+bitterly|adv|In a very sad or angry way.|
+fathom|n|A unit for measuring the depth of water, about 1.8 metres.|
+gliding|ing|Moving smoothly and quietly.|
+instruction|n|Words that tell you how to do something.|
+kirtle|n|An old word for a woman's long dress.|
+laurel|n|A bush with shiny, dark green leaves.|
+lighted|adj|Lit; having light.|
+majesty|n|A title used for a king or queen: "Your Majesty".|
+mist|un|A thin cloud close to the ground.|
+muffed|pt|Failed at something because of a clumsy mistake.|
+narrower|adj|Less wide.|
+pluck|un|Courage.|
+shrubbery|n|A group of small bushes planted together.|
+shudder|n|A sudden shake of the body because of fear or cold.|
+sunset|n|The time when the sun goes down in the evening.|
+supposing|conj|If something happens; imagine that.|
+tenth|adj|Number ten in order.|
+thrumming|ing|Making a steady low humming sound.|
+waked|pt|Woken up. (An old form of "woke".)|
+whenever|conj|At any time when.|
+yonder|adv|An old word meaning "over there".|
+archway|n|A curved opening that you pass through.|
+ashamed|adj|Feeling guilty or embarrassed.|
+bond|n|A strong rope or chain; a tie that joins people.|
+bowing|ing|Bending the head or body forward to show respect.|
+cock|n|A male chicken.|
+daren|v|A short form of "dare not".|
+darting|ing|Moving quickly and suddenly.|
+firewood|un|Wood that you burn for heat.|
+fist|n|A hand closed tightly.|
+funeral|n|A ceremony for a person who has died.|
+gangway|n|A short bridge used for walking onto a ship.|
+hooted|pt|Made a call like an owl.|
+loathsome|adj|Disgusting; hateful.|
+marvelous|adj|Wonderful. (British English: marvellous.)|
+mistaking|ing|Thinking one thing is another.|
+musical|adj|Having to do with music.|
+nerve|n|Courage. It also means a thin fibre that carries feeling in the body.|
+obeyed|pt|Did what you were told.|
+outlet|n|A way out for water or air.|
+pitch|n|A black sticky substance like tar. "Pitch black" means very dark.|
+quay|n|A stone platform beside the sea where boats are loaded.|
+refreshment|n|Food or drink that makes you feel better.|
+remarked|pt|Said something as a comment.|
+repeat|v|To say or do again.|
+sip|n|A small amount of liquid taken in the mouth.|
+snowball|n|A ball of snow that you throw.|
+stony|adj|Covered with stones.|
+sunk|pp|Gone down under water. (From the verb "sink".)|
+sunless|adj|Without sunlight.|
+swear|v|To promise strongly; to use rude words.|
+tableland|n|A large flat area of high ground.|
+tender|adj|Gentle and caring. It can also mean soft or painful.|
+thaw|n|A time when ice and snow melt.|
+thicker|adj|Wider or denser than before.|
+tis|v|A short form of "it is".|
+toast|un|Bread cooked until it is brown and crisp.|
+tool|n|Something you use to do a job, like a hammer.|
+tusk|n|One of the long pointed teeth sticking out of an elephant's or boar's mouth.|
+ugh|int|A sound that shows you think something is disgusting.|
+utterly|adv|Completely.|
+vague|adj|Not clear or exact.|
+weary|adj|Very tired.|
+wept|pt|Cried tears. (Past tense of "weep".)|
+admitted|pt|Agreed that something is true.|
+breast|n|The chest.|
+breathless|adj|Out of breath.|
+cunning|adj|Clever in a sly way.|
+divided|pt|Split into parts.|
+endless|adj|Without an end.|
+foolish|adj|Not sensible; silly.|
+ham|un|Salted meat from a pig's leg.|
+haste|un|Great speed.|
+hither|adv|An old word meaning "to here".|
+indoor|adj|Done or used inside a building.|
+magnificent|adj|Very beautiful and impressive.|
+mantle|n|A loose cloak.|
+midnight|n|Twelve o'clock at night.|
+muttering|ing|Speaking in a low, unclear voice.|
+northward|adv|Toward the north.|
+pigeon|n|A grey bird that lives in towns.|
+plucked|pt|Pulled something off with the fingers. "Plucked up courage" means found courage.|
+rot|un|The process of going bad. Also a slang word meaning nonsense.|
+slip|v|To slide by accident and lose balance.|
+smelling|ing|Noticing a smell with your nose.|
+stamping|ing|Putting your foot down hard.|
+vain|adj|Having no result. "In vain" means without success.|
+whizz|n|A fast humming or buzzing sound.|
+amid|prep|In the middle of.|
+chestnut|adj|Reddish-brown in colour, like the nut.|
+cracked|pt|Made a sudden sharp noise. It can also mean broke without falling apart.|
+inland|adv|Away from the coast, into the middle of a country.|
+dreary|adj|Dull and sad.|
+ghastly|adj|Very bad or frightening.|
+knelt|pt|Went down on your knees.|
+knot|n|A place where string or rope is tied or twisted together.|
+pavement|n|The hard path at the side of a road for walking.|
+pit|n|A deep hole in the ground.|
+sill|n|The shelf at the bottom of a window.|
+slid|pt|Moved smoothly over a surface.|
+stairway|n|A set of steps that go from one floor to another.|
+sternly|adv|In a strict and serious way.|
+washing|ing|Cleaning with water.|
+crawled|pt|Moved slowly on hands and knees.|
+distant|adj|Far away.|
+gloomy|adj|Dark and sad.|
+gracious|adj|Kind and polite.|
+hopeless|adj|Without any hope.|
+loneliness|un|The sad feeling of being alone.|
+maid|n|A woman who works cleaning a house. Also a young unmarried woman.|
+misery|un|Great unhappiness.|
+mouthful|n|An amount of food that fills your mouth.|
+mud|un|Wet, soft earth.|
+nervous|adj|Worried and a little afraid.|
+pardon|n|"I beg your pardon" is a polite way to say sorry.|
+reply|v|To answer.|
+slipping|ing|Sliding by accident.|
+assembled|pt|Came together in a group.|
+awoke|pt|Stopped sleeping.|
+gathered|pt|Came together in a group. Also picked or collected.|
+grim|adj|Serious and sad. Also unpleasant.|
+bold|adj|Brave and not afraid of showing it.|
+childish|adj|Like a child.|
+coarse|adj|Rough, not smooth or fine.|
+coughing|ing|Forcing air out of your throat with a loud noise.|
+countless|adj|Too many to count.|
+crossly|adv|In an angry or annoyed way.|
+deaf|adj|Not able to hear.|
+deliverance|un|Being saved from danger.|
+doleful|adj|Sad and gloomy.|
+doll|n|A toy that looks like a small person.|
+drift|n|A heap of snow or sand blown by the wind.|
+duck|n|A water bird with a flat beak.|
+dusty|adj|Covered with dust.|
+enchanting|adj|Very pleasing; seeming magical.|
+furry|adj|Covered with soft hair.|
+fury|un|Very strong anger.|
+gateway|n|An opening in a wall where a gate is.|
+groaned|pt|Made a long deep sound of pain or unhappiness.|
+grubby|adj|Rather dirty.|
+halt|n|A stop.|
+hangeth|v|An old way of saying "hangs".|It is old English.
+hooting|ing|Making a long, low "oo" sound like an owl.|
+hunger|un|The feeling of needing food.|
+knock|n|A hit, such as the sound on a door. "Hard knocks" means a hard life.|
+lettering|un|Letters written or painted.|
+licked|pt|Moved the tongue over something.|
+likeness|n|A look that is the same as another thing.|
+lock|n|A device that keeps a door shut. "Under lock and key" means locked up.|
+musician|n|A person who plays or writes music.|
+padding|ing|Walking softly.|
+pillow|n|A soft cushion for your head in bed.|
+richly|adv|In a fine, expensive way.|
+ridiculous|adj|Very silly.|
+ruffling|ing|Making hair or feathers untidy.|
+salamander|n|A small animal like a lizard that lives near water.|
+salute|v|To greet with a formal sign.|
+sausage|n|Meat in a thin tube shape, cooked and eaten.|
+shalt|v|An old way of saying "shall" (you).|It is old English.
+shovel|n|A tool with a broad blade for digging.|
+sinking|ing|Going down below the surface.|
+skirt|n|A piece of clothing that hangs from the waist.|
+soup|un|Liquid food made by cooking meat or vegetables in water.|
+steeple|n|A tall pointed tower on a church.|
+steeply|adv|With a very sharp slope.|
+stiffly|adv|In a way that is not relaxed.|
+stomach|n|The part inside the body where food goes.|
+strip|n|A long, narrow piece.|
+sunken|adj|Lower than what is around it. Also sunk below water.|
+sunshine|un|Light from the sun.|
+tapping|ing|Hitting lightly again and again.|
+thorn|n|A sharp point on a plant stem.|
+tinder|un|Dry material that burns easily and is used to start a fire.|
+trap|n|A thing used to catch animals, or a trick to catch people.|
+unlike|prep|Different from.|
+unpleasant|adj|Not nice.|
+uphill|adv|Up a slope.|
+upright|adv|Standing straight up.|
+vile|adj|Very bad or evil.|
+whistle|n|A high sound made by blowing through your lips.|
+worthy|adj|Good enough to be respected.|
+yawning|ing|Opening your mouth wide because you are tired.|
+youngster|n|A young person.|
+astonishment|un|Great surprise.|
+attendant|n|A person who helps or serves another.|
+awfully|adv|Very. (Informal.)|
+behaved|pt|Acted in a certain way.|
+blaze|n|A big, strong fire.|
+blazing|ing|Burning brightly.|
+blessing|n|Approval or a wish for good things.|
+bothering|ing|Annoying someone, or taking the trouble to do something.|
+ceased|pt|Stopped.|
+comfort|v|To make someone feel less sad.|
+complicated|adj|Hard to understand because it has many parts.|
+desperately|adv|In a way that shows great need.|
+disappear|v|To go out of sight.|
+errand|n|A short trip to do a job for someone.|
+farewell|n|Goodbye.|
+fastened|pt|Closed or tied tightly.|
+fetch|v|To go and bring something back.|
+frost|un|A thin white layer of ice on the ground in cold weather.|
+gang|n|A group of people who work or act together, often to do bad.|
+glittering|adj|Shining with tiny flashes of light.|
+greet|v|To say hello to someone.|
+homely|adj|Simple and comfortable.|
+lunatic|n|A person who acts in a crazy way. (An old-fashioned, rude word.)|
+redder|adj|More red.|
+repeating|ing|Saying again.|
+snapping|ing|Speaking sharply or trying to bite.|
+snug|adj|Warm and comfortable.|

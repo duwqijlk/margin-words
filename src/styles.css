@@ -1,0 +1,337 @@
+@import "tailwindcss";
+
+/*
+ * Fonts are self-hosted (public/fonts) so the app looks the same offline and in
+ * regions where Google Fonts is slow or blocked. Latin subset only: the book text
+ * is English; Chinese UI labels fall back to the system CJK font.
+ */
+@font-face {
+  font-family: "Literata";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/literata-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Literata";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/literata-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/lora-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Lora";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/lora-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/inter-normal.woff2") format("woff2");
+}
+
+/* Theme tokens. The reader themes (light / sepia / dark) restyle the whole app. */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --paper: #f6f4ee;
+  --card: #ffffff;
+  --ink: #1f1d1a;
+  --muted: #6a655d;
+  --line: #e5e0d4;
+  --accent: #28604f;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2eee8;
+  --warn: #a9481f;
+  --warn-soft: #f8e7dd;
+  --mark: #fbe7a1;
+}
+[data-theme="sepia"] {
+  color-scheme: light;
+  --paper: #f0e4c8;
+  --card: #f8efd9;
+  --ink: #3f3020;
+  --muted: #76664f;
+  --line: #dccdab;
+  --accent: #7b4b24;
+  --accent-ink: #fbf4e4;
+  --accent-soft: #ead9b4;
+  --warn: #9c3f26;
+  --warn-soft: #f0d9c4;
+  --mark: #efd17c;
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #14161a;
+  --card: #1d2025;
+  --ink: #e9e6df;
+  --muted: #9b9a94;
+  --line: #2d3137;
+  --accent: #74c4a2;
+  --accent-ink: #0d1f18;
+  --accent-soft: #1e3a30;
+  --warn: #e69069;
+  --warn-soft: #3a2519;
+  --mark: #5b4a17;
+}
+
+@theme inline {
+  --font-display: "Literata", "Iowan Old Style", Georgia, "Noto Serif SC", serif;
+  --font-sans:
+    "Inter", system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-mark: var(--mark);
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --shadow-cover: 0 1px 2px rgb(0 0 0 / 0.18), 0 8px 18px -6px rgb(0 0 0 / 0.28);
+  --shadow-pop: 0 10px 40px -8px rgb(0 0 0 / 0.28), 0 2px 6px rgb(0 0 0 / 0.1);
+}
+
+@layer base {
+  html {
+    /* Keep the scrollbar's space reserved, so the page width never changes. */
+    scrollbar-gutter: stable;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
+    background: var(--paper);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.55;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  label[for] {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--mark);
+  }
+
+  /* ---- Reading surface ---------------------------------------------------- */
+  .book-body {
+    font-family: var(--reader-font, var(--font-display));
+    font-size: var(--reader-size, 1.25rem);
+    line-height: var(--reader-leading, 1.8);
+    max-width: var(--reader-width, 40rem);
+    margin-inline: auto;
+    color: var(--ink);
+    hyphens: auto;
+    overflow-wrap: break-word;
+    font-feature-settings: "kern", "liga", "onum";
+    text-rendering: optimizeLegibility;
+  }
+
+  .book-body p,
+  .book-body ul,
+  .book-body ol,
+  .book-body blockquote,
+  .book-body figure {
+    margin: 0 0 var(--reader-gap, 1.1em);
+  }
+
+  .book-body h1,
+  .book-body h2,
+  .book-body h3,
+  .book-body h4 {
+    margin: 2.2em 0 0.8em;
+    font-size: 1.45em;
+    line-height: 1.25;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+
+  .book-body > :first-child {
+    margin-top: 0;
+  }
+
+  .book-body blockquote {
+    padding-left: 1.1em;
+    border-left: 3px solid var(--line);
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .book-body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.4em auto;
+    border-radius: 6px;
+  }
+
+  .book-body button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    text-align: inherit;
+    letter-spacing: inherit;
+    border-radius: 0.2em;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.12s ease;
+  }
+
+  /* Hard word whose meaning is ready: a soft, thin underline that does not shout. */
+  .book-body button.book-hard {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    text-decoration-thickness: 1.5px;
+    text-decoration-skip-ink: auto;
+    text-underline-offset: 0.24em;
+  }
+
+  .book-body button.book-hard:hover {
+    background: var(--accent-soft);
+  }
+
+  /* Hard word whose meaning is still being prepared: only a faint dotted hint. */
+  .book-body button.book-wait {
+    text-decoration: underline dotted;
+    text-decoration-color: color-mix(in srgb, var(--muted) 45%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.24em;
+  }
+
+  /* Already in the notebook: marker highlight. */
+  .book-body button.book-saved {
+    background: color-mix(in srgb, var(--mark) 75%, transparent);
+    text-decoration-color: transparent;
+  }
+
+  .book-body button.book-on {
+    background: var(--accent-soft);
+    box-shadow: 0 0 0 2px var(--accent-soft);
+    text-decoration-color: var(--accent);
+  }
+
+  .book-body button.book-saved.book-on {
+    background: var(--mark);
+    box-shadow: 0 0 0 2px var(--mark);
+  }
+
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+
+  @keyframes sheet-down {
+    from {
+      transform: translateY(-24px);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  @keyframes sheet-up {
+    from {
+      transform: translateY(24px);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  @keyframes pop-in {
+    from {
+      transform: scale(0.97);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  .anim-sheet {
+    animation: sheet-up 0.2s ease-out;
+  }
+
+  .anim-sheet-top {
+    animation: sheet-down 0.2s ease-out;
+  }
+
+  .anim-pop {
+    animation: pop-in 0.16s ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  @keyframes drawer-in {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+  .anim-drawer {
+    animation: drawer-in 0.22s ease-out;
+  }
+}

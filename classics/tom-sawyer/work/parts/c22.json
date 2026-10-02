@@ -1,0 +1,96 @@
+{
+"glossary": {
+"trounce": {
+"pos": "verb",
+"meaning": "To beat someone hard in a fight."
+},
+"urchin": {
+"pos": "noun",
+"meaning": "A poor, rough child."
+},
+"anatomy": {
+"pos": "noun",
+"meaning": "The study of the parts of the body. Here, the name of the teacher's book."
+},
+"frontispiece": {
+"pos": "noun",
+"meaning": "A picture at the start of a book, before the title page."
+},
+"onslaught": {
+"pos": "noun",
+"meaning": "A sudden and strong attack."
+},
+"lethargy": {
+"pos": "noun",
+"meaning": "A heavy, sleepy feeling, without energy."
+},
+"conned": {
+"pos": "past-tense verb",
+"meaning": "Thought about carefully.",
+"forms": [
+"conned",
+"con"
+]
+},
+"flaying": {
+"pos": "noun",
+"meaning": "A very hard beating. Here, it is the teacher's punishment of Tom."
+},
+"imminence": {
+"pos": "noun",
+"meaning": "The fact that something bad is about to happen very soon."
+}
+},
+"paragraphs": [
+{
+"chapter": 22,
+"paragraph": 7,
+"context": "Poor girl, she did not know how fast she was nearing trouble herself",
+"mainIdea": "Becky finds the teacher's secret book unlocked. She opens it, Tom comes in, and she tears a page.",
+"simple": "Poor Becky did not know how fast she was coming near to trouble herself. The master, Mr. Dobbins, had reached middle age with a wish that was never met. What he wanted most was to be a doctor, but he was poor, so he could only be a village schoolmaster. Every day he took a mysterious book out of his desk and read it when no classes were reciting. He kept it locked. Every boy and girl in school wanted badly to see it, but the chance never came. Each child had an idea about what the book was, but no two ideas were the same, and nobody could find out the facts. As Becky passed the desk by the door, she saw that the key was in the lock. It was a wonderful moment. She looked around, was alone, and the next moment held the book. The title page said Professor Somebody's Anatomy, and it told her nothing. So she began to turn the pages. At once she came to a nicely printed and colored picture at the front, a human figure with no clothes. At that moment a shadow fell on the page, and Tom Sawyer stepped in at the door and saw the picture. Becky grabbed the book to close it and was unlucky: she tore the picture page half down the middle. She pushed the book into the desk, turned the key and burst out crying with shame and anger.",
+"hardWords": [
+"urchin",
+"perishing",
+"theory",
+"anatomy",
+"frontispiece",
+"engraved"
+]
+},
+{
+"chapter": 22,
+"paragraph": 31,
+"context": "The school stared in perplexity at this incredible folly",
+"mainIdea": "Tom says he tore the book to save Becky. He takes a hard beating, and he is happy because Becky is thankful.",
+"simple": "The school stared in confusion at this foolish act that nobody could believe. Tom stood a moment to gather his scattered thoughts. When he stepped forward to be punished, the surprise, thankfulness and love that shone at him from poor Becky's eyes seemed enough pay for a hundred beatings. His own fine act gave him strength. He took, without a cry, the cruelest beating that even Mr. Dobbins had ever given. He also took without caring the extra punishment of staying two hours after school. He knew who would wait for him outside until his time was done, and she would not feel the long time was wasted.",
+"hardWords": [
+"perplexity",
+"dismembered",
+"adoration",
+"flaying",
+"administered",
+"merciless"
+]
+}
+],
+"sentences": [
+{
+"chapter": 22,
+"context": "But the very imminence of the emergency paralyzed his invention",
+"simple": "But the danger was so near that he could not think of a plan.",
+"grammar": "'The very imminence of the emergency' is the subject. 'Very' stresses 'imminence'. The sentence says the closeness of the danger stopped his mind from working."
+}
+],
+"phrases": {
+"tell on": {
+"meaning": "To tell a teacher or parent that someone did something wrong.",
+"pos": "phrasal verb",
+"example": "you know you’re going to tell on me"
+},
+"take in": {
+"meaning": "Of school: to start. The old way of saying that lessons begin.",
+"pos": "phrasal verb",
+"example": "she could hardly wait for school to “take in,”"
+}
+}
+}

@@ -1,0 +1,140 @@
+{
+"glossary": {
+"balmy": {
+"pos": "adjective",
+"meaning": "Warm and soft in a pleasant way."
+},
+"intrepid": {
+"pos": "adjective",
+"meaning": "Without fear; very brave."
+},
+"diluted": {
+"pos": "past-tense verb",
+"meaning": "Made weaker by adding something. Here, she made the praise less strong.",
+"forms": [
+"diluted",
+"dilute"
+]
+},
+"clod": {
+"pos": "noun",
+"meaning": "A lump of hard earth. Tom throws clods at Sid.",
+"forms": [
+"clodding",
+"clods"
+]
+},
+"sally": {
+"pos": "verb",
+"meaning": "To rush out suddenly, as if to attack or help."
+},
+"evanescent": {
+"pos": "adjective",
+"meaning": "Lasting only a very short time, then gone."
+},
+"furtive": {
+"pos": "adjective",
+"meaning": "Secret and quiet, so that others will not see."
+},
+"wrath": {
+"pos": "noun",
+"meaning": "Very strong anger."
+},
+"construed": {
+"pos": "past participle",
+"meaning": "Understood in a certain way.",
+"forms": [
+"construed",
+"construe"
+]
+},
+"morosely": {
+"pos": "adverb",
+"meaning": "In a sad, bad-tempered way."
+},
+"beseeching": {
+"pos": "present participle",
+"meaning": "Asking in a very serious and anxious way.",
+"forms": [
+"beseeching",
+"beseech"
+]
+},
+"stealthy": {
+"pos": "adjective",
+"meaning": "Quiet and careful, so that nobody hears or sees."
+},
+"deluge": {
+"pos": "noun",
+"meaning": "A very large amount of water coming down."
+},
+"tallow": {
+"pos": "noun",
+"meaning": "Hard fat from animals. It was used to make candles."
+},
+"audacious": {
+"pos": "adjective",
+"meaning": "Bold and showing no fear of what others think."
+}
+},
+"paragraphs": [
+{
+"chapter": 5,
+"paragraph": 12,
+"context": "he saw a new girl in the garden",
+"mainIdea": "Tom sees a lovely new girl, and at once he forgets Amy Lawrence.",
+"simple": "Tom was passing the house where Jeff Thatcher lived. In the garden he saw a new girl. She was a lovely little creature with blue eyes and yellow hair in two long braids. She wore a white summer dress and pantalettes with fancy sewing on them. The boy, who had just been made a hero, lost his heart at once, without a fight. Amy Lawrence went out of his heart and left no memory of herself. He had thought he loved her madly, and he had called his feeling worship. But it was only a weak liking that did not last. He had spent months winning her. She had admitted her feelings for him hardly a week before. He had been the happiest and proudest boy in the world for only seven days. Now, in one moment, she had gone out of his heart like a stranger whose visit is over.",
+"hardWords": [
+"plaited",
+"pantalettes",
+"evanescent",
+"partiality",
+"casual",
+"embroidered"
+]
+},
+{
+"chapter": 5,
+"paragraph": 23,
+"context": "Tom sulked in a corner and exalted his woes",
+"mainIdea": "Tom is hurt by his aunt, so he imagines himself dying and his aunt crying over him. He enjoys these sad pictures.",
+"simple": "Then Aunt Polly felt bad about hitting him. She wanted to say something kind. But she thought that this would look like saying she had been wrong, and good order in a house did not allow that. So she said nothing and went on with her work, feeling sad. Tom sat in a corner and made his troubles seem greater. He knew that, in her heart, his aunt was begging him to forgive her, and this pleased him in a sour way. He would not make any sign to her. He imagined himself dying, with his aunt bent over him, asking for one forgiving word. He would turn his face to the wall and die without saying it. Then he imagined himself brought home from the river, dead, with wet hair and a heart that no longer hurt. She would throw herself on him and cry, and she would ask God to give her boy back, and she would never hurt him again. But he would lie there, cold and white, and make no sign. These dreams moved him so much that he had to keep swallowing, and tears ran down to the end of his nose. He enjoyed his sadness so much that he could not bear anything cheerful to come near it. So when his cousin Mary came in, full of joy after a week's visit to the country, he left by one door in a dark mood as she brought song and sunshine in by the other.",
+"hardWords": [
+"exalted",
+"woes",
+"morosely",
+"beseeching",
+"pathos",
+"luxury",
+"intrude",
+"grating"
+]
+}
+],
+"sentences": [
+{
+"chapter": 5,
+"context": "He took a good scolding about clodding Sid",
+"simple": "He was scolded hard because he had thrown clods at Sid.",
+"grammar": "'Clodding' comes from the noun 'clod' used as a verb. It means throwing clods. 'About' is followed by an -ing form."
+},
+{
+"chapter": 5,
+"context": "a maidservant’s discordant voice profaned the holy calm, and a deluge of water drenched the prone martyr’s remains",
+"simple": "A servant girl's harsh voice broke the quiet. Then a lot of water fell on Tom, who was lying on the ground.",
+"grammar": "Two clauses are joined by 'and'. Big, serious words (holy, martyr, remains) are used in a funny way for a boy lying under a window."
+}
+],
+"phrases": {
+"turn in": {
+"meaning": "To go to bed.",
+"pos": "phrasal verb",
+"example": "Tom turned in without the added vexation of prayers"
+},
+"hang about": {
+"meaning": "To stay in a place and do nothing special.",
+"pos": "phrasal verb",
+"example": "hung about the fence till nightfall"
+}
+}
+}

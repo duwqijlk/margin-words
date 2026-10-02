@@ -1,0 +1,289 @@
+cried|pt|Shouted or called out loudly. It can also mean wept.|
+shouted|pt|Said something in a very loud voice.|
+chocolate|n|A sweet brown food made from cocoa. It can be a bar, a drink, or a sweet.|
+suddenly|adv|Quickly and without warning.|
+bucket|n|A round container with a handle, used for carrying water. Here it is also a family name.|
+tiny|adj|Very, very small.|
+factory|n|A big building where machines make things.|
+enormous|adj|Extremely big.|
+finger|n|One of the long parts at the end of your hand.|
+giant|n|A huge, strong person in stories. As an adjective it means very big.|
+yelled|pt|Shouted very loudly, often because of anger or excitement.|
+ceiling|n|The flat surface at the top of a room, over your head.|
+screamed|pt|Made a very loud, high cry because of fear, pain, or excitement.|
+bottle|n|A glass or plastic container with a narrow neck, used for liquids.|
+marvellous|adj|Wonderful; very, very good. (American English: marvelous.)|British spelling with double "l".
+stuck|pt|Pushed or fixed something so that it stays in place. It can also mean unable to move.|
+hen|n|A female chicken.|
+saucepan|n|A round metal pot with a long handle, used for cooking on a stove.|
+heaven|n|The place where good people are said to go after death. "Good heavens!" shows surprise.|
+paint|v|To put coloured liquid on something. As a noun, it is the coloured liquid.|
+worm|n|A long, soft creature with no legs that lives in the ground.|
+sight|n|The power to see. "Within sight" means close enough to be seen.|
+noise|n|A sound, especially a loud or unpleasant one.|
+excitement|un|A strong happy feeling when something good is going to happen.|
+roof|n|The cover on the top of a building.|
+thin|adj|Not thick. It can also mean not fat.|
+nasty|adj|Very unpleasant or unkind.|
+neck|n|The part of the body between the head and the shoulders.|
+awful|adj|Very bad or unpleasant.|
+grown|adj|Fully grown up, like an adult. A "grown-up" is an adult.|
+lay|pt|Rested flat on a surface. (Past tense of "lie".)|
+cream|n|The thick, soft part of milk. Ice cream is made from it.|
+daddy|n|A child's word for father.|
+rushed|pt|Moved or did something very quickly.|
+silly|adj|Not sensible; funny in a silly way.|
+colour|n|Red, blue, green, and so on. (American English: color.)|
+lying|ing|Resting flat on a surface. It can also mean telling something untrue.|
+frightened|adj|Feeling afraid.|
+perhap|adv|Maybe. (The book word is "perhaps".)|
+powder|n|Very tiny dry pieces, like flour or dust.|
+snapped|pt|Said something in a short, angry way.|
+underneath|prep|Below or under something.|
+brilliant|adj|Very bright. It can also mean extremely clever or very good.|
+hole|n|An empty space or opening in something.|
+tip|n|The pointed end of something. It can also mean a small helpful piece of advice.|
+tremendous|adj|Very great or very big.|
+disgusting|adj|Making you feel sick; very unpleasant.|
+gigantic|adj|Extremely big, like a giant.|
+smell|n|What you notice with your nose. As a verb, it means to notice something with your nose.|
+spoon|n|A tool with a small bowl at one end, used for eating or stirring.|
+yard|n|The open space next to a house. It is also a unit of length, about 0.9 metres.|
+disappeared|pt|Went out of sight; was gone.|
+grinning|ing|Smiling widely.|
+mixture|n|Different things mixed together.|
+thick|adj|Not thin; wide from one side to the other. Also very close together, like thick trees.|
+jump|v|To push yourself up off the ground into the air.|
+mile|n|A long distance, about 1.6 kilometres.|
+shrieked|pt|Cried out in a loud, high voice, because of fear or anger.|
+jug|n|A container with a handle and a lip, used for pouring liquids.|
+lip|n|One of the two soft edges of your mouth.|
+sugar|un|A sweet white or brown powder used in food and drinks.|
+boiled|pt|Cooked in water that is bubbling hot.|
+bite|n|The act of cutting into food with your teeth. It can also be the piece you cut off.|
+ridiculous|adj|Very silly; so strange that people laugh at it.|
+sharp|adj|Having an edge or point that can cut. It can also mean sudden or clear.|
+chick|n|A baby bird, especially a baby chicken.|
+label|n|A small piece of paper or cloth that tells you what something is.|
+backward|adv|Toward the back. (The book word is "backwards".)|
+coloured|adj|Having a colour. (American English: colored.)|
+grab|v|To take hold of something quickly and roughly.|
+inch|n|A small unit of length, about 2.5 centimetres.|
+pig|n|A farm animal with a curly tail and a flat nose.|
+poured|pt|Made a liquid flow out of a container.|
+tummy|n|A child's word for stomach.|
+cabbage|n|A round green vegetable with thick leaves.|
+pale|adj|Light in colour; not bright or dark.|
+sudden|adj|Happening quickly and without warning.|
+throat|n|The tube at the back of your mouth that food and air go down.|
+tongue|n|The soft part inside your mouth that you use to taste and speak.|
+hopping|ing|Jumping on one foot, or taking small jumps.|
+horrid|adj|Very unpleasant or mean.|
+ordinary|adj|Normal; nothing special.|
+pill|n|A small hard piece of medicine that you swallow.|
+shelf|n|A flat board on a wall, used to put things on.|
+stove|n|A kitchen machine with hot rings or a flame for cooking.|
+thinner|adj|Less thick. Here it means the meals got smaller.|
+beak|n|The hard, pointed mouth of a bird.|
+blow|v|To send out air from your mouth, or to push something with air.|
+froth|un|Many small bubbles on top of a liquid.|
+height|n|How tall something is.|
+pouring|ing|Making a liquid flow out of a container.|
+rubbish|un|Things you throw away. (American English: trash or garbage.)|
+smoke|un|The grey or black cloud that comes from a fire.|
+spoonful|n|The amount that one spoon can hold.|
+cow|n|A big farm animal that gives milk.|
+grew|pt|Became bigger or taller. (Past tense of "grow".)|
+hag|n|An ugly, mean old woman.|It is an unkind word for an old woman.
+rat|n|A small animal like a big mouse, with a long tail.|
+sink|n|A bowl in a kitchen or bathroom where you wash things. As a verb it means to go down under water.|
+stirred|pt|Moved a spoon around in a liquid to mix it.|
+tin|n|A metal can or box used to keep food or other things.|
+tipped|pt|Poured something out by turning the container.|
+upward|adv|Toward a higher place.|
+boil|v|To heat a liquid until it bubbles.|
+clock|n|A machine that shows the time.|
+downstair|adv|To a lower floor of a house. (The book word is "downstairs".)|
+flea|n|A tiny jumping insect that bites animals.|
+fried|adj|Cooked in hot oil. "Fried to a frizzle" means burnt up.|
+goodness|int|A word that shows surprise. "Goodness knows" means nobody knows.|
+hooray|int|A shout of joy.|
+miserable|adj|Very unhappy. It can also mean bad-tempered.|
+mouse|n|A very small furry animal with a long tail.|
+polish|n|A cream or liquid that you rub on things to make them shiny.|
+rotten|adj|Gone bad, like old food. It can also mean very bad.|
+shrinking|ing|Getting smaller.|
+steam|un|The hot mist that comes from boiling water.|
+caterpillar|n|A small, worm-like creature that later turns into a butterfly.|
+garage|n|A building or room for keeping a car.|
+liquid|n|Something that flows, like water or milk.|
+splendid|adj|Very good or very fine.|
+stomach|n|The part inside your body where food goes after you swallow it.|
+taller|adj|Higher than before or higher than another.|
+tube|n|A long hollow pipe. A tube of toothpaste is a soft container.|
+wooden|adj|Made of wood.|
+anxiously|adv|In a worried way.|
+bulging|ing|Sticking out because there is too much inside.|
+calm|adj|Quiet and not worried.|
+terrific|adj|Very great; also very good.|
+chose|pt|Picked the one you wanted. (Past tense of "choose".)|
+dose|n|The amount of medicine you take at one time.|
+feather|n|One of the light, soft parts that cover a bird's body.|
+foul|adj|Very dirty or bad-smelling; horrible.|
+golly|int|An old-fashioned word that shows surprise.|
+lazy|adj|Not willing to work.|
+pan|n|A wide metal pot used for cooking.|
+peered|pt|Looked carefully at something, often because it was hard to see.|
+slightest|adj|Smallest; very little.|
+snorted|pt|Made a loud noise through the nose, often to show anger.|
+starve|v|To suffer or die because you have no food.|
+tap|n|A tool you turn to let water out. (American English: faucet.)|
+toothpaste|un|A soft paste that you put on a brush to clean your teeth.|
+upstair|adv|To a higher floor of a house. (The book word is "upstairs".)|
+witch|n|A woman in stories who uses magic, often to do bad things.|
+cluck|n|The sound a hen makes.|
+creamy|adj|Smooth and thick like cream.|
+dashed|pt|Ran quickly.|
+forgotten|pp|Not remembered. (From the verb "forget".)|
+furious|adj|Extremely angry. It can also mean very fast or strong.|
+pot|n|A deep round container used for cooking.|
+sauce|n|A thick liquid you put on food.|
+shock|n|A sudden feeling of surprise or fear.|
+spray|n|Tiny drops of liquid sent out into the air.|
+stir|v|To move a spoon around in a liquid to mix it.|
+aerosol|n|A can that sprays liquid out as a mist.|
+aloud|adv|In a voice that other people can hear.|
+barrel|n|A round container with flat ends. It is also the long tube of a gun.|
+cockerel|n|A young male chicken.|
+crane|n|A tall machine that lifts heavy things.|
+cure|v|To make a sick person well again.|
+exciting|adj|Making you feel happy and full of interest.|
+explode|v|To burst with a loud bang.|
+heck|int|A mild word for "hell", used to show anger or surprise.|
+pork|un|Meat from a pig.|
+runny|adj|Not thick; flowing like water.|
+swallowed|pt|Moved food or drink down your throat.|
+beetle|n|An insect with a hard shell on its back.|
+bubbling|ing|Making small round pockets of air in a liquid.|
+bug|n|A small insect.|
+bull|n|An adult male cow.|
+chop|v|To cut something into pieces with a knife or axe.|
+crouched|pt|Bent low with knees bent.|
+dish|n|A plate or bowl for food, or the food itself.|
+fed|adj|"Fed up" means bored or annoyed.|
+freeze|v|To turn to ice, or to be very cold.|
+grumpy|adj|Bad-tempered and often complaining.|
+gulp|v|To swallow quickly in big mouthfuls.|
+icy|adj|Very cold, or covered with ice.|
+nail|n|The hard part at the end of a finger or toe. It is also a thin metal pin hit with a hammer.|
+rocket|n|A tube-shaped vehicle that flies very fast into space.|
+rooftop|n|The outside top of a building.|
+shed|n|A small simple building for keeping tools or animals.|
+shelve|n|The word "shelves": flat boards on a wall for holding things.|
+slug|n|A small, soft creature like a snail with no shell.|
+twist|v|To turn something round, or to bend it out of its normal shape.|
+whistling|ing|Making a high sound by blowing air through your lips.|
+bullock|n|A young male cow that cannot have babies.|
+comfortable|adj|Giving you a feeling of ease; not painful.|
+cornflake|n|A crisp piece of dried corn eaten with milk for breakfast.|
+emptied|pt|Took everything out of something.|
+flapping|ing|Moving up and down or from side to side in the air.|
+frozen|adj|Turned into ice, or unable to move because of fear.|
+gloss|n|A shiny look.|
+hissing|ing|Making a long "ssss" sound.|
+labelled|pt|Had a label on it.|
+mischief|un|Playful way of acting that causes small trouble.|
+peck|n|A quick hit with a bird's beak.|
+pint|n|A unit for liquids, about half a litre.|
+pony|n|A small horse.|
+pour|v|To make liquid flow out of a container.|
+scooped|pt|Lifted something up with a spoon or your hands.|
+shaving|un|Cutting off hair from the face with a razor.|
+sideboard|n|A low cupboard in a dining room.|
+snake|n|A long animal with no legs that slides along the ground.|
+spark|n|A tiny bit of fire that jumps from a flame.|
+stirring|ing|Mixing with a spoon.|
+tile|n|A flat piece of baked clay used to cover a roof or floor.|
+ancient|adj|Very, very old.|
+attic|n|A room just under the roof of a house.|
+automatic|adj|Working by itself without a person pushing the buttons.|
+carton|n|A cardboard box.|
+cork|n|A light brown plug that closes the top of a bottle.|
+cupful|n|The amount that fills a cup.|
+earwig|n|A small insect with two claws on its tail.|
+fetched|pt|Went to get something and brought it back.|
+fiery|adj|Burning hot, like fire.|
+foam|un|A mass of tiny bubbles.|
+goat|n|A farm animal with horns that eats grass.|
+hoarse|adj|With a rough, dry voice.|
+laundry|un|Clothes that need washing, or the place where they are washed.|
+puff|n|A small cloud of smoke or air.|
+saucer|n|A small plate that goes under a cup.|
+soap|un|A substance you use with water to wash.|
+squeezed|pt|Pressed something tightly.|
+teaspoon|n|A small spoon for stirring tea.|
+washing|n|Clothes that are being washed.|
+wicked|adj|Very bad or evil.|
+wizardry|un|The skill and magic of a wizard.|
+wrinkled|adj|Having small folds or lines on the skin.|
+banger|n|A loud firework that goes bang.|
+barn|n|A large farm building for storing hay or keeping animals.|
+belly|n|The stomach or the front of the body below the chest.|
+bench|n|A long seat. It can also be a strong table for working.|
+celery|un|A long green vegetable with crunchy stalks.|
+childish|adj|Like a child. It is often used when someone acts silly.|
+contained|pt|Had something inside.|
+dandruff|un|Tiny white pieces of dry skin in the hair.|
+drove|pt|Controlled a car as it moved.|
+edging|ing|Moving slowly and carefully.|
+explosion|n|A sudden loud bang when something bursts.|
+farmyard|n|The open space around farm buildings.|
+ferret|n|A small, thin animal used to hunt rabbits.|
+fierce|adj|Wild and angry; very strong.|
+forbidden|pp|Not allowed. (From the verb "forbid".)|
+frisky|adj|Full of energy and playful.|
+gin|un|A strong clear alcoholic drink.|
+grease|n|A thick oil. As a verb, to put oil on something.|
+grocery|n|"Groceries" are food and things from a food shop.|
+hairset|n|A name for a product that keeps hair in a style.|
+headache|n|A pain in your head.|
+heigh|int|The word "heigh-ho" is an old cry used in a song.|
+henhouse|n|A small building where hens live.|
+horny|adj|Hard and rough like a horn.|
+horseradish|un|A strong-tasting white root used for sauce.|
+item|n|A single thing in a group or list.|
+jar|n|A glass container with a wide mouth.|
+midget|n|A very small person. It is an old word that can be rude today.|
+pecking|ing|Hitting with the beak, as a bird does.|
+perfume|n|A pleasant-smelling liquid that people put on the skin.|
+plaster|n|A material put on walls, or a sticky cover for a cut.|
+prickle|n|A small sharp point on a plant or animal.|
+quart|n|An old unit for liquids, a bit more than a litre.|
+remover|n|A thing that takes something off.|
+saucepanful|n|The amount that a saucepan holds.|
+scarlet|adj|Bright red.|
+scrawny|adj|Very thin and weak-looking.|
+screeched|pt|Made a loud, high, unpleasant sound.|
+screechy|adj|Making a loud, high, unpleasant sound.|
+seed|n|The small hard part of a plant from which a new plant grows.|
+shake|v|To move something quickly up and down or side to side. "Shake hands" means greet.|
+mess|n|A dirty or untidy state.|
+suspended|pt|Hung in the air without touching anything.|
+selfish|adj|Caring only about yourself.|
+shocker|n|Something that gives a big shock.|
+shrill|adj|High and sharp in sound.|
+sipped|pt|Drank in small amounts.|
+sizzling|ing|Making a hissing sound when cooking.|
+slosh|v|To splash liquid around.|
+sloshed|pt|Splashed liquid around.|
+smelled|pt|Gave off a smell.|
+squiggler|n|A made-up word for a wiggly sea creature in a poem.|It is an invented word.
+squirting|ing|Sending out liquid in a thin stream.|
+tempered|adj|Having a certain kind of temper. "Bad-tempered" means often angry.|
+thrush|n|A small bird with a spotted chest and a lovely song.|
+tick|n|A small insect that sucks blood from animals.|
+toast|un|Bread cooked until brown and crisp.|
+trough|n|A long open container for animals' food or water.|
+varnish|n|A clear liquid that is painted on to make something shiny.|
+whopping|adj|Very big.|
+witchy|adj|Like a witch.|

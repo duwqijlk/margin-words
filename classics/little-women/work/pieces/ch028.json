@@ -1,0 +1,80 @@
+{
+ "glossary": {
+  "tribulation": {
+   "pos": "uncountable noun",
+   "meaning": "Great trouble and pain."
+  },
+  "audacity": {
+   "pos": "uncountable noun",
+   "meaning": "A brave, rude way of acting that does not fear what others think."
+  },
+  "conflagration": {
+   "pos": "noun",
+   "meaning": "A large and dangerous fire."
+  },
+  "promiscuously": {
+   "pos": "adverb",
+   "meaning": "Here and there, without order or care."
+  },
+  "ardor": {
+   "pos": "uncountable noun",
+   "meaning": "Strong, warm feeling, or great wish to do something."
+  },
+  "lurid": {
+   "pos": "adjective",
+   "meaning": "Very bright in a strange, bad way."
+  },
+  "ogress": {
+   "pos": "noun",
+   "meaning": "A woman in old stories who is a bad, giant monster."
+  },
+  "feasible": {
+   "pos": "adjective",
+   "meaning": "Possible to do."
+  },
+  "suavity": {
+   "pos": "uncountable noun",
+   "meaning": "A smooth and polite way of acting."
+  },
+  "foible": {
+   "pos": "noun",
+   "meaning": "A small weakness or silly way of acting in a person's character.",
+   "forms": [
+    "foibles",
+    "foible"
+   ]
+  },
+  "surfeit": {
+   "pos": "noun",
+   "meaning": "Too much of something, especially food."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 28,
+   "context": "If “genius is eternal patience,” as Michelangelo affirms, Amy certainly had some claim",
+   "mainIdea": "Amy never gave up her art in spite of failures. She believed she would one day make real 'high art'.",
+   "simple": "Michelangelo says that genius is patience that never ends. If that is true, Amy had some right to be called a genius, because she went on in spite of all troubles, failures and discouragement. She firmly believed that in time she would make something worth calling 'high art'.",
+   "hardWords": [
+    "affirms",
+    "attribute",
+    "persevered"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 28,
+   "context": "if they had not objected to taking advice as much as they did salts and senna",
+   "simple": "She would have made the lessons easier if her children had not disliked advice as much as they disliked medicine.",
+   "grammar": "'As much as they did salts and senna' means 'as much as they objected to salts and senna'. The verb is left out. Salts and senna were bad-tasting medicines."
+  },
+  {
+   "chapter": 28,
+   "context": "It takes people a long time to learn the difference between talent and genius",
+   "simple": "People need a long time to learn the difference between talent and genius.",
+   "grammar": "'It takes + people + time + to...' is a common pattern. The word 'It' stands for the whole job of learning."
+  }
+ ],
+ "phrases": {}
+}

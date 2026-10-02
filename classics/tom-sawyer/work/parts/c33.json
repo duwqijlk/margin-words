@@ -1,0 +1,102 @@
+{
+"glossary": {
+"murky": {
+"pos": "adjective",
+"meaning": "Dark and hard to see through."
+},
+"frescoed": {
+"pos": "past participle",
+"meaning": "Painted or marked on a wall. Here, the cave walls are marked with names in candle smoke."
+},
+"sinuous": {
+"pos": "adjective",
+"meaning": "Winding, with many curves."
+},
+"stalactite": {
+"pos": "noun",
+"meaning": "A long stone shape that hangs from the roof of a cave.",
+"forms": [
+"stalactites"
+]
+},
+"stalagmite": {
+"pos": "noun",
+"meaning": "A stone shape that rises from the floor of a cave.",
+"forms": [
+"stalagmites"
+]
+},
+"subterranean": {
+"pos": "adjective",
+"meaning": "Under the ground."
+},
+"clammy": {
+"pos": "adjective",
+"meaning": "Cold, damp and unpleasant to touch."
+},
+"moiety": {
+"pos": "noun",
+"meaning": "A half; a part of something that has been shared."
+},
+"apathy": {
+"pos": "noun",
+"meaning": "A state of not caring or feeling anything."
+},
+"famished": {
+"pos": "adjective",
+"meaning": "Very, very hungry."
+},
+"fugitive": {
+"pos": "noun",
+"meaning": "A person running away from danger or from the law.",
+"forms": [
+"fugitives"
+]
+},
+"sarcasm": {
+"pos": "noun",
+"meaning": "Words that mean the opposite of what is true, used to make fun of someone.",
+"forms": [
+"sarcasms"
+]
+}
+},
+"paragraphs": [
+{
+"chapter": 33,
+"paragraph": 3,
+"context": "Under the roof vast knots of bats had packed themselves together",
+"mainIdea": "Tom and Becky find many wonders, but the bats put their lights in danger. They run away, and then they rest by a lake and feel the quiet of the cave.",
+"simple": "Becky answered Tom's call. They made a smoke mark to guide them back, and started to look around. They went this way and that, far down into the secret deep parts of the cave, made another mark, and went off a new way to find new things to tell people above about. In one place they found a big cave. Many long shining stones hung from the ceiling, as long and thick as a man's leg. The children walked all around it, wondering, and left by one of the many passages. This soon brought them to a lovely spring with a basin covered with sparkling crystals. It was in the middle of a cave whose walls were held up by many strange pillars. The pillars had formed when the long stones from above and below joined, after centuries of dripping water. Under the roof, great bunches of bats were packed together, thousands in one bunch. The lights disturbed them, and they flew down by hundreds, squeaking and rushing at the candles. Tom knew their ways and the danger of this. He seized Becky's hand and hurried her into the first passage he found. It was none too soon, for a bat hit Becky's candle with its wing and put it out as she was leaving. The bats chased the children for a good distance. But they ran into every new passage, and at last got away from the dangerous animals. Soon Tom found a lake under the ground. It stretched away until its shape was lost in the shadows. He wanted to explore its edge, but decided it was best to sit down and rest first. For the first time, the deep quiet of the place put a cold hand on the children's spirits. Then Becky spoke.",
+"hardWords": [
+"stalactites",
+"stalagmites",
+"subterranean",
+"fugitives",
+"perilous",
+"clammy"
+]
+}
+],
+"sentences": [
+{
+"chapter": 33,
+"context": "hope made a show of reviving —not with any reason to back it, but only because it is its nature to revive",
+"simple": "Hope seemed to come back for a short time. It had no real reason, but hope always tries to come back, unless age and many failures have taken its strength.",
+"grammar": "'It is its nature to revive' uses 'it' for 'hope'. 'When the spring has not been taken out of it' means 'when it has not lost its strength'."
+},
+{
+"chapter": 33,
+"context": "for it was dreadful to think of sitting down when time was grown to be so precious",
+"simple": "It was terrible to think of sitting down when time had become so valuable.",
+"grammar": "'Was grown to be' is an old form of 'had become'. The verb 'grow' is used with 'be' as the helping verb."
+}
+],
+"phrases": {
+"take to one's heels": {
+"meaning": "To run away fast.",
+"pos": "idiom",
+"example": "take to his heels and get himself out of sight"
+}
+}
+}

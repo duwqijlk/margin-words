@@ -1,0 +1,48 @@
+{
+"glossary": {
+"attrition": {
+"pos": "noun",
+"meaning": "The slow wearing away of something by rubbing. Here, thinking about the events makes them clearer."
+},
+"gunwale": {
+"pos": "noun",
+"meaning": "The top edge of the side of a boat."
+},
+"flatboat": {
+"pos": "noun",
+"meaning": "A boat with a flat bottom, used on rivers to carry goods."
+},
+"ostentatious": {
+"pos": "adjective",
+"meaning": "Showy, so that people will notice and admire."
+},
+"sentry": {
+"pos": "noun",
+"meaning": "A guard who watches a place."
+}
+},
+"paragraphs": [
+{
+"chapter": 29,
+"paragraph": 2,
+"context": "The adventure of the day mightily tormented Tom’s dreams that night",
+"mainIdea": "Tom thinks the haunted-house adventure may have been only a dream, because he never saw so much money before.",
+"simple": "The adventure of the day troubled Tom's dreams very much that night. Four times he had his hands on the rich treasure, and four times it turned to nothing in his fingers as he woke to his sad real life. In the early morning he thought over the adventure and felt that it seemed faint and far away, as if it had happened in another world or a long time ago. Then he thought that the great adventure itself must have been a dream. One strong reason for this idea was that the amount of money he had seen was too big to be real. He had never seen even fifty dollars all together before. Like all boys of his age and kind, he thought that words like hundreds and thousands were only fancy ways of talking, and that such sums did not really exist. He had never thought that anybody could really have a hundred dollars in money. If his ideas about hidden treasure had been looked at carefully, they would have been found to be a handful of real dimes and a bushel of vague, wonderful dollars that you could not hold.",
+"hardWords": [
+"subdued",
+"fanciful",
+"analyzed",
+"ungraspable"
+]
+}
+],
+"sentences": [
+{
+"chapter": 29,
+"context": "he was like all boys of his age and station in life, in that he imagined",
+"simple": "He was like all boys of his age and kind, because he thought that",
+"grammar": "'In that' here means 'because'. It gives the reason why Tom was like other boys."
+}
+],
+"phrases": {}
+}

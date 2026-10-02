@@ -1,0 +1,27 @@
+{
+  "_readme": "Text of the in-app page at /guide/ (built by scripts/build-guide.mjs). Chinese is allowed here because this file is in docs/. Keep it minimal: a title, a few short lines and one download button.",
+  "en": {
+    "title": "Book pack kit",
+    "lines": [
+      "Give this kit to an AI agent. It explains how to turn an EPUB into a book pack for this app.",
+      "A book pack is one .zip with exactly two files: book.epub and glossary.json. A plain EPUB cannot be added.",
+      "Inside: the format (Markdown), a sample book and word list, and a ready-to-add sample pack. Add it with Add book."
+    ],
+    "download": "Download book-pack-kit.zip",
+    "back": "Back to the reader",
+    "langButton": "中文",
+    "langLabel": "Language"
+  },
+  "zh": {
+    "title": "图书包工具包",
+    "lines": [
+      "把这个工具包交给 AI。它会说明怎样把一本 EPUB 做成这个应用能用的图书包。",
+      "图书包是一个 .zip 文件，里面正好有两个文件：book.epub 和 glossary.json。单独的 EPUB 不能添加。",
+      "里面有：格式说明（Markdown）、示例书和示例词表，还有一个可直接添加的示例图书包。在“添加图书”里选择它。"
+    ],
+    "download": "下载 book-pack-kit.zip",
+    "back": "返回阅读器",
+    "langButton": "English",
+    "langLabel": "语言"
+  }
+}

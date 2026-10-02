@@ -1,0 +1,98 @@
+{
+"glossary": {
+"apprehensively": {
+"pos": "adverb",
+"meaning": "In a worried way, afraid that something bad will happen."
+},
+"tannery": {
+"pos": "noun",
+"meaning": "A place where animal skins are made into leather."
+},
+"verdigrease": {
+"pos": "noun",
+"meaning": "The green poison that forms on brass or copper. Tom says a brass pin may have it on it."
+},
+"lugubrious": {
+"pos": "adjective",
+"meaning": "Very sad and slow, in a way that seems too much."
+},
+"quailed": {
+"pos": "past-tense verb",
+"meaning": "Lost courage because of fear.",
+"forms": [
+"quailed",
+"quail"
+]
+},
+"escapade": {
+"pos": "noun",
+"meaning": "An exciting adventure that breaks the rules."
+},
+"bodings": {
+"pos": "plural noun",
+"meaning": "Feelings that something bad is going to happen."
+},
+"culprit": {
+"pos": "noun",
+"meaning": "A person who did something wrong."
+},
+"colossal": {
+"pos": "adjective",
+"meaning": "Extremely big."
+},
+"phase": {
+"pos": "verb",
+"meaning": "A spoken spelling of 'faze': to trouble or upset someone."
+},
+"mum": {
+"pos": "adjective",
+"meaning": "Silent; not saying anything."
+}
+},
+"paragraphs": [
+{
+"chapter": 12,
+"paragraph": 25,
+"context": "Tom’s whole being applauded this idea",
+"mainIdea": "Tom likes the idea of a written oath. He writes it with red chalk on a pine shingle.",
+"simple": "Everything in Tom liked this idea. It was deep and dark and awful. The hour, the situation and the place all went well with it. He picked up a clean pine shingle that lay in the moonlight and took a bit of red chalk from his pocket. He made the moon light his work, and slowly wrote these lines. To show each slow downward line, he held his tongue between his teeth, and he pressed less on the upward lines.",
+"hardWords": [
+"applauded",
+"circumstances",
+"shingle",
+"red keel",
+"emphasizing"
+]
+},
+{
+"chapter": 12,
+"paragraph": 73,
+"context": "When Tom awoke, Sid was dressed and gone",
+"mainIdea": "Tom wakes late and sees that the family is quiet and sad with him. He feels something is wrong.",
+"simple": "When Tom woke up, Sid was dressed and gone. The light and the air felt late. Tom was startled. Why had nobody called him and troubled him until he got up, as usual? He felt a fear of something bad. In five minutes he was dressed and downstairs, feeling sore and sleepy. The family were still at the table, but they had finished breakfast. Nobody scolded him. But their eyes looked away, and there was a quiet and serious feeling that made the guilty boy feel cold. He sat down and tried to look happy, but it was hard work. Nobody smiled or answered him. He went quiet and let his heart sink low.",
+"hardWords": [
+"persecuted",
+"bodings",
+"rebuke",
+"averted",
+"solemnity",
+"culprit"
+]
+}
+],
+"sentences": [
+{
+"chapter": 12,
+"context": "If Doctor Robinson dies, I reckon hanging’ll come of it",
+"simple": "If Doctor Robinson dies, I think someone will be hanged for it.",
+"grammar": "'If... dies' is a real possibility about the future. 'Hanging'll' is 'hanging will'. 'Come of it' means 'be the result of it'."
+}
+],
+"phrases": {
+"drop down dead": {
+"meaning": "To fall and die suddenly.",
+"pos": "idiom",
+"example": "We’d drop down dead —don’t you know that?"
+}
+}
+}

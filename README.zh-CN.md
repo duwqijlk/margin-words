@@ -1,0 +1,30 @@
+# Margin Words（边注词典）
+
+一个英文小说阅读器。读书时点一个词，就能看到简单的英文解释。专为中国初中生设计。没有服务器，也没有 AI，
+下载书之后**不用上网**就能读。
+
+- 界面有**中文**和**英文**两种语言。在顶部点“English / 中文”按钮，或者在“设置”里切换。书里的内容（单词解释、段落和句子帮助、短语、书名）一直是英文。
+- 应用本身是静态网页：`npm install`，然后 `npm run dev`（开发），或 `npx vite build`（生成 `dist/`，放到任何静态网站上）。
+- 应用里没有书。书是**图书包**，放在 `packs/` 文件夹里，也可以自己导入。
+- **默认不支持单独上传 EPUB。** 只能添加“处理好的书”，也就是图书包：**一个 .zip 文件，里面正好有 `book.epub` 和 `glossary.json`**。书名、作者和封面都从 EPUB 里读取。词表必须是为这本书做的（`glossary.json` 里的 `sha256` 与 EPUB 一致，或者书名和作者一致）。详细规则见 [docs/book-pack-spec.md](docs/book-pack-spec.md) 第 3 节“Required files”。
+- 如果选了单独的 EPUB，应用会提示“需要处理好的图书包”，并给出做图书包的指南链接（`./guide/`）。图书包有问题时（缺词表、词表不对应这本书、词表格式错误），应用会用简单的话说明哪里不对，并且什么都不会添加。
+
+## 想自己处理一本书？
+
+把 **`book-pack-kit.zip`** 交给 AI 就行。里面有：`book-pack-spec.md`（给 AI 看的完整格式和步骤）、示例书 *The Lantern Seller*（EPUB）、它的示例词表（`glossary.json`），以及可以直接添加的示例图书包 `the-lantern-seller.pack.zip`（里面是 `book.epub` + `glossary.json`）。
+在应用里下载：“添加图书”或“设置”里的“怎样做图书包”链接（页面 `./guide/`）。
+用自己的文件做图书包：`node scripts/make-pack.mjs book.epub glossary.json my-book.pack.zip`。
+自己生成：`npm run build:kit`（来源：`docs/book-pack-spec.md` 和 `examples/sample-book/`）。
+
+## 常用命令
+
+```
+npm run check:cjk        # 中文只允许出现在 src/lib/i18n-zh.ts、docs/ 和 README.zh-CN.md
+npm run check:example    # 检查示例、规格里的例子和工具包
+npm test
+npx tsc --noEmit
+node scripts/validate-glossary.mjs book.epub glossary.json
+node scripts/build-packs.mjs --check
+```
+
+更多技术说明（英文）：[README.md](README.md)、[docs/GLOSSARY_FORMAT.md](docs/GLOSSARY_FORMAT.md)、[docs/PACKS_FORMAT.md](docs/PACKS_FORMAT.md)。

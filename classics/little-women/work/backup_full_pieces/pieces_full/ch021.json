@@ -1,0 +1,102 @@
+{
+ "glossary": {
+  "prosy": {
+   "pos": "adjective",
+   "meaning": "Long and not interesting, with nothing new in it."
+  },
+  "docile": {
+   "pos": "adjective",
+   "meaning": "Quiet and easy to teach or control."
+  },
+  "counteract": {
+   "pos": "verb",
+   "meaning": "To work against something so as to stop its effect."
+  },
+  "reprehensible": {
+   "pos": "adjective",
+   "meaning": "Bad enough that people say it is wrong."
+  },
+  "hoarded": {
+   "pos": "past-tense verb",
+   "meaning": "Kept and saved many things, often more than needed.",
+   "forms": [
+    "hoarded",
+    "hoard"
+   ]
+  },
+  "affianced": {
+   "pos": "adjective",
+   "meaning": "Promised to be married."
+  },
+  "turban": {
+   "pos": "noun",
+   "meaning": "A long cloth that is wrapped round the head."
+  },
+  "brocade": {
+   "pos": "noun",
+   "meaning": "Rich, heavy cloth with a raised picture in it, often with gold or silver."
+  },
+  "rosary": {
+   "pos": "noun",
+   "meaning": "A string of round pieces that some people use when they speak to God."
+  },
+  "covet": {
+   "pos": "verb",
+   "meaning": "To want something very much that is someone else's."
+  },
+  "bequeath": {
+   "pos": "verb",
+   "meaning": "To give your money or things to someone after you die.",
+   "forms": [
+    "bequeathe",
+    "bequeethe"
+   ]
+  },
+  "codicil": {
+   "pos": "noun",
+   "meaning": "A short note added to a will, to change it or add to it.",
+   "forms": [
+    "codicils"
+   ]
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 21,
+   "context": "If it had not been for Laurie, and old Esther, the maid",
+   "mainIdea": "Amy finds life at Aunt March's hard. The parrot and the dog are bad, and only Laurie and Esther make it bearable.",
+   "simple": "Without Laurie and old Esther, the maid, Amy felt she could never have got through that terrible time. The parrot alone was enough to drive her mad. He soon felt that she did not admire him, and he took revenge by being as naughty as he could. He pulled her hair whenever she came near him. He upset his bread and milk to annoy her just after she had cleaned his cage. He made Mop bark by pecking at him while Madam slept. He called her names in front of visitors, and in every way acted like a bad old bird. She could not stand the dog either. He was a fat, cross animal who snarled and barked at her when she washed and brushed him. When he wanted food, which was about twelve times a day, he lay on his back with his legs in the air and a very silly look on his face. The cook was bad-tempered, the old coachman was deaf, and Esther was the only one who ever paid any attention to the young lady.",
+   "hardWords": [
+    "reprehensible",
+    "idiotic",
+    "countenance"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 21,
+   "context": "So she took Amy in hand, and taught her as she herself had been taught sixty years ago",
+   "simple": "So she took charge of Amy and taught her in the way she herself had been taught sixty years before.",
+   "grammar": "'Take in hand' is a phrase meaning 'take charge of'. 'As she herself had been taught' is a past passive clause that compares the two lessons."
+  },
+  {
+   "chapter": 21,
+   "context": "I felt that I ought to do it, for life is uncertain and I don't want any ill-feeling over my tomb",
+   "simple": "I felt I should do it, because we cannot know how long we will live, and I do not want people to have bad feelings about me after my death.",
+   "grammar": "'Ought to' shows duty. The 'for' clause gives the reason. 'Ill-feeling over my tomb' means anger left after she has died."
+  }
+ ],
+ "phrases": {
+  "take in hand": {
+   "pos": "idiom",
+   "meaning": "To take charge of someone and teach or control him.",
+   "example": "So she took Amy in hand, and taught her"
+  },
+  "get through": {
+   "pos": "phrasal verb",
+   "meaning": "To live through a hard time.",
+   "example": "she never could have got through that dreadful time"
+  }
+ }
+}

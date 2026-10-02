@@ -1,0 +1,109 @@
+{
+ "glossary": {
+  "premise": {
+   "pos": "verb",
+   "meaning": "To say something first, before the main part of the story."
+  },
+  "august": {
+   "pos": "adjective",
+   "meaning": "Grand and worth great respect."
+  },
+  "bookkeeper": {
+   "pos": "noun",
+   "meaning": "A person whose job is to write down in books the money a business gets and spends."
+  },
+  "dandified": {
+   "pos": "adjective",
+   "meaning": "Too careful about clothes; dressing in a very fine way."
+  },
+  "hazed": {
+   "pos": "past-tense verb",
+   "meaning": "Played rough or unkind games on new students at college.",
+   "forms": [
+    "hazed",
+    "haze"
+   ]
+  },
+  "profusion": {
+   "pos": "noun",
+   "meaning": "A very large amount of something."
+  },
+  "infallible": {
+   "pos": "adjective",
+   "meaning": "Never wrong; sure to work."
+  },
+  "expatiating": {
+   "pos": "present participle",
+   "meaning": "Talking for a long time about something."
+  },
+  "degenerate": {
+   "pos": "adjective",
+   "meaning": "Becoming worse than in the past."
+  },
+  "pinafore": {
+   "pos": "noun",
+   "meaning": "A cover with no arms, worn over a dress to keep it clean."
+  },
+  "damask": {
+   "pos": "uncountable noun",
+   "meaning": "A fine, shiny cloth with a picture in it, used for table covers."
+  },
+  "whatnot": {
+   "pos": "noun",
+   "meaning": "A light table with open places for small things."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 26,
+   "context": "The three years that have passed have brought but few changes",
+   "mainIdea": "Three years have passed and the war is over. Mr. March is at home, working quietly as a minister and a scholar.",
+   "simple": "In the three years that have passed, the quiet family has changed very little. The war is over and Mr. March is safe at home, busy with his books and his small church. In him the church found a minister both by nature and by calling. He was a quiet man who liked to study and was rich in a wisdom that is better than learning. He had a kindness that calls all people 'brother', and a goodness that grows into a fine character.",
+   "hardWords": [
+    "parish",
+    "august",
+    "piety",
+    "charity"
+   ]
+  },
+  {
+   "chapter": 26,
+   "context": "That was the name of the little brown house which Mr. Brooke had prepared",
+   "mainIdea": "The Dovecote is a tiny house. Meg loves it, even with its small and funny faults.",
+   "simple": "That was the name of the little brown house that Mr. Brooke had made ready for Meg's first home. Laurie gave it the name and said it suited the gentle lovers, who went on together like two doves, first kissing and then cooing. It was a tiny house, with a small garden behind it and a lawn in front as small as a handkerchief. Meg planned to have a fountain, bushes and many lovely flowers. For now, the fountain was an old worn urn like a broken slop-bowl, the bushes were a few young trees not sure whether to live or die, and the flowers were only shown by many sticks that marked where seeds were planted. But inside it was charming, and the happy bride saw no fault anywhere. The hall was so narrow that it was lucky they had no piano, because one could never have got it in whole. The dining-room was so small that six people were a tight fit. The kitchen stairs seemed built to throw both servants and plates into the coal-bin. But once you got used to these small faults, nothing could be more complete, because good sense and good taste had decided the furnishing. There were no marble-topped tables, long mirrors or lace curtains in the little parlor, but simple furniture, many books, a fine picture or two, a stand of flowers in the bay-window, and all around, the pretty gifts that came from friendly hands.",
+   "hardWords": [
+    "dilapidated",
+    "slop-bowl",
+    "larches",
+    "blemishes",
+    "precipitating"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 26,
+   "context": "In order that we may start afresh, and go to Meg's wedding with free minds",
+   "simple": "So that we can begin again and go to Meg's wedding with clear minds, it is good to begin with a little talk about the Marches.",
+   "grammar": "'In order that we may...' shows purpose. 'May' is a formal word here, like 'so that we can'. 'Let me premise' means 'let me say first'."
+  },
+  {
+   "chapter": 26,
+   "context": "But once get used to these slight blemishes, and nothing could be more complete",
+   "simple": "But once you get used to these small faults, nothing could be more complete.",
+   "grammar": "'Once get used to' is an order form with no subject, used as 'if': 'if you once get used to...'. The second part, 'nothing could be more complete', says the house would then be perfect."
+  }
+ ],
+ "phrases": {
+  "nip in the bud": {
+   "pos": "idiom",
+   "meaning": "To stop something at its very start.",
+   "example": "He'd better nip his little passion in the bud"
+  },
+  "make a mountain out of a molehill": {
+   "pos": "idiom",
+   "meaning": "To make a small problem seem very big.",
+   "example": "he made a mountain out of a molehill"
+  }
+ }
+}

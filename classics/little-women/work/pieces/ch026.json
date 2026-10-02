@@ -1,0 +1,90 @@
+{
+ "glossary": {
+  "premise": {
+   "pos": "verb",
+   "meaning": "To say something first, before the main part of the story."
+  },
+  "august": {
+   "pos": "adjective",
+   "meaning": "Grand and worth great respect."
+  },
+  "bookkeeper": {
+   "pos": "noun",
+   "meaning": "A person whose job is to write down in books the money a business gets and spends."
+  },
+  "dandified": {
+   "pos": "adjective",
+   "meaning": "Too careful about clothes; dressing in a very fine way."
+  },
+  "hazed": {
+   "pos": "past-tense verb",
+   "meaning": "Played rough or unkind games on new students at college.",
+   "forms": [
+    "hazed",
+    "haze"
+   ]
+  },
+  "profusion": {
+   "pos": "noun",
+   "meaning": "A very large amount of something."
+  },
+  "infallible": {
+   "pos": "adjective",
+   "meaning": "Never wrong; sure to work."
+  },
+  "expatiating": {
+   "pos": "present participle",
+   "meaning": "Talking for a long time about something."
+  },
+  "degenerate": {
+   "pos": "adjective",
+   "meaning": "Becoming worse than in the past."
+  },
+  "pinafore": {
+   "pos": "noun",
+   "meaning": "A cover with no arms, worn over a dress to keep it clean."
+  },
+  "damask": {
+   "pos": "uncountable noun",
+   "meaning": "A fine, shiny cloth with a picture in it, used for table covers."
+  },
+  "whatnot": {
+   "pos": "noun",
+   "meaning": "A light stand with open places, one over the other, for small things."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 26,
+   "context": "The three years that have passed have brought but few changes",
+   "mainIdea": "Three years have passed and the war is over. Mr. March is at home, working quietly as a minister and a scholar.",
+   "simple": "In the three years that have passed, the quiet family has changed very little. The war is over and Mr. March is safe at home, busy with his books and his small church. In him the church found a minister both by nature and by calling. He was a quiet man who liked to study and was rich in a wisdom that is better than learning. He had a kindness that calls all people 'brother', and a goodness that grows into a fine character.",
+   "hardWords": [
+    "parish",
+    "august",
+    "piety",
+    "charity"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 26,
+   "context": "In order that we may start afresh, and go to Meg's wedding with free minds",
+   "simple": "So that we can begin again and go to Meg's wedding with clear minds, it is good to begin with a little talk about the Marches.",
+   "grammar": "'In order that we may...' shows purpose. 'May' is a formal word here, like 'so that we can'. 'It will be well to begin' means 'it is good to begin'."
+  }
+ ],
+ "phrases": {
+  "nip in the bud": {
+   "pos": "idiom",
+   "meaning": "To stop something at its very start.",
+   "example": "He'd better nip his little passion in the bud"
+  },
+  "make a mountain out of a molehill": {
+   "pos": "idiom",
+   "meaning": "To make a small problem seem very big.",
+   "example": "he made a mountain out of a molehill"
+  }
+ }
+}

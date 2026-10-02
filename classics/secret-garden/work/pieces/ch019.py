@@ -1,0 +1,47 @@
+words = [
+("graidely","adjective","A Yorkshire word for fine, great or very good."),
+("mun","verb","A Yorkshire way to say 'must'."),
+("canna","verb","A Yorkshire way to say 'cannot'."),
+("ax","verb","A Yorkshire way to say 'ask'."),
+("happen","adverb","A Yorkshire word meaning 'perhaps'. Dickon's 'an' happen a bud or two' means 'and perhaps a bud or two'."),
+("hearken","verb","An old word for 'listen'."),
+("chap","noun","A man or boy. Here it is used in a friendly way."),
+("feverish","adjective","Having a high body heat from sickness."),
+("modify","verb","To change a little."),
+("shaggy","adjective","Having long, thick, rough hair."),
+("wiry","adjective","Thin but strong."),
+("nuzzling","adjective","Pushing the nose gently against someone."),
+("whinnied","past-tense verb","Made the soft, high sound that a horse makes."),
+("affectation","noun","Behaviour that is put on to seem nicer or better than you are."),
+("detested","past-tense verb","Hated very much."),
+("enraptured","adjective","Filled with joy and wonder."),
+("implored","past-tense verb","Asked in a very anxious, begging way."),
+("tame","adjective","Not afraid of people; not wild."),
+("triumphantly","adverb","In a proud way that shows you have won or done well."),
+("hooray","interjection","A shout of joy."),
+("wands","plural noun","Thin sticks used by magicians to make magic."),
+]
+paras = [
+(19,17,"Aye, that we mun,” she said (which meant",
+ "Mary tries to speak Yorkshire to Dickon and tells him what they will do first. Dickon is amused.",
+ "'Aye, that we mun,' she said, which meant 'Yes, indeed, we must.' 'I will tell you what we will do first,' she went on. Dickon grinned, because it amused him very much when the little girl tried to twist her tongue to speak Yorkshire. 'He has taken a great fancy to you. He wants to see you and he wants to see Soot and Captain. When I go back to the house to talk to him, I will ask him if you cannot come and see him tomorrow morning, and bring your creatures with you. Then in a little while, when there are more leaves out, and perhaps a bud or two, we will get him to come out. You will push him in his chair and we will bring him here and show him everything.'",
+ ["happen","graidely","canna","ax"]),
+(19,52,"But that’s not all,” Mary went on, almost pale",
+ "Mary tells Colin that Dickon will come to see him tomorrow. She also tells him that there is a door into the garden under the ivy.",
+ "'But that is not all,' Mary went on. She was almost pale with serious excitement. 'The rest is better. There is a door into the garden. I found it. It is under the ivy on the wall.'",
+ ["solemn"]),
+]
+sents = [
+("He’s been spoiled till salt won’t save him",
+ "He has been spoiled so much that not even salt can save him.",
+ "'He's been spoiled' is the present perfect passive; 'till salt won't save him' is a saying that compares him to spoiled meat which even salt cannot save."),
+("Tha’ mun talk a bit o’ Yorkshire like that to Mester Colin",
+ "You must speak a little Yorkshire like that to Master Colin.",
+ "'Tha' mun talk' is Yorkshire for 'You must talk'; 'mun' is 'must' and 'Mester' is 'Master'."),
+]
+phrases = [
+("come over","phrasal verb","To travel to a place.",["came over"],"I came over on the pony this mornin’"),
+("nose about","phrasal verb","To move around and sniff things.",["nosing about"],"Nut and Shell nosing about close to them"),
+("draw back","phrasal verb","To move back.",["drew back"],"drew back into the corridor"),
+("lean against","phrase","To rest your body on something.",["leaned against"],"Mary went and leaned against his bed"),
+]

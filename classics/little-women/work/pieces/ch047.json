@@ -1,0 +1,106 @@
+{
+ "glossary": {
+  "prattling": {
+   "pos": "adjective",
+   "meaning": "Talking in a way like a child, about small things."
+  },
+  "inveterate": {
+   "pos": "adjective",
+   "meaning": "Fixed in a way of acting or feeling for a long time and not likely to change."
+  },
+  "sage": {
+   "pos": "noun",
+   "meaning": "A very clever, old man."
+  },
+  "metaphysics": {
+   "pos": "uncountable noun",
+   "meaning": "The study of very deep questions about life, mind and God."
+  },
+  "ominous": {
+   "pos": "adjective",
+   "meaning": "Showing that something bad will happen."
+  },
+  "evasions": {
+   "pos": "plural noun",
+   "meaning": "Clever ways of getting out of doing something."
+  },
+  "preceptor": {
+   "pos": "noun",
+   "meaning": "A teacher."
+  },
+  "grovellers": {
+   "pos": "plural noun",
+   "meaning": "People who lie face down on the floor."
+  },
+  "sonorous": {
+   "pos": "adjective",
+   "meaning": "Having a deep, full, nice sound."
+  },
+  "philoprogenitiveness": {
+   "pos": "uncountable noun",
+   "meaning": "Love of children."
+  },
+  "bankrupt": {
+   "pos": "adjective",
+   "meaning": "Having no money left. Here it is a joke about having nothing to give."
+  },
+  "socratic": {
+   "pos": "adjective",
+   "meaning": "Using questions and answers to teach, as the Greek thinker Socrates did."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 47,
+   "context": "I cannot feel that I have done my duty as humble historian of the March family",
+   "mainIdea": "The writer says Daisy and Demi, the twins, are so adored that they are almost spoilt, and praises how early they could do things.",
+   "simple": "The writer says she has not done her duty as the humble historian of the March family unless she gives at least one chapter to its two most precious and important members. Daisy and Demi had reached the age when they could think for themselves. In this fast age, babies of three or four claim their rights, and they get them, which is more than many older people do. If ever there was a pair of twins in danger of being utterly spoilt by love, it was these chattering Brookes. Of course they were the most remarkable children ever born. They walked at eight months and talked well at twelve months. At two years they took their places at table and behaved so well that all who saw them were charmed. At three, Daisy asked for a 'needler' and really made a bag with four stitches in it. She also set up her own house in the sideboard and used a tiny cooking-stove so well that Hannah cried with pride. Demi learned his letters with his grandfather, who made a new way to teach the alphabet by forming the letters with his arms and legs, so that head and heels were both taught. The boy soon showed a gift for machines, which delighted his father and drove his mother mad. He tried to copy every machine he saw and kept the nursery in a mess with his 'sewin-sheen', a strange thing made of string, chairs, clothespins and spools, with wheels that went 'wound and wound'. He also hung a basket over the back of a big chair and tried in vain to pull up his trusting sister in it. Like a loving girl, she let her little head be bumped until she was rescued. Then the young inventor said angrily, 'Why, marmar, dat's my lellywaiter, and me's trying to pull her up.'",
+   "hardWords": [
+    "historian",
+    "discretion",
+    "prattling"
+   ]
+  },
+  {
+   "chapter": 47,
+   "context": "Demi, like a true Yankee, was of an inquiring turn, wanting to know everything",
+   "mainIdea": "Demi always wants to know the reason for everything, and he is upset when he cannot get a good answer.",
+   "simple": "Demi, like a true Yankee, liked to ask questions and wanted to know everything. He often got upset because he could not get answers that satisfied him to his endless 'What for?'",
+   "hardWords": [
+    "Yankee",
+    "philosophic",
+    "Socratic",
+    "precocious"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 47,
+   "context": "for honesty is the best policy in love as in law",
+   "simple": "Being honest is the best way in love, as it is in law.",
+   "grammar": "'Honesty is the best policy' is a well-known saying. The pattern 'as in' adds a second area where the same is true."
+  },
+  {
+   "chapter": 47,
+   "context": "If the boy had replied like Alcibiades, “By the gods, Socrates, I cannot tell,” his grandfather would not have been surprised",
+   "simple": "If Demi had answered like Alcibiades, 'By the gods, Socrates, I cannot tell', his grandfather would not have been surprised.",
+   "grammar": "This is an unreal 'if' sentence about the past: 'if ... had replied ... would not have been'. It compares Demi to a student in an old Greek story."
+  }
+ ],
+ "phrases": {
+  "set one's fears at rest": {
+   "pos": "idiom",
+   "meaning": "To make someone stop worrying.",
+   "forms": [
+    "set her fears at rest"
+   ],
+   "example": "set her fears at rest"
+  },
+  "turn topsy-turvy": {
+   "pos": "idiom",
+   "meaning": "To put things into a state of mess and disorder.",
+   "example": "turned the little house topsy-turvy"
+  }
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "glossary": {
+  "pilgrimage": {
+   "pos": "noun",
+   "meaning": "A trip to a holy place, or a special trip made out of love or respect."
+  },
+  "pothooks": {
+   "pos": "plural noun",
+   "meaning": "The curved lines that children make when they first learn to write."
+  },
+  "beseechingly": {
+   "pos": "adverb",
+   "meaning": "In a way that asks with great need."
+  },
+  "charred": {
+   "pos": "adjective",
+   "meaning": "Black on the outside from fire."
+  },
+  "beatified": {
+   "pos": "adjective",
+   "meaning": "Showing great happiness, like a holy person."
+  },
+  "benediction": {
+   "pos": "noun",
+   "meaning": "Words said to ask God to be kind to people."
+  },
+  "placid": {
+   "pos": "adjective",
+   "meaning": "Quiet and peaceful."
+  },
+  "strand": {
+   "pos": "noun",
+   "meaning": "The edge of the sea or of a river."
+  },
+  "sanctifies": {
+   "pos": "verb",
+   "meaning": "Makes a place or thing holy."
+  },
+  "mar": {
+   "pos": "verb",
+   "meaning": "To make something good bad."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 42,
+   "context": "Here, cherished like a household saint in its shrine, sat Beth, tranquil and busy as ever",
+   "mainIdea": "Beth is loved like a saint at home and keeps busy making small gifts for the schoolchildren who pass her window.",
+   "simple": "Here sat Beth, loved like a holy person of the house in her shrine. She was calm and busy as ever, because nothing could change her sweet, unselfish nature. Even while getting ready to leave life, she tried to make it happier for those who would stay behind. Her weak fingers were never idle. One of her pleasures was to make small things for the schoolchildren who passed by each day. She dropped a pair of mittens from her window for a pair of purple hands, a needle-book for a small girl with many dolls, and pen-wipers for young writers working through forests of pothooks. She also made scrapbooks for children who love pictures, and all kinds of nice things. The children who were unwilling to climb the ladder of learning found their way covered with flowers, and they came to see the kind giver as a sort of fairy godmother who sat above and showered down gifts that suited their tastes and needs. If Beth had wanted a reward, she found it in the bright little faces always turned up to her window, with nods and smiles, and in the funny little letters full of ink blots and thanks.",
+   "hardWords": [
+    "shrine",
+    "pothooks",
+    "penmen",
+    "devices"
+   ]
+  },
+  {
+   "chapter": 42,
+   "context": "Seldom, except in books, do the dying utter memorable words",
+   "mainIdea": "Beth dies quietly and simply, as most people do, in the early morning at home, with one look and one small sigh.",
+   "simple": "Seldom, except in books, do dying people say words that are remembered, see visions, or die with holy faces. Those who have seen many souls go know that for most the end comes as naturally and simply as sleep. As Beth had hoped, the 'tide went out easily'. In the dark hour before dawn, on the breast where she had drawn her first breath, she quietly drew her last. She gave no farewell but one loving look and one little sigh.",
+   "hardWords": [
+    "beatified",
+    "countenances"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 42,
+   "context": "Blurred and blotted, faulty and feeble, as the lines were, they brought a look of inexpressible comfort to Beth’s face",
+   "simple": "Although the lines were smudged and blotted, with faults and weak places, they put a look of comfort too great for words on Beth's face.",
+   "grammar": "'Blurred and blotted ... as the lines were' is an 'although' clause in an older pattern: adjective + 'as' + subject + verb. Then 'they brought ...' gives the main idea."
+  },
+  {
+   "chapter": 42,
+   "context": "With the wreck of her frail body, Beth’s soul grew strong",
+   "simple": "As her weak body fell apart, Beth's soul grew strong.",
+   "grammar": "'With + noun' tells us what was happening at the same time. It shows two things going in opposite ways, and the writer sets them next to each other for effect."
+  }
+ ],
+ "phrases": {}
+}

@@ -1,0 +1,71 @@
+{
+ "glossary": {
+  "loath": {
+   "pos": "adjective",
+   "meaning": "Not willing; not wanting to do something."
+  },
+  "indecorous": {
+   "pos": "adjective",
+   "meaning": "Not polite or proper for the time and place."
+  },
+  "moire": {
+   "pos": "uncountable noun",
+   "meaning": "A fine cloth with a look like water moving."
+  },
+  "salver": {
+   "pos": "noun",
+   "meaning": "A flat metal thing for carrying glasses or food."
+  },
+  "nectar": {
+   "pos": "uncountable noun",
+   "meaning": "In old stories, the sweet drink of the gods. Here it is a joke word for the drinks at the wedding."
+  },
+  "quakeress": {
+   "pos": "noun",
+   "meaning": "A woman of the Quaker religion, who wore simple, soft-colored clothes."
+  },
+  "tribute": {
+   "pos": "noun",
+   "meaning": "Something given to show love, thanks or respect."
+  },
+  "cravat": {
+   "pos": "noun",
+   "meaning": "A cloth that a man wears round his neck."
+  },
+  "wrought": {
+   "pos": "past participle",
+   "meaning": "Made or brought about. Here it is used for the changes that time has made.",
+   "forms": [
+    "wrought"
+   ]
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 27,
+   "context": "There were to be no ceremonious performances, everything was to be as natural",
+   "mainIdea": "The wedding is simple and homelike. Aunt March is shocked to see the bride, the groom and the minister doing odd jobs.",
+   "simple": "There were to be no formal shows. Everything was to be as natural and homelike as possible. So when Aunt March arrived, she was shocked. The bride came running to welcome her and lead her in. The bridegroom was putting up a garland that had fallen down. She also saw the minister, the bride's father, marching upstairs with a serious face and a wine-bottle under each arm.",
+   "hardWords": [
+    "ceremonious",
+    "scandalized",
+    "paternal"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 27,
+   "context": "for ridicule is often harder to bear than self-denial",
+   "simple": "Being laughed at is often harder to bear than giving up something you like.",
+   "grammar": "This is a short wise saying. It compares two things with 'harder ... than', and 'for' gives the reason that Laurie waited."
+  }
+ ],
+ "phrases": {
+  "give up": {
+   "pos": "phrasal verb",
+   "meaning": "To let go of someone or something that is dear to you.",
+   "example": "as if loath to give Meg up"
+  }
+ }
+}

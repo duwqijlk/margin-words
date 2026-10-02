@@ -1,0 +1,3081 @@
+{
+ "version": 2,
+ "title": "The Adventures of Tom Sawyer",
+ "author": "Mark Twain",
+ "sha256": "5819605c2b1f5714ba5c1273827422f60ebd18e3d46c939bcec9e2613c37f2a7",
+ "chapters": 42,
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+ "language": "English",
+ "glossary": {
+  "spectacles": {
+   "pos": "plural noun",
+   "meaning": "Glasses that a person wears over the eyes to see better."
+  },
+  "perplexed": {
+   "pos": "adjective",
+   "meaning": "Not sure what to think or do; mixed up."
+  },
+  "roundabout": {
+   "pos": "noun",
+   "meaning": "A short coat that fits close to the body. Boys wore it in the old days."
+  },
+  "switch": {
+   "pos": "noun",
+   "meaning": "A thin stick that bends easily. It was used to hit a child when he did wrong."
+  },
+  "guile": {
+   "pos": "noun",
+   "meaning": "Clever ways of making people believe something that is not true."
+  },
+  "dander": {
+   "pos": "noun",
+   "meaning": "Anger. In 'get my dander up', it means to become angry."
+  },
+  "hookey": {
+   "pos": "noun",
+   "meaning": "Staying away from school when you should be there. 'Play hookey' means to do this."
+  },
+  "forestalled": {
+   "pos": "past-tense verb",
+   "meaning": "Acted early to stop another person's plan from working.",
+   "forms": [
+    "forestalled",
+    "forestall"
+   ]
+  },
+  "loathed": {
+   "pos": "past-tense verb",
+   "meaning": "Hated very much.",
+   "forms": [
+    "loathed",
+    "loathe"
+   ]
+  },
+  "knack": {
+   "pos": "noun",
+   "meaning": "A natural way of doing something well and easily."
+  },
+  "derision": {
+   "pos": "noun",
+   "meaning": "Words or looks that show you think someone is silly or weak."
+  },
+  "ambuscade": {
+   "pos": "noun",
+   "meaning": "A secret attack from a place where nobody can see you. Here, Aunt Polly waits for Tom in the dark."
+  },
+  "adamantine": {
+   "pos": "adjective",
+   "meaning": "Very hard and not able to be changed."
+  },
+  "lick": {
+   "pos": "verb",
+   "meaning": "To beat someone in a fight, or to hit as a way to teach a child. A 'lick' is a hit."
+  },
+  "obleeged": {
+   "pos": "adjective",
+   "meaning": "A spoken form of a word that means you must do something."
+  },
+  "whitewash": {
+   "pos": "noun",
+   "meaning": "A cheap white mix of water and a white stuff. People put it on a wall to make it white.",
+   "forms": [
+    "whitewashed",
+    "whitewashing"
+   ]
+  },
+  "melancholy": {
+   "pos": "noun",
+   "meaning": "A deep, quiet sadness."
+  },
+  "hollow": {
+   "pos": "adjective",
+   "meaning": "Empty, with no real meaning or good feeling inside."
+  },
+  "skylarking": {
+   "pos": "present participle",
+   "meaning": "Playing around in a loud and silly way.",
+   "forms": [
+    "skylarking",
+    "skylark"
+   ]
+  },
+  "taw": {
+   "pos": "noun",
+   "meaning": "The big round glass ball that a player shoots at the other balls in the game."
+  },
+  "gay": {
+   "pos": "adjective",
+   "meaning": "Bright and pretty, and full of fun."
+  },
+  "waver": {
+   "pos": "verb",
+   "meaning": "To begin to change your mind. You are not sure any more."
+  },
+  "straitened": {
+   "pos": "adjective",
+   "meaning": "Small and not enough. Here, it is about Tom's little money and few things."
+  },
+  "personating": {
+   "pos": "present participle",
+   "meaning": "Acting as if you are another person or thing.",
+   "forms": [
+    "personating",
+    "personate"
+   ]
+  },
+  "ponderously": {
+   "pos": "adverb",
+   "meaning": "In a slow, heavy way."
+  },
+  "druther": {
+   "pos": "noun",
+   "meaning": "A spoken form of 'would rather'. 'You'd druther work' means 'you would rather work'."
+  },
+  "alacrity": {
+   "pos": "noun",
+   "meaning": "Quick and happy willingness."
+  },
+  "fagged": {
+   "pos": "adjective",
+   "meaning": "Very tired from hard work.",
+   "forms": [
+    "fagged"
+   ]
+  },
+  "covet": {
+   "pos": "verb",
+   "meaning": "To want something very much, especially something that is another person's."
+  },
+  "dilapidated": {
+   "pos": "adjective",
+   "meaning": "Old and falling to pieces."
+  },
+  "particular": {
+   "pos": "adjective",
+   "meaning": "Very careful and hard to please about something."
+  },
+  "balmy": {
+   "pos": "adjective",
+   "meaning": "Warm and soft, in a nice way."
+  },
+  "intrepid": {
+   "pos": "adjective",
+   "meaning": "Without fear; very brave."
+  },
+  "diluted": {
+   "pos": "past-tense verb",
+   "meaning": "Made weaker by adding something. Here, she made the good words less strong.",
+   "forms": [
+    "diluted",
+    "dilute"
+   ]
+  },
+  "clod": {
+   "pos": "noun",
+   "meaning": "A hard piece of earth.",
+   "forms": [
+    "clodding",
+    "clods"
+   ]
+  },
+  "sally": {
+   "pos": "verb",
+   "meaning": "To go out quickly, as if to attack or help."
+  },
+  "evanescent": {
+   "pos": "adjective",
+   "meaning": "Lasting only a very short time, then gone."
+  },
+  "furtive": {
+   "pos": "adjective",
+   "meaning": "Secret and quiet, so that others will not see."
+  },
+  "wrath": {
+   "pos": "noun",
+   "meaning": "Very strong anger."
+  },
+  "construed": {
+   "pos": "past participle",
+   "meaning": "Understood in a certain way.",
+   "forms": [
+    "construed",
+    "construe"
+   ]
+  },
+  "morosely": {
+   "pos": "adverb",
+   "meaning": "In a sad way, with a bad feeling."
+  },
+  "beseeching": {
+   "pos": "present participle",
+   "meaning": "Asking in a very serious way, because you need it so much.",
+   "forms": [
+    "beseeching",
+    "beseech"
+   ]
+  },
+  "stealthy": {
+   "pos": "adjective",
+   "meaning": "Quiet and careful, so that nobody hears or sees."
+  },
+  "deluge": {
+   "pos": "noun",
+   "meaning": "A very large amount of water coming down."
+  },
+  "tallow": {
+   "pos": "noun",
+   "meaning": "Hard fat from animals. People used it to make light and to keep things dry."
+  },
+  "audacious": {
+   "pos": "adjective",
+   "meaning": "Showing no fear of what other people think; very brave and rude."
+  },
+  "benediction": {
+   "pos": "noun",
+   "meaning": "Words said at the end of a church meeting, asking God to be good to the people."
+  },
+  "scarify": {
+   "pos": "verb",
+   "meaning": "To make small cuts or lines on something. Here, Tom does this to a part of the house."
+  },
+  "counterfeited": {
+   "pos": "past participle",
+   "meaning": "Made to look like the real thing, so that people think it is real. Here, it is about a copy of a Barlow.",
+   "forms": [
+    "counterfeited",
+    "counterfeit"
+   ]
+  },
+  "contrived": {
+   "pos": "past-tense verb",
+   "meaning": "Found a way to do something, with some trouble.",
+   "forms": [
+    "contrived",
+    "contrive"
+   ]
+  },
+  "disconcerted": {
+   "pos": "adjective",
+   "meaning": "Upset and mixed up because something went wrong."
+  },
+  "galled": {
+   "pos": "past-tense verb",
+   "meaning": "Made someone feel angry and hurt.",
+   "forms": [
+    "galled",
+    "gall"
+   ]
+  },
+  "persuasively": {
+   "pos": "adverb",
+   "meaning": "In a way that tries to make a person agree."
+  },
+  "accosted": {
+   "pos": "past-tense verb",
+   "meaning": "Went up to someone and spoke to him.",
+   "forms": [
+    "accosted",
+    "accost"
+   ]
+  },
+  "waylaid": {
+   "pos": "past-tense verb",
+   "meaning": "Stopped people on their way to speak to them.",
+   "forms": [
+    "waylaid",
+    "waylay"
+   ]
+  },
+  "reprimand": {
+   "pos": "noun",
+   "meaning": "Words of anger from a person with power, because you did wrong."
+  },
+  "superintendent": {
+   "pos": "noun",
+   "meaning": "The person in charge of a school or of a church school like this one."
+  },
+  "pulpit": {
+   "pos": "noun",
+   "meaning": "A raised place in a church where the speaker stands."
+  },
+  "pew": {
+   "pos": "noun",
+   "meaning": "A long seat in a church. It is made of wood.",
+   "forms": [
+    "pews"
+   ]
+  },
+  "cravat": {
+   "pos": "noun",
+   "meaning": "A wide cloth that a man wears around his neck."
+  },
+  "mien": {
+   "pos": "noun",
+   "meaning": "The way a person looks or acts."
+  },
+  "prodigious": {
+   "pos": "adjective",
+   "meaning": "Very great and surprising."
+  },
+  "august": {
+   "pos": "adjective",
+   "meaning": "Great and grand; making people feel respect."
+  },
+  "wily": {
+   "pos": "adjective",
+   "meaning": "Clever, in a way that is not honest."
+  },
+  "preposterous": {
+   "pos": "adjective",
+   "meaning": "So silly and wrong that nobody can believe it."
+  },
+  "sheepish": {
+   "pos": "adjective",
+   "meaning": "A little sorry and low, like a person who knows he did wrong."
+  },
+  "seductive": {
+   "pos": "adjective",
+   "meaning": "Very nice to think of, so that you want to go to it. Here, the summer outside pulls Tom away from church."
+  },
+  "venerable": {
+   "pos": "adjective",
+   "meaning": "Old and respected."
+  },
+  "lavish": {
+   "pos": "adjective",
+   "meaning": "Giving or spending very freely; with much more than is needed."
+  },
+  "simpering": {
+   "pos": "adjective",
+   "meaning": "Smiling in a silly way that is not real."
+  },
+  "matron": {
+   "pos": "noun",
+   "meaning": "An older married woman.",
+   "forms": [
+    "matrons"
+   ]
+  },
+  "laggard": {
+   "pos": "noun",
+   "meaning": "A person who is slow and comes late.",
+   "forms": [
+    "laggards"
+   ]
+  },
+  "tittering": {
+   "pos": "noun",
+   "meaning": "Quiet laughing that you try to keep inside."
+  },
+  "supplication": {
+   "pos": "noun",
+   "meaning": "A serious request made in a low voice, especially to God."
+  },
+  "restive": {
+   "pos": "adjective",
+   "meaning": "Not able to be still, and tired of waiting."
+  },
+  "interlarded": {
+   "pos": "past participle",
+   "meaning": "Put in between other things.",
+   "forms": [
+    "interlarded",
+    "interlard"
+   ]
+  },
+  "prosy": {
+   "pos": "adjective",
+   "meaning": "Not interesting, because it is too long and says nothing new."
+  },
+  "brimstone": {
+   "pos": "noun",
+   "meaning": "A yellow stone that makes fire. In 'fire and brimstone' it means the fires of hell."
+  },
+  "fillip": {
+   "pos": "noun",
+   "meaning": "A quick push made with one part of the hand that is held back and then let go."
+  },
+  "vagrant": {
+   "pos": "adjective",
+   "meaning": "A person who goes from place to place and has no home."
+  },
+  "gingerly": {
+   "pos": "adjective",
+   "meaning": "Very careful and slow, because of fear of getting hurt."
+  },
+  "facetious": {
+   "pos": "adjective",
+   "meaning": "Trying to be funny at a time when it is not the right time."
+  },
+  "parson": {
+   "pos": "noun",
+   "meaning": "A man who leads a church; a minister."
+  },
+  "ordeal": {
+   "pos": "noun",
+   "meaning": "A long, hard, unpleasant time."
+  },
+  "odious": {
+   "pos": "adjective",
+   "meaning": "Very unpleasant; hateful."
+  },
+  "canvassed": {
+   "pos": "past-tense verb",
+   "meaning": "Looked at, one part after another. Here, the boy looks at his body to find signs of sickness.",
+   "forms": [
+    "canvassed",
+    "canvass"
+   ]
+  },
+  "mortified": {
+   "pos": "adjective",
+   "meaning": "Said of a part of the body that is dead and going bad. Here, Tom says it about his foot."
+  },
+  "expectorate": {
+   "pos": "verb",
+   "meaning": "To send water from the mouth, in a rude way."
+  },
+  "adherent": {
+   "pos": "noun",
+   "meaning": "A follower; a person who stays with someone and supports him."
+  },
+  "pariah": {
+   "pos": "noun",
+   "meaning": "A person that everyone avoids and does not accept."
+  },
+  "gaudy": {
+   "pos": "adjective",
+   "meaning": "With too many bright colors. Here, Tom likes Huck's wild life outside the rules."
+  },
+  "perennial": {
+   "pos": "adjective",
+   "meaning": "Lasting all the time, or coming back every year."
+  },
+  "hogshead": {
+   "pos": "noun",
+   "meaning": "A very big round box for drink, made of wood.",
+   "forms": [
+    "hogsheads"
+   ]
+  },
+  "harassed": {
+   "pos": "adjective",
+   "meaning": "Always troubled and pushed by other people."
+  },
+  "spunk": {
+   "pos": "noun",
+   "meaning": "In 'spunk-water', rain water in an old tree. The boys think it can take a small hard thing off the skin."
+  },
+  "wart": {
+   "pos": "noun",
+   "meaning": "A small, hard bit that grows on the skin.",
+   "forms": [
+    "warts"
+   ]
+  },
+  "ferule": {
+   "pos": "noun",
+   "meaning": "A flat stick that a teacher used to hit a child on the hand."
+  },
+  "wistfully": {
+   "pos": "adverb",
+   "meaning": "With a sad and longing look, wanting something you cannot easily have."
+  },
+  "caricature": {
+   "pos": "noun",
+   "meaning": "A drawing that is funny because it makes things look wrong or too big."
+  },
+  "gable": {
+   "pos": "noun",
+   "meaning": "The part of an end wall of a house that goes up to a point at the top.",
+   "forms": [
+    "gables"
+   ]
+  },
+  "portentous": {
+   "pos": "adjective",
+   "meaning": "Looking very big and important, as if something bad may come."
+  },
+  "juncture": {
+   "pos": "noun",
+   "meaning": "A point in time, especially an important one."
+  },
+  "jubilant": {
+   "pos": "adjective",
+   "meaning": "Very happy because of a win."
+  },
+  "botch": {
+   "pos": "noun",
+   "meaning": "A job done badly. 'Made a botch of it' means did it very badly."
+  },
+  "afeard": {
+   "pos": "adjective",
+   "meaning": "A country way of saying 'afraid'."
+  },
+  "tick": {
+   "pos": "noun",
+   "meaning": "A very small animal that bites. The boys play with one."
+  },
+  "premature": {
+   "pos": "adjective",
+   "meaning": "Too early; coming before the right time."
+  },
+  "embattled": {
+   "pos": "adjective",
+   "meaning": "Ready to fight; at war."
+  },
+  "momently": {
+   "pos": "adverb",
+   "meaning": "From one moment to the next; more with each moment."
+  },
+  "deftly": {
+   "pos": "adverb",
+   "meaning": "In a quick and clever way, with good hands."
+  },
+  "wane": {
+   "pos": "verb",
+   "meaning": "To become smaller or weaker."
+  },
+  "slathers": {
+   "pos": "noun",
+   "meaning": "A very large amount of something. 'Slathers of money' means a lot of money."
+  },
+  "repulsed": {
+   "pos": "past participle",
+   "meaning": "Pushed away; not allowed to come near.",
+   "forms": [
+    "repulsed",
+    "repulse"
+   ]
+  },
+  "andiron": {
+   "pos": "noun",
+   "meaning": "A metal stand that holds wood in a fire at home."
+  },
+  "upbraid": {
+   "pos": "verb",
+   "meaning": "To say angry words to a person about what he did wrong."
+  },
+  "zephyr": {
+   "pos": "noun",
+   "meaning": "A soft, light wind."
+  },
+  "baffled": {
+   "pos": "past-tense verb",
+   "meaning": "Not able to find the way. Here, people thought that going across water would stop someone from following.",
+   "forms": [
+    "baffled",
+    "baffle"
+   ]
+  },
+  "illustrious": {
+   "pos": "adjective",
+   "meaning": "Famous and greatly respected."
+  },
+  "grisly": {
+   "pos": "adjective",
+   "meaning": "Very bad to look at; it makes you afraid."
+  },
+  "zenith": {
+   "pos": "noun",
+   "meaning": "The highest point."
+  },
+  "doublet": {
+   "pos": "noun",
+   "meaning": "A short coat that fits close to the body, worn by men long ago."
+  },
+  "cutlass": {
+   "pos": "noun",
+   "meaning": "A short, heavy, curved sword used on ships long ago."
+  },
+  "incantation": {
+   "pos": "noun",
+   "meaning": "Magic words that a person says to make something happen.",
+   "forms": [
+    "incantations"
+   ]
+  },
+  "shingle": {
+   "pos": "noun",
+   "meaning": "A thin flat piece of wood.",
+   "forms": [
+    "shingles"
+   ]
+  },
+  "cogitating": {
+   "pos": "present participle",
+   "meaning": "Thinking deeply.",
+   "forms": [
+    "cogitating",
+    "cogitate"
+   ]
+  },
+  "infallible": {
+   "pos": "adjective",
+   "meaning": "Never wrong; always certain to work."
+  },
+  "futility": {
+   "pos": "noun",
+   "meaning": "The fact that something is useless and cannot work."
+  },
+  "caitiff": {
+   "pos": "noun",
+   "meaning": "An old word for a bad man who is weak and afraid."
+  },
+  "accoutrements": {
+   "pos": "plural noun",
+   "meaning": "The things you carry or wear for a purpose, such as weapons and clothes."
+  },
+  "lath": {
+   "pos": "noun",
+   "meaning": "A thin, narrow piece of wood. The boys use laths as swords to play with."
+  },
+  "doodlebug": {
+   "pos": "noun",
+   "meaning": "A small animal that lives in a hole in the ground. The boys think it can answer questions."
+  },
+  "nettle": {
+   "pos": "noun",
+   "meaning": "A plant that hurts your skin when you touch it."
+  },
+  "ensconced": {
+   "pos": "past-tense verb",
+   "meaning": "Sitting in a safe place where nobody can see.",
+   "forms": [
+    "ensconced",
+    "ensconce"
+   ]
+  },
+  "caterwauling": {
+   "pos": "noun",
+   "meaning": "The loud crying that cats make at night."
+  },
+  "deathwatch": {
+   "pos": "noun",
+   "meaning": "A small animal that makes a sound like a watch in wood. People thought it meant that someone would die."
+  },
+  "ingenuity": {
+   "pos": "noun",
+   "meaning": "The power to think of clever ways to do things."
+  },
+  "damper": {
+   "pos": "noun",
+   "meaning": "Something that takes away the fun or the hope. Here, it ends the boys' talk."
+  },
+  "pard": {
+   "pos": "noun",
+   "meaning": "A short, spoken form of 'partner'; a close friend."
+  },
+  "pallid": {
+   "pos": "adjective",
+   "meaning": "Very white in the face, like a sick person."
+  },
+  "sawbones": {
+   "pos": "noun",
+   "meaning": "A rude word for a doctor."
+  },
+  "combatants": {
+   "pos": "plural noun",
+   "meaning": "The people who are fighting."
+  },
+  "inarticulately": {
+   "pos": "adverb",
+   "meaning": "Without clear words; in sounds that cannot be understood."
+  },
+  "stolid": {
+   "pos": "adjective",
+   "meaning": "Quiet; showing no feeling."
+  },
+  "fuddled": {
+   "pos": "adjective",
+   "meaning": "Not able to think well, often because of drink."
+  },
+  "ruffian": {
+   "pos": "noun",
+   "meaning": "A rough man who likes to hurt people."
+  },
+  "apprehensively": {
+   "pos": "adverb",
+   "meaning": "In a worried way, afraid that something bad will happen."
+  },
+  "tannery": {
+   "pos": "noun",
+   "meaning": "A place where animal skins are worked on, to make them strong and fit to use."
+  },
+  "verdigrease": {
+   "pos": "noun",
+   "meaning": "A green stuff that grows on old metal and can make you ill."
+  },
+  "lugubrious": {
+   "pos": "adjective",
+   "meaning": "Very sad and slow, in a way that seems too much."
+  },
+  "quailed": {
+   "pos": "past-tense verb",
+   "meaning": "Became afraid and lost heart.",
+   "forms": [
+    "quailed",
+    "quail"
+   ]
+  },
+  "escapade": {
+   "pos": "noun",
+   "meaning": "An exciting thing to do that is against the rules."
+  },
+  "bodings": {
+   "pos": "plural noun",
+   "meaning": "Feelings that something bad is going to happen."
+  },
+  "culprit": {
+   "pos": "noun",
+   "meaning": "A person who did something wrong."
+  },
+  "colossal": {
+   "pos": "adjective",
+   "meaning": "Extremely big."
+  },
+  "phase": {
+   "pos": "verb",
+   "meaning": "A spoken form of a word that means to trouble or upset someone."
+  },
+  "mum": {
+   "pos": "adjective",
+   "meaning": "Not saying anything."
+  },
+  "electrified": {
+   "pos": "past participle",
+   "meaning": "Made to feel a sudden, strong surprise."
+  },
+  "gory": {
+   "pos": "adjective",
+   "meaning": "Covered with blood."
+  },
+  "ransacked": {
+   "pos": "past participle",
+   "meaning": "Searched very fast and roughly in every place."
+  },
+  "ostentatiously": {
+   "pos": "adverb",
+   "meaning": "In a way that is made to be seen by everyone."
+  },
+  "haggard": {
+   "pos": "adjective",
+   "meaning": "Looking tired, thin and worried."
+  },
+  "palsy": {
+   "pos": "noun",
+   "meaning": "An illness in which the body moves without control."
+  },
+  "miscreant": {
+   "pos": "noun",
+   "meaning": "A very bad person who does bad things."
+  },
+  "inquest": {
+   "pos": "noun",
+   "meaning": "An official meeting to find out how a person died.",
+   "forms": [
+    "inquests"
+   ]
+  },
+  "balefully": {
+   "pos": "adverb",
+   "meaning": "In a way that seems evil and full of danger."
+  },
+  "blanched": {
+   "pos": "past-tense verb",
+   "meaning": "Became white in the face, because of fear.",
+   "forms": [
+    "blanched",
+    "blanch"
+   ]
+  },
+  "irksome": {
+   "pos": "adjective",
+   "meaning": "Making you tired and angry."
+  },
+  "coroner": {
+   "pos": "noun",
+   "meaning": "An officer who finds out how a person died. In the boys' game, the leader of a meeting for a dead cat, as a joke."
+  },
+  "smuggled": {
+   "pos": "past-tense verb",
+   "meaning": "Secretly took something in or out of a place.",
+   "forms": [
+    "smuggled",
+    "smuggle"
+   ]
+  },
+  "infatuated": {
+   "pos": "adjective",
+   "meaning": "Filled with a strong love for something that is not good for you."
+  },
+  "newfangled": {
+   "pos": "adjective",
+   "meaning": "New and strange; not liked by people who like old ways."
+  },
+  "inveterate": {
+   "pos": "adjective",
+   "meaning": "Always doing the same thing, for a long time, and not able to stop."
+  },
+  "quack": {
+   "pos": "adjective",
+   "meaning": "Not real and not honest. A 'quack' medicine is a bad medicine that does not work."
+  },
+  "windfall": {
+   "pos": "noun",
+   "meaning": "A lucky thing that comes without being expected."
+  },
+  "dejected": {
+   "pos": "adjective",
+   "meaning": "Sad and without hope."
+  },
+  "consternation": {
+   "pos": "noun",
+   "meaning": "Strong fear and worry."
+  },
+  "clandestinely": {
+   "pos": "adverb",
+   "meaning": "In a secret way, so that nobody knows."
+  },
+  "avariciously": {
+   "pos": "adverb",
+   "meaning": "With a very strong wish to get things for yourself."
+  },
+  "havoc": {
+   "pos": "noun",
+   "meaning": "Great damage everywhere."
+  },
+  "remorse": {
+   "pos": "noun",
+   "meaning": "A deep feeling of being sorry for something wrong you did."
+  },
+  "numskull": {
+   "pos": "noun",
+   "meaning": "A person who is not clever."
+  },
+  "crestfallen": {
+   "pos": "adjective",
+   "meaning": "Sad because things did not go as you hoped."
+  },
+  "forsaken": {
+   "pos": "adjective",
+   "meaning": "Left alone by everyone; with no friends."
+  },
+  "succumb": {
+   "pos": "verb",
+   "meaning": "To give up and accept something you cannot fight."
+  },
+  "hermit": {
+   "pos": "noun",
+   "meaning": "A person who lives alone, away from other people, often for religious reasons.",
+   "forms": [
+    "hermits"
+   ]
+  },
+  "rendezvous": {
+   "pos": "noun",
+   "meaning": "A place where people agree to meet."
+  },
+  "countersign": {
+   "pos": "noun",
+   "meaning": "A secret word that you must say to be allowed to pass."
+  },
+  "smouldering": {
+   "pos": "present participle",
+   "meaning": "Giving off smoke, but with little or no fire.",
+   "forms": [
+    "smouldering",
+    "smoulder"
+   ]
+  },
+  "dauntless": {
+   "pos": "adjective",
+   "meaning": "Not afraid of anything."
+  },
+  "sombre": {
+   "pos": "adjective",
+   "meaning": "Dark and sad."
+  },
+  "purloined": {
+   "pos": "past participle",
+   "meaning": "Taken from someone without asking.",
+   "forms": [
+    "purloined",
+    "purloin"
+   ]
+  },
+  "waif": {
+   "pos": "noun",
+   "meaning": "A child with no home, who has nobody to care for him.",
+   "forms": [
+    "waifs"
+   ]
+  },
+  "sullied": {
+   "pos": "past participle",
+   "meaning": "Made less good; made to look bad.",
+   "forms": [
+    "sullied",
+    "sully"
+   ]
+  },
+  "sweetmeat": {
+   "pos": "noun",
+   "meaning": "A sweet food, like fruit with sugar on it.",
+   "forms": [
+    "sweetmeats"
+   ]
+  },
+  "freebooters": {
+   "pos": "plural noun",
+   "meaning": "Men on ships who take things from others by force."
+  },
+  "repose": {
+   "pos": "noun",
+   "meaning": "Rest and peace."
+  },
+  "obtruded": {
+   "pos": "past-tense verb",
+   "meaning": "Pushed in where it is not wanted.",
+   "forms": [
+    "obtruded",
+    "obtrude"
+   ]
+  },
+  "credulous": {
+   "pos": "adjective",
+   "meaning": "Too ready to believe things."
+  },
+  "conflagrations": {
+   "pos": "plural noun",
+   "meaning": "Very large and dangerous fires.",
+   "forms": [
+    "conflagration"
+   ]
+  },
+  "limpid": {
+   "pos": "adjective",
+   "meaning": "Clear and bright, so you can see through it."
+  },
+  "ravenous": {
+   "pos": "adjective",
+   "meaning": "Very, very hungry."
+  },
+  "sumptuously": {
+   "pos": "adverb",
+   "meaning": "In a rich and grand way. Here, they eat well."
+  },
+  "quicksilver": {
+   "pos": "noun",
+   "meaning": "A shiny silver metal that is a liquid."
+  },
+  "mutiny": {
+   "pos": "noun",
+   "meaning": "When the people on a ship will not do what the leader says and fight against him."
+  },
+  "skiff": {
+   "pos": "noun",
+   "meaning": "A small, light boat.",
+   "forms": [
+    "skiffs"
+   ]
+  },
+  "quartering": {
+   "pos": "present participle",
+   "meaning": "Going across a river in a line that is not straight across but a little up the river."
+  },
+  "thwart": {
+   "pos": "noun",
+   "meaning": "A seat across a small boat.",
+   "forms": [
+    "thwarts"
+   ]
+  },
+  "bereaved": {
+   "pos": "adjective",
+   "meaning": "Having lost a person close to you through death."
+  },
+  "ejaculations": {
+   "pos": "plural noun",
+   "meaning": "Short, sudden cries or words said out loud."
+  },
+  "conjectured": {
+   "pos": "past participle",
+   "meaning": "Guessed from the little that is known.",
+   "forms": [
+    "conjectured",
+    "conjecture"
+   ]
+  },
+  "weltering": {
+   "pos": "present participle",
+   "meaning": "Lying in something and rolling in it. Here, Tom is crying so much that he is all wet with it.",
+   "forms": [
+    "weltering",
+    "welter"
+   ]
+  },
+  "snifter": {
+   "pos": "noun",
+   "meaning": "A small amount of strong drink or of smoke. It is said that one little bit would be too much for Johnny Miller."
+  },
+  "novice": {
+   "pos": "noun",
+   "meaning": "A person who is new at something.",
+   "forms": [
+    "novices"
+   ]
+  },
+  "charily": {
+   "pos": "adverb",
+   "meaning": "With care, because you are not sure."
+  },
+  "inundation": {
+   "pos": "noun",
+   "meaning": "Too much water that covers a place."
+  },
+  "hendering": {
+   "pos": "present participle",
+   "meaning": "A country way of saying a word that means to keep someone from doing something."
+  },
+  "spume": {
+   "pos": "noun",
+   "meaning": "White bits on the top of water."
+  },
+  "appalling": {
+   "pos": "adjective",
+   "meaning": "Very bad, so that it makes you afraid."
+  },
+  "scalped": {
+   "pos": "past-tense verb",
+   "meaning": "Cut the skin and hair from the head of an enemy, as some men did long ago.",
+   "forms": [
+    "scalped",
+    "scalp",
+    "scalping"
+   ]
+  },
+  "hilarity": {
+   "pos": "noun",
+   "meaning": "Loud fun and laughing."
+  },
+  "soliloquized": {
+   "pos": "past-tense verb",
+   "meaning": "Spoke out loud to herself when alone.",
+   "forms": [
+    "soliloquized",
+    "soliloquize"
+   ]
+  },
+  "reverent": {
+   "pos": "adjective",
+   "meaning": "Showing deep respect, as in a holy place."
+  },
+  "pregnant": {
+   "pos": "adjective",
+   "meaning": "Full of meaning. Here, it means full of signs of what will happen."
+  },
+  "funereal": {
+   "pos": "adjective",
+   "meaning": "Sad and slow, like a time when a dead person is put in the ground."
+  },
+  "transfixed": {
+   "pos": "past participle",
+   "meaning": "Not able to move, because of a big surprise."
+  },
+  "rascalities": {
+   "pos": "plural noun",
+   "meaning": "Bad acts that are not honest."
+  },
+  "cowhide": {
+   "pos": "noun",
+   "meaning": "A strong stick or rope made from the skin of an animal. It was used to hit people."
+  },
+  "abashed": {
+   "pos": "adjective",
+   "meaning": "Feeling bad about yourself, and not knowing what to do."
+  },
+  "slink": {
+   "pos": "verb",
+   "meaning": "To go away quietly, because you feel bad about yourself."
+  },
+  "juveniles": {
+   "pos": "plural noun",
+   "meaning": "Young people; children."
+  },
+  "repentant": {
+   "pos": "adjective",
+   "meaning": "Feeling sorry for what you did wrong."
+  },
+  "vivacity": {
+   "pos": "noun",
+   "meaning": "The quality of being lively and full of energy."
+  },
+  "swarthy": {
+   "pos": "adjective",
+   "meaning": "Having dark skin."
+  },
+  "vindictive": {
+   "pos": "adjective",
+   "meaning": "Wanting to hurt someone because of a wrong they did to you."
+  },
+  "lacerate": {
+   "pos": "verb",
+   "meaning": "To hurt deeply. Here, Tom wants to cause Becky pain by his actions with Amy."
+  },
+  "prattle": {
+   "pos": "noun",
+   "meaning": "Quick, silly talk about small things."
+  },
+  "artlessly": {
+   "pos": "adverb",
+   "meaning": "In a simple, honest way, with no plan."
+  },
+  "humiliated": {
+   "pos": "adjective",
+   "meaning": "Feeling that other people see you as small or silly."
+  },
+  "mercury": {
+   "pos": "noun",
+   "meaning": "In 'a sudden falling of his mercury', a silver liquid in a glass that goes down when it gets cold. Here, Tom's good feeling goes down."
+  },
+  "prophesying": {
+   "pos": "present participle",
+   "meaning": "Saying what will happen in the future, as if by a gift from God.",
+   "forms": [
+    "prophesying",
+    "prophesy"
+   ]
+  },
+  "ingenious": {
+   "pos": "adjective",
+   "meaning": "Clever and full of new ideas."
+  },
+  "refrained": {
+   "pos": "past-tense verb",
+   "meaning": "Stopped herself from doing something.",
+   "forms": [
+    "refrained",
+    "refrain"
+   ]
+  },
+  "fortified": {
+   "pos": "past-tense verb",
+   "meaning": "Made herself stronger and braver.",
+   "forms": [
+    "fortified",
+    "fortify"
+   ]
+  },
+  "softy": {
+   "pos": "noun",
+   "meaning": "A person who is too kind and weak."
+  },
+  "trounce": {
+   "pos": "verb",
+   "meaning": "To beat someone hard in a fight."
+  },
+  "urchin": {
+   "pos": "noun",
+   "meaning": "A poor, rough child."
+  },
+  "anatomy": {
+   "pos": "noun",
+   "meaning": "The study of the parts of the body. Here, the name of the teacher's book."
+  },
+  "frontispiece": {
+   "pos": "noun",
+   "meaning": "A picture at the start of a book, before the title page."
+  },
+  "onslaught": {
+   "pos": "noun",
+   "meaning": "A sudden and strong attack."
+  },
+  "lethargy": {
+   "pos": "noun",
+   "meaning": "A heavy feeling that makes you want to rest and do nothing."
+  },
+  "conned": {
+   "pos": "past-tense verb",
+   "meaning": "Studied and thought about, so that you know it well.",
+   "forms": [
+    "conned",
+    "con"
+   ]
+  },
+  "flaying": {
+   "pos": "noun",
+   "meaning": "A very hard beating. Here, it means the teacher's hard hitting of Tom."
+  },
+  "imminence": {
+   "pos": "noun",
+   "meaning": "The fact that something bad is about to happen very soon."
+  },
+  "exacting": {
+   "pos": "adjective",
+   "meaning": "Asking for a lot; hard to please."
+  },
+  "retribution": {
+   "pos": "noun",
+   "meaning": "Bad things that happen to a person because of the wrong he did."
+  },
+  "worsted": {
+   "pos": "adjective",
+   "meaning": "Made to lose a fight."
+  },
+  "dominie": {
+   "pos": "noun",
+   "meaning": "A word for a teacher, used in Scotland."
+  },
+  "mellow": {
+   "pos": "adjective",
+   "meaning": "Soft and easy; slow and happy. Here, it is because of drink."
+  },
+  "gawky": {
+   "pos": "adjective",
+   "meaning": "Tall, and not good at moving."
+  },
+  "declamatory": {
+   "pos": "adjective",
+   "meaning": "Like a loud speech that is made to sound big."
+  },
+  "unpalatable": {
+   "pos": "adjective",
+   "meaning": "Not nice to hear or to accept."
+  },
+  "voluptuous": {
+   "pos": "adjective",
+   "meaning": "Full of nice feelings for the body and the senses."
+  },
+  "enhance": {
+   "pos": "verb",
+   "meaning": "To make something stronger or better."
+  },
+  "gilded": {
+   "pos": "past-tense verb",
+   "meaning": "Covered with gold, or with gold colour.",
+   "forms": [
+    "gilded",
+    "gild"
+   ]
+  },
+  "scuttle": {
+   "pos": "noun",
+   "meaning": "A small hole with a cover, in the top of a room."
+  },
+  "pate": {
+   "pos": "noun",
+   "meaning": "The top of the head."
+  },
+  "regalia": {
+   "pos": "noun",
+   "meaning": "Special clothes and signs worn by members of a group on important days."
+  },
+  "shackles": {
+   "pos": "plural noun",
+   "meaning": "Metal rings for the hands or feet. Here, a joke about the promise Tom made."
+  },
+  "convalescent": {
+   "pos": "adjective",
+   "meaning": "Getting better slowly after being ill."
+  },
+  "relapse": {
+   "pos": "noun",
+   "meaning": "Becoming ill again after getting better.",
+   "forms": [
+    "relapsed"
+   ]
+  },
+  "minstrel": {
+   "pos": "noun",
+   "meaning": "In this story, a show with songs and jokes by men who act."
+  },
+  "mesmerizer": {
+   "pos": "noun",
+   "meaning": "A person who puts others in a state like sleep, to show something strange."
+  },
+  "phrenologist": {
+   "pos": "noun",
+   "meaning": "A person who says he can tell what a person is like by feeling the shape of the head."
+  },
+  "tract": {
+   "pos": "noun",
+   "meaning": "A short paper about religion, given to people to read.",
+   "forms": [
+    "tracts"
+   ]
+  },
+  "forbearance": {
+   "pos": "noun",
+   "meaning": "Holding back; not showing anger."
+  },
+  "incongruous": {
+   "pos": "adjective",
+   "meaning": "Strange because it does not fit with the other things."
+  },
+  "listlessly": {
+   "pos": "adverb",
+   "meaning": "Without energy or interest."
+  },
+  "discreet": {
+   "pos": "adjective",
+   "meaning": "Careful not to tell secrets or cause trouble."
+  },
+  "solitary": {
+   "pos": "adjective",
+   "meaning": "Single; only one."
+  },
+  "befriended": {
+   "pos": "past-tense verb",
+   "meaning": "Acted as a friend to someone and helped.",
+   "forms": [
+    "befriended",
+    "befriend"
+   ]
+  },
+  "toils": {
+   "pos": "plural noun",
+   "meaning": "Nets or ropes used to catch. Here, the law closes round Potter like a net."
+  },
+  "deposed": {
+   "pos": "past-tense verb",
+   "meaning": "Told the court, as a promise, what he knows.",
+   "forms": [
+    "deposed",
+    "depose"
+   ]
+  },
+  "foreshadowed": {
+   "pos": "past-tense verb",
+   "meaning": "Gave an early sign of what would come.",
+   "forms": [
+    "foreshadowed",
+    "foreshadow"
+   ]
+  },
+  "delirium": {
+   "pos": "noun",
+   "meaning": "A wild state of mind in which you do not know what you are doing."
+  },
+  "diffident": {
+   "pos": "adjective",
+   "meaning": "Not sure of yourself, and so quiet."
+  },
+  "lynch": {
+   "pos": "verb",
+   "meaning": "To kill a person by a crowd, with no court."
+  },
+  "counsel": {
+   "pos": "noun",
+   "meaning": "A lawyer in a court case."
+  },
+  "prosecution": {
+   "pos": "noun",
+   "meaning": "The lawyers who try to show that a person did a crime."
+  },
+  "fickle": {
+   "pos": "adjective",
+   "meaning": "Changing opinions or feelings often, without good reason."
+  },
+  "infested": {
+   "pos": "past-tense verb",
+   "meaning": "Was in a place in large numbers, causing trouble.",
+   "forms": [
+    "infested",
+    "infest"
+   ]
+  },
+  "obliterated": {
+   "pos": "past participle",
+   "meaning": "Taken away completely, so that nothing can be seen.",
+   "forms": [
+    "obliterated",
+    "obliterate"
+   ]
+  },
+  "omniscient": {
+   "pos": "adjective",
+   "meaning": "Knowing everything."
+  },
+  "clue": {
+   "pos": "noun",
+   "meaning": "A fact or sign that helps to find the answer to a crime."
+  },
+  "superabundance": {
+   "pos": "noun",
+   "meaning": "A much larger amount than is needed."
+  },
+  "hieroglyphics": {
+   "pos": "plural noun",
+   "meaning": "Pictures and signs used as writing. The boys say the word in their own way."
+  },
+  "ciphered": {
+   "pos": "past participle",
+   "meaning": "Worked out as a secret code. Here, the paper must be read slowly to get its meaning.",
+   "forms": [
+    "ciphered",
+    "cipher"
+   ]
+  },
+  "sepulchral": {
+   "pos": "adjective",
+   "meaning": "Sounding deep and sad, like a voice from under the ground, where the dead are."
+  },
+  "berth": {
+   "pos": "noun",
+   "meaning": "In 'a wide berth', a safe distance away from something."
+  },
+  "shroud": {
+   "pos": "noun",
+   "meaning": "A white cloth used to wrap a dead body."
+  },
+  "ha'nted": {
+   "pos": "adjective",
+   "meaning": "A spoken form of a word for a place where ghosts are."
+  },
+  "athwart": {
+   "pos": "preposition",
+   "meaning": "Across; from one side to the other."
+  },
+  "unkempt": {
+   "pos": "adjective",
+   "meaning": "Not clean and not in order; with bad hair and clothes."
+  },
+  "serape": {
+   "pos": "noun",
+   "meaning": "A bright cloth from Mexico that men wear on the shoulders, like a big cover."
+  },
+  "sombrero": {
+   "pos": "noun",
+   "meaning": "A very wide Mexican cover for the head, with a high top."
+  },
+  "milksop": {
+   "pos": "noun",
+   "meaning": "A weak man who is afraid. It is not a nice word."
+  },
+  "swag": {
+   "pos": "noun",
+   "meaning": "Things that were taken from other people by a bad man."
+  },
+  "auspices": {
+   "pos": "plural noun",
+   "meaning": "Signs or conditions that show how something will go. 'Under happy auspices' means in good conditions."
+  },
+  "gloating": {
+   "pos": "adjective",
+   "meaning": "Being glad in a bad way about something that you have or may get."
+  },
+  "sachem": {
+   "pos": "noun",
+   "meaning": "A chief of a Native American people. The man in the story uses it when he talks big."
+  },
+  "debris": {
+   "pos": "noun",
+   "meaning": "The broken pieces that are left when a thing is broken up."
+  },
+  "measurably": {
+   "pos": "adverb",
+   "meaning": "To some degree; a little."
+  },
+  "nobby": {
+   "pos": "adjective",
+   "meaning": "Fine and in good style; very good."
+  },
+  "attrition": {
+   "pos": "noun",
+   "meaning": "The slow wearing down of something. Here, thinking about the events slowly makes them clear."
+  },
+  "gunwale": {
+   "pos": "noun",
+   "meaning": "The top edge of the side of a boat."
+  },
+  "flatboat": {
+   "pos": "noun",
+   "meaning": "A boat with a flat bottom, used on rivers to carry goods."
+  },
+  "ostentatious": {
+   "pos": "adjective",
+   "meaning": "Made to be seen by people so that they will think well of it."
+  },
+  "sentry": {
+   "pos": "noun",
+   "meaning": "A guard who watches a place."
+  },
+  "auspicious": {
+   "pos": "adjective",
+   "meaning": "Showing good signs for the future; full of hope."
+  },
+  "blindfold": {
+   "pos": "verb",
+   "meaning": "To cover something so that no light comes out. Here, Tom puts a cloth over the light."
+  },
+  "lair": {
+   "pos": "noun",
+   "meaning": "A place where a wild animal or a bad man goes to be safe."
+  },
+  "hispy": {
+   "pos": "noun",
+   "meaning": "A children's game where some boys go away and one looks for them."
+  },
+  "chartered": {
+   "pos": "past participle",
+   "meaning": "Paid for, so that you can use it for a special reason.",
+   "forms": [
+    "chartered",
+    "charter"
+   ]
+  },
+  "labyrinth": {
+   "pos": "noun",
+   "meaning": "A place with many winding paths where it is easy to get lost."
+  },
+  "crevices": {
+   "pos": "plural noun",
+   "meaning": "Narrow open lines in rock.",
+   "forms": [
+    "crevice"
+   ]
+  },
+  "stile": {
+   "pos": "noun",
+   "meaning": "Steps that let people go over a wall."
+  },
+  "sumach": {
+   "pos": "noun",
+   "meaning": "A tall plant with red fruit that grows on hills."
+  },
+  "stalwart": {
+   "pos": "adjective",
+   "meaning": "Strong and brave."
+  },
+  "precarious": {
+   "pos": "adjective",
+   "meaning": "Not safe; it may fall at any time."
+  },
+  "quarry": {
+   "pos": "noun",
+   "meaning": "A big hole in the ground where stone is cut out."
+  },
+  "horsewhipped": {
+   "pos": "past participle",
+   "meaning": "Hit with a long thin stick, to hurt a person who did wrong."
+  },
+  "vagabond": {
+   "pos": "adjective",
+   "meaning": "A person who goes from place to place and has no home."
+  },
+  "posse": {
+   "pos": "noun",
+   "meaning": "A group of men who are called to help catch a bad man."
+  },
+  "embellishment": {
+   "pos": "noun",
+   "meaning": "An extra thing added to a story, to make it better."
+  },
+  "jaded": {
+   "pos": "adjective",
+   "meaning": "Very tired, and without energy."
+  },
+  "beholden": {
+   "pos": "adjective",
+   "meaning": "Having to say thank you to someone who helped you."
+  },
+  "swooned": {
+   "pos": "past-tense verb",
+   "meaning": "Went weak and fell down, not knowing anything.",
+   "forms": [
+    "swooned",
+    "swoon"
+   ]
+  },
+  "stupor": {
+   "pos": "noun",
+   "meaning": "A heavy state in which you cannot think or feel well."
+  },
+  "powwow": {
+   "pos": "noun",
+   "meaning": "A meeting with much talk. The word comes from Native American speech."
+  },
+  "constable": {
+   "pos": "noun",
+   "meaning": "A police officer in a small town.",
+   "forms": [
+    "constables"
+   ]
+  },
+  "reverberations": {
+   "pos": "plural noun",
+   "meaning": "Sounds that go on and on, coming back many times.",
+   "forms": [
+    "reverberation"
+   ]
+  },
+  "murky": {
+   "pos": "adjective",
+   "meaning": "Dark and hard to see through."
+  },
+  "frescoed": {
+   "pos": "past participle",
+   "meaning": "Covered with writing or pictures on a wall. Here, names are on the walls, made with smoke."
+  },
+  "sinuous": {
+   "pos": "adjective",
+   "meaning": "Going one way and then the other."
+  },
+  "stalactite": {
+   "pos": "noun",
+   "meaning": "A long stone shape that comes down from the top, in a big hole under the ground.",
+   "forms": [
+    "stalactites"
+   ]
+  },
+  "stalagmite": {
+   "pos": "noun",
+   "meaning": "A stone shape that grows up from the floor, in a big hole under the ground.",
+   "forms": [
+    "stalagmites"
+   ]
+  },
+  "subterranean": {
+   "pos": "adjective",
+   "meaning": "Under the ground."
+  },
+  "clammy": {
+   "pos": "adjective",
+   "meaning": "Cold and wet, and not nice to touch."
+  },
+  "moiety": {
+   "pos": "noun",
+   "meaning": "A half; a part of something that has been shared."
+  },
+  "apathy": {
+   "pos": "noun",
+   "meaning": "A state of not caring or feeling anything."
+  },
+  "famished": {
+   "pos": "adjective",
+   "meaning": "Very, very hungry."
+  },
+  "fugitive": {
+   "pos": "noun",
+   "meaning": "A person running away from danger or from the law.",
+   "forms": [
+    "fugitives"
+   ]
+  },
+  "sarcasm": {
+   "pos": "noun",
+   "meaning": "Words that say the other thing from what you think, said to hurt or laugh at someone.",
+   "forms": [
+    "sarcasms"
+   ]
+  },
+  "avocations": {
+   "pos": "plural noun",
+   "meaning": "The jobs or work that people do every day.",
+   "forms": [
+    "avocation"
+   ]
+  },
+  "petitioner": {
+   "pos": "noun",
+   "meaning": "A person who asks for something in a serious way. Here, he asks God for help."
+  },
+  "huzzah": {
+   "pos": "interjection",
+   "meaning": "A loud shout of happiness."
+  },
+  "sheathed": {
+   "pos": "past participle",
+   "meaning": "Covered with a thin piece of metal.",
+   "forms": [
+    "sheathed",
+    "sheath"
+   ]
+  },
+  "ironically": {
+   "pos": "adverb",
+   "meaning": "In a way that says the other thing from what is true, often to make fun."
+  },
+  "abounding": {
+   "pos": "adjective",
+   "meaning": "Very great; more than enough."
+  },
+  "oblivion": {
+   "pos": "noun",
+   "meaning": "The state of being forgotten by everyone."
+  },
+  "hapless": {
+   "pos": "adjective",
+   "meaning": "Unlucky; having bad luck."
+  },
+  "pardon": {
+   "pos": "noun",
+   "meaning": "A paper that says a person is free and does not have to pay for what he did."
+  },
+  "ransom": {
+   "pos": "noun",
+   "meaning": "Money paid to free a person who is held prisoner."
+  },
+  "pallet": {
+   "pos": "noun",
+   "meaning": "A simple bed on the floor, made from old covers or dry grass."
+  },
+  "orgies": {
+   "pos": "plural noun",
+   "meaning": "Parties with too much food, drink and noise. The boy does not know exactly what they are."
+  },
+  "lucifer": {
+   "pos": "noun",
+   "meaning": "In 'lucifer matches', the old name of matches that you light by pulling them across something rough."
+  },
+  "waylay": {
+   "pos": "verb",
+   "meaning": "To wait for people on the road and stop them, to take their things."
+  },
+  "slope": {
+   "pos": "verb",
+   "meaning": "A word that means to go away quickly and secretly."
+  },
+  "blowout": {
+   "pos": "noun",
+   "meaning": "A big, loud party with much food."
+  },
+  "clamorous": {
+   "pos": "adjective",
+   "meaning": "Loud, with many people shouting."
+  },
+  "effusive": {
+   "pos": "adjective",
+   "meaning": "Showing happiness or thanks in a very strong way."
+  },
+  "laudations": {
+   "pos": "plural noun",
+   "meaning": "Words that say a person is good.",
+   "forms": [
+    "laudation"
+   ]
+  },
+  "unanimous": {
+   "pos": "adjective",
+   "meaning": "Agreed on by everyone."
+  },
+  "counterfeit": {
+   "pos": "adjective",
+   "meaning": "Made to look real when it is not. Here, the surprise of the people was not real."
+  },
+  "magnanimous": {
+   "pos": "adjective",
+   "meaning": "Kind and good to someone who did wrong to you."
+  },
+  "insipid": {
+   "pos": "adjective",
+   "meaning": "With no taste and no interest."
+  },
+  "vittles": {
+   "pos": "plural noun",
+   "meaning": "A country way to say 'food'. It comes from an older word."
+  },
+  "ornery": {
+   "pos": "adjective",
+   "meaning": "A country word that means angry, mean or common."
+  },
+  "initiation": {
+   "pos": "noun",
+   "meaning": "A special act in which a person is made a member of a group."
+  },
+  "picturesque": {
+   "pos": "adjective",
+   "meaning": "Pretty and interesting to look at."
+  },
+  "refugee": {
+   "pos": "noun",
+   "meaning": "A person who has run away from a place to be safe."
+  },
+  "chronicle": {
+   "pos": "noun",
+   "meaning": "A story that tells events in the order they happened."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 3,
+   "paragraph": 23,
+   "context": "Hang the boy, can’t I never learn anything?",
+   "mainIdea": "Aunt Polly talks to herself about Tom. He plays tricks on her, but she cannot make herself punish him.",
+   "simple": "Aunt Polly says that she never learns anything. Tom has played tricks on her many times, and she should be careful by now. But she says old fools are the biggest fools, and you cannot teach an old dog new tricks. Tom never plays the same trick two days in a row, so she cannot know what is coming. He knows how long he can make her angry before she loses her temper. If he can put her off for a minute or make her laugh, she cannot hit him. She says she is not doing her duty by the boy. The Bible says that a child is spoiled if you do not punish him. She is making sin and suffering for them both. He is full of the Old Scratch, but he is her dead sister's boy, and she does not have the heart to beat him. When she lets him off, her conscience hurts her. When she hits him, her heart almost breaks. The Bible says that a man has few days and a lot of trouble, and she thinks that is true. Tom will play hookey this evening, so she will have to make him work tomorrow as a punishment. It is hard to make him work on Saturday when all the boys have a holiday. But he hates work more than anything. She must do some of her duty, or she will ruin the child.",
+   "hardWords": [
+    "hookey",
+    "dander",
+    "obleeged",
+    "conscience",
+    "spile",
+    "the Old Scratch",
+    "ruination"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 109,
+   "context": "he uncovered an ambuscade, in the person of his aunt",
+   "mainIdea": "Tom comes home late and finds his aunt waiting. His dirty clothes make her decide that he must work hard on Saturday.",
+   "simple": "Tom got home quite late that night. He climbed carefully in at the window and found his aunt waiting for him, like a hidden attacker. She saw the state of his clothes. Then she made up her mind, and nothing could change it: his Saturday holiday would become hard work, like a prisoner's.",
+   "hardWords": [
+    "ambuscade",
+    "captivity",
+    "adamantine",
+    "resolution"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 45,
+   "context": "the retired artist sat on a barrel in the shade close by",
+   "mainIdea": "Tom lets other boys pay him to whitewash, and by the afternoon he is rich in small things.",
+   "simple": "Tom gave up the brush, and his face showed that he did not want to. But he was very glad inside. While Ben worked hard in the sun, Tom sat on a barrel in the shade nearby, swung his legs and ate Ben's apple. He was already planning to fool more boys. There were plenty of them. Boys came along every few minutes. They came to laugh, but they stayed to whitewash. When Ben was too tired to go on, Tom traded the next turn to Billy Fisher for a kite in good condition. When Billy was tired, Johnny Miller bought a turn for a dead rat and a string to swing it with. This went on hour after hour. By the middle of the afternoon, Tom was no longer a poor boy. He was rich. Besides the things already named, he had twelve marbles, part of a jews-harp, a piece of blue bottle-glass, a spool cannon, a key that opened nothing, a piece of chalk, a glass stopper from a bottle, a tin soldier, a couple of tadpoles, six firecrackers, a kitten with one eye, a brass doorknob, a dog-collar with no dog, a knife handle, four pieces of orange-peel and an old window frame that was falling to pieces.",
+   "hardWords": [
+    "alacrity",
+    "fagged",
+    "jews-harp",
+    "dilapidated",
+    "sash",
+    "decanter",
+    "spool cannon"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 47,
+   "context": "in order to make a man or a boy covet a thing",
+   "mainIdea": "Tom learns, without knowing it, that people want what is hard to get. The writer then says what work and play really are.",
+   "simple": "Tom told himself that the world was not so empty after all. Without knowing it, he had found a great rule about how people act. To make a man or a boy want something, you only have to make it hard to get. A wise thinker, like the writer of this book, would also understand that work is whatever a person has to do, and play is whatever a person does not have to do. That is why making flowers that are not real or walking on a treadmill is work, but rolling ten-pins or climbing Mont Blanc is only fun. Some rich men in England drive a coach with four horses twenty or thirty miles every day in summer, because it costs them a lot of money to do it. But if they were offered pay for it, it would become work and they would stop.",
+   "hardWords": [
+    "covet",
+    "attain",
+    "philosopher",
+    "treadmill",
+    "amusement",
+    "wages"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 12,
+   "context": "he saw a new girl in the garden",
+   "mainIdea": "Tom sees a lovely new girl, and at once he forgets Amy Lawrence.",
+   "simple": "Tom was passing the house where Jeff Thatcher lived. In the garden he saw a new girl. She was a lovely little creature with blue eyes and yellow hair in two long braids. She wore a white summer dress and pantalettes with fancy sewing on them. The boy, who had just been made a hero, lost his heart at once, without a fight. Amy Lawrence went out of his heart and left no memory of herself. He had thought he loved her madly, and he had called his feeling worship. But it was only a weak liking that did not last. He had spent months winning her. She had admitted her feelings for him hardly a week before. He had been the happiest and proudest boy in the world for only seven days. Now, in one moment, she had gone out of his heart like a stranger whose visit is over.",
+   "hardWords": [
+    "plaited",
+    "pantalettes",
+    "evanescent",
+    "partiality",
+    "casual",
+    "embroidered"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 23,
+   "context": "Tom sulked in a corner and exalted his woes",
+   "mainIdea": "Tom is hurt by his aunt, so he imagines himself dying and his aunt crying over him. He enjoys these sad pictures.",
+   "simple": "Then Aunt Polly felt bad about hitting him. She wanted to say something kind. But she thought that this would look like saying she had been wrong, and good order in a house did not allow that. So she said nothing and went on with her work, feeling sad. Tom sat in a corner and made his troubles seem greater. He knew that, in her heart, his aunt was begging him to forgive her, and this pleased him in a sour way. He would not make any sign to her. He imagined himself dying, with his aunt bent over him, asking for one forgiving word. He would turn his face to the wall and die without saying it. Then he imagined himself brought home from the river, dead, with wet hair and a heart that no longer hurt. She would throw herself on him and cry, and she would ask God to give her boy back, and she would never hurt him again. But he would lie there, cold and white, and make no sign. These dreams moved him so much that he had to keep swallowing, and tears ran down to the end of his nose. He enjoyed his sadness so much that he could not bear anything cheerful to come near it. So when his cousin Mary came in, full of joy after a week's visit to the country, he left by one door in a dark mood as she brought song and sunshine in by the other.",
+   "hardWords": [
+    "exalted",
+    "woes",
+    "morosely",
+    "beseeching",
+    "pathos",
+    "luxury",
+    "intrude",
+    "grating"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 3,
+   "context": "Then Tom girded up his loins, so to speak",
+   "mainIdea": "Tom has to learn five Bible verses. He chooses the shortest ones, but after half an hour he still does not know them.",
+   "simple": "Then Tom got ready for hard work, so to speak, and began to learn his verses. Sid had learned his lesson days before. Tom used all his strength to learn five verses by heart. He chose part of the Sermon on the Mount, because no verses were shorter. After half an hour Tom had only a rough idea of the lesson. His mind was wandering over everything in the world, and his hands were busy with games that kept him from the work. Mary took his book to hear him say the verses. He tried to find his way through the fog.",
+   "hardWords": [
+    "girded up his loins",
+    "memorizing",
+    "vague",
+    "traversing",
+    "recreations",
+    "recite"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 43,
+   "context": "Tom Sawyer came forward with nine yellow tickets, nine red tickets, and ten blue ones",
+   "mainIdea": "Tom shows his tickets and asks for a Bible. The school is shocked. The boys who sold him tickets are very angry with themselves.",
+   "simple": "At this moment, when hope was gone, Tom Sawyer came forward with nine yellow tickets, nine red tickets and ten blue ones, and asked for a Bible. It was a great shock, like lightning from a clear sky. Mr. Walters did not expect a request from this boy for the next ten years. But he could not avoid it. Here were the tickets, and they were good for their full value. So Tom was lifted up to a place with the Judge and the other chosen people, and the big news was told from the front. It was the biggest surprise in ten years. It was such a strong feeling that the new hero was raised up as high as the Judge, and the school had two wonders to look at instead of one. The boys were full of envy. The ones who suffered most were those who saw too late that they had helped to make this hated glory. They had traded tickets to Tom for the wealth he got by selling the chance to whitewash. They hated themselves, because a clever cheat had fooled them, like a sly snake in the grass.",
+   "hardWords": [
+    "certified",
+    "elect",
+    "envy",
+    "amassed",
+    "dupes",
+    "wily",
+    "guileful"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 8,
+   "context": "The boy whose history this book relates did not enjoy the prayer",
+   "mainIdea": "Tom is bored by the long prayer. A fly walks on the pew in front, and he catches it as soon as the prayer ends.",
+   "simple": "There was a sound of dresses as the people sat down. The boy in this book did not enjoy the prayer. He only put up with it, if he even did that. He could not be still all through it. He knew the prayer from long ago, and the minister's usual way through it. Without meaning to, he kept count of the parts. When a little new matter was put in, he noticed it and did not like it. He thought that additions were unfair and mean. In the middle of the prayer a fly sat down on the back of the pew in front of him and made him suffer. The fly calmly rubbed its hands together, held its head with its arms and cleaned it so hard that it nearly came off the body, and its thin neck could be seen. It scraped its wings with its back legs and smoothed them down as if they were coat tails. It did all its washing as calmly as if it knew it was quite safe. It was safe, for Tom's hands wanted badly to catch it, but they did not dare. He believed that his soul would be destroyed at once if he did that during the prayer. But at the last sentence his hand began to bend and move forward. As soon as the \"Amen\" was said, the fly was a prisoner of war. His aunt saw this and made him let it go.",
+   "hardWords": [
+    "restive",
+    "interlarded",
+    "scoundrelly",
+    "tranquilly",
+    "toilet",
+    "sorely"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 10,
+   "context": "It was a large black beetle with formidable jaws",
+   "mainIdea": "Tom's beetle pinches him, falls in the aisle, and a dog plays with it. The dog sits on the beetle and runs around the church in pain.",
+   "simple": "Now Tom began to suffer again as the dull talk went on. Soon he remembered a treasure he had and took it out. It was a big black beetle with strong jaws. He called it a \"pinchbug\". It was in a small box. The first thing the beetle did was to bite his finger. Tom flicked it away without thinking. The beetle fell into the aisle on its back, and Tom put his hurt finger in his mouth. The beetle lay there moving its helpless legs and could not turn over. Tom looked at it and wanted it, but it was out of his reach. Other people who were not interested in the sermon enjoyed the beetle too. Then a poodle dog without a home came walking in. He was sad, lazy in the soft summer quiet, tired of being shut in, and wishing for a change. He saw the beetle, and his tail lifted and wagged. He looked at it, walked around it, smelled it from a safe distance, and walked around it again. He grew bolder and smelled it more closely. Then he lifted his lip and tried carefully to snatch it, but missed. He tried again and again. He began to enjoy the game. He lay down on his stomach with the beetle between his paws and went on with his tests. At last he grew tired, then did not care, and his mind wandered. His head nodded, and little by little his chin came down and touched the beetle, which seized it. The dog gave a sharp cry and jerked his head, and the beetle fell a couple of yards away and landed on its back again. The people nearby shook with quiet laughter, some faces went behind fans and handkerchiefs, and Tom was completely happy. The dog looked foolish. But he was angry and wanted revenge, so he went at the beetle again, carefully. He jumped at it from every side, landed with his front paws an inch from it, snapped closer with his teeth and shook his head until his ears flapped. But he grew tired again. He tried to play with a fly, but it did not help. He followed an ant with his nose close to the floor and soon grew tired of that. He yawned, sighed, forgot the beetle completely and sat down on it. Then he gave a wild cry of pain and ran up the aisle. The cries went on, and so did the dog. He crossed the church in front of the altar, ran down the other aisle, and crossed in front of the doors. The pain grew as he went, until he was like a woolly comet going round with the shine and speed of light. At last the mad dog turned from his path and jumped into his master's lap. The man threw him out of the window, and the sound of his pain grew thin and died away in the distance.",
+   "hardWords": [
+    "formidable",
+    "pinchbug",
+    "fillip",
+    "floundering",
+    "vagrant",
+    "gingerly",
+    "diversion",
+    "indifferent",
+    "clamored",
+    "anguish"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 3,
+   "context": "Tom lay thinking. Presently it occurred to him that he wished he was sick",
+   "mainIdea": "On Monday, Tom tries to find a sickness so that he can stay home from school.",
+   "simple": "Tom lay in bed thinking. Soon he wished he was sick, because then he could stay home from school. It seemed a small chance. He checked his body for any sickness, and found none. He checked again. This time he thought he felt some stomach pains, and he hoped they would grow. But they soon became weak and died away. He thought some more and found something. One of his upper front teeth was loose. This was lucky. He was about to start groaning with it, as a first step, when he thought of his aunt. If he told her this, she would pull the tooth out, and that would hurt. So he kept the tooth for later and looked for something else. For a while he found nothing. Then he remembered that he had heard the doctor tell about an illness that kept a patient in bed for two or three weeks and nearly made him lose a finger. So he eagerly pulled his sore toe out from under the sheet and held it up to look at. But he did not know the signs of that illness. Still, it seemed worth trying, so he began to groan with a lot of feeling.",
+   "hardWords": [
+    "intervening",
+    "canvassed",
+    "colicky",
+    "symptoms",
+    "laid up",
+    "inspection"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 44,
+   "context": "Huckleberry came and went, at his own free will",
+   "mainIdea": "Huck lives with no rules, and every boy in the village thinks he has the best life.",
+   "simple": "Huckleberry came and went as he liked. In good weather he slept on doorsteps, and in wet weather in empty big barrels. He did not have to go to school or church. He did not have to call anyone master or obey anyone. He could go fishing or swimming when and where he wanted and stay as long as he liked. Nobody stopped him from fighting. He could stay up as late as he liked. In spring he was always the first boy to go without shoes, and in autumn the last to put on leather again. He never had to wash or put on clean clothes. He could swear very well. In a word, that boy had everything that makes life worth having. That is what every troubled, held-back, well-behaved boy in St. Petersburg thought.",
+   "hardWords": [
+    "hogsheads",
+    "harassed",
+    "hampered",
+    "respectable",
+    "resume"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 2,
+   "context": "The harder Tom tried to fasten his mind on his book",
+   "mainIdea": "It is a hot, sleepy day at school. Tom is bored until he takes out his tick.",
+   "simple": "The more Tom tried to keep his mind on his book, the more it wandered, so he sighed, yawned and gave up. Noon seemed far away. The air did not move at all. It was a very sleepy day. The quiet sound of the twenty-five pupils working made him sleepy, like the sound of bees. Far away in the hot sun, Cardiff Hill showed its green sides through the shaking heat, with the purple of distance on them. A few birds floated high in the sky. The only living things in sight were some cows, and they were asleep. Tom wanted to be free, or to have something interesting to do. His hand went into his pocket, and his face lit up with a thankfulness that was like a prayer. Secretly, he took out the percussion-cap box. He let the tick out and put him on the long flat desk. The tick was probably as thankful as Tom, but too soon. When it started happily to walk away, Tom turned it aside with a pin and made it go another way.",
+   "hardWords": [
+    "recess",
+    "soothed",
+    "shimmering",
+    "furtively",
+    "percussion-cap",
+    "premature"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 8,
+   "context": "a superstition of his had failed, here",
+   "mainIdea": "Tom's marble charm does not work. He decides that a witch broke it, and he goes to call into a small hole in the sand.",
+   "simple": "Then Tom threw the marble away in a bad mood and stood thinking. The truth was that one of his beliefs had failed, a belief that he and his friends had always thought could not fail. You bury a marble with the right magic words and leave it for two weeks. Then you open the place with the words he had just used. All the marbles you ever lost will have come together there, however far apart they were. But now this had really failed, without any doubt. Tom's whole belief was badly shaken. He had often heard of it working, but never of its failing. He did not think of the fact that he had tried it several times himself but could never find the hiding places afterward. He thought about it for some time and decided that a witch had got in the way and broken the magic. He wanted to be sure of this. So he looked around until he found a small sandy place with a hole shaped like a funnel in it. He lay down and put his mouth close to the hole and called.",
+   "hardWords": [
+    "superstition",
+    "incantations",
+    "infallible",
+    "fortnight",
+    "charm",
+    "funnel-shaped"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 2,
+   "context": "Tom lay awake and waited, in restless impatience",
+   "mainIdea": "Tom waits in bed for midnight. Every small night sound frightens him. Then he sneaks out to meet Huck.",
+   "simple": "At half-past nine that night, Tom and Sid were sent to bed, as usual. They said their prayers, and Sid was soon asleep. Tom lay awake and waited, and could not be still inside. He thought it must be nearly morning, but then he heard the clock strike ten, and he was in despair. He wanted to turn and move, but he was afraid he would wake Sid, so he lay still. Everything was sad and quiet. Then small sounds he could hardly hear grew stronger: the clock, the old beams that cracked, the stairs that creaked. Aunt Polly snored in her room, and a cricket he could not find began its tiresome chirping. A deathwatch ticked in the wall by his bed, and Tom shook, because it meant that someone would die. Then a dog howled far off, and another answered from farther away. Tom was in pain from fear. At last he felt that time had stopped. He began to doze against his will, and the clock struck eleven without his hearing it. Then a sad cat noise came into his half-dreams. A neighbor opened a window, shouted at the cat and threw a bottle against the woodshed. That woke Tom completely. A minute later he was dressed and out of the window, creeping on all fours along the roof. He meowed carefully once or twice, then jumped to the woodshed roof and to the ground. Huckleberry Finn was there with his dead cat. They went off into the dark, and half an hour later they were walking through the tall grass of the graveyard.",
+   "hardWords": [
+    "fidgeted",
+    "perceptible",
+    "deathwatch",
+    "ingenuity",
+    "caterwauling",
+    "gloom"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 51,
+   "context": "seized the heavy headboard of Williams’ grave and felled Potter to the earth",
+   "mainIdea": "Injun Joe and the doctor fight. The doctor knocks Potter down, and Injun Joe kills the doctor with Potter's knife.",
+   "simple": "Potter said \"Don't hit my friend!\" and the next moment he was fighting the doctor. They struggled with all their strength, stamping on the grass and tearing up the ground. Injun Joe jumped up, with eyes full of anger, and picked up Potter's knife. He crept round and round the two fighters, low like a cat, waiting for his chance. Suddenly the doctor freed himself, took the heavy wooden board from Williams' grave and knocked Potter to the ground. At the same moment, the half-breed saw his chance and pushed the knife all the way into the young man's chest. The doctor fell partly on Potter, covering him with blood. At that moment the clouds hid the terrible sight, and the two frightened boys ran away in the dark.",
+   "hardWords": [
+    "grappled",
+    "might and main",
+    "combatants",
+    "felled",
+    "hilt",
+    "reeled"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 25,
+   "context": "Tom’s whole being applauded this idea",
+   "mainIdea": "Tom likes the idea of a written oath. He writes it with red chalk on a pine shingle.",
+   "simple": "Everything in Tom liked this idea. It was deep and dark and awful. The hour, the situation and the place all went well with it. He picked up a clean pine shingle that lay in the moonlight and took a bit of red chalk from his pocket. He made the moon light his work, and slowly wrote these lines. To show each slow downward line, he held his tongue between his teeth, and he pressed less on the upward lines.",
+   "hardWords": [
+    "applauded",
+    "circumstances",
+    "shingle",
+    "red keel",
+    "emphasizing"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 73,
+   "context": "When Tom awoke, Sid was dressed and gone",
+   "mainIdea": "Tom wakes late and sees that the family is quiet and sad with him. He feels something is wrong.",
+   "simple": "When Tom woke up, Sid was dressed and gone. The light and the air felt late. Tom was startled. Why had nobody called him and troubled him until he got up, as usual? He felt a fear of something bad. In five minutes he was dressed and downstairs, feeling sore and sleepy. The family were still at the table, but they had finished breakfast. Nobody scolded him. But their eyes looked away, and there was a quiet and serious feeling that made the guilty boy feel cold. He sat down and tried to look happy, but it was hard work. Nobody smiled or answered him. He went quiet and let his heart sink low.",
+   "hardWords": [
+    "persecuted",
+    "bodings",
+    "rebuke",
+    "averted",
+    "solemnity",
+    "culprit"
+   ]
+  },
+  {
+   "chapter": 13,
+   "paragraph": 20,
+   "context": "Then Huckleberry and Tom stood dumb and staring",
+   "mainIdea": "Injun Joe tells a calm lie, and nothing bad happens to him. The boys decide not to break their oath.",
+   "simple": "Huckleberry and Tom stood speechless and stared. They heard the hard-hearted liar tell his calm story. Every moment they expected the clear sky to send God's lightning down on his head, and they wondered why the stroke was so slow. When he finished and was still alive and unhurt, their weak wish to break their oath and save the poor prisoner's life faded and went away. It was clear to them that this evil man had sold himself to Satan, and it would be deadly to meddle with the property of such a power.",
+   "hardWords": [
+    "stony-hearted",
+    "reel off",
+    "serene",
+    "wavering",
+    "miscreant",
+    "meddle"
+   ]
+  },
+  {
+   "chapter": 14,
+   "paragraph": 13,
+   "context": "So Tom pried his mouth open and poured down the Painkiller",
+   "mainIdea": "The cat Peter takes Painkiller and goes wild. Aunt Polly comes in and sees the end of it.",
+   "simple": "Peter agreed, so Tom opened his mouth and poured the Painkiller down. Peter jumped a couple of yards in the air, gave a wild shout and ran round and round the room. He hit the furniture, knocked over flowerpots and made a great mess. Then he stood on his back feet and danced around, wild with joy, with his head over his shoulder and his voice telling of his happiness. Then he tore around the house again, leaving chaos and ruin behind him. Aunt Polly came in just in time to see him turn a few somersaults, give a last loud cheer and go out through the open window, taking the rest of the flowerpots with him. The old lady stood frozen with surprise and looked over her glasses. Tom lay on the floor, almost dying from laughing.",
+   "hardWords": [
+    "war-whoop",
+    "havoc",
+    "frenzy",
+    "unappeasable",
+    "summersets",
+    "petrified"
+   ]
+  },
+  {
+   "chapter": 15,
+   "paragraph": 63,
+   "context": "They said their prayers inwardly, and lying down",
+   "mainIdea": "The two pirates feel that they did wrong by stealing food. They decide to stop stealing while they are pirates, and then they sleep.",
+   "simple": "Gradually the talk died, and sleep began to close the eyes of the little boys with no home. Huck's pipe fell from his fingers, and he slept the sleep of a man with a clear conscience who is tired. Tom and Joe found it harder to sleep. They said their prayers in their minds and lying down, since nobody was there to make them kneel and speak aloud. They did not want to say them at all, but they were afraid to go so far, in case a sudden thunderbolt came from heaven. Then they were just about to sleep, but something came that would not go away: their conscience. They began to fear that they were wrong to run away. Then they thought of the stolen meat, and the real pain began. They told their conscience that they had stolen sweets and apples many times. But that did not satisfy it. They saw that taking sweets was only 'hooking', but taking bacon and hams was plain stealing, and the Bible forbids that. So they decided that while they stayed in the pirate business, they would not steal again. Then their conscience stopped bothering them for a while, and these pirates, who did not always think in the same way, fell peacefully asleep.",
+   "hardWords": [
+    "waifs",
+    "imminent",
+    "intruder",
+    "purloined",
+    "plausibilities",
+    "sullied",
+    "truce",
+    "sweetmeats"
+   ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 4,
+   "context": "Tom stirred up the other pirates and they all clattered away with a shout",
+   "mainIdea": "The boys swim and are glad when their raft floats away, because it cuts them off from home.",
+   "simple": "Tom woke the other pirates and they all ran off with a shout. In a minute or two they had taken off their clothes and were chasing and falling over each other in the shallow clear water of the white sandbar. They did not miss the little village that slept far away across the great water. A wandering current or a small rise in the river had carried their raft away. But this only pleased them, as its going was something like burning the bridge between them and the world of towns."
+  },
+  {
+   "chapter": 17,
+   "paragraph": 14,
+   "context": "He went on listening, and gathered by odds and ends that it was conjectured",
+   "mainIdea": "Hiding under the bed, Tom learns what the village thinks. They think the boys drowned, and they plan funerals for Sunday.",
+   "simple": "Tom went on listening. From scraps of talk, he learned what the village had guessed. First they thought the boys had drowned while swimming. Then they found the small raft was gone. Some boys said the missing boys had promised that the village would soon hear something. The wise ones put this and that together and decided that the boys had gone off on the raft and would turn up at the next town down the river. But toward noon the raft was found against the Missouri shore, five or six miles below the village, and then hope died. They thought the boys must be drowned. If not, hunger would have driven them home by night. People believed that the search for the bodies had done no good because the drowning was in the middle of the river. The boys were good swimmers, so otherwise they would have reached the shore. This was Wednesday night. If the bodies were still missing by Sunday, all hope would be given up, and the funeral talks would be given that morning. Tom shook."
+  },
+  {
+   "chapter": 18,
+   "paragraph": 52,
+   "context": "So the talk ran on. But presently it began to flag a trifle",
+   "mainIdea": "The boys feel very sick from smoking, but they try not to show it. Then Joe speaks weakly.",
+   "simple": "So the talk went on. But soon it began to grow weak and broken. The quiet times grew longer. The spitting increased greatly. The inside of the boys' cheeks became like fountains. They could hardly empty the pools under their tongues fast enough to stop a flood. A little ran down their throats in spite of all they could do, and they felt sick each time. Both boys looked pale and unhappy. Joe's pipe fell from his weak fingers, and then Tom's fell. Both fountains were running hard and both pumps were working with all their strength. Then Joe spoke, in a weak voice."
+  },
+  {
+   "chapter": 19,
+   "paragraph": 13,
+   "context": "There was a rustle in the gallery, which nobody noticed",
+   "mainIdea": "The three boys, who were thought dead, walk into the church during their own funeral.",
+   "simple": "There was a small noise in the gallery, and nobody saw it. A moment later the church door made a sound. The minister lifted his wet eyes over his handkerchief, and he stood still with shock. Then one pair of eyes after another followed his. Almost together, all the people stood up and stared. The three dead boys were coming up the aisle: Tom first, then Joe, and Huck last, in torn, hanging rags, creeping in with shame. They had been hiding in the gallery that nobody used, and they had been listening to their own funeral sermon."
+  },
+  {
+   "chapter": 19,
+   "paragraph": 12,
+   "context": "As the service proceeded, the clergyman drew such pictures of the graces",
+   "mainIdea": "The minister praises the lost boys. The people feel sorry that they had seen only faults in them, and the whole church weeps.",
+   "simple": "As the service went on, the minister told of the good qualities, the pleasing ways and the great promise of the lost boys. Everyone thought he knew these pictures. Each felt sorry that he had always refused to see these good things and had seen only faults in the poor boys. The minister told many touching stories from their lives, which showed their kind and generous natures. Now the people could see how fine those stories were. They remembered with sadness that, at the time, those acts had seemed plain bad behavior that deserved a beating. The people were moved more and more as the sad story went on. At last everyone broke down and joined the crying family in a chorus of painful sobs. Even the preacher gave way to his feelings and wept in the pulpit.",
+   "hardWords": [
+    "graces",
+    "persistently",
+    "flaws",
+    "rascalities",
+    "cowhide",
+    "pathetic",
+    "anguished"
+   ]
+  },
+  {
+   "chapter": 20,
+   "paragraph": 59,
+   "context": "Tom decided that he could be independent of Becky Thatcher now",
+   "mainIdea": "Tom decides to ignore Becky and live for glory. Becky tries to get his notice, and he pretends not to see her. He talks to Amy Lawrence.",
+   "simple": "Tom decided that he did not need Becky Thatcher now. Glory was enough, and he would live for it. Now that he was famous, maybe she would want to make up with him. Well, let her. She would see that he could be as cold as some other people. Soon she came in. Tom acted as if he did not see her. He moved away and joined a group of boys and girls and started to talk. Soon he saw her running about happily, with a red face and dancing eyes. She pretended to be busy chasing her schoolmates and screamed with laughter when she caught one. But he saw that she always caught them near him and that she seemed to glance toward him at those times. This pleased his bad pride. So it did not win him over. It only made him more proud, and he tried harder not to show that he knew she was there. Soon she stopped playing. She moved about without knowing what to do, sighed once or twice and looked at Tom in secret, with longing. Then she saw that Tom was talking more to Amy Lawrence than to anyone else. She felt a sharp pain and at once became upset and uneasy. She tried to go away, but her feet did not obey her, and carried her to the group instead. She spoke to a girl almost at Tom's elbow, with false liveliness.",
+   "hardWords": [
+    "vicious",
+    "vanity",
+    "irresolutely",
+    "furtively",
+    "wistfully",
+    "treacherous",
+    "sham",
+    "vivacity"
+   ]
+  },
+  {
+   "chapter": 21,
+   "paragraph": 31,
+   "context": "She put the jacket away, and stood by musing a minute",
+   "mainIdea": "Aunt Polly is afraid that Tom lied, but she looks in the jacket pocket anyway. She finds the bark and weeps with joy.",
+   "simple": "She put the jacket away and stood thinking for a minute. Twice she put out her hand to take the jacket again, and twice she stopped herself. She tried once more, and this time she made herself stronger with the thought: \"It's a good lie. It's a good lie. I won't let it make me sad.\" So she looked in the jacket pocket. A moment later she was reading Tom's piece of bark through flowing tears. She said she could forgive the boy now, even if he had done a million sins."
+  },
+  {
+   "chapter": 22,
+   "paragraph": 7,
+   "context": "Poor girl, she did not know how fast she was nearing trouble herself",
+   "mainIdea": "Becky finds the teacher's secret book unlocked. She opens it, Tom comes in, and she tears a page.",
+   "simple": "Poor Becky did not know how fast she was coming near to trouble herself. The master, Mr. Dobbins, had reached middle age with a wish that was never met. What he wanted most was to be a doctor, but he was poor, so he could only be a village schoolmaster. Every day he took a mysterious book out of his desk and read it when no classes were reciting. He kept it locked. Every boy and girl in school wanted badly to see it, but the chance never came. Each child had an idea about what the book was, but no two ideas were the same, and nobody could find out the facts. As Becky passed the desk by the door, she saw that the key was in the lock. It was a wonderful moment. She looked around, was alone, and the next moment held the book. The title page said Professor Somebody's Anatomy, and it told her nothing. So she began to turn the pages. At once she came to a nicely printed and colored picture at the front, a human figure with no clothes. At that moment a shadow fell on the page, and Tom Sawyer stepped in at the door and saw the picture. Becky grabbed the book to close it and was unlucky: she tore the picture page half down the middle. She pushed the book into the desk, turned the key and burst out crying with shame and anger.",
+   "hardWords": [
+    "urchin",
+    "perishing",
+    "theory",
+    "anatomy",
+    "frontispiece",
+    "engraved"
+   ]
+  },
+  {
+   "chapter": 22,
+   "paragraph": 31,
+   "context": "The school stared in perplexity at this incredible folly",
+   "mainIdea": "Tom says he tore the book to save Becky. He takes a hard beating, and he is happy because Becky is thankful.",
+   "simple": "The school stared in confusion at this foolish act that nobody could believe. Tom stood a moment to gather his scattered thoughts. When he stepped forward to be punished, the surprise, thankfulness and love that shone at him from poor Becky's eyes seemed enough pay for a hundred beatings. His own fine act gave him strength. He took, without a cry, the cruelest beating that even Mr. Dobbins had ever given. He also took without caring the extra punishment of staying two hours after school. He knew who would wait for him outside until his time was done, and she would not feel the long time was wasted.",
+   "hardWords": [
+    "perplexity",
+    "dismembered",
+    "adoration",
+    "flaying",
+    "administered",
+    "merciless"
+   ]
+  },
+  {
+   "chapter": 23,
+   "paragraph": 19,
+   "context": "Now the master, mellow almost to the verge of geniality",
+   "mainIdea": "The master draws a map, but a cat is lowered from above and takes his wig. His bald head is shown, and it shines because it was painted with gold.",
+   "simple": "Now the master, relaxed and almost friendly, put his chair aside, turned his back to the people and began to draw a map of America on the blackboard for the geography class. But his hand was not steady, and he did a bad job. A quiet laugh went through the house. He knew what the matter was and tried to fix it. He rubbed out lines and drew them again, but he only made them worse, and the laughing grew louder. He put all his attention on his work, as if he was set on not letting the fun beat him. He felt that every eye was on him, and he thought he was doing well. But the laughing went on, and even grew. It had good reason. There was an attic above, with a small opening in the roof over his head. Through it came a cat, held by a string round her middle. A rag was tied round her head and jaws so she could not cry out. As she slowly came down, she curved up and clawed at the string, then swung down and clawed at the air. The laughing grew louder and louder. The cat came within six inches of the busy teacher's head. She came lower and lower, and then she grabbed his wig with her desperate claws and held on. In an instant she was pulled up into the attic with her prize. And how the light shone from the master's bald head, because the signpainter's boy had painted it with gold!",
+   "hardWords": [
+    "geniality",
+    "garret",
+    "scuttle",
+    "haunches",
+    "intangible",
+    "trophy",
+    "pate"
+   ]
+  },
+  {
+   "chapter": 23,
+   "paragraph": 8,
+   "context": "A prevalent feature in these compositions was a nursed and petted melancholy",
+   "mainIdea": "The writer jokes about the girls' compositions. They are sad and use fancy words, and each one ends with a sermon.",
+   "simple": "One common feature of these compositions was a sadness that the writer kept and cared for. Another was a wasteful, rich flow of fine language. Another was the habit of pushing in favorite words and phrases until they were quite worn out. One feature that marked and spoiled them was the long and tiresome sermon at the end of each one. Whatever the subject was, the girl worked very hard to bend it into a form that a moral and religious mind could think about with benefit. The plain falseness of these sermons has not been enough to end the fashion in schools. It is not enough today, and perhaps it never will be. No school in the country has young ladies who do not feel they must end their compositions with a sermon. The sermon of the most silly and least religious girl is always the longest and most strongly good. But enough of this, because plain truth is not pleasant to hear.",
+   "hardWords": [
+    "prevalent",
+    "opulent",
+    "inveterate",
+    "edification",
+    "insincerity",
+    "frivolous",
+    "pious",
+    "unpalatable"
+   ]
+  },
+  {
+   "chapter": 24,
+   "paragraph": 14,
+   "context": "During two long weeks Tom lay a prisoner",
+   "mainIdea": "After Tom's illness, everyone in town has become religious. Tom finds nobody to play with, and he feels he is the only lost person left.",
+   "simple": "For two long weeks Tom lay sick like a prisoner, shut away from the world. He was very ill and cared about nothing. When at last he got up and walked weakly downtown, a sad change had come over everything and everyone. There had been a revival, and everybody, even the boys and girls, had become religious. Tom went around hoping against hope to see one sinful face, but he was disappointed everywhere. He found Joe Harper studying the Testament, and turned sadly away. He looked for Ben Rogers and found him visiting poor people with a basket of religious papers. He found Jim Hollis, who told him that his measles was a good warning for him. Every boy he met made him feel heavier with sadness. In his need he went to Huckleberry Finn, but Huck greeted him with a line from the Bible. His heart broke. He crept home to bed, sure that he alone in the whole town was lost, for ever and ever.",
+   "hardWords": [
+    "revival",
+    "got religion",
+    "Testament",
+    "tracts",
+    "depression",
+    "refuge",
+    "bosom"
+   ]
+  },
+  {
+   "chapter": 25,
+   "paragraph": 30,
+   "context": "You’ve been mighty good to me, boys —better’n anybody else in this town",
+   "mainIdea": "Potter thanks the boys for being his friends in jail. He says he did a terrible thing and tells them not to get drunk.",
+   "simple": "Potter said the boys had been very good to him, better than anyone else in the town, and he did not forget it. He often said to himself that he used to mend all the boys' kites and show them good fishing places, but now they all forgot old Muff in his trouble. Tom and Huck did not forget him, and he did not forget them. He said he did an awful thing, when he was drunk and crazy, and that was the only way he could explain it. Now he must hang for it, and that is right, and maybe best too. But he did not want to talk about that and make them feel bad. They had been his friends. He told them never to get drunk, then they would never end up in a place like this. He asked them to stand a little farther west. He said it was a great comfort to see friendly faces when a man is in so much trouble, and no one came but them. He asked them to climb on each other's backs so he could touch their faces. He said to shake hands: theirs would come through the bars, but his was too big. They were little hands and weak, but they had helped Muff Potter a lot, and would help him more if they could."
+  },
+  {
+   "chapter": 26,
+   "paragraph": 4,
+   "context": "Tom’s days were days of splendor and exultation to him",
+   "mainIdea": "Tom is a hero by day, but he has bad dreams of Injun Joe at night. Huck is afraid his part in the story will be known.",
+   "simple": "Tom's days were days of glory and joy to him, but his nights were full of horror. Injun Joe was in all his dreams, and always with death in his eye. Hardly anything could make the boy go out after dark. Poor Huck was just as unhappy and afraid. Tom had told the whole story to the lawyer the night before the great day of the trial, and Huck was very afraid that his part in it might become known, even though Injun Joe's flight had saved him from speaking in court. The poor fellow had got the lawyer to promise to keep it secret, but that did not help much. Tom's troubled conscience had made him go to the lawyer's house at night and pull out a terrible story from lips that had been closed with the darkest and most serious of oaths. After that, Huck's trust in people was almost destroyed."
+  },
+  {
+   "chapter": 27,
+   "paragraph": 11,
+   "context": "they generally forget the marks, or else they die",
+   "mainIdea": "Tom explains how treasure comes to be found: robbers hide it and forget it, and years later someone finds an old paper.",
+   "simple": "Tom says that robbers think they will come back for the treasure, but they usually forget the marks, or they die. So the treasure lies there a long time and gets rusty. Then somebody finds an old yellow paper that tells how to find the marks. It must be worked out for about a week, because it is mostly signs and pictures."
+  },
+  {
+   "chapter": 28,
+   "paragraph": 81,
+   "context": "by the great Sachem, no!",
+   "mainIdea": "Injun Joe is about to bury the box again. Then he remembers that the pick had fresh earth on it. He decides to take the box to his hiding place.",
+   "simple": "Injun Joe says yes, bury it again. The boys overhead feel great joy. Then he cries out \"No!\" and says he had nearly forgotten that the pick had fresh earth on it. The boys overhead feel deep distress and are sick with fear. He asks what a pick and a shovel are doing here, and why they have fresh earth on them. He asks who brought them and where those people have gone. He asks if his friend has heard or seen anyone. He asks if they should bury the box again and let the people come back and see the ground disturbed. He says that will not do. They will take the box to his den.",
+   "hardWords": [
+    "Sachem",
+    "disturbed",
+    "den"
+   ]
+  },
+  {
+   "chapter": 29,
+   "paragraph": 2,
+   "context": "The adventure of the day mightily tormented Tom’s dreams that night",
+   "mainIdea": "Tom thinks the haunted-house adventure may have been only a dream, because he never saw so much money before.",
+   "simple": "The adventure of the day troubled Tom's dreams very much that night. Four times he had his hands on the rich treasure, and four times it turned to nothing in his fingers as he woke to his sad real life. In the early morning he thought over the adventure and felt that it seemed faint and far away, as if it had happened in another world or a long time ago. Then he thought that the great adventure itself must have been a dream. One strong reason for this idea was that the amount of money he had seen was too big to be real. He had never seen even fifty dollars all together before. Like all boys of his age and kind, he thought that words like hundreds and thousands were only fancy ways of talking, and that such sums did not really exist. He had never thought that anybody could really have a hundred dollars in money. If his ideas about hidden treasure had been looked at carefully, they would have been found to be a handful of real dimes and a bushel of vague, wonderful dollars that you could not hold.",
+   "hardWords": [
+    "subdued",
+    "fanciful",
+    "analyzed",
+    "ungraspable"
+   ]
+  },
+  {
+   "chapter": 30,
+   "paragraph": 4,
+   "context": "Tom got his lantern, lit it in the hogshead",
+   "mainIdea": "Tom goes into the alley with the lantern while Huck watches. Huck is very afraid while he waits, and then Tom runs out and tells him to run.",
+   "simple": "Tom got his lantern, lit it inside the big barrel and wrapped it closely in the towel. The two adventurers crept in the dark toward the tavern. Huck stood guard and Tom felt his way into the alley. Then there was a time of anxious waiting that weighed on Huck like a mountain. He began to wish he could see a flash from the lantern. It would frighten him, but at least it would tell him that Tom was still alive. It seemed like hours since Tom had gone. Surely he had fainted, or maybe he was dead, or maybe his heart had burst from fear and excitement. In his worry, Huck found himself moving closer and closer to the alley. He feared all kinds of terrible things and expected at any moment something that would take his breath away. There was not much breath to take, for he could only breathe in tiny amounts and his heart would soon wear out, the way it was beating. Suddenly there was a flash of light and Tom came tearing past him. \"Run!\" he said. \"Run for your life!\""
+  },
+  {
+   "chapter": 31,
+   "paragraph": 24,
+   "context": "They moved up the river street three blocks, then turned to the left",
+   "mainIdea": "Huck follows the two men up Cardiff Hill. He stops when he hears Injun Joe near the Widow Douglas' land.",
+   "simple": "The men went up the river street for three blocks, then turned left up a cross street. They went straight on until they came to the path up Cardiff Hill, and they took it. They passed the old Welshman's house, halfway up the hill, without stopping, and climbed higher. Huck thought they would bury the box in the old quarry. But they did not stop at the quarry. They went on to the top and into the narrow path between the tall sumach bushes, and were hidden in the dark. Huck came closer, since they could not see him. He ran for a while, then slowed down, because he was afraid he was gaining on them too fast. He went on a little and then stopped. He listened. There was no sound, only the beat of his own heart. An owl hooted over the hill, an ominous sound. But he heard no footsteps. He thought everything was lost. He was about to run with winged feet when a man cleared his throat not four feet from him. Huck's heart shot into his throat, but he swallowed it again. He stood there shaking as if a dozen fevers had taken him at once, and so weak that he thought he must fall. He knew where he was. He was within five steps of the stile that led into Widow Douglas' land. He thought, very well, let them bury it there. It would not be hard to find."
+  },
+  {
+   "chapter": 31,
+   "paragraph": 31,
+   "context": "Give it up, and I just leaving this country forever!",
+   "mainIdea": "Injun Joe tells why he hates the Widow Douglas' dead husband and says he will take revenge on her.",
+   "simple": "Injun Joe cries that he will not give it up when he is just leaving the country for ever. He says he might never have another chance. He says that he does not care for her money and the other man may have it. But her husband was hard on him many times. Most of all, he was the justice of the peace who sent him to jail as a vagrant. And that is not all. That is not a millionth part of it. The man had him whipped in front of the jail, with the whole town watching. Joe asks if he understands. He says the man took advantage of him and died. But he will take it out on her.",
+   "hardWords": [
+    "vagrant",
+    "horsewhipped",
+    "jugged"
+   ]
+  },
+  {
+   "chapter": 32,
+   "paragraph": 10,
+   "context": "Well, poor chap, you do look as if you’d had a hard night of it",
+   "mainIdea": "The Welshman tells Huck how he and his sons chased the men, and how a sneeze gave them away. The men escaped.",
+   "simple": "The old man says Huck looks as if he had a hard night. There is a bed for him after breakfast. The men are not dead, and the Welshman is sorry for that. They knew where to find the men from Huck's description. They crept up on tiptoe in the dark sumach path until they were fifteen feet away. Just then the old man found he was going to sneeze. It was the worst luck. He tried to hold it back, but he could not. In front, with his pistol raised, he sneezed, and the men began to rustle away. He called \"Fire, boys!\" and shot at the place of the rustling. His sons did too. But the villains were gone in a moment, and the Welshman and his sons chased them down through the woods. He thinks they never hit them. The men fired one shot each, but the bullets whizzed past and did no harm. When they lost the sound of feet, they stopped chasing, and went down and woke the constables. The constables got a group together and went to guard the river bank. As soon as it is light, the sheriff and a gang will search the woods. The Welshman's sons will be with them soon. He wishes they had a description of those men, and asks if Huck could see what they were like in the dark."
+  },
+  {
+   "chapter": 32,
+   "paragraph": 44,
+   "context": "Huck was in a close place —the inquiring eye was upon him",
+   "mainIdea": "Huck is in a tight spot, and the old man is looking at him. He has no good answer, so he says the first silly thing that comes to his mind.",
+   "simple": "Huck was in a tight spot. The old man's eyes were on him. He would have given anything for a good answer, but nothing came to him. The eyes looked deeper and deeper. A silly answer came to him, and there was no time to think about it. He said it weakly, at a risk, without knowing if it was wise."
+  },
+  {
+   "chapter": 33,
+   "paragraph": 3,
+   "context": "Under the roof vast knots of bats had packed themselves together",
+   "mainIdea": "Tom and Becky find many wonders, but the bats put their lights in danger. They run away, and then they rest by a lake and feel the quiet of the cave.",
+   "simple": "Becky answered Tom's call. They made a smoke mark to guide them back, and started to look around. They went this way and that, far down into the secret deep parts of the cave, made another mark, and went off a new way to find new things to tell people above about. In one place they found a big cave. Many long shining stones hung from the ceiling, as long and thick as a man's leg. The children walked all around it, wondering, and left by one of the many passages. This soon brought them to a lovely spring with a basin covered with sparkling crystals. It was in the middle of a cave whose walls were held up by many strange pillars. The pillars had formed when the long stones from above and below joined, after centuries of dripping water. Under the roof, great bunches of bats were packed together, thousands in one bunch. The lights disturbed them, and they flew down by hundreds, squeaking and rushing at the candles. Tom knew their ways and the danger of this. He seized Becky's hand and hurried her into the first passage he found. It was none too soon, for a bat hit Becky's candle with its wing and put it out as she was leaving. The bats chased the children for a good distance. But they ran into every new passage, and at last got away from the dangerous animals. Soon Tom found a lake under the ground. It stretched away until its shape was lost in the shadows. He wanted to explore its edge, but decided it was best to sit down and rest first. For the first time, the deep quiet of the place put a cold hand on the children's spirits. Then Becky spoke.",
+   "hardWords": [
+    "stalactites",
+    "stalagmites",
+    "subterranean",
+    "fugitives",
+    "perilous",
+    "clammy"
+   ]
+  },
+  {
+   "chapter": 34,
+   "paragraph": 5,
+   "context": "Tom lay upon a sofa with an eager auditory about him",
+   "mainIdea": "Tom tells the story of the cave to the people who listen to him. He says he followed three paths and at last saw daylight and the Mississippi.",
+   "simple": "Aunt Polly was completely happy, and Mrs. Thatcher almost so. Mrs. Thatcher would be completely happy as soon as the messenger who was sent to the cave told her husband the good news. Tom lay on a sofa with a group of eager listeners around him. He told the story of the wonderful adventure, adding many striking details to decorate it. He ended with how he left Becky and went exploring. He followed two paths as far as his kite-line would reach. He followed a third path to the end of the line, and was about to turn back when he saw a far-off spot that looked like daylight. He dropped the line and felt his way toward it. He pushed his head and shoulders through a small hole and saw the wide Mississippi rolling by.",
+   "hardWords": [
+    "auditory",
+    "withal",
+    "expedition",
+    "avenues"
+   ]
+  },
+  {
+   "chapter": 35,
+   "paragraph": 4,
+   "context": "Injun Joe’s bowie-knife lay close by, its blade broken in two",
+   "mainIdea": "Injun Joe died of hunger at the cave door. He tried to cut through the door, he ate candles and bats, and he drank the water that fell drop by drop.",
+   "simple": "Injun Joe's big knife lay close by, its blade broken in two. He had cut and hacked through the great bottom beam of the door with long work. But the work was useless, because the rock itself made a step outside the door, and the knife did nothing to the hard stone. The only damage was to the knife. Even without the stone, the work would have been useless. If the beam had been cut away completely, Joe could not have squeezed his body under the door, and he knew it. So he had only hacked there to be doing something, to pass the weary time and to use his tortured mind. Usually there were half a dozen pieces of candle left in the cracks of this entrance by visitors, but there were none now. The prisoner had found them and eaten them. He had also managed to catch a few bats and eat them, leaving only their claws. The poor man had starved to death. Near by, a stone shape had been growing up from the ground for ages from the water that dripped from above. The prisoner had broken it off, put a stone on the stump, and scooped a shallow hollow in it, to catch the precious drop that fell once in every three minutes with the dull steadiness of a clock. It gave about a spoonful in twenty-four hours. That drop was already falling when the Pyramids were new, when Troy fell, when Rome was begun, when Christ was killed on the cross, when William the Conqueror made the British empire, when Columbus sailed, and when the killing at Lexington was news.",
+   "hardWords": [
+    "bowie-knife",
+    "vestibule",
+    "contrived",
+    "stalagmite",
+    "stalactite",
+    "crevices"
+   ]
+  },
+  {
+   "chapter": 36,
+   "paragraph": 19,
+   "context": "He sprung his secret about Huck’s share in the adventure",
+   "mainIdea": "Mr. Jones tells Huck's secret to the party, but the surprise is weak because many people already know. The widow still praises Huck, and he feels very uncomfortable.",
+   "simple": "Mr. Jones told his secret about Huck's part in the adventure in the best dramatic way he could. But the surprise was mostly false and not as loud and warm as it might have been in happier times. Still, the widow made a fair show of surprise, and she gave Huck so many compliments and so much thanks that he nearly forgot the terrible discomfort of his new clothes. The new problem was even worse: being the target of everyone's eyes and praise."
+  },
+  {
+   "chapter": 37,
+   "paragraph": 6,
+   "context": "Huck Finn’s wealth and the fact that he was now under the Widow Douglas’ protection",
+   "mainIdea": "Huck must live in a clean, proper way in the Widow's house. He feels shut in by the rules of a polite life.",
+   "simple": "Huck Finn's money, and the fact that he was now under the Widow Douglas' care, brought him into good society. Or rather, it dragged him and threw him into it, and he could hardly bear his suffering. The widow's servants kept him clean and neat, combed and brushed. At night they put him in unfriendly sheets that had not one little spot or stain that he could hold to his heart as a friend. He had to eat with a knife and fork. He had to use a napkin, cup and plate. He had to learn his book and go to church. He had to talk so properly that speech became dull in his mouth. Wherever he turned, the bars and chains of a civilized life shut him in and tied his hands and feet.",
+   "hardWords": [
+    "insipid",
+    "whithersoever",
+    "shackles",
+    "civilization"
+   ]
+  },
+  {
+   "chapter": 37,
+   "paragraph": 10,
+   "context": "Tom, it don’t make no difference. I ain’t everybody, and I can’t stand it",
+   "mainIdea": "Huck explains why he ran away. He hates the rules, the clothes and the praying, and he says being rich is only worry.",
+   "simple": "Huck says it makes no difference to him what everybody thinks. He is not everybody, and he cannot stand it. It is awful to be tied up like that. Food comes too easily, so he has no interest in it. He has to ask to go fishing and swimming. He has to ask to do everything. He had to talk so nicely that it gave him no comfort. Every day he had to go up to the attic and shout for a while to get a taste in his mouth, or he would have died. The widow would not let him smoke, yell, yawn, stretch or scratch in front of people. And she prayed all the time. He had to leave. Also, the school was going to open and he would have to go. He would not stand that. Being rich is not what people say. It is just worry and sweat and wishing you were dead all the time. These old clothes and this barrel suit him, and he will never give them up. He would not be in this trouble but for the money. He asks Tom to take his share along with his own, give him a ten-cent piece sometimes, and ask the widow to forgive him, because he does not care for a thing unless it is hard to get."
+  },
+  {
+   "chapter": 38,
+   "paragraph": 1,
+   "context": "So endeth this chronicle. It being strictly a history of a boy",
+   "mainIdea": "The writer ends the book here, because it is the story of a boy and not of a man.",
+   "simple": "So this story ends. It is the history of a boy only, so it must stop here, or it would turn into the history of a man. When a writer writes a story about grown people, he knows where to stop: with a marriage. But when he writes about young people, he must stop where it is best."
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 3,
+   "context": "seldom or never looked through them for so small a thing as a boy",
+   "simple": "She almost never looked through them when she wanted to find something as small as a boy.",
+   "grammar": "'So small a thing as a boy' puts 'a' after the adjective: 'so + adjective + a + noun + as'. It means 'a thing as small as a boy'."
+  },
+  {
+   "chapter": 3,
+   "context": "The more Tom stared at the splendid marvel, the higher he turned up his nose",
+   "simple": "Tom stared at the fine new boy for a long time. As he stared more, he held his nose higher in the air.",
+   "grammar": "'The more..., the higher...' shows that two things grow together: as the staring grows, the nose goes higher."
+  },
+  {
+   "chapter": 4,
+   "context": "in order to make a man or a boy covet a thing, it is only necessary to make the thing difficult to attain",
+   "simple": "To make a person want something, you only have to make it hard to get.",
+   "grammar": "'In order to make...' gives the purpose. 'It is only necessary to...' is a long way to say 'you only have to...'."
+  },
+  {
+   "chapter": 4,
+   "context": "they came to jeer, but remained to whitewash",
+   "simple": "They came to laugh at Tom, but they stayed to do the whitewashing.",
+   "grammar": "Two 'to + verb' parts show purpose: 'came to jeer' and 'remained to whitewash'. 'But' shows that the purpose changed."
+  },
+  {
+   "chapter": 4,
+   "context": "If he hadn’t run out of whitewash he would have bankrupted every boy in the village",
+   "simple": "If the whitewash had not finished, Tom would have taken everything from every boy in the village.",
+   "grammar": "'If he hadn't... he would have...' is about the past and something that did not happen. 'Bankrupted' is used in a funny way, to mean he would have taken all their things."
+  },
+  {
+   "chapter": 5,
+   "context": "He took a good scolding about clodding Sid",
+   "simple": "He was scolded hard because he had thrown clods at Sid.",
+   "grammar": "'Clodding' comes from the noun 'clod' used as a verb. It means throwing clods. 'About' is followed by an -ing form."
+  },
+  {
+   "chapter": 5,
+   "context": "a maidservant’s discordant voice profaned the holy calm, and a deluge of water drenched the prone martyr’s remains",
+   "simple": "A servant girl's harsh voice broke the quiet. Then a lot of water fell on Tom, who was lying on the ground.",
+   "grammar": "Two clauses are joined by 'and'. Big, serious words (holy, martyr, remains) are used in a funny way for a boy lying under a window."
+  },
+  {
+   "chapter": 6,
+   "context": "How many of my readers would have the industry and application to memorize two thousand verses",
+   "simple": "Not many of my readers would work hard enough to learn two thousand verses by heart.",
+   "grammar": "It is a question that expects the answer 'very few'. The writer asks it only to make a point. It is not a real question."
+  },
+  {
+   "chapter": 6,
+   "context": "the clean territory stopped short at his chin and his jaws, like a mask",
+   "simple": "The clean skin stopped at his chin and jaws, so it looked like a mask.",
+   "grammar": "'Territory' is used for skin to be funny. 'Like a mask' is a simile, which compares the clean part of his face to a mask."
+  },
+  {
+   "chapter": 6,
+   "context": "when she was done with him he was a man and a brother, without distinction of color",
+   "simple": "When Mary finished with him, he looked clean enough to be called a man and a brother, whatever the color of his skin.",
+   "grammar": "'Without distinction of color' means 'with no difference in color'. It is a funny joke: the dirty and the clean skin now look the same."
+  },
+  {
+   "chapter": 6,
+   "context": "Two of the children always remained for the sermon voluntarily, and the other always remained too",
+   "simple": "Sid and Mary always stayed for the sermon because they wanted to. Tom always stayed too, but for stronger reasons.",
+   "grammar": "The second clause leaves out 'for the sermon'. The words 'for stronger reasons' that follow are a joke: Tom is made to stay."
+  },
+  {
+   "chapter": 7,
+   "context": "Tom being placed next the aisle, in order that he might be as far away from the open window",
+   "simple": "Tom was put next to the aisle so that he would be as far as possible from the open window.",
+   "grammar": "'Tom being placed...' is a short clause that gives extra information with no main verb of its own. 'In order that he might be...' shows the purpose."
+  },
+  {
+   "chapter": 7,
+   "context": "Often, the less there is to justify a traditional custom, the harder it is to get rid of it",
+   "simple": "If there is less reason for an old custom, it is often harder to stop it.",
+   "grammar": "'The less..., the harder...' shows that two things change together: as the reason gets smaller, stopping gets harder."
+  },
+  {
+   "chapter": 7,
+   "context": "as sorely as Tom’s hands itched to grab for it they did not dare",
+   "simple": "Tom's hands wanted very much to grab it, but they did not dare.",
+   "grammar": "'As sorely as...' here means 'however much...'. It starts a clause of contrast, and the main clause follows with 'they did not dare'."
+  },
+  {
+   "chapter": 8,
+   "context": "so handsomely was his imagination working",
+   "simple": "His imagination was working so well.",
+   "grammar": "'So handsomely was his imagination working' puts 'so + adverb' first, so the subject comes after 'was'. In normal order: 'his imagination was working so handsomely'."
+  },
+  {
+   "chapter": 8,
+   "context": "he wouldn’t have a wart on him if he’d knowed how to work spunk-water",
+   "simple": "He would not have any warts if he knew how to use spunk-water.",
+   "grammar": "This is an 'if' sentence in speech: 'wouldn't have... if he'd knowed' (known) means 'would not have... if he knew'. The speaker uses 'knowed' for 'knew'."
+  },
+  {
+   "chapter": 9,
+   "context": "The harder Tom tried to fasten his mind on his book, the more his ideas wandered",
+   "simple": "Tom tried hard to keep his mind on his book. But the harder he tried, the more his thoughts moved away.",
+   "grammar": "'The harder..., the more...' shows that two things grow together: more effort leads to more wandering."
+  },
+  {
+   "chapter": 9,
+   "context": "Becky hesitating, Tom took silence for consent",
+   "simple": "Becky was not sure what to do, and Tom took her silence to mean yes.",
+   "grammar": "'Becky hesitating' is a short clause with its own subject and no 'was'. It gives the reason for the main clause. 'Take X for Y' means 'think X means Y'."
+  },
+  {
+   "chapter": 10,
+   "context": "If he only had a clean Sunday-school record he could be willing to go",
+   "simple": "If only his Sunday-school record were clean, he would be ready to die.",
+   "grammar": "'If he only had..., he could be...' is an unreal 'if' sentence: he does not have a clean record, so he is not ready."
+  },
+  {
+   "chapter": 10,
+   "context": "Right gladly will I dispute with thee the passes of the merry wood",
+   "simple": "I will happily fight you for the right to cross the happy wood.",
+   "grammar": "This is old-style speech copied from a book. 'Will I' puts the verb before the subject, and 'thee' is an old word for 'you'."
+  },
+  {
+   "chapter": 11,
+   "context": "When it seemed to him that it must be nearly daylight, he heard the clock strike ten",
+   "simple": "Tom thought it must be nearly morning, but then he heard the clock strike ten.",
+   "grammar": "'It seemed to him that it must be...' uses 'must' to show a strong guess. The clause with 'when' sets up a surprise that comes in the main clause."
+  },
+  {
+   "chapter": 12,
+   "context": "If Doctor Robinson dies, I reckon hanging’ll come of it",
+   "simple": "If Doctor Robinson dies, I think someone will be hanged for it.",
+   "grammar": "'If... dies' is a real possibility about the future. 'Hanging'll' is 'hanging will'. 'Come of it' means 'be the result of it'."
+  },
+  {
+   "chapter": 13,
+   "context": "the public are not slow in the matter of sifting evidence and arriving at a verdict",
+   "simple": "People are quick to look at the proof and decide who is guilty.",
+   "grammar": "The words in brackets are a comment from the writer. 'Not slow' means 'quick'. 'Sifting' is used for looking carefully through proof, like through flour."
+  },
+  {
+   "chapter": 13,
+   "context": "It seemed to Tom that his schoolmates never would get done holding inquests on dead cats",
+   "simple": "Tom felt that his school friends would never stop holding official meetings about dead cats.",
+   "grammar": "'Get done holding' uses 'get done' + an -ing form to mean 'finish doing'. 'Never would' puts 'never' before the helper verb for stress."
+  },
+  {
+   "chapter": 14,
+   "context": "armed with death, went about on her pale horse, metaphorically speaking",
+   "simple": "Carrying her false medicines, she went about like Death on a pale horse, if I may speak in a picture.",
+   "grammar": "'Metaphorically speaking' tells us the words are a picture and not true. Aunt Polly is compared to Death on a horse, because she brings her medicines everywhere."
+  },
+  {
+   "chapter": 14,
+   "context": "If it had been Sid, she would have had no misgivings to alloy her delight",
+   "simple": "If it had been Sid, she would have felt only joy, with no doubts to spoil it.",
+   "grammar": "'If it had been Sid, she would have had...' is an unreal past 'if' sentence: it was Tom, not Sid, so she did have doubts."
+  },
+  {
+   "chapter": 15,
+   "context": "since nothing would do them but to be rid of him",
+   "simple": "since they would be happy with nothing except getting rid of him",
+   "grammar": "'Nothing would do them but to...' means 'nothing except ... would please them'. 'Be rid of' means to be free of someone."
+  },
+  {
+   "chapter": 16,
+   "context": "They did not know that the quicker a freshwater fish is on the fire after he is caught the better he is",
+   "simple": "They did not know that a fish from fresh water tastes better when it goes on the fire very soon after it is caught.",
+   "grammar": "'The quicker..., the better...' shows two things that change together: the sooner the fish is cooked, the better it tastes."
+  },
+  {
+   "chapter": 16,
+   "context": "for he knew of old that this insect was credulous about conflagrations",
+   "simple": "He had known for a long time that this insect believes too easily that a house is on fire.",
+   "grammar": "'Of old' means 'for a long time'. 'That this insect was...' is a noun clause that tells what Tom knew."
+  },
+  {
+   "chapter": 17,
+   "context": "he knew she was tenantless except that there was a watchman, who always turned in",
+   "simple": "He knew that nobody was on the boat except a watchman, who always went to bed early.",
+   "grammar": "'Tenantless except that...' means 'with nobody in it, apart from...'. The 'who' part gives extra information about the watchman."
+  },
+  {
+   "chapter": 18,
+   "context": "If I’d ’a’ knowed this was all, I’d ’a’ learnt long ago",
+   "simple": "If I had known this was all there was to it, I would have learned long ago.",
+   "grammar": "'I'd 'a' knowed' and 'I'd 'a' learnt' are spoken short forms of 'I would have known' and 'I would have learned'. It is an unreal past 'if' sentence."
+  },
+  {
+   "chapter": 18,
+   "context": "they were prouder and happier in their new acquirement than they would have been in the scalping and skinning",
+   "simple": "They were more proud and happy about their new skill than they would have been about taking scalps and skins.",
+   "grammar": "'Prouder and happier... than they would have been...' compares two feelings. The second part is an imagined thing that did not happen."
+  },
+  {
+   "chapter": 19,
+   "context": "although it was ordinarily quiet enough, in all conscience",
+   "simple": "although it was already quiet enough, to be fair",
+   "grammar": "'In all conscience' means 'to be fair' or 'in honesty'. It adds the writer's comment about the village."
+  },
+  {
+   "chapter": 20,
+   "context": "Sid had better judgment than to utter the thought that was in his mind",
+   "simple": "Sid was wise enough not to say what he was thinking.",
+   "grammar": "'Had better judgment than to say...' means 'was too wise to say...'. It uses 'than to + verb' after a comparison."
+  },
+  {
+   "chapter": 20,
+   "context": "if only the worthy ones got His blessings and had His hand to help them",
+   "simple": "If God gave His help only to people who deserve it, few people would be happy.",
+   "grammar": "'If only the worthy ones got...' is an unreal 'if' sentence in a long speech. The result comes after: 'there's few enough would smile here'."
+  },
+  {
+   "chapter": 21,
+   "context": "had brought his sorrows to an unpromising market",
+   "simple": "He had taken his troubles to a place where he was not likely to find comfort.",
+   "grammar": "This is a picture from selling things: he 'brought his sorrows to a market' that gave a poor price. It means the aunt was not going to be kind."
+  },
+  {
+   "chapter": 22,
+   "context": "But the very imminence of the emergency paralyzed his invention",
+   "simple": "But the danger was so near that he could not think of a plan.",
+   "grammar": "'The very imminence of the emergency' is the subject. 'Very' stresses 'imminence'. The sentence says the closeness of the danger stopped his mind from working."
+  },
+  {
+   "chapter": 23,
+   "context": "Tom Sawyer stepped forward with conceited confidence and soared into the unquenchable",
+   "simple": "Tom Sawyer stepped forward, very sure of himself, and began a famous speech about freedom.",
+   "grammar": "'Conceited confidence' joins two words that start with the same sound for effect. 'Soared into' is a picture: his voice rises into the speech like a bird."
+  },
+  {
+   "chapter": 23,
+   "context": "There was a garret above, pierced with a scuttle over his head",
+   "simple": "There was an attic above him, with a small opening over his head.",
+   "grammar": "'Pierced with a scuttle' is a past participle phrase. It tells us more about the attic: it has a hole in it."
+  },
+  {
+   "chapter": 24,
+   "context": "to promise not to do a thing is the surest way in the world to make a body want",
+   "simple": "If you promise not to do something, you will certainly want to do it.",
+   "grammar": "'To promise not to do a thing' is a to-infinitive used as the subject of the sentence. 'A body' means 'a person'."
+  },
+  {
+   "chapter": 24,
+   "context": "It might have seemed to him a waste of pomp and ammunition to kill a bug",
+   "simple": "He might have thought it a waste of great show and guns to kill a bug.",
+   "grammar": "'It might have seemed... a waste' is about a thing that could have been true. 'Nothing incongruous' that follows says that Tom thought it was right."
+  },
+  {
+   "chapter": 25,
+   "context": "It was hours before he got to sleep",
+   "simple": "He could not sleep for hours.",
+   "grammar": "'It was hours before...' means 'a long time passed before...'. The word 'before' links a time to the event, like 'It was a long time before he slept'."
+  },
+  {
+   "chapter": 27,
+   "context": "Huck was always willing to take a hand in any enterprise that offered entertainment",
+   "simple": "Huck was always ready to join any plan that gave fun and did not need money.",
+   "grammar": "'Take a hand in' means 'join in'. The clause 'that offered... and required...' tells us what kind of plan Huck liked."
+  },
+  {
+   "chapter": 27,
+   "context": "to give the haunted house a wide berth",
+   "simple": "to stay far away from the haunted house",
+   "grammar": "'Give something a wide berth' is a fixed phrase. It comes from boats keeping a wide space from other boats."
+  },
+  {
+   "chapter": 28,
+   "context": "But for that, Injun Joe never would have suspected",
+   "simple": "If the tools had not been there, Injun Joe would never have suspected anything.",
+   "grammar": "'But for that' means 'if that had not happened'. It is followed by 'would have + verb' to talk about the past that did not happen."
+  },
+  {
+   "chapter": 28,
+   "context": "hating the ill luck that made them take the spade and the pick there",
+   "simple": "They hated the bad luck that made them take the spade and the pick to that place.",
+   "grammar": "'That made them take' uses 'make + person + base verb'. 'That' stands for 'the ill luck' and starts a clause that tells us more about it."
+  },
+  {
+   "chapter": 29,
+   "context": "he was like all boys of his age and station in life, in that he imagined",
+   "simple": "He was like all boys of his age and kind, because he thought that",
+   "grammar": "'In that' here means 'because'. It gives the reason why Tom was like other boys."
+  },
+  {
+   "chapter": 30,
+   "context": "He needn’t have repeated it; once was enough",
+   "simple": "It was not necessary for him to say it again; once was enough.",
+   "grammar": "'Needn't have + past participle' means that something was done but was not needed. Tom said 'run' twice, but Huck ran at once."
+  },
+  {
+   "chapter": 31,
+   "context": "Bundles of candles were procured, and straightway there was a general scamper up the hill",
+   "simple": "Many candles were found, and at once all the children ran up the hill.",
+   "grammar": "'Were procured' is a passive verb: the person who got the candles is not named. 'Straightway' is an old word for 'at once'."
+  },
+  {
+   "chapter": 31,
+   "context": "It was said that one might wander days and nights together",
+   "simple": "People said that a person could wander for days and nights without finding the end.",
+   "grammar": "'It was said that...' is a passive sentence with 'it' as a placeholder. It tells what people said without naming them. 'One' means 'a person'."
+  },
+  {
+   "chapter": 32,
+   "context": "Pity but somebody could find Tom Sawyer!",
+   "simple": "It is a pity that nobody can find Tom Sawyer!",
+   "grammar": "'Pity but...' is an old way to say 'it is a pity that...not'. Here it means: it is sad that nobody can find Tom."
+  },
+  {
+   "chapter": 32,
+   "context": "I wouldn’t hurt a hair of your head for all the world",
+   "simple": "I would never harm you, even for everything in the world.",
+   "grammar": "'For all the world' is a fixed phrase meaning 'for any reason at all'. 'Wouldn't hurt a hair of your head' is a strong way to say 'I would never hurt you'."
+  },
+  {
+   "chapter": 33,
+   "context": "hope made a show of reviving —not with any reason to back it, but only because it is its nature to revive",
+   "simple": "Hope seemed to come back for a short time. It had no real reason, but hope always tries to come back, unless age and many failures have taken its strength.",
+   "grammar": "'It is its nature to revive' uses 'it' for 'hope'. 'When the spring has not been taken out of it' means 'when it has not lost its strength'."
+  },
+  {
+   "chapter": 33,
+   "context": "for it was dreadful to think of sitting down when time was grown to be so precious",
+   "simple": "It was terrible to think of sitting down when time had become so valuable.",
+   "grammar": "'Was grown to be' is an old form of 'had become'. The verb 'grow' is used with 'be' as the helping verb."
+  },
+  {
+   "chapter": 34,
+   "context": "And if it had only happened to be night he would not have seen that speck of daylight",
+   "simple": "If it had been night, he would not have seen the small spot of daylight.",
+   "grammar": "'If it had only happened to be night, he would not have seen...' is an unreal past 'if' sentence. It talks about something that did not happen."
+  },
+  {
+   "chapter": 35,
+   "context": "I always reckoned we’d get it",
+   "simple": "I always thought that we would get it.",
+   "grammar": "'Reckoned we'd get it' uses 'reckon' to mean 'think'. 'We'd' is 'we would' and shows what Tom expected in the past."
+  },
+  {
+   "chapter": 35,
+   "context": "That drop was falling when the Pyramids were new",
+   "simple": "That drop was already falling when the Pyramids were new.",
+   "grammar": "This is the first of a long list of 'when' clauses that go back in history. 'Was falling' shows the drop was falling for a long time."
+  },
+  {
+   "chapter": 36,
+   "context": "Nothing but a heavy strain upon the good manners of the company kept back the due and proper complimentary laugh",
+   "simple": "Only the strong effort of the guests to be polite stopped them from giving the laugh that was expected after a joke.",
+   "grammar": "'Nothing but...kept back...' means 'only... stopped...'. The subject is a long noun phrase that names the force that held the laugh back."
+  },
+  {
+   "chapter": 37,
+   "context": "I’ll stick to the widder till I rot, Tom",
+   "simple": "I will stay with the widow for ever, Tom.",
+   "grammar": "'Stick to' means 'stay with'. 'Till I rot' is a strong spoken way to say 'for as long as I live', and it shows how serious Huck is."
+  },
+  {
+   "chapter": 38,
+   "context": "It being strictly a history of a boy, it must stop here",
+   "simple": "Because this is only the story of a boy, it must stop here.",
+   "grammar": "'It being...' is a short clause that gives the reason. It means 'because it is...'. 'Endeth' is an old form of 'ends'."
+  }
+ ],
+ "phrases": {
+  "play hookey": {
+   "meaning": "To stay away from school without permission.",
+   "pos": "idiom",
+   "example": "Tom did play hookey, and he had a very good time"
+  },
+  "get one's dander up": {
+   "meaning": "To become angry.",
+   "pos": "idiom",
+   "example": "before I get my dander up"
+  },
+  "let off": {
+   "meaning": "To not punish someone, or to punish them less than they deserve.",
+   "pos": "phrasal verb",
+   "example": "Every time I let him off"
+  },
+  "the old scratch": {
+   "meaning": "A name for the devil. Here it means that Tom is full of bad tricks.",
+   "pos": "idiom",
+   "example": "He’s full of the Old Scratch"
+  },
+  "let on": {
+   "meaning": "To say or pretend that something is true.",
+   "pos": "phrasal verb",
+   "example": "you don’t mean to let on that you like it"
+  },
+  "play out": {
+   "meaning": "To be too tired to go on.",
+   "pos": "phrasal verb",
+   "example": "when he played out, Johnny Miller bought in"
+  },
+  "stick to": {
+   "meaning": "To keep on doing something and not stop.",
+   "pos": "phrasal verb",
+   "example": "but he stuck to his work"
+  },
+  "turn in": {
+   "meaning": "To go to bed.",
+   "pos": "phrasal verb",
+   "example": "Tom turned in without the added vexation of prayers"
+  },
+  "hang about": {
+   "meaning": "To stay in a place and do nothing special.",
+   "pos": "phrasal verb",
+   "example": "hung about the fence till nightfall"
+  },
+  "gird up one's loins": {
+   "meaning": "To get ready to do hard work.",
+   "pos": "idiom",
+   "forms": [
+    "girded up his loins"
+   ],
+   "example": "Then Tom girded up his loins, so to speak"
+  },
+  "show off": {
+   "meaning": "To act in a way that makes other people look at you and think well of you.",
+   "pos": "phrasal verb",
+   "example": "he was “showing off” with all his might"
+  },
+  "hang fire": {
+   "meaning": "To wait and not act or answer, because you are not sure what to do.",
+   "pos": "idiom",
+   "forms": [
+    "hung fire"
+   ],
+   "example": "Tom still hung fire."
+  },
+  "put to rights": {
+   "meaning": "To put something in good order. Here, Mary makes Tom's clothes neat.",
+   "pos": "idiom",
+   "example": "The girl “put him to rights” after he had dressed himself"
+  },
+  "take in hand": {
+   "meaning": "To take charge of someone and make him better. Here, Mary washes Tom properly.",
+   "pos": "idiom",
+   "example": "Mary took him in hand, and when she was done"
+  },
+  "give out": {
+   "meaning": "To say something to a group in a clear voice, so that all can hear it.",
+   "pos": "phrasal verb",
+   "forms": [
+    "gave out"
+   ],
+   "example": "The minister gave out the hymn"
+  },
+  "part company": {
+   "meaning": "To separate from something and go different ways.",
+   "pos": "idiom",
+   "example": "it seemed to almost part company with the body"
+  },
+  "keep tally": {
+   "meaning": "To keep count of things.",
+   "pos": "idiom",
+   "example": "he kept tally of the details of the prayer"
+  },
+  "by and by": {
+   "meaning": "After a short time; soon.",
+   "pos": "idiom",
+   "example": "many a head by and by began to nod"
+  },
+  "lay up": {
+   "meaning": "To make a person stay in bed because of illness or hurt.",
+   "pos": "phrasal verb",
+   "forms": [
+    "laid up"
+   ],
+   "example": "laid up a patient for two or three weeks"
+  },
+  "fall to": {
+   "meaning": "To start doing something with energy.",
+   "pos": "phrasal verb",
+   "forms": [
+    "fell to"
+   ],
+   "example": "he fell to groaning with considerable spirit"
+  },
+  "take refuge in": {
+   "meaning": "To go to something to be safe. Here, Tom is about to tell a lie to avoid trouble.",
+   "pos": "idiom",
+   "example": "Tom was about to take refuge in a lie"
+  },
+  "bosom friend": {
+   "meaning": "A very close friend.",
+   "pos": "phrase",
+   "example": "Tom’s bosom friend sat next him"
+  },
+  "go on the warpath": {
+   "meaning": "To go out to fight, like a warrior.",
+   "pos": "idiom",
+   "example": "go on the warpath in the mountain ranges"
+  },
+  "might and main": {
+   "meaning": "With all your strength.",
+   "pos": "idiom",
+   "example": "struggling with might and main"
+  },
+  "get even with": {
+   "meaning": "To hurt someone because he hurt you.",
+   "pos": "idiom",
+   "example": "I’d get even with you if it took a hundred years"
+  },
+  "keep mum": {
+   "meaning": "To say nothing; to keep a secret.",
+   "pos": "idiom",
+   "example": "you sure you can keep mum?"
+  },
+  "drop down dead": {
+   "meaning": "To fall and die suddenly.",
+   "pos": "idiom",
+   "example": "We’d drop down dead —don’t you know that?"
+  },
+  "come upon": {
+   "meaning": "To find or meet by chance.",
+   "pos": "phrasal verb",
+   "forms": [
+    "came upon"
+   ],
+   "example": "a belated citizen had come upon Potter washing himself"
+  },
+  "sneak off": {
+   "meaning": "To go away quietly so that nobody sees.",
+   "pos": "phrasal verb",
+   "forms": [
+    "sneaked off"
+   ],
+   "example": "Potter had at once sneaked off"
+  },
+  "reel off": {
+   "meaning": "To say something quickly and easily, like a long line from a roll.",
+   "pos": "phrasal verb",
+   "example": "reel off his serene statement"
+  },
+  "in the dumps": {
+   "meaning": "Sad and low in spirit.",
+   "pos": "idiom",
+   "example": "he dropped hopelessly into the dumps"
+  },
+  "take wing": {
+   "meaning": "To fly away.",
+   "pos": "idiom",
+   "forms": [
+    "took wing"
+   ],
+   "example": "she took wing and went off to see about it"
+  },
+  "cast off": {
+   "meaning": "To untie a boat's ropes and let it leave.",
+   "pos": "phrasal verb",
+   "example": "a voice gave the order to “cast off.”"
+  },
+  "break down": {
+   "meaning": "To lose control of your feelings and cry.",
+   "pos": "phrasal verb",
+   "forms": [
+    "broke down"
+   ],
+   "example": "the whole company broke down and joined the weeping mourners"
+  },
+  "make up": {
+   "meaning": "To become friends again after a fight.",
+   "pos": "phrasal verb",
+   "example": "maybe she would be wanting to “make up.”"
+  },
+  "set up": {
+   "meaning": "To make someone feel proud or more sure of himself.",
+   "pos": "phrasal verb",
+   "example": "it only “set him up” the more"
+  },
+  "lo and behold": {
+   "meaning": "A way of saying that something surprising has just been found.",
+   "pos": "idiom",
+   "example": "lo and behold you she’d found out from Joe"
+  },
+  "tell on": {
+   "meaning": "To tell a teacher or parent that someone did something wrong.",
+   "pos": "phrasal verb",
+   "example": "you know you’re going to tell on me"
+  },
+  "take in": {
+   "meaning": "Of school: to start. The old way of saying that lessons begin.",
+   "pos": "phrasal verb",
+   "example": "she could hardly wait for school to “take in,”"
+  },
+  "on the mend": {
+   "meaning": "Getting better after an illness.",
+   "pos": "idiom",
+   "example": "At last he was pronounced upon the mend"
+  },
+  "stand by": {
+   "meaning": "To stay with someone and support him when he is in trouble.",
+   "pos": "phrasal verb",
+   "forms": [
+    "stood by"
+   ],
+   "example": "he’s kind of stood by me when I was out of luck"
+  },
+  "leak out": {
+   "meaning": "To become known when it was meant to be a secret.",
+   "pos": "phrasal verb",
+   "example": "his share in the business might leak out"
+  },
+  "peg away": {
+   "meaning": "To keep working hard at something, little by little.",
+   "pos": "phrasal verb",
+   "example": "They pegged away in silence for some time"
+  },
+  "bear a hand": {
+   "meaning": "To help; to take part in the work.",
+   "pos": "idiom",
+   "example": "Here —bear a hand and we’ll see what it’s here for."
+  },
+  "great caesar's ghost": {
+   "meaning": "A cry of great surprise.",
+   "pos": "idiom",
+   "example": "and, Great Caesar’s Ghost!"
+  },
+  "take to one's heels": {
+   "meaning": "To run away fast.",
+   "pos": "idiom",
+   "example": "take to his heels and get himself out of sight"
+  },
+  "get under way": {
+   "meaning": "To start moving, as a boat.",
+   "pos": "idiom",
+   "forms": [
+    "got under way"
+   ],
+   "example": "got under way at once"
+  },
+  "spring something on": {
+   "meaning": "To surprise people with news or a plan.",
+   "pos": "phrasal verb",
+   "example": "going to try to spring something on the people here tonight"
+  },
+  "turn up missing": {
+   "meaning": "To be found to be gone; to disappear.",
+   "pos": "idiom",
+   "example": "one day turned up missing"
+  },
+  "let up on": {
+   "meaning": "To be less hard on someone.",
+   "pos": "phrasal verb",
+   "example": "I’ll ask the widow to let up on you a little"
+  }
+ }
+}

@@ -1,0 +1,107 @@
+@W
+huddle | present participle | Pushing close together in a group. | huddling, huddled |
+hurdle | noun | A light frame of sticks used to make a fence. | hurdles |
+tributary | adjective | Flowing into a bigger river. | |
+upland | noun | High land away from the sea or the river. | uplands |
+dubiously | adverb | In an unsure way, with doubts. | |
+metalled | adjective | Made with a hard surface of broken stones. | |
+beset | past participle | Came around and covered on every side. | |
+casement | noun | A window that opens on hinges at its side. | casements |
+latticed | adjective | Made of crossed strips of wood or metal with spaces between. | |
+inmate | noun | A person living in a house. | inmates |
+smouldering | adjective | Burning slowly, with smoke but no flame. | |
+pulsate | past-tense verb | Beat strongly, like a heart. | pulsated |
+silhouette | past participle | Shown as a dark shape against a light background. | silhouetted |
+appurtenance | noun | A small thing that belongs with a bigger thing. | |
+plumage | noun | The feathers of a bird. | |
+sleet | noun | Rain that is half frozen. | |
+latch | noun | A small bar that holds a door shut. | |
+filament | noun | A very thin thread. | |
+waft | noun | A light movement of air that carries a smell or a sound. | wafted, wafts |
+tug | present participle | Pulling hard. | tugging |
+reproachfully | adverb | In a way that shows you think someone has done wrong. | |
+plaintive | adjective | Sounding sad, as if asking for help. | |
+anguish | noun | Great pain of the mind. | |
+asunder | adverb | Into pieces. | |
+tarry | verb | To stay somewhere longer than you should. | |
+wrench | noun | A sudden hard pull. | |
+heartstrings | plural noun | Your deepest feelings. | |
+submissively | adverb | In a way that obeys without argument. | |
+callous | adjective | Not caring about the feelings of others. | |
+forlornly | adverb | In a sad and lonely way. | |
+paroxysm | noun | A sudden strong attack of a feeling or a pain. | |
+intermittent | adjective | Stopping and starting again, not steady. | |
+toilsome | adjective | Needing hard work. | |
+beguile | verb | To make time pass in a nice way, or to fool someone with charm. | |
+unerring | adjective | Never making a mistake. | |
+sanded | adjective | Covered with a layer of sand. | |
+forecourt | noun | An open space in front of a house or building. | |
+skittle | noun | A game in which you roll a ball to knock down wooden pins. | |
+cockleshell | noun | The shell of a small sea animal, used here for decoration. | cockleshells |
+fanciful | adjective | Made in a strange or playful way. | |
+meagre | adjective | Small and poor. | |
+doleful | adjective | Sad and sorry for yourself. | |
+capital | adjective | Very good. It is an old-fashioned way to say 'excellent'. | |
+inspiriting | adjective | Making you feel brave and happy. | |
+forage | verb | To search for food. | foraged |
+dolorously | adverb | In a very sad way. | |
+windfall | noun | Money or luck that comes without your working for it. | |
+expatiate | verb | To talk for a long time about something. | |
+decoy | present participle | Leading someone away by a clever plan. | decoying |
+fallow | adjective | Left without crops for a time, as a field is. | |
+benison | noun | A blessing. | |
+anon | adverb | Soon. | |
+bashful | adjective | Shy. | |
+clangorous | adjective | Making a loud ringing sound. | |
+peal | noun | The loud ringing of bells. | |
+chilblain | noun | A sore red place on the skin of the hands or feet, caused by cold. | chilblains |
+mull | verb | To warm a drink and add sugar and spice. | mulled |
+brew | noun | A drink made by mixing things in hot water. | |
+corsair | noun | A pirate. | |
+galley | noun | An old ship that was moved by rows of men with oars. | |
+coax | past-tense verb | Tried to persuade someone in a gentle way. | coaxed |
+swathe | noun | A long line of cut grass or corn. | |
+rancour | noun | A deep and bitter anger that lasts for a long time. | |
+@P
+ctx: Poor Mole stood alone in the road, his heart torn asunder
+idea: The Mole wants to go to his old home, but he will not leave his friend. At last he follows the Rat down the road.
+simple: Poor Mole stood alone in the road. His heart was torn in two, and a big sob was growing low inside him. He knew it would soon jump up in a wild rush. But even now he stayed loyal to his friend. He never thought for a moment of leaving him. Meanwhile the smells from his old home begged and whispered and made a spell on him. At last they called him in a way he had to obey. He did not dare to stay longer in their magic circle. With a hard pull on his deepest feelings, he turned his face down the road and followed the Rat's track without arguing. Faint, thin little smells still followed his nose as it moved away. They blamed him for his new friendship and for forgetting his home in such a hard way.
+hard: torn asunder; wafts; conjured; imperiously; tarry; wrench; heartstrings; submissively; dogging; reproached; callous
+@P
+ctx: The Mole subsided forlornly on a tree stump and tried to control himself
+idea: The Mole sits on a stump and cries because he cannot go to his old home.
+simple: The Mole sat down sadly on a tree stump and tried to control himself, because he felt that the sob was surely coming. He had fought it for so long, but it would not be beaten. It forced its way up into the air. Then came another, and another, and others very fast. At last poor Mole gave up the fight. He cried freely and helplessly and in the open, now that he knew it was all over. He had lost something that he could hardly be said to have found.
+hard: subsided; forlornly; sob; thick and fast
+@P
+ctx: He clambered into his bunk and rolled himself well up in the blankets
+idea: The Rat climbs into his bunk and falls asleep at once.
+simple: He climbed into his bunk and rolled himself well up in the blankets. Sleep took him at once, as a long line of cut corn is taken up by the machine that cuts it.
+hard: clambered; bunk; slumber; swathe; reaping machine
+@S
+ctx: We others, who have long lost the more subtle of the physical senses
+simple: We others, who lost the finer physical senses long ago, do not even have the right words for how an animal talks with the things around it, living or not. We have only the word 'smell', for example, for the whole range of fine feelings that murmur in the animal's nose night and day, calling, warning, urging on and pushing away.
+gram: 'who have long lost ...' is a relative clause inside the subject; 'have ... lost' is the present perfect, and the main verb 'have' comes much later in the sentence.
+@S
+ctx: Since his escape on that bright morning he had hardly given it a thought
+simple: Since he got away on that bright morning he had hardly thought about it. He had been so full of his new life, with all its pleasures, its surprises and its fresh and exciting experiences.
+gram: 'had hardly given it a thought' is past perfect with 'hardly'; 'so absorbed had he been' that follows puts 'had he been' after 'so absorbed' (inversion) for a strong effect.
+@S
+ctx: and he had lost what he could hardly be said to have found
+simple: He had lost something that he could hardly say he had found.
+gram: 'could hardly be said to have found' is a passive structure ('be said to') plus 'to have found' (perfect infinitive); 'what' means 'the thing that'.
+@S
+ctx: It did not take long to prepare the brew and thrust the tin heater
+simple: It did not take long to make the drink and push the tin heater into the red middle of the fire. Soon every field-mouse was sipping and coughing and choking (for a little warm spiced ale goes a long way). They wiped their eyes and laughed, and forgot that they had ever been cold in all their lives.
+gram: 'It did not take long to + verb' is a common pattern; 'a little mulled ale goes a long way' in the brackets is a saying meaning a small amount is strong.
+@S
+ctx: in just the frame of mind that the tactful Rat had quietly worked
+simple: He was now in just the mood that the Rat, who was careful of his feelings, had quietly worked to bring about in him.
+gram: 'that the tactful Rat had quietly worked to bring about' is a relative clause with 'that' as its object; 'bring about' is a phrasal verb meaning 'cause'.
+@PH
+hold up | phrasal verb | To stop someone for a time. | held up | where the Mole had been “held up,”
+hold on | phrasal verb | To wait, or to stop for a moment. Or to keep holding something. | held on | hold on! Come back!
+come on | phrasal verb | To ask someone to hurry or come with you. | | come on quick, there’s a good fellow!
+cheer up | phrasal verb | To become happier, or to make someone happier. | | So cheer up, old chap
+give in | phrasal verb | To stop trying and accept that you have lost. | giving in | What a fellow you are for giving in!
+fall to | phrasal verb | To begin to eat or to work. | | as they fell to without delay
+look forward to | phrasal verb | To be happy that something good will happen. | looked forward | looked forward very shortly to winning

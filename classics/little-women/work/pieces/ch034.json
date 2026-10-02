@@ -1,0 +1,91 @@
+{
+ "glossary": {
+  "evaded": {
+   "pos": "past-tense verb",
+   "meaning": "Got away from a question without a direct answer.",
+   "forms": [
+    "evaded",
+    "evade"
+   ]
+  },
+  "disquietude": {
+   "pos": "uncountable noun",
+   "meaning": "A feeling of worry and not being at peace."
+  },
+  "conjectures": {
+   "pos": "plural noun",
+   "meaning": "Guesses made with little proof."
+  },
+  "reverie": {
+   "pos": "noun",
+   "meaning": "A state of thinking about nice things, like a dream."
+  },
+  "pummelled": {
+   "pos": "past participle",
+   "meaning": "Hit again and again with the hands or something hard.",
+   "forms": [
+    "pummelled",
+    "pummel"
+   ]
+  },
+  "coxcomb": {
+   "pos": "noun",
+   "meaning": "A silly young man who is too proud of his looks and clothes."
+  },
+  "eligible": {
+   "pos": "adjective",
+   "meaning": "Good enough to be chosen, especially as a husband, because of money or position."
+  },
+  "admonitory": {
+   "pos": "adjective",
+   "meaning": "Giving a warning or a gentle telling-off."
+  },
+  "acquiesced": {
+   "pos": "past-tense verb",
+   "meaning": "Agreed to something without saying no.",
+   "forms": [
+    "acquiesced",
+    "acquiesce"
+   ]
+  },
+  "assiduity": {
+   "pos": "uncountable noun",
+   "meaning": "Great care and attention that does not stop."
+  },
+  "patriarch": {
+   "pos": "noun",
+   "meaning": "A very old and respected man who is the head of a family."
+  },
+  "horsehair": {
+   "pos": "uncountable noun",
+   "meaning": "Hair from a horse, used in chairs."
+  },
+  "insinuating": {
+   "pos": "adjective",
+   "meaning": "Trying in a clever, soft way to make someone like you."
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 34,
+   "context": "Now, the old sofa was a regular patriarch of a sofa",
+   "mainIdea": "The old family sofa has been used by the girls all their lives. Jo's hard round pillow is her tool to keep people away.",
+   "simple": "The old sofa was a true grandfather of sofas: long, broad, well-stuffed and low. It was a little shabby, as it well might be. The girls had slept and sprawled on it as babies, fished over its back, ridden on its arms, and kept animal shows under it as children. As young women they had rested tired heads on it, dreamed dreams, and heard loving talk there. They all loved it as a family refuge, and one corner had always been Jo's favorite lounging place. Among the many pillows that decorated the old couch was one that was hard, round, covered with prickly horsehair, and had a knobby button at each end. This ugly pillow was Jo's own. She used it as a weapon of defence, as a barricade, or as a stern way to stop too much sleep.",
+   "hardWords": [
+    "patriarch",
+    "horsehair",
+    "menageries",
+    "venerable"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 34,
+   "context": "Anything more wheedlesome than that touching appeal was seldom heard",
+   "simple": "It was seldom that anyone heard a more coaxing, touching request than that.",
+   "grammar": "'Anything more X than that' is a comparison. The sentence is a way to say that this was the most coaxing request one could hear. It is built with a passive verb: 'was ... heard'."
+  }
+ ],
+ "phrases": {}
+}
