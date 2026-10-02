@@ -119,6 +119,7 @@ export const zh: Record<Key, string> = {
   "shelf.series.grouped": "按系列分组",
   "shelf.series.none": "不属于系列",
   "shelf.series.empty": "这个系列里没有书。",
+  "discover.kindList": "词表",
   "discover.title": "发现",
   "discover.hint": "这里是全部的书。点“加入书架”才会下载。",
   "discover.search": "按书名或作者搜索",

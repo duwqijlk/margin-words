@@ -45,11 +45,11 @@
 :root,
 [data-theme="light"] {
   color-scheme: light;
-  --paper: #f6f4ee;
-  --card: #ffffff;
+  --paper: #f3efe4;
+  --card: #fffcf7;
   --ink: #1f1d1a;
-  --muted: #6a655d;
-  --line: #e5e0d4;
+  --muted: #6e675c;
+  --line: #e4dccb;
   --accent: #28604f;
   --accent-ink: #ffffff;
   --accent-soft: #e2eee8;
@@ -147,6 +147,11 @@
   h2,
   h3 {
     text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    line-height: 1.15;
   }
 
   p {
@@ -312,12 +317,28 @@
     animation: pop-in 0.16s ease-out;
   }
 
+  /* Cover lift on hover. Off when the person prefers less motion. */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .book-card:hover .cover-frame,
+    button:hover > .cover-frame {
+      transform: translateY(-4px);
+      box-shadow:
+        0 1px 2px rgb(0 0 0 / 0.16),
+        0 14px 24px -12px rgb(0 0 0 / 0.38);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
+    }
+
+    .book-card:hover .cover-frame,
+    button:hover > .cover-frame {
+      transform: none;
     }
   }
 }

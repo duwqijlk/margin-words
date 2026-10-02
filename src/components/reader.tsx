@@ -539,7 +539,7 @@ function WordCard({
         {noList ? <span className="mt-1 block text-muted">{t("card.noList")}</span> : null}
       </p>
     ) : (
-      <p className="text-[1.05rem] leading-relaxed" lang="en" data-part="word-meaning">
+      <p className="rounded-xl bg-paper px-3.5 py-3 text-[1.05rem] leading-relaxed" lang="en" data-part="word-meaning">
         {state.meaning}
       </p>
     );
@@ -567,7 +567,7 @@ function WordCard({
       <div className="grid gap-3.5">
         <div className="flex items-start justify-between gap-3">
           <div className="grid min-w-0 gap-1">
-            <h2 className="font-display text-3xl leading-tight font-semibold break-words" lang="en">
+            <h2 className="font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words" lang="en">
               {phrase ? phrase.key : state.key}
             </h2>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
@@ -639,7 +639,7 @@ function WordCard({
 
         {phrase ? (
           <>
-            <p className="text-[1.05rem] leading-relaxed" lang="en" data-part="phrase-meaning">
+            <p className="rounded-xl bg-paper px-3.5 py-3 text-[1.05rem] leading-relaxed" lang="en" data-part="phrase-meaning">
               {phrase.entry.meaning}
             </p>
             <section

@@ -608,8 +608,8 @@ function NavButton({
       onClick={onClick}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg px-2.5 text-[0.95rem] font-semibold transition-colors sm:px-3.5",
-        active ? "bg-accent-soft text-accent" : "text-muted hover:bg-accent-soft/60 hover:text-ink",
+        "inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-3 text-[0.95rem] font-semibold transition-colors sm:px-3.5",
+        active ? "bg-accent-soft text-accent" : "text-muted hover:bg-accent-soft/70 hover:text-ink",
       )}
     >
       {children}

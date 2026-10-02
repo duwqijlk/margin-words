@@ -2,7 +2,14 @@ import { BookPlus, Check, Download } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { BookCover } from "@/components/shelf";
 import { BookMetaLines, DifficultyControls, matchesBand, type BandChoice, type SortChoice } from "@/components/lexile-ui";
-import { bookCardGrid, bookCardShell, ListFilters, type SeriesChoice } from "@/components/list-filters";
+import {
+  bookCardGrid,
+  bookCardShell,
+  cardAuthorClass,
+  cardTitleClass,
+  ListFilters,
+  type SeriesChoice,
+} from "@/components/list-filters";
 import { btn, cn, field, ProgressBar } from "@/components/ui";
 import { listPackRecords, type PackRecord } from "@/lib/book-db";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst, type CatalogPack } from "@/lib/packs";
@@ -169,16 +176,25 @@ export function DiscoverScreen({
         className={bookCardShell}
         {...(row.kind === "classic" ? { "data-pack": row.id } : { "data-word-list": row.id })}
       >
-        <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
-        <div className="grid flex-1 content-start gap-0.5">
-          <h3 className="min-h-[2.6em] overflow-hidden font-display text-[0.97rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]" lang="en">
+        <div className="relative">
+          <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
+          <span
+            className={cn(
+              "pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-0.9rem)] rounded-full px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold shadow-sm",
+              needs ? "bg-warn text-accent-ink" : row.kind === "classic" ? "bg-accent text-accent-ink" : "bg-card/95 text-ink ring-1 ring-line",
+            )}
+            {...(needs ? { "data-needs-epub": "" } : { "data-kind": row.kind })}
+          >
+            {needs ? t("shelf.needsEpub") : row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}
+          </span>
+        </div>
+        <div className="grid flex-1 content-start gap-1">
+          <h3 className={cardTitleClass} lang="en">
             {row.title}
           </h3>
-          {row.author ? (
-            <p className="truncate text-xs text-muted" lang="en">
-              {row.author}
-            </p>
-          ) : null}
+          <p className={cardAuthorClass} lang="en">
+            {row.author}
+          </p>
           <BookMetaLines lexile={row.lexile} isbn={row.isbn} series={row.series} seriesNumber={row.seriesNumber} />
         </div>
         <div className="mt-auto grid gap-2" data-card-actions>

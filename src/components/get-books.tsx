@@ -26,7 +26,14 @@ import {
   type BandChoice,
   type SortChoice,
 } from "@/components/lexile-ui";
-import { bookCardGrid, bookCardShell, ListFilters, type SeriesChoice } from "@/components/list-filters";
+import {
+  bookCardGrid,
+  bookCardShell,
+  cardAuthorClass,
+  cardTitleClass,
+  ListFilters,
+  type SeriesChoice,
+} from "@/components/list-filters";
 import { compareLexile } from "@/lib/lexile";
 import { btn, cn, field, ProgressBar, Segmented } from "@/components/ui";
 import { usePrefs } from "@/lib/reader-prefs";
@@ -64,21 +71,19 @@ function PackCard({
     <li className={bookCardShell} data-pack={pack.id}>
       <BookCover title={pack.title} author={pack.author} cover={coverUrl} />
       <div className="grid flex-1 content-start gap-0.5">
-        <h3 className="min-h-[2.6em] overflow-hidden font-display text-[0.97rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]" lang="en">
+        <h3 className={cardTitleClass} lang="en">
           {pack.title}
         </h3>
-        {pack.author ? (
-          <p className="truncate text-xs text-muted" lang="en">
-            {pack.author}
-          </p>
-        ) : null}
+        <p className={cardAuthorClass} lang="en">
+          {pack.author}
+        </p>
         <BookMetaLines
           lexile={pack.lexile}
           isbn={pack.isbn}
           series={pack.series}
           seriesNumber={pack.seriesNumber}
         />
-        <p className="text-xs text-muted tabular-nums">
+        <p className="min-h-4 truncate text-xs leading-4 text-muted tabular-nums">
           {pack.words > 0 ? tn("count.word", pack.words) : t("pack.noList")}
           {size ? ` · ${size}` : ""}
         </p>

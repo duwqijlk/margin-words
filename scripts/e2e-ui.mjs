@@ -350,7 +350,7 @@ async function run(lang, size) {
   );
   ok((await page.locator("[data-word-list]").count()) === 10, `${label}: ten word lists`);
   ok((await page.locator("[data-pack]").count()) === FREE_COUNT, `${label}: Discover lists the ${FREE_COUNT} classics`);
-  const photoIds = ["charlie", "george", "james", "magicfinger", "matilda", "twits", "wof1", "wof2"];
+  const photoIds = ["charlie", "george", "james", "magicfinger", "matilda", "narnia", "twits", "wof1", "wof2", "wonder"];
   for (const id of photoIds) {
     const img = page.locator(`[data-word-list="${id}"] img`);
     await img.scrollIntoViewIfNeeded();
@@ -363,13 +363,7 @@ async function run(lang, size) {
       { timeout: 20000 },
     );
   }
-  ok(photoIds.length === 8, `${label}: eight word lists show the cover from the e-book`);
-  for (const id of ["narnia", "wonder"]) {
-    const height = await page
-      .locator(`[data-word-list="${id}"] [data-generated-cover]`)
-      .evaluate((el) => el.getBoundingClientRect().height);
-    ok(height >= 48, `${label}: ${id} uses the generated cover (${Math.round(height)}px)`);
-  }
+  ok(photoIds.length === 10, `${label}: every word list shows the cover from its e-book`);
   await page.locator('[data-word-list="charlie"]').getByRole("button", { name: labelRe(t("discover.addAria")) }).click();
   await page.getByRole("heading", { name: t("discover.promptTitle") }).waitFor({ timeout: 60000 });
   await page.getByRole("dialog").getByText("9780141960616").waitFor({ timeout: 20000 });

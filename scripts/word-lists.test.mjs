@@ -55,9 +55,14 @@ test("word lists ship glossaries and card-sized covers, never an epub", () => {
   assert.equal(narnia.isbn, "9780062245762");
   assert.equal(narnia.lexile, undefined);
   assert.equal(narnia.epub, undefined);
-  assert.equal(narnia.cover, undefined);
+  assert.equal(narnia.cover.url, "narnia/cover.jpg");
   const wonder = catalog.lists.find((row) => row.id === "wonder");
-  assert.equal(wonder.cover, undefined);
+  assert.equal(wonder.cover.url, "wonder/cover.jpg");
+  for (const id of ["narnia", "wonder"]) {
+    const file = files.find((item) => item.name === `word-lists/${id}/cover.jpg`);
+    const sized = jpegSize(file.bytes);
+    assert.ok(sized.width > 40 && sized.width <= 400, `${id} ${sized.width}px`);
+  }
   for (const id of OLD_NARNIA) assert.equal(catalog.lists.some((row) => row.id === id), false, id);
   const list = JSON.parse(readFileSync(join(ROOT, "packs/narnia/glossary.json"), "utf8"));
   assert.equal(list.version, 2);

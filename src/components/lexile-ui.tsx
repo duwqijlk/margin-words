@@ -9,15 +9,23 @@ export function LexileBadge({ measure }: { measure?: string }) {
   const clean = lexileMeasure(measure ?? "");
   if (!clean) {
     return (
-      <p className="text-xs text-muted" data-lexile="unrated" aria-label={t("lexile.ariaUnrated")}>
+      <p
+        className="inline-flex min-h-6 items-center rounded-full bg-line/70 px-2 text-[0.7rem] font-semibold text-muted"
+        data-lexile="unrated"
+        aria-label={t("lexile.ariaUnrated")}
+      >
         {t("lexile.unrated")}
       </p>
     );
   }
   return (
-    <p className="text-xs text-muted" data-lexile={clean} aria-label={t("lexile.aria", { measure: clean })}>
-      <span className="font-semibold tabular-nums text-ink">{clean}</span>
-      <span> · {t("lexile.name")}</span>
+    <p
+      className="inline-flex min-h-6 items-center gap-1 rounded-full bg-accent-soft px-2 text-[0.7rem] font-semibold text-accent"
+      data-lexile={clean}
+      aria-label={t("lexile.aria", { measure: clean })}
+    >
+      <span className="tabular-nums">{clean}</span>
+      <span className="font-medium opacity-80">{t("lexile.name")}</span>
     </p>
   );
 }
@@ -39,41 +47,55 @@ export function BookMetaLines({
   const { t } = useT();
   const cleanIsbn = isbnDigits(isbn ?? "");
   return (
-    <div className="grid gap-0.5">
-      <LexileBadge measure={lexile} />
-      {cleanIsbn ? (
-        <p
-          className="truncate text-xs text-muted tabular-nums"
-          data-isbn={cleanIsbn}
-          lang="en"
-          aria-label={t("isbn.aria", { isbn: cleanIsbn })}
-        >
-          {t("isbn.name")} {cleanIsbn}
-        </p>
-      ) : null}
-      {series ? (
-        seriesNumber ? (
+    <div className="grid gap-1">
+      <div className="flex min-h-6 items-center">
+        <LexileBadge measure={lexile} />
+      </div>
+      <div className="flex min-h-4 items-center">
+        {cleanIsbn ? (
           <p
-            className="truncate text-xs text-muted"
+            className="truncate text-xs leading-4 text-muted tabular-nums"
+            data-isbn={cleanIsbn}
             lang="en"
-            data-series={series}
-            data-series-number={seriesNumber}
-            aria-label={t("series.aria", { name: series, n: seriesNumber })}
+            aria-label={t("isbn.aria", { isbn: cleanIsbn })}
           >
-            {t("series.book", { name: series, n: seriesNumber })}
+            {t("isbn.name")} {cleanIsbn}
           </p>
-        ) : (
+        ) : null}
+      </div>
+      <div className="flex min-h-4 items-center">
+        {series ? (
+          seriesNumber ? (
+            <p
+              className="truncate text-xs leading-4 text-muted"
+              lang="en"
+              data-series={series}
+              data-series-number={seriesNumber}
+              aria-label={t("series.aria", { name: series, n: seriesNumber })}
+            >
+              {t("series.book", { name: series, n: seriesNumber })}
+            </p>
+          ) : (
+            <p
+              className="truncate text-xs leading-4 text-muted"
+              lang="en"
+              data-series={series}
+              aria-label={t("series.ariaName", { name: series })}
+            >
+              {t("series.name", { name: series })}
+            </p>
+          )
+        ) : typeof matchRate === "number" ? (
           <p
-            className="truncate text-xs text-muted"
-            lang="en"
-            data-series={series}
-            aria-label={t("series.ariaName", { name: series })}
+            className={cn("text-xs leading-4 font-semibold", matchRate < 80 ? "text-warn" : "text-muted")}
+            data-match={matchRate}
+            aria-label={t("match.aria", { n: matchRate })}
           >
-            {t("series.name", { name: series })}
+            {t("match.short", { n: matchRate })}
           </p>
-        )
-      ) : null}
-      {typeof matchRate === "number" ? (
+        ) : null}
+      </div>
+      {series && typeof matchRate === "number" ? (
         <p
           className={cn("text-xs font-semibold", matchRate < 80 ? "text-warn" : "text-muted")}
           data-match={matchRate}

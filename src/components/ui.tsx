@@ -11,7 +11,7 @@ const btnBase =
   "inline-flex min-h-11 select-none items-center justify-center gap-2 rounded-lg px-4 text-[0.95rem] font-semibold transition-[background-color,opacity,transform] duration-150 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100";
 
 export const btn = {
-  primary: cn(btnBase, "bg-accent text-accent-ink hover:opacity-90"),
+  primary: cn(btnBase, "bg-accent text-accent-ink shadow-[0_1px_0_rgb(0_0_0/0.18)] hover:opacity-90"),
   quiet: cn(btnBase, "border border-line bg-card text-ink hover:bg-accent-soft"),
   ghost: cn(btnBase, "text-ink hover:bg-accent-soft"),
   danger: cn(btnBase, "bg-warn text-accent-ink hover:opacity-90"),

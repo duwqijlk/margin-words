@@ -328,17 +328,20 @@
     "sha256": "3cda8d540d1c746e1e8dab6d16eab40f8da488141f8b708b067d384213b9c556",
     "rev": "3cda8d540d1c"
    },
-   "cover": null,
+   "cover": {
+    "url": "wonder/cover.jpg",
+    "bytes": 31090
+   },
    "zip": {
     "url": "wonder.zip",
-    "bytes": 1018038,
-    "sha256": "8f9c9a70e0a240a810631b6c3f7f73971fe2bb7819b23327b29da8a2020794ee"
+    "bytes": 1049222,
+    "sha256": "b46eacabf18445ac89b4cd946aa12710745078ff9e343bf8ab27de082ec8b9d5"
    }
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 25315957,
-  "sha256": "2f8588e77ca67e114a4be377f7ce2a148faa3bdd5e38de49debfa79efa8ca68f"
+  "bytes": 25347159,
+  "sha256": "fe20cf75d5c8cad1383e4bd5031a58dc0807be945ce4e84c6c1f14567043a09e"
  }
 }

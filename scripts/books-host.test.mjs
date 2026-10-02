@@ -40,8 +40,8 @@ test("dist-books has loose classics, word-list glossaries, and card-sized covers
   assert.ok(wordLists.includes("word-lists/catalog.json"));
   assert.ok(wordLists.includes("word-lists/narnia/glossary.json"));
   assert.ok(wordLists.includes("word-lists/charlie/cover.jpg"));
-  assert.equal(wordLists.includes("word-lists/narnia/cover.jpg"), false);
-  assert.equal(wordLists.includes("word-lists/wonder/cover.jpg"), false);
+  assert.ok(wordLists.includes("word-lists/narnia/cover.jpg"));
+  assert.ok(wordLists.includes("word-lists/wonder/cover.jpg"));
   for (const name of wordLists) {
     assert.match(name, /^word-lists\/(?:catalog\.json|[a-z0-9][a-z0-9_-]*\/(?:glossary\.json|cover\.jpg))$/);
     assert.equal(name.endsWith("/book.epub"), false, name);

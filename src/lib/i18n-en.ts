@@ -116,6 +116,7 @@ export const en = {
   "shelf.series.grouped": "Group by series",
   "shelf.series.none": "Not in a series",
   "shelf.series.empty": "No books in this series.",
+  "discover.kindList": "Word list",
   "discover.title": "Discover",
   "discover.hint": "Every book we have. Nothing is downloaded until you add it to your shelf.",
   "discover.search": "Search by title or author",

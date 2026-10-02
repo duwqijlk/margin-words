@@ -23,9 +23,10 @@ test("the private backup has every copyrighted EPUB, glossary, and cover", () =>
   assert.ok(keys.includes("charlie/glossary.json"));
   assert.ok(keys.includes("charlie/cover.jpg"));
   assert.ok(keys.includes("narnia/glossary.json"));
+  assert.ok(keys.includes("narnia/cover.jpg"));
   assert.equal(keys.includes("narnia/book.epub"), false);
   assert.ok(keys.includes("wonder/book.epub"));
-  assert.equal(keys.includes("wonder/cover.jpg"), false);
+  assert.ok(keys.includes("wonder/cover.jpg"));
   assert.equal(keys.some((name) => name.endsWith(".zip")), false);
   const epub = readFileSync(join(out, "charlie/book.epub"));
   assert.ok(epub.equals(readFileSync(join(ROOT, "packs/charlie/book.epub"))));
@@ -43,7 +44,8 @@ test("public book objects never contain a copyrighted EPUB", () => {
     assert.equal(bytes.equals(secret), false, name);
   }
   assert.ok(walk(books).includes("word-lists/charlie/cover.jpg"));
-  assert.equal(walk(books).includes("word-lists/narnia/cover.jpg"), false);
+  assert.ok(walk(books).includes("word-lists/narnia/cover.jpg"));
+  assert.ok(walk(books).includes("word-lists/wonder/cover.jpg"));
 });
 
 test("the app never names the private bucket", () => {

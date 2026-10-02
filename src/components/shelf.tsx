@@ -34,7 +34,14 @@ import {
   type BandChoice,
   type SortChoice,
 } from "@/components/lexile-ui";
-import { bookCardGrid, bookCardShell, ListFilters, type SeriesChoice } from "@/components/list-filters";
+import {
+  bookCardGrid,
+  bookCardShell,
+  cardAuthorClass,
+  cardTitleClass,
+  ListFilters,
+  type SeriesChoice,
+} from "@/components/list-filters";
 
 export function useCovers(ids: string[]) {
   const [covers, setCovers] = useState<Record<string, string>>({});
@@ -106,7 +113,7 @@ export function BookCover({
   return (
     <span
       className={cn(
-        "relative block aspect-[2/3] w-full shrink-0 overflow-hidden rounded-[0.3rem] bg-line shadow-cover [container-type:inline-size]",
+        "cover-frame relative block aspect-[2/3] w-full shrink-0 overflow-hidden rounded-md bg-line shadow-cover ring-1 ring-ink/10 transition-[transform,box-shadow] duration-200 [container-type:inline-size]",
         className,
       )}
       {...(showImage ? {} : { "data-generated-cover": "" })}
@@ -256,7 +263,7 @@ function ContinueCard({ row, cover, onOpen }: { row: Row; cover?: string; onOpen
       <button
         type="button"
         onClick={onOpen}
-        className="w-24 shrink-0 rounded-[0.3rem] transition-transform duration-200 hover:-translate-y-0.5 sm:w-36"
+        className="w-24 shrink-0 sm:w-36"
         aria-label={t("shelf.openAria", { title: book.title })}
       >
         <BookCover title={book.title} author={book.author} cover={cover} />
@@ -423,21 +430,21 @@ function BookCard({
         <button
           type="button"
           onClick={onOpen}
-          className="block w-full rounded-[0.3rem] text-left transition-transform duration-200 hover:-translate-y-1"
+          className="block w-full rounded-md text-left"
           aria-label={t("shelf.openAria", { title: book.title })}
         >
           <BookCover title={book.title} author={book.author} cover={cover} />
         </button>
         {book.needsEpub ? (
           <span
-            className="pointer-events-none absolute top-2 left-2 rounded-full bg-warn px-2 py-0.5 text-[0.7rem] font-bold text-accent-ink shadow"
+            className="pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-0.9rem)] rounded-full bg-warn px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
             data-needs-epub
           >
             {t("shelf.needsEpub")}
           </span>
         ) : classic ? (
           <span
-            className="pointer-events-none absolute top-2 left-2 rounded-full bg-accent px-2 py-0.5 text-[0.7rem] font-bold text-accent-ink shadow"
+            className="pointer-events-none absolute top-2 left-2 z-[1] max-w-[calc(100%-0.9rem)] rounded-full bg-accent px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold text-accent-ink shadow-sm"
             data-classic-label
           >
             {t("shelf.classic")}
@@ -454,7 +461,7 @@ function BookCard({
           <button
             type="button"
             onClick={onOpen}
-            className="min-w-0 flex-1 text-left font-display text-[0.97rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] min-h-[2.6em] overflow-hidden"
+            className={cn(cardTitleClass, "min-w-0 flex-1 text-left")}
             lang="en"
           >
             {book.title}
@@ -497,11 +504,9 @@ function BookCard({
             </Menu.Portal>
           </Menu.Root>
         </div>
-        {book.author ? (
-          <p className="-mt-1.5 truncate text-xs text-muted" lang="en">
-            {book.author}
-          </p>
-        ) : null}
+        <p className={cardAuthorClass} lang="en">
+          {book.author}
+        </p>
         <BookMetaLines
           lexile={book.lexile}
           isbn={book.isbn}
