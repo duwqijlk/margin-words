@@ -133,7 +133,7 @@ export function ParagraphMarker({
     if (!root) return;
     blocks.current = paragraphBlocks(root).map((el) => ({
       el,
-      ok: /^(P|BLOCKQUOTE|LI)$/.test(el.tagName) && wordCount(flowText(el)) >= 8,
+      ok: /^(P|BLOCKQUOTE|LI|DIV)$/.test(el.tagName) && wordCount(flowText(el)) >= 8,
     }));
     hover.current = null;
     focus.current = null;

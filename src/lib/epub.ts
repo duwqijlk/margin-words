@@ -313,12 +313,65 @@ function paragraphText(block: ParentNode): string {
   return stripWordBreaks(flowText(block));
 }
 
-function paragraphsOf(root: ParentNode): string[] {
-  const blocks = [...root.querySelectorAll("p, h1, h2, h3, h4, li, blockquote")];
+const PARAGRAPH_BLOCKS = "p, h1, h2, h3, h4, li, blockquote";
+
+/** Text inside one of these belongs to that block, not to a wrapping div. */
+const NESTED_BLOCK = new Set(["div", "p", "h1", "h2", "h3", "h4", "li", "blockquote"]);
+
+/** Text of a div that is not inside a nested div or another paragraph block. */
+function inlineText(el: Element): string {
+  let text = "";
+  for (const child of el.childNodes) {
+    if (child.nodeType === Node.TEXT_NODE) {
+      text += child.textContent ?? "";
+      continue;
+    }
+    if (child.nodeType !== Node.ELEMENT_NODE) continue;
+    const nested = child as Element;
+    if (NESTED_BLOCK.has(localName(nested))) continue;
+    text += inlineText(nested);
+  }
+  return text;
+}
+
+function divHasInlineText(el: Element): boolean {
+  return inlineText(el).replace(/[\s\u00AD\u200B\u2060]/g, "").length > 0;
+}
+
+/**
+ * A div paragraph: it holds text directly or through inline tags (span, i, b, em, strong, a),
+ * and no descendant div does. Empty divs and image-only divs do not.
+ */
+function isDivParagraph(el: Element): boolean {
+  if (!divHasInlineText(el)) return false;
+  for (const nested of el.querySelectorAll("div")) {
+    if (divHasInlineText(nested)) return false;
+  }
+  return true;
+}
+
+/**
+ * Paragraph strings for one chapter fragment.
+ * `divParagraphs` is true only when the whole book has no `p` element. Then each innermost
+ * text div is a paragraph too, marked `data-para` so the reader numbers the same blocks.
+ * When it is false this is the historical rule, unchanged.
+ */
+function paragraphsOf(root: ParentNode, divParagraphs = false): string[] {
+  const selector = divParagraphs ? `${PARAGRAPH_BLOCKS}, div` : PARAGRAPH_BLOCKS;
+  const blocks = [...root.querySelectorAll(selector)];
   const paragraphs: string[] = [];
   for (const block of blocks) {
     if (block.parentElement && ["p", "li", "blockquote"].includes(localName(block.parentElement)))
       continue;
+    if (divParagraphs && localName(block) === "div") {
+      if (!isDivParagraph(block)) continue;
+      const text = paragraphText(block);
+      if (englishLetters(text) > 1) {
+        block.setAttribute("data-para", "");
+        paragraphs.push(text);
+      }
+      continue;
+    }
     const text = paragraphText(block);
     if (englishLetters(text) > 1) paragraphs.push(text);
   }
@@ -344,6 +397,7 @@ async function renderFragment(
   source: ParentNode,
   zip: JSZip,
   path: string,
+  divParagraphs: boolean,
 ): Promise<{ paragraphs: string[]; html: string } | null> {
   // An inert document: images with a relative path must not be fetched from the page address.
   const inert = document.implementation.createHTMLDocument("");
@@ -357,7 +411,7 @@ async function renderFragment(
   // positions, the import match rate and the text on screen all see the same words.
   stripWordBreaksIn(holder);
   unwrapDropCaps(holder);
-  const paragraphs = paragraphsOf(holder);
+  const paragraphs = paragraphsOf(holder, divParagraphs);
   const html = holder.innerHTML.trim();
   if (!html) return null;
   return { paragraphs, html };
@@ -368,8 +422,9 @@ async function chapterFromElement(
   title: string,
   zip: JSZip,
   path: string,
+  divParagraphs: boolean,
 ): Promise<EpubChapter | null> {
-  const rendered = await renderFragment(source, zip, path);
+  const rendered = await renderFragment(source, zip, path, divParagraphs);
   if (!rendered) return null;
   const letters = englishLetters(rendered.paragraphs.join(" "));
   if (letters < 20) return null;
@@ -867,6 +922,17 @@ export async function parseEpub(
     }
   }
 
+  // Div paragraphs apply only when every spine content document has no <p> at all.
+  // One <p> anywhere keeps today's paragraph list, byte for byte.
+  let divParagraphs = true;
+  for (const item of spineRefs) {
+    const spineDoc = await loadDoc(item.path);
+    if (spineDoc?.querySelector("p")) {
+      divParagraphs = false;
+      break;
+    }
+  }
+
   const chapters: EpubChapter[] = [];
   const tocFiles = new Set(toc.map((entry) => entry.href.split("#")[0] ?? ""));
   const prefixCounts = new Map<string, number>();
@@ -885,7 +951,7 @@ export async function parseEpub(
     const title =
       englishTitle(stripWordBreaks(rawTitle), "") ||
       englishTitle(textOf(heading), `Chapter ${index + 1}`);
-    const chapter = await chapterFromElement(holder, title, zip, path);
+    const chapter = await chapterFromElement(holder, title, zip, path, divParagraphs);
     if (chapter) chapters.push(chapter);
   }
 
@@ -911,7 +977,7 @@ export async function parseEpub(
       previous = item.path;
       const extraDoc = await loadDoc(item.path);
       if (!extraDoc?.body || looksLikeContents(extraDoc)) continue;
-      const extra = await renderFragment(extraDoc.body, zip, item.path);
+      const extra = await renderFragment(extraDoc.body, zip, item.path, divParagraphs);
       if (!extra) continue;
       out.push(extra);
     }

@@ -190,7 +190,8 @@ rule above matters for counting; use `extract-epub-text.mjs --find word` and cop
 
 ### 3.3 Context
 
-`context` is compared with the text of the **paragraph block** (`p`, `li`, `blockquote`, `h1`-`h4`)
+`context` is compared with the text of the **paragraph block** (`p`, `li`, `blockquote`, `h1`-`h4`,
+or a text `div` in a book that has no `p` at all — see 3.4)
 that holds the tapped word, after the following clean-up on both sides: soft hyphens are removed
 (see 3.2), curly quotes become
 straight, dashes become `-`, `…` becomes `...`, runs of spaces become one space, and letters are
@@ -210,6 +211,7 @@ the blocks it shows with `paragraphBlocks()` in `src/lib/help-match.ts`, which a
 2. Skip one whose **direct parent** is a `p`, `li` or `blockquote` (the outer block counts, not the inner one).
 3. Skip one with fewer than 2 English letters (empty lines, "* * *", page numbers like "7").
 4. If nothing is left, the whole chapter text is one paragraph (index 0).
+5. Only when **every spine content document in the book** has no `p` element at all: also count each innermost `div` that contains text directly or through inline elements (`span`, `i`, `b`, `em`, `strong`, `a`, and so on). An empty `div`, or a `div` that holds only an image, does not count. A `div` that wraps another text-bearing `div` does not count; the inner one does. These sit in the same document order as the headings, list items and quotations. A book with even one `p` ignores this step, and its paragraphs stay exactly as they were without it.
 
 A chapter heading that is part of the chapter html is a paragraph too (index 0 when it comes first). A paragraph is
 the text of the block with every run of spaces made into one space, and with soft hyphens removed (3.2).

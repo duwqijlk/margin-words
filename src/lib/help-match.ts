@@ -590,14 +590,17 @@ export function mergeExtras(
 
 /* ------------------------------------------------------------------ paragraph numbering */
 
-const PARAGRAPH_BLOCKS = "p, h1, h2, h3, h4, li, blockquote";
+const PARAGRAPH_BLOCKS = "p, h1, h2, h3, h4, li, blockquote, div[data-para]";
 
 /**
  * THE paragraph rule. The paragraph index of a chapter is the position in `chapter.paragraphs`
  * (what src/lib/epub.ts `paragraphsOf` builds when the book is added): every p, h1-h4, li and
  * blockquote of the chapter html, in document order, EXCEPT one whose direct parent is a p, li
- * or blockquote, and EXCEPT one with fewer than 2 English letters. This helper applies the same
- * rule to a rendered chapter, so the reader can number the blocks it shows.
+ * or blockquote, and EXCEPT one with fewer than 2 English letters.
+ * When the whole book has no p element, paragraphsOf also counts each innermost text div and
+ * marks it with data-para. Those marked divs are paragraphs here too, in the same order.
+ * A book that has a p never gets that mark, so its blocks stay as before.
+ * This helper applies the same rule to a rendered chapter, so the reader can number the blocks it shows.
  * (If the chapter has no such block at all, the whole chapter text is the one paragraph, index 0.)
  */
 export function paragraphBlocks(root: ParentNode): Element[] {

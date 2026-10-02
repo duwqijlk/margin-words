@@ -177,6 +177,7 @@
   }
 
   .book-body p,
+  .book-body div[data-para],
   .book-body ul,
   .book-body ol,
   .book-body blockquote,

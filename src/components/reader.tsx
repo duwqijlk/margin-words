@@ -1029,7 +1029,7 @@ export function ReaderScreen({
   /** Open the word card for a word button on the page (shared by taps and the hard-word list). */
   function pickButton(button: Element) {
     const surface = button.getAttribute("data-word") ?? "";
-    const block = button.closest("p, li, blockquote, h1, h2, h3, h4");
+    const block = button.closest("p, li, blockquote, h1, h2, h3, h4, div[data-para]");
     const paragraph = block ? flowText(block) : surface;
     const before = block ? flowTextBefore(block, button) : "";
     closeHelp();

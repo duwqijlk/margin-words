@@ -17,7 +17,9 @@
  * Paragraph index (for "paragraphs" notes): 0-based position of the paragraph in the chapter's
  * paragraph list, as the reader counts it: every p, h1-h4, li and blockquote of the chapter, in
  * document order, except one that sits directly inside another p/li/blockquote and except one with
- * fewer than 2 letters. This is exactly `chapter.paragraphs` from src/lib/epub.ts (see docs/GLOSSARY_FORMAT.md 3.4).
+ * fewer than 2 letters. When the whole book has no p element, each innermost text div is a
+ * paragraph too (empty and image-only divs are not; a wrapping div is not). A book with any p
+ * keeps the list above. This is exactly `chapter.paragraphs` from src/lib/epub.ts (see docs/GLOSSARY_FORMAT.md 3.4).
  * The chapter heading is a paragraph too when it is inside the chapter html (it then has index 0). *
  * Rules (same as the app): chapters are counted from 0 in the order the reader shows
  * them. Soft hyphens (U+00AD) are removed, and a zero-width space or word joiner inside

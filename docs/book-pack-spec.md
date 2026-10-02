@@ -266,6 +266,8 @@ except a block whose direct parent is a `p`, `li` or `blockquote`, and except a 
 lines, `* * *`, page numbers). If nothing is left, the whole chapter text is paragraph 0. A chapter heading inside the chapter
 HTML is a paragraph (index 0 when it comes first). Example: in `the-lantern-seller.epub` chapter 1 the heading is `[0]`, "As the sun sank..." is `[1]`, the lantern-lighting paragraph is `[3]`.
 
+Only when every spine content document has no `p` element at all, each innermost `div` that contains text directly or through inline elements (`span`, `i`, `b`, `em`, `strong`, `a`, and so on) is a paragraph too, in that same document order. An empty `div`, or a `div` that holds only an image, does not count. A wrapping `div` does not count when a `div` inside it holds the text. A book with at least one `p` does not use this rule, and its paragraph list stays the same.
+
 ### 5.5 Context matching
 
 `context` is compared with the text of one paragraph block after both sides are normalised: curly quotes -> straight, dashes -> `-`,

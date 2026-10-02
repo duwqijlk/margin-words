@@ -476,7 +476,7 @@ export function normText(text: string): string {
 }
 
 const CJK_RE = /[\u3400-\u4dbf\u4e00-\u9fff\u3000-\u303f\uff00-\uffef\u3040-\u30ff\uac00-\ud7af]/u;
-const BLOCK_SELECTOR = "p, li, blockquote, h1, h2, h3, h4";
+const BLOCK_SELECTOR = "p, li, blockquote, h1, h2, h3, h4, div[data-para]";
 const SKIPPED_PARENTS = new Set([
   "script",
   "style",
@@ -1567,6 +1567,7 @@ export function readingHtml(
       if (attr.name.startsWith("on") || attr.name === "href" || attr.name === "action")
         el.removeAttribute(attr.name);
       // The book's own inline styles would fight the reader's typography settings.
+      // data-para stays: it marks a div paragraph in a book that has no <p>.
       if (attr.name === "style" || attr.name === "class") el.removeAttribute(attr.name);
     }
     // Kept so a chapter-opening drop cap can still style the first letter.

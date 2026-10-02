@@ -15,7 +15,7 @@ import { loadAppModules } from "./lib/app-modules.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(join(ROOT, "package.json"));
 const JSZip = require("jszip");
-const { epub, format } = await loadAppModules();
+const { epub, format, help, flow } = await loadAppModules();
 
 const LONG = "This sentence is long enough to stand alone as its own paragraph in the reader.";
 
@@ -509,6 +509,142 @@ test("accented letters and combining marks are one tappable word", () => {
   assert.equal(words.includes("caf"), false);
   assert.equal(words.includes("Yucat"), false);
   assert.equal(format.splitWords("well-known don't café").filter((_, index) => index % 2 === 1).join(","), "well,known,don't,café");
+});
+
+test("a book with no p elements splits innermost text divs into paragraphs", async () => {
+  const book = await buildEpub({
+    title: "Div Chapters",
+    toc: [
+      { title: "Chapter One", href: "c01.xhtml" },
+      { title: "Chapter Two", href: "c02.xhtml" },
+    ],
+    spine: [
+      { id: "c01", href: "c01.xhtml" },
+      { id: "c02", href: "c02.xhtml" },
+    ],
+    files: {
+      "c01.xhtml": `<div class="chapter">
+  <h1>The First Chapter Title</h1>
+  <div class="calibre1"><span>The morning was cold and bright today.</span></div>
+  <div class="shell">
+    <div class="calibre1"><span>Inside the nested div sits the real paragraph.</span></div>
+  </div>
+  <div></div>
+  <div><img src="pic.jpg" alt="a lantern"/></div>
+  <div><span><img src="icon.jpg" alt="a small icon"/></span></div>
+  <div class="calibre1"><i>The last line of the chapter stands alone.</i></div>
+  <div><span>X</span></div>
+  <div>
+    <span>This outer line should not be its own paragraph.</span>
+    <div><span>The inner line is the one that counts.</span></div>
+  </div>
+  <blockquote>A quoted line that is already a paragraph block.</blockquote>
+  <ul><li>A list item that stays a paragraph too.</li></ul>
+</div>`,
+      "c02.xhtml": `<div><span>Before the heading comes this paragraph.</span></div>
+<h2>A Middle Heading</h2>
+<div>Direct text in the div is a paragraph too.</div>
+<div><em>A second paragraph uses emphasis.</em></div>`,
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["Chapter One", "Chapter Two"],
+  );
+  assert.deepEqual(paragraphs(book), [
+    [
+      "The First Chapter Title",
+      "The morning was cold and bright today.",
+      "Inside the nested div sits the real paragraph.",
+      "The last line of the chapter stands alone.",
+      "The inner line is the one that counts.",
+      "A quoted line that is already a paragraph block.",
+      "A list item that stays a paragraph too.",
+    ],
+    [
+      "Before the heading comes this paragraph.",
+      "A Middle Heading",
+      "Direct text in the div is a paragraph too.",
+      "A second paragraph uses emphasis.",
+    ],
+  ]);
+  const chapter = book.chapters[0];
+  assert.equal(chapter.html.includes("data-para"), true);
+  assert.equal(chapter.html.includes(">X<"), true);
+  const root = new DOMParser().parseFromString(`<div>${chapter.html}</div>`, "text/html").body
+    .firstElementChild;
+  const blocks = help.paragraphBlocks(root);
+  assert.deepEqual(
+    blocks.map((block) => flow.flowText(block)),
+    chapter.paragraphs,
+  );
+  const shown = format.readingHtml(chapter.html, new Set(), (surface) => surface.toLowerCase(), 0, new Map());
+  const shownRoot = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html").body
+    .firstElementChild;
+  assert.equal(shownRoot.querySelectorAll("div[data-para]").length, 4);
+  assert.deepEqual(
+    help.paragraphBlocks(shownRoot).map((block) => flow.flowText(block)),
+    chapter.paragraphs,
+  );
+  const indexed = format.indexChapterHtml(chapter.html, (html) =>
+    new DOMParser().parseFromString(html, "text/html"),
+  );
+  assert.deepEqual(indexed.blocks, chapter.paragraphs);
+
+  const fallback = await buildEpub({
+    title: "One Entry",
+    toc: [],
+    ncx: [{ title: "Only", href: "c01.xhtml" }],
+    spine: [
+      { id: "c01", href: "c01.xhtml" },
+      { id: "c02", href: "c02.xhtml" },
+    ],
+    files: {
+      "c01.xhtml": `<div><span>The first spine file is its own chapter of div paragraphs.</span></div>`,
+      "c02.xhtml": `<div><span>The second spine file is still its own chapter.</span></div>
+<div><span>Its second div is a paragraph, not a new chapter.</span></div>`,
+    },
+  });
+  assert.equal(fallback.chapters.length, 2);
+  assert.deepEqual(paragraphs(fallback), [
+    ["The first spine file is its own chapter of div paragraphs."],
+    [
+      "The second spine file is still its own chapter.",
+      "Its second div is a paragraph, not a new chapter.",
+    ],
+  ]);
+});
+
+test("a book that already has a p element ignores text divs", async () => {
+  const book = await buildEpub({
+    title: "Has Paragraphs",
+    toc: [
+      { title: "Kept Chapter", href: "c01.xhtml" },
+      { title: "Div Only File", href: "c02.xhtml" },
+    ],
+    spine: [
+      { id: "c01", href: "c01.xhtml" },
+      { id: "c02", href: "c02.xhtml" },
+    ],
+    files: {
+      "c01.xhtml": `<h1>Kept Chapter</h1>
+<p>The real paragraph stays exactly as it is today.</p>
+<div><span>This div must not become a paragraph of its own.</span></div>
+<div class="shell"><div><span>A nested div is ignored too.</span></div></div>
+<div><img src="pic.jpg" alt="a lantern"/></div>`,
+      "c02.xhtml": `<div><span>First div sentence of the second chapter.</span></div>
+<div><span>Second div sentence of the second chapter.</span></div>`,
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["Kept Chapter", "Div Only File"],
+  );
+  assert.deepEqual(paragraphs(book), [
+    ["Kept Chapter", "The real paragraph stays exactly as it is today."],
+    ["First div sentence of the second chapter. Second div sentence of the second chapter."],
+  ]);
+  for (const chapter of book.chapters) assert.equal(chapter.html.includes("data-para"), false);
 });
 
 /** Paragraph text of the bundled classics, hashed before the extraction fixes. */
