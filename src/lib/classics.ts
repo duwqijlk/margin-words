@@ -112,12 +112,24 @@ function asFacts(pack: CatalogPack | WordListPack): FactSource {
   };
 }
 
+/**
+ * In a production build, wait until the service worker controls this page before the first
+ * book download. Then those responses are cached for offline. Dev has no worker; waiting
+ * on `ready` there would never finish.
+ */
+async function waitForServiceWorker(): Promise<void> {
+  if (!import.meta.env.PROD) return;
+  if (typeof navigator === "undefined" || !("serviceWorker" in navigator)) return;
+  await withTimeout(navigator.serviceWorker.ready, 4000).catch(() => undefined);
+}
+
 async function run(): Promise<void> {
   // Set at once, so a first-run shelf shows placeholders and not the "empty shelf" for a moment.
   useClassicsRunning.setState({ running: true });
   let started = false;
   try {
-    const { catalog } = await withTimeout(loadCatalog(BUNDLED_CATALOG_URL), 5000);
+    await waitForServiceWorker();
+    const { catalog } = await withTimeout(loadCatalog(BUNDLED_CATALOG_URL), 8000);
     await rememberFacts(catalog.packs.map(asFacts));
     try {
       const lists = await withTimeout(loadWordListCatalog(), 5000);

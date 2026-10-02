@@ -1,6 +1,7 @@
 /**
  * The copyrighted packs stay out of the site. This builds a word-list catalog:
  * title, author, Lexile, ISBN, series, and glossary.json. Never an EPUB, a cover, or a zip.
+ * packs/<id>/cover.jpg is publisher art and is not shipped. Cards draw a generated cover.
  */
 import { createHash } from "node:crypto";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";

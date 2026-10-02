@@ -347,7 +347,7 @@
    "lexile": "840L",
    "series": "Alice",
    "seriesNumber": 2,
-   "rev": "f4bacd58644b",
+   "rev": "b7c40e99e08d",
    "version": 2,
    "chapters": 19,
    "words": 297,
@@ -357,14 +357,14 @@
    "coined": 24,
    "epub": {
     "url": "looking-glass/book.epub",
-    "bytes": 9357796,
-    "sha256": "ec36a0458196fbbd288ad5c03ebd3debeb893ea1259313f4da51ab0fe07752bd"
+    "bytes": 3379309,
+    "sha256": "acf39ea2ab997e5ce2a2e908c50c71d0684ab4bd4891032c4435ebf8c19abc96"
    },
    "glossary": {
     "url": "looking-glass/glossary.json",
     "bytes": 78353,
-    "sha256": "d67473c8780791aa9f8a7190713b56add79676b00af622453c075eba478d14b6",
-    "rev": "d67473c87807"
+    "sha256": "6a7240dc928732ebdd9a4cecf11d35309c25b8594b91a90aecffaf92e06a8a24",
+    "rev": "6a7240dc9287"
    },
    "cover": {
     "url": "looking-glass/cover.jpg",
@@ -372,8 +372,8 @@
    },
    "zip": {
     "url": "looking-glass.zip",
-    "bytes": 9432086,
-    "sha256": "351cfc3ab532aed64800b6a405db12b0151e6e8b375df554e54cc3f86f001d20"
+    "bytes": 3453598,
+    "sha256": "35cecfe21d96a38836bdf6758f5019b6f749255022f1c59a8d33a787bfa93a44"
    },
    "preinstall": true
   },
@@ -454,7 +454,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 17040407,
-  "sha256": "6e77e2b5342666375861c2c5625a6b7e7ff28c1ccbe7d2e0026b8efe22d5b0c8"
+  "bytes": 11061917,
+  "sha256": "dab42b1fd4f8e375fb96e1f7f5c1a962b2495582c00d3c11c1addf1d528f1c81"
  }
 }

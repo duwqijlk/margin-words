@@ -106,9 +106,10 @@ export function BookCover({
   return (
     <span
       className={cn(
-        "relative block aspect-[2/3] w-full overflow-hidden rounded-[0.3rem] bg-line shadow-cover [container-type:inline-size]",
+        "relative block aspect-[2/3] w-full shrink-0 overflow-hidden rounded-[0.3rem] bg-line shadow-cover [container-type:inline-size]",
         className,
       )}
+      {...(showImage ? {} : { "data-generated-cover": "" })}
     >
       {showImage ? (
         <img

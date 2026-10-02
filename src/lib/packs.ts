@@ -31,6 +31,7 @@ import {
   type PackGroup,
 } from "@/lib/pack-check";
 import { applyPackGlossary, hashBytes } from "@/lib/pack-glossary";
+import { booksUrl } from "@/lib/books-base";
 import { isbnDigits, readSeries } from "@/lib/book-meta";
 import { lexileMeasure } from "@/lib/lexile";
 
@@ -77,8 +78,8 @@ export type Catalog = {
   packs: CatalogPack[];
 };
 
-/** The free classics that ship with the app (public-domain books, see public-books/). */
-export const BUNDLED_CATALOG_URL = "./public-books/catalog.json";
+/** The free classics (public-domain books). Fetched from the books host, or from this origin in dev. */
+export const BUNDLED_CATALOG_URL = booksUrl("public-books/catalog.json");
 export const DEFAULT_CATALOG_URL = BUNDLED_CATALOG_URL;
 const URL_KEY = "cibian-catalog-url-v1";
 const CACHE_KEY = "cibian-catalog-cache-v1";

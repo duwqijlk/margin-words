@@ -10,10 +10,9 @@ createRoot(document.getElementById("root") as HTMLElement).render(
 );
 
 // Offline app shell. Only in a real build: the dev server must never be cached.
+// Register at once so the first book download can be cached (see waitForServiceWorker).
 if (import.meta.env.PROD && "serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(() => {
-      // The app still works online without it.
-    });
+  navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(() => {
+    // The app still works online without it.
   });
 }

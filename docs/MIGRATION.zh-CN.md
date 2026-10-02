@@ -34,7 +34,7 @@ npx vite build
 npx wrangler pages deploy dist --project-name margin-words --branch main
 ```
 
-`dist/` 只含 12 本公有领域的书。**绝不要公开部署 `packs/`。**
+`dist/` 只有网页，没有书。书的文件用 `npm run build:books` 生成，再上传到书籍站点。**绝不要公开部署 `packs/`。** 版权书只上传词表，不上传 EPUB，也不上传出版社封面。
 
 ## 添加书
 

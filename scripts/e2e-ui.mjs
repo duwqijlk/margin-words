@@ -4,8 +4,10 @@
  *
  *   node scripts/e2e-ui.mjs [baseUrl] [--shots DIR]
  *
- * Needs: the built site served on baseUrl (default http://127.0.0.1:8090/; serve ./dist, which holds
- * ./public-books/catalog.json), Playwright, and Chrome at $CHROME or /usr/bin/google-chrome.
+ * Needs: a local build served on baseUrl (default http://127.0.0.1:8090/), Playwright, and Chrome
+ * at $CHROME or /usr/bin/google-chrome. Build with an empty book host so files stay on this server:
+ *   npm run build:local && npx vite preview --host 127.0.0.1 --port 8090
+ * Preview serves ./public-books and ./word-lists from the repo. They are not inside dist/.
  * Runs in English and Chinese, at 1280px and 390px. Checks:
  *   - FIRST OPEN: the shelf shows all 12 free classics with covers, a Lexile measure and the
  *     "Free classic" label; one opens and a word can be looked up
@@ -347,6 +349,14 @@ async function run(lang, size) {
     `${label}: Narnia collection has no Lexile`,
   );
   ok((await page.locator("[data-word-list]").count()) === 10, `${label}: ten word lists`);
+  const generated = page.locator("[data-word-list] [data-generated-cover]");
+  const coverHeights = await generated.evaluateAll((els) =>
+    els.map((el) => el.getBoundingClientRect().height),
+  );
+  ok(
+    coverHeights.length === 10 && coverHeights.every((height) => height >= 48),
+    `${label}: every word list shows a generated cover (${coverHeights.map((h) => Math.round(h)).join(",")})`,
+  );
   for (const id of [
     "narnia1-magicians-nephew",
     "narnia2-lion-witch-wardrobe",

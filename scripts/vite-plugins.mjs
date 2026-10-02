@@ -5,15 +5,16 @@
  *   /packs/... so "Get books" works while developing. The production build never copies it
  *   (those books are copyrighted; scripts/build-site.mjs can add them on purpose).
  *
- * publicBooks(): the free public-domain classics in ./public-books are the ONLY books the app ships with.
- *   They are served in dev/preview at /public-books/... and emitted into dist/public-books/ by the build
- *   (catalog.json, <id>/book.epub, glossary.json, cover.jpg, and the pack zips).
+ * publicBooks(): the free public-domain classics in ./public-books. Served in dev and preview at
+ *   /public-books/... so local and e2e runs need no network. The production build does NOT copy them
+ *   into dist/. `npm run build:books` writes them to dist-books/ for the books host.
  *
- * offlineShell(): after the build, write dist/sw.js, a tiny service worker that keeps the app
- *   shell (HTML, JS, CSS, fonts, icons) plus, from public-books/, the catalog, the covers and the
- *   small "preinstall" books (EPUB at most PRECACHE_MAX_EPUB_BYTES). Every preinstall book is still
- *   copied into IndexedDB on start, including the large ones. Those are cached here the first time they
- *   are fetched. It never touches packs/ or anything from another site. Book data lives in IndexedDB.
+ * wordLists(): glossary.json and catalog.json only, served in dev and preview. Never an EPUB,
+ *   a publisher cover, or a zip. Not copied into dist/.
+ *
+ * offlineShell(): after the build, write dist/sw.js. It precaches the app shell only (HTML, JS, CSS,
+ *   fonts, icons). Book EPUBs and glossaries are cached after the app fetches them, including from
+ *   the books host when that response is CORS-readable. It never touches packs/.
  */
 import { createHash } from "node:crypto";
 import { createReadStream, existsSync, readdirSync, readFileSync, statSync } from "node:fs";
@@ -67,7 +68,7 @@ export function packsFolder() {
 
 /**
  * Word lists for the copyrighted books. Dev and preview serve glossary.json and catalog.json only.
- * The build emits those files and never an EPUB, a cover, or a zip from packs/.
+ * The production build does not emit them. Never an EPUB, a publisher cover, or a zip from packs/.
  */
 export function wordLists() {
   let packsDir = "";
@@ -81,13 +82,6 @@ export function wordLists() {
     },
     configurePreviewServer(server) {
       server.middlewares.use(serveWordLists(() => packsDir));
-    },
-    generateBundle() {
-      if (!existsSync(packsDir)) return;
-      for (const file of buildWordLists(packsDir).files) {
-        if (file.name.endsWith(".epub") || file.name.endsWith(".zip")) continue;
-        this.emitFile({ type: "asset", fileName: file.name, source: file.bytes });
-      }
     },
   };
 }
@@ -141,11 +135,6 @@ export function publicBooks() {
     configurePreviewServer(server) {
       server.middlewares.use(serveFrom(dir, "/public-books/"));
     },
-    generateBundle() {
-      for (const name of listFiles(dir).filter((n) => n !== "README.md")) {
-        this.emitFile({ type: "asset", fileName: `public-books/${name}`, source: readFileSync(join(dir, name)) });
-      }
-    },
   };
 }
 
@@ -195,60 +184,44 @@ function listFiles(dir, base = "") {
   );
 }
 
-/**
- * EPUBs larger than this are not part of the service-worker install. Looking-Glass alone is about 9 MB,
- * and precaching every classic would make the first visit download the books twice (this cache, then
- * IndexedDB). 400 KiB keeps the three small originals (Alice, Treasure Island, Anne) and leaves the rest
- * to the first-run shelf seeding.
- */
-export const PRECACHE_MAX_EPUB_BYTES = 400 * 1024;
+/** Same default as src/lib/books-base.ts. Empty means book files stay on this origin. */
+export const DEFAULT_BOOKS_BASE = "https://books.inputread.site";
 
-/** Files of public-books/ that are saved by the service worker at install time. */
-export function publicBooksPrecache(bundle) {
-  const out = new Set();
-  const catalogItem = bundle["public-books/catalog.json"];
-  if (!catalogItem) return out;
-  out.add("public-books/catalog.json");
-  let packs = [];
-  try {
-    packs = JSON.parse(String(catalogItem.source)).packs ?? [];
-  } catch {
-    return out;
-  }
-  for (const pack of packs) {
-    if (pack.cover?.url) out.add(`public-books/${pack.cover.url}`);
-    const small = pack.preinstall === true && Number(pack.epub?.bytes) > 0 && Number(pack.epub.bytes) <= PRECACHE_MAX_EPUB_BYTES;
-    if (small) {
-      if (pack.epub?.url) out.add(`public-books/${pack.epub.url}`);
-      if (pack.glossary?.url) out.add(`public-books/${pack.glossary.url}`);
-    }
-  }
-  return new Set([...out].filter((name) => name in bundle));
+/** Origin the service worker may cache, or "" when books are same-origin. */
+export function booksOriginFromEnv(env, prod) {
+  const raw = env?.VITE_BOOKS_BASE;
+  if (raw === "" || raw === "." || raw === "./") return "";
+  if (typeof raw === "string" && raw.trim()) return raw.trim().replace(/\/+$/, "");
+  return prod ? DEFAULT_BOOKS_BASE : "";
+}
+
+/** True when this build output is part of the app shell, not book data. */
+export function isShellFile(name) {
+  if (name.startsWith("public-books/") || name.startsWith("word-lists/")) return false;
+  return true;
 }
 
 export function offlineShell() {
   let publicDir = "";
   let template = "";
+  let origin = "";
   return {
     name: "margin-words:offline-shell",
     apply: "build",
     configResolved(config) {
       publicDir = config.publicDir;
       template = readFileSync(join(config.root, "scripts", "sw-template.js"), "utf8");
+      origin = booksOriginFromEnv(config.env, config.mode === "production");
     },
     generateBundle(_options, bundle) {
       const files = new Set(["./", "./index.html", "./guide/"]);
-      // Not every public-books file: the folder is tens of MB, too heavy for the first load. Of it we precache
-      // only the catalog, every cover, and preinstall books whose EPUB is at most PRECACHE_MAX_EPUB_BYTES.
-      // Larger classics are still put on the shelf (IndexedDB) and kept here the first time they are fetched.
+      // Book EPUBs, glossaries, covers and catalogs are not in the first install.
+      // The worker stores a book the first time the app fetches it.
       for (const name of Object.keys(bundle)) {
-        if (name.startsWith("public-books/")) continue;
-        // Glossaries are fetched when the reader asks for one. Only the small catalog is in the first install.
-        if (name.startsWith("word-lists/") && name !== "word-lists/catalog.json") continue;
+        if (!isShellFile(name)) continue;
         files.add(`./${name}`);
       }
-      for (const name of publicBooksPrecache(bundle)) files.add(`./${name}`);
-      for (const name of listFiles(publicDir)) if (name !== "sw.js") files.add(`./${name}`);
+      for (const name of listFiles(publicDir)) if (name !== "sw.js" && isShellFile(name)) files.add(`./${name}`);
       const hash = createHash("sha256");
       for (const name of Object.keys(bundle).sort()) {
         const item = bundle[name];
@@ -258,7 +231,8 @@ export function offlineShell() {
       const version = hash.digest("hex").slice(0, 10);
       const source = template
         .replace("__VERSION__", version)
-        .replace("__FILES__", JSON.stringify([...files].sort()));
+        .replace("__FILES__", JSON.stringify([...files].sort()))
+        .replace("__BOOKS_ORIGIN__", JSON.stringify(origin));
       this.emitFile({ type: "asset", fileName: "sw.js", source });
     },
   };

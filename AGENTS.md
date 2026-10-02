@@ -22,11 +22,13 @@ word lists come from **book packs** (see README.md, "Reader and book packs"). **
 
 ## Commands
 
-- `npm run dev` : dev server (also serves `/packs/*` from the top-level `packs/` folder)
-- `npx vite build` (or `npm run build`) : static app in `dist/` (inside: the 12 public-domain classics in `public-books/`, all preinstalled; plus `word-lists/` glossary files only for the copyrighted books; never an EPUB from `packs/`)
-- `node scripts/build-packs.mjs` : rebuild `packs/catalog.json` and the pack zips
-- `node scripts/build-packs.mjs --out public-books` : rebuild the catalog and zips of the bundled free classics (`public-books/`, deployed with the app)
-- `node scripts/build-site.mjs` : `site/` = `dist/` + `packs/` (one folder to host)
+- `npm run dev` : dev server (also serves `/packs/*`, `/public-books/*` and `/word-lists/*` from the repo; book URLs stay on this origin)
+- `npx vite build` (or `npm run build`) : static front end in `dist/` only (HTML, JS, CSS, fonts, guide). Book files are not in `dist/`. The build bakes `https://books.inputread.site` unless `VITE_BOOKS_BASE` is set. `npm run build:local` sets it empty so a preview server can serve the repo copies (used by e2e).
+- `npm run build:books` : write `dist-books/`, the object keys to upload to the books bucket (loose `public-books/` epub, glossary, cover, catalog; loose `word-lists/` glossaries and catalog). No zip, no `all-packs.zip`, no copyrighted EPUB, no publisher cover.
+- Upload (set `BUCKET` to the bucket for `https://books.inputread.site`): `cd dist-books && find . -type f | sed 's|^\./||' | while read -r key; do npx wrangler r2 object put "$BUCKET/$key" --file "$key" --remote; done`. The same keys work with the S3 API. The bucket must allow cross-origin reads from `https://inputread.site`, `https://www.inputread.site`, `https://margin-words.pages.dev` and localhost, or the service worker cannot keep a book after it is opened.
+- `node scripts/build-packs.mjs` : rebuild `packs/catalog.json` and the local sideload zips (not uploaded)
+- `node scripts/build-packs.mjs --out public-books` : rebuild the catalog and local zips of the free classics. The hosted catalog drops the zip entries.
+- `node scripts/build-site.mjs` : `site/` = `dist/` + `packs/` (private local folder, not the public books host)
 - `node scripts/validate-glossary.mjs packs/<id>/book.epub packs/<id>/glossary.json`
 - `npx tsc --noEmit`, `npm run check:cjk`, `npm run check:example`, `npm test`
 - `node scripts/build-guide.mjs --check` : the tiny in-app page (`/guide/`: title, 2-3 lines, one Download button) is made from `docs/guide-chrome.json` at build time. It serves `/guide/book-pack-kit.zip`.

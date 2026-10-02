@@ -15,8 +15,9 @@ This repo is a full copy of the Margin Words project, moved to a **private** Git
   `book.epub` + `glossary.json` (title, author and cover come from the EPUB). Spec: `docs/book-pack-spec.md`.
 - **Bilingual UI.** Buttons, menus and messages are in Simplified Chinese and English (language button in the top
   bar). The books and their meanings stay in English.
-- Twelve free public-domain classics ship with the app (`public-books/`). Three are on the shelf at first run; the
-  others are one-tap downloads in "Free books".
+- Twelve free public-domain classics are loaded from the books host (`public-books/`). All twelve are put on the
+  shelf at first run unless the user removed that book. Word lists for copyrighted titles are `word-lists/` on
+  the same host (glossary only, generated covers).
 
 ## 2. What is in this repo
 
@@ -27,12 +28,12 @@ This repo is a full copy of the Margin Words project, moved to a **private** Git
 | `docs/`, `examples/`, `skills/` | Specs, the sample book, helper skills |
 | `glossary-src/` | Sources of the hand-written word lists |
 | `packs/<id>/` | The **copyrighted books** (9 with `book.epub`, plus the Narnia collection word list and no EPUB): `glossary.json`, optional `cover.jpg`, `info.json` + `packs/catalog.json`. **Private use only.** |
-| `public-books/<id>/` | The **12 public-domain classics** (same four files) + `catalog.json`. Deployed with the app. |
+| `public-books/<id>/` | The **12 public-domain classics** + `catalog.json`. Uploaded with `dist-books/`, not inside `dist/`. |
 | `classics/<id>/` | Working sources of 9 public-domain books (`book.epub`, `glossary.json`, `work/`) and `WRITER_BRIEF.md` |
 | `book-pack-kit.zip` | The guide kit to give to an AI agent that makes a book pack |
 | `screenshots/`, `artifacts/` | Small reference images and notes |
 
-**Not in git (regenerable):** `node_modules/`, `dist/`, `site/`, `packs/*.zip` (incl. `packs/all-packs.zip`, 34.6 MB),
+**Not in git (regenerable):** `node_modules/`, `dist/`, `dist-books/`, `site/`, `packs/*.zip` (incl. `packs/all-packs.zip`),
 `public-books/*.zip`, and `classics/**/*.pack.zip`. Rebuild them with the commands below.
 
 ## 3. Rules
@@ -57,15 +58,16 @@ Use Node 24 (the project was built with Node 24.11).
 
 ```
 npm ci
-npx vite build                                  # static app in dist/ (contains only public-books/)
-node scripts/build-packs.mjs --out public-books # rebuild the zips + catalog of the 12 free classics
+npx vite build                                  # front end only, in dist/ (books host baked in)
+npm run build:books                             # dist-books/ object keys for the books bucket
+node scripts/build-packs.mjs --out public-books # rebuild the local zips + catalog of the 12 free classics
 node scripts/build-packs.mjs                    # rebuild packs/catalog.json and packs/*.zip (private books)
 node scripts/build-site.mjs                     # site/ = dist/ + packs/  (local use only!)
-npm run dev                                     # http://localhost:8080, also serves ./packs
+npm run dev                                     # http://localhost:8080, also serves ./packs and the book folders
 ```
 
-Run `node scripts/build-packs.mjs --out public-books` **before** `npx vite build` when you deploy, so that
-`dist/public-books/` has the zips.
+Run `node scripts/build-packs.mjs --out public-books` **before** `npm run build:books` when a classic changed, so
+`dist-books/public-books/` matches the books. `dist/` itself has no book files.
 
 Checks: `npm run check:cjk`, `npm run typecheck`, `npm test`, `npm run check:example`, `npm run lint`.
 
@@ -76,10 +78,14 @@ The public site is a Cloudflare Pages project named `margin-words`, with the dom
 ```
 npx vite build
 npx wrangler pages deploy dist --project-name margin-words --branch main
+npm run build:books
+# then upload dist-books/ to the R2 bucket for https://books.inputread.site (see README, "Host the app and the books")
 ```
 
-`dist/` holds only the 12 public-domain classics. **NEVER deploy `packs/` (or `site/`) to a public host.** The
-copyrighted books are for private use only. (`vercel.json` is also in the repo for a static Vercel setup.)
+`dist/` is the front end only. Book files go to the books bucket as loose objects (no zip, no `all-packs.zip`).
+**NEVER deploy `packs/` (or `site/`) to a public host.** The copyrighted books are for private use only. Word lists
+for those titles are glossaries in `dist-books/word-lists/`. Publisher covers in `packs/` are not uploaded.
+(`vercel.json` is also in the repo for a static Vercel setup of `dist/`.)
 
 ## 6. Add a book
 

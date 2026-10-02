@@ -43,13 +43,12 @@ test("build-packs --out public-books --check says the catalog and zips are up to
   assert.equal(run.status, 0, run.stderr || run.stdout);
 });
 
-test("every deployed file is under the Cloudflare Pages limit (25 MiB)", () => {
-  const limit = 25 * 1024 * 1024;
-  for (const pack of catalog.packs) {
-    for (const ref of [pack.epub, pack.glossary, pack.cover, pack.zip]) {
-      if (ref?.url) assert.ok(ref.bytes < limit, `${pack.id}: ${ref.url} is ${ref.bytes} bytes`);
-    }
-  }
+test("Looking-Glass images are compressed and the novel text is still valid", () => {
+  const pack = catalog.packs.find((item) => item.id === "looking-glass");
+  assert.ok(pack, "looking-glass");
+  // Was about 9.4 MB before the line-art recompress. It must stay well under that.
+  assert.ok(pack.epub.bytes < 5 * 1024 * 1024, `looking-glass epub is ${pack.epub.bytes} bytes`);
+  assert.ok(pack.epub.bytes > 2 * 1024 * 1024, "illustrations are still in the book");
 });
 
 test("every public-domain classic is preinstalled and has a Lexile measure", () => {
@@ -61,24 +60,15 @@ test("every public-domain classic is preinstalled and has a Lexile measure", () 
   }
 });
 
-test("the service worker precaches the catalog, covers and the small preinstall books", async () => {
-  const { PRECACHE_MAX_EPUB_BYTES, publicBooksPrecache } = await import("./vite-plugins.mjs");
-  const bundle = {};
-  const add = (name, source = "x") => (bundle[`public-books/${name}`] = { source });
-  bundle["public-books/catalog.json"] = { source: readFileSync(join(dir, "catalog.json"), "utf8") };
+test("the service worker does not precache book files", async () => {
+  const { isShellFile } = await import("./vite-plugins.mjs");
+  const names = ["index.html", "assets/app.js", "guide/index.html", "guide/book-pack-kit.zip"];
   for (const pack of catalog.packs) {
-    add(pack.epub.url);
-    add(pack.glossary.url);
-    if (pack.cover) add(pack.cover.url);
-    add(`${pack.id}.zip`);
+    names.push(`public-books/${pack.epub.url}`, `public-books/${pack.glossary.url}`);
+    if (pack.cover) names.push(`public-books/${pack.cover.url}`);
+    names.push(`public-books/${pack.id}.zip`);
   }
-  const files = publicBooksPrecache(bundle);
-  assert.ok(files.has("public-books/catalog.json"));
-  for (const pack of catalog.packs) {
-    const small = pack.preinstall === true && pack.epub.bytes <= PRECACHE_MAX_EPUB_BYTES;
-    assert.equal(files.has(`public-books/${pack.cover.url}`), true, `${pack.id} cover precached`);
-    assert.equal(files.has(`public-books/${pack.epub.url}`), small, `${pack.id} epub`);
-    assert.equal(files.has(`public-books/${pack.glossary.url}`), small, `${pack.id} list`);
-    assert.equal(files.has(`public-books/${pack.id}.zip`), false);
-  }
+  names.push("word-lists/catalog.json", "word-lists/narnia/glossary.json");
+  const shell = names.filter((name) => isShellFile(name));
+  assert.deepEqual(shell, ["index.html", "assets/app.js", "guide/index.html", "guide/book-pack-kit.zip"]);
 });

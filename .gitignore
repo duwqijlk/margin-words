@@ -1,6 +1,7 @@
 # dependencies and build output
 node_modules/
 dist/
+dist-books/
 site/
 .vite/
 .node_modules.lock

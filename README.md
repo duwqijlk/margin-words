@@ -34,7 +34,7 @@ npx vite build       # static app in dist/
 
 **The reader is a static app.** `dist/` is plain files (HTML, JS, CSS, fonts). It has no server, no server
 functions, and no AI. Open it from any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`).
-The reader app ships with **twelve free public-domain classics** in `public-books/`. All twelve are put on your shelf on first run. A book you delete is not added again; downloading it from "Free books" clears that. To add one, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). All other books come as **book packs**. The copyrighted packs in `packs/` never put an EPUB into `dist`. The app lists those titles as word lists only (`word-lists/<id>/glossary.json`). The reader prepares their own e-book of the ISBN and pairs it in the browser.
+The reader loads **twelve free public-domain classics** from the books host (`public-books/`). All twelve are put on your shelf on first run. A book you delete is not added again; downloading it from "Free books" clears that. To add one, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists only** (`word-lists/<id>/glossary.json` on the same host). The reader prepares their own e-book of the ISBN and pairs it in the browser. Those cards draw a generated title-and-author cover. Publisher cover art from `packs/` is not shipped.
 
 All meanings, simple versions, sentence explanations, phrases and examples come from the word list
 (`glossary.json`) of the book. A word that is not in the list shows "No meaning for this word in this book yet."
@@ -54,16 +54,28 @@ packs/all-packs.zip        all packs in one zip
 Full format: [docs/PACKS_FORMAT.md](docs/PACKS_FORMAT.md). Word list format: [docs/GLOSSARY_FORMAT.md](docs/GLOSSARY_FORMAT.md).
 Rebuild the folder after you change a book or list: `node scripts/build-packs.mjs`.
 
-### Host the app and the packs
+### Host the app and the books
 
-1. Build the app: `npx vite build` (output: `dist/`).
-2. Put books next to it: `node scripts/build-site.mjs` writes `site/` = `dist/` + `packs/`.
-   Host the `site/` folder. The default catalog address is `./packs/catalog.json`.
-3. **Vercel:** import the project (`vercel.json` is ready: static, output `dist`). To ship books too, run
-   `node scripts/build-site.mjs` and deploy `site/` (or host `packs/` somewhere else).
-4. **Packs on another website:** upload the `packs/` folder anywhere static. Each reader sets the address of its
-   `catalog.json` in **Settings**. A different website must allow cross-site reads
-   (header `Access-Control-Allow-Origin: *`).
+1. Build the front end: `npx vite build` (output: `dist/`, a few MB, no book files). Deploy that to Cloudflare Pages.
+   The production build fetches books from `https://books.inputread.site`. Set `VITE_BOOKS_BASE` to use another host.
+   `npm run build:local` leaves book URLs on the same origin for offline tests.
+2. Build the book objects: `npm run build:books` (output: `dist-books/`). Upload every file, using its path as the
+   object key (`public-books/...`, `word-lists/...`). There is no per-book zip and no `all-packs.zip` in this folder.
+   The app downloads the loose EPUB, word list and cover.
+
+   ```
+   cd dist-books && find . -type f | sed 's|^\./||' | while read -r key; do
+     npx wrangler r2 object put "$BUCKET/$key" --file "$key" --remote
+   done
+   ```
+
+   The bucket (the one behind `https://books.inputread.site`) must allow cross-origin reads from the app
+   (`Access-Control-Allow-Origin` for `https://inputread.site`, `https://www.inputread.site`,
+   `https://margin-words.pages.dev`, and localhost). The service worker stores a book only after that
+   CORS response, and only after the reader opens or downloads it. The first visit does not precache the books.
+3. **Private packs** stay off the public host. `node scripts/build-site.mjs` writes `site/` = `dist/` + `packs/`
+   for a machine of your own. Do not deploy `packs/` or `site/`.
+4. **Another catalog:** each reader can set a catalog address in **Settings**. That host must allow cross-site reads.
 
 File addresses in `catalog.json` are relative to the catalog file, so the folder can be moved anywhere.
 

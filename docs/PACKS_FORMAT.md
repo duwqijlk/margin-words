@@ -21,7 +21,8 @@ packs/
 
 The folder `packs/` lives at the top of the project, **outside `public/`**, so the built app (`dist/`)
 never contains books. `node scripts/build-site.mjs` can copy `dist/` and `packs/` into one `site/`
-folder to host.
+folder for a private machine. The public books host (`npm run build:books`) uploads loose files only:
+it does not include `all-packs.zip` or the per-book `.zip` files. Those zips remain a local sideload.
 
 ## catalog.json
 

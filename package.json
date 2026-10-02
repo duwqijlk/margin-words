@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite dev --host 0.0.0.0 --port 8080",
     "build": "vite build",
+    "build:books": "node scripts/build-books.mjs",
+    "build:local": "VITE_BOOKS_BASE= vite build",
     "build:packs": "node scripts/build-packs.mjs",
     "build:site": "node scripts/build-site.mjs",
     "preview": "vite preview",

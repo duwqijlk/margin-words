@@ -1,11 +1,13 @@
 /**
- * Word lists for the copyrighted books. The site serves glossary.json only.
- * There is no EPUB, cover, or zip in this catalog.
+ * Word lists for the copyrighted books. The books host serves glossary.json only.
+ * There is no EPUB, cover image, or zip in this catalog. A card with no shippable
+ * cover draws a generated title and author (see BookCover).
  */
+import { booksUrl } from "@/lib/books-base";
 import { isbnDigits, readSeries } from "@/lib/book-meta";
 import { lexileMeasure } from "@/lib/lexile";
 
-export const WORD_LIST_CATALOG_URL = "./word-lists/catalog.json";
+export const WORD_LIST_CATALOG_URL = booksUrl("word-lists/catalog.json");
 
 export type WordListPack = {
   id: string;
