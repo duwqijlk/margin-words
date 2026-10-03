@@ -308,6 +308,11 @@ export function ParagraphPanel({
 
 /* ------------------------------------------------------------------ explain a sentence (inside the word card) */
 
+/**
+ * "Explain this sentence" only when the word list has a note for this sentence.
+ * Most sentences have none, the same way most paragraphs have no simple version,
+ * so the button stays off the word card until a note is found.
+ */
 export function ExplainSentence({
   bookId,
   chapter,
@@ -319,75 +324,60 @@ export function ExplainSentence({
 }) {
   const { t } = useT();
   const [state, setState] = useState<
-    | { status: "idle" }
-    | { status: "loading" }
+    | { status: "checking" }
     | { status: "none" }
-    | { status: "ready"; view: SentenceView }
-  >({ status: "idle" });
-  const alive = useRef(true);
+    | { status: "closed"; view: SentenceView }
+    | { status: "open"; view: SentenceView }
+  >({ status: "checking" });
   const box = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
-    alive.current = true;
+    let live = true;
+    setState({ status: "checking" });
+    void loadSentenceView({ bookId, chapter, text: sentence }).then((view) => {
+      if (!live) return;
+      setState(view ? { status: "closed", view } : { status: "none" });
+    });
     return () => {
-      alive.current = false;
+      live = false;
     };
-  }, []);
+  }, [bookId, chapter, sentence]);
+
   useEffect(() => {
-    if (state.status === "ready" || state.status === "none") {
-      box.current?.scrollIntoView({ block: "nearest" });
-    }
+    if (state.status === "open") box.current?.scrollIntoView({ block: "nearest" });
   }, [state.status]);
 
-  function run() {
-    setState({ status: "loading" });
-    void loadSentenceView({ bookId, chapter, text: sentence }).then((view) => {
-      if (!alive.current) return;
-      setState(view ? { status: "ready", view } : { status: "none" });
-    });
-  }
+  if (state.status !== "closed" && state.status !== "open") return null;
 
+  const view = state.view;
   return (
     <div className="grid gap-2" data-explain>
-      {state.status === "idle" ? (
+      {state.status === "closed" ? (
         <button
           type="button"
           className={cn(btn.quiet, "min-h-10 self-start text-sm")}
-          onClick={run}
+          onClick={() => setState({ status: "open", view })}
         >
           <Lightbulb className="size-4 text-accent" aria-hidden />
           {t("hp.explain")}
         </button>
-      ) : null}
-      <div ref={box} className="grid gap-2" aria-live="polite">
-        {state.status === "loading" ? (
-          <div className="grid gap-2" aria-busy="true">
-            <div className="h-4 w-full animate-pulse rounded bg-line" />
-            <p className="text-sm text-muted">{t("hp.lookingSentence")}</p>
-          </div>
-        ) : null}
-        {state.status === "none" ? (
-          <p className="rounded-lg bg-accent-soft px-3 py-2 text-sm leading-snug" role="status">
-            {t("hp.noSent")}
-          </p>
-        ) : null}
-        {state.status === "ready" ? (
-          <div className="grid gap-2.5 rounded-lg border border-line px-3 py-2.5">
-            <span className="text-xs font-semibold text-muted">{t("hp.explain")}</span>
-            <section className="grid gap-0.5" aria-label={t("hp.easier")}>
-              <h4 className="text-xs font-semibold text-muted">{t("hp.easier")}</h4>
-              <p className="text-[0.98rem] leading-relaxed" lang="en" data-part="easier">
-                {state.view.simple}
-              </p>
-            </section>
-            <section className="grid gap-0.5" aria-label={t("hp.grammar")}>
-              <h4 className="text-xs font-semibold text-muted">{t("hp.grammar")}</h4>
-              <p className="text-sm leading-snug" lang="en" data-part="grammar">
-                {state.view.grammar}
-              </p>
-            </section>
-          </div>
-        ) : null}
-      </div>
+      ) : (
+        <div ref={box} className="grid gap-2.5 rounded-lg border border-line px-3 py-2.5">
+          <span className="text-xs font-semibold text-muted">{t("hp.explain")}</span>
+          <section className="grid gap-0.5" aria-label={t("hp.easier")}>
+            <h4 className="text-xs font-semibold text-muted">{t("hp.easier")}</h4>
+            <p className="text-[0.98rem] leading-relaxed" lang="en" data-part="easier">
+              {view.simple}
+            </p>
+          </section>
+          <section className="grid gap-0.5" aria-label={t("hp.grammar")}>
+            <h4 className="text-xs font-semibold text-muted">{t("hp.grammar")}</h4>
+            <p className="text-sm leading-snug" lang="en" data-part="grammar">
+              {view.grammar}
+            </p>
+          </section>
+        </div>
+      )}
     </div>
   );
 }
