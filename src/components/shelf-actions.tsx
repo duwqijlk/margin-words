@@ -19,6 +19,7 @@ export function AddToShelfButton({
   state,
   fraction,
   error = "",
+  note = "",
   title,
   signedOut = false,
   onAdd,
@@ -29,6 +30,8 @@ export function AddToShelfButton({
   /** 0..1 while a public-domain book downloads. Omitted for a word list, which has no byte count. */
   fraction?: number;
   error?: string;
+  /** Quiet line under the button. A hand-edited list uses it instead of an Update button. */
+  note?: string;
   title: string;
   /** true when the visitor must sign in before adding; the "off" button then says so */
   signedOut?: boolean;
@@ -160,6 +163,10 @@ export function AddToShelfButton({
       {error ? (
         <p role="alert" className="line-clamp-3 text-xs leading-4 font-medium text-warn">
           {error}
+        </p>
+      ) : note ? (
+        <p data-list-note="" className="line-clamp-3 text-xs leading-4 text-muted">
+          {note}
         </p>
       ) : null}
     </div>

@@ -4,13 +4,14 @@
  * book at a time, for public-domain packs and word-list books alike. Only the list is replaced:
  * the EPUB, the reading place, saved words and settings stay. The decisions are pure and live in
  * src/lib/word-list-plan.ts:
- *   - a list the reader added or edited by hand is never replaced;
+ *   - a list the reader added or edited by hand is never replaced, not even by the manual
+ *     Update button: the card says the edited list is kept and does not offer that button;
  *   - a classic whose BOOK file changed is left to the manual Update button on Discover;
  *   - a word-list book on the reader's own EPUB keeps its old list when the new one does not
  *     match that EPUB (the same edition check as the own-EPUB dialog), with the reason shown;
  *   - offline, and the book open in the reader, wait for the next load.
- * A failure stays on the Discover card as the manual Update button with the reason, and the next
- * app load tries again.
+ * A hold stays on the Discover card with its reason (Update, or a note when the list is the
+ * reader's own). The next app load tries a quiet update again.
  */
 import { create } from "zustand";
 import {
@@ -41,13 +42,34 @@ import {
   WORD_LIST_CATALOG_URL,
   type WordListPack,
 } from "@/lib/word-list-catalog";
-import { checkListAgainstBook, planListUpdate } from "@/lib/word-list-plan";
+import {
+  checkListAgainstBook,
+  holdReasonKey,
+  planListUpdate,
+  wordListUpdateActions,
+  type ListHoldWhy,
+} from "@/lib/word-list-plan";
 
-export { planListUpdate, checkListAgainstBook };
+export { planListUpdate, checkListAgainstBook, wordListUpdateActions };
+
+/** A new list that must not replace the stored one. `mismatch` is the under-80% edition check. */
+export class ListUpdateBlock extends Error {
+  readonly why: "mismatch" | "unreadable";
+  constructor(why: "mismatch" | "unreadable", message: string) {
+    super(message);
+    this.name = "ListUpdateBlock";
+    this.why = why;
+  }
+}
 
 type ListUpdateState = {
   /** pack id -> plain-language reason its list was NOT replaced (shown under the Update button) */
   failures: Record<string, string>;
+  /**
+   * pack id -> why the quiet update left this book alone.
+   * `ownList` is a note, not an Update button. The other two keep the button.
+   */
+  holds: Record<string, ListHoldWhy>;
   /** how many books got a new list in the last quiet run (0 = say nothing) */
   updated: number;
   /** goes up after every run, so Discover re-reads the pack records */
@@ -58,17 +80,39 @@ type ListUpdateState = {
 
 export const useListUpdates = create<ListUpdateState>()((set) => ({
   failures: {},
+  holds: {},
   updated: 0,
   finished: 0,
   dismiss: () => set({ updated: 0 }),
   clearFailure: (packId) =>
     set((state) => {
-      if (!(packId in state.failures)) return state;
+      if (!(packId in state.failures) && !(packId in state.holds)) return state;
       const failures = { ...state.failures };
+      const holds = { ...state.holds };
       delete failures[packId];
-      return { failures };
+      delete holds[packId];
+      return { failures, holds };
     }),
 }));
+
+function rememberFailure(packId: string, reason: unknown): void {
+  const text = errorText(reason, "err.downloadFailed");
+  useListUpdates.setState((prev) => ({
+    failures: { ...prev.failures, [packId]: text },
+    holds:
+      reason instanceof ListUpdateBlock && reason.why === "mismatch"
+        ? { ...prev.holds, [packId]: "mismatch" }
+        : prev.holds,
+  }));
+}
+
+/** The card explains why this book was left for the reader. The text follows the current language. */
+function rememberHold(packId: string, why: "ownList" | "bookChanged"): void {
+  useListUpdates.setState((prev) => ({
+    failures: { ...prev.failures, [packId]: tr(holdReasonKey(why)) },
+    holds: { ...prev.holds, [packId]: why },
+  }));
+}
 
 /** The catalog revision of a word-list pack (place-word-list.ts stores the same value). */
 export function wordListRev(pack: Pick<WordListPack, "id" | "glossary">): string {
@@ -110,10 +154,17 @@ async function updateWordListBook(record: PackRecord, pack: WordListPack): Promi
   const rev = wordListRev(pack);
   const text = await fetchListText(pack);
   const stored = await loadStoredBook(record.bookId).catch(() => null);
-  if (stored) {
+  // A list the reader added or edited by hand stays theirs, also from the manual Update button
+  // (the same rule installPack follows for classics): only the saved copy and the revision move on.
+  const source = stored
+    ? (await loadBookExtras(record.bookId).catch(() => null))?.source
+    : undefined;
+  const actions = wordListUpdateActions({ hasStoredBook: Boolean(stored), listSource: source });
+  if (actions.applyGlossary && stored) {
     const check = checkListAgainstBook(text, bookParagraphs(stored.chapters));
     if (!check.ok)
-      throw new Error(
+      throw new ListUpdateBlock(
+        check.problem === "unreadable" ? "unreadable" : "mismatch",
         check.problem === "unreadable"
           ? tr("err.packListUnreadable")
           : tr("lists.matchWarn", { n: check.percent }),
@@ -121,8 +172,8 @@ async function updateWordListBook(record: PackRecord, pack: WordListPack): Promi
     await applyPackGlossary(record.bookId, text, record.packId, rev);
     useVocab.getState().setBookDetails([{ id: record.bookId, matchRate: check.percent }]);
   }
-  await storeWordListText(pack.id, text);
-  await savePackRecord({ ...record, rev });
+  if (actions.saveText) await storeWordListText(pack.id, text);
+  if (actions.saveRev) await savePackRecord({ ...record, rev });
 }
 
 /** Retry one word-list book from its Discover card (the manual Update button). Throws on failure. */
@@ -136,9 +187,7 @@ export async function retryWordListUpdate(pack: WordListPack): Promise<void> {
     state.clearFailure(pack.id);
     useListUpdates.setState((prev) => ({ finished: prev.finished + 1 }));
   } catch (reason) {
-    useListUpdates.setState((prev) => ({
-      failures: { ...prev.failures, [pack.id]: errorText(reason, "err.downloadFailed") },
-    }));
+    rememberFailure(pack.id, reason);
     throw reason;
   }
 }
@@ -223,7 +272,10 @@ async function runUpdates(): Promise<void> {
     });
     if (plan.kind === "none" || plan.kind === "wait") continue;
     attempted.add(key);
-    if (plan.kind === "manual") continue;
+    if (plan.kind === "manual") {
+      rememberHold(record.packId, plan.why);
+      continue;
+    }
     try {
       if (classic) await downloadPack(classic.url, classic.pack, () => undefined);
       else await updateWordListBook(record, list as WordListPack);
@@ -232,12 +284,7 @@ async function runUpdates(): Promise<void> {
       if (import.meta.env.DEV)
         console.info(`[word lists] updated "${titleOf(record.bookId)}" to ${catalogRev}`);
     } catch (reason) {
-      useListUpdates.setState((prev) => ({
-        failures: {
-          ...prev.failures,
-          [record.packId]: errorText(reason, "err.downloadFailed"),
-        },
-      }));
+      rememberFailure(record.packId, reason);
     }
   }
   useListUpdates.setState((prev) => ({

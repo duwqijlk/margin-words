@@ -189,6 +189,8 @@ export const zh: Record<Key, string> = {
 
   /* ---- word-list updates */
   "pack.update": "更新",
+  "lists.keptYours": "你改过的词表会保留",
+  "lists.keptBook": "书的文件变了。点更新可以换上新词表。",
   "pack.openAria": "打开《{title}》",
   "pack.progressFor": "《{title}》的下载进度",
   "msg.listsUpdated.one": "已更新 {n} 本书的词表。",

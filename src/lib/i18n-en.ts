@@ -189,6 +189,8 @@ export const en = {
 
   /* ---- word-list updates */
   "pack.update": "Update",
+  "lists.keptYours": "Your edited list is kept",
+  "lists.keptBook": "The book file changed. Tap Update for the new list.",
   "pack.openAria": "Open “{title}”",
   "pack.progressFor": "Download progress for “{title}”",
   "msg.listsUpdated.one": "Word lists updated for {n} book.",

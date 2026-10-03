@@ -5,12 +5,18 @@
 import { editionMatch, matchPercent, EDITION_MATCH_OK } from "@/lib/edition-match";
 import { validateGlossary } from "@/lib/glossary-format";
 
+export type ListHoldWhy = "ownList" | "bookChanged" | "mismatch";
+
 export type ListUpdatePlan =
   /** the installed list is current */
   | { kind: "none" }
   /** replace the word list quietly in the background */
   | { kind: "auto" }
-  /** never replace by itself; Discover keeps the manual Update button */
+  /**
+   * Never replace by itself.
+   * `bookChanged` keeps the manual Update button.
+   * `ownList` does not: a hand-edited list stays, and the card only says so.
+   */
   | { kind: "manual"; why: "ownList" | "bookChanged" }
   /** not now; try again on the next load */
   | { kind: "wait"; why: "offline" | "reading" };
@@ -43,6 +49,40 @@ export function planListUpdate(input: {
   if (input.offline) return { kind: "wait", why: "offline" };
   if (input.reading) return { kind: "wait", why: "reading" };
   return { kind: "auto" };
+}
+
+/**
+ * What applying one downloaded word list does. The manual Update button uses this same path.
+ * A hand-edited list (`source === "custom"`) is never replaced, not even from that button:
+ * the saved copy of the new text and the revision still move on, and the stored glossary stays.
+ * A card that is still waiting for the reader's e-book only refreshes the saved copy.
+ */
+export function wordListUpdateActions(input: {
+  /** the book already has the reader's EPUB stored */
+  hasStoredBook: boolean;
+  /** `extras.source`; "custom" when the reader added or edited this book's list by hand */
+  listSource: string | undefined;
+}): { applyGlossary: boolean; saveText: true; saveRev: true } {
+  return {
+    applyGlossary: input.hasStoredBook && input.listSource !== "custom",
+    saveText: true,
+    saveRev: true,
+  };
+}
+
+/**
+ * The Discover card offers Update only when that tap can change the stored list or book.
+ * A hand-edited list does not: the button would look like it replaces the list the reader wrote.
+ */
+export function holdOffersUpdate(why: ListHoldWhy): boolean {
+  return why !== "ownList";
+}
+
+/** i18n key for a hold the reader can see on the Discover card. A low match uses `lists.matchWarn`. */
+export function holdReasonKey(
+  why: "ownList" | "bookChanged",
+): "lists.keptYours" | "lists.keptBook" {
+  return why === "ownList" ? "lists.keptYours" : "lists.keptBook";
 }
 
 export type NewListCheck =

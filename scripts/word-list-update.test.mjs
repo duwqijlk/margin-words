@@ -1,15 +1,23 @@
 /**
  * The decisions behind automatic word-list updates (src/lib/word-list-plan.ts):
  * when a list is replaced quietly, when the manual Update button stays, and when
- * the app waits for the next load. Also the edition check a new list must pass
- * before it replaces the list on a book the reader supplied the EPUB for.
+ * the app waits for the next load. The manual Update path keeps a hand-edited list.
+ * Also the edition check a new list must pass before it replaces the list on a book
+ * the reader supplied the EPUB for.
  */
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { loadAppModules } from "./lib/app-modules.mjs";
 
 const { wordListPlan } = await loadAppModules();
-const { planListUpdate, checkListAgainstBook } = wordListPlan;
+const {
+  planListUpdate,
+  checkListAgainstBook,
+  wordListUpdateActions,
+  holdOffersUpdate,
+  holdReasonKey,
+} = wordListPlan;
 
 const base = {
   installedRev: "aaa",
@@ -42,16 +50,57 @@ test("a list the reader added or edited by hand is never replaced", () => {
   });
 });
 
+test("manual Update keeps a hand-edited list and only moves the saved copy and revision on", () => {
+  assert.deepEqual(wordListUpdateActions({ hasStoredBook: true, listSource: "custom" }), {
+    applyGlossary: false,
+    saveText: true,
+    saveRev: true,
+  });
+  // a pack list on a stored book is still applied
+  assert.equal(
+    wordListUpdateActions({ hasStoredBook: true, listSource: "twits" }).applyGlossary,
+    true,
+  );
+  assert.equal(
+    wordListUpdateActions({ hasStoredBook: true, listSource: undefined }).applyGlossary,
+    true,
+  );
+  // a card still waiting for the reader's e-book only refreshes the saved copy
+  assert.deepEqual(wordListUpdateActions({ hasStoredBook: false, listSource: "custom" }), {
+    applyGlossary: false,
+    saveText: true,
+    saveRev: true,
+  });
+  assert.deepEqual(wordListUpdateActions({ hasStoredBook: false, listSource: undefined }), {
+    applyGlossary: false,
+    saveText: true,
+    saveRev: true,
+  });
+});
+
+test("a hand-edited list does not get an Update button, and the card says why", () => {
+  assert.equal(holdOffersUpdate("ownList"), false);
+  assert.equal(holdOffersUpdate("bookChanged"), true);
+  assert.equal(holdOffersUpdate("mismatch"), true);
+  assert.equal(holdReasonKey("ownList"), "lists.keptYours");
+  assert.equal(holdReasonKey("bookChanged"), "lists.keptBook");
+  const en = readFileSync(new URL("../src/lib/i18n-en.ts", import.meta.url), "utf8");
+  const zh = readFileSync(new URL("../src/lib/i18n-zh.ts", import.meta.url), "utf8");
+  assert.match(en, /"lists\.keptYours": "Your edited list is kept"/);
+  assert.match(en, /"lists\.keptBook": "The book file changed\. Tap Update for the new list\."/);
+  assert.match(zh, /"lists\.keptYours": "/);
+  assert.match(zh, /"lists\.keptBook": "/);
+});
+
 test("a classic whose book file changed keeps the manual Update button", () => {
-  assert.deepEqual(
-    planListUpdate({ ...base, installedSha: "oldsha", catalogSha: "newsha" }),
-    { kind: "manual", why: "bookChanged" },
-  );
+  assert.deepEqual(planListUpdate({ ...base, installedSha: "oldsha", catalogSha: "newsha" }), {
+    kind: "manual",
+    why: "bookChanged",
+  });
   // same book file: only the list changed, so it updates by itself
-  assert.deepEqual(
-    planListUpdate({ ...base, installedSha: "sha1", catalogSha: "sha1" }),
-    { kind: "auto" },
-  );
+  assert.deepEqual(planListUpdate({ ...base, installedSha: "sha1", catalogSha: "sha1" }), {
+    kind: "auto",
+  });
 });
 
 test("offline or mid-reading waits for the next load", () => {
