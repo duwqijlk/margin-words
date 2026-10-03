@@ -17,8 +17,8 @@ Dev and `npm run build:local` serve this folder on the same origin so tests run 
    - `cover.jpg` (optional; the cover image inside the EPUB is a good source)
    - `info.json`: `{ "title": "...", "author": "...", "order": 13, "notes": "Public domain in the USA.", "lexile": "880L" }`
      (`"lexile"` is optional, a published measure such as `880L`; see `docs/LEXILE_SOURCES.md`.
-     `"preinstall": true` puts the book on every new shelf. Leave `preinstall` out and the book stays on
-     Discover until the reader taps the heart on the cover. Only Alice's Adventures in Wonderland sets `preinstall`.
+     No book is put on a new shelf by itself: every classic stays on Discover until the reader adds it.
+     (An old `"preinstall"` key is ignored.)
      `"oldFashioned": true` plus an optional `"oldFashionedReason"` marks English that is too old for a
      beginner. Do not flag a book only because it was published long ago. The rule used here: the book is
      from 1911 or earlier (every book in this folder is) AND either the glossary is at least 1.5% archaic
@@ -28,9 +28,9 @@ Dev and `npm run build:local` serve this folder on the same origin so tests run 
 2. Rebuild the catalog and the local sideload zips: `node scripts/build-packs.mjs --out public-books`
 3. `npm run build:books`, then upload `dist-books/`. The hosted catalog sets each `zip` to null and omits
    `all-packs.zip`. The app downloads the loose files when the reader adds the book.
-4. First run: the app puts every pack with `"preinstall": true` on the shelf (Alice only). Books already
-   on a device stay there. The app remembers a book the user deleted (`localStorage` key
-   `cibian-removed-packs-v1`) and never re-adds it by itself; adding it again from Discover clears that.
+4. First run: the shelf is empty. The empty shelf suggests Alice with a one-tap add, and Discover lists every
+   classic. Books already on a device stay there. A book the user deleted stays off the shelf until it is
+   added again (`localStorage` key `cibian-removed-packs-v1` is still written for compatibility).
 
 Offline: the service worker does **not** download books during install. After the app fetches a classic
 (Alice on a new shelf, or a later download from Discover), it keeps that CORS response so the book can be

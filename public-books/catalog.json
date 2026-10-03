@@ -1,7 +1,7 @@
 {
  "format": 1,
  "name": "Margin Words book packs",
- "updated": "2026-10-02",
+ "updated": "2026-10-03",
  "packs": [
   {
    "id": "alice",
@@ -40,8 +40,7 @@
     "url": "alice.zip",
     "bytes": 223922,
     "sha256": "16784df637e1366d433029f9cccbbe2998638b1c23ab255b2e22f91477b33cde"
-   },
-   "preinstall": true
+   }
   },
   {
    "id": "treasure-island",
@@ -463,7 +462,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11062745,
-  "sha256": "9668e0d1fd80780315290bd0294a27c8eaf9b21bdb976a069899230fce943ff4"
+  "bytes": 11062727,
+  "sha256": "c2a90912ebe2d7c9d32d48af0258b428a3caf8e9ef3a699bd4c461815355c779"
  }
 }

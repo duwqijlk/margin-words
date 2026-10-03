@@ -23,16 +23,22 @@ import {
   asProgress,
   asSettings,
   asShelf,
-  asWordBlob,
+  asWordbookBlob,
   bookSyncKey,
+  foldLegacyWords,
+  isLive,
   itemKey,
+  lemmaKey,
   mergeSnapshots,
   sameSyncItem,
+  wordbookItemId,
+  wordbookShard,
   type SettingsData,
   type SyncItem,
+  type WordbookRecord,
 } from "@/lib/sync-merge";
 import { useVocab } from "@/lib/vocab-store";
-import type { Book, VocabEntry } from "@/lib/vocab-model";
+import type { Book, VocabEntry, WordSource } from "@/lib/vocab-model";
 
 const META_KEY = "cibian-sync-meta-v1";
 const EMAIL_KEY = "cibian-account-email-v1";
@@ -159,7 +165,7 @@ function asItems(value: unknown): SyncItem[] {
   for (const item of value) {
     if (!item || typeof item !== "object") continue;
     const row = item as Partial<SyncItem>;
-    if (row.kind !== "shelf" && row.kind !== "progress" && row.kind !== "words" && row.kind !== "settings") continue;
+    if (row.kind !== "shelf" && row.kind !== "progress" && row.kind !== "words" && row.kind !== "wordbook" && row.kind !== "settings") continue;
     if (typeof row.itemId !== "string") continue;
     out.push({
       kind: row.kind,
@@ -198,26 +204,65 @@ function alignMeta(items: SyncItem[]) {
     } else if (item.kind === "progress") {
       if (item.deleted) meta.progressDeleted[item.itemId] = item.updatedAt;
       else delete meta.progressDeleted[item.itemId];
-    } else if (item.kind === "words") {
-      if (item.deleted) meta.wordsDeleted[item.itemId] = item.updatedAt;
-      else {
-        delete meta.wordsDeleted[item.itemId];
-        const blob = asWordBlob(item.data);
-        const touched = { ...(meta.wordTouched[item.itemId] ?? {}) };
-        const removed = { ...(meta.wordRemoved[item.itemId] ?? {}) };
-        for (const word of blob.words) {
-          touched[word.lemma.toLowerCase()] = word.updatedAt;
-          delete removed[word.lemma.toLowerCase()];
-        }
-        for (const row of blob.removed) removed[row.lemma.toLowerCase()] = row.updatedAt;
-        meta.wordTouched[item.itemId] = touched;
-        meta.wordRemoved[item.itemId] = removed;
+    } else if (item.kind === "wordbook" && !item.deleted) {
+      const blob = asWordbookBlob(item.data);
+      for (const word of blob.words) {
+        const lemma = lemmaKey(word.lemma);
+        meta.wordTouched[lemma] = Math.max(meta.wordTouched[lemma] ?? 0, word.updatedAt);
+        delete meta.wordRemoved[lemma];
+        const gone: Record<string, number> = {};
+        for (const source of word.sources) if (!isLive(source)) gone[source.k] = source.removed;
+        if (Object.keys(gone).length > 0) meta.sourceRemoved[lemma] = { ...(meta.sourceRemoved[lemma] ?? {}), ...gone };
+      }
+      for (const row of blob.removed) {
+        const lemma = lemmaKey(row.lemma);
+        meta.wordRemoved[lemma] = Math.max(meta.wordRemoved[lemma] ?? 0, row.updatedAt);
+        delete meta.wordTouched[lemma];
+        delete meta.sourceRemoved[lemma];
       }
     } else if (item.kind === "settings") {
       meta.settingsUpdatedAt = Math.max(meta.settingsUpdatedAt, item.updatedAt);
     }
   }
   saveMeta();
+}
+
+function recordToSource(source: Extract<WordbookRecord["sources"][number], { book: string }>): WordSource {
+  const { k: _k, ...rest } = source;
+  return rest;
+}
+
+/** The merged wordbook shards become the local list. Local ids are kept so open review sessions stay valid. */
+function mergeWordbook(local: VocabEntry[], items: SyncItem[], books: Book[]): VocabEntry[] {
+  const shards = items.filter((item) => item.kind === "wordbook");
+  if (shards.length === 0) return local;
+  const byLemma = new Map(local.map((word) => [lemmaKey(word.lemma), word]));
+  const seen = new Set<string>();
+  const out: VocabEntry[] = [];
+  for (const item of shards) {
+    if (item.deleted) continue;
+    for (const record of asWordbookBlob(item.data).words) {
+      const lemma = lemmaKey(record.lemma);
+      const prior = byLemma.get(lemma);
+      seen.add(lemma);
+      const { sources, updatedAt: _updatedAt, ...rest } = record;
+      const live = sources.filter(isLive).map(recordToSource);
+      const home = books.find((book) => live.some((source) => source.book === bookSyncKey(book)));
+      out.push({
+        ...rest,
+        id: prior?.id ?? record.id,
+        ...(prior?.bookId && books.some((book) => book.id === prior.bookId)
+          ? { bookId: prior.bookId }
+          : home
+            ? { bookId: home.id }
+            : {}),
+        sources: live,
+      });
+    }
+  }
+  const shardIds = new Set(shards.map((item) => item.itemId));
+  const kept = local.filter((word) => !seen.has(lemmaKey(word.lemma)) && !shardIds.has(wordbookItemId(wordbookShard(word.lemma))));
+  return [...out, ...kept];
 }
 
 async function applyMerged(items: SyncItem[]) {
@@ -246,31 +291,7 @@ async function applyMerged(items: SyncItem[]) {
       books = books.map((book) => (ids.has(book.id) ? { ...book, ...data, id: book.id, updatedAt: item.updatedAt } : book));
     }
 
-    const words = useVocab.getState().words.filter((word) => books.some((book) => book.id === word.bookId));
-    const nextWords: VocabEntry[] = words.filter((word) => {
-      const book = books.find((item) => item.id === word.bookId);
-      if (!book) return false;
-      const remote = items.find((item) => item.kind === "words" && item.itemId === bookSyncKey(book));
-      return !remote;
-    });
-    for (const item of items) {
-      if (item.kind !== "words" || item.deleted) continue;
-      const owners = books.filter((book) => bookSyncKey(book) === item.itemId);
-      const owner = owners.sort((a, b) => b.updatedAt - a.updatedAt)[0];
-      if (!owner) continue;
-      const blob = asWordBlob(item.data);
-      const kept = new Map(
-        words.filter((word) => word.bookId === owner.id).map((word) => [word.lemma.toLowerCase(), word]),
-      );
-      for (const word of blob.words) {
-        const prior = kept.get(word.lemma.toLowerCase());
-        nextWords.push({
-          ...word,
-          id: prior?.id ?? word.id,
-          bookId: owner.id,
-        });
-      }
-    }
+    const nextWords = mergeWordbook(useVocab.getState().words, items, books);
 
     const progress = { ...useProgress.getState().items };
     for (const book of books) {
@@ -362,13 +383,16 @@ async function flush() {
   useAccount.getState().patch({ sync: "saving" });
   try {
     const remote = await pullItems();
+    // Per-book `words` items from older versions are read as part of the wordbook; they are never rewritten.
+    const folded = foldLegacyWords(remote);
     const local = buildSyncItems(capture(), meta);
-    const merged = mergeSnapshots(remote, local);
-    const drifted = merged.some((item) => {
-      const prior = remote.find((other) => itemKey(other) === itemKey(item));
-      return !prior || !sameSyncItem(prior, item);
-    });
-    if (drifted || remote.length !== merged.length) await applyMerged(merged);
+    const merged = mergeSnapshots(folded, local);
+    const differs = (list: readonly SyncItem[]) =>
+      merged.some((item) => {
+        const prior = list.find((other) => itemKey(other) === itemKey(item));
+        return !prior || !sameSyncItem(prior, item);
+      });
+    if (differs(local)) await applyMerged(merged);
     const after = buildSyncItems(capture(), meta);
     const upload = after.filter((item) => {
       const prior = remote.find((other) => itemKey(other) === itemKey(item));
@@ -377,7 +401,7 @@ async function flush() {
     if (upload.length > 0) {
       const saved = await pushItems(upload);
       const againLocal = buildSyncItems(capture(), meta);
-      const reconciled = mergeSnapshots(saved, againLocal);
+      const reconciled = mergeSnapshots(foldLegacyWords(saved), againLocal);
       const needApply = reconciled.some((item) => {
         const prior = againLocal.find((other) => itemKey(other) === itemKey(item));
         return !prior || !sameSyncItem(prior, item);

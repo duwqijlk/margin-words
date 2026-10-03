@@ -65,6 +65,13 @@ const newPage = async ({ width = 1280, height = 800, mobile = false, lang = "en"
   return { ctx, page, errors };
 };
 
+/** A new shelf is empty. The empty shelf suggests Alice; one tap adds it. */
+async function ensureAlice(page) {
+  await page.locator("[data-first-book-add]").waitFor({ timeout: 60000 });
+  await page.locator("[data-first-book-add]").click();
+  await page.locator("li.book-card").first().waitFor({ timeout: 90000 });
+}
+
 /** The cards on the shelf (stacks and single cards), not the books inside an open stack. */
 const cards = (page) => page.locator("li.book-card");
 const titleOf = (card) => card.locator("h3, button[lang=en]").first().innerText();
@@ -155,14 +162,16 @@ async function routes(lang) {
   const { ctx, page, errors } = await newPage({ lang });
   const t = T[lang];
   await page.goto(BASE);
-  await page.locator("li.book-card").first().waitFor({ timeout: 90000 });
+  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 60000 });
   ok(new URL(page.url()).pathname === "/shelf", `${lang}: "/" goes to /shelf (${new URL(page.url()).pathname})`);
   ok((await page.evaluate(() => history.length)) <= 2, `${lang}: the redirect from "/" adds no history entry`);
 
+  await ensureAlice(page);
   const tab = (name) => page.getByRole("button", { name, exact: true }).first();
   for (const [name, path, probe] of [
     [t("nav.discover"), "/discover", "[data-discover]"],
     [t("nav.guide"), "/guide", "main, h1"],
+    [t("nav.about"), "/about", "[data-about-page]"],
     [t("nav.notebook"), "/words", "h1, h2"],
     [t("nav.shelf"), "/shelf", "li.book-card"],
   ]) {
@@ -179,7 +188,7 @@ async function routes(lang) {
   await page.locator("h1, h2").first().waitFor();
   ok(new URL(page.url()).pathname === "/words", `${lang}: back goes to /words`);
   await page.goBack();
-  ok(new URL(page.url()).pathname === "/guide", `${lang}: back again goes to /guide`);
+  ok(new URL(page.url()).pathname === "/about", `${lang}: back again goes to /about`);
   await page.goForward();
   ok(new URL(page.url()).pathname === "/words", `${lang}: forward goes to /words`);
 
@@ -231,10 +240,14 @@ async function notice(lang) {
   await page.goto(at("shelf"));
   const bar = page.locator("[data-notice-bar]");
   await bar.waitFor({ timeout: 30000 });
-  ok((await bar.innerText()).trim() === t("notice.text"), `${lang}: the notice says the right text`);
+  ok(
+    (await bar.innerText()).replace(/\s+/g, " ").trim() === `${t("notice.text")} ${t("notice.link")}`,
+    `${lang}: the notice says the right text and links to About`,
+  );
+  ok((await bar.locator("[data-notice-about]").getAttribute("href")) === "/about", `${lang}: the notice links to /about`);
   const box = await bar.boundingBox();
   ok(box !== null && box.y <= 1 && box.height < 80, `${lang}: the notice is a slim bar at the top (${Math.round(box?.height ?? 0)}px)`);
-  for (const path of ["discover", "guide", "words"]) {
+  for (const path of ["discover", "guide", "words", "about"]) {
     await page.goto(at(path));
     ok((await bar.count()) === 1, `${lang}: the notice is on /${path}`);
   }
@@ -242,7 +255,7 @@ async function notice(lang) {
   await page.locator("[data-notice-close]").click();
   ok((await bar.count()) === 0, `${lang}: the close button hides the notice`);
   await page.reload();
-  await page.locator("li.book-card").first().waitFor({ timeout: 30000 });
+  await page.locator("header").first().waitFor({ timeout: 30000 });
   ok((await bar.count()) === 0, `${lang}: the notice stays hidden after a reload`);
   await page.goto(at("discover"));
   ok((await bar.count()) === 0, `${lang}: and on the other pages`);
@@ -254,7 +267,7 @@ async function panel(label, size) {
   console.log(`\n== side panel (${label})`);
   const { ctx, page, errors } = await newPage(size);
   await page.goto(at("shelf"));
-  await page.locator("li.book-card").first().waitFor({ timeout: 90000 });
+  await ensureAlice(page);
   await page.locator("li.book-card button[aria-label]").first().click();
   await page.waitForSelector("button.book-hard", { timeout: 30000 });
   const words = page.locator("article.book-body button.book-hard");
@@ -607,7 +620,9 @@ async function stacks(lang, size) {
   console.log(`\n== series stacks (${lang}/${size.name})`);
   const t = T[lang];
   const { ctx, page, errors } = await newPage({ ...size, lang });
-  // Two books of one series, added in the "wrong" order, and one standalone book.
+  // Alice, two books of one series, added in the "wrong" order, and one standalone book.
+  await page.goto(at("shelf"));
+  await ensureAlice(page);
   await addFromDiscover(page, "wof2");
   await addFromDiscover(page, "wof1");
   await addFromDiscover(page, "twits");

@@ -3,6 +3,7 @@ import * as Menu from "@radix-ui/react-dropdown-menu";
 import {
   BookOpen,
   BookPlus,
+  Compass,
   FileJson,
   MoreVertical,
   Pencil,
@@ -23,8 +24,12 @@ import type { Book, VocabEntry } from "@/lib/vocab-model";
 import { useT, type Key } from "@/lib/i18n";
 import { useClassicBookIds, useClassicsRunning } from "@/lib/classics";
 import { bookHasUserWork } from "@/lib/shelf-work";
+import { bookSyncKey } from "@/lib/sync-merge";
+import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import { BookCover } from "@/components/book-cover";
+import { FirstBookSuggestion } from "@/components/first-book";
+import { navigate } from "@/lib/router";
 import { ClosedStack, OpenStack } from "@/components/series-stack";
 import { stackShelf } from "@/lib/shelf-stacks";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
@@ -216,10 +221,12 @@ function EmptyShelf({
   importing,
   onAdd,
   onDemo,
+  onDiscover,
 }: {
   importing: boolean;
   onAdd: () => void;
   onDemo: () => void;
+  onDiscover: () => void;
 }) {
   const { t } = useT();
   const steps: Array<{ title: Key; body: Key }> = [
@@ -233,6 +240,13 @@ function EmptyShelf({
       <div className="grid gap-2">
         <h2 className="font-display text-2xl font-semibold sm:text-3xl">{t("shelf.emptyTitle")}</h2>
         <p className="mx-auto max-w-md text-muted">{t("shelf.emptyBody")}</p>
+      </div>
+      <div className="grid w-full justify-items-center gap-3">
+        <button type="button" className={cn(btn.primary, "px-6")} onClick={onDiscover} data-empty-discover>
+          <Compass className="size-5" aria-hidden />
+          {t("shelf.findBooks")}
+        </button>
+        <FirstBookSuggestion />
       </div>
       <ol className="grid w-full max-w-2xl gap-3 text-left sm:grid-cols-3">
         {steps.map((step, index) => (
@@ -250,7 +264,7 @@ function EmptyShelf({
       <div className="grid justify-items-center gap-3">
         <button
           type="button"
-          className={cn(btn.primary, "px-6")}
+          className={cn(btn.quiet, "px-6")}
           onClick={onAdd}
           disabled={importing}
         >
@@ -386,7 +400,7 @@ function BookCard({
                         source: book.source,
                         needsEpub: book.needsEpub,
                         classic,
-                        savedWords: row.words,
+                        savedWords: 0,
                         progress: row.progress ?? null,
                       }),
                       row.words,
@@ -466,7 +480,7 @@ export function Shelf({
   const rows = useMemo<Row[]>(
     () =>
       liveBooks.map((book) => {
-        const mine = words.filter((word) => word.bookId === book.id);
+        const mine = wordsFromBook(words, bookSyncKey(book));
         const stat = summarize(mine);
         return {
           book,
@@ -580,7 +594,7 @@ export function Shelf({
       {!ready || (books.length === 0 && installingClassics && !importing) ? (
         <ShelfSkeleton />
       ) : books.length === 0 && !importing ? (
-        <EmptyShelf importing={importing} onAdd={onAdd} onDemo={onDemo} />
+        <EmptyShelf importing={importing} onAdd={onAdd} onDemo={onDemo} onDiscover={() => navigate({ kind: "discover" })} />
       ) : liveBooks.length === 0 ? null : (
         <>
           {hero && !q && !filtering ? (

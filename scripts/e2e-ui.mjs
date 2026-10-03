@@ -9,7 +9,7 @@
  *   npm run build:local && npx vite preview --host 127.0.0.1 --port 8090
  * Preview serves ./public-books and ./word-lists from the repo. They are not inside dist/.
  * Runs in English and Chinese, at 1280px and 390px. Checks:
- *   - FIRST OPEN: the shelf shows only Alice, with a cover, a Lexile measure and the
+ *   - FIRST OPEN: the shelf is empty and suggests Alice; one tap adds it, with a cover, a Lexile measure and the
  *     "Public domain" label; it opens and a word can be looked up
  *   - DISCOVER: lists all 12 classics and the 10 word lists (covers, Lexile). Alice's button says "On shelf".
  *     "Add to shelf" adds Peter and Wendy and Looking-Glass; they open from the cover, and they still open offline
@@ -200,12 +200,22 @@ async function run(lang, size) {
     await page.locator("#pack-file").waitFor({ state: "attached" });
   };
 
-  // ---- first visit: only Alice is installed from ./public-books/ and shown on the shelf
+  // ---- first visit: the shelf is empty (nothing is installed on its own). Alice is only suggested.
   await page.goto(BASE);
+  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 30000 });
+  await page.waitForTimeout(2500); // the start-up work has run by now
+  ok((await page.locator("ul li").count()) === 0, `${label}: a first visit starts with an empty shelf`);
+  ok(
+    (await page.locator("[data-empty-discover]").count()) === 1 &&
+      (await page.locator("[data-first-book]").count()) === 1,
+    `${label}: the empty shelf points to Discover and suggests Alice`,
+  );
+  await shot("first-empty");
+  await page.locator("[data-first-book-add]").click();
   await page.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
   ok(
     (await page.locator("ul li [data-classic-label]").count()) === 1,
-    `${label}: first open shows Alice with the "${t("shelf.classic")}" label`,
+    `${label}: Alice, added with one tap, shows with the "${t("shelf.classic")}" label`,
   );
   ok(
     (await page.getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") }).count()) >= 1,
@@ -215,7 +225,7 @@ async function run(lang, size) {
     (await page.getByRole("button", { name: labelRe(t("shelf.openAria"), "Treasure Island") }).count()) === 0,
     `${label}: Treasure Island is not downloaded on the first visit`,
   );
-  ok((await page.locator("ul li").count()) === 1, `${label}: exactly one book on a first open`);
+  ok((await page.locator("ul li").count()) === 1, `${label}: exactly one book after adding Alice`);
   ok((await page.locator("ul li img").count()) >= 1, `${label}: Alice shows a cover picture`);
   ok(
     (await page.getByText(t("shelf.classic"), { exact: true }).count()) === 1,
@@ -667,8 +677,10 @@ async function run(lang, size) {
     const ferrors = [];
     fp.on("pageerror", (e) => ferrors.push(String(e).slice(0, 200)));
     await fp.goto(BASE);
+    await fp.locator("[data-first-book-add]").waitFor({ timeout: 60000 });
+    await fp.locator("[data-first-book-add]").click();
     await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
-    ok((await fp.locator("ul li").count()) === 1, `${label}: a new shelf has one classic before going offline`);
+    ok((await fp.locator("ul li").count()) === 1, `${label}: a new shelf has Alice (added with one tap) before going offline`);
     await fp.evaluate(() => navigator.serviceWorker.ready);
     await fp.waitForFunction(
       async () => {
@@ -733,9 +745,12 @@ async function run(lang, size) {
       await vp.locator("[data-pack]").first().waitFor({ timeout: 30000 });
     };
     await vp.goto(BASE);
+    await vp.locator("[data-first-book-add]").waitFor({ timeout: 60000 });
+    ok((await vp.locator("ul li").count()) === 0, `${label}: first run installs nothing`);
+    await vp.locator("[data-first-book-add]").click();
     await vp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
     await vp.waitForTimeout(1500);
-    ok((await vp.locator("ul li").count()) === 1, `${label}: first run installs only Alice`);
+    ok((await vp.locator("ul li").count()) === 1, `${label}: the one-tap suggestion adds only Alice`);
     await vp.evaluate(() => navigator.serviceWorker.ready);
     await openDiscover();
     ok(
@@ -744,7 +759,7 @@ async function run(lang, size) {
     );
     await vp.getByRole("button", { name: t("nav.guide"), exact: true }).click();
     await vp.getByRole("heading", { name: t("guide.title"), exact: true }).waitFor();
-    ok((await vp.locator("[data-guide-page] li").count()) === 4, `${label}: the guide has four short steps`);
+    ok((await vp.locator("[data-guide-page] li").count()) === 5, `${label}: the guide has five short steps`);
     ok(!(await overflow2(vp)), `${label}: no horizontal overflow (guide)`);
     await openDiscover();
     // covers are loaded lazily: scroll down the list so that all of them come into view
@@ -802,7 +817,7 @@ async function run(lang, size) {
             return r.left >= 0 && r.right <= innerWidth && r.bottom <= innerHeight && r.width > 40 && r.height >= 44;
           }),
         );
-        ok(tabs.length === 4 && tabs.every(Boolean), `${label}: the bottom tab bar shows all four screens, each with a big tap target`);
+        ok(tabs.length === 5 && tabs.every(Boolean), `${label}: the bottom tab bar shows all five screens, each with a big tap target`);
       }
     }
     for (const c of CLASSICS) {
@@ -959,7 +974,7 @@ async function run(lang, size) {
     const fp = await fctx.newPage();
     await fp.route("**/jungle-book/book.epub", (route) => route.abort());
     await fp.goto(BASE);
-    await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
+    await fp.locator("[data-empty-discover]").waitFor({ timeout: 60000 });
     await fp.getByRole("button", { name: t("nav.discover"), exact: true }).first().click();
     const failed = fp.locator('[data-pack="jungle-book"]');
     await failed.waitFor({ timeout: 30000 });

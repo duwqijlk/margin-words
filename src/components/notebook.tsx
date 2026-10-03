@@ -2,8 +2,11 @@ import { BookMarked, Check, ChevronDown, Layers, RotateCcw, Search, Trash2 } fro
 import { useMemo, useState } from "react";
 import { useT, type Key } from "@/lib/i18n";
 import { dueLabel, INTERVALS_DAYS, summarize } from "@/lib/srs";
+import { bookSyncKey } from "@/lib/sync-merge";
 import { isDue, isMastered, MASTERED_STAGE, type Book, type VocabEntry } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
+import { hasSourceFrom } from "@/lib/wordbook";
+import { WordSources } from "@/components/word-sources";
 import {
   btn,
   chip,
@@ -55,11 +58,11 @@ function Ladder({ stage }: { stage: number }) {
 
 function WordRow({
   word,
-  bookTitle,
+  books,
   onAskDelete,
 }: {
   word: VocabEntry;
-  bookTitle: string;
+  books: Book[];
   onAskDelete: () => void;
 }) {
   const { t, tn } = useT();
@@ -120,7 +123,9 @@ function WordRow({
         {word.meaning}
       </p>
 
-      {word.sentence ? (
+      {word.sources.length > 0 ? (
+        <WordSources word={word} books={books} />
+      ) : word.sentence ? (
         <p className="border-l-2 border-accent/40 pl-3 font-display text-[0.95rem] leading-relaxed text-muted">
           <Highlighted sentence={word.sentence} surface={word.surface} />
         </p>
@@ -129,9 +134,7 @@ function WordRow({
       <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-2">
         <p className="flex min-w-0 items-center gap-1.5 text-xs text-muted">
           <BookMarked className="size-3.5 shrink-0" aria-hidden />
-          <span className="truncate" lang="en">
-            {bookTitle}
-          </span>
+          <span className="truncate">{tn("nb.inBooks", new Set(word.sources.map((source) => source.book)).size)}</span>
           {word.seen ? <span className="shrink-0">{tn("row.seen", word.seen)}</span> : null}
         </p>
         <div className="-mr-2 flex flex-wrap items-center">
@@ -192,13 +195,27 @@ export function Notebook({
   const [shown, setShown] = useState(PAGE);
   const [deleting, setDeleting] = useState<VocabEntry | null>(null);
 
-  const titles = useMemo(() => new Map(books.map((book) => [book.id, book.title])), [books]);
-  const scoped = useMemo(
-    () => (bookId ? words.filter((word) => word.bookId === bookId) : words),
-    [words, bookId],
+  const activeBook = bookId ? books.find((book) => book.id === bookId) : undefined;
+  const activeKey = activeBook ? bookSyncKey(activeBook) : "";
+  // One list for every book. A book filter only narrows it; the schedule is the same either way.
+  const scoped = useMemo(() => {
+    if (!bookId) return words;
+    if (!activeKey) return [];
+    return words
+      .filter((word) => hasSourceFrom(word, activeKey))
+      .map((word) => ({
+        ...word,
+        sources: [
+          ...word.sources.filter((source) => source.book === activeKey),
+          ...word.sources.filter((source) => source.book !== activeKey),
+        ],
+      }));
+  }, [words, bookId, activeKey]);
+  const perBook = useMemo(
+    () => new Map(books.map((book) => [book.id, words.filter((word) => hasSourceFrom(word, bookSyncKey(book))).length])),
+    [books, words],
   );
   const stats = useMemo(() => summarize(scoped), [scoped]);
-  const activeBook = bookId ? books.find((book) => book.id === bookId) : undefined;
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -207,7 +224,9 @@ export function Notebook({
       if (filter === "learning" && isMastered(word)) return false;
       if (filter === "mastered" && !isMastered(word)) return false;
       if (!q) return true;
-      return `${word.lemma} ${word.surface} ${word.meaning} ${word.sentence}`
+      return `${word.lemma} ${word.surface} ${word.meaning} ${word.sentence} ${word.sources
+        .map((source) => `${source.title} ${source.chapterTitle ?? ""}`)
+        .join(" ")}`
         .toLowerCase()
         .includes(q);
     });
@@ -322,7 +341,7 @@ export function Notebook({
                 <option value="">{t("nb.allBooks")}</option>
                 {books.map((book) => (
                   <option key={book.id} value={book.id}>
-                    {book.title}
+                    {book.title} ({perBook.get(book.id) ?? 0})
                   </option>
                 ))}
               </select>
@@ -370,7 +389,7 @@ export function Notebook({
                   <WordRow
                     key={word.id}
                     word={word}
-                    bookTitle={titles.get(word.bookId) ?? t("nb.deletedBook")}
+                    books={books}
                     onAskDelete={() => setDeleting(word)}
                   />
                 ))}

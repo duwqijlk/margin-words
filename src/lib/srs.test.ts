@@ -10,6 +10,7 @@ function card(stage = 0): VocabEntry {
   return {
     id: "a",
     bookId: "b",
+    sources: [],
     surface: "glimmer",
     lemma: "glimmer",
     pos: "singular noun",

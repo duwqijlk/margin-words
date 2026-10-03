@@ -21,6 +21,9 @@
     "check:example": "node scripts/check-example.mjs",
     "test:sense-only": "node scripts/sense-only-e2e.mjs",
     "test:routes": "node scripts/routes-e2e.mjs",
+    "test:wordbook": "node scripts/wordbook-e2e.mjs",
+    "test:comma-phrase": "node scripts/comma-phrase-e2e.mjs",
+    "test:lightbulb": "node scripts/lightbulb-e2e.mjs",
     "make:sample": "node scripts/make-sample-epub.mjs",
     "build:kit": "node scripts/build-kit.mjs"
   },

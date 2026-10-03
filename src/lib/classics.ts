@@ -5,14 +5,13 @@
  * To add one, drop a folder public-books/<id>/ with book.epub, glossary.json, optional cover.jpg and
  * info.json ({"title","author","order"}), then run `node scripts/build-packs.mjs --out public-books`
  * (see public-books/README.md). The other classics are listed on Discover and download when the reader
- * taps the heart on the cover. Only a book whose info.json has "preinstall": true (the catalog then carries
- * preinstall: true) is put on the shelf by itself. Alice's Adventures in Wonderland is the only one.
+ * taps the heart on the cover. No book is put on the shelf by itself: a new shelf is empty, and Alice's
+ * Adventures in Wonderland is an ordinary classic like the others (it is only suggested on the empty shelf,
+ * with a one-tap add). Books already stored on this device stay where they are, and a book the reader
+ * deletes stays deleted. An older hosted catalog may still carry `"preinstall": true`; it is ignored.
  *
- * On start the app installs the preinstall books that are not on the shelf yet, except a book that the
- * user deleted on purpose: deleting a book from the shelf writes a "removed" flag for its pack id
- * (localStorage), and a flagged pack is never added again by itself. Adding it again from Discover
- * clears the flag. Books already stored on this device stay where they are. A classic that is not
- * marked preinstall is never downloaded on its own.
+ * On start this file only copies Lexile, ISBN, series and the old-fashioned flag from the catalogs onto
+ * books that are already on the shelf.
  */
 import { create } from "zustand";
 import { useEffect, useState } from "react";
@@ -20,10 +19,9 @@ import { listPackRecords } from "@/lib/book-db";
 import { useDownloads } from "@/lib/downloads";
 import { BUNDLED_CATALOG_URL, getCatalogUrl, loadCatalog, type CatalogPack } from "@/lib/packs";
 import { loadWordListCatalog, type WordListPack } from "@/lib/word-list-catalog";
-import { readRemoved } from "@/lib/removed-packs";
 import { useVocab } from "@/lib/vocab-store";
 
-/** True while the first-run install of the classics is running (the shelf shows a placeholder, not "empty"). */
+/** Kept for the shelf placeholder: nothing is installed by itself any more, so this is always false. */
 export const useClassicsRunning = create<{ running: boolean }>()(() => ({ running: false }));
 
 let once: Promise<void> | null = null;
@@ -44,9 +42,7 @@ const withTimeout = <T>(promise: Promise<T>, ms: number): Promise<T> =>
   });
 
 /**
- * Look at the bundled catalog and start installing every classic that is missing and not removed.
- * Resolves when the downloads were started (not when they end), so the shelf can show placeholders at once.
- * Never throws: with no network the shelf just stays as it is, and the next start tries again.
+ * Copy the catalog facts (Lexile, ISBN, series) onto books already on the shelf. Never throws.
  */
 export function ensureClassics(): Promise<void> {
   if (!once) once = run();
@@ -126,30 +122,15 @@ function asFacts(pack: CatalogPack | WordListPack): FactSource {
   };
 }
 
-/**
- * In a production build, wait until the service worker controls this page before the first
- * book download. Then those responses are cached for offline. Dev has no worker; waiting
- * on `ready` there would never finish.
- */
-async function waitForServiceWorker(): Promise<void> {
-  if (!import.meta.env.PROD) return;
-  if (typeof navigator === "undefined" || !("serviceWorker" in navigator)) return;
-  await withTimeout(navigator.serviceWorker.ready, 4000).catch(() => undefined);
-}
-
 async function run(): Promise<void> {
-  // Set at once, so a first-run shelf shows placeholders and not the "empty shelf" for a moment.
-  useClassicsRunning.setState({ running: true });
-  let started = false;
   try {
-    await waitForServiceWorker();
     const { catalog } = await withTimeout(loadCatalog(BUNDLED_CATALOG_URL), 8000);
     await rememberFacts(catalog.packs.map(asFacts));
     try {
       const lists = await withTimeout(loadWordListCatalog(), 5000);
       await rememberFacts(lists.map(asFacts));
     } catch {
-      // The word-list catalog is optional. The classics still install.
+      // The word-list catalog is optional.
     }
     const custom = getCatalogUrl();
     if (custom !== BUNDLED_CATALOG_URL) {
@@ -157,29 +138,11 @@ async function run(): Promise<void> {
         const extra = await withTimeout(loadCatalog(custom), 5000);
         await rememberFacts(extra.catalog.packs.map(asFacts));
       } catch {
-        // The extra list is optional. The bundled classics still get their measures.
+        // The extra list is optional.
       }
     }
-    const have = new Set((await listPackRecords()).map((record) => record.packId));
-    const removed = new Set(readRemoved());
-    // Only the books marked "preinstall" come by themselves. A removed id is never added again.
-    // Last one first: the shelf lists the newest book first, so Alice ends up first.
-    const todo = [...catalog.packs]
-      .filter((pack) => pack.preinstall && !have.has(pack.id) && !removed.has(pack.id))
-      .reverse();
-    if (todo.length === 0) return;
-    started = true;
-    void (async () => {
-      try {
-        for (const pack of todo) await useDownloads.getState().start(BUNDLED_CATALOG_URL, pack);
-      } finally {
-        useClassicsRunning.setState({ running: false });
-      }
-    })();
   } catch {
-    // Offline on the very first start, or no bundled catalog: nothing to do.
-  } finally {
-    if (!started) useClassicsRunning.setState({ running: false });
+    // Offline, or no bundled catalog: nothing to do.
   }
 }
 

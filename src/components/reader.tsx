@@ -20,6 +20,7 @@ import { loadBookMeta, loadStoredBook, type Gloss, type StoredBook } from "@/lib
 import { readingSlots } from "@/lib/epub";
 import {
   entryAppliesAt,
+  hasTrickySense,
   pickSense,
   plainSurface,
   readingHtml,
@@ -29,7 +30,12 @@ import {
 import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
+import { useJump } from "@/lib/jump-store";
+import { findSentence, makeAnchor, resolveAnchor, restoreReadingPlace, type TextAnchor } from "@/lib/position";
 import { legacyChapter, overallProgress, useProgress } from "@/lib/progress-store";
+import { bookSyncKey } from "@/lib/sync-merge";
+import type { WordSource } from "@/lib/vocab-model";
+import { hasSourceFrom } from "@/lib/wordbook";
 import {
   COLUMN_MAX,
   COLUMN_MIN,
@@ -768,11 +774,23 @@ function SidePlaceholder() {
     >
       <p className="font-semibold">{t("reader.sideTitle")}</p>
       <p>{t("reader.sideHint")}</p>
+      <p>{t("reader.trickyHint")}</p>
     </aside>
   );
 }
 
 /* ------------------------------------------------------------------ reader */
+
+/** The first paragraph that is still (partly) below the top bar, as a file-independent place. */
+function topAnchor(root: HTMLElement | null, chapter: number): TextAnchor | null {
+  if (!root) return null;
+  const blocks = paragraphBlocks(root);
+  const at = blocks.findIndex((block) => block.getBoundingClientRect().bottom > 72);
+  const block = at >= 0 ? blocks[at] : undefined;
+  if (!block) return null;
+  const text = flowText(block);
+  return text ? makeAnchor({ chapter, paragraph: at, text, at: 0 }) : null;
+}
 
 export function ReaderScreen({
   bookId,
@@ -785,8 +803,10 @@ export function ReaderScreen({
 }) {
   const { t } = useT();
   const words = useVocab((state) => state.words);
-  const addWords = useVocab((state) => state.addWords);
-  const removeWordByLemma = useVocab((state) => state.removeWordByLemma);
+  const shelfBook = useVocab((state) => state.books.find((item) => item.id === bookId));
+  const saveWord = useVocab((state) => state.saveWord);
+  const removeWordFromBook = useVocab((state) => state.removeWordFromBook);
+  const setSourcePlaces = useVocab((state) => state.setSourcePlaces);
   const fillPrepared = useVocab((state) => state.fillPrepared);
   const prefs = usePrefs();
   const saveProgress = useProgress((state) => state.save);
@@ -811,6 +831,8 @@ export function ReaderScreen({
     nth: number;
     /** the paragraph text before the word */
     before: string;
+    /** which paragraph of the chapter this is, counted the way the word list counts them */
+    block: number;
   } | null>(null);
   // Paragraph help (overlay). `index` is the paragraph number from paragraphBlocks().
   const [help, setHelp] = useState<{ index: number } | null>(null);
@@ -819,6 +841,8 @@ export function ReaderScreen({
   const [phraseHit, setPhraseHit] = useState<{ at: string; hit: PhraseHit } | null>(null);
   const articleRef = useRef<HTMLElement | null>(null);
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
+  // A place found through the file-independent anchor (saved position, or "go to the sentence" from the wordbook).
+  const restoreAt = useRef<{ paragraph: number; flash: boolean } | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -828,6 +852,27 @@ export function ReaderScreen({
       if (!alive) return;
       if (!next) setMissing(true);
       else {
+        const jump = useJump.getState().take(bookId);
+        const saved = useProgress.getState().items[bookId];
+        if (jump?.at && next.chapters.length > 0) {
+          // A jump from the wordbook names a numbered chapter. It leaves an extra page.
+          const hit = resolveAnchor(
+            jump.at,
+            next.chapters.map((item) => item.paragraphs),
+          );
+          restoreAt.current = { paragraph: hit.paragraph, flash: true };
+          setChapterIndex(hit.chapter);
+          setExtraId("");
+        } else if (saved) {
+          // extraId keeps the reader on that extra; the anchor is then a paragraph of the extra.
+          const place = restoreReadingPlace(saved, {
+            chapters: next.chapters.map((item) => item.paragraphs),
+            extras: next.extras,
+          });
+          if (place.paragraph !== null) restoreAt.current = { paragraph: place.paragraph, flash: false };
+          setExtraId(place.extraId);
+          if (!place.extraId && place.paragraph !== null) setChapterIndex(place.chapter);
+        }
         setBook(next);
         fillPrepared(bookId, next.glossary);
       }
@@ -884,6 +929,8 @@ export function ReaderScreen({
     const ready = new Set<string>();
     // Entries that hold only position-based senses: underlined at their anchors, not everywhere.
     const sparse = new Map<string, Gloss>();
+    // Entries with a sense flagged trickyMeaning: marked at the anchors where that sense resolves.
+    const tricky = new Map<string, Gloss>();
     // Word lists may name extra forms ("sawn" -> "saw"); the book's own list decides.
     const forms = new Map<string, string>();
     // Stored key for each straightened spelling, so a curly apostrophe still finds the entry.
@@ -895,13 +942,14 @@ export function ReaderScreen({
         const straight = plainSurface(key);
         if (!keys.has(straight)) keys.set(straight, key);
         if (gloss.senseOnly === true) sparse.set(key, gloss);
+        if (hasTrickySense(gloss)) tricky.set(key, gloss);
         for (const form of gloss.forms ?? []) {
           const name = plainSurface(form);
           if (name && !forms.has(name)) forms.set(name, key);
         }
       }
     }
-    return { ready, forms, sparse, keys };
+    return { ready, forms, sparse, tricky, keys };
   }, [book]);
   const resolveKey = useCallback(
     (surface: string) => resolveGlossKey(surface, marked.keys, marked.forms),
@@ -909,18 +957,21 @@ export function ReaderScreen({
   );
   const linkedHtml = useMemo(
     () =>
-      chapterHtml ? readingHtml(chapterHtml, marked.ready, resolveKey, viewChapter, marked.sparse) : "",
+      chapterHtml
+        ? readingHtml(chapterHtml, marked.ready, resolveKey, viewChapter, marked.sparse, marked.tricky)
+        : "",
     [chapterHtml, marked, resolveKey, viewChapter],
   );
   const bookChapters = book?.chapters;
   const bookStats = useMemo(() => (bookChapters ? indexBook(bookChapters) : {}), [bookChapters]);
 
+  const bookKey = shelfBook ? bookSyncKey(shelfBook) : "";
   const savedKeys = useMemo(
     () =>
       new Set(
-        words.filter((word) => word.bookId === bookId).map((word) => word.lemma.toLowerCase()),
+        words.filter((word) => bookKey !== "" && hasSourceFrom(word, bookKey)).map((word) => word.lemma.toLowerCase()),
       ),
-    [words, bookId],
+    [words, bookKey],
   );
 
   // Paint saved words and the selected word straight onto the page. Doing it in the DOM
@@ -931,7 +982,10 @@ export function ReaderScreen({
     if (!root) return;
     for (const button of root.querySelectorAll<HTMLButtonElement>("button[data-word]")) {
       const key = resolveKey(button.dataset.word ?? "");
-      const sparseOff = marked.sparse.has(key) && !button.classList.contains("book-hard");
+      const sparseOff =
+        marked.sparse.has(key) &&
+        !button.classList.contains("book-hard") &&
+        !button.classList.contains("book-tricky");
       button.classList.toggle("book-saved", savedKeys.has(key) && !sparseOff);
       button.classList.toggle("book-on", pickedIndex !== "" && button.dataset.i === pickedIndex);
     }
@@ -943,18 +997,33 @@ export function ReaderScreen({
     if (!root || !linkedHtml) return;
     const target = restore.current;
     restore.current = null;
-    if (target === null || target <= 0) {
+    const mark = restoreAt.current;
+    restoreAt.current = null;
+    const block = mark ? paragraphBlocks(root)[mark.paragraph] : undefined;
+    let place: () => void;
+    let flashTimer: ReturnType<typeof setTimeout> | null = null;
+    if (block) {
+      place = () => {
+        const top = block.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: Math.max(0, top - 96) });
+      };
+      if (mark?.flash) {
+        block.classList.add("book-flash");
+        flashTimer = setTimeout(() => block.classList.remove("book-flash"), 3000);
+      }
+    } else if (target === null || target <= 0) {
       window.scrollTo({ top: 0 });
       setScrolled(0);
       return;
+    } else {
+      place = () => {
+        const top = root.getBoundingClientRect().top + window.scrollY;
+        const span = Math.max(1, root.offsetHeight - window.innerHeight);
+        window.scrollTo({ top: top + target * span });
+      };
     }
-    const place = () => {
-      const top = root.getBoundingClientRect().top + window.scrollY;
-      const span = Math.max(1, root.offsetHeight - window.innerHeight);
-      window.scrollTo({ top: top + target * span });
-    };
     place();
-    setScrolled(target);
+    if (!block && target !== null) setScrolled(target);
     // Fonts, pictures and banners change the page height right after load; keep the
     // saved spot until the reader scrolls on their own (or a few seconds pass).
     let cancelled = false;
@@ -976,6 +1045,7 @@ export function ReaderScreen({
     const timer = setTimeout(stop, 2500);
     return () => {
       clearTimeout(timer);
+      if (flashTimer) clearTimeout(flashTimer);
       stop();
     };
   }, [linkedHtml, safeIndex, extraId]);
@@ -994,7 +1064,15 @@ export function ReaderScreen({
       const value = Math.min(1, Math.max(0, -rect.top / span));
       setScrolled(value);
       if (saver) clearTimeout(saver);
-      saver = setTimeout(() => saveProgress(bookId, { scroll: value }), 400);
+      saver = setTimeout(() => {
+        const onExtra = Boolean(activeExtra);
+        const anchor = topAnchor(articleRef.current, onExtra ? 0 : safeIndex);
+        saveProgress(bookId, {
+          scroll: value,
+          ...(anchor ? { anchor } : {}),
+          ...(onExtra && activeExtra ? { extraId: activeExtra.id } : {}),
+        });
+      }, 400);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(measure);
@@ -1005,7 +1083,7 @@ export function ReaderScreen({
       if (frame) cancelAnimationFrame(frame);
       if (saver) clearTimeout(saver);
     };
-  }, [book, bookId, saveProgress, safeIndex]);
+  }, [book, bookId, saveProgress, safeIndex, activeExtra]);
 
   useEffect(() => {
     if (!book || !extraId) return;
@@ -1013,20 +1091,73 @@ export function ReaderScreen({
   }, [book, extraId]);
 
   useEffect(() => {
-    if (book) saveProgress(bookId, { chapter: safeIndex, chapters: book.chapters.length });
-  }, [book, bookId, safeIndex, saveProgress]);
+    if (book) saveProgress(bookId, { chapter: safeIndex, chapters: book.chapters.length, extraId });
+  }, [book, bookId, safeIndex, extraId, saveProgress]);
+
+  // Positions saved before anchors existed get one now, from where the page actually is.
+  useEffect(() => {
+    if (!book || !linkedHtml) return;
+    const timer = setTimeout(() => {
+      const saved = useProgress.getState().items[bookId];
+      if (extraId) {
+        if (saved?.extraId === extraId && saved.anchor) return;
+        const anchor = topAnchor(articleRef.current, 0);
+        if (anchor) saveProgress(bookId, { anchor, extraId });
+        return;
+      }
+      if (saved?.anchor && saved.anchor.chapter === safeIndex) return;
+      const anchor = topAnchor(articleRef.current, safeIndex);
+      if (anchor) saveProgress(bookId, { anchor });
+    }, 900);
+    return () => clearTimeout(timer);
+  }, [book, bookId, linkedHtml, safeIndex, extraId, saveProgress]);
+
+  // Saved words from before places were stored: find each sentence in this device's text once.
+  useEffect(() => {
+    if (!book || !bookKey) return;
+    const timer = setTimeout(() => {
+      const open = useVocab
+        .getState()
+        .words.flatMap((card) => card.sources.filter((source) => source.book === bookKey && !source.at).map((source) => ({ card, source })));
+      if (open.length === 0) return;
+      const texts = book.chapters.map((item) => item.paragraphs);
+      const updates = [];
+      for (const { card, source } of open) {
+        const hit = findSentence(source.sentence, source.surface, texts, source.chapter);
+        if (!hit) continue;
+        updates.push({
+          lemma: card.lemma,
+          book: bookKey,
+          sentence: source.sentence,
+          chapter: hit.chapter,
+          chapterTitle: book.chapters[hit.chapter]?.title,
+          at: hit,
+        });
+      }
+      setSourcePlaces(updates);
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, [book, bookKey, setSourcePlaces]);
 
   const goChapter = useCallback(
     (index: number) => {
       if (!book) return;
       const next = Math.min(Math.max(0, index), book.chapters.length - 1);
       restore.current = null;
+      restoreAt.current = null;
       setExtraId("");
       setChapterIndex(next);
       setPicked(null);
       setHelp(null);
       setScrolled(0);
-      saveProgress(bookId, { chapter: next, chapters: book.chapters.length, scroll: 0, extraId: "" });
+      const first = book.chapters[next]?.paragraphs[0] ?? "";
+      saveProgress(bookId, {
+        chapter: next,
+        chapters: book.chapters.length,
+        scroll: 0,
+        extraId: "",
+        anchor: first ? makeAnchor({ chapter: next, paragraph: 0, text: first, at: 0 }) : undefined,
+      });
       window.scrollTo({ top: 0 });
     },
     [book, bookId, saveProgress],
@@ -1049,27 +1180,33 @@ export function ReaderScreen({
       const slot = slots[at];
       if (!slot) return;
       restore.current = null;
+      restoreAt.current = null;
       setPicked(null);
       setHelp(null);
       setScrolled(0);
       if (slot.kind === "chapter") {
         setExtraId("");
         setChapterIndex(slot.index);
+        const first = book.chapters[slot.index]?.paragraphs[0] ?? "";
         saveProgress(bookId, {
           chapter: slot.index,
           chapters: book.chapters.length,
           scroll: 0,
           extraId: "",
+          anchor: first ? makeAnchor({ chapter: slot.index, paragraph: 0, text: first, at: 0 }) : undefined,
         });
       } else {
         const extra = book.extras?.[slot.index];
         if (!extra) return;
         setExtraId(extra.id);
+        const first = extra.paragraphs[0] ?? "";
         saveProgress(bookId, {
           chapter: safeIndex,
           chapters: book.chapters.length,
           scroll: 0,
           extraId: extra.id,
+          // The anchor is a paragraph of this extra. Restore searches only that extra.
+          anchor: first ? makeAnchor({ chapter: 0, paragraph: 0, text: first, at: 0 }) : undefined,
         });
       }
       window.scrollTo({ top: 0 });
@@ -1140,10 +1277,10 @@ export function ReaderScreen({
   }
 
   function openHelp(index: number) {
-    if (activeExtra && !activeExtra.fromToc) return;
     const el = paragraphElement(index);
     if (!el || !book) return;
-    const text = flowText(el);
+    const root = articleRef.current;
+    const texts = root ? paragraphBlocks(root).map((block) => flowText(block)) : [];
     setAnchor(el instanceof HTMLElement ? el : null);
     setPicked(null);
     setHelp({ index });
@@ -1154,7 +1291,7 @@ export function ReaderScreen({
       bookId,
       chapter: activeExtra ? activeExtra.id : safeIndex,
       paragraph: index,
-      text,
+      texts,
     }).then((view) => {
       if (helpToken.current !== token) return;
       setHelpState(view ? { status: "ready", view } : { status: "none" });
@@ -1172,6 +1309,8 @@ export function ReaderScreen({
     const block = button.closest("p, li, blockquote, h1, h2, h3, h4, div[data-para]");
     const paragraph = block ? flowText(block) : surface;
     const before = block ? flowTextBefore(block, button) : "";
+    const blocks = articleRef.current ? paragraphBlocks(articleRef.current) : [];
+    const blockAt = blocks.findIndex((item) => item.contains(button));
     closeHelp();
     setPhraseHit(null);
     setAnchor(button instanceof HTMLElement ? button : null);
@@ -1181,6 +1320,7 @@ export function ReaderScreen({
       index: button.getAttribute("data-i") ?? "",
       nth: Number(button.getAttribute("data-n")) || 0,
       before,
+      block: Math.max(0, blockAt),
     });
   }
 
@@ -1209,7 +1349,7 @@ export function ReaderScreen({
     }
     const group = buttons.slice(at, at + tokens.length);
     const best =
-      group.find((b) => b.classList.contains("book-hard")) ??
+      group.find((b) => b.classList.contains("book-hard") || b.classList.contains("book-tricky")) ??
       [...group].sort((a, b) => (b.dataset.word?.length ?? 0) - (a.dataset.word?.length ?? 0))[0];
     if (best) pickButton(best);
   }
@@ -1474,10 +1614,13 @@ export function ReaderScreen({
 
       {!card && !help ? <SidePlaceholder /> : null}
 
-      {linkedHtml && (!activeExtra || activeExtra.fromToc) ? (
+      {linkedHtml ? (
         <ParagraphMarker
           articleRef={articleRef}
           version={linkedHtml}
+          bookId={bookId}
+          chapter={activeExtra ? activeExtra.id : safeIndex}
+          notesVersion={book?.glossary}
           activeIndex={help ? help.index : null}
           hide={Boolean(help) || Boolean(picked)}
           onOpen={openHelp}
@@ -1506,12 +1649,29 @@ export function ReaderScreen({
           anchor={anchor}
           onClose={() => setPicked(null)}
           onToggle={() => {
-            if (!picked) return;
+            if (!picked || !shelfBook) return;
             if (alreadySaved) {
-              removeWordByLemma(bookId, pickedKey);
+              removeWordFromBook(bookKey, pickedKey);
               return;
             }
-            addWords(bookId, [
+            const source: WordSource = {
+              book: bookKey,
+              title: shelfBook.title,
+              author: shelfBook.author,
+              chapter: safeIndex,
+              ...(chapter.title ? { chapterTitle: chapter.title } : {}),
+              sentence: card.sentence,
+              surface: picked.surface,
+              at: makeAnchor({
+                chapter: safeIndex,
+                paragraph: picked.block,
+                text: picked.paragraph,
+                at: picked.before.length,
+                length: picked.surface.length,
+              }),
+              savedAt: Date.now(),
+            };
+            saveWord(
               {
                 surface: picked.surface,
                 lemma: pickedKey,
@@ -1526,7 +1686,8 @@ export function ReaderScreen({
                     ? bookStats[pickedKey].uses.join(" and ")
                     : "",
               },
-            ]);
+              source,
+            );
           }}
         />
       ) : null}

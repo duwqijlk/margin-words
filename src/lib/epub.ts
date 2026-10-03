@@ -28,8 +28,9 @@ export type AbsorbedSpineFile = {
 export type EpubExtra = {
   /**
    * `x0`, `x1`, … in spine order. Not a chapter index.
-   * Word anchors and phrase notes do not resolve here. A paragraph or sentence
-   * note can name this id only when `fromToc` is set.
+   * Word anchors and phrase notes do not resolve here. A sentence note can name
+   * this id only when `fromToc` is set. A paragraph note can name any extra id
+   * and is placed by the paragraph-note rule, including on an appendix.
    */
   id: string;
   href: string;

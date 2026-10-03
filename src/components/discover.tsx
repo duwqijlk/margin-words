@@ -25,6 +25,7 @@ import { bookHasUserWork } from "@/lib/shelf-work";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import type { Book } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
+import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 
 /** How many cards to mount at once. The rest of the catalog stays in memory for search and filters. */
@@ -253,14 +254,14 @@ export function DiscoverScreen({
 
   function remove(row: Row, record: PackRecord | undefined, book: Book | undefined) {
     if (!record || !book) return;
-    const savedWords = useVocab.getState().words.filter((word) => word.bookId === book.id).length;
+    const savedWords = countFromBook(useVocab.getState().words, book);
     useShelfRemove.getState().ask(
       book,
       bookHasUserWork({
         source: book.source,
         needsEpub: book.needsEpub,
         classic: row.kind === "classic",
-        savedWords,
+        savedWords: 0,
         progress: useProgress.getState().items[book.id] ?? null,
       }),
       savedWords,

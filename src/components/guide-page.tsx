@@ -1,4 +1,4 @@
-import { BookPlus, BookText, Hand, WifiOff, type LucideIcon } from "lucide-react";
+import { BookPlus, BookText, Hand, Waves, WifiOff, type LucideIcon } from "lucide-react";
 import { guideUrl } from "@/lib/guide";
 import { useT, type Key } from "@/lib/i18n";
 
@@ -6,6 +6,7 @@ const SECTIONS: ReadonlyArray<{ title: Key; body: Key; Icon: LucideIcon }> = [
   { title: "guide.addTitle", body: "guide.addBody", Icon: BookPlus },
   { title: "guide.kindsTitle", body: "guide.kindsBody", Icon: BookText },
   { title: "guide.wordsTitle", body: "guide.wordsBody", Icon: Hand },
+  { title: "guide.trickyTitle", body: "guide.trickyBody", Icon: Waves },
   { title: "guide.offlineTitle", body: "guide.offlineBody", Icon: WifiOff },
 ];
 

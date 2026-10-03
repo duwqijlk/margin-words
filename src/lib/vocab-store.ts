@@ -10,7 +10,18 @@ import {
   type Book,
   type Cloth,
   type VocabEntry,
+  type WordSource,
 } from "@/lib/vocab-model";
+import type { TextAnchor } from "@/lib/position";
+import { bookSyncKey } from "@/lib/sync-merge";
+import {
+  addSourceTo,
+  lemmaKey,
+  mergeSources,
+  migrateWords,
+  sourceKey,
+  withoutBook,
+} from "@/lib/wordbook";
 import { isbnDigits, seriesName, seriesNumber } from "@/lib/book-meta";
 import { lexileMeasure } from "@/lib/lexile";
 
@@ -51,7 +62,7 @@ export type ReviewDay = { reviewed: number; correct: number };
  * Cards saved by the first version used `box` (0..4) instead of `stage`.
  * Old "already known" cards (box >= 4) become mastered; others keep their number.
  */
-export function normalizeWord(raw: VocabEntry & { box?: number }): VocabEntry {
+export function normalizeWord(raw: Omit<VocabEntry, "sources"> & { sources?: WordSource[]; box?: number }): VocabEntry {
   const { box, ...rest } = raw;
   const stage =
     typeof raw.stage === "number"
@@ -63,11 +74,23 @@ export function normalizeWord(raw: VocabEntry & { box?: number }): VocabEntry {
         : 0;
   return {
     ...rest,
+    sources: Array.isArray(raw.sources) ? raw.sources : [],
     stage,
     dueAt: stage >= MASTERED_STAGE ? Number.MAX_SAFE_INTEGER : (raw.dueAt ?? Date.now()),
     reps: raw.reps ?? 0,
     lapses: raw.lapses ?? 0,
   };
+}
+
+/**
+ * Saved words from any version of the app, as one global wordbook: the schedule fields are filled in
+ * (`normalizeWord`), then per-book cards become one card per lemma with a source per book (`migrateWords`).
+ */
+export function normalizeWordbook(raw: unknown[], books: ReadonlyArray<{ id: string; title: string; author: string }>): VocabEntry[] {
+  const cards = raw
+    .filter((item): item is VocabEntry => Boolean(item) && typeof item === "object" && typeof (item as VocabEntry).lemma === "string")
+    .map((item) => normalizeWord(item));
+  return migrateWords(cards, books);
 }
 
 const CLOTHS: Cloth[] = ["cloth", "ribbon", "ink", "sage"];
@@ -97,9 +120,18 @@ type VocabState = {
   renameBook: (id: string, title: string, author: string) => void;
   deleteBook: (id: string) => void;
   addDemo: () => string;
-  addWords: (bookId: string, incoming: AnalyzedWord[]) => { added: number; skipped: number };
+  /**
+   * Save a word to the global wordbook. A lemma that is already saved keeps its card and review state and gains
+   * the new source; otherwise a new card starts at stage 0.
+   */
+  saveWord: (word: AnalyzedWord, source: WordSource) => { added: boolean };
   removeWord: (id: string) => void;
-  removeWordByLemma: (bookId: string, lemma: string) => void;
+  /** Forget where a word was met in one book. The word goes too when that was its only source. */
+  removeWordFromBook: (bookKey: string, lemma: string) => void;
+  /** Fill in the chapter and file-independent place of sources saved before places were stored. */
+  setSourcePlaces: (
+    updates: Array<{ lemma: string; book: string; sentence: string; chapter: number; chapterTitle?: string; at: TextAnchor }>,
+  ) => void;
   /** Record one review answer and move the card along the Ebbinghaus ladder. */
   review: (id: string, correct: boolean, scheduled?: boolean) => void;
   markMastered: (id: string) => void;
@@ -238,63 +270,95 @@ export const useVocab = create<VocabState>()(
         }));
       },
       deleteBook: (id) => {
-        set((state) => ({
-          books: state.books.filter((book) => book.id !== id),
-          words: state.words.filter((word) => word.bookId !== id),
-        }));
+        // The wordbook is global: the words saved from this book stay, with the book's title in their sources.
+        set((state) => ({ books: state.books.filter((book) => book.id !== id) }));
       },
       addDemo: () => {
         const found = get().books.find((book) => book.title === DEMO_BOOK_TITLE);
         if (found) return found.id;
         const id = get().addBook(DEMO_BOOK_TITLE, "Example sentences");
-        get().addWords(id, demoWords());
+        const book = get().books.find((item) => item.id === id);
+        const key = bookSyncKey({ id, title: DEMO_BOOK_TITLE, author: "Example sentences" });
+        for (const word of demoWords()) {
+          get().saveWord(word, {
+            book: key,
+            title: book?.title ?? DEMO_BOOK_TITLE,
+            author: book?.author ?? "Example sentences",
+            sentence: word.sentence,
+            surface: word.surface,
+            savedAt: Date.now(),
+          });
+        }
         return id;
       },
-      addWords: (bookId, incoming) => {
-        const state = get();
-        const existing = new Set(
-          state.words
-            .filter((word) => word.bookId === bookId)
-            .map((word) => word.lemma.toLowerCase()),
-        );
+      saveWord: (word, source) => {
         const now = Date.now();
-        const fresh: VocabEntry[] = [];
-        let skipped = 0;
-        for (const word of incoming) {
-          const key = word.lemma.toLowerCase();
-          if (existing.has(key)) {
-            skipped += 1;
-            continue;
+        const key = lemmaKey(word.lemma);
+        let added = false;
+        set((state) => {
+          const at = state.words.findIndex((card) => lemmaKey(card.lemma) === key);
+          const books = state.books.map((book) =>
+            bookSyncKey(book) === source.book ? { ...book, updatedAt: now } : book,
+          );
+          if (at >= 0) {
+            const words = state.words.slice();
+            words[at] = addSourceTo(words[at] as VocabEntry, source);
+            return { words, books };
           }
-          existing.add(key);
-          fresh.push({
+          added = true;
+          const home = state.books.find((book) => bookSyncKey(book) === source.book);
+          const card: VocabEntry = {
             ...word,
             id: crypto.randomUUID(),
-            bookId,
+            ...(home ? { bookId: home.id } : {}),
+            sources: [source],
             stage: 0,
             dueAt: now,
             createdAt: now,
             reps: 0,
             lapses: 0,
-          });
-        }
-        set({
-          words: [...state.words, ...fresh],
-          books: state.books.map((book) =>
-            book.id === bookId ? { ...book, updatedAt: now } : book,
-          ),
+          };
+          return { words: [...state.words, card], books };
         });
-        return { added: fresh.length, skipped };
+        return { added };
       },
       removeWord: (id) => {
         set((state) => ({ words: state.words.filter((word) => word.id !== id) }));
       },
-      removeWordByLemma: (bookId, lemma) => {
-        const key = lemma.toLowerCase();
+      removeWordFromBook: (bookKey, lemma) => {
+        const key = lemmaKey(lemma);
         set((state) => ({
-          words: state.words.filter(
-            (word) => !(word.bookId === bookId && word.lemma.toLowerCase() === key),
-          ),
+          words: state.words.flatMap((card) => {
+            if (lemmaKey(card.lemma) !== key) return [card];
+            const next = withoutBook(card, bookKey);
+            return next ? [next] : [];
+          }),
+        }));
+      },
+      setSourcePlaces: (updates) => {
+        if (updates.length === 0) return;
+        const byLemma = new Map<string, typeof updates>();
+        for (const update of updates) {
+          const list = byLemma.get(lemmaKey(update.lemma)) ?? [];
+          list.push(update);
+          byLemma.set(lemmaKey(update.lemma), list);
+        }
+        set((state) => ({
+          words: state.words.map((card) => {
+            const list = byLemma.get(lemmaKey(card.lemma));
+            if (!list) return card;
+            const sources = card.sources.map((source) => {
+              const hit = list.find((u) => u.book === source.book && sourceKey({ book: u.book, sentence: u.sentence }) === sourceKey(source));
+              if (!hit || source.at) return source;
+              return {
+                ...source,
+                chapter: hit.chapter,
+                ...(hit.chapterTitle ? { chapterTitle: hit.chapterTitle } : {}),
+                at: hit.at,
+              };
+            });
+            return { ...card, sources };
+          }),
         }));
       },
       review: (id, correct, scheduled = true) => {
@@ -337,9 +401,15 @@ export const useVocab = create<VocabState>()(
         }));
       },
       fillPrepared: (bookId, glossary) => {
+        const home = get().books.find((book) => book.id === bookId);
+        if (!home) return;
+        const bookKey = bookSyncKey(home);
         set((state) => ({
           words: state.words.map((word) => {
-            if (word.bookId !== bookId || word.meaning !== "The meaning is still being prepared.")
+            if (
+              word.meaning !== "The meaning is still being prepared." ||
+              !word.sources.some((source) => source.book === bookKey)
+            )
               return word;
             const gloss = glossary[word.lemma.toLowerCase()];
             if (!gloss) return word;
@@ -366,7 +436,7 @@ export const useVocab = create<VocabState>()(
         });
       },
       replaceWords: (words) => {
-        set({ words: words.map(normalizeWord) });
+        set((state) => ({ words: normalizeWordbook(words, state.books) }));
       },
       mergeBook: (keepId, dropId) => {
         if (keepId === dropId) return;
@@ -374,22 +444,24 @@ export const useVocab = create<VocabState>()(
           const keep = state.books.find((book) => book.id === keepId);
           const drop = state.books.find((book) => book.id === dropId);
           if (!keep || !drop) return state;
-          const mine = new Map<string, VocabEntry>();
-          for (const word of state.words) {
-            if (word.bookId === keepId) mine.set(word.lemma.toLowerCase(), word);
-          }
-          const words: VocabEntry[] = [];
-          const replaced = new Set<string>();
-          for (const word of state.words) {
-            if (word.bookId !== dropId) continue;
-            const twin = mine.get(word.lemma.toLowerCase());
-            if (!twin) {
-              words.push({ ...word, bookId: keepId });
-            } else if (word.reps > twin.reps || (word.reps === twin.reps && word.stage > twin.stage)) {
-              replaced.add(twin.id);
-              words.push({ ...word, bookId: keepId });
-            }
-          }
+          // Words are global: nothing is merged here except that the sources of the dropped card now name the
+          // kept card (when the two cards had different sync keys), and the old per-book field follows.
+          const fromKey = bookSyncKey(drop);
+          const toKey = bookSyncKey(keep);
+          const words = state.words.map((word) => {
+            const touched = word.bookId === dropId || word.sources.some((source) => source.book === fromKey);
+            if (!touched) return word;
+            const renamed =
+              fromKey === toKey
+                ? word.sources
+                : mergeSources(
+                    [],
+                    word.sources.map((source) =>
+                      source.book === fromKey ? { ...source, book: toKey, title: keep.title, author: keep.author } : source,
+                    ),
+                  );
+            return { ...word, sources: renamed, ...(word.bookId === dropId ? { bookId: keepId } : {}) };
+          });
           const next: Book = { ...keep };
           for (const field of [
             "lexile",
@@ -406,10 +478,7 @@ export const useVocab = create<VocabState>()(
           next.createdAt = Math.min(keep.createdAt, drop.createdAt);
           return {
             books: state.books.filter((book) => book.id !== dropId).map((book) => (book.id === keepId ? next : book)),
-            words: [
-              ...state.words.filter((word) => word.bookId !== dropId && !replaced.has(word.id)),
-              ...words,
-            ],
+            words,
           };
         });
       },
@@ -419,11 +488,13 @@ export const useVocab = create<VocabState>()(
       skipHydration: true,
       merge: (persisted, current) => {
         const saved = (persisted ?? {}) as Partial<VocabState>;
+        const books = Array.isArray(saved.books) ? saved.books.map(englishBook) : current.books;
         return {
           ...current,
           ...saved,
-          books: Array.isArray(saved.books) ? saved.books.map(englishBook) : current.books,
-          words: Array.isArray(saved.words) ? saved.words.map(normalizeWord) : current.words,
+          books,
+          // Per-book cards from earlier versions become the one global wordbook here (see wordbook.ts).
+          words: Array.isArray(saved.words) ? normalizeWordbook(saved.words, books) : current.words,
           log: saved.log && typeof saved.log === "object" ? saved.log : current.log,
         };
       },

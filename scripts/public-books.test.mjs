@@ -62,9 +62,8 @@ test("old-fashioned flags follow the language rule, and Alice is not flagged", (
   }
 });
 
-test("only Alice is preinstalled, and every classic has a Lexile measure", () => {
-  const pre = catalog.packs.filter((p) => p.preinstall === true).map((p) => p.id);
-  assert.deepEqual(pre, ["alice"]);
+test("no classic is preinstalled (a new shelf is empty), and every classic has a Lexile measure", () => {
+  assert.deepEqual(catalog.packs.filter((p) => "preinstall" in p).map((p) => p.id), []);
   assert.ok(catalog.packs.length >= 12, "12 classics in the catalog");
   for (const pack of catalog.packs) {
     assert.match(pack.lexile, /^(?:AD|NC|HL|IG|GN|NP)?\d{1,4}L$|^BR\d{1,4}L$/, `${pack.id} lexile`);

@@ -1,6 +1,6 @@
 import { ChevronDown, Lightbulb, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { paragraphBlocks } from "@/lib/help-lookup";
+import { getParagraphNoteFlags, paragraphBlocks } from "@/lib/help-lookup";
 import { useT } from "@/lib/i18n";
 import { loadSentenceView, type ParagraphView, type SentenceView } from "@/lib/help-flow";
 import { FloatingAside } from "@/components/floating-card";
@@ -14,8 +14,6 @@ import { SIDE_PANEL } from "@/components/side-panel";
  */
 
 /* ------------------------------------------------------------------ marker next to a paragraph */
-
-const wordCount = (text: string | null) => (text ?? "").trim().split(/\s+/).filter(Boolean).length;
 
 type Block = { el: Element; ok: boolean };
 type Geo = {
@@ -33,6 +31,9 @@ type Geo = {
 export function ParagraphMarker({
   articleRef,
   version,
+  bookId,
+  chapter,
+  notesVersion,
   activeIndex,
   hide,
   onOpen,
@@ -40,6 +41,11 @@ export function ParagraphMarker({
   articleRef: React.RefObject<HTMLElement | null>;
   /** changes when the chapter text changes */
   version: unknown;
+  bookId: string;
+  /** 0-based chapter on screen, or an extra id such as "x2" */
+  chapter: number | string;
+  /** changes when the book's word list (and so its paragraph notes) changes */
+  notesVersion: unknown;
   activeIndex: number | null;
   /** hide the button (a card or the help panel is open) */
   hide: boolean;
@@ -98,7 +104,7 @@ export function ParagraphMarker({
       if (r && r.bottom > 64 && r.top < vh - 8) {
         if (room) {
           const top = Math.min(Math.max(r.top, 64) + 2, vh - 44);
-          if (r.bottom - top > 24)
+          if (r.bottom - top > 12)
             marker = { top: Math.round(top), left: Math.round(ar.right + 10), edge: false };
         } else {
           marker = { top: 0, left: 0, edge: true };
@@ -128,18 +134,37 @@ export function ParagraphMarker({
     if (!frame.current) frame.current = requestAnimationFrame(measure);
   }, [measure]);
 
-  // The paragraph list: numbered with the shared rule (the same as the word lists use).
+  // The paragraph list: numbered with the shared rule (the same as the word lists use). The bulb
+  // belongs only to a paragraph that has a real paragraph explanation in the word list; paragraphs
+  // that only hold word or phrase entries get none. Until the list has answered, no paragraph has one.
   useEffect(() => {
     const root = articleRef.current;
     if (!root) return;
-    blocks.current = paragraphBlocks(root).map((el) => ({
+    const list = paragraphBlocks(root).map((el) => ({
       el,
-      ok: /^(P|BLOCKQUOTE|LI|DIV)$/.test(el.tagName) && wordCount(flowText(el)) >= 8,
+      text: flowText(el),
     }));
+    blocks.current = list.map(({ el }) => ({ el, ok: false }));
     hover.current = null;
     focus.current = null;
     schedule();
-  }, [articleRef, version, schedule]);
+    let alive = true;
+    void getParagraphNoteFlags(
+      bookId,
+      chapter,
+      list.map((item) => item.text),
+    ).then((flags) => {
+      if (!alive) return;
+      blocks.current = list.map((item, index) => ({
+        el: item.el,
+        ok: flags[index] === true,
+      }));
+      schedule();
+    });
+    return () => {
+      alive = false;
+    };
+  }, [articleRef, version, bookId, chapter, notesVersion, schedule]);
 
   useEffect(() => {
     canHover.current =

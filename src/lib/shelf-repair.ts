@@ -8,6 +8,7 @@
  *    catalog picture that has changed since, is fetched or worked out again. Needs the network only for
  *    catalog pictures; a missing cover of a stored book can also be found in the book itself.
  */
+import { countFromBook } from "@/lib/wordbook";
 import {
   deletePackRecord,
   deleteStoredBook,
@@ -51,7 +52,7 @@ export async function repairShelf(): Promise<number> {
     stored: stored.has(book.id),
     needsEpub: book.needsEpub === true,
     work:
-      vocab.words.filter((word) => word.bookId === book.id).length +
+      countFromBook(vocab.words, book) +
       (progress[book.id] && overallProgress(progress[book.id]) > 0 ? 1 : 0),
     createdAt: book.createdAt,
     updatedAt: book.updatedAt,

@@ -14,8 +14,8 @@ This repo is a full copy of the Margin Words project, moved to a **private** Git
   `book.epub` + `glossary.json` (title, author and cover come from the EPUB). Spec: `docs/book-pack-spec.md`.
 - **Bilingual UI.** Buttons, menus and messages are in Simplified Chinese and English (language button in the top
   bar). The books and their meanings stay in English.
-- Twelve free public-domain classics are loaded from the books host (`public-books/`). A new shelf gets Alice's
-  Adventures in Wonderland only. The rest, and the copyrighted word lists, are on Discover and download on tap.
+- Twelve free public-domain classics are loaded from the books host (`public-books/`). A new shelf starts empty
+  and suggests Alice as a first book (one tap); Alice is a normal book. The books, and the copyrighted word lists, are on Discover and download on tap.
   A deleted book stays deleted. Word lists are `word-lists/` on the same host (glossary, and a resized cover
   from `packs/<id>/cover.jpg` when that file exists). `npm run build:private` writes `dist-private/` for the
   private bucket `margin-words-private` (no public access; the app never fetches it).
@@ -104,3 +104,18 @@ for those titles are glossaries in `dist-books/word-lists/`. Publisher covers in
 
 The copyrighted books in `packs/` are private-use only. Keep this repository private. If you ever need to make it
 public, delete `packs/` from the whole git history first.
+
+## 8. Local and synced data: what the global wordbook changes
+
+- Local words (`localStorage`, persist key of the vocab store) are migrated on load: each old per-book word becomes
+  one card per lemma with a `sources[]` list built from its saved sentence, keeping the review schedule fields
+  (stage, reps, dates) byte for byte. Words from two books with the same lemma merge into one card with two sources.
+  `scripts/wordbook.test.mjs` covers this, `scripts/wordbook-e2e.mjs` covers it in a browser.
+- Synced words: the D1 table is unchanged. The new `wordbook` kind (27 letter shards) is added next to the old
+  `words` kind. Old clients keep writing `words`; new clients fold those items into the wordbook on every pull and
+  never delete them. Roll back by deploying the old app: it simply ignores `wordbook`.
+- Deploy order: the client and `functions/` ship together (the server now accepts `wordbook`; an old server answers
+  400 to it).
+- Reading positions get an `anchor` (word-list paragraph id + quote + offset) next to the old chapter/scroll hint.
+  Older positions get one the first time the book is open for a moment. No EPUB is ever fetched from the server.
+- A shelf that already has Alice keeps it. A new shelf installs nothing on its own.

@@ -73,8 +73,6 @@ export type CatalogPack = {
   glossary: PackFileRef & { rev: string };
   cover: { url: string; bytes: number; sha256: string } | null;
   zip: PackFileRef | null;
-  /** bundled classics only: true = added to the shelf on the first start; false = one-tap download */
-  preinstall: boolean;
   /** Lexile measure such as "880L". "" when the catalog does not give one. */
   lexile: string;
   /** ISBN-13. "" when this edition has none in the pack. */
@@ -163,7 +161,6 @@ export function parseCatalog(value: unknown): Catalog | null {
       },
       cover: cover ? { url: cover.url, bytes: cover.bytes, sha256: cover.sha256 } : null,
       zip: fileRef(row.zip),
-      preinstall: row.preinstall === true,
       lexile: lexileMeasure(row.lexile),
       isbn: isbnDigits(row.isbn),
       ...(() => {

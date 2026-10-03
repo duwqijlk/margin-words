@@ -1,6 +1,7 @@
 import { Info, X } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import { useT } from "@/lib/i18n";
+import { navigate } from "@/lib/router";
 
 const KEY = "cibian-notice-v1";
 const CHANGED = "cibian-notice";
@@ -38,7 +39,20 @@ export function NoticeBar() {
     >
       <div className="mx-auto flex max-w-6xl items-start gap-2 px-3 py-1.5 sm:items-center sm:px-6">
         <Info className="mt-0.5 size-4 shrink-0 text-accent sm:mt-0" aria-hidden />
-        <p className="min-w-0 flex-1 text-[0.8rem] leading-snug">{t("notice.text")}</p>
+        <p className="min-w-0 flex-1 text-[0.8rem] leading-snug">
+          {t("notice.text")}{" "}
+          <a
+            href="/about"
+            className="-my-2.5 inline-flex min-h-10 items-center align-middle font-semibold underline underline-offset-2"
+            data-notice-about
+            onClick={(event) => {
+              event.preventDefault();
+              navigate({ kind: "about" });
+            }}
+          >
+            {t("notice.link")}
+          </a>
+        </p>
         <button
           type="button"
           className="-my-1.5 -mr-1 inline-flex size-10 shrink-0 items-center justify-center rounded-lg hover:bg-black/5"

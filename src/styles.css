@@ -256,6 +256,44 @@
     background: var(--accent-soft);
   }
 
+  /* A familiar word used here in a meaning learners will not expect ("well" = a water well): a calm wavy
+     accent line, different from the straight underline of a hard word and from the phrase underline. */
+  .book-body button.book-tricky {
+    text-decoration: underline wavy;
+    text-decoration-color: color-mix(in srgb, var(--accent) 80%, transparent);
+    text-decoration-thickness: 1.2px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.3em;
+  }
+
+  .book-body button.book-tricky:hover {
+    background: var(--accent-soft);
+  }
+
+  /* The paragraph we just jumped to (from a saved word or a synced position). Fades out; no layout change. */
+  .book-body .book-flash {
+    animation: book-flash 3s ease-out;
+    border-radius: 0.3em;
+  }
+
+  @keyframes book-flash {
+    0%,
+    55% {
+      background: var(--accent-soft);
+      box-shadow: 0 0 0 0.3em var(--accent-soft);
+    }
+    100% {
+      background: transparent;
+      box-shadow: 0 0 0 0.3em transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .book-body .book-flash {
+      animation: none;
+    }
+  }
+
   /* Hard word whose meaning is still being prepared: only a faint dotted hint. */
   .book-body button.book-wait {
     text-decoration: underline dotted;

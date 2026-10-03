@@ -1,3 +1,5 @@
+import type { TextAnchor } from "./position.ts";
+
 export type AnalyzedWord = {
   surface: string;
   lemma: string;
@@ -38,9 +40,40 @@ export type Book = {
   oldFashionedReason?: string;
 };
 
+/**
+ * Where a saved word was met. A word can have several (one per book it was saved from). The book is named by
+ * its sync key (title and author), not by this device's shelf card, so it means the same on every device.
+ */
+export type WordSource = {
+  /** `bookSyncKey` of the book: the same on every device */
+  book: string;
+  /** book title and author as they were when the word was saved (kept even if the book leaves the shelf) */
+  title: string;
+  author: string;
+  /** 0-based chapter, when known (words saved by older versions have none until the book is opened) */
+  chapter?: number;
+  chapterTitle?: string;
+  /** the whole sentence the word was saved from */
+  sentence: string;
+  /** the word as it was written there */
+  surface: string;
+  /** the meaning that fitted that sentence, when it differs from the card's meaning */
+  meaning?: string;
+  pos?: string;
+  /** file-independent place of the word in the book (docs: src/lib/position.ts) */
+  at?: TextAnchor;
+  savedAt: number;
+};
+
 export type VocabEntry = AnalyzedWord & {
   id: string;
-  bookId: string;
+  /**
+   * Old per-book field, kept so an older build of the app still shows the word. The wordbook is global:
+   * the books a word came from are in `sources`.
+   */
+  bookId?: string;
+  /** where the word was met; never empty for a word saved by this version */
+  sources: WordSource[];
   /**
    * Spaced-repetition stage: 0 = new (or forgotten), 1..6 = number of successful
    * reviews on the 1/2/4/7/15/30-day ladder, 7 = mastered. See `lib/srs.ts`.

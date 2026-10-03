@@ -43,8 +43,7 @@ export const en = {
   "nav.notebook": "Notebook",
   "nav.settings": "Settings",
   "nav.account": "Account",
-  "notice.text":
-    "We don't provide copyrighted books. We only provide explanations of hard words and sentences; for copyrighted books, please import your own EPUB.",
+  "notice.text": "We don't provide copyrighted books. For those, bring your own EPUB.",
   "notice.dismiss": "Hide this notice",
   "nav.dueAria": "{n} to review",
 
@@ -66,7 +65,8 @@ export const en = {
   "shelf.title": "Shelf",
   "shelf.importing": "Importing…",
   "shelf.emptyTitle": "Your shelf is empty",
-  "shelf.emptyBody": "Add a book to start reading. Tap hard words to learn them.",
+  "shelf.emptyBody":
+    "Nothing here yet. Find a book on Discover, or add your own pack. Tap hard words to learn them.",
   "shelf.sample": "Try the sample notebook",
   "shelf.search": "Search by title or author",
   "shelf.noMatch": "No books found for “{query}”.",
@@ -148,7 +148,8 @@ export const en = {
   "discover.openBook": "Open book",
   "discover.added": "“{title}” is on your shelf.",
   "discover.viewShelf": "View shelf",
-  "discover.removeBodyWords": "The book, your reading place, and {words} you saved will be deleted from this device. This cannot be undone.",
+  "discover.removeBodyWords":
+    "The book and your reading place will be deleted from this device. Your {words} from this book stay in your notebook. This cannot be undone.",
   "discover.removed": "“{title}” was removed from your shelf.",
   "discover.undo": "Undo",
   "discover.removeTitle": "Remove “{title}” from your shelf?",
@@ -193,7 +194,7 @@ export const en = {
   "add.choose": "Choose .zip file",
   "add.free": "Public domain",
   "add.freeHint":
-    "Public-domain books. A new shelf starts with Alice. A book you delete stays off the shelf until you add it again from Discover. After that it works offline.",
+    "Public-domain books. Nothing is added by itself. A book you delete stays off the shelf until you add it again from Discover. After that it works offline.",
   "settings.advanced": "Book list address",
   "err.bareEpub":
     "A plain EPUB cannot be added. Please use a book pack: one .zip with book.epub and glossary.json.",
@@ -480,7 +481,7 @@ export const en = {
   /* ---- notebook */
   "nb.title": "Notebook",
   "nb.fromBook": "From “{title}”",
-  "nb.allWords": "All the words you saved while reading",
+  "nb.allWords": "One list for all your books. Review is one queue too.",
   "nb.startReview": "Start review ({n})",
   "nb.allDone": "All done for today",
   "nb.noReview": "No words to review today",
@@ -511,7 +512,7 @@ export const en = {
   "nb.delTitle": "Delete “{word}”?",
   "nb.delTitleGeneric": "Delete this word?",
   "nb.delBody":
-    "Its review progress will also be removed. You can save the word again later from the book.",
+    "The word, its review progress and all the places you saved it from will be deleted. You can save it again from a book.",
   "row.seen.one": "· Seen {n} time",
   "row.seen.other": "· Seen {n} times",
   "row.relearn": "Learn again",
@@ -589,6 +590,61 @@ export const en = {
   "rv.seeAgain.other": "See again in {n} days",
   "rv.nextCard": "Next",
   "rv.think": "First, think about what this word means in the sentence",
+  "shelf.findBooks": "Find books on Discover",
+  "shelf.suggestTitle": "A good first book",
+  "shelf.suggestBody":
+    "A public-domain classic. Its hard words have simple English meanings.",
+  "nav.about": "About",
+  "notice.link": "How this site works",
+  "src.chapterN": "Chapter {n}",
+  "src.open": "Go to this place",
+  "src.notOnShelf": "Not on your shelf",
+  "src.fewer": "Show fewer places",
+  "src.more.one": "{n} more place",
+  "src.more.other": "{n} more places",
+  "nb.inBooks.one": "From {n} book",
+  "nb.inBooks.other": "From {n} books",
+  "reader.trickyHint":
+    "A wavy line under a word: you may know the word, but here it has another meaning. Tap it.",
+  "guide.trickyTitle": "Wavy line: a different meaning",
+  "guide.trickyBody":
+    "A wavy line under a word means you may know the word, but here it has another meaning. Tap it to see that meaning first.",
+  "about.title": "About this site",
+  "about.intro":
+    "Margin Words is a reader for English novels. You read the real book, and you tap a word to see what it means in simple English.",
+  "about.tapTitle": "Tap a word",
+  "about.tapBody":
+    "Tap a word with a line under it. A card opens with the meaning in simple English, the part of speech, and why the word is hard. The book is not translated. You learn English with English.",
+  "about.marksTitle": "What the marks mean",
+  "about.markHard": "A straight line under a word: a hard word. Tap it.",
+  "about.markTricky":
+    "A wavy line under a word: you may know the word, but here it has another meaning. Tap it.",
+  "about.markBulb":
+    "A light bulb beside a paragraph: this paragraph has a note that explains it.",
+  "about.listsTitle": "Word lists made by our teachers",
+  "about.listsBody":
+    "Every book has a word list written by our teachers. They choose the hard words and phrases, write short meanings in simple English, and add notes for hard paragraphs. Nothing is made up by a computer while you read.",
+  "about.booksTitle": "Public-domain books and your own books",
+  "about.booksBody":
+    "Books in the public domain, such as Alice in Wonderland, are stored on our book server. Add one on Discover with one tap. Books that are still under copyright are not on our server. For them we give only the word list and the ISBN. You need your own legal copy of the book as an EPUB file, and you add it on your own device.",
+  "about.matchTitle": "The match check",
+  "about.matchBody":
+    "When you add your own EPUB, the app compares its sentences with the sentences in the word list. It shows a match rate, such as 96%. A rate of 80% or more is a good fit. A low rate means your file may be a different edition, and some notes may be missing or in the wrong place.",
+  "about.wordbookTitle": "One notebook for all your books",
+  "about.wordbookBody":
+    "Words you save from any book go into one notebook, and review is one queue. Each word remembers the sentence, the book and the chapter it came from. You can tap to go back to that place. Review comes back after 1, 2, 4, 7, 15 and 30 days.",
+  "about.accountTitle": "Accounts and sync (optional)",
+  "about.accountBody":
+    "You do not need an account. If you make one, we keep a copy of your shelf list, where you stopped reading, your saved words with the places they came from, your review counts, and your reading settings. Sign in on another device to see them there. You can export or delete your data at any time.",
+  "about.privacyTitle": "Privacy",
+  "about.privacyBody":
+    "Your EPUB files stay on your device. They are never uploaded, even when you have an account. To find your place on another device, sync stores the word list’s paragraph number and one short line of the book’s text, and it stores the sentence of each word you save. No book file is sent to us.",
+  "about.copyrightTitle": "Copyright notice and disclaimer",
+  "about.copyrightBody":
+    "Books, titles and characters belong to their authors and publishers. This site does not host, sell or share books that are under copyright. Our word lists are our own study notes. They quote only short pieces of text for learning. Public-domain books are offered because anyone may use them. We try to be correct, but a note can have a mistake. This site is for study only. If you think something here should not be here, please tell us and we will check it quickly.",
+  "about.contactTitle": "Contact",
+  "about.contactEmail": "Write to us at {contact}.",
+  "about.contactIssues": "Tell us about a mistake or a copyright question here: {contact}.",
 } as const;
 
 export type Key = keyof typeof en;

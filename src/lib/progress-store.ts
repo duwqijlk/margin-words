@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
 import { tr, useLocale } from "@/lib/i18n";
+import type { TextAnchor } from "@/lib/position";
 
 /** Where the reader stopped in one book. Kept in localStorage; it is tiny and changes often. */
 export type BookProgress = {
@@ -9,7 +10,13 @@ export type BookProgress = {
   /** 0..1 position inside the current chapter */
   scroll: number;
   updatedAt: number;
-  /** Set while the open page is an extra spine file. Empty on a chapter. */
+  /**
+   * File-independent place (word list paragraph id + short quote, see position.ts). `chapter` and `scroll` stay
+   * as the older hint: they only mean something for the exact file that saved them.
+   * Inside an extra, this anchor is a paragraph of that extra, not of a numbered chapter.
+   */
+  anchor?: TextAnchor;
+  /** Set while the open page is an extra spine file (`x2`, `x3`). Empty on a numbered chapter. */
   extraId?: string;
 };
 

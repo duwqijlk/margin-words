@@ -5,39 +5,16 @@
  * shows a friendly message.
  */
 import { getParagraphHelp, getSentenceHelp } from "@/lib/help-lookup";
+import { cleanNoteText, cleanParagraphNote, type ParagraphNote } from "@/lib/paragraph-note";
 
-export type ParagraphView = {
-  mainIdea: string;
-  simple: string;
-  hardWords: string[];
-};
+export type ParagraphView = ParagraphNote;
 
 export type SentenceView = {
   simple: string;
   grammar: string;
 };
 
-const CJK = /[\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uff00-\uffef]/;
-// A list the user added may hold other writing; the notes shown to the learner stay English.
-const clean = (value: unknown, max: number): string =>
-  typeof value === "string" && !CJK.test(value)
-    ? value.replace(/\s+/g, " ").trim().slice(0, max)
-    : "";
-
-function asParagraph(value: unknown): ParagraphView | null {
-  if (!value || typeof value !== "object") return null;
-  const row = value as Record<string, unknown>;
-  const mainIdea = clean(row.mainIdea, 400);
-  const simple = clean(row.simple, 4000);
-  if (!mainIdea || !simple) return null;
-  const hardWords = Array.isArray(row.hardWords)
-    ? row.hardWords
-        .map((item) => clean(item, 40))
-        .filter(Boolean)
-        .slice(0, 8)
-    : [];
-  return { mainIdea, simple, hardWords };
-}
+const clean = cleanNoteText;
 
 function asSentence(value: unknown): SentenceView | null {
   if (!value || typeof value !== "object") return null;
@@ -52,11 +29,12 @@ export async function loadParagraphView(args: {
   bookId: string;
   chapter: number | string;
   paragraph: number;
-  text: string;
+  /** the text of every paragraph of the chapter, in paragraph order */
+  texts: readonly string[];
 }): Promise<ParagraphView | null> {
   try {
-    return asParagraph(
-      await getParagraphHelp(args.bookId, args.chapter, args.paragraph, args.text),
+    return cleanParagraphNote(
+      await getParagraphHelp(args.bookId, args.chapter, args.paragraph, args.texts),
     );
   } catch {
     return null;

@@ -1,4 +1,4 @@
-import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
+import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Info, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   checkBookStorage,
@@ -66,6 +66,7 @@ async function migrateOldData(): Promise<void> {
 const Shelf = lazy(() => import("@/components/shelf").then((m) => ({ default: m.Shelf })));
 const Notebook = lazy(() => import("@/components/notebook").then((m) => ({ default: m.Notebook })));
 const DiscoverScreen = lazy(() => import("@/components/discover").then((m) => ({ default: m.DiscoverScreen })));
+const AboutScreen = lazy(() => import("@/components/about-page").then((m) => ({ default: m.AboutScreen })));
 const GuideScreen = lazy(() => import("@/components/guide-page").then((m) => ({ default: m.GuideScreen })));
 const AddBookScreen = lazy(() => import("@/components/get-books").then((m) => ({ default: m.AddBookScreen })));
 const SettingsDialog = lazy(() => import("@/components/get-books").then((m) => ({ default: m.SettingsDialog })));
@@ -143,7 +144,7 @@ export function MarginApp() {
               Boolean(item) &&
               typeof item === "object" &&
               typeof (item as VocabEntry).id === "string" &&
-              typeof (item as VocabEntry).bookId === "string",
+              typeof (item as VocabEntry).lemma === "string",
           );
           if (saved.length > 0) replaceWords(saved);
         } else {
@@ -313,6 +314,14 @@ export function MarginApp() {
       badge: 0,
     },
     {
+      id: "about",
+      label: t("nav.about"),
+      Icon: Info,
+      active: menu === "about",
+      go: () => setScreen({ kind: "about" }),
+      badge: 0,
+    },
+    {
       id: "notebook",
       label: t("nav.notebook"),
       Icon: NotebookPen,
@@ -435,7 +444,7 @@ export function MarginApp() {
           aria-label={t("nav.main")}
           data-tab-bar
         >
-          <div className="mx-auto grid max-w-md grid-cols-4">
+          <div className="mx-auto grid max-w-md grid-cols-5">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -515,6 +524,8 @@ export function MarginApp() {
             />
           ) : screen.kind === "guide" ? (
             <GuideScreen />
+          ) : screen.kind === "about" ? (
+            <AboutScreen />
           ) : screen.kind === "discover" ? (
             <DiscoverScreen
               shelf={orderedBooks}

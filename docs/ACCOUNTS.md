@@ -15,9 +15,14 @@ Synced state is one JSON blob per item in `sync_items`, with `updated_at`:
 | kind | item id | blob |
 | --- | --- | --- |
 | `shelf` | stable book key (normalized title + author) | the shelf card |
-| `progress` | same book key | chapter and scroll |
-| `words` | same book key | saved words, plus per-word tombstones |
+| `progress` | same book key | chapter and scroll (the old hint) plus `anchor`: the word list's paragraph id, a short text quote and an offset |
+| `wordbook` | `w-a` ... `w-z`, `w-0` (shard by first letter of the lemma) | the ONE global wordbook: one card per lemma, its review schedule, and its `sources` (book key, title, chapter, sentence, anchor), plus tombstones |
+| `words` | same book key | legacy, one list per book. Old clients still write it; new clients read it and fold it into `wordbook`, and never rewrite it |
 | `settings` | `main` | theme, type size, language, review counts |
+
+**Wordbook merge.** Last write wins per lemma. For the review schedule the card with more repetitions wins, then the later stage, then the later last review (so a device that reviewed never loses to one that did not). Sources are the union of both sides (a source is a book plus its sentence), at most 12 live sources per word, and a removed source is a tombstone. Because the wordbook is sharded in 27 items, one D1 row stays small. Old clients ignore the `wordbook` kind and keep using `words`; new clients fold each legacy `words` item into the wordbook on every pull, so nothing written by an old client is lost.
+
+**File-independent positions.** Two devices may hold slightly different EPUB files of the same edition, so a raw scroll position or chapter number can point to the wrong text. A reading place and a word source are stored as `{chapter, paragraph, quote, offset}`: the word list's own paragraph numbering plus up to 80 characters of text. Each device resolves it against its own text: the paragraph id first, then the same chapter by quote (nearest to the id), then other chapters, then the nearest paragraph id. No book file is ever downloaded or replaced.
 
 Last write wins per item. Two devices that each save a different word keep both words. The same word keeps the newer copy. A delete is a tombstone, so it is not undone by an older copy. Review counts keep the higher number for each day.
 

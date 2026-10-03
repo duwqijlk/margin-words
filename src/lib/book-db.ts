@@ -6,6 +6,8 @@ export type GlossSense = {
   default?: boolean;
   forms?: string[];
   anchors?: Array<{ chapter?: number; occurrence?: number; context?: string; form?: string }>;
+  /** `true`: at this sense's anchors the word has a meaning learners rarely know; the reader marks the spot */
+  trickyMeaning?: boolean;
 };
 
 import { tr } from "@/lib/i18n";

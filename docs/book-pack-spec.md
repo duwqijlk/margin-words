@@ -152,6 +152,7 @@ type Sense = {
   pos?: string;         // falls back to the entry's pos
   whyHard?: string;     // falls back to the entry's whyHard
   default?: boolean;    // true on at most ONE sense of the entry
+  trickyMeaning?: boolean; // true: familiar word, unfamiliar meaning here (4.8)
   forms?: string[];     // spellings this sense is for (used only to pick a sense when nothing else matches)
   anchors?: Anchor[];   // 0 to 60 places where this meaning is used
 };
@@ -244,6 +245,14 @@ underlines every use of the word in the book. With it, the reader underlines and
 list" card. Write at least one anchor (the validator warns if no sense has one), and also write the entry's own `meaning`.
 An entry without the field (or with `false`) behaves as before. Needs `"version": 2`.
 
+### 4.8 `trickyMeaning`
+
+Put `"trickyMeaning": true` on a sense when a word learners already know is used in a meaning they do not (`well` = a water well,
+`bear` = carry). Give that sense `anchors`. At every place where one of those anchors lands, the reader draws a calm wavy line under
+the word (different from the straight line of a hard word and from the phrase line) and the card opens with that sense first. Other
+uses of the word are not marked. Only the boolean matters; the reader never looks at the text of `whyHard`. Absent or `false` = no mark.
+Start `whyHard` with "Not the usual meaning!" and say what the usual meaning is. Use it together with `senseOnly` for very common words.
+
 ## 5. How the reader numbers the book (needed for anchors and notes)
 
 If you have the project tools, use them (section 8). If not, follow these rules exactly.
@@ -281,7 +290,7 @@ bare word: `Coral’s` is one occurrence of `coral` (and one of `s`). A straight
 `chapter` is the 0-based position in the reader's chapter list, not in the EPUB spine:
 
 1. Use the table of contents (EPUB 3 `nav`, else NCX); cut each entry's HTML from its fragment to the next entry's fragment; skip contents pages. A fragment that matches nothing inside the file is skipped. An id on the `<body>` or `<html>` element is the start of that file, but only when other contents entries already make the chapter list. One such entry among entries that name a whole file is kept. If every fragment sits on `<body>` or `<html>`, the contents list is not used and each spine file stays its own chapter.
-2. Append a later spine file at the end of that chapter only when its prefix equals the prefix of the spine file just before it, and that prefix is used by exactly one contents entry. The prefix is the path with one trailing `_split_` and digits removed (`story_c01_r1_split_000.xhtml` then `story_c01_r1_split_001.xhtml`, or `c01.xhtml` then `c01_split_001.xhtml`). A chain (`split_001`, then `split_002`) is allowed. A book-wide series such as `index_split_*` or `Title_split_*` is used by many contents entries and is not appended. Listed paragraphs keep their indexes. Any other spine file the chapter list does not already show is an extra, not a chapter: its own id (`x0`, `x1`, …), shown in spine order, labelled Extra. Those ids are outside the chapter numbering, so adding one (including front matter that sits before chapter 1) does not change any chapter index or segment id `c<chapter>.p<paragraph>`. Word anchors and phrase notes do not resolve on an extra. A contents entry whose whole file has zero paragraphs is not inserted as a numbered chapter, so later chapter numbers stay put. The linear spine files that follow it, until the next contents file, are one extra in that reading-order place, titled with the contents title. Its id is the next `x0`, `x1`, … in spine order. A paragraph note or a sentence note may set `chapter` to that id (`"x3"`). Any other extra is unchanged: notes do not resolve there. A sample of the next book that is not in the contents list stays an extra. A contents entry that has text but is too short to keep stays dropped, and its split files are not added as chapters. The chapter list does not gain a chapter.
+2. Append a later spine file at the end of that chapter only when its prefix equals the prefix of the spine file just before it, and that prefix is used by exactly one contents entry. The prefix is the path with one trailing `_split_` and digits removed (`story_c01_r1_split_000.xhtml` then `story_c01_r1_split_001.xhtml`, or `c01.xhtml` then `c01_split_001.xhtml`). A chain (`split_001`, then `split_002`) is allowed. A book-wide series such as `index_split_*` or `Title_split_*` is used by many contents entries and is not appended. Listed paragraphs keep their indexes. Any other spine file the chapter list does not already show is an extra, not a chapter: its own id (`x0`, `x1`, …), shown in spine order, labelled Extra. Those ids are outside the chapter numbering, so adding one (including front matter that sits before chapter 1) does not change any chapter index or segment id `c<chapter>.p<paragraph>`. Word anchors and phrase notes do not resolve on an extra. A contents entry whose whole file has zero paragraphs is not inserted as a numbered chapter, so later chapter numbers stay put. The linear spine files that follow it, until the next contents file, are one extra in that reading-order place, titled with the contents title. Its id is the next `x0`, `x1`, … in spine order. A paragraph note or a sentence note may set `chapter` to that id (`"x3"`). Any other extra is unchanged for sentence notes: a sentence note does not resolve there. A paragraph note may still name that extra's id (for example `"x2"`) and is placed by the same rule as a numbered chapter, counting every extra. A sample of the next book that is not in the contents list stays an extra. A contents entry that has text but is too short to keep stays dropped, and its split files are not added as chapters. The chapter list does not gain a chapter.
 3. If the contents list is missing, empty, or has fewer than 2 entries, or it produces fewer than 2 chapters, each spine file is its own chapter, split at `<h1>` (else `<h2>`) headings. Do not collapse that book into one chapter. That fallback has no extras, and its chapter text stays byte for byte the same.
 4. Drop chapters with fewer than 20 letters; merge chapters with fewer than 40 letters into the previous one.
 5. Scripts and navigation are removed, links are unwrapped.

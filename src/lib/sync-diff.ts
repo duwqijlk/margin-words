@@ -6,26 +6,34 @@ import {
   asProgress,
   asSettings,
   asShelf,
-  asWord,
+  asWordbookRecord,
   bookSyncKey,
+  isLive,
+  sourceKey,
+  wordbookItemId,
+  wordbookShard,
   type ProgressData,
   type SettingsData,
   type ShelfData,
+  type SourceRecord,
   type SyncItem,
-  type WordRecord,
+  type WordbookRecord,
 } from "./sync-merge.ts";
 
 export type SyncMeta = {
   shelfDeleted: Record<string, number>;
   progressDeleted: Record<string, number>;
-  wordsDeleted: Record<string, number>;
   shelfTouched: Record<string, number>;
-  wordTouched: Record<string, Record<string, number>>;
-  wordRemoved: Record<string, Record<string, number>>;
+  /** lemma -> time this device last changed the card (the wordbook is global, not per book) */
+  wordTouched: Record<string, number>;
+  /** lemma -> time this device took the word out of the wordbook */
+  wordRemoved: Record<string, number>;
+  /** lemma -> source key -> time this device took that source away */
+  sourceRemoved: Record<string, Record<string, number>>;
   settingsUpdatedAt: number;
 };
 
-export type LocalWord = WordRecord & { bookId: string };
+export type LocalWord = WordbookRecord;
 
 export type LocalSnapshot = {
   books: ShelfData[];
@@ -38,12 +46,27 @@ export function emptyMeta(): SyncMeta {
   return {
     shelfDeleted: {},
     progressDeleted: {},
-    wordsDeleted: {},
     shelfTouched: {},
     wordTouched: {},
     wordRemoved: {},
+    sourceRemoved: {},
     settingsUpdatedAt: 0,
   };
+}
+
+/** Older versions kept `bookKey -> lemma -> time`. The wordbook is global now: keep the latest time per lemma. */
+function flattenPerBook(value: unknown): Record<string, number> {
+  const out: Record<string, number> = {};
+  if (!value || typeof value !== "object") return out;
+  for (const [key, entry] of Object.entries(value as Record<string, unknown>)) {
+    if (typeof entry === "number") out[key] = Math.max(out[key] ?? 0, entry);
+    else if (entry && typeof entry === "object") {
+      for (const [lemma, time] of Object.entries(entry as Record<string, unknown>)) {
+        if (typeof time === "number") out[lemma] = Math.max(out[lemma] ?? 0, time);
+      }
+    }
+  }
+  return out;
 }
 
 export function loadMeta(raw: string | null): SyncMeta {
@@ -53,10 +76,14 @@ export function loadMeta(raw: string | null): SyncMeta {
     const parsed = JSON.parse(raw) as Partial<SyncMeta>;
     if (parsed.shelfDeleted && typeof parsed.shelfDeleted === "object") meta.shelfDeleted = parsed.shelfDeleted;
     if (parsed.progressDeleted && typeof parsed.progressDeleted === "object") meta.progressDeleted = parsed.progressDeleted;
-    if (parsed.wordsDeleted && typeof parsed.wordsDeleted === "object") meta.wordsDeleted = parsed.wordsDeleted;
     if (parsed.shelfTouched && typeof parsed.shelfTouched === "object") meta.shelfTouched = parsed.shelfTouched;
-    if (parsed.wordTouched && typeof parsed.wordTouched === "object") meta.wordTouched = parsed.wordTouched;
-    if (parsed.wordRemoved && typeof parsed.wordRemoved === "object") meta.wordRemoved = parsed.wordRemoved;
+    meta.wordTouched = flattenPerBook(parsed.wordTouched);
+    meta.wordRemoved = flattenPerBook(parsed.wordRemoved);
+    if (parsed.sourceRemoved && typeof parsed.sourceRemoved === "object") {
+      for (const [lemma, row] of Object.entries(parsed.sourceRemoved)) {
+        if (row && typeof row === "object") meta.sourceRemoved[lemma] = { ...row };
+      }
+    }
     if (typeof parsed.settingsUpdatedAt === "number") meta.settingsUpdatedAt = parsed.settingsUpdatedAt;
   } catch {
     return emptyMeta();
@@ -68,10 +95,10 @@ function cloneMeta(meta: SyncMeta): SyncMeta {
   return {
     shelfDeleted: { ...meta.shelfDeleted },
     progressDeleted: { ...meta.progressDeleted },
-    wordsDeleted: { ...meta.wordsDeleted },
     shelfTouched: { ...meta.shelfTouched },
-    wordTouched: Object.fromEntries(Object.entries(meta.wordTouched).map(([key, value]) => [key, { ...value }])),
-    wordRemoved: Object.fromEntries(Object.entries(meta.wordRemoved).map(([key, value]) => [key, { ...value }])),
+    wordTouched: { ...meta.wordTouched },
+    wordRemoved: { ...meta.wordRemoved },
+    sourceRemoved: Object.fromEntries(Object.entries(meta.sourceRemoved).map(([key, value]) => [key, { ...value }])),
     settingsUpdatedAt: meta.settingsUpdatedAt,
   };
 }
@@ -82,8 +109,8 @@ function keysOf(books: ShelfData[]): Map<string, ShelfData> {
   return map;
 }
 
-function wordStamp(word: WordRecord & { bookId?: string }): string {
-  const { updatedAt: _updatedAt, bookId: _bookId, ...rest } = word;
+function wordStamp(word: WordbookRecord): string {
+  const { updatedAt: _updatedAt, ...rest } = word;
   return JSON.stringify(rest);
 }
 
@@ -101,14 +128,12 @@ export function noteChanges(meta: SyncMeta, prev: LocalSnapshot, next: LocalSnap
     if ((out.shelfDeleted[key] ?? 0) <= Math.max(book.updatedAt, out.shelfTouched[key] ?? 0)) {
       delete out.shelfDeleted[key];
     }
-    delete out.wordsDeleted[key];
   }
 
   for (const [key] of prevBooks) {
     if (nextBooks.has(key)) continue;
     out.shelfDeleted[key] = now;
     out.progressDeleted[key] = now;
-    out.wordsDeleted[key] = now;
     delete out.shelfTouched[key];
   }
 
@@ -127,28 +152,28 @@ export function noteChanges(meta: SyncMeta, prev: LocalSnapshot, next: LocalSnap
     }
   }
 
-  const prevWords = groupWords(prev);
-  const nextWords = groupWords(next);
-  const wordKeys = new Set([...prevWords.keys(), ...nextWords.keys()]);
-  for (const key of wordKeys) {
-    if (!nextBooks.has(key)) continue;
-    const before = prevWords.get(key) ?? new Map<string, WordRecord>();
-    const after = nextWords.get(key) ?? new Map<string, WordRecord>();
-    const touched = { ...(out.wordTouched[key] ?? {}) };
-    const removed = { ...(out.wordRemoved[key] ?? {}) };
-    for (const [lemma, word] of after) {
-      const prior = before.get(lemma);
-      if (!prior || wordStamp(prior) !== wordStamp(word)) touched[lemma] = Math.max(touched[lemma] ?? 0, now);
-      delete removed[lemma];
+  // The wordbook is global: words are tracked by lemma, whatever book they came from. Deleting a book from
+  // the shelf does not remove its words.
+  const prevWords = byLemma(prev.words);
+  const nextWords = byLemma(next.words);
+  for (const [lemma, word] of nextWords) {
+    const prior = prevWords.get(lemma);
+    if (!prior || wordStamp(prior) !== wordStamp(word)) out.wordTouched[lemma] = Math.max(out.wordTouched[lemma] ?? 0, now);
+    delete out.wordRemoved[lemma];
+    const live = new Set(word.sources.filter(isLive).map((source) => source.k));
+    const gone = { ...(out.sourceRemoved[lemma] ?? {}) };
+    for (const key of live) delete gone[key];
+    for (const source of prior?.sources ?? []) {
+      if (isLive(source) && !live.has(source.k)) gone[source.k] = now;
     }
-    for (const lemma of before.keys()) {
-      if (!after.has(lemma)) {
-        removed[lemma] = now;
-        delete touched[lemma];
-      }
-    }
-    out.wordTouched[key] = touched;
-    out.wordRemoved[key] = removed;
+    if (Object.keys(gone).length > 0) out.sourceRemoved[lemma] = gone;
+    else delete out.sourceRemoved[lemma];
+  }
+  for (const lemma of prevWords.keys()) {
+    if (nextWords.has(lemma)) continue;
+    out.wordRemoved[lemma] = now;
+    delete out.wordTouched[lemma];
+    delete out.sourceRemoved[lemma];
   }
 
   if (JSON.stringify(prev.settings) !== JSON.stringify(next.settings)) out.settingsUpdatedAt = now;
@@ -160,17 +185,12 @@ function progressKey(snapshot: LocalSnapshot, bookId: string): string | null {
   return book ? bookSyncKey(book) : null;
 }
 
-function groupWords(snapshot: LocalSnapshot): Map<string, Map<string, LocalWord>> {
-  const byBook = new Map(snapshot.books.map((book) => [book.id, bookSyncKey(book)]));
-  const out = new Map<string, Map<string, LocalWord>>();
-  for (const word of snapshot.words) {
-    const bookKey = byBook.get(word.bookId);
-    if (!bookKey) continue;
+function byLemma(words: readonly WordbookRecord[]): Map<string, WordbookRecord> {
+  const out = new Map<string, WordbookRecord>();
+  for (const word of words) {
     const lemma = word.lemma.toLowerCase();
-    const bucket = out.get(bookKey) ?? new Map<string, LocalWord>();
-    const prev = bucket.get(lemma);
-    if (!prev || word.updatedAt >= prev.updatedAt) bucket.set(lemma, word);
-    out.set(bookKey, bucket);
+    const prev = out.get(lemma);
+    if (!prev || word.updatedAt >= prev.updatedAt) out.set(lemma, word);
   }
   return out;
 }
@@ -183,7 +203,6 @@ function shelfTime(book: ShelfData, meta: SyncMeta, key: string): number {
 export function buildSyncItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncItem[] {
   const items: SyncItem[] = [];
   const live = keysOf(snapshot.books);
-  const words = groupWords(snapshot);
 
   for (const [key, book] of live) {
     const updatedAt = shelfTime(book, meta, key);
@@ -210,31 +229,6 @@ export function buildSyncItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncIte
         data: {},
       });
     }
-
-    const bucket = words.get(key) ?? new Map<string, LocalWord>();
-    const removed = meta.wordRemoved[key] ?? {};
-    const touched = meta.wordTouched[key] ?? {};
-    const list: WordRecord[] = [];
-    for (const [lemma, word] of bucket) {
-      const updatedAt = Math.max(touched[lemma] ?? 0, word.updatedAt, word.lastReviewedAt ?? 0, word.createdAt);
-      const { bookId: _bookId, ...rest } = word;
-      list.push({ ...rest, updatedAt });
-    }
-    const tombs = Object.entries(removed)
-      .filter(([lemma]) => !bucket.has(lemma))
-      .map(([lemma, updatedAt]) => ({ lemma, updatedAt }));
-    list.sort((a, b) => a.lemma.toLowerCase().localeCompare(b.lemma.toLowerCase()));
-    tombs.sort((a, b) => a.lemma.toLowerCase().localeCompare(b.lemma.toLowerCase()));
-    const blobTime = Math.max(0, ...list.map((word) => word.updatedAt), ...tombs.map((row) => row.updatedAt));
-    if (list.length > 0 || tombs.length > 0) {
-      items.push({
-        kind: "words",
-        itemId: key,
-        updatedAt: blobTime,
-        deleted: false,
-        data: { words: list, removed: tombs },
-      });
-    }
   }
 
   for (const [key, updatedAt] of Object.entries(meta.shelfDeleted)) {
@@ -249,17 +243,9 @@ export function buildSyncItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncIte
         data: {},
       });
     }
-    if ((meta.wordsDeleted[key] ?? 0) > 0) {
-      items.push({
-        kind: "words",
-        itemId: key,
-        updatedAt: meta.wordsDeleted[key] ?? updatedAt,
-        deleted: true,
-        data: {},
-      });
-    }
   }
 
+  items.push(...wordbookItems(snapshot, meta));
   items.push({
     kind: "settings",
     itemId: "main",
@@ -267,6 +253,39 @@ export function buildSyncItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncIte
     deleted: false,
     data: snapshot.settings,
   });
+  return items;
+}
+
+/** The wordbook as sync items: one per first letter, so no stored row grows without bound. */
+export function wordbookItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncItem[] {
+  const shards = new Map<string, { words: WordbookRecord[]; removed: Array<{ lemma: string; updatedAt: number }> }>();
+  const shardOf = (lemma: string) => {
+    const id = wordbookShard(lemma);
+    const slot = shards.get(id) ?? { words: [], removed: [] };
+    shards.set(id, slot);
+    return slot;
+  };
+  const here = byLemma(snapshot.words);
+  for (const [lemma, word] of here) {
+    const updatedAt = Math.max(meta.wordTouched[lemma] ?? 0, word.updatedAt, word.lastReviewedAt ?? 0, word.createdAt);
+    const liveSources = word.sources.filter(isLive).map((source) => ({ ...source, k: sourceKey(source) }));
+    const liveKeys = new Set(liveSources.map((source) => source.k));
+    const stubs: SourceRecord[] = Object.entries(meta.sourceRemoved[lemma] ?? {})
+      .filter(([k]) => !liveKeys.has(k))
+      .map(([k, removed]) => ({ k, removed }));
+    shardOf(lemma).words.push({ ...word, updatedAt, sources: [...liveSources, ...stubs] });
+  }
+  for (const [lemma, updatedAt] of Object.entries(meta.wordRemoved)) {
+    if (here.has(lemma)) continue;
+    shardOf(lemma).removed.push({ lemma, updatedAt });
+  }
+  const items: SyncItem[] = [];
+  for (const [shard, blob] of [...shards].sort((a, b) => a[0].localeCompare(b[0]))) {
+    blob.words.sort((a, b) => a.lemma.toLowerCase().localeCompare(b.lemma.toLowerCase()));
+    blob.removed.sort((a, b) => a.lemma.toLowerCase().localeCompare(b.lemma.toLowerCase()));
+    const updatedAt = Math.max(0, ...blob.words.map((word) => word.updatedAt), ...blob.removed.map((row) => row.updatedAt));
+    items.push({ kind: "wordbook", itemId: wordbookItemId(shard), updatedAt, deleted: false, data: blob });
+  }
   return items;
 }
 
@@ -283,11 +302,8 @@ export function captureSnapshot(input: {
   }
   const words: LocalWord[] = [];
   for (const word of input.words) {
-    const row = asWord(word);
-    if (!row || !word || typeof word !== "object") continue;
-    const bookId = (word as { bookId?: unknown }).bookId;
-    if (typeof bookId !== "string" || !bookId) continue;
-    words.push({ ...row, bookId });
+    const row = asWordbookRecord(word);
+    if (row) words.push(row);
   }
   const progress: Record<string, ProgressData> = {};
   for (const [bookId, value] of Object.entries(input.progress)) {

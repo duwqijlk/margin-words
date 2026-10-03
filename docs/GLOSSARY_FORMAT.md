@@ -155,7 +155,7 @@ list like this:
    matter (Cover, Title Page, Copyright, Contents, and the same kind of label).
    The files after those stay separate extras, with the same text and the same ids
    they had before an empty contents file could be recovered. Any other extra is
-   unchanged: notes do not resolve there. A contents entry that has text but is too short to keep (a one-word
+   unchanged for sentence notes: a sentence note does not resolve there. A paragraph note may still name that extra's id (for example `"x2"`) and is placed by section 7.1, which counts every extra. A contents entry that has text but is too short to keep (a one-word
    heading) stays dropped, and its later split files stay ordinary extras.
 3. If the contents list is missing, empty, or has fewer than 2 entries, **or** it produces
    fewer than 2 chapters, each spine file is its own chapter, split at `<h1>` (or `<h2>`)
@@ -368,16 +368,13 @@ saved for a bundled list and for a list the user adds.
 
 | Field | Needed | Meaning |
 | --- | --- | --- |
-| `chapter`, `paragraph` | yes | `chapter` is 0-based (see 3.1) or an extra id such as `"x3"` for a contents file that had no paragraphs. `paragraph` is 0-based (see 3.4). |
+| `chapter`, `paragraph` | yes | `chapter` is 0-based (see 3.1) or an extra id such as `"x2"` or `"x3"` (a recovered contents file, or any other extra, including an appendix). `paragraph` is 0-based (see 3.4). |
 | `context` | yes | 6 to 14 words copied exactly from the paragraph. Checked in the app and by the validator. |
 | `mainIdea` | yes | 1 or 2 short sentences (up to 400 letters). |
 | `simple` | yes | The whole paragraph in very common words (up to 3000 letters). |
 | `hardWords` | no | Up to 20 hard words or phrases **from the original paragraph**. |
 
-How the reader finds the note: first the note with the same `chapter` and `paragraph` whose `context` is really in the paragraph on screen;
-if the numbers no longer fit (another edition), any note whose `context` is in the paragraph (same chapter first). A note whose `chapter` is an extra id
-matches only that extra, and only the paragraph index it names. A numbered chapter never shows a note whose `chapter` is an extra id. A note whose `context` is not in the text
-is never shown. If the list says `chapters: N` and the user's book has another number of chapters, a numeric `chapter` is only a tie-break. An extra id still has to match.
+How the reader finds the note: a note belongs to **one** paragraph of the book. The order is: (1) the paragraph with the note's `paragraph` id in its own `chapter`, if its text contains the `context`; (2) the paragraph of that chapter that contains the `context` and is nearest to the id; (3) when the note's chapter does not exist in the user's book or holds no match (users import their own EPUB, so chapter numbers can differ), the whole book is searched, and the note is placed only if **exactly one** paragraph in the whole book contains the `context`. That search counts every numbered chapter and every extra (a recovered contents file and an appendix, ids such as `x2` and `x3`), and it counts a paragraph that already owns notes. That one paragraph gets the note, also when it already owns other notes (a paragraph may own several notes; the first note placed is the primary one, and the help panel shows that primary note first). With zero matches, or two or more, the place is ambiguous and the note gets no lightbulb. Steps 1 and 2 still skip a paragraph that already has an owner. A note whose `chapter` is an extra id such as `"x2"` uses that extra as its own chapter for steps 1 and 2, the same way a number uses a numbered chapter. A numbered chapter never takes such a note at steps 1 or 2. So make the `context` long enough to be unique in the book. A short `context` that also appears in other paragraphs ("Sora.") is therefore safe: it lights its own paragraph by `chapter` + `paragraph`, or nothing. The lightbulb is drawn on exactly the paragraphs that own a note with real `mainIdea` and `simple` text, however short the paragraph is (a one-line dialogue or a heading is fine). A note whose `context` is nowhere in the book is never shown. If the list says `chapters: N` and the user's book has another number of chapters, a numeric `chapter` is only a hint for steps 1 and 2; step 3 does not guess among several matches. An extra id still has to name that extra for steps 1 and 2.
 
 ### 7.2 `sentences`: help for one sentence
 
@@ -443,6 +440,31 @@ Rules:
 - Write the entry's own `meaning` too (the same text as the sense is fine); it is shown in the notebook and lists.
 - A `senseOnly` entry whose senses have no anchors would never be underlined: the validator gives a warning.
 - `senseOnly` needs `"version": 2` in practice, because anchors live in `senses`.
+
+### 7.5b `trickyMeaning` senses (familiar word, unfamiliar meaning)
+
+A sense may carry `"trickyMeaning": true`. Use it for a common word that is used here in a meaning learners will not know
+(`well` = a water well). The sense needs `anchors`; the usual `chapter` + `occurrence` or `context` rules apply (see 7.5).
+
+```json
+"senses": [
+  {
+    "meaning": "A deep hole in the ground where people get water.",
+    "whyHard": "Not the usual meaning! Usually: well means \"in a good way\".",
+    "trickyMeaning": true,
+    "anchors": [{ "chapter": 0, "occurrence": 2, "context": "falling down a very deep well" }]
+  }
+]
+```
+
+- Where an anchor of such a sense is the one that resolves, the reader marks the word with a wavy accent-colour line and the
+  card shows that sense first. It is a different mark from the hard-word underline and the phrase underline, in every theme.
+- Only the anchored token is marked. An anchor with `chapter` + `occurrence` marks that one occurrence. An anchor with only a `context`
+  marks the first use of the word inside that snippet ("Tap tap tap." marks the first "tap"); the card still opens with the sense on the
+  other uses inside the snippet. Other uses of the word are never marked.
+- The mark is decided by the boolean only. The reader never reads `whyHard` or `meaning` to find these spots.
+- A word with an unmarked use (no anchor lands) stays plain. A missing or non-boolean field means no mark.
+- Combine with `"senseOnly": true` for very common words, so the word is not underlined everywhere else.
 
 ### 7.6 Writing rules for all help text
 

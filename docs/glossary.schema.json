@@ -211,6 +211,10 @@
           "type": "boolean",
           "description": "Show this sense when no anchor matches. At most one per word."
         },
+        "trickyMeaning": {
+          "type": "boolean",
+          "description": "true: a familiar word used here in a meaning learners will not know. Where an anchor of this sense lands, the reader draws a wavy line under the word and opens this sense first. Only the boolean counts, never the text."
+        },
         "forms": {
           "type": "array",
           "items": {

@@ -5,8 +5,8 @@
 
 /**
  * Where a paragraph or sentence note sits.
- * A whole number is a chapter index (0-based). `x0`, `x1`, … is an extra id for a
- * contents file that had no paragraphs (see docs/GLOSSARY_FORMAT.md).
+ * A whole number is a chapter index (0-based). `x0`, `x1`, … is an extra id
+ * (a recovered contents file, or any other extra, including an appendix).
  */
 export type NoteChapter = number | string;
 

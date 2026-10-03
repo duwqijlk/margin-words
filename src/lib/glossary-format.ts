@@ -37,6 +37,11 @@ export type GlossarySense = {
   /** Word forms this sense is for, for example ["saw", "saws"]. */
   forms?: string[];
   anchors?: GlossaryAnchor[];
+  /**
+   * `true`: at the places this sense's anchors name, the word is used in a meaning learners are unlikely to
+   * know (for example "well" = a water well). The reader marks those places in the text. Only `true` counts.
+   */
+  trickyMeaning?: boolean;
 };
 
 export type GlossaryEntry = {
@@ -877,6 +882,11 @@ function checkSense(
       issues.error(`${where}: "default" must be true or false.`);
     else if (raw.default) sense.default = true;
   }
+  if (raw.trickyMeaning !== undefined) {
+    if (typeof raw.trickyMeaning !== "boolean")
+      issues.error(`${where}: "trickyMeaning" must be true or false.`);
+    else if (raw.trickyMeaning) sense.trickyMeaning = true;
+  }
   const forms = formsField(issues, where, raw.forms);
   if (forms && forms.length) sense.forms = forms;
   if (raw.anchors !== undefined) {
@@ -1692,16 +1702,60 @@ export function senseOnlyHit(
   occurrence: number,
   chapter: number,
 ): boolean {
+  return entryAppliesAt(key, gloss, tapInfoAt(node, start, surface, occurrence, chapter));
+}
+
+function tapInfoAt(node: Text, start: number, surface: string, occurrence: number, chapter: number): TapInfo {
   const block = blockOf(node);
   const paragraph = block ? stripWordBreaks(flowText(block)) : surface;
   const before = block ? flowTextBefore(block, node, start) : "";
-  return entryAppliesAt(key, gloss, { chapter, surface, occurrence, paragraph, before });
+  return { chapter, surface, occurrence, paragraph, before };
+}
+
+/** Does this entry hold at least one sense flagged `trickyMeaning: true`? Only the boolean `true` counts. */
+export function hasTrickySense(gloss: { senses?: GlossarySense[] } | undefined): boolean {
+  return gloss?.senses?.some((sense) => sense.trickyMeaning === true) === true;
+}
+
+/**
+ * Is this exact word in the text one of the places a `trickyMeaning: true` sense names? It is the same sense the
+ * word card opens with (`matchAnchor`), but the mark is stricter than the card: only the anchored token is marked.
+ * - An anchor with `chapter` + `occurrence` names that one occurrence (the `context` only checks the text).
+ * - An anchor with only a `context` names the first use of the word inside that snippet ("Tap tap tap." marks the
+ *   first "tap", not all three). Another use of the word elsewhere in the paragraph is not marked.
+ * A place no anchor names is never tricky.
+ */
+export function trickyAt(
+  lemma: string,
+  gloss: { senses?: GlossarySense[] },
+  tap: TapInfo,
+): boolean {
+  const senses = gloss.senses ?? [];
+  const hit = matchAnchor(lemma, senses, tap);
+  const sense = hit ? senses[hit.at] : undefined;
+  if (!hit || sense?.trickyMeaning !== true) return false;
+  if (hit.via === "anchor" || tap.before === undefined) return true;
+  const surface = countSurface(tap.surface);
+  const paragraph = normText(tap.paragraph);
+  const at = normText(`${tap.before}\u0001`).length - 1;
+  return (sense.anchors ?? []).some((anchor) => {
+    if (!anchor.context || anchor.occurrence !== undefined) return false;
+    if (anchor.chapter !== undefined && anchor.chapter !== tap.chapter) return false;
+    const context = normText(anchor.context);
+    for (let from = paragraph.indexOf(context); from >= 0; from = paragraph.indexOf(context, from + 1)) {
+      if (at < from || at + surface.length > from + context.length) continue;
+      return !wordsIn(paragraph.slice(from, at)).some((w) => w.toLowerCase() === surface);
+    }
+    return false;
+  });
 }
 
 /**
  * The chapter html as the reader shows it: every word is a tap button. A word that has an entry in the word
  * list is underlined (`book-hard`), except where the entry is `senseOnly`: that one is underlined only at the
  * places its senses name. `chapter` is the 0-based chapter index; `sparse` holds the senseOnly entries by key.
+ * Where the sense that resolves has `trickyMeaning: true`, the word gets `book-tricky` instead (`tricky` holds
+ * the entries with such a sense, by key).
  */
 export function readingHtml(
   html: string,
@@ -1709,6 +1763,7 @@ export function readingHtml(
   resolve: (surface: string) => string,
   chapter: number,
   sparse: Map<string, { senseOnly?: boolean; senses?: GlossarySense[] }>,
+  tricky: ReadonlyMap<string, { senses?: GlossarySense[] }> = new Map(),
 ): string {
   const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
   const root = doc.body.firstElementChild;
@@ -1760,8 +1815,13 @@ export function readingHtml(
       const key = resolve(seg.text);
       if (ready.has(key)) {
         const only = sparse.get(key);
-        if (!only || senseOnlyHit(doc, node, start, key, only, seg.text, nth, chapter))
+        const odd = tricky.get(key);
+        if (odd && trickyAt(key, odd, tapInfoAt(node, start, seg.text, nth, chapter))) {
+          // A familiar word used in a meaning learners will not expect: its own mark, not the plain underline.
+          button.className = "book-tricky";
+        } else if (!only || senseOnlyHit(doc, node, start, key, only, seg.text, nth, chapter)) {
           button.className = "book-hard";
+        }
       }
       fragment.append(button);
     }

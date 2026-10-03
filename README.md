@@ -36,7 +36,7 @@ npx vite build       # static app in dist/
 any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`). It works fully with no account.
 Optional sign-in (sync across devices) is a Cloudflare Pages Function next to the static files. See
 [docs/ACCOUNTS.md](docs/ACCOUNTS.md). Without those functions the rest of the app is unchanged.
-The reader loads **twelve free public-domain classics** from the books host (`public-books/`). A new shelf starts with Alice's Adventures in Wonderland only. The other books are on **Discover** and download when you tap the heart on the cover. A book you delete is not added again; adding it from Discover clears that. Books already on a device stay there. To add a classic, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists** on the same host (`word-lists/<id>/glossary.json`, plus a card-sized `cover.jpg` taken from `packs/<id>/cover.jpg` when that file exists). A list with no cover uses the generated title-and-author cover. Adding one downloads the word list only and asks for your own e-book of that ISBN. The copyrighted EPUBs are not on the public host.
+The reader loads **twelve free public-domain classics** from the books host (`public-books/`). A new shelf starts **empty**: it points to Discover and suggests Alice as a first book with one tap, and Alice is added, removed and kept like any other book. A shelf that already has Alice keeps it. Every book is on **Discover** and download when you tap the heart on the cover. A book you delete is not added again; adding it from Discover clears that. Books already on a device stay there. To add a classic, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists** on the same host (`word-lists/<id>/glossary.json`, plus a card-sized `cover.jpg` taken from `packs/<id>/cover.jpg` when that file exists). A list with no cover uses the generated title-and-author cover. Adding one downloads the word list only and asks for your own e-book of that ISBN. The copyrighted EPUBs are not on the public host.
 
 All meanings, simple versions, sentence explanations, phrases and examples come from the word list
 (`glossary.json`) of the book. A word that is not in the list shows "No meaning for this word in this book yet."
@@ -87,7 +87,7 @@ File addresses in `catalog.json` are relative to the catalog file, so the folder
 
 ### How a reader uses it, also offline
 
-1. Open the app. A new shelf has Alice's Adventures in Wonderland. Tap **Discover** for every other book
+1. Open the app. A new shelf is empty and suggests Alice's Adventures in Wonderland (one tap adds it). Tap **Discover** for every book
    (the public-domain books and the word lists), with search and the difficulty, author, and series filters.
 2. Tap the heart on a cover. A filled red heart means the book is on the shelf; tap it again to remove it.
    A fresh book can be undone. A book you have started reading, or one with your own e-book, asks first.

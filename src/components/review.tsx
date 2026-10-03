@@ -10,8 +10,11 @@ import {
   type SrsStats,
 } from "@/lib/srs";
 import { tr, trn, useT, type Key } from "@/lib/i18n";
+import { bookSyncKey } from "@/lib/sync-merge";
 import { isDue, type Book, type VocabEntry } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
+import { hasSourceFrom } from "@/lib/wordbook";
+import { WordSources } from "@/components/word-sources";
 import {
   btn,
   chip,
@@ -348,10 +351,12 @@ function Session({
   mode,
   initial,
   pool,
+  books,
   onExit,
   onOverview,
 }: {
   mode: Mode;
+  books: Book[];
   initial: string[];
   /** words to draw cloze distractors from */
   pool: VocabEntry[];
@@ -508,11 +513,6 @@ function Session({
                 </p>
               ) : null}
             </div>
-            {current.sentence ? (
-              <p className="border-l-2 border-accent/40 pl-4 font-display text-lg leading-relaxed text-muted">
-                <Highlighted sentence={current.sentence} surface={current.surface} />
-              </p>
-            ) : null}
             {revealed ? (
               <div className="anim-pop grid gap-3 border-t border-line pt-5">
                 {current.pos ? (
@@ -525,6 +525,13 @@ function Session({
                 <p className="text-xl leading-relaxed" lang="en">
                   {current.meaning}
                 </p>
+                {current.sources.length > 0 ? (
+                  <WordSources word={current} books={books} />
+                ) : current.sentence ? (
+                  <p className="border-l-2 border-accent/40 pl-3 font-display text-[0.95rem] leading-relaxed text-muted">
+                    <Highlighted sentence={current.sentence} surface={current.surface} />
+                  </p>
+                ) : null}
               </div>
             ) : (
               <button
@@ -715,9 +722,13 @@ export function ReviewScreen({
   const { t } = useT();
   const [mode, setMode] = useState<Mode>("cards");
   const [session, setSession] = useState<{ ids: string[]; key: number } | null>(null);
+  const bookKey = useMemo(() => {
+    const book = bookId ? books.find((item) => item.id === bookId) : undefined;
+    return book ? bookSyncKey(book) : "";
+  }, [books, bookId]);
   const scoped = useMemo(
-    () => (bookId ? words.filter((word) => word.bookId === bookId) : words),
-    [words, bookId],
+    () => (bookId ? words.filter((word) => bookKey !== "" && hasSourceFrom(word, bookKey)) : words),
+    [words, bookId, bookKey],
   );
   const title = bookId ? (books.find((book) => book.id === bookId)?.title ?? "") : t("nb.allBooks");
 
@@ -739,6 +750,7 @@ export function ReviewScreen({
         mode={mode}
         initial={session.ids}
         pool={scoped}
+        books={books}
         onExit={onBack}
         onOverview={() => setSession(null)}
       />
