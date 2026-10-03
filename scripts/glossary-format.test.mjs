@@ -72,6 +72,27 @@ test("extras: paragraphs, sentences, phrases and coined are read", () => {
   assert.deepEqual([r.stats.paragraphs, r.stats.sentences, r.stats.phrases, r.stats.coined], [1, 1, 1, 1]);
 });
 
+test("extras: a comma may sit between words of a phrase", () => {
+  const r = ok({
+    version: 2,
+    glossary: { brother: { meaning: "A boy." } },
+    phrases: {
+      "oh, brother": { meaning: "Wow.", pos: "phrase" },
+      "oh boy": { meaning: "Wow.", pos: "phrase", forms: ["oh, boy"] },
+    },
+  });
+  assert.equal(r.ok, true, r.errors.join("\n"));
+  assert.ok(r.file.phrases["oh, brother"]);
+  assert.deepEqual(r.file.phrases["oh boy"].forms, ["oh, boy"]);
+  const stuck = ok({
+    version: 2,
+    glossary: { brother: { meaning: "A boy." } },
+    phrases: { "oh,brother": { meaning: "Wow.", pos: "phrase" } },
+  });
+  assert.equal(stuck.ok, false);
+  assert.match(stuck.errors.join("\n"), /two or more plain English words/);
+});
+
 test("extras: errors are plain English and name the item", () => {
   const r = ok({
     version: 2,

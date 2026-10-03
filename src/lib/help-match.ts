@@ -421,48 +421,82 @@ export function tokenize(text: string): Token[] {
 
 const cleanWord = (w: string) => plainSurface(w).trim();
 
-type Variant = { words: string[]; separable: boolean };
+type Variant = { words: string[]; separable: boolean; commaJoins: boolean[] };
 
 /** Is a break mark (full stop, comma, quote, dash...) between two tokens of the sentence? */
 function hasBreak(text: string, from: number, to: number): boolean {
   return /[.,;:!?\u2014\u2013"\u201c\u201d()]|--/.test(text.slice(from, to));
 }
 
-/** Phrase pieces. A hyphen is a word break here too, so `say good-bye` matches the taps `good` and `bye`. */
-function phrasePieces(raw: string): string[] {
-  return cleanWord(raw).split(/[\s-]+/).filter(Boolean);
+/**
+ * A comma written in the entry (`oh, brother`) may sit between these two tokens,
+ * with spaces around it. The comma is optional: the same entry also matches with
+ * no comma. Any other break still blocks. A comma-free entry does not use this.
+ */
+function commaJoin(text: string, from: number, to: number): boolean {
+  return /^\s*,\s*$/.test(text.slice(from, to));
+}
+
+/**
+ * Phrase pieces. A hyphen is a word break here too, so `say good-bye` matches the taps `good` and `bye`.
+ * A comma between words is remembered (`oh, brother` is `oh` + `brother` with a comma join)
+ * and never becomes part of a word.
+ */
+function phrasePieces(raw: string): { words: string[]; commaJoins: boolean[] } {
+  const words: string[] = [];
+  const commaJoins: boolean[] = [];
+  let commaBeforeNext = false;
+  for (const rawChunk of cleanWord(raw).split(/\s+/).filter(Boolean)) {
+    const commaAfter = rawChunk.endsWith(",");
+    const chunk = commaAfter ? rawChunk.replace(/,+$/, "") : rawChunk;
+    const bits = chunk.split("-").filter(Boolean);
+    if (bits.length === 0) continue;
+    for (let b = 0; b < bits.length; b += 1) {
+      if (words.length > 0) commaJoins.push(b === 0 ? commaBeforeNext : false);
+      words.push(bits[b] as string);
+    }
+    commaBeforeNext = commaAfter;
+  }
+  return { words, commaJoins };
 }
 
 function variantsOf(key: string, entry: PhraseEntry): Variant[] {
   const pieces = phrasePieces(key);
-  if (pieces.length === 0) return [];
-  const second = pieces[1];
+  if (pieces.words.length === 0) return [];
+  const second = pieces.words[1];
+  // A comma in the entry keeps the phrase contiguous. It does not open a gap.
+  const keyHasComma = pieces.commaJoins.some(Boolean);
   const separable =
-    pieces.length === 2 &&
+    !keyHasComma &&
+    pieces.words.length === 2 &&
     PARTICLES.has(second as string) &&
     entry.pos !== "idiom" &&
     entry.pos !== "phrase";
   const out: Variant[] = [];
   const seen = new Set<string>();
-  const add = (words: string[], sep: boolean) => {
-    const id = `${sep ? "~" : "="}${words.join(" ")}`;
+  const add = (words: string[], commaJoins: boolean[], sep: boolean) => {
+    const joins: boolean[] = [];
+    for (let i = 0; i < words.length - 1; i += 1) joins.push(commaJoins[i] === true);
+    const hasComma = joins.some(Boolean);
+    const id = `${sep && !hasComma ? "~" : "="}${joins.map((join) => (join ? "," : " ")).join("")}${words.join(" ")}`;
     if (words.length === 0 || seen.has(id)) return;
     seen.add(id);
-    out.push({ words, separable: sep });
+    out.push({ words, separable: sep && !hasComma, commaJoins: joins });
   };
   // A listed form is matched as written. "put his pack on" and "paid no attention" stay exact.
   // A two-word form of a phrasal verb ("puts on") may still take a gap, like the base.
+  // A form that writes a comma ("oh, boy") stays contiguous, even when the base can take a gap.
   for (const form of entry.forms ?? []) {
-    const words = phrasePieces(form);
-    add(words, separable && words.length === 2);
+    const parsed = phrasePieces(form);
+    add(parsed.words, parsed.commaJoins, separable && parsed.words.length === 2);
   }
   // Inflect the first word only when the glossary did not write it with a hyphen
   // (`face-to-face` stays one phrase; `say good-bye` still has `said`).
   const firstRaw = cleanWord(key).split(/\s+/).filter(Boolean)[0] ?? "";
-  const first = pieces[0] as string;
+  const first = pieces.words[0] as string;
   const firstForms =
     firstRaw.includes("-") || NO_INFLECT.has(first) || first.includes("'") ? [first] : verbForms(first);
-  for (const f of firstForms) add([f, ...pieces.slice(1)], separable);
+  for (const f of firstForms) add([f, ...pieces.words.slice(1)], pieces.commaJoins, separable);
   return out;
 }
 
@@ -1336,7 +1370,11 @@ function matchAt(
   for (let k = 1; k < words.length; k += 1) {
     const want = words[k] as string;
     const next = tokens[at + 1];
-    if (next && wordFits(want, next.w) && !hasBreak(text, (tokens[at] as Token).end, next.start)) {
+    const prevEnd = (tokens[at] as Token).end;
+    // `oh, brother` matches `Oh, brother` and `Oh brother`. `oh brother` matches only the second.
+    const commaOk =
+      !!next && variant.commaJoins[k - 1] === true && commaJoin(text, prevEnd, next.start);
+    if (next && wordFits(want, next.w) && (!hasBreak(text, prevEnd, next.start) || commaOk)) {
       indexes.push(at + 1);
       at += 1;
       continue;

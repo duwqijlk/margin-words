@@ -882,6 +882,10 @@ function checkSense(
 
 const PHRASE_POS = new Set(["phrasal verb", "idiom", "phrase"]);
 
+/** Two or more words. A comma may sit before the space between words (`oh, brother`). */
+const PHRASE_WORD = String.raw`[a-z]+(?:['-]?[a-z]+)*`;
+const PHRASE_KEY = new RegExp(`^${PHRASE_WORD}(?:(?:,)? ${PHRASE_WORD})+$`);
+
 function checkExtras(
   issues: Issues,
   data: Record<string, unknown>,
@@ -1013,13 +1017,9 @@ function checkExtras(
             .replace(/[\u2018\u2019\u02bc]/g, "'")
             .replace(/\s+/g, " ");
           const where = `The phrase ${q(rawKey)}`;
-          if (
-            !key ||
-            key.length > LIMITS.phraseKey ||
-            !/^[a-z]+(?:['-]?[a-z]+)*(?: [a-z]+(?:['-]?[a-z]+)*)+$/.test(key)
-          ) {
+          if (!key || key.length > LIMITS.phraseKey || !PHRASE_KEY.test(key)) {
             issues.error(
-              `${where} must be two or more plain English words in lower case, like "give up" or "break the ice".`,
+              `${where} must be two or more plain English words in lower case, like "give up" or "oh, brother".`,
             );
             continue;
           }

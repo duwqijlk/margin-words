@@ -344,7 +344,7 @@ Found by `context` inside the sentence (same chapter first, longest snippet firs
 }
 ```
 
-The key is the base form in lower case, two or more words (`one's` stands for my/your/his/her/its/our/their). `pos` is `phrasal verb`, `idiom` or `phrase`.
+The key is the base form in lower case, two or more words (`one's` stands for my/your/his/her/its/our/their). A comma may sit between words (`oh, brother`, and the same in `forms`). That entry matches the words with the comma or without it, and only when they are next to each other. A key with no comma still stops at a comma. `pos` is `phrasal verb`, `idiom` or `phrase`.
 When a learner taps a word of the phrase, the reader shows the phrase card if the whole phrase is in that sentence.
 Rules: simple verb forms are known without `forms` (give, gives, gave, giving; regular -s, -ed, -ing; about 100 common irregular verbs).
 A two-word phrasal verb may be split by up to 3 words (`picked the big box up`) when nothing that ends a clause (comma, full stop, `and`, `to`...) sits in between.

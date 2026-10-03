@@ -205,7 +205,9 @@ type Phrase = {
 ```
 
 The key is the base form: lower case, two or more words, plain letters (`pack up`, `break the ice`); `one's` stands for
-my/your/his/her/its/our/their. Max 60 chars. The app already knows regular verb forms (`packs up`, `packing up`, and about
+my/your/his/her/its/our/their. A comma may sit between words (`oh, brother`, and the same in `forms`). That entry matches
+the words with the comma or without it, and only when they are next to each other: the comma does not open a gap. A key
+with no comma still stops at a comma. Max 60 chars. The app already knows regular verb forms (`packs up`, `packing up`, and about
 100 common irregular verbs), and it accepts a phrasal verb split by up to 3 words (`pack the apples up`). List only forms it
 cannot derive. A phrase card shows only when the whole phrase is in the tapped sentence.
 

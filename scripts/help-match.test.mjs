@@ -539,6 +539,26 @@ test("phrase: motion -ing, all over, and up a bit", () => {
   assert.equal(show("Annie helped him put the pack on his chest.", "on"), null);
 });
 
+test("phrase: a comma written in the entry", () => {
+  const show = (phrases, sentence, word) => pickPhrase(phrases, sentence, word)?.key ?? null;
+  const comma = { "oh, brother": { meaning: "Wow.", pos: "phrase" } };
+  const plain = { "oh brother": { meaning: "A brother.", pos: "phrase" } };
+  const form = { "oh boy": { meaning: "Wow.", pos: "phrase", forms: ["oh, boy"] } };
+  const gap = { "come, back": { meaning: "Return.", pos: "phrasal verb" } };
+
+  assert.equal(show(comma, "Oh, brother", "brother"), "oh, brother");
+  assert.equal(show(comma, "Oh,  brother!", "oh"), "oh, brother");
+  assert.equal(show(comma, "Oh brother", "brother"), "oh, brother");
+  assert.equal(show(comma, "Oh. brother", "brother"), null);
+  assert.equal(show(plain, "Oh brother", "brother"), "oh brother");
+  assert.equal(show(plain, "Oh, brother", "brother"), null);
+  assert.equal(show(form, "Oh, boy", "boy"), "oh boy");
+  assert.equal(show(form, "Oh boy", "boy"), "oh boy");
+  assert.equal(show(gap, "Come, back.", "back"), "come, back");
+  assert.equal(show(gap, "Come back.", "back"), "come, back");
+  assert.equal(show(gap, "Come right back.", "back"), null);
+});
+
 test("phrase: no false positives", () => {
   assert.equal(hit("He looked up at the sky.", "up"), null); // "look up" is not listed
   assert.equal(hit("She picked a flower. Then she ran up the hill.", "up"), null); // sentence break
