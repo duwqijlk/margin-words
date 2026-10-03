@@ -81,6 +81,8 @@ const seriesNumber = (value) => {
   const n = typeof value === "number" ? value : /^\d{1,2}$/.test(String(value ?? "").trim()) ? Number(value) : 0;
   return Number.isInteger(n) && n >= 1 && n <= 99 ? n : 0;
 };
+// Discover tab. Omitted for a novel so an older catalog stays the same.
+const contentCategory = (value) => (value === "ted" || value === "speech" ? value : "");
 const norm = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "");
 const fail = (message) => {
   console.error(`build-packs: ${message}`);
@@ -197,6 +199,8 @@ for (const id of ids) {
   // Flag only when the glossary is dense with archaic words, or the Lexile is high and those words are common.
   const oldReason = String(info.oldFashionedReason ?? "").replace(/\s+/g, " ").trim().slice(0, 240);
   const oldFields = info.oldFashioned === true ? { oldFashioned: true, ...(oldReason ? { oldFashionedReason: oldReason } : {}) } : {};
+  const category = contentCategory(info.category);
+  const categoryFields = category ? { category } : {};
   // The pack revision changes when the book file or the word list changes.
   const rev = sha(Buffer.from(`${epubSha}\n${list ? sha(list) : ""}`)).slice(0, 12);
   const files = [["book.epub", epub]];
@@ -205,7 +209,7 @@ for (const id of ids) {
   files.push([
     "pack.json",
     Buffer.from(
-      `${JSON.stringify({ id, title, author, rev, level, notes, ...(lexile ? { lexile } : {}), ...(isbn ? { isbn } : {}), ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}), ...oldFields }, null, 1)}\n`,
+      `${JSON.stringify({ id, title, author, rev, level, notes, ...(lexile ? { lexile } : {}), ...(isbn ? { isbn } : {}), ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}), ...categoryFields, ...oldFields }, null, 1)}\n`,
     ),
   ]);
   const zipBytes = await zipPack(files);
@@ -223,6 +227,7 @@ for (const id of ids) {
       ...(lexile ? { lexile } : {}),
       ...(isbn ? { isbn } : {}),
       ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}),
+      ...categoryFields,
       ...oldFields,
       rev,
       version: stats?.data.version ?? 2,

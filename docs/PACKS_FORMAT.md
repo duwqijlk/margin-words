@@ -60,6 +60,7 @@ it does not include `all-packs.zip` or the per-book `.zip` files. Those zips rem
 | `isbn` | Optional. ISBN-13 of the edition this list was written for. Leave it out when the EPUB has no ISBN you can confirm. See [ISBN_SOURCES.md](ISBN_SOURCES.md). |
 | `series` | Optional series title. A name alone is enough. The shelf can group and filter by it. |
 | `seriesNumber` | Optional 1-based place in `series`. Kept only when `series` is set. With a number, the shelf lists the series in that order. |
+| `category` | Optional Discover tab: `ted` or `speech`. Leave it out for a novel. Set it in the pack's `info.json`. A missing value is a novel. |
 | `rev` | Changes when the book or its word list changes (first 12 letters of the sha256 of the epub + list). When it differs from the installed copy the card shows **Update available**. |
 | `version` | The word list format version (1 or 2). |
 | `chapters`, `words`, `paragraphs`, `sentences`, `phrases`, `coined` | Counts, from the list. |

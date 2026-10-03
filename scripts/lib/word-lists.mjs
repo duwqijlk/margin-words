@@ -63,6 +63,9 @@ function seriesNumber(value) {
   const n = typeof value === "number" ? value : /^\d{1,2}$/.test(String(value ?? "").trim()) ? Number(value) : NaN;
   return Number.isInteger(n) && n >= 1 && n <= 99 ? n : 0;
 }
+function contentCategory(value) {
+  return value === "ted" || value === "speech" ? value : "";
+}
 const sha = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
 /**
@@ -88,6 +91,8 @@ export function buildWordLists(packsDir) {
     const lexile = typeof info.lexile === "string" ? info.lexile : typeof data.lexile === "string" ? data.lexile : "";
     const oldReason = String(info.oldFashionedReason ?? "").replace(/\s+/g, " ").trim().slice(0, 240);
     const oldFields = info.oldFashioned === true ? { oldFashioned: true, ...(oldReason ? { oldFashionedReason: oldReason } : {}) } : {};
+    const category = contentCategory(info.category);
+    const categoryFields = category ? { category } : {};
     const coverPath = join(packsDir, id, "cover.jpg");
     let cover;
     if (existsSync(coverPath)) {
@@ -104,6 +109,7 @@ export function buildWordLists(packsDir) {
         ...(lexile ? { lexile } : {}),
         ...(isbn ? { isbn } : {}),
         ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}),
+        ...categoryFields,
         ...oldFields,
         ...(cover ? { cover } : {}),
         words: Number(data.count) || Object.keys(data.glossary ?? {}).length,

@@ -28,6 +28,7 @@ import type { Book } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
 import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
+import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import {
   autoUpdateWordLists,
@@ -77,6 +78,7 @@ type Row = {
   isbn: string;
   series: string;
   seriesNumber: number;
+  category: ContentCategory;
   oldFashioned: boolean;
   oldFashionedReason: string;
   coverUrl?: string;
@@ -107,6 +109,7 @@ export function DiscoverScreen({
   const [band, setBand] = useState<BandChoice>("all");
   const [author, setAuthor] = useState("all");
   const [series, setSeries] = useState<SeriesChoice>("all");
+  const [category, setCategory] = useState<ContentCategory>("novel");
   const [error, setError] = useState("");
   const [listError, setListError] = useState<Record<string, string>>({});
   const [busyId, setBusyId] = useState("");
@@ -141,6 +144,7 @@ export function DiscoverScreen({
           isbn: pack.isbn,
           series: pack.series,
           seriesNumber: pack.seriesNumber,
+          category: pack.category,
           oldFashioned: pack.oldFashioned,
           oldFashionedReason: pack.oldFashionedReason,
           coverUrl: pack.cover?.url ? resolveAgainst(BUNDLED_CATALOG_URL, pack.cover.url) : undefined,
@@ -156,6 +160,7 @@ export function DiscoverScreen({
           isbn: pack.isbn,
           series: pack.series,
           seriesNumber: pack.seriesNumber,
+          category: pack.category,
           oldFashioned: pack.oldFashioned,
           oldFashionedReason: pack.oldFashionedReason,
           coverUrl: pack.cover?.url ? resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url) : undefined,
@@ -206,17 +211,18 @@ export function DiscoverScreen({
     });
   }, [canAdd]);
 
+  const inCategory = useMemo(() => rows.filter((item) => item.category === category), [rows, category]);
   const authors = useMemo(
-    () => [...new Set(rows.map((item) => item.author).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
-    [rows],
+    () => [...new Set(inCategory.map((item) => item.author).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
+    [inCategory],
   );
   const seriesNames = useMemo(
-    () => [...new Set(rows.map((item) => item.series).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
-    [rows],
+    () => [...new Set(inCategory.map((item) => item.series).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
+    [inCategory],
   );
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase();
-    let list = rows.filter((item) => matchesBand(item.lexile, band));
+    let list = inCategory.filter((item) => matchesBand(item.lexile, band));
     if (q) list = list.filter((item) => `${item.title} ${item.author}`.toLowerCase().includes(q));
     if (author !== "all") list = list.filter((item) => item.author === author);
     if (series === "none") list = list.filter((item) => !item.series);
@@ -226,7 +232,7 @@ export function DiscoverScreen({
     if (sort === "title") copy.sort((a, b) => a.title.localeCompare(b.title) || a.kind.localeCompare(b.kind));
     else copy.sort((a, b) => compareLexile(a.lexile, b.lexile, sort) || a.title.localeCompare(b.title));
     return copy;
-  }, [rows, query, band, author, series, sort]);
+  }, [inCategory, query, band, author, series, sort]);
 
   const groups = useMemo(() => {
     if (series !== "grouped") return [];
@@ -243,7 +249,7 @@ export function DiscoverScreen({
     return blocks;
   }, [shown, series]);
 
-  const filterKey = `${query}\0${sort}\0${band}\0${author}\0${series}`;
+  const filterKey = `${category}\0${query}\0${sort}\0${band}\0${author}\0${series}`;
   const [windowState, setWindowState] = useState({ key: filterKey, limit: DISCOVER_PAGE });
   if (windowState.key !== filterKey) setWindowState({ key: filterKey, limit: DISCOVER_PAGE });
   const limit = windowState.key === filterKey ? windowState.limit : DISCOVER_PAGE;
@@ -499,74 +505,121 @@ export function DiscoverScreen({
     <div
       className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-6 sm:gap-6 sm:px-6"
       data-discover
+      data-discover-category={category}
       data-discover-matches={ready ? shown.length : undefined}
     >
-      <div className="grid gap-1">
-        <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("discover.title")}</h1>
-        <p className="max-w-xl text-sm text-muted">{t("discover.hint")}</p>
-      </div>
       <div className="grid gap-3">
-        <label className="relative block">
-          <span className="sr-only">{t("discover.search")}</span>
-          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted" aria-hidden />
-          <input
-            className={cn(field, "pl-9")}
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={t("discover.search")}
-            data-discover-search
-          />
-        </label>
-        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap [&_select]:w-full sm:[&_select]:w-auto [&>div]:contents">
-          <DifficultyControls sort={sort} sorts={["listed", "easy", "hard", "title"]} onSort={setSort} band={band} onBand={setBand} />
-          <ListFilters authors={authors} seriesNames={seriesNames} author={author} series={series} onAuthor={setAuthor} onSeries={setSeries} />
+        <div className="grid gap-1">
+          <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("discover.title")}</h1>
+          <p className="max-w-xl text-sm text-muted">{t("discover.hint")}</p>
+        </div>
+        <div role="tablist" aria-label={t("discover.cat.list")} className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0" data-discover-categories>
+          {CONTENT_CATEGORIES.map((id) => {
+            const on = category === id;
+            return (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                id={`discover-cat-${id}`}
+                aria-selected={on}
+                aria-controls="discover-results"
+                data-discover-category-tab={id}
+                className={cn(
+                  "inline-flex min-h-11 shrink-0 items-center rounded-full px-4 text-sm font-semibold transition-colors",
+                  on ? "bg-accent text-accent-ink" : "border border-line bg-card text-ink hover:bg-accent-soft",
+                )}
+                onClick={() => {
+                  setCategory(id);
+                  setAuthor("all");
+                  setSeries("all");
+                }}
+              >
+                {t(`discover.cat.${id}`)}
+              </button>
+            );
+          })}
         </div>
       </div>
-      {error ? (
-        <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">
-          {error}
-        </p>
-      ) : null}
-      {!ready ? (
-        <div className="grid gap-3" aria-busy="true">
-          <p className="text-sm text-muted" role="status">
-            {t("discover.loading")}
-          </p>
-          <ul className={bookCardGrid} data-discover-loading>
-            {Array.from({ length: 8 }, (_, index) => (
-              <CardSkeleton key={index} />
-            ))}
-          </ul>
-        </div>
-      ) : shown.length === 0 ? (
-        <p className="py-10 text-center text-muted">{query.trim() ? t("shelf.noMatch", { query: query.trim() }) : t("shelf.series.empty")}</p>
-      ) : series === "grouped" ? (
-        <div className="grid gap-8">
-          {visibleGroups.map((group) => (
-            <div key={group.key} className="grid gap-4" data-series-group={group.key}>
-              <h2 className="font-display text-lg font-semibold" lang={group.title ? "en" : undefined}>
-                {group.title || t("shelf.series.none")}
-              </h2>
-              <ul className={bookCardGrid}>{group.rows.map(renderCard)}</ul>
+      <div
+        id="discover-results"
+        role="tabpanel"
+        aria-labelledby={`discover-cat-${category}`}
+        className="grid gap-5 sm:gap-6"
+      >
+        {!ready || inCategory.length > 0 ? (
+          <div className="grid gap-3">
+            <label className="relative block">
+              <span className="sr-only">{t("discover.search")}</span>
+              <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted" aria-hidden />
+              <input
+                className={cn(field, "pl-9")}
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder={t("discover.search")}
+                data-discover-search
+              />
+            </label>
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap [&_select]:w-full sm:[&_select]:w-auto [&>div]:contents">
+              <DifficultyControls sort={sort} sorts={["listed", "easy", "hard", "title"]} onSort={setSort} band={band} onBand={setBand} />
+              <ListFilters authors={authors} seriesNames={seriesNames} author={author} series={series} onAuthor={setAuthor} onSeries={setSeries} />
             </div>
-          ))}
-        </div>
-      ) : (
-        <ul className={bookCardGrid}>{visible.map(renderCard)}</ul>
-      )}
-      {ready && hasMore ? (
-        <div ref={moreRef} data-discover-more className="grid gap-3" aria-busy="true">
-          <p className="text-center text-sm text-muted">{t("discover.loadingMore")}</p>
-          <ul className={bookCardGrid}>
-            {Array.from({ length: 4 }, (_, index) => (
-              <CardSkeleton key={index} />
+          </div>
+        ) : null}
+        {error ? (
+          <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">
+            {error}
+          </p>
+        ) : null}
+        {!ready ? (
+          <div className="grid gap-3" aria-busy="true">
+            <p className="text-sm text-muted" role="status">
+              {t("discover.loading")}
+            </p>
+            <ul className={bookCardGrid} data-discover-loading>
+              {Array.from({ length: 8 }, (_, index) => (
+                <CardSkeleton key={index} />
+              ))}
+            </ul>
+          </div>
+        ) : shown.length === 0 ? (
+          <p className="py-10 text-center text-muted" data-discover-empty={category}>
+            {inCategory.length === 0 && category === "ted"
+              ? t("discover.empty.ted")
+              : inCategory.length === 0 && category === "speech"
+                ? t("discover.empty.speech")
+                : query.trim()
+                  ? t("shelf.noMatch", { query: query.trim() })
+                  : t("shelf.series.empty")}
+          </p>
+        ) : series === "grouped" ? (
+          <div className="grid gap-8">
+            {visibleGroups.map((group) => (
+              <div key={group.key} className="grid gap-4" data-series-group={group.key}>
+                <h2 className="font-display text-lg font-semibold" lang={group.title ? "en" : undefined}>
+                  {group.title || t("shelf.series.none")}
+                </h2>
+                <ul className={bookCardGrid}>{group.rows.map(renderCard)}</ul>
+              </div>
             ))}
-          </ul>
-        </div>
-      ) : ready && shown.length > 0 ? (
-        <div data-discover-end hidden />
-      ) : null}
+          </div>
+        ) : (
+          <ul className={bookCardGrid}>{visible.map(renderCard)}</ul>
+        )}
+        {ready && hasMore ? (
+          <div ref={moreRef} data-discover-more className="grid gap-3" aria-busy="true">
+            <p className="text-center text-sm text-muted">{t("discover.loadingMore")}</p>
+            <ul className={bookCardGrid}>
+              {Array.from({ length: 4 }, (_, index) => (
+                <CardSkeleton key={index} />
+              ))}
+            </ul>
+          </div>
+        ) : ready && shown.length > 0 ? (
+          <div data-discover-end hidden />
+        ) : null}
+      </div>
     </div>
   );
 }
