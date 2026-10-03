@@ -493,6 +493,52 @@ test("phrase: gap follow-ups from the scored books", () => {
   assert.equal(show(aside, "her", 1), "on her own");
 });
 
+test("phrase: motion -ing, all over, and up a bit", () => {
+  const pv = (meaning) => ({ meaning, pos: "phrasal verb" });
+  const phrases = {
+    "shake up": pv("Rouse."),
+    "come back": pv("Return."),
+    "go off": pv("Burst."),
+    "go through": pv("Endure."),
+    "talk over": pv("Discuss."),
+    "get over": pv("Recover."),
+    "put over": pv("Convey."),
+    "climb over": pv("Cross."),
+    "take up": pv("Start."),
+    "come across": pv("Find."),
+    "stand up": pv("Rise."),
+    "be off": pv("Leave."),
+    "put on": pv("Wear."),
+  };
+  const show = (sentence, word) => pickPhrase(phrases, sentence, word, sentence.indexOf(word))?.key ?? null;
+
+  assert.equal(show("But he did want to shake the old woman up a bit.", "up"), "shake up");
+  assert.equal(show("He did want to shake the old woman up.", "up"), "shake up");
+  assert.equal(show("Then took a boat up the river.", "up"), null);
+
+  assert.equal(show("The lead dragon come winging back over the wall.", "back"), "come back");
+  assert.equal(show("She came hurtling back out of the tunnel.", "back"), "come back");
+  assert.equal(show("She came winging back to see him.", "back"), "come back");
+  assert.equal(show("The wolf came bounding back and said come in.", "back"), "come back");
+  assert.equal(show("The children came trooping back.", "back"), "come back");
+  assert.equal(show("The boat came rowing back.", "back"), "come back");
+  assert.equal(show("Watch the ticks and fleas go jumping off her.", "off"), null);
+  assert.equal(show("The prodigy went flitting through her head.", "through"), null);
+  assert.equal(show("Olivia came bouncing across the snowy ground.", "across"), null);
+  assert.equal(show("The girls stood making up their minds.", "up"), null);
+  assert.equal(show("The ladder was sliding off the van.", "off"), null);
+
+  assert.equal(show("They talked all these adventures over.", "over"), "talk over");
+  assert.equal(show("They talked it all over.", "over"), "talk over");
+  assert.equal(show("He suddenly got warm all over right down to his toes.", "over"), null);
+  assert.equal(show("I can tell the others and get it all over.", "over"), null);
+  assert.equal(show("He was climbing all over it.", "over"), null);
+  assert.equal(show("You've put it all over your head.", "over"), null);
+
+  assert.equal(show("He put his pack on his back.", "on"), "put on");
+  assert.equal(show("Annie helped him put the pack on his chest.", "on"), null);
+});
+
 test("phrase: no false positives", () => {
   assert.equal(hit("He looked up at the sky.", "up"), null); // "look up" is not listed
   assert.equal(hit("She picked a flower. Then she ran up the hill.", "up"), null); // sentence break

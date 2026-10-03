@@ -891,8 +891,10 @@ function isMannerLy(w: string): boolean {
 }
 
 /**
- * A bare -ing in the gap is a manner of motion (`came running out`, `came walking out`).
- * `making`, `sliding`, and `bouncing` are another verb, so they are not in this list.
+ * Manner -ing that may fill a gap after any verb (`came running across`).
+ * A motion verb may also take any bare -ing immediately before a directional
+ * particle in `ING_PARTICLES` (`came winging back`). `off`, `up`, `through`,
+ * `over`, `across`, and `on` are not in that set (`go jumping off`, `went flitting through`).
  */
 const MANNER_ING = new Set([
   "running",
@@ -928,6 +930,54 @@ const MANNER_ING = new Set([
 
 function isMannerIng(w: string): boolean {
   return MANNER_ING.has(w);
+}
+
+/** `come` / `go` / `run` and the same kind of motion. `stood making up` is not one of these. */
+const MOTION_VERBS = new Set([
+  "come",
+  "comes",
+  "came",
+  "coming",
+  "go",
+  "goes",
+  "went",
+  "going",
+  "gone",
+  "run",
+  "runs",
+  "ran",
+  "running",
+  "walk",
+  "walks",
+  "walked",
+  "walking",
+  "fly",
+  "flies",
+  "flew",
+  "flying",
+  "rush",
+  "rushes",
+  "rushed",
+  "rushing",
+  "hurry",
+  "hurries",
+  "hurried",
+  "hurrying",
+  "race",
+  "races",
+  "raced",
+  "racing",
+]);
+
+/**
+ * Directional particles a motion verb may split with any bare -ing
+ * (`came winging back`, `came rowing back`). Not `off`, `up`, `through`,
+ * `over`, `across`, or `on` (`go jumping off`, `went flitting through`).
+ */
+const ING_PARTICLES = new Set(["back", "out", "in", "away", "home"]);
+
+function isMotionVerb(w: string): boolean {
+  return MOTION_VERBS.has(w);
 }
 
 /** `taken a half-day off`: a time period is not the object you remove. */
@@ -992,7 +1042,12 @@ function gapCoreIsBad(words: string[]): boolean {
 }
 
 function classifyGap(words: string[], particle: string): GapKind {
-  if (particle === "over" && words.includes("all")) return "bad";
+  // `all` sitting on `over` is "everywhere" (`got warm all over`, `climbing all over`).
+  // `talked it all over` keeps the pronoun. `talked all these adventures over` does not end on `all`.
+  if (particle === "over" && words[words.length - 1] === "all") {
+    const prev = words.length > 1 ? (words[words.length - 2] as string) : "";
+    if (!(OBJECT_PRONOUN.has(prev) || DEMONSTRATIVE.has(prev))) return "bad";
+  }
   if (isAllOfPronoun(words)) return "pronoun";
   if (words.length === 1 && isMannerIng(words[0] as string)) return "ing";
   if (words.every((w) => isFillerWord(w, particle))) return "filler";
@@ -1017,6 +1072,17 @@ function gapAllowed(words: string[], particle: string, verb: string): boolean {
   if (words.length < 1 || words.length > 3) return false;
   if (!isAllOfPronoun(words) && words.some((w) => gapWordBreaks(w, particle))) return false;
   if (words.includes("show") && particle === "up") return false;
+  // `get it all over` is not `get over`. `talked it all over` is.
+  if (particle === "over" && words[words.length - 1] === "all" && GET_FORMS.has(verb)) return false;
+  // `came winging back`: the -ing is the whole gap and sits on the particle.
+  if (
+    words.length === 1 &&
+    isIngVerb(words[0] as string) &&
+    isMotionVerb(verb) &&
+    ING_PARTICLES.has(particle)
+  ) {
+    return true;
+  }
   const kind = classifyGap(words, particle);
   if (kind === "bad") return false;
   if (particle === "for") {
@@ -1125,6 +1191,11 @@ function complementAfter(text: string, tokens: Token[], particleAt: number): Com
   }
   if (isIngVerb(w)) return "ing";
   if (isGapVerb(w) || GAP_PARTICLES.has(w) || PREPOSITION_ENDS.has(w) || PARTICLES.has(w)) return "none";
+  // `shake the old woman up a bit`: `a bit` is a degree, not `up the river`.
+  if (w === "a" || w === "an") {
+    const bit = tokens[particleAt + 2];
+    if (bit && !hasBreak(text, next.end, bit.start) && bit.w === "bit") return "none";
+  }
   if (GAP_BREAKERS.has(w) && !DEMONSTRATIVE.has(w) && !DETERMINER.has(w)) return "none";
   return "np";
 }
@@ -1223,8 +1294,8 @@ function complementRejects(
     const follow = (tokens[particleAt + 1] as Token).w;
     if (follow === "the" || follow === "a" || follow === "an") return true;
   }
-  // `take a howling snowstorm over this`.
-  if (particle === "over" && kind === "np") return true;
+  // `take a howling snowstorm over this`. `put it all over your head` is everywhere.
+  if (particle === "over" && (kind === "np" || gap[gap.length - 1] === "all")) return true;
   return false;
 }
 
