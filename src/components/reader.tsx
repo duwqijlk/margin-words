@@ -570,7 +570,7 @@ function WordCard({
         // Always out of the page flow (fixed): opening, moving or closing it can never move the text.
         // Phone: a sheet on the bottom edge. Tablet: a column on the right, in the gutter the page
         // keeps free (see READER_GUTTER). Wide screens float this card next to the tapped word.
-        "fixed z-40 max-h-[46dvh] overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
+        "scroll-thin fixed z-40 max-h-[46dvh] overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
         "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3",
         SIDE_PANEL,
       )}

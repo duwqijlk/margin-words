@@ -144,6 +144,143 @@ function usePanelFocus(active: boolean, panelRef: RefObject<HTMLElement | null>,
   }, [active, anchor, panelRef]);
 }
 
+/** Phone bottom sheet only. Tablets keep the side column; wide screens float. */
+const PHONE_SHEET = "(max-width: 47.99rem)";
+
+/**
+ * Pull the phone sheet down to close it. A downward drag closes only when the sheet
+ * is already at the top of its scroll, so a long note still scrolls first.
+ * Touch and mouse are handled apart, so a phone tap is not also read as a mouse drag.
+ */
+function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: () => void) {
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
+
+  useEffect(() => {
+    const query = window.matchMedia(PHONE_SHEET);
+    let detach = () => {};
+    const bind = () => {
+      detach();
+      detach = () => {};
+      const el = panelRef.current;
+      if (!query.matches || !el) return;
+      let startY = 0;
+      let startX = 0;
+      let lastY = 0;
+      let mode: "idle" | "undecided" | "dismiss" | "scroll" = "idle";
+      let timer = 0;
+      let ignoreMouseUntil = 0;
+      let suppressClick = false;
+      let stopMouse = () => {};
+      const clearTimer = () => {
+        if (timer) window.clearTimeout(timer);
+        timer = 0;
+      };
+      const begin = (x: number, y: number) => {
+        clearTimer();
+        startX = x;
+        startY = y;
+        lastY = y;
+        mode = "undecided";
+      };
+      const move = (x: number, y: number, event: Event) => {
+        if (mode === "idle" || mode === "scroll") return;
+        const dy = y - startY;
+        const dx = x - startX;
+        lastY = y;
+        if (mode === "undecided") {
+          if (Math.abs(dy) < 8 && Math.abs(dx) < 8) return;
+          if (dy > 0 && Math.abs(dy) > Math.abs(dx) && el.scrollTop <= 0) {
+            mode = "dismiss";
+            el.style.animation = "none";
+            el.style.transition = "none";
+          } else {
+            mode = "scroll";
+            return;
+          }
+        }
+        event.preventDefault();
+        el.style.transform = `translateY(${Math.max(0, dy)}px)`;
+      };
+      const end = () => {
+        if (mode !== "dismiss") {
+          mode = "idle";
+          return;
+        }
+        const dy = lastY - startY;
+        mode = "idle";
+        if (dy < 8) return;
+        suppressClick = true;
+        el.style.transition = "transform 0.18s ease-out";
+        if (dy > 72) {
+          el.style.transform = "translateY(110%)";
+          timer = window.setTimeout(() => closeRef.current(), 160);
+        } else {
+          el.style.transform = "";
+        }
+      };
+      const onTouchStart = (event: TouchEvent) => {
+        if (event.touches.length !== 1) return;
+        const touch = event.touches[0];
+        if (!touch) return;
+        ignoreMouseUntil = Date.now() + 700;
+        begin(touch.clientX, touch.clientY);
+      };
+      const onTouchMove = (event: TouchEvent) => {
+        const touch = event.touches[0];
+        if (!touch) return;
+        move(touch.clientX, touch.clientY, event);
+      };
+      const onClick = (event: MouseEvent) => {
+        if (!suppressClick) return;
+        suppressClick = false;
+        event.preventDefault();
+        event.stopPropagation();
+      };
+      const onMouseDown = (event: MouseEvent) => {
+        if (event.button !== 0 || Date.now() < ignoreMouseUntil) return;
+        begin(event.clientX, event.clientY);
+        stopMouse();
+        const onMouseMove = (moveEvent: MouseEvent) => move(moveEvent.clientX, moveEvent.clientY, moveEvent);
+        const onMouseUp = () => {
+          stopMouse();
+          end();
+        };
+        stopMouse = () => {
+          window.removeEventListener("mousemove", onMouseMove);
+          window.removeEventListener("mouseup", onMouseUp);
+        };
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("mouseup", onMouseUp);
+      };
+      el.addEventListener("touchstart", onTouchStart, { passive: true });
+      el.addEventListener("touchmove", onTouchMove, { passive: false });
+      el.addEventListener("touchend", end);
+      el.addEventListener("touchcancel", end);
+      el.addEventListener("mousedown", onMouseDown);
+      el.addEventListener("click", onClick, true);
+      detach = () => {
+        clearTimer();
+        stopMouse();
+        el.removeEventListener("touchstart", onTouchStart);
+        el.removeEventListener("touchmove", onTouchMove);
+        el.removeEventListener("touchend", end);
+        el.removeEventListener("touchcancel", end);
+        el.removeEventListener("mousedown", onMouseDown);
+        el.removeEventListener("click", onClick, true);
+        el.style.transform = "";
+        el.style.transition = "";
+      };
+    };
+    bind();
+    query.addEventListener("change", bind);
+    return () => {
+      query.removeEventListener("change", bind);
+      detach();
+    };
+  }, [panelRef]);
+}
+
 /**
  * The word card and the paragraph card. On a wide screen this floats next to the anchor.
  * On a phone it is the bottom sheet. On a tablet it is the right-hand column.
@@ -166,6 +303,7 @@ export function FloatingAside({
   const ref = useRef<HTMLElement | null>(null);
   const float = useFloatingCard(anchor, ref, onClose);
   usePanelFocus(float.active && float.placed, ref, anchor);
+  usePhoneSheetDismiss(ref, onClose);
   return (
     <aside
       ref={ref}

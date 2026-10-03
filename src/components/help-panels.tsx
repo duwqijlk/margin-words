@@ -208,7 +208,7 @@ export function ParagraphPanel({
       label={t("hp.panelAria")}
       kind="para"
       className={cn(
-        "fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
+        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
         "inset-x-0 bottom-0 max-h-[52dvh] rounded-t-3xl border-t pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]",
         SIDE_PANEL,
         "md:bottom-auto md:max-h-[calc(100dvh-6.5rem)] md:pb-5",
