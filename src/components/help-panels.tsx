@@ -6,6 +6,7 @@ import { loadSentenceView, type ParagraphView, type SentenceView } from "@/lib/h
 import { FloatingAside } from "@/components/floating-card";
 import { btn, cn } from "@/components/ui";
 import { flowText } from "@/lib/flow-text";
+import { planBulbs, type BulbSpot } from "@/lib/paragraph-bulbs";
 import { SIDE_PANEL } from "@/components/side-panel";
 
 /*
@@ -13,29 +14,29 @@ import { SIDE_PANEL } from "@/components/side-panel";
  * nothing is added to the reading text, so the text can never move when help opens.
  */
 
-/* ------------------------------------------------------------------ marker next to a paragraph */
+/* ------------------------------------------------------------------ bulbs next to the paragraphs */
 
 type Block = { el: Element; ok: boolean };
 type Geo = {
-  marker: { top: number; left: number; edge: boolean } | null;
-  bar: { top: number; height: number; left: number; faint: boolean } | null;
+  bulbs: BulbSpot[];
+  bar: { top: number; height: number; left: number } | null;
 };
 
 /**
- * One small button, drawn in the margin next to a paragraph (or, when the screen has no
- * room in the margin, as a thin tab on the screen edge). It is position: fixed, so it takes
- * no room in the page. With a mouse it follows the paragraph under the pointer or the focused
- * word. On a touch screen it belongs to the paragraph at the reading line (about 40% down).
- * While help is open, a thin bar in the margin shows which paragraph it is about.
+ * One small, permanent bulb next to EVERY paragraph that owns a real paragraph note: in the
+ * margin when the screen has room, at the paragraph's edge on a phone. No hover is needed, and a
+ * paragraph without a note shows nothing. The bulbs are position: fixed overlays, so they take no
+ * room in the page and the text never moves. Which spots to draw is pure geometry
+ * (planBulbs in src/lib/paragraph-bulbs.ts). While help is open, a thin bar in the margin shows
+ * which paragraph it is about.
  */
-export function ParagraphMarker({
+export function ParagraphBulbs({
   articleRef,
   version,
   bookId,
   chapter,
   notesVersion,
   activeIndex,
-  hide,
   onOpen,
 }: {
   articleRef: React.RefObject<HTMLElement | null>;
@@ -47,22 +48,14 @@ export function ParagraphMarker({
   /** changes when the book's word list (and so its paragraph notes) changes */
   notesVersion: unknown;
   activeIndex: number | null;
-  /** hide the button (a card or the help panel is open) */
-  hide: boolean;
   onOpen: (index: number) => void;
 }) {
   const { t } = useT();
   const blocks = useRef<Block[]>([]);
-  const hover = useRef<number | null>(null);
-  const focus = useRef<number | null>(null);
   const active = useRef<number | null>(activeIndex);
   active.current = activeIndex;
-  const hidden = useRef(hide);
-  hidden.current = hide;
-  const canHover = useRef(true);
   const frame = useRef(0);
-  const [markerIndex, setMarkerIndex] = useState<number | null>(null);
-  const [geo, setGeo] = useState<Geo>({ marker: null, bar: null });
+  const [geo, setGeo] = useState<Geo>({ bulbs: [], bar: null });
 
   const measure = useCallback(() => {
     frame.current = 0;
@@ -71,70 +64,39 @@ export function ParagraphMarker({
     const ar = art.getBoundingClientRect();
     const vw = document.documentElement.clientWidth;
     const vh = window.innerHeight;
-    const room = vw - ar.right >= 52;
-
-    let index: number | null = null;
-    if (canHover.current) index = hover.current ?? focus.current;
-    else {
-      const line = vh * 0.4;
-      let after: number | null = null;
-      let last: number | null = null;
-      for (let i = 0; i < blocks.current.length; i += 1) {
-        const block = blocks.current[i];
-        if (!block?.ok) continue;
-        const r = block.el.getBoundingClientRect();
-        if (r.bottom < 56) continue;
-        if (r.top <= line && r.bottom >= line) {
-          index = i;
-          break;
-        }
-        if (r.top > line) {
-          after = i;
-          break;
-        }
-        last = i;
-      }
-      if (index === null) index = after ?? last;
-    }
-
-    let marker: Geo["marker"] = null;
-    if (index !== null) {
-      const el = blocks.current[index]?.el;
-      const r = el?.getBoundingClientRect();
-      if (r && r.bottom > 64 && r.top < vh - 8) {
-        if (room) {
-          const top = Math.min(Math.max(r.top, 64) + 2, vh - 44);
-          if (r.bottom - top > 12)
-            marker = { top: Math.round(top), left: Math.round(ar.right + 10), edge: false };
-        } else {
-          marker = { top: 0, left: 0, edge: true };
-        }
-      }
-    }
+    const header = document.querySelector("header")?.getBoundingClientRect().bottom ?? 0;
+    const rects = blocks.current.map((block) =>
+      block.ok ? block.el.getBoundingClientRect() : null,
+    );
+    const bulbs = planBulbs({
+      flags: blocks.current.map((block) => block.ok),
+      rects,
+      articleRight: ar.right,
+      viewportWidth: vw,
+      viewportHeight: vh,
+      headerHeight: Math.max(0, Math.round(header)),
+    });
     let bar: Geo["bar"] = null;
-    const a = active.current ?? (!canHover.current && !hidden.current ? index : null);
-    if (a !== null) {
-      const r = blocks.current[a]?.el.getBoundingClientRect();
+    if (active.current !== null) {
+      const r = blocks.current[active.current]?.el.getBoundingClientRect();
       if (r && r.bottom > 56 && r.top < vh) {
         const top = Math.max(r.top, 56);
         bar = {
           top: Math.round(top),
           height: Math.round(Math.min(r.bottom, vh) - top),
           left: Math.round(Math.max(4, ar.left - 10)),
-          faint: active.current === null,
         };
       }
     }
-    const next: Geo = { marker, bar };
+    const next: Geo = { bulbs, bar };
     setGeo((prev) => (JSON.stringify(prev) === JSON.stringify(next) ? prev : next));
-    setMarkerIndex((prev) => (prev === index ? prev : index));
   }, [articleRef]);
 
   const schedule = useCallback(() => {
     if (!frame.current) frame.current = requestAnimationFrame(measure);
   }, [measure]);
 
-  // The paragraph list: numbered with the shared rule (the same as the word lists use). The bulb
+  // The paragraph list: numbered with the shared rule (the same as the word lists use). A bulb
   // belongs only to a paragraph that has a real paragraph explanation in the word list; paragraphs
   // that only hold word or phrase entries get none. Until the list has answered, no paragraph has one.
   useEffect(() => {
@@ -145,8 +107,6 @@ export function ParagraphMarker({
       text: flowText(el),
     }));
     blocks.current = list.map(({ el }) => ({ el, ok: false }));
-    hover.current = null;
-    focus.current = null;
     schedule();
     let alive = true;
     void getParagraphNoteFlags(
@@ -167,120 +127,56 @@ export function ParagraphMarker({
   }, [articleRef, version, bookId, chapter, notesVersion, schedule]);
 
   useEffect(() => {
-    canHover.current =
-      typeof window.matchMedia === "function" ? window.matchMedia("(hover: hover)").matches : true;
-    const indexAt = (x: number, y: number): number | null => {
-      const art = articleRef.current;
-      if (!art) return null;
-      const ar = art.getBoundingClientRect();
-      if (x < ar.left - 8 || x > ar.right + 70) return null;
-      let best: number | null = null;
-      let bestGap = 24;
-      for (let i = 0; i < blocks.current.length; i += 1) {
-        const block = blocks.current[i];
-        if (!block?.ok) continue;
-        const r = block.el.getBoundingClientRect();
-        if (r.top > y + 30) break;
-        const gap = y < r.top ? r.top - y : y > r.bottom ? y - r.bottom : 0;
-        if (gap < bestGap) {
-          bestGap = gap;
-          best = i;
-          if (gap === 0) break;
-        }
-      }
-      return best;
-    };
-    const onMove = (event: MouseEvent) => {
-      if (!canHover.current) return;
-      const target = event.target as Element | null;
-      if (target?.closest?.("header, aside, [role='dialog']")) {
-        if (hover.current !== null) {
-          hover.current = null;
-          schedule();
-        }
-        return;
-      }
-      const next = indexAt(event.clientX, event.clientY);
-      if (next !== hover.current) {
-        hover.current = next;
-        schedule();
-      }
-    };
-    const indexOfNode = (node: Element | null) => {
-      if (!node) return null;
-      const at = blocks.current.findIndex((b) => b.ok && b.el.contains(node));
-      return at < 0 ? null : at;
-    };
-    const art = articleRef.current;
-    const onFocusIn = (event: FocusEvent) => {
-      focus.current = indexOfNode(event.target as Element | null);
-      schedule();
-    };
-    const onFocusOut = () => {
-      focus.current = null;
-      schedule();
-    };
-    window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
-    art?.addEventListener("focusin", onFocusIn);
-    art?.addEventListener("focusout", onFocusOut);
+    const art = articleRef.current;
     const observer = art ? new ResizeObserver(schedule) : null;
     if (art) observer?.observe(art);
     return () => {
-      window.removeEventListener("mousemove", onMove);
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
-      art?.removeEventListener("focusin", onFocusIn);
-      art?.removeEventListener("focusout", onFocusOut);
       observer?.disconnect();
       if (frame.current) cancelAnimationFrame(frame.current);
       frame.current = 0;
     };
   }, [articleRef, schedule, version]);
 
-  // The bar and the button follow the page when help opens or closes.
+  // The bar and the bulbs follow the page when help opens or closes.
   useEffect(() => {
     schedule();
-  }, [activeIndex, hide, schedule]);
+  }, [activeIndex, schedule]);
 
-  const showMarker = !hide && geo.marker && markerIndex !== null;
   return (
     <>
       {geo.bar ? (
         <div
           aria-hidden
           data-para-ui
-          className={cn(
-            "pointer-events-none fixed z-20 w-[3px] rounded-full bg-accent",
-            geo.bar.faint && "opacity-35",
-          )}
+          className="pointer-events-none fixed z-20 w-[3px] rounded-full bg-accent"
           style={{ top: geo.bar.top, height: geo.bar.height, left: geo.bar.left }}
         />
       ) : null}
-      {showMarker && geo.marker ? (
+      {geo.bulbs.map((spot) => (
         <button
+          key={spot.index}
           type="button"
           data-para-ui
-          data-para-marker={markerIndex}
+          data-para-marker={spot.index}
           aria-label={t("hp.simplifyAria")}
           title={t("hp.simplifyAria")}
-          data-fab={geo.marker.edge ? "1" : undefined}
-          onClick={() => {
-            if (markerIndex !== null) onOpen(markerIndex);
-          }}
+          onClick={() => onOpen(spot.index)}
           className={cn(
-            "fixed z-20 inline-flex items-center justify-center border border-line bg-card text-accent shadow-sm transition-colors hover:bg-accent-soft",
-            geo.marker.edge
-              ? "right-3 bottom-5 h-11 gap-1.5 rounded-full px-3.5 text-sm font-semibold shadow-pop"
-              : "size-9 rounded-full",
+            "fixed z-20 inline-flex items-center justify-center rounded-full text-accent transition-colors hover:bg-accent-soft",
+            spot.small
+              ? "size-6 border border-line bg-card shadow-sm"
+              : "size-7 border border-line bg-card shadow-sm",
+            spot.index === activeIndex && "bg-accent-soft",
           )}
-          style={geo.marker.edge ? undefined : { top: geo.marker.top, left: geo.marker.left }}
+          style={{ top: spot.top, left: spot.left }}
         >
-          <Lightbulb className="size-[1.1rem]" aria-hidden />
-          {geo.marker.edge ? t("hp.simplifyShort") : null}
+          <Lightbulb className={spot.small ? "size-[0.95rem]" : "size-[1.05rem]"} aria-hidden />
         </button>
-      ) : null}
+      ))}
     </>
   );
 }

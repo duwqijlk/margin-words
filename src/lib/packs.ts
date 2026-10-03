@@ -3,10 +3,9 @@
  *
  * A pack is one book (book.epub) and its whole-book data (glossary.json: meanings, paragraph notes,
  * sentence notes, phrases, coined words). Packs are listed in a catalog (catalog.json) on any static
- * host, or come from a .zip file the user picks. After a pack is stored in this browser (IndexedDB)
- * the reader needs no network at all. See README, "Reader and book packs".
+ * host; the reader downloads one from its Discover card. After a pack is stored in this browser
+ * (IndexedDB) the reader needs no network at all. See README, "Reader and book packs".
  */
-import type JSZip from "jszip";
 import {
   deleteStoredBook,
   listBookSummaries,
@@ -23,31 +22,16 @@ import {
   type CoverInfo,
   type PackRecord,
 } from "@/lib/book-db";
-import { dataUrlOf, fetchCoverData } from "@/lib/covers";
+import { fetchCoverData } from "@/lib/covers";
 import { findOnShelf, type Identity } from "@/lib/shelf-identity";
 import { useVocab } from "@/lib/vocab-store";
-import {
-  applySpineMerge,
-  importedCoverChoice,
-  importSpineWarnings,
-  parseEpub,
-  type ParsedEpub,
-  type SpineNameWarning,
-} from "@/lib/epub";
+import { applySpineMerge, parseEpub, type ParsedEpub } from "@/lib/epub";
 import { validateGlossary } from "@/lib/glossary-format";
-import { errorText, tr, type Key } from "@/lib/i18n";
-import {
-  findPacks,
-  matchGlossary,
-  MAX_EPUB_BYTES,
-  PackProblem,
-  type PackGroup,
-} from "@/lib/pack-check";
+import { tr, type Key } from "@/lib/i18n";
 import { applyPackGlossary, hashBytes } from "@/lib/pack-glossary";
 import { booksUrl } from "@/lib/books-base";
-import { isbnDigits, matchWordListPack, readSeries } from "@/lib/book-meta";
+import { isbnDigits, readSeries } from "@/lib/book-meta";
 import { lexileMeasure } from "@/lib/lexile";
-import { loadWordListCatalog, WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 
 /* ------------------------------------------------------------------ catalog types */
 
@@ -540,22 +524,6 @@ async function fetchBytes(
   return out;
 }
 
-/** The word-list catalog cover for this book, or empty when there is no match or no network. */
-async function catalogCoverFor(book: {
-  title: string;
-  author: string;
-  isbn: string;
-}): Promise<{ cover: string; info: CoverInfo | undefined }> {
-  try {
-    const match = matchWordListPack(await loadWordListCatalog(), book);
-    if (!match?.cover?.url) return { cover: "", info: undefined };
-    const cover = await fetchCoverData(resolveAgainst(WORD_LIST_CATALOG_URL, match.cover.url), match.cover.sha256);
-    return { cover, info: cover ? { source: "catalog", ref: match.cover.sha256 } : undefined };
-  } catch {
-    return { cover: "", info: undefined };
-  }
-}
-
 /** Download one pack of the catalog and store it. */
 export async function downloadPack(
   catalogUrl: string,
@@ -700,196 +668,6 @@ export async function adoptLegacyBooks(packs: CatalogPack[]): Promise<PackRecord
     // Matching is a convenience. The books themselves work without it.
   }
   return records;
-}
-
-/* ------------------------------------------------------------------ importing a pack file */
-
-export type ImportedPack = InstallResult & {
-  packId: string;
-  hadWords: boolean;
-  /** spine.merge names that match nothing, or match a file that is not merged. The book is still stored. */
-  warnings: SpineNameWarning[];
-};
-
-const baseName = (path: string) => path.slice(path.lastIndexOf("/") + 1);
-
-function slugFrom(value: string): string {
-  const slug = value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 48);
-  return ID_PATTERN.test(slug) ? slug : "";
-}
-
-/** A PackProblem as a sentence in the language of the person. */
-export function packProblemText(problem: PackProblem): string {
-  const params = problem.params;
-  return tr(`err.pack.${problem.code}` as Key, params);
-}
-
-type Prepared = {
-  packId: string;
-  rev: string;
-  title: string;
-  author: string;
-  parsed: ParsedEpub;
-  epub: Uint8Array;
-  epubSha: string;
-  glossaryText: string;
-  cover: string;
-  coverInfo: CoverInfo | undefined;
-  also: Identity;
-  lexile: string;
-  isbn: string;
-  series: string;
-  seriesNumber: number;
-  warnings: SpineNameWarning[];
-};
-
-/** Read one pack of the zip and check everything. Nothing is stored yet. Throws a PackProblem. */
-async function prepare(zip: JSZip, group: PackGroup): Promise<Prepared> {
-  const epubEntry = zip.file(group.epub) as JSZip.JSZipObject;
-  const listEntry = zip.file(group.list) as JSZip.JSZipObject;
-  const epub = await epubEntry.async("uint8array");
-  if (epub.byteLength > MAX_EPUB_BYTES)
-    throw new PackProblem("tooBig", { mb: Math.round(epub.byteLength / 1048576) });
-  const epubSha = await hashBytes(epub);
-
-  // 1. the word list: readable and valid
-  const glossaryText = await listEntry.async("string");
-  const check = validateGlossary(glossaryText);
-  if (!check.ok || !check.file) {
-    const shown = check.errors.slice(0, 3).join(" ");
-    throw new PackProblem("listBad", { problems: shown || tr("err.packListUnreadable") });
-  }
-
-  // 2. the book: opens, and gives the title, the author and the cover
-  let parsed: ParsedEpub;
-  try {
-    parsed = await parseEpub(bufferOf(epub), { segmentation: check.file.segmentation });
-  } catch (reason) {
-    throw new PackProblem("epubBad", { reason: errorText(reason, "err.openFailed") });
-  }
-
-  // 3. the list belongs to this book
-  matchGlossary(check.file, { title: parsed.title, author: parsed.author, sha256: epubSha });
-  const warnings = importSpineWarnings(check.file.spine?.merge, parsed);
-
-  // optional files
-  let info: Record<string, unknown> = {};
-  if (group.info) {
-    try {
-      info = JSON.parse(
-        await (zip.file(group.info) as JSZip.JSZipObject).async("string"),
-      ) as Record<string, unknown>;
-    } catch {
-      info = {};
-    }
-  }
-  const tagged = parsed.coverTagged ? parsed.cover ?? "" : "";
-  let supplied = "";
-  let suppliedInfo: CoverInfo | undefined;
-  if (!tagged && group.cover) {
-    const type = /png$/i.test(group.cover)
-      ? "image/png"
-      : /webp$/i.test(group.cover)
-        ? "image/webp"
-        : "image/jpeg";
-    const bytes = await (zip.file(group.cover) as JSZip.JSZipObject).async("uint8array");
-    supplied = await dataUrlOf(new Blob([bufferOf(bytes)], { type }));
-    suppliedInfo = { source: "epub", ref: "" };
-  } else if (!tagged) {
-    const found = await catalogCoverFor({
-      title: text(info.title, 160) || parsed.title,
-      author: text(info.author, 120) || parsed.author,
-      isbn: isbnDigits(info.isbn) || isbnDigits(check.file.isbn),
-    });
-    supplied = found.cover;
-    suppliedInfo = found.info;
-  }
-  const cover = importedCoverChoice(tagged, supplied, "");
-  const wantedId = text(info.id, 64);
-  const packId = ID_PATTERN.test(wantedId)
-    ? wantedId
-    : slugFrom(baseName(group.folder)) ||
-      (epubSha ? `local-${epubSha.slice(0, 10)}` : `local-${crypto.randomUUID().slice(0, 8)}`);
-  const rev = text(info.rev, 64) || (epubSha ? epubSha.slice(0, 12) : "");
-  // Title and author come from the book. A pack.json may give a nicer name; it is optional.
-  const title = text(info.title, 160) || parsed.title;
-  const author = text(info.author, 120) || parsed.author;
-  // pack.json wins. A list may also carry "lexile". Either may be absent.
-  const lexile = lexileMeasure(info.lexile) || lexileMeasure(check.file.lexile);
-  const isbn = isbnDigits(info.isbn) || isbnDigits(check.file.isbn);
-  const series = readSeries(info.series, info.seriesNumber);
-  const fromList = series.series ? series : readSeries(check.file.series, check.file.seriesNumber);
-  return {
-    packId,
-    rev,
-    title,
-    author,
-    parsed,
-    epub,
-    epubSha,
-    glossaryText,
-    cover,
-    coverInfo: cover === tagged ? undefined : suppliedInfo,
-    also: { title: text(check.file.title, 160), author: text(check.file.author, 120) },
-    lexile,
-    isbn,
-    series: fromList.series,
-    seriesNumber: fromList.seriesNumber,
-    warnings,
-  };
-}
-
-/**
- * Open a book pack (.zip) and store it. A pack is ONE .zip with one book (book.epub) and its word list
- * (glossary.json); see docs/book-pack-spec.md, "Required files". Title, author and cover come from the book.
- * Everything is checked first; if anything is wrong, nothing is stored and the error says what to fix.
- */
-export async function importPackZip(file: File): Promise<ImportedPack[]> {
-  let zip: JSZip;
-  try {
-    const { default: Zip } = await import("jszip");
-    zip = await Zip.loadAsync(await file.arrayBuffer());
-  } catch {
-    throw new Error(tr("err.notZip"));
-  }
-  try {
-    const paths: string[] = [];
-    zip.forEach((path, entry) => {
-      if (!entry.dir) paths.push(path);
-    });
-    const groups = findPacks(paths);
-    const ready: Prepared[] = [];
-    for (const group of groups) ready.push(await prepare(zip, group));
-    const results: ImportedPack[] = [];
-    for (const item of ready) {
-      const done = await installPack({
-        packId: item.packId,
-        rev: item.rev,
-        title: item.title,
-        author: item.author,
-        epub: item.epub,
-        epubSha256: item.epubSha,
-        glossaryText: item.glossaryText,
-        cover: item.cover,
-        ...(item.coverInfo ? { coverInfo: item.coverInfo } : {}),
-        also: item.also,
-        parsed: item.parsed,
-        lexile: item.lexile,
-        isbn: item.isbn,
-        series: item.series,
-        seriesNumber: item.seriesNumber,
-      });
-      results.push({ ...done, packId: item.packId, hadWords: true, warnings: item.warnings });
-    }
-    return results;
-  } catch (reason) {
-    if (reason instanceof PackProblem) throw new Error(packProblemText(reason));
-    throw reason;
-  }
 }
 
 export { loadPackRecord, listPackRecords };

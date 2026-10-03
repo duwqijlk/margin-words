@@ -51,9 +51,9 @@ export const en = {
   "guide.title": "Guide",
   "guide.intro": "A few things that help you start.",
   "guide.addTitle": "Add a book to your shelf",
-  "guide.addBody": "Open Discover and tap “Add to shelf” under a book. The button then says “On shelf”. To take a book off, tap “On shelf” and choose “Remove from shelf”. On your shelf, use the three-dot menu on a book. You can undo right after.",
+  "guide.addBody": "Books are added on Discover, and adding needs an account: sign in first (the person icon at the top). Then open Discover and tap “Add to shelf” under a book. The button then says “On shelf”. To take a book off, tap “On shelf” and choose “Remove from shelf”. On your shelf, use the three-dot menu on a book. You can undo right after.",
   "guide.kindsTitle": "Public domain and word lists",
-  "guide.kindsBody": "A public-domain book is the whole book, and it downloads when you add it. A word-list book is only the word list. You add your own EPUB of that book. The app checks the ISBN, and it checks how much of the text matches. A match of 80% or more is a good fit.",
+  "guide.kindsBody": "A public-domain book is the whole book, and it downloads when you add it. A word-list book is only the word list. You add your own EPUB of that book, from its card on Discover. The app checks the ISBN, and it checks how much of the text matches. A match of 80% or more is a good fit. When we improve a word list, your book gets the new list by itself.",
   "guide.wordsTitle": "Tap a word",
   "guide.wordsBody":
     "While you read, tap a word to see what it means. Save the words you want. They go into your notebook, and you can review them later.",
@@ -63,10 +63,9 @@ export const en = {
 
   /* ---- shelf */
   "shelf.title": "Shelf",
-  "shelf.importing": "Importing…",
   "shelf.emptyTitle": "Your shelf is empty",
   "shelf.emptyBody":
-    "Nothing here yet. Find a book on Discover, or add your own pack. Tap hard words to learn them.",
+    "Nothing here yet. Sign in, then find a book on Discover. Tap hard words to learn them.",
   "shelf.sample": "Try the sample notebook",
   "shelf.search": "Search by title or author",
   "shelf.noMatch": "No books found for “{query}”.",
@@ -93,7 +92,6 @@ export const en = {
   "rel.daysAgo": "{n} days ago",
 
   /* ---- add a book */
-  "shelf.add": "Add book",
   "shelf.all": "All books",
   "shelf.new": "New",
   "shelf.classic": "Public domain",
@@ -142,6 +140,7 @@ export const en = {
   "discover.loading": "Loading books…",
   "discover.loadingMore": "Loading more…",
   "discover.add": "Add to shelf",
+  "discover.signInToAdd": "Sign in to add",
   "discover.remove": "Remove from shelf",
   "discover.workingPct": "Adding… {pct}%",
   "discover.retry": "Try again",
@@ -180,64 +179,20 @@ export const en = {
   "shelf.due": "{n} due",
   "shelf.chapterOf": "Chapter {n} of {total}",
   "shelf.step1": "Add a book",
-  "shelf.step1Body": "Open Discover to add a public-domain book, or add your own pack.",
+  "shelf.step1Body": "Sign in, then open Discover and add a public-domain book or a word list.",
   "shelf.step2": "Tap a hard word",
   "shelf.step2Body": "See a simple English meaning.",
   "shelf.step3": "Save and review",
   "shelf.step3Body": "Saved words go to your notebook.",
-  "drop.here": "Drop your book pack (.zip) here",
-  "add.title": "Add a book",
-  "add.packTitle": "Add your own book pack",
-  "add.packBody":
-    "One .zip file with book.epub and glossary.json inside. A plain EPUB does not work.",
-  "add.howTo": "How to make a pack",
-  "add.choose": "Choose .zip file",
-  "add.free": "Public domain",
-  "add.freeHint":
-    "Public-domain books. Nothing is added by itself. A book you delete stays off the shelf until you add it again from Discover. After that it works offline.",
   "settings.advanced": "Book list address",
-  "err.bareEpub":
-    "A plain EPUB cannot be added. Please use a book pack: one .zip with book.epub and glossary.json.",
-  "err.bareEpubLink": "How to make a pack",
-  "err.notPackFile": "This file is not a book pack. Please choose a .zip file.",
-  "err.pack.empty": "This zip has no book pack inside. A pack needs book.epub and glossary.json.",
-  "err.pack.noEpub": "This pack has no book. Add book.epub to the zip.",
-  "err.pack.noList": "This pack has no word list. Add glossary.json to the zip.",
-  "err.pack.manyEpub":
-    "This zip has more than one book ({names}). A pack must have only one .epub file.",
-  "err.pack.manyList":
-    "This zip has more than one word list ({names}). A pack must have only one glossary.json.",
   "err.pack.listBad": "The word list (glossary.json) cannot be used. {problems}",
-  "err.pack.noId":
-    "The word list does not say which book it is for. Add the book title (and author), or the sha256 of the EPUB, to glossary.json.",
-  "err.pack.shaMismatch":
-    "The word list was made for another copy of this book, and it has no title to compare. Make the list again for this EPUB.",
-  "err.pack.mismatch":
-    "The word list is for “{listBook}”, but the book in the zip is “{epubBook}”. Put the right word list in the pack.",
-  "err.pack.epubBad": "The book (book.epub) cannot be opened. {reason}",
-  "err.pack.tooBig": "The book is too big ({mb} MB). The limit is 40 MB.",
 
-  /* ---- get books */
-  "get.offline":
-    "You are offline. This is the last book list we saved. The books on your shelf still work.",
-  "get.none": "This book list has no books yet.",
-  "get.downloadAll": "Download all ({n})",
-  "get.tryAgain": "Try again",
-  "get.changeAddress": "Change the address",
-  "pack.noList": "No word list",
-  "pack.sizeTiny": "less than 0.1 MB",
-  "pack.download": "Get",
-  "pack.downloadAria": "Download “{title}”",
-  "pack.updateAvail": "Update available",
+  /* ---- word-list updates */
   "pack.update": "Update",
-  "pack.updateAria": "Update “{title}”",
-  "pack.onShelf": "On your shelf",
-  "pack.open": "Read",
   "pack.openAria": "Open “{title}”",
   "pack.progressFor": "Download progress for “{title}”",
-  "pack.stage.book": "Downloading the book",
-  "pack.stage.words": "Getting the word list",
-  "pack.stage.saving": "Saving on this device",
+  "msg.listsUpdated.one": "Word lists updated for {n} book.",
+  "msg.listsUpdated.other": "Word lists updated for {n} books.",
 
   /* ---- settings */
   "settings.title": "Settings",
@@ -255,7 +210,7 @@ export const en = {
   "account.open": "Sign in",
   "account.manage": "Account",
   "account.title": "Account",
-  "account.desc": "Sign in to sync your shelf, reading place, and saved words. The app works fully without an account.",
+  "account.desc": "Sign in to add books, and to sync your shelf, reading place, and saved words. Books already on this device can be read without an account.",
   "account.signedDesc":
     "You are signed in. Your shelf, reading place, saved words, and settings sync to your other devices. Book files stay on each device.",
   "account.privacyTitle": "Privacy",
@@ -315,7 +270,6 @@ export const en = {
   "err.downloadFailed": "The download did not work. Check your connection and try again.",
   "err.fileNotFound": "This book could not be downloaded. The file was not found.",
   "err.downloadStopped": "The download stopped. Check your connection and try again.",
-  "err.notZip": "This file could not be opened. It is not a valid zip file.",
   "err.noSpace":
     "Your browser does not have enough space for this book. Please delete some old books, or choose a smaller one.",
   "err.saveFailedPack":
@@ -325,8 +279,6 @@ export const en = {
   "err.packListEmpty": "The word list in this pack is empty.",
   "err.bookGone": "This book is not on your shelf any more.",
   "err.openFailed": "This EPUB cannot be opened.",
-  "err.onePack": "Please choose one .zip file at a time.",
-  "err.packOpenFailed": "This pack file cannot be opened.",
   "err.listAddFailed": "The word list could not be added.",
   "err.listUnreadable": "This file could not be read. Please try to choose it again.",
   "err.bookAddFailed": "This book could not be added.",
@@ -335,8 +287,6 @@ export const en = {
   "err.storageNo": "This browser cannot save books on your device.",
   "err.storagePrivate":
     "This browser cannot save books right now. It may be in private mode, or site data may be turned off. Your books will be lost when you refresh.{detail}",
-  "msg.packAdded": "Added “{title}” with {words}.",
-  "msg.packUpdated": "Updated “{title}” with {words}.",
   "msg.listAdded": "Word list added: {words}{multi}{kept}.",
   "msg.listMulti": ", {n} with more than one meaning",
   "msg.listKept.one": ". {n} old meaning was kept",
@@ -463,7 +413,6 @@ export const en = {
   "hp.noSent": "This sentence does not have an easier version yet.",
   "hp.footer": "Simple versions only retell the story. Read the original too.",
   "hp.simplifyAria": "Simplify this paragraph",
-  "hp.simplifyShort": "Simplify",
   "hp.panelAria": "Paragraph help",
   "hp.title": "This paragraph",
   "hp.close": "Close paragraph help",
@@ -594,6 +543,7 @@ export const en = {
   "shelf.suggestTitle": "A good first book",
   "shelf.suggestBody":
     "A public-domain classic. Its hard words have simple English meanings.",
+  "shelf.suggestGo": "See it on Discover",
   "nav.about": "About",
   "notice.link": "How this site works",
   "src.chapterN": "Chapter {n}",

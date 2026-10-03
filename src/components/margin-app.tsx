@@ -10,11 +10,10 @@ import {
   requestPersistentStorage,
 } from "@/lib/book-db";
 import { readGlossaryFile } from "@/lib/glossary-import";
-import { registerInstalled } from "@/lib/shelf-register";
-import { importPackZip } from "@/lib/packs";
+import { canAddBooks, askToSignIn } from "@/lib/can-add";
 import { ensureClassics } from "@/lib/classics";
 import { useProgress } from "@/lib/progress-store";
-import { errorText, tr, trn, useT } from "@/lib/i18n";
+import { tr, trn, useT } from "@/lib/i18n";
 import { applyTheme, usePrefs } from "@/lib/reader-prefs";
 import { summarize } from "@/lib/srs";
 import type { VocabEntry } from "@/lib/vocab-model";
@@ -30,10 +29,10 @@ import type { ListFlow } from "@/components/word-list";
 import { NoticeBar } from "@/components/notice-bar";
 import { DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useRoute, type Route } from "@/lib/router";
 import { refreshCovers, repairShelf } from "@/lib/shelf-repair";
-import { guideUrl } from "@/lib/guide";
 import { useAccount } from "@/lib/account-store";
 import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
 import { AccountDialog } from "@/components/account-dialog";
+import { autoUpdateWordLists, useListUpdates } from "@/lib/word-list-update";
 
 type Screen = Route;
 
@@ -68,7 +67,6 @@ const Notebook = lazy(() => import("@/components/notebook").then((m) => ({ defau
 const DiscoverScreen = lazy(() => import("@/components/discover").then((m) => ({ default: m.DiscoverScreen })));
 const AboutScreen = lazy(() => import("@/components/about-page").then((m) => ({ default: m.AboutScreen })));
 const GuideScreen = lazy(() => import("@/components/guide-page").then((m) => ({ default: m.GuideScreen })));
-const AddBookScreen = lazy(() => import("@/components/get-books").then((m) => ({ default: m.AddBookScreen })));
 const SettingsDialog = lazy(() => import("@/components/get-books").then((m) => ({ default: m.SettingsDialog })));
 const OwnEpubDialog = lazy(() => import("@/components/own-epub-dialog").then((m) => ({ default: m.OwnEpubDialog })));
 const ReaderScreen = lazy(() => import("@/components/reader").then((m) => ({ default: m.ReaderScreen })));
@@ -88,19 +86,16 @@ export function MarginApp() {
   const [ready, setReady] = useState(false);
   const screen: Screen = useRoute();
   const [epubFor, setEpubFor] = useState<string | null>(null);
-  const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
-  const [bareEpub, setBareEpub] = useState(false);
-  const [dragging, setDragging] = useState(false);
   const [storageWarning, setStorageWarning] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [settingsVersion, setSettingsVersion] = useState(0);
   const listRef = useRef<HTMLInputElement>(null);
   const listTarget = useRef<string | null>(null);
-  const packRef = useRef<HTMLInputElement>(null);
   const [listFlow, setListFlow] = useState<ListFlow | null>(null);
   const [notes, setNotes] = useState<string[]>([]);
   const [spineWarnings, setSpineWarnings] = useState<SpineNameWarning[]>([]);
+  const listsUpdated = useListUpdates((state) => state.updated);
+  const dismissListsUpdated = useListUpdates((state) => state.dismiss);
 
   useEffect(() => {
     applyTheme(theme);
@@ -168,6 +163,8 @@ export function MarginApp() {
         if (state.ok) void requestPersistentStorage();
       });
       void ensureClassics().finally(() => void refreshCovers().catch(() => undefined));
+      // Installed books whose catalog revision changed get their new word list in the background.
+      void autoUpdateWordLists();
       notifySyncReady();
       setReady(true);
     })();
@@ -188,47 +185,22 @@ export function MarginApp() {
   function clearMessages() {
     setNotes([]);
     setImportError(null);
-    setBareEpub(false);
     setSpineWarnings([]);
   }
 
   /**
-   * Files from the picker or a drop. The only way to add a book is a book pack: ONE .zip with book.epub
-   * and glossary.json. A bare EPUB is not accepted: the person gets a friendly message and the guide link.
-   * A word list (.json) alone is still added to a book already on the shelf (book menu, or a drop).
+   * A word list (.json) for a book already on the shelf, from the book-menu picker. Books
+   * themselves are added only on Discover (download, or the own-EPUB dialog of a word-list card).
    */
-  async function takeFiles(files: File[]) {
-    if (!ready || importing || files.length === 0) return;
-    const name = (file: File) => file.name.toLowerCase();
-    const isPack = (file: File) =>
-      name(file).endsWith(".zip") ||
-      (!name(file).endsWith(".epub") &&
-        (file.type === "application/zip" || file.type === "application/x-zip-compressed"));
-    const isList = (file: File) => name(file).endsWith(".json") || file.type === "application/json";
-    const isEpub = (file: File) =>
-      name(file).endsWith(".epub") || file.type === "application/epub+zip";
+  async function takeListFile(file: File | undefined) {
+    if (!ready || !file) return;
     clearMessages();
-    const packs = files.filter(isPack);
-    if (packs.length > 0) {
-      if (packs.length > 1 || files.length > 1) {
-        setImportError(t("err.onePack"));
-        return;
-      }
-      void importPack(packs[0] as File);
-      return;
+    try {
+      const check = await readGlossaryFile(file);
+      setListFlow({ fileName: file.name, check, bookId: listTarget.current });
+    } catch {
+      setImportError(t("err.listUnreadable"));
     }
-    if (files.some(isEpub)) {
-      setBareEpub(true);
-      return;
-    }
-    const lists = files.filter(isList);
-    if (lists.length === 1 && files.length === 1) {
-      const list = lists[0] as File;
-      const check = await readGlossaryFile(list);
-      setListFlow({ fileName: list.name, check, bookId: listTarget.current });
-      return;
-    }
-    setImportError(t("err.notPackFile"));
   }
 
   async function openListPicker(bookId: string | null) {
@@ -236,39 +208,13 @@ export function MarginApp() {
     listRef.current?.click();
   }
 
-  /** A .zip book pack from the picker or a drop. Works with no internet. */
-  async function importPack(file: File) {
-    if (!ready || importing) return;
-    setImporting(true);
-    setImportError(null);
-    setBareEpub(false);
-    try {
-      const done = await importPackZip(file);
-      for (const item of done) registerInstalled(item);
-      window.dispatchEvent(
-        new CustomEvent("cibian-progress", { detail: { bookId: done[0]?.bookId } }),
-      );
-      const warnings = done.flatMap((item) => item.warnings);
-      if (warnings.length > 0) setSpineWarnings(warnings);
-      if (done.length === 1 && done[0]) {
-        // The book opens by itself. A spine.merge name that missed stays as a warning on top.
-        setScreen({ kind: "read", bookId: done[0].bookId });
-      } else {
-        setNotes(
-          done.map((item) =>
-            t(item.updated ? "msg.packUpdated" : "msg.packAdded", {
-              title: item.title,
-              words: tn("count.word", item.words),
-            }),
-          ),
-        );
-        setScreen({ kind: "shelf" });
-      }
-    } catch (reason) {
-      setImportError(errorText(reason, "err.packOpenFailed"));
-    } finally {
-      setImporting(false);
+  /** Open the own-EPUB dialog. Importing the reader's own e-book completes an add: it needs the account too. */
+  function askForEpub(bookId: string) {
+    if (!canAddBooks(useAccount.getState().phase)) {
+      askToSignIn();
+      return;
     }
+    setEpubFor(bookId);
   }
 
   function openBook(bookId: string) {
@@ -277,7 +223,7 @@ export function MarginApp() {
       useVocab.getState().books.find((item) => item.id === bookId) ??
       books.find((item) => item.id === bookId);
     if (book?.needsEpub) {
-      setEpubFor(bookId);
+      askForEpub(bookId);
       return;
     }
     setScreen(book?.source === "epub" ? { kind: "read", bookId } : { kind: "words", bookId });
@@ -330,43 +276,12 @@ export function MarginApp() {
       badge: due,
     },
   ];
-  const canDrop = !reading && (screen.kind === "shelf" || screen.kind === "add");
-
   return (
     <div
       className={cn("min-h-dvh bg-paper text-ink", !reading && "max-sm:pb-[calc(4.25rem+env(safe-area-inset-bottom))]")}
-      onDragOver={(event) => {
-        if (canDrop && event.dataTransfer.types.includes("Files")) {
-          event.preventDefault();
-          setDragging(true);
-        }
-      }}
-      onDragLeave={(event) => {
-        if (event.currentTarget === event.target) setDragging(false);
-      }}
-      onDrop={(event) => {
-        if (!canDrop) return;
-        event.preventDefault();
-        setDragging(false);
-        listTarget.current = null;
-        void takeFiles([...(event.dataTransfer.files ?? [])]);
-      }}
     >
-      {/* The only file inputs of the app: a book pack (.zip), and a word list (.json) for a book that is already on the shelf. */}
-      <input
-        ref={packRef}
-        id="pack-file"
-        className="sr-only"
-        type="file"
-        accept=".zip,application/zip"
-        tabIndex={-1}
-        onChange={(event) => {
-          const files = [...(event.target.files ?? [])];
-          event.target.value = "";
-          listTarget.current = null;
-          void takeFiles(files.slice(0, 1));
-        }}
-      />
+      {/* The only file input of the app: a word list (.json) for a book that is already on the shelf.
+          Books themselves are added only on Discover. */}
       <input
         ref={listRef}
         id="list-file"
@@ -375,16 +290,11 @@ export function MarginApp() {
         accept=".json,application/json"
         tabIndex={-1}
         onChange={(event) => {
-          const files = [...(event.target.files ?? [])];
+          const file = event.target.files?.[0];
           event.target.value = "";
-          void takeFiles(files.slice(0, 1));
+          void takeListFile(file);
         }}
       />
-      {dragging && canDrop ? (
-        <div className="pointer-events-none fixed inset-3 z-50 flex items-center justify-center rounded-3xl border-2 border-dashed border-accent bg-accent-soft/85 px-6 text-center text-lg font-semibold text-accent">
-          {t("drop.here")}
-        </div>
-      ) : null}
       {spineWarnings.length > 0 ? (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-40 px-4">
           <div className="pointer-events-auto mx-auto max-w-6xl">
@@ -483,18 +393,9 @@ export function MarginApp() {
               {importError}
             </Banner>
           ) : null}
-          {bareEpub ? (
-            <Banner tone="warn" onClose={() => setBareEpub(false)} data-bare-epub>
-              <span>{t("err.bareEpub")}</span>{" "}
-              <a
-                className="font-semibold underline"
-                href={guideUrl()}
-                target="_blank"
-                rel="noopener"
-                data-guide-link
-              >
-                {t("err.bareEpubLink")}
-              </a>
+          {listsUpdated > 0 ? (
+            <Banner tone="good" onClose={dismissListsUpdated} data-lists-updated>
+              {tn("msg.listsUpdated", listsUpdated)}
             </Banner>
           ) : null}
           {notes.length > 0 ? (
@@ -530,16 +431,7 @@ export function MarginApp() {
             <DiscoverScreen
               shelf={orderedBooks}
               onOpen={openBook}
-              onNeedsEpub={(bookId) => setEpubFor(bookId)}
-            />
-          ) : screen.kind === "add" ? (
-            <AddBookScreen
-              shelf={orderedBooks}
-              settingsVersion={settingsVersion}
-              importing={importing}
-              onOpen={(bookId) => (bookId ? openBook(bookId) : undefined)}
-              onSettings={() => setSettingsOpen(true)}
-              onImportClick={() => packRef.current?.click()}
+              onNeedsEpub={askForEpub}
             />
           ) : screen.kind === "words" ? (
             <Notebook
@@ -563,13 +455,8 @@ export function MarginApp() {
               words={words}
               covers={covers}
               ready={ready}
-              importing={importing}
               onOpen={openBook}
               onNotebook={(bookId) => setScreen({ kind: "words", bookId })}
-              onAdd={() => {
-                clearMessages();
-                setScreen({ kind: "add" });
-              }}
               onAddList={(bookId) => void openListPicker(bookId)}
               onDemo={() => {
                 if (!ready) return;
@@ -594,11 +481,7 @@ export function MarginApp() {
           />
         ) : null}
         {settingsOpen ? (
-          <SettingsDialog
-            open={settingsOpen}
-            onOpenChange={setSettingsOpen}
-            onSaved={() => setSettingsVersion((n) => n + 1)}
-          />
+          <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} onSaved={() => undefined} />
         ) : null}
       </Suspense>
       <AccountDialog />

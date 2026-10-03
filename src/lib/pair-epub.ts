@@ -19,6 +19,11 @@ export async function cachedWordList(id: string): Promise<string> {
   return loadCachedText(cacheKey(id));
 }
 
+/** Keep a newer copy of a word list (the automatic update), so the next pairing uses it. */
+export async function storeWordListText(id: string, text: string): Promise<void> {
+  await saveCachedText(cacheKey(id), text);
+}
+
 export async function fetchWordList(pack: WordListPack, catalogUrl = WORD_LIST_CATALOG_URL): Promise<string> {
   const saved = await cachedWordList(pack.id);
   if (saved) return saved;

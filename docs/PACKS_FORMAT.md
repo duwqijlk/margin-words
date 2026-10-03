@@ -2,7 +2,7 @@
 
 > The short, complete spec for AI agents is [book-pack-spec.md](book-pack-spec.md) (also in the downloadable book-pack-kit.zip). Sample: `examples/sample-book/`.
 
-A **book pack** is one book plus its word list. The reader app contains twelve free public-domain classics (in `public-books/`, same pack format). Only Alice's Adventures in Wonderland is marked `preinstall` and is installed on a new shelf. The other classics are on Discover and download when the reader adds them. A book the user deleted stays deleted. The app also imports a pack `.zip` the user picks (Add book), or another catalog the user sets.
+A **book pack** is one book plus its word list. The books host carries twelve free public-domain classics (in `public-books/`, same pack format). A new shelf starts empty; every classic is on Discover and downloads when a signed-in reader adds it. A book the user deleted stays deleted. The app has no `.zip` import: packs reach readers through a catalog on a books host (the built-in one, or another catalog address set in Settings).
 
 ## Folder layout (what you host)
 
@@ -55,7 +55,7 @@ it does not include `all-packs.zip` or the per-book `.zip` files. Those zips rem
 | --- | --- |
 | `format` | Always `1`. |
 | `id` | Letters, digits, `-` and `_`. Same as the folder name. Never change it for a book. |
-| `title`, `author`, `level`, `notes` | Shown on the card in "Add book" -> "Free books". |
+| `title`, `author`, `level`, `notes` | Shown on the book's card on Discover. |
 | `lexile` | Optional. A Lexile measure for this edition, such as `750L` or `HL1070L`. The shelf and the free-books list show it and can sort or filter by it. Leave it out when you do not have a published measure; the card then says unrated. See [LEXILE_SOURCES.md](LEXILE_SOURCES.md). |
 | `isbn` | Optional. ISBN-13 of the edition this list was written for. Leave it out when the EPUB has no ISBN you can confirm. See [ISBN_SOURCES.md](ISBN_SOURCES.md). |
 | `series` | Optional series title. A name alone is enough. The shelf can group and filter by it. |

@@ -27,7 +27,7 @@ Deliverables, in this order of importance:
 | `book-pack-spec.md` | This file. |
 | `the-lantern-seller.epub` | Sample book: 3 chapters, about 600 words, original text, CC0. |
 | `the-lantern-seller.glossary.json` | Finished word list for that book. It uses every feature. Copy its style. |
-| `the-lantern-seller.pack.zip` | The same two files as a ready-to-import book pack (`book.epub` + `glossary.json`). Add it in the app: Add book -> Choose .zip file. |
+| `the-lantern-seller.pack.zip` | The same two files as a ready-made book pack (`book.epub` + `glossary.json`). Packs are published on a books host (a catalog); readers add books from the app's Discover page. |
 
 The kit zip itself is NOT a pack (it holds a spec and loose files). Import `the-lantern-seller.pack.zip` from the kit.
 
@@ -99,7 +99,7 @@ Make it: `zip my-book.pack.zip book.epub glossary.json` (put the two files at th
 
 ### 3.3 Hosting and copyright
 
-- Hosting a catalog (optional, for people who run a website): `catalog.json` = `{ "format": 1, "name": "...", "packs": [ { "id", "title", "author", "rev", "lexile": "880L", "isbn": "9780141960616", "series": "Alice", "seriesNumber": 1, "epub": { "url", "bytes", "sha256" }, "glossary": { "url", "bytes", "sha256", "rev" } } ] }`. `lexile`, `isbn`, `series` and `seriesNumber` are optional. `series` may stand alone. `url` is relative to the catalog or a full https address. The reader app downloads these packs for the learner (Add book -> Free books) and shows the measure and ISBN on the card.
+- Hosting a catalog (optional, for people who run a website): `catalog.json` = `{ "format": 1, "name": "...", "packs": [ { "id", "title", "author", "rev", "lexile": "880L", "isbn": "9780141960616", "series": "Alice", "seriesNumber": 1, "epub": { "url", "bytes", "sha256" }, "glossary": { "url", "bytes", "sha256", "rev" } } ] }`. `lexile`, `isbn`, `series` and `seriesNumber` are optional. `series` may stand alone. `url` is relative to the catalog or a full https address. The reader app downloads these packs for the learner (from their cards on Discover) and shows the measure and ISBN on the card.
 - A word-list catalog (no book file) is `{ "format": 1, "name": "...", "lists": [ { "id", "title", "author", "lexile", "isbn", "series", "seriesNumber", "glossary": { "url", "bytes", "sha256" } } ] }`. It must not include an EPUB. The reader downloads `glossary.json` only. The person prepares their own e-book of that ISBN and pairs it in the app. The app then shows what share of the list's `context` snippets were found in that e-book.
 - Copyright: put the EPUB in a pack only if the book is public domain or the user owns the right to share it.
   For a copyrighted book, deliver `glossary.json` alone and tell the user to build the pack on their own computer.

@@ -293,9 +293,11 @@ They are read as a v2 file with no senses. A v1 list can be added to a book too.
 
 ## 5. Importing a list (in the app)
 
-A new book is added only as a **book pack** (one `.zip` with `book.epub` + `glossary.json`; see
-[book-pack-spec.md](book-pack-spec.md), section 3). A standalone EPUB is not accepted. For a book that is already on the shelf,
-use the book's menu "Add word list" (or drop the `.json` on the shelf). The app first
+New books are added from the **Discover** page only (a signed-in reader; public-domain packs download
+from their cards, a word-list book asks for the reader's own EPUB). The app has no `.zip` import;
+packs (one `.zip` with `book.epub` + `glossary.json`; see [book-pack-spec.md](book-pack-spec.md),
+section 3) are the format for the books host. For a book that is already on the shelf,
+use the book's menu "Add word list" (a `.json` file). The app first
 validates the list and stops with plain-English messages that name the word that is wrong.
 If the book already has some of the words you choose **Add only new words** (default) or
 **Replace**. Words that are not in the list are never changed. A list that comes in a pack is the whole word list of that book. Words that are not in it show the "No meaning for this word in this book yet." line.

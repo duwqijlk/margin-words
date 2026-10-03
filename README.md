@@ -17,7 +17,7 @@ are in [docs/book-pack-spec.md](docs/book-pack-spec.md), section 3.
 Give **`book-pack-kit.zip`** to an AI agent. It holds `book-pack-spec.md` (the full format and workflow, written for
 an AI), a sample book (*The Lantern Seller*, EPUB), its sample word list (`glossary.json`), and
 `the-lantern-seller.pack.zip`, a ready-to-add sample pack (`book.epub` + `glossary.json`).
-Download it in the app: Add book and Settings have a "How to make a book pack" link (page `/kit/`).
+Download it in the app: the Guide and Settings link to "How to make a book pack" (page `/kit/`).
 Make a pack from your own files: `node scripts/make-pack.mjs book.epub glossary.json my-book.pack.zip`.
 Build it yourself: `npm run build:kit` (sources: `docs/book-pack-spec.md` and `examples/sample-book/`).
 Check the sample and the spec: `npm run check:example`.
@@ -33,10 +33,11 @@ npx vite build       # static app in dist/
 ## Reader and book packs
 
 **The reader is a static app.** `dist/` is plain files (HTML, JS, CSS, fonts). It has no AI. Open it from
-any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`). It works fully with no account.
+any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`). Reading needs no account:
+books already on a device stay readable. Adding new books asks for a sign-in.
 Optional sign-in (sync across devices) is a Cloudflare Pages Function next to the static files. See
 [docs/ACCOUNTS.md](docs/ACCOUNTS.md). Without those functions the rest of the app is unchanged.
-The reader loads **twelve free public-domain classics** from the books host (`public-books/`). A new shelf starts **empty**: it points to Discover and suggests Alice as a first book with one tap, and Alice is added, removed and kept like any other book. A shelf that already has Alice keeps it. Every book is on **Discover** and download when you tap the heart on the cover. A book you delete is not added again; adding it from Discover clears that. Books already on a device stay there. To add a classic, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists** on the same host (`word-lists/<id>/glossary.json`, plus a card-sized `cover.jpg` taken from `packs/<id>/cover.jpg` when that file exists). A list with no cover uses the generated title-and-author cover. Adding one downloads the word list only and asks for your own e-book of that ISBN. The copyrighted EPUBs are not on the public host.
+The reader loads **twelve free public-domain classics** from the books host (`public-books/`). A new shelf starts **empty**: it points to Discover and suggests Alice as a first book (the suggestion card links to Discover), and Alice is added, removed and kept like any other book. A shelf that already has Alice keeps it. Every book is on **Discover** and download when you tap the heart on the cover. A book you delete is not added again; adding it from Discover clears that. Books already on a device stay there. To add a classic, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists** on the same host (`word-lists/<id>/glossary.json`, plus a card-sized `cover.jpg` taken from `packs/<id>/cover.jpg` when that file exists). A list with no cover uses the generated title-and-author cover. Adding one downloads the word list only and asks for your own e-book of that ISBN. The copyrighted EPUBs are not on the public host.
 
 All meanings, simple versions, sentence explanations, phrases and examples come from the word list
 (`glossary.json`) of the book. A word that is not in the list shows "No meaning for this word in this book yet."
@@ -87,20 +88,23 @@ File addresses in `catalog.json` are relative to the catalog file, so the folder
 
 ### How a reader uses it, also offline
 
-1. Open the app. A new shelf is empty and suggests Alice's Adventures in Wonderland (one tap adds it). Tap **Discover** for every book
-   (the public-domain books and the word lists), with search and the difficulty, author, and series filters.
+1. Open the app. A new shelf is empty and points to Discover (it suggests Alice's Adventures in Wonderland).
+   **Discover is the only place to add books**, and adding needs a signed-in account: a signed-out visitor can
+   browse everything, and the add button says **Sign in to add**. Discover lists every book (the public-domain
+   books and the word lists), with search and the difficulty, author, and series filters.
 2. Tap the heart on a cover. A filled red heart means the book is on the shelf; tap it again to remove it.
    A fresh book can be undone. A book you have started reading, or one with your own e-book, asks first.
    A public-domain book downloads when the heart is tapped. A word-list book downloads its word list and asks
    for your own e-book of the ISBN on the card. A match under 80% is shown before it is saved. The book and
-   its word list are stored in the browser (IndexedDB). **Add book** is still the way to import a pack `.zip`,
-   or to use a catalog address you set in Settings.
+   its word list are stored in the browser (IndexedDB). Books already stored on a device stay readable,
+   signed in or not.
 3. After that the book works with **no internet**. The app itself also works offline after the first visit
    (a small service worker keeps the app files; it needs `https://` or `localhost`).
-4. When a book changes (new `rev`), its card says **Update available**. Notes and reading place are kept.
-5. No internet or no host at all? Tap **Add book**, then **Choose .zip file** (or drop a pack `.zip` on the shelf). Share
-   `packs/<id>.zip` by any means (USB, chat, mail). A bare `.epub` is refused with a message and a link to the guide.
-   A bad pack (no word list, a list for another book, an invalid list) is refused with a message that says what to fix.
+4. When a word list changes (new `rev`), the new list is fetched quietly in the background on the next load:
+   the book file, reading place, saved words and settings are kept, and a small notice says how many books
+   were updated. A list the reader added or edited by hand is never replaced. A word-list book whose new list
+   does not match the reader's own EPUB (under 80%) keeps the old list, and its Discover card shows a manual
+   **Update** button with the reason. The same button appears when an automatic update fails.
 
 A book's menu on the shelf has **Add word list** (a `.json` for a book that is already there).
 Books that older versions saved in the browser still work and are marked "On your shelf".

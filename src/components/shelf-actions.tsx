@@ -1,16 +1,18 @@
 import * as Popover from "@radix-ui/react-popover";
-import { BookOpen, Check, ChevronDown, Loader2, Plus, RotateCw, Trash2, Undo2 } from "lucide-react";
+import { BookOpen, Check, ChevronDown, Loader2, LogIn, Plus, RotateCw, Trash2, Undo2 } from "lucide-react";
 import { useRef, useState } from "react";
 import { ConfirmDialog, cn } from "@/components/ui";
 import { useT } from "@/lib/i18n";
 import { forgetBook, useShelfRemove } from "@/lib/shelf-remove";
 
-export type ShelfState = "off" | "busy" | "on" | "error";
+export type ShelfState = "off" | "busy" | "on" | "update" | "error";
 
 /**
  * The one control that puts a book on the shelf and takes it off again, under a cover on Discover.
  * It says what it does in words, in every state, on touch and on desktop (no hover needed):
  *   "+ Add to shelf"  ->  "Adding… 40%"  ->  "✓ On shelf ▾" (a small menu: open the book, or remove it).
+ * "update" is the fallback for a word-list update that was not applied by itself. A signed-out
+ * visitor sees "Sign in to add" instead of "Add to shelf"; the tap opens the sign-in dialog.
  * It is one button the whole time, so keyboard focus stays on it while the state changes.
  */
 export function AddToShelfButton({
@@ -18,6 +20,7 @@ export function AddToShelfButton({
   fraction,
   error = "",
   title,
+  signedOut = false,
   onAdd,
   onOpen,
   onRemove,
@@ -27,6 +30,8 @@ export function AddToShelfButton({
   fraction?: number;
   error?: string;
   title: string;
+  /** true when the visitor must sign in before adding; the "off" button then says so */
+  signedOut?: boolean;
   onAdd: () => void;
   onOpen: () => void;
   onRemove: () => void;
@@ -35,6 +40,7 @@ export function AddToShelfButton({
   const [open, setOpen] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
   const pct = fraction == null ? null : Math.round(Math.min(1, Math.max(0, fraction)) * 100);
+  const needsSignIn = signedOut && (state === "off" || state === "error");
   const label =
     state === "on"
       ? t("discover.onShelf")
@@ -42,10 +48,24 @@ export function AddToShelfButton({
         ? pct != null && pct > 0
           ? t("discover.workingPct", { pct })
           : t("discover.working")
-        : state === "error"
-          ? t("discover.retry")
-          : t("discover.add");
-  const Icon = state === "on" ? Check : state === "busy" ? Loader2 : state === "error" ? RotateCw : Plus;
+        : state === "update"
+          ? t("pack.update")
+          : state === "error"
+            ? needsSignIn
+              ? t("discover.signInToAdd")
+              : t("discover.retry")
+            : needsSignIn
+              ? t("discover.signInToAdd")
+              : t("discover.add");
+  const Icon = needsSignIn
+    ? LogIn
+    : state === "on"
+      ? Check
+      : state === "busy"
+        ? Loader2
+        : state === "update" || state === "error"
+          ? RotateCw
+          : Plus;
   return (
     <div className="grid gap-1.5">
       <Popover.Root open={state === "on" && open} onOpenChange={setOpen}>
@@ -55,19 +75,20 @@ export function AddToShelfButton({
             type="button"
             data-shelf-add=""
             data-shelf-state={state}
+            data-requires-signin={needsSignIn ? "" : undefined}
             aria-busy={state === "busy" || undefined}
             aria-disabled={state === "busy" || undefined}
             aria-haspopup={state === "on" ? "dialog" : undefined}
             aria-expanded={state === "on" ? open : undefined}
             className={cn(
               "shelf-add relative inline-flex min-h-11 w-full items-center justify-center gap-2 overflow-hidden rounded-xl border px-3 text-sm font-semibold transition-colors",
-              state === "off" && "border-accent bg-card text-accent hover:bg-accent-soft",
+              (state === "off" || state === "update") && "border-accent bg-card text-accent hover:bg-accent-soft",
               state === "on" && "border-transparent bg-accent-soft text-accent hover:bg-accent-soft/70",
               state === "busy" && "cursor-progress border-line bg-card text-muted",
               state === "error" && "border-warn bg-warn-soft text-warn hover:opacity-90",
             )}
             onClick={() => {
-              if (state === "off" || state === "error") onAdd();
+              if (state === "off" || state === "update" || state === "error") onAdd();
               else if (state === "on") setOpen((value) => !value);
             }}
           >

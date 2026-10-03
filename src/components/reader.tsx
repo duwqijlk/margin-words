@@ -73,7 +73,7 @@ import {
 } from "@/components/ui";
 import {
   ExplainSentence,
-  ParagraphMarker,
+  ParagraphBulbs,
   ParagraphPanel,
   type ParagraphPanelState,
 } from "@/components/help-panels";
@@ -1615,14 +1615,13 @@ export function ReaderScreen({
       {!card && !help ? <SidePlaceholder /> : null}
 
       {linkedHtml ? (
-        <ParagraphMarker
+        <ParagraphBulbs
           articleRef={articleRef}
           version={linkedHtml}
           bookId={bookId}
           chapter={activeExtra ? activeExtra.id : safeIndex}
           notesVersion={book?.glossary}
           activeIndex={help ? help.index : null}
-          hide={Boolean(help) || Boolean(picked)}
           onOpen={openHelp}
         />
       ) : null}

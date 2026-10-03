@@ -117,16 +117,14 @@ test("the list must belong to the book: sha256, or title (+ author)", () => {
   );
 });
 
-test("every problem code has a message in both languages", async () => {
+test("the one problem shown in the app has a message in both languages", async () => {
+  // The reader no longer imports pack zips (books are added on Discover), so most
+  // PackProblem codes are command-line only. "listBad" still reaches the screen when
+  // a downloaded word list fails the glossary check (pair-epub.ts, word-list-update.ts).
   const { readFileSync } = await import("node:fs");
-  const src = readFileSync(new URL("../src/lib/pack-check.ts", import.meta.url), "utf8");
-  const codes = /type PackProblemCode =([^;]+);/
-    .exec(src)[1]
-    .match(/"(\w+)"/g)
-    .map((c) => c.slice(1, -1));
   for (const lang of ["en", "zh"]) {
     const dict = readFileSync(new URL(`../src/lib/i18n-${lang}.ts`, import.meta.url), "utf8");
-    for (const c of codes) assert.ok(dict.includes(`"err.pack.${c}"`), `${lang}: err.pack.${c}`);
+    assert.ok(dict.includes('"err.pack.listBad"'), `${lang}: err.pack.listBad`);
   }
 });
 

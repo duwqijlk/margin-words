@@ -1,24 +1,22 @@
-import { Check, Plus } from "lucide-react";
+import { Compass } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BookCover } from "@/components/book-cover";
 import { btn, cn } from "@/components/ui";
-import { useDownloads } from "@/lib/downloads";
 import { useT } from "@/lib/i18n";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst, type CatalogPack } from "@/lib/packs";
-import { useShelfRemove } from "@/lib/shelf-remove";
+import { navigate } from "@/lib/router";
 
 /** The classic that the empty shelf suggests as a first book. It is an ordinary book once it is added. */
 const SUGGESTED_ID = "alice";
 
 /**
- * A suggestion on the empty shelf: a good first book, one tap to add. It is the same download as the
- * "Add to shelf" button on Discover. Nothing is added unless the reader taps. Hidden when the catalog
- * cannot be read (offline, first visit): the Discover button is still there.
+ * A suggestion on the empty shelf: a good first book. The button goes to Discover, because
+ * Discover is the only place that adds books (and adding needs a signed-in account). Hidden when
+ * the catalog cannot be read (offline, first visit): the Discover button above it is still there.
  */
 export function FirstBookSuggestion() {
   const { t } = useT();
   const [pack, setPack] = useState<CatalogPack | null>(null);
-  const item = useDownloads((state) => (pack ? state.items[pack.id] : undefined));
 
   useEffect(() => {
     let alive = true;
@@ -33,19 +31,7 @@ export function FirstBookSuggestion() {
   }, []);
 
   if (!pack) return null;
-  const busy = Boolean(item && !item.error);
   const cover = pack.cover?.url ? resolveAgainst(BUNDLED_CATALOG_URL, pack.cover.url) : undefined;
-
-  function add() {
-    if (!pack) return;
-    useDownloads.getState().dismiss(pack.id);
-    void useDownloads
-      .getState()
-      .start(BUNDLED_CATALOG_URL, pack)
-      .then(() => {
-        if (!useDownloads.getState().items[pack.id]?.error) useShelfRemove.getState().announceAdded(pack.title);
-      });
-  }
 
   return (
     <section
@@ -66,22 +52,12 @@ export function FirstBookSuggestion() {
           <button
             type="button"
             className={cn(btn.quiet, "px-4")}
-            onClick={add}
-            disabled={busy}
+            onClick={() => navigate({ kind: "discover" })}
             data-first-book-add
           >
-            {busy ? (
-              <Check className="size-4 animate-pulse" aria-hidden />
-            ) : (
-              <Plus className="size-4" aria-hidden />
-            )}
-            {busy ? t("discover.workingPct", { pct: Math.round((item?.fraction ?? 0) * 100) }) : t("discover.add")}
+            <Compass className="size-4" aria-hidden />
+            {t("shelf.suggestGo")}
           </button>
-          {item?.error ? (
-            <span className="text-sm text-warn" role="alert">
-              {item.error}
-            </span>
-          ) : null}
         </div>
       </div>
     </section>

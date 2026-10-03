@@ -1,6 +1,6 @@
 # Optional accounts
 
-The reader works with no account. Sign-in only adds sync across devices. Book files are not synced and are not stored in D1. They stay on each device (and on `https://books.inputread.site` for the public books).
+Reading works with no account: books already on a device stay readable, and a signed-out visitor can browse Discover, the Guide and About. Adding new books (every add / download / "import my EPUB" action on Discover) requires sign-in. Sign-in also adds sync across devices. Book files are not synced and are not stored in D1. They stay on each device (and on `https://books.inputread.site` for the public books).
 
 Accounts use **Cloudflare Pages Functions** (`functions/`) and a **D1** database bound as `DB`. There is no Git integration on the Pages project `margin-words`. Deploy is still `npx wrangler pages deploy dist --project-name margin-words`. That command uploads `functions/` as well when `wrangler.toml` is present. Do not deploy from this task; the owner deploys.
 

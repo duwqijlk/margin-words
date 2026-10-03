@@ -15,6 +15,7 @@ import {
 import { cn, field } from "@/components/ui";
 import { listPackRecords, type PackRecord } from "@/lib/book-db";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst, type CatalogPack } from "@/lib/packs";
+import { askToSignIn, useCanAddBooks } from "@/lib/can-add";
 import { useDownloads } from "@/lib/downloads";
 import { errorText, useT } from "@/lib/i18n";
 import { compareLexile } from "@/lib/lexile";
@@ -27,6 +28,12 @@ import type { Book } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
 import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
+import {
+  autoUpdateWordLists,
+  retryWordListUpdate,
+  useListUpdates,
+  wordListRev,
+} from "@/lib/word-list-update";
 
 /** How many cards to mount at once. The rest of the catalog stays in memory for search and filters. */
 const DISCOVER_PAGE = 12;
@@ -88,6 +95,11 @@ export function DiscoverScreen({
   const pendingId = useShelfRemove((state) => state.pending?.bookId ?? "");
   const items = useDownloads((state) => state.items);
   const start = useDownloads((state) => state.start);
+  const canAdd = useCanAddBooks();
+  const updateFailures = useListUpdates((state) => state.failures);
+  const updatesFinished = useListUpdates((state) => state.finished);
+  /** the card tapped while signed out: scroll back to it after sign-in */
+  const signInFor = useRef<string | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -132,6 +144,8 @@ export function DiscoverScreen({
         setRows([...classics, ...words]);
         setRecords(have);
         setError("");
+        // The catalogs are fresh: quietly give installed books their new word lists.
+        void autoUpdateWordLists();
       } catch (reason) {
         if (alive) setError(errorText(reason, "err.catalogLoad"));
       } finally {
@@ -142,6 +156,32 @@ export function DiscoverScreen({
       alive = false;
     };
   }, [finished]);
+
+  // A quiet update run changed some pack records: show the new state on the cards.
+  useEffect(() => {
+    let alive = true;
+    void listPackRecords()
+      .then((have) => {
+        if (alive) setRecords(have);
+      })
+      .catch(() => undefined);
+    return () => {
+      alive = false;
+    };
+  }, [updatesFinished]);
+
+  // Back from the sign-in dialog: return to the book card that was tapped, so adding can go on.
+  useEffect(() => {
+    if (!canAdd || !signInFor.current) return;
+    const id = signInFor.current;
+    signInFor.current = null;
+    requestAnimationFrame(() => {
+      const card = document.querySelector(`[data-pack="${id}"], [data-word-list="${id}"]`);
+      if (!card) return;
+      card.scrollIntoView({ block: "center" });
+      card.querySelector<HTMLButtonElement>("[data-shelf-add]")?.focus();
+    });
+  }, [canAdd]);
 
   const authors = useMemo(
     () => [...new Set(rows.map((item) => item.author).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
@@ -238,9 +278,35 @@ export function DiscoverScreen({
     }
   }
 
-  function add(row: Row, record: PackRecord | undefined) {
+  /** The manual Update button: the fallback when the quiet word-list update did not happen. */
+  function update(row: Row) {
+    useListUpdates.getState().clearFailure(row.id);
+    if (row.kind === "classic" && row.pack) {
+      const pack = row.pack;
+      useDownloads.getState().dismiss(pack.id);
+      void start(BUNDLED_CATALOG_URL, pack);
+    } else if (row.list) {
+      const pack = row.list;
+      setBusyId(pack.id);
+      void retryWordListUpdate(pack)
+        .catch(() => undefined)
+        .finally(() => setBusyId(""));
+    }
+  }
+
+  function add(row: Row, record: PackRecord | undefined, updateReady: boolean) {
     if (record && pendingId === record.bookId) {
       useShelfRemove.getState().undo();
+      return;
+    }
+    if (updateReady) {
+      update(row);
+      return;
+    }
+    // Adding books needs an account. The sign-in dialog opens over this page, so the card stays.
+    if (!canAdd) {
+      signInFor.current = row.id;
+      askToSignIn();
       return;
     }
     if (row.kind === "classic" && row.pack) {
@@ -292,7 +358,21 @@ export function DiscoverScreen({
     const item = row.kind === "classic" ? items[row.id] : undefined;
     const busy = Boolean(item && !item.error) || busyId === row.id;
     const cardError = busy ? "" : item?.error || listError[row.id] || "";
-    const state: ShelfState = busy ? "busy" : cardError ? "error" : held ? "on" : "off";
+    // Word lists update by themselves. The Update button stays only as the fallback: the catalog
+    // revision still differs from this very pack's record (a failure, or a book that must not be
+    // touched quietly), and the reason sits under the button.
+    const direct = byPack.get(row.id);
+    const catalogRev = row.kind === "classic" ? (row.pack?.rev ?? "") : row.list ? wordListRev(row.list) : "";
+    const updateReady = Boolean(held && direct && catalogRev && direct.rev !== catalogRev);
+    const state: ShelfState = busy
+      ? "busy"
+      : cardError
+        ? "error"
+        : updateReady
+          ? "update"
+          : held
+            ? "on"
+            : "off";
     return (
       <li
         key={row.key}
@@ -354,9 +434,10 @@ export function DiscoverScreen({
           <AddToShelfButton
             state={state}
             fraction={busy && item ? item.fraction : undefined}
-            error={cardError}
+            error={cardError || (updateReady ? (updateFailures[row.id] ?? "") : "")}
             title={row.title}
-            onAdd={() => add(row, record)}
+            signedOut={!canAdd}
+            onAdd={() => add(row, record, updateReady)}
             onOpen={() => record && onOpen(record.bookId)}
             onRemove={() => remove(row, record, book)}
           />

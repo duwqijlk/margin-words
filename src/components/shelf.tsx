@@ -7,7 +7,6 @@ import {
   FileJson,
   MoreVertical,
   Pencil,
-  Plus,
   Search,
   Trash2,
 } from "lucide-react";
@@ -218,13 +217,9 @@ function EmptyArt() {
 }
 
 function EmptyShelf({
-  importing,
-  onAdd,
   onDemo,
   onDiscover,
 }: {
-  importing: boolean;
-  onAdd: () => void;
   onDemo: () => void;
   onDiscover: () => void;
 }) {
@@ -262,15 +257,6 @@ function EmptyShelf({
         ))}
       </ol>
       <div className="grid justify-items-center gap-3">
-        <button
-          type="button"
-          className={cn(btn.quiet, "px-6")}
-          onClick={onAdd}
-          disabled={importing}
-        >
-          <Plus className="size-5" aria-hidden />
-          {t("shelf.add")}
-        </button>
         <button
           type="button"
           className="min-h-11 px-3 text-sm font-semibold text-accent underline"
@@ -443,10 +429,8 @@ export function Shelf({
   words,
   covers,
   ready,
-  importing,
   onOpen,
   onNotebook,
-  onAdd,
   onAddList,
   onDemo,
 }: {
@@ -454,10 +438,8 @@ export function Shelf({
   words: VocabEntry[];
   covers: Record<string, string>;
   ready: boolean;
-  importing: boolean;
   onOpen: (bookId: string) => void;
   onNotebook: (bookId: string) => void;
-  onAdd: () => void;
   onAddList: (bookId: string | null) => void;
   onDemo: () => void;
 }) {
@@ -584,17 +566,23 @@ export function Shelf({
           ) : null}
         </div>
         {ready && liveBooks.length > 0 ? (
-          <button type="button" className={btn.primary} onClick={onAdd} disabled={importing}>
-            <Plus className="size-5" aria-hidden />
-            {importing ? t("shelf.importing") : t("shelf.add")}
+          // Books are added on Discover only: this is a door, not an import button.
+          <button
+            type="button"
+            className={btn.primary}
+            onClick={() => navigate({ kind: "discover" })}
+            data-shelf-discover
+          >
+            <Compass className="size-5" aria-hidden />
+            {t("shelf.findBooks")}
           </button>
         ) : null}
       </header>
 
-      {!ready || (books.length === 0 && installingClassics && !importing) ? (
+      {!ready || (books.length === 0 && installingClassics) ? (
         <ShelfSkeleton />
-      ) : books.length === 0 && !importing ? (
-        <EmptyShelf importing={importing} onAdd={onAdd} onDemo={onDemo} onDiscover={() => navigate({ kind: "discover" })} />
+      ) : books.length === 0 ? (
+        <EmptyShelf onDemo={onDemo} onDiscover={() => navigate({ kind: "discover" })} />
       ) : liveBooks.length === 0 ? null : (
         <>
           {hero && !q && !filtering ? (
@@ -665,13 +653,6 @@ export function Shelf({
                 </div>
               ) : (
               <ul className={bookCardGrid}>
-                {importing ? (
-                  <li className="grid gap-3" aria-busy="true">
-                    <div className="flex aspect-[2/3] animate-pulse items-center justify-center rounded-md bg-line text-sm font-semibold text-muted">
-                      {t("shelf.importing")}
-                    </div>
-                  </li>
-                ) : null}
                 {items.map((item) => {
                   if (item.kind === "book") return renderCard(item.row);
                   const open = openStacks.has(item.key);

@@ -1,8 +1,8 @@
 /**
- * What a book pack must contain, and how the reader checks it. No DOM and no translation in here, so the
- * command-line tests can use it too (scripts/lib/app-modules.mjs). The reader turns a PackProblem into a
- * sentence in the language of the person (keys "err.pack.<code>"). The rules are written for people in
- * docs/book-pack-spec.md, section "Required files".
+ * What a book pack must contain, and how the pack tools check it. No DOM and no translation in here:
+ * the command-line tools use it (scripts/lib/app-modules.mjs, scripts/make-pack.mjs). The reader itself
+ * no longer imports pack zips (books are added on Discover), so a PackProblem is shown as its code.
+ * The rules are written for people in docs/book-pack-spec.md, section "Required files".
  *
  * A pack is ONE .zip with exactly:
  *   - one book:      book.epub            (or <name>.epub)

@@ -6,17 +6,16 @@
  *   /guide            Guide            /words            Word book (all books)
  *   /about            About / How it works
  *   /words/<bookId>   Word book of one book
- *   /review[/<id>]    Review           /add              Add book
- *   /read/<bookId>    the reader
+ *   /review[/<id>]    Review           /read/<bookId>    the reader
  *
- * `/` and unknown paths go to /shelf. A small hand-made router: the app has no server and
- * eight addresses, so a library would add more code than it saves.
+ * `/` and unknown paths go to /shelf. `/add` (the old add-book page) reads as Discover, the only
+ * place that adds books. A small hand-made router: the app has no server and eight addresses,
+ * so a library would add more code than it saves.
  */
 import { useSyncExternalStore } from "react";
 
 export type Route =
   | { kind: "shelf" }
-  | { kind: "add" }
   | { kind: "discover" }
   | { kind: "guide" }
   | { kind: "about" }
@@ -49,7 +48,8 @@ export function parsePath(pathname: string): Route | null {
     case "shelf":
       return rest === undefined ? { kind: "shelf" } : null;
     case "add":
-      return rest === undefined ? { kind: "add" } : null;
+      // The old add-book page: books are added on Discover now.
+      return rest === undefined ? { kind: "discover" } : null;
     case "discover":
       return rest === undefined ? { kind: "discover" } : null;
     case "guide":
