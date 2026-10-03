@@ -144,7 +144,7 @@ async function panelsPhase({ page, vp, cfg, label, OUT, results, log, errors }) 
   await tap(marker); await page.waitForTimeout(800);
   await record("paragraph help opens", { para: true });
   await shot("2-paragraph");
-  await tap(para.getByRole("button", { name: /Simple version/ })); await page.waitForTimeout(400);
+  await page.locator('[data-part="simple"]').waitFor();
   await record("simple version expanded", { para: true });
   await shot("3-simple");
   await tap(para.locator('[data-hard-word="peered"]')); await page.waitForTimeout(900);

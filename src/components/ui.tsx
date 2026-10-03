@@ -31,8 +31,25 @@ export const chip =
 
 /**
  * Pronunciation uses the voice that is built into the browser or phone (works offline).
- * Nothing is sent anywhere.
+ * Nothing is sent anywhere. Call this from the click that opened the word: a later effect
+ * often runs after the browser has dropped the user gesture, and then speech stays silent.
  */
+export function speakEnglish(text: string): boolean {
+  const spoken = text.trim();
+  if (!spoken) return false;
+  try {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return false;
+    const voice = new SpeechSynthesisUtterance(spoken);
+    voice.lang = "en-US";
+    voice.rate = 0.9;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(voice);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function useSpeak() {
   const [status, setStatus] = useState<"idle" | "error">("idle");
   const alive = useRef(true);
@@ -44,19 +61,7 @@ export function useSpeak() {
   }, []);
 
   function play(text: string) {
-    let ok = false;
-    try {
-      if (typeof window !== "undefined" && "speechSynthesis" in window) {
-        const voice = new SpeechSynthesisUtterance(text);
-        voice.lang = "en-US";
-        voice.rate = 0.9;
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(voice);
-        ok = true;
-      }
-    } catch {
-      ok = false;
-    }
+    const ok = speakEnglish(text);
     if (alive.current) setStatus(ok ? "idle" : "error");
   }
   return { status, play };

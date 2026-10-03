@@ -70,6 +70,7 @@ import {
   ProgressBar,
   Segmented,
   SpeakButton,
+  speakEnglish,
 } from "@/components/ui";
 import {
   ExplainSentence,
@@ -1263,7 +1264,10 @@ export function ReaderScreen({
     const surface = picked.surface;
     const offset = phraseOffset;
     void findPhrase(bookId, pickedSentence, surface, offset >= 0 ? offset : undefined).then((hit) => {
-      if (alive) setPhraseHit(hit ? { at, hit } : null);
+      if (!alive) return;
+      setPhraseHit(hit ? { at, hit } : null);
+      const spoken = (resolveKey(surface) || surface).trim().toLowerCase();
+      if (hit && hit.key.trim().toLowerCase() !== spoken) speakEnglish(hit.key);
     });
     return () => {
       alive = false;
@@ -1322,6 +1326,7 @@ export function ReaderScreen({
       before,
       block: Math.max(0, blockAt),
     });
+    speakEnglish(resolveKey(surface) || surface);
   }
 
   /** A hard word from the paragraph panel: find it in the paragraph and open its normal card. */
@@ -1467,7 +1472,8 @@ export function ReaderScreen({
           focus && "-translate-y-full",
         )}
       >
-        <div className="mx-auto flex h-14 w-full max-w-[calc(var(--reader-width,40rem)+4rem)] items-center gap-1 px-2 sm:px-4">
+        {/* Full width on purpose: tying this bar to --reader-width slides the text-width control while it is dragged. */}
+        <div className="mx-auto flex h-14 w-full items-center gap-1 px-2 sm:px-4">
           <button
             type="button"
             className={btn.icon}
@@ -1628,6 +1634,7 @@ export function ReaderScreen({
 
       {help ? (
         <ParagraphPanel
+          key={help.index}
           state={helpState}
           anchor={anchor}
           onClose={closeHelp}

@@ -24,6 +24,7 @@ import {
   ProgressBar,
   Segmented,
   SpeakButton,
+  speakEnglish,
   StatRow,
 } from "@/components/ui";
 
@@ -403,12 +404,15 @@ function Session({
   );
 
   const next = useCallback(() => {
+    const following = queue[index + 1];
+    const word = following ? byId.get(following) : undefined;
+    if (mode === "cards" && word) speakEnglish(word.lemma);
     setIndex((value) => value + 1);
     setRevealed(false);
     setPicked(null);
     setTyped("");
     setSpell(null);
-  }, []);
+  }, [mode, queue, index, byId]);
 
   const finished = index >= queue.length || !current;
 
@@ -446,7 +450,12 @@ function Session({
         onAgain={
           missed.length > 0
             ? () => {
-                setQueue(shuffle(missed));
+                const again = shuffle(missed);
+                if (mode === "cards") {
+                  const first = again[0] ? byId.get(again[0]) : undefined;
+                  if (first) speakEnglish(first.lemma);
+                }
+                setQueue(again);
                 setIndex(0);
                 setAnswers([]);
                 setRevealed(false);
@@ -571,6 +580,7 @@ function Session({
                     onClick={() => {
                       setPicked(option.id);
                       record(option.correct);
+                      speakEnglish(current.lemma);
                     }}
                     className={cn(
                       "min-h-12 rounded-xl border px-4 py-2 text-left text-lg transition-colors disabled:cursor-default",
@@ -606,6 +616,7 @@ function Session({
               const ok = spellingOk(typed, current.lemma, current.surface);
               setSpell(ok ? "yes" : "no");
               record(ok);
+              speakEnglish(current.lemma);
             }}
           >
             <p className="text-sm font-semibold text-muted">{t("rv.spellPrompt")}</p>
@@ -742,7 +753,9 @@ export function ReviewScreen({
           ? scoped.filter((word) => word.stage < 7)
           : scoped;
     if (list.length === 0) return;
-    setSession({ ids: shuffle(list).map((word) => word.id), key: Date.now() });
+    const order = shuffle(list);
+    if (mode === "cards" && order[0]) speakEnglish(order[0].lemma);
+    setSession({ ids: order.map((word) => word.id), key: Date.now() });
   }
 
   if (session) {

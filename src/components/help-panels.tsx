@@ -199,7 +199,8 @@ export function ParagraphPanel({
   onWord: (word: string) => void;
 }) {
   const { t } = useT();
-  const [open, setOpen] = useState(false);
+  // The simple retelling is what the bulb is for, so it is open as soon as the panel appears.
+  const [open, setOpen] = useState(true);
   return (
     <FloatingAside
       anchor={anchor}
