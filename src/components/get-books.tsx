@@ -38,6 +38,7 @@ import { compareLexile } from "@/lib/lexile";
 import { btn, cn, field, ProgressBar, Segmented } from "@/components/ui";
 import { usePrefs } from "@/lib/reader-prefs";
 import { LanguageSwitch } from "@/components/language";
+import { AccountSection } from "@/components/account-dialog";
 import { guideUrl } from "@/lib/guide";
 
 function megabytes(bytes: number, tiny: string): string {
@@ -487,6 +488,7 @@ export function SettingsDialog({
               ]}
             />
           </section>
+          <AccountSection beforeOpen={() => onOpenChange(false)} />
           <details
             className="mt-5 rounded-xl border border-line px-4 py-1 open:pb-4"
             data-settings-advanced

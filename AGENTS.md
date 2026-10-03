@@ -1,8 +1,10 @@
 # Margin Words: project notes
 
 A static reader for English novels, for Chinese junior-high learners. It is a plain Vite + React 19 +
-Tailwind 4 + zustand single-page app. It has no server, no server functions and no AI calls. Books and
-word lists come from **book packs** (see README.md, "Reader and book packs"). **A standalone EPUB is never imported**: the only import is a pack `.zip` with exactly `book.epub` + `glossary.json` (docs/book-pack-spec.md, section 3; code in `src/lib/pack-check.ts` and `importPackZip` in `src/lib/packs.ts`).
+Tailwind 4 + zustand single-page app. It has no AI calls. The reader works fully with no account.
+Optional accounts (email, password, and sync of shelf, progress, saved words, and settings) are
+Cloudflare Pages Functions in `functions/` plus a D1 database. See docs/ACCOUNTS.md. Do not store user
+data in R2. Books and word lists come from **book packs** (see README.md, "Reader and book packs"). **A standalone EPUB is never imported**: the only import is a pack `.zip` with exactly `book.epub` + `glossary.json` (docs/book-pack-spec.md, section 3; code in `src/lib/pack-check.ts` and `importPackZip` in `src/lib/packs.ts`).
 
 ## Rules
 
@@ -17,8 +19,9 @@ word lists come from **book packs** (see README.md, "Reader and book packs"). **
 - Never change the reading layout when a panel opens. Panels are overlays. Test with a layout-shift run.
 - The pack word lists (`packs/<id>/glossary.json`) are book content. Do not edit them by hand; copy them
   byte for byte. `node scripts/build-packs.mjs --check` must pass.
-- No network call may depend on a server of ours. The reader may only fetch the catalog and pack files
-  the user chose.
+- No network call may depend on a server of ours except the optional account API on the same Pages
+ host (`/api/*`, Pages Functions + D1). The reader may only fetch the catalog and pack files the user
+ chose, plus that same-origin account API when someone is signed in. Book files stay on the books host.
 
 ## Commands
 

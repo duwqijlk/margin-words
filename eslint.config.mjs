@@ -10,6 +10,8 @@ export default tseslint.config(
   {
     ignores: [
       "dist/**",
+      "dist-functions/**",
+      ".wrangler/**",
       "site/**",
       "scripts/sw-template.js",
       "packs/**",

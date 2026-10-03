@@ -42,6 +42,7 @@ export const en = {
   "nav.guide": "Guide",
   "nav.notebook": "Notebook",
   "nav.settings": "Settings",
+  "nav.account": "Account",
   "notice.text":
     "We don't provide copyrighted books. We only provide explanations of hard words and sentences; for copyrighted books, please import your own EPUB.",
   "notice.dismiss": "Hide this notice",
@@ -59,7 +60,7 @@ export const en = {
     "While you read, tap a word to see what it means. Save the words you want. They go into your notebook, and you can review them later.",
   "guide.offlineTitle": "It works offline",
   "guide.offlineBody":
-    "After the first visit, you can read with no internet. Your books, your progress, and your notebook stay in this browser only. They do not move to another phone or computer.",
+    "After the first visit, you can read with no internet. Your books, your progress, and your notebook stay on this device. Sign in from Settings if you want them on your other devices too. The book files themselves stay on each device.",
 
   /* ---- shelf */
   "shelf.title": "Shelf",
@@ -239,7 +240,7 @@ export const en = {
 
   /* ---- settings */
   "settings.title": "Settings",
-  "settings.desc": "Language, and where the app looks for books.",
+  "settings.desc": "Language, your account, and where the app looks for books.",
   "settings.langTitle": "Language",
   "settings.catalogLabel": "Book list address (catalog.json)",
   "settings.placeholder": "Built-in address: {url}",
@@ -247,6 +248,53 @@ export const en = {
     "Leave this empty to use the book list that comes with the app. To use your own list, put the packs folder on a website and paste the address of its catalog.json here.",
   "settings.useBuiltin": "Use built-in",
   "settings.guide": "How to make a book pack",
+  "settings.accountTitle": "Account",
+
+  /* ---- account */
+  "account.open": "Sign in",
+  "account.manage": "Account",
+  "account.title": "Account",
+  "account.desc": "Sign in to sync your shelf, reading place, and saved words. The app works fully without an account.",
+  "account.signedDesc":
+    "You are signed in. Your shelf, reading place, saved words, and settings sync to your other devices. Book files stay on each device.",
+  "account.privacyTitle": "Privacy",
+  "account.privacy":
+    "An account stores your email and a scrambled password. To sync, it also stores your shelf, reading place, saved words, and settings. We do not ask for your name, age, school, or phone number. Book files stay on each device. You can export or delete the account at any time.",
+  "account.email": "Email",
+  "account.password": "Password",
+  "account.passwordAgain": "Password again",
+  "account.showPassword": "Show password",
+  "account.hidePassword": "Hide password",
+  "account.login": "Sign in",
+  "account.register": "Create account",
+  "account.logout": "Sign out",
+  "account.signedIn": "Signed in as {email}",
+  "account.syncSaved": "Synced",
+  "account.syncSaving": "Syncing…",
+  "account.syncOffline": "Offline. Changes will sync when you are back online.",
+  "account.syncError": "Sync did not finish. It will try again.",
+  "account.export": "Export my data",
+  "account.exportDone": "Download started",
+  "account.delete": "Delete account",
+  "account.deleteWarn": "This deletes the account and everything stored for sync. Books on this device stay here.",
+  "account.deleteConfirm": "Delete the account",
+  "account.forgot": "Forgot password?",
+  "account.forgotBody":
+    "Password reset by email is not turned on yet, so this app cannot send a reset message. You can keep reading without an account.",
+  "account.resetTitle": "Choose a new password",
+  "account.newPassword": "New password",
+  "account.resetSubmit": "Save new password",
+  "account.resetDone": "Password updated. Please sign in.",
+  "account.working": "Please wait…",
+  "account.err.email": "Enter a valid email address.",
+  "account.err.password": "Use at least 8 characters.",
+  "account.err.passwordMatch": "The two passwords do not match.",
+  "account.err.emailTaken": "That email already has an account. Sign in instead.",
+  "account.err.credentials": "The email or password is not right.",
+  "account.err.rate": "Too many tries. Please wait and try again.",
+  "account.err.turnstile": "Please complete the check first.",
+  "account.err.network": "The account service could not be reached. You can still read without signing in.",
+  "account.err.generic": "That did not work. Please try again.",
 
   /* ---- messages and errors */
   "err.notValidEpub": "This file is not a valid EPUB book.",

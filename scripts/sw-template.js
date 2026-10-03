@@ -54,6 +54,8 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   const path = bookPath(url);
   if (path === null) return;
+  // Account API calls must go to the network. A cached copy would serve stale sync data.
+  if (path.startsWith("api/")) return;
   // Book packs the user sideloads are stored in IndexedDB. Never keep them here.
   if (path.startsWith("packs/")) return;
   // Classics and word lists: network first, then the copy saved after a successful fetch.

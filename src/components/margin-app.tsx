@@ -1,4 +1,4 @@
-import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Library, NotebookPen, Settings, X } from "lucide-react";
+import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   checkBookStorage,
@@ -29,6 +29,9 @@ import { NoticeBar } from "@/components/notice-bar";
 import { DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useRoute, type Route } from "@/lib/router";
 import { refreshCovers, repairShelf } from "@/lib/shelf-repair";
 import { guideUrl } from "@/lib/guide";
+import { useAccount } from "@/lib/account-store";
+import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
+import { AccountDialog } from "@/components/account-dialog";
 
 type Screen = Route;
 
@@ -99,6 +102,12 @@ export function MarginApp() {
     applyTheme(theme);
   }, [theme]);
 
+  useEffect(() => {
+    const token = new URLSearchParams(window.location.search).get("reset");
+    if (token) useAccount.getState().openDialog("reset", token);
+    return startAccountSync();
+  }, []);
+
   // "/" and any address that is not a page go to the bookshelf, without adding a history entry.
   useEffect(() => {
     if (pathNeedsRedirect()) navigate(DEFAULT_ROUTE, { replace: true });
@@ -155,6 +164,7 @@ export function MarginApp() {
         if (state.ok) void requestPersistentStorage();
       });
       void ensureClassics().finally(() => void refreshCovers().catch(() => undefined));
+      notifySyncReady();
       setReady(true);
     })();
   }, [replaceWords, restoreBooks]);
@@ -386,6 +396,15 @@ export function MarginApp() {
             <button
               type="button"
               className={cn(btn.icon, "size-11")}
+              onClick={() => useAccount.getState().openDialog()}
+              aria-label={t("nav.account")}
+              data-account-button
+            >
+              <UserRound className="size-5" aria-hidden />
+            </button>
+            <button
+              type="button"
+              className={cn(btn.icon, "size-11")}
               onClick={() => setSettingsOpen(true)}
               aria-label={t("nav.settings")}
             >
@@ -555,6 +574,7 @@ export function MarginApp() {
           />
         ) : null}
       </Suspense>
+      <AccountDialog />
       <ShelfToastHost onViewShelf={() => setScreen({ kind: "shelf" })} aboveTabs={!reading} />
       <Suspense fallback={null}>
         {listFlow ? (

@@ -212,7 +212,7 @@ export function booksOriginFromEnv(env, prod) {
 export function isShellFile(name) {
   if (name.startsWith("public-books/") || name.startsWith("word-lists/")) return false;
   // Instructions for the host (Cloudflare Pages). The host never serves them as files.
-  if (name === "_headers" || name === "_redirects") return false;
+  if (name === "_headers" || name === "_redirects" || name === "_routes.json") return false;
   return true;
 }
 

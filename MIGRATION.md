@@ -8,8 +8,7 @@ This repo is a full copy of the Margin Words project, moved to a **private** Git
 
 ## 1. Overview
 
-- A **static reader** for English novels (Vite + React 19 + Tailwind 4 + zustand). No server, no server functions,
-  no AI calls. `dist/` is plain files that any static host can serve.
+- A **static reader** for English novels (Vite + React 19 + Tailwind 4 + zustand). No AI calls. Optional accounts are Pages Functions in `functions/` (docs/ACCOUNTS.md); the reader works without them. `dist/` is plain files that any static host can serve.
 - Tap a word and see a simple English meaning. All meanings come from the book's `glossary.json`.
 - **Pack-only import.** The app never imports a standalone EPUB. A book is a *book pack*: one `.zip` with exactly
   `book.epub` + `glossary.json` (title, author and cover come from the EPUB). Spec: `docs/book-pack-spec.md`.

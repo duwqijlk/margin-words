@@ -6,7 +6,7 @@
 
 ## 概览
 
-- 静态阅读器（Vite + React 19 + Tailwind 4 + zustand），没有服务器，没有 AI 调用。
+- 静态阅读器（Vite + React 19 + Tailwind 4 + zustand），没有 AI 调用。不登录也能用。可选账号在 `functions/`（见 docs/ACCOUNTS.md）。
 - 只能导入"书包"：一个 `.zip`，里面正好是 `book.epub` + `glossary.json`。不接受单独的 EPUB。
 - 界面有中文和英文两种语言；书和释义始终是英文。
 - 词表（glossary）必须人工手写，不用 AI 生成。

@@ -3,6 +3,7 @@ node_modules/
 dist/
 dist-books/
 dist-private/
+dist-functions/
 site/
 .vite/
 .node_modules.lock

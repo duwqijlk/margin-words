@@ -13,6 +13,7 @@
     "build:site": "node scripts/build-site.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "typecheck:functions": "tsc -p functions/tsconfig.json",
     "check:cjk": "node scripts/check-no-cjk.mjs",
     "test": "node --experimental-strip-types --test scripts/*.test.mjs && node --experimental-strip-types --test src/lib/srs.test.ts",
     "lint": "eslint .",

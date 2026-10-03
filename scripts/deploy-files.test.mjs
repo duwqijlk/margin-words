@@ -50,6 +50,7 @@ test("_redirects sends every other address to index.html, last, and leaves real 
 test("the host files are not part of the offline shell (they are not served as files)", () => {
   assert.equal(isShellFile("_headers"), false);
   assert.equal(isShellFile("_redirects"), false);
+  assert.equal(isShellFile("_routes.json"), false);
   assert.equal(isShellFile("assets/index-abc.js"), true);
   assert.equal(isShellFile("index.html"), true);
 });
@@ -57,6 +58,7 @@ test("the host files are not part of the offline shell (they are not served as f
 test("the service worker never answers its own address or the manifest from a cache", () => {
   const sw = read("scripts/sw-template.js");
   assert.match(sw, /path === "sw\.js" \|\| path === "manifest\.webmanifest"/);
+  assert.match(sw, /path\.startsWith\("api\/"\)/);
   assert.match(sw, /cache: "reload"/);
   assert.match(sw, /fetch\(request, \{ cache: "no-cache" \}\)/, "a page is always checked with the server");
   assert.match(sw, /key !== CACHE && key !== BOOKS/, "every old cache is deleted when a new version starts");

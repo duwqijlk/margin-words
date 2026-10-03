@@ -1,0 +1,20 @@
+# Cloudflare Pages project "margin-words" (https://inputread.site).
+# There is no Git integration. The owner deploys the built site by hand:
+#   npx wrangler pages deploy dist --project-name margin-words
+# Pages Functions in ./functions are uploaded with that deploy. This file is not
+# applied by itself; `pages deploy` reads it for the D1 binding.
+#
+# database_id is the live D1 database "margin-words" (already created, migration
+# 0001 applied). Do not create a second database. Local `wrangler pages dev`
+# still uses a local D1. Do not point this binding at R2. Book files stay on
+# books.inputread.site.
+
+name = "margin-words"
+compatibility_date = "2026-10-02"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "margin-words"
+database_id = "c286e644-2ead-438c-bb65-70ee028d957a"
+migrations_dir = "migrations"

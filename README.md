@@ -32,8 +32,10 @@ npx vite build       # static app in dist/
 
 ## Reader and book packs
 
-**The reader is a static app.** `dist/` is plain files (HTML, JS, CSS, fonts). It has no server, no server
-functions, and no AI. Open it from any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`).
+**The reader is a static app.** `dist/` is plain files (HTML, JS, CSS, fonts). It has no AI. Open it from
+any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`). It works fully with no account.
+Optional sign-in (sync across devices) is a Cloudflare Pages Function next to the static files. See
+[docs/ACCOUNTS.md](docs/ACCOUNTS.md). Without those functions the rest of the app is unchanged.
 The reader loads **twelve free public-domain classics** from the books host (`public-books/`). A new shelf starts with Alice's Adventures in Wonderland only. The other books are on **Discover** and download when you tap the heart on the cover. A book you delete is not added again; adding it from Discover clears that. Books already on a device stay there. To add a classic, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists** on the same host (`word-lists/<id>/glossary.json`, plus a card-sized `cover.jpg` taken from `packs/<id>/cover.jpg` when that file exists). A list with no cover uses the generated title-and-author cover. Adding one downloads the word list only and asks for your own e-book of that ISBN. The copyrighted EPUBs are not on the public host.
 
 All meanings, simple versions, sentence explanations, phrases and examples come from the word list
