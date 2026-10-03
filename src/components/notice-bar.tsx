@@ -42,12 +42,12 @@ export function NoticeBar() {
         <p className="min-w-0 flex-1 text-[0.8rem] leading-snug">
           {t("notice.text")}{" "}
           <a
-            href="/about"
+            href="/guide"
             className="-my-2.5 inline-flex min-h-10 items-center align-middle font-semibold underline underline-offset-2"
             data-notice-about
             onClick={(event) => {
               event.preventDefault();
-              navigate({ kind: "about" });
+              navigate({ kind: "guide" });
             }}
           >
             {t("notice.link")}

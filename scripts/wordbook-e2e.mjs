@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Browser test of the global wordbook, the file-independent reading place, and the About page.
+ * Browser test of the global wordbook, the file-independent reading place, and the Guide page.
  *
  *   node scripts/wordbook-e2e.mjs [baseUrl] [--shots DIR]
  *
@@ -14,7 +14,7 @@
  *   - taking a book off the shelf keeps its words
  *   - a reading place saved by another copy of the book (other chapter, other paragraph number) still opens in
  *     the right place, because the word list's paragraph id plus a quote is used, not the raw position
- *   - the About page: every section, the contact line, the wavy-line explanation
+ *   - the Guide page: every section, the contact line, the wavy-line explanation, and /about opens it
  * Chinese text is never written in this file: Chinese labels are read from src/lib/i18n-zh.ts.
  */
 import { chromium } from "playwright";
@@ -317,18 +317,17 @@ async function scenario(lang, size) {
   ok((await page.getByText(t("src.notOnShelf")).count()) >= 1, `${label}: the words say their book is not on the shelf (no broken link)`);
   await shot("wordbook-after-remove");
 
-  // ---- 11. About
+  // ---- 11. Guide (how to use the app, and about the site)
   await page.goto(at("about"));
-  await page.locator("[data-about-page]").waitFor();
-  ok((await page.locator("[data-about-section]").count()) === 9, `${label}: the About page has all nine sections`);
-  ok((await page.locator("[data-about-contact]").count()) === 1, `${label}: and a contact line`);
-  ok((await page.getByText(t("about.markTricky")).count()) === 1, `${label}: and the wavy-line explanation`);
-  ok(!(await overflow()), `${label}: no horizontal overflow (About)`);
-  ok((await page.locator("nav [aria-current=page]").count()) >= 1, `${label}: the About tab is marked as the current page`);
-  await shot("about");
-  await page.goto(at("guide"));
+  await page.waitForURL((url) => new URL(url).pathname === "/guide", { timeout: 30000 });
   await page.locator("[data-guide-page]").waitFor();
-  ok((await page.getByText(t("guide.trickyBody")).count()) === 1, `${label}: the guide explains the wavy line too`);
+  ok(new URL(page.url()).pathname === "/guide", `${label}: /about opens the Guide`);
+  ok((await page.locator("[data-guide-section]").count()) === 11, `${label}: the Guide has the how-to and about sections`);
+  ok((await page.locator("[data-guide-contact]").count()) === 1, `${label}: and a contact line`);
+  ok((await page.getByText(t("about.markTricky")).count()) === 1, `${label}: and the wavy-line explanation`);
+  ok(!(await overflow()), `${label}: no horizontal overflow (Guide)`);
+  ok((await page.locator("nav [aria-current=page]").count()) >= 1, `${label}: the Guide tab is marked as the current page`);
+  await shot("guide");
 
   ok(errors.length === 0, `${label}: no page errors${errors.length ? ` (${errors[0]})` : ""}`);
   await ctx.close();

@@ -49,14 +49,8 @@ export const en = {
 
   /* ---- guide */
   "guide.title": "Guide",
-  "guide.intro": "A few things that help you start.",
   "guide.addTitle": "Add a book to your shelf",
   "guide.addBody": "Books are added on Discover, and adding needs an account: sign in first (the person icon at the top). Then open Discover and tap “Add to shelf” under a book. The button then says “On shelf”. To take a book off, tap “On shelf” and choose “Remove from shelf”. On your shelf, use the three-dot menu on a book. You can undo right after.",
-  "guide.kindsTitle": "Public domain and word lists",
-  "guide.kindsBody": "A public-domain book is the whole book, and it downloads when you add it. A word-list book is only the word list. You add your own EPUB of that book, from its card on Discover. The app checks the ISBN, and it checks how much of the text matches. A match of 80% or more is a good fit. When we improve a word list, your book gets the new list by itself.",
-  "guide.wordsTitle": "Tap a word",
-  "guide.wordsBody":
-    "While you read, tap a word to see what it means. Save the words you want. They go into your notebook, and you can review them later.",
   "guide.offlineTitle": "It works offline",
   "guide.offlineBody":
     "After the first visit, you can read with no internet. Your books, your progress, and your notebook stay on this device. Sign in from Settings if you want them on your other devices too. The book files themselves stay on each device.",
@@ -546,7 +540,6 @@ export const en = {
   "shelf.suggestBody":
     "A public-domain classic. Its hard words have simple English meanings.",
   "shelf.suggestGo": "See it on Discover",
-  "nav.about": "About",
   "notice.link": "How this site works",
   "src.chapterN": "Chapter {n}",
   "src.open": "Go to this place",
@@ -558,10 +551,6 @@ export const en = {
   "nb.inBooks.other": "From {n} books",
   "reader.trickyHint":
     "A wavy line under a word: you may know the word, but here it has another meaning. Tap it.",
-  "guide.trickyTitle": "Wavy line: a different meaning",
-  "guide.trickyBody":
-    "A wavy line under a word means you may know the word, but here it has another meaning. Tap it to see that meaning first.",
-  "about.title": "About this site",
   "about.intro":
     "Margin Words is a reader for English novels. You read the real book, and you tap a word to see what it means in simple English.",
   "about.tapTitle": "Tap a word",
@@ -578,7 +567,7 @@ export const en = {
     "Every book has a word list written by our teachers. They choose the hard words and phrases, write short meanings in simple English, and add notes for hard paragraphs. Nothing is made up by a computer while you read.",
   "about.booksTitle": "Public-domain books and your own books",
   "about.booksBody":
-    "Books in the public domain, such as Alice in Wonderland, are stored on our book server. Add one on Discover with one tap. Books that are still under copyright are not on our server. For them we give only the word list and the ISBN. You need your own legal copy of the book as an EPUB file, and you add it on your own device.",
+    "Books in the public domain, such as Alice in Wonderland, are stored on our book server. Add one on Discover with one tap. Books that are still under copyright are not on our server. For them we give only the word list and the ISBN. You need your own legal copy of the book as an EPUB file, and you add it on your own device. When we improve a word list, your book gets the new list by itself.",
   "about.matchTitle": "The match check",
   "about.matchBody":
     "When you add your own EPUB, the app compares its sentences with the sentences in the word list. It shows a match rate, such as 96%. A rate of 80% or more is a good fit. A low rate means your file may be a different edition, and some notes may be missing or in the wrong place.",

@@ -3,14 +3,15 @@
  * a link to a page all work:
  *
  *   /shelf            Bookshelf        /discover         Discover
- *   /guide            Guide            /words            Word book (all books)
- *   /about            About / How it works
+ *   /guide            Guide (how to use the app, and about the site)
+ *   /words            Word book (all books)
  *   /words/<bookId>   Word book of one book
  *   /review[/<id>]    Review           /read/<bookId>    the reader
  *
  * `/` and unknown paths go to /shelf. `/add` (the old add-book page) reads as Discover, the only
- * place that adds books. A small hand-made router: the app has no server and eight addresses,
- * so a library would add more code than it saves.
+ * place that adds books. `/about` (the old About page) reads as the Guide. A small hand-made
+ * router: the app has no server and a handful of addresses, so a library would add more code
+ * than it saves.
  */
 import { useSyncExternalStore } from "react";
 
@@ -18,7 +19,6 @@ export type Route =
   | { kind: "shelf" }
   | { kind: "discover" }
   | { kind: "guide" }
-  | { kind: "about" }
   | { kind: "words"; bookId: string | null }
   | { kind: "review"; bookId: string | null }
   | { kind: "read"; bookId: string };
@@ -55,7 +55,8 @@ export function parsePath(pathname: string): Route | null {
     case "guide":
       return rest === undefined ? { kind: "guide" } : null;
     case "about":
-      return rest === undefined ? { kind: "about" } : null;
+      // The old About page is the Guide now. The app replaces this address with /guide.
+      return rest === undefined ? { kind: "guide" } : null;
     case "words":
       return { kind: "words", bookId: id };
     case "review":
@@ -81,14 +82,12 @@ export function pathFor(route: Route): string {
 }
 
 /** Which top-menu page a route belongs to. */
-export function menuOf(route: Route): "shelf" | "discover" | "guide" | "about" | "words" {
+export function menuOf(route: Route): "shelf" | "discover" | "guide" | "words" {
   switch (route.kind) {
     case "discover":
       return "discover";
     case "guide":
       return "guide";
-    case "about":
-      return "about";
     case "words":
     case "review":
       return "words";

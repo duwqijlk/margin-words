@@ -170,8 +170,7 @@ async function routes(lang) {
   const tab = (name) => page.getByRole("button", { name, exact: true }).first();
   for (const [name, path, probe] of [
     [t("nav.discover"), "/discover", "[data-discover]"],
-    [t("nav.guide"), "/guide", "main, h1"],
-    [t("nav.about"), "/about", "[data-about-page]"],
+    [t("nav.guide"), "/guide", "[data-guide-page]"],
     [t("nav.notebook"), "/words", "h1, h2"],
     [t("nav.shelf"), "/shelf", "li.book-card"],
   ]) {
@@ -188,7 +187,7 @@ async function routes(lang) {
   await page.locator("h1, h2").first().waitFor();
   ok(new URL(page.url()).pathname === "/words", `${lang}: back goes to /words`);
   await page.goBack();
-  ok(new URL(page.url()).pathname === "/about", `${lang}: back again goes to /about`);
+  ok(new URL(page.url()).pathname === "/guide", `${lang}: back again goes to /guide`);
   await page.goForward();
   ok(new URL(page.url()).pathname === "/words", `${lang}: forward goes to /words`);
 
@@ -242,15 +241,20 @@ async function notice(lang) {
   await bar.waitFor({ timeout: 30000 });
   ok(
     (await bar.innerText()).replace(/\s+/g, " ").trim() === `${t("notice.text")} ${t("notice.link")}`,
-    `${lang}: the notice says the right text and links to About`,
+    `${lang}: the notice says the right text and links to the Guide`,
   );
-  ok((await bar.locator("[data-notice-about]").getAttribute("href")) === "/about", `${lang}: the notice links to /about`);
+  ok((await bar.locator("[data-notice-about]").getAttribute("href")) === "/guide", `${lang}: the notice links to the Guide`);
   const box = await bar.boundingBox();
   ok(box !== null && box.y <= 1 && box.height < 80, `${lang}: the notice is a slim bar at the top (${Math.round(box?.height ?? 0)}px)`);
-  for (const path of ["discover", "guide", "words", "about"]) {
+  for (const path of ["discover", "guide", "words"]) {
     await page.goto(at(path));
     ok((await bar.count()) === 1, `${lang}: the notice is on /${path}`);
   }
+  await page.goto(at("about"));
+  await page.waitForURL((url) => new URL(url).pathname === "/guide", { timeout: 30000 });
+  await page.locator("[data-guide-page]").waitFor({ timeout: 30000 });
+  ok(new URL(page.url()).pathname === "/guide", `${lang}: /about opens the Guide`);
+  ok((await bar.count()) === 1, `${lang}: the notice is still there after /about`);
   await page.goto(at("shelf"));
   await page.locator("[data-notice-close]").click();
   ok((await bar.count()) === 0, `${lang}: the close button hides the notice`);

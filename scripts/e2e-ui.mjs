@@ -759,7 +759,8 @@ async function run(lang, size) {
     );
     await vp.getByRole("button", { name: t("nav.guide"), exact: true }).click();
     await vp.getByRole("heading", { name: t("guide.title"), exact: true }).waitFor();
-    ok((await vp.locator("[data-guide-page] li").count()) === 5, `${label}: the guide has five short steps`);
+    ok((await vp.locator("[data-guide-section]").count()) === 11, `${label}: the guide is the one how-to and about page`);
+    ok((await vp.locator("header nav button").count()) === 4, `${label}: Shelf, Discover, Guide and Notebook are the only tabs`);
     ok(!(await overflow2(vp)), `${label}: no horizontal overflow (guide)`);
     await openDiscover();
     // covers are loaded lazily: scroll down the list so that all of them come into view

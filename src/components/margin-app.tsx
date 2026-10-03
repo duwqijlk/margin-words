@@ -1,4 +1,4 @@
-import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Info, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
+import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   checkBookStorage,
@@ -65,7 +65,6 @@ async function migrateOldData(): Promise<void> {
 const Shelf = lazy(() => import("@/components/shelf").then((m) => ({ default: m.Shelf })));
 const Notebook = lazy(() => import("@/components/notebook").then((m) => ({ default: m.Notebook })));
 const DiscoverScreen = lazy(() => import("@/components/discover").then((m) => ({ default: m.DiscoverScreen })));
-const AboutScreen = lazy(() => import("@/components/about-page").then((m) => ({ default: m.AboutScreen })));
 const GuideScreen = lazy(() => import("@/components/guide-page").then((m) => ({ default: m.GuideScreen })));
 const SettingsDialog = lazy(() => import("@/components/get-books").then((m) => ({ default: m.SettingsDialog })));
 const OwnEpubDialog = lazy(() => import("@/components/own-epub-dialog").then((m) => ({ default: m.OwnEpubDialog })));
@@ -108,8 +107,16 @@ export function MarginApp() {
   }, []);
 
   // "/" and any address that is not a page go to the bookshelf, without adding a history entry.
+  // /about is the old About page: it is the Guide now, so the address becomes /guide.
+  // popstate covers a Back press that lands on an old /about entry.
   useEffect(() => {
-    if (pathNeedsRedirect()) navigate(DEFAULT_ROUTE, { replace: true });
+    const fix = () => {
+      if (pathNeedsRedirect()) navigate(DEFAULT_ROUTE, { replace: true });
+      else if (window.location.pathname === "/about") navigate({ kind: "guide" }, { replace: true });
+    };
+    fix();
+    window.addEventListener("popstate", fix);
+    return () => window.removeEventListener("popstate", fix);
   }, []);
 
   useEffect(() => {
@@ -260,14 +267,6 @@ export function MarginApp() {
       badge: 0,
     },
     {
-      id: "about",
-      label: t("nav.about"),
-      Icon: Info,
-      active: menu === "about",
-      go: () => setScreen({ kind: "about" }),
-      badge: 0,
-    },
-    {
       id: "notebook",
       label: t("nav.notebook"),
       Icon: NotebookPen,
@@ -354,7 +353,7 @@ export function MarginApp() {
           aria-label={t("nav.main")}
           data-tab-bar
         >
-          <div className="mx-auto grid max-w-md grid-cols-5">
+          <div className="mx-auto grid max-w-md grid-cols-4">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -425,8 +424,6 @@ export function MarginApp() {
             />
           ) : screen.kind === "guide" ? (
             <GuideScreen />
-          ) : screen.kind === "about" ? (
-            <AboutScreen />
           ) : screen.kind === "discover" ? (
             <DiscoverScreen
               shelf={orderedBooks}
