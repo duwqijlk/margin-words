@@ -513,7 +513,14 @@ function Session({
                 </p>
               ) : null}
             </div>
-            {revealed ? (
+            {current.sources.length > 0 ? (
+              <WordSources word={current} books={books} showMeaning={revealed} />
+            ) : current.sentence ? (
+              <p className="border-l-2 border-accent/40 pl-3 text-left font-display text-[1.05rem] leading-relaxed text-ink">
+                <Highlighted sentence={current.sentence} surface={current.surface} />
+              </p>
+            ) : null}
+            {revealed && current.sources.length === 0 ? (
               <div className="anim-pop grid gap-3 border-t border-line pt-5">
                 {current.pos ? (
                   <div>
@@ -522,18 +529,13 @@ function Session({
                     </span>
                   </div>
                 ) : null}
-                <p className="text-xl leading-relaxed" lang="en">
-                  {current.meaning}
-                </p>
-                {current.sources.length > 0 ? (
-                  <WordSources word={current} books={books} />
-                ) : current.sentence ? (
-                  <p className="border-l-2 border-accent/40 pl-3 font-display text-[0.95rem] leading-relaxed text-muted">
-                    <Highlighted sentence={current.sentence} surface={current.surface} />
+                {current.meaning ? (
+                  <p className="text-xl leading-relaxed" lang="en" data-source-meaning>
+                    {current.meaning}
                   </p>
                 ) : null}
               </div>
-            ) : (
+            ) : revealed ? null : (
               <button
                 type="button"
                 className={cn(btn.quiet, "mt-2 min-h-12")}

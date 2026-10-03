@@ -111,25 +111,33 @@ function WordRow({
         </div>
       </div>
 
-      {word.pos ? (
-        <div>
-          <span className={cn(chip, "bg-accent-soft text-accent")}>
-            <span lang="en">{word.pos}</span>
-          </span>
-        </div>
-      ) : null}
-
-      <p className="text-[1.02rem] leading-relaxed" lang="en">
-        {word.meaning}
-      </p>
-
       {word.sources.length > 0 ? (
         <WordSources word={word} books={books} />
-      ) : word.sentence ? (
-        <p className="border-l-2 border-accent/40 pl-3 font-display text-[0.95rem] leading-relaxed text-muted">
-          <Highlighted sentence={word.sentence} surface={word.surface} />
-        </p>
-      ) : null}
+      ) : (
+        <div className="grid gap-1.5">
+          {word.sentence ? (
+            <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed text-ink">
+              <Highlighted sentence={word.sentence} surface={word.surface} />
+            </p>
+          ) : null}
+          {word.pos ? (
+            <div className={word.sentence ? "pl-3" : undefined}>
+              <span className={cn(chip, "bg-accent-soft text-accent")}>
+                <span lang="en">{word.pos}</span>
+              </span>
+            </div>
+          ) : null}
+          {word.meaning ? (
+            <p
+              className={cn("text-[1.02rem] leading-relaxed", word.sentence && "pl-3")}
+              lang="en"
+              data-source-meaning
+            >
+              {word.meaning}
+            </p>
+          ) : null}
+        </div>
+      )}
 
       <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-2">
         <p className="flex min-w-0 items-center gap-1.5 text-xs text-muted">

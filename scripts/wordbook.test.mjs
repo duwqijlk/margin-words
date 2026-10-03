@@ -93,6 +93,16 @@ test("saving the same lemma again adds a source and never touches the schedule",
   assert.equal(next.sources.length, 2);
 });
 
+test("a sense stored on only one copy of a save is kept", () => {
+  const plain = source(keyA, "The same sentence here.", { at: { chapter: 1, paragraph: 0, quote: "The same sentence here", offset: 0 } });
+  const sensed = source(keyA, "The same sentence here.", { meaning: "A small light.", pos: "singular noun" });
+  const list = mergeSources([plain], [sensed]);
+  assert.equal(list.length, 1);
+  assert.equal(list[0].meaning, "A small light.");
+  assert.equal(list[0].pos, "singular noun");
+  assert.ok(list[0].at);
+});
+
 test("the same save twice is one source, and the more detailed copy is kept", () => {
   const plain = source(keyA, "The same sentence here.");
   const placed = { ...plain, chapter: 2, chapterTitle: "Chapter 3", at: { chapter: 2, paragraph: 4, quote: "The same sentence here", offset: 0 } };

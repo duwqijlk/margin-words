@@ -9,7 +9,7 @@
  *   - a new shelf is empty and points to Discover; Alice is added like any other book
  *   - saving words from two books gives ONE list; a word saved in both books is one card with two sources
  *   - data of the older per-book version migrates (review state kept, sources made), also after a reload
- *   - the notebook: book filter, search, due count; the review card shows the sentence, book and chapter on reveal
+ *   - the notebook: book filter, search, due count; the review card shows the sentence first, then the meaning
  *   - "Go to this place" opens the book at that sentence
  *   - taking a book off the shelf keeps its words
  *   - a reading place saved by another copy of the book (other chapter, other paragraph number) still opens in
@@ -212,17 +212,18 @@ async function scenario(lang, size) {
   const dueText = await page.getByRole("button", { name: new RegExp(escapeRe(t("nb.startReview")).replace("\\{n\\}", "\\d+")) }).innerText();
   ok(/\d/.test(dueText), `${label}: the review button shows how many are due ("${dueText.trim()}")`);
 
-  // ---- 7. one review queue across both books, source on reveal
+  // ---- 7. one review queue across both books: the sentence is on the card, the meaning comes after
   await page.goto(at("review"));
   await page.locator("h1").first().waitFor();
   await page.getByRole("button", { name: new RegExp(escapeRe(t("rv.startToday")).replace("\\{n\\}", "\\d+")) }).click();
   await page.locator("article h1[lang=en]").waitFor();
-  ok((await page.locator("[data-word-sources]").count()) === 0, `${label}: the review card first shows only the word`);
+  await page.locator("article [data-word-source] mark").first().waitFor();
+  ok((await page.locator("article [data-source-meaning]").count()) === 0, `${label}: the review card shows the sentence before the meaning`);
   await page.getByRole("button", { name: t("rv.showMeaning") }).click();
-  await page.locator("[data-word-sources]").waitFor();
-  const marks = await page.locator("[data-word-source] mark").count();
-  const bookLine = await page.locator("[data-word-source]").first().innerText();
-  ok(marks >= 1, `${label}: on reveal the word is highlighted in its sentence`);
+  await page.locator("article [data-source-meaning]").first().waitFor();
+  const marks = await page.locator("article [data-word-source] mark").count();
+  const bookLine = await page.locator("article [data-word-source]").first().innerText();
+  ok(marks >= 1, `${label}: the word stays highlighted in its sentence`);
   ok(/Alice|Lantern/.test(bookLine), `${label}: and the book is named ("${bookLine.replace(/\n/g, " | ").slice(0, 70)}")`);
   ok(!(await overflow()), `${label}: no horizontal overflow (review card)`);
   await shot("review-card-source");

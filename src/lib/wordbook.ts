@@ -28,14 +28,28 @@ function detail(source: WordSource): number {
   return (source.at ? 2 : 0) + (source.chapter !== undefined ? 1 : 0) + (source.chapterTitle ? 1 : 0);
 }
 
+/** Keep a sense that only one of the two copies stored. */
+function withSense(winner: WordSource, other: WordSource | undefined): WordSource {
+  if (!other) return winner;
+  const next = { ...winner };
+  if (!next.meaning && other.meaning) next.meaning = other.meaning;
+  if (!next.pos && other.pos) next.pos = other.pos;
+  return next;
+}
+
 /** Union of two source lists. The same save (see `sourceKey`) keeps the more detailed copy. Oldest first. */
 export function mergeSources(a: readonly WordSource[], b: readonly WordSource[], cap = MAX_SOURCES): WordSource[] {
   const map = new Map<string, WordSource>();
   for (const source of [...a, ...b]) {
     const key = sourceKey(source);
     const prior = map.get(key);
-    if (!prior || detail(source) > detail(prior)) map.set(key, prior ? { ...source, savedAt: Math.min(source.savedAt, prior.savedAt) } : source);
-    else if (source.savedAt < prior.savedAt) map.set(key, { ...prior, savedAt: source.savedAt });
+    if (!prior || detail(source) > detail(prior)) {
+      map.set(key, withSense(prior ? { ...source, savedAt: Math.min(source.savedAt, prior.savedAt) } : source, prior));
+    } else {
+      const next = withSense(prior, source);
+      if (source.savedAt < prior.savedAt) next.savedAt = source.savedAt;
+      map.set(key, next);
+    }
   }
   const list = [...map.values()].sort((x, y) => x.savedAt - y.savedAt);
   return list.length > cap ? list.slice(list.length - cap) : list;

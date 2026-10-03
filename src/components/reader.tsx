@@ -1661,6 +1661,8 @@ export function ReaderScreen({
               ...(chapter.title ? { chapterTitle: chapter.title } : {}),
               sentence: card.sentence,
               surface: picked.surface,
+              ...(card.meaning ? { meaning: card.meaning } : {}),
+              ...(card.pos ? { pos: card.pos } : {}),
               at: makeAnchor({
                 chapter: safeIndex,
                 paragraph: picked.block,
