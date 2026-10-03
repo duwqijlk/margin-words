@@ -173,8 +173,8 @@ test("phrase: a noun phrase before a clause-final particle, not a preposition", 
   assert.equal(keep("Put it on the table.", "on"), null);
   assert.equal(keep("He came right back.", "back"), "come back");
 
-  // Clothing: on a person or `his back`. Placement on `the` something stays out.
-  assert.equal(keep("She put the baby on his back.", "on"), "put on");
+  // Clothing on a person stays. Placement on `his back` / `the` something stays out.
+  assert.equal(keep("She put the baby on his back.", "on"), null);
   assert.equal(keep("He put his hand on the lid.", "on"), null);
   assert.equal(keep("They took up in a shack.", "in"), null);
   assert.equal(keep("Make her show up.", "up"), "show up");
@@ -387,7 +387,110 @@ test("phrase: scored fixture gaps", () => {
 
   const figure = "so I figure we'll figure it out together.";
   assert.equal(keep(figure, "figure", figure.lastIndexOf("figure")), "figure out");
-  assert.equal(keep(figure, "figure", figure.indexOf("figure")), "figure out");
+  // The first `figure` (`I figure` = I think) had its own long match rejected, so it
+  // does not fall back to the later `figure it out`.
+  assert.equal(keep(figure, "figure", figure.indexOf("figure")), null);
+});
+
+test("phrase: gap follow-ups from the scored books", () => {
+  const pv = (meaning) => ({ meaning, pos: "phrasal verb" });
+  const phrases = {
+    "put on": pv("Wear."),
+    "go on": pv("Continue."),
+    "pick up": pv("Lift."),
+    "take off": pv("Remove."),
+    "get over": pv("Recover."),
+    "make for": pv("Head toward."),
+    "get out": pv("Leave."),
+    "hang on": pv("Wait."),
+    "hold on": pv("Grip."),
+    "come on": pv("Hurry."),
+    "carry on": pv("Continue."),
+    "hang around": pv("Stay."),
+    "look on": pv("Watch."),
+    "take up": pv("Start."),
+    "stand up": pv("Rise."),
+    "be off": pv("Leave."),
+    "hold up": pv("Delay."),
+    "take over": pv("Control."),
+    "come across": pv("Find."),
+    "come out": pv("Appear."),
+    "look around": pv("Survey."),
+    "figure out": pv("Solve."),
+    "on her own": { meaning: "Alone.", pos: "phrase" },
+  };
+  const at = (sentence, word, nth = 0) => {
+    let from = 0;
+    for (let i = 0; i <= nth; i += 1) {
+      const found = sentence.indexOf(word, from);
+      if (found < 0) return -1;
+      if (i === nth) return found;
+      from = found + word.length;
+    }
+    return -1;
+  };
+  const show = (sentence, word, nth = 0) => pickPhrase(phrases, sentence, word, at(sentence, word, nth))?.key ?? null;
+
+  // Correct matches main blocked.
+  assert.equal(show("Mr Wonka said, ‘Put these on quick!’", "on"), "put on");
+  assert.equal(show("It went right on growing until it was about as big as a horse.", "on"), "go on");
+  assert.equal(show("He reached out a hand to pick some of them up before it was too late.", "up"), "pick up");
+  assert.equal(show("And don’t put it on till I shout.", "on"), "put on");
+  assert.equal(show("They began walking about and picking things up to look at.", "up"), "pick up");
+  assert.equal(show("Take this wretched skin off me at once.", "off"), "take off");
+  assert.equal(show("The stars came out and time went slowly on—imagine how slowly—while the king stood there.", "on"), "go on");
+
+  // Debatable. Pronoun or filler plus `on` plus a noun stays placement.
+  // `get` plus a pronoun plus `out of` is the phrasal verb.
+  assert.equal(show("We’re getting you out of there.", "out"), "get out");
+  assert.equal(show("Put it on her face, the enchanter commanded.", "on"), null);
+  assert.equal(show("“Put them on my heels, of course,” said Shasta.", "on"), null);
+  assert.equal(show("He had promised to go straight on his message for Aslan.", "on"), null);
+
+  // Wrong new matches from `all` / `that` / a time period.
+  assert.equal(show("He suddenly got warm all over right down to his toes.", "over"), null);
+  assert.equal(show("I can tell the others and get it all over.", "over"), null);
+  assert.equal(show("Do you remember the Dwarf making that for me?", "for"), null);
+  assert.equal(show("Bradley had taken a half-day off.", "off"), null);
+
+  // Wrong matches that main still showed.
+  assert.equal(show("He hung the bag on his shoulder and followed Annie.", "on"), null);
+  assert.equal(show("Jack held their bag on his lap.", "on"), null);
+  assert.equal(show("Holding the raft on his back, the giant shark kept swimming.", "on"), null);
+  assert.equal(show("He put his hands on his knees.", "on"), null);
+  assert.equal(show("Tolemeo put a hand on his shoulder.", "on"), null);
+  assert.equal(show("Mrs. Weedon put her hands on her wide hips.", "on"), null);
+  assert.equal(show("Her sisters came close on her heels.", "on"), null);
+  assert.equal(show("Annie helped him put the pack on his chest instead of on his back.", "on"), null);
+  assert.equal(show("He put magic juice on her eyelids.", "on"), null);
+  assert.equal(show("He put the baby on his back.", "on"), null);
+  assert.equal(show("They passed women carrying pots on their shoulders.", "on"), null);
+  assert.equal(show("He never took his eyes off Charlie.", "off"), null);
+  assert.equal(show("She never took her eyes off him.", "off"), null);
+  assert.equal(show("Jack quickly took his hand off the wall.", "off"), null);
+  assert.equal(show("The girls stood making up their minds.", "up"), null);
+  assert.equal(show("The ladder was sliding off the van.", "off"), null);
+  assert.equal(show("Olivia came bouncing across the snowy ground.", "across"), null);
+  assert.equal(show("I was going to come check on you today.", "on"), null);
+  assert.equal(show("Bright pictures hung all around the room.", "around"), null);
+  assert.equal(show("They hung all around him.", "around"), null);
+  assert.equal(show("He saw a slice of stale-looking bread on his plate.", "on"), null);
+  assert.equal(show("Then took a boat up the river.", "up"), null);
+  assert.equal(show("She was afraid the vest would be torn off Olivia.", "off"), null);
+  assert.equal(show("Quint says, holding his hands up all defensively.", "up"), null);
+  assert.equal(show("He’d take a howling snowstorm over this dripping rain.", "over"), null);
+
+  // The same shapes that are real phrases stay.
+  assert.equal(show("He put his pack on his back.", "on"), "put on");
+  assert.equal(show("She put a costume on him.", "on"), "put on");
+  assert.equal(show("They finished putting harnesses on all the dogs.", "on"), "put on");
+  assert.equal(show("He put his pack on the ground.", "on"), null);
+  assert.equal(show("Charlie burst out and came running across the road.", "across"), "come across");
+  assert.equal(show("The boa came slithering out of the kettle.", "out"), "come out");
+  assert.equal(show("He looked all around him.", "around"), "look around");
+  const aside = "Ask her, then finish on her own.";
+  assert.equal(show(aside, "her", 0), "on her own");
+  assert.equal(show(aside, "her", 1), "on her own");
 });
 
 test("phrase: no false positives", () => {
