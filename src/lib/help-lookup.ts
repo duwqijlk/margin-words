@@ -58,7 +58,9 @@ export async function getSentenceHelp(
 /**
  * The listed phrase (phrasal verb or idiom) that the tapped word is part of in this sentence, or null.
  * `tappedAt` is the character offset of that word inside `sentenceText`, so a sentence with two
- * phrases that share a word can show the one that covers the tap.
+ * phrases that share a word can show the one that covers the tap. The span is every token from
+ * the first matched word through the last, including a gap. A tap outside that span does not
+ * open the phrase.
  * `matched` is the text of the phrase as written in the sentence (from its first to its last word).
  */
 export async function findPhrase(

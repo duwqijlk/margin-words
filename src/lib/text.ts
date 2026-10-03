@@ -124,14 +124,49 @@ export function collectHardWords(paragraphs: string[], limit: number = PREPARE_L
     .map(([key]) => key);
 }
 
+/**
+ * Character index of `surface` in `paragraph`.
+ * An exact slice at `at` wins. If that slice is not the word, the nearest whole-word
+ * copy wins (a later `his` does not snap back to the first `his`, and `his` inside
+ * `this` does not count). With no `at`, the first copy is used.
+ */
+export function surfaceOffset(paragraph: string, surface: string, at?: number): number {
+  const want = surface.toLowerCase();
+  if (!want) return -1;
+  if (
+    at !== undefined &&
+    at >= 0 &&
+    paragraph.slice(at, at + surface.length).toLowerCase() === want
+  ) {
+    return at;
+  }
+  const hay = paragraph.toLowerCase();
+  if (at === undefined) return hay.indexOf(want);
+  const letter = /[\p{L}\p{M}]/u;
+  let best = -1;
+  let bestDist = Number.POSITIVE_INFINITY;
+  let from = 0;
+  while (from <= hay.length - want.length) {
+    const i = hay.indexOf(want, from);
+    if (i < 0) break;
+    const before = i > 0 ? hay[i - 1] : "";
+    const after = i + want.length < hay.length ? hay[i + want.length] : "";
+    if ((!before || !letter.test(before)) && (!after || !letter.test(after))) {
+      const dist = Math.abs(i - at);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    }
+    from = i + 1;
+  }
+  return best;
+}
+
 export function sentenceAround(paragraph: string, surface: string, at?: number): string {
   // `at` is where the tapped word really is in the paragraph (so a word that appears
   // twice shows the sentence that was tapped, not the first one).
-  const exact =
-    at !== undefined &&
-    at >= 0 &&
-    paragraph.slice(at, at + surface.length).toLowerCase() === surface.toLowerCase();
-  const idx = exact ? (at as number) : paragraph.toLowerCase().indexOf(surface.toLowerCase());
+  const idx = surfaceOffset(paragraph, surface, at);
   if (idx < 0) return paragraph.slice(0, 240);
   const bounds = [".", "?", "!"];
   let start = 0;

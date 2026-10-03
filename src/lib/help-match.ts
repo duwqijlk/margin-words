@@ -1416,6 +1416,12 @@ function gapSize(indexes: number[]): number {
   return (indexes[indexes.length - 1] as number) - (indexes[0] as number) - (indexes.length - 1);
 }
 
+/** True when `focus` is a token of the match or a token sitting in its gap. */
+function spanCovers(indexes: number[], focus: number): boolean {
+  if (focus < 0 || indexes.length === 0) return false;
+  return focus >= (indexes[0] as number) && focus <= (indexes[indexes.length - 1] as number);
+}
+
 /** A phrase with no intervening words beats a longer one that jumps a gap. Then more words, then a smaller gap. */
 function phraseScore(indexes: number[]): number {
   const gap = gapSize(indexes);
@@ -1423,61 +1429,14 @@ function phraseScore(indexes: number[]): number {
 }
 
 /**
- * A separable phrase starts on this token, but every particle it can see is rejected
- * (`I figure we'll figure it out`: the long gap is too big). That tap must not fall
- * back to a later match of the same word. `Ask her, then finish on her own` has no
- * rejected phrase of its own, so the later phrase still opens.
- */
-function separableFromRejected(
-  text: string,
-  tokens: Token[],
-  from: number,
-  phrases: Record<string, PhraseEntry>,
-): boolean {
-  const verb = tokens[from];
-  if (!verb) return false;
-  if (from > 0 && sameHyphen(text, tokens[from - 1] as Token, verb)) return false;
-  let rejected = false;
-  for (const [key, entry] of Object.entries(phrases)) {
-    if (!entry || typeof entry.meaning !== "string") continue;
-    for (const variant of variantsOf(key, entry)) {
-      if (!variant.separable) continue;
-      if (!wordFits(variant.words[0] as string, verb.w)) continue;
-      const want = variant.words[1] as string;
-      for (let gap = 1; gap <= 8 && from + 1 + gap < tokens.length; gap += 1) {
-        const cand = tokens[from + 1 + gap] as Token;
-        if (hasBreak(text, verb.end, cand.start)) break;
-        const between = collapseHyphens(text, tokens.slice(from + 1, from + 1 + gap));
-        if (!wordFits(want, cand.w)) {
-          if (between.length > 3) break;
-          continue;
-        }
-        const before = tokens[from + gap] as Token;
-        const hyphenBad =
-          sameHyphen(text, before, cand) && !hyphenChainReaches(text, tokens, from, from + 1 + gap);
-        const ok =
-          between.length >= 1 &&
-          between.length <= 3 &&
-          !hyphenBad &&
-          gapAllowed(between, want, verb.w) &&
-          !complementRejects(text, tokens, from + 1 + gap, want, between, verb.w);
-        if (ok) return false;
-        rejected = true;
-        break;
-      }
-    }
-  }
-  return rejected;
-}
-
-/**
  * Find the listed phrase that the tapped word belongs to in this sentence.
- * The tapped word must be one of the words of the phrase itself (not a word in the gap).
- * When `tappedAt` is the character offset of the tapped word in `sentenceText`, a phrase
- * whose match covers that token wins. A match with no gap beats a match that jumps across
- * other words. If several still cover it, the longest wins, then the smaller gap.
- * If none covers that token, the same rule is applied to every other match of the word,
- * unless this token's own separable candidate was rejected.
+ * When `tappedAt` is the character offset of the tapped word in `sentenceText`, the card
+ * opens only if that token's index sits in the match, from the first matched word through
+ * the last (the words in between are part of the span). Membership is that token index,
+ * not the first copy of the same spelling (`shook her head` does not open from the next
+ * `her`). A match with no gap beats a match that jumps across other words. If several
+ * still cover the tap, the longest wins, then the smaller gap. With no offset, a match
+ * may be returned only when the tapped spelling is one of the matched words.
  * Returns null when there is no safe match.
  */
 export function pickPhrase(
@@ -1514,7 +1473,7 @@ export function pickPhrase(
         if (gapSize(hit.indexes) === 0) {
           solid.push({ start: hit.indexes[0] as number, indexes: hit.indexes });
         }
-        const covers = focus >= 0 && hit.indexes.includes(focus);
+        const covers = spanCovers(hit.indexes, focus);
         const wordHit = hit.indexes.some((i) => (tokens[i] as Token).w === tapped);
         if (!covers && !wordHit) continue;
         const a = tokens[hit.indexes[0] as number] as Token;
@@ -1547,9 +1506,9 @@ export function pickPhrase(
       if (!bestCover || hit.score > bestCover.score) bestCover = hit;
     } else if (!bestAny || hit.score > bestAny.score) bestAny = hit;
   }
-  const ownRejected =
-    !bestCover && !!bestAny && focus >= 0 && separableFromRejected(sentenceText, tokens, focus, phrases);
-  const best = bestCover ?? (ownRejected ? null : bestAny);
+  // A known tap opens a card only from a token inside the span. Another copy of the
+  // word, and a word in the gap, stay plain taps. With no offset, keep the old fallback.
+  const best = focus >= 0 ? bestCover : (bestCover ?? bestAny);
   return best ? { key: best.key, entry: best.entry, matched: best.matched } : null;
 }
 

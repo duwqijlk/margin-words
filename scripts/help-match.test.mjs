@@ -387,8 +387,7 @@ test("phrase: scored fixture gaps", () => {
 
   const figure = "so I figure we'll figure it out together.";
   assert.equal(keep(figure, "figure", figure.lastIndexOf("figure")), "figure out");
-  // The first `figure` (`I figure` = I think) had its own long match rejected, so it
-  // does not fall back to the later `figure it out`.
+  // The first `figure` is not a token of `figure it out`.
   assert.equal(keep(figure, "figure", figure.indexOf("figure")), null);
 });
 
@@ -489,7 +488,8 @@ test("phrase: gap follow-ups from the scored books", () => {
   assert.equal(show("The boa came slithering out of the kettle.", "out"), "come out");
   assert.equal(show("He looked all around him.", "around"), "look around");
   const aside = "Ask her, then finish on her own.";
-  assert.equal(show(aside, "her", 0), "on her own");
+  assert.equal(show(aside, "her", 0), null);
+  assert.equal(show(aside, "own"), "on her own");
   assert.equal(show(aside, "her", 1), "on her own");
 });
 
@@ -537,6 +537,121 @@ test("phrase: motion -ing, all over, and up a bit", () => {
 
   assert.equal(show("He put his pack on his back.", "on"), "put on");
   assert.equal(show("Annie helped him put the pack on his chest.", "on"), null);
+});
+
+test("phrase: a tap outside the span stays a plain word", () => {
+  const phrase = (meaning) => ({ meaning, pos: "phrase" });
+  const phrases = {
+    "shake your head": { ...phrase("No."), forms: ["shook her head", "shook his head"] },
+    "i mean": phrase("That is."),
+    "i guess": phrase("I suppose."),
+    "in your head": { ...phrase("Imagined."), forms: ["in her head"] },
+    "on your own": { ...phrase("Alone."), forms: ["on his own"] },
+    "roll one's eyes": phrase("Annoyance."),
+    "as fast as they could": phrase("Quickly."),
+    "pick up": { meaning: "Lift.", pos: "phrasal verb" },
+  };
+  const at = (sentence, word, nth = 0) => {
+    let from = 0;
+    for (let i = 0; i <= nth; i += 1) {
+      const found = sentence.indexOf(word, from);
+      if (found < 0) return -1;
+      if (i === nth) return found;
+      from = found + word.length;
+    }
+    return -1;
+  };
+  const show = (sentence, word, nth = 0) =>
+    pickPhrase(phrases, sentence, word, at(sentence, word, nth))?.key ?? null;
+
+  // wof06: the later "her"s are not part of "shook her head".
+  const mud = "The MudWing shook her head quickly and buried her nose in her scroll.";
+  assert.equal(show(mud, "shook"), "shake your head");
+  assert.equal(show(mud, "her", 0), "shake your head");
+  assert.equal(show(mud, "head"), "shake your head");
+  assert.equal(show(mud, "her", 1), null);
+  assert.equal(show(mud, "her", 2), null);
+
+  // wof06: each "I" opens only the phrase it sits in.
+  const guess = "I didn't realize — I mean, I guess I knew.";
+  assert.equal(show(guess, "I", 0), null);
+  assert.equal(show(guess, "I", 1), "i mean");
+  assert.equal(show(guess, "mean"), "i mean");
+  assert.equal(show(guess, "I", 2), "i guess");
+  assert.equal(show(guess, "guess"), "i guess");
+  assert.equal(show(guess, "I", 3), null);
+
+  const head = "All of her mother's nightmare scenarios started playing again in her head.";
+  assert.equal(show(head, "her", 0), null);
+  assert.equal(show(head, "her", 1), "in your head");
+  assert.equal(show(head, "head"), "in your head");
+
+  const own = "He can do his job properly on his own.";
+  assert.equal(show(own, "his", 0), null);
+  assert.equal(show(own, "his", 1), "on your own");
+  assert.equal(show(own, "own"), "on your own");
+
+  const eyes = "She rolled her eyes and hurried after her sister.";
+  assert.equal(show(eyes, "rolled"), "roll one's eyes");
+  assert.equal(show(eyes, "her", 0), "roll one's eyes");
+  assert.equal(show(eyes, "eyes"), "roll one's eyes");
+  assert.equal(show(eyes, "her", 1), null);
+
+  const ran = "They ran as fast as they could.";
+  assert.equal(show(ran, "They"), null);
+  assert.equal(show(ran, "they"), "as fast as they could");
+
+  // A separable gap: every token from the verb through the particle opens the card.
+  // A word before or after that span stays a plain tap.
+  const box = "She picked the box up.";
+  assert.equal(show(box, "She"), null);
+  assert.equal(show(box, "picked"), "pick up");
+  assert.equal(show(box, "box"), "pick up");
+  assert.equal(show(box, "the"), "pick up");
+  assert.equal(show(box, "up"), "pick up");
+
+  const held = "Charlie held it out to her.";
+  const heldPhrases = {
+    ...phrases,
+    "held out": { meaning: "Offered.", pos: "phrasal verb" },
+  };
+  const showHeld = (word, nth = 0) =>
+    pickPhrase(heldPhrases, held, word, at(held, word, nth))?.key ?? null;
+  assert.equal(showHeld("held"), "held out");
+  assert.equal(showHeld("it"), "held out");
+  assert.equal(showHeld("out"), "held out");
+  assert.equal(showHeld("her"), null);
+
+  const mirror = "Dagbert turned the mirror over and over.";
+  const mirrorPhrases = {
+    "turn over": { meaning: "Flip.", pos: "phrasal verb" },
+  };
+  const showMirror = (word, nth = 0) =>
+    pickPhrase(mirrorPhrases, mirror, word, at(mirror, word, nth))?.key ?? null;
+  assert.equal(showMirror("turned"), "turn over");
+  assert.equal(showMirror("the"), "turn over");
+  assert.equal(showMirror("mirror"), "turn over");
+  assert.equal(showMirror("over", 0), "turn over");
+  assert.equal(showMirror("over", 1), null);
+  assert.equal(showMirror("and"), null);
+
+  const them = "He picked them up and carried them.";
+  assert.equal(show(them, "them", 0), "pick up");
+  assert.equal(show(them, "them", 1), null);
+
+  const brows = "Benjamin raised his eyebrows and looked at his dog.";
+  const eyePhrases = {
+    "raise his eyebrows": {
+      meaning: "Surprise.",
+      pos: "phrase",
+      forms: ["raised his eyebrows"],
+    },
+  };
+  const showBrows = (word, nth = 0) =>
+    pickPhrase(eyePhrases, brows, word, at(brows, word, nth))?.key ?? null;
+  assert.equal(showBrows("his", 0), "raise his eyebrows");
+  assert.equal(showBrows("his", 1), null);
+  assert.equal(showBrows("eyebrows"), "raise his eyebrows");
 });
 
 test("phrase: a comma written in the entry", () => {
@@ -627,9 +742,9 @@ test("phrase: the match that covers the tapped word wins over another match of t
   assert.equal(choose(plan, "own", plan.indexOf("own"))?.key, "on her own");
   assert.equal(choose(plan, "on", plan.indexOf("on her"))?.key, "on her own");
 
-  // A tap that no phrase covers still falls back to another match of that word.
+  // A tap outside the span does not open another copy of the same word.
   const aside = "Ask her, then finish on her own.";
-  assert.equal(choose(aside, "her", aside.indexOf("her"))?.key, "on her own");
+  assert.equal(choose(aside, "her", aside.indexOf("her")), null);
   assert.equal(choose(aside, "her", aside.lastIndexOf("her"))?.key, "on her own");
 
   // Two phrases covering the same token: the longer one wins.

@@ -47,6 +47,7 @@ import {
   isEasyKey,
   resolveGlossKey,
   sentenceAround,
+  surfaceOffset,
   type WordStat,
 } from "@/lib/text";
 import { useVocab } from "@/lib/vocab-store";
@@ -424,10 +425,7 @@ function locateSentence(
   surface: string,
   at: number,
 ): { text: string; offset: number } {
-  const exact =
-    at >= 0 &&
-    paragraph.slice(at, at + surface.length).toLowerCase() === surface.toLowerCase();
-  const idx = exact ? at : paragraph.toLowerCase().indexOf(surface.toLowerCase());
+  const idx = surfaceOffset(paragraph, surface, at);
   if (idx < 0) return { text: paragraph.slice(0, 600), offset: -1 };
   let start = 0;
   let end = paragraph.length;
