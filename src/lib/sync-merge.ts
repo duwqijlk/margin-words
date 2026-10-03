@@ -68,6 +68,8 @@ export type ProgressData = {
   chapters: number;
   scroll: number;
   updatedAt: number;
+  /** Set while the open page is an extra spine file. */
+  extraId?: string;
 };
 
 export type ReviewDay = { reviewed: number; correct: number };
@@ -227,12 +229,15 @@ export function asShelf(data: unknown): ShelfData | null {
 export function asProgress(data: unknown): ProgressData | null {
   if (!data || typeof data !== "object") return null;
   const raw = data as Record<string, unknown>;
-  return {
+  const progress: ProgressData = {
     chapter: integer(raw.chapter, 0, 100_000),
     chapters: integer(raw.chapters, 0, 100_000),
     scroll: Math.min(1, Math.max(0, typeof raw.scroll === "number" && Number.isFinite(raw.scroll) ? raw.scroll : 0)),
     updatedAt: time(raw.updatedAt),
   };
+  const extraId = text(raw.extraId, 40);
+  if (extraId) progress.extraId = extraId;
+  return progress;
 }
 
 export function asSettings(data: unknown): SettingsData {

@@ -15,6 +15,7 @@ import {
   loadBookMeta,
   loadCover,
   loadPackRecord,
+  loadStoredBook,
   requestPersistentStorage,
   saveCover,
   savePackRecord,
@@ -25,7 +26,14 @@ import {
 import { dataUrlOf, fetchCoverData } from "@/lib/covers";
 import { findOnShelf, type Identity } from "@/lib/shelf-identity";
 import { useVocab } from "@/lib/vocab-store";
-import { importedCoverChoice, parseEpub, type ParsedEpub } from "@/lib/epub";
+import {
+  applySpineMerge,
+  importedCoverChoice,
+  importSpineWarnings,
+  parseEpub,
+  type ParsedEpub,
+  type SpineNameWarning,
+} from "@/lib/epub";
 import { validateGlossary } from "@/lib/glossary-format";
 import { errorText, tr, type Key } from "@/lib/i18n";
 import {
@@ -371,6 +379,19 @@ async function findInstalled(input: InstallInput): Promise<PackRecord | null> {
   );
 }
 
+function spineMergeOf(glossaryText: string): Record<string, string> | undefined {
+  if (!glossaryText.trim()) return undefined;
+  const merge = validateGlossary(glossaryText).file?.spine?.merge;
+  if (!merge || Object.keys(merge).length === 0) return undefined;
+  return merge;
+}
+
+/** `2` when the word list opts into chapter-wrapper blockquotes. Otherwise unset. */
+function segmentationOf(glossaryText: string): 2 | undefined {
+  if (!glossaryText.trim()) return undefined;
+  return validateGlossary(glossaryText).file?.segmentation;
+}
+
 let installTail: Promise<unknown> = Promise.resolve();
 
 /** Store a pack in this browser. One install runs at a time. Throws a plain-English Error. */
@@ -388,8 +409,16 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
   let title = input.title;
   let author = input.author;
   try {
+    const spineMerge = spineMergeOf(input.glossaryText);
+    const segmentation = segmentationOf(input.glossaryText);
+    const storedNow = existing ? await loadStoredBook(existing.bookId).catch(() => null) : null;
+    const segChanged = (storedNow?.segmentation === 2) !== (segmentation === 2);
+    let parsed = input.parsed;
+    if ((!existing || !sameBook || spineMerge || segChanged) && !parsed)
+      parsed = await parseEpub(bufferOf(input.epub), { segmentation });
+    if (parsed && spineMerge) parsed = applySpineMerge(parsed, spineMerge);
     if (!existing || !sameBook) {
-      const parsed = input.parsed ?? (await parseEpub(bufferOf(input.epub)));
+      if (!parsed) throw new Error(tr("err.openFailed"));
       title = input.title || parsed.title;
       author = input.author || parsed.author;
       bookId = existing?.bookId ?? crypto.randomUUID();
@@ -398,6 +427,8 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
         title,
         author,
         chapters: parsed.chapters,
+        ...(parsed.extras.length > 0 ? { extras: parsed.extras } : {}),
+        ...(segmentation === 2 ? { segmentation: 2 } : {}),
         glossary: {},
         pending: [],
         totalHard: 0,
@@ -405,6 +436,20 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
       // Read it back: a browser that silently drops the write would lose the book on refresh.
       if (!(await loadBookMeta(bookId))) throw new Error(tr("err.saveFailedPack"));
       await storeImportedCover(bookId, input.cover, input.coverInfo, parsed);
+    } else if (sameBook && (spineMerge || segChanged) && parsed && existing) {
+      const stored = storedNow ?? (await loadStoredBook(existing.bookId));
+      if (stored) {
+        const next = {
+          ...stored,
+          chapters: parsed.chapters,
+          extras: parsed.extras,
+        };
+        if (segmentation === 2) next.segmentation = 2;
+        else delete next.segmentation;
+        await saveStoredBook(next);
+      }
+      if (!(await loadCover(bookId)))
+        await storeImportedCover(bookId, input.cover, input.coverInfo, parsed);
     } else if (input.parsed && !(await loadCover(bookId))) {
       // The same book again (for example the pack is imported once more): fill in a cover that is missing.
       await storeImportedCover(bookId, input.cover, input.coverInfo, input.parsed);
@@ -554,6 +599,22 @@ export async function downloadPack(
       throw new Error(tr("err.damaged"));
     glossaryText = new TextDecoder().decode(bytes);
   }
+  // The same EPUB file is skipped above. A word list that turns blockquote
+  // splitting on or off still needs those bytes, so the stored paragraphs match.
+  if (keepBook && have && glossaryText) {
+    const segmentation = segmentationOf(glossaryText);
+    const stored = await loadStoredBook(have.bookId).catch(() => null);
+    if ((stored?.segmentation === 2) !== (segmentation === 2) && pack.epub.url) {
+      epub = await fetchBytes(
+        resolveAgainst(catalogUrl, pack.epub.url),
+        pack.epub.bytes,
+        () => undefined,
+      );
+      epubSha = (await hashBytes(epub)) || pack.epub.sha256;
+      if (pack.epub.sha256 && epubSha && pack.epub.sha256 !== epubSha)
+        throw new Error(tr("err.damaged"));
+    }
+  }
 
   // A missing cover is fine: the book makes its own.
   const cover =
@@ -646,7 +707,12 @@ export async function adoptLegacyBooks(packs: CatalogPack[]): Promise<PackRecord
 
 /* ------------------------------------------------------------------ importing a pack file */
 
-export type ImportedPack = InstallResult & { packId: string; hadWords: boolean };
+export type ImportedPack = InstallResult & {
+  packId: string;
+  hadWords: boolean;
+  /** spine.merge names that match nothing, or match a file that is not merged. The book is still stored. */
+  warnings: SpineNameWarning[];
+};
 
 const baseName = (path: string) => path.slice(path.lastIndexOf("/") + 1);
 
@@ -681,6 +747,7 @@ type Prepared = {
   isbn: string;
   series: string;
   seriesNumber: number;
+  warnings: SpineNameWarning[];
 };
 
 /** Read one pack of the zip and check everything. Nothing is stored yet. Throws a PackProblem. */
@@ -703,13 +770,14 @@ async function prepare(zip: JSZip, group: PackGroup): Promise<Prepared> {
   // 2. the book: opens, and gives the title, the author and the cover
   let parsed: ParsedEpub;
   try {
-    parsed = await parseEpub(bufferOf(epub));
+    parsed = await parseEpub(bufferOf(epub), { segmentation: check.file.segmentation });
   } catch (reason) {
     throw new PackProblem("epubBad", { reason: errorText(reason, "err.openFailed") });
   }
 
   // 3. the list belongs to this book
   matchGlossary(check.file, { title: parsed.title, author: parsed.author, sha256: epubSha });
+  const warnings = importSpineWarnings(check.file.spine?.merge, parsed);
 
   // optional files
   let info: Record<string, unknown> = {};
@@ -774,6 +842,7 @@ async function prepare(zip: JSZip, group: PackGroup): Promise<Prepared> {
     isbn,
     series: fromList.series,
     seriesNumber: fromList.seriesNumber,
+    warnings,
   };
 }
 
@@ -817,7 +886,7 @@ export async function importPackZip(file: File): Promise<ImportedPack[]> {
         series: item.series,
         seriesNumber: item.seriesNumber,
       });
-      results.push({ ...done, packId: item.packId, hadWords: true });
+      results.push({ ...done, packId: item.packId, hadWords: true, warnings: item.warnings });
     }
     return results;
   } catch (reason) {

@@ -3,9 +3,16 @@
  * Files without these fields stay valid.
  */
 
+/**
+ * Where a paragraph or sentence note sits.
+ * A whole number is a chapter index (0-based). `x0`, `x1`, … is an extra id for a
+ * contents file that had no paragraphs (see docs/GLOSSARY_FORMAT.md).
+ */
+export type NoteChapter = number | string;
+
 /** A paragraph help entry. Locate by chapter + paragraph index; `context` (a short verbatim snippet) validates it. */
 export type ParagraphHelp = {
-  chapter: number; // 0-based, same as sense anchors
+  chapter: NoteChapter; // 0-based chapter, or an extra id such as "x3"
   paragraph: number; // 0-based index of the paragraph inside the chapter, as the app parses it
   context: string; // 6-14 words copied exactly from the paragraph
   mainIdea: string; // 1-2 short sentences
@@ -15,7 +22,7 @@ export type ParagraphHelp = {
 
 /** A sentence explanation. Locate by chapter + context (verbatim snippet from the sentence). */
 export type SentenceHelp = {
-  chapter: number;
+  chapter: NoteChapter;
   context: string; // 6-14 words copied exactly from the sentence
   simple: string; // the sentence in easier English
   grammar: string; // ONE line naming the tricky grammar and what it means

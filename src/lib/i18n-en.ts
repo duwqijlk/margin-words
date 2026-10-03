@@ -352,6 +352,10 @@ export const en = {
     "{missing} of {checked} places could not be found in this book. Those words will show their main meaning there.",
   "plan.missingNotes":
     "{missing} of {checked} paragraph or sentence notes do not match the text of this book. The reader will only show a note when its context text is found in the paragraph.",
+  "plan.spineKey": "spine.merge key \"{name}\" does not match a spine item in this book.",
+  "plan.spineTarget": "spine.merge target \"{name}\" does not match a spine item in this book.",
+  "plan.spineIdle":
+    "spine.merge key \"{name}\" matches a spine item but nothing is merged into or from it.",
 
   /* ---- add word list dialog */
   "wl.addTitle": "Add a word list",
@@ -403,6 +407,8 @@ export const en = {
   "reader.prev": "Previous chapter",
   "reader.next": "Next chapter",
   "reader.chapterOf": "Chapter {n} of {total} · {pct}% of the book read",
+  "reader.extra": "Extra",
+  "reader.extraOf": "Extra · {pct}% of the book read",
   "rs.aria": "Reading settings: font, size, theme",
   "rs.theme": "Theme",
   "rs.theme.light": "Light",

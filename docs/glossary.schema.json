@@ -90,6 +90,31 @@
       },
       "description": "Optional help for single sentences, found by `context`."
     },
+    "segmentation": {
+      "const": 2,
+      "description": "Optional. 2 splits a chapter-wrapper blockquote (a calibre class, or a blockquote that contains an h1-h4) into its headings and paragraphs. Omit it and every blockquote stays one paragraph."
+    },
+    "spine": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "merge": {
+          "type": "object",
+          "maxProperties": 200,
+          "propertyNames": {
+            "minLength": 1,
+            "maxLength": 300
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          },
+          "description": "Optional. Maps a spine file the chapter list drops (manifest id, href, or file name) to the contents chapter it continues. The file is appended after that chapter's existing paragraphs. A key may name an empty contents file or a content file absorbed into that extra. A name that matches no spine item is a warning when the book is checked, in the command-line check and in the app when the book and the list are imported together. A key that matches a spine item but merges nothing into or from that file is also a warning: spine.merge key \"<key>\" matches a spine item but nothing is merged into or from it."
+        }
+      },
+      "description": "Optional spine overrides. Omit when every wanted file is already a chapter."
+    },
     "phrases": {
       "type": "object",
       "maxProperties": 5000,
@@ -257,8 +282,18 @@
       ],
       "properties": {
         "chapter": {
-          "type": "integer",
-          "minimum": 0
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "description": "0-based chapter index."
+            },
+            {
+              "type": "string",
+              "pattern": "^x[0-9]+$",
+              "description": "Extra id of a contents file that had no paragraphs, such as x3. The numbered chapters do not move."
+            }
+          ]
         },
         "paragraph": {
           "type": "integer",
@@ -305,8 +340,18 @@
       ],
       "properties": {
         "chapter": {
-          "type": "integer",
-          "minimum": 0
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "description": "0-based chapter index."
+            },
+            {
+              "type": "string",
+              "pattern": "^x[0-9]+$",
+              "description": "Extra id of a contents file that had no paragraphs, such as x3."
+            }
+          ]
         },
         "context": {
           "type": "string",

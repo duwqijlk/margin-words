@@ -6,7 +6,7 @@
 import { loadCachedText, saveCachedText } from "@/lib/book-db";
 import { fetchCoverData } from "@/lib/covers";
 import { editionMatch, matchPercent, type EditionMatch } from "@/lib/edition-match";
-import { importedCoverChoice, parseEpub } from "@/lib/epub";
+import { applySpineMerge, importedCoverChoice, importSpineWarnings, parseEpub, type SpineNameWarning } from "@/lib/epub";
 import { validateGlossary } from "@/lib/glossary-format";
 import { errorText, tr } from "@/lib/i18n";
 import { installPack, resolveAgainst, type InstallResult } from "@/lib/packs";
@@ -36,6 +36,8 @@ export type PairPreview = {
   glossaryText: string;
   match: EditionMatch;
   percent: number;
+  /** spine.merge names that match nothing, or match a file that is not merged. The book can still be saved. */
+  warnings: SpineNameWarning[];
 };
 
 /** Open the reader's EPUB and measure the word list. Nothing is stored yet. */
@@ -48,13 +50,17 @@ export async function previewOwnEpub(file: File, pack: WordListPack, glossaryTex
   const bytes = new Uint8Array(await file.arrayBuffer());
   let parsed;
   try {
-    parsed = await parseEpub(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
+    parsed = await parseEpub(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), {
+      segmentation: check.file.segmentation,
+    });
   } catch (reason) {
     throw new Error(errorText(reason, "err.openFailed"));
   }
+  const warnings = importSpineWarnings(check.file.spine?.merge, parsed);
+  parsed = applySpineMerge(parsed, check.file.spine?.merge);
   const paragraphs = parsed.chapters.flatMap((chapter) => chapter.paragraphs);
   const match = editionMatch(check.file, paragraphs);
-  return { pack, bytes, parsed, glossaryText, match, percent: matchPercent(match) };
+  return { pack, bytes, parsed, glossaryText, match, percent: matchPercent(match), warnings };
 }
 
 /** The catalog's card cover, when this word list has one. Empty if it cannot be fetched. */

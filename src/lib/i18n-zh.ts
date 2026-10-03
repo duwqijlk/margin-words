@@ -342,6 +342,10 @@ export const zh: Record<Key, string> = {
     "{checked} 个位置中有 {missing} 个在这本书里找不到。这些词在那里会显示主要意思。",
   "plan.missingNotes":
     "{checked} 条段落或句子帮助中有 {missing} 条和这本书的文字对不上。只有在段落里找到上下文文字时，阅读器才会显示帮助。",
+  "plan.spineKey": "spine.merge 的文件名“{name}”对不上这本书里的任何一个文件。",
+  "plan.spineTarget": "spine.merge 要接到的文件“{name}”对不上这本书里的任何一个文件。",
+  "plan.spineIdle":
+    "spine.merge 的文件名“{name}”对得上这本书里的一个文件，可是没有文字并进去，也没有文字从它并出来。",
 
   /* ---- add word list dialog */
   "wl.addTitle": "添加词表",
@@ -391,6 +395,8 @@ export const zh: Record<Key, string> = {
   "reader.prev": "上一章",
   "reader.next": "下一章",
   "reader.chapterOf": "第 {n} 章，共 {total} 章 · 已读全书的 {pct}%",
+  "reader.extra": "附页",
+  "reader.extraOf": "附页 · 已读全书的 {pct}%",
   "rs.aria": "阅读设置：字体、大小、主题",
   "rs.theme": "主题",
   "rs.theme.light": "浅色",

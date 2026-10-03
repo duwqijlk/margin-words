@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { loadBookMeta, loadStoredBook, type Gloss, type StoredBook } from "@/lib/book-db";
+import { readingSlots } from "@/lib/epub";
 import {
   entryAppliesAt,
   pickSense,
@@ -248,10 +249,14 @@ function Contents({
   chapters,
   current,
   onPick,
+  rows,
+  onPickRow,
 }: {
   chapters: Array<{ title: string }>;
   current: number;
   onPick: (index: number) => void;
+  rows?: Array<{ key: string; mark: string; title: string; active: boolean }>;
+  onPickRow?: (key: string) => void;
 }) {
   const { t } = useT();
   const [query, setQuery] = useState("");
@@ -280,7 +285,7 @@ function Contents({
               <X className="size-5" aria-hidden />
             </Dialog.Close>
           </div>
-          {chapters.length > 12 ? (
+          {(rows ? rows.length : chapters.length) > 12 ? (
             <div className="border-b border-line p-3">
               <label className="relative block">
                 <span className="sr-only">{t("contents.search")}</span>
@@ -299,7 +304,45 @@ function Contents({
             </div>
           ) : null}
           <ol className="scroll-thin flex-1 overflow-y-auto p-2">
-            {chapters.map((chapter, index) => {
+            {rows
+              ? rows.map((row) => {
+                  if (q && !row.title.toLowerCase().includes(q)) return null;
+                  return (
+                    <li key={row.key}>
+                      <button
+                        type="button"
+                        ref={row.active ? currentRef : undefined}
+                        aria-current={row.active ? "true" : undefined}
+                        onClick={() => {
+                          onPickRow?.(row.key);
+                          setOpen(false);
+                        }}
+                        className={cn(
+                          "flex min-h-11 w-full items-baseline gap-3 rounded-lg px-3 py-2 text-left text-[0.95rem] leading-snug transition-colors",
+                          row.active
+                            ? "bg-accent-soft font-semibold text-accent"
+                            : "hover:bg-accent-soft/60",
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            "shrink-0 text-right text-xs text-muted",
+                            row.mark.length > 2 ? "w-12" : "w-7 tabular-nums",
+                          )}
+                        >
+                          {row.mark}
+                        </span>
+                        <span className="min-w-0 flex-1" lang="en">
+                          {row.title}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })
+              : null}
+            {rows
+              ? null
+              : chapters.map((chapter, index) => {
               if (q && !chapter.title.toLowerCase().includes(q)) return null;
               const active = index === current;
               return (
@@ -471,6 +514,7 @@ function WordCard({
   phrase,
   bookId,
   chapter,
+  noteChapter,
   noList,
   anchor,
   onClose,
@@ -481,6 +525,8 @@ function WordCard({
   phrase: PhraseHit | null;
   bookId: string;
   chapter: number;
+  /** Chapter index, or an extra id such as "x3" when the note sits on a recovered contents file. */
+  noteChapter?: number | string;
   /** this book has no word list at all (for example a book the user added without one) */
   noList: boolean;
   stat: WordStat | undefined;
@@ -645,9 +691,9 @@ function WordCard({
 
         {state.sentence ? (
           <ExplainSentence
-            key={`${chapter}|${state.sentence}`}
+            key={`${noteChapter ?? chapter}|${state.sentence}`}
             bookId={bookId}
-            chapter={chapter}
+            chapter={noteChapter ?? chapter}
             sentence={state.fullSentence || state.sentence}
           />
         ) : null}
@@ -752,6 +798,9 @@ export function ReaderScreen({
     const saved = useProgress.getState().items[bookId];
     return saved ? saved.chapter : (legacyChapter(bookId) ?? -1);
   });
+  const [extraId, setExtraId] = useState(
+    () => useProgress.getState().items[bookId]?.extraId ?? "",
+  );
   const [scrolled, setScrolled] = useState(0);
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [picked, setPicked] = useState<{
@@ -823,7 +872,13 @@ export function ReaderScreen({
   }, [bookChaptersRaw]);
   const safeIndex = Math.min(chapterIndex < 0 ? firstReal : chapterIndex, lastChapter);
   const chapter = book?.chapters[safeIndex];
-  const chapterHtml = chapter?.html ?? "";
+  const activeExtra = book?.extras?.find((item) => item.id === extraId) ?? null;
+  const chapterHtml = activeExtra ? (activeExtra.html ?? "") : (chapter?.html ?? "");
+  const viewChapter = activeExtra ? -1 : safeIndex;
+  const slots = useMemo(
+    () => (book?.extras && book.extras.length > 0 ? readingSlots(book) : null),
+    [book],
+  );
 
   const marked = useMemo(() => {
     const ready = new Set<string>();
@@ -853,8 +908,9 @@ export function ReaderScreen({
     [marked],
   );
   const linkedHtml = useMemo(
-    () => (chapterHtml ? readingHtml(chapterHtml, marked.ready, resolveKey, safeIndex, marked.sparse) : ""),
-    [chapterHtml, marked, resolveKey, safeIndex],
+    () =>
+      chapterHtml ? readingHtml(chapterHtml, marked.ready, resolveKey, viewChapter, marked.sparse) : "",
+    [chapterHtml, marked, resolveKey, viewChapter],
   );
   const bookChapters = book?.chapters;
   const bookStats = useMemo(() => (bookChapters ? indexBook(bookChapters) : {}), [bookChapters]);
@@ -922,7 +978,7 @@ export function ReaderScreen({
       clearTimeout(timer);
       stop();
     };
-  }, [linkedHtml, safeIndex]);
+  }, [linkedHtml, safeIndex, extraId]);
 
   // Track and save position in the chapter.
   useEffect(() => {
@@ -952,6 +1008,11 @@ export function ReaderScreen({
   }, [book, bookId, saveProgress, safeIndex]);
 
   useEffect(() => {
+    if (!book || !extraId) return;
+    if (!book.extras?.some((item) => item.id === extraId)) setExtraId("");
+  }, [book, extraId]);
+
+  useEffect(() => {
     if (book) saveProgress(bookId, { chapter: safeIndex, chapters: book.chapters.length });
   }, [book, bookId, safeIndex, saveProgress]);
 
@@ -960,14 +1021,60 @@ export function ReaderScreen({
       if (!book) return;
       const next = Math.min(Math.max(0, index), book.chapters.length - 1);
       restore.current = null;
+      setExtraId("");
       setChapterIndex(next);
       setPicked(null);
       setHelp(null);
       setScrolled(0);
-      saveProgress(bookId, { chapter: next, chapters: book.chapters.length, scroll: 0 });
+      saveProgress(bookId, { chapter: next, chapters: book.chapters.length, scroll: 0, extraId: "" });
       window.scrollTo({ top: 0 });
     },
     [book, bookId, saveProgress],
+  );
+
+  const slotIndex = slots
+    ? Math.max(
+        0,
+        slots.findIndex((slot) =>
+          activeExtra
+            ? slot.kind === "extra" && book?.extras?.[slot.index]?.id === activeExtra.id
+            : slot.kind === "chapter" && slot.index === safeIndex,
+        ),
+      )
+    : safeIndex;
+
+  const goSlot = useCallback(
+    (at: number) => {
+      if (!book || !slots) return;
+      const slot = slots[at];
+      if (!slot) return;
+      restore.current = null;
+      setPicked(null);
+      setHelp(null);
+      setScrolled(0);
+      if (slot.kind === "chapter") {
+        setExtraId("");
+        setChapterIndex(slot.index);
+        saveProgress(bookId, {
+          chapter: slot.index,
+          chapters: book.chapters.length,
+          scroll: 0,
+          extraId: "",
+        });
+      } else {
+        const extra = book.extras?.[slot.index];
+        if (!extra) return;
+        setExtraId(extra.id);
+        saveProgress(bookId, {
+          chapter: safeIndex,
+          chapters: book.chapters.length,
+          scroll: 0,
+          extraId: extra.id,
+        });
+      }
+      window.scrollTo({ top: 0 });
+    },
+    [book, slots, bookId, saveProgress, safeIndex],
   );
 
   useEffect(() => {
@@ -1007,6 +1114,12 @@ export function ReaderScreen({
   const phraseOffset = located?.offset ?? -1;
   const phraseAt = picked ? `${picked.index}|${picked.surface}|${pickedSentence}|${phraseOffset}` : "";
   useEffect(() => {
+    // Phrase notes are anchored to this book's chapters. An extra (often the next
+    // book's opening) must not pick one up from the same words.
+    if (activeExtra) {
+      setPhraseHit(null);
+      return;
+    }
     if (!picked || !pickedSentence) return;
     let alive = true;
     const at = phraseAt;
@@ -1019,7 +1132,7 @@ export function ReaderScreen({
       alive = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, phraseAt]);
+  }, [bookId, phraseAt, activeExtra]);
 
   function paragraphElement(index: number): Element | null {
     const root = articleRef.current;
@@ -1027,6 +1140,7 @@ export function ReaderScreen({
   }
 
   function openHelp(index: number) {
+    if (activeExtra && !activeExtra.fromToc) return;
     const el = paragraphElement(index);
     if (!el || !book) return;
     const text = flowText(el);
@@ -1038,7 +1152,7 @@ export function ReaderScreen({
     const token = helpToken.current;
     void loadParagraphView({
       bookId,
-      chapter: safeIndex,
+      chapter: activeExtra ? activeExtra.id : safeIndex,
       paragraph: index,
       text,
     }).then((view) => {
@@ -1137,7 +1251,7 @@ export function ReaderScreen({
     const sentence = sentenceAround(paragraph, surface, tap.before.length);
     const fullSentence = wholeSentence(paragraph, surface, tap.before.length);
     const tapAt = {
-      chapter: safeIndex,
+      chapter: viewChapter,
       surface,
       occurrence: tap.nth,
       paragraph,
@@ -1222,11 +1336,45 @@ export function ReaderScreen({
           >
             <ArrowLeft className="size-5" aria-hidden />
           </button>
-          <Contents chapters={book.chapters} current={safeIndex} onPick={goChapter} />
+          <Contents
+            chapters={book.chapters}
+            current={safeIndex}
+            onPick={goChapter}
+            rows={
+              slots
+                ? slots.map((slot) => {
+                    if (slot.kind === "chapter") {
+                      return {
+                        key: `c${slot.index}`,
+                        mark: String(slot.index + 1),
+                        title: book.chapters[slot.index]?.title ?? "",
+                        active: !activeExtra && slot.index === safeIndex,
+                      };
+                    }
+                    const extra = book.extras?.[slot.index];
+                    return {
+                      key: `x${extra?.id ?? slot.index}`,
+                      mark: t("reader.extra"),
+                      title: extra?.title || t("reader.extra"),
+                      active: Boolean(extra && extra.id === activeExtra?.id),
+                    };
+                  })
+                : undefined
+            }
+            onPickRow={(key) => {
+              if (!slots) return;
+              const at = slots.findIndex((slot) =>
+                slot.kind === "chapter"
+                  ? key === `c${slot.index}`
+                  : key === `x${book.extras?.[slot.index]?.id ?? slot.index}`,
+              );
+              if (at >= 0) goSlot(at);
+            }}
+          />
           <div className="min-w-0 flex-1 px-2 text-center leading-tight">
             <p className="truncate font-display text-[0.95rem] font-semibold">{book.title}</p>
             <p className="truncate text-xs text-muted" lang="en">
-              {chapter.title}
+              {activeExtra ? activeExtra.title || t("reader.extra") : chapter.title}
             </p>
           </div>
           <ReaderSettings />
@@ -1259,6 +1407,7 @@ export function ReaderScreen({
             ref={articleRef}
             className="book-body"
             lang="en"
+            data-segmentation={book.segmentation === 2 ? "2" : undefined}
             onClick={(event) => {
               event.preventDefault();
               const button = (event.target as HTMLElement).closest("button[data-word]");
@@ -1271,6 +1420,13 @@ export function ReaderScreen({
             }}
             dangerouslySetInnerHTML={{ __html: linkedHtml }}
           />
+        ) : activeExtra ? (
+          <article ref={articleRef} className="book-body" lang="en">
+            {activeExtra.title ? <h2>{activeExtra.title}</h2> : null}
+            {activeExtra.paragraphs.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </article>
         ) : (
           <article ref={articleRef} className="book-body" lang="en">
             <h2>{chapter.title}</h2>
@@ -1288,8 +1444,8 @@ export function ReaderScreen({
             <button
               type="button"
               className={cn(btn.quiet, "flex-1")}
-              disabled={safeIndex <= 0}
-              onClick={() => goChapter(safeIndex - 1)}
+              disabled={slots ? slotIndex <= 0 : safeIndex <= 0}
+              onClick={() => (slots ? goSlot(slotIndex - 1) : goChapter(safeIndex - 1))}
             >
               <ChevronLeft className="size-4" aria-hidden />
               {t("reader.prev")}
@@ -1297,26 +1453,28 @@ export function ReaderScreen({
             <button
               type="button"
               className={cn(btn.primary, "flex-1")}
-              disabled={safeIndex >= book.chapters.length - 1}
-              onClick={() => goChapter(safeIndex + 1)}
+              disabled={slots ? slotIndex >= slots.length - 1 : safeIndex >= book.chapters.length - 1}
+              onClick={() => (slots ? goSlot(slotIndex + 1) : goChapter(safeIndex + 1))}
             >
               {t("reader.next")}
               <ChevronRight className="size-4" aria-hidden />
             </button>
           </div>
           <p className="text-center text-xs tabular-nums text-muted">
-            {t("reader.chapterOf", {
-              n: safeIndex + 1,
-              total: book.chapters.length,
-              pct: Math.round(fraction * 100),
-            })}
+            {activeExtra
+              ? t("reader.extraOf", { pct: Math.round(fraction * 100) })
+              : t("reader.chapterOf", {
+                  n: safeIndex + 1,
+                  total: book.chapters.length,
+                  pct: Math.round(fraction * 100),
+                })}
           </p>
         </nav>
       </main>
 
       {!card && !help ? <SidePlaceholder /> : null}
 
-      {linkedHtml ? (
+      {linkedHtml && (!activeExtra || activeExtra.fromToc) ? (
         <ParagraphMarker
           articleRef={articleRef}
           version={linkedHtml}
@@ -1343,7 +1501,8 @@ export function ReaderScreen({
           phrase={phraseHit && phraseHit.at === phraseAt ? phraseHit.hit : null}
           bookId={bookId}
           noList={noList}
-          chapter={safeIndex}
+          chapter={viewChapter}
+          noteChapter={activeExtra?.fromToc ? activeExtra.id : viewChapter}
           anchor={anchor}
           onClose={() => setPicked(null)}
           onToggle={() => {

@@ -50,7 +50,7 @@ function asSentence(value: unknown): SentenceView | null {
 
 export async function loadParagraphView(args: {
   bookId: string;
-  chapter: number;
+  chapter: number | string;
   paragraph: number;
   text: string;
 }): Promise<ParagraphView | null> {
@@ -65,7 +65,7 @@ export async function loadParagraphView(args: {
 
 export async function loadSentenceView(args: {
   bookId: string;
-  chapter: number;
+  chapter: number | string;
   text: string;
 }): Promise<SentenceView | null> {
   try {

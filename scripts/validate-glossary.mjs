@@ -6,9 +6,13 @@
  *   node scripts/validate-glossary.mjs book.epub glossary.json  also check the places in the book
  *
  * With an EPUB, every anchor is checked against the real text of the book, split and
- * counted exactly like the app does it: the chapter must exist, the word must occur
- * that many times, and the "context" text must really be in the book. A context that
- * is not found is an ERROR here (the app only warns).
+ * counted exactly like the app does it: `spine.merge` is applied first, then the chapter
+ * must exist, the word must occur that many times, and the "context" text must really
+ * be in the book. A context that is not found is an ERROR here (the app only warns).
+ * A `spine.merge` key that names no spine item, or that names a spine item but merges
+ * nothing into or from that file, is a WARNING. Those warnings are decided before the
+ * merge, on the same book the app imports. A short `context` warning comes from the
+ * word list itself and does not depend on the merge.
  *
  * Paragraph notes, sentence notes and phrases (docs/book-pack-spec.md) are checked too: with an EPUB,
  * every "context" must be inside the paragraph (chapter + paragraph index, counted as the reader
@@ -54,7 +58,10 @@ let extrasChecked = 0;
 
 if (result.ok && result.file && epubPath) {
   try {
-    book = await readBook(epubPath);
+    book = await readBook(epubPath, {
+      segmentation: result.file.segmentation,
+      merge: result.file.spine?.merge,
+    });
   } catch (error) {
     errors.push(`Cannot read the EPUB: ${error instanceof Error ? error.message : error}`);
   }
@@ -75,10 +82,11 @@ if (result.ok && result.file && epubPath) {
     errors.push(...found.errors);
     warnings.push(...found.warnings);
     checked = found.checked;
-    const extras = format.checkExtrasAgainstBook(usable, book.chapters, true);
+    const extras = format.checkExtrasAgainstBook(usable, book.chapters, true, book.extras);
     errors.push(...extras.errors);
     warnings.push(...extras.warnings);
     extrasChecked = extras.checked;
+    warnings.push(...(book.spineWarnings ?? []));
   }
 }
 

@@ -9,6 +9,8 @@ export type BookProgress = {
   /** 0..1 position inside the current chapter */
   scroll: number;
   updatedAt: number;
+  /** Set while the open page is an extra spine file. Empty on a chapter. */
+  extraId?: string;
 };
 
 type ProgressState = {

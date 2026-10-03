@@ -73,7 +73,7 @@ const sameBook = (a: string, b: string) => {
   return n(a) === n(b);
 };
 
-type ChapterLike = Pick<StoredBook, "chapters">;
+type ChapterLike = Pick<StoredBook, "chapters" | "extras">;
 
 /**
  * Compare a checked list with a book (not yet saved, or on the shelf).
@@ -102,7 +102,7 @@ export function comparePlan(
     warnings.push(tr("plan.missingPlaces", { missing: found.missing, checked: found.checked }));
     warnings.push(...found.warnings.slice(0, 5));
   }
-  const notes = checkExtrasAgainstBook(used, book.chapters, false);
+  const notes = checkExtrasAgainstBook(used, book.chapters, false, book.extras);
   if (notes.missing > 0) {
     warnings.push(tr("plan.missingNotes", { missing: notes.missing, checked: notes.checked }));
     warnings.push(...notes.warnings.slice(0, 3));

@@ -31,6 +31,24 @@ Deliverables, in this order of importance:
 
 The kit zip itself is NOT a pack (it holds a spec and loose files). Import `the-lantern-seller.pack.zip` from the kit.
 
+### 2.1 Where the command-line checker lives
+
+The checker is not in this zip, and it is not in the website build (`dist/` or `dist/kit/`). QA will not find it in the build output. It is a file in a git checkout of the Margin Words repository:
+
+`scripts/validate-glossary.mjs`
+
+From the repository root, after `npm install` once:
+
+```
+node scripts/validate-glossary.mjs book.epub glossary.json
+```
+
+Exit code 0 means the list is OK. Warnings are allowed and are printed on stderr. Add `--json` to print one JSON report on stdout (`ok`, `errors`, `warnings`) for a script:
+
+```
+node scripts/validate-glossary.mjs --json book.epub glossary.json
+```
+
 ## 3. Book pack: required files
 
 **The app does not accept a standalone EPUB.** The only way to add your own book is a book pack. A book pack is a
@@ -108,6 +126,8 @@ type GlossaryFile = {
   paragraphs?: ParagraphNote[];           // at most 20000
   sentences?: SentenceNote[];             // at most 20000
   phrases?: { [phrase: string]: Phrase }; // at most 5000
+  spine?: { merge: { [droppedHref: string]: string } }; // append a dropped spine file onto a chapter (section 5.3)
+  segmentation?: 2;        // optional. 2 splits a chapter-wrapper blockquote (section 5.4). Omit it and a blockquote stays one paragraph.
 };
 ```
 
@@ -169,7 +189,7 @@ Use `senses` only when the word means different things in this book. Do not inve
 
 ```ts
 type ParagraphNote = {
-  chapter: number;      // >= 0
+  chapter: number | string; // >= 0, or an extra id "x0", "x1", … (section 5.3)
   paragraph: number;    // >= 0, paragraph index inside the chapter (section 5.4)
   context: string;      // 6-14 words copied exactly from that paragraph (max 300 chars)
   mainIdea: string;     // 1-2 short sentences, max 400
@@ -184,7 +204,7 @@ Write notes for 1 or 2 hard or important paragraphs per chapter. Two notes for t
 
 ```ts
 type SentenceNote = {
-  chapter: number;      // >= 0
+  chapter: number | string; // >= 0, or an extra id "x0", "x1", … (section 5.3)
   context: string;      // 6-14 words copied exactly from the sentence (max 300 chars); it locates the note
   simple: string;       // the sentence in easier English, max 800
   grammar: string;      // ONE line: what is special in how the sentence is built, max 400
@@ -261,20 +281,31 @@ bare word: `Coral’s` is one occurrence of `coral` (and one of `s`). A straight
 `chapter` is the 0-based position in the reader's chapter list, not in the EPUB spine:
 
 1. Use the table of contents (EPUB 3 `nav`, else NCX); cut each entry's HTML from its fragment to the next entry's fragment; skip contents pages. A fragment that matches nothing inside the file is skipped. An id on the `<body>` or `<html>` element is the start of that file, but only when other contents entries already make the chapter list. One such entry among entries that name a whole file is kept. If every fragment sits on `<body>` or `<html>`, the contents list is not used and each spine file stays its own chapter.
-2. Append a later spine file at the end of that chapter only when its prefix equals the prefix of the spine file just before it, and that prefix is used by exactly one contents entry. The prefix is the path with one trailing `_split_` and digits removed (`story_c01_r1_split_000.xhtml` then `story_c01_r1_split_001.xhtml`, or `c01.xhtml` then `c01_split_001.xhtml`). A chain (`split_001`, then `split_002`) is allowed. A book-wide series such as `index_split_*` or `Title_split_*` is used by many contents entries and is not appended. Listed paragraphs keep their indexes. Other unlisted spine files stay out. A contents entry that is not already kept as its own chapter stays dropped, and its split files are not added. The chapter list does not gain a chapter.
-3. If the contents list is missing or has fewer than 2 entries, each spine file is its own chapter, split at `<h1>` (else `<h2>`) headings. Do not collapse that book into one chapter.
+2. Append a later spine file at the end of that chapter only when its prefix equals the prefix of the spine file just before it, and that prefix is used by exactly one contents entry. The prefix is the path with one trailing `_split_` and digits removed (`story_c01_r1_split_000.xhtml` then `story_c01_r1_split_001.xhtml`, or `c01.xhtml` then `c01_split_001.xhtml`). A chain (`split_001`, then `split_002`) is allowed. A book-wide series such as `index_split_*` or `Title_split_*` is used by many contents entries and is not appended. Listed paragraphs keep their indexes. Any other spine file the chapter list does not already show is an extra, not a chapter: its own id (`x0`, `x1`, …), shown in spine order, labelled Extra. Those ids are outside the chapter numbering, so adding one (including front matter that sits before chapter 1) does not change any chapter index or segment id `c<chapter>.p<paragraph>`. Word anchors and phrase notes do not resolve on an extra. A contents entry whose whole file has zero paragraphs is not inserted as a numbered chapter, so later chapter numbers stay put. The linear spine files that follow it, until the next contents file, are one extra in that reading-order place, titled with the contents title. Its id is the next `x0`, `x1`, … in spine order. A paragraph note or a sentence note may set `chapter` to that id (`"x3"`). Any other extra is unchanged: notes do not resolve there. A sample of the next book that is not in the contents list stays an extra. A contents entry that has text but is too short to keep stays dropped, and its split files are not added as chapters. The chapter list does not gain a chapter.
+3. If the contents list is missing, empty, or has fewer than 2 entries, or it produces fewer than 2 chapters, each spine file is its own chapter, split at `<h1>` (else `<h2>`) headings. Do not collapse that book into one chapter. That fallback has no extras, and its chapter text stays byte for byte the same.
 4. Drop chapters with fewer than 20 letters; merge chapters with fewer than 40 letters into the previous one.
 5. Scripts and navigation are removed, links are unwrapped.
+
+`"spine": { "merge": { "<dropped href or manifest id>": "<href of the contents chapter it continues>" } }` appends that dropped file after the chapter's existing paragraphs. Earlier paragraph indexes do not move. If several chapters were cut from the target file, the text is added to the last one. A key may name an empty contents file or a content file absorbed into that recovered extra. Either name, or both, appends that extra once. A name that matches no spine item is ignored when the book is opened. The glossary check warns, naming the key: the command-line check, and the app when the book and the list are imported together. A key that matches a spine item but merges nothing into or from that file warns too, with the text `spine.merge key "<key>" matches a spine item but nothing is merged into or from it.` An empty contents file, or a file absorbed into that extra, does not warn when that extra is appended. A bad entry is a warning, and the word list still loads. Omit `spine` when no file needs this. The appended file's title is shown as a heading in front of those paragraphs when the file does not already have that heading (its first paragraph, or an `h1`–`h4`). The heading is not a paragraph and its words are not counted. Examples that need it: Magic Tree House 33 `Magic_Tree_H-at_Candlelight_split_009` continuing `split_008`; Wings of Fire 3 `part0006_split_001` and `part0005_split_001`; Wings of Fire 4 `split_013`; Wings of Fire 5 `split_014`.
 
 Write `"chapters": N` in the file. If the user's EPUB gives another count, the reader ignores `chapter` and `occurrence`
 and uses `context` only. So `context` is the part that must always be right.
 
+`node scripts/seg-report.mjs book.epub glossary.json` prints each chapter index, its segment ids (`c0.p0` through `c0.pN`), and a hash of that chapter's paragraph text. Extra files are separate `extra` lines. Diff two runs to see whether any existing chapter or segment moved.
+
+Checked against the reader from before extras were added, these are the only chapter-text changes, and only where a whole chapter had been one blockquote:
+
+- Magic Tree House 30 and 37: every contents chapter keeps its index and every paragraph, byte for byte. Files the old reader dropped are extras and are not inserted into the chapter list. For book 30 the contents entry Cover points at an empty title page. Cover is front matter, so the files after it stay separate extras, as they did before empty contents files were recovered: `x0` jacket (1 paragraph), `x1` fm1 (8), `x2` fm2 (11), `x3` toc, `x4` epi, `x5` ada, `x6` c15 (a later story, 56 paragraphs), `x7`–`x10` bm2–bm5. Numbered chapters are unchanged. For book 37 that is `x0`–`x1` praise, `x2` contents, `x3` epigraph, `x4` the preview story (66 paragraphs), `x5`–`x8` promos.
+- Magic Tree House 33, and only when its word list sets `"segmentation": 2`: the 11 contents chapters keep their indexes and titles (0 A Book of Magic, 1 Carnival, 2 The Grand Lady, of the Lagoon, 3 Rats!, 4 Lorenzo, 5 Disaster, 6 The King and the Ruler, 7 Home by Day, 8 The Painting, 9 More Facts About Venice, 10 Author's Research, Note). Paragraph counts change from 1, 5, 9, 7, 1, 8, 1, 1, 1, 1, 1 to 50, 55, 86, 75, 77, 76, 75, 62, 51, 8, 8 because each chapter body was a calibre blockquote. The old paragraph 0 was that whole wrapper; the new paragraphs are the headings and paragraphs inside it, in order. Joining the new paragraphs gives the same words as old paragraph 0 for chapters 0, 4, 6, 7, 8, 9, and 10. Chapters 1, 2, 3, and 5 also used to list a sidebar a second time; that second copy is not a separate segment now. `Magic_Tree_H-at_Candlelight_split_009` (A Visit to Venice, 20 paragraphs) stays extra `x6` until `spine.merge` appends it after chapter 0. That append does not move `c0.p0`–`c0.p49`. Without `"segmentation": 2` those chapters stay one blockquote paragraph each, the same ids as before. A prologue that is one blockquote around an `h1` (Magic Tree House 17 and 24, chapter 2) stays `c2.p0` until that list opts in.
+
 ### 5.4 Paragraphs
 
 `paragraph` = 0-based index in the chapter's paragraph list: every `p`, `h1`-`h4`, `li`, `blockquote` in document order,
-except a block whose direct parent is a `p`, `li` or `blockquote`, and except a block with fewer than 2 English letters (empty
-lines, `* * *`, page numbers). If nothing is left, the whole chapter text is paragraph 0. A chapter heading inside the chapter
+except a block whose direct parent is a `p`, `li`, or `blockquote`, and except a block with fewer than 2 English letters (empty
+lines, `* * *`, page numbers). A blockquote is one paragraph. If nothing is left, the whole chapter text is paragraph 0. A chapter heading inside the chapter
 HTML is a paragraph (index 0 when it comes first). Example: in `the-lantern-seller.epub` chapter 1 the heading is `[0]`, "As the sun sank..." is `[1]`, the lantern-lighting paragraph is `[3]`.
+
+`"segmentation": 2` at the top of the word list is optional. It splits a chapter-wrapper blockquote: one with a `calibre` class, or one that contains an `h1`–`h4`. That wrapper is not a paragraph; the headings and paragraphs inside it are, in order. A quotation or a poem stays one paragraph. Without the field, output is the paragraph list above for every chapter, including a prologue that is one blockquote around a heading. Magic Tree House 33 sets the field. Magic Tree House 17 and 24 leave it off until their notes are re-anchored.
 
 Only when every spine content document has no `p` element at all, each innermost `div` that contains text directly or through inline elements (`span`, `i`, `b`, `em`, `strong`, `a`, and so on) is a paragraph too, in that same document order. An empty `div`, or a `div` that holds only an image, does not count. A wrapping `div` does not count when a `div` inside it holds the text. A book with at least one `p` does not use this rule, and its paragraph list stays the same.
 
@@ -336,14 +367,18 @@ Without the project tools (only the EPUB and this file):
 With the Margin Words project folder (Node 20+, run `npm install` once). These tools run the reader's own code, so the numbers are exact:
 
 ```
+node scripts/seg-report.mjs book.epub glossary.json            # chapter ids, segment ids, hash per chapter (extras on their own lines)
 node scripts/extract-epub-text.mjs book.epub                      # title, author, sha256, chapters (0-based) with word counts
 node scripts/extract-epub-text.mjs book.epub --out work --numbered # work/ch000.txt ... with [0] [1] [2] paragraph numbers
 node scripts/extract-epub-text.mjs book.epub --candidates 300      # likely hard words with counts and forms
 node scripts/extract-epub-text.mjs book.epub --find WORD           # every use: chapter, paragraph, occurrence, surrounding text
 node scripts/extract-epub-text.mjs book.epub --paragraph-search "some words"   # chapter and paragraph holding the text
 node scripts/validate-glossary.mjs book.epub glossary.json         # full check; exit 0 = OK
+node scripts/validate-glossary.mjs --json book.epub glossary.json  # same check, one JSON report on stdout
 node scripts/check-definition-words.mjs --fail glossary.json       # meanings use only common words
 ```
+
+These scripts live only in a git checkout, at `scripts/`. They are not inside this kit zip and not in the website build. Run the commands above from the repository root. See section 2.1.
 
 Work chapter by chapter: take the chapter text, answer with the JSON pieces for that chapter, merge all pieces into one file
 (merge `glossary` objects, concatenate `paragraphs` and `sentences`, merge `phrases`), then validate the merged file.
@@ -363,7 +398,7 @@ Extra checks when the EPUB is available (`validate-glossary.mjs book.epub glossa
 7. The chapter exists; the form occurs at least `occurrence` times in that chapter; `context` is inside the paragraph that holds that occurrence.
 8. Anchor `context` without `chapter`/`occurrence` is found in the book; paragraph note `context` is in paragraph `paragraph` of chapter `chapter`; sentence note `context` is in some paragraph of chapter `chapter`.
 
-Warnings (read them): title differs, chapter count differs, hyphenated key, context shorter than 4 words or longer than 30, context without the word, `simple`/`mainIdea`/`grammar`/phrase meaning using words outside the 2000 basic words (names and numbers are fine).
+Warnings (read them): title differs, chapter count differs, hyphenated key, context shorter than 4 words or longer than 30 (`the context is very short` / `the context is long`; this count is the words in the `context` string and does not change when `spine.merge` is applied), context without the word, `simple`/`mainIdea`/`grammar`/phrase meaning using words outside the 2000 basic words (names and numbers are fine), a `spine.merge` key or target that matches no spine item, and a `spine.merge` key that matches a spine item but merges nothing into or from that file.
 
 If you cannot run the script: re-check items 1-6 by reading the JSON, then re-check 7-8 by searching each `context` in the book text and re-counting each `occurrence`/`paragraph`. The app shows plain-English messages that name the exact word when it rejects a file, so a final import test is also a check.
 

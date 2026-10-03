@@ -22,7 +22,9 @@ import { markVocabHydrated, normalizeWord, useVocab } from "@/lib/vocab-store";
 import { useCovers } from "@/components/book-cover";
 import { ShelfToastHost } from "@/components/shelf-actions";
 import { finishPendingRemoval, useShelfRemove } from "@/lib/shelf-remove";
+import { SpineWarningList } from "@/components/spine-warnings";
 import { btn, cn } from "@/components/ui";
+import type { SpineNameWarning } from "@/lib/epub";
 import { LanguageButton } from "@/components/language";
 import type { ListFlow } from "@/components/word-list";
 import { NoticeBar } from "@/components/notice-bar";
@@ -97,6 +99,7 @@ export function MarginApp() {
   const packRef = useRef<HTMLInputElement>(null);
   const [listFlow, setListFlow] = useState<ListFlow | null>(null);
   const [notes, setNotes] = useState<string[]>([]);
+  const [spineWarnings, setSpineWarnings] = useState<SpineNameWarning[]>([]);
 
   useEffect(() => {
     applyTheme(theme);
@@ -185,6 +188,7 @@ export function MarginApp() {
     setNotes([]);
     setImportError(null);
     setBareEpub(false);
+    setSpineWarnings([]);
   }
 
   /**
@@ -243,8 +247,10 @@ export function MarginApp() {
       window.dispatchEvent(
         new CustomEvent("cibian-progress", { detail: { bookId: done[0]?.bookId } }),
       );
+      const warnings = done.flatMap((item) => item.warnings);
+      if (warnings.length > 0) setSpineWarnings(warnings);
       if (done.length === 1 && done[0]) {
-        // The book opens by itself: that is the answer. No extra message.
+        // The book opens by itself. A spine.merge name that missed stays as a warning on top.
         setScreen({ kind: "read", bookId: done[0].bookId });
       } else {
         setNotes(
@@ -368,6 +374,15 @@ export function MarginApp() {
       {dragging && canDrop ? (
         <div className="pointer-events-none fixed inset-3 z-50 flex items-center justify-center rounded-3xl border-2 border-dashed border-accent bg-accent-soft/85 px-6 text-center text-lg font-semibold text-accent">
           {t("drop.here")}
+        </div>
+      ) : null}
+      {spineWarnings.length > 0 ? (
+        <div className="pointer-events-none fixed inset-x-0 top-16 z-40 px-4">
+          <div className="pointer-events-auto mx-auto max-w-6xl">
+            <Banner tone="warn" onClose={() => setSpineWarnings([])}>
+              <SpineWarningList warnings={spineWarnings} />
+            </Banner>
+          </div>
         </div>
       ) : null}
       {reading ? null : <NoticeBar />}
@@ -560,8 +575,9 @@ export function MarginApp() {
           <OwnEpubDialog
             bookId={epubFor}
             onClose={() => setEpubFor(null)}
-            onSaved={(bookId) => {
+            onSaved={(bookId, warnings) => {
               setEpubFor(null);
+              if (warnings.length > 0) setSpineWarnings(warnings);
               openBook(bookId);
             }}
           />

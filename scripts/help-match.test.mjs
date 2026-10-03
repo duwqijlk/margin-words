@@ -41,6 +41,34 @@ test("paragraph help: falls back to context when the index has moved", () => {
   assert.equal(pickParagraphHelp(list, 5, 0, text)?.paragraph, 4); // another chapter number: context still works
 });
 
+test("paragraph and sentence help can target a recovered extra by its id", () => {
+  const text = "Lucy looked into the wardrobe and found a lamp.";
+  const paragraphs = [
+    para("x1", 0, "lucy looked into the wardrobe"),
+    para(0, 0, "the first real chapter stays"),
+  ];
+  assert.equal(pickParagraphHelp(paragraphs, "x1", 0, text)?.chapter, "x1");
+  assert.equal(pickParagraphHelp(paragraphs, "x2", 0, text), null);
+  assert.equal(pickParagraphHelp(paragraphs, 0, 0, text), null);
+  assert.equal(pickParagraphHelp(paragraphs, -1, 0, text), null);
+  const sentences = [
+    { chapter: "x1", context: "lucy looked into the wardrobe", simple: "recovered", grammar: "g" },
+    { chapter: 0, context: "lucy looked into the wardrobe", simple: "numbered", grammar: "g" },
+  ];
+  assert.equal(pickSentenceHelp(sentences, "x1", text)?.simple, "recovered");
+  assert.equal(pickSentenceHelp(sentences, 4, text)?.simple, "numbered");
+  assert.equal(pickSentenceHelp(sentences, "x9", text), null);
+  assert.equal(pickSentenceHelp(sentences, -1, text), null);
+});
+
+test("paragraph and sentence help do not match an extra page", () => {
+  const paragraphs = [para(1, 4, "the old man walked slowly home")];
+  const text = "Then the old man walked slowly home.";
+  assert.equal(pickParagraphHelp(paragraphs, -1, 0, text), null);
+  const sentences = [{ chapter: 1, context: "the old man walked", simple: "a", grammar: "g" }];
+  assert.equal(pickSentenceHelp(sentences, -1, "Then the old man walked slowly home."), null);
+});
+
 test("paragraph help: curly quotes in the book, plain quotes in the list", () => {
   const list = [para(0, 0, "\"I don't know,\" said Tom")];
   assert.ok(pickParagraphHelp(list, 0, 0, "\u201cI don\u2019t know,\u201d said Tom, and looked away."));

@@ -64,17 +64,40 @@ export async function loadAppModules() {
   return cached;
 }
 
-/** Parse an EPUB file the way the app does, and number its words the way the reader does. */
-export async function readBook(path) {
+/**
+ * Parse an EPUB file the way the app does, and number its words the way the reader does.
+ * `options.merge` is the glossary `spine.merge` map. When it is set, those files are
+ * appended to their chapters before words are counted, the same call the app makes
+ * (`applySpineMerge`). Omitting it leaves the chapter text unchanged.
+ * `spineWarnings` is computed on the book before that append, so a key that really
+ * merges a file is not reported as idle.
+ */
+export async function readBook(path, options = {}) {
   const { epub, format } = await loadAppModules();
   const bytes = readFileSync(path);
   const buffer = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
-  const parsed = await epub.parseEpub(buffer, { cover: false });
+  let parsed = await epub.parseEpub(buffer, {
+    cover: false,
+    ...(options.segmentation === 2 ? { segmentation: 2 } : {}),
+  });
+  const merge = options.merge;
+  const spineWarnings =
+    merge && typeof merge === "object" ? epub.spineFileWarnings(merge, parsed) : [];
+  if (merge && typeof merge === "object" && Object.keys(merge).length > 0)
+    parsed = epub.applySpineMerge(parsed, merge);
   const parse = (html) => new DOMParser().parseFromString(html, "text/html");
   const chapters = parsed.chapters.map((chapter) => ({
     title: chapter.title,
     paragraphs: chapter.paragraphs,
     index: format.indexChapterHtml(chapter.html, parse),
   }));
-  return { title: parsed.title, author: parsed.author, chapters, bytes };
+  return {
+    title: parsed.title,
+    author: parsed.author,
+    chapters,
+    extras: parsed.extras ?? [],
+    spine: parsed.spine ?? [],
+    spineWarnings,
+    bytes,
+  };
 }

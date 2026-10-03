@@ -37,6 +37,47 @@ type NodeLike = {
   childNodes: ArrayLike<NodeLike>;
 };
 
+type ElLike = {
+  localName?: string;
+  getAttribute?: (name: string) => string | null;
+  querySelector?: (selector: string) => unknown;
+  parentElement?: ElLike | null;
+};
+
+/**
+ * A blockquote that is the chapter body, not a quotation.
+ * Calibre wraps a whole chapter in `<blockquote class="calibre…">` full of
+ * `<p>` and headings. A poem or a real quote (no heading, no calibre class)
+ * stays one paragraph, even when it contains `<p>` lines.
+ * Used only when the word list sets `"segmentation": 2`. Otherwise every
+ * blockquote stays one paragraph, the same as before this rule.
+ */
+export function isChapterWrapper(el: ElLike | null | undefined): boolean {
+  if (!el || el.localName !== "blockquote") return false;
+  if (!el.querySelector?.("p, li, h1, h2, h3, h4")) return false;
+  const cls = el.getAttribute?.("class") ?? "";
+  if (/\bcalibre\d*\b/i.test(cls)) return true;
+  return Boolean(el.querySelector?.("h1, h2, h3, h4"));
+}
+
+/**
+ * THE skip half of the paragraph rule, shared by `paragraphsOf` and `paragraphBlocks`.
+ * Skip a block nested in a p or li. Skip a block nested in a blockquote too:
+ * the blockquote itself is the paragraph. `blockquoteSplit` (glossary
+ * `"segmentation": 2`) is the exception: a chapter-wrapper blockquote is not
+ * a paragraph, and the headings and paragraphs inside it are.
+ */
+export function skipNestedParagraph(block: ElLike, blockquoteSplit = false): boolean {
+  // A title inserted when spine.merge appends a file. It is visible and not a paragraph.
+  if (block.getAttribute?.("data-merge-title") != null) return true;
+  const parent = block.parentElement;
+  const parentName = parent?.localName ?? "";
+  if (parentName === "p" || parentName === "li") return true;
+  if (!blockquoteSplit) return parentName === "blockquote";
+  if (parentName === "blockquote" && !isChapterWrapper(parent)) return true;
+  return isChapterWrapper(block);
+}
+
 function walk(node: NodeLike, out: string[]) {
   if (node.nodeType === 3) {
     out.push(node.nodeValue ?? "");

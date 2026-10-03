@@ -72,11 +72,34 @@ export type StoredChapter = {
   html?: string;
 };
 
+/** A spine file the chapter list does not use. Old stored books omit this. */
+export type StoredSpineExtra = {
+  id: string;
+  href: string;
+  opfHref: string;
+  itemId: string;
+  spineAt: number;
+  title: string;
+  paragraphs: string[];
+  html?: string;
+  /** Set when this extra is a contents entry whose file had no paragraphs. */
+  fromToc?: boolean;
+  /** Spine files whose text was pulled into this extra. */
+  absorbed?: { href: string; opfHref: string; itemId: string }[];
+};
+
 export type StoredBook = {
   id: string;
   title: string;
   author: string;
   chapters: StoredChapter[];
+  /** Spine files the chapter list drops. Absent on books stored before this. */
+  extras?: StoredSpineExtra[];
+  /**
+   * `2` when this book's word list asked to split chapter-wrapper blockquotes.
+   * Absent means a blockquote stays one paragraph, the same as before that rule.
+   */
+  segmentation?: 2;
   glossary: Record<string, Gloss>;
   pending: string[];
   totalHard: number;

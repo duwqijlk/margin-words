@@ -5,12 +5,14 @@
  */
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readdirSync, readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { test } from "node:test";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { loadAppModules } from "./lib/app-modules.mjs";
+import { loadAppModules, readBook } from "./lib/app-modules.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(join(ROOT, "package.json"));
@@ -108,8 +110,10 @@ async function buildEpub(spec) {
     else add(`OEBPS/${href}`, page(href, body.html, body));
   }
   const bytes = await zip.generateAsync({ type: "nodebuffer" });
+  if (spec.writeTo) writeFileSync(spec.writeTo, bytes);
   return epub.parseEpub(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), {
     cover: false,
+    ...(spec.segmentation === 2 ? { segmentation: 2 } : {}),
   });
 }
 
@@ -271,6 +275,15 @@ test("listed split_000 keeps unlisted split_001 and split_002 at the end", async
   assert.equal(joined.includes("Preview chapter"), false);
   assert.equal(joined.includes("non linear"), false);
   assert.equal(joined.includes("share this prefix"), false);
+  const extraText = book.extras.map((item) => item.paragraphs.join("\n")).join("\n");
+  assert.match(extraText, /Advertisement/);
+  assert.match(extraText, /Preview chapter/);
+  assert.match(extraText, /non linear/);
+  assert.match(extraText, /share this prefix/);
+  assert.deepEqual(
+    book.extras.map((item) => item.id),
+    ["x0", "x1", "x2", "x3"],
+  );
 });
 
 test("a dropped heading does not gain a chapter from its split body", async () => {
@@ -309,6 +322,91 @@ test("a dropped heading does not gain a chapter from its split body", async () =
   const joined = paragraphs(book).flat().join("\n");
   assert.equal(joined.includes("Prologue"), false);
   assert.equal(joined.includes("prologue body"), false);
+  assert.equal(book.extras.length, 1);
+  assert.match(book.extras[0].paragraphs.join(" "), /prologue body/);
+  assert.equal(book.extras[0].id, "x0");
+  assert.equal(book.extras[0].fromToc, undefined);
+  assert.notEqual(book.extras[0].title, "Prologue");
+});
+
+test("an empty contents file is an extra and does not renumber later chapters", async () => {
+  const book = await buildEpub({
+    title: "Empty Contents File",
+    toc: [
+      { title: "Chapter One", href: "c01.xhtml" },
+      { title: "Chapter Three", href: "c03.xhtml" },
+      { title: "Chapter Four", href: "c04.xhtml" },
+      { title: "Chapter Seven", href: "c07.xhtml" },
+      { title: "Chapter Eight", href: "c08.xhtml" },
+    ],
+    spine: [
+      { id: "ad", href: "ad.xhtml" },
+      { id: "c01", href: "c01.xhtml" },
+      { id: "c03", href: "c03.xhtml" },
+      { id: "c03b", href: "c03-body.xhtml" },
+      { id: "c04", href: "c04.xhtml" },
+      { id: "c07", href: "c07.xhtml" },
+      { id: "c07a", href: "c07-a.xhtml" },
+      { id: "note", href: "note.xhtml", linear: "no" },
+      { id: "c07b", href: "c07-b.xhtml" },
+      { id: "c08", href: "c08.xhtml" },
+    ],
+    files: {
+      "ad.xhtml": `<p>An advertisement sits before the story and stays its own extra. ${LONG}</p>`,
+      "c01.xhtml": `<h1>Chapter One</h1><p>The first real chapter stays chapter zero. ${LONG}</p>`,
+      "c03.xhtml": "",
+      "c03-body.xhtml": `<p>Lucy looked into the wardrobe and found a lamp post. ${LONG}</p>`,
+      "c04.xhtml": `<h1>Chapter Four</h1><p>The fourth chapter stays the next numbered chapter. ${LONG}</p>`,
+      "c07.xhtml": "<p></p>",
+      "c07-a.xhtml": `<p>The first half of chapter seven is in this file. ${LONG}</p>`,
+      "c07-b.xhtml": `<p>The second half of chapter seven follows it at once. ${LONG}</p>`,
+      "note.xhtml": `<p>A non linear note must not be pulled into chapter seven. ${LONG}</p>`,
+      "c08.xhtml": `<h1>Chapter Eight</h1><p>The eighth chapter stays the last numbered chapter. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["Chapter One", "Chapter Four", "Chapter Eight"],
+  );
+  assert.deepEqual(book.chapters[0].paragraphs, [
+    "Chapter One",
+    `The first real chapter stays chapter zero. ${LONG}`,
+  ]);
+  assert.deepEqual(book.chapters[1].paragraphs, [
+    "Chapter Four",
+    `The fourth chapter stays the next numbered chapter. ${LONG}`,
+  ]);
+  assert.deepEqual(book.chapters[2].paragraphs, [
+    "Chapter Eight",
+    `The eighth chapter stays the last numbered chapter. ${LONG}`,
+  ]);
+  const numbered = paragraphs(book).flat().join("\n");
+  assert.equal(numbered.includes("wardrobe"), false);
+  assert.equal(numbered.includes("chapter seven"), false);
+  assert.deepEqual(
+    book.extras.map((item) => item.id),
+    ["x0", "x1", "x2", "x3"],
+  );
+  assert.equal(book.extras[0].fromToc, undefined);
+  assert.match(book.extras[0].paragraphs.join(" "), /advertisement/i);
+  assert.equal(book.extras[1].fromToc, true);
+  assert.equal(book.extras[1].title, "Chapter Three");
+  assert.deepEqual(book.extras[1].paragraphs, [
+    `Lucy looked into the wardrobe and found a lamp post. ${LONG}`,
+  ]);
+  assert.equal(book.extras[2].fromToc, true);
+  assert.equal(book.extras[2].title, "Chapter Seven");
+  assert.deepEqual(book.extras[2].paragraphs, [
+    `The first half of chapter seven is in this file. ${LONG}`,
+    `The second half of chapter seven follows it at once. ${LONG}`,
+  ]);
+  assert.equal(book.extras[3].fromToc, undefined);
+  assert.match(book.extras[3].paragraphs.join(" "), /non linear/);
+  const slots = epub.readingSlots(book);
+  assert.deepEqual(
+    slots.map((slot) => (slot.kind === "chapter" ? `c${slot.index}` : book.extras[slot.index].id)),
+    ["x0", "c0", "x1", "c1", "x2", "x3", "c2"],
+  );
 });
 
 test("book-wide split filenames are not glued onto a chapter", async () => {
@@ -407,6 +505,7 @@ test("a 1-entry NCX keeps one chapter per spine file", async () => {
     files,
   });
   assert.equal(book.chapters.length, 6);
+  assert.equal(book.extras.length, 0);
   assert.deepEqual(
     book.chapters.map((chapter) => chapter.paragraphs[1]),
     [
@@ -438,7 +537,41 @@ test("an empty NCX keeps one chapter per spine file", async () => {
     files,
   });
   assert.equal(book.chapters.length, 3);
+  assert.equal(book.extras.length, 0);
   assert.deepEqual(book.chapters.map((chapter) => chapter.title), ["File A", "File B", "File C"]);
+});
+
+test("a near-empty contents list stays one chapter per spine file", async () => {
+  async function sparse(count, listed) {
+    const files = {};
+    const spine = [];
+    for (let i = 1; i <= count; i += 1) {
+      const href = `f${String(i).padStart(2, "0")}.xhtml`;
+      files[href] = `<h1>File ${i}</h1><p>Spine file ${i} stays chapter ${i - 1} in the fallback. ${LONG}</p>`;
+      spine.push({ id: `f${i}`, href });
+    }
+    return buildEpub({
+      title: "Sparse Contents",
+      toc: [],
+      ncx: [{ title: "File 1", href: listed }],
+      spine,
+      files,
+    });
+  }
+  const wide = await sparse(27, "f01.xhtml");
+  assert.equal(wide.chapters.length, 27);
+  assert.equal(wide.extras.length, 0);
+  assert.equal(wide.chapters[0].title, "File 1");
+  assert.match(wide.chapters[0].paragraphs[1], /Spine file 1 stays chapter 0/);
+  assert.equal(wide.chapters[26].title, "File 27");
+  assert.match(wide.chapters[26].paragraphs[1], /Spine file 27 stays chapter 26/);
+  const short = await sparse(5, "f01.xhtml");
+  assert.equal(short.chapters.length, 5);
+  assert.equal(short.extras.length, 0);
+  assert.deepEqual(
+    short.chapters.map((chapter) => chapter.title),
+    ["File 1", "File 2", "File 3", "File 4", "File 5"],
+  );
 });
 
 test("a drop cap joins into one tappable word without moving paragraphs", async () => {
@@ -939,6 +1072,870 @@ const PUBLIC_PARAGRAPHS = {
   "wind-in-the-willows": "31a9e8d4b845d89a1f1ab8b8992aff16770932cbb5d1e2be5bbb168e7abd3d1a",
   "wizard-of-oz": "cd84bd55bdbd6c253f3083e585793fad76c0eb4a42061f9e3d6a14f11a3d1d9a",
 };
+
+test("a poem blockquote stays one paragraph", async () => {
+  const book = await buildEpub({
+    title: "Poems",
+    toc: [
+      { title: "Chapter One", href: "c01.xhtml" },
+      { title: "Chapter Two", href: "c02.xhtml" },
+    ],
+    spine: [
+      { id: "c01", href: "c01.xhtml" },
+      { id: "c02", href: "c02.xhtml" },
+    ],
+    files: {
+      "c01.xhtml": `<h1>Chapter One</h1><p>The story paragraph stays before the poem in this chapter. ${LONG}</p><blockquote><p>The first line of the poem sits inside the quote.</p><p>The second line stays in that same paragraph.</p></blockquote>`,
+      "c02.xhtml": `<h1>Chapter Two</h1><p>The next chapter is unchanged by the poem before it. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(paragraphs(book), [
+    [
+      "Chapter One",
+      `The story paragraph stays before the poem in this chapter. ${LONG}`,
+      "The first line of the poem sits inside the quote. The second line stays in that same paragraph.",
+    ],
+    ["Chapter Two", `The next chapter is unchanged by the poem before it. ${LONG}`],
+  ]);
+});
+
+test("a blockquote that holds a heading stays one paragraph unless segmentation is 2", async () => {
+  const prologue = `<blockquote><h1>Prologue</h1><p>The first line of the prologue tells how the spell began. ${LONG}</p><p>The second line of the prologue stays in that same opening.</p></blockquote>`;
+  const spec = {
+    title: "Prologue Book",
+    toc: [
+      { title: "Prologue", href: "c02.xhtml" },
+      { title: "Chapter One", href: "c03.xhtml" },
+    ],
+    spine: [
+      { id: "c02", href: "c02.xhtml" },
+      { id: "c03", href: "c03.xhtml" },
+    ],
+    files: {
+      "c02.xhtml": prologue,
+      "c03.xhtml": `<h1>Chapter One</h1><p>The next chapter is unchanged by the prologue before it. ${LONG}</p>`,
+    },
+  };
+  const whole = `Prologue The first line of the prologue tells how the spell began. ${LONG} The second line of the prologue stays in that same opening.`;
+  const plain = await buildEpub(spec);
+  assert.deepEqual(paragraphs(plain)[0], [whole]);
+  assert.deepEqual(paragraphs(plain)[1], [
+    "Chapter One",
+    `The next chapter is unchanged by the prologue before it. ${LONG}`,
+  ]);
+  const root = new DOMParser().parseFromString(`<div>${plain.chapters[0].html}</div>`, "text/html").body
+    .firstElementChild;
+  assert.deepEqual(
+    help.paragraphBlocks(root).map((block) => flow.flowText(block)),
+    [whole],
+  );
+  const split = await buildEpub({ ...spec, segmentation: 2 });
+  assert.deepEqual(paragraphs(split)[0], [
+    "Prologue",
+    `The first line of the prologue tells how the spell began. ${LONG}`,
+    "The second line of the prologue stays in that same opening.",
+  ]);
+  assert.deepEqual(paragraphs(split)[1], paragraphs(plain)[1]);
+  assert.deepEqual(
+    help.paragraphBlocks(root, 2).map((block) => flow.flowText(block)),
+    paragraphs(split)[0],
+  );
+  root.setAttribute("data-segmentation", "2");
+  assert.deepEqual(
+    help.paragraphBlocks(root).map((block) => flow.flowText(block)),
+    paragraphs(split)[0],
+  );
+});
+
+test("a calibre chapter wrapper splits into its paragraphs and keeps contents numbers", async () => {
+  const wrap = (heading, body) =>
+    `<blockquote class="calibre4"><h1>${heading}</h1><p>${body}</p><p>The second paragraph of ${heading} stays its own paragraph.</p></blockquote>`;
+  const calibre = (html) => ({ bodyClass: "calibre", html });
+  const book = await buildEpub({
+    segmentation: 2,
+    title: "Wrapped",
+    toc: [
+      { title: "A Book of Magic", href: "Book_split_008.xhtml" },
+      { title: "Carnival", href: "Book_split_010.xhtml" },
+    ],
+    spine: [
+      { id: "front", href: "Book_split_001.xhtml" },
+      { id: "c1", href: "Book_split_008.xhtml" },
+      { id: "mid", href: "Book_split_009.xhtml" },
+      { id: "c2", href: "Book_split_010.xhtml" },
+      { id: "back", href: "Book_split_020.xhtml" },
+    ],
+    files: {
+      "Book_split_001.xhtml": calibre(
+        `<blockquote><span>x</span></blockquote><h1>Dear Reader</h1><p>The front matter is its own page and does not become a chapter. ${LONG}</p>`,
+      ),
+      "Book_split_008.xhtml": calibre(wrap("A Book of Magic", `Dawn was breaking in the woods and Jack ran toward the light. ${LONG}`)),
+      "Book_split_009.xhtml": calibre(
+        `<blockquote><span>x</span></blockquote><h2>A Visit</h2><p>The unlisted split stays an extra until a word list merges it. ${LONG}</p>`,
+      ),
+      "Book_split_010.xhtml": calibre(wrap("Carnival", `Annie laughed and opened her eyes in the garden. ${LONG}`)),
+      "Book_split_020.xhtml": calibre(
+        `<blockquote><span>x</span></blockquote><h1>About the Illustrator</h1><p>The back matter stays an extra after the contents chapters. ${LONG}</p>`,
+      ),
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["A Book of Magic", "Carnival"],
+  );
+  assert.deepEqual(paragraphs(book)[0], [
+    "A Book of Magic",
+    `Dawn was breaking in the woods and Jack ran toward the light. ${LONG}`,
+    "The second paragraph of A Book of Magic stays its own paragraph.",
+  ]);
+  assert.deepEqual(paragraphs(book)[1], [
+    "Carnival",
+    `Annie laughed and opened her eyes in the garden. ${LONG}`,
+    "The second paragraph of Carnival stays its own paragraph.",
+  ]);
+  assert.deepEqual(
+    book.extras.map((item) => item.href.split("/").pop()),
+    ["Book_split_001.xhtml", "Book_split_009.xhtml", "Book_split_020.xhtml"],
+  );
+  assert.deepEqual(
+    book.extras.map((item) => item.id),
+    ["x0", "x1", "x2"],
+  );
+  const root = new DOMParser().parseFromString(`<div>${book.chapters[0].html}</div>`, "text/html").body
+    .firstElementChild;
+  assert.deepEqual(
+    help.paragraphBlocks(root, 2).map((block) => flow.flowText(block)),
+    book.chapters[0].paragraphs,
+  );
+  const before = paragraphs(book).map((rows) => [...rows]);
+  const merged = epub.applySpineMerge(book, {
+    "Book_split_009.xhtml": "Book_split_008.xhtml",
+    "missing.html": "Book_split_008.xhtml",
+    "Book_split_020.xhtml": "no-such-chapter.xhtml",
+  });
+  assert.equal(paragraphs(book)[0].length, before[0].length);
+  assert.deepEqual(paragraphs(merged)[0].slice(0, before[0].length), before[0]);
+  assert.match(paragraphs(merged)[0].at(-1), /unlisted split stays an extra/);
+  assert.equal(merged.chapters[0].html.includes("data-merge-title"), false);
+  assert.deepEqual(paragraphs(merged)[1], before[1]);
+  assert.deepEqual(
+    merged.extras.map((item) => item.id),
+    ["x0", "x2"],
+  );
+  const slots = epub.readingSlots(book);
+  assert.deepEqual(
+    slots.map((slot) => slot.kind),
+    ["extra", "chapter", "extra", "chapter", "extra"],
+  );
+  assert.deepEqual(
+    epub.readingSlots({ chapters: book.chapters, extras: [] }).map((slot) => slot.index),
+    [0, 1],
+  );
+});
+
+test("a merged empty-contents file shows its title without a new paragraph", async () => {
+  const book = await buildEpub({
+    title: "NightWings",
+    toc: [
+      { title: "NightWings", href: "night.xhtml" },
+      { title: "The Dragonet Prophecy", href: "prophecy.xhtml" },
+      { title: "Prologue", href: "prologue.xhtml" },
+      { title: "Chapter One", href: "c01.xhtml" },
+    ],
+    spine: [
+      { id: "night", href: "night.xhtml" },
+      { id: "prophecy", href: "prophecy.xhtml" },
+      { id: "prophecyb", href: "prophecy-body.xhtml" },
+      { id: "prologue", href: "prologue.xhtml" },
+      { id: "prologueb", href: "prologue-body.xhtml" },
+      { id: "c01", href: "c01.xhtml" },
+    ],
+    files: {
+      "night.xhtml": `<h1>NightWings</h1><p>The island was dark and the tribe was waiting. ${LONG}</p>`,
+      "prophecy.xhtml": "",
+      "prophecy-body.xhtml": `<p>A prophecy was whispered across the sea. ${LONG}</p>`,
+      "prologue.xhtml": "",
+      "prologue-body.xhtml": `<h1>Prologue</h1><p>The night was cold before the war began. ${LONG}</p>`,
+      "c01.xhtml": `<h1>Chapter One</h1><p>Clay opened his eyes in the cave. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(
+    book.extras.map((item) => [item.id, item.title, item.fromToc]),
+    [
+      ["x0", "The Dragonet Prophecy", true],
+      ["x1", "Prologue", true],
+    ],
+  );
+  const before = paragraphs(book).map((rows) => [...rows]);
+  const merged = epub.applySpineMerge(book, {
+    "prophecy.xhtml": "night.xhtml",
+    "prologue.xhtml": "night.xhtml",
+  });
+  assert.deepEqual(paragraphs(book), before);
+  assert.deepEqual(paragraphs(merged)[0], [
+    ...before[0],
+    `A prophecy was whispered across the sea. ${LONG}`,
+    "Prologue",
+    `The night was cold before the war began. ${LONG}`,
+  ]);
+  assert.equal(paragraphs(merged)[0].includes("The Dragonet Prophecy"), false);
+  assert.deepEqual(paragraphs(merged)[1], before[1]);
+  assert.deepEqual(merged.extras, []);
+  const html = merged.chapters[0].html;
+  assert.equal(html.match(/data-merge-title/g)?.length, 1);
+  assert.match(html, /<h2 data-merge-title="1">The Dragonet Prophecy<\/h2><p>A prophecy was whispered/);
+  assert.equal(html.includes('data-merge-title="1">Prologue'), false);
+  const parse = (value) => new DOMParser().parseFromString(value, "text/html");
+  const root = parse(`<div>${html}</div>`).body.firstElementChild;
+  assert.deepEqual(
+    help.paragraphBlocks(root).map((block) => flow.flowText(block)),
+    paragraphs(merged)[0],
+  );
+  const indexed = format.indexChapterHtml(html, parse);
+  const stripped = html.replace(/<h2 data-merge-title="1">[\s\S]*?<\/h2>/, "");
+  assert.deepEqual(indexed.tokens, format.indexChapterHtml(stripped, parse).tokens);
+  assert.equal(indexed.tokens.some((token) => token.w === "dragonet"), false);
+  assert.equal(indexed.tokens.filter((token) => token.w === "prophecy").length, 1);
+  const shown = format.readingHtml(html, new Set(), (surface) => surface.toLowerCase(), 0, new Map());
+  const heading = shown.match(/<h2 data-merge-title="1">[\s\S]*?<\/h2>/)?.[0] ?? "";
+  assert.match(heading, /The Dragonet Prophecy/);
+  assert.equal(heading.includes("data-n"), false);
+  const shownRoot = parse(`<div>${shown}</div>`).body.firstElementChild;
+  assert.deepEqual(
+    help.paragraphBlocks(shownRoot).map((block) => flow.flowText(block)),
+    paragraphs(merged)[0],
+  );
+});
+
+test("a merge heading is skipped when the file already has that title", () => {
+  const chapter = {
+    title: "NightWings",
+    paragraphs: ["NightWings"],
+    html: "<h1>NightWings</h1>",
+    href: "night.xhtml",
+    itemId: "night",
+  };
+  const extra = (id, spineAt, title, paragraphs, html, href) => ({
+    id,
+    href,
+    opfHref: href,
+    itemId: id,
+    spineAt,
+    title,
+    paragraphs,
+    html,
+  });
+  const book = {
+    chapters: [chapter],
+    extras: [
+      extra("x0", 1, "Tom & Jerry", ["A short note about names."], "<p>A short note about names.</p>", "names.xhtml"),
+      extra(
+        "x1",
+        2,
+        "Dedication",
+        ["Dedication", "For my sister."],
+        "<p>Dedication</p><p>For my sister.</p>",
+        "ded.xhtml",
+      ),
+      extra(
+        "x2",
+        3,
+        "The Dragonet Prophecy",
+        ["A short lead.", "The Dragonet Prophecy", "The rest of the page."],
+        "<p>A short lead.</p><h2><span>The Dragonet Prophecy</span></h2><p>The rest of the page.</p>",
+        "later.xhtml",
+      ),
+      extra("x3", 4, "   ", ["Nothing to title here at all."], "<p>Nothing to title here at all.</p>", "blank.xhtml"),
+    ],
+  };
+  const merged = epub.applySpineMerge(book, {
+    "names.xhtml": "night.xhtml",
+    "ded.xhtml": "night.xhtml",
+    "later.xhtml": "night.xhtml",
+    "blank.xhtml": "night.xhtml",
+  });
+  assert.deepEqual(merged.chapters[0].paragraphs, [
+    "NightWings",
+    "A short note about names.",
+    "Dedication",
+    "For my sister.",
+    "A short lead.",
+    "The Dragonet Prophecy",
+    "The rest of the page.",
+    "Nothing to title here at all.",
+  ]);
+  assert.equal(book.chapters[0].paragraphs.length, 1);
+  const html = merged.chapters[0].html;
+  assert.equal(html.match(/data-merge-title/g)?.length, 1);
+  assert.match(html, /<h2 data-merge-title="1">Tom &amp; Jerry<\/h2><p>A short note/);
+  assert.equal(html.includes(">Dedication</h2>"), false);
+  assert.equal(html.includes("data-merge-title=\"1\">The Dragonet Prophecy"), false);
+});
+
+test("wof03 merge keys match the content file and the empty contents file", async () => {
+  const prophecy = `The dragonets are coming and the sea is rising. ${LONG}`;
+  const prologue = `The night was cold before the war began. ${LONG}`;
+  const intro = `The island was dark and the tribe was waiting. ${LONG}`;
+  const book = await buildEpub({
+    title: "NightWings",
+    toc: [
+      { title: "NightWings", href: "part0004.xhtml" },
+      { title: "The Dragonet Prophecy", href: "part0005_split_000.xhtml" },
+      { title: "Prologue", href: "part0006_split_000.xhtml" },
+      { title: "Chapter One", href: "part0007.xhtml" },
+    ],
+    spine: [
+      { id: "intro", href: "part0004.xhtml" },
+      { id: "prophecy", href: "part0005_split_000.xhtml" },
+      { id: "prophecyb", href: "part0005_split_001.xhtml" },
+      { id: "prologue", href: "part0006_split_000.xhtml" },
+      { id: "prologueb", href: "part0006_split_001.xhtml" },
+      { id: "c01", href: "part0007.xhtml" },
+    ],
+    files: {
+      "part0004.xhtml": `<h1>NightWings</h1><p>${intro}</p>`,
+      "part0005_split_000.xhtml": "",
+      "part0005_split_001.xhtml": `<p>${prophecy}</p>`,
+      "part0006_split_000.xhtml": "",
+      "part0006_split_001.xhtml": `<h1>Prologue</h1><p>${prologue}</p>`,
+      "part0007.xhtml": `<h1>Chapter One</h1><p>Clay opened his eyes in the cave. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["NightWings", "Chapter One"],
+  );
+  assert.deepEqual(book.chapters[1].paragraphs, [
+    "Chapter One",
+    `Clay opened his eyes in the cave. ${LONG}`,
+  ]);
+  assert.deepEqual(
+    book.extras.map((item) => [item.id, item.title, item.fromToc]),
+    [
+      ["x0", "The Dragonet Prophecy", true],
+      ["x1", "Prologue", true],
+    ],
+  );
+  assert.deepEqual(
+    book.extras[0].absorbed.map((file) => file.opfHref),
+    ["part0005_split_001.xhtml"],
+  );
+  assert.deepEqual(
+    book.extras[1].absorbed.map((file) => file.itemId),
+    ["prologueb"],
+  );
+  const expected = [
+    "NightWings",
+    intro,
+    prophecy,
+    "Prologue",
+    prologue,
+  ];
+  const byContent = {
+    "part0005_split_001.xhtml": "part0004.xhtml",
+    "part0006_split_001.xhtml": "part0004.xhtml",
+  };
+  const byToc = {
+    "part0005_split_000.xhtml": "part0004.xhtml",
+    "part0006_split_000.xhtml": "part0004.xhtml",
+  };
+  const byBoth = { ...byContent, ...byToc };
+  const merged = [byContent, byToc, byBoth].map((merge) => epub.applySpineMerge(book, merge));
+  for (const result of merged) {
+    assert.deepEqual(result.chapters[0].paragraphs, expected);
+    assert.deepEqual(result.chapters[1].paragraphs, book.chapters[1].paragraphs);
+    assert.deepEqual(result.extras, []);
+  }
+  assert.equal(merged[0].chapters[0].html, merged[1].chapters[0].html);
+  assert.equal(merged[0].chapters[0].html, merged[2].chapters[0].html);
+  assert.equal(merged[0].chapters[0].paragraphs.filter((row) => row === prophecy).length, 1);
+  assert.match(merged[0].chapters[0].html, /data-merge-title="1">The Dragonet Prophecy/);
+  assert.equal(merged[0].chapters[0].html.includes('data-merge-title="1">Prologue'), false);
+  assert.deepEqual(paragraphs(book)[0], ["NightWings", intro]);
+  const warnings = epub.spineFileWarnings(
+    {
+      "part0005_split_001.xhtml": "part0004.xhtml",
+      "part0006_split_099.xhtml": "no-such-chapter.xhtml",
+    },
+    book,
+  );
+  assert.deepEqual(warnings, [
+    'spine.merge key "part0006_split_099.xhtml" does not match a spine item in this book.',
+    'spine.merge target "no-such-chapter.xhtml" does not match a spine item in this book.',
+  ]);
+});
+
+test("an imported list warns about a spine.merge name that is not in the book", async () => {
+  const intro = `The island was dark and the tribe was waiting. ${LONG}`;
+  const book = await buildEpub({
+    title: "NightWings",
+    toc: [
+      { title: "NightWings", href: "part0004.xhtml" },
+      { title: "Chapter One", href: "part0007.xhtml" },
+    ],
+    spine: [
+      { id: "intro", href: "part0004.xhtml" },
+      { id: "c01", href: "part0007.xhtml" },
+    ],
+    files: {
+      "part0004.xhtml": `<h1>NightWings</h1><p>${intro}</p>`,
+      "part0007.xhtml": `<h1>Chapter One</h1><p>Clay opened his eyes in the cave. ${LONG}</p>`,
+    },
+  });
+  const before = JSON.stringify({
+    chapters: book.chapters.map((chapter) => ({
+      title: chapter.title,
+      paragraphs: chapter.paragraphs,
+    })),
+    extras: book.extras.map((extra) => ({
+      id: extra.id,
+      title: extra.title,
+      paragraphs: extra.paragraphs,
+    })),
+  });
+  const merge = {
+    "part0004.xhtml": "part0007.xhtml",
+    "part0006_split_099.xhtml": "no-such-chapter.xhtml",
+  };
+  assert.deepEqual(epub.importSpineWarnings(merge, book), [
+    { kind: "idle", name: "part0004.xhtml" },
+    { kind: "key", name: "part0006_split_099.xhtml" },
+    { kind: "target", name: "no-such-chapter.xhtml" },
+  ]);
+  assert.deepEqual(epub.importSpineWarnings({ "part0004.xhtml": "part0007.xhtml" }, book), [
+    { kind: "idle", name: "part0004.xhtml" },
+  ]);
+  assert.deepEqual(epub.spineFileWarnings({ "part0004.xhtml": "part0007.xhtml" }, book), [
+    'spine.merge key "part0004.xhtml" matches a spine item but nothing is merged into or from it.',
+  ]);
+  const merged = epub.applySpineMerge(book, merge);
+  assert.equal(
+    JSON.stringify({
+      chapters: book.chapters.map((chapter) => ({
+        title: chapter.title,
+        paragraphs: chapter.paragraphs,
+      })),
+      extras: book.extras.map((extra) => ({
+        id: extra.id,
+        title: extra.title,
+        paragraphs: extra.paragraphs,
+      })),
+    }),
+    before,
+  );
+  assert.deepEqual(
+    merged.chapters.map((chapter) => chapter.paragraphs),
+    book.chapters.map((chapter) => chapter.paragraphs),
+  );
+  assert.deepEqual(
+    merged.extras.map((extra) => extra.paragraphs),
+    book.extras.map((extra) => extra.paragraphs),
+  );
+});
+
+test("the glossary check applies spine.merge before notes on a merged chapter", async () => {
+  const dir = mkdtempSync(join(tmpdir(), "mw-merge-"));
+  const epubPath = join(dir, "book.epub");
+  const prophecy = `The dragonets are coming and the sea is rising. ${LONG}`;
+  const prologue = `The night was cold before the war began. ${LONG}`;
+  const intro = `The island was dark and the tribe was waiting. ${LONG}`;
+  const parsed = await buildEpub({
+    title: "NightWings",
+    writeTo: epubPath,
+    toc: [
+      { title: "NightWings", href: "part0004.xhtml" },
+      { title: "The Dragonet Prophecy", href: "part0005_split_000.xhtml" },
+      { title: "Prologue", href: "part0006_split_000.xhtml" },
+      { title: "Chapter One", href: "part0007.xhtml" },
+    ],
+    spine: [
+      { id: "intro", href: "part0004.xhtml" },
+      { id: "prophecy", href: "part0005_split_000.xhtml" },
+      { id: "prophecyb", href: "part0005_split_001.xhtml" },
+      { id: "prologue", href: "part0006_split_000.xhtml" },
+      { id: "prologueb", href: "part0006_split_001.xhtml" },
+      { id: "c01", href: "part0007.xhtml" },
+    ],
+    files: {
+      "part0004.xhtml": `<h1>NightWings</h1><p>${intro}</p>`,
+      "part0005_split_000.xhtml": "",
+      "part0005_split_001.xhtml": `<p>${prophecy}</p>`,
+      "part0006_split_000.xhtml": "",
+      "part0006_split_001.xhtml": `<h1>Prologue</h1><p>${prologue}</p>`,
+      "part0007.xhtml": `<h1>Chapter One</h1><p>Clay opened his eyes in the cave. ${LONG}</p>`,
+    },
+  });
+  const byContent = {
+    "part0005_split_001.xhtml": "part0004.xhtml",
+    "part0006_split_001.xhtml": "part0004.xhtml",
+  };
+  const byBoth = {
+    ...byContent,
+    "part0005_split_000.xhtml": "part0004.xhtml",
+    "part0006_split_000.xhtml": "part0004.xhtml",
+  };
+  const app = epub.applySpineMerge(parsed, byContent);
+  const plain = await readBook(epubPath);
+  const fromContent = await readBook(epubPath, { merge: byContent });
+  const fromBoth = await readBook(epubPath, { merge: byBoth });
+  const paragraphsOf = (book) => book.chapters.map((chapter) => chapter.paragraphs);
+  assert.equal(plain.chapters[0].paragraphs.some((row) => row.includes("dragonets")), false);
+  assert.deepEqual(paragraphsOf(fromContent), paragraphsOf(app));
+  assert.deepEqual(paragraphsOf(fromBoth), paragraphsOf(app));
+  assert.deepEqual(
+    fromContent.extras.map((extra) => extra.paragraphs),
+    app.extras.map((extra) => extra.paragraphs),
+  );
+  assert.equal(fromContent.chapters[0].paragraphs[2].includes("dragonets"), true);
+  const listFor = (merge) => ({
+    version: 2,
+    title: "NightWings",
+    chapters: 2,
+    spine: { merge },
+    glossary: {
+      dragonets: {
+        meaning: "Young dragons.",
+        senses: [
+          {
+            meaning: "Young dragons.",
+            anchors: [
+              {
+                chapter: 0,
+                occurrence: 1,
+                context: "The dragonets are coming and the sea is rising",
+              },
+            ],
+          },
+        ],
+      },
+    },
+    paragraphs: [
+      {
+        chapter: 0,
+        paragraph: 2,
+        context: "The dragonets are coming and the sea is rising",
+        mainIdea: "The young dragons are coming.",
+        simple: "The young dragons are coming.",
+      },
+    ],
+    sentences: [
+      {
+        chapter: 0,
+        context: "The dragonets are coming and the sea is rising",
+        simple: "The young dragons are coming.",
+        grammar: "This sentence has one idea.",
+      },
+    ],
+  });
+  try {
+    for (const merge of [byContent, byBoth]) {
+      const listPath = join(dir, "glossary.json");
+      writeFileSync(listPath, JSON.stringify(listFor(merge)));
+      const run = spawnSync(
+        process.execPath,
+        ["scripts/validate-glossary.mjs", "--json", epubPath, listPath],
+        { cwd: ROOT, encoding: "utf8" },
+      );
+      const report = JSON.parse(run.stdout || "{}");
+      assert.equal(run.status, 0, `${run.stderr}\n${JSON.stringify(report.errors)}`);
+      assert.equal(report.ok, true);
+      assert.deepEqual(report.errors, []);
+    }
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("a spine.merge key that matches a chapter but merges nothing warns once", async () => {
+  const dir = mkdtempSync(join(tmpdir(), "mw-idle-"));
+  const epubPath = join(dir, "book.epub");
+  const prophecy = `The dragonets are coming and the sea is rising. ${LONG}`;
+  const prologue = `The night was cold before the war began. ${LONG}`;
+  const intro = `The island was dark and the tribe was waiting. ${LONG}`;
+  const chapterThree = `The third chapter stays a numbered chapter. ${LONG}`;
+  const book = await buildEpub({
+    title: "NightWings",
+    writeTo: epubPath,
+    toc: [
+      { title: "NightWings", href: "part0004.xhtml" },
+      { title: "The Dragonet Prophecy", href: "part0005_split_000.xhtml" },
+      { title: "Prologue", href: "part0006_split_000.xhtml" },
+      { title: "Chapter One", href: "part0007.xhtml" },
+      { title: "Chapter Three", href: "part0007_split_003.html" },
+    ],
+    spine: [
+      { id: "intro", href: "part0004.xhtml" },
+      { id: "prophecy", href: "part0005_split_000.xhtml" },
+      { id: "prophecyb", href: "part0005_split_001.xhtml" },
+      { id: "prologue", href: "part0006_split_000.xhtml" },
+      { id: "prologueb", href: "part0006_split_001.xhtml" },
+      { id: "c01", href: "part0007.xhtml" },
+      { id: "c03", href: "part0007_split_003.html" },
+    ],
+    files: {
+      "part0004.xhtml": `<h1>NightWings</h1><p>${intro}</p>`,
+      "part0005_split_000.xhtml": "",
+      "part0005_split_001.xhtml": `<p>${prophecy}</p>`,
+      "part0006_split_000.xhtml": "",
+      "part0006_split_001.xhtml": `<h1>Prologue</h1><p>${prologue}</p>`,
+      "part0007.xhtml": `<h1>Chapter One</h1><p>Clay opened his eyes in the cave. ${LONG}</p>`,
+      "part0007_split_003.html": `<h1>Chapter Three</h1><p>${chapterThree}</p>`,
+    },
+  });
+  const dual = {
+    "part0005_split_000.xhtml": "part0004.xhtml",
+    "part0005_split_001.xhtml": "part0004.xhtml",
+    "part0006_split_000.xhtml": "part0004.xhtml",
+    "part0006_split_001.xhtml": "part0004.xhtml",
+  };
+  const idleKey = "part0007_split_003.html";
+  const missingKey = "part9999_split_000.html";
+  const withIdle = { ...dual, [idleKey]: "part0004.xhtml" };
+  const withMissing = { ...dual, [missingKey]: "part0004.xhtml" };
+  const idleText = `spine.merge key "${idleKey}" matches a spine item but nothing is merged into or from it.`;
+  const missingText = `spine.merge key "${missingKey}" does not match a spine item in this book.`;
+  assert.deepEqual(epub.importSpineWarnings(dual, book), []);
+  assert.deepEqual(epub.spineFileWarnings(dual, book), []);
+  assert.deepEqual(epub.importSpineWarnings(withIdle, book), [{ kind: "idle", name: idleKey }]);
+  assert.deepEqual(epub.spineFileWarnings(withIdle, book), [idleText]);
+  assert.deepEqual(epub.importSpineWarnings(withMissing, book), [{ kind: "key", name: missingKey }]);
+  assert.deepEqual(epub.spineFileWarnings(withMissing, book), [missingText]);
+  assert.deepEqual(epub.importSpineWarnings({ ...withIdle, [missingKey]: "part0004.xhtml" }, book), [
+    { kind: "idle", name: idleKey },
+    { kind: "key", name: missingKey },
+  ]);
+  assert.deepEqual(epub.importSpineWarnings({ ...dual, "part0004.xhtml": "part0004.xhtml" }, book), []);
+  const merged = epub.applySpineMerge(book, dual);
+  const mergedIdle = epub.applySpineMerge(book, withIdle);
+  const paragraphsOf = (item) => item.chapters.map((chapter) => chapter.paragraphs);
+  assert.deepEqual(paragraphsOf(mergedIdle), paragraphsOf(merged));
+  assert.equal(mergedIdle.chapters[0].html, merged.chapters[0].html);
+  assert.deepEqual(mergedIdle.extras, merged.extras);
+  assert.equal(merged.chapters[0].paragraphs.some((row) => row.includes("dragonets")), true);
+  assert.equal(mergedIdle.chapters.at(-1).paragraphs[1], chapterThree);
+  const fromDual = await readBook(epubPath, { merge: dual });
+  const fromIdle = await readBook(epubPath, { merge: withIdle });
+  const fromMissing = await readBook(epubPath, { merge: withMissing });
+  assert.deepEqual(fromDual.spineWarnings, []);
+  assert.deepEqual(fromIdle.spineWarnings, [idleText]);
+  assert.deepEqual(fromMissing.spineWarnings, [missingText]);
+  assert.deepEqual(paragraphsOf(fromIdle), paragraphsOf(fromDual));
+  assert.deepEqual(paragraphsOf(fromDual), paragraphsOf(merged));
+  const listFor = (merge) => ({
+    version: 2,
+    title: "NightWings",
+    chapters: 3,
+    spine: { merge },
+    glossary: {
+      dragonets: {
+        meaning: "Young dragons.",
+        senses: [
+          {
+            meaning: "Young dragons.",
+            anchors: [
+              {
+                chapter: 0,
+                occurrence: 1,
+                context: "The dragonets are coming and the sea is rising",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  });
+  const spineLines = (report) => (report.warnings ?? []).filter((line) => String(line).startsWith("spine.merge"));
+  try {
+    for (const [merge, expected] of [
+      [dual, []],
+      [withIdle, [idleText]],
+      [withMissing, [missingText]],
+    ]) {
+      const listPath = join(dir, "glossary.json");
+      writeFileSync(listPath, JSON.stringify(listFor(merge)));
+      const run = spawnSync(
+        process.execPath,
+        ["scripts/validate-glossary.mjs", "--json", epubPath, listPath],
+        { cwd: ROOT, encoding: "utf8" },
+      );
+      const report = JSON.parse(run.stdout || "{}");
+      assert.equal(run.status, 0, `${run.stderr}\n${JSON.stringify(report.errors)}`);
+      assert.deepEqual(report.errors, []);
+      assert.deepEqual(spineLines(report), expected);
+      assert.equal(
+        (report.warnings ?? []).some((line) => String(line).includes("context is very short")),
+        false,
+      );
+    }
+    const shortOf = (merge) => ({
+      version: 2,
+      title: "NightWings",
+      chapters: 3,
+      ...(merge ? { spine: { merge } } : {}),
+      glossary: {
+        island: {
+          meaning: "Land with water all around it.",
+          senses: [
+            {
+              meaning: "Land with water all around it.",
+              anchors: [{ chapter: 0, context: "The island" }],
+            },
+          ],
+        },
+      },
+    });
+    const shortLines = async (merge) => {
+      const listPath = join(dir, "glossary.json");
+      writeFileSync(listPath, JSON.stringify(shortOf(merge)));
+      const run = spawnSync(
+        process.execPath,
+        ["scripts/validate-glossary.mjs", "--json", epubPath, listPath],
+        { cwd: ROOT, encoding: "utf8" },
+      );
+      const report = JSON.parse(run.stdout || "{}");
+      assert.equal(run.status, 0, `${run.stderr}\n${JSON.stringify(report.errors)}`);
+      return (report.warnings ?? []).filter((line) => String(line).includes("context is very short"));
+    };
+    const shortWithoutMerge = await shortLines(null);
+    const shortWithMerge = await shortLines(dual);
+    assert.equal(shortWithoutMerge.length, 1);
+    assert.deepEqual(shortWithMerge, shortWithoutMerge);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("front-matter contents entries leave the following files as separate extras", async () => {
+  const praise = `Here's what kids have to say about this story and its author. ${LONG}`;
+  const more = `More praise from readers who loved the book. ${LONG}`;
+  const listed = `The contents page lists every chapter of the story in order. ${LONG}`;
+  const prophecy = `The dragonets are coming and the sea is rising. ${LONG}`;
+  const book = await buildEpub({
+    title: "Praise",
+    toc: [
+      { title: "Cover", href: "titlepage.xhtml" },
+      { title: "Chapter One", href: "c01.xhtml" },
+      { title: "Copyright", href: "copyright.xhtml" },
+      { title: "Contents", href: "contents-empty.xhtml" },
+      { title: "The Dragonet Prophecy", href: "prophecy.xhtml" },
+      { title: "Chapter Two", href: "c02.xhtml" },
+    ],
+    spine: [
+      { id: "cover", href: "titlepage.xhtml" },
+      { id: "jacket", href: "jacket.xhtml" },
+      { id: "fm1", href: "fm1.xhtml" },
+      { id: "fm2", href: "fm2.xhtml" },
+      { id: "c01", href: "c01.xhtml" },
+      { id: "copy", href: "copyright.xhtml" },
+      { id: "contentsempty", href: "contents-empty.xhtml" },
+      { id: "contents", href: "contents.xhtml" },
+      { id: "prophecy", href: "prophecy.xhtml" },
+      { id: "prophecyb", href: "prophecy-body.xhtml" },
+      { id: "c02", href: "c02.xhtml" },
+    ],
+    files: {
+      "titlepage.xhtml": "",
+      "jacket.xhtml": `<p>The jacket blurb sits on its own page. ${LONG}</p>`,
+      "fm1.xhtml": `<p>${praise}</p>`,
+      "fm2.xhtml": `<p>${more}</p>`,
+      "c01.xhtml": `<h1>Chapter One</h1><p>The first chapter stays chapter zero. ${LONG}</p>`,
+      "copyright.xhtml": "",
+      "contents-empty.xhtml": "",
+      "contents.xhtml": `<p>${listed}</p>`,
+      "prophecy.xhtml": "",
+      "prophecy-body.xhtml": `<p>${prophecy}</p>`,
+      "c02.xhtml": `<h1>Chapter Two</h1><p>The second chapter stays chapter one. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["Chapter One", "Chapter Two"],
+  );
+  assert.deepEqual(book.chapters[0].paragraphs, [
+    "Chapter One",
+    `The first chapter stays chapter zero. ${LONG}`,
+  ]);
+  assert.deepEqual(
+    book.extras.map((item) => [item.id, item.title, item.fromToc ?? false, item.href.split("/").pop()]),
+    [
+      ["x0", "", false, "jacket.xhtml"],
+      ["x1", "", false, "fm1.xhtml"],
+      ["x2", "", false, "fm2.xhtml"],
+      ["x3", "", false, "contents.xhtml"],
+      ["x4", "The Dragonet Prophecy", true, "prophecy.xhtml"],
+    ],
+  );
+  assert.deepEqual(book.extras[1].paragraphs, [praise]);
+  assert.deepEqual(book.extras[2].paragraphs, [more]);
+  assert.deepEqual(book.extras[3].paragraphs, [listed]);
+  assert.deepEqual(book.extras[4].paragraphs, [prophecy]);
+  assert.equal(book.extras.some((item) => item.title === "Cover" || item.title === "Copyright" || item.title === "Contents"), false);
+});
+
+test("front matter and a missed later file stay extras and keep contents chapters", async () => {
+  const book = await buildEpub({
+    title: "Matter",
+    toc: [
+      { title: "Dedication", href: "ded.xhtml" },
+      { title: "Chapter One", href: "c01.xhtml" },
+      { title: "A Note", href: "note.xhtml" },
+      { title: "Preview", href: "preview.xhtml" },
+    ],
+    spine: [
+      { id: "fm", href: "fm1.xhtml" },
+      { id: "ded", href: "ded.xhtml" },
+      { id: "epi", href: "epi.xhtml" },
+      { id: "c01", href: "c01.xhtml" },
+      { id: "ad", href: "ad.xhtml" },
+      { id: "note", href: "note.xhtml" },
+      { id: "ada", href: "ada.xhtml" },
+      { id: "pre", href: "preview.xhtml" },
+      { id: "later", href: "c15.xhtml" },
+    ],
+    files: {
+      "fm1.xhtml": `<h1>What Kids Say</h1><p>The front matter is an extra page and does not move the dedication. ${LONG}</p>`,
+      "ded.xhtml": `<h1>Dedication</h1><p>For a friend who stays chapter zero in this book. ${LONG}</p>`,
+      "epi.xhtml": `<p>The epigraph stays an extra and does not become chapter one. ${LONG}</p>`,
+      "c01.xhtml": `<h1>Chapter One</h1><p>The first story chapter keeps its place and its paragraphs. ${LONG}</p>`,
+      "ad.xhtml": `<p>This unlisted page must stay out of every chapter. ${LONG}</p>`,
+      "note.xhtml": `<h1>A Note</h1><p>The note stays the chapter it was before the extra files. ${LONG}</p>`,
+      "ada.xhtml": `<p>The author page stays an extra between the note and the preview. ${LONG}</p>`,
+      "preview.xhtml": `<h1>Preview</h1><p>The preview keeps the chapter number it had in the contents. ${LONG}</p>`,
+      "c15.xhtml": `<h1>After the Note</h1><p>The file after the last contents entry stays an extra at the end. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(
+    book.chapters.map((chapter) => chapter.title),
+    ["Dedication", "Chapter One", "A Note", "Preview"],
+  );
+  assert.deepEqual(paragraphs(book)[0], [
+    "Dedication",
+    `For a friend who stays chapter zero in this book. ${LONG}`,
+  ]);
+  assert.deepEqual(paragraphs(book)[1], [
+    "Chapter One",
+    `The first story chapter keeps its place and its paragraphs. ${LONG}`,
+  ]);
+  assert.deepEqual(paragraphs(book)[2], [
+    "A Note",
+    `The note stays the chapter it was before the extra files. ${LONG}`,
+  ]);
+  assert.deepEqual(paragraphs(book)[3], [
+    "Preview",
+    `The preview keeps the chapter number it had in the contents. ${LONG}`,
+  ]);
+  assert.deepEqual(
+    book.extras.map((item) => item.href.split("/").pop()),
+    ["fm1.xhtml", "epi.xhtml", "ad.xhtml", "ada.xhtml", "c15.xhtml"],
+  );
+  const joined = paragraphs(book).flat().join("\n");
+  assert.equal(joined.includes("must stay out"), false);
+  assert.equal(joined.includes("epigraph stays"), false);
+  const slots = epub.readingSlots(book);
+  assert.equal(slots[0].kind, "extra");
+  assert.equal(slots[1].kind, "chapter");
+  assert.equal(slots[1].index, 0);
+});
 
 test("bundled classics keep the same chapter and paragraph text", async () => {
   const ids = readdirSync(join(ROOT, "public-books")).filter((name) => PUBLIC_PARAGRAPHS[name]);

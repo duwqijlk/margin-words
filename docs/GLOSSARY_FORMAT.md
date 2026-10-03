@@ -45,6 +45,7 @@ shipped with the app or in the book packs (`src/`, `public/`, `packs/`) must pas
 | `isbn` | no | ISBN-10 or ISBN-13 of this edition. A bad value is ignored. Omit it when you cannot confirm the edition. |
 | `series` | no | Series title. A name alone is kept. |
 | `seriesNumber` | no | 1-based place in `series`. Stored only when `series` is present. A number without a name is ignored. |
+| `segmentation` | no | `2` splits a chapter-wrapper blockquote into its headings and paragraphs (3.4). Omit it and a blockquote stays one paragraph. Any other value is ignored. |
 
 Optional top-level parts (section 7): `paragraphs[]`, `sentences[]`, `phrases{}`. Unknown extra fields are allowed and ignored (v1 bundled files carry `example`, `examples`, `count`).
 
@@ -140,15 +141,65 @@ list like this:
    entry. A book-wide series such as `index_split_*`, `FLIPPED_split_*`,
    `Title_split_*`, or `Wings_of_Fire_1__Dragonet_Proph_split_*` is used by many
    contents entries, so those files are not appended. The listed paragraphs stay at
-   the same indexes; the extra text is added after them. Any other unlisted spine file
-   stays out. A contents entry that is not already kept as its own chapter (a one-word
-   heading, for example) stays dropped, and its split files are not added. The chapter
-   list does not gain a chapter.
-3. If the contents list is missing or has fewer than 2 entries, each spine file is its own chapter,
-   split at `<h1>` (or `<h2>`) headings. A 1-entry contents list does not collapse those files into one chapter.
+   the same indexes; the extra text is added after them. Any other spine file the
+   chapter list does not already show is an **extra**, not a chapter. It keeps its own
+   id (`x0`, `x1`, …), is shown in spine order, and is labelled Extra. Those ids sit
+   outside the chapter list, so front matter before chapter 1 does not renumber any
+   chapter or any segment `c<chapter>.p<paragraph>`. Word anchors and phrase notes
+   do not resolve on an extra. A contents entry whose whole file has zero paragraphs
+   is not inserted as a numbered chapter, so later chapter numbers stay put. The
+   linear spine files that follow it, until the next contents file, are one extra
+   in that reading-order place. Its id is the next `x0`, `x1`, … in spine order.
+   The title is the contents title, and a paragraph note or a sentence note can name
+   that id (`"chapter": "x3"`). This does not run when the contents title is front
+   matter (Cover, Title Page, Copyright, Contents, and the same kind of label).
+   The files after those stay separate extras, with the same text and the same ids
+   they had before an empty contents file could be recovered. Any other extra is
+   unchanged: notes do not resolve there. A contents entry that has text but is too short to keep (a one-word
+   heading) stays dropped, and its later split files stay ordinary extras.
+3. If the contents list is missing, empty, or has fewer than 2 entries, **or** it produces
+   fewer than 2 chapters, each spine file is its own chapter, split at `<h1>` (or `<h2>`)
+   headings. A 1-entry contents list does not collapse those files into one chapter, and
+   that book has no extras. This is the whole chapter list for those books. It stays
+   byte for byte the same, including every paragraph index.
 4. Chapters with fewer than 20 letters are dropped; very short chapters (< 40 letters) are merged into
    the previous one.
 5. Navigation and scripts are removed, links are unwrapped, other-language blocks are removed.
+
+An optional top-level `"spine"` object can append a dropped file onto a chapter that is
+already in the list:
+
+```json
+"spine": { "merge": { "Text/ch01_split_009.xhtml": "Text/ch01_split_008.xhtml" } }
+```
+
+Each key is the dropped spine file (its manifest id, its href, or its file name). Each
+value is the contents chapter it continues (the same kinds of name). A key may name the
+empty contents file, or a content file that was absorbed into that recovered extra.
+Those two names are the same extra: either key, or both, appends that text once.
+The file is added
+after the paragraphs that chapter already has, so earlier paragraph indexes do not move.
+If several chapters were cut from that file, the text is added to the last one. Files are
+added in spine order. A name that matches no spine item is ignored when the book is
+opened. The glossary check warns, naming that key: the command-line check, and the app
+when the book and the list are imported together (a warning on the opened book, and the
+same warning in the “add your e-book” dialog before the book is saved). A key that matches
+a spine item but merges nothing into or from that file warns too:
+`spine.merge key "<key>" matches a spine item but nothing is merged into or from it.`
+An empty contents file, or a file absorbed into that extra, does not warn when that extra
+is appended. The check applies
+that merge before it counts words and notes, the same way the app does when it opens the book. A bad entry is a warning,
+not an error. This does not change books that omit `spine`. When the appended file's
+title is not already its first paragraph, and no `h1`–`h4` in that file is the same
+title, the reader shows the title as a heading in front of the appended paragraphs.
+That heading is not a paragraph, so no paragraph index moves, and its words are not
+counted. Teachers use it when the
+continuation rule above does not apply, for example Magic Tree House 33
+`Magic_Tree_H-at_Candlelight_split_009` continuing `split_008`, Wings of Fire 3
+`part0006_split_001` and `part0005_split_001`, Wings of Fire 4 `split_013`, and Wings of
+Fire 5 `split_014`.
+
+`"segmentation": 2` is separate from `spine`. It changes which blocks inside a chapter count as paragraphs (3.4). It does not add or remove chapters. Omit it and the paragraph list stays the one this book already uses.
 
 `chapter` is the position in the resulting list, starting from **0**. This list depends on the
 EPUB *file* (a different edition may split differently). **It is hard to reproduce without the
@@ -223,7 +274,7 @@ reader counts. This is exactly `chapter.paragraphs` as built in `src/lib/epub.ts
 the blocks it shows with `paragraphBlocks()` in `src/lib/help-match.ts`, which applies the same rule:
 
 1. Take every `p`, `h1`, `h2`, `h3`, `h4`, `li` and `blockquote` of the chapter html, in document order.
-2. Skip one whose **direct parent** is a `p`, `li` or `blockquote` (the outer block counts, not the inner one).
+2. Skip one whose **direct parent** is a `p`, `li`, or `blockquote`. The blockquote itself is one paragraph. This is the default, and every list uses it unless the file sets `"segmentation": 2` at the top. With that field, a chapter-wrapper blockquote is not itself a paragraph: it has a `calibre` class, or it contains an `h1`–`h4`. Its headings and paragraphs are counted instead. A quotation or a poem (no heading, and no `calibre` class) stays one paragraph even when the field is set. Omit the field to keep the paragraph ids this book already has.
 3. Skip one with fewer than 2 English letters (empty lines, "* * *", page numbers like "7").
 4. If nothing is left, the whole chapter text is one paragraph (index 0).
 5. Only when **every spine content document in the book** has no `p` element at all: also count each innermost `div` that contains text directly or through inline elements (`span`, `i`, `b`, `em`, `strong`, `a`, and so on). An empty `div`, or a `div` that holds only an image, does not count. A `div` that wraps another text-bearing `div` does not count; the inner one does. These sit in the same document order as the headings, list items and quotations. A book with even one `p` ignores this step, and its paragraphs stay exactly as they were without it.
@@ -266,7 +317,11 @@ Notes:
 ```
 node scripts/validate-glossary.mjs glossary.json               # format only
 node scripts/validate-glossary.mjs book.epub glossary.json     # also checks every anchor in the book
+node scripts/validate-glossary.mjs --json book.epub glossary.json
 ```
+
+The script is `scripts/validate-glossary.mjs` in a git checkout of this repository. It is not
+in the website build and not inside `book-pack-kit.zip`. Run it from the repository root.
 
 With the EPUB the script checks: the chapter exists, the word occurs that many times in the
 chapter, and `context` is really in the book (and for an `occurrence` anchor, in the same
@@ -313,15 +368,16 @@ saved for a bundled list and for a list the user adds.
 
 | Field | Needed | Meaning |
 | --- | --- | --- |
-| `chapter`, `paragraph` | yes | 0-based, see 3.1 and 3.4. |
+| `chapter`, `paragraph` | yes | `chapter` is 0-based (see 3.1) or an extra id such as `"x3"` for a contents file that had no paragraphs. `paragraph` is 0-based (see 3.4). |
 | `context` | yes | 6 to 14 words copied exactly from the paragraph. Checked in the app and by the validator. |
 | `mainIdea` | yes | 1 or 2 short sentences (up to 400 letters). |
 | `simple` | yes | The whole paragraph in very common words (up to 3000 letters). |
 | `hardWords` | no | Up to 20 hard words or phrases **from the original paragraph**. |
 
 How the reader finds the note: first the note with the same `chapter` and `paragraph` whose `context` is really in the paragraph on screen;
-if the numbers no longer fit (another edition), any note whose `context` is in the paragraph (same chapter first). A note whose `context` is not in the text
-is never shown. If the list says `chapters: N` and the user's book has another number of chapters, `chapter` is only a tie-break.
+if the numbers no longer fit (another edition), any note whose `context` is in the paragraph (same chapter first). A note whose `chapter` is an extra id
+matches only that extra, and only the paragraph index it names. A numbered chapter never shows a note whose `chapter` is an extra id. A note whose `context` is not in the text
+is never shown. If the list says `chapters: N` and the user's book has another number of chapters, a numeric `chapter` is only a tie-break. An extra id still has to match.
 
 ### 7.2 `sentences`: help for one sentence
 
@@ -333,7 +389,7 @@ is never shown. If the list says `chapters: N` and the user's book has another n
 ]
 ```
 
-Found by `context` inside the sentence (same chapter first, longest snippet first). `simple` up to 800 letters; `grammar` is ONE line (up to 400 letters).
+Found by `context` inside the sentence (same chapter first, longest snippet first). `chapter` may be an extra id such as `"x3"` (see 3.1); that note matches only while that extra is on screen. `simple` up to 800 letters; `grammar` is ONE line (up to 400 letters).
 
 ### 7.3 `phrases`: phrasal verbs and idioms
 

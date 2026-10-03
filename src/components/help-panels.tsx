@@ -392,7 +392,7 @@ export function ExplainSentence({
   sentence,
 }: {
   bookId: string;
-  chapter: number;
+  chapter: number | string;
   sentence: string;
 }) {
   const { t } = useT();

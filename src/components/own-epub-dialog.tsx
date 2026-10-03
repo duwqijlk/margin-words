@@ -7,7 +7,9 @@ import { fetchWordList, previewOwnEpub, savePaired, type PairPreview } from "@/l
 import { registerInstalled } from "@/lib/shelf-register";
 import { useVocab } from "@/lib/vocab-store";
 import { loadWordListCatalog, type WordListPack } from "@/lib/word-list-catalog";
+import { SpineWarningList } from "@/components/spine-warnings";
 import { btn, cn } from "@/components/ui";
+import type { SpineNameWarning } from "@/lib/epub";
 
 /**
  * Ask for the reader's own e-book of a word-list title already on the shelf.
@@ -20,7 +22,7 @@ export function OwnEpubDialog({
 }: {
   bookId: string | null;
   onClose: () => void;
-  onSaved: (bookId: string) => void;
+  onSaved: (bookId: string, warnings: SpineNameWarning[]) => void;
 }) {
   const { t } = useT();
   const shelfIsbn = useVocab((state) => state.books.find((item) => item.id === bookId)?.isbn ?? "");
@@ -83,6 +85,11 @@ export function OwnEpubDialog({
                 ? t("discover.prompt", { isbn })
                 : t("discover.promptPlain")}
           </Dialog.Description>
+          {pending && pending.warnings.length > 0 ? (
+            <div className="mt-3 rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn">
+              <SpineWarningList warnings={pending.warnings} />
+            </div>
+          ) : null}
           {error ? (
             <p className="mt-3 rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">
               {error}
@@ -101,7 +108,7 @@ export function OwnEpubDialog({
                   void savePaired(preview)
                     .then((saved) => {
                       registerInstalled(saved, { matchRate: preview.percent });
-                      onSaved(saved.bookId);
+                      onSaved(saved.bookId, preview.warnings);
                     })
                     .catch((reason) => {
                       setError(errorText(reason, "err.bookAddFailed"));

@@ -5,6 +5,79 @@ import { loadAppModules } from "./lib/app-modules.mjs";
 const { format, text } = await loadAppModules();
 const ok = (value) => format.validateGlossary(value);
 
+test("segmentation 2 is kept, and any other value is only a warning", () => {
+  const good = ok({
+    version: 2,
+    segmentation: 2,
+    glossary: { lantern: { meaning: "A light." } },
+  });
+  assert.equal(good.ok, true);
+  assert.equal(good.file.segmentation, 2);
+  const ignored = ok({
+    version: 2,
+    segmentation: 1,
+    glossary: { lantern: { meaning: "A light." } },
+  });
+  assert.equal(ignored.ok, true);
+  assert.equal(ignored.file.segmentation, undefined);
+  assert.match(ignored.warnings.join("\n"), /segmentation/);
+  const absent = ok({
+    version: 2,
+    glossary: { lantern: { meaning: "A light." } },
+  });
+  assert.equal(absent.file.segmentation, undefined);
+});
+
+test("spine.merge is kept, and a bad entry is only a warning", () => {
+  const good = ok({
+    version: 2,
+    spine: { merge: { "ch01_split_009.xhtml": "ch01_split_008.xhtml", "part0006_split_001": "part0006.xhtml" } },
+    glossary: { lantern: { meaning: "A light." } },
+  });
+  assert.equal(good.ok, true);
+  assert.deepEqual(good.file.spine.merge, {
+    "ch01_split_009.xhtml": "ch01_split_008.xhtml",
+    part0006_split_001: "part0006.xhtml",
+  });
+  const bad = ok({
+    version: 2,
+    spine: { merge: { "": 4, "ok.xhtml": "chapter.xhtml" } },
+    glossary: { lantern: { meaning: "A light." } },
+  });
+  assert.equal(bad.ok, true);
+  assert.deepEqual(bad.file.spine.merge, { "ok.xhtml": "chapter.xhtml" });
+  assert.match(bad.warnings.join("\n"), /spine.merge/);
+  const broken = ok({
+    version: 2,
+    spine: "merge",
+    glossary: { lantern: { meaning: "A light." } },
+  });
+  assert.equal(broken.ok, true);
+  assert.equal(broken.file.spine, undefined);
+  assert.match(broken.warnings.join("\n"), /"spine"/);
+});
+
+test("an extra page is not an anchor target", () => {
+  const sense = {
+    pos: "noun",
+    meaning: "main",
+    whyHard: "w",
+    senses: [
+      { meaning: "river side", anchors: [{ chapter: 1, occurrence: 1, context: "sat on the bank" }] },
+    ],
+  };
+  assert.equal(
+    format.matchAnchor("bank", sense.senses, {
+      chapter: -1,
+      surface: "bank",
+      occurrence: 1,
+      paragraph: "They sat on the bank of the river.",
+      before: "They sat on the ",
+    }),
+    null,
+  );
+});
+
 test("version 1 lists stay valid", () => {
   const r = ok({ version: 1, glossary: { twit: { pos: "noun", meaning: "A silly person.", whyHard: "x", example: "a", count: 3 } } });
   assert.equal(r.ok, true);
@@ -106,6 +179,39 @@ test("extras: errors are plain English and name the item", () => {
   assert.match(text, /Paragraph note 1 has no "simple"/);
   assert.match(text, /The phrase "give" must be two or more plain English words/);
   assert.match(text, /The phrase "look up": "pos" must be/);
+});
+
+test("a paragraph note may name a recovered extra", () => {
+  const r = ok({
+    version: 2,
+    glossary: { lamp: { meaning: "A light." } },
+    paragraphs: [
+      {
+        chapter: "x1",
+        paragraph: 0,
+        context: "Lucy looked into the wardrobe and found",
+        mainIdea: "Lucy finds a lamp.",
+        simple: "Lucy looked in the wardrobe.",
+      },
+    ],
+    sentences: [
+      {
+        chapter: "x1",
+        context: "Lucy looked into the wardrobe and found",
+        simple: "Lucy looked in.",
+        grammar: "This is the past tense.",
+      },
+    ],
+  });
+  assert.equal(r.ok, true, r.errors.join("\n"));
+  assert.equal(r.file.paragraphs[0].chapter, "x1");
+  const chapters = [{ paragraphs: ["Chapter One stays chapter zero in this book."] }];
+  const extras = [{ id: "x1", paragraphs: ["Lucy looked into the wardrobe and found a lamp post."] }];
+  const found = format.checkExtrasAgainstBook(r.file, chapters, true, extras);
+  assert.equal(found.missing, 0, found.errors.join("\n"));
+  assert.equal(found.checked, 2);
+  const missing = format.checkExtrasAgainstBook(r.file, chapters, true, []);
+  assert.match(missing.errors.join("\n"), /no extra x1/);
 });
 
 test("extras: check against the real paragraphs of a book", () => {

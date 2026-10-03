@@ -16,8 +16,10 @@
  *
  * Paragraph index (for "paragraphs" notes): 0-based position of the paragraph in the chapter's
  * paragraph list, as the reader counts it: every p, h1-h4, li and blockquote of the chapter, in
- * document order, except one that sits directly inside another p/li/blockquote and except one with
- * fewer than 2 letters. When the whole book has no p element, each innermost text div is a
+ * document order, except one that sits directly inside another p, li, or blockquote, and except
+ * one with fewer than 2 letters. A blockquote is one paragraph. Pass --segmentation 2 for the
+ * opt-in rule: a chapter-wrapper blockquote (calibre class, or a blockquote that contains a
+ * heading) is not a paragraph, and the headings and paragraphs inside it are. When the whole book has no p element, each innermost text div is a
  * paragraph too (empty and image-only divs are not; a wrapping div is not). A book with any p
  * keeps the list above. This is exactly `chapter.paragraphs` from src/lib/epub.ts (see docs/GLOSSARY_FORMAT.md 3.4).
  * The chapter heading is a paragraph too when it is inside the chapter html (it then has index 0). *
@@ -47,18 +49,33 @@ const value = (name) => {
   const at = args.indexOf(name);
   return at >= 0 ? args[at + 1] : undefined;
 };
-const valueFlags = new Set(["--out", "--find", "--candidates", "--words", "--paragraphs", "--paragraph-search"]);
+const valueFlags = new Set([
+  "--out",
+  "--find",
+  "--candidates",
+  "--words",
+  "--paragraphs",
+  "--paragraph-search",
+  "--segmentation",
+]);
 const file = args.find((a, i) => !a.startsWith("--") && !valueFlags.has(args[i - 1] ?? ""));
 if (!file || flag("--help")) {
   console.error(
-    "Usage: node scripts/extract-epub-text.mjs book.epub [--out dir [--numbered]] [--find word] [--paragraphs N] [--paragraph-search text] [--candidates N] [--json]",
+    "Usage: node scripts/extract-epub-text.mjs book.epub [--out dir [--numbered]] [--find word] [--paragraphs N] [--paragraph-search text] [--candidates N] [--segmentation 2] [--json]",
   );
   process.exit(file ? 0 : 2);
 }
 
+const segmentationArg = value("--segmentation");
+const segmentation = segmentationArg === undefined ? undefined : Number(segmentationArg);
+if (segmentationArg !== undefined && segmentation !== 2) {
+  console.error('--segmentation must be 2 (omit it to keep each blockquote as one paragraph).');
+  process.exit(2);
+}
+
 let book;
 try {
-  book = await readBook(file);
+  book = await readBook(file, { segmentation });
 } catch (error) {
   console.error(`Cannot read this EPUB: ${error instanceof Error ? error.message : error}`);
   process.exit(1);

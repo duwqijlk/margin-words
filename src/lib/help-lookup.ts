@@ -27,7 +27,7 @@ function extrasOf(bookId: string): Promise<BookExtras | null> {
 /** Help for the whole paragraph the reader shows, or null. `paragraph` is 0-based (see docs/GLOSSARY_FORMAT.md). */
 export async function getParagraphHelp(
   bookId: string,
-  chapter: number,
+  chapter: number | string,
   paragraph: number,
   paragraphText: string,
 ): Promise<ParagraphHelp | null> {
@@ -43,7 +43,7 @@ export async function getParagraphHelp(
 /** Help for one sentence, or null. Matches by the `context` snippet inside the sentence. */
 export async function getSentenceHelp(
   bookId: string,
-  chapter: number,
+  chapter: number | string,
   sentenceText: string,
 ): Promise<SentenceHelp | null> {
   try {

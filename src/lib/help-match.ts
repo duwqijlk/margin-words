@@ -3,7 +3,7 @@
  * No browser code and no app imports (only relative ones), so the unit tests and the
  * command-line tools can load this file directly. The storage part is help-lookup.ts.
  */
-import { flowText, includesLoose } from "./flow-text.ts";
+import { flowText, includesLoose, skipNestedParagraph } from "./flow-text.ts";
 import { plainSurface, TAP_WORD_PATTERN } from "./glossary-format.ts";
 import type { ParagraphHelp, PhraseEntry, SentenceHelp } from "./glossary-extras.ts";
 
@@ -44,21 +44,32 @@ export function containsContext(text: string, context: string): boolean {
  */
 export function pickParagraphHelp(
   list: readonly ParagraphHelp[],
-  chapter: number,
+  chapter: number | string,
   paragraph: number,
   paragraphText: string,
 ): ParagraphHelp | null {
+  // An ordinary extra is not a chapter: pass -1 and notes stay off.
+  // A recovered empty contents file passes its extra id ("x3") and matches only that id.
+  if (typeof chapter === "number" && chapter < 0) return null;
   const text = looseText(paragraphText);
   if (text === "") return null;
   const fits = (entry: ParagraphHelp) => includesLoose(text, looseText(entry.context));
-  const exact = list.find((e) => e.chapter === chapter && e.paragraph === paragraph && fits(e));
+  if (typeof chapter === "string") {
+    return (
+      list.find((entry) => entry.chapter === chapter && entry.paragraph === paragraph && fits(entry)) ??
+      null
+    );
+  }
+  const numbered = list.filter(
+    (entry): entry is ParagraphHelp & { chapter: number } => typeof entry.chapter === "number",
+  );
+  const exact = numbered.find((e) => e.chapter === chapter && e.paragraph === paragraph && fits(e));
   if (exact) return exact;
   let best: ParagraphHelp | null = null;
   let bestScore = Number.POSITIVE_INFINITY;
-  for (const entry of list) {
+  for (const entry of numbered) {
     if (!fits(entry)) continue;
-    const score =
-      (entry.chapter === chapter ? 0 : 1_000_000) + Math.abs(entry.paragraph - paragraph);
+    const score = (entry.chapter === chapter ? 0 : 1_000_000) + Math.abs(entry.paragraph - paragraph);
     if (score < bestScore) {
       best = entry;
       bestScore = score;
@@ -70,17 +81,24 @@ export function pickParagraphHelp(
 /** Pick the sentence help whose `context` is inside the sentence (same chapter first, longest snippet first). */
 export function pickSentenceHelp(
   list: readonly SentenceHelp[],
-  chapter: number,
+  chapter: number | string,
   sentenceText: string,
 ): SentenceHelp | null {
+  // An ordinary extra is not a chapter: pass -1 and notes stay off.
+  // A recovered empty contents file passes its extra id ("x3") and matches only that id.
+  if (typeof chapter === "number" && chapter < 0) return null;
   const text = looseText(sentenceText);
   if (text === "") return null;
   let best: SentenceHelp | null = null;
   let bestScore = Number.NEGATIVE_INFINITY;
   for (const entry of list) {
+    if (typeof chapter === "string") {
+      if (entry.chapter !== chapter) continue;
+    } else if (typeof entry.chapter !== "number") continue;
     const c = looseText(entry.context);
     if (!includesLoose(text, c)) continue;
-    const score = (entry.chapter === chapter ? 100_000 : 0) + c.length;
+    const score =
+      (typeof chapter === "number" && entry.chapter === chapter ? 100_000 : 0) + c.length;
     if (score > bestScore) {
       best = entry;
       bestScore = score;
@@ -1554,18 +1572,24 @@ const PARAGRAPH_BLOCKS = "p, h1, h2, h3, h4, li, blockquote, div[data-para]";
  * THE paragraph rule. The paragraph index of a chapter is the position in `chapter.paragraphs`
  * (what src/lib/epub.ts `paragraphsOf` builds when the book is added): every p, h1-h4, li and
  * blockquote of the chapter html, in document order, EXCEPT one whose direct parent is a p, li
- * or blockquote, and EXCEPT one with fewer than 2 English letters.
+ * or blockquote, and EXCEPT one with fewer than 2 English letters. A blockquote is one paragraph.
+ * `segmentation` 2 (or `data-segmentation="2"` on `root`) is the opt-in: a chapter-wrapper
+ * blockquote is not a paragraph, and the headings and paragraphs inside it are.
  * When the whole book has no p element, paragraphsOf also counts each innermost text div and
  * marks it with data-para. Those marked divs are paragraphs here too, in the same order.
  * A book that has a p never gets that mark, so its blocks stay as before.
  * This helper applies the same rule to a rendered chapter, so the reader can number the blocks it shows.
  * (If the chapter has no such block at all, the whole chapter text is the one paragraph, index 0.)
  */
-export function paragraphBlocks(root: ParentNode): Element[] {
+export function paragraphBlocks(root: ParentNode, segmentation?: number): Element[] {
+  const split =
+    segmentation === 2 ||
+    (segmentation === undefined &&
+      root instanceof Element &&
+      root.getAttribute("data-segmentation") === "2");
   const out: Element[] = [];
   for (const block of Array.from(root.querySelectorAll(PARAGRAPH_BLOCKS))) {
-    const parent = block.parentElement?.localName;
-    if (parent === "p" || parent === "li" || parent === "blockquote") continue;
+    if (skipNestedParagraph(block, split)) continue;
     const text = flowText(block);
     if ((text.match(/[A-Za-z]/g)?.length ?? 0) > 1) out.push(block);
   }

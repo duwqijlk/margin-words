@@ -78,6 +78,17 @@ export type GlossaryFile = {
   sentences?: SentenceHelp[];
   /** Optional phrasal verbs and idioms, keyed by base form ("give up"). */
   phrases?: Record<string, PhraseEntry>;
+  /**
+   * Optional spine overrides. `merge` appends a dropped spine file onto the end of a
+   * contents chapter. Keys and values are a spine href or a manifest id.
+   */
+  spine?: { merge: Record<string, string> };
+  /**
+   * Optional paragraph rule. `2` splits a chapter-wrapper blockquote (a calibre class,
+   * or a blockquote that contains an h1–h4) into its headings and paragraphs.
+   * Omit it and every blockquote stays one paragraph, the same ids as before.
+   */
+  segmentation?: 2;
 };
 
 export const DEFAULT_WHY_HARD = "This word is harder than everyday English.";
@@ -597,17 +608,27 @@ export function wordTextNodes(doc: Document, root: Element): Text[] {
   let current = walker.nextNode();
   while (current) {
     const parent = (current as Text).parentElement;
-    const skipped = parent ? SKIPPED_PARENTS.has(parent.localName) : false;
+    const skipped = parent ? SKIPPED_PARENTS.has(parent.localName) || insideMergeTitle(parent) : false;
     if (!skipped && /\p{L}/u.test((current as Text).data)) out.push(current as Text);
     current = walker.nextNode();
   }
   return out;
 }
 
+/** A spine.merge title is shown, and its words are not counted, so later occurrences stay put. */
+function insideMergeTitle(el: Element | null): boolean {
+  for (let node = el; node; node = node.parentElement) {
+    if (node.hasAttribute("data-merge-title")) return true;
+  }
+  return false;
+}
+
 /** The paragraph-like block that holds a node, the same one the word card uses as its context. */
 export function blockOf(node: Node): Element | null {
   const el = node.nodeType === 1 ? (node as Element) : node.parentElement;
-  return el ? el.closest(BLOCK_SELECTOR) : null;
+  const block = el ? el.closest(BLOCK_SELECTOR) : null;
+  if (block?.hasAttribute("data-merge-title")) return null;
+  return block;
 }
 
 /**
@@ -905,6 +926,11 @@ function checkExtras(
     }
     return value as number;
   };
+  /** A chapter index, or the id of a recovered empty contents file (`x0`, `x1`, …). */
+  const noteChapter = (value: unknown, where: string): number | string | null => {
+    if (typeof value === "string" && /^x\d+$/.test(value)) return value;
+    return place(value, where, "chapter", 0);
+  };
   const context = (where: string, raw: unknown): string | null => {
     const text = textField(issues, where, raw, "context", LIMITS.context, true);
     if (!text) return null;
@@ -933,7 +959,7 @@ function checkExtras(
           );
           return;
         }
-        const chapter = place(raw.chapter, where, "chapter", 0);
+        const chapter = noteChapter(raw.chapter, where);
         const paragraph = place(raw.paragraph, where, "paragraph", 0);
         const ctx = context(where, raw.context);
         const mainIdea = textField(issues, where, raw.mainIdea, "mainIdea", LIMITS.mainIdea, true);
@@ -989,7 +1015,7 @@ function checkExtras(
           );
           return;
         }
-        const chapter = place(raw.chapter, where, "chapter", 0);
+        const chapter = noteChapter(raw.chapter, where);
         const ctx = context(where, raw.context);
         const simple = textField(issues, where, raw.simple, "simple", LIMITS.sentenceSimple, true);
         const grammar = textField(issues, where, raw.grammar, "grammar", LIMITS.grammar, true);
@@ -1050,6 +1076,31 @@ function checkExtras(
       }
     }
   }
+}
+
+function spineMergeField(issues: Issues, value: unknown): Record<string, string> | undefined {
+  if (!isObject(value)) {
+    issues.warn('"spine" should be an object. It was ignored.');
+    return undefined;
+  }
+  if (value.merge === undefined) return undefined;
+  if (!isObject(value.merge)) {
+    issues.warn(
+      '"spine.merge" should be an object that maps a file to a chapter file. It was ignored.',
+    );
+    return undefined;
+  }
+  const merge: Record<string, string> = {};
+  for (const [rawKey, rawTarget] of Object.entries(value.merge)) {
+    const key = rawKey.trim();
+    const target = typeof rawTarget === "string" ? rawTarget.trim() : "";
+    if (!key || key.length > 300 || !target || target.length > 300) {
+      issues.warn('"spine.merge" has an entry that is not a file name. It was ignored.');
+      continue;
+    }
+    merge[key] = target;
+  }
+  return Object.keys(merge).length > 0 ? merge : undefined;
 }
 
 function formsFieldPhrase(issues: Issues, where: string, value: unknown): string[] | undefined {
@@ -1150,6 +1201,14 @@ export function validateGlossary(input: unknown): GlossaryCheck {
       issues.warn('"seriesNumber" needs a series name, such as "Narnia". It was ignored.');
     else if (data.series !== undefined)
       issues.warn('"series" should be a short name. It was ignored.');
+  }
+  if (data.spine !== undefined) {
+    const merge = spineMergeField(issues, data.spine);
+    if (merge) out.spine = { merge };
+  }
+  if (data.segmentation !== undefined) {
+    if (data.segmentation === 2) out.segmentation = 2;
+    else issues.warn('"segmentation" must be 2 to split chapter-wrapper blockquotes. It was ignored.');
   }
 
   const rows = Object.entries(data.glossary as Record<string, unknown>);
@@ -1394,6 +1453,7 @@ export function checkExtrasAgainstBook(
   file: GlossaryFile,
   chapters: Array<{ paragraphs: string[] }>,
   strict: boolean,
+  extras?: ReadonlyArray<{ id: string; paragraphs: string[] }>,
 ): { errors: string[]; warnings: string[]; checked: number; missing: number; moved: number } {
   const errors: string[] = [];
   const warnings: string[] = [];
@@ -1408,6 +1468,7 @@ export function checkExtrasAgainstBook(
       .replace(/\ue000/g, "'")
       .trim();
   const looseChapters = chapters.map((c) => c.paragraphs.map(loose));
+  const looseExtras = new Map((extras ?? []).map((extra) => [extra.id, extra.paragraphs.map(loose)]));
   const report = (message: string) => {
     missing += 1;
     if (strict) {
@@ -1418,10 +1479,13 @@ export function checkExtrasAgainstBook(
   (file.paragraphs ?? []).forEach((note, at) => {
     checked += 1;
     const where = `Paragraph note ${at + 1} (chapter ${note.chapter}, paragraph ${note.paragraph})`;
-    const chapter = looseChapters[note.chapter];
+    const chapter =
+      typeof note.chapter === "string" ? looseExtras.get(note.chapter) : looseChapters[note.chapter];
     if (!chapter) {
       report(
-        `${where}: the book has only ${chapters.length} chapters, so chapter ${note.chapter} does not exist (the first chapter is 0).`,
+        typeof note.chapter === "string"
+          ? `${where}: this book has no extra ${note.chapter}.`
+          : `${where}: the book has only ${chapters.length} chapters, so chapter ${note.chapter} does not exist (the first chapter is 0).`,
       );
       return;
     }
@@ -1448,10 +1512,13 @@ export function checkExtrasAgainstBook(
   (file.sentences ?? []).forEach((note, at) => {
     checked += 1;
     const where = `Sentence note ${at + 1} (chapter ${note.chapter})`;
-    const chapter = looseChapters[note.chapter];
+    const chapter =
+      typeof note.chapter === "string" ? looseExtras.get(note.chapter) : looseChapters[note.chapter];
     if (!chapter) {
       report(
-        `${where}: the book has only ${chapters.length} chapters, so chapter ${note.chapter} does not exist (the first chapter is 0).`,
+        typeof note.chapter === "string"
+          ? `${where}: this book has no extra ${note.chapter}.`
+          : `${where}: the book has only ${chapters.length} chapters, so chapter ${note.chapter} does not exist (the first chapter is 0).`,
       );
       return;
     }
@@ -1539,6 +1606,8 @@ export function matchAnchor(
   senses: GlossarySense[],
   tap: TapInfo,
 ): { at: number; via: "anchor" | "context" } | null {
+  // A page that is not a chapter (an extra spine file) is never an anchor target.
+  if (tap.chapter < 0) return null;
   const surface = countSurface(tap.surface);
   const paragraph = normText(tap.paragraph);
   const holdsWord = (text: string) => wordsIn(text).some((w) => w.toLowerCase() === surface);

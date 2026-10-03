@@ -1,18 +1,69 @@
 import type JSZip from "jszip";
 import { CodedError } from "./errors.ts";
-import { stripWordBreaks, stripWordBreaksIn } from "./glossary-format.ts";
-import { flowText } from "./flow-text.ts";
+import { normText, stripWordBreaks, stripWordBreaksIn } from "./glossary-format.ts";
+import { flowText, skipNestedParagraph } from "./flow-text.ts";
 
 export type EpubChapter = {
   title: string;
   paragraphs: string[];
   html: string;
+  /** Zip path of the spine file this chapter was cut from. */
+  href?: string;
+  /** Manifest href of that file, as written in the OPF. */
+  opfHref?: string;
+  /** Manifest id of that file. */
+  itemId?: string;
+  /** Position of that file in the spine (including non-linear items the reader skips). */
+  spineAt?: number;
 };
+
+/** A spine file whose text was pulled into a recovered contents extra. */
+export type AbsorbedSpineFile = {
+  href: string;
+  opfHref: string;
+  itemId: string;
+};
+
+/** A spine file the chapter list does not use. Its id is not a chapter index. */
+export type EpubExtra = {
+  /**
+   * `x0`, `x1`, … in spine order. Not a chapter index.
+   * Word anchors and phrase notes do not resolve here. A paragraph or sentence
+   * note can name this id only when `fromToc` is set.
+   */
+  id: string;
+  href: string;
+  opfHref: string;
+  itemId: string;
+  spineAt: number;
+  title: string;
+  paragraphs: string[];
+  html: string;
+  /**
+   * The contents entry for this place pointed at a file with no paragraphs.
+   * The text is the following spine files that are not contents entries.
+   * The numbered chapter list does not include it, so later chapter numbers stay put.
+   */
+  fromToc?: boolean;
+  /**
+   * Spine files whose text is in this extra. A `spine.merge` key may name any of
+   * them, or the empty contents file this extra stands for. Both name this extra.
+   */
+  absorbed?: AbsorbedSpineFile[];
+};
+
+export type ReadingSlot =
+  | { kind: "chapter"; index: number; spineAt: number }
+  | { kind: "extra"; index: number; spineAt: number };
 
 export type ParsedEpub = {
   title: string;
   author: string;
   chapters: EpubChapter[];
+  /** Spine files the chapter list drops. Empty when every spine file is already a chapter. */
+  extras: EpubExtra[];
+  /** Every HTML spine item, including files that became chapters or extras. */
+  spine: AbsorbedSpineFile[];
   cover: string | null;
   /**
    * True when `cover` came from an OPF tag (meta name=cover, properties=cover-image,
@@ -78,6 +129,34 @@ function englishTitle(raw: string, fallback: string): string {
   const cleaned = cleanBookText(stripCjk(raw)).replace(/\s+/g, " ").trim();
   if (englishLetters(cleaned) < 2) return fallback;
   return cleaned.slice(0, 90);
+}
+
+/**
+ * Contents labels that name the cover or other front matter, not the text that
+ * follows an empty page. Recovered text keeps the heading it already has.
+ */
+function isFrontMatterTitle(title: string): boolean {
+  const key = title
+    .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+  return (
+    key === "cover" ||
+    key === "covers" ||
+    key === "cover page" ||
+    key === "title" ||
+    key === "title page" ||
+    key === "titlepage" ||
+    key === "half title" ||
+    key === "half title page" ||
+    key === "copyright" ||
+    key === "copyright page" ||
+    key === "contents" ||
+    key === "table of contents" ||
+    key === "toc" ||
+    key === "frontispiece"
+  );
 }
 
 function resolveZipPath(base: string, href: string): string {
@@ -354,15 +433,17 @@ function isDivParagraph(el: Element): boolean {
  * Paragraph strings for one chapter fragment.
  * `divParagraphs` is true only when the whole book has no `p` element. Then each innermost
  * text div is a paragraph too, marked `data-para` so the reader numbers the same blocks.
- * When it is false this is the historical rule, unchanged.
+ * When it is false this is the historical rule: a blockquote is one paragraph,
+ * including one that holds a heading. `blockquoteSplit` (glossary `"segmentation": 2`)
+ * counts the children of a chapter-wrapper blockquote instead. A quote or poem stays
+ * one paragraph either way.
  */
-function paragraphsOf(root: ParentNode, divParagraphs = false): string[] {
+function paragraphsOf(root: ParentNode, divParagraphs = false, blockquoteSplit = false): string[] {
   const selector = divParagraphs ? `${PARAGRAPH_BLOCKS}, div` : PARAGRAPH_BLOCKS;
   const blocks = [...root.querySelectorAll(selector)];
   const paragraphs: string[] = [];
   for (const block of blocks) {
-    if (block.parentElement && ["p", "li", "blockquote"].includes(localName(block.parentElement)))
-      continue;
+    if (skipNestedParagraph(block, blockquoteSplit)) continue;
     if (divParagraphs && localName(block) === "div") {
       if (!isDivParagraph(block)) continue;
       const text = paragraphText(block);
@@ -398,6 +479,7 @@ async function renderFragment(
   zip: JSZip,
   path: string,
   divParagraphs: boolean,
+  blockquoteSplit: boolean,
 ): Promise<{ paragraphs: string[]; html: string } | null> {
   // An inert document: images with a relative path must not be fetched from the page address.
   const inert = document.implementation.createHTMLDocument("");
@@ -411,7 +493,7 @@ async function renderFragment(
   // positions, the import match rate and the text on screen all see the same words.
   stripWordBreaksIn(holder);
   unwrapDropCaps(holder);
-  const paragraphs = paragraphsOf(holder, divParagraphs);
+  const paragraphs = paragraphsOf(holder, divParagraphs, blockquoteSplit);
   const html = holder.innerHTML.trim();
   if (!html) return null;
   return { paragraphs, html };
@@ -423,8 +505,9 @@ async function chapterFromElement(
   zip: JSZip,
   path: string,
   divParagraphs: boolean,
+  blockquoteSplit: boolean,
 ): Promise<EpubChapter | null> {
-  const rendered = await renderFragment(source, zip, path, divParagraphs);
+  const rendered = await renderFragment(source, zip, path, divParagraphs, blockquoteSplit);
   if (!rendered) return null;
   const letters = englishLetters(rendered.paragraphs.join(" "));
   if (letters < 20) return null;
@@ -841,7 +924,7 @@ function encryptionLocksBook(xml: string): boolean {
 
 export async function parseEpub(
   buffer: ArrayBuffer,
-  options: { cover?: boolean } = {},
+  options: { cover?: boolean; segmentation?: number } = {},
 ): Promise<ParsedEpub> {
   let zip: JSZip;
   try {
@@ -880,15 +963,23 @@ export async function parseEpub(
       props: item.getAttribute("properties") ?? "",
     });
   }
-  const spineRefs: { href: string; type: string; props: string; path: string; linear: boolean }[] =
-    [];
+  const spineRefs: {
+    id: string;
+    href: string;
+    type: string;
+    props: string;
+    path: string;
+    linear: boolean;
+  }[] = [];
   for (const itemref of byLocal(opf, "itemref")) {
-    const ref = manifest.get(itemref.getAttribute("idref") ?? "");
+    const id = itemref.getAttribute("idref") ?? "";
+    const ref = manifest.get(id);
     if (!ref) continue;
     if (ref.props.includes("nav")) continue;
     if (ref.type && !ref.type.includes("html")) continue;
     if (/(^|\/)(nav|toc|cover)\b/i.test(ref.href)) continue;
     spineRefs.push({
+      id,
       href: ref.href,
       type: ref.type,
       props: ref.props,
@@ -937,6 +1028,8 @@ export async function parseEpub(
 
   // Div paragraphs apply only when every spine content document has no <p> at all.
   // One <p> anywhere keeps today's paragraph list, byte for byte.
+  // Blockquote children stay inside one paragraph unless the word list opts in.
+  const blockquoteSplit = options.segmentation === 2;
   let divParagraphs = true;
   for (const item of spineRefs) {
     const spineDoc = await loadDoc(item.path);
@@ -948,6 +1041,23 @@ export async function parseEpub(
 
   const chapters: EpubChapter[] = [];
   const tocFiles = new Set(toc.map((entry) => entry.href.split("#")[0] ?? ""));
+  /** Spine files already copied onto a chapter by the split-continuation rule. */
+  const attached = new Set<string>();
+  /**
+   * A contents file with no paragraphs. Its text is the following non-contents
+   * files, kept as one extra so the numbered chapters do not move.
+   */
+  const fills: {
+    spineAt: number;
+    title: string;
+    paragraphs: string[];
+    html: string;
+    href: string;
+    opfHref: string;
+    itemId: string;
+    absorbed: AbsorbedSpineFile[];
+  }[] = [];
+  const filledPaths = new Set<string>();
   const prefixCounts = new Map<string, number>();
   for (const entry of toc) {
     const file = entry.href.split("#")[0] ?? "";
@@ -963,13 +1073,26 @@ export async function parseEpub(
     const title =
       englishTitle(stripWordBreaks(rawTitle), "") ||
       englishTitle(textOf(heading), `Chapter ${index + 1}`);
-    return chapterFromElement(holder, title, zip, path, divParagraphs);
+    return chapterFromElement(holder, title, zip, path, divParagraphs, blockquoteSplit);
   }
 
   async function push(holder: ParentNode, rawTitle: string, path: string, index: number) {
     if (chapters.length >= CHAPTER_CAP) return;
     const chapter = await heldChapter(holder, rawTitle, path, index);
-    if (chapter) chapters.push(chapter);
+    if (!chapter) return;
+    stamp(chapter, path);
+    chapters.push(chapter);
+  }
+
+  function stamp(chapter: EpubChapter, path: string) {
+    const at = spineRefs.findIndex((item) => item.path === path);
+    const ref = at >= 0 ? spineRefs[at] : undefined;
+    chapter.href = path;
+    if (at >= 0) chapter.spineAt = at;
+    if (ref) {
+      chapter.opfHref = ref.href;
+      chapter.itemId = ref.id;
+    }
   }
 
   /**
@@ -994,11 +1117,62 @@ export async function parseEpub(
       previous = item.path;
       const extraDoc = await loadDoc(item.path);
       if (!extraDoc?.body || looksLikeContents(extraDoc)) continue;
-      const extra = await renderFragment(extraDoc.body, zip, item.path, divParagraphs);
+      const extra = await renderFragment(extraDoc.body, zip, item.path, divParagraphs, blockquoteSplit);
       if (!extra) continue;
+      attached.add(item.path);
       out.push(extra);
     }
     return out;
+  }
+
+  /** True when this contents file has no paragraphs the reader would keep. A short heading is not empty. */
+  async function fileIsEmpty(body: Element, path: string): Promise<boolean> {
+    const rendered = await renderFragment(body, zip, path, divParagraphs, blockquoteSplit);
+    return !rendered || rendered.paragraphs.length === 0;
+  }
+
+  /**
+   * The contents file at `path` has no paragraphs. Take the linear spine files
+   * after it, until the next contents file, as one extra titled with the contents
+   * entry. A non-linear file is skipped and does not end the run. Too little text
+   * (under 20 letters) is left alone, so those files stay ordinary extras.
+   * Cover, title page, copyright, and contents are not recovered: the files after
+   * them stay separate extras, with the same ids as before this rule existed.
+   */
+  async function recoverEmptyToc(path: string, rawTitle: string): Promise<void> {
+    if (filledPaths.has(path)) return;
+    const tocTitle = englishTitle(stripWordBreaks(rawTitle), "");
+    if (isFrontMatterTitle(tocTitle)) return;
+    const start = spineRefs.findIndex((item) => item.path === path);
+    if (start < 0) return;
+    const parts: { paragraphs: string[]; html: string }[] = [];
+    const absorbed: AbsorbedSpineFile[] = [];
+    for (let i = start + 1; i < spineRefs.length; i += 1) {
+      const item = spineRefs[i];
+      if (!item || !item.linear) continue;
+      if (tocFiles.has(item.path)) break;
+      const extraDoc = await loadDoc(item.path);
+      if (!extraDoc?.body || looksLikeContents(extraDoc)) break;
+      absorbed.push({ href: item.path, opfHref: item.href, itemId: item.id });
+      const extra = await renderFragment(extraDoc.body, zip, item.path, divParagraphs, blockquoteSplit);
+      if (!extra || extra.paragraphs.length === 0) continue;
+      parts.push(extra);
+    }
+    const paragraphs = parts.flatMap((part) => part.paragraphs);
+    if (englishLetters(paragraphs.join(" ")) < 20) return;
+    filledPaths.add(path);
+    for (const file of absorbed) attached.add(file.href);
+    const ref = spineRefs[start];
+    fills.push({
+      spineAt: start,
+      title: tocTitle,
+      paragraphs,
+      html: parts.map((part) => part.html).join(""),
+      href: path,
+      opfHref: ref?.href ?? "",
+      itemId: ref?.id ?? "",
+      absorbed,
+    });
   }
 
   if (toc.length >= 2) {
@@ -1026,6 +1200,7 @@ export async function parseEpub(
       const nextPath = next ? (next.href.split("#")[0] ?? "") : "";
       const nextAnchor = next && nextPath === path ? hashOf(next.href) : "";
       const start = anchor ? findById(body, anchor) : null;
+      const lastSlice = !(next && nextPath === path);
       if (anchor && !start) {
         if (fragmentOnDocument(doc, anchor)) {
           onDocument.push({
@@ -1034,17 +1209,24 @@ export async function parseEpub(
             path,
             body,
             nextAnchor,
-            lastSlice: !(next && nextPath === path),
+            lastSlice,
           });
+        } else if (lastSlice && (await fileIsEmpty(body, path))) {
+          await recoverEmptyToc(path, entry.title);
         }
         continue;
       }
       const end = nextAnchor ? findById(body, nextAnchor) : null;
       const holder = sliceBetween(body, start, end);
-      const lastSlice = !(next && nextPath === path);
       const before = chapters.length;
       await push(holder, entry.title, path, chapters.length);
-      if (!lastSlice || chapters.length !== before + 1) continue;
+      if (chapters.length !== before + 1) {
+        // A short heading is not empty, so its split files stay ordinary extras.
+        // Only a file with zero paragraphs is filled, and the fill is an extra.
+        if (lastSlice && (await fileIsEmpty(body, path))) await recoverEmptyToc(path, entry.title);
+        continue;
+      }
+      if (!lastSlice) continue;
       const last = chapters[chapters.length - 1];
       if (!last) continue;
       // A heading that is too short to be a chapter is dropped above. Do not build
@@ -1068,8 +1250,13 @@ export async function parseEpub(
         const holder = sliceBetween(item.body, null, end);
         const index = item.at + shift;
         const chapter = await heldChapter(holder, item.title, item.path, index);
-        if (!chapter) continue;
+        if (!chapter) {
+          if (item.lastSlice && (await fileIsEmpty(item.body, item.path)))
+            await recoverEmptyToc(item.path, item.title);
+          continue;
+        }
         chapters.splice(index, 0, chapter);
+        stamp(chapter, item.path);
         shift += 1;
         if (!item.lastSlice) continue;
         const letters = englishLetters(chapter.paragraphs.join(" "));
@@ -1083,7 +1270,12 @@ export async function parseEpub(
     }
   }
 
-  if (chapters.length < 2) {
+  // The contents list is used only when it already produced at least two chapters.
+  // Otherwise the fallback below throws that list away and makes one chapter per
+  // spine file. That fallback is the whole book for an empty or one-entry contents
+  // list, and its chapter text must stay byte for byte the same.
+  const fromContents = chapters.length >= 2;
+  if (!fromContents) {
     chapters.length = 0;
     for (const item of spine) {
       if (chapters.length >= CHAPTER_CAP) break;
@@ -1102,6 +1294,54 @@ export async function parseEpub(
   const ready = mergeShort(chapters).filter(
     (chapter) => englishLetters(chapter.paragraphs.join(" ")) >= 20,
   );
+  // Extras are spine files this chapter list never shows. The fallback already
+  // shows every spine file, so it has none. A file that became a chapter, or that
+  // the continuation rule appended, is not an extra.
+  const extras: EpubExtra[] = [];
+  if (fromContents) {
+    const rendered = new Set<string>(attached);
+    for (const chapter of chapters) {
+      if (chapter.href) rendered.add(chapter.href);
+    }
+    const fillAt = new Map(fills.map((fill) => [fill.spineAt, fill]));
+    let count = 0;
+    for (let spineAt = 0; spineAt < spineRefs.length; spineAt += 1) {
+      const fill = fillAt.get(spineAt);
+      if (fill) {
+        extras.push({
+          id: `x${count}`,
+          fromToc: true,
+          href: fill.href,
+          opfHref: fill.opfHref,
+          itemId: fill.itemId,
+          spineAt,
+          title: fill.title,
+          paragraphs: fill.paragraphs,
+          html: fill.html,
+          ...(fill.absorbed.length > 0 ? { absorbed: fill.absorbed } : {}),
+        });
+        count += 1;
+      }
+      const item = spineRefs[spineAt];
+      if (!item || rendered.has(item.path)) continue;
+      const extraDoc = await loadDoc(item.path);
+      if (!extraDoc?.body) continue;
+      const extra = await renderFragment(extraDoc.body, zip, item.path, divParagraphs, blockquoteSplit);
+      if (!extra || englishLetters(extra.paragraphs.join(" ")) < 20) continue;
+      const heading = extraDoc.body.querySelector("h1, h2, h3");
+      extras.push({
+        id: `x${count}`,
+        href: item.path,
+        opfHref: item.href,
+        itemId: item.id,
+        spineAt,
+        title: englishTitle(textOf(heading), ""),
+        paragraphs: extra.paragraphs,
+        html: extra.html,
+      });
+      count += 1;
+    }
+  }
   if (ready.length === 0)
     throw new CodedError("noEnglishText", "Could not find any English text in this EPUB.");
   let cover: string | null = null;
@@ -1116,7 +1356,325 @@ export async function parseEpub(
     cover = null;
     coverTagged = false;
   }
-  return { title, author, chapters: ready, cover, coverTagged };
+  return {
+    title,
+    author,
+    chapters: ready,
+    extras,
+    spine: spineRefs.map((item) => ({ href: item.path, opfHref: item.href, itemId: item.id })),
+    cover,
+    coverTagged,
+  };
+}
+
+function fileKey(value: string): string {
+  const clean = (value.split("#")[0] ?? "").split("?")[0] ?? "";
+  try {
+    return decodeURIComponent(clean).replace(/\\/g, "/").replace(/^\/+/, "");
+  } catch {
+    return clean.replace(/\\/g, "/").replace(/^\/+/, "");
+  }
+}
+
+function baseName(path: string): string {
+  const norm = fileKey(path).toLowerCase();
+  const slash = norm.lastIndexOf("/");
+  return slash >= 0 ? norm.slice(slash + 1) : norm;
+}
+
+/** True when two hrefs name the same file (full path, a path suffix, or the file name). */
+function sameSpineFile(have: string, want: string): boolean {
+  const a = fileKey(have);
+  const b = fileKey(want);
+  if (!a || !b) return false;
+  if (a.toLowerCase() === b.toLowerCase()) return true;
+  const al = a.toLowerCase();
+  const bl = b.toLowerCase();
+  if (al.endsWith(`/${bl}`) || bl.endsWith(`/${al}`)) return true;
+  const left = baseName(a);
+  return Boolean(left) && left === baseName(b);
+}
+
+function nameMatches(file: { href?: string; opfHref?: string; itemId?: string }, key: string): boolean {
+  const trimmed = key.trim();
+  if (!trimmed) return false;
+  if (file.itemId === trimmed) return true;
+  return (
+    (file.href ? sameSpineFile(file.href, trimmed) : false) ||
+    (file.opfHref ? sameSpineFile(file.opfHref, trimmed) : false)
+  );
+}
+
+function extraMatches(extra: EpubExtra, key: string): boolean {
+  if (nameMatches(extra, key)) return true;
+  return (extra.absorbed ?? []).some((file) => nameMatches(file, key));
+}
+
+/**
+ * A `spine.merge` name the glossary check should show.
+ * `key` / `target`: the name is not a spine item.
+ * `idle`: the key is a spine item, and nothing is merged into or from that file.
+ */
+export type SpineNameWarning = { kind: "key" | "target" | "idle"; name: string };
+
+/**
+ * File names in a glossary that should name a spine item. Today that is each
+ * `spine.merge` key and its target. A name that matches nothing is a warning.
+ * This does not change the book.
+ */
+export function unmatchedSpineNames(
+  merge: Record<string, string> | undefined | null,
+  spine: ReadonlyArray<AbsorbedSpineFile>,
+): SpineNameWarning[] {
+  if (!merge) return [];
+  const warnings: SpineNameWarning[] = [];
+  const seen = new Set<string>();
+  const report = (kind: "key" | "target", name: string) => {
+    const trimmed = name.trim();
+    if (!trimmed || seen.has(`${kind}:${trimmed}`)) return;
+    seen.add(`${kind}:${trimmed}`);
+    if (spine.some((item) => nameMatches(item, trimmed))) return;
+    warnings.push({ kind, name: trimmed });
+  };
+  for (const [key, target] of Object.entries(merge)) {
+    report("key", key);
+    if (typeof target === "string") report("target", target);
+  }
+  return warnings;
+}
+
+/**
+ * Extras `applySpineMerge` would append, and the chapter each one lands on.
+ * Same matching rules. The book is not changed, and paragraph text is not copied.
+ */
+function plannedSpineMerges(
+  book: { chapters: ReadonlyArray<EpubChapter>; extras: ReadonlyArray<EpubExtra> },
+  merge: Record<string, string>,
+): { extra: EpubExtra; chapter: EpubChapter }[] {
+  const pending = book.extras
+    .map((extra) => {
+      let target = "";
+      for (const [key, value] of Object.entries(merge)) {
+        if (typeof value !== "string" || !value.trim()) continue;
+        if (extraMatches(extra, key)) {
+          target = value.trim();
+          break;
+        }
+      }
+      return { extra, target };
+    })
+    .filter((row) => row.target)
+    .sort((a, b) => a.extra.spineAt - b.extra.spineAt);
+  const planned: { extra: EpubExtra; chapter: EpubChapter }[] = [];
+  for (const row of pending) {
+    const indexes = chapterIndexes(book.chapters, row.target);
+    const at = indexes[indexes.length - 1];
+    const chapter = at === undefined ? undefined : book.chapters[at];
+    if (!chapter) continue;
+    planned.push({ extra: row.extra, chapter });
+  }
+  return planned;
+}
+
+/**
+ * `spine.merge` names to warn about. Call this on the book before `applySpineMerge`:
+ * a merged extra is no longer in `extras`, so a real key would look idle afterwards.
+ * A key that names an empty contents file, or a file absorbed into that extra, does
+ * not warn when that extra is appended. A key that names an ordinary chapter, and
+ * nothing is appended from that file or onto it, does warn. The book is not changed.
+ */
+export function spineMergeWarnings(
+  merge: Record<string, string> | undefined | null,
+  book: Pick<ParsedEpub, "chapters" | "extras" | "spine">,
+): SpineNameWarning[] {
+  if (!merge) return [];
+  const planned = plannedSpineMerges(book, merge);
+  const warnings: SpineNameWarning[] = [];
+  const seen = new Set<string>();
+  const push = (kind: SpineNameWarning["kind"], name: string) => {
+    const trimmed = name.trim();
+    if (!trimmed || seen.has(`${kind}:${trimmed}`)) return;
+    seen.add(`${kind}:${trimmed}`);
+    warnings.push({ kind, name: trimmed });
+  };
+  for (const [key, target] of Object.entries(merge)) {
+    const trimmed = key.trim();
+    if (trimmed) {
+      const onSpine = book.spine.some((item) => nameMatches(item, trimmed));
+      if (!onSpine) push("key", trimmed);
+      else {
+        const fromIt = planned.some((row) => extraMatches(row.extra, trimmed));
+        const intoIt = planned.some((row) => nameMatches(row.chapter, trimmed));
+        if (!fromIt && !intoIt) push("idle", trimmed);
+      }
+    }
+    if (typeof target === "string") {
+      const name = target.trim();
+      if (name && !book.spine.some((item) => nameMatches(item, name))) push("target", name);
+    }
+  }
+  return warnings;
+}
+
+/** English sentences for {@link spineMergeWarnings}. Used by the command-line glossary check. */
+export function spineFileWarnings(
+  merge: Record<string, string> | undefined | null,
+  book: Pick<ParsedEpub, "chapters" | "extras" | "spine">,
+): string[] {
+  return spineMergeWarnings(merge, book).map((item) => {
+    if (item.kind === "key")
+      return `spine.merge key "${item.name}" does not match a spine item in this book.`;
+    if (item.kind === "idle")
+      return `spine.merge key "${item.name}" matches a spine item but nothing is merged into or from it.`;
+    return `spine.merge target "${item.name}" does not match a spine item in this book.`;
+  });
+}
+
+/**
+ * The same warnings for a word list imported with this book. Pass the book from
+ * before `applySpineMerge`. The book is not changed: a warned name is still ignored
+ * when the text is merged.
+ */
+export function importSpineWarnings(
+  merge: Record<string, string> | undefined | null,
+  book: Pick<ParsedEpub, "chapters" | "extras" | "spine">,
+): SpineNameWarning[] {
+  return spineMergeWarnings(merge, book);
+}
+
+function chapterIndexes(chapters: ReadonlyArray<EpubChapter>, key: string): number[] {
+  const trimmed = key.trim();
+  if (!trimmed) return [];
+  const byId = chapters.flatMap((chapter, index) => (chapter.itemId === trimmed ? [index] : []));
+  if (byId.length > 0) return byId;
+  const want = fileKey(trimmed).toLowerCase();
+  const exact = chapters.flatMap((chapter, index) => {
+    const href = fileKey(chapter.href ?? "").toLowerCase();
+    const opf = fileKey(chapter.opfHref ?? "").toLowerCase();
+    return want && (href === want || opf === want) ? [index] : [];
+  });
+  if (exact.length > 0) return exact;
+  const suffix = chapters.flatMap((chapter, index) =>
+    (chapter.href && sameSpineFile(chapter.href, trimmed)) ||
+    (chapter.opfHref && sameSpineFile(chapter.opfHref, trimmed))
+      ? [index]
+      : [],
+  );
+  const paths = new Set(suffix.map((index) => chapters[index]?.href ?? ""));
+  if (paths.size !== 1) return [];
+  return suffix;
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/**
+ * A heading for text that `spine.merge` appends. It is not a paragraph.
+ * Skip it when the file already shows that title (its first paragraph, or an h1–h4).
+ */
+function mergeTitleHtml(extra: { title: string; paragraphs: string[]; html: string }): string {
+  const title = extra.title.trim();
+  if (!title) return "";
+  const want = normText(title);
+  if (!want) return "";
+  if (normText(extra.paragraphs[0] ?? "") === want) return "";
+  const headings = /<h[1-4]\b[^>]*>([\s\S]*?)<\/h[1-4]>/gi;
+  let match: RegExpExecArray | null;
+  while ((match = headings.exec(extra.html))) {
+    if (normText(match[1].replace(/<[^>]+>/g, " ")) === want) return "";
+  }
+  return `<h2 data-merge-title="1">${escapeHtml(title)}</h2>`;
+}
+
+/**
+ * Append dropped spine files onto a contents chapter, in spine order, at the end of
+ * that chapter. Earlier paragraphs of the chapter stay put. A name that is not an
+ * extra, or that does not name a chapter, is ignored. The input book is not changed.
+ * Each appended file shows its title as a heading when that title is not already
+ * in the file. The heading is not added to the paragraph list.
+ */
+export function applySpineMerge<T extends { chapters: EpubChapter[]; extras: EpubExtra[] }>(
+  book: T,
+  merge: Record<string, string> | undefined | null,
+): T {
+  if (!merge || book.extras.length === 0) return book;
+  const pending = book.extras
+    .map((extra) => {
+      let target = "";
+      for (const [key, value] of Object.entries(merge)) {
+        if (typeof value !== "string" || !value.trim()) continue;
+        if (extraMatches(extra, key)) {
+          target = value.trim();
+          break;
+        }
+      }
+      return { extra, target };
+    })
+    .filter((row) => row.target)
+    .sort((a, b) => a.extra.spineAt - b.extra.spineAt);
+  if (pending.length === 0) return book;
+  const chapters = book.chapters.map((chapter) => ({
+    ...chapter,
+    paragraphs: [...chapter.paragraphs],
+  }));
+  const used = new Set<string>();
+  for (const row of pending) {
+    const indexes = chapterIndexes(chapters, row.target);
+    const at = indexes[indexes.length - 1];
+    const chapter = at === undefined ? undefined : chapters[at];
+    if (!chapter) continue;
+    chapter.paragraphs.push(...row.extra.paragraphs);
+    chapter.html += mergeTitleHtml(row.extra) + row.extra.html;
+    used.add(row.extra.id);
+  }
+  if (used.size === 0) return book;
+  return {
+    ...book,
+    chapters,
+    extras: book.extras.filter((extra) => !used.has(extra.id)),
+  };
+}
+
+/**
+ * Reading order. With no extras this is the chapter list, unchanged. With extras,
+ * chapters and extras are interleaved by spine position. Two slices of one file
+ * stay in chapter order, and a chapter wins a tie with an extra.
+ */
+export function readingSlots(book: {
+  chapters: ReadonlyArray<{ title: string; spineAt?: number }>;
+  extras?: ReadonlyArray<{ spineAt: number }>;
+}): ReadingSlot[] {
+  const extras = book.extras ?? [];
+  if (extras.length === 0) {
+    return book.chapters.map((chapter, index) => ({
+      kind: "chapter" as const,
+      index,
+      spineAt: chapter.spineAt ?? index,
+    }));
+  }
+  const slots: ReadingSlot[] = [
+    ...book.chapters.map((chapter, index) => ({
+      kind: "chapter" as const,
+      index,
+      spineAt: chapter.spineAt ?? index,
+    })),
+    ...extras.map((extra, index) => ({
+      kind: "extra" as const,
+      index,
+      spineAt: extra.spineAt,
+    })),
+  ];
+  slots.sort(
+    (a, b) =>
+      a.spineAt - b.spineAt ||
+      (a.kind === b.kind ? a.index - b.index : a.kind === "chapter" ? -1 : 1),
+  );
+  return slots;
 }
 
 function bytesOfDataUrl(url: string): { bytes: Uint8Array; mime: string } | null {
