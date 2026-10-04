@@ -22,7 +22,7 @@ test("public-books catalog lists the classics and nothing from packs/", () => {
   for (const id of ids) assert.ok(!copyrighted.includes(id), `${id} must not be a copyrighted pack`);
 });
 
-test("public-books files match the catalog and every word list is valid", async () => {
+test("public-books files match the catalog and every word list is valid", { skip: existsSync(join(dir, "alice/book.epub")) ? false : "public-domain EPUB is not in git" }, async () => {
   const { format } = await loadAppModules();
   for (const pack of catalog.packs) {
     const epub = readFileSync(join(dir, pack.epub.url));
@@ -35,7 +35,7 @@ test("public-books files match the catalog and every word list is valid", async 
   }
 });
 
-test("build-packs --out public-books --check says the catalog and zips are up to date", () => {
+test("build-packs --out public-books --check says the catalog and zips are up to date", { skip: existsSync(join(dir, "alice/book.epub")) ? false : "public-domain EPUB is not in git" }, () => {
   const run = spawnSync(process.execPath, ["scripts/build-packs.mjs", "--out", "public-books", "--check"], {
     cwd: ROOT,
     encoding: "utf8",

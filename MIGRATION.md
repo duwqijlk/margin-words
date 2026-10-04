@@ -3,8 +3,11 @@
 This repo is a full copy of the Margin Words project, moved to a **private** GitHub repo
 (`duwqijlk/margin-words`). Chinese version: [docs/MIGRATION.zh-CN.md](docs/MIGRATION.zh-CN.md).
 
-> **Private repo only.** The books in `packs/` are copyrighted. They are for private use only. This repo must
-> stay **private**. Never make it public, never fork it to a public place, and never deploy `packs/` to a public site.
+> **No book files in git.** Copyrighted EPUBs live only in the private R2 bucket `margin-words-private`
+> (no public access; the app never fetches it). Public-domain EPUBs live only on the books host
+> `https://books.inputread.site`. `packs/` in git is word lists and covers, not the books.
+> Do not deploy `packs/` to a public site. Old pull requests on this repo still contain the book files,
+> so do not make the repo public until those pull requests are gone.
 
 ## 1. Overview
 
@@ -28,14 +31,14 @@ This repo is a full copy of the Margin Words project, moved to a **private** Git
 | `scripts/` | Build, check and test scripts (incl. `build-packs.mjs`, `layout-shift-test.mjs`) |
 | `docs/`, `examples/`, `skills/` | Specs, the sample book, helper skills |
 | `glossary-src/` | Sources of the hand-written word lists |
-| `packs/<id>/` | The **copyrighted books** (9 with `book.epub`, plus the Narnia collection word list and no EPUB): `glossary.json`, optional `cover.jpg`, `info.json` + `packs/catalog.json`. **Private use only.** |
-| `public-books/<id>/` | The **12 public-domain classics** + `catalog.json`. Uploaded with `dist-books/`, not inside `dist/`. |
-| `classics/<id>/` | Working sources of 9 public-domain books (`book.epub`, `glossary.json`, `work/`) and `WRITER_BRIEF.md` |
+| `packs/<id>/` | Word lists for copyrighted books (`glossary.json`, optional `cover.jpg`, `info.json`) + `packs/catalog.json`. The EPUB is not in git. |
+| `public-books/<id>/` | Word lists, covers, and `catalog.json` for the 12 public-domain classics. The EPUB is not in git. Uploaded with `dist-books/`, not inside `dist/`. |
+| `classics/<id>/` | Working notes for 9 public-domain books (`glossary.json`, `work/`) and `WRITER_BRIEF.md`. The EPUB is not in git. |
 | `book-pack-kit.zip` | The guide kit to give to an AI agent that makes a book pack |
 | `screenshots/`, `artifacts/` | Small reference images and notes |
 
-**Not in git (regenerable):** `node_modules/`, `dist/`, `dist-books/`, `dist-private/`, `site/`, `packs/*.zip` (incl. `packs/all-packs.zip`),
-`public-books/*.zip`, and `classics/**/*.pack.zip`. Rebuild them with the commands below.
+**Not in git:** `*.epub` except `examples/sample-book/the-lantern-seller.epub`, plus `node_modules/`, `dist/`, `dist-books/`, `dist-private/`, `site/`, `packs/*.zip` (incl. `packs/all-packs.zip`),
+`public-books/*.zip`, and `classics/**/*.pack.zip`. A local `book.epub` (from the private bucket or the books host) is what `build-packs`, `build:books`, and `build:private` read.
 
 ## 3. Rules
 

@@ -77,11 +77,12 @@ Rebuild the folder after you change a book or list: `node scripts/build-packs.mj
    (`Access-Control-Allow-Origin` for `https://inputread.site`, `https://www.inputread.site`,
    `https://margin-words.pages.dev`, and localhost). The service worker stores a book only after that
    CORS response, and only after the reader opens or downloads it. The first visit does not precache the books.
-3. **Private packs** stay off the public host. `npm run build:private` writes `dist-private/` (each copyrighted
-   EPUB, its glossary, and its cover). Upload that to the private R2 bucket `margin-words-private`, which has
-   no public access and is never fetched by the app. Do not put it in `dist/` or `dist-books/`.
-   `node scripts/build-site.mjs` writes `site/` = `dist/` + `packs/` for a machine of your own. Do not deploy
-   `packs/`, `site/`, or `dist-private/`.
+3. **Private packs** stay off the public host. Copyrighted EPUBs are not in git; they belong in the private R2
+   bucket `margin-words-private`. `npm run build:private` writes `dist-private/` from a local `packs/<id>/book.epub`
+   (each copyrighted EPUB, its glossary, and its cover). That bucket has no public access and is never fetched
+   by the app. Do not put it in `dist/` or `dist-books/`. Public-domain EPUBs are not in git either; they live
+   on `https://books.inputread.site`. `node scripts/build-site.mjs` writes `site/` = `dist/` + `packs/` for a
+   machine of your own. Do not deploy `packs/`, `site/`, or `dist-private/`.
 4. **Another catalog:** each reader can set a catalog address in **Settings**. That host must allow cross-site reads.
 
 File addresses in `catalog.json` are relative to the catalog file, so the folder can be moved anywhere.

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { loadAppModules } from "./lib/app-modules.mjs";
 
@@ -227,7 +227,7 @@ test("the panel gets the same owner: paragraphNoteAt matches the bulb flags", ()
   assert.deepEqual(paragraphNoteFlags(list, 0, texts), [false, true]);
 });
 
-test("Alice (real book): every note finds its paragraph even when all chapter numbers and ids are wrong", async () => {
+test("Alice (real book): every note finds its paragraph even when all chapter numbers and ids are wrong", { skip: existsSync(new URL("../public-books/alice/book.epub", import.meta.url)) ? false : "public-domain EPUB is not in git" }, async () => {
   const bytes = readFileSync(new URL("../public-books/alice/book.epub", import.meta.url));
   const book = await epub.parseEpub(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), { cover: false });
   const chapters = book.chapters.map((chapter) => {

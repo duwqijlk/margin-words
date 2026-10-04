@@ -1,13 +1,18 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { loadAppModules } from "./lib/app-modules.mjs";
 
 const { epub, format } = await loadAppModules();
 
 const fixture = JSON.parse(readFileSync(new URL("./fixtures/alice-tricky.glossary.json", import.meta.url), "utf8"));
-const bytes = readFileSync(new URL("../public-books/alice/book.epub", import.meta.url));
-const book = await epub.parseEpub(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), { cover: false });
+const aliceEpub = new URL("../public-books/alice/book.epub", import.meta.url);
+const hasAlice = existsSync(aliceEpub);
+const bytes = hasAlice ? readFileSync(aliceEpub) : null;
+const book = hasAlice
+  ? await epub.parseEpub(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), { cover: false })
+  : null;
+const needsBook = hasAlice ? false : "public-domain EPUB is not in git";
 
 function render(file, chapter) {
   const entries = Object.entries(file.glossary);
@@ -64,13 +69,13 @@ test("only the boolean true counts, never the words of the text", () => {
   assert.equal(format.hasTrickySense(undefined), false);
 });
 
-test("Alice chapter 0: 'well' is marked exactly at its three anchors, and nowhere else", () => {
+test("Alice chapter 0: 'well' is marked exactly at its three anchors, and nowhere else", { skip: needsBook }, () => {
   const { tricky, hard } = render(fixture, 0);
   assert.deepEqual(tricky.filter((t) => t.word === "well").map((t) => t.nth), [2, 3, 4]);
   assert.equal(hard.filter((t) => t.word === "well").length, 0, "well is senseOnly: no plain underline");
 });
 
-test("every anchor of the fixture lands: one mark per anchor, in the right chapter", () => {
+test("every anchor of the fixture lands: one mark per anchor, in the right chapter", { skip: needsBook }, () => {
   const byChapter = new Map();
   for (const a of anchorsOf(fixture)) byChapter.set(a.chapter, (byChapter.get(a.chapter) ?? 0) + 1);
   let total = 0;
@@ -82,14 +87,14 @@ test("every anchor of the fixture lands: one mark per anchor, in the right chapt
   assert.equal(total, 43);
 });
 
-test("with the flag removed nothing is marked", () => {
+test("with the flag removed nothing is marked", { skip: needsBook }, () => {
   const plain = structuredClone(fixture);
   for (const gloss of Object.values(plain.glossary))
     for (const sense of gloss.senses ?? []) delete sense.trickyMeaning;
   for (let chapter = 0; chapter < 13; chapter += 1) assert.equal(render(plain, chapter).tricky.length, 0);
 });
 
-test("a non-senseOnly entry: the anchored place is marked, other places keep the plain underline", () => {
+test("a non-senseOnly entry: the anchored place is marked, other places keep the plain underline", { skip: needsBook }, () => {
   const { tricky, hard } = render(fixture, 2);
   const marked = tricky.filter((t) => t.word.startsWith("address"));
   assert.equal(marked.length, 1);

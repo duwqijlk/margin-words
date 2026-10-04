@@ -19,6 +19,12 @@ site/
 packs/*.zip
 public-books/*.zip
 
+# Book files are not stored in git. Copyrighted EPUBs belong in the private R2 bucket
+# margin-words-private. Public-domain EPUBs belong on the books host. The sample EPUB
+# under examples/ is this project's own text and stays in git.
+*.epub
+!examples/sample-book/the-lantern-seller.epub
+
 # Redundant per-book pack zips in the classics sources (rebuild: node scripts/make-pack.mjs book.epub glossary.json out.pack.zip)
 classics/**/*.pack.zip
 

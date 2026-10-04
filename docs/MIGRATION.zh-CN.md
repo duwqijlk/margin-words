@@ -2,7 +2,7 @@
 
 本仓库是 Margin Words 项目的完整副本，已迁移到 **私有** GitHub 仓库 `duwqijlk/margin-words`。英文完整版见根目录 [MIGRATION.md](../MIGRATION.md)。
 
-> **只能放在私有仓库。** `packs/` 里的版权书仅供私人使用（9 本带 EPUB，另有纳尼亚全集词表、不含 EPUB）。本仓库必须保持私有；不要公开，也不要把 `packs/` 部署到任何公开网站。
+> **Git 里不放书的文件。** 版权 EPUB 只在私有桶 `margin-words-private`（不公开，应用不会去读）。公版 EPUB 只在书籍站 `https://books.inputread.site`。仓库里的 `packs/` 是词表和封面，不是书。不要把 `packs/` 部署到公开网站。这个仓库的旧 Pull Request 里还有书的文件，那些请求还在的时候不要把仓库改成公开。
 
 ## 概览
 
@@ -38,9 +38,9 @@ npx wrangler pages deploy dist --project-name margin-words --branch main
 
 ## 添加书
 
-- 公有领域的书：放进 `public-books/<id>/`（`book.epub`、`glossary.json`、`cover.jpg`、`info.json`），再运行 `node scripts/build-packs.mjs --out public-books`。
-- 有版权的书：放进 `packs/<id>/`，运行 `node scripts/build-packs.mjs`，只供私人使用。
+- 公有领域的书：EPUB 在书籍站上。词表、封面放进 `public-books/<id>/`。本机有 `book.epub` 时再运行 `node scripts/build-packs.mjs --out public-books`。
+- 有版权的书：EPUB 放在私有桶里。词表放进 `packs/<id>/`。本机有 `book.epub` 时再运行 `node scripts/build-packs.mjs`。
 
 ## 没有放进 git 的文件（可重新生成）
 
-`node_modules/`、`dist/`、`dist-books/`、`dist-private/`、`site/`、`packs/*.zip`（含 `all-packs.zip`）、`public-books/*.zip`、`classics/**/*.pack.zip`。
+除了 `examples/sample-book/the-lantern-seller.epub`，所有 `*.epub` 都不进 Git。另外还有 `node_modules/`、`dist/`、`dist-books/`、`dist-private/`、`site/`、`packs/*.zip`（含 `all-packs.zip`）、`public-books/*.zip`、`classics/**/*.pack.zip`。

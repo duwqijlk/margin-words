@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -27,7 +27,7 @@ test("the hosted catalog points at loose files only", () => {
   }
 });
 
-test("dist-books has loose classics, word-list glossaries, and card-sized covers", () => {
+test("dist-books has loose classics, word-list glossaries, and card-sized covers", { skip: existsSync(join(ROOT, "public-books/alice/book.epub")) ? false : "public-domain EPUB is not in git" }, () => {
   const out = mkdtempSync(join(tmpdir(), "mw-books-"));
   const { keys } = writeBookObjects(out);
   const files = walk(out);

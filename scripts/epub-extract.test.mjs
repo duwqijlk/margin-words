@@ -6,7 +6,7 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { test } from "node:test";
 import { createRequire } from "node:module";
@@ -1937,7 +1937,7 @@ test("front matter and a missed later file stay extras and keep contents chapter
   assert.equal(slots[1].index, 0);
 });
 
-test("bundled classics keep the same chapter and paragraph text", async () => {
+test("bundled classics keep the same chapter and paragraph text", { skip: existsSync(join(ROOT, "public-books/alice/book.epub")) ? false : "public-domain EPUB is not in git" }, async () => {
   const ids = readdirSync(join(ROOT, "public-books")).filter((name) => PUBLIC_PARAGRAPHS[name]);
   assert.equal(ids.length, Object.keys(PUBLIC_PARAGRAPHS).length);
   for (const id of ids) {

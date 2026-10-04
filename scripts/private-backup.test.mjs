@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -8,6 +8,10 @@ import { writeBookObjects } from "./build-books.mjs";
 import { writePrivateBackup } from "./build-private.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const hasCopyrightedEpub = existsSync(join(ROOT, "packs/charlie/book.epub"));
+const hasPublicEpub = existsSync(join(ROOT, "public-books/alice/book.epub"));
+const needsCopyrighted = hasCopyrightedEpub ? false : "copyrighted EPUB is not in git";
+const needsBooks = hasCopyrightedEpub && hasPublicEpub ? false : "book EPUB is not in git";
 
 function walk(dir, base = "") {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) =>
@@ -15,7 +19,7 @@ function walk(dir, base = "") {
   );
 }
 
-test("the private backup has every copyrighted EPUB, glossary, and cover", () => {
+test("the private backup has every copyrighted EPUB, glossary, and cover", { skip: needsCopyrighted }, () => {
   const out = mkdtempSync(join(tmpdir(), "mw-private-"));
   const { keys } = writePrivateBackup(join(ROOT, "packs"), out);
   assert.deepEqual(walk(out).sort(), keys);
@@ -33,7 +37,7 @@ test("the private backup has every copyrighted EPUB, glossary, and cover", () =>
   assert.equal(keys.filter((name) => name.endsWith("/book.epub")).length, 9);
 });
 
-test("public book objects never contain a copyrighted EPUB", () => {
+test("public book objects never contain a copyrighted EPUB", { skip: needsBooks }, () => {
   const books = mkdtempSync(join(tmpdir(), "mw-books-"));
   writeBookObjects(books);
   const secret = readFileSync(join(ROOT, "packs/charlie/book.epub"));
