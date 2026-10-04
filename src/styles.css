@@ -193,6 +193,27 @@
     margin: 0 0 var(--reader-gap, 1.1em);
   }
 
+  /* A phone line starts at the left edge and used to stop early, so the right side
+     looked empty. Full lines now reach both edges. The last line of a paragraph
+     stays short, and the lightbulb still sits after its last word. */
+  @media (max-width: 47.99rem) {
+    .book-body p,
+    .book-body li,
+    .book-body div[data-para],
+    .book-body blockquote {
+      text-align: justify;
+      text-align-last: start;
+      text-wrap: pretty;
+      hyphens: auto;
+      hyphenate-limit-chars: 6 3 2;
+    }
+
+    .book-body button {
+      display: inline;
+      hyphens: auto;
+    }
+  }
+
   /* The opening letter of a chapter, kept inside the same tappable word. */
   .book-body .dropcap::first-letter {
     float: left;
