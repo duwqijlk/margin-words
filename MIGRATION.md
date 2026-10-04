@@ -1,15 +1,14 @@
 # Margin Words: migration guide
 
-> **Private archive.** On 2026-10-04 this copy was renamed to `duwqijlk/margin-words-archive`, kept private, and archived. The public project is [duwqijlk/margin-words](https://github.com/duwqijlk/margin-words). See [docs/ARCHIVE.md](docs/ARCHIVE.md).
+> **Public repository.** On 2026-10-04 the old pull requests were left in the private archive `duwqijlk/margin-words-archive`. This repository is the public project. See [docs/ARCHIVE.md](docs/ARCHIVE.md).
 
-This repo is a full copy of the Margin Words project, moved to a **private** GitHub repo.
 Chinese version: [docs/MIGRATION.zh-CN.md](docs/MIGRATION.zh-CN.md).
 
 > **No book files in git.** Copyrighted EPUBs live only in the private R2 bucket `margin-words-private`
 > (no public access; the app never fetches it). Public-domain EPUBs live only on the books host
 > `https://books.inputread.site`. `packs/` in git is word lists and covers, not the books.
-> Do not deploy `packs/` to a public site. Old pull requests on this archive still contain the book files.
-> That is why this repository stays private.
+> Do not deploy `packs/` to a public site. Old pull requests in the private archive still contain the book files.
+> That archive stays private. This public repository does not have those files.
 
 ## 1. Overview
 
