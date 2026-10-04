@@ -48,6 +48,8 @@ test("word lists ship glossaries and card-sized covers, never an epub", () => {
   assert.match(charlie.updated, /^\d{4}-\d{2}-\d{2}$/);
   const charlieList = JSON.parse(readFileSync(join(ROOT, "packs/charlie/glossary.json"), "utf8"));
   assert.equal(charlie.paragraphs, Array.isArray(charlieList.paragraphs) ? charlieList.paragraphs.length : 0);
+  assert.equal(charlie.sentences, Array.isArray(charlieList.sentences) ? charlieList.sentences.length : 0);
+  assert.equal(charlie.phrases, charlieList.phrases && typeof charlieList.phrases === "object" ? Object.keys(charlieList.phrases).length : 0);
   assert.equal(charlie.cover.url, "charlie/cover.jpg");
   assert.equal(charlie.epub, undefined);
   const cover = files.find((file) => file.name === "word-lists/charlie/cover.jpg");

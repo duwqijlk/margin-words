@@ -23,6 +23,10 @@ export type WordListPack = {
   words: number;
   /** Paragraph notes in the word list. 0 when an older catalog omits the count. */
   paragraphs: number;
+  /** Sentence notes in the word list. 0 when an older catalog omits the count. */
+  sentences: number;
+  /** Phrases in the word list. 0 when an older catalog omits the count. */
+  phrases: number;
   /** Card-sized cover from the book's own EPUB, when the pack has one. */
   cover: { url: string; bytes: number; sha256: string } | null;
   /** Discover tab. Missing on older catalogs, which are novels. */
@@ -76,6 +80,8 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
       seriesNumber: series.seriesNumber,
       words: count(row.words),
       paragraphs: count(row.paragraphs),
+      sentences: count(row.sentences),
+      phrases: count(row.phrases),
       cover,
       category: readContentCategory(row.category),
       oldFashioned: row.oldFashioned === true,
