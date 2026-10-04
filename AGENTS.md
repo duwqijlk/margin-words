@@ -6,6 +6,25 @@ Optional accounts (email, password, and sync of shelf, progress, saved words, an
 Cloudflare Pages Functions in `functions/` plus a D1 database. See docs/ACCOUNTS.md. Do not store user
 data in R2. Books and word lists come from **book packs** (see README.md, "Reader and book packs"). A pack is one `.zip` with exactly `book.epub` + `glossary.json` (docs/book-pack-spec.md, section 3; `src/lib/pack-check.ts`, used by the pack tools in `scripts/`). **The app has no file import**: books are added ONLY from the Discover page, and only by a signed-in reader (`canAddBooks` in `src/lib/can-add.ts`; signed-out visitors browse everything, the add button says "Sign in to add", and books already stored on the device stay readable). A word-list book takes the reader's own EPUB from its Discover card (the own-EPUB dialog with the 80% match check). A standalone EPUB is never imported as a new book.
 
+## Where to work
+
+- Develop, push, and open pull requests only in the public repository
+  `https://github.com/duwqijlk/margin-words`.
+- The private archive `https://github.com/duwqijlk/margin-words-archive` was archived by the owner on
+  2026-10-04. It is read-only. Pull requests #1 through #34 stay there. #1 through #32 still contain
+  copyrighted EPUB files, so that archive must stay private. Do not unarchive it, and do not make it public.
+  Do not develop, push, or open pull requests there.
+- The site is not connected to GitHub. The Cloudflare Pages project is `margin-words`. The domains are
+  `https://inputread.site` and `https://www.inputread.site`. D1 and R2 do not follow the repository.
+  Archiving the old repository does not take the site down.
+- Copyrighted EPUBs live only in the private bucket `margin-words-private`. Public-domain EPUBs live on
+  `https://books.inputread.site`. Do not put a third-party EPUB in git. The only EPUB in this history is
+  `examples/sample-book/the-lantern-seller.epub`.
+- Deploy stays manual, from this public repository: `npm run build` (leave `VITE_BOOKS_BASE` unset; an empty
+  value is `npm run build:local`, for tests only), then
+  `npx wrangler pages deploy dist --project-name margin-words --branch main`. That deploy uploads the built
+  site (`dist/` and `functions/`). Do not upload `dist-books/`, `packs/`, or `dist-private/` with it.
+
 ## Rules
 
 - The UI has two languages, `en` and `zh`. Every visible string (labels, aria-labels, toasts, errors) goes

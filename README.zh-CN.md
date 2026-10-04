@@ -1,6 +1,6 @@
 # Margin Words（边注词典）
 
-> **公开仓库。** 以后的开发在这里。旧的 Pull Request 留在私有档案 [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive)。记录：[docs/ARCHIVE.zh-CN.md](docs/ARCHIVE.zh-CN.md)。
+> **公开仓库。** 以后的开发、推送和 Pull Request 都在这里。所有者已在 2026-10-04 归档私有档案 [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive)。它只读，并保持私有。记录：[docs/ARCHIVE.zh-CN.md](docs/ARCHIVE.zh-CN.md)。
 
 一个英文小说阅读器。读书时点一个词，就能看到简单的英文解释。专为中国初中生设计。没有 AI，
 下载书之后**不用上网**就能读。已经在设备上的书不登录也能读；**添加新书要先登录**。登录后还可以把书架、进度和生词同步到其他设备（见 docs/ACCOUNTS.md）。

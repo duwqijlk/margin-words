@@ -1,6 +1,6 @@
 # Margin Words
 
-> **Public repository.** Development happens here. The old pull requests stay in the private archive [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive). Record: [docs/ARCHIVE.md](docs/ARCHIVE.md).
+> **Public repository.** Development, pushes, and pull requests happen here. The owner archived the private archive [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive) on 2026-10-04. It is read-only and stays private. Record: [docs/ARCHIVE.md](docs/ARCHIVE.md).
 
 A reader for English novels. Tap a word to see a simple English meaning. Made for Chinese junior-high
 learners. The app (buttons, menus, messages) comes in **Simplified Chinese and English**: use the
@@ -61,9 +61,15 @@ Rebuild the folder after you change a book or list: `node scripts/build-packs.mj
 
 ### Host the app and the books
 
-1. Build the front end: `npx vite build` (output: `dist/`, a few MB, no book files). Deploy that to Cloudflare Pages.
-   The production build fetches books from `https://books.inputread.site`. Set `VITE_BOOKS_BASE` to use another host.
-   `npm run build:local` leaves book URLs on the same origin for offline tests.
+1. Build the front end: `npm run build` (output: `dist/`, a few MB, no book files). Leave `VITE_BOOKS_BASE` unset so
+   production keeps `https://books.inputread.site`. `npm run build:local` sets it empty for offline tests; do not deploy that folder.
+   Deploy by hand:
+
+   ```
+   npx wrangler pages deploy dist --project-name margin-words --branch main
+   ```
+
+   That uploads the built site (`dist/` and `functions/`). Do not upload `dist-books/`, `packs/`, or `dist-private/` with it. The Pages project has no Git source. Domains: `https://inputread.site` and `https://www.inputread.site`.
 2. Build the book objects: `npm run build:books` (output: `dist-books/`). Upload every file, using its path as the
    object key (`public-books/...`, `word-lists/...`). There is no per-book zip and no `all-packs.zip` in this folder.
    The app downloads a classic's loose EPUB, word list and cover only after the heart on its cover is tapped. Word-list covers in
