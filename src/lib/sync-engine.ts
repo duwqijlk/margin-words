@@ -533,10 +533,14 @@ export function startAccountSync(): () => void {
   };
 }
 
-export async function signIn(email: string, password: string): Promise<void> {
+export async function signIn(email: string, password: string, turnstileToken?: string): Promise<void> {
   await readyPromise();
   const epoch = ++sessionEpoch;
-  const payload = await accountRequest("/api/auth/login", { email, password });
+  const payload = await accountRequest("/api/auth/login", {
+    email,
+    password,
+    turnstileToken: turnstileToken || undefined,
+  });
   if (epoch !== sessionEpoch) return;
   const user = payload.user as { email?: string };
   rememberEmail(typeof user.email === "string" ? user.email : email);

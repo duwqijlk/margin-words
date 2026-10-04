@@ -39,9 +39,11 @@ function syncLabel(status: SyncStatus, t: (key: Key) => string): string {
 }
 
 function Turnstile({
+  action,
   onToken,
   resetRef,
 }: {
+  action: "signup" | "login";
   onToken: (token: string) => void;
   resetRef: { current: () => void };
 }) {
@@ -60,7 +62,7 @@ function Turnstile({
       if (cancelled || !holder || widgetId.current) return;
       widgetId.current = window.turnstile?.render(holder, {
         sitekey: SITE_KEY,
-        action: "signup",
+        action,
         callback: onToken,
         "expired-callback": clear,
         "error-callback": clear,
@@ -81,7 +83,7 @@ function Turnstile({
       if (widgetId.current) window.turnstile?.remove(widgetId.current);
       widgetId.current = undefined;
     };
-  }, [onToken, resetRef]);
+  }, [action, onToken, resetRef]);
   if (!SITE_KEY) return null;
   return <div id="mw-turnstile" className="min-h-16" data-turnstile />;
 }
@@ -178,12 +180,14 @@ export function AccountDialog() {
     setForgot(false);
     setDeleting(false);
     setBusy(false);
+    setTurnstileToken("");
     if (emailSaved) setEmail(emailSaved);
   }, [open, emailSaved]);
 
   function setMode(next: AccountMode) {
     setProblem("");
     setNote("");
+    setTurnstileToken("");
     openDialog(next, resetToken);
   }
 
@@ -205,7 +209,7 @@ export function AccountDialog() {
       setProblem(t("account.err.passwordMatch"));
       return;
     }
-    if (mode === "register" && SITE_KEY && !turnstileToken) {
+    if ((mode === "register" || mode === "login") && SITE_KEY && !turnstileToken) {
       setProblem(t("account.err.turnstile"));
       return;
     }
@@ -221,11 +225,11 @@ export function AccountDialog() {
         await signUp(address, password, turnstileToken);
         closeDialog();
       } else {
-        await signIn(address, password);
+        await signIn(address, password, turnstileToken);
         closeDialog();
       }
     } catch (error) {
-      if (mode === "register") resetTurnstile.current();
+      if (mode === "register" || mode === "login") resetTurnstile.current();
       setProblem(t(errorKey(error)));
     } finally {
       setBusy(false);
@@ -397,7 +401,14 @@ export function AccountDialog() {
                   onToggle={() => setShow((value) => !value)}
                 />
               ) : null}
-              {mode === "register" ? <Turnstile onToken={setTurnstileToken} resetRef={resetTurnstile} /> : null}
+              {mode === "login" || mode === "register" ? (
+                <Turnstile
+                  key={mode}
+                  action={mode === "register" ? "signup" : "login"}
+                  onToken={setTurnstileToken}
+                  resetRef={resetTurnstile}
+                />
+              ) : null}
               <section className="grid gap-1" data-account-privacy>
                 <h3 className="text-sm font-semibold">{t("account.privacyTitle")}</h3>
                 <p className="text-xs text-muted">{t("account.privacy")}</p>
