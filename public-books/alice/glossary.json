@@ -3943,7 +3943,7 @@
   },
   "telescope": {
    "pos": "singular noun",
-   "meaning": "A long tube you look through to see things that are far away. Some can be pushed shorter.",
+   "meaning": "A long tube you look through to see things that are far away.",
    "forms": [
     "telescope",
     "telescopes"
@@ -4568,6 +4568,19 @@
   },
   {
    "chapter": 1,
+   "paragraph": 1,
+   "context": "now I’m opening out like the largest telescope",
+   "mainIdea": "Alice grows so much that her feet seem far away. She talks to them, then thinks she must be kind so they will walk where she wants.",
+   "simple": "Alice said that things were getting more and more strange. She was so surprised that she said the words the wrong way. Her body was getting longer, like the biggest old tube that you pull out in parts. She told her feet she was leaving them. When she looked down, her feet were so far away that she could almost not see them. She asked who would now put their shoes on, because she would be too far away to do it herself. She told them they must do the best they could. Then she thought that she must be kind to them, or they might not walk the way she wanted to go. She decided to give them new shoes every Christmas.",
+   "hardWords": [
+    "curiouser",
+    "telescope",
+    "stockings",
+    "shan’t"
+   ]
+  },
+  {
+   "chapter": 1,
    "paragraph": 9,
    "context": "I’m sure I’m not Ada",
    "mainIdea": "Alice is not sure who she is. She tests herself with numbers and a poem, but she gets them wrong, so she thinks she has changed into another girl.",
@@ -5153,6 +5166,16 @@
     "out of their wits"
    ],
    "example": "frighten them out of their wits"
+  },
+  "open out": {
+   "meaning": "To become longer, like an old tube that you pull out in parts.",
+   "pos": "phrasal verb",
+   "forms": [
+    "opened out",
+    "opening out",
+    "opens out"
+   ],
+   "example": "now I'm opening out like the largest telescope"
   }
  }
 }
