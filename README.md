@@ -3,6 +3,8 @@
 [![Live site](https://img.shields.io/badge/site-inputread.site-1E4A3A)](https://inputread.site)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+> **Public repository.** Development, pushes, and pull requests happen here. The owner archived the private archive [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive) on 2026-10-04. It is read-only and stays private. Record: [docs/ARCHIVE.md](docs/ARCHIVE.md).
+
 A reader for English novels, made for Chinese junior-high learners. Tap a word and see a short English meaning written for that book. The buttons and menus are in **Simplified Chinese or English**. The books stay in English. There is no AI.
 
 **[Open the reader](https://inputread.site)** · [In Chinese](README.zh-CN.md)

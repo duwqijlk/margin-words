@@ -80,16 +80,17 @@ Checks: `npm run check:cjk`, `npm run typecheck`, `npm test`, `npm run check:exa
 
 The public site is a Cloudflare Pages project named `margin-words`, with the domain `inputread.site`.
 
+The site deploy is manual. Leave `VITE_BOOKS_BASE` unset so the build keeps `https://books.inputread.site`. An empty `VITE_BOOKS_BASE` is `npm run build:local`, for tests only.
+
 ```
-npx vite build
+npm run build
 npx wrangler pages deploy dist --project-name margin-words --branch main
-npm run build:books
-# then upload dist-books/ to the R2 bucket for https://books.inputread.site (see README, "Host the app and the books")
 ```
 
-`dist/` is the front end only. Book files go to the books bucket as loose objects (no zip, no `all-packs.zip`).
-**NEVER deploy `packs/` (or `site/`) to a public host.** The copyrighted books are for private use only. Word lists
-for those titles are glossaries in `dist-books/word-lists/`. Publisher covers in `packs/` are not uploaded.
+That command uploads the built site (`dist/` and `functions/`). Do not upload `dist-books/`, `packs/`, or `dist-private/` with it. Domains: `https://inputread.site` and `https://www.inputread.site`. The Pages project has no Git source. D1 and R2 stay where they are.
+
+`dist/` is the front end only. When book objects change, `npm run build:books` writes `dist-books/` for a separate upload to the books bucket (see README, "Host the app and the books"). Book files go up as loose objects (no zip, no `all-packs.zip`).
+**NEVER deploy `packs/` (or `site/`) to a public host.** Word lists for copyrighted titles are glossaries in `dist-books/word-lists/`. Publisher covers in `packs/` are not uploaded.
 (`vercel.json` is also in the repo for a static Vercel setup of `dist/`.)
 
 ## 6. Add a book
@@ -106,8 +107,7 @@ for those titles are glossaries in `dist-books/word-lists/`. Publisher covers in
 
 ## 7. Copyright
 
-The copyrighted books in `packs/` are private-use only. Keep this repository private. If you ever need to make it
-public, delete `packs/` from the whole git history first.
+This repository is public. Its history has no third-party EPUB. The only EPUB in git is `examples/sample-book/the-lantern-seller.epub`. Copyrighted EPUBs live only in the private bucket `margin-words-private`. Public-domain EPUBs live only on `https://books.inputread.site`. Do not put a third-party EPUB in git. The private archive stays archived and private, because pull requests #1 through #32 there still contain copyrighted EPUB files.
 
 ## 8. Local and synced data: what the global wordbook changes
 

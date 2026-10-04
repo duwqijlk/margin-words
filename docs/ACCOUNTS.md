@@ -2,7 +2,7 @@
 
 Reading works with no account: books already on a device stay readable, and a signed-out visitor can browse Discover, the Guide and About. Adding new books (every add / download / "import my EPUB" action on Discover) requires sign-in. Sign-in also adds sync across devices. Book files are not synced and are not stored in D1. They stay on each device (and on `https://books.inputread.site` for the public books).
 
-Accounts use **Cloudflare Pages Functions** (`functions/`) and a **D1** database bound as `DB`. There is no Git integration on the Pages project `margin-words`. Deploy is still `npx wrangler pages deploy dist --project-name margin-words`. That command uploads `functions/` as well when `wrangler.toml` is present. Do not deploy from this task; the owner deploys.
+Accounts use **Cloudflare Pages Functions** (`functions/`) and a **D1** database bound as `DB`. There is no Git integration on the Pages project `margin-words`. Deploy is still `npx wrangler pages deploy dist --project-name margin-words --branch main`. That command uploads `functions/` as well when `wrangler.toml` is present. Do not deploy from this task; the owner deploys.
 
 `wrangler.toml` points `DB` at the live D1 database `margin-words`, id `c286e644-2ead-438c-bb65-70ee028d957a`. That database already exists and `migrations/0001_init.sql` is already applied. Do not create a second database. Local `wrangler pages dev` still uses a local D1.
 
@@ -51,8 +51,10 @@ Deploy (owner, not this repo's automation). `npm run build` with no `VITE_BOOKS_
 
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name margin-words
+npx wrangler pages deploy dist --project-name margin-words --branch main
 ```
+
+That uploads `dist/` and `functions/` only. Do not upload `dist-books/`, `packs/`, or `dist-private/` with it.
 
 `pages deploy` uploads `dist/` and the `functions/` directory, and it attaches the `DB` binding from `wrangler.toml`. The Pages project name is `margin-words`.
 
@@ -85,8 +87,10 @@ Do these in order, logged in to the Cloudflare account that owns the Pages proje
 
    ```bash
    npm run build
-   npx wrangler pages deploy dist --project-name margin-words
+   npx wrangler pages deploy dist --project-name margin-words --branch main
    ```
+
+   Do not upload `dist-books/`, `packs/`, or `dist-private/` with that deploy.
 
 ### Verify on the live site
 

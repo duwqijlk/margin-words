@@ -3,6 +3,8 @@
 [![网站](https://img.shields.io/badge/site-inputread.site-1E4A3A)](https://inputread.site)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+> **公开仓库。** 以后的开发、推送和 Pull Request 都在这里。所有者已在 2026-10-04 归档私有档案 [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive)。它只读，并保持私有。记录：[docs/ARCHIVE.zh-CN.md](docs/ARCHIVE.zh-CN.md)。
+
 一个英文小说阅读器，给中国初中生用。读书时点一个词，就能看到为这本书写的简单英文解释。按钮和菜单有**简体中文**和**英文**。书里的内容一直是英文。没有 AI。
 
 **[打开阅读器](https://inputread.site)** · [English](README.md)

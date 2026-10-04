@@ -1,6 +1,9 @@
 # Cloudflare Pages project "margin-words" (https://inputread.site).
-# There is no Git integration. The owner deploys the built site by hand:
-#   npx wrangler pages deploy dist --project-name margin-words
+# There is no Git integration. The owner deploys the built site by hand.
+# Leave VITE_BOOKS_BASE unset (npm run build). Do not deploy a build:local folder.
+# Do not upload dist-books/, packs/, or dist-private/ with this command:
+#   npm run build
+#   npx wrangler pages deploy dist --project-name margin-words --branch main
 # Pages Functions in ./functions are uploaded with that deploy. This file is not
 # applied by itself; `pages deploy` reads it for the D1 binding.
 #

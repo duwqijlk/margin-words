@@ -31,12 +31,16 @@ node scripts/build-packs.mjs --out public-books
 
 Cloudflare Pages 项目 `margin-words`，域名 `inputread.site`：
 
+网站部署仍是手动。不要把 `VITE_BOOKS_BASE` 设成空（那是 `npm run build:local`，只给测试用）。域名是 `https://inputread.site` 和 `https://www.inputread.site`。Pages 项目没有 Git 来源。D1 和 R2 都不跟着仓库走。
+
 ```
-npx vite build
+npm run build
 npx wrangler pages deploy dist --project-name margin-words --branch main
 ```
 
-`dist/` 只有网页，没有书。书的文件用 `npm run build:books` 生成，再上传到书籍站点（公有领域的 EPUB，以及版权书的词表和缩小后的封面）。**绝不要公开部署 `packs/`。** 版权 EPUB 用 `npm run build:private` 生成 `dist-private/`，只放进没有公开访问的私有桶 `margin-words-private`。应用不会请求这个桶。不要把 `dist-private/` 放进 `dist/` 或 `dist-books/`。
+这次部署上传构建好的网站（`dist/` 和 `functions/`）。不要上传 `dist-books/`、`packs/` 或 `dist-private/`。
+
+`dist/` 只有网页，没有书。书的文件有变动时，才用 `npm run build:books` 生成 `dist-books/`，再单独上传到书籍站点（公有领域的 EPUB，以及版权书的词表和缩小后的封面）。**绝不要公开部署 `packs/`。** 版权 EPUB 用 `npm run build:private` 生成 `dist-private/`，只放进没有公开访问的私有桶 `margin-words-private`。应用不会请求这个桶。不要把 `dist-private/` 放进 `dist/` 或 `dist-books/`。
 
 ## 添加书
 
