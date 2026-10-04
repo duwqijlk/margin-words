@@ -39,6 +39,10 @@
    "pos": "singular noun",
    "meaning": "Something very bad that you hate."
   },
+  "abroad": {
+   "pos": "adverb",
+   "meaning": "In another country, or out of the house and about."
+  },
   "absently": {
    "pos": "adverb",
    "meaning": "Without paying attention."
@@ -66,6 +70,13 @@
   "academical": {
    "pos": "adjective",
    "meaning": "Of a school or college."
+  },
+  "ache": {
+   "pos": "noun",
+   "meaning": "A dull pain.",
+   "forms": [
+    "aches"
+   ]
   },
   "ached": {
    "pos": "past-tense verb",
@@ -96,6 +107,10 @@
     "admiringly"
    ]
   },
+  "admitted": {
+   "pos": "past-tense verb",
+   "meaning": "Said that something is true."
+  },
   "admonished": {
    "pos": "past-tense verb",
    "meaning": "Told someone gently that they did something wrong."
@@ -112,9 +127,20 @@
    "pos": "adjective",
    "meaning": "Made worse by adding something."
   },
+  "aerial": {
+   "pos": "adjective",
+   "meaning": "Of the air. Light, as if in the air."
+  },
   "afar": {
    "pos": "adverb",
    "meaning": "A long way off."
+  },
+  "affair": {
+   "pos": "singular noun",
+   "meaning": "A matter. Something that happened.",
+   "forms": [
+    "affairs"
+   ]
   },
   "affectionately": {
    "pos": "adverb",
@@ -174,6 +200,10 @@
    "pos": "adjective",
    "meaning": "Causing great pain."
   },
+  "agony": {
+   "pos": "uncountable noun",
+   "meaning": "Very great pain."
+  },
   "agreeable": {
    "pos": "adjective",
    "meaning": "Pleasant."
@@ -190,6 +220,10 @@
     "airy"
    ]
   },
+  "aisle": {
+   "pos": "singular noun",
+   "meaning": "The walkway between rows of seats."
+  },
   "alabaster": {
    "pos": "uncountable noun",
    "meaning": "A smooth, white stone."
@@ -204,6 +238,10 @@
    "forms": [
     "alders"
    ]
+  },
+  "algebra": {
+   "pos": "uncountable noun",
+   "meaning": "A kind of number work that uses letters as well as numbers."
   },
   "alight": {
    "pos": "base verb",
@@ -221,9 +259,20 @@
    "pos": "adverb",
    "meaning": "High up in the air."
   },
+  "aloud": {
+   "pos": "adverb",
+   "meaning": "Out loud, so people can hear."
+  },
   "amazement": {
    "pos": "uncountable noun",
    "meaning": "A feeling of great surprise."
+  },
+  "ambition": {
+   "pos": "singular noun",
+   "meaning": "A strong wish to do well or to rise.",
+   "forms": [
+    "ambitions"
+   ]
   },
   "amethyst": {
    "pos": "singular noun",
@@ -263,6 +312,13 @@
    "pos": "adjective",
    "meaning": "Feeling great pain."
   },
+  "ankle": {
+   "pos": "singular noun",
+   "meaning": "The joint between the foot and the leg.",
+   "forms": [
+    "ankles"
+   ]
+  },
   "anodyne": {
    "pos": "singular noun",
    "meaning": "A medicine that stops pain."
@@ -283,9 +339,23 @@
    "pos": "adverb",
    "meaning": "In a way that says you are sorry."
   },
+  "apologize": {
+   "pos": "verb",
+   "meaning": "To say you are sorry.",
+   "forms": [
+    "apologized"
+   ]
+  },
   "apologizing": {
    "pos": "present participle",
    "meaning": "Saying that you are sorry."
+  },
+  "apology": {
+   "pos": "singular noun",
+   "meaning": "Words that say you are sorry.",
+   "forms": [
+    "apologies"
+   ]
   },
   "appalled": {
    "pos": "adjective",
@@ -303,6 +373,13 @@
    "pos": "adjective",
    "meaning": "Worried about what may happen."
   },
+  "approve": {
+   "pos": "verb",
+   "meaning": "To think something is good and say so.",
+   "forms": [
+    "approved"
+   ]
+  },
   "approving": {
    "pos": "adjective",
    "meaning": "Showing that you like something."
@@ -313,6 +390,17 @@
    "forms": [
     "apron",
     "aprons"
+   ]
+  },
+  "apt": {
+   "pos": "adjective",
+   "meaning": "Likely, or quick to learn."
+  },
+  "arch": {
+   "pos": "singular noun",
+   "meaning": "A curve over a path or a door.",
+   "forms": [
+    "arches"
    ]
   },
   "arched": {
@@ -327,6 +415,10 @@
    "pos": "adverb",
    "meaning": "In the right way."
   },
+  "arithmetic": {
+   "pos": "uncountable noun",
+   "meaning": "Number work: adding, taking away, and the rest."
+  },
   "armchair": {
    "pos": "singular noun",
    "meaning": "A comfortable chair with places for the arms."
@@ -338,6 +430,10 @@
   "ascended": {
    "pos": "past-tense verb",
    "meaning": "Went up."
+  },
+  "ashamed": {
+   "pos": "adjective",
+   "meaning": "Feeling bad because of something you did or something about you."
   },
   "askance": {
    "pos": "adverb",
@@ -363,6 +459,13 @@
    "pos": "adjective",
    "meaning": "Of different kinds."
   },
+  "assure": {
+   "pos": "verb",
+   "meaning": "To tell someone something so they will feel sure.",
+   "forms": [
+    "assured"
+   ]
+  },
   "assuring": {
    "pos": "present participle",
    "meaning": "Promising that something is true."
@@ -380,6 +483,13 @@
    "pos": "uncountable noun",
    "meaning": "A feeling of great surprise."
   },
+  "asylum": {
+   "pos": "singular noun",
+   "meaning": "A home for children who have no parents. An orphan asylum.",
+   "forms": [
+    "asylums"
+   ]
+  },
   "athrill": {
    "pos": "adjective",
    "meaning": "Excited."
@@ -388,9 +498,27 @@
    "pos": "adverb",
    "meaning": "Across."
   },
+  "attend": {
+   "pos": "verb",
+   "meaning": "To go to, or to pay attention.",
+   "forms": [
+    "attended"
+   ]
+  },
+  "attic": {
+   "pos": "singular noun",
+   "meaning": "The room under the roof of a house."
+  },
   "attired": {
    "pos": "adjective",
    "meaning": "Dressed."
+  },
+  "attitude": {
+   "pos": "singular noun",
+   "meaning": "The way a person stands, or the way a person feels about something.",
+   "forms": [
+    "attitudes"
+   ]
   },
   "audibly": {
    "pos": "adverb",
@@ -472,6 +600,27 @@
    "pos": "singular noun",
    "meaning": "A person who tries to agree on a price."
   },
+  "bark": {
+   "senseOnly": true,
+   "pos": "uncountable noun",
+   "meaning": "The hard outside skin of a tree.",
+   "senses": [
+    {
+     "meaning": "The hard outside skin of a tree.",
+     "whyHard": "Not the usual meaning! Usually: bark is the sound a dog makes.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "bark",
+       "context": "A white strip of birch bark blowing up from the hollow"
+      }
+     ]
+    }
+   ]
+  },
   "barked": {
    "pos": "past-tense verb",
    "meaning": "Made a loud short sound like a dog."
@@ -479,6 +628,13 @@
   "bashfully": {
    "pos": "adverb",
    "meaning": "In a shy and nervous way."
+  },
+  "bead": {
+   "pos": "singular noun",
+   "meaning": "A small ball with a hole, used on a string.",
+   "forms": [
+    "beads"
+   ]
   },
   "beaded": {
    "pos": "adjective",
@@ -677,6 +833,14 @@
    "pos": "singular noun",
    "meaning": "A right that you have from birth."
   },
+  "biscuit": {
+   "pos": "singular noun",
+   "meaning": "A small bread roll. Here it is not a sweet cookie.",
+   "whyHard": "Here a biscuit is a small bread, not a sweet cookie.",
+   "forms": [
+    "biscuits"
+   ]
+  },
   "bitterest": {
    "pos": "superlative adjective",
    "meaning": "The most sad or angry."
@@ -684,6 +848,14 @@
   "bitterly": {
    "pos": "adverb",
    "meaning": "In a very sad or angry way."
+  },
+  "bitterness": {
+   "pos": "uncountable noun",
+   "meaning": "A hard, sour feeling of hurt or anger."
+  },
+  "blackboard": {
+   "pos": "singular noun",
+   "meaning": "A dark board at the front of a schoolroom, written on with chalk."
   },
   "blackest": {
    "pos": "superlative adjective",
@@ -720,6 +892,13 @@
   "blithely": {
    "pos": "adverb",
    "meaning": "In a happy way without worry."
+  },
+  "bloom": {
+   "pos": "noun",
+   "meaning": "A flower, or the time when flowers open.",
+   "forms": [
+    "blooms"
+   ]
   },
   "bloomiest": {
    "pos": "superlative adjective",
@@ -791,6 +970,11 @@
    "pos": "past-tense verb",
    "meaning": "Had something along its edge."
   },
+  "bore": {
+   "pos": "past-tense verb",
+   "meaning": "Carried. The past of bear. It does not mean dull.",
+   "whyHard": "Bore means carried. It does not mean a dull person."
+  },
   "borrower": {
    "pos": "singular noun",
    "meaning": "A person who takes something to use and then gives it back.",
@@ -813,10 +997,103 @@
     "boughs"
    ]
   },
+  "bound": {
+   "pos": "adjective",
+   "meaning": "Going toward a place, or sure to happen.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Sure to. Bound to means it is sure to happen, or she felt she must.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "to confess because I was bound to get to the picnic."
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "bound",
+       "context": "have. There, they’re encoring you—they’re bound to have you back!”"
+      }
+     ]
+    },
+    {
+     "meaning": "A jump. With a bound means with one jump.",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "of her window. With a bound she was out of bed"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "Mrs. Rachel expected. With one bound she crossed the kitchen floor"
+      }
+     ]
+    },
+    {
+     "meaning": "Going toward. Bound for the hotel means on the way there.",
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "was full of buggies, all bound for the hotel, and laughter,"
+      }
+     ]
+    }
+   ]
+  },
   "bounden": {
    "pos": "adjective",
    "meaning": "Required; bound by duty. An old word.",
    "whyHard": "An old word."
+  },
+  "bouquet": {
+   "pos": "singular noun",
+   "meaning": "A bunch of flowers."
+  },
+  "bow": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A ribbon tied into loops, often in the hair or on a dress.",
+   "senses": [
+    {
+     "meaning": "A ribbon tied into loops, often in the hair or on a dress.",
+     "whyHard": "Not the usual meaning! Usually: to bow is to bend your head or body.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "Bessie Wright that Julia Bell’s bow when she got up to"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "around my head with a bow at one side. She says"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "jaunty black velvet ribbon and bow."
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "bows"
+   ]
   },
   "bowed": {
    "pos": "past-tense verb",
@@ -850,6 +1127,20 @@
    "pos": "adverb",
    "meaning": "Without fear."
   },
+  "breast": {
+   "pos": "singular noun",
+   "meaning": "The chest.",
+   "forms": [
+    "breasts"
+   ]
+  },
+  "breath": {
+   "pos": "noun",
+   "meaning": "Air taken in and let out.",
+   "forms": [
+    "breaths"
+   ]
+  },
   "breathed": {
    "pos": "past-tense verb",
    "meaning": "Took air in and out; or spoke softly."
@@ -861,6 +1152,10 @@
   "breathlessly": {
    "pos": "adverb",
    "meaning": "With fast breathing, because of excitement or effort."
+  },
+  "brilliant": {
+   "pos": "adjective",
+   "meaning": "Very bright, or very clever."
   },
   "brim": {
    "pos": "singular noun",
@@ -918,6 +1213,13 @@
     "brooks"
    ]
   },
+  "brow": {
+   "pos": "singular noun",
+   "meaning": "The forehead.",
+   "forms": [
+    "brows"
+   ]
+  },
   "brusquely": {
    "pos": "adverb",
    "meaning": "In a quick and rude way."
@@ -945,9 +1247,17 @@
    "pos": "adjective",
    "meaning": "With many rough places."
   },
+  "bureau": {
+   "pos": "singular noun",
+   "meaning": "A bedroom table with drawers."
+  },
   "burglar": {
    "pos": "singular noun",
    "meaning": "A thief who enters a building."
+  },
+  "buried": {
+   "pos": "past-tense verb",
+   "meaning": "Put in the ground."
   },
   "burnished": {
    "pos": "adjective",
@@ -1002,6 +1312,10 @@
     "canneries"
    ]
   },
+  "canopy": {
+   "pos": "singular noun",
+   "meaning": "A cover overhead, like the leaves of trees over a road."
+  },
   "canto": {
    "pos": "singular noun",
    "meaning": "A main part of a long poem."
@@ -1048,9 +1362,42 @@
     "caterpillars"
    ]
   },
+  "cellar": {
+   "pos": "singular noun",
+   "meaning": "A room under the house, used to keep food."
+  },
+  "chamber": {
+   "pos": "singular noun",
+   "meaning": "A room, especially a bedroom.",
+   "forms": [
+    "chambers"
+   ]
+  },
   "chaplet": {
    "pos": "singular noun",
    "meaning": "A ring of flowers or leaves worn on the head."
+  },
+  "charge": {
+   "pos": "noun",
+   "meaning": "Care and responsibility. In your charge means you must look after it.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Care. In your charge means you are the one responsible.",
+     "default": true
+    },
+    {
+     "meaning": "A blame. Open to the charge of means able to be blamed for.",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "certainly not open to the charge of skimpiness, contrived to emphasize"
+      }
+     ]
+    }
+   ]
   },
   "chariot": {
    "pos": "singular noun",
@@ -1088,6 +1435,13 @@
    "pos": "adjective",
    "meaning": "Marked with squares."
   },
+  "cheek": {
+   "pos": "singular noun",
+   "meaning": "The side of the face.",
+   "forms": [
+    "cheeks"
+   ]
+  },
   "cheered": {
    "pos": "past-tense verb",
    "meaning": "Gave a loud shout of happiness; or made happier."
@@ -1115,6 +1469,17 @@
   "cheery": {
    "pos": "adjective",
    "meaning": "Happy and bright."
+  },
+  "cherry": {
+   "pos": "singular noun",
+   "meaning": "A small round red fruit, or the tree it grows on.",
+   "forms": [
+    "cherries"
+   ]
+  },
+  "childish": {
+   "pos": "adjective",
+   "meaning": "Like a small child, often in a way that is not fitting."
   },
   "chime": {
    "pos": "singular noun",
@@ -1159,6 +1524,13 @@
    "pos": "singular noun",
    "meaning": "Doing sums. An old word.",
    "whyHard": "An old word."
+  },
+  "circumstance": {
+   "pos": "singular noun",
+   "meaning": "The way things are around you at one time.",
+   "forms": [
+    "circumstances"
+   ]
   },
   "civility": {
    "pos": "uncountable noun",
@@ -1287,6 +1659,10 @@
    "pos": "singular noun",
    "meaning": "A rule from God."
   },
+  "commonplace": {
+   "pos": "adjective",
+   "meaning": "Ordinary. Not special."
+  },
   "commotion": {
    "pos": "singular noun",
    "meaning": "A lot of noise and excitement."
@@ -1303,6 +1679,105 @@
    "pos": "uncountable noun",
    "meaning": "A friendly feeling from being with others."
   },
+  "company": {
+   "senseOnly": true,
+   "pos": "uncountable noun",
+   "meaning": "People who are with you, or guests in the house.",
+   "senses": [
+    {
+     "meaning": "People who are with you, or guests in the house.",
+     "whyHard": "Not the usual meaning! Usually: a company is a business.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "company",
+       "context": "by themselves. Trees aren’t much company, though dear knows if they"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 2,
+       "form": "company",
+       "context": "cake, so that the expected company could not be any particular"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 3,
+       "form": "company",
+       "context": "could not be any particular company. Yet what of Matthew’s white"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "company",
+       "context": "said Matthew, “and she’d be company for you.”"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "form": "company",
+       "context": "“I’m not suffering for company,” said Marilla shortly. “And I’m"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "company",
+       "context": "apple blossoms with me for company?” pleaded Anne."
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "company",
+       "context": "so fond of the boys’ company we shall indulge your taste"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "company",
+       "context": "to draw when I have company. Oh, Marilla, can I use"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "company",
+       "context": "do for you and your company. But there’s a bottle half"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "form": "company",
+       "context": "good manners to tell your company what you are going to"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 4,
+       "form": "company",
+       "context": "“I never heard of company going home without tea,” she"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "company",
+       "context": "as if I was real company. I can’t tell you what"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "company",
+       "context": "office also, in the distracted company of Jane, Ruby, and Josie,"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "company",
+       "context": "Diana will come over for company for me. I shall attend"
+      }
+     ]
+    }
+   ]
+  },
   "complacent": {
    "pos": "adjective",
    "meaning": "Too pleased with yourself."
@@ -1314,6 +1789,20 @@
   "complexion": {
    "pos": "singular noun",
    "meaning": "The natural colour and look of the skin on the face."
+  },
+  "compliment": {
+   "pos": "singular noun",
+   "meaning": "A kind word about someone.",
+   "forms": [
+    "compliments"
+   ]
+  },
+  "composition": {
+   "pos": "singular noun",
+   "meaning": "A piece of writing done for school.",
+   "forms": [
+    "compositions"
+   ]
   },
   "comprehending": {
    "pos": "present participle",
@@ -1335,13 +1824,32 @@
    "pos": "singular noun",
    "meaning": "A large spiral shell."
   },
+  "concluded": {
+   "pos": "past-tense verb",
+   "meaning": "Decided after thinking, or finished."
+  },
   "conferred": {
    "pos": "past-tense verb",
    "meaning": "Gave an honour."
   },
+  "confess": {
+   "pos": "verb",
+   "meaning": "To say that you did something, often something wrong.",
+   "forms": [
+    "confessed",
+    "confesses"
+   ]
+  },
   "confessing": {
    "pos": "present participle",
    "meaning": "Admitting something wrong."
+  },
+  "confession": {
+   "pos": "singular noun",
+   "meaning": "Saying that you did something wrong.",
+   "forms": [
+    "confessions"
+   ]
   },
   "confide": {
    "pos": "base verb",
@@ -1394,9 +1902,17 @@
    "pos": "present participle",
    "meaning": "Secretly planning something wrong."
   },
+  "conscience": {
+   "pos": "singular noun",
+   "meaning": "The feeling inside you that tells you what is right and what is wrong."
+  },
   "conscientious": {
    "pos": "adjective",
    "meaning": "Careful to do what is right."
+  },
+  "consciousness": {
+   "pos": "uncountable noun",
+   "meaning": "Being awake and knowing what is around you."
   },
   "consented": {
    "pos": "past-tense verb",
@@ -1426,6 +1942,51 @@
   "contemptuously": {
    "pos": "adverb",
    "meaning": "In a way that shows you do not respect something."
+  },
+  "content": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happy with what you have. As much as you want.",
+   "senses": [
+    {
+     "meaning": "Happy with what you have. As much as you want.",
+     "whyHard": "Not the usual meaning! Usually: content means what is inside something.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "content",
+       "context": "and dreamed to her heart’s content; and when September came she"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "content",
+       "context": "and chattered to her heart’s content. There was not much of"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "content",
+       "context": "life,” declared Anne. “I’m quite content to be Anne of Green"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "content",
+       "context": "the stirrings of ambition, were content to take up the Second"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "content",
+       "context": "night companioned by a glad content. The wind purred softly in"
+      }
+     ]
+    }
+   ]
   },
   "contented": {
    "pos": "adjective",
@@ -1481,6 +2042,10 @@
    "pos": "singular noun",
    "meaning": "A small wood of young trees."
   },
+  "cordial": {
+   "pos": "uncountable noun",
+   "meaning": "A sweet fruit drink. Raspberry cordial is a sweet drink made from raspberries."
+  },
   "cordially": {
    "pos": "adverb",
    "meaning": "In a warm and friendly way."
@@ -1526,6 +2091,10 @@
   "countrified": {
    "pos": "adjective",
    "meaning": "Looking like a person from the countryside."
+  },
+  "courage": {
+   "pos": "uncountable noun",
+   "meaning": "The strength to do something that frightens you."
   },
   "courageously": {
    "pos": "adverb",
@@ -1586,6 +2155,13 @@
     "creamers"
    ]
   },
+  "creature": {
+   "pos": "singular noun",
+   "meaning": "A living person or animal.",
+   "forms": [
+    "creatures"
+   ]
+  },
   "creeper": {
    "pos": "singular noun",
    "meaning": "A plant that grows along a surface."
@@ -1612,6 +2188,10 @@
    "forms": [
     "crises"
    ]
+  },
+  "crisp": {
+   "pos": "adjective",
+   "meaning": "Firm and fresh, or cool and clear."
   },
   "crisping": {
    "pos": "present participle",
@@ -1645,6 +2225,93 @@
   "crocus": {
    "pos": "singular noun",
    "meaning": "A small spring flower."
+  },
+  "cross": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Angry.",
+   "senses": [
+    {
+     "meaning": "Angry.",
+     "whyHard": "Not the usual meaning! Usually: a cross is a shape, or you cross a road.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "a sigh. “I don’t get cross about other things; but I’m"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "you know. Marilla was very cross and I don’t wonder. I’m"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "my fault and don’t be cross at me, because I love"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "cross",
+       "context": "Of course I am not cross at you because you have"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "real sorry I was ever cross with Mrs. Hammond for having"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "“Your Aunt Josephine was very cross about it, wasn’t she?” whispered"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "form": "cross",
+       "context": "it. If you must be cross with anyone, be cross with"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "form": "cross",
+       "context": "be cross with anyone, be cross with me. I’ve been so"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 4,
+       "form": "cross",
+       "context": "early days to having people cross at me that I can"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "that you needn’t be very cross with me, Marilla. It’s not"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "cross",
+       "context": "if only you won’t be cross with me, Marilla.”"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 3,
+       "form": "cross",
+       "context": "“There, there, I’m not cross,” said Marilla. “You’re an unlucky"
+      }
+     ]
+    }
+   ]
   },
   "crossly": {
    "pos": "adverb",
@@ -1707,6 +2374,13 @@
    "meaning": "That cannot be made better.",
    "whyHard": "A rare word."
   },
+  "curiosity": {
+   "pos": "noun",
+   "meaning": "A wish to know. A curiosity is also a strange thing.",
+   "forms": [
+    "curiosities"
+   ]
+  },
   "curiously": {
    "pos": "adverb",
    "meaning": "In an interested way, or in a strange way."
@@ -1719,9 +2393,49 @@
    "pos": "singular noun",
    "meaning": "A small round fruit used in cakes. Also a sort of berry."
   },
+  "current": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "Water that keeps moving one way, as in a river or a pond.",
+   "senses": [
+    {
+     "meaning": "Water that keeps moving one way, as in a river or a pond.",
+     "whyHard": "Not the usual meaning! Usually: current means happening now, or electricity.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "current",
+       "context": "at once plunged into the current, exclaiming, ‘I will save thee,"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "current",
+       "context": "would drift down with the current under the bridge and finally"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "form": "current",
+       "context": "see it caught in the current and headed for the bridge"
+      }
+     ]
+    }
+   ]
+  },
   "curt": {
    "pos": "adjective",
    "meaning": "Short and rude in speech."
+  },
+  "curtain": {
+   "pos": "singular noun",
+   "meaning": "A cloth hung over a window.",
+   "forms": [
+    "curtains"
+   ]
   },
   "curtly": {
    "pos": "adverb",
@@ -1765,6 +2479,10 @@
     "dandelions"
    ]
   },
+  "dared": {
+   "pos": "past-tense verb",
+   "meaning": "Was brave enough to do something."
+  },
   "daresay": {
    "pos": "base verb",
    "meaning": "\"I daresay\" means \"I think it is probably true\"."
@@ -1801,6 +2519,10 @@
   "daunted": {
    "pos": "adjective",
    "meaning": "Made to feel afraid or less sure."
+  },
+  "dawn": {
+   "pos": "noun",
+   "meaning": "The time when the day begins to get light."
   },
   "dawned": {
    "pos": "past-tense verb",
@@ -1872,12 +2594,27 @@
    "pos": "adjective",
    "meaning": "Decorated."
   },
+  "declare": {
+   "pos": "verb",
+   "meaning": "To say something in a strong, sure way.",
+   "forms": [
+    "declared",
+    "declares"
+   ]
+  },
   "decorate": {
    "pos": "base verb",
    "meaning": "To make something look nicer by adding things.",
    "forms": [
     "decorate",
     "decorated"
+   ]
+  },
+  "decoration": {
+   "pos": "singular noun",
+   "meaning": "Something added to make a place or a person look fine.",
+   "forms": [
+    "decorations"
    ]
   },
   "decorum": {
@@ -1924,6 +2661,14 @@
    "pos": "adverb",
    "meaning": "In a very pleasant way."
   },
+  "delight": {
+   "pos": "noun",
+   "meaning": "Great joy.",
+   "forms": [
+    "delights",
+    "delighted"
+   ]
+  },
   "delightedly": {
    "pos": "adverb",
    "meaning": "In a very happy way."
@@ -1939,6 +2684,13 @@
   "denting": {
    "pos": "present participle",
    "meaning": "Making a hollow in something."
+  },
+  "deny": {
+   "pos": "verb",
+   "meaning": "To say that something is not true.",
+   "forms": [
+    "denied"
+   ]
   },
   "deportment": {
    "pos": "uncountable noun",
@@ -1964,6 +2716,10 @@
     "descendants"
    ]
   },
+  "descended": {
+   "pos": "past-tense verb",
+   "meaning": "Came down."
+  },
   "desirous": {
    "pos": "adjective",
    "meaning": "Wanting something."
@@ -1971,6 +2727,10 @@
   "deskmate": {
    "pos": "singular noun",
    "meaning": "A person who shares a desk at school."
+  },
+  "despair": {
+   "pos": "uncountable noun",
+   "meaning": "The feeling that there is no hope."
   },
   "despairing": {
    "pos": "adjective",
@@ -1983,6 +2743,10 @@
   "detaining": {
    "pos": "present participle",
    "meaning": "Keeping someone from going."
+  },
+  "determined": {
+   "pos": "adjective",
+   "meaning": "Set on doing something and not giving up."
   },
   "determinedly": {
    "pos": "adverb",
@@ -2012,6 +2776,20 @@
    "pos": "adjective",
    "meaning": "Covered with small drops of water from the night."
   },
+  "dialogue": {
+   "pos": "singular noun",
+   "meaning": "A talk between people, or the words they say in a story.",
+   "forms": [
+    "dialogues"
+   ]
+  },
+  "diamond": {
+   "pos": "singular noun",
+   "meaning": "A hard bright jewel, or a four-sided shape like that jewel.",
+   "forms": [
+    "diamonds"
+   ]
+  },
   "dictation": {
    "pos": "singular noun",
    "meaning": "Writing words that someone says."
@@ -2027,6 +2805,10 @@
   "dignified": {
    "pos": "adjective",
    "meaning": "Showing seriousness and self-respect."
+  },
+  "dignity": {
+   "pos": "uncountable noun",
+   "meaning": "A calm, serious worth. She kept her dignity means she stayed proud and calm."
   },
   "dilated": {
    "pos": "past-tense verb",
@@ -2064,6 +2846,17 @@
   "disagreeable": {
    "pos": "adjective",
    "meaning": "Not pleasant."
+  },
+  "disappointed": {
+   "pos": "adjective",
+   "meaning": "Sad because something you hoped for did not happen."
+  },
+  "disappointment": {
+   "pos": "noun",
+   "meaning": "The sad feeling when a hope fails.",
+   "forms": [
+    "disappointments"
+   ]
   },
   "disapproval": {
    "pos": "uncountable noun",
@@ -2220,6 +3013,10 @@
    "pos": "adverb",
    "meaning": "With a feeling that everything is turning."
   },
+  "dizzy": {
+   "pos": "adjective",
+   "meaning": "Feeling as if your head is turning and you may fall."
+  },
   "doer": {
    "pos": "singular noun",
    "meaning": "A person who does something.",
@@ -2274,9 +3071,29 @@
    "pos": "adjective",
    "meaning": "Covered with cloth in loose folds."
   },
+  "drawing": {
+   "pos": "verb",
+   "meaning": "Pulling in, as a breath, or making a picture."
+  },
+  "drawn": {
+   "pos": "adjective",
+   "meaning": "Pulled shut, or looking tight and tired.",
+   "whyHard": "Drawn blinds are pulled shut. A drawn face looks tight and tired."
+  },
+  "dread": {
+   "pos": "noun",
+   "meaning": "Great fear of something that may happen."
+  },
   "dreaded": {
    "pos": "past-tense verb",
    "meaning": "Was very afraid of something in the future."
+  },
+  "dreadful": {
+   "pos": "adjective",
+   "meaning": "Very bad, or very frightening.",
+   "forms": [
+    "dreadfully"
+   ]
   },
   "dreamer": {
    "pos": "singular noun",
@@ -2305,6 +3122,15 @@
   "dressy": {
    "pos": "adjective",
    "meaning": "Smart and suitable for a special event."
+  },
+  "drew": {
+   "pos": "past-tense verb",
+   "meaning": "Pulled. Drew a long breath means took a deep breath. The past of draw.",
+   "whyHard": "Drew a long breath means took a deep breath. It is not only making a picture."
+  },
+  "drifted": {
+   "pos": "past-tense verb",
+   "meaning": "Was carried slowly along by water or air."
   },
   "drily": {
    "pos": "adverb",
@@ -2346,6 +3172,10 @@
    "pos": "uncountable noun",
    "meaning": "\"In high dudgeon\" means very angry."
   },
+  "dumb": {
+   "pos": "adjective",
+   "meaning": "Unable to speak, or silent from surprise."
+  },
   "dumbfounded": {
    "pos": "adjective",
    "meaning": "Too surprised to speak."
@@ -2362,6 +3192,14 @@
    "pos": "singular noun",
    "meaning": "A slow or stupid pupil."
   },
+  "dunno": {
+   "pos": "verb",
+   "meaning": "I don't know. Matthew's way of saying it."
+  },
+  "dusk": {
+   "pos": "uncountable noun",
+   "meaning": "The dim time at the end of the day."
+  },
   "duskly": {
    "pos": "adverb",
    "meaning": "In a dark way.",
@@ -2375,9 +3213,27 @@
    "pos": "past-tense verb",
    "meaning": "Lived in a place."
   },
+  "dye": {
+   "pos": "noun",
+   "meaning": "Color used to change the color of hair or cloth.",
+   "forms": [
+    "dyed"
+   ]
+  },
   "dyspeptic": {
    "pos": "adjective",
    "meaning": "Having trouble in digesting food."
+  },
+  "eager": {
+   "pos": "adjective",
+   "meaning": "Wanting very much to do something.",
+   "forms": [
+    "eagerly"
+   ]
+  },
+  "earnest": {
+   "pos": "adjective",
+   "meaning": "Serious and sincere."
   },
   "earnestly": {
    "pos": "adverb",
@@ -2456,12 +3312,23 @@
    "pos": "past-tense verb",
    "meaning": "Passed, when speaking about time."
   },
+  "elbow": {
+   "pos": "singular noun",
+   "meaning": "The middle joint of the arm.",
+   "forms": [
+    "elbows"
+   ]
+  },
   "elector": {
    "pos": "singular noun",
    "meaning": "A person who has the right to vote.",
    "forms": [
     "electors"
    ]
+  },
+  "elegant": {
+   "pos": "adjective",
+   "meaning": "Very fine and graceful."
   },
   "elegantly": {
    "pos": "adverb",
@@ -2585,6 +3452,99 @@
    "pos": "adjective",
    "meaning": "Attractive and tempting."
   },
+  "entrance": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The big test you take to get into a higher school.",
+   "senses": [
+    {
+     "meaning": "The big test you take to get into a higher school.",
+     "whyHard": "Not the usual meaning! Usually: an entrance is a door.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "entrance",
+       "context": "and she’s studying for the entrance examination into Queen’s Academy at"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "entrance",
+       "context": "mean to study for the entrance examination into Queen’s. She intends"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "form": "entrance",
+       "context": "talk of studying for the Entrance. But I didn’t say anything"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 3,
+       "form": "entrance",
+       "context": "be ready to try the Entrance for a year and a"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 4,
+       "form": "entrance",
+       "context": "going to study for the Entrance, too. But we can’t have"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 5,
+       "form": "entrance",
+       "context": "know—the last year before the Entrance.”"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "entrance",
+       "context": "fateful thing known as “the Entrance,” at the thought of which"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "form": "entrance",
+       "context": "at pass lists of the Entrance exams, where Gilbert Blythe’s name"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 3,
+       "form": "entrance",
+       "context": "two more months before the Entrance,” said Marilla. “Do you think"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 4,
+       "form": "entrance",
+       "context": "as we’ll have at the Entrance and mark us just as"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 5,
+       "form": "entrance",
+       "context": "not succeed in passing the Entrance, Anne felt convinced that she"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "entrance",
+       "context": "night every night of her Entrance week and crammed for dear"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "form": "entrance",
+       "context": "as any experienced during the Entrance week. Charlie and Gilbert were"
+      }
+     ]
+    }
+   ]
+  },
   "entreated": {
    "pos": "past-tense verb",
    "meaning": "Begged."
@@ -2609,6 +3569,13 @@
     "errands"
    ]
   },
+  "escape": {
+   "pos": "verb",
+   "meaning": "To get free.",
+   "forms": [
+    "escaped"
+   ]
+  },
   "especial": {
    "pos": "adjective",
    "meaning": "Special.",
@@ -2617,17 +3584,36 @@
     "especially"
    ]
   },
+  "essay": {
+   "pos": "singular noun",
+   "meaning": "A short piece of writing.",
+   "forms": [
+    "essays"
+   ]
+  },
   "estranged": {
    "pos": "adjective",
    "meaning": "No longer friendly."
+  },
+  "eternal": {
+   "pos": "adjective",
+   "meaning": "Lasting forever."
   },
   "ethereal": {
    "pos": "adjective",
    "meaning": "Very light and delicate, as if not of this world."
   },
+  "etiquette": {
+   "pos": "uncountable noun",
+   "meaning": "The rules of polite behavior."
+  },
   "evasive": {
    "pos": "adjective",
    "meaning": "Not giving a straight answer."
+  },
+  "evidently": {
+   "pos": "adverb",
+   "meaning": "In a way that is easy to see. It is clear that."
   },
   "evinced": {
    "pos": "past-tense verb",
@@ -2640,6 +3626,14 @@
   "excellently": {
    "pos": "adverb",
    "meaning": "Very well."
+  },
+  "excitement": {
+   "pos": "uncountable noun",
+   "meaning": "The feeling of being stirred up and eager."
+  },
+  "exclaimed": {
+   "pos": "past-tense verb",
+   "meaning": "Cried out suddenly."
   },
   "exclaiming": {
    "pos": "present participle",
@@ -2657,13 +3651,35 @@
    "pos": "present participle",
    "meaning": "Breathing out."
   },
+  "exhibition": {
+   "pos": "singular noun",
+   "meaning": "A show where work is put out for people to see."
+  },
   "exhilaration": {
    "pos": "uncountable noun",
    "meaning": "A feeling of great excitement and happiness."
   },
+  "existence": {
+   "pos": "uncountable noun",
+   "meaning": "Being real. Being alive."
+  },
   "experimented": {
    "pos": "past-tense verb",
    "meaning": "Tried something new to see what happens."
+  },
+  "explanation": {
+   "pos": "singular noun",
+   "meaning": "Words that make something clear.",
+   "forms": [
+    "explanations"
+   ]
+  },
+  "expression": {
+   "pos": "singular noun",
+   "meaning": "The look on a person's face.",
+   "forms": [
+    "expressions"
+   ]
   },
   "expressionless": {
    "pos": "adjective",
@@ -2673,9 +3689,17 @@
    "pos": "singular noun",
    "meaning": "A tool for putting out a fire."
   },
+  "extraordinary": {
+   "pos": "adjective",
+   "meaning": "Very unusual. Far from ordinary."
+  },
   "extravagance": {
    "pos": "uncountable noun",
    "meaning": "Spending too much."
+  },
+  "extreme": {
+   "pos": "adjective",
+   "meaning": "Very great, or the farthest point."
   },
   "exultation": {
    "pos": "uncountable noun",
@@ -2703,6 +3727,10 @@
     "facets"
    ]
   },
+  "faint": {
+   "pos": "adjective",
+   "meaning": "Weak, or not strong or clear. To faint is to fall down unconscious."
+  },
   "fainted": {
    "pos": "past-tense verb",
    "meaning": "Lost consciousness for a short time."
@@ -2715,9 +3743,67 @@
    "pos": "uncountable noun",
    "meaning": "A feeling that you may fall down."
   },
+  "fairy": {
+   "pos": "singular noun",
+   "meaning": "A tiny magic person in stories.",
+   "forms": [
+    "fairies"
+   ]
+  },
   "faithfully": {
    "pos": "adverb",
    "meaning": "In a loyal way."
+  },
+  "fall": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "Autumn, the season after summer.",
+   "senses": [
+    {
+     "meaning": "Autumn, the season after summer.",
+     "whyHard": "Not the usual meaning! Usually: fall means to drop down.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "fall",
+       "context": "go in the spring and fall. But of course I went"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "fall",
+       "context": "good, warm, serviceable ones this fall, and anything more is sheer"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "fall",
+       "context": "if we get hitched this fall?’ And Susan said, ‘Yes—no—I don’t"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "fall",
+       "context": "flounces are so stylish this fall and Josie Pye has flounces"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "fall",
+       "context": "over,” said Anne. “Why, last fall it seemed so long to"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "fall",
+       "context": "some notes Matthew gave last fall to pay. Mrs. Lynde advises"
+      }
+     ]
+    }
+   ]
   },
   "falsehood": {
    "pos": "singular noun",
@@ -2735,6 +3821,57 @@
    "pos": "adverb",
    "meaning": "In a friendly, informal way."
   },
+  "fancy": {
+   "pos": "noun",
+   "meaning": "A picture in the mind, or the power to imagine.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "A picture in the mind. Fancy, at the start of a sentence, means Imagine that.",
+     "default": true
+    },
+    {
+     "meaning": "To like. She did not fancy her means she did not like her.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "fancy",
+       "context": "day. Moreover, she did not fancy Mrs. Blewett. To hand a"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "fancy",
+       "context": "“I don’t fancy her style myself,” admitted Marilla,"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "fancy",
+       "context": "not to. Matthew took a fancy to her. And I must"
+      }
+     ]
+    },
+    {
+     "meaning": "Pretty, and not for plain use. Fancy work is sewing done to look pretty.",
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "fancy",
+       "context": "Diana showed me a new fancy crochet stitch her aunt over"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "fancy",
+       "context": "and I’ve no vocation for fancy work. I’m going to teach"
+      }
+     ]
+    }
+   ]
+  },
   "fancywork": {
    "pos": "uncountable noun",
    "meaning": "Decorative sewing."
@@ -2746,6 +3883,10 @@
   "fared": {
    "pos": "past-tense verb",
    "meaning": "Did, when speaking about success."
+  },
+  "farewell": {
+   "pos": "noun",
+   "meaning": "Goodbye."
   },
   "farmstead": {
    "pos": "singular noun",
@@ -2770,6 +3911,39 @@
    "pos": "present participle",
    "meaning": "Making."
   },
+  "fast": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Tightly, so it does not come loose. Not letting go. Color that stays in the cloth.",
+   "senses": [
+    {
+     "meaning": "Tightly, so it does not come loose. Not letting go. Color that stays in the cloth.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "his strong point, but holding fast to his opinion certainly was."
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "that there’s no hard and fast method in the world that’ll"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "no use, Anne. That is fast dye if ever there was"
+      }
+     ]
+    }
+   ]
+  },
   "fasten": {
    "pos": "base verb",
    "meaning": "To close or join."
@@ -2785,6 +3959,13 @@
   "fatter": {
    "pos": "comparative adjective",
    "meaning": "More fat."
+  },
+  "favor": {
+   "pos": "noun",
+   "meaning": "A kind act. In favor of means on the side of.",
+   "forms": [
+    "favors"
+   ]
   },
   "fearfully": {
    "pos": "adverb",
@@ -2818,6 +3999,10 @@
    "pos": "past-tense verb",
    "meaning": "Pretended."
   },
+  "feminine": {
+   "pos": "adjective",
+   "meaning": "Of a girl or a woman, or like one."
+  },
   "fern": {
    "pos": "singular noun",
    "meaning": "A green plant with soft, feather-like leaves.",
@@ -2842,6 +4027,13 @@
    "pos": "adverb",
    "meaning": "With strong feeling."
   },
+  "fever": {
+   "pos": "singular noun",
+   "meaning": "A sickness that makes the body hot.",
+   "forms": [
+    "fevers"
+   ]
+  },
   "feverish": {
    "pos": "adjective",
    "meaning": "Having a high body temperature."
@@ -2864,6 +4056,90 @@
   "fiercely": {
    "pos": "adverb",
    "meaning": "In a strong and angry way."
+  },
+  "figure": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The shape of a person's body.",
+   "senses": [
+    {
+     "meaning": "The shape of a person's body.",
+     "whyHard": "Not the usual meaning! Usually: a figure is a number.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "figure",
+       "context": "odd-looking personage, with an ungainly figure and long iron-gray hair that"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "figure",
+       "context": "fell on the odd little figure in the stiff, ugly dress,"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "figure",
+       "context": "fell over the rapt little figure with a half-unearthly radiance."
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "figure",
+       "context": "and angle of her thin figure. Her hat was a little,"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "figure",
+       "context": "two peas as far as figure goes.”"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "form": "figure",
+       "context": "the hollow, a gay little figure in her crimson ulster. Anne"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "figure",
+       "context": "air. I suppose it’s your figure. I am just a dumpling."
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "figure",
+       "context": "in the doorway, a gaunt figure with grayer hair than of"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 3,
+       "form": "figure",
+       "context": "Sands with that slim, upright figure beside him."
+      },
+      {
+       "chapter": 32,
+       "occurrence": 4,
+       "form": "figure",
+       "context": "short that you’d really no figure at all? Or even Mrs."
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "figure",
+       "context": "complexion, and a plump showy figure. She laughed a great deal,"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "figures"
+   ]
   },
   "filmy": {
    "pos": "adjective",
@@ -2900,6 +4176,34 @@
    "pos": "adjective",
    "meaning": "Full of fir trees."
   },
+  "fit": {
+   "pos": "adjective",
+   "meaning": "Good enough, or right for the use.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Good enough or right. Not fit to eat means not good enough to eat.",
+     "default": true
+    },
+    {
+     "meaning": "A sudden short time of a feeling. A fit of temper is a burst of anger.",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "fit",
+       "context": "far worse thing than her fit of temper. It’s a fearful"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "fit",
+       "context": "when she had a thoughtful fit on and for her part"
+      }
+     ]
+    }
+   ]
+  },
   "flannel": {
    "pos": "uncountable noun",
    "meaning": "A soft cloth, usually made of wool."
@@ -2915,6 +4219,10 @@
     "flavoring",
     "flavorings"
    ]
+  },
+  "flesh": {
+   "pos": "uncountable noun",
+   "meaning": "The soft part of the body."
   },
   "fleshless": {
    "pos": "adjective",
@@ -2988,6 +4296,17 @@
    "pos": "singular noun",
    "meaning": "An enemy."
   },
+  "folk": {
+   "pos": "plural noun",
+   "meaning": "People. Your folks are your family.",
+   "forms": [
+    "folks"
+   ]
+  },
+  "fond": {
+   "pos": "adjective",
+   "meaning": "Liking someone or something very much."
+  },
   "foolishest": {
    "pos": "superlative adjective",
    "meaning": "The most silly."
@@ -3010,6 +4329,10 @@
   "forefinger": {
    "pos": "singular noun",
    "meaning": "The finger next to the thumb."
+  },
+  "forehead": {
+   "pos": "singular noun",
+   "meaning": "The part of the face above the eyes."
   },
   "forenoon": {
    "pos": "singular noun",
@@ -3039,9 +4362,32 @@
    "pos": "base verb",
    "meaning": "To leave for good."
   },
+  "forth": {
+   "pos": "adverb",
+   "meaning": "Out, or forward. And so forth means and more of the same."
+  },
+  "fortnight": {
+   "pos": "singular noun",
+   "meaning": "Two weeks."
+  },
   "fortnightly": {
    "pos": "adjective",
    "meaning": "Happening every two weeks."
+  },
+  "fortunate": {
+   "pos": "adjective",
+   "meaning": "Lucky."
+  },
+  "fortunately": {
+   "pos": "adverb",
+   "meaning": "By good luck."
+  },
+  "fortune": {
+   "pos": "noun",
+   "meaning": "Luck, or a great amount of money.",
+   "forms": [
+    "fortunes"
+   ]
   },
   "fractious": {
    "pos": "adjective",
@@ -3050,6 +4396,31 @@
   "fragrant": {
    "pos": "adjective",
    "meaning": "Having a sweet, pleasant smell."
+  },
+  "frank": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Open and honest.",
+   "senses": [
+    {
+     "meaning": "Open and honest.",
+     "whyHard": "Not the usual meaning! Usually: Frank is a person's name.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "frank",
+       "context": "Old and young liked the frank, cheerful young man with his"
+      }
+     ]
+    }
+   ]
+  },
+  "frankly": {
+   "pos": "adverb",
+   "meaning": "In an open, honest way."
   },
   "frantic": {
    "pos": "adjective",
@@ -3134,6 +4505,13 @@
     "frolics"
    ]
   },
+  "frost": {
+   "pos": "noun",
+   "meaning": "The thin ice that forms when it is very cold.",
+   "forms": [
+    "frosts"
+   ]
+  },
   "frosted": {
    "pos": "adjective",
    "meaning": "Covered with a thin layer of ice."
@@ -3154,12 +4532,20 @@
    "pos": "uncountable noun",
    "meaning": "The state of being full. (An old spelling of \"fullness\".)"
   },
+  "funeral": {
+   "pos": "singular noun",
+   "meaning": "The service for a person who has died."
+  },
   "furbelow": {
    "pos": "singular noun",
    "meaning": "A decoration on a dress, such as a frill.",
    "forms": [
     "furbelows"
    ]
+  },
+  "furious": {
+   "pos": "adjective",
+   "meaning": "Very angry."
   },
   "furnish": {
    "pos": "base verb",
@@ -3213,6 +4599,10 @@
    "pos": "singular noun",
    "meaning": "A small room at the top of a house, just under the roof."
   },
+  "gasp": {
+   "pos": "verb",
+   "meaning": "To catch the breath in surprise or fear."
+  },
   "gasped": {
    "pos": "past-tense verb",
    "meaning": "Breathed in suddenly because of surprise."
@@ -3225,6 +4615,43 @@
    "pos": "singular noun",
    "meaning": "A long glove. \"Throw down the gauntlet\" means to make a challenge."
   },
+  "gay": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happy and bright.",
+   "senses": [
+    {
+     "meaning": "Happy and bright.",
+     "whyHard": "Not the usual meaning! Usually: gay is about who a person loves. Here it means happy and bright.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "seen around her that evening—all gay in waists of red and"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "form": "gay",
+       "context": "bridge in the hollow, a gay little figure in her crimson"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "going to have a very gay vacation. Ruby Gillis is going"
+      }
+     ]
+    }
+   ]
+  },
+  "gaze": {
+   "pos": "noun",
+   "meaning": "A long steady look."
+  },
   "gazed": {
    "pos": "past-tense verb",
    "meaning": "Looked for a long time."
@@ -3236,6 +4663,10 @@
   "gentlewoman": {
    "pos": "singular noun",
    "meaning": "A lady of good family."
+  },
+  "geometry": {
+   "pos": "uncountable noun",
+   "meaning": "The school study of shapes, lines, and angles."
   },
   "geranium": {
    "pos": "singular noun",
@@ -3284,6 +4715,13 @@
   "gladness": {
    "pos": "uncountable noun",
    "meaning": "A feeling of joy."
+  },
+  "glance": {
+   "pos": "noun",
+   "meaning": "A quick look.",
+   "forms": [
+    "glances"
+   ]
   },
   "glancing": {
    "pos": "present participle",
@@ -3401,6 +4839,10 @@
    "pos": "adjective",
    "meaning": "Silly, like a goose."
   },
+  "gorgeous": {
+   "pos": "adjective",
+   "meaning": "Wonderfully beautiful."
+  },
   "gorgeously": {
    "pos": "adverb",
    "meaning": "In a very beautiful way."
@@ -3437,6 +4879,10 @@
    "pos": "singular noun",
    "meaning": "The metal frame that holds a fire."
   },
+  "grateful": {
+   "pos": "adjective",
+   "meaning": "Thankful."
+  },
   "gratefuller": {
    "pos": "comparative adjective",
    "meaning": "More thankful. (Anne's own word.)",
@@ -3450,9 +4896,76 @@
    "pos": "adjective",
    "meaning": "Pleased."
   },
+  "grave": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The place in the ground where a dead person is buried.",
+   "senses": [
+    {
+     "meaning": "The place in the ground where a dead person is buried.",
+     "whyHard": "Not the usual meaning! Usually: grave means very serious.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "‘The Dog at His Master’s Grave’ if she liked. That’s in"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "planted a rosebush by my grave and watered it with your"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "were buried in the one grave and their funeral was most"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "just escaped from a watery grave. I said a grateful prayer"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "plant a rosebush on Matthew’s grave this afternoon,” said Anne dreamily."
+      },
+      {
+       "chapter": 36,
+       "occurrence": 2,
+       "form": "grave",
+       "context": "could plant it by his grave—as if I were doing something"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "put fresh flowers on Matthew’s grave and water the Scotch rosebush."
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "graves"
+   ]
+  },
   "gravely": {
    "pos": "adverb",
    "meaning": "In a serious way."
+  },
+  "graveyard": {
+   "pos": "singular noun",
+   "meaning": "The ground where dead people are buried.",
+   "forms": [
+    "graveyards"
+   ]
   },
   "gravitated": {
    "pos": "past-tense verb",
@@ -3474,6 +4987,10 @@
    "pos": "past-tense verb",
    "meaning": "Became green."
   },
+  "grief": {
+   "pos": "uncountable noun",
+   "meaning": "Deep sadness, as when someone dies."
+  },
   "grievance": {
    "pos": "singular noun",
    "meaning": "A reason to complain because you were treated unfairly."
@@ -3481,6 +4998,10 @@
   "grievously": {
    "pos": "adverb",
    "meaning": "Very badly."
+  },
+  "grim": {
+   "pos": "adjective",
+   "meaning": "Hard and stern, without a smile."
   },
   "grimly": {
    "pos": "adverb",
@@ -3498,6 +5019,27 @@
    "pos": "singular noun",
    "meaning": "Flu; an old name for a bad cold.",
    "whyHard": "An old word."
+  },
+  "grit": {
+   "senseOnly": true,
+   "pos": "uncountable noun",
+   "meaning": "Stubborn courage. The strength to do a hard thing.",
+   "senses": [
+    {
+     "meaning": "Stubborn courage. The strength to do a hard thing.",
+     "whyHard": "Not the usual meaning! Usually: Grit is the name of a political side.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "grit",
+       "context": "“I haven’t got the grit to go there and look"
+      }
+     ]
+    }
+   ]
   },
   "groan": {
    "pos": "singular noun",
@@ -3518,6 +5060,13 @@
   "grotesque": {
    "pos": "adjective",
    "meaning": "Strange and ugly in a funny or frightening way."
+  },
+  "grove": {
+   "pos": "singular noun",
+   "meaning": "A small group of trees.",
+   "forms": [
+    "groves"
+   ]
   },
   "growl": {
    "pos": "singular noun",
@@ -3555,6 +5104,10 @@
   "guiltless": {
    "pos": "adjective",
    "meaning": "Not guilty."
+  },
+  "gulf": {
+   "pos": "singular noun",
+   "meaning": "A wide space between two things, or a deep opening."
   },
   "gull": {
    "pos": "singular noun",
@@ -3606,6 +5159,10 @@
     "handkerchiefs"
    ]
   },
+  "handsome": {
+   "pos": "adjective",
+   "meaning": "Good to look at."
+  },
   "handsomest": {
    "pos": "superlative adjective",
    "meaning": "The best-looking."
@@ -3614,6 +5171,10 @@
    "pos": "singular noun",
    "meaning": "A strong wish for something."
   },
+  "harm": {
+   "pos": "uncountable noun",
+   "meaning": "Hurt or damage."
+  },
   "harmlessness": {
    "pos": "uncountable noun",
    "meaning": "Being safe; not doing damage."
@@ -3621,6 +5182,10 @@
   "harmonious": {
    "pos": "adjective",
    "meaning": "Going well together."
+  },
+  "harness": {
+   "pos": "singular noun",
+   "meaning": "The straps a horse wears when it pulls a buggy."
   },
   "harnessed": {
    "pos": "adjective",
@@ -3658,6 +5223,14 @@
    "pos": "present participle",
    "meaning": "Pulling with effort."
   },
+  "haunted": {
+   "pos": "adjective",
+   "meaning": "Seeming to have ghosts. The Haunted Wood is a wood they pretend is full of ghosts."
+  },
+  "haunting": {
+   "pos": "adjective",
+   "meaning": "Staying in the mind, like a ghost of a thought."
+  },
   "hayfield": {
    "pos": "singular noun",
    "meaning": "A field where grass is grown for hay."
@@ -3672,6 +5245,10 @@
    "forms": [
     "hazes"
    ]
+  },
+  "hazel": {
+   "pos": "adjective",
+   "meaning": "A light brown, like the color of some eyes."
   },
   "headache": {
    "pos": "singular noun",
@@ -3696,6 +5273,13 @@
   "headway": {
    "pos": "uncountable noun",
    "meaning": "Progress; forward movement."
+  },
+  "heap": {
+   "pos": "singular noun",
+   "meaning": "A pile.",
+   "forms": [
+    "heaps"
+   ]
   },
   "heaped": {
    "pos": "adjective",
@@ -3815,6 +5399,10 @@
    "pos": "base verb",
    "meaning": "To make something difficult."
   },
+  "hired": {
+   "pos": "adjective",
+   "meaning": "Paid to work. The hired man is a man paid to work on the farm."
+  },
   "hitched": {
    "pos": "past-tense verb",
    "meaning": "Tied or fastened."
@@ -3822,6 +5410,13 @@
   "hoarse": {
    "pos": "adjective",
    "meaning": "With a rough, dry voice."
+  },
+  "hollow": {
+   "pos": "noun",
+   "meaning": "A low place between hills.",
+   "forms": [
+    "hollows"
+   ]
   },
   "hollyhock": {
    "pos": "singular noun",
@@ -3854,9 +5449,20 @@
    "pos": "uncountable noun",
    "meaning": "Sadness caused by being away from home."
   },
+  "homestead": {
+   "pos": "singular noun",
+   "meaning": "The house and the farm that belong to a family."
+  },
   "honeysuckle": {
    "pos": "singular noun",
    "meaning": "A climbing plant with sweet-smelling flowers."
+  },
+  "hood": {
+   "pos": "singular noun",
+   "meaning": "A soft cover for the head.",
+   "forms": [
+    "hoods"
+   ]
   },
   "hooted": {
    "pos": "past-tense verb",
@@ -3869,6 +5475,10 @@
   "horrid": {
    "pos": "adjective",
    "meaning": "Very unpleasant."
+  },
+  "horrified": {
+   "pos": "adjective",
+   "meaning": "Shocked and full of fear or disgust."
   },
   "hospitable": {
    "pos": "adjective",
@@ -3910,9 +5520,17 @@
    "pos": "adjective",
    "meaning": "Boring and always the same."
   },
+  "humiliation": {
+   "pos": "uncountable noun",
+   "meaning": "The feeling of being made small and ashamed."
+  },
   "hummed": {
    "pos": "past-tense verb",
    "meaning": "Sang with the lips closed."
+  },
+  "humor": {
+   "pos": "uncountable noun",
+   "meaning": "The funny side of things. A sense of humor."
   },
   "hurried": {
    "pos": "adjective",
@@ -3931,6 +5549,28 @@
    "meaning": "A strong uncontrolled emotion, like crying and laughing.",
    "forms": [
     "hysterics"
+   ]
+  },
+  "icy": {
+   "pos": "adjective",
+   "meaning": "As cold as ice, or covered with ice."
+  },
+  "ideal": {
+   "pos": "noun",
+   "meaning": "The best thing you can picture. The way you wish something to be.",
+   "forms": [
+    "ideals"
+   ]
+  },
+  "ignorance": {
+   "pos": "uncountable noun",
+   "meaning": "Not knowing."
+  },
+  "imagination": {
+   "pos": "uncountable noun",
+   "meaning": "The power to picture things that are not in front of you.",
+   "forms": [
+    "imaginations"
    ]
   },
   "imagining": {
@@ -3997,9 +5637,20 @@
    "pos": "adjective",
    "meaning": "Natural; from birth."
   },
+  "inch": {
+   "pos": "singular noun",
+   "meaning": "A short measure of length.",
+   "forms": [
+    "inches"
+   ]
+  },
   "inclination": {
    "pos": "singular noun",
    "meaning": "A feeling that you want to do something."
+  },
+  "inclined": {
+   "pos": "adjective",
+   "meaning": "Likely to, or wanting to. Inclined to laugh means ready to laugh."
   },
   "inconsequently": {
    "pos": "adverb",
@@ -4103,6 +5754,10 @@
    "pos": "adjective",
    "meaning": "Deepest."
   },
+  "innocent": {
+   "pos": "adjective",
+   "meaning": "Not guilty. Not having done the wrong thing."
+  },
   "inquired": {
    "pos": "past-tense verb",
    "meaning": "Asked."
@@ -4135,6 +5790,10 @@
    "pos": "adverb",
    "meaning": "In a natural way, without thinking."
   },
+  "insulted": {
+   "pos": "past-tense verb",
+   "meaning": "Spoke to someone in a way that hurt their pride."
+  },
   "insultingly": {
    "pos": "adverb",
    "meaning": "In a way that is rude to someone."
@@ -4142,6 +5801,13 @@
   "insupportable": {
    "pos": "adjective",
    "meaning": "Too hard to bear."
+  },
+  "intend": {
+   "pos": "verb",
+   "meaning": "To plan. To mean to do.",
+   "forms": [
+    "intended"
+   ]
   },
   "intently": {
    "pos": "adverb",
@@ -4151,9 +5817,20 @@
    "pos": "past-tense verb",
    "meaning": "Said something suddenly into a talk."
   },
+  "interrupt": {
+   "pos": "verb",
+   "meaning": "To start talking while someone else is still talking.",
+   "forms": [
+    "interrupted"
+   ]
+  },
   "intersected": {
    "pos": "past-tense verb",
    "meaning": "Crossed."
+  },
+  "intimate": {
+   "pos": "adjective",
+   "meaning": "Very close and private."
   },
   "intoxicate": {
    "pos": "base verb",
@@ -4219,6 +5896,10 @@
    "pos": "adjective",
    "meaning": "Lively and cheerful."
   },
+  "jealous": {
+   "pos": "adjective",
+   "meaning": "Unhappy because someone else has what you want."
+  },
   "jellied": {
    "pos": "adjective",
    "meaning": "Made into a jelly."
@@ -4243,9 +5924,20 @@
    "pos": "past-tense verb",
    "meaning": "Moved along at a slow steady speed, shaking a little."
   },
+  "jolly": {
+   "pos": "adjective",
+   "meaning": "Cheerful and full of fun."
+  },
   "jolt": {
    "pos": "singular noun",
    "meaning": "A sudden shock or hard movement."
+  },
+  "journey": {
+   "pos": "singular noun",
+   "meaning": "A trip.",
+   "forms": [
+    "journeys"
+   ]
   },
   "joyfully": {
    "pos": "adverb",
@@ -4263,6 +5955,13 @@
    "pos": "adverb",
    "meaning": "In a very happy way after winning."
   },
+  "judgment": {
+   "pos": "noun",
+   "meaning": "A decision about what is right, or good sense.",
+   "forms": [
+    "judgments"
+   ]
+  },
   "jug": {
    "pos": "singular noun",
    "meaning": "A container with a handle for liquid."
@@ -4270,6 +5969,10 @@
   "jugful": {
    "pos": "singular noun",
    "meaning": "The amount that fills a jug."
+  },
+  "justice": {
+   "pos": "uncountable noun",
+   "meaning": "What is fair and right."
   },
   "justly": {
    "pos": "adverb",
@@ -4310,6 +6013,13 @@
    "pos": "singular noun",
    "meaning": "A special skill for doing something."
   },
+  "knee": {
+   "pos": "singular noun",
+   "meaning": "The middle joint of the leg.",
+   "forms": [
+    "knees"
+   ]
+  },
   "knelt": {
    "pos": "past-tense verb",
    "meaning": "Went down on the knees."
@@ -4317,6 +6027,14 @@
   "knitted": {
    "pos": "past-tense verb",
    "meaning": "Made clothes by joining wool with long needles."
+  },
+  "knitting": {
+   "pos": "uncountable noun",
+   "meaning": "Making cloth with two long needles and yarn."
+  },
+  "lace": {
+   "pos": "uncountable noun",
+   "meaning": "Fine cloth with holes that make a pattern."
   },
   "lacy": {
    "pos": "adjective",
@@ -4334,6 +6052,11 @@
    "pos": "present participle",
    "meaning": "Moving slowly behind."
   },
+  "laid": {
+   "pos": "past-tense verb",
+   "meaning": "Put something down. The table was laid means it was set for a meal.",
+   "whyHard": "Laid means put down. It does not mean an untruth."
+  },
   "lamely": {
    "pos": "adverb",
    "meaning": "In a weak way that does not sound convincing."
@@ -4341,6 +6064,13 @@
   "lamented": {
    "pos": "past-tense verb",
    "meaning": "Showed great sadness about."
+  },
+  "lane": {
+   "pos": "singular noun",
+   "meaning": "A narrow country road.",
+   "forms": [
+    "lanes"
+   ]
   },
   "languid": {
    "pos": "adjective",
@@ -4354,6 +6084,11 @@
    "pos": "past-tense verb",
    "meaning": "Became weak or sad for a long time."
   },
+  "latter": {
+   "pos": "adjective",
+   "meaning": "The second of two people or things.",
+   "whyHard": "The latter is the second of two. It does not mean later."
+  },
   "laudable": {
    "pos": "adjective",
    "meaning": "Deserving praise."
@@ -4361,6 +6096,77 @@
   "laughable": {
    "pos": "adjective",
    "meaning": "Silly enough to make people laugh."
+  },
+  "lay": {
+   "pos": "verb",
+   "meaning": "Was resting, or was spread out. The past of lie.",
+   "whyHard": "Lay can mean was resting. It can also mean put. It does not mean an untruth.",
+   "senses": [
+    {
+     "meaning": "Was resting or was spread out. She lay on the sofa means she was resting there. The past of lie.",
+     "default": true
+    },
+    {
+     "meaning": "To put something down. Lay off a hat means take it off.",
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "lay",
+       "context": "Take off your hat. I’ll lay it and your bag on"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "lay",
+       "context": "the childish classic, “Now I lay me down to sleep.” But"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "lay",
+       "context": "into the spare room to lay off her hat when she"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "lay",
+       "context": "to the east gable to lay off her hat and then"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "form": "lay",
+       "context": "and dared Mr. Phillips to lay a hand on one of"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "lay",
+       "context": "in here, Mr. Barry, and lay her on the sofa. Mercy"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "lay",
+       "context": "in the out-of-door world and lay in a good stock of"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "form": "lay",
+       "context": "not to work. Come and lay off your things, Rachel. You’ll"
+      }
+     ]
+    }
+   ]
+  },
+  "layer": {
+   "pos": "singular noun",
+   "meaning": "One flat part on top of another. A layer cake has flat parts with filling between.",
+   "forms": [
+    "layers"
+   ]
   },
   "leafless": {
    "pos": "adjective",
@@ -4378,6 +6184,28 @@
    "pos": "adverb",
    "meaning": "In a generous way; a lot."
   },
+  "license": {
+   "pos": "noun",
+   "meaning": "A paper that says you may teach.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "A paper that says a person may teach. A teacher's license.",
+     "default": true
+    },
+    {
+     "meaning": "Freedom she allowed herself. The license she gave her imagination means she let it run free.",
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "license",
+       "context": "Bitterly did she repent the license she had given to her"
+      }
+     ]
+    }
+   ]
+  },
   "licked": {
    "pos": "past-tense verb",
    "meaning": "Moved the tongue over."
@@ -4392,6 +6220,138 @@
    "forms": [
     "lilac",
     "lilacs"
+   ]
+  },
+  "lily": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A white flower. The lily maid is the girl in the poem, called that because she is like a white lily.",
+   "senses": [
+    {
+     "meaning": "A white flower. The lily maid is the girl in the poem, called that because she is like a white lily.",
+     "whyHard": "Not the usual meaning! Usually: Lily is a girl's name.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "lily",
+       "context": "for breath, with a forgotten lily wreath hanging askew over one"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "lily",
+       "context": "CHAPTER XXVIII. An Unfortunate Lily Maid"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "form": "lily",
+       "context": "know. And Elaine was the lily maid. Now, a red-haired person"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "form": "lily",
+       "context": "red-haired person cannot be a lily maid.”"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 4,
+       "form": "lily",
+       "context": "but at least the fair lily maid and Lancelot and Guinevere"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 5,
+       "form": "lily",
+       "context": "an excellent substitute. A white lily was not obtainable just then,"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 6,
+       "form": "lily",
+       "context": "in readiness to receive the lily maid."
+      },
+      {
+       "chapter": 27,
+       "occurrence": 7,
+       "form": "lily",
+       "context": "an hour to the unfortunate lily maid. Why didn’t somebody come?"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "lilies",
+       "context": "in the front yard and lilies of the valley just inside"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "lilies",
+       "context": "bouquet of them white June lilies over in the corner if"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "lilies",
+       "context": "a clump of gorgeous tiger lilies."
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "lilies",
+       "context": "in the woods where rice lilies grow. Don’t you think Diana"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "lilies",
+       "context": "around Green Gables; the Madonna lilies in the garden sent out"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "form": "lilies",
+       "context": "leaning out to pick water lilies and if Mr. Andrews hadn’t"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "lilies",
+       "context": "ferns and starflowers and wild lilies-of-the-valley and scarlet tufts of pigeonberries"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "lilies",
+       "context": "with a wreath of rice lilies on her hair as if"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "lilies",
+       "context": "overdone—something like them white June lilies she calls narcissus alongside of"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "lilies",
+       "context": "Tonight a spike of white lilies faintly perfumed the room like"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "lilies",
+       "context": "Diana with the faded “June lilies” of her bouquet."
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "lilies"
    ]
   },
   "limpid": {
@@ -4418,6 +6378,13 @@
    "pos": "singular noun",
    "meaning": "A liquid that you rub on the skin to reduce pain."
   },
+  "lip": {
+   "pos": "singular noun",
+   "meaning": "The edge of the mouth.",
+   "forms": [
+    "lips"
+   ]
+  },
   "lipped": {
    "pos": "adjective",
    "meaning": "Having lips of a certain kind."
@@ -4434,9 +6401,43 @@
    "pos": "adjective",
    "meaning": "Moving easily and gracefully."
   },
+  "lock": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A small piece of hair.",
+   "senses": [
+    {
+     "meaning": "A small piece of hair.",
+     "whyHard": "Not the usual meaning! Usually: a lock keeps a door shut.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "lock",
+       "context": "wilt thou give me a lock of thy jet-black tresses in"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "lock",
+       "context": "‘you.’ Diana gave me a lock of her hair and I’m"
+      }
+     ]
+    }
+   ]
+  },
   "loftily": {
    "pos": "adverb",
    "meaning": "In a proud way."
+  },
+  "log": {
+   "pos": "singular noun",
+   "meaning": "A thick piece of a tree trunk.",
+   "forms": [
+    "logs"
+   ]
   },
   "loin": {
    "pos": "singular noun",
@@ -4490,6 +6491,10 @@
    "pos": "singular noun",
    "meaning": "Courting."
   },
+  "loyal": {
+   "pos": "adjective",
+   "meaning": "True to a friend and not turning against them."
+  },
   "loyally": {
    "pos": "adverb",
    "meaning": "In a faithful way."
@@ -4526,9 +6531,20 @@
    "pos": "uncountable noun",
    "meaning": "Great beauty."
   },
+  "magnificent": {
+   "pos": "adjective",
+   "meaning": "Grand and beautiful."
+  },
   "mahogany": {
    "pos": "uncountable noun",
    "meaning": "A hard, dark red-brown wood used for furniture."
+  },
+  "maid": {
+   "pos": "singular noun",
+   "meaning": "A girl, or a girl who works in a house.",
+   "forms": [
+    "maids"
+   ]
   },
   "maidenhood": {
    "pos": "uncountable noun",
@@ -4542,9 +6558,24 @@
    "pos": "singular noun",
    "meaning": "The house of a church minister."
   },
+  "mansion": {
+   "pos": "singular noun",
+   "meaning": "A very large fine house."
+  },
   "mantelpiece": {
    "pos": "singular noun",
    "meaning": "The shelf above a fireplace."
+  },
+  "maple": {
+   "pos": "singular noun",
+   "meaning": "A tree with wide leaves.",
+   "forms": [
+    "maples"
+   ]
+  },
+  "mare": {
+   "pos": "singular noun",
+   "meaning": "A female horse."
   },
   "marigold": {
    "pos": "singular noun",
@@ -4554,6 +6585,13 @@
    "pos": "past-tense verb",
    "meaning": "Spoiled."
   },
+  "marvel": {
+   "pos": "noun",
+   "meaning": "A wonderful thing. To marvel is to wonder.",
+   "forms": [
+    "marvels"
+   ]
+  },
   "marveled": {
    "pos": "past-tense verb",
    "meaning": "Felt great surprise and wonder."
@@ -4561,6 +6599,40 @@
   "marvelously": {
    "pos": "adverb",
    "meaning": "In a wonderful way."
+  },
+  "masterpiece": {
+   "pos": "singular noun",
+   "meaning": "The best piece of work."
+  },
+  "match": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A small stick that makes a flame.",
+   "senses": [
+    {
+     "meaning": "A small stick that makes a flame.",
+     "whyHard": "Not the usual meaning! Usually: to match is to go well with something, or a match is a game.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "match",
+       "context": "lighted the lamp, oversetting the match safe and using up half"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "matches",
+       "context": "using up half a dozen matches before her shaking hands could"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "matches"
+   ]
   },
   "materialized": {
    "pos": "past-tense verb",
@@ -4596,6 +6668,13 @@
   "mechanically": {
    "pos": "adverb",
    "meaning": "Without thinking, like a machine."
+  },
+  "medal": {
+   "pos": "singular noun",
+   "meaning": "A small metal prize.",
+   "forms": [
+    "medals"
+   ]
   },
   "meddle": {
    "pos": "base verb",
@@ -4641,6 +6720,14 @@
    "pos": "adverb",
    "meaning": "Without kindness or pity."
   },
+  "mercy": {
+   "pos": "uncountable noun",
+   "meaning": "Kindness to someone you could punish."
+  },
+  "merely": {
+   "pos": "adverb",
+   "meaning": "Only. Nothing more than."
+  },
   "merrily": {
    "pos": "adverb",
    "meaning": "In a happy, lively way."
@@ -4656,6 +6743,17 @@
    "forms": [
     "methinks"
    ]
+  },
+  "method": {
+   "pos": "singular noun",
+   "meaning": "A way of doing something.",
+   "forms": [
+    "methods"
+   ]
+  },
+  "midst": {
+   "pos": "noun",
+   "meaning": "The middle. In the midst of means in the middle of."
   },
   "midstream": {
    "pos": "uncountable noun",
@@ -4677,6 +6775,330 @@
    "pos": "present participle",
    "meaning": "Mixing."
   },
+  "minister": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A church leader who prays and talks to the people.",
+   "senses": [
+    {
+     "meaning": "A church leader who prays and talks to the people.",
+     "whyHard": "Not the usual meaning! Usually: a minister is a leader in the government.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "calls me Marilla except the minister. He says Miss Cuthbert—when he"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "minister",
+       "context": "nearly as long as a minister’s and so poetical. But would"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "or sitting room when the minister came to tea. But he"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "text. If I was a minister I’d pick the short, snappy"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "minister",
+       "context": "long, too. I suppose the minister had to match it to"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "form": "minister",
+       "context": "had said, especially about the minister’s sermons and Mr. Bell’s prayers,"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "over with excitement when the minister announced the picnic from the"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "form": "minister",
+       "context": "imagined it. But when a minister says a thing in the"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "use that except for the minister or the Aids. You’ll put"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "minister",
+       "context": "I found out that the minister didn’t approve. I just kept"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "hymns. And oh, Marilla, the minister is going to take part;"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "besides, we met the new minister and his wife coming from"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "form": "minister",
+       "context": "little interest in a new minister, could I? His wife is"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 3,
+       "form": "minister",
+       "context": "do, I suppose, for a minister to have a regally lovely"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 4,
+       "form": "minister",
+       "context": "example. Mrs. Lynde says the minister’s wife over at Newbridge sets"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 5,
+       "form": "minister",
+       "context": "dresses so fashionably. Our new minister’s wife was dressed in blue"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 6,
+       "form": "minister",
+       "context": "were too worldly for a minister’s wife, but I didn’t make"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 7,
+       "form": "minister",
+       "context": "Besides, she’s only been a minister’s wife for a little while,"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 8,
+       "form": "minister",
+       "context": "the borrowers thereof. A new minister, and moreover a minister with"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 9,
+       "form": "minister",
+       "context": "new minister, and moreover a minister with a wife, was a"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 10,
+       "form": "minister",
+       "context": "Old Mr. Bentley, the minister whom Anne had found lacking"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 11,
+       "form": "minister",
+       "context": "intercourse for their good old minister in spite of his shortcomings"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 12,
+       "form": "minister",
+       "context": "have some dignity about a minister, mustn’t you, Matthew? I thought"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 13,
+       "form": "minister",
+       "context": "to have a young unmarried minister in Avonlea, because he might"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 14,
+       "form": "minister",
+       "context": "we couldn’t expect a perfect minister for seven hundred and fifty"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 15,
+       "form": "minister",
+       "context": "an ideal combination for a minister’s family.”"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 16,
+       "form": "minister",
+       "context": "The new minister and his wife were a"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 17,
+       "form": "minister",
+       "context": "wouldn’t be dignified in a minister’s wife. But I can just"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 18,
+       "form": "minister",
+       "context": "get acquainted with a new minister, and a new minister’s wife"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 19,
+       "form": "minister",
+       "context": "new minister, and a new minister’s wife will frighten him to"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 20,
+       "form": "minister",
+       "context": "at Green Gables. Having the minister and his wife to tea"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 21,
+       "form": "minister",
+       "context": "such a responsibility having a minister’s family to tea. I never"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 22,
+       "form": "minister",
+       "context": "old both, in case the minister is dyspeptic and can’t eat"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 23,
+       "form": "minister",
+       "context": "Mr. Allan has been a minister long enough for it to"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 24,
+       "form": "minister",
+       "context": "of the serpent, “and the minister paid her an elegant compliment."
+      },
+      {
+       "chapter": 20,
+       "occurrence": 25,
+       "form": "minister",
+       "context": "of beauty that when the minister and his wife sat down"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 26,
+       "form": "minister",
+       "context": "collar and talked to the minister not uninterestingly. He never said"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 27,
+       "form": "minister",
+       "context": "triangle, as did also the minister and Marilla."
+      },
+      {
+       "chapter": 20,
+       "occurrence": 28,
+       "form": "minister",
+       "context": "I’ll wash them when the minister and his wife are gone,"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "I’d like to be a minister’s wife when I grow up,"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "form": "minister",
+       "context": "I grow up, Marilla. A minister mightn’t mind my red hair"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "proud of, Marilla? When a minister’s wife has so many claims"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "think it right for a minister to set his affections so"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "form": "minister",
+       "context": "says she once heard a minister confess that when he was"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 3,
+       "form": "minister",
+       "context": "had any respect for that minister again. Now, I wouldn’t have"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "anything you can’t tell the minister’s wife. It’s as good as"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "form": "minister",
+       "context": "extra conscience to have a minister’s wife for your friend. And"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "is going to be a minister. Mrs. Lynde says he couldn’t"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "form": "minister",
+       "context": "of Moody Spurgeon being a minister makes me laugh. He’s such"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "I think I’d be a minister. They can have such an"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "minister",
+       "context": "be a carpenter than a minister, anyhow. I cheered him up"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "ministers"
+   ]
+  },
   "mirrorlike": {
    "pos": "adjective",
    "meaning": "Smooth and shiny like a mirror."
@@ -4693,15 +7115,30 @@
    "pos": "adjective",
    "meaning": "Playful and a little naughty."
   },
+  "miserable": {
+   "pos": "adjective",
+   "meaning": "Very unhappy."
+  },
   "miserably": {
    "pos": "adverb",
    "meaning": "In a very unhappy way."
+  },
+  "misery": {
+   "pos": "uncountable noun",
+   "meaning": "Great unhappiness."
   },
   "misgiving": {
    "pos": "singular noun",
    "meaning": "A feeling of doubt or worry.",
    "forms": [
     "misgivings"
+   ]
+  },
+  "missionary": {
+   "pos": "singular noun",
+   "meaning": "A person sent out to teach a religion.",
+   "forms": [
+    "missionaries"
    ]
   },
   "mistaking": {
@@ -4732,6 +7169,14 @@
    "pos": "adjective",
    "meaning": "Wearing mittens, gloves with no fingers."
   },
+  "modest": {
+   "pos": "adjective",
+   "meaning": "Not boasting. Not showing off."
+  },
+  "moisture": {
+   "pos": "uncountable noun",
+   "meaning": "A little wetness."
+  },
   "momentary": {
    "pos": "adjective",
    "meaning": "Lasting for a very short time."
@@ -4752,9 +7197,27 @@
    "pos": "uncountable noun",
    "meaning": "Foolish ideas; nonsense. (Also the light of the moon.)"
   },
+  "moral": {
+   "pos": "singular noun",
+   "meaning": "The lesson a story wants to teach.",
+   "forms": [
+    "morals"
+   ]
+  },
+  "moreover": {
+   "pos": "adverb",
+   "meaning": "And also. Besides that."
+  },
   "morsel": {
    "pos": "singular noun",
    "meaning": "A small piece of food."
+  },
+  "mortal": {
+   "pos": "noun",
+   "meaning": "A human person, who will not live forever.",
+   "forms": [
+    "mortals"
+   ]
   },
   "mortification": {
    "pos": "uncountable noun",
@@ -4779,6 +7242,17 @@
   "motionless": {
    "pos": "adjective",
    "meaning": "Not moving."
+  },
+  "motive": {
+   "pos": "singular noun",
+   "meaning": "The reason you do something.",
+   "forms": [
+    "motives"
+   ]
+  },
+  "mourned": {
+   "pos": "past-tense verb",
+   "meaning": "Felt and showed sadness for a death or a loss."
   },
   "mournful": {
    "pos": "adjective",
@@ -4812,9 +7286,20 @@
    "pos": "past-tense verb",
    "meaning": "Spoke in a low quiet voice."
   },
+  "muse": {
+   "pos": "verb",
+   "meaning": "To think in a dreamy way.",
+   "forms": [
+    "mused"
+   ]
+  },
   "muslin": {
    "pos": "uncountable noun",
    "meaning": "A thin cotton cloth."
+  },
+  "mute": {
+   "pos": "adjective",
+   "meaning": "Silent. Not speaking."
   },
   "mutely": {
    "pos": "adverb",
@@ -4832,9 +7317,20 @@
    "pos": "present participle",
    "meaning": "Speaking in a low voice."
   },
+  "mysterious": {
+   "pos": "adjective",
+   "meaning": "Hard to understand. Full of mystery."
+  },
   "mysteriously": {
    "pos": "adverb",
    "meaning": "In a way that is hard to understand."
+  },
+  "mystery": {
+   "pos": "singular noun",
+   "meaning": "Something you cannot understand.",
+   "forms": [
+    "mysteries"
+   ]
   },
   "mystified": {
    "pos": "adjective",
@@ -4860,6 +7356,10 @@
    "pos": "adjective",
    "meaning": "Having a neck of a type."
   },
+  "necklace": {
+   "pos": "singular noun",
+   "meaning": "A chain of beads or jewels worn around the neck."
+  },
   "neglect": {
    "pos": "base verb",
    "meaning": "To not take care of something.",
@@ -4871,9 +7371,24 @@
     "neglects"
    ]
   },
+  "nervous": {
+   "pos": "adjective",
+   "meaning": "Afraid and not calm."
+  },
   "nervousness": {
    "pos": "uncountable noun",
    "meaning": "A feeling of worry."
+  },
+  "nest": {
+   "pos": "singular noun",
+   "meaning": "A home a bird builds.",
+   "forms": [
+    "nests"
+   ]
+  },
+  "nevertheless": {
+   "pos": "adverb",
+   "meaning": "Even so. All the same."
   },
   "nibbled": {
    "pos": "past-tense verb",
@@ -4912,9 +7427,47 @@
    "meaning": "Spread as news.",
    "whyHard": "An old use."
   },
+  "note": {
+   "pos": "singular noun",
+   "meaning": "A short letter.",
+   "whyHard": "This word has more than one meaning.",
+   "forms": [
+    "notes"
+   ],
+   "senses": [
+    {
+     "meaning": "A short letter.",
+     "default": true
+    },
+    {
+     "meaning": "Something you notice and remember. A mental note is a thing you tell yourself to remember.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "note",
+       "context": "door, had taken a mental note of everything that was on"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "note",
+       "context": "Matthew had learned to take note of these things; but the"
+      }
+     ]
+    }
+   ]
+  },
   "noticeably": {
    "pos": "adverb",
    "meaning": "In a way that is easy to see."
+  },
+  "novel": {
+   "pos": "singular noun",
+   "meaning": "A long made-up story in a book.",
+   "forms": [
+    "novels"
+   ]
   },
   "nowaday": {
    "pos": "adverb",
@@ -4922,6 +7475,10 @@
    "forms": [
     "nowadays"
    ]
+  },
+  "nowhere": {
+   "pos": "adverb",
+   "meaning": "Not in any place."
   },
   "nursed": {
    "pos": "past-tense verb",
@@ -4948,9 +7505,27 @@
    "pos": "adverb",
    "meaning": "In a way that follows orders."
   },
+  "obey": {
+   "pos": "verb",
+   "meaning": "To do what you are told.",
+   "forms": [
+    "obeyed"
+   ]
+  },
+  "object": {
+   "pos": "singular noun",
+   "meaning": "A goal you work for, or a thing people look at.",
+   "forms": [
+    "objects"
+   ]
+  },
   "objectionable": {
    "pos": "adjective",
    "meaning": "Unpleasant and likely to be disliked."
+  },
+  "obliged": {
+   "pos": "adjective",
+   "meaning": "Forced, or bound by thanks. Much obliged means thank you."
   },
   "obligingly": {
    "pos": "adverb",
@@ -4976,6 +7551,13 @@
    "pos": "adjective",
    "meaning": "Too noticeable."
   },
+  "occasion": {
+   "pos": "singular noun",
+   "meaning": "A time when something happens.",
+   "forms": [
+    "occasions"
+   ]
+  },
   "occupant": {
    "pos": "singular noun",
    "meaning": "A person who lives in a place."
@@ -4984,9 +7566,17 @@
    "pos": "singular noun",
    "meaning": "An eye doctor."
   },
+  "odd": {
+   "pos": "adjective",
+   "meaning": "Strange."
+  },
   "odder": {
    "pos": "comparative adjective",
    "meaning": "More strange."
+  },
+  "offended": {
+   "pos": "adjective",
+   "meaning": "Hurt and angry because of what someone did or said."
   },
   "officious": {
    "pos": "adjective",
@@ -5037,6 +7627,33 @@
     "orchards"
    ]
   },
+  "organ": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A big musical instrument with keys, often played in a church.",
+   "senses": [
+    {
+     "meaning": "A big musical instrument with keys, often played in a church.",
+     "whyHard": "Not the usual meaning! Usually: an organ is a part of the body.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "organ",
+       "context": "to it—just like a big organ playing. You couldn’t quite call"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "organ",
+       "context": "plays a march on the organ. Oh, Marilla, I know you"
+      }
+     ]
+    }
+   ]
+  },
   "organdy": {
    "pos": "uncountable noun",
    "meaning": "A very thin stiff cotton cloth."
@@ -5048,6 +7665,10 @@
     "orphan",
     "orphans"
    ]
+  },
+  "ought": {
+   "pos": "verb",
+   "meaning": "Should. You ought to means you should."
   },
   "outburst": {
    "pos": "singular noun",
@@ -5105,6 +7726,10 @@
    "pos": "singular noun",
    "meaning": "The sense of taste."
   },
+  "pale": {
+   "pos": "adjective",
+   "meaning": "Having little color in the face."
+  },
   "paled": {
    "pos": "past-tense verb",
    "meaning": "Became less coloured."
@@ -5124,6 +7749,43 @@
   "pallor": {
    "pos": "uncountable noun",
    "meaning": "A pale colour of the face."
+  },
+  "palm": {
+   "pos": "noun",
+   "meaning": "The inside of the hand, or a tree with big leaves like a fan.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "The inside of the hand, or a tree with big leaves like a fan.",
+     "default": true
+    },
+    {
+     "meaning": "To pass a poor thing off on someone by a trick.",
+     "whyHard": "Not the usual meaning! Usually: the palm is the inside of the hand.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "palm",
+       "context": "at Carmody know they can palm anything off on him. Just"
+      }
+     ]
+    },
+    {
+     "meaning": "The prize. To carry off the palm means to win.",
+     "whyHard": "Not the usual meaning! Usually: the palm is the inside of the hand.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "palm",
+       "context": "Stella Maynard carried off the palm for beauty, with small but"
+      }
+     ]
+    }
+   ]
   },
   "pamper": {
    "pos": "base verb",
@@ -5193,6 +7855,10 @@
    "pos": "uncountable noun",
    "meaning": "Cloth made from many small pieces sewn together."
   },
+  "pathetic": {
+   "pos": "adjective",
+   "meaning": "So sad that it stirs pity."
+  },
   "patriarchal": {
    "pos": "adjective",
    "meaning": "Like an old, wise man who is the head of a family.",
@@ -5209,6 +7875,108 @@
   "paused": {
    "pos": "past-tense verb",
    "meaning": "Stopped for a short time."
+  },
+  "pearl": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A smooth pale jewel from a shell, or a pale shining color.",
+   "senses": [
+    {
+     "meaning": "A smooth pale jewel from a shell, or a pale shining color.",
+     "whyHard": "Not the usual meaning! Usually: Pearl is a person's name.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "pearl",
+       "context": "distance to horizon mists of pearl and purple; while"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "pearl",
+       "context": "trailing white lace, with a pearl cross on my breast and"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "pearl",
+       "context": "I have some of those pearl beads off the old pincushion"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "pearl",
+       "context": "southwest was the great shimmering, pearl-like sparkle of an evening star"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "pearl",
+       "context": "like a huge bowl of pearl and sapphire brimmed with wine"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "pearl",
+       "context": "you are to have my pearl bead ring.”"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "pearl",
+       "context": "have fallen heir to the pearl bead ring then and there."
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "pearl",
+       "context": "for the sun to drain—amethyst, pearl, silver, rose, and smoke-blue. The"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "pearl",
+       "context": "wild cherry-trees were outlined in pearl; the plowed fields were stretches"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "pearl",
+       "context": "“Shall I put my pearl beads on?” asked Anne. “Matthew"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 3,
+       "form": "pearl",
+       "context": "around her. What were her pearl beads compared to the diamonds"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 4,
+       "form": "pearl",
+       "context": "Gables, with my string of pearl beads. I know Matthew gave"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "pearls",
+       "context": "cross on my breast and pearls in my hair. My hair"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "pearls",
+       "context": "waist with a string of pearls about her smooth white throat"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "pearls"
+   ]
   },
   "pebble": {
    "pos": "singular noun",
@@ -5309,6 +8077,13 @@
    "meaning": "By necessity; because you have no choice.",
    "whyHard": "An old word."
   },
+  "perfume": {
+   "pos": "noun",
+   "meaning": "A sweet smell.",
+   "forms": [
+    "perfumes"
+   ]
+  },
   "perfumed": {
    "pos": "adjective",
    "meaning": "With a sweet smell."
@@ -5385,6 +8160,13 @@
    "pos": "adverb",
    "meaning": "In a way that expects bad things."
   },
+  "pew": {
+   "pos": "singular noun",
+   "meaning": "A long bench in a church.",
+   "forms": [
+    "pews"
+   ]
+  },
   "philosophically": {
    "pos": "adverb",
    "meaning": "In a calm way when accepting something bad."
@@ -5460,6 +8242,165 @@
   "placidly": {
    "pos": "adverb",
    "meaning": "In a calm way, not showing strong feeling."
+  },
+  "plain": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Simple, or clear and easy to see. To tell someone in a direct way.",
+   "senses": [
+    {
+     "meaning": "Simple, or clear and easy to see. To tell someone in a direct way.",
+     "whyHard": "Not the usual meaning! Usually: a plain is flat land.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "suit of clothes, which was plain proof that he was going"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "Marilla, I’ll just tell you plain that I think you’re doing"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "I know it is just plain red and it breaks my"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "“Anne is a real good plain sensible name. You’ve no need"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "you! I can see as plain as plain that you want"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 3,
+       "form": "plain",
+       "context": "can see as plain as plain that you want to keep"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "“No; you’ll call me just plain Marilla. I’m not used to"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "and they were all made alike—plain skirts fulled tightly to plain"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "alike—plain skirts fulled tightly to plain waists, with sleeves as plain"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "form": "plain",
+       "context": "plain waists, with sleeves as plain as waist and skirt and"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 4,
+       "form": "plain",
+       "context": "things anyhow. I prefer the plain, sensible ones.”"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 5,
+       "form": "plain",
+       "context": "when everybody else does than plain and sensible all by myself,”"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "lied about it. That’s the plain, ugly truth, Matthew Cuthbert, and"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "found something more poetical than plain Birch Path. Anybody can think"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "see it there just as plain. Jane said she cried herself"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "pang when she contrasted her plain black tam and shapeless, tight-sleeved,"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "“There’s one thing plain to be seen, Anne,” said"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "Marilla kept her clothed in plain, dark dresses, all made after"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "have think it’s all as plain and easy as Rule of"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "pretty, now seemed simple and plain—too simple and plain, she thought,"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "simple and plain—too simple and plain, she thought, among all the"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 3,
+       "form": "plain",
+       "context": "Very different this from the plain benches at the Debating Club,"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 4,
+       "form": "plain",
+       "context": "“Being interpreted it means plain red, I guess,” laughed Anne."
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "modes of hair-dressing, and Jane Andrews—plain, plodding, conscientious Jane—carried off the"
+      }
+     ]
+    }
+   ]
   },
   "plainly": {
    "pos": "adverb",
@@ -5548,6 +8489,10 @@
    "pos": "adjective",
    "meaning": "Like poetry."
   },
+  "poetry": {
+   "pos": "uncountable noun",
+   "meaning": "Writing in verse. Poems."
+  },
   "poked": {
    "pos": "past-tense verb",
    "meaning": "Pushed with a finger or a stick."
@@ -5555,6 +8500,10 @@
   "poky": {
    "pos": "adjective",
    "meaning": "Too small and dull."
+  },
+  "politely": {
+   "pos": "adverb",
+   "meaning": "In a way that shows good manners."
   },
   "politer": {
    "pos": "comparative adjective",
@@ -5570,6 +8519,13 @@
   "pompadour": {
    "pos": "singular noun",
    "meaning": "A way of dressing hair with the hair high at the front."
+  },
+  "pond": {
+   "pos": "singular noun",
+   "meaning": "A small lake.",
+   "forms": [
+    "ponds"
+   ]
   },
   "ponder": {
    "pos": "base verb",
@@ -5599,6 +8555,13 @@
    "pos": "uncountable noun",
    "meaning": "A soft food made from oats boiled in milk or water."
   },
+  "possibility": {
+   "pos": "singular noun",
+   "meaning": "Something that may happen.",
+   "forms": [
+    "possibilities"
+   ]
+  },
   "pouf": {
    "pos": "interjection",
    "meaning": "A sound meaning \"that is nothing\"."
@@ -5618,6 +8581,17 @@
     "practicalities"
    ]
   },
+  "practically": {
+   "pos": "adverb",
+   "meaning": "Almost. Very nearly."
+  },
+  "preach": {
+   "pos": "verb",
+   "meaning": "To give a talk about God in church.",
+   "forms": [
+    "preached"
+   ]
+  },
   "precarious": {
    "pos": "adjective",
    "meaning": "Not safe; likely to fall."
@@ -5625,6 +8599,10 @@
   "precedence": {
    "pos": "uncountable noun",
    "meaning": "The right to come first."
+  },
+  "precious": {
+   "pos": "adjective",
+   "meaning": "Very dear. Loved, or worth a great deal."
   },
   "predilection": {
    "pos": "singular noun",
@@ -5652,6 +8630,33 @@
    "pos": "adjective",
    "meaning": "Completely silly."
   },
+  "present": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "There, in that place. You came to the meeting.",
+   "senses": [
+    {
+     "meaning": "There, in that place. You came to the meeting.",
+     "whyHard": "Not the usual meaning! Usually: a present is a gift, and at present means now.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "present",
+       "context": "nonsupporters as chose to be present at the monster mass meeting"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "present",
+       "context": "form of mischief which might present itself. This presently took the"
+      }
+     ]
+    }
+   ]
+  },
   "presentiment": {
    "pos": "singular noun",
    "meaning": "A feeling that something bad will happen.",
@@ -5664,9 +8669,61 @@
    "pos": "adverb",
    "meaning": "Soon; after a short time."
   },
+  "preserve": {
+   "pos": "noun",
+   "meaning": "Fruit cooked with sugar, like jam.",
+   "whyHard": "This word has more than one meaning.",
+   "forms": [
+    "preserves"
+   ],
+   "senses": [
+    {
+     "meaning": "Fruit cooked with sugar, like jam.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "preserve",
+       "context": "and pecked at the crab-apple preserve out of the little scalloped"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "preserve",
+       "context": "get yourself some blue plum preserve out of the pantry. I"
+      }
+     ]
+    },
+    {
+     "meaning": "To keep safe. Preserve me means save me from that.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "preserve",
+       "context": "to be sly or deceitful. Preserve me from a sly child,"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "preserve",
+       "context": "she was honestly anxious to preserve her little daughter from the"
+      }
+     ]
+    }
+   ]
+  },
   "presumptuous": {
    "pos": "adjective",
    "meaning": "Too bold and not polite."
+  },
+  "pretend": {
+   "pos": "verb",
+   "meaning": "To act as if something is true when it is not.",
+   "forms": [
+    "pretended"
+   ]
   },
   "prettiest": {
    "pos": "superlative adjective",
@@ -5679,6 +8736,10 @@
   "pricked": {
    "pos": "past-tense verb",
    "meaning": "Made a small hole with something sharp."
+  },
+  "pride": {
+   "pos": "uncountable noun",
+   "meaning": "A high feeling about yourself or about someone you love."
   },
   "prided": {
    "pos": "past-tense verb",
@@ -5728,9 +8789,17 @@
    "pos": "adverb",
    "meaning": "In a way that gives gain."
   },
+  "promptly": {
+   "pos": "adverb",
+   "meaning": "At once, without waiting."
+  },
   "promptness": {
    "pos": "uncountable noun",
    "meaning": "Doing something quickly and on time."
+  },
+  "pronounced": {
+   "pos": "past-tense verb",
+   "meaning": "Said a word out loud, or stated in a firm way."
   },
   "propped": {
    "pos": "past-tense verb",
@@ -5739,6 +8808,13 @@
   "prosaic": {
    "pos": "adjective",
    "meaning": "Ordinary and not interesting."
+  },
+  "prospect": {
+   "pos": "singular noun",
+   "meaning": "A view, or something you look forward to.",
+   "forms": [
+    "prospects"
+   ]
   },
   "prouder": {
    "pos": "comparative adjective",
@@ -5768,6 +8844,20 @@
    "pos": "past-tense verb",
    "meaning": "Cut a plant to help it to grow."
   },
+  "pudding": {
+   "pos": "singular noun",
+   "meaning": "A soft sweet food that is cooked.",
+   "forms": [
+    "puddings"
+   ]
+  },
+  "puff": {
+   "pos": "singular noun",
+   "meaning": "A soft rounded swell. Puffed sleeves stand out from the arm.",
+   "forms": [
+    "puffs"
+   ]
+  },
   "puffed": {
    "pos": "adjective",
    "meaning": "Made big and round, like the sleeves in the story."
@@ -5783,6 +8873,13 @@
   "pung": {
    "pos": "singular noun",
    "meaning": "A sleigh pulled by one horse. A word used in New England."
+  },
+  "pupil": {
+   "pos": "singular noun",
+   "meaning": "A student.",
+   "forms": [
+    "pupils"
+   ]
   },
   "purply": {
    "pos": "adjective",
@@ -5955,6 +9052,10 @@
    "pos": "past-tense verb",
    "meaning": "Made a lot of short hard sounds."
   },
+  "raven": {
+   "pos": "adjective",
+   "meaning": "Deep black. Used for black hair."
+  },
   "ravishing": {
    "pos": "adjective",
    "meaning": "Very beautiful."
@@ -5995,6 +9096,10 @@
    "pos": "present participle",
    "meaning": "Saying aloud from memory."
   },
+  "reckon": {
+   "pos": "verb",
+   "meaning": "To think or suppose. A country way of saying it."
+  },
   "reckoned": {
    "pos": "past-tense verb",
    "meaning": "Thought or believed. (Informal.)"
@@ -6030,6 +9135,17 @@
   "reechoed": {
    "pos": "past-tense verb",
    "meaning": "Sounded again."
+  },
+  "reflected": {
+   "pos": "past-tense verb",
+   "meaning": "Threw back light, or thought quietly."
+  },
+  "reflection": {
+   "pos": "noun",
+   "meaning": "The picture you see in a glass or in water, or quiet thinking.",
+   "forms": [
+    "reflections"
+   ]
   },
   "reflectively": {
    "pos": "adverb",
@@ -6087,9 +9203,25 @@
    "pos": "past-tense verb",
    "meaning": "Became less strict."
   },
+  "relief": {
+   "pos": "uncountable noun",
+   "meaning": "The good feeling when a worry or a pain stops."
+  },
   "relinquishing": {
    "pos": "present participle",
    "meaning": "Giving up."
+  },
+  "reluctantly": {
+   "pos": "adverb",
+   "meaning": "Unwillingly. Not wanting to."
+  },
+  "remarkable": {
+   "pos": "adjective",
+   "meaning": "Worth noticing. Unusual."
+  },
+  "remorse": {
+   "pos": "uncountable noun",
+   "meaning": "Deep sorrow for something you did wrong."
   },
   "remorseful": {
    "pos": "adjective",
@@ -6183,6 +9315,10 @@
    "pos": "adverb",
    "meaning": "In a firm way, showing you will not change your mind."
   },
+  "resolved": {
+   "pos": "adjective",
+   "meaning": "Firmly decided."
+  },
   "retaliatory": {
    "pos": "adjective",
    "meaning": "Done to hurt someone who hurt you."
@@ -6231,6 +9367,10 @@
    "pos": "past-tense verb",
    "meaning": "Wrote again."
   },
+  "rid": {
+   "pos": "adjective",
+   "meaning": "Free of something. To get rid of means to send it away."
+  },
   "ridgepole": {
    "pos": "singular noun",
    "meaning": "The long beam at the top of a roof.",
@@ -6238,6 +9378,10 @@
     "ridgepole",
     "ridgepoles"
    ]
+  },
+  "ridiculous": {
+   "pos": "adjective",
+   "meaning": "So silly that people laugh."
   },
   "righted": {
    "pos": "past-tense verb",
@@ -6267,6 +9411,10 @@
    "pos": "present participle",
    "meaning": "Moving in small waves."
   },
+  "rivalry": {
+   "pos": "singular noun",
+   "meaning": "A contest to see who does better."
+  },
   "robed": {
    "pos": "adjective",
    "meaning": "Wearing a long loose piece of clothing."
@@ -6278,6 +9426,14 @@
   "roguish": {
    "pos": "adjective",
    "meaning": "Playful and a little naughty."
+  },
+  "romance": {
+   "pos": "noun",
+   "meaning": "A love story, or a feeling for things that are strange and beautiful."
+  },
+  "romantic": {
+   "pos": "adjective",
+   "meaning": "Full of strong feeling, like an old story."
   },
   "roseberry": {
    "pos": "singular noun",
@@ -6314,6 +9470,45 @@
    "pos": "adjective",
    "meaning": "Moving from place to place."
   },
+  "row": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To move a boat with oars. A boat ride.",
+   "senses": [
+    {
+     "meaning": "To move a boat with oars. A boat ride.",
+     "whyHard": "Not the usual meaning! Usually: a row is a line of things.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "row",
+       "context": "took us all for a row on the Lake of Shining"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "row",
+       "context": "the two girls learned to row themselves about in the little"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "form": "row",
+       "context": "you be kind enough to row me to the landing?”"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "form": "row",
+       "context": "we’ll not be allowed to row on the pond any more.”"
+      }
+     ]
+    }
+   ]
+  },
   "rowing": {
    "pos": "present participle",
    "meaning": "Moving a boat with oars."
@@ -6333,6 +9528,13 @@
   "ruffled": {
    "pos": "adjective",
    "meaning": "Annoyed; or untidy."
+  },
+  "ruin": {
+   "pos": "verb",
+   "meaning": "To spoil completely.",
+   "forms": [
+    "ruined"
+   ]
   },
   "ruminated": {
    "pos": "past-tense verb",
@@ -6397,6 +9599,10 @@
   "sagely": {
    "pos": "adverb",
    "meaning": "In a wise way."
+  },
+  "sake": {
+   "pos": "singular noun",
+   "meaning": "For a person's good, or because of that person."
   },
   "sallow": {
    "pos": "adjective",
@@ -6475,9 +9681,31 @@
    "pos": "singular noun",
    "meaning": "A figure that farmers put in a field to frighten birds."
   },
+  "scarlet": {
+   "pos": "adjective",
+   "meaning": "A bright red."
+  },
+  "scattered": {
+   "pos": "adjective",
+   "meaning": "Thrown about here and there."
+  },
   "scented": {
    "pos": "adjective",
    "meaning": "Having a nice smell."
+  },
+  "scholar": {
+   "pos": "singular noun",
+   "meaning": "A student in a school.",
+   "forms": [
+    "scholars"
+   ]
+  },
+  "scholarship": {
+   "pos": "singular noun",
+   "meaning": "Money given so a student can study.",
+   "forms": [
+    "scholarships"
+   ]
   },
   "schoolbook": {
    "pos": "singular noun",
@@ -6544,6 +9772,10 @@
   "scolding": {
    "pos": "singular noun",
    "meaning": "An angry telling-off."
+  },
+  "scope": {
+   "pos": "uncountable noun",
+   "meaning": "Room or chance to do something."
   },
   "scorn": {
    "pos": "singular noun",
@@ -6633,9 +9865,28 @@
    "pos": "singular noun",
    "meaning": "A person who can see the future."
   },
+  "seized": {
+   "pos": "past-tense verb",
+   "meaning": "Grabbed suddenly."
+  },
   "seizing": {
    "pos": "present participle",
    "meaning": "Taking hold of suddenly."
+  },
+  "sensation": {
+   "pos": "singular noun",
+   "meaning": "A feeling in the body or a great stir among people.",
+   "forms": [
+    "sensations"
+   ]
+  },
+  "sensible": {
+   "pos": "adjective",
+   "meaning": "Having good sense. A sensible person is calm and wise."
+  },
+  "sensitive": {
+   "pos": "adjective",
+   "meaning": "Easily hurt in feelings."
   },
   "sensitively": {
    "pos": "adverb",
@@ -6650,6 +9901,13 @@
    "meaning": "Dry and dead.",
    "whyHard": "An old word."
   },
+  "sermon": {
+   "pos": "singular noun",
+   "meaning": "A talk a minister gives in church.",
+   "forms": [
+    "sermons"
+   ]
+  },
   "serviceable": {
    "pos": "adjective",
    "meaning": "Useful and strong, but not pretty."
@@ -6659,6 +9917,18 @@
    "meaning": "A servant. An old word.",
    "whyHard": "An old word."
   },
+  "settled": {
+   "pos": "adjective",
+   "meaning": "Decided, or living in a place for good."
+  },
+  "severe": {
+   "pos": "adjective",
+   "meaning": "Strict and hard."
+  },
+  "severely": {
+   "pos": "adverb",
+   "meaning": "In a hard, strict way."
+  },
   "severest": {
    "pos": "superlative adjective",
    "meaning": "The most strict."
@@ -6667,11 +9937,25 @@
    "pos": "adjective",
    "meaning": "Old and worn; in bad condition."
   },
+  "shade": {
+   "pos": "noun",
+   "meaning": "A place out of the sun, or a kind of a color.",
+   "forms": [
+    "shades"
+   ]
+  },
   "shading": {
    "pos": "singular noun",
    "meaning": "Gentle change from light to dark in colour.",
    "forms": [
     "shadings"
+   ]
+  },
+  "shadow": {
+   "pos": "singular noun",
+   "meaning": "The dark shape made when something blocks the light.",
+   "forms": [
+    "shadows"
    ]
   },
   "shadowing": {
@@ -6776,9 +10060,17 @@
    "pos": "present participle",
    "meaning": "Shaking from cold."
   },
+  "shocked": {
+   "pos": "adjective",
+   "meaning": "Suddenly upset by something bad or surprising."
+  },
   "shone": {
    "pos": "past-tense verb",
    "meaning": "Gave out light."
+  },
+  "shook": {
+   "pos": "past-tense verb",
+   "meaning": "Moved quickly back and forth. The past of shake."
   },
   "shopkeeper": {
    "pos": "singular noun",
@@ -6786,6 +10078,10 @@
    "forms": [
     "shopkeepers"
    ]
+  },
+  "shore": {
+   "pos": "singular noun",
+   "meaning": "The land at the edge of the water."
   },
   "shorn": {
    "pos": "adjective",
@@ -6834,6 +10130,10 @@
   "shrieked": {
    "pos": "past-tense verb",
    "meaning": "Made a loud high cry."
+  },
+  "shrinking": {
+   "pos": "verb",
+   "meaning": "Drawing back from fear or shame."
   },
   "shroud": {
    "pos": "singular noun",
@@ -6910,6 +10210,14 @@
    "pos": "past-tense verb",
    "meaning": "Passed through a net to take out the big parts."
   },
+  "sigh": {
+   "pos": "verb",
+   "meaning": "To let out a long breath when you are sad or tired.",
+   "forms": [
+    "sighed",
+    "sighs"
+   ]
+  },
   "signaled": {
    "pos": "past-tense verb",
    "meaning": "Gave a sign."
@@ -6946,6 +10254,13 @@
   "silvery": {
    "pos": "adjective",
    "meaning": "Shiny and grey-white like silver."
+  },
+  "sin": {
+   "pos": "singular noun",
+   "meaning": "An act that breaks a religious law.",
+   "forms": [
+    "sins"
+   ]
   },
   "sincerity": {
    "pos": "uncountable noun",
@@ -7003,6 +10318,10 @@
    "pos": "uncountable noun",
    "meaning": "Being very thin."
   },
+  "skinny": {
+   "pos": "adjective",
+   "meaning": "Very thin."
+  },
   "skunk": {
    "pos": "singular noun",
    "meaning": "A small black and white animal that produces a bad smell."
@@ -7011,6 +10330,20 @@
    "pos": "adjective",
    "meaning": "Using informal words that are not correct in careful speech."
   },
+  "slate": {
+   "pos": "singular noun",
+   "meaning": "A small dark board that school children wrote on with a pencil of soft stone.",
+   "forms": [
+    "slates"
+   ]
+  },
+  "sleeve": {
+   "pos": "singular noun",
+   "meaning": "The part of a dress that covers the arm. Puffed sleeves swell out.",
+   "forms": [
+    "sleeves"
+   ]
+  },
   "sleeved": {
    "pos": "adjective",
    "meaning": "Having sleeves."
@@ -7018,6 +10351,14 @@
   "sleigh": {
    "pos": "singular noun",
    "meaning": "A vehicle on long thin blades for travelling on snow."
+  },
+  "slender": {
+   "pos": "adjective",
+   "meaning": "Thin and graceful."
+  },
+  "slim": {
+   "pos": "adjective",
+   "meaning": "Thin in a graceful way."
   },
   "slimy": {
    "pos": "adjective",
@@ -7082,6 +10423,13 @@
    "pos": "past-tense verb",
    "meaning": "Took something secretly."
   },
+  "snap": {
+   "pos": "verb",
+   "meaning": "To speak in a short angry way, or to break with a sharp sound.",
+   "forms": [
+    "snapped"
+   ]
+  },
   "snappy": {
    "pos": "adjective",
    "meaning": "Quick and lively."
@@ -7127,6 +10475,10 @@
    "pos": "adverb",
    "meaning": "While crying."
   },
+  "sober": {
+   "pos": "adjective",
+   "meaning": "Serious, and not playful. Not drunk."
+  },
   "soberest": {
    "pos": "superlative adjective",
    "meaning": "The most serious."
@@ -7158,6 +10510,10 @@
   "sojourn": {
    "pos": "singular noun",
    "meaning": "A short stay."
+  },
+  "solemn": {
+   "pos": "adjective",
+   "meaning": "Very serious."
   },
   "solemnity": {
    "pos": "uncountable noun",
@@ -7207,6 +10563,13 @@
    "pos": "adverb",
    "meaning": "In a sad way."
   },
+  "soul": {
+   "pos": "singular noun",
+   "meaning": "The part of a person that feels, thinks, and is said to live on.",
+   "forms": [
+    "souls"
+   ]
+  },
   "soulful": {
    "pos": "adjective",
    "meaning": "Showing deep feeling."
@@ -7239,9 +10602,17 @@
    "pos": "past-tense verb",
    "meaning": "Stretched across."
   },
+  "spare": {
+   "pos": "adjective",
+   "meaning": "Extra, kept for later. A spare room is a bedroom for guests. Spare time is time you are free."
+  },
   "sparkled": {
    "pos": "past-tense verb",
    "meaning": "Shone with little bright flashes."
+  },
+  "sparkling": {
+   "pos": "adjective",
+   "meaning": "Shining with little points of light."
   },
   "spearsmen": {
    "pos": "plural noun",
@@ -7274,9 +10645,24 @@
    "pos": "singular noun",
    "meaning": "A tall pointed top of a church tower."
   },
+  "spirit": {
+   "pos": "noun",
+   "meaning": "The part of a person that feels and thinks. In spirit means inside yourself.",
+   "forms": [
+    "spirits"
+   ]
+  },
   "spiritlessly": {
    "pos": "adverb",
    "meaning": "In a sad way, without energy."
+  },
+  "spiritual": {
+   "pos": "adjective",
+   "meaning": "Of the soul, or of religion, not of the body."
+  },
+  "spite": {
+   "pos": "uncountable noun",
+   "meaning": "Even though something else is true. Used when a fact does not stop you."
   },
   "splashed": {
    "pos": "past-tense verb",
@@ -7314,6 +10700,13 @@
   "sprained": {
    "pos": "adjective",
    "meaning": "Hurt by twisting a joint."
+  },
+  "spray": {
+   "pos": "singular noun",
+   "meaning": "A small branch with flowers or leaves.",
+   "forms": [
+    "sprays"
+   ]
   },
   "springing": {
    "pos": "present participle",
@@ -7414,6 +10807,10 @@
    "pos": "adjective",
    "meaning": "Suddenly surprised or frightened."
   },
+  "startling": {
+   "pos": "adjective",
+   "meaning": "Surprising enough to make you jump."
+  },
   "stationmaster": {
    "pos": "singular noun",
    "meaning": "The person in charge of a railway station."
@@ -7429,6 +10826,10 @@
   "steadier": {
    "pos": "comparative adjective",
    "meaning": "More firm; less shaky."
+  },
+  "steadily": {
+   "pos": "adverb",
+   "meaning": "In a firm way, without stopping or shaking."
   },
   "steadiness": {
    "pos": "uncountable noun",
@@ -7446,9 +10847,17 @@
    "pos": "singular noun",
    "meaning": "A horse, in poetry."
   },
+  "steep": {
+   "pos": "adjective",
+   "meaning": "Rising sharply. Hard to climb."
+  },
   "sternly": {
    "pos": "adverb",
    "meaning": "In a strict, serious way."
+  },
+  "stiff": {
+   "pos": "adjective",
+   "meaning": "Hard to bend, or not easy and friendly."
   },
   "stiffened": {
    "pos": "past-tense verb",
@@ -7485,6 +10894,10 @@
     "stipulations"
    ]
   },
+  "stock": {
+   "pos": "noun",
+   "meaning": "A supply you keep. A good stock of something is plenty of it."
+  },
   "stolid": {
    "pos": "adjective",
    "meaning": "Calm and showing no feeling."
@@ -7517,6 +10930,10 @@
     "storybooks"
    ]
   },
+  "stout": {
+   "pos": "adjective",
+   "meaning": "Thick in the body. A little fat."
+  },
   "straightened": {
    "pos": "past-tense verb",
    "meaning": "Made straight."
@@ -7525,6 +10942,10 @@
    "pos": "adverb",
    "meaning": "At once. An old word.",
    "whyHard": "An old word."
+  },
+  "strained": {
+   "pos": "adjective",
+   "meaning": "Pulled tight, or forced and not natural."
   },
   "straining": {
    "pos": "present participle",
@@ -7537,6 +10958,11 @@
   "stricter": {
    "pos": "comparative adjective",
    "meaning": "More firm about rules."
+  },
+  "struck": {
+   "pos": "past-tense verb",
+   "meaning": "Hit, or came suddenly into the mind. It does not mean stuck.",
+   "whyHard": "It means hit, or it came into the mind. It does not mean stuck."
   },
   "strychnine": {
    "pos": "uncountable noun",
@@ -7558,6 +10984,10 @@
    "pos": "adjective",
    "meaning": "Fond of studying."
   },
+  "stumbled": {
+   "pos": "past-tense verb",
+   "meaning": "Tripped, or made a mistake while speaking."
+  },
   "stumbling": {
    "pos": "present participle",
    "meaning": "Almost falling."
@@ -7569,6 +10999,10 @@
   "stupidly": {
    "pos": "adverb",
    "meaning": "In a foolish way."
+  },
+  "stylish": {
+   "pos": "adjective",
+   "meaning": "In the fashion. Looking as people think you should look."
   },
   "subdued": {
    "pos": "adjective",
@@ -7586,13 +11020,81 @@
    "pos": "past-tense verb",
    "meaning": "Gave in."
   },
+  "sudden": {
+   "pos": "adjective",
+   "meaning": "Happening all at once."
+  },
   "suddenness": {
    "pos": "uncountable noun",
    "meaning": "Happening quickly and without warning."
   },
+  "suffering": {
+   "pos": "noun",
+   "meaning": "Pain of the body or the mind.",
+   "forms": [
+    "sufferings"
+   ]
+  },
   "suggestive": {
    "pos": "adjective",
    "meaning": "Making you think of something."
+  },
+  "suit": {
+   "pos": "noun",
+   "meaning": "A set of matching clothes.",
+   "whyHard": "This word has more than one meaning.",
+   "forms": [
+    "suits"
+   ],
+   "senses": [
+    {
+     "meaning": "A set of matching clothes.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "white collar and his best suit of clothes, which was plain"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "on Sunday in my new suit and cap, because I’m afraid"
+      }
+     ]
+    },
+    {
+     "meaning": "To be right for someone. Will that suit you means will that be all right for you.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "stay with us. Will that suit you, Mrs. Blewett?”"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "nice rich brown would just suit Anne, and William Blair has"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "form": "suit",
+       "context": "method in the world that’ll suit every child. But them as"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "right kind of glasses to suit my eyes. You won’t mind"
+      }
+     ]
+    }
+   ]
   },
   "suitably": {
    "pos": "adverb",
@@ -7622,6 +11124,17 @@
    "pos": "past-tense verb",
    "meaning": "Sat in the sun."
   },
+  "sunrise": {
+   "pos": "singular noun",
+   "meaning": "The coming up of the sun."
+  },
+  "sunset": {
+   "pos": "singular noun",
+   "meaning": "The going down of the sun.",
+   "forms": [
+    "sunsets"
+   ]
+  },
   "sunshiny": {
    "pos": "adjective",
    "meaning": "Full of sunshine."
@@ -7630,6 +11143,10 @@
    "pos": "adjective",
    "meaning": "More than is needed."
   },
+  "superintendent": {
+   "pos": "singular noun",
+   "meaning": "A person in charge of the schools."
+  },
   "superstitious": {
    "pos": "adjective",
    "meaning": "Believing in luck or magic."
@@ -7637,6 +11154,14 @@
   "suppliant": {
    "pos": "singular noun",
    "meaning": "A person who begs for something."
+  },
+  "suppose": {
+   "pos": "verb",
+   "meaning": "To think that something is likely true.",
+   "forms": [
+    "supposed",
+    "supposes"
+   ]
   },
   "supposing": {
    "pos": "present participle",
@@ -7707,6 +11232,10 @@
    "pos": "base verb",
    "meaning": "To feel sorry for someone's trouble."
   },
+  "sympathy": {
+   "pos": "uncountable noun",
+   "meaning": "The feeling of being sorry with someone who is sad."
+  },
   "tableau": {
    "pos": "singular noun",
    "meaning": "A group of people who stand still, as in a picture.",
@@ -7739,9 +11268,20 @@
    "pos": "uncountable noun",
    "meaning": "A sticky sweet made from sugar."
   },
+  "tale": {
+   "pos": "singular noun",
+   "meaning": "A story.",
+   "forms": [
+    "tales"
+   ]
+  },
   "talkative": {
    "pos": "adjective",
    "meaning": "Liking to talk a lot."
+  },
+  "tang": {
+   "pos": "singular noun",
+   "meaning": "A sharp taste or smell."
   },
   "tangle": {
    "pos": "singular noun",
@@ -7771,6 +11311,13 @@
    "pos": "adverb",
    "meaning": "In a sharp way."
   },
+  "task": {
+   "pos": "singular noun",
+   "meaning": "A piece of work you have to do.",
+   "forms": [
+    "tasks"
+   ]
+  },
   "tassel": {
    "pos": "singular noun",
    "meaning": "A bunch of threads tied at one end, used as a decoration.",
@@ -7798,6 +11345,10 @@
    "pos": "adjective",
    "meaning": "Without tears."
   },
+  "tears": {
+   "pos": "plural noun",
+   "meaning": "The water that comes from the eyes when you cry."
+  },
   "teatime": {
    "pos": "singular noun",
    "meaning": "The time in the afternoon when tea is drunk."
@@ -7811,9 +11362,181 @@
    "pos": "adjective",
    "meaning": "Showing something secret."
   },
+  "temper": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A habit of getting angry.",
+   "senses": [
+    {
+     "meaning": "A habit of getting angry.",
+     "whyHard": "Not the usual meaning! Usually: temper is how hot or cold something is.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "temper",
+       "context": "told fearsome tales of her temper and stinginess, and her family"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "temper",
+       "context": "anybody ever see such a temper!” exclaimed the horrified Mrs. Rachel."
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "temper",
+       "context": "such a terrible display of temper as we’ve just seen?” demanded"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "form": "temper",
+       "context": "kind of a child. Her temper matches her hair I guess."
+      },
+      {
+       "chapter": 8,
+       "occurrence": 4,
+       "form": "temper",
+       "context": "Anne should have displayed such temper before Mrs. Rachel Lynde, of"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 5,
+       "form": "temper",
+       "context": "why you should lose your temper like that just because Mrs."
+      },
+      {
+       "chapter": 8,
+       "occurrence": 6,
+       "form": "temper",
+       "context": "think I have an awful temper, but I couldn’t help it."
+      },
+      {
+       "chapter": 8,
+       "occurrence": 7,
+       "form": "temper",
+       "context": "for you to lose your temper like that, Anne.”"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 8,
+       "form": "temper",
+       "context": "very sorry for your bad temper and ask her to forgive"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "temper",
+       "context": "over. I wasn’t in a temper anymore—and it left a dreadful"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "temper",
+       "context": "“I’m sorry I lost my temper and said rude things, and"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "temper",
+       "context": "me to fly into a temper because you told me the"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "form": "temper",
+       "context": "if she had a dreadful temper? Oh, I am sure you"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 5,
+       "form": "temper",
+       "context": "civilized folks. And then, her temper’s pretty quick, I guess; but"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 6,
+       "form": "temper",
+       "context": "child that has a quick temper, just blaze up and cool"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 7,
+       "form": "temper",
+       "context": "you’ll try to control your temper now, Anne.”"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "temper",
+       "context": "said she had an awful temper; Jerry Buote, the hired boy"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "temper",
+       "context": "thing than her fit of temper. It’s a fearful responsibility to"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "temper",
+       "context": "of mine displaying such a temper and such a vindictive spirit,”"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "temper",
+       "context": "Shirley has a very bad temper. Ann Shirley must learn to"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "temper",
+       "context": "must learn to control her temper,” and then read it out"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 4,
+       "form": "temper",
+       "context": "yesterday for giving way to temper. But today it was different."
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "temper",
+       "context": "Barry was in a terrible temper when she got up this"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "form": "temper",
+       "context": "up this morning—and Josephine Barry’s temper is no joke, I can"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "temper",
+       "context": "drunk and flying into a temper with Mrs. Lynde. But they’ll"
+      }
+     ]
+    }
+   ]
+  },
   "tempestuous": {
    "pos": "adjective",
    "meaning": "Stormy; full of strong feeling."
+  },
+  "temptation": {
+   "pos": "singular noun",
+   "meaning": "A strong pull to do something you should not do.",
+   "forms": [
+    "temptations"
+   ]
   },
   "tenacity": {
    "pos": "uncountable noun",
@@ -7830,6 +11553,10 @@
   "thankfulness": {
    "pos": "uncountable noun",
    "meaning": "A feeling of being grateful."
+  },
+  "thee": {
+   "pos": "pronoun",
+   "meaning": "An old word for you."
   },
   "thenceforth": {
    "pos": "adverb",
@@ -7864,9 +11591,17 @@
    "pos": "adjective",
    "meaning": "Having sharp points on the stem."
   },
+  "thoroughly": {
+   "pos": "adverb",
+   "meaning": "Completely, in every part."
+  },
   "thoroughness": {
    "pos": "uncountable noun",
    "meaning": "Being careful to do everything."
+  },
+  "thou": {
+   "pos": "pronoun",
+   "meaning": "An old word for you."
   },
   "thoughtfulness": {
    "pos": "uncountable noun",
@@ -7875,6 +11610,10 @@
   "threadbare": {
    "pos": "adjective",
    "meaning": "Worn so thin that the threads show."
+  },
+  "threshold": {
+   "pos": "singular noun",
+   "meaning": "The floor at a doorway. The start of something."
   },
   "thrill": {
    "pos": "singular noun",
@@ -7891,6 +11630,13 @@
    "forms": [
     "thrillier",
     "thrilly"
+   ]
+  },
+  "throat": {
+   "pos": "singular noun",
+   "meaning": "The front of the neck, and the passage inside it.",
+   "forms": [
+    "throats"
    ]
   },
   "throb": {
@@ -7917,9 +11663,21 @@
    "pos": "past-tense verb",
    "meaning": "Stopped someone from doing something."
   },
+  "thy": {
+   "pos": "pronoun",
+   "meaning": "An old word for your."
+  },
+  "tick": {
+   "pos": "singular noun",
+   "meaning": "The cloth bag of a bed, stuffed with feathers. A feather tick is that bed."
+  },
   "tickled": {
    "pos": "past-tense verb",
    "meaning": "Touched lightly to make someone laugh; made someone amused."
+  },
+  "tightly": {
+   "pos": "adverb",
+   "meaning": "In a firm, close way."
   },
   "tilled": {
    "pos": "adjective",
@@ -7978,6 +11736,10 @@
    "pos": "present participle",
    "meaning": "Walking quietly on the front of the feet."
   },
+  "tissue": {
+   "pos": "uncountable noun",
+   "meaning": "A thin paper, or the thin stuff the body is made of."
+  },
   "toad": {
    "pos": "singular noun",
    "meaning": "A small animal like a frog with rough dry skin.",
@@ -8001,6 +11763,13 @@
    "pos": "uncountable noun",
    "meaning": "Silly behaviour."
   },
+  "tongue": {
+   "pos": "singular noun",
+   "meaning": "The soft part in the mouth used for tasting and speaking. Hold your tongue means stop talking.",
+   "forms": [
+    "tongues"
+   ]
+  },
   "tongued": {
    "pos": "adjective",
    "meaning": "Having a certain way of speaking."
@@ -8020,9 +11789,17 @@
    "pos": "past-tense verb",
    "meaning": "Made someone suffer."
   },
+  "torn": {
+   "pos": "adjective",
+   "meaning": "Ripped."
+  },
   "towered": {
    "pos": "past-tense verb",
    "meaning": "Was very tall."
+  },
+  "tragic": {
+   "pos": "adjective",
+   "meaning": "Very sad, like a terrible end in a story."
   },
   "tragical": {
    "pos": "adjective",
@@ -8115,6 +11892,13 @@
    "pos": "singular noun",
    "meaning": "A decoration on clothes."
   },
+  "triumph": {
+   "pos": "noun",
+   "meaning": "A great win, or the joy of winning.",
+   "forms": [
+    "triumphs"
+   ]
+  },
   "triumphant": {
    "pos": "adjective",
    "meaning": "Very happy because of winning."
@@ -8134,6 +11918,40 @@
   "troublesome": {
    "pos": "adjective",
    "meaning": "Causing difficulty."
+  },
+  "trunk": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A big box for clothes, used when you travel.",
+   "senses": [
+    {
+     "meaning": "A big box for clothes, used when you travel.",
+     "whyHard": "Not the usual meaning! Usually: a trunk is the thick stem of a tree.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "trunk",
+       "context": "in a box in her trunk. As Marilla lifted it out,"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "trunk",
+       "context": "textbooks away in an old trunk in the attic, locked it,"
+      }
+     ]
+    }
+   ]
+  },
+  "trustee": {
+   "pos": "singular noun",
+   "meaning": "A person who helps run the school.",
+   "forms": [
+    "trustees"
+   ]
   },
   "tuckered": {
    "pos": "adjective",
@@ -8178,6 +11996,13 @@
     "twigs"
    ]
   },
+  "twilight": {
+   "pos": "uncountable noun",
+   "meaning": "The soft light after the sun goes down.",
+   "forms": [
+    "twilights"
+   ]
+  },
   "twinkled": {
    "pos": "past-tense verb",
    "meaning": "Shone with small flashes of light."
@@ -8185,6 +12010,10 @@
   "twinkling": {
    "pos": "present participle",
    "meaning": "Shining with small flashes."
+  },
+  "twisted": {
+   "pos": "adjective",
+   "meaning": "Turned out of shape."
   },
   "twit": {
    "pos": "base verb",
@@ -8266,6 +12095,10 @@
   "unconcernedly": {
    "pos": "adverb",
    "meaning": "In a way that shows you do not care."
+  },
+  "unconscious": {
+   "pos": "adjective",
+   "meaning": "Not awake, or not knowing what you are doing."
   },
   "unconvinced": {
    "pos": "adjective",
@@ -8351,6 +12184,10 @@
   "unfolded": {
    "pos": "past-tense verb",
    "meaning": "Opened out."
+  },
+  "unfortunate": {
+   "pos": "adjective",
+   "meaning": "Unlucky."
   },
   "ungainly": {
    "pos": "adjective",
@@ -8562,6 +12399,10 @@
    "pos": "uncountable noun",
    "meaning": "The habit of telling lies."
   },
+  "unusual": {
+   "pos": "adjective",
+   "meaning": "Not usual. Strange."
+  },
   "unutterably": {
    "pos": "adverb",
    "meaning": "In a way that cannot be expressed in words."
@@ -8634,6 +12475,42 @@
    "pos": "adverb",
    "meaning": "To the upper part of a town."
   },
+  "utter": {
+   "pos": "adjective",
+   "meaning": "Complete. Total.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Complete. Total.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "utter",
+       "context": "and writhing in an utter abandonment of disappointment and despair."
+      }
+     ]
+    },
+    {
+     "meaning": "To say or to speak.",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "utter",
+       "context": "and tassels seemed to utter friendly speech."
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "utter",
+       "context": "a word could she utter, and the next moment she would"
+      }
+     ]
+    }
+   ]
+  },
   "utterance": {
    "pos": "singular noun",
    "meaning": "Something that is said."
@@ -8641,6 +12518,10 @@
   "uttered": {
    "pos": "past-tense verb",
    "meaning": "Spoke or made a sound."
+  },
+  "utterly": {
+   "pos": "adverb",
+   "meaning": "Completely."
   },
   "vagary": {
    "pos": "singular noun",
@@ -8653,10 +12534,130 @@
    "pos": "adjective",
    "meaning": "Wandering without a home."
   },
+  "vain": {
+   "pos": "adjective",
+   "meaning": "Too proud of your looks.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Too proud of your looks.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "vain",
+       "context": "afraid you are a very vain little girl.”"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "vain",
+       "context": "“How can I be vain when I know I’m homely?”"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "vain",
+       "context": "and I fear, tis a vain one.’ But in about three"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "vain",
+       "context": "“It’s very vain of you to say so"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "form": "vain",
+       "context": "Marilla. And indeed I’m not vain about it. How can I"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 3,
+       "form": "vain",
+       "context": "to practices. It makes them vain and forward and fond of"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "vain",
+       "context": "vanity, Matthew, and she’s as vain as a peacock now. Well,"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "vain",
+       "context": "I never thought I was vain about my hair, of all"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "vain",
+       "context": "know, for it seemed so vain and presumptuous to think I"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "form": "vain",
+       "context": "of the first! I’m not vain, but I’m thankful.”"
+      }
+     ]
+    },
+    {
+     "meaning": "Without success. In vain means she tried and it did not work.",
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "vain",
+       "context": "Anne could not eat. In vain she nibbled at the bread"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "vain",
+       "context": "all she would say. In vain Anne pleaded."
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "vain",
+       "context": "I have not lived in vain and I shall always feel"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "vain",
+       "context": "be ignored. It was in vain that she told herself with"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "form": "vain",
+       "context": "sustaining power. It was in vain that she recalled every incident"
+      }
+     ]
+    }
+   ]
+  },
   "valise": {
    "pos": "singular noun",
    "meaning": "A small travel bag. An old word.",
    "whyHard": "An old word."
+  },
+  "vanilla": {
+   "pos": "uncountable noun",
+   "meaning": "A sweet flavor used in cakes."
+  },
+  "vanished": {
+   "pos": "past-tense verb",
+   "meaning": "Disappeared."
+  },
+  "vanity": {
+   "pos": "uncountable noun",
+   "meaning": "Being too proud of your looks."
   },
   "vantage": {
    "pos": "singular noun",
@@ -8669,6 +12670,10 @@
   "vehemently": {
    "pos": "adverb",
    "meaning": "In a very strong, angry way."
+  },
+  "velvet": {
+   "pos": "uncountable noun",
+   "meaning": "A soft thick cloth."
   },
   "velvety": {
    "pos": "adjective",
@@ -8726,6 +12731,13 @@
    "pos": "uncountable noun",
    "meaning": "Energy and strength."
   },
+  "violet": {
+   "pos": "noun",
+   "meaning": "A small purple flower, or the color purple.",
+   "forms": [
+    "violets"
+   ]
+  },
   "virtuous": {
    "pos": "adjective",
    "meaning": "Very good in behaviour."
@@ -8733,6 +12745,10 @@
   "virtuously": {
    "pos": "adverb",
    "meaning": "In a very good and honest way."
+  },
+  "visible": {
+   "pos": "adjective",
+   "meaning": "Able to be seen."
   },
   "visioned": {
    "pos": "adjective",
@@ -8744,6 +12760,13 @@
    "forms": [
     "visitation",
     "visitations"
+   ]
+  },
+  "visitor": {
+   "pos": "singular noun",
+   "meaning": "A person who comes to see you.",
+   "forms": [
+    "visitors"
    ]
   },
   "vivacious": {
@@ -8761,6 +12784,13 @@
   "vocation": {
    "pos": "singular noun",
    "meaning": "A job that you feel you should do."
+  },
+  "vow": {
+   "pos": "singular noun",
+   "meaning": "A very serious promise.",
+   "forms": [
+    "vows"
+   ]
   },
   "vowed": {
    "pos": "past-tense verb",
@@ -8789,6 +12819,37 @@
   "wailing": {
    "pos": "present participle",
    "meaning": "Crying in a long sad voice."
+  },
+  "waist": {
+   "pos": "singular noun",
+   "meaning": "The top part of a dress, from the neck to the belt.",
+   "whyHard": "This word has more than one meaning.",
+   "forms": [
+    "waists"
+   ],
+   "senses": [
+    {
+     "meaning": "The top part of a dress. A pink silk waist is a pink silk top.",
+     "default": true
+    },
+    {
+     "meaning": "The middle of the body. Waist deep means up to the middle of the body.",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "waist",
+       "context": "far end of the grove, waist deep among the bracken, singing"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "waist",
+       "context": "flung her arms about Marilla’s waist and looked up earnestly into"
+      }
+     ]
+    }
+   ]
   },
   "wakening": {
    "pos": "present participle",
@@ -8829,6 +12890,13 @@
    "pos": "adjective",
    "meaning": "Doing what you want and not following rules."
   },
+  "weakness": {
+   "pos": "noun",
+   "meaning": "A lack of strength, or a small fault.",
+   "forms": [
+    "weaknesses"
+   ]
+  },
   "wearily": {
    "pos": "adverb",
    "meaning": "In a tired way."
@@ -8868,6 +12936,10 @@
   "welling": {
    "pos": "present participle",
    "meaning": "Rising up, like water from the ground."
+  },
+  "wept": {
+   "pos": "past-tense verb",
+   "meaning": "Cried. The past of weep."
   },
   "wheeled": {
    "pos": "past-tense verb",
@@ -8948,6 +13020,10 @@
    "pos": "comparative adjective",
    "meaning": "More healthy."
   },
+  "wicked": {
+   "pos": "adjective",
+   "meaning": "Very bad."
+  },
   "wickedest": {
    "pos": "superlative adjective",
    "meaning": "The most evil."
@@ -8980,6 +13056,10 @@
     "windowpanes"
    ]
   },
+  "wink": {
+   "pos": "verb",
+   "meaning": "To shut one eye quickly."
+  },
   "winked": {
    "pos": "past-tense verb",
    "meaning": "Closed and opened one eye quickly."
@@ -9003,6 +13083,13 @@
   "wistfully": {
    "pos": "adverb",
    "meaning": "In a sad way because you want something you cannot have."
+  },
+  "wit": {
+   "pos": "uncountable noun",
+   "meaning": "Quick clever talk, or good sense.",
+   "forms": [
+    "wits"
+   ]
   },
   "witchery": {
    "pos": "singular noun",
@@ -9059,6 +13146,15 @@
    "pos": "present participle",
    "meaning": "Showing deep respect to God or someone."
   },
+  "worthy": {
+   "pos": "adjective",
+   "meaning": "Good enough, or deserving."
+  },
+  "wound": {
+   "pos": "past-tense verb",
+   "meaning": "Turned and twisted. The past of wind. Hair wound about her head is hair turned around it.",
+   "whyHard": "This is the past of wind, meaning turned. It does not mean a cut on the body."
+  },
   "wove": {
    "pos": "past-tense verb",
    "meaning": "Made cloth by passing threads over and under."
@@ -9098,9 +13194,151 @@
    "pos": "adjective",
    "meaning": "Having small lines."
   },
+  "wrist": {
+   "pos": "singular noun",
+   "meaning": "The joint between the hand and the arm.",
+   "forms": [
+    "wrists"
+   ]
+  },
   "writhing": {
    "pos": "present participle",
    "meaning": "Twisting the body because of pain."
+  },
+  "yard": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The open ground around a house.",
+   "senses": [
+    {
+     "meaning": "The open ground around a house.",
+     "whyHard": "Not the usual meaning! Usually: a yard is a measure of length.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "neat and precise was that yard, set about on one side"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 2,
+       "form": "yard",
+       "context": "that Marilla Cuthbert swept that yard over as often as she"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 3,
+       "form": "yard",
+       "context": "looking out on the back yard, came a flood of mellow"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "tied his horse in the yard of the small Bright River"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "form": "yard",
+       "context": "horse is over in the yard. Give me your bag.”"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "form": "yard",
+       "context": "The yard was quite dark as they"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "set off. Matthew opened the yard gate for them and as"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "and lilacs in the front yard and lilies of the valley"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "were both out in the yard behind the barn milking the"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "Anne flying in from the yard, eyes shining, cheeks faintly flushed"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "went out and raked the yard."
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "laughter that Matthew, crossing the yard outside, halted in amazement. When"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "threw it out in the yard and then I washed the"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "yard",
+       "context": "as far as the Barry yard fence. Then she wept all"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "into the darkness of the yard."
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "betook herself to the back yard, over which a young new"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "he walked agitatedly across the yard to the gate under the"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "Matthew, as he opened the yard gate to let the cows"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "form": "yard",
+       "context": "as he went into the yard. Anne took the memory of"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "slowly in from the front yard where she had been talking"
+      }
+     ]
+    }
+   ]
   },
   "yellowish": {
    "pos": "adjective",
@@ -9757,6 +13995,45 @@
     "Carmody",
     "planned"
    ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 20,
+   "context": "please do call me Cordelia. It can't matter much",
+   "mainIdea": "Anne asks to be called Cordelia, but her real name is Anne Shirley.",
+   "simple": "Anne tells Matthew that her name is Anne Shirley. She still wants him to call her Cordelia, because she thinks Anne is not a romantic name. She says she will not stay long, so the name should not matter to him.",
+   "hardWords": [
+    "Cordelia",
+    "unromantic"
+   ]
+  },
+  {
+   "chapter": 27,
+   "paragraph": 10,
+   "context": "It was Anne's idea that they dramatize Elaine",
+   "mainIdea": "The girls act out a poem from school about Elaine, the lily maid.",
+   "simple": "Anne wants them to act a poem they studied in school. In the poem a girl called the lily maid, Elaine, is loved by Lancelot, and the story also has Guinevere and King Arthur. Those people feel real to Anne, and she wishes she had lived in that old time.",
+   "hardWords": [
+    "dramatize",
+    "Elaine",
+    "lily maid",
+    "Lancelot",
+    "Guinevere",
+    "Camelot"
+   ]
+  },
+  {
+   "chapter": 19,
+   "paragraph": 35,
+   "context": "The goblins of her fancy lurked in every shadow",
+   "mainIdea": "On the dark walk, Anne's made-up ghosts make ordinary things frighten her.",
+   "simple": "Anne goes over the bridge and up the dark path. She is sorry she let her imagination run free. She feels as if goblins are hiding in every shadow. A strip of white birch bark, the cry of two old branches rubbing, and bats overhead all scare her, though they are only ordinary things in the wood.",
+   "hardWords": [
+    "goblins",
+    "fancy",
+    "birch",
+    "bats"
+   ]
   }
  ],
  "sentences": [
@@ -9801,6 +14078,18 @@
    "context": "I don’t expect to get it for I understand the trustees have promised it to Gilbert Blythe",
    "simple": "I do not think I will get it, because I hear the school officials have promised it to Gilbert.",
    "grammar": "\"Expect to\" means \"think it will happen\". \"Trustees\" are the people who manage a school. \"For\" here is an old way to say \"because\"."
+  },
+  {
+   "chapter": 6,
+   "context": "God is a spirit, infinite, eternal and unchangeable",
+   "simple": "Anne repeats a hard line she learned: God is a spirit, and he does not change, in what he is, in wisdom, power, holiness, justice, goodness, and truth.",
+   "grammar": "A long list of words comes after in His being. Anne is saying a lesson she learned by heart."
+  },
+  {
+   "chapter": 17,
+   "context": "All things great are wound up with all things little",
+   "simple": "Big things start out tied to small things. At first you may not see how they are joined.",
+   "grammar": "The line puts the idea in an old, tight saying. Wound up with means joined to."
   }
  ],
  "phrases": {
@@ -9946,6 +14235,72 @@
    "meaning": "Soon; after a short time.",
    "pos": "idiom",
    "example": "by and by"
+  },
+  "heap coals of fire": {
+   "meaning": "To be kind to someone who was unkind to you.",
+   "pos": "idiom",
+   "forms": [
+    "heaping coals of fire"
+   ],
+   "example": "It was like heaping coals of fire on my head."
+  },
+  "a good deal": {
+   "meaning": "A lot. Quite a large amount.",
+   "pos": "phrase",
+   "forms": [
+    "a great deal"
+   ],
+   "example": "To be sure, the long lane made it a good deal further."
+  },
+  "mark my words": {
+   "meaning": "Remember what I say. It will happen.",
+   "pos": "idiom",
+   "example": "“Lawful heart, shall I ever forget that tantrum of hers! When I went home that night I says to Thomas, says I, ‘Mark my words, Thomas, Marilla Cuthbert ‘ll live to rue the step she’s took."
+  },
+  "out of the question": {
+   "meaning": "Not possible. Not to be thought of.",
+   "pos": "idiom",
+   "example": "But the spare room was out of the question for such a stray waif, so there remained only the east gable room."
+  },
+  "in charge": {
+   "meaning": "Responsible for something. The one who must look after it.",
+   "pos": "phrase",
+   "example": "I was firmly resolved, when you left me in charge this morning, not to imagine anything, but keep my thoughts on facts."
+  },
+  "to one's heart's content": {
+   "meaning": "As much as you want.",
+   "pos": "idiom",
+   "example": "she could have laughed and chattered to her heart's content."
+  },
+  "take a fancy to": {
+   "meaning": "To start to like someone or something.",
+   "pos": "idiom",
+   "example": "Matthew took a fancy to her."
+  },
+  "hard and fast": {
+   "meaning": "Fixed. A hard and fast rule does not change.",
+   "pos": "phrase",
+   "example": "Folks that has brought up children know that there’s no hard and fast method in the world that’ll suit every child."
+  },
+  "lay off": {
+   "meaning": "To take off a hat or a coat.",
+   "pos": "phrasal verb",
+   "example": "Can I take her into the spare room to lay off her hat when she comes? And then into the parlor to sit?”"
+  },
+  "spare room": {
+   "meaning": "The bedroom kept for guests.",
+   "pos": "phrase",
+   "example": "But the spare room was out of the question for such a stray waif, so there remained only the east gable room."
+  },
+  "feather tick": {
+   "meaning": "A bed stuffed with feathers.",
+   "pos": "phrase",
+   "example": "Later on she made her bed less successfully, for she had never learned the art of wrestling with a feather tick."
+  },
+  "match safe": {
+   "meaning": "A small box that holds matches.",
+   "pos": "phrase",
+   "example": "Anne lighted the lamp, oversetting the match safe and using up half a dozen matches before her shaking hands could accomplish the task."
   }
  }
 }
