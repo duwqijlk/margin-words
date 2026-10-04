@@ -121,7 +121,39 @@
   },
   "russet": {
    "pos": "adjective",
-   "meaning": "Red-brown in colour."
+   "meaning": "Red-brown in colour.",
+   "forms": [
+    "russets"
+   ],
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Red-brown in colour.",
+     "default": true
+    },
+    {
+     "meaning": "A kind of apple with a brown skin.",
+     "whyHard": "Not the usual meaning! Usually: russet means red-brown.",
+     "trickyMeaning": true,
+     "forms": [
+      "russets"
+     ],
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "russets",
+       "context": "with half a dozen russets and a nice book"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "form": "russets",
+       "context": "or supplied with sour russets by his indulgent papa"
+      }
+     ]
+    }
+   ]
   },
   "chintz": {
    "pos": "uncountable noun",
@@ -2599,6 +2631,3428 @@
   "teutonic": {
    "pos": "adjective",
    "meaning": "From the land of the Germans."
+  },
+  "bear": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To live with something hard and not give up.",
+   "senses": [
+    {
+     "meaning": "To live with something hard and not give up.",
+     "whyHard": "Not the usual meaning! Usually: a bear is a big wild animal.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "I shall have to bear it”; and Jo resigned"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "found it harder to bear than the others, because"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "declaring she couldn’t bear it any longer; but"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "bear",
+       "context": "feel that I can bear even my flat nose"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "pleasant, I couldn’t bear to stop,” said Laurie"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "Snow, helped her to bear it; and, taking the"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "well enough yet to bear the light of this"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "her own easier to bear and strengthened her resolution"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "it comes, and to bear and forbear, that home"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "No, she can’t bear fashionable young men, and"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "I can’t bear saints: just be a simple"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "children, help me to bear it"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "did not fret I bear my troubles well but"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "t think I can bear it, but I’ll"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "because he could not bear to be reminded of"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "nobody to help us bear it; mother and father"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 3,
+       "form": "bear",
+       "context": "and will try to bear it if it comes"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 4,
+       "form": "bear",
+       "context": "telegram. I never can bear to be ‘lorded over"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "but we can always bear them if we ask"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "and I won’t bear it!” growled Laurie indignantly"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "that Laurie would not bear much restraint, and hoped"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 3,
+       "form": "bear",
+       "context": "grandfather. I won’t bear it"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "plague you, and will bear it like a man"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "up my mind to bear it, and shall not"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "is often harder to bear than self-denial. Meg"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "wonder at, deplore, and bear as we best can"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "t cry, I can bear anything better than that"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 3,
+       "form": "bear",
+       "context": "learn to see and bear with them, remembering your"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 4,
+       "form": "bear",
+       "context": "patience with which to bear and comfort the natural"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "studying anything; can’t bear French, it’s such"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "time; so try to bear it cheerfully, and don"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "how gratefully she would bear it"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "don’t mean to bear it a minute longer"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "one; but I can bear it,” and Beth tried"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "Jo; I can’t bear it now"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 3,
+       "form": "bear",
+       "context": "s pride could not bear a man’s pity"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "think of or to bear. Try to see it"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "shut me out, and bear it all alone"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "little longer, you can bear it better; in fact"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "you, I couldn’t bear to think they should"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 3,
+       "form": "bear",
+       "context": "help wishing you’d bear it better, Teddy, dear"
+      },
+      {
+       "chapter": 42,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "inevitable, and tried to bear it cheerfully, helping one"
+      },
+      {
+       "chapter": 42,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "almost as hard to bear as pain, as she"
+      },
+      {
+       "chapter": 43,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "that Laurie could not bear to disturb it by"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "burden seemed easier to bear, duty grew sweeter, and"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "we left you to bear it alone, while we"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "a great deal to bear, and had to bear"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 3,
+       "form": "bear",
+       "context": "bear, and had to bear it all alone. What"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 4,
+       "form": "bear",
+       "context": "troubles here easier to bear. I am lonely, sometimes"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "poor; I couldn’t bear a rich husband,” said"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 3,
+       "form": "bear",
+       "context": "the rest easy to bear. I have my duty"
+      }
+     ]
+    },
+    {
+     "meaning": "To carry something away.",
+     "whyHard": "Not the usual meaning! Usually: a bear is a big wild animal.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "the timid little servant “Bear them to the captives"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "Roderigo is about to bear away the exhausted Zara"
+      }
+     ]
+    },
+    {
+     "meaning": "To start to show a good result.",
+     "whyHard": "Not the usual meaning! Usually: a bear is a big wild animal.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "since it begins to bear fruit. Go on, dear"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "bear",
+       "context": "chapel really began to bear fruit. She dried her"
+      }
+     ]
+    },
+    {
+     "meaning": "To use something so that it has an effect.",
+     "whyHard": "Not the usual meaning! Usually: a bear is a big wild animal.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 37,
+       "occurrence": 2,
+       "form": "bear",
+       "context": "his persuasive powers to bear as he said, in"
+      }
+     ]
+    }
+   ]
+  },
+  "rose": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Got up, or went up. Past of rise.",
+   "senses": [
+    {
+     "meaning": "Got up, or went up. Past of rise.",
+     "whyHard": "Not the usual meaning! Usually: a rose is a flower.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "form": "rose",
+       "context": "on before the curtain rose again; but when it"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 4,
+       "form": "rose",
+       "context": "truly superb! A tower rose to the ceiling; halfway"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "forgot her foot, and rose so quickly that she"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "good impression. When they rose she proposed to go"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "Here he rose, as if going, and Beth made"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "Amy rose to comply with outward composure, but a"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "and then Mr. Snodgrass rose to make a proposition"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "form": "rose",
+       "context": "minded; and Mr. Winkle rose to say, with great"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 3,
+       "form": "rose",
+       "context": "Up rose Snodgrass, very much in earnest. “Sir, I"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "said Jo, as they rose; and Miss Crocker made"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "like sardines, who all rose and began to"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "rose",
+       "context": "the green hills that rose to meet the sky"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "voices in the parlor rose and fell for half"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "Meg rose as she spoke, and was just going"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "pair of heels, up rose the smokiest gentleman, and"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 2,
+       "form": "rose",
+       "context": "band, Amy’s color rose, her eyes began to"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 3,
+       "form": "rose",
+       "context": "up look as he rose to give her his"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "form": "rose",
+       "context": "about each other. Amy rose daily in the estimation"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 2,
+       "form": "rose",
+       "context": "heights, the Maritime Alps rose sharp and white against"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 4,
+       "form": "rose",
+       "context": "Laurie rose as he spoke, returned the pictures with"
+      }
+     ]
+    }
+   ]
+  },
+  "ball": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A big dance party.",
+   "senses": [
+    {
+     "meaning": "A big dance party.",
+     "whyHard": "Not the usual meaning! Usually: a ball is a round toy you throw or kick.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "ball",
+       "context": "frequent glimpses of dainty ball-dresses and bouquets, heard"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "ball",
+       "context": "everything in but my ball-dress, which I shall"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "ball",
+       "context": "which she called her “ball-dress,” with an important"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 3,
+       "form": "ball",
+       "context": "godmother, going to the ball,” said Belle, in her"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "ball",
+       "context": "breath brought the impromptu ball to a close, and"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 2,
+       "form": "ball",
+       "context": "s old white silk ball-dress, and covered it"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 3,
+       "form": "ball",
+       "context": "add lustre to their Christmas ball"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 4,
+       "form": "ball",
+       "context": "One usually does at a ball"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 5,
+       "form": "ball",
+       "context": "She showed him her ball-book with demure satisfaction"
+      },
+      {
+       "chapter": 43,
+       "occurrence": 1,
+       "form": "ball",
+       "context": "vividly recalled the Christmas ball at Nice, especially the"
+      }
+     ]
+    }
+   ]
+  },
+  "fast": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Tightly, so that it does not come loose.",
+   "senses": [
+    {
+     "meaning": "Tightly, so that it does not come loose.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "holding the small hand fast in both his own"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "with her foot held fast in a pan-full"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 2,
+       "form": "fast",
+       "context": "other she held Jo fast, whispering eagerly, “No, no"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "and then I stuck fast in a grammatical bog"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "of mind to hold fast to the resolution she"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "willing,” while she held fast to Jo, as the"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "which holds the reader fast till the end comes"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 2,
+       "form": "fast",
+       "context": "holding the little paper fast, as if it were"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 2,
+       "form": "fast",
+       "context": "impulse, Laurie held it fast, and said, with a"
+      }
+     ]
+    },
+    {
+     "meaning": "Deeply. Fast asleep means sleeping hard, not sleeping quickly.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 4,
+       "form": "fast",
+       "context": "s foot, and fell fast asleep; Mr. Laurence marched"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "at rest. Demi lay fast asleep; not in his"
+      },
+      {
+       "chapter": 42,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "Poor Jo! she’s fast asleep, so I won"
+      }
+     ]
+    },
+    {
+     "meaning": "Too free and wild in the way you live.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "It’s a fast age, and I don’t"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "she was rather a fast young lady, which was"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "form": "fast",
+       "context": "Laurie says he is fast, and I don’t"
+      },
+      {
+       "chapter": 47,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "discretion; for in this fast age babies of three"
+      }
+     ]
+    }
+   ]
+  },
+  "cross": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Angry.",
+   "senses": [
+    {
+     "meaning": "Angry.",
+     "whyHard": "Not the usual meaning! Usually: a cross is a shape like +, or the word means to go across.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "world. It makes me cross; and my hands get"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "sees me but those cross midgets, and no one"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "cross",
+       "context": "never was such a cross family!” cried Jo, losing"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "cross",
+       "context": "blighted being, and decidedly cross today because you can"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "aunt, and a dear, cross old soul she is"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "a witch and as cross as a bear.” The"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "pay for being so cross yesterday, and I have"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "mishap made her slightly cross. Jo had burnt the"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "be forgiven; I’m cross, and have been out"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "and she is so cross,” said Amy, looking rather"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "the dog —a fat, cross beast, who snarled and"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "symptoms —is twittery and cross, doesn’t eat, lies"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "form": "cross",
+       "context": "me for being so cross. I came to make"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "t wish to get cross, so let’s change"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "her “vortex,” hungry, sleepy, cross, or despondent"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "tired and hot and cross and worried! I’ve"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "form": "cross",
+       "context": "empty table, and a cross wife was not exactly"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "flatter and wheedle your cross old sister in that"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "form": "cross",
+       "context": "when we are tired and cross"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "her how nervous and cross and out of sorts"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "sorry I was so cross, but I can’t"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "her nature, being sad, cross, listless, or energetic, as"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "then —alas for romance! —very cross"
+      }
+     ]
+    }
+   ]
+  },
+  "capital": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Excellent; very good.",
+   "senses": [
+    {
+     "meaning": "Excellent; very good.",
+     "whyHard": "Not the usual meaning! Usually: a capital is the main city of a country.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "did! He’s a capital fellow, and I wish"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "I had a capital time. Did you?” asked Jo"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "P.O. was a capital little institution, and flourished"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "though, for it’s capital —so shady, light, and"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "my breath. It was capital; but see what a"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "and we’ll have capital times. Won’t that"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "and rode, and had capital times. After dinner, she"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "she behaved “like a capital little woman.” Even Polly"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "form": "capital",
+       "context": "together, and have a capital time; but as I"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "house. We’ll have capital times after she is"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "did, and had a capital time. I expected to"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "form": "capital",
+       "context": "Capital boys, aren’t they? I feel quite young"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "new ‘ink-bib’ was capital; and Hannah’s box"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "you; she is a capital nurse, and you may"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "do something for that capital old Professor. Couldn’t"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "called Mr. Bhaer “a capital old fellow” in public"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "the light of a capital joke. “But may I"
+      }
+     ]
+    }
+   ]
+  },
+  "grave": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Serious and quiet.",
+   "senses": [
+    {
+     "meaning": "Serious and quiet.",
+     "whyHard": "Not the usual meaning! Usually: a grave is the place where a dead person is buried.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "begun. A cluster of grave yet cheerful pansies, on"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "countenance, Amy looked so grave and important"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "pet; Mrs. March looked grave and grieved, and Amy"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "Mr. Brooke was a grave, silent young man, with"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "grave",
+       "context": "it up, like a little grave"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "little girls’ wore a grave, troubled expression, as if"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "medicine chest, looking very grave, with red eyes, and"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "and Mrs. March’s grave face relaxed, in spite"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "He was grave and pale now, and looked decidedly"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "form": "grave",
+       "context": "low seat, with the grave, quiet look which best"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "marching upstairs with a grave countenance, and a wine"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "the case, but looked grave, and repeated her opinion"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "she imagined; and the grave, kind look he gave"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "very elder-brotherly and grave all of a sudden"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 2,
+       "form": "grave",
+       "context": "liked it; but the grave, almost sad, accent of"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "for, though Jo looked grave at first, she took"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "Her face looked tired, grave, and rather sad; for"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "romantic student than a grave professor"
+      }
+     ]
+    }
+   ]
+  },
+  "gay": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happy and bright.",
+   "senses": [
+    {
+     "meaning": "Happy and bright.",
+     "whyHard": "Not the usual meaning! Usually: in new speech, gay is a word for a person who loves someone of the same sex.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "can. Isn’t that music gay"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "long for pretty things, gay friends, accomplishments, and a"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "now and then such gay little parties at the"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "her best to seem gay; and, being rather excited"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "pour On the useful, gay “P.C"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "form": "gay",
+       "context": "silence fell upon the gay throng; and not a"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 3,
+       "form": "gay",
+       "context": "Ferdinand added, with a gay smile of triumph, “To"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "Plumfield is about as gay as a churchyard, you"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "so it will be gay inside, if it isn"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "mince along in her gay suit, with Polly sidling"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "was! so brilliant and gay without, for all the"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "see Brooke; it’s gay there, and I’ll"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "when I have four gay girls in the house"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "occasion she was so gay and gracious, and made"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "nice lunches in the gay café, and meeting with"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "form": "gay",
+       "context": "at Nassau were very gay, so was Baden-Baden"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "masquerade, and had a gay time New Year’s"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "Jo was in a gay mood that night, and"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "the spectacle is as gay and brilliant as a"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 2,
+       "form": "gay",
+       "context": "pair of dashing ponies, gay nets to keep their"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 3,
+       "form": "gay",
+       "context": "to seem quite easy and gay"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 4,
+       "form": "gay",
+       "context": "affliction, she looked unusually gay and graceful as she"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "in tune, plenty of gay gossip, and a nice"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 2,
+       "form": "gay",
+       "context": "Why, little mother, how gay we are tonight. Do"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 3,
+       "form": "gay",
+       "context": "and family love. Even gay Sallie Moffatt liked to"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "very industrious during the gay season. But, while apparently"
+      },
+      {
+       "chapter": 43,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "or roamed about the gay city to get new"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "gay",
+       "context": "faded ribbons, brave and gay When fastened there, with"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 2,
+       "form": "gay",
+       "context": "airy toils are past; Gay valentines, all ardent flames"
+      }
+     ]
+    }
+   ]
+  },
+  "queer": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Strange or unusual.",
+   "senses": [
+    {
+     "meaning": "Strange or unusual.",
+     "whyHard": "Not the usual meaning! Usually: in new speech, queer is a word for a person who loves someone of the same sex. Here it only means strange.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "one laughed at the queer party"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "What a queer smell! it’s like burnt feathers"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "her stories about the queer pictures in his Latin"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "queer",
+       "context": "or illustrating stories with queer specimens of art. Her"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "queer",
+       "context": "I had a queer time with aunt today, and"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "scandalizing Meg by her queer performances. The plan of"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "queer",
+       "context": "sleepy-hollow chairs, and queer tables, and bronzes; and"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "t, I feel so queer! Oh, it is too"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "laughed also at the queer look which the sisters"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "queer",
+       "context": "down, I feel so queer and stiff and half"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 3,
+       "form": "queer",
+       "context": "The “queer feeling” did not pass away, but she"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "for nearly as many queer things passed through it"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "It’s a very queer thing for her to"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "So it is. How queer that he should come"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "queer",
+       "context": "glass to examine the queer girl several times, Miss"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "queer",
+       "context": "There was a queer smile about Mr. Brooke’s"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "names; isn’t that queer?” said Meg, wiping her"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "in with a very queer expression of countenance, for"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "queer",
+       "context": "confess, though, I felt queer when I saw the"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "headache, sore throat, and queer feelings like mine, so"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "Indian cabinet, full of queer drawers, little pigeonholes, and"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "form": "queer",
+       "context": "rings and pins, the queer lockets, with portraits of"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "only said, in a queer, breathless voice, “Here’s"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "settle down, which was queer, since father was safe"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "form": "queer",
+       "context": "her work, with a queer little smile, which suggested"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "after him, with a queer look on his face"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "form": "queer",
+       "context": "masculine amazement at the queer things women wanted, and"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "half asleep; dandies, in queer English hats and lavender"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "Jo looked a little queer likewise, for a name"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "of shape with his queer darns. Nothing was said"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "but girls are so queer you never know what"
+      },
+      {
+       "chapter": 43,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "and full of a queer mixture of disappointment and"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "form": "queer",
+       "context": "first, and Jo made queer mistakes; but the wise"
+      }
+     ]
+    }
+   ]
+  },
+  "company": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "People who are with you, or guests in the house.",
+   "senses": [
+    {
+     "meaning": "People who are with you, or guests in the house.",
+     "whyHard": "Not the usual meaning! Usually: a company is a business.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "company",
+       "context": "The smallness of the company made it necessary for"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "company",
+       "context": "t care much for company dancing; it’s no"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "company",
+       "context": "haven’t been into company enough yet to know"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "company",
+       "context": "or was busy with company, Jo hurried to this"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "company",
+       "context": "the idea of having company, and flew about to"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "company",
+       "context": "do something to amuse my company"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "company",
+       "context": "quiet, and not have company manners on all the"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "company",
+       "context": "And beams upon the company, With brown and jovial"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "company",
+       "context": "your hands nice, see company, and give orders,” said"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "form": "company",
+       "context": "you think of having company,” said Meg, when informed"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "company",
+       "context": "and you, ladies, are company. The tent is for"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "company",
+       "context": "ask her; she’s company, and you ought to"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "company",
+       "context": "Aren’t you company too? I thought she’d"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "company",
+       "context": "ll have me for company, if that’s any"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "company",
+       "context": "pies in case of company unexpected.” A breath of"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "company",
+       "context": "called her names before company, and behaved in all"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "form": "company",
+       "context": "Polly with her for company. In this room there"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "company",
+       "context": "had finger bowls for company, and that satisfied her"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "form": "company",
+       "context": "trifle to keep the girls company"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "company",
+       "context": "I have so much company, and I can’t"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "company",
+       "context": "although they had had company from time to time"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "form": "company",
+       "context": "bread and cheese for company. I won’t have"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "company",
+       "context": "one feels awkward in company, not to do as"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "company",
+       "context": "violets to keep her company, and, best of all"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "form": "company",
+       "context": "as varied as the company, and attract as much"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 2,
+       "form": "company",
+       "context": "drive, and longing for company. Flo’s saving up"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 3,
+       "form": "company",
+       "context": "The company assembled in the long salle à manger"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "company",
+       "context": "find her workbasket dull company, when he was not"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 2,
+       "form": "company",
+       "context": "are tonight. Do you expect company"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "form": "company",
+       "context": "a hook and ladder company of themselves, and performed"
+      }
+     ]
+    }
+   ]
+  },
+  "invalid": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person who is sick for a long time and must rest.",
+   "senses": [
+    {
+     "meaning": "A person who is sick for a long time and must rest.",
+     "whyHard": "Not the usual meaning! Usually: invalid means not true or not allowed.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "invalid",
+       "context": "bed to this chronic invalid. If anyone had known"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "invalid",
+       "context": "came out; and the invalid dolls needed air. Now"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "invalid",
+       "context": "give poor Joanna, the invalid doll, her daily exercise"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "invalid",
+       "context": "think of for the invalid, and friendliest promises of"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "invalid",
+       "context": "as if the dear invalid lay in the next"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "invalid",
+       "context": "listen to the new invalid, who was in a"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "invalid",
+       "context": "the past. Not an invalid exactly, but never again"
+      },
+      {
+       "chapter": 42,
+       "occurrence": 1,
+       "form": "invalid",
+       "context": "pleasure of keeping the invalid supplied with the fruit"
+      }
+     ]
+    }
+   ]
+  },
+  "trunk": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A big box for clothes when you travel.",
+   "senses": [
+    {
+     "meaning": "A big box for clothes when you travel.",
+     "whyHard": "Not the usual meaning! Usually: a trunk is the main stem of a tree, or an elephant's long nose.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "trunk",
+       "context": "packing the “go abroady” trunk in her room, surrounded"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "trunk",
+       "context": "from the half-filled trunk to the many-times"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "trunk",
+       "context": "spread out upon a trunk before her, while Scrabble"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "trunk",
+       "context": "get down the black trunk; and, Meg, come and"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "trunk",
+       "context": "nightcap on. The big trunk stood ready in the"
+      }
+     ]
+    }
+   ]
+  },
+  "plain": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not pretty.",
+   "senses": [
+    {
+     "meaning": "Not pretty.",
+     "whyHard": "Not the usual meaning! Usually: plain means simple, or easy to see.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "hearted as a boy; plain and peculiar, yet his"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "English musical, and his plain face beautiful. He had"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "to pity the four plain Misses Davis from the"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "ditto, and a few plain but piquante French demoiselles"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 3,
+       "form": "plain",
+       "context": "girls, who were awkward, plain, and destitute of escort"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "matter how poor and plain and prim, for the"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "she did glorify that plain man, as she sat"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "old, beauty on the plain, wealth on the poor"
+      }
+     ]
+    },
+    {
+     "meaning": "Easy to see or understand.",
+     "whyHard": "Not the usual meaning! Usually: plain means simple.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "absence, it was very plain; and a heavy weight"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "the shadow grew so plain to her, she said"
+      }
+     ]
+    }
+   ]
+  },
+  "smart": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Neat and fashionable.",
+   "senses": [
+    {
+     "meaning": "A sharp pain.",
+     "whyHard": "Not the usual meaning! Usually: smart means clever.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "smart",
+       "context": "touched her before. The smart of her hand and"
+      }
+     ]
+    },
+    {
+     "meaning": "Neat and fashionable.",
+     "whyHard": "Not the usual meaning! Usually: smart means clever.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "smart",
+       "context": "wouldn’t; for the smart caps won’t match"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "smart",
+       "context": "it up with a smart red ribbon, and sat"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "smart",
+       "context": "powdered coachmen in front. Smart maids, with the rosiest"
+      }
+     ]
+    },
+    {
+     "meaning": "Very. In this speech, right smart means very.",
+     "whyHard": "Not the usual meaning! Usually: smart means clever.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "smart",
+       "context": "and fly round right smart. Miss Meg is going"
+      }
+     ]
+    },
+    {
+     "meaning": "Sudden and sharp, as a rain shower.",
+     "whyHard": "Not the usual meaning! Usually: smart means clever.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "smart",
+       "context": "like the weathercock. A smart shower at eleven had"
+      }
+     ]
+    }
+   ]
+  },
+  "content": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Satisfied; happy with what you have.",
+   "senses": [
+    {
+     "meaning": "Satisfied; happy with what you have.",
+     "whyHard": "Not the usual meaning! Usually: content means what is inside something.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "content",
+       "context": "few pleasures. I am content to see Meg begin"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "content",
+       "context": "I am content with what I have, Little be"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "content",
+       "context": "so, and I am content with her success. You"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "content",
+       "context": "place, full of happiness, content, and family love. Even"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "content",
+       "context": "with an air of great content"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 2,
+       "form": "content",
+       "context": "full of tender and devout content"
+      }
+     ]
+    }
+   ]
+  },
+  "wound": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Turned around and around. Past of wind.",
+   "senses": [
+    {
+     "meaning": "Turned around and around. Past of wind.",
+     "whyHard": "Not the usual meaning! Usually: a wound is a hurt place on the body.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "wound",
+       "context": "as agreeable as possible —wound cotton for Meg, recited"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "wound",
+       "context": "it in Lisbon, she wound up with an earthquake"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "wound",
+       "context": "his eyes, and absently wound Jo’s apron-tassel"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "form": "wound",
+       "context": "ponies, as the procession wound away across the arches"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 2,
+       "form": "wound",
+       "context": "them luxuriously as they wound up the shady road"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "wound",
+       "context": "decided approval, as she wound up the clock"
+      },
+      {
+       "chapter": 47,
+       "occurrence": 1,
+       "form": "wound",
+       "context": "for wheels to go “wound and wound;” also a"
+      },
+      {
+       "chapter": 47,
+       "occurrence": 2,
+       "form": "wound",
+       "context": "to go “wound and wound;” also a basket hung"
+      },
+      {
+       "chapter": 47,
+       "occurrence": 3,
+       "form": "wound",
+       "context": "want to see it go wound"
+      }
+     ]
+    }
+   ]
+  },
+  "suit": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To be right for someone, or to please them.",
+   "senses": [
+    {
+     "meaning": "To be right for someone, or to please them.",
+     "whyHard": "Not the usual meaning! Usually: a suit is a set of clothes.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "up late didn’t suit her"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "suit",
+       "context": "Jo happened to suit Aunt March, who was lame"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "suit",
+       "context": "companion. This did not suit Jo at all; but"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "dozy way wouldn’t suit me. I’ve laid"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "suit",
+       "context": "I thought she’d suit Brooke; but he keeps"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "suit",
+       "context": "Did the German song suit, Miss March?” inquired Mr"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 4,
+       "form": "suit",
+       "context": "not yet learned to suit his amusements to his"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "and famous: that would suit me, so that is"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "If this won’t suit I shall have to"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "was never dusted to suit. Then Polly must be"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 3,
+       "form": "suit",
+       "context": "chop it up to suit purchasers, and get what"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 4,
+       "form": "suit",
+       "context": "up the agony to suit her, while Amy objected"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "form": "suit",
+       "context": "disturbed by her failures to suit"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "your things wouldn’t suit me at all. But"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "suit",
+       "context": "of Lady Bountiful would suit her better than that"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "the antique Luxembourg Gardens suit me better. Père la"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "I think I should suit if I tried"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "Mr. Dashwood didn’t suit her at all; but"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "to the seashore would suit her better, and, as"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 2,
+       "form": "suit",
+       "context": "him, and they would suit excellently; but I have"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "still; so we each suit ourselves, and there is"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 3,
+       "form": "suit",
+       "context": "ran —it did not suit her style, she thought"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "of her wish to suit even Amy. She glanced"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "always have things to suit you"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "dimple that didn’t suit you. Not being a"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "Does this suit you, Mr. Bhaer?” she asked, turning"
+      }
+     ]
+    },
+    {
+     "meaning": "A man's request to marry a woman. He pleaded his suit.",
+     "whyHard": "Not the usual meaning! Usually: a suit is a set of clothes.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "which he pleaded his suit, told his plans, and"
+      }
+     ]
+    }
+   ]
+  },
+  "present": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happening now, or for the time that is now.",
+   "senses": [
+    {
+     "meaning": "Happening now, or for the time that is now.",
+     "whyHard": "Not the usual meaning! Usually: a present is a gift.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "present",
+       "context": "quite enough for the present, as you’ll agree"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "present",
+       "context": "won’t for the present, anyway; but I’m"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "present",
+       "context": "yourself quite free for the present"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "form": "present",
+       "context": "only the sweetness of the present"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "present",
+       "context": "into any engagement at present; so please say no"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "present",
+       "context": "flowers; though just at present, the fountain was represented"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "present",
+       "context": "or promise. In the present instance, there was no"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "form": "present",
+       "context": "her nose as the present mission was to her"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "present",
+       "context": "I talked over past, present, and future fun as"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "present",
+       "context": "about her, for the present at least"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "present",
+       "context": "table, and for the present I do, for I"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "present",
+       "context": "to do with at present; but I’ll run"
+      },
+      {
+       "chapter": 43,
+       "occurrence": 1,
+       "form": "present",
+       "context": "beyond him, just at present. It was evident that"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "present",
+       "context": "with interest in the present moment, actually young and"
+      }
+     ]
+    },
+    {
+     "meaning": "Here, in this place.",
+     "whyHard": "Not the usual meaning! Usually: a present is a gift.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "present",
+       "context": "who had not been present at the opening of"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 2,
+       "form": "present",
+       "context": "of the British nobility present happened to be the"
+      }
+     ]
+    },
+    {
+     "meaning": "To introduce one person to another.",
+     "whyHard": "Not the usual meaning! Usually: a present is a gift.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "present",
+       "context": "observes, allow me to present the new member;” and"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "form": "present",
+       "context": "fancy. Allow me to present the club key; and"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "present",
+       "context": "ran to meet, and present them to his friends"
+      },
+      {
+       "chapter": 43,
+       "occurrence": 2,
+       "form": "present",
+       "context": "flash of time should present her. But monsieur could"
+      }
+     ]
+    }
+   ]
+  },
+  "glass": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A mirror.",
+   "senses": [
+    {
+     "meaning": "A mirror.",
+     "whyHard": "Not the usual meaning! Usually: a glass is a cup you drink from, or the clear hard stuff in a window.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "glass",
+       "context": "she turned from the glass in Mrs. Gardiner’s"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "glass",
+       "context": "beads hanging over your glass?” asked Amy"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "form": "glass",
+       "context": "box with a looking glass in the cover which"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "glass",
+       "context": "nor look in the glass, and has not even"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "glass",
+       "context": "her in the long glass which reflected them both"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "glass",
+       "context": "t look in his glass before coming down,” thought"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "glass",
+       "context": "say, looking in the glass, “I’m getting old"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "glass",
+       "context": "her chin before the glass as an excuse for"
+      }
+     ]
+    },
+    {
+     "meaning": "Eyeglasses you hold up to look through.",
+     "whyHard": "Not the usual meaning! Usually: a glass is a cup you drink from.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "glass",
+       "context": "lady, putting up her glass for another observation of"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "glass",
+       "context": "after putting up her glass to examine the queer"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "glass",
+       "context": "them through that ridiculous glass of hers. I’m"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "glass",
+       "context": "Kate put up her glass, and, having taken a"
+      }
+     ]
+    }
+   ]
+  },
+  "post": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The place where you are supposed to stand and do your job.",
+   "senses": [
+    {
+     "meaning": "The place where you are supposed to stand and do your job.",
+     "whyHard": "Not the usual meaning! Usually: the post is the mail.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "post",
+       "context": "Pickwick, always at his post, With reverence we greet"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "post",
+       "context": "was back at her post in an instant, and"
+      }
+     ]
+    },
+    {
+     "meaning": "A wooden pole.",
+     "whyHard": "Not the usual meaning! Usually: the post is the mail.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "post",
+       "context": "down on the mossy post, and stood so still"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 2,
+       "form": "post",
+       "context": "a muffled voice from the post"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "post",
+       "context": "as unmoved as the post which is popularly believed"
+      }
+     ]
+    },
+    {
+     "meaning": "To place yourself and stay in a spot.",
+     "whyHard": "Not the usual meaning! Usually: the post is the mail.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "post",
+       "context": "and went down to post himself in the opposite"
+      }
+     ]
+    }
+   ]
+  },
+  "match": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A marriage.",
+   "senses": [
+    {
+     "meaning": "A marriage.",
+     "whyHard": "Not the usual meaning! Usually: a match is a game, or a small stick that makes fire.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "match",
+       "context": "to make a rich match, and it ought to"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "form": "match",
+       "context": "niece make a fine match, and something in the"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 3,
+       "form": "match",
+       "context": "t approve of the match, but I’ve made"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "form": "match",
+       "context": "to make a good match, and start in that"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "form": "match",
+       "context": "to make a rich match; that accounts, perhaps, for"
+      }
+     ]
+    },
+    {
+     "meaning": "To look the same, or to go well together.",
+     "whyHard": "Not the usual meaning! Usually: a match is a game, or a small stick that makes fire.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "match",
+       "context": "smart caps won’t match the plain gowns, without"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "match",
+       "context": "different colored soaps to match the different colored rooms"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "match",
+       "context": "foreheads, and bonnets to match, discussing Woman’s Rights"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "match",
+       "context": "a muslin dress to match, and the loveliest mantle"
+      }
+     ]
+    }
+   ]
+  },
+  "row": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To move a boat with oars.",
+   "senses": [
+    {
+     "meaning": "A loud noise, or a quarrel.",
+     "whyHard": "Not the usual meaning! Usually: a row is a line of things.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "row",
+       "context": "Boys make such a row, and my head is"
+      }
+     ]
+    },
+    {
+     "meaning": "To move a boat with oars.",
+     "whyHard": "Not the usual meaning! Usually: a row is a line of things.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "row",
+       "context": "tent in Longmeadow, and row up the whole crew"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "row",
+       "context": "Laurie, for I can row, and Meg see to"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "row",
+       "context": "for me. I shall row and tramp about, so"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "form": "row",
+       "context": "want to see, a row on the river, perhaps"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "row",
+       "context": "into his boat, and row away with all his"
+      },
+      {
+       "chapter": 43,
+       "occurrence": 1,
+       "form": "row",
+       "context": "little, and let me row: it will do me"
+      }
+     ]
+    },
+    {
+     "meaning": "A fashionable road where people go to be seen. Here it is called the Row.",
+     "whyHard": "Not the usual meaning! Usually: a row is a line of things.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 5,
+       "form": "row",
+       "context": "go too, and the Row is full of ladies"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 6,
+       "form": "row",
+       "context": "to Rome than the Row,” said Amy, who had"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 7,
+       "form": "row",
+       "context": "remotest idea what the Row was, and wouldn’t"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "row",
+       "context": "Rotten Row means ‘Route de Roi,’ or the king"
+      }
+     ]
+    }
+   ]
+  },
+  "bow": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A bend of the head or body, to show respect.",
+   "senses": [
+    {
+     "meaning": "A bend of the head or body, to show respect.",
+     "whyHard": "Not the usual meaning! Usually: a bow is a loop of ribbon, or a weapon that shoots arrows.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "answered, with a gallant little bow"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "with his very best bow, and his hand out"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "you? I see him bow and smile as he"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "made her a low bow, and walked off without"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "form": "bow",
+       "context": "by a smile, a bow, and a demure “Yes"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 3,
+       "form": "bow",
+       "context": "the nod and the bow, it would have been"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 2,
+       "form": "bow",
+       "context": "her to do but bow and walk away, looking"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 3,
+       "form": "bow",
+       "context": "Jo went prepared to bow down and adore the"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "a smile and a bow, and looked at his"
+      }
+     ]
+    },
+    {
+     "meaning": "A ribbon tied into loops.",
+     "whyHard": "Not the usual meaning! Usually: a bow is a bend of the body, or a weapon that shoots arrows.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "with a cheerful red bow, into which she bundled"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "form": "bow",
+       "context": "not until the red bow was seen gayly erect"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "with a distracting little bow in her hair, or"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "strings in an irreproachable bow, wrestled viciously with pins"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "had on, from the bow in her bonnet to"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "scribbling-suit, with the bow rampantly erect upon her"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "and the little blue bow in her hair which"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "Jo, pulling out the bow under her chin before"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 2,
+       "form": "bow",
+       "context": "down at the crimson bow already flecked with black"
+      }
+     ]
+    }
+   ]
+  },
+  "charge": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Care of a person. In your charge means the person is yours to look after.",
+   "senses": [
+    {
+     "meaning": "A shout that tells soldiers to attack.",
+     "whyHard": "Not the usual meaning! Usually: a charge is the money you must pay.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "Charge, Chester, charge!’ is the motto for that table"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "charge",
+       "context": "Charge, Chester, charge!’ is the motto for that table"
+      }
+     ]
+    },
+    {
+     "meaning": "Care of a person. In your charge means the person is yours to look after.",
+     "whyHard": "Not the usual meaning! Usually: a charge is the money you must pay.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "leave him in your charge, to plague, pet, and"
+      }
+     ]
+    }
+   ]
+  },
+  "odd": {
+   "pos": "adjective",
+   "meaning": "Strange.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Strange.",
+     "default": true,
+     "whyHard": "Strange. It can also mean left over."
+    },
+    {
+     "meaning": "Left over, or not part of a pair.",
+     "whyHard": "Not the usual meaning! Usually: odd means strange.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "odd",
+       "context": "I hate to have odd gloves! Never mind, the"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "odd",
+       "context": "toy savings-bank for odd pennies, to a wonderful"
+      }
+     ]
+    }
+   ]
+  },
+  "bore": {
+   "pos": "past-tense verb",
+   "meaning": "Carried someone, or lived through something hard. Past of bear.",
+   "whyHard": "It looks like a hole you drill, or like a dull thing. Here it is mostly the past of bear.",
+   "senses": [
+    {
+     "meaning": "Carried someone, or lived through something hard. Past of bear.",
+     "default": true
+    },
+    {
+     "meaning": "A dull thing that is not fun.",
+     "whyHard": "Not the usual meaning! Usually: bore here is the past of bear, carried or endured.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "bore",
+       "context": "for them. What a bore!” said Meg, assuming a"
+      }
+     ]
+    },
+    {
+     "meaning": "Grew and produced, as a plant does.",
+     "whyHard": "Not the usual meaning! Usually: bore here is the past of bear, carried or endured.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "bore",
+       "context": "became a vine, and bore many squashes. One day"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "bore",
+       "context": "living, even if they bore no other fruit. The"
+      }
+     ]
+    }
+   ]
+  },
+  "bound": {
+   "pos": "adjective",
+   "meaning": "Tied, or wrapped.",
+   "whyHard": "This word has more than one meaning. It does not mean a jump.",
+   "senses": [
+    {
+     "meaning": "Tied, or wrapped.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "said Meg, as Jo bound up her foot with"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "Within lie snoods that bound her hair, Slippers that"
+      }
+     ]
+    },
+    {
+     "meaning": "Going toward a place.",
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "coming out, as if bound on some expedition"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "look among the ships bound for India"
+      }
+     ]
+    },
+    {
+     "meaning": "Sure to happen, or determined to do it.",
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "felt wicked, and was bound to have some money"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "everybody and everything seemed bound to produce a grand"
+      }
+     ]
+    },
+    {
+     "meaning": "Joined closely.",
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "with their growth, and bound them tenderly together by"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "one love and sorrow bound them closely together. Amy"
+      }
+     ]
+    },
+    {
+     "meaning": "Giving all your care to something.",
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "form": "bound",
+       "context": "old man who was bound up in his success"
+      }
+     ]
+    }
+   ]
+  },
+  "struck": {
+   "pos": "past-tense verb",
+   "meaning": "Hit, or came suddenly into the mind. It does not mean stuck.",
+   "whyHard": "It looks like stuck. Stuck means not able to move. Struck means hit."
+  },
+  "haf": {
+   "pos": "verb",
+   "meaning": "Mr. Bhaer's way of saying have.",
+   "whyHard": "It looks like half. He means have."
+  },
+  "gif": {
+   "pos": "verb",
+   "meaning": "Mr. Bhaer's way of saying give. It does not mean a gift.",
+   "whyHard": "It looks like gift. He means give."
+  },
+  "thee": {
+   "pos": "pronoun",
+   "meaning": "An old word for you."
+  },
+  "thou": {
+   "pos": "pronoun",
+   "meaning": "An old word for you, when you speak to one person."
+  },
+  "thy": {
+   "pos": "pronoun",
+   "meaning": "An old word for your."
+  },
+  "dost": {
+   "pos": "verb",
+   "meaning": "An old word for do."
+  },
+  "doth": {
+   "pos": "verb",
+   "meaning": "An old word for does."
+  },
+  "hath": {
+   "pos": "verb",
+   "meaning": "An old word for has."
+  },
+  "wouldst": {
+   "pos": "verb",
+   "meaning": "An old word for would."
+  },
+  "givest": {
+   "pos": "verb",
+   "meaning": "An old word for give."
+  },
+  "savest": {
+   "pos": "verb",
+   "meaning": "An old word for save."
+  },
+  "parlor": {
+   "pos": "noun",
+   "meaning": "A sitting room in a house."
+  },
+  "bonnet": {
+   "pos": "noun",
+   "meaning": "A hat for a woman or a girl, often tied under the chin."
+  },
+  "cloak": {
+   "pos": "noun",
+   "meaning": "A loose coat with no sleeves, worn over other clothes."
+  },
+  "shawl": {
+   "pos": "noun",
+   "meaning": "A wide piece of cloth worn over the shoulders."
+  },
+  "apron": {
+   "pos": "noun",
+   "meaning": "A cloth you tie over your clothes to keep them clean while you work."
+  },
+  "hearth": {
+   "pos": "noun",
+   "meaning": "The floor of a fireplace, where the fire burns."
+  },
+  "hearthrug": {
+   "pos": "noun",
+   "meaning": "The rug that lies in front of the fire."
+  },
+  "poker": {
+   "pos": "noun",
+   "meaning": "A metal stick used to move the wood or coal in a fire."
+  },
+  "coal": {
+   "pos": "noun",
+   "meaning": "A hard black fuel that is burned to make heat."
+  },
+  "hod": {
+   "pos": "noun",
+   "meaning": "A bucket for carrying coal to the fire."
+  },
+  "sleigh": {
+   "pos": "noun",
+   "meaning": "A carriage that slides on snow."
+  },
+  "omnibus": {
+   "pos": "noun",
+   "meaning": "A big carriage that many people ride in together, like a bus."
+  },
+  "carriage": {
+   "pos": "noun",
+   "meaning": "A wheeled box that a horse pulls, for people to ride in."
+  },
+  "telegram": {
+   "pos": "noun",
+   "meaning": "A short message sent quickly along a wire."
+  },
+  "governess": {
+   "pos": "noun",
+   "meaning": "A woman who lives in a family and teaches the children."
+  },
+  "tutor": {
+   "pos": "noun",
+   "meaning": "A teacher who teaches one student, or a few, at home."
+  },
+  "minister": {
+   "pos": "noun",
+   "meaning": "A church leader who speaks to the people in church."
+  },
+  "sermon": {
+   "pos": "noun",
+   "meaning": "A talk given in church."
+  },
+  "pulpit": {
+   "pos": "noun",
+   "meaning": "The high desk in a church where the minister stands to speak."
+  },
+  "colonel": {
+   "pos": "noun",
+   "meaning": "A high officer in the army."
+  },
+  "captain": {
+   "pos": "noun",
+   "meaning": "A leader of a ship, or an officer who leads soldiers."
+  },
+  "slipper": {
+   "pos": "noun",
+   "meaning": "A soft shoe worn in the house."
+  },
+  "stocking": {
+   "pos": "noun",
+   "meaning": "A long, thin sock that covers the foot and the lower leg."
+  },
+  "waistcoat": {
+   "pos": "noun",
+   "meaning": "A short buttoned coat with no sleeves, worn under a jacket."
+  },
+  "nightgown": {
+   "pos": "noun",
+   "meaning": "A long loose dress worn in bed."
+  },
+  "nightcap": {
+   "pos": "noun",
+   "meaning": "A soft cap worn in bed."
+  },
+  "wrapper": {
+   "pos": "noun",
+   "meaning": "A loose coat worn in the house, over night clothes."
+  },
+  "veil": {
+   "pos": "noun",
+   "meaning": "A thin cloth worn over the face or head."
+  },
+  "mitten": {
+   "pos": "noun",
+   "meaning": "A glove that keeps the thumb apart and the other fingers together."
+  },
+  "brooch": {
+   "pos": "noun",
+   "meaning": "A pretty pin worn on clothes."
+  },
+  "mantle": {
+   "pos": "noun",
+   "meaning": "A loose cloak."
+  },
+  "velvet": {
+   "pos": "noun",
+   "meaning": "A thick, soft cloth with a short pile."
+  },
+  "satin": {
+   "pos": "noun",
+   "meaning": "A smooth, shiny cloth."
+  },
+  "lace": {
+   "pos": "noun",
+   "meaning": "A fine open cloth with a pattern of holes, used to trim clothes."
+  },
+  "muslin": {
+   "pos": "noun",
+   "meaning": "A thin cotton cloth."
+  },
+  "calico": {
+   "pos": "noun",
+   "meaning": "A cotton cloth printed with a small pattern."
+  },
+  "cambric": {
+   "pos": "noun",
+   "meaning": "A thin white cloth."
+  },
+  "flannel": {
+   "pos": "noun",
+   "meaning": "A soft, warm wool cloth."
+  },
+  "linen": {
+   "pos": "noun",
+   "meaning": "A strong cloth made from the flax plant, used for shirts and sheets."
+  },
+  "currant": {
+   "pos": "noun",
+   "meaning": "A small sour berry, red or black, used in cooking."
+  },
+  "pickle": {
+   "pos": "noun",
+   "meaning": "A vegetable kept in salt or vinegar."
+  },
+  "oyster": {
+   "pos": "noun",
+   "meaning": "A sea animal in a shell, eaten as food."
+  },
+  "nutmeg": {
+   "pos": "noun",
+   "meaning": "A hard brown spice, grated into food."
+  },
+  "posy": {
+   "pos": "noun",
+   "meaning": "A small bunch of flowers."
+  },
+  "sixpence": {
+   "pos": "noun",
+   "meaning": "An old British coin worth six pennies."
+  },
+  "workbasket": {
+   "pos": "noun",
+   "meaning": "A basket that holds sewing things."
+  },
+  "footstool": {
+   "pos": "noun",
+   "meaning": "A low stool for resting your feet."
+  },
+  "cradle": {
+   "pos": "noun",
+   "meaning": "A small bed for a baby, sometimes made to rock."
+  },
+  "palette": {
+   "pos": "noun",
+   "meaning": "A thin board an artist holds, with the paints set on it."
+  },
+  "shrubbery": {
+   "pos": "noun",
+   "meaning": "A group of bushes planted together."
+  },
+  "embroidery": {
+   "pos": "noun",
+   "meaning": "Pictures or patterns sewn onto cloth with a needle."
+  },
+  "darning": {
+   "pos": "noun",
+   "meaning": "Mending a hole in a sock or cloth by sewing across it."
+  },
+  "needlework": {
+   "pos": "noun",
+   "meaning": "Sewing, or other work done with a needle."
+  },
+  "seminary": {
+   "pos": "noun",
+   "meaning": "A school. Here, the little class the Professor teaches."
+  },
+  "choir": {
+   "pos": "noun",
+   "meaning": "A group of people who sing together."
+  },
+  "matron": {
+   "pos": "noun",
+   "meaning": "A married woman, often one who is in charge of a house."
+  },
+  "bustle": {
+   "pos": "noun",
+   "meaning": "A busy, noisy time when people hurry about."
+  },
+  "samphire": {
+   "pos": "noun",
+   "meaning": "A plant that grows by the sea. Amy says it by mistake. She means vampire.",
+   "whyHard": "The next line says she means vampire, not seaweed."
+  },
+  "malaprop": {
+   "pos": "noun",
+   "meaning": "A joke name for a person who uses the wrong big word. Here it is Amy."
+  },
+  "quadroon": {
+   "pos": "noun",
+   "meaning": "An old word for a person with one black grandparent."
+  },
+  "muff": {
+   "pos": "noun",
+   "meaning": "A small fur cover you put both hands into, to keep them warm. The girls also use the name for their hot pies."
+  },
+  "sprite": {
+   "pos": "noun",
+   "meaning": "A small spirit, like a fairy."
+  },
+  "elfin": {
+   "pos": "adjective",
+   "meaning": "Like a fairy; light and quick."
+  },
+  "damsel": {
+   "pos": "noun",
+   "meaning": "A young woman, in old poems."
+  },
+  "sober": {
+   "pos": "adjective",
+   "meaning": "Quiet and serious, not wild or joking."
+  },
+  "temper": {
+   "pos": "noun",
+   "meaning": "The part of you that gets angry. A quick temper means you get angry easily."
+  },
+  "fancy": {
+   "pos": "noun",
+   "meaning": "A liking, a guess, or a picture in the mind. I fancy means I think."
+  },
+  "splendid": {
+   "pos": "adjective",
+   "meaning": "Very fine and wonderful."
+  },
+  "dreadful": {
+   "pos": "adjective",
+   "meaning": "Very bad, or very great."
+  },
+  "manger": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Part of the French name salle a manger, which means the dining room.",
+   "senses": [
+    {
+     "meaning": "Part of the French name salle a manger, which means the dining room.",
+     "whyHard": "Not the usual meaning! Usually: a manger is a box of food for animals in a stable.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "form": "manger",
+       "context": "the long salle à manger, that evening, was such"
+      }
+     ]
+    }
+   ]
   }
  },
  "paragraphs": [
@@ -3335,6 +6789,159 @@
     "racket",
     "whirlpool"
    ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 0,
+   "context": "Go then, my little Book, and show to all",
+   "mainIdea": "An old poem sends the little book out to help readers become better pilgrims.",
+   "simple": "The poem tells the little book to go to people who will welcome it. The book should keep its message shut inside, and it should wish that what it shows will bless those people and help them choose to be better pilgrims than the book or the writer. It tells them about Mercy, who began her pilgrimage early. Young girls should learn from her to value the world that is coming, and so be wise. Little light-footed girls may follow God along the roads that holy feet have walked.",
+   "hardWords": [
+    "entertain",
+    "bid",
+    "breast",
+    "blest",
+    "pilgrims",
+    "damsels",
+    "pilgrimage",
+    "tripping",
+    "maids",
+    "saintly"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 49,
+   "context": "Hither, hither, from thy home, Airy sprite, I bid",
+   "mainIdea": "In the girls' play, the witch sings a spell that calls a spirit to bring a love drink.",
+   "simple": "The song calls a spirit to come from its home. The spirit was born of roses and fed on dew. The witch asks if it can make charms and drinks, and she tells it to bring the sweet drink she needs, quickly. The drink should be sweet, fast, and strong. She tells the spirit to answer her song.",
+   "hardWords": [
+    "hither",
+    "thy",
+    "airy",
+    "sprite",
+    "bid",
+    "thee",
+    "dew",
+    "charms",
+    "potions",
+    "elfin",
+    "philter"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 51,
+   "context": "Hither I come, From my airy home",
+   "mainIdea": "The spirit answers the witch's song and says the magic will not last if it is used badly.",
+   "simple": "The spirit says it comes from its light home, far away in the silver moon. It tells the witch to take the magic spell and use it well, or the power will disappear soon.",
+   "hardWords": [
+    "hither",
+    "airy",
+    "afar",
+    "spell",
+    "vanish"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 54,
+   "context": "the russet boots waved wildly from the wreck",
+   "mainIdea": "The pretend tower falls, and the real girls are stuck in the broken stage.",
+   "simple": "Everyone screams. The brown boots wave from the wreck, and a golden head comes out, shouting that she said this would happen. The boy playing the cruel father runs in and pulls his daughter out, while he speaks a quick aside.",
+   "hardWords": [
+    "universal",
+    "shriek",
+    "russet",
+    "wreck",
+    "emerged",
+    "sire",
+    "aside"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 7,
+   "context": "Again we meet to celebrate With badge and solemn rite",
+   "mainIdea": "The club's poem says the four girls are together again, and it makes a gentle joke about each one.",
+   "simple": "The poem says they meet again to celebrate, with badges and a serious ceremony, their fifty-second anniversary in Pickwick Hall. All are well, and they greet each known face. Pickwick is at his place, reading the paper through spectacles even though he has a cold and his voice croaks. Tall Snodgrass smiles on them, with fire in his eye, ambition on his brow, and a blot on his nose. Plump Tupman laughs at the jokes until he falls off his seat. Proper little Winkle has every hair in place, but he hates to wash his face. The year is gone and they still joke, laugh, read, and walk the path of books. The poem wishes the paper and the club a long life, and blessings on the useful, happy club. It is signed A. Snodgrass.",
+   "hardWords": [
+    "solemn",
+    "rite",
+    "anniversary",
+    "band",
+    "reverence",
+    "spectacles",
+    "croak",
+    "looms",
+    "elephantine",
+    "jovial",
+    "brow",
+    "blot",
+    "puns",
+    "propriety",
+    "doth"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 23,
+   "context": "Why is the P.C. like the Tower of Babel",
+   "mainIdea": "The paper asks a riddle. The club is like the Tower of Babel because its members will not behave.",
+   "simple": "The paper asks why the P.C. is like the Tower of Babel. The answer is that it is full of members who will not behave.",
+   "hardWords": [
+    "Tower",
+    "Babel",
+    "unruly",
+    "members"
+   ]
+  },
+  {
+   "chapter": 14,
+   "paragraph": 78,
+   "context": "She put them on, the knights revived at once",
+   "mainIdea": "In Laurie's silly story, cabbages take the place of the knights' heads, and then a hedge keeps the knight from the princess.",
+   "simple": "Laurie goes on with the made-up story. The girl says cabbages are just the thing, runs to her garden, and gets twelve fine ones. She puts them on, the knights wake at once, thank her, and go on their way, never knowing the difference, because so many other heads in the world look like that. The knight Laurie cares about goes back to find the pretty face. He learns that the princesses have spun themselves free and all but one have gone to be married. He is upset, gets on the young horse who stays with him, and rushes to the castle. Over the hedge he sees the girl he loves picking flowers. He asks for a rose. She says he must come and get it, because it is not proper for her to come to him. He tries to climb the hedge, but it grows higher. He tries to push through, but it grows thicker. He breaks twig after twig until he has a little hole, and he begs to be let in. She does not seem to understand. She picks her roses and leaves him to fight his way in. Laurie says Frank will tell whether the knight got in.",
+   "hardWords": [
+    "cabbages",
+    "revived",
+    "rejoicing",
+    "spun",
+    "colt",
+    "affections",
+    "hedge",
+    "despair",
+    "twig",
+    "imploringly"
+   ]
+  },
+  {
+   "chapter": 48,
+   "paragraph": 95,
+   "context": "Four little chests all in a row, Dim with dust",
+   "mainIdea": "Jo's poem looks into four old chests, one for each sister, and tells what each life has kept.",
+   "simple": "The poem is called In the Garret. Four little chests stand in a row, dusty and worn. Children filled them long ago, and those children are grown now. Four keys hang side by side on faded ribbons, put there with pride on a rainy day. Four names were carved by a boy, and under each lid is the story of that happy group. They used to play here and stop to hear the rain on the roof. Meg's lid is smooth. Inside are gifts from her peaceful life, a bridal gown, lines to a wife, a tiny shoe, and a baby curl. The toys are gone, carried away to be played with by another little Meg. The poem calls her a happy mother and says she hears soft lullabies in the rain. Jo's lid is scratched. Inside are headless dolls, torn schoolbooks, silent toy animals, things brought home from play, dreams of a future that did not come, half-written poems, letters, and a wilful child's diaries. A lonely woman hears the line that love will come if she is worthy of it. Beth's lid is always dusted, as if loving eyes and careful hands still came. The poem says death made her their saint. They still lay relics in that little shrine: a silver bell, the cap she last wore, and the songs she sang in pain, mixed with the rain. Amy's lid shows a knight whose shield says Amy in gold and blue. Inside are bands that tied her hair, slippers that have danced their last, faded flowers, fans, and valentines. She is learning truer spells now and hears bridal bells in the rain. The poem ends with the four chests again. Four women have been taught by joy and sorrow. They are parted for an hour, and only one is gone before the others. Love keeps them near. The poem hopes that when these hidden stores lie open, they will be rich in good hours, fair deeds, and brave lives.",
+   "hardWords": [
+    "garret",
+    "chests",
+    "fashioned",
+    "prime",
+    "refrain",
+    "aloft",
+    "goodly",
+    "bridal",
+    "lullabies",
+    "motley",
+    "spoils",
+    "wilful",
+    "canonized",
+    "relics",
+    "shrine",
+    "snoods",
+    "valentines",
+    "weal",
+    "woe"
+   ]
   }
  ],
  "sentences": [
@@ -4065,6 +7672,49 @@
    "pos": "idiom",
    "meaning": "To try to do something new, to see if you can do it.",
    "example": "He’ll try his hand at it there"
+  },
+  "in spite of": {
+   "meaning": "Even though something is true; not stopped by it.",
+   "pos": "phrase",
+   "example": "In spite of her small vanities, Margaret had a sweet and pious nature."
+  },
+  "to one's heart's content": {
+   "meaning": "As much as you want.",
+   "pos": "idiom",
+   "example": "So now I'm going to rest and revel to my heart's content."
+  },
+  "fast asleep": {
+   "meaning": "Sleeping deeply.",
+   "pos": "phrase",
+   "example": "Hannah, quite worn out, lay down on the sofa at the bed's foot, and fell fast asleep."
+  },
+  "dog in the manger": {
+   "meaning": "A person who will not use a thing and will not let anyone else use it.",
+   "pos": "idiom",
+   "example": "Not being a dog in the manger, but the happiest fellow alive, I assure you I can dance at Jo's wedding with a heart as light as my heels."
+  },
+  "as stiff as a poker": {
+   "meaning": "Standing or sitting very straight and not moving, like the metal stick by the fire.",
+   "pos": "idiom",
+   "example": "Come here, Amy, and do the fainting scene, for you are as stiff as a poker in that."
+  },
+  "as cross as a bear": {
+   "meaning": "Very angry.",
+   "pos": "idiom",
+   "example": "He was as nervous as a witch and as cross as a bear."
+  },
+  "dressing gown": {
+   "meaning": "A long loose coat worn in the house before you are dressed.",
+   "pos": "phrase",
+   "example": "It flew open, and there he stood in his dressing gown, with a big blue sock on one hand."
+  },
+  "guinea pig": {
+   "meaning": "A small pet animal with no tail.",
+   "pos": "phrase",
+   "forms": [
+    "guinea-pig"
+   ],
+   "example": "From Mr. Laurence, who was considered their special patron, to the astonished guinea-pig."
   }
  }
 }
