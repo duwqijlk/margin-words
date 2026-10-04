@@ -18,7 +18,7 @@ Short all-in-one spec for any AI agent: `docs/book-pack-spec.md` (shipped in `bo
 | Parameter | Default | Meaning |
 | --- | --- | --- |
 | `epub` | (required) | Path to the book file. |
-| `target_level` | CEFR B1 (about grade 7 to 9) | Reader's level. Words **above** it are hard words. Can be CEFR (A2, B1, B2), a school grade, or "skip the 2000 most common words". |
+| `target_level` | First year of Chinese junior high (about 12) | Reader's level. Use the tests in `skills/make-glossary/SKILL.md`. Do not use "skip the 2000 most common words" as the line. |
 | `definition_language` | English | Language of `meaning`. The app is English-only, so prefer simple English. If the user wants another language, write it, but tell the user the app shows a small notice. |
 | `definition_style` | Short, one idea, words below the target level | How to write meanings. |
 | `max_words` | 200 | How many entries at most. |
@@ -41,8 +41,7 @@ chapters from the summary.
 
 - Read the chapters (or sample them if the book is long). Optionally get frequent candidates the app would
   pick: `node scripts/extract-epub-text.mjs book.epub --candidates 300`.
-- Keep a word if a learner at `target_level` may not know it. Skip names, easy words, and words the
-  book itself explains. Keep up to `max_words`; prefer words that appear more than once or matter for the story.
+- Keep a word when any test in `skills/make-glossary/SKILL.md` is yes (wrong twin, old thing, old label, or not the school meaning). If you are not sure they know it, keep it. Skip names, a textbook word used in the textbook meaning, and words the book itself explains. A word that appears once, including inside a letter or a label, still counts. `max_words` is only a safety stop for a huge book, not a reason to drop `hearthrug` or `struck`.
 - Use **lower-case** entries. The key is the word as the reader can tap it: nouns in the singular
   (`monkey`, the app maps `monkeys` to it), but a verb form that is not mapped by plural rules is its own key
   (`cried`, `shrinks` -> `shrink` only when it ends in a plural-like -s: check with `--find`). For other

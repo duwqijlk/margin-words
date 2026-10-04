@@ -12,11 +12,11 @@
    "lexile": "880L",
    "series": "Alice",
    "seriesNumber": 1,
-   "rev": "2879006a9fb7",
+   "rev": "bd4dfec0a52b",
    "version": 2,
    "chapters": 13,
-   "words": 866,
-   "paragraphs": 45,
+   "words": 971,
+   "paragraphs": 50,
    "sentences": 16,
    "phrases": 32,
    "coined": 4,
@@ -27,9 +27,9 @@
    },
    "glossary": {
     "url": "alice/glossary.json",
-    "bytes": 160760,
-    "sha256": "74125e434f6af81f261e518c31135cb58ed2a436899e6e61bc7aee9993672b12",
-    "rev": "74125e434f6a"
+    "bytes": 179693,
+    "sha256": "2b383a23c139063e24b46878efa86695d387279f9118f6e37a9992b5b376f695",
+    "rev": "2b383a23c139"
    },
    "cover": {
     "url": "alice/cover.jpg",
@@ -38,8 +38,8 @@
    },
    "zip": {
     "url": "alice.zip",
-    "bytes": 230579,
-    "sha256": "c8ea710acb5e4b871ac8f3610c91e094c6d3448bb1be3674149be7d3c5e1377c"
+    "bytes": 234541,
+    "sha256": "c7693b27f90f906db9716f515399863455cb15da74e571196aab109e9d107960"
    }
   },
   {
