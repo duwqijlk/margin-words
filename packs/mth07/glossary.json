@@ -1,0 +1,6362 @@
+{
+ "version": 2,
+ "title": "Sunset of the Sabertooth",
+ "author": "Mary Pope Osborne",
+ "isbn": "9780375894244",
+ "series": "Magic Tree House",
+ "seriesNumber": 7,
+ "sha256": "5a16ee3036dc649cd13abeae9a9e004e78ed12baeab054b7a800a1ba2eb28299",
+ "chapters": 14,
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+ "language": "English",
+ "glossary": {
+  "absolutely": {
+   "pos": "adverb",
+   "meaning": "Completely.",
+   "forms": [
+    "absolutely"
+   ],
+   "ipa": "/ˈæbsəluːtli/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "You are absolutely right.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "adventure": {
+   "pos": "singular noun",
+   "meaning": "An exciting trip or experience, often a little dangerous.",
+   "forms": [
+    "adventure",
+    "adventures"
+   ],
+   "ipa": "/ədˈventʃər/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Our trip to the mountains was a real adventure.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "aloud": {
+   "pos": "adverb",
+   "meaning": "In a voice that other people can hear.",
+   "forms": [
+    "aloud"
+   ],
+   "ipa": "/əˈlaʊd/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The teacher read the story aloud.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "ancestor": {
+   "pos": "singular noun",
+   "meaning": "A person or animal in your family who lived a long time before you.",
+   "forms": [
+    "ancestor",
+    "ancestors"
+   ],
+   "ipa": "/ˈænsestər/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "My ancestors came from a small village in the south.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "antler": {
+   "pos": "singular noun",
+   "meaning": "One of the two big horns, like tree branches, on the head of a deer.",
+   "forms": [
+    "antler",
+    "antlers"
+   ],
+   "ipa": "/ˈæntlər/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The deer had large antlers.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "anymore": {
+   "pos": "adverb",
+   "meaning": "Any longer; now, not as before. Used with \"not\".",
+   "forms": [
+    "anymore"
+   ],
+   "ipa": "/ˌeniˈmɔːr/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "American spelling. British English writes \"any more\".",
+   "example": "I don't live there anymore.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "ax": {
+   "pos": "singular noun",
+   "meaning": "A tool with a heavy metal or stone blade, used to cut wood.",
+   "forms": [
+    "ax",
+    "axe",
+    "axes"
+   ],
+   "ipa": "/æks/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "American spelling \"ax\"; British spelling \"axe\". Both have the plural \"axes\".",
+   "example": "He cut the wood with an ax.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "backpack": {
+   "pos": "singular noun",
+   "meaning": "A bag that you carry on your back.",
+   "forms": [
+    "backpack",
+    "backpacks"
+   ],
+   "ipa": "/ˈbækpæk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. British English also says \"rucksack\".",
+   "example": "I put my lunch in my backpack.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "bare": {
+   "pos": "adjective",
+   "meaning": "Not covered. Bare trees have no leaves. Bare legs have no clothes on them.",
+   "forms": [
+    "bare"
+   ],
+   "ipa": "/ber/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "It was cold, and my bare hands hurt.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "bathing": {
+   "pos": "adjective",
+   "meaning": "Made for wearing in the water.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "bathing"
+   ]
+  },
+  "beast": {
+   "pos": "singular noun",
+   "meaning": "A big, wild animal, often a dangerous one.",
+   "forms": [
+    "beast",
+    "beasts"
+   ],
+   "ipa": "/biːst/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The story is about a beauty and a beast.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "belonged": {
+   "pos": "past-tense verb",
+   "meaning": "Was owned by someone.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "belonged"
+   ]
+  },
+  "beneath": {
+   "pos": "preposition",
+   "meaning": "Under; below.",
+   "forms": [
+    "beneath"
+   ],
+   "ipa": "/bɪˈniːθ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A little formal. In everyday talk people say \"under\".",
+   "example": "The cat is sleeping beneath the table.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "bet": {
+   "pos": "base verb",
+   "meaning": "\"I bet\" means \"I am sure\".",
+   "whyHard": "In talk, \"I bet ...\" just means \"I am sure ...\".",
+   "forms": [
+    "bet"
+   ],
+   "ipa": "/bet/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "I bet it will rain tomorrow."
+  },
+  "beyond": {
+   "pos": "preposition",
+   "meaning": "On the other side of something; farther away than something.",
+   "forms": [
+    "beyond"
+   ],
+   "ipa": "/biˈjɑːnd/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "There is a small village beyond the hills.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "bison": {
+   "pos": "singular noun",
+   "meaning": "A big wild animal like a cow, with a large head and thick hair. The plural is also \"bison\".",
+   "forms": [
+    "bison"
+   ],
+   "ipa": "/ˈbaɪsən/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "biting": {
+   "pos": "adjective",
+   "meaning": "Very cold, so it hurts your skin.",
+   "whyHard": "A \"biting\" wind is so cold it feels like it bites you.",
+   "forms": [
+    "biting"
+   ],
+   "ipa": "/ˈbaɪtɪŋ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We walked home in the biting wind."
+  },
+  "blew": {
+   "pos": "past-tense verb",
+   "meaning": "Was driven by the wind.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "blew"
+   ]
+  },
+  "blind": {
+   "pos": "base verb",
+   "meaning": "To make someone unable to see for a short time.",
+   "whyHard": "The book word is \"blinded\".",
+   "forms": [
+    "blinded"
+   ],
+   "ipa": "/blaɪnd/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The bright lights blinded me for a moment."
+  },
+  "blow": {
+   "pos": "verb",
+   "meaning": "To move, as wind does.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "blow"
+   ]
+  },
+  "blowing": {
+   "pos": "present participle",
+   "meaning": "Moving hard, as wind.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "blowing"
+   ]
+  },
+  "bone": {
+   "pos": "singular noun",
+   "meaning": "One of the hard white parts inside the body of a person or animal.",
+   "forms": [
+    "bone",
+    "bones"
+   ],
+   "ipa": "/boʊn/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "The dog is chewing a bone.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "booming": {
+   "pos": "adjective",
+   "meaning": "Very loud and deep.",
+   "forms": [
+    "booming"
+   ],
+   "ipa": "/ˈbuːmɪŋ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "He has a booming voice.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "borrow": {
+   "pos": "verb",
+   "meaning": "To use something that must be returned.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "borrow"
+   ]
+  },
+  "bound": {
+   "pos": "base verb",
+   "meaning": "To run with long jumps.",
+   "whyHard": "Here \"bounded off\" means ran away with big jumps.",
+   "forms": [
+    "bounded"
+   ],
+   "ipa": "/baʊnd/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The dog bounded across the grass to meet us."
+  },
+  "bowl": {
+   "pos": "noun",
+   "meaning": "A round, deep dish.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "bowl"
+   ]
+  },
+  "braid": {
+   "pos": "base verb",
+   "meaning": "To twist three long pieces together, like hair, to make one thick piece.",
+   "whyHard": "The book word is \"braiding\".",
+   "forms": [
+    "braid",
+    "braids",
+    "braided",
+    "braiding"
+   ],
+   "ipa": "/breɪd/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "example": "Mom braided my hair before school."
+  },
+  "branch": {
+   "pos": "singular noun",
+   "meaning": "A part of a tree that grows out from the main part, like an arm.",
+   "forms": [
+    "branch",
+    "branches"
+   ],
+   "ipa": "/bræntʃ/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "A bird is sitting on a branch.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "breath": {
+   "pos": "noun",
+   "meaning": "The air held in the body.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "breath"
+   ]
+  },
+  "brrr": {
+   "pos": "interjection",
+   "meaning": "A sound people make when they are very cold.",
+   "forms": [
+    "brrr"
+   ],
+   "ipa": "/bɜːr/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "bump": {
+   "pos": "base verb",
+   "meaning": "To move up and down roughly, as in a car on a bad road.",
+   "whyHard": "The book word is \"bumped\".",
+   "forms": [
+    "bump",
+    "bumps",
+    "bumped",
+    "bumping"
+   ],
+   "ipa": "/bʌmp/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The old bus bumped along the country road."
+  },
+  "burning": {
+   "pos": "adjective",
+   "meaning": "On fire.",
+   "forms": [
+    "burning",
+    "burned"
+   ],
+   "ipa": "/ˈbɜːrnɪŋ/",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Very bright and fierce, as if full of fire.",
+     "pos": "adjective",
+     "whyHard": "Not the usual meaning! Usually: On fire.",
+     "trickyMeaning": true,
+     "usualMeaning": "On fire.",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "His burning eyes were fixed on the mammoth"
+      }
+     ]
+    },
+    {
+     "meaning": "Hurt with a hot pain (from holding the rope hard).",
+     "pos": "past-tense verb",
+     "whyHard": "Not the usual meaning! Usually: Was on fire.",
+     "trickyMeaning": true,
+     "usualMeaning": "Was on fire.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "burned",
+       "context": "His hands burned. His arms felt"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "caption": {
+   "pos": "singular noun",
+   "meaning": "The words under a picture that tell you about it.",
+   "forms": [
+    "caption"
+   ],
+   "ipa": "/ˈkæpʃən/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Read the caption under the photo.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "carefully": {
+   "pos": "adverb",
+   "meaning": "In a slow, watchful way.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "carefully"
+   ]
+  },
+  "carve": {
+   "pos": "base verb",
+   "meaning": "To cut a shape or letters into wood or stone with a knife.",
+   "whyHard": "The book word is \"carved\".",
+   "forms": [
+    "carve",
+    "carves",
+    "carved",
+    "carving"
+   ],
+   "ipa": "/kɑːrv/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "He carved his name into the tree."
+  },
+  "cave": {
+   "pos": "noun",
+   "meaning": "Large hollows in rock or under cliffs.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "cave"
+   ]
+  },
+  "caved": {
+   "pos": "past-tense verb",
+   "meaning": "Fell in and opened a hole.",
+   "whyHard": "Not the usual meaning! Usually a cave is a hollow place in rock.",
+   "forms": [
+    "caved"
+   ]
+  },
+  "cavern": {
+   "pos": "singular noun",
+   "meaning": "A very big cave.",
+   "forms": [
+    "cavern"
+   ],
+   "ipa": "/ˈkævərn/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The river runs through an underground cavern.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "ceiling": {
+   "pos": "singular noun",
+   "meaning": "The top inside surface of a room or cave.",
+   "forms": [
+    "ceiling"
+   ],
+   "ipa": "/ˈsiːlɪŋ/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "There is a fan on the ceiling.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "charge": {
+   "pos": "base verb",
+   "meaning": "To run forward very fast and hard, often to attack.",
+   "whyHard": "Here the mammoth \"charged\": it ran very fast.",
+   "forms": [
+    "charged"
+   ],
+   "ipa": "/tʃɑːrdʒ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The bull charged at the man."
+  },
+  "chatter": {
+   "pos": "base verb",
+   "meaning": "When your teeth chatter, they hit each other again and again because you are very cold or afraid.",
+   "whyHard": "The book word is \"chattered\".",
+   "forms": [
+    "chatter",
+    "chatters",
+    "chattered",
+    "chattering"
+   ],
+   "ipa": "/ˈtʃætər/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "My teeth chattered in the icy water."
+  },
+  "cheerfully": {
+   "pos": "adverb",
+   "meaning": "In a happy way.",
+   "forms": [
+    "cheerfully"
+   ],
+   "ipa": "/ˈtʃɪrfəli/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She cheerfully said hello to everyone.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "circled": {
+   "pos": "past-tense verb",
+   "meaning": "Moved around to the other side.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "circled"
+   ]
+  },
+  "circus": {
+   "pos": "singular noun",
+   "meaning": "A show that travels from town to town, with clowns and trained animals.",
+   "forms": [
+    "circus"
+   ],
+   "ipa": "/ˈsɜːrkəs/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We saw elephants and clowns at the circus.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "clearing": {
+   "pos": "singular noun",
+   "meaning": "An open place in a forest with no trees.",
+   "forms": [
+    "clearing"
+   ],
+   "ipa": "/ˈklɪrɪŋ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We put up our tent in a clearing in the woods.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "cliff": {
+   "pos": "singular noun",
+   "meaning": "A very high, steep wall of rock.",
+   "forms": [
+    "cliff",
+    "cliffs"
+   ],
+   "ipa": "/klɪf/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Don't stand too close to the edge of the cliff.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "climb": {
+   "pos": "verb",
+   "meaning": "To get up and out.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "climb"
+   ]
+  },
+  "climbed": {
+   "pos": "past-tense verb",
+   "meaning": "Went up, using hands and feet.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "climbed"
+   ]
+  },
+  "climbing": {
+   "pos": "present participle",
+   "meaning": "Going up, using hands and feet.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "climbing"
+   ]
+  },
+  "clothing": {
+   "pos": "uncountable noun",
+   "meaning": "Clothes.",
+   "forms": [
+    "clothing"
+   ],
+   "ipa": "/ˈkloʊðɪŋ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Bring warm clothing for the trip.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "clown": {
+   "pos": "adverb",
+   "meaning": "A typing mistake in this book. It should be \"down\". \"Crouching down\" means bending low.",
+   "whyHard": "Mistake in the book: read it as \"down\".",
+   "forms": [
+    "clown"
+   ],
+   "ipa": "/daʊn/",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "Usually a \"clown\" is a funny person in a circus. Here it is just a printing mistake for \"down\"."
+  },
+  "clutch": {
+   "pos": "base verb",
+   "meaning": "To hold something very tightly, often because you are afraid.",
+   "whyHard": "The book word is \"clutched\".",
+   "forms": [
+    "clutch",
+    "clutches",
+    "clutched",
+    "clutching"
+   ],
+   "ipa": "/klʌtʃ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The little girl clutched her teddy bear."
+  },
+  "coal": {
+   "pos": "singular noun",
+   "meaning": "A black stone that burns. Here, \"coals\" are small burning pieces left in a fire.",
+   "forms": [
+    "coal",
+    "coals"
+   ],
+   "ipa": "/koʊl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We cooked the meat over hot coals.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "cozy": {
+   "pos": "adjective",
+   "meaning": "Warm, comfortable and safe.",
+   "forms": [
+    "cozy"
+   ],
+   "ipa": "/ˈkoʊzi/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "American spelling. British English writes \"cosy\".",
+   "example": "My bedroom is small but cozy.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "crack": {
+   "pos": "singular noun",
+   "meaning": "A sudden short loud sound, like something breaking.",
+   "forms": [
+    "crack"
+   ],
+   "ipa": "/kræk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We heard a crack as the branch broke.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "crash": {
+   "pos": "base verb",
+   "meaning": "To fall or hit something hard and noisily.",
+   "whyHard": "The book word is \"crashed\".",
+   "forms": [
+    "crash",
+    "crashed",
+    "crashes"
+   ],
+   "ipa": "/kræʃ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The plates crashed to the floor."
+  },
+  "crawl": {
+   "pos": "base verb",
+   "meaning": "To move along on your hands and knees, or close to the ground like a small animal.",
+   "whyHard": "The book word is \"crawled\".",
+   "forms": [
+    "crawl",
+    "crawls",
+    "crawled",
+    "crawling"
+   ],
+   "ipa": "/krɔːl/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "The baby is learning to crawl."
+  },
+  "creature": {
+   "pos": "singular noun",
+   "meaning": "Any living animal.",
+   "forms": [
+    "creature",
+    "creatures"
+   ],
+   "ipa": "/ˈkriːtʃər/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Many strange creatures live deep in the sea.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "creep": {
+   "pos": "base verb",
+   "meaning": "To move slowly and quietly so that no one hears or sees you.",
+   "whyHard": "The book word \"crept\" is the past of \"creep\".",
+   "forms": [
+    "creep",
+    "creeps",
+    "crept",
+    "creeping"
+   ],
+   "ipa": "/kriːp/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "I crept downstairs so I would not wake the baby."
+  },
+  "crouch": {
+   "pos": "base verb",
+   "meaning": "To bend your knees and body low, close to the ground.",
+   "whyHard": "The book word is \"crouching\".",
+   "forms": [
+    "crouch",
+    "crouches",
+    "crouched",
+    "crouching"
+   ],
+   "ipa": "/kraʊtʃ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We crouched behind the wall to hide."
+  },
+  "curved": {
+   "pos": "adjective",
+   "meaning": "Bent like part of a circle.",
+   "forms": [
+    "curved"
+   ],
+   "ipa": "/kɜːrvd/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The road is curved, so drive slowly.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "dart": {
+   "pos": "base verb",
+   "meaning": "To run or move very quickly and suddenly.",
+   "whyHard": "The book word is \"darted\".",
+   "forms": [
+    "dart",
+    "darts",
+    "darted",
+    "darting"
+   ],
+   "ipa": "/dɑːrt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "A cat darted across the road."
+  },
+  "dinosaur": {
+   "pos": "singular noun",
+   "meaning": "A very large animal that lived millions of years ago.",
+   "forms": [
+    "dinosaur",
+    "dinosaurs"
+   ],
+   "ipa": "/ˈdaɪnəsɔːr/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We saw dinosaur bones at the museum.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "dip": {
+   "pos": "singular noun",
+   "meaning": "A low place, like a small hollow.",
+   "forms": [
+    "dip"
+   ],
+   "ipa": "/dɪp/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "There's a dip in the road ahead.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "direction": {
+   "pos": "singular noun",
+   "meaning": "The way something is pointing or moving.",
+   "forms": [
+    "direction",
+    "directions"
+   ],
+   "ipa": "/dəˈrekʃən/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Which direction is the station?",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "dirt": {
+   "pos": "uncountable noun",
+   "meaning": "Earth or soil. A \"dirt floor\" is a floor made of hard earth.",
+   "forms": [
+    "dirt"
+   ],
+   "ipa": "/dɜːrt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The children were playing in the dirt.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "disappear": {
+   "pos": "base verb",
+   "meaning": "To go out of sight; to stop being seen.",
+   "forms": [
+    "disappear",
+    "disappeared",
+    "disappears"
+   ],
+   "ipa": "/ˌdɪsəˈpɪr/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "The cat disappeared under the bed.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "discovered": {
+   "pos": "past-tense verb",
+   "meaning": "Found out or learned.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "discovered"
+   ]
+  },
+  "distance": {
+   "pos": "singular noun",
+   "meaning": "How far away something is. \"In the distance\" means far away.",
+   "forms": [
+    "distance"
+   ],
+   "ipa": "/ˈdɪstəns/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "We could see the mountains in the distance.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "drive": {
+   "pos": "base verb",
+   "meaning": "To make a car or bus move and control it.",
+   "forms": [
+    "drove"
+   ],
+   "ipa": "/draɪv/",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Made animals run in one direction by chasing them.",
+     "pos": "past-tense verb",
+     "whyHard": "Not the usual meaning! Usually: To make a car move.",
+     "trickyMeaning": true,
+     "usualMeaning": "To make a car move.",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "drove",
+       "context": "Then they drove reindeer and mammoths into the traps"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "duck": {
+   "pos": "base verb",
+   "meaning": "A bird that swims; as a verb, to bend down quickly.",
+   "forms": [
+    "ducked"
+   ],
+   "ipa": "/dʌk/",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Bent down quickly and went into a low place.",
+     "pos": "past-tense verb",
+     "whyHard": "Not the usual meaning! Usually: A bird that swims on water.",
+     "trickyMeaning": true,
+     "usualMeaning": "A bird that swims on water.",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "ducked",
+       "context": "He ducked into a small tunnel"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "echo": {
+   "pos": "base verb",
+   "meaning": "To repeat what someone just said; also, a sound echoes when it comes back to you, for example in a cave.",
+   "whyHard": "The book word is \"echoed\".",
+   "forms": [
+    "echo",
+    "echoes",
+    "echoed",
+    "echoing"
+   ],
+   "ipa": "/ˈekoʊ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Our voices echoed in the empty hall."
+  },
+  "egyptian": {
+   "pos": "adjective",
+   "meaning": "From the ancient land of pyramids.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "egyptian"
+   ]
+  },
+  "elephant": {
+   "pos": "noun",
+   "meaning": "A huge animal with a long nose and big ears.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "elephant"
+   ]
+  },
+  "elk": {
+   "pos": "singular noun",
+   "meaning": "A very large deer with big wide antlers. The plural is also \"elk\".",
+   "forms": [
+    "elk"
+   ],
+   "ipa": "/elk/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "enemy": {
+   "pos": "singular noun",
+   "meaning": "A person who hates you or wants to hurt you.",
+   "forms": [
+    "enemy",
+    "enemies"
+   ],
+   "ipa": "/ˈenəmi/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The two countries were enemies in the war.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "entrance": {
+   "pos": "singular noun",
+   "meaning": "The door or opening where you go into a place.",
+   "forms": [
+    "entrance"
+   ],
+   "ipa": "/ˈentrəns/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Let's meet at the main entrance of the school.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "escort": {
+   "pos": "base verb",
+   "meaning": "To go with someone to keep them safe or to show the way.",
+   "whyHard": "The book word is \"escorting\".",
+   "forms": [
+    "escort",
+    "escorting"
+   ],
+   "ipa": "/ɪˈskɔːrt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Two police officers escorted the singer to her car."
+  },
+  "explore": {
+   "pos": "base verb",
+   "meaning": "To go around a place to learn about it.",
+   "forms": [
+    "explore",
+    "explored",
+    "exploring"
+   ],
+   "ipa": "/ɪkˈsplɔːr/",
+   "level": "junior",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "We spent the day exploring the old town.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "eyehole": {
+   "pos": "singular noun",
+   "meaning": "A hole in a mask that you look through.",
+   "forms": [
+    "eyeholes"
+   ],
+   "ipa": "/ˈaɪhoʊl/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "fang": {
+   "pos": "singular noun",
+   "meaning": "A long sharp tooth of an animal like a dog, tiger or snake.",
+   "forms": [
+    "fang",
+    "fangs"
+   ],
+   "ipa": "/fæŋ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The snake showed its fangs.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "farther": {
+   "pos": "adverb",
+   "meaning": "More far; at a longer distance.",
+   "forms": [
+    "farther"
+   ],
+   "ipa": "/ˈfɑːrðər/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "\"Farther\" and \"further\" both mean \"more far\".",
+   "example": "The station is farther than I thought.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "fiber": {
+   "pos": "singular noun",
+   "meaning": "A thin thread, for example from a plant.",
+   "forms": [
+    "fiber",
+    "fibers"
+   ],
+   "ipa": "/ˈfaɪbər/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "American spelling. British English writes \"fibre\".",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "fierce": {
+   "pos": "adjective",
+   "meaning": "Angry, wild and ready to attack.",
+   "forms": [
+    "fierce",
+    "fiercer",
+    "fiercest"
+   ],
+   "ipa": "/fɪrs/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "The dog looks fierce, but it is really very friendly.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "fiercely": {
+   "pos": "adverb",
+   "meaning": "In a wild, angry way.",
+   "forms": [
+    "fiercely"
+   ],
+   "ipa": "/ˈfɪrsli/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The lion roared fiercely.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "figure": {
+   "pos": "singular noun",
+   "meaning": "The shape of a person, especially one you cannot see clearly.",
+   "whyHard": "Here it is the shape of a person far away.",
+   "forms": [
+    "figure",
+    "figures"
+   ],
+   "ipa": "/ˈfɪɡjər/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "I saw a dark figure at the end of the street."
+  },
+  "finger": {
+   "pos": "noun",
+   "meaning": "One of the long parts at the end of the hand.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "finger"
+   ]
+  },
+  "fixed": {
+   "pos": "adjective",
+   "meaning": "Repaired; or not moving.",
+   "forms": [
+    "fixed"
+   ],
+   "ipa": "/fɪkst/",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Looking at one thing and not looking away.",
+     "pos": "adjective",
+     "whyHard": "Not the usual meaning! Usually: Repaired, made to work again.",
+     "trickyMeaning": true,
+     "usualMeaning": "Repaired, made to work again.",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "His burning eyes were fixed on the mammoth"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "flame": {
+   "pos": "singular noun",
+   "meaning": "The hot bright part of a fire.",
+   "forms": [
+    "flame",
+    "flames"
+   ],
+   "ipa": "/fleɪm/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The candle flame moved in the wind.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "flicker": {
+   "pos": "base verb",
+   "meaning": "When a light flickers, it shines and goes dark again and again, quickly.",
+   "whyHard": "The book word is \"flickering\".",
+   "forms": [
+    "flicker",
+    "flickers",
+    "flickering",
+    "flickered"
+   ],
+   "ipa": "/ˈflɪkər/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The lights flickered and then went out."
+  },
+  "flint": {
+   "pos": "singular noun",
+   "meaning": "A very hard grey stone. Long ago people made sharp tools from it.",
+   "forms": [
+    "flint"
+   ],
+   "ipa": "/flɪnt/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "flip": {
+   "pos": "base verb",
+   "meaning": "To turn something over quickly. \"Flip through a book\" means to turn the pages quickly.",
+   "whyHard": "The book word is \"flipped\".",
+   "forms": [
+    "flip",
+    "flips",
+    "flipped",
+    "flipping"
+   ],
+   "ipa": "/flɪp/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "I flipped through the magazine while I waited."
+  },
+  "flute": {
+   "pos": "singular noun",
+   "meaning": "A musical instrument like a long pipe. You blow across a hole at one end.",
+   "forms": [
+    "flute",
+    "flutes"
+   ],
+   "ipa": "/fluːt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "My sister plays the flute in the school band.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "footprint": {
+   "pos": "singular noun",
+   "meaning": "A mark that your foot makes on the ground.",
+   "forms": [
+    "footprint",
+    "footprints"
+   ],
+   "ipa": "/ˈfʊtprɪnt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We saw footprints in the sand.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "freez": {
+   "pos": "verb",
+   "meaning": "Becomes so cold that the body is harmed.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "freez"
+   ]
+  },
+  "freeze": {
+   "pos": "base verb",
+   "meaning": "To become ice; to be very cold.",
+   "forms": [
+    "froze",
+    "freeze",
+    "freezes",
+    "freezing"
+   ],
+   "ipa": "/friːz/",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Stopped moving and stood very still, for example because of fear or surprise.",
+     "pos": "past-tense verb",
+     "whyHard": "Not the usual meaning! Usually: To become ice because it is very cold.",
+     "trickyMeaning": true,
+     "usualMeaning": "To become ice because it is very cold.",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "froze",
+       "context": "The tiger froze. He glared at Jack"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "froze",
+       "context": "The sabertooth froze again"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "fur": {
+   "pos": "uncountable noun",
+   "meaning": "The thick soft hair on an animal's body.",
+   "forms": [
+    "fur"
+   ],
+   "ipa": "/fɜːr/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The cat has white fur.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "furry": {
+   "pos": "adjective",
+   "meaning": "Covered with soft thick hair (fur).",
+   "forms": [
+    "furry"
+   ],
+   "ipa": "/ˈfɜːri/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The kitten is soft and furry.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "gallery": {
+   "pos": "singular noun",
+   "meaning": "A room or building where people go to look at paintings and other art.",
+   "forms": [
+    "gallery"
+   ],
+   "ipa": "/ˈɡæləri/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We visited an art gallery in Shanghai.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "gasp": {
+   "pos": "base verb",
+   "meaning": "To breathe in suddenly and loudly because you are surprised or afraid.",
+   "whyHard": "The book word is \"gasped\".",
+   "forms": [
+    "gasp",
+    "gasps",
+    "gasped",
+    "gasping"
+   ],
+   "ipa": "/ɡæsp/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Everyone gasped when the magician disappeared."
+  },
+  "gather": {
+   "pos": "base verb",
+   "meaning": "To collect things from different places and bring them together.",
+   "whyHard": "The book words are \"gathering\" and \"gathered\".",
+   "forms": [
+    "gather",
+    "gathers",
+    "gathered",
+    "gathering"
+   ],
+   "ipa": "/ˈɡæðər/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "We gathered our things and went home."
+  },
+  "gaze": {
+   "pos": "singular noun",
+   "meaning": "A long, steady look. \"Followed her gaze\" means he looked where she was looking.",
+   "forms": [
+    "gaze"
+   ],
+   "ipa": "/ɡeɪz/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Her gaze moved slowly around the room.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "giant": {
+   "pos": "adjective",
+   "meaning": "Very, very big.",
+   "forms": [
+    "giant"
+   ],
+   "ipa": "/ˈdʒaɪənt/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "There is a giant TV in the hall.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "glance": {
+   "pos": "base verb",
+   "meaning": "To look at something very quickly.",
+   "whyHard": "The book word is \"glanced\".",
+   "forms": [
+    "glance",
+    "glances",
+    "glanced",
+    "glancing"
+   ],
+   "ipa": "/ɡlæns/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "He glanced at his watch."
+  },
+  "glare": {
+   "pos": "base verb",
+   "meaning": "To look at someone in an angry way.",
+   "whyHard": "The book word is \"glared\".",
+   "forms": [
+    "glare",
+    "glared"
+   ],
+   "ipa": "/ɡler/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The teacher glared at the noisy boys."
+  },
+  "glint": {
+   "pos": "base verb",
+   "meaning": "To shine with small quick flashes of light.",
+   "whyHard": "The book word is \"glinted\".",
+   "forms": [
+    "glint",
+    "glinted"
+   ],
+   "ipa": "/ɡlɪnt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The knife glinted in the light."
+  },
+  "glow": {
+   "pos": "singular noun",
+   "meaning": "A soft, warm light.",
+   "forms": [
+    "glow",
+    "glowing"
+   ],
+   "ipa": "/ɡloʊ/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "We sat in the warm glow of the fire.",
+   "senses": [
+    {
+     "meaning": "To give a soft, warm light (\"glowing coals\").",
+     "pos": "verb",
+     "level": "beyond",
+     "importance": "key",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "glowing",
+       "context": "flame danced from a bed of glowing coals"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "goe": {
+   "pos": "verb",
+   "meaning": "Leads or continues from here.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "goe"
+   ]
+  },
+  "goggle": {
+   "pos": "noun",
+   "meaning": "Eye covers worn for swimming.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "goggle"
+   ]
+  },
+  "goggles": {
+   "pos": "plural noun",
+   "meaning": "Special glasses that keep water, wind or dust out of your eyes.",
+   "forms": [
+    "goggles"
+   ],
+   "ipa": "/ˈɡɑːɡəlz/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Wear your goggles in the swimming pool.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "golden": {
+   "pos": "adjective",
+   "meaning": "Bright yellow, like gold.",
+   "forms": [
+    "golden"
+   ],
+   "ipa": "/ˈɡoʊldən/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She has long golden hair.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "gooey": {
+   "pos": "adjective",
+   "meaning": "Soft and sticky.",
+   "forms": [
+    "gooey"
+   ],
+   "ipa": "/ˈɡuːi/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "Informal.",
+   "example": "This chocolate cake is warm and gooey.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "grab": {
+   "pos": "base verb",
+   "meaning": "To take hold of something quickly and roughly.",
+   "whyHard": "The book word is \"grabbed\".",
+   "forms": [
+    "grab",
+    "grabs",
+    "grabbed",
+    "grabbing"
+   ],
+   "ipa": "/ɡræb/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "He grabbed his bag and ran to the bus."
+  },
+  "gracefully": {
+   "pos": "adverb",
+   "meaning": "In a smooth and beautiful way.",
+   "forms": [
+    "gracefully"
+   ],
+   "ipa": "/ˈɡreɪsfəli/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The dancer moved gracefully across the stage.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "grip": {
+   "pos": "base verb",
+   "meaning": "To hold something very tightly.",
+   "whyHard": "The book word is \"gripped\".",
+   "forms": [
+    "grip",
+    "grips",
+    "gripped",
+    "gripping"
+   ],
+   "ipa": "/ɡrɪp/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She gripped my arm when the film got scary."
+  },
+  "grizzly": {
+   "pos": "singular noun",
+   "meaning": "A large brown bear that lives in North America. Short for \"grizzly bear\".",
+   "forms": [
+    "grizzly",
+    "grizzlies"
+   ],
+   "ipa": "/ˈɡrɪzli/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "grove": {
+   "pos": "singular noun",
+   "meaning": "A small group of trees growing together.",
+   "forms": [
+    "grove"
+   ],
+   "ipa": "/ɡroʊv/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "There is an orange grove behind the farm.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "growl": {
+   "pos": "base verb",
+   "meaning": "To make a low, angry sound in the throat, like a dog.",
+   "whyHard": "The book word is \"growled\".",
+   "forms": [
+    "growl",
+    "growled",
+    "growls"
+   ],
+   "ipa": "/ɡraʊl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The dog growled at the stranger."
+  },
+  "haunting": {
+   "pos": "adjective",
+   "meaning": "Strange, a little sad, and hard to forget (about music or a sound).",
+   "forms": [
+    "haunting"
+   ],
+   "ipa": "/ˈhɔːntɪŋ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The film has a haunting song at the end.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "head": {
+   "pos": "singular noun",
+   "meaning": "The top part of your body, with your eyes and mouth.",
+   "forms": [
+    "headed",
+    "heading"
+   ],
+   "ipa": "/hed/",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "To go toward a place. (\"Headed\" = went toward; \"heading\" = going toward.)",
+     "pos": "verb",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "headed",
+       "context": "and headed across the snow"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "heading",
+       "context": "heading toward the tall, bare trees in the distance"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "We’d better head back to the tree house"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "heap": {
+   "pos": "singular noun",
+   "meaning": "A big untidy pile.",
+   "forms": [
+    "heap"
+   ],
+   "ipa": "/hiːp/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "There was a heap of leaves in the garden.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "helpless": {
+   "pos": "adjective",
+   "meaning": "Not able to do anything to help yourself.",
+   "forms": [
+    "helpless"
+   ],
+   "ipa": "/ˈhelpləs/",
+   "level": "junior",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Without his glasses, he felt helpless.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "herd": {
+   "pos": "singular noun",
+   "meaning": "A large group of animals of one kind that live together.",
+   "forms": [
+    "herd"
+   ],
+   "ipa": "/hɜːrd/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "A herd of cows was standing in the field.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "hid": {
+   "pos": "past-tense verb",
+   "meaning": "Covered them so they could not be seen.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "hid"
+   ]
+  },
+  "hollow": {
+   "pos": "adjective",
+   "meaning": "Empty inside. \"Hollowed out\" = made empty inside.",
+   "forms": [
+    "hollow",
+    "hollowed"
+   ],
+   "ipa": "/ˈhɑːloʊ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The old tree trunk was hollow.",
+   "senses": [
+    {
+     "meaning": "An empty space or low place inside something.",
+     "pos": "noun",
+     "level": "beyond",
+     "importance": "good",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "hollow",
+       "context": "stones near the fire. In the hollow of each was gooey white"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "hood": {
+   "pos": "singular noun",
+   "meaning": "The part of a coat that you can pull up to cover your head.",
+   "forms": [
+    "hood"
+   ],
+   "ipa": "/hʊd/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "It started to rain, so I put up my hood.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "horror": {
+   "pos": "uncountable noun",
+   "meaning": "Very great fear.",
+   "forms": [
+    "horror"
+   ],
+   "ipa": "/ˈhɔːrər/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "She watched in horror as the car hit the tree.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "huddle": {
+   "pos": "base verb",
+   "meaning": "To stay very close together, often because you are cold or afraid.",
+   "whyHard": "The book word is \"huddled\".",
+   "forms": [
+    "huddle",
+    "huddles",
+    "huddled",
+    "huddling"
+   ],
+   "ipa": "/ˈhʌdəl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The sheep huddled together in the snow."
+  },
+  "huge": {
+   "pos": "adjective",
+   "meaning": "Very big.",
+   "forms": [
+    "huge"
+   ],
+   "ipa": "/hjuːdʒ/",
+   "level": "junior",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "They live in a huge house.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "huh": {
+   "pos": "interjection",
+   "meaning": "A sound at the end of a question that asks \"isn't it?\" or \"right?\"",
+   "forms": [
+    "huh"
+   ],
+   "ipa": "/hʌ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "Informal.",
+   "example": "It's cold today, huh?",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "hunted": {
+   "pos": "past-tense verb",
+   "meaning": "Went after wild animals for food.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "hunted"
+   ]
+  },
+  "hunting": {
+   "pos": "noun",
+   "meaning": "Going after wild animals for food.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "hunting"
+   ]
+  },
+  "hurl": {
+   "pos": "base verb",
+   "meaning": "To throw something very hard.",
+   "forms": [
+    "hurl"
+   ],
+   "ipa": "/hɜːrl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The angry boy hurled the ball against the wall.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "hurried": {
+   "pos": "past-tense verb",
+   "meaning": "Went toward her quickly.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "hurried"
+   ]
+  },
+  "hurry": {
+   "pos": "verb",
+   "meaning": "To move quickly.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "hurry"
+   ]
+  },
+  "icy": {
+   "pos": "adjective",
+   "meaning": "Covered with ice, or very cold.",
+   "forms": [
+    "icy"
+   ],
+   "ipa": "/ˈaɪsi/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Be careful, the road is icy.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "including": {
+   "pos": "preposition",
+   "meaning": "Counting in this one as well.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "including"
+   ]
+  },
+  "instrument": {
+   "pos": "noun",
+   "meaning": "Things used to make music.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "instrument"
+   ]
+  },
+  "jagged": {
+   "pos": "adjective",
+   "meaning": "With rough, sharp points.",
+   "forms": [
+    "jagged"
+   ],
+   "ipa": "/ˈdʒæɡɪd/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Be careful of the jagged rocks.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "journey": {
+   "pos": "singular noun",
+   "meaning": "A trip from one place to another, often a long one.",
+   "forms": [
+    "journey",
+    "journeys"
+   ],
+   "ipa": "/ˈdʒɜːrni/",
+   "level": "junior",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "The journey to Grandma's house takes three hours.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "kindness": {
+   "pos": "uncountable noun",
+   "meaning": "Being kind and friendly to others.",
+   "forms": [
+    "kindness"
+   ],
+   "ipa": "/ˈkaɪndnəs/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Thank you for your kindness.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "kneel": {
+   "pos": "base verb",
+   "meaning": "To go down so your knees are on the ground.",
+   "whyHard": "The book word \"knelt\" is the past of \"kneel\".",
+   "forms": [
+    "kneel",
+    "kneels",
+    "knelt",
+    "kneeling"
+   ],
+   "ipa": "/niːl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She knelt down to tie her shoe."
+  },
+  "knife": {
+   "pos": "noun",
+   "meaning": "Tools with a handle and a sharp blade.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "knife"
+   ]
+  },
+  "knight": {
+   "pos": "singular noun",
+   "meaning": "A soldier long ago in Europe who rode a horse and wore metal clothes.",
+   "forms": [
+    "knight",
+    "knights"
+   ],
+   "ipa": "/naɪt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The knight rode his horse to the castle.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "ladder": {
+   "pos": "singular noun",
+   "meaning": "A thing you climb up and down, with two long sides and steps between them. A rope ladder is made of rope.",
+   "forms": [
+    "ladder",
+    "ladders"
+   ],
+   "ipa": "/ˈlædər/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Dad used a ladder to get onto the roof.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "lamp": {
+   "pos": "singular noun",
+   "meaning": "A thing that gives light. These lamps were stones with burning fat inside.",
+   "forms": [
+    "lamp",
+    "lamps"
+   ],
+   "ipa": "/læmp/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Turn on the lamp, it's getting dark.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "lay": {
+   "pos": "past-tense verb",
+   "meaning": "To put something down flat.",
+   "forms": [
+    "lay"
+   ],
+   "ipa": "/leɪ/",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Was lying; was there. \"Lay\" here is the past of \"lie\" (to be flat on something).",
+     "pos": "past-tense verb",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "Only one book lay open in the corner"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "leaf": {
+   "pos": "noun",
+   "meaning": "Flat green parts that grow on a tree.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "leaf"
+   ]
+  },
+  "ledge": {
+   "pos": "singular noun",
+   "meaning": "A narrow flat shelf of rock on the side of a cliff.",
+   "forms": [
+    "ledge"
+   ],
+   "ipa": "/ledʒ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "A bird built its nest on a ledge.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "librarian": {
+   "pos": "singular noun",
+   "meaning": "A person who works in a library and looks after the books.",
+   "forms": [
+    "librarian",
+    "librarians"
+   ],
+   "ipa": "/laɪˈbreriən/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The librarian helped me find a book about space.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "light": {
+   "pos": "noun",
+   "meaning": "The pale brightness of the sky.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "light"
+   ]
+  },
+  "lion": {
+   "pos": "noun",
+   "meaning": "Large wild cats.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "lion"
+   ]
+  },
+  "lip": {
+   "pos": "singular noun",
+   "meaning": "One of the two soft edges of your mouth.",
+   "forms": [
+    "lip",
+    "lips"
+   ],
+   "ipa": "/lɪp/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "My lips are dry in winter.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "lit": {
+   "pos": "past-tense verb",
+   "meaning": "Set it on fire so it would give light.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "lit"
+   ]
+  },
+  "lope": {
+   "pos": "singular noun",
+   "meaning": "A typing mistake in this book. It should be \"rope\": \"the rope ladder\".",
+   "whyHard": "Mistake in the book: read it as \"rope\".",
+   "forms": [
+    "lope"
+   ],
+   "ipa": "/roʊp/",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "The real word \"lope\" means to run with long easy steps, but here it is just a printing mistake for \"rope\"."
+  },
+  "louder": {
+   "pos": "adverb",
+   "meaning": "With more sound than before.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "louder"
+   ]
+  },
+  "lower": {
+   "pos": "base verb",
+   "meaning": "To move something down.",
+   "whyHard": "Here \"lower\" is a verb. The book word is \"lowered\".",
+   "forms": [
+    "lowered"
+   ],
+   "ipa": "/ˈloʊər/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "He lowered his voice so no one could hear."
+  },
+  "lucky": {
+   "pos": "adjective",
+   "meaning": "Having good luck; good things happen to you by chance.",
+   "forms": [
+    "lucky"
+   ],
+   "ipa": "/ˈlʌki/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We were lucky to get the last two tickets.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "lumber": {
+   "pos": "base verb",
+   "meaning": "To move slowly and heavily.",
+   "whyHard": "Here the big mammoth \"lumbered\": walked slowly and heavily.",
+   "forms": [
+    "lumbered"
+   ],
+   "ipa": "/ˈlʌmbər/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book."
+  },
+  "magical": {
+   "pos": "adjective",
+   "meaning": "Able to do magic.",
+   "ipa": "/ˈmædʒɪkəl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The story is about a magical cat that can talk.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "mammoth": {
+   "pos": "singular noun",
+   "meaning": "A very large animal like an elephant, with long hair and long curved tusks. Mammoths lived in the Ice Age and are now extinct (all dead).",
+   "forms": [
+    "mammoth",
+    "mammoths"
+   ],
+   "ipa": "/ˈmæməθ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Scientists found the bones of a mammoth in the ice.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "mango": {
+   "pos": "singular noun",
+   "meaning": "A sweet yellow or orange fruit that grows in hot places.",
+   "forms": [
+    "mango",
+    "mangoes"
+   ],
+   "ipa": "/ˈmæŋɡoʊ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "I had a mango for breakfast.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "mask": {
+   "pos": "singular noun",
+   "meaning": "A cover you wear over your face to hide it or protect it.",
+   "forms": [
+    "mask"
+   ],
+   "ipa": "/mæsk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Everyone wore a mask at the party.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "meatball": {
+   "pos": "singular noun",
+   "meaning": "A small ball of cut-up meat, cooked.",
+   "forms": [
+    "meatballs"
+   ],
+   "ipa": "/ˈmiːtbɔːl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "My mom makes great meatballs.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "mend": {
+   "pos": "base verb",
+   "meaning": "To fix something that is broken or torn.",
+   "whyHard": "The book word is \"mended\".",
+   "forms": [
+    "mend",
+    "mends",
+    "mended",
+    "mending"
+   ],
+   "ipa": "/mend/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Can you mend the hole in my sock?"
+  },
+  "mile": {
+   "pos": "noun",
+   "meaning": "A very long way up.",
+   "whyHard": "Not the usual meaning! Usually a mile is a set distance along the ground.",
+   "forms": [
+    "mile"
+   ]
+  },
+  "mission": {
+   "pos": "singular noun",
+   "meaning": "An important job that you must do.",
+   "forms": [
+    "mission"
+   ],
+   "ipa": "/ˈmɪʃən/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Our mission is to clean the whole park by noon.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "moan": {
+   "pos": "base verb",
+   "meaning": "To make a long, low sound, for example because you are hurt or unhappy.",
+   "forms": [
+    "moan",
+    "moans",
+    "moaned",
+    "moaning"
+   ],
+   "ipa": "/moʊn/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The wind moaned through the trees.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "moonstone": {
+   "pos": "singular noun",
+   "meaning": "A white, shining stone that looks a little like the moon. People make jewellery from it.",
+   "forms": [
+    "moonstone"
+   ],
+   "ipa": "/ˈmuːnstoʊn/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "moss": {
+   "pos": "uncountable noun",
+   "meaning": "A small soft green plant that grows on rocks and trees in wet places.",
+   "forms": [
+    "moss"
+   ],
+   "ipa": "/mɔːs/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The old stones were covered in moss.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "mouse": {
+   "pos": "noun",
+   "meaning": "A very small animal with soft fur and a long tail.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "mouse"
+   ]
+  },
+  "mummy": {
+   "pos": "singular noun",
+   "meaning": "A dead body from long ago, kept and wrapped in cloth, as in old Egypt.",
+   "forms": [
+    "mummy",
+    "mummies"
+   ],
+   "ipa": "/ˈmʌmi/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "Here it is not \"mum\". In British English \"mummy\" is also a child's word for mother.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "musical": {
+   "pos": "adjective",
+   "meaning": "For playing music. A \"musical instrument\" is a thing like a piano or a flute.",
+   "forms": [
+    "musical"
+   ],
+   "ipa": "/ˈmjuːzɪkəl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Can you play a musical instrument?",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "mysterious": {
+   "pos": "adjective",
+   "meaning": "Strange; you do not know where it came from or how it works.",
+   "ipa": "/mɪˈstɪriəs/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "A mysterious letter came for me, but it had no name on it.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "neatly": {
+   "pos": "adverb",
+   "meaning": "In a tidy way, with everything in order.",
+   "forms": [
+    "neatly"
+   ],
+   "ipa": "/ˈniːtli/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Fold your clothes neatly.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "neck": {
+   "pos": "noun",
+   "meaning": "The part that joins the head to the body.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "neck"
+   ]
+  },
+  "needle": {
+   "pos": "singular noun",
+   "meaning": "A thin pointed tool with a small hole at one end, used for sewing.",
+   "forms": [
+    "needle",
+    "needles"
+   ],
+   "ipa": "/ˈniːdəl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "I need a needle and thread to fix my shirt.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "neighborhood": {
+   "pos": "singular noun",
+   "meaning": "The area around your home and the people who live there.",
+   "forms": [
+    "neighborhood"
+   ],
+   "ipa": "/ˈneɪbərhʊd/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "American spelling. British English writes \"neighbourhood\".",
+   "example": "There is a new park in our neighborhood.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "nestle": {
+   "pos": "base verb",
+   "meaning": "To sit or lie in a warm, safe, comfortable place.",
+   "whyHard": "The book word is \"nestled\".",
+   "forms": [
+    "nestle",
+    "nestled"
+   ],
+   "ipa": "/ˈnesəl/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book."
+  },
+  "ninja": {
+   "pos": "singular noun",
+   "meaning": "A fighter in old Japan who was trained to move quietly and secretly.",
+   "forms": [
+    "ninja",
+    "ninjas"
+   ],
+   "ipa": "/ˈnɪndʒə/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "nod": {
+   "pos": "base verb",
+   "meaning": "To move your head down and up, often to say \"yes\".",
+   "whyHard": "The book word is \"nodded\".",
+   "forms": [
+    "nod",
+    "nodded",
+    "nods"
+   ],
+   "ipa": "/nɑːd/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She nodded and smiled."
+  },
+  "notebook": {
+   "pos": "noun",
+   "meaning": "A small book of blank pages for writing.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "notebook"
+   ]
+  },
+  "nuts": {
+   "pos": "adjective",
+   "meaning": "Crazy.",
+   "whyHard": "\"Is she nuts?\" means \"Is she crazy?\"",
+   "forms": [
+    "nuts"
+   ],
+   "ipa": "/nʌts/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "Informal. Don't use it in polite writing.",
+   "example": "You want to swim in the snow? Are you nuts?"
+  },
+  "odd": {
+   "pos": "adjective",
+   "meaning": "Strange; not usual. \"Odd-looking\" means strange to look at.",
+   "forms": [
+    "odd"
+   ],
+   "ipa": "/ɑːd/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "That's odd. I left my keys right here.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "onto": {
+   "pos": "preposition",
+   "meaning": "To a place on something.",
+   "forms": [
+    "onto"
+   ],
+   "ipa": "/ˈɑːntuː/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The cat jumped onto the table.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "oops": {
+   "pos": "interjection",
+   "meaning": "A word you say when you make a small mistake.",
+   "forms": [
+    "oops"
+   ],
+   "ipa": "/ʊps/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Oops! I dropped my pen.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "overhead": {
+   "pos": "adverb",
+   "meaning": "Above your head; in the sky.",
+   "forms": [
+    "overhead"
+   ],
+   "ipa": "/ˌoʊvərˈhed/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "A plane flew overhead.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "owl": {
+   "pos": "singular noun",
+   "meaning": "A bird with big round eyes that hunts at night.",
+   "forms": [
+    "owl"
+   ],
+   "ipa": "/aʊl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We heard an owl in the woods at night.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "pack": {
+   "pos": "singular noun",
+   "meaning": "A bag you carry on your back; a backpack.",
+   "forms": [
+    "pack"
+   ],
+   "ipa": "/pæk/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "Here \"pack\" is short for \"backpack\". As a verb, \"pack\" means to put things into a bag.",
+   "example": "He took a bottle of water out of his pack.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "painted": {
+   "pos": "past participle",
+   "meaning": "Put on the wall in strokes of color.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "painted"
+   ]
+  },
+  "painting": {
+   "pos": "noun",
+   "meaning": "Pictures made on a wall with color.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "painting"
+   ]
+  },
+  "panic": {
+   "pos": "uncountable noun",
+   "meaning": "A sudden strong fear that stops you thinking clearly.",
+   "forms": [
+    "panic"
+   ],
+   "ipa": "/ˈpænɪk/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Don't get in a panic. We will find your phone.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "parade": {
+   "pos": "singular noun",
+   "meaning": "A line of people or animals moving together through a place for people to watch.",
+   "forms": [
+    "parade"
+   ],
+   "ipa": "/pəˈreɪd/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "There is a big parade on National Day.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "part": {
+   "pos": "base verb",
+   "meaning": "A piece of something.",
+   "forms": [
+    "parted"
+   ],
+   "ipa": "/pɑːrt/",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Moved apart so there was an open space between them.",
+     "pos": "past-tense verb",
+     "whyHard": "Not the usual meaning! Usually: A piece of something.",
+     "trickyMeaning": true,
+     "usualMeaning": "A piece of something.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "parted",
+       "context": "the clouds parted, and the sun came out"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "pat": {
+   "pos": "base verb",
+   "meaning": "To touch someone or something gently a few times with your open hand.",
+   "whyHard": "The book word is \"patted\".",
+   "forms": [
+    "pat",
+    "pats",
+    "patted",
+    "patting"
+   ],
+   "ipa": "/pæt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She patted the dog on the head."
+  },
+  "patch": {
+   "pos": "singular noun",
+   "meaning": "A small area that is different from what is around it.",
+   "forms": [
+    "patch",
+    "patches"
+   ],
+   "ipa": "/pætʃ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "There were patches of ice on the road.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "pause": {
+   "pos": "base verb",
+   "meaning": "To stop for a short time.",
+   "whyHard": "The book word is \"paused\".",
+   "forms": [
+    "pause",
+    "paused"
+   ],
+   "ipa": "/pɔːz/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "She paused at the door and looked back."
+  },
+  "peek": {
+   "pos": "base verb",
+   "meaning": "To look quickly, often secretly, at something.",
+   "whyHard": "The book word is \"peeked\".",
+   "forms": [
+    "peek",
+    "peeks",
+    "peeked",
+    "peeking"
+   ],
+   "ipa": "/piːk/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Don't peek at your present before your birthday!"
+  },
+  "peer": {
+   "pos": "base verb",
+   "meaning": "To look very carefully, because something is hard to see.",
+   "whyHard": "The book word is \"peered\".",
+   "forms": [
+    "peer",
+    "peers",
+    "peered",
+    "peering"
+   ],
+   "ipa": "/pɪr/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She peered through the dirty window."
+  },
+  "pile": {
+   "pos": "singular noun",
+   "meaning": "A lot of things put one on top of another.",
+   "forms": [
+    "pile",
+    "piles"
+   ],
+   "ipa": "/paɪl/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "There is a pile of dirty clothes on the floor.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "pirate": {
+   "pos": "singular noun",
+   "meaning": "A person who sails on the sea and attacks other ships to steal things.",
+   "forms": [
+    "pirate",
+    "pirates"
+   ],
+   "ipa": "/ˈpaɪrət/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The children played pirates on the beach.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "pit": {
+   "pos": "singular noun",
+   "meaning": "A big deep hole in the ground.",
+   "forms": [
+    "pit",
+    "pits"
+   ],
+   "ipa": "/pɪt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The workers dug a pit for the new tree.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "pizza": {
+   "pos": "noun",
+   "meaning": "A flat round bread with cheese and other food on top.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "pizza"
+   ]
+  },
+  "plain": {
+   "pos": "singular noun",
+   "meaning": "A large area of flat land with few trees.",
+   "whyHard": "Here it is a noun: a big, flat, open piece of land.",
+   "forms": [
+    "plain",
+    "plains"
+   ],
+   "ipa": "/pleɪn/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Many animals live on the wide plains of Africa."
+  },
+  "plodding": {
+   "pos": "adjective",
+   "meaning": "Slow and heavy (about the way someone walks).",
+   "forms": [
+    "plodding"
+   ],
+   "ipa": "/ˈplɑːdɪŋ/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "plunge": {
+   "pos": "base verb",
+   "meaning": "To move forward or down suddenly and fast.",
+   "whyHard": "The book word is \"plunged\".",
+   "forms": [
+    "plunge",
+    "plunged"
+   ],
+   "ipa": "/plʌndʒ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "He plunged into the cold water."
+  },
+  "pocket": {
+   "pos": "noun",
+   "meaning": "A small pouch sewn into a bag or clothes.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "pocket"
+   ]
+  },
+  "politely": {
+   "pos": "adverb",
+   "meaning": "In a polite way, with good manners.",
+   "forms": [
+    "politely"
+   ],
+   "ipa": "/pəˈlaɪtli/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She politely asked for a glass of water.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "positive": {
+   "pos": "adjective",
+   "meaning": "Completely sure.",
+   "whyHard": "Not the usual meaning! Usually \"positive\" means good or hopeful. \"He was positive\" means he was completely sure.",
+   "forms": [
+    "positive"
+   ],
+   "ipa": "/ˈpɑːzətɪv/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Are you positive you locked the door?"
+  },
+  "pouch": {
+   "pos": "singular noun",
+   "meaning": "A small bag.",
+   "forms": [
+    "pouch"
+   ],
+   "ipa": "/paʊtʃ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "He kept his coins in a leather pouch.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "prance": {
+   "pos": "base verb",
+   "meaning": "To move with high, light, happy steps.",
+   "whyHard": "The book word is \"pranced\".",
+   "forms": [
+    "prance",
+    "pranced"
+   ],
+   "ipa": "/præns/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book."
+  },
+  "prehistoric": {
+   "pos": "adjective",
+   "meaning": "From the time very long ago, before people wrote things down.",
+   "forms": [
+    "prehistoric"
+   ],
+   "ipa": "/ˌpriːhɪˈstɔːrɪk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We learned about prehistoric people in history class.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "puzzled": {
+   "pos": "adjective",
+   "meaning": "Not able to understand something; confused.",
+   "forms": [
+    "puzzled"
+   ],
+   "ipa": "/ˈpʌzəld/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "He looked puzzled by the question.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "quietly": {
+   "pos": "adverb",
+   "meaning": "With almost no sound.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "quietly"
+   ]
+  },
+  "reappear": {
+   "pos": "base verb",
+   "meaning": "To come back so you can see it again.",
+   "forms": [
+    "reappear"
+   ],
+   "ipa": "/ˌriːəˈpɪr/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The sun reappeared after the rain.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "reddish": {
+   "pos": "adjective",
+   "meaning": "A little red.",
+   "forms": [
+    "reddish"
+   ],
+   "ipa": "/ˈredɪʃ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The sky turned reddish in the evening.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "reindeer": {
+   "pos": "singular noun",
+   "meaning": "A kind of deer with big antlers that lives in very cold places. The plural is also \"reindeer\".",
+   "forms": [
+    "reindeer"
+   ],
+   "ipa": "/ˈreɪndɪr/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "In stories, reindeer pull Father Christmas's sleigh.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "rhino": {
+   "pos": "singular noun",
+   "meaning": "A very large heavy animal with one or two horns on its nose. Short for \"rhinoceros\".",
+   "forms": [
+    "rhino",
+    "rhinos"
+   ],
+   "ipa": "/ˈraɪnoʊ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We saw a rhino at the zoo.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "roar": {
+   "pos": "base verb",
+   "meaning": "To make a very loud, deep sound, like a lion.",
+   "whyHard": "The book word is \"roared\".",
+   "forms": [
+    "roar",
+    "roars",
+    "roared",
+    "roaring"
+   ],
+   "ipa": "/rɔːr/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "The crowd roared when the team scored."
+  },
+  "robe": {
+   "pos": "singular noun",
+   "meaning": "A long, loose piece of clothing.",
+   "forms": [
+    "robe"
+   ],
+   "ipa": "/roʊb/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She put on her robe after her bath.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "rocky": {
+   "pos": "adjective",
+   "meaning": "Covered with rocks or made of rock.",
+   "forms": [
+    "rocky"
+   ],
+   "ipa": "/ˈrɑːki/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We walked along a rocky path.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "rope": {
+   "pos": "noun",
+   "meaning": "A long, thick cord used for climbing.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "rope"
+   ]
+  },
+  "rose": {
+   "pos": "past-tense verb",
+   "meaning": "A flower with a sweet smell.",
+   "forms": [
+    "rose"
+   ],
+   "ipa": "/roʊz/",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Went up. \"Rose\" is the past of \"rise\".",
+     "pos": "past-tense verb",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "She rose into the air with the rope"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "rosy": {
+   "pos": "adjective",
+   "meaning": "Pink, like a rose.",
+   "forms": [
+    "rosy"
+   ],
+   "ipa": "/ˈroʊzi/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The baby has rosy cheeks.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "sabertooth": {
+   "pos": "singular noun",
+   "meaning": "A big wild cat of the Ice Age with two very long, sharp front teeth. It is now extinct (all dead). Also called a \"saber-toothed tiger\".",
+   "forms": [
+    "sabertooth"
+   ],
+   "ipa": "/ˈseɪbərtuːθ/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "A saber is a long curved sword, so its teeth were like swords. British spelling: \"sabre\".",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "scrape": {
+   "pos": "base verb",
+   "meaning": "To move something sharp hard across a surface to take something off it.",
+   "whyHard": "The book word is \"scraped\".",
+   "forms": [
+    "scrape",
+    "scrapes",
+    "scraped",
+    "scraping"
+   ],
+   "ipa": "/skreɪp/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book."
+  },
+  "seemed": {
+   "pos": "past-tense verb",
+   "meaning": "Appeared to be a certain way.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "seemed"
+   ]
+  },
+  "sew": {
+   "pos": "base verb",
+   "meaning": "To join pieces of cloth or skin together with a needle and thread.",
+   "forms": [
+    "sew",
+    "sews",
+    "sewed",
+    "sewing"
+   ],
+   "ipa": "/soʊ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "Say it like \"so\", not like \"new\".",
+   "example": "My grandmother taught me to sew.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "shadow": {
+   "pos": "singular noun",
+   "meaning": "A dark shape that something makes when it is between the light and a surface.",
+   "forms": [
+    "shadow",
+    "shadows"
+   ],
+   "ipa": "/ˈʃædoʊ/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "In the evening our shadows are very long.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "shadowy": {
+   "pos": "adjective",
+   "meaning": "Dark and full of shadows.",
+   "forms": [
+    "shadowy"
+   ],
+   "ipa": "/ˈʃædoʊi/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We walked down a shadowy hall.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "shaggy": {
+   "pos": "adjective",
+   "meaning": "With long, thick, untidy hair.",
+   "forms": [
+    "shaggy"
+   ],
+   "ipa": "/ˈʃæɡi/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "A big shaggy dog ran up to us.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "shake": {
+   "pos": "verb",
+   "meaning": "To move quickly from side to side.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "shake"
+   ]
+  },
+  "sharp": {
+   "pos": "adjective",
+   "meaning": "With a thin edge or point that can cut.",
+   "forms": [
+    "sharp"
+   ],
+   "ipa": "/ʃɑːrp/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Be careful, that knife is very sharp.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "shatter": {
+   "pos": "base verb",
+   "meaning": "To break into many small pieces. \"A snore shattered the air\" means a very loud sound suddenly broke the quiet.",
+   "whyHard": "The book word is \"shattered\".",
+   "forms": [
+    "shatter",
+    "shatters",
+    "shattered"
+   ],
+   "ipa": "/ˈʃætər/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The glass fell and shattered on the floor."
+  },
+  "shhh": {
+   "pos": "interjection",
+   "meaning": "A sound that means \"Be quiet!\"",
+   "forms": [
+    "shhh",
+    "shh"
+   ],
+   "ipa": "/ʃ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Shhh! The baby is sleeping.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "sidewalk": {
+   "pos": "singular noun",
+   "meaning": "The path for people to walk on at the side of a street.",
+   "forms": [
+    "sidewalk"
+   ],
+   "ipa": "/ˈsaɪdwɔːk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "American English. British English says \"pavement\".",
+   "example": "Kids rode their bikes on the sidewalk.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "sigh": {
+   "pos": "base verb",
+   "meaning": "To breathe out slowly and loudly because you are tired, sad or a little angry.",
+   "whyHard": "The book words are \"sighed\" and \"sighing\".",
+   "forms": [
+    "sigh",
+    "sighs",
+    "sighed",
+    "sighing"
+   ],
+   "ipa": "/saɪ/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "She sighed and opened her homework again."
+  },
+  "sight": {
+   "pos": "noun",
+   "meaning": "The place where they could be seen.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "sight"
+   ]
+  },
+  "silent": {
+   "pos": "adjective",
+   "meaning": "Making no sound.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "silent"
+   ]
+  },
+  "sill": {
+   "pos": "singular noun",
+   "meaning": "A flat shelf at the bottom of a window.",
+   "forms": [
+    "sill"
+   ],
+   "ipa": "/sɪl/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "People usually say \"window sill\" or \"windowsill\".",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "skin": {
+   "pos": "singular noun",
+   "meaning": "The outside cover of a body. An \"animal skin\" is the skin and fur taken from a dead animal.",
+   "forms": [
+    "skin",
+    "skins"
+   ],
+   "ipa": "/skɪn/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "This coat is made of animal skin.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "sleeve": {
+   "pos": "singular noun",
+   "meaning": "The part of a coat or shirt that covers your arm.",
+   "forms": [
+    "sleeve",
+    "sleeves"
+   ],
+   "ipa": "/sliːv/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Roll up your sleeves before you wash your hands.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "slightly": {
+   "pos": "adverb",
+   "meaning": "A little.",
+   "forms": [
+    "slightly"
+   ],
+   "ipa": "/ˈslaɪtli/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "It is slightly warmer today.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "slink": {
+   "pos": "base verb",
+   "meaning": "To move slowly and quietly, so no one notices you, often to do something bad.",
+   "whyHard": "The book word is \"slinking\".",
+   "forms": [
+    "slink",
+    "slinking"
+   ],
+   "ipa": "/slɪŋk/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book."
+  },
+  "slip": {
+   "pos": "base verb",
+   "meaning": "To slide by accident and almost fall.",
+   "forms": [
+    "slipped"
+   ],
+   "ipa": "/slɪp/",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Put something somewhere quickly and quietly.",
+     "pos": "past-tense verb",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "slipped",
+       "context": "Annie slipped Peanut into the pocket"
+      }
+     ]
+    },
+    {
+     "meaning": "Put on clothes quickly and easily.",
+     "pos": "past-tense verb",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "slipped",
+       "context": "He slipped on the coat"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "smell": {
+   "pos": "verb",
+   "meaning": "To give off a scent the nose can notice.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "smell"
+   ]
+  },
+  "smelled": {
+   "pos": "past-tense verb",
+   "meaning": "Gave off a fresh, green scent.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "smelled"
+   ]
+  },
+  "smelly": {
+   "pos": "adjective",
+   "meaning": "Having a bad smell.",
+   "forms": [
+    "smelly"
+   ],
+   "ipa": "/ˈsmeli/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Take your smelly socks off the table!",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "smooth": {
+   "pos": "adjective",
+   "meaning": "Even, with no bumps.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "smooth"
+   ]
+  },
+  "snarl": {
+   "pos": "base verb",
+   "meaning": "To show the teeth and make a low angry sound.",
+   "whyHard": "The book word is \"snarled\".",
+   "forms": [
+    "snarl",
+    "snarled"
+   ],
+   "ipa": "/snɑːrl/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book."
+  },
+  "sneakers": {
+   "pos": "plural noun",
+   "meaning": "Soft sports shoes.",
+   "forms": [
+    "sneakers",
+    "sneaker"
+   ],
+   "ipa": "/ˈsniːkərz/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "American English. British English says \"trainers\".",
+   "example": "I need new sneakers for gym class.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "snore": {
+   "pos": "base verb",
+   "meaning": "To make a loud noise through your nose and mouth while you sleep.",
+   "forms": [
+    "snore",
+    "snores",
+    "snored",
+    "snoring"
+   ],
+   "ipa": "/snɔːr/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "My dad snores so loudly that I can't sleep.",
+   "senses": [
+    {
+     "meaning": "The loud breathing sound of a sleeping person (\"a booming snore\").",
+     "pos": "noun",
+     "level": "beyond",
+     "importance": "good",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "snore",
+       "context": "A booming snore shattered the air"
+      }
+     ]
+    }
+   ],
+   "whyHard": "This word is harder than everyday English."
+  },
+  "snort": {
+   "pos": "base verb",
+   "meaning": "To push air out of the nose loudly.",
+   "whyHard": "The book word is \"snorted\".",
+   "forms": [
+    "snort",
+    "snorted"
+   ],
+   "ipa": "/snɔːrt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The horse snorted and shook its head."
+  },
+  "snowy": {
+   "pos": "adjective",
+   "meaning": "Covered with snow.",
+   "forms": [
+    "snowy"
+   ],
+   "ipa": "/ˈsnoʊi/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We went for a walk on a snowy day.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "socket": {
+   "pos": "singular noun",
+   "meaning": "A hollow place where one part of the body fits into another. Your arm fits into a socket at your shoulder.",
+   "forms": [
+    "sockets"
+   ],
+   "ipa": "/ˈsɑːkɪt/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "Usually a \"socket\" is the place in a wall where you plug in a machine.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "someplace": {
+   "pos": "adverb",
+   "meaning": "Somewhere.",
+   "forms": [
+    "someplace"
+   ],
+   "ipa": "/ˈsʌmpleɪs/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "American English, used in talk. \"Somewhere\" is used everywhere.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "sorcerer": {
+   "pos": "singular noun",
+   "meaning": "A man who can do magic; a wizard.",
+   "forms": [
+    "sorcerer"
+   ],
+   "ipa": "/ˈsɔːrsərər/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "Mostly used in stories and games.",
+   "example": "In the game, the sorcerer can make fire with his hands.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "soup": {
+   "pos": "noun",
+   "meaning": "A hot liquid food served in a deep dish.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "soup"
+   ]
+  },
+  "spaghetti": {
+   "pos": "uncountable noun",
+   "meaning": "Long thin Italian noodles.",
+   "forms": [
+    "spaghetti"
+   ],
+   "ipa": "/spəˈɡeti/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We had spaghetti with tomato sauce.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "sparkle": {
+   "pos": "base verb",
+   "meaning": "To shine with many small points of light.",
+   "whyHard": "The book word is \"sparkled\".",
+   "forms": [
+    "sparkle",
+    "sparkles",
+    "sparkled",
+    "sparkling"
+   ],
+   "ipa": "/ˈspɑːrkəl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Her eyes sparkled with joy."
+  },
+  "spear": {
+   "pos": "singular noun",
+   "meaning": "A long stick with a sharp point at the end, used for hunting or fighting.",
+   "forms": [
+    "spear",
+    "spears"
+   ],
+   "ipa": "/spɪr/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Long ago people hunted fish with spears.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "spell": {
+   "pos": "singular noun",
+   "meaning": "Magic words that make something happen. If you are \"under a spell\", magic is controlling you.",
+   "forms": [
+    "spell"
+   ],
+   "ipa": "/spel/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "In the story, a witch put a spell on the prince.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "spin": {
+   "pos": "base verb",
+   "meaning": "To turn round and round very fast.",
+   "whyHard": "The book word \"spun\" is the past of \"spin\".",
+   "forms": [
+    "spin",
+    "spins",
+    "spun",
+    "spinning"
+   ],
+   "ipa": "/spɪn/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "The children watched the top spin on the floor."
+  },
+  "squeak": {
+   "pos": "singular noun",
+   "meaning": "A short, high sound, like the sound a mouse makes.",
+   "forms": [
+    "squeak",
+    "squeaks",
+    "squeaking"
+   ],
+   "ipa": "/skwiːk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "In this book \"Squeak\" is the sound Peanut the mouse makes.",
+   "example": "The door opened with a squeak.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "squeeze": {
+   "pos": "base verb",
+   "meaning": "To push yourself into a small space.",
+   "whyHard": "The book word is \"squeezed\".",
+   "forms": [
+    "squeeze",
+    "squeezes",
+    "squeezed",
+    "squeezing"
+   ],
+   "ipa": "/skwiːz/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Five of us squeezed into the back of the car."
+  },
+  "squint": {
+   "pos": "base verb",
+   "meaning": "To close your eyes a little to see better, often in bright light.",
+   "whyHard": "The book word is \"squinted\".",
+   "forms": [
+    "squint",
+    "squints",
+    "squinted",
+    "squinting"
+   ],
+   "ipa": "/skwɪnt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "I squinted in the bright sunshine."
+  },
+  "stack": {
+   "pos": "singular noun",
+   "meaning": "A pile of things put neatly one on top of another.",
+   "forms": [
+    "stack",
+    "stacks"
+   ],
+   "ipa": "/stæk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "There is a stack of books on my desk.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "stacked": {
+   "pos": "past-tense verb",
+   "meaning": "Put in a neat pile, one on top of another.",
+   "forms": [
+    "stacked"
+   ],
+   "ipa": "/stækt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The plates were stacked on the table.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "stamp": {
+   "pos": "base verb",
+   "meaning": "To put your foot down hard on the ground.",
+   "whyHard": "Not the usual meaning! Usually a \"stamp\" is the small paper you put on a letter. \"They stamped the snow off\" means they hit their feet on the ground to make the snow fall off.",
+   "forms": [
+    "stamp",
+    "stamps",
+    "stamped",
+    "stamping"
+   ],
+   "ipa": "/stæmp/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "He stamped his feet to keep warm."
+  },
+  "starving": {
+   "pos": "adjective",
+   "meaning": "Very hungry.",
+   "whyHard": "The real meaning is \"dying from no food\", but in everyday talk \"I'm starving\" just means \"I'm very hungry\".",
+   "forms": [
+    "starving"
+   ],
+   "ipa": "/ˈstɑːrvɪŋ/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "When is lunch? I'm starving!"
+  },
+  "stomp": {
+   "pos": "base verb",
+   "meaning": "To walk or put your foot down very hard and loudly.",
+   "whyHard": "The book word is \"stomped\".",
+   "forms": [
+    "stomp",
+    "stomped"
+   ],
+   "ipa": "/stɑːmp/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "He stomped out of the room."
+  },
+  "strange": {
+   "pos": "adjective",
+   "meaning": "Odd, not like what you expect.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "strange"
+   ]
+  },
+  "stroke": {
+   "pos": "singular noun",
+   "meaning": "A line made by moving a brush or pen once.",
+   "forms": [
+    "strokes"
+   ],
+   "ipa": "/stroʊk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She painted the sky with long blue strokes.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "stroked": {
+   "pos": "past-tense verb",
+   "meaning": "Moved the hand gently over something again and again.",
+   "forms": [
+    "stroked"
+   ],
+   "ipa": "/stroʊkt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She stroked the cat's soft fur.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "struggle": {
+   "pos": "base verb",
+   "meaning": "To try very hard to do something difficult.",
+   "whyHard": "The book word is \"struggled\".",
+   "forms": [
+    "struggle",
+    "struggles",
+    "struggled",
+    "struggling"
+   ],
+   "ipa": "/ˈstrʌɡəl/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "I struggled to open the heavy door."
+  },
+  "stuff": {
+   "pos": "uncountable noun",
+   "meaning": "Things or material, when you do not say the exact name.",
+   "forms": [
+    "stuff"
+   ],
+   "ipa": "/stʌf/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "Very common in everyday talk.",
+   "example": "Put your stuff in your room.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "sunlight": {
+   "pos": "uncountable noun",
+   "meaning": "The light from the sun.",
+   "forms": [
+    "sunlight"
+   ],
+   "ipa": "/ˈsʌnlaɪt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Plants need sunlight to grow.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "sunlit": {
+   "pos": "adjective",
+   "meaning": "Bright with sunlight.",
+   "forms": [
+    "sunlit"
+   ],
+   "ipa": "/ˈsʌnlɪt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We had lunch in a sunlit room.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "sunset": {
+   "pos": "singular noun",
+   "meaning": "The time in the evening when the sun goes down.",
+   "forms": [
+    "sunset"
+   ],
+   "ipa": "/ˈsʌnset/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "We watched the sunset from the beach.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "supermarket": {
+   "pos": "noun",
+   "meaning": "Large shops that sell food.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "supermarket"
+   ]
+  },
+  "swimming": {
+   "pos": "noun",
+   "meaning": "The skill of moving through water.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "swimming"
+   ]
+  },
+  "swirl": {
+   "pos": "base verb",
+   "meaning": "To move round and round quickly.",
+   "whyHard": "The book word is \"swirled\".",
+   "forms": [
+    "swirl",
+    "swirls",
+    "swirled",
+    "swirling"
+   ],
+   "ipa": "/swɜːrl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Leaves swirled in the wind."
+  },
+  "tallest": {
+   "pos": "adjective",
+   "meaning": "Higher than every other one.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "tallest"
+   ]
+  },
+  "teeny": {
+   "pos": "adjective",
+   "meaning": "Very, very small.",
+   "forms": [
+    "teeny"
+   ],
+   "ipa": "/ˈtiːni/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "A child's word, used in friendly talk.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "thunder": {
+   "pos": "base verb",
+   "meaning": "To move with a loud, heavy noise, like thunder.",
+   "whyHard": "Not the usual meaning! Usually \"thunder\" is the loud noise in a storm. Here the mammoth \"thundered\" over the ground: it ran with very loud, heavy steps.",
+   "forms": [
+    "thundered"
+   ],
+   "ipa": "/ˈθʌndər/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Horses thundered down the road."
+  },
+  "tiger": {
+   "pos": "noun",
+   "meaning": "A large wild cat with stripes.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "tiger"
+   ]
+  },
+  "tight": {
+   "pos": "adverb",
+   "meaning": "Very firmly. \"Hold on tight\" means hold very firmly.",
+   "forms": [
+    "tight"
+   ],
+   "ipa": "/taɪt/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Hold on tight, the bus is moving!",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "tighten": {
+   "pos": "base verb",
+   "meaning": "To become tight, so it pulls hard.",
+   "whyHard": "The book word is \"tightened\".",
+   "forms": [
+    "tighten",
+    "tightens",
+    "tightened"
+   ],
+   "ipa": "/ˈtaɪtən/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The rope tightened as the boat moved."
+  },
+  "tightly": {
+   "pos": "adverb",
+   "meaning": "Very firmly and closely.",
+   "forms": [
+    "tightly"
+   ],
+   "ipa": "/ˈtaɪtli/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Hold my hand tightly when we cross the road.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "tiny": {
+   "pos": "adjective",
+   "meaning": "Very small.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "tiny"
+   ]
+  },
+  "title": {
+   "pos": "singular noun",
+   "meaning": "The name of a book, film or song.",
+   "forms": [
+    "title"
+   ],
+   "ipa": "/ˈtaɪtəl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "What is the title of your favourite book?",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "towel": {
+   "pos": "singular noun",
+   "meaning": "A piece of thick soft cloth that you use to dry yourself.",
+   "forms": [
+    "towel",
+    "towels"
+   ],
+   "ipa": "/ˈtaʊəl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Don't forget your towel when you go swimming.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "track": {
+   "pos": "singular noun",
+   "meaning": "A mark left on the ground by an animal's or person's feet.",
+   "whyHard": "Here \"tracks\" are footprints in the snow.",
+   "forms": [
+    "track",
+    "tracks"
+   ],
+   "ipa": "/træk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We followed the rabbit's tracks in the snow."
+  },
+  "trap": {
+   "pos": "noun and verb",
+   "meaning": "Something made to catch animals. To \"trap\" something means to catch it. When you are \"trapped\", you cannot get out.",
+   "forms": [
+    "trap",
+    "traps",
+    "trapped",
+    "trapping"
+   ],
+   "ipa": "/træp/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "The mouse was caught in a trap.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "trunk": {
+   "pos": "singular noun",
+   "meaning": "The long nose of an elephant or mammoth.",
+   "whyHard": "Here it is the mammoth's long nose.",
+   "forms": [
+    "trunk"
+   ],
+   "ipa": "/trʌŋk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The elephant picked up the food with its trunk."
+  },
+  "tuck": {
+   "pos": "base verb",
+   "meaning": "To put something in a small safe place, for example under your arm.",
+   "whyHard": "The book word is \"tucked\".",
+   "forms": [
+    "tuck",
+    "tucks",
+    "tucked",
+    "tucking"
+   ],
+   "ipa": "/tʌk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She tucked the letter into her pocket."
+  },
+  "tug": {
+   "pos": "base verb",
+   "meaning": "To pull something quickly and hard.",
+   "forms": [
+    "tug",
+    "tugs",
+    "tugged",
+    "tugging"
+   ],
+   "ipa": "/tʌɡ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The child tugged at her mother's coat.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "tunnel": {
+   "pos": "singular noun",
+   "meaning": "A long passage under the ground or through a hill.",
+   "forms": [
+    "tunnel"
+   ],
+   "ipa": "/ˈtʌnəl/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "The train went through a long tunnel.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "tusk": {
+   "pos": "singular noun",
+   "meaning": "One of the two very long teeth that grow out of the mouth of an elephant or mammoth.",
+   "forms": [
+    "tusk",
+    "tusks"
+   ],
+   "ipa": "/tʌsk/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Elephants are killed for their tusks.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "uncover": {
+   "pos": "base verb",
+   "meaning": "To take a cover off; here, to take a finger off a hole.",
+   "whyHard": "The book word is \"uncovered\".",
+   "forms": [
+    "uncovered"
+   ],
+   "ipa": "/ʌnˈkʌvər/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "She uncovered the pot to look at the soup."
+  },
+  "untie": {
+   "pos": "base verb",
+   "meaning": "To open a knot in a rope or string.",
+   "whyHard": "The book word is \"untied\".",
+   "forms": [
+    "untie",
+    "unties",
+    "untied"
+   ],
+   "ipa": "/ʌnˈtaɪ/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Can you untie this knot?"
+  },
+  "vanish": {
+   "pos": "base verb",
+   "meaning": "To go away suddenly so you cannot see it any more; to disappear.",
+   "whyHard": "The book word is \"vanished\".",
+   "forms": [
+    "vanish",
+    "vanishes",
+    "vanished",
+    "vanishing"
+   ],
+   "ipa": "/ˈvænɪʃ/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "The sun vanished behind a cloud."
+  },
+  "wail": {
+   "pos": "base verb",
+   "meaning": "To cry or shout in a long, high, sad voice.",
+   "whyHard": "The book word is \"wailed\".",
+   "forms": [
+    "wail",
+    "wails",
+    "wailed",
+    "wailing"
+   ],
+   "ipa": "/weɪl/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The baby wailed all night."
+  },
+  "warn": {
+   "pos": "base verb",
+   "meaning": "To tell someone that something bad or dangerous may happen.",
+   "whyHard": "The book word is \"warned\".",
+   "forms": [
+    "warn",
+    "warned",
+    "warns"
+   ],
+   "ipa": "/wɔːrn/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Mom warned us not to swim in the river."
+  },
+  "waved": {
+   "pos": "past-tense verb",
+   "meaning": "Moved her long nose in a happy way.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "waved"
+   ]
+  },
+  "waving": {
+   "pos": "present participle",
+   "meaning": "Moving a hand as a greeting.",
+   "whyHard": "This word is less common than the school words for the same idea.",
+   "forms": [
+    "waving"
+   ]
+  },
+  "whew": {
+   "pos": "interjection",
+   "meaning": "A sound you make when you are glad that something bad is over.",
+   "forms": [
+    "whew"
+   ],
+   "ipa": "/hwjuː/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Whew! We caught the bus just in time.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "whisper": {
+   "pos": "base verb",
+   "meaning": "To speak very quietly.",
+   "whyHard": "The book word is \"whispered\".",
+   "forms": [
+    "whisper",
+    "whispered",
+    "whispers",
+    "whispering"
+   ],
+   "ipa": "/ˈwɪspər/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "She whispered the answer to her friend."
+  },
+  "whoa": {
+   "pos": "interjection",
+   "meaning": "A word you say when you are surprised, or to tell a horse to stop.",
+   "forms": [
+    "whoa"
+   ],
+   "ipa": "/woʊ/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "Whoa! That was close!",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "wick": {
+   "pos": "singular noun",
+   "meaning": "The string in a candle or lamp that you light.",
+   "forms": [
+    "wick"
+   ],
+   "ipa": "/wɪk/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "wildly": {
+   "pos": "adverb",
+   "meaning": "In a fast, wild way that is hard to control.",
+   "forms": [
+    "wildly"
+   ],
+   "ipa": "/ˈwaɪldli/",
+   "level": "junior",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "The crowd cheered wildly.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "windswept": {
+   "pos": "adjective",
+   "meaning": "Blown by strong winds.",
+   "forms": [
+    "windswept"
+   ],
+   "ipa": "/ˈwɪndswept/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "wipe": {
+   "pos": "base verb",
+   "meaning": "To clean something by moving a cloth or your hand over it.",
+   "forms": [
+    "wipe",
+    "wipes",
+    "wiped",
+    "wiping"
+   ],
+   "ipa": "/waɪp/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Please wipe the table after dinner.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "wooden": {
+   "pos": "adjective",
+   "meaning": "Made of wood.",
+   "forms": [
+    "wooden"
+   ],
+   "ipa": "/ˈwʊdən/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "A common word. Good to understand.",
+   "example": "We sat at a big wooden table.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "woolly": {
+   "pos": "adjective",
+   "meaning": "Covered with long, thick hair, like wool.",
+   "forms": [
+    "woolly"
+   ],
+   "ipa": "/ˈwʊli/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "Mostly used for the Ice Age animals \"woolly mammoth\" and \"woolly rhino\". Also spelled \"wooly\".",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "wrap": {
+   "pos": "base verb",
+   "meaning": "To put cloth or paper all the way around something.",
+   "whyHard": "The book word is \"wrapped\".",
+   "forms": [
+    "wrap",
+    "wraps",
+    "wrapped",
+    "wrapping"
+   ],
+   "ipa": "/ræp/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "She wrapped the present in red paper."
+  },
+  "yell": {
+   "pos": "base verb",
+   "meaning": "To shout very loudly.",
+   "whyHard": "The book word is \"yelled\".",
+   "forms": [
+    "yell",
+    "yelled",
+    "yells"
+   ],
+   "ipa": "/jel/",
+   "level": "beyond",
+   "importance": "key",
+   "usage": "common",
+   "usageNote": "A common word. Good to learn.",
+   "example": "Don't yell at your little brother."
+  },
+  "yikes": {
+   "pos": "interjection",
+   "meaning": "A word you say when you are suddenly afraid or surprised.",
+   "forms": [
+    "yikes"
+   ],
+   "ipa": "/jaɪks/",
+   "level": "beyond",
+   "importance": "good",
+   "usage": "common",
+   "usageNote": "Informal. Used a lot by children and in stories.",
+   "example": "Yikes! There's a spider on my arm!",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "yowl": {
+   "pos": "singular noun",
+   "meaning": "A long loud cry, like the cry of an angry cat.",
+   "forms": [
+    "yowl"
+   ],
+   "ipa": "/jaʊl/",
+   "level": "beyond",
+   "importance": "skip",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "whyHard": "This word is harder than everyday English."
+  }
+ },
+ "phrases": {
+  "about to": {
+   "meaning": "Going to do something very soon.",
+   "pos": "phrase",
+   "example": "about to set out in search of the third thing",
+   "usage": "common",
+   "usageNote": "Very common. \"I was about to call you\" means \"I was going to call you right then\".",
+   "importance": "key"
+  },
+  "as soon as possible": {
+   "meaning": "As quickly as you can.",
+   "pos": "idiom",
+   "example": "Don’t you want to save Morgan as soon as possible",
+   "usage": "common",
+   "usageNote": "Very common. Often written \"ASAP\" in messages.",
+   "importance": "key"
+  },
+  "at a distance": {
+   "meaning": "Not close; some way away.",
+   "pos": "idiom",
+   "example": "moved along with them, at a distance",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "at least": {
+   "meaning": "Used to say that a situation is a little good, even if the rest is bad.",
+   "pos": "idiom",
+   "example": "But at least the wind wasn’t blowing",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to learn.",
+   "importance": "key"
+  },
+  "bathing suit": {
+   "meaning": "Clothes you wear for swimming.",
+   "pos": "phrase",
+   "forms": [
+    "bathing suits"
+   ],
+   "example": "change out of my bathing suit",
+   "usage": "common",
+   "usageNote": "A little old-fashioned. Today people often say \"swimsuit\".",
+   "importance": "good"
+  },
+  "be right back": {
+   "meaning": "I will come back very soon.",
+   "pos": "idiom",
+   "example": "Be right back",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "cave bear": {
+   "meaning": "A very big kind of bear that lived in caves in the Ice Age. It is now extinct (all dead).",
+   "pos": "phrase",
+   "forms": [
+    "cave bears"
+   ],
+   "example": "The great cave bears of the Ice Age",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "importance": "skip"
+  },
+  "caved in": {
+   "meaning": "When the ground or a roof caves in, it suddenly falls down into a hole.",
+   "pos": "phrasal verb",
+   "example": "The ground caved in",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "change out of": {
+   "meaning": "To take off some clothes and put on other clothes.",
+   "pos": "phrasal verb",
+   "forms": [
+    "changing out of",
+    "changed out of"
+   ],
+   "example": "change out of my bathing suit",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "come into view": {
+   "meaning": "To start to be seen.",
+   "pos": "idiom",
+   "forms": [
+    "came into view",
+    "comes into view"
+   ],
+   "example": "came into view",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "come out": {
+   "meaning": "When the sun comes out, it appears from behind the clouds.",
+   "pos": "phrasal verb",
+   "forms": [
+    "came out",
+    "comes out"
+   ],
+   "example": "the sun came out",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "cro magnon": {
+   "meaning": "The name for early modern humans who lived in Europe in the Ice Age, about 45,000 to 10,000 years ago.",
+   "pos": "phrase",
+   "forms": [
+    "cro magnons"
+   ],
+   "example": "Early modern humans were called Cro-Magnons",
+   "usage": "common",
+   "usageNote": "Say it \"kroh-MAN-yon\". Scientists today often say \"early modern humans\" instead.",
+   "importance": "skip"
+  },
+  "flip through": {
+   "meaning": "To turn the pages of a book quickly.",
+   "pos": "phrasal verb",
+   "forms": [
+    "flipped through",
+    "flips through",
+    "flipping through"
+   ],
+   "example": "flipped through the Ice Age book",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "freeze to death": {
+   "meaning": "To die because you are too cold. People also say it when they are just very cold.",
+   "pos": "idiom",
+   "example": "Before we freeze to death",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "get in a panic": {
+   "meaning": "To become very afraid and stop thinking clearly.",
+   "pos": "idiom",
+   "forms": [
+    "got in a panic"
+   ],
+   "example": "We just got in a panic",
+   "usage": "common",
+   "usageNote": "People also say \"panic\" or \"get into a panic\".",
+   "importance": "good"
+  },
+  "give up on": {
+   "meaning": "To stop hoping for something or stop trying to do it.",
+   "pos": "phrasal verb",
+   "forms": [
+    "gave up on",
+    "gives up on",
+    "giving up on"
+   ],
+   "example": "He gave up on the idea",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to learn.",
+   "importance": "key"
+  },
+  "good thinking": {
+   "meaning": "A friendly way to say \"That is a clever idea\".",
+   "pos": "idiom",
+   "example": "Good thinking,” said Jack",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "head back": {
+   "meaning": "To go back.",
+   "pos": "phrasal verb",
+   "forms": [
+    "heading back",
+    "headed back"
+   ],
+   "example": "We’d better head back to the tree house",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "hold on": {
+   "meaning": "To hold something firmly so you do not fall or let go.",
+   "pos": "phrasal verb",
+   "forms": [
+    "held on",
+    "holding on",
+    "holds on"
+   ],
+   "example": "hold on tight",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to learn.",
+   "importance": "key"
+  },
+  "hollow out": {
+   "meaning": "To make an empty space inside something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "hollowed out",
+    "hollows out"
+   ],
+   "example": "They hollowed out a rock",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "ice age": {
+   "meaning": "A very long time in the past when ice covered large parts of the earth. The last Ice Age ended about 12,000 years ago.",
+   "pos": "phrase",
+   "example": "Life in the Ice Age",
+   "usage": "common",
+   "usageNote": "Usually written with capital letters: the Ice Age.",
+   "importance": "good"
+  },
+  "in search of": {
+   "meaning": "Looking for something.",
+   "pos": "idiom",
+   "example": "set out in search of the third thing",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "in the distance": {
+   "meaning": "Far away.",
+   "pos": "idiom",
+   "example": "the tall, bare trees in the distance",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to learn.",
+   "importance": "key"
+  },
+  "keep from": {
+   "meaning": "To stop yourself doing something. \"To keep from falling off\" means so that she would not fall off.",
+   "pos": "phrasal verb",
+   "forms": [
+    "keeps from",
+    "kept from"
+   ],
+   "example": "to keep from falling off",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "keep it up": {
+   "meaning": "Don't stop; continue doing it.",
+   "pos": "idiom",
+   "example": "Keep it up",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "let out": {
+   "meaning": "To make a sound, like a cry or a shout.",
+   "pos": "phrasal verb",
+   "forms": [
+    "lets out",
+    "letting out"
+   ],
+   "example": "the mammoth let out a cry",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "no sign of": {
+   "meaning": "You cannot see or find it anywhere.",
+   "pos": "phrase",
+   "example": "There was no sign of the Pennsylvania book",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "no wonder": {
+   "meaning": "It is not surprising.",
+   "pos": "idiom",
+   "example": "No wonder we’re cold",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to learn.",
+   "importance": "key"
+  },
+  "oh brother": {
+   "meaning": "What you say when you are tired of something or a bit annoyed. It is not about a real brother.",
+   "pos": "idiom",
+   "example": "Oh brother,” said Jack, sighing",
+   "usage": "common",
+   "usageNote": "Informal and a little old-fashioned, but still used.",
+   "importance": "good"
+  },
+  "oh man": {
+   "meaning": "What you say when you are surprised, worried or excited.",
+   "pos": "idiom",
+   "example": "Oh man,” he said. “Where is he",
+   "usage": "common",
+   "usageNote": "Informal.",
+   "importance": "good"
+  },
+  "out of sight": {
+   "meaning": "In a place where you cannot see it.",
+   "pos": "idiom",
+   "example": "Then they moved out of sight",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "pick up speed": {
+   "meaning": "To start to go faster.",
+   "pos": "idiom",
+   "forms": [
+    "picked up speed",
+    "picks up speed"
+   ],
+   "example": "then picked up speed",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "rope ladder": {
+   "meaning": "A ladder made of rope.",
+   "pos": "phrase",
+   "example": "She was climbing the rope ladder up to the tree house",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "run out of": {
+   "meaning": "To have no more of something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "ran out of",
+    "runs out of",
+    "running out of"
+   ],
+   "example": "until he ran out of breath",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to learn.",
+   "importance": "key"
+  },
+  "set out": {
+   "meaning": "To start a journey.",
+   "pos": "phrasal verb",
+   "forms": [
+    "sets out",
+    "setting out"
+   ],
+   "example": "about to set out in search of the third thing",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to learn.",
+   "importance": "key"
+  },
+  "ta da": {
+   "meaning": "What you say when you show someone something surprising, like a magic trick.",
+   "pos": "idiom",
+   "example": "Ta-da!” said Annie",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "under a spell": {
+   "meaning": "Controlled by magic.",
+   "pos": "idiom",
+   "example": "she was under a spell",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "wait a second": {
+   "meaning": "Stop for a moment; wait a short time.",
+   "pos": "idiom",
+   "example": "Wait a second,” said Jack",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "watch out for": {
+   "meaning": "To be careful of something dangerous.",
+   "pos": "phrasal verb",
+   "forms": [
+    "watched out for",
+    "watches out for"
+   ],
+   "example": "watch out for the sabertooth",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to learn.",
+   "importance": "key"
+  },
+  "woolly mammoth": {
+   "meaning": "A kind of mammoth with long thick hair that lived in cold places in the Ice Age.",
+   "pos": "phrase",
+   "forms": [
+    "woolly mammoths"
+   ],
+   "example": "Annie was sitting on a woolly mammoth",
+   "usage": "common",
+   "usageNote": "A common phrase. Good to understand.",
+   "importance": "good"
+  },
+  "woolly rhino": {
+   "meaning": "A kind of rhino with long thick hair that lived in the Ice Age.",
+   "pos": "phrase",
+   "forms": [
+    "woolly rhinos"
+   ],
+   "example": "Then a woolly rhino joined them",
+   "usage": "common",
+   "usageNote": "You only need to understand it for this book.",
+   "importance": "skip"
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 2,
+   "paragraph": 0,
+   "context": "One summer day in Frog Creek, Pennsylvania, a mysterious tree house appeared",
+   "mainIdea": "A magic tree house appears in the woods of a small town.",
+   "simple": "One summer day, a strange tree house suddenly appeared in the woods of Frog Creek, Pennsylvania.",
+   "background": [
+    {
+     "term": "Frog Creek, Pennsylvania",
+     "note": "Frog Creek is a made-up small town. Pennsylvania is a real state in the east of the United States."
+    }
+   ],
+   "hardWords": [
+    "mysterious"
+   ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 3,
+   "context": "Jack and Annie visited dinosaurs, knights, an Egyptian queen",
+   "mainIdea": "This tells us about Jack and Annie's first six trips.",
+   "simple": "Before this book, the tree house took Jack and Annie to the time of the dinosaurs, to knights and castles, to ancient Egypt, to pirates, to ninjas in old Japan, and to the Amazon rain forest. Each trip is a different book in the series.",
+   "background": [
+    {
+     "term": "an Egyptian queen",
+     "note": "A queen of ancient Egypt, more than 3,000 years ago. The Egyptians built the pyramids."
+    },
+    {
+     "term": "the Amazon rain forest",
+     "note": "A very big, hot, wet forest in South America, around the Amazon River."
+    }
+   ],
+   "hardWords": [
+    "dinosaurs",
+    "knights",
+    "pirates"
+   ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 4,
+   "context": "Along the way, they discovered that the tree house belonged to Morgan le Fay",
+   "mainIdea": "The tree house belongs to Morgan le Fay, a magic librarian.",
+   "simple": "Jack and Annie learned that the tree house is Morgan le Fay's. She can do magic, and she travels to different times and places to collect books for King Arthur.",
+   "background": [
+    {
+     "term": "Morgan le Fay",
+     "note": "A woman who can do magic in the old British stories about King Arthur. In this series she is kind and loves books."
+    },
+    {
+     "term": "King Arthur",
+     "note": "A king in old British stories. He and his knights lived in a castle called Camelot. Nobody knows if he was a real person."
+    }
+   ],
+   "hardWords": [
+    "magical",
+    "librarian",
+    "gathering"
+   ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 6,
+   "context": "Jack and Annie also found a note from Morgan",
+   "mainIdea": "Morgan is in trouble, and Jack and Annie must find four special things to help her.",
+   "simple": "Jack and Annie found a note from Morgan. Someone has put magic on her, and she is not free. To help her, Jack and Annie must find four special things.",
+   "hardWords": [
+    "under a spell",
+    "spell"
+   ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 8,
+   "context": "Now Jack and Annie and Peanut are about to set out",
+   "mainIdea": "Now the children and their mouse are going to look for the third special thing.",
+   "simple": "Jack, Annie and Peanut the mouse are ready to start a new trip. They will look for the third special thing in this book, Sunset of the Sabertooth.",
+   "tone": "The three dots (…) make you wait a moment, like a little drum roll, before the name of the book.",
+   "hardWords": [
+    "about to",
+    "set out",
+    "in search of",
+    "Sunset"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 1,
+   "context": "She and Jack were passing the Frog Creek woods",
+   "mainIdea": "Jack and Annie are walking home from a swimming class.",
+   "simple": "Jack and Annie were walking past the Frog Creek woods. They were going home after their swimming class.",
+   "background": [
+    {
+     "term": "the Y",
+     "note": "Short for the YMCA, a sports and community centre found in many American towns. Many children have swimming classes there."
+    }
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 7,
+   "context": "Jack sighed. He gave up on the idea",
+   "mainIdea": "Jack forgets about changing his clothes and follows Annie.",
+   "simple": "Jack let out a long breath. He stopped thinking about changing out of his swimming clothes.",
+   "tone": "Jack is a little annoyed, but he always goes with his sister in the end.",
+   "hardWords": [
+    "sighed",
+    "gave up on",
+    "changing out of",
+    "bathing suit"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 22,
+   "context": "On the M were a moonstone and a mango",
+   "mainIdea": "The children look at the things they found on their last two trips.",
+   "simple": "A moonstone and a mango were lying on the big letter M. These were the special things Jack and Annie found on their last two trips.",
+   "background": [
+    {
+     "term": "a moonstone",
+     "note": "A white, shining stone. Jack and Annie found it on their trip to old Japan (book 5)."
+    },
+    {
+     "term": "a mango",
+     "note": "A tropical fruit. They found it in the Amazon rain forest (book 6)."
+    }
+   ],
+   "hardWords": [
+    "mango",
+    "journeys"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 3,
+   "context": "The grove was on a wide, white plain",
+   "mainIdea": "The tree house is in a group of trees on a large, flat, snowy land.",
+   "simple": "The trees stood on a big, flat, white piece of land. Far away there were tall walls of rock.",
+   "hardWords": [
+    "grove",
+    "plain",
+    "Beyond",
+    "rocky",
+    "cliffs"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 4,
+   "context": "I’m c-cold,” said Annie. Her teeth chattered",
+   "mainIdea": "Annie is very cold.",
+   "simple": "Annie says she is cold. Her teeth hit each other because of the cold, and she pulls her towel around her.",
+   "tone": "\"C-cold\" shows that Annie's teeth are chattering, so she cannot say the word smoothly. Later the book does the same with \"Sq-squeak\" and \"f-freezing\".",
+   "hardWords": [
+    "chattered",
+    "wrapped",
+    "towel",
+    "tightly"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 13,
+   "context": "Ice Age?” said Annie. “No wonder we’re cold",
+   "mainIdea": "Annie understands why it is so cold.",
+   "simple": "Annie hears the words \"Ice Age\". She says it is not surprising that they feel cold.",
+   "tone": "A small joke: of course it is cold in a time called the \"Ice Age\".",
+   "background": [
+    {
+     "term": "Ice Age",
+     "note": "A time long ago when the earth was much colder and ice covered large parts of it. The last Ice Age ended about 12,000 years ago."
+    }
+   ],
+   "hardWords": [
+    "Ice Age",
+    "No wonder"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 20,
+   "context": "Early modern humans were called Cro-Magnons",
+   "mainIdea": "The book tells Jack about the Cro-Magnon people.",
+   "simple": "The first modern people in Europe are called Cro-Magnons. At the end of the Ice Age, some of them lived in caves under cliffs.",
+   "background": [
+    {
+     "term": "Cro-Magnons",
+     "note": "The name comes from a cave in France called Cro-Magnon, where people found their bones in 1868. They looked like people today."
+    }
+   ],
+   "hardWords": [
+    "Ice Age",
+    "beneath",
+    "cliffs"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 23,
+   "context": "The Cro-Magnon family often hunted together",
+   "mainIdea": "This tells us how Cro-Magnon families hunted big animals.",
+   "simple": "Cro-Magnon families hunted together. They dug deep holes and covered them with branches. Then they chased reindeer and mammoths so that the animals fell into the holes.",
+   "hardWords": [
+    "pits",
+    "branches",
+    "drove",
+    "reindeer",
+    "mammoths",
+    "traps"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 25,
+   "context": "No, it’s not,” said Jack. “They couldn’t live without hunting",
+   "mainIdea": "Jack says the Cro-Magnons had to hunt to stay alive.",
+   "simple": "Jack says hunting is not bad for them. They needed food, and they had no shops to buy it.",
+   "tone": "Jack talks like a teacher. \"They didn't have supermarkets, you know\" is a little funny, because of course people in the Ice Age had no supermarkets. The book comes back to this joke at the very end."
+  },
+  {
+   "chapter": 4,
+   "paragraph": 29,
+   "context": "Forget it,” said Jack. “They don’t have books that tell them about us",
+   "mainIdea": "Jack is afraid the cave people will think they are enemies.",
+   "simple": "Jack tells Annie not to try to meet them. The Cro-Magnons know nothing about the children, so they may think the children want to hurt them and throw their spears.",
+   "hardWords": [
+    "enemy",
+    "hurl",
+    "spears"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 40,
+   "context": "Good thinking,” said Jack. “Now cover your head with your towel",
+   "mainIdea": "Jack likes Annie's idea and tells her to cover her head too.",
+   "simple": "Jack says Annie's idea is clever. He tells her to put her towel over her head, because the body loses a lot of heat through the head.",
+   "hardWords": [
+    "Good thinking",
+    "towel"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 65,
+   "context": "The great cave bears of the Ice Age were over eight feet tall",
+   "mainIdea": "The book says the cave belongs to a huge, dangerous cave bear.",
+   "simple": "Cave bears in the Ice Age were more than two and a half meters tall. They were bigger and more dangerous than the bears of today. Their caves were full of the bones of older bears.",
+   "background": [
+    {
+     "term": "eight feet",
+     "note": "Americans use feet to measure. One foot is about 30 centimeters, so eight feet is about 2.4 meters."
+    },
+    {
+     "term": "grizzlies",
+     "note": "Grizzly bears: large brown bears that live in North America today."
+    }
+   ],
+   "hardWords": [
+    "Ice Age",
+    "fiercer",
+    "bones",
+    "ancestors"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 13,
+   "context": "A booming snore shattered the air",
+   "mainIdea": "The bear makes a very loud noise in its sleep.",
+   "simple": "The bear snored very loudly, and the quiet cave was suddenly full of noise.",
+   "hardWords": [
+    "booming",
+    "snore",
+    "shattered"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 22,
+   "context": "He probably never even woke up. We just got in a panic",
+   "mainIdea": "Jack thinks the bear did not wake up, and they were just afraid.",
+   "simple": "Jack says the bear probably kept sleeping. They ran away only because they were very afraid.",
+   "hardWords": [
+    "got in a panic",
+    "panic"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 28,
+   "context": "Under a cliff was a wide ledge",
+   "mainIdea": "The children see another cave, and this one looks warm.",
+   "simple": "There was a wide shelf of rock under a cliff, and under it there was another cave. Light was coming out of this cave. It looked warm and safe.",
+   "hardWords": [
+    "cliff",
+    "ledge"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 2,
+   "context": "Near the fire were knives, axes, and hollowed-out stones",
+   "mainIdea": "The children see the tools of the cave people.",
+   "simple": "There were stone knives, axes and stones with holes in them next to the fire.",
+   "hardWords": [
+    "axes",
+    "hollowed",
+    "hollowed-out"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 10,
+   "context": "Cro-Magnons made many things from animals, plants, and stone",
+   "mainIdea": "The book tells how the Cro-Magnons made tools, music and ropes.",
+   "simple": "The Cro-Magnons used animals, plants and stones to make things. They made flutes from mammoth bones. They twisted plant threads together to make ropes. They made axes and knives from stone.",
+   "background": [
+    {
+     "term": "flute-like musical instruments",
+     "note": "People have found very old flutes made of bird and mammoth bones. Some are more than 40,000 years old, so they are some of the oldest musical instruments in the world."
+    }
+   ],
+   "hardWords": [
+    "flute",
+    "musical",
+    "mammoth",
+    "bones",
+    "axes"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 16,
+   "context": "From that pile of furry skins",
+   "mainIdea": "Annie found the coat in a pile of animal skins.",
+   "simple": "Annie says she got the coat from a pile of soft animal skins. She thinks these are the cave people's clothes, and maybe someone is fixing them.",
+   "hardWords": [
+    "pile",
+    "furry",
+    "skins",
+    "mended"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 27,
+   "context": "Cro-Magnons scraped reindeer skins with flint rocks",
+   "mainIdea": "The book tells how the Cro-Magnons made clothes.",
+   "simple": "The Cro-Magnons used sharp stones to clean reindeer skins and make them soft. Then they used needles made of bone to join the skins and make clothes.",
+   "background": [
+    {
+     "term": "bone needles",
+     "note": "People have found needles made of bone from more than 20,000 years ago. They even had a small hole for the thread, like needles today."
+    }
+   ],
+   "hardWords": [
+    "reindeer",
+    "skins",
+    "bone",
+    "needles",
+    "sew",
+    "clothing"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 38,
+   "context": "Cro-Magnons made stone lamps",
+   "mainIdea": "The book tells how the Cro-Magnons made light.",
+   "simple": "The Cro-Magnons made a hole in a stone and put animal fat in it. Then they used a piece of moss as a string and lit it, like a candle.",
+   "hardWords": [
+    "lamps",
+    "hollowed",
+    "hollowed out",
+    "moss"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 52,
+   "context": "Too late—she had squeezed into the opening and was gone",
+   "mainIdea": "Annie goes into the tunnel before Jack can stop her.",
+   "simple": "Jack was too slow. Annie had already pushed herself into the small hole and she was gone.",
+   "hardWords": [
+    "squeezed"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 60,
+   "context": "Crouching clown, he hurried toward her",
+   "mainIdea": "Jack goes through the tunnel and finds a very big cave.",
+   "simple": "Jack bent down low and hurried to Annie. At the end of the small tunnel there was a huge cave with a high top.",
+   "tone": "Note: \"clown\" is a printing mistake in this book. It should be \"down\": \"Crouching down\".",
+   "hardWords": [
+    "Crouching",
+    "tunnel",
+    "huge",
+    "cavern",
+    "ceiling"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 64,
+   "context": "There were cave bears and lions, elk and reindeer",
+   "mainIdea": "The paintings show many Ice Age animals.",
+   "simple": "The pictures on the wall showed many animals: cave bears, lions, big deer, reindeer, wild cows, woolly rhinos and mammoths.",
+   "background": [
+    {
+     "term": "bison",
+     "note": "A big wild animal like a cow. Bison still live in North America and Europe today."
+    },
+    {
+     "term": "woolly rhinos",
+     "note": "Rhinos with long thick hair that lived in the Ice Age. They are now extinct."
+    }
+   ],
+   "hardWords": [
+    "reindeer",
+    "rhinos",
+    "mammoths"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 1,
+   "context": "Maybe it’s an art gallery",
+   "mainIdea": "Annie thinks the painted cave is a place to look at art.",
+   "simple": "Annie thinks the cave may be a place where people go to look at pictures.",
+   "tone": "Annie's idea is a little funny, because an art gallery is a modern place in a city.",
+   "hardWords": [
+    "gallery"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 4,
+   "context": "These Ice Age beasts were painted 25,000 years ago",
+   "mainIdea": "The book explains the cave paintings.",
+   "simple": "People painted these animals 25,000 years ago. They painted animals that they hunted. Maybe they believed the pictures gave them power over the animals, so the hunt would go well.",
+   "background": [
+    {
+     "term": "painted 25,000 years ago",
+     "note": "Real Ice Age cave paintings can still be seen today, for example in the caves of Lascaux in France and Altamira in Spain. Many are about 17,000 to 36,000 years old."
+    }
+   ],
+   "hardWords": [
+    "Ice Age",
+    "beasts"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 9,
+   "context": "Cave men may have been led by a sorcerer",
+   "mainIdea": "The book tells about a magic leader of the cave people.",
+   "simple": "Maybe the cave people had a leader who could do magic. People call him the \"Master of the Animals\". Maybe he wore reindeer horns to run fast like a reindeer, and an owl mask to see well like an owl.",
+   "background": [
+    {
+     "term": "Master of the Animals",
+     "note": "A real cave painting in France, in the Trois-Frères cave, shows a figure that is part man and part animal, with antlers. People call it \"The Sorcerer\". Nobody knows for sure what it means."
+    }
+   ],
+   "hardWords": [
+    "sorcerer",
+    "reindeer",
+    "antlers",
+    "owl",
+    "mask"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 26,
+   "context": "Oh no!” cried Annie. “She must have crawled out",
+   "mainIdea": "Annie thinks Peanut left the bag while they looked at the pictures.",
+   "simple": "Annie is worried. She thinks Peanut moved out of the backpack while they were looking at the paintings.",
+   "hardWords": [
+    "crawled"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 4,
+   "context": "The wind blew harder. Snow swirled over the ground",
+   "mainIdea": "The wind covers Peanut's footprints with snow.",
+   "simple": "The wind got stronger. Snow moved round and round over the ground and covered the mouse's small footprints.",
+   "hardWords": [
+    "swirled",
+    "footprints"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 9,
+   "context": "Jack followed her gaze. On one of the cliffs was a tiger",
+   "mainIdea": "Jack sees a huge tiger with long teeth on a cliff.",
+   "simple": "Jack looked where Annie was looking. There was a very big tiger on a cliff. It had two long, sharp teeth.",
+   "background": [
+    {
+     "term": "A giant tiger with two long, sharp fangs",
+     "note": "This is a sabertooth, sometimes called a \"saber-toothed tiger\". It was not really a tiger, but a big wild cat. Its front teeth could be more than 20 centimeters long."
+    }
+   ],
+   "hardWords": [
+    "gaze",
+    "cliffs",
+    "giant",
+    "sharp",
+    "fangs"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 19,
+   "context": "The ground caved in, and Jack went with it",
+   "mainIdea": "The ground suddenly falls in, and Jack falls into a hole.",
+   "simple": "Suddenly the ground under Jack broke and fell down, and Jack fell down with it.",
+   "hardWords": [
+    "caved in"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 26,
+   "context": "This is a trap,” Jack said",
+   "mainIdea": "Jack understands that they fell into a hunting trap.",
+   "simple": "Jack says this hole is a trap. The cave people covered it with branches, and then snow covered the branches. So the children could not see the hole.",
+   "hardWords": [
+    "trap",
+    "branches"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 28,
+   "context": "She was right. They were helpless",
+   "mainIdea": "The children cannot get out of the deep hole.",
+   "simple": "Annie was right. They could not do anything. The hole was too deep to climb out.",
+   "hardWords": [
+    "helpless",
+    "pit"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 34,
+   "context": "The sabertooth was the fiercest beast of the Ice Age",
+   "mainIdea": "The book says the sabertooth was very dangerous.",
+   "simple": "The sabertooth was the most dangerous animal of the Ice Age. It attacked people, and also mammoths and other big animals.",
+   "hardWords": [
+    "fiercest",
+    "beast",
+    "Ice Age",
+    "woolly mammoths",
+    "mammoths"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 15,
+   "context": "Jack was puzzled. The sorcerer had used both hands",
+   "mainIdea": "Jack cannot understand who is pulling the rope.",
+   "simple": "Jack did not understand. The sorcerer used both his hands to help Annie, so someone else was holding the other end of the rope. Who was it?",
+   "hardWords": [
+    "puzzled",
+    "sorcerer"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 20,
+   "context": "Jack held on tight. He started up. His hands burned",
+   "mainIdea": "Climbing up the rope is very hard for Jack.",
+   "simple": "Jack held the rope hard and started to go up. His hands hurt. His arms hurt so much that he felt they might come out of his body.",
+   "hardWords": [
+    "held on",
+    "tight",
+    "burned"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 29,
+   "context": "The mammoth looked like a giant elephant",
+   "mainIdea": "This tells us what the woolly mammoth looks like.",
+   "simple": "The mammoth looked like a very big elephant. It had long, thick, red-brown hair and long teeth that turned up at the ends.",
+   "background": [
+    {
+     "term": "a giant elephant",
+     "note": "Woolly mammoths were about as big as African elephants today. They died out about 4,000 years ago. Scientists have found whole mammoths frozen in the ice in Siberia."
+    }
+   ],
+   "hardWords": [
+    "mammoth",
+    "giant",
+    "shaggy",
+    "reddish",
+    "curved",
+    "tusks"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 37,
+   "context": "The great creature knelt down, just like a circus elephant",
+   "mainIdea": "The mammoth gets down so the children can get on.",
+   "simple": "The big animal went down on its knees, like an elephant in a circus show.",
+   "background": [
+    {
+     "term": "a circus elephant",
+     "note": "In the past, circuses often had trained elephants that did tricks. Many countries do not allow this now."
+    }
+   ],
+   "hardWords": [
+    "creature",
+    "knelt",
+    "circus"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 52,
+   "context": "When the mammoth stood up, Jack gripped Annie’s coat",
+   "mainIdea": "Jack is high up on the mammoth and holds on to Annie.",
+   "simple": "When the mammoth stood up, Jack held Annie's coat hard so he would not fall. He felt very, very high above the ground.",
+   "tone": "\"Miles above the ground\" is not true. It is a way to say \"very high\".",
+   "hardWords": [
+    "mammoth",
+    "gripped",
+    "keep from"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 61,
+   "context": "But at that moment the clouds parted, and the sun came out",
+   "mainIdea": "The sun comes out, and the sorcerer disappears.",
+   "simple": "The clouds moved apart and the sun came out. The light on the snow was so bright that Jack could not see. When he could see again, the sorcerer was gone.",
+   "hardWords": [
+    "parted",
+    "came out"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 5,
+   "context": "They seemed to be escorting Jack and Annie back",
+   "mainIdea": "The animals seem to walk with the children to keep them safe.",
+   "simple": "The animals walked with them, like guards taking Jack and Annie home safely.",
+   "hardWords": [
+    "escorting"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 7,
+   "context": "This is a great parade, Jack thought. Fantastic",
+   "mainIdea": "Jack loves riding with all the animals.",
+   "simple": "Jack thought that walking with all these animals was like a wonderful parade.",
+   "tone": "Jack feels happy and excited. The words in italics in the book are his thoughts, not words he says.",
+   "hardWords": [
+    "parade"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 13,
+   "context": "Behind them the sabertooth was slinking across the sunlit snow",
+   "mainIdea": "The sabertooth is following them.",
+   "simple": "The sabertooth was moving quietly behind them over the bright snow.",
+   "hardWords": [
+    "sunlit"
+   ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 24,
+   "context": "But Jack knew a sabertooth could kill any creature",
+   "mainIdea": "Jack knows the sabertooth can kill even a mammoth.",
+   "simple": "Jack was afraid. He knew that a sabertooth could kill any animal, even a big mammoth.",
+   "hardWords": [
+    "creature",
+    "mammoth"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 3,
+   "context": "Is she nuts? Jack thought",
+   "mainIdea": "Jack thinks Annie's idea is crazy.",
+   "simple": "Jack thought Annie must be crazy to tell him to play music to a tiger.",
+   "hardWords": [
+    "nuts"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 18,
+   "context": "The music sounded strange—as if it were coming from another world",
+   "mainIdea": "The flute music sounds magical.",
+   "simple": "The music was very strange. It did not sound like music from our world."
+  },
+  {
+   "chapter": 11,
+   "paragraph": 31,
+   "context": "The mammoth walked away into the sunset",
+   "mainIdea": "Lulu the mammoth goes away.",
+   "simple": "The mammoth walked off toward the setting sun.",
+   "tone": "This is where the book gets its name: \"Sunset of the Sabertooth\".",
+   "hardWords": [
+    "mammoth",
+    "sunset"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 32,
+   "context": "When Jack couldn’t see her anymore, he started up the lope ladder",
+   "mainIdea": "Jack climbs into the tree house.",
+   "simple": "When Jack could not see the mammoth any more, he climbed up the rope ladder into the tree house.",
+   "tone": "Note: \"lope\" is a printing mistake in this book. It should be \"rope\": \"the rope ladder\".",
+   "hardWords": [
+    "anymore",
+    "ladder"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 34,
+   "context": "Jack smiled. Now he was positive they had found the third M thing",
+   "mainIdea": "Jack is sure that the mammoth bone is the third M thing.",
+   "simple": "Jack smiled. He was now sure that they had found the third thing that starts with M. Their job was done.",
+   "tone": "The Pennsylvania book only comes back when the job is done, so now Jack knows the bone is the right thing.",
+   "hardWords": [
+    "positive",
+    "mission"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 45,
+   "context": "The tallest person stepped forward and raised a spear",
+   "mainIdea": "The Cro-Magnon man looks ready to throw a spear, so they leave.",
+   "simple": "The tallest Cro-Magnon walked forward and held up a spear. Jack thinks it is time to go home.",
+   "hardWords": [
+    "spear"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 7,
+   "context": "He held up the mammoth bone. Then he placed it on the M",
+   "mainIdea": "Jack puts the mammoth bone next to the other two M things.",
+   "simple": "Jack put the mammoth bone on the M on the floor, next to the mango and the moonstone.",
+   "hardWords": [
+    "mammoth",
+    "bone",
+    "carved",
+    "mango"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 8,
+   "context": "Moonstone, mango, mammoth bone",
+   "mainIdea": "They need one more M thing to free Morgan.",
+   "simple": "Annie says the three things. They need just one more thing that starts with M. Then the magic on Morgan will end.",
+   "hardWords": [
+    "mango",
+    "mammoth",
+    "bone",
+    "spell"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 17,
+   "context": "Their neighborhood looked rosy in the sunset",
+   "mainIdea": "Jack is happy to be home in his own time.",
+   "simple": "Their street looked pink in the evening sun. Jack thought it was good to be back in his own time, where it was warm and safe.",
+   "hardWords": [
+    "neighborhood",
+    "rosy",
+    "sunset"
+   ]
+  },
+  {
+   "chapter": 12,
+   "paragraph": 20,
+   "context": "Yeah, Mom and Dad already did that",
+   "mainIdea": "Annie makes a joke about hunting at the supermarket.",
+   "simple": "Annie says Mom and Dad already went \"hunting\" for dinner, at the supermarket.",
+   "tone": "This is a joke. In the Ice Age people hunted animals for dinner. Today we just buy food at the supermarket."
+  },
+  {
+   "chapter": 12,
+   "paragraph": 21,
+   "context": "I hope they trapped some spaghetti and meatballs",
+   "mainIdea": "Jack and Annie continue the hunting joke.",
+   "simple": "Jack says he hopes his parents \"caught\" spaghetti and meatballs, and Annie hopes they \"caught\" a pizza.",
+   "tone": "More of the joke: you can trap animals, but not spaghetti or pizza.",
+   "background": [
+    {
+     "term": "spaghetti and meatballs",
+     "note": "A favourite dinner in many American families: long noodles with small balls of meat in tomato sauce."
+    }
+   ],
+   "hardWords": [
+    "trapped",
+    "spaghetti",
+    "meatballs"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 2,
+   "paragraph": 4,
+   "context": "She traveled through time and space, gathering books for King Arthur’s library",
+   "simple": "She went to different times and places, and she collected books for King Arthur's library.",
+   "main": "She traveled through time and space.",
+   "parts": [
+    {
+     "text": "She traveled through time and space",
+     "job": "Main part: who and what.",
+     "meaning": "She went to other times and other places"
+    },
+    {
+     "text": "gathering books for King Arthur’s library",
+     "job": "What she did on her trips.",
+     "meaning": "and she collected books for King Arthur's library."
+    }
+   ],
+   "grammar": "The \"-ing\" part after the comma tells you what she did while she traveled. \"Time and space\" means different times in history and different places in the world."
+  },
+  {
+   "chapter": 2,
+   "paragraph": 8,
+   "context": "Now Jack and Annie and Peanut are about to set out in search of the third thing … in Sunset of the Sabertooth",
+   "simple": "Now Jack, Annie and Peanut are going to start a trip very soon. They will look for the third special thing in this book, Sunset of the Sabertooth.",
+   "main": "Jack and Annie and Peanut are about to set out.",
+   "parts": [
+    {
+     "text": "Now Jack and Annie and Peanut",
+     "job": "Who.",
+     "meaning": "Now Jack, Annie and Peanut"
+    },
+    {
+     "text": "are about to set out",
+     "job": "What they will do very soon.",
+     "meaning": "are going to start a trip very soon"
+    },
+    {
+     "text": "in search of the third thing",
+     "job": "Why they go.",
+     "meaning": "to look for the third special thing"
+    },
+    {
+     "text": "… in Sunset of the Sabertooth",
+     "job": "Where you can read about it: the name of this book.",
+     "meaning": "in this book, Sunset of the Sabertooth."
+    }
+   ],
+   "grammar": "\"Be about to\" means \"be going to do it very soon\". \"Set out\" means \"start a trip\". \"In search of\" means \"looking for\"."
+  },
+  {
+   "chapter": 3,
+   "paragraph": 1,
+   "context": "She and Jack were passing the Frog Creek woods on their way home from their swimming class at the Y",
+   "simple": "Jack and Annie were walking past the woods. They were going home after their swimming class.",
+   "main": "She and Jack were passing the woods.",
+   "parts": [
+    {
+     "text": "She and Jack were passing the Frog Creek woods",
+     "job": "Main part: who and what.",
+     "meaning": "Annie and Jack were walking past the Frog Creek woods"
+    },
+    {
+     "text": "on their way home",
+     "job": "Where they were going.",
+     "meaning": "while they were going home"
+    },
+    {
+     "text": "from their swimming class at the Y",
+     "job": "Where they were coming from.",
+     "meaning": "from their swimming lesson at the YMCA sports centre."
+    }
+   ],
+   "grammar": "\"On their way home\" means \"while going home\". Here \"pass\" means \"go past\", not \"pass an exam\". \"The Y\" is a short name for the YMCA."
+  },
+  {
+   "chapter": 3,
+   "paragraph": 22,
+   "context": "On the M were a moonstone and a mango, the special things they’d found on their last two journeys",
+   "simple": "A moonstone and a mango were on the M. They were the special things Jack and Annie found on their last two trips.",
+   "main": "A moonstone and a mango were on the M.",
+   "parts": [
+    {
+     "text": "On the M",
+     "job": "Where. This comes first, so the sentence is turned around.",
+     "meaning": "On the big letter M"
+    },
+    {
+     "text": "were a moonstone and a mango",
+     "job": "What was there.",
+     "meaning": "there were a moonstone and a mango"
+    },
+    {
+     "text": "the special things they’d found on their last two journeys",
+     "job": "More about them, after the comma.",
+     "meaning": "the special things they had found on their last two trips."
+    }
+   ],
+   "grammar": "The place comes first, then the verb (\"were\"), then the things. In normal order: \"A moonstone and a mango were on the M.\" \"They'd found\" means \"they had found\": they found them before this day."
+  },
+  {
+   "chapter": 4,
+   "paragraph": 20,
+   "context": "During the late Ice Age in Europe, they sometimes lived in caves beneath cliffs",
+   "simple": "Near the end of the Ice Age, some Cro-Magnons in Europe lived in caves under cliffs.",
+   "main": "They sometimes lived in caves.",
+   "parts": [
+    {
+     "text": "During the late Ice Age in Europe",
+     "job": "When and where.",
+     "meaning": "Near the end of the Ice Age, in Europe,"
+    },
+    {
+     "text": "they sometimes lived in caves",
+     "job": "Main part: who and what.",
+     "meaning": "the Cro-Magnons sometimes lived in caves"
+    },
+    {
+     "text": "beneath cliffs",
+     "job": "Where the caves were.",
+     "meaning": "under tall rock walls."
+    }
+   ],
+   "grammar": "The time comes first, before the comma. \"Late Ice Age\" means the last part of the Ice Age, not \"too late\". \"Beneath\" means \"under\"."
+  },
+  {
+   "chapter": 4,
+   "paragraph": 23,
+   "context": "Then they drove reindeer and mammoths into the traps",
+   "simple": "Then they chased reindeer and mammoths, so the animals ran into the holes.",
+   "main": "They drove animals into the traps.",
+   "parts": [
+    {
+     "text": "Then they drove",
+     "job": "Who and what they did.",
+     "meaning": "Then the hunters made"
+    },
+    {
+     "text": "reindeer and mammoths",
+     "job": "Which animals.",
+     "meaning": "reindeer and mammoths"
+    },
+    {
+     "text": "into the traps",
+     "job": "Where the animals went.",
+     "meaning": "run into the holes."
+    }
+   ],
+   "grammar": "Here \"drove\" does not mean driving a car. To \"drive animals\" means to chase them so they move where you want."
+  },
+  {
+   "chapter": 4,
+   "paragraph": 40,
+   "context": "Most of your body heat is lost through your head",
+   "simple": "Your body loses a lot of heat through your head.",
+   "main": "Body heat is lost through your head.",
+   "parts": [
+    {
+     "text": "Most of your body heat",
+     "job": "What this is about.",
+     "meaning": "A lot of the warmth of your body"
+    },
+    {
+     "text": "is lost",
+     "job": "What happens to it.",
+     "meaning": "goes out"
+    },
+    {
+     "text": "through your head",
+     "job": "Where it goes out.",
+     "meaning": "through your head."
+    }
+   ],
+   "grammar": "\"Is lost\" tells you what happens to the heat, not what the heat does. Scientists today say we do not lose more heat through the head than through other parts, but covering your head still helps you stay warm."
+  },
+  {
+   "chapter": 4,
+   "paragraph": 65,
+   "context": "These bears were larger and fiercer than today’s grizzlies",
+   "simple": "These bears were bigger and more dangerous than the brown bears that live today.",
+   "main": "These bears were larger than grizzlies.",
+   "parts": [
+    {
+     "text": "These bears were",
+     "job": "Who.",
+     "meaning": "The cave bears were"
+    },
+    {
+     "text": "larger and fiercer",
+     "job": "How they were different.",
+     "meaning": "bigger and more dangerous"
+    },
+    {
+     "text": "than today’s grizzlies",
+     "job": "What we compare them with.",
+     "meaning": "than the grizzly bears that live now."
+    }
+   ],
+   "grammar": "\"-er ... than\" compares two things. \"Today's grizzlies\" means the grizzly bears of today."
+  },
+  {
+   "chapter": 4,
+   "paragraph": 65,
+   "context": "Their caves were filled with the bones of their ancestors",
+   "simple": "Their caves were full of the bones of the bears that lived before them.",
+   "main": "Their caves were filled with bones.",
+   "parts": [
+    {
+     "text": "Their caves were filled",
+     "job": "Main part.",
+     "meaning": "The bears' caves were full"
+    },
+    {
+     "text": "with the bones of their ancestors",
+     "job": "Full of what.",
+     "meaning": "of the bones of older bears from their families."
+    }
+   ],
+   "grammar": "\"Their\" means the cave bears. \"Filled with\" means \"full of\". \"Ancestors\" are the family members who lived a long time before."
+  },
+  {
+   "chapter": 6,
+   "paragraph": 10,
+   "context": "They made flute-like musical instruments from mammoth bones",
+   "simple": "They made music pipes, like flutes, from the bones of mammoths.",
+   "main": "They made instruments from bones.",
+   "parts": [
+    {
+     "text": "They made",
+     "job": "Who and what.",
+     "meaning": "The Cro-Magnons made"
+    },
+    {
+     "text": "flute-like musical instruments",
+     "job": "What they made.",
+     "meaning": "things for playing music that were like flutes"
+    },
+    {
+     "text": "from mammoth bones",
+     "job": "What they used.",
+     "meaning": "from the bones of mammoths."
+    }
+   ],
+   "grammar": "\"Flute-like\" means \"like a flute\". You can add \"-like\" to many nouns: \"cat-like\" eyes, \"child-like\" fun."
+  },
+  {
+   "chapter": 6,
+   "paragraph": 27,
+   "context": "They used bone needles to sew the skins together for clothing",
+   "simple": "They used needles made of bone to join the skins and make clothes.",
+   "main": "They used bone needles.",
+   "parts": [
+    {
+     "text": "They used bone needles",
+     "job": "Main part.",
+     "meaning": "They used needles made from bone"
+    },
+    {
+     "text": "to sew the skins together",
+     "job": "Why they used them.",
+     "meaning": "to join the animal skins with thread"
+    },
+    {
+     "text": "for clothing",
+     "job": "What the skins became.",
+     "meaning": "to make clothes."
+    }
+   ],
+   "grammar": "\"To + verb\" after \"used\" tells you why. \"Bone needles\" means needles made of bone, like \"stone lamps\" means lamps made of stone."
+  },
+  {
+   "chapter": 6,
+   "paragraph": 38,
+   "context": "They hollowed out a rock, filled it with animal fat, then burned a wick made from moss",
+   "simple": "They made a hole in a rock and put animal fat in it. Then they lit a piece of moss in the fat, like a candle string.",
+   "main": "They made a lamp in three steps.",
+   "parts": [
+    {
+     "text": "They hollowed out a rock",
+     "job": "Step 1.",
+     "meaning": "They made an empty space inside a rock,"
+    },
+    {
+     "text": "filled it with animal fat",
+     "job": "Step 2.",
+     "meaning": "put animal fat in it,"
+    },
+    {
+     "text": "then burned a wick made from moss",
+     "job": "Step 3.",
+     "meaning": "and then lit a string made of moss."
+    }
+   ],
+   "grammar": "This sentence lists three steps in order, with commas between them. \"It\" means the rock. \"Made from moss\" tells you about the wick."
+  },
+  {
+   "chapter": 6,
+   "paragraph": 60,
+   "context": "Crouching clown, he hurried toward her",
+   "simple": "He bent down low and hurried to her.",
+   "main": "He hurried toward her.",
+   "parts": [
+    {
+     "text": "Crouching clown",
+     "job": "How he moved. (A printing mistake: read \"Crouching down\".)",
+     "meaning": "Bending down low,"
+    },
+    {
+     "text": "he hurried toward her",
+     "job": "Main part.",
+     "meaning": "he went quickly to Annie."
+    }
+   ],
+   "grammar": "The \"-ing\" part at the start tells you how he moved. \"Clown\" is a mistake in this book; it should be \"down\"."
+  },
+  {
+   "chapter": 7,
+   "paragraph": 4,
+   "context": "They may have believed the paintings would give them power over the animals",
+   "simple": "Maybe they thought the pictures could help them control the animals.",
+   "main": "They may have believed something.",
+   "parts": [
+    {
+     "text": "They may have believed",
+     "job": "What they maybe thought in the past.",
+     "meaning": "Maybe they thought"
+    },
+    {
+     "text": "the paintings would give them power over the animals",
+     "job": "What they believed.",
+     "meaning": "that the pictures could help them control the animals and hunt well."
+    }
+   ],
+   "grammar": "\"May have + past form\" means \"maybe it was true in the past, but we are not sure\". \"Power over\" something means you can control it."
+  },
+  {
+   "chapter": 7,
+   "paragraph": 9,
+   "context": "He may have worn reindeer antlers so he could run like a reindeer—and an owl mask so he could see like an owl",
+   "simple": "Maybe he wore reindeer horns to run fast like a reindeer, and an owl mask to see well like an owl.",
+   "main": "He may have worn antlers and an owl mask.",
+   "parts": [
+    {
+     "text": "He may have worn reindeer antlers",
+     "job": "Thing 1 he maybe wore.",
+     "meaning": "Maybe he wore reindeer horns"
+    },
+    {
+     "text": "so he could run like a reindeer",
+     "job": "Why.",
+     "meaning": "so that he could run like a reindeer,"
+    },
+    {
+     "text": "—and an owl mask",
+     "job": "Thing 2 he maybe wore.",
+     "meaning": "and maybe he wore an owl mask"
+    },
+    {
+     "text": "so he could see like an owl",
+     "job": "Why.",
+     "meaning": "so that he could see like an owl."
+    }
+   ],
+   "grammar": "\"May have worn\" means \"maybe he wore; we are not sure\". Each \"so he could\" gives a reason. The long line (—) adds the second thing."
+  },
+  {
+   "chapter": 8,
+   "paragraph": 26,
+   "context": "The Cro-Magnons must have put branches over this hole",
+   "simple": "The Cro-Magnons surely put branches over this hole.",
+   "main": "They must have put branches over the hole.",
+   "parts": [
+    {
+     "text": "The Cro-Magnons must have put branches",
+     "job": "What Jack thinks happened.",
+     "meaning": "I am sure the Cro-Magnons put branches"
+    },
+    {
+     "text": "over this hole",
+     "job": "Where.",
+     "meaning": "on top of this hole."
+    }
+   ],
+   "grammar": "\"Must have + past form\" means \"I am almost sure this happened before\". Jack did not see it, but he can guess."
+  },
+  {
+   "chapter": 8,
+   "paragraph": 28,
+   "context": "The pit was too deep to climb out of",
+   "simple": "The hole was so deep that they could not climb out.",
+   "main": "The pit was too deep.",
+   "parts": [
+    {
+     "text": "The pit was too deep",
+     "job": "Main part.",
+     "meaning": "The hole was very, very deep,"
+    },
+    {
+     "text": "to climb out of",
+     "job": "What they could not do.",
+     "meaning": "so they could not climb out."
+    }
+   ],
+   "grammar": "\"Too + adjective + to do\" means \"so ... that you cannot do it\". The sentence ends with \"of\" because we say \"climb out of the pit\"."
+  },
+  {
+   "chapter": 9,
+   "paragraph": 15,
+   "context": "The sorcerer had used both hands to help Annie",
+   "simple": "The sorcerer used both his hands to help Annie.",
+   "main": "The sorcerer had used both hands.",
+   "parts": [
+    {
+     "text": "The sorcerer had used both hands",
+     "job": "Main part.",
+     "meaning": "The sorcerer used both his hands"
+    },
+    {
+     "text": "to help Annie",
+     "job": "Why.",
+     "meaning": "to help Annie up."
+    }
+   ],
+   "grammar": "\"Had used\" tells you it happened before Jack started to think about it. So who was holding the rope? The answer comes soon: the mammoth."
+  },
+  {
+   "chapter": 9,
+   "paragraph": 20,
+   "context": "His arms felt as if they were being pulled out of their sockets",
+   "simple": "His arms hurt so much that he felt they might come out of his shoulders.",
+   "main": "His arms felt bad.",
+   "parts": [
+    {
+     "text": "His arms felt",
+     "job": "Main part.",
+     "meaning": "His arms felt"
+    },
+    {
+     "text": "as if they were being pulled out of their sockets",
+     "job": "How they felt.",
+     "meaning": "like someone was pulling them out of his shoulders."
+    }
+   ],
+   "grammar": "\"As if\" means \"like\" and is used for something that is not really happening. His arms were not really coming out; it just felt that way."
+  },
+  {
+   "chapter": 9,
+   "paragraph": 37,
+   "context": "The great creature knelt down, just like a circus elephant",
+   "simple": "The big animal went down on its knees, like an elephant in a circus.",
+   "main": "The great creature knelt down.",
+   "parts": [
+    {
+     "text": "The great creature knelt down",
+     "job": "Main part.",
+     "meaning": "The big animal went down on its knees,"
+    },
+    {
+     "text": "just like a circus elephant",
+     "job": "What it looked like.",
+     "meaning": "in the same way as an elephant in a circus show."
+    }
+   ],
+   "grammar": "\"Creature\" means any animal here. \"Knelt\" is the past of \"kneel\"."
+  },
+  {
+   "chapter": 9,
+   "paragraph": 53,
+   "context": "He nestled behind Annie, in the dip between the mammoth’s head and huge curved back",
+   "simple": "He sat close behind Annie, in the low place between the mammoth's head and its big round back.",
+   "main": "He nestled behind Annie.",
+   "parts": [
+    {
+     "text": "He nestled behind Annie",
+     "job": "Main part: who and what.",
+     "meaning": "Jack sat close and comfortable behind Annie,"
+    },
+    {
+     "text": "in the dip",
+     "job": "Where exactly.",
+     "meaning": "in the low place"
+    },
+    {
+     "text": "between the mammoth’s head and huge curved back",
+     "job": "More about the dip.",
+     "meaning": "between the mammoth's head and its big, round back."
+    }
+   ],
+   "grammar": "Each part after the comma tells you more exactly where Jack sat. \"Dip\" here is a noun: a low place."
+  },
+  {
+   "chapter": 10,
+   "paragraph": 5,
+   "context": "They seemed to be escorting Jack and Annie back to the tree house",
+   "simple": "It looked like the animals were going with Jack and Annie to keep them safe on the way to the tree house.",
+   "main": "They seemed to be escorting Jack and Annie.",
+   "parts": [
+    {
+     "text": "They seemed to be escorting",
+     "job": "What it looked like.",
+     "meaning": "It looked like the animals were going with them to keep them safe,"
+    },
+    {
+     "text": "Jack and Annie back to the tree house",
+     "job": "Who and where.",
+     "meaning": "taking Jack and Annie back to the tree house."
+    }
+   ],
+   "grammar": "\"Seemed to be ...ing\" means \"it looked like they were doing it\". Jack is not sure; it only looks that way."
+  },
+  {
+   "chapter": 10,
+   "paragraph": 24,
+   "context": "But Jack knew a sabertooth could kill any creature, including a mammoth",
+   "simple": "But Jack knew that a sabertooth could kill any animal, even a mammoth.",
+   "main": "Jack knew something bad.",
+   "parts": [
+    {
+     "text": "But Jack knew",
+     "job": "Main part.",
+     "meaning": "But Jack knew"
+    },
+    {
+     "text": "a sabertooth could kill any creature",
+     "job": "What he knew.",
+     "meaning": "that a sabertooth could kill any animal,"
+    },
+    {
+     "text": "including a mammoth",
+     "job": "One example.",
+     "meaning": "even a mammoth."
+    }
+   ],
+   "grammar": "\"Including\" means \"and this one too\". The word \"that\" is not written after \"knew\", but you can put it in: \"Jack knew that ...\"."
+  },
+  {
+   "chapter": 11,
+   "paragraph": 18,
+   "context": "The music sounded strange—as if it were coming from another world",
+   "simple": "The music sounded strange, like it came from a different world.",
+   "main": "The music sounded strange.",
+   "parts": [
+    {
+     "text": "The music sounded strange",
+     "job": "Main part.",
+     "meaning": "The music was strange to hear"
+    },
+    {
+     "text": "—as if it were coming from another world",
+     "job": "How it sounded.",
+     "meaning": "like it was coming from a different world."
+    }
+   ],
+   "grammar": "\"As if it were\" is used for something that is not really true. The music was not really from another world; it only sounded like it."
+  },
+  {
+   "chapter": 11,
+   "paragraph": 29,
+   "context": "After they disappeared into the tree house, Jack climbed onto the ladder",
+   "simple": "When Annie and Peanut were inside the tree house, Jack got onto the ladder.",
+   "main": "Jack climbed onto the ladder.",
+   "parts": [
+    {
+     "text": "After they disappeared into the tree house",
+     "job": "When. This happened first.",
+     "meaning": "When Annie and Peanut had gone into the tree house,"
+    },
+    {
+     "text": "Jack climbed onto the ladder",
+     "job": "Main part. This happened second.",
+     "meaning": "Jack got onto the ladder."
+    }
+   ],
+   "grammar": "\"After ...\" at the start tells you what happened first. The main part comes after the comma."
+  },
+  {
+   "chapter": 12,
+   "paragraph": 18,
+   "context": "It’s great to be back in this age, Jack thought",
+   "simple": "Jack thought it was very good to be home in his own time.",
+   "main": "Jack thought something.",
+   "parts": [
+    {
+     "text": "It’s great to be back in this age",
+     "job": "What Jack thought.",
+     "meaning": "It is very good to be back in our own time,"
+    },
+    {
+     "text": "Jack thought",
+     "job": "Who thought it.",
+     "meaning": "Jack thought."
+    }
+   ],
+   "grammar": "The words Jack thinks come first; \"Jack thought\" comes at the end. \"This age\" means our time today, the opposite of the Ice Age."
+  }
+ ],
+ "count": 319
+}
