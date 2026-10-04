@@ -251,9 +251,83 @@ test("turnstile is skipped until the secret is set, then a token is required", a
       }),
     }),
     envOf(openDb(), { TURNSTILE_SECRET_KEY: "secret" }),
-    { now: NOW, fetch: async () => new Response(JSON.stringify({ success: true }), { status: 200 }) },
+    {
+      now: NOW,
+      fetch: async () =>
+        new Response(JSON.stringify({ success: true, action: "signup", hostname: "inputread.site" }), { status: 200 }),
+    },
   );
   assert.equal(ok.status, 201);
+
+  const wrongHost = await handleRegister(
+    new Request("http://localhost/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({
+        email: "four@example.com",
+        password: "correct horse",
+        turnstileToken: "token-token-token",
+      }),
+    }),
+    envOf(openDb(), { TURNSTILE_SECRET_KEY: "secret" }),
+    {
+      now: NOW,
+      fetch: async () =>
+        new Response(JSON.stringify({ success: true, action: "signup", hostname: "evil.example" }), { status: 200 }),
+    },
+  );
+  assert.equal(wrongHost.status, 403);
+  assert.equal((await wrongHost.json()).error, "turnstile");
+});
+
+test("login requires a turnstile token when the secret is set", async () => {
+  const db = openDb();
+  const created = await call(handleRegister, envOf(db), {
+    body: { email: "reader@example.com", password: "correct horse" },
+  });
+  assert.equal(created.status, 201);
+  const env = envOf(db, { TURNSTILE_SECRET_KEY: "secret" });
+  const missing = await call(handleLogin, env, {
+    body: { email: "reader@example.com", password: "correct horse" },
+  });
+  assert.equal(missing.status, 403);
+  assert.equal((await missing.json()).error, "turnstile");
+
+  const signupToken = await handleLogin(
+    new Request("http://localhost/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: "reader@example.com",
+        password: "correct horse",
+        turnstileToken: "token-token-token",
+      }),
+    }),
+    env,
+    {
+      now: NOW,
+      fetch: async () =>
+        new Response(JSON.stringify({ success: true, action: "signup", hostname: "inputread.site" }), { status: 200 }),
+    },
+  );
+  assert.equal(signupToken.status, 403);
+  assert.equal((await signupToken.json()).error, "turnstile");
+
+  const ok = await handleLogin(
+    new Request("http://localhost/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: "reader@example.com",
+        password: "correct horse",
+        turnstileToken: "token-token-token",
+      }),
+    }),
+    env,
+    {
+      now: NOW,
+      fetch: async () =>
+        new Response(JSON.stringify({ success: true, action: "login", hostname: "inputread.site" }), { status: 200 }),
+    },
+  );
+  assert.equal(ok.status, 200);
 });
 
 test("delete removes every row, and export has no password hash", async () => {
