@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
 import { BookCover } from "@/components/book-cover";
-import { AddToShelfButton, type ShelfState } from "@/components/shelf-actions";
+import { AddToShelfButton, ShelfCardStatus, type ShelfState } from "@/components/shelf-actions";
 import { BookMetaLines, DifficultyControls, matchesBand, type BandChoice, type SortChoice } from "@/components/lexile-ui";
 import {
   bookCardGrid,
@@ -63,7 +63,7 @@ function CardSkeleton() {
       <span className="block aspect-[2/3] w-full animate-pulse rounded-md bg-line" />
       <span className="mt-1 h-4 w-3/4 animate-pulse rounded bg-line" />
       <span className="h-3 w-1/2 animate-pulse rounded bg-line" />
-      <span className="mt-auto h-11 animate-pulse rounded-lg bg-line" />
+      <span className="mt-auto h-3 w-2/3 animate-pulse rounded bg-line" />
     </li>
   );
 }
@@ -82,13 +82,15 @@ type Row = {
   oldFashioned: boolean;
   oldFashionedReason: string;
   coverUrl?: string;
+  /** YYYY-MM-DD the word list last changed. "" when the catalog has no date. */
+  updated: string;
   pack?: CatalogPack;
   list?: WordListPack;
 };
 
 /**
  * Every book we have, from the books host. The two catalog files are one fetch each. Covers load as
- * they come near the screen. A word list or an e-book is fetched only when "Add to shelf" is tapped.
+ * they come near the screen. A word list or an e-book is fetched only when the plus on a cover is tapped.
  */
 export function DiscoverScreen({
   shelf,
@@ -148,6 +150,7 @@ export function DiscoverScreen({
           oldFashioned: pack.oldFashioned,
           oldFashionedReason: pack.oldFashionedReason,
           coverUrl: pack.cover?.url ? resolveAgainst(BUNDLED_CATALOG_URL, pack.cover.url) : undefined,
+          updated: pack.updated,
           pack,
         }));
         const words: Row[] = lists.map((pack) => ({
@@ -164,6 +167,7 @@ export function DiscoverScreen({
           oldFashioned: pack.oldFashioned,
           oldFashionedReason: pack.oldFashionedReason,
           coverUrl: pack.cover?.url ? resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url) : undefined,
+          updated: pack.updated,
           list: pack,
         }));
         setRows([...classics, ...words]);
@@ -446,6 +450,25 @@ export function DiscoverScreen({
           ) : (
             <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
           )}
+          <div className="absolute right-2 bottom-2 z-[2]">
+            <AddToShelfButton
+              state={state}
+              fraction={busy && item ? item.fraction : undefined}
+              title={row.title}
+              signedOut={!canAdd}
+              onAdd={() => add(row, record, updateReady)}
+              onOpen={() => record && onOpen(record.bookId)}
+              onRemove={() => remove(row, record, book)}
+            />
+          </div>
+          {busy && item?.fraction != null ? (
+            <span
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-1 bg-accent-soft"
+              aria-hidden
+            >
+              <span className="block h-full bg-accent transition-[width] duration-200" style={{ width: `${Math.round(Math.min(1, Math.max(0, item.fraction)) * 100)}%` }} />
+            </span>
+          ) : null}
           <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-1rem)] flex-col items-start gap-1">
             {needs ? (
               <CoverBadge tone="needs" data-needs-epub="">
@@ -484,17 +507,13 @@ export function DiscoverScreen({
             aside={row.oldFashioned ? t("shelf.oldFashionedNote") : undefined}
           />
         </div>
-        <div className="mt-auto pt-1">
-          <AddToShelfButton
+        <div className="mt-auto min-h-4 pt-1">
+          <ShelfCardStatus
             state={state}
             fraction={busy && item ? item.fraction : undefined}
             error={cardError || (updateReady ? reason : "")}
             note={why === "ownList" ? reason : ""}
-            title={row.title}
-            signedOut={!canAdd}
-            onAdd={() => add(row, record, updateReady)}
-            onOpen={() => record && onOpen(record.bookId)}
-            onRemove={() => remove(row, record, book)}
+            updated={row.updated}
           />
         </div>
       </li>

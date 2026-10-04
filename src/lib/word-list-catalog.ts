@@ -29,6 +29,8 @@ export type WordListPack = {
   oldFashioned: boolean;
   oldFashionedReason: string;
   glossary: { url: string; bytes: number; sha256: string };
+  /** Day the word list last changed, YYYY-MM-DD. "" when the catalog has no date. */
+  updated: string;
 };
 
 const text = (value: unknown, max: number): string =>
@@ -78,6 +80,7 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
         bytes: typeof glossary?.bytes === "number" ? glossary.bytes : 0,
         sha256: /^[0-9a-f]{64}$/.test(String(glossary?.sha256)) ? String(glossary?.sha256) : "",
       },
+      updated: /^\d{4}-\d{2}-\d{2}$/.test(text(row.updated, 10)) ? text(row.updated, 10) : "",
     });
   }
   return out;

@@ -16,6 +16,7 @@
  *
  * The format is described in README.md ("Reader and book packs") and docs/PACKS_FORMAT.md.
  */
+import { committedOn } from "./lib/glossary-date.mjs";
 import { createHash } from "node:crypto";
 import {
   copyFileSync,
@@ -229,6 +230,7 @@ for (const id of ids) {
       ...(series ? { series, ...(number ? { seriesNumber: number } : {}) } : {}),
       ...categoryFields,
       ...oldFields,
+      ...(hasList && committedOn(listPath) ? { updated: committedOn(listPath) } : {}),
       rev,
       version: stats?.data.version ?? 2,
       chapters: Number(stats?.data.chapters) || 0,

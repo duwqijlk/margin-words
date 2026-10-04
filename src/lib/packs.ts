@@ -75,6 +75,8 @@ export type CatalogPack = {
   oldFashioned: boolean;
   /** Short English reason. "" when the book is not flagged, or when no reason was written. */
   oldFashionedReason: string;
+  /** Day the word list last changed, YYYY-MM-DD. "" when the catalog has no date. */
+  updated: string;
 };
 
 export type Catalog = {
@@ -160,6 +162,7 @@ export function parseCatalog(value: unknown): Catalog | null {
       category: readContentCategory(row.category),
       oldFashioned: row.oldFashioned === true,
       oldFashionedReason: row.oldFashioned === true ? text(row.oldFashionedReason, 240) : "",
+      updated: /^\d{4}-\d{2}-\d{2}$/.test(text(row.updated, 10)) ? text(row.updated, 10) : "",
     });
   }
   return {

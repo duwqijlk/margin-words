@@ -63,7 +63,7 @@ async function addAlice(page) {
   const { context, page } = await fresh({ width: 1280, height: 800, signedIn: false });
   await page.goto(BASE + "discover");
   await page.waitForSelector("[data-shelf-add][data-requires-signin]");
-  const label = (await page.textContent("[data-shelf-add][data-requires-signin]"))?.trim();
+  const label = (await page.getAttribute("[data-shelf-add][data-requires-signin]", "aria-label"))?.trim();
   if (!label?.startsWith("Sign in to add")) throw new Error(`button says "${label}"`);
   // Bring the first row's buttons into the picture.
   await page.evaluate(() => document.querySelector("[data-shelf-add]")?.scrollIntoView({ block: "center" }));
