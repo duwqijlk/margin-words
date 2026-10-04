@@ -23,13 +23,42 @@ type Geo = {
 };
 
 /**
- * One small, permanent bulb next to EVERY paragraph that owns a real paragraph note: in the
- * margin when the screen has room, at the paragraph's edge on a phone. No hover is needed, and a
- * paragraph without a note shows nothing. The bulbs are position: fixed overlays, so they take no
- * room in the page and the text never moves. Which spots to draw is pure geometry
+ * One small, permanent bulb at the end of EVERY paragraph that owns a real paragraph note, on a
+ * phone and on a wide screen. It sits just after that paragraph's last word. No hover is needed,
+ * and a paragraph without a note shows nothing. The bulbs are position: fixed overlays, so they
+ * take no room in the page and the text never moves. Which spots to draw is pure geometry
  * (planBulbs in src/lib/paragraph-bulbs.ts). While help is open, a thin bar in the margin shows
  * which paragraph it is about.
  */
+
+/** The last line of a paragraph, in viewport pixels. Null when the paragraph has no text box. */
+function lastLineBox(el: Element): {
+  top: number;
+  bottom: number;
+  lineTop: number;
+  lineBottom: number;
+  lineRight: number;
+} | null {
+  const box = el.getBoundingClientRect();
+  if (box.width < 1 && box.height < 1) return null;
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  const rects = range.getClientRects();
+  let last: DOMRect | null = null;
+  for (let i = 0; i < rects.length; i += 1) {
+    const rect = rects[i];
+    if (rect.width < 1 || rect.height < 1) continue;
+    last = rect;
+  }
+  if (!last) return null;
+  return {
+    top: box.top,
+    bottom: box.bottom,
+    lineTop: last.top,
+    lineBottom: last.bottom,
+    lineRight: last.right,
+  };
+}
 export function ParagraphBulbs({
   articleRef,
   version,
@@ -65,13 +94,10 @@ export function ParagraphBulbs({
     const vw = document.documentElement.clientWidth;
     const vh = window.innerHeight;
     const header = document.querySelector("header")?.getBoundingClientRect().bottom ?? 0;
-    const rects = blocks.current.map((block) =>
-      block.ok ? block.el.getBoundingClientRect() : null,
-    );
+    const rects = blocks.current.map((block) => (block.ok ? lastLineBox(block.el) : null));
     const bulbs = planBulbs({
       flags: blocks.current.map((block) => block.ok),
       rects,
-      articleRight: ar.right,
       viewportWidth: vw,
       viewportHeight: vh,
       headerHeight: Math.max(0, Math.round(header)),

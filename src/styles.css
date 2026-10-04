@@ -111,12 +111,20 @@
 
 @layer base {
   html {
-    /* Keep the scrollbar's space reserved, so the page width never changes. */
-    scrollbar-gutter: stable;
+    /* Phones leave the scrollbar slot alone, so reading text is the same distance from both
+       edges. From tablet width up, keep the slot so a classic scrollbar does not change the
+       page width. */
+    scrollbar-gutter: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-size-adjust: 100%;
     background: var(--paper);
+  }
+
+  @media (min-width: 48rem) {
+    html {
+      scrollbar-gutter: stable;
+    }
   }
 
   body {
