@@ -1,1601 +1,2682 @@
 {
-  "version": 2,
-  "title": "The Magic Finger",
-  "author": "Roald Dahl",
-  "sha256": "1b24c1ed6bb4c0e2d8a50a2e683b1de5dfa5f166e6567d05ff3b9995828adbbb",
-  "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
-  "count": 60,
-  "glossary": {
-    "duck": {
-      "pos": "singular noun",
-      "meaning": "A water bird with a flat beak. As a verb it means to bend down quickly.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "This time they were going after wild ducks, so they headed towards the lake.",
-      "examples": [
-        "This time they were going after wild ducks, so they headed towards the lake."
-      ],
-      "forms": [
-        "ducks",
-        "duck"
-      ],
-      "count": 33
-    },
-    "cried": {
-      "pos": "past-tense verb",
-      "meaning": "Shouted or called out loudly. It can also mean wept.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "’ he cried, and he shot at them many more times, but it was no good.",
-      "examples": [
-        "’ he cried, and he shot at them many more times, but it was no good."
-      ],
-      "forms": [
-        "cried"
-      ],
-      "count": 19
-    },
-    "nest": {
-      "pos": "singular noun",
-      "meaning": "A home that a bird makes for its eggs.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "‘We are going to build a nest.",
-      "examples": [
-        "‘We are going to build a nest."
-      ],
-      "forms": [
-        "nest"
-      ],
-      "count": 15
-    },
-    "flew": {
-      "pos": "past-tense verb",
-      "meaning": "Moved through the air, like a bird or a plane.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Just then four more wild ducks flew over their heads.",
-      "examples": [
-        "Just then four more wild ducks flew over their heads.",
-        "She flew in barrage balloons in the UK and later received a medal from the King of Norway."
-      ],
-      "forms": [
-        "flew"
-      ],
-      "count": 13
-    },
-    "wing": {
-      "pos": "singular noun",
-      "meaning": "The part of a bird, insect, or plane that lets it fly.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Then Mr Gregg heard the noise of wings flying low overhis head, and he saw the four ducks, dark against the night sky, flying very close together.",
-      "examples": [
-        "Then Mr Gregg heard the noise of wings flying low overhis head, and he saw the four ducks, dark against the night sky, flying very close together."
-      ],
-      "forms": [
-        "wings"
-      ],
-      "count": 11
-    },
-    "finger": {
-      "pos": "singular noun",
-      "meaning": "One of the long parts at the end of your hand.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "I PUT THE MAGIC FINGER ON THEM ALL!",
-      "examples": [
-        "I PUT THE MAGIC FINGER ON THEM ALL!"
-      ],
-      "forms": [
-        "finger"
-      ],
-      "count": 9
-    },
-    "tiny": {
-      "pos": "adjective",
-      "meaning": "Very, very small.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "For he was now a tiny little man!",
-      "examples": [
-        "For he was now a tiny little man!"
-      ],
-      "forms": [
-        "tiny"
-      ],
-      "count": 8
-    },
-    "chocolate": {
-      "pos": "singular noun",
-      "meaning": "A sweet brown food made from cocoa. It can be a bar, a drink, or a sweet.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "‘When I first thought about writing the book Charlie and the Chocolate Factory, I never originally meant to have children in it at all!",
-      "examples": [
-        "‘When I first thought about writing the book Charlie and the Chocolate Factory, I never originally meant to have children in it at all!",
-        "It was here that he helped to test new chocolate bars for Cadbury’s."
-      ],
-      "forms": [
-        "chocolate"
-      ],
-      "count": 6
-    },
-    "aged": {
-      "pos": "adjective",
-      "meaning": "Of the age of. For example, \"aged five\" means five years old.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Roald Dahl died on 23 November, aged seventy-four.",
-      "examples": [
-        "Roald Dahl died on 23 November, aged seventy-four.",
-        "SUMMER TERM, 1930 (aged 14)."
-      ],
-      "forms": [
-        "aged"
-      ],
-      "count": 5
-    },
-    "charity": {
-      "pos": "singular noun",
-      "meaning": "A group that raises money to help people in need.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Did you know that 10% of author royalties* from this book go to help the work of the Roald Dahl charities?",
-      "examples": [
-        "Did you know that 10% of author royalties* from this book go to help the work of the Roald Dahl charities?"
-      ],
-      "forms": [
-        "charity",
-        "charities"
-      ],
-      "count": 5
-    },
-    "enormous": {
-      "pos": "adjective",
-      "meaning": "Extremely big.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "They all looked down, and there below them, in their own garden, they saw four enormous wild ducks!",
-      "examples": [
-        "They all looked down, and there below them, in their own garden, they saw four enormous wild ducks!",
-        "Roald Dahl’s partnership with Quentin Blake began with the publication of The Enormous Crocodile."
-      ],
-      "forms": [
-        "enormous"
-      ],
-      "count": 5
-    },
-    "favourite": {
-      "pos": "adjective",
-      "meaning": "Liked best. (American English: favorite.)",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Favourites included Aero, Crunchie, KitKat, Mars and Smarties.",
-      "examples": [
-        "Favourites included Aero, Crunchie, KitKat, Mars and Smarties.",
-        "His nickname at home was the Apple, because he was the apple of his mother’s eye (which means her favourite!"
-      ],
-      "forms": [
-        "favourite",
-        "favourites"
-      ],
-      "count": 4
-    },
-    "giant": {
-      "pos": "singular noun",
-      "meaning": "A huge, strong person in stories. As an adjective it means very big.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "James and the Giant Peach was published in the USA, followed by Charlie and the Chocolate Factory in 1964.",
-      "examples": [
-        "James and the Giant Peach was published in the USA, followed by Charlie and the Chocolate Factory in 1964.",
-        "This is the name the giants in The BFG give to human beings."
-      ],
-      "forms": [
-        "giant",
-        "giants"
-      ],
-      "count": 4
-    },
-    "hut": {
-      "pos": "singular noun",
-      "meaning": "A small, simple building, often made of wood.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "There was a table in the writing hut on which Roald Dahl kept his collection of special things.",
-      "examples": [
-        "There was a table in the writing hut on which Roald Dahl kept his collection of special things.",
-        "he would walk through the garden to his writing hut and work until 12 p."
-      ],
-      "forms": [
-        "hut"
-      ],
-      "count": 4
-    },
-    "illustration": {
-      "pos": "singular noun",
-      "meaning": "A picture in a book.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Reissued with new illustrations 1995",
-      "examples": [
-        "Reissued with new illustrations 1995",
-        "Roald Dahl and Quentin Blake make a perfect partnership of words and illustrations, but when Roald started writing, he had many different illustrators."
-      ],
-      "forms": [
-        "illustrations"
-      ],
-      "count": 4
-    },
-    "illustrator": {
-      "pos": "singular noun",
-      "meaning": "A person who draws pictures for books.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "The moral right of the author and illustrator has been asserted",
-      "examples": [
-        "The moral right of the author and illustrator has been asserted",
-        "‘The finest illustrator of children’s books in the world today!"
-      ],
-      "forms": [
-        "illustrator",
-        "illustrators"
-      ],
-      "count": 4
-    },
-    "deer": {
-      "pos": "singular noun",
-      "meaning": "A wild animal with long legs and, for males, horns like branches.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Then, one Saturday morning, I saw Philip and William coming out of the woods with their father, and they were carrying a lovely young deer.",
-      "examples": [
-        "Then, one Saturday morning, I saw Philip and William coming out of the woods with their father, and they were carrying a lovely young deer."
-      ],
-      "forms": [
-        "deer"
-      ],
-      "count": 3
-    },
-    "grown": {
-      "pos": "adjective",
-      "meaning": "Fully grown up, like an adult. A \"grown-up\" is an adult.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "And when she turned around to write something on the blackboard we saw that she had grown a tail as well!",
-      "examples": [
-        "And when she turned around to write something on the blackboard we saw that she had grown a tail as well!",
-        "‘I am totally convinced that most grown-ups have completely forgotten what it is like to be a child between the ages of five and ten… I can remember exactly what it was like."
-      ],
-      "forms": [
-        "grown"
-      ],
-      "count": 3
-    },
-    "hunting": {
-      "pos": "present participle",
-      "meaning": "Chasing and killing wild animals for food.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Now the one thing that Mr Gregg and his two boys loved to do more than anything else was to go hunting.",
-      "examples": [
-        "Now the one thing that Mr Gregg and his two boys loved to do more than anything else was to go hunting."
-      ],
-      "forms": [
-        "hunting"
-      ],
-      "count": 3
-    },
-    "lay": {
-      "pos": "past-tense verb",
-      "meaning": "Rested flat on a surface. (Past tense of \"lie\".)",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "He lay still, wondering what was up.",
-      "examples": [
-        "He lay still, wondering what was up."
-      ],
-      "forms": [
-        "lay"
-      ],
-      "count": 3
-    },
-    "manuscript": {
-      "pos": "singular noun",
-      "meaning": "A book or piece of writing before it is printed.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Once Roald had finished writing a book, he gave the pile of yellow scribbled paper to Wendy, his secretary, and she turned it into a neat printed manuscript to send to his publisher.",
-      "examples": [
-        "Once Roald had finished writing a book, he gave the pile of yellow scribbled paper to Wendy, his secretary, and she turned it into a neat printed manuscript to send to his publisher.",
-        "Quentin never knew anything about a new story until the manuscript arrived."
-      ],
-      "forms": [
-        "manuscript",
-        "manuscripts"
-      ],
-      "count": 3
-    },
-    "registered": {
-      "pos": "adjective",
-      "meaning": "Officially written down in a list.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Penguin Books Ltd, Registered Offices: 80 Strand, London WC2R 0RL, England",
-      "examples": [
-        "Penguin Books Ltd, Registered Offices: 80 Strand, London WC2R 0RL, England",
-        "The Roald Dahl Foundation is a registered charity no."
-      ],
-      "forms": [
-        "registered"
-      ],
-      "count": 3
-    },
-    "suddenly": {
-      "pos": "adverb",
-      "meaning": "Quickly and without warning.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "And suddenly a sort of flash comes out of me, a quick flash, like something electric.",
-      "examples": [
-        "And suddenly a sort of flash comes out of me, a quick flash, like something electric."
-      ],
-      "forms": [
-        "suddenly"
-      ],
-      "count": 3
-    },
-    "adventure": {
-      "pos": "singular noun",
-      "meaning": "An exciting and sometimes dangerous experience.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "It was a genuine adventure and left Roald fit and ready for anything!",
-      "examples": [
-        "It was a genuine adventure and left Roald fit and ready for anything!"
-      ],
-      "forms": [
-        "adventure",
-        "adventures"
-      ],
-      "count": 2
-    },
-    "appendicitis": {
-      "pos": "uncountable noun",
-      "meaning": "An illness in which a small part of the body in your stomach area swells and hurts.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Sadly, Astri died from appendicitis when she was seven, and Roald’s father died of a broken heart two months later.",
-      "examples": [
-        "Sadly, Astri died from appendicitis when she was seven, and Roald’s father died of a broken heart two months later.",
-        "He pretended to have appendicitis when he was nine because he was so homesick in his first two weeks at boarding school."
-      ],
-      "forms": [
-        "appendicitis"
-      ],
-      "count": 2
-    },
-    "barley": {
-      "pos": "uncountable noun",
-      "meaning": "A grain used for food and for making drinks.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "And in the middle of the yard stood Philip and William, with a sack of their father’s best barley beside them.",
-      "examples": [
-        "And in the middle of the yard stood Philip and William, with a sack of their father’s best barley beside them."
-      ],
-      "forms": [
-        "barley"
-      ],
-      "count": 2
-    },
-    "chosen": {
-      "pos": "past participle",
-      "meaning": "Picked out from others. (From the verb \"choose\".)",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "At the end of every meal, Roald and his family had a chocolate bar chosen from a red plastic box.",
-      "examples": [
-        "At the end of every meal, Roald and his family had a chocolate bar chosen from a red plastic box.",
-        "In 1999 Quentin Blake was chosen to be the first Children’s Laureate."
-      ],
-      "forms": [
-        "chosen"
-      ],
-      "count": 2
-    },
-    "copyright": {
-      "pos": "singular noun",
-      "meaning": "The legal right to a book or other work, kept by its writer or owner.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Text copyright © Roald Dahl Nominee Ltd, 1966",
-      "examples": [
-        "Text copyright © Roald Dahl Nominee Ltd, 1966"
-      ],
-      "forms": [
-        "copyright"
-      ],
-      "count": 2
-    },
-    "disgusting": {
-      "pos": "adjective",
-      "meaning": "Making you feel sick; very unpleasant.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "The BFG is forced to eat this disgusting vegetable as it is the only thing that grows in Giant Country.",
-      "examples": [
-        "The BFG is forced to eat this disgusting vegetable as it is the only thing that grows in Giant Country."
-      ],
-      "forms": [
-        "disgusting"
-      ],
-      "count": 2
-    },
-    "feather": {
-      "pos": "singular noun",
-      "meaning": "One of the light, soft parts that cover a bird's body.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Now I want leaves and feathers and things like that to make the inside nice and soft.",
-      "examples": [
-        "Now I want leaves and feathers and things like that to make the inside nice and soft."
-      ],
-      "forms": [
-        "feathers"
-      ],
-      "count": 2
-    },
-    "flash": {
-      "pos": "singular noun",
-      "meaning": "A sudden bright light that lasts a very short time.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "And suddenly a sort of flash comes out of me, a quick flash, like something electric.",
-      "examples": [
-        "And suddenly a sort of flash comes out of me, a quick flash, like something electric."
-      ],
-      "forms": [
-        "flash"
-      ],
-      "count": 2
-    },
-    "forgot": {
-      "pos": "past-tense verb",
-      "meaning": "Could not remember. (Past tense of \"forget\".)",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Mr Gregg forgot about the firewood, and hurried back indoors.",
-      "examples": [
-        "Mr Gregg forgot about the firewood, and hurried back indoors.",
-        "Roald never forgot this kindness and generosity."
-      ],
-      "forms": [
-        "forgot"
-      ],
-      "count": 2
-    },
-    "generosity": {
-      "pos": "uncountable noun",
-      "meaning": "The quality of being willing to give freely.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "I’ll put it before any of the things like courage or bravery or generosity or anything else.",
-      "examples": [
-        "I’ll put it before any of the things like courage or bravery or generosity or anything else.",
-        "Roald never forgot this kindness and generosity."
-      ],
-      "forms": [
-        "generosity"
-      ],
-      "count": 2
-    },
-    "hammer": {
-      "pos": "singular noun",
-      "meaning": "A tool for hitting nails. In sport, it is a heavy metal ball that people throw.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "In one corner Mr Gregg was smashing all three guns into tiny pieces with a huge hammer.",
-      "examples": [
-        "In one corner Mr Gregg was smashing all three guns into tiny pieces with a huge hammer."
-      ],
-      "forms": [
-        "hammer"
-      ],
-      "count": 2
-    },
-    "holiday": {
-      "pos": "singular noun",
-      "meaning": "A time away from school or work. (American English: vacation.)",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "They all went on holiday together to Norway every summer: Roald’s mother and the six children.",
-      "examples": [
-        "They all went on holiday together to Norway every summer: Roald’s mother and the six children.",
-        "When Roald was sixteen, he decided to go off on his own to holiday in France."
-      ],
-      "forms": [
-        "holiday"
-      ],
-      "count": 2
-    },
-    "illustrated": {
-      "pos": "past-tense verb",
-      "meaning": "Drew pictures for a book.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Quentin started working with him in 1976 (the first book he illustrated was The Enormous Crocodile, published in 1978) and from then on they worked together until Roald’s death.",
-      "examples": [
-        "Quentin started working with him in 1976 (the first book he illustrated was The Enormous Crocodile, published in 1978) and from then on they worked together until Roald’s death."
-      ],
-      "forms": [
-        "illustrated"
-      ],
-      "count": 2
-    },
-    "joy": {
-      "pos": "uncountable noun",
-      "meaning": "A feeling of great happiness.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "’ He was beside himself with joy.",
-      "examples": [
-        "’ He was beside himself with joy."
-      ],
-      "forms": [
-        "joy"
-      ],
-      "count": 2
-    },
-    "jump": {
-      "pos": "base verb",
-      "meaning": "To push yourself up off the ground into the air.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "It jumps out and touches the person who has made me cross…",
-      "examples": [
-        "It jumps out and touches the person who has made me cross…"
-      ],
-      "forms": [
-        "jump",
-        "jumps"
-      ],
-      "count": 2
-    },
-    "kindness": {
-      "pos": "uncountable noun",
-      "meaning": "Being friendly and caring.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "‘I think probably kindness is my number one attribute in a human being.",
-      "examples": [
-        "‘I think probably kindness is my number one attribute in a human being.",
-        "Roald never forgot this kindness and generosity."
-      ],
-      "forms": [
-        "kindness"
-      ],
-      "count": 2
-    },
-    "literacy": {
-      "pos": "uncountable noun",
-      "meaning": "The ability to read and write.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "It also provides practical help for children and young people with brain, blood and literacy problems – all causes close to Roald Dahl during his lifetime – through grants to UK hospitals and charities as well as to individual children and their families.",
-      "examples": [
-        "It also provides practical help for children and young people with brain, blood and literacy problems – all causes close to Roald Dahl during his lifetime – through grants to UK hospitals and charities as well as to individual children and their families."
-      ],
-      "forms": [
-        "literacy"
-      ],
-      "count": 2
-    },
-    "muggled": {
-      "pos": "adjective",
-      "meaning": "A made-up word. The book says: to be muggled means to be a bit confused.",
-      "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
-      "example": "To be muggled means to be a bit confused.",
-      "examples": [
-        "To be muggled means to be a bit confused."
-      ],
-      "forms": [
-        "muggled"
-      ],
-      "count": 2,
-      "coined": true
-    },
-    "nickname": {
-      "pos": "singular noun",
-      "meaning": "A friendly or funny name used instead of a real name.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "His nickname in the RAF was Lofty, while Walt Disney called him Stalky (because he was like a beanstalk!",
-      "examples": [
-        "His nickname in the RAF was Lofty, while Walt Disney called him Stalky (because he was like a beanstalk!"
-      ],
-      "forms": [
-        "nickname"
-      ],
-      "count": 2
-    },
-    "noise": {
-      "pos": "singular noun",
-      "meaning": "A sound, especially a loud or unpleasant one.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Then Mr Gregg heard the noise of wings flying low overhis head, and he saw the four ducks, dark against the night sky, flying very close together.",
-      "examples": [
-        "Then Mr Gregg heard the noise of wings flying low overhis head, and he saw the four ducks, dark against the night sky, flying very close together."
-      ],
-      "forms": [
-        "noise"
-      ],
-      "count": 2
-    },
-    "partnership": {
-      "pos": "singular noun",
-      "meaning": "A working relationship between two or more people.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Roald Dahl’s partnership with Quentin Blake began with the publication of The Enormous Crocodile.",
-      "examples": [
-        "Roald Dahl’s partnership with Quentin Blake began with the publication of The Enormous Crocodile.",
-        "Roald Dahl and Quentin Blake make a perfect partnership of words and illustrations, but when Roald started writing, he had many different illustrators."
-      ],
-      "forms": [
-        "partnership"
-      ],
-      "count": 2
-    },
-    "publication": {
-      "pos": "singular noun",
-      "meaning": "Making a book available to the public.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "British Library Cataloguing in Publication Data",
-      "examples": [
-        "British Library Cataloguing in Publication Data",
-        "Roald Dahl’s partnership with Quentin Blake began with the publication of The Enormous Crocodile."
-      ],
-      "forms": [
-        "publication"
-      ],
-      "count": 2
-    },
-    "publisher": {
-      "pos": "singular noun",
-      "meaning": "A company that prints and sells books.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Except in the United States of America, this book is sold subject to the condition that it shall not, by way of trade or otherwise, be lent, re-sold, hired out, or otherwise circulated without the publisher’s prior consent in any form of binding or cover other than that in which…",
-      "examples": [
-        "Except in the United States of America, this book is sold subject to the condition that it shall not, by way of trade or otherwise, be lent, re-sold, hired out, or otherwise circulated without the publisher’s prior consent in any form of binding or cover other than that in which…",
-        "Once Roald had finished writing a book, he gave the pile of yellow scribbled paper to Wendy, his secretary, and she turned it into a neat printed manuscript to send to his publisher."
-      ],
-      "forms": [
-        "publisher"
-      ],
-      "count": 2
-    },
-    "quentinblake": {
-      "pos": "singular noun",
-      "meaning": "The name of the artist who drew the pictures for Roald Dahl's books.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Find out more at quentinblake.",
-      "examples": [
-        "Find out more at quentinblake."
-      ],
-      "forms": [
-        "quentinblake"
-      ],
-      "count": 2
-    },
-    "quogwinkle": {
-      "pos": "singular noun",
-      "meaning": "A made-up word. The book says: a quogwinkle is an alien from outer space.",
-      "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
-      "example": "A quogwinkle is an alien from outer space.",
-      "examples": [
-        "A quogwinkle is an alien from outer space."
-      ],
-      "forms": [
-        "quogwinkle"
-      ],
-      "count": 2,
-      "coined": true
-    },
-    "rained": {
-      "pos": "past-tense verb",
-      "meaning": "Fell as water from the sky.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "It rained and rained, and the water ran into the nest and they all got as wet as could be – and oh, it was a bad, bad night!",
-      "examples": [
-        "It rained and rained, and the water ran into the nest and they all got as wet as could be – and oh, it was a bad, bad night!"
-      ],
-      "forms": [
-        "rained"
-      ],
-      "count": 2
-    },
-    "robin": {
-      "pos": "singular noun",
-      "meaning": "A small brown bird with a red chest.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "They were about as big as robins.",
-      "examples": [
-        "They were about as big as robins."
-      ],
-      "forms": [
-        "robins"
-      ],
-      "count": 2
-    },
-    "royalty": {
-      "pos": "singular noun",
-      "meaning": "Money paid to a writer for each copy of a book sold.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Did you know that 10% of author royalties* from this book go to help the work of the Roald Dahl charities?",
-      "examples": [
-        "Did you know that 10% of author royalties* from this book go to help the work of the Roald Dahl charities?"
-      ],
-      "forms": [
-        "royalties"
-      ],
-      "count": 2
-    },
-    "tail": {
-      "pos": "singular noun",
-      "meaning": "The part that sticks out from the back of an animal. A \"tail coat\" has long back pieces.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "And when she turned around to write something on the blackboard we saw that she had grown a tail as well!",
-      "examples": [
-        "And when she turned around to write something on the blackboard we saw that she had grown a tail as well!"
-      ],
-      "forms": [
-        "tail"
-      ],
-      "count": 2
-    },
-    "telephone": {
-      "pos": "singular noun",
-      "meaning": "A machine used to talk to someone far away.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "It must have been at about this time that I, back in my own house, picked up the telephone and tried to call Philip.",
-      "examples": [
-        "It must have been at about this time that I, back in my own house, picked up the telephone and tried to call Philip."
-      ],
-      "forms": [
-        "telephone"
-      ],
-      "count": 2
-    },
-    "terribly": {
-      "pos": "adverb",
-      "meaning": "Very; extremely.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Then the tip of the forefinger of my right hand begins to tingle most terribly…",
-      "examples": [
-        "Then the tip of the forefinger of my right hand begins to tingle most terribly…"
-      ],
-      "forms": [
-        "terribly"
-      ],
-      "count": 2
-    },
-    "tingling": {
-      "pos": "present participle",
-      "meaning": "Having a feeling like many tiny pins on the skin.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Then the tip of my finger began tingling most terribly.",
-      "examples": [
-        "Then the tip of my finger began tingling most terribly.",
-        "Roald’s book of spine-tingling stories for adults, Someone Like You, was published and was a huge success in the USA."
-      ],
-      "forms": [
-        "tingling"
-      ],
-      "count": 2
-    },
-    "tip": {
-      "pos": "singular noun",
-      "meaning": "The pointed end of something. It can also mean a small helpful piece of advice.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Then the tip of the forefinger of my right hand begins to tingle most terribly…",
-      "examples": [
-        "Then the tip of the forefinger of my right hand begins to tingle most terribly…"
-      ],
-      "forms": [
-        "tip"
-      ],
-      "count": 2
-    },
-    "whisker": {
-      "pos": "singular noun",
-      "meaning": "One of the long stiff hairs on the face of a cat or on a man's face.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Whiskers began growing out of her face!",
-      "examples": [
-        "Whiskers began growing out of her face!"
-      ],
-      "forms": [
-        "whiskers"
-      ],
-      "count": 2
-    },
-    "witch": {
-      "pos": "singular noun",
-      "meaning": "A woman in stories who uses magic, often to do bad things.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "Other films followed: The BFG and Danny the Champion of the World in 1989; The Witches in 1989; James and the Giant Peach and Matilda in 1996; the second Charlie and the Chocolate Factory, starring Johnny Depp, came out in 2005.",
-      "examples": [
-        "Other films followed: The BFG and Danny the Champion of the World in 1989; The Witches in 1989; James and the Giant Peach and Matilda in 1996; the second Charlie and the Chocolate Factory, starring Johnny Depp, came out in 2005."
-      ],
-      "forms": [
-        "witches"
-      ],
-      "count": 2
-    },
-    "yard": {
-      "pos": "singular noun",
-      "meaning": "The open space next to a house. It is also a unit of length, about 0.9 metres.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "He was crossing the yard when all at once he heard the call of a wild duck in the sky.",
-      "examples": [
-        "He was crossing the yard when all at once he heard the call of a wild duck in the sky."
-      ],
-      "forms": [
-        "yard"
-      ],
-      "count": 2
-    },
-    "yell": {
-      "pos": "singular noun",
-      "meaning": "A loud shout.",
-      "whyHard": "This word is harder than everyday English.",
-      "example": "He gave a yell and jumped out of bed.",
-      "examples": [
-        "He gave a yell and jumped out of bed."
-      ],
-      "forms": [
-        "yell"
-      ],
-      "count": 2
-    },
-    "gobblefunk": {
-      "pos": "singular noun",
-      "meaning": "A made-up word. It is the title of the last extra page, about new words that Roald Dahl invented.",
-      "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
-      "example": "Roald Dahl loved playing around with words and inventing new ones.",
-      "examples": [
-        "Roald Dahl loved playing around with words and inventing new ones."
-      ],
-      "forms": [
-        "gobblefunk"
-      ],
-      "coined": true
-    },
-    "snozzcumber": {
-      "pos": "singular noun",
-      "meaning": "A made-up word. The book says it is a vegetable that the BFG is forced to eat. It is knobbly, with black and white stripes, and tastes horrible.",
-      "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
-      "example": "The BFG is forced to eat this disgusting vegetable as it is the only thing that grows in Giant Country.",
-      "examples": [
-        "The BFG is forced to eat this disgusting vegetable as it is the only thing that grows in Giant Country."
-      ],
-      "forms": [
-        "snozzcumber"
-      ],
-      "coined": true
-    },
-    "trogglehumper": {
-      "pos": "singular noun",
-      "meaning": "A made-up word. The book says it is the worst kind of dream: a nightmare.",
-      "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
-      "example": "The worst kind of dream: a nightmare.",
-      "examples": [
-        "The worst kind of dream: a nightmare."
-      ],
-      "forms": [
-        "trogglehumper"
-      ],
-      "coined": true
-    },
-    "jumpsquiffling": {
-      "pos": "adjective",
-      "meaning": "A made-up word. The book says it means something absolutely huge.",
-      "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
-      "example": "Something absolutely huge.",
-      "examples": [
-        "Something absolutely huge."
-      ],
-      "forms": [
-        "jumpsquiffling"
-      ],
-      "coined": true
-    },
-    "frothbungling": {
-      "pos": "adjective",
-      "meaning": "A made-up word. The book says it means stupid.",
-      "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
-      "example": "Means stupid.",
-      "examples": [
-        "Means stupid."
-      ],
-      "forms": [
-        "frothbungling"
-      ],
-      "coined": true
-    },
-    "gloriumptious": {
-      "pos": "adjective",
-      "meaning": "A made-up word. The book says it means gloriously wonderful.",
-      "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
-      "example": "Gloriously wonderful.",
-      "examples": [
-        "Gloriously wonderful."
-      ],
-      "forms": [
-        "gloriumptious"
-      ],
-      "coined": true
-    },
-    "crabcruncher": {
-      "pos": "singular noun",
-      "meaning": "A made-up word. The book says crabcrunchers live high up on cliffs by the sea and are very rare.",
-      "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
-      "example": "Crabcrunchers live high up on cliffs by the sea.",
-      "examples": [
-        "Crabcrunchers live high up on cliffs by the sea."
-      ],
-      "forms": [
-        "crabcrunchers",
-        "crabcruncher"
-      ],
-      "coined": true
-    },
-    "bogglebox": {
-      "pos": "singular noun",
-      "meaning": "A made-up word. The book says it is a school for young children (generally boys).",
-      "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
-      "example": "A school for young children (generally boys).",
-      "examples": [
-        "A school for young children (generally boys)."
-      ],
-      "forms": [
-        "bogglebox"
-      ],
-      "coined": true
-    }
+ "version": 2,
+ "title": "The Magic Finger",
+ "author": "Roald Dahl",
+ "sha256": "1b24c1ed6bb4c0e2d8a50a2e683b1de5dfa5f166e6567d05ff3b9995828adbbb",
+ "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+ "count": 269,
+ "glossary": {
+  "duck": {
+   "pos": "singular noun",
+   "meaning": "A water bird with a flat beak. As a verb it means to bend down quickly.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "This time they were going after wild ducks, so they headed towards the lake.",
+   "examples": [
+    "This time they were going after wild ducks, so they headed towards the lake."
+   ],
+   "forms": [
+    "ducks",
+    "duck"
+   ],
+   "count": 33
   },
-  "paragraphs": [
+  "cried": {
+   "pos": "past-tense verb",
+   "meaning": "Shouted or called out loudly. It can also mean wept.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ he cried, and he shot at them many more times, but it was no good.",
+   "examples": [
+    "’ he cried, and he shot at them many more times, but it was no good."
+   ],
+   "forms": [
+    "cried"
+   ],
+   "count": 19
+  },
+  "nest": {
+   "pos": "singular noun",
+   "meaning": "A home that a bird makes for its eggs.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘We are going to build a nest.",
+   "examples": [
+    "‘We are going to build a nest."
+   ],
+   "forms": [
+    "nest",
+    "nesting"
+   ],
+   "count": 15,
+   "senses": [
     {
-      "chapter": 1,
-      "paragraph": 8,
-      "context": "they would take their guns and go off into the woods",
-      "mainIdea": "Mr Gregg and his sons love hunting more than anything. They go every Saturday, even eight-year-old Philip.",
-      "simple": "Mr Gregg and his two boys liked one thing more than all other things. They liked to go hunting. Every Saturday morning they took their guns and went into the woods. They looked for animals and birds to shoot. Even Philip had his own gun. He was only eight years old.",
-      "hardWords": [
-        "hunting",
-        "go off",
-        "shoot",
-        "of his own"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 9,
-      "context": "I would do my best to talk them out of it",
-      "mainIdea": "The girl hates hunting and tries to stop the Greggs. They do not listen to her.",
-      "simple": "I hate hunting. I cannot bear it. I think it is wrong. Men and boys should not kill animals just for fun. So I tried to stop Philip and William. Each time I went to their farm, I tried hard to make them stop. But they only laughed at me.",
-      "hardWords": [
-        "can't stand",
-        "seem right",
-        "just for the fun",
-        "get out of",
-        "talk them out of it",
-        "do my best"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 19,
-      "context": "I had been telling myself that I would never put the Magic Finger",
-      "mainIdea": "For a long time the girl has told herself not to use the Magic Finger again. This is because of what happened to Mrs Winter.",
-      "simple": "For many months I had told myself the same thing. I would never use the Magic Finger on anyone again. This was because of what happened to my teacher, old Mrs Winter.",
-      "hardWords": [
-        "upon",
-        "not after what happened"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 29,
-      "context": "Will you be so kind as to tell me what you find so madly funny",
-      "mainIdea": "The class laughs loudly. Mrs Winter asks in a very polite way why they are laughing.",
-      "simple": "All the class began to laugh very loudly. Then Mrs Winter spoke. She said, 'Please tell me what is so funny. Tell me, all of you.' She used very polite words.",
-      "hardWords": [
-        "screaming with laughter",
-        "be so kind as to",
-        "madly"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 31,
-      "context": "I cannot begin to tell you what happened after that",
-      "mainIdea": "The girl cannot tell all that happened next. Mrs Winter is not well, and she never will be.",
-      "simple": "I cannot tell you all that happened next. Maybe you want to know if Mrs Winter is well again now. She is not. She will never be well again.",
-      "hardWords": [
-        "cannot begin to",
-        "quite all right",
-        "wondering whether"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 44,
-      "context": "Mr Gregg and Philip and William went out hunting once again",
-      "mainIdea": "That afternoon the Greggs go hunting again. This time they look for wild ducks.",
-      "simple": "That same afternoon Mr Gregg, Philip and William went hunting again. It was the day I put the Magic Finger on the Gregg family. This time they went after wild ducks. So they walked towards the lake.",
-      "hardWords": [
-        "went out hunting",
-        "once again",
-        "going after",
-        "headed towards"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 60,
-      "context": "He stopped and looked up. The night was very still",
-      "mainIdea": "At night Mr Gregg sees the four ducks flying around his house.",
-      "simple": "Mr Gregg stopped and looked up. The night was very quiet. A thin yellow moon was over the trees on the hill. The sky was full of stars. Then he heard wings flying low above his head. He saw the four ducks. They were dark against the sky and flew very close together. They were going around and around the house.",
-      "hardWords": [
-        "still",
-        "thin",
-        "filled with",
-        "against the night sky",
-        "around and around"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 101,
-      "context": "there below them, in their own garden, they saw four enormous wild ducks",
-      "mainIdea": "The Greggs see four very big ducks in their garden. The ducks have arms like men.",
-      "simple": "The family all looked down. In their own garden they saw four very big wild ducks. The ducks were as big as men. Also, they had long arms like men, not wings.",
-      "hardWords": [
-        "enormous",
-        "what is more",
-        "instead of",
-        "great long arms"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 147,
-      "context": "Every time you try to get your teeth into it, it just pushes away",
-      "mainIdea": "It is hard to eat apples with no hands. They only get a few small bites, and then they go to sleep in the nest.",
-      "simple": "Eating an apple is not easy when you cannot hold it in your hands. Each time you try to bite it, it moves away. At last they each got a few small bites. Then it began to get dark. So they all flew back to the nest and lay down to sleep.",
-      "hardWords": [
-        "get your teeth into",
-        "pushes away",
-        "in the end",
-        "bites"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 159,
-      "context": "Mr and Mrs Gregg and Philip and William were trying to get some sleep",
-      "mainIdea": "The night in the nest is very bad. There is wind and rain, and everyone gets wet.",
-      "simple": "That night the Greggs tried to sleep in the high nest. A great wind began to blow. The tree rocked from side to side. Everyone was afraid that the nest would fall down, even Mr Gregg. Then came the rain. It rained and rained. Water ran into the nest, and they all got as wet as could be. It was a bad, bad night.",
-      "hardWords": [
-        "rocked",
-        "from side to side",
-        "as wet as could be",
-        "great wind"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 189,
-      "context": "the black that was before their eyes turned to blue, to green, to red",
-      "mainIdea": "The colours change, and then the Greggs are suddenly in their own garden. Everything is normal again.",
-      "simple": "Then the black in front of their eyes turned to blue, then green, then red, and then gold. And suddenly there they were. They were standing in lovely bright sun in their own garden, near their own house. Everything was back to normal.",
-      "hardWords": [
-        "suddenly",
-        "back to normal",
-        "before their eyes",
-        "bright"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 194,
-      "context": "and I must admit I was expecting the worst",
-      "mainIdea": "The girl goes to the Greggs' garden. She expects the worst.",
-      "simple": "About half an hour later I walked into the Greggs' garden. I had come to see how things were going. I must say that I expected the worst. I stopped at the gate and stared. It was a strange thing to see.",
-      "hardWords": [
-        "must admit",
-        "expecting the worst",
-        "stared",
-        "queer sight"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 196,
-      "context": "placing beautiful flowers upon sixteen tiny mounds of soil which I learned later",
-      "mainIdea": "Mrs Gregg puts flowers on small graves. They are the graves of the ducks that were shot the day before.",
-      "simple": "In another corner Mrs Gregg was putting beautiful flowers on sixteen small piles of earth. Later I learned that these were the graves of the ducks. They were the ducks that had been shot the day before.",
-      "hardWords": [
-        "placing",
-        "mounds",
-        "soil",
-        "graves"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 197,
-      "context": "They were surrounded by ducks, doves, pigeons, sparrows, robins, larks, and many other kinds",
-      "mainIdea": "Philip and William feed barley to many kinds of birds in the yard.",
-      "simple": "In the middle of the yard stood Philip and William. A sack of their father's best barley was beside them. Ducks, doves, pigeons, sparrows, robins, larks and many other kinds that I did not know were all around them. The boys were throwing barley by the handful, and the birds were eating it.",
-      "hardWords": [
-        "surrounded by",
-        "barley",
-        "scattering",
-        "by the handful",
-        "sack"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 199,
-      "context": "In honour of my feathered friends, I have changed it from Gregg to Egg",
-      "mainIdea": "Mr Gregg says his name is not Gregg now. It is Egg, for his friends the birds.",
-      "simple": "Mr Gregg put down his hammer and looked at me. He said, 'My name is not Gregg any more. To show respect for my friends the birds, I have changed it from Gregg to Egg.'",
-      "hardWords": [
-        "lowered",
-        "in honour of",
-        "feathered"
-      ]
-    },
-    {
-      "chapter": 1,
-      "paragraph": 209,
-      "context": "They’re shooting mad, those Coopers are, the whole family",
-      "mainIdea": "Mr Egg says that the Coopers love shooting very much. The whole family is like that.",
-      "simple": "'That will be Jim Cooper,' Mr Egg said. 'He is with his three boys. Those Coopers love shooting very much. The whole family is the same.'",
-      "hardWords": [
-        "That'll be",
-        "shooting mad"
-      ]
+     "meaning": "Making a bird home, or living in one.",
+     "forms": [
+      "nesting"
+     ],
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "be nesting in the trees tonight, every",
+       "form": "nesting"
+      }
+     ]
     }
-  ],
-  "sentences": [
+   ]
+  },
+  "flew": {
+   "pos": "past-tense verb",
+   "meaning": "Moved through the air, like a bird or a plane.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Just then four more wild ducks flew over their heads.",
+   "examples": [
+    "Just then four more wild ducks flew over their heads.",
+    "She flew in barrage balloons in the UK and later received a medal from the King of Norway."
+   ],
+   "forms": [
+    "flew"
+   ],
+   "count": 13
+  },
+  "wing": {
+   "pos": "singular noun",
+   "meaning": "The part of a bird, insect, or plane that lets it fly.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Then Mr Gregg heard the noise of wings flying low overhis head, and he saw the four ducks, dark against the night sky, flying very close together.",
+   "examples": [
+    "Then Mr Gregg heard the noise of wings flying low overhis head, and he saw the four ducks, dark against the night sky, flying very close together."
+   ],
+   "forms": [
+    "wings"
+   ],
+   "count": 11
+  },
+  "finger": {
+   "pos": "singular noun",
+   "meaning": "One of the long parts at the end of your hand.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "I PUT THE MAGIC FINGER ON THEM ALL!",
+   "examples": [
+    "I PUT THE MAGIC FINGER ON THEM ALL!"
+   ],
+   "forms": [
+    "finger"
+   ],
+   "count": 9
+  },
+  "tiny": {
+   "pos": "adjective",
+   "meaning": "Very, very small.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "For he was now a tiny little man!",
+   "examples": [
+    "For he was now a tiny little man!"
+   ],
+   "forms": [
+    "tiny"
+   ],
+   "count": 8
+  },
+  "chocolate": {
+   "pos": "singular noun",
+   "meaning": "A sweet brown food made from cocoa. It can be a bar, a drink, or a sweet.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘When I first thought about writing the book Charlie and the Chocolate Factory, I never originally meant to have children in it at all!",
+   "examples": [
+    "‘When I first thought about writing the book Charlie and the Chocolate Factory, I never originally meant to have children in it at all!",
+    "It was here that he helped to test new chocolate bars for Cadbury’s."
+   ],
+   "forms": [
+    "chocolate"
+   ],
+   "count": 6
+  },
+  "aged": {
+   "pos": "adjective",
+   "meaning": "Of the age of. For example, \"aged five\" means five years old.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Roald Dahl died on 23 November, aged seventy-four.",
+   "examples": [
+    "Roald Dahl died on 23 November, aged seventy-four.",
+    "SUMMER TERM, 1930 (aged 14)."
+   ],
+   "forms": [
+    "aged"
+   ],
+   "count": 5
+  },
+  "charity": {
+   "pos": "singular noun",
+   "meaning": "A group that raises money to help people in need.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Did you know that 10% of author royalties* from this book go to help the work of the Roald Dahl charities?",
+   "examples": [
+    "Did you know that 10% of author royalties* from this book go to help the work of the Roald Dahl charities?"
+   ],
+   "forms": [
+    "charity",
+    "charities"
+   ],
+   "count": 5
+  },
+  "enormous": {
+   "pos": "adjective",
+   "meaning": "Extremely big.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "They all looked down, and there below them, in their own garden, they saw four enormous wild ducks!",
+   "examples": [
+    "They all looked down, and there below them, in their own garden, they saw four enormous wild ducks!",
+    "Roald Dahl’s partnership with Quentin Blake began with the publication of The Enormous Crocodile."
+   ],
+   "forms": [
+    "enormous"
+   ],
+   "count": 5
+  },
+  "favourite": {
+   "pos": "adjective",
+   "meaning": "Liked best. (American English: favorite.)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Favourites included Aero, Crunchie, KitKat, Mars and Smarties.",
+   "examples": [
+    "Favourites included Aero, Crunchie, KitKat, Mars and Smarties.",
+    "His nickname at home was the Apple, because he was the apple of his mother’s eye (which means her favourite!"
+   ],
+   "forms": [
+    "favourite",
+    "favourites"
+   ],
+   "count": 4
+  },
+  "giant": {
+   "pos": "singular noun",
+   "meaning": "A huge, strong person in stories. As an adjective it means very big.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "James and the Giant Peach was published in the USA, followed by Charlie and the Chocolate Factory in 1964.",
+   "examples": [
+    "James and the Giant Peach was published in the USA, followed by Charlie and the Chocolate Factory in 1964.",
+    "This is the name the giants in The BFG give to human beings."
+   ],
+   "forms": [
+    "giant",
+    "giants"
+   ],
+   "count": 4
+  },
+  "hut": {
+   "pos": "singular noun",
+   "meaning": "A small, simple building, often made of wood.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "There was a table in the writing hut on which Roald Dahl kept his collection of special things.",
+   "examples": [
+    "There was a table in the writing hut on which Roald Dahl kept his collection of special things.",
+    "he would walk through the garden to his writing hut and work until 12 p."
+   ],
+   "forms": [
+    "hut"
+   ],
+   "count": 4
+  },
+  "illustration": {
+   "pos": "singular noun",
+   "meaning": "A picture in a book.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Reissued with new illustrations 1995",
+   "examples": [
+    "Reissued with new illustrations 1995",
+    "Roald Dahl and Quentin Blake make a perfect partnership of words and illustrations, but when Roald started writing, he had many different illustrators."
+   ],
+   "forms": [
+    "illustrations"
+   ],
+   "count": 4
+  },
+  "illustrator": {
+   "pos": "singular noun",
+   "meaning": "A person who draws pictures for books.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The moral right of the author and illustrator has been asserted",
+   "examples": [
+    "The moral right of the author and illustrator has been asserted",
+    "‘The finest illustrator of children’s books in the world today!"
+   ],
+   "forms": [
+    "illustrator",
+    "illustrators"
+   ],
+   "count": 4
+  },
+  "deer": {
+   "pos": "singular noun",
+   "meaning": "A wild animal with long legs and, for males, horns like branches.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Then, one Saturday morning, I saw Philip and William coming out of the woods with their father, and they were carrying a lovely young deer.",
+   "examples": [
+    "Then, one Saturday morning, I saw Philip and William coming out of the woods with their father, and they were carrying a lovely young deer."
+   ],
+   "forms": [
+    "deer"
+   ],
+   "count": 3
+  },
+  "grown": {
+   "pos": "adjective",
+   "meaning": "Fully grown up, like an adult. A \"grown-up\" is an adult.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "And when she turned around to write something on the blackboard we saw that she had grown a tail as well!",
+   "examples": [
+    "And when she turned around to write something on the blackboard we saw that she had grown a tail as well!",
+    "‘I am totally convinced that most grown-ups have completely forgotten what it is like to be a child between the ages of five and ten… I can remember exactly what it was like."
+   ],
+   "forms": [
+    "grown"
+   ],
+   "count": 3,
+   "senses": [
     {
-      "chapter": 1,
-      "context": "Now the one thing that Mr Gregg and his two boys loved to do more than anything else was to go hunting",
-      "simple": "Mr Gregg and his boys liked hunting more than all other things.",
-      "grammar": "'that Mr Gregg and his two boys loved to do' is a relative clause that tells which thing; 'was to go hunting' says what the thing was."
+     "meaning": "An adult. A person who is not a child.",
+     "default": true,
+     "whyHard": "Not the usual meaning! Usually: grown means got bigger, from the verb grow.",
+     "trickyMeaning": true,
+     "anchors": []
     },
     {
-      "chapter": 1,
-      "context": "Every time I went over to their farm I would do my best to talk them out of it",
-      "simple": "Each time I went to their farm, I tried hard to make them stop hunting.",
-      "grammar": "'would + verb' tells about something that happened again and again in the past; 'do my best to + verb' means try hard."
-    },
-    {
-      "chapter": 1,
-      "context": "It doesn’t seem right to me that men and boys should kill animals just for the fun they get out of it",
-      "simple": "I think it is wrong for men and boys to kill animals just for fun.",
-      "grammar": "'should kill' gives an opinion about what people do; 'the fun they get out of it' is a relative clause with 'that' left out."
-    },
-    {
-      "chapter": 1,
-      "context": "Mr Gregg told me to go home and mind my own P’s and Q’s",
-      "simple": "Mr Gregg told me to go home and take care how I behave.",
-      "grammar": "'told + person + to + verb' is how we report an order."
-    },
-    {
-      "chapter": 1,
-      "context": "I did something I never meant to do",
-      "simple": "I did something that I did not want to do.",
-      "grammar": "'something I never meant to do' is a relative clause with 'that' left out; 'never meant to' means did not plan to."
-    },
-    {
-      "chapter": 1,
-      "context": "For months I had been telling myself that I would never put the Magic Finger upon anyone again",
-      "simple": "For many months I had said to myself that I would not use the Magic Finger again.",
-      "grammar": "'had been telling' shows an action that went on for some time before a later past time; 'would never' is a promise for the future, told from the past."
-    },
-    {
-      "chapter": 1,
-      "context": "Will you be so kind as to tell me what you find so madly funny",
-      "simple": "Please tell me what you think is so funny.",
-      "grammar": "'Will you be so kind as to + verb' is a very polite way to ask; 'what you find so madly funny' is a noun clause."
-    },
-    {
-      "chapter": 1,
-      "context": "we saw that she had grown a tail as well",
-      "simple": "We saw that a tail had come out on her too.",
-      "grammar": "'had grown' is the past perfect: the tail grew before the moment we saw it; 'as well' means also."
-    },
-    {
-      "chapter": 1,
-      "context": "if any of you are wondering whether Mrs Winter is quite all right again now",
-      "simple": "Maybe you want to know if Mrs Winter is well again now.",
-      "grammar": "'are wondering whether ...' is present continuous with an indirect question; 'whether' means 'if'."
-    },
-    {
-      "chapter": 1,
-      "context": "The Magic Finger is something I have been able to do all my life",
-      "simple": "I have been able to use the Magic Finger for all my life.",
-      "grammar": "'have been able to' is the present perfect of 'can' (for all my life until now); 'something I have been able to do' is a relative clause with 'that' left out."
-    },
-    {
-      "chapter": 1,
-      "context": "there was no taking it off again",
-      "simple": "It was not possible to take it off again.",
-      "grammar": "'There is no + -ing word' means it is not possible to do that."
-    },
-    {
-      "chapter": 1,
-      "context": "He was beside himself with joy",
-      "simple": "He was extremely happy.",
-      "grammar": "'be beside oneself with + feeling' is an idiom: the feeling is so strong that the person cannot control it; 'himself' means Mr Gregg."
-    },
-    {
-      "chapter": 1,
-      "context": "What on earth are they doing",
-      "simple": "What are they doing? He is very surprised.",
-      "grammar": "'on earth' after a question word makes the question stronger and shows surprise."
-    },
-    {
-      "chapter": 1,
-      "context": "It’s getting too dark to see",
-      "simple": "It is becoming too dark for us to see.",
-      "grammar": "'getting + adjective' means becoming; 'too + adjective + to + verb' means too much for something to be possible."
-    },
-    {
-      "chapter": 1,
-      "context": "He was about to put out a hand for his watch, to see the time",
-      "simple": "He was going to put out a hand for his watch so that he could see the time.",
-      "grammar": "'was about to + verb' means he was just going to do it; 'to see the time' tells the purpose."
-    },
-    {
-      "chapter": 1,
-      "context": "He lay still, wondering what was up",
-      "simple": "He lay without moving and asked himself what was wrong.",
-      "grammar": "'wondering ...' is a participle phrase that shows two things happening together; 'what was up' means what was wrong."
-    },
-    {
-      "chapter": 1,
-      "context": "He was maybe as tall as the seat of a chair, but no taller",
-      "simple": "He was about as tall as the seat of a chair, and not taller.",
-      "grammar": "'as tall as' says two heights are the same; 'no taller' means not any taller."
-    },
-    {
-      "chapter": 1,
-      "context": "But before she could say another word, Philip and William had flown right out the window",
-      "simple": "Before she could say more, Philip and William had already flown out of the window.",
-      "grammar": "'before she could say ...' is a time clause; 'had flown' is the past perfect and shows it was already done."
-    },
-    {
-      "chapter": 1,
-      "context": "Mr Gregg was very good at making the sticks stick together",
-      "simple": "Mr Gregg was very good at making sticks stay together.",
-      "grammar": "'good at' is followed by the '-ing' form ('making')."
-    },
-    {
-      "chapter": 1,
-      "context": "But to eat an apple without holding it in your hands is not at all easy",
-      "simple": "It is not easy to eat an apple when you cannot hold it in your hands.",
-      "grammar": "The subject is 'to eat an apple without holding it in your hands'; 'without + -ing' means not doing something; 'not at all' makes 'not' stronger."
-    },
-    {
-      "chapter": 1,
-      "context": "It must have been at about this time that I, back in my own house, picked up the telephone",
-      "simple": "I am sure it was about this time that I picked up the telephone at my own house.",
-      "grammar": "'must have been' means I am sure it was so in the past; 'It was ... that ...' puts the focus on the time."
-    },
-    {
-      "chapter": 1,
-      "context": "Just because we have wings, we don’t have to eat bird food",
-      "simple": "We have wings. But that does not mean that we must eat bird food.",
-      "grammar": "'Just because ...' gives a reason, but the second part says it is not enough; 'don't have to' means it is not needed."
-    },
-    {
-      "chapter": 1,
-      "context": "And now we are going to allow each other to shoot you",
-      "simple": "And now we will let each other shoot you.",
-      "grammar": "'allow + person + to + verb' means to let someone do something; 'each other' means each one allows the other."
-    },
-    {
-      "chapter": 1,
-      "context": "I would have loved to have seen Mr Gregg’s face just then",
-      "simple": "I wish I could have seen Mr Gregg's face at that time.",
-      "grammar": "'would have loved to have seen' shows a wish about the past that did not come true."
-    },
-    {
-      "chapter": 1,
-      "context": "I’ll never shoot another duck as long as I live",
-      "simple": "I will never shoot another duck for all my life.",
-      "grammar": "'as long as I live' means for all the time I am alive; after 'as long as' we use the present tense ('live') for the future."
-    },
-    {
-      "chapter": 1,
-      "context": "And never again need you be afraid of me or my family",
-      "simple": "You will never need to be afraid of me or my family again.",
-      "grammar": "Inversion: after 'never again' at the start, the verb comes before the subject ('need you be' instead of 'you need be')."
-    },
-    {
-      "chapter": 1,
-      "context": "They seemed to have gone completely dotty, all four of them",
-      "simple": "It seemed that all four of them had gone completely mad.",
-      "grammar": "'seem to have + past participle' says that something seems to have happened before now."
-    },
-    {
-      "chapter": 1,
-      "context": "Oh, we will be pecked to bits by those dirty great ducks",
-      "simple": "Oh, those big dirty ducks will bite us into little pieces!",
-      "grammar": "'will be pecked' is the future passive (will be + past participle); 'by those ... ducks' says who does it; 'to bits' means into small pieces."
-    },
-    {
-      "chapter": 1,
-      "context": "I shall now tell you what those things were",
-      "simple": "Now I will tell you what those things were.",
-      "grammar": "'shall' is a formal way to say 'will' after 'I'; 'what those things were' is a noun clause."
-    },
-    {
-      "chapter": 1,
-      "context": "In honour of my feathered friends, I have changed it from Gregg to Egg",
-      "simple": "To show that I think well of the birds, I have changed my name from Gregg to Egg.",
-      "grammar": "'In honour of' starts a phrase meaning 'to show respect for'; 'have changed' is the present perfect for a change that is still true now."
+     "meaning": "Got bigger, or came to have something that was not there before.",
+     "whyHard": "This is the past of grow. The tail was not there, and then it was.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "she had grown a tail as well"
+      }
+     ]
     }
-  ],
-  "phrases": {
-    "see red": {
-      "meaning": "To become very angry.",
-      "pos": "idiom",
-      "forms": [
-        "saw red",
-        "see red"
-      ],
-      "example": "But it always happens when I get cross, when I see red…"
+   ]
+  },
+  "hunting": {
+   "pos": "present participle",
+   "meaning": "Chasing and killing wild animals for food.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Now the one thing that Mr Gregg and his two boys loved to do more than anything else was to go hunting.",
+   "examples": [
+    "Now the one thing that Mr Gregg and his two boys loved to do more than anything else was to go hunting."
+   ],
+   "forms": [
+    "hunting"
+   ],
+   "count": 3
+  },
+  "lay": {
+   "pos": "past-tense verb",
+   "meaning": "Rested flat on a surface. (Past tense of \"lie\".)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "He lay still, wondering what was up.",
+   "examples": [
+    "He lay still, wondering what was up."
+   ],
+   "forms": [
+    "lay",
+    "lying"
+   ],
+   "count": 3,
+   "senses": [
+    {
+     "meaning": "Rested flat, or went to rest. This is the past of lie. It does not mean to put something down.",
+     "default": true,
+     "whyHard": "Lay looks like a word for putting something down. Here it means rested flat.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "He lay still, wondering what was up"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "context": "flew back to the nest and lay down"
+      }
+     ]
     },
-    "talk out of": {
-      "meaning": "To make someone decide not to do something.",
-      "pos": "phrasal verb",
-      "forms": [
-        "talk them out of"
-      ],
-      "example": "I would do my best to talk them out of it"
+    {
+     "meaning": "To produce an egg.",
+     "whyHard": "Not the usual meaning! Usually: lay means rested flat, or to put something down.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "I feel I might lay an egg any"
+      }
+     ]
     },
-    "go off": {
-      "meaning": "To leave and go somewhere.",
-      "pos": "phrasal verb",
-      "forms": [
-        "go off",
-        "went off"
-      ],
-      "example": "take their guns and go off into the woods"
-    },
-    "make faces": {
-      "meaning": "To make a funny or ugly face at someone.",
-      "pos": "phrase",
-      "forms": [
-        "made faces at",
-        "make faces"
-      ],
-      "example": "The boys laughed and made faces at me"
-    },
-    "mind one's own p's and q's": {
-      "meaning": "To take care how you behave. Mr Gregg says this to tell the girl to go home.",
-      "pos": "idiom",
-      "forms": [
-        "mind my own P’s and Q’s"
-      ],
-      "example": "Mr Gregg told me to go home and mind my own P’s and Q’s"
-    },
-    "that did it": {
-      "meaning": "That was the last thing, and it was too much.",
-      "pos": "idiom",
-      "forms": [
-        "that did it"
-      ],
-      "example": "Well, that did it!"
-    },
-    "get out of": {
-      "meaning": "To get something good from an action.",
-      "pos": "phrasal verb",
-      "forms": [
-        "get out of"
-      ],
-      "example": "just for the fun they get out of it"
-    },
-    "be beside oneself": {
-      "meaning": "To have a very strong feeling, like joy, and not be able to control it.",
-      "pos": "idiom",
-      "forms": [
-        "was beside himself"
-      ],
-      "example": "He was beside himself with joy."
-    },
-    "ask for it": {
-      "meaning": "To do something that will bring trouble to you.",
-      "pos": "idiom",
-      "forms": [
-        "asking for it"
-      ],
-      "example": "They are really asking for it this time!"
-    },
-    "what on earth": {
-      "meaning": "Words that make a question stronger, to show surprise.",
-      "pos": "idiom",
-      "forms": [
-        "what on earth"
-      ],
-      "example": "What on earth are they doing?"
-    },
-    "be off": {
-      "meaning": "Go away.",
-      "pos": "phrasal verb",
-      "forms": [
-        "Be off"
-      ],
-      "example": "‘Be off!’ he cried"
-    },
-    "all at once": {
-      "meaning": "Suddenly.",
-      "pos": "idiom",
-      "forms": [
-        "all at once"
-      ],
-      "example": "and all at once, up he went."
-    },
-    "at once": {
-      "meaning": "Right now, or very soon after.",
-      "pos": "phrase",
-      "forms": [
-        "at once"
-      ],
-      "example": "Come down at once!"
-    },
-    "come on": {
-      "meaning": "Words used to ask someone to come or to join in.",
-      "pos": "phrasal verb",
-      "forms": [
-        "Come on",
-        "come on"
-      ],
-      "example": "Come on, let’s try."
-    },
-    "catch up with": {
-      "meaning": "To get to the place where someone else is, by going faster.",
-      "pos": "phrasal verb",
-      "forms": [
-        "catch up with"
-      ],
-      "example": "it did not take them long to catch up with Philip and William"
-    },
-    "burst in": {
-      "meaning": "To come into a room very fast and suddenly.",
-      "pos": "phrasal verb",
-      "forms": [
-        "burst in"
-      ],
-      "example": "Philip and William burst in."
-    },
-    "fly off": {
-      "meaning": "To fly away.",
-      "pos": "phrasal verb",
-      "forms": [
-        "flew off",
-        "fly off"
-      ],
-      "example": "So they flew off to an apple tree."
-    },
-    "pick up": {
-      "meaning": "To take something up in your hand.",
-      "pos": "phrasal verb",
-      "forms": [
-        "picked up"
-      ],
-      "example": "picked up the telephone and tried to call Philip"
-    },
-    "put down": {
-      "meaning": "To put something on a table or the floor, or to stop holding it.",
-      "pos": "phrasal verb",
-      "forms": [
-        "put down"
-      ],
-      "example": "I put down the telephone quickly."
-    },
-    "get the surprise of one's life": {
-      "meaning": "To be very, very surprised.",
-      "pos": "idiom",
-      "forms": [
-        "got the surprise of his life"
-      ],
-      "example": "He got the surprise of his life!"
-    },
-    "by the way": {
-      "meaning": "Words used to add a new thing to what you say.",
-      "pos": "idiom",
-      "forms": [
-        "by the way"
-      ],
-      "example": "And by the way, may I congratulate you on the nest."
-    },
-    "turn around": {
-      "meaning": "To face the other way.",
-      "pos": "phrasal verb",
-      "forms": [
-        "turned around",
-        "turn around"
-      ],
-      "example": "the four ducks turned around and came flying right back to the guns"
-    },
-    "take over": {
-      "meaning": "To get control of a place.",
-      "pos": "phrasal verb",
-      "forms": [
-        "taken over",
-        "take over"
-      ],
-      "example": "They have taken over our whole house!"
-    },
-    "mince up": {
-      "meaning": "To cut food into very small bits.",
-      "pos": "phrasal verb",
-      "forms": [
-        "mince up"
-      ],
-      "example": "I can mince it all up very fine"
-    },
-    "build up": {
-      "meaning": "To grow bigger and stronger.",
-      "pos": "phrasal verb",
-      "forms": [
-        "building up"
-      ],
-      "example": "I could feel the power building up and up inside me"
-    },
-    "give one's word": {
-      "meaning": "To promise.",
-      "pos": "idiom",
-      "forms": [
-        "give me your word"
-      ],
-      "example": "Will you give me your word on that?"
-    },
-    "put out": {
-      "meaning": "To stretch a hand or arm out.",
-      "pos": "phrasal verb",
-      "forms": [
-        "put out"
-      ],
-      "example": "He was about to put out a hand for his watch"
-    },
-    "leave alone": {
-      "meaning": "To not trouble someone.",
-      "pos": "phrasal verb",
-      "forms": [
-        "leave them alone"
-      ],
-      "example": "But the four ducks would not leave them alone."
-    },
-    "shoot at": {
-      "meaning": "To fire a gun towards something.",
-      "pos": "phrasal verb",
-      "forms": [
-        "shot at",
-        "shooting at"
-      ],
-      "example": "He shot at them again."
-    },
-    "go on": {
-      "meaning": "To keep doing something, or to keep happening.",
-      "pos": "phrasal verb",
-      "forms": [
-        "go on",
-        "went on",
-        "going on"
-      ],
-      "example": "The building of the nest went on and on."
-    },
-    "wake up": {
-      "meaning": "To stop sleeping.",
-      "pos": "phrasal verb",
-      "forms": [
-        "wake up",
-        "woke up"
-      ],
-      "example": "When morning came, Mr Gregg was the first to wake up."
-    },
-    "go away": {
-      "meaning": "To leave.",
-      "pos": "phrasal verb",
-      "forms": [
-        "go away"
-      ],
-      "example": "nothing would make them go away"
-    },
-    "in honour of": {
-      "meaning": "To show respect for someone.",
-      "pos": "phrase",
-      "forms": [
-        "in honour of"
-      ],
-      "example": "In honour of my feathered friends"
-    },
-    "take off": {
-      "meaning": "To remove something.",
-      "pos": "phrasal verb",
-      "forms": [
-        "taking off"
-      ],
-      "example": "there was no taking it off again"
+    {
+     "meaning": "Resting flat. This does not mean saying something that is not true.",
+     "whyHard": "Not the usual meaning! Usually: lying means saying something that is not true.",
+     "trickyMeaning": true,
+     "forms": [
+      "lying"
+     ],
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "One of them is lying in my bed",
+       "form": "lying"
+      }
+     ]
     }
+   ]
+  },
+  "manuscript": {
+   "pos": "singular noun",
+   "meaning": "A book or piece of writing before it is printed.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Once Roald had finished writing a book, he gave the pile of yellow scribbled paper to Wendy, his secretary, and she turned it into a neat printed manuscript to send to his publisher.",
+   "examples": [
+    "Once Roald had finished writing a book, he gave the pile of yellow scribbled paper to Wendy, his secretary, and she turned it into a neat printed manuscript to send to his publisher.",
+    "Quentin never knew anything about a new story until the manuscript arrived."
+   ],
+   "forms": [
+    "manuscript",
+    "manuscripts"
+   ],
+   "count": 3
+  },
+  "registered": {
+   "pos": "adjective",
+   "meaning": "Officially written down in a list.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Penguin Books Ltd, Registered Offices: 80 Strand, London WC2R 0RL, England",
+   "examples": [
+    "Penguin Books Ltd, Registered Offices: 80 Strand, London WC2R 0RL, England",
+    "The Roald Dahl Foundation is a registered charity no."
+   ],
+   "forms": [
+    "registered"
+   ],
+   "count": 3
+  },
+  "suddenly": {
+   "pos": "adverb",
+   "meaning": "Quickly and without warning.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "And suddenly a sort of flash comes out of me, a quick flash, like something electric.",
+   "examples": [
+    "And suddenly a sort of flash comes out of me, a quick flash, like something electric."
+   ],
+   "forms": [
+    "suddenly"
+   ],
+   "count": 3
+  },
+  "adventure": {
+   "pos": "singular noun",
+   "meaning": "An exciting and sometimes dangerous experience.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It was a genuine adventure and left Roald fit and ready for anything!",
+   "examples": [
+    "It was a genuine adventure and left Roald fit and ready for anything!"
+   ],
+   "forms": [
+    "adventure",
+    "adventures"
+   ],
+   "count": 2
+  },
+  "appendicitis": {
+   "pos": "uncountable noun",
+   "meaning": "An illness in which a small part of the body in your stomach area swells and hurts.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Sadly, Astri died from appendicitis when she was seven, and Roald’s father died of a broken heart two months later.",
+   "examples": [
+    "Sadly, Astri died from appendicitis when she was seven, and Roald’s father died of a broken heart two months later.",
+    "He pretended to have appendicitis when he was nine because he was so homesick in his first two weeks at boarding school."
+   ],
+   "forms": [
+    "appendicitis"
+   ],
+   "count": 2
+  },
+  "barley": {
+   "pos": "uncountable noun",
+   "meaning": "A grain used for food and for making drinks.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "And in the middle of the yard stood Philip and William, with a sack of their father’s best barley beside them.",
+   "examples": [
+    "And in the middle of the yard stood Philip and William, with a sack of their father’s best barley beside them."
+   ],
+   "forms": [
+    "barley"
+   ],
+   "count": 2
+  },
+  "chosen": {
+   "pos": "past participle",
+   "meaning": "Picked out from others. (From the verb \"choose\".)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "At the end of every meal, Roald and his family had a chocolate bar chosen from a red plastic box.",
+   "examples": [
+    "At the end of every meal, Roald and his family had a chocolate bar chosen from a red plastic box.",
+    "In 1999 Quentin Blake was chosen to be the first Children’s Laureate."
+   ],
+   "forms": [
+    "chosen"
+   ],
+   "count": 2
+  },
+  "copyright": {
+   "pos": "singular noun",
+   "meaning": "The legal right to a book or other work, kept by its writer or owner.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Text copyright © Roald Dahl Nominee Ltd, 1966",
+   "examples": [
+    "Text copyright © Roald Dahl Nominee Ltd, 1966"
+   ],
+   "forms": [
+    "copyright"
+   ],
+   "count": 2
+  },
+  "disgusting": {
+   "pos": "adjective",
+   "meaning": "Making you feel sick; very unpleasant.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "The BFG is forced to eat this disgusting vegetable as it is the only thing that grows in Giant Country.",
+   "examples": [
+    "The BFG is forced to eat this disgusting vegetable as it is the only thing that grows in Giant Country."
+   ],
+   "forms": [
+    "disgusting"
+   ],
+   "count": 2
+  },
+  "feather": {
+   "pos": "singular noun",
+   "meaning": "One of the light, soft parts that cover a bird's body.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Now I want leaves and feathers and things like that to make the inside nice and soft.",
+   "examples": [
+    "Now I want leaves and feathers and things like that to make the inside nice and soft."
+   ],
+   "forms": [
+    "feathers"
+   ],
+   "count": 2
+  },
+  "flash": {
+   "pos": "singular noun",
+   "meaning": "A sudden bright light that lasts a very short time.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "And suddenly a sort of flash comes out of me, a quick flash, like something electric.",
+   "examples": [
+    "And suddenly a sort of flash comes out of me, a quick flash, like something electric."
+   ],
+   "forms": [
+    "flash"
+   ],
+   "count": 2
+  },
+  "forgot": {
+   "pos": "past-tense verb",
+   "meaning": "Could not remember. (Past tense of \"forget\".)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Mr Gregg forgot about the firewood, and hurried back indoors.",
+   "examples": [
+    "Mr Gregg forgot about the firewood, and hurried back indoors.",
+    "Roald never forgot this kindness and generosity."
+   ],
+   "forms": [
+    "forgot",
+    "forgotten"
+   ],
+   "count": 2
+  },
+  "generosity": {
+   "pos": "uncountable noun",
+   "meaning": "The quality of being willing to give freely.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "I’ll put it before any of the things like courage or bravery or generosity or anything else.",
+   "examples": [
+    "I’ll put it before any of the things like courage or bravery or generosity or anything else.",
+    "Roald never forgot this kindness and generosity."
+   ],
+   "forms": [
+    "generosity"
+   ],
+   "count": 2
+  },
+  "hammer": {
+   "pos": "singular noun",
+   "meaning": "A tool for hitting nails. In sport, it is a heavy metal ball that people throw.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "In one corner Mr Gregg was smashing all three guns into tiny pieces with a huge hammer.",
+   "examples": [
+    "In one corner Mr Gregg was smashing all three guns into tiny pieces with a huge hammer."
+   ],
+   "forms": [
+    "hammer"
+   ],
+   "count": 2
+  },
+  "holiday": {
+   "pos": "singular noun",
+   "meaning": "A time away from school or work. (American English: vacation.)",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "They all went on holiday together to Norway every summer: Roald’s mother and the six children.",
+   "examples": [
+    "They all went on holiday together to Norway every summer: Roald’s mother and the six children.",
+    "When Roald was sixteen, he decided to go off on his own to holiday in France."
+   ],
+   "forms": [
+    "holiday"
+   ],
+   "count": 2
+  },
+  "illustrated": {
+   "pos": "past-tense verb",
+   "meaning": "Drew pictures for a book.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Quentin started working with him in 1976 (the first book he illustrated was The Enormous Crocodile, published in 1978) and from then on they worked together until Roald’s death.",
+   "examples": [
+    "Quentin started working with him in 1976 (the first book he illustrated was The Enormous Crocodile, published in 1978) and from then on they worked together until Roald’s death."
+   ],
+   "forms": [
+    "illustrated"
+   ],
+   "count": 2
+  },
+  "joy": {
+   "pos": "uncountable noun",
+   "meaning": "A feeling of great happiness.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "’ He was beside himself with joy.",
+   "examples": [
+    "’ He was beside himself with joy."
+   ],
+   "forms": [
+    "joy"
+   ],
+   "count": 2
+  },
+  "jump": {
+   "pos": "base verb",
+   "meaning": "To push yourself up off the ground into the air.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It jumps out and touches the person who has made me cross…",
+   "examples": [
+    "It jumps out and touches the person who has made me cross…"
+   ],
+   "forms": [
+    "jump",
+    "jumps"
+   ],
+   "count": 2
+  },
+  "kindness": {
+   "pos": "uncountable noun",
+   "meaning": "Being friendly and caring.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "‘I think probably kindness is my number one attribute in a human being.",
+   "examples": [
+    "‘I think probably kindness is my number one attribute in a human being.",
+    "Roald never forgot this kindness and generosity."
+   ],
+   "forms": [
+    "kindness"
+   ],
+   "count": 2
+  },
+  "literacy": {
+   "pos": "uncountable noun",
+   "meaning": "The ability to read and write.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It also provides practical help for children and young people with brain, blood and literacy problems – all causes close to Roald Dahl during his lifetime – through grants to UK hospitals and charities as well as to individual children and their families.",
+   "examples": [
+    "It also provides practical help for children and young people with brain, blood and literacy problems – all causes close to Roald Dahl during his lifetime – through grants to UK hospitals and charities as well as to individual children and their families."
+   ],
+   "forms": [
+    "literacy"
+   ],
+   "count": 2
+  },
+  "muggled": {
+   "pos": "adjective",
+   "meaning": "A made-up word. The book says: to be muggled means to be a bit confused.",
+   "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
+   "example": "To be muggled means to be a bit confused.",
+   "examples": [
+    "To be muggled means to be a bit confused."
+   ],
+   "forms": [
+    "muggled"
+   ],
+   "count": 2,
+   "coined": true
+  },
+  "nickname": {
+   "pos": "singular noun",
+   "meaning": "A friendly or funny name used instead of a real name.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "His nickname in the RAF was Lofty, while Walt Disney called him Stalky (because he was like a beanstalk!",
+   "examples": [
+    "His nickname in the RAF was Lofty, while Walt Disney called him Stalky (because he was like a beanstalk!"
+   ],
+   "forms": [
+    "nickname"
+   ],
+   "count": 2
+  },
+  "noise": {
+   "pos": "singular noun",
+   "meaning": "A sound, especially a loud or unpleasant one.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Then Mr Gregg heard the noise of wings flying low overhis head, and he saw the four ducks, dark against the night sky, flying very close together.",
+   "examples": [
+    "Then Mr Gregg heard the noise of wings flying low overhis head, and he saw the four ducks, dark against the night sky, flying very close together."
+   ],
+   "forms": [
+    "noise"
+   ],
+   "count": 2
+  },
+  "partnership": {
+   "pos": "singular noun",
+   "meaning": "A working relationship between two or more people.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Roald Dahl’s partnership with Quentin Blake began with the publication of The Enormous Crocodile.",
+   "examples": [
+    "Roald Dahl’s partnership with Quentin Blake began with the publication of The Enormous Crocodile.",
+    "Roald Dahl and Quentin Blake make a perfect partnership of words and illustrations, but when Roald started writing, he had many different illustrators."
+   ],
+   "forms": [
+    "partnership"
+   ],
+   "count": 2
+  },
+  "publication": {
+   "pos": "singular noun",
+   "meaning": "Making a book available to the public.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "British Library Cataloguing in Publication Data",
+   "examples": [
+    "British Library Cataloguing in Publication Data",
+    "Roald Dahl’s partnership with Quentin Blake began with the publication of The Enormous Crocodile."
+   ],
+   "forms": [
+    "publication"
+   ],
+   "count": 2
+  },
+  "publisher": {
+   "pos": "singular noun",
+   "meaning": "A company that prints and sells books.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Except in the United States of America, this book is sold subject to the condition that it shall not, by way of trade or otherwise, be lent, re-sold, hired out, or otherwise circulated without the publisher’s prior consent in any form of binding or cover other than that in which…",
+   "examples": [
+    "Except in the United States of America, this book is sold subject to the condition that it shall not, by way of trade or otherwise, be lent, re-sold, hired out, or otherwise circulated without the publisher’s prior consent in any form of binding or cover other than that in which…",
+    "Once Roald had finished writing a book, he gave the pile of yellow scribbled paper to Wendy, his secretary, and she turned it into a neat printed manuscript to send to his publisher."
+   ],
+   "forms": [
+    "publisher"
+   ],
+   "count": 2
+  },
+  "quentinblake": {
+   "pos": "singular noun",
+   "meaning": "The name of the artist who drew the pictures for Roald Dahl's books.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Find out more at quentinblake.",
+   "examples": [
+    "Find out more at quentinblake."
+   ],
+   "forms": [
+    "quentinblake"
+   ],
+   "count": 2
+  },
+  "quogwinkle": {
+   "pos": "singular noun",
+   "meaning": "A made-up word. The book says: a quogwinkle is an alien from outer space.",
+   "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
+   "example": "A quogwinkle is an alien from outer space.",
+   "examples": [
+    "A quogwinkle is an alien from outer space."
+   ],
+   "forms": [
+    "quogwinkle"
+   ],
+   "count": 2,
+   "coined": true
+  },
+  "rained": {
+   "pos": "past-tense verb",
+   "meaning": "Fell as water from the sky.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It rained and rained, and the water ran into the nest and they all got as wet as could be – and oh, it was a bad, bad night!",
+   "examples": [
+    "It rained and rained, and the water ran into the nest and they all got as wet as could be – and oh, it was a bad, bad night!"
+   ],
+   "forms": [
+    "rained"
+   ],
+   "count": 2
+  },
+  "robin": {
+   "pos": "singular noun",
+   "meaning": "A small brown bird with a red chest.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "They were about as big as robins.",
+   "examples": [
+    "They were about as big as robins."
+   ],
+   "forms": [
+    "robins"
+   ],
+   "count": 2
+  },
+  "royalty": {
+   "pos": "singular noun",
+   "meaning": "Money paid to a writer for each copy of a book sold.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Did you know that 10% of author royalties* from this book go to help the work of the Roald Dahl charities?",
+   "examples": [
+    "Did you know that 10% of author royalties* from this book go to help the work of the Roald Dahl charities?"
+   ],
+   "forms": [
+    "royalties"
+   ],
+   "count": 2
+  },
+  "tail": {
+   "pos": "singular noun",
+   "meaning": "The part that sticks out from the back of an animal. A \"tail coat\" has long back pieces.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "And when she turned around to write something on the blackboard we saw that she had grown a tail as well!",
+   "examples": [
+    "And when she turned around to write something on the blackboard we saw that she had grown a tail as well!"
+   ],
+   "forms": [
+    "tail"
+   ],
+   "count": 2
+  },
+  "telephone": {
+   "pos": "singular noun",
+   "meaning": "A machine used to talk to someone far away.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "It must have been at about this time that I, back in my own house, picked up the telephone and tried to call Philip.",
+   "examples": [
+    "It must have been at about this time that I, back in my own house, picked up the telephone and tried to call Philip."
+   ],
+   "forms": [
+    "telephone"
+   ],
+   "count": 2
+  },
+  "terribly": {
+   "pos": "adverb",
+   "meaning": "Very; extremely.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Then the tip of the forefinger of my right hand begins to tingle most terribly…",
+   "examples": [
+    "Then the tip of the forefinger of my right hand begins to tingle most terribly…"
+   ],
+   "forms": [
+    "terribly"
+   ],
+   "count": 2
+  },
+  "tingling": {
+   "pos": "present participle",
+   "meaning": "Having a feeling like many tiny pins on the skin.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Then the tip of my finger began tingling most terribly.",
+   "examples": [
+    "Then the tip of my finger began tingling most terribly.",
+    "Roald’s book of spine-tingling stories for adults, Someone Like You, was published and was a huge success in the USA."
+   ],
+   "forms": [
+    "tingling",
+    "tingle"
+   ],
+   "count": 2,
+   "senses": [
+    {
+     "meaning": "Having a feeling like many tiny pins on the skin.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "my finger began tingling most terribly"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "right hand begins to tingle most terribly",
+       "form": "tingle"
+      }
+     ]
+    },
+    {
+     "meaning": "So exciting that it can make you shiver.",
+     "whyHard": "Not the usual meaning! Usually: tingling is a feeling like tiny pins on the skin.",
+     "trickyMeaning": true,
+     "anchors": []
+    }
+   ]
+  },
+  "tip": {
+   "pos": "singular noun",
+   "meaning": "The pointed end of something. It can also mean a small helpful piece of advice.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Then the tip of the forefinger of my right hand begins to tingle most terribly…",
+   "examples": [
+    "Then the tip of the forefinger of my right hand begins to tingle most terribly…"
+   ],
+   "forms": [
+    "tip"
+   ],
+   "count": 2
+  },
+  "whisker": {
+   "pos": "singular noun",
+   "meaning": "One of the long stiff hairs on the face of a cat or on a man's face.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Whiskers began growing out of her face!",
+   "examples": [
+    "Whiskers began growing out of her face!"
+   ],
+   "forms": [
+    "whiskers"
+   ],
+   "count": 2
+  },
+  "witch": {
+   "pos": "singular noun",
+   "meaning": "A woman in stories who uses magic, often to do bad things.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "Other films followed: The BFG and Danny the Champion of the World in 1989; The Witches in 1989; James and the Giant Peach and Matilda in 1996; the second Charlie and the Chocolate Factory, starring Johnny Depp, came out in 2005.",
+   "examples": [
+    "Other films followed: The BFG and Danny the Champion of the World in 1989; The Witches in 1989; James and the Giant Peach and Matilda in 1996; the second Charlie and the Chocolate Factory, starring Johnny Depp, came out in 2005."
+   ],
+   "forms": [
+    "witches"
+   ],
+   "count": 2
+  },
+  "yard": {
+   "pos": "singular noun",
+   "meaning": "The open space next to a house. It is also a unit of length, about 0.9 metres.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "He was crossing the yard when all at once he heard the call of a wild duck in the sky.",
+   "examples": [
+    "He was crossing the yard when all at once he heard the call of a wild duck in the sky."
+   ],
+   "forms": [
+    "yard"
+   ],
+   "count": 2
+  },
+  "yell": {
+   "pos": "singular noun",
+   "meaning": "A loud shout.",
+   "whyHard": "This word is harder than everyday English.",
+   "example": "He gave a yell and jumped out of bed.",
+   "examples": [
+    "He gave a yell and jumped out of bed."
+   ],
+   "forms": [
+    "yell",
+    "yelled"
+   ],
+   "count": 2
+  },
+  "gobblefunk": {
+   "pos": "singular noun",
+   "meaning": "A made-up word. It is the title of the last extra page, about new words that Roald Dahl invented.",
+   "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
+   "example": "Roald Dahl loved playing around with words and inventing new ones.",
+   "examples": [
+    "Roald Dahl loved playing around with words and inventing new ones."
+   ],
+   "forms": [
+    "gobblefunk"
+   ],
+   "coined": true
+  },
+  "snozzcumber": {
+   "pos": "singular noun",
+   "meaning": "A made-up word. The book says it is a vegetable that the BFG is forced to eat. It is knobbly, with black and white stripes, and tastes horrible.",
+   "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
+   "example": "The BFG is forced to eat this disgusting vegetable as it is the only thing that grows in Giant Country.",
+   "examples": [
+    "The BFG is forced to eat this disgusting vegetable as it is the only thing that grows in Giant Country."
+   ],
+   "forms": [
+    "snozzcumber"
+   ],
+   "coined": true
+  },
+  "trogglehumper": {
+   "pos": "singular noun",
+   "meaning": "A made-up word. The book says it is the worst kind of dream: a nightmare.",
+   "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
+   "example": "The worst kind of dream: a nightmare.",
+   "examples": [
+    "The worst kind of dream: a nightmare."
+   ],
+   "forms": [
+    "trogglehumper"
+   ],
+   "coined": true
+  },
+  "jumpsquiffling": {
+   "pos": "adjective",
+   "meaning": "A made-up word. The book says it means something absolutely huge.",
+   "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
+   "example": "Something absolutely huge.",
+   "examples": [
+    "Something absolutely huge."
+   ],
+   "forms": [
+    "jumpsquiffling"
+   ],
+   "coined": true
+  },
+  "frothbungling": {
+   "pos": "adjective",
+   "meaning": "A made-up word. The book says it means stupid.",
+   "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
+   "example": "Means stupid.",
+   "examples": [
+    "Means stupid."
+   ],
+   "forms": [
+    "frothbungling"
+   ],
+   "coined": true
+  },
+  "gloriumptious": {
+   "pos": "adjective",
+   "meaning": "A made-up word. The book says it means gloriously wonderful.",
+   "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
+   "example": "Gloriously wonderful.",
+   "examples": [
+    "Gloriously wonderful."
+   ],
+   "forms": [
+    "gloriumptious"
+   ],
+   "coined": true
+  },
+  "crabcruncher": {
+   "pos": "singular noun",
+   "meaning": "A made-up word. The book says crabcrunchers live high up on cliffs by the sea and are very rare.",
+   "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
+   "example": "Crabcrunchers live high up on cliffs by the sea.",
+   "examples": [
+    "Crabcrunchers live high up on cliffs by the sea."
+   ],
+   "forms": [
+    "crabcrunchers",
+    "crabcruncher"
+   ],
+   "coined": true
+  },
+  "bogglebox": {
+   "pos": "singular noun",
+   "meaning": "A made-up word. The book says it is a school for young children (generally boys).",
+   "whyHard": "Roald Dahl made up this word. It is on the Gobblefunk page at the end of the book.",
+   "example": "A school for young children (generally boys).",
+   "examples": [
+    "A school for young children (generally boys)."
+   ],
+   "forms": [
+    "bogglebox"
+   ],
+   "coined": true
+  },
+  "cross": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Angry.",
+   "whyHard": "Not the usual meaning! Usually: cross means to go across, or the shape like X.",
+   "senses": [
+    {
+     "meaning": "Angry.",
+     "whyHard": "Not the usual meaning! Usually: cross means to go across, or the shape like X.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "This made me so cross that I started"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "Then I got cross, and I saw red"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "context": "it always happens when I get cross, when"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 4,
+       "context": "the person who has made me cross"
+      }
+     ]
+    }
+   ]
+  },
+  "stand": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To bear something. You hate it so much that you will not put up with it.",
+   "whyHard": "Not the usual meaning! Usually: stand means to be up on your feet.",
+   "senses": [
+    {
+     "meaning": "To bear something. You hate it so much that you will not put up with it.",
+     "whyHard": "Not the usual meaning! Usually: stand means to be up on your feet.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "I can't stand hunting. I just"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "I just can't stand it. It doesn't"
+      }
+     ]
+    }
+   ]
+  },
+  "mind": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To be careful about how you behave.",
+   "whyHard": "Not the usual meaning! Usually: mind means the brain, or to take care of something.",
+   "senses": [
+    {
+     "meaning": "To be careful about how you behave.",
+     "whyHard": "Not the usual meaning! Usually: mind means the brain, or to take care of something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "go home and mind my own P's"
+      }
+     ]
+    }
+   ]
+  },
+  "head": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To go toward a place.",
+   "whyHard": "Not the usual meaning! Usually: head means the part of the body above the neck.",
+   "senses": [
+    {
+     "meaning": "To go toward a place.",
+     "whyHard": "Not the usual meaning! Usually: head means the part of the body above the neck.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "wild ducks, so they headed towards the lake",
+       "form": "headed"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "flying very close together, heading back to",
+       "form": "heading"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "headed",
+    "heading"
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving. Very quiet.",
+   "whyHard": "Not the usual meaning! Usually: still means even now, or continuing.",
+   "senses": [
+    {
+     "meaning": "Not moving. Very quiet.",
+     "whyHard": "Not the usual meaning! Usually: still means even now, or continuing.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "The night was very still. There was"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "He lay still, wondering what was up"
+      }
+     ]
+    }
+   ]
+  },
+  "pretty": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Quite. Fairly, but not the most.",
+   "whyHard": "Not the usual meaning! Usually: pretty means nice to look at.",
+   "senses": [
+    {
+     "meaning": "Quite. Fairly, but not the most.",
+     "whyHard": "Not the usual meaning! Usually: pretty means nice to look at.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "For a first effort it's pretty good"
+      }
+     ]
+    }
+   ]
+  },
+  "rocked": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Moved slowly from one side to the other.",
+   "whyHard": "Not the usual meaning! Usually: rock means a stone, or a loud kind of music.",
+   "senses": [
+    {
+     "meaning": "Moved slowly from one side to the other.",
+     "whyHard": "Not the usual meaning! Usually: rock means a stone, or a loud kind of music.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "The tree rocked from side to side"
+      }
+     ]
+    }
+   ]
+  },
+  "glass": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A mirror.",
+   "whyHard": "Not the usual meaning! Usually: glass means the hard clear stuff in a window, or a cup.",
+   "senses": [
+    {
+     "meaning": "A mirror.",
+     "whyHard": "Not the usual meaning! Usually: glass means the hard clear stuff in a window, or a cup.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "to look at herself in the glass"
+      }
+     ]
+    }
+   ]
+  },
+  "tin": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A metal box for food.",
+   "whyHard": "Not the usual meaning! Usually: tin means a kind of metal.",
+   "senses": [
+    {
+     "meaning": "A metal box for food.",
+     "whyHard": "Not the usual meaning! Usually: tin means a kind of metal.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "get the tin of biscuits when the ducks"
+      }
+     ]
+    }
+   ]
+  },
+  "watch": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A small clock that you wear on your wrist.",
+   "whyHard": "Not the usual meaning! Usually: watch means to look at something.",
+   "senses": [
+    {
+     "meaning": "A small clock that you wear on your wrist.",
+     "whyHard": "Not the usual meaning! Usually: watch means to look at something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "put out a hand for his watch, to"
+      }
+     ]
+    }
+   ]
+  },
+  "missed": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Did not hit. The shot did not touch the ducks.",
+   "whyHard": "Not the usual meaning! Usually: miss means to feel sad that someone is away, or to fail to catch a bus.",
+   "senses": [
+    {
+     "meaning": "Did not hit. The shot did not touch the ducks.",
+     "whyHard": "Not the usual meaning! Usually: miss means to feel sad that someone is away, or to fail to catch a bus.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "We missed!' said Mr Gregg. 'That's funny"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "So did the boys. And again they all missed"
+      }
+     ]
+    }
+   ]
+  },
+  "meant": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Planned. Wanted to do it.",
+   "whyHard": "Not the usual meaning! Usually: meant is the past of mean, as in what a word means.",
+   "senses": [
+    {
+     "meaning": "Planned. Wanted to do it.",
+     "whyHard": "Not the usual meaning! Usually: meant is the past of mean, as in what a word means.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "I did something I never meant to do"
+      }
+     ]
+    }
+   ]
+  },
+  "mean": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To intend. To be serious about what you say.",
+   "whyHard": "Not the usual meaning! Usually: mean asks what a word's meaning is.",
+   "senses": [
+    {
+     "meaning": "To intend. To be serious about what you say.",
+     "whyHard": "Not the usual meaning! Usually: mean asks what a word's meaning is.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "happened to both of us, you mean",
+       "form": "mean"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "Do you really mean that?' asked the duck",
+       "form": "mean"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "context": "I do mean it!' said Mr Gregg",
+       "form": "mean"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "mean"
+   ]
+  },
+  "madly": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Very, very.",
+   "whyHard": "Not the usual meaning! Usually: madly means in a wild or crazy way.",
+   "senses": [
+    {
+     "meaning": "Very, very.",
+     "whyHard": "Not the usual meaning! Usually: madly means in a wild or crazy way.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "you find so madly funny, all of you"
+      }
+     ]
+    }
+   ]
+  },
+  "bit": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A small piece. Also: not even a little.",
+   "whyHard": "Not the usual meaning! Usually: a bit means a little.",
+   "senses": [
+    {
+     "meaning": "A small piece. Also: not even a little.",
+     "whyHard": "Not the usual meaning! Usually: a bit means a little.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "did not like it one bit",
+       "form": "bit"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "will be pecked to bits by those",
+       "form": "bits"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "I will break them into tiny bits",
+       "form": "bits"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "bits"
+   ]
+  },
+  "stick": {
+   "pos": "noun",
+   "meaning": "A small thin piece of wood.",
+   "whyHard": "It can be a small piece of wood, and it can also mean to stay joined.",
+   "forms": [
+    "stick",
+    "sticks"
+   ],
+   "senses": [
+    {
+     "meaning": "A small thin piece of wood.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "Now we want sticks,' he said",
+       "form": "sticks"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "lots of little sticks. Off you go",
+       "form": "sticks"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "context": "back, carrying sticks in their mouths",
+       "form": "sticks"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 4,
+       "context": "took the sticks and started to build the",
+       "form": "sticks"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 5,
+       "context": "more and more and more sticks. Keep going",
+       "form": "sticks"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 6,
+       "context": "at making the sticks stick together",
+       "form": "sticks"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 7,
+       "context": "That's enough sticks. Now I want leaves",
+       "form": "sticks"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "Mr Egg said proudly. 'Every stick of",
+       "form": "stick"
+      }
+     ]
+    },
+    {
+     "meaning": "To stay joined. To hold on and not come apart.",
+     "whyHard": "Not the usual meaning! Usually: a stick is a small thin piece of wood.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "good at making the sticks stick together",
+       "form": "stick"
+      }
+     ]
+    }
+   ]
+  },
+  "wood": {
+   "pos": "noun",
+   "meaning": "A place with many trees.",
+   "whyHard": "It can be the stuff from a tree, or a place full of trees.",
+   "forms": [
+    "wood",
+    "woods"
+   ],
+   "senses": [
+    {
+     "meaning": "A place with many trees.",
+     "default": true,
+     "whyHard": "Not the usual meaning! Usually: wood is the hard stuff from a tree.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "go off into the woods to look for",
+       "form": "woods"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "coming out of the woods with their father",
+       "form": "woods"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "context": "back to the lake in the woods",
+       "form": "woods"
+      }
+     ]
+    },
+    {
+     "meaning": "The hard stuff from a tree. Here it is for a fire.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "to get some wood for the fire",
+       "form": "wood"
+      }
+     ]
+    }
+   ]
+  },
+  "leaf": {
+   "pos": "noun",
+   "meaning": "A flat green part of a plant.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "leaves"
+   ]
+  },
+  "gun": {
+   "pos": "noun",
+   "meaning": "A weapon that shoots and can kill.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "shoot": {
+   "pos": "verb",
+   "meaning": "To fire a gun at an animal or a person.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "shot",
+    "shooting"
+   ]
+  },
+  "sob": {
+   "pos": "verb",
+   "meaning": "To cry with short loud breaths.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "sobbed"
+   ]
+  },
+  "flap": {
+   "pos": "verb",
+   "meaning": "To move wings up and down.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "flap",
+    "flapping"
+   ]
+  },
+  "chirrup": {
+   "pos": "verb",
+   "meaning": "To make a short high sound, like a small bird.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "chirruped"
+   ]
+  },
+  "quack": {
+   "pos": "noun",
+   "meaning": "The sound a duck makes. As a verb, to make that sound.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "quack",
+    "quacked"
+   ]
+  },
+  "hop": {
+   "pos": "verb",
+   "meaning": "To jump, like a bird or with the feet together.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "hopped",
+    "hopping"
+   ]
+  },
+  "peck": {
+   "pos": "verb",
+   "meaning": "To hit or bite with the beak.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "pecked"
+   ]
+  },
+  "beastly": {
+   "pos": "adjective",
+   "meaning": "Very nasty. Horrible.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "stove": {
+   "pos": "noun",
+   "meaning": "The hot place in a kitchen where you cook food.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "dare": {
+   "pos": "verb",
+   "meaning": "To be bold enough, or rude enough, to do something.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "slugburger": {
+   "pos": "noun",
+   "meaning": "In this story, a cooked food made from slugs.",
+   "whyHard": "The author made up this word.",
+   "coined": true,
+   "forms": [
+    "slugburgers"
+   ]
+  },
+  "wormburger": {
+   "pos": "noun",
+   "meaning": "In this story, a cooked food made from worms.",
+   "whyHard": "The author made up this word.",
+   "coined": true,
+   "forms": [
+    "wormburgers"
+   ]
+  },
+  "peep": {
+   "pos": "verb",
+   "meaning": "To look quickly, or from a place where you are hidden.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "peeped"
+   ]
+  },
+  "congratulate": {
+   "pos": "verb",
+   "meaning": "To tell someone that you are glad about something they did.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "effort": {
+   "pos": "noun",
+   "meaning": "A try at doing something.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "normal": {
+   "pos": "adjective",
+   "meaning": "Usual. The way things are most of the time.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "admit": {
+   "pos": "verb",
+   "meaning": "To say that something is true, even if you would rather not.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "queer": {
+   "pos": "adjective",
+   "meaning": "Strange.",
+   "whyHard": "An old word for strange."
+  },
+  "sight": {
+   "pos": "noun",
+   "meaning": "A thing that you see.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "smash": {
+   "pos": "verb",
+   "meaning": "To break into many small pieces by hitting hard.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "smashing"
+   ]
+  },
+  "soil": {
+   "pos": "noun",
+   "meaning": "The earth that plants grow in.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "sack": {
+   "pos": "noun",
+   "meaning": "A large strong bag.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "scatter": {
+   "pos": "verb",
+   "meaning": "To throw things so that they fall in many places.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "scattering"
+   ]
+  },
+  "handful": {
+   "pos": "noun",
+   "meaning": "As much as one hand can hold.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "lower": {
+   "pos": "verb",
+   "meaning": "To move something down.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "lowered"
+   ]
+  },
+  "honour": {
+   "pos": "noun",
+   "meaning": "Great respect. Doing a thing for someone to show that respect.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "feathered": {
+   "pos": "adjective",
+   "meaning": "Covered with feathers.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "dotty": {
+   "pos": "adjective",
+   "meaning": "A little crazy.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "tub": {
+   "pos": "noun",
+   "meaning": "A large bath.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "brim": {
+   "pos": "noun",
+   "meaning": "The top edge of a tub, a cup, or a bowl.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "bushy": {
+   "pos": "adjective",
+   "meaning": "Thick and full, sticking out.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "forefinger": {
+   "pos": "noun",
+   "meaning": "The finger next to the thumb.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "firewood": {
+   "pos": "noun",
+   "meaning": "Wood for burning in a fire.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "indoors": {
+   "pos": "adverb",
+   "meaning": "Inside a building.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "allow": {
+   "pos": "verb",
+   "meaning": "To let someone do something.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "allowed",
+    "allows"
+   ]
+  },
+  "stare": {
+   "pos": "verb",
+   "meaning": "To look for a long time with the eyes wide open.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "stared"
+   ]
+  },
+  "surround": {
+   "pos": "verb",
+   "meaning": "To be all around someone or something.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "surrounded"
+   ]
+  },
+  "instead": {
+   "pos": "adverb",
+   "meaning": "In the place of something else.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "towards": {
+   "pos": "preposition",
+   "meaning": "In the direction of. Moving that way.",
+   "whyHard": "This word is harder than everyday English."
+  },
+  "beak": {
+   "pos": "noun",
+   "meaning": "The hard mouth of a bird.",
+   "forms": [
+    "beaks"
+   ],
+   "whyHard": "A bird's mouth has this name."
+  },
+  "worm": {
+   "pos": "noun",
+   "meaning": "A long soft animal that lives in the soil. Birds eat them.",
+   "forms": [
+    "worms"
+   ]
+  },
+  "slug": {
+   "pos": "noun",
+   "meaning": "A soft animal like a snail, but with no shell.",
+   "forms": [
+    "slugs"
+   ]
+  },
+  "mound": {
+   "pos": "noun",
+   "meaning": "A small pile of soil, like a tiny hill.",
+   "forms": [
+    "mounds"
+   ]
+  },
+  "grave": {
+   "pos": "noun",
+   "meaning": "The place in the ground where a dead body is buried.",
+   "forms": [
+    "graves"
+   ]
+  },
+  "dove": {
+   "pos": "noun",
+   "meaning": "A quiet grey bird, like a small pigeon.",
+   "forms": [
+    "doves"
+   ]
+  },
+  "pigeon": {
+   "pos": "noun",
+   "meaning": "A grey bird that is common in towns.",
+   "forms": [
+    "pigeons"
+   ]
+  },
+  "sparrow": {
+   "pos": "noun",
+   "meaning": "A small brown bird.",
+   "forms": [
+    "sparrows"
+   ]
+  },
+  "lark": {
+   "pos": "noun",
+   "meaning": "A small bird that sings high in the sky.",
+   "forms": [
+    "larks"
+   ]
+  },
+  "hunter": {
+   "pos": "noun",
+   "meaning": "A person who goes out to kill animals.",
+   "forms": [
+    "hunters"
+   ]
+  },
+  "fox": {
+   "pos": "noun",
+   "meaning": "A wild animal like a dog, with a thick tail and red-brown fur.",
+   "forms": [
+    "foxes"
+   ]
   }
+ },
+ "paragraphs": [
+  {
+   "chapter": 1,
+   "paragraph": 8,
+   "context": "they would take their guns and go off into the woods",
+   "mainIdea": "Mr Gregg and his sons love hunting more than anything. They go every Saturday, even eight-year-old Philip.",
+   "simple": "Mr Gregg and his two boys liked one thing more than all other things. They liked to go hunting. Every Saturday morning they took their guns and went into the woods. They looked for animals and birds to shoot. Even Philip had his own gun. He was only eight years old.",
+   "hardWords": [
+    "hunting",
+    "go off",
+    "shoot",
+    "of his own"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 9,
+   "context": "I would do my best to talk them out of it",
+   "mainIdea": "The girl hates hunting and tries to stop the Greggs. They do not listen to her.",
+   "simple": "I hate hunting. I cannot bear it. I think it is wrong. Men and boys should not kill animals just for fun. So I tried to stop Philip and William. Each time I went to their farm, I tried hard to make them stop. But they only laughed at me.",
+   "hardWords": [
+    "can't stand",
+    "seem right",
+    "just for the fun",
+    "get out of",
+    "talk them out of it",
+    "do my best"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 19,
+   "context": "I had been telling myself that I would never put the Magic Finger",
+   "mainIdea": "For a long time the girl has told herself not to use the Magic Finger again. This is because of what happened to Mrs Winter.",
+   "simple": "For many months I had told myself the same thing. I would never use the Magic Finger on anyone again. This was because of what happened to my teacher, old Mrs Winter.",
+   "hardWords": [
+    "upon",
+    "not after what happened"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 29,
+   "context": "Will you be so kind as to tell me what you find so madly funny",
+   "mainIdea": "The class laughs loudly. Mrs Winter asks in a very polite way why they are laughing.",
+   "simple": "All the class began to laugh very loudly. Then Mrs Winter spoke. She said, 'Please tell me what is so funny. Tell me, all of you.' She used very polite words.",
+   "hardWords": [
+    "screaming with laughter",
+    "be so kind as to",
+    "madly"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 31,
+   "context": "I cannot begin to tell you what happened after that",
+   "mainIdea": "The girl cannot tell all that happened next. Mrs Winter is not well, and she never will be.",
+   "simple": "I cannot tell you all that happened next. Maybe you want to know if Mrs Winter is well again now. She is not. She will never be well again.",
+   "hardWords": [
+    "cannot begin to",
+    "quite all right",
+    "wondering whether"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 44,
+   "context": "Mr Gregg and Philip and William went out hunting once again",
+   "mainIdea": "That afternoon the Greggs go hunting again. This time they look for wild ducks.",
+   "simple": "That same afternoon Mr Gregg, Philip and William went hunting again. It was the day I put the Magic Finger on the Gregg family. This time they went after wild ducks. So they walked towards the lake.",
+   "hardWords": [
+    "went out hunting",
+    "once again",
+    "going after",
+    "headed towards"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 60,
+   "context": "He stopped and looked up. The night was very still",
+   "mainIdea": "At night Mr Gregg sees the four ducks flying around his house.",
+   "simple": "Mr Gregg stopped and looked up. The night was very quiet. A thin yellow moon was over the trees on the hill. The sky was full of stars. Then he heard wings flying low above his head. He saw the four ducks. They were dark against the sky and flew very close together. They were going around and around the house.",
+   "hardWords": [
+    "still",
+    "thin",
+    "filled with",
+    "against the night sky",
+    "around and around"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 101,
+   "context": "there below them, in their own garden, they saw four enormous wild ducks",
+   "mainIdea": "The Greggs see four very big ducks in their garden. The ducks have arms like men.",
+   "simple": "The family all looked down. In their own garden they saw four very big wild ducks. The ducks were as big as men. Also, they had long arms like men, not wings.",
+   "hardWords": [
+    "enormous",
+    "what is more",
+    "instead of",
+    "great long arms"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 147,
+   "context": "Every time you try to get your teeth into it, it just pushes away",
+   "mainIdea": "It is hard to eat apples with no hands. They only get a few small bites, and then they go to sleep in the nest.",
+   "simple": "Eating an apple is not easy when you cannot hold it in your hands. Each time you try to bite it, it moves away. At last they each got a few small bites. Then it began to get dark. So they all flew back to the nest and lay down to sleep.",
+   "hardWords": [
+    "get your teeth into",
+    "pushes away",
+    "in the end",
+    "bites"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 159,
+   "context": "Mr and Mrs Gregg and Philip and William were trying to get some sleep",
+   "mainIdea": "The night in the nest is very bad. There is wind and rain, and everyone gets wet.",
+   "simple": "That night the Greggs tried to sleep in the high nest. A great wind began to blow. The tree rocked from side to side. Everyone was afraid that the nest would fall down, even Mr Gregg. Then came the rain. It rained and rained. Water ran into the nest, and they all got as wet as could be. It was a bad, bad night.",
+   "hardWords": [
+    "rocked",
+    "from side to side",
+    "as wet as could be",
+    "great wind"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 189,
+   "context": "the black that was before their eyes turned to blue, to green, to red",
+   "mainIdea": "The colours change, and then the Greggs are suddenly in their own garden. Everything is normal again.",
+   "simple": "Then the black in front of their eyes turned to blue, then green, then red, and then gold. And suddenly there they were. They were standing in lovely bright sun in their own garden, near their own house. Everything was back to normal.",
+   "hardWords": [
+    "suddenly",
+    "back to normal",
+    "before their eyes",
+    "bright"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 194,
+   "context": "and I must admit I was expecting the worst",
+   "mainIdea": "The girl goes to the Greggs' garden. She expects the worst.",
+   "simple": "About half an hour later I walked into the Greggs' garden. I had come to see how things were going. I must say that I expected the worst. I stopped at the gate and stared. It was a strange thing to see.",
+   "hardWords": [
+    "must admit",
+    "expecting the worst",
+    "stared",
+    "queer sight"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 196,
+   "context": "placing beautiful flowers upon sixteen tiny mounds of soil which I learned later",
+   "mainIdea": "Mrs Gregg puts flowers on small graves. They are the graves of the ducks that were shot the day before.",
+   "simple": "In another corner Mrs Gregg was putting beautiful flowers on sixteen small piles of earth. Later I learned that these were the graves of the ducks. They were the ducks that had been shot the day before.",
+   "hardWords": [
+    "placing",
+    "mounds",
+    "soil",
+    "graves"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 197,
+   "context": "They were surrounded by ducks, doves, pigeons, sparrows, robins, larks, and many other kinds",
+   "mainIdea": "Philip and William feed barley to many kinds of birds in the yard.",
+   "simple": "In the middle of the yard stood Philip and William. A sack of their father's best barley was beside them. Ducks, doves, pigeons, sparrows, robins, larks and many other kinds that I did not know were all around them. The boys were throwing barley by the handful, and the birds were eating it.",
+   "hardWords": [
+    "surrounded by",
+    "barley",
+    "scattering",
+    "by the handful",
+    "sack"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 199,
+   "context": "In honour of my feathered friends, I have changed it from Gregg to Egg",
+   "mainIdea": "Mr Gregg says his name is not Gregg now. It is Egg, for his friends the birds.",
+   "simple": "Mr Gregg put down his hammer and looked at me. He said, 'My name is not Gregg any more. To show respect for my friends the birds, I have changed it from Gregg to Egg.'",
+   "hardWords": [
+    "lowered",
+    "in honour of",
+    "feathered"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 209,
+   "context": "They’re shooting mad, those Coopers are, the whole family",
+   "mainIdea": "Mr Egg says that the Coopers love shooting very much. The whole family is like that.",
+   "simple": "'That will be Jim Cooper,' Mr Egg said. 'He is with his three boys. Those Coopers love shooting very much. The whole family is the same.'",
+   "hardWords": [
+    "That'll be",
+    "shooting mad"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 122,
+   "context": "very good at making the sticks stick together",
+   "mainIdea": "The same sound is two words. Sticks are small pieces of wood, and stick means they stay joined.",
+   "simple": "The nest was getting bigger. Mr Gregg was very good at making the little pieces of wood hold on to each other.",
+   "hardWords": [
+    "sticks",
+    "stick"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 28,
+   "context": "long black whiskers, just like the ones you see",
+   "mainIdea": "Hairs like a cat's start growing on the teacher's face. She is turning into a cat-kind of person.",
+   "simple": "Long black hairs began to grow out of Mrs Winter's face. They were like the hairs on a cat, but much bigger. They grew so fast that they reached her ears.",
+   "hardWords": [
+    "whiskers",
+    "cat"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 78,
+   "context": "he had a pair of duck's wings instead",
+   "mainIdea": "Mr Gregg is no longer an ordinary man. Where his arms were, he now has the wings of a duck.",
+   "simple": "His arms were gone. In their place he had two wings, like a duck.",
+   "hardWords": [
+    "wings",
+    "arms"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 172,
+   "context": "now we are going to allow each other to shoot",
+   "mainIdea": "The duck says the ducks will now shoot the people, just as the people shot ducks.",
+   "simple": "The duck says that sounds fine. Now the ducks are going to let each other shoot Mr Gregg and his family.",
+   "hardWords": [
+    "allow",
+    "shoot",
+    "duck"
+   ]
+  }
+ ],
+ "sentences": [
+  {
+   "chapter": 1,
+   "context": "Now the one thing that Mr Gregg and his two boys loved to do more than anything else was to go hunting",
+   "simple": "Mr Gregg and his boys liked hunting more than all other things.",
+   "grammar": "'that Mr Gregg and his two boys loved to do' is a relative clause that tells which thing; 'was to go hunting' says what the thing was."
+  },
+  {
+   "chapter": 1,
+   "context": "Every time I went over to their farm I would do my best to talk them out of it",
+   "simple": "Each time I went to their farm, I tried hard to make them stop hunting.",
+   "grammar": "'would + verb' tells about something that happened again and again in the past; 'do my best to + verb' means try hard."
+  },
+  {
+   "chapter": 1,
+   "context": "It doesn’t seem right to me that men and boys should kill animals just for the fun they get out of it",
+   "simple": "I think it is wrong for men and boys to kill animals just for fun.",
+   "grammar": "'should kill' gives an opinion about what people do; 'the fun they get out of it' is a relative clause with 'that' left out."
+  },
+  {
+   "chapter": 1,
+   "context": "Mr Gregg told me to go home and mind my own P’s and Q’s",
+   "simple": "Mr Gregg told me to go home and take care how I behave.",
+   "grammar": "'told + person + to + verb' is how we report an order."
+  },
+  {
+   "chapter": 1,
+   "context": "I did something I never meant to do",
+   "simple": "I did something that I did not want to do.",
+   "grammar": "'something I never meant to do' is a relative clause with 'that' left out; 'never meant to' means did not plan to."
+  },
+  {
+   "chapter": 1,
+   "context": "For months I had been telling myself that I would never put the Magic Finger upon anyone again",
+   "simple": "For many months I had said to myself that I would not use the Magic Finger again.",
+   "grammar": "'had been telling' shows an action that went on for some time before a later past time; 'would never' is a promise for the future, told from the past."
+  },
+  {
+   "chapter": 1,
+   "context": "Will you be so kind as to tell me what you find so madly funny",
+   "simple": "Please tell me what you think is so funny.",
+   "grammar": "'Will you be so kind as to + verb' is a very polite way to ask; 'what you find so madly funny' is a noun clause."
+  },
+  {
+   "chapter": 1,
+   "context": "we saw that she had grown a tail as well",
+   "simple": "We saw that a tail had come out on her too.",
+   "grammar": "'had grown' is the past perfect: the tail grew before the moment we saw it; 'as well' means also."
+  },
+  {
+   "chapter": 1,
+   "context": "if any of you are wondering whether Mrs Winter is quite all right again now",
+   "simple": "Maybe you want to know if Mrs Winter is well again now.",
+   "grammar": "'are wondering whether ...' is present continuous with an indirect question; 'whether' means 'if'."
+  },
+  {
+   "chapter": 1,
+   "context": "The Magic Finger is something I have been able to do all my life",
+   "simple": "I have been able to use the Magic Finger for all my life.",
+   "grammar": "'have been able to' is the present perfect of 'can' (for all my life until now); 'something I have been able to do' is a relative clause with 'that' left out."
+  },
+  {
+   "chapter": 1,
+   "context": "there was no taking it off again",
+   "simple": "It was not possible to take it off again.",
+   "grammar": "'There is no + -ing word' means it is not possible to do that."
+  },
+  {
+   "chapter": 1,
+   "context": "He was beside himself with joy",
+   "simple": "He was extremely happy.",
+   "grammar": "'be beside oneself with + feeling' is an idiom: the feeling is so strong that the person cannot control it; 'himself' means Mr Gregg."
+  },
+  {
+   "chapter": 1,
+   "context": "What on earth are they doing",
+   "simple": "What are they doing? He is very surprised.",
+   "grammar": "'on earth' after a question word makes the question stronger and shows surprise."
+  },
+  {
+   "chapter": 1,
+   "context": "It’s getting too dark to see",
+   "simple": "It is becoming too dark for us to see.",
+   "grammar": "'getting + adjective' means becoming; 'too + adjective + to + verb' means too much for something to be possible."
+  },
+  {
+   "chapter": 1,
+   "context": "He was about to put out a hand for his watch, to see the time",
+   "simple": "He was going to put out a hand for his watch so that he could see the time.",
+   "grammar": "'was about to + verb' means he was just going to do it; 'to see the time' tells the purpose."
+  },
+  {
+   "chapter": 1,
+   "context": "He lay still, wondering what was up",
+   "simple": "He lay without moving and asked himself what was wrong.",
+   "grammar": "'wondering ...' is a participle phrase that shows two things happening together; 'what was up' means what was wrong."
+  },
+  {
+   "chapter": 1,
+   "context": "He was maybe as tall as the seat of a chair, but no taller",
+   "simple": "He was about as tall as the seat of a chair, and not taller.",
+   "grammar": "'as tall as' says two heights are the same; 'no taller' means not any taller."
+  },
+  {
+   "chapter": 1,
+   "context": "But before she could say another word, Philip and William had flown right out the window",
+   "simple": "Before she could say more, Philip and William had already flown out of the window.",
+   "grammar": "'before she could say ...' is a time clause; 'had flown' is the past perfect and shows it was already done."
+  },
+  {
+   "chapter": 1,
+   "context": "Mr Gregg was very good at making the sticks stick together",
+   "simple": "Mr Gregg was very good at making sticks stay together.",
+   "grammar": "'good at' is followed by the '-ing' form ('making')."
+  },
+  {
+   "chapter": 1,
+   "context": "But to eat an apple without holding it in your hands is not at all easy",
+   "simple": "It is not easy to eat an apple when you cannot hold it in your hands.",
+   "grammar": "The subject is 'to eat an apple without holding it in your hands'; 'without + -ing' means not doing something; 'not at all' makes 'not' stronger."
+  },
+  {
+   "chapter": 1,
+   "context": "It must have been at about this time that I, back in my own house, picked up the telephone",
+   "simple": "I am sure it was about this time that I picked up the telephone at my own house.",
+   "grammar": "'must have been' means I am sure it was so in the past; 'It was ... that ...' puts the focus on the time."
+  },
+  {
+   "chapter": 1,
+   "context": "Just because we have wings, we don’t have to eat bird food",
+   "simple": "We have wings. But that does not mean that we must eat bird food.",
+   "grammar": "'Just because ...' gives a reason, but the second part says it is not enough; 'don't have to' means it is not needed."
+  },
+  {
+   "chapter": 1,
+   "context": "And now we are going to allow each other to shoot you",
+   "simple": "And now we will let each other shoot you.",
+   "grammar": "'allow + person + to + verb' means to let someone do something; 'each other' means each one allows the other."
+  },
+  {
+   "chapter": 1,
+   "context": "I would have loved to have seen Mr Gregg’s face just then",
+   "simple": "I wish I could have seen Mr Gregg's face at that time.",
+   "grammar": "'would have loved to have seen' shows a wish about the past that did not come true."
+  },
+  {
+   "chapter": 1,
+   "context": "I’ll never shoot another duck as long as I live",
+   "simple": "I will never shoot another duck for all my life.",
+   "grammar": "'as long as I live' means for all the time I am alive; after 'as long as' we use the present tense ('live') for the future."
+  },
+  {
+   "chapter": 1,
+   "context": "And never again need you be afraid of me or my family",
+   "simple": "You will never need to be afraid of me or my family again.",
+   "grammar": "Inversion: after 'never again' at the start, the verb comes before the subject ('need you be' instead of 'you need be')."
+  },
+  {
+   "chapter": 1,
+   "context": "They seemed to have gone completely dotty, all four of them",
+   "simple": "It seemed that all four of them had gone completely mad.",
+   "grammar": "'seem to have + past participle' says that something seems to have happened before now."
+  },
+  {
+   "chapter": 1,
+   "context": "Oh, we will be pecked to bits by those dirty great ducks",
+   "simple": "Oh, those big dirty ducks will bite us into little pieces!",
+   "grammar": "'will be pecked' is the future passive (will be + past participle); 'by those ... ducks' says who does it; 'to bits' means into small pieces."
+  },
+  {
+   "chapter": 1,
+   "context": "I shall now tell you what those things were",
+   "simple": "Now I will tell you what those things were.",
+   "grammar": "'shall' is a formal way to say 'will' after 'I'; 'what those things were' is a noun clause."
+  },
+  {
+   "chapter": 1,
+   "context": "In honour of my feathered friends, I have changed it from Gregg to Egg",
+   "simple": "To show that I think well of the birds, I have changed my name from Gregg to Egg.",
+   "grammar": "'In honour of' starts a phrase meaning 'to show respect for'; 'have changed' is the present perfect for a change that is still true now."
+  }
+ ],
+ "phrases": {
+  "see red": {
+   "meaning": "To become very angry.",
+   "pos": "idiom",
+   "forms": [
+    "saw red",
+    "see red"
+   ],
+   "example": "But it always happens when I get cross, when I see red…"
+  },
+  "talk out of": {
+   "meaning": "To make someone decide not to do something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "talk them out of"
+   ],
+   "example": "I would do my best to talk them out of it"
+  },
+  "go off": {
+   "meaning": "To leave and go somewhere.",
+   "pos": "phrasal verb",
+   "forms": [
+    "go off",
+    "went off"
+   ],
+   "example": "take their guns and go off into the woods"
+  },
+  "make faces": {
+   "meaning": "To make a funny or ugly face at someone.",
+   "pos": "phrase",
+   "forms": [
+    "made faces at",
+    "make faces"
+   ],
+   "example": "The boys laughed and made faces at me"
+  },
+  "mind one's own p's and q's": {
+   "meaning": "To take care how you behave. Mr Gregg says this to tell the girl to go home.",
+   "pos": "idiom",
+   "forms": [
+    "mind my own P’s and Q’s"
+   ],
+   "example": "Mr Gregg told me to go home and mind my own P’s and Q’s"
+  },
+  "that did it": {
+   "meaning": "That was the last thing, and it was too much.",
+   "pos": "idiom",
+   "forms": [
+    "that did it"
+   ],
+   "example": "Well, that did it!"
+  },
+  "get out of": {
+   "meaning": "To get something good from an action.",
+   "pos": "phrasal verb",
+   "forms": [
+    "get out of"
+   ],
+   "example": "just for the fun they get out of it"
+  },
+  "be beside oneself": {
+   "meaning": "To have a very strong feeling, like joy, and not be able to control it.",
+   "pos": "idiom",
+   "forms": [
+    "was beside himself"
+   ],
+   "example": "He was beside himself with joy."
+  },
+  "ask for it": {
+   "meaning": "To do something that will bring trouble to you.",
+   "pos": "idiom",
+   "forms": [
+    "asking for it"
+   ],
+   "example": "They are really asking for it this time!"
+  },
+  "what on earth": {
+   "meaning": "Words that make a question stronger, to show surprise.",
+   "pos": "idiom",
+   "forms": [
+    "what on earth"
+   ],
+   "example": "What on earth are they doing?"
+  },
+  "be off": {
+   "meaning": "Go away.",
+   "pos": "phrasal verb",
+   "forms": [
+    "Be off"
+   ],
+   "example": "‘Be off!’ he cried"
+  },
+  "all at once": {
+   "meaning": "Suddenly.",
+   "pos": "idiom",
+   "forms": [
+    "all at once"
+   ],
+   "example": "and all at once, up he went."
+  },
+  "at once": {
+   "meaning": "Right now, or very soon after.",
+   "pos": "phrase",
+   "forms": [
+    "at once"
+   ],
+   "example": "Come down at once!"
+  },
+  "come on": {
+   "meaning": "Words used to ask someone to come or to join in.",
+   "pos": "phrasal verb",
+   "forms": [
+    "Come on",
+    "come on"
+   ],
+   "example": "Come on, let’s try."
+  },
+  "catch up with": {
+   "meaning": "To get to the place where someone else is, by going faster.",
+   "pos": "phrasal verb",
+   "forms": [
+    "catch up with"
+   ],
+   "example": "it did not take them long to catch up with Philip and William"
+  },
+  "burst in": {
+   "meaning": "To come into a room very fast and suddenly.",
+   "pos": "phrasal verb",
+   "forms": [
+    "burst in"
+   ],
+   "example": "Philip and William burst in."
+  },
+  "fly off": {
+   "meaning": "To fly away.",
+   "pos": "phrasal verb",
+   "forms": [
+    "flew off",
+    "fly off"
+   ],
+   "example": "So they flew off to an apple tree."
+  },
+  "pick up": {
+   "meaning": "To take something up in your hand.",
+   "pos": "phrasal verb",
+   "forms": [
+    "picked up"
+   ],
+   "example": "picked up the telephone and tried to call Philip"
+  },
+  "put down": {
+   "meaning": "To put something on a table or the floor, or to stop holding it.",
+   "pos": "phrasal verb",
+   "forms": [
+    "put down"
+   ],
+   "example": "I put down the telephone quickly."
+  },
+  "get the surprise of one's life": {
+   "meaning": "To be very, very surprised.",
+   "pos": "idiom",
+   "forms": [
+    "got the surprise of his life"
+   ],
+   "example": "He got the surprise of his life!"
+  },
+  "by the way": {
+   "meaning": "Words used to add a new thing to what you say.",
+   "pos": "idiom",
+   "forms": [
+    "by the way"
+   ],
+   "example": "And by the way, may I congratulate you on the nest."
+  },
+  "turn around": {
+   "meaning": "To face the other way.",
+   "pos": "phrasal verb",
+   "forms": [
+    "turned around",
+    "turn around"
+   ],
+   "example": "the four ducks turned around and came flying right back to the guns"
+  },
+  "take over": {
+   "meaning": "To get control of a place.",
+   "pos": "phrasal verb",
+   "forms": [
+    "taken over",
+    "take over"
+   ],
+   "example": "They have taken over our whole house!"
+  },
+  "mince up": {
+   "meaning": "To cut food into very small bits.",
+   "pos": "phrasal verb",
+   "forms": [
+    "mince up"
+   ],
+   "example": "I can mince it all up very fine"
+  },
+  "build up": {
+   "meaning": "To grow bigger and stronger.",
+   "pos": "phrasal verb",
+   "forms": [
+    "building up"
+   ],
+   "example": "I could feel the power building up and up inside me"
+  },
+  "give one's word": {
+   "meaning": "To promise.",
+   "pos": "idiom",
+   "forms": [
+    "give me your word"
+   ],
+   "example": "Will you give me your word on that?"
+  },
+  "put out": {
+   "meaning": "To stretch a hand or arm out.",
+   "pos": "phrasal verb",
+   "forms": [
+    "put out"
+   ],
+   "example": "He was about to put out a hand for his watch"
+  },
+  "leave alone": {
+   "meaning": "To not trouble someone.",
+   "pos": "phrasal verb",
+   "forms": [
+    "leave them alone"
+   ],
+   "example": "But the four ducks would not leave them alone."
+  },
+  "shoot at": {
+   "meaning": "To fire a gun towards something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "shot at",
+    "shooting at"
+   ],
+   "example": "He shot at them again."
+  },
+  "go on": {
+   "meaning": "To keep doing something, or to keep happening.",
+   "pos": "phrasal verb",
+   "forms": [
+    "go on",
+    "went on",
+    "going on"
+   ],
+   "example": "The building of the nest went on and on."
+  },
+  "wake up": {
+   "meaning": "To stop sleeping.",
+   "pos": "phrasal verb",
+   "forms": [
+    "wake up",
+    "woke up"
+   ],
+   "example": "When morning came, Mr Gregg was the first to wake up."
+  },
+  "go away": {
+   "meaning": "To leave.",
+   "pos": "phrasal verb",
+   "forms": [
+    "go away"
+   ],
+   "example": "nothing would make them go away"
+  },
+  "in honour of": {
+   "meaning": "To show respect for someone.",
+   "pos": "phrase",
+   "forms": [
+    "in honour of"
+   ],
+   "example": "In honour of my feathered friends"
+  },
+  "take off": {
+   "meaning": "To remove something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "taking off"
+   ],
+   "example": "there was no taking it off again"
+  },
+  "can't stand": {
+   "meaning": "To hate something so much that you will not put up with it.",
+   "pos": "idiom",
+   "example": "I can't stand hunting."
+  },
+  "red in the face": {
+   "meaning": "With a face that has turned red because you are angry or ashamed.",
+   "pos": "idiom",
+   "example": "Mr Gregg got very red in the face."
+  },
+  "purple in the face": {
+   "meaning": "With a face that has turned purple from shock or anger.",
+   "pos": "idiom",
+   "example": "cried Mrs Gregg, going purple in the face."
+  },
+  "what's up": {
+   "meaning": "What is wrong, or what is happening.",
+   "pos": "idiom",
+   "forms": [
+    "what was up"
+   ],
+   "example": "wondering what was up."
+  },
+  "good and strong": {
+   "meaning": "With full force. Very hard.",
+   "pos": "idiom",
+   "example": "I put the Magic Finger on Mrs Winter good and strong"
+  },
+  "dirty great": {
+   "meaning": "Very, very big. Dirty here does not mean unclean.",
+   "pos": "idiom",
+   "example": "those dirty great ducks"
+  },
+  "how dare": {
+   "meaning": "Words that show you are shocked and angry that someone did a thing.",
+   "pos": "idiom",
+   "example": "How dare she!"
+  },
+  "would rather": {
+   "meaning": "To want one thing more than another.",
+   "pos": "idiom",
+   "example": "I would rather die."
+  },
+  "to the brim": {
+   "meaning": "Right up to the top edge.",
+   "pos": "phrase",
+   "example": "They filled the tub right up to the brim"
+  },
+  "shooting mad": {
+   "meaning": "Crazy about shooting. Loving it far too much.",
+   "pos": "idiom",
+   "example": "They're shooting mad, those Coopers are"
+  },
+  "expecting the worst": {
+   "meaning": "Thinking that something very bad has happened.",
+   "pos": "idiom",
+   "example": "I must admit I was expecting the worst."
+  },
+  "by the handful": {
+   "meaning": "Using as much as one hand can hold, again and again.",
+   "pos": "phrase",
+   "example": "scattering by the handful"
+  },
+  "thank goodness": {
+   "meaning": "Words that show you are glad a bad time is over.",
+   "pos": "idiom",
+   "example": "Thank goodness that's over!"
+  },
+  "as long as": {
+   "meaning": "For all the time that. Here, for the whole of a life.",
+   "pos": "phrase",
+   "example": "as long as I live"
+  },
+  "one bit": {
+   "meaning": "At all. Not one bit means not even a little.",
+   "pos": "idiom",
+   "example": "Mr Gregg did not like it one bit."
+  },
+  "to bits": {
+   "meaning": "Into small pieces.",
+   "pos": "phrase",
+   "example": "we will be pecked to bits"
+  }
+ }
 }

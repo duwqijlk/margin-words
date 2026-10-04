@@ -1795,6 +1795,2574 @@
   "chronicle": {
    "pos": "noun",
    "meaning": "A story that tells events in the order they happened."
+  },
+  "reckon": {
+   "pos": "verb",
+   "meaning": "To think or suppose."
+  },
+  "presently": {
+   "pos": "adverb",
+   "meaning": "Soon. It does not mean now.",
+   "whyHard": "It looks like it means now, but it means soon."
+  },
+  "company": {
+   "pos": "noun",
+   "meaning": "People who are with you.",
+   "whyHard": "It is not a business. It means the people around you."
+  },
+  "bark": {
+   "pos": "noun",
+   "meaning": "The hard outside skin of a tree.",
+   "whyHard": "It is not the sound a dog makes."
+  },
+  "pipe": {
+   "pos": "noun",
+   "meaning": "A small tube used for smoking dried leaves.",
+   "forms": [
+    "pipes"
+   ]
+  },
+  "fix": {
+   "pos": "noun",
+   "meaning": "A bad situation that is hard to get out of.",
+   "whyHard": "It looks like mended, but here it means trouble you are in."
+  },
+  "season": {
+   "pos": "noun",
+   "meaning": "A length of time. With in before it, the phrase means early enough, not too late.",
+   "whyHard": "Here it is a length of time, not spring, summer, autumn, or winter."
+  },
+  "custom": {
+   "pos": "noun",
+   "meaning": "The usual way a group of people does something."
+  },
+  "present": {
+   "pos": "adjective",
+   "meaning": "Here, or now. Not a gift.",
+   "whyHard": "It looks like a gift, but here it means here, or now."
+  },
+  "lam": {
+   "pos": "verb",
+   "meaning": "To hit someone.",
+   "whyHard": "It looks a little like lamb, but it means to hit."
+  },
+  "spare": {
+   "pos": "verb",
+   "meaning": "To not use something, or to have a little extra to give."
+  },
+  "file": {
+   "pos": "noun",
+   "meaning": "A metal tool with a rough face, for rubbing something smooth."
+  },
+  "spell": {
+   "pos": "noun",
+   "meaning": "A magic feeling.",
+   "whyHard": "It looks like spelling, but here it is a magic feeling."
+  },
+  "striking": {
+   "pos": "adjective",
+   "meaning": "Very noticeable."
+  },
+  "thou": {
+   "pos": "pronoun",
+   "meaning": "An old word for you, used when speaking to someone."
+  },
+  "thee": {
+   "pos": "pronoun",
+   "meaning": "An old word for you, used after a verb."
+  },
+  "thy": {
+   "pos": "pronoun",
+   "meaning": "An old word for your."
+  },
+  "doth": {
+   "pos": "verb",
+   "meaning": "An old word for does."
+  },
+  "lawn": {
+   "pos": "noun",
+   "meaning": "A thin pretty cloth.",
+   "whyHard": "It looks like the grass by a house, but here it is cloth."
+  },
+  "latin": {
+   "pos": "noun",
+   "meaning": "The language of ancient Rome. The school teaches it."
+  },
+  "muslin": {
+   "pos": "noun",
+   "meaning": "A thin cotton cloth."
+  },
+  "negro": {
+   "pos": "noun",
+   "meaning": "An old word for a Black person."
+  },
+  "mulatto": {
+   "pos": "noun",
+   "meaning": "An old word for a person with one Black parent and one white parent."
+  },
+  "tights": {
+   "pos": "plural noun",
+   "meaning": "Clothes that fit tight on the legs."
+  },
+  "plume": {
+   "pos": "noun",
+   "meaning": "A large feather worn as a decoration.",
+   "forms": [
+    "plumes"
+   ]
+  },
+  "skull": {
+   "pos": "noun",
+   "meaning": "The bones of a head."
+  },
+  "crossbones": {
+   "pos": "noun",
+   "meaning": "Two bones crossed under a skull on a pirate flag."
+  },
+  "jackboots": {
+   "pos": "plural noun",
+   "meaning": "Very tall boots that reach the knee."
+  },
+  "quarterstaff": {
+   "pos": "noun",
+   "meaning": "A long wooden pole used as a weapon."
+  },
+  "friar": {
+   "pos": "noun",
+   "meaning": "A religious man who lives a simple life."
+  },
+  "stabboard": {
+   "pos": "noun",
+   "meaning": "The boy's word for the right side of a boat. The real word is starboard."
+  },
+  "starboard": {
+   "pos": "noun",
+   "meaning": "The right side of a boat, when you face the front."
+  },
+  "bight": {
+   "pos": "noun",
+   "meaning": "A loop of rope."
+  },
+  "aloft": {
+   "pos": "adverb",
+   "meaning": "High up. On a ship it means up in the ropes."
+  },
+  "cob": {
+   "pos": "noun",
+   "meaning": "The hard center of an ear of corn. A boy makes a pipe from one."
+  },
+  "corncob": {
+   "pos": "noun",
+   "meaning": "The hard center of an ear of corn.",
+   "forms": [
+    "corncobs"
+   ]
+  },
+  "crust": {
+   "pos": "noun",
+   "meaning": "A dry hard piece of bread.",
+   "forms": [
+    "crusts"
+   ]
+  },
+  "match": {
+   "pos": "noun",
+   "meaning": "A small stick that starts a fire when you rub it.",
+   "forms": [
+    "matches"
+   ]
+  },
+  "bullet": {
+   "pos": "noun",
+   "meaning": "The small metal piece that a gun shoots.",
+   "forms": [
+    "bullets"
+   ]
+  },
+  "boot": {
+   "pos": "noun",
+   "meaning": "A shoe that covers the foot and part of the leg."
+  },
+  "oar": {
+   "pos": "noun",
+   "meaning": "A long pole with a flat end, used to row a boat.",
+   "forms": [
+    "oars"
+   ]
+  },
+  "ham": {
+   "pos": "noun",
+   "meaning": "Meat from the leg of a pig.",
+   "forms": [
+    "hams"
+   ]
+  },
+  "ferry": {
+   "pos": "noun",
+   "meaning": "A boat that carries people across a river."
+  },
+  "ferryboat": {
+   "pos": "noun",
+   "meaning": "A boat that carries people across a river."
+  },
+  "kindling": {
+   "pos": "noun",
+   "meaning": "Small sticks used to start a fire.",
+   "forms": [
+    "kindlings"
+   ]
+  },
+  "chip": {
+   "pos": "noun",
+   "meaning": "A small piece of cut wood.",
+   "forms": [
+    "chips"
+   ]
+  },
+  "whisper": {
+   "pos": "verb",
+   "meaning": "To speak very softly, so only a near person can hear.",
+   "forms": [
+    "whispered"
+   ]
+  },
+  "breath": {
+   "pos": "noun",
+   "meaning": "Air going in or out of the body."
+  },
+  "conscience": {
+   "pos": "noun",
+   "meaning": "The feeling inside you that tells you when you have done wrong."
+  },
+  "clay": {
+   "pos": "noun",
+   "meaning": "Soft sticky earth."
+  },
+  "thread": {
+   "pos": "noun",
+   "meaning": "A thin string used for sewing."
+  },
+  "brush": {
+   "pos": "noun",
+   "meaning": "A tool with stiff hairs, used to spread paint."
+  },
+  "needle": {
+   "pos": "noun",
+   "meaning": "A thin metal tool with a hole, used for sewing.",
+   "forms": [
+    "needles"
+   ]
+  },
+  "collar": {
+   "pos": "noun",
+   "meaning": "The band of a shirt that goes around the neck."
+  },
+  "bucket": {
+   "pos": "noun",
+   "meaning": "A deep round container with a handle, for carrying water."
+  },
+  "pail": {
+   "pos": "noun",
+   "meaning": "A bucket, used for carrying water."
+  },
+  "barrel": {
+   "pos": "noun",
+   "meaning": "A large round wooden container.",
+   "forms": [
+    "barrels"
+   ]
+  },
+  "stump": {
+   "pos": "noun",
+   "meaning": "The part of a tree left in the ground after the tree is cut."
+  },
+  "raft": {
+   "pos": "noun",
+   "meaning": "Logs or boards tied together so they can float."
+  },
+  "fence": {
+   "pos": "noun",
+   "meaning": "A wall of boards around a yard.",
+   "forms": [
+    "fences"
+   ]
+  },
+  "candle": {
+   "pos": "noun",
+   "meaning": "A stick of wax with a string in it. It burns and gives light.",
+   "forms": [
+    "candles"
+   ]
+  },
+  "lantern": {
+   "pos": "noun",
+   "meaning": "A lamp you can carry. A cover keeps the flame from going out."
+  },
+  "cave": {
+   "pos": "noun",
+   "meaning": "A large hollow place under the ground or inside rock."
+  },
+  "treasure": {
+   "pos": "noun",
+   "meaning": "Money or gold that someone has hidden."
+  },
+  "pirate": {
+   "pos": "noun",
+   "meaning": "A person who stops ships and steals from them.",
+   "forms": [
+    "pirates"
+   ]
+  },
+  "bacon": {
+   "pos": "noun",
+   "meaning": "Salted meat from the side of a pig."
+  },
+  "whiskey": {
+   "pos": "noun",
+   "meaning": "A strong drink that can make a person drunk."
+  },
+  "tobacco": {
+   "pos": "noun",
+   "meaning": "Dried leaves that people smoke."
+  },
+  "skillet": {
+   "pos": "noun",
+   "meaning": "A pan used for cooking."
+  },
+  "pone": {
+   "pos": "noun",
+   "meaning": "A flat bread made from corn meal."
+  },
+  "jug": {
+   "pos": "noun",
+   "meaning": "A container with a handle and a narrow neck, for holding drink."
+  },
+  "keg": {
+   "pos": "noun",
+   "meaning": "A small barrel."
+  },
+  "cupboard": {
+   "pos": "noun",
+   "meaning": "A closet with shelves, for dishes or food."
+  },
+  "bureau": {
+   "pos": "noun",
+   "meaning": "A chest of drawers for clothes.",
+   "whyHard": "It is a piece of furniture, not an office."
+  },
+  "garret": {
+   "pos": "noun",
+   "meaning": "A small room just under the roof."
+  },
+  "attic": {
+   "pos": "noun",
+   "meaning": "A room under the roof of a house."
+  },
+  "cellar": {
+   "pos": "noun",
+   "meaning": "A room under a house.",
+   "forms": [
+    "cellars"
+   ]
+  },
+  "loft": {
+   "pos": "noun",
+   "meaning": "A space under a roof, used for storing things."
+  },
+  "fireplace": {
+   "pos": "noun",
+   "meaning": "The open place in a room where a fire burns."
+  },
+  "chimney": {
+   "pos": "noun",
+   "meaning": "The tall pipe that carries smoke up from a fire."
+  },
+  "broom": {
+   "pos": "noun",
+   "meaning": "A brush on a long handle, used for sweeping the floor."
+  },
+  "basin": {
+   "pos": "noun",
+   "meaning": "A wide bowl for holding water."
+  },
+  "wig": {
+   "pos": "noun",
+   "meaning": "A covering of false hair."
+  },
+  "apron": {
+   "pos": "noun",
+   "meaning": "A cloth worn over the front of other clothes to keep them clean."
+  },
+  "handkerchief": {
+   "pos": "noun",
+   "meaning": "A small cloth for the face or the nose.",
+   "forms": [
+    "handkerchiefs"
+   ]
+  },
+  "trousers": {
+   "pos": "plural noun",
+   "meaning": "Pants."
+  },
+  "suspender": {
+   "pos": "noun",
+   "meaning": "A strap over the shoulder that holds pants up."
+  },
+  "bonnet": {
+   "pos": "noun",
+   "meaning": "A soft hat for a woman or a girl, often tied under the chin."
+  },
+  "slate": {
+   "pos": "noun",
+   "meaning": "A small dark board that a child writes on."
+  },
+  "rod": {
+   "pos": "noun",
+   "meaning": "A thin stick used to hit a child as a punishment."
+  },
+  "circus": {
+   "pos": "noun",
+   "meaning": "A traveling show with animals, clowns, and tricks."
+  },
+  "marble": {
+   "pos": "noun",
+   "meaning": "A small hard ball used in a children's game.",
+   "forms": [
+    "marbles"
+   ]
+  },
+  "sword": {
+   "pos": "noun",
+   "meaning": "A long metal blade used for fighting.",
+   "forms": [
+    "swords"
+   ]
+  },
+  "pistol": {
+   "pos": "noun",
+   "meaning": "A small gun held in one hand.",
+   "forms": [
+    "pistols"
+   ]
+  },
+  "bowie": {
+   "pos": "noun",
+   "meaning": "A long knife. The book joins this word to knife with a hyphen."
+  },
+  "murder": {
+   "pos": "noun",
+   "meaning": "The killing of a person.",
+   "forms": [
+    "murdered"
+   ]
+  },
+  "robber": {
+   "pos": "noun",
+   "meaning": "A person who steals.",
+   "forms": [
+    "robbers"
+   ]
+  },
+  "jail": {
+   "pos": "noun",
+   "meaning": "A place where a person is locked up.",
+   "forms": [
+    "jailed"
+   ]
+  },
+  "beetle": {
+   "pos": "noun",
+   "meaning": "An insect with a hard cover on its back."
+  },
+  "funeral": {
+   "pos": "noun",
+   "meaning": "The church service for a person who has died."
+  },
+  "coffin": {
+   "pos": "noun",
+   "meaning": "The box a dead person is buried in."
+  },
+  "graveyard": {
+   "pos": "noun",
+   "meaning": "Ground where dead people are buried."
+  },
+  "tombstone": {
+   "pos": "noun",
+   "meaning": "A stone that marks where a dead person is buried."
+  },
+  "tavern": {
+   "pos": "noun",
+   "meaning": "A house that sells drinks and meals, and has rooms for the night."
+  },
+  "sheriff": {
+   "pos": "noun",
+   "meaning": "The officer who keeps order in a county and catches law-breakers."
+  },
+  "widow": {
+   "pos": "noun",
+   "meaning": "A woman whose husband has died.",
+   "forms": [
+    "widder"
+   ]
+  },
+  "hymn": {
+   "pos": "noun",
+   "meaning": "A song people sing to God in church."
+  },
+  "hymnbook": {
+   "pos": "noun",
+   "meaning": "A book of songs for church."
+  },
+  "sermon": {
+   "pos": "noun",
+   "meaning": "A talk in church about how to be good.",
+   "forms": [
+    "sermons"
+   ]
+  },
+  "bible": {
+   "pos": "noun",
+   "meaning": "The holy book read in the church."
+  },
+  "sabbath": {
+   "pos": "noun",
+   "meaning": "Sunday, kept as a day of rest and church."
+  },
+  "minister": {
+   "pos": "noun",
+   "meaning": "The person who leads a church."
+  },
+  "scripture": {
+   "pos": "noun",
+   "meaning": "A line from the holy book of the church.",
+   "forms": [
+    "scriptures"
+   ]
+  },
+  "amen": {
+   "pos": "noun",
+   "meaning": "The word said at the end of a prayer to show that people agree."
+  },
+  "choir": {
+   "pos": "noun",
+   "meaning": "The group of people who sing in church."
+  },
+  "altar": {
+   "pos": "noun",
+   "meaning": "The holy table at the front of a church."
+  },
+  "congregation": {
+   "pos": "noun",
+   "meaning": "The people gathered in church."
+  },
+  "disciple": {
+   "pos": "noun",
+   "meaning": "One of the twelve close followers of Jesus in the Bible.",
+   "forms": [
+    "disciples"
+   ]
+  },
+  "lawyer": {
+   "pos": "noun",
+   "meaning": "A person who speaks for someone in a court.",
+   "forms": [
+    "lawyers"
+   ]
+  },
+  "mayor": {
+   "pos": "noun",
+   "meaning": "The head official of a town."
+  },
+  "rev": {
+   "pos": "noun",
+   "meaning": "A short title for a minister. It comes before his name."
+  },
+  "witness": {
+   "pos": "noun",
+   "meaning": "A person who tells a court what he saw.",
+   "forms": [
+    "witnesses"
+   ]
+  },
+  "oath": {
+   "pos": "noun",
+   "meaning": "A very serious promise, often made in court.",
+   "forms": [
+    "oaths"
+   ]
+  },
+  "jury": {
+   "pos": "noun",
+   "meaning": "The group of people in court who decide if someone is guilty."
+  },
+  "spade": {
+   "pos": "noun",
+   "meaning": "A digging tool with a flat blade.",
+   "forms": [
+    "spades"
+   ]
+  },
+  "shovel": {
+   "pos": "noun",
+   "meaning": "A tool with a broad blade, for digging and lifting dirt.",
+   "forms": [
+    "shovels"
+   ]
+  },
+  "hearse": {
+   "pos": "noun",
+   "meaning": "A wagon that carries a dead person."
+  },
+  "wharf": {
+   "pos": "noun",
+   "meaning": "A platform at the river where boats stop."
+  },
+  "stable": {
+   "pos": "noun",
+   "meaning": "A building where horses or cows are kept."
+  },
+  "locust": {
+   "pos": "noun",
+   "meaning": "A kind of tree. Here its flowers are open."
+  },
+  "hickory": {
+   "pos": "noun",
+   "meaning": "A tree with very hard wood."
+  },
+  "sycamore": {
+   "pos": "noun",
+   "meaning": "A tree with smooth pale bark. The boys write on pieces of it."
+  },
+  "jimpson": {
+   "pos": "noun",
+   "meaning": "A tall weed in a garden."
+  },
+  "pinchbug": {
+   "pos": "noun",
+   "meaning": "A large black beetle that can pinch."
+  },
+  "rattlesnake": {
+   "pos": "noun",
+   "meaning": "A poisonous snake. Hard rings on its tail make a shaking sound."
+  },
+  "catfish": {
+   "pos": "noun",
+   "meaning": "A river fish with long feelers by its mouth."
+  },
+  "painkiller": {
+   "pos": "noun",
+   "meaning": "A strong liquid medicine with a sharp taste."
+  },
+  "signpainter": {
+   "pos": "noun",
+   "meaning": "A person whose job is painting signs."
+  },
+  "goatee": {
+   "pos": "noun",
+   "meaning": "A small beard on the chin only."
+  },
+  "banknote": {
+   "pos": "noun",
+   "meaning": "A piece of paper money."
+  },
+  "sleigh": {
+   "pos": "noun",
+   "meaning": "A cart with runners, made to slide on snow."
+  },
+  "aisle": {
+   "pos": "noun",
+   "meaning": "The walkway between rows of seats."
+  },
+  "poodle": {
+   "pos": "noun",
+   "meaning": "A dog with thick curly hair."
+  },
+  "lapel": {
+   "pos": "noun",
+   "meaning": "The folded front edge of a coat, beside the neck.",
+   "forms": [
+    "lapels"
+   ]
+  },
+  "pansy": {
+   "pos": "noun",
+   "meaning": "A small garden flower."
+  },
+  "midnight": {
+   "pos": "noun",
+   "meaning": "Twelve o'clock at night."
+  },
+  "devil": {
+   "pos": "noun",
+   "meaning": "An evil spirit."
+  },
+  "corpse": {
+   "pos": "noun",
+   "meaning": "A dead body."
+  },
+  "sass": {
+   "pos": "noun",
+   "meaning": "Rude, disrespectful talk."
+  },
+  "singed": {
+   "pos": "adjective",
+   "meaning": "Burned a little on the surface."
+  },
+  "fan": {
+   "pos": "noun",
+   "meaning": "A flat thing you wave to make a cool breeze."
+  },
+  "copper": {
+   "pos": "noun",
+   "meaning": "A coin worth very little.",
+   "forms": [
+    "coppers"
+   ]
+  },
+  "cent": {
+   "pos": "noun",
+   "meaning": "A small coin. One hundred of them make a dollar.",
+   "forms": [
+    "cents"
+   ]
+  },
+  "dime": {
+   "pos": "noun",
+   "meaning": "A coin worth ten cents."
+  },
+  "truck": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Stuff. Here it is the jam on the boy's mouth.",
+   "senses": [
+    {
+     "meaning": "Stuff. Here it is the jam on the boy's mouth.",
+     "whyHard": "Not the usual meaning! Usually: a truck is a big car for carrying things.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "truck",
+       "context": "look at your mouth. What is that truck"
+      }
+     ]
+    }
+   ]
+  },
+  "saw": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To cut wood with a toothed blade.",
+   "senses": [
+    {
+     "meaning": "To cut wood with a toothed blade.",
+     "whyHard": "Not the usual meaning! Usually: saw means did see.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "saw",
+       "context": "the small colored boy, saw next-day’s"
+      }
+     ]
+    }
+   ]
+  },
+  "alley": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A kind of marble, the small ball in a children's game.",
+   "senses": [
+    {
+     "meaning": "A kind of marble, the small ball in a children's game.",
+     "whyHard": "Not the usual meaning! Usually: an alley is a narrow street.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "alley",
+       "context": "marvel. I’ll give you a white alley"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "alley",
+       "context": "White alley, Jim! And it’s a bully"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "form": "alley",
+       "context": "pail, took the white alley, and bent over"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "alley",
+       "context": "I lost a white alley. No, ’twas the"
+      }
+     ]
+    }
+   ]
+  },
+  "yard": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A measure of length, about one long step.",
+   "forms": [
+    "yards"
+   ],
+   "senses": [
+    {
+     "meaning": "A measure of length, about one long step.",
+     "whyHard": "Not the usual meaning! Usually: a yard is the ground beside a house.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "yards",
+       "context": "upon his spirit. Thirty yards of board fence"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "yards",
+       "context": "a hundred and fifty yards off, Jim never"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "yards",
+       "context": "fell a couple of yards away, and lit"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "yards",
+       "context": "sprang a couple of yards in the air"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "yards",
+       "context": "great raft a hundred yards above, and they"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "yards",
+       "context": "the bar two hundred yards above the head"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "yards",
+       "context": "channel hardly two hundred yards wide. They took"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "yards",
+       "context": "swim the remaining hundred yards. He swam quartering"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "yards",
+       "context": "the dusk, landing fifty yards downstream, out of"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "yards",
+       "context": "that moment, not twenty yards away, a human"
+      }
+     ]
+    }
+   ]
+  },
+  "lay": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "A firm way to say that something is so. It is not the same as lie down.",
+   "senses": [
+    {
+     "meaning": "I am sure of this.",
+     "whyHard": "Not the usual meaning! Usually: lay means to put something down, or to lie down.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "lay",
+       "context": "Well, I lay if I get hold of"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "lay",
+       "context": "I lay I did! There must ’a’ been"
+      }
+     ]
+    },
+    {
+     "meaning": "The way things really are. This tells what she was really trying to find out.",
+     "whyHard": "Not the usual meaning! Usually: lay means to put something down.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "lay",
+       "context": "knew where the wind lay, now. So he"
+      }
+     ]
+    },
+    {
+     "meaning": "To wait hidden so you can catch someone.",
+     "whyHard": "Not the usual meaning! Usually: lay means to put something down.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "lay",
+       "context": "said he “ ’lowed” to “lay” for that boy"
+      }
+     ]
+    },
+    {
+     "meaning": "A loud order on a pretend boat, telling the men to go up.",
+     "whyHard": "Not the usual meaning! Usually: lay means to put something down.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 4,
+       "form": "lay",
+       "context": "the r’yals up! Lay out aloft, there"
+      }
+     ]
+    },
+    {
+     "meaning": "To rest the oars and stop rowing.",
+     "whyHard": "Not the usual meaning! Usually: lay means to put something down.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 5,
+       "form": "lay",
+       "context": "head right, and then lay on their oars"
+      }
+     ]
+    }
+   ]
+  },
+  "spring": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A place where water comes out of the ground. The word is also a jump.",
+   "forms": [
+    "spring"
+   ],
+   "senses": [
+    {
+     "meaning": "A place where water comes out of the ground.",
+     "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "again. Huck found a spring of clear cold"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "hunt around by the spring. No, you needn"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "them to a bewitching spring, whose basin was"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 3,
+       "form": "spring",
+       "context": "they must find a spring. They found one"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 4,
+       "form": "spring",
+       "context": "way back to the spring. The weary time"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 5,
+       "form": "spring",
+       "context": "get back to the spring he would stay"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 6,
+       "form": "spring",
+       "context": "tedious wait at the spring and another long"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "brought them to the spring, and Tom felt"
+      }
+     ]
+    },
+    {
+     "meaning": "A jump, or the bounce in a step or in a person.",
+     "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "every face and a spring in every step"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "and snatch the book, spring through the door"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "they were about to spring for the closet"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "He was about to spring with winged feet"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "form": "spring",
+       "context": "to revive when the spring has not been"
+      }
+     ]
+    },
+    {
+     "meaning": "A rope on a boat. It is written with a hyphen before line.",
+     "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "spring",
+       "context": "Come —out with your spring-line —what’re"
+      }
+     ]
+    },
+    {
+     "meaning": "A knife whose blade folds in. It is written with a hyphen before knife.",
+     "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "took out a large spring-knife and cut"
+      }
+     ]
+    }
+   ]
+  },
+  "cross": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A mark shaped like a plus sign, or a long hard duty.",
+   "senses": [
+    {
+     "meaning": "A mark shaped like a plus sign. The treasure is hidden by one.",
+     "whyHard": "Not the usual meaning! Usually: cross means to go from one side to the other.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "Number Two —under the cross. The other place"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "didn’t see the cross. I didn’t"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "Tom, it’s a cross"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "form": "cross",
+       "context": "Number Two? ‘Under the cross,’ hey? Right yonder"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 3,
+       "form": "cross",
+       "context": "to come around where there’s a cross"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 4,
+       "form": "cross",
+       "context": "luck for us, that cross is. I reckon"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 5,
+       "form": "cross",
+       "context": "He said under the cross. Well, this comes"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 6,
+       "form": "cross",
+       "context": "to being under the cross. It can’t"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 7,
+       "form": "cross",
+       "context": "boys took it up to the cross rock"
+      }
+     ]
+    },
+    {
+     "meaning": "A long hard duty you accept and carry.",
+     "whyHard": "Not the usual meaning! Usually: cross means to go from one side to the other.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "and take up the cross of a long"
+      }
+     ]
+    }
+   ]
+  },
+  "smart": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Sharp and quick, said of a hit.",
+   "senses": [
+    {
+     "meaning": "A quick hard hit.",
+     "whyHard": "Not the usual meaning! Usually: smart means clever.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "smart",
+       "context": "hit his hand a smart rap, but reddened"
+      }
+     ]
+    }
+   ]
+  },
+  "engaged": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Promised to marry.",
+   "senses": [
+    {
+     "meaning": "Promised to marry.",
+     "whyHard": "Not the usual meaning! Usually: engaged means busy doing something.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "engaged",
+       "context": "Rogers says. Say, Becky, was you ever engaged"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "engaged",
+       "context": "Why, engaged to be married"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "engaged",
+       "context": "the way you do when you’re engaged"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "form": "engaged",
+       "context": "the first you’ve ever been engaged to"
+      }
+     ]
+    }
+   ]
+  },
+  "hang": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To kill a person with a rope around the neck.",
+   "senses": [
+    {
+     "meaning": "To kill a person with a rope around the neck.",
+     "whyHard": "Not the usual meaning! Usually: hang means to be held up from above.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "hang",
+       "context": "Injun Joe didn’t hang? Why, he’d"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "form": "hang",
+       "context": "and they didn’t hang him. Now, look"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "hang",
+       "context": "robbers!” “Muff Potter’ll hang for this if"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "hang",
+       "context": "But you can’t hang a “clue” for"
+      }
+     ]
+    },
+    {
+     "meaning": "An angry cry. It does not ask anyone to kill the person.",
+     "whyHard": "Not the usual meaning! Usually: hang means to be held up from above, or to kill with a rope.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "hang",
+       "context": "Hang the boy, can’t I never learn"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "hang",
+       "context": "on. Tom thought, “Oh, hang her, ain’t"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "hang",
+       "context": "work for nothing. Now hang it all, we"
+      }
+     ]
+    },
+    {
+     "meaning": "The way to do a thing. When you have got it, you know how.",
+     "whyHard": "Not the usual meaning! Usually: hang means to be held up from above.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "hang",
+       "context": "you’ve got the hang, go it lively"
+      }
+     ]
+    }
+   ]
+  },
+  "powerful": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Very.",
+   "senses": [
+    {
+     "meaning": "Very. Before warm, it means very warm.",
+     "whyHard": "Not the usual meaning! Usually: powerful means strong.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "powerful",
+       "context": "Powerful warm, warn’t it"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "powerful",
+       "context": "Mars Tom I’s powerful ’fraid ole missis"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "powerful",
+       "context": "adding, “But it’s powerful seldom you’re"
+      }
+     ]
+    }
+   ]
+  },
+  "awful": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Very. Not only bad.",
+   "senses": [
+    {
+     "meaning": "Very. Said of talk, it means the talk is very hard.",
+     "whyHard": "Not the usual meaning! Usually: awful means very bad.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "awful",
+       "context": "to know. She talks awful, but talk don"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "awful",
+       "context": "see, Aunt Polly’s awful particular about this"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "form": "awful",
+       "context": "t. Yes, she’s awful particular about this"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "awful",
+       "context": "night. It’s an awful long way. Can"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "awful",
+       "context": "And she’ll be awful glad to have"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "awful",
+       "context": "too. It’s an awful snug place for"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "awful",
+       "context": "bell —everything’s so awful reg’lar a"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 3,
+       "form": "awful",
+       "context": "most countries they’re awful high up in"
+      }
+     ]
+    }
+   ]
+  },
+  "state": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Best clothes, kept for show.",
+   "senses": [
+    {
+     "meaning": "Best clothes, kept for show. Here, her best pair of glasses.",
+     "whyHard": "Not the usual meaning! Usually: state means how something is, or a part of a country.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "state",
+       "context": "boy; they were her state pair, the pride"
+      }
+     ]
+    }
+   ]
+  },
+  "fixed": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "In a certain situation.",
+   "senses": [
+    {
+     "meaning": "In a certain situation. This tells what that situation is.",
+     "whyHard": "Not the usual meaning! Usually: fixed means mended, or held so it cannot move.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "fixed",
+       "context": "see how I’m fixed? If you was"
+      }
+     ]
+    }
+   ]
+  },
+  "posted": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Informed about something. Not much informed means he does not know much about it.",
+   "senses": [
+    {
+     "meaning": "Informed about something. Not much informed means he does not know much about it.",
+     "whyHard": "Not the usual meaning! Usually: posted means put up on a wall, or sent by mail.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "posted",
+       "context": "he was not much posted in anatomy, and"
+      }
+     ]
+    }
+   ]
+  },
+  "skin": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To punish someone very hard.",
+   "senses": [
+    {
+     "meaning": "To punish someone very hard.",
+     "whyHard": "Not the usual meaning! Usually: skin is the cover of the body.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "skin",
+       "context": "jam alone I’d skin you. Hand me"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "skin",
+       "context": "I’ve a notion to skin you alive"
+      }
+     ]
+    }
+   ]
+  },
+  "beat": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Someone's equal. Said of that boy, it means anyone like him.",
+   "forms": [
+    "beats"
+   ],
+   "senses": [
+    {
+     "meaning": "Someone's equal. Said of that boy, it means anyone like him.",
+     "whyHard": "Not the usual meaning! Usually: beat means to hit, or to win.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "beat",
+       "context": "never did see the beat of that boy"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "beat",
+       "context": "I never heard the beat of that in"
+      }
+     ]
+    },
+    {
+     "meaning": "To be more surprising than something.",
+     "whyHard": "Not the usual meaning! Usually: beat means to hit, or to win.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "beats",
+       "context": "Well, that beats anything"
+      }
+     ]
+    },
+    {
+     "meaning": "To search through a place.",
+     "whyHard": "Not the usual meaning! Usually: beat means to hit, or to win.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "beat",
+       "context": "gang are going to beat up the woods"
+      }
+     ]
+    }
+   ]
+  },
+  "bar": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A hill of sand in a river, often under shallow water.",
+   "senses": [
+    {
+     "meaning": "A hill of sand in a river, often under shallow water.",
+     "whyHard": "Not the usual meaning! Usually: a bar is a place that sells drinks.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "bar",
+       "context": "island, with a shallow bar at the head"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "bar",
+       "context": "raft grounded on the bar two hundred yards"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "bar",
+       "context": "shoal water of the bar, wading toward the"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "bar",
+       "context": "fairly abreast the island bar. He rested again"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "bar",
+       "context": "turtle eggs on the bar. They went about"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "form": "bar",
+       "context": "prancing out on the bar, and chased each"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "form": "bar",
+       "context": "shoal water of the bar, against the stiff"
+      }
+     ]
+    },
+    {
+     "meaning": "The place in court where the accused person stands.",
+     "whyHard": "Not the usual meaning! Usually: a bar is a place that sells drinks.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "bar",
+       "context": "unhappy prisoner at the bar. We rest our"
+      }
+     ]
+    }
+   ]
+  },
+  "pick": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A digging tool with a pointed metal head.",
+   "senses": [
+    {
+     "meaning": "A digging tool with a pointed metal head.",
+     "whyHard": "Not the usual meaning! Usually: pick means to choose.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "pick",
+       "context": "they got a crippled pick and a shovel"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "form": "pick",
+       "context": "jumped to hear the pick strike upon something"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "pick",
+       "context": "s an old rusty pick over amongst the"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "form": "pick",
+       "context": "and brought the boys’ pick and shovel. Injun"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 3,
+       "form": "pick",
+       "context": "Injun Joe took the pick, looked it over"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 4,
+       "form": "pick",
+       "context": "d nearly forgot. That pick had fresh earth"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 5,
+       "form": "pick",
+       "context": "What business has a pick and a shovel"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 6,
+       "form": "pick",
+       "context": "the spade and the pick there. But for"
+      }
+     ]
+    }
+   ]
+  },
+  "bill": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A paper that says how much money you must pay.",
+   "senses": [
+    {
+     "meaning": "A paper that says how much money you must pay.",
+     "whyHard": "Not the usual meaning! Usually: Bill is a person's name.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "bill",
+       "context": "down the doctor’s bill like everything. Then"
+      }
+     ]
+    }
+   ]
+  },
+  "charge": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The tobacco packed into a pipe.",
+   "senses": [
+    {
+     "meaning": "The tobacco packed into a pipe.",
+     "whyHard": "Not the usual meaning! Usually: charge means a price, or to rush at someone.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "a coal to the charge and blowing a"
+      }
+     ]
+    }
+   ]
+  },
+  "race": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "All people together.",
+   "senses": [
+    {
+     "meaning": "All people together.",
+     "whyHard": "Not the usual meaning! Usually: a race is a contest to see who is fastest.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "race",
+       "context": "confidence in the human race was well-nigh"
+      }
+     ]
+    }
+   ]
+  },
+  "will": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person's own choice.",
+   "senses": [
+    {
+     "meaning": "A person's own choice. Nobody makes him come or go.",
+     "whyHard": "Not the usual meaning! Usually: will means is going to.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "will",
+       "context": "at his own free will. He slept on"
+      }
+     ]
+    },
+    {
+     "meaning": "Energy. Doing a thing this way means doing it eagerly.",
+     "whyHard": "Not the usual meaning! Usually: will means is going to.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "will",
+       "context": "Now, men! With a will! Steady-y-y"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "will",
+       "context": "sports again with a will, chattering all the"
+      }
+     ]
+    }
+   ]
+  },
+  "mean": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Unkind.",
+   "senses": [
+    {
+     "meaning": "Unkind.",
+     "whyHard": "Not the usual meaning! Usually: mean means to intend, or to have a meaning.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "do you want to be so mean for"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "Well, it’s blamed mean —that’s all"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "there ain’t anything mean about me; but"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "ingenious. It merely looked mean and shabby now"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "form": "mean",
+       "context": "know now it was mean, but I didn"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 4,
+       "form": "mean",
+       "context": "t mean to be mean. I didn’t"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "I acted mighty mean today, Becky, and I"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "mean",
+       "context": "you are just as mean as you can"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 3,
+       "form": "mean",
+       "context": "Be so mean if you want to! I"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 4,
+       "form": "mean",
+       "context": "that ain’t so mean; but what of"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "and t’other’s a mean-looking, ragged"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "me and doing me mean tricks. If it"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "person in this town mean enough to do"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 2,
+       "form": "mean",
+       "context": "t do any but mean things, and you"
+      }
+     ]
+    }
+   ]
+  },
+  "light": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happy, not heavy with sadness.",
+   "senses": [
+    {
+     "meaning": "Happy, not heavy with sadness.",
+     "whyHard": "Not the usual meaning! Usually: light means bright, or not heavy to lift.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "light",
+       "context": "that his heart was light and his anticipations"
+      }
+     ]
+    },
+    {
+     "meaning": "A new way of seeing a thing.",
+     "whyHard": "Not the usual meaning! Usually: light means bright, or not heavy to lift.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "light",
+       "context": "thing in a new light. Ben stopped nibbling"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "light",
+       "context": "thing in a new light; what was cruelty"
+      }
+     ]
+    },
+    {
+     "meaning": "To find by chance.",
+     "whyHard": "Not the usual meaning! Usually: light means bright, or not heavy to lift.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "light",
+       "context": "d you feel to light on a rotten"
+      }
+     ]
+    }
+   ]
+  },
+  "lot": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The kind of person someone is, or the life he has.",
+   "senses": [
+    {
+     "meaning": "The kind of person someone is. A hard one means a rough kind of person.",
+     "whyHard": "Not the usual meaning! Usually: a lot means a large number.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "lot",
+       "context": "kind of a hard lot —least everybody says"
+      }
+     ]
+    }
+   ]
+  },
+  "draw": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To pull, or to take something in.",
+   "forms": [
+    "draws"
+   ],
+   "senses": [
+    {
+     "meaning": "To pull, or to take something in. Two pulls of smoke from a pipe are two puffs.",
+     "whyHard": "Not the usual meaning! Usually: draw means to make a picture.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "Let us draw the curtain of charity over"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "helps the blood to draw the wart, and"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "sure he never could draw a safe breath"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "draws",
+       "context": "over just with two draws. Just let him"
+      }
+     ]
+    }
+   ]
+  },
+  "learn": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To teach someone, often as a warning.",
+   "senses": [
+    {
+     "meaning": "To teach someone, often as a warning.",
+     "whyHard": "Not the usual meaning! Usually: learn means to study and come to know.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "learn",
+       "context": "lam Sid for that. I’ll learn him"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 4,
+       "form": "learn",
+       "context": "Now that’ll learn you. Better look out"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "learn",
+       "context": "s easy,” whispered Tom, “I’ll learn you"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "learn",
+       "context": "Now, then, let that learn you!” And so"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "learn",
+       "context": "it’s nobby fun. I’ll learn you"
+      }
+     ]
+    }
+   ]
+  },
+  "ye": {
+   "senseOnly": true,
+   "pos": "pronoun",
+   "meaning": "An old word for you.",
+   "senses": [
+    {
+     "meaning": "An old word for you.",
+     "whyHard": "Not the usual meaning! Usually: ye is only the first sound when someone starts to say yes.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "ye",
+       "context": "swimming. But I forgive ye, Tom. I reckon"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "ye",
+       "context": "I’m done with ye!’ That’ll fetch"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "ye",
+       "context": "half a dozen of ye —foretopmaststuns’l! Lively"
+      }
+     ]
+    }
+   ]
+  },
+  "art": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "An old word for are, used before thou.",
+   "senses": [
+    {
+     "meaning": "An old word for are, used before thou.",
+     "whyHard": "Not the usual meaning! Usually: art means pictures, or a skill.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "art",
+       "context": "man’s pass. Who art thou that —that"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "art",
+       "context": "Who art thou that dares to hold such"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "form": "art",
+       "context": "Then art thou indeed that famous outlaw? Right"
+      }
+     ]
+    }
+   ]
+  },
+  "miller": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person who grinds grain into flour.",
+   "senses": [
+    {
+     "meaning": "A person who grinds grain into flour.",
+     "whyHard": "Not the usual meaning! Usually: Miller is a person's last name.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "miller",
+       "context": "Tuck or Much the miller’s son, and"
+      }
+     ]
+    }
+   ]
+  },
+  "shelf": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A flat piece of rock that sticks out.",
+   "senses": [
+    {
+     "meaning": "A flat piece of rock that sticks out.",
+     "whyHard": "Not the usual meaning! Usually: a shelf is a board on a wall for holding things.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "shelf",
+       "context": "names under an overhanging shelf and moved on"
+      }
+     ]
+    }
+   ]
+  },
+  "grave": {
+   "pos": "noun",
+   "meaning": "The place in the ground where a dead person is buried.",
+   "senses": [
+    {
+     "meaning": "The place in the ground where a dead person is buried.",
+     "default": true
+    },
+    {
+     "meaning": "Serious and not joking.",
+     "whyHard": "Not the usual meaning! Usually: a grave is the place where a dead person is buried.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "handy. The teacher, a grave, elderly man, interfered"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "grave",
+       "context": "foot, and began a grave, careful combat, “two"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "grave",
+       "context": "boys, but men —pretty grave, unromantic men, too"
+      }
+     ]
+    }
+   ]
+  },
+  "marvel": {
+   "pos": "noun",
+   "meaning": "A wonderful thing.",
+   "senses": [
+    {
+     "meaning": "A wonderful thing.",
+     "default": true
+    },
+    {
+     "meaning": "A small glass ball for a children's game, a kind of marble.",
+     "whyHard": "Not the usual meaning! Usually: a marvel is a wonderful thing.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "marvel",
+       "context": "ll give you a marvel. I’ll give"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "marvel",
+       "context": "s a mighty gay marvel, I tell you"
+      }
+     ]
+    }
+   ]
+  },
+  "strike": {
+   "pos": "verb",
+   "meaning": "To hit. It does not mean stuck.",
+   "whyHard": "It looks like stuck, but it means to hit.",
+   "forms": [
+    "struck",
+    "strike"
+   ],
+   "senses": [
+    {
+     "meaning": "To hit. It does not mean stuck.",
+     "whyHard": "It looks like stuck, but it means to hit.",
+     "default": true
+    },
+    {
+     "meaning": "To come into someone's mind.",
+     "whyHard": "Not the usual meaning! Usually: strike means to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "strike",
+       "context": "now it did not strike him so. He"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "form": "struck",
+       "context": "in his mind had struck hers also —that"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 3,
+       "form": "struck",
+       "context": "Now an idea struck him. There were some"
+      }
+     ]
+    },
+    {
+     "meaning": "To sound the hour. The clock strikes ten.",
+     "whyHard": "Not the usual meaning! Usually: strike means to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "strike",
+       "context": "he heard the clock strike ten! This was"
+      }
+     ]
+    },
+    {
+     "meaning": "To take a pose. He stood as if ready to fight.",
+     "whyHard": "Not the usual meaning! Usually: strike means to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "struck",
+       "context": "traps on the ground, struck a fencing attitude"
+      }
+     ]
+    },
+    {
+     "meaning": "To give a sudden feeling.",
+     "whyHard": "Not the usual meaning! Usually: strike means to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "struck",
+       "context": "air of solemnity that struck a chill to"
+      }
+     ]
+    },
+    {
+     "meaning": "To start off in a direction.",
+     "whyHard": "Not the usual meaning! Usually: strike means to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "struck",
+       "context": "wading, now, so he struck out confidently to"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "struck",
+       "context": "bark safe, and then struck through the woods"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "struck",
+       "context": "and the circumstances, they struck far off to"
+      }
+     ]
+    },
+    {
+     "meaning": "To try to find a way.",
+     "whyHard": "Not the usual meaning! Usually: strike means to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "strike",
+       "context": "sort of trying to strike out a new"
+      }
+     ]
+    }
+   ]
+  },
+  "bound": {
+   "pos": "adjective",
+   "meaning": "Tied, or sure to happen.",
+   "senses": [
+    {
+     "meaning": "Tied with rope, thread, or iron.",
+     "default": true
+    },
+    {
+     "meaning": "Sure to happen, or feeling that one must.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "mind to, I’m bound to say. Well"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "people. A body’s bound to get into"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "but no use —’twas bound to come, and"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "t. Mr. Jones was bound Huck should be"
+      }
+     ]
+    },
+    {
+     "meaning": "A jump of the heart.",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "heart gave a great bound. The next instant"
+      }
+     ]
+    },
+    {
+     "meaning": "Given a stiff cover, said of a book.",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "bound",
+       "context": "gave a very plainly bound Bible (worth forty"
+      }
+     ]
+    }
+   ]
+  },
+  "sash": {
+   "pos": "noun",
+   "meaning": "The frame that holds the glass in a window.",
+   "senses": [
+    {
+     "meaning": "The frame that holds the glass in a window.",
+     "default": true
+    },
+    {
+     "meaning": "A wide band of cloth worn around the waist.",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "sash",
+       "context": "great jackboots, his crimson sash, his belt bristling"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "sash",
+       "context": "himself in his red sash kept him from"
+      }
+     ]
+    }
+   ]
+  },
+  "hurricane": {
+   "pos": "noun",
+   "meaning": "A very strong storm.",
+   "senses": [
+    {
+     "meaning": "A very strong storm.",
+     "default": true
+    },
+    {
+     "meaning": "Part of the name of the high top floor of a steamboat.",
+     "whyHard": "Not the usual meaning! Usually: a hurricane is a very strong storm.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "hurricane",
+       "context": "standing on his own hurricane-deck giving the"
+      }
+     ]
+    }
+   ]
+  },
+  "trunks": {
+   "pos": "plural noun",
+   "meaning": "Short pants worn with an old-fashioned jacket.",
+   "senses": [
+    {
+     "meaning": "Short pants worn with an old-fashioned jacket.",
+     "default": true
+    },
+    {
+     "meaning": "The thick stems of trees.",
+     "whyHard": "Not the usual meaning! Usually: trunks are short pants, or big boxes.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "trunks",
+       "context": "upon the pillared tree-trunks of their forest"
+      }
+     ]
+    }
+   ]
+  },
+  "judge": {
+   "pos": "noun",
+   "meaning": "The official in charge of a court. Before a name, it is his title.",
+   "senses": [
+    {
+     "meaning": "The official in charge of a court. Before a name, it is his title.",
+     "default": true
+    },
+    {
+     "meaning": "I think, or I believe.",
+     "whyHard": "Not the usual meaning! Usually: a judge is the official in a court.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 31,
+       "occurrence": 3,
+       "form": "judge",
+       "context": "open many doors, I judge! But let him"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "judge",
+       "context": "through the woods. I judge we never touched"
+      }
+     ]
+    }
+   ]
+  },
+  "tear": {
+   "pos": "noun",
+   "meaning": "A drop of water from the eye when someone cries.",
+   "forms": [
+    "tears",
+    "tear"
+   ],
+   "senses": [
+    {
+     "meaning": "A drop of water from the eye when someone cries.",
+     "default": true
+    },
+    {
+     "meaning": "To pull something so hard that it splits.",
+     "whyHard": "Not the usual meaning! Usually: a tear is a drop from the eye.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "tear",
+       "context": "think the cretur would tear the house down"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "tear",
+       "context": "that seemed likely to tear the island to"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "tear",
+       "context": "the hard luck to tear the pictured page"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "tear",
+       "context": "Benjamin Rogers, did you tear this book"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 3,
+       "form": "tear",
+       "context": "with terror] —“did you tear —no, look me"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 4,
+       "form": "tear",
+       "context": "rose in appeal] —“did you tear this book"
+      }
+     ]
+    }
+   ]
   }
  },
  "paragraphs": [
@@ -2429,6 +4997,21 @@
    "context": "So endeth this chronicle. It being strictly a history of a boy",
    "mainIdea": "The writer ends the book here, because it is the story of a boy and not of a man.",
    "simple": "So this story ends. It is the history of a boy only, so it must stop here, or it would turn into the history of a man. When a writer writes a story about grown people, he knows where to stop: with a marriage. But when he writes about young people, he must stop where it is best."
+  },
+  {
+   "chapter": 23,
+   "paragraph": 13,
+   "context": "Alabama, goodbye! I love thee well! But yet",
+   "mainIdea": "A girl reads a sad rhyming poem about leaving Alabama.",
+   "simple": "At the school show a girl reads a poem. She says goodbye to Alabama and says she loves it. She must leave for a while, and sad thoughts fill her heart. She remembers its woods, a stream, floods, and the morning light. She is not ashamed of a full heart. She is not going to strangers. This place was her home, and its valleys and tall buildings fade as she leaves. Her eyes, her heart, and her head will feel cold when they turn away from Alabama.",
+   "hardWords": [
+    "thee",
+    "doth",
+    "recollections",
+    "throng",
+    "vales",
+    "spires"
+   ]
   }
  ],
  "sentences": [
@@ -3076,6 +5659,84 @@
    "meaning": "To be less hard on someone.",
    "pos": "phrasal verb",
    "example": "I’ll ask the widow to let up on you a little"
+  },
+  "spare the rod": {
+   "meaning": "The old saying that you must punish a child or you will spoil him. Aunt Polly says it, then does not hit Tom.",
+   "pos": "idiom",
+   "example": "Spare the rod and spile the child, as the Good Book says."
+  },
+  "singed cat": {
+   "meaning": "A cat whose hair was burned looks worse than it is. Aunt Polly means Tom is better than he looks.",
+   "pos": "phrase",
+   "example": "I reckon you're a kind of a singed cat, as the saying is."
+  },
+  "take a dare": {
+   "meaning": "To do a risky thing because someone dared you.",
+   "pos": "idiom",
+   "example": "Anybody that'll take a dare will suck eggs."
+  },
+  "honest injun": {
+   "meaning": "A strong way to say you are telling the truth.",
+   "pos": "idiom",
+   "example": "Ben, I'd like to, honest injun; but Aunt Polly."
+  },
+  "by jingo": {
+   "meaning": "A cry that shows surprise or strong feeling.",
+   "pos": "idiom",
+   "example": "By jingo! for two cents I will do it."
+  },
+  "pipe of peace": {
+   "meaning": "A shared smoke that means people are friends again.",
+   "pos": "phrase",
+   "example": "It was a simple impossibility without smoking a pipe of peace."
+  },
+  "keep the run of": {
+   "meaning": "To keep track of which one is which.",
+   "pos": "idiom",
+   "example": "I can't keep the run of 'em."
+  },
+  "in season": {
+   "meaning": "Early enough. Not too late.",
+   "pos": "phrase",
+   "example": "He got back home barely in season to help Jim."
+  },
+  "justice of the peace": {
+   "meaning": "A local officer who can judge small cases.",
+   "pos": "phrase",
+   "example": "the justice of the peace; the widow Douglass, fair, smart, and forty"
+  },
+  "for the land's sake": {
+   "meaning": "A cry of surprise.",
+   "pos": "idiom",
+   "example": "Well, for the land's sake! I never heard the beat of that."
+  },
+  "free will": {
+   "meaning": "A person's own choice. Nobody forces him.",
+   "pos": "phrase",
+   "example": "Huckleberry came and went, at his own free will."
+  },
+  "with a will": {
+   "meaning": "With energy and a strong wish to do the thing.",
+   "pos": "idiom",
+   "example": "went at their sports again with a will"
+  },
+  "human race": {
+   "meaning": "All people.",
+   "pos": "phrase",
+   "example": "Huck's confidence in the human race was well-nigh obliterated."
+  },
+  "two up and two down": {
+   "meaning": "A turn in the boys' stick-sword game. Each fighter has two chances.",
+   "pos": "phrase",
+   "example": "began a grave, careful combat, two up and two down."
+  },
+  "blue light": {
+   "meaning": "A pale moving light the boys think is a ghost.",
+   "pos": "phrase",
+   "forms": [
+    "blue lights"
+   ],
+   "example": "just some blue lights slipping by the windows"
   }
  }
 }
