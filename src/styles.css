@@ -111,12 +111,23 @@
 
 @layer base {
   html {
-    /* Keep the scrollbar's space reserved, so the page width never changes. */
-    scrollbar-gutter: stable;
+    /*
+     * From the tablet width up, keep the scrollbar's space reserved so the page
+     * width never changes. On a phone that slot sits only on the right, so the
+     * reading text is closer to the left edge than the right even when a
+     * paragraph has no light bulb. Phones leave the gutter alone.
+     */
+    scrollbar-gutter: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-size-adjust: 100%;
     background: var(--paper);
+  }
+
+  @media (min-width: 48rem) {
+    html {
+      scrollbar-gutter: stable;
+    }
   }
 
   body {
