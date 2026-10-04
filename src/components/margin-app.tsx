@@ -101,6 +101,8 @@ export function MarginApp() {
   const dismissListsUpdated = useListUpdates((state) => state.dismiss);
   const [storedIds, setStoredIds] = useState<Set<string> | null>(null);
   const opening = useRef(false);
+  // The previous screen, so closing the reader can retry a word-list update that waited.
+  const wasReading = useRef(false);
 
   useEffect(() => {
     applyTheme(theme);
@@ -289,6 +291,13 @@ export function MarginApp() {
 
   useEffect(() => {
     if (screen.kind === "shelf") useShelfRemove.getState().dismissNotice();
+  }, [screen.kind]);
+  // A list update skips the book that is open. Ask again as soon as that page closes,
+  // so the shelf can say the lists were updated and the next open reads the new list.
+  useEffect(() => {
+    const leftReader = wasReading.current && screen.kind !== "read";
+    wasReading.current = screen.kind === "read";
+    if (leftReader) void autoUpdateWordLists();
   }, [screen.kind]);
   const reading = screen.kind === "read";
   const menu = menuOf(screen);

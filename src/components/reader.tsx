@@ -851,11 +851,23 @@ export function ReaderScreen({
   const restoreAt = useRef<{ paragraph: number; flash: boolean } | null>(null);
 
   const waitingFile = useRef(false);
+  // True once a full read is on screen. A word-list event before that must re-read the book:
+  // patching an empty screen would drop the new list.
+  const bookShown = useRef(false);
   useEffect(() => {
     let alive = true;
     let timer: ReturnType<typeof setTimeout> | null = null;
-    const adopt = (next: StoredBook) => {
+    // A full-book read keeps the IndexedDB snapshot from the moment it started. The word list
+    // can be replaced while that read is still going (Alice's chapter text is large). Adopting
+    // the snapshot afterwards would put the old list back on screen, after the refresh had
+    // already shown the new one. Each newer request bumps this, and the older read is dropped.
+    let generation = 0;
+    waitingFile.current = false;
+    bookShown.current = false;
+    const adopt = (next: StoredBook, seen: number) => {
+      if (!alive || seen !== generation) return;
       waitingFile.current = false;
+      bookShown.current = true;
       const jump = useJump.getState().take(bookId);
       const saved = useProgress.getState().items[bookId];
       if (jump?.at && next.chapters.length > 0) {
@@ -881,26 +893,29 @@ export function ReaderScreen({
       setBook(next);
       fillPrepared(bookId, next.glossary);
     };
+    const readWhole = (seen: number) => {
+      void loadStoredBook(bookId).then((next) => {
+        if (!alive || seen !== generation) return;
+        if (!next) {
+          waitingFile.current = true;
+          setMissing(true);
+        } else adopt(next, seen);
+      });
+    };
     // First open: read the whole book once (chapter text is big).
-    void loadStoredBook(bookId).then((next) => {
-      if (!alive) return;
-      if (!next) {
-        waitingFile.current = true;
-        setMissing(true);
-      } else adopt(next);
-    });
+    readWhole(generation);
     // A word list added or updated while the book is open (the "cibian-progress" event): merge it in.
     // The same event fires when the missing file has just been downloaded or paired.
-    const refresh = () => {
+    const refresh = (seen: number) => {
       timer = null;
-      if (waitingFile.current) {
-        void loadStoredBook(bookId).then((next) => {
-          if (alive && next) adopt(next);
-        });
+      if (!alive || seen !== generation) return;
+      // Still loading, or the file just arrived: the light glossary read cannot draw the chapter.
+      if (waitingFile.current || !bookShown.current) {
+        readWhole(seen);
         return;
       }
       void loadBookMeta(bookId).then((meta) => {
-        if (!alive || !meta) return;
+        if (!alive || seen !== generation || !meta) return;
         setBook((prev) =>
           prev
             ? { ...prev, glossary: meta.glossary, pending: meta.pending, totalHard: meta.totalHard }
@@ -912,7 +927,10 @@ export function ReaderScreen({
     const onProgress = (event: Event) => {
       const detail = (event as CustomEvent<{ bookId?: string }>).detail;
       if (detail?.bookId !== bookId || timer) return;
-      timer = setTimeout(refresh, 400);
+      // Drop any full-book read that started before this write, before it can paint the old list.
+      generation += 1;
+      const seen = generation;
+      timer = setTimeout(() => refresh(seen), 400);
     };
     window.addEventListener("cibian-progress", onProgress);
     return () => {
