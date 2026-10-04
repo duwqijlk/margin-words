@@ -15,9 +15,11 @@ If you cannot read the words inside the EPUB, stop. Say that you cannot read the
 
 The readers are in Chinese junior high. The first year is about 12 to 13. They know everyday English. A tap on a word shows your meaning. A hard paragraph and a hard sentence show a short restatement. A phrase shows when the whole phrase is in the sentence.
 
-Ordinary words are not hard. `fly` and `wings` are ordinary. So are words of the same kind: animals, the body, food, clothes, the house, and simple actions (`bird`, `mouse`, `bread`, `shoe`, `cry`, `tail`, `roof`). Use the ordinary word when it is the clear way to say the meaning. Do not rewrite `it flies with its wings` into a longer sentence just so those words are gone.
+The right level is the plainness of a meaning a junior-high student can already read. `A small animal that flies at night. It looks like a mouse with wings.` is easy enough. So is `Cutting off someone's head as a punishment.` School words are fine: `frightened`, `reply`, `oven`, `meal`, `flowers`, `guilty`, `manners`. Do not make a meaning shorter or vaguer to avoid them.
 
-A meaning is too hard when the explaining words are rarer than the idea: an old word, a book word, or a grammar-class word (`participle`, `clause`, `latitude`). A short meaning made of ordinary words is the right level.
+A list of the 2000 most common words is narrower than what these students know. A warning from that list is not a reason to rewrite a clear meaning. `fly` and `wings` are ordinary. So are animals, the body, food, clothes, the house, and simple actions.
+
+A meaning is too hard only when the explaining words are harder than the idea: an old word used to explain a common one, or a grammar-class word in a note the student reads (`participle`, `clause`, `conditional`). Say what the line is doing, in plain words. Do not name the grammar category.
 
 ## The file you return
 
@@ -219,7 +221,7 @@ The key is the base form: lower case, two or more words, at most 60 letters. `on
 ## How to write the help
 
 - English only. No other language in any field.
-- Short sentences. A student in the first year of junior high should be able to read the help. Ordinary words such as `fly` and `wings` are welcome. Names, numbers, and words from the story may stay as they are. Do not swap an ordinary word for a harder phrase.
+- Short sentences a junior-high student can read. School words and ordinary words are fine. Names, numbers, and words from the story may stay as they are. Do not rewrite a clear meaning because a frequency list does not contain one of its words. In a sentence note, do not use a grammar-class word (`participle`, `clause`, `conditional`). Say what the line is doing.
 - Only restate this EPUB. No new facts, no history of an object, no guess about what happens later.
 - Keep names as they are.
 - `context` and `example` are the only fields that quote the book, and only as a short snippet.
