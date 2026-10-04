@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   UserRound,
   Users,
-  WifiOff,
+  Wifi,
   type LucideIcon,
 } from "lucide-react";
 import { guideUrl } from "@/lib/guide";
@@ -25,7 +25,7 @@ const SECTIONS: ReadonlyArray<{ id: string; title: Key; body: Key; Icon: LucideI
   { id: "marks", title: "about.marksTitle", body: "about.markHard", Icon: Highlighter, marks: true },
   { id: "lists", title: "about.listsTitle", body: "about.listsBody", Icon: Users },
   { id: "wordbook", title: "about.wordbookTitle", body: "about.wordbookBody", Icon: NotebookPen },
-  { id: "offline", title: "guide.offlineTitle", body: "guide.offlineBody", Icon: WifiOff },
+  { id: "offline", title: "guide.offlineTitle", body: "guide.offlineBody", Icon: Wifi },
   { id: "account", title: "about.accountTitle", body: "about.accountBody", Icon: UserRound },
   { id: "privacy", title: "about.privacyTitle", body: "about.privacyBody", Icon: ShieldCheck },
   { id: "copyright", title: "about.copyrightTitle", body: "about.copyrightBody", Icon: Scale },

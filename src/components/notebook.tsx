@@ -5,6 +5,7 @@ import { dueLabel, INTERVALS_DAYS, summarize } from "@/lib/srs";
 import { bookSyncKey } from "@/lib/sync-merge";
 import { isDue, isMastered, MASTERED_STAGE, type Book, type VocabEntry } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
+import { focusSentence } from "@/lib/text";
 import { hasSourceFrom } from "@/lib/wordbook";
 import { WordSources } from "@/components/word-sources";
 import {
@@ -71,10 +72,10 @@ function WordRow({
   const mastered = isMastered(word);
   const due = isDue(word);
   return (
-    <li className="grid gap-3 rounded-2xl border border-line bg-card p-4 sm:p-5">
+    <li className="grid gap-3 rounded-2xl border border-line bg-card p-3 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
-        <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="font-display text-2xl font-semibold break-words" lang="en">
+        <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h3 className="w-full font-display text-xl font-semibold break-words sm:w-auto sm:text-2xl" lang="en">
             {word.lemma}
           </h3>
           {word.surface.toLowerCase() !== word.lemma.toLowerCase() ? (
@@ -116,8 +117,8 @@ function WordRow({
       ) : (
         <div className="grid gap-1.5">
           {word.sentence ? (
-            <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed text-ink">
-              <Highlighted sentence={word.sentence} surface={word.surface} />
+            <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed break-words text-ink">
+              <Highlighted sentence={focusSentence(word.sentence, word.surface || word.lemma)} surface={word.surface || word.lemma} />
             </p>
           ) : null}
           {word.pos ? (
@@ -139,10 +140,10 @@ function WordRow({
         </div>
       )}
 
-      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-2">
-        <p className="flex min-w-0 items-center gap-1.5 text-xs text-muted">
+      <div className="flex flex-col gap-1 border-t border-line pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <p className="flex min-w-0 flex-wrap items-center gap-1.5 text-xs text-muted">
           <BookMarked className="size-3.5 shrink-0" aria-hidden />
-          <span className="truncate">{tn("nb.inBooks", new Set(word.sources.map((source) => source.book)).size)}</span>
+          <span>{tn("nb.inBooks", new Set(word.sources.map((source) => source.book)).size)}</span>
           {word.seen ? <span className="shrink-0">{tn("row.seen", word.seen)}</span> : null}
         </p>
         <div className="-mr-2 flex flex-wrap items-center">
@@ -255,7 +256,7 @@ export function Notebook({
 
   return (
     <div className="mx-auto grid max-w-3xl gap-6 px-4 py-6 sm:px-6 sm:py-10">
-      <header className="flex flex-wrap items-end justify-between gap-3">
+      <header className="grid gap-3 sm:flex sm:flex-wrap sm:items-end sm:justify-between">
         <div className="grid gap-1">
           <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("nb.title")}</h1>
           <p className="text-sm text-muted">
@@ -281,7 +282,7 @@ export function Notebook({
         </div>
         <button
           type="button"
-          className={btn.primary}
+          className={cn(btn.primary, "w-full sm:w-auto")}
           disabled={stats.due === 0}
           onClick={() => onReview(bookId)}
           title={stats.due === 0 ? t("nb.noReview") : undefined}
@@ -368,6 +369,7 @@ export function Notebook({
               </select>
             </div>
             <Segmented
+              layout="wrap"
               label={t("nb.status")}
               value={filter}
               onChange={(value) => {

@@ -2,6 +2,7 @@ import { BookMarked, CornerDownRight } from "lucide-react";
 import { useState } from "react";
 import { useT } from "@/lib/i18n";
 import { jumpToSource } from "@/lib/jump-store";
+import { focusSentence } from "@/lib/text";
 import type { Book, VocabEntry } from "@/lib/vocab-model";
 import { bookForSource } from "@/lib/wordbook";
 import { btn, chip, cn, Highlighted } from "@/components/ui";
@@ -38,11 +39,13 @@ export function WordSources({
           const canOpen = book !== undefined && book.source === "epub" && !book.needsEpub;
           const meaning = source.meaning || word.meaning;
           const pos = source.pos || word.pos;
+          const surface = source.surface || word.surface || word.lemma;
+          const sentence = source.sentence ? focusSentence(source.sentence, surface) : "";
           return (
             <li key={`${source.book}#${source.sentence.slice(0, 40)}`} className="grid gap-1.5" data-word-source>
-              {source.sentence ? (
-                <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed text-ink">
-                  <Highlighted sentence={source.sentence} surface={source.surface || word.surface} />
+              {sentence ? (
+                <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed break-words text-ink">
+                  <Highlighted sentence={sentence} surface={surface} />
                 </p>
               ) : null}
               {showMeaning && (meaning || pos) ? (
@@ -61,16 +64,16 @@ export function WordSources({
                   ) : null}
                 </div>
               ) : null}
-              <p className="flex flex-wrap items-center gap-x-2 gap-y-0.5 pl-3 text-xs text-muted">
-                <BookMarked className="size-3.5 shrink-0" aria-hidden />
-                <span className="min-w-0 truncate" lang="en">
+              <p className="flex flex-wrap items-start gap-x-2 gap-y-1 pl-3 text-xs text-muted">
+                <BookMarked className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+                <span className="min-w-0 flex-1 break-words" lang="en">
                   {title}
                   {chapter ? <> · {chapter}</> : null}
                 </span>
                 {canOpen ? (
                   <button
                     type="button"
-                    className={cn(btn.ghost, "-my-1 min-h-9 px-2 text-xs text-accent")}
+                    className={cn(btn.ghost, "-my-1 min-h-9 shrink-0 px-2 text-xs text-accent")}
                     onClick={() => jumpToSource(source, book)}
                     data-source-open
                   >

@@ -46,6 +46,7 @@ export const zh: Record<Key, string> = {
   "nav.notebook": "生词本",
   "nav.settings": "设置",
   "nav.account": "账号",
+  "nav.thanks": "感谢",
   "notice.text": "本站不提供有版权的书。这类书请自己导入合法获得的 EPUB。",
   "notice.dismiss": "关闭这条提示",
   "nav.dueAria": "有 {n} 个词要复习",
@@ -54,9 +55,9 @@ export const zh: Record<Key, string> = {
   "guide.title": "使用说明",
   "guide.addTitle": "把书加入书架",
   "guide.addBody": "添加图书都在“发现”页，而且要先登录（点上方的人像图标）。登录后打开“发现”，点书下面的“加入书架”。按钮会变成“已在书架”。想把书拿下来，就点“已在书架”，再选“移出书架”。在书架里，可以点书旁边的三点菜单。移出后可以马上撤销。",
-  "guide.offlineTitle": "可以离线用",
+  "guide.offlineTitle": "打开网站需要网络",
   "guide.offlineBody":
-    "第一次打开之后，没有网络也能读。你的书、阅读进度和生词本留在这台设备上。如果在“设置”里登录，它们还可以同步到你的其他设备。书的文件仍留在每台设备上。",
+    "打开这个网站需要网络。已经保存在这台设备上的书，还在这台设备上。登录以后，另一台设备会显示同一张书架卡片，但那台设备还要再拿到书的文件：公版书可以下载，其他书要添加你自己的电子书。登录后，阅读进度和生词本可以同步。",
 
   /* ---- shelf */
   "shelf.title": "书架",
@@ -94,6 +95,7 @@ export const zh: Record<Key, string> = {
   "shelf.oldFashioned": "语言较古旧",
   "shelf.oldFashionedNote": "不太适合初学者",
   "shelf.needsEpub": "需要你的电子书",
+  "shelf.fileMissing": "还没有这本书的文件",
   "lexile.name": "蓝思",
   "lexile.aria": "蓝思难度 {measure}",
   "lexile.unrated": "未评级",
@@ -338,8 +340,12 @@ export const zh: Record<Key, string> = {
   "guide.fullGuideLink": "图书包工具包（给 AI 用）",
 
   /* ---- reader */
-  "reader.missingTitle": "找不到这本书的文字",
-  "reader.missingBody": "浏览器可能清除了网站数据。请重新添加这本书。",
+  "reader.missingTitle": "这台设备上还没有这本书的文件",
+  "reader.missingBody":
+    "书架卡片、阅读进度和存下的生词都还在。在这台设备上补上书的文件就能继续读，不用把卡片删掉再添加。",
+  "reader.downloadBook": "下载这本书",
+  "reader.downloading": "正在下载…",
+  "reader.findDiscover": "去发现页",
   "reader.backShelf": "回到书架",
   "reader.sideTitle": "单词帮助",
   "reader.sideHint": "点一下文字里的单词，意思会显示在这里。",
@@ -571,4 +577,9 @@ export const zh: Record<Key, string> = {
   "about.contactTitle": "联系我们",
   "about.contactEmail": "请发邮件到 {contact}。",
   "about.contactIssues": "发现错误或有版权问题，请在这里告诉我们：{contact}。",
+
+  /* ---- supporters */
+  "thanks.title": "感谢支持的人",
+  "thanks.body": "这些朋友支持了这个阅读工具。谢谢你们。",
+  "thanks.empty": "名单还在整理，稍后会写在这里。",
 };

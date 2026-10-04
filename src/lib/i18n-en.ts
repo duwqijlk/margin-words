@@ -43,6 +43,7 @@ export const en = {
   "nav.notebook": "Notebook",
   "nav.settings": "Settings",
   "nav.account": "Account",
+  "nav.thanks": "Thanks",
   "notice.text": "We don't provide copyrighted books. For those, bring your own EPUB.",
   "notice.dismiss": "Hide this notice",
   "nav.dueAria": "{n} to review",
@@ -51,9 +52,9 @@ export const en = {
   "guide.title": "Guide",
   "guide.addTitle": "Add a book to your shelf",
   "guide.addBody": "Books are added on Discover, and adding needs an account: sign in first (the person icon at the top). Then open Discover and tap “Add to shelf” under a book. The button then says “On shelf”. To take a book off, tap “On shelf” and choose “Remove from shelf”. On your shelf, use the three-dot menu on a book. You can undo right after.",
-  "guide.offlineTitle": "It works offline",
+  "guide.offlineTitle": "Opening the site needs the internet",
   "guide.offlineBody":
-    "After the first visit, you can read with no internet. Your books, your progress, and your notebook stay on this device. Sign in from Settings if you want them on your other devices too. The book files themselves stay on each device.",
+    "You need the internet to open this site. A book file that is already on this device stays on this device. Sign in, and another device shows the same shelf card, but that device still needs the book file: download a public-domain classic, or add your own e-book. Your progress and your notebook can sync when you are signed in.",
 
   /* ---- shelf */
   "shelf.title": "Shelf",
@@ -92,6 +93,7 @@ export const en = {
   "shelf.oldFashioned": "Old-fashioned",
   "shelf.oldFashionedNote": "Not recommended for beginners",
   "shelf.needsEpub": "Needs your e-book",
+  "shelf.fileMissing": "Book file needed",
   "lexile.name": "Lexile",
   "lexile.aria": "Lexile measure {measure}",
   "lexile.unrated": "Unrated",
@@ -345,8 +347,12 @@ export const en = {
   "guide.fullGuideLink": "Book pack kit (for AI)",
 
   /* ---- reader */
-  "reader.missingTitle": "The text of this book is missing",
-  "reader.missingBody": "Your browser may have cleared its site data. Please add the book again.",
+  "reader.missingTitle": "This device does not have the book file",
+  "reader.missingBody":
+    "The shelf card, your progress, and your saved words are still here. Add the book file on this device to keep reading. You do not need to remove the card.",
+  "reader.downloadBook": "Download this book",
+  "reader.downloading": "Downloading…",
+  "reader.findDiscover": "Open Discover",
   "reader.backShelf": "Back to shelf",
   "reader.sideTitle": "Word help",
   "reader.sideHint": "Tap a word in the text. Its meaning shows here.",
@@ -590,6 +596,11 @@ export const en = {
   "about.contactTitle": "Contact",
   "about.contactEmail": "Write to us at {contact}.",
   "about.contactIssues": "Tell us about a mistake or a copyright question here: {contact}.",
+
+  /* ---- supporters */
+  "thanks.title": "Thank you",
+  "thanks.body": "These people support this reading app. Thank you.",
+  "thanks.empty": "The list is not ready yet. Names will be added here.",
 } as const;
 
 export type Key = keyof typeof en;

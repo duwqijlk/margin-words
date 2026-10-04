@@ -4,6 +4,7 @@
  *
  *   /shelf            Bookshelf        /discover         Discover
  *   /guide            Guide (how to use the app, and about the site)
+ *   /thanks           Thank-you page for supporters
  *   /words            Word book (all books)
  *   /words/<bookId>   Word book of one book
  *   /review[/<id>]    Review           /read/<bookId>    the reader
@@ -19,6 +20,7 @@ export type Route =
   | { kind: "shelf" }
   | { kind: "discover" }
   | { kind: "guide" }
+  | { kind: "thanks" }
   | { kind: "words"; bookId: string | null }
   | { kind: "review"; bookId: string | null }
   | { kind: "read"; bookId: string };
@@ -54,6 +56,8 @@ export function parsePath(pathname: string): Route | null {
       return rest === undefined ? { kind: "discover" } : null;
     case "guide":
       return rest === undefined ? { kind: "guide" } : null;
+    case "thanks":
+      return rest === undefined ? { kind: "thanks" } : null;
     case "about":
       // The old About page is the Guide now. The app replaces this address with /guide.
       return rest === undefined ? { kind: "guide" } : null;
@@ -82,12 +86,14 @@ export function pathFor(route: Route): string {
 }
 
 /** Which top-menu page a route belongs to. */
-export function menuOf(route: Route): "shelf" | "discover" | "guide" | "words" {
+export function menuOf(route: Route): "shelf" | "discover" | "guide" | "words" | "thanks" {
   switch (route.kind) {
     case "discover":
       return "discover";
     case "guide":
       return "guide";
+    case "thanks":
+      return "thanks";
     case "words":
     case "review":
       return "words";

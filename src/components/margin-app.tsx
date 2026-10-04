@@ -1,10 +1,12 @@
-import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
+import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Heart, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
+  bookFileExists,
   checkBookStorage,
   listBookSummaries,
   loadBookMeta,
   loadNotes,
+  loadPackRecord,
   patchStoredBook,
   purgeLegacyHelpCache,
   requestPersistentStorage,
@@ -33,6 +35,7 @@ import { useAccount } from "@/lib/account-store";
 import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
 import { AccountDialog } from "@/components/account-dialog";
 import { autoUpdateWordLists, useListUpdates } from "@/lib/word-list-update";
+import { rememberListPack, resolveFileOffer } from "@/lib/file-gap";
 
 type Screen = Route;
 
@@ -66,6 +69,7 @@ const Shelf = lazy(() => import("@/components/shelf").then((m) => ({ default: m.
 const Notebook = lazy(() => import("@/components/notebook").then((m) => ({ default: m.Notebook })));
 const DiscoverScreen = lazy(() => import("@/components/discover").then((m) => ({ default: m.DiscoverScreen })));
 const GuideScreen = lazy(() => import("@/components/guide-page").then((m) => ({ default: m.GuideScreen })));
+const ThanksScreen = lazy(() => import("@/components/thanks-page").then((m) => ({ default: m.ThanksScreen })));
 const SettingsDialog = lazy(() => import("@/components/get-books").then((m) => ({ default: m.SettingsDialog })));
 const OwnEpubDialog = lazy(() => import("@/components/own-epub-dialog").then((m) => ({ default: m.OwnEpubDialog })));
 const ReaderScreen = lazy(() => import("@/components/reader").then((m) => ({ default: m.ReaderScreen })));
@@ -95,6 +99,8 @@ export function MarginApp() {
   const [spineWarnings, setSpineWarnings] = useState<SpineNameWarning[]>([]);
   const listsUpdated = useListUpdates((state) => state.updated);
   const dismissListsUpdated = useListUpdates((state) => state.dismiss);
+  const [storedIds, setStoredIds] = useState<Set<string> | null>(null);
+  const opening = useRef(false);
 
   useEffect(() => {
     applyTheme(theme);
@@ -138,7 +144,10 @@ export function MarginApp() {
           listBookSummaries(),
           loadNotes(),
         ]);
-        if (storedResult.status === "fulfilled") restoreBooks(storedResult.value);
+        if (storedResult.status === "fulfilled") {
+          restoreBooks(storedResult.value);
+          setStoredIds(new Set(storedResult.value.map((book) => book.id)));
+        }
         const notes = notesResult.status === "fulfilled" ? notesResult.value : [];
         if (useVocab.getState().words.length === 0 && notes.length > 0) {
           const saved = notes.filter(
@@ -176,6 +185,16 @@ export function MarginApp() {
       setReady(true);
     })();
   }, [replaceWords, restoreBooks]);
+
+  useEffect(() => {
+    const refreshStored = () => {
+      void listBookSummaries()
+        .then((rows) => setStoredIds(new Set(rows.map((book) => book.id))))
+        .catch(() => undefined);
+    };
+    window.addEventListener("cibian-progress", refreshStored);
+    return () => window.removeEventListener("cibian-progress", refreshStored);
+  }, []);
 
   const orderedBooks = useMemo(() => [...books].sort((a, b) => b.updatedAt - a.updatedAt), [books]);
   const covers = useCovers(books.map((book) => book.id));
@@ -216,24 +235,56 @@ export function MarginApp() {
   }
 
   /** Open the own-EPUB dialog. Importing the reader's own e-book completes an add: it needs the account too. */
-  function askForEpub(bookId: string) {
+  async function askForEpub(bookId: string) {
     if (!canAddBooks(useAccount.getState().phase)) {
       askToSignIn();
       return;
     }
+    const known = await loadPackRecord(bookId).catch(() => null);
+    if (!known) {
+      const book =
+        useVocab.getState().books.find((item) => item.id === bookId) ??
+        books.find((item) => item.id === bookId);
+      if (book) {
+        const { offer } = await resolveFileOffer(book).catch(() => ({ offer: { kind: "discover" as const } }));
+        if (offer.kind === "epub") await rememberListPack(bookId, offer.packId).catch(() => undefined);
+      }
+    }
     setEpubFor(bookId);
   }
 
-  function openBook(bookId: string) {
-    // The store updates before React re-renders, so a book just added is visible here.
-    const book =
-      useVocab.getState().books.find((item) => item.id === bookId) ??
-      books.find((item) => item.id === bookId);
-    if (book?.needsEpub) {
-      askForEpub(bookId);
-      return;
+  async function openBook(bookId: string) {
+    if (opening.current) return;
+    opening.current = true;
+    try {
+      // The store updates before React re-renders, so a book just added is visible here.
+      const book =
+        useVocab.getState().books.find((item) => item.id === bookId) ??
+        books.find((item) => item.id === bookId);
+      if (!book || book.source !== "epub") {
+        if (book) setScreen({ kind: "words", bookId });
+        return;
+      }
+      const here = !book.needsEpub && (await bookFileExists(bookId).catch(() => false));
+      if (here) {
+        setScreen({ kind: "read", bookId });
+        return;
+      }
+      // The card stays. A word-list book asks for the EPUB here. A classic downloads from the reader.
+      const { offer } = await resolveFileOffer(book).catch(() => ({ offer: { kind: "discover" as const } }));
+      if (offer.kind === "epub") {
+        await rememberListPack(bookId, offer.packId).catch(() => undefined);
+        if (!canAddBooks(useAccount.getState().phase)) {
+          askToSignIn();
+          return;
+        }
+        setEpubFor(bookId);
+        return;
+      }
+      setScreen({ kind: "read", bookId });
+    } finally {
+      opening.current = false;
     }
-    setScreen(book?.source === "epub" ? { kind: "read", bookId } : { kind: "words", bookId });
   }
 
   useEffect(() => {
@@ -325,6 +376,21 @@ export function MarginApp() {
               ))}
             </nav>
             <div className="min-w-0 flex-1 sm:hidden" />
+            <button
+              type="button"
+              className={cn(
+                btn.icon,
+                "w-auto gap-1.5 px-2.5",
+                menu === "thanks" && "bg-accent-soft text-accent",
+              )}
+              onClick={() => setScreen({ kind: "thanks" })}
+              aria-label={t("nav.thanks")}
+              aria-current={menu === "thanks" ? "page" : undefined}
+              data-thanks-nav
+            >
+              <Heart className={cn("size-5", menu === "thanks" ? "fill-accent text-accent" : "")} aria-hidden />
+              <span className="hidden text-sm font-semibold lg:inline">{t("nav.thanks")}</span>
+            </button>
             <LanguageButton />
             <button
               type="button"
@@ -421,9 +487,13 @@ export function MarginApp() {
               bookId={screen.bookId}
               onBack={() => setScreen({ kind: "shelf" })}
               onNotebook={() => setScreen({ kind: "words", bookId: screen.bookId })}
+              onAddEpub={() => void askForEpub(screen.bookId)}
+              onDiscover={() => setScreen({ kind: "discover" })}
             />
           ) : screen.kind === "guide" ? (
             <GuideScreen />
+          ) : screen.kind === "thanks" ? (
+            <ThanksScreen />
           ) : screen.kind === "discover" ? (
             <DiscoverScreen
               shelf={orderedBooks}
@@ -452,7 +522,8 @@ export function MarginApp() {
               words={words}
               covers={covers}
               ready={ready}
-              onOpen={openBook}
+              onOpen={(bookId) => void openBook(bookId)}
+              storedIds={storedIds}
               onNotebook={(bookId) => setScreen({ kind: "words", bookId })}
               onAddList={(bookId) => void openListPicker(bookId)}
               onDemo={() => {

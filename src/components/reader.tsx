@@ -60,6 +60,7 @@ import {
 import { useVocab } from "@/lib/vocab-store";
 import { flowText, flowTextBefore } from "@/lib/flow-text";
 import { FloatingAside } from "@/components/floating-card";
+import { MissingBook } from "@/components/missing-book";
 import { READER_GUTTER, SIDE_PANEL } from "@/components/side-panel";
 import {
   btn,
@@ -797,10 +798,14 @@ export function ReaderScreen({
   bookId,
   onBack,
   onNotebook,
+  onAddEpub,
+  onDiscover,
 }: {
   bookId: string;
   onBack: () => void;
   onNotebook: () => void;
+  onAddEpub: () => void;
+  onDiscover: () => void;
 }) {
   const { t } = useT();
   const words = useVocab((state) => state.words);
@@ -845,42 +850,55 @@ export function ReaderScreen({
   // A place found through the file-independent anchor (saved position, or "go to the sentence" from the wordbook).
   const restoreAt = useRef<{ paragraph: number; flash: boolean } | null>(null);
 
+  const waitingFile = useRef(false);
   useEffect(() => {
     let alive = true;
     let timer: ReturnType<typeof setTimeout> | null = null;
+    const adopt = (next: StoredBook) => {
+      waitingFile.current = false;
+      const jump = useJump.getState().take(bookId);
+      const saved = useProgress.getState().items[bookId];
+      if (jump?.at && next.chapters.length > 0) {
+        // A jump from the wordbook names a numbered chapter. It leaves an extra page.
+        const hit = resolveAnchor(
+          jump.at,
+          next.chapters.map((item) => item.paragraphs),
+        );
+        restoreAt.current = { paragraph: hit.paragraph, flash: true };
+        setChapterIndex(hit.chapter);
+        setExtraId("");
+      } else if (saved) {
+        // extraId keeps the reader on that extra; the anchor is then a paragraph of the extra.
+        const place = restoreReadingPlace(saved, {
+          chapters: next.chapters.map((item) => item.paragraphs),
+          extras: next.extras,
+        });
+        if (place.paragraph !== null) restoreAt.current = { paragraph: place.paragraph, flash: false };
+        setExtraId(place.extraId);
+        if (!place.extraId && place.paragraph !== null) setChapterIndex(place.chapter);
+      }
+      setMissing(false);
+      setBook(next);
+      fillPrepared(bookId, next.glossary);
+    };
     // First open: read the whole book once (chapter text is big).
     void loadStoredBook(bookId).then((next) => {
       if (!alive) return;
-      if (!next) setMissing(true);
-      else {
-        const jump = useJump.getState().take(bookId);
-        const saved = useProgress.getState().items[bookId];
-        if (jump?.at && next.chapters.length > 0) {
-          // A jump from the wordbook names a numbered chapter. It leaves an extra page.
-          const hit = resolveAnchor(
-            jump.at,
-            next.chapters.map((item) => item.paragraphs),
-          );
-          restoreAt.current = { paragraph: hit.paragraph, flash: true };
-          setChapterIndex(hit.chapter);
-          setExtraId("");
-        } else if (saved) {
-          // extraId keeps the reader on that extra; the anchor is then a paragraph of the extra.
-          const place = restoreReadingPlace(saved, {
-            chapters: next.chapters.map((item) => item.paragraphs),
-            extras: next.extras,
-          });
-          if (place.paragraph !== null) restoreAt.current = { paragraph: place.paragraph, flash: false };
-          setExtraId(place.extraId);
-          if (!place.extraId && place.paragraph !== null) setChapterIndex(place.chapter);
-        }
-        setBook(next);
-        fillPrepared(bookId, next.glossary);
-      }
+      if (!next) {
+        waitingFile.current = true;
+        setMissing(true);
+      } else adopt(next);
     });
     // A word list added or updated while the book is open (the "cibian-progress" event): merge it in.
+    // The same event fires when the missing file has just been downloaded or paired.
     const refresh = () => {
       timer = null;
+      if (waitingFile.current) {
+        void loadStoredBook(bookId).then((next) => {
+          if (alive && next) adopt(next);
+        });
+        return;
+      }
       void loadBookMeta(bookId).then((meta) => {
         if (!alive || !meta) return;
         setBook((prev) =>
@@ -1361,13 +1379,18 @@ export function ReaderScreen({
 
   if (missing) {
     return (
-      <div className="mx-auto grid max-w-md gap-4 px-6 py-16 text-center">
-        <p className="font-display text-2xl font-semibold">{t("reader.missingTitle")}</p>
-        <p className="text-muted">{t("reader.missingBody")}</p>
-        <button type="button" className={cn(btn.primary, "justify-self-center")} onClick={onBack}>
-          {t("reader.backShelf")}
-        </button>
-      </div>
+      <MissingBook
+        book={
+          shelfBook ?? {
+            id: bookId,
+            title: "",
+            author: "",
+          }
+        }
+        onBack={onBack}
+        onAddEpub={onAddEpub}
+        onDiscover={onDiscover}
+      />
     );
   }
 
