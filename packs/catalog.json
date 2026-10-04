@@ -163,7 +163,7 @@
    "notes": "",
    "lexile": "560L",
    "isbn": "9780141957111",
-   "rev": "8cc591174e55",
+   "rev": "243f7eee09f0",
    "version": 2,
    "chapters": 0,
    "words": 137,
@@ -179,8 +179,8 @@
    "glossary": {
     "url": "magicfinger/glossary.json",
     "bytes": 86125,
-    "sha256": "1dfe5d7cf3321c4d202116d56c52408e0a9156550e88cb978fa1e113422bdda9",
-    "rev": "1dfe5d7cf332"
+    "sha256": "0daec1042ee7500236c72e0f34d12b9da641a841994b9fb0dd052b77fcdee04a",
+    "rev": "0daec1042ee7"
    },
    "cover": {
     "url": "magicfinger/cover.jpg",
@@ -189,8 +189,8 @@
    },
    "zip": {
     "url": "magicfinger.zip",
-    "bytes": 3758959,
-    "sha256": "2d477997470668a9521b49c0794d978ef345b8a809381874fdd37c16a536be94"
+    "bytes": 3758961,
+    "sha256": "43324a3d9f6c1502520a0b42ab443e1ee6ac8004907bf6489ece505abab75d28"
    }
   },
   {
@@ -350,7 +350,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 25520248,
-  "sha256": "81d946529e45203c8c49aab3ad44f90c33ddea3fba33f5ef697ce6871452a54e"
+  "bytes": 25520245,
+  "sha256": "875086986f2c5a82f36f35778ac9f13ed531c392a737dd208ae4ac9ed563be21"
  }
 }
