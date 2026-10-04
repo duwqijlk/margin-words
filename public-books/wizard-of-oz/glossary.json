@@ -4,7 +4,7 @@
  "author": "L. Frank Baum",
  "sha256": "be8f7802b737cf2f402960d4c691238ccd51b67de0cd69b909e35a2108da47a3",
  "chapters": 29,
- "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
  "language": "English",
  "glossary": {
   "wholesome": {
@@ -157,7 +157,10 @@
   },
   "shriek": {
    "pos": "noun",
-   "meaning": "A loud, high cry or sound."
+   "meaning": "A loud, high cry or sound.",
+   "forms": [
+    "shrieked"
+   ]
   },
   "footing": {
    "pos": "noun",
@@ -288,7 +291,7 @@
   },
   "fiddlers": {
    "pos": "plural noun",
-   "meaning": "People who play a kind of small music box with strings."
+   "meaning": "People who play a fiddle, which is a small violin."
   },
   "bade": {
    "pos": "past-tense verb",
@@ -469,7 +472,10 @@
   },
   "coward": {
    "pos": "noun",
-   "meaning": "A person or animal that is afraid when there is danger."
+   "meaning": "A person or animal that is afraid when there is danger.",
+   "forms": [
+    "cowardly"
+   ]
   },
   "claws": {
    "pos": "plural noun",
@@ -481,7 +487,10 @@
   },
   "jaws": {
    "pos": "plural noun",
-   "meaning": "The two parts of the mouth that open and close to bite."
+   "meaning": "The two parts of the mouth that open and close to bite.",
+   "forms": [
+    "jaw"
+   ]
   },
   "peculiar": {
    "pos": "adjective",
@@ -616,7 +625,10 @@
   },
   "harnessed": {
    "pos": "past participle",
-   "meaning": "Joined with strong string to the thing it pulls."
+   "meaning": "Joined with strong string to the thing it pulls.",
+   "forms": [
+    "harness"
+   ]
   },
   "unharnessed": {
    "pos": "past participle",
@@ -628,7 +640,10 @@
   },
   "pegs": {
    "pos": "plural noun",
-   "meaning": "Short pieces of wood used to hold things together."
+   "meaning": "Short pieces of wood used to hold things together.",
+   "forms": [
+    "peg"
+   ]
   },
   "lest": {
    "pos": "conjunction",
@@ -748,7 +763,10 @@
   },
   "stings": {
    "pos": "plural noun",
-   "meaning": "The sharp parts that bees use to hurt people."
+   "meaning": "The sharp part a bee uses to hurt, or the act of hurting with it.",
+   "forms": [
+    "sting"
+   ]
   },
   "immense": {
    "pos": "adjective",
@@ -807,7 +825,11 @@
   },
   "wailing": {
    "pos": "adjective",
-   "meaning": "Making a long, sad cry."
+   "meaning": "Making a long, sad cry.",
+   "forms": [
+    "wail",
+    "wailed"
+   ]
   },
   "despairing": {
    "pos": "adjective",
@@ -966,7 +988,10 @@
   },
   "needles": {
    "pos": "plural noun",
-   "meaning": "Thin, sharp pieces of metal for joining cloth with string."
+   "meaning": "Thin, sharp pieces of metal for joining cloth with string.",
+   "forms": [
+    "needle"
+   ]
   },
   "bulged": {
    "pos": "past-tense verb",
@@ -1424,7 +1449,10 @@
   },
   "brisk": {
    "pos": "adjective",
-   "meaning": "Quick and full of energy."
+   "meaning": "Quick and full of energy.",
+   "forms": [
+    "briskly"
+   ]
   },
   "contented": {
    "pos": "adjective",
@@ -2441,6 +2469,9 @@
       }
      ]
     }
+   ],
+   "forms": [
+    "soberly"
    ]
   },
   "current": {
@@ -2787,6 +2818,3056 @@
       }
      ]
     }
+   ]
+  },
+  "witch": {
+   "pos": "noun",
+   "meaning": "A woman in old stories who uses magic.",
+   "whyHard": "An old story word.",
+   "forms": [
+    "witches"
+   ]
+  },
+  "wicked": {
+   "pos": "adjective",
+   "meaning": "Very bad, and ready to hurt people.",
+   "whyHard": "An old word for very bad."
+  },
+  "emerald": {
+   "pos": "noun",
+   "meaning": "A bright green stone.",
+   "whyHard": "The name of a jewel.",
+   "forms": [
+    "emeralds"
+   ]
+  },
+  "brain": {
+   "pos": "noun",
+   "meaning": "The part inside the head that thinks.",
+   "whyHard": "A body word a school book may not teach yet.",
+   "forms": [
+    "brains"
+   ]
+  },
+  "throne": {
+   "pos": "noun",
+   "meaning": "The special chair a ruler sits on.",
+   "whyHard": "An old thing in a palace."
+  },
+  "straw": {
+   "pos": "noun",
+   "meaning": "Dry yellow stems of grain, used to stuff a body or to feed animals.",
+   "whyHard": "A farm thing."
+  },
+  "journey": {
+   "pos": "noun",
+   "meaning": "A long trip from one place to another.",
+   "whyHard": "A less common word for a trip."
+  },
+  "courage": {
+   "pos": "noun",
+   "meaning": "The strength to do something even when you are afraid.",
+   "whyHard": "They may know brave, but not this noun."
+  },
+  "soldier": {
+   "pos": "noun",
+   "meaning": "A person who fights in an army, or who guards a ruler.",
+   "whyHard": "A job word."
+  },
+  "indeed": {
+   "pos": "adverb",
+   "meaning": "Truly. It makes a statement stronger.",
+   "whyHard": "An old-fashioned word."
+  },
+  "beast": {
+   "pos": "noun",
+   "meaning": "An animal, often a large or wild one.",
+   "whyHard": "An old word for an animal.",
+   "forms": [
+    "beasts"
+   ]
+  },
+  "castle": {
+   "pos": "noun",
+   "meaning": "A large strong building where a ruler lives.",
+   "whyHard": "An old building."
+  },
+  "crow": {
+   "pos": "noun",
+   "meaning": "A large black bird.",
+   "whyHard": "A kind of bird.",
+   "forms": [
+    "crows",
+    "crowd",
+    "crowing"
+   ]
+  },
+  "slave": {
+   "pos": "noun",
+   "meaning": "A person who is forced to work and is not free.",
+   "whyHard": "An old, hard word.",
+   "forms": [
+    "slavery",
+    "slaves"
+   ]
+  },
+  "slavery": {
+   "pos": "noun",
+   "meaning": "The state of being forced to work and not being free.",
+   "whyHard": "An old, hard word."
+  },
+  "inquired": {
+   "pos": "past-tense verb",
+   "meaning": "Asked.",
+   "whyHard": "An old word for asked."
+  },
+  "exclaimed": {
+   "pos": "past-tense verb",
+   "meaning": "Said suddenly and with strong feeling.",
+   "whyHard": "An old word for said."
+  },
+  "remarked": {
+   "pos": "past-tense verb",
+   "meaning": "Said, often as a comment.",
+   "whyHard": "An old word for said."
+  },
+  "farther": {
+   "pos": "adverb",
+   "meaning": "At a greater distance.",
+   "whyHard": "It looks like father, but it means a longer way."
+  },
+  "creature": {
+   "pos": "noun",
+   "meaning": "A living animal or person.",
+   "whyHard": "A general word for a living thing.",
+   "forms": [
+    "creatures"
+   ]
+  },
+  "harm": {
+   "pos": "noun",
+   "meaning": "Hurt or damage.",
+   "whyHard": "A less common word for hurt.",
+   "forms": [
+    "harmed"
+   ]
+  },
+  "fear": {
+   "pos": "noun",
+   "meaning": "The feeling of being afraid.",
+   "whyHard": "They may know afraid, but not this noun.",
+   "forms": [
+    "fears",
+    "feared",
+    "fearing"
+   ]
+  },
+  "cupboard": {
+   "pos": "noun",
+   "meaning": "A cabinet with shelves for dishes or food.",
+   "whyHard": "A thing in a house."
+  },
+  "anxious": {
+   "pos": "adjective",
+   "meaning": "Worried.",
+   "whyHard": "A feeling word.",
+   "forms": [
+    "anxiously"
+   ]
+  },
+  "anxiously": {
+   "pos": "adverb",
+   "meaning": "In a worried way.",
+   "whyHard": "A feeling word."
+  },
+  "forehead": {
+   "pos": "noun",
+   "meaning": "The part of the face above the eyes.",
+   "whyHard": "A body word."
+  },
+  "earnest": {
+   "pos": "adjective",
+   "meaning": "Serious and sincere.",
+   "whyHard": "A less common feeling word.",
+   "forms": [
+    "earnestly"
+   ]
+  },
+  "earnestly": {
+   "pos": "adverb",
+   "meaning": "In a serious, sincere way.",
+   "whyHard": "A less common feeling word."
+  },
+  "gown": {
+   "pos": "noun",
+   "meaning": "A long dress.",
+   "whyHard": "An old word for a dress.",
+   "forms": [
+    "gowns"
+   ]
+  },
+  "breast": {
+   "pos": "noun",
+   "meaning": "The front of the chest.",
+   "whyHard": "A body word."
+  },
+  "whistle": {
+   "pos": "noun",
+   "meaning": "A small thing you blow to make a high sound, or that high sound.",
+   "whyHard": "A thing and a sound.",
+   "forms": [
+    "whistling"
+   ]
+  },
+  "stretched": {
+   "pos": "past-tense verb",
+   "meaning": "Made the body long by reaching out.",
+   "whyHard": "A body action."
+  },
+  "shone": {
+   "pos": "past-tense verb",
+   "meaning": "Gave off light. Past of shine.",
+   "whyHard": "An old past form."
+  },
+  "patch": {
+   "pos": "noun",
+   "meaning": "A small area, or a piece put on to mend a hole.",
+   "whyHard": "A thing used to mend.",
+   "forms": [
+    "patches"
+   ]
+  },
+  "heap": {
+   "pos": "noun",
+   "meaning": "A pile of things.",
+   "whyHard": "An old word for a pile.",
+   "forms": [
+    "heaps"
+   ]
+  },
+  "brook": {
+   "pos": "noun",
+   "meaning": "A small stream of water.",
+   "whyHard": "An old word for a small river.",
+   "forms": [
+    "brooks"
+   ]
+  },
+  "wept": {
+   "pos": "past-tense verb",
+   "meaning": "Cried. Past of weep.",
+   "whyHard": "An old past form."
+  },
+  "shelf": {
+   "pos": "noun",
+   "meaning": "A flat board fixed to a wall, used to hold things.",
+   "whyHard": "A thing in a house."
+  },
+  "ceiling": {
+   "pos": "noun",
+   "meaning": "The top inside surface of a room.",
+   "whyHard": "A part of a room."
+  },
+  "ought": {
+   "pos": "verb",
+   "meaning": "Should.",
+   "whyHard": "An old word for should."
+  },
+  "heel": {
+   "pos": "noun",
+   "meaning": "The back part of the foot.",
+   "whyHard": "A body word.",
+   "forms": [
+    "heels"
+   ]
+  },
+  "eager": {
+   "pos": "adjective",
+   "meaning": "Wanting very much to do something.",
+   "whyHard": "A feeling word.",
+   "forms": [
+    "eagerly"
+   ]
+  },
+  "eagerly": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you want something very much.",
+   "whyHard": "A feeling word."
+  },
+  "wink": {
+   "pos": "verb",
+   "meaning": "To close one eye and open it again, as a signal.",
+   "whyHard": "A face action.",
+   "forms": [
+    "winked"
+   ]
+  },
+  "scarlet": {
+   "pos": "adjective",
+   "meaning": "A very bright red.",
+   "whyHard": "An old color word."
+  },
+  "satin": {
+   "pos": "noun",
+   "meaning": "A smooth, shiny cloth.",
+   "whyHard": "A kind of cloth."
+  },
+  "pail": {
+   "pos": "noun",
+   "meaning": "A bucket with a handle, used to carry water.",
+   "whyHard": "An old word for a bucket."
+  },
+  "crept": {
+   "pos": "past-tense verb",
+   "meaning": "Moved slowly and close to the ground.",
+   "whyHard": "An old past form of creep."
+  },
+  "beard": {
+   "pos": "noun",
+   "meaning": "Hair that grows on a man's chin and cheeks.",
+   "whyHard": "A body word.",
+   "forms": [
+    "beards"
+   ]
+  },
+  "apron": {
+   "pos": "noun",
+   "meaning": "A cloth worn over the front of clothes to keep them clean.",
+   "whyHard": "A piece of clothing."
+  },
+  "waist": {
+   "pos": "noun",
+   "meaning": "The middle of the body, above the hips.",
+   "whyHard": "A body word."
+  },
+  "thread": {
+   "pos": "noun",
+   "meaning": "A thin string used for sewing.",
+   "whyHard": "A sewing thing."
+  },
+  "swift": {
+   "pos": "adjective",
+   "meaning": "Very fast.",
+   "whyHard": "An old word for fast.",
+   "forms": [
+    "swiftly"
+   ]
+  },
+  "splendid": {
+   "pos": "adjective",
+   "meaning": "Very fine or beautiful.",
+   "whyHard": "A strong praise word."
+  },
+  "slate": {
+   "pos": "noun",
+   "meaning": "A small dark board you can write on with chalk.",
+   "whyHard": "An old school thing."
+  },
+  "sigh": {
+   "pos": "verb",
+   "meaning": "To let out a long breath when you are sad or tired.",
+   "whyHard": "A sound people make.",
+   "forms": [
+    "sighed"
+   ]
+  },
+  "precious": {
+   "pos": "adjective",
+   "meaning": "Worth a great deal; very special.",
+   "whyHard": "A word for something valuable."
+  },
+  "passage": {
+   "pos": "noun",
+   "meaning": "A way through.",
+   "whyHard": "A place word.",
+   "forms": [
+    "passages"
+   ]
+  },
+  "mistress": {
+   "pos": "noun",
+   "meaning": "An old word for a woman who is in charge, or for a wife.",
+   "whyHard": "An old title."
+  },
+  "majesty": {
+   "pos": "noun",
+   "meaning": "A title for a king or queen.",
+   "whyHard": "An old title."
+  },
+  "leap": {
+   "pos": "noun",
+   "meaning": "A big jump.",
+   "whyHard": "An action word.",
+   "forms": [
+    "leaps"
+   ]
+  },
+  "knee": {
+   "pos": "noun",
+   "meaning": "The joint in the middle of the leg.",
+   "whyHard": "A body word."
+  },
+  "elbow": {
+   "pos": "noun",
+   "meaning": "The joint in the middle of the arm.",
+   "whyHard": "A body word."
+  },
+  "errand": {
+   "pos": "noun",
+   "meaning": "A short trip to do a task for someone.",
+   "whyHard": "An old word for a small job."
+  },
+  "delight": {
+   "pos": "noun",
+   "meaning": "Great pleasure.",
+   "whyHard": "A feeling word.",
+   "forms": [
+    "delighted"
+   ]
+  },
+  "daisy": {
+   "pos": "noun",
+   "meaning": "A small flower with white petals and a yellow center.",
+   "whyHard": "A kind of flower.",
+   "forms": [
+    "daisies"
+   ]
+  },
+  "crown": {
+   "pos": "noun",
+   "meaning": "The ring of gold a ruler wears on the head.",
+   "whyHard": "An old thing a ruler wears.",
+   "forms": [
+    "crowns"
+   ]
+  },
+  "awkward": {
+   "pos": "adjective",
+   "meaning": "Not smooth or graceful.",
+   "whyHard": "A word for clumsy movement."
+  },
+  "amazement": {
+   "pos": "noun",
+   "meaning": "A strong feeling of surprise.",
+   "whyHard": "A feeling word."
+  },
+  "wagon": {
+   "pos": "noun",
+   "meaning": "A farm cart with wheels, pulled by horses.",
+   "whyHard": "An old farm thing."
+  },
+  "ladder": {
+   "pos": "noun",
+   "meaning": "A set of steps you can carry, used to climb up or down.",
+   "whyHard": "A tool for climbing."
+  },
+  "doorstep": {
+   "pos": "noun",
+   "meaning": "The step just outside a door.",
+   "whyHard": "A part of a house."
+  },
+  "shed": {
+   "pos": "noun",
+   "meaning": "A small building for tools or animals.",
+   "whyHard": "A farm building.",
+   "forms": [
+    "sheds"
+   ]
+  },
+  "cradle": {
+   "pos": "noun",
+   "meaning": "A small baby bed that can rock.",
+   "whyHard": "An old baby bed."
+  },
+  "feather": {
+   "pos": "noun",
+   "meaning": "One of the light things that cover a bird.",
+   "whyHard": "A part of a bird."
+  },
+  "scream": {
+   "pos": "verb",
+   "meaning": "To cry out in a loud, high voice.",
+   "whyHard": "A loud cry.",
+   "forms": [
+    "screamed"
+   ]
+  },
+  "howl": {
+   "pos": "verb",
+   "meaning": "To make a long, loud cry, like the wind or a dog.",
+   "whyHard": "A loud sound.",
+   "forms": [
+    "howled"
+   ]
+  },
+  "drag": {
+   "pos": "verb",
+   "meaning": "To pull something along with effort.",
+   "whyHard": "A way of pulling.",
+   "forms": [
+    "drags",
+    "dragged"
+   ]
+  },
+  "crawl": {
+   "pos": "verb",
+   "meaning": "To move on hands and knees.",
+   "whyHard": "A way of moving.",
+   "forms": [
+    "crawls",
+    "crawled",
+    "crawling"
+   ]
+  },
+  "sway": {
+   "pos": "verb",
+   "meaning": "To move slowly from side to side.",
+   "whyHard": "A kind of movement.",
+   "forms": [
+    "swaying"
+   ]
+  },
+  "sparkle": {
+   "pos": "noun",
+   "meaning": "A bright, quick flash of light.",
+   "whyHard": "A light word.",
+   "forms": [
+    "sparkled",
+    "sparkling"
+   ]
+  },
+  "beam": {
+   "pos": "noun",
+   "meaning": "A long heavy piece of wood that holds up a house.",
+   "whyHard": "A part of a building."
+  },
+  "chalk": {
+   "pos": "noun",
+   "meaning": "A soft white stick used for writing on a board.",
+   "whyHard": "An old school thing."
+  },
+  "handkerchief": {
+   "pos": "noun",
+   "meaning": "A small cloth for drying tears or the nose.",
+   "whyHard": "A small cloth.",
+   "forms": [
+    "handkerchiefs"
+   ]
+  },
+  "cap": {
+   "pos": "noun",
+   "meaning": "A soft hat with no wide brim.",
+   "whyHard": "A kind of hat.",
+   "forms": [
+    "caps"
+   ]
+  },
+  "secret": {
+   "pos": "noun",
+   "meaning": "Something you do not tell other people.",
+   "whyHard": "A hidden fact."
+  },
+  "bother": {
+   "pos": "noun",
+   "meaning": "Trouble or extra work.",
+   "whyHard": "A word for trouble."
+  },
+  "release": {
+   "pos": "noun",
+   "meaning": "Being set free.",
+   "whyHard": "A word for being set free."
+  },
+  "heartily": {
+   "pos": "adverb",
+   "meaning": "In a warm, strong way.",
+   "whyHard": "A way of speaking or laughing."
+  },
+  "housework": {
+   "pos": "noun",
+   "meaning": "Work in a house, such as cooking and cleaning.",
+   "whyHard": "Work done at home."
+  },
+  "rainstorm": {
+   "pos": "noun",
+   "meaning": "A storm with a lot of rain.",
+   "whyHard": "A kind of storm."
+  },
+  "happiness": {
+   "pos": "noun",
+   "meaning": "The feeling of being happy.",
+   "whyHard": "A feeling word."
+  },
+  "stride": {
+   "pos": "noun",
+   "meaning": "A long step.",
+   "whyHard": "A way of walking.",
+   "forms": [
+    "strides"
+   ]
+  },
+  "impression": {
+   "pos": "noun",
+   "meaning": "An effect left on something.",
+   "whyHard": "A less common word."
+  },
+  "heedless": {
+   "pos": "adjective",
+   "meaning": "Not paying attention to danger.",
+   "whyHard": "An old word."
+  },
+  "prove": {
+   "pos": "verb",
+   "meaning": "To show that something is true.",
+   "whyHard": "A thinking word.",
+   "forms": [
+    "proves"
+   ]
+  },
+  "ease": {
+   "pos": "noun",
+   "meaning": "A feeling of being comfortable.",
+   "whyHard": "A feeling word."
+  },
+  "toil": {
+   "pos": "verb",
+   "meaning": "To work very hard.",
+   "whyHard": "An old word for hard work.",
+   "forms": [
+    "toiling"
+   ]
+  },
+  "guide": {
+   "pos": "verb",
+   "meaning": "To show the way, or to lead.",
+   "whyHard": "A word for leading."
+  },
+  "unkind": {
+   "pos": "adjective",
+   "meaning": "Not kind; ready to hurt feelings.",
+   "whyHard": "A feeling word."
+  },
+  "balance": {
+   "pos": "verb",
+   "meaning": "To keep something steady so it does not fall.",
+   "whyHard": "A careful action.",
+   "forms": [
+    "balanced"
+   ]
+  },
+  "disappear": {
+   "pos": "verb",
+   "meaning": "To go out of sight.",
+   "whyHard": "An action word.",
+   "forms": [
+    "disappeared"
+   ]
+  },
+  "husky": {
+   "pos": "adjective",
+   "meaning": "A voice that sounds rough and low.",
+   "whyHard": "A word for a voice. It does not mean a kind of dog here."
+  },
+  "confidentially": {
+   "pos": "adverb",
+   "meaning": "In a quiet way, as if telling a secret.",
+   "whyHard": "A way of speaking."
+  },
+  "tread": {
+   "pos": "verb",
+   "meaning": "To step on something.",
+   "whyHard": "An old word for step.",
+   "forms": [
+    "treads"
+   ]
+  },
+  "suspect": {
+   "pos": "verb",
+   "meaning": "To think something may be true without being sure.",
+   "whyHard": "A thinking word.",
+   "forms": [
+    "suspected"
+   ]
+  },
+  "stumble": {
+   "pos": "verb",
+   "meaning": "To trip and almost fall.",
+   "whyHard": "A way of walking.",
+   "forms": [
+    "stumbled",
+    "stumbling"
+   ]
+  },
+  "refuse": {
+   "pos": "verb",
+   "meaning": "To say no.",
+   "whyHard": "An action word.",
+   "forms": [
+    "refused"
+   ]
+  },
+  "spoil": {
+   "pos": "verb",
+   "meaning": "To damage something so it is no longer good.",
+   "whyHard": "An action word.",
+   "forms": [
+    "spoiled"
+   ]
+  },
+  "fasten": {
+   "pos": "verb",
+   "meaning": "To join or fix something so it stays.",
+   "whyHard": "An action word.",
+   "forms": [
+    "fastened",
+    "fastening"
+   ]
+  },
+  "flock": {
+   "pos": "noun",
+   "meaning": "A group of birds.",
+   "whyHard": "A word for a group of birds."
+  },
+  "awake": {
+   "pos": "adjective",
+   "meaning": "Not asleep.",
+   "whyHard": "A state word.",
+   "forms": [
+    "awakened"
+   ]
+  },
+  "chase": {
+   "pos": "verb",
+   "meaning": "To run after someone or something.",
+   "whyHard": "An action word.",
+   "forms": [
+    "chased",
+    "chasing"
+   ]
+  },
+  "squirrel": {
+   "pos": "noun",
+   "meaning": "A small animal with a big tail that climbs trees.",
+   "whyHard": "A kind of animal.",
+   "forms": [
+    "squirrels"
+   ]
+  },
+  "search": {
+   "pos": "verb",
+   "meaning": "To look carefully for something.",
+   "whyHard": "An action word."
+  },
+  "stir": {
+   "pos": "verb",
+   "meaning": "To move a little.",
+   "whyHard": "An action word."
+  },
+  "snap": {
+   "pos": "verb",
+   "meaning": "To bite or grab suddenly.",
+   "whyHard": "A quick action."
+  },
+  "prevent": {
+   "pos": "verb",
+   "meaning": "To stop something from happening.",
+   "whyHard": "An action word."
+  },
+  "slip": {
+   "pos": "verb",
+   "meaning": "To slide out of place by accident.",
+   "whyHard": "An action word.",
+   "forms": [
+    "slipped"
+   ]
+  },
+  "replace": {
+   "pos": "verb",
+   "meaning": "To put a new thing in the place of an old one.",
+   "whyHard": "An action word.",
+   "forms": [
+    "replaced"
+   ]
+  },
+  "marry": {
+   "pos": "verb",
+   "meaning": "To become husband and wife.",
+   "whyHard": "A life word.",
+   "forms": [
+    "married"
+   ]
+  },
+  "sprang": {
+   "pos": "past-tense verb",
+   "meaning": "Jumped suddenly.",
+   "whyHard": "It looks like spring, the season or a water hole, but it means jumped."
+  },
+  "struck": {
+   "pos": "past-tense verb",
+   "meaning": "Hit. It does not mean stuck.",
+   "whyHard": "It looks like stuck, but it means hit."
+  },
+  "stuck": {
+   "pos": "past-tense verb",
+   "meaning": "Held so it cannot move. A pole pushed up inside a body and staying there is this.",
+   "whyHard": "It looks like struck. Stuck means held in place, not hit."
+  },
+  "threw": {
+   "pos": "past-tense verb",
+   "meaning": "Sent something through the air, or opened something with a quick move. Past of throw.",
+   "whyHard": "An irregular past form."
+  },
+  "fell": {
+   "pos": "past-tense verb",
+   "meaning": "Dropped down. Past of fall.",
+   "whyHard": "An irregular past form."
+  },
+  "flew": {
+   "pos": "past-tense verb",
+   "meaning": "Moved through the air. Past of fly.",
+   "whyHard": "An irregular past form."
+  },
+  "led": {
+   "pos": "past-tense verb",
+   "meaning": "Showed the way and went in front. It does not mean a gray metal.",
+   "whyHard": "Past of lead. It looks like the metal lead."
+  },
+  "lighted": {
+   "pos": "adjective",
+   "meaning": "Burning, with a flame.",
+   "whyHard": "It looks like the noun light, but here the match is on fire."
+  },
+  "shod": {
+   "pos": "adjective",
+   "meaning": "Wearing shoes.",
+   "whyHard": "An old word."
+  },
+  "roadbed": {
+   "pos": "noun",
+   "meaning": "The hard top of a road.",
+   "whyHard": "A part of a road."
+  },
+  "poker": {
+   "pos": "noun",
+   "meaning": "A metal stick used to move wood in a fire.",
+   "whyHard": "An old fireplace tool."
+  },
+  "stare": {
+   "pos": "verb",
+   "meaning": "To look at someone for a long time with wide eyes.",
+   "whyHard": "A way of looking.",
+   "forms": [
+    "staring"
+   ]
+  },
+  "stiff": {
+   "pos": "adjective",
+   "meaning": "Hard to bend.",
+   "whyHard": "A word for something that will not bend."
+  },
+  "crack": {
+   "pos": "noun",
+   "meaning": "A thin broken line.",
+   "whyHard": "A break in a hard thing.",
+   "forms": [
+    "cracks",
+    "cracked"
+   ],
+   "senses": [
+    {
+     "meaning": "A thin broken line.",
+     "default": true
+    },
+    {
+     "meaning": "A sudden loud sound.",
+     "whyHard": "Not the usual meaning! Usually a crack is a thin broken line.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "crack",
+       "context": "into the basket, when, crack! went the ropes, and the"
+      }
+     ]
+    }
+   ]
+  },
+  "cracked": {
+   "pos": "adjective",
+   "meaning": "Broken into thin lines. In the head, it means the mind is hurt, so the person acts foolish.",
+   "whyHard": "Here it means both broken and foolish."
+  },
+  "soul": {
+   "pos": "noun",
+   "meaning": "The person inside; the part that thinks and feels.",
+   "whyHard": "A word for the inner person."
+  },
+  "starve": {
+   "pos": "verb",
+   "meaning": "To give no food, so a person or animal grows weak.",
+   "whyHard": "A hard word.",
+   "forms": [
+    "starved"
+   ]
+  },
+  "kettle": {
+   "pos": "noun",
+   "meaning": "A metal pot used to boil water.",
+   "whyHard": "An old kitchen thing.",
+   "forms": [
+    "kettles"
+   ]
+  },
+  "bar": {
+   "pos": "noun",
+   "meaning": "A long piece of metal or wood, used to block a way or to hit.",
+   "whyHard": "A thing used as a barrier.",
+   "forms": [
+    "bars"
+   ]
+  },
+  "costume": {
+   "pos": "noun",
+   "meaning": "A set of clothes, often special or fancy.",
+   "whyHard": "A clothes word.",
+   "forms": [
+    "costumes"
+   ]
+  },
+  "prompt": {
+   "pos": "adjective",
+   "meaning": "Quick to act.",
+   "whyHard": "It does not mean a hint or a cue."
+  },
+  "snug": {
+   "pos": "adjective",
+   "meaning": "Warm and comfortable.",
+   "whyHard": "A feeling word."
+  },
+  "hardship": {
+   "pos": "noun",
+   "meaning": "Something that is hard to bear.",
+   "whyHard": "A hard time.",
+   "forms": [
+    "hardships"
+   ]
+  },
+  "whisker": {
+   "pos": "noun",
+   "meaning": "A long stiff hair on an animal's face.",
+   "whyHard": "A part of an animal's face.",
+   "forms": [
+    "whiskers",
+    "whiskered"
+   ]
+  },
+  "purr": {
+   "pos": "verb",
+   "meaning": "To make the soft, happy sound of a cat.",
+   "whyHard": "An animal sound.",
+   "forms": [
+    "purred"
+   ]
+  },
+  "web": {
+   "pos": "noun",
+   "meaning": "The net a spider makes.",
+   "whyHard": "A spider's net."
+  },
+  "habit": {
+   "pos": "noun",
+   "meaning": "Something you do so often that you do it without thinking.",
+   "whyHard": "A way of acting."
+  },
+  "accident": {
+   "pos": "noun",
+   "meaning": "Something bad that happens by chance.",
+   "whyHard": "An unplanned event.",
+   "forms": [
+    "accidents"
+   ]
+  },
+  "glow": {
+   "pos": "verb",
+   "meaning": "To shine with a steady light.",
+   "whyHard": "A light word.",
+   "forms": [
+    "glowed",
+    "glowing"
+   ]
+  },
+  "proof": {
+   "pos": "noun",
+   "meaning": "Something that shows a claim is true.",
+   "whyHard": "A thinking word."
+  },
+  "desire": {
+   "pos": "noun",
+   "meaning": "A strong wish.",
+   "whyHard": "A feeling word.",
+   "forms": [
+    "desired"
+   ]
+  },
+  "uniform": {
+   "pos": "noun",
+   "meaning": "The special clothes of a soldier or a worker.",
+   "whyHard": "A kind of clothes.",
+   "forms": [
+    "uniforms"
+   ]
+  },
+  "princess": {
+   "pos": "noun",
+   "meaning": "The daughter of a king or queen.",
+   "whyHard": "An old title.",
+   "forms": [
+    "princesses"
+   ]
+  },
+  "battle": {
+   "pos": "noun",
+   "meaning": "A fight.",
+   "whyHard": "A fight word."
+  },
+  "stork": {
+   "pos": "noun",
+   "meaning": "A large bird with long legs and a long beak.",
+   "whyHard": "A kind of bird."
+  },
+  "wildcat": {
+   "pos": "noun",
+   "meaning": "A wild animal like a large cat.",
+   "whyHard": "A kind of animal."
+  },
+  "cock": {
+   "pos": "noun",
+   "meaning": "A male chicken.",
+   "whyHard": "An old word for a male chicken. It is not a bad word here."
+  },
+  "hen": {
+   "pos": "noun",
+   "meaning": "A female chicken.",
+   "whyHard": "A farm bird."
+  },
+  "brick": {
+   "pos": "noun",
+   "meaning": "A hard block of baked clay, used to build or to pave a road.",
+   "whyHard": "A building thing.",
+   "forms": [
+    "bricks"
+   ]
+  },
+  "grain": {
+   "pos": "noun",
+   "meaning": "Plants grown for their seeds, such as wheat or corn.",
+   "whyHard": "A farm word."
+  },
+  "crop": {
+   "pos": "noun",
+   "meaning": "Plants grown on a farm for food.",
+   "whyHard": "A farm word.",
+   "forms": [
+    "crops"
+   ]
+  },
+  "lawn": {
+   "pos": "noun",
+   "meaning": "A piece of short grass in front of a house.",
+   "whyHard": "A piece of ground."
+  },
+  "supper": {
+   "pos": "noun",
+   "meaning": "The evening meal.",
+   "whyHard": "An old word for the evening meal."
+  },
+  "sheet": {
+   "pos": "noun",
+   "meaning": "A large cloth that covers a bed.",
+   "whyHard": "A bed thing.",
+   "forms": [
+    "sheets"
+   ]
+  },
+  "rug": {
+   "pos": "noun",
+   "meaning": "A small carpet.",
+   "whyHard": "A floor thing."
+  },
+  "corn": {
+   "pos": "noun",
+   "meaning": "A tall plant with yellow seeds.",
+   "whyHard": "A farm plant."
+  },
+  "cornfield": {
+   "pos": "noun",
+   "meaning": "A field where corn grows.",
+   "whyHard": "A farm place."
+  },
+  "pole": {
+   "pos": "noun",
+   "meaning": "A long stick set in the ground.",
+   "whyHard": "A long stick.",
+   "forms": [
+    "poles"
+   ]
+  },
+  "sack": {
+   "pos": "noun",
+   "meaning": "A bag made of cloth.",
+   "whyHard": "A kind of bag."
+  },
+  "boot": {
+   "pos": "noun",
+   "meaning": "A shoe that covers the ankle and sometimes the leg.",
+   "whyHard": "A kind of shoe.",
+   "forms": [
+    "boots"
+   ]
+  },
+  "chin": {
+   "pos": "noun",
+   "meaning": "The bottom of the face, below the mouth.",
+   "whyHard": "A body word."
+  },
+  "toe": {
+   "pos": "noun",
+   "meaning": "One of the five parts at the end of the foot.",
+   "whyHard": "A body word.",
+   "forms": [
+    "toes"
+   ]
+  },
+  "pin": {
+   "pos": "noun",
+   "meaning": "A thin sharp piece of metal.",
+   "whyHard": "A small metal thing.",
+   "forms": [
+    "pins"
+   ]
+  },
+  "fool": {
+   "pos": "noun",
+   "meaning": "A person who does not think well.",
+   "whyHard": "A hard name for a person.",
+   "forms": [
+    "fooled"
+   ]
+  },
+  "nest": {
+   "pos": "noun",
+   "meaning": "A home that a bird or a small animal makes.",
+   "whyHard": "An animal home."
+  },
+  "rat": {
+   "pos": "noun",
+   "meaning": "A small animal like a large mouse.",
+   "whyHard": "A kind of animal.",
+   "forms": [
+    "rats"
+   ]
+  },
+  "cottage": {
+   "pos": "noun",
+   "meaning": "A small house in the country.",
+   "whyHard": "A kind of house."
+  },
+  "log": {
+   "pos": "noun",
+   "meaning": "A thick piece cut from a tree.",
+   "whyHard": "A piece of wood.",
+   "forms": [
+    "logs"
+   ]
+  },
+  "throat": {
+   "pos": "noun",
+   "meaning": "The inside of the neck, where food and air go.",
+   "whyHard": "A body word."
+  },
+  "flesh": {
+   "pos": "noun",
+   "meaning": "The soft part of the body.",
+   "whyHard": "A body word."
+  },
+  "ray": {
+   "pos": "noun",
+   "meaning": "A line of light.",
+   "whyHard": "A light word.",
+   "forms": [
+    "rays"
+   ]
+  },
+  "axe": {
+   "pos": "noun",
+   "meaning": "A tool with a heavy sharp head, used to cut wood.",
+   "whyHard": "A tool."
+  },
+  "oil": {
+   "pos": "noun",
+   "meaning": "A thick liquid put on metal so it moves easily.",
+   "whyHard": "A thing used on machines.",
+   "forms": [
+    "oiled"
+   ]
+  },
+  "sheep": {
+   "pos": "noun",
+   "meaning": "A farm animal kept for wool.",
+   "whyHard": "A farm animal."
+  },
+  "ant": {
+   "pos": "noun",
+   "meaning": "A very small insect that lives in a group.",
+   "whyHard": "A kind of insect."
+  },
+  "bug": {
+   "pos": "noun",
+   "meaning": "A small insect.",
+   "whyHard": "A kind of insect."
+  },
+  "sorrow": {
+   "pos": "noun",
+   "meaning": "A deep sad feeling.",
+   "whyHard": "A feeling word."
+  },
+  "regret": {
+   "pos": "noun",
+   "meaning": "A sad feeling about something you did.",
+   "whyHard": "A feeling word."
+  },
+  "companion": {
+   "pos": "noun",
+   "meaning": "A person or animal who goes with you.",
+   "whyHard": "A word for a friend on a trip.",
+   "forms": [
+    "companions"
+   ]
+  },
+  "sunshine": {
+   "pos": "noun",
+   "meaning": "Light from the sun.",
+   "whyHard": "A weather word."
+  },
+  "growl": {
+   "pos": "verb",
+   "meaning": "To make a low angry sound, like a dog.",
+   "whyHard": "An animal sound.",
+   "forms": [
+    "growled",
+    "growling"
+   ]
+  },
+  "roar": {
+   "pos": "verb",
+   "meaning": "To make a loud deep cry, like a lion.",
+   "whyHard": "An animal sound.",
+   "forms": [
+    "roared"
+   ]
+  },
+  "shame": {
+   "pos": "noun",
+   "meaning": "A bad feeling when you know you did wrong.",
+   "whyHard": "A feeling word."
+  },
+  "whirl": {
+   "pos": "verb",
+   "meaning": "To turn around fast.",
+   "whyHard": "A kind of movement.",
+   "forms": [
+    "whirls",
+    "whirled"
+   ]
+  },
+  "shiver": {
+   "pos": "noun",
+   "meaning": "A shake of the body from cold or fear.",
+   "whyHard": "A body feeling."
+  },
+  "disease": {
+   "pos": "noun",
+   "meaning": "An illness.",
+   "whyHard": "A health word."
+  },
+  "adventure": {
+   "pos": "noun",
+   "meaning": "An exciting or dangerous happening.",
+   "whyHard": "A story word.",
+   "forms": [
+    "adventures"
+   ]
+  },
+  "peace": {
+   "pos": "noun",
+   "meaning": "A quiet time with no fighting.",
+   "whyHard": "A state word."
+  },
+  "cruel": {
+   "pos": "adjective",
+   "meaning": "Ready to hurt others and not sorry.",
+   "whyHard": "A character word."
+  },
+  "sob": {
+   "pos": "verb",
+   "meaning": "To cry with short, shaking breaths.",
+   "whyHard": "A way of crying.",
+   "forms": [
+    "sobbed"
+   ]
+  },
+  "injure": {
+   "pos": "verb",
+   "meaning": "To hurt someone.",
+   "whyHard": "A hurt word."
+  },
+  "nod": {
+   "pos": "verb",
+   "meaning": "To move the head down and up, often to say yes.",
+   "whyHard": "A head movement.",
+   "forms": [
+    "nodded",
+    "nodding"
+   ]
+  },
+  "bark": {
+   "pos": "verb",
+   "meaning": "To make the short loud cry of a dog.",
+   "whyHard": "A dog sound. It does not mean the skin of a tree here.",
+   "forms": [
+    "barked",
+    "barking"
+   ]
+  },
+  "pave": {
+   "pos": "verb",
+   "meaning": "To cover a road with a hard surface.",
+   "whyHard": "A building word.",
+   "forms": [
+    "paved"
+   ]
+  },
+  "gather": {
+   "pos": "verb",
+   "meaning": "To pick up and bring together.",
+   "whyHard": "An action word.",
+   "forms": [
+    "gathered"
+   ]
+  },
+  "destroy": {
+   "pos": "verb",
+   "meaning": "To break something so it is gone.",
+   "whyHard": "An action word.",
+   "forms": [
+    "destroyed",
+    "destroying"
+   ]
+  },
+  "celebrate": {
+   "pos": "verb",
+   "meaning": "To do something happy for a special reason.",
+   "whyHard": "An action word."
+  },
+  "gaze": {
+   "pos": "verb",
+   "meaning": "To look at something for a long time.",
+   "whyHard": "A way of looking.",
+   "forms": [
+    "gazed",
+    "gazing"
+   ]
+  },
+  "yawn": {
+   "pos": "verb",
+   "meaning": "To open the mouth wide because you are tired.",
+   "whyHard": "A body action.",
+   "forms": [
+    "yawned",
+    "yawning"
+   ]
+  },
+  "hop": {
+   "pos": "verb",
+   "meaning": "To jump on one foot, or the way a bird jumps.",
+   "whyHard": "A way of jumping.",
+   "forms": [
+    "hoped",
+    "hopped"
+   ]
+  },
+  "curl": {
+   "pos": "verb",
+   "meaning": "To bend into a round shape.",
+   "whyHard": "A shape word.",
+   "forms": [
+    "curled"
+   ]
+  },
+  "worn": {
+   "pos": "adjective",
+   "meaning": "Damaged by long use.",
+   "whyHard": "It looks like the past of wear."
+  },
+  "leather": {
+   "pos": "noun",
+   "meaning": "The skin of an animal, made into shoes or clothes.",
+   "whyHard": "A material."
+  },
+  "spread": {
+   "pos": "verb",
+   "meaning": "To cover a surface with something, or to open something out.",
+   "whyHard": "An action word.",
+   "forms": [
+    "spreading"
+   ]
+  },
+  "require": {
+   "pos": "verb",
+   "meaning": "To need.",
+   "whyHard": "An old word for need.",
+   "forms": [
+    "required"
+   ]
+  },
+  "ripe": {
+   "pos": "adjective",
+   "meaning": "Ready to eat, for fruit or grain.",
+   "whyHard": "A farm word."
+  },
+  "lean": {
+   "pos": "verb",
+   "meaning": "To bend and rest against something.",
+   "whyHard": "A body action. It does not mean thin here.",
+   "forms": [
+    "leaned"
+   ]
+  },
+  "scare": {
+   "pos": "verb",
+   "meaning": "To make someone afraid.",
+   "whyHard": "An action word.",
+   "forms": [
+    "scared"
+   ]
+  },
+  "rough": {
+   "pos": "adjective",
+   "meaning": "Not smooth, or not gentle.",
+   "whyHard": "A describing word."
+  },
+  "gravely": {
+   "pos": "adverb",
+   "meaning": "In a serious way. It does not mean a place where a dead person is buried.",
+   "whyHard": "It looks like grave, the burial place."
+  },
+  "solemn": {
+   "pos": "adjective",
+   "meaning": "Very serious.",
+   "whyHard": "A describing word.",
+   "forms": [
+    "solemnly"
+   ]
+  },
+  "stern": {
+   "pos": "adjective",
+   "meaning": "Serious and strict.",
+   "whyHard": "A describing word."
+  },
+  "wee": {
+   "pos": "adjective",
+   "meaning": "Very small.",
+   "whyHard": "An old word for tiny."
+  },
+  "rarely": {
+   "pos": "adverb",
+   "meaning": "Not often.",
+   "whyHard": "A time word."
+  },
+  "silky": {
+   "pos": "adjective",
+   "meaning": "Soft and smooth like silk.",
+   "whyHard": "A describing word."
+  },
+  "dearly": {
+   "pos": "adverb",
+   "meaning": "Very much.",
+   "whyHard": "A feeling word."
+  },
+  "shock": {
+   "pos": "noun",
+   "meaning": "A sudden hard shake.",
+   "whyHard": "It can mean surprise, but here it is a sudden shake.",
+   "forms": [
+    "shocked"
+   ]
+  },
+  "severe": {
+   "pos": "adjective",
+   "meaning": "Very hard or very bad.",
+   "whyHard": "A describing word."
+  },
+  "pressure": {
+   "pos": "noun",
+   "meaning": "A strong push from all sides.",
+   "whyHard": "A force word."
+  },
+  "deaf": {
+   "pos": "adjective",
+   "meaning": "Not able to hear.",
+   "whyHard": "A body word."
+  },
+  "messenger": {
+   "pos": "noun",
+   "meaning": "A person sent to carry news.",
+   "whyHard": "A job word."
+  },
+  "ruby": {
+   "pos": "noun",
+   "meaning": "A red jewel.",
+   "whyHard": "The name of a jewel.",
+   "forms": [
+    "rubies"
+   ]
+  },
+  "diamond": {
+   "pos": "noun",
+   "meaning": "A very hard, bright jewel.",
+   "whyHard": "The name of a jewel.",
+   "forms": [
+    "diamonds"
+   ]
+  },
+  "jewel": {
+   "pos": "noun",
+   "meaning": "A valuable stone, such as an emerald.",
+   "whyHard": "A precious stone.",
+   "forms": [
+    "jewels"
+   ]
+  },
+  "silk": {
+   "pos": "noun",
+   "meaning": "A soft, shiny cloth.",
+   "whyHard": "A kind of cloth.",
+   "forms": [
+    "silks"
+   ]
+  },
+  "ribbon": {
+   "pos": "noun",
+   "meaning": "A long narrow strip of cloth, used for tying.",
+   "whyHard": "A cloth strip."
+  },
+  "clown": {
+   "pos": "noun",
+   "meaning": "A person who dresses in bright clothes and tries to be funny.",
+   "whyHard": "A kind of performer.",
+   "forms": [
+    "clowns"
+   ]
+  },
+  "circus": {
+   "pos": "noun",
+   "meaning": "A traveling show with animals and performers.",
+   "whyHard": "A kind of show."
+  },
+  "bucket": {
+   "pos": "noun",
+   "meaning": "A deep open container with a handle, used for water.",
+   "whyHard": "A container."
+  },
+  "bridge": {
+   "pos": "noun",
+   "meaning": "A structure that lets you cross a river or a gap.",
+   "whyHard": "A building.",
+   "forms": [
+    "bridges"
+   ]
+  },
+  "courtyard": {
+   "pos": "noun",
+   "meaning": "An open space inside or beside a building.",
+   "whyHard": "A part of a building."
+  },
+  "mat": {
+   "pos": "noun",
+   "meaning": "A small flat cover for the floor.",
+   "whyHard": "A floor thing."
+  },
+  "dew": {
+   "pos": "noun",
+   "meaning": "Small drops of water that form outside at night.",
+   "whyHard": "A weather word."
+  },
+  "pile": {
+   "pos": "noun",
+   "meaning": "A heap of things put one on another.",
+   "whyHard": "A group of things."
+  },
+  "nut": {
+   "pos": "noun",
+   "meaning": "A hard-shelled seed that you can eat.",
+   "whyHard": "A kind of food.",
+   "forms": [
+    "nuts"
+   ]
+  },
+  "shore": {
+   "pos": "noun",
+   "meaning": "The land at the edge of a river or the sea.",
+   "whyHard": "A land word."
+  },
+  "peach": {
+   "pos": "noun",
+   "meaning": "A soft round fruit with a pit.",
+   "whyHard": "A kind of fruit.",
+   "forms": [
+    "peaches"
+   ]
+  },
+  "plum": {
+   "pos": "noun",
+   "meaning": "A soft round fruit, often purple.",
+   "whyHard": "A kind of fruit.",
+   "forms": [
+    "plums"
+   ]
+  },
+  "blossom": {
+   "pos": "noun",
+   "meaning": "A flower, especially on a fruit tree.",
+   "whyHard": "A flower word.",
+   "forms": [
+    "blossoms"
+   ]
+  },
+  "carpet": {
+   "pos": "noun",
+   "meaning": "A thick cover for the floor.",
+   "whyHard": "A floor thing."
+  },
+  "wing": {
+   "pos": "noun",
+   "meaning": "The part a bird or an insect uses to fly.",
+   "whyHard": "A body part of a flying animal.",
+   "forms": [
+    "wings",
+    "winged"
+   ]
+  },
+  "rope": {
+   "pos": "noun",
+   "meaning": "A strong thick cord.",
+   "whyHard": "A thing used for tying.",
+   "forms": [
+    "ropes"
+   ]
+  },
+  "desert": {
+   "pos": "noun",
+   "meaning": "A very dry place where almost nothing grows.",
+   "whyHard": "A kind of land."
+  },
+  "hearty": {
+   "pos": "adjective",
+   "meaning": "Big and satisfying, for a meal, or warm and strong.",
+   "whyHard": "A describing word."
+  },
+  "represent": {
+   "pos": "verb",
+   "meaning": "To stand for something, or to show it.",
+   "whyHard": "A thinking word."
+  },
+  "business": {
+   "pos": "noun",
+   "meaning": "A matter you need to deal with. Not a shop or a company here.",
+   "whyHard": "Here it means a matter to take care of."
+  },
+  "bite": {
+   "pos": "verb",
+   "meaning": "To cut with the teeth.",
+   "whyHard": "An action word.",
+   "forms": [
+    "bites",
+    "biting"
+   ]
+  },
+  "unfriendly": {
+   "pos": "adjective",
+   "meaning": "Not friendly.",
+   "whyHard": "A describing word."
+  },
+  "bound": {
+   "pos": "verb",
+   "meaning": "To jump forward.",
+   "whyHard": "It does not mean tied up here.",
+   "forms": [
+    "bounded",
+    "bounding"
+   ]
+  },
+  "scratch": {
+   "pos": "verb",
+   "meaning": "To cut lightly with something sharp.",
+   "whyHard": "A light cut.",
+   "forms": [
+    "scratched"
+   ]
+  },
+  "stock": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The animals kept on a farm.",
+   "whyHard": "Not the usual meaning! Usually stock means goods kept to sell.",
+   "senses": [
+    {
+     "meaning": "The animals kept on a farm.",
+     "whyHard": "Not the usual meaning! Usually stock means goods kept to sell.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "go look after the stock.” Then he ran toward the"
+      }
+     ]
+    }
+   ]
+  },
+  "sweep": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A wide stretch of land.",
+   "whyHard": "Not the usual meaning! Usually sweep means to clean with a broom.",
+   "senses": [
+    {
+     "meaning": "A wide stretch of land.",
+     "whyHard": "Not the usual meaning! Usually sweep means to clean with a broom.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "house broke the broad sweep of flat country that reached"
+      }
+     ]
+    }
+   ]
+  },
+  "baked": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Made hard and dry by heat.",
+   "whyHard": "Not the usual meaning! Usually bake means to cook food in an oven.",
+   "senses": [
+    {
+     "meaning": "Made hard and dry by heat.",
+     "whyHard": "Not the usual meaning! Usually bake means to cook food in an oven.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "directions. The sun had baked the plowed land into a"
+      }
+     ]
+    }
+   ]
+  },
+  "dull": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not bright.",
+   "whyHard": "Not the usual meaning! Usually dull means boring.",
+   "senses": [
+    {
+     "meaning": "Not bright.",
+     "whyHard": "Not the usual meaning! Usually dull means boring.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "the house was as dull and gray as everything else"
+      }
+     ]
+    }
+   ]
+  },
+  "fast": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Tightly, or fully, as in a deep sleep or a tight hold.",
+   "whyHard": "Not the usual meaning! Usually fast means quick.",
+   "senses": [
+    {
+     "meaning": "Tightly, or fully, as in a deep sleep or a tight hold.",
+     "whyHard": "Not the usual meaning! Usually fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "wind, Dorothy soon closed her eyes and fell fast asleep"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "pole that it stuck fast in the mud at the"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "you will only hold fast to the tip of my"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "context": "the Tin Woodman caught fast hold of his tail. Then"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 5,
+       "context": "where she was and fell among the poppies, fast asleep"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 8,
+       "context": "friend the Lion, lying fast asleep among the poppies. The"
+      }
+     ]
+    }
+   ]
+  },
+  "bow": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To bend the head or the body down.",
+   "whyHard": "Not the usual meaning! Usually a bow is a hair ribbon or a weapon that shoots arrows.",
+   "senses": [
+    {
+     "meaning": "To bend the head or the body down.",
+     "whyHard": "Not the usual meaning! Usually a bow is a hair ribbon or a weapon that shoots arrows.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "Dorothy, made a low bow and said, in a sweet"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "look at her and bow low as she went by"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "and to see him bow and walk along beside her"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "Oh, indeed,” said the Woodman, making a bow"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "And with another bow, the Monkey King spread his wings"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "your enemy, will you bow down to me and obey"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "where the long grass bowed in waves before the coming",
+       "form": "bowed"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "time, with her head bowed and her eyes upon the",
+       "form": "bowed"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "The three Munchkins bowed low to her and wished her",
+       "form": "bowed"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "great Wildcat?” They all bowed so low to the little",
+       "form": "bowed"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "green eyes, and she bowed low before Dorothy as she",
+       "form": "bowed"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "When the Scarecrow had bowed, as prettily as his straw",
+       "form": "bowed"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "The King bowed low before Dorothy, and asked, “What is",
+       "form": "bowed"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "the City, the King bowed low to Dorothy, and then",
+       "form": "bowed"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "the man, and he bowed very low indeed before her",
+       "form": "bowed"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "the tigers came up to the Lion and bowed, saying",
+       "form": "bowed"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "context": "Then the beasts bowed down to the Lion as their",
+       "form": "bowed"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "said the Monkey King, bowing before the little girl. “What",
+       "form": "bowing"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "your commands?” inquired the King of the Monkeys, bowing low",
+       "form": "bowing"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "bowed",
+    "bowing"
+   ]
+  },
+  "bank": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Raised ground beside water, or a thick mass of flowers.",
+   "whyHard": "Not the usual meaning! Usually a bank is a place that keeps money.",
+   "senses": [
+    {
+     "meaning": "Raised ground beside water, or a thick mass of flowers.",
+     "whyHard": "Not the usual meaning! Usually a bank is a place that keeps money.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "started along the grassy bank, to the road from which"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "sat down upon the bank and gazed wistfully at the"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "context": "and back to the bank, where Dorothy and the Lion"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "rich and luscious fruits. Banks of gorgeous flowers were on",
+       "form": "banks"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "sparkling along between green banks, and murmuring in a voice",
+       "form": "banks"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "banks"
+   ]
+  },
+  "rest": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The part that remains; the others.",
+   "whyHard": "Not the usual meaning! Usually rest means to stop and be still.",
+   "senses": [
+    {
+     "meaning": "The part that remains; the others.",
+     "whyHard": "Not the usual meaning! Usually rest means to stop and be still.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "off from all the rest of the world. Therefore we"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "powerful than all the rest of us together. He lives"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "rather larger than the rest. On the green lawn before"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "context": "his head, and the rest of the figure was a"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "During the rest of that day there was no other"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "she has of the rest. But take care; for she"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "mixture and stuffed the rest of the space with straw"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "travelers passed through the rest of the forest in safety"
+      }
+     ]
+    }
+   ]
+  },
+  "china": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A hard white material used for cups and plates. The people and houses are made of it.",
+   "whyHard": "Not the usual meaning! Usually China is the name of a country.",
+   "senses": [
+    {
+     "meaning": "A hard white material used for cups and plates. The people and houses are made of it.",
+     "whyHard": "Not the usual meaning! Usually China is the name of a country.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "be made of white china. It was smooth, like the"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "houses made entirely of china and painted in the brightest"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 3,
+       "context": "pretty little barns, with china fences around them; and many"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 4,
+       "context": "chickens, all made of china, were standing about in groups"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 5,
+       "context": "were all made of china, even to their clothes, and"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 6,
+       "context": "except one little purple china dog with an extra-large"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 7,
+       "context": "the country of the china people, and the first thing"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 8,
+       "context": "came to was a china milkmaid milking a china cow"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 9,
+       "context": "china milkmaid milking a china cow. As they drew near"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 10,
+       "context": "all fell on the china ground with a great clatter"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 11,
+       "context": "she ran after her. But the china girl cried out"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 12,
+       "context": "our clowns,” continued the china lady, “who is always trying"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 13,
+       "context": "very unhappy,” answered the china Princess. “You see, here in"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 14,
+       "context": "walked carefully through the china country. The little animals and"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 15,
+       "context": "side of the country and came to another china wall"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 16,
+       "context": "jumped, he upset a china church with his tail and"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "climbing down from the china wall the travelers found themselves"
+      }
+     ]
+    }
+   ]
+  },
+  "blow": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A hard hit.",
+   "whyHard": "Not the usual meaning! Usually blow means moving air, or sending air from the mouth.",
+   "senses": [
+    {
+     "meaning": "A hard hit.",
+     "whyHard": "Not the usual meaning! Usually blow means moving air, or sending air from the mouth.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "the road. With one blow of his paw he sent"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "gave it a quick blow that cut the beast’s head"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "Witch struck Toto a blow with her umbrella and the"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "back. Then, with one blow of his heavy paw, all"
+      }
+     ]
+    }
+   ]
+  },
+  "sound": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Deep and full, as in a deep sleep.",
+   "whyHard": "Not the usual meaning! Usually sound means a noise.",
+   "senses": [
+    {
+     "meaning": "Deep and full, as in a deep sleep.",
+     "whyHard": "Not the usual meaning! Usually sound means a noise.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "soon fell into a sound sleep. The Scarecrow, who was"
+      }
+     ]
+    }
+   ]
+  },
+  "match": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A small stick that starts a fire.",
+   "whyHard": "Not the usual meaning! Usually a match is a game.",
+   "senses": [
+    {
+     "meaning": "A small stick that starts a fire.",
+     "whyHard": "Not the usual meaning! Usually a match is a game.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "No,” answered the Scarecrow; “it’s a lighted match"
+      }
+     ]
+    }
+   ]
+  },
+  "trunk": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The thick stem of a tree.",
+   "whyHard": "Not the usual meaning! Usually a trunk is a box for clothes, or an elephant's nose.",
+   "senses": [
+    {
+     "meaning": "The thick stem of a tree.",
+     "whyHard": "Not the usual meaning! Usually a trunk is a box for clothes, or an elephant's nose.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "of a big tree trunk. So fast and so well"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "tall tree, and the trunk was so smooth that no"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "long as a tree trunk. It has eight of these"
+      }
+     ]
+    }
+   ]
+  },
+  "lying": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "Resting flat.",
+   "whyHard": "Not the usual meaning! Usually lying means saying something that is not true.",
+   "senses": [
+    {
+     "meaning": "Resting flat.",
+     "whyHard": "Not the usual meaning! Usually lying means saying something that is not true.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "Dorothy had not been lying on the soft bed she"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "of the house where the Wicked Witch had been lying"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "that moment Dorothy saw lying on the table the silver"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "their friend the Lion, lying fast asleep among the poppies"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "for its ears were lying close to its head and"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "astonished to find herself lying upon the grass, with thousands"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "his leg, and was lying on the couch in a"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "around and saw Dorothy lying asleep, with her friends all"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "saw all her wolves lying dead, and the strangers still"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "context": "at last all were lying dead beside him. Then he"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 4,
+       "context": "saw all her crows lying in a heap, she got"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 5,
+       "context": "and her wolves were lying in heaps and drying up"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "that the pail was lying in several small pieces, while"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "The great spider was lying asleep when the Lion found"
+      }
+     ]
+    }
+   ]
+  },
+  "lie": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To rest flat.",
+   "whyHard": "Not the usual meaning! Usually a lie is something that is not true.",
+   "senses": [
+    {
+     "meaning": "To rest flat.",
+     "whyHard": "Not the usual meaning! Usually a lie is something that is not true.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "not rest him to lie down, and he could not"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "is my battle, so lie down beside me and you"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "had eaten he would lie down on his bed of"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "context": "straw, and Dorothy would lie beside him and put her"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "notion which way it lies. But the first thing to",
+       "form": "lies"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "Hammer-Heads,” he answered, “lies a grand old forest, and",
+       "form": "lies"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "awakened, for he had lain among the poppies a long",
+       "form": "lain"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "lies",
+    "lain"
+   ]
+  },
+  "lay": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Rested flat. Past of lie, when lie means to rest flat.",
+   "whyHard": "Not the usual meaning! Usually lay means to put something down.",
+   "senses": [
+    {
+     "meaning": "Rested flat. Past of lie, when lie means to rest flat.",
+     "whyHard": "Not the usual meaning! Usually lay means to put something down.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "to her bed, and lay down upon it; and Toto"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "context": "upon it; and Toto followed and lay down beside her"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "in one corner. She lay down at once, and with"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "the Woodman fell over in the road and lay still"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "dry leaves when she lay down to sleep. These kept"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "Woodman, as the Lion lay down on the grass to"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "little horses to the place where the Lion lay asleep"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "sleep in, and Toto lay down beside her, while the"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "world. The Tin Woodman lay down on his bed from"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "her own room and lay down on the bed and"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "Lion were tired, and lay down upon the grass and"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "at last they all lay dead in a heap before"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "context": "So they all lay upon the ground except the Scarecrow"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 4,
+       "context": "did, and as Dorothy lay close beside the Lion and"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 6,
+       "context": "the rocks, where he lay so battered and dented that"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "shone brightly. So they lay down among the sweet smelling"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "in the forest Dorothy lay down and slept, for she"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "curled himself up to sleep and Toto lay beside him"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "Toto and the Lion lay down to sleep, while the"
+      }
+     ]
+    }
+   ]
+  },
+  "pretty": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Quite; to a fair degree.",
+   "whyHard": "Not the usual meaning! Usually pretty means good-looking.",
+   "senses": [
+    {
+     "meaning": "Quite; to a fair degree.",
+     "whyHard": "Not the usual meaning! Usually pretty means good-looking.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "context": "I’m pretty well, thank you,” replied Dorothy politely. “How do"
+      }
+     ]
+    }
+   ]
+  },
+  "might": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Strength.",
+   "whyHard": "Not the usual meaning! Usually might means maybe.",
+   "senses": [
+    {
+     "meaning": "Strength.",
+     "whyHard": "Not the usual meaning! Usually might means maybe.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "pushed with all his might, and slowly the big tree"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "swim with all his might toward the shore. It was"
+      }
+     ]
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Still there, or not taken away.",
+   "whyHard": "Not the usual meaning! Usually left is a side, or it means went away.",
+   "senses": [
+    {
+     "meaning": "Still there, or not taken away.",
+     "whyHard": "Not the usual meaning! Usually left is a side, or it means went away.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "are retained and the heartaches and nightmares are left out"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "there are no witches left, nor wizards, nor sorceresses, nor"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "disappeared entirely, and nothing was left but the silver shoes"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "When Dorothy was left alone she began to feel hungry"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "context": "was not much bread left in the basket, and the"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 4,
+       "context": "rusted, and I was left to stand in the woods"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "the poor Scarecrow was left clinging to the pole in"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "the poor Scarecrow was left far behind. Then the Lion"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "Emerald City was soon left far behind. As they advanced"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "was only one way left to destroy Dorothy and her"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 4,
+       "context": "was all that was left of the old woman, she"
+      }
+     ]
+    }
+   ]
+  },
+  "locks": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Hair.",
+   "whyHard": "Not the usual meaning! Usually a lock keeps a door shut.",
+   "senses": [
+    {
+     "meaning": "Hair.",
+     "whyHard": "Not the usual meaning! Usually a lock keeps a door shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "upon her flowing green locks a crown of jewels. Growing"
+      }
+     ]
+    }
+   ]
+  },
+  "plain": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A wide flat piece of land.",
+   "whyHard": "Not the usual meaning! Usually plain means simple.",
+   "senses": [
+    {
+     "meaning": "A wide flat piece of land.",
+     "whyHard": "Not the usual meaning! Usually plain means simple.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "came to the rocky plain where the Tin Woodman lay"
+      }
+     ]
+    }
+   ]
+  },
+  "fair": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Beautiful.",
+   "whyHard": "Not the usual meaning! Usually fair means equal or right.",
+   "senses": [
+    {
+     "meaning": "Beautiful.",
+     "whyHard": "Not the usual meaning! Usually fair means equal or right.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "My lady fair, Why do you stare At poor old"
+      }
+     ]
+    }
+   ]
+  },
+  "jar": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A sudden hard shake.",
+   "whyHard": "Not the usual meaning! Usually a jar is a glass container.",
+   "senses": [
+    {
+     "meaning": "A sudden hard shake.",
+     "whyHard": "Not the usual meaning! Usually a jar is a glass container.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "As it was, the jar made her catch her breath"
+      }
+     ]
+    }
+   ]
+  },
+  "flooding": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "Filling a place. Here the sunshine fills the room.",
+   "whyHard": "Not the usual meaning! Usually flooding means water covering the land.",
+   "senses": [
+    {
+     "meaning": "Filling a place. Here the sunshine fills the room.",
+     "whyHard": "Not the usual meaning! Usually flooding means water covering the land.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "in at the window, flooding the little room. She sprang"
+      }
+     ]
+    }
+   ]
+  },
+  "band": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A group of people or animals who stay together.",
+   "whyHard": "Not the usual meaning! Usually a band is a music group.",
+   "senses": [
+    {
+     "meaning": "A group of people or animals who stay together.",
+     "whyHard": "Not the usual meaning! Usually a band is a music group.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "Your power over our band is now ended, and you"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "of wings, as the band of Winged Monkeys flew up"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "flying out with his band when he saw Quelala walking"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "At his word the band flew down and seized Quelala"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 4,
+       "context": "and then flew swiftly away, followed by all his band"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "words, and soon the band of Winged Monkeys flew in"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "flew away through the window, followed by all his band"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "in a few moments the entire band stood before her"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "that he and his band may thereafter be free forevermore"
+      }
+     ]
+    }
+   ]
+  },
+  "check": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A pattern of squares.",
+   "whyHard": "Not the usual meaning! Usually check means to look at something to see if it is right.",
+   "senses": [
+    {
+     "meaning": "A pattern of squares.",
+     "whyHard": "Not the usual meaning! Usually check means to look at something to see if it is right.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "It was gingham, with checks of white and blue; and",
+       "form": "checks"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "is blue and white checked,” said Dorothy, smoothing out the",
+       "form": "checked"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "checks",
+    "checked"
+   ]
+  },
+  "spirit": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A happy, lively feeling.",
+   "whyHard": "Not the usual meaning! Usually a spirit is a ghost.",
+   "senses": [
+    {
+     "meaning": "A happy, lively feeling.",
+     "whyHard": "Not the usual meaning! Usually a spirit is a ghost.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "their rooms in high spirits. Even Dorothy had hope that",
+       "form": "spirits"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "in the best of spirits, and laughed and chatted together",
+       "form": "spirits"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "spirits"
+   ]
+  },
+  "fashion": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A way of doing something.",
+   "whyHard": "Not the usual meaning! Usually fashion means clothes that are in style.",
+   "senses": [
+    {
+     "meaning": "A way of doing something.",
+     "whyHard": "Not the usual meaning! Usually fashion means clothes that are in style.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "in so poor a fashion, after sending them to undergo"
+      }
+     ]
+    }
+   ]
+  },
+  "rocked": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Moved gently from side to side.",
+   "whyHard": "Not the usual meaning! Usually a rock is a stone.",
+   "senses": [
+    {
+     "meaning": "Moved gently from side to side.",
+     "whyHard": "Not the usual meaning! Usually a rock is a stone.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "if she were being rocked gently, like a baby in"
+      }
+     ]
+    }
+   ]
+  },
+  "stick": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A long thin piece of wood.",
+   "whyHard": "Not the usual meaning! Usually stick means to glue, or to become fixed.",
+   "forms": [
+    "sticks",
+    "sticking"
+   ],
+   "senses": [
+    {
+     "meaning": "A long thin piece of wood.",
+     "whyHard": "Not the usual meaning! Usually stick means to glue, or to become fixed.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "up on a tall stick, where you found me. He"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "a gold-headed walking stick, to keep him from stumbling"
+      }
+     ]
+    },
+    {
+     "meaning": "To push into, or to stay caught in a place.",
+     "whyHard": "Not the usual meaning! Usually stick means to glue.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "so the dry bread will not stick in my throat"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "and needles began to stick out of his brains. Finally"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "on my toes or sticks a pin into me, it",
+       "form": "sticks"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "one of his ears sticking up through the hole, for",
+       "form": "sticking"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "her two feet, still sticking out from under a block",
+       "form": "sticking"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "on, two feet were sticking out, shod in silver shoes",
+       "form": "sticking"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "those needles and pins sticking out of your head?” asked",
+       "form": "sticking"
+      }
+     ]
+    }
+   ]
+  },
+  "soundly": {
+   "pos": "adverb",
+   "meaning": "In a deep, quiet way. Used about sleep.",
+   "whyHard": "A word for sleeping deeply."
+  },
+  "trot": {
+   "pos": "verb",
+   "meaning": "To run with short, quick steps.",
+   "whyHard": "A way of running.",
+   "forms": [
+    "trotting"
+   ]
+  },
+  "wag": {
+   "pos": "verb",
+   "meaning": "To move quickly from side to side, as a dog moves its tail.",
+   "whyHard": "An animal action.",
+   "forms": [
+    "wagged"
+   ]
+  },
+  "slap": {
+   "pos": "verb",
+   "meaning": "To hit with an open hand.",
+   "whyHard": "A kind of hit.",
+   "forms": [
+    "slapped"
+   ]
+  },
+  "rub": {
+   "pos": "verb",
+   "meaning": "To move the hand back and forth on something.",
+   "whyHard": "An action.",
+   "forms": [
+    "rubbed"
+   ]
+  },
+  "pat": {
+   "pos": "verb",
+   "meaning": "To touch gently with the open hand.",
+   "whyHard": "A gentle touch.",
+   "forms": [
+    "patted"
+   ]
+  },
+  "company": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The people who are with you.",
+   "whyHard": "Not the usual meaning! Usually a company is a business.",
+   "senses": [
+    {
+     "meaning": "The people who are with you.",
+     "whyHard": "Not the usual meaning! Usually a company is a business.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "pleased to have his company. So the Tin Woodman shouldered"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "once more the little company set off upon the journey"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "see so strange a company, and while the woman was"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "and her strangely assorted company with wondering eyes, and the"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "I shall be glad to have your company,” said Dorothy"
+      }
+     ]
+    }
+   ]
+  },
+  "rock": {
+   "pos": "noun",
+   "meaning": "A large stone.",
+   "whyHard": "A thing in the ground. It does not mean to move from side to side here.",
+   "forms": [
+    "rocks"
    ]
   }
  },
@@ -3288,6 +6369,50 @@
    "hardWords": [
     "curious",
     "command"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 44,
+   "context": "the cap changed to a slate, on which was written",
+   "mainIdea": "Dorothy cries, and the Witch of the North turns her cap into a writing board. Words appear on it.",
+   "simple": "Dorothy began to cry because she felt lonely. The little people were sad for her and cried too. The old woman took off her cap, balanced its point on her nose, and counted to three. The cap turned into a small dark board, and big white words were written on it.",
+   "hardWords": [
+    "sob",
+    "handkerchiefs",
+    "weep",
+    "cap",
+    "slate",
+    "chalk"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 22,
+   "context": "they flew away again, thinking I was a Munchkin",
+   "mainIdea": "Birds think the Scarecrow is a Munchkin man, so they fly away. Then an old crow comes close.",
+   "simple": "The Scarecrow did not like being left alone, so he tried to walk after the men. His feet could not touch the ground, and he had to stay on the pole. He had nothing to think about. Many black birds flew into the corn, but when they saw him they flew away, because they thought he was one of the little people. He felt important. Then an old black bird flew near, looked at him, sat on his shoulder, and was about to speak.",
+   "hardWords": [
+    "deserted",
+    "crows",
+    "cornfield",
+    "Munchkin",
+    "perched"
+   ]
+  },
+  {
+   "chapter": 22,
+   "paragraph": 35,
+   "context": "My lady fair, Why do you stare At poor old",
+   "mainIdea": "The china clown says a short rhyme. He asks why the lady stares, and he says she is as stiff as if she had eaten a fire stick.",
+   "simple": "The clown said: My pretty lady, why do you look at me, poor old Mr. Joker? You are as stiff and proper as if you had eaten a fire stick.",
+   "hardWords": [
+    "fair",
+    "stare",
+    "stiff",
+    "prim",
+    "poker",
+    "Joker"
    ]
   }
  ],
@@ -3955,6 +7080,82 @@
     "getting up"
    ],
    "example": "Dorothy and the Lion got up"
+  },
+  "of course": {
+   "meaning": "Used to say that something is clearly true.",
+   "pos": "idiom",
+   "example": "Of course I cannot understand it"
+  },
+  "at once": {
+   "meaning": "Right now; immediately.",
+   "pos": "idiom",
+   "example": "I came at once"
+  },
+  "catch one's breath": {
+   "meaning": "To stop for a moment because you are surprised.",
+   "pos": "idiom",
+   "forms": [
+    "catch her breath"
+   ],
+   "example": "the jar made her catch her breath"
+  },
+  "out of sight": {
+   "meaning": "So far away that you cannot see it.",
+   "pos": "idiom",
+   "example": "was soon out of sight"
+  },
+  "king of beasts": {
+   "meaning": "An old name for a lion.",
+   "pos": "phrase",
+   "example": "to be the King of Beasts"
+  },
+  "heart disease": {
+   "meaning": "An illness of the heart.",
+   "pos": "phrase",
+   "example": "Perhaps you have heart disease"
+  },
+  "in the least": {
+   "meaning": "At all. Not in the least means not at all.",
+   "pos": "idiom",
+   "example": "not surprised in the least"
+  },
+  "how do you do": {
+   "meaning": "A polite way to say hello.",
+   "pos": "phrase",
+   "example": "How do you do?"
+  },
+  "good day": {
+   "meaning": "A polite hello.",
+   "pos": "phrase",
+   "example": "Good day"
+  },
+  "trap door": {
+   "meaning": "A door set into the floor.",
+   "pos": "phrase",
+   "example": "a trap door in the middle of the floor"
+  },
+  "at one's heels": {
+   "meaning": "Close behind someone.",
+   "pos": "idiom",
+   "forms": [
+    "at her heels"
+   ],
+   "example": "with Toto at her heels"
+  },
+  "all at once": {
+   "meaning": "Suddenly.",
+   "pos": "idiom",
+   "example": "slipped all at once"
+  },
+  "wide awake": {
+   "meaning": "Fully awake; not sleepy at all.",
+   "pos": "phrase",
+   "example": "were wide awake and heard the wolves"
+  },
+  "thick and fast": {
+   "meaning": "In great number and very quickly.",
+   "pos": "idiom",
+   "example": "fell thick and fast"
   }
  }
 }
