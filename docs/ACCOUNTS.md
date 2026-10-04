@@ -43,9 +43,9 @@ There is one migration file. Wrangler applies `migrations/` in filename order.
 
 There is no required secret. Passwords and session tokens are generated in the Worker. Session tokens are stored only as SHA-256 hashes. The cookie is `mw_session`, HttpOnly, SameSite=Lax, and Secure on https. It expires after 30 days.
 
-Turnstile on registration is wired, and it is off in production. The register form shows the widget only when `VITE_TURNSTILE_SITE_KEY` is set at build time. The server requires a token only when the Pages secret `TURNSTILE_SECRET_KEY` is set. It then accepts the token only when siteverify returns success for action `signup` on `inputread.site`, `www.inputread.site`, or `margin-words.pages.dev`. With the secret unset, register does not require a token.
+Turnstile on registration is on in production. The public site key in `.env.production` is the world-region widget. The secret is the Pages secret `TURNSTILE_SECRET_KEY`. A production build bakes the site key into the page. The server accepts a token only when siteverify returns success for action `signup` on `inputread.site`, `www.inputread.site`, or `margin-words.pages.dev`. If the secret is unset, register does not require a token.
 
-The check is off because readers in mainland China cannot finish a world-region widget: the widget stays on its own Troubleshoot screen. A China-region widget would have to be loaded from `https://challenges.cloudflare-cn.com/turnstile/v0/api.js`. This account cannot create that widget (`not entitled` for region `china`). A world site key on the China script host is rejected. Rate limits on register stay in place.
+The widget region is `world`. Readers in mainland China can stay on the widget's own Troubleshoot screen, because that challenge host does not finish there. This account cannot create a `china` widget (`not entitled` for region `china`), and a world site key loaded from `https://challenges.cloudflare-cn.com/turnstile/v0/api.js` is rejected. Rate limits on register stay in place.
 
 Deploy (owner, not this repo's automation). `npm run build` with no `VITE_BOOKS_BASE` keeps book files on `https://books.inputread.site`. Do not deploy a `build:local` folder.
 
@@ -73,13 +73,13 @@ Do these in order, logged in to the Cloudflare account that owns the Pages proje
    | Name | Required | Where it is set |
    | --- | --- | --- |
    | `DB` | yes | Pages binding from `wrangler.toml` (`binding = "DB"`). Not a secret. |
-   | `TURNSTILE_SECRET_KEY` | no | Pages secret. Leave unset while the widget is off. When it is set, register requires a token. |
-   | `VITE_TURNSTILE_SITE_KEY` | no | Public site key in `.env.production`. Leave unset so production does not show the widget. |
+   | `TURNSTILE_SECRET_KEY` | yes in production | Pages secret. When it is set, register requires a token. |
+   | `VITE_TURNSTILE_SITE_KEY` | yes for a production build | Public world-region site key in `.env.production`. `npm run build` picks it up. |
    | `VITE_BOOKS_BASE` | no | Build-time only. Leave unset so production uses `https://books.inputread.site`. |
 
    No other secret is used. Session tokens are random and stored as SHA-256 hashes. There is no JWT signing key and no email API key.
 
-   The production secret is already on the Pages project. Do not put it in the repo. `npm run build` reads the public site key from `.env.production`.
+   The production secret is a Pages secret. Do not put it in the repo. `npm run build` reads the public site key from `.env.production`.
 
 4. Build and deploy, from the repo root:
 
