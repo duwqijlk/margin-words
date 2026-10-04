@@ -579,11 +579,33 @@ function WordCard({
     >
       <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden" aria-hidden />
       <div className="grid gap-3.5">
-        <div className="flex items-start justify-between gap-3">
-          <div className="grid min-w-0 gap-1">
-            <h2 className="font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words" lang="en">
-              {phrase ? phrase.key : state.key}
-            </h2>
+        <div className="flex items-start justify-between gap-2">
+          <div className="grid min-w-0 flex-1 gap-1">
+            <div className="flex min-w-0 items-end gap-2">
+              <h2 className="min-w-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words" lang="en">
+                {phrase ? phrase.key : state.key}
+              </h2>
+              {phrase ? (
+                <span
+                  className={cn(chip, "mb-1 shrink-0 whitespace-nowrap bg-accent-soft text-accent")}
+                  data-phrase-pos
+                  data-word-pos
+                >
+                  {phrase.entry.pos ? <span lang="en">{phrase.entry.pos}</span> : t("card.phraseFallback")}
+                </span>
+              ) : state.pos ? (
+                <span
+                  className={cn(chip, "mb-1 shrink-0 whitespace-nowrap bg-accent-soft text-accent")}
+                  data-word-pos
+                >
+                  <span lang="en">{state.pos}</span>
+                </span>
+              ) : state.status === "easy" ? (
+                <span className={cn(chip, "mb-1 shrink-0 whitespace-nowrap bg-line text-muted")} data-word-pos>
+                  {t("card.easyChip")}
+                </span>
+              ) : null}
+            </div>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
               {phrase ? (
                 <span>
@@ -633,24 +655,7 @@ function WordCard({
           </button>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          {phrase ? (
-            <span className={cn(chip, "bg-accent-soft text-accent")} data-phrase-pos>
-              {phrase.entry.pos ? (
-                <span lang="en">{phrase.entry.pos}</span>
-              ) : (
-                t("card.phraseFallback")
-              )}
-            </span>
-          ) : state.pos ? (
-            <span className={cn(chip, "bg-accent-soft text-accent")}>
-              <span lang="en">{state.pos}</span>
-            </span>
-          ) : state.status === "easy" ? (
-            <span className={cn(chip, "bg-line text-muted")}>{t("card.easyChip")}</span>
-          ) : null}
-          <SpeakButton text={phrase ? phrase.key : state.key} className="-ml-1" />
-        </div>
+        <SpeakButton text={phrase ? phrase.key : state.key} className="-ml-3 w-fit" />
 
         {phrase ? (
           <>
@@ -663,12 +668,12 @@ function WordCard({
               data-part="word-alone"
             >
               <h3 className="text-xs font-semibold text-muted">{t("card.alone")}</h3>
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                <span className="font-display text-lg font-semibold" lang="en">
+              <div className="flex min-w-0 items-end gap-2">
+                <span className="min-w-0 font-display text-lg font-semibold break-words" lang="en">
                   {state.key}
                 </span>
                 {state.pos ? (
-                  <span className={cn(chip, "bg-line text-muted")}>
+                  <span className={cn(chip, "mb-0.5 shrink-0 whitespace-nowrap bg-line text-muted")} data-word-pos>
                     <span lang="en">{state.pos}</span>
                   </span>
                 ) : null}

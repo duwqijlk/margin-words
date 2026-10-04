@@ -30,3 +30,9 @@ classics/**/*.pack.zip
 
 # Layout-shift test output
 layout-shift-out/
+
+# Local secrets. .env.production holds only the public Turnstile site key.
+.env
+.env.local
+.env.*.local
+.dev.vars
