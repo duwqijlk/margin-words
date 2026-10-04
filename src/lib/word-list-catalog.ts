@@ -21,6 +21,8 @@ export type WordListPack = {
   series: string;
   seriesNumber: number;
   words: number;
+  /** Paragraph notes in the word list. 0 when an older catalog omits the count. */
+  paragraphs: number;
   /** Card-sized cover from the book's own EPUB, when the pack has one. */
   cover: { url: string; bytes: number; sha256: string } | null;
   /** Discover tab. Missing on older catalogs, which are novels. */
@@ -35,6 +37,8 @@ export type WordListPack = {
 
 const text = (value: unknown, max: number): string =>
   typeof value === "string" ? value.replace(/\s+/g, " ").trim().slice(0, max) : "";
+const count = (value: unknown): number =>
+  typeof value === "number" && Number.isFinite(value) && value >= 0 ? Math.floor(value) : 0;
 
 export function parseWordListCatalog(value: unknown): WordListPack[] {
   if (!value || typeof value !== "object") return [];
@@ -70,7 +74,8 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
       isbn: isbnDigits(row.isbn),
       series: series.series,
       seriesNumber: series.seriesNumber,
-      words: typeof row.words === "number" && row.words > 0 ? Math.floor(row.words) : 0,
+      words: count(row.words),
+      paragraphs: count(row.paragraphs),
       cover,
       category: readContentCategory(row.category),
       oldFashioned: row.oldFashioned === true,

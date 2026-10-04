@@ -764,7 +764,12 @@ async function run(lang, size) {
       (await vp.locator("[data-guide-source]").getAttribute("href")) === "https://github.com/bitbw/english-read",
       `${label}: the guide credits English Read`,
     );
-    ok((await vp.locator("header nav button").count()) === 4, `${label}: Shelf, Discover, Guide and Notebook are the only tabs`);
+    ok((await vp.locator("header nav button").count()) === 5, `${label}: Shelf, Discover, Dashboard, Notebook and Guide are the tabs`);
+    const tabNames = await vp.locator("header nav button").evaluateAll((list) =>
+      list.map((b) => (b.textContent ?? "").replace(/\s+/g, " ").trim()),
+    );
+    ok(tabNames.at(-1) === t("nav.guide"), `${label}: Guide is the last tab (${tabNames.at(-1)})`);
+    ok(tabNames[2] === t("nav.dashboard"), `${label}: Dashboard is a tab (${tabNames[2]})`);
     ok(!(await overflow2(vp)), `${label}: no horizontal overflow (guide)`);
     await openDiscover();
     // covers are loaded lazily: scroll down the list so that all of them come into view

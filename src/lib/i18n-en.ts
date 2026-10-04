@@ -25,6 +25,8 @@ export const en = {
   "count.word.other": "{n} words",
   "count.phrase.one": "{n} phrase",
   "count.phrase.other": "{n} phrases",
+  "count.paragraph.one": "{n} paragraph note",
+  "count.paragraph.other": "{n} paragraph notes",
   "count.meaning.one": "{n} meaning",
   "count.meaning.other": "{n} meanings",
   "count.day.one": "{n} day",
@@ -39,6 +41,7 @@ export const en = {
   "nav.main": "Main navigation",
   "nav.shelf": "Shelf",
   "nav.discover": "Discover",
+  "nav.dashboard": "Dashboard",
   "nav.guide": "Guide",
   "nav.notebook": "Notebook",
   "nav.settings": "Settings",
@@ -52,10 +55,21 @@ export const en = {
   "guide.title": "Guide",
   "guide.github": "Source code on GitHub",
   "guide.addTitle": "Add a book to your shelf",
-  "guide.addBody": "Books are added on Discover, and adding needs an account: sign in first (the person icon at the top). Then open Discover and tap “Add to shelf” under a book. The button then says “On shelf”. To take a book off, tap “On shelf” and choose “Remove from shelf”. On your shelf, use the three-dot menu on a book. You can undo right after.",
+  "guide.addBody": "Books are added on Discover, and adding needs an account: sign in first (the person icon at the top). Then open Discover and tap the plus on a book’s cover. The plus becomes a check, and the button is called “On shelf”. To take a book off, tap the check and choose “Remove from shelf”. On your shelf, use the three-dot menu on a book. You can undo right after.",
   "guide.offlineTitle": "Opening the site needs the internet",
   "guide.offlineBody":
     "You need the internet to open this site. A book file that is already on this device stays on this device. Sign in, and another device shows the same shelf card, but that device still needs the book file: download a public-domain classic, or add your own e-book. Your progress and your notebook can sync when you are signed in.",
+
+  /* ---- dashboard */
+  "dashboard.title": "Dashboard",
+  "dashboard.intro":
+    "These numbers are for every book on Discover: how many books we offer, how many words our teachers marked, and how many paragraph notes they wrote.",
+  "dashboard.books": "Books",
+  "dashboard.words": "Marked words",
+  "dashboard.paragraphs": "Paragraph notes",
+  "dashboard.loading": "Counting…",
+  "dashboard.error": "The book list could not be loaded. Try again in a moment.",
+  "dashboard.retry": "Try again",
 
   /* ---- shelf */
   "shelf.title": "Shelf",

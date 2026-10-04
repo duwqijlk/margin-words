@@ -100,7 +100,7 @@ function Marks() {
 export function GuideScreen() {
   const { t } = useT();
   return (
-    <div className="mx-auto grid w-full max-w-2xl gap-6 px-4 py-6 sm:px-6 sm:py-10" data-guide-page>
+    <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-6 sm:px-6 sm:py-10" data-guide-page>
       <div className="grid gap-1.5">
         <div className="flex items-center justify-between gap-3">
           <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("guide.title")}</h1>
@@ -117,7 +117,7 @@ export function GuideScreen() {
         </div>
         <p className="text-[1rem] leading-7 text-muted">{t("about.intro")}</p>
       </div>
-      <ol className="grid gap-3">
+      <ol className="grid gap-3 md:grid-cols-2" data-guide-sections>
         {SECTIONS.map((section, index) => (
           <li
             key={section.id}

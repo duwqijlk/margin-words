@@ -114,6 +114,7 @@ export function buildWordLists(packsDir) {
         ...oldFields,
         ...(cover ? { cover } : {}),
         words: Number(data.count) || Object.keys(data.glossary ?? {}).length,
+        paragraphs: Array.isArray(data.paragraphs) ? data.paragraphs.length : 0,
         ...(committedOn(listPath) ? { updated: committedOn(listPath) } : {}),
         glossary: { url: `${id}/glossary.json`, bytes: glossary.length, sha256: sha(glossary) },
       },

@@ -28,6 +28,8 @@ export const zh: Record<Key, string> = {
   "count.word.other": "{n} 个单词",
   "count.phrase.one": "{n} 个短语",
   "count.phrase.other": "{n} 个短语",
+  "count.paragraph.one": "{n} 段笔记",
+  "count.paragraph.other": "{n} 段笔记",
   "count.meaning.one": "{n} 个意思",
   "count.meaning.other": "{n} 个意思",
   "count.day.one": "{n} 天",
@@ -42,6 +44,7 @@ export const zh: Record<Key, string> = {
   "nav.main": "主菜单",
   "nav.shelf": "书架",
   "nav.discover": "发现",
+  "nav.dashboard": "数据",
   "nav.guide": "使用说明",
   "nav.notebook": "生词本",
   "nav.settings": "设置",
@@ -55,10 +58,20 @@ export const zh: Record<Key, string> = {
   "guide.title": "使用说明",
   "guide.github": "在 GitHub 上看源代码",
   "guide.addTitle": "把书加入书架",
-  "guide.addBody": "添加图书都在“发现”页，而且要先登录（点上方的人像图标）。登录后打开“发现”，点书下面的“加入书架”。按钮会变成“已在书架”。想把书拿下来，就点“已在书架”，再选“移出书架”。在书架里，可以点书旁边的三点菜单。移出后可以马上撤销。",
+  "guide.addBody": "添加图书都在“发现”页，而且要先登录（点上方的人像图标）。登录后打开“发现”，点封面上的加号。加号会变成对勾，这个按钮叫“已在书架”。想把书拿下来，就点对勾，再选“移出书架”。在书架里，可以点书旁边的三点菜单。移出后可以马上撤销。",
   "guide.offlineTitle": "打开网站需要网络",
   "guide.offlineBody":
     "打开这个网站需要网络。已经保存在这台设备上的书，还在这台设备上。登录以后，另一台设备会显示同一张书架卡片，但那台设备还要再拿到书的文件：公版书可以下载，其他书要添加你自己的电子书。登录后，阅读进度和生词本可以同步。",
+
+  /* ---- dashboard */
+  "dashboard.title": "数据",
+  "dashboard.intro": "这些数字是“发现”里的全部书：一共有多少本，老师标出了多少个单词，写了多少段笔记。",
+  "dashboard.books": "书",
+  "dashboard.words": "标出的单词",
+  "dashboard.paragraphs": "段落笔记",
+  "dashboard.loading": "正在统计…",
+  "dashboard.error": "现在读不到书目。过一会儿再试。",
+  "dashboard.retry": "再试一次",
 
   /* ---- shelf */
   "shelf.title": "书架",
