@@ -42,22 +42,21 @@ const SECTIONS: ReadonlyArray<{
 
 /** The open-source reader this app was inspired by. MIT, Copyright (c) 2026 English Read contributors. */
 const SOURCE_URL = "https://github.com/bitbw/english-read";
-const SOURCE_LABEL = "English Read (github.com/bitbw/english-read)";
 
 function SourceCredit() {
   const { t } = useT();
   const parts = t("about.sourceBody", { link: "\u0001" }).split("\u0001");
   return (
-    <p className="text-[0.95rem] leading-7 break-words text-ink">
+    <p className="text-[0.95rem] leading-7 text-ink">
       {parts[0]}
       <a
-        className="font-semibold break-all text-accent underline decoration-accent/40 underline-offset-4"
+        className="font-semibold text-accent underline decoration-accent/40 underline-offset-4"
         href={SOURCE_URL}
         target="_blank"
         rel="noopener noreferrer"
         data-guide-source
       >
-        {SOURCE_LABEL}
+        English Read <span className="font-normal">(github.com/<wbr />bitbw/<wbr />english-read)</span>
       </a>
       {parts[1]}
     </p>
