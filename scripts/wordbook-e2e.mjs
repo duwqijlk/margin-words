@@ -323,7 +323,11 @@ async function scenario(lang, size) {
   await page.waitForURL((url) => new URL(url).pathname === "/guide", { timeout: 30000 });
   await page.locator("[data-guide-page]").waitFor();
   ok(new URL(page.url()).pathname === "/guide", `${label}: /about opens the Guide`);
-  ok((await page.locator("[data-guide-section]").count()) === 11, `${label}: the Guide has the how-to and about sections`);
+  ok((await page.locator("[data-guide-section]").count()) === 12, `${label}: the Guide has the how-to and about sections`);
+  ok(
+    (await page.locator("[data-guide-source]").getAttribute("href")) === "https://github.com/bitbw/english-read",
+    `${label}: the Guide credits English Read`,
+  );
   ok((await page.locator("[data-guide-contact]").count()) === 1, `${label}: and a contact line`);
   ok((await page.getByText(t("about.markTricky")).count()) === 1, `${label}: and the wavy-line explanation`);
   ok(!(await overflow()), `${label}: no horizontal overflow (Guide)`);
