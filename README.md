@@ -1,5 +1,7 @@
 # Margin Words
 
+> **Private archive.** This copy is renamed to `duwqijlk/margin-words-archive`, kept private, and archived. Do not push code here. Development continues in the public repository [duwqijlk/margin-words](https://github.com/duwqijlk/margin-words). Record: [docs/ARCHIVE.md](docs/ARCHIVE.md).
+
 A reader for English novels. Tap a word to see a simple English meaning. Made for Chinese junior-high
 learners. The app (buttons, menus, messages) comes in **Simplified Chinese and English**: use the
 **中文 / English** button in the top bar, or Settings. The books and their meanings stay in English.
