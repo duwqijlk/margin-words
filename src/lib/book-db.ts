@@ -353,6 +353,16 @@ export async function loadNotes(): Promise<unknown[]> {
   return Array.isArray(value) ? value : [];
 }
 
+/** True when this device has the book file (chapter text), not only the shelf card. */
+export async function bookFileExists(id: string): Promise<boolean> {
+  const db = await openDb();
+  const tx = db.transaction(STORE, "readonly");
+  const done = finish(tx, db);
+  const key = await requestToPromise(tx.objectStore(STORE).getKey(id));
+  await done;
+  return key !== undefined;
+}
+
 export async function loadStoredBook(id: string): Promise<StoredBook | null> {
   const db = await openDb();
   const tx = db.transaction([STORE, NOTES], "readonly");

@@ -163,6 +163,57 @@ export function surfaceOffset(paragraph: string, surface: string, at?: number): 
   return best;
 }
 
+const SENTENCE_LIMIT = 280;
+
+/**
+ * Shorten `text` so the word at `wordAt` stays whole. A cut side is marked with an ellipsis.
+ * Cutting from the start of a long sentence used to drop the word when it sat past the limit.
+ */
+export function clipAroundWord(text: string, wordAt: number, wordLength: number, limit = SENTENCE_LIMIT): string {
+  const length = Math.max(0, wordLength);
+  const wordEnd = wordAt + length;
+  if (wordAt < 0 || wordAt > text.length || wordEnd > text.length) {
+    return text.length <= limit ? text : `${text.slice(0, limit).trimEnd()}…`;
+  }
+  if (length >= limit) {
+    const body = text.slice(wordAt, wordEnd);
+    return `${wordAt > 0 ? "…" : ""}${body}${wordEnd < text.length ? "…" : ""}`;
+  }
+  if (text.length <= limit) return text;
+  let start = wordAt;
+  let end = wordEnd;
+  let budget = limit - length;
+  while (budget > 0 && (start > 0 || end < text.length)) {
+    if (start > 0) {
+      start -= 1;
+      budget -= 1;
+    }
+    if (budget > 0 && end < text.length) {
+      end += 1;
+      budget -= 1;
+    }
+  }
+  if (start > 0) {
+    const space = text.indexOf(" ", start);
+    if (space !== -1 && space < wordAt) start = space + 1;
+  }
+  if (end < text.length) {
+    const space = text.lastIndexOf(" ", end);
+    if (space >= wordEnd) end = space;
+  }
+  const body = text.slice(start, end).trim();
+  return `${start > 0 ? "…" : ""}${body}${end < text.length ? "…" : ""}`;
+}
+
+/** The sentence to show for a saved word: long lines keep the word, they do not cut it off. */
+export function focusSentence(sentence: string, surface: string, limit = 220): string {
+  const clean = sentence.trim();
+  if (!surface || clean.length <= limit) return clean;
+  const at = surfaceOffset(clean, surface);
+  if (at < 0) return clean;
+  return clipAroundWord(clean, at, surface.length, limit);
+}
+
 export function sentenceAround(paragraph: string, surface: string, at?: number): string {
   // `at` is where the tapped word really is in the paragraph (so a word that appears
   // twice shows the sentence that was tapped, not the first one).
@@ -171,17 +222,18 @@ export function sentenceAround(paragraph: string, surface: string, at?: number):
   const bounds = [".", "?", "!"];
   let start = 0;
   for (const mark of bounds) {
-    const at = paragraph.lastIndexOf(mark, idx - 1);
-    if (at >= 0) start = Math.max(start, at + 1);
+    const found = paragraph.lastIndexOf(mark, idx - 1);
+    if (found >= 0) start = Math.max(start, found + 1);
   }
   let end = paragraph.length;
   for (const mark of bounds) {
-    const at = paragraph.indexOf(mark, idx + surface.length);
-    if (at >= 0) end = Math.min(end, at + 1);
+    const found = paragraph.indexOf(mark, idx + surface.length);
+    if (found >= 0) end = Math.min(end, found + 1);
   }
-  const slice = paragraph.slice(start, end).trim();
-  if (slice.length <= 280) return slice;
-  return `${slice.slice(0, 280).trim()}…`;
+  const raw = paragraph.slice(start, end);
+  const lead = raw.length - raw.trimStart().length;
+  const slice = raw.trim();
+  return clipAroundWord(slice, idx - start - lead, surface.length, SENTENCE_LIMIT);
 }
 
 export type WordUse = "noun" | "verb" | "adjective";

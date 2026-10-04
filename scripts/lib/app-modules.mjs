@@ -15,7 +15,7 @@ import { createRequire } from "node:module";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const require = createRequire(join(ROOT, "package.json"));
 
-const FILES = ["shelf-identity", "shelf-stacks", "cover-plan", "cover-request", "covers", "router", "flow-text", "errors", "epub", "lexile", "book-meta", "glossary-format", "pack-check", "text", "easy-words", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "word-list-plan", "paragraph-bulbs", "can-add", "account-store"];
+const FILES = ["shelf-identity", "shelf-stacks", "cover-plan", "cover-request", "covers", "router", "flow-text", "errors", "epub", "lexile", "book-meta", "glossary-format", "pack-check", "text", "easy-words", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "word-list-plan", "paragraph-bulbs", "can-add", "account-store", "file-offer"];
 
 function installDom() {
   let JSDOM;
@@ -55,12 +55,12 @@ export async function loadAppModules() {
     writeFileSync(join(out, `${name}.js`), js);
   }
   // jszip is imported by epub.js: make sure it resolves from this folder.
-  const [epub, format, text, help, paragraphNote, edition, basicData, basic, packCheck, meta, flow, identity, stacks, coverPlan, covers, router, wordListPlan, bulbs, canAdd, accountStore] = await Promise.all(
-    ["epub", "glossary-format", "text", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "pack-check", "book-meta", "flow-text", "shelf-identity", "shelf-stacks", "cover-plan", "covers", "router", "word-list-plan", "paragraph-bulbs", "can-add", "account-store"].map((name) =>
+  const [epub, format, text, help, paragraphNote, edition, basicData, basic, packCheck, meta, flow, identity, stacks, coverPlan, covers, router, wordListPlan, bulbs, canAdd, accountStore, fileOffer] = await Promise.all(
+    ["epub", "glossary-format", "text", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "pack-check", "book-meta", "flow-text", "shelf-identity", "shelf-stacks", "cover-plan", "covers", "router", "word-list-plan", "paragraph-bulbs", "can-add", "account-store", "file-offer"].map((name) =>
       import(pathToFileURL(join(out, `${name}.js`)).href),
     ),
   );
-  cached = { epub, format, text, help, paragraphNote, edition, basic: { ...basicData, ...basic }, packCheck, meta, flow, identity, stacks, coverPlan, covers, router, wordListPlan, bulbs, canAdd, accountStore };
+  cached = { epub, format, text, help, paragraphNote, edition, basic: { ...basicData, ...basic }, packCheck, meta, flow, identity, stacks, coverPlan, covers, router, wordListPlan, bulbs, canAdd, accountStore, fileOffer };
   return cached;
 }
 

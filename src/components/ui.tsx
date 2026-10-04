@@ -167,11 +167,11 @@ export function StatRow({
   return (
     <dl className="grid grid-cols-2 overflow-hidden rounded-2xl border border-line bg-card sm:grid-cols-4 [&>div]:border-line max-sm:[&>div:nth-child(n+3)]:border-t max-sm:[&>div:nth-child(even)]:border-l sm:[&>div:not(:first-child)]:border-l">
       {items.map((item) => (
-        <div key={item.label} className="grid content-start gap-0.5 px-4 py-3.5">
+        <div key={item.label} className="grid content-start gap-0.5 px-3 py-2.5 sm:px-4 sm:py-3.5">
           <dt className="text-xs font-semibold text-muted">{item.label}</dt>
           <dd
             className={cn(
-              "font-display text-3xl leading-none font-semibold tabular-nums",
+              "font-display text-2xl leading-none font-semibold tabular-nums sm:text-3xl",
               item.tone === "warn" && "text-warn",
               item.tone === "good" && "text-accent",
             )}
@@ -190,14 +190,26 @@ export function Segmented<T extends string | number>({
   options,
   onChange,
   label,
+  layout = "bar",
 }: {
   value: T;
   options: ReadonlyArray<{ value: T; label: ReactNode }>;
   onChange: (value: T) => void;
   label: string;
+  /** `wrap` gives each option its own cell on a phone, so four labels are not squeezed onto one line. */
+  layout?: "bar" | "wrap";
 }) {
+  const wrap = layout === "wrap";
   return (
-    <div role="group" aria-label={label} className="flex rounded-lg bg-line/60 p-0.5">
+    <div
+      role="group"
+      aria-label={label}
+      className={cn(
+        wrap
+          ? "grid grid-cols-2 gap-1 sm:flex sm:rounded-lg sm:bg-line/60 sm:p-0.5"
+          : "flex rounded-lg bg-line/60 p-0.5",
+      )}
+    >
       {options.map((option) => (
         <button
           key={String(option.value)}
@@ -205,8 +217,10 @@ export function Segmented<T extends string | number>({
           aria-pressed={option.value === value}
           onClick={() => onChange(option.value)}
           className={cn(
-            "min-h-10 flex-1 rounded-md px-2 text-sm font-semibold transition-colors",
+            "min-h-10 rounded-md px-2 text-sm font-semibold transition-colors",
+            wrap ? "border border-line whitespace-normal sm:flex-1 sm:border-0 sm:whitespace-nowrap" : "flex-1 whitespace-nowrap",
             option.value === value ? "bg-card text-ink shadow-sm" : "text-muted hover:text-ink",
+            wrap && option.value !== value && "bg-card/40 sm:bg-transparent",
           )}
         >
           {option.label}

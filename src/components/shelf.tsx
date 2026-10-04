@@ -276,6 +276,7 @@ function BookCard({
   row,
   cover,
   classic,
+  fileHere,
   onOpen,
   onNotebook,
   onAddList,
@@ -284,6 +285,8 @@ function BookCard({
   row: Row;
   cover?: string;
   classic: boolean;
+  /** false when the shelf card is here but the book file is not */
+  fileHere: boolean;
   onOpen: () => void;
   onNotebook: () => void;
   onAddList: () => void;
@@ -307,6 +310,10 @@ function BookCard({
           {book.needsEpub ? (
             <CoverBadge tone="needs" data-needs-epub="">
               {t("shelf.needsEpub")}
+            </CoverBadge>
+          ) : book.source === "epub" && !fileHere ? (
+            <CoverBadge tone="needs" data-file-missing="">
+              {t("shelf.fileMissing")}
             </CoverBadge>
           ) : classic ? (
             <CoverBadge tone="publicDomain" data-classic-label="">
@@ -429,6 +436,7 @@ export function Shelf({
   words,
   covers,
   ready,
+  storedIds,
   onOpen,
   onNotebook,
   onAddList,
@@ -438,6 +446,8 @@ export function Shelf({
   words: VocabEntry[];
   covers: Record<string, string>;
   ready: boolean;
+  /** ids whose book file is on this device; null until that list has been read */
+  storedIds: Set<string> | null;
   onOpen: (bookId: string) => void;
   onNotebook: (bookId: string) => void;
   onAddList: (bookId: string | null) => void;
@@ -548,6 +558,7 @@ export function Shelf({
       row={row}
       cover={covers[row.book.id]}
       classic={classicIds.has(row.book.id)}
+      fileHere={storedIds === null || storedIds.has(row.book.id) || row.book.needsEpub === true}
       onOpen={() => onOpen(row.book.id)}
       onNotebook={() => onNotebook(row.book.id)}
       onAddList={() => onAddList(row.book.id)}

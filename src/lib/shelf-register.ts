@@ -25,4 +25,7 @@ export function registerInstalled(
       ...extra,
     },
   ]);
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("cibian-progress", { detail: { bookId: result.bookId } }));
+  }
 }
