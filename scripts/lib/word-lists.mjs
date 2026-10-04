@@ -64,7 +64,7 @@ function seriesNumber(value) {
   return Number.isInteger(n) && n >= 1 && n <= 99 ? n : 0;
 }
 function contentCategory(value) {
-  return value === "ted" || value === "speech" ? value : "";
+  return value === "speech" ? value : "";
 }
 const sha = (bytes) => createHash("sha256").update(bytes).digest("hex");
 

@@ -68,7 +68,7 @@ export type CatalogPack = {
   seriesNumber: number;
   /**
    * Discover tab. Missing on older catalogs, which are novels.
-   * Set by hand in info.json as "ted" or "speech".
+   * Set by hand in info.json as "speech".
    */
   category: ContentCategory;
   /** English that is too old for a beginner. Set by hand in info.json. */

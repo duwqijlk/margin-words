@@ -585,13 +585,11 @@ export function DiscoverScreen({
           </div>
         ) : shown.length === 0 ? (
           <p className="py-10 text-center text-muted" data-discover-empty={category}>
-            {inCategory.length === 0 && category === "ted"
-              ? t("discover.empty.ted")
-              : inCategory.length === 0 && category === "speech"
-                ? t("discover.empty.speech")
-                : query.trim()
-                  ? t("shelf.noMatch", { query: query.trim() })
-                  : t("shelf.series.empty")}
+            {inCategory.length === 0 && category === "speech"
+              ? t("discover.empty.speech")
+              : query.trim()
+                ? t("shelf.noMatch", { query: query.trim() })
+                : t("shelf.series.empty")}
           </p>
         ) : series === "grouped" ? (
           <div className="grid gap-8">

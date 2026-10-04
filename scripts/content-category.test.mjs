@@ -12,7 +12,7 @@ test("a catalog without a category is a novel", () => {
   assert.equal(readContentCategory("talk"), "novel");
 });
 
-test("ted and speech are the only other categories", () => {
-  assert.equal(readContentCategory("ted"), "ted");
+test("speech is the only other category", () => {
   assert.equal(readContentCategory("speech"), "speech");
+  assert.equal(readContentCategory("ted"), "novel");
 });

@@ -82,7 +82,7 @@ const seriesNumber = (value) => {
   return Number.isInteger(n) && n >= 1 && n <= 99 ? n : 0;
 };
 // Discover tab. Omitted for a novel so an older catalog stays the same.
-const contentCategory = (value) => (value === "ted" || value === "speech" ? value : "");
+const contentCategory = (value) => (value === "speech" ? value : "");
 const norm = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "");
 const fail = (message) => {
   console.error(`build-packs: ${message}`);
