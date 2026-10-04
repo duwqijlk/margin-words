@@ -1,4 +1,3 @@
-import { LayoutDashboard } from "lucide-react";
 import { useEffect, useState } from "react";
 import { btn } from "@/components/ui";
 import { trn, useT } from "@/lib/i18n";
@@ -53,10 +52,7 @@ export function DashboardScreen() {
 
   return (
     <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-6 sm:px-6 sm:py-10" data-dashboard data-dashboard-state={state}>
-      <div className="grid gap-3">
-        <span className="flex size-12 items-center justify-center rounded-2xl bg-accent-soft text-accent">
-          <LayoutDashboard className="size-6" aria-hidden />
-        </span>
+      <div className="grid gap-1.5">
         <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("dashboard.title")}</h1>
         <p className="max-w-2xl text-[1rem] leading-7 text-muted">{t("dashboard.intro")}</p>
       </div>
