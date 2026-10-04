@@ -1,6 +1,8 @@
 {
   "name": "margin-words",
   "private": true,
+  "license": "MIT",
+  "author": "XCRUN",
   "sideEffects": false,
   "type": "module",
   "scripts": {

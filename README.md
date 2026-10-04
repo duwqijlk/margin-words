@@ -1,138 +1,142 @@
 # Margin Words
 
-> **Public repository.** Development happens here. The old pull requests stay in the private archive [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive). Record: [docs/ARCHIVE.md](docs/ARCHIVE.md).
+[![Live site](https://img.shields.io/badge/site-inputread.site-1E4A3A)](https://inputread.site)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A reader for English novels. Tap a word to see a simple English meaning. Made for Chinese junior-high
-learners. The app (buttons, menus, messages) comes in **Simplified Chinese and English**: use the
-**中文 / English** button in the top bar, or Settings. The books and their meanings stay in English.
+A reader for English novels, made for Chinese junior-high learners. Tap a word and see a short English meaning written for that book. The buttons and menus are in **Simplified Chinese or English**. The books stay in English. There is no AI.
 
-中文简介：[README.zh-CN.md](README.zh-CN.md)
+**[Open the reader](https://inputread.site)** · [In Chinese](README.zh-CN.md)
 
-Moving the project to a new machine or repo: see [MIGRATION.md](MIGRATION.md).
+![Discover: public-domain covers, each with a plus that adds the book](docs/images/discover.png)
 
-## Make your own book pack
+## What you can do
 
-**The app does not accept a standalone EPUB.** Only a processed book, a **book pack**, can be added: ONE `.zip` with
-exactly `book.epub` + `glossary.json` (title, author and cover come from the EPUB). The exact rules ("Required files")
-are in [docs/book-pack-spec.md](docs/book-pack-spec.md), section 3.
+- **Read with a meaning on the word.** Tap a word. A card shows a simple English meaning from that book's word list. A word that is not in the list says so. The card floats over the page, and the text does not move.
+- **Notes beside the paragraph.** A paragraph with a note keeps a small light beside it. Sentence notes and phrases open from the text in the same way.
+- **A shelf, then Discover.** A new shelf is empty and points to Discover. Discover is the only place to add a book, and adding needs a signed-in account. A signed-out visitor can still browse every title. Books already stored on the device stay readable.
+- **Public-domain classics.** Alice, Treasure Island, and the other free books download when you add them. Speeches sit on their own tab.
+- **Copyrighted books stay with the reader.** For those titles, Discover offers a word list and an ISBN, not the novel. You add your own EPUB of that book. The app shows how well the file matches, and it warns you when the match is under 80%.
+- **A notebook.** Save a word and review it later. Each word is one card, with the sentence it came from.
+- **A library dashboard.** One page counts the whole Discover library: books, marked words, paragraph notes, sentence notes, phrases, and series.
+- **Offline after the download.** The book and its word list stay in the browser. After the first visit, the app itself also opens with no network.
+- **An optional account.** Sign in to add books. The same account can sync the shelf, the reading place, saved words, and settings. Reading itself does not need an account.
 
-Give **`book-pack-kit.zip`** to an AI agent. It holds `book-pack-spec.md` (the full format and workflow, written for
-an AI), a sample book (*The Lantern Seller*, EPUB), its sample word list (`glossary.json`), and
-`the-lantern-seller.pack.zip`, a ready-to-add sample pack (`book.epub` + `glossary.json`).
-Download it in the app: the Guide and Settings link to "How to make a book pack" (page `/kit/`).
-Make a pack from your own files: `node scripts/make-pack.mjs book.epub glossary.json my-book.pack.zip`.
-Build it yourself: `npm run build:kit` (sources: `docs/book-pack-spec.md` and `examples/sample-book/`).
-Check the sample and the spec: `npm run check:example`.
+Built with Vite, React, and Tailwind. Accounts, when they are turned on, use Cloudflare Pages Functions and D1. See [docs/ACCOUNTS.md](docs/ACCOUNTS.md).
 
-## Run it
+## Run it on your computer
 
-```
+```bash
 npm install
-npm run dev          # http://localhost:8080 (also serves ./packs)
-npx vite build       # static app in dist/
+npm run dev
 ```
 
-## Reader and book packs
+Open <http://localhost:8080>.
 
-**The reader is a static app.** `dist/` is plain files (HTML, JS, CSS, fonts). It has no AI. Open it from
-any static host (Vercel, GitHub Pages, S3, nginx, `python3 -m http.server`). Reading needs no account:
-books already on a device stay readable. Adding new books asks for a sign-in.
-Optional sign-in (sync across devices) is a Cloudflare Pages Function next to the static files. See
-[docs/ACCOUNTS.md](docs/ACCOUNTS.md). Without those functions the rest of the app is unchanged.
-The reader loads **twelve free public-domain classics** from the books host (`public-books/`). A new shelf starts **empty**: it points to Discover and suggests Alice as a first book (the suggestion card links to Discover), and Alice is added, removed and kept like any other book. A shelf that already has Alice keeps it. Every book is on **Discover** and download when you tap the heart on the cover. A book you delete is not added again; adding it from Discover clears that. Books already on a device stay there. To add a classic, drop a folder in `public-books/` and rebuild (see `public-books/README.md`). Copyrighted titles are **word lists** on the same host (`word-lists/<id>/glossary.json`, plus a card-sized `cover.jpg` taken from `packs/<id>/cover.jpg` when that file exists). A list with no cover uses the generated title-and-author cover. Adding one downloads the word list only and asks for your own e-book of that ISBN. The copyrighted EPUBs are not on the public host.
+`npx vite build` writes the static site to `dist/` (HTML, JS, CSS, and fonts). Book files are not in that folder. A production build loads books from `https://books.inputread.site`. `npm run build:local` leaves book URLs on the same origin, which the tests use.
 
-All meanings, simple versions, sentence explanations, phrases and examples come from the word list
-(`glossary.json`) of the book. A word that is not in the list shows "No meaning for this word in this book yet."
+Any static host can serve `dist/`. The optional account API is a Pages Function next to those files. Without the functions, the reader is unchanged.
 
-### Where the books are
+## Make a book pack
 
-The copyrighted books are in the top-level folder **`packs/`** (not in `public/`, so they are not in the app bundle). Nine of them include `book.epub`. The Narnia collection is a word list only (`packs/narnia/glossary.json`, no EPUB):
+The app does not import a loose EPUB, and it does not import a zip. Readers add books from Discover.
 
-```
-packs/catalog.json         list of books (id, title, author, level/notes, sizes, sha256, rev, file URLs)
-packs/<id>/book.epub       the book
-packs/<id>/glossary.json   its word list
-packs/<id>.zip             the same pack as one file
-packs/all-packs.zip        all packs in one zip
+A **book pack** is how a book is prepared for that catalog: one `.zip` with exactly `book.epub` and `glossary.json`. The rules are in [docs/book-pack-spec.md](docs/book-pack-spec.md), section 3.
+
+`book-pack-kit.zip` is for a person, or an AI agent, who is making a pack. It holds the spec, the sample story *The Lantern Seller*, its word list, and a finished sample pack. In the app, Guide and Settings link to “How to make a book pack” (`/kit/`).
+
+```bash
+node scripts/make-pack.mjs book.epub glossary.json my-book.pack.zip
+npm run build:kit
+npm run check:example
 ```
 
-Full format: [docs/PACKS_FORMAT.md](docs/PACKS_FORMAT.md). Word list format: [docs/GLOSSARY_FORMAT.md](docs/GLOSSARY_FORMAT.md).
-Rebuild the folder after you change a book or list: `node scripts/build-packs.mjs`.
+## License
 
-### Host the app and the books
+The application source is released under the [MIT License](LICENSE).
 
-1. Build the front end: `npx vite build` (output: `dist/`, a few MB, no book files). Deploy that to Cloudflare Pages.
-   The production build fetches books from `https://books.inputread.site`. Set `VITE_BOOKS_BASE` to use another host.
-   `npm run build:local` leaves book URLs on the same origin for offline tests.
-2. Build the book objects: `npm run build:books` (output: `dist-books/`). Upload every file, using its path as the
-   object key (`public-books/...`, `word-lists/...`). There is no per-book zip and no `all-packs.zip` in this folder.
-   The app downloads a classic's loose EPUB, word list and cover only after the heart on its cover is tapped. Word-list covers in
-   this folder are the resized JPEGs.
+Copyright (c) 2026 XCRUN.
 
-   ```
+You may use, copy, and change the reader, the account functions, and the tools in this repository. Keep the copyright notice and this permission notice with the code.
+
+The novels are a separate matter:
+
+| Material | Terms |
+| --- | --- |
+| Reader, Pages Functions, and tools | [MIT License](LICENSE) |
+| *The Lantern Seller*, the sample story | Original text, [CC0](https://creativecommons.org/publicdomain/zero/1.0/). See [docs/book-pack-spec.md](docs/book-pack-spec.md). |
+| Public-domain books | Public domain. Their files are not in git. The books host serves them. |
+| Books still under copyright | Not in this repository. This project does not host, sell, or share them. Discover lists a word list and an ISBN. The reader brings their own legal EPUB. |
+| Word lists (`glossary.json`) | Study notes for this app. A short quotation in a note stays with its author and publisher. |
+| [English Read](https://github.com/bitbw/english-read) | A separate project, Copyright (c) 2026 English Read contributors, [MIT](https://github.com/bitbw/english-read/blob/main/LICENSE). Margin Words was inspired by it and is its own app. |
+
+Questions about a copyrighted excerpt: open an issue at <https://github.com/duwqijlk/margin-words/issues>.
+
+## Develop and host
+
+### Where the book files live
+
+A clone of this repository has the word lists and the sample story. It does not have the novels. Copyrighted EPUBs belong in the private bucket `margin-words-private`. Public-domain EPUBs belong on `https://books.inputread.site`. The only EPUB in git is `examples/sample-book/the-lantern-seller.epub`.
+
+On a machine that also has the book files, the folders look like this:
+
+```
+packs/catalog.json         list of the copyrighted titles
+packs/<id>/glossary.json   that title's word list
+packs/<id>/book.epub       local only; git ignores it
+public-books/              the free classics, same idea
+```
+
+`npm run build:books` writes `dist-books/`: loose classic files, loose word lists, a card-sized cover when `packs/<id>/cover.jpg` exists, and the catalogs. No zip, and no copyrighted EPUB. A word-list book with no cover keeps the generated title-and-author cover in the app.
+
+`npm run build:private` writes `dist-private/` from a local `packs/<id>/book.epub` (the EPUB, its glossary, and its cover). Upload that folder only to `margin-words-private`. The app never fetches that bucket. Do not put `dist-private/` inside `dist/` or `dist-books/`.
+
+Word-list format: [docs/GLOSSARY_FORMAT.md](docs/GLOSSARY_FORMAT.md). Pack folder: [docs/PACKS_FORMAT.md](docs/PACKS_FORMAT.md). Rebuild the local catalogs with `node scripts/build-packs.mjs`.
+
+### Put the site and the books online
+
+1. Build the front end with `npx vite build`. Deploy `dist/` to Cloudflare Pages. The production build fetches books from `https://books.inputread.site`. Set `VITE_BOOKS_BASE` to use another host.
+2. Build the book objects with `npm run build:books`, then upload each file with its path as the object key:
+
+   ```bash
    cd dist-books && find . -type f | sed 's|^\./||' | while read -r key; do
      npx wrangler r2 object put "$BUCKET/$key" --file "$key" --remote
    done
    ```
 
-   The bucket (the one behind `https://books.inputread.site`) must allow cross-origin reads from the app
-   (`Access-Control-Allow-Origin` for `https://inputread.site`, `https://www.inputread.site`,
-   `https://margin-words.pages.dev`, and localhost). The service worker stores a book only after that
-   CORS response, and only after the reader opens or downloads it. The first visit does not precache the books.
-3. **Private packs** stay off the public host. Copyrighted EPUBs are not in git; they belong in the private R2
-   bucket `margin-words-private`. `npm run build:private` writes `dist-private/` from a local `packs/<id>/book.epub`
-   (each copyrighted EPUB, its glossary, and its cover). That bucket has no public access and is never fetched
-   by the app. Do not put it in `dist/` or `dist-books/`. Public-domain EPUBs are not in git either; they live
-   on `https://books.inputread.site`. `node scripts/build-site.mjs` writes `site/` = `dist/` + `packs/` for a
-   machine of your own. Do not deploy `packs/`, `site/`, or `dist-private/`.
-4. **Another catalog:** each reader can set a catalog address in **Settings**. That host must allow cross-site reads.
+   The bucket behind `https://books.inputread.site` must allow cross-origin reads from `https://inputread.site`, `https://www.inputread.site`, `https://margin-words.pages.dev`, and localhost. The service worker stores a book only after that CORS response, and only after the reader opens or downloads it.
+3. Leave `packs/`, `site/`, and `dist-private/` off the public host. `node scripts/build-site.mjs` writes `site/` (`dist/` plus `packs/`) for a machine of your own.
 
-File addresses in `catalog.json` are relative to the catalog file, so the folder can be moved anywhere.
+A reader can also set another catalog address in Settings. That host must allow cross-site reads. Addresses inside `catalog.json` are relative to the catalog file.
 
-### How a reader uses it, also offline
+### How a book gets onto a shelf
 
-1. Open the app. A new shelf is empty and points to Discover (it suggests Alice's Adventures in Wonderland).
-   **Discover is the only place to add books**, and adding needs a signed-in account: a signed-out visitor can
-   browse everything, and the add button says **Sign in to add**. Discover lists every book (the public-domain
-   books and the word lists), with search and the difficulty, author, and series filters.
-2. Tap the heart on a cover. A filled red heart means the book is on the shelf; tap it again to remove it.
-   A fresh book can be undone. A book you have started reading, or one with your own e-book, asks first.
-   A public-domain book downloads when the heart is tapped. A word-list book downloads its word list and asks
-   for your own e-book of the ISBN on the card. A match under 80% is shown before it is saved. The book and
-   its word list are stored in the browser (IndexedDB). Books already stored on a device stay readable,
-   signed in or not.
-3. After that the book works with **no internet**. The app itself also works offline after the first visit
-   (a small service worker keeps the app files; it needs `https://` or `localhost`).
-4. When a word list changes (new `rev`), the new list is fetched quietly in the background on the next load:
-   the book file, reading place, saved words and settings are kept, and a small notice says how many books
-   were updated. A list the reader added or edited by hand is never replaced. A word-list book whose new list
-   does not match the reader's own EPUB (under 80%) keeps the old list, and its Discover card shows a manual
-   **Update** button with the reason. The same button appears when an automatic update fails.
+1. Open the app. A new shelf is empty and suggests *Alice's Adventures in Wonderland*. The suggestion links to Discover.
+2. Sign in. On Discover, tap the plus on a cover. The plus becomes a check (“On shelf”). Tap the check and choose “Remove from shelf” to take it off. A book you just added can be undone. A book you have started, or one that has your own EPUB, asks first.
+3. A public-domain book downloads when you add it. A word-list book downloads its word list and asks for your EPUB of the ISBN on the card. A match under 80% is shown before it is saved. The book and the word list are stored in the browser (IndexedDB).
+4. After that, the book works with no internet. The app files stay available offline after the first visit (a service worker; it needs `https://` or `localhost`).
+5. When a word list changes (a new `rev`), the next load fetches the new list in the background. The book file, reading place, saved words, and settings stay. A small notice says how many books were updated. A list the reader added or edited by hand is never replaced. If a new list matches the reader's EPUB under 80%, or an automatic update fails, the old list stays and the Discover card shows a manual **Update** button with the reason.
 
-A book's menu on the shelf has **Add word list** (a `.json` for a book that is already there).
-Books that older versions saved in the browser still work and are marked "On your shelf".
+The shelf menu can still **Add word list** (a `.json` for a book that is already there).
 
 ### Checks
 
-```
+```bash
 npx tsc --noEmit
-npm run check:cjk          # Chinese text only in src/lib/i18n-zh.ts, docs/ and README.zh-CN.md
-npm run check:example      # the sample in examples/, the JSON example in the spec, the kit and the in-app page
+npm run check:cjk          # Chinese only in src/lib/i18n-zh.ts, docs/, and README.zh-CN.md
+npm run check:example
 node scripts/validate-glossary.mjs packs/twits/book.epub packs/twits/glossary.json
 node scripts/build-packs.mjs --check
 npm test
 ```
 
-### Languages (UI)
+### Languages in the interface
 
-All visible text of the app is in two dictionaries with the same keys: `src/lib/i18n-en.ts` and
-`src/lib/i18n-zh.ts` (`src/lib/i18n.ts` is the tiny switch; no library). A missing key fails `npx tsc --noEmit`, and
-`npm test` checks that both dictionaries have the same keys and placeholders. The first visit uses the browser language
-(Chinese -> Chinese, anything else -> English); the choice is saved in the browser. Book content (meanings, paragraph and
-sentence help, phrases, titles) is never translated.
+Every visible string lives in two dictionaries with the same keys: `src/lib/i18n-en.ts` and `src/lib/i18n-zh.ts`. A missing key fails `npx tsc --noEmit`. The first visit follows the browser language (Chinese to Chinese, anything else to English), and the choice is saved. Book content (meanings, notes, phrases, titles) is never translated.
+
+### This public repository
+
+Development happens here. Older pull requests stay in the private archive [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive). Record: [docs/ARCHIVE.md](docs/ARCHIVE.md). Moving the project: [MIGRATION.md](MIGRATION.md).
 
 ## Credit
 
-The idea for this reader comes from [English Read](https://github.com/bitbw/english-read)
-(Copyright (c) 2026 English Read contributors, [MIT License](https://github.com/bitbw/english-read/blob/main/LICENSE)).
-Margin Words is a separate app. The Guide page in the app says the same thing.
+The idea for this reader comes from [English Read](https://github.com/bitbw/english-read) (Copyright (c) 2026 English Read contributors, [MIT License](https://github.com/bitbw/english-read/blob/main/LICENSE)). Margin Words is a separate app. The Guide page says the same thing.
