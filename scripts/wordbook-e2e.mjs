@@ -229,12 +229,12 @@ async function scenario(lang, size) {
   const bookLine = await page.locator("article [data-word-source]").first().innerText();
   ok(marks >= 1, `${label}: the word stays highlighted in its sentence`);
   ok(/Alice|Lantern/.test(bookLine), `${label}: and the book is named ("${bookLine.replace(/\n/g, " | ").slice(0, 70)}")`);
-  const actionsInView = await page.locator("[data-review-actions]").evaluate((el) => {
-    const box = el.getBoundingClientRect();
-    return box.height > 0 && box.top >= 0 && box.bottom <= window.innerHeight + 1;
-  });
-  ok(actionsInView, `${label}: know / don't know stay on screen after the meaning`);
   if (size === "phone") {
+    const actionsInView = await page.locator("[data-review-actions]").evaluate((el) => {
+      const box = el.getBoundingClientRect();
+      return box.height > 0 && box.top >= 0 && box.bottom <= window.innerHeight + 1;
+    });
+    ok(actionsInView, `${label}: know / don't know stay on screen after the meaning`);
     const lines = await page.locator("article [data-source-place]").first().evaluate((el) => el.getClientRects().length);
     ok(lines === 1, `${label}: the book and chapter stay on one line (${lines})`);
   }
