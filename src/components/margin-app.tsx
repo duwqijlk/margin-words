@@ -1,4 +1,4 @@
-import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Heart, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
+import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Heart, LayoutDashboard, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   bookFileExists,
@@ -69,6 +69,7 @@ const Shelf = lazy(() => import("@/components/shelf").then((m) => ({ default: m.
 const Notebook = lazy(() => import("@/components/notebook").then((m) => ({ default: m.Notebook })));
 const DiscoverScreen = lazy(() => import("@/components/discover").then((m) => ({ default: m.DiscoverScreen })));
 const GuideScreen = lazy(() => import("@/components/guide-page").then((m) => ({ default: m.GuideScreen })));
+const DashboardScreen = lazy(() => import("@/components/dashboard-page").then((m) => ({ default: m.DashboardScreen })));
 const ThanksScreen = lazy(() => import("@/components/thanks-page").then((m) => ({ default: m.ThanksScreen })));
 const SettingsDialog = lazy(() => import("@/components/get-books").then((m) => ({ default: m.SettingsDialog })));
 const OwnEpubDialog = lazy(() => import("@/components/own-epub-dialog").then((m) => ({ default: m.OwnEpubDialog })));
@@ -101,6 +102,8 @@ export function MarginApp() {
   const dismissListsUpdated = useListUpdates((state) => state.dismiss);
   const [storedIds, setStoredIds] = useState<Set<string> | null>(null);
   const opening = useRef(false);
+  // The previous screen, so closing the reader can retry a word-list update that waited.
+  const wasReading = useRef(false);
 
   useEffect(() => {
     applyTheme(theme);
@@ -290,6 +293,13 @@ export function MarginApp() {
   useEffect(() => {
     if (screen.kind === "shelf") useShelfRemove.getState().dismissNotice();
   }, [screen.kind]);
+  // A list update skips the book that is open. Ask again as soon as that page closes,
+  // so the shelf can say the lists were updated and the next open reads the new list.
+  useEffect(() => {
+    const leftReader = wasReading.current && screen.kind !== "read";
+    wasReading.current = screen.kind === "read";
+    if (leftReader) void autoUpdateWordLists();
+  }, [screen.kind]);
   const reading = screen.kind === "read";
   const menu = menuOf(screen);
   const tabs = [
@@ -310,11 +320,11 @@ export function MarginApp() {
       badge: 0,
     },
     {
-      id: "guide",
-      label: t("nav.guide"),
-      Icon: CircleHelp,
-      active: menu === "guide",
-      go: () => setScreen({ kind: "guide" }),
+      id: "dashboard",
+      label: t("nav.dashboard"),
+      Icon: LayoutDashboard,
+      active: menu === "dashboard",
+      go: () => setScreen({ kind: "dashboard" }),
       badge: 0,
     },
     {
@@ -324,6 +334,14 @@ export function MarginApp() {
       active: menu === "words",
       go: () => setScreen({ kind: "words", bookId: null }),
       badge: due,
+    },
+    {
+      id: "guide",
+      label: t("nav.guide"),
+      Icon: CircleHelp,
+      active: menu === "guide",
+      go: () => setScreen({ kind: "guide" }),
+      badge: 0,
     },
   ];
   return (
@@ -365,7 +383,7 @@ export function MarginApp() {
               aria-label={t("common.brand")}
             >
               <BookOpen className="size-6 text-accent" aria-hidden />
-              <span className="max-sm:sr-only">{t("common.brand")}</span>
+              <span className="max-lg:sr-only">{t("common.brand")}</span>
             </button>
             <nav className="hidden min-w-0 flex-1 items-center gap-1 sm:flex" aria-label={t("nav.main")}>
               {tabs.map((tab) => (
@@ -419,7 +437,7 @@ export function MarginApp() {
           aria-label={t("nav.main")}
           data-tab-bar
         >
-          <div className="mx-auto grid max-w-md grid-cols-4">
+          <div className="mx-auto grid max-w-md grid-cols-5">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -490,6 +508,8 @@ export function MarginApp() {
               onAddEpub={() => void askForEpub(screen.bookId)}
               onDiscover={() => setScreen({ kind: "discover" })}
             />
+          ) : screen.kind === "dashboard" ? (
+            <DashboardScreen />
           ) : screen.kind === "guide" ? (
             <GuideScreen />
           ) : screen.kind === "thanks" ? (

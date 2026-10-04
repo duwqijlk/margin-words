@@ -19,6 +19,11 @@
    "pos": "adjective",
    "meaning": "On fire; bright with light."
   },
+  "aboard": {
+   "pos": "adverb",
+   "meaning": "On a ship, or onto a ship.",
+   "whyHard": "A sailor's word for on the ship."
+  },
   "abominable": {
    "pos": "adjective",
    "meaning": "Terrible; making you feel disgust."
@@ -143,6 +148,11 @@
    "pos": "adjective",
    "meaning": "Light and carefree; not serious."
   },
+  "ale": {
+   "pos": "noun",
+   "meaning": "A kind of beer.",
+   "whyHard": "An old drink like beer."
+  },
   "alight": {
    "pos": "base verb",
    "meaning": "To come down and stay for a moment.",
@@ -200,9 +210,19 @@
    "pos": "adverb",
    "meaning": "\"Run amuck\" means to rush about wildly and dangerously."
   },
+  "anchor": {
+   "pos": "noun",
+   "meaning": "A heavy metal hook dropped into the sea to hold a ship still.",
+   "whyHard": "It keeps the ship from drifting."
+  },
   "anchorage": {
    "pos": "singular noun",
    "meaning": "A place where a ship can stop safely and drop its anchor."
+  },
+  "ancient": {
+   "pos": "adjective",
+   "meaning": "Very old.",
+   "whyHard": "From long ago."
   },
   "anecdote": {
    "pos": "singular noun",
@@ -227,6 +247,11 @@
    "forms": [
     "antelopes"
    ]
+  },
+  "anxious": {
+   "pos": "adjective",
+   "meaning": "Worried, and in a hurry to know.",
+   "whyHard": "Uneasy and waiting."
   },
   "apiece": {
    "pos": "adverb",
@@ -272,6 +297,72 @@
   "armpit": {
    "pos": "singular noun",
    "meaning": "The hollow place under the arm where it joins the shoulder."
+  },
+  "arms": {
+   "senseOnly": true,
+   "pos": "plural noun",
+   "meaning": "Guns and other weapons.",
+   "whyHard": "Not the usual meaning! Usually: arms are the two parts of the body from the shoulders to the hands.",
+   "senses": [
+    {
+     "meaning": "Guns and other weapons.",
+     "whyHard": "Not the usual meaning! Usually: arms are the two parts of the body from the shoulders to the hands.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "The arms are easy found, in the sand-hill,"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "the powder and the arms in the fore"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "context": "provided with all the arms and powder on"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "context": "take out the arms and powder, yo-ho-ing"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "considerable interval by a volley of small arms."
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "Hispaniola, with plenty of arms and ammunition, and"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "had the advantage of arms. Not one of"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "The rest of the arms and powder we"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "bullets, I felt myself well supplied with arms."
+      },
+      {
+       "chapter": 34,
+       "occurrence": 2,
+       "context": "bar silver and the arms still lie, for"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "aroma": {
    "pos": "singular noun",
@@ -449,6 +540,65 @@
     "banging"
    ]
   },
+  "bank": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The raised side of a river, road, or shore.",
+   "whyHard": "Not the usual meaning! Usually: a bank is a place that keeps money.",
+   "senses": [
+    {
+     "meaning": "The raised side of a river, a road, or the shore.",
+     "whyHard": "Not the usual meaning! Usually: a bank is a place that keeps money.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "the edge of the bank, where, sure enough,"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "drag her down the bank and a little"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "crept back to the bank again, whence, sheltering"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "green turf, hidden by banks and a thick",
+       "form": "banks"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "dodged in, shaving the banks, with a certainty",
+       "form": "banks"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A mass of something, such as a mass of fog.",
+     "whyHard": "Not the usual meaning! Usually: a bank is a place that keeps money.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "south-east, carrying great banks of fog; and",
+       "form": "banks"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "banks"
+   ]
+  },
   "bar": {
    "pos": "singular noun",
    "meaning": "A room or place in an inn where drinks are served.",
@@ -503,6 +653,14 @@
    "pos": "past-tense verb",
    "meaning": "Said something in a short, sharp way."
   },
+  "barrel": {
+   "pos": "noun",
+   "meaning": "A big round wooden container.",
+   "whyHard": "An old container for rum, apples, or powder.",
+   "forms": [
+    "barrels"
+   ]
+  },
   "barrelled": {
    "pos": "adjective",
    "meaning": "Put in barrels; here the word describes something shaped like a barrel."
@@ -510,6 +668,11 @@
   "barrow": {
    "pos": "singular noun",
    "meaning": "A small cart that is pushed or pulled by hand."
+  },
+  "basin": {
+   "pos": "noun",
+   "meaning": "A round hollow that holds water, or a bowl.",
+   "whyHard": "Here, a hollow full of water."
   },
   "bated": {
    "pos": "adjective",
@@ -522,6 +685,14 @@
   "batten": {
    "pos": "singular noun",
    "meaning": "A long thin piece of wood. \"Batten down\" means to close and fix firmly."
+  },
+  "bay": {
+   "pos": "noun",
+   "meaning": "A wide bend of the sea into the land.",
+   "whyHard": "A part of the coast where the sea comes in.",
+   "forms": [
+    "bays"
+   ]
   },
   "beach": {
    "pos": "base verb",
@@ -540,6 +711,87 @@
   "beaming": {
    "pos": "present participle",
    "meaning": "Smiling widely."
+  },
+  "bear": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To carry, to endure, or to go in a direction.",
+   "whyHard": "Not the usual meaning! Usually: a bear is a large animal.",
+   "senses": [
+    {
+     "meaning": "To carry, to endure, or to go in a direction.",
+     "whyHard": "Not the usual meaning! Usually: a bear is a large animal.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "to his stories or bear a chorus to"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "and I could always bear him entirely out."
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "said he. “You must bear up, sir, if"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "sir, if you please—bear up until you"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "stand by to load and bear a hand.”"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "were, and that’s as bad to bear.” *"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "though I could, perhaps, bear to die, I"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "context": "die, I could not bear to look upon"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "were too weak to bear the light. He"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "to me, I could bear without a murmur;"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "“I’ll bear it in mind,” said Silver"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "word? You’ll please bear in mind it’s"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "board had to bear a hand—only the"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "bearer": {
    "pos": "singular noun",
@@ -572,6 +824,11 @@
    "forms": [
     "bellowed"
    ]
+  },
+  "belt": {
+   "pos": "noun",
+   "meaning": "A band worn around the waist.",
+   "whyHard": "A strap around the middle."
   },
   "berth": {
    "pos": "singular noun",
@@ -655,6 +912,14 @@
   "blackness": {
    "pos": "uncountable noun",
    "meaning": "Complete darkness."
+  },
+  "blade": {
+   "pos": "noun",
+   "meaning": "The sharp metal part of a knife or a sword.",
+   "whyHard": "The cutting part.",
+   "forms": [
+    "blades"
+   ]
   },
   "blaze": {
    "pos": "base verb",
@@ -793,6 +1058,52 @@
     "bookcases"
    ]
   },
+  "boom": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A long pole along the bottom of a sail.",
+   "whyHard": "Not the usual meaning! Usually: a boom is a deep loud sound.",
+   "senses": [
+    {
+     "meaning": "A long pole along the bottom of a sail.",
+     "whyHard": "Not the usual meaning! Usually: a boom is a deep loud sound.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "I caught the jib-boom, while my foot"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "same moment the main-boom swung inboard, the"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "on another, and the boom swinging to and"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 3,
+       "context": "lose, and dodging the boom as it once"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 4,
+       "context": "And again dodging the boom, I ran to"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "canted over, the boom had swung out-board,"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "booming": {
    "pos": "present participle",
    "meaning": "Making a loud deep sound."
@@ -800,6 +1111,11 @@
   "boozy": {
    "pos": "adjective",
    "meaning": "Drunk, or like a person who has drunk too much."
+  },
+  "bore": {
+   "pos": "past-tense verb",
+   "meaning": "Carried, or moved ahead.",
+   "whyHard": "Past of bear. It does not mean dull."
   },
   "bosom": {
    "pos": "singular noun",
@@ -813,9 +1129,108 @@
     "boughs"
    ]
   },
+  "bound": {
+   "pos": "adjective",
+   "meaning": "Must do it, or you can be sure of it. Also going toward a place, or tied.",
+   "whyHard": "One small word covers must, going, and tied. The sentence shows which.",
+   "senses": [
+    {
+     "meaning": "Must do it, or you can be sure of it.",
+     "default": true
+    },
+    {
+     "meaning": "Going toward a place.",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "singing seamen, to sea, bound for an unknown"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "the one I was bound to go; the"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "very day they were bound a-treasure-hunting."
+      }
+     ]
+    },
+    {
+     "meaning": "Tied, wrapped, or fixed on one thing.",
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "and dark, the head bound with cliffs forty"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "with my aid, Hands bound up the great"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "their whole soul was bound up in that"
+      }
+     ]
+    }
+   ]
+  },
   "bounding": {
    "pos": "present participle",
    "meaning": "Jumping or running with big jumps."
+  },
+  "bow": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The front of a ship.",
+   "whyHard": "Not the usual meaning! Usually: a bow is a weapon that shoots arrows, or a ribbon tied in loops.",
+   "senses": [
+    {
+     "meaning": "The front of a ship.",
+     "whyHard": "Not the usual meaning! Usually: a bow is a weapon that shoots arrows, or a ribbon tied in loops.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "Livesey in the rush for the weather bow."
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "of me, only the bow oar saying, “Is"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "her consort, and the bow had struck among"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "to the ebb—her bow was now towards"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A bend of the head or body to show respect.",
+     "whyHard": "Not the usual meaning! Usually: a bow is a weapon that shoots arrows, or a ribbon tied in loops.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "and each with a bow, drank my good"
+      }
+     ]
+    }
+   ]
   },
   "bowsprit": {
    "pos": "singular noun",
@@ -852,6 +1267,11 @@
   "brandy": {
    "pos": "uncountable noun",
    "meaning": "A strong alcohol drink made from wine."
+  },
+  "brass": {
+   "pos": "noun",
+   "meaning": "A yellow metal.",
+   "whyHard": "A yellow metal, often on buttons or a telescope."
   },
   "bravest": {
    "pos": "superlative adjective",
@@ -957,6 +1377,11 @@
    "pos": "singular noun",
    "meaning": "Here, a bush with small yellow flowers."
   },
+  "brow": {
+   "pos": "noun",
+   "meaning": "The forehead. The part of the face above the eyes.",
+   "whyHard": "The forehead."
+  },
   "brute": {
    "pos": "singular noun",
    "meaning": "A cruel person; an animal.",
@@ -999,6 +1424,11 @@
   "budge": {
    "pos": "base verb",
    "meaning": "To move a little."
+  },
+  "bulk": {
+   "pos": "noun",
+   "meaning": "The great size of something. Most of it.",
+   "whyHard": "The main mass."
   },
   "bulkhead": {
    "pos": "singular noun",
@@ -1059,6 +1489,14 @@
     "burthened"
    ]
   },
+  "bury": {
+   "pos": "verb",
+   "meaning": "To put a dead body, or a thing, under the ground.",
+   "whyHard": "The past is buried.",
+   "forms": [
+    "buried"
+   ]
+  },
   "bustle": {
    "pos": "singular noun",
    "meaning": "Busy and noisy activity."
@@ -1069,6 +1507,19 @@
    "forms": [
     "bygones"
    ]
+  },
+  "cabin": {
+   "pos": "noun",
+   "meaning": "A room on a ship.",
+   "whyHard": "A room in a ship, not a house in the woods.",
+   "forms": [
+    "cabins"
+   ]
+  },
+  "cable": {
+   "pos": "noun",
+   "meaning": "A very thick rope or chain.",
+   "whyHard": "A ship's thick rope."
   },
   "callous": {
    "pos": "adjective",
@@ -1090,6 +1541,11 @@
     "camped"
    ]
   },
+  "candle": {
+   "pos": "noun",
+   "meaning": "A stick of wax with a flame, used as a light.",
+   "whyHard": "An old light you can carry."
+  },
   "canikin": {
    "pos": "singular noun",
    "meaning": "A small metal cup.",
@@ -1105,6 +1561,11 @@
   "cannikin": {
    "pos": "singular noun",
    "meaning": "A small metal cup."
+  },
+  "cannon": {
+   "pos": "noun",
+   "meaning": "A big gun.",
+   "whyHard": "A large gun on a ship or on land."
   },
   "cannonade": {
    "pos": "singular noun",
@@ -1166,6 +1627,11 @@
    "pos": "adverb",
    "meaning": "Without taking enough care."
   },
+  "cargo": {
+   "pos": "noun",
+   "meaning": "The goods a ship carries.",
+   "whyHard": "What the ship is transporting."
+  },
   "carouse": {
    "pos": "base verb",
    "meaning": "To drink and enjoy oneself loudly.",
@@ -1178,6 +1644,11 @@
    "pos": "singular noun",
    "meaning": "A wooden barrel for liquid."
   },
+  "cast": {
+   "pos": "verb",
+   "meaning": "Threw or sent.",
+   "whyHard": "An old word for throw."
+  },
   "catechism": {
    "pos": "singular noun",
    "meaning": "A set of questions and answers used to teach the beliefs of the Christian church."
@@ -1189,6 +1660,11 @@
   "cavalier": {
    "pos": "singular noun",
    "meaning": "A man who rides a horse; also a gentleman who fights for the king."
+  },
+  "cave": {
+   "pos": "noun",
+   "meaning": "A large hole in rock, or under the ground.",
+   "whyHard": "A hollow in the rock."
   },
   "cease": {
    "pos": "base verb",
@@ -1217,6 +1693,49 @@
    "pos": "singular noun",
    "meaning": "A word made up by Silver for a chaplain."
   },
+  "charge": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Care of something, or a rush to attack.",
+   "whyHard": "Not the usual meaning! Usually: a charge is the price you pay.",
+   "senses": [
+    {
+     "meaning": "Care of someone or something. To take charge is to become the person in command.",
+     "whyHard": "Not the usual meaning! Usually: a charge is the price you pay.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "a physician to take charge of his practice;"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "context": "the hall under the charge of old Redruth,"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A rush forward to attack.",
+     "whyHard": "Not the usual meaning! Usually: a charge is the price you pay.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "to lead a charge. But just then—crack!"
+      }
+     ]
+    }
+   ]
+  },
+  "chart": {
+   "pos": "noun",
+   "meaning": "A map of the sea.",
+   "whyHard": "A sea map, not a school chart on the wall."
+  },
   "chatter": {
    "pos": "base verb",
    "meaning": "To talk quickly about unimportant things, or to make a quick clicking sound.",
@@ -1229,6 +1748,14 @@
    "pos": "adverb",
    "meaning": "At a low price."
   },
+  "cheek": {
+   "pos": "noun",
+   "meaning": "The soft side of the face.",
+   "whyHard": "The side of the face.",
+   "forms": [
+    "cheeks"
+   ]
+  },
   "cheeriest": {
    "pos": "superlative adjective",
    "meaning": "The most happy and bright."
@@ -1240,6 +1767,127 @@
   "chequered": {
    "pos": "adjective",
    "meaning": "Marked with squares or patches of light and dark."
+  },
+  "chest": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A large strong box.",
+   "whyHard": "Not the usual meaning! Usually: the chest is the front of the body, between the neck and the stomach.",
+   "senses": [
+    {
+     "meaning": "A large strong box.",
+     "whyHard": "Not the usual meaning! Usually: the chest is the front of the body, between the neck and the stomach.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "inn door, his sea-chest following behind him"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "dead man’s chest— Yo-ho-ho, and"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "context": "help up my chest. I’ll stay here"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 4,
+       "context": "rum. The great sea-chest none of us"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 5,
+       "context": "dead man’s chest— Yo-ho-ho, and"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 6,
+       "context": "“the dead man’s chest” to be that"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "it’s my old sea-chest they’re after;"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "We’ll have that chest open, if we"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "context": "any other seaman’s chest on the outside,"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 4,
+       "context": "last things in the chest, a bundle tied"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 5,
+       "context": "candle by the empty chest; and the next"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "you aloft and get the chest,” he cried."
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "Someone’s turned the chest out alow and"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "“Fifteen men on the dead man’s chest—”"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "in Billy Bones’s chest, but an accurate"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "cask of cognac, and my invaluable medicine chest."
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "dead man’s chest— Yo-ho-ho, and"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "below to my own chest, where I got"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "of the captain’s chest. Why the doctor"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "dead man’s chest— Yo-ho-ho, and"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "sometimes plunging through the bushes to the chest."
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "chine": {
    "pos": "singular noun",
@@ -1256,6 +1904,11 @@
   "choicest": {
    "pos": "superlative adjective",
    "meaning": "The best; of the highest quality."
+  },
+  "chorus": {
+   "pos": "noun",
+   "meaning": "The part of a song that everyone sings together.",
+   "whyHard": "Everyone joining the song."
   },
   "christened": {
    "pos": "past-tense verb",
@@ -1294,6 +1947,11 @@
     "clambered",
     "clambering"
    ]
+  },
+  "clap": {
+   "pos": "verb",
+   "meaning": "To put something quickly into a place, or a sudden sound.",
+   "whyHard": "A quick put, or a sudden noise."
   },
   "clapped": {
    "pos": "past-tense verb",
@@ -1338,6 +1996,14 @@
   "cleverness": {
    "pos": "uncountable noun",
    "meaning": "The ability to learn and understand quickly."
+  },
+  "cliff": {
+   "pos": "noun",
+   "meaning": "A high, steep face of rock.",
+   "whyHard": "A wall of rock by the sea.",
+   "forms": [
+    "cliffs"
+   ]
   },
   "cliffy": {
    "pos": "adjective",
@@ -1391,6 +2057,32 @@
   "clustering": {
    "pos": "present participle",
    "meaning": "Gathering close together."
+  },
+  "coach": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A closed carriage pulled by horses.",
+   "whyHard": "Not the usual meaning! Usually: a coach is a person who trains a team, or a long-distance bus.",
+   "senses": [
+    {
+     "meaning": "A closed carriage pulled by horses.",
+     "whyHard": "Not the usual meaning! Usually: a coach is a person who trains a team, or a long-distance bus.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "be rolling in a coach! If you had"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "riding in my coach, I don’t want"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "coarsely": {
    "pos": "adverb",
@@ -1449,6 +2141,19 @@
   "comical": {
    "pos": "adjective",
    "meaning": "Funny."
+  },
+  "command": {
+   "pos": "noun",
+   "meaning": "An order, or the job of being in charge.",
+   "whyHard": "What the captain tells the crew to do."
+  },
+  "companion": {
+   "pos": "noun",
+   "meaning": "A person who goes with you.",
+   "whyHard": "A person who is with you.",
+   "forms": [
+    "companions"
+   ]
   },
   "compass": {
    "pos": "singular noun",
@@ -1557,6 +2262,37 @@
    "pos": "adverb",
    "meaning": "In a way that shows you think something is not worth respect."
   },
+  "content": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Satisfied. Wanting nothing more.",
+   "whyHard": "Not the usual meaning! Usually: content means what is inside something.",
+   "senses": [
+    {
+     "meaning": "Satisfied. Wanting nothing more.",
+     "whyHard": "Not the usual meaning! Usually: content means what is inside something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "obstinately unwilling to be content with less. It"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "on board seemed well content, and they must"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "talked to their hearts’ content, it being then"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "continual": {
    "pos": "adjective",
    "meaning": "Happening again and again without a stop.",
@@ -1646,6 +2382,42 @@
    "pos": "singular noun",
    "meaning": "The sailor who steers a small boat. It is said \"cock-sn\"."
   },
+  "craft": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A boat or a ship.",
+   "whyHard": "Not the usual meaning! Usually: a craft is a skill, or something you make with your hands.",
+   "senses": [
+    {
+     "meaning": "A boat or a ship.",
+     "whyHard": "Not the usual meaning! Usually: a craft is a skill, or something you make with your hands.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "seems a clever craft; more I can’t"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "she’s a handsome craft, she is,” the"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "danger to our overloaded craft, but the worst"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "most cross-grained, lop-sided craft to manage."
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "craftily": {
    "pos": "adverb",
    "meaning": "In a clever way that tricks others."
@@ -1665,6 +2437,14 @@
   "craning": {
    "pos": "present participle",
    "meaning": "Stretching the neck to see better."
+  },
+  "crawl": {
+   "pos": "verb",
+   "meaning": "To move along close to the ground.",
+   "whyHard": "To go on hands and knees, or very low.",
+   "forms": [
+    "crawling"
+   ]
   },
   "crawled": {
    "pos": "past-tense verb",
@@ -1686,6 +2466,11 @@
    "pos": "past-tense verb",
    "meaning": "Moved slowly and quietly. (Past tense of \"creep\".)"
   },
+  "crew": {
+   "pos": "noun",
+   "meaning": "The group of sailors who work on a ship.",
+   "whyHard": "The ship's men."
+  },
   "croaking": {
    "pos": "singular noun",
    "meaning": "The deep rough sound that a frog makes."
@@ -1702,9 +2487,19 @@
    "pos": "singular noun",
    "meaning": "A cross with a figure of Jesus on it."
   },
+  "cruel": {
+   "pos": "adjective",
+   "meaning": "Ready to hurt others and not caring.",
+   "whyHard": "Wanting to cause pain."
+  },
   "cruelly": {
    "pos": "adverb",
    "meaning": "In a way that gives pain or suffering on purpose."
+  },
+  "cruise": {
+   "pos": "noun",
+   "meaning": "A journey in a ship.",
+   "whyHard": "A trip on the sea."
   },
   "crutch": {
    "pos": "singular noun",
@@ -1717,6 +2512,11 @@
   "curled": {
    "pos": "adjective",
    "meaning": "Having hair in the shape of curls."
+  },
+  "current": {
+   "pos": "noun",
+   "meaning": "Water in the sea or a river that keeps moving one way.",
+   "whyHard": "A stream of moving water."
   },
   "cursed": {
    "pos": "past-tense verb",
@@ -1749,6 +2549,11 @@
   "damping": {
    "pos": "present participle",
    "meaning": "Making wet; here, making someone less brave or happy."
+  },
+  "dare": {
+   "pos": "verb",
+   "meaning": "To be brave enough to do something.",
+   "whyHard": "To have the courage to do it."
   },
   "dared": {
    "pos": "past-tense verb",
@@ -1805,6 +2610,11 @@
     "deadlights"
    ]
   },
+  "deadly": {
+   "pos": "adjective",
+   "meaning": "Able to kill.",
+   "whyHard": "So dangerous that it can kill."
+  },
   "deary": {
    "pos": "singular noun",
    "meaning": "An old, kind way to speak to someone dear."
@@ -1812,6 +2622,16 @@
   "deceived": {
    "pos": "past-tense verb",
    "meaning": "Made someone believe something that is not true."
+  },
+  "deck": {
+   "pos": "noun",
+   "meaning": "The floor of a ship.",
+   "whyHard": "It does not mean a pack of playing cards."
+  },
+  "defence": {
+   "pos": "noun",
+   "meaning": "Keeping a person or a place safe from attack.",
+   "whyHard": "The British spelling of defense."
   },
   "defenceless": {
    "pos": "adjective",
@@ -1888,6 +2708,39 @@
   "derisively": {
    "pos": "adverb",
    "meaning": "In a way that shows you laugh at someone."
+  },
+  "desert": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Empty of people.",
+   "whyHard": "Not the usual meaning! Usually: a desert is a hot, dry, sandy land.",
+   "senses": [
+    {
+     "meaning": "Empty of people. A desert island has nobody living on it.",
+     "whyHard": "Not the usual meaning! Usually: a desert is a hot, dry, sandy land.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "nails on a desert island, Jim, can’t"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To leave someone and go away.",
+     "whyHard": "Not the usual meaning! Usually: a desert is a hot, dry, sandy land.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "decided that we must desert them on the"
+      }
+     ]
+    }
+   ]
   },
   "deserted": {
    "pos": "adjective",
@@ -2024,6 +2877,11 @@
    "pos": "uncountable noun",
    "meaning": "Not being satisfied."
   },
+  "disgust": {
+   "pos": "noun",
+   "meaning": "A strong feeling that something is nasty.",
+   "whyHard": "The feeling that makes you pull away."
+  },
   "dislodge": {
    "pos": "base verb",
    "meaning": "To push or knock something out of its place.",
@@ -2085,6 +2943,11 @@
    "forms": [
     "divined"
    ]
+  },
+  "dock": {
+   "pos": "noun",
+   "meaning": "The place where a ship is tied to the land.",
+   "whyHard": "Where ships are loaded."
   },
   "dodge": {
    "pos": "base verb",
@@ -2195,6 +3058,11 @@
     "dozed"
    ]
   },
+  "dozen": {
+   "pos": "noun",
+   "meaning": "Twelve.",
+   "whyHard": "A group of twelve."
+  },
   "dram": {
    "pos": "singular noun",
    "meaning": "A small drink of strong alcohol."
@@ -2223,6 +3091,11 @@
   "drenched": {
    "pos": "adjective",
    "meaning": "Completely wet."
+  },
+  "drew": {
+   "pos": "past-tense verb",
+   "meaning": "Pulled, or moved closer.",
+   "whyHard": "Past of draw. It does not mean a picture."
   },
   "drone": {
    "pos": "base verb",
@@ -2285,6 +3158,11 @@
   "duskily": {
    "pos": "adverb",
    "meaning": "In a dark way."
+  },
+  "duty": {
+   "pos": "noun",
+   "meaning": "What you ought to do. Your job.",
+   "whyHard": "The work you are responsible for."
   },
   "dwindle": {
    "pos": "base verb",
@@ -2365,6 +3243,11 @@
   "effectual": {
    "pos": "adjective",
    "meaning": "Able to make something happen."
+  },
+  "effort": {
+   "pos": "noun",
+   "meaning": "Hard trying.",
+   "whyHard": "The work you put into doing something."
   },
   "elated": {
    "pos": "adjective",
@@ -2490,6 +3373,11 @@
    "pos": "adjective",
    "meaning": "Giving reasons or telling how something works."
   },
+  "expression": {
+   "pos": "noun",
+   "meaning": "The look on a face.",
+   "whyHard": "What the face shows."
+  },
   "extravagance": {
    "pos": "uncountable noun",
    "meaning": "Spending or doing too much."
@@ -2541,6 +3429,11 @@
    "pos": "singular noun",
    "meaning": "A clear safe path for ships in a channel."
   },
+  "faith": {
+   "pos": "noun",
+   "meaning": "Strong trust.",
+   "whyHard": "Believing in someone."
+  },
   "fake": {
    "pos": "base verb",
    "meaning": "To make a false copy.",
@@ -2583,6 +3476,37 @@
    "forms": [
     "farthing",
     "farthings"
+   ]
+  },
+  "fast": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Tied so that it stays.",
+   "whyHard": "Not the usual meaning! Usually: fast means quick.",
+   "senses": [
+    {
+     "meaning": "Tied firmly so that it stays.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "see the gigs made fast and a man"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "painter and made it fast, and we fell"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "hands and found it fast, curiosity began to"
+      }
+     ],
+     "default": true
+    }
    ]
   },
   "fastening": {
@@ -2631,9 +3555,22 @@
     "feints"
    ]
   },
+  "fell": {
+   "pos": "past-tense verb",
+   "meaning": "Came down or dropped.",
+   "whyHard": "Past of fall. It does not mean feel."
+  },
   "felled": {
    "pos": "past-tense verb",
    "meaning": "Cut down; knocked down."
+  },
+  "fellow": {
+   "pos": "noun",
+   "meaning": "A man.",
+   "whyHard": "An old-fashioned word for a man.",
+   "forms": [
+    "fellows"
+   ]
   },
   "fen": {
    "pos": "singular noun",
@@ -2653,6 +3590,11 @@
     "fetch",
     "fetched"
    ]
+  },
+  "fever": {
+   "pos": "noun",
+   "meaning": "An illness that makes the body hot.",
+   "whyHard": "The body is hot and sick."
   },
   "feverish": {
    "pos": "adjective",
@@ -2829,9 +3771,19 @@
    "pos": "present participle",
    "meaning": "Moving quickly and lightly."
   },
+  "foam": {
+   "pos": "noun",
+   "meaning": "White bubbles on water.",
+   "whyHard": "The white froth on waves."
+  },
   "foaming": {
    "pos": "present participle",
    "meaning": "Making white bubbles on top."
+  },
+  "fog": {
+   "pos": "noun",
+   "meaning": "Thick cloud close to the ground, so you cannot see far.",
+   "whyHard": "Low cloud that hides things."
   },
   "foggy": {
    "pos": "adjective",
@@ -2912,6 +3864,16 @@
    "pos": "singular noun",
    "meaning": "Something that you must give up as a punishment."
   },
+  "forth": {
+   "pos": "adverb",
+   "meaning": "Out, or forward.",
+   "whyHard": "An old word for out or forward."
+  },
+  "fortune": {
+   "pos": "noun",
+   "meaning": "Luck, or great riches.",
+   "whyHard": "Good luck, or a pile of money."
+  },
   "foul": {
    "pos": "base verb",
    "meaning": "To make something dirty.",
@@ -2981,6 +3943,11 @@
   "frown": {
    "pos": "singular noun",
    "meaning": "A serious or angry look, with the eyebrows pulled together."
+  },
+  "funeral": {
+   "pos": "noun",
+   "meaning": "The ceremony when a dead person is buried.",
+   "whyHard": "The burial service."
   },
   "furiously": {
    "pos": "adverb",
@@ -3078,6 +4045,14 @@
    "pos": "adjective",
    "meaning": "Feeling that everything is turning round; dizzy."
   },
+  "gig": {
+   "pos": "noun",
+   "meaning": "A light, fast boat from a ship.",
+   "whyHard": "It does not mean a music show.",
+   "forms": [
+    "gigs"
+   ]
+  },
   "gilt": {
    "pos": "adjective",
    "meaning": "Covered with a thin layer of gold."
@@ -3118,6 +4093,11 @@
   "gleaming": {
    "pos": "present participle",
    "meaning": "Shining brightly."
+  },
+  "glee": {
+   "pos": "noun",
+   "meaning": "Bright joy.",
+   "whyHard": "A strong happy feeling."
   },
   "glide": {
    "pos": "base verb",
@@ -3206,6 +4186,47 @@
    "pos": "past-tense verb",
    "meaning": "Made a rough scraping noise."
   },
+  "grave": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The place in the ground where a dead person is buried.",
+   "whyHard": "Not the usual meaning! Usually: grave means very serious.",
+   "senses": [
+    {
+     "meaning": "The place in the ground where a dead person is buried.",
+     "whyHard": "Not the usual meaning! Usually: grave means very serious.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "my pirates share the grave Where these and"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "headforemost out of the grave. Now, Mr. Bones—”"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "I’ll be as silent as the grave.”"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "on the blessed grave-stones! That’s what"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "set to dig a grave for Redruth; the"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "gravely": {
    "pos": "adverb",
    "meaning": "In a serious way."
@@ -3272,6 +4293,11 @@
     "groping"
    ]
   },
+  "grove": {
+   "pos": "noun",
+   "meaning": "A small group of trees.",
+   "whyHard": "A little wood."
+  },
   "grovelled": {
    "pos": "past-tense verb",
    "meaning": "Lay on the ground to show fear or respect."
@@ -3318,10 +4344,49 @@
    "pos": "present participle",
    "meaning": "Making short, low sounds like a pig."
   },
+  "guinea": {
+   "pos": "noun",
+   "meaning": "An old British gold coin.",
+   "whyHard": "An old gold coin, worth a bit more than a pound.",
+   "forms": [
+    "guineas"
+   ]
+  },
   "gully": {
    "pos": "singular noun",
    "meaning": "A big knife that sailors carried. \"Sea-gully\" is the same.",
    "whyHard": "An old sailor word."
+  },
+  "gum": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A mild cry of surprise, like saying my goodness.",
+   "whyHard": "Not the usual meaning! Usually: gum is the sweet you chew.",
+   "senses": [
+    {
+     "meaning": "A mild cry of surprise, like saying my goodness.",
+     "whyHard": "Not the usual meaning! Usually: gum is the sweet you chew.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "“Aye, by gum, I do!” he answered. “Ship"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "is bungled. Ah! By gum, if you could"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "“No, by gum, it don’t,” agreed Silver;"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "gunner": {
    "pos": "singular noun",
@@ -3513,6 +4578,11 @@
    "pos": "adjective",
    "meaning": "Warm and cheerful; also big and strong."
   },
+  "heath": {
+   "pos": "noun",
+   "meaning": "Open wild land with low bushes.",
+   "whyHard": "Flat wild country."
+  },
   "heave": {
    "pos": "base verb",
    "meaning": "To lift or push with great effort. Here \"heaving\" means moving up and down, as the sea does.",
@@ -3529,6 +4599,11 @@
     "heel",
     "heels"
    ]
+  },
+  "helm": {
+   "pos": "noun",
+   "meaning": "The wheel or handle used to steer a ship.",
+   "whyHard": "Where the steersman stands."
   },
   "helplessness": {
    "pos": "uncountable noun",
@@ -3636,6 +4711,37 @@
    "pos": "past-tense verb",
    "meaning": "Lifted up."
   },
+  "hold": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The space in a ship where cargo is kept.",
+   "whyHard": "Not the usual meaning! Usually: hold means to have something in your hands.",
+   "senses": [
+    {
+     "meaning": "The space in a ship where cargo is kept.",
+     "whyHard": "Not the usual meaning! Usually: hold means to have something in your hands.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "arms in the fore hold. Now, you have"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "after-part of the main hold; and this set"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "the treasure in the hold of her, by"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "holler": {
    "pos": "base verb",
    "meaning": "To shout.",
@@ -3643,6 +4749,11 @@
    "forms": [
     "hollered"
    ]
+  },
+  "hollow": {
+   "pos": "adjective",
+   "meaning": "Empty inside, or a low empty place.",
+   "whyHard": "Not solid. A hole or a dip."
   },
   "holus": {
    "pos": "adverb",
@@ -3684,6 +4795,16 @@
   "horrified": {
    "pos": "adjective",
    "meaning": "Shocked and afraid."
+  },
+  "horror": {
+   "pos": "noun",
+   "meaning": "A very strong fear.",
+   "whyHard": "Stronger than being frightened."
+  },
+  "hostage": {
+   "pos": "noun",
+   "meaning": "A prisoner kept so the other side will do what you want.",
+   "whyHard": "A person held so the enemy will bargain."
   },
   "hotly": {
    "pos": "adverb",
@@ -3741,6 +4862,11 @@
    "pos": "adjective",
    "meaning": "With the back bent and the shoulders up."
   },
+  "hung": {
+   "pos": "past-tense verb",
+   "meaning": "Was held up from above, or stayed in the air.",
+   "whyHard": "Past of hang."
+  },
   "hurly": {
    "pos": "singular noun",
    "meaning": "\"Hurly-burly\" means noisy confusion."
@@ -3757,6 +4883,11 @@
    "pos": "interjection",
    "meaning": "An old word for \"hurray\".",
    "whyHard": "An old word."
+  },
+  "idle": {
+   "pos": "adjective",
+   "meaning": "Not working. Doing nothing.",
+   "whyHard": "Still, with nothing to do."
   },
   "idleness": {
    "pos": "uncountable noun",
@@ -3870,6 +5001,11 @@
     "inlets"
    ]
   },
+  "inn": {
+   "pos": "noun",
+   "meaning": "A house where travellers pay to eat and sleep.",
+   "whyHard": "An old word for a small hotel."
+  },
   "innumerable": {
    "pos": "adjective",
    "meaning": "Too many to count."
@@ -3884,6 +5020,16 @@
   "insolence": {
    "pos": "uncountable noun",
    "meaning": "Rude and not respectful behaviour."
+  },
+  "instant": {
+   "pos": "noun",
+   "meaning": "A very short moment.",
+   "whyHard": "A second."
+  },
+  "instinct": {
+   "pos": "noun",
+   "meaning": "A feeling that tells you what to do, before you think it out.",
+   "whyHard": "A sudden feeling, not a plan."
   },
   "instinctively": {
    "pos": "adverb",
@@ -3928,6 +5074,11 @@
     "ironically"
    ]
   },
+  "irons": {
+   "pos": "plural noun",
+   "meaning": "Chains for a prisoner. A ship in irons is stuck and cannot turn.",
+   "whyHard": "Not the metal by itself. Chains, or a ship that will not steer."
+  },
   "irresolute": {
    "pos": "adjective",
    "meaning": "Not sure what to do."
@@ -3947,6 +5098,14 @@
   "jangle": {
    "pos": "singular noun",
    "meaning": "A harsh ringing sound."
+  },
+  "jaw": {
+   "pos": "noun",
+   "meaning": "The bone of the mouth that moves when you eat or talk.",
+   "whyHard": "The lower part of the face that moves.",
+   "forms": [
+    "jaws"
+   ]
   },
   "jawing": {
    "pos": "present participle",
@@ -4014,6 +5173,11 @@
    "pos": "singular noun",
    "meaning": "A beam that runs along the bottom of a ship. \"Keelson\"."
   },
+  "kettle": {
+   "pos": "noun",
+   "meaning": "A metal pot for boiling water.",
+   "whyHard": "A pot that boils."
+  },
   "keyhole": {
    "pos": "singular noun",
    "meaning": "The small hole in a door where you put a key.",
@@ -4066,6 +5230,19 @@
    "pos": "adjective",
    "meaning": "Decorated with lace, or tied with strings."
   },
+  "lad": {
+   "pos": "noun",
+   "meaning": "A boy or a young man.",
+   "whyHard": "An old word for a boy.",
+   "forms": [
+    "lads"
+   ]
+  },
+  "laid": {
+   "pos": "past-tense verb",
+   "meaning": "Put something down.",
+   "whyHard": "Past of lay. It does not mean lied."
+  },
   "lain": {
    "pos": "past participle",
    "meaning": "Rested flat. (Past participle of \"lie\".)"
@@ -4085,6 +5262,11 @@
   "languor": {
    "pos": "uncountable noun",
    "meaning": "A pleasant feeling of being tired and slow."
+  },
+  "lantern": {
+   "pos": "noun",
+   "meaning": "A lamp you can carry.",
+   "whyHard": "A light with a case around the flame."
   },
   "lanyard": {
    "pos": "singular noun",
@@ -4116,13 +5298,252 @@
     "lashed"
    ]
   },
+  "late": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Dead, or in the recent past.",
+   "whyHard": "Not the usual meaning! Usually: late means not on time.",
+   "senses": [
+    {
+     "meaning": "Dead. His late comrades are the men who have died.",
+     "whyHard": "Not the usual meaning! Usually: late means not on time.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "of George and his late comrades that these"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "In the recent past. Of late means lately.",
+     "whyHard": "Not the usual meaning! Usually: late means not on time.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "the man, though of late I had begun"
+      }
+     ]
+    }
+   ]
+  },
   "lather": {
    "pos": "singular noun",
    "meaning": "White bubbles made by soap."
   },
+  "latitude": {
+   "pos": "noun",
+   "meaning": "How far a place is to the north or south.",
+   "whyHard": "A number on a sea map."
+  },
   "laughable": {
    "pos": "adjective",
    "meaning": "Funny enough to make people laugh."
+  },
+  "lay": {
+   "pos": "verb",
+   "meaning": "Was flat, or was in a place. Past of lie. It does not mean an untrue story.",
+   "whyHard": "It looks like lie, the word for an untrue story. Here it means lying flat, putting something down, or a plan.",
+   "senses": [
+    {
+     "meaning": "Was flat, or was in a place. Past of lie. It does not mean an untrue story.",
+     "default": true
+    },
+    {
+     "meaning": "A plan, or a job someone has just done.",
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "that was a good lay of yours last"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 3,
+       "context": "it was a good lay. Some of you"
+      }
+     ]
+    },
+    {
+     "meaning": "You can be sure of it.",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "my house, you may lay to that. And"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "too, and you may lay to that. Get"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "the wiser, you may lay to that. She"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "it, you may lay to that. Where’s"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "fools, you may lay to it—that, nor"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 4,
+       "context": "they are, you may lay to it. But"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 5,
+       "context": "word; and you may lay to that, my"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "toes, and you may lay to that. When"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "dust, and you may lay to that! If"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "a gentleman, and you may lay to that.”"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 5,
+       "context": "that, and you may lay to it. What"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "excuse you, you may lay to that. And"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "and you may lay to it. I’m"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 3,
+       "context": "fishier; and you may lay to that, if"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 4,
+       "context": "choose, and you may lay to that,” said"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 5,
+       "context": "a’terwards, Tom Morgan, you may lay to that.”"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 6,
+       "context": "obey, and you may lay to it! I"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 8,
+       "context": "I say, and you may lay to it.”"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "has Dick, and you may lay to that.”"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "context": "shall, George Merry, you may lay to that.”"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "too, and you may lay to that. Doctor,"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "that treasure; and you may lay to that.”"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 4,
+       "context": "day, and you may lay to that. Care"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "and blood, and you may lay to that.”"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "and you may lay to that. I’m"
+      }
+     ]
+    },
+    {
+     "meaning": "To stop a ship and wait.",
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "not much. We must lay to, if you"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 3,
+       "context": "we know our men. Lay to, and whistle"
+      }
+     ]
+    },
+    {
+     "meaning": "To put something down, or to bring a ship beside another.",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "murmured. “My ears is singing. Lay me back.”"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "context": "and sich—and he’ll lay ’em aboard"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "we sometimes stopped to lay hold of each"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 6,
+       "context": "you would on’y lay your course, and"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 7,
+       "context": "Dick, “when we do lay ’em athwart, what"
+      }
+     ]
+    }
+   ]
   },
   "leaden": {
    "pos": "adjective",
@@ -4162,6 +5583,11 @@
   "ledge": {
    "pos": "singular noun",
    "meaning": "A narrow flat place that sticks out from a wall or a rock."
+  },
+  "lee": {
+   "pos": "noun",
+   "meaning": "The side sheltered from the wind.",
+   "whyHard": "On a ship, the side the wind is not hitting."
   },
   "leer": {
    "pos": "singular noun",
@@ -4298,6 +5724,11 @@
    "meaning": "\"Lop-sided\" means with one side lower than the other.",
    "whyHard": "The book spells it \"lop\"."
   },
+  "lord": {
+   "pos": "noun",
+   "meaning": "A title for a man of high rank. Also a name for God.",
+   "whyHard": "An old title."
+  },
   "lowland": {
    "pos": "singular noun",
    "meaning": "Flat low ground.",
@@ -4329,9 +5760,45 @@
    "pos": "past-tense verb",
    "meaning": "Moved suddenly and unsteadily to one side."
   },
+  "mad": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Crazy. Out of one's mind.",
+   "whyHard": "Not the usual meaning! Usually: mad means angry.",
+   "senses": [
+    {
+     "meaning": "Crazy. Out of one's mind.",
+     "whyHard": "Not the usual meaning! Usually: mad means angry.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "the first of the mad notions that contributed"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "Davy Jones,” said he, “is Dr. Livesey mad?”"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "“Well, shipmate,” said Gray, “mad he may not"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "madman": {
    "pos": "singular noun",
    "meaning": "A person who is mentally ill or acts wildly."
+  },
+  "magistrate": {
+   "pos": "noun",
+   "meaning": "A local judge.",
+   "whyHard": "A person who can judge small crimes."
   },
   "mahogany": {
    "pos": "uncountable noun",
@@ -4417,6 +5884,39 @@
     "mastheaded"
    ]
   },
+  "match": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person who is as good as another, or the flame used to fire an old gun.",
+   "whyHard": "Not the usual meaning! Usually: a match is a game, or a small stick that makes fire.",
+   "senses": [
+    {
+     "meaning": "A person or thing that is as good as another.",
+     "whyHard": "Not the usual meaning! Usually: a match is a game, or a small stick that makes fire.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "Flint! Barring rum, his match were never seen."
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "The small flame or cord used to fire an old gun.",
+     "whyHard": "Not the usual meaning! Usually: a match is a game, or a small stick you strike for fire.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "you see the match, and we’ll hold"
+      }
+     ]
+    }
+   ]
+  },
   "mate": {
    "pos": "singular noun",
    "meaning": "A friend or workmate. On a ship, the \"mate\" is the officer who is second to the captain.",
@@ -4464,6 +5964,11 @@
   "matted": {
    "pos": "adjective",
    "meaning": "Twisted together in a thick mass, like hair that is not combed."
+  },
+  "mattress": {
+   "pos": "noun",
+   "meaning": "The thick soft part of a bed.",
+   "whyHard": "What you lie on in a bed."
   },
   "mayhap": {
    "pos": "adverb",
@@ -4574,6 +6079,11 @@
    "meaning": "Made someone feel worried. \"My heart misgave me\" means \"I felt afraid\".",
    "whyHard": "Old English."
   },
+  "mission": {
+   "pos": "noun",
+   "meaning": "A special job that someone is sent to do.",
+   "whyHard": "A task you are sent on."
+  },
   "missis": {
    "pos": "singular noun",
    "meaning": "A rough way of saying \"wife\" or \"madam\"."
@@ -4646,6 +6156,11 @@
    "meaning": "\"The morrow\" is an old word for \"tomorrow\".",
    "whyHard": "An old word."
   },
+  "mortal": {
+   "pos": "adjective",
+   "meaning": "Human, or deadly, or very great.",
+   "whyHard": "Mortal fear is very great fear. A mortal is a human being."
+  },
   "motioned": {
    "pos": "past-tense verb",
    "meaning": "Moved the hand to show someone what to do."
@@ -4666,6 +6181,11 @@
   "mucked": {
    "pos": "past-tense verb",
    "meaning": "Made dirty, in a rough way; made a mess."
+  },
+  "murder": {
+   "pos": "noun",
+   "meaning": "Killing a person on purpose.",
+   "whyHard": "A deliberate killing."
   },
   "murderous": {
    "pos": "adjective",
@@ -4844,6 +6364,14 @@
     "nostrils"
    ]
   },
+  "notion": {
+   "pos": "noun",
+   "meaning": "An idea.",
+   "whyHard": "A thought or a plan.",
+   "forms": [
+    "notions"
+   ]
+  },
   "numbness": {
    "pos": "uncountable noun",
    "meaning": "Not being able to feel anything."
@@ -4860,6 +6388,14 @@
    "pos": "adjective",
    "meaning": "Good for you; giving you strength and health."
   },
+  "oak": {
+   "pos": "noun",
+   "meaning": "A large tree with hard wood.",
+   "whyHard": "A tree with hard wood.",
+   "forms": [
+    "oaks"
+   ]
+  },
   "oaklike": {
    "pos": "adjective",
    "meaning": "Like an oak, a large strong tree."
@@ -4870,6 +6406,14 @@
    "forms": [
     "oar",
     "oars"
+   ]
+  },
+  "oath": {
+   "pos": "noun",
+   "meaning": "A rude, angry word. Also a very strong promise.",
+   "whyHard": "Here it is usually a curse.",
+   "forms": [
+    "oaths"
    ]
   },
   "obediently": {
@@ -4902,9 +6446,22 @@
    "pos": "adverb",
    "meaning": "In a stubborn way, refusing to change your mind."
   },
+  "odd": {
+   "pos": "adjective",
+   "meaning": "Strange. Not what you expect.",
+   "whyHard": "Unusual."
+  },
   "odious": {
    "pos": "adjective",
    "meaning": "Very unpleasant."
+  },
+  "officer": {
+   "pos": "noun",
+   "meaning": "A person with authority on a ship or in the law.",
+   "whyHard": "Someone in command, not an ordinary sailor.",
+   "forms": [
+    "officers"
+   ]
   },
   "oilcloth": {
    "pos": "singular noun",
@@ -4999,6 +6556,11 @@
    "pos": "adjective",
    "meaning": "Showing hurt feelings."
   },
+  "painter": {
+   "pos": "noun",
+   "meaning": "A rope on the front of a small boat.",
+   "whyHard": "It does not mean a person who paints pictures."
+  },
   "paleness": {
    "pos": "uncountable noun",
    "meaning": "Having little colour."
@@ -5045,6 +6607,11 @@
    "pos": "singular noun",
    "meaning": "A tropical bird with bright feathers that can copy human words."
   },
+  "particular": {
+   "pos": "adjective",
+   "meaning": "One special thing, not just any.",
+   "whyHard": "This one and not another."
+  },
   "partridge": {
    "pos": "singular noun",
    "meaning": "A brown bird that people hunt for food.",
@@ -5052,9 +6619,200 @@
     "partridges"
    ]
   },
+  "party": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A group of people doing something together.",
+   "whyHard": "Not the usual meaning! Usually: a party is a celebration.",
+   "senses": [
+    {
+     "meaning": "A group of people doing something together.",
+     "whyHard": "Not the usual meaning! Usually: a party is a celebration.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "there was even a party of the younger"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "the word, and the party struck out at"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "strolled up and sat down by the party."
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "we of the cabin party who perceived the"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "Silver to arrange the party, and I fancy"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 3,
+       "context": "At last, however, the party was made up."
+      },
+      {
+       "chapter": 13,
+       "occurrence": 4,
+       "context": "it was plain our party could not take"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 5,
+       "context": "plain that the cabin party had no present"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "eastward, it warned our party to be off."
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "the oldest of our party by a score"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "was soon warmly welcomed by the faithful party."
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "remained of the attacking party but the five"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "not known till after by the faithful party."
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "shot down by my own party in mistake."
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "statement, that the cabin party were incensed at"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "feet and the whole party began to move"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "The party spread itself abroad, in a fan"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "sick folk, the whole party sat down as"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "he saw that our party had the start"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "for to see the party weakened, let alone"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "unfort’nate—appears as if killing parties was a waste",
+       "form": "parties"
+      }
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "parties"
+   ]
+  },
   "passably": {
    "pos": "adverb",
    "meaning": "Fairly well; well enough."
+  },
+  "passage": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A way through, a narrow channel of water, or a journey by sea.",
+   "whyHard": "Not the usual meaning! Usually: a passage is a piece of writing you read in class.",
+   "senses": [
+    {
+     "meaning": "A way through, a narrow channel of water, or a journey by sea.",
+     "whyHard": "Not the usual meaning! Usually: a passage is a piece of writing you read in class.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "us down a matted passage and showed us"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "context": "favourable winds, a quick passage, and not the"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "aye, sir,” cried the cook, in the passage."
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "forecastle by a sparred passage on the port"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "and up the narrow passage to the haven"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "ship. He knew the passage like the palm"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 3,
+       "context": "said, “and this here passage has been dug"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "“And a passage home?” he added with a"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "eye on Tom’s passage for all that,"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "after quite a long passage, landed at the"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "patch": {
    "pos": "base verb",
@@ -5069,6 +6827,54 @@
   "patchwork": {
    "pos": "singular noun",
    "meaning": "Cloth made by sewing different small pieces together."
+  },
+  "patient": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A sick person that a doctor looks after.",
+   "whyHard": "Not the usual meaning! Usually: patient means able to wait without getting angry.",
+   "senses": [
+    {
+     "meaning": "A sick person that a doctor looks after.",
+     "whyHard": "Not the usual meaning! Usually: patient means able to wait without getting angry.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "afternoon to see the patient, took a bit"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "that reached us from the doctor’s patients.",
+       "form": "patients"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "a-doin’ well, your patients was—all well",
+       "form": "patients"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "Silver. Let us overhaul these patients of yours.”",
+       "form": "patients"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 3,
+       "context": "rattled on to his patients as if he",
+       "form": "patients"
+      }
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "patients"
+   ]
   },
   "patted": {
    "pos": "past-tense verb",
@@ -5222,6 +7028,14 @@
    "pos": "adjective",
    "meaning": "Here, very cold, so that it hurts the skin."
   },
+  "pine": {
+   "pos": "noun",
+   "meaning": "A tree with needles that stays green all year.",
+   "whyHard": "A tall evergreen tree.",
+   "forms": [
+    "pines"
+   ]
+  },
   "pious": {
    "pos": "adjective",
    "meaning": "Very religious; praying often."
@@ -5246,6 +7060,22 @@
   "piping": {
    "pos": "present participle",
    "meaning": "Playing a pipe or whistle; also speaking in a high thin voice."
+  },
+  "pirate": {
+   "pos": "noun",
+   "meaning": "A robber who attacks ships at sea.",
+   "whyHard": "A sea robber.",
+   "forms": [
+    "pirates"
+   ]
+  },
+  "pistol": {
+   "pos": "noun",
+   "meaning": "A small gun you hold in one hand.",
+   "whyHard": "Smaller than a musket.",
+   "forms": [
+    "pistols"
+   ]
   },
   "pitch": {
    "pos": "uncountable noun",
@@ -5278,6 +7108,11 @@
   "plainly": {
    "pos": "adverb",
    "meaning": "Clearly."
+  },
+  "plank": {
+   "pos": "noun",
+   "meaning": "A long, flat piece of wood.",
+   "whyHard": "A board. Pirates made men walk one over the side."
   },
   "plateau": {
    "pos": "singular noun",
@@ -5366,6 +7201,321 @@
    "pos": "uncountable noun",
    "meaning": "A soft food made by boiling oats in milk or water."
   },
+  "port": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A town with a harbour, or the left side of a ship.",
+   "whyHard": "Not the usual meaning! Usually: a port is a harbour. Here it is the town the ship sails to.",
+   "senses": [
+    {
+     "meaning": "A harbour town where ships come in.",
+     "whyHard": "Not the usual meaning! Usually: a port is a harbour. Here it is the town the ship sails to.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "wind of the port we sailed for—treasure,"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "rough hand come to port, it was Billy.”"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "head for the nearest port in Spanish America,"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "The left side of a ship, as you face the front.",
+     "whyHard": "Not the usual meaning! Usually: a port is a harbour. Here it is the left side of the ship.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "sparred passage on the port side. It had"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "she filled on the port tack and was"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "context": "he had reached the port scuppers and picked,"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 3,
+       "context": "canted over to the port side till the"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "was, upon the overhanging port shrouds from which"
+      }
+     ]
+    },
+    {
+     "meaning": "A sweet strong wine.",
+     "whyHard": "Not the usual meaning! Usually: a port is a harbour. Here it is a sweet wine.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "“I’ll bring you port, Mr. Hands. But"
+      }
+     ]
+    },
+    {
+     "meaning": "An opening in the side of a ship.",
+     "whyHard": "Not the usual meaning! Usually: a port is a harbour. Here it is a hole in the side of the ship.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "round under the stern-port, and Joyce and"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "out through the stern-port, and we made"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "us through our own ports, things would begin",
+       "form": "ports"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "ports"
+   ]
+  },
+  "portion": {
+   "pos": "noun",
+   "meaning": "A part or a share.",
+   "whyHard": "One piece of a larger thing."
+  },
+  "post": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A place where someone must stay on duty.",
+   "whyHard": "Not the usual meaning! Usually: the post is the mail.",
+   "senses": [
+    {
+     "meaning": "The place where someone must stay while on duty.",
+     "whyHard": "Not the usual meaning! Usually: the post is the mail.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "of us at his post but Gray. It"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "and back to your post to eat it,”"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 3,
+       "context": "there, each at his post, in a fever"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Very fast travel. Come post means come as fast as you can.",
+     "whyHard": "Not the usual meaning! Usually: the post is the mail.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "So now, Livesey, come post; do not lose"
+      }
+     ]
+    },
+    {
+     "meaning": "The upright piece of wood at the side of a door.",
+     "whyHard": "Not the usual meaning! Usually: the post is the mail.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "fallen against the door-post—by a clear,"
+      }
+     ]
+    }
+   ]
+  },
+  "pound": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "An old British unit of money.",
+   "whyHard": "Not the usual meaning! Usually: pound means to hit hard, or a unit of weight.",
+   "senses": [
+    {
+     "meaning": "An old British unit of money.",
+     "whyHard": "Not the usual meaning! Usually: pound means to hit hard, or a unit of weight.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "shame, spends twelve hundred pound in a year,"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "There’s seven hundred thousand pound not a quarter"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "powder": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Gunpowder, or the white powder men put on their hair.",
+   "whyHard": "Not the usual meaning! Usually: powder is any dry dust, like flour or baby powder.",
+   "senses": [
+    {
+     "meaning": "The powder that makes a gun fire.",
+     "whyHard": "Not the usual meaning! Usually: powder is any dry dust, like flour or baby powder.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "They are putting the powder and the arms"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "context": "all the arms and powder on board. In"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "context": "the arms and powder, yo-ho-ing at"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 5,
+       "context": "at work, changing the powder and the berths,"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 6,
+       "context": "a-changing of the powder, Jack,” answers one."
+      },
+      {
+       "chapter": 9,
+       "occurrence": 7,
+       "context": "who were shifting the powder; and then suddenly"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "you smelt powder—didn’t you, Cap’n?”"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "ashore with a little powder and shot and"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "work loading her with powder tins, muskets, bags"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "our very lives. Pork, powder, and biscuit was"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "of the arms and powder we dropped overboard"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "to that the powder, pork, and bread-bags."
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "round-shot and the powder for the gun"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 3,
+       "context": "good half of all our powder and provisions."
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "probable we only wasted powder. Then we reloaded"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "context": "captain. “As for powder and shot, we’ll"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "context": "You’ve little enough powder already, my lads.”"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "already had a powder-horn and bullets, I"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "likely they would be very flush of powder."
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "a good stock of powder and shot, the"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "White powder that men used to put on their hair.",
+     "whyHard": "Not the usual meaning! Usually: powder is any dry dust, like flour or baby powder.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "bright doctor, with his powder as white as"
+      }
+     ]
+    }
+   ]
+  },
   "powdered": {
    "pos": "adjective",
    "meaning": "Covered with a fine white powder. Wigs and hair were powdered in the past."
@@ -5424,6 +7574,68 @@
    "pos": "singular noun",
    "meaning": "A larger number or greater strength.",
    "whyHard": "A very hard word."
+  },
+  "present": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Here, or at this time.",
+   "whyHard": "Not the usual meaning! Usually: a present is a thing you give to someone.",
+   "senses": [
+    {
+     "meaning": "Here, or at this time.",
+     "whyHard": "Not the usual meaning! Usually: a present is a thing you give to someone.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "when any such was present. For me, at"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "her past foolhardiness and present weakness! We were"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "cabin party had no present need of my"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "be capting at this present; but I claim"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "presently": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Soon. In a short time.",
+   "whyHard": "Not the usual meaning! Usually: presently can be read as now, at this moment.",
+   "senses": [
+    {
+     "meaning": "Soon. In a short time.",
+     "whyHard": "Not the usual meaning! Usually: presently can be read as now, at this moment.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "back to the anchorage. Presently she began to"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "the log-house and presently returned with a"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "pretence": {
    "pos": "singular noun",
@@ -5536,6 +7748,11 @@
     "quays"
    ]
   },
+  "quest": {
+   "pos": "noun",
+   "meaning": "A long search.",
+   "whyHard": "A search for something."
+  },
   "quicken": {
    "pos": "base verb",
    "meaning": "To go faster.",
@@ -5644,6 +7861,11 @@
   "reappearance": {
    "pos": "singular noun",
    "meaning": "Coming back into view."
+  },
+  "rear": {
+   "pos": "noun",
+   "meaning": "The back part.",
+   "whyHard": "The back, not the front."
   },
   "reassured": {
    "pos": "adjective",
@@ -5870,6 +8092,11 @@
    "pos": "adjective",
    "meaning": "Wanting to hurt someone who hurt you."
   },
+  "revenue": {
+   "pos": "noun",
+   "meaning": "Government money from taxes. Revenue officers collected it.",
+   "whyHard": "The king's tax men."
+  },
   "reverberation": {
    "pos": "singular noun",
    "meaning": "A long echo.",
@@ -5957,6 +8184,20 @@
     "risked",
     "risking"
    ]
+  },
+  "roar": {
+   "pos": "verb",
+   "meaning": "To make a loud, deep cry.",
+   "whyHard": "A shout like a wild animal.",
+   "forms": [
+    "roared",
+    "roaring"
+   ]
+  },
+  "rose": {
+   "pos": "past-tense verb",
+   "meaning": "Went up, or stood up.",
+   "whyHard": "Past of rise. It does not mean the flower."
   },
   "rosily": {
    "pos": "adverb",
@@ -6075,6 +8316,11 @@
    "pos": "adjective",
    "meaning": "Kept with salt, to stop it going bad."
   },
+  "salute": {
+   "pos": "noun",
+   "meaning": "A sign of respect, such as a raised hand or a shot.",
+   "whyHard": "A formal hello from a sailor or a soldier."
+  },
   "saluted": {
    "pos": "past-tense verb",
    "meaning": "Showed respect by raising the hand to the head."
@@ -6129,6 +8375,11 @@
    "pos": "adjective",
    "meaning": "Having a nice smell."
   },
+  "scheme": {
+   "pos": "noun",
+   "meaning": "A plan, often a secret one.",
+   "whyHard": "A plan."
+  },
   "schoolchildren": {
    "pos": "plural noun",
    "meaning": "Children who go to school."
@@ -6144,6 +8395,110 @@
   "scissors": {
    "pos": "plural noun",
    "meaning": "A tool with two blades for cutting paper or cloth."
+  },
+  "score": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Twenty, or the bill for food and drink.",
+   "whyHard": "Not the usual meaning! Usually: a score is the points in a game.",
+   "senses": [
+    {
+     "meaning": "Twenty.",
+     "whyHard": "Not the usual meaning! Usually: a score is the points in a game.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "wished a round score of men—in case"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "re-echoed it a score of times; the"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "fit to hold two score of people on"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "our party by a score of years; and"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "There was a round score of muskets for"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "bigness—two or three score of them together,"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "J. F., and a score below, with a"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "The bill for drinks or food at an inn.",
+     "whyHard": "Not the usual meaning! Usually: a score is the points in a game.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "of the captain’s score from the sailor’s"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "hasn’t paid his score. Harry, run and"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "he shall pay his score,” cried Silver; and"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "context": "“The score!” he burst out. “Three goes o’"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 4,
+       "context": "timbers, if I hadn’t forgotten my score!”"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 5,
+       "context": "That was a good un about my score.”"
+      }
+     ]
+    },
+    {
+     "meaning": "An old hurt that someone still wants to pay back.",
+     "whyHard": "Not the usual meaning! Usually: a score is the points in a game.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "rough and having old scores on account of",
+       "form": "scores"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "scores"
+   ]
   },
   "scorn": {
    "pos": "singular noun",
@@ -6204,6 +8559,27 @@
   "seafaring": {
    "pos": "adjective",
    "meaning": "Travelling on the sea, especially as a job."
+  },
+  "seal": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A mark that closes a paper so people can see if it was opened.",
+   "whyHard": "Not the usual meaning! Usually: a seal is a sea animal.",
+   "senses": [
+    {
+     "meaning": "A mark that closes a paper so people can see if it was opened.",
+     "whyHard": "Not the usual meaning! Usually: a seal is a sea animal.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "thimble by way of seal; the very thimble,"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "seam": {
    "pos": "singular noun",
@@ -6289,6 +8665,32 @@
    "pos": "past participle",
    "meaning": "Joined with a needle and thread. (Past participle of \"sew\".)"
   },
+  "shade": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A cover worn over the eyes.",
+   "whyHard": "Not the usual meaning! Usually: shade means a dark, cool place out of the sun.",
+   "senses": [
+    {
+     "meaning": "A cover worn over the eyes.",
+     "whyHard": "Not the usual meaning! Usually: shade means a dark, cool place out of the sun.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "wore a great green shade over his eyes"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "shadow": {
+   "pos": "noun",
+   "meaning": "A dark shape made when light is blocked.",
+   "whyHard": "The dark shape behind something."
+  },
   "shaggy": {
    "pos": "adjective",
    "meaning": "With long thick rough hair."
@@ -6308,6 +8710,66 @@
   "sheepishly": {
    "pos": "adverb",
    "meaning": "In a shy way, because you feel a little silly or ashamed."
+  },
+  "sheer": {
+   "pos": "adjective",
+   "meaning": "Very steep, or complete.",
+   "whyHard": "Straight up, or nothing but."
+  },
+  "sheet": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A rope that controls a sail, or a place in a small boat.",
+   "whyHard": "Not the usual meaning! Usually: a sheet is a cloth on a bed.",
+   "senses": [
+    {
+     "meaning": "A rope that controls the bottom corner of a sail.",
+     "whyHard": "Not the usual meaning! Usually: a sheet is a cloth on a bed.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "main-boom swung inboard, the sheet groaning in the"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "The front or the back of a small boat, where people sit.",
+     "whyHard": "Not the usual meaning! Usually: a sheet is a cloth on a bed.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "up in the fore-sheets of the nearest",
+       "form": "sheets"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "sitting in the fore-sheets; “you can ease",
+       "form": "sheets"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "was in the stern-sheets in command; and",
+       "form": "sheets"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "Silver in the stern-sheets—him I could",
+       "form": "sheets"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "sheets"
+   ]
   },
   "sheeted": {
    "pos": "adjective",
@@ -6368,9 +8830,30 @@
    "pos": "past-tense verb",
    "meaning": "Gave out light. (Past tense of \"shine\".)"
   },
+  "shook": {
+   "pos": "past-tense verb",
+   "meaning": "Moved quickly from side to side.",
+   "whyHard": "Past of shake. It does not mean a shock."
+  },
+  "shore": {
+   "pos": "noun",
+   "meaning": "The land at the edge of the sea.",
+   "whyHard": "Where the sea meets the land.",
+   "forms": [
+    "shores"
+   ]
+  },
   "shoreward": {
    "pos": "adverb",
    "meaning": "Toward the shore."
+  },
+  "shot": {
+   "pos": "noun",
+   "meaning": "A bullet, or one firing of a gun. Also the past of shoot.",
+   "whyHard": "Both the bullet and the act of firing.",
+   "forms": [
+    "shots"
+   ]
   },
   "shoulder": {
    "pos": "base verb",
@@ -6738,6 +9221,11 @@
    "pos": "singular noun",
    "meaning": "A sound made when you cry with short sharp breaths."
   },
+  "sober": {
+   "pos": "adjective",
+   "meaning": "Not drunk. Clear in the head.",
+   "whyHard": "The opposite of drunk."
+  },
   "sodden": {
    "pos": "adjective",
    "meaning": "Very wet."
@@ -6862,6 +9350,90 @@
    "pos": "past-tense verb",
    "meaning": "Jumped suddenly. (Past tense of \"spring\".)"
   },
+  "spring": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A place where water comes out of the ground.",
+   "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+   "senses": [
+    {
+     "meaning": "A place where water comes out of the ground.",
+     "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "how it was: a spring of clear water"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "knoll, and enclosing the spring, they had clapped"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "my fancy was the spring. For though we"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "this porch the little spring welled up into"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "context": "sand dancing in the spring at the bottom"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "his crutch. Then he spat into the spring."
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "place, with a little spring and a pool"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To jump suddenly.",
+     "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "his companion like a snake about to spring."
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "context": "eating heartily, prompt to spring forward when anything"
+      }
+     ]
+    },
+    {
+     "meaning": "A coil of metal that jumps back into shape.",
+     "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "dance as if on springs, and subside on",
+       "form": "springs"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "springs"
+   ]
+  },
   "springing": {
    "pos": "present participle",
    "meaning": "Jumping suddenly."
@@ -6981,6 +9553,11 @@
    "pos": "singular noun",
    "meaning": "A thin strip of wood that forms the side of a barrel."
   },
+  "steady": {
+   "pos": "adjective",
+   "meaning": "Not shaking. Firm.",
+   "whyHard": "Still and sure."
+  },
   "stealthy": {
    "pos": "adjective",
    "meaning": "Quiet and secret."
@@ -6988,6 +9565,11 @@
   "steaming": {
    "pos": "present participle",
    "meaning": "Giving out hot water vapour."
+  },
+  "steel": {
+   "pos": "noun",
+   "meaning": "A very hard, strong metal.",
+   "whyHard": "A metal harder than iron."
   },
   "steeped": {
    "pos": "adjective",
@@ -7019,9 +9601,156 @@
    "pos": "singular noun",
    "meaning": "A sailor who steers a ship."
   },
+  "stem": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The front post of a ship, where the sides meet.",
+   "whyHard": "Not the usual meaning! Usually: a stem is the stick that holds a leaf or a flower.",
+   "senses": [
+    {
+     "meaning": "The front post of a ship, where the sides meet.",
+     "whyHard": "Not the usual meaning! Usually: a stem is the stick that holds a leaf or a flower.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "round rapidly and ran stem on for the"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "right alongside of John—stem to stem we"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "of John—stem to stem we was, all"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "stench": {
    "pos": "singular noun",
    "meaning": "A very bad smell."
+  },
+  "stern": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The back end of a ship.",
+   "whyHard": "Not the usual meaning! Usually: stern means strict and serious.",
+   "senses": [
+    {
+     "meaning": "The back end of a ship.",
+     "whyHard": "Not the usual meaning! Usually: stern means strict and serious.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "a garrison of the stern part of the"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "a double towards the stern, and came out"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "he was agitated. The stern window was open,"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "round under the stern-port, and Joyce and"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "out through the stern-port, and we made"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "for me at the stern window, all his"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "broadside instead of our stern to the Hispaniola"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "heave that sent her stern bodily under water."
+      },
+      {
+       "chapter": 17,
+       "occurrence": 3,
+       "context": "boat sank by the stern, quite gently, in"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "was in the stern-sheets in command; and"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "Silver in the stern-sheets—him I could"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "were leaning over the stern bulwarks, one of"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 3,
+       "context": "strong rays that flowed from the stern window."
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "drunken cry, opened the stern window and threw"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "context": "trailing overboard across the stern bulwarks. Instantly I"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "last presented me her stern, with the cabin"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "body canting towards the stern, so that his"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "boxed me in the stern. Once so caught,"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "o’ fortune show his stern to that much"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "a mattress in the stern and giving his"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "stiffest": {
    "pos": "superlative adjective",
@@ -7059,6 +9788,19 @@
   "stooping": {
    "pos": "present participle",
    "meaning": "Bending the body forward and down."
+  },
+  "store": {
+   "pos": "noun",
+   "meaning": "Supplies kept to use later.",
+   "whyHard": "Food, powder, and tools kept on the ship. Not a shop.",
+   "forms": [
+    "stores"
+   ]
+  },
+  "stout": {
+   "pos": "adjective",
+   "meaning": "Strong and solid. For a person, rather fat.",
+   "whyHard": "Thick and strong."
   },
   "stoutish": {
    "pos": "adjective",
@@ -7136,6 +9878,15 @@
    "pos": "present participle",
    "meaning": "Walking with long steps."
   },
+  "strike": {
+   "pos": "verb",
+   "meaning": "To hit.",
+   "whyHard": "Struck, the past, looks like stuck but means hit.",
+   "forms": [
+    "struck",
+    "striking"
+   ]
+  },
   "strolled": {
    "pos": "past-tense verb",
    "meaning": "Walked slowly for pleasure."
@@ -7203,6 +9954,11 @@
   "sullen": {
    "pos": "adjective",
    "meaning": "Silent and unhappy; showing bad feelings."
+  },
+  "summit": {
+   "pos": "noun",
+   "meaning": "The top of a hill.",
+   "whyHard": "The highest point."
   },
   "summon": {
    "pos": "base verb",
@@ -7346,6 +10102,11 @@
    "pos": "adverb",
    "meaning": "In a kind or gentle way."
   },
+  "swell": {
+   "pos": "noun",
+   "meaning": "A large, smooth wave.",
+   "whyHard": "A long wave that is not breaking."
+  },
   "sweltering": {
    "pos": "adjective",
    "meaning": "Very hot and uncomfortable."
@@ -7404,6 +10165,11 @@
     "talons"
    ]
   },
+  "tar": {
+   "pos": "noun",
+   "meaning": "A black, sticky stuff put on ships and ropes.",
+   "whyHard": "Black sticky stuff used on wood and rope."
+  },
   "tarpaulin": {
    "pos": "singular noun",
    "meaning": "Strong cloth covered with tar so that it keeps out the water; sailors use it for hats and coats. \"Old tarpaulin\" is a name for an old sailor.",
@@ -7427,6 +10193,11 @@
    "pos": "adjective",
    "meaning": "Torn and old."
   },
+  "tattoo": {
+   "pos": "noun",
+   "meaning": "A picture marked into the skin.",
+   "whyHard": "A picture that stays on the skin."
+  },
   "tattooed": {
    "pos": "adjective",
    "meaning": "Marked with a picture on the skin that stays for a lifetime."
@@ -7435,13 +10206,36 @@
    "pos": "adjective",
    "meaning": "Pulled tight."
   },
+  "tavern": {
+   "pos": "noun",
+   "meaning": "A house where people pay to drink and sleep.",
+   "whyHard": "Like an inn."
+  },
   "teetotum": {
    "pos": "singular noun",
    "meaning": "A small toy that spins like a top."
   },
+  "telescope": {
+   "pos": "noun",
+   "meaning": "A long tube that makes far things look near.",
+   "whyHard": "The captain carries one."
+  },
+  "temper": {
+   "pos": "noun",
+   "meaning": "A person's angry or calm mood.",
+   "whyHard": "How angry or calm someone is."
+  },
   "tenfold": {
    "pos": "adverb",
    "meaning": "Ten times as much."
+  },
+  "terror": {
+   "pos": "noun",
+   "meaning": "Very great fear.",
+   "whyHard": "Stronger than being frightened.",
+   "forms": [
+    "terrors"
+   ]
   },
   "tether": {
    "pos": "base verb",
@@ -7548,6 +10342,11 @@
    "pos": "adjective",
    "meaning": "Needing great care because it is risky."
   },
+  "tide": {
+   "pos": "noun",
+   "meaning": "The rise and fall of the sea.",
+   "whyHard": "The sea moving in and out."
+  },
   "tiff": {
    "pos": "singular noun",
    "meaning": "A small, unimportant quarrel."
@@ -7584,6 +10383,11 @@
    "pos": "adjective",
    "meaning": "Heated until brown on the outside."
   },
+  "tobacco": {
+   "pos": "noun",
+   "meaning": "Dried leaves that people smoke in a pipe.",
+   "whyHard": "Sailors smoked it."
+  },
   "tonnage": {
    "pos": "uncountable noun",
    "meaning": "The size of a ship, given in tons."
@@ -7608,6 +10412,11 @@
   "torchlight": {
    "pos": "uncountable noun",
    "meaning": "The light of a torch."
+  },
+  "torture": {
+   "pos": "noun",
+   "meaning": "Very cruel pain, done on purpose.",
+   "whyHard": "Pain used to hurt a prisoner."
   },
   "tossing": {
    "pos": "present participle",
@@ -7662,6 +10471,11 @@
    "pos": "uncountable noun",
    "meaning": "Cruel betrayal of someone who trusts you."
   },
+  "treaty": {
+   "pos": "noun",
+   "meaning": "A written agreement between two sides.",
+   "whyHard": "A promise both sides sign."
+  },
   "trembled": {
    "pos": "past-tense verb",
    "meaning": "Shook a little because of fear or cold."
@@ -7669,6 +10483,11 @@
   "tremulous": {
    "pos": "adjective",
    "meaning": "Shaking a little, from fear or weakness."
+  },
+  "trial": {
+   "pos": "noun",
+   "meaning": "A hearing in a court, to decide if someone broke the law.",
+   "whyHard": "The court case before a punishment."
   },
   "trice": {
    "pos": "singular noun",
@@ -7738,6 +10557,42 @@
   "trundling": {
    "pos": "present participle",
    "meaning": "Rolling along heavily."
+  },
+  "trunk": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The thick stem of a tree.",
+   "whyHard": "Not the usual meaning! Usually: a trunk is a big box, or an elephant's long nose.",
+   "senses": [
+    {
+     "meaning": "The thick stem of a tree.",
+     "whyHard": "Not the usual meaning! Usually: a trunk is a big box, or an elephant's long nose.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "great rapidity behind the trunk of a pine."
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "such an adversary. From trunk to trunk the"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "context": "adversary. From trunk to trunk the creature flitted"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 4,
+       "context": "time behind another tree trunk; but he must"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "tumble": {
    "pos": "base verb",
@@ -7966,6 +10821,62 @@
     "ventured"
    ]
   },
+  "vessel": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A ship.",
+   "whyHard": "Not the usual meaning! Usually: a vessel is a container, or a tube that carries blood.",
+   "senses": [
+    {
+     "meaning": "A ship.",
+     "whyHard": "Not the usual meaning! Usually: a vessel is a container, or a tube that carries blood.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "here was some unhappy vessel boarded off that"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "want you to help work the vessel home.”"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "after another, till the vessel swung only by"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "or from a vessel’s deck, was for"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "I might return the vessel to her captain."
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "had been a great vessel of three masts"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "the cant of the vessel, the masts hung"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "shadow of the vessel’s sides. A fish"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "vigour": {
    "pos": "uncountable noun",
    "meaning": "Strength and energy."
@@ -7973,6 +10884,11 @@
   "villainous": {
    "pos": "adjective",
    "meaning": "Very bad and evil."
+  },
+  "violent": {
+   "pos": "adjective",
+   "meaning": "Using strong, rough force.",
+   "whyHard": "Hard and wild."
   },
   "vise": {
    "pos": "singular noun",
@@ -8037,6 +10953,11 @@
     "wakened"
    ]
   },
+  "walrus": {
+   "pos": "noun",
+   "meaning": "A large sea animal with two long teeth.",
+   "whyHard": "A big sea animal."
+  },
   "wander": {
    "pos": "base verb",
    "meaning": "Here, to have confused thoughts.",
@@ -8077,6 +10998,93 @@
   "wasteful": {
    "pos": "adjective",
    "meaning": "Using too much; not careful."
+  },
+  "watch": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A small clock, or a time when sailors stay on duty.",
+   "whyHard": "Not the usual meaning! Usually: to watch means to look at something.",
+   "senses": [
+    {
+     "meaning": "A small clock you can carry.",
+     "whyHard": "Not the usual meaning! Usually: to watch means to look at something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "silver, an old Spanish watch and some other"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "out. I have my watch here in my"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A time when some sailors stay awake to look after the ship. Also those sailors.",
+     "whyHard": "Not the usual meaning! Usually: to watch means to look at something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "he often took a watch himself in easy"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "context": "ran on deck. The watch was all forward"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "wanted was a good watch and food; for,"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "to us, “Doctor’s watch on the lookout."
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "east; Gray, west. The watch below, all hands"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "The doctor’s watch were all back at"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "sea-cry of the watch, that beautiful “All’s"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "kept an infamous bad watch. If it had"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "he, “in the dog-watch, down came Doctor"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "he divided us into watches. The doctor and",
+       "form": "watches"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "watches"
+   ]
   },
   "watcher": {
    "pos": "singular noun",
@@ -8287,6 +11295,20 @@
    "pos": "past-tense verb",
    "meaning": "Moved slowly through a small space."
   },
+  "wound": {
+   "pos": "noun",
+   "meaning": "A hurt made by a weapon.",
+   "whyHard": "A cut or hole from a fight.",
+   "forms": [
+    "wounded",
+    "wounds"
+   ]
+  },
+  "wreck": {
+   "pos": "noun",
+   "meaning": "A ship that is broken or sunk.",
+   "whyHard": "A ruined ship."
+  },
   "wrench": {
    "pos": "singular noun",
    "meaning": "A sudden strong pull or twist."
@@ -8328,6 +11350,138 @@
    "meaning": "Made or caused. \"Wrought\" is an old past form of \"work\".",
    "whyHard": "An old word."
   },
+  "yard": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A measure of length, about one long step. Also a pole on a mast.",
+   "whyHard": "Not the usual meaning! Usually: a yard is the garden around a house.",
+   "senses": [
+    {
+     "meaning": "A measure of length, about one long step.",
+     "whyHard": "Not the usual meaning! Usually: a yard is the garden around a house.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "Silver, leaping back a yard, as it seemed"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "lay not many hundred yards away, though out",
+       "form": "yards"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "the rest were still a hundred yards behind.",
+       "form": "yards"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "not gone a hundred yards when I reached",
+       "form": "yards"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "wet before we had gone a hundred yards.",
+       "form": "yards"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "sand not a hundred yards from where we",
+       "form": "yards"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "Hispaniola herself, a few yards in whose wake",
+       "form": "yards"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "still made some hundred yards of easting. I",
+       "form": "yards"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "was not a hundred yards from her when",
+       "form": "yards"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "And suddenly, not ten yards further, we beheld",
+       "form": "yards"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "he was already thirty yards behind us and",
+       "form": "yards"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A pole across a mast, used to hold a sail. Men were hanged from the yard-arm.",
+     "whyHard": "Not the usual meaning! Usually: a yard is the garden around a house.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "well from a yard-arm, sir,” returned the"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "back—some to the yard-arm, shiver my"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "yards"
+   ]
+  },
+  "yarn": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A long story told aloud.",
+   "whyHard": "Not the usual meaning! Usually: yarn is thread used for knitting.",
+   "senses": [
+    {
+     "meaning": "A long story told aloud.",
+     "whyHard": "Not the usual meaning! Usually: yarn is thread used for knitting.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "“come and have a yarn with John. Nobody"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "But this tops the stiffest yarn to nothing.”"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "I reckon you can yarn through the spars."
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "yaw": {
    "pos": "base verb",
    "meaning": "When a ship turns away from its straight course.",
@@ -8353,6 +11507,11 @@
    "pos": "singular noun",
    "meaning": "A young person, especially a boy.",
    "whyHard": "An old word."
+  },
+  "youth": {
+   "pos": "noun",
+   "meaning": "A young man, or the time when a person is young.",
+   "whyHard": "Being young, or a young person."
   }
  },
  "paragraphs": [
@@ -9092,6 +12251,34 @@
     "Oriental",
     "stooping"
    ]
+  },
+  {
+   "chapter": 0,
+   "paragraph": 3,
+   "context": "If sailor tales to sailor tunes",
+   "mainIdea": "This poem asks if a young reader still wants an old sea story.",
+   "simple": "The writer speaks to someone who is not sure about buying the book. He asks if stories of sailors, storms, ships, islands, pirates, and buried gold, told in the old way, can still please a young reader. If yes, he says, read on. If young people no longer want those old adventure books, he says that is fine too. Then he and his pirates can lie in the grave with the old writers and the heroes they invented.",
+   "hardWords": [
+    "schooners",
+    "maroons",
+    "buccaneers",
+    "romance",
+    "ancient",
+    "studious",
+    "crave"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 16,
+   "context": "Fifteen men on the dead man’s chest",
+   "mainIdea": "The captain's song is about dead sailors and rum.",
+   "simple": "The captain sings a short sailor song. Fifteen men are on a dead man's chest. The song says drink and the devil finished the rest of them. The chorus is a shout about a bottle of rum. It is a pirate song, not a quiet story, and he makes the room listen to it.",
+   "hardWords": [
+    "devil",
+    "rum",
+    "chest"
+   ]
   }
  ],
  "sentences": [
@@ -9142,6 +12329,18 @@
    "context": "How many it had cost in the amassing",
    "simple": "how many it had cost to collect it",
    "grammar": "\"Amassing\" means \"gathering a lot of something\". The long sentence that follows is a list of the bad things that happened because of the treasure: blood, sorrow, ships sunk, and lies."
+  },
+  {
+   "chapter": 14,
+   "context": "Little did I suppose that he was a deadly enemy",
+   "simple": "I did not guess at all that the snake was a dangerous enemy.",
+   "grammar": "Little did I suppose turns the sentence around. It means I did not guess this at all."
+  },
+  {
+   "chapter": 15,
+   "context": "had I been as fresh as when I rose",
+   "simple": "Even if I had been as rested as when I got up, I still could not run as fast as that figure.",
+   "grammar": "Had I been means if I had been. The if-part is turned around, with had before I."
   }
  ],
  "phrases": {
@@ -9259,6 +12458,110 @@
    "meaning": "You can be sure of that. (Sailor talk.)",
    "pos": "idiom",
    "example": "you may lay to that"
+  },
+  "on board": {
+   "meaning": "On a ship.",
+   "pos": "phrase",
+   "example": "Every man on board seemed well content"
+  },
+  "spy glass": {
+   "meaning": "A telescope you can carry. The inn sign is a brass one.",
+   "pos": "phrase",
+   "example": "with a spy-glass under his arm"
+  },
+  "jolly boat": {
+   "meaning": "A small boat carried by a ship.",
+   "pos": "phrase",
+   "example": "go ashore with the jolly-boat"
+  },
+  "all hands": {
+   "meaning": "Everyone who works on the ship.",
+   "pos": "phrase",
+   "example": "All hands aboard by four this afternoon"
+  },
+  "yard arm": {
+   "meaning": "The end of a pole on a mast. Sailors were hanged there.",
+   "pos": "phrase",
+   "example": "look remarkably well from a yard-arm"
+  },
+  "quarter deck": {
+   "meaning": "The part of the upper deck where the officers stand.",
+   "pos": "phrase",
+   "example": "talking together on the quarter-deck"
+  },
+  "sea dog": {
+   "meaning": "An old, experienced sailor.",
+   "pos": "phrase",
+   "example": "calling him a “true sea-dog”"
+  },
+  "clasp knife": {
+   "meaning": "A knife whose blade folds into the handle.",
+   "pos": "phrase",
+   "example": "opened a sailor’s clasp-knife"
+  },
+  "round shot": {
+   "meaning": "A round iron ball fired from a cannon.",
+   "pos": "phrase",
+   "example": "a round-shot passed high above the roof"
+  },
+  "block house": {
+   "meaning": "A small strong wooden fort.",
+   "pos": "phrase",
+   "example": "set to provision the block house"
+  },
+  "log book": {
+   "meaning": "The book where a ship's journey is written down.",
+   "pos": "phrase",
+   "example": "pen, ink, the log-book, and pounds of tobacco"
+  },
+  "weather eye": {
+   "meaning": "A careful watch. Keep your weather eye open means watch carefully.",
+   "pos": "phrase",
+   "example": "keep my “weather-eye open for a seafaring man"
+  },
+  "in irons": {
+   "meaning": "Locked in chains. For a ship, stuck so it cannot turn.",
+   "pos": "idiom",
+   "example": "the trouble of putting him in irons"
+  },
+  "make fast": {
+   "meaning": "To tie a rope so that it stays.",
+   "pos": "phrasal verb",
+   "forms": [
+    "made fast",
+    "made it fast"
+   ],
+   "example": "He caught the painter and made it fast"
+  },
+  "bear a hand": {
+   "meaning": "To help.",
+   "pos": "idiom",
+   "example": "we’ll stand by to load and bear a hand"
+  },
+  "cast anchor": {
+   "meaning": "To drop the anchor so the ship stops.",
+   "pos": "phrasal verb",
+   "example": "when we cast anchor in a most beautiful"
+  },
+  "fore sail": {
+   "meaning": "The sail toward the front of the ship.",
+   "pos": "phrase",
+   "example": "I dived behind the fore-sail"
+  },
+  "sheet in the wind": {
+   "meaning": "Drunk. A sheet in the wind's eye means unsteady from drink.",
+   "pos": "idiom",
+   "example": "all a sheet in the wind’s eye"
+  },
+  "get wind of": {
+   "meaning": "To hear news of something.",
+   "pos": "phrasal verb",
+   "example": "as soon as they got wind of the port"
+  },
+  "yo ho ho": {
+   "meaning": "A sailor's shout in a song.",
+   "pos": "idiom",
+   "example": "Yo-ho-ho, and a bottle of rum!"
   }
  }
 }

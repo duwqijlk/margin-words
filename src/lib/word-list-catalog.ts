@@ -21,6 +21,12 @@ export type WordListPack = {
   series: string;
   seriesNumber: number;
   words: number;
+  /** Paragraph notes in the word list. 0 when an older catalog omits the count. */
+  paragraphs: number;
+  /** Sentence notes in the word list. 0 when an older catalog omits the count. */
+  sentences: number;
+  /** Phrases in the word list. 0 when an older catalog omits the count. */
+  phrases: number;
   /** Card-sized cover from the book's own EPUB, when the pack has one. */
   cover: { url: string; bytes: number; sha256: string } | null;
   /** Discover tab. Missing on older catalogs, which are novels. */
@@ -29,10 +35,14 @@ export type WordListPack = {
   oldFashioned: boolean;
   oldFashionedReason: string;
   glossary: { url: string; bytes: number; sha256: string };
+  /** Day the word list last changed, YYYY-MM-DD. "" when the catalog has no date. */
+  updated: string;
 };
 
 const text = (value: unknown, max: number): string =>
   typeof value === "string" ? value.replace(/\s+/g, " ").trim().slice(0, max) : "";
+const count = (value: unknown): number =>
+  typeof value === "number" && Number.isFinite(value) && value >= 0 ? Math.floor(value) : 0;
 
 export function parseWordListCatalog(value: unknown): WordListPack[] {
   if (!value || typeof value !== "object") return [];
@@ -68,7 +78,10 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
       isbn: isbnDigits(row.isbn),
       series: series.series,
       seriesNumber: series.seriesNumber,
-      words: typeof row.words === "number" && row.words > 0 ? Math.floor(row.words) : 0,
+      words: count(row.words),
+      paragraphs: count(row.paragraphs),
+      sentences: count(row.sentences),
+      phrases: count(row.phrases),
       cover,
       category: readContentCategory(row.category),
       oldFashioned: row.oldFashioned === true,
@@ -78,6 +91,7 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
         bytes: typeof glossary?.bytes === "number" ? glossary.bytes : 0,
         sha256: /^[0-9a-f]{64}$/.test(String(glossary?.sha256)) ? String(glossary?.sha256) : "",
       },
+      updated: /^\d{4}-\d{2}-\d{2}$/.test(text(row.updated, 10)) ? text(row.updated, 10) : "",
     });
   }
   return out;

@@ -13,11 +13,11 @@ If you cannot read the words inside the EPUB, stop. Say that you cannot read the
 
 ## Readers
 
-The readers are in Chinese junior high. The first year is about 12 to 13. They know everyday English. A tap on a word shows your meaning. A hard paragraph and a hard sentence show a short restatement. A phrase shows when the whole phrase is in the sentence.
+The readers are in the first year of Chinese junior high. They are about 12. They can read a school sentence (`she`, `said`, `little`, `head`, `foot`, `house`, `door`). They do not know old things in a house, old titles, or a verb that looks like another verb. A tap on a word shows your meaning. A hard paragraph and a hard sentence show a short restatement. A phrase shows when the whole phrase is in the sentence.
 
-The right level is the plainness of a meaning a junior-high student can already read. `A small animal that flies at night. It looks like a mouse with wings.` is easy enough. So is `Cutting off someone's head as a punishment.` School words are fine: `frightened`, `reply`, `oven`, `meal`, `flowers`, `guilty`, `manners`. Do not make a meaning shorter or vaguer to avoid them.
+The right level for a meaning is the plainness of a sentence that student can already read. `A small animal that flies at night. It looks like a mouse with wings.` is easy enough. So is `Cutting off someone's head as a punishment.` School words are fine: `frightened`, `reply`, `oven`, `meal`, `flowers`, `guilty`, `manners`. Do not make a meaning shorter or vaguer to avoid them.
 
-A list of the 2000 most common words is narrower than what these students know. A warning from that list is not a reason to rewrite a clear meaning. `fly` and `wings` are ordinary. So are animals, the body, food, clothes, the house, and simple actions.
+A list of the 2000 most common words is the wrong line for two different jobs. It is too high for choosing which words to mark: `struck` is common on that list, and these readers still think it might mean `stuck`. It is too low for judging a meaning: a warning from that list is not a reason to rewrite a clear meaning. `fly` and `wings` are ordinary. So are animals, the body, food, clothes, the house, and simple actions.
 
 A meaning is too hard only when the explaining words are harder than the idea: an old word used to explain a common one, or a grammar-class word in a note the student reads (`participle`, `clause`, `conditional`). Say what the line is doing, in plain words. Do not name the grammar category.
 
@@ -81,9 +81,18 @@ For a dictionary anchor, `occurrence` is how many times that exact lower-case sp
 
 ## Dictionary (`glossary`)
 
-A hard word is a word these readers may not know, and that matters for the story. Skip the most common English words, names of people and places, and a word the book explains by itself.
+Mark a word when any test below is yes. There is no maximum and no per-chapter quota. A cap of 15 or 30 words is why a real hard word gets left out. Do not enter a word twice unless this book uses it in a new meaning.
 
-A short story needs about 10 to 40 words. A novel needs about 15 to 30 new words per chapter. Do not enter a word twice unless this book uses it in a new meaning.
+1. **Wrong twin.** The spelling looks like a word they know, or they would guess the wrong meaning. `struck` in `her head struck against the roof` means hit. It does not mean stuck. The meaning says both.
+2. **Old thing.** A thing, a tool, clothes, a room, food, or a job that a school book does not teach, even once. `hearthrug` is the rug in front of the fire. `fender` here is the metal guard in front of the fire. `carrier` is the person who takes parcels.
+3. **Old label.** A title or a short form they have not met. `Esq.` after a name.
+4. **Not the school meaning.** They know the word, but this place uses another meaning. Mark only that place (`senseOnly`). `directions` in `how odd the directions will look` means the address on a letter, not which way to go.
+
+If you are not sure they know the word, mark it. A missing mark is the mistake. An extra mark on a real hard word is fine.
+
+Still skip a word when a first-year textbook uses it in this same meaning (`she`, `said`, `little`, `head`, `foot`, `roof`, `door`). Skip names of people and places. Skip a word the same sentence explains in plain words.
+
+A word inside a letter, a label, or lines that are not a numbered paragraph is still a dictionary word. The reader can tap it there. `Hearthrug` and `Fender` in the address to Alice's foot are this case.
 
 ```json
 "lantern": {
@@ -151,7 +160,9 @@ The anchor `context` contains the word. `whyHard` starts with `Not the usual mea
 
 ## Hard paragraphs (`paragraphs`)
 
-Write a paragraph note where the student cannot follow the paragraph even after knowing the words. Ordinary action gets nothing. One scene gets one note.
+Write a paragraph note where the student cannot follow the paragraph even after knowing the words. Ordinary action gets nothing. One scene gets one note. A paragraph note does not replace the dictionary: the hard words are still entries.
+
+Also write a note when the paragraph sets up a letter, a label, or an address, including when those lines are not themselves a numbered paragraph. `And how odd the directions will look!` is that setup: she is picturing the address on a present to her own foot. Do not write a paragraph note whose only hard part is one word (`struck`). That word is a dictionary entry.
 
 - **poem.** A song or rhyming lines. One note for the whole song.
 - **shape.** Lines that get shorter, or a poem the speaker treats as a thing with bends.
@@ -225,7 +236,7 @@ The key is the base form: lower case, two or more words, at most 60 letters. `on
 - Only restate this EPUB. No new facts, no history of an object, no guess about what happens later.
 - Keep names as they are.
 - `context` and `example` are the only fields that quote the book, and only as a short snippet.
-- If you are not sure, leave it out. A short correct list is better than a long list with errors.
+- If you are not sure a line is in the EPUB, or you cannot copy its `context`, leave that item out. A short correct list is better than a long list with errors. This rule is not for "maybe they know this word." When you are not sure they know it, mark it.
 
 ## Check every item
 

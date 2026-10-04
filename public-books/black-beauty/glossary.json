@@ -4,7 +4,7 @@
  "author": "Anna Sewell",
  "sha256": "6966a8c6669e36854d50d9d6a489c6e9a9d13d90e633c5765d4e67a0bef47b5a",
  "chapters": 54,
- "level": "basic",
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
  "language": "en",
  "glossary": {
   "meadow": {
@@ -74,7 +74,10 @@
   },
   "neigh": {
    "pos": "verb",
-   "meaning": "To make the loud sound that a horse makes."
+   "meaning": "To make the loud sound that a horse makes.",
+   "forms": [
+    "neighed"
+   ]
   },
   "gig": {
    "pos": "noun",
@@ -2218,7 +2221,11 @@
   },
   "stagger": {
    "pos": "verb",
-   "meaning": "To move as if you will fall."
+   "meaning": "To move as if you will fall.",
+   "forms": [
+    "staggered",
+    "staggering"
+   ]
   },
   "dun": {
    "pos": "adjective",
@@ -4138,6 +4145,2503 @@
      ]
     }
    ]
+  },
+  "stable": {
+   "pos": "noun",
+   "meaning": "A building where horses live.",
+   "whyHard": "It looks like the word that means steady and not changing. Here it is the horses' house.",
+   "forms": [
+    "stables"
+   ]
+  },
+  "struck": {
+   "pos": "past-tense verb",
+   "meaning": "Hit. It does not mean stuck.",
+   "whyHard": "This spelling looks like stuck, but it means hit."
+  },
+  "laid": {
+   "pos": "past-tense verb",
+   "meaning": "Put something down, or set it in place. Past of lay. It does not mean told a lie.",
+   "whyHard": "It looks like lied, but it means put down."
+  },
+  "led": {
+   "pos": "past-tense verb",
+   "meaning": "Guided a person or a horse to a place. Past of lead. It is not the heavy gray metal.",
+   "whyHard": "It looks like the metal lead, but it means guided."
+  },
+  "wound": {
+   "pos": "noun",
+   "meaning": "A hurt place on the body, where the skin is cut.",
+   "whyHard": "It looks like the past of wind, but it is a hurt place.",
+   "forms": [
+    "wounds"
+   ]
+  },
+  "cast": {
+   "pos": "past-tense verb",
+   "meaning": "Threw. To throw a past fault at someone is to mention that old fault in an unkind way."
+  },
+  "mistress": {
+   "pos": "noun",
+   "meaning": "The lady of the house. She is the master's wife, not a school teacher.",
+   "whyHard": "Students may think this word means a woman teacher."
+  },
+  "colonel": {
+   "pos": "noun",
+   "meaning": "An officer of high rank in the army.",
+   "whyHard": "An old title."
+  },
+  "lord": {
+   "pos": "noun",
+   "meaning": "A title for a man of very high rank.",
+   "whyHard": "An old title."
+  },
+  "tis": {
+   "pos": "verb",
+   "meaning": "An old short way to say it is."
+  },
+  "scarcely": {
+   "pos": "adverb",
+   "meaning": "Almost not; hardly."
+  },
+  "obliged": {
+   "pos": "adjective",
+   "meaning": "Forced to do something, or owing thanks."
+  },
+  "fellow": {
+   "pos": "noun",
+   "meaning": "A man or a boy.",
+   "forms": [
+    "fellows"
+   ]
+  },
+  "lad": {
+   "pos": "noun",
+   "meaning": "A boy or a young man.",
+   "forms": [
+    "lads"
+   ]
+  },
+  "hay": {
+   "pos": "noun",
+   "meaning": "Grass that has been dried and is used as food for horses."
+  },
+  "cart": {
+   "pos": "noun",
+   "meaning": "A strong wooden vehicle with wheels, pulled by a horse.",
+   "forms": [
+    "carts"
+   ]
+  },
+  "carriage": {
+   "pos": "noun",
+   "meaning": "A vehicle with wheels that horses pull, so people can ride.",
+   "forms": [
+    "carriages"
+   ]
+  },
+  "whip": {
+   "pos": "noun",
+   "meaning": "A long stick with a cord, used to hit a horse and make it go.",
+   "forms": [
+    "whipping",
+    "whipped"
+   ]
+  },
+  "creature": {
+   "pos": "noun",
+   "meaning": "A living animal.",
+   "forms": [
+    "creatures"
+   ]
+  },
+  "dreadful": {
+   "pos": "adjective",
+   "meaning": "Very bad, or very frightening."
+  },
+  "anxious": {
+   "pos": "adjective",
+   "meaning": "Worried about what may happen.",
+   "forms": [
+    "anxiously"
+   ]
+  },
+  "beast": {
+   "pos": "noun",
+   "meaning": "An animal, especially a horse. Sometimes the word is unkind.",
+   "forms": [
+    "beasts"
+   ]
+  },
+  "handsome": {
+   "pos": "adjective",
+   "meaning": "Good to look at."
+  },
+  "gentleman": {
+   "pos": "noun",
+   "meaning": "A man of a good family, or a man with polite ways.",
+   "forms": [
+    "gentlemen"
+   ]
+  },
+  "pony": {
+   "pos": "noun",
+   "meaning": "A small kind of horse.",
+   "forms": [
+    "ponies"
+   ]
+  },
+  "ought": {
+   "pos": "verb",
+   "meaning": "Should. It says what is the right thing to do."
+  },
+  "lame": {
+   "pos": "adjective",
+   "meaning": "Not able to walk well, because a leg or a foot is hurt."
+  },
+  "bred": {
+   "pos": "adjective",
+   "meaning": "Born and brought up in a good family, and taught good ways."
+  },
+  "stiff": {
+   "pos": "adjective",
+   "meaning": "Hard to bend or to move."
+  },
+  "butcher": {
+   "pos": "noun",
+   "meaning": "A person who cuts meat and sells it.",
+   "forms": [
+    "butchers"
+   ]
+  },
+  "strap": {
+   "pos": "noun",
+   "meaning": "A long narrow band of leather used to hold something.",
+   "forms": [
+    "straps"
+   ]
+  },
+  "forehead": {
+   "pos": "noun",
+   "meaning": "The part of the face above the eyes.",
+   "forms": [
+    "foreheads"
+   ]
+  },
+  "ignorant": {
+   "pos": "adjective",
+   "meaning": "Not knowing things that you should know."
+  },
+  "merry": {
+   "pos": "adjective",
+   "meaning": "Happy and full of fun."
+  },
+  "terror": {
+   "pos": "noun",
+   "meaning": "Very great fear."
+  },
+  "thoroughly": {
+   "pos": "adverb",
+   "meaning": "Completely; in every part."
+  },
+  "railway": {
+   "pos": "noun",
+   "meaning": "The iron road that a train runs on."
+  },
+  "engine": {
+   "pos": "noun",
+   "meaning": "A machine that makes power and pulls a train."
+  },
+  "steam": {
+   "pos": "noun",
+   "meaning": "The hot white cloud that rises from boiling water."
+  },
+  "straw": {
+   "pos": "noun",
+   "meaning": "Dry yellow stems, used to make a bed for a horse."
+  },
+  "servant": {
+   "pos": "noun",
+   "meaning": "A person who works in another person's house.",
+   "forms": [
+    "servants"
+   ]
+  },
+  "inn": {
+   "pos": "noun",
+   "meaning": "A house by the road where travelers can eat and sleep."
+  },
+  "hoof": {
+   "pos": "noun",
+   "meaning": "The hard foot of a horse.",
+   "forms": [
+    "hoofs"
+   ]
+  },
+  "bless": {
+   "pos": "verb",
+   "meaning": "A word said to wish a person well, or to show strong feeling."
+  },
+  "drunk": {
+   "pos": "adjective",
+   "meaning": "Having had so much strong drink that you cannot act safely."
+  },
+  "enemy": {
+   "pos": "noun",
+   "meaning": "A person or an animal that is against you.",
+   "forms": [
+    "enemies"
+   ]
+  },
+  "ruined": {
+   "pos": "adjective",
+   "meaning": "Spoiled so badly that it cannot be put right."
+  },
+  "cannon": {
+   "pos": "noun",
+   "meaning": "A very large gun."
+  },
+  "stack": {
+   "pos": "noun",
+   "meaning": "A big pile of hay or straw."
+  },
+  "cabstand": {
+   "pos": "noun",
+   "meaning": "A place in the street where cabs wait in a line for passengers."
+  },
+  "thrashing": {
+   "pos": "noun",
+   "meaning": "A hard beating."
+  },
+  "crest": {
+   "pos": "noun",
+   "meaning": "The curved top line of a horse's neck."
+  },
+  "jog": {
+   "pos": "noun",
+   "meaning": "A slow, easy trot."
+  },
+  "spirit": {
+   "pos": "noun",
+   "meaning": "Lively courage and energy.",
+   "forms": [
+    "spirits"
+   ]
+  },
+  "contented": {
+   "pos": "adjective",
+   "meaning": "Quietly happy and satisfied."
+  },
+  "appetite": {
+   "pos": "noun",
+   "meaning": "The wish to eat."
+  },
+  "crooked": {
+   "pos": "adjective",
+   "meaning": "Bent, not straight."
+  },
+  "disgrace": {
+   "pos": "noun",
+   "meaning": "Shame. A thing that makes people lose respect."
+  },
+  "dismount": {
+   "pos": "verb",
+   "meaning": "To get down off a horse.",
+   "forms": [
+    "dismounted"
+   ]
+  },
+  "downright": {
+   "pos": "adverb",
+   "meaning": "Completely; with nothing held back."
+  },
+  "feeble": {
+   "pos": "adjective",
+   "meaning": "Weak."
+  },
+  "footing": {
+   "pos": "noun",
+   "meaning": "A firm place for the feet, so you do not slip."
+  },
+  "frosty": {
+   "pos": "adjective",
+   "meaning": "Very cold, with thin ice in the air."
+  },
+  "fashionable": {
+   "pos": "adjective",
+   "meaning": "In the style that rich people liked at that time."
+  },
+  "handkerchief": {
+   "pos": "noun",
+   "meaning": "A small cloth used for the face or the nose."
+  },
+  "helpless": {
+   "pos": "adjective",
+   "meaning": "Not able to do anything to help yourself."
+  },
+  "impatient": {
+   "pos": "adjective",
+   "meaning": "Not able to wait calmly.",
+   "forms": [
+    "impatiently"
+   ]
+  },
+  "inclined": {
+   "pos": "adjective",
+   "meaning": "Wanting to do a thing, or leaning toward it."
+  },
+  "injure": {
+   "pos": "verb",
+   "meaning": "To hurt a person's or an animal's body.",
+   "forms": [
+    "injured"
+   ]
+  },
+  "inquire": {
+   "pos": "verb",
+   "meaning": "To ask, so that you can find something out."
+  },
+  "instant": {
+   "pos": "noun",
+   "meaning": "A very short moment.",
+   "forms": [
+    "instantly"
+   ]
+  },
+  "landlord": {
+   "pos": "noun",
+   "meaning": "The man who owns an inn."
+  },
+  "limp": {
+   "pos": "verb",
+   "meaning": "To walk with difficulty because one leg hurts.",
+   "forms": [
+    "limped"
+   ]
+  },
+  "moonlight": {
+   "pos": "noun",
+   "meaning": "The light of the moon at night."
+  },
+  "motionless": {
+   "pos": "adjective",
+   "meaning": "Not moving at all."
+  },
+  "necktie": {
+   "pos": "noun",
+   "meaning": "A band of cloth a man ties at his neck."
+  },
+  "pitiful": {
+   "pos": "adjective",
+   "meaning": "So sad or so poor that you feel sorry.",
+   "forms": [
+    "pitifully"
+   ]
+  },
+  "scarlet": {
+   "pos": "adjective",
+   "meaning": "A very bright red."
+  },
+  "shameful": {
+   "pos": "adjective",
+   "meaning": "So bad that it brings shame.",
+   "forms": [
+    "shamefully"
+   ]
+  },
+  "tremble": {
+   "pos": "verb",
+   "meaning": "To shake a little, from fear, cold, or pain.",
+   "forms": [
+    "trembled",
+    "trembling"
+   ]
+  },
+  "twilight": {
+   "pos": "noun",
+   "meaning": "The dim light just after the sun goes down."
+  },
+  "afore": {
+   "pos": "preposition",
+   "meaning": "An old word for before."
+  },
+  "lest": {
+   "pos": "conjunction",
+   "meaning": "So that a bad thing will not happen."
+  },
+  "queer": {
+   "pos": "adjective",
+   "meaning": "Strange.",
+   "whyHard": "An old word for strange."
+  },
+  "nay": {
+   "pos": "adverb",
+   "meaning": "An old word for no. It can also mean and even more."
+  },
+  "wits": {
+   "pos": "plural noun",
+   "meaning": "The power to think quickly and clearly."
+  },
+  "passion": {
+   "pos": "noun",
+   "meaning": "A very strong feeling. In this book it is anger."
+  },
+  "footman": {
+   "pos": "noun",
+   "meaning": "A man servant in a rich house, who opens doors and waits at table.",
+   "forms": [
+    "footmen"
+   ]
+  },
+  "breeding": {
+   "pos": "noun",
+   "meaning": "The family a horse comes from, and the way it was brought up."
+  },
+  "brutally": {
+   "pos": "adverb",
+   "meaning": "In a very cruel way."
+  },
+  "alarmed": {
+   "pos": "adjective",
+   "meaning": "Frightened or suddenly worried."
+  },
+  "assure": {
+   "pos": "verb",
+   "meaning": "To tell someone that something is true, so they will feel sure."
+  },
+  "attentive": {
+   "pos": "adjective",
+   "meaning": "Listening and watching with care."
+  },
+  "cattle": {
+   "pos": "plural noun",
+   "meaning": "Cows and bulls kept on a farm."
+  },
+  "confusion": {
+   "pos": "noun",
+   "meaning": "A time when everything is mixed up and people do not know what to do."
+  },
+  "constant": {
+   "pos": "adjective",
+   "meaning": "Going on all the time, without a stop."
+  },
+  "crawl": {
+   "pos": "verb",
+   "meaning": "To move along slowly, close to the ground.",
+   "forms": [
+    "crawled"
+   ]
+  },
+  "delight": {
+   "pos": "noun",
+   "meaning": "Great happiness."
+  },
+  "deserve": {
+   "pos": "verb",
+   "meaning": "To have earned something, good or bad.",
+   "forms": [
+    "deserves",
+    "deserved"
+   ]
+  },
+  "disgust": {
+   "pos": "noun",
+   "meaning": "A very strong feeling that you dislike something."
+  },
+  "distant": {
+   "pos": "adjective",
+   "meaning": "Far away."
+  },
+  "drown": {
+   "pos": "verb",
+   "meaning": "To die under water because you cannot breathe.",
+   "forms": [
+    "drowned"
+   ]
+  },
+  "dull": {
+   "pos": "adjective",
+   "meaning": "Not bright, and not lively."
+  },
+  "eager": {
+   "pos": "adjective",
+   "meaning": "Wanting very much to do something.",
+   "forms": [
+    "eagerly"
+   ]
+  },
+  "encourage": {
+   "pos": "verb",
+   "meaning": "To give someone hope so they will go on.",
+   "forms": [
+    "encouraged",
+    "encouraging"
+   ]
+  },
+  "engaged": {
+   "pos": "adjective",
+   "meaning": "Busy with a job, or hired to do it."
+  },
+  "examine": {
+   "pos": "verb",
+   "meaning": "To look at something very carefully.",
+   "forms": [
+    "examined"
+   ]
+  },
+  "exclaim": {
+   "pos": "verb",
+   "meaning": "To say something suddenly, in a loud voice.",
+   "forms": [
+    "exclaimed"
+   ]
+  },
+  "fetch": {
+   "pos": "verb",
+   "meaning": "To go and bring a person or a thing back.",
+   "senses": [
+    {
+     "meaning": "To go and bring a person or a thing back.",
+     "default": true
+    },
+    {
+     "meaning": "To be sold for a certain amount of money.",
+     "whyHard": "Not the usual meaning! Usually fetch means to go and bring something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "the place than the money he would fetch"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "for what they’ll fetch, at the knacker’s"
+      }
+     ]
+    }
+   ]
+  },
+  "flame": {
+   "pos": "noun",
+   "meaning": "The bright moving part of a fire.",
+   "forms": [
+    "flames"
+   ]
+  },
+  "fond": {
+   "pos": "adjective",
+   "meaning": "Liking a person or a thing very much."
+  },
+  "footstep": {
+   "pos": "noun",
+   "meaning": "The sound of one step.",
+   "forms": [
+    "footsteps"
+   ]
+  },
+  "fright": {
+   "pos": "noun",
+   "meaning": "A sudden great fear."
+  },
+  "furious": {
+   "pos": "adjective",
+   "meaning": "Extremely angry.",
+   "forms": [
+    "furiously"
+   ]
+  },
+  "growl": {
+   "pos": "verb",
+   "meaning": "To make a low angry sound in the throat.",
+   "forms": [
+    "growled"
+   ]
+  },
+  "harm": {
+   "pos": "noun",
+   "meaning": "Hurt or damage."
+  },
+  "haste": {
+   "pos": "noun",
+   "meaning": "Great speed, because you are in a hurry."
+  },
+  "heap": {
+   "pos": "noun",
+   "meaning": "A large untidy pile."
+  },
+  "hint": {
+   "pos": "noun",
+   "meaning": "A small sign that shows what you want, without a plain order."
+  },
+  "hopeless": {
+   "pos": "adjective",
+   "meaning": "With no chance of getting better."
+  },
+  "howl": {
+   "pos": "verb",
+   "meaning": "To make a long loud cry.",
+   "forms": [
+    "howling"
+   ]
+  },
+  "immediate": {
+   "pos": "adjective",
+   "meaning": "Happening at once, with no wait.",
+   "forms": [
+    "immediately"
+   ]
+  },
+  "jaw": {
+   "pos": "noun",
+   "meaning": "The bone of the mouth that holds the teeth."
+  },
+  "judge": {
+   "pos": "verb",
+   "meaning": "To decide what you think after you look at something.",
+   "forms": [
+    "judged"
+   ]
+  },
+  "lean": {
+   "pos": "verb",
+   "meaning": "To bend the body toward something.",
+   "forms": [
+    "leaned"
+   ]
+  },
+  "leap": {
+   "pos": "noun",
+   "meaning": "A big jump.",
+   "forms": [
+    "leaped"
+   ]
+  },
+  "limb": {
+   "pos": "noun",
+   "meaning": "A leg or an arm."
+  },
+  "manner": {
+   "pos": "noun",
+   "meaning": "The way a person or a horse does something.",
+   "forms": [
+    "manners"
+   ]
+  },
+  "merrily": {
+   "pos": "adverb",
+   "meaning": "In a happy, lively way."
+  },
+  "miserable": {
+   "pos": "adjective",
+   "meaning": "Very unhappy, or in a very bad state."
+  },
+  "nervous": {
+   "pos": "adjective",
+   "meaning": "Afraid and not calm."
+  },
+  "nonsense": {
+   "pos": "noun",
+   "meaning": "Talk or ideas that make no sense."
+  },
+  "overhead": {
+   "pos": "adverb",
+   "meaning": "Above your head."
+  },
+  "pardon": {
+   "pos": "noun",
+   "meaning": "Forgiveness. A polite way to say sorry, or to ask a person to say a line again."
+  },
+  "pause": {
+   "pos": "verb",
+   "meaning": "To stop for a short time."
+  },
+  "relief": {
+   "pos": "noun",
+   "meaning": "The good feeling when pain or fear stops."
+  },
+  "recover": {
+   "pos": "verb",
+   "meaning": "To get well again, or to get back to the way you were.",
+   "forms": [
+    "recovered",
+    "recovering"
+   ]
+  },
+  "roar": {
+   "pos": "verb",
+   "meaning": "To make a very loud deep cry.",
+   "forms": [
+    "roared"
+   ]
+  },
+  "roughly": {
+   "pos": "adverb",
+   "meaning": "In a hard, unkind way."
+  },
+  "scold": {
+   "pos": "verb",
+   "meaning": "To speak angrily to someone because they did wrong.",
+   "forms": [
+    "scolding"
+   ]
+  },
+  "seldom": {
+   "pos": "adverb",
+   "meaning": "Not often."
+  },
+  "shade": {
+   "pos": "noun",
+   "meaning": "A place out of the sun, darker and cooler."
+  },
+  "sharply": {
+   "pos": "adverb",
+   "meaning": "In a quick, hard, or angry way."
+  },
+  "shock": {
+   "pos": "noun",
+   "meaning": "A sudden bad surprise, or a hard blow."
+  },
+  "slip": {
+   "pos": "verb",
+   "meaning": "To slide by mistake and nearly fall.",
+   "forms": [
+    "slipped"
+   ]
+  },
+  "slippery": {
+   "pos": "adjective",
+   "meaning": "So wet or smooth that feet slide on it."
+  },
+  "snort": {
+   "pos": "verb",
+   "meaning": "To blow air out hard through the nose, as a horse does.",
+   "forms": [
+    "snorted"
+   ]
+  },
+  "soothing": {
+   "pos": "adjective",
+   "meaning": "Calm and kind, so that pain or fear grows less."
+  },
+  "steady": {
+   "pos": "adjective",
+   "meaning": "Firm, not shaking, and not suddenly changing."
+  },
+  "stir": {
+   "pos": "verb",
+   "meaning": "To move a little.",
+   "forms": [
+    "stirred"
+   ]
+  },
+  "stocking": {
+   "pos": "noun",
+   "meaning": "A close covering for the foot and lower leg.",
+   "forms": [
+    "stockings"
+   ]
+  },
+  "stool": {
+   "pos": "noun",
+   "meaning": "A seat with no back."
+  },
+  "tone": {
+   "pos": "noun",
+   "meaning": "The sound of a voice, and the feeling it shows."
+  },
+  "tread": {
+   "pos": "verb",
+   "meaning": "To put the foot down on something.",
+   "forms": [
+    "trod",
+    "treading"
+   ]
+  },
+  "venture": {
+   "pos": "verb",
+   "meaning": "To dare to do something that may go badly.",
+   "forms": [
+    "ventured"
+   ]
+  },
+  "violent": {
+   "pos": "adjective",
+   "meaning": "Very wild and hard, so that it can hurt.",
+   "forms": [
+    "violently"
+   ]
+  },
+  "wander": {
+   "pos": "verb",
+   "meaning": "To walk about with no fixed plan.",
+   "forms": [
+    "wandered"
+   ]
+  },
+  "whisker": {
+   "pos": "noun",
+   "meaning": "One of the long stiff hairs on an animal's face."
+  },
+  "whistle": {
+   "pos": "verb",
+   "meaning": "To make a high sound by blowing through the lips.",
+   "forms": [
+    "whistled",
+    "whistling"
+   ]
+  },
+  "wildly": {
+   "pos": "adverb",
+   "meaning": "In a way that is out of control."
+  },
+  "witness": {
+   "pos": "verb",
+   "meaning": "To see something happen."
+  },
+  "grinding": {
+   "pos": "noun",
+   "meaning": "A hard rough sound made by something heavy as it moves."
+  },
+  "hardened": {
+   "pos": "adjective",
+   "meaning": "Made hard, or made used to cruel treatment."
+  },
+  "pressure": {
+   "pos": "noun",
+   "meaning": "A heavy pushing force."
+  },
+  "scattered": {
+   "pos": "adjective",
+   "meaning": "Spread around in many places."
+  },
+  "streaming": {
+   "pos": "adjective",
+   "meaning": "Flowing out, or flying back in a long line."
+  },
+  "habit": {
+   "pos": "noun",
+   "meaning": "Something a person or a horse does so often that it happens without thinking.",
+   "senses": [
+    {
+     "meaning": "Something a person or a horse does so often that it happens without thinking.",
+     "default": true
+    },
+    {
+     "meaning": "The clothes a lady wears for riding.",
+     "whyHard": "Not the usual meaning! Usually: a habit is something you do again and again.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "again of the green habit flying on before us"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "answer. He unbuttoned her habit, loosened her collar, felt"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "habits"
+   ]
+  },
+  "corn": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Grain, such as oats, fed to horses. It is not the yellow vegetable.",
+   "senses": [
+    {
+     "meaning": "Grain, such as oats, fed to horses. It is not the yellow vegetable.",
+     "whyHard": "Not the usual meaning! Usually: corn is the yellow vegetable with rows of seeds.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "a low manger for corn; it was called a"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "I had eaten my corn I looked round. In"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "context": "but grass, hay, and corn, and could not think"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "coming in from the corn chamber with some oats"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "and had brought our corn, and James and the"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "some hay and some corn, and thinking he had"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "box, and had some corn; and after Robert had"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "up my condition without corn. However, I could not"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "context": "say who eats your corn, my dear fellow, but"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 3,
+       "context": "harness-room, where the corn was kept, and I"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 4,
+       "context": "the way to the corn-bin. Here the policeman"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "and not so much corn, till my feet were"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "context": "kept him short of corn, but he’s so"
+      },
+      {
+       "chapter": 47,
+       "occurrence": 1,
+       "context": "was sold to a corn dealer and baker, whom"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "rose": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Went up, or got up. Past of rise. It is not the flower.",
+   "senses": [
+    {
+     "meaning": "Went up, or got up. Past of rise. It is not the flower.",
+     "whyHard": "Not the usual meaning! Usually: a rose is a flower.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "not understand I just rose up on my hind"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "the strong vapors that rose made my eyes smart"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "grave": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Serious, and often sad.",
+   "senses": [
+    {
+     "meaning": "Serious, and often sad.",
+     "whyHard": "Not the usual meaning! Usually: a grave is the place where a dead person is buried.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "stood all this time grave and attentive, but as"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "and the master looked grave and anxious. Then we"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "bear": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To live with pain or a hard thing and go on.",
+   "senses": [
+    {
+     "meaning": "To live with pain or a hard thing and go on.",
+     "whyHard": "Not the usual meaning! Usually: a bear is a large wild animal.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "not know how to bear it. Besides that, to"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "would have tried to bear it. I was willing"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "context": "what I could not bear. At last he drove"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "more than I can bear. But if you think"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "sir, I can’t bear it; you and my"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "out! I can’t bear it, and I won"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "Well,” he said, “I bear it because I must"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "horses are used to bear their pain in silence"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "He could not bear any careless loitering and"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "context": "can do, but just bear it —bear it on"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 2,
+       "context": "but just bear it —bear it on and on"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "asked him how it was he bore it",
+       "form": "bore"
+      }
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "bore"
+   ]
+  },
+  "present": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Here now, or at this time. It is not a gift.",
+   "senses": [
+    {
+     "meaning": "Here now, or at this time. It is not a gift.",
+     "whyHard": "Not the usual meaning! Usually: a present is a gift.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "can trust my men, present or absent; but there"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "any change from my present place must be an"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "content": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Quiet and satisfied.",
+   "senses": [
+    {
+     "meaning": "Quiet and satisfied.",
+     "whyHard": "Not the usual meaning! Usually: the content of something is what is inside it.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "but she seemed to be quiet and content"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "coach": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A closed carriage that horses pull. The building it is kept in is named from this word.",
+   "senses": [
+    {
+     "meaning": "A closed carriage that horses pull. The building it is kept in is named from this word.",
+     "whyHard": "Not the usual meaning! Usually: a coach is a person who trains players at a sport.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "a long, strange black coach that was covered with"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "a bedroom over the coach-house, and a boy"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "were the stables and coach-houses. Two hostlers came"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "what seemed to be coach-houses and stables on"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "shoe": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A curved piece of iron nailed onto a horse's hoof.",
+   "senses": [
+    {
+     "meaning": "A curved piece of iron nailed onto a horse's hoof.",
+     "whyHard": "Not the usual meaning! Usually: a shoe is what a person wears on a foot.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "some nails through the shoe quite into my hoof"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "hoof, so that the shoe was firmly on. My"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "if he should have the shoe looked to"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "context": "to see about the shoe, as he was generally"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 3,
+       "context": "at this pace, my shoe became looser, and as"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 4,
+       "context": "this road, with one shoe gone, I was forced"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "these stones without a shoe! Why, if he had"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "the gate; and my shoe was picked up among"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "firmly wedged between my shoe and the frog of"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "context": "a stone in his shoe. If you will allow"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "putting on the iron shoes; that too was very",
+       "form": "shoes"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "of having his feet and shoes looked after",
+       "form": "shoes"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "one of my front shoes had started as I",
+       "form": "shoes"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "context": "loose nails in our shoes. He did not come",
+       "form": "shoes"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "or looking to my shoes, or grooming me thoroughly",
+       "form": "shoes"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "context": "very bad indeed our shoes are roughed, but that",
+       "form": "shoes"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "context": "forge for some new shoes; when I returned Captain",
+       "form": "shoes"
+      }
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "shoes"
+   ]
+  },
+  "suit": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To be right or good for a person or a job.",
+   "senses": [
+    {
+     "meaning": "To be right or good for a person or a job.",
+     "whyHard": "Not the usual meaning! Usually: a suit is a set of matching clothes.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "and that won’t suit me.” He spoke as"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "I think we should suit each other. I’ll"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "context": "yours, and nothing will suit her but Mr. Barker"
+      },
+      {
+       "chapter": 42,
+       "occurrence": 1,
+       "context": "harass, and I could suit my customers much better"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 1,
+       "context": "find the cab work suit you in winter? I"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "context": "empty that will just suit us, with a garden"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 2,
+       "context": "should say; it will suit father and mother both"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "of thing don’t suit my business; my plan"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "star": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A white mark on a horse's forehead.",
+   "senses": [
+    {
+     "meaning": "A white mark on a horse's forehead.",
+     "whyHard": "Not the usual meaning! Usually: a star is a light in the night sky.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "and a pretty white star on my forehead. I"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 1,
+       "context": "is just like the star that Black Beauty had"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 2,
+       "context": "White star in the forehead, one white foot"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "action": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The way a horse moves, or the way a thing works on the body.",
+   "senses": [
+    {
+     "meaning": "The way a horse moves, or the way a thing works on the body.",
+     "whyHard": "Not the usual meaning! Usually: an action is one thing that a person does.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "your spring and sprightly action, does not need to"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "mouth, but now the action of the sharp bit"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "account of her fine action and lively spirit; but"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "spring": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A jump, or the lively power to jump and move.",
+   "senses": [
+    {
+     "meaning": "A jump, or the lively power to jump and move.",
+     "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "full of life and spring that when John has"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "weight, with all your spring and sprightly action, does"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "way of making a spring forward to keep up"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "given we used to spring forward as gayly and"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "context": "was as full of spring as a balloon. Our"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "sound": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Healthy and not hurt.",
+   "senses": [
+    {
+     "meaning": "Healthy and not hurt.",
+     "whyHard": "Not the usual meaning! Usually: a sound is a noise you hear.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "my feet were quite sound, and was then sold"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 3,
+       "context": "again to England, as sound and strong as when"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "mean": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Unkind, low, and not to be trusted.",
+   "senses": [
+    {
+     "meaning": "Unkind, low, and not to be trusted.",
+     "whyHard": "Not the usual meaning! Usually: mean is to say what your words are about, as in the words I mean.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "absent; but there are mean scoundrels, wicked enough to"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "fly": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A light, fast carriage pulled by a horse.",
+   "senses": [
+    {
+     "meaning": "A light, fast carriage pulled by a horse.",
+     "whyHard": "Not the usual meaning! Usually: to fly is to move through the air, and a fly is a small insect.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "context": "make him comfortable. The fly had to be mended"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "quarter": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The back part of a horse's side, near the hind leg.",
+   "senses": [
+    {
+     "meaning": "The back part of a horse's side, near the hind leg.",
+     "whyHard": "Not the usual meaning! Usually: a quarter is one of four equal parts, or fifteen minutes.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "blow on my near quarter. There is no knowing"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "pound": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A piece of old British paper money.",
+   "senses": [
+    {
+     "meaning": "A piece of old British paper money.",
+     "whyHard": "Not the usual meaning! Usually: a pound is a measure of weight.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "context": "to give a five-pound note for him, and"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "deal": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A large amount of something.",
+   "senses": [
+    {
+     "meaning": "A large amount of something.",
+     "whyHard": "Not the usual meaning! Usually: a deal is a business agreement, or the words deal with.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "there was a good deal of kicking, my mother"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "context": "master thought a great deal of her. Her name"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "and heard a great deal, I never yet could"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "and after a good deal of coaxing he got"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "They think a great deal of me, and so"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "I know a great deal, and I can tell"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "to me a great deal; of course I did"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "we had a great deal of talk; she wanted"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "and had a great deal of spirit, and was"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "context": "he drank a good deal, and I am quite"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "sense, and a good deal less according to fashion"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "had been a great deal of rain, and now"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "to think a good deal of James when he"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "context": "will make you a deal of work, John"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "context": "Merrylegs was a good deal put out at being"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 4,
+       "context": "am leaving a great deal behind; my mother and"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 5,
+       "context": "Joe took a great deal of pains to learn"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "You were a good deal cut up yourself, Tom"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "There was a great deal of coming and going"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "house and a great deal of stabling. We went"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "two grooms, a good deal knocked about and bruised"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "There was a great deal of hurry and excitement"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "and required a good deal of courage the first"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "had been a good deal of road-mending going"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "context": "foot is a good deal hurt, and the lameness"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 3,
+       "context": "but still in a good deal of pain"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "apart, and a great deal of work, but he"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "and was a good deal frightened several times, and"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "he blustered a good deal they walked him off"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "he did a great deal of stroking and patting"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "context": "he spent a great deal of time about his"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "There was a great deal of bargaining, of running"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "context": "I judged a good deal of the buyers by"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 3,
+       "context": "there’s a monstrous deal of quality in that"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "handsome, and a great deal too good for a"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 3,
+       "context": "does us a great deal more good than swallowing"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "to be a great deal of laughing and fun"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 2,
+       "context": "the day it wants a deal of practice"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 3,
+       "context": "there was a good deal of laughing and chaffing"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 4,
+       "context": "A good deal more than I generally get"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "context": "to heart a good deal, for of course the"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "context": "early, with a great deal of cold and wet"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "context": "me now pays a deal of money to the"
+      },
+      {
+       "chapter": 42,
+       "occurrence": 1,
+       "context": "I saw a great deal of trouble among the"
+      },
+      {
+       "chapter": 42,
+       "occurrence": 2,
+       "context": "save me a wonderful deal of harass, and I"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 1,
+       "context": "said, “he suffers a deal of pain; he is"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 2,
+       "context": "worry herself a good deal. You see, ma’am"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "context": "to him a good deal, and very soon they"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 2,
+       "context": "up for a great deal, and after all, the"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "context": "We had a great deal of late work in"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 2,
+       "context": "stroked me a great deal, but said nothing, only"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "girl, and a great deal of luggage. The lady"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "context": "shoulder; there’s a deal of breeding about that"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To give a blow.",
+     "whyHard": "Not the usual meaning! Usually: a deal is a business agreement.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 34,
+       "occurrence": 2,
+       "context": "fist, for he could deal a very heavy blow"
+      }
+     ]
+    }
+   ]
+  },
+  "fast": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Held tightly, or stuck so that it cannot move.",
+   "senses": [
+    {
+     "meaning": "Held tightly, or stuck so that it cannot move.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "your mouth, and held fast there by straps over"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "context": "then made the girths fast under my body, patting"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "tied up, and made fast so that I could"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "the wheels had stuck fast in the stiff mud"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Completely asleep, in a deep sleep.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "down in my straw fast asleep, when I was"
+      }
+     ]
+    },
+    {
+     "meaning": "Very close and loyal.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "and I had become fast friends, and now I"
+      }
+     ]
+    },
+    {
+     "meaning": "Wild and careless about rules.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "morning a party of fast men would hire the"
+      }
+     ]
+    }
+   ]
+  },
+  "box": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A horse's own room in a stable, where it is not tied.",
+   "senses": [
+    {
+     "meaning": "A horse's own room in a stable, where it is not tied.",
+     "whyHard": "Not the usual meaning! Usually: a box is a container you put things in.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "was called a loose box, because the horse that"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "a great thing to have a loose box"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "context": "Into this fine box the groom put me"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "context": "was in a better box than that, and the"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 5,
+       "context": "the top of my box, and said, “How do"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 6,
+       "context": "live next door to me in the box"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 7,
+       "context": "me out of my box; it is a very"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 8,
+       "context": "was in the loose box she used to snap"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 9,
+       "context": "Ginger stood in that box they dared not come"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 10,
+       "context": "that she did not stay in that box"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "was going into my box, with my coat soft"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "led me into my box, took off the saddle"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "led me into my box after my daily exercise"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "the door of my box, touched his cap, and"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "led me to my box. He just turned me"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "just turned into my box; the saddle and bridle"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "I reached my own box, and had some corn"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "I had a loose box, and might have been"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "context": "in a horse’s box; they are very apt"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 3,
+       "context": "the smell in my box was as bad as"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 4,
+       "context": "taken out of my box day by day, and"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A hit with the hand, as on the ear.",
+     "whyHard": "Not the usual meaning! Usually: a box is a container you put things in.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "gave him such a box on the ear as"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "I gave him a box on the ears that"
+      }
+     ]
+    },
+    {
+     "meaning": "The high seat where the driver of a carriage sits.",
+     "whyHard": "Not the usual meaning! Usually: a box is a container you put things in.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "context": "with him on the box, telling him this and"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "the reins, mounted the box, and with Joe drove"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "had to mount the box and drive the ladies"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "Jerry was on the box; with a cheery chirrup"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "context": "took to the driving box. So for the last"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 2,
+       "context": "always sitting on your box waiting for a fare"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "context": "to sit on my box sixteen hours a day"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "context": "cabman waiting on his box, and his patient beast"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 2,
+       "context": "Jerry got off his box and came and pulled"
+      }
+     ]
+    }
+   ]
+  },
+  "party": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A group of people who go somewhere together.",
+   "senses": [
+    {
+     "meaning": "A group of people who go somewhere together.",
+     "whyHard": "Not the usual meaning! Usually: a party is a celebration with guests.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "saddled for a riding party; the master on Ginger"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "The first of the party who went were Miss"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "had to drive a party home from a ball"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "context": "a gentleman of the party had to mount the"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "context": "if they had a party to wait for"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 1,
+       "context": "were called by a party who wished to be"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "context": "Jerry had taken a party to the great railway"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "a Sunday morning a party of fast men would"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 2,
+       "context": "for. There was a party of four; a noisy"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A political side, the people who follow one color or one leader.",
+     "whyHard": "Not the usual meaning! Usually: a party is a celebration with guests.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 43,
+       "occurrence": 1,
+       "context": "colors, they only show party, and all the liberty"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 2,
+       "context": "windows if their own party came by. It was"
+      }
+     ]
+    }
+   ]
+  },
+  "fair": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A market where horses are shown and sold.",
+   "senses": [
+    {
+     "meaning": "A market where horses are shown and sold.",
+     "whyHard": "Not the usual meaning! Usually: fair means just, or not bad.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "context": "No doubt a horse fair is a very amusing"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 3,
+       "context": "trickery at that horse fair than a clever man"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 4,
+       "context": "me out of the fair to an inn, where"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "context": "better part of the fair, I noticed a man"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "rate": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Of the best kind.",
+   "senses": [
+    {
+     "meaning": "Of the best kind.",
+     "whyHard": "Not the usual meaning! Usually: a rate is a speed or a price.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "First-rate, sir,” answered John, “he is as"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "situation with some first-rate colt-breaker and horse"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "He was a first-rate driver; he could take"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 1,
+       "context": "Mr. Thoroughgood, “many first-rate horses have had their"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Anyway; no matter what else is true.",
+     "whyHard": "Not the usual meaning! Usually: a rate is a speed or a price.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "be helped; at any rate, nothing was done to"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "only smaller. At any rate, they think that if"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "I think. At any rate, it was the end"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "to lose; at any rate, there is plenty to"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "very train. At any rate, we whirled into the"
+      },
+      {
+       "chapter": 47,
+       "occurrence": 1,
+       "context": "plan, uphill, at any rate,” and I must do"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "than his skin is worth, at any rate"
+      }
+     ]
+    }
+   ]
+  },
+  "gay": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happy and bright.",
+   "senses": [
+    {
+     "meaning": "Happy and bright.",
+     "whyHard": "Not the usual meaning! Usually today this word is not a way to say happy. Here it means happy and bright.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "perfect horsewoman, and as gay and gentle as she"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "pace, and looking as gay and contented as a"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "times again, and made me feel quite gay"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "liked me to be quiet, and when gay"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "gayly": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "In a happy, bright way.",
+   "senses": [
+    {
+     "meaning": "In a happy, bright way.",
+     "whyHard": "Not the usual meaning! Usually today this word is not a way to say happily. Here it means in a happy, bright way.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "it. We went along gayly enough till we came"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "to spring forward as gayly and eagerly as if"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "uncommon": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Very.",
+   "senses": [
+    {
+     "meaning": "Very.",
+     "whyHard": "Not the usual meaning! Usually: uncommon means not usual.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "Lady Anne; she was uncommon good to my wife"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "without; he has an uncommon good mouth, and though"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "context": "would not be so uncommon particular never to give"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "context": "That’s uncommon jolly,” said Harry, “and just"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "uncommonly": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Very.",
+   "senses": [
+    {
+     "meaning": "Very.",
+     "whyHard": "Not the usual meaning! Usually: uncommonly means in a way that is not usual.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "them. “They are an uncommonly handsome pair,” he said"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "vain": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Too proud of yourself.",
+   "senses": [
+    {
+     "meaning": "Too proud of yourself.",
+     "whyHard": "Not the usual meaning! Usually: in vain means without success. Here the person is too proud.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "great many foolish men, vain, ignorant, and careless, who"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Without success. In vain means the try did not work.",
+     "whyHard": "Not the usual meaning! Usually: vain means too proud of yourself.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "but it was in vain; and now without a"
+      }
+     ]
+    }
+   ]
+  },
+  "van": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A covered wagon for carrying goods.",
+   "forms": [
+    "vans"
+   ],
+   "senses": [
+    {
+     "meaning": "A covered wagon for carrying goods.",
+     "whyHard": "Not the usual meaning! Usually a van is a motor vehicle. Here it is a covered wagon.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "among carriages, omnibuses, carts, vans, trucks, cabs, and great",
+       "form": "vans"
+      }
+     ]
+    }
+   ]
+  },
+  "aye": {
+   "pos": "adverb",
+   "meaning": "An old word for always.",
+   "whyHard": "An old word."
+  },
+  "scurry": {
+   "pos": "verb",
+   "meaning": "To rush and hurry."
+  },
+  "flurry": {
+   "pos": "verb",
+   "meaning": "To rush about in a worried hurry."
+  },
+  "loitering": {
+   "pos": "noun",
+   "meaning": "Wasting time by standing about and doing nothing."
   }
  },
  "paragraphs": [
@@ -4921,6 +7425,53 @@
     "threepenny",
     "overjoyed"
    ]
+  },
+  {
+   "chapter": 10,
+   "paragraph": 9,
+   "context": "pony is like a steam-engine or a thrashing-machine, and can",
+   "mainIdea": "Merrylegs says boys think a pony is a machine that never gets tired. He threw them off so they would stop hitting him.",
+   "simple": "Merrylegs says he is very careful with the young ladies. When they are afraid he goes quietly, and when they are fine he goes a little faster so they get used to it. He says boys are different and must be taught, as young horses are taught. After the other children had ridden him, the boys rode him for an hour and hit him with big sticks. He took it calmly until he had had enough, and he stopped as a hint. Boys think a pony is like a steam engine or a farm machine, and can go on as long as they like. They never think he can get tired or feel pain. So he rose on his hind legs and let the boy slip off. He did it to each boy until they understood. He likes the boys and says they are not cruel, but he had to teach them. James was angry when he saw the big sticks, and said sticks like that were not for young gentlemen.",
+   "hardWords": [
+    "pony",
+    "steam-engine",
+    "thrashing-machine",
+    "whipping",
+    "hint"
+   ]
+  },
+  {
+   "chapter": 30,
+   "paragraph": 3,
+   "context": "a horse was something like a steam-engine, only smaller",
+   "mainIdea": "Some drivers think a horse is a small machine. They make him keep going, however hard the road is.",
+   "simple": "They thought a horse was like a small steam engine. If they had paid, they believed he must go as far and as fast as they wanted, and pull as heavy a load as they wanted. It did not matter if the road was heavy and wet, or dry, or stony, or smooth, or up a hill or down a hill. He had to go on and on at the same speed, with no rest and with no one thinking of him.",
+   "hardWords": [
+    "steam-engine",
+    "load",
+    "pace",
+    "relief",
+    "uphill"
+   ]
+  },
+  {
+   "chapter": 36,
+   "paragraph": 3,
+   "context": "Come, father and mother, And sister and brother",
+   "mainIdea": "Jerry's little song asks the whole family to come and help one another.",
+   "simple": "The song calls the father, the mother, the sister, and the brother. It asks every one of them to come and help the others."
+  },
+  {
+   "chapter": 36,
+   "paragraph": 5,
+   "context": "If you in the morning Throw minutes away",
+   "mainIdea": "Jerry's song says that minutes wasted in the morning are gone forever.",
+   "simple": "If you waste minutes in the morning, you cannot pick them up later in the day. You may rush and worry, but those minutes are lost forever.",
+   "hardWords": [
+    "scurry",
+    "flurry",
+    "aye"
+   ]
   }
  ],
  "sentences": [
@@ -5685,6 +8236,73 @@
    "meaning": "For a short time, to see if someone or something is good.",
    "pos": "phrase",
    "example": "have him on trial"
+  },
+  "loose box": {
+   "meaning": "A horse's room in a stable where the horse is left untied.",
+   "pos": "phrase",
+   "example": "it was called a loose box, because the horse that was put into it was not tied up"
+  },
+  "job horse": {
+   "meaning": "A horse that people can hire for a time.",
+   "pos": "phrase",
+   "forms": [
+    "job horses"
+   ],
+   "example": "I was a job horse, and was let out to all sorts of people who wished to hire me"
+  },
+  "into the bargain": {
+   "meaning": "As well; on top of the other thing.",
+   "pos": "idiom",
+   "example": "particularly if he gets kind words into the bargain"
+  },
+  "at any rate": {
+   "meaning": "Anyway; no matter what else is true.",
+   "pos": "idiom",
+   "example": "at any rate, nothing was done to relieve me"
+  },
+  "worse for drink": {
+   "meaning": "Drunk; having had too much strong drink.",
+   "pos": "idiom",
+   "example": "The man was in a towering passion and the worse for drink"
+  },
+  "out of breath": {
+   "meaning": "Breathing hard and fast, as after running.",
+   "pos": "phrase",
+   "example": "Polly was almost out of breath"
+  },
+  "in good part": {
+   "meaning": "Without getting angry; taking a hard thing calmly.",
+   "pos": "idiom",
+   "example": "but I took it in good part, till at last I thought we had had enough"
+  },
+  "fast asleep": {
+   "meaning": "Deeply asleep.",
+   "pos": "phrase",
+   "example": "I had eaten my hay and was lying down in my straw fast asleep"
+  },
+  "fast friends": {
+   "meaning": "Very close friends who stay loyal.",
+   "pos": "phrase",
+   "example": "Ginger and I had become fast friends"
+  },
+  "a great deal": {
+   "meaning": "A large amount; a lot.",
+   "pos": "phrase",
+   "forms": [
+    "a good deal",
+    "a deal of"
+   ],
+   "example": "our master thought a great deal of her"
+  },
+  "what's what": {
+   "meaning": "What is right, and how things really are.",
+   "pos": "idiom",
+   "example": "and just be taught what's what"
+  },
+  "cast it up": {
+   "meaning": "To throw an old fault at someone in words.",
+   "pos": "idiom",
+   "example": "I won't cast it up to you any more about the police"
   }
  }
 }

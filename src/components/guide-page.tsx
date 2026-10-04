@@ -1,5 +1,6 @@
 import {
   BookPlus,
+  Github,
   Hand,
   Highlighter,
   Library,
@@ -14,9 +15,10 @@ import {
   Wifi,
   type LucideIcon,
 } from "lucide-react";
+import { btn, cn } from "@/components/ui";
 import { guideUrl } from "@/lib/guide";
 import { useT, type Key } from "@/lib/i18n";
-import { CONTACT_EMAIL, CONTACT_URL } from "@/lib/site-info";
+import { CONTACT_EMAIL, CONTACT_URL, REPO_URL } from "@/lib/site-info";
 
 const SECTIONS: ReadonlyArray<{
   id: string;
@@ -92,18 +94,30 @@ function Marks() {
 
 /**
  * One page for how to use the app and what the site is: adding books, marks, the notebook,
- * accounts, privacy, the copyright notice, the English Read credit, and contact.
+ * accounts, privacy, the copyright notice, the English Read credit, the source repository, and contact.
  * The old About address opens this page.
  */
 export function GuideScreen() {
   const { t } = useT();
   return (
-    <div className="mx-auto grid w-full max-w-2xl gap-6 px-4 py-6 sm:px-6 sm:py-10" data-guide-page>
+    <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-6 sm:px-6 sm:py-10" data-guide-page>
       <div className="grid gap-1.5">
-        <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("guide.title")}</h1>
+        <div className="flex items-center justify-between gap-3">
+          <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("guide.title")}</h1>
+          <a
+            className={cn(btn.icon, "text-muted hover:text-ink")}
+            href={REPO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t("guide.github")}
+            data-guide-github
+          >
+            <Github className="size-5" aria-hidden />
+          </a>
+        </div>
         <p className="text-[1rem] leading-7 text-muted">{t("about.intro")}</p>
       </div>
-      <ol className="grid gap-3">
+      <ol className="grid gap-3 md:grid-cols-2" data-guide-sections>
         {SECTIONS.map((section, index) => (
           <li
             key={section.id}

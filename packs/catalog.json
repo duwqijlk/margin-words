@@ -1,24 +1,25 @@
 {
  "format": 1,
  "name": "Margin Words book packs",
- "updated": "2026-10-02",
+ "updated": "2026-10-04",
  "packs": [
   {
    "id": "charlie",
    "title": "Charlie and the Chocolate Factory",
    "author": "Roald Dahl",
-   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "",
    "lexile": "810L",
    "isbn": "9780141960616",
-   "rev": "ac3e7c133d14",
+   "updated": "2026-10-04",
+   "rev": "7e114078a080",
    "version": 2,
    "chapters": 34,
-   "words": 607,
-   "paragraphs": 30,
-   "sentences": 38,
-   "phrases": 46,
-   "coined": 10,
+   "words": 1587,
+   "paragraphs": 36,
+   "sentences": 39,
+   "phrases": 65,
+   "coined": 16,
    "epub": {
     "url": "charlie/book.epub",
     "bytes": 4086036,
@@ -26,9 +27,9 @@
    },
    "glossary": {
     "url": "charlie/glossary.json",
-    "bytes": 446643,
-    "sha256": "decbcefef703113538aa90fe934e511031ec27cb75f504818e9324f7ad10751f",
-    "rev": "decbcefef703"
+    "bytes": 589418,
+    "sha256": "441cab9fbe121adb61e569d6bc264b84d6664ccc43e25f68427e73d0480d0f5c",
+    "rev": "441cab9fbe12"
    },
    "cover": {
     "url": "charlie/cover.jpg",
@@ -37,26 +38,27 @@
    },
    "zip": {
     "url": "charlie.zip",
-    "bytes": 4227253,
-    "sha256": "3139eff1051b5c69fd60da301579a9077222a80102fa8a91a101e0149850d06c"
+    "bytes": 4252747,
+    "sha256": "a34be6ae589e8d87510ebd03308b1eb7a888f7199412bd46c2486571612f0b4d"
    }
   },
   {
    "id": "george",
    "title": "George’s Marvellous Medicine",
    "author": "Roald Dahl",
-   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "",
    "lexile": "640L",
    "isbn": "9780141929859",
-   "rev": "4fb35bbae625",
+   "updated": "2026-10-04",
+   "rev": "2f1df4167e59",
    "version": 2,
    "chapters": 15,
-   "words": 293,
-   "paragraphs": 26,
-   "sentences": 36,
-   "phrases": 44,
-   "coined": 5,
+   "words": 805,
+   "paragraphs": 30,
+   "sentences": 38,
+   "phrases": 75,
+   "coined": 12,
    "epub": {
     "url": "george/book.epub",
     "bytes": 3516765,
@@ -64,9 +66,9 @@
    },
    "glossary": {
     "url": "george/glossary.json",
-    "bytes": 197443,
-    "sha256": "42f7f9fc2c225bf24eb60f4e42f3ff14d1b28638f0cfaaf337062212360d6184",
-    "rev": "42f7f9fc2c22"
+    "bytes": 321023,
+    "sha256": "cca92ea6501b835647aa9fb01c83ad24cd3dfe65822ab8106dad152e35ec7553",
+    "rev": "cca92ea6501b"
    },
    "cover": {
     "url": "george/cover.jpg",
@@ -75,26 +77,27 @@
    },
    "zip": {
     "url": "george.zip",
-    "bytes": 3596769,
-    "sha256": "503c8c337b33894daab9d4fda654294193087473f7c3eb8895635ec22e2c5b60"
+    "bytes": 3618807,
+    "sha256": "4af8b3d82a4e61f4f12e6adabfc159ec6bba6002e07133fca043efdb060d44f9"
    }
   },
   {
    "id": "james",
    "title": "James and the Giant Peach",
    "author": "Roald Dahl",
-   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "",
    "lexile": "790L",
    "isbn": "9780141929873",
-   "rev": "e5a8092901af",
+   "updated": "2026-10-04",
+   "rev": "11a1d168326e",
    "version": 2,
    "chapters": 42,
-   "words": 556,
-   "paragraphs": 29,
-   "sentences": 38,
-   "phrases": 36,
-   "coined": 14,
+   "words": 799,
+   "paragraphs": 45,
+   "sentences": 40,
+   "phrases": 52,
+   "coined": 15,
    "epub": {
     "url": "james/book.epub",
     "bytes": 2772425,
@@ -102,9 +105,9 @@
    },
    "glossary": {
     "url": "james/glossary.json",
-    "bytes": 406407,
-    "sha256": "f4b0c3ec033dbb5324bb4709c2de6bd38bde8c3fddfa4243c12781a0aee54099",
-    "rev": "f4b0c3ec033d"
+    "bytes": 447246,
+    "sha256": "1f41948c7485fa91ec090d20824f77e9f9e00ee77936dd90b7a2bfa6735851be",
+    "rev": "1f41948c7485"
    },
    "cover": {
     "url": "james/cover.jpg",
@@ -113,25 +116,26 @@
    },
    "zip": {
     "url": "james.zip",
-    "bytes": 2894585,
-    "sha256": "f00c5c6a75b9e24d16aeb8c408bebfd175c91f0a98bda09fb9f62216793d4558"
+    "bytes": 2907151,
+    "sha256": "c582347fae3a9e8ff8d0233f9137e7b80db64303f6ce87fc1d8a0632ab34a721"
    }
   },
   {
    "id": "matilda",
    "title": "Matilda",
    "author": "Roald Dahl",
-   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "",
    "lexile": "840L",
    "isbn": "9780670824397",
-   "rev": "2715e91d6c69",
+   "updated": "2026-10-04",
+   "rev": "07b6a9666da9",
    "version": 2,
    "chapters": 21,
-   "words": 699,
-   "paragraphs": 27,
+   "words": 2022,
+   "paragraphs": 34,
    "sentences": 41,
-   "phrases": 44,
+   "phrases": 64,
    "coined": 0,
    "epub": {
     "url": "matilda/book.epub",
@@ -140,9 +144,9 @@
    },
    "glossary": {
     "url": "matilda/glossary.json",
-    "bytes": 461142,
-    "sha256": "b9fdd6373d5f5a4e2db5fa6c0dcdc4e80c663e870e2c86ff98140ba3940f66a3",
-    "rev": "b9fdd6373d5f"
+    "bytes": 745146,
+    "sha256": "d8729b5978b11c5488f4ebbb2a46b44728f3bc116eab7aa5b7e0aa213b3cbcea",
+    "rev": "d8729b5978b1"
    },
    "cover": {
     "url": "matilda/cover.jpg",
@@ -151,8 +155,8 @@
    },
    "zip": {
     "url": "matilda.zip",
-    "bytes": 2450180,
-    "sha256": "1bb0c79a787952f2cf843cfa5c3d8e02779c8f5c5b04fa6e0834f113ab19bef7"
+    "bytes": 2485607,
+    "sha256": "aa236c29d3f6bcc969fec5edcdbc0be8d854c5e4979f8961a181579e4cb64a4a"
    }
   },
   {
@@ -163,14 +167,15 @@
    "notes": "",
    "lexile": "560L",
    "isbn": "9780141957111",
-   "rev": "4f7f4a4ce556",
+   "updated": "2026-10-04",
+   "rev": "243f7eee09f0",
    "version": 2,
    "chapters": 0,
-   "words": 68,
-   "paragraphs": 16,
+   "words": 137,
+   "paragraphs": 20,
    "sentences": 30,
-   "phrases": 34,
-   "coined": 10,
+   "phrases": 50,
+   "coined": 12,
    "epub": {
     "url": "magicfinger/book.epub",
     "bytes": 3696114,
@@ -178,9 +183,9 @@
    },
    "glossary": {
     "url": "magicfinger/glossary.json",
-    "bytes": 62949,
-    "sha256": "b759ffff4c988a762ae4a8ff44e9bf283066e954ee935fede2227bab725a8746",
-    "rev": "b759ffff4c98"
+    "bytes": 86125,
+    "sha256": "0daec1042ee7500236c72e0f34d12b9da641a841994b9fb0dd052b77fcdee04a",
+    "rev": "0daec1042ee7"
    },
    "cover": {
     "url": "magicfinger/cover.jpg",
@@ -189,25 +194,26 @@
    },
    "zip": {
     "url": "magicfinger.zip",
-    "bytes": 3754352,
-    "sha256": "beeab0a489db1ff3f53e297dd83e4d6df470480038877ac3279a57e38424644d"
+    "bytes": 3758961,
+    "sha256": "43324a3d9f6c1502520a0b42ab443e1ee6ac8004907bf6489ece505abab75d28"
    }
   },
   {
    "id": "twits",
    "title": "The Twits",
    "author": "Roald Dahl",
-   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "",
    "lexile": "750L",
-   "rev": "84d89aa4e275",
+   "updated": "2026-10-04",
+   "rev": "eeee2736acfe",
    "version": 2,
    "chapters": 29,
-   "words": 172,
-   "paragraphs": 12,
-   "sentences": 15,
-   "phrases": 22,
-   "coined": 12,
+   "words": 557,
+   "paragraphs": 16,
+   "sentences": 18,
+   "phrases": 46,
+   "coined": 13,
    "epub": {
     "url": "twits/book.epub",
     "bytes": 2867199,
@@ -215,9 +221,9 @@
    },
    "glossary": {
     "url": "twits/glossary.json",
-    "bytes": 118682,
-    "sha256": "e037af75f48efeedd290afa1b78668990cdb00974c8d9b20eb11d578a8511101",
-    "rev": "e037af75f48e"
+    "bytes": 185217,
+    "sha256": "68f71f93479f80971a98bba03dff40637aefd3db4f81a9ae31df8a3827ba8520",
+    "rev": "68f71f93479f"
    },
    "cover": {
     "url": "twits/cover.jpg",
@@ -226,26 +232,27 @@
    },
    "zip": {
     "url": "twits.zip",
-    "bytes": 2938414,
-    "sha256": "0150b6a22333f203f3a42d59f8f6d1885de0e550b25dd39ed689e4b3bed9c638"
+    "bytes": 2952067,
+    "sha256": "5b370e2d05db23f2e50da70525a9b5b70be8b24fcdeaab31cd6fcfba56525827"
    }
   },
   {
    "id": "wof1",
    "title": "Wings of Fire 1: The Dragonet Prophecy",
    "author": "Tui T. Sutherland",
-   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "",
    "lexile": "740L",
    "series": "Wings of Fire",
    "seriesNumber": 1,
-   "rev": "7c349dd689d9",
+   "updated": "2026-10-04",
+   "rev": "7c3a2bc39b46",
    "version": 2,
    "chapters": 44,
-   "words": 711,
-   "paragraphs": 21,
+   "words": 871,
+   "paragraphs": 23,
    "sentences": 37,
-   "phrases": 29,
+   "phrases": 39,
    "coined": 3,
    "epub": {
     "url": "wof1/book.epub",
@@ -254,9 +261,9 @@
    },
    "glossary": {
     "url": "wof1/glossary.json",
-    "bytes": 410515,
-    "sha256": "b59e8b458ef05de150a41ba2ac1e884d0ac566671dd5035606bec917a25b8019",
-    "rev": "b59e8b458ef0"
+    "bytes": 469006,
+    "sha256": "e872d316eb5a54db48e35137329a1ff43af9d3fefc0d2d2bc5c1473594802dca",
+    "rev": "e872d316eb5a"
    },
    "cover": {
     "url": "wof1/cover.jpg",
@@ -265,27 +272,28 @@
    },
    "zip": {
     "url": "wof1.zip",
-    "bytes": 3128597,
-    "sha256": "26354ef0e42f187b82e0a0a8755471aec235880c520a1ca095c023f4a77ce817"
+    "bytes": 3139408,
+    "sha256": "c42fe00119875d7ec05eb2a70b97a04a7f349c71927b0f8534545a4774f45e62"
    }
   },
   {
    "id": "wof2",
    "title": "Wings of Fire 2: The Lost Heir",
    "author": "Tui T. Sutherland",
-   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "",
    "lexile": "750L",
    "isbn": "9780545470100",
    "series": "Wings of Fire",
    "seriesNumber": 2,
-   "rev": "3a73691eec4c",
+   "updated": "2026-10-04",
+   "rev": "0de1833fdeac",
    "version": 2,
    "chapters": 38,
-   "words": 719,
-   "paragraphs": 23,
-   "sentences": 37,
-   "phrases": 28,
+   "words": 958,
+   "paragraphs": 25,
+   "sentences": 38,
+   "phrases": 37,
    "coined": 0,
    "epub": {
     "url": "wof2/book.epub",
@@ -294,9 +302,9 @@
    },
    "glossary": {
     "url": "wof2/glossary.json",
-    "bytes": 422927,
-    "sha256": "c7e827170b8bad6d9ce506c478c21ea68f395ab8c8783587d1c7698ea9792d35",
-    "rev": "c7e827170b8b"
+    "bytes": 509446,
+    "sha256": "deb69d2524673b0f51bf6678bebded216a99fb237eb190c9d61cf9e7eb9643fa",
+    "rev": "deb69d252467"
    },
    "cover": {
     "url": "wof2/cover.jpg",
@@ -305,25 +313,26 @@
    },
    "zip": {
     "url": "wof2.zip",
-    "bytes": 1305340,
-    "sha256": "16ef8d11a847eb853e11dae4b1b746ca1a379207631a97c0aa3c06b9e2fac712"
+    "bytes": 1320696,
+    "sha256": "390514929c951e31349223cbd40bc262881c7092a0aa0ba36dbaee5a815c0633"
    }
   },
   {
    "id": "wonder",
    "title": "Wonder",
    "author": "R J Palacio",
-   "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "",
    "lexile": "790L",
    "isbn": "9781448119141",
-   "rev": "96415f7dbc83",
-   "version": 1,
+   "updated": "2026-10-04",
+   "rev": "fad18b204624",
+   "version": 2,
    "chapters": 130,
-   "words": 957,
-   "paragraphs": 28,
-   "sentences": 32,
-   "phrases": 35,
+   "words": 2141,
+   "paragraphs": 33,
+   "sentences": 34,
+   "phrases": 55,
    "coined": 0,
    "epub": {
     "url": "wonder/book.epub",
@@ -332,9 +341,9 @@
    },
    "glossary": {
     "url": "wonder/glossary.json",
-    "bytes": 583331,
-    "sha256": "3cda8d540d1c746e1e8dab6d16eab40f8da488141f8b708b067d384213b9c556",
-    "rev": "3cda8d540d1c"
+    "bytes": 788311,
+    "sha256": "c55f9fc6247cbdb8e24be51db0c7b1ac3346bdda4dde4888eb305ce5604559e5",
+    "rev": "c55f9fc6247c"
    },
    "cover": {
     "url": "wonder/cover.jpg",
@@ -343,14 +352,14 @@
    },
    "zip": {
     "url": "wonder.zip",
-    "bytes": 1049222,
-    "sha256": "b46eacabf18445ac89b4cd946aa12710745078ff9e343bf8ab27de082ec8b9d5"
+    "bytes": 1081921,
+    "sha256": "6bcd04a077ab58dd912698a838130d58dd3dd6e24356ff4f093066d27eb07f6b"
    }
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 25347542,
-  "sha256": "5a15bf6cadf062e11db5f8076dcf5340bc661be751f7b222d9562ba332aff883"
+  "bytes": 25520250,
+  "sha256": "ed453927134f71e44ee5996bc251b97fbb0234ad7f5e1dac37c3a4a074dbab45"
  }
 }

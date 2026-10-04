@@ -3,9 +3,9 @@
  "title": "The Twits",
  "author": "Roald Dahl",
  "sha256": "4804c3bd16c4c15a0e55ea64206ae8ed1c9fa932458d3027e3f9f8b76795e460",
- "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
  "chapters": 29,
- "count": 172,
+ "count": 557,
  "glossary": {
   "twit": {
    "pos": "singular noun",
@@ -90,7 +90,8 @@
     "It’s just been smeared all over with sticky glue!"
    ],
    "forms": [
-    "glue"
+    "glue",
+    "glued"
    ],
    "count": 23
   },
@@ -146,7 +147,8 @@
     "This time he smeared all the top bars of the monkey cage with sticky glue, as well as the branches of The Big Dead Tree."
    ],
    "forms": [
-    "sticky"
+    "sticky",
+    "stickier"
    ],
    "count": 17
   },
@@ -244,7 +246,8 @@
     "‘As there are no birds for my pie tonight,’ he shouted, ‘then it’ll have to be boys instead!"
    ],
    "forms": [
-    "shouted"
+    "shouted",
+    "shout"
    ],
    "count": 14
   },
@@ -259,7 +262,8 @@
    ],
    "forms": [
     "shrinks",
-    "shrink"
+    "shrink",
+    "shrank"
    ],
    "count": 14
   },
@@ -274,7 +278,8 @@
    ],
    "forms": [
     "balloons",
-    "balloon"
+    "balloon",
+    "ballooning"
    ],
    "count": 12
   },
@@ -288,7 +293,8 @@
     "’ Mr Twit screamed at the birds."
    ],
    "forms": [
-    "screamed"
+    "screamed",
+    "screaming"
    ],
    "count": 12
   },
@@ -317,7 +323,8 @@
     "I want everyone to paint sticky glue all over the ceiling!"
    ],
    "forms": [
-    "paint"
+    "paint",
+    "painted"
    ],
    "count": 9
   },
@@ -346,7 +353,8 @@
     "All the furniture, the big table, the chairs, the sofa, the lamps, the little side tables, the cabinet with bottles of beer in it, the ornaments, the electric fire, the carpet, everything was stuck upside down to the ceiling."
    ],
    "forms": [
-    "carpet"
+    "carpet",
+    "carpeted"
    ],
    "count": 8
   },
@@ -594,7 +602,9 @@
     "On the day before Bird Pie day, he would put the ladder up against The Big Dead Tree and climb into the branches with a bucket of glue and a paint-brush."
    ],
    "forms": [
-    "climb"
+    "climb",
+    "climbed",
+    "climbing"
    ],
    "count": 5
   },
@@ -723,7 +733,8 @@
     "On one Tuesday evening after Mr Twit had been up the ladder and smeared the tree with HUGTIGHT, four little boys crept into the garden to look at the monkeys."
    ],
    "forms": [
-    "smeared"
+    "smeared",
+    "smear"
    ],
    "count": 5
   },
@@ -891,7 +902,8 @@
     "Mrs Twit Gets a Stretching"
    ],
    "forms": [
-    "stretching"
+    "stretching",
+    "stretched"
    ],
    "count": 4
   },
@@ -933,7 +945,8 @@
     "‘It’s hanging on a nail in the workshed."
    ],
    "forms": [
-    "workshed"
+    "workshed",
+    "shed"
    ],
    "count": 4
   },
@@ -947,7 +960,8 @@
     "’ yelled Mr Twit, thrashing his legs in the air."
    ],
    "forms": [
-    "yelled"
+    "yelled",
+    "yell"
    ],
    "count": 4
   },
@@ -1044,7 +1058,8 @@
     "Before we escape from this beastly place we have one very important thing to do."
    ],
    "forms": [
-    "escape"
+    "escape",
+    "escaped"
    ],
    "count": 3
   },
@@ -1114,7 +1129,8 @@
     "‘Boy Pie might be better than Bird Pie,’ he went on, grinning horribly."
    ],
    "forms": [
-    "grinning"
+    "grinning",
+    "grin"
    ],
    "count": 3
   },
@@ -1274,7 +1290,34 @@
    "forms": [
     "pants"
    ],
-   "count": 3
+   "count": 3,
+   "senses": [
+    {
+     "meaning": "Trousers, the clothes that cover the legs.",
+     "whyHard": "Not the usual meaning! Usually: pant means to breathe hard and fast.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "pants",
+       "context": "the seats of their pants to the branches. There were"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "pants",
+       "context": "the seats of our pants. So quick! Unbutton your pants"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "form": "pants",
+       "context": "So quick! Unbutton your pants and slip out of them"
+      }
+     ]
+    }
+   ]
   },
   "plotting": {
    "pos": "present participle",
@@ -1285,7 +1328,8 @@
     "‘You’re plotting something,’ Mrs Twit said, keeping her back turned so he wouldn’t see that she had taken out her glass eye."
    ],
    "forms": [
-    "plotting"
+    "plotting",
+    "plot"
    ],
    "count": 3
   },
@@ -1299,7 +1343,8 @@
     "This evening when the birds come in to roost, you must warn them not to perch on that tree or they will be made into Bird Pie."
    ],
    "forms": [
-    "roost"
+    "roost",
+    "roosting"
    ],
    "count": 3
   },
@@ -1355,7 +1400,8 @@
     "They didn’t care about the thistles and stinging-nettles, not when there were monkeys to look at."
    ],
    "forms": [
-    "stinging"
+    "stinging",
+    "stung"
    ],
    "count": 3
   },
@@ -1425,7 +1471,8 @@
     "As you know, an ordinary unhairy face like yours or mine simply gets a bit smudgy if it is not washed often enough, and there’s nothing so awful about that."
    ],
    "forms": [
-    "washed"
+    "washed",
+    "washing"
    ],
    "count": 3
   },
@@ -1494,7 +1541,9 @@
     "‘It’ll bite off your toes,’ said Mr Twit."
    ],
    "forms": [
-    "bite"
+    "bite",
+    "biting",
+    "bitten"
    ],
    "count": 2
   },
@@ -1701,7 +1750,8 @@
     "Each time she bit through a string and let the balloon float away, the upward pull got less and her rate of climb slowed down."
    ],
    "forms": [
-    "float"
+    "float",
+    "floated"
    ],
    "count": 2
   },
@@ -1908,7 +1958,8 @@
     "The monkeys, with the birds helping them, put glue on the bottom of each chair leg and hoisted them up to the ceiling."
    ],
    "forms": [
-    "hoisted"
+    "hoisted",
+    "hoisting"
    ],
    "count": 2
   },
@@ -1935,7 +1986,8 @@
     "‘You’re the one, you ugly old cow, who went hopping around shouting, “We’re upside down!"
    ],
    "forms": [
-    "hopping"
+    "hopping",
+    "hop"
    ],
    "count": 2
   },
@@ -2032,7 +2084,8 @@
     "All four monkeys leapt out together."
    ],
    "forms": [
-    "leapt"
+    "leapt",
+    "leaping"
    ],
    "count": 2
   },
@@ -2440,7 +2493,9 @@
     "They had only just finished the job when the Roly-Poly Bird came swooping in, screaming, ‘They’re coming back!"
    ],
    "forms": [
-    "swooping"
+    "swooping",
+    "swoop",
+    "swooped"
    ],
    "count": 2
   },
@@ -2653,6 +2708,2560 @@
    ],
    "count": 1,
    "coined": true
+  },
+  "foot": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A measure of length, about thirty centimetres.",
+   "senses": [
+    {
+     "meaning": "A measure of length, about thirty centimetres.",
+     "whyHard": "Not the usual meaning! Usually: a foot is the part of the body you stand on.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "foot",
+       "context": "shrunk at least a foot in the last few days"
+      }
+     ]
+    }
+   ]
+  },
+  "pretty": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Quite; more than a little.",
+   "senses": [
+    {
+     "meaning": "Quite; more than a little.",
+     "whyHard": "Not the usual meaning! Usually: pretty means nice to look at.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "All this sounds pretty silly to you and me. It"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "and me. It sounded pretty silly to the monkeys, too"
+      }
+     ]
+    }
+   ]
+  },
+  "poor": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "That you feel sorry for.",
+   "senses": [
+    {
+     "meaning": "That you feel sorry for.",
+     "whyHard": "Not the usual meaning! Usually: poor means having no money.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "poor",
+       "context": "They didn’t know, poor things, that the branches were"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "poor",
+       "context": "Obediently, the poor monkeys stood on their hands and clambered"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "poor",
+       "context": "the Roly-Poly Bird. ‘Poor old Muggles has gone off"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "poor",
+       "context": "had once held the poor birds in The Big Dead"
+      }
+     ]
+    }
+   ]
+  },
+  "kind": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A sort or a type.",
+   "senses": [
+    {
+     "meaning": "A sort or a type.",
+     "whyHard": "Not the usual meaning! Usually: kind means nice and good to others.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "kind",
+       "context": "It’s a new kind,’ Mrs Twit said, taking a"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "kind",
+       "context": "good as the ordinary kind,’ he said, talking with his"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "kind",
+       "context": "a distinctly bitter flavour. Buy the other kind next time"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "kind",
+       "context": "didn’t matter what kind they were – song thrushes, blackbirds"
+      }
+     ]
+    }
+   ]
+  },
+  "ring": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A circle, or a round band of metal.",
+   "senses": [
+    {
+     "meaning": "A circle, or a round band of metal.",
+     "whyHard": "Not the usual meaning! Usually: a ring is a piece of jewellery for a finger.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "ring",
+       "context": "froth made a white ring on the hairs around his"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "ring",
+       "context": "He had fixed an iron ring into the ground"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "ring",
+       "context": "pointing to the iron ring. He then tied Mrs Twit"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "ring",
+       "context": "then tied Mrs Twit’s ankles to the iron ring"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "ring",
+       "context": "strings holding Mrs Twit’s ankles to the iron ring"
+      }
+     ]
+    }
+   ]
+  },
+  "last": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To go on for a length of time.",
+   "senses": [
+    {
+     "meaning": "To go on for a length of time.",
+     "whyHard": "Not the usual meaning! Usually: last means coming at the end.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "last",
+       "context": "You won’t last long if you don’t,’ said"
+      }
+     ]
+    }
+   ]
+  },
+  "rest": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The other things, the ones left over.",
+   "senses": [
+    {
+     "meaning": "The other things, the ones left over.",
+     "whyHard": "Not the usual meaning! Usually: a rest is a time when you stop and sit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "rest",
+       "context": "to smoke pipes and all the rest of that nonsense"
+      }
+     ]
+    }
+   ]
+  },
+  "lightest": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "The least heavy. The touch was very soft.",
+   "senses": [
+    {
+     "meaning": "The least heavy. The touch was very soft.",
+     "whyHard": "Not the usual meaning! Usually: light means a lamp, or not dark.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "lightest",
+       "context": "did it with the lightest touch but even so the"
+      }
+     ]
+    }
+   ]
+  },
+  "fire": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A heater that warms a room.",
+   "senses": [
+    {
+     "meaning": "A heater that warms a room.",
+     "whyHard": "Not the usual meaning! Usually: a fire is the hot flames that burn.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "fire",
+       "context": "the ornaments, the electric fire, the carpet, everything was stuck"
+      }
+     ]
+    }
+   ]
+  },
+  "change": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "Something different from the usual.",
+   "senses": [
+    {
+     "meaning": "Something different from the usual.",
+     "whyHard": "Not the usual meaning! Usually: change means to become different, or the coins you get back.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "change",
+       "context": "Let them see what it feels like for a change"
+      }
+     ]
+    }
+   ]
+  },
+  "dear": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "A cry of worry. People say it when they mean oh no.",
+   "senses": [
+    {
+     "meaning": "A cry of worry. People say it when they mean oh no.",
+     "whyHard": "Not the usual meaning! Usually: dear means loved, or used at the start of a letter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "dear",
+       "context": "want anything like that to happen, oh dear me no"
+      }
+     ]
+    }
+   ]
+  },
+  "mad": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Very much, or very hard. 'Like mad' means with great force.",
+   "senses": [
+    {
+     "meaning": "Very much, or very hard. 'Like mad' means with great force.",
+     "whyHard": "Not the usual meaning! Usually: mad means very angry, or not thinking clearly.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "mad",
+       "context": "was plotting away like mad. He was trying to think"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "mad",
+       "context": "can!’ cried Mrs Twit. ‘They’re stretching me like mad"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "mad",
+       "context": "was splashing away like mad and, with so many helpers"
+      }
+     ]
+    }
+   ]
+  },
+  "subject": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The thing someone is talking about.",
+   "senses": [
+    {
+     "meaning": "The thing someone is talking about.",
+     "whyHard": "Not the usual meaning! Usually: a subject is a class at school, like English.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "subject",
+       "context": "not to mention that subject. How would you like it"
+      }
+     ]
+    }
+   ]
+  },
+  "smoke": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To breathe in from a pipe or a cigarette.",
+   "senses": [
+    {
+     "meaning": "To breathe in from a pipe or a cigarette.",
+     "whyHard": "Not the usual meaning! Usually: smoke is the grey cloud from a fire.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "smoke",
+       "context": "human clothes and to smoke pipes and all the rest"
+      }
+     ]
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Not moving. It can also mean even more.",
+   "senses": [
+    {
+     "meaning": "Even more.",
+     "whyHard": "Not the usual meaning! Usually: still means continuing, as in 'still there'.",
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "still",
+       "context": "If you looked closer still (hold your noses, ladies and"
+      }
+     ],
+     "trickyMeaning": true
+    },
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means continuing, as in 'still there'.",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "still",
+       "context": "stopped going up altogether. She stayed still in the air"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "round": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "On every side, or moving in a circle.",
+   "senses": [
+    {
+     "meaning": "On every side, or moving in a circle.",
+     "whyHard": "Not the usual meaning! Usually: round means shaped like a circle.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "round",
+       "context": "body. Some he tied round her neck, some under her"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "round",
+       "context": "Roly-Poly Bird flew round and round The Big Dead"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "round",
+       "context": "Bird flew round and round The Big Dead Tree singing"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "round",
+       "context": "Roly-Poly Bird flew round and round the monkey cage"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "form": "round",
+       "context": "Bird flew round and round the monkey cage and The"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "round",
+       "context": "like a demon hopping round the room and telling everyone"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    },
+    {
+     "meaning": "To come to a place.",
+     "whyHard": "Not the usual meaning! Usually: round means shaped like a circle.",
+     "anchors": [
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "round",
+       "context": "man called Fred came round to read the gas meter"
+      }
+     ],
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "matter": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A thing you are talking about.",
+   "senses": [
+    {
+     "meaning": "A thing you are talking about, or a kind of thing.",
+     "whyHard": "Not the usual meaning! Usually: 'what is the matter?' means 'what is wrong?'",
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "matter",
+       "context": "is a very different matter. Things cling to hairs, especially"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    },
+    {
+     "meaning": "To be important.",
+     "whyHard": "Not the usual meaning! Usually: 'what is the matter?' means 'what is wrong?'",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "matter",
+       "context": "tree. It didn’t matter what kind they were – song"
+      }
+     ],
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "bit": {
+   "pos": "singular noun",
+   "meaning": "A small piece, or a small amount.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "A small piece, or a small amount.",
+     "whyHard": "A bit is a small piece. It is not the past of bite.",
+     "default": true
+    },
+    {
+     "meaning": "Cut something with the teeth. This is the past of bite.",
+     "whyHard": "It looks like a small piece. Here it is the past of bite.",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "bit",
+       "context": "hair. Each time she bit through a string and let"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "bit",
+       "context": "She bit through one more string"
+      }
+     ]
+    }
+   ]
+  },
+  "stick": {
+   "pos": "singular noun",
+   "meaning": "A long thin piece of wood you can hold in your hand.",
+   "whyHard": "This word has more than one meaning.",
+   "forms": [
+    "sticks"
+   ],
+   "senses": [
+    {
+     "meaning": "A long thin piece of wood you can hold in your hand.",
+     "whyHard": "A stick is a piece of wood. It is not the same as stuck.",
+     "default": true
+    },
+    {
+     "meaning": "To press or join something so that it stays there, or so that it points out.",
+     "whyHard": "Here stick means to fix something in place. It does not mean a piece of wood.",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "stick",
+       "context": "a double chin and stick-out teeth, but if you"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "stick",
+       "context": "under the furniture and stick it on to the ceiling"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "form": "stick",
+       "context": "I’ll stick you on to the ceiling if you"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "stick",
+       "context": "leg. Then we shall stick that on to the ceiling"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "form": "stick",
+       "context": "was especially difficult to stick everything on to the ceiling"
+      }
+     ]
+    },
+    {
+     "meaning": "The sticky glue, in the bird's song.",
+     "whyHard": "In the song, stick stuff means the glue. It is not a piece of wood.",
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "stick",
+       "context": "There’s sticky stick stuff all over the tree"
+      }
+     ]
+    }
+   ]
+  },
+  "rate": {
+   "pos": "singular noun",
+   "meaning": "How fast something goes.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "How fast something goes.",
+     "default": true
+    },
+    {
+     "meaning": "Anyway. 'At any rate' means 'whatever else is true'.",
+     "whyHard": "Not the usual meaning! Usually: a rate is how fast something goes.",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "rate",
+       "context": "because that at any rate would have hidden some of"
+      }
+     ],
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "rather": {
+   "pos": "adverb",
+   "meaning": "Quite; more than a little.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Quite; more than a little.",
+     "default": true
+    },
+    {
+     "meaning": "Would prefer. 'He would rather' means he wants this more.",
+     "whyHard": "Not the usual meaning! Usually: rather means quite.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "rather",
+       "context": "he does it. He’d rather you didn’t know"
+      }
+     ],
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "crack": {
+   "pos": "singular noun",
+   "meaning": "A thin opening.",
+   "whyHard": "This word has more than one meaning.",
+   "forms": [
+    "cracking"
+   ],
+   "senses": [
+    {
+     "meaning": "A thin opening.",
+     "default": true
+    },
+    {
+     "meaning": "To hit something so that it makes a sharp sound.",
+     "whyHard": "Here crack means to hit. It does not mean a thin opening.",
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "cracking",
+       "context": "with the stick and cracking him all over his body"
+      }
+     ]
+    }
+   ]
+  },
+  "train": {
+   "pos": "base verb",
+   "meaning": "To teach an animal or a person to do something.",
+   "whyHard": "It looks like a railway train. Here it means to teach."
+  },
+  "trainer": {
+   "pos": "singular noun",
+   "meaning": "A person who teaches animals to do tricks.",
+   "whyHard": "It looks like a sports shoe, or a railway train. Here it is a teacher of animals.",
+   "forms": [
+    "trainers"
+   ]
+  },
+  "bark": {
+   "pos": "base verb",
+   "meaning": "To shout in a loud, sharp voice.",
+   "whyHard": "It looks like the noise a dog makes. Here it means shouted.",
+   "forms": [
+    "barked"
+   ]
+  },
+  "pop": {
+   "pos": "base verb",
+   "meaning": "To push something quickly into a place.",
+   "whyHard": "It looks like a short sound. Here it means to push in."
+  },
+  "tip": {
+   "pos": "base verb",
+   "meaning": "To turn something so that what is inside runs out.",
+   "whyHard": "It looks like extra money, or the end of a thing. Here it means turned and poured.",
+   "forms": [
+    "tipped"
+   ]
+  },
+  "sink": {
+   "pos": "singular noun",
+   "meaning": "The basin in a kitchen where you wash things.",
+   "whyHard": "It looks like the verb sink, to go down. Here it is a washing place."
+  },
+  "case": {
+   "pos": "singular noun",
+   "meaning": "One time of an illness. A bad one is a strong attack of it.",
+   "whyHard": "It looks like a box or a suitcase. Here it means one attack of an illness."
+  },
+  "sole": {
+   "pos": "singular noun",
+   "meaning": "The bottom of a foot.",
+   "whyHard": "It looks like the word only, or a fish. Here it is the bottom of the foot."
+  },
+  "pipe": {
+   "pos": "singular noun",
+   "meaning": "A small tube you hold in the mouth and smoke.",
+   "whyHard": "It looks like a water pipe. Here it is for smoking.",
+   "forms": [
+    "pipes"
+   ]
+  },
+  "till": {
+   "pos": "preposition",
+   "meaning": "Until. Up to the time when.",
+   "whyHard": "It is a short form of until."
+  },
+  "load": {
+   "pos": "base verb",
+   "meaning": "To put bullets into a gun.",
+   "whyHard": "It looks like a heavy load you carry. Here it means to put bullets in a gun.",
+   "forms": [
+    "loaded"
+   ]
+  },
+  "beer": {
+   "pos": "singular noun",
+   "meaning": "A drink with alcohol, made from grain."
+  },
+  "iron": {
+   "pos": "singular noun",
+   "meaning": "A hard grey metal.",
+   "whyHard": "It looks like the hot tool for smoothing clothes. Here it is the metal."
+  },
+  "gas": {
+   "pos": "singular noun",
+   "meaning": "A substance like air. It can lift balloons, or burn to heat a house."
+  },
+  "gun": {
+   "pos": "singular noun",
+   "meaning": "A weapon that shoots bullets.",
+   "forms": [
+    "guns"
+   ]
+  },
+  "key": {
+   "pos": "singular noun",
+   "meaning": "A small metal piece that opens a lock.",
+   "forms": [
+    "keys"
+   ]
+  },
+  "notice": {
+   "pos": "base verb",
+   "meaning": "To see something, or to pay attention to it."
+  },
+  "grand": {
+   "pos": "adjective",
+   "meaning": "Fine, large, and important."
+  },
+  "impossible": {
+   "pos": "adjective",
+   "meaning": "Not possible. It cannot be done."
+  },
+  "presence": {
+   "pos": "singular noun",
+   "meaning": "Being there, in that place.",
+   "whyHard": "It looks like a present, a gift. Here it means being there."
+  },
+  "bough": {
+   "pos": "singular noun",
+   "meaning": "A large branch of a tree.",
+   "whyHard": "It is an old word for a branch. It sounds like bow."
+  },
+  "jet": {
+   "pos": "singular noun",
+   "meaning": "A very fast plane.",
+   "whyHard": "It looks like a spray of water. Here it is a plane."
+  },
+  "dropping": {
+   "pos": "singular noun",
+   "meaning": "Waste from a bird.",
+   "whyHard": "It looks like the verb drop. Here it is what a bird leaves behind.",
+   "forms": [
+    "droppings"
+   ]
+  },
+  "meter": {
+   "pos": "singular noun",
+   "meaning": "A machine that measures how much gas or electricity you use.",
+   "whyHard": "It looks like a metre, a measure of length. Here it is a machine."
+  },
+  "goat": {
+   "pos": "singular noun",
+   "meaning": "An animal with horns, a bit like a sheep. People shout the name as a rude word."
+  },
+  "drop": {
+   "pos": "singular noun",
+   "meaning": "A very small amount of liquid.",
+   "whyHard": "It looks like the verb drop, to let something fall. Here it is a tiny bit of liquid."
+  },
+  "forehead": {
+   "pos": "singular noun",
+   "meaning": "The part of the face above the eyes."
+  },
+  "nostril": {
+   "pos": "singular noun",
+   "meaning": "One of the two openings in the nose.",
+   "forms": [
+    "nostrils"
+   ]
+  },
+  "tuft": {
+   "pos": "singular noun",
+   "meaning": "A small bunch of hairs growing together.",
+   "forms": [
+    "tufts"
+   ]
+  },
+  "sprout": {
+   "pos": "base verb",
+   "meaning": "To grow out.",
+   "forms": [
+    "sprouted"
+   ]
+  },
+  "matted": {
+   "pos": "adjective",
+   "meaning": "Stuck together in a thick tangle."
+  },
+  "spike": {
+   "pos": "singular noun",
+   "meaning": "A sharp point.",
+   "forms": [
+    "spikes"
+   ]
+  },
+  "smudgy": {
+   "pos": "adjective",
+   "meaning": "Dirty, with grey marks."
+  },
+  "gravy": {
+   "pos": "singular noun",
+   "meaning": "A brown sauce that comes from cooked meat."
+  },
+  "flannel": {
+   "pos": "singular noun",
+   "meaning": "A small soft cloth for washing the face.",
+   "whyHard": "It is an old name for a washcloth."
+  },
+  "spoonful": {
+   "pos": "singular noun",
+   "meaning": "As much as a spoon can hold."
+  },
+  "spinach": {
+   "pos": "singular noun",
+   "meaning": "A dark green leaf that people cook and eat."
+  },
+  "ketchup": {
+   "pos": "singular noun",
+   "meaning": "A thick red sauce made from tomatoes."
+  },
+  "mince": {
+   "pos": "base verb",
+   "meaning": "To cut meat into very small pieces.",
+   "forms": [
+    "minced"
+   ]
+  },
+  "liver": {
+   "pos": "singular noun",
+   "meaning": "A part inside an animal, sometimes cooked as food.",
+   "whyHard": "It looks like the person who lives in a place. Here it is food."
+  },
+  "speck": {
+   "pos": "singular noun",
+   "meaning": "A very small bit.",
+   "forms": [
+    "specks"
+   ]
+  },
+  "mouldy": {
+   "pos": "adjective",
+   "meaning": "Old and covered with a soft green growth."
+  },
+  "cornflake": {
+   "pos": "singular noun",
+   "meaning": "A small dry piece of corn that you eat with milk."
+  },
+  "sardine": {
+   "pos": "singular noun",
+   "meaning": "A small fish, often sold in a tin."
+  },
+  "tinned": {
+   "pos": "adjective",
+   "meaning": "Kept in a metal can."
+  },
+  "morsel": {
+   "pos": "singular noun",
+   "meaning": "A very small piece of food."
+  },
+  "nibble": {
+   "pos": "base verb",
+   "meaning": "To eat with very small bites."
+  },
+  "foul": {
+   "pos": "adjective",
+   "meaning": "Very dirty and bad."
+  },
+  "smelly": {
+   "pos": "adjective",
+   "meaning": "Having a bad smell."
+  },
+  "wonky": {
+   "pos": "adjective",
+   "meaning": "Not straight."
+  },
+  "crooked": {
+   "pos": "adjective",
+   "meaning": "Bent, not straight."
+  },
+  "chin": {
+   "pos": "singular noun",
+   "meaning": "The part of the face under the mouth."
+  },
+  "sunbeam": {
+   "pos": "singular noun",
+   "meaning": "A line of sunlight.",
+   "forms": [
+    "sunbeams"
+   ]
+  },
+  "wart": {
+   "pos": "singular noun",
+   "meaning": "A small hard lump on the skin.",
+   "forms": [
+    "warts"
+   ]
+  },
+  "apron": {
+   "pos": "singular noun",
+   "meaning": "A cloth you tie over your clothes to keep them clean when you cook."
+  },
+  "sprinkle": {
+   "pos": "base verb",
+   "meaning": "To shake small bits over something.",
+   "forms": [
+    "sprinkled"
+   ]
+  },
+  "poke": {
+   "pos": "base verb",
+   "meaning": "To push at something with a finger or a fork.",
+   "forms": [
+    "poking"
+   ]
+  },
+  "mouthful": {
+   "pos": "singular noun",
+   "meaning": "As much as the mouth can hold at one time."
+  },
+  "shovel": {
+   "pos": "base verb",
+   "meaning": "To lift and push a lot of something into a place, as if with a spade.",
+   "forms": [
+    "shovelling"
+   ]
+  },
+  "plateful": {
+   "pos": "singular noun",
+   "meaning": "As much as a plate can hold."
+  },
+  "tablecloth": {
+   "pos": "singular noun",
+   "meaning": "A cloth that covers a table."
+  },
+  "bitter": {
+   "pos": "adjective",
+   "meaning": "Having a sharp taste that is not sweet."
+  },
+  "flavour": {
+   "pos": "singular noun",
+   "meaning": "The taste of food."
+  },
+  "distinctly": {
+   "pos": "adverb",
+   "meaning": "Clearly. You can tell it for sure."
+  },
+  "clap": {
+   "pos": "base verb",
+   "meaning": "To hit your hands together.",
+   "forms": [
+    "clapping"
+   ]
+  },
+  "stamp": {
+   "pos": "base verb",
+   "meaning": "To bring your foot down hard.",
+   "forms": [
+    "stamping"
+   ]
+  },
+  "rock": {
+   "pos": "base verb",
+   "meaning": "To move from side to side.",
+   "whyHard": "It looks like a stone. Here it means to move from side to side.",
+   "forms": [
+    "rocking"
+   ]
+  },
+  "thickness": {
+   "pos": "singular noun",
+   "meaning": "How thick something is."
+  },
+  "neatly": {
+   "pos": "adverb",
+   "meaning": "In a careful, tidy way."
+  },
+  "gradual": {
+   "pos": "adjective",
+   "meaning": "Happening slowly, a little at a time."
+  },
+  "halfway": {
+   "pos": "adverb",
+   "meaning": "In the middle of the way to a place."
+  },
+  "shoulder": {
+   "pos": "singular noun",
+   "meaning": "The top of the arm, where it joins the body.",
+   "forms": [
+    "shoulders"
+   ]
+  },
+  "trembly": {
+   "pos": "adjective",
+   "meaning": "Shaking a little."
+  },
+  "comparison": {
+   "pos": "singular noun",
+   "meaning": "Looking at two things together to see how they differ."
+  },
+  "jolly": {
+   "pos": "adverb",
+   "meaning": "Very. Used to make the next word stronger."
+  },
+  "pistol": {
+   "pos": "singular noun",
+   "meaning": "A small gun you hold in one hand."
+  },
+  "dribble": {
+   "pos": "base verb",
+   "meaning": "To let spit fall from the mouth."
+  },
+  "disease": {
+   "pos": "singular noun",
+   "meaning": "An illness."
+  },
+  "cure": {
+   "pos": "singular noun",
+   "meaning": "Something that makes an illness stop."
+  },
+  "solemn": {
+   "pos": "adjective",
+   "meaning": "Very serious, not smiling."
+  },
+  "cheek": {
+   "pos": "singular noun",
+   "meaning": "The soft part of the face beside the mouth.",
+   "forms": [
+    "cheeks"
+   ]
+  },
+  "clutch": {
+   "pos": "base verb",
+   "meaning": "To hold something tightly.",
+   "forms": [
+    "clutching"
+   ]
+  },
+  "cylinder": {
+   "pos": "singular noun",
+   "meaning": "A tall metal container, here one that holds gas."
+  },
+  "prisoner": {
+   "pos": "singular noun",
+   "meaning": "A person who is held and cannot get away."
+  },
+  "helpless": {
+   "pos": "adjective",
+   "meaning": "Not able to move or to help yourself."
+  },
+  "intend": {
+   "pos": "base verb",
+   "meaning": "To plan to do something.",
+   "forms": [
+    "intended"
+   ]
+  },
+  "couple": {
+   "pos": "singular noun",
+   "meaning": "Two, or a small number around two."
+  },
+  "exclaim": {
+   "pos": "base verb",
+   "meaning": "To cry out suddenly.",
+   "forms": [
+    "exclaimed"
+   ]
+  },
+  "ghoulish": {
+   "pos": "adjective",
+   "meaning": "Nasty and frightening, like a bad joke about death."
+  },
+  "kneel": {
+   "pos": "base verb",
+   "meaning": "To go down on your knees.",
+   "forms": [
+    "knelt"
+   ]
+  },
+  "slash": {
+   "pos": "singular noun",
+   "meaning": "A quick cut.",
+   "forms": [
+    "slashing"
+   ]
+  },
+  "knife": {
+   "pos": "singular noun",
+   "meaning": "A tool with a sharp blade for cutting."
+  },
+  "rocket": {
+   "pos": "singular noun",
+   "meaning": "A machine that shoots up into the sky."
+  },
+  "billow": {
+   "pos": "base verb",
+   "meaning": "To swell out, like a sail in the wind.",
+   "forms": [
+    "billowed"
+   ]
+  },
+  "parachute": {
+   "pos": "singular noun",
+   "meaning": "A large cloth that opens above you so you can fall slowly from the sky."
+  },
+  "knickers": {
+   "pos": "plural noun",
+   "meaning": "Underwear for the lower body, with legs."
+  },
+  "mile": {
+   "pos": "singular noun",
+   "meaning": "A long measure of distance, a bit more than one and a half kilometres.",
+   "forms": [
+    "miles"
+   ]
+  },
+  "stare": {
+   "pos": "base verb",
+   "meaning": "To look at something for a long time without looking away."
+  },
+  "wasp": {
+   "pos": "singular noun",
+   "meaning": "A flying insect with a sting."
+  },
+  "gape": {
+   "pos": "base verb",
+   "meaning": "To look with the mouth open, from surprise.",
+   "forms": [
+    "gaped",
+    "gaping"
+   ]
+  },
+  "gurgle": {
+   "pos": "base verb",
+   "meaning": "To make a bubbling sound in the throat.",
+   "forms": [
+    "gurgled"
+   ]
+  },
+  "choke": {
+   "pos": "base verb",
+   "meaning": "To be unable to breathe or to speak.",
+   "forms": [
+    "choking"
+   ]
+  },
+  "rage": {
+   "pos": "singular noun",
+   "meaning": "Very strong anger."
+  },
+  "swish": {
+   "pos": "base verb",
+   "meaning": "To hit with a thin stick so that it makes a sound."
+  },
+  "swash": {
+   "pos": "base verb",
+   "meaning": "To hit. Mrs Twit uses it in an angry rhyme."
+  },
+  "gnash": {
+   "pos": "base verb",
+   "meaning": "To crush with the teeth, or to hit hard."
+  },
+  "fury": {
+   "pos": "singular noun",
+   "meaning": "Very strong anger."
+  },
+  "fiery": {
+   "pos": "adjective",
+   "meaning": "Full of anger, as if on fire."
+  },
+  "lash": {
+   "pos": "base verb",
+   "meaning": "To hit out hard.",
+   "forms": [
+    "lashing"
+   ]
+  },
+  "prison": {
+   "pos": "singular noun",
+   "meaning": "A building where people are locked in."
+  },
+  "peep": {
+   "pos": "base verb",
+   "meaning": "To look quickly or secretly.",
+   "forms": [
+    "peeping",
+    "peeped"
+   ]
+  },
+  "gardener": {
+   "pos": "singular noun",
+   "meaning": "A person who grows plants."
+  },
+  "spiky": {
+   "pos": "adjective",
+   "meaning": "Having sharp points."
+  },
+  "nosey": {
+   "pos": "adjective",
+   "meaning": "Wanting to know other people's business."
+  },
+  "brush": {
+   "pos": "singular noun",
+   "meaning": "A tool with stiff hairs, used for painting or for cleaning.",
+   "forms": [
+    "brushes"
+   ]
+  },
+  "scissors": {
+   "pos": "plural noun",
+   "meaning": "A tool with two blades for cutting."
+  },
+  "tonic": {
+   "pos": "singular noun",
+   "meaning": "A liquid you rub into the hair."
+  },
+  "hairdryer": {
+   "pos": "singular noun",
+   "meaning": "A machine that blows hot air to dry hair."
+  },
+  "shampoo": {
+   "pos": "singular noun",
+   "meaning": "Soap for washing hair."
+  },
+  "barber": {
+   "pos": "singular noun",
+   "meaning": "A person whose job is to cut men's hair."
+  },
+  "mirror": {
+   "pos": "singular noun",
+   "meaning": "A glass you look in to see yourself."
+  },
+  "nowadays": {
+   "pos": "adverb",
+   "meaning": "In these days; at the present time."
+  },
+  "pond": {
+   "pos": "singular noun",
+   "meaning": "A small area of still water."
+  },
+  "jug": {
+   "pos": "singular noun",
+   "meaning": "A container with a handle, used for pouring water."
+  },
+  "revive": {
+   "pos": "base verb",
+   "meaning": "To make someone wake after they have fainted."
+  },
+  "screwdriver": {
+   "pos": "singular noun",
+   "meaning": "A tool for turning screws.",
+   "forms": [
+    "screwdrivers"
+   ]
+  },
+  "faint": {
+   "pos": "base verb",
+   "meaning": "To fall down because you feel ill and everything goes dark.",
+   "forms": [
+    "fainted"
+   ]
+  },
+  "toe": {
+   "pos": "singular noun",
+   "meaning": "One of the five parts at the end of a foot.",
+   "forms": [
+    "toes"
+   ]
+  },
+  "scratch": {
+   "pos": "base verb",
+   "meaning": "To rub the skin with the nails.",
+   "forms": [
+    "scratching"
+   ]
+  },
+  "itch": {
+   "pos": "base verb",
+   "meaning": "To feel a tickle on the skin that makes you want to scratch.",
+   "forms": [
+    "itching",
+    "itchy"
+   ]
+  },
+  "sneak": {
+   "pos": "base verb",
+   "meaning": "To go quietly so that nobody sees you.",
+   "forms": [
+    "sneaked"
+   ]
+  },
+  "squiggly": {
+   "pos": "adjective",
+   "meaning": "Wavy, with many small bends."
+  },
+  "pleasure": {
+   "pos": "singular noun",
+   "meaning": "A feeling of being pleased."
+  },
+  "secretly": {
+   "pos": "adverb",
+   "meaning": "In a hidden way, so others do not see."
+  },
+  "unbutton": {
+   "pos": "base verb",
+   "meaning": "To open the buttons of a piece of clothing."
+  },
+  "slip": {
+   "pos": "base verb",
+   "meaning": "To move out of something quickly and smoothly.",
+   "forms": [
+    "slipped"
+   ]
+  },
+  "tumble": {
+   "pos": "base verb",
+   "meaning": "To fall and roll.",
+   "forms": [
+    "tumbled"
+   ]
+  },
+  "naked": {
+   "pos": "adjective",
+   "meaning": "Wearing no clothes."
+  },
+  "wink": {
+   "pos": "base verb",
+   "meaning": "To open and close quickly, like an eye. Here the bare skin flashes in the sun.",
+   "forms": [
+    "winking"
+   ]
+  },
+  "retired": {
+   "pos": "adjective",
+   "meaning": "No longer working at a job, because of age."
+  },
+  "balance": {
+   "pos": "base verb",
+   "meaning": "To stay up without falling."
+  },
+  "practising": {
+   "pos": "verb",
+   "meaning": "Doing something again and again in order to learn it."
+  },
+  "blood": {
+   "pos": "singular noun",
+   "meaning": "The red liquid inside the body."
+  },
+  "weird": {
+   "pos": "adjective",
+   "meaning": "Very strange."
+  },
+  "magnificent": {
+   "pos": "adjective",
+   "meaning": "Wonderful to see; very grand."
+  },
+  "fluff": {
+   "pos": "base verb",
+   "meaning": "To shake feathers so that they stand out.",
+   "forms": [
+    "fluffed"
+   ]
+  },
+  "feather": {
+   "pos": "singular noun",
+   "meaning": "One of the light coverings on a bird's body.",
+   "forms": [
+    "feathers"
+   ]
+  },
+  "grandly": {
+   "pos": "adverb",
+   "meaning": "In a proud, important way."
+  },
+  "perch": {
+   "pos": "base verb",
+   "meaning": "To sit on a branch or a bar.",
+   "forms": [
+    "perched"
+   ]
+  },
+  "warn": {
+   "pos": "base verb",
+   "meaning": "To tell someone about a danger.",
+   "forms": [
+    "warning"
+   ]
+  },
+  "snatch": {
+   "pos": "base verb",
+   "meaning": "To grab something quickly."
+  },
+  "crouch": {
+   "pos": "base verb",
+   "meaning": "To bend the body down low.",
+   "forms": [
+    "crouched"
+   ]
+  },
+  "chat": {
+   "pos": "singular noun",
+   "meaning": "A friendly talk."
+  },
+  "hoot": {
+   "pos": "base verb",
+   "meaning": "To shout with laughter.",
+   "forms": [
+    "hooting"
+   ]
+  },
+  "frump": {
+   "pos": "singular noun",
+   "meaning": "A dull, messy person. Mr Twit shouts it at the birds.",
+   "forms": [
+    "frumps"
+   ]
+  },
+  "wring": {
+   "pos": "base verb",
+   "meaning": "To twist hard, especially someone's neck."
+  },
+  "bubble": {
+   "pos": "base verb",
+   "meaning": "To boil with round balls of air.",
+   "forms": [
+    "bubbling"
+   ]
+  },
+  "shotgun": {
+   "pos": "singular noun",
+   "meaning": "A big gun that shoots many small bullets at once.",
+   "forms": [
+    "shotguns"
+   ]
+  },
+  "spray": {
+   "pos": "base verb",
+   "meaning": "To shoot out in a wide cloud."
+  },
+  "bullet": {
+   "pos": "singular noun",
+   "meaning": "The small hard piece that a gun shoots.",
+   "forms": [
+    "bullets"
+   ]
+  },
+  "clamber": {
+   "pos": "base verb",
+   "meaning": "To climb using both hands and feet.",
+   "forms": [
+    "clambered"
+   ]
+  },
+  "backside": {
+   "pos": "singular noun",
+   "meaning": "The part of the body you sit on.",
+   "forms": [
+    "backsides"
+   ]
+  },
+  "overbalance": {
+   "pos": "base verb",
+   "meaning": "To fall because you lean too far."
+  },
+  "march": {
+   "pos": "base verb",
+   "meaning": "To walk with firm, even steps, like a soldier.",
+   "forms": [
+    "marched",
+    "marching"
+   ]
+  },
+  "flip": {
+   "pos": "base verb",
+   "meaning": "To turn over quickly.",
+   "forms": [
+    "flipped"
+   ]
+  },
+  "barrel": {
+   "pos": "singular noun",
+   "meaning": "A large round container."
+  },
+  "mat": {
+   "pos": "singular noun",
+   "meaning": "A small rug, here one by the door."
+  },
+  "doormat": {
+   "pos": "singular noun",
+   "meaning": "A mat just outside a door, for wiping your shoes."
+  },
+  "scamper": {
+   "pos": "base verb",
+   "meaning": "To run with short quick steps.",
+   "forms": [
+    "scampered"
+   ]
+  },
+  "twinkle": {
+   "pos": "base verb",
+   "meaning": "To shine with a small bright light. A twinkling smile is a small bright smile.",
+   "forms": [
+    "twinkling"
+   ]
+  },
+  "monster": {
+   "pos": "singular noun",
+   "meaning": "A huge frightening creature. Here it means a horrible person.",
+   "forms": [
+    "monsters"
+   ]
+  },
+  "dotty": {
+   "pos": "adjective",
+   "meaning": "Silly; not thinking clearly.",
+   "whyHard": "It looks like dots. Here it means silly."
+  },
+  "balmy": {
+   "pos": "adjective",
+   "meaning": "Silly.",
+   "whyHard": "It looks like warm pleasant weather. Here it means silly."
+  },
+  "batty": {
+   "pos": "adjective",
+   "meaning": "Silly.",
+   "whyHard": "It looks like a bat, the flying animal. Here it means silly."
+  },
+  "nutty": {
+   "pos": "adjective",
+   "meaning": "Silly.",
+   "whyHard": "It looks like a nut. Here it means silly."
+  },
+  "screwy": {
+   "pos": "adjective",
+   "meaning": "Silly.",
+   "whyHard": "It looks like a screw. Here it means silly."
+  },
+  "wacky": {
+   "pos": "adjective",
+   "meaning": "Very silly."
+  },
+  "nitwit": {
+   "pos": "singular noun",
+   "meaning": "A silly person.",
+   "forms": [
+    "nitwits"
+   ]
+  },
+  "demon": {
+   "pos": "singular noun",
+   "meaning": "A bad spirit. 'Like a demon' means wildly, without stopping."
+  },
+  "puff": {
+   "pos": "base verb",
+   "meaning": "To breathe hard and fast.",
+   "forms": [
+    "puffing"
+   ]
+  },
+  "drag": {
+   "pos": "base verb",
+   "meaning": "To pull something along the ground.",
+   "forms": [
+    "dragged"
+   ]
+  },
+  "pattern": {
+   "pos": "singular noun",
+   "meaning": "A design of shapes and colours."
+  },
+  "dollop": {
+   "pos": "singular noun",
+   "meaning": "A soft lump of something thick."
+  },
+  "pardon": {
+   "pos": "singular noun",
+   "meaning": "'I beg your pardon' means 'I am sorry'."
+  },
+  "beg": {
+   "pos": "base verb",
+   "meaning": "To ask for something very strongly."
+  },
+  "sideboard": {
+   "pos": "singular noun",
+   "meaning": "A long low cupboard for plates and food."
+  },
+  "ashtray": {
+   "pos": "singular noun",
+   "meaning": "A small dish for the ash from cigarettes.",
+   "forms": [
+    "ashtrays"
+   ]
+  },
+  "plastic": {
+   "pos": "singular noun",
+   "meaning": "A light material made by people, not wood or metal."
+  },
+  "gnome": {
+   "pos": "singular noun",
+   "meaning": "A little statue of a short bearded person, often put in a garden."
+  },
+  "flap": {
+   "pos": "base verb",
+   "meaning": "To move wings up and down."
+  },
+  "wire": {
+   "pos": "singular noun",
+   "meaning": "A long thin piece of metal. Telephone lines are made of it.",
+   "forms": [
+    "wires"
+   ]
+  },
+  "guard": {
+   "pos": "base verb",
+   "meaning": "To watch so that you can give a warning. 'Keep guard' means to watch."
+  },
+  "cheeky": {
+   "pos": "adjective",
+   "meaning": "Rude in a bold, playful way."
+  },
+  "whizz": {
+   "pos": "base verb",
+   "meaning": "To move very fast.",
+   "forms": [
+    "whizzed"
+   ]
+  },
+  "streak": {
+   "pos": "singular noun",
+   "meaning": "A long thin mark."
+  },
+  "brute": {
+   "pos": "singular noun",
+   "meaning": "A cruel, rough person or animal.",
+   "forms": [
+    "brutes"
+   ]
+  },
+  "cabinet": {
+   "pos": "singular noun",
+   "meaning": "A cupboard with doors."
+  },
+  "bare": {
+   "pos": "adjective",
+   "meaning": "With nothing on it. The floor had nothing covering it."
+  },
+  "pin": {
+   "pos": "base verb",
+   "meaning": "To hold something so that it cannot move.",
+   "whyHard": "It looks like a metal pin. Here it means held fast.",
+   "forms": [
+    "pinned"
+   ]
+  },
+  "cement": {
+   "pos": "base verb",
+   "meaning": "To join something so that it stays hard in place.",
+   "forms": [
+    "cemented"
+   ]
+  },
+  "floorboard": {
+   "pos": "singular noun",
+   "meaning": "A long piece of wood in a wooden floor.",
+   "forms": [
+    "floorboards"
+   ]
+  },
+  "glimpse": {
+   "pos": "singular noun",
+   "meaning": "A very quick look."
+  },
+  "frozen": {
+   "pos": "adjective",
+   "meaning": "Turned to ice, or stuck by ice."
+  },
+  "fake": {
+   "pos": "adjective",
+   "meaning": "Not real. Pretended."
+  },
+  "thrash": {
+   "pos": "base verb",
+   "meaning": "To wave or hit about wildly.",
+   "forms": [
+    "thrashing"
+   ]
+  },
+  "whiskery": {
+   "pos": "adjective",
+   "meaning": "Covered with long stiff hairs."
+  },
+  "warthog": {
+   "pos": "singular noun",
+   "meaning": "A wild pig with tusks and warts on its face."
+  },
+  "wriggle": {
+   "pos": "base verb",
+   "meaning": "To twist the body to try to get free.",
+   "forms": [
+    "wriggled"
+   ]
+  },
+  "squirm": {
+   "pos": "base verb",
+   "meaning": "To twist the body because you cannot get free.",
+   "forms": [
+    "squirmed"
+   ]
+  },
+  "squiggle": {
+   "pos": "base verb",
+   "meaning": "To twist and turn like a worm.",
+   "forms": [
+    "squiggled"
+   ]
+  },
+  "twist": {
+   "pos": "base verb",
+   "meaning": "To turn one part while the other stays still.",
+   "forms": [
+    "twisted"
+   ]
+  },
+  "churn": {
+   "pos": "base verb",
+   "meaning": "To move about roughly.",
+   "forms": [
+    "churned"
+   ]
+  },
+  "squash": {
+   "pos": "base verb",
+   "meaning": "To press something flat.",
+   "forms": [
+    "squashed"
+   ]
+  },
+  "fatty": {
+   "pos": "adjective",
+   "meaning": "Full of fat; soft and thick."
+  },
+  "fold": {
+   "pos": "singular noun",
+   "meaning": "A soft bend, here in skin.",
+   "forms": [
+    "folds"
+   ]
+  },
+  "flabby": {
+   "pos": "adjective",
+   "meaning": "Soft and loose, not firm."
+  },
+  "burble": {
+   "pos": "base verb",
+   "meaning": "To speak in a bubbling, unclear way.",
+   "forms": [
+    "burbled"
+   ]
+  },
+  "hooray": {
+   "pos": "interjection",
+   "meaning": "A shout that means you are glad."
+  },
+  "nest": {
+   "pos": "singular noun",
+   "meaning": "The home a bird builds.",
+   "forms": [
+    "nests"
+   ]
+  },
+  "seat": {
+   "pos": "singular noun",
+   "meaning": "The part of a pair of trousers that you sit on.",
+   "whyHard": "It looks like a chair. Here it is the back of the trousers.",
+   "forms": [
+    "seats"
+   ]
+  },
+  "furious": {
+   "pos": "adjective",
+   "meaning": "Very angry."
+  },
+  "boil": {
+   "pos": "base verb",
+   "meaning": "To cook in water that is very hot.",
+   "forms": [
+    "boiled"
+   ]
+  },
+  "wail": {
+   "pos": "base verb",
+   "meaning": "To cry out in a long sad or frightened voice.",
+   "forms": [
+    "wailed"
+   ]
+  },
+  "turnip": {
+   "pos": "singular noun",
+   "meaning": "A round root vegetable, white or yellow."
+  },
+  "grunion": {
+   "pos": "singular noun",
+   "meaning": "A small sea fish. Mrs Twit shouts it as a rude name."
+  },
+  "wombat": {
+   "pos": "singular noun",
+   "meaning": "A short thick animal from Australia that lives in a hole."
+  },
+  "sparrow": {
+   "pos": "singular noun",
+   "meaning": "A small brown bird.",
+   "forms": [
+    "sparrows"
+   ]
+  },
+  "thrush": {
+   "pos": "singular noun",
+   "meaning": "A songbird with a spotted chest.",
+   "forms": [
+    "thrushes"
+   ]
+  },
+  "blackbird": {
+   "pos": "singular noun",
+   "meaning": "A black songbird.",
+   "forms": [
+    "blackbirds"
+   ]
+  },
+  "robin": {
+   "pos": "singular noun",
+   "meaning": "A small bird with a red chest.",
+   "forms": [
+    "robins"
+   ]
+  },
+  "wren": {
+   "pos": "singular noun",
+   "meaning": "A very small brown bird.",
+   "forms": [
+    "wrens"
+   ]
+  },
+  "buzzard": {
+   "pos": "singular noun",
+   "meaning": "A large bird that hunts.",
+   "forms": [
+    "buzzards"
+   ]
+  },
+  "nailbrush": {
+   "pos": "singular noun",
+   "meaning": "A small stiff brush for cleaning fingernails."
+  },
+  "bristly": {
+   "pos": "adjective",
+   "meaning": "Covered with short stiff hairs."
+  },
+  "hairiness": {
+   "pos": "singular noun",
+   "meaning": "Having a lot of hair."
+  },
+  "cackle": {
+   "pos": "base verb",
+   "meaning": "To laugh in a loud, harsh way.",
+   "forms": [
+    "cackled"
+   ]
+  },
+  "peer": {
+   "pos": "base verb",
+   "meaning": "To look hard, because something is small or hidden.",
+   "forms": [
+    "peered"
+   ]
+  },
+  "cling": {
+   "pos": "base verb",
+   "meaning": "To hold on and stay stuck."
+  },
+  "curl": {
+   "pos": "base verb",
+   "meaning": "To bend into a curve.",
+   "forms": [
+    "curling"
+   ]
+  },
+  "dangle": {
+   "pos": "base verb",
+   "meaning": "To hang and swing loosely.",
+   "forms": [
+    "dangling"
+   ]
+  },
+  "fetch": {
+   "pos": "base verb",
+   "meaning": "To go and get something.",
+   "forms": [
+    "fetched"
+   ]
+  },
+  "pour": {
+   "pos": "base verb",
+   "meaning": "To make liquid flow out of a container.",
+   "forms": [
+    "poured"
+   ]
+  },
+  "bounce": {
+   "pos": "base verb",
+   "meaning": "To spring up after hitting something.",
+   "forms": [
+    "bouncing"
+   ]
+  },
+  "celebrate": {
+   "pos": "base verb",
+   "meaning": "To do something special because you are happy.",
+   "forms": [
+    "celebrating"
+   ]
+  },
+  "collect": {
+   "pos": "base verb",
+   "meaning": "To go and gather things."
+  },
+  "doubt": {
+   "pos": "base verb",
+   "meaning": "To think that something is probably not true."
+  },
+  "evil": {
+   "pos": "adjective",
+   "meaning": "Very bad, wanting to harm."
+  },
+  "fool": {
+   "pos": "singular noun",
+   "meaning": "A silly person."
+  },
+  "pity": {
+   "pos": "singular noun",
+   "meaning": "Used to say that something is sad."
+  },
+  "truth": {
+   "pos": "singular noun",
+   "meaning": "What is really so. 'In truth' means 'really'."
+  },
+  "wise": {
+   "pos": "adjective",
+   "meaning": "Knowing a lot and judging well."
+  },
+  "bear": {
+   "pos": "base verb",
+   "meaning": "To accept something painful. 'Cannot bear' means cannot stand it.",
+   "whyHard": "It looks like the large animal. Here it means to accept or to stand."
+  },
+  "bother": {
+   "pos": "base verb",
+   "meaning": "To take the trouble to do something."
+  },
+  "neither": {
+   "pos": "pronoun",
+   "meaning": "Not one and not the other."
+  },
+  "manage": {
+   "pos": "base verb",
+   "meaning": "To be able to do something that is hard.",
+   "forms": [
+    "managed"
+   ]
+  },
+  "mention": {
+   "pos": "base verb",
+   "meaning": "To speak about something."
+  },
+  "result": {
+   "pos": "singular noun",
+   "meaning": "'As a result' means 'because of that'."
+  },
+  "suppose": {
+   "pos": "base verb",
+   "meaning": "To think that something is probably true."
+  },
+  "blame": {
+   "pos": "base verb",
+   "meaning": "To say that someone did wrong."
+  },
+  "waste": {
+   "pos": "base verb",
+   "meaning": "To use time or a thing for no good purpose."
+  },
+  "announce": {
+   "pos": "base verb",
+   "meaning": "To say something in a loud, clear voice.",
+   "forms": [
+    "announced"
+   ]
+  },
+  "rubbish": {
+   "pos": "singular noun",
+   "meaning": "Silly talk that is not true. It also means trash."
+  },
+  "huge": {
+   "pos": "adjective",
+   "meaning": "Very big."
+  },
+  "single": {
+   "pos": "adjective",
+   "meaning": "Only one."
+  },
+  "feathery": {
+   "pos": "adjective",
+   "meaning": "Covered with feathers."
+  },
+  "attention": {
+   "pos": "singular noun",
+   "meaning": "'Attention!' is a sharp order to stop and listen."
+  },
+  "obediently": {
+   "pos": "adverb",
+   "meaning": "Doing what you are told, without refusing."
+  },
+  "dare": {
+   "pos": "base verb",
+   "meaning": "To be brave enough to do something."
+  },
+  "expect": {
+   "pos": "base verb",
+   "meaning": "To think that something will happen."
+  },
+  "position": {
+   "pos": "singular noun",
+   "meaning": "The way someone is standing or placed."
+  },
+  "order": {
+   "pos": "base verb",
+   "meaning": "To tell someone they must do something.",
+   "whyHard": "It looks like something you buy from a shop. Here it means to command.",
+   "forms": [
+    "ordered"
+   ]
+  },
+  "joke": {
+   "pos": "singular noun",
+   "meaning": "Something said to be funny. 'You must be joking' means 'you cannot be serious'.",
+   "forms": [
+    "joking"
+   ]
+  },
+  "point": {
+   "pos": "base verb",
+   "meaning": "To aim a finger at something.",
+   "whyHard": "It looks like a point you score, or the sharp end of a pencil. Here it means to aim a finger.",
+   "forms": [
+    "pointed",
+    "pointing"
+   ]
+  },
+  "hang": {
+   "pos": "base verb",
+   "meaning": "To be held from above so that the lower part is free.",
+   "forms": [
+    "hanging"
+   ]
+  },
+  "lean": {
+   "pos": "base verb",
+   "meaning": "To rest at a slant.",
+   "forms": [
+    "leaning"
+   ]
+  },
+  "hide": {
+   "pos": "base verb",
+   "meaning": "To go where nobody can see you."
+  },
+  "hill": {
+   "pos": "singular noun",
+   "meaning": "A high piece of land, smaller than a mountain."
+  },
+  "human": {
+   "pos": "adjective",
+   "meaning": "Of people, not of animals."
+  },
+  "include": {
+   "pos": "base verb",
+   "meaning": "To have something as part of a group.",
+   "forms": [
+    "including"
+   ]
+  },
+  "longed": {
+   "pos": "past-tense verb",
+   "meaning": "Wanted something very much."
+  },
+  "mainly": {
+   "pos": "adverb",
+   "meaning": "Mostly; more than anything else."
+  },
+  "noise": {
+   "pos": "singular noun",
+   "meaning": "A sound, often a loud one."
+  },
+  "object": {
+   "pos": "singular noun",
+   "meaning": "A thing you can see and touch.",
+   "whyHard": "It looks like the verb object, to say you do not agree. Here it is a thing.",
+   "forms": [
+    "objects"
+   ]
+  },
+  "occur": {
+   "pos": "base verb",
+   "meaning": "To come into the mind. If it did not come to him, he did not think of it."
+  },
+  "painful": {
+   "pos": "adjective",
+   "meaning": "Hurting. It causes pain."
+  },
+  "properly": {
+   "pos": "adverb",
+   "meaning": "In the right way."
+  },
+  "reason": {
+   "pos": "singular noun",
+   "meaning": "Why something is done."
+  },
+  "replace": {
+   "pos": "base verb",
+   "meaning": "To put something back where it was.",
+   "forms": [
+    "replaced"
+   ]
+  },
+  "reply": {
+   "pos": "base verb",
+   "meaning": "To answer.",
+   "forms": [
+    "replied"
+   ]
+  },
+  "rescue": {
+   "pos": "singular noun",
+   "meaning": "Saving someone from danger."
+  },
+  "return": {
+   "pos": "base verb",
+   "meaning": "To come back."
+  },
+  "rotten": {
+   "pos": "adjective",
+   "meaning": "Gone bad, or very nasty."
+  },
+  "rub": {
+   "pos": "base verb",
+   "meaning": "To move the hand back and forth on something."
+  },
+  "rush": {
+   "pos": "base verb",
+   "meaning": "To go very fast.",
+   "forms": [
+    "rushed",
+    "rushing"
+   ]
+  },
+  "sense": {
+   "pos": "singular noun",
+   "meaning": "Good thinking. 'More sense' means a wiser idea.",
+   "whyHard": "It looks like one of the five senses, like sight. Here it means good sense."
+  },
+  "shake": {
+   "pos": "base verb",
+   "meaning": "To move quickly from side to side.",
+   "forms": [
+    "shaking"
+   ]
+  },
+  "shine": {
+   "pos": "base verb",
+   "meaning": "To give out light.",
+   "forms": [
+    "shone"
+   ]
+  },
+  "sideways": {
+   "pos": "adverb",
+   "meaning": "Toward the side, not straight ahead."
+  },
+  "silent": {
+   "pos": "adverb",
+   "meaning": "With no sound.",
+   "forms": [
+    "silently"
+   ]
+  },
+  "somehow": {
+   "pos": "adverb",
+   "meaning": "In some way, though you do not know how."
+  },
+  "spent": {
+   "pos": "past-tense verb",
+   "meaning": "Stayed for that time. 'Spent the night' means stayed all night.",
+   "whyHard": "It looks like spent money. Here it means passed the time."
+  },
+  "sunk": {
+   "pos": "past-tense verb",
+   "meaning": "Gone down out of sight."
+  },
+  "super": {
+   "pos": "adjective",
+   "meaning": "Above the usual. Very fine. The bird's plane is a very fast one."
+  },
+  "tail": {
+   "pos": "singular noun",
+   "meaning": "The part that sticks out at the back of an animal."
+  },
+  "terribly": {
+   "pos": "adverb",
+   "meaning": "Very. Used to make the next word stronger."
+  },
+  "terrifically": {
+   "pos": "adverb",
+   "meaning": "Very. Used to make the next word stronger."
+  },
+  "terrify": {
+   "pos": "base verb",
+   "meaning": "To make someone very afraid.",
+   "forms": [
+    "terrified"
+   ]
+  },
+  "thick": {
+   "pos": "adjective",
+   "meaning": "Wide from one side to the other; not thin.",
+   "forms": [
+    "thicker"
+   ]
+  },
+  "though": {
+   "pos": "conjunction",
+   "meaning": "But. 'As though' means 'as if'."
+  },
+  "tight": {
+   "pos": "adjective",
+   "meaning": "Held firmly, so it does not move.",
+   "forms": [
+    "tightly"
+   ]
+  },
+  "tongue": {
+   "pos": "singular noun",
+   "meaning": "The soft part in the mouth that you taste with."
+  },
+  "toward": {
+   "pos": "preposition",
+   "meaning": "In the direction of.",
+   "forms": [
+    "towards"
+   ]
+  },
+  "trim": {
+   "pos": "base verb",
+   "meaning": "To cut a little off, to make something neat.",
+   "forms": [
+    "trimmed"
+   ]
+  },
+  "truly": {
+   "pos": "adverb",
+   "meaning": "Really."
+  },
+  "unable": {
+   "pos": "adjective",
+   "meaning": "Not able."
+  },
+  "upper": {
+   "pos": "adjective",
+   "meaning": "Higher. The top lip is the one above the mouth."
+  },
+  "weight": {
+   "pos": "singular noun",
+   "meaning": "How heavy something is."
+  },
+  "whenever": {
+   "pos": "conjunction",
+   "meaning": "At any time when."
+  },
+  "whichever": {
+   "pos": "pronoun",
+   "meaning": "Any one of them; it does not matter which."
+  },
+  "whisper": {
+   "pos": "base verb",
+   "meaning": "To speak very quietly.",
+   "forms": [
+    "whispered"
+   ]
+  },
+  "wing": {
+   "pos": "singular noun",
+   "meaning": "The part a bird uses to fly.",
+   "forms": [
+    "wings"
+   ]
+  },
+  "wonder": {
+   "pos": "base verb",
+   "meaning": "To ask yourself about something.",
+   "forms": [
+    "wondering"
+   ]
+  },
+  "wormy": {
+   "pos": "adjective",
+   "meaning": "Full of worms."
+  },
+  "wormed": {
+   "pos": "past-tense verb",
+   "meaning": "Moved by twisting, like a worm.",
+   "whyHard": "It looks like the animal. Here it means twisted along."
+  },
+  "worst": {
+   "pos": "adjective",
+   "meaning": "The most bad."
+  },
+  "wretched": {
+   "pos": "adjective",
+   "meaning": "Unlucky and in a bad state, so that you feel sorry."
+  },
+  "absolutely": {
+   "pos": "adverb",
+   "meaning": "Completely. With nothing left out."
+  },
+  "probably": {
+   "pos": "adverb",
+   "meaning": "Very likely, but not certain."
+  },
+  "certainly": {
+   "pos": "adverb",
+   "meaning": "For sure. With no doubt."
+  },
+  "exactly": {
+   "pos": "adverb",
+   "meaning": "With no difference at all."
+  },
+  "completely": {
+   "pos": "adverb",
+   "meaning": "Fully. In every part."
+  },
+  "especially": {
+   "pos": "adverb",
+   "meaning": "More than the others. Most of all."
+  },
+  "extremely": {
+   "pos": "adverb",
+   "meaning": "Very. As much as possible."
+  },
+  "finally": {
+   "pos": "adverb",
+   "meaning": "At the end, after a long time."
+  },
+  "entire": {
+   "pos": "adjective",
+   "meaning": "The whole of something. All of it."
+  },
+  "except": {
+   "pos": "preposition",
+   "meaning": "But not this one. Leaving this out."
+  },
+  "below": {
+   "pos": "adverb",
+   "meaning": "In a lower place. Under."
+  },
+  "actually": {
+   "pos": "adverb",
+   "meaning": "Really. In fact."
+  },
+  "gentle": {
+   "pos": "adjective",
+   "meaning": "Soft and careful.",
+   "forms": [
+    "gently"
+   ]
+  },
+  "gentleman": {
+   "pos": "singular noun",
+   "meaning": "A polite word for a man.",
+   "forms": [
+    "gentlemen"
+   ]
+  },
+  "lady": {
+   "pos": "singular noun",
+   "meaning": "A polite word for a woman.",
+   "forms": [
+    "ladies"
+   ]
+  },
+  "angel": {
+   "pos": "singular noun",
+   "meaning": "A good spirit. Mr Twit says 'my angel', but he is not being kind."
+  },
+  "argue": {
+   "pos": "base verb",
+   "meaning": "To say you do not agree."
+  },
+  "bald": {
+   "pos": "adjective",
+   "meaning": "Having no hair."
+  },
+  "bone": {
+   "pos": "singular noun",
+   "meaning": "The hard part inside the body.",
+   "forms": [
+    "bones"
+   ]
+  },
+  "breath": {
+   "pos": "singular noun",
+   "meaning": "The air that goes in and out of the body."
+  },
+  "difference": {
+   "pos": "singular noun",
+   "meaning": "The way two things are not the same."
+  },
+  "forever": {
+   "pos": "adverb",
+   "meaning": "For all time. Never ending."
+  },
+  "glad": {
+   "pos": "adjective",
+   "meaning": "Happy about something."
+  },
+  "dried": {
+   "pos": "adjective",
+   "meaning": "With the water gone.",
+   "whyHard": "It looks like the past of dry. Here the food has lost its water."
+  },
+  "electric": {
+   "pos": "adjective",
+   "meaning": "Using electricity, the power that makes lights work."
+  },
+  "freezed": {
+   "pos": "adjective",
+   "meaning": "Frozen hard, like food kept in a very cold box.",
+   "whyHard": "It looks like froze or frozen. The writer uses freezed."
+  },
+  "outdoor": {
+   "pos": "adjective",
+   "meaning": "Outside a building.",
+   "forms": [
+    "outdoors"
+   ]
+  },
+  "splash": {
+   "pos": "base verb",
+   "meaning": "To throw liquid about.",
+   "forms": [
+    "splashing"
+   ]
+  },
+  "snap": {
+   "pos": "base verb",
+   "meaning": "To speak in a short, angry way.",
+   "whyHard": "It looks like a sudden break. Here it means spoke angrily.",
+   "forms": [
+    "snapped"
+   ]
+  },
+  "lead": {
+   "pos": "base verb",
+   "meaning": "To go in front and show the way.",
+   "whyHard": "The past is led. It looks like the metal lead. Here it means went in front.",
+   "forms": [
+    "led"
+   ]
+  },
+  "lay": {
+   "pos": "past-tense verb",
+   "meaning": "Was flat, resting. She was not sitting up.",
+   "whyHard": "It looks like lay, to put something down. Here she was lying flat."
+  },
+  "frenzy": {
+   "pos": "singular noun",
+   "meaning": "Wild, excited action."
+  },
+  "excitement": {
+   "pos": "singular noun",
+   "meaning": "A strong lively feeling."
+  },
+  "shudder": {
+   "pos": "singular noun",
+   "meaning": "A shake of the body from fear.",
+   "forms": [
+    "shudders"
+   ]
+  },
+  "pocket": {
+   "pos": "singular noun",
+   "meaning": "A small bag sewn into clothes, for carrying things."
+  },
+  "gnosh": {
+   "pos": "base verb",
+   "meaning": "In this story, a made-up hitting word. Mrs Twit shouts it when she is angry.",
+   "whyHard": "It is a made-up word.",
+   "coined": true
+  },
+  "swizzle": {
+   "pos": "singular noun",
+   "meaning": "A word in Mrs Twit's angry rhyme. It has no clear meaning here.",
+   "whyHard": "It is part of an angry rhyme."
   }
  },
  "paragraphs": [
@@ -2814,6 +5423,55 @@
     "shock",
     "squashed"
    ]
+  },
+  {
+   "chapter": 17,
+   "paragraph": 12,
+   "context": "There’s sticky stick stuff all over the tree",
+   "mainIdea": "The bird sings a warning. The tree is covered with sticky glue. A bird that lands there will be caught and cooked.",
+   "simple": "The Roly-Poly Bird sings to the other birds. He says the tree is covered with sticky glue. If a bird lands in the branches, it cannot get free. It should fly away and stay high. If it does not, it will be cooked in a hot bird pie the next day.",
+   "hardWords": [
+    "sticky",
+    "stick",
+    "stuff",
+    "tree"
+   ]
+  },
+  {
+   "chapter": 19,
+   "paragraph": 4,
+   "context": "There’s sticky stuff now on the cage and the",
+   "mainIdea": "The bird sings the warning again. Now the cage and the tree are both covered with glue.",
+   "simple": "The Roly-Poly Bird sings again. He says there is sticky glue on the cage and on the tree. If a bird lands on either one, it cannot get free. It should fly away and stay high, or it will be cooked in a hot bird pie.",
+   "hardWords": [
+    "sticky",
+    "cage",
+    "tree"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 9,
+   "context": "I’ve got eyes everywhere so you’d better be",
+   "mainIdea": "Mrs Twit makes a joke. Her glass eye was in the beer, so she says she has eyes in more than one place.",
+   "simple": "Mrs Twit laughs and says she was watching Mr Twit. She says she has eyes everywhere, so he should be careful. She means the glass eye that was looking up at him from the cup, and she also means that she was watching him.",
+   "hardWords": [
+    "eyes",
+    "everywhere",
+    "careful"
+   ]
+  },
+  {
+   "chapter": 23,
+   "paragraph": 12,
+   "context": "Poor old Muggles has gone off his wump at last",
+   "mainIdea": "They say Muggle-Wump is not thinking clearly. The joke is in his name.",
+   "simple": "The Roly-Poly Bird says Muggle-Wump is not thinking clearly. He calls him Muggles and says he has gone off his wump. The joke puts the name Wump where a word for the head would go. He means the idea sounds wild.",
+   "hardWords": [
+    "wacky",
+    "Muggles",
+    "wump"
+   ]
   }
  ],
  "sentences": [
@@ -2906,6 +5564,24 @@
    "context": "no good going to a country and not knowing the language",
    "simple": "There is no use in going to a country if you do not know the language.",
    "grammar": "‘It’s no good + -ing’ means ‘it is useless to do something’. Here the useless thing is ‘going to a country and not knowing the language’."
+  },
+  {
+   "chapter": 0,
+   "context": "go to a barber to have their hairy faces cut",
+   "simple": "Do they go to a man who cuts hair, so he can cut the hair on their faces? Or do they cut it themselves, in front of the bathroom mirror, with small scissors?",
+   "grammar": "Two questions are joined by or, so you have to hold both of them until the line ends."
+  },
+  {
+   "chapter": 7,
+   "context": "you must have shrunk at least a foot in the",
+   "simple": "Mr Twit says the surprising part is this: Mrs Twit has become shorter by a big amount in only a few days.",
+   "grammar": "Why at the start means 'and here is the surprising part', and then he gives the amount."
+  },
+  {
+   "chapter": 20,
+   "context": "time, I shall expect to find you all in exactly",
+   "simple": "When we come back in two or three hours, I want to find you standing in this same way.",
+   "grammar": "I shall is an old way to say what must happen later."
   }
  ],
  "phrases": {
@@ -3090,6 +5766,131 @@
     "give me a hand"
    ],
    "example": "do stop shouting such rubbish and give me a hand"
+  },
+  "upside down": {
+   "meaning": "With the top where the bottom should be.",
+   "pos": "phrase",
+   "example": "Upside Down Monkey Circus"
+  },
+  "right away": {
+   "meaning": "Immediately. Do it now.",
+   "pos": "idiom",
+   "example": "right away and we’ll buy a gun each!’ he"
+  },
+  "what on earth": {
+   "meaning": "A strong way to ask 'what?', when you are surprised.",
+   "pos": "idiom",
+   "example": "what on earth has happened?"
+  },
+  "for heaven's sake": {
+   "meaning": "Said when you are annoyed and you want someone to hurry or stop.",
+   "pos": "idiom",
+   "example": "for heaven’s sake"
+  },
+  "oh dear": {
+   "meaning": "Oh no. A small cry of worry.",
+   "pos": "idiom",
+   "example": "oh dear me no"
+  },
+  "never mind": {
+   "meaning": "Do not worry about that. Leave it.",
+   "pos": "idiom",
+   "example": "Never mind why"
+  },
+  "mind you": {
+   "meaning": "But remember this. Used to add a warning.",
+   "pos": "idiom",
+   "example": "mind you"
+  },
+  "for a change": {
+   "meaning": "For once, something different from the usual.",
+   "pos": "idiom",
+   "example": "for a change"
+  },
+  "jump to it": {
+   "meaning": "A sharp order to do something at once.",
+   "pos": "idiom",
+   "example": "jump to it"
+  },
+  "like mad": {
+   "meaning": "Very hard, or very fast.",
+   "pos": "idiom",
+   "example": "like mad"
+  },
+  "at any rate": {
+   "meaning": "Anyway. Whatever else is true.",
+   "pos": "idiom",
+   "example": "at any rate"
+  },
+  "at last": {
+   "meaning": "Finally, after a long time.",
+   "pos": "idiom",
+   "example": "At last"
+  },
+  "every tom, dick and harry": {
+   "meaning": "Any ordinary person. Everybody.",
+   "pos": "idiom",
+   "example": "every Tom, Dick and Harry"
+  },
+  "right way up": {
+   "meaning": "With the head at the top, as people usually stand.",
+   "pos": "phrase",
+   "example": "right way up"
+  },
+  "dress up": {
+   "meaning": "To put on special clothes.",
+   "pos": "phrasal verb",
+   "example": "dress up"
+  },
+  "fish fingers": {
+   "meaning": "Small sticks of fish, covered and fried.",
+   "pos": "phrase",
+   "example": "fish fingers"
+  },
+  "glass eye": {
+   "meaning": "A false eye made of glass. It can be taken out.",
+   "pos": "phrase",
+   "example": "glass eye"
+  },
+  "walking stick": {
+   "meaning": "A long stick a person holds to help them walk.",
+   "pos": "phrase",
+   "example": "walking-stick"
+  },
+  "ice cream": {
+   "meaning": "A cold sweet food made from cream.",
+   "pos": "phrase",
+   "example": "ice-cream"
+  },
+  "nail scissors": {
+   "meaning": "Small scissors for cutting fingernails.",
+   "pos": "phrase",
+   "example": "nail-scissors"
+  },
+  "hair tonic": {
+   "meaning": "A liquid rubbed into the hair.",
+   "pos": "phrase",
+   "example": "hair-tonic"
+  },
+  "hours on end": {
+   "meaning": "For many hours without stopping.",
+   "pos": "idiom",
+   "example": "hours on end"
+  },
+  "stand on one's head": {
+   "meaning": "To balance with the head on the ground and the feet in the air.",
+   "pos": "idiom",
+   "forms": [
+    "stand on our heads",
+    "stand on their heads",
+    "stood on their heads"
+   ],
+   "example": "stand on our heads"
+  },
+  "tree house": {
+   "meaning": "A little house built up in a tree.",
+   "pos": "phrase",
+   "example": "tree-house"
   }
  }
 }

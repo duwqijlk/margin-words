@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildWordLists } from "./lib/word-lists.mjs";
@@ -32,7 +32,11 @@ function jpegSize(buf) {
 
 test("word lists ship glossaries and card-sized covers, never an epub", () => {
   const { catalog, files } = buildWordLists(join(ROOT, "packs"));
-  assert.equal(catalog.lists.length, 10);
+  const glossaryDirs = readdirSync(join(ROOT, "packs")).filter((name) => {
+    const dir = join(ROOT, "packs", name);
+    return statSync(dir).isDirectory() && existsSync(join(dir, "glossary.json"));
+  });
+  assert.equal(catalog.lists.length, glossaryDirs.length);
   for (const file of files) {
     assert.equal(file.name.endsWith(".epub"), false, file.name);
     assert.equal(file.name.endsWith(".zip"), false, file.name);
@@ -41,6 +45,11 @@ test("word lists ship glossaries and card-sized covers, never an epub", () => {
   const charlie = catalog.lists.find((row) => row.id === "charlie");
   assert.equal(charlie.isbn, "9780141960616");
   assert.equal(charlie.glossary.url, "charlie/glossary.json");
+  assert.match(charlie.updated, /^\d{4}-\d{2}-\d{2}$/);
+  const charlieList = JSON.parse(readFileSync(join(ROOT, "packs/charlie/glossary.json"), "utf8"));
+  assert.equal(charlie.paragraphs, Array.isArray(charlieList.paragraphs) ? charlieList.paragraphs.length : 0);
+  assert.equal(charlie.sentences, Array.isArray(charlieList.sentences) ? charlieList.sentences.length : 0);
+  assert.equal(charlie.phrases, charlieList.phrases && typeof charlieList.phrases === "object" ? Object.keys(charlieList.phrases).length : 0);
   assert.equal(charlie.cover.url, "charlie/cover.jpg");
   assert.equal(charlie.epub, undefined);
   const cover = files.find((file) => file.name === "word-lists/charlie/cover.jpg");

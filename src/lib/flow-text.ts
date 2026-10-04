@@ -1,7 +1,8 @@
 /**
  * Reading text of a piece of a chapter, the way a reader sees it.
  * `textContent` glues the words on both sides of a line break (`real<br/>and` gives "realand").
- * `flowText` puts one space there instead. It never changes the html, so the word tokens,
+ * `flowText` puts one space there instead. It also drops a soft hyphen, which is only a
+ * line-break hint in the reader. It never changes the html, so the word tokens,
  * paragraph indexes and occurrence numbers of the glossary anchors stay exactly the same.
  * Pure: no app imports, so the unit tests and the command-line tools can load it.
  */
@@ -78,9 +79,14 @@ export function skipNestedParagraph(block: ElLike, blockquoteSplit = false): boo
   return isChapterWrapper(block);
 }
 
+/** Soft hyphens are only line-break hints. They are not part of the sentence. */
+function visibleText(value: string): string {
+  return value.replace(/\u00AD/g, "");
+}
+
 function walk(node: NodeLike, out: string[]) {
   if (node.nodeType === 3) {
-    out.push(node.nodeValue ?? "");
+    out.push(visibleText(node.nodeValue ?? ""));
     return;
   }
   if (node.nodeType !== 1 && node.nodeType !== 11 && node.nodeType !== 9) return;
@@ -114,12 +120,12 @@ export function flowTextBefore(root: Node | NodeLike, stop: Node | NodeLike, off
   const go = (node: NodeLike) => {
     if (done) return;
     if (node === stop) {
-      if (node.nodeType === 3) out.push((node.nodeValue ?? "").slice(0, offset));
+      if (node.nodeType === 3) out.push(visibleText((node.nodeValue ?? "").slice(0, offset)));
       done = true;
       return;
     }
     if (node.nodeType === 3) {
-      out.push(node.nodeValue ?? "");
+      out.push(visibleText(node.nodeValue ?? ""));
       return;
     }
     if (node.nodeType !== 1 && node.nodeType !== 11 && node.nodeType !== 9) return;

@@ -44,7 +44,7 @@ export async function handleRegister(request: Request, env: Env, options?: Handl
     if (passwordProblem(body.password)) throw new HttpError(400, "password");
     const password = body.password as string;
     await assertRateLimit(env.DB, "register", clientIp(request), email, now);
-    const human = await verifyTurnstile(env.TURNSTILE_SECRET_KEY, body.turnstileToken, clientIp(request), options?.fetch);
+    const human = await verifyTurnstile(env.TURNSTILE_SECRET_KEY, body.turnstileToken, clientIp(request), "signup", options?.fetch);
     if (!human) throw new HttpError(403, "turnstile");
     const existing = await env.DB.prepare("SELECT id FROM users WHERE email = ?").bind(email).first<{ id: string }>();
     if (existing) throw new HttpError(409, "email-taken");
@@ -75,6 +75,8 @@ export async function handleLogin(request: Request, env: Env, options?: HandlerO
     if (!email) throw new HttpError(400, "email");
     if (passwordProblem(body.password)) throw new HttpError(401, "credentials");
     const password = body.password as string;
+    const human = await verifyTurnstile(env.TURNSTILE_SECRET_KEY, body.turnstileToken, clientIp(request), "login", options?.fetch);
+    if (!human) throw new HttpError(403, "turnstile");
     await assertRateLimit(env.DB, "login", clientIp(request), email, now, { countEmail: false });
     const user = await env.DB.prepare(
       "SELECT id, email, password_hash, password_salt, password_iters, created_at FROM users WHERE email = ?",

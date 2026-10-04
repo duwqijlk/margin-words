@@ -4,6 +4,7 @@
  * already has one (the cover image from that book's EPUB). Never an EPUB or a zip.
  * A book with no cover.jpg gets a generated title-and-author cover in the app.
  */
+import { committedOn } from "./glossary-date.mjs";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
@@ -113,6 +114,10 @@ export function buildWordLists(packsDir) {
         ...oldFields,
         ...(cover ? { cover } : {}),
         words: Number(data.count) || Object.keys(data.glossary ?? {}).length,
+        paragraphs: Array.isArray(data.paragraphs) ? data.paragraphs.length : 0,
+        sentences: Array.isArray(data.sentences) ? data.sentences.length : 0,
+        phrases: data.phrases && typeof data.phrases === "object" ? Object.keys(data.phrases).length : 0,
+        ...(committedOn(listPath) ? { updated: committedOn(listPath) } : {}),
         glossary: { url: `${id}/glossary.json`, bytes: glossary.length, sha256: sha(glossary) },
       },
     });

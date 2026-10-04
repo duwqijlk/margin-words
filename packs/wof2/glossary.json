@@ -3,8 +3,8 @@
  "title": "Wings of Fire 2: The Lost Heir",
  "author": "Tui T. Sutherland",
  "sha256": "1630a6447c2bb0ed92d67931db19e7e755f249ab68cde6ce679cbae13b6e2ddf",
- "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
- "count": 719,
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+ "count": 958,
  "chapters": 38,
  "glossary": {
   "coral": {
@@ -866,7 +866,26 @@
     "waves",
     "wave"
    ],
-   "count": 20
+   "count": 20,
+   "senses": [
+    {
+     "meaning": "A line of water moving across the sea.",
+     "pos": "singular noun",
+     "default": true
+    },
+    {
+     "meaning": "A movement of a claw or a wing to greet someone or to show something.",
+     "whyHard": "Not the usual meaning! Usually a wave is a line of moving water.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "as well,” the queen said with a wave"
+      }
+     ]
+    }
+   ]
   },
   "blinked": {
    "pos": "past-tense verb",
@@ -958,7 +977,7 @@
   "burn": {
    "pos": "singular noun",
    "meaning": "Here it is the name of a SkyWing princess. It also means to be on fire.",
-   "whyHard": "This word is harder than everyday English.",
+   "whyHard": "The word is less common than fire.",
    "example": "Queen: Since the death of Queen Oasis, the tribe is split between three rivals for the throne: sisters Burn, Blister, and Blaze.",
    "examples": [
     "Queen: Since the death of Queen Oasis, the tribe is split between three rivals for the throne: sisters Burn, Blister, and Blaze.",
@@ -3680,7 +3699,36 @@
     "bolt",
     "bolts"
    ],
-   "count": 6
+   "count": 6,
+   "senses": [
+    {
+     "meaning": "To run away suddenly.",
+     "pos": "base verb",
+     "default": true
+    },
+    {
+     "meaning": "A sudden flash, or a sharp hit of light, pain, or a feeling.",
+     "whyHard": "Not the usual meaning! In this book bolt usually means to run away suddenly. Here it is a sudden flash or hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "A bolt of shock and terror shot through"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "the green leaves. A bolt of sunlight shone through"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "and stab went another bolt of pain through her"
+      }
+     ]
+    }
+   ]
   },
   "boulder": {
    "pos": "singular noun",
@@ -10186,6 +10234,3161 @@
     "rainwings"
    ],
    "count": 14
+  },
+  "scale": {
+   "pos": "singular noun",
+   "meaning": "A hard flat plate on the skin of a fish or a dragon.",
+   "whyHard": "It looks like the tool that tells how heavy something is. Here it is a plate on the body.",
+   "forms": [
+    "scales"
+   ]
+  },
+  "guard": {
+   "pos": "singular noun",
+   "meaning": "A dragon who watches a place and keeps it safe.",
+   "whyHard": "The word is less common than soldier or watcher.",
+   "forms": [
+    "guarded",
+    "guarding",
+    "guards"
+   ]
+  },
+  "island": {
+   "pos": "singular noun",
+   "meaning": "A piece of land with water all around it.",
+   "whyHard": "The word is less common than land.",
+   "forms": [
+    "islands"
+   ]
+  },
+  "ocean": {
+   "pos": "singular noun",
+   "meaning": "The great sea.",
+   "whyHard": "The word is less common than sea.",
+   "forms": [
+    "oceans"
+   ]
+  },
+  "war": {
+   "pos": "singular noun",
+   "meaning": "A long fight between groups.",
+   "whyHard": "The word is less common than fight."
+  },
+  "beach": {
+   "pos": "singular noun",
+   "meaning": "The sandy edge of the sea.",
+   "whyHard": "The word is less common than sand or sea.",
+   "forms": [
+    "beaches"
+   ]
+  },
+  "blood": {
+   "pos": "singular noun",
+   "meaning": "The red liquid inside a body.",
+   "whyHard": "The word is less common than the school words for the body."
+  },
+  "prison": {
+   "pos": "singular noun",
+   "meaning": "A place where someone is locked up.",
+   "whyHard": "The word is less common than room.",
+   "forms": [
+    "prisoner",
+    "prisons"
+   ]
+  },
+  "prisoner": {
+   "pos": "singular noun",
+   "meaning": "Someone who is locked up and cannot leave.",
+   "whyHard": "The word is less common than the school words for a person who is locked up.",
+   "forms": [
+    "prisoners"
+   ]
+  },
+  "battle": {
+   "pos": "singular noun",
+   "meaning": "A fight in a war.",
+   "whyHard": "The word is less common than fight.",
+   "forms": [
+    "battles",
+    "battling"
+   ]
+  },
+  "secret": {
+   "pos": "singular noun",
+   "meaning": "Something hidden from other dragons.",
+   "whyHard": "The word is less common than the school words for a hidden thing.",
+   "forms": [
+    "secretly",
+    "secrets"
+   ]
+  },
+  "moment": {
+   "pos": "singular noun",
+   "meaning": "A very short time.",
+   "whyHard": "The word is less common than minute.",
+   "forms": [
+    "moments"
+   ]
+  },
+  "voice": {
+   "pos": "singular noun",
+   "meaning": "The sound of someone speaking.",
+   "whyHard": "The word is less common than sound."
+  },
+  "edge": {
+   "pos": "singular noun",
+   "meaning": "The side or the end of something.",
+   "whyHard": "The word is less common than side.",
+   "forms": [
+    "edged",
+    "edges"
+   ]
+  },
+  "shoulder": {
+   "pos": "singular noun",
+   "meaning": "The part of the body where the arm joins the body.",
+   "whyHard": "The word is less common than arm.",
+   "forms": [
+    "shoulders"
+   ]
+  },
+  "death": {
+   "pos": "singular noun",
+   "meaning": "The end of a life.",
+   "whyHard": "The word is less common than die."
+  },
+  "pain": {
+   "pos": "singular noun",
+   "meaning": "The feeling when something hurts.",
+   "whyHard": "The word is less common than hurt."
+  },
+  "path": {
+   "pos": "singular noun",
+   "meaning": "A way to go along.",
+   "whyHard": "The word is less common than road.",
+   "forms": [
+    "paths"
+   ]
+  },
+  "gold": {
+   "pos": "singular noun",
+   "meaning": "A yellow metal, or that yellow color.",
+   "whyHard": "The word is less common than yellow."
+  },
+  "silver": {
+   "pos": "singular noun",
+   "meaning": "A shiny gray-white metal, or that color.",
+   "whyHard": "The word is less common than gray."
+  },
+  "murder": {
+   "pos": "singular noun",
+   "meaning": "Killing someone on purpose.",
+   "whyHard": "The word is less common than kill.",
+   "forms": [
+    "murdered",
+    "murderer",
+    "murdering",
+    "murders"
+   ]
+  },
+  "murderer": {
+   "pos": "singular noun",
+   "meaning": "Someone who kills another on purpose.",
+   "whyHard": "The word is less common than killer.",
+   "forms": [
+    "murderers"
+   ]
+  },
+  "forest": {
+   "pos": "singular noun",
+   "meaning": "A large place full of trees.",
+   "whyHard": "The word is less common than trees."
+  },
+  "enemy": {
+   "pos": "singular noun",
+   "meaning": "Someone who is against you.",
+   "whyHard": "The word is less common than the school words for a person who fights you.",
+   "forms": [
+    "enemies"
+   ]
+  },
+  "brain": {
+   "pos": "singular noun",
+   "meaning": "The part inside the head that thinks.",
+   "whyHard": "The word is less common than head.",
+   "forms": [
+    "brains"
+   ]
+  },
+  "future": {
+   "pos": "singular noun",
+   "meaning": "The time that has not come yet.",
+   "whyHard": "The word is less common than tomorrow."
+  },
+  "piece": {
+   "pos": "singular noun",
+   "meaning": "A part of something.",
+   "whyHard": "The word is less common than part.",
+   "forms": [
+    "pieces"
+   ]
+  },
+  "direction": {
+   "pos": "singular noun",
+   "meaning": "The way something goes or faces.",
+   "whyHard": "The word is less common than way.",
+   "forms": [
+    "directions"
+   ]
+  },
+  "center": {
+   "pos": "singular noun",
+   "meaning": "The middle of a place.",
+   "whyHard": "The word is less common than middle."
+  },
+  "magic": {
+   "pos": "singular noun",
+   "meaning": "A power that is not natural.",
+   "whyHard": "The word is less common than the school words for a strange power."
+  },
+  "creature": {
+   "pos": "singular noun",
+   "meaning": "A living animal.",
+   "whyHard": "The word is less common than animal.",
+   "forms": [
+    "creatures"
+   ]
+  },
+  "commander": {
+   "pos": "singular noun",
+   "meaning": "A leader of soldiers.",
+   "whyHard": "The word is less common than leader.",
+   "forms": [
+    "commanders"
+   ]
+  },
+  "defense": {
+   "pos": "singular noun",
+   "meaning": "Keeping a place safe from attack.",
+   "whyHard": "The word is less common than safe.",
+   "forms": [
+    "defenses"
+   ]
+  },
+  "truth": {
+   "pos": "singular noun",
+   "meaning": "What is real.",
+   "whyHard": "The word is less common than true."
+  },
+  "weight": {
+   "pos": "singular noun",
+   "meaning": "How heavy something is.",
+   "whyHard": "The word is less common than heavy."
+  },
+  "leader": {
+   "pos": "singular noun",
+   "meaning": "The one who goes first or who decides.",
+   "whyHard": "The word is less common than first.",
+   "forms": [
+    "leaders"
+   ]
+  },
+  "metal": {
+   "pos": "singular noun",
+   "meaning": "A hard shiny material, like gold.",
+   "whyHard": "The word is less common than the school words for a hard shiny material."
+  },
+  "safety": {
+   "pos": "singular noun",
+   "meaning": "Being safe from harm.",
+   "whyHard": "The word is less common than safe."
+  },
+  "message": {
+   "pos": "singular noun",
+   "meaning": "Words sent to someone.",
+   "whyHard": "The word is less common than letter."
+  },
+  "fear": {
+   "pos": "singular noun",
+   "meaning": "The feeling of being afraid.",
+   "whyHard": "The word is less common than afraid."
+  },
+  "support": {
+   "pos": "singular noun",
+   "meaning": "Help for someone.",
+   "whyHard": "The word is less common than help.",
+   "forms": [
+    "supported",
+    "supporting"
+   ]
+  },
+  "dream": {
+   "pos": "singular noun",
+   "meaning": "Pictures in the mind while you sleep.",
+   "whyHard": "The word is less common than sleep.",
+   "forms": [
+    "dreamed",
+    "dreams"
+   ]
+  },
+  "trouble": {
+   "pos": "singular noun",
+   "meaning": "A problem.",
+   "whyHard": "The word is less common than problem."
+  },
+  "space": {
+   "pos": "singular noun",
+   "meaning": "An empty area.",
+   "whyHard": "The word is less common than room or place."
+  },
+  "luck": {
+   "pos": "singular noun",
+   "meaning": "Good or bad things that happen by chance.",
+   "whyHard": "The word is less common than the school words for good or bad chance."
+  },
+  "hall": {
+   "pos": "singular noun",
+   "meaning": "A large room.",
+   "whyHard": "The word is less common than room."
+  },
+  "husband": {
+   "pos": "singular noun",
+   "meaning": "The man a woman is married to.",
+   "whyHard": "The word is less common than father."
+  },
+  "accident": {
+   "pos": "singular noun",
+   "meaning": "Something that happens when nobody planned it.",
+   "whyHard": "The word is less common than the school words for something nobody planned."
+  },
+  "decision": {
+   "pos": "singular noun",
+   "meaning": "What you choose to do.",
+   "whyHard": "The word is less common than choice."
+  },
+  "position": {
+   "pos": "singular noun",
+   "meaning": "A place, or a job.",
+   "whyHard": "The word is less common than place."
+  },
+  "force": {
+   "pos": "singular noun",
+   "meaning": "Strength, or making someone do something.",
+   "whyHard": "The word is less common than strong.",
+   "forms": [
+    "forced",
+    "forces"
+   ]
+  },
+  "treasury": {
+   "pos": "singular noun",
+   "meaning": "The room where treasure is kept.",
+   "whyHard": "The word is an old name for a treasure room."
+  },
+  "bay": {
+   "pos": "singular noun",
+   "meaning": "A part of the sea that curves into the land.",
+   "whyHard": "The word is less common than sea."
+  },
+  "vessel": {
+   "pos": "singular noun",
+   "meaning": "A boat, or a hollow thing that floats.",
+   "whyHard": "The word is an old name for a boat."
+  },
+  "seal": {
+   "pos": "singular noun",
+   "meaning": "A sea animal with a smooth body and flippers.",
+   "whyHard": "The word looks like the verb that means to close something tight. Here it is an animal."
+  },
+  "shore": {
+   "pos": "singular noun",
+   "meaning": "The land at the edge of the water.",
+   "whyHard": "The word is less common than beach."
+  },
+  "bat": {
+   "pos": "singular noun",
+   "meaning": "A small animal that flies at night. It looks like a mouse with wings.",
+   "whyHard": "The word is less common than bird.",
+   "forms": [
+    "batted"
+   ]
+  },
+  "rock": {
+   "pos": "singular noun",
+   "meaning": "A stone.",
+   "whyHard": "The word looks like a kind of music, or like moving back and forth. Here it is a stone.",
+   "forms": [
+    "rocked",
+    "rocks"
+   ]
+  },
+  "level": {
+   "pos": "singular noun",
+   "meaning": "One floor of a building, or how high something is.",
+   "whyHard": "The word looks like a flat tool, or a step in a game. Here it is a floor or a height.",
+   "forms": [
+    "levels"
+   ]
+  },
+  "council": {
+   "pos": "singular noun",
+   "meaning": "A group of dragons who help a queen decide.",
+   "whyHard": "The word is an old name for a group of helpers.",
+   "forms": [
+    "councils"
+   ]
+  },
+  "majesty": {
+   "pos": "singular noun",
+   "meaning": "A title for a queen or a king. Your Majesty means you, the queen.",
+   "whyHard": "It is an old title. It is not a school word.",
+   "forms": [
+    "majesties"
+   ]
+  },
+  "aquatic": {
+   "pos": "singular noun",
+   "meaning": "In this story, the SeaWing language of lights and signs.",
+   "whyHard": "It is the name of their language. It is not a school word for water."
+  },
+  "platter": {
+   "pos": "singular noun",
+   "meaning": "A large flat dish for food.",
+   "whyHard": "It is an old name for a big plate.",
+   "forms": [
+    "platters"
+   ]
+  },
+  "pebble": {
+   "pos": "singular noun",
+   "meaning": "A small smooth stone.",
+   "whyHard": "The word is less common than stone.",
+   "forms": [
+    "pebbles"
+   ]
+  },
+  "rope": {
+   "pos": "singular noun",
+   "meaning": "A thick cord used to tie things.",
+   "whyHard": "The word is less common than string.",
+   "forms": [
+    "ropes"
+   ]
+  },
+  "strap": {
+   "pos": "singular noun",
+   "meaning": "A band that holds something on.",
+   "whyHard": "The word is less common than belt.",
+   "forms": [
+    "straps"
+   ]
+  },
+  "muscle": {
+   "pos": "singular noun",
+   "meaning": "The part of the body that makes you move.",
+   "whyHard": "The word is less common than arm or leg.",
+   "forms": [
+    "muscles"
+   ]
+  },
+  "attacker": {
+   "pos": "singular noun",
+   "meaning": "Someone who starts a fight against you.",
+   "whyHard": "The word is less common than enemy."
+  },
+  "sign": {
+   "pos": "singular noun",
+   "meaning": "A movement or a clue that shows something.",
+   "whyHard": "The word looks like writing your name. Here it is a clue or a signal.",
+   "forms": [
+    "signs"
+   ]
+  },
+  "mark": {
+   "pos": "singular noun",
+   "meaning": "A line or a scar left on the body.",
+   "whyHard": "It can mean a score in school. Here it is a scar or a line.",
+   "forms": [
+    "marked",
+    "marking",
+    "marks"
+   ]
+  },
+  "channel": {
+   "pos": "singular noun",
+   "meaning": "A long narrow path of water.",
+   "whyHard": "It looks like a television channel. Here it is a path of water.",
+   "forms": [
+    "channels"
+   ]
+  },
+  "object": {
+   "pos": "singular noun",
+   "meaning": "A thing you can see or touch.",
+   "whyHard": "The word looks like the verb that means to say no. Here it is a thing.",
+   "forms": [
+    "objected",
+    "objects"
+   ]
+  },
+  "form": {
+   "pos": "singular noun",
+   "meaning": "A shape, or the way something looks.",
+   "whyHard": "The word looks like a paper you fill in. Here it is a shape.",
+   "forms": [
+    "formed"
+   ]
+  },
+  "ground": {
+   "pos": "singular noun",
+   "meaning": "The land under your feet.",
+   "whyHard": "The word is less common than floor or land."
+  },
+  "surface": {
+   "pos": "singular noun",
+   "meaning": "The top of the water, or the outside of something.",
+   "whyHard": "The word is less common than top.",
+   "forms": [
+    "surfaced",
+    "surfacing"
+   ]
+  },
+  "chance": {
+   "pos": "singular noun",
+   "meaning": "A time when something may happen, or a hope of doing it.",
+   "whyHard": "The word is less common than hope.",
+   "forms": [
+    "chances"
+   ]
+  },
+  "power": {
+   "pos": "singular noun",
+   "meaning": "Strength, or a special ability.",
+   "whyHard": "The word is less common than strong.",
+   "forms": [
+    "powered",
+    "powers"
+   ]
+  },
+  "group": {
+   "pos": "singular noun",
+   "meaning": "Several people or dragons together.",
+   "whyHard": "The word is less common than class.",
+   "forms": [
+    "groups"
+   ]
+  },
+  "point": {
+   "pos": "singular noun",
+   "meaning": "The sharp end of something.",
+   "whyHard": "The word looks like a score, or like showing with a finger. Here it is a sharp end.",
+   "forms": [
+    "pointed",
+    "pointing"
+   ]
+  },
+  "member": {
+   "pos": "singular noun",
+   "meaning": "One dragon in a group.",
+   "whyHard": "The word is less common than one of a group.",
+   "forms": [
+    "members"
+   ]
+  },
+  "report": {
+   "pos": "singular noun",
+   "meaning": "News about what happened.",
+   "whyHard": "The word looks like a school paper. Here it is news from a fight.",
+   "forms": [
+    "reported",
+    "reports"
+   ]
+  },
+  "choice": {
+   "pos": "singular noun",
+   "meaning": "What you pick.",
+   "whyHard": "The word is less common than pick.",
+   "forms": [
+    "choices"
+   ]
+  },
+  "corner": {
+   "pos": "singular noun",
+   "meaning": "The place where two sides meet.",
+   "whyHard": "The word is less common than side.",
+   "forms": [
+    "corners"
+   ]
+  },
+  "duty": {
+   "pos": "singular noun",
+   "meaning": "A job you must do.",
+   "whyHard": "The word is less common than job.",
+   "forms": [
+    "duties"
+   ]
+  },
+  "view": {
+   "pos": "singular noun",
+   "meaning": "What you can see from a place.",
+   "whyHard": "The word looks like an opinion. Here it is what you see."
+  },
+  "difference": {
+   "pos": "singular noun",
+   "meaning": "The way two things are not the same.",
+   "whyHard": "The word is less common than different.",
+   "forms": [
+    "differences"
+   ]
+  },
+  "theory": {
+   "pos": "singular noun",
+   "meaning": "An idea that may be true, but is not sure yet.",
+   "whyHard": "The word is less common than idea."
+  },
+  "vote": {
+   "pos": "singular noun",
+   "meaning": "A choice you give when a group decides.",
+   "whyHard": "The word is less common than choice.",
+   "forms": [
+    "voted",
+    "votes"
+   ]
+  },
+  "advantage": {
+   "pos": "singular noun",
+   "meaning": "Something that makes you stronger in a fight or a plan.",
+   "whyHard": "The word is less common than help.",
+   "forms": [
+    "advantages"
+   ]
+  },
+  "garden": {
+   "pos": "singular noun",
+   "meaning": "A piece of land where plants grow.",
+   "whyHard": "The word is less common than the school words for a yard of plants.",
+   "forms": [
+    "gardens"
+   ]
+  },
+  "heat": {
+   "pos": "singular noun",
+   "meaning": "How hot something is.",
+   "whyHard": "The word is less common than hot.",
+   "forms": [
+    "heated",
+    "heating"
+   ]
+  },
+  "mission": {
+   "pos": "singular noun",
+   "meaning": "A job that a group is sent to do.",
+   "whyHard": "The word is less common than job."
+  },
+  "killer": {
+   "pos": "singular noun",
+   "meaning": "Someone who kills.",
+   "whyHard": "The word is less common than the school words for a person who kills."
+  },
+  "witness": {
+   "pos": "singular noun",
+   "meaning": "Someone who sees something happen.",
+   "whyHard": "The word is less common than see."
+  },
+  "intelligence": {
+   "pos": "singular noun",
+   "meaning": "How well someone can think.",
+   "whyHard": "The word is less common than smart."
+  },
+  "conversation": {
+   "pos": "singular noun",
+   "meaning": "People talking together.",
+   "whyHard": "The word is less common than talk.",
+   "forms": [
+    "conversations"
+   ]
+  },
+  "scream": {
+   "pos": "singular noun",
+   "meaning": "A loud high cry.",
+   "whyHard": "The word is less common than cry.",
+   "forms": [
+    "screamed",
+    "screaming",
+    "screams"
+   ]
+  },
+  "quality": {
+   "pos": "singular noun",
+   "meaning": "A part of what someone is like.",
+   "whyHard": "The word looks like how good something is. Here it is a trait.",
+   "forms": [
+    "qualities"
+   ]
+  },
+  "crowd": {
+   "pos": "singular noun",
+   "meaning": "A lot of dragons in one place.",
+   "whyHard": "The word is less common than many.",
+   "forms": [
+    "crowded",
+    "crowds"
+   ]
+  },
+  "spectacle": {
+   "pos": "singular noun",
+   "meaning": "A big show that many dragons watch.",
+   "whyHard": "The word is less common than show.",
+   "forms": [
+    "spectacles"
+   ]
+  },
+  "threat": {
+   "pos": "singular noun",
+   "meaning": "A sign that someone may hurt you.",
+   "whyHard": "The word is less common than danger.",
+   "forms": [
+    "threats"
+   ]
+  },
+  "honor": {
+   "pos": "singular noun",
+   "meaning": "Respect for what is right.",
+   "whyHard": "The word is an old name for respect."
+  },
+  "size": {
+   "pos": "singular noun",
+   "meaning": "How big something is.",
+   "whyHard": "The word is less common than big.",
+   "forms": [
+    "sized",
+    "sizing"
+   ]
+  },
+  "quite": {
+   "pos": "adverb",
+   "meaning": "Very, or completely.",
+   "whyHard": "It looks like the word quiet. It does not mean quiet."
+  },
+  "lead": {
+   "pos": "base verb",
+   "meaning": "To go in front and show the way.",
+   "whyHard": "It looks like the heavy gray metal. Here it means to go first.",
+   "forms": [
+    "leading",
+    "leads",
+    "led"
+   ]
+  },
+  "shot": {
+   "pos": "past-tense verb",
+   "meaning": "Moved very fast, or sent out a look, a flame, or a blast.",
+   "whyHard": "It is the past of shoot. It does not mean shut."
+  },
+  "supposed": {
+   "pos": "adjective",
+   "meaning": "Expected or believed. Supposed to means should.",
+   "whyHard": "The words supposed to are a set phrase. They do not mean a guess you already know."
+  },
+  "protect": {
+   "pos": "base verb",
+   "meaning": "To keep someone safe from harm.",
+   "whyHard": "The word is less common than save.",
+   "forms": [
+    "protected",
+    "protecting"
+   ]
+  },
+  "realize": {
+   "pos": "base verb",
+   "meaning": "To understand something suddenly.",
+   "whyHard": "The word is less common than know.",
+   "forms": [
+    "realized",
+    "realizes",
+    "realizing"
+   ]
+  },
+  "wonder": {
+   "pos": "base verb",
+   "meaning": "To want to know something.",
+   "whyHard": "The word looks like a feeling of surprise. Here it means to ask yourself.",
+   "forms": [
+    "wondered",
+    "wondering"
+   ]
+  },
+  "demand": {
+   "pos": "base verb",
+   "meaning": "To ask in a strong, angry way.",
+   "whyHard": "The word is less common than ask.",
+   "forms": [
+    "demanded",
+    "demanding"
+   ]
+  },
+  "worry": {
+   "pos": "base verb",
+   "meaning": "To feel that something bad may happen.",
+   "whyHard": "The word is less common than afraid.",
+   "forms": [
+    "worried",
+    "worries",
+    "worrying"
+   ]
+  },
+  "spread": {
+   "pos": "base verb",
+   "meaning": "To open wide, or to move out over a bigger place.",
+   "whyHard": "The word is less common than open.",
+   "forms": [
+    "spreading"
+   ]
+  },
+  "attack": {
+   "pos": "base verb",
+   "meaning": "To start a fight against someone.",
+   "whyHard": "The word is less common than fight.",
+   "forms": [
+    "attacked",
+    "attacking",
+    "attacks"
+   ]
+  },
+  "catch": {
+   "pos": "base verb",
+   "meaning": "To take hold of something that is moving.",
+   "whyHard": "The word is less common than get.",
+   "forms": [
+    "catching",
+    "caught"
+   ]
+  },
+  "guess": {
+   "pos": "base verb",
+   "meaning": "To say what you think is true when you are not sure.",
+   "whyHard": "The word is less common than think.",
+   "forms": [
+    "guessed",
+    "guesses",
+    "guessing"
+   ]
+  },
+  "plan": {
+   "pos": "base verb",
+   "meaning": "To decide what you will do.",
+   "whyHard": "The word is less common than think.",
+   "forms": [
+    "planned",
+    "planning",
+    "plans"
+   ]
+  },
+  "happen": {
+   "pos": "base verb",
+   "meaning": "To take place.",
+   "whyHard": "The word is less common than the school words for something that takes place.",
+   "forms": [
+    "happened",
+    "happening",
+    "happens"
+   ]
+  },
+  "save": {
+   "pos": "base verb",
+   "meaning": "To keep someone from being hurt or killed.",
+   "whyHard": "The word looks like keeping money. Here it means to keep someone safe.",
+   "forms": [
+    "saved",
+    "saving"
+   ]
+  },
+  "seem": {
+   "pos": "base verb",
+   "meaning": "To look as if something is true.",
+   "whyHard": "The word is less common than look.",
+   "forms": [
+    "seemed",
+    "seems"
+   ]
+  },
+  "shout": {
+   "pos": "base verb",
+   "meaning": "To speak in a very loud voice.",
+   "whyHard": "The word is less common than say.",
+   "forms": [
+    "shouted",
+    "shouting"
+   ]
+  },
+  "suggest": {
+   "pos": "base verb",
+   "meaning": "To offer an idea.",
+   "whyHard": "The word is less common than say.",
+   "forms": [
+    "suggested",
+    "suggesting"
+   ]
+  },
+  "expect": {
+   "pos": "base verb",
+   "meaning": "To think something will happen.",
+   "whyHard": "The word is less common than think.",
+   "forms": [
+    "expected",
+    "expecting"
+   ]
+  },
+  "imagine": {
+   "pos": "base verb",
+   "meaning": "To make a picture in your mind.",
+   "whyHard": "The word is less common than think.",
+   "forms": [
+    "imagined",
+    "imagining"
+   ]
+  },
+  "choose": {
+   "pos": "base verb",
+   "meaning": "To pick one thing.",
+   "whyHard": "The word is less common than pick.",
+   "forms": [
+    "choosing",
+    "chose",
+    "chosen"
+   ]
+  },
+  "return": {
+   "pos": "base verb",
+   "meaning": "To come or go back.",
+   "whyHard": "The word is less common than come back.",
+   "forms": [
+    "returned",
+    "returning"
+   ]
+  },
+  "notice": {
+   "pos": "base verb",
+   "meaning": "To see something.",
+   "whyHard": "The word is less common than see.",
+   "forms": [
+    "noticed",
+    "noticing"
+   ]
+  },
+  "arrive": {
+   "pos": "base verb",
+   "meaning": "To get to a place.",
+   "whyHard": "The word is less common than come.",
+   "forms": [
+    "arrived",
+    "arrives",
+    "arriving"
+   ]
+  },
+  "decide": {
+   "pos": "base verb",
+   "meaning": "To choose what to do.",
+   "whyHard": "The word is less common than choose.",
+   "forms": [
+    "decided",
+    "deciding"
+   ]
+  },
+  "explain": {
+   "pos": "base verb",
+   "meaning": "To make something clear.",
+   "whyHard": "The word is less common than tell.",
+   "forms": [
+    "explained",
+    "explaining",
+    "explains"
+   ]
+  },
+  "promise": {
+   "pos": "base verb",
+   "meaning": "To say you will surely do something.",
+   "whyHard": "The word is less common than say.",
+   "forms": [
+    "promised",
+    "promising"
+   ]
+  },
+  "trust": {
+   "pos": "base verb",
+   "meaning": "To believe someone will not hurt you.",
+   "whyHard": "The word is less common than believe.",
+   "forms": [
+    "trusted",
+    "trusting",
+    "trusts"
+   ]
+  },
+  "hold": {
+   "pos": "base verb",
+   "meaning": "To keep something in your claws or hands.",
+   "whyHard": "The word is less common than have.",
+   "forms": [
+    "held",
+    "holding"
+   ]
+  },
+  "send": {
+   "pos": "base verb",
+   "meaning": "To make something or someone go to a place.",
+   "whyHard": "The word is less common than give.",
+   "forms": [
+    "sending",
+    "sent"
+   ]
+  },
+  "share": {
+   "pos": "base verb",
+   "meaning": "To let someone have part of what you have.",
+   "whyHard": "The word is less common than give.",
+   "forms": [
+    "shared",
+    "sharing"
+   ]
+  },
+  "fix": {
+   "pos": "base verb",
+   "meaning": "To make something right or whole again.",
+   "whyHard": "The word is less common than mend.",
+   "forms": [
+    "fixed",
+    "fixing"
+   ]
+  },
+  "check": {
+   "pos": "base verb",
+   "meaning": "To look at something to see if it is all right.",
+   "whyHard": "The word looks like a mark on paper, or money. Here it means to look and see.",
+   "forms": [
+    "checked",
+    "checking"
+   ]
+  },
+  "strike": {
+   "pos": "base verb",
+   "meaning": "To hit, or to attack.",
+   "whyHard": "It looks like a stop-work strike. Here it means to hit.",
+   "forms": [
+    "striking"
+   ]
+  },
+  "shoot": {
+   "pos": "base verb",
+   "meaning": "To move very fast, or to send something out fast.",
+   "whyHard": "It looks like firing a weapon only. Here it also means to fly past.",
+   "forms": [
+    "shooting"
+   ]
+  },
+  "cross": {
+   "pos": "base verb",
+   "meaning": "To go from one side to the other.",
+   "whyHard": "The word looks like an angry feeling, or the shape of a cross. Here it means to go across.",
+   "forms": [
+    "crossly"
+   ]
+  },
+  "refuse": {
+   "pos": "base verb",
+   "meaning": "To say no.",
+   "whyHard": "The word looks like trash. Here it means to say no.",
+   "forms": [
+    "refused"
+   ]
+  },
+  "slip": {
+   "pos": "base verb",
+   "meaning": "To move in or out quickly and quietly.",
+   "whyHard": "The word looks like a small piece of paper. Here it means to move quietly.",
+   "forms": [
+    "slipped",
+    "slipping"
+   ]
+  },
+  "roll": {
+   "pos": "base verb",
+   "meaning": "To turn over, or to move the eyes up to show you are annoyed.",
+   "whyHard": "The word looks like a piece of bread. Here it means to turn.",
+   "forms": [
+    "rolled",
+    "rolling",
+    "rolls"
+   ]
+  },
+  "lean": {
+   "pos": "base verb",
+   "meaning": "To rest your body against someone or something.",
+   "whyHard": "The word looks like thin. Here it means to rest against.",
+   "forms": [
+    "leaned",
+    "leaning"
+   ]
+  },
+  "miss": {
+   "pos": "base verb",
+   "meaning": "To feel sad because someone is not here, or to fail to notice something.",
+   "whyHard": "The word looks like a title for a woman, or like not hitting. Here it means to feel someone is gone, or to not notice.",
+   "forms": [
+    "missed",
+    "misses",
+    "missing"
+   ]
+  },
+  "laid": {
+   "pos": "past-tense verb",
+   "meaning": "Put something down. When a mother laid an egg, she produced it.",
+   "whyHard": "It looks like the past of lie, to rest flat. Here it means put down, or produced an egg."
+  },
+  "spotted": {
+   "pos": "past-tense verb",
+   "meaning": "Saw or noticed.",
+   "whyHard": "It looks like covered with dots. Here it means saw."
+  },
+  "figured": {
+   "pos": "past-tense verb",
+   "meaning": "Thought or believed.",
+   "whyHard": "Figure out means to understand. Here figured means thought."
+  },
+  "winding": {
+   "pos": "adjective",
+   "meaning": "Curving and turning.",
+   "whyHard": "It looks like the moving air, wind. Here it means curving."
+  },
+  "cried": {
+   "pos": "past-tense verb",
+   "meaning": "Said something in a loud voice.",
+   "whyHard": "It looks like having tears. Here it means called out."
+  },
+  "landed": {
+   "pos": "past-tense verb",
+   "meaning": "Came down onto the ground or into the water.",
+   "whyHard": "The word looks like land, the ground. Here it means came down."
+  },
+  "especially": {
+   "pos": "adverb",
+   "meaning": "More than the other things. Most of all.",
+   "whyHard": "The word is less common than most."
+  },
+  "definitely": {
+   "pos": "adverb",
+   "meaning": "For sure.",
+   "whyHard": "The word is less common than sure."
+  },
+  "immediately": {
+   "pos": "adverb",
+   "meaning": "At once, with no wait.",
+   "whyHard": "The word is less common than now."
+  },
+  "rather": {
+   "pos": "adverb",
+   "meaning": "More willingly, or quite.",
+   "whyHard": "The word is less common than quite or instead."
+  },
+  "actually": {
+   "pos": "adverb",
+   "meaning": "In fact. Really.",
+   "whyHard": "The word is less common than really."
+  },
+  "certainly": {
+   "pos": "adverb",
+   "meaning": "For sure.",
+   "whyHard": "The word is less common than sure."
+  },
+  "eventually": {
+   "pos": "adverb",
+   "meaning": "At last, after some time.",
+   "whyHard": "The word is less common than later."
+  },
+  "obviously": {
+   "pos": "adverb",
+   "meaning": "In a way that is easy to see.",
+   "whyHard": "The word is less common than clearly."
+  },
+  "clearly": {
+   "pos": "adverb",
+   "meaning": "In a way that is easy to see or understand.",
+   "whyHard": "The word is less common than clear."
+  },
+  "gently": {
+   "pos": "adverb",
+   "meaning": "In a soft, careful way.",
+   "whyHard": "The word is less common than softly."
+  },
+  "seriously": {
+   "pos": "adverb",
+   "meaning": "In a way that is not a joke.",
+   "whyHard": "The word is less common than really."
+  },
+  "firmly": {
+   "pos": "adverb",
+   "meaning": "In a strong, sure way.",
+   "whyHard": "The word is less common than strongly."
+  },
+  "deeply": {
+   "pos": "adverb",
+   "meaning": "In a strong way, or far down.",
+   "whyHard": "The word is less common than deep."
+  },
+  "missing": {
+   "pos": "adjective",
+   "meaning": "Lost, so that nobody can find it.",
+   "whyHard": "The word looks like feeling sad that someone is gone. Here it means lost."
+  },
+  "real": {
+   "pos": "adjective",
+   "meaning": "True, not a copy and not a dream.",
+   "whyHard": "The word is less common than true.",
+   "forms": [
+    "really"
+   ]
+  },
+  "possible": {
+   "pos": "adjective",
+   "meaning": "Able to happen.",
+   "whyHard": "The word is less common than can."
+  },
+  "alive": {
+   "pos": "adjective",
+   "meaning": "Living. Not dead.",
+   "whyHard": "The word is less common than live."
+  },
+  "weird": {
+   "pos": "adjective",
+   "meaning": "Strange.",
+   "whyHard": "The word is less common than strange.",
+   "forms": [
+    "weirdly"
+   ]
+  },
+  "crazy": {
+   "pos": "adjective",
+   "meaning": "Not thinking in a normal way. Wild.",
+   "whyHard": "The word is less common than mad."
+  },
+  "entire": {
+   "pos": "adjective",
+   "meaning": "Whole. All of it.",
+   "whyHard": "The word is less common than whole.",
+   "forms": [
+    "entirely"
+   ]
+  },
+  "stupid": {
+   "pos": "adjective",
+   "meaning": "Not smart.",
+   "whyHard": "The word is less common than silly."
+  },
+  "natural": {
+   "pos": "adjective",
+   "meaning": "Coming from nature, not made by someone.",
+   "whyHard": "The word is less common than real.",
+   "forms": [
+    "naturally"
+   ]
+  },
+  "wild": {
+   "pos": "adjective",
+   "meaning": "Not tame. Of the open land or sea.",
+   "whyHard": "The word is less common than the school words for not tame.",
+   "forms": [
+    "wildly"
+   ]
+  },
+  "powerful": {
+   "pos": "adjective",
+   "meaning": "Very strong.",
+   "whyHard": "The word is less common than strong."
+  },
+  "straight": {
+   "pos": "adjective",
+   "meaning": "Not bent and not curved.",
+   "whyHard": "The word is less common than the school words for a line that does not bend."
+  },
+  "normal": {
+   "pos": "adjective",
+   "meaning": "Usual. Not strange.",
+   "whyHard": "The word is less common than usual.",
+   "forms": [
+    "normally"
+   ]
+  },
+  "serious": {
+   "pos": "adjective",
+   "meaning": "Not a joke. Important.",
+   "whyHard": "The word is less common than important."
+  },
+  "huge": {
+   "pos": "adjective",
+   "meaning": "Very big.",
+   "whyHard": "The word is less common than big."
+  },
+  "deadly": {
+   "pos": "adjective",
+   "meaning": "Able to kill.",
+   "whyHard": "The word is less common than dangerous."
+  },
+  "excellent": {
+   "pos": "adjective",
+   "meaning": "Very good.",
+   "whyHard": "The word is less common than great."
+  },
+  "electric": {
+   "pos": "adjective",
+   "meaning": "Using or making a shock of power, like lightning.",
+   "whyHard": "The word is less common than the school words for a shock."
+  },
+  "royal": {
+   "pos": "adjective",
+   "meaning": "Of a queen or a king.",
+   "whyHard": "The word is an old label for a ruler's family."
+  },
+  "kill": {
+   "pos": "base verb",
+   "meaning": "To make someone die.",
+   "whyHard": "The word is less common than the school words for making someone die.",
+   "forms": [
+    "killed",
+    "killing",
+    "kills"
+   ]
+  },
+  "peace": {
+   "pos": "singular noun",
+   "meaning": "A time with no war.",
+   "whyHard": "The word is less common than quiet."
+  },
+  "care": {
+   "pos": "base verb",
+   "meaning": "To feel that something matters.",
+   "whyHard": "The word looks like a careful person. Here it means to feel that something matters.",
+   "forms": [
+    "cared",
+    "cares",
+    "caring"
+   ]
+  },
+  "forward": {
+   "pos": "adverb",
+   "meaning": "Toward the front.",
+   "whyHard": "The word is less common than ahead."
+  },
+  "ahead": {
+   "pos": "adverb",
+   "meaning": "In front. Farther along the way.",
+   "whyHard": "The word is less common than in front."
+  },
+  "though": {
+   "pos": "adverb",
+   "meaning": "However. Even so.",
+   "whyHard": "The word is less common than but."
+  },
+  "half": {
+   "pos": "singular noun",
+   "meaning": "One of two equal parts.",
+   "whyHard": "The word is less common than the school words for a part."
+  },
+  "follow": {
+   "pos": "base verb",
+   "meaning": "To go after someone.",
+   "whyHard": "The word is less common than go after.",
+   "forms": [
+    "followed",
+    "following",
+    "follows"
+   ]
+  },
+  "raise": {
+   "pos": "base verb",
+   "meaning": "To lift something, or to bring a child up.",
+   "whyHard": "The word looks like rise. Here it means to lift, or to bring up a child.",
+   "forms": [
+    "raised",
+    "raising"
+   ]
+  },
+  "search": {
+   "pos": "base verb",
+   "meaning": "To look carefully for something.",
+   "whyHard": "The word is less common than look.",
+   "forms": [
+    "searched",
+    "searching"
+   ]
+  },
+  "reach": {
+   "pos": "base verb",
+   "meaning": "To get to a place, or to stretch out to touch it.",
+   "whyHard": "The word is less common than get to.",
+   "forms": [
+    "reached",
+    "reaching"
+   ]
+  },
+  "pull": {
+   "pos": "base verb",
+   "meaning": "To draw something toward you.",
+   "whyHard": "The word is less common than the school words for drawing something toward you.",
+   "forms": [
+    "pulled",
+    "pulling"
+   ]
+  },
+  "push": {
+   "pos": "base verb",
+   "meaning": "To press something away from you.",
+   "whyHard": "The word is less common than the school words for moving something away.",
+   "forms": [
+    "pushed",
+    "pushing"
+   ]
+  },
+  "drop": {
+   "pos": "base verb",
+   "meaning": "To let something fall.",
+   "whyHard": "The word is less common than fall.",
+   "forms": [
+    "dropped",
+    "dropping",
+    "drops"
+   ]
+  },
+  "break": {
+   "pos": "base verb",
+   "meaning": "To make something come apart.",
+   "whyHard": "The word is less common than the school words for making something come apart.",
+   "forms": [
+    "breaking",
+    "broke",
+    "broken"
+   ]
+  },
+  "die": {
+   "pos": "base verb",
+   "meaning": "To stop living.",
+   "whyHard": "The word is less common than the school words for the end of life.",
+   "forms": [
+    "died",
+    "dying"
+   ]
+  },
+  "win": {
+   "pos": "base verb",
+   "meaning": "To be the one who succeeds in a fight or a game.",
+   "whyHard": "The word is less common than the school words for being the one who succeeds.",
+   "forms": [
+    "wind",
+    "winning",
+    "won"
+   ]
+  },
+  "lose": {
+   "pos": "base verb",
+   "meaning": "To not win, or to not have something anymore.",
+   "whyHard": "It looks like loose. It does not mean loose.",
+   "forms": [
+    "loses",
+    "losing",
+    "lost"
+   ]
+  },
+  "bit": {
+   "pos": "singular noun",
+   "meaning": "A small piece, or a small amount.",
+   "whyHard": "The word looks like the past of bite. Here it is a small piece.",
+   "forms": [
+    "bits"
+   ]
+  },
+  "lot": {
+   "pos": "singular noun",
+   "meaning": "A large number or a large amount.",
+   "whyHard": "The word looks like a piece of land. Here a lot means many or much.",
+   "forms": [
+    "lots"
+   ]
+  },
+  "mad": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Angry.",
+   "whyHard": "Not the usual meaning! Usually mad means crazy.",
+   "senses": [
+    {
+     "meaning": "Angry.",
+     "whyHard": "Not the usual meaning! Usually mad means crazy.",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "Yes, they were probably mad about the dragonets’ escape"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "they were pretty definitely mad about the part where"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "But everyone was still mad at her about attacking"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "Tsunami forgot to be mad at Glory and Starflight"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "until she decided how mad she was about the"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "They were all too mad at her right now"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "with me or getting mad about something.” She felt"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "in there? Were they still mad at her"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "was supposed to be mad at him, too. She"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "little shake. I’m mad at your kind. It"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "context": "the prophecy, then got mad when other dragons pointed"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 3,
+       "context": "notice nobody seems all mad at her about that"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 4,
+       "context": "No matter how mad they made her, Tsunami"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "might still be too mad at Tsunami to want"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "for them to be mad at her about. She"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "or forgotten she was mad in the first place"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "But if they’re mad or hungry, they’re"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "you made Blister pretty mad — that took some courage"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "context": "even when she was mad at her friends, she"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "kind": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A type or a group. Kind of means a little, or somewhat.",
+   "whyHard": "Not the usual meaning! Usually kind means nice.",
+   "senses": [
+    {
+     "meaning": "A type or a group. Kind of means a little, or somewhat.",
+     "whyHard": "Not the usual meaning! Usually kind means nice.",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "to be clear, is kind of nose-curlingly awful"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "Tsunami kind of adored Clay when he was"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "like she was the kind of dragon who hid"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "SeaWings. Maybe her own kind would understand her better"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "Some kind of SeaWing patrol ritual? Tsunami wondered"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "dragon of his own kind before. That’s why"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "animus dragons had that kind of power. In their"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "Still, she kind of liked having him there"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "her mother . . . the “What kind of dragon are you"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "re with your own kind. And you know your"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 3,
+       "context": "it depended on the kind of queen you were"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 4,
+       "context": "of those things? What kind of magic did he"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 5,
+       "context": "large bowls contained some kind of salad of octopus"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "to her, or some kind of permanent guard. And"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "dragon she was. The kind of dragon who attacked"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "context": "for no reason. The kind of dragon who did"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 3,
+       "context": "The kind of dragon who could kill her"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 4,
+       "context": "her than swimming. What kind of SeaWing didn’t"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 5,
+       "context": "love the sea? The kind that shouldn’t be"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "she had left some kind of mark on her"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "dragon. It was some kind of odd vessel, like"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "context": "m mad at your kind. It’s your fault"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 3,
+       "context": "had to admit she kind of missed them . . . even"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "was tempted by the kind of power that could"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "or Moray had this kind of power, they would"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "specifically said she was kind of evil and probably"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "context": "It kind of does sum you up,” Tsunami"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 3,
+       "context": "That’s a kind of seabird,” Starflight said"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "They give off a kind of shock,” Starflight explained"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "But this was the kind of thing she did"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "palace. That was the kind of fighting she wouldn"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "it’s a different kind of venom . . . that’s"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "context": "had to be the kind of dragon they could"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "s how you indicate different kinds of danger",
+       "form": "kinds"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "rest": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The other part. The ones not already named.",
+   "whyHard": "Not the usual meaning! Usually rest means to stop and be still.",
+   "senses": [
+    {
+     "meaning": "The other part. The ones not already named.",
+     "whyHard": "Not the usual meaning! Usually rest means to stop and be still.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "reached the beach, the rest of the patrol had"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "explain it all. The rest of them fell asleep"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "surprisingly sticky, while the rest of the tendril was"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "more meddlesome than the rest of them. While most"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "say, marry someone the rest of the tribe disapproved"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 3,
+       "context": "eyes were scanning the rest of the Council. Whirlpool"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "They can have the rest of this as well"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "context": "the soldier croaked. “All the rest badly injured"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "her head for the rest of her life"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "standing there for the rest of the Council meeting"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "group. Without him, the rest of us will fall"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "Deep Palace before the rest of the Council. If"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "horribly silent as the rest of the hatchery"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "short way from the rest of them. He was"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there. Not gone.",
+   "whyHard": "Not the usual meaning! Usually left means the opposite of right, or the past of leave.",
+   "senses": [
+    {
+     "meaning": "Still there. Not gone.",
+     "whyHard": "Not the usual meaning! Usually left means the opposite of right, or the past of leave.",
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "well, who would be left to guard the egg"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "she wanted to be left out of the blame"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "thought of the hole left in the canopy when"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "match": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To be the same as something, or to be strong enough against it.",
+   "whyHard": "Not the usual meaning! Usually a match is a game, or a small stick that makes fire.",
+   "senses": [
+    {
+     "meaning": "To be the same as something, or to be strong enough against it.",
+     "whyHard": "Not the usual meaning! Usually a match is a game, or a small stick that makes fire.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "and Starflight were no match for six full-grown"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "Actually they were no match for one SkyWing soldier"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "scales automatically tried to match their environment when she"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "smaller throne carved to match, with the same patterns"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "tail as if to match her mother’s"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "got me a gag to match the harness"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "training": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "Practice for a job or a fight.",
+   "whyHard": "Not the usual meaning! Usually a train is a vehicle on tracks. Training means practice.",
+   "senses": [
+    {
+     "meaning": "Practice for a job or a fight.",
+     "whyHard": "Not the usual meaning! Usually a train is a vehicle on tracks. Training means practice.",
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "had lots of battle training. And Webs taught us"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "I’m stuck in training sessions with Whirlpool,” Anemone"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "I have had excellent training at the side of"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "free during their battle training sessions. The tiny dragonet"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "How much longer must this training go on"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "like you need more training. Make mistakes sometimes if"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "order": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A command. In order to means so that.",
+   "whyHard": "Not the usual meaning! Usually order means the way things line up, or food you ask for.",
+   "senses": [
+    {
+     "meaning": "A command, or a request for something to be made.",
+     "whyHard": "Not the usual meaning! Usually order means the way things line up, or food you ask for.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "didn’t particularly like taking orders from Starflight",
+       "form": "orders"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "I guess everyone’s giving the orders now",
+       "form": "orders"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "wasn’t taking any orders from Tsunami. Clay poked",
+       "form": "orders"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "in the bustle of orders and flying messengers, there",
+       "form": "orders"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "glecting the dragonets on the queen’s orders",
+       "form": "orders"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "t!” protested a second guard. “We have orders",
+       "form": "orders"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 3,
+       "context": "Orders from whom?” Tsunami demanded",
+       "form": "orders"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "you’ll obey my orders,” said the queen. A",
+       "form": "orders"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "Coral’s voice barking orders. “Make sure there are",
+       "form": "orders"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "Shark swooped past, yelling orders. Most of the dragons",
+       "form": "orders"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "into the water,” Tsunami ordered. It was closer than",
+       "form": "ordered"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "too fast. And listen to me,” Tsunami ordered",
+       "form": "ordered"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "Pearl, report,” ordered the queen after the dragons",
+       "form": "ordered"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "context": "Let’s hear it,” Queen Coral ordered",
+       "form": "ordered"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "Queen Coral hasn’t ordered it, then I’m",
+       "form": "ordered"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "context": "What if she has ordered it, and I didn",
+       "form": "ordered"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "Deep Palace,” the queen ordered Tsunami. “We really have",
+       "form": "ordered"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "fury. Had her mother ordered this? If so, she",
+       "form": "ordered"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "introduce your friends,” Coral ordered, smiling at Blister again",
+       "form": "ordered"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "context": "baby dragonet to be ordered around. And she had",
+       "form": "ordered"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 3,
+       "context": "for you,” the queen ordered. “Think about how that",
+       "form": "ordered"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 4,
+       "context": "And GUESS WHO ordered your guards to chain",
+       "form": "ordered"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 5,
+       "context": "you would never have ordered those chains on Clay",
+       "form": "ordered"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "Stay here,” Coral ordered. She slid as far",
+       "form": "ordered"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "s daughter, and I order you to leave these"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "interpret battle reports and order our defenses. Managing the"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "to put a rush order on a harness for"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true,
+     "pos": "singular noun"
+    },
+    {
+     "meaning": "So that. In order to means for the purpose of.",
+     "whyHard": "Not the usual meaning! Usually order means the way things line up. In order to means so that.",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "all that stuff in order to become queen. She"
+      }
+     ],
+     "trickyMeaning": true,
+     "pos": "noun"
+    }
+   ],
+   "forms": [
+    "ordered",
+    "orders"
+   ]
+  },
+  "stick": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To stay, or to put something into a place.",
+   "whyHard": "Not the usual meaning! Usually a stick is a long piece of wood.",
+   "senses": [
+    {
+     "meaning": "To stay, or to put something into a place.",
+     "whyHard": "Not the usual meaning! Usually a stick is a long piece of wood.",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "there! How can we stick together if you’re"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "Anemone had to stick her head under the"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "The guards didn’t stick around to argue. They"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "subject": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The thing people are talking about.",
+   "whyHard": "Not the usual meaning! Usually a subject is a class in school, like math.",
+   "senses": [
+    {
+     "meaning": "The thing people are talking about.",
+     "whyHard": "Not the usual meaning! Usually a subject is a class in school, like math.",
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "hoping to change the subject. “I — I don’t"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "rose": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Went up. Past of rise.",
+   "whyHard": "Not the usual meaning! Usually a rose is a flower.",
+   "senses": [
+    {
+     "meaning": "Went up. Past of rise.",
+     "whyHard": "Not the usual meaning! Usually a rose is a flower.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "A curl of smoke rose from the SkyWing’s"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "together. Seven burly SeaWings rose up behind the dragonets"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "with pale green eyes rose up from the Council"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "nodded with satisfaction and rose to the air again"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "She beat her wings, rose out of the water"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "Queen Coral rose to her feet, knocking Moray"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "one by one. They rose through the water, tiny"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true,
+     "pos": "past-tense verb"
+    },
+    {
+     "meaning": "A pink color.",
+     "whyHard": "Not the usual meaning! Usually a rose is a flower. Here it is a pink color.",
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "and her scales were shimmering silver and rose"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "but small puffs of rose pink were blooming in"
+      }
+     ],
+     "trickyMeaning": true,
+     "pos": "noun"
+    }
+   ]
+  },
+  "course": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The way you are going.",
+   "whyHard": "Not the usual meaning! Usually of course means yes, certainly. Here course means the way you are going.",
+   "senses": [
+    {
+     "meaning": "The way you are going.",
+     "whyHard": "Not the usual meaning! Usually of course means yes, certainly. Here course means the way you are going.",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "wings slightly to change course. His head turned alertly"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "spring": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To jump.",
+   "whyHard": "Not the usual meaning! Usually spring is a season. Here it means to jump.",
+   "senses": [
+    {
+     "meaning": "To jump.",
+     "whyHard": "Not the usual meaning! Usually spring is a season. Here it means to jump.",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "trapped dragonflies, wanting to spring loose. She was so"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "spell": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "Magic words or a magic power.",
+   "whyHard": "Not the usual meaning! Usually spell means to say the letters of a word. Here it is magic.",
+   "senses": [
+    {
+     "meaning": "Magic words or a magic power.",
+     "whyHard": "Not the usual meaning! Usually spell means to say the letters of a word. Here it is magic.",
+     "anchors": [
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "Tsunami guessed that the spell also alerted the statue"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "figure": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To understand. Figure out means to find the answer.",
+   "whyHard": "Not the usual meaning! Usually a figure is a number or a body shape.",
+   "senses": [
+    {
+     "meaning": "To understand. Figure out means to find the answer.",
+     "whyHard": "Not the usual meaning! Usually a figure is a number or a body shape.",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "signal. Hopefully he’d figure out what she meant"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "use my powers to figure out where your palace"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "So I figure it out myself. Tsunami set"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "context": "It was hard to figure out what she really"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "that giant brain to figure out why in the"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "know,” Tsunami said. “We’ll figure it out"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "duck": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To lower your head fast.",
+   "whyHard": "Not the usual meaning! Usually a duck is a bird.",
+   "senses": [
+    {
+     "meaning": "To lower your head fast.",
+     "whyHard": "Not the usual meaning! Usually a duck is a bird.",
+     "anchors": [
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "and Tsunami had to duck and roll away to"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "train": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A line of ideas. A train of thought is the ideas that follow one another.",
+   "whyHard": "Not the usual meaning! Usually a train is a vehicle on tracks.",
+   "senses": [
+    {
+     "meaning": "A line of ideas. A train of thought is the ideas that follow one another.",
+     "whyHard": "Not the usual meaning! Usually a train is a vehicle on tracks.",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "moment, following Clay’s train of thought. “The pavilion"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "wake": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The moving water left behind something that swims.",
+   "whyHard": "Not the usual meaning! Usually wake up means to stop sleeping.",
+   "senses": [
+    {
+     "meaning": "The moving water left behind something that swims.",
+     "whyHard": "Not the usual meaning! Usually wake up means to stop sleeping.",
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "Anemone paddled in her wake, glowing like a pale"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "present": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The time now.",
+   "whyHard": "Not the usual meaning! Usually a present is a gift.",
+   "senses": [
+    {
+     "meaning": "The time now.",
+     "whyHard": "Not the usual meaning! Usually a present is a gift.",
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "the Scorching to the Present must have been written"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "shed": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To let something flow out or fall off. Shed blood means to spill blood.",
+   "whyHard": "Not the usual meaning! Usually a shed is a small building.",
+   "senses": [
+    {
+     "meaning": "To let something flow out or fall off. Shed blood means to spill blood.",
+     "whyHard": "Not the usual meaning! Usually a shed is a small building.",
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "didn’t want to shed any more SeaWing blood"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "staff": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The workers in a place.",
+   "whyHard": "Not the usual meaning! Usually a staff is a long stick.",
+   "senses": [
+    {
+     "meaning": "The workers in a place.",
+     "whyHard": "Not the usual meaning! Usually a staff is a long stick.",
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "scrolls to the kitchen staff.” He didn’t look"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "content": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happy and satisfied.",
+   "whyHard": "Not the usual meaning! Usually content means what is inside something.",
+   "senses": [
+    {
+     "meaning": "Happy and satisfied.",
+     "whyHard": "Not the usual meaning! Usually content means what is inside something.",
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "fed, well rested, and content, not thin and grumpy"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "court": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The queen's group of helpers who stay with her.",
+   "whyHard": "Not the usual meaning! Usually a court is a place for a game or for a judge.",
+   "senses": [
+    {
+     "meaning": "The queen's group of helpers who stay with her.",
+     "whyHard": "Not the usual meaning! Usually a court is a place for a game or for a judge.",
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "the way, and my court is staying here with"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "tear": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A ripped hole.",
+   "whyHard": "Not the usual meaning! Usually a tear is the water from your eyes when you cry.",
+   "senses": [
+    {
+     "meaning": "A ripped hole.",
+     "whyHard": "Not the usual meaning! Usually a tear is the water from your eyes when you cry.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "nose, with a jagged tear on the tip of"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "wind": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To turn and curve.",
+   "whyHard": "Not the usual meaning! Usually wind is moving air.",
+   "senses": [
+    {
+     "meaning": "To turn and curve.",
+     "whyHard": "Not the usual meaning! Usually wind is moving air.",
+     "anchors": [
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "necklace began to slowly wind toward the wall, moving"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "fall": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To come apart. Fall apart means to break into pieces as a group.",
+   "whyHard": "Not the usual meaning! Usually fall means to drop down.",
+   "senses": [
+    {
+     "meaning": "To come apart. Fall apart means to break into pieces as a group.",
+     "whyHard": "Not the usual meaning! Usually fall means to drop down.",
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "rest of us will fall apart, and we won"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "case": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A possible situation. In case means because this might happen.",
+   "whyHard": "Not the usual meaning! Usually a case is a box.",
+   "senses": [
+    {
+     "meaning": "A possible situation. In case means because this might happen.",
+     "whyHard": "Not the usual meaning! Usually a case is a box.",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "t know. In which case . . . his poor snout. She"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "to eat them — in case one of them ate"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "If that’s the case, I’ll rip him"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "anywhere near it in case he accidentally sits on"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "an eye out in case the dragonets of destiny"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "bound": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Tied so it cannot get away. It can also mean jumped.",
+   "whyHard": "Not the usual meaning! The word has two uses here, and neither is the school use of bound for a border.",
+   "senses": [
+    {
+     "meaning": "Jumped.",
+     "whyHard": "Not the usual meaning! Here bound means jumped.",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "wait for dragons to bound joyfully out of the"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true,
+     "pos": "past-tense verb"
+    },
+    {
+     "meaning": "Tied so it cannot get away.",
+     "whyHard": "Not the usual meaning! Here bound means tied.",
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "the egg was securely bound to her chest"
+      }
+     ],
+     "trickyMeaning": true,
+     "pos": "adjective"
+    }
+   ]
+  },
+  "watch": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To stay and guard a place.",
+   "whyHard": "Not the usual meaning! Usually watch means to look at something.",
+   "senses": [
+    {
+     "meaning": "To stay and guard a place.",
+     "whyHard": "Not the usual meaning! Usually watch means to look at something.",
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "where a guard stood watch over a view for"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "plain": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Clear and easy to see. Plain as day means very clear.",
+   "whyHard": "Not the usual meaning! Usually plain means simple, or flat land.",
+   "senses": [
+    {
+     "meaning": "Clear and easy to see. Plain as day means very clear.",
+     "whyHard": "Not the usual meaning! Usually plain means simple, or flat land.",
+     "anchors": [
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "it. It said Orca, plain as day.” She sighed"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "mind": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To be bothered. I do not mind means it is all right with me.",
+   "whyHard": "Not the usual meaning! Usually mind means the part of you that thinks.",
+   "senses": [
+    {
+     "meaning": "To be bothered. I do not mind means it is all right with me. Never mind means forget it.",
+     "whyHard": "Not the usual meaning! Usually mind means the part of you that thinks.",
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "blindfold me,” Sunny offered. “I don’t mind"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "Never mind, dear,” Queen Coral interrupted. “You’ll"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "others if they’d mind, he shot a burst"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "I don’t mind,” Sunny said, cuddling the"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true,
+     "pos": "base verb"
+    },
+    {
+     "meaning": "The thinking part, used to say someone is crazy or very bored.",
+     "whyHard": "Not the usual meaning! Lost his mind and out of her mind mean crazy or extremely bored, not a thought.",
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "until he lost his mind and — and when he"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "bored out of her mind. “I’ve been reading"
+      }
+     ],
+     "trickyMeaning": true
+    },
+    {
+     "meaning": "A decision. Change your mind means decide something different.",
+     "whyHard": "Not the usual meaning! Usually mind means the part of you that thinks. Change your mind means decide again.",
+     "anchors": [
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "could change Coral’s mind about the egg. Tsunami"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "every command, suddenly he’d changed his mind"
+      }
+     ],
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "web": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "Skin between the claws, or a strap that holds something.",
+   "whyHard": "Not the usual meaning! Usually a web is a net a spider makes.",
+   "senses": [
+    {
+     "meaning": "Skin between the claws of a sea animal or a SeaWing.",
+     "whyHard": "Not the usual meaning! Usually a web is a net a spider makes.",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "green or aquamarine scales; webs between their claws; gills",
+       "form": "webs"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "He nodded at the webs between her claws. “So",
+       "form": "webs"
+      }
+     ],
+     "trickyMeaning": true,
+     "default": true
+    },
+    {
+     "meaning": "A strap or a net that holds something on.",
+     "whyHard": "Not the usual meaning! Usually a web is a net a spider makes. Here it is a strap.",
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "fit perfectly. The other webs snaked and wove closer",
+       "form": "webs"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "She tugged at the web that was still fitted"
+      }
+     ],
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "spot": {
+   "pos": "singular noun",
+   "meaning": "A place.",
+   "whyHard": "It can mean a place, a small dot, or to notice something.",
+   "forms": [
+    "spots"
+   ],
+   "senses": [
+    {
+     "meaning": "A place.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "She found the vulnerable spot on his tail and"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "sleeping in this horrible spot instead of on the"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "sand packed over the spot where Riptide had clawed"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "was not a single spot clear enough to land"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "dove for the same spot, and each of them"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "t moved from his spot on the pillar. “I"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "the floor, the farthest spot from the throne"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "waterfall. Outside their hidden spot, she could hear the"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "was still the driest spot they could see. The"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "not even the vulnerable spot on the tail all"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "She didn’t spot Webs or Riptide, but"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "and seethed around the spot where Whirlpool had disappeared"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "context": "out of their hiding spot and ran toward the"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "signal you to surface at the breathing spots",
+       "form": "spots"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "scales, looking for weak spots. She knew she was",
+       "form": "spots"
+      }
+     ]
+    },
+    {
+     "meaning": "To notice or to see.",
+     "whyHard": "Not the usual meaning! Usually a spot is a place or a dot. Here it means to see.",
+     "trickyMeaning": true,
+     "pos": "base verb",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "What if a patrol spots us? I mean —” He",
+       "form": "spots"
+      }
+     ]
+    },
+    {
+     "meaning": "Small dots.",
+     "whyHard": "Not the usual meaning! Usually a spot is a place. Here spots are small dots.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "to hang on although spots were starting to dance",
+       "form": "spots"
+      }
+     ]
+    }
+   ]
+  },
+  "current": {
+   "pos": "singular noun",
+   "meaning": "Water in the sea that moves one way, like a river in the ocean.",
+   "whyHard": "It can mean moving water, or a flow of power that shocks. It does not mean now.",
+   "forms": [
+    "currents"
+   ],
+   "senses": [
+    {
+     "meaning": "Water in the sea that moves one way, like a river in the ocean.",
+     "default": true,
+     "whyHard": "It does not mean now, and it does not mean electricity."
+    },
+    {
+     "meaning": "A flow of power that can shock, like lightning.",
+     "whyHard": "Not the usual meaning! In this book current usually means moving water. Here it means power that can shock.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "s not a constant current. But if they’re"
+      }
+     ]
+    }
+   ]
+  },
+  "charge": {
+   "pos": "base verb",
+   "meaning": "To run at someone in an attack.",
+   "whyHard": "This word has more than one meaning in this book.",
+   "forms": [
+    "charged"
+   ],
+   "senses": [
+    {
+     "meaning": "To run at someone in an attack.",
+     "pos": "base verb",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "Clay charged up the beach behind him. Tsunami",
+       "form": "charged"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "the water as he charged into the tunnel ahead",
+       "form": "charged"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "past them all and charged down a tunnel at",
+       "form": "charged"
+      }
+     ]
+    },
+    {
+     "meaning": "The one who decides. In charge of means responsible for.",
+     "whyHard": "Not the usual meaning! Usually charge means to run at someone. Here in charge means the one who decides.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "Maybe whoever’s in charge of defense isn’t"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "herald, Moray, is in charge of the printer dragons"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "knows who’s in charge. We were patrolling the"
+      }
+     ]
+    },
+    {
+     "meaning": "Power that can shock, stored up and ready.",
+     "whyHard": "Not the usual meaning! Usually charge means to run at someone. Here it means power that can shock.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "can run out of charge for short periods of"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "Could be charged with deadly force at any",
+       "form": "charged"
+      }
+     ]
+    }
+   ]
+  },
+  "press": {
+   "pos": "base verb",
+   "meaning": "To push hard against something.",
+   "whyHard": "The word is less common than push.",
+   "forms": [
+    "pressed",
+    "pressing"
+   ],
+   "senses": [
+    {
+     "meaning": "To push hard against something.",
+     "default": true
+    },
+    {
+     "meaning": "Kept going. Pressed on means kept talking.",
+     "whyHard": "Not the usual meaning! Usually press means to push. Here pressed on means kept talking.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "remembered her egg,” Webs pressed on, his wings drooping",
+       "form": "pressed"
+      }
+     ]
+    }
+   ]
+  },
+  "lie": {
+   "pos": "singular noun",
+   "meaning": "Words that are not true.",
+   "whyHard": "This word has more than one meaning. A lie is not true. Lie down means to rest flat.",
+   "senses": [
+    {
+     "meaning": "Words that are not true.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "it sounded like a lie, even to her own"
+      }
+     ]
+    },
+    {
+     "meaning": "To rest flat.",
+     "pos": "base verb",
+     "whyHard": "Not the usual meaning! A lie can mean words that are not true. Here lie down means to rest flat.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "of his opponents to lie down and refuse to"
+      }
+     ]
+    }
+   ]
   }
  },
  "paragraphs": [
@@ -10498,6 +13701,32 @@
     "animus",
     "homicidal"
    ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 47,
+   "context": "he said with an elaborate bow And Your Smaller Majesties",
+   "mainIdea": "Whirlpool bows to the queen and then calls the two young daughters Your Smaller Majesties. The joke treats them as little queens.",
+   "simple": "A dark green dragon bowed in a fancy way. He said Your Majesty to the queen. Then he said Your Smaller Majesties to Tsunami and her sister, as if they were queens too, only smaller. His voice was slow and oily. Tsunami guessed he was Whirlpool. He did not look wonderful or brilliant.",
+   "hardWords": [
+    "elaborate",
+    "majesty",
+    "oily",
+    "particularly"
+   ]
+  },
+  {
+   "chapter": 23,
+   "paragraph": 24,
+   "context": "How do scavengers accomplish anything Tsunami wondered flapping toward",
+   "mainIdea": "Tsunami looks at the two humans and decides they are a weak kind of creature, not dragons. She blames their kind for the war.",
+   "simple": "Tsunami wonders how these small creatures can do anything. They do not have wings or claws or fire like dragons. But they still steal treasure, and sometimes they kill a queen and start a war. She thinks of them as a different kind of animal.",
+   "hardWords": [
+    "scavengers",
+    "accomplish",
+    "qualities",
+    "occasionally"
+   ]
   }
  ],
  "sentences": [
@@ -10722,6 +13951,12 @@
    "context": "version of Pyrrhia where they could have grown up as a family",
    "simple": "She wondered if there was any version of Pyrrhia where she, Coral, Gill, Anemone and Auklet could have grown up as a family, normal and happy, with no one trying to kill anyone.",
    "grammar": "‘could have grown up’ imagines a different past that did not happen. The ‘where’ clause tells which Pyrrhia, and ‘with no one trying ...’ is ‘with + noun + -ing’ and tells the condition."
+  },
+  {
+   "chapter": 27,
+   "context": "I can enchant any inanimate object to do my bidding",
+   "simple": "I can put a spell on any thing that is not alive, so it does what I say.",
+   "grammar": "She says what her power can do, then she copies his silly orders in his own words."
   }
  ],
  "phrases": {
@@ -10962,6 +14197,55 @@
     "been about to"
    ],
    "example": "He was about to call out to the others."
+  },
+  "of course": {
+   "meaning": "Yes. Certainly. As you would expect.",
+   "pos": "phrase",
+   "example": "\"Of course I didn't,\" Tsunami said."
+  },
+  "your majesty": {
+   "meaning": "A polite title for a queen or a king.",
+   "pos": "phrase",
+   "forms": [
+    "her majesty",
+    "your smaller majesties"
+   ],
+   "example": "\"Your Majesty,\" he said with an elaborate bow."
+  },
+  "figure out": {
+   "meaning": "To understand something or find the answer.",
+   "pos": "phrasal verb",
+   "example": "I could just use my powers to figure out where your palace is."
+  },
+  "in charge": {
+   "meaning": "Responsible for something. The one who decides.",
+   "pos": "phrase",
+   "example": "Maybe whoever's in charge of defense isn't doing such a good job."
+  },
+  "stick together": {
+   "meaning": "To stay with each other.",
+   "pos": "idiom",
+   "example": "How can we stick together if you're underwater?"
+  },
+  "in case": {
+   "meaning": "Because this might happen.",
+   "pos": "phrase",
+   "example": "had forbidden SeaWings to eat them — in case one of them ate Anemone by mistake."
+  },
+  "kind of": {
+   "meaning": "A little. Somewhat.",
+   "pos": "phrase",
+   "example": "Which, to be clear, is kind of nose-curlingly awful."
+  },
+  "by accident": {
+   "meaning": "Not on purpose.",
+   "pos": "idiom",
+   "example": "Queen Coral only won by accident."
+  },
+  "watch out": {
+   "meaning": "Be careful. Danger is near.",
+   "pos": "phrase",
+   "example": "Watch out!"
   }
  }
 }

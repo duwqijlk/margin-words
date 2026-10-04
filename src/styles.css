@@ -111,12 +111,20 @@
 
 @layer base {
   html {
-    /* Keep the scrollbar's space reserved, so the page width never changes. */
-    scrollbar-gutter: stable;
+    /* Phones leave the scrollbar slot alone, so reading text is the same distance from both
+       edges. From tablet width up, keep the slot so a classic scrollbar does not change the
+       page width. */
+    scrollbar-gutter: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-size-adjust: 100%;
     background: var(--paper);
+  }
+
+  @media (min-width: 48rem) {
+    html {
+      scrollbar-gutter: stable;
+    }
   }
 
   body {
@@ -185,6 +193,24 @@
     margin: 0 0 var(--reader-gap, 1.1em);
   }
 
+  /* Phone novel pages, the way Kindle and Apple Books set them: full lines share
+     one word space and meet both edges. A long word breaks at a soft hyphen
+     (see hyphenate.ts) instead of stretching the spaces in front of it. The last
+     line of a paragraph stays short. The lightbulb still sits after its last word. */
+  @media (max-width: 47.99rem) {
+    .book-body p,
+    .book-body li,
+    .book-body div[data-para],
+    .book-body blockquote {
+      text-align: justify;
+      text-align-last: start;
+      text-wrap: wrap;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphenate-limit-chars: 6 3 3;
+    }
+  }
+
   /* The opening letter of a chapter, kept inside the same tappable word. */
   .book-body .dropcap::first-letter {
     float: left;
@@ -195,7 +221,9 @@
   }
 
   .book-body .dropcap button {
-    display: inline;
+    /* The first letter is floated from the paragraph. The word stays in the line,
+       same as every other word, so a long opening word can still break. */
+    display: contents;
   }
 
   .book-body h1,
@@ -229,22 +257,28 @@
     border-radius: 6px;
   }
 
+  /* The button draws no box, so the word can break in the middle of a line.
+     The span is the ink: underline, highlight, and the soft hyphen. */
   .book-body button {
+    display: contents;
     font: inherit;
     color: inherit;
     background: none;
     border: 0;
     padding: 0;
     margin: 0;
-    text-align: inherit;
-    letter-spacing: inherit;
+  }
+
+  .book-body .book-tap {
     border-radius: 0.2em;
     -webkit-tap-highlight-color: transparent;
     transition: background-color 0.12s ease;
+    hyphens: auto;
+    -webkit-hyphens: auto;
   }
 
   /* Hard word whose meaning is ready: a soft, thin underline that does not shout. */
-  .book-body button.book-hard {
+  .book-body button.book-hard .book-tap {
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
     text-decoration-thickness: 1.5px;
@@ -252,13 +286,14 @@
     text-underline-offset: 0.24em;
   }
 
-  .book-body button.book-hard:hover {
+  .book-body button.book-hard:hover .book-tap,
+  .book-body button.book-hard:focus-visible .book-tap {
     background: var(--accent-soft);
   }
 
   /* A familiar word used here in a meaning learners will not expect ("well" = a water well): a calm wavy
      accent line, different from the straight underline of a hard word and from the phrase underline. */
-  .book-body button.book-tricky {
+  .book-body button.book-tricky .book-tap {
     text-decoration: underline wavy;
     text-decoration-color: color-mix(in srgb, var(--accent) 80%, transparent);
     text-decoration-thickness: 1.2px;
@@ -266,7 +301,8 @@
     text-underline-offset: 0.3em;
   }
 
-  .book-body button.book-tricky:hover {
+  .book-body button.book-tricky:hover .book-tap,
+  .book-body button.book-tricky:focus-visible .book-tap {
     background: var(--accent-soft);
   }
 
@@ -295,7 +331,7 @@
   }
 
   /* Hard word whose meaning is still being prepared: only a faint dotted hint. */
-  .book-body button.book-wait {
+  .book-body button.book-wait .book-tap {
     text-decoration: underline dotted;
     text-decoration-color: color-mix(in srgb, var(--muted) 45%, transparent);
     text-decoration-thickness: 1px;
@@ -303,18 +339,18 @@
   }
 
   /* Already in the notebook: marker highlight. */
-  .book-body button.book-saved {
+  .book-body button.book-saved .book-tap {
     background: color-mix(in srgb, var(--mark) 75%, transparent);
     text-decoration-color: transparent;
   }
 
-  .book-body button.book-on {
+  .book-body button.book-on .book-tap {
     background: var(--accent-soft);
     box-shadow: 0 0 0 2px var(--accent-soft);
     text-decoration-color: var(--accent);
   }
 
-  .book-body button.book-saved.book-on {
+  .book-body button.book-saved.book-on .book-tap {
     background: var(--mark);
     box-shadow: 0 0 0 2px var(--mark);
   }

@@ -3,6 +3,7 @@
  * a link to a page all work:
  *
  *   /shelf            Bookshelf        /discover         Discover
+ *   /dashboard        How many books, marked words, and paragraph notes
  *   /guide            Guide (how to use the app, and about the site)
  *   /thanks           Thank-you page for supporters
  *   /words            Word book (all books)
@@ -19,6 +20,7 @@ import { useSyncExternalStore } from "react";
 export type Route =
   | { kind: "shelf" }
   | { kind: "discover" }
+  | { kind: "dashboard" }
   | { kind: "guide" }
   | { kind: "thanks" }
   | { kind: "words"; bookId: string | null }
@@ -54,6 +56,8 @@ export function parsePath(pathname: string): Route | null {
       return rest === undefined ? { kind: "discover" } : null;
     case "discover":
       return rest === undefined ? { kind: "discover" } : null;
+    case "dashboard":
+      return rest === undefined ? { kind: "dashboard" } : null;
     case "guide":
       return rest === undefined ? { kind: "guide" } : null;
     case "thanks":
@@ -86,10 +90,12 @@ export function pathFor(route: Route): string {
 }
 
 /** Which top-menu page a route belongs to. */
-export function menuOf(route: Route): "shelf" | "discover" | "guide" | "words" | "thanks" {
+export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "guide" | "words" | "thanks" {
   switch (route.kind) {
     case "discover":
       return "discover";
+    case "dashboard":
+      return "dashboard";
     case "guide":
       return "guide";
     case "thanks":

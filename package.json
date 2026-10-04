@@ -1,6 +1,8 @@
 {
   "name": "margin-words",
   "private": true,
+  "license": "MIT",
+  "author": "XCRUN",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -56,6 +58,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^4.0.0",
+    "hyphen": "^1.14.1",
     "jszip": "^3.10.2",
     "lightningcss": "^1.28.0",
     "lucide-react": "^0.510.0",

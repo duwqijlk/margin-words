@@ -1,9 +1,12 @@
-/** Optional Cloudflare Turnstile. Off unless TURNSTILE_SECRET_KEY is set. */
+/** Login and registration check. Off unless TURNSTILE_SECRET_KEY is set. */
+
+const ALLOWED_HOSTS = new Set(["inputread.site", "www.inputread.site", "margin-words.pages.dev"]);
 
 export async function verifyTurnstile(
   secret: string | undefined,
   token: unknown,
   remoteIp: string,
+  action: "signup" | "login",
   fetchImpl: typeof fetch = fetch,
 ): Promise<boolean> {
   if (!secret) return true;
@@ -12,11 +15,16 @@ export async function verifyTurnstile(
   body.set("secret", secret);
   body.set("response", token);
   if (remoteIp && remoteIp !== "local") body.set("remoteip", remoteIp);
-  const response = await fetchImpl("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    body,
-  });
-  if (!response.ok) return false;
-  const data = (await response.json()) as { success?: boolean };
-  return data.success === true;
+  try {
+    const response = await fetchImpl("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body,
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!response.ok) return false;
+    const data = (await response.json()) as { success?: boolean; action?: string; hostname?: string };
+    return data.success === true && data.action === action && ALLOWED_HOSTS.has(data.hostname ?? "");
+  } catch {
+    return false;
+  }
 }

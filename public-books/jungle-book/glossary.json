@@ -15,6 +15,11 @@
    "pos": "noun",
    "meaning": "A small space in a wall, set back from the room."
   },
+  "alight": {
+   "pos": "adjective",
+   "meaning": "Burning. Grass set this way is on fire.",
+   "whyHard": "It looks like light, but it means on fire."
+  },
   "ammunition": {
    "pos": "noun",
    "meaning": "Things that a gun shoots, and other things that go off with a big noise."
@@ -38,6 +43,22 @@
     "annas"
    ]
   },
+  "ant": {
+   "pos": "noun",
+   "meaning": "A very small insect that lives and works in a big group.",
+   "whyHard": "The word is less common than insect.",
+   "forms": [
+    "ants"
+   ]
+  },
+  "ape": {
+   "pos": "noun",
+   "meaning": "A wild animal like a large monkey, with no tail.",
+   "whyHard": "It is not a name. It is a kind of animal.",
+   "forms": [
+    "apes"
+   ]
+  },
   "art": {
    "pos": "verb",
    "meaning": "An old word for 'are'. It goes with the old word for 'you'.",
@@ -45,6 +66,10 @@
    "forms": [
     "art"
    ]
+  },
+  "assembly": {
+   "pos": "noun",
+   "meaning": "A meeting of many people or animals."
   },
   "assuredly": {
    "pos": "adverb",
@@ -70,6 +95,13 @@
    "pos": "noun",
    "meaning": "The bags and boxes that people take with them when they travel."
   },
+  "bamboo": {
+   "pos": "noun",
+   "meaning": "A tall, hollow plant as hard as wood. People cut it into sticks.",
+   "forms": [
+    "bamboos"
+   ]
+  },
   "bandar": {
    "pos": "noun",
    "meaning": "A word from India. With a second word, it is the name that the book gives to the Monkey People."
@@ -78,9 +110,69 @@
    "pos": "noun",
    "meaning": "A small kind of chicken."
   },
+  "bark": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The hard outer skin of a tree.",
+   "whyHard": "Not the usual meaning! Usually: to bark is the loud sound a dog makes.",
+   "senses": [
+    {
+     "meaning": "The hard outer skin of a tree.",
+     "whyHard": "Not the usual meaning! Usually: to bark is the loud sound a dog makes.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "bark",
+       "context": "dropped twigs and dried bark on the red stuff. Halfway"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "bark",
+       "context": "down, his claws full of bark"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "bark",
+       "context": "the clearing, but their bark was rubbed away, and the"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "bark",
+       "context": "and trunks like rough bark; savage old bull-elephants, scarred"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "form": "bark",
+       "context": "arm and felt the bark, but Kala Nag moved forward"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 4,
+       "form": "bark",
+       "context": "leg-iron cut the bark of that tree! Yes; she"
+      }
+     ]
+    }
+   ]
+  },
   "barricade": {
    "pos": "noun",
    "meaning": "Something put across a way to stop people from passing."
+  },
+  "bat": {
+   "pos": "noun",
+   "meaning": "A small animal that flies at night. It looks like a mouse with wings.",
+   "whyHard": "This is the animal, not a stick used in a game.",
+   "forms": [
+    "bats"
+   ]
   },
   "battery": {
    "pos": "noun",
@@ -93,11 +185,52 @@
     "baulks"
    ]
   },
+  "bay": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A long, deep hunting cry.",
+   "whyHard": "Not the usual meaning! Usually: a bay is a bend where the sea comes into the land.",
+   "senses": [
+    {
+     "meaning": "A long, deep hunting cry.",
+     "whyHard": "Not the usual meaning! Usually: a bay is a bend where the sea comes into the land.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "bay",
+       "context": "came Akela’s deep bay, crying: “Look well —look well"
+      }
+     ]
+    }
+   ]
+  },
+  "beast": {
+   "pos": "noun",
+   "meaning": "An animal, especially a large one.",
+   "forms": [
+    "beasts"
+   ]
+  },
+  "beggar": {
+   "pos": "noun",
+   "meaning": "A person who asks others for food or money."
+  },
   "behooves": {
    "pos": "verb",
    "meaning": "Is right or needed for someone to do.",
    "forms": [
     "behooves"
+   ]
+  },
+  "bellow": {
+   "pos": "verb",
+   "meaning": "To cry out with a very loud, deep voice.",
+   "forms": [
+    "bellowed",
+    "bellowing"
    ]
   },
   "betwixt": {
@@ -204,6 +337,54 @@
     }
    ]
   },
+  "bow": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A curved shape like the weapon that shoots arrows.",
+   "whyHard": "Not the usual meaning! Usually: to bow means to bend your body forward.",
+   "senses": [
+    {
+     "meaning": "A curved shape like the weapon that shoots arrows.",
+     "whyHard": "Not the usual meaning! Usually: to bow means to bend your body forward.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "bow",
+       "context": "of a Cupid’s bow? Now you’re angry, but"
+      }
+     ]
+    }
+   ]
+  },
+  "brand": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A mark burned on an animal to show who owns it.",
+   "whyHard": "Not the usual meaning! Usually: a brand is the name of a maker.",
+   "senses": [
+    {
+     "meaning": "A mark burned on an animal to show who owns it.",
+     "whyHard": "Not the usual meaning! Usually: a brand is the name of a maker.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "brand",
+       "context": "By the brand on my withers, the finest"
+      }
+     ]
+    }
+   ]
+  },
+  "brat": {
+   "pos": "noun",
+   "meaning": "A rude name for a child."
+  },
   "breastplate": {
    "pos": "noun",
    "meaning": "A band across the front of a horse."
@@ -232,6 +413,28 @@
    "pos": "noun",
    "meaning": "In Australia, a wild horse."
   },
+  "buck": {
+   "pos": "noun",
+   "meaning": "A male deer.",
+   "whyHard": "This is not money. It is a male deer.",
+   "forms": [
+    "bucks"
+   ]
+  },
+  "buffalo": {
+   "pos": "noun",
+   "meaning": "A big, heavy wild cow with wide horns.",
+   "forms": [
+    "buffaloes"
+   ]
+  },
+  "bull": {
+   "pos": "noun",
+   "meaning": "A male cow. It is large and strong.",
+   "forms": [
+    "bulls"
+   ]
+  },
   "bullock": {
    "pos": "noun",
    "meaning": "A male farm animal that is used for work."
@@ -243,6 +446,28 @@
   "burrow": {
    "pos": "noun",
    "meaning": "A hole in the ground that an animal makes to live in."
+  },
+  "byre": {
+   "pos": "noun",
+   "meaning": "A shed where cows are kept.",
+   "whyHard": "This is an old name for a cow shed.",
+   "forms": [
+    "byres"
+   ]
+  },
+  "calf": {
+   "pos": "noun",
+   "meaning": "A young cow or buffalo.",
+   "forms": [
+    "calves"
+   ]
+  },
+  "camel": {
+   "pos": "noun",
+   "meaning": "A large animal with a hump, used to carry loads.",
+   "forms": [
+    "camels"
+   ]
   },
   "campaigner": {
    "pos": "noun",
@@ -260,17 +485,256 @@
     "canst"
    ]
   },
+  "canter": {
+   "pos": "verb",
+   "meaning": "To run smoothly, faster than a trot and slower than a gallop.",
+   "forms": [
+    "cantered"
+   ]
+  },
   "cantonment": {
    "pos": "noun",
    "meaning": "A town or camp where soldiers live, in old India."
+  },
+  "carrion": {
+   "pos": "noun",
+   "meaning": "The meat of an animal that is already dead."
   },
   "caste": {
    "pos": "noun",
    "meaning": "In India, one of the groups that people are born into. Some groups are thought better than others."
   },
+  "cattle": {
+   "pos": "noun",
+   "meaning": "Cows, bulls, and buffaloes that people keep."
+  },
   "cavalry": {
    "pos": "noun",
    "meaning": "Soldiers who fight on horses."
+  },
+  "cave": {
+   "pos": "noun",
+   "meaning": "A hollow room in rock, where wild animals can live."
+  },
+  "chain": {
+   "pos": "noun",
+   "meaning": "Metal rings locked together, used to tie something.",
+   "forms": [
+    "chains"
+   ]
+  },
+  "charge": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A sudden rush forward to attack.",
+   "whyHard": "Not the usual meaning! Usually: in charge means you are the one who must look after something.",
+   "senses": [
+    {
+     "meaning": "A sudden rush forward to attack.",
+     "whyHard": "Not the usual meaning! Usually: in charge means you are the one who must look after something.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "Aaarh!” of the tiger’s charge"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "charge",
+       "context": "even the tiger will charge a mob of cattle. But"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "form": "charge",
+       "context": "These buffaloes will not charge unless they wind him, and"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "form": "charge",
+       "context": "only stay still, to charge down and trample the life"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 5,
+       "form": "charge",
+       "context": "Well done! Another charge and they are fairly started"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 6,
+       "form": "charge",
+       "context": "and the bulls will charge. Hujah! This is wilder work"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 7,
+       "form": "charge",
+       "context": "before them —the terrible charge of the buffalo-herd, against"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 8,
+       "form": "charge",
+       "context": "of the meeting. That charge carried both herds out into"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 9,
+       "form": "charge",
+       "context": "herd wheeled once to charge up the ravine again, Mowgli"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "anything like Kotick’s charge into the nurseries. He flung"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "his time to the charge of the wounded tiger, and"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "charge",
+       "context": "I should want to charge, with Dick"
+      }
+     ],
+     "forms": [
+      "charges"
+     ]
+    }
+   ],
+   "forms": [
+    "charges"
+   ]
+  },
+  "clamor": {
+   "pos": "noun",
+   "meaning": "A loud noise of many voices at once."
+  },
+  "claw": {
+   "pos": "noun",
+   "meaning": "A sharp, curved nail on an animal's foot.",
+   "forms": [
+    "claws"
+   ]
+  },
+  "cliff": {
+   "pos": "noun",
+   "meaning": "A high, steep wall of rock.",
+   "forms": [
+    "cliffs"
+   ]
+  },
+  "coal": {
+   "pos": "noun",
+   "meaning": "A hard black stone that people burn for heat.",
+   "forms": [
+    "coals"
+   ]
+  },
+  "coat": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The fur or the hairy skin of an animal.",
+   "whyHard": "Not the usual meaning! Usually: a coat is a piece of clothing.",
+   "senses": [
+    {
+     "meaning": "The fur or the hairy skin of an animal.",
+     "whyHard": "Not the usual meaning! Usually: a coat is a piece of clothing.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "coat",
+       "context": "shining like moonstones on his coat"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "coat",
+       "context": "I will set that coat ablaze"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "coat",
+       "context": "he cried on her coat, while the four cubs howled"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "coat",
+       "context": "admiring his beautiful new coat, for he had been in"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "coat",
+       "context": "I have newly changed my coat"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "coat",
+       "context": "far off till his coat grows again, for he is"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "coat",
+       "context": "people. Lend me thy coat, Shere Khan. Lend me thy"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "form": "coat",
+       "context": "me thy gay striped coat that I may go to"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "form": "coat",
+       "context": "little promise. Only thy coat is lacking before I keep"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 5,
+       "form": "coat",
+       "context": "Khan gives me his coat for the love that he"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "coat",
+       "context": "was something about his coat that made his mother look"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "coat",
+       "context": "where did you get that coat"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "coat",
+       "context": "did you get that white coat"
+      }
+     ]
+    }
+   ]
   },
   "cobra": {
    "pos": "noun",
@@ -284,6 +748,40 @@
    "meaning": "A long, high sea water that rolls in to the land.",
    "forms": [
     "combers"
+   ]
+  },
+  "commissariat": {
+   "pos": "noun",
+   "meaning": "The part of an army that carries the food.",
+   "whyHard": "This is an old army name."
+  },
+  "companion": {
+   "pos": "noun",
+   "meaning": "Someone who stays or goes with you.",
+   "forms": [
+    "companions"
+   ]
+  },
+  "company": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Being with someone, so you are not alone.",
+   "whyHard": "Not the usual meaning! Usually: a company is a business.",
+   "senses": [
+    {
+     "meaning": "Being with someone, so you are not alone.",
+     "whyHard": "Not the usual meaning! Usually: a company is a business.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "company",
+       "context": "the troop-horse for company. “We’re very alike in"
+      }
+     ]
+    }
    ]
   },
   "conceited": {
@@ -305,12 +803,33 @@
    "pos": "noun",
    "meaning": "In this story, the name of a bird. Its call sounds like a small tool on metal."
   },
+  "coward": {
+   "pos": "noun",
+   "meaning": "Someone who will not fight because of fear.",
+   "forms": [
+    "cowards"
+   ]
+  },
   "cower": {
    "pos": "verb",
    "meaning": "To make yourself small because you are afraid.",
    "forms": [
     "cowering",
     "cowered"
+   ]
+  },
+  "creak": {
+   "pos": "verb",
+   "meaning": "To make a high, rough sound, as dry wood does when it moves.",
+   "forms": [
+    "creaking"
+   ]
+  },
+  "creature": {
+   "pos": "noun",
+   "meaning": "Any living animal.",
+   "forms": [
+    "creatures"
    ]
   },
   "creepers": {
@@ -331,6 +850,18 @@
    "forms": [
     "cuffed"
    ]
+  },
+  "cunning": {
+   "pos": "adjective",
+   "meaning": "Clever at tricks and at hiding a plan."
+  },
+  "dawn": {
+   "pos": "noun",
+   "meaning": "The time when the first light of day appears."
+  },
+  "deer": {
+   "pos": "noun",
+   "meaning": "A quick wild animal that eats plants. The males often have horns."
   },
   "deposed": {
    "pos": "past participle",
@@ -363,6 +894,19 @@
    "pos": "adjective",
    "meaning": "Soft and round, with little round holes in the skin, like a baby."
   },
+  "ditch": {
+   "pos": "noun",
+   "meaning": "A long, narrow hole dug in the ground."
+  },
+  "doe": {
+   "pos": "noun",
+   "meaning": "A female deer."
+  },
+  "dole": {
+   "pos": "noun",
+   "meaning": "A share of food given out to each one.",
+   "whyHard": "This is an old word for a share that is given out."
+  },
   "dost": {
    "pos": "verb",
    "meaning": "An old word for 'do'. It goes with the old word for 'you'.",
@@ -374,6 +918,14 @@
   "draggled": {
    "pos": "adjective",
    "meaning": "Wet and not clean."
+  },
+  "dragoon": {
+   "pos": "noun",
+   "meaning": "A soldier who fights on a horse.",
+   "whyHard": "This is an old name for a horse soldier.",
+   "forms": [
+    "dragoons"
+   ]
   },
   "drouth": {
    "pos": "noun",
@@ -441,9 +993,25 @@
     }
    ]
   },
+  "drum": {
+   "pos": "noun",
+   "meaning": "A hollow thing you hit to make a deep sound."
+  },
+  "dune": {
+   "pos": "noun",
+   "meaning": "A hill made of sand.",
+   "forms": [
+    "dunes"
+   ]
+  },
   "dunghill": {
    "pos": "noun",
    "meaning": "A big place where the waste of animals is put."
+  },
+  "earthworm": {
+   "pos": "noun",
+   "meaning": "A long, soft animal with no legs that lives in the soil.",
+   "whyHard": "Bagheera uses it as a rude name."
   },
   "fair": {
    "pos": "adjective",
@@ -513,9 +1081,17 @@
     }
    ]
   },
+  "farewell": {
+   "pos": "noun",
+   "meaning": "A goodbye."
+  },
   "farrier": {
    "pos": "noun",
    "meaning": "A person who puts iron shoes on horses."
+  },
+  "fate": {
+   "pos": "noun",
+   "meaning": "What happens to someone, as if it was already decided."
   },
   "fathom": {
    "pos": "noun",
@@ -524,9 +1100,29 @@
     "fathoms"
    ]
   },
+  "feast": {
+   "pos": "noun",
+   "meaning": "A large, special meal."
+  },
   "featherbrained": {
    "pos": "adjective",
    "meaning": "Silly and not able to think well."
+  },
+  "festoon": {
+   "pos": "noun",
+   "meaning": "A hanging curve, like a rope of leaves.",
+   "whyHard": "This is an old word."
+  },
+  "flame": {
+   "pos": "noun",
+   "meaning": "The bright, moving part of a fire.",
+   "forms": [
+    "flames"
+   ]
+  },
+  "flank": {
+   "pos": "noun",
+   "meaning": "The side of an animal, between the ribs and the hip."
   },
   "fledgling": {
    "pos": "noun",
@@ -542,9 +1138,97 @@
     "flinched"
    ]
   },
+  "flipper": {
+   "pos": "noun",
+   "meaning": "A flat limb that a seal uses for swimming.",
+   "forms": [
+    "flippers"
+   ]
+  },
+  "flower": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Fire. The animals will not say the real name, so they say this.",
+   "whyHard": "Not the usual meaning! Usually: a flower is the bright part of a plant.",
+   "senses": [
+    {
+     "meaning": "Fire. The animals will not say the real name, so they say this.",
+     "whyHard": "Not the usual meaning! Usually: a flower is the bright part of a plant.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "flower",
+       "context": "some of the Red Flower which they grow there, so"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "flower",
+       "context": "love thee. Get the Red Flower"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "flower",
+       "context": "By Red Flower Bagheera meant fire, only no"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 4,
+       "form": "flower",
+       "context": "The Red Flower?” said Mowgli. “That grows outside"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 5,
+       "form": "flower",
+       "context": "and presently the Red Flower blossomed at the end of"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 6,
+       "form": "flower",
+       "context": "lay beside the Red Flower, and it was warm and"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 7,
+       "form": "flower",
+       "context": "little of the Red Flower which ye, dogs, fear"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 8,
+       "form": "flower",
+       "context": "I ram the Red Flower down thy gullet!” He beat"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "flower",
+       "context": "burned with the Red Flower. Now, listen. Shere Khan has"
+      }
+     ]
+    }
+   ]
+  },
   "fodder": {
    "pos": "noun",
    "meaning": "Food for farm animals."
+  },
+  "folly": {
+   "pos": "noun",
+   "meaning": "A foolish act."
+  },
+  "forehead": {
+   "pos": "noun",
+   "meaning": "The part of the face above the eyes.",
+   "forms": [
+    "foreheads"
+   ]
   },
   "formation": {
    "pos": "noun",
@@ -562,9 +1246,20 @@
    "pos": "adjective",
    "meaning": "Round and fat, and a little short."
   },
+  "furious": {
+   "pos": "adjective",
+   "meaning": "Very, very angry."
+  },
   "gait": {
    "pos": "noun",
    "meaning": "The way that a person or animal walks or runs."
+  },
+  "gale": {
+   "pos": "noun",
+   "meaning": "A very strong wind.",
+   "forms": [
+    "gales"
+   ]
   },
   "galls": {
    "pos": "plural noun",
@@ -644,6 +1339,13 @@
     }
    ]
   },
+  "ghost": {
+   "pos": "noun",
+   "meaning": "In the stories people tell, the spirit of a dead person.",
+   "forms": [
+    "ghosts"
+   ]
+  },
   "gidur": {
    "pos": "noun",
    "meaning": "A word from India. With a second word, it is the name that the book gives to the Jackal People."
@@ -663,9 +1365,26 @@
    "pos": "plural noun",
    "meaning": "Old men."
   },
+  "graze": {
+   "pos": "verb",
+   "meaning": "To eat grass.",
+   "forms": [
+    "grazed",
+    "grazing"
+   ]
+  },
   "grievously": {
    "pos": "adverb",
    "meaning": "In a way that causes great pain."
+  },
+  "growl": {
+   "pos": "verb",
+   "meaning": "To make a low, angry sound in the throat.",
+   "forms": [
+    "growled",
+    "growling",
+    "growls"
+   ]
   },
   "grubbing": {
    "pos": "present participle",
@@ -674,9 +1393,28 @@
     "grubbing"
    ]
   },
+  "guddee": {
+   "pos": "noun",
+   "meaning": "A king's seat.",
+   "whyHard": "This is a word from India for the seat of a king."
+  },
+  "gull": {
+   "pos": "noun",
+   "meaning": "A bird that lives by the sea.",
+   "forms": [
+    "gulls"
+   ]
+  },
   "halibut": {
    "pos": "noun",
    "meaning": "A big flat fish."
+  },
+  "hammer": {
+   "pos": "noun",
+   "meaning": "A heavy tool for hitting.",
+   "forms": [
+    "hammers"
+   ]
   },
   "harness": {
    "pos": "noun",
@@ -714,6 +1452,85 @@
     "haul"
    ]
   },
+  "haunch": {
+   "pos": "noun",
+   "meaning": "The hip and the upper back leg of an animal.",
+   "forms": [
+    "haunches"
+   ]
+  },
+  "head": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "One animal, when hunters count the animals they hunt.",
+   "whyHard": "Not the usual meaning! Usually: a head is the top part of the body.",
+   "senses": [
+    {
+     "meaning": "One animal, when hunters count the animals they hunt.",
+     "whyHard": "Not the usual meaning! Usually: a head is the top part of the body.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "head",
+       "context": "He will frighten every head of game within ten miles"
+      }
+     ]
+    },
+    {
+     "meaning": "The leader of a group.",
+     "whyHard": "Not the usual meaning! Usually: a head is the top part of the body.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "head",
+       "context": "take orders from the Head of the Pack, and not"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 4,
+       "form": "head",
+       "context": "him. He was the head of all the Keddah operations"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 19,
+       "form": "head",
+       "context": "too, Machua Appa, the head of all the drivers of"
+      }
+     ]
+    },
+    {
+     "meaning": "The top end of a place, such as a ravine.",
+     "whyHard": "Not the usual meaning! Usually: a head is the top part of the body.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "head",
+       "context": "the jungle to the head of the ravine and then"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 5,
+       "form": "head",
+       "context": "and get at the head of the ravine, and then"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 6,
+       "form": "head",
+       "context": "bewildered herd at the head of the ravine on a"
+      }
+     ]
+    }
+   ]
+  },
   "headman": {
    "pos": "noun",
    "meaning": "The leader of a village."
@@ -724,6 +1541,15 @@
    "whyHard": "This is an old word that people do not use now.",
    "forms": [
     "hence"
+   ]
+  },
+  "herd": {
+   "pos": "noun",
+   "meaning": "A group of cows, buffaloes, or deer that stay together. The verb means to watch that group and move it along.",
+   "forms": [
+    "herds",
+    "herded",
+    "herding"
    ]
   },
   "hide": {
@@ -788,9 +1614,21 @@
     "hides"
    ]
   },
+  "hind": {
+   "pos": "adjective",
+   "meaning": "At the back.",
+   "whyHard": "The hind feet are the back feet."
+  },
   "hocks": {
    "pos": "plural noun",
    "meaning": "The joints in the middle of the back legs of a horse."
+  },
+  "hollow": {
+   "pos": "noun",
+   "meaning": "A low place, or an empty space inside something.",
+   "forms": [
+    "hollows"
+   ]
   },
   "holluschickie": {
    "pos": "plural noun",
@@ -800,6 +1638,20 @@
    "pos": "noun",
    "meaning": "The wide, flat skin round the neck of an animal that is very bad for people. It spreads out when the animal is angry."
   },
+  "hoof": {
+   "pos": "noun",
+   "meaning": "The hard foot of a horse, a cow, or a deer.",
+   "forms": [
+    "hoofs"
+   ]
+  },
+  "horn": {
+   "pos": "noun",
+   "meaning": "A hard point that grows on the head of a cow, a deer, or a buffalo.",
+   "forms": [
+    "horns"
+   ]
+  },
   "hotfoot": {
    "pos": "adverb",
    "meaning": "Very fast, and straight away."
@@ -808,9 +1660,25 @@
    "pos": "noun",
    "meaning": "A seat for people to sit in on the back of a very big animal."
   },
+  "howl": {
+   "pos": "verb",
+   "meaning": "To give a long, loud cry, as a wolf does.",
+   "forms": [
+    "howled",
+    "howling",
+    "howls"
+   ]
+  },
   "hukm": {
    "pos": "noun",
    "meaning": "A word from India. The book says it means an order."
+  },
+  "hunter": {
+   "pos": "noun",
+   "meaning": "A person or an animal that hunts.",
+   "forms": [
+    "hunters"
+   ]
   },
   "huqa": {
    "pos": "noun",
@@ -822,6 +1690,13 @@
   "hussars": {
    "pos": "plural noun",
    "meaning": "Soldiers on horses."
+  },
+  "hut": {
+   "pos": "noun",
+   "meaning": "A small, simple house.",
+   "forms": [
+    "huts"
+   ]
   },
   "hydrophobia": {
    "pos": "noun",
@@ -846,6 +1721,11 @@
    "pos": "adjective",
    "meaning": "Angry because something seems unfair."
   },
+  "infantry": {
+   "pos": "noun",
+   "meaning": "Soldiers who fight on foot.",
+   "whyHard": "This is an army name."
+  },
   "insubordinate": {
    "pos": "adjective",
    "meaning": "Not willing to do what you are told."
@@ -861,6 +1741,20 @@
   "jackass": {
    "pos": "noun",
    "meaning": "A male animal like a small horse. People use it to carry things."
+  },
+  "jaw": {
+   "pos": "noun",
+   "meaning": "The bone of the mouth that holds the teeth.",
+   "forms": [
+    "jaws"
+   ]
+  },
+  "jungle": {
+   "pos": "noun",
+   "meaning": "A thick forest in a hot country.",
+   "forms": [
+    "jungles"
+   ]
   },
   "keddah": {
    "pos": "noun",
@@ -926,6 +1820,17 @@
    "pos": "plural noun",
    "meaning": "Soldiers on horses who fight with long spears."
   },
+  "leather": {
+   "pos": "noun",
+   "meaning": "Animal skin made ready for shoes, straps, or bags."
+  },
+  "ledge": {
+   "pos": "noun",
+   "meaning": "A narrow flat shelf of rock.",
+   "forms": [
+    "ledges"
+   ]
+  },
   "lest": {
    "pos": "conjunction",
    "meaning": "In case; so that something bad does not happen.",
@@ -938,9 +1843,126 @@
    "pos": "noun",
    "meaning": "An army officer who is below a captain."
   },
+  "lightning": {
+   "pos": "noun",
+   "meaning": "A sudden bright flash in the sky during a storm."
+  },
+  "line": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The camp where army animals are tied up in rows.",
+   "whyHard": "Not the usual meaning! Usually: a line is a long thin mark, or a row of writing.",
+   "senses": [
+    {
+     "meaning": "The camp where army animals are tied up in rows.",
+     "whyHard": "Not the usual meaning! Usually: a line is a long thin mark, or a row of writing.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "lines",
+       "context": "Give me brick elephant-lines, one stall to each elephant"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "lines",
+       "context": "remembered the Cawnpore elephant-lines and said nothing. He very"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "form": "lines",
+       "context": "not good brick elephant-lines and a little tent-carrying"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 4,
+       "form": "lines",
+       "context": "the elephants in the lines jumped up as if they"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 6,
+       "form": "lines",
+       "context": "were back in the lines again"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 7,
+       "form": "lines",
+       "context": "in front of the lines of picketed elephants, and Little"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 8,
+       "form": "lines",
+       "context": "my lords in the lines there, for I, Machua Appa"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "lines",
+       "context": "away from the camel lines, and I thought it was"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "lines",
+       "context": "somewhere near the Artillery lines where the cannon were stacked"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "lines",
+       "context": "have racketed through our lines again —the third time this"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "form": "lines",
+       "context": "walked out of my lines to get a little peace"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 5,
+       "form": "lines",
+       "context": "They came into our lines while we were asleep. D"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 7,
+       "form": "lines",
+       "context": "go back to our lines. It is true that we"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 8,
+       "form": "lines",
+       "context": "go back to our lines. Good night, Australia! See you"
+      }
+     ],
+     "forms": [
+      "lines"
+     ]
+    }
+   ],
+   "forms": [
+    "lines"
+   ]
+  },
   "litter": {
    "pos": "noun",
    "meaning": "Little bits of dry leaves and other waste on the ground."
+  },
+  "lizard": {
+   "pos": "noun",
+   "meaning": "A small animal with four legs, scaly skin, and a long tail.",
+   "forms": [
+    "lizards"
+   ]
   },
   "lullaby": {
    "pos": "noun",
@@ -977,9 +1999,49 @@
     "mahouts"
    ]
   },
+  "mane": {
+   "pos": "noun",
+   "meaning": "Long hair growing along the neck."
+  },
+  "mangy": {
+   "pos": "adjective",
+   "meaning": "Sick, with poor fur that falls out."
+  },
   "manling": {
    "pos": "noun",
    "meaning": "A small man. Here the animals use it for a boy."
+  },
+  "marble": {
+   "pos": "noun",
+   "meaning": "A hard, smooth stone used for fine buildings."
+  },
+  "mark": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To notice a path and remember it.",
+   "whyHard": "Not the usual meaning! Usually: a mark is a spot you can see.",
+   "senses": [
+    {
+     "meaning": "To notice a path and remember it.",
+     "whyHard": "Not the usual meaning! Usually: a mark is a spot you can see.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "mark",
+       "context": "face come up again. “Mark my trail!” Mowgli shouted. “Tell"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "mark",
+       "context": "cub they call me! Mark my tra —il"
+      }
+     ]
+    }
+   ]
   },
   "maro": {
    "pos": "verb",
@@ -989,6 +2051,10 @@
    "pos": "noun",
    "meaning": "Work that is made of stone."
   },
+  "matting": {
+   "pos": "noun",
+   "meaning": "A floor cover woven from plant stems."
+  },
   "mayest": {
    "pos": "modal verb",
    "meaning": "An old word for 'may'. It goes with the old word for 'you'.",
@@ -996,6 +2062,32 @@
    "forms": [
     "mayest"
    ]
+  },
+  "mean": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Low and poor, of little worth.",
+   "whyHard": "Not the usual meaning! Usually: mean means to intend to do something.",
+   "senses": [
+    {
+     "meaning": "Low and poor, of little worth.",
+     "whyHard": "Not the usual meaning! Usually: mean means to intend to do something.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "mean",
+       "context": "Tabaqui; “but for so mean a person as myself a"
+      }
+     ]
+    }
+   ]
+  },
+  "millet": {
+   "pos": "noun",
+   "meaning": "A small grain that people cook and eat."
   },
   "mischief": {
    "pos": "noun",
@@ -1012,13 +2104,41 @@
     "mongooses"
    ]
   },
+  "moonlight": {
+   "pos": "noun",
+   "meaning": "The light of the moon at night."
+  },
+  "moss": {
+   "pos": "noun",
+   "meaning": "A soft, low green plant that grows on rocks and on trees."
+  },
   "mournful": {
    "pos": "adjective",
    "meaning": "Very sad."
   },
+  "mule": {
+   "pos": "noun",
+   "meaning": "An animal like a horse, used to carry heavy loads.",
+   "forms": [
+    "mules"
+   ]
+  },
+  "musket": {
+   "pos": "noun",
+   "meaning": "An old kind of long gun.",
+   "whyHard": "This is an old name for a gun."
+  },
   "muskrat": {
    "pos": "noun",
    "meaning": "A small animal that lives near water."
+  },
+  "mustache": {
+   "pos": "noun",
+   "meaning": "The hair that grows above the mouth."
+  },
+  "naked": {
+   "pos": "adjective",
+   "meaning": "Without clothes, or without fur."
   },
   "nay": {
    "pos": "interjection",
@@ -1026,6 +2146,25 @@
    "whyHard": "This is an old word that people do not use now.",
    "forms": [
     "nay"
+   ]
+  },
+  "noble": {
+   "pos": "adjective",
+   "meaning": "High and fine, like a king. The jackal also uses it to flatter."
+  },
+  "nursery": {
+   "pos": "noun",
+   "meaning": "A place where baby animals are kept.",
+   "forms": [
+    "nurseries"
+   ]
+  },
+  "obey": {
+   "pos": "verb",
+   "meaning": "To do what you are told.",
+   "forms": [
+    "obeyed",
+    "obeys"
    ]
   },
   "pace": {
@@ -1085,6 +2224,425 @@
    "pos": "adjective",
    "meaning": "Having a very thick skin."
   },
+  "pack": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A group that lives and hunts together. For the wolves it is their own group. Mowgli uses the same name for the people of the village.",
+   "whyHard": "Not the usual meaning! Usually: a pack is a bag you carry on your back.",
+   "senses": [
+    {
+     "meaning": "A group that lives and hunts together. For the wolves it is their own group. Mowgli uses the same name for the people of the village.",
+     "whyHard": "Not the usual meaning! Usually: a pack is a bag you carry on your back.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "pack",
+       "context": "hunting-grounds of his pack or tribe. The real reason"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "pack",
+       "context": "but never in our pack or in my time,” said"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "pack",
+       "context": "the Head of the Pack, and not from any striped"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 4,
+       "form": "pack",
+       "context": "to run with the Pack and to hunt with the"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 5,
+       "form": "pack",
+       "context": "to hunt with the Pack; and in the end, look"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 6,
+       "form": "pack",
+       "context": "she ran in the Pack and was not called the"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 7,
+       "form": "pack",
+       "context": "will see what the Pack will say to this fostering"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 8,
+       "form": "pack",
+       "context": "be shown to the Pack. Wilt thou still keep him"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 9,
+       "form": "pack",
+       "context": "But what will our Pack say?” said Father Wolf"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 10,
+       "form": "pack",
+       "context": "marries, withdraw from the Pack he belongs to; but as"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 11,
+       "form": "pack",
+       "context": "bring them to the Pack Council, which is generally held"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 12,
+       "form": "pack",
+       "context": "grown wolf of the Pack kills one of them. The"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 13,
+       "form": "pack",
+       "context": "the night of the Pack Meeting took them and Mowgli"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 14,
+       "form": "pack",
+       "context": "who led all the Pack by strength and cunning, lay"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 15,
+       "form": "pack",
+       "context": "be accepted by the Pack, he must be spoken for"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 16,
+       "form": "pack",
+       "context": "two members of the Pack who are not his father"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 17,
+       "form": "pack",
+       "context": "is allowed at the Pack Council —Baloo, the sleepy brown"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 18,
+       "form": "pack",
+       "context": "him run with the Pack, and be entered with the"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 19,
+       "form": "pack",
+       "context": "him run with the Pack. Where is the bull, Bagheera"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 20,
+       "form": "pack",
+       "context": "hope to lead the Pack forever,” said Bagheera"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 21,
+       "form": "pack",
+       "context": "every leader of every pack when his strength goes from"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 22,
+       "form": "pack",
+       "context": "into the Seeonee wolf-pack for the price of a"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 23,
+       "form": "pack",
+       "context": "Rock, too, when the Pack met, and there he discovered"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 24,
+       "form": "pack",
+       "context": "been bought into the Pack at the price of a"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 25,
+       "form": "pack",
+       "context": "younger wolves of the Pack, who followed him for scraps"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 26,
+       "form": "pack",
+       "context": "answer: “I have the Pack and I have thee; and"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 27,
+       "form": "pack",
+       "context": "I know it, the Pack know it, and even the"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 28,
+       "form": "pack",
+       "context": "no place with the Pack. In a little time thou"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 29,
+       "form": "pack",
+       "context": "pin the buck —the Pack will turn against him and"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 30,
+       "form": "pack",
+       "context": "or those of the Pack that love thee. Get the"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 31,
+       "form": "pack",
+       "context": "the yell of the Pack hunting, heard the bellow of"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 32,
+       "form": "pack",
+       "context": "the leader of our Pack! Spring, Akela"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 33,
+       "form": "pack",
+       "context": "the leadership of the Pack was open, and Shere Khan"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 34,
+       "form": "pack",
+       "context": "Shere Khan lead the Pack? What has a tiger to"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 35,
+       "form": "pack",
+       "context": "The leadership of the Pack is with the Pack alone"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 36,
+       "form": "pack",
+       "context": "Pack is with the Pack alone"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 37,
+       "form": "pack",
+       "context": "the seniors of the Pack thundered: “Let the Dead Wolf"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 38,
+       "form": "pack",
+       "context": "a leader of the Pack has missed his kill, he"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 39,
+       "form": "pack",
+       "context": "more than half the Pack yelled: “A man —a man"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 40,
+       "form": "pack",
+       "context": "ten years ago!” the Pack snarled. “What do we care"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 41,
+       "form": "pack",
+       "context": "the Honor of the Pack —a little matter that, by"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 42,
+       "form": "pack",
+       "context": "at least save the Pack three lives. More I cannot"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 43,
+       "form": "pack",
+       "context": "and bought into the Pack according to the Law of"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 44,
+       "form": "pack",
+       "context": "a man!” snarled the Pack; and most of the wolves"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 45,
+       "form": "pack",
+       "context": "of us and the Pack. But here is a debt"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 46,
+       "form": "pack",
+       "context": "Hunting-Song of the Seeonee Pack"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 47,
+       "form": "pack",
+       "context": "word to the waiting Pack; And we sought and we"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 48,
+       "form": "pack",
+       "context": "was breaking the Wolf-pack yelled Once, twice, and again"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "pack",
+       "context": "of the Seeonee wolf-pack. It was in the days"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "pack",
+       "context": "applies to their own pack and tribe, and run away"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "form": "pack",
+       "context": "feet, except his own pack. He can now claim protection"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 4,
+       "form": "pack",
+       "context": "Baloo of the Seeonee Pack, and Bagheera of the Council"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 5,
+       "form": "pack",
+       "context": "entered into a wolf-pack, but I did not believe"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 6,
+       "form": "pack",
+       "context": "Baloo of the Seeonee Wolf Pack"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "pack",
+       "context": "the fight with the Pack at the Council Rock, he"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "pack",
+       "context": "looking-over by the Pack! Well, if I am a"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "form": "pack",
+       "context": "been cast out of the Pack"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "form": "pack",
+       "context": "cast out of another pack. Men are only men, Little"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 5,
+       "form": "pack",
+       "context": "are not unlike the Pack, these brothers of thine,” said"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 6,
+       "form": "pack",
+       "context": "out from the Man Pack, Mother,” shouted Mowgli, “but I"
+      }
+     ]
+    },
+    {
+     "meaning": "A group that lives and hunts together. For the wolves it is their own group. Mowgli uses the same name for the people of the village.",
+     "whyHard": "Not the usual meaning! Usually: a pack is a bag you carry on your back.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 7,
+       "form": "pack",
+       "context": "had been deposed, the Pack had been without a leader"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 8,
+       "form": "pack",
+       "context": "Man Pack and Wolf Pack have cast"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 9,
+       "form": "pack",
+       "context": "Man Pack and Wolf Pack have cast me out,” said"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 10,
+       "form": "pack",
+       "context": "Shere Khan. The Man Pack are angry. They throw stones"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 11,
+       "form": "pack",
+       "context": "the Waingunga, the Man Pack have cast me out. I"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 12,
+       "form": "pack",
+       "context": "of me. Why? Wolf Pack, ye have cast me out"
+      }
+     ]
+    }
+   ]
+  },
   "pad": {
    "pos": "noun",
    "meaning": "A thick, soft piece of cloth or skin that protects the body.",
@@ -1131,6 +2689,10 @@
      ]
     }
    ]
+  },
+  "palace": {
+   "pos": "noun",
+   "meaning": "A very large, fine house for a king."
   },
   "palm": {
    "pos": "noun",
@@ -1180,6 +2742,10 @@
    "pos": "noun",
    "meaning": "A place of great noise and mixed-up action."
   },
+  "panther": {
+   "pos": "noun",
+   "meaning": "A large wild cat. Bagheera is a black one."
+  },
   "paralyzed": {
    "pos": "past-tense verb",
    "meaning": "Made unable to move.",
@@ -1190,6 +2756,17 @@
   "pariah": {
    "pos": "noun",
    "meaning": "In India, a kind of wild dog that lives near villages."
+  },
+  "paw": {
+   "pos": "noun",
+   "meaning": "The foot of an animal such as a wolf or a cat.",
+   "forms": [
+    "paws"
+   ]
+  },
+  "peacock": {
+   "pos": "noun",
+   "meaning": "A large bird. The male has a very long, bright tail."
   },
   "perpendicular": {
    "pos": "adjective",
@@ -1206,17 +2783,178 @@
     "pickets"
    ]
   },
+  "plain": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Flat, open land with few trees.",
+   "whyHard": "Not the usual meaning! Usually: plain means simple, or easy to see.",
+   "senses": [
+    {
+     "meaning": "Flat, open land with few trees.",
+     "whyHard": "Not the usual meaning! Usually: plain means simple, or easy to see.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "out into a great plain dotted over with rocks and"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "hoe. All over the plain, cattle and buffaloes were grazing"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "form": "plain",
+       "context": "the edge of the plain where the Waingunga River came"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "form": "plain",
+       "context": "the center of the plain. We need not walk into"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 5,
+       "form": "plain",
+       "context": "string across the gray plain back to the twinkling village"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 6,
+       "form": "plain",
+       "context": "half away across the plain (so he knew that Shere"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 7,
+       "form": "plain",
+       "context": "opens out on the plain not half a mile from"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 8,
+       "form": "plain",
+       "context": "trees down to the plain below; but what Mowgli looked"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 9,
+       "form": "plain",
+       "context": "herds out into the plain, goring and stamping and snorting"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 10,
+       "form": "plain",
+       "context": "moon rose over the plain, making it look all milky"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "a man among the plain-drivers who had wit enough"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "plain",
+       "context": "go across the level plain, twenty yoke of us, till"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "plain",
+       "context": "guns talk across the plain to some town with mud"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "plain",
+       "context": "half-circle across the plain, and were spreading out into"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "form": "plain",
+       "context": "our line across the plain, Like a heel-rope bent"
+      }
+     ],
+     "forms": [
+      "plains"
+     ]
+    }
+   ],
+   "forms": [
+    "plains"
+   ]
+  },
   "pledge": {
    "pos": "noun",
    "meaning": "A strong promise."
+  },
+  "plunge": {
+   "pos": "verb",
+   "meaning": "To throw oneself down or forward suddenly.",
+   "forms": [
+    "plunged"
+   ]
   },
   "poltoos": {
    "pos": "noun",
    "meaning": "A Russian word. The book says it means a kind of big flat fish."
   },
+  "porcupine": {
+   "pos": "noun",
+   "meaning": "A small animal covered with sharp spines."
+  },
+  "post": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A tall, strong stick of wood set in the ground.",
+   "whyHard": "Not the usual meaning! Usually: the post is the mail, or a job.",
+   "senses": [
+    {
+     "meaning": "A tall, strong stick of wood set in the ground.",
+     "whyHard": "Not the usual meaning! Usually: the post is the mail, or a job.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "post",
+       "context": "hit him!] Mind the post! Arre! Arre! Hai! Yai! Kya"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "post",
+       "context": "slid down from the post and slipped in between the"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "form": "post",
+       "context": "put him back on the post"
+      }
+     ]
+    }
+   ]
+  },
   "presumptuous": {
    "pos": "adjective",
    "meaning": "Too sure of yourself; acting as if you are more important than you are."
+  },
+  "priest": {
+   "pos": "noun",
+   "meaning": "A man who leads prayers at a temple."
   },
   "providence": {
    "pos": "noun",
@@ -1226,9 +2964,42 @@
    "pos": "noun",
    "meaning": "A firm hold. It helps you to pull or to push with strength."
   },
+  "purr": {
+   "pos": "verb",
+   "meaning": "To make the low, soft sound in a cat's throat.",
+   "forms": [
+    "purred"
+   ]
+  },
+  "python": {
+   "pos": "noun",
+   "meaning": "A very large snake that kills by squeezing."
+  },
   "quarry": {
    "pos": "noun",
    "meaning": "An animal that someone wants to catch and kill."
+  },
+  "quarter": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "One of the four directions around you.",
+   "whyHard": "Not the usual meaning! Usually: a quarter is one of four equal parts.",
+   "senses": [
+    {
+     "meaning": "One of the four directions around you.",
+     "whyHard": "Not the usual meaning! Usually: a quarter is one of four equal parts.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "quarter",
+       "context": "to roll from every quarter of the compass. It was"
+      }
+     ]
+    }
+   ]
   },
   "quarters": {
    "pos": "plural noun",
@@ -1303,6 +3074,14 @@
     "recruits"
    ]
   },
+  "regiment": {
+   "pos": "noun",
+   "meaning": "A large group of soldiers.",
+   "whyHard": "This is an army name.",
+   "forms": [
+    "regiments"
+   ]
+  },
   "reservoir": {
    "pos": "noun",
    "meaning": "A big place where a lot of water is kept.",
@@ -1325,13 +3104,54 @@
     "revived"
    ]
   },
+  "rib": {
+   "pos": "noun",
+   "meaning": "One of the curved bones around the chest.",
+   "forms": [
+    "ribs"
+   ]
+  },
   "rigging": {
    "pos": "noun",
    "meaning": "The ropes that hold up the big cloths on a ship."
   },
+  "roar": {
+   "pos": "verb",
+   "meaning": "To give a loud, deep cry, as a tiger does.",
+   "forms": [
+    "roared",
+    "roaring"
+   ]
+  },
   "roughshod": {
    "pos": "adverb",
    "meaning": "In a hard way, with no care for others. 'Ridden over roughshod' means treated badly."
+  },
+  "row": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A loud quarrel.",
+   "whyHard": "Not the usual meaning! Usually: a row is a line of things, or to row is to pull a boat along.",
+   "senses": [
+    {
+     "meaning": "A loud quarrel.",
+     "whyHard": "Not the usual meaning! Usually: a row is a line of things, or to row is to pull a boat along.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "row",
+       "context": "a halt and a row! Urrr! Yarrh! Grr! Arrh! Somebody"
+      }
+     ]
+    }
+   ]
+  },
+  "rubbish": {
+   "pos": "noun",
+   "meaning": "Things that people throw away."
   },
   "rupee": {
    "pos": "noun",
@@ -1339,6 +3159,10 @@
    "forms": [
     "rupees"
    ]
+  },
+  "sacred": {
+   "pos": "adjective",
+   "meaning": "Holy. People must treat it with great care."
   },
   "sag": {
    "pos": "noun",
@@ -1360,6 +3184,29 @@
    "pos": "plural noun",
    "meaning": "Young, thin trees."
   },
+  "savage": {
+   "pos": "adjective",
+   "meaning": "Wild and fierce.",
+   "forms": [
+    "savagely"
+   ]
+  },
+  "scar": {
+   "pos": "noun",
+   "meaning": "The mark left on skin after a deep cut has healed.",
+   "forms": [
+    "scars",
+    "scarred"
+   ]
+  },
+  "scatter": {
+   "pos": "verb",
+   "meaning": "To run apart in many directions.",
+   "forms": [
+    "scattered",
+    "scattering"
+   ]
+  },
   "scoochnie": {
    "pos": "adjective",
    "meaning": "A Russian word. The book says it means lonely.",
@@ -1379,9 +3226,67 @@
     "scuttle"
    ]
   },
+  "seal": {
+   "pos": "noun",
+   "meaning": "A sea animal with fur. It has flat limbs for swimming and rests on rocks.",
+   "whyHard": "Not the usual meaning! Usually: a seal is a mark that closes a letter.",
+   "forms": [
+    "seals"
+   ]
+  },
+  "seaweed": {
+   "pos": "noun",
+   "meaning": "A plant that grows in the sea."
+  },
   "sergeant": {
    "pos": "noun",
    "meaning": "A man in the army who gives orders to the men below him."
+  },
+  "service": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Work done for the army or for the government.",
+   "whyHard": "Not the usual meaning! Usually: service means help given to someone, or a church meeting.",
+   "senses": [
+    {
+     "meaning": "Work done for the army or for the government.",
+     "whyHard": "Not the usual meaning! Usually: service means help given to someone, or a church meeting.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "service",
+       "context": "after elephant in the service of the Government of India"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "service",
+       "context": "not the best Government service. I am getting old, and"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "form": "service",
+       "context": "the end of his service. Is the family of Toomai"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "service",
+       "context": "do you do on active service"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "service",
+       "context": "bowed our necks to service; they ne’er were loosed"
+      }
+     ]
+    }
+   ]
   },
   "shackled": {
    "pos": "past-tense verb",
@@ -1397,6 +3302,17 @@
    "whyHard": "This is an old word that people do not use now.",
    "forms": [
     "shalt"
+   ]
+  },
+  "shark": {
+   "pos": "noun",
+   "meaning": "A large fish with sharp teeth that hunts in the sea."
+  },
+  "shell": {
+   "pos": "noun",
+   "meaning": "A hard outer cover, such as an eggshell or a sea animal's cover.",
+   "forms": [
+    "shells"
    ]
   },
   "shoal": {
@@ -1439,6 +3355,21 @@
    "pos": "noun",
    "meaning": "A very young or small animal with no legs that moves on its body."
   },
+  "snarl": {
+   "pos": "verb",
+   "meaning": "To show the teeth and make an angry sound.",
+   "forms": [
+    "snarled"
+   ]
+  },
+  "snort": {
+   "pos": "verb",
+   "meaning": "To blow air hard through the nose.",
+   "forms": [
+    "snorted",
+    "snorting"
+   ]
+  },
   "somalo": {
    "pos": "adjective",
    "meaning": "A word from India. The book says that 'Somalo' means 'Careful'."
@@ -1454,6 +3385,10 @@
   "spitefully": {
    "pos": "adverb",
    "meaning": "In a way that is meant to hurt someone."
+  },
+  "splendid": {
+   "pos": "adjective",
+   "meaning": "Very fine and grand."
   },
   "spring": {
    "pos": "verb",
@@ -1527,6 +3462,54 @@
    "pos": "noun",
    "meaning": "A group of soldiers on horses."
   },
+  "squeal": {
+   "pos": "verb",
+   "meaning": "To cry with a high, sharp voice.",
+   "forms": [
+    "squealed",
+    "squealing"
+   ]
+  },
+  "stable": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A building where horses are kept.",
+   "whyHard": "Not the usual meaning! Usually: stable means steady and not likely to fall. In the horse song, Stables is the name of a call.",
+   "forms": [
+    "stables"
+   ],
+   "senses": [
+    {
+     "meaning": "A building where horses are kept.",
+     "whyHard": "Not the usual meaning! Usually: stable means steady and not likely to fall. In the horse song, Stables is the name of a call.",
+     "trickyMeaning": true,
+     "default": true,
+     "forms": [
+      "stables"
+     ],
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "stables",
+       "context": "rubbish-heap by the stables, mourning for Nag. Great"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "stables",
+       "context": "fly off to the stables and pretend that your"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "form": "stables",
+       "context": "the path from the stables, and he raced for"
+      }
+     ]
+    }
+   ]
+  },
   "stareek": {
    "pos": "noun",
    "meaning": "A Russian word. The book gives its meaning as 'old man'."
@@ -1534,6 +3517,28 @@
   "stockade": {
    "pos": "noun",
    "meaning": "A strong wall made of tall posts, to keep animals or people in."
+  },
+  "stoop": {
+   "pos": "verb",
+   "meaning": "To bend the body down.",
+   "forms": [
+    "stooped",
+    "stooping"
+   ]
+  },
+  "strike": {
+   "pos": "verb",
+   "meaning": "To hit.",
+   "whyHard": "Struck looks like stuck. It means hit. It does not mean stuck.",
+   "forms": [
+    "struck",
+    "strikes",
+    "striking"
+   ]
+  },
+  "surf": {
+   "pos": "noun",
+   "meaning": "The white, broken water where waves meet the shore."
   },
   "sweeper": {
    "pos": "noun",
@@ -1593,12 +3598,37 @@
     }
    ]
   },
+  "talon": {
+   "pos": "noun",
+   "meaning": "The sharp claw of a hunting bird.",
+   "forms": [
+    "talons"
+   ]
+  },
   "tank": {
    "pos": "noun",
    "meaning": "In India, a pool or small lake that holds water.",
    "forms": [
     "tanks"
    ]
+  },
+  "tent": {
+   "pos": "noun",
+   "meaning": "A cloth shelter that can be moved.",
+   "forms": [
+    "tents"
+   ]
+  },
+  "terrace": {
+   "pos": "noun",
+   "meaning": "A flat, raised stone floor, like a wide step.",
+   "forms": [
+    "terraces"
+   ]
+  },
+  "terror": {
+   "pos": "noun",
+   "meaning": "Very great fear."
   },
   "thatch": {
    "pos": "noun",
@@ -1616,12 +3646,26 @@
    "pos": "noun",
    "meaning": "A thick group of small trees and low plants."
   },
+  "thief": {
+   "pos": "noun",
+   "meaning": "Someone who steals.",
+   "forms": [
+    "thieves"
+   ]
+  },
   "thine": {
    "pos": "pronoun",
    "meaning": "Yours (of one person).",
    "whyHard": "This is an old word that people do not use now.",
    "forms": [
     "thine"
+   ]
+  },
+  "thorn": {
+   "pos": "noun",
+   "meaning": "A sharp point that grows on a plant.",
+   "forms": [
+    "thorns"
    ]
   },
   "thou": {
@@ -1640,6 +3684,10 @@
     "thy"
    ]
   },
+  "timber": {
+   "pos": "noun",
+   "meaning": "Wood cut from trees and used for building."
+  },
   "tingle": {
    "pos": "verb",
    "meaning": "To feel as if many small points touch your skin.",
@@ -1649,11 +3697,99 @@
     "tingled"
    ]
   },
+  "tongue": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A language, or the way someone speaks.",
+   "whyHard": "Not the usual meaning! Usually: a tongue is the soft part inside the mouth.",
+   "senses": [
+    {
+     "meaning": "A language, or the way someone speaks.",
+     "whyHard": "Not the usual meaning! Usually: a tongue is the soft part inside the mouth.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "tongue",
+       "context": "to speak in any human tongue"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "tongue",
+       "context": "forgotten to use his tongue,” said Baloo, with a chuckle"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "tongue",
+       "context": "heart and a courteous tongue,” said he. “They shall carry"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "tongue",
+       "context": "talk in their own tongue, and to move about"
+      }
+     ],
+     "forms": [
+      "tongues"
+     ]
+    }
+   ],
+   "forms": [
+    "tongues"
+   ]
+  },
+  "torch": {
+   "pos": "noun",
+   "meaning": "A stick with a flame at the end, carried as a light.",
+   "forms": [
+    "torches"
+   ]
+  },
   "tracker": {
    "pos": "noun",
    "meaning": "A person who follows the signs that animals leave on the ground.",
    "forms": [
     "trackers"
+   ]
+  },
+  "trail": {
+   "pos": "noun",
+   "meaning": "The marks or the smell that show where someone went.",
+   "forms": [
+    "trails"
+   ]
+  },
+  "train": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A line of big guns, with the animals that pull them.",
+   "whyHard": "Not the usual meaning! Usually: a train runs on rails, or to train means to teach.",
+   "senses": [
+    {
+     "meaning": "A line of big guns, with the animals that pull them.",
+     "whyHard": "Not the usual meaning! Usually: a train runs on rails, or to train means to teach.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "train",
+       "context": "teams Of the Forty-Pounder train"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "train",
+       "context": "yoke Of the Forty-Pounder train"
+      }
+     ]
+    }
    ]
   },
   "trample": {
@@ -1663,6 +3799,56 @@
     "trampled",
     "trampling",
     "trampling"
+   ]
+  },
+  "trap": {
+   "pos": "noun",
+   "meaning": "A hidden thing made to catch an animal.",
+   "forms": [
+    "traps"
+   ]
+  },
+  "tribe": {
+   "pos": "noun",
+   "meaning": "A group of one kind of animal that keeps its own laws.",
+   "forms": [
+    "tribes"
+   ]
+  },
+  "troop": {
+   "pos": "noun",
+   "meaning": "A group of horse soldiers, or one of their horses.",
+   "whyHard": "The same word can also mean to come along in a crowd.",
+   "forms": [
+    "troops"
+   ],
+   "senses": [
+    {
+     "meaning": "A group of horse soldiers, or one of their horses.",
+     "default": true,
+     "forms": [
+      "troops"
+     ]
+    },
+    {
+     "meaning": "To come along together in a crowd.",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "troop",
+       "context": "him, and began to troop down one after another to"
+      }
+     ]
+    }
+   ]
+  },
+  "trot": {
+   "pos": "verb",
+   "meaning": "To run at a steady speed, slower than a gallop.",
+   "forms": [
+    "trotted",
+    "trotting"
    ]
   },
   "trumpeting": {
@@ -1678,9 +3864,32 @@
    "pos": "noun",
    "meaning": "A plant that the book calls holy."
   },
+  "tunnel": {
+   "pos": "noun",
+   "meaning": "A long passage under the ground.",
+   "forms": [
+    "tunnels"
+   ]
+  },
+  "tush": {
+   "pos": "noun",
+   "meaning": "A long, pointed tooth.",
+   "whyHard": "This is an old word for a long tooth."
+  },
+  "tusk": {
+   "pos": "noun",
+   "meaning": "A very long tooth that sticks out of the mouth.",
+   "forms": [
+    "tusks"
+   ]
+  },
   "tussocks": {
    "pos": "plural noun",
    "meaning": "Thick groups of grass that grow higher than the grass round them."
+  },
+  "twilight": {
+   "pos": "noun",
+   "meaning": "The dim light just after the sun goes down."
   },
   "unsportsmanlike": {
    "pos": "adjective",
@@ -1693,6 +3902,13 @@
   "veranda": {
    "pos": "noun",
    "meaning": "A covered place with a floor, along the side of a house."
+  },
+  "verse": {
+   "pos": "noun",
+   "meaning": "A group of lines in a song or a poem.",
+   "forms": [
+    "verses"
+   ]
   },
   "veteran": {
    "pos": "noun",
@@ -1725,6 +3941,46 @@
     "wast"
    ]
   },
+  "watch": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A small clock that you can carry.",
+   "whyHard": "Not the usual meaning! Usually: to watch means to look at something.",
+   "senses": [
+    {
+     "meaning": "A small clock that you can carry.",
+     "whyHard": "Not the usual meaning! Usually: to watch means to look at something.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "watch",
+       "context": "out a heavy pewter watch and let the drove cool"
+      }
+     ]
+    }
+   ]
+  },
+  "whale": {
+   "pos": "noun",
+   "meaning": "A very large sea animal. It is not a fish.",
+   "forms": [
+    "whales"
+   ]
+  },
+  "wheat": {
+   "pos": "noun",
+   "meaning": "A grain plant. Its seeds are ground to make bread."
+  },
+  "whisker": {
+   "pos": "noun",
+   "meaning": "A long, stiff hair beside an animal's mouth.",
+   "forms": [
+    "whiskers"
+   ]
+  },
   "widow": {
    "pos": "noun",
    "meaning": "A woman whose husband is dead."
@@ -1745,6 +4001,95 @@
    "pos": "noun",
    "meaning": "A thin little group of something, such as grass."
   },
+  "withers": {
+   "pos": "noun",
+   "meaning": "The top of a horse's back, just behind the neck."
+  },
+  "wound": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A cut on the body from a fight.",
+   "whyHard": "Not the usual meaning! Usually: wound is also the past of wind, as in wound up. That past is not this meaning.",
+   "senses": [
+    {
+     "meaning": "A cut on the body from a fight.",
+     "whyHard": "Not the usual meaning! Usually: wound is also the past of wind, as in wound up. That past is not this meaning.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "wounds",
+       "context": "in good hunting, in wounds, in hair —I am half"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "wounds",
+       "context": "some limped from shot-wounds, and some were mangy from"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "wounds",
+       "context": "or touch one of his wounds"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "wounded",
+       "context": "as reckless as the wounded elephant. But he had a"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "wounded",
+       "context": "sick wolf, or a wounded tiger or bear, the monkeys"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "wounded",
+       "context": "would not tire a wounded cow. Teacher of the Law"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "form": "wounded",
+       "context": "Baloo and thou art wounded. It is just"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "wounded",
+       "context": "mouth is cut and wounded with the stones from the"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "wounded",
+       "context": "the charge of the wounded tiger, and, curling up his"
+      }
+     ],
+     "forms": [
+      "wounds",
+      "wounded"
+     ]
+    }
+   ],
+   "forms": [
+    "wounds",
+    "wounded"
+   ]
+  },
+  "wriggle": {
+   "pos": "verb",
+   "meaning": "To twist the body in order to move.",
+   "forms": [
+    "wriggling"
+   ]
+  },
   "ye": {
    "pos": "pronoun",
    "meaning": "You (more than one person).",
@@ -1752,6 +4097,10 @@
    "forms": [
     "ye"
    ]
+  },
+  "yearling": {
+   "pos": "noun",
+   "meaning": "An animal that is one year old."
   },
   "yoke": {
    "pos": "noun",
@@ -2240,6 +4589,226 @@
     "solid",
     "wing"
    ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 0,
+   "context": "Now Rann, the Kite, brings home the night",
+   "mainIdea": "This is the night song of the jungle. When night comes, the hunting animals are set free.",
+   "simple": "Rann the kite brings the night home. Mang the bat lets the night go free. The farm animals are shut in their sheds and huts. The hunters are loose until morning. This is their proud hour. They have claws and teeth. They call good hunting to everyone who keeps the Jungle Law.",
+   "hardWords": [
+    "kite",
+    "herds",
+    "byre",
+    "hut",
+    "loosed",
+    "dawn",
+    "pride",
+    "talon",
+    "tush",
+    "claw"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 44,
+   "context": "for Mowgli, the Frog, I will call thee",
+   "mainIdea": "Mother Wolf decides to keep the human baby. She names him Mowgli the Frog and says he will one day hunt the tiger.",
+   "simple": "Mother Wolf says to keep him. He came at night with no clothes, hungry and alone, and he was not afraid. He has already pushed one of her cubs aside. The lame tiger would have killed the baby and then run away, and the village would have hunted the wolves for revenge. She will keep him. She tells the baby to lie still, and she names him Mowgli the Frog. A time will come when he hunts Shere Khan, as Shere Khan hunted him.",
+   "hardWords": [
+    "gasped",
+    "naked",
+    "babes",
+    "lame",
+    "butcher",
+    "lairs",
+    "revenge",
+    "assuredly",
+    "frog"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 157,
+   "context": "As the dawn was breaking the Sambhur belled",
+   "mainIdea": "This is the hunting song of the wolf pack. At dawn they find a deer and chase it.",
+   "simple": "At dawn a deer calls out. A female deer jumps up from a pond in the wood. A wolf who is scouting alone sees it and runs back to tell the waiting pack. The wolves find the deer and give the hunting cry on its track. They run without leaving a mark, and they can see in the dark. They call to one another to give the hunting cry again.",
+   "hardWords": [
+    "dawn",
+    "belled",
+    "doe",
+    "leaped",
+    "pond",
+    "scouting",
+    "beheld",
+    "stole",
+    "bayed",
+    "track"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 140,
+   "context": "a lance, or a battering-ram, or a hammer",
+   "mainIdea": "Kaa's whole body hits like a huge tool. The picture of a lance, a battering-ram, or a hammer is a picture of the python when he fights.",
+   "simple": "Kaa comes straight in, fast and eager to kill. A python's blow comes from the head, with the weight of the whole body behind it. If you picture a lance, a battering-ram, or a hammer as heavy as half a ton, with a cool mind inside the handle, that is roughly what Kaa is like in a fight. Even a python a few feet long can knock a man down. Kaa is thirty feet long. His first blow goes into the crowd around Baloo, with his mouth shut, and he does not need a second blow. The monkeys scatter, crying his name and telling one another to run.",
+   "hardWords": [
+    "lance",
+    "battering-ram",
+    "hammer",
+    "python",
+    "stroke",
+    "scattered"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 194,
+   "context": "Here we go in a flung festoon",
+   "mainIdea": "This is the monkeys' road song. They boast as they swing in the trees, and the song laughs because they never do the great things they talk about.",
+   "simple": "The monkeys swing up toward the moon in a hanging curve and wish they had extra hands and curly tails. They sit in a row and dream of noble deeds, but they only wish. They copy every sound they have heard from bat, beast, or bird, and they pretend they talk like men. Again and again the song says that a brother's tail hangs down behind. That is the way of the monkeys. They leap through the trees, make a grand noise, and say they are surely going to do splendid things.",
+   "hardWords": [
+    "flung",
+    "festoon",
+    "jealous",
+    "envy",
+    "pranceful",
+    "curved",
+    "branchy",
+    "deeds",
+    "jabber",
+    "noble"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 117,
+   "context": "Let the jungle listen to the things I have done",
+   "mainIdea": "This is the song Mowgli sings as he dances on Shere Khan's hide. He has killed the tiger, but both the village and the wolf pack have cast him out.",
+   "simple": "Mowgli sings so the jungle will hear what he has done. Shere Khan said he would kill Mowgli the Frog at the gates in the dim evening. Mowgli tells him to drink deep, because he will not drink again, and to sleep and dream of the kill. Mowgli is alone on the grazing ground. He calls Gray Brother and the Lone Wolf, because there is big game. He tells them to bring the buffalo bulls and to drive them as he orders. He asks if Shere Khan is still asleep, and he comes with the bulls behind him. Rama the buffalo stamps. Mowgli asks the river where Shere Khan went. He cannot dig like a porcupine, fly like a peacock, or hang like a bat. The bamboos tell him. The lame tiger lies under Rama's feet. Mowgli tells him to get up and kill, then says he is asleep and they will not wake him. The kites come down and the black ants come up. Mowgli has no cloth. He is ashamed to be naked before all these, so he asks to borrow the striped coat for the Council Rock. He made a promise, and only the coat is still needed. With a hunter's knife he bends down for his gift. He asks the river to see that Shere Khan gives the coat. He tells Gray Brother and Akela to pull, because the hide is heavy. The village people are angry. They throw stones and talk like children. His mouth bleeds. He tells his brothers to run with him through the hot night, away from the village lights, toward the low moon. The village has cast him out, though he did them no harm. They were afraid. The wolf pack has cast him out too. The jungle is shut and the village gates are shut. He goes between the village and the jungle as a bat goes between beasts and birds. He dances on the hide. His heart is heavy. His mouth is cut by the stones, but his heart is light because he is back in the jungle. The two feelings fight in him like snakes in the spring. Water comes from his eyes, yet he laughs. He is two Mowglis, and the hide is under his feet. All the jungle knows he has killed Shere Khan. He tells the wolves to look. His heart is heavy with things he does not understand.",
+   "hardWords": [
+    "twilight",
+    "frog",
+    "grazing",
+    "buffaloes",
+    "stamped",
+    "bamboos",
+    "creak",
+    "assembly",
+    "naked",
+    "stoop"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 1,
+   "context": "hush thee, my baby, the night is behind us",
+   "mainIdea": "This is a mother seal's lullaby. She tells her baby that the storm and the shark will not wake him.",
+   "simple": "A mother tells her baby to be quiet. The night is behind them, and the water that was green is now black. The moon looks down over the waves to find them resting in the hollows. Where wave meets wave, that is his soft pillow. She tells the little one to curl up and rest. The storm will not wake him, and a shark will not catch him. He can sleep in the arms of the slow, swinging sea.",
+   "hardWords": [
+    "hush",
+    "sparkled",
+    "combers",
+    "hollows",
+    "billow",
+    "pillow",
+    "flipperling",
+    "shark",
+    "overtake"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 20,
+   "context": "your head will be sunk by your heels",
+   "mainIdea": "This is a short song for a baby seal. He must not swim yet, because the sea is dangerous for him.",
+   "simple": "The baby must not swim until he is six weeks old, or his head will sink and his heels will go up. Summer gales and killer whales are bad for baby seals. He should splash and grow strong. Then he cannot be wrong. He is a child of the open sea.",
+   "hardWords": [
+    "swim",
+    "sunk",
+    "heels",
+    "gales",
+    "killer",
+    "whales",
+    "splash",
+    "seals"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 110,
+   "context": "the great deep-sea song that all the St",
+   "mainIdea": "This is Lukannon, the sad song the seals sing on the way back to their beaches. It remembers the time before the hunters came.",
+   "simple": "The book says this is the sad deep-sea song the seals sing when they head back to their beaches in summer. An old seal meets his friends in the morning where the summer waves roar on the rock shelves. He hears them lift the song. Two million voices sing of the beaches of Lukannon. They sing of pleasant places by the salt lakes, of groups shuffling down the sand hills, and of midnight dances that stirred the sea until it looked like flame. That was before the seal hunters came. He will never meet those friends again. They came and went in huge crowds that darkened the shore. As far as a voice could reach, they called to the ones who were landing and sang them up the beach. Tall winter wheat grew there, wet plants hung, and sea fog soaked everything. The flat rocks of their playground were smooth and worn. It was the home where they were born. Now he meets only a broken, scattered band. Men shoot them in the water and club them on the land. Men drive them to the Salt House like tame sheep. Still they sing the old song, from before the hunters came. He tells Gooverooska to wheel south and tell the deep-sea leaders their sad story. Soon the beaches will be as empty as a shark's egg thrown on shore, and they will not know their sons any more.",
+   "hardWords": [
+    "ledges",
+    "chorus",
+    "breakers",
+    "lagoons",
+    "squadrons",
+    "dunes",
+    "sealers",
+    "legions",
+    "lichens",
+    "club"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 114,
+   "context": "Proud of my lilt through the sky",
+   "mainIdea": "This is Darzee's song of thanks. The tailor-bird praises Rikki-tikki because the cobra danger is dead.",
+   "simple": "Darzee says he is a singer and a tailor. He is proud of his song in the sky and of the nest he sews. He tells the mother to sing to her babies again and to lift her head. The evil that troubled them is dead, and the terror that hid in the roses has been thrown on the rubbish heap. He asks who saved them, and he asks for that one's nest and name. It is brave, true Rikki-tikki, the hunter. Darzee gives him the thanks of the birds, bowing with his tail feathers spread. He will not leave the praise to a nightingale. He himself will sing the praise of Rikki with the red eyes.",
+   "hardWords": [
+    "tailor",
+    "lilt",
+    "sew",
+    "fledglings",
+    "plagued",
+    "slain",
+    "terror",
+    "impotent",
+    "dunghill",
+    "valiant"
+   ]
+  },
+  {
+   "chapter": 8,
+   "paragraph": 86,
+   "context": "Shiv, who poured the harvest and made the winds",
+   "mainIdea": "This is the song Toomai's mother sings to her baby. Shiv gives every creature its share, even the little grasshopper Parbati tried to hide.",
+   "simple": "Long ago Shiv poured out the harvest and made the winds blow. He gave each one a share of food, work, and fate, from the king on his seat to the beggar at the gate. He made everything. He made a thorn for the camel, fodder for the cattle, and a mother's love for a sleepy child. He gave wheat to rich people and millet to the poor, broken scraps to holy men who beg from door to door, cattle to the tiger, dead meat to the kite, and rags and bones to the wolves outside the wall at night. Nothing was too high and no one was too low. Parbati watched beside him. She thought she would trick him. She stole a little grasshopper and hid it in her breast. When the giving was over, she asked, laughing, whether one mouth of a million was still unfed. Shiv laughed and said everyone had a share, even the little one hidden by her heart. She took it out and saw that the smallest thing had eaten a new leaf. She was afraid and prayed to Shiv, who has given food to all that live. The song says again that he made all things, and a mother's heart for her little son.",
+   "hardWords": [
+    "harvest",
+    "portion",
+    "toil",
+    "fate",
+    "guddee",
+    "beggar",
+    "thorn",
+    "millet",
+    "carrion",
+    "dole"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 151,
+   "context": "We lent to Alexander the strength of Hercules",
+   "mainIdea": "This is the parade song of the camp animals. Elephants, bullocks, horses, mules, and camels each sing about the work they do for the army.",
+   "simple": "The elephants of the gun team say they lent their strength, the wisdom of their foreheads, and the cunning of their knees, and their necks were never set free again. They ask for way for the big gun teams. The gun bullocks say the other animals fear a cannonball and are upset by gunpowder, but they themselves pull the guns. They ask for way for the twenty pairs of the gun team. The cavalry horses say the finest tune, played by the horse soldiers, is sweeter to them than the calls for stables or water. They want to be fed, trained, handled, and groomed, and to have good riders and room, and to go out in lines to the war song. The mules say they scrambled up a hill when the path was lost in rolling stones, and they still went on. They can twist and climb and turn up anywhere, and a spare leg is their delight on a mountain. Good luck to the sergeant who lets them pick the road, and bad luck to drivers who cannot tie a load. The food-carrying camels say they have no tune of their own. Every neck is like a hairy horn, and their marching song is Can't, Don't, Shan't, Won't. Someone's pack has slid off, someone's load has tipped in the road, and there is a noisy halt. Then all the beasts sing together. They are children of the camp, each serving in his own place, children of the yoke, the goad, the pack, and the load. Their line across the flat land is like a heel rope bent again. It reaches and rolls far, sweeping everything away to war. The dusty, silent men who walk beside them cannot tell why they march and suffer day by day.",
+   "hardWords": [
+    "lent",
+    "cunning",
+    "harnesses",
+    "cannonball",
+    "powder",
+    "yoke",
+    "brand",
+    "withers",
+    "dragoons",
+    "wriggle"
+   ]
   }
  ],
  "sentences": [
@@ -2521,223 +5090,20 @@
   }
  ],
  "phrases": {
-  "get rid of": {
-   "meaning": "To make something go away, or to stop having it.",
-   "pos": "phrasal verb",
-   "example": "to get rid of the sleepy feeling in the tips"
-  },
-  "pick and choose": {
-   "meaning": "To choose only the things that you like best.",
-   "pos": "idiom",
-   "example": "to pick and choose"
-  },
-  "run off": {
-   "meaning": "To go away fast.",
-   "pos": "phrasal verb",
-   "forms": [
-    "ran off"
-   ],
-   "example": "Its parents have run off"
-  },
-  "look to it": {
-   "meaning": "To make sure that something is done.",
-   "pos": "idiom",
-   "example": "look to it then that thou dost not kill the man-cub"
-  },
-  "make up": {
-   "meaning": "To invent something, such as a song.",
-   "pos": "phrasal verb",
-   "forms": [
-    "made up"
-   ],
-   "example": "Mowgli made up a song without any rhymes"
-  },
-  "show off": {
-   "meaning": "To do something so that people will look at you and think well of you.",
-   "pos": "phrasal verb",
-   "example": "delighted to show off"
-  },
-  "set out": {
-   "meaning": "To start to do something, or to start a journey.",
-   "pos": "phrasal verb",
-   "example": "They set out together across the Pacific"
-  },
-  "come back": {
-   "meaning": "To return to a place.",
-   "pos": "phrasal verb",
-   "forms": [
-    "come back"
-   ],
-   "example": "Not one small wolfling has come back to thank old Baloo"
-  },
-  "wind up": {
-   "meaning": "To end by saying something.",
-   "pos": "phrasal verb",
-   "forms": [
-    "wound up"
-   ],
-   "example": "Baloo wound up, patting his big furry stomach"
-  },
-  "make fun of": {
-   "meaning": "To laugh at someone in an unkind way.",
-   "pos": "idiom",
-   "forms": [
-    "made fun of"
-   ],
-   "example": "made fun of the drivers who were going away"
-  },
-  "in the least": {
-   "meaning": "At all. It is used with a negative word.",
-   "pos": "idiom",
-   "example": "which he did not in the least understand"
-  },
-  "pick up": {
-   "meaning": "To lift something from the place where it is.",
-   "pos": "phrasal verb",
-   "example": "pick up a wicker pot plastered inside with earth"
-  },
-  "get away": {
-   "meaning": "To escape, or to go away from a place.",
-   "pos": "phrasal verb",
-   "example": "the other seal might get away if he could"
-  },
-  "drive out": {
-   "meaning": "To make someone leave a place.",
-   "pos": "phrasal verb",
-   "example": "dogs whom I drive out"
-  },
-  "take care": {
-   "meaning": "To be careful.",
-   "pos": "idiom",
-   "forms": [
-    "taking care"
-   ],
-   "example": "taking care to crush the young cobras"
-  },
-  "set off": {
-   "meaning": "To start a journey.",
-   "pos": "phrasal verb",
-   "forms": [
-    "set off"
-   ],
-   "example": "before he set off on his last exploration"
-  },
-  "tired of": {
-   "meaning": "No longer wanting to do something, because you have done it too much.",
+  "all but": {
+   "meaning": "Almost.",
    "pos": "phrase",
-   "example": "being tired of carrying him"
-  },
-  "in spite of": {
-   "meaning": "Even though something makes it hard.",
-   "pos": "idiom",
-   "example": "not enough to go on in spite of it"
-  },
-  "on account of": {
-   "meaning": "Because of.",
-   "pos": "idiom",
-   "example": "on account of the new elephants"
-  },
-  "lay out": {
-   "meaning": "To spread something out flat.",
-   "pos": "phrasal verb",
-   "example": "to lay out Shere Khan’s hide upon the Council Rock"
-  },
-  "turn into": {
-   "meaning": "To change into something else.",
-   "pos": "phrasal verb",
-   "example": "Mowgli turn into a tiger, too"
-  },
-  "cast out": {
-   "meaning": "To make someone leave a group, with force.",
-   "pos": "phrasal verb",
-   "example": "I have been cast out of the Pack"
-  },
-  "run away": {
-   "meaning": "To leave a place fast, because of fear.",
-   "pos": "phrasal verb",
-   "forms": [
-    "ran away"
-   ],
-   "example": "run away as soon as they can repeat the Hunting Verse"
-  },
-  "for the sake of": {
-   "meaning": "To help someone, or for the good of someone.",
-   "pos": "idiom",
-   "example": "for the sake of the bull that bought thee"
-  },
-  "in a hurry": {
-   "meaning": "Doing something fast, because you have little time.",
-   "pos": "idiom",
-   "example": "he was in a hurry to go back to Novastoshnah"
-  },
-  "right and left": {
-   "meaning": "On both sides.",
-   "pos": "idiom",
-   "example": "Bagheera killed right and left as he felt hungry"
-  },
-  "hand over": {
-   "meaning": "To give something to someone else.",
-   "pos": "phrasal verb",
-   "forms": [
-    "handed over"
-   ],
-   "example": "had not been handed over to him"
-  },
-  "head over heels": {
-   "meaning": "Turning over, with the feet going over the head.",
-   "pos": "idiom",
-   "example": "knocking the youngsters head over heels right and left"
-  },
-  "by heart": {
-   "meaning": "From memory, so that you do not need to read it.",
-   "pos": "idiom",
-   "example": "much Mowgli had to learn by heart"
+   "example": "He is our brother in all but blood"
   },
   "as a rule": {
    "meaning": "Usually.",
    "pos": "idiom",
    "example": "for as a rule the sea-lions keep themselves to themselves"
   },
-  "out of reach": {
-   "meaning": "Too far for you to touch it.",
-   "pos": "phrase",
-   "example": "out of reach of snakes"
-  },
-  "lose one's temper": {
-   "meaning": "To become very angry.",
+  "at bay": {
    "pos": "idiom",
-   "forms": [
-    "lose his temper"
-   ],
-   "example": "Kotick began to lose his temper"
-  },
-  "keep one's temper": {
-   "meaning": "To stay calm and not get angry.",
-   "pos": "idiom",
-   "forms": [
-    "keep his temper"
-   ],
-   "example": "to keep his temper"
-  },
-  "on the trail of": {
-   "meaning": "Following the marks that someone or something leaves.",
-   "pos": "idiom",
-   "example": "on the trail of the Bandar-log"
-  },
-  "for fear of": {
-   "meaning": "Because you are afraid of something.",
-   "pos": "idiom",
-   "example": "for fear of those that love thee"
-  },
-  "look out for": {
-   "meaning": "To be careful and watch for danger.",
-   "pos": "phrasal verb",
-   "example": "Look out for yourselves"
-  },
-  "fly at": {
-   "meaning": "To attack someone suddenly.",
-   "pos": "phrasal verb",
-   "example": "very ready to fly at an intruder"
+   "meaning": "Cornered, and forced to turn and face the hunter.",
+   "example": "as the buck turned at bay"
   },
   "back out": {
    "meaning": "To move backward and go out of a place.",
@@ -2747,62 +5113,20 @@
    ],
    "example": "he backed out of the cave-mouth growling"
   },
-  "give tongue": {
-   "meaning": "To cry out loud, as a hunting animal does.",
-   "pos": "idiom",
-   "forms": [
-    "gave tongue"
-   ],
-   "example": "Akela gave tongue in the full hunting-yell"
-  },
-  "turn out": {
-   "meaning": "To make someone leave a place.",
+  "break down": {
+   "meaning": "To make something fall by hitting it.",
    "pos": "phrasal verb",
-   "forms": [
-    "turned out"
-   ],
-   "example": "Mowgli was turned out of the Seeonee wolf-pack"
-  },
-  "all but": {
-   "meaning": "Almost.",
-   "pos": "phrase",
-   "example": "He is our brother in all but blood"
-  },
-  "no more than": {
-   "meaning": "Only.",
-   "pos": "phrase",
-   "example": "I saw no more than a big snake"
-  },
-  "take orders": {
-   "meaning": "To do what someone tells you to do.",
-   "pos": "idiom",
-   "example": "take orders from our Viceroy"
+   "example": "I break down the wall"
   },
   "break loose": {
    "meaning": "To get free.",
    "pos": "phrasal verb",
    "example": "the camels would break loose and run about"
   },
-  "find out": {
-   "meaning": "To learn a fact.",
-   "pos": "phrasal verb",
-   "example": "“Run and find out”"
-  },
-  "go off": {
-   "meaning": "To fire, as a gun does, with a loud sound.",
-   "pos": "phrasal verb",
-   "forms": [
-    "went off"
-   ],
-   "example": "The old Tower musket went off with a bang"
-  },
-  "come across": {
-   "meaning": "To find something by chance.",
-   "pos": "phrasal verb",
-   "forms": [
-    "come across"
-   ],
-   "example": "he had come across more than one such barricade"
+  "by heart": {
+   "meaning": "From memory, so that you do not need to read it.",
+   "pos": "idiom",
+   "example": "much Mowgli had to learn by heart"
   },
   "carry off": {
    "meaning": "To take someone away.",
@@ -2812,6 +5136,111 @@
    ],
    "example": "the tiger carried off a man at twilight"
   },
+  "cast out": {
+   "meaning": "To make someone leave a group, with force.",
+   "pos": "phrasal verb",
+   "example": "I have been cast out of the Pack"
+  },
+  "come across": {
+   "meaning": "To find something by chance.",
+   "pos": "phrasal verb",
+   "forms": [
+    "come across"
+   ],
+   "example": "he had come across more than one such barricade"
+  },
+  "come back": {
+   "meaning": "To return to a place.",
+   "pos": "phrasal verb",
+   "forms": [
+    "come back"
+   ],
+   "example": "Not one small wolfling has come back to thank old Baloo"
+  },
+  "drive out": {
+   "meaning": "To make someone leave a place.",
+   "pos": "phrasal verb",
+   "example": "dogs whom I drive out"
+  },
+  "find out": {
+   "meaning": "To learn a fact.",
+   "pos": "phrasal verb",
+   "example": "“Run and find out”"
+  },
+  "fly at": {
+   "meaning": "To attack someone suddenly.",
+   "pos": "phrasal verb",
+   "example": "very ready to fly at an intruder"
+  },
+  "for fear of": {
+   "meaning": "Because you are afraid of something.",
+   "pos": "idiom",
+   "example": "for fear of those that love thee"
+  },
+  "for the sake of": {
+   "meaning": "To help someone, or for the good of someone.",
+   "pos": "idiom",
+   "example": "for the sake of the bull that bought thee"
+  },
+  "get away": {
+   "meaning": "To escape, or to go away from a place.",
+   "pos": "phrasal verb",
+   "example": "the other seal might get away if he could"
+  },
+  "get rid of": {
+   "meaning": "To make something go away, or to stop having it.",
+   "pos": "phrasal verb",
+   "example": "to get rid of the sleepy feeling in the tips"
+  },
+  "give tongue": {
+   "meaning": "To cry out loud, as a hunting animal does.",
+   "pos": "idiom",
+   "forms": [
+    "gave tongue"
+   ],
+   "example": "Akela gave tongue in the full hunting-yell"
+  },
+  "go back": {
+   "meaning": "To return to a place.",
+   "pos": "phrasal verb",
+   "example": "thou must go back to men at last"
+  },
+  "go off": {
+   "meaning": "To fire, as a gun does, with a loud sound.",
+   "pos": "phrasal verb",
+   "forms": [
+    "went off"
+   ],
+   "example": "The old Tower musket went off with a bang"
+  },
+  "good hunting": {
+   "pos": "phrase",
+   "meaning": "A jungle greeting. It wishes someone a good hunt.",
+   "example": "Good hunting all That keep the Jungle Law"
+  },
+  "had better": {
+   "meaning": "Used to say what is the wise thing to do.",
+   "pos": "phrase",
+   "example": "Mowgli had better be set to work as soon as possible"
+  },
+  "hand over": {
+   "meaning": "To give something to someone else.",
+   "pos": "phrasal verb",
+   "forms": [
+    "handed over"
+   ],
+   "example": "had not been handed over to him"
+  },
+  "head off": {
+   "pos": "phrasal verb",
+   "meaning": "To get in front of animals and turn them another way.",
+   "example": "Head off that drove of four-year-olds"
+  },
+  "head over heels": {
+   "meaning": "Turning over, with the feet going over the head.",
+   "pos": "idiom",
+   "example": "knocking the youngsters head over heels right and left"
+  },
   "hold on": {
    "meaning": "To keep holding something tightly.",
    "pos": "phrasal verb",
@@ -2820,28 +5249,43 @@
    ],
    "example": "he held on as the body cartwhipped over the floor"
   },
-  "make sure": {
-   "meaning": "To check that something is true or safe.",
-   "pos": "phrase",
-   "example": "gave the Call a second time to make sure"
+  "in a hurry": {
+   "meaning": "Doing something fast, because you have little time.",
+   "pos": "idiom",
+   "example": "he was in a hurry to go back to Novastoshnah"
   },
-  "work one's way": {
-   "meaning": "To move on slowly, with great effort.",
+  "in spite of": {
+   "meaning": "Even though something makes it hard.",
+   "pos": "idiom",
+   "example": "not enough to go on in spite of it"
+  },
+  "in the least": {
+   "meaning": "At all. It is used with a negative word.",
+   "pos": "idiom",
+   "example": "which he did not in the least understand"
+  },
+  "keep one's temper": {
+   "meaning": "To stay calm and not get angry.",
    "pos": "idiom",
    "forms": [
-    "worked his way"
+    "keep his temper"
    ],
-   "example": "worked his way desperately, inch by inch"
+   "example": "to keep his temper"
   },
-  "break down": {
-   "meaning": "To make something fall by hitting it.",
+  "lay out": {
+   "meaning": "To spread something out flat.",
    "pos": "phrasal verb",
-   "example": "I break down the wall"
+   "example": "to lay out Shere Khan’s hide upon the Council Rock"
   },
-  "go back": {
-   "meaning": "To return to a place.",
+  "look out for": {
+   "meaning": "To be careful and watch for danger.",
    "pos": "phrasal verb",
-   "example": "thou must go back to men at last"
+   "example": "Look out for yourselves"
+  },
+  "look to it": {
+   "meaning": "To make sure that something is done.",
+   "pos": "idiom",
+   "example": "look to it then that thou dost not kill the man-cub"
   },
   "look up": {
    "meaning": "To lift your eyes to see something above you.",
@@ -2851,15 +5295,183 @@
    ],
    "example": "Baloo looked up to see where the voice came from"
   },
+  "look well": {
+   "pos": "phrase",
+   "meaning": "The wolves' call at the council. It means look carefully.",
+   "example": "Look well, O Wolves"
+  },
+  "lose one's temper": {
+   "meaning": "To become very angry.",
+   "pos": "idiom",
+   "forms": [
+    "lose his temper"
+   ],
+   "example": "Kotick began to lose his temper"
+  },
+  "make fun of": {
+   "meaning": "To laugh at someone in an unkind way.",
+   "pos": "idiom",
+   "forms": [
+    "made fun of"
+   ],
+   "example": "made fun of the drivers who were going away"
+  },
+  "make sure": {
+   "meaning": "To check that something is true or safe.",
+   "pos": "phrase",
+   "example": "gave the Call a second time to make sure"
+  },
+  "make up": {
+   "meaning": "To invent something, such as a song.",
+   "pos": "phrasal verb",
+   "forms": [
+    "made up"
+   ],
+   "example": "Mowgli made up a song without any rhymes"
+  },
+  "man's cub": {
+   "pos": "phrase",
+   "meaning": "A human child. The animals call Mowgli this.",
+   "example": "accept the man's cub according to the Law"
+  },
+  "no more than": {
+   "meaning": "Only.",
+   "pos": "phrase",
+   "example": "I saw no more than a big snake"
+  },
+  "on account of": {
+   "meaning": "Because of.",
+   "pos": "idiom",
+   "example": "on account of the new elephants"
+  },
+  "on the trail of": {
+   "meaning": "Following the marks that someone or something leaves.",
+   "pos": "idiom",
+   "example": "on the trail of the Bandar-log"
+  },
+  "out of reach": {
+   "meaning": "Too far for you to touch it.",
+   "pos": "phrase",
+   "example": "out of reach of snakes"
+  },
+  "pick and choose": {
+   "meaning": "To choose only the things that you like best.",
+   "pos": "idiom",
+   "example": "to pick and choose"
+  },
+  "pick up": {
+   "meaning": "To lift something from the place where it is.",
+   "pos": "phrasal verb",
+   "example": "pick up a wicker pot plastered inside with earth"
+  },
   "put on": {
    "meaning": "To dress yourself in something.",
    "pos": "phrasal verb",
    "example": "I put on my boots and waterproof"
   },
-  "had better": {
-   "meaning": "Used to say what is the wise thing to do.",
+  "red flower": {
    "pos": "phrase",
-   "example": "Mowgli had better be set to work as soon as possible"
+   "meaning": "The animals' name for fire. They are afraid to say fire.",
+   "example": "By Red Flower Bagheera meant fire"
+  },
+  "right and left": {
+   "meaning": "On both sides.",
+   "pos": "idiom",
+   "example": "Bagheera killed right and left as he felt hungry"
+  },
+  "run away": {
+   "meaning": "To leave a place fast, because of fear.",
+   "pos": "phrasal verb",
+   "forms": [
+    "ran away"
+   ],
+   "example": "run away as soon as they can repeat the Hunting Verse"
+  },
+  "run off": {
+   "meaning": "To go away fast.",
+   "pos": "phrasal verb",
+   "forms": [
+    "ran off"
+   ],
+   "example": "Its parents have run off"
+  },
+  "set off": {
+   "meaning": "To start a journey.",
+   "pos": "phrasal verb",
+   "forms": [
+    "set off"
+   ],
+   "example": "before he set off on his last exploration"
+  },
+  "set out": {
+   "meaning": "To start to do something, or to start a journey.",
+   "pos": "phrasal verb",
+   "example": "They set out together across the Pacific"
+  },
+  "show off": {
+   "meaning": "To do something so that people will look at you and think well of you.",
+   "pos": "phrasal verb",
+   "example": "delighted to show off"
+  },
+  "strike up": {
+   "pos": "phrasal verb",
+   "meaning": "To begin to play music.",
+   "forms": [
+    "struck up"
+   ],
+   "example": "an infantry band struck up"
+  },
+  "take care": {
+   "meaning": "To be careful.",
+   "pos": "idiom",
+   "forms": [
+    "taking care"
+   ],
+   "example": "taking care to crush the young cobras"
+  },
+  "take orders": {
+   "meaning": "To do what someone tells you to do.",
+   "pos": "idiom",
+   "example": "take orders from our Viceroy"
+  },
+  "tired of": {
+   "meaning": "No longer wanting to do something, because you have done it too much.",
+   "pos": "phrase",
+   "example": "being tired of carrying him"
+  },
+  "to and fro": {
+   "pos": "phrase",
+   "meaning": "One way and then the other way, again and again.",
+   "example": "Drive them to and fro as I order"
+  },
+  "turn into": {
+   "meaning": "To change into something else.",
+   "pos": "phrasal verb",
+   "example": "Mowgli turn into a tiger, too"
+  },
+  "turn out": {
+   "meaning": "To make someone leave a place.",
+   "pos": "phrasal verb",
+   "forms": [
+    "turned out"
+   ],
+   "example": "Mowgli was turned out of the Seeonee wolf-pack"
+  },
+  "wind up": {
+   "meaning": "To end by saying something.",
+   "pos": "phrasal verb",
+   "forms": [
+    "wound up"
+   ],
+   "example": "Baloo wound up, patting his big furry stomach"
+  },
+  "work one's way": {
+   "meaning": "To move on slowly, with great effort.",
+   "pos": "idiom",
+   "forms": [
+    "worked his way"
+   ],
+   "example": "worked his way desperately, inch by inch"
   }
  }
 }

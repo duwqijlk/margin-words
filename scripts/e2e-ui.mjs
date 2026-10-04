@@ -764,7 +764,12 @@ async function run(lang, size) {
       (await vp.locator("[data-guide-source]").getAttribute("href")) === "https://github.com/bitbw/english-read",
       `${label}: the guide credits English Read`,
     );
-    ok((await vp.locator("header nav button").count()) === 4, `${label}: Shelf, Discover, Guide and Notebook are the only tabs`);
+    ok((await vp.locator("header nav button").count()) === 5, `${label}: Shelf, Discover, Dashboard, Notebook and Guide are the tabs`);
+    const tabNames = await vp.locator("header nav button").evaluateAll((list) =>
+      list.map((b) => (b.textContent ?? "").replace(/\s+/g, " ").trim()),
+    );
+    ok(tabNames.at(-1) === t("nav.guide"), `${label}: Guide is the last tab (${tabNames.at(-1)})`);
+    ok(tabNames[2] === t("nav.dashboard"), `${label}: Dashboard is a tab (${tabNames[2]})`);
     ok(!(await overflow2(vp)), `${label}: no horizontal overflow (guide)`);
     await openDiscover();
     // covers are loaded lazily: scroll down the list so that all of them come into view
@@ -812,9 +817,16 @@ async function run(lang, size) {
         (await empty.evaluate((el) => getComputedStyle(el).opacity)) === "1" && box && box.height >= 44,
         `${label}: "${t("discover.add")}" is always visible and at least 44px high (${box?.height})`,
       );
-      ok((await empty.innerText()).includes(t("discover.add")), `${label}: the button says what it does`);
-      const filled = await vp.locator('[data-pack="alice"] [data-shelf-state="on"]').innerText();
+      ok(
+        ((await empty.getAttribute("aria-label")) ?? "").includes(t("discover.add")),
+        `${label}: the button says what it does`,
+      );
+      const filled = (await vp.locator('[data-pack="alice"] [data-shelf-state="on"]').getAttribute("aria-label")) ?? "";
       ok(filled.includes(t("discover.onShelf")), `${label}: a book on the shelf says "${t("discover.onShelf")}"`);
+      ok(
+        (await vp.locator("[data-discover] [data-list-updated]").count()) > 0,
+        `${label}: Discover shows when a word list was updated`,
+      );
       if (mobile) {
         const tabs = await vp.locator("[data-tab-bar] button").evaluateAll((list) =>
           list.map((b) => {
@@ -987,7 +999,7 @@ async function run(lang, size) {
     await failed.locator("[data-shelf-add]").click();
     await failed.locator('[data-shelf-state="error"]').waitFor({ timeout: 20000 });
     ok(
-      (await failed.locator("[data-shelf-add]").innerText()).includes(t("discover.retry")),
+      ((await failed.locator("[data-shelf-add]").getAttribute("aria-label")) ?? "").includes(t("discover.retry")),
       `${label}: a failed download offers "${t("discover.retry")}" on the button`,
     );
     ok((await failed.getByRole("alert").count()) === 1, `${label}: a failed download shows an error`);
