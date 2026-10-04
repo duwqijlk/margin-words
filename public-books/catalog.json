@@ -1,7 +1,7 @@
 {
  "format": 1,
  "name": "Margin Words book packs",
- "updated": "2026-10-03",
+ "updated": "2026-10-04",
  "packs": [
   {
    "id": "alice",
@@ -12,13 +12,13 @@
    "lexile": "880L",
    "series": "Alice",
    "seriesNumber": 1,
-   "rev": "cd9d78ba7ee7",
+   "rev": "2879006a9fb7",
    "version": 2,
    "chapters": 13,
    "words": 866,
-   "paragraphs": 21,
+   "paragraphs": 45,
    "sentences": 16,
-   "phrases": 28,
+   "phrases": 32,
    "coined": 4,
    "epub": {
     "url": "alice/book.epub",
@@ -27,9 +27,9 @@
    },
    "glossary": {
     "url": "alice/glossary.json",
-    "bytes": 138616,
-    "sha256": "2480763b9aff3b310bad4f3f3616bb2f23c7dd4e68d987e358d9f4f6714d2c0d",
-    "rev": "2480763b9aff"
+    "bytes": 160760,
+    "sha256": "74125e434f6af81f261e518c31135cb58ed2a436899e6e61bc7aee9993672b12",
+    "rev": "74125e434f6a"
    },
    "cover": {
     "url": "alice/cover.jpg",
@@ -38,8 +38,8 @@
    },
    "zip": {
     "url": "alice.zip",
-    "bytes": 223922,
-    "sha256": "16784df637e1366d433029f9cccbbe2998638b1c23ab255b2e22f91477b33cde"
+    "bytes": 230579,
+    "sha256": "c8ea710acb5e4b871ac8f3610c91e094c6d3448bb1be3674149be7d3c5e1377c"
    }
   },
   {
@@ -462,7 +462,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11062727,
-  "sha256": "c2a90912ebe2d7c9d32d48af0258b428a3caf8e9ef3a699bd4c461815355c779"
+  "bytes": 11069387,
+  "sha256": "0fb0246cbc5902eb2f9c496f0afc664e645e3c0a7a6db5fcbf5244556159b8b8"
  }
 }

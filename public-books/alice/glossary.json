@@ -3943,7 +3943,7 @@
   },
   "telescope": {
    "pos": "singular noun",
-   "meaning": "A long tube you look through to see things that are far away. Some can be pushed shorter.",
+   "meaning": "A long tube you look through to see things that are far away.",
    "forms": [
     "telescope",
     "telescopes"
@@ -4552,6 +4552,18 @@
   },
   {
    "chapter": 0,
+   "paragraph": 9,
+   "context": "fall right through the earth! How funny",
+   "mainIdea": "She thinks she may fall through the earth and come out where people walk with their heads down. She tries to name that place, but the word she uses does not sound right.",
+   "simple": "She began to think again. She asked if she would fall right through the earth. She thought it would seem funny to come out among the people who walk with their heads down. She tried to say the name of that place, but she was glad no one was listening, because it did not sound like the right word. She thought she would have to ask them the name of the country. She pictured herself asking, please, if this was New Zealand or Australia, and she tried to curtsey while she was falling through the air. Then she thought they would think her a little girl who did not know enough to ask that. So she decided it would not do to ask. Perhaps she would see the name written up somewhere.",
+   "hardWords": [
+    "Antipathies",
+    "curtsey",
+    "ignorant"
+   ]
+  },
+  {
+   "chapter": 0,
    "paragraph": 14,
    "context": "she knelt down and looked along the passage into the loveliest garden",
    "mainIdea": "Alice finds a tiny door that opens to a beautiful garden, but she is too big to go through. She wishes she could shut up like a telescope.",
@@ -4568,6 +4580,19 @@
   },
   {
    "chapter": 1,
+   "paragraph": 1,
+   "context": "now I’m opening out like the largest telescope",
+   "mainIdea": "Alice grows so much that her feet seem far away. She talks to them, then thinks she must be kind so they will walk where she wants.",
+   "simple": "Alice said that things were getting more and more strange. She was so surprised that she said the words the wrong way. Her body was getting longer, like the biggest old tube that you pull out in parts. She told her feet she was leaving them. When she looked down, her feet were so far away that she could almost not see them. She asked who would now put their shoes on, because she would be too far away to do it herself. She told them they must do the best they could. Then she thought that she must be kind to them, or they might not walk the way she wanted to go. She decided to give them new shoes every Christmas.",
+   "hardWords": [
+    "curiouser",
+    "telescope",
+    "stockings",
+    "shan’t"
+   ]
+  },
+  {
+   "chapter": 1,
    "paragraph": 9,
    "context": "I’m sure I’m not Ada",
    "mainIdea": "Alice is not sure who she is. She tests herself with numbers and a poem, but she gets them wrong, so she thinks she has changed into another girl.",
@@ -4579,6 +4604,48 @@
     "doth",
     "lap",
     "hoarse"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 10,
+   "context": "How doth the little crocodile Improve his shining tail",
+   "mainIdea": "These lines tell of a little animal in a river. It looks happy, and it lets little fish come into its mouth.",
+   "simple": "How does the little crocodile make his shining tail better, and pour the waters of the Nile on every golden scale? How happy he seems to grin, how neatly he spreads his claws, and how he welcomes little fishes in with gently smiling jaws. That look is not a kind one. The little fish are going into his mouth.",
+   "hardWords": [
+    "doth",
+    "crocodile",
+    "shining",
+    "tail",
+    "pour",
+    "Nile",
+    "scale",
+    "grin",
+    "neatly",
+    "claws",
+    "jaws",
+    "gently",
+    "smiling"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 18,
+   "context": "a French mouse, come over with William",
+   "mainIdea": "She thinks the Mouse may be French, so she says the first line of her French book. The line is about her cat, and the Mouse jumps out of the water in fear.",
+   "simple": "She thought the Mouse might not understand English. She guessed it was a French mouse that came over with William the Conqueror. Even with all she knew of history, she had no clear idea how long ago anything had happened. So she began again with the first sentence in her French lesson-book. That sentence asks where her cat is. The Mouse gave a sudden leap out of the water and seemed to quiver all over with fright. She said she was sorry at once. She was afraid she had hurt its feelings. She had quite forgotten that it did not like cats.",
+   "hardWords": [
+    "mouse",
+    "Conqueror",
+    "notion",
+    "sentence",
+    "lesson-book",
+    "chatte",
+    "sudden",
+    "leap",
+    "quiver",
+    "fright",
+    "hastily"
    ]
   },
   {
@@ -4626,6 +4693,57 @@
    ]
   },
   {
+   "chapter": 2,
+   "paragraph": 33,
+   "context": "but why do you call it sad",
+   "mainIdea": "The Mouse said his story was long and sad. She hears a word that sounds the same but means the long part at the back of his body, so she asks why that part is sad.",
+   "simple": "She said it was a long tail, certainly, and she looked down with wonder at the Mouse's tail. She asked why he called it sad. She kept on puzzling about it while the Mouse was speaking, so that her idea of the tale was a shape like the long part on his body. He had said \"tale\", which means a story. She hears \"tail\", and the two words sound the same.",
+   "hardWords": [
+    "tail",
+    "tale",
+    "puzzling"
+   ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 35,
+   "context": "you had got to the fifth bend",
+   "mainIdea": "She still thinks the story has a long shape with turns in it. She asks if the Mouse had reached the fifth turn.",
+   "simple": "She said she was sorry, very humbly. She thought the Mouse had got to the fifth bend. She is still thinking of that long shape, so a bend would be a turn in it. The Mouse had only been telling his story.",
+   "hardWords": [
+    "humbly",
+    "bend"
+   ]
+  },
+  {
+   "chapter": 2,
+   "paragraph": 37,
+   "context": "let me help to undo it",
+   "mainIdea": "The Mouse said \"not\". She hears a word that sounds the same and means a thing she can open, so she offers to open it.",
+   "simple": "She said \"A knot!\" She is always ready to make herself useful, and she looked anxiously about her. She asked the Mouse to let her help to undo it. He had said he had not reached that place. She hears \"knot\", a thing you can undo, because the two words sound the same.",
+   "hardWords": [
+    "knot",
+    "undo",
+    "anxiously"
+   ]
+  },
+  {
+   "chapter": 3,
+   "paragraph": 2,
+   "context": "Mary Ann, what are you doing out here",
+   "mainIdea": "The White Rabbit thinks she is Mary Ann, the girl who works for him. He sends her home for his things, and she is too afraid to say he is wrong.",
+   "simple": "Very soon the Rabbit noticed her, as she went hunting about, and called out to her in an angry tone. He asked Mary Ann what she was doing out here. He told her to run home this moment and fetch him a pair of gloves and a fan, and to be quick. She was so much frightened that she ran off at once in the direction he pointed to, without trying to explain the mistake he had made. Mary Ann is not her. Mary Ann is the girl who works in his house.",
+   "hardWords": [
+    "hunting",
+    "tone",
+    "Mary Ann",
+    "fetch",
+    "gloves",
+    "fan",
+    "frightened"
+   ]
+  },
+  {
    "chapter": 3,
    "paragraph": 24,
    "context": "Where’s the other ladder",
@@ -4652,6 +4770,50 @@
     "tumbled",
     "trampled",
     "panting"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 27,
+   "context": "You are old, Father William, the young man said",
+   "mainIdea": "A young man asks Father William why he still does these wild things. The old man does not give a real reason, then tells the young man to go away or be kicked.",
+   "simple": "The young man said Father William was old and his hair had become very white, and yet he stood on his head all the time. He asked if that was right at his age. Father William said that in his youth he feared it might injure the brain, but now that he was perfectly sure he had none, he did it again and again. The young man said that, as he had mentioned before, Father William was old and had grown most uncommonly fat, yet he had turned a back-somersault in at the door, and he asked the reason. The old man said that in his youth he kept his arms and legs very supple by the use of an ointment, one shilling the box, and he offered to sell a couple. The young man said Father William was old and his jaws could not take anything tougher than suet, yet he had finished the goose, beak and all, and he asked how. His father said that in his youth he took to the law, and every case was a fight in words with his wife, and the muscular strength which it gave to his jaw had lasted the rest of his life. The young man said no one would think his eye was still as sure as ever, yet he had balanced an eel on the end of his nose, and he asked what made him so awfully clever. His father said he had answered three questions, and that was enough. He told the young man not to give himself airs. He asked if he thought he could listen all day to such stuff. He told him to be off, or he would kick him down the stairs.",
+   "hardWords": [
+    "incessantly",
+    "injure",
+    "brain",
+    "uncommonly",
+    "back-somersault",
+    "supple",
+    "ointment",
+    "shilling",
+    "jaws",
+    "suet",
+    "beak",
+    "muscular",
+    "eel",
+    "awfully",
+    "clever",
+    "airs",
+    "stairs",
+    "goose",
+    "jaw",
+    "nose"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 62,
+   "context": "never one with such a neck as that",
+   "mainIdea": "The Pigeon will not believe she is a little girl, because one part of her is so long. It says she is a long animal with no legs, and it thinks she has come to eat what it is trying to keep.",
+   "simple": "The Pigeon said this was a likely story indeed, in a tone of the deepest contempt. It had seen a good many little girls in its time, but never one with such a neck as that. It said she was a serpent, and there was no use denying it. A serpent is a long animal with no legs. It supposed she would tell it next that she had never tasted an egg.",
+   "hardWords": [
+    "contempt",
+    "tone",
+    "neck",
+    "serpent",
+    "denying",
+    "egg"
    ]
   },
   {
@@ -4686,6 +4848,39 @@
   },
   {
    "chapter": 5,
+   "paragraph": 6,
+   "context": "no sort of use in knocking",
+   "mainIdea": "The Footman says there is no use in hitting the door, for two reasons. He is already on her side of it, and the sound inside is too great for anyone to hear her.",
+   "simple": "The Footman said there was no sort of use in knocking, and that for two reasons. First, because he was on the same side of the door as Alice. Secondly, because they were making such a noise inside, no one could possibly hear her. And certainly there was a most extraordinary noise going on within: a constant howling and sneezing, and every now and then a great crash, as if a dish or kettle had been broken to pieces.",
+   "hardWords": [
+    "knocking",
+    "Footman",
+    "noise",
+    "extraordinary",
+    "constant",
+    "howling",
+    "sneezing",
+    "crash",
+    "dish",
+    "kettle"
+   ]
+  },
+  {
+   "chapter": 5,
+   "paragraph": 36,
+   "context": "Speak roughly to your little boy",
+   "mainIdea": "These lines tell someone to be hard with a little boy and to hit him when he makes a sound, because he does it only to cause trouble.",
+   "simple": "Speak roughly to your little boy, and beat him when he sneezes. He only does it to annoy, because he knows it teases.",
+   "hardWords": [
+    "roughly",
+    "beat",
+    "sneezes",
+    "annoy",
+    "teases"
+   ]
+  },
+  {
+   "chapter": 5,
    "paragraph": 45,
    "context": "As soon as she had made out the proper way of nursing it",
    "mainIdea": "Alice takes the baby outside. The baby turns into a pig.",
@@ -4702,6 +4897,39 @@
   },
   {
    "chapter": 6,
+   "paragraph": 11,
+   "context": "Why is a raven like a writing-desk",
+   "mainIdea": "The Hatter asks why two very different things are like each other. He says it like a question with an answer, but there is no clear way in which they are the same.",
+   "simple": "The Hatter opened his eyes very wide on hearing this, but all he said was, why is a raven like a writing-desk? He asks it as if the question had an answer. The two things are not like each other in any clear way.",
+   "hardWords": [
+    "raven",
+    "writing-desk"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 17,
+   "context": "I see what I eat is the same thing",
+   "mainIdea": "The Hatter says the order of the words changes the meaning. To see what you eat is not the same as to eat what you see.",
+   "simple": "The Hatter said it was not the same thing a bit. He said you might just as well say that \"I see what I eat\" is the same thing as \"I eat what I see\". The first means you look at your food. The second means you eat anything you look at. The words are the same, but the order is not, so the meaning is not the same.",
+   "hardWords": [
+    "bit"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 38,
+   "context": "asking riddles that have no answers",
+   "mainIdea": "She says he should do something better with the time than ask questions that have no answers.",
+   "simple": "She sighed wearily. She said she thought he might do something better with the time than waste it in asking riddles that have no answers. She means the question he asked her. That question has no answer.",
+   "hardWords": [
+    "sighed",
+    "wearily",
+    "riddles"
+   ]
+  },
+  {
+   "chapter": 6,
    "paragraph": 43,
    "context": "if you only kept on good terms with him",
    "mainIdea": "The Hatter says that Time is a person. He says that if you are friends with Time, he will make the clock go at any speed you like.",
@@ -4712,6 +4940,21 @@
     "twinkling",
     "whisper",
     "wasting"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 99,
+   "context": "you say things are much of a muchness",
+   "mainIdea": "The Dormouse comes to the old saying that two things are much of a muchness, which means they are almost the same. Then he asks if anyone has seen a drawing of a muchness, as if it were a real thing.",
+   "simple": "The Dormouse had closed its eyes by this time, and was going off into a doze, but, on being pinched by the Hatter, it woke up again with a little shriek, and went on. It was listing things that begin with an M, such as mouse-traps, and the moon, and memory, and muchness. It said you know you say things are much of a muchness. That saying means two things are almost the same. Then it asked if you ever saw such a thing as a drawing of a muchness. A muchness is not a thing you can draw.",
+   "hardWords": [
+    "doze",
+    "pinched",
+    "shriek",
+    "mouse-traps",
+    "muchness",
+    "drawing"
    ]
   },
   {
@@ -4744,6 +4987,35 @@
   },
   {
    "chapter": 7,
+   "paragraph": 11,
+   "context": "First came ten soldiers carrying clubs",
+   "mainIdea": "The soldiers, the court, the children, and the King and Queen are a pack of cards. They are flat, and each group shows one of the signs from a pack.",
+   "simple": "First came ten soldiers carrying clubs. These were all shaped like the three gardeners, oblong and flat, with their hands and feet at the corners. Next the ten courtiers. These were ornamented all over with diamonds, and walked two and two, as the soldiers did. After these came the royal children. There were ten of them, and the little dears came jumping happily along hand in hand, in couples. They were all ornamented with hearts. Next came the guests, mostly Kings and Queens, and among them Alice recognised the White Rabbit. It was talking in a fast nervous manner, smiling at everything that was said, and went by without noticing her. Then followed the Knave of Hearts, carrying the King's crown on a crimson velvet cushion. Last of all this grand procession came the King and Queen of Hearts. They are the cards in a pack. Clubs, diamonds, and hearts are what you see on those cards, and the people are flat, with hands and feet at the corners, because a card is flat.",
+   "hardWords": [
+    "soldiers",
+    "clubs",
+    "oblong",
+    "courtiers",
+    "diamonds",
+    "royal",
+    "couples",
+    "hearts",
+    "recognised",
+    "nervous",
+    "Knave",
+    "crown",
+    "crimson",
+    "velvet",
+    "cushion",
+    "procession",
+    "gardeners",
+    "ornamented",
+    "guests",
+    "smiling"
+   ]
+  },
+  {
+   "chapter": 7,
    "paragraph": 42,
    "context": "The chief difficulty Alice found at first was in managing her flamingo",
    "mainIdea": "Alice finds croquet very hard because the mallet is a flamingo, the balls are hedgehogs, and the soldiers who make the arches move away.",
@@ -4758,6 +5030,17 @@
     "crawling",
     "ridge",
     "furrow"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 66,
+   "context": "cut off a head unless there was a body",
+   "mainIdea": "The man who cuts off heads says you cannot cut off a head unless there is a body to cut it from. He has never had to do that, and he will not begin now.",
+   "simple": "The executioner's argument was that you could not cut off a head unless there was a body to cut it off from. He had never had to do such a thing before, and he was not going to begin at his time of life. The head in this argument has no body joined to it.",
+   "hardWords": [
+    "executioner",
+    "argument"
    ]
   },
   {
@@ -4790,6 +5073,40 @@
    ]
   },
   {
+   "chapter": 8,
+   "paragraph": 79,
+   "context": "Mystery, ancient and modern, with Seaography",
+   "mainIdea": "The Mock Turtle counts off his school subjects. Each name sounds like a real school word, but it has been turned into a sea word.",
+   "simple": "The Mock Turtle said there was Mystery, and he counted off the subjects on his flappers. Mystery, ancient and modern, with Seaography. Then Drawling. The Drawling-master was an old conger-eel that used to come once a week. He taught them Drawling, Stretching, and Fainting in Coils. Mystery sounds like the school word for the story of the past. Seaography sounds like the school word for the study of the earth, but it is a study of the sea. Drawling sounds like the school word for making pictures. Stretching sounds like the school word for a quick picture. Fainting in Coils sounds like the school words for making a picture with oil.",
+   "hardWords": [
+    "Mystery",
+    "ancient",
+    "modern",
+    "Seaography",
+    "Drawling",
+    "flappers",
+    "conger-eel",
+    "Stretching",
+    "Fainting",
+    "Coils"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 17,
+   "context": "Back to land again, and that's all the first figure",
+   "mainIdea": "The Mock Turtle says the first part of the dance is over once they are back on land. A figure is one part of a dance. Then he and the Gryphon sit down.",
+   "simple": "The Mock Turtle said they were back to land again, and that was all the first figure. A figure here is one part of the dance, not a number and not a person's shape. He suddenly dropped his voice. The two creatures, who had been jumping about like mad things all this time, sat down again very sadly and quietly, and looked at Alice.",
+   "hardWords": [
+    "figure",
+    "creatures",
+    "dropping",
+    "mad",
+    "sadly",
+    "quietly"
+   ]
+  },
+  {
    "chapter": 9,
    "paragraph": 24,
    "context": "Will you walk a little faster",
@@ -4804,6 +5121,51 @@
     "askance",
     "scaly",
     "beloved"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 56,
+   "context": "Tis the voice of the Lobster; I heard him declare",
+   "mainIdea": "These lines are about an animal from the sea that was left on the heat too long. When the ground is dry he talks as if he is not afraid, but when the water rises he is afraid.",
+   "simple": "It is the voice of the Lobster. I heard him declare, you have baked me too brown, I must sugar my hair. As a duck uses its eyelids, so he uses his nose. He trims his belt and his buttons, and turns out his toes. The lines that follow, which later copies of the book added, say that when the sands are all dry, he is gay as a lark, and will talk in contemptuous tones of the Shark. But when the tide rises and sharks are around, his voice has a timid and tremulous sound. She was asked to say an old set of lines, and these are the words that came out.",
+   "hardWords": [
+    "Lobster",
+    "declare",
+    "baked",
+    "sugar",
+    "eyelids",
+    "trims",
+    "belt",
+    "buttons",
+    "toes",
+    "sands",
+    "lark",
+    "contemptuous",
+    "Shark",
+    "tide",
+    "timid",
+    "tremulous",
+    "duck",
+    "nose",
+    "gay",
+    "tones"
+   ]
+  },
+  {
+   "chapter": 9,
+   "paragraph": 72,
+   "context": "Beautiful Soup, so rich and green",
+   "mainIdea": "The Mock Turtle's song is about how good the food is. He holds the sounds of the words out long, as if he cannot let the food go.",
+   "simple": "Beautiful Soup, so rich and green, waiting in a hot tureen. Who would not stoop for such dainties? Soup of the evening, beautiful Soup. He says that line again, and then he holds the sounds out long, so that beautiful soup becomes a long call of the same words. Then he asks who cares for fish, game, or any other dish. Who would not give all else for two pennyworth only of beautiful soup? He holds the sounds out long once more, and ends on beautiful soup. The long sounds are the song. He calls them out because the soup is so good.",
+   "hardWords": [
+    "Soup",
+    "tureen",
+    "dainties",
+    "stoop",
+    "pennyworth",
+    "game",
+    "dish"
    ]
   },
   {
@@ -4833,6 +5195,41 @@
     "jurymen",
     "emphasis",
     "grave"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 41,
+   "context": "They told me you had been to her",
+   "mainIdea": "The White Rabbit reads a set of lines as if they were important to the trial. The lines never say who the people are, or what was given.",
+   "simple": "They told me you had been to her, and mentioned me to him. She gave me a good character, but said I could not swim. He sent them word I had not gone, and we know it to be true. If she should push the matter on, what would become of you? I gave her one, they gave him two, you gave us three or more. They all returned from him to you, though they were mine before. If I or she should chance to be involved in this affair, he trusts to you to set them free, exactly as we were. My notion was that you had been, before she had this fit, an obstacle that came between him, and ourselves, and it. Do not let him know she liked them best, for this must ever be a secret, kept from all the rest, between yourself and me. The lines use only he, she, you, and they. They never say who those people are, or what the one, the two, and the three were.",
+   "hardWords": [
+    "character",
+    "swim",
+    "involved",
+    "affair",
+    "notion",
+    "fit",
+    "obstacle",
+    "ourselves",
+    "secret"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 59,
+   "context": "the whole pack rose up into the air",
+   "mainIdea": "She has just said they are nothing but a pack of cards. The cards fly at her, and then she is on the bank with her head on her sister.",
+   "simple": "At this the whole pack rose up into the air, and came flying down upon her. She gave a little scream, half of fright and half of anger, and tried to beat them off, and found herself lying on the bank, with her head in the lap of her sister, who was gently brushing away some dead leaves that had fluttered down from the trees upon her face. She is no longer among the cards. She is with her sister.",
+   "hardWords": [
+    "pack",
+    "scream",
+    "fright",
+    "anger",
+    "lap",
+    "gently",
+    "brushing",
+    "fluttered"
    ]
   },
   {
@@ -5153,6 +5550,35 @@
     "out of their wits"
    ],
    "example": "frighten them out of their wits"
+  },
+  "open out": {
+   "meaning": "To become longer, like an old tube that you pull out in parts.",
+   "pos": "phrasal verb",
+   "forms": [
+    "opened out",
+    "opening out",
+    "opens out"
+   ],
+   "example": "now I'm opening out like the largest telescope"
+  },
+  "off with one's head": {
+   "meaning": "Cut off his or her head. This is what the Queen says when she is angry.",
+   "pos": "idiom",
+   "forms": [
+    "off with his head",
+    "off with her head"
+   ],
+   "example": "Off with his head!"
+  },
+  "kid gloves": {
+   "meaning": "Soft gloves for fine clothes. Here \"kid\" is not a child.",
+   "pos": "phrase",
+   "example": "a pair of white kid gloves"
+  },
+  "much of a muchness": {
+   "meaning": "Almost the same. Not really different.",
+   "pos": "idiom",
+   "example": "much of a muchness"
   }
  }
 }
