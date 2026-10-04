@@ -9,9 +9,10 @@
  *   - a classic whose BOOK file changed is left to the manual Update button on Discover;
  *   - a word-list book on the reader's own EPUB keeps its old list when the new one does not
  *     match that EPUB (the same edition check as the own-EPUB dialog), with the reason shown;
- *   - offline, and the book open in the reader, wait for the next load.
+ *   - offline, and the book open in the reader, wait. Closing the reader tries again,
+ *     and so does the next app load.
  * A hold stays on the Discover card with its reason (Update, or a note when the list is the
- * reader's own). The next app load tries a quiet update again.
+ * reader's own). A run that found the book still open does not count as a failed try.
  */
 import { create } from "zustand";
 import {
@@ -192,7 +193,7 @@ export async function retryWordListUpdate(pack: WordListPack): Promise<void> {
   }
 }
 
-/** The book open in the reader right now, or "". Its list waits for the next open. */
+/** The book open in the reader right now, or "". Its list waits until that page is closed. */
 function readingBookId(): string {
   if (typeof window === "undefined") return "";
   const route = parsePath(window.location.pathname);
@@ -202,16 +203,28 @@ function readingBookId(): string {
 /** packs tried this session (packId@rev): a failure is not retried until the next app load. */
 const attempted = new Set<string>();
 let running: Promise<void> | null = null;
+/** A call arrived while a run was already going (the reader just closed). One more run follows. */
+let queued = false;
 
-/** Quietly update the word lists of installed books whose catalog revision changed. Never throws. */
+/**
+ * Quietly update the word lists of installed books whose catalog revision changed. Never throws.
+ * A second call during a run is not dropped: that run may have skipped the open book, and the
+ * caller is asking again because the book is no longer open.
+ */
 export function autoUpdateWordLists(): Promise<void> {
-  if (!running) {
-    running = runUpdates()
-      .catch(() => undefined)
-      .finally(() => {
-        running = null;
-      });
+  if (running) {
+    queued = true;
+    return running;
   }
+  running = runUpdates()
+    .catch(() => undefined)
+    .finally(() => {
+      running = null;
+      if (queued) {
+        queued = false;
+        void autoUpdateWordLists();
+      }
+    });
   return running;
 }
 
@@ -247,11 +260,12 @@ async function runUpdates(): Promise<void> {
   }
   if (classics.size === 0 && lists.size === 0) return;
 
-  const reading = readingBookId();
   const titleOf = (bookId: string) =>
     useVocab.getState().books.find((book) => book.id === bookId)?.title ?? "";
   let updated = 0;
   // One book at a time, quietly; a failure is kept for the manual Update button.
+  // Read the open book here, not once before the catalogs: those fetches are slow, and
+  // the reader may have opened or closed since this run started.
   for (const record of live) {
     const classic = classics.get(record.packId);
     const list = classic ? undefined : lists.get(record.packId);
@@ -268,7 +282,7 @@ async function runUpdates(): Promise<void> {
       installedSha: classic ? record.sha256 : "",
       catalogSha: classic ? classic.pack.epub.sha256 : "",
       offline: typeof navigator !== "undefined" && navigator.onLine === false,
-      reading: record.bookId === reading,
+      reading: record.bookId === readingBookId(),
     });
     if (plan.kind === "none" || plan.kind === "wait") continue;
     attempted.add(key);
