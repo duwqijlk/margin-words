@@ -3,8 +3,8 @@
  "title": "Wings of Fire 1: The Dragonet Prophecy",
  "author": "Tui T. Sutherland",
  "sha256": "bfa5cd9227c6bb3a40fc402765d9c1405a415daa08ac749b41ff16b7982797c5",
- "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
- "count": 711,
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+ "count": 871,
  "chapters": 44,
  "glossary": {
   "dragon": {
@@ -298,7 +298,8 @@
    ],
    "forms": [
     "chains",
-    "chain"
+    "chain",
+    "chaining"
    ],
    "count": 41
   },
@@ -386,7 +387,9 @@
     "Clay guessed it would be morning soon, and then they could look for the smoke signal that would lead to their friends."
    ],
    "forms": [
-    "smoke"
+    "smoke",
+    "smoked",
+    "smoking"
    ],
    "count": 33
   },
@@ -489,7 +492,8 @@
    ],
    "forms": [
     "flames",
-    "flame"
+    "flame",
+    "flaming"
    ],
    "count": 28
   },
@@ -561,7 +565,9 @@
     "The underground river flowed along one wall, muttering and gurgling as if it were plotting its own escape."
    ],
    "forms": [
-    "escape"
+    "escape",
+    "escaped",
+    "escaping"
    ],
    "count": 26
   },
@@ -932,7 +938,9 @@
     "Description: silvery scales like the moon or pale blue like ice; ridged claws to grip the ice; forked blue tongues; tailsnarrow to a whip-thin end"
    ],
    "forms": [
-    "pale"
+    "pale",
+    "paler",
+    "palest"
    ],
    "count": 18
   },
@@ -1404,7 +1412,8 @@
     "At least she’d remembered to activate the glow-in-the-dark stripe along her tail."
    ],
    "forms": [
-    "glow"
+    "glow",
+    "glowed"
    ],
    "count": 14
   },
@@ -1448,7 +1457,9 @@
    ],
    "forms": [
     "wave",
-    "waves"
+    "waves",
+    "waved",
+    "waving"
    ],
    "count": 14
   },
@@ -1534,7 +1545,8 @@
     "“Then maybe he’d know how brave and fierce you are, too."
    ],
    "forms": [
-    "fierce"
+    "fierce",
+    "fiercer"
    ],
    "count": 13
   },
@@ -1661,7 +1673,8 @@
     "“Complaining to the first strange dragon you see!"
    ],
    "forms": [
-    "strange"
+    "strange",
+    "strangely"
    ],
    "count": 13
   },
@@ -1745,7 +1758,8 @@
     "The water closed over his head in an awful, final kind of way."
    ],
    "forms": [
-    "awful"
+    "awful",
+    "awfully"
    ],
    "count": 12
   },
@@ -1844,7 +1858,8 @@
    ],
    "forms": [
     "pile",
-    "piles"
+    "piles",
+    "piled"
    ],
    "count": 12
   },
@@ -1960,7 +1975,8 @@
    ],
    "forms": [
     "bite",
-    "bites"
+    "bites",
+    "biting"
    ],
    "count": 11
   },
@@ -2217,7 +2233,8 @@
    ],
    "forms": [
     "smell",
-    "smells"
+    "smells",
+    "smelling"
    ],
    "count": 11
   },
@@ -2231,7 +2248,8 @@
     "The spray was eating into his open wound."
    ],
    "forms": [
-    "spray"
+    "spray",
+    "sprayed"
    ],
    "count": 11
   },
@@ -2290,7 +2308,9 @@
    ],
    "forms": [
     "branches",
-    "branch"
+    "branch",
+    "branched",
+    "branching"
    ],
    "count": 10
   },
@@ -2304,7 +2324,8 @@
     "He wished he were big enough to be brave and brave enough to be big."
    ],
    "forms": [
-    "brave"
+    "brave",
+    "braver"
    ],
    "count": 10
   },
@@ -2444,7 +2465,8 @@
     "” He pried Sunny loose with his front talons, as if she were just a tiny bloodsucking insect."
    ],
    "forms": [
-    "loose"
+    "loose",
+    "looser"
    ],
    "count": 10
   },
@@ -2558,7 +2580,9 @@
     "His enormous feet and thick claws thumped and scraped along the stone floor."
    ],
    "forms": [
-    "thick"
+    "thick",
+    "thicker",
+    "thickly"
    ],
    "count": 10
   },
@@ -2644,7 +2668,8 @@
    ],
    "forms": [
     "blast",
-    "blasts"
+    "blasts",
+    "blasting"
    ],
    "count": 9
   },
@@ -2770,7 +2795,9 @@
     "The river was narrow here and the current was strong."
    ],
    "forms": [
-    "narrow"
+    "narrow",
+    "narrowing",
+    "narrowly"
    ],
    "count": 9
   },
@@ -2798,7 +2825,8 @@
     "It felt like the poison in Dune’s tail stabbing him in a thousand places, dissolving his skin from the inside out."
    ],
    "forms": [
-    "poison"
+    "poison",
+    "poisoned"
    ],
    "count": 9
   },
@@ -2870,7 +2898,8 @@
    ],
    "forms": [
     "scars",
-    "scar"
+    "scar",
+    "scarred"
    ],
    "count": 9
   },
@@ -2884,7 +2913,9 @@
     "The creature screamed again, backing away and covering its head with its arms."
    ],
    "forms": [
-    "screamed"
+    "screamed",
+    "scream",
+    "screams"
    ],
    "count": 9
   },
@@ -2927,7 +2958,8 @@
     "“Lucky I’m not the type to suffer and die in silence,” Clay said."
    ],
    "forms": [
-    "silence"
+    "silence",
+    "silenced"
    ],
    "count": 9
   },
@@ -2941,7 +2973,9 @@
     "Tsunami lowered herself into the tunnel, and Clay slid down beside her."
    ],
    "forms": [
-    "slid"
+    "slid",
+    "sliding",
+    "slide"
    ],
    "count": 9
   },
@@ -3083,7 +3117,9 @@
     "He was warm enough now to make fire, so he breathed a small burst of flame to give them a glimpse of the tunnel ahead."
    ],
    "forms": [
-    "breathed"
+    "breathed",
+    "breathe",
+    "breathing"
    ],
    "count": 8
   },
@@ -3125,7 +3161,8 @@
     "It was almost more than he could bear to make himself duck under the water again."
    ],
    "forms": [
-    "duck"
+    "duck",
+    "ducking"
    ],
    "count": 8
   },
@@ -3223,7 +3260,8 @@
     "The Talons of Peace need you to survive long enough to fulfill the prophecy."
    ],
    "forms": [
-    "fulfill"
+    "fulfill",
+    "fulfilling"
    ],
    "count": 8
   },
@@ -3419,7 +3457,9 @@
     "They needed to go rescue their friends, and fast, before Kestrel took out her anger on the dragonets she could find."
    ],
    "forms": [
-    "rescue"
+    "rescue",
+    "rescuer",
+    "rescuing"
    ],
    "count": 8
   },
@@ -3504,7 +3544,8 @@
     "Through the water, he could hear the muffled echo of Sunny’s nervous squeak as he swam against the current to the rock wall."
    ],
    "forms": [
-    "squeak"
+    "squeak",
+    "squeaking"
    ],
    "count": 8
   },
@@ -3900,7 +3941,9 @@
     "” Kestrel’s booming voice made all five dragonets jump to attention."
    ],
    "forms": [
-    "jump"
+    "jump",
+    "jumped",
+    "jumping"
    ],
    "count": 7
   },
@@ -3930,7 +3973,9 @@
    ],
    "forms": [
     "lectures",
-    "lecture"
+    "lecture",
+    "lectured",
+    "lecturing"
    ],
    "count": 7
   },
@@ -4171,7 +4216,8 @@
     "“So can we steal Dune’s rock?"
    ],
    "forms": [
-    "steal"
+    "steal",
+    "stealing"
    ],
    "count": 7
   },
@@ -4199,7 +4245,8 @@
     "” She bared her teeth and snapped at her chains, pulling the one around her neck dangerously tight."
    ],
    "forms": [
-    "tight"
+    "tight",
+    "tightly"
    ],
    "count": 7
   },
@@ -4328,7 +4375,8 @@
    ],
    "forms": [
     "allies",
-    "ally"
+    "ally",
+    "allying"
    ],
    "count": 6
   },
@@ -4343,7 +4391,8 @@
    ],
    "forms": [
     "argue",
-    "argues"
+    "argues",
+    "arguing"
    ],
    "count": 6
   },
@@ -4683,7 +4732,8 @@
     "As if Glory’s nothing more than a tapestry to hang on the wall, not a dragon with feelings and ideas and a destiny and friends who care about her."
    ],
    "forms": [
-    "hang"
+    "hang",
+    "hanging"
    ],
    "count": 6
   },
@@ -4979,7 +5029,8 @@
     "Somebody who wasn’t trying to beat him into a violent rage, preferably."
    ],
    "forms": [
-    "rage"
+    "rage",
+    "raged"
    ],
    "count": 6
   },
@@ -5107,7 +5158,8 @@
    ],
    "forms": [
     "signal",
-    "signals"
+    "signals",
+    "signaled"
    ],
    "count": 6
   },
@@ -5121,7 +5173,8 @@
     "What if this wide, silent pool was the end?"
    ],
    "forms": [
-    "silent"
+    "silent",
+    "silently"
    ],
    "count": 6
   },
@@ -5177,7 +5230,9 @@
     "“Feel how soft it is!"
    ],
    "forms": [
-    "soft"
+    "soft",
+    "softer",
+    "softly"
    ],
    "count": 6
   },
@@ -5220,7 +5275,8 @@
    ],
    "forms": [
     "tear",
-    "tears"
+    "tears",
+    "tearing"
    ],
    "count": 6
   },
@@ -5235,7 +5291,8 @@
    ],
    "forms": [
     "trail",
-    "trails"
+    "trails",
+    "trailing"
    ],
    "count": 6
   },
@@ -5277,7 +5334,8 @@
     "Even her usual aloof expression was gone."
    ],
    "forms": [
-    "usual"
+    "usual",
+    "usually"
    ],
    "count": 6
   },
@@ -5291,7 +5349,8 @@
     "Clay let out an agonized yell and tried to stumble back down the slope to the river."
    ],
    "forms": [
-    "yell"
+    "yell",
+    "yelling"
    ],
    "count": 6
   },
@@ -5389,7 +5448,8 @@
     "You’d be swimming blind into who knows what."
    ],
    "forms": [
-    "blind"
+    "blind",
+    "blinded"
    ],
    "count": 5
   },
@@ -5532,7 +5592,8 @@
    ],
    "forms": [
     "clumps",
-    "clump"
+    "clump",
+    "clumped"
    ],
    "count": 5
   },
@@ -5547,7 +5608,9 @@
    ],
    "forms": [
     "cracks",
-    "crack"
+    "crack",
+    "cracked",
+    "cracking"
    ],
    "count": 5
   },
@@ -5562,7 +5625,8 @@
    ],
    "forms": [
     "curses",
-    "curse"
+    "curse",
+    "cursed"
    ],
    "count": 5
   },
@@ -5591,7 +5655,8 @@
    ],
    "forms": [
     "dare",
-    "dares"
+    "dares",
+    "dared"
    ],
    "count": 5
   },
@@ -5760,7 +5825,9 @@
    ],
    "forms": [
     "glint",
-    "glints"
+    "glints",
+    "glinted",
+    "glinting"
    ],
    "count": 5
   },
@@ -6058,7 +6125,8 @@
     "An unusual SkyWing dragon was flying in loops around his perch."
    ],
    "forms": [
-    "perch"
+    "perch",
+    "perched"
    ],
    "count": 5
   },
@@ -6100,7 +6168,8 @@
     "That’s what my mother was going to do, but Queen Scarlet saved me and killed her to punish her."
    ],
    "forms": [
-    "punish"
+    "punish",
+    "punished"
    ],
    "count": 5
   },
@@ -6156,7 +6225,8 @@
     "Through the ripples he could see the blurred shapes of the large dragons gathered around the fire."
    ],
    "forms": [
-    "ripples"
+    "ripples",
+    "rippling"
    ],
    "count": 5
   },
@@ -6297,7 +6367,9 @@
     "A thin column of smoke was starting to rise from a hole partway down the slope."
    ],
    "forms": [
-    "slope"
+    "slope",
+    "sloped",
+    "sloping"
    ],
    "count": 5
   },
@@ -6326,7 +6398,8 @@
     "She picked up a silver medallion with a spiral carved into it, studded with tiny sapphires."
    ],
    "forms": [
-    "spiral"
+    "spiral",
+    "spiraling"
    ],
    "count": 5
   },
@@ -6508,7 +6581,8 @@
     "” Tales of the NightWings was Starflight’s favorite scroll, and he always read it when he was upset or fighting with one of the other dragonets."
    ],
    "forms": [
-    "upset"
+    "upset",
+    "upsetting"
    ],
    "count": 5
   },
@@ -6522,7 +6596,8 @@
     "Somebody who wasn’t trying to beat him into a violent rage, preferably."
    ],
    "forms": [
-    "violent"
+    "violent",
+    "violently"
    ],
    "count": 5
   },
@@ -6607,7 +6682,8 @@
     "The cold air blasted toward the lowest row of seats, and several dragons clambered over each other to get away, yelping with alarm."
    ],
    "forms": [
-    "alarm"
+    "alarm",
+    "alarmed"
    ],
    "count": 4
   },
@@ -6636,7 +6712,8 @@
    ],
    "forms": [
     "angle",
-    "angles"
+    "angles",
+    "angled"
    ],
    "count": 4
   },
@@ -6762,7 +6839,8 @@
     "Abilities: can camouflage their scales to blend into their surroundings, use their prehensile tails for climbing; no known natural weapons"
    ],
    "forms": [
-    "camouflage"
+    "camouflage",
+    "camouflaged"
    ],
    "count": 4
   },
@@ -6806,7 +6884,8 @@
    ],
    "forms": [
     "cheer",
-    "cheers"
+    "cheers",
+    "cheering"
    ],
    "count": 4
   },
@@ -7002,7 +7081,8 @@
     "Even the browns seemed richer and deeper, like the mahogany trunk where Webs kept the most delicate scrolls."
    ],
    "forms": [
-    "delicate"
+    "delicate",
+    "delicately"
    ],
    "count": 4
   },
@@ -7030,7 +7110,8 @@
     "It was as if he hoped that by not moving, he’d disappear from view and the danger would pass right by."
    ],
    "forms": [
-    "disappear"
+    "disappear",
+    "disappearing"
    ],
    "count": 4
   },
@@ -7114,7 +7195,8 @@
    ],
    "forms": [
     "echo",
-    "echoes"
+    "echoes",
+    "echoing"
    ],
    "count": 4
   },
@@ -7214,7 +7296,8 @@
     "But the only faint smell was of rotten eggs."
    ],
    "forms": [
-    "faint"
+    "faint",
+    "faintly"
    ],
    "count": 4
   },
@@ -7242,7 +7325,9 @@
     "He didn’t know how long it took for the stands to fill, but the sun was blazing directly overhead when two of the guards let out a trumpeting roar."
    ],
    "forms": [
-    "fill"
+    "fill",
+    "filled",
+    "filling"
    ],
    "count": 4
   },
@@ -7398,7 +7483,8 @@
     "She tried to grab her daughter and fly away, but the heat of the dragonet’s scales burned her talons before she was a wingbeat into the sky, and she had to drop her."
    ],
    "forms": [
-    "grab"
+    "grab",
+    "grabbing"
    ],
    "count": 4
   },
@@ -7496,7 +7582,8 @@
     "The hunt for the escaped dragonets had begun."
    ],
    "forms": [
-    "hunt"
+    "hunt",
+    "hunted"
    ],
    "count": 4
   },
@@ -7510,7 +7597,8 @@
     "Oh, please hurry up and kill me,” mocked one of the SkyWing guards."
    ],
    "forms": [
-    "hurry"
+    "hurry",
+    "hurrying"
    ],
    "count": 4
   },
@@ -7652,7 +7740,8 @@
     "“Loyal SkyWings and visiting MudWings and honored SandWing guests."
    ],
    "forms": [
-    "loyal"
+    "loyal",
+    "loyally"
    ],
    "count": 4
   },
@@ -7666,7 +7755,8 @@
     "“It is magnificent and imposing!"
    ],
    "forms": [
-    "magnificent"
+    "magnificent",
+    "magnificently"
    ],
    "count": 4
   },
@@ -7694,7 +7784,8 @@
     "Clay found himself wishing he had darker scales that could melt into the shadows like Starflight’s."
    ],
    "forms": [
-    "melt"
+    "melt",
+    "melting"
    ],
    "count": 4
   },
@@ -7752,7 +7843,9 @@
    ],
    "forms": [
     "murmur",
-    "murmurs"
+    "murmurs",
+    "murmured",
+    "murmuring"
    ],
    "count": 4
   },
@@ -7809,7 +7902,8 @@
     "“She’s really small and golden, and kind of odd-looking —”"
    ],
    "forms": [
-    "odd"
+    "odd",
+    "oddly"
    ],
    "count": 4
   },
@@ -8160,7 +8254,8 @@
     "He noticed with a shiver of fear that Starflight’s perch was empty."
    ],
    "forms": [
-    "shiver"
+    "shiver",
+    "shivering"
    ],
    "count": 4
   },
@@ -8174,7 +8269,8 @@
     "With a jarring shock, he hit a spur of stone and dug in with all his talons."
    ],
    "forms": [
-    "shock"
+    "shock",
+    "shocked"
    ],
    "count": 4
   },
@@ -8401,7 +8497,8 @@
     "“We have to go spy on them,” he said, jumping to his feet."
    ],
    "forms": [
-    "spy"
+    "spy",
+    "spying"
    ],
    "count": 4
   },
@@ -8611,7 +8708,8 @@
     "Morrowseer was even bigger than Kestrel, and five times more terrifying."
    ],
    "forms": [
-    "terrifying"
+    "terrifying",
+    "terrifyingly"
    ],
    "count": 4
   },
@@ -8625,7 +8723,8 @@
     "Starflight reached up and fingered the bands on his wings, looking thoughtful."
    ],
    "forms": [
-    "thoughtful"
+    "thoughtful",
+    "thoughtfully"
    ],
    "count": 4
   },
@@ -8824,7 +8923,8 @@
     "Tsunami let out a yelp, and then Clay felt something like claws snag his wings and tail."
    ],
    "forms": [
-    "yelp"
+    "yelp",
+    "yelping"
    ],
    "count": 4
   },
@@ -9060,7 +9160,8 @@
     "Clay wished he could ever be that calm."
    ],
    "forms": [
-    "calm"
+    "calm",
+    "calmly"
    ],
    "count": 3
   },
@@ -9229,7 +9330,9 @@
     "You can only hold your breath for an hour — you could get trapped with no air and drown."
    ],
    "forms": [
-    "drown"
+    "drown",
+    "drowned",
+    "drowning"
    ],
    "count": 3
   },
@@ -9285,7 +9388,8 @@
     "She didn’t hesitate; in a flash of red and gold, she was gone."
    ],
    "forms": [
-    "flash"
+    "flash",
+    "flashing"
    ],
    "count": 3
   },
@@ -9656,7 +9760,9 @@
     "Statues of Queen Scarlet in different regal poses were scattered about the floor, some carved from marble, some of gold, others of smooth black rock with rubies for eyes."
    ],
    "forms": [
-    "smooth"
+    "smooth",
+    "smoothed",
+    "smoothly"
    ],
    "count": 3
   },
@@ -9851,7 +9957,8 @@
     "Starflight was kneeling before the queen in a submissive bow."
    ],
    "forms": [
-    "bow"
+    "bow",
+    "bowing"
    ],
    "count": 2
   },
@@ -9865,7 +9972,8 @@
     "” Sunny said in a rush, jumping into the brief pause in the conversation."
    ],
    "forms": [
-    "brief"
+    "brief",
+    "briefly"
    ],
    "count": 2
   },
@@ -9988,7 +10096,8 @@
     "And our big, strong hero came from somewhere around the Diamond Spray Delta, near the sea, where the lowest-born MudWings crawl."
    ],
    "forms": [
-    "crawl"
+    "crawl",
+    "crawled"
    ],
    "count": 2
   },
@@ -10089,6 +10198,2144 @@
     "rainwings"
    ],
    "count": 34
+  },
+  "shot": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Moved very fast, or sent something out very fast.",
+   "whyHard": "Not the usual meaning! Usually a shot comes from a gun.",
+   "senses": [
+    {
+     "meaning": "Moved very fast, or sent something out very fast.",
+     "whyHard": "Not the usual meaning! Usually a shot comes from a gun. Here it means moved very fast.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "he popped through and shot after Tsunami."
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "context": "A jet of fire shot out of her snout and"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "“Stupid SeaWing,” Kestrel shot across the cave and struck"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "and then, abruptly, he shot out into open space."
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "waterfall and the cliff shot past at lightning speed. Was"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "but the strange dragon shot a bolt of flame at"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "looked like sparkling smoke shot out of Fjord’s mouth. A"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "small burst of fire shot from her nose. “It’s all"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "for balance as she shot toward the sands. His front"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "in her talons and shot into the sky."
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "a blast of fire shot through the arena doors below"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "Starflight’s head shot up. “Where?”"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "yelp of terror, Vermilion shot into the sky, barely escaping"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "context": "the sand as she shot out of the way."
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "time, the other scavenger shot behind Tsunami’s back and threw"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "jet of black liquid shot out of her two longest"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 2,
+       "context": "front of her and shot into the sky. Glory’s venom"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 3,
+       "context": "another off course. Peril shot ahead of him, clearing a"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "hissing fire-breath noise and shot a bolt of flame at"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "context": "straight sheets and then shot out in bursts like dragons"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "context": "Panic shot through Clay and he sped"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Gave a quick look, or answered in a quick angry way.",
+     "whyHard": "Not the usual meaning! Usually a shot comes from a gun. Here it is a quick look or a quick answer.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "“No, we’re not.” Tsunami shot the SandWing a glare. “We"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "let us go?” Tsunami shot back."
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "Dune shot him a withering look. “No"
+      }
+     ]
+    },
+    {
+     "meaning": "A chance to do something.",
+     "whyHard": "Not the usual meaning! Usually a shot comes from a gun. Here it means a chance.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "had an even better shot of hearing everything, if they"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "said. “It’s our best shot. Let’s do it, then, and"
+      }
+     ]
+    }
+   ]
+  },
+  "spotted": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Saw or noticed someone or something.",
+   "whyHard": "Not the usual meaning! Usually spotted means covered in spots.",
+   "forms": [
+    "spotted"
+   ],
+   "senses": [
+    {
+     "meaning": "Saw or noticed someone or something.",
+     "whyHard": "Not the usual meaning! Usually spotted means covered in spots. Here it means saw.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "toward the horizon and spotted her, far below him, flapping"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "It spotted Tsunami and Clay, dropped everything"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "were birds, until he spotted fire flickering around them like"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "case the distant SkyWings spotted them."
+      },
+      {
+       "chapter": 17,
+       "occurrence": 3,
+       "context": "Clay spotted something in the mud in"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "here.” She glanced around, spotted Starflight’s sack of scrolls, and"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "with sharp talons. Clay spotted collapsed towers, scorch marks along"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "were SkyWings, but he spotted the pale yellow and white"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "down her nose. Clay spotted the glint of a few"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "context": "eyes adjusted and he spotted Glory, laid out along her"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "he thought, concern. He spotted a large MudWing in one"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "opposite her. He also spotted a couple of scavengers among"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "this high without being spotted. It was still struggling up"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "context": "clearing the trees. Clay spotted the river winding toward the"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "context": "other dragon could have spotted you, too, and we should"
+      }
+     ]
+    }
+   ]
+  },
+  "current": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Water in a river that keeps moving and can push you along.",
+   "whyHard": "Not the usual meaning! Usually current means happening now.",
+   "forms": [
+    "current"
+   ],
+   "senses": [
+    {
+     "meaning": "Water in a river that keeps moving and can push you along.",
+     "whyHard": "Not the usual meaning! Usually current means happening now. Here it is moving river water.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "in the water. The current helped wash away the smoky"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "shapes bounced away in the current."
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "he swam against the current to the rock wall. Without"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "“Follow the current,” Starflight said to Clay. “Don’t"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "the world anywhere, the current should take you there.”"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 3,
+       "context": "a moment, feeling the current tugging him. Then he inhaled"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 4,
+       "context": "narrow here and the current was strong. It carried him"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 5,
+       "context": "The strength of the current dropped away. It felt as"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 6,
+       "context": "of the pool. The current was still moving sluggishly somewhere"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 7,
+       "context": "afraid he’d lost the current. He had no idea where"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 8,
+       "context": "friends, fighting that strong current the whole way?"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 9,
+       "context": "was weaker, but the current was still there. He spread"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 10,
+       "context": "After a while, the current started to pick up again."
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "thrashed, terrified, and the current nearly dragged him away. The"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "on against the fierce current while she poured more water"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "context": "into the water. The current whooshed her away, and he"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 4,
+       "context": "It helped that the current was getting faster again."
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "the stirring of a current as they reached the mouth"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "context": "on. As the speeding current swept them over the ridge,"
+      }
+     ]
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Went away.",
+   "whyHard": "Not the usual meaning! Usually left means the opposite of right.",
+   "senses": [
+    {
+     "meaning": "Went away. Also: stayed behind after you went.",
+     "whyHard": "Not the usual meaning! Usually left means the opposite of right. Here it means went away.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "“The minders wouldn’t have left it there if it was,”"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "if the river even left this cave. What if this"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "passageway where the river left the pool. The ceiling was"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "scorched talon print she left behind on Horizon’s scales. It"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "Peace or why she’d left the SkyWing kingdom. He’d always"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "I hear. I’ve never left the Sky Kingdom.” She stuck"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "Tomorrow. And when she left, she’d be taking Sunny with"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "killed my brother. You left me here. And it’s your"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "context": "She turned and left the arena. The guards dragged"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 2,
+       "context": "“But — he just left?” Sunny asked. She caught one"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "back. “We could have left you in the Sky Kingdom."
+      },
+      {
+       "chapter": 38,
+       "occurrence": 3,
+       "context": "the same since Asha left. They’re down to four now.”"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "context": "of that prophecy. She left a lot of blithering, obsessed"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Still there, when others are gone.",
+     "whyHard": "Not the usual meaning! Usually left means the opposite of right. Here it means still there.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 27,
+       "occurrence": 4,
+       "context": "his leg. He was left with a stretch of wire"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "there was no one left but him and her and"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 2,
+       "context": "only two of you left,” the MudWing said bluntly, “but"
+      }
+     ]
+    }
+   ]
+  },
+  "land": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To come down onto the ground, a rock, or water.",
+   "whyHard": "Not the usual meaning! Usually land means the ground.",
+   "forms": [
+    "land",
+    "landed",
+    "landing"
+   ],
+   "senses": [
+    {
+     "meaning": "To come down onto the ground, a rock, or water.",
+     "whyHard": "Not the usual meaning! Usually land means the ground. Here it means to come down.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "They spiraled down to land on the ledge outside a"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "branches, so he couldn’t land next to it. But it"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 3,
+       "context": "Tsunami, swooping down to land. “The boulder blocking the exit"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "context": "of the stars and land beside them again, too. He"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "context": "The MudWings heard them land and whirled around, teeth bared."
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "His sharp, menacing gaze landed on Clay.",
+       "form": "landed"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "through the air. He landed with a jarring thud, sliding",
+       "form": "landed"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "slightly bigger than Clay, landed soundlessly in the clearing behind",
+       "form": "landed"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "his talons as he landed. He felt a wave of",
+       "form": "landed"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "twisted in midair and landed on her feet facing him,",
+       "form": "landed"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "of the drops had landed in Fjord’s eye, and that",
+       "form": "landed"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "watch her as she landed behind him.",
+       "form": "landed"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "the arena wall. Peril landed beside him.",
+       "form": "landed"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "The writhing SeaWing landed hard on the sands, dropped",
+       "form": "landed"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "context": "a roll as she landed, carrying her halfway across the",
+       "form": "landed"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "catch it. The scavenger landed, screaming, in one SkyWing’s outstretched",
+       "form": "landed"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "Burn, so when Clay landed next to Glory, there was",
+       "form": "landed"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 2,
+       "context": "Clay insisted as Peril landed beside him. “Their chains and",
+       "form": "landed"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 3,
+       "context": "Then her gray-green eyes landed on Clay, and her face",
+       "form": "landed"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "Clay landed beside Tsunami on the grate",
+       "form": "landed"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "context": "of water. As Peril landed, the grass around her talons",
+       "form": "landed"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 3,
+       "context": "to the next and landed on Clay. “Listen, MudWing. For",
+       "form": "landed"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "context": "in his talons. He landed on an island of dry",
+       "form": "landed"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "by a heavy SeaWing landing on him from above.",
+       "form": "landing"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "be true!” Peril cried, landing on the sand beside Osprey.",
+       "form": "landing"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "where Clay guessed the landing field for visitors was.",
+       "form": "landing"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "thud of his body landing shook the whole stadium.",
+       "form": "landing"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "forward over his horns, landing hard and rolling into the",
+       "form": "landing"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "context": "the breeze of their landing. Clay felt his claws sink",
+       "form": "landing"
+      }
+     ]
+    }
+   ]
+  },
+  "rose": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Went up.",
+   "whyHard": "Not the usual meaning! Usually a rose is a flower.",
+   "forms": [
+    "rose"
+   ],
+   "senses": [
+    {
+     "meaning": "Went up.",
+     "whyHard": "Not the usual meaning! Usually a rose is a flower. Here it means went up.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "A slope beside him rose away from the water."
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "swallowed the lump that rose in his throat at the"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "by and the moons rose higher in the sky. He"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "The queen rose to her full height and"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "bar snapped, and Kestrel rose, huge and angry, out of"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "context": "into the reeds and rose up again with a crocodile"
+      }
+     ]
+    }
+   ]
+  },
+  "mind": {
+   "pos": "noun",
+   "meaning": "The part of you that thinks and feels.",
+   "whyHard": "This word is also used when someone is not upset, which is a different meaning.",
+   "forms": [
+    "mind",
+    "minds"
+   ],
+   "senses": [
+    {
+     "meaning": "The part of you that thinks and feels.",
+     "default": true
+    },
+    {
+     "meaning": "To not be upset about something.",
+     "whyHard": "Not the usual meaning! Usually mind is the part that thinks. Here it means you are not upset.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "Clay didn’t mind being wet, but he couldn’t"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "“Hey, Sunny, would you mind taking those scrolls back to"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "I hope you don’t mind that it’s a little crispy.”"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "“I don’t mind,” Clay said. “I’m in enough"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "context": "said. “But we don’t mind.”"
+      }
+     ]
+    },
+    {
+     "meaning": "To decide something different from before.",
+     "whyHard": "Not the usual meaning! Usually mind is the part that thinks. In 'changed my mind' it means a decision.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "then I changed my mind again,” Queen Scarlet said. “I"
+      }
+     ]
+    },
+    {
+     "meaning": "Words that mean 'but remember this'.",
+     "whyHard": "Not the usual meaning! Usually mind is the part that thinks. 'Mind you' means but remember.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "that I’ll come running, mind you. You deserve all the"
+      }
+     ]
+    }
+   ]
+  },
+  "present": {
+   "pos": "noun",
+   "meaning": "A gift.",
+   "whyHard": "This word is also used to mean showing someone, or the time now.",
+   "forms": [
+    "present"
+   ],
+   "senses": [
+    {
+     "meaning": "A gift.",
+     "default": true
+    },
+    {
+     "meaning": "To show someone to a crowd.",
+     "whyHard": "Not the usual meaning! Usually a present is a gift. Here it means to show someone.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "of the mud. I present to you … Clay of"
+      }
+     ]
+    },
+    {
+     "meaning": "The time now.",
+     "whyHard": "Not the usual meaning! Usually a present is a gift. Here it means the time now.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "context": "from the Scorching to the Present?”"
+      }
+     ]
+    }
+   ]
+  },
+  "match": {
+   "pos": "verb",
+   "meaning": "To be the same as something, or to copy it.",
+   "whyHard": "A match can also be a fight.",
+   "forms": [
+    "match"
+   ],
+   "senses": [
+    {
+     "meaning": "To be the same as something, or as strong as someone.",
+     "default": true
+    },
+    {
+     "meaning": "A fight between two dragons.",
+     "whyHard": "Not the usual meaning! Usually match means to be the same. Here it is a fight.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "been challenged to a match with the Queen’s Champion, Peril."
+      }
+     ]
+    }
+   ]
+  },
+  "figure": {
+   "pos": "verb",
+   "meaning": "To find the answer by thinking.",
+   "whyHard": "A figure can also be a shape you see.",
+   "forms": [
+    "figure"
+   ],
+   "senses": [
+    {
+     "meaning": "To find the answer by thinking.",
+     "default": true
+    },
+    {
+     "meaning": "A shape of a dragon that you can see, often far away.",
+     "whyHard": "Not the usual meaning! Usually 'figure out' means to find an answer. Here a figure is a shape.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "he saw a dark figure circle overhead, spot them, and"
+      }
+     ]
+    }
+   ]
+  },
+  "bar": {
+   "pos": "noun",
+   "meaning": "A long piece of metal, such as one that locks a cage.",
+   "whyHard": "A bar song is a different use.",
+   "forms": [
+    "bar"
+   ],
+   "senses": [
+    {
+     "meaning": "A long piece of metal, such as one that locks a cage.",
+     "default": true
+    },
+    {
+     "meaning": "In 'bar song', a song from a place where dragons drink and sing.",
+     "whyHard": "Not the usual meaning! Usually a bar is a piece of metal. Here a bar song is a drinking song.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "teach them that horrible bar song.”"
+      }
+     ]
+    }
+   ]
+  },
+  "scale": {
+   "pos": "noun",
+   "meaning": "The hard, flat pieces that cover a dragon's body.",
+   "whyHard": "This is not a tool for weighing. It is a dragon's hard skin.",
+   "forms": [
+    "scale",
+    "scales"
+   ]
+  },
+  "prisoner": {
+   "pos": "noun",
+   "meaning": "A dragon who is locked up and cannot leave.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "prisoner",
+    "prisoners"
+   ]
+  },
+  "realize": {
+   "pos": "verb",
+   "meaning": "To understand something suddenly.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "realize",
+    "realized"
+   ]
+  },
+  "shoulder": {
+   "pos": "noun",
+   "meaning": "The place where a leg or an arm joins the body.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "shoulder",
+    "shoulders"
+   ]
+  },
+  "stare": {
+   "pos": "verb",
+   "meaning": "To look at someone for a long time without looking away.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "stare",
+    "stared",
+    "staring"
+   ]
+  },
+  "majesty": {
+   "pos": "noun",
+   "meaning": "A title used when you speak to a queen: Your Majesty.",
+   "whyHard": "This is an old title, not a name.",
+   "forms": [
+    "majesty"
+   ]
+  },
+  "supposed": {
+   "pos": "adjective",
+   "meaning": "Expected to do something, or thought to be a certain way.",
+   "whyHard": "This is not the same as guessing. 'Supposed to' means expected to.",
+   "forms": [
+    "supposed"
+   ]
+  },
+  "guard": {
+   "pos": "noun",
+   "meaning": "A dragon whose job is to watch prisoners or a place.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "guard",
+    "guards"
+   ]
+  },
+  "lead": {
+   "pos": "verb",
+   "meaning": "To go first and show the way.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "lead",
+    "leads"
+   ]
+  },
+  "ring": {
+   "pos": "noun",
+   "meaning": "A circle, or a round piece of metal.",
+   "whyHard": "Here it is a circle, not only a piece of jewelry.",
+   "forms": [
+    "ring"
+   ]
+  },
+  "rise": {
+   "pos": "verb",
+   "meaning": "To go up.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "rise",
+    "rising"
+   ]
+  },
+  "shout": {
+   "pos": "verb",
+   "meaning": "To call out in a very loud voice.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "shout",
+    "shouted",
+    "shouting"
+   ]
+  },
+  "lift": {
+   "pos": "verb",
+   "meaning": "To move something up.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "lift",
+    "lifted",
+    "lifting"
+   ]
+  },
+  "wrap": {
+   "pos": "verb",
+   "meaning": "To put something around another thing.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "wrap",
+    "wrapped"
+   ]
+  },
+  "imagine": {
+   "pos": "verb",
+   "meaning": "To make a picture of something in your mind.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "imagine",
+    "imagined",
+    "imagining"
+   ]
+  },
+  "flow": {
+   "pos": "verb",
+   "meaning": "To move along, like water in a river.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "flow",
+    "flowed"
+   ]
+  },
+  "lower": {
+   "pos": "verb",
+   "meaning": "To move something down.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "lower",
+    "lowered"
+   ]
+  },
+  "press": {
+   "pos": "verb",
+   "meaning": "To push hard against something.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "press",
+    "pressed"
+   ]
+  },
+  "promise": {
+   "pos": "verb",
+   "meaning": "To say that you will surely do something.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "promise",
+    "promised"
+   ]
+  },
+  "challenge": {
+   "pos": "verb",
+   "meaning": "To ask someone to fight, or a hard test.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "challenge",
+    "challenged"
+   ]
+  },
+  "pop": {
+   "pos": "verb",
+   "meaning": "To go through or come out quickly.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "pop",
+    "popped"
+   ]
+  },
+  "chin": {
+   "pos": "noun",
+   "meaning": "The part of the face under the mouth.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "chin"
+   ]
+  },
+  "struggle": {
+   "pos": "verb",
+   "meaning": "To fight hard to get free or to keep going.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "struggle",
+    "struggling",
+    "struggled"
+   ]
+  },
+  "creature": {
+   "pos": "noun",
+   "meaning": "A living animal. In this book it may be a dragon or another animal.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "creature",
+    "creatures"
+   ]
+  },
+  "bend": {
+   "pos": "verb",
+   "meaning": "To curve. Bent means already curved, or that someone curved something.",
+   "whyHard": "Bent can look like the furniture word, but here it means curved.",
+   "forms": [
+    "bend",
+    "bent"
+   ]
+  },
+  "launch": {
+   "pos": "verb",
+   "meaning": "To jump or fly off into the air.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "launch",
+    "launched"
+   ]
+  },
+  "dirt": {
+   "pos": "noun",
+   "meaning": "Loose earth, or dust and mud on the ground.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "dirt"
+   ]
+  },
+  "killer": {
+   "pos": "noun",
+   "meaning": "Someone who kills.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "killer"
+   ]
+  },
+  "fighter": {
+   "pos": "noun",
+   "meaning": "Someone who fights.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "fighter",
+    "fighters"
+   ]
+  },
+  "exchange": {
+   "pos": "verb",
+   "meaning": "To look at each other, or to give something and get something.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "exchange",
+    "exchanged"
+   ]
+  },
+  "barb": {
+   "pos": "noun",
+   "meaning": "The sharp poisoned point on a SandWing's tail.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "barb",
+    "barbed"
+   ]
+  },
+  "feint": {
+   "pos": "noun",
+   "meaning": "A fake move in a fight, so the other dragon goes the wrong way.",
+   "whyHard": "This looks like faint, but it is a trick move.",
+   "forms": [
+    "feint"
+   ]
+  },
+  "scorpion": {
+   "pos": "noun",
+   "meaning": "A small animal with a poisonous point on its tail.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "scorpion",
+    "scorpions"
+   ]
+  },
+  "scepter": {
+   "pos": "noun",
+   "meaning": "A special stick a queen holds to show that she rules.",
+   "whyHard": "This is an old thing a ruler carries.",
+   "forms": [
+    "scepter"
+   ]
+  },
+  "onyx": {
+   "pos": "noun",
+   "meaning": "A hard black stone. Here it names a SandWing treasure, the Eye of Onyx.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "onyx"
+   ]
+  },
+  "lazulite": {
+   "pos": "noun",
+   "meaning": "A blue stone. Here it names a treasure, the Lazulite Dragon.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "lazulite"
+   ]
+  },
+  "prehensile": {
+   "pos": "adjective",
+   "meaning": "Able to grab and hold, the way a hand can. A RainWing tail can do this.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "prehensile"
+   ]
+  },
+  "unconscious": {
+   "pos": "adjective",
+   "meaning": "Not awake, because you were hit hard.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "unconscious"
+   ]
+  },
+  "translucent": {
+   "pos": "adjective",
+   "meaning": "Clear enough for light to pass through, but not fully see-through.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "translucent"
+   ]
+  },
+  "iridescent": {
+   "pos": "adjective",
+   "meaning": "Shining with colors that change as the light moves.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "iridescent"
+   ]
+  },
+  "eavesdrop": {
+   "pos": "verb",
+   "meaning": "To listen in secret to other dragons talking.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "eavesdrop"
+   ]
+  },
+  "crevice": {
+   "pos": "noun",
+   "meaning": "A narrow crack in rock.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "crevice",
+    "crevices"
+   ]
+  },
+  "ominous": {
+   "pos": "adjective",
+   "meaning": "Making you feel that something bad will happen.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "ominous"
+   ]
+  },
+  "carcass": {
+   "pos": "noun",
+   "meaning": "The dead body of an animal.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "carcass"
+   ]
+  },
+  "venomous": {
+   "pos": "adjective",
+   "meaning": "Able to put poison into a bite or a sting.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "venomous"
+   ]
+  },
+  "clodhopper": {
+   "pos": "noun",
+   "meaning": "A rude name for someone who seems clumsy.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "clodhopper",
+    "clodhoppers"
+   ]
+  },
+  "psychotic": {
+   "pos": "adjective",
+   "meaning": "Very wild and dangerous in the mind.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "psychotic"
+   ]
+  },
+  "maimed": {
+   "pos": "adjective",
+   "meaning": "Badly hurt, so that part of the body no longer works.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "maimed"
+   ]
+  },
+  "helpless": {
+   "pos": "adjective",
+   "meaning": "Not able to protect yourself.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "helpless"
+   ]
+  },
+  "vicious": {
+   "pos": "adjective",
+   "meaning": "Very cruel and ready to hurt.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "vicious"
+   ]
+  },
+  "peculiar": {
+   "pos": "adjective",
+   "meaning": "Strange, and not like the others.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "peculiar"
+   ]
+  },
+  "sibling": {
+   "pos": "noun",
+   "meaning": "A brother or a sister.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "sibling",
+    "siblings"
+   ]
+  },
+  "ferocious": {
+   "pos": "adjective",
+   "meaning": "Very fierce and frightening.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "ferocious"
+   ]
+  },
+  "menacing": {
+   "pos": "adjective",
+   "meaning": "Looking as if you are about to hurt someone.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "menacing"
+   ]
+  },
+  "skull": {
+   "pos": "noun",
+   "meaning": "The bones of the head.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "skull",
+    "skulls"
+   ]
+  },
+  "heir": {
+   "pos": "noun",
+   "meaning": "The dragon who is meant to rule next.",
+   "whyHard": "This is an old title for the next ruler.",
+   "forms": [
+    "heir"
+   ]
+  },
+  "crocodile": {
+   "pos": "noun",
+   "meaning": "A large river animal with a long mouth and many teeth.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "crocodile"
+   ]
+  },
+  "bullfrog": {
+   "pos": "noun",
+   "meaning": "A big frog with a deep, loud call.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "bullfrog",
+    "bullfrogs"
+   ]
+  },
+  "birdcage": {
+   "pos": "noun",
+   "meaning": "A cage made to hold a bird. Glory is shut in one.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "birdcage"
+   ]
+  },
+  "cauliflower": {
+   "pos": "noun",
+   "meaning": "A vegetable with a hard white head.",
+   "whyHard": "This is a food a school book may not teach.",
+   "forms": [
+    "cauliflower"
+   ]
+  },
+  "barracks": {
+   "pos": "noun",
+   "meaning": "The building where soldiers live.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "barracks"
+   ]
+  },
+  "revolution": {
+   "pos": "noun",
+   "meaning": "A fight to change who has power.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "revolution"
+   ]
+  },
+  "technique": {
+   "pos": "noun",
+   "meaning": "A way of doing something, such as a way of fighting.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "technique",
+    "techniques"
+   ]
+  },
+  "combat": {
+   "pos": "noun",
+   "meaning": "A fight.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "combat"
+   ]
+  },
+  "nightmare": {
+   "pos": "noun",
+   "meaning": "A very bad dream.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "nightmare",
+    "nightmares"
+   ]
+  },
+  "precious": {
+   "pos": "adjective",
+   "meaning": "Loved very much, or worth a great deal.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "precious"
+   ]
+  },
+  "sly": {
+   "pos": "adjective",
+   "meaning": "Clever in a secret, tricky way.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "sly"
+   ]
+  },
+  "yowl": {
+   "pos": "noun",
+   "meaning": "A long, loud cry of pain.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "yowl"
+   ]
+  },
+  "gawp": {
+   "pos": "verb",
+   "meaning": "To stare with your mouth open.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "gawp"
+   ]
+  },
+  "squawk": {
+   "pos": "verb",
+   "meaning": "To make a loud, harsh cry, like an angry bird.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "squawk",
+    "squawked"
+   ]
+  },
+  "stunted": {
+   "pos": "adjective",
+   "meaning": "Not grown as big as it should be.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "stunted"
+   ]
+  },
+  "coward": {
+   "pos": "noun",
+   "meaning": "Someone who is too afraid to fight.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "coward"
+   ]
+  },
+  "withstand": {
+   "pos": "verb",
+   "meaning": "To stay unhurt through something very hard, such as great cold.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "withstand"
+   ]
+  },
+  "subzero": {
+   "pos": "adjective",
+   "meaning": "Colder than the point where water turns to ice.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "subzero"
+   ]
+  },
+  "exhale": {
+   "pos": "verb",
+   "meaning": "To breathe out.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "exhale"
+   ]
+  },
+  "foretell": {
+   "pos": "verb",
+   "meaning": "To say what will happen later.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "foretell"
+   ]
+  },
+  "armored": {
+   "pos": "adjective",
+   "meaning": "Covered with hard plates that protect the body.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "armored"
+   ]
+  },
+  "underscale": {
+   "pos": "noun",
+   "meaning": "A scale on the underside of a dragon.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "underscales"
+   ]
+  },
+  "debris": {
+   "pos": "noun",
+   "meaning": "Broken pieces left after something is destroyed.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "debris"
+   ]
+  },
+  "feeble": {
+   "pos": "adjective",
+   "meaning": "Very weak.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "feeble"
+   ]
+  },
+  "waterlogged": {
+   "pos": "adjective",
+   "meaning": "So full of water that it is heavy.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "waterlogged"
+   ]
+  },
+  "exasperation": {
+   "pos": "noun",
+   "meaning": "The feeling when you are tired of how someone is acting.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "exasperation"
+   ]
+  },
+  "vibrant": {
+   "pos": "adjective",
+   "meaning": "Bright and full of strong color.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "vibrant"
+   ]
+  },
+  "metaphor": {
+   "pos": "noun",
+   "meaning": "A picture in words: you say one thing is another, but you only mean it as a picture.",
+   "whyHard": "Glory uses this word for a joke that is not real.",
+   "forms": [
+    "metaphor"
+   ]
+  },
+  "featherbrain": {
+   "pos": "noun",
+   "meaning": "A rude name for someone who seems silly.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "featherbrain"
+   ]
+  },
+  "belly": {
+   "pos": "noun",
+   "meaning": "The soft underside of the body.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "belly"
+   ]
+  },
+  "crooked": {
+   "pos": "adjective",
+   "meaning": "Not straight.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "crooked"
+   ]
+  },
+  "steep": {
+   "pos": "adjective",
+   "meaning": "Rising or falling at a sharp angle.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "steep"
+   ]
+  },
+  "pathetic": {
+   "pos": "adjective",
+   "meaning": "So weak or sad that others look down on it.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "pathetic"
+   ]
+  },
+  "vein": {
+   "pos": "noun",
+   "meaning": "A thin line of color in rock, or a thin tube that carries blood.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "vein",
+    "veins"
+   ]
+  },
+  "ghost": {
+   "pos": "noun",
+   "meaning": "In a story, the spirit of someone who has died.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "ghost",
+    "ghosts"
+   ]
+  },
+  "shell": {
+   "pos": "noun",
+   "meaning": "The hard outside of an egg.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "shell",
+    "shells"
+   ]
+  },
+  "dew": {
+   "pos": "noun",
+   "meaning": "Small drops of water on the ground in the morning.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "dew"
+   ]
+  },
+  "breeze": {
+   "pos": "noun",
+   "meaning": "A light, gentle wind.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "breeze"
+   ]
+  },
+  "midst": {
+   "pos": "noun",
+   "meaning": "The middle of a group or of an action.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "midst"
+   ]
+  },
+  "cunning": {
+   "pos": "adjective",
+   "meaning": "Clever at tricks.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "cunning"
+   ]
+  },
+  "grief": {
+   "pos": "noun",
+   "meaning": "Deep sadness after a death.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "grief"
+   ]
+  },
+  "immune": {
+   "pos": "adjective",
+   "meaning": "Not able to be hurt by something, such as a fire or a poison.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "immune"
+   ]
+  },
+  "fur": {
+   "pos": "noun",
+   "meaning": "The soft hair that covers an animal.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "fur"
+   ]
+  },
+  "flesh": {
+   "pos": "noun",
+   "meaning": "The soft meat of a body.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "flesh"
+   ]
+  },
+  "crystal": {
+   "pos": "noun",
+   "meaning": "A clear hard stone that can shine.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "crystal",
+    "crystals"
+   ]
+  },
+  "squirrel": {
+   "pos": "noun",
+   "meaning": "A small animal with a big tail that lives in trees.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "squirrel"
+   ]
+  },
+  "pace": {
+   "pos": "noun",
+   "meaning": "How fast something moves, such as a song or a walk.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "pace"
+   ]
+  },
+  "awe": {
+   "pos": "noun",
+   "meaning": "A strong feeling of wonder, mixed with a little fear.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "awe"
+   ]
+  },
+  "brow": {
+   "pos": "noun",
+   "meaning": "The part of the face above the eye.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "brow",
+    "brows"
+   ]
+  },
+  "regal": {
+   "pos": "adjective",
+   "meaning": "Grand and proud, like a queen.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "regal"
+   ]
+  },
+  "warrior": {
+   "pos": "noun",
+   "meaning": "A fighter in a war.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "warrior"
+   ]
+  },
+  "exhausted": {
+   "pos": "adjective",
+   "meaning": "So tired you cannot keep going.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "exhausted"
+   ]
+  },
+  "insane": {
+   "pos": "adjective",
+   "meaning": "Thinking in a wild way that is not normal.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "insane"
+   ]
+  },
+  "unison": {
+   "pos": "noun",
+   "meaning": "All doing the same thing at the same time.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "unison"
+   ]
+  },
+  "mercy": {
+   "pos": "noun",
+   "meaning": "Kindness shown to someone you could hurt.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "mercy"
+   ]
+  },
+  "bargain": {
+   "pos": "noun",
+   "meaning": "A deal in which each side gives something.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "bargain"
+   ]
+  },
+  "disbelief": {
+   "pos": "noun",
+   "meaning": "The feeling that you cannot believe what you see.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "disbelief"
+   ]
+  },
+  "snarl": {
+   "pos": "verb",
+   "meaning": "To make an angry sound and show the teeth.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "snarl"
+   ]
+  },
+  "interrupt": {
+   "pos": "verb",
+   "meaning": "To start talking before someone else has finished.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "interrupt"
+   ]
+  },
+  "fetch": {
+   "pos": "verb",
+   "meaning": "To go and bring something back.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "fetch"
+   ]
+  },
+  "obey": {
+   "pos": "verb",
+   "meaning": "To do what you are told.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "obey"
+   ]
+  },
+  "growl": {
+   "pos": "verb",
+   "meaning": "To make a low angry sound in the throat.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "growl"
+   ]
+  },
+  "hopeless": {
+   "pos": "adjective",
+   "meaning": "With no chance that things will get better.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "hopeless"
+   ]
+  },
+  "gesture": {
+   "pos": "noun",
+   "meaning": "A movement of the body that shows a feeling.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "gesture"
+   ]
+  },
+  "nestmate": {
+   "pos": "noun",
+   "meaning": "A dragonet born from the same nest of eggs.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "nestmate",
+    "nestmates"
+   ]
+  },
+  "portrait": {
+   "pos": "noun",
+   "meaning": "A picture of one dragon.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "portrait"
+   ]
+  },
+  "stronghold": {
+   "pos": "noun",
+   "meaning": "A strong place that is hard for enemies to attack.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "stronghold"
+   ]
+  },
+  "clasp": {
+   "pos": "noun",
+   "meaning": "A small metal piece that holds something shut.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "clasp"
+   ]
+  },
+  "gleam": {
+   "pos": "verb",
+   "meaning": "To shine with a soft light.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "gleam",
+    "gleamed"
+   ]
+  },
+  "ray": {
+   "pos": "noun",
+   "meaning": "A line of light.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "ray",
+    "rays"
+   ]
+  },
+  "confusion": {
+   "pos": "noun",
+   "meaning": "A time when nobody knows what is happening.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "confusion"
+   ]
+  },
+  "explanation": {
+   "pos": "noun",
+   "meaning": "Words that make something clear.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "explanation"
+   ]
+  },
+  "breeding": {
+   "pos": "noun",
+   "meaning": "The time when dragons have eggs.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "breeding"
+   ]
+  },
+  "insect": {
+   "pos": "noun",
+   "meaning": "A small animal such as a fly or a beetle.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "insect",
+    "insects"
+   ]
+  },
+  "lever": {
+   "pos": "noun",
+   "meaning": "A strong bar you push to move something heavy.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "lever"
+   ]
+  },
+  "outline": {
+   "pos": "noun",
+   "meaning": "The outer line of a shape.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "outline"
+   ]
+  },
+  "rotten": {
+   "pos": "adjective",
+   "meaning": "Gone bad, so it smells and should not be eaten.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "rotten"
+   ]
+  },
+  "sticky": {
+   "pos": "adjective",
+   "meaning": "Able to hold onto things that touch it.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "sticky"
+   ]
+  },
+  "embarrassed": {
+   "pos": "adjective",
+   "meaning": "Feeling shy because of something you did.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "embarrassed"
+   ]
+  },
+  "piercing": {
+   "pos": "adjective",
+   "meaning": "Very sharp, like a sound or a look that seems to go through you.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "piercing"
+   ]
+  },
+  "healing": {
+   "pos": "verb",
+   "meaning": "Becoming well again after a hurt.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "healing"
+   ]
+  },
+  "recognize": {
+   "pos": "verb",
+   "meaning": "To know who someone is when you see them.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "recognize"
+   ]
+  },
+  "beneath": {
+   "pos": "preposition",
+   "meaning": "Under.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "beneath"
+   ]
+  },
+  "meanwhile": {
+   "pos": "adverb",
+   "meaning": "At the same time, somewhere else.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "meanwhile"
+   ]
+  },
+  "intently": {
+   "pos": "adverb",
+   "meaning": "With all of your attention.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "intently"
+   ]
+  },
+  "satisfaction": {
+   "pos": "noun",
+   "meaning": "A pleased feeling when something goes the way you wanted.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "satisfaction"
+   ]
+  },
+  "entertainment": {
+   "pos": "noun",
+   "meaning": "Something done to amuse a crowd, such as the arena fights.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "entertainment"
+   ]
+  },
+  "winding": {
+   "pos": "adjective",
+   "meaning": "Turning and curving, like a river or a path.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "winding"
+   ]
+  },
+  "thump": {
+   "pos": "noun",
+   "meaning": "A heavy dull hit, or the sound of that hit.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "thump"
+   ]
+  },
+  "clearing": {
+   "pos": "noun",
+   "meaning": "An open space with no trees.",
+   "whyHard": "This word is harder than everyday English.",
+   "forms": [
+    "clearing"
+   ]
+  },
+  "towered": {
+   "pos": "verb",
+   "meaning": "Stood much taller than someone, or rose up very high.",
+   "whyHard": "This is not only the building called a tower. Here it means stood high over someone.",
+   "forms": [
+    "towered",
+    "towering"
+   ]
+  },
+  "deserted": {
+   "pos": "verb",
+   "meaning": "Went away and left someone, or left a feeling behind.",
+   "whyHard": "Not the usual meaning! Usually a desert is dry land. Here deserted means went away.",
+   "forms": [
+    "deserted"
+   ]
+  },
+  "cowed": {
+   "pos": "adjective",
+   "meaning": "Made so afraid that you stay quiet.",
+   "whyHard": "Not the usual meaning! Usually a cow is a farm animal. Here cowed means made afraid.",
+   "forms": [
+    "cowed"
+   ]
   }
  },
  "paragraphs": [
@@ -10137,8 +12384,8 @@
    "chapter": 8,
    "paragraph": 36,
    "context": "A real scavenger would be smaller than her, according to this scroll",
-   "mainIdea": "Starflight says Clay is twice Sunny’s size, and a real scavenger would be smaller than her. He tells what the scrolls say about scavengers.",
-   "simple": "‘That is hardly fair,’ said Starflight. ‘He is twice Sunny’s size. A real scavenger would be smaller than her, says this scroll over here. It says that scavengers have no scales, no wings and no tail. They walk on two legs, which sounds very unsteady to me. I bet they fall over all the time. They like treasure almost as much as dragons do. The scrolls say scavengers attack dragons that are alone, and steal —’",
+   "mainIdea": "Starflight says a real scavenger is smaller than Sunny. It has no scales, no wings, and no tail, and it walks on two legs. The dragons think this is a small animal. The scroll is describing a person.",
+   "simple": "Starflight says it is hardly fair, because Clay is twice Sunny's size. A real scavenger would be smaller than her, the scroll says. It has no scales, no wings, and no tail. It walks on two legs, which sounds unsteady, so he thinks they fall over all the time. They like treasure almost as much as dragons do, and they attack dragons who are alone and steal from them. The dragons think a scavenger is an animal they could eat. Those words describe a person.",
    "hardWords": [
     "hardly fair",
     "according to",
@@ -10372,6 +12619,33 @@
     "firstborn",
     "cracking",
     "shells"
+   ]
+  },
+  {
+   "chapter": 11,
+   "paragraph": 42,
+   "context": "Oh, the dragonets are coming! They're coming to save the day",
+   "mainIdea": "Tsunami sings a short song to annoy the guardians. The song says the dragonets are coming to save the day and to fight.",
+   "simple": "Tsunami asks what else they can do to her. She starts to sing in a loud, rough voice. The song says the dragonets are coming. They are coming to save the day. They are coming to fight, because they know what is right. It ends with a cheer for the dragonets.",
+   "hardWords": [
+    "howling",
+    "off-key",
+    "hooray"
+   ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 2,
+   "context": "A short, pale creature stumbled into the moonlit clearing",
+   "mainIdea": "A small pale creature walks into an open space. The dragons see an animal. The description is a person: fur on the head, two legs, and hands with no claws.",
+   "simple": "A short pale creature came into the open moonlit space in front of them. The top of its furry head was only as high as Clay's shoulder. It had two long thin legs and two hanging arms that ended in soft hands, with no claws. One arm held something sharp, like a huge dragon claw. The other arm held a big bag. The dragons think this is a strange animal. It is a person.",
+   "hardWords": [
+    "stumbled",
+    "moonlit",
+    "clearing",
+    "furry",
+    "dangling",
+    "clawless"
    ]
   }
  ],
@@ -10853,6 +13127,86 @@
     "gave up"
    ],
    "example": "would give up and fly away"
+  },
+  "stick together": {
+   "meaning": "To stay as one group and not split up.",
+   "pos": "idiom",
+   "forms": [
+    "stick together"
+   ],
+   "example": "we five stick together or else everything gets worse"
+  },
+  "point out": {
+   "meaning": "To tell someone a fact you have noticed.",
+   "pos": "phrasal verb",
+   "forms": [
+    "pointed out"
+   ],
+   "example": "Starflight pointed out."
+  },
+  "watch out": {
+   "meaning": "A warning that tells someone to be careful.",
+   "pos": "phrasal verb",
+   "forms": [
+    "Watch out"
+   ],
+   "example": "Watch out, Clay!"
+  },
+  "as well": {
+   "meaning": "Also; in addition to something just said.",
+   "pos": "phrase",
+   "forms": [
+    "as well"
+   ],
+   "example": "as well as an alliance with the IceWings"
+  },
+  "off guard": {
+   "meaning": "Not ready for what happens next.",
+   "pos": "idiom",
+   "forms": [
+    "off guard"
+   ],
+   "example": "catch his opponent off guard"
+  },
+  "change one's mind": {
+   "meaning": "To decide something different from what you decided before.",
+   "pos": "idiom",
+   "forms": [
+    "changed my mind"
+   ],
+   "example": "And then I changed my mind again"
+  },
+  "stick around": {
+   "meaning": "To stay in a place instead of leaving.",
+   "pos": "phrasal verb",
+   "forms": [
+    "stick around"
+   ],
+   "example": "didn't want to stick around and find out"
+  },
+  "stick with": {
+   "meaning": "To stay with someone and not leave them.",
+   "pos": "phrasal verb",
+   "forms": [
+    "stick with"
+   ],
+   "example": "I'll stick with the friends who aren't trying to kill me"
+  },
+  "look after": {
+   "meaning": "To take care of someone.",
+   "pos": "phrasal verb",
+   "forms": [
+    "look after"
+   ],
+   "example": "we look after one another"
+  },
+  "stick to": {
+   "meaning": "To stay with one place or one plan.",
+   "pos": "phrasal verb",
+   "forms": [
+    "stick to"
+   ],
+   "example": "I'll stick to the shallows"
   }
  }
 }
