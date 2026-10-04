@@ -2096,6 +2096,2823 @@
   "authority": {
    "pos": "noun",
    "meaning": "Someone who knows a lot about a subject."
+  },
+  "aboard": {
+   "pos": "adverb",
+   "meaning": "On or onto a ship."
+  },
+  "accompany": {
+   "pos": "verb",
+   "meaning": "To go with someone.",
+   "forms": [
+    "accompanied",
+    "accompanying"
+   ]
+  },
+  "acorn": {
+   "pos": "noun",
+   "meaning": "The nut of an oak tree. Peter gives Wendy one, like a button."
+  },
+  "admiration": {
+   "pos": "noun",
+   "meaning": "A feeling that someone is wonderful."
+  },
+  "adventure": {
+   "pos": "noun",
+   "meaning": "An exciting happening that may be dangerous."
+  },
+  "afterward": {
+   "pos": "adverb",
+   "meaning": "Later. After that time.",
+   "forms": [
+    "afterwards"
+   ]
+  },
+  "anxious": {
+   "pos": "adjective",
+   "meaning": "Worried."
+  },
+  "armchair": {
+   "pos": "noun",
+   "meaning": "A big chair with sides to rest your arms."
+  },
+  "arrow": {
+   "pos": "noun",
+   "meaning": "A thin stick with a point, shot from a bow."
+  },
+  "ass": {
+   "pos": "noun",
+   "meaning": "A rude word for a donkey. Here it calls someone silly.",
+   "whyHard": "It is used to call someone a fool."
+  },
+  "awful": {
+   "pos": "adjective",
+   "meaning": "Very bad."
+  },
+  "awfully": {
+   "pos": "adverb",
+   "meaning": "Very.",
+   "whyHard": "Not the usual meaning! Usually: awfully means in a very bad or frightening way.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Very.",
+     "whyHard": "Not the usual meaning! Usually: awfully means in a very bad or frightening way.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "burn clearly. They were awfully nice little night-lights",
+       "form": "awfully"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "Of course it’s awfully fascinating!” she cried. “Peter",
+       "form": "awfully"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "them; “first impressions are awfully important",
+       "form": "awfully"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "other boys thought this awfully interesting, and insisted on",
+       "form": "awfully"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "die will be an awfully big adventure",
+       "form": "awfully"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "day, however, she was awfully tender, and gave out",
+       "form": "awfully"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "the twins; “it’s awfully difficult to be a",
+       "form": "awfully"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "I am awfully glad she isn’t",
+       "form": "awfully"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "It’s awfully puzzling,” said Tootles, who",
+       "form": "awfully"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 3,
+       "context": "It’s an awfully good story,” said Nibs",
+       "form": "awfully"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 4,
+       "context": "It’s awfully sad,” the first twin",
+       "form": "awfully"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "She’s awfully fond of Wendy,” he",
+       "form": "awfully"
+      }
+     ]
+    }
+   ]
+  },
+  "backyard": {
+   "pos": "noun",
+   "meaning": "The ground behind a house."
+  },
+  "bark": {
+   "pos": "verb",
+   "meaning": "To make the short loud sound of a dog.",
+   "forms": [
+    "barked",
+    "barking"
+   ]
+  },
+  "barrel": {
+   "pos": "noun",
+   "meaning": "A round wooden tub, fatter in the middle, for storing things."
+  },
+  "bauble": {
+   "pos": "noun",
+   "meaning": "A bright pretty thing that is not really worth much."
+  },
+  "beast": {
+   "pos": "noun",
+   "meaning": "An animal, especially a wild or frightening one.",
+   "forms": [
+    "beasts"
+   ]
+  },
+  "bedpost": {
+   "pos": "noun",
+   "meaning": "The tall post at a corner of a bed.",
+   "forms": [
+    "bedposts"
+   ]
+  },
+  "bedspread": {
+   "pos": "noun",
+   "meaning": "The cover spread over a bed.",
+   "forms": [
+    "bedspreads"
+   ]
+  },
+  "begirt": {
+   "pos": "adjective",
+   "meaning": "Carrying or wearing. Begirt with weapons means armed.",
+   "whyHard": "An old word."
+  },
+  "bent": {
+   "pos": "adjective",
+   "meaning": "Curved. Bent on something means determined to do it.",
+   "whyHard": "Bent on does not mean curved."
+  },
+  "birdcage": {
+   "pos": "noun",
+   "meaning": "A cage for a bird. Tink's little room is no bigger than one."
+  },
+  "blackavized": {
+   "pos": "adjective",
+   "meaning": "Dark in the face.",
+   "whyHard": "An old word."
+  },
+  "blanket": {
+   "pos": "noun",
+   "meaning": "A warm cover for a bed.",
+   "forms": [
+    "blankets"
+   ]
+  },
+  "board": {
+   "pos": "noun",
+   "meaning": "A table.",
+   "whyHard": "Not the usual meaning! Usually: on board means on a ship.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A table.",
+     "whyHard": "Not the usual meaning! Usually: on board means on a ship.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "they sat round the board, guzzling in their greed",
+       "form": "board"
+      }
+     ]
+    }
+   ]
+  },
+  "bow": {
+   "pos": "noun",
+   "meaning": "A curved weapon that shoots arrows.",
+   "whyHard": "It does not mean to bend the body."
+  },
+  "braces": {
+   "pos": "noun",
+   "meaning": "Straps that hold up trousers."
+  },
+  "breadfruit": {
+   "pos": "noun",
+   "meaning": "A large fruit from a hot place. People cook it."
+  },
+  "breast": {
+   "pos": "noun",
+   "meaning": "The front of the chest."
+  },
+  "brushwood": {
+   "pos": "noun",
+   "meaning": "A mass of small sticks and broken branches."
+  },
+  "burst": {
+   "pos": "verb",
+   "meaning": "To break open suddenly, or to start suddenly.",
+   "forms": [
+    "bursting"
+   ]
+  },
+  "cab": {
+   "pos": "noun",
+   "meaning": "A carriage you pay to ride in."
+  },
+  "cabin": {
+   "pos": "noun",
+   "meaning": "A room on a ship."
+  },
+  "calabash": {
+   "pos": "noun",
+   "meaning": "The hard shell of a fruit, used as a cup.",
+   "forms": [
+    "calabashes"
+   ]
+  },
+  "cannibal": {
+   "pos": "noun",
+   "meaning": "One that eats its own kind. The book uses this for the crocodile."
+  },
+  "captain": {
+   "pos": "noun",
+   "meaning": "The person who commands a ship."
+  },
+  "cease": {
+   "pos": "verb",
+   "meaning": "To stop.",
+   "forms": [
+    "ceased",
+    "ceasing"
+   ]
+  },
+  "chamber": {
+   "pos": "noun",
+   "meaning": "A room, especially a bedroom."
+  },
+  "charge": {
+   "pos": "noun",
+   "meaning": "A child that a nurse or a parent is looking after.",
+   "whyHard": "Not the usual meaning! Usually: a charge is a price you pay, or a rush at someone.",
+   "forms": [
+    "charges"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A child that a nurse or a parent is looking after.",
+     "whyHard": "Not the usual meaning! Usually: a charge is a price you pay, or a rush at someone.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "if one of her charges made the slightest cry",
+       "form": "charges"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "so long as her charges were safe? Unfortunately Liza",
+       "form": "charges"
+      }
+     ]
+    }
+   ]
+  },
+  "chariot": {
+   "pos": "noun",
+   "meaning": "A cart that people ride in. The pirates pull Hook in one."
+  },
+  "charming": {
+   "pos": "adjective",
+   "meaning": "Very pleasing.",
+   "forms": [
+    "charmed"
+   ]
+  },
+  "chart": {
+   "pos": "noun",
+   "meaning": "A map used on a ship."
+  },
+  "cheer": {
+   "pos": "noun",
+   "meaning": "A glad shout. To cheer is to shout for someone.",
+   "forms": [
+    "cheered",
+    "cheering"
+   ]
+  },
+  "chimney": {
+   "pos": "noun",
+   "meaning": "The pipe that takes smoke from a fire up through the roof."
+  },
+  "cigar": {
+   "pos": "noun",
+   "meaning": "A thick roll of dried leaves that a person smokes."
+  },
+  "claw": {
+   "pos": "noun",
+   "meaning": "A sharp curved nail on an animal. Hook's iron hand is also called this."
+  },
+  "cling": {
+   "pos": "verb",
+   "meaning": "To hold on tightly.",
+   "forms": [
+    "clung",
+    "clinging"
+   ]
+  },
+  "cloak": {
+   "pos": "noun",
+   "meaning": "A loose coat with no sleeves, worn over other clothes."
+  },
+  "cocky": {
+   "pos": "adjective",
+   "meaning": "Too sure of yourself, in a way that annoys others.",
+   "forms": [
+    "cockier",
+    "cockiness"
+   ]
+  },
+  "coconut": {
+   "pos": "noun",
+   "meaning": "A large nut with white food inside and a milky drink.",
+   "forms": [
+    "coconuts"
+   ]
+  },
+  "codfish": {
+   "pos": "noun",
+   "meaning": "A sea fish. Calling a man this means he is weak and foolish."
+  },
+  "collar": {
+   "pos": "noun",
+   "meaning": "The band round the neck of a shirt or a coat."
+  },
+  "complain": {
+   "pos": "verb",
+   "meaning": "To say that you are unhappy about something.",
+   "forms": [
+    "complained",
+    "complaining"
+   ]
+  },
+  "contempt": {
+   "pos": "noun",
+   "meaning": "The feeling that someone or something is worth nothing."
+  },
+  "coral": {
+   "pos": "noun",
+   "meaning": "A hard pink or red growth in the sea, built by tiny animals."
+  },
+  "corkscrew": {
+   "pos": "noun",
+   "meaning": "A twisted metal tool for opening bottles. Smee fights with one."
+  },
+  "cosy": {
+   "pos": "adjective",
+   "meaning": "Warm, soft, and comfortable."
+  },
+  "courage": {
+   "pos": "noun",
+   "meaning": "The strength to go on when you are afraid."
+  },
+  "coyote": {
+   "pos": "noun",
+   "meaning": "A wild animal like a thin dog. It cries at night."
+  },
+  "cradle": {
+   "pos": "noun",
+   "meaning": "A small bed for a baby. It can rock."
+  },
+  "craft": {
+   "pos": "noun",
+   "meaning": "A boat or a ship.",
+   "whyHard": "Not the usual meaning! Usually: a craft is a skill you do with your hands.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A boat or a ship.",
+     "whyHard": "Not the usual meaning! Usually: a craft is a skill you do with your hands.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "reefs and rakish-looking craft in the offing, and",
+       "form": "craft"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "to guide her strange craft, but by the time",
+       "form": "craft"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "water; a rakish-looking craft foul to the hull",
+       "form": "craft"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "always boards the pirate craft at last. Had he",
+       "form": "craft"
+      }
+     ]
+    }
+   ]
+  },
+  "crawl": {
+   "pos": "verb",
+   "meaning": "To move along close to the ground.",
+   "forms": [
+    "crawled",
+    "crawling"
+   ]
+  },
+  "creature": {
+   "pos": "noun",
+   "meaning": "A living being, animal or person."
+  },
+  "crocodile": {
+   "pos": "noun",
+   "meaning": "A large animal with a long mouth and many sharp teeth. It lives in the water."
+  },
+  "custom": {
+   "pos": "noun",
+   "meaning": "The usual way a thing is done."
+  },
+  "dagger": {
+   "pos": "noun",
+   "meaning": "A short knife for fighting."
+  },
+  "damp": {
+   "pos": "adjective",
+   "meaning": "A little wet."
+  },
+  "dare": {
+   "pos": "verb",
+   "meaning": "To be brave enough to do a thing.",
+   "forms": [
+    "dared"
+   ]
+  },
+  "dart": {
+   "pos": "verb",
+   "meaning": "To move suddenly and quickly.",
+   "forms": [
+    "darted",
+    "darting"
+   ]
+  },
+  "deal": {
+   "pos": "noun",
+   "meaning": "A lot. A good deal or a great deal means a large amount.",
+   "whyHard": "A great deal means a lot. It does not mean a card game.",
+   "senses": [
+    {
+     "meaning": "A lot. A good deal or a great deal means a large amount.",
+     "whyHard": "It means a lot, not a card game.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "Neverlands vary a good deal. John’s, for instance",
+       "form": "deal"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "can do a great deal in ten minutes",
+       "form": "deal"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "shall see a good deal presently. But how have",
+       "form": "deal"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "might say a great deal about it, and yet",
+       "form": "deal"
+      }
+     ]
+    },
+    {
+     "meaning": "To give out. To deal death means to give death.",
+     "whyHard": "Not the usual meaning! Usually: a deal means a lot, or a card game.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "moment when they should deal pale death",
+       "form": "deal"
+      }
+     ]
+    }
+   ]
+  },
+  "deck": {
+   "pos": "noun",
+   "meaning": "The floor of a ship, open to the sky."
+  },
+  "delight": {
+   "pos": "noun",
+   "meaning": "Great pleasure."
+  },
+  "delightful": {
+   "pos": "adjective",
+   "meaning": "Giving great pleasure."
+  },
+  "describe": {
+   "pos": "verb",
+   "meaning": "To say what someone or something is like.",
+   "forms": [
+    "described",
+    "describing"
+   ]
+  },
+  "despise": {
+   "pos": "verb",
+   "meaning": "To feel that someone is worth nothing.",
+   "forms": [
+    "despised"
+   ]
+  },
+  "determined": {
+   "pos": "adjective",
+   "meaning": "Having decided, and not willing to change."
+  },
+  "dignity": {
+   "pos": "noun",
+   "meaning": "A calm pride. Behaving in a serious, worthy way."
+  },
+  "disturb": {
+   "pos": "verb",
+   "meaning": "To break in on someone, or to make them worried.",
+   "forms": [
+    "disturbed"
+   ]
+  },
+  "drag": {
+   "pos": "verb",
+   "meaning": "To pull someone or something along.",
+   "forms": [
+    "dragged",
+    "dragging"
+   ]
+  },
+  "drawer": {
+   "pos": "noun",
+   "meaning": "A box that slides out of a chest or a table.",
+   "whyHard": "It looks like draw, but it is a sliding box.",
+   "forms": [
+    "drawers"
+   ]
+  },
+  "dreadful": {
+   "pos": "adjective",
+   "meaning": "Very bad, or very frightening."
+  },
+  "eagerly": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you want to do something at once."
+  },
+  "echo": {
+   "pos": "noun",
+   "meaning": "A sound that comes back again.",
+   "forms": [
+    "echoed"
+   ]
+  },
+  "erect": {
+   "pos": "adjective",
+   "meaning": "Standing straight up."
+  },
+  "examine": {
+   "pos": "verb",
+   "meaning": "To look at something carefully.",
+   "forms": [
+    "examined",
+    "examining"
+   ]
+  },
+  "exclaim": {
+   "pos": "verb",
+   "meaning": "To cry out suddenly.",
+   "forms": [
+    "exclaimed",
+    "exclaiming"
+   ]
+  },
+  "explain": {
+   "pos": "verb",
+   "meaning": "To make something clear.",
+   "forms": [
+    "explained",
+    "explaining"
+   ]
+  },
+  "extraordinary": {
+   "pos": "adjective",
+   "meaning": "Very unusual, or much more than usual."
+  },
+  "fair": {
+   "pos": "adjective",
+   "meaning": "Beautiful.",
+   "whyHard": "Not the usual meaning! Usually: fair means treating people in the right way.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Beautiful.",
+     "whyHard": "Not the usual meaning! Usually: fair means treating people in the right way.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "no —it is —the fair Wendy",
+       "form": "fair"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 3,
+       "context": "with it as the fair narrator herself. Everything just",
+       "form": "fair"
+      }
+     ]
+    }
+   ]
+  },
+  "fairy": {
+   "pos": "noun",
+   "meaning": "A tiny person with wings, in an old story."
+  },
+  "fascinating": {
+   "pos": "adjective",
+   "meaning": "So interesting that it is hard to turn away."
+  },
+  "fatal": {
+   "pos": "adjective",
+   "meaning": "Causing death.",
+   "forms": [
+    "fatally"
+   ]
+  },
+  "fate": {
+   "pos": "noun",
+   "meaning": "What will happen to a person, as if it was already decided."
+  },
+  "fear": {
+   "pos": "noun",
+   "meaning": "The feeling that something bad may happen."
+  },
+  "fierce": {
+   "pos": "adjective",
+   "meaning": "Wild, strong, and angry."
+  },
+  "figure": {
+   "pos": "noun",
+   "meaning": "The shape of a person, or a person you can see."
+  },
+  "fist": {
+   "pos": "noun",
+   "meaning": "A hand closed tight.",
+   "forms": [
+    "fists"
+   ]
+  },
+  "fling": {
+   "pos": "verb",
+   "meaning": "To throw with force.",
+   "forms": [
+    "flung",
+    "flinging"
+   ]
+  },
+  "float": {
+   "pos": "verb",
+   "meaning": "To rest on water, or to move along in the air.",
+   "forms": [
+    "floated",
+    "floating"
+   ]
+  },
+  "flutter": {
+   "pos": "verb",
+   "meaning": "To move with quick light flaps, like wings.",
+   "forms": [
+    "fluttered",
+    "fluttering"
+   ]
+  },
+  "fond": {
+   "pos": "adjective",
+   "meaning": "Liking someone or something very much."
+  },
+  "form": {
+   "pos": "noun",
+   "meaning": "Proper polite behaviour. Good form means doing things the right way.",
+   "whyHard": "Not the usual meaning! Usually: a form is a shape, a paper you fill in, or a school class.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Proper polite behaviour. Good form is the right way to act.",
+     "whyHard": "Not the usual meaning! Usually: a form is a shape, a paper you fill in, or a school class.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "retained the passion for good form",
+       "form": "form"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "Good form! However much he may",
+       "form": "form"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "context": "Have you been good form today?” was their eternal",
+       "form": "form"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 4,
+       "context": "Is it quite good form to be distinguished at",
+       "form": "form"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 5,
+       "context": "was it not bad form to think about good",
+       "form": "form"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 6,
+       "context": "form to think about good form",
+       "form": "form"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 7,
+       "context": "answer suddenly presented itself: “Good form",
+       "form": "form"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 8,
+       "context": "the bo’sun good form without knowing it, which",
+       "form": "form"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 9,
+       "context": "which is the best form of all",
+       "form": "form"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 10,
+       "context": "because he is good form, what would that be",
+       "form": "form"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 11,
+       "context": "“Bad form!”",
+       "form": "form"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "that Peter was showing good form",
+       "form": "form"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "the very pinnacle of good form",
+       "form": "form"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "to see Peter bad form before it was cold",
+       "form": "form"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 4,
+       "context": "now, he thought, true form will show",
+       "form": "form"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 5,
+       "context": "What sort of form was Hook himself showing",
+       "form": "form"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 6,
+       "context": "Bad form,” he cried jeeringly, and",
+       "form": "form"
+      }
+     ]
+    },
+    {
+     "meaning": "A long wooden bench.",
+     "whyHard": "Not the usual meaning! Usually: a form is a shape or a paper. Here it is a long bench.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "wait. They sat on forms, while Nana lay on",
+       "form": "forms"
+      }
+     ]
+    }
+   ]
+  },
+  "forth": {
+   "pos": "adverb",
+   "meaning": "Forward, or out into view.",
+   "whyHard": "An old word."
+  },
+  "frightfully": {
+   "pos": "adverb",
+   "meaning": "Very.",
+   "whyHard": "Not the usual meaning! Usually: frightfully means in a frightening way.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Very.",
+     "whyHard": "Not the usual meaning! Usually: frightfully means in a frightening way.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "feed. Mr. Darling was frightfully proud of her, but",
+       "form": "frightfully"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "Mr. Darling was frightfully ashamed of himself, but",
+       "form": "frightfully"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "draggled, and she was frightfully sorry for Peter. “How",
+       "form": "frightfully"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "He had become frightfully cunning. “Wendy,” he said",
+       "form": "frightfully"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "Of course it’s frightfully fascinating, but you see",
+       "form": "frightfully"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "they were all most frightfully hard on their knees",
+       "form": "frightfully"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "t it?” Wendy said, frightfully gratified. “Peter, I think",
+       "form": "frightfully"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "I’m frightfully anxious",
+       "form": "frightfully"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "air, he was so frightfully distingué, that she was",
+       "form": "frightfully"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "the ready. He was frightfully happy",
+       "form": "frightfully"
+      }
+     ]
+    }
+   ]
+  },
+  "gaily": {
+   "pos": "adverb",
+   "meaning": "In a happy, bright way."
+  },
+  "gallant": {
+   "pos": "adjective",
+   "meaning": "Brave, and polite about it."
+  },
+  "game": {
+   "pos": "noun",
+   "meaning": "The person or animal someone is hunting.",
+   "whyHard": "Not the usual meaning! Usually: a game is something you play for fun.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "The person or animal someone is hunting.",
+     "whyHard": "Not the usual meaning! Usually: a game is something you play for fun.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 5,
+       "context": "Peter? He was seeking bigger game",
+       "form": "game"
+      }
+     ]
+    },
+    {
+     "meaning": "A school sport played beside a wall.",
+     "whyHard": "Not the usual meaning! Usually: a game is an ordinary play game.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "or watching the wall-game from a famous wall",
+       "form": "game"
+      }
+     ]
+    }
+   ]
+  },
+  "garment": {
+   "pos": "noun",
+   "meaning": "A piece of clothing.",
+   "forms": [
+    "garments"
+   ]
+  },
+  "gather": {
+   "pos": "verb",
+   "meaning": "To come together, or to collect things.",
+   "forms": [
+    "gathered",
+    "gathering"
+   ]
+  },
+  "gay": {
+   "pos": "adjective",
+   "meaning": "Happy and bright.",
+   "whyHard": "Not the usual meaning! Usually: gay is a word about who a person loves.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Happy and bright.",
+     "whyHard": "Not the usual meaning! Usually: gay is a word about who a person loves.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "Next comes Nibs, the gay and debonair, followed by",
+       "form": "gay"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "think I’ll have Gay windows all about, With",
+       "form": "gay"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "and simultaneously came the gay voice of Peter",
+       "form": "gay"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "so often before, the gay children dragged him from",
+       "form": "gay"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "real fear. So uproariously gay was the dance, and",
+       "form": "gay"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "sent Peter away quite gay again. He had no",
+       "form": "gay"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "context": "they are no longer gay and innocent and heartless",
+       "form": "gay"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "context": "It is only the gay and innocent and heartless",
+       "form": "gay"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 4,
+       "context": "What is gay and innocent and heartless",
+       "form": "gay"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 5,
+       "context": "do wish I was gay and innocent and heartless",
+       "form": "gay"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 6,
+       "context": "long as children are gay and innocent and heartless",
+       "form": "gay"
+      }
+     ]
+    }
+   ]
+  },
+  "gaze": {
+   "pos": "verb",
+   "meaning": "To look at something for a long time.",
+   "forms": [
+    "gazed",
+    "gazing"
+   ]
+  },
+  "gentleman": {
+   "pos": "noun",
+   "meaning": "A man who is polite, or who is treated as important.",
+   "forms": [
+    "gentlemen"
+   ]
+  },
+  "germ": {
+   "pos": "noun",
+   "meaning": "A tiny living thing that can make a person ill.",
+   "forms": [
+    "germs"
+   ]
+  },
+  "gesture": {
+   "pos": "noun",
+   "meaning": "A movement of the hand or head that shows a meaning.",
+   "forms": [
+    "gestures"
+   ]
+  },
+  "gloom": {
+   "pos": "noun",
+   "meaning": "Darkness, or a heavy sad feeling."
+  },
+  "gnome": {
+   "pos": "noun",
+   "meaning": "A little person in old stories.",
+   "forms": [
+    "gnomes"
+   ]
+  },
+  "grownup": {
+   "pos": "noun",
+   "meaning": "An adult. A person who is no longer a child.",
+   "forms": [
+    "grownups"
+   ]
+  },
+  "hang": {
+   "pos": "verb",
+   "meaning": "To be held up from above.",
+   "forms": [
+    "hung",
+    "hanging"
+   ]
+  },
+  "haunt": {
+   "pos": "verb",
+   "meaning": "To keep coming back to a place, or to stay in someone's mind.",
+   "forms": [
+    "haunted",
+    "haunting"
+   ]
+  },
+  "heel": {
+   "pos": "noun",
+   "meaning": "The back part of the foot.",
+   "forms": [
+    "heels"
+   ]
+  },
+  "hoarse": {
+   "pos": "adjective",
+   "meaning": "Sounding rough, like a tired voice.",
+   "forms": [
+    "hoarsely"
+   ]
+  },
+  "hollow": {
+   "pos": "adjective",
+   "meaning": "Empty inside. A hollow tree has a hole through it.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Empty inside. A hollow tree has a space in it.",
+     "whyHard": "Empty inside.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "each having in its hollow trunk a hole as",
+       "form": "hollow"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "John and Michael for hollow trees. Hook, you remember",
+       "form": "hollow"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "them stuck in the hollow trees and had to",
+       "form": "hollow"
+      }
+     ]
+    },
+    {
+     "meaning": "A sound that is empty and sad, not warm or real.",
+     "whyHard": "Not the usual meaning! Usually: hollow means empty inside, like a hole.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "context": "laughed, but in a hollow way",
+       "form": "hollow"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "context": "burst into laughter, not hollow laughter now, but honest",
+       "form": "hollow"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "he answered with a hollow moan",
+       "form": "hollow"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "finished he uttered a hollow groan",
+       "form": "hollow"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "replied Cecco in a hollow voice",
+       "form": "hollow"
+      }
+     ]
+    }
+   ]
+  },
+  "horror": {
+   "pos": "noun",
+   "meaning": "A strong feeling of fear and shock."
+  },
+  "hullo": {
+   "pos": "exclamation",
+   "meaning": "Hello. An old way to greet someone.",
+   "whyHard": "An old spelling of hello."
+  },
+  "humour": {
+   "pos": "verb",
+   "meaning": "To go along with what someone wants, so as to please them."
+  },
+  "ignorance": {
+   "pos": "noun",
+   "meaning": "Not knowing about something."
+  },
+  "impress": {
+   "pos": "verb",
+   "meaning": "To make someone feel respect or surprise.",
+   "forms": [
+    "impressed"
+   ]
+  },
+  "impression": {
+   "pos": "noun",
+   "meaning": "The effect something leaves on the mind.",
+   "forms": [
+    "impressions"
+   ]
+  },
+  "inch": {
+   "pos": "noun",
+   "meaning": "A short measure, about as long as a thumb joint.",
+   "forms": [
+    "inches"
+   ]
+  },
+  "innocent": {
+   "pos": "adjective",
+   "meaning": "Not having done harm. Free of evil."
+  },
+  "inquire": {
+   "pos": "verb",
+   "meaning": "To ask.",
+   "forms": [
+    "inquired",
+    "inquiring"
+   ]
+  },
+  "instance": {
+   "pos": "noun",
+   "meaning": "One example. For instance means for example."
+  },
+  "instant": {
+   "pos": "noun",
+   "meaning": "A moment. A very short time.",
+   "forms": [
+    "instantly"
+   ]
+  },
+  "invitation": {
+   "pos": "noun",
+   "meaning": "Words that ask someone to come.",
+   "forms": [
+    "invited"
+   ]
+  },
+  "jolly": {
+   "pos": "adjective",
+   "meaning": "Happy and full of fun."
+  },
+  "joy": {
+   "pos": "noun",
+   "meaning": "A strong happy feeling."
+  },
+  "jug": {
+   "pos": "noun",
+   "meaning": "A pot with a handle, for water or milk."
+  },
+  "kennel": {
+   "pos": "noun",
+   "meaning": "A small house for a dog."
+  },
+  "knuckle": {
+   "pos": "noun",
+   "meaning": "The hard joint where a finger bends.",
+   "forms": [
+    "knuckles"
+   ]
+  },
+  "lad": {
+   "pos": "noun",
+   "meaning": "A boy."
+  },
+  "lagoon": {
+   "pos": "noun",
+   "meaning": "A pool of sea water that is almost shut in by land."
+  },
+  "lantern": {
+   "pos": "noun",
+   "meaning": "A lamp you can carry."
+  },
+  "laughter": {
+   "pos": "noun",
+   "meaning": "The sound of laughing."
+  },
+  "lay": {
+   "pos": "past-tense verb",
+   "meaning": "Was lying down or was resting in a place. Past of lie.",
+   "whyHard": "It looks like lay, to put something down. Here it usually means was lying.",
+   "senses": [
+    {
+     "meaning": "Was lying down, or was resting in a place. Past of lie. It does not mean to put something down.",
+     "whyHard": "It looks like lay, to put something down. Here it means was lying.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "on forms, while Nana lay on the floor, but",
+       "form": "lay"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "context": "and presently the sewing lay on Mrs. Darling’s",
+       "form": "lay"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "Sea-Cook feared. He lay at his ease in",
+       "form": "lay"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "a cosy dwelling already lay at Wendy’s feet",
+       "form": "lay"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "make-believe. So they lay there in the sun",
+       "form": "lay"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "girl had fainted and lay on the boy’s",
+       "form": "lay"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "context": "the rock and then lay down beside her. Even",
+       "form": "lay"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "context": "As they lay side by side a",
+       "form": "lay"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "that Peter at last lay at his mercy; but",
+       "form": "lay"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "most of the way lay through a morass. Again",
+       "form": "lay"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "context": "bed. On the bed lay Peter fast asleep",
+       "form": "lay"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 4,
+       "context": "grieve Wendy. Then he lay down on the bed",
+       "form": "lay"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 5,
+       "context": "tottering to her chamber, lay down on the bed",
+       "form": "lay"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "brig, the Jolly Roger, lay, low in the water",
+       "form": "lay"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "carried the little house lay prone on the deck",
+       "form": "lay"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "that all the boys lay slain in the cabin",
+       "form": "lay"
+      }
+     ]
+    },
+    {
+     "meaning": "To put something onto a person.",
+     "whyHard": "Not the usual meaning! Usually: lay here is not the past of lie.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "context": "would be prudent to lay the responsibility on an",
+       "form": "lay"
+      }
+     ]
+    },
+    {
+     "meaning": "You may lay to that means you may be sure of that.",
+     "whyHard": "Not the usual meaning! Usually: lay here is not the past of lie.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "them; and they may lay to that",
+       "form": "lay"
+      }
+     ]
+    }
+   ]
+  },
+  "leap": {
+   "pos": "verb",
+   "meaning": "To jump.",
+   "forms": [
+    "leapt",
+    "leaping",
+    "leaps"
+   ]
+  },
+  "lest": {
+   "pos": "conjunction",
+   "meaning": "So that a bad thing will not happen.",
+   "whyHard": "An old word."
+  },
+  "lip": {
+   "pos": "noun",
+   "meaning": "One of the two soft edges of the mouth.",
+   "forms": [
+    "lips"
+   ]
+  },
+  "lonely": {
+   "pos": "adjective",
+   "meaning": "Alone, and sad about it."
+  },
+  "magazine": {
+   "pos": "noun",
+   "meaning": "A room where gunpowder is stored.",
+   "whyHard": "Not the usual meaning! Usually: a magazine is a thin book of stories and pictures.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A room where gunpowder is stored.",
+     "whyHard": "Not the usual meaning! Usually: a magazine is a thin book of stories and pictures.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "rushed into the powder magazine and fired it",
+       "form": "magazine"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "issued from the powder magazine with the shell in",
+       "form": "magazine"
+      }
+     ]
+    }
+   ]
+  },
+  "mainland": {
+   "pos": "noun",
+   "meaning": "The main land, not a small island."
+  },
+  "mammee": {
+   "pos": "noun",
+   "meaning": "A sweet fruit that grows in a hot place."
+  },
+  "manner": {
+   "pos": "noun",
+   "meaning": "The way a person behaves.",
+   "forms": [
+    "manners"
+   ]
+  },
+  "mean": {
+   "pos": "adjective",
+   "meaning": "Small, poor, or of little worth. No mean performer means he plays well.",
+   "whyHard": "Not the usual meaning! Usually: mean means to intend, or unkind.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Small, poor, or of little worth. No mean performer means he plays well.",
+     "whyHard": "Not the usual meaning! Usually: mean means to intend, or unkind.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "he was himself no mean performer on the harpsichord",
+       "form": "mean"
+      }
+     ]
+    }
+   ]
+  },
+  "meantime": {
+   "pos": "noun",
+   "meaning": "The time between. In the meantime means while you wait."
+  },
+  "mechanically": {
+   "pos": "adverb",
+   "meaning": "Like a machine, without thinking about it."
+  },
+  "medicinal": {
+   "pos": "adjective",
+   "meaning": "To do with medicine. Here, Wendy's water only seemed like medicine."
+  },
+  "merely": {
+   "pos": "adverb",
+   "meaning": "Only that, and nothing more."
+  },
+  "mermaid": {
+   "pos": "noun",
+   "meaning": "In stories, a woman with a fish tail instead of legs."
+  },
+  "merry": {
+   "pos": "adjective",
+   "meaning": "Happy and bright."
+  },
+  "midst": {
+   "pos": "noun",
+   "meaning": "The middle. In the midst of means in the middle of."
+  },
+  "mock": {
+   "pos": "verb",
+   "meaning": "To make fun of someone in a cruel way.",
+   "forms": [
+    "mocked",
+    "mocking"
+   ]
+  },
+  "mummy": {
+   "pos": "noun",
+   "meaning": "A child's name for mother.",
+   "whyHard": "It does not mean a dead body kept from long ago."
+  },
+  "mushroom": {
+   "pos": "noun",
+   "meaning": "A soft growth with a thick stem and a round top. It is not green.",
+   "forms": [
+    "mushrooms"
+   ]
+  },
+  "mutter": {
+   "pos": "verb",
+   "meaning": "To speak very quietly, as if you do not want to be heard clearly.",
+   "forms": [
+    "muttered",
+    "muttering"
+   ]
+  },
+  "naughty": {
+   "pos": "adjective",
+   "meaning": "Doing what you were told not to do."
+  },
+  "needlework": {
+   "pos": "noun",
+   "meaning": "Sewing. Work done with a needle and thread."
+  },
+  "neighbour": {
+   "pos": "noun",
+   "meaning": "A person who lives near you.",
+   "whyHard": "The book uses the British spelling.",
+   "forms": [
+    "neighbours"
+   ]
+  },
+  "nest": {
+   "pos": "noun",
+   "meaning": "A bird's home, built of twigs."
+  },
+  "newfangled": {
+   "pos": "adjective",
+   "meaning": "New, and not liked by someone who prefers the old way.",
+   "whyHard": "An old word."
+  },
+  "nightgown": {
+   "pos": "noun",
+   "meaning": "A long loose dress worn in bed.",
+   "forms": [
+    "nightgowns",
+    "nighty"
+   ]
+  },
+  "noble": {
+   "pos": "adjective",
+   "meaning": "Fine and good, in the way of a great person.",
+   "forms": [
+    "nobly"
+   ]
+  },
+  "nursery": {
+   "pos": "noun",
+   "meaning": "The room where the children sleep and play."
+  },
+  "oath": {
+   "pos": "noun",
+   "meaning": "A very strong promise. Also a rude word said in anger."
+  },
+  "occasion": {
+   "pos": "noun",
+   "meaning": "A time when something happens.",
+   "forms": [
+    "occasions"
+   ]
+  },
+  "odd": {
+   "pos": "adjective",
+   "meaning": "Strange."
+  },
+  "offensive": {
+   "pos": "adjective",
+   "meaning": "Rude. Likely to hurt someone's feelings."
+  },
+  "ordinary": {
+   "pos": "adjective",
+   "meaning": "Usual. Not special."
+  },
+  "ought": {
+   "pos": "verb",
+   "meaning": "Should. You ought to do it means it is the right thing to do.",
+   "whyHard": "An old way to say should."
+  },
+  "overboard": {
+   "pos": "adverb",
+   "meaning": "Over the side of a ship and into the water."
+  },
+  "overhead": {
+   "pos": "adverb",
+   "meaning": "Above your head."
+  },
+  "owing": {
+   "pos": "adjective",
+   "meaning": "Owing to means because of."
+  },
+  "pale": {
+   "pos": "adjective",
+   "meaning": "Having little colour, especially in the face."
+  },
+  "panic": {
+   "pos": "noun",
+   "meaning": "A sudden great fear."
+  },
+  "papoose": {
+   "pos": "noun",
+   "meaning": "A baby.",
+   "forms": [
+    "papooses"
+   ]
+  },
+  "passage": {
+   "pos": "noun",
+   "meaning": "A narrow way through a place."
+  },
+  "passion": {
+   "pos": "noun",
+   "meaning": "A very strong feeling."
+  },
+  "pathetic": {
+   "pos": "adjective",
+   "meaning": "So sad or weak that people feel sorry.",
+   "forms": [
+    "pathetically"
+   ]
+  },
+  "pause": {
+   "pos": "verb",
+   "meaning": "To stop for a short time.",
+   "forms": [
+    "paused"
+   ]
+  },
+  "pearl": {
+   "pos": "noun",
+   "meaning": "A small round white stone that grows inside a shell.",
+   "forms": [
+    "pearls"
+   ]
+  },
+  "peep": {
+   "pos": "verb",
+   "meaning": "To look quickly, hoping not to be seen.",
+   "forms": [
+    "peeped",
+    "peeping",
+    "peeps"
+   ]
+  },
+  "pinafore": {
+   "pos": "noun",
+   "meaning": "An apron worn over a dress."
+  },
+  "pinch": {
+   "pos": "verb",
+   "meaning": "To squeeze skin tightly between the fingers.",
+   "forms": [
+    "pinched",
+    "pinching"
+   ]
+  },
+  "pipe": {
+   "pos": "noun",
+   "meaning": "A tube you blow. Peter plays music on pipes. A person can also smoke one.",
+   "forms": [
+    "pipes"
+   ]
+  },
+  "pirate": {
+   "pos": "noun",
+   "meaning": "A person who attacks ships and steals from them."
+  },
+  "pity": {
+   "pos": "noun",
+   "meaning": "A sad feeling for someone who is hurt or unlucky."
+  },
+  "plank": {
+   "pos": "noun",
+   "meaning": "A long flat piece of wood. Pirates make a person walk it and fall into the sea."
+  },
+  "poe": {
+   "pos": "noun",
+   "meaning": "A soft drink from a hot place. The children take it with their food."
+  },
+  "poison": {
+   "pos": "noun",
+   "meaning": "Something that harms or kills you if it gets into your body.",
+   "forms": [
+    "poisoned"
+   ]
+  },
+  "porthole": {
+   "pos": "noun",
+   "meaning": "A small round window in the side of a ship."
+  },
+  "precarious": {
+   "pos": "adjective",
+   "meaning": "Not safe, and easy to lose."
+  },
+  "presently": {
+   "pos": "adverb",
+   "meaning": "Soon. In a short time.",
+   "whyHard": "Not the usual meaning! Usually: presently means now, at this time.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Soon. In a short time.",
+     "whyHard": "Not the usual meaning! Usually: presently means now, at this time.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "three night-lights, and presently the sewing lay on",
+       "form": "presently"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "be carried by Peter. Presently Wendy took the hat",
+       "form": "presently"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "for whom she is looking presently",
+       "form": "presently"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "context": "see a good deal presently. But how have they",
+       "form": "presently"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "context": "not yet over, for presently Nibs rushed breathless into",
+       "form": "presently"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "Presently he noticed as an odd",
+       "form": "presently"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "secret he could not presently have made his foul",
+       "form": "presently"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "his dying speech, lest presently there should be no",
+       "form": "presently"
+      }
+     ]
+    }
+   ]
+  },
+  "pretend": {
+   "pos": "verb",
+   "meaning": "To act as if something is true when you know it is not.",
+   "forms": [
+    "pretended",
+    "pretending"
+   ]
+  },
+  "pride": {
+   "pos": "noun",
+   "meaning": "A high feeling about yourself. Thinking you are better than others."
+  },
+  "prince": {
+   "pos": "noun",
+   "meaning": "The son of a king."
+  },
+  "procession": {
+   "pos": "noun",
+   "meaning": "People moving forward together in a line."
+  },
+  "pudding": {
+   "pos": "noun",
+   "meaning": "A soft sweet cooked food.",
+   "forms": [
+    "puddings"
+   ]
+  },
+  "puzzle": {
+   "pos": "verb",
+   "meaning": "To be hard to understand. To think hard about a hard question.",
+   "forms": [
+    "puzzled",
+    "puzzling"
+   ]
+  },
+  "queer": {
+   "pos": "adjective",
+   "meaning": "Strange.",
+   "whyHard": "Here it means strange. It does not mean who a person loves."
+  },
+  "rage": {
+   "pos": "noun",
+   "meaning": "Wild anger."
+  },
+  "rainbow": {
+   "pos": "noun",
+   "meaning": "A curve of colours in the sky when sun shines on rain."
+  },
+  "rapidly": {
+   "pos": "adverb",
+   "meaning": "Very quickly."
+  },
+  "reef": {
+   "pos": "noun",
+   "meaning": "A line of rock or coral just under the sea.",
+   "forms": [
+    "reefs"
+   ]
+  },
+  "reputation": {
+   "pos": "noun",
+   "meaning": "What people say and think about a person."
+  },
+  "resist": {
+   "pos": "verb",
+   "meaning": "To fight against something, or to stop yourself doing it.",
+   "forms": [
+    "resisted"
+   ]
+  },
+  "retort": {
+   "pos": "verb",
+   "meaning": "To answer in a sharp, quick way.",
+   "forms": [
+    "retorted"
+   ]
+  },
+  "rhubarb": {
+   "pos": "noun",
+   "meaning": "A plant with thick red stalks. People cook them."
+  },
+  "roar": {
+   "pos": "verb",
+   "meaning": "To shout with a long loud sound.",
+   "forms": [
+    "roared"
+   ]
+  },
+  "romantic": {
+   "pos": "adjective",
+   "meaning": "Full of dreams about love and adventure."
+  },
+  "rose": {
+   "pos": "past-tense verb",
+   "meaning": "Went up, or stood up. Past of rise.",
+   "whyHard": "Not the usual meaning! Usually: a rose is a flower.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Went up, or stood up. Past of rise.",
+     "whyHard": "Not the usual meaning! Usually: a rose is a flower.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "fairy ceremonies, and he rose and bowed to her",
+       "form": "rose"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "For reply Peter rose and kicked John out",
+       "form": "rose"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "context": "so glad that he rose from the floor, where",
+       "form": "rose"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "Now Nibs rose from the ground, and",
+       "form": "rose"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "Tootles rose. “Peter,” he said quietly",
+       "form": "rose"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "swarthy face as he rose dripping from the water",
+       "form": "rose"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "that they met. Hook rose to the rock to",
+       "form": "rose"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "Steadily the waters rose till they were nibbling",
+       "form": "rose"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "tree was Curly. He rose out of it into",
+       "form": "rose"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "cloudy heaven when Peter rose from his tree, begirt",
+       "form": "rose"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "Peter rose and bowed to her",
+       "form": "rose"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "context": "to Wendy; and he rose in the air, and",
+       "form": "rose"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "context": "and the shameless Jane rose with him; it was",
+       "form": "rose"
+      }
+     ]
+    }
+   ]
+  },
+  "rouse": {
+   "pos": "verb",
+   "meaning": "To wake someone, or to stir them up.",
+   "forms": [
+    "roused"
+   ]
+  },
+  "row": {
+   "pos": "noun",
+   "meaning": "A loud noise, or a quarrel.",
+   "whyHard": "Not the usual meaning! Usually: a row is a line of people or things.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A loud noise, or a quarrel.",
+     "whyHard": "Not the usual meaning! Usually: a row is a line of people or things.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "Darling demanded. “Stop that row, Michael. I meant to",
+       "form": "row"
+      }
+     ]
+    }
+   ]
+  },
+  "ruff": {
+   "pos": "noun",
+   "meaning": "A stiff frill worn around the neck."
+  },
+  "sardine": {
+   "pos": "noun",
+   "meaning": "A small fish, often packed in a tin.",
+   "forms": [
+    "sardines"
+   ]
+  },
+  "save": {
+   "pos": "preposition",
+   "meaning": "Except. Leaving out that one thing.",
+   "whyHard": "Not the usual meaning! Usually: save means to rescue someone or to keep something.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Except. Leaving out that one thing.",
+     "whyHard": "Not the usual meaning! Usually: save means to rescue someone or to keep something.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "of a profound melancholy, save when he was plunging",
+       "form": "save"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "at him in wonder, save Nibs, who fortunately looked",
+       "form": "save"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "but no answer came save mocking laughter from the",
+       "form": "save"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "is to be heard, save when they give vent",
+       "form": "save"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "of every warlike artifice save this one, but trot",
+       "form": "save"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "no way of knowing, save by going down. Hook",
+       "form": "save"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "sound, and none agreeable save the whir of the",
+       "form": "save"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "no thought, of course, save for them",
+       "form": "save"
+      }
+     ]
+    }
+   ]
+  },
+  "scalp": {
+   "pos": "noun",
+   "meaning": "The skin and hair on the top of the head."
+  },
+  "scarcely": {
+   "pos": "adverb",
+   "meaning": "Almost not. Hardly at all."
+  },
+  "scorn": {
+   "pos": "verb",
+   "meaning": "To speak of someone as if they are worth nothing.",
+   "forms": [
+    "scorned",
+    "scornfully"
+   ]
+  },
+  "scout": {
+   "pos": "noun",
+   "meaning": "A person sent ahead to look and listen.",
+   "forms": [
+    "scouts"
+   ]
+  },
+  "scream": {
+   "pos": "verb",
+   "meaning": "To cry out in a loud high voice.",
+   "forms": [
+    "screamed",
+    "screaming"
+   ]
+  },
+  "seize": {
+   "pos": "verb",
+   "meaning": "To grab and hold.",
+   "forms": [
+    "seized",
+    "seizing"
+   ]
+  },
+  "servant": {
+   "pos": "noun",
+   "meaning": "A person paid to work in a house."
+  },
+  "sew": {
+   "pos": "verb",
+   "meaning": "To join cloth with a needle and thread.",
+   "forms": [
+    "sewed",
+    "sewn",
+    "sewing"
+   ]
+  },
+  "shame": {
+   "pos": "noun",
+   "meaning": "The bad feeling that you have done wrong."
+  },
+  "shiver": {
+   "pos": "verb",
+   "meaning": "To shake because you are cold or afraid.",
+   "forms": [
+    "shivered",
+    "shivering"
+   ]
+  },
+  "shock": {
+   "pos": "verb",
+   "meaning": "To give someone a sudden bad surprise.",
+   "forms": [
+    "shocked"
+   ]
+  },
+  "shore": {
+   "pos": "noun",
+   "meaning": "The land at the edge of the sea."
+  },
+  "shoulder": {
+   "pos": "noun",
+   "meaning": "The place where the arm joins the body.",
+   "forms": [
+    "shoulders"
+   ]
+  },
+  "sigh": {
+   "pos": "verb",
+   "meaning": "To let out a long breath because you are sad or tired.",
+   "forms": [
+    "sighed",
+    "sighing"
+   ]
+  },
+  "silence": {
+   "pos": "noun",
+   "meaning": "A time with no sound.",
+   "forms": [
+    "silences"
+   ]
+  },
+  "silent": {
+   "pos": "adjective",
+   "meaning": "Making no sound.",
+   "forms": [
+    "silently"
+   ]
+  },
+  "sinister": {
+   "pos": "adjective",
+   "meaning": "Looking as if something evil is near."
+  },
+  "skeleton": {
+   "pos": "noun",
+   "meaning": "All the bones of a body.",
+   "forms": [
+    "skeletons"
+   ]
+  },
+  "slain": {
+   "pos": "adjective",
+   "meaning": "Killed.",
+   "whyHard": "An old word for killed."
+  },
+  "slight": {
+   "pos": "adjective",
+   "meaning": "Very small.",
+   "forms": [
+    "slightest"
+   ]
+  },
+  "snap": {
+   "pos": "verb",
+   "meaning": "To speak in a short angry way, or to break with a sharp sound.",
+   "forms": [
+    "snapped"
+   ]
+  },
+  "snatch": {
+   "pos": "verb",
+   "meaning": "To grab something quickly.",
+   "forms": [
+    "snatched",
+    "snatching"
+   ]
+  },
+  "solemn": {
+   "pos": "adjective",
+   "meaning": "Serious and quiet."
+  },
+  "somewhat": {
+   "pos": "adverb",
+   "meaning": "A little. Not completely."
+  },
+  "spectacle": {
+   "pos": "noun",
+   "meaning": "Glasses that a person wears in order to see.",
+   "forms": [
+    "spectacles"
+   ]
+  },
+  "spirit": {
+   "pos": "noun",
+   "meaning": "Courage, or a strong feeling inside a person.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Courage, or the feeling inside a person.",
+     "whyHard": "A feeling inside, or courage.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "she told him with spirit that he was not",
+       "form": "spirit"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "then, that his proud spirit broke. He saw his",
+       "form": "spirit"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "it humbly in that spirit; but they were by",
+       "form": "spirit"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "from his followers in spirit as in substance",
+       "form": "spirit"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "he looked the very spirit of evil breaking from",
+       "form": "spirit"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "woman had no proper spirit. I had meant to",
+       "form": "spirit"
+      }
+     ]
+    },
+    {
+     "meaning": "A ghost.",
+     "whyHard": "Not the usual meaning! Usually: spirit means courage or a feeling.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "Spirit that haunts this dark lagoon",
+       "form": "spirit"
+      }
+     ]
+    }
+   ]
+  },
+  "spoil": {
+   "pos": "verb",
+   "meaning": "To damage a thing so that it is no longer good.",
+   "forms": [
+    "spoiled",
+    "spoilt"
+   ]
+  },
+  "squeeze": {
+   "pos": "verb",
+   "meaning": "To press hard.",
+   "forms": [
+    "squeezed",
+    "squeezing"
+   ]
+  },
+  "stare": {
+   "pos": "verb",
+   "meaning": "To look for a long time with the eyes wide open.",
+   "forms": [
+    "stared",
+    "staring"
+   ]
+  },
+  "startle": {
+   "pos": "verb",
+   "meaning": "To surprise someone so that they jump.",
+   "forms": [
+    "startled"
+   ]
+  },
+  "stocking": {
+   "pos": "noun",
+   "meaning": "A close covering for the foot and the lower leg.",
+   "forms": [
+    "stockings"
+   ]
+  },
+  "stool": {
+   "pos": "noun",
+   "meaning": "A seat with no back or arms.",
+   "forms": [
+    "stools"
+   ]
+  },
+  "strict": {
+   "pos": "adjective",
+   "meaning": "Very firm about rules."
+  },
+  "strike": {
+   "pos": "verb",
+   "meaning": "To hit. A clock strikes when it tells the hour.",
+   "forms": [
+    "striking"
+   ]
+  },
+  "struck": {
+   "pos": "past-tense verb",
+   "meaning": "Hit. It does not mean stuck.",
+   "whyHard": "It looks like stuck, but it means hit.",
+   "senses": [
+    {
+     "meaning": "Hit. It does not mean stuck.",
+     "whyHard": "It looks like stuck, but it means hit.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "because John said it struck against his knee as",
+       "form": "struck"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "he said, “the arrow struck against this. It is",
+       "form": "struck"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "In the confusion some struck at their own side",
+       "form": "struck"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "by your watch. Peter struck true and deep. John",
+       "form": "struck"
+      }
+     ]
+    },
+    {
+     "meaning": "Came suddenly into the mind. It seemed.",
+     "whyHard": "Not the usual meaning! Usually: struck means hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "that to know fairies struck her as quite delightful",
+       "form": "struck"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "about fairies, and it struck him that Tinker Bell",
+       "form": "struck"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "nearly cried; but it struck him how indignant she",
+       "form": "struck"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "prep.; and he was struck by Hook’s picking",
+       "form": "struck"
+      }
+     ]
+    },
+    {
+     "meaning": "A clock struck means it told the hour.",
+     "whyHard": "Not the usual meaning! Usually: struck means hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "near him till the clock struck",
+       "form": "struck"
+      }
+     ]
+    },
+    {
+     "meaning": "Matched. The words struck the right feeling.",
+     "whyHard": "Not the usual meaning! Usually: struck means hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "His bluff strident words struck the note sailors understand",
+       "form": "struck"
+      }
+     ]
+    }
+   ]
+  },
+  "suppose": {
+   "pos": "verb",
+   "meaning": "To think that something is probably true.",
+   "forms": [
+    "supposed"
+   ]
+  },
+  "suspicion": {
+   "pos": "noun",
+   "meaning": "A feeling that something may be wrong, when you are not sure."
+  },
+  "suspicious": {
+   "pos": "adjective",
+   "meaning": "Feeling that something is wrong, or causing that feeling."
+  },
+  "swallow": {
+   "pos": "verb",
+   "meaning": "To make food or drink go down the throat.",
+   "forms": [
+    "swallowed",
+    "swallowing"
+   ]
+  },
+  "swear": {
+   "pos": "verb",
+   "meaning": "To promise in a very strong way, or to use rude words.",
+   "forms": [
+    "swore",
+    "swearing"
+   ]
+  },
+  "sword": {
+   "pos": "noun",
+   "meaning": "A long knife used for fighting."
+  },
+  "tail": {
+   "pos": "noun",
+   "meaning": "The part that sticks out behind an animal's body."
+  },
+  "tailor": {
+   "pos": "noun",
+   "meaning": "A person who makes clothes.",
+   "forms": [
+    "tailors"
+   ]
+  },
+  "tappa": {
+   "pos": "noun",
+   "meaning": "A food from a hot place, served in rolls."
+  },
+  "tear": {
+   "pos": "verb",
+   "meaning": "To rip. To pull apart.",
+   "whyHard": "Not the usual meaning! Usually: a tear is a drop that falls from the eye.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "To rip. To pull apart.",
+     "whyHard": "Not the usual meaning! Usually: a tear is a drop that falls from the eye.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "this. Oh, I’ll tear him",
+       "form": "tear"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "but he did not tear. What arrested him was",
+       "form": "tear"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "at him he would tear them. His bluff strident",
+       "form": "tear"
+      }
+     ]
+    }
+   ]
+  },
+  "terrible": {
+   "pos": "adjective",
+   "meaning": "Very bad, or very frightening."
+  },
+  "thimbled": {
+   "pos": "verb",
+   "meaning": "In this story, to put a thimble against someone as if it were a kiss.",
+   "coined": true
+  },
+  "threateningly": {
+   "pos": "adverb",
+   "meaning": "In a way that shows you may hurt someone."
+  },
+  "threepence": {
+   "pos": "noun",
+   "meaning": "An old British coin worth three pennies."
+  },
+  "thus": {
+   "pos": "adverb",
+   "meaning": "In this way, or for that reason.",
+   "whyHard": "An old word."
+  },
+  "tick": {
+   "pos": "noun",
+   "meaning": "The short repeated sound a clock makes.",
+   "forms": [
+    "ticking",
+    "ticked"
+   ]
+  },
+  "tight": {
+   "pos": "adjective",
+   "meaning": "Held close, with little room to move.",
+   "forms": [
+    "tighter"
+   ]
+  },
+  "tinkle": {
+   "pos": "noun",
+   "meaning": "A small light ringing sound.",
+   "forms": [
+    "tinkled"
+   ]
+  },
+  "tone": {
+   "pos": "noun",
+   "meaning": "The sound of a voice, which shows a feeling."
+  },
+  "tongue": {
+   "pos": "noun",
+   "meaning": "The soft moving part inside the mouth."
+  },
+  "torn": {
+   "pos": "adjective",
+   "meaning": "Ripped. Pulled apart.",
+   "whyHard": "It comes from tear, meaning to rip. It is not a drop from the eye."
+  },
+  "tragedy": {
+   "pos": "noun",
+   "meaning": "A very sad event."
+  },
+  "tragic": {
+   "pos": "adjective",
+   "meaning": "Very sad."
+  },
+  "treasure": {
+   "pos": "noun",
+   "meaning": "A store of gold, jewels, or other rich things."
+  },
+  "tribe": {
+   "pos": "noun",
+   "meaning": "A group of families who live as one people."
+  },
+  "trick": {
+   "pos": "noun",
+   "meaning": "A clever act done to fool someone.",
+   "forms": [
+    "tricks"
+   ]
+  },
+  "triumph": {
+   "pos": "noun",
+   "meaning": "A great win."
+  },
+  "trouser": {
+   "pos": "noun",
+   "meaning": "Clothing for the legs.",
+   "forms": [
+    "trousers"
+   ]
+  },
+  "tuck": {
+   "pos": "verb",
+   "meaning": "To push bed covers in close around a person.",
+   "forms": [
+    "tucked"
+   ]
+  },
+  "tut": {
+   "pos": "exclamation",
+   "meaning": "A little sound that shows you are cross or that you disapprove."
+  },
+  "twin": {
+   "pos": "noun",
+   "meaning": "One of two children born at the same time."
+  },
+  "unfortunately": {
+   "pos": "adverb",
+   "meaning": "It is sad that this is so. By bad luck."
+  },
+  "venture": {
+   "pos": "verb",
+   "meaning": "To dare to do something that may go wrong.",
+   "forms": [
+    "ventured"
+   ]
+  },
+  "waistcoat": {
+   "pos": "noun",
+   "meaning": "A short coat with no sleeves, worn under a jacket."
+  },
+  "weakness": {
+   "pos": "noun",
+   "meaning": "A lack of strength, or a liking you cannot fight."
+  },
+  "weapon": {
+   "pos": "noun",
+   "meaning": "A thing used for fighting, such as a sword or a knife."
+  },
+  "whip": {
+   "pos": "verb",
+   "meaning": "To hit with a thin stick or a strap.",
+   "forms": [
+    "whipped",
+    "whipping"
+   ]
+  },
+  "whisper": {
+   "pos": "verb",
+   "meaning": "To speak very softly, so others will not hear.",
+   "forms": [
+    "whispered",
+    "whispering",
+    "whispers"
+   ]
+  },
+  "wicked": {
+   "pos": "adjective",
+   "meaning": "Very bad, on purpose.",
+   "forms": [
+    "wickedest"
+   ]
+  },
+  "wolf": {
+   "pos": "noun",
+   "meaning": "A wild animal like a large fierce dog."
+  },
+  "wriggle": {
+   "pos": "verb",
+   "meaning": "To twist and turn the body.",
+   "forms": [
+    "wriggled",
+    "wriggling"
+   ]
+  },
+  "yam": {
+   "pos": "noun",
+   "meaning": "A long root that people cook and eat.",
+   "forms": [
+    "yams"
+   ]
   }
  },
  "paragraphs": [
@@ -2518,6 +5335,76 @@
    "hardWords": [
     "common",
     "heartless"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 10,
+   "context": "Avast belay, yo ho, heave to, A-pirating we go",
+   "mainIdea": "The pirates sing a short song as they come through the wood.",
+   "simple": "This is the pirates' song. They shout old orders from a ship, then say they are going out to steal. If a shot parts them, they will meet again under the sea.",
+   "hardWords": [
+    "avast",
+    "belay",
+    "heave",
+    "pirating"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 27,
+   "context": "Yo ho, yo ho, the pirate life, The flag o’ skull and",
+   "mainIdea": "The boys hear another pirate song, about the flag and the rope.",
+   "simple": "The song says the pirate life is merry. It names the flag with a skull and bones, a happy hour, a rope of hemp, and the bottom of the sea.",
+   "hardWords": [
+    "pirate",
+    "skull",
+    "hempen",
+    "Davy Jones"
+   ]
+  },
+  {
+   "chapter": 7,
+   "paragraph": 103,
+   "context": "I wish I had a pretty house, The littlest ever seen",
+   "mainIdea": "Wendy sings in her sleep for a very small house.",
+   "simple": "Wendy sings that she wants the smallest pretty house, with funny little red walls and a roof of green moss.",
+   "hardWords": [
+    "littlest",
+    "mossy"
+   ]
+  },
+  {
+   "chapter": 16,
+   "paragraph": 13,
+   "context": "Yo ho, yo ho, the frisky plank, You walks along it so",
+   "mainIdea": "Hook sings a pirate song about walking the plank.",
+   "simple": "Hook sings that the plank is lively. You walk along it, it tips down, and you fall to the bottom of the sea.",
+   "hardWords": [
+    "frisky",
+    "plank"
+   ]
+  },
+  {
+   "chapter": 4,
+   "paragraph": 55,
+   "context": "dropped an acorn button into her hand; so she",
+   "mainIdea": "Peter does not know what a kiss is, so he gives Wendy an acorn button.",
+   "simple": "Peter asks if he may give Wendy a kiss. She holds up her face. He does not kiss her. He drops a button made from an acorn into her hand. She says she will wear his kiss on a chain. Later that button saves her life.",
+   "hardWords": [
+    "primness",
+    "acorn",
+    "button"
+   ]
+  },
+  {
+   "chapter": 6,
+   "paragraph": 79,
+   "context": "instantly, “there are birds called Wendies",
+   "mainIdea": "Slightly thinks a Wendy is a kind of bird.",
+   "simple": "Slightly says he remembers birds that are called Wendies. He thinks the girl in the sky is one of those birds.",
+   "hardWords": [
+    "Wendies"
    ]
   }
  ],
@@ -3986,6 +6873,39 @@
    "meaning": "Whatever else is true.",
    "pos": "idiom",
    "example": "at any rate they found corners"
+  },
+  "fast asleep": {
+   "meaning": "Sleeping deeply.",
+   "pos": "idiom",
+   "example": "On the bed lay Peter fast asleep."
+  },
+  "sound asleep": {
+   "meaning": "Sleeping deeply.",
+   "pos": "idiom",
+   "example": "Every one of the little angels sound asleep in bed."
+  },
+  "safe and sound": {
+   "meaning": "Safe, and not hurt.",
+   "pos": "idiom",
+   "example": "having them all home again safe and sound"
+  },
+  "good form": {
+   "meaning": "The right way to act.",
+   "pos": "idiom",
+   "forms": [
+    "bad form"
+   ],
+   "example": "But above all he retained the passion for good form."
+  },
+  "pieces of eight": {
+   "meaning": "Old money.",
+   "pos": "phrase",
+   "example": "pieces of eight in his ears as ornaments"
+  },
+  "no wonder": {
+   "meaning": "It is not surprising.",
+   "pos": "idiom",
+   "example": "O Peter, no wonder you were crying"
   }
  }
 }
