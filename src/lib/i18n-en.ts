@@ -50,6 +50,7 @@ export const en = {
 
   /* ---- guide */
   "guide.title": "Guide",
+  "guide.github": "Source code on GitHub",
   "guide.addTitle": "Add a book to your shelf",
   "guide.addBody": "Books are added on Discover, and adding needs an account: sign in first (the person icon at the top). Then open Discover and tap “Add to shelf” under a book. The button then says “On shelf”. To take a book off, tap “On shelf” and choose “Remove from shelf”. On your shelf, use the three-dot menu on a book. You can undo right after.",
   "guide.offlineTitle": "Opening the site needs the internet",
