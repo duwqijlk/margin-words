@@ -12,13 +12,13 @@
    "lexile": "880L",
    "series": "Alice",
    "seriesNumber": 1,
-   "rev": "92f6fabb57ef",
+   "rev": "2879006a9fb7",
    "version": 2,
    "chapters": 13,
    "words": 866,
-   "paragraphs": 22,
+   "paragraphs": 45,
    "sentences": 16,
-   "phrases": 29,
+   "phrases": 32,
    "coined": 4,
    "epub": {
     "url": "alice/book.epub",
@@ -27,9 +27,9 @@
    },
    "glossary": {
     "url": "alice/glossary.json",
-    "bytes": 139836,
-    "sha256": "5f56750a443d72b2983d7b422d85653ea4936e94004c27388dd544422b324dac",
-    "rev": "5f56750a443d"
+    "bytes": 160760,
+    "sha256": "74125e434f6af81f261e518c31135cb58ed2a436899e6e61bc7aee9993672b12",
+    "rev": "74125e434f6a"
    },
    "cover": {
     "url": "alice/cover.jpg",
@@ -38,8 +38,8 @@
    },
    "zip": {
     "url": "alice.zip",
-    "bytes": 224249,
-    "sha256": "1ac394e5aae90487ca132995aa459b4dd2f0f2108cc4f99dd2f43cc2f4591fd4"
+    "bytes": 230579,
+    "sha256": "c8ea710acb5e4b871ac8f3610c91e094c6d3448bb1be3674149be7d3c5e1377c"
    }
   },
   {
@@ -462,7 +462,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11063056,
-  "sha256": "60600e84ee4625b7d300b4d3ef604dee89b7d1b6f3767263bd3362ffcb429a1d"
+  "bytes": 11069387,
+  "sha256": "0fb0246cbc5902eb2f9c496f0afc664e645e3c0a7a6db5fcbf5244556159b8b8"
  }
 }
