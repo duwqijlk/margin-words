@@ -13,7 +13,11 @@ If you cannot read the words inside the EPUB, stop. Say that you cannot read the
 
 ## Readers
 
-The readers are about 12 to 15 years old. They know everyday English. A tap on a word shows your meaning. A hard paragraph and a hard sentence show a short restatement. A phrase shows when the whole phrase is in the sentence.
+The readers are in Chinese junior high. The first year is about 12 to 13. They know everyday English. A tap on a word shows your meaning. A hard paragraph and a hard sentence show a short restatement. A phrase shows when the whole phrase is in the sentence.
+
+Ordinary words are not hard. `fly` and `wings` are ordinary. So are words of the same kind: animals, the body, food, clothes, the house, and simple actions (`bird`, `mouse`, `bread`, `shoe`, `cry`, `tail`, `roof`). Use the ordinary word when it is the clear way to say the meaning. Do not rewrite `it flies with its wings` into a longer sentence just so those words are gone.
+
+A meaning is too hard when the explaining words are rarer than the idea: an old word, a book word, or a grammar-class word (`participle`, `clause`, `latitude`). A short meaning made of ordinary words is the right level.
 
 ## The file you return
 
@@ -215,7 +219,7 @@ The key is the base form: lower case, two or more words, at most 60 letters. `on
 ## How to write the help
 
 - English only. No other language in any field.
-- Very common words and short sentences. A 12-year-old should be able to read the help. Names, numbers, and words from the story may stay as they are.
+- Short sentences. A student in the first year of junior high should be able to read the help. Ordinary words such as `fly` and `wings` are welcome. Names, numbers, and words from the story may stay as they are. Do not swap an ordinary word for a harder phrase.
 - Only restate this EPUB. No new facts, no history of an object, no guess about what happens later.
 - Keep names as they are.
 - `context` and `example` are the only fields that quote the book, and only as a short snippet.

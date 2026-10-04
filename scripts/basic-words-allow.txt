@@ -138,6 +138,32 @@ wood
 worried
 wrap
 
+# Ordinary words a junior-high student knows. "fly" is already in the top 2000.
+# "wings" was still flagged, because the list has no link from that plural to "wing".
+# The same kind of word belongs here: animals, body, food, the house, simple actions.
+blow
+bread
+breath
+breathe
+careful
+ear
+finger
+hat
+mouse
+pig
+pleasant
+pot
+rabbit
+roof
+sauce
+shake
+shoe
+shy
+snake
+tight
+tube
+wing
+
 # Units of measure (they are not explained, they are just used)
 metre metres kilometre kilometres centimetre centimetres millimetre millimetres kilogram kilograms gram grams litre litres
 # Grammar words used in meanings ("A verb that ...")
