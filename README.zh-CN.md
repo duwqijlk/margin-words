@@ -30,3 +30,7 @@ node scripts/build-packs.mjs --check
 ```
 
 更多技术说明（英文）：[README.md](README.md)、[docs/GLOSSARY_FORMAT.md](docs/GLOSSARY_FORMAT.md)、[docs/PACKS_FORMAT.md](docs/PACKS_FORMAT.md)。
+
+## 来源
+
+这个阅读器的想法来自开源项目 [English Read](https://github.com/bitbw/english-read)（Copyright (c) 2026 English Read contributors，[MIT 许可证](https://github.com/bitbw/english-read/blob/main/LICENSE)）。Margin Words 是我们自己的应用。应用里的“指南”页面也写了同样的说明。

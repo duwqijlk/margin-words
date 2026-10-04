@@ -574,6 +574,9 @@ export const zh: Record<Key, string> = {
   "about.copyrightTitle": "版权声明和免责声明",
   "about.copyrightBody":
     "书名、书中内容和人物属于作者和出版社。本站不存放、不出售、也不分享有版权的书。我们的词表是自己写的学习笔记，只为学习而引用很短的原文。公有领域的书任何人都可以使用，所以我们提供。我们尽力保证正确，但说明里也可能有错误。本站只用于学习。如果你认为这里有不该出现的内容，请告诉我们，我们会尽快核实。",
+  "about.sourceTitle": "这个阅读器的来源",
+  "about.sourceBody":
+    "这个阅读器的想法来自 {link}。谢谢做它的人。Margin Words 是我们自己的应用。词表由我们的老师编写，你的书籍文件留在你的设备上。",
   "about.contactTitle": "联系我们",
   "about.contactEmail": "请发邮件到 {contact}。",
   "about.contactIssues": "发现错误或有版权问题，请在这里告诉我们：{contact}。",

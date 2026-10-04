@@ -128,3 +128,9 @@ All visible text of the app is in two dictionaries with the same keys: `src/lib/
 `npm test` checks that both dictionaries have the same keys and placeholders. The first visit uses the browser language
 (Chinese -> Chinese, anything else -> English); the choice is saved in the browser. Book content (meanings, paragraph and
 sentence help, phrases, titles) is never translated.
+
+## Credit
+
+The idea for this reader comes from [English Read](https://github.com/bitbw/english-read)
+(Copyright (c) 2026 English Read contributors, [MIT License](https://github.com/bitbw/english-read/blob/main/LICENSE)).
+Margin Words is a separate app. The Guide page in the app says the same thing.

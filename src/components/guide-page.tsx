@@ -8,6 +8,7 @@ import {
   Scale,
   SearchCheck,
   ShieldCheck,
+  SquareCode,
   UserRound,
   Users,
   Wifi,
@@ -17,7 +18,14 @@ import { guideUrl } from "@/lib/guide";
 import { useT, type Key } from "@/lib/i18n";
 import { CONTACT_EMAIL, CONTACT_URL } from "@/lib/site-info";
 
-const SECTIONS: ReadonlyArray<{ id: string; title: Key; body: Key; Icon: LucideIcon; marks?: boolean }> = [
+const SECTIONS: ReadonlyArray<{
+  id: string;
+  title: Key;
+  body: Key;
+  Icon: LucideIcon;
+  marks?: boolean;
+  source?: boolean;
+}> = [
   { id: "add", title: "guide.addTitle", body: "guide.addBody", Icon: BookPlus },
   { id: "books", title: "about.booksTitle", body: "about.booksBody", Icon: Library },
   { id: "match", title: "about.matchTitle", body: "about.matchBody", Icon: SearchCheck },
@@ -29,7 +37,31 @@ const SECTIONS: ReadonlyArray<{ id: string; title: Key; body: Key; Icon: LucideI
   { id: "account", title: "about.accountTitle", body: "about.accountBody", Icon: UserRound },
   { id: "privacy", title: "about.privacyTitle", body: "about.privacyBody", Icon: ShieldCheck },
   { id: "copyright", title: "about.copyrightTitle", body: "about.copyrightBody", Icon: Scale },
+  { id: "source", title: "about.sourceTitle", body: "about.sourceBody", Icon: SquareCode, source: true },
 ];
+
+/** The open-source reader this app was inspired by. MIT, Copyright (c) 2026 English Read contributors. */
+const SOURCE_URL = "https://github.com/bitbw/english-read";
+
+function SourceCredit() {
+  const { t } = useT();
+  const parts = t("about.sourceBody", { link: "\u0001" }).split("\u0001");
+  return (
+    <p className="text-[0.95rem] leading-7 text-ink">
+      {parts[0]}
+      <a
+        className="font-semibold text-accent underline decoration-accent/40 underline-offset-4"
+        href={SOURCE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-guide-source
+      >
+        English Read <span className="font-normal">(github.com/<wbr />bitbw/<wbr />english-read)</span>
+      </a>
+      {parts[1]}
+    </p>
+  );
+}
 
 function Marks() {
   const { t } = useT();
@@ -60,7 +92,8 @@ function Marks() {
 
 /**
  * One page for how to use the app and what the site is: adding books, marks, the notebook,
- * accounts, privacy, the copyright notice, and contact. The old About address opens this page.
+ * accounts, privacy, the copyright notice, the English Read credit, and contact.
+ * The old About address opens this page.
  */
 export function GuideScreen() {
   const { t } = useT();
@@ -89,7 +122,13 @@ export function GuideScreen() {
                 <span className="sr-only">{index + 1}. </span>
                 {t(section.title)}
               </h2>
-              {section.marks ? <Marks /> : <p className="text-[0.95rem] leading-7 text-ink">{t(section.body)}</p>}
+              {section.marks ? (
+                <Marks />
+              ) : section.source ? (
+                <SourceCredit />
+              ) : (
+                <p className="text-[0.95rem] leading-7 text-ink">{t(section.body)}</p>
+              )}
             </div>
           </li>
         ))}

@@ -593,6 +593,9 @@ export const en = {
   "about.copyrightTitle": "Copyright notice and disclaimer",
   "about.copyrightBody":
     "Books, titles and characters belong to their authors and publishers. This site does not host, sell or share books that are under copyright. Our word lists are our own study notes. They quote only short pieces of text for learning. Public-domain books are offered because anyone may use them. We try to be correct, but a note can have a mistake. This site is for study only. If you think something here should not be here, please tell us and we will check it quickly.",
+  "about.sourceTitle": "Where this reader comes from",
+  "about.sourceBody":
+    "The idea for this reader comes from {link}. Thank you to the people who made it. Margin Words is our own app. Our teachers write the word lists, and your book files stay on your device.",
   "about.contactTitle": "Contact",
   "about.contactEmail": "Write to us at {contact}.",
   "about.contactIssues": "Tell us about a mistake or a copyright question here: {contact}.",
