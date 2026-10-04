@@ -128,6 +128,11 @@ type VocabState = {
   removeWord: (id: string) => void;
   /** Forget where a word was met in one book. The word goes too when that was its only source. */
   removeWordFromBook: (bookKey: string, lemma: string) => void;
+  /**
+   * Replace one saved sentence with a longer clip that still contains the word.
+   * Used when an older save cut the sentence off before the word.
+   */
+  repairSourceSentence: (lemma: string, book: string, from: string, sentence: string) => void;
   /** Fill in the chapter and file-independent place of sources saved before places were stored. */
   setSourcePlaces: (
     updates: Array<{ lemma: string; book: string; sentence: string; chapter: number; chapterTitle?: string; at: TextAnchor }>,
@@ -332,6 +337,27 @@ export const useVocab = create<VocabState>()(
             if (lemmaKey(card.lemma) !== key) return [card];
             const next = withoutBook(card, bookKey);
             return next ? [next] : [];
+          }),
+        }));
+      },
+      repairSourceSentence: (lemma, book, from, sentence) => {
+        if (!from || !sentence || from === sentence) return;
+        const key = lemmaKey(lemma);
+        set((state) => ({
+          words: state.words.map((card) => {
+            if (lemmaKey(card.lemma) !== key) return card;
+            let changed = false;
+            const sources = card.sources.map((source) => {
+              if (source.book !== book || source.sentence !== from) return source;
+              changed = true;
+              return { ...source, sentence };
+            });
+            if (!changed) return card;
+            return {
+              ...card,
+              sources,
+              sentence: card.sentence === from ? sentence : card.sentence,
+            };
           }),
         }));
       },

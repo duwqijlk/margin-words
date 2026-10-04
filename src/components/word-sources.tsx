@@ -1,9 +1,11 @@
 import { BookMarked, CornerDownRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useT } from "@/lib/i18n";
+import { loadStoredBook } from "@/lib/book-db";
 import { jumpToSource } from "@/lib/jump-store";
-import { focusSentence } from "@/lib/text";
+import { focusSentence, recoverClippedSentence, sentenceHasWord } from "@/lib/text";
 import type { Book, VocabEntry } from "@/lib/vocab-model";
+import { useVocab } from "@/lib/vocab-store";
 import { bookForSource } from "@/lib/wordbook";
 import { btn, chip, cn, Highlighted } from "@/components/ui";
 
@@ -25,7 +27,44 @@ export function WordSources({
 }) {
   const { t, tn } = useT();
   const [all, setAll] = useState(false);
+  const repairSourceSentence = useVocab((state) => state.repairSourceSentence);
   const sources = word.sources;
+  // Older saves cut a long sentence from the start, so the word itself was left off the end.
+  // When this device still has the book, put the word back into the excerpt.
+  useEffect(() => {
+    const pending = sources.filter((source) => {
+      const surface = source.surface || word.surface || word.lemma;
+      return Boolean(source.sentence) && !sentenceHasWord(source.sentence, surface);
+    });
+    if (pending.length === 0) return;
+    let alive = true;
+    void (async () => {
+      const byId = new Map<string, typeof pending>();
+      for (const source of pending) {
+        const book = bookForSource(source, books);
+        if (!book) continue;
+        const list = byId.get(book.id) ?? [];
+        list.push(source);
+        byId.set(book.id, list);
+      }
+      for (const [id, list] of byId) {
+        const stored = await loadStoredBook(id).catch(() => null);
+        if (!alive || !stored) continue;
+        const paragraphs = [
+          ...stored.chapters.flatMap((chapter) => chapter.paragraphs),
+          ...(stored.extras ?? []).flatMap((extra) => extra.paragraphs),
+        ];
+        for (const source of list) {
+          const surface = source.surface || word.surface || word.lemma;
+          const next = recoverClippedSentence(source.sentence, surface, paragraphs);
+          if (next) repairSourceSentence(word.lemma, source.book, source.sentence, next);
+        }
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [books, repairSourceSentence, sources, word.lemma, word.surface]);
   if (sources.length === 0) return null;
   const shown = all ? sources : sources.slice(0, limit);
   return (

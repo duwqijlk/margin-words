@@ -214,6 +214,40 @@ export function focusSentence(sentence: string, surface: string, limit = 220): s
   return clipAroundWord(clean, at, surface.length, limit);
 }
 
+/** True when `surface` stands on its own in `text` (not inside a longer word). */
+export function sentenceHasWord(text: string, surface: string): boolean {
+  // A negative place skips the raw index check, so "fond" is not found inside "fondly".
+  return surfaceOffset(text, surface, -1) >= 0;
+}
+
+/**
+ * A sentence saved by the old start-cut keeps the opening and drops a word that sat past the
+ * limit. `paragraphs` are this device's own chapter text. Returns a sentence that still
+ * contains the word, or null when no paragraph here is the one that was saved.
+ */
+export function recoverClippedSentence(
+  stored: string,
+  surface: string,
+  paragraphs: readonly string[],
+): string | null {
+  const word = surface.trim();
+  if (!word || sentenceHasWord(stored, word)) return null;
+  const prefix = stored
+    .replace(/…+$/u, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 48);
+  if (prefix.length < 12) return null;
+  const needle = prefix.slice(0, 24);
+  for (const paragraph of paragraphs) {
+    if (!sentenceHasWord(paragraph, word)) continue;
+    if (!paragraph.replace(/\s+/g, " ").includes(needle)) continue;
+    const next = sentenceAround(paragraph, word);
+    if (sentenceHasWord(next, word) && next !== stored) return next;
+  }
+  return null;
+}
+
 export function sentenceAround(paragraph: string, surface: string, at?: number): string {
   // `at` is where the tapped word really is in the paragraph (so a word that appears
   // twice shows the sentence that was tapped, not the first one).
@@ -233,7 +267,11 @@ export function sentenceAround(paragraph: string, surface: string, at?: number):
   const raw = paragraph.slice(start, end);
   const lead = raw.length - raw.trimStart().length;
   const slice = raw.trim();
-  return clipAroundWord(slice, idx - start - lead, surface.length, SENTENCE_LIMIT);
+  let wordAt = idx - start - lead;
+  if (slice.slice(wordAt, wordAt + surface.length).toLowerCase() !== surface.toLowerCase()) {
+    wordAt = surfaceOffset(slice, surface);
+  }
+  return clipAroundWord(slice, wordAt, surface.length, SENTENCE_LIMIT);
 }
 
 export type WordUse = "noun" | "verb" | "adjective";
