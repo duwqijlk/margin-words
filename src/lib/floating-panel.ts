@@ -115,19 +115,33 @@ export function placeFloatingPanel(input: {
   }
 }
 
+/**
+ * Boxes of a word. The button itself draws nothing (it is `display: contents` so the
+ * word can break across a line). The span inside it is the ink.
+ */
+function wordRects(el: HTMLElement): DOMRect[] {
+  const tap = el.tagName === "BUTTON" ? el.querySelector(":scope > .book-tap") : null;
+  const node = tap instanceof HTMLElement ? tap : el;
+  return [...node.getClientRects()].filter((rect) => rect.width >= 1 && rect.height >= 1);
+}
+
 /** The box the card should avoid. A word uses its own box. A paragraph uses a short visible strip. */
 export function anchorBox(el: HTMLElement): AnchorRect {
-  const full = el.getBoundingClientRect();
   if (el.tagName === "BUTTON") {
-    return { left: full.left, top: full.top, width: full.width, height: full.height };
+    const box = wordRects(el)[0] ?? el.getBoundingClientRect();
+    return { left: box.left, top: box.top, width: box.width, height: box.height };
   }
+  const full = el.getBoundingClientRect();
   const top = Math.min(Math.max(full.top, 8), Math.max(full.bottom - 24, 8));
   const height = Math.min(36, Math.max(16, full.bottom - top));
   return { left: full.left, top, width: full.width, height };
 }
 
 export function anchorOffscreen(el: HTMLElement): boolean {
-  const rect = el.getBoundingClientRect();
-  if (rect.width === 0 && rect.height === 0) return false;
-  return rect.bottom <= 0 || rect.top >= window.innerHeight || rect.right <= 0 || rect.left >= window.innerWidth;
+  const rects = wordRects(el);
+  if (rects.length === 0) return false;
+  return rects.every(
+    (rect) =>
+      rect.bottom <= 0 || rect.top >= window.innerHeight || rect.right <= 0 || rect.left >= window.innerWidth,
+  );
 }

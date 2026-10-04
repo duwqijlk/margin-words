@@ -27,6 +27,7 @@ import {
   TAP_WORD_PATTERN,
   type OtherMeaning,
 } from "@/lib/glossary-format";
+import { hyphenateReadingHtml } from "@/lib/hyphenate";
 import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
@@ -995,7 +996,9 @@ export function ReaderScreen({
   const linkedHtml = useMemo(
     () =>
       chapterHtml
-        ? readingHtml(chapterHtml, marked.ready, resolveKey, viewChapter, marked.sparse, marked.tricky)
+        ? hyphenateReadingHtml(
+            readingHtml(chapterHtml, marked.ready, resolveKey, viewChapter, marked.sparse, marked.tricky),
+          )
         : "",
     [chapterHtml, marked, resolveKey, viewChapter],
   );
