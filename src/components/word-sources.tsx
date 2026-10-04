@@ -81,7 +81,7 @@ export function WordSources({
           const surface = source.surface || word.surface || word.lemma;
           const sentence = source.sentence ? focusSentence(source.sentence, surface) : "";
           return (
-            <li key={`${source.book}#${source.sentence.slice(0, 40)}`} className="grid gap-1.5" data-word-source>
+            <li key={`${source.book}#${source.sentence.slice(0, 40)}`} className="grid min-w-0 gap-1.5" data-word-source>
               {sentence ? (
                 <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed break-words text-ink">
                   <Highlighted sentence={sentence} surface={surface} />
@@ -103,9 +103,14 @@ export function WordSources({
                   ) : null}
                 </div>
               ) : null}
-              <p className="flex flex-wrap items-start gap-x-2 gap-y-1 pl-3 text-xs text-muted">
-                <BookMarked className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-                <span className="min-w-0 flex-1 break-words" lang="en">
+              <p className="flex min-w-0 items-center gap-x-2 pl-3 text-xs text-muted sm:flex-wrap sm:items-start sm:gap-y-1">
+                <BookMarked className="size-3.5 shrink-0 sm:mt-0.5" aria-hidden />
+                <span
+                  className="min-w-0 flex-1 truncate sm:overflow-visible sm:whitespace-normal sm:break-words"
+                  lang="en"
+                  data-source-place
+                  title={[title, chapter].filter(Boolean).join(" · ")}
+                >
                   {title}
                   {chapter ? <> · {chapter}</> : null}
                 </span>

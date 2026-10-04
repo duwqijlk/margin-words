@@ -77,7 +77,7 @@ const ReaderScreen = lazy(() => import("@/components/reader").then((m) => ({ def
 const ReviewScreen = lazy(() => import("@/components/review").then((m) => ({ default: m.ReviewScreen })));
 const WordListDialog = lazy(() => import("@/components/word-list").then((m) => ({ default: m.WordListDialog })));
 
-const setScreen = (route: Route) => navigate(route);
+const setScreen = (route: Route, options?: { replace?: boolean; state?: unknown }) => navigate(route, options);
 
 export function MarginApp() {
   const { t, tn } = useT();
@@ -526,7 +526,7 @@ export function MarginApp() {
               words={words}
               bookId={screen.bookId}
               onBookChange={(bookId) => setScreen({ kind: "words", bookId })}
-              onReview={(bookId) => setScreen({ kind: "review", bookId })}
+              onReview={(bookId) => setScreen({ kind: "review", bookId }, { state: { review: "due" } })}
               onOpenBook={openBook}
             />
           ) : screen.kind === "review" ? (
