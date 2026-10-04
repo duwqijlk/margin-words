@@ -53,6 +53,7 @@ export const zh: Record<Key, string> = {
 
   /* ---- guide */
   "guide.title": "使用说明",
+  "guide.github": "在 GitHub 上看源代码",
   "guide.addTitle": "把书加入书架",
   "guide.addBody": "添加图书都在“发现”页，而且要先登录（点上方的人像图标）。登录后打开“发现”，点书下面的“加入书架”。按钮会变成“已在书架”。想把书拿下来，就点“已在书架”，再选“移出书架”。在书架里，可以点书旁边的三点菜单。移出后可以马上撤销。",
   "guide.offlineTitle": "打开网站需要网络",
