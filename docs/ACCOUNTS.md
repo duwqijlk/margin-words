@@ -43,19 +43,7 @@ There is one migration file. Wrangler applies `migrations/` in filename order.
 
 There is no required secret. Passwords and session tokens are generated in the Worker. Session tokens are stored only as SHA-256 hashes. The cookie is `mw_session`, HttpOnly, SameSite=Lax, and Secure on https. It expires after 30 days.
 
-Turnstile on registration is **off** unless both of these are set:
-
-```bash
-npx wrangler pages secret put TURNSTILE_SECRET_KEY --project-name margin-words
-```
-
-Build the front end with the matching public site key (leave it unset to keep the widget hidden):
-
-```bash
-VITE_TURNSTILE_SITE_KEY=your_site_key npm run build
-```
-
-If the secret is unset, register does not ask for a token. If the secret is set and the token is missing or invalid, register is rejected.
+Turnstile on registration is on in production. The public site key is in `.env.production`. The secret is the Pages secret `TURNSTILE_SECRET_KEY`. A production build bakes the site key into the page. The server accepts a token only when siteverify returns success for action `signup` on `inputread.site`, `www.inputread.site`, or `margin-words.pages.dev`. If the secret is unset (local dev), register does not require a token.
 
 Deploy (owner, not this repo's automation). `npm run build` with no `VITE_BOOKS_BASE` keeps book files on `https://books.inputread.site`. Do not deploy a `build:local` folder.
 
@@ -83,18 +71,13 @@ Do these in order, logged in to the Cloudflare account that owns the Pages proje
    | Name | Required | Where it is set |
    | --- | --- | --- |
    | `DB` | yes | Pages binding from `wrangler.toml` (`binding = "DB"`). Not a secret. |
-   | `TURNSTILE_SECRET_KEY` | no | Pages secret. Leave unset to keep Turnstile off. |
-   | `VITE_TURNSTILE_SITE_KEY` | no | Build-time only, baked into the JS. Leave unset unless the secret above is set. |
+   | `TURNSTILE_SECRET_KEY` | yes in production | Pages secret. Already set on `margin-words`. |
+   | `VITE_TURNSTILE_SITE_KEY` | yes for a production build | Public site key in `.env.production`. `npm run build` picks it up. |
    | `VITE_BOOKS_BASE` | no | Build-time only. Leave unset so production uses `https://books.inputread.site`. |
 
    No other secret is used. Session tokens are random and stored as SHA-256 hashes. There is no JWT signing key and no email API key.
 
-   Optional Turnstile, both sides together:
-
-   ```bash
-   npx wrangler pages secret put TURNSTILE_SECRET_KEY --project-name margin-words
-   VITE_TURNSTILE_SITE_KEY=your_site_key npm run build
-   ```
+   The production secret is already on the Pages project. Do not put it in the repo. `npm run build` reads the public site key from `.env.production`.
 
 4. Build and deploy, from the repo root:
 

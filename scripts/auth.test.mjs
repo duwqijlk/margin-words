@@ -251,9 +251,32 @@ test("turnstile is skipped until the secret is set, then a token is required", a
       }),
     }),
     envOf(openDb(), { TURNSTILE_SECRET_KEY: "secret" }),
-    { now: NOW, fetch: async () => new Response(JSON.stringify({ success: true }), { status: 200 }) },
+    {
+      now: NOW,
+      fetch: async () =>
+        new Response(JSON.stringify({ success: true, action: "signup", hostname: "inputread.site" }), { status: 200 }),
+    },
   );
   assert.equal(ok.status, 201);
+
+  const wrongHost = await handleRegister(
+    new Request("http://localhost/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({
+        email: "four@example.com",
+        password: "correct horse",
+        turnstileToken: "token-token-token",
+      }),
+    }),
+    envOf(openDb(), { TURNSTILE_SECRET_KEY: "secret" }),
+    {
+      now: NOW,
+      fetch: async () =>
+        new Response(JSON.stringify({ success: true, action: "signup", hostname: "evil.example" }), { status: 200 }),
+    },
+  );
+  assert.equal(wrongHost.status, 403);
+  assert.equal((await wrongHost.json()).error, "turnstile");
 });
 
 test("delete removes every row, and export has no password hash", async () => {

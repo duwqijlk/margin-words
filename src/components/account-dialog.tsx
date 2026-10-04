@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { UserRound, X } from "lucide-react";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useAccount, type AccountMode, type SyncStatus } from "@/lib/account-store";
 import {
   confirmPasswordReset,
@@ -38,31 +38,50 @@ function syncLabel(status: SyncStatus, t: (key: Key) => string): string {
   return "";
 }
 
-function Turnstile({ onToken }: { onToken: (token: string) => void }) {
+function Turnstile({
+  onToken,
+  resetRef,
+}: {
+  onToken: (token: string) => void;
+  resetRef: { current: () => void };
+}) {
+  const widgetId = useRef<string | undefined>(undefined);
   useEffect(() => {
     if (!SITE_KEY) return;
     const holder = document.getElementById("mw-turnstile");
     if (!holder) return;
     let cancelled = false;
+    const clear = () => onToken("");
+    resetRef.current = () => {
+      clear();
+      if (widgetId.current) window.turnstile?.reset(widgetId.current);
+    };
     const render = () => {
-      if (cancelled || !holder) return;
-      window.turnstile?.render(holder, { sitekey: SITE_KEY, callback: onToken });
+      if (cancelled || !holder || widgetId.current) return;
+      widgetId.current = window.turnstile?.render(holder, {
+        sitekey: SITE_KEY,
+        action: "signup",
+        callback: onToken,
+        "expired-callback": clear,
+        "error-callback": clear,
+      });
     };
     if (window.turnstile) {
       render();
-      return () => {
-        cancelled = true;
-      };
+    } else if (!document.querySelector("script[data-turnstile-api]")) {
+      const script = document.createElement("script");
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+      script.async = true;
+      script.dataset.turnstileApi = "1";
+      script.onload = render;
+      document.head.appendChild(script);
     }
-    const script = document.createElement("script");
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
-    script.async = true;
-    script.onload = render;
-    document.head.appendChild(script);
     return () => {
       cancelled = true;
+      if (widgetId.current) window.turnstile?.remove(widgetId.current);
+      widgetId.current = undefined;
     };
-  }, [onToken]);
+  }, [onToken, resetRef]);
   if (!SITE_KEY) return null;
   return <div id="mw-turnstile" className="min-h-16" data-turnstile />;
 }
@@ -70,7 +89,18 @@ function Turnstile({ onToken }: { onToken: (token: string) => void }) {
 declare global {
   interface Window {
     turnstile?: {
-      render: (element: HTMLElement, options: { sitekey: string; callback: (token: string) => void }) => void;
+      render: (
+        element: HTMLElement,
+        options: {
+          sitekey: string;
+          action?: string;
+          callback: (token: string) => void;
+          "expired-callback"?: () => void;
+          "error-callback"?: () => void;
+        },
+      ) => string;
+      reset: (widgetId: string) => void;
+      remove: (widgetId: string) => void;
     };
   }
 }
@@ -136,6 +166,7 @@ export function AccountDialog() {
   const [forgot, setForgot] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState("");
+  const resetTurnstile = useRef<() => void>(() => {});
 
   useEffect(() => {
     if (!open) return;
@@ -194,6 +225,7 @@ export function AccountDialog() {
         closeDialog();
       }
     } catch (error) {
+      if (mode === "register") resetTurnstile.current();
       setProblem(t(errorKey(error)));
     } finally {
       setBusy(false);
@@ -365,7 +397,7 @@ export function AccountDialog() {
                   onToggle={() => setShow((value) => !value)}
                 />
               ) : null}
-              {mode === "register" ? <Turnstile onToken={setTurnstileToken} /> : null}
+              {mode === "register" ? <Turnstile onToken={setTurnstileToken} resetRef={resetTurnstile} /> : null}
               <section className="grid gap-1" data-account-privacy>
                 <h3 className="text-sm font-semibold">{t("account.privacyTitle")}</h3>
                 <p className="text-xs text-muted">{t("account.privacy")}</p>
