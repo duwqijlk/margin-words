@@ -1,8 +1,10 @@
 # Margin Words 迁移说明（中文）
 
-本仓库是 Margin Words 项目的完整副本，已迁移到 **私有** GitHub 仓库 `duwqijlk/margin-words`。英文完整版见根目录 [MIGRATION.md](../MIGRATION.md)。
+> **私有档案。** 2026-10-04 起，这份副本改名为 `duwqijlk/margin-words-archive`，保持私有，并归档。公开项目是 [duwqijlk/margin-words](https://github.com/duwqijlk/margin-words)。见 [ARCHIVE.zh-CN.md](ARCHIVE.zh-CN.md)。
 
-> **Git 里不放书的文件。** 版权 EPUB 只在私有桶 `margin-words-private`（不公开，应用不会去读）。公版 EPUB 只在书籍站 `https://books.inputread.site`。仓库里的 `packs/` 是词表和封面，不是书。不要把 `packs/` 部署到公开网站。这个仓库的旧 Pull Request 里还有书的文件，那些请求还在的时候不要把仓库改成公开。
+本仓库是 Margin Words 项目的完整副本，留在**私有** GitHub 仓库里。英文完整版见根目录 [MIGRATION.md](../MIGRATION.md)。
+
+> **Git 里不放书的文件。** 版权 EPUB 只在私有桶 `margin-words-private`（不公开，应用不会去读）。公版 EPUB 只在书籍站 `https://books.inputread.site`。仓库里的 `packs/` 是词表和封面，不是书。不要把 `packs/` 部署到公开网站。这份档案的旧 Pull Request 里还有书的文件，所以仓库保持私有。
 
 ## 概览
 
