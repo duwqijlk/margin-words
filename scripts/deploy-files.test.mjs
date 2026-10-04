@@ -2,7 +2,7 @@
  * Files that tell Cloudflare Pages how to serve the app, and the service worker that keeps it fresh.
  */
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
@@ -45,6 +45,13 @@ test("_redirects sends every other address to index.html, last, and leaves real 
   for (const rule of rules.slice(0, -1)) assert.doesNotMatch(rule, /\/assets|\/fonts|\/icons|\/sw\.js|\/manifest/);
   // Cloudflare Pages serves a real file before it looks at a catch-all rule, so /assets/x.js stays a file.
   assert.equal(rules.filter((rule) => rule.startsWith("/*")).length, 1);
+});
+
+test("files the reader never opens are not in the site folder", () => {
+  // The service worker caches every file in public/. These two were cached on first visit
+  // and nothing in the app asked for them.
+  assert.equal(existsSync(join(ROOT, "public/og.jpg")), false);
+  assert.equal(existsSync(join(ROOT, "public/data/basic-words.txt")), false);
 });
 
 test("the host files are not part of the offline shell (they are not served as files)", () => {
