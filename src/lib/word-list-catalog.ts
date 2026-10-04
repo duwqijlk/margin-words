@@ -7,6 +7,7 @@ import { booksUrl } from "@/lib/books-base";
 import { isbnDigits, matchWordListPack, readSeries } from "@/lib/book-meta";
 
 export { matchWordListPack };
+import { readContentCategory, type ContentCategory } from "@/lib/content-category";
 import { lexileMeasure } from "@/lib/lexile";
 
 export const WORD_LIST_CATALOG_URL = booksUrl("word-lists/catalog.json");
@@ -22,6 +23,8 @@ export type WordListPack = {
   words: number;
   /** Card-sized cover from the book's own EPUB, when the pack has one. */
   cover: { url: string; bytes: number; sha256: string } | null;
+  /** Discover tab. Missing on older catalogs, which are novels. */
+  category: ContentCategory;
   /** English that is too old for a beginner. None of the word lists are flagged today. */
   oldFashioned: boolean;
   oldFashionedReason: string;
@@ -67,6 +70,7 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
       seriesNumber: series.seriesNumber,
       words: typeof row.words === "number" && row.words > 0 ? Math.floor(row.words) : 0,
       cover,
+      category: readContentCategory(row.category),
       oldFashioned: row.oldFashioned === true,
       oldFashionedReason: row.oldFashioned === true ? text(row.oldFashionedReason, 240) : "",
       glossary: {

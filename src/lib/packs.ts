@@ -31,6 +31,7 @@ import { tr, type Key } from "@/lib/i18n";
 import { applyPackGlossary, hashBytes } from "@/lib/pack-glossary";
 import { booksUrl } from "@/lib/books-base";
 import { isbnDigits, readSeries } from "@/lib/book-meta";
+import { readContentCategory, type ContentCategory } from "@/lib/content-category";
 import { lexileMeasure } from "@/lib/lexile";
 
 /* ------------------------------------------------------------------ catalog types */
@@ -65,6 +66,11 @@ export type CatalogPack = {
   series: string;
   /** 1-based place in the series. 0 when there is no series. */
   seriesNumber: number;
+  /**
+   * Discover tab. Missing on older catalogs, which are novels.
+   * Set by hand in info.json as "speech".
+   */
+  category: ContentCategory;
   /** English that is too old for a beginner. Set by hand in info.json. */
   oldFashioned: boolean;
   /** Short English reason. "" when the book is not flagged, or when no reason was written. */
@@ -151,6 +157,7 @@ export function parseCatalog(value: unknown): Catalog | null {
         const series = readSeries(row.series, row.seriesNumber);
         return { series: series.series, seriesNumber: series.seriesNumber };
       })(),
+      category: readContentCategory(row.category),
       oldFashioned: row.oldFashioned === true,
       oldFashionedReason: row.oldFashioned === true ? text(row.oldFashionedReason, 240) : "",
     });
