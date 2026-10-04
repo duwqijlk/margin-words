@@ -350,16 +350,21 @@ Truthfulness
 5. Only restate the original. No new facts, opinions, guesses, background, or what happens later. A paragraph or sentence note must not explain more than the text says.
 6. Explain the word as used IN THIS BOOK. Add no meanings the book does not use.
 7. Keep names and key story words unchanged (`Mira`, `Willy Wonka`, `moonwick`) even if they are not common words.
-8. If you are not sure, leave it out. A short correct list beats a long list with errors.
+8. If you are not sure a line is in the EPUB, or you cannot copy its `context`, leave that item out. A short correct list beats a long list with errors. This is not the rule for "maybe they know this word." When you are not sure they know it, mark it.
 
 Copyright
 9. Do not quote the book beyond short snippets. `context` is 6-14 words from one paragraph; `example` is one short sentence. `simple` restates a
    paragraph in new words and must not copy it. No other field may contain book text longer than a few words.
 
 Choosing words
-10. Hard word = a word a junior-high learner (A2-B1) probably does not know and that matters for understanding. Skip the 2000 most common words, names of people and places, and words the book explains itself.
-11. Key = lower-case base form (`lantern`, not `lanterns`); see section 4.1 for shapes the app cannot reduce.
-12. Size: short story 10-40 words; novel about 15-30 new words per chapter (do not repeat a word unless it has a new meaning).
+10. The reader is in the first year of Chinese junior high, about 12. They can read a school sentence. They do not know old house words, old titles, or a verb that looks like another verb. The 2000 most common words is the wrong line for this choice: `struck` is on that list, and these readers still mix it up with `stuck`. Mark a word when any test is yes. There is no maximum and no per-chapter quota.
+    - Wrong twin. The word looks like one they know. `her head struck against the roof` means hit, not stuck. The meaning says both.
+    - Old thing, even once: a thing, tool, clothes, room, food, or job a school book does not teach. `hearthrug`, `fender`, `carrier`.
+    - Old label: `Esq.`
+    - Not the school meaning. Mark only that place (`senseOnly`). `how odd the directions will look` means the address on a letter, not which way to go.
+    If you are not sure they know it, mark it. Still skip a textbook word used in the textbook meaning, names of people and places, and a word the same sentence explains. A word in a letter or a label is still a dictionary word, even when those lines are not a numbered paragraph.
+11. Key = lower-case base form (`lantern`, not `lanterns`); see section 4.1 for shapes the app cannot reduce. `struck` does not reduce to `strike`, so the key is `struck`.
+12. Do not repeat a word unless it has a new meaning. Do not stop at 15 or 30 words. A cap drops real hard words.
 
 ## 8. Workflow
 
@@ -368,7 +373,7 @@ Without the project tools (only the EPUB and this file):
 1. Unzip the EPUB (it is a zip). Read `META-INF/container.xml` -> OPF -> spine; read the TOC (`nav.xhtml` or `toc.ncx`) to get the chapter list as in section 5.3. Note `title`, `author`, chapter count, and the sha256 of the EPUB file.
 2. Read each chapter's text. Number paragraphs as in section 5.4 and count words as in section 5.1-5.2.
 3. Per chapter pick hard words (section 7.10-7.12). For each, write the entry. If the word has a second meaning in this book, write `senses`.
-4. Write 1-2 paragraph notes, 1-2 sentence notes, the phrases and the `coined` words that really occur.
+4. Write a paragraph note for each place section 7 names (no quota of 1 or 2), plus the sentence notes, the phrases and the `coined` words that really occur. A paragraph that only sets up a letter or an address still gets one note. A note does not replace the dictionary entries for the words in it. One sentence note is enough when the only hard part is the shape of that sentence. Do not write a paragraph note whose only hard part is one word.
 5. For every anchor/note: copy `context` verbatim from the book text; compute `chapter`, `occurrence`, `paragraph` by the rules. Do not guess numbers. If unsure of a number, omit `occurrence`/`paragraph` where allowed (anchors work with `context` alone; paragraph notes need `paragraph`, so make it right).
 6. Assemble one `glossary.json`. Validate (section 9). Fix every error. Read the warnings.
 7. If a pack is wanted, zip `book.epub` + `glossary.json` (section 3). Zip entries at the top level or in one folder, no `__MACOSX`.

@@ -504,6 +504,10 @@
    "pos": "uncountable noun",
    "meaning": "Thick stiff paper."
   },
+  "carrier": {
+   "pos": "singular noun",
+   "meaning": "A person who takes letters and boxes from one house to another."
+  },
   "catching": {
    "pos": "present participle",
    "meaning": "Getting hold of something that is moving. Cats catch mice."
@@ -1012,6 +1016,30 @@
     "dipped"
    ]
   },
+  "direction": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The address written on a letter.",
+   "forms": [
+    "directions"
+   ],
+   "senses": [
+    {
+     "meaning": "The address written on a letter.",
+     "whyHard": "Not the usual meaning! Usually: directions means which way to go.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "directions",
+       "context": "how odd the directions will look"
+      }
+     ]
+    }
+   ]
+  },
   "disagree": {
    "pos": "base verb",
    "meaning": "Here, \"disagree with you\" means that food or drink makes you feel ill."
@@ -1233,6 +1261,11 @@
    "pos": "adjective",
    "meaning": "Twisted together with something so that it is hard to get free."
   },
+  "esq": {
+   "pos": "noun",
+   "meaning": "A short old title after a man's name. She writes it after her own foot, as if the foot were a person.",
+   "whyHard": "An old short form of a title."
+  },
   "evidently": {
    "pos": "adverb",
    "meaning": "Clearly; it is easy to see that it is true."
@@ -1441,6 +1474,11 @@
   "feeble": {
    "pos": "adjective",
    "meaning": "Weak."
+  },
+  "fender": {
+   "pos": "singular noun",
+   "meaning": "The metal guard in front of a fire. She writes it as the place near her foot.",
+   "whyHard": "An old word for a thing in a house."
   },
   "ferret": {
    "pos": "singular noun",
@@ -1875,6 +1913,11 @@
   "hearth": {
    "pos": "singular noun",
    "meaning": "The floor in front of a fire in a house."
+  },
+  "hearthrug": {
+   "pos": "singular noun",
+   "meaning": "The soft cover on the floor in front of a fire. She writes it as the place where her foot is.",
+   "whyHard": "An old word for a thing in a house."
   },
   "hedge": {
    "pos": "singular noun",
@@ -3836,6 +3879,11 @@
     "stretching"
    ]
   },
+  "struck": {
+   "pos": "past-tense verb",
+   "meaning": "Hit. It does not mean stuck.",
+   "whyHard": "It looks like stuck, but it means hit."
+  },
   "stupidest": {
    "pos": "superlative adjective",
    "meaning": "The most silly."
@@ -4589,6 +4637,17 @@
     "telescope",
     "stockings",
     "shan’t"
+   ]
+  },
+  {
+   "chapter": 1,
+   "paragraph": 2,
+   "context": "how odd the directions will look",
+   "mainIdea": "She plans to send presents to her own feet. The directions are the address she imagines for them.",
+   "simple": "She went on planning. She thought the presents must go by the person who takes letters and boxes. She thought it would look funny to send presents to her own feet. She thought the address on those presents would look funny too.",
+   "hardWords": [
+    "carrier",
+    "directions"
    ]
   },
   {
