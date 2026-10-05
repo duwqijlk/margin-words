@@ -60,7 +60,10 @@ export function useFloatingCard(
       const vw = document.documentElement.clientWidth;
       const vh = window.innerHeight;
       const width = Math.min(PANEL_WIDTH, Math.max(220, vw - 24));
-      const height = panel?.offsetHeight || 280;
+      // scrollHeight keeps the full content after max-height clamps the box, so a later
+      // pass can still move a growing card (a sentence note, for example) to a taller side.
+      const measured = panel ? Math.max(panel.offsetHeight, panel.scrollHeight) : 0;
+      const height = measured || 280;
       const placed = placeFloatingPanel({
         anchor: anchorBox(anchorEl),
         width,
