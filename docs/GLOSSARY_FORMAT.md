@@ -447,7 +447,7 @@ Rules:
 ### 7.5b `trickyMeaning` senses (familiar word, unfamiliar meaning)
 
 A sense may carry `"trickyMeaning": true`. Use it for a common word that is used here in a meaning learners will not know
-(`well` = a water well). The sense needs `anchors`; the usual `chapter` + `occurrence` or `context` rules apply (see 7.5).
+(`well` = a water well). The same mark is for a familiar spelling used as a different job: a person-word used as an action, or an action-word used as a person or a thing (`nurse` in `a nice soft thing to nurse` means to hold a baby or a soft animal; `Coming in a minute, nurse!` is the person and stays plain). The sense needs `anchors`; the usual `chapter` + `occurrence` or `context` rules apply (see 7.5).
 
 ```json
 "senses": [
