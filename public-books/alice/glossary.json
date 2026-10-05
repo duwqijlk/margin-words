@@ -764,6 +764,10 @@
     }
    ]
   },
+  "coast": {
+   "pos": "singular noun",
+   "meaning": "The land beside the sea."
+  },
   "coaxing": {
    "pos": "adjective",
    "meaning": "Gentle and kind, trying to persuade someone to do something."
@@ -812,7 +816,7 @@
   },
   "conclusion": {
    "pos": "singular noun",
-   "meaning": "The idea you come to after you think."
+   "meaning": "The decision you reach after thinking."
   },
   "condemn": {
    "pos": "base verb",
@@ -880,6 +884,10 @@
   "courage": {
    "pos": "uncountable noun",
    "meaning": "The power to do something that is hard or scary."
+  },
+  "course": {
+   "pos": "singular noun",
+   "meaning": "A path from start to end, or a set of lessons."
   },
   "court": {
    "pos": "singular noun",
@@ -1322,6 +1330,10 @@
     "doubling"
    ]
   },
+  "doubt": {
+   "pos": "singular noun",
+   "meaning": "A feeling that something may not be true."
+  },
   "doubtful": {
    "pos": "adjective",
    "meaning": "Not sure."
@@ -1564,6 +1576,10 @@
    "forms": [
     "eyelids"
    ]
+  },
+  "fact": {
+   "pos": "singular noun",
+   "meaning": "Something that is true."
   },
   "fading": {
    "pos": "present participle",
@@ -2017,6 +2033,13 @@
    "whyHard": "The book word is \"gazing\".",
    "forms": [
     "gazing"
+   ]
+  },
+  "general": {
+   "pos": "adjective",
+   "meaning": "For most cases, or for everyone together.",
+   "forms": [
+    "generally"
    ]
   },
   "gently": {
@@ -6222,7 +6245,7 @@
  ],
  "phrases": {
   "make out": {
-   "meaning": "To see, hear or understand something with difficulty.",
+   "meaning": "To see, hear, or understand something.",
    "pos": "phrasal verb",
    "forms": [
     "made out",
@@ -6452,6 +6475,87 @@
    "meaning": "Almost the same. Not really different.",
    "pos": "idiom",
    "example": "much of a muchness"
+  },
+  "next to no": {
+   "meaning": "Almost none.",
+   "pos": "idiom",
+   "example": "next to no toys"
+  },
+  "come to a conclusion": {
+   "meaning": "To decide after thinking.",
+   "pos": "idiom",
+   "forms": [
+    "come to the general conclusion"
+   ],
+   "example": "had come to the general conclusion"
+  },
+  "of course": {
+   "meaning": "Yes; as anyone would expect.",
+   "pos": "idiom",
+   "example": "Of course not"
+  },
+  "in fact": {
+   "meaning": "Actually; here is the true part.",
+   "pos": "idiom",
+   "example": "in fact she was now more than nine feet high"
+  },
+  "ever so": {
+   "meaning": "Very.",
+   "pos": "idiom",
+   "example": "ever so many lessons"
+  },
+  "used to": {
+   "meaning": "Did this often in the past. \"Used to it\" means it is normal for you now.",
+   "pos": "idiom",
+   "example": "When I used to read fairy-tales"
+  },
+  "might as well": {
+   "meaning": "There is no strong reason not to.",
+   "pos": "idiom",
+   "example": "she might as well wait"
+  },
+  "just as well": {
+   "meaning": "Just as good; it makes no real difference.",
+   "pos": "idiom",
+   "example": "would have done just as well"
+  },
+  "dare say": {
+   "meaning": "To think that something is probably true.",
+   "pos": "idiom",
+   "example": "I dare say there may be one"
+  },
+  "find out": {
+   "meaning": "To discover something.",
+   "pos": "idiom",
+   "forms": [
+    "find it out"
+   ],
+   "example": "find out the answer to it"
+  },
+  "get on": {
+   "meaning": "To go on and do better.",
+   "pos": "idiom",
+   "example": "Now we shall get on better"
+  },
+  "let me see": {
+   "meaning": "Let me think for a moment.",
+   "pos": "phrase",
+   "example": "Let me see: four times five is twelve"
+  },
+  "as for": {
+   "meaning": "Speaking about this next thing.",
+   "pos": "idiom",
+   "example": "As for pulling me out of the window"
+  },
+  "take care of": {
+   "meaning": "To look after something.",
+   "pos": "idiom",
+   "example": "Take care of the sense"
+  },
+  "for instance": {
+   "meaning": "For example.",
+   "pos": "idiom",
+   "example": "For instance, if you were inside"
   }
  }
 }

@@ -41,7 +41,7 @@ chapters from the summary.
 
 - Read the chapters (or sample them if the book is long). Optionally get frequent candidates the app would
   pick: `node scripts/extract-epub-text.mjs book.epub --candidates 300`.
-- Keep a word when any test in `skills/make-glossary/SKILL.md` is yes (wrong twin, old thing, old label, not the school meaning, or an unclear personal name). If you are not sure they know it, keep it. Before you leave a familiar word out, put each textbook meaning of that spelling into the sentence. Leave it out only when the sentence still reports the same event. When the sentence stops reporting that event, keep that place only (`senseOnly`, `trickyMeaning`, `whyHard` starting `Not the usual meaning!`). Also leave out a place name used as a label, a personal name the sentence already calls a name, and words the book itself explains. A word that appears once, including inside a letter or a label, still counts. Every word you put in a paragraph note's `hardWords` gets its own entry, unless that sentence explains it. `max_words` is only a safety stop for a huge book, not a reason to drop `hearthrug` or `struck`.
+- Keep a word when any test in `skills/make-glossary/SKILL.md` is yes (wrong twin, old thing, old label, not the school meaning, or an unclear personal name). If you are not sure they know it, keep it. `coast` is the land beside the sea; a first-year book often has `sea` and not `coast`, and the textbook meaning still fits, so the entry is ordinary, not `senseOnly`. Before you leave a familiar word out, put each textbook meaning of that spelling into the sentence. Leave it out only when the sentence still reports the same event. When the sentence stops reporting that event, keep that place only (`senseOnly`, `trickyMeaning`, `whyHard` starting `Not the usual meaning!`). Also leave out a place name used as a label, a personal name the sentence already calls a name, and words the book itself explains. A word that appears once, including inside a letter or a label, still counts. Every word you put in a paragraph note's `hardWords` gets its own entry, unless that sentence explains it. `max_words` is only a safety stop for a huge book, not a reason to drop `hearthrug` or `struck`.
 - Use **lower-case** entries. The key is the word as the reader can tap it: nouns in the singular
   (`monkey`, the app maps `monkeys` to it), but a verb form that is not mapped by plural rules is its own key
   (`cried`, `shrinks` -> `shrink` only when it ends in a plural-like -s: check with `--find`). For other
@@ -140,7 +140,7 @@ The `paragraph` index is 0-based, counted as the reader counts it (the chapter h
 **`sentences`** (one tricky sentence each): `{ "chapter": 11, "context": "6 to 14 words copied exactly from the sentence", "simple": "...", "grammar": "ONE line: the tricky grammar and what it means." }`
 
 **`phrases`** (phrasal verbs and idioms that appear in the book): key = base form in lower case, `{ "meaning": "...", "pos": "phrasal verb" | "idiom" | "phrase", "forms": ["gave up"], "example": "a sentence from the book" }`.
-Write only phrases the book really uses. The reader knows simple forms (gave, giving, gives) and phrasal verbs split by up to 3 words, so you only list odd forms.
+These are not slang. Before you leave neighbouring words out, put the textbook meaning of each word into the sentence, in order. The sentence still reports the same event: leave them out (`Come up again` is still "move to a higher place"). The sentence stops: write one phrase for the whole unit (`next to no` is almost none, not "beside no"; `make up one's mind` is to decide, not "build a mind higher"; `come to a conclusion` is to decide after thinking, and `general` there means the decision covers many places, not "what everyone already knows"). List a longer book shape in `forms` (`come to the general conclusion`). Do not define the noun with that same verb phrase. Do not shorten the key to a piece that is ordinary elsewhere (`next to the door`, `made up the story` stay plain). Write only phrases the book really uses. The reader knows simple forms (gave, giving, gives) and phrasal verbs split by up to 3 words, so you only list odd forms.
 
 **Coined words**: add `"coined": true` to the entry of a word the **author invented** (`snozzcumber`). Not for real rare words or funny spellings.
 
@@ -175,6 +175,7 @@ is in `docs/book-pack-spec.md` (also inside `book-pack-kit.zip`).
 
 - [ ] JSON is valid; `version` is 2; `validate-glossary.mjs` with the EPUB says OK.
 - [ ] Every familiar word was tried with its textbook meaning in the sentence. A sentence that stops reporting the same event is marked at that place only.
+- [ ] Neighbouring words were tried the same way. A group whose textbook meanings stop the sentence is one phrase for the whole unit, not slang, and the key is not shortened to an ordinary piece.
 - [ ] Every `hardWords` item has a glossary entry, unless that sentence explains the word.
 - [ ] Every multi-sense word has real, different meanings seen in the book, and a `default`.
 - [ ] No meaning uses a word harder than `target_level`.
