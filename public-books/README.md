@@ -21,10 +21,10 @@ Dev and `npm run build:local` serve this folder on the same origin so tests run 
      (An old `"preinstall"` key is ignored.)
      `"oldFashioned": true` plus an optional `"oldFashionedReason"` marks English that is too old for a
      beginner. Do not flag a book only because it was published long ago. The rule used here: the book is
-     from 1911 or earlier (every book in this folder is) AND either the glossary is at least 1.5% archaic
+     from 1911 or earlier (the classics in this folder are; a speech is not) AND either the glossary is at least 1.5% archaic
      lemmas with at least 5 of them (`thou`, `thee`, `hath`, `quoth`, `anon`, and the like), OR the Lexile
      is 1050L or higher and there are at least 5 archaic lemmas. That flags The Jungle Book, Through the
-     Looking-Glass, Peter and Wendy, and The Wind in the Willows. Alice is not flagged.)
+     Looking-Glass, Peter and Wendy, and The Wind in the Willows. Alice is not flagged. A modern speech is not flagged.)
 2. Rebuild the catalog and the local sideload zips: `node scripts/build-packs.mjs --out public-books`
 3. `npm run build:books`, then upload `dist-books/`. The hosted catalog sets each `zip` to null and omits
    `all-packs.zip`. The app downloads the loose files when the reader adds the book.
