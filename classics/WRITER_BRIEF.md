@@ -24,7 +24,7 @@ Chapter numbers are the reader's 0-based chapter list (front matter such as Titl
 Also include old-fashioned/archaic words and dialect words that block understanding (explain them as used in the book).
 
 ## Writing rules (learned from earlier reviews: these were the common mistakes)
-1. Only restate the original. No new facts, no guesses, no background, no later plot. Never change a color, object, number, name, who-did-what, or a quote. Never drop an important detail (e.g. "perfectly well", "foolish") or add one.
+1. Only restate the original. No new facts, no guesses, no background, no later plot. Never change a color, object, number, name, who-did-what, or a quote. Never drop an important detail (e.g. "perfectly well", "foolish") or add one. Two short facts may sit outside the sentence: a size in centimetres or litres, and how a familiar object used to move when the comparison needs that motion (Old thing in the spec). Do not add who made it, the year, or any other history.
 2. `simple` restates the WHOLE paragraph, in new words, not copied. Keep names and key story words.
 3. Do not explain a word with itself or its forms. A basic word used in a special way: define that use in basic words. Each meaning: one idea, at most ~25 words.
 4. Explain the word as used IN THIS BOOK only.

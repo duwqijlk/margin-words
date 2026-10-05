@@ -15,6 +15,11 @@ export type PanelPlace = {
 
 const GAP = 10;
 const PAD = 12;
+/**
+ * Stay under the word when both sides are short, unless the space above is clearly taller.
+ * A few dozen pixels is not worth lifting the card off the line.
+ */
+const BELOW_BIAS = 64;
 
 function covers(panel: { left: number; top: number; width: number; height: number }, anchor: AnchorRect): boolean {
   const right = panel.left + panel.width;
@@ -32,6 +37,8 @@ function covers(panel: { left: number; top: number; width: number; height: numbe
 /**
  * Pick a top/left for a card of `width` × `height` next to `anchor`.
  * `height` is the card's content height; the card scrolls inside `maxHeight` when it is taller.
+ * The card sits just under the anchor when that gap can show it. A short gap under a word
+ * near the bottom of the screen would squash the card, so the card opens above instead.
  */
 export function placeFloatingPanel(input: {
   anchor: AnchorRect;
@@ -50,11 +57,14 @@ export function placeFloatingPanel(input: {
   const spaceLeft = anchor.left - GAP - PAD;
   const cap = Math.min(Math.round(vh * 0.72), 640);
   const content = Math.max(1, height);
+  const need = Math.min(content, cap);
+  // Under the word when that gap can show the card. Otherwise the taller side, so a word
+  // at the bottom of a scrolled page does not trap the card in a short strip.
+  const preferBottom = spaceBelow >= need || (spaceAbove < need && spaceBelow + BELOW_BIAS >= spaceAbove);
 
-  const order: Array<PanelPlace["side"]> =
-    spaceBelow >= 160 || spaceBelow >= spaceAbove
-      ? ["bottom", "top", "right", "left"]
-      : ["top", "bottom", "left", "right"];
+  const order: Array<PanelPlace["side"]> = preferBottom
+    ? ["bottom", "top", "right", "left"]
+    : ["top", "bottom", "left", "right"];
   if (spaceLeft > spaceRight) {
     const rightAt = order.indexOf("right");
     const leftAt = order.indexOf("left");

@@ -4417,7 +4417,8 @@
   },
   "shutting": {
    "pos": "present participle",
-   "meaning": "Closing. Here Alice thinks of \"shutting up\" like a telescope: becoming smaller by folding in."
+   "meaning": "Closing by pushing in, part by part, the way that old tube becomes short.",
+   "whyHard": "Not the usual meaning! Usually: shut up means be quiet."
   },
   "shyly": {
    "pos": "adverb",
@@ -4948,7 +4949,8 @@
   },
   "telescope": {
    "pos": "singular noun",
-   "meaning": "A long tube you look through to see things that are far away.",
+   "meaning": "A tube you look through to see far things. Its parts push in to make it short, or pull out to make it long.",
+   "whyHard": "A telescope now only makes far things look bigger. It does not push in, part by part.",
    "forms": [
     "telescope",
     "telescopes"
@@ -5715,7 +5717,7 @@
    "paragraph": 14,
    "context": "she knelt down and looked along the passage into the loveliest garden",
    "mainIdea": "Alice finds a tiny door that opens to a beautiful garden, but she is too big to go through. She wishes she could shut up like a telescope.",
-   "simple": "Alice opened the door and found a small way through that was not much bigger than a hole for a rat. She went down on her knees and looked through it into the most beautiful garden she had ever seen. She wanted so much to leave the dark hall and walk among the bright flowers and cool fountains. But she could not even push her head through the door. She thought that even if her head went through, it would not be much use without her shoulders. She wished she could become small like a telescope that is pushed shorter. She thought she could do it if she only knew how to start. So many strange things had happened lately that she began to think almost nothing was truly impossible.",
+   "simple": "Alice opened the door and found a small way through that was not much bigger than a hole for a rat. She went down on her knees and looked through it into the most beautiful garden she had ever seen. She wanted so much to leave the dark hall and walk among the bright flowers and cool fountains. But she could not even push her head through the door. She thought that even if her head went through, it would not be much use without her shoulders. She wished she could become small like an old tube made of parts that push in. She thought she could do it if she only knew how to start. So many strange things had happened lately that she began to think almost nothing was truly impossible.",
    "hardWords": [
     "knelt",
     "loveliest",
@@ -5723,6 +5725,7 @@
     "wander",
     "fountains",
     "doorway",
+    "shut up",
     "telescope"
    ]
   },
@@ -6763,6 +6766,11 @@
     "opens out"
    ],
    "example": "now I'm opening out like the largest telescope"
+  },
+  "shut up": {
+   "meaning": "To become short by pushing in, part by part, the way that old tube closes.",
+   "pos": "phrasal verb",
+   "example": "I wish I could shut up like a telescope"
   },
   "off with one's head": {
    "meaning": "Cut off his or her head. This is what the Queen says when she is angry.",
