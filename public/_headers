@@ -2,12 +2,16 @@
 # server on every visit; only the hashed files in /assets are cached for good.
 /
   Cache-Control: no-cache
+  CDN-Cache-Control: no-store
 /index.html
   Cache-Control: no-cache
+  CDN-Cache-Control: no-store
 /sw.js
   Cache-Control: no-cache
+  CDN-Cache-Control: no-store
 /manifest.webmanifest
   Cache-Control: no-cache
+  CDN-Cache-Control: no-store
 /kit/*
   Cache-Control: no-cache
 /assets/*

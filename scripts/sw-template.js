@@ -18,18 +18,50 @@ function isHtml(response) {
   return (response.headers.get("content-type") || "").includes("text/html");
 }
 
+// A decoded body must not keep the encoded length or encoding, or the browser
+// shows a blank page.
+function responseWithBody(response, body) {
+  const headers = new Headers();
+  response.headers.forEach((value, key) => {
+    if (key === "content-encoding" || key === "content-length") return;
+    headers.set(key, value);
+  });
+  return new Response(body, { status: response.status, statusText: response.statusText, headers });
+}
+
+// cache: "reload" on a navigation can come back as status 200 with an empty body.
+// A hard refresh skips this worker, so that page looks fine, and the next ordinary
+// refresh is blank. An empty body is a miss.
+async function usable(response) {
+  if (!response || !response.ok) return null;
+  try {
+    const body = await response.arrayBuffer();
+    if (body.byteLength === 0) return null;
+    return responseWithBody(response, body);
+  } catch {
+    return null;
+  }
+}
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE).then(async (cache) => {
       // "reload" skips the HTTP cache, so a new version never precaches an old copy of a file.
       // A code file that comes back as the app page (the host's catch-all) must not be stored:
       // the browser would keep parsing HTML as JavaScript and the page would refresh forever.
+      // An empty 200 must not be stored either: the next ordinary refresh would be blank.
       await Promise.all(
         FILES.map(async (file) => {
-          const response = await fetch(new Request(file, { cache: "reload" }));
-          if (!response.ok) throw new Error(file);
-          if (isShellCode(file) && isHtml(response)) throw new Error(file);
-          await cache.put(file, response);
+          let stored = null;
+          for (const cacheMode of ["reload", "no-store"]) {
+            const response = await fetch(new Request(file, { cache: cacheMode }));
+            if (!response.ok) continue;
+            if (isShellCode(file) && isHtml(response)) continue;
+            stored = await usable(response);
+            if (stored) break;
+          }
+          if (!stored) throw new Error(file);
+          await cache.put(file, stored);
         }),
       );
       await self.skipWaiting();
@@ -39,16 +71,16 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches
-      .keys()
-      .then((keys) =>
-        Promise.all(
-          // Every other cache on this origin is old: earlier shells, and the book cache
-          // this worker used to fill. Saving a book there froze the page.
-          keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)),
-        ),
-      )
-      .then(() => self.clients.claim()),
+    (async () => {
+      // The browser starts the document request. Using that response avoids a second
+      // fetch that can come back empty on an ordinary refresh.
+      if (self.registration.navigationPreload) await self.registration.navigationPreload.enable();
+      // Take the page over before deleting caches. The previous worker saved books into
+      // a large cache; deleting that first left it in charge, and a normal refresh stayed blank.
+      await self.clients.claim();
+      const keys = await caches.keys();
+      await Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)));
+    })(),
   );
 });
 
@@ -73,6 +105,21 @@ function savedPage(path, request) {
   });
 }
 
+async function freshPage(request) {
+  const headers = new Headers();
+  const accept = request.headers.get("Accept");
+  if (accept) headers.set("Accept", accept);
+  // no-store, not reload: reload is the mode that returns an empty 200 on refresh.
+  // A new request, not the navigation itself: reusing that request can also come back empty.
+  const response = await fetch(request.url, {
+    cache: "no-store",
+    credentials: "same-origin",
+    redirect: "follow",
+    headers,
+  });
+  return usable(response);
+}
+
 self.addEventListener("fetch", (event) => {
   if (passThrough) return;
   const request = event.request;
@@ -91,26 +138,48 @@ self.addEventListener("fetch", (event) => {
   // The browser asks for these itself. They must never come from an old copy.
   if (path === "sw.js" || path === "manifest.webmanifest") return;
   if (request.mode === "navigate") {
-    // A fresh GET, not the navigation request itself. Reusing that request can come back
-    // empty, and the page stays blank until a hard refresh skips this worker.
-    // Online: checked with the server every time. Offline: the saved page.
-    const headers = new Headers();
-    const accept = request.headers.get("Accept");
-    if (accept) headers.set("Accept", accept);
+    // Online: the document from the network, when it actually has HTML.
+    // An empty 200 is ignored, and the saved page is used instead.
+    // Offline: the saved page.
     event.respondWith(
-      fetch(request.url, { cache: "reload", credentials: "same-origin", redirect: "follow", headers })
-        .then((response) => (response && response.ok ? response : savedPage(path, request)))
-        .catch(() => savedPage(path, request))
-        .then((response) => response || Response.error()),
+      (async () => {
+        try {
+          const preload = await event.preloadResponse;
+          const fromPreload = await usable(preload);
+          if (fromPreload) return fromPreload;
+        } catch {
+          // Preload is off, or this navigation has none.
+        }
+        try {
+          const fresh = await freshPage(request);
+          if (fresh) return fresh;
+        } catch {
+          // Offline, or the network returned nothing usable.
+        }
+        const saved = await savedPage(path, request);
+        return saved || Response.error();
+      })(),
     );
     return;
   }
+  // Scripts and styles: the network first. A cached copy is only for offline.
+  // Serving the cache first left a bad copy on screen after a hard refresh had
+  // already loaded the real files.
   event.respondWith(
-    openShell().then((cache) =>
-      cache.match(request).then((hit) => {
-        if (hit && !(isShellCode(path) && isHtml(hit))) return hit;
-        return fetch(request);
-      }),
-    ),
+    (async () => {
+      try {
+        const response = await fetch(request);
+        if (response && response.ok && !(isShellCode(path) && isHtml(response))) {
+          const length = response.headers.get("content-length");
+          if (length !== "0") return response;
+        }
+      } catch {
+        // Offline.
+      }
+      const cache = await openShell();
+      const hit = await cache.match(request);
+      if (hit && !(isShellCode(path) && isHtml(hit))) return hit;
+      return Response.error();
+    })(),
   );
 });
