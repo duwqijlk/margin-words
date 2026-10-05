@@ -255,3 +255,30 @@ test("a source finds its shelf book by title and author, not by card id", () => 
   assert.equal(bookForSource(card.sources[0], [peter, { ...alice, id: "other-device-id" }]).id, "other-device-id");
   assert.equal(bookForSource(card.sources[0], [peter]), undefined);
 });
+
+test("a word-list pointer stays on its card and does not erase an older sentence", () => {
+  const kept = old("a1", "faint", {
+    sources: [source(keyA, "A sentence with faint in a1.", { savedAt: 1 })],
+  });
+  const refOnly = {
+    ...old("a1", "faint", { sentence: "", meaning: "" }),
+    sources: [
+      {
+        book: keyA,
+        surface: "faint",
+        savedAt: 2,
+        ref: { list: "alice", chapter: 1, occurrence: 2, mark: "0123abcd" },
+        sentence: "This uploaded sentence must not decide the card.",
+      },
+    ],
+  };
+  const merged = mergeCards(kept, refOnly);
+  assert.match(merged.sentence, /A sentence with faint/);
+  assert.equal(merged.sources.length, 2);
+  const otherWay = mergeCards(refOnly, kept);
+  assert.match(otherWay.sentence, /A sentence with faint/);
+  const rehomed = rehomeForeignSources([refOnly]);
+  assert.equal(rehomed.length, 1);
+  assert.equal(rehomed[0].lemma, "faint");
+  assert.equal(rehomed[0].sources[0].ref.list, "alice");
+});

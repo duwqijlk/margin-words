@@ -1,4 +1,7 @@
+import type { GlossPoint } from "./gloss-point.ts";
 import type { TextAnchor } from "./position.ts";
+
+export type { GlossPoint };
 
 export type AnalyzedWord = {
   surface: string;
@@ -43,26 +46,31 @@ export type Book = {
 /**
  * Where a saved word was met. A word can have several (one per book it was saved from). The book is named by
  * its sync key (title and author), not by this device's shelf card, so it means the same on every device.
+ *
+ * A new save sets `ref` and leaves the sentence out. The snippet and the meaning are read from that word
+ * list when the card is shown. Older saves still carry `sentence`, `title` and `at`.
  */
 export type WordSource = {
   /** `bookSyncKey` of the book: the same on every device */
   book: string;
   /** book title and author as they were when the word was saved (kept even if the book leaves the shelf) */
-  title: string;
-  author: string;
+  title?: string;
+  author?: string;
   /** 0-based chapter, when known (words saved by older versions have none until the book is opened) */
   chapter?: number;
   chapterTitle?: string;
-  /** the whole sentence the word was saved from */
-  sentence: string;
+  /** the whole sentence, for a word saved before word-list pointers. A `ref` save leaves this out. */
+  sentence?: string;
   /** the word as it was written there */
   surface: string;
   /** the meaning that fitted that sentence, when it differs from the card's meaning */
   meaning?: string;
   pos?: string;
-  /** file-independent place of the word in the book (docs: src/lib/position.ts) */
+  /** file-independent place of the word in the book (docs: src/lib/position.ts). Not set on a `ref` save. */
   at?: TextAnchor;
   savedAt: number;
+  /** Where this word sits in a word list. The list, not this field, holds the snippet. */
+  ref?: GlossPoint;
 };
 
 export type VocabEntry = AnalyzedWord & {

@@ -7,6 +7,7 @@ import { isDue, isMastered, MASTERED_STAGE, type Book, type VocabEntry } from "@
 import { useVocab } from "@/lib/vocab-store";
 import { focusSentence } from "@/lib/text";
 import { hasSourceFrom } from "@/lib/wordbook";
+import { usePresentedWord } from "@/components/presented-word";
 import { WordSources } from "@/components/word-sources";
 import {
   btn,
@@ -71,6 +72,7 @@ function WordRow({
   const relearn = useVocab((state) => state.relearn);
   const mastered = isMastered(word);
   const due = isDue(word);
+  const shown = usePresentedWord(word, books) ?? word;
   return (
     <li className="grid gap-3 rounded-2xl border border-line bg-card p-3 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
@@ -112,29 +114,29 @@ function WordRow({
         </div>
       </div>
 
-      {word.sources.length > 0 ? (
-        <WordSources word={word} books={books} />
+      {shown.sources.length > 0 ? (
+        <WordSources word={shown} books={books} />
       ) : (
         <div className="grid gap-1.5">
-          {word.sentence ? (
+          {shown.sentence ? (
             <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed break-words text-ink">
-              <Highlighted sentence={focusSentence(word.sentence, word.surface || word.lemma)} surface={word.surface || word.lemma} />
+              <Highlighted sentence={focusSentence(shown.sentence, shown.surface || shown.lemma)} surface={shown.surface || shown.lemma} />
             </p>
           ) : null}
-          {word.pos ? (
-            <div className={word.sentence ? "pl-3" : undefined}>
+          {shown.pos ? (
+            <div className={shown.sentence ? "pl-3" : undefined}>
               <span className={cn(chip, "bg-accent-soft text-accent")}>
-                <span lang="en">{word.pos}</span>
+                <span lang="en">{shown.pos}</span>
               </span>
             </div>
           ) : null}
-          {word.meaning ? (
+          {shown.meaning ? (
             <p
-              className={cn("text-[1.02rem] leading-relaxed", word.sentence && "pl-3")}
+              className={cn("text-[1.02rem] leading-relaxed", shown.sentence && "pl-3")}
               lang="en"
               data-source-meaning
             >
-              {word.meaning}
+              {shown.meaning}
             </p>
           ) : null}
         </div>
@@ -234,7 +236,7 @@ export function Notebook({
       if (filter === "mastered" && !isMastered(word)) return false;
       if (!q) return true;
       return `${word.lemma} ${word.surface} ${word.meaning} ${word.sentence} ${word.sources
-        .map((source) => `${source.title} ${source.chapterTitle ?? ""}`)
+        .map((source) => `${source.title ?? ""} ${source.chapterTitle ?? ""}`)
         .join(" ")}`
         .toLowerCase()
         .includes(q);

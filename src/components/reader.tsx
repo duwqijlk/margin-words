@@ -18,6 +18,7 @@ import {
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { loadBookExtras, loadBookMeta, loadStoredBook, type Gloss, type StoredBook } from "@/lib/book-db";
 import { readingSlots } from "@/lib/epub";
+import { phrasePoint, pointFromEntry } from "@/lib/gloss-ref";
 import {
   entryAppliesAt,
   hasTrickySense,
@@ -501,22 +502,6 @@ function wholeSentence(paragraph: string, surface: string, at: number): string {
   return locateSentence(paragraph, surface, at).text;
 }
 
-/** Where `surface` (a phrase as written) starts in the paragraph, preferring the copy under the tap. */
-function phrasePlace(paragraph: string, surface: string, tapAt: number): number {
-  const needle = surface.trim();
-  if (!needle) return tapAt;
-  const lower = paragraph.toLowerCase();
-  const want = needle.toLowerCase();
-  let from = 0;
-  while (from <= paragraph.length) {
-    const at = lower.indexOf(want, from);
-    if (at < 0) break;
-    if (tapAt >= at && tapAt <= at + needle.length) return at;
-    from = at + 1;
-  }
-  return tapAt;
-}
-
 type PhraseHit = {
   key: string;
   entry: { meaning: string; pos?: string; example?: string; here?: string };
@@ -922,6 +907,7 @@ export function ReaderScreen({
   const [phrasePending, setPhrasePending] = useState(false);
   // Phrases live beside the word list. Empty until that record loads, then the dotted line appears.
   const [phraseList, setPhraseList] = useState<Record<string, PhraseEntry>>({});
+  const [listSource, setListSource] = useState("");
   const articleRef = useRef<HTMLElement | null>(null);
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
   // A place found through the file-independent anchor (saved position, or "go to the sentence" from the wordbook).
@@ -995,7 +981,13 @@ export function ReaderScreen({
         if (!alive || seen !== generation || !meta) return;
         setBook((prev) =>
           prev
-            ? { ...prev, glossary: meta.glossary, pending: meta.pending, totalHard: meta.totalHard }
+            ? {
+                ...prev,
+                glossary: meta.glossary,
+                pending: meta.pending,
+                totalHard: meta.totalHard,
+                ...(meta.bundled ? { bundled: meta.bundled } : {}),
+              }
             : prev,
         );
         fillPrepared(bookId, meta.glossary);
@@ -1019,9 +1011,12 @@ export function ReaderScreen({
 
   useEffect(() => {
     let alive = true;
+    setListSource("");
     const pull = () => {
       void loadBookExtras(bookId).then((extras) => {
-        if (alive) setPhraseList(extras?.phrases ?? {});
+        if (!alive) return;
+        setPhraseList(extras?.phrases ?? {});
+        setListSource(extras?.source ?? "");
       });
     };
     pull();
@@ -1278,17 +1273,23 @@ export function ReaderScreen({
     const timer = setTimeout(() => {
       const open = useVocab
         .getState()
-        .words.flatMap((card) => card.sources.filter((source) => source.book === bookKey && !source.at).map((source) => ({ card, source })));
+        .words.flatMap((card) =>
+          card.sources
+            .filter((source) => source.book === bookKey && !source.ref && !source.at && source.sentence)
+            .map((source) => ({ card, source })),
+        );
       if (open.length === 0) return;
       const texts = book.chapters.map((item) => item.paragraphs);
       const updates = [];
       for (const { card, source } of open) {
-        const hit = findSentence(source.sentence, source.surface, texts, source.chapter);
+        const sentence = source.sentence;
+        if (!sentence) continue;
+        const hit = findSentence(sentence, source.surface, texts, source.chapter);
         if (!hit) continue;
         updates.push({
           lemma: card.lemma,
           book: bookKey,
-          sentence: source.sentence,
+          sentence,
           chapter: hit.chapter,
           chapterTitle: book.chapters[hit.chapter]?.title,
           at: hit,
@@ -1853,40 +1854,47 @@ export function ReaderScreen({
               removeWordFromBook(bookKey, saveAs.lemma);
               return;
             }
-            const placeAt = phrasePlace(picked.paragraph, saveAs.surface, picked.before.length);
-            const source: WordSource = {
-              book: bookKey,
-              title: shelfBook.title,
-              author: shelfBook.author,
-              chapter: safeIndex,
-              ...(chapter.title ? { chapterTitle: chapter.title } : {}),
-              sentence: card.sentence,
-              surface: saveAs.surface,
-              ...(saveAs.meaning ? { meaning: saveAs.meaning } : {}),
-              ...(saveAs.pos ? { pos: saveAs.pos } : {}),
-              at: makeAnchor({
-                chapter: safeIndex,
-                paragraph: picked.block,
-                text: picked.paragraph,
-                at: placeAt,
-                length: saveAs.surface.length,
-              }),
-              savedAt: Date.now(),
-            };
+            const listId = book?.bundled || listSource;
+            const gloss = book?.glossary[saveAs.lemma] ?? book?.glossary[saveAs.lemma.toLowerCase()];
+            const ref = shownPhrase
+              ? phrasePoint(listId)
+              : gloss
+                ? pointFromEntry(listId, saveAs.lemma, gloss, {
+                    chapter: viewChapter,
+                    surface: picked.surface,
+                    occurrence: picked.nth,
+                    paragraph: picked.paragraph,
+                    before: picked.before,
+                  })
+                : undefined;
+            const source: WordSource = ref
+              ? {
+                  book: bookKey,
+                  surface: saveAs.surface,
+                  savedAt: Date.now(),
+                  ref,
+                  ...(saveAs.pos ? { pos: saveAs.pos } : {}),
+                  ...(ref.chapter !== undefined ? { chapter: ref.chapter } : {}),
+                }
+              : {
+                  book: bookKey,
+                  title: shelfBook.title,
+                  author: shelfBook.author,
+                  chapter: safeIndex,
+                  ...(chapter.title ? { chapterTitle: chapter.title } : {}),
+                  surface: saveAs.surface,
+                  savedAt: Date.now(),
+                  ...(saveAs.pos ? { pos: saveAs.pos } : {}),
+                };
             saveWord(
               {
                 surface: saveAs.surface,
                 lemma: saveAs.lemma,
                 pos: saveAs.pos,
-                meaning: saveAs.meaning,
-                whyHard: shownPhrase ? "" : card.whyHard,
+                meaning: "",
+                whyHard: "",
                 recommend: !isEasyKey(saveAs.lemma),
-                sentence: card.sentence,
-                seen: shownPhrase ? undefined : bookStats[pickedKey]?.count,
-                uses:
-                  !shownPhrase && bookStats[pickedKey] && bookStats[pickedKey].uses.length > 1
-                    ? bookStats[pickedKey].uses.join(" and ")
-                    : "",
+                sentence: "",
               },
               source,
             );

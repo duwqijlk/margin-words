@@ -256,6 +256,21 @@ export function buildSyncItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncIte
   return items;
 }
 
+/** A pointer source is stored without the sentence, the meaning, or a quote from the e-book. */
+function publishSource(source: Extract<SourceRecord, { book: string }>): SourceRecord {
+  const keyed = { ...source, k: sourceKey(source) };
+  if (!keyed.ref) return keyed;
+  return {
+    k: keyed.k,
+    book: keyed.book,
+    surface: keyed.surface,
+    savedAt: keyed.savedAt,
+    ref: keyed.ref,
+    ...(keyed.chapter !== undefined ? { chapter: keyed.chapter } : {}),
+    ...(keyed.pos ? { pos: keyed.pos } : {}),
+  };
+}
+
 /** The wordbook as sync items: one per first letter, so no stored row grows without bound. */
 export function wordbookItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncItem[] {
   const shards = new Map<string, { words: WordbookRecord[]; removed: Array<{ lemma: string; updatedAt: number }> }>();
@@ -268,12 +283,19 @@ export function wordbookItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncItem
   const here = byLemma(snapshot.words);
   for (const [lemma, word] of here) {
     const updatedAt = Math.max(meta.wordTouched[lemma] ?? 0, word.updatedAt, word.lastReviewedAt ?? 0, word.createdAt);
-    const liveSources = word.sources.filter(isLive).map((source) => ({ ...source, k: sourceKey(source) }));
+    const liveSources = word.sources.filter(isLive).map((source) => publishSource(source));
     const liveKeys = new Set(liveSources.map((source) => source.k));
     const stubs: SourceRecord[] = Object.entries(meta.sourceRemoved[lemma] ?? {})
       .filter(([k]) => !liveKeys.has(k))
       .map(([k, removed]) => ({ k, removed }));
-    shardOf(lemma).words.push({ ...word, updatedAt, sources: [...liveSources, ...stubs] });
+    const published: WordbookRecord = { ...word, updatedAt, sources: [...liveSources, ...stubs] };
+    if (liveSources.length > 0 && liveSources.every((source) => isLive(source) && source.ref)) {
+      published.sentence = "";
+      published.meaning = "";
+      published.whyHard = "";
+      delete published.uses;
+    }
+    shardOf(lemma).words.push(published);
   }
   for (const [lemma, updatedAt] of Object.entries(meta.wordRemoved)) {
     if (here.has(lemma)) continue;
