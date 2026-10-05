@@ -1561,22 +1561,30 @@ export function pickPhrase(
  * that phrase's own words. A word sitting in the gap (`your family` in `let your family down`)
  * is left out: the tap still opens the phrase, but the line is for the phrase itself.
  */
-export function phraseWordRanges(
+/** Same places as `phraseWordRanges`, plus the phrase key, so a saved phrase can mark its own words. */
+export function phraseWordMarks(
   phrases: Record<string, PhraseEntry> | undefined,
   text: string,
-): { start: number; end: number }[] {
+): { start: number; end: number; key: string }[] {
   if (!phrases || Object.keys(phrases).length === 0 || !text) return [];
   const tokens = tokenize(text);
   if (tokens.length === 0) return [];
   const { hits, solid } = phraseCandidates(phrases, text, tokens);
-  const ranges: { start: number; end: number }[] = [];
+  const ranges: { start: number; end: number; key: string }[] = [];
   for (let i = 0; i < tokens.length; i += 1) {
     const token = tokens[i] as Token;
     const best = phraseAt(hits, solid, tokens, i, token.w);
     if (!best || !best.indexes.includes(i)) continue;
-    ranges.push({ start: token.start, end: token.end });
+    ranges.push({ start: token.start, end: token.end, key: best.key });
   }
   return ranges;
+}
+
+export function phraseWordRanges(
+  phrases: Record<string, PhraseEntry> | undefined,
+  text: string,
+): { start: number; end: number }[] {
+  return phraseWordMarks(phrases, text).map(({ start, end }) => ({ start, end }));
 }
 
 /* ------------------------------------------------------------------ merging stored extras */

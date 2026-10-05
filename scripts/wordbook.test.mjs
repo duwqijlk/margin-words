@@ -12,6 +12,7 @@ import {
   mergeSources,
   migrateWords,
   rehomeForeignSources,
+  savedFromCard,
   withoutBook,
   MAX_SOURCES,
 } from "../src/lib/wordbook.ts";
@@ -197,6 +198,56 @@ test("an irregular form with the same meaning stays on the card", () => {
     fixed.sources.map((source) => source.surface),
     ["go", "went"],
   );
+});
+
+test("a phrase card stores the phrase, not the easy word that was tapped", () => {
+  const phrase = savedFromCard(
+    { surface: "in", key: "in", pos: "", meaning: "This word is very common." },
+    {
+      key: "tune in",
+      matched: "tuning in",
+      pos: "idiom",
+      meaning: "To watch or listen from another place.",
+    },
+  );
+  assert.deepEqual(phrase, {
+    lemma: "tune in",
+    surface: "tuning in",
+    pos: "idiom",
+    meaning: "To watch or listen from another place.",
+  });
+  const word = savedFromCard(
+    { surface: "in", key: "in", pos: "", meaning: "This word is very common." },
+    null,
+  );
+  assert.equal(word.lemma, "in");
+  assert.equal(word.surface, "in");
+});
+
+test("a saved phrase stays a phrase when the sentence only contains the written form", () => {
+  const sentence = "And we've got students tuning in from all across America.";
+  const card = {
+    ...old("a1", "tune in", {
+      surface: "tuning in",
+      pos: "idiom",
+      meaning: "To watch or listen from another place.",
+      sentence,
+    }),
+    sources: [
+      place(
+        "tuning in",
+        sentence,
+        "To watch or listen from another place.",
+        "idiom",
+        "Chapter 1",
+      ),
+    ],
+  };
+  const [kept] = rehomeForeignSources([card]);
+  assert.equal(kept.lemma, "tune in");
+  assert.equal(kept.surface, "tuning in");
+  assert.equal(kept.sources.length, 1);
+  assert.equal(kept.sources[0].surface, "tuning in");
 });
 
 test("a source finds its shelf book by title and author, not by card id", () => {
