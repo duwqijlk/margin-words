@@ -88,14 +88,14 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA (Project Gutenberg).",
    "lexile": "970L",
-   "updated": "2026-10-04",
-   "rev": "7bd7ee939cb8",
+   "updated": "2026-10-05",
+   "rev": "03ab0105b79f",
    "version": 2,
    "chapters": 39,
-   "words": 2440,
+   "words": 2487,
    "paragraphs": 41,
    "sentences": 9,
-   "phrases": 35,
+   "phrases": 72,
    "coined": 0,
    "epub": {
     "url": "anne/book.epub",
@@ -104,9 +104,9 @@
    },
    "glossary": {
     "url": "anne/glossary.json",
-    "bytes": 343836,
-    "sha256": "b76b640950a47638f5c745e4ce137b2fee8823c4b8a85c12347485e451869883",
-    "rev": "b76b640950a4"
+    "bytes": 430019,
+    "sha256": "80bf7f011ee34e88cb9baf828990ad6cd4b8a49749aaf4abcc40dbfbc4baa6fc",
+    "rev": "80bf7f011ee3"
    },
    "cover": {
     "url": "anne/cover.jpg",
@@ -115,8 +115,8 @@
    },
    "zip": {
     "url": "anne.zip",
-    "bytes": 443670,
-    "sha256": "3ec240ba60fa6c89bddf325448d9b8d8bef5d54fe81e2a1c665f867a481c150c"
+    "bytes": 458574,
+    "sha256": "6c043348ca4e44b181ad06d81b097f8f3a8de5b2448e1911452d5b63a661d8ba"
    }
   },
   {
@@ -128,14 +128,14 @@
    "lexile": "900L",
    "oldFashioned": true,
    "oldFashionedReason": "Barrie uses words like anon, fain and ofttimes.",
-   "updated": "2026-10-04",
-   "rev": "e49ba7388fe3",
+   "updated": "2026-10-05",
+   "rev": "ccec696591db",
    "version": 2,
    "chapters": 21,
-   "words": 705,
+   "words": 734,
    "paragraphs": 41,
    "sentences": 66,
-   "phrases": 168,
+   "phrases": 178,
    "coined": 1,
    "epub": {
     "url": "peter-pan/book.epub",
@@ -144,9 +144,9 @@
    },
    "glossary": {
     "url": "peter-pan/glossary.json",
-    "bytes": 196732,
-    "sha256": "40c3f2a6e3fae3f3520a1b9d7f6aca1335cac719b81688af3699fbf1ad823898",
-    "rev": "40c3f2a6e3fa"
+    "bytes": 225010,
+    "sha256": "9621deea84ea932cb90163e3f5e67899a9101606c9ca1511c6a3522d531aedb0",
+    "rev": "9621deea84ea"
    },
    "cover": {
     "url": "peter-pan/cover.jpg",
@@ -155,8 +155,8 @@
    },
    "zip": {
     "url": "peter-pan.zip",
-    "bytes": 890793,
-    "sha256": "2fe60dd0656f7e994aebd1246de0557bab50ad725fe5a88c003c54c4a280c020"
+    "bytes": 895181,
+    "sha256": "1f2524fd2b45edda3e12792ad3deb75e339e1d567723cdce3b518f582f27e023"
    }
   },
   {
@@ -166,14 +166,14 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA.",
    "lexile": "930L",
-   "updated": "2026-10-04",
-   "rev": "3cc1abfd0753",
+   "updated": "2026-10-05",
+   "rev": "46eb78820744",
    "version": 2,
    "chapters": 42,
-   "words": 576,
+   "words": 597,
    "paragraphs": 51,
    "sentences": 60,
-   "phrases": 65,
+   "phrases": 77,
    "coined": 0,
    "epub": {
     "url": "tom-sawyer/book.epub",
@@ -182,9 +182,9 @@
    },
    "glossary": {
     "url": "tom-sawyer/glossary.json",
-    "bytes": 201633,
-    "sha256": "fa026278f72a197446263fb82b2b01fcc6d314de9104704f8cbcbe6f5ab22295",
-    "rev": "fa026278f72a"
+    "bytes": 234563,
+    "sha256": "4bfee3aceb18e1fe410a3181dda022cd156392ee24f88f8d1458c892371ff897",
+    "rev": "4bfee3aceb18"
    },
    "cover": {
     "url": "tom-sawyer/cover.jpg",
@@ -193,8 +193,8 @@
    },
    "zip": {
     "url": "tom-sawyer.zip",
-    "bytes": 817246,
-    "sha256": "e82865aabe6b0a359cf020ea41b5494f174f5abbfd39bf198c51931624fea1c5"
+    "bytes": 822656,
+    "sha256": "04a9fa736aaa2c0a21930366621d0193cef807efe4aedc9fec9198bfd4ec0e4a"
    }
   },
   {
@@ -206,14 +206,14 @@
    "lexile": "1060L",
    "oldFashioned": true,
    "oldFashionedReason": "Long, old-fashioned sentences. Lexile 1060L, with thee, thy and anon.",
-   "updated": "2026-10-04",
-   "rev": "44549928c885",
+   "updated": "2026-10-05",
+   "rev": "0341a4da5550",
    "version": 2,
    "chapters": 16,
-   "words": 860,
+   "words": 868,
    "paragraphs": 46,
    "sentences": 54,
-   "phrases": 133,
+   "phrases": 147,
    "coined": 1,
    "epub": {
     "url": "wind-in-the-willows/book.epub",
@@ -222,9 +222,9 @@
    },
    "glossary": {
     "url": "wind-in-the-willows/glossary.json",
-    "bytes": 236194,
-    "sha256": "0de6fa78872011b0e97eb64e7e13b36a514fcd479ffc7a0ab44e2e5ac5ce5135",
-    "rev": "0de6fa788720"
+    "bytes": 257447,
+    "sha256": "a940e90cff16fdb753ece8a882abce29c27ad2573f75a04eccddb622decd6cea",
+    "rev": "a940e90cff16"
    },
    "cover": {
     "url": "wind-in-the-willows/cover.jpg",
@@ -233,8 +233,8 @@
    },
    "zip": {
     "url": "wind-in-the-willows.zip",
-    "bytes": 999348,
-    "sha256": "9f83c6c802ff3f05375c4e2432115902e7c94246ea77f0d3d49955e4c5078170"
+    "bytes": 1002829,
+    "sha256": "005b102a7dc11fcf57325f17c1ba92af847291fe44bed9e02766d04e73cc13ba"
    }
   },
   {
@@ -244,14 +244,14 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA.",
    "lexile": "1090L",
-   "updated": "2026-10-04",
-   "rev": "6e05fd520fb9",
+   "updated": "2026-10-05",
+   "rev": "6773bdfbd344",
    "version": 2,
    "chapters": 52,
-   "words": 689,
+   "words": 702,
    "paragraphs": 68,
    "sentences": 69,
-   "phrases": 62,
+   "phrases": 81,
    "coined": 0,
    "epub": {
     "url": "little-women/book.epub",
@@ -260,9 +260,9 @@
    },
    "glossary": {
     "url": "little-women/glossary.json",
-    "bytes": 267241,
-    "sha256": "8db413bd1b807b4c77f8ed064dcf6e9d7151545d283b83549d32fdbbf97822a2",
-    "rev": "8db413bd1b80"
+    "bytes": 321438,
+    "sha256": "61ab795b55a9fe161d012d03aa9728a154a478d64e1dbd729cbcc2c7f18901a4",
+    "rev": "61ab795b55a9"
    },
    "cover": {
     "url": "little-women/cover.jpg",
@@ -271,8 +271,8 @@
    },
    "zip": {
     "url": "little-women.zip",
-    "bytes": 1149496,
-    "sha256": "571121e50d94c12095b2cef86131b53f6bb256479a13695550b56489d23f48a6"
+    "bytes": 1158746,
+    "sha256": "3c269ed6ad120e4c5cdec333de425e210640c44ab9a230efb99dda57a451fe0d"
    }
   },
   {
@@ -282,14 +282,14 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA.",
    "lexile": "970L",
-   "updated": "2026-10-04",
-   "rev": "43ccd8bd1c42",
+   "updated": "2026-10-05",
+   "rev": "8b5d8159104d",
    "version": 2,
    "chapters": 31,
-   "words": 776,
+   "words": 786,
    "paragraphs": 44,
    "sentences": 43,
-   "phrases": 65,
+   "phrases": 78,
    "coined": 0,
    "epub": {
     "url": "secret-garden/book.epub",
@@ -298,9 +298,9 @@
    },
    "glossary": {
     "url": "secret-garden/glossary.json",
-    "bytes": 187050,
-    "sha256": "5ac77140a8d6b2585e7eabb4ee73e83eab16d6f0d021d6e037dcc626429c48a1",
-    "rev": "5ac77140a8d6"
+    "bytes": 223648,
+    "sha256": "f412bdcf3fb71c35ef909c91c4215e8286d78b0589a76c18067613d3e50b0cbc",
+    "rev": "f412bdcf3fb7"
    },
    "cover": {
     "url": "secret-garden/cover.jpg",
@@ -309,8 +309,8 @@
    },
    "zip": {
     "url": "secret-garden.zip",
-    "bytes": 747516,
-    "sha256": "eace1dbe8347ea00a9a5db5b796616d7d839107b4bc186079c5f496d39df0b78"
+    "bytes": 752658,
+    "sha256": "e5bd63648bed2e804ef63bd5c7deabc0f68f9450063755a270e73e5f0e430a5d"
    }
   },
   {
@@ -320,14 +320,14 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA.",
    "lexile": "1020L",
-   "updated": "2026-10-04",
-   "rev": "2e853245ebe7",
+   "updated": "2026-10-05",
+   "rev": "5236ec8b3f0f",
    "version": 2,
    "chapters": 54,
-   "words": 914,
+   "words": 926,
    "paragraphs": 53,
    "sentences": 50,
-   "phrases": 73,
+   "phrases": 85,
    "coined": 0,
    "epub": {
     "url": "black-beauty/book.epub",
@@ -336,9 +336,9 @@
    },
    "glossary": {
     "url": "black-beauty/glossary.json",
-    "bytes": 256454,
-    "sha256": "72a72b1a7caee5f787bd95d4848391a78229a0017a49598f2e3751fbe04a49df",
-    "rev": "72a72b1a7cae"
+    "bytes": 284652,
+    "sha256": "3a4206b159573734796d6ad284bd301dbb84fe3682cf5f9e561d2df041a79864",
+    "rev": "3a4206b15957"
    },
    "cover": {
     "url": "black-beauty/cover.jpg",
@@ -347,8 +347,8 @@
    },
    "zip": {
     "url": "black-beauty.zip",
-    "bytes": 588362,
-    "sha256": "3a874f1ebda23089c8e62f7367da0185633b5223d9f7ac89b40c2602c0d62fd8"
+    "bytes": 592416,
+    "sha256": "9d868ae295bf8fb2eaf60c2b0c02c950e8db1645045b844240bf6c4d61fd397c"
    }
   },
   {
@@ -402,14 +402,14 @@
    "lexile": "1100L",
    "oldFashioned": true,
    "oldFashionedReason": "Kipling's stories use thou, thee and hath. The language is old and the Lexile is 1100L.",
-   "updated": "2026-10-04",
-   "rev": "d3dc86bf84ce",
+   "updated": "2026-10-05",
+   "rev": "dc9f66e862d8",
    "version": 2,
    "chapters": 12,
-   "words": 381,
+   "words": 400,
    "paragraphs": 50,
    "sentences": 46,
-   "phrases": 64,
+   "phrases": 70,
    "coined": 0,
    "epub": {
     "url": "jungle-book/book.epub",
@@ -418,9 +418,9 @@
    },
    "glossary": {
     "url": "jungle-book/glossary.json",
-    "bytes": 167746,
-    "sha256": "c7a6504fc3d9b6debad760a871a0a0469c7719bfd14b4e5ab98b90fc0743ba0c",
-    "rev": "c7a6504fc3d9"
+    "bytes": 193578,
+    "sha256": "7c1464ba8bb039e9d842208d70b5b6fc5ad7d3c5dc9d69f4ab170eede016e85e",
+    "rev": "7c1464ba8bb0"
    },
    "cover": {
     "url": "jungle-book/cover.jpg",
@@ -429,8 +429,8 @@
    },
    "zip": {
     "url": "jungle-book.zip",
-    "bytes": 707797,
-    "sha256": "b3da150614de493c23ca1a13f83f48ef185983db5a8155c010760252fb88c32d"
+    "bytes": 711794,
+    "sha256": "702dea599c7039c00f278db358a51dcb7bbd0a995d8480f510462fd4c3e4a327"
    }
   },
   {
@@ -440,14 +440,14 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA.",
    "lexile": "1030L",
-   "updated": "2026-10-04",
-   "rev": "0238e54b2cb5",
+   "updated": "2026-10-05",
+   "rev": "a7a6b4072ae9",
    "version": 2,
    "chapters": 29,
-   "words": 689,
+   "words": 701,
    "paragraphs": 43,
    "sentences": 37,
-   "phrases": 69,
+   "phrases": 76,
    "coined": 1,
    "epub": {
     "url": "wizard-of-oz/book.epub",
@@ -456,9 +456,9 @@
    },
    "glossary": {
     "url": "wizard-of-oz/glossary.json",
-    "bytes": 206171,
-    "sha256": "c81712100be0be1fbf0fe6997990565d829b085e3553a84c6333eef4a540cd3f",
-    "rev": "c81712100be0"
+    "bytes": 216719,
+    "sha256": "85a621f95a1ac2ad8179d99c02a9b4f10f5ede2f29f312e6e020963fe9af7cb6",
+    "rev": "85a621f95a1a"
    },
    "cover": {
     "url": "wizard-of-oz/cover.jpg",
@@ -467,14 +467,14 @@
    },
    "zip": {
     "url": "wizard-of-oz.zip",
-    "bytes": 783535,
-    "sha256": "fba2c3bfd2b969440ea555f3265a3486c1b38fc61776651b8fa7eef3df54191c"
+    "bytes": 785228,
+    "sha256": "f83e4afdf104901f3120448da95aec8b0969ec5e5fa1fce2deae1dcc45b4aac0"
    }
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11253840,
-  "sha256": "fcc9cbcf9398c86baa530c0a251901e0072de51f197cd1265e0393a5f84b7016"
+  "bytes": 11306149,
+  "sha256": "43c1d065a9e631e7663ba39f537675274461da1be829cf715c88cbb0825f7108"
  }
 }
