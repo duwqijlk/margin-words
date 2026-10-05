@@ -1,12 +1,12 @@
 import { BookMarked, CornerDownRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { loadStoredBook } from "@/lib/book-db";
 import { jumpToSource } from "@/lib/jump-store";
 import { focusSentence, recoverClippedSentence, sentenceHasWord } from "@/lib/text";
 import type { Book, VocabEntry } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
-import { bookForSource } from "@/lib/wordbook";
+import { bookForSource, sourceBelongsTo } from "@/lib/wordbook";
 import { btn, chip, cn, Highlighted } from "@/components/ui";
 
 /** Where a saved word was met: the sentence with the word marked, the book and chapter, and a way back to it. */
@@ -28,7 +28,10 @@ export function WordSources({
   const { t, tn } = useT();
   const [all, setAll] = useState(false);
   const repairSourceSentence = useVocab((state) => state.repairSourceSentence);
-  const sources = word.sources;
+  const sources = useMemo(
+    () => word.sources.filter((source) => sourceBelongsTo(word, source)),
+    [word],
+  );
   // Older saves cut a long sentence from the start, so the word itself was left off the end.
   // When this device still has the book, put the word back into the excerpt.
   useEffect(() => {

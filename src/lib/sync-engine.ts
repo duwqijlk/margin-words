@@ -37,6 +37,7 @@ import {
   type SyncItem,
   type WordbookRecord,
 } from "@/lib/sync-merge";
+import { rehomeForeignSources } from "@/lib/wordbook";
 import { useVocab } from "@/lib/vocab-store";
 import type { Book, VocabEntry, WordSource } from "@/lib/vocab-model";
 
@@ -262,7 +263,7 @@ function mergeWordbook(local: VocabEntry[], items: SyncItem[], books: Book[]): V
   }
   const shardIds = new Set(shards.map((item) => item.itemId));
   const kept = local.filter((word) => !seen.has(lemmaKey(word.lemma)) && !shardIds.has(wordbookItemId(wordbookShard(word.lemma))));
-  return [...out, ...kept];
+  return rehomeForeignSources([...out, ...kept]);
 }
 
 async function applyMerged(items: SyncItem[]) {
