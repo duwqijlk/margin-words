@@ -13,13 +13,13 @@
    "series": "Alice",
    "seriesNumber": 1,
    "updated": "2026-10-05",
-   "rev": "affc81982295",
+   "rev": "00e31d2b5e20",
    "version": 2,
    "chapters": 13,
-   "words": 1008,
+   "words": 1018,
    "paragraphs": 50,
    "sentences": 16,
-   "phrases": 48,
+   "phrases": 56,
    "coined": 4,
    "epub": {
     "url": "alice/book.epub",
@@ -28,9 +28,9 @@
    },
    "glossary": {
     "url": "alice/glossary.json",
-    "bytes": 203498,
-    "sha256": "2d3b53057af9f3a914326ef3891726f957f01bcb78dd9c0009d72eed4ff8414a",
-    "rev": "2d3b53057af9"
+    "bytes": 221661,
+    "sha256": "aea351812068e75be15ba9910d414a2d8c0bb08624932dac942277a031d0d5b6",
+    "rev": "aea351812068"
    },
    "cover": {
     "url": "alice/cover.jpg",
@@ -39,8 +39,8 @@
    },
    "zip": {
     "url": "alice.zip",
-    "bytes": 238974,
-    "sha256": "80c080a71fabc6f316bcdaf1a06b65833898530222a9897a7cb767fd404bed6a"
+    "bytes": 242059,
+    "sha256": "c66022d39e8371b2b91e7fd565946af516b84e39e62ea8fd473d3db5662c9841"
    }
   },
   {
@@ -474,7 +474,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11306282,
-  "sha256": "1e8209ded5639a39c80b4ab16aac5a55944dbe262a15a6233ee06b2281474be9"
+  "bytes": 11309368,
+  "sha256": "5fe89443a79f944f5faac33ac9394f916fc382cbe4b5f7f5fc3057a77061b445"
  }
 }
