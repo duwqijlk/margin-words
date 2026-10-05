@@ -5869,6 +5869,403 @@
    "forms": [
     "rocks"
    ]
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Near.",
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "close",
+       "context": "She came close to Dorothy and kissed"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "close",
+       "context": "so big and close together that their branches"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "close",
+       "context": "and he walked close to Dorothy’s side, and"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "close",
+       "context": "great tree, standing close to the ditch. If"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "close",
+       "context": "ears were lying close to its head and"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "close",
+       "context": "leader. He flew close to the Witch and"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "close",
+       "context": "room. They kept close to the door and"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "close",
+       "context": "her nicked elbow close to her side"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "the door and closer to one another, for"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "close",
+       "context": "her of the danger close at hand"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "close",
+       "context": "sharp claws. But stand close behind me, and I"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "close",
+       "context": "and as Dorothy lay close beside the Lion and"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "close",
+       "context": "Dorothy had to follow close behind and keep him"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "closer"
+   ]
+  },
+  "content": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happy with the way things are.",
+   "senses": [
+    {
+     "meaning": "Happy with the way things are.",
+     "whyHard": "Not the usual meaning! Usually: content means what is inside something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "content",
+       "context": "part, I am content in knowing I am"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "drawing": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To pull. Here, to pull air in.",
+   "senses": [
+    {
+     "meaning": "To pull. Here, to pull air in.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "drawing",
+       "context": "the Cowardly Lion, drawing a long breath of"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "drew": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Pulled, or moved.",
+   "senses": [
+    {
+     "meaning": "Pulled, or moved.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "When these people drew near the house where"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "to nothing, Dorothy drew another bucket of water"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "cow. As they drew near, the cow suddenly"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To give or pass something to someone.",
+   "senses": [
+    {
+     "meaning": "To give or pass something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "handed",
+       "context": "dust out of them handed them to Dorothy"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "handed",
+       "context": "us go.” And she handed the basket to the"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "handed"
+   ]
+  },
+  "judged": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Decided.",
+   "senses": [
+    {
+     "meaning": "Decided.",
+     "whyHard": "Not the usual meaning! Usually: a judge is a person who decides in a court.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "judged",
+       "context": "meeting, and he judged by their snarling and"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To be alive, or the time a person is alive.",
+   "senses": [
+    {
+     "meaning": "To be alive, or the time a person is alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "as the Witch lives, you must remain a"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "tables, but our lives are much pleasanter here"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "master": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A teacher, or the person in charge.",
+   "senses": [
+    {
+     "meaning": "A teacher, or the person in charge.",
+     "whyHard": "Not the usual meaning! Usually: to master something means to learn it very well.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "master",
+       "context": "without calling anybody master. Perhaps some of us"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "master",
+       "context": "by a great master. I can imitate any"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "mate": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To join as a pair.",
+   "senses": [
+    {
+     "meaning": "To join as a pair.",
+     "whyHard": "Not the usual meaning! Usually: a mate is a friend or a partner.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "mate",
+       "context": "and ugly to mate with one so beautiful"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "party": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A group of people who are together.",
+   "senses": [
+    {
+     "meaning": "A group of people who are together.",
+     "whyHard": "Not the usual meaning! Usually: a party is a time when people meet to have fun.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "party",
+       "context": "addition to the party at first. He smelled"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "party",
+       "context": "to join your party, I will also go"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "party",
+       "context": "comrade join the party, for soon after they"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "form": "party",
+       "context": "a passage for the entire party"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "party",
+       "context": "Our little party of travelers awakened the"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "party",
+       "context": "looked sharply at the queer party"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "party",
+       "context": "of the little party was satisfied except Dorothy"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "party",
+       "context": "room for the party to pass underneath. So"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "still",
+       "context": "Dorothy sat quite still on the floor and"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "still",
+       "context": "in the road and lay still"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "still",
+       "context": "the air is generally still, but the great pressure"
+      }
+     ]
+    }
+   ]
+  },
+  "make-believe": {
+   "pos": "adjective",
+   "meaning": "Pretend. Not real."
   }
  },
  "paragraphs": [
@@ -7156,6 +7553,47 @@
    "meaning": "In great number and very quickly.",
    "pos": "idiom",
    "example": "fell thick and fast"
+  },
+  "might as well": {
+   "meaning": "There is no strong reason not to.",
+   "pos": "idiom",
+   "example": "I may as well continue the part a little longer",
+   "forms": [
+    "may as well"
+   ]
+  },
+  "at any rate": {
+   "meaning": "At least; whatever else is true.",
+   "pos": "idiom",
+   "example": "make-believe scare the crows, at any rate"
+  },
+  "catch sight of": {
+   "meaning": "To see something suddenly.",
+   "pos": "idiom",
+   "example": "several of the beasts caught sight of him",
+   "forms": [
+    "caught sight of"
+   ]
+  },
+  "drawing room": {
+   "meaning": "A room where people sit with guests.",
+   "pos": "phrase",
+   "example": "and cabinets and drawing-room tables"
+  },
+  "chest of drawers": {
+   "meaning": "A piece of furniture with drawers.",
+   "pos": "phrase",
+   "example": "going to a chest of drawers"
+  },
+  "at hand": {
+   "meaning": "Near. Close enough to reach now.",
+   "pos": "phrase",
+   "example": "the danger close at hand"
+  },
+  "may as well": {
+   "meaning": "There is no strong reason not to. You could do it.",
+   "pos": "idiom",
+   "example": "years that I may as well continue the part a"
   }
  }
 }

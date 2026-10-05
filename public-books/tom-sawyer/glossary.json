@@ -3219,7 +3219,7 @@
    "senses": [
     {
      "meaning": "Best clothes, kept for show. Here, her best pair of glasses.",
-     "whyHard": "Not the usual meaning! Usually: state means how something is, or a part of a country.",
+     "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of one.",
      "trickyMeaning": true,
      "default": true,
      "anchors": [
@@ -3228,6 +3228,37 @@
        "occurrence": 1,
        "form": "state",
        "context": "boy; they were her state pair, the pride"
+      }
+     ]
+    },
+    {
+     "meaning": "The way someone or something is at one time.",
+     "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of one.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "state",
+       "context": "dressed to an intolerable state of discomfort; rows of"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "state",
+       "context": "was in a tremendous state of excitement. It was"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "state",
+       "context": "was in the same state of wretchedness and terror"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "state",
+       "context": "particular reason for this state of things; had had"
       }
      ]
     }
@@ -4361,6 +4392,1232 @@
        "context": "rose in appeal] —“did you tear this book"
       }
      ]
+    }
+   ]
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Near.",
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "close",
+       "context": "barrel in the shade close by, dangled his legs"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "close",
+       "context": "and plastered his hair close down to his head"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "bolder, and took a closer smell; then lifted his"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "closer",
+       "context": "the creature, making even closer snatches at it with"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "close",
+       "context": "around, with his nose close to the floor, and"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "close",
+       "context": "softly, with his mouth close to her ear. And"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "close",
+       "context": "and put his mouth close to this depression and"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "close",
+       "context": "They buried the shingle close to the wall, with"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "close",
+       "context": "Close upon the hour of noon"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "form": "close",
+       "context": "knife had been found close to the murdered man"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "close",
+       "context": "and Tom bent down close to it and said"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "close",
+       "context": "of clear cold water close by, and the boys"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "closest",
+       "context": "the shore it lay closest to was only separated"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "form": "close",
+       "context": "hour, so it was close upon the middle of"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "close",
+       "context": "him —I was as close as that —and he"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "close",
+       "context": "and their heads so close together over the book"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "close",
+       "context": "s a ghost mighty close behind it. It stands"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "close",
+       "context": "out into that little close alley between the tavern"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "Huck found himself drawing closer and closer to the"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "form": "closer",
+       "context": "himself drawing closer and closer to the alley; fearing"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "close",
+       "context": "two chaps slipping along close by me, with something"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "close",
+       "context": "Huck was in a close place —the inquiring eye"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "close",
+       "context": "dead, with his face close to the crack of"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "form": "close",
+       "context": "s bowie-knife lay close by, its blade broken"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 3,
+       "form": "close",
+       "context": "ways, because it’s close to home and circuses"
+      }
+     ]
+    },
+    {
+     "meaning": "The end of something.",
+     "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "close",
+       "context": "However, this sort of close to the day’s"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "closer",
+    "closest"
+   ]
+  },
+  "content": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happy with the way things are.",
+   "senses": [
+    {
+     "meaning": "Happy with the way things are.",
+     "whyHard": "Not the usual meaning! Usually: content means what is inside something.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "content",
+       "context": "would have been content to find twenty percent"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "content",
+       "context": "they. They were content to reach ground again"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "content",
+       "context": "lost its tranquil content, and took a melancholy"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "contented",
+       "context": "chuckled in a very contented and satisfied way"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "contented"
+   ]
+  },
+  "curious": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Strange.",
+   "senses": [
+    {
+     "meaning": "Strange.",
+     "whyHard": "Not the usual meaning! Usually: curious means wanting to know.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "curious",
+       "context": "What a curious kind of a fool"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "curious",
+       "context": "It is mighty curious, Huck. I don’t understand"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "curious",
+       "context": "be crying about? Curious that she should cry"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "deal": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A lot. A large amount.",
+   "senses": [
+    {
+     "meaning": "A lot. A large amount.",
+     "whyHard": "Not the usual meaning! Usually: a deal is an agreement, or giving out cards.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "deal",
+       "context": "books and making a deal of the splutter and"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "deal",
+       "context": "I’d a good deal rather be a pirate"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "deal",
+       "context": "to camp, a good deal awed; but they found"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "deal",
+       "context": "The thought took a deal of the spirit out"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "deal",
+       "context": "twould help a good deal. But you couldn’t"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "deal",
+       "context": "relieve you a good deal. But what did give"
+      }
+     ]
+    }
+   ]
+  },
+  "drawing": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To pull something, or to move nearer.",
+   "senses": [
+    {
+     "meaning": "To pull something, or to move nearer.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "drawing",
+       "context": "it will keep drawing and drawing, trying to"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "drawing",
+       "context": "keep drawing and drawing, trying to fetch the"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "drawing",
+       "context": "Huck found himself drawing closer and closer to"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "The depth of water a boat needs.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "drawing",
+       "context": "himself to be drawing nine feet of water"
+      }
+     ]
+    }
+   ]
+  },
+  "drawn": {
+   "senseOnly": true,
+   "pos": "past participle",
+   "meaning": "Pulled along, or pulled out.",
+   "senses": [
+    {
+     "meaning": "Pulled along, or pulled out.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "hung about the courtroom, drawn by an almost irresistible"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "in an open carriage drawn by shouting citizens, thronged"
+      }
+     ]
+    },
+    {
+     "meaning": "Looking tight and tired.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "sat looking into her drawn face and saw it"
+      }
+     ]
+    }
+   ]
+  },
+  "drew": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Pulled something, or moved closer.",
+   "senses": [
+    {
+     "meaning": "Pulled something, or moved closer.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "steamboat. As he drew near, he slackened speed"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "drew",
+       "context": "out, and he drew up slowly toward the"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "So the boy eagerly drew his sore toe from"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "an awful, unaccountable fascination drew him on. Arrived at"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "The raft drew beyond the middle of"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "As twilight drew on, the ferryboat went"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "a low place and drew himself out. He put"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "comfort. As the twilight drew on, they found themselves"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "The boys drew a long, grateful breath"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "form": "drew",
+       "context": "his hand in and drew it out"
+      }
+     ]
+    }
+   ]
+  },
+  "fast": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Stuck tight, or fully, as in a deep sleep.",
+   "senses": [
+    {
+     "meaning": "Stuck tight, or fully, as in a deep sleep.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "the silk thread fast to Tom’s tooth with"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "form": "fast",
+       "context": "very pale, both fast asleep. But something informed"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "spliced kite-strings fast and moved on. A"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To give or pass something to someone.",
+   "senses": [
+    {
+     "meaning": "To give or pass something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "handed",
+       "context": "injury, too. He handed in his resignation at"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "hand",
+       "context": "I’d skin you. Hand me that switch"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "handed"
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there, after the rest has gone.",
+   "senses": [
+    {
+     "meaning": "Still there, after the rest has gone.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "left",
+       "context": "necessary incantations, and left it alone a fortnight"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "form": "left",
+       "context": "what daylight was left ought to be economized"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "left",
+       "context": "its slumbers and left the small watcher alone"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "left",
+       "context": "hadn’t any tools left to work with, and"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "form": "left",
+       "context": "the cake was left; they divided and ate"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "left",
+       "context": "drifted on, and each left behind it a slightly"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "left",
+       "context": "little swag we’ve got left"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "form": "left",
+       "context": "there ain’t many left, now, that’s got"
+      }
+     ]
+    }
+   ]
+  },
+  "lie": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To rest flat.",
+   "senses": [
+    {
+     "meaning": "To rest flat.",
+     "whyHard": "Not the usual meaning! Usually: a lie is something that is not true.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "lie",
+       "context": "But he would lie there cold and white"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "lie",
+       "context": "the lamb should lie down together and a"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "lie",
+       "context": "he thought, to lie and slumber and dream"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "lie",
+       "context": "hot sand, and lie there and cover themselves"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "lie",
+       "context": "been shut up. Lie down, child —what a"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "lying",
+       "context": "where Potter was lying, and facing Potter, with"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "lying",
+       "context": "Yes! He was lying there, sound asleep on"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "lying",
+       "context": "food, and was lying off, now, in comfort"
+      }
+     ],
+     "default": true,
+     "forms": [
+      "lying"
+     ]
+    }
+   ],
+   "forms": [
+    "lying"
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "plural noun",
+   "meaning": "The time a person is alive.",
+   "senses": [
+    {
+     "meaning": "The time a person is alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "incident in the lives of the departed, too"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "part of their lives at present"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "master": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A teacher, or the person in charge.",
+   "senses": [
+    {
+     "meaning": "A teacher, or the person in charge.",
+     "whyHard": "Not the usual meaning! Usually: to master something means to learn it very well.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "master",
+       "context": "call any being master or obey anybody; he"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "master",
+       "context": "businesslike alacrity. The master, throned on high in"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 4,
+       "form": "master",
+       "context": "lost his mind. The master said"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 6,
+       "form": "master",
+       "context": "school. Then the master stood over him during"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "master",
+       "context": "before when the master came tiptoeing down the"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "master",
+       "context": "a glimpse of his dread master"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "master",
+       "context": "trouble herself. The master, Mr. Dobbins, had reached"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "master",
+       "context": "few moments the master arrived and school “took"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 3,
+       "form": "master",
+       "context": "drifted by, the master sat nodding in his"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 4,
+       "form": "master",
+       "context": "was lost —the master opened the volume. If"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 5,
+       "form": "master",
+       "context": "next moment the master faced the school. Every"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 6,
+       "form": "master",
+       "context": "count ten —the master was gathering his wrath"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 7,
+       "form": "master",
+       "context": "stillness continued; the master searched face after face"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 8,
+       "form": "master",
+       "context": "these proceedings. The master scanned the ranks of"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 3,
+       "form": "master",
+       "context": "to do the master a mischief. But he"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 4,
+       "form": "master",
+       "context": "delighted, for the master boarded in his father’s"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 6,
+       "form": "master",
+       "context": "and flowers. The master sat throned in his"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 7,
+       "form": "master",
+       "context": "its sympathy. The master frowned, and this completed"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 8,
+       "form": "master",
+       "context": "Now the master, mellow almost to the"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "form": "master",
+       "context": "The master’s pulse stood still"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 5,
+       "form": "master",
+       "context": "The master’s arm performed until"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "master",
+       "context": "Eloquence —and the Master’s Guilded Dome"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "form": "master",
+       "context": "opportunity to do the master a mischief. But he"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 5,
+       "form": "master",
+       "context": "with the plan; the master always prepared himself for"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 9,
+       "form": "master",
+       "context": "blaze abroad from the master’s bald pate —for"
+      }
+     ]
+    }
+   ]
+  },
+  "miss": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A word used before a girl's name.",
+   "senses": [
+    {
+     "meaning": "A word used before a girl's name.",
+     "whyHard": "Not the usual meaning! Usually: to miss means to feel sad that someone is away, or to fail to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "you and old Miss Harper hugged and cried"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "I was in Miss Peters’ class, where I"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "say “Who cares, Miss Smarty?” until the right"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "object": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The thing someone is trying to do.",
+   "senses": [
+    {
+     "meaning": "The thing someone is trying to do.",
+     "whyHard": "Not the usual meaning! Usually: an object is a thing you can see or hold.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "object",
+       "context": "without accomplishing its object. The boy’s first impulse"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "object",
+       "context": "it another important object to accomplish ten thousand"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "party": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A group of people who are together.",
+   "senses": [
+    {
+     "meaning": "A group of people who are together.",
+     "whyHard": "Not the usual meaning! Usually: a party is a time when people meet to have fun.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "parties",
+       "context": "them, the lucky parties took upon themselves a"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "parties",
+       "context": "corridors joined again. Parties were able to elude"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "parties",
+       "context": "in the forenoon parties of jaded men began"
+      }
+     ],
+     "default": true,
+     "forms": [
+      "parties"
+     ]
+    }
+   ],
+   "forms": [
+    "parties"
+   ]
+  },
+  "patient": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A sick person.",
+   "senses": [
+    {
+     "meaning": "A sick person.",
+     "whyHard": "Not the usual meaning! Usually: patient means able to wait without getting angry.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "patient",
+       "context": "laid up a patient for two or three"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "patient",
+       "context": "charge of the patient. She said she would"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "shed": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To let something fall.",
+   "senses": [
+    {
+     "meaning": "To let something fall.",
+     "whyHard": "Not the usual meaning! Usually: a shed is a small building for tools.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "shed",
+       "context": "tears were being shed; accusing memories of unkindness"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "still",
+       "context": "but would sit perfectly still till she asked who"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "still",
+       "context": "master’s pulse stood still, and he stared helplessly"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "still",
+       "context": "room, but Tom sat still, with his arms upon"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "still",
+       "context": "Sid. So he lay still, and stared up into"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "still",
+       "context": "dark. Everything was dismally still. By and by, out"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 3,
+       "form": "still",
+       "context": "If we keep perfectly still, maybe they won’t"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 4,
+       "form": "still",
+       "context": "right, I’ll keep still. Now they’re stuck"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 5,
+       "form": "still",
+       "context": "or two and was still. The half-breed muttered"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "still",
+       "context": "boys’ hearts had stood still, and their hopes too"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "still",
+       "context": "was starlight, and very still. The mighty river lay"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "form": "still",
+       "context": "The Black Avenger stood still with folded arms, “looking"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "still",
+       "context": "accord, he sat as still as a stone, with"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 3,
+       "form": "still",
+       "context": "but he resisted and lay still"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 4,
+       "form": "still",
+       "context": "He had to keep still long after she went"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 5,
+       "form": "still",
+       "context": "at last she was still, only moaning a little"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "form": "still",
+       "context": "become very lonely and still. He made one final"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "form": "still",
+       "context": "was stifling. They sat still, intent and waiting. The"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "form": "still",
+       "context": "It was a very still Sabbath, and the mournful"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "still",
+       "context": "Tom stood still, rather flustered by this"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "still",
+       "context": "forced herself to keep still —because, said she to"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "still",
+       "context": "Keep still! Don’t you budge"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 3,
+       "form": "still",
+       "context": "hope. The children stood still and listened; but there"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 3,
+       "form": "still",
+       "context": "was warned to keep still about his adventure and"
+      }
+     ]
+    },
+    {
+     "meaning": "To make something quiet.",
+     "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "still",
+       "context": "hide her griefs and still her broken heart and"
+      }
+     ]
+    }
+   ]
+  },
+  "watch": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A small clock you can carry.",
+   "senses": [
+    {
+     "meaning": "A small clock you can carry.",
+     "whyHard": "Not the usual meaning! Usually: to watch means to look.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "watch",
+       "context": "and Huck closed his watch and retired to bed"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "watches",
+       "context": "scared. You take their watches and things, but you"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "watches"
+   ]
+  },
+  "wound": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Turned, or moved in a bending path.",
+   "senses": [
+    {
+     "meaning": "Turned, or moved in a bending path.",
+     "whyHard": "Not the usual meaning! Usually: a wound is a cut on the body.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "wound",
+       "context": "of manuscript and wound up with a sermon"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "wound",
+       "context": "their quest. They wound this way and that"
+      }
+     ],
+     "default": true
     }
    ]
   }
@@ -5737,6 +6994,81 @@
     "blue lights"
    ],
    "example": "just some blue lights slipping by the windows"
+  },
+  "in spite of": {
+   "meaning": "Even though something is true.",
+   "pos": "idiom",
+   "example": "But in spite of her, Tom knew"
+  },
+  "a good deal": {
+   "meaning": "A large amount.",
+   "pos": "phrase",
+   "example": "I’d a good deal rather be a pirate",
+   "forms": [
+    "a great deal"
+   ]
+  },
+  "might as well": {
+   "meaning": "There is no strong reason not to.",
+   "pos": "idiom",
+   "example": "he might as well have the marble"
+  },
+  "make out": {
+   "meaning": "To manage to do something.",
+   "pos": "phrasal verb",
+   "example": "if he can make out to put me off"
+  },
+  "set to work": {
+   "meaning": "To start working.",
+   "pos": "idiom",
+   "example": "the boys set to work upon it"
+  },
+  "after all": {
+   "meaning": "When you think again, it is not what you feared.",
+   "pos": "idiom",
+   "example": "was not such a hollow world, after all"
+  },
+  "get hold of": {
+   "meaning": "To catch someone or something.",
+   "pos": "idiom",
+   "example": "if I get hold of you",
+   "forms": [
+    "got hold of"
+   ]
+  },
+  "get rid of": {
+   "meaning": "To make something go away.",
+   "pos": "idiom",
+   "example": "the harder it is to get rid of it",
+   "forms": [
+    "got rid of"
+   ]
+  },
+  "give way": {
+   "meaning": "To stop, so that something else can take its place.",
+   "pos": "phrasal verb",
+   "example": "longing for vengeance had to give way",
+   "forms": [
+    "gave way"
+   ]
+  },
+  "fall asleep": {
+   "meaning": "To begin sleeping.",
+   "pos": "phrasal verb",
+   "example": "caution, and fell asleep congratulating himself",
+   "forms": [
+    "fell asleep"
+   ]
+  },
+  "drawing room": {
+   "meaning": "A room where people sit with guests.",
+   "pos": "phrase",
+   "example": "names, such as “The Drawing-Room"
+  },
+  "at hand": {
+   "meaning": "Near. Close enough to reach now.",
+   "pos": "phrase",
+   "example": "rotten log near at hand and began to dig under"
   }
  }
 }

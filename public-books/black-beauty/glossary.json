@@ -4798,10 +4798,51 @@
    "meaning": "The bone of the mouth that holds the teeth."
   },
   "judge": {
-   "pos": "verb",
-   "meaning": "To decide what you think after you look at something.",
-   "forms": [
-    "judged"
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person who knows enough to decide about something.",
+   "whyHard": "Not the usual meaning! Usually: judge means to decide what you think about something.",
+   "senses": [
+    {
+     "meaning": "A person who knows enough to decide about something.",
+     "whyHard": "Not the usual meaning! Usually: judge means to decide what you think about something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "know, you are the judge of horses in these"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "tell of him; fine judge of horses, ain’t"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "but perhaps I am no judge"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "judge",
+       "context": "know, you are the judge of horses in these"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "judge",
+       "context": "tell of him; fine judge of horses, ain’t he?"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "judge",
+       "context": "but perhaps I am no judge."
+      }
+     ]
+    }
    ]
   },
   "lean": {
@@ -6642,6 +6683,973 @@
   "loitering": {
    "pos": "noun",
    "meaning": "Wasting time by standing about and doing nothing."
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Near.",
+   "whyHard": "Not the usual meaning! Usually: close means to shut.",
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "night I lay down close by her. When it"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "their horses clean over, close upon the dogs. The"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "up at the station close by, and sometimes made"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "a gun went off close by; he pulled up"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "do sometimes come too close to be pleasant, but"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "where the pond is close to the road, the"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "The house stood close by the roadside. Joe"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "I held my face close to him; that was"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "trees with our heads close to each other; and"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "but as we were close to the hedge on"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "context": "of the balls whizzing close to my head struck"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "out of a tavern close by the stand, and"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "context": "up a green lane, close by a meadow with"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "context": "sit in the tavern close by, and get someone"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "context": "she put her face close to my neck and"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "some stables which were close by. Here I was"
+      }
+     ]
+    },
+    {
+     "meaning": "With very little difference.",
+     "whyHard": "Not the usual meaning! Usually: close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "three pounds. A very close bargain was being driven"
+      }
+     ]
+    }
+   ]
+  },
+  "company": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "People who are with you, or guests.",
+   "whyHard": "Not the usual meaning! Usually: a company is a business.",
+   "senses": [
+    {
+     "meaning": "People who are with you, or guests.",
+     "whyHard": "Not the usual meaning! Usually: a company is a business.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "now I missed her company extremely. I often neighed"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "in each other’s company; we did not gallop"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "enjoy each other’s company. It was on these"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "forward; but our gallant company was cruelly overpowered, and"
+      },
+      {
+       "chapter": 42,
+       "occurrence": 1,
+       "context": "housekeeper says they have company coming unexpectedly and must"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "context": "he was very good company. I never thought that"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "context": "think she came for company, for Polly was always"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "context": "I found myself in company with the old broken"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "company",
+       "context": "now I missed her company extremely. I often neighed"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "form": "company",
+       "context": "had in each other’s company; we did not gallop"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "company",
+       "context": "to enjoy each other’s company. It was on these"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "company",
+       "context": "forward; but our gallant company was cruelly overpowered, and"
+      },
+      {
+       "chapter": 42,
+       "occurrence": 1,
+       "form": "company",
+       "context": "housekeeper says they have company coming unexpectedly and must"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "form": "company",
+       "context": "he was very good company. I never thought that"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 1,
+       "form": "company",
+       "context": "think she came for company, for Polly was always"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "form": "company",
+       "context": "I found myself in company with the old broken-down"
+      }
+     ]
+    }
+   ]
+  },
+  "cook": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The person who makes the meals.",
+   "whyHard": "Not the usual meaning! Usually: cook means to make food hot and ready to eat.",
+   "senses": [
+    {
+     "meaning": "The person who makes the meals.",
+     "whyHard": "Not the usual meaning! Usually: cook means to make food hot and ready to eat.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 42,
+       "occurrence": 1,
+       "context": "of an hour; another cook has forgotten to order"
+      },
+      {
+       "chapter": 42,
+       "occurrence": 1,
+       "form": "cook",
+       "context": "of an hour; another cook has forgotten to order"
+      }
+     ]
+    }
+   ]
+  },
+  "curious": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Strange.",
+   "whyHard": "Not the usual meaning! Usually: curious means wanting to know.",
+   "senses": [
+    {
+     "meaning": "Strange.",
+     "whyHard": "Not the usual meaning! Usually: curious means wanting to know.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "are a good many curious things said in the"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "curious",
+       "context": "are a good many curious things said in the"
+      }
+     ]
+    }
+   ]
+  },
+  "draw": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To pull.",
+   "whyHard": "Not the usual meaning! Usually: draw means to make a picture.",
+   "senses": [
+    {
+     "meaning": "To pull.",
+     "whyHard": "Not the usual meaning! Usually: draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "almost before I could draw my breath. I turned"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "tight I could hardly draw my breath; then another"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "a bran poultice, to draw out the heat and"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "context": "with a weight to draw and no firm footing"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "eyes; I could only draw a gasping breath now"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "some more slowly; these drew up at the station",
+       "form": "drew"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "struck three as we drew up at Dr. White",
+       "form": "drew"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "context": "the hill the doctor drew me up. “Now, my",
+       "form": "drew"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "Ginger’s head. He drew my head back and",
+       "form": "drew"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "sign to speak. Blantyre drew the rein a little",
+       "form": "drew"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "very tightly wedged he drew a stone-pick out",
+       "form": "drew"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "paused for awhile and drew a long breath; I",
+       "form": "drew"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "called him, so we drew up to the pavement",
+       "form": "drew"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 2,
+       "context": "the last minute, and drew up on one side",
+       "form": "drew"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "black cloth and was drawn by black horses; after",
+       "form": "drawn"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "number of cabs were drawn up, waiting for passengers",
+       "form": "drawn"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "context": "empty dray coming along, drawn by two powerful horses",
+       "form": "drawn"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "up the road. Scarcely drawing the rein, Blantyre shouted",
+       "form": "drawing"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "of the rein, and drawing the whip gently across",
+       "form": "drawing"
+      },
+      {
+       "chapter": 47,
+       "occurrence": 1,
+       "context": "which prevented me from drawing easily, and by the",
+       "form": "drawing"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "context": "the same time slowly drawing out his purse, “quite",
+       "form": "drawing"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "tight I could hardly draw my breath; then another"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "a bran poultice, to draw out the heat and"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "eyes; I could only draw a gasping breath now"
+      }
+     ],
+     "forms": [
+      "drew",
+      "drawn",
+      "drawing"
+     ]
+    }
+   ],
+   "forms": [
+    "drew",
+    "drawn",
+    "drawing"
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To give something to someone.",
+   "whyHard": "Not the usual meaning! Usually: a hand is the part of the body at the end of the arm.",
+   "forms": [
+    "handed"
+   ],
+   "senses": [
+    {
+     "meaning": "To give something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the part of the body at the end of the arm.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "context": "When he handed Dolly the flowers she",
+       "form": "handed"
+      }
+     ],
+     "forms": [
+      "handed"
+     ]
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Remaining; not gone and not used up.",
+   "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or the past of leave.",
+   "senses": [
+    {
+     "meaning": "Remaining; not gone and not used up.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or the past of leave.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "context": "ll soon have none left; it is every man"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "an ounce of strength left in him"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "left",
+       "context": "“they’ll soon have none left; it is every man’s"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "form": "left",
+       "context": "an ounce of strength left in him.”"
+      }
+     ]
+    }
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The time of being alive.",
+   "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+   "senses": [
+    {
+     "meaning": "The time of being alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "had often saved the lives of men. John had"
+      }
+     ]
+    },
+    {
+     "meaning": "To be alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "will be, if he lives to be eighty years"
+      }
+     ]
+    }
+   ]
+  },
+  "master": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person who teaches.",
+   "whyHard": "Not the usual meaning! Usually: a master is the owner, or the person in charge.",
+   "senses": [
+    {
+     "meaning": "A person who teaches.",
+     "whyHard": "Not the usual meaning! Usually: a master is the owner, or the person in charge.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "and the best riding-master those children have. It"
+      }
+     ]
+    }
+   ]
+  },
+  "miss": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A title before the name of a girl or an unmarried woman.",
+   "whyHard": "Not the usual meaning! Usually: miss means to fail to hit, or to feel sad that someone is away.",
+   "senses": [
+    {
+     "meaning": "A title before the name of a girl or an unmarried woman.",
+     "whyHard": "Not the usual meaning! Usually: miss means to fail to hit, or to feel sad that someone is away.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "it bleed, and so Miss Flora and Miss Jessie"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "so Miss Flora and Miss Jessie, who are very"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "everyone, and especially with Miss Jessie and Flora, who"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "come and play with Miss Jessie and Flora. One"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "was as old as Miss Jessie; two of the"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "context": "that! Did you throw Miss Jessie or Miss Flora"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 4,
+       "context": "throw Miss Jessie or Miss Flora"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "party who went were Miss Jessie and Flora, with"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "he’s all right, miss,” said my driver, “he"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 1,
+       "context": "bell, and asked if Miss Blomefield or Miss Ellen"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 2,
+       "context": "if Miss Blomefield or Miss Ellen was at home"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 3,
+       "context": "stately-looking person, was Miss Blomefield. They all came"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 4,
+       "context": "younger lady —that was Miss Ellen —took to me"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 5,
+       "context": "brought to the door. Miss Ellen was going to"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 6,
+       "context": "to be quite safe, Miss Lavinia at last ventured"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "it bleed, and so Miss Flora and Miss Jessie,"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "it bleed, and so Miss Flora and Miss Jessie,"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "everyone, and especially with Miss Jessie and Flora, who"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "come and play with Miss Jessie and Flora. One"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "come and play with Miss Jessie and Flora. One"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "form": "miss",
+       "context": "that! Did you throw Miss Jessie or Miss Flora?”"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 4,
+       "form": "miss",
+       "context": "that! Did you throw Miss Jessie or Miss Flora?”"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "party who went were Miss Jessie and Flora, with"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "bell, and asked if Miss Blomefield or Miss Ellen"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "bell, and asked if Miss Blomefield or Miss Ellen"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 3,
+       "form": "miss",
+       "context": "very stately-looking person, was Miss Blomefield. They all came"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 4,
+       "form": "miss",
+       "context": "younger lady —that was Miss Ellen —took to me"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 5,
+       "form": "miss",
+       "context": "brought to the door. Miss Ellen was going to"
+      },
+      {
+       "chapter": 50,
+       "occurrence": 6,
+       "form": "miss",
+       "context": "to be quite safe, Miss Lavinia at last ventured"
+      }
+     ]
+    }
+   ]
+  },
+  "state": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The way someone or something is.",
+   "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of a country.",
+   "senses": [
+    {
+     "meaning": "The way someone or something is.",
+     "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of a country.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "in such an exhausted state, bearing marks of such"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "may come to the same state"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "state",
+       "context": "in such an exhausted state, bearing marks of such"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "state",
+       "context": "may come to the same state."
+      }
+     ]
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Not moving.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means even now, or going on.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "context": "mud, the other lay quite still"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "breeching, and to stand still while they are put"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "context": "me, so I stood still on three legs till"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "the field; then standing still under the shade of"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "context": "come along.’ I stood still and let him come"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 4,
+       "context": "one,’ he said, ‘stand still, stand still.’ His very"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 5,
+       "context": "said, ‘stand still, stand still.’ His very voice did"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "this time had stood still at the door, he"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "It was all quite still except the clatter of"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "on, and stood as still as a stone. I"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "it was, we stood still under our lime-tree"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "context": "but I stood very still, for I knew all"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "and have to stand still for minutes together, till"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "context": "Our friend stood still for a moment, and"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 2,
+       "context": "Sunday. He was very still, and neither whistled nor"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 2,
+       "context": "body. I lay perfectly still; indeed, I had no"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "context": "my companions he stood still and gave a pitiful"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "still",
+       "context": "mud, the other lay quite still."
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "still",
+       "context": "and then all was still; the black horse moved"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "still",
+       "context": "breeching, and to stand still while they are put"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "still",
+       "context": "me, so I stood still on three legs till"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "still",
+       "context": "the field; then standing still under the shade of"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "form": "still",
+       "context": "come along.’ I stood still and let him come"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 4,
+       "form": "still",
+       "context": "one,’ he said, ‘stand still, stand still.’ His very"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 5,
+       "form": "still",
+       "context": "one,’ he said, ‘stand still, stand still.’ His very"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "still",
+       "context": "this time had stood still at the door, he"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "still",
+       "context": "behind us, all was still. Master led the way"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "still",
+       "context": "It was all quite still except the clatter of"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "form": "still",
+       "context": "on, and stood as still as a stone. I"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "still",
+       "context": "it was, we stood still under our lime-tree, and"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "form": "still",
+       "context": "but I stood very still, for I knew all"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "still",
+       "context": "and have to stand still for minutes together, till"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "form": "still",
+       "context": "Our friend stood still for a moment, and"
+      },
+      {
+       "chapter": 46,
+       "occurrence": 2,
+       "form": "still",
+       "context": "Sunday. He was very still, and neither whistled nor"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 2,
+       "form": "still",
+       "context": "body. I lay perfectly still; indeed, I had no"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "form": "still",
+       "context": "my companions he stood still and gave a pitiful"
+      }
+     ]
+    }
+   ]
   }
  },
  "paragraphs": [
@@ -8303,6 +9311,69 @@
    "meaning": "To throw an old fault at someone in words.",
    "pos": "idiom",
    "example": "I won't cast it up to you any more about the police"
+  },
+  "might as well": {
+   "meaning": "There is no better thing to do, so this is reasonable.",
+   "pos": "idiom",
+   "example": "You might as well say that our country’s laws are not good because some people break them",
+   "forms": [
+    "might just as well"
+   ]
+  },
+  "on the other hand": {
+   "meaning": "From the other side of the question.",
+   "pos": "idiom",
+   "example": "the beginning, and a tormentor to the end. On the other hand, where we saw people who loved"
+  },
+  "at hand": {
+   "meaning": "Near, or about to happen.",
+   "pos": "idiom",
+   "example": "and there was no light and no help at hand, it was more than likely we should all"
+  },
+  "in vain": {
+   "meaning": "With no success.",
+   "pos": "idiom",
+   "example": "that rush of horses’ feet, but it was in vain; and now without a master or a friend"
+  },
+  "now and then": {
+   "meaning": "Sometimes, but not often.",
+   "pos": "idiom",
+   "example": "expected to be obeyed. He came quietly along, now and then shaking the oats about that he had"
+  },
+  "at length": {
+   "meaning": "After a long time.",
+   "pos": "idiom",
+   "example": "At length, one morning, my master got on my back and rode me round the meadow on the soft grass"
+  },
+  "of course": {
+   "meaning": "Certainly.",
+   "pos": "idiom",
+   "example": "are carthorse colts, and of course they have not learned"
+  },
+  "had better": {
+   "meaning": "Ought to. It is the wise thing to do.",
+   "pos": "idiom",
+   "example": "who are so wise, had better give orders that in"
+  },
+  "used to": {
+   "meaning": "Did this often in the past.",
+   "pos": "idiom",
+   "example": "it was hot we used to stand by the pond"
+  },
+  "be used to": {
+   "meaning": "To know something so well that it feels normal.",
+   "pos": "phrase",
+   "example": "handled me, that he was used to horses; he spoke"
+  },
+  "look after": {
+   "meaning": "To take care of a person, an animal, or a thing.",
+   "pos": "phrasal verb",
+   "example": "Daniel, the man who looked after the horses, was just"
+  },
+  "set off": {
+   "meaning": "To start to go.",
+   "pos": "phrasal verb",
+   "example": "from his head he set off home at a full"
   }
  }
 }

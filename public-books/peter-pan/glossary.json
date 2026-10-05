@@ -4913,6 +4913,1110 @@
    "forms": [
     "yams"
    ]
+  },
+  "address": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To speak to someone.",
+   "senses": [
+    {
+     "meaning": "To speak to someone.",
+     "whyHard": "Not the usual meaning! Usually: an address is the place where someone lives.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "address",
+       "context": "no one dared address him; all they could"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "addressed",
+       "context": "man treated and addressed them, and as dogs"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "addressed",
+       "context": "nighttime; but he addressed all who might be"
+      }
+     ],
+     "default": true,
+     "forms": [
+      "addressed"
+     ]
+    },
+    {
+     "meaning": "A short talk to a group.",
+     "whyHard": "Not the usual meaning! Usually: an address is the place where someone lives.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "address",
+       "context": "delivered a short address to them; said he"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "addressed"
+   ]
+  },
+  "capital": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Very good.",
+   "senses": [
+    {
+     "meaning": "Very good.",
+     "whyHard": "Not the usual meaning! Usually: a capital is the main city of a country, or a big letter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "capital",
+       "context": "have such a capital chimney that, as if"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Near.",
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "close",
+       "context": "Peter would fly close to the water and"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "close",
+       "context": "but they huddled close to Peter now. His"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "close",
+       "context": "satisfaction by keeping close together in an apologetic"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "close",
+       "context": "on the sward, close to their underground home"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "close",
+       "context": "with their knees close to their ears; and"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "close",
+       "context": "Michael came close to her and whispered"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "form": "close",
+       "context": "the floor, very close to the fire, so"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "The others came closer to him. A strange"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "closest",
+       "context": "abruptly deprived of its closest companion, Peter at once"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "closer",
+    "closest"
+   ]
+  },
+  "content": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happy with the way things are.",
+   "senses": [
+    {
+     "meaning": "Happy with the way things are.",
+     "whyHard": "Not the usual meaning! Usually: content means what is inside something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "content",
+       "context": "jeeringly, and went content to the crocodile"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "cook": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A person whose job is to make meals.",
+   "senses": [
+    {
+     "meaning": "A person whose job is to make meals.",
+     "whyHard": "Not the usual meaning! Usually: to cook means to make food hot and ready to eat.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "cook",
+       "context": "that the Sea-Cook feared. He lay at"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "cook",
+       "context": "you Have shaken claws with Cook"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "cook",
+       "context": "that the Sea-Cook had feared. But Peter"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "draw": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To pull something, or to move it.",
+   "senses": [
+    {
+     "meaning": "To pull something, or to move it.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "commands would not draw Nana from the kennel"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "and began to draw her toward the window"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "draw",
+       "context": "sharp. First to draw blood was John, who"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "whole rollicking, they drew near the Neverland; for"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "you fitted, you drew in your breath at"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "drew",
+       "context": "to ascend you drew in and let out"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "The boat drew nearer. It was the"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "He drew his hanger; and for"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "doublet. Ofttimes he drew his sleeve across his"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "sound, and he drew himself up firmly to"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "and had been drawn away from them, with"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "a rough chariot drawn and propelled by his"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "watch outside with drawn sword, for the pirates"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "fastidious, always kept drawn when dressing or undressing"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "He saw his men draw back from him"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "draw",
+       "context": "just in time to draw her back. But he"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "form": "draw",
+       "context": "Let us draw lots,” Wendy said bravely"
+      }
+     ],
+     "default": true,
+     "forms": [
+      "drew",
+      "drawn"
+     ]
+    }
+   ],
+   "forms": [
+    "drew",
+    "drawn"
+   ]
+  },
+  "drawn": {
+   "senseOnly": true,
+   "pos": "past participle",
+   "meaning": "Pulled along, or pulled out.",
+   "senses": [
+    {
+     "meaning": "Pulled along, or pulled out.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "kitchen, and had been drawn away from them, with"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "in a rough chariot drawn and propelled by his"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "kept watch outside with drawn sword, for the pirates"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "most fastidious, always kept drawn when dressing or undressing"
+      }
+     ]
+    }
+   ]
+  },
+  "drew": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Pulled something, or moved closer.",
+   "senses": [
+    {
+     "meaning": "Pulled something, or moved closer.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "the whole rollicking, they drew near the Neverland; for"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "Once you fitted, you drew in your breath at"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "drew",
+       "context": "while to ascend you drew in and let out"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "The boat drew nearer. It was the"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "He drew his hanger; and for"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "his doublet. Ofttimes he drew his sleeve across his"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "a sound, and he drew himself up firmly to"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "drew",
+       "context": "with Peter. The others drew back and formed a"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "in her arms he drew back sharply"
+      }
+     ]
+    }
+   ]
+  },
+  "judge": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person who decides in a court.",
+   "senses": [
+    {
+     "meaning": "A person who decides in a court.",
+     "whyHard": "Not the usual meaning! Usually: to judge means to decide what you think.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "judge",
+       "context": "lord. You see that judge in a wig coming"
+      }
+     ]
+    }
+   ]
+  },
+  "judging": {
+   "senseOnly": true,
+   "pos": "present participle",
+   "meaning": "Deciding what you think after you look.",
+   "senses": [
+    {
+     "meaning": "Deciding what you think after you look.",
+     "whyHard": "Not the usual meaning! Usually: a judge is a person who decides in a court.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "judging",
+       "context": "butchered; and in judging him it is only"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there, after the rest has gone.",
+   "senses": [
+    {
+     "meaning": "Still there, after the rest has gone.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "left",
+       "context": "they’re overtook; Nought’s left upon your bones when"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "left",
+       "context": "that John has left on the Neverland"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "left",
+       "context": "was to be left on the rock to"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "left",
+       "context": "to his. They left nothing undone that was"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "left",
+       "context": "Hook’s words had left no room for doubt"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "left",
+       "context": "attacking force wanted. Left so fearfully alone, any"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "left",
+       "context": "must always be left open for them, always"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The time a person or an animal is alive.",
+   "senses": [
+    {
+     "meaning": "The time a person or an animal is alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "lives",
+       "context": "cried instantly, “The Wendy lady lives"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "form": "lives",
+       "context": "is crying because the Wendy lives"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "doing all their lives: sitting on stools flinging"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "doo for their lives. If they kill him"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "him and saved all our lives"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "She lives,” Peter said briefly"
+      }
+     ]
+    }
+   ]
+  },
+  "master": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A teacher, or the person in charge.",
+   "senses": [
+    {
+     "meaning": "A teacher, or the person in charge.",
+     "whyHard": "Not the usual meaning! Usually: to master something means to learn it very well.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "master",
+       "context": "touchiness about trifles, dear master and mistress"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "master",
+       "context": "to show who was master in that house, and"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "master",
+       "context": "shall go straight for master and missus and bring"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "master",
+       "context": "then, oh, won’t master whip you, just"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "form": "master",
+       "context": "ceased to bark? Bring master and missus home from"
+      }
+     ]
+    },
+    {
+     "meaning": "The main one, or the one that controls.",
+     "whyHard": "Not the usual meaning! Usually: to master something means to learn it very well.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "master",
+       "context": "in another, Hook’s master mind had gone far"
+      }
+     ]
+    }
+   ]
+  },
+  "mate": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "An officer on a ship, under the captain.",
+   "senses": [
+    {
+     "meaning": "An officer on a ship, under the captain.",
+     "whyHard": "Not the usual meaning! Usually: a mate is a friend or a partner.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "mate",
+       "context": "first and second mate. There was a woman"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "miss": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A word used before a girl's name.",
+   "senses": [
+    {
+     "meaning": "A word used before a girl's name.",
+     "whyHard": "Not the usual meaning! Usually: to miss means to feel sad that someone is away, or to fail to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "a row to Miss Fulsom’s kindergarten school, accompanied"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "the basement of Miss Fulsom’s school where the"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "novel": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "New and strange.",
+   "senses": [
+    {
+     "meaning": "New and strange.",
+     "whyHard": "Not the usual meaning! Usually: a novel is a long story book.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "novel",
+       "context": "were the most novel of all adventures to"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "object": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To say that you do not want something.",
+   "senses": [
+    {
+     "meaning": "To say that you do not want something.",
+     "whyHard": "Not the usual meaning! Usually: an object is a thing you can see or hold.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "object",
+       "context": "here she would object to further conversation"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "party": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A group of people who are together.",
+   "senses": [
+    {
+     "meaning": "A group of people who are together.",
+     "whyHard": "Not the usual meaning! Usually: a party is a time when people meet to have fun.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "parties",
+       "context": "one of the parties stops or changes its"
+      }
+     ],
+     "default": true,
+     "forms": [
+      "parties"
+     ]
+    }
+   ],
+   "forms": [
+    "parties"
+   ]
+  },
+  "present": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Here, or now.",
+   "senses": [
+    {
+     "meaning": "Here, or now.",
+     "whyHard": "Not the usual meaning! Usually: a present is a gift.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "present",
+       "context": "complete change. At present she was full of"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "present",
+       "context": "that in his present position they somewhat impede"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "present",
+       "context": "Wendy in her present delicate state of health"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "present",
+       "context": "the only person present who knew all about"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "present",
+       "context": "not have been present at the tying of"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "present",
+       "context": "consequence to his present girth, and instead of"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "present",
+       "context": "window, for at present she was keeping a"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "ring": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A circle of people.",
+   "senses": [
+    {
+     "meaning": "A circle of people.",
+     "whyHard": "Not the usual meaning! Usually: a ring is a band you wear, or the sound of a bell.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "ring",
+       "context": "and formed a ring round them"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "scale": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "One hard plate on a fish.",
+   "senses": [
+    {
+     "meaning": "One hard plate on a fish.",
+     "whyHard": "Not the usual meaning! Usually: a scale is a tool for weighing, or how big something is.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "scales",
+       "context": "up with mermaid scales still sticking to him"
+      }
+     ],
+     "default": true,
+     "forms": [
+      "scales"
+     ]
+    }
+   ],
+   "forms": [
+    "scales"
+   ]
+  },
+  "state": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The way someone is at one time.",
+   "senses": [
+    {
+     "meaning": "The way someone is at one time.",
+     "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of one.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "state",
+       "context": "her present delicate state of health"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "still",
+       "context": "especially as nothing will stand still"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "form": "still",
+       "context": "if they stood still in a row you"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 7,
+       "form": "still",
+       "context": "would only stand still and let me see"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 8,
+       "form": "still",
+       "context": "hardly ever stand still,” he said, but for"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 11,
+       "form": "still",
+       "context": "All was as still as salt. Then everything"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 4,
+       "form": "still",
+       "context": "wood was as still as the children, not"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "still",
+       "context": "times, to sit still seemed to him such"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "still",
+       "context": "shaft, and stood still again, biting at his"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 4,
+       "form": "still",
+       "context": "space Nature stood still in horror of the"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 4,
+       "form": "still",
+       "context": "all had been so still, the air was rent"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "still",
+       "context": "his spectacles. “All’s still again"
+      }
+     ]
+    }
+   ]
+  },
+  "watch": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A small clock you can carry.",
+   "senses": [
+    {
+     "meaning": "A small clock you can carry.",
+     "whyHard": "Not the usual meaning! Usually: to watch means to look.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "watch",
+       "context": "what happened by your watch. Peter struck true and"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "watch",
+       "context": "and pointed to his watch which was hanging on"
+      }
+     ]
+    }
+   ]
+  },
+  "well": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A deep hole in the ground. People get water from some of them.",
+   "senses": [
+    {
+     "meaning": "A deep hole in the ground. People get water from some of them.",
+     "whyHard": "Not the usual meaning! Usually: well means in a good way.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "well",
+       "context": "buckets in a well. And how ardently they"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "will": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "What a person wants.",
+   "senses": [
+    {
+     "meaning": "What a person wants.",
+     "whyHard": "Not the usual meaning! Usually: will means something is going to happen.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 4,
+       "form": "will",
+       "context": "in the Neverland against her will"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "will",
+       "context": "which, against her will, she was making for"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "wound": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Turned something around.",
+   "senses": [
+    {
+     "meaning": "Turned something around.",
+     "whyHard": "Not the usual meaning! Usually: a wound is a cut on the body.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "wound",
+       "context": "rakish angle, he wound his cloak around him"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "yard": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A measure of length, about one long step.",
+   "senses": [
+    {
+     "meaning": "A measure of length, about one long step.",
+     "whyHard": "Not the usual meaning! Usually: a yard is the ground around a house.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "yard",
+       "context": "to within a yard of them, but then"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "yards",
+       "context": "only a few yards distant, but there had"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "yards",
+       "context": "in a line two yards apart"
+      }
+     ],
+     "default": true,
+     "forms": [
+      "yards"
+     ]
+    }
+   ],
+   "forms": [
+    "yards"
+   ]
+  },
+  "make-believe": {
+   "pos": "adjective",
+   "meaning": "Pretend. Not real."
   }
  },
  "paragraphs": [
@@ -6906,6 +8010,69 @@
    "meaning": "It is not surprising.",
    "pos": "idiom",
    "example": "O Peter, no wonder you were crying"
+  },
+  "take place": {
+   "meaning": "To happen.",
+   "pos": "idiom",
+   "example": "see what was to take place there",
+   "forms": [
+    "took place",
+    "takes place"
+   ]
+  },
+  "drawing room": {
+   "meaning": "A room where people sit with guests. It is not a room for making pictures.",
+   "pos": "phrase",
+   "example": "few beds in the drawing-room"
+  },
+  "chest of drawers": {
+   "meaning": "A piece of furniture with drawers for clothes.",
+   "pos": "phrase",
+   "example": "She meant the chest of drawers"
+  },
+  "after all": {
+   "meaning": "When you think of what came before, the truth is this.",
+   "pos": "idiom",
+   "example": "After all, this was the only man"
+  },
+  "might as well": {
+   "meaning": "There is no strong reason not to.",
+   "pos": "idiom",
+   "example": "we may as well stay and look on",
+   "forms": [
+    "may as well"
+   ]
+  },
+  "catch sight of": {
+   "meaning": "To see something suddenly.",
+   "pos": "idiom",
+   "example": "had caught sight of Peter’s medicine",
+   "forms": [
+    "caught sight of"
+   ]
+  },
+  "fall asleep": {
+   "meaning": "To begin sleeping.",
+   "pos": "phrasal verb",
+   "example": "the ground they fell asleep standing",
+   "forms": [
+    "fell asleep"
+   ]
+  },
+  "at hand": {
+   "meaning": "Near. Close enough to reach now.",
+   "pos": "phrase",
+   "example": "his triumph was at hand, for have I not told"
+  },
+  "may as well": {
+   "meaning": "There is no strong reason not to. You could do it.",
+   "pos": "idiom",
+   "example": "are here we may as well stay and look on"
+  },
+  "draw a veil": {
+   "meaning": "To choose not to tell about something.",
+   "pos": "idiom",
+   "example": "over which we draw a veil"
   }
  }
 }

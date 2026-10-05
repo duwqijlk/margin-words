@@ -2310,6 +2310,20 @@
        "context": "“There, there, I’m not cross,” said Marilla. “You’re an unlucky"
       }
      ]
+    },
+    {
+     "meaning": "A hard thing you have to bear.",
+     "whyHard": "Not the usual meaning! Usually: a cross is a shape, or cross means angry, or you cross a road.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "cross",
+       "context": "have been a cross. Well, my mother was"
+      }
+     ],
+     "pos": "singular noun"
     }
    ]
   },
@@ -3072,13 +3086,77 @@
    "meaning": "Covered with cloth in loose folds."
   },
   "drawing": {
+   "senseOnly": true,
    "pos": "verb",
-   "meaning": "Pulling in, as a breath, or making a picture."
+   "meaning": "Pulling air in. A long breath.",
+   "senses": [
+    {
+     "meaning": "Pulling air in. A long breath.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "drawing",
+       "context": "day!” said Anne, drawing a long breath. “Isn’t"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "drawn": {
+   "senseOnly": true,
    "pos": "adjective",
-   "meaning": "Pulled shut, or looking tight and tired.",
-   "whyHard": "Drawn blinds are pulled shut. A drawn face looks tight and tired."
+   "meaning": "Pulled shut, or pulled out long.",
+   "senses": [
+    {
+     "meaning": "Pulled shut, or pulled out long.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "dark green, closely drawn blinds that it had"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "not to be drawn from the safe concrete"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "stand still. The long-drawn wail of two old"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "the blind was drawn and the lamp lighted,"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Looking tight and tired.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "his face strangely drawn and gray. Anne dropped"
+      }
+     ]
+    }
+   ]
   },
   "dread": {
    "pos": "noun",
@@ -4133,6 +4211,12 @@
        "occurrence": 1,
        "form": "figure",
        "context": "complexion, and a plump showy figure. She laughed a great deal,"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "figures",
+       "context": "two little white-clad figures flew down the long"
       }
      ]
     }
@@ -6423,6 +6507,12 @@
        "occurrence": 2,
        "form": "lock",
        "context": "‘you.’ Diana gave me a lock of her hair and I’m"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "locks",
+       "context": "here, combing her locks with the spring for"
       }
      ]
     }
@@ -7513,10 +7603,48 @@
    ]
   },
   "object": {
+   "senseOnly": true,
    "pos": "singular noun",
-   "meaning": "A goal you work for, or a thing people look at.",
-   "forms": [
-    "objects"
+   "meaning": "A goal you work for.",
+   "senses": [
+    {
+     "meaning": "A goal you work for.",
+     "whyHard": "Not the usual meaning! Usually: an object is a thing you can see or touch.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "think of the worthy object,\" pleaded Anne. \"A flag",
+       "form": "object"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "ought to be our object in everything. I do",
+       "form": "object"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "to make it my object but I forget so",
+       "form": "object"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "in such a worthy object. Then all at once",
+       "form": "object"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "context": "Only, I've changed the object of my ambitions. I'm",
+       "form": "object"
+      }
+     ]
+    }
    ]
   },
   "objectionable": {
@@ -8632,28 +8760,69 @@
   },
   "present": {
    "senseOnly": true,
-   "pos": "adjective",
-   "meaning": "There, in that place. You came to the meeting.",
+   "pos": "adverb",
+   "meaning": "Now. At this time.",
    "senses": [
     {
-     "meaning": "There, in that place. You came to the meeting.",
-     "whyHard": "Not the usual meaning! Usually: a present is a gift, and at present means now.",
+     "meaning": "Now. At this time.",
+     "whyHard": "Not the usual meaning! Usually: a present is a gift.",
      "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "present",
+       "context": "I’ve got at present. You’re problem enough in"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "present",
+       "context": "hair. Just at present I have a soul"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "present",
+       "context": "I feel at present, Anne,” said Marilla, “is"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "present",
+       "context": "much more romantic than the present."
+      }
+     ],
      "default": true,
+     "pos": "adverb"
+    },
+    {
+     "meaning": "There, in that place.",
+     "whyHard": "Not the usual meaning! Usually: a present is a gift.",
+     "trickyMeaning": true,
      "anchors": [
       {
        "chapter": 17,
        "occurrence": 1,
        "form": "present",
-       "context": "nonsupporters as chose to be present at the monster mass meeting"
-      },
+       "context": "chose to be present at the monster mass"
+      }
+     ],
+     "pos": "adjective"
+    },
+    {
+     "meaning": "To appear. It comes up or happens.",
+     "whyHard": "Not the usual meaning! Usually: a present is a gift.",
+     "trickyMeaning": true,
+     "anchors": [
       {
        "chapter": 22,
        "occurrence": 1,
        "form": "present",
-       "context": "form of mischief which might present itself. This presently took the"
+       "context": "mischief which might present itself. This presently took"
       }
-     ]
+     ],
+     "pos": "base verb"
     }
    ]
   },
@@ -13356,6 +13525,2913 @@
   "zest": {
    "pos": "uncountable noun",
    "meaning": "A feeling of excitement and interest."
+  },
+  "address": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To speak to a group of people.",
+   "senses": [
+    {
+     "meaning": "To speak to a group of people.",
+     "whyHard": "Not the usual meaning! Usually: an address is the place where someone lives.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "address",
+       "context": "Premier came, to address his loyal supporters and"
+      }
+     ],
+     "default": true,
+     "pos": "base verb"
+    },
+    {
+     "meaning": "A speech.",
+     "whyHard": "Not the usual meaning! Usually: an address is the place where someone lives.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "address",
+       "context": "to give an address. That will be just"
+      }
+     ],
+     "pos": "singular noun"
+    }
+   ]
+  },
+  "board": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To live in a place and pay for your room and meals.",
+   "senses": [
+    {
+     "meaning": "To live in a place and pay for your room and meals.",
+     "whyHard": "Not the usual meaning! Usually: a board is a flat piece of wood.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "board",
+       "context": "are going to board with Mrs. Lynde until"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "board",
+       "context": "was not to board with the other girls,"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "form": "board",
+       "context": "have liked to board her, but Beechwood was"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "board",
+       "context": "the farm and board somewhere—with her I suppose."
+      },
+      {
+       "chapter": 37,
+       "occurrence": 2,
+       "form": "board",
+       "context": "But I can board home and drive myself"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "boards",
+       "context": "Frank Stockley. He boards same place as I"
+      }
+     ],
+     "default": true,
+     "pos": "base verb"
+    },
+    {
+     "meaning": "The meals and the room you pay for.",
+     "whyHard": "Not the usual meaning! Usually: a board is a flat piece of wood.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 37,
+       "occurrence": 3,
+       "form": "board",
+       "context": "he’ll have his board to pay at White"
+      }
+     ],
+     "pos": "singular noun"
+    },
+    {
+     "meaning": "A group of people who manage a school.",
+     "whyHard": "Not the usual meaning! Usually: a board is a flat piece of wood.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 3,
+       "form": "board",
+       "context": "one of the board of governors, you know."
+      }
+     ],
+     "pos": "singular noun"
+    }
+   ]
+  },
+  "call": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A short visit.",
+   "senses": [
+    {
+     "meaning": "A short visit.",
+     "whyHard": "Not the usual meaning! Usually: to call means to shout, to phone, or to give a name.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "the real reason of her call.",
+       "form": "call"
+      }
+     ]
+    },
+    {
+     "meaning": "To go and bring someone.",
+     "whyHard": "Not the usual meaning! Usually: to call means to shout, to phone, or to give a name.",
+     "trickyMeaning": true,
+     "pos": "base verb",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "to go down and call for Mrs. Lynde, Anne,\"",
+       "form": "call"
+      }
+     ]
+    }
+   ]
+  },
+  "change": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The money you get back when you pay with too much.",
+   "senses": [
+    {
+     "meaning": "The money you get back when you pay with too much.",
+     "whyHard": "Not the usual meaning! Usually: to change means to become different.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "change",
+       "context": "counting out his change he rallied his powers"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "class": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A grade of a course or of a teaching license. The first is the highest.",
+   "senses": [
+    {
+     "meaning": "A grade of a course or of a teaching license. The first is the highest.",
+     "whyHard": "Not the usual meaning! Usually: a class is a group of students.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "class",
+       "context": "getting a First Class teacher’s license in one"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "form": "class",
+       "context": "up the Second Class work. Anne was conscious"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 4,
+       "form": "class",
+       "context": "in for First Class, too. I suppose I"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 6,
+       "form": "class",
+       "context": "provincial license, First Class, at the end of"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "class",
+       "context": "To take First Class License in one year"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "close": {
+   "pos": "adverb",
+   "meaning": "Near.",
+   "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+     "trickyMeaning": true,
+     "pos": "adverb",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "Nova Scotia is right close to the Island. It",
+       "form": "close"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "cherry-tree grew outside, so close that its boughs tapped",
+       "form": "close"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "until she was quite close to Him; and then",
+       "form": "close"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "Gables. Anne suddenly came close to Marilla and slipped",
+       "form": "close"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "let the flat float close enough to one of",
+       "form": "close"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "please take the flat close to a pile and",
+       "form": "close"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "context": "an answer he pulled close to the pile and",
+       "form": "close"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "only put her arms close about her girl and",
+       "form": "close"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "and she couldn't come close enough to my heart",
+       "form": "close"
+      }
+     ]
+    },
+    {
+     "meaning": "The end of a period of time.",
+     "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+     "trickyMeaning": true,
+     "pos": "singular noun",
+     "anchors": [
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "of June came the close of the term and",
+       "form": "close"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "context": "the term and the close of Miss Stacy's rule",
+       "form": "close"
+      }
+     ]
+    }
+   ]
+  },
+  "cook": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A person whose job is to make meals.",
+   "senses": [
+    {
+     "meaning": "A person whose job is to make meals.",
+     "whyHard": "Not the usual meaning! Usually: to cook means to make food hot and ready to eat.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "\"Marilla is a famous cook. She is trying to",
+       "form": "cook"
+      }
+     ]
+    }
+   ]
+  },
+  "direction": {
+   "pos": "noun",
+   "meaning": "Written steps that tell you how to do something.",
+   "whyHard": "Not the usual meaning! Usually: a direction is which way to go."
+  },
+  "draw": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To let tea sit in hot water until it is strong.",
+   "senses": [
+    {
+     "meaning": "To let tea sit in hot water until it is strong.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "the tea to draw until you sit down"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "draw",
+       "context": "the tea to draw when I have company."
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To take out. Draw money out means take the money from where it is kept.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "wanted Matthew to draw our money right out"
+      }
+     ]
+    }
+   ]
+  },
+  "fair": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Light in color, or beautiful.",
+   "senses": [
+    {
+     "meaning": "Light in color, or beautiful.",
+     "whyHard": "Not the usual meaning! Usually: fair means just, or right for everyone.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "she has the loveliest fair curly hair and such",
+       "form": "fair"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "in love with the fair Geraldine. He saved her",
+       "form": "fair"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "because she is so fair and has such lovely",
+       "form": "fair"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "complexion is just as fair as Ruby's,\" said Diana",
+       "form": "fair"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "context": "but at least the fair lily maid and Lancelot",
+       "form": "fair"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "red-rosy; there's that pale, fair one gazing out of",
+       "form": "fair"
+      }
+     ]
+    }
+   ]
+  },
+  "fish": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To try to catch animals that live in water.",
+   "senses": [
+    {
+     "meaning": "To try to catch animals that live in water.",
+     "whyHard": "Not the usual meaning! Usually: a fish is an animal that lives in water.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "It was splendid to fish for trout over the",
+       "form": "fish"
+      }
+     ]
+    }
+   ]
+  },
+  "foot": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The bottom or the end of something.",
+   "senses": [
+    {
+     "meaning": "The bottom or the end of something.",
+     "whyHard": "Not the usual meaning! Usually: a foot is the end of a leg.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "foot",
+       "context": "back over the foot of the bed. Be"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "foot",
+       "context": "schoolhouse from the foot of the spruce hill"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A measure of length. One is about 30 centimetres.",
+     "whyHard": "Not the usual meaning! Usually: a foot is the end of a leg.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "feet",
+       "context": "birches, were several feet above their heads."
+      }
+     ]
+    }
+   ]
+  },
+  "ground": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Crushed into tiny bits.",
+   "senses": [
+    {
+     "meaning": "Crushed into tiny bits. The past of grind.",
+     "whyHard": "Not the usual meaning! Usually: the ground is the earth under your feet.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "it on the floor, ground it to powder beneath",
+       "form": "ground"
+      }
+     ]
+    }
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To give or to pass something to someone.",
+   "forms": [
+    "handed",
+    "handing"
+   ],
+   "senses": [
+    {
+     "meaning": "To give or to pass something to someone. To hand work in means to give it to the teacher.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "hand",
+       "context": "Mrs. Blewett. To hand a sensitive, “highstrung” child"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "hand",
+       "context": "one we’re to hand in Monday is terrible."
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "handed",
+       "context": "his pocket and handed it to Anne, with"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "handing",
+       "context": "the thought of handing Anne over to her"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "judge": {
+   "pos": "singular noun",
+   "meaning": "A person who is good at deciding about something.",
+   "whyHard": "Not the usual meaning! Usually: a judge is a person who decides in a court."
+  },
+  "judging": {
+   "pos": "present participle",
+   "meaning": "Deciding what you think about a person.",
+   "whyHard": "Not the usual meaning! Usually: a judge is a person who decides in a court."
+  },
+  "last": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To go on for a time.",
+   "forms": [
+    "lasted"
+   ],
+   "senses": [
+    {
+     "meaning": "To go on for a time.",
+     "whyHard": "Not the usual meaning! Usually: last means after all the others, or at the end.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "last",
+       "context": "too beautiful to last. I might have known"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "last",
+       "context": "too smooth to last. She’s so high strung."
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "last",
+       "context": "if it could last? I believe I could"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "lasted",
+       "context": "comfort while it lasted. But the worst of"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "lasted",
+       "context": "This unnatural solemnity lasted until after Diana had"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "lasted",
+       "context": "the open weather lasted the Avonlea students went"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there, after the rest has gone or been taken.",
+   "senses": [
+    {
+     "meaning": "Still there, after the rest has gone or been taken.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "left",
+       "context": "unfortunate Matthew was left to do that which"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "form": "left",
+       "context": "She couldn’t be left at Bright River anyhow,"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "left",
+       "context": "She couldn’t be left there, no matter where"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "left",
+       "context": "fever too. That left me an orphan and"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "left",
+       "context": "temper anymore—and it left a dreadful sort of"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "left",
+       "context": "cordial that was left over from the church"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "left",
+       "context": "all that are left on the tree. Marilla"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 4,
+       "form": "left",
+       "context": "pitcherful of sauce left over. Marilla said there"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "left",
+       "context": "all there is left in life for me,"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "left",
+       "context": "in class and left her clear out of"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "left",
+       "context": "Headaches always left Marilla somewhat sarcastic."
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "left",
+       "context": "poured what was left into an old empty"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "left",
+       "context": "one or two left over,” she said, “but"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "left",
+       "context": "sure, the concert left traces. Ruby Gillis and"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "left",
+       "context": "only fifty cents left out of my chicken"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "left",
+       "context": "meaning at all left in it for them,"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "form": "left",
+       "context": "were the oars? Left behind at the landing!"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "form": "left",
+       "context": "hysterics, and was left to recover from them"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "left",
+       "context": "the Queen’s class, left behind in school while"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "left",
+       "context": "then we’ll be left and have to turn"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "lie": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To be in a place.",
+   "senses": [
+    {
+     "meaning": "To be in a place.",
+     "whyHard": "Not the usual meaning! Usually: to lie means to rest flat, or to say something that is not true.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "lies",
+       "context": "don’t know what lies around the bend, but"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "light": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A way of looking at something.",
+   "forms": [
+    "lighted"
+   ],
+   "senses": [
+    {
+     "meaning": "A way of looking at something.",
+     "whyHard": "Not the usual meaning! Usually: light is what lets you see, or it means not heavy.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "see it in that light, Marilla,\" he said. \"She's",
+       "form": "light"
+      }
+     ]
+    },
+    {
+     "meaning": "To make a lamp or a candle burn, or to make a place bright.",
+     "whyHard": "Not the usual meaning! Usually: light is what lets you see, or it means not heavy.",
+     "trickyMeaning": true,
+     "pos": "base verb",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "got briskly up to light a",
+       "form": "light"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "wanting a candle to light her way down the",
+       "form": "light"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 3,
+       "context": "I guess I'll light the lamp and get",
+       "form": "light"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "east gable room. Marilla lighted a candle and told",
+       "form": "lighted"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "through the spruce grove, lighted by a pale little",
+       "form": "lighted"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "pleasantly warm and dimly lighted by the embers of",
+       "form": "lighted"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "of further speech. Anne lighted the lamp, oversetting the",
+       "form": "lighted"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "drawn and the lamp lighted, for an important toilet",
+       "form": "lighted"
+      }
+     ]
+    }
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "plural noun",
+   "meaning": "The time a person or a living thing is alive.",
+   "senses": [
+    {
+     "meaning": "The time a person or a living thing is alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "lives",
+       "context": "shorten their lovely lives by picking them—I wouldn’t"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "He just torments our lives out.”"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "time of our lives, Anne. I’ve never been"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "form": "lives",
+       "context": "those fresh young lives. Miss Barry was a"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "in our own lives, and she criticizes it"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "master": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The teacher in a school.",
+   "senses": [
+    {
+     "meaning": "The teacher in a school.",
+     "whyHard": "Not the usual meaning! Usually: a master is the owner, or the person in charge of servants.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "master",
+       "context": "much of the master, though. He’s all the"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "master",
+       "context": "Boulter says the master is dead gone on"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "master",
+       "context": "to criticize the master. I guess he can"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 4,
+       "form": "master",
+       "context": "sum to the master; she fell back into"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 5,
+       "form": "master",
+       "context": "house, where the master boarded. When they saw"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 6,
+       "form": "master",
+       "context": "a patriarchal old spruce “Master’s coming.”"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 7,
+       "form": "master",
+       "context": "stared at the master as if turned to"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "master",
+       "context": "whispered that the master had sent all the"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "miss": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A word used before a girl's name.",
+   "senses": [
+    {
+     "meaning": "A word used before a girl's name.",
+     "whyHard": "Not the usual meaning! Usually: to miss means to feel sad that someone is away, or to fail to hit.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "certainly did, Miss Cuthbert,\" corroborated Flora Jane",
+       "form": "miss"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "my fault, you see, Miss Cuthbert. I did the",
+       "form": "miss"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "context": "away. Take the armchair, Miss Cuthbert. Anne, you sit",
+       "form": "miss"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "context": "two ladies. Mrs. Blewett, Miss Cuthbert. Please excuse me",
+       "form": "miss"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 5,
+       "context": "impression that Mr. and Miss Cuthbert wanted a little",
+       "form": "miss"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 6,
+       "context": "her off your hands, Miss Cuthbert. The baby's awful",
+       "form": "miss"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 7,
+       "context": "Miss Cuthbert, did you really say",
+       "form": "miss"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "please, Miss Cuthbert, won't you tell",
+       "form": "miss"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "context": "\"Shall I always say Miss Cuthbert? Can I call",
+       "form": "miss"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "context": "used to being called Miss Cuthbert and it would",
+       "form": "miss"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 4,
+       "context": "the minister. He says Miss Cuthbert—when he thinks of",
+       "form": "miss"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 5,
+       "context": "a long breath. \"Oh, Miss—Marilla, how much you",
+       "form": "miss"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 7,
+       "context": "of making me learn this, Miss—Marilla.\"",
+       "form": "miss"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "Anne found herself in Miss Rogerson's",
+       "form": "miss"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "Miss Rogerson was a middle-aged lady",
+       "form": "miss"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "context": "not think she liked Miss Rogerson, and she felt",
+       "form": "miss"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 4,
+       "context": "into the classroom with Miss Rogerson's class. There were",
+       "form": "miss"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 5,
+       "context": "a lot of questions. Miss Rogerson asked ever so",
+       "form": "miss"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 6,
+       "context": "After Sunday-school I asked Miss Rogerson—because Mrs. Lynde was",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "Miss Josephine Barry did not appear",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "context": "nearly frightened poor old Miss Barry to death last",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "context": "worried over it. Old Miss Barry was in a",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 4,
+       "context": "trouble, that's what. Old Miss Barry came out to",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 5,
+       "context": "feel cut up. Old Miss Barry is rich and",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 6,
+       "context": "Miss Josephine Barry, thin, prim, and",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 7,
+       "context": "are you?\" demanded Miss Josephine Barry, without",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 8,
+       "context": "a very ladylike girl, Miss Barry. So you must",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 9,
+       "context": "ought to forgive us, Miss Barry, now that we've",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 10,
+       "context": "on her music lessons, Miss Barry, and I know",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 11,
+       "context": "Have you any imagination, Miss Barry? If you have,",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 12,
+       "context": "gone by this time. Miss Barry actually laughed—a sound",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 13,
+       "context": "to go home to Miss Marilla Cuthbert. Miss Marilla",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 14,
+       "context": "to Miss Marilla Cuthbert. Miss Marilla Cuthbert is a",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 15,
+       "context": "talk to me occasionally,\" said Miss",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 16,
+       "context": "evening Miss Barry gave Diana a",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 17,
+       "context": "Miss Barry stayed her month out",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 18,
+       "context": "When Miss Barry went away she",
+       "form": "miss"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 19,
+       "context": "\"Miss Barry was a kindred spirit,",
+       "form": "miss"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "me your flower garden. Miss Cuthbert tells me you",
+       "form": "miss"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "look at it, Marilla. 'Miss Anne Shirley, Green Gables.'",
+       "form": "miss"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "I was ever called 'Miss.' Such a thrill as",
+       "form": "miss"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 3,
+       "context": "lady. Her name is Miss Muriel Stacy. Isn't that",
+       "form": "miss"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "they don't have recitations Miss Stacy takes them all",
+       "form": "miss"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 3,
+       "context": "I shall find that Miss Stacy is a kindred",
+       "form": "miss"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "XXIV. Miss Stacy and Her Pupils",
+       "form": "miss"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 2,
+       "context": "true and helpful friend. Miss Stacy was a bright,",
+       "form": "miss"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 3,
+       "context": "love Miss Stacy with my whole",
+       "form": "miss"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 4,
+       "context": "Marilla. \"I wonder at Miss Stacy for encouraging",
+       "form": "miss"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 5,
+       "context": "are splendid, Marilla. And Miss Stacy explains everything so",
+       "form": "miss"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 6,
+       "context": "it a little, too. Miss Stacy makes it so",
+       "form": "miss"
+      }
+     ]
+    },
+    {
+     "meaning": "A word used before a girl's name.",
+     "whyHard": "Not the usual meaning! Usually: to miss means to feel sad that someone is away, or to fail to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 23,
+       "occurrence": 7,
+       "context": "love writing compositions. Mostly Miss Stacy lets us choose",
+       "form": "miss"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 8,
+       "context": "before a project which Miss Stacy brought forward in",
+       "form": "miss"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "this evening, Mr. Cuthbert?\" Miss Lucilla Harris inquired, briskly",
+       "form": "miss"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "Miss Harris looked somewhat surprised, as",
+       "form": "miss"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 3,
+       "context": "Miss Harris returned with the rake",
+       "form": "miss"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 4,
+       "context": "Miss Harris had heard Matthew Cuthbert",
+       "form": "miss"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 5,
+       "context": "turned miserably back. While Miss Harris was counting out",
+       "form": "miss"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 6,
+       "context": "\"White or brown?\" queried Miss Harris",
+       "form": "miss"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 7,
+       "context": "it over there,\" said Miss Harris, shaking her bangles",
+       "form": "miss"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "trifling frictions, work in Miss Stacy's little kingdom went",
+       "form": "miss"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "all their chatter, for Miss Stacy had told them",
+       "form": "miss"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 3,
+       "context": "terrible. The idea of Miss Stacy telling us to",
+       "form": "miss"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 4,
+       "context": "your imagination, you know. Miss Stacy says so. Only",
+       "form": "miss"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 5,
+       "context": "best and sent them. Miss Josephine Barry wrote back",
+       "form": "miss"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 6,
+       "context": "died. But I'm glad Miss Barry liked them. It",
+       "form": "miss"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "settle Miss Anne when she comes",
+       "form": "miss"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "context": "and Mrs. Allan and Miss Stacy, and grow up",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "preceding winter and which Miss Stacy had made them",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "elms and branching beeches. Miss Barry met them at",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 3,
+       "context": "you think there is, Miss Barry.\" Miss Barry's house",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 4,
+       "context": "there is, Miss Barry.\" Miss Barry's house was furnished",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 5,
+       "context": "of the parlor where Miss Barry left them when",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 6,
+       "context": "Wednesday Miss Barry took them to",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 7,
+       "context": "feel dreadfully insignificant. And Miss Barry took us up",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 8,
+       "context": "your fortune for you. Miss Barry gave Diana and",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 9,
+       "context": "couldn't sleep at night. Miss Barry put us in",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 10,
+       "context": "and in the evening Miss Barry took them to",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 11,
+       "context": "over, and I told Miss Barry I didn't see",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 12,
+       "context": "born for city life. Miss Barry asked me what",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 13,
+       "context": "the brook. I told Miss Barry so at breakfast",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 14,
+       "context": "morning and she laughed. Miss Barry generally laughed at",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 15,
+       "context": "you've enjoyed yourselves,\" said Miss Barry, as she bade",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 16,
+       "context": "at Anne's freedom. But Miss Barry was pleased, and",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 17,
+       "context": "those fresh young lives. Miss Barry was a rather",
+       "form": "miss"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 18,
+       "context": "lady's good graces. But Miss Barry found herself thinking",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "said Marilla abruptly, \"Miss Stacy was here this",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "context": "be almost fourteen, Marilla. Miss Stacy took all us",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 3,
+       "context": "up. But why was Miss Stacy here this",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 4,
+       "context": "did, but I forgot. Miss Stacy caught me reading",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 5,
+       "context": "that I never noticed Miss Stacy coming down the",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 6,
+       "context": "heard Josie Pye giggling. Miss Stacy took Ben Hur",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 7,
+       "context": "cried bitterly, and asked Miss Stacy to forgive me",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 8,
+       "context": "race turned out. But Miss Stacy said she wouldn't",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 9,
+       "context": "\"Miss Stacy never mentioned such a",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 10,
+       "context": "book now unless either Miss Stacy or Mrs. Allan",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 11,
+       "context": "and three-quarters to read. Miss Stacy made me promise",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 12,
+       "context": "in my veins. But Miss Stacy said it was",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 13,
+       "context": "But my love for Miss Stacy stood the test",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 14,
+       "context": "want to hear what Miss Stacy had to say.",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 15,
+       "context": "Miss Stacy wants to organize a",
+       "form": "miss"
+      }
+     ]
+    },
+    {
+     "meaning": "A word used before a girl's name.",
+     "whyHard": "Not the usual meaning! Usually: to miss means to feel sad that someone is away, or to fail to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 29,
+       "occurrence": 16,
+       "context": "get along well enough. Miss Stacy says you are",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 17,
+       "context": "told Anne just what Miss Stacy had said about",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 18,
+       "context": "and be thoroughly grounded, Miss Stacy",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 19,
+       "context": "be a teacher like Miss Stacy, wouldn't you, Marilla?",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 20,
+       "context": "work this past year,\" Miss Stacy told them on",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 21,
+       "context": "be back next year, Miss Stacy?\" asked Josie",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 22,
+       "context": "to ask it of Miss Stacy, but all wanted",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 23,
+       "context": "for some time that Miss Stacy was not coming",
+       "form": "miss"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 24,
+       "context": "think I will,\" said Miss Stacy. \"I thought of",
+       "form": "miss"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "or Mrs. Allan or Miss Stacy I want it",
+       "form": "miss"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "and Mrs. Allan and Miss Stacy I ought to",
+       "form": "miss"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 3,
+       "context": "Miss Stacy came back to Avonlea",
+       "form": "miss"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 4,
+       "context": "this was due to Miss Stacy's tactful, careful, broadminded",
+       "form": "miss"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 6,
+       "context": "for big words. Besides, Miss Stacy says the short",
+       "form": "miss"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 7,
+       "context": "and elopements and mysteries. Miss Stacy sometimes has us",
+       "form": "miss"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 8,
+       "context": "give up altogether, but Miss Stacy said I could",
+       "form": "miss"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 9,
+       "context": "We've studied hard and Miss Stacy has drilled us",
+       "form": "miss"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 10,
+       "context": "fail in English history. Miss Stacy is going to",
+       "form": "miss"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "and the close of Miss Stacy's rule in Avonlea",
+       "form": "miss"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "context": "to the fact that Miss Stacy's farewell words must",
+       "form": "miss"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 3,
+       "context": "a bit the same. Miss Stacy won't be there,",
+       "form": "miss"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 4,
+       "context": "splendidly in the exams Miss Stacy",
+       "form": "miss"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 5,
+       "context": "Miss Stacy has made us promise",
+       "form": "miss"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 6,
+       "context": "'cram' because I'd promised Miss Stacy not to, but",
+       "form": "miss"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 7,
+       "context": "morning Miss Stacy came for me",
+       "form": "miss"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 8,
+       "context": "assigned to our rooms Miss Stacy had to leave",
+       "form": "miss"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 9,
+       "context": "would be unfair to Miss Stacy if he didn't.",
+       "form": "miss"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 10,
+       "context": "if she'd led. Won't Miss Stacy be delighted? Oh,",
+       "form": "miss"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "Anne by Mrs. Allan. Miss Stacy's photograph occupied the",
+       "form": "miss"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "to do so by Miss Stacy; Gilbert Blythe elected",
+       "form": "miss"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "context": "take pity on them. Miss Josephine Barry would have",
+       "form": "miss"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 3,
+       "context": "of the question; so Miss Barry hunted up a",
+       "form": "miss"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 4,
+       "context": "a reduced gentlewoman,\" explained Miss Barry. \"Her husband was",
+       "form": "miss"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "be fairly stated that Miss Stacy's old pupils held",
+       "form": "miss"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 2,
+       "context": "went to church with Miss Barry. The latter was,",
+       "form": "miss"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "cheers for Miss Shirley, winner of the",
+       "form": "miss"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 2,
+       "context": "Miss Barry, who was sitting behind",
+       "form": "miss"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 3,
+       "context": "the school here if Miss Ames decides to",
+       "form": "miss"
+      }
+     ]
+    }
+   ]
+  },
+  "nurse": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To look after a sick person.",
+   "senses": [
+    {
+     "meaning": "To look after a sick person.",
+     "whyHard": "Not the usual meaning! Usually: a nurse is a person who looks after sick people.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "nurse",
+       "context": "I’ll go and nurse you, you can depend"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "objected": {
+   "pos": "past-tense verb",
+   "meaning": "Spoke against something. Said you did not want it.",
+   "whyHard": "Not the usual meaning! Usually: an object is a thing."
+  },
+  "party": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A group of people who are together.",
+   "senses": [
+    {
+     "meaning": "A group of people who are together.",
+     "whyHard": "Not the usual meaning! Usually: a party is a time when people meet to have fun.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "party",
+       "context": "There was a party of visitors expected out"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "form": "party",
+       "context": "in a merry party. Anne thought those Friday"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "place": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To put something down in a spot.",
+   "forms": [
+    "placed"
+   ],
+   "senses": [
+    {
+     "meaning": "To put something down in a spot.",
+     "whyHard": "Not the usual meaning! Usually: a place is where a person or a thing is.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "fold it neatly and place it on the chair.",
+       "form": "place"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "picked up Anne's clothes, placed them neatly on a",
+       "form": "placed"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "into the chair Marilla placed for her. \"The world",
+       "form": "placed"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "a tall blue iris placed in one of Anne's",
+       "form": "placed"
+      }
+     ]
+    }
+   ]
+  },
+  "plant": {
+   "pos": "base verb",
+   "meaning": "To put a flower or a seed into the ground so it will grow.",
+   "whyHard": "Not the usual meaning! Usually: a plant is a living green thing with leaves."
+  },
+  "pretty": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Quite. Fairly.",
+   "senses": [
+    {
+     "meaning": "Quite. Fairly.",
+     "whyHard": "Not the usual meaning! Usually: pretty means good to look at.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "have given a pretty good guess as to"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "“We’re all pretty well,” said Mrs. Rachel."
+      },
+      {
+       "chapter": 0,
+       "occurrence": 3,
+       "form": "pretty",
+       "context": "there’s risks in pretty near everything a body"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "orphans. It was pretty interesting to imagine things"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 5,
+       "form": "pretty",
+       "context": "now I feel pretty nearly perfectly happy. I"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 6,
+       "form": "pretty",
+       "context": "guess you’re feeling pretty tired and hungry,” Matthew"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 11,
+       "form": "pretty",
+       "context": "“We’re pretty near home now. That’s"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "this is a pretty piece of business!” ejaculated"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "this is a pretty kettle of fish,” she"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "“I’m pretty hungry this morning,” she"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "“Pretty well. I’m better at looking"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "I can read pretty well and I know"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "I liked it pretty well. There’s something splendid"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "I’ve had a pretty easy life of it"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 4,
+       "form": "pretty",
+       "context": "I know it pretty nearly all now—all but"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "“Pretty well. I imagine a good"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "then, her temper’s pretty quick, I guess; but"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "pretty",
+       "context": "“I apologized pretty well, didn’t I?” she"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "you think it’s pretty rough not to let"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 7,
+       "form": "pretty",
+       "context": "scholars were doing pretty much as they pleased"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "all right; she’s pretty bad, but I’ve seen"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "That was a pretty dignified way of speaking"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "songs that are pretty near as good as"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "form": "pretty",
+       "context": "but I’m a pretty good judge of human"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "facts. I did pretty well until I put"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "can make a pretty good cake by this"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "rules of etiquette pretty well. After tea Mrs."
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "to be a pretty good concert. And I"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 3,
+       "form": "pretty",
+       "context": "dress. Marilla behaved pretty well on the whole,"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "the girls do pretty well. Ruby Gillis is"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "down. People have pretty well forgotten my other"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 3,
+       "form": "pretty",
+       "context": "So Avonlea was pretty well represented, wasn’t it?"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "history was a pretty hard paper and I"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "form": "pretty",
+       "context": "“Pretty well, I think, in everything"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 3,
+       "form": "pretty",
+       "context": "think they did pretty well. Josie says the"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 4,
+       "form": "pretty",
+       "context": "not come out pretty well up on the"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 5,
+       "form": "pretty",
+       "context": "and Ruby did pretty well—they’re halfway up—and so"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 6,
+       "form": "pretty",
+       "context": "joy. I am pretty near crazy as it"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 7,
+       "form": "pretty",
+       "context": "“You’ve done pretty well, I must say,"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 7,
+       "form": "pretty",
+       "context": "people just liked mine pretty well.”"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "I’ve always worked pretty hard and I’d rather"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "rest": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "What is left. The other people or the other part.",
+   "senses": [
+    {
+     "meaning": "What is left. The other people or the other part.",
+     "whyHard": "Not the usual meaning! Usually: to rest means to stop and be quiet.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "rest",
+       "context": "But for the rest of the week she"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "rest",
+       "context": "Andrews and the rest of the scholars were"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "rest",
+       "context": "blackboard for the rest of the afternoon.”"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 3,
+       "form": "rest",
+       "context": "stood there the rest of the afternoon with"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "rest",
+       "context": "Shirley all the rest of the winter. With"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "rest",
+       "context": "I’ll do the rest,’ over and over again."
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "rest",
+       "context": "this instance the rest of the class felt"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "rest",
+       "context": "still further. The rest of the evening was"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "rest",
+       "context": "than all the rest. She’s been a blessing"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "form": "rest",
+       "context": "Anne and the rest of the Avonlea scholars"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "ring": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A circle, or a group standing in a circle.",
+   "senses": [
+    {
+     "meaning": "A circle, or a group standing in a circle.",
+     "whyHard": "Not the usual meaning! Usually: a ring is a band you wear, or the sound of a bell.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "ring",
+       "context": "is a little ring of white birch trees—the"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "ring",
+       "context": "of that heroic ring. When she opened them"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "rose": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Went up, or stood up.",
+   "senses": [
+    {
+     "meaning": "Went up, or stood up. The past of rise.",
+     "whyHard": "Not the usual meaning! Usually: a rose is a flower.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 4,
+       "context": "a dark church spire rose up against a marigold",
+       "form": "rose"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "those things something just rose right up in me",
+       "form": "rose"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "old remembrance suddenly rose up before Marilla. She",
+       "form": "rose"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "long breath as she rose to her feet. \"You",
+       "form": "rose"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "rose to her feet, with clasped",
+       "form": "rose"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "help for it, she rose haughtily, stepped across the",
+       "form": "rose"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "pale golden and ethereal rose over gleaming white spaces",
+       "form": "rose"
+      }
+     ]
+    },
+    {
+     "meaning": "A soft pink color.",
+     "whyHard": "Not the usual meaning! Usually: a rose is a flower.",
+     "trickyMeaning": true,
+     "pos": "singular noun",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "context": "shadings of crocus and rose and ethereal green, with",
+       "form": "rose"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "to drain—amethyst, pearl, silver, rose, and smoke-blue. The dews",
+       "form": "rose"
+      }
+     ]
+    }
+   ]
+  },
+  "rule": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The time when a person is in charge.",
+   "senses": [
+    {
+     "meaning": "The time when a person is in charge.",
+     "whyHard": "Not the usual meaning! Usually: a rule is something you must obey.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "close of Miss Stacy's rule in Avonlea school. Anne",
+       "form": "rule"
+      }
+     ]
+    }
+   ]
+  },
+  "shed": {
+   "pos": "base verb",
+   "meaning": "To let something fall. Letting tears fall means crying.",
+   "whyHard": "Not the usual meaning! Usually: a shed is a small building.",
+   "forms": [
+    "shedding"
+   ]
+  },
+  "smart": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Neat and in the fashion.",
+   "senses": [
+    {
+     "meaning": "Neat and in the fashion.",
+     "whyHard": "Not the usual meaning! Usually: smart means clever.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "smart",
+       "context": "fur cap and smart little jacket. But she"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "sound": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Right and solid. Not hurt.",
+   "senses": [
+    {
+     "meaning": "Right and solid. Not hurt. Safe and sound means not hurt.",
+     "whyHard": "Not the usual meaning! Usually: a sound is a noise.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "sound",
+       "context": "brooch safe and sound that I thought was"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "sound",
+       "context": "his theology wasn’t sound. Mr. Gresham was a"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "form": "sound",
+       "context": "his theology is sound because she questioned him"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 3,
+       "form": "sound",
+       "context": "Lynde says that sound doctrine in the man"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "sound",
+       "context": "on a very sound and pithy piece of"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "sound",
+       "context": "their theology is sound; and it must be"
+      }
+     ],
+     "default": true,
+     "pos": "adjective"
+    },
+    {
+     "meaning": "To seem.",
+     "whyHard": "Not the usual meaning! Usually: a sound is a noise.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "sound",
+       "context": "did—but it doesn’t sound right to talk so"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "sound",
+       "context": "but it does sound so luxurious. This is"
+      }
+     ],
+     "pos": "base verb"
+    }
+   ]
+  },
+  "spell": {
+   "pos": "noun",
+   "meaning": "A length of time.",
+   "whyHard": "Not the usual meaning! Usually: to spell means to say or write the letters of a word.",
+   "senses": [
+    {
+     "meaning": "A length of time. A bad spell is a short time of illness.",
+     "whyHard": "Not the usual meaning! Usually: to spell means to say or write the letters of a word.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "spell",
+       "context": "Queen’s after a spell. But nothing need be"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "spell",
+       "context": "had a bad spell with his heart Thursday,”"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "spell",
+       "context": "one for a spell yet, anyway. I can’t"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Words meant to make magic happen.",
+     "whyHard": "Not the usual meaning! Usually: to spell means to say or write the letters of a word.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "spell",
+       "context": "be casting a spell over me, too. She’s"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "spell",
+       "context": "only knew the spell I could open the"
+      }
+     ]
+    }
+   ]
+  },
+  "spring": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A place where water comes up out of the ground.",
+   "senses": [
+    {
+     "meaning": "A place where water comes up out of the ground.",
+     "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "friends with the spring down in the hollow—that"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "spring",
+       "context": "deep, clear icy-cold spring; it was set about"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "to call the spring down by the log"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "spring",
+       "context": "once about a spring called that. A dryad"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "down by the spring. It will be sacred"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 3,
+       "form": "spring",
+       "context": "down to the spring and ordered her to"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "locks with the spring for a mirror. Sometimes"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "form": "spring",
+       "context": "dabbling in the spring on the preceding evening;"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A lively bounce. More of it in a step means she walks with more life.",
+     "whyHard": "Not the usual meaning! Usually: spring is the season after winter.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "spring",
+       "context": "she gets more spring into her step.”"
+      }
+     ]
+    }
+   ]
+  },
+  "state": {
+   "pos": "singular noun",
+   "meaning": "The way a person or a thing is at one time.",
+   "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of one.",
+   "senses": [
+    {
+     "meaning": "The way a person or a thing is at one time.",
+     "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of one.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "into such a frantic state lest it should keep",
+       "form": "state"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "in a very disturbed state of mind. She was",
+       "form": "state"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "Green Gables in a state of beatification impossible to",
+       "form": "state"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "was in an awful state,\" she wailed. \"She says",
+       "form": "state"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "been in such a state of shyness and nervousness",
+       "form": "state"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "cloud, in a beatified state of mind and told",
+       "form": "state"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "the pond in a state narrowly removed from positive",
+       "form": "state"
+      }
+     ]
+    },
+    {
+     "meaning": "To say something in a clear way.",
+     "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of one.",
+     "trickyMeaning": true,
+     "pos": "base verb",
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "was not becoming, to state the case as mildly",
+       "form": "state"
+      }
+     ]
+    }
+   ]
+  },
+  "stick": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To stay with something and not give it up.",
+   "senses": [
+    {
+     "meaning": "To stay with something and not give it up.",
+     "whyHard": "Not the usual meaning! Usually: a stick is a long thin piece of wood.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "stick",
+       "context": "imaginings. Just you stick to bald facts. Begin"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "form": "stick",
+       "context": "I ought to stick out and make you"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving. Quiet.",
+   "senses": [
+    {
+     "meaning": "Not moving. Quiet.",
+     "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "still",
+       "context": "moved or spoke. Still with rapt face she"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "still",
+       "context": "and not stand stock-still and discourse about it."
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "still",
+       "context": "sat just as still as I could and"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "still",
+       "context": "her heart stand still. The long-drawn wail of"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "form": "still",
+       "context": "so white and still, as if they were"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "still",
+       "context": "the brook, of still, crimson-budded maples around a"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "still",
+       "context": "I couldn’t keep still. I’d be popping up"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "form": "still",
+       "context": "nervously, watching the still, white little face under"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "form": "still",
+       "context": "moment they stood still, white as sheets, frozen"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 3,
+       "form": "still",
+       "context": "How great and still and wonderful everything was,"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 3,
+       "form": "still",
+       "context": "a great green still outdoors, of sweet peas"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "form": "still",
+       "context": "looked at the still face and there beheld"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "story": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A lie.",
+   "senses": [
+    {
+     "meaning": "A lie. To say something that is not true.",
+     "whyHard": "Not the usual meaning! Usually: a story is a tale you read or hear.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 3,
+       "context": "you to tell a story. Of course, it wasn't",
+       "form": "story"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "grandmother wouldn't tell a story for anything. She's a",
+       "form": "story"
+      }
+     ]
+    }
+   ]
+  },
+  "trained": {
+   "pos": "past-tense verb",
+   "meaning": "Taught until ready to do something.",
+   "whyHard": "Not the usual meaning! Usually: a train is a line of cars that runs on a track."
+  },
+  "turn": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A person's time to do something. One person, then the next.",
+   "senses": [
+    {
+     "meaning": "A person's time to do something. One person, then the next.",
+     "whyHard": "Not the usual meaning! Usually: to turn means to move around, or to change direction.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "her mother who in turn had bequeathed it to",
+       "form": "turn"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "class to tea in turn,\" said Marilla, regarding the",
+       "form": "turn"
+      },
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "it will be your turn to be lazy while",
+       "form": "turn"
+      }
+     ]
+    }
+   ]
+  },
+  "watch": {
+   "pos": "singular noun",
+   "meaning": "A small clock you can carry.",
+   "whyHard": "Not the usual meaning! Usually: to watch means to look."
+  },
+  "water": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To wet a plant so it will grow.",
+   "senses": [
+    {
+     "meaning": "To wet a plant so it will grow.",
+     "whyHard": "Not the usual meaning! Usually: water is the liquid you drink.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "context": "on Matthew's grave and water the Scotch rosebush. She",
+       "form": "water"
+      }
+     ]
+    }
+   ]
+  },
+  "well": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A deep hole in the ground where people get water.",
+   "senses": [
+    {
+     "meaning": "A deep hole in the ground where people get water.",
+     "whyHard": "Not the usual meaning! Usually: well means in a good way.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 11,
+       "form": "well",
+       "context": "strychnine in the well—I heard of a case"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "wells",
+       "context": "as if poisoning wells were a purely feminine"
+      }
+     ],
+     "default": true
+    }
+   ]
   }
  },
  "paragraphs": [
@@ -14301,6 +17377,251 @@
    "meaning": "A small box that holds matches.",
    "pos": "phrase",
    "example": "Anne lighted the lamp, oversetting the match safe and using up half a dozen matches before her shaking hands could accomplish the task."
+  },
+  "might as well": {
+   "meaning": "There is no strong reason not to. It is reasonable to do it.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "I suppose I might as well tell you."
+  },
+  "make out": {
+   "meaning": "To be able to understand something, or to be able to do it.",
+   "pos": "phrasal verb",
+   "forms": [
+    "make out to"
+   ],
+   "example": "Far as I can make out from her story, Mr. Phillips has been carrying matters with a rather high hand."
+  },
+  "come to a conclusion": {
+   "meaning": "To decide after thinking.",
+   "pos": "idiom",
+   "forms": [
+    "come to the conclusion",
+    "came to the conclusion"
+   ],
+   "example": "I have come to the conclusion that it is no use trying to be romantic in Avonlea."
+  },
+  "off by heart": {
+   "meaning": "From memory. You can say it without looking at the book.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "I know ever so many pieces of poetry off by heart"
+  },
+  "of late": {
+   "meaning": "Recently. In the time just past.",
+   "pos": "idiom",
+   "forms": [
+    "of late years"
+   ],
+   "example": "her eyes had grown tired very often of late."
+  },
+  "sound asleep": {
+   "meaning": "Sleeping deeply.",
+   "pos": "phrase",
+   "forms": [
+    "sound sleep"
+   ],
+   "example": "Matthew, who had been apparently sound asleep on the lounge"
+  },
+  "mortar board": {
+   "meaning": "A flat thing you put on your head when you finish school.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "graduating in a gown and mortar board"
+  },
+  "in that light": {
+   "meaning": "In that way of seeing it.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "you’d come to see it in that light, Marilla"
+  },
+  "turning point": {
+   "meaning": "The time when things change.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "It was the turning point in my life."
+  },
+  "the iron entered into one's soul": {
+   "meaning": "A deep hurt that stays. She feels the unfair thing very strongly.",
+   "pos": "idiom",
+   "forms": [
+    "the iron has entered into my soul"
+   ],
+   "example": "The iron has entered into my soul, Diana."
+  },
+  "strong point": {
+   "meaning": "The thing you do best.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "Argument was not his strong point"
+  },
+  "make a point of": {
+   "meaning": "To be careful to do something.",
+   "pos": "idiom",
+   "forms": [
+    "made a sentimental point of"
+   ],
+   "example": "Anne made a sentimental point of keeping fresh flowers"
+  },
+  "kettle of fish": {
+   "meaning": "A bad problem.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "this is a pretty kettle of fish"
+  },
+  "hold one's tongue": {
+   "meaning": "To say nothing.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "\"For pity's sake hold your tongue,\" said Marilla. \"You talk entirely too much for a little girl.\""
+  },
+  "look after": {
+   "meaning": "To take care of a person or a thing.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "such a pity you haven't any here for me to look after.\""
+  },
+  "by heart": {
+   "meaning": "From memory, so you can say it without the book.",
+   "pos": "phrase",
+   "forms": [
+    "off by heart"
+   ],
+   "example": "and I know ever so many pieces of poetry off by heart—'The Battle of Hohenlinden'"
+  },
+  "take place": {
+   "meaning": "To happen.",
+   "pos": "phrase",
+   "forms": [
+    "taken place"
+   ],
+   "example": "back into her recollection as vividly as if it had taken place yesterday. Gilbert"
+  },
+  "a pretty kettle of fish": {
+   "meaning": "A bad trouble.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "\"Well, this is a pretty kettle of fish,\" she said wrathfully. \"This"
+  },
+  "throw cold water on": {
+   "meaning": "To say no to a plan and take the hope out of it.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "of the question. Matthew felt sure she would throw cold water on his project at"
+  },
+  "second to none": {
+   "meaning": "Better than all the others.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "tell the news. It would certainly make a sensation second to none, and Mrs. Rachel"
+  },
+  "for dear life": {
+   "meaning": "With all your strength, as hard as you can.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "night every night of her Entrance week and crammed for dear life; and I had"
+  },
+  "rise to the occasion": {
+   "meaning": "To do what is needed at a hard moment.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "Jane rose to the occasion. Cloth of gold for coverlet there was"
+  },
+  "spring into one's step": {
+   "meaning": "A lively, quick way of walking.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "let her read books until she gets more spring into her step.\""
+  },
+  "at heart": {
+   "meaning": "In your true feelings.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "difference where I go or how much I change outwardly; at heart I shall"
+  },
+  "fly into a temper": {
+   "meaning": "To become suddenly very angry.",
+   "pos": "phrase",
+   "forms": [
+    "fly into such a fury"
+   ],
+   "example": "forever. It was very wicked of me to fly into a temper because you told me"
+  },
+  "of course": {
+   "meaning": "Certainly. You already know this is true.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "his turnip seed the next afternoon. Peter had asked him, of course, for Matthew"
+  },
+  "in fact": {
+   "meaning": "Actually. This is the truth.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "\"Well, we've been thinking about it for some time—all winter in fact,\" returned Marilla."
+  },
+  "after all": {
+   "meaning": "When you think of the whole thing, or even when it is not what you expected.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "the home she longed for was not to be hers after all. They drove"
+  },
+  "turn to": {
+   "meaning": "To start the work that is needed.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "up and then we'll be left and have to turn to and break in another"
+  },
+  "at hand": {
+   "meaning": "Near, and ready if needed.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "\"I don't understand,\" said Matthew helplessly, wishing that Marilla was at hand to cope with the situation."
+  },
+  "on hand": {
+   "meaning": "Here and ready to use.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "\"We only keep hayseed in the spring,\" she explained loftily. \"We've none on hand just now.\""
+  },
+  "out of hand": {
+   "meaning": "At once, without more talk.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "physical, mental or spiritual, into consideration and settling it out of hand."
+  },
+  "a great hand at": {
+   "meaning": "Very good at something.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "disobeyed you. Mebbe it can all be explained—Anne's a great hand at explaining.\""
+  },
+  "with a high hand": {
+   "meaning": "Without asking others, as if only you may decide.",
+   "pos": "phrase",
+   "forms": [
+    "with a rather high hand"
+   ],
+   "example": "story, Mr. Phillips has been carrying matters with a rather high hand. But it would"
+  },
+  "take in hand": {
+   "meaning": "To take charge of a person and guide them.",
+   "pos": "phrase",
+   "forms": [
+    "took him in hand"
+   ],
+   "example": "had given him up in despair, but Anne took him in hand so successfully that he"
+  },
+  "by hand": {
+   "meaning": "By a person, not by a machine. Brought up by hand means someone fed the baby and raised the child.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "poor and had a drunken husband. She brought me up by hand. Do you"
+  },
+  "put one's hand to the plow": {
+   "meaning": "To start a hard job and not stop.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "right from the first. But I've put my hand to the plow and I won't look"
   }
  }
 }

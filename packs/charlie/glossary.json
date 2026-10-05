@@ -4,7 +4,7 @@
  "author": "Roald Dahl",
  "sha256": "9ff7eb997d657990ab00832036eba42be317b26801fb7775126f8a2d6a3f4717",
  "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
- "count": 1587,
+ "count": 1608,
  "glossary": {
   "chocolate": {
    "pos": "singular noun",
@@ -137,19 +137,219 @@
    "count": 48
   },
   "lift": {
+   "senseOnly": true,
    "pos": "singular noun",
-   "meaning": "A machine that carries people up and down in a building. (American English: elevator.)",
-   "whyHard": "British English word for \"elevator\".",
-   "example": "25 The Great Glass Lift",
-   "examples": [
-    "25 The Great Glass Lift",
-    "I used to do it in our lift on the way home from school."
-   ],
-   "forms": [
-    "lift",
-    "lifts"
-   ],
-   "count": 45
+   "meaning": "A small room that carries people up and down inside a building.",
+   "senses": [
+    {
+     "meaning": "A small room that carries people up and down inside a building.",
+     "whyHard": "Not the usual meaning! Usually: to lift means to raise something up.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "it in our lift on the way home"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "school. Why the lift? Because I liked sticking"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "better take the lift,’ said Mr Wonka. ‘It’s"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 3,
+       "context": "was the craziest lift he had ever seen."
+      },
+      {
+       "chapter": 28,
+       "occurrence": 4,
+       "context": "an ordinary up-and-down lift!’ announced Mr Wonka proudly."
+      },
+      {
+       "chapter": 28,
+       "occurrence": 5,
+       "context": "Wonka proudly. ‘This lift can go sideways and"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 6,
+       "context": "‘The whole lift is made of thick, clear"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 7,
+       "context": "shut and the lift leaped away as though"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 8,
+       "context": "their feet, the lift changed direction and swerved"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 9,
+       "context": "The lift rushed on at the speed of"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 10,
+       "context": "walls of the lift, as it rushed along,"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 11,
+       "context": "And now the lift began flattening out again,"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 12,
+       "context": "one’s using the other lift at this moment.’"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 13,
+       "context": "‘What other lift?’ screamed Mrs Teavee."
+      },
+      {
+       "chapter": 28,
+       "occurrence": 14,
+       "context": "brakes, and the lift began to slow down."
+      },
+      {
+       "chapter": 28,
+       "occurrence": 15,
+       "context": "doors of the lift slid open and Mr"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "out of the lift into a room so"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "darted into the lift. ‘Come on! Hurry up!"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "context": "out of the lift and started shaking Charlie’s"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 3,
+       "context": "the great glass lift to speed things up!"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 4,
+       "context": "ceiling of the lift. Charlie and Grandpa Joe"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 5,
+       "context": "Then WHAM! The lift shot straight up like"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 6,
+       "context": "outside as the lift went faster and faster."
+      },
+      {
+       "chapter": 31,
+       "occurrence": 7,
+       "context": "wall of the lift with his hand. ‘Faster!"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 8,
+       "context": "‘… you don’t really mean that this lift…’"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 9,
+       "context": "The lift rushed on, going up and up"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 10,
+       "context": "Sure enough, the lift had shot right up"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 12,
+       "context": "another button. The lift stopped. It stopped and"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "button, and the lift dropped lower, and soon"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "context": "button, and the lift swung upwards into the"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "The great glass lift was now hovering high"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "context": "town. Inside the lift stood Mr Wonka, Grandpa"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 3,
+       "context": "buttons and the lift shot down towards Charlie’s"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 4,
+       "context": "of room in this lift for a bed.’"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 5,
+       "context": "The lift was now hovering over the roof"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 6,
+       "context": "CRASH went the lift, right down through the"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 7,
+       "context": "stepping out of the lift. ‘It’s only us.’"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 8,
+       "context": "ride back to the factory in the lift."
+      },
+      {
+       "chapter": 33,
+       "occurrence": 9,
+       "context": "bed into the lift. They pushed Mr and"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 10,
+       "context": "screamed. And the lift rose up off the"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "violet": {
    "pos": "singular noun",
@@ -1185,17 +1385,36 @@
   "pound": {
    "pos": "singular noun",
    "meaning": "British money. It is also a weight of about half a kilogram.",
-   "whyHard": "This word is harder than everyday English.",
-   "example": "In one city, a famous gangster robbed a bank of a thousand pounds and spent the whole lot on Wonka bars that same afternoon.",
-   "examples": [
-    "In one city, a famous gangster robbed a bank of a thousand pounds and spent the whole lot on Wonka bars that same afternoon.",
-    "I’ll give you fifty pounds."
-   ],
+   "whyHard": "British money, or a weight. In two places it means to hit.",
    "forms": [
-    "pounds",
-    "pound"
+    "pounds"
    ],
-   "count": 7
+   "senses": [
+    {
+     "pos": "singular noun",
+     "meaning": "British money. It is also a weight of about half a kilogram.",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "To hit something hard, again and again.",
+     "whyHard": "Not the usual meaning! Usually: a pound is British money, or a weight of about half a kilogram.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "The cogs begin to grind and pound;"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "it up! It pounds it and beats it!",
+       "form": "pounds"
+      }
+     ]
+    }
+   ]
   },
   "shining": {
    "pos": "present participle",
@@ -13066,9 +13285,29 @@
   "suit": {
    "pos": "noun",
    "meaning": "A set of matching clothes. Clothes that cover the whole body in space.",
-   "whyHard": "This word is harder than everyday English.",
+   "whyHard": "This word has more than one meaning.",
    "forms": [
     "suits"
+   ],
+   "senses": [
+    {
+     "meaning": "A set of matching clothes. Clothes that cover the whole body in space.",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "To look right on someone, or to be a good choice for them.",
+     "whyHard": "Not the usual meaning! Usually: a suit is a set of matching clothes.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "suit",
+       "context": "‘It would suit you very well,’ said"
+      }
+     ]
+    }
    ]
   },
   "direction": {
@@ -14400,6 +14639,941 @@
    "meaning": "The second half of whang-doodle, a made-up fierce animal in the Oompa-Loompa song.",
    "whyHard": "The author made up this animal.",
    "coined": true
+  },
+  "bank": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The ground along the edge of a river.",
+   "senses": [
+    {
+     "meaning": "The ground along the edge of a river.",
+     "whyHard": "Not the usual meaning! Usually: a bank is a place that keeps money.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "bank",
+       "context": "away from the bank and began to"
+      }
+     ]
+    }
+   ]
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Near.",
+   "forms": [
+    "closer"
+   ],
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "close",
+       "context": "newspaper up close to his face because"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "close",
+       "context": "and sit close to me and we’ll"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "close",
+       "context": "standing equally close. ‘Why, I’d give"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "close",
+       "context": "took a close look, his nose almost"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "close",
+       "context": "Ticket up close to his eyes."
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "close",
+       "context": "skeleton. Very close to us. Just there!"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "close",
+       "context": "You’re too close to the camera! There"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "he leaned closer to Charlie, and"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "a bit closer to the famous"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "to come closer. Charlie tiptoed over"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "river to get a closer look."
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "was being sucked closer and closer"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "form": "closer",
+       "context": "and closer towards the mouth of"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "the boat came closer, the watchers"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "closer",
+       "context": "get a closer look. She was"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "the newspaper up close to his face because"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "here and sit close to me and we’ll"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "was standing equally close. ‘Why, I’d give him"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "and took a close look, his nose almost"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "Golden Ticket up close to his eyes. His"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "a skeleton. Very close to us. Just there!"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "back! You’re too close to the camera! There"
+      }
+     ]
+    }
+   ]
+  },
+  "drop": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A very small amount of liquid.",
+   "senses": [
+    {
+     "meaning": "A very small amount of liquid.",
+     "whyHard": "Not the usual meaning! Usually: to drop means to let something fall.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "drop",
+       "context": "Every drop of that river is hot"
+      }
+     ]
+    }
+   ]
+  },
+  "fire": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To shoot a gun.",
+   "senses": [
+    {
+     "meaning": "To shoot a gun.",
+     "whyHard": "Not the usual meaning! Usually: fire means the hot bright flames.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "fire",
+       "context": "air and fire off half a dozen"
+      }
+     ]
+    }
+   ]
+  },
+  "fish": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A rude but friendly name for a person.",
+   "senses": [
+    {
+     "meaning": "A rude but friendly name for a person.",
+     "whyHard": "Not the usual meaning! Usually: a fish is an animal that lives in water.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "‘My dear old fish,’ said Mr Wonka, ‘go"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "foot": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A length of about 30 centimetres.",
+   "forms": [
+    "feet"
+   ],
+   "senses": [
+    {
+     "meaning": "A length of about 30 centimetres.",
+     "whyHard": "Not the usual meaning! Usually: a foot is the end of your leg.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "leaping about a foot in the air. ‘You’ve"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "it lay four feet deep around the tiny",
+       "form": "feet"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "MINE – 10,000 FEET DEEP, it said on",
+       "form": "feet"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "were a thousand feet up in the sky.",
+       "form": "feet"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "He’s about ten feet tall and thin as",
+       "form": "feet"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "The lower end of a bed.",
+     "whyHard": "Not the usual meaning! Usually: a foot is the end of your leg.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "stood at the foot of the bed, watching"
+      }
+     ]
+    }
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To give or pass something to someone.",
+   "forms": [
+    "handed",
+    "handing"
+   ],
+   "senses": [
+    {
+     "meaning": "To give or pass something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "hand",
+       "context": "she said, ‘hand over this magic gum"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "handed",
+       "context": "again and handed it to Charlie."
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "handed",
+       "context": "chocolate, and handed it to Charlie."
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "handed",
+       "context": "Mr Wonka handed each of them a"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "handing",
+       "context": "Mr Wonka, handing the Oompa-Loompa a piece"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "Wonka,’ she said, ‘hand over this magic gum"
+      }
+     ]
+    }
+   ]
+  },
+  "last": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To go on for a length of time.",
+   "senses": [
+    {
+     "meaning": "To go on for a length of time.",
+     "whyHard": "Not the usual meaning! Usually: last means the one at the end.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "last",
+       "context": "birthday chocolate last him for more than"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "last",
+       "context": "it won’t last very long, so"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "last",
+       "context": "sweets to last them for the rest"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "last",
+       "context": "gum to last me for the rest"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 5,
+       "form": "last",
+       "context": "eatables to last you and your entire"
+      }
+     ]
+    }
+   ]
+  },
+  "line": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A set of goods of one kind.",
+   "senses": [
+    {
+     "meaning": "A set of goods of one kind.",
+     "whyHard": "Not the usual meaning! Usually: a line is a long thin mark, or a row of people or things.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "a completely new line in toffees!’ He stopped"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "plural noun",
+   "meaning": "The time someone is alive.",
+   "senses": [
+    {
+     "meaning": "The time someone is alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "thing in their lives, and his evening"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "rest of their lives! So watch out"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "half their lives was reading books!"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "thing in their lives, and his evening visits"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "rest of their lives! So watch out for"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "One half their lives was reading books!"
+      }
+     ]
+    }
+   ]
+  },
+  "mine": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A deep hole where people dig something out of the ground.",
+   "senses": [
+    {
+     "meaning": "A deep hole where people dig something out of the ground.",
+     "whyHard": "Not the usual meaning! Usually: mine means belonging to me.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "mine",
+       "context": "ROCK-CANDY MINE – 10,000 FEET DEEP, it"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "THE ROCK-CANDY MINE – 10,000 FEET DEEP, it"
+      }
+     ]
+    }
+   ]
+  },
+  "miss": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A word used before a girl's name.",
+   "senses": [
+    {
+     "meaning": "A word used before a girl's name.",
+     "whyHard": "Not the usual meaning! Usually: to miss means to fail to hit, or to feel sad that someone is away.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "by a Miss Violet Beauregarde. There"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "hair on!” Miss Beauregarde shouted. “And"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 3,
+       "form": "miss",
+       "context": "best friend, Miss Cornelia Prinzmetel. And"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "‘Roll Miss Beauregarde into the boat,’ he"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 3,
+       "form": "miss",
+       "context": "Miss Bigelow went late to bed,"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "There goes Miss Violet Beauregarde, the"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "found by a Miss Violet Beauregarde. There was"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "your hair on!” Miss Beauregarde shouted. “And now,”"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 3,
+       "context": "my best friend, Miss Cornelia Prinzmetel. And was"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "‘Roll Miss Beauregarde into the boat,’ he said"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 3,
+       "context": "Miss Bigelow went late to bed,"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "look! There goes Miss Violet Beauregarde, the great"
+      }
+     ]
+    }
+   ]
+  },
+  "park": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To leave a van or a car standing in a place.",
+   "forms": [
+    "parked"
+   ],
+   "senses": [
+    {
+     "meaning": "To leave a van or a car standing in a place.",
+     "whyHard": "Not the usual meaning! Usually: a park is a green place in a town.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "gigantic covered vans parked in a line near",
+       "form": "parked"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "party": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A group of people who are together.",
+   "senses": [
+    {
+     "meaning": "A group of people who are together.",
+     "whyHard": "Not the usual meaning! Usually: a party is a time when people meet to have fun.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "party",
+       "context": "the whole party might have got out"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "party",
+       "context": "a large party of people, when you"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "party",
+       "context": "door. The party crowded round. On the"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "party",
+       "context": "led the party over to a gigantic"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "party",
+       "context": "of the party, including little Charlie Bucket"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "party",
+       "context": "left in the party, were getting very"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "otherwise the whole party might have got out"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "quite a large party of people, when you"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "metal door. The party crowded round. On the"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "Wonka led the party over to a gigantic"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "rest of the party, including little Charlie Bucket"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "left in the party, were getting very out"
+      }
+     ]
+    }
+   ]
+  },
+  "place": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To put something down in a spot.",
+   "forms": [
+    "placed"
+   ],
+   "senses": [
+    {
+     "meaning": "To put something down in a spot.",
+     "whyHard": "Not the usual meaning! Usually: a place is a spot or an area.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "place",
+       "context": "he would place it carefully in a"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "placed",
+       "context": "forward and placed a hand gently on"
+      }
+     ]
+    }
+   ]
+  },
+  "point": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A moment in what is happening.",
+   "senses": [
+    {
+     "meaning": "A moment in what is happening.",
+     "whyHard": "Not the usual meaning! Usually: a point is a sharp tip, or to point means to show with a finger.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "point",
+       "context": "that point, he became aware of a"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "point",
+       "context": "this point, the door opened, and Mr"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "point",
+       "context": "that point, there came a loud knock"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "point",
+       "context": "this point, Mr Salt, Veruca’s father, stepped"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "At that point, he became aware of a"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "At this point, the door opened, and Mr"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "At that point, there came a loud knock"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "At this point, Mr Salt, Veruca’s father, stepped"
+      }
+     ]
+    }
+   ]
+  },
+  "presented": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Given to someone.",
+   "senses": [
+    {
+     "meaning": "Given to someone.",
+     "whyHard": "Not the usual meaning! Usually: a present is a gift.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "presented",
+       "context": "was always presented with one small chocolate"
+      }
+     ]
+    }
+   ]
+  },
+  "pretty": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Quite, or fairly.",
+   "senses": [
+    {
+     "meaning": "Quite, or fairly.",
+     "whyHard": "Not the usual meaning! Usually: pretty means nice to look at.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "could… yes. I’m pretty sure it could… of"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "Wonka saying, ‘I’m pretty sure it could… of"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "ever, ‘but it’s pretty thick glass, all the"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "run": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To be in charge of something and keep it going.",
+   "senses": [
+    {
+     "meaning": "To be in charge of something and keep it going.",
+     "whyHard": "Not the usual meaning! Usually: to run means to move very fast on your feet.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "form": "run",
+       "context": "enough to run it, the entire factory"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "form": "run",
+       "context": "going to run the factory when I"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 3,
+       "form": "run",
+       "context": "help to run it until Charlie"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 4,
+       "form": "run",
+       "context": "him to run it and he’s given"
+      }
+     ]
+    }
+   ]
+  },
+  "stand": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To bear something hard or unpleasant.",
+   "senses": [
+    {
+     "meaning": "To bear something hard or unpleasant.",
+     "whyHard": "Not the usual meaning! Usually: to stand means to be on your feet.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "stand",
+       "context": "he could stand it no longer,"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "stand",
+       "context": "They can’t stand the cold! They’d"
+      }
+     ]
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "still",
+       "context": "Charlie sat very still on the"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "still",
+       "context": "was standing very still, holding it"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "still",
+       "context": "fathers. ‘Be still! It’s not time yet!"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 3,
+       "form": "still",
+       "context": "Joe, stood absolutely still and watched"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 3,
+       "form": "still",
+       "context": "we know it keeps them still,"
+      }
+     ]
+    },
+    {
+     "meaning": "Even more.",
+     "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+     "trickyMeaning": true,
+     "pos": "adverb",
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "still",
+       "context": "faster and faster still. He seemed"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "form": "still",
+       "context": "Or better still, just don’t install"
+      }
+     ]
+    }
+   ]
   }
  },
  "chapters": 34,
@@ -15595,6 +16769,121 @@
     "piggy banks"
    ],
    "example": "smashing their piggy banks"
+  },
+  "on the other hand": {
+   "meaning": "Used to add the other side of an idea.",
+   "pos": "idiom",
+   "example": "But on the other hand… I believe that the person who really deserves to go most of all is Grandpa Joe himself."
+  },
+  "by no means": {
+   "meaning": "Certainly not.",
+   "pos": "idiom",
+   "example": "But this is by no means the most exciting thing that will happen on the day of your visit."
+  },
+  "keep one's hair on": {
+   "meaning": "Stay calm. Do not get angry.",
+   "pos": "idiom",
+   "forms": [
+    "keep your hair on"
+   ],
+   "example": "All right, Mother, keep your hair on!"
+  },
+  "get a move on": {
+   "meaning": "Hurry.",
+   "pos": "idiom",
+   "example": "Get a move on, please!"
+  },
+  "turn up": {
+   "meaning": "To appear or to arrive.",
+   "pos": "phrasal verb",
+   "example": "I expect she’ll turn up again sooner or later."
+  },
+  "take place": {
+   "meaning": "To happen.",
+   "pos": "phrasal verb",
+   "forms": [
+    "taken place"
+   ],
+   "example": "an explosion seemed to take place inside him."
+  },
+  "keep in check": {
+   "meaning": "To stop something from growing too far.",
+   "pos": "idiom",
+   "forms": [
+    "keep it in check"
+   ],
+   "example": "we had to use a lawn mower to keep it in check!"
+  },
+  "might as well": {
+   "meaning": "There is no good reason not to.",
+   "pos": "idiom",
+   "example": "You might as well get it over with"
+  },
+  "run through": {
+   "meaning": "To push a sharp thing right through a person.",
+   "pos": "phrasal verb",
+   "forms": [
+    "run him through"
+   ],
+   "example": "as though she were going to run him through."
+  },
+  "no matter": {
+   "meaning": "It makes no difference.",
+   "pos": "idiom",
+   "example": "no matter where it is!"
+  },
+  "sticky end": {
+   "meaning": "A bad finish, when something bad happens to a person.",
+   "pos": "idiom",
+   "example": "She’ll come to a sticky end one day"
+  },
+  "laugh one's head off": {
+   "meaning": "To laugh very loudly for a long time.",
+   "pos": "idiom",
+   "forms": [
+    "laughing his head off"
+   ],
+   "example": "He’s laughing his head off!"
+  },
+  "come what may": {
+   "meaning": "Whatever happens next.",
+   "pos": "idiom",
+   "example": "We chose a thing that, come what may"
+  },
+  "what on earth": {
+   "meaning": "A surprised way of asking what.",
+   "pos": "idiom",
+   "example": "What on earth do you use whips for?"
+  },
+  "turn out": {
+   "meaning": "To be found to be something.",
+   "pos": "phrasal verb",
+   "example": "it turned out to be a clever fake"
+  },
+  "in order": {
+   "meaning": "Correct and acceptable.",
+   "pos": "idiom",
+   "example": "the ticket is quite in order"
+  },
+  "after all": {
+   "meaning": "When you remember the real facts, or in spite of what was said before.",
+   "pos": "idiom",
+   "example": "perhaps you’re right after all"
+  },
+  "have a fit": {
+   "meaning": "To suddenly become very upset or very excited.",
+   "pos": "idiom",
+   "example": "the shopkeeper might be going to have a fit"
+  },
+  "in the dead of night": {
+   "meaning": "In the middle of the night, when it is darkest.",
+   "pos": "idiom",
+   "example": "stolen from the woods in the dead of night"
+  },
+  "do without": {
+   "meaning": "To manage when you do not have something.",
+   "pos": "phrasal verb",
+   "example": "I can’t do without it."
   }
  }
 }

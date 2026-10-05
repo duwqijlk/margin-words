@@ -4400,6 +4400,1353 @@
   "vex": {
    "pos": "verb",
    "meaning": "To make someone cross or worried."
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Near.",
+   "whyHard": "Not the usual meaning! Usually: close means to shut.",
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "and hopped about so close to her feet, and"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "wall. Mary had stepped close to the robin, and"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "She bent very close to them and sniffed"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "He moved quite close to the bush with"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "ll have growed too close an’ we’ll have"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "She came close to the bed and"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "black lashes were lying close against his cheeks, for"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "seen a crow so close before and he made"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "and Captain trotted quietly close to his side"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "their eager young noses close to the earth and"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 4,
+       "context": "the trees to a close grown corner, a little"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 5,
+       "context": "was watchin’ him too close,” said Dickon. “He’d"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 6,
+       "context": "lying on the grass close by him looking up"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "pushed her big footstool close to the four-posted"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "and Shell nosing about close to them, it seemed"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "context": "when she sat down close to Colin’s bed"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "on to the bed close to the ivy, “is"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "greenness and into the close-grown corner and was"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "commanded. “Wheel me quite close and stop right in"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "a squirrel and huddled close to him on his"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "the fox cub keeping close to Dickon, the white"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "not go near the close-grown corner in those"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "said Ben Weatherstaff, getting close to her. “Look at"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "chair he stood quite close to Susan and fixed"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "context": "with her warm arms close against the bosom under"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "me-nots growing so close to the stream that"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "close",
+       "context": "and hopped about so close to her feet, and"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "close",
+       "context": "wall. Mary had stepped close to the robin, and"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "close",
+       "context": "She bent very close to them and sniffed"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "close",
+       "context": "He moved quite close to the bush with"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "close",
+       "context": "They’ll have growed too close an’ we’ll have to"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "close",
+       "context": "She came close to the bed and"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "close",
+       "context": "black lashes were lying close against his cheeks, for"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "close",
+       "context": "seen a crow so close before and he made"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "close",
+       "context": "and Captain trotted quietly close to his side."
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "form": "close",
+       "context": "their eager young noses close to the earth and"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 5,
+       "form": "close",
+       "context": "was watchin’ him too close,” said Dickon. “He’d be"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 6,
+       "form": "close",
+       "context": "lying on the grass close by him looking up"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "close",
+       "context": "pushed her big footstool close to the four-posted bed"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "close",
+       "context": "and Shell nosing about close to them, it seemed"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "form": "close",
+       "context": "when she sat down close to Colin’s bed he"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "close",
+       "context": "on to the bed close to the ivy, “is"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "close",
+       "context": "commanded. “Wheel me quite close and stop right in"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "close",
+       "context": "a squirrel and huddled close to him on his"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "form": "close",
+       "context": "the fox cub keeping close to Dickon, the white"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "form": "close",
+       "context": "said Ben Weatherstaff, getting close to her. “Look at"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "form": "close",
+       "context": "chair he stood quite close to Susan and fixed"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "form": "close",
+       "context": "with her warm arms close against the bosom under"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "close",
+       "context": "blue forget-me-nots growing so close to the stream that"
+      }
+     ]
+    }
+   ]
+  },
+  "company": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "People who are with you, or guests.",
+   "whyHard": "Not the usual meaning! Usually: a company is a business.",
+   "senses": [
+    {
+     "meaning": "People who are with you, or guests.",
+     "whyHard": "Not the usual meaning! Usually: a company is a business.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "been tired of her company. Now she was followed"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "desire for his elderly company. Then, also, she was"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "his mother. In the company of his “creatures” he"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "company",
+       "context": "been tired of her company. Now she was followed"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "company",
+       "context": "desire for his elderly company. Then, also, she was"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "company",
+       "context": "his mother. In the company of his “creatures” he"
+      }
+     ]
+    }
+   ]
+  },
+  "cook": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The person who makes the meals.",
+   "whyHard": "Not the usual meaning! Usually: cook means to make food hot and ready to eat.",
+   "senses": [
+    {
+     "meaning": "The person who makes the meals.",
+     "whyHard": "Not the usual meaning! Usually: cook means to make food hot and ready to eat.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "recluse who, as the cook said, “had found his"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "at the best meals Cook can tempt them with"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "that Mrs. Loomis, the cook, could see the highly"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "form": "cook",
+       "context": "recluse who, as the cook said, “had found his"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "cook",
+       "context": "at the best meals Cook can tempt them with."
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "cook",
+       "context": "that Mrs. Loomis, the cook, could see the highly"
+      }
+     ]
+    }
+   ]
+  },
+  "draw": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To pull.",
+   "whyHard": "Not the usual meaning! Usually: draw means to make a picture.",
+   "senses": [
+    {
+     "meaning": "To pull.",
+     "whyHard": "Not the usual meaning! Usually: draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "he allowed her to draw closer and closer to"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "had a strong back. Draw the curtain again"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "on your back and draw in long breaths of"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "his thin chest to draw it in, and his"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "make it push and draw me and make me"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "hand in her pocket, drew out the key and",
+       "form": "drew"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "room, and as she drew nearer the light attracted",
+       "form": "drew"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "to the window. She drew up the blinds and",
+       "form": "drew"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "door to come in drew back into the corridor",
+       "form": "drew"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "They drew the chair under the",
+       "form": "drew"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "Both Mary and Dickon drew a relieved breath",
+       "form": "drew"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "He drew himself up straighter than",
+       "form": "drew"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "Colin drew his brows together and",
+       "form": "drew"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "and the lamb slowly drew near and made part",
+       "form": "drew"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "Sowerby bent down and drew him with her warm",
+       "form": "drew"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "know why. As he drew near to it his",
+       "form": "drew"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "was even better. He drew himself up to his",
+       "form": "drew"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "his forehead is all drawn together",
+       "form": "drawn"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "Why is the curtain drawn over her",
+       "form": "drawn"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "but for his long-drawn broken breaths, which were",
+       "form": "drawn"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "wheeled chair had been drawn back under the canopy",
+       "form": "drawn"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "grass and had just drawn out his pipe when",
+       "form": "drawn"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 3,
+       "context": "moving about and had drawn together and were resting",
+       "form": "drawn"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 4,
+       "context": "a low branch and drawn up one leg and",
+       "form": "drawn"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "the curtain had been drawn aside. That was the",
+       "form": "drawn"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "context": "why the curtain is drawn back. I am going",
+       "form": "drawn"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "tall man with a drawn face and crooked shoulders",
+       "form": "drawn"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "if he were being drawn back to the place",
+       "form": "drawn"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "the little girl said, drawing herself up stiffly. She",
+       "form": "drawing"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "without stirring —almost without drawing his breath —until the",
+       "form": "drawing"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "if they were all drawing near to watch him",
+       "form": "drawing"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "your eyes,” said Mary, drawing her footstool closer, “and",
+       "form": "drawing"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "bewitched him!” decided Martha, drawing a long breath",
+       "form": "drawing"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "as she told him, drawing in long deep breaths",
+       "form": "drawing"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "Colin was listening and drawing in long breaths of",
+       "form": "drawing"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "something were pushing and drawing in my chest and",
+       "form": "drawing"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "is always pushing and drawing and making things out",
+       "form": "drawing"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "on the moss carpet, drawing a long, deep, soft",
+       "form": "drawing"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "of the heart at drawing nearer to the great",
+       "form": "drawing"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "he allowed her to draw closer and closer to"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "had a strong back. Draw the curtain again.”"
+      }
+     ],
+     "forms": [
+      "drew",
+      "drawn",
+      "drawing"
+     ]
+    }
+   ],
+   "forms": [
+    "drew",
+    "drawn",
+    "drawing"
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To give something to someone.",
+   "whyHard": "Not the usual meaning! Usually: a hand is the part of the body at the end of the arm.",
+   "forms": [
+    "handed",
+    "handing"
+   ],
+   "senses": [
+    {
+     "meaning": "To give something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the part of the body at the end of the arm.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "wanted to have things handed to her and put",
+       "form": "handed"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "try it,” urged Martha, handing her the skipping-rope",
+       "form": "handing"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "Here, lad,” he said, handing the plant to Colin",
+       "form": "handing"
+      }
+     ],
+     "forms": [
+      "handed",
+      "handing"
+     ]
+    }
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The time of being alive.",
+   "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+   "senses": [
+    {
+     "meaning": "The time of being alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "stomachs full in their lives. They’re as hungry"
+      }
+     ]
+    },
+    {
+     "meaning": "To be alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "and broom, and nothing lives on but wild ponies"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "of it, if he lives,” suggested Mr. Roach"
+      }
+     ]
+    }
+   ]
+  },
+  "miss": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A title before the name of a girl or an unmarried woman.",
+   "whyHard": "Not the usual meaning! Usually: miss means to fail to hit, or to feel sad that someone is away.",
+   "senses": [
+    {
+     "meaning": "A title before the name of a girl or an unmarried woman.",
+     "whyHard": "Not the usual meaning! Usually: miss means to fail to hit, or to feel sad that someone is away.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "I beg your pardon, Miss. Do stop cryin"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "tha’ really do that, Miss? It would be same"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "leaves me at present. Miss Mary has plenty of"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "context": "every one of you. Miss Mary is going to"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "I know tha’rt Miss Mary"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "This is Miss Mary, sir,” she said"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "healthier or better ones. Miss Mary can get no"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 3,
+       "context": "Mr. Craven answered. “Take Miss Mary away now and"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "Eh! Miss Mary!” she said half"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "order you to bring Miss Mary to me, how"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "Eh! Miss Mary,” she said, “it"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "his room, ‘Please ask Miss Mary if she’ll"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "context": "saying please! Will you go, Miss"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "the Long Walk and Miss Mary will meet you"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "you and Dickon and Miss Mary to stand in"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "into the grounds with Miss Mary and that it"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "lads. But him an’ Miss Mary thinks it’s"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 3,
+       "context": "his chair. Him an’ Miss Mary’s both got"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 4,
+       "context": "an invalid at all. Miss Mary says she’ll"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "my chair,” he said. “Miss Mary and I are"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "moor. It was about Miss Mary I spoke. I"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "out every day by Miss Mary and Susan Sowerby"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 3,
+       "context": "a fancy to both Miss Mary and Dickon, and"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 4,
+       "context": "he’s alone with Miss Mary. He never used"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "I beg your pardon, Miss. Do stop cryin’.”"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "tha’ really do that, Miss? It would be same"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "said. “I know tha’rt Miss Mary.”"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "“This is Miss Mary, sir,” she said."
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "healthier or better ones. Miss Mary can get no"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 3,
+       "form": "miss",
+       "context": "Mr. Craven answered. “Take Miss Mary away now and"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "“Eh! Miss Mary!” she said half"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "order you to bring Miss Mary to me, how"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "“Eh! Miss Mary,” she said, “it"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "his room, ‘Please ask Miss Mary if she’ll please"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "saying please! Will you go, Miss?”"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "the Long Walk and Miss Mary will meet you"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "you and Dickon and Miss Mary to stand in"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "lads. But him an’ Miss Mary thinks it’s best"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 3,
+       "form": "miss",
+       "context": "his chair. Him an’ Miss Mary’s both got to"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 4,
+       "form": "miss",
+       "context": "an invalid at all. Miss Mary says she’ll let"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "miss",
+       "context": "my chair,” he said. “Miss Mary and I are"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "form": "miss",
+       "context": "out every day by Miss Mary and Susan Sowerby’s"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 3,
+       "form": "miss",
+       "context": "a fancy to both Miss Mary and Dickon, and"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 4,
+       "form": "miss",
+       "context": "when he’s alone with Miss Mary. He never used"
+      }
+     ]
+    }
+   ]
+  },
+  "party": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person.",
+   "whyHard": "Not the usual meaning! Usually: a party is a happy meeting with food and friends.",
+   "senses": [
+    {
+     "meaning": "A person.",
+     "whyHard": "Not the usual meaning! Usually: a party is a happy meeting with food and friends.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "being a stubborn old party and not having entire"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "party",
+       "context": "being a stubborn old party and not having entire"
+      }
+     ]
+    }
+   ]
+  },
+  "state": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The way someone or something is.",
+   "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of a country.",
+   "senses": [
+    {
+     "meaning": "The way someone or something is.",
+     "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of a country.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "is certainly a new state of affairs,” said the"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "himself into such a state that Dr. Craven said"
+      }
+     ]
+    },
+    {
+     "meaning": "With formal show, as on a special day.",
+     "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of a country.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "like being taken in state round the country of"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "like some sort of State Coach because a young"
+      }
+     ]
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving.",
+   "whyHard": "Not the usual meaning! Usually: still means even now, or that something continues.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means even now, or that something continues.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "context": "The house was perfectly still. She had never known"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "context": "disagreeable ways. So she sat still"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "a child who stood still and waited for another"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "context": "and when she stood still she saw a bird"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "again,” she said, standing still at what seemed the"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "context": "to his treetop, was still as all the rest"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "new expression. He stood still as if he were"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 5,
+       "context": "He lay quite still and listened while she"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "context": "his cushion and was still, as if he were"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "beak. Dickon stood quite still and put his hand"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "gossipin’. Us must keep still a bit an’ try"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "She stood still, looking down at the"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "of sobbing, he lay still for a minute, though"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "context": "eyes and lay quite still and she held his"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "stopped. Mary became quite still and Colin looked fretful"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 3,
+       "context": "the morning he lay still and smiled without knowing"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "on them. Dickon stood still and the wheeled chair"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "was doing and stood still with a sort of"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 4,
+       "context": "Colin, and he lay still as if he were"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "and really could not keep still"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "context": "can’t stand lying still and pretending, and besides"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 3,
+       "context": "I couldn’t lie still. I got up and"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "Weatherstaff was standing quite still with his jaws set"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "context": "and she had stood still listening and looking at"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "The valley was very, very still"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 5,
+       "context": "he stopped and stood still, looking about him, and"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "form": "still",
+       "context": "The house was perfectly still. She had never known"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "still",
+       "context": "child who sat so still without doing anything; and"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "still",
+       "context": "disagreeable ways. So she sat still."
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "still",
+       "context": "a child who stood still and waited for another"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "form": "still",
+       "context": "and when she stood still she saw a bird"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "still",
+       "context": "again,” she said, standing still at what seemed the"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "still",
+       "context": "new expression. He stood still as if he were"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 5,
+       "form": "still",
+       "context": "He lay quite still and listened while she"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "form": "still",
+       "context": "beak. Dickon stood quite still and put his hand"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "form": "still",
+       "context": "gossipin’. Us must keep still a bit an’ try"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "form": "still",
+       "context": "She stood still, looking down at the"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "still",
+       "context": "of sobbing, he lay still for a minute, though"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "form": "still",
+       "context": "eyes and lay quite still and she held his"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "form": "still",
+       "context": "stopped. Mary became quite still and Colin looked fretful."
+      },
+      {
+       "chapter": 20,
+       "occurrence": 3,
+       "form": "still",
+       "context": "the morning he lay still and smiled without knowing"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "still",
+       "context": "on them. Dickon stood still and the wheeled chair"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "form": "still",
+       "context": "and one’s heart stands still at the strange unchanging"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "form": "still",
+       "context": "was doing and stood still with a sort of"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 4,
+       "form": "still",
+       "context": "Colin, and he lay still as if he were"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "still",
+       "context": "and really could not keep still."
+      },
+      {
+       "chapter": 26,
+       "occurrence": 2,
+       "form": "still",
+       "context": "I can’t stand lying still and pretending, and besides"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 3,
+       "form": "still",
+       "context": "that I couldn’t lie still. I got up and"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "form": "still",
+       "context": "Weatherstaff was standing quite still with his jaws set"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "form": "still",
+       "context": "and she had stood still listening and looking at"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "form": "still",
+       "context": "The valley was very, very still."
+      },
+      {
+       "chapter": 28,
+       "occurrence": 5,
+       "form": "still",
+       "context": "he stopped and stood still, looking about him, and"
+      }
+     ]
+    }
+   ]
   }
  },
  "paragraphs": [
@@ -5741,6 +7088,74 @@
    "forms": [
     "glass frames"
    ]
+  },
+  "might as well": {
+   "meaning": "There is no better thing to do, so this is reasonable.",
+   "pos": "idiom",
+   "example": "I suppose you might as well be told something —to prepare you"
+  },
+  "next to nothing": {
+   "meaning": "Almost none.",
+   "pos": "idiom",
+   "example": "They are eating next to nothing,” said the nurse"
+  },
+  "by heart": {
+   "meaning": "So that you can say it from memory.",
+   "pos": "idiom",
+   "example": "imitated what he did till I knowed it by heart"
+  },
+  "take place": {
+   "meaning": "To happen.",
+   "pos": "idiom",
+   "example": "Colin saw it all, watching each change as it took place"
+  },
+  "now and then": {
+   "meaning": "Sometimes, but not often.",
+   "pos": "idiom",
+   "example": "The robin hopped about busily pecking the soil and now and then stopped and looked at them a little"
+  },
+  "at length": {
+   "meaning": "After a long time.",
+   "pos": "idiom",
+   "example": "and round the orchard, resting every few minutes. At length she went to her own special walk and"
+  },
+  "of course": {
+   "meaning": "Certainly.",
+   "pos": "idiom",
+   "example": "seven-year-old scorn. “It’s England, of course. Our grandmama lives there"
+  },
+  "had better": {
+   "meaning": "Ought to. It is the wise thing to do.",
+   "pos": "idiom",
+   "example": "locked up. The master had better get you a governess,"
+  },
+  "used to": {
+   "meaning": "Did this often in the past.",
+   "pos": "idiom",
+   "example": "the Mem Sahib —Mary used to call her that oftener"
+  },
+  "get used to": {
+   "meaning": "To start to feel that something is normal.",
+   "pos": "phrase",
+   "example": "bushes. Then when he’s got used to seein’ us I’ll",
+   "forms": [
+    "got used to"
+   ]
+  },
+  "set off": {
+   "meaning": "To start to go.",
+   "pos": "phrasal verb",
+   "example": "mother somehow, so I set off searchin’. Eh! I did"
+  },
+  "all of a sudden": {
+   "meaning": "Suddenly.",
+   "pos": "idiom",
+   "example": "about roses an’ such, all of a sudden?” he demanded."
+  },
+  "for good": {
+   "meaning": "For ever, not just for a short time.",
+   "pos": "idiom",
+   "example": "be out with us for good if he got th’"
   }
  }
 }
