@@ -14,8 +14,8 @@
  *   - DISCOVER: lists all 12 classics and the 10 word lists (covers, Lexile). Alice's button says "On shelf".
  *     "Add to shelf" adds Peter and Wendy and Looking-Glass; they open from the cover, and they still open offline
  *   - deleting Alice keeps it deleted after a reload (the "removed" flag); the shelf can be emptied
- *   - a fresh visit that goes offline after the first load still opens the app and Alice, and Alice
- *     can be downloaded again from Discover while offline (the service worker keeps that download)
+ *   - a fresh visit that goes offline after the first load still opens the app and Alice; a book
+ *     taken off the shelf cannot be downloaded again while offline (the worker does not keep the file)
  *   - no standalone EPUB input anywhere; the only file inputs take .zip (and .json for a word list)
  *   - empty shelf with 3 steps; one clear "Add book"
  *   - a good pack (the kit's sample pack) imports and opens; title, author and cover come from the EPUB
@@ -666,8 +666,8 @@ async function run(lang, size) {
     await ctx.setOffline(false);
   }
 
-  // ---- a fresh visitor: first load online, then offline. The classics are on the shelf and open;
-  //      a classic that was deleted can be downloaded again while offline (public-books/ is in the service worker cache)
+  // ---- a fresh visitor: first load online, then offline. The classics are on the shelf and open.
+  //      A deleted classic is not in the service worker, so adding it again while offline fails.
   if (size === "desktop") {
     const fresh = await browser.newContext({
       viewport,
@@ -682,16 +682,15 @@ async function run(lang, size) {
     await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
     ok((await fp.locator("ul li").count()) === 1, `${label}: a new shelf has Alice (added with one tap) before going offline`);
     await fp.evaluate(() => navigator.serviceWorker.ready);
-    await fp.waitForFunction(
-      async () => {
-        const hit = await caches.match("./public-books/alice/book.epub");
-        const cat = await caches.match("./public-books/catalog.json");
-        return Boolean(hit && cat);
-      },
-      null,
-      { timeout: 30000 },
+    const cachedBook = await fp.evaluate(async () => {
+      const names = await caches.keys();
+      const hit = await caches.match("./public-books/alice/book.epub");
+      return { names, hit: Boolean(hit) };
+    });
+    ok(
+      cachedBook.hit === false && cachedBook.names.every((name) => !name.startsWith("margin-words-books")),
+      `${label}: the service worker did not cache Alice`,
     );
-    ok(true, `${label}: service worker cached Alice and the catalog`);
     await fresh.setOffline(true);
     await fp.reload();
     await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 30000 });
@@ -712,8 +711,8 @@ async function run(lang, size) {
     const alice = fp.locator('[data-pack="alice"]');
     await alice.waitFor({ timeout: 20000 });
     await alice.getByRole("button", { name: t("discover.add") }).click();
-    await alice.getByRole("button", { name: labelRe(t("pack.openAria")) }).waitFor({ timeout: 60000 });
-    ok(true, `${label}: a deleted classic downloads again from Discover while offline`);
+    await alice.locator('[data-shelf-state="error"]').waitFor({ timeout: 20000 });
+    ok(true, `${label}: a deleted classic stays off the shelf while offline`);
     await fp.setViewportSize(viewport);
     await fresh.setOffline(false);
     ok(ferrors.length === 0, `${label}: no page errors in the fresh visit${ferrors.length ? " " + ferrors[0] : ""}`);
@@ -980,13 +979,12 @@ async function run(lang, size) {
     await vctx.close();
   }
 
-  // A failed download is checked with the service worker blocked: otherwise the worker
-  // answers the aborted request from the network and the book is added anyway.
+  // A failed download is checked with the service worker running. The worker must not
+  // answer the aborted book file from a cache and add the book anyway.
   if (size === "desktop") {
     const fctx = await browser.newContext({
       viewport,
       locale: lang === "zh" ? "zh-CN" : "en-US",
-      serviceWorkers: "block",
     });
     const fp = await fctx.newPage();
     await fp.route("**/jungle-book/book.epub", (route) => route.abort());

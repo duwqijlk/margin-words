@@ -85,7 +85,7 @@ function main() {
   console.log("  done");
   console.log("The bucket must send Access-Control-Allow-Origin for https://inputread.site,");
   console.log("https://www.inputread.site, https://margin-words.pages.dev, and http://localhost:8080");
-  console.log("so the service worker can keep a book after it is opened.");
+  console.log("so the page can read a book after it is opened.");
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) main();

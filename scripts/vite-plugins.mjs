@@ -13,8 +13,8 @@
  *   Served in dev and preview. Never an EPUB or a zip. Not copied into dist/.
  *
  * offlineShell(): after the build, write dist/sw.js. It precaches the app shell only (HTML, JS, CSS,
- *   fonts, icons). Book EPUBs and glossaries are cached after the app fetches them, including from
- *   the books host when that response is CORS-readable. It never touches packs/.
+ *   fonts, icons). Book files are not cached: the page fetches them, and an added book stays in
+ *   IndexedDB. It never touches packs/.
  */
 import { createHash } from "node:crypto";
 import { createReadStream, existsSync, readdirSync, readFileSync, statSync } from "node:fs";
@@ -197,17 +197,6 @@ function listFiles(dir, base = "") {
   );
 }
 
-/** Same default as src/lib/books-base.ts. Empty means book files stay on this origin. */
-export const DEFAULT_BOOKS_BASE = "https://books.inputread.site";
-
-/** Origin the service worker may cache, or "" when books are same-origin. */
-export function booksOriginFromEnv(env, prod) {
-  const raw = env?.VITE_BOOKS_BASE;
-  if (raw === "" || raw === "." || raw === "./") return "";
-  if (typeof raw === "string" && raw.trim()) return raw.trim().replace(/\/+$/, "");
-  return prod ? DEFAULT_BOOKS_BASE : "";
-}
-
 /** True when this build output is part of the app shell, not book data. */
 export function isShellFile(name) {
   if (name.startsWith("public-books/") || name.startsWith("word-lists/")) return false;
@@ -219,19 +208,16 @@ export function isShellFile(name) {
 export function offlineShell() {
   let publicDir = "";
   let template = "";
-  let origin = "";
   return {
     name: "margin-words:offline-shell",
     apply: "build",
     configResolved(config) {
       publicDir = config.publicDir;
       template = readFileSync(join(config.root, "scripts", "sw-template.js"), "utf8");
-      origin = booksOriginFromEnv(config.env, config.mode === "production");
     },
     generateBundle(_options, bundle) {
       const files = new Set(["./", "./index.html", "./kit/"]);
-      // Book EPUBs, glossaries, covers and catalogs are not in the first install.
-      // The worker stores a book the first time the app fetches it.
+      // Book EPUBs, glossaries, covers and catalogs are not part of the shell.
       for (const name of Object.keys(bundle)) {
         if (!isShellFile(name)) continue;
         files.add(`./${name}`);
@@ -246,8 +232,7 @@ export function offlineShell() {
       const version = hash.digest("hex").slice(0, 10);
       const source = template
         .replace("__VERSION__", version)
-        .replace("__FILES__", JSON.stringify([...files].sort()))
-        .replace("__BOOKS_ORIGIN__", JSON.stringify(origin));
+        .replace("__FILES__", JSON.stringify([...files].sort()));
       this.emitFile({ type: "asset", fileName: "sw.js", source });
     },
   };
