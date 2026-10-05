@@ -489,6 +489,37 @@
    "meaning": "A short, rough name for \"tobacco\".",
    "whyHard": "Slang."
   },
+  "back": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To move backward.",
+   "whyHard": "Not the usual meaning! Usually: the back is the part behind you.",
+   "senses": [
+    {
+     "meaning": "To move backward.",
+     "whyHard": "Not the usual meaning! Usually: the back is the part behind you.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "So saying, the stranger backed along with me into",
+       "form": "backed"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "And he and Redruth backed with a great heave",
+       "form": "backed"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "backed"
+   ]
+  },
   "backstay": {
    "pos": "singular noun",
    "meaning": "A strong rope that holds up a mast from behind."
@@ -648,6 +679,11 @@
     "bargained",
     "bargains"
    ]
+  },
+  "bark": {
+   "pos": "singular noun",
+   "meaning": "The hard skin on the outside of a tree.",
+   "whyHard": "Not the usual meaning! Usually: a bark is the short loud sound a dog makes."
   },
   "barked": {
    "pos": "past-tense verb",
@@ -1693,6 +1729,31 @@
    "pos": "singular noun",
    "meaning": "A word made up by Silver for a chaplain."
   },
+  "character": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A letter or mark that someone wrote.",
+   "whyHard": "Not the usual meaning! Usually: a character is a person in a story, or the way someone is.",
+   "senses": [
+    {
+     "meaning": "A letter or mark that someone wrote.",
+     "whyHard": "Not the usual meaning! Usually: a character is a person in a story, or the way someone is.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "from the captain’s tottery characters, these words: “Bulk of",
+       "form": "characters"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "characters"
+   ]
+  },
   "charge": {
    "senseOnly": true,
    "pos": "noun",
@@ -2030,6 +2091,172 @@
     "clipping"
    ]
   },
+  "close": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Near.",
+   "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "blind man pulled me close up to him with"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "context": "The blind man clung close to me, holding me"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "once. On the floor close to his hand there"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "him. They must be close by; they can’t be"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "under way, though still close in. He hailed her."
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "context": "time a bullet whistled close by his arm. Soon"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "indeed with his own close-cropped black poll."
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "leg was cut off close by the hip, and"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "the door. It was close by him, and he"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "The captain, who was close behind his messenger, entered"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "or death, and a close run.”"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "with rather a clash close by. The barrel shook"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "was to draw as close as I could manage,"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "terrors all forgotten, while close at my side the"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "the others might be close at hand, and all"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "process. We were now close in; thirty or forty"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "bush, a ball whistled close past my ear, and"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "context": "the gigs that lay close by, pulling an oar"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "among the sand. Very close around the stockade—too close"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "context": "close around the stockade—too close for defence, they said—the"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "saw the three flashes—two close together—one farther to the"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "clear sunlight. Someone was close behind, I knew not"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 3,
+       "context": "Gray, following close behind me, had cut"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "big blue summit heaving close above me; yet the"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "easting. I was, indeed, close in. I could see"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "the eastern end, keeping close in shadow, and at"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "advice: keep the boy close beside you, and when"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "and me must stick close, back to back like,"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "context": "rest, had gone up close and was examining the"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "together, and kept them close by John, as if"
+      }
+     ]
+    }
+   ]
+  },
   "clothed": {
    "pos": "adjective",
    "meaning": "Dressed."
@@ -2154,6 +2381,11 @@
    "forms": [
     "companions"
    ]
+  },
+  "company": {
+   "pos": "singular noun",
+   "meaning": "The people who are there together.",
+   "whyHard": "Not the usual meaning! Usually: a company is a business."
   },
   "compass": {
    "pos": "singular noun",
@@ -2333,6 +2565,11 @@
     "contrived"
    ]
   },
+  "cook": {
+   "pos": "singular noun",
+   "meaning": "A person whose job is to make meals.",
+   "whyHard": "Not the usual meaning! Usually: to cook means to make food hot and ready to eat."
+  },
   "coolly": {
    "pos": "adverb",
    "meaning": "In a calm way, not showing strong feeling."
@@ -2479,6 +2716,37 @@
    "pos": "adjective",
    "meaning": "Cut very short."
   },
+  "cross": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To go against someone.",
+   "whyHard": "Not the usual meaning! Usually: to cross means to go from one side to the other.",
+   "senses": [
+    {
+     "meaning": "To go against someone.",
+     "whyHard": "Not the usual meaning! Usually: to cross means to go from one side to the other.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "no one dared to cross him. On the night"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "I’ll teach you better! Cross me, and you’ll go"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "said Merry. “Don’t you cross a sperrit.”"
+      }
+     ]
+    }
+   ]
+  },
   "crouching": {
    "pos": "present participle",
    "meaning": "Bending the knees and keeping the body low."
@@ -2505,9 +2773,15 @@
    "pos": "singular noun",
    "meaning": "A stick that fits under the arm to help someone who cannot walk well. Long John Silver has one."
   },
+  "curious": {
+   "pos": "adjective",
+   "meaning": "Strange.",
+   "whyHard": "Not the usual meaning! Usually: curious means wanting to know."
+  },
   "curiously": {
    "pos": "adverb",
-   "meaning": "In a way that shows interest or surprise."
+   "meaning": "In a strange way.",
+   "whyHard": "Not the usual meaning! Usually: curiously means in a way that shows you want to know."
   },
   "curled": {
    "pos": "adjective",
@@ -3073,6 +3347,15 @@
    "forms": [
     "draught",
     "draughts"
+   ]
+  },
+  "draw": {
+   "pos": "base verb",
+   "meaning": "To pull something, to move it, or to stretch it out.",
+   "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+   "forms": [
+    "drawing",
+    "drawn"
    ]
   },
   "drawed": {
@@ -3644,6 +3927,163 @@
     "finger",
     "fingering",
     "fingers"
+   ]
+  },
+  "fire": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To shoot a gun. Also those shots.",
+   "whyHard": "Not the usual meaning! Usually: fire is the hot bright burning of a flame.",
+   "senses": [
+    {
+     "meaning": "To shoot a gun. Also those shots.",
+     "whyHard": "Not the usual meaning! Usually: fire is the hot bright burning of a flame.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "for the afternoon. I’ll fire a gun half an"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "house, had time to fire. The four shots came"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "context": "but they had to fire so high that the"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "“Who goes? Stand, or we fire.”"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 3,
+       "context": "yourself; keep within, and fire through the porch. Hunter,"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 4,
+       "context": "up to it and fire in upon us through"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 5,
+       "context": "see anyone, am I to fire?”"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 6,
+       "context": "the same moment, the fire was once more opened"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 7,
+       "context": "a hot though useless fire on the log-house."
+      },
+      {
+       "chapter": 21,
+       "occurrence": 8,
+       "context": "“Fire—fire from the house!” cried the"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 9,
+       "context": "“Fire—fire from the house!” cried the"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 10,
+       "context": "at any moment the fire might recommence."
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "or whether he would fire Long Tom, trusting that"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "I? When the gun fired, how should I dare",
+       "form": "fired"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "for just as Trelawney fired, down he stooped, the",
+       "form": "fired"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "shot before a gun is fired.”",
+       "form": "fired"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "up his musket and fired. The report had scarcely",
+       "form": "fired"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "Livesey. “Three shots were fired on this side. I",
+       "form": "fired"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 3,
+       "context": "single shot had been fired. It was plain, therefore,",
+       "form": "fired"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 4,
+       "context": "monkeys. Squire and Gray fired again and yet again;",
+       "form": "fired"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 5,
+       "context": "them. Several shots were fired, but such was the",
+       "form": "fired"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 6,
+       "context": "unheeded, no shot was fired, and the last boarder",
+       "form": "fired"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "wink, Long John had fired two barrels of a",
+       "form": "fired"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "moment since we were firing, under cover, at an",
+       "form": "firing"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "the very act of firing into the house and",
+       "form": "firing"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "fired",
+    "firing"
    ]
   },
   "firelight": {
@@ -4293,6 +4733,40 @@
     "groping"
    ]
   },
+  "ground": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A reason for saying or doing something.",
+   "whyHard": "Not the usual meaning! Usually: the ground is the earth under your feet.",
+   "senses": [
+    {
+     "meaning": "A reason for saying or doing something.",
+     "whyHard": "Not the usual meaning! Usually: the ground is the earth under your feet.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "all if he had ground enough to say that."
+      }
+     ]
+    },
+    {
+     "meaning": "Scraped along the bottom.",
+     "pos": "past-tense verb",
+     "whyHard": "Not the usual meaning! Usually: the ground is the earth under your feet.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "the Hispaniola struck, staggered, ground for an instant in"
+      }
+     ]
+    }
+   ]
+  },
   "grove": {
    "pos": "noun",
    "meaning": "A small group of trees.",
@@ -4465,6 +4939,71 @@
    "meaning": "A bed made of cloth or net that hangs between two points.",
    "forms": [
     "hammocks"
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To give or pass something to someone.",
+   "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+   "forms": [
+    "handed"
+   ],
+   "senses": [
+    {
+     "meaning": "To give or pass something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "default": true,
+     "pos": "base verb",
+     "anchors": [
+      {
+       "chapter": 29,
+       "occurrence": 4,
+       "context": "won’t eat you. Hand it over, lubber. I"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "to be unarmed, I handed him my cutlass. It",
+       "form": "handed"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "to the colour lines, handed down their cursed black",
+       "form": "handed"
+      }
+     ]
+    },
+    {
+     "pos": "singular noun",
+     "meaning": "The way a person writes.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 4,
+       "context": "a very good, clear hand, this short message: “You"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 5,
+       "context": "in a small, neat hand, very different from the"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 6,
+       "context": "the back the same hand had written this further"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 7,
+       "context": "print, I swear. Your hand o’ write, George? Why"
+      }
+     ]
+    }
    ]
   },
   "handier": {
@@ -5149,6 +5688,27 @@
    "pos": "adjective",
    "meaning": "Happy and cheerful."
   },
+  "judge": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A person who decides in a court if someone has done wrong.",
+   "whyHard": "Not the usual meaning! Usually: to judge means to decide what you think.",
+   "senses": [
+    {
+     "meaning": "A person who decides in a court if someone has done wrong.",
+     "whyHard": "Not the usual meaning! Usually: to judge means to decide what you think.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "convinced an Old Bailey judge or a Bow Street"
+      }
+     ]
+    }
+   ]
+  },
   "keel": {
    "pos": "singular noun",
    "meaning": "The long beam along the bottom of a ship. \"Keel-hauling\" was a cruel punishment in which a sailor was dragged under the ship."
@@ -5297,6 +5857,11 @@
    "forms": [
     "lashed"
    ]
+  },
+  "lasted": {
+   "pos": "past-tense verb",
+   "meaning": "Went on for a time.",
+   "whyHard": "Not the usual meaning! Usually: last means the final one."
   },
   "late": {
    "senseOnly": true,
@@ -5545,6 +6110,27 @@
     }
    ]
   },
+  "lead": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A heavy grey metal. Here, the ball from a gun.",
+   "whyHard": "Not the usual meaning! Usually: to lead means to show the way.",
+   "senses": [
+    {
+     "meaning": "A heavy grey metal. Here, the ball from a gun.",
+     "whyHard": "Not the usual meaning! Usually: to lead means to show the way.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "he would get some lead in him, and at"
+      }
+     ]
+    }
+   ]
+  },
   "leaden": {
    "pos": "adjective",
    "meaning": "Heavy and grey, like lead."
@@ -5601,6 +6187,132 @@
    "pos": "singular noun",
    "meaning": "Space or room to make a mistake; also the drift of a ship sideways."
   },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there, after the rest has gone.",
+   "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+   "senses": [
+    {
+     "meaning": "Still there, after the rest has gone.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "context": "all on ’em that’s left. I was first mate,"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 5,
+       "context": "he had enough force left in his body."
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "overhauled a’ready,” said he; “nothin’ left.”"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "was scarce an apple left; but sitting down there"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "of the last one left aboard. But on this"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "If six men were left by Silver, it was"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "since only six were left, it was equally plain"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "captain! There was nothing left for me but death"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "six mutineers who were left aboard with us, slipped"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "The two who were left guarding their boats seemed"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "landsmen—being all that is left faithful of the ship’s"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "Little had been left besides the framework of"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "had we much time left to us for thought."
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "what hope had I left of reaching land?"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 3,
+       "context": "and that I was left without retreat on the"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "bottle with some brandy left, for Hands; and for"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 3,
+       "context": "think, have had nothing left me to desire but"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "I had no time left me to recover. At"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "not another man was left alive. Five of them"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "laugh, threw what was left into the fire, which"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 4,
+       "context": "“There ain’t a thing left here,” said Merry, still"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "There was no time left for him to answer"
+      }
+     ]
+    }
+   ]
+  },
   "leisurely": {
    "pos": "adverb",
    "meaning": "Slowly, without hurry."
@@ -5651,6 +6363,72 @@
    "pos": "comparative adjective",
    "meaning": "More full of energy."
   },
+  "lives": {
+   "senseOnly": true,
+   "pos": "plural noun",
+   "meaning": "The time people are alive. Here, they might die.",
+   "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+   "senses": [
+    {
+     "meaning": "The time people are alive. Here, they might die.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "I understood that the lives of all the honest"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "much to save our lives. If six men were"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "boat for our very lives. Pork, powder, and biscuit"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "my life and the lives of these good gentlemen"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "no great harm. No lives were lost, and we"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "it, saving our own lives, with the extremest care."
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "as soon save your lives, I reckon; and that’s"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "you that saves our lives; and do you suppose"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "had cost already the lives of seventeen men from"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "so to preserve our lives, which would certainly have"
+      }
+     ]
+    }
+   ]
+  },
   "livid": {
    "pos": "adjective",
    "meaning": "Here, a grey-blue colour, like a bruise. It is the colour of a scar."
@@ -5674,6 +6452,11 @@
   "loghouse": {
    "pos": "singular noun",
    "meaning": "A house made of tree trunks."
+  },
+  "longing": {
+   "pos": "singular noun",
+   "meaning": "A strong wish for something.",
+   "whyHard": "It looks like long, which means not short. Here it is a strong wish."
   },
   "longish": {
    "pos": "adjective",
@@ -5876,6 +6659,11 @@
     "masts"
    ]
   },
+  "master": {
+   "pos": "singular noun",
+   "meaning": "A title before a man's name, or the person in charge.",
+   "whyHard": "Not the usual meaning! Usually: to master something means to learn it very well."
+  },
   "masthead": {
    "pos": "base verb",
    "meaning": "To send a sailor up to the top of the mast as a punishment.",
@@ -6034,6 +6822,27 @@
   "midday": {
    "pos": "uncountable noun",
    "meaning": "Twelve o'clock in the day."
+  },
+  "might": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "Strength.",
+   "whyHard": "Not the usual meaning! Usually: might means that something is possible.",
+   "senses": [
+    {
+     "meaning": "Strength.",
+     "whyHard": "Not the usual meaning! Usually: might means that something is possible.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 33,
+       "occurrence": 2,
+       "context": "for it with all their might."
+      }
+     ]
+    }
+   ]
   },
   "mightily": {
    "pos": "adverb",
@@ -6543,6 +7352,67 @@
   "overturn": {
    "pos": "base verb",
    "meaning": "To turn upside down."
+  },
+  "own": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To say that something is true.",
+   "whyHard": "Not the usual meaning! Usually: own means belonging to me.",
+   "senses": [
+    {
+     "meaning": "To say that something is true.",
+     "whyHard": "Not the usual meaning! Usually: own means belonging to me.",
+     "trickyMeaning": true,
+     "default": true,
+     "pos": "base verb",
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "the island, and I own I was half-frightened"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "I was wrong. I own myself an ass, and"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "up. Now, you’ll own that’s talking. Handsomer"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "seaman, as I’ll own up to any day"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "it. But I’ll own up fairly, I’ve"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "I will own that I here began"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "a word wasted. He owned, when driven into a",
+       "form": "owned"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "owned"
+   ]
+  },
+  "owned": {
+   "pos": "past-tense verb",
+   "meaning": "Admitted that something was true.",
+   "whyHard": "Not the usual meaning! Usually: to own means to have something as yours."
   },
   "paddle": {
    "pos": "singular noun",
@@ -7118,6 +7988,27 @@
    "pos": "singular noun",
    "meaning": "A large flat area of high land."
   },
+  "play": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A story acted for people to watch.",
+   "whyHard": "Not the usual meaning! Usually: to play means to take part in a game.",
+   "senses": [
+    {
+     "meaning": "A story acted for people to watch.",
+     "whyHard": "Not the usual meaning! Usually: to play means to take part in a game.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "as good as the play to see them."
+      }
+     ]
+    }
+   ]
+  },
   "pleasanter": {
    "pos": "comparative adjective",
    "meaning": "More nice."
@@ -7611,6 +8502,11 @@
     }
    ]
   },
+  "presented": {
+   "pos": "past-tense verb",
+   "meaning": "Turned so that someone could see that side.",
+   "whyHard": "Not the usual meaning! Usually: a present is a thing you give to someone."
+  },
   "presently": {
    "senseOnly": true,
    "pos": "adverb",
@@ -8053,6 +8949,192 @@
   "resolutely": {
    "pos": "adverb",
    "meaning": "In a firm, determined way."
+  },
+  "rest": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The people or things that remain.",
+   "whyHard": "Not the usual meaning! Usually: to rest means to stop and be still.",
+   "senses": [
+    {
+     "meaning": "The people or things that remain.",
+     "whyHard": "Not the usual meaning! Usually: to rest means to stop and be still.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "Dr. Livesey, and the rest of these gentlemen having"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "had done for the rest— Yo-ho-ho, and a bottle"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "“If none of the rest of you dare,” she"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "shirking lubbers, and the rest of you aloft and"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "the time, while the rest stood irresolute on the"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "context": "tailing out behind the rest, was a lad that"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "context": "to Dr. Livesey’s; the rest were revenue officers, whom"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "blades, for sure—and the rest who stayed aboard that"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "and sun-dried like the rest, at Corso Castle. That"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "conceal the discontent of the rest."
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "while Silver and the rest were still a hundred"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "worse luck for the rest of us.”"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "was gone ashore with the rest."
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "and the captain. The rest of the arms and"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "actually fell, and the rest, without hesitation, turned and"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "way out, and the rest eddied about the house"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 3,
+       "context": "The rest had long been up"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "at their loopholes, the rest were busy loading the"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "and disappeared with the rest into the wood. In"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "had done for the rest— Yo-ho-ho, and a bottle"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "could accomplish. For the rest, the Hispaniola must trust"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "steeped in moonshine; the rest, and the block house"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "an eye upon the rest. This crew’s dissatisfied; this"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "One after another the rest followed his example, each"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "moon and torchlight. The rest were all somewhat stooping,"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "context": "me that—you and the rest, that lost me my"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 3,
+       "context": "Revelation—these words among the rest, which struck sharply home"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "twice the man the rest were, and his last"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "good way behind the rest, Silver and I followed—I"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "context": "who, bolder than the rest, had gone up close"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 2,
+       "context": "And the rest were all too terrified"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "an oar, like the rest of us, and we"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "the boat, while the rest during their absences piled"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 2,
+       "context": "had done for the rest,” with a vengeance, although,"
+      }
+     ]
+    }
+   ]
   },
   "restrain": {
    "pos": "base verb",
@@ -8856,13 +9938,34 @@
    ]
   },
   "shoulder": {
+   "senseOnly": true,
    "pos": "base verb",
-   "meaning": "To put a heavy thing on the shoulder.",
-   "whyHard": "The book word is \"shouldered\".",
+   "meaning": "To carry something on the top of your arm.",
+   "whyHard": "Not the usual meaning! Usually: a shoulder is the top of your arm.",
+   "senses": [
+    {
+     "meaning": "To carry something on the top of your arm.",
+     "whyHard": "Not the usual meaning! Usually: a shoulder is the top of your arm.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "when, at last, I shouldered the coracle and groped",
+       "form": "shouldered"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "no further sound, they shouldered the tools and set",
+       "form": "shouldered"
+      }
+     ]
+    }
+   ],
    "forms": [
-    "shoulder",
-    "shouldered",
-    "shoulders"
+    "shouldered"
    ]
   },
   "shred": {
@@ -9259,6 +10362,43 @@
    "pos": "adverb",
    "meaning": "Very much; painfully."
   },
+  "sound": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "In good health, or not hurt.",
+   "whyHard": "Not the usual meaning! Usually: a sound is a noise.",
+   "senses": [
+    {
+     "meaning": "In good health, or not hurt.",
+     "whyHard": "Not the usual meaning! Usually: a sound is a noise.",
+     "trickyMeaning": true,
+     "default": true,
+     "pos": "adjective",
+     "anchors": [
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "Jim Hawkins, safe and sound, come climbing over the"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "let me safe and sound out of this here"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "I left but two sound men to guard the"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "burst, was work no sound man ever equalled; and"
+      }
+     ]
+    }
+   ]
+  },
   "sourly": {
    "pos": "adverb",
    "meaning": "In an unfriendly and bad-tempered way."
@@ -9541,6 +10681,42 @@
    "pos": "adjective",
    "meaning": "Very surprising."
   },
+  "state": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The way someone or something is at one time.",
+   "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of one.",
+   "senses": [
+    {
+     "meaning": "The way someone or something is at one time.",
+     "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of one.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "house in such a state of smash; the very"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "five remained in a state for service. Mine I"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 2,
+       "context": "stockade in our half-crippled state but the fear before"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "them in that wretched state; but we could not"
+      }
+     ]
+    }
+   ]
+  },
   "stately": {
    "pos": "adjective",
    "meaning": "Slow, proud, and formal."
@@ -9767,6 +10943,68 @@
    "forms": [
     "stifle",
     "stifling"
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving.",
+   "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+     "trickyMeaning": true,
+     "default": true,
+     "pos": "adjective",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "can’t keep ’em still, not I. I haven"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "context": "that we were standing still before a large building"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "way on, this standing still and being rolled about"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "in proportion. I stood still, therefore, and cast about"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 5,
+       "context": "of Skeleton Island, lay still and leaden as when"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 6,
+       "context": "possible for me—standing still. She headed nearly due"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 10,
+       "context": "banner. She was stock-still but for the current"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 4,
+       "context": "when the ship was still, Israel Hands turned partly"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "cross-trees into that still green water, beside the"
+      }
+     ]
+    }
    ]
   },
   "stirrup": {
@@ -10447,6 +11685,11 @@
     "trailing"
    ]
   },
+  "train": {
+   "pos": "singular noun",
+   "meaning": "Things that come one after another.",
+   "whyHard": "Not the usual meaning! Usually: a train is a line of carriages on a railway."
+  },
   "tramp": {
    "pos": "singular noun",
    "meaning": "The sound of heavy steps."
@@ -10918,6 +12161,11 @@
    "pos": "adverb",
    "meaning": "Talking a lot, fast and easily."
   },
+  "volume": {
+   "pos": "singular noun",
+   "meaning": "A book.",
+   "whyHard": "Not the usual meaning! Usually: volume means how loud a sound is."
+  },
   "voyage": {
    "pos": "singular noun",
    "meaning": "A long trip by sea.",
@@ -11102,13 +12350,28 @@
    ]
   },
   "water": {
+   "senseOnly": true,
    "pos": "base verb",
-   "meaning": "Here, \"watered\" means that the ship was supplied with fresh water to drink.",
-   "whyHard": "The book word is \"watered\".",
+   "meaning": "To stop at a place and take drink onto a ship.",
+   "whyHard": "Not the usual meaning! Usually: water is the liquid you drink.",
+   "senses": [
+    {
+     "meaning": "To stop at a place and take drink onto a ship.",
+     "whyHard": "Not the usual meaning! Usually: water is the liquid you drink.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "sir,” said Silver. “I’ve watered there with a trader",
+       "form": "watered"
+      }
+     ]
+    }
+   ],
    "forms": [
-    "water",
-    "watered",
-    "waters"
+    "watered"
    ]
   },
   "watercourse": {
@@ -11249,6 +12512,37 @@
   "wig": {
    "pos": "singular noun",
    "meaning": "False hair worn on the head. \"I stake my wig\" is a way to say \"I am very sure\"."
+  },
+  "will": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "What a person wants, or the strength of that wish.",
+   "whyHard": "Not the usual meaning! Usually: will means that something is going to happen.",
+   "senses": [
+    {
+     "meaning": "What a person wants, or the strength of that wish.",
+     "whyHard": "Not the usual meaning! Usually: will means that something is going to happen.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "context": "much against my own will, dragged you headforemost out"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "bars before them with a will."
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "also was given with a will."
+      }
+     ]
+    }
+   ]
   },
   "wily": {
    "pos": "adjective",
@@ -12562,6 +13856,263 @@
    "meaning": "A sailor's shout in a song.",
    "pos": "idiom",
    "example": "Yo-ho-ho, and a bottle of rum!"
+  },
+  "make up one's mind": {
+   "meaning": "To decide.",
+   "pos": "idiom",
+   "forms": [
+    "made up my mind",
+    "made up our minds"
+   ],
+   "example": "I made up my mind instantly"
+  },
+  "take to one's heels": {
+   "meaning": "To run away.",
+   "pos": "idiom",
+   "forms": [
+    "taken to his heels"
+   ],
+   "example": "The next moment each of us had taken to his heels in a different direction."
+  },
+  "to the letter": {
+   "meaning": "Exactly as you were told.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "We both obeyed him to the letter"
+  },
+  "child's play": {
+   "meaning": "Very easy.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "It's child's play to find the stuff now."
+  },
+  "play duck and drake": {
+   "meaning": "To throw money away for fun.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "and money to eat, to roll in, to play duck and drake with ever after."
+  },
+  "play booty": {
+   "meaning": "To cheat the people on your side so you can keep the gain.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "you want to play booty, that's what's wrong with you."
+  },
+  "a great deal": {
+   "meaning": "A large amount.",
+   "pos": "phrase",
+   "forms": [
+    "a good deal",
+    "a deal"
+   ],
+   "example": "A great deal of blood was taken before the captain opened his eyes"
+  },
+  "by no means": {
+   "meaning": "Not at all.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "But that was by no means the worst of it"
+  },
+  "for dear life": {
+   "meaning": "With all your strength, as if you might die.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "all the neighbours joining in for dear life"
+  },
+  "stone dead": {
+   "meaning": "Completely dead.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "He was stone dead"
+  },
+  "the game is up": {
+   "meaning": "The plan has failed, and everyone can see it.",
+   "pos": "idiom",
+   "forms": [
+    "the game's up",
+    "a game's up"
+   ],
+   "example": "and the game's up."
+  },
+  "keep one's head": {
+   "meaning": "To stay calm.",
+   "pos": "idiom",
+   "forms": [
+    "kept my head"
+   ],
+   "example": "I kept my head, for all that."
+  },
+  "gain ground": {
+   "meaning": "To move forward.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "yet I did visibly gain ground"
+  },
+  "in spite of": {
+   "meaning": "Even when something makes it hard.",
+   "pos": "idiom",
+   "forms": [
+    "in spite o'"
+   ],
+   "example": "in spite of his wound"
+  },
+  "for good": {
+   "meaning": "Forever, and not coming back.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "then sank again for good."
+  },
+  "bid fair": {
+   "meaning": "To seem likely.",
+   "pos": "idiom",
+   "forms": [
+    "bade fair"
+   ],
+   "example": "he bade fair to ruin us"
+  },
+  "all the same": {
+   "meaning": "Even so.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "All the same, we were afraid to breathe."
+  },
+  "for the life of me": {
+   "meaning": "No matter how hard you try. Used when you cannot do or understand something.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "For the life of me I could not think what it might be."
+  },
+  "show a clean pair of heels": {
+   "meaning": "To run away fast.",
+   "pos": "idiom",
+   "forms": [
+    "showed a wonderful clean pair of heels"
+   ],
+   "example": "showed a wonderful clean pair of heels"
+  },
+  "head off": {
+   "meaning": "To get in front of people and stop them.",
+   "pos": "phrasal verb",
+   "forms": [
+    "head me off",
+    "head 'em off"
+   ],
+   "example": "began to head me off."
+  },
+  "under way": {
+   "meaning": "Already moving.",
+   "pos": "phrase",
+   "forms": [],
+   "example": "the lugger was already under way"
+  },
+  "might as well": {
+   "meaning": "There is no strong reason not to do it.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "it, I might as well ride round there myself"
+  },
+  "a good deal": {
+   "meaning": "A large amount. Much.",
+   "pos": "idiom",
+   "forms": [
+    "a great deal"
+   ],
+   "example": "They were a good deal taken aback, and after"
+  },
+  "at length": {
+   "meaning": "After a wait. At last.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "says he at length; “and a pleasant sittyated"
+  },
+  "close shave": {
+   "meaning": "A time when someone was almost badly hurt.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "had a close shave, it was you; your"
+  },
+  "upper hand": {
+   "meaning": "The winning place. Control over the others.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "taking the upper hand, he struck at them"
+  },
+  "hand to mouth": {
+   "meaning": "Using food or money at once, with nothing kept for later.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "the morrow; hand to mouth is the only word"
+  },
+  "at hand": {
+   "meaning": "Close by, or ready now.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "hovering near at hand and ready to return"
+  },
+  "on hand": {
+   "meaning": "Here now, and needing to be handled.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "there’s trouble on hand"
+  },
+  "by heart": {
+   "meaning": "Remembered so well that you need no book.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "the rules by heart, George, as I’m"
+  },
+  "by the by": {
+   "meaning": "A small new point, said while you talk.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "By the by,” I continued, “I can"
+  },
+  "on account of": {
+   "meaning": "Because of.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "old scores on account of hazing, then you can"
+  },
+  "hand and glove": {
+   "meaning": "Very close. Working on the same side.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "side now, hand and glove; and I shouldn’t"
+  },
+  "force one's hand": {
+   "meaning": "To make someone act before they want to.",
+   "pos": "idiom",
+   "forms": [
+    "forced my hand"
+   ],
+   "example": "me? Who forced my hand, as was the lawful"
+  },
+  "a poor hand": {
+   "meaning": "A person who is not good at something.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "gamekeeper was a poor hand at reading anything but"
+  },
+  "lend a hand": {
+   "meaning": "To help.",
+   "pos": "idiom",
+   "forms": [
+    "lend him a hand"
+   ],
+   "example": "had to lend him a hand, or he must have"
+  },
+  "come to blows": {
+   "meaning": "To start a fight.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "got to come to blows sooner or later, and"
+  },
+  "for the sake of": {
+   "meaning": "Because of this.",
+   "pos": "idiom",
+   "forms": [],
+   "example": "by it for the sake of shortness, and what I"
   }
+
  }
 }
