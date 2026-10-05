@@ -164,7 +164,7 @@ Do not log the token.
 
 ## API
 
-All routes are same-origin. The service worker does not cache `/api/*`.
+All routes are same-origin. The service worker does not answer requests, so `/api/*` is not cached.
 
 | Method | Path | |
 | --- | --- | --- |

@@ -12,9 +12,10 @@
  * wordLists(): glossary.json, catalog.json, and a resized cover.jpg when the pack has one.
  *   Served in dev and preview. Never an EPUB or a zip. Not copied into dist/.
  *
- * offlineShell(): after the build, write dist/sw.js. It precaches the app shell only (HTML, JS, CSS,
- *   fonts, icons). Book files are not cached: the page fetches them, and an added book stays in
- *   IndexedDB. It never touches packs/.
+ * offlineShell(): after the build, write dist/sw.js. The worker does not precache and does not
+ *   answer requests, so a normal refresh is the browser's own load. On activate it turns
+ *   navigation preload off and deletes every cache. Old copies kept a decoded body with gzip
+ *   headers, and a normal refresh was a blank page. Book files are not cached. It never touches packs/.
  */
 import { createHash } from "node:crypto";
 import { createReadStream, existsSync, readdirSync, readFileSync, statSync } from "node:fs";

@@ -12,17 +12,16 @@
  *   - FIRST OPEN: the shelf is empty and suggests Alice; one tap adds it, with a cover, a Lexile measure and the
  *     "Public domain" label; it opens and a word can be looked up
  *   - DISCOVER: lists all 12 classics and the 10 word lists (covers, Lexile). Alice's button says "On shelf".
- *     "Add to shelf" adds Peter and Wendy and Looking-Glass; they open from the cover, and they still open offline
+ *     "Add to shelf" adds Peter and Wendy and Looking-Glass; they open from the cover, and a normal reload still opens them
  *   - deleting Alice keeps it deleted after a reload (the "removed" flag); the shelf can be emptied
- *   - a fresh visit that goes offline after the first load still opens the app and Alice; a book
- *     taken off the shelf cannot be downloaded again while offline (the worker does not keep the file)
+ *   - a fresh visit reloads and still opens Alice; the service worker does not cache the book file
  *   - no standalone EPUB input anywhere; the only file inputs take .zip (and .json for a word list)
  *   - empty shelf with 3 steps; one clear "Add book"
  *   - a good pack (the kit's sample pack) imports and opens; title, author and cover come from the EPUB
  *   - a bare .epub (choose and drop) shows the friendly message with the guide link and adds nothing
  *   - bad packs (no list, list for another book, invalid list, two books, not a zip) show a readable error, add nothing
  *   - Free books: the bundled classics download again, the shelf shows cover grid, continue-reading hero and progress bars
- *   - offline: after going offline the app reloads and the book still opens
+ *   - a normal reload still shows the shelf and the book still opens
  *   - no horizontal overflow, tap targets at least 40px high on the shelf and add screens
  * Chinese text is never written in this file: Chinese labels are read from src/lib/i18n-zh.ts.
  */
@@ -556,7 +555,7 @@ async function run(lang, size) {
     `${label}: continue-reading card is shown`,
   );
 
-  // ---- Free books: download a few packs, offline, shelf with covers
+  // ---- Free books: download a few packs, shelf with covers
   const want = ["alice", "treasure-island", "anne"];
   await toShelf(page);
   await addBtn().click();
@@ -650,11 +649,10 @@ async function run(lang, size) {
   await page.getByRole("button", { name: t("rs.theme.light"), exact: true }).click();
   await page.keyboard.press("Escape");
 
-  // ---- offline: the app and the books still work
+  // ---- a normal reload, with the service worker controlling the page, still shows the shelf
   if (size === "desktop") {
     await toShelf(page);
     await page.waitForTimeout(2500); // service worker installs
-    await ctx.setOffline(true);
     await page.reload();
     await page.locator("section[aria-label] h2").first().waitFor({ timeout: 20000 });
     await page
@@ -662,12 +660,10 @@ async function run(lang, size) {
       .first()
       .click();
     await page.waitForSelector("button[data-word]", { timeout: 30000 });
-    ok(true, `${label}: offline reload works and the book opens`);
-    await ctx.setOffline(false);
+    ok(true, `${label}: a normal reload still shows the shelf and the book opens`);
   }
 
-  // ---- a fresh visitor: first load online, then offline. The classics are on the shelf and open.
-  //      A deleted classic is not in the service worker, so adding it again while offline fails.
+  // ---- a fresh visitor: the book file is not in Cache Storage, and a normal reload still opens Alice.
   if (size === "desktop") {
     const fresh = await browser.newContext({
       viewport,
@@ -680,7 +676,7 @@ async function run(lang, size) {
     await fp.locator("[data-first-book-add]").waitFor({ timeout: 60000 });
     await fp.locator("[data-first-book-add]").click();
     await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
-    ok((await fp.locator("ul li").count()) === 1, `${label}: a new shelf has Alice (added with one tap) before going offline`);
+    ok((await fp.locator("ul li").count()) === 1, `${label}: a new shelf has Alice (added with one tap)`);
     await fp.evaluate(() => navigator.serviceWorker.ready);
     const cachedBook = await fp.evaluate(async () => {
       const names = await caches.keys();
@@ -691,36 +687,21 @@ async function run(lang, size) {
       cachedBook.hit === false && cachedBook.names.every((name) => !name.startsWith("margin-words-books")),
       `${label}: the service worker did not cache Alice`,
     );
-    await fresh.setOffline(true);
     await fp.reload();
     await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 30000 });
     await fp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") }).first().click();
     await fp.waitForSelector("button.book-hard", { timeout: 30000 });
     await fp.locator("button.book-hard").first().click();
     await fp.locator("[data-word-card]").waitFor();
-    ok(true, `${label}: offline after the first load: the app opens, Alice opens, a word is looked up`);
+    ok(true, `${label}: a normal reload still opens Alice and a word is looked up`);
     await fp.keyboard.press("Escape");
-    // delete Alice, then bring her back from Discover while offline
-    await fp.goto(new URL("shelf", BASE).toString());
-    await fp.reload();
-    await fp.locator("ul li").first().waitFor();
-    await fp.getByRole("button", { name: labelRe(t("shelf.moreAria"), "Alice") }).first().click();
-    await removeFromMenu(fp);
-    await fp.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 15000 });
-    await fp.getByRole("button", { name: t("nav.discover"), exact: true }).first().click();
-    const alice = fp.locator('[data-pack="alice"]');
-    await alice.waitFor({ timeout: 20000 });
-    await alice.getByRole("button", { name: t("discover.add") }).click();
-    await alice.locator('[data-shelf-state="error"]').waitFor({ timeout: 20000 });
-    ok(true, `${label}: a deleted classic stays off the shelf while offline`);
     await fp.setViewportSize(viewport);
-    await fresh.setOffline(false);
     ok(ferrors.length === 0, `${label}: no page errors in the fresh visit${ferrors.length ? " " + ferrors[0] : ""}`);
     await fresh.close();
   }
 
   // ---- Discover lists all 12 classics. A new shelf has only Alice.
-  //      Add Peter and Wendy and the shrunk Looking-Glass, look up a word, then go offline.
+  //      Add Peter and Wendy and the shrunk Looking-Glass, look up a word, then reload.
   {
     const vctx = await browser.newContext({
       viewport,
@@ -958,23 +939,23 @@ async function run(lang, size) {
     );
     ok(true, `${label}: Through the Looking-Glass (shrunk) opens and shows its illustrations`);
 
-    // offline after the download: reload, open Peter and Wendy, look up a word; Discover still lists 12
-    await vctx.setOffline(true);
+    // A normal reload after the download still opens Peter and Wendy. Discover still lists the classics.
     await toShelfOn(vp);
+    await vp.locator("li.book-card").nth(1).waitFor({ timeout: 30000 });
+    await vp.reload();
     await vp.locator("li.book-card").nth(1).waitFor({ timeout: 30000 });
     await vp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Peter and Wendy") }).first().click();
     await vp.waitForSelector("button.book-hard", { timeout: 30000 });
     await vp.locator("button.book-hard").first().click();
     await vp.locator("[data-word-card]").waitFor();
-    ok(true, `${label}: offline: Peter and Wendy opens and a word is looked up`);
+    ok(true, `${label}: a normal reload still opens Peter and Wendy`);
     await vp.keyboard.press("Escape");
     await toShelfOn(vp);
     await openDiscover();
     ok(
       (await vp.locator("[data-pack]").count()) === FREE_COUNT,
-      `${label}: offline, Discover still lists ${FREE_COUNT}`,
+      `${label}: Discover still lists ${FREE_COUNT}`,
     );
-    await vctx.setOffline(false);
     ok(verrors.length === 0, `${label}: no page errors on the Free books visit${verrors.length ? " " + verrors[0] : ""}`);
     await vctx.close();
   }
