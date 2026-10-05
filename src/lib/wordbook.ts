@@ -263,6 +263,33 @@ export function rehomeForeignSources(words: readonly VocabEntry[]): VocabEntry[]
   return kept;
 }
 
+/**
+ * What the notebook stores from the open card.
+ * A phrase card stores the phrase (`tune in`, as written `tuning in`), not the single word
+ * that was tapped (`in`). A card with no phrase stores that word.
+ */
+export function savedFromCard(
+  word: { surface: string; key: string; pos: string; meaning: string },
+  phrase: { key: string; matched: string; pos?: string; meaning: string } | null,
+): { lemma: string; surface: string; pos: string; meaning: string } {
+  const key = phrase?.key.trim() ?? "";
+  if (key) {
+    const matched = phrase?.matched.trim() ?? "";
+    return {
+      lemma: key,
+      surface: matched || key,
+      pos: phrase?.pos?.trim() || "phrase",
+      meaning: phrase?.meaning ?? "",
+    };
+  }
+  return {
+    lemma: word.key,
+    surface: word.surface,
+    pos: word.pos,
+    meaning: word.meaning,
+  };
+}
+
 /** Add one source to a word (same lemma already saved), or start a new card. The schedule is untouched. */
 export function addSourceTo(card: VocabEntry, source: WordSource): VocabEntry {
   return { ...card, sources: mergeSources(card.sources, [source]) };

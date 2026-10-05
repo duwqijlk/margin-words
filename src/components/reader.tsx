@@ -30,7 +30,7 @@ import {
 } from "@/lib/glossary-format";
 import type { PhraseEntry } from "@/lib/glossary-extras";
 import { hyphenateReadingHtml } from "@/lib/hyphenate";
-import { phraseWordRanges } from "@/lib/help-match";
+import { phraseWordMarks, phraseWordRanges } from "@/lib/help-match";
 import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
@@ -39,7 +39,7 @@ import { findSentence, makeAnchor, resolveAnchor, restoreReadingPlace, type Text
 import { legacyChapter, overallProgress, useProgress } from "@/lib/progress-store";
 import { bookSyncKey } from "@/lib/sync-merge";
 import type { WordSource } from "@/lib/vocab-model";
-import { hasSourceFrom } from "@/lib/wordbook";
+import { hasSourceFrom, savedFromCard } from "@/lib/wordbook";
 import {
   COLUMN_MAX,
   COLUMN_MIN,
@@ -62,7 +62,7 @@ import {
   type WordStat,
 } from "@/lib/text";
 import { useVocab } from "@/lib/vocab-store";
-import { flowText, flowTextBefore } from "@/lib/flow-text";
+import { flowCutOffsets, flowText, flowTextBefore } from "@/lib/flow-text";
 import { FloatingAside } from "@/components/floating-card";
 import { MissingBook } from "@/components/missing-book";
 import { READER_GUTTER, SIDE_PANEL } from "@/components/side-panel";
@@ -499,6 +499,22 @@ function wholeSentence(paragraph: string, surface: string, at: number): string {
   return locateSentence(paragraph, surface, at).text;
 }
 
+/** Where `surface` (a phrase as written) starts in the paragraph, preferring the copy under the tap. */
+function phrasePlace(paragraph: string, surface: string, tapAt: number): number {
+  const needle = surface.trim();
+  if (!needle) return tapAt;
+  const lower = paragraph.toLowerCase();
+  const want = needle.toLowerCase();
+  let from = 0;
+  while (from <= paragraph.length) {
+    const at = lower.indexOf(want, from);
+    if (at < 0) break;
+    if (tapAt >= at && tapAt <= at + needle.length) return at;
+    from = at + 1;
+  }
+  return tapAt;
+}
+
 type PhraseHit = {
   key: string;
   entry: { meaning: string; pos?: string; example?: string };
@@ -533,6 +549,7 @@ function WordCard({
   stat,
   saved,
   phrase,
+  canSave,
   bookId,
   chapter,
   noteChapter,
@@ -544,6 +561,8 @@ function WordCard({
   state: CardState;
   /** a phrasal verb or idiom that contains the tapped word */
   phrase: PhraseHit | null;
+  /** The notebook can take this card. A phrase counts even when the tapped word has no entry of its own. */
+  canSave: boolean;
   bookId: string;
   chapter: number;
   /** Chapter index, or an extra id such as "x3" when the note sits on a recovered contents file. */
@@ -756,7 +775,7 @@ function WordCard({
           <button
             type="button"
             className={saved ? btn.quiet : btn.primary}
-            disabled={!saved && !state.ready}
+            disabled={!saved && !canSave}
             onClick={onToggle}
             aria-pressed={saved}
           >
@@ -864,6 +883,8 @@ export function ReaderScreen({
   const [helpState, setHelpState] = useState<ParagraphPanelState>({ status: "loading" });
   const helpToken = useRef(0);
   const [phraseHit, setPhraseHit] = useState<{ at: string; hit: PhraseHit } | null>(null);
+  // True from the tap until the phrase lookup answers, so an easy word like "in" is not saved first.
+  const [phrasePending, setPhrasePending] = useState(false);
   // Phrases live beside the word list. Empty until that record loads, then the dotted line appears.
   const [phraseList, setPhraseList] = useState<Record<string, PhraseEntry>>({});
   const articleRef = useRef<HTMLElement | null>(null);
@@ -1068,7 +1089,32 @@ export function ReaderScreen({
       button.classList.toggle("book-saved", savedKeys.has(key) && !sparseOff);
       button.classList.toggle("book-on", pickedIndex !== "" && button.dataset.i === pickedIndex);
     }
-  }, [linkedHtml, savedKeys, pickedIndex, resolveKey, marked]);
+    // A saved phrase marks its own words, not the single easy word that was tapped.
+    const savedPhrases = Object.fromEntries(
+      Object.entries(phraseList).filter(([key]) => savedKeys.has(key.toLowerCase())),
+    );
+    if (Object.keys(savedPhrases).length > 0) {
+      const sel = "p, h1, h2, h3, h4, li, blockquote, div[data-para]";
+      const all = [...root.querySelectorAll<HTMLElement>(sel)];
+      const blocks = all.filter((block) => !all.some((other) => other !== block && block.contains(other)));
+      for (const block of blocks) {
+        const marks = phraseWordMarks(savedPhrases, flowText(block));
+        if (marks.length === 0) continue;
+        const starts = flowCutOffsets(
+          block,
+          (el) => el.localName === "button" && el.getAttribute?.("data-word") != null,
+        );
+        for (const button of block.querySelectorAll<HTMLButtonElement>("button[data-word]")) {
+          if (button.closest(sel) !== block) continue;
+          const word = button.getAttribute("data-word") ?? "";
+          const start = starts.get(button);
+          if (start === undefined || !word) continue;
+          const end = start + word.length;
+          if (marks.some((mark) => start >= mark.start && end <= mark.end)) button.classList.add("book-saved");
+        }
+      }
+    }
+  }, [linkedHtml, savedKeys, pickedIndex, resolveKey, marked, phraseList]);
 
   // Restore the saved reading position once per chapter, after its text is on screen.
   useLayoutEffect(() => {
@@ -1334,16 +1380,22 @@ export function ReaderScreen({
     // book's opening) must not pick one up from the same words.
     if (activeExtra) {
       setPhraseHit(null);
+      setPhrasePending(false);
       return;
     }
-    if (!picked || !pickedSentence) return;
+    if (!picked || !pickedSentence) {
+      setPhrasePending(false);
+      return;
+    }
     let alive = true;
     const at = phraseAt;
     const surface = picked.surface;
     const offset = phraseOffset;
+    setPhrasePending(true);
     void findPhrase(bookId, pickedSentence, surface, offset >= 0 ? offset : undefined).then((hit) => {
       if (!alive) return;
       setPhraseHit(hit ? { at, hit } : null);
+      setPhrasePending(false);
       const spoken = (resolveKey(surface) || surface).trim().toLowerCase();
       if (hit && hit.key.trim().toLowerCase() !== spoken) speakEnglish(hit.key);
     });
@@ -1395,6 +1447,7 @@ export function ReaderScreen({
     const blockAt = blocks.findIndex((item) => item.contains(button));
     closeHelp();
     setPhraseHit(null);
+    setPhrasePending(!activeExtra);
     setAnchor(button instanceof HTMLElement ? button : null);
     setPicked({
       surface,
@@ -1535,8 +1588,26 @@ export function ReaderScreen({
   }
 
   const card = picked ? cardFor(picked) : null;
-  const alreadySaved = pickedKey
-    ? savedKeys.has(pickedKey) && !(marked.sparse.has(pickedKey) && card?.status !== "ready")
+  const shownPhrase = phraseHit && phraseHit.at === phraseAt ? phraseHit.hit : null;
+  const saveAs = savedFromCard(
+    {
+      surface: picked?.surface ?? "",
+      key: pickedKey,
+      pos: card?.pos ?? "",
+      meaning: card?.meaning ?? "",
+    },
+    shownPhrase
+      ? {
+          key: shownPhrase.key,
+          matched: shownPhrase.matched,
+          pos: shownPhrase.entry.pos,
+          meaning: shownPhrase.entry.meaning,
+        }
+      : null,
+  );
+  const alreadySaved = saveAs.lemma
+    ? savedKeys.has(saveAs.lemma.toLowerCase()) &&
+      (shownPhrase != null || !(marked.sparse.has(pickedKey) && card?.status !== "ready"))
     : false;
   const noList = Object.keys(book.glossary).length === 0;
   const fraction = overallProgress({
@@ -1730,8 +1801,9 @@ export function ReaderScreen({
         <WordCard
           state={card}
           stat={bookStats[pickedKey]}
-          saved={alreadySaved}
-          phrase={phraseHit && phraseHit.at === phraseAt ? phraseHit.hit : null}
+          saved={!phrasePending && alreadySaved}
+          phrase={shownPhrase}
+          canSave={!phrasePending && (card.ready || shownPhrase != null)}
           bookId={bookId}
           noList={noList}
           chapter={viewChapter}
@@ -1739,11 +1811,13 @@ export function ReaderScreen({
           anchor={anchor}
           onClose={() => setPicked(null)}
           onToggle={() => {
-            if (!picked || !shelfBook) return;
+            if (!picked || !shelfBook || phrasePending) return;
+            if (!shownPhrase && !card.ready) return;
             if (alreadySaved) {
-              removeWordFromBook(bookKey, pickedKey);
+              removeWordFromBook(bookKey, saveAs.lemma);
               return;
             }
+            const placeAt = phrasePlace(picked.paragraph, saveAs.surface, picked.before.length);
             const source: WordSource = {
               book: bookKey,
               title: shelfBook.title,
@@ -1751,30 +1825,30 @@ export function ReaderScreen({
               chapter: safeIndex,
               ...(chapter.title ? { chapterTitle: chapter.title } : {}),
               sentence: card.sentence,
-              surface: picked.surface,
-              ...(card.meaning ? { meaning: card.meaning } : {}),
-              ...(card.pos ? { pos: card.pos } : {}),
+              surface: saveAs.surface,
+              ...(saveAs.meaning ? { meaning: saveAs.meaning } : {}),
+              ...(saveAs.pos ? { pos: saveAs.pos } : {}),
               at: makeAnchor({
                 chapter: safeIndex,
                 paragraph: picked.block,
                 text: picked.paragraph,
-                at: picked.before.length,
-                length: picked.surface.length,
+                at: placeAt,
+                length: saveAs.surface.length,
               }),
               savedAt: Date.now(),
             };
             saveWord(
               {
-                surface: picked.surface,
-                lemma: pickedKey,
-                pos: card.pos,
-                meaning: card.meaning,
-                whyHard: card.whyHard,
-                recommend: !isEasyKey(pickedKey),
+                surface: saveAs.surface,
+                lemma: saveAs.lemma,
+                pos: saveAs.pos,
+                meaning: saveAs.meaning,
+                whyHard: shownPhrase ? "" : card.whyHard,
+                recommend: !isEasyKey(saveAs.lemma),
                 sentence: card.sentence,
-                seen: bookStats[pickedKey]?.count,
+                seen: shownPhrase ? undefined : bookStats[pickedKey]?.count,
                 uses:
-                  bookStats[pickedKey] && bookStats[pickedKey].uses.length > 1
+                  !shownPhrase && bookStats[pickedKey] && bookStats[pickedKey].uses.length > 1
                     ? bookStats[pickedKey].uses.join(" and ")
                     : "",
               },
