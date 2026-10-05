@@ -1,6 +1,6 @@
 ---
 name: annotate-book-glossary
-description: Build a Margin Words word list (glossary format v2) for an EPUB book. Extracts the chapter text with the app's own numbering, picks hard words for a chosen reading level, writes context-based meanings (senses) with chapter/occurrence/context anchors, validates the JSON against the book, and tells the user how to upload it on the shelf. Use when the user wants a custom glossary, word list, or per-chapter word meanings for an English book.
+description: Build a Margin Words word list (glossary format v2) for an EPUB book. Extracts the chapter text with the app's own numbering, picks hard words for a chosen reading level, writes context-based meanings (senses) with chapter/occurrence/context anchors, validates the JSON against the book, and publishes that one list to Discover in its category. Use when the user wants a custom glossary, word list, or per-chapter word meanings for an English book.
 ---
 
 # Annotate a book with a v2 glossary
@@ -157,21 +157,43 @@ These are not slang. Before you leave neighbouring words out, put the textbook m
 The validator (step 5) checks that every `context` is in the right paragraph or chapter (errors), and that `simple`, `mainIdea`,
 `grammar` and phrase `meaning` use only common words (warnings that name the words: rewrite those parts with easier words, or leave a name or key word as it is).
 
-### 6. Hand it to the user
+### 6. Put it on Discover
 
-Tell the user (plain words):
+The app has no zip import and no file import. After the validator says OK, publish this one list to Discover in the
+matching category. Do that before any pull request. A pull request is only the git copy and can wait until many books
+are ready. Do not open a new pull request for each book.
 
-1. Make the pack: `node scripts/make-pack.mjs book.epub book.glossary.json my-book.pack.zip` (one `.zip` with exactly
-   `book.epub` + `glossary.json`; the script checks that the list belongs to the book). The app cannot add a bare EPUB.
-2. Open Margin Words, tap **Add book**, then **Choose .zip file** (or drop the zip on the shelf). A book already on the
-   shelf: open the book's menu (the three dots) and tap **Add word list** to add only the `.json`.
-3. The app checks the pack again and says in plain words what is wrong, if anything. If you add a list to a book that has
-   words, you choose **Add only new words** or **Replace**.
-4. Open the book and tap a word that has several meanings: the card shows the meaning that fits that place, and a
-   small "Other meanings in this book" list shows the rest.
+1. Save the list as `packs/<id>/glossary.json`. Add `packs/<id>/info.json` with a short card `title`, `author`,
+   `order`, and `category`. `category` is `"speech"` for a speech. Leave it out for a novel (Discover treats a missing
+   category as a novel). The glossary `title`, `author`, and `sha256` stay the full EPUB values so the reader's own
+   file still matches. Do not put a copyrighted EPUB in `packs/`, in git, or on the books host.
+2. Build only this book's row on top of the catalog that is already live. Do not rebuild `word-lists/catalog.json`
+   from git alone. Other lists in the checkout can be newer than the books host, and uploading that rebuild would
+   point Discover at files that were not uploaded.
 
-Also tell the user how many words, how many have several meanings, and which `target_level` you used. The format
-is in `docs/book-pack-spec.md` (also inside `book-pack-kit.zip`).
+```
+node scripts/publish-word-list.mjs <id> --out /tmp/word-list-publish
+```
+
+The script reads `https://books.inputread.site/word-lists/catalog.json`, keeps every existing row and its glossary
+hash, and adds or replaces only `<id>`. It refuses to drop a book or to change another book's glossary hash.
+
+3. Upload only the files it prints, to bucket `margin-words-books`. Set the content type and a short cache.
+
+```
+npx wrangler r2 object put "margin-words-books/word-lists/catalog.json" --file /tmp/word-list-publish/word-lists/catalog.json --content-type application/json --cache-control "public, max-age=60" --remote
+npx wrangler r2 object put "margin-words-books/word-lists/<id>/glossary.json" --file /tmp/word-list-publish/word-lists/<id>/glossary.json --content-type application/json --cache-control "public, max-age=60" --remote
+```
+
+Upload `cover.jpg` only when the script prints that file. Never upload `book.epub`. Do not upload the rest of
+`dist-books/`.
+
+4. Fetch `https://books.inputread.site/word-lists/catalog.json` again (a browser User-Agent; plain clients can get
+   403). Check the new id, its category, and that every id that was live before is still there.
+
+Tell the user the card is on Discover in that category (Speeches, or Novels). A signed-in reader adds it
+from the card and pairs their own EPUB. Say how many words, how many have several meanings, and which
+`target_level` you used. The format is in `docs/book-pack-spec.md` (also inside `book-pack-kit.zip`).
 
 ## Quality checklist
 
