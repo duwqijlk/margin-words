@@ -74,10 +74,12 @@ test("the service worker never answers its own address or the manifest from a ca
   );
   assert.doesNotMatch(sw, /caches\.match\(/, "a book being saved must not block a lookup of the app shell");
   assert.match(sw, /caches\.open\(CACHE\)/);
-  assert.match(sw, /caches\.open\(BOOKS\)/);
+  assert.doesNotMatch(sw, /margin-words-books/, "book files are not written into Cache Storage");
+  assert.match(sw, /if \(isBookFile\(path\)\) return;/);
   assert.match(sw, /cibian-bypass/);
   assert.match(sw, /text\/html/);
-  assert.match(sw, /key !== CACHE && key !== BOOKS/, "every old cache is deleted when a new version starts");
+  assert.match(sw, /key !== CACHE\)/, "every old cache, including a saved book cache, is deleted when a new version starts");
+  assert.doesNotMatch(sw, /key !== BOOKS/);
   assert.match(sw, /skipWaiting/);
   assert.match(sw, /clients\.claim/);
 });

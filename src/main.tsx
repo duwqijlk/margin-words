@@ -55,7 +55,9 @@ async function dropStaleShell(): Promise<void> {
     if ("caches" in window) {
       const keys = await caches.keys();
       await Promise.all(
-        keys.filter((key) => key.startsWith("margin-words-shell-")).map((key) => caches.delete(key)),
+        keys
+          .filter((key) => key.startsWith("margin-words-shell-") || key.startsWith("margin-words-books"))
+          .map((key) => caches.delete(key)),
       );
     }
   } catch {
@@ -94,7 +96,7 @@ if (import.meta.env.PROD) {
 }
 
 // Offline app shell. Only in a real build: the dev server must never be cached.
-// Register at once so the first book download can be cached (see waitForServiceWorker).
+// Book files are not part of this cache. An added book stays in IndexedDB.
 if (import.meta.env.PROD && "serviceWorker" in navigator) {
   const hadController = Boolean(navigator.serviceWorker.controller);
   let updated = false;

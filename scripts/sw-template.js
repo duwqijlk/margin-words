@@ -1,10 +1,6 @@
 /* Margin Words offline shell. Written by the build. Do not edit. */
 const CACHE = "margin-words-shell-__VERSION__";
-// Books saved after the app fetches them. A separate cache that new app versions keep.
-const BOOKS = "margin-words-books-v1";
 const FILES = __FILES__;
-// "" when book files are on this origin. Otherwise the books host (CORS responses only).
-const BOOKS_ORIGIN = __BOOKS_ORIGIN__;
 
 // Set when the page asks this worker to step aside (a chunk failed twice). The next
 // navigation then goes to the network, the same as a hard refresh.
@@ -47,35 +43,25 @@ self.addEventListener("activate", (event) => {
       .keys()
       .then((keys) =>
         Promise.all(
-          // Every cache of this origin that is not the current shell or the saved books is old
-          // (older shells, and leftovers of earlier workers). Nothing stale may answer a request.
-          keys.filter((key) => key !== CACHE && key !== BOOKS).map((key) => caches.delete(key)),
+          // Every other cache on this origin is old: earlier shells, and the book cache
+          // this worker used to fill. Saving a book there froze the page.
+          keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)),
         ),
       )
       .then(() => self.clients.claim()),
   );
 });
 
-function bookPath(url) {
-  if (url.origin === self.location.origin) {
-    const scope = new URL(self.registration.scope).pathname;
-    const path = url.pathname.startsWith(scope) ? url.pathname.slice(scope.length) : url.pathname.replace(/^\//, "");
-    return path;
-  }
-  if (BOOKS_ORIGIN && url.origin === BOOKS_ORIGIN) return url.pathname.replace(/^\//, "");
-  return null;
+function scopePath(url) {
+  if (url.origin !== self.location.origin) return null;
+  const scope = new URL(self.registration.scope).pathname;
+  return url.pathname.startsWith(scope) ? url.pathname.slice(scope.length) : url.pathname.replace(/^\//, "");
 }
 
-function isBookData(path) {
-  if (!path) return false;
-  if (path.startsWith("word-lists/")) return path.endsWith(".json");
-  if (path.startsWith("public-books/")) return !path.endsWith(".zip");
-  return false;
+function isBookFile(path) {
+  return path.startsWith("public-books/") || path.startsWith("word-lists/");
 }
 
-// Open one cache by name. Saving a new word list (a large EPUB or glossary) holds the books
-// cache; a lookup that also opens that cache freezes the page scripts until the save finishes,
-// so a refresh after a dictionary update stays blank or reloads.
 function openShell() {
   return caches.open(CACHE);
 }
@@ -92,38 +78,16 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
   const url = new URL(request.url);
-  const path = bookPath(url);
+  const path = scopePath(url);
   if (path === null) return;
   // Account API calls must go to the network. A cached copy would serve stale sync data.
   if (path.startsWith("api/")) return;
   // Book packs the user sideloads are stored in IndexedDB. Never keep them here.
   if (path.startsWith("packs/")) return;
-  // Classics and word lists: network first, then the copy saved after a successful fetch.
-  // Install does not download these. Opaque (non-CORS) responses are not stored.
-  if (isBookData(path)) {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          if (response && response.ok && response.status === 200 && response.type !== "opaque") {
-            const copy = response.clone();
-            event.waitUntil(
-              caches
-                .open(BOOKS)
-                .then((cache) => cache.put(request, copy))
-                .catch(() => undefined),
-            );
-          }
-          return response;
-        })
-        .catch(() =>
-          caches.open(BOOKS).then((cache) =>
-            cache.match(request).then((hit) => hit || Promise.reject(new Error("offline"))),
-          ),
-        ),
-    );
-    return;
-  }
-  if (url.origin !== self.location.origin) return;
+  // Catalogs, covers, EPUBs and word lists. The page fetches these itself and keeps an
+  // added book in IndexedDB. Writing the response into Cache Storage holds every other
+  // lookup, including the app shell, so a new book or a new word list left the page blank.
+  if (isBookFile(path)) return;
   // The browser asks for these itself. They must never come from an old copy.
   if (path === "sw.js" || path === "manifest.webmanifest") return;
   if (request.mode === "navigate") {

@@ -132,7 +132,9 @@ export function DiscoverScreen({
       try {
         const [catalog, lists, shelfMarks] = await Promise.all([
           loadCatalog(BUNDLED_CATALOG_URL),
-          loadWordListCatalog(),
+          // A word-list catalog that cannot be loaded must not hide the classics.
+          // Those lists are not kept in the service worker.
+          loadWordListCatalog().catch(() => [] as WordListPack[]),
           loadDiscoverRecords(),
         ]);
         if (!alive) return;

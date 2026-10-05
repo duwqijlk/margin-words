@@ -32,9 +32,8 @@ Dev and `npm run build:local` serve this folder on the same origin so tests run 
    classic. Books already on a device stay there. A book the user deleted stays off the shelf until it is
    added again (`localStorage` key `cibian-removed-packs-v1` is still written for compatibility).
 
-Offline: the service worker does **not** download books during install. After the app fetches a classic
-(Alice on a new shelf, or a later download from Discover), it keeps that CORS response so the book can be
-opened again offline. Books already on the shelf live in IndexedDB.
+Offline: the service worker does **not** download or store books. A book on the shelf lives in IndexedDB
+and still opens with no network. Taking it off the shelf and adding it again needs the network.
 
 `node scripts/build-packs.mjs --out public-books --check` fails when `catalog.json` or a local zip is out of date.
 Those zips are for the check and for sideload. They are not uploaded.
