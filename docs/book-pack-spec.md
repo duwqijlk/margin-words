@@ -348,7 +348,7 @@ Language and level
 
 Truthfulness
 5. Only restate the original. No new facts, opinions, guesses, background, or what happens later. A paragraph or sentence note must not explain more than the text says. Two short facts may sit outside the sentence: a size in centimetres or litres, and how a familiar object used to move or fit together when the comparison needs that motion (see Old thing). Do not add who made it, the year, or any other history.
-6. Explain the word as used IN THIS BOOK. Add no meanings the book does not use.
+6. Explain the word as used IN THIS BOOK. Add no meanings the book does not use. Write that sense the way a learner dictionary does. Longman is the model: one everyday idea, the sense this sentence needs. If it gives two senses, use the one this sentence needs. Do not invent a picture it does not say. `respectable` in `one respectable person` is good enough, or big enough, to count as a real one, not "fit to be seen by other people." `left` in `enough of me left` is the part that remains. Say what remains. "Still there" alone sounds like a place.
 7. Keep names and key story words unchanged (`Mira`, `Willy Wonka`, `moonwick`) even if they are not common words.
 8. If you are not sure a line is in the EPUB, or you cannot copy its `context`, leave that item out. A short correct list beats a long list with errors. This is not the rule for "maybe they know this word." When you are not sure they know it, mark it.
 

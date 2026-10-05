@@ -243,6 +243,7 @@ The key is the base form: lower case, two or more words, at most 60 letters. `on
 
 - English only. No other language in any field.
 - Short sentences a junior-high student can read. School words and ordinary words are fine. Names, numbers, and words from the story may stay as they are. Do not rewrite a clear meaning because a frequency list does not contain one of its words. In a sentence note, do not use a grammar-class word (`participle`, `clause`, `conditional`). Say what the line is doing.
+- Write the meaning the way a learner dictionary does. Longman is the model: one everyday idea, the sense this sentence uses, in ordinary words. If that dictionary gives two senses, use the one this sentence needs. Do not invent a picture it does not say. `respectable` in `one respectable person` is good enough, or big enough, to count as a real one. It is not "fit to be seen by other people." `left` in `enough of me left` is remaining: the part that is still here. Say what remains. "Still there" alone sounds like a place.
 - Only restate this EPUB. No new facts, no history of an object, no guess about what happens later. Two short facts may sit outside the sentence, and only these: a size they cannot picture, in centimetres or litres; and, for Old thing, how a familiar object used to move or fit together when the comparison needs that motion. Do not add who made it, the year, or any other history.
 - Keep names as they are.
 - `context` and `example` are the only fields that quote the book, and only as a short snippet.

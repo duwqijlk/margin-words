@@ -2829,18 +2829,25 @@
   "left": {
    "senseOnly": true,
    "pos": "adjective",
-   "meaning": "Still there, after the rest has gone.",
+   "meaning": "Remaining. The part that is still here.",
    "senses": [
     {
-     "meaning": "Still there, after the rest has gone.",
-     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "meaning": "Remaining. The part that is still here. In \"enough of me left\", it is the part of me that has not gone.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right. Here it is the part that remains.",
      "trickyMeaning": true,
      "default": true,
      "anchors": [
       { "chapter": 0, "occurrence": 1, "form": "left", "context": "there's hardly enough of me left to" },
-      { "chapter": 2, "occurrence": 2, "form": "left", "context": "and Alice was soon left alone" },
       { "chapter": 7, "occurrence": 1, "form": "left", "context": "that there’s any one left alive" },
       { "chapter": 8, "occurrence": 2, "form": "left", "context": "there were no arches left, and" }
+     ]
+    },
+    {
+     "meaning": "Made to stay with nobody else.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right. Here the others have gone, and she stays.",
+     "trickyMeaning": true,
+     "anchors": [
+      { "chapter": 2, "occurrence": 2, "form": "left", "context": "and Alice was soon left alone" }
      ]
     }
    ]
@@ -4009,7 +4016,7 @@
   },
   "respectable": {
    "pos": "adjective",
-   "meaning": "Good enough to be seen by other people; proper."
+   "meaning": "Good enough, or big enough, to count as a real one. Here, one whole person."
   },
   "respectful": {
    "pos": "adjective",

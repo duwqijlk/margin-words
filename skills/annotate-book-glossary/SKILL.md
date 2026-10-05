@@ -147,6 +147,7 @@ These are not slang. Before you leave neighbouring words out, put the textbook m
 **Writing rules** (all of these fields):
 
 - English only. Use very common words (the 2000 most common words; `src/lib/basic-words-data.ts`). Short sentences.
+- Write each meaning the way a learner dictionary does. Longman is the model: one everyday idea, the sense this sentence uses. If it gives two senses, use the one this sentence needs. `respectable` in `one respectable person` is good enough, or big enough, to count as a real one, not "fit to be seen." `left` in `enough of me left` is the part that remains. Say what remains. "Still there" alone sounds like a place.
 - Only restate the original. Add no new facts, no opinions, no guesses. Do not explain more than the text says. Two short facts may sit outside the sentence: a size in centimetres or litres, and how a familiar object used to move when an Old thing comparison needs that motion. Do not add who made it, the year, or any other history.
 - Keep names and key plot words unchanged (`Willy Wonka`, `Oompa-Loompa`), even when they are not common words.
 - `context` must be copied exactly (quotes, dashes, capitals and spaces do not matter). It must sit inside ONE paragraph, and for a paragraph note inside the paragraph with that number.
