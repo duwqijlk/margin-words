@@ -7,6 +7,7 @@ import { isDue, isMastered, MASTERED_STAGE, type Book, type VocabEntry } from "@
 import { useVocab } from "@/lib/vocab-store";
 import { focusSentence } from "@/lib/text";
 import { hasSourceFrom } from "@/lib/wordbook";
+import { ShareSheet } from "@/components/share-sheet";
 import { WordSources } from "@/components/word-sources";
 import {
   btn,
@@ -280,16 +281,19 @@ export function Notebook({
             )}
           </p>
         </div>
-        <button
-          type="button"
-          className={cn(btn.primary, "w-full sm:w-auto")}
-          disabled={stats.due === 0}
-          onClick={() => onReview(bookId)}
-          title={stats.due === 0 ? t("nb.noReview") : undefined}
-        >
-          <Layers className="size-4" aria-hidden />
-          {stats.due > 0 ? t("nb.startReview", { n: stats.due }) : t("nb.allDone")}
-        </button>
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+          <ShareSheet count={words.length} />
+          <button
+            type="button"
+            className={cn(btn.primary, "w-full sm:w-auto")}
+            disabled={stats.due === 0}
+            onClick={() => onReview(bookId)}
+            title={stats.due === 0 ? t("nb.noReview") : undefined}
+          >
+            <Layers className="size-4" aria-hidden />
+            {stats.due > 0 ? t("nb.startReview", { n: stats.due }) : t("nb.allDone")}
+          </button>
+        </div>
       </header>
 
       <StatRow

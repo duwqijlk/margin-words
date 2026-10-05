@@ -26,6 +26,8 @@ export type UserRow = {
   password_salt: string;
   password_iters: number;
   created_at: number;
+  /** Empty when the reader has not chosen one. Not unique. */
+  nickname: string | null;
 };
 
 export type SyncRow = {
