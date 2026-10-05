@@ -1,0 +1,1560 @@
+{
+ "version": 2,
+ "title": "SpaceX Company Talk, August 11, 2026 — Full Reading Text",
+ "author": "Elon Musk",
+ "sha256": "bf09f7e24c4418975113ef6dc9827afe0f2e41943b20bb01d27b8a60e59cb4f8",
+ "chapters": 10,
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+ "language": "English",
+ "glossary": {
+  "achieve": {
+   "pos": "verb",
+   "meaning": "To succeed in doing something hard.",
+   "forms": [
+    "achieving"
+   ]
+  },
+  "aerospace": {
+   "pos": "singular noun",
+   "meaning": "The work of building planes and rockets."
+  },
+  "aircraft": {
+   "pos": "singular noun",
+   "meaning": "A plane."
+  },
+  "alien": {
+   "pos": "adjective",
+   "meaning": "From another world. An alien civilization is people who are not from Earth."
+  },
+  "annual": {
+   "pos": "adjective",
+   "meaning": "Happening once every year."
+  },
+  "applause": {
+   "pos": "singular noun",
+   "meaning": "The sound of people hitting their hands together, to show they liked something."
+  },
+  "arguably": {
+   "pos": "adverb",
+   "meaning": "You can give good reasons for this, even if some people disagree."
+  },
+  "aside": {
+   "pos": "singular noun",
+   "meaning": "A short remark spoken to the side, not the main speech."
+  },
+  "assume": {
+   "pos": "verb",
+   "meaning": "To take something as true for now.",
+   "forms": [
+    "assuming"
+   ]
+  },
+  "astronaut": {
+   "pos": "singular noun",
+   "meaning": "A person who travels in space."
+  },
+  "astronomical": {
+   "pos": "adjective",
+   "meaning": "So large it is hard to picture.",
+   "whyHard": "Not the usual meaning! Usually: astronomical means about the stars. Here an astronomical number is an extremely large number.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "So large it is hard to picture.",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "of SpaceX will be an astronomical number"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: astronomical means about the stars. Here an astronomical number is an extremely large number.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "attempt": {
+   "pos": "singular noun",
+   "meaning": "A try."
+  },
+  "avionics": {
+   "pos": "plural noun",
+   "meaning": "The electronic machines that guide a rocket."
+  },
+  "baby": {
+   "pos": "singular noun",
+   "meaning": "Something a group made and cares for, as parents care for a child.",
+   "whyHard": "Not the usual meaning! Usually: a baby is a very young child. Here it is the AI this company wants to raise.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Something a group made and cares for, as parents care for a child.",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "that is sort of SpaceX’s baby will be a very good"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: a baby is a very young child. Here it is the AI this company wants to raise.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "bandwidth": {
+   "pos": "singular noun",
+   "meaning": "How much information can move at one time."
+  },
+  "basically": {
+   "pos": "adverb",
+   "meaning": "In the simple true version."
+  },
+  "belief": {
+   "pos": "singular noun",
+   "meaning": "An idea you trust is true."
+  },
+  "biological": {
+   "pos": "adjective",
+   "meaning": "Of living bodies, like people and animals."
+  },
+  "boeing": {
+   "pos": "singular noun",
+   "meaning": "The name of a big airplane company."
+  },
+  "booster": {
+   "pos": "singular noun",
+   "meaning": "The large bottom part of a rocket. It lifts the rocket, and this company brings it back to fly again."
+  },
+  "born": {
+   "pos": "adjective",
+   "meaning": "Coming from. The AI comes from these people.",
+   "whyHard": "Not the usual meaning! Usually: born means a baby has just come into the world. Here an idea comes from the people.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Coming from. The AI comes from these people.",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "want an AI that is born of that capability, and that"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: born means a baby has just come into the world. Here an idea comes from the people.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "capability": {
+   "pos": "singular noun",
+   "meaning": "What someone is able to do."
+  },
+  "caption": {
+   "pos": "singular noun",
+   "meaning": "Words written on a video."
+  },
+  "civilization": {
+   "pos": "singular noun",
+   "meaning": "A large group of people with cities, tools, and shared ideas."
+  },
+  "classic": {
+   "pos": "adjective",
+   "meaning": "A famous moment people still remember.",
+   "whyHard": "Not the usual meaning! Usually: a classic is an old book or film people still love. Here it means a famous moment.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A famous moment people still remember.",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "And of course this is classic. I fully expected this flight"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: a classic is an old book or film people still love. Here it means a famous moment.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "cloudflare": {
+   "pos": "singular noun",
+   "meaning": "The name of a company that watches how much traffic moves on the internet."
+  },
+  "cluster": {
+   "pos": "singular noun",
+   "meaning": "A group of computers that work together."
+  },
+  "commercial": {
+   "pos": "adjective",
+   "meaning": "Done by a company, for pay, not by a government."
+  },
+  "compute": {
+   "pos": "singular noun",
+   "meaning": "The power of the computers that run an AI.",
+   "whyHard": "Not the usual meaning! Usually: compute means to calculate a number. Here compute is the computers' power.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "The power of the computers that run an AI.",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "needs an enormous amount of compute. But I think this is"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: compute means to calculate a number. Here compute is the computers' power.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "concrete": {
+   "pos": "singular noun",
+   "meaning": "A hard grey mix used for building. A concrete block is a heavy grey brick."
+  },
+  "consciousness": {
+   "pos": "singular noun",
+   "meaning": "The state of being able to think and know."
+  },
+  "convey": {
+   "pos": "verb",
+   "meaning": "To make an idea clear to other people."
+  },
+  "corner": {
+   "pos": "singular noun",
+   "meaning": "Every part of a place.",
+   "whyHard": "Not the usual meaning! Usually: a corner is where two walls meet. Here every corner means every part of the solar system.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Every part of a place.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "civilization, with humans in every corner of the solar system, and"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: a corner is where two walls meet. Here every corner means every part of the solar system.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "crew": {
+   "pos": "singular noun",
+   "meaning": "The group that flies and works on a ship or a spacecraft."
+  },
+  "dedicated": {
+   "pos": "adjective",
+   "meaning": "Giving all your effort to one job."
+  },
+  "definitely": {
+   "pos": "adverb",
+   "meaning": "For sure. With no doubt."
+  },
+  "develop": {
+   "pos": "verb",
+   "meaning": "To design and build something new.",
+   "forms": [
+    "developed"
+   ]
+  },
+  "digital": {
+   "pos": "adjective",
+   "meaning": "Of computers. Made of numbers, not of a living body."
+  },
+  "dock": {
+   "pos": "verb",
+   "meaning": "To join a spacecraft to a station in space.",
+   "whyHard": "Not the usual meaning! Usually: a dock is a place where boats tie up. Here a spacecraft joins a station.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "To join a spacecraft to a station in space.",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "first privately developed spacecraft to dock with the space station. The"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: a dock is a place where boats tie up. Here a spacecraft joins a station.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "dragon": {
+   "pos": "singular noun",
+   "meaning": "The name of SpaceX's spacecraft.",
+   "whyHard": "Not the usual meaning! Usually: a dragon is an animal in a story. Here Dragon is a spacecraft.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "The name of SpaceX's spacecraft.",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "Falcon Heavy, Starman, Dragon"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "context": "And then, of course, Dragon. The first privately developed spacecraft to"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "context": "past 100 astronauts, up and back. Dragon has been an amazing vehicle"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 4,
+       "context": "epic success. Congratulations to the Dragon team. Excellent work"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: a dragon is an animal in a story. Here Dragon is a spacecraft.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "dump": {
+   "pos": "singular noun",
+   "meaning": "A rough pile of all the words, not cleaned up.",
+   "whyHard": "Not the usual meaning! Usually: dump means to throw something away. Here a caption dump is a rough pile of words.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A rough pile of all the words, not cleaned up.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "public video, not a caption dump and not a script SpaceX"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: dump means to throw something away. Here a caption dump is a rough pile of words.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "edit": {
+   "pos": "singular noun",
+   "meaning": "A shorter version made by cutting.",
+   "whyHard": "Not the usual meaning! Usually: edit means to correct a text. Here a highlights edit is a short cut of the video.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A shorter version made by cutting.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "which is why a highlights edit feels thin. This edition follows"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: edit means to correct a text. Here a highlights edit is a short cut of the video.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "edition": {
+   "pos": "singular noun",
+   "meaning": "One published version of a text."
+  },
+  "effectively": {
+   "pos": "adverb",
+   "meaning": "In the real result, even if that is not the official name."
+  },
+  "elon": {
+   "pos": "singular noun",
+   "meaning": "A man's first name. He is the person speaking."
+  },
+  "employee": {
+   "pos": "singular noun",
+   "meaning": "A person who works for a company."
+  },
+  "encourage": {
+   "pos": "verb",
+   "meaning": "To give someone heart to do something."
+  },
+  "enormous": {
+   "pos": "adjective",
+   "meaning": "Very, very large."
+  },
+  "entire": {
+   "pos": "adjective",
+   "meaning": "The whole of something. Not only a part."
+  },
+  "epic": {
+   "pos": "adjective",
+   "meaning": "Very great, and worth remembering."
+  },
+  "essential": {
+   "pos": "adjective",
+   "meaning": "Necessary. You cannot leave it out."
+  },
+  "eventually": {
+   "pos": "adverb",
+   "meaning": "After a long time. In the end."
+  },
+  "evolution": {
+   "pos": "singular noun",
+   "meaning": "Slow change into something new, over a very long time."
+  },
+  "exceed": {
+   "pos": "verb",
+   "meaning": "To be more than."
+  },
+  "exist": {
+   "pos": "verb",
+   "meaning": "To be real."
+  },
+  "expand": {
+   "pos": "verb",
+   "meaning": "To make something wider or larger."
+  },
+  "expert": {
+   "pos": "singular noun",
+   "meaning": "A person who knows a lot about one job."
+  },
+  "extend": {
+   "pos": "verb",
+   "meaning": "To make something reach farther."
+  },
+  "extremely": {
+   "pos": "adverb",
+   "meaning": "Very, very. Far past the usual amount."
+  },
+  "factor": {
+   "pos": "singular noun",
+   "meaning": "How many times bigger. A factor of ten means ten times as many.",
+   "whyHard": "Not the usual meaning! Usually: a factor is one cause of a result. Here it means how many times bigger.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "How many times bigger. A factor of ten means ten times as many.",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "increase by more than a factor of ten over time. Long"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "as a civilization — by a factor of a million, you would"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: a factor is one cause of a result. Here it means how many times bigger.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "falcon": {
+   "pos": "singular noun",
+   "meaning": "The name of SpaceX's family of rockets.",
+   "whyHard": "Not the usual meaning! Usually: a falcon is a hunting bird. Here Falcon is a rocket.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "The name of SpaceX's family of rockets.",
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "El Segundo, Falcon 1, landing"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "context": "in El Segundo. And then Falcon"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "Falcon Heavy, Starman, Dragon"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "context": "We managed to do Falcon Heavy, the most powerful rocket in"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "context": "A huge testament to the Falcon team, the launch team, the"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 4,
+       "context": "thought, well, first flight of Falcon Heavy, probably going to fail"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: a falcon is a hunting bird. Here Falcon is a rocket.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "footage": {
+   "pos": "singular noun",
+   "meaning": "Film that was recorded."
+  },
+  "foster": {
+   "pos": "verb",
+   "meaning": "To help something grow."
+  },
+  "foundation": {
+   "pos": "singular noun",
+   "meaning": "The base that later work is built on."
+  },
+  "frankly": {
+   "pos": "adverb",
+   "meaning": "Speaking in a direct, honest way."
+  },
+  "front": {
+   "pos": "singular noun",
+   "meaning": "One part of the work.",
+   "whyHard": "Not the usual meaning! Usually: the front is the side that faces you. Here the software front is the software part of the job.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "One part of the work.",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "also succeed on the software front"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: the front is the side that faces you. Here the software front is the software part of the job.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "fundamental": {
+   "pos": "adjective",
+   "meaning": "The most basic and important part.",
+   "forms": [
+    "fundamentally"
+   ]
+  },
+  "galaxy": {
+   "pos": "singular noun",
+   "meaning": "A huge group of stars."
+  },
+  "gigawatt": {
+   "pos": "singular noun",
+   "meaning": "A huge unit of power. A city of computers needs many of these."
+  },
+  "global": {
+   "pos": "adjective",
+   "meaning": "Of the whole world."
+  },
+  "goodness": {
+   "pos": "singular noun",
+   "meaning": "Being good and kind."
+  },
+  "grok": {
+   "pos": "singular noun",
+   "meaning": "The name of the AI this talk wants the people at SpaceX to teach and use."
+  },
+  "hardware": {
+   "pos": "singular noun",
+   "meaning": "The machines. Not the programs."
+  },
+  "harness": {
+   "pos": "verb",
+   "meaning": "To catch energy and use it.",
+   "forms": [
+    "harnessed",
+    "harnessing"
+   ]
+  },
+  "headed": {
+   "pos": "adjective",
+   "meaning": "Going. The way things are going.",
+   "whyHard": "Not the usual meaning! Usually: a head is the top of the body. Here headed means where things are going.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Going. The way things are going.",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "So where are things headed in terms of SpaceX AI"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: a head is the top of the body. Here headed means where things are going.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "heinlein": {
+   "pos": "singular noun",
+   "meaning": "A writer's family name. He wrote stories about life on the Moon."
+  },
+  "highlight": {
+   "pos": "singular noun",
+   "meaning": "The best or most important part.",
+   "whyHard": "Not the usual meaning! Usually: highlight means to mark words with a bright color. Here the highlights are the best parts of the talk.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "The best or most important part.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "runtime, which is why a highlights edit feels thin. This edition",
+       "form": "highlights"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: highlight means to mark words with a bright color. Here the highlights are the best parts of the talk.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "humanity": {
+   "pos": "singular noun",
+   "meaning": "All people."
+  },
+  "incredible": {
+   "pos": "adjective",
+   "meaning": "So great it is hard to believe.",
+   "forms": [
+    "incredibly"
+   ]
+  },
+  "industry": {
+   "pos": "singular noun",
+   "meaning": "All the companies that do one kind of work."
+  },
+  "infrastructure": {
+   "pos": "singular noun",
+   "meaning": "The basic machines and systems a big plan needs."
+  },
+  "inherit": {
+   "pos": "verb",
+   "meaning": "To receive ideas from someone, as a child receives things from parents."
+  },
+  "inspire": {
+   "pos": "verb",
+   "meaning": "To make someone want to do something great.",
+   "forms": [
+    "inspiring"
+   ]
+  },
+  "instill": {
+   "pos": "verb",
+   "meaning": "To put an idea into a person so it stays."
+  },
+  "intelligence": {
+   "pos": "singular noun",
+   "meaning": "The ability to think."
+  },
+  "kardashev": {
+   "pos": "singular noun",
+   "meaning": "A scientist's family name. He sorted civilizations by how much of a star's energy they can use."
+  },
+  "launch": {
+   "pos": "singular noun",
+   "meaning": "The sending-up of a rocket, or the work of sending it."
+  },
+  "like": {
+   "pos": "adverb",
+   "meaning": "About, or as. Not similar.",
+   "whyHard": "Not the usual meaning! Usually: like means similar, and would like means want. Here it means about, or as I said.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "About, or as. Not similar.",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "context": "driving around Los Angeles for like three years. I thought, well"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "It is an incredible vehicle. Like I said, I think it"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "SpaceX revenue, probably in September. Like next month. And will significantly"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: like means similar, and would like means want. Here it means about, or as I said.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "likely": {
+   "pos": "adjective",
+   "meaning": "Probably going to happen."
+  },
+  "majority": {
+   "pos": "singular noun",
+   "meaning": "More than half."
+  },
+  "manufacturing": {
+   "pos": "singular noun",
+   "meaning": "Making things in a factory."
+  },
+  "mariachi": {
+   "pos": "singular noun",
+   "meaning": "A kind of Mexican music band, often with trumpets and guitars."
+  },
+  "millionth": {
+   "pos": "singular noun",
+   "meaning": "One part out of a million parts."
+  },
+  "mission": {
+   "pos": "singular noun",
+   "meaning": "An important job.",
+   "senses": [
+    {
+     "meaning": "The main job a group chooses.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "started off with a clear mission. Make life multi-planetary. Extend"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "the public copy run roughly: mission and vision; history; foundations and"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "One trip into space.",
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "We have done many astronaut missions. It will not be long",
+       "form": "missions"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: a mission is the main job. Here an astronaut mission is one trip.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "mobile": {
+   "pos": "adjective",
+   "meaning": "Of phones.",
+   "whyHard": "Not the usual meaning! Usually: mobile means able to move. Here mobile subscribers are people who pay for a phone service.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Of phones.",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "are now in 167 countries. 22 million mobile subscribers. 13 million high-bandwidth subscribers"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: mobile means able to move. Here mobile subscribers are people who pay for a phone service.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "morality": {
+   "pos": "singular noun",
+   "meaning": "Knowing what is good and what is bad."
+  },
+  "musk": {
+   "pos": "singular noun",
+   "meaning": "A person's family name. He is the man speaking.",
+   "whyHard": "Not the usual meaning! Usually: musk can mean a strong smell. Here Musk is his family name.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A person's family name. He is the man speaking.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "Elon Musk, on stage, to SpaceX employees"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: musk can mean a strong smell. Here Musk is his family name.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "nature": {
+   "pos": "singular noun",
+   "meaning": "What something really is.",
+   "whyHard": "Not the usual meaning! Usually: nature is trees, animals, and the outdoors. Here the nature of the universe is what the universe really is.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "What something really is.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "In order to understand the nature of the universe, and all"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: nature is trees, animals, and the outdoors. Here the nature of the universe is what the universe really is.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "nomenclature": {
+   "pos": "singular noun",
+   "meaning": "The names people choose to use for things."
+  },
+  "obvious": {
+   "pos": "adjective",
+   "meaning": "Easy to see.",
+   "forms": [
+    "obviously"
+   ]
+  },
+  "official": {
+   "pos": "adjective",
+   "meaning": "From the people in charge. The real one they stand behind."
+  },
+  "online": {
+   "pos": "adjective",
+   "meaning": "Working and in use.",
+   "whyHard": "Not the usual meaning! Usually: online means connected to the internet. Here to bring machines online means to start them working.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Working and in use.",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "we bring 10 gigawatts of AI online by the end of next"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: online means connected to the internet. Here to bring machines online means to start them working.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "operation": {
+   "pos": "singular noun",
+   "meaning": "Work that is running. Launch operations are the jobs of sending rockets up."
+  },
+  "orbit": {
+   "pos": "singular noun",
+   "meaning": "The path around a planet, or moving on that path.",
+   "forms": [
+    "orbiting"
+   ]
+  },
+  "orbital": {
+   "pos": "adjective",
+   "meaning": "Of a path around Earth. An orbital booster has already been up on that path."
+  },
+  "organize": {
+   "pos": "verb",
+   "meaning": "To put something in order.",
+   "forms": [
+    "organized"
+   ]
+  },
+  "parallel": {
+   "pos": "adjective",
+   "meaning": "The same reading written again, in another language, beside the first.",
+   "whyHard": "Not the usual meaning! Usually: parallel lines run side by side and never meet. Here the Chinese text is the same reading written again.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "The same reading written again, in another language, beside the first.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "released. The Chinese is a parallel reading, not an official translation"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: parallel lines run side by side and never meet. Here the Chinese text is the same reading written again.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "physicist": {
+   "pos": "singular noun",
+   "meaning": "A scientist who studies light, force, and energy."
+  },
+  "post": {
+   "pos": "singular noun",
+   "meaning": "A message put on the internet.",
+   "whyHard": "Not the usual meaning! Usually: a post is a tall pole, or the mail. Here it is a message SpaceX put on the internet.",
+   "forms": [
+    "posted"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A message put on the internet.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "Video: the SpaceX post of August"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "Posted by SpaceX on August 11, 2026. The video runs about 29 minutes. A",
+       "form": "posted"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: a post is a tall pole, or the mail. Here it is a message SpaceX put on the internet.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "prediction": {
+   "pos": "singular noun",
+   "meaning": "A statement about what you think will happen."
+  },
+  "pretty": {
+   "pos": "adverb",
+   "meaning": "Quite. More than a little.",
+   "whyHard": "Not the usual meaning! Usually: pretty means nice to look at. Here pretty hard means quite hard.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Quite. More than a little.",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "computer thing, because it is pretty hard for humans to go"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "And then 4.7 should be really pretty special. I would like to"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: pretty means nice to look at. Here pretty hard means quite hard.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "privately": {
+   "pos": "adverb",
+   "meaning": "By a company or a person, not by a government."
+  },
+  "propose": {
+   "pos": "verb",
+   "meaning": "To put an idea forward.",
+   "forms": [
+    "proposed"
+   ]
+  },
+  "purpose": {
+   "pos": "singular noun",
+   "meaning": "The reason something exists."
+  },
+  "rank": {
+   "pos": "verb",
+   "meaning": "To put things in order by how much they can do."
+  },
+  "recover": {
+   "pos": "verb",
+   "meaning": "To bring a rocket back after it flies.",
+   "whyHard": "Not the usual meaning! Usually: recover means to get well after being ill. Here it means to bring the booster back.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "To bring a rocket back after it flies.",
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "we take off, land, and recover a booster every few days"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: recover means to get well after being ill. Here it means to bring the booster back.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "release": {
+   "pos": "verb",
+   "meaning": "To give something out to the public.",
+   "whyHard": "Not the usual meaning! Usually: release means to let something go free. Here SpaceX did not give out an official script.",
+   "forms": [
+    "released"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "To give something out to the public.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "and not a script SpaceX released. The Chinese is a parallel",
+       "form": "released"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: release means to let something go free. Here SpaceX did not give out an official script.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "remark": {
+   "pos": "singular noun",
+   "meaning": "Something a person said."
+  },
+  "remarkable": {
+   "pos": "adjective",
+   "meaning": "Unusual, and worth a careful look."
+  },
+  "reuse": {
+   "pos": "singular noun",
+   "meaning": "Using something again, instead of throwing it away."
+  },
+  "revenue": {
+   "pos": "singular noun",
+   "meaning": "Money that comes in."
+  },
+  "roughly": {
+   "pos": "adverb",
+   "meaning": "About. Not an exact number."
+  },
+  "ruins": {
+   "pos": "plural noun",
+   "meaning": "What is left after buildings have fallen.",
+   "whyHard": "Not the usual meaning! Usually: ruin means to destroy something. Here the ruins are what is left of old cities.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "What is left after buildings have fallen.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "alien civilizations. Or exploring the ruins of civilizations that lasted a"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: ruin means to destroy something. Here the ruins are what is left of old cities.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "runtime": {
+   "pos": "singular noun",
+   "meaning": "How long a video lasts."
+  },
+  "satellite": {
+   "pos": "singular noun",
+   "meaning": "A machine that flies around Earth."
+  },
+  "scope": {
+   "pos": "singular noun",
+   "meaning": "How far something reaches."
+  },
+  "sentient": {
+   "pos": "adjective",
+   "meaning": "Able to think and feel."
+  },
+  "significantly": {
+   "pos": "adverb",
+   "meaning": "By a large amount."
+  },
+  "software": {
+   "pos": "singular noun",
+   "meaning": "The programs that run on the machines."
+  },
+  "solar": {
+   "pos": "adjective",
+   "meaning": "From the sun. Solar power is power from sunlight."
+  },
+  "spacecraft": {
+   "pos": "singular noun",
+   "meaning": "A vehicle that flies in space."
+  },
+  "spacefaring": {
+   "pos": "adjective",
+   "meaning": "Living and traveling in space."
+  },
+  "species": {
+   "pos": "singular noun",
+   "meaning": "One kind of living thing. People are one kind."
+  },
+  "starlink": {
+   "pos": "singular noun",
+   "meaning": "The name of SpaceX's internet, sent from satellites."
+  },
+  "starman": {
+   "pos": "singular noun",
+   "meaning": "The name of the man-shaped figure in the car that a rocket sent into space. Not a living person."
+  },
+  "starmind": {
+   "pos": "singular noun",
+   "meaning": "A mind as large as a star. In this talk, a future AI that uses the energy of the sun."
+  },
+  "starshield": {
+   "pos": "singular noun",
+   "meaning": "The name of a SpaceX system used for the country's safety. The talk does not say how it works."
+  },
+  "starship": {
+   "pos": "singular noun",
+   "meaning": "The name of SpaceX's largest rocket."
+  },
+  "subscriber": {
+   "pos": "singular noun",
+   "meaning": "A person who pays to use a service."
+  },
+  "sustainably": {
+   "pos": "adverb",
+   "meaning": "In a way that can continue for a long time."
+  },
+  "talented": {
+   "pos": "adjective",
+   "meaning": "Having a strong natural skill."
+  },
+  "terafab": {
+   "pos": "singular noun",
+   "meaning": "The name of a huge factory for making computer chips."
+  },
+  "testament": {
+   "pos": "singular noun",
+   "meaning": "Strong proof that people did well."
+  },
+  "thin": {
+   "pos": "adjective",
+   "meaning": "Too little. Not enough.",
+   "whyHard": "Not the usual meaning! Usually: thin means not thick. Here a short edit feels too small.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Too little. Not enough.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "why a highlights edit feels thin. This edition follows the talk"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: thin means not thick. Here a short edit feels too small.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "thousandth": {
+   "pos": "adjective",
+   "meaning": "Number 1,000 in a line. The thousandth flight comes after 999 others."
+  },
+  "ton": {
+   "pos": "singular noun",
+   "meaning": "A unit of weight, about 1,000 kilograms."
+  },
+  "tonnage": {
+   "pos": "singular noun",
+   "meaning": "How much weight, counted in tons."
+  },
+  "translation": {
+   "pos": "singular noun",
+   "meaning": "The same text written in another language."
+  },
+  "trillion": {
+   "pos": "singular noun",
+   "meaning": "One thousand billion. A number too large to picture."
+  },
+  "ultimately": {
+   "pos": "adverb",
+   "meaning": "In the end."
+  },
+  "universe": {
+   "pos": "singular noun",
+   "meaning": "All of space, and every star and planet in it."
+  },
+  "usage": {
+   "pos": "singular noun",
+   "meaning": "How much of something people use."
+  },
+  "value": {
+   "pos": "singular noun",
+   "meaning": "What something is worth.",
+   "forms": [
+    "values"
+   ],
+   "senses": [
+    {
+     "meaning": "How much money something is worth.",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "year. Depending on what the value per watt is. If the"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "context": "per watt is. If the value per watt is probably going"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "will be 99 percent of the value of SpaceX. I will say"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "AI is 99 percent of the value of SpaceX. And the value"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "context": "value of SpaceX. And the value of SpaceX will be an"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Ideas about what is good and right.",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "instill in that child the values and beliefs that you think",
+       "form": "values"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: value is how much money something is worth. Here values are ideas about what is good.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "vision": {
+   "pos": "singular noun",
+   "meaning": "A picture of the future you want.",
+   "whyHard": "Not the usual meaning! Usually: vision is eyesight. Here mission and vision means the job and the picture of the future.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A picture of the future you want.",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "copy run roughly: mission and vision; history; foundations and reuse; orbital"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: vision is eyesight. Here mission and vision means the job and the picture of the future.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "vital": {
+   "pos": "adjective",
+   "meaning": "Needed. Extremely important."
+  },
+  "warehouse": {
+   "pos": "singular noun",
+   "meaning": "A large plain building where goods are kept."
+  },
+  "watt": {
+   "pos": "singular noun",
+   "meaning": "A small unit of power. A lamp uses a few tens of watts."
+  },
+  "wild": {
+   "pos": "adjective",
+   "meaning": "Surprising.",
+   "whyHard": "Not the usual meaning! Usually: wild means an animal that is not a pet. Here the wild thing is the surprising part.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Surprising.",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "The wild thing is that — probably our AI revenue — not probably"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: wild means an animal that is not a pet. Here the wild thing is the surprising part.",
+     "trickyMeaning": true
+    }
+   ]
+  }
+ },
+ "sentences": [
+  {
+   "chapter": 1,
+   "context": "We started off with a clear mission. Make life multi-planetary.",
+   "simple": "They began with one job: let people live on more than one planet.",
+   "grammar": "The first line names a job. The next short line says what that job is."
+  },
+  {
+   "chapter": 2,
+   "context": "So we changed the nomenclature. Flight-proven booster. Which is true.",
+   "simple": "They gave the used one a new name. It means it has already flown and worked.",
+   "grammar": "A new name comes after the first line. The last line says the name is fair."
+  },
+  {
+   "chapter": 4,
+   "context": "Let that sink in for a minute.",
+   "simple": "Stop and let that big idea become clear.",
+   "grammar": "Let that tells you to give the idea time. For a minute says how long."
+  },
+  {
+   "chapter": 6,
+   "context": "Not sort of equal to human intelligence. Probably a trillion times higher.",
+   "simple": "Computer thinking will not only match people. It may be a million times a million times more.",
+   "grammar": "Not pushes away the small idea. The next line says how much bigger."
+  },
+  {
+   "chapter": 7,
+   "context": "You will effectively be the parents of the AI.",
+   "simple": "The AI will learn from you, the way a child learns from parents.",
+   "grammar": "Will be says what is going to be true. Of the AI names who the child is."
+  },
+  {
+   "chapter": 8,
+   "context": "our purpose is to bring about a Starmind. A sentient sun.",
+   "simple": "Maybe the reason we are here is to make a mind that can think, as large as the sun.",
+   "grammar": "The first line names a reason. The short line after it says what that mind is."
+  },
+  {
+   "chapter": 8,
+   "context": "building AI computers on the Moon with a mass driver",
+   "simple": "He wants computers built on the Moon, then thrown out into deep space.",
+   "grammar": "On the Moon says the place. With names the machine that throws them."
+  }
+ ],
+ "phrases": {
+  "a while": {
+   "meaning": "A length of time.",
+   "pos": "phrase",
+   "example": "It has been a while since the last company talk."
+  },
+  "across the board": {
+   "meaning": "In every part of the work.",
+   "pos": "idiom",
+   "example": "the Starship team has done an amazing job across the board."
+  },
+  "at this point": {
+   "meaning": "Now. At the time we are in.",
+   "pos": "phrase",
+   "example": "essentially, at this point."
+  },
+  "big hand": {
+   "meaning": "People hit their hands together, hard.",
+   "pos": "idiom",
+   "example": "Big hand for the Starship team."
+  },
+  "blow up": {
+   "meaning": "To break apart so it is gone.",
+   "pos": "phrasal verb",
+   "example": "We blew up a rocket three times before we finally reached orbit."
+  },
+  "bring about": {
+   "meaning": "To make something happen.",
+   "pos": "phrasal verb",
+   "example": "our purpose is to bring about a Starmind."
+  },
+  "deep space": {
+   "meaning": "Space far from the sun and the planets.",
+   "pos": "phrase",
+   "example": "it is pretty hard for humans to go live in deep space"
+  },
+  "die out": {
+   "meaning": "To disappear until none are left.",
+   "pos": "phrasal verb",
+   "example": "but died out ten million years ago."
+  },
+  "earnings call": {
+   "meaning": "A phone meeting after a company tells how much money it made.",
+   "pos": "phrase",
+   "example": "after our earnings calls, which is when I am allowed to talk",
+   "forms": [
+    "earnings calls"
+   ]
+  },
+  "el segundo": {
+   "meaning": "A city near Los Angeles, where SpaceX began.",
+   "pos": "phrase",
+   "example": "a small warehouse in El Segundo."
+  },
+  "end up": {
+   "meaning": "To come to a result after other things happen.",
+   "pos": "phrasal verb",
+   "example": "I think it might end up doing over 90 percent"
+  },
+  "figure out": {
+   "meaning": "To come to understand something after work.",
+   "pos": "phrasal verb",
+   "example": "figuring out how to land an orbital booster"
+  },
+  "flight proven": {
+   "meaning": "Already flown, and it worked.",
+   "pos": "phrase",
+   "example": "Flight-proven booster."
+  },
+  "fourth quarter": {
+   "meaning": "The last three months of the year.",
+   "pos": "phrase",
+   "example": "all other SpaceX revenue in the fourth quarter."
+  },
+  "give them a hand": {
+   "meaning": "Hit your hands together for them.",
+   "pos": "idiom",
+   "example": "I would like everyone to give them a hand."
+  },
+  "in terms of": {
+   "meaning": "When we talk about this subject.",
+   "pos": "phrase",
+   "example": "where are things headed in terms of SpaceX AI?"
+  },
+  "in the long run": {
+   "meaning": "After a long time, not at the start.",
+   "pos": "idiom",
+   "example": "In the long run, in the not-too-distant future"
+  },
+  "long term": {
+   "meaning": "Over many years, not just this month.",
+   "pos": "phrase",
+   "example": "Long term — in fact Cloudflare just recently"
+  },
+  "look back": {
+   "meaning": "To think about an earlier time.",
+   "pos": "phrasal verb",
+   "example": "the future AI will look back and say"
+  },
+  "los angeles": {
+   "meaning": "A large city in California.",
+   "pos": "phrase",
+   "example": "driving around Los Angeles for like three years."
+  },
+  "mass driver": {
+   "meaning": "A machine that throws heavy things into space at high speed.",
+   "pos": "phrase",
+   "example": "on the Moon with a mass driver, and sending them"
+  },
+  "mind boggling": {
+   "meaning": "So large that it is hard to believe.",
+   "pos": "phrase",
+   "example": "These are mind-boggling numbers."
+  },
+  "multi planet": {
+   "meaning": "Of more than one planet.",
+   "pos": "phrase",
+   "example": "a sustainably multi-planet species."
+  },
+  "multi planetary": {
+   "meaning": "Living on more than one planet.",
+   "pos": "phrase",
+   "example": "Make life multi-planetary."
+  },
+  "national security": {
+   "meaning": "Keeping a country safe.",
+   "pos": "phrase",
+   "example": "a vital part of national security."
+  },
+  "not too distant": {
+   "meaning": "Not far from now.",
+   "pos": "phrase",
+   "example": "in the not-too-distant future, about four or five years"
+  },
+  "once in a while": {
+   "meaning": "Sometimes, but not often.",
+   "pos": "idiom",
+   "example": "I think once in a while it is good to look"
+  },
+  "present day": {
+   "meaning": "Now. The time we are living in.",
+   "pos": "phrase",
+   "example": "and then to the present day."
+  },
+  "re fly": {
+   "meaning": "To fly again.",
+   "pos": "phrasal verb",
+   "example": "and then re-fly it.",
+   "forms": [
+    "re flown"
+   ]
+  },
+  "reflect on": {
+   "meaning": "To think hard about.",
+   "pos": "phrasal verb",
+   "example": "important to reflect on the difficulty of achieving"
+  },
+  "side effect": {
+   "meaning": "An extra result, not the main one.",
+   "pos": "phrase",
+   "example": "There is also a great side effect."
+  },
+  "sink in": {
+   "meaning": "To become understood, slowly.",
+   "pos": "phrasal verb",
+   "example": "Let that sink in for a minute."
+  },
+  "solar system": {
+   "meaning": "The sun and the planets that go around it.",
+   "pos": "phrase",
+   "example": "in every corner of the solar system"
+  },
+  "sort of": {
+   "meaning": "In a way. Not exactly.",
+   "pos": "phrase",
+   "example": "Not sort of equal to human intelligence."
+  },
+  "space station": {
+   "meaning": "A place in space where people can live and work.",
+   "pos": "phrase",
+   "example": "to dock with the space station."
+  },
+  "star system": {
+   "meaning": "A star and the planets around it.",
+   "pos": "phrase",
+   "example": "and ultimately other star systems.",
+   "forms": [
+    "star systems"
+   ]
+  },
+  "star trek": {
+   "meaning": "The name of a famous story about people traveling among the stars.",
+   "pos": "phrase",
+   "example": "It is making Star Trek real."
+  },
+  "start off": {
+   "meaning": "To begin.",
+   "pos": "phrasal verb",
+   "example": "We started off with a clear mission."
+  },
+  "sum total": {
+   "meaning": "All of it, added together.",
+   "pos": "phrase",
+   "example": "on the sum total of all SpaceX information."
+  },
+  "super genius": {
+   "meaning": "A child who can think far past other people.",
+   "pos": "phrase",
+   "example": "a child that is a super-genius child"
+  },
+  "take off": {
+   "meaning": "To leave the ground and fly.",
+   "pos": "phrasal verb",
+   "example": "Now we take off, land, and recover a booster"
+  },
+  "top secret": {
+   "meaning": "So secret that only a few people may know it.",
+   "pos": "phrase",
+   "example": "Top secret and such."
+  }
+ }
+}

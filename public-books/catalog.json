@@ -546,11 +546,49 @@
     "bytes": 444330,
     "sha256": "1dae50bc436721f223d709b85b3ebe755d036f706abde7e488d826c9f4ff68cb"
    }
+  },
+  {
+   "id": "obama-inaugural-2009",
+   "title": "Inaugural Address",
+   "author": "Barack Obama",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Public domain in the USA. A work of the United States government (17 USC 105), delivered January 20, 2009. The cover is the photograph supplied with this reading text.",
+   "category": "speech",
+   "updated": "2026-10-05",
+   "rev": "5d443a08807d",
+   "version": 2,
+   "chapters": 2,
+   "words": 330,
+   "paragraphs": 0,
+   "sentences": 7,
+   "phrases": 45,
+   "coined": 0,
+   "epub": {
+    "url": "obama-inaugural-2009/book.epub",
+    "bytes": 210903,
+    "sha256": "5acfb8c7f07eaae8b691c5dcb95c45eb6a525d5337ff57baa76b7ca063d72a1d"
+   },
+   "glossary": {
+    "url": "obama-inaugural-2009/glossary.json",
+    "bytes": 52809,
+    "sha256": "d191c66b8d367969d49f59a97946652c67ac9091401dc08374fd7e62e4ea017b",
+    "rev": "d191c66b8d36"
+   },
+   "cover": {
+    "url": "obama-inaugural-2009/cover.jpg",
+    "bytes": 192089,
+    "sha256": "5d3338d38b068fbd1b3b3b1a5ea199206bd348f27aee3605115410755dd70e98"
+   },
+   "zip": {
+    "url": "obama-inaugural-2009.zip",
+    "bytes": 415543,
+    "sha256": "9d789aad16dff98f3f3faed2b3ccab5a7a316d714f5342b9fc2478f7100eb206"
+   }
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 12160016,
-  "sha256": "c2fe33826904f405089e6954d4a4984cbbad0d95b45d3f1d5c4846e6aa3fc036"
+  "bytes": 12575966,
+  "sha256": "18b96f94e5757dfa6d4bf2c4d5d6cacd0027f718cd1e7ba47abe7d7eab0d08c1"
  }
 }
