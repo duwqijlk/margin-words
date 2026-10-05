@@ -470,11 +470,49 @@
     "bytes": 785228,
     "sha256": "f83e4afdf104901f3120448da95aec8b0969ec5e5fa1fce2deae1dcc45b4aac0"
    }
+  },
+  {
+   "id": "back-to-school",
+   "title": "Back to School",
+   "author": "Barack Obama",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Public domain in the USA. A work of the United States government (17 USC 105), delivered September 8, 2009. The cover is an original study cover, not an official publication.",
+   "category": "speech",
+   "updated": "2026-10-05",
+   "rev": "7485782862f0",
+   "version": 2,
+   "chapters": 7,
+   "words": 157,
+   "paragraphs": 0,
+   "sentences": 5,
+   "phrases": 54,
+   "coined": 0,
+   "epub": {
+    "url": "back-to-school/book.epub",
+    "bytes": 359654,
+    "sha256": "d4724e7d4be7ddb001d2d7b91337d00a198f6bd7e6de39d149860fe78d8f44ad"
+   },
+   "glossary": {
+    "url": "back-to-school/glossary.json",
+    "bytes": 42378,
+    "sha256": "83a2e2badbe389999960916b6793cc7d0846f616225585a27ecb5cdb258e8afd",
+    "rev": "83a2e2badbe3"
+   },
+   "cover": {
+    "url": "back-to-school/cover.jpg",
+    "bytes": 29916,
+    "sha256": "93c289e56ddc7fe66fb4540865875cea35add158c996d4d01b5bb4ee6aaee107"
+   },
+   "zip": {
+    "url": "back-to-school.zip",
+    "bytes": 399277,
+    "sha256": "567a2483c730fe258bbad701c8c17431440269a3e0ed72c6a71d1362e98df88a"
+   }
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11309736,
-  "sha256": "ff7085d3c501851565902064d90e9ce6c59ad52d279241eb5e93fdeb2d59a7be"
+  "bytes": 11709446,
+  "sha256": "74d786ffc85a568daf41417d0d6fa5b2570fbd47c20e59e213b44714ee9ce5a3"
  }
 }
