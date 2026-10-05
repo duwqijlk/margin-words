@@ -13,6 +13,7 @@ import {
   handleLogin,
   handleLogout,
   handleMe,
+  handleNickname,
   handlePasswordResetConfirm,
   handlePasswordResetRequest,
   handleRegister,
@@ -26,7 +27,9 @@ const NOW = 1_700_000_000_000;
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  db.exec(readFileSync(join(ROOT, "migrations", "0001_init.sql"), "utf8"));
+  for (const name of ["0001_init.sql", "0002_nickname.sql"]) {
+    db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
+  }
   return {
     prepare(sql) {
       const stmt = db.prepare(sql);
@@ -514,4 +517,50 @@ test("sync merges word blobs and keeps the newer shelf card", async () => {
 
   const anon = await call(handleSyncPull, env, { method: "GET", path: "/api/sync" });
   assert.equal(anon.status, 401);
+});
+
+test("a nickname is optional, can be shared by two accounts, and is not a password", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const first = await call(handleRegister, env, {
+    body: { email: "one@example.com", password: "correct horse" },
+  });
+  const second = await call(handleRegister, env, {
+    body: { email: "two@example.com", password: "correct horse" },
+  });
+  assert.equal((await first.json()).user.nickname, null);
+  const cookieA = cookieHeader(first);
+  const cookieB = cookieHeader(second);
+
+  const missing = await call(handleNickname, env, { cookie: cookieA, body: { nickname: "   " } });
+  assert.equal(missing.status, 400);
+  assert.equal((await missing.json()).error, "nickname");
+
+  const tooLong = await call(handleNickname, env, {
+    cookie: cookieA,
+    body: { nickname: "abcdefghijklmnopq" },
+  });
+  assert.equal(tooLong.status, 400);
+
+  const savedA = await call(handleNickname, env, { cookie: cookieA, body: { nickname: "  Mina  " } });
+  assert.equal(savedA.status, 200);
+  assert.equal((await savedA.json()).user.nickname, "Mina");
+  const savedB = await call(handleNickname, env, { cookie: cookieB, body: { nickname: "Mina" } });
+  assert.equal(savedB.status, 200);
+  assert.equal((await savedB.json()).user.nickname, "Mina");
+
+  const me = await call(handleMe, env, { method: "GET", cookie: cookieA });
+  assert.equal((await me.json()).user.nickname, "Mina");
+  const again = await call(handleLogin, env, {
+    body: { email: "one@example.com", password: "correct horse" },
+  });
+  assert.equal((await again.json()).user.nickname, "Mina");
+
+  const exported = await call(handleExport, env, { method: "GET", cookie: cookieA });
+  const payload = await exported.json();
+  assert.equal(payload.account.nickname, "Mina");
+  assert.equal(JSON.stringify(payload).includes("password_hash"), false);
+
+  const signedOut = await call(handleNickname, env, { body: { nickname: "Mina" } });
+  assert.equal(signedOut.status, 401);
 });

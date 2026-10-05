@@ -107,6 +107,45 @@ const entry = {
 };
 const tap = (over) => ({ chapter: 0, surface: "bank", occurrence: 1, paragraph: "x", ...over });
 
+test("here is the same sense said for this sentence", () => {
+  const file = {
+    version: 2,
+    glossary: {
+      unless: {
+        pos: "joining word",
+        meaning: "If that does not happen.",
+        here: "None of it will matter if you do not do your part.",
+        whyHard: "w",
+      },
+      bank: {
+        pos: "noun",
+        meaning: "main",
+        here: "Used when no sense names this place.",
+        whyHard: "w",
+        senses: [
+          {
+            meaning: "river side",
+            here: "They are sitting on the land beside the river.",
+            anchors: [{ chapter: 1, occurrence: 2, context: "sat on the bank of the river" }],
+          },
+          { meaning: "money place", default: true, anchors: [{ context: "went to the bank to pay money" }] },
+        ],
+      },
+    },
+  };
+  const checked = ok(file);
+  assert.equal(checked.ok, true);
+  assert.equal(checked.file.glossary.unless.here, "None of it will matter if you do not do your part.");
+  const plain = format.pickSense("unless", checked.file.glossary.unless, tap({}));
+  assert.equal(plain.meaning, "If that does not happen.");
+  assert.equal(plain.here, "None of it will matter if you do not do your part.");
+  const river = format.pickSense("bank", checked.file.glossary.bank, tap({ chapter: 1, occurrence: 2, paragraph: "They sat on the bank of the river." }));
+  assert.equal(river.here, "They are sitting on the land beside the river.");
+  const money = format.pickSense("bank", checked.file.glossary.bank, tap({ paragraph: "Nothing about a bank." }));
+  assert.equal(money.meaning, "money place");
+  assert.equal(money.here, "Used when no sense names this place.");
+});
+
 test("matching order: anchor, context, default, entry", () => {
   assert.equal(format.pickSense("bank", entry, tap({ chapter: 1, occurrence: 2, paragraph: "They sat on the bank of the river." })).via, "anchor");
   const byContext = format.pickSense("bank", entry, tap({ chapter: 5, paragraph: "He went to the Bank to pay money today.", before: "He went to the " }));

@@ -253,7 +253,14 @@ export const zh: Record<Key, string> = {
   "account.signedDesc": "你已经登录。书架、读到哪里、生词和设置会同步到其他设备。书的文件留在每台设备上。",
   "account.privacyTitle": "隐私说明",
   "account.privacy":
-    "账号只保存你的邮箱和加过密的密码。为了同步，还会保存书架、读到哪里、生词和设置。我们不要你的姓名、年龄、学校或电话。书的文件留在每台设备上。你可以随时导出或删除账号。",
+    "账号保存你的邮箱、加过密的密码，还有你自己填的昵称。昵称可以和别人一样。为了同步，还会保存书架、读到哪里、生词和设置。我们不要你的真实姓名、年龄、学校或电话。书的文件留在每台设备上。你可以随时导出或删除账号。",
+  "account.nickname": "昵称",
+  "account.nicknameHint": "最多 16 个字。可以和别人用同一个昵称。",
+  "account.nicknameSave": "保存昵称",
+  "account.nicknamePromptTitle": "填写昵称",
+  "account.nicknamePrompt": "给这个账号起一个短名字。可以和别人一样。",
+  "account.nicknameLater": "以后再说",
+  "account.nicknameSaved": "昵称已保存",
   "account.email": "邮箱",
   "account.password": "密码",
   "account.passwordAgain": "再输入一次密码",
@@ -288,6 +295,7 @@ export const zh: Record<Key, string> = {
   "account.err.turnstile": "请先完成验证。",
   "account.err.network": "连不上账号服务。不登录也可以读书。",
   "account.err.generic": "没有完成。请再试一次。",
+  "account.err.nickname": "请填写 1 到 16 个字。",
 
   /* ---- messages and errors */
   "err.notValidEpub": "这个文件不是有效的 EPUB 图书。",
@@ -429,6 +437,8 @@ export const zh: Record<Key, string> = {
   "card.noMeaning": "这本书里还没有这个词的解释。",
   "card.noList": "这本书还没有词表。请在书架上打开这本书的菜单，选“添加词表”。",
   "card.coined": "这是作者自己编出来的词。",
+  "card.plain": "意思",
+  "card.here": "在这句里",
   "card.sentenceFrom": "书中的句子",
   "card.example": "另一个例句",
   "card.saved": "已在生词本里 · 点一下可移除",
@@ -604,7 +614,7 @@ export const zh: Record<Key, string> = {
     "你从任何一本书里存的词，都放进同一个生词本，复习也是同一个队列。每个词都记得它来自哪个句子、哪本书、哪一章，点一下就能回到那个位置。复习会在 1、2、4、7、15、30 天后回来。",
   "about.accountTitle": "账号和同步（可选）",
   "about.accountBody":
-    "你不需要账号。如果你创建账号，我们会保存这些内容的一份副本：书架列表、阅读到哪里、你存的词和它们的来源位置、复习次数，以及阅读设置。在另一台设备上登录就能看到。你随时可以导出或删除自己的数据。",
+    "你不需要账号。如果你创建账号，我们会保存这些内容的一份副本：书架列表、阅读到哪里、你存的词和它们的来源位置、复习次数，以及阅读设置。你还可以填一个昵称，可以和别人一样。在另一台设备上登录就能看到。你随时可以导出或删除自己的数据。",
   "about.privacyTitle": "隐私",
   "about.privacyBody":
     "你的 EPUB 文件只留在你的设备上，即使你有账号也不会上传。为了在另一台设备上找到你的位置，同步只保存词表里的段落编号、一小行书中的文字，以及你存的每个词所在的句子。我们不会收到任何书籍文件。",

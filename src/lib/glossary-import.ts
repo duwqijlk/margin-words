@@ -145,6 +145,7 @@ export async function applyGlossary(
         continue;
       }
       const gloss: Gloss = { pos: entry.pos, meaning: entry.meaning, whyHard: entry.whyHard };
+      if (entry.here) gloss.here = entry.here;
       if (entry.forms?.length) gloss.forms = entry.forms;
       if (entry.coined) gloss.coined = true;
       if (entry.senseOnly) gloss.senseOnly = true;

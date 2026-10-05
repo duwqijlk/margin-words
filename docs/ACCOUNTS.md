@@ -8,7 +8,7 @@ Accounts use **Cloudflare Pages Functions** (`functions/`) and a **D1** database
 
 ## What is stored
 
-Only an email and a PBKDF2-SHA256 password hash (100,000 iterations, random salt per user). No name, age, school, or phone number.
+An email, a PBKDF2-SHA256 password hash (100,000 iterations, random salt per user), and an optional nickname. The nickname is not unique: two accounts may use the same one. No real name, age, school, or phone number.
 
 Synced state is one JSON blob per item in `sync_items`, with `updated_at`:
 
@@ -64,7 +64,7 @@ Do these in order, logged in to the Cloudflare account that owns the Pages proje
 
 1. Database. Already done: D1 name `margin-words`, id `c286e644-2ead-438c-bb65-70ee028d957a`, written in `wrangler.toml` as binding `DB`. Do not create another database.
 
-2. Schema. Already applied: `migrations/0001_init.sql` only. A later migration, if one is added, is applied with:
+2. Schema. Already applied: `migrations/0001_init.sql`. `migrations/0002_nickname.sql` adds optional `users.nickname` (not unique). Apply it before deploying functions that read that column:
 
    ```bash
    npx wrangler d1 migrations apply margin-words --remote
@@ -171,9 +171,10 @@ All routes are same-origin. The service worker does not answer requests, so `/ap
 | POST | `/api/auth/register` | `{ email, password, turnstileToken? }` |
 | POST | `/api/auth/login` | `{ email, password, turnstileToken? }` |
 | POST | `/api/auth/logout` | clears the cookie |
-| GET | `/api/auth/me` | `200` and `{ user }` when signed in, `200` and `{ user: null }` when signed out |
+| GET | `/api/auth/me` | `200` and `{ user }` when signed in, `200` and `{ user: null }` when signed out. `user.nickname` is a string or null |
+| POST | `/api/auth/nickname` | `{ nickname }` saves a 1–16 character label. Not unique |
 | POST | `/api/auth/delete` | `{ password }` deletes every row for that user |
-| GET | `/api/auth/export` | email, created time, and sync items (no password hash) |
+| GET | `/api/auth/export` | email, created time, nickname, and sync items (no password hash) |
 | POST | `/api/auth/password-reset/request` | `{ email }` |
 | POST | `/api/auth/password-reset/confirm` | `{ token, password }` |
 | GET | `/api/sync` | all items (optional `?since=` unix ms) |
@@ -193,7 +194,7 @@ Signing out or deleting the account does not wipe the books on this device.
 
 `migrations/0001_init.sql`:
 
-- `users` — id, email, password_hash, password_salt, password_iters, created_at
+- `users` — id, email, password_hash, password_salt, password_iters, created_at, and (from `0002_nickname.sql`) nickname
 - `sessions` — token_hash, user_id, created_at, expires_at (cascade delete)
 - `rate_limits` — bucket, window_start, hits
 - `sync_items` — user_id, kind, item_id, data, updated_at, deleted (cascade delete)

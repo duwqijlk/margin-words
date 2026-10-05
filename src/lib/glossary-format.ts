@@ -31,6 +31,8 @@ export type GlossaryAnchor = {
 export type GlossarySense = {
   pos?: string;
   meaning: string;
+  /** The same sense, said for this sentence. Optional. The plain `meaning` stays one idea. */
+  here?: string;
   whyHard?: string;
   /** Use this sense when no anchor matches. At most one per word. */
   default?: boolean;
@@ -47,6 +49,8 @@ export type GlossarySense = {
 export type GlossaryEntry = {
   pos: string;
   meaning: string;
+  /** The same sense, said for this sentence. Optional. Shown under the plain meaning. */
+  here?: string;
   whyHard: string;
   forms?: string[];
   senses?: GlossarySense[];
@@ -699,6 +703,7 @@ export const LIMITS = {
   sensesPerWord: 12,
   anchorsPerSense: 60,
   meaning: 600,
+  here: 600,
   whyHard: 400,
   context: 300,
   lemma: 48,
@@ -875,6 +880,8 @@ function checkSense(
   const sense: GlossarySense = { meaning: meaning ?? "" };
   const pos = textField(issues, where, raw.pos, "pos", 48, false);
   if (pos) sense.pos = pos;
+  const here = textField(issues, where, raw.here, "here", LIMITS.here, false);
+  if (here) sense.here = here;
   const why = textField(issues, where, raw.whyHard, "whyHard", LIMITS.whyHard, false);
   if (why) sense.whyHard = why;
   if (raw.default !== undefined) {
@@ -1078,8 +1085,10 @@ function checkExtras(
           if (forms?.length) entry.forms = forms;
           const example = textField(issues, where, raw.example, "example", LIMITS.example, false);
           if (example) entry.example = example;
+          const here = textField(issues, where, raw.here, "here", LIMITS.here, false);
+          if (here) entry.here = here;
           if (!meaning) continue;
-          mark(`phrase ${key}`, meaning, example, ...(forms ?? []));
+          mark(`phrase ${key}`, meaning, here, example, ...(forms ?? []));
           map[key] = entry;
         }
         if (Object.keys(map).length) out.phrases = map;
@@ -1300,6 +1309,7 @@ export function validateGlossary(input: unknown): GlossaryCheck {
     }
     const meaning = textField(issues, where, raw.meaning, "meaning", LIMITS.meaning, !hasSenses);
     const pos = textField(issues, where, raw.pos, "pos", 48, false);
+    const here = textField(issues, where, raw.here, "here", LIMITS.here, false);
     const whyHard = textField(issues, where, raw.whyHard, "whyHard", LIMITS.whyHard, false);
     if (v === 1 && !pos)
       issues.warn(`${where} has no "pos" (part of speech). It will show without one.`);
@@ -1308,6 +1318,7 @@ export function validateGlossary(input: unknown): GlossaryCheck {
       meaning: meaning ?? "",
       whyHard: whyHard ?? DEFAULT_WHY_HARD,
     };
+    if (here) entry.here = here;
     if (forms && forms.length) entry.forms = forms;
     if (raw.coined !== undefined) {
       if (typeof raw.coined !== "boolean")
@@ -1340,9 +1351,10 @@ export function validateGlossary(input: unknown): GlossaryCheck {
     }
     const all = [
       entry.meaning,
+      entry.here ?? "",
       entry.pos,
       entry.whyHard,
-      ...(senses ?? []).flatMap((s) => [s.meaning, s.pos ?? "", s.whyHard ?? ""]),
+      ...(senses ?? []).flatMap((s) => [s.meaning, s.here ?? "", s.pos ?? "", s.whyHard ?? ""]),
     ];
     if (all.some(hasChinese)) stats.chineseWords.push(lemma);
     out.glossary[lemma] = entry;
@@ -1574,7 +1586,7 @@ export function forBook(file: GlossaryFile, chapterCount: number): GlossaryFile 
 
 /* ------------------------------------------------------------------ choosing a meaning */
 
-export type SenseView = { pos: string; meaning: string; whyHard: string };
+export type SenseView = { pos: string; meaning: string; whyHard: string; here?: string };
 
 export type OtherMeaning = SenseView & { chapters: number[] };
 
@@ -1603,6 +1615,7 @@ type GlossLike = {
   pos: string;
   meaning: string;
   whyHard: string;
+  here?: string;
   forms?: string[];
   senses?: GlossarySense[];
 };
@@ -1878,14 +1891,29 @@ export function markWordRanges(
  *  5. (the caller) no entry at all: the reader shows a friendly "no meaning yet" line
  * A word with senses but without its own meaning uses its first sense at step 4.
  */
+function sceneLine(senseHere: string | undefined, entryHere: string | undefined): string | undefined {
+  const text = (senseHere ?? entryHere ?? "").trim();
+  return text || undefined;
+}
+
 export function pickSense(lemma: string, gloss: GlossLike, tap: TapInfo): Picked {
   const senses = gloss.senses ?? [];
-  const entry: SenseView = { pos: gloss.pos, meaning: gloss.meaning, whyHard: gloss.whyHard };
-  const view = (sense: GlossarySense): SenseView => ({
-    pos: sense.pos ?? gloss.pos,
-    meaning: sense.meaning,
-    whyHard: sense.whyHard ?? gloss.whyHard,
-  });
+  const entryHere = sceneLine(gloss.here, undefined);
+  const entry: SenseView = {
+    pos: gloss.pos,
+    meaning: gloss.meaning,
+    whyHard: gloss.whyHard,
+    ...(entryHere ? { here: entryHere } : {}),
+  };
+  const view = (sense: GlossarySense): SenseView => {
+    const here = sceneLine(sense.here, gloss.here);
+    return {
+      pos: sense.pos ?? gloss.pos,
+      meaning: sense.meaning,
+      whyHard: sense.whyHard ?? gloss.whyHard,
+      ...(here ? { here } : {}),
+    };
+  };
   const finish = (via: Picked["via"], at: number, shown: SenseView): Picked => {
     const others: OtherMeaning[] = [];
     const taken = new Set<string>([normText(shown.meaning)]);

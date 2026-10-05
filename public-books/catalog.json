@@ -479,7 +479,7 @@
    "notes": "Public domain in the USA. A work of the United States government (17 USC 105), delivered September 8, 2009. The cover is an original study cover, not an official publication.",
    "category": "speech",
    "updated": "2026-10-05",
-   "rev": "7485782862f0",
+   "rev": "bdfd1e2bf858",
    "version": 2,
    "chapters": 7,
    "words": 157,
@@ -494,9 +494,9 @@
    },
    "glossary": {
     "url": "back-to-school/glossary.json",
-    "bytes": 42378,
-    "sha256": "83a2e2badbe389999960916b6793cc7d0846f616225585a27ecb5cdb258e8afd",
-    "rev": "83a2e2badbe3"
+    "bytes": 65336,
+    "sha256": "b1d7af1257c2a863e463826de00a2313cd1d1ce0d00a2a3b927b33fb21e3bc8b",
+    "rev": "b1d7af1257c2"
    },
    "cover": {
     "url": "back-to-school/cover.jpg",
@@ -505,8 +505,8 @@
    },
    "zip": {
     "url": "back-to-school.zip",
-    "bytes": 399277,
-    "sha256": "567a2483c730fe258bbad701c8c17431440269a3e0ed72c6a71d1362e98df88a"
+    "bytes": 405187,
+    "sha256": "e34419ef5585e9c4e96e836c300416f3ec5e844a56ae60c97457f86adb334d1c"
    }
   },
   {
@@ -588,7 +588,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 12570059,
-  "sha256": "245b785b7630b5d60b472316e9656634ce7e42f11f4096d839ff359189c08d7b"
+  "bytes": 12575966,
+  "sha256": "18b96f94e5757dfa6d4bf2c4d5d6cacd0027f718cd1e7ba47abe7d7eab0d08c1"
  }
 }

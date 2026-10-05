@@ -28,7 +28,7 @@ export async function userFromRequest(db: D1Database, request: Request, now: num
   if (!tokenHash) return null;
   const row = await db
     .prepare(
-      `SELECT users.id, users.email, users.password_hash, users.password_salt, users.password_iters, users.created_at,
+      `SELECT users.id, users.email, users.nickname, users.password_hash, users.password_salt, users.password_iters, users.created_at,
               sessions.expires_at AS session_expires
        FROM sessions JOIN users ON users.id = sessions.user_id
        WHERE sessions.token_hash = ?`,

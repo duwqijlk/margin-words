@@ -2,10 +2,12 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { UserRound, X } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useAccount, type AccountMode, type SyncStatus } from "@/lib/account-store";
+import { cleanNickname } from "@/lib/nickname";
 import {
   confirmPasswordReset,
   deleteAccount,
   exportAccount,
+  saveNickname,
   signIn,
   signOut,
   signUp,
@@ -23,6 +25,7 @@ const ERROR_KEYS: Record<string, Key> = {
   rate: "account.err.rate",
   turnstile: "account.err.turnstile",
   network: "account.err.network",
+  nickname: "account.err.nickname",
 };
 
 function errorKey(error: unknown): Key {
@@ -154,6 +157,8 @@ export function AccountDialog() {
   const resetToken = useAccount((state) => state.resetToken);
   const phase = useAccount((state) => state.phase);
   const emailSaved = useAccount((state) => state.email);
+  const nicknameSaved = useAccount((state) => state.nickname);
+  const nicknamePrompt = useAccount((state) => state.nicknamePrompt);
   const sync = useAccount((state) => state.sync);
   const closeDialog = useAccount((state) => state.closeDialog);
   const openDialog = useAccount((state) => state.openDialog);
@@ -168,6 +173,7 @@ export function AccountDialog() {
   const [forgot, setForgot] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState("");
+  const [nickname, setNickname] = useState("");
   const resetTurnstile = useRef<() => void>(() => {});
 
   useEffect(() => {
@@ -181,6 +187,7 @@ export function AccountDialog() {
     setDeleting(false);
     setBusy(false);
     setTurnstileToken("");
+    setNickname(useAccount.getState().nickname ?? "");
     if (emailSaved) setEmail(emailSaved);
   }, [open, emailSaved]);
 
@@ -223,7 +230,7 @@ export function AccountDialog() {
         setAgain("");
       } else if (mode === "register") {
         await signUp(address, password, turnstileToken);
-        closeDialog();
+        useAccount.getState().patch({ nicknamePrompt: true, dialogOpen: true });
       } else {
         await signIn(address, password, turnstileToken);
         closeDialog();
@@ -267,7 +274,31 @@ export function AccountDialog() {
     }
   }
 
+  async function onSaveNickname(event: FormEvent) {
+    event.preventDefault();
+    if (busy) return;
+    setProblem("");
+    setNote("");
+    const cleaned = cleanNickname(nickname);
+    if (!cleaned) {
+      setProblem(t("account.err.nickname"));
+      return;
+    }
+    setBusy(true);
+    try {
+      await saveNickname(cleaned);
+      setNickname(cleaned);
+      if (nicknamePrompt) closeDialog();
+      else setNote(t("account.nicknameSaved"));
+    } catch (error) {
+      setProblem(t(errorKey(error)));
+    } finally {
+      setBusy(false);
+    }
+  }
+
   const signedIn = phase === "in" && emailSaved && mode !== "reset";
+  const prompting = signedIn && nicknamePrompt;
 
   return (
     <Dialog.Root open={open} onOpenChange={(next) => (next ? openDialog(mode, resetToken) : closeDialog())}>
@@ -279,21 +310,72 @@ export function AccountDialog() {
         >
           <div className="flex items-start justify-between gap-3">
             <Dialog.Title className="font-display text-2xl font-semibold">
-              {mode === "reset" ? t("account.resetTitle") : t("account.title")}
+              {mode === "reset" ? t("account.resetTitle") : prompting ? t("account.nicknamePromptTitle") : t("account.title")}
             </Dialog.Title>
             <Dialog.Close className={cn(btn.icon, "-mt-1 -mr-2")} aria-label={t("common.close")}>
               <X className="size-5" aria-hidden />
             </Dialog.Close>
           </div>
           <Dialog.Description className="mt-2 text-sm text-muted">
-            {signedIn ? t("account.signedDesc") : t("account.desc")}
+            {prompting ? t("account.nicknamePrompt") : signedIn ? t("account.signedDesc") : t("account.desc")}
           </Dialog.Description>
 
-          {signedIn ? (
+          {prompting ? (
+            <form className="mt-5 grid gap-3" onSubmit={(event) => void onSaveNickname(event)} data-nickname-prompt>
+              <label className="grid gap-1 text-sm font-medium" htmlFor="account-nickname">
+                {t("account.nickname")}
+                <input
+                  id="account-nickname"
+                  className={field}
+                  value={nickname}
+                  maxLength={16}
+                  autoComplete="nickname"
+                  autoFocus
+                  onChange={(event) => setNickname(event.target.value)}
+                  data-account-nickname
+                />
+              </label>
+              <p className="text-xs text-muted">{t("account.nicknameHint")}</p>
+              {problem ? (
+                <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert" data-account-error>
+                  {problem}
+                </p>
+              ) : null}
+              <button type="submit" className={btn.primary} disabled={busy} data-account-nickname-save>
+                {busy ? t("account.working") : t("account.nicknameSave")}
+              </button>
+              <button type="button" className={btn.quiet} disabled={busy} onClick={() => closeDialog()} data-nickname-later>
+                {t("account.nicknameLater")}
+              </button>
+            </form>
+          ) : signedIn ? (
             <div className="mt-5 grid gap-4">
               <p className="text-sm font-semibold" data-account-signed-in>
                 {t("account.signedIn", { email: emailSaved })}
               </p>
+              <form className="grid gap-2" onSubmit={(event) => void onSaveNickname(event)}>
+                <label className="grid gap-1 text-sm font-medium" htmlFor="account-nickname-edit">
+                  {t("account.nickname")}
+                  <input
+                    id="account-nickname-edit"
+                    className={field}
+                    value={nickname}
+                    maxLength={16}
+                    autoComplete="nickname"
+                    onChange={(event) => setNickname(event.target.value)}
+                    data-account-nickname
+                  />
+                </label>
+                <p className="text-xs text-muted">{t("account.nicknameHint")}</p>
+                <button
+                  type="submit"
+                  className={cn(btn.quiet, "justify-start")}
+                  disabled={busy || cleanNickname(nickname) === (nicknameSaved ?? null)}
+                  data-account-nickname-save
+                >
+                  {t("account.nicknameSave")}
+                </button>
+              </form>
               {syncLabel(sync, t) ? (
                 <p className="text-sm text-muted" data-account-sync>
                   {syncLabel(sync, t)}

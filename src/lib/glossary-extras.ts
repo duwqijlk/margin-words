@@ -31,6 +31,8 @@ export type SentenceHelp = {
 /** A phrase entry (phrasal verb or idiom). Key in the `phrases` map is the base form, lower case, e.g. "give up". */
 export type PhraseEntry = {
   meaning: string;
+  /** The same sense, said for this sentence. Optional. Shown under the plain meaning. */
+  here?: string;
   pos?: "phrasal verb" | "idiom" | "phrase";
   forms?: string[]; // e.g. ["gave up", "giving up", "gives up"]
   example?: string;

@@ -2,6 +2,8 @@
 export type GlossSense = {
   pos?: string;
   meaning: string;
+  /** The same sense, said for this sentence. */
+  here?: string;
   whyHard?: string;
   default?: boolean;
   forms?: string[];
@@ -20,6 +22,8 @@ export type Gloss = {
   senseOnly?: boolean;
   pos: string;
   meaning: string;
+  /** The same sense, said for this sentence. Shown under the plain meaning. */
+  here?: string;
   whyHard: string;
   /** word forms such as "saws", used by the format; optional */
   forms?: string[];

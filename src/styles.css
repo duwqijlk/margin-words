@@ -466,6 +466,13 @@
     }
   }
 
+  /* The card is focused so the keyboard stays inside it. A focus outline sits
+     outside the rounded border, so the card looks wrapped in a second frame.
+     The card already has its own border. Buttons inside still show an outline. */
+  [data-float]:focus-visible {
+    outline: none;
+  }
+
   @keyframes check-pop {
     0% {
       transform: scale(0.4) rotate(-20deg);
