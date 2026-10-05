@@ -62,7 +62,7 @@ what an anchor needs. `--json` gives the same as data.
 - If it has **two or more meanings in this book** (for example `sight` = "something you see" vs. "catch sight of" vs.
   "out of sight"), write one **sense** per meaning, with anchors at the places where that meaning is used.
   Read the sentence around each use before you decide. Do not invent senses a learner will not meet in this book.
-- After you choose a sense, anchor every place that uses it. One anchor does not cover the next place. The second `cross-examine` is still the questioning. A hyphen splits the tap, so `sweet-tempered` and `hot-tempered` are two meanings of `tempered`.
+- After you choose a sense, anchor every place that uses it. One anchor does not cover the next place. The second `cross-examine` is still the questioning. Search again for the same neighbouring words. `with an important air` and `with a melancholy air` are one sense. `all her fancy` and `all his fancy` are one sense. A helper word can change job. `does` in `It does the boots and shoes` means the fish cleans the shoes. It is not the helper in `she does not`. Mark only those places. A hyphen splits the tap, so `sweet-tempered` and `hot-tempered` are two meanings of `tempered`.
 
 ### 4. Write the JSON (format v2)
 

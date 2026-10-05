@@ -8,9 +8,26 @@
  "language": "English",
  "glossary": {
   "abide": {
+   "senseOnly": true,
    "pos": "base verb",
-   "meaning": "Here, \"could not abide\" means \"could not stand\".",
-   "whyHard": "An old word."
+   "meaning": "Could not stand it.",
+   "whyHard": "An old word.",
+   "senses": [
+    {
+     "meaning": "Could not stand it.",
+     "whyHard": "An old word.",
+     "trickyMeaning": false,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "I never could abide figures!” And with",
+       "form": "abide"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "absurd": {
    "pos": "adjective",
@@ -107,6 +124,18 @@
        "occurrence": 1,
        "form": "air",
        "context": "said the Mouse with an important air"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "air",
+       "context": "the King said, with a melancholy air"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "air",
+       "context": "with an air of great relief"
       }
      ]
     }
@@ -176,7 +205,26 @@
   },
   "anxious": {
    "pos": "adjective",
-   "meaning": "Worried and afraid about what may happen."
+   "meaning": "Worried about what may happen.",
+   "senses": [
+    {
+     "meaning": "Worried about what may happen.",
+     "default": true
+    },
+    {
+     "meaning": "Wanting to. Not anxious to means she does not want to.",
+     "whyHard": "Not the usual meaning! Usually: anxious means worried.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "not feeling at all anxious to have the",
+       "form": "anxious"
+      }
+     ]
+    }
+   ]
   },
   "anxiously": {
    "pos": "adverb",
@@ -301,7 +349,8 @@
   },
   "barley": {
    "pos": "uncountable noun",
-   "meaning": "A grain used to make food and drinks."
+   "meaning": "A hard sweet. Children eat it.",
+   "whyHard": "In this list it is the sweet, barley-sugar."
   },
   "barrowful": {
    "pos": "singular noun",
@@ -332,8 +381,38 @@
    "meaning": "The hard pointed mouth of a bird."
   },
   "bear": {
+   "senseOnly": true,
    "pos": "base verb",
-   "meaning": "Here, to hold the weight of something without breaking."
+   "meaning": "To hold a weight, or to put up with something bad.",
+   "senses": [
+    {
+     "meaning": "To hold a weight without breaking.",
+     "whyHard": "Not the usual meaning! Usually: a bear is a large animal.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "Will the roof bear?—Mind that loose slate",
+       "form": "bear"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To put up with something bad. More than she could bear means she could not stand it.",
+     "whyHard": "Not the usual meaning! Usually: a bear is a large animal.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "was more than Alice could bear: she got",
+       "form": "bear"
+      }
+     ]
+    }
+   ]
   },
   "beast": {
    "pos": "singular noun",
@@ -354,14 +433,6 @@
   "bee": {
    "pos": "singular noun",
    "meaning": "A flying insect with a sting that makes honey."
-  },
-  "beg": {
-   "pos": "base verb",
-   "meaning": "Here, \"I beg your pardon\" is a polite way to say sorry.",
-   "forms": [
-    "beg",
-    "begged"
-   ]
   },
   "behead": {
    "pos": "base verb",
@@ -407,9 +478,30 @@
     }
    ]
   },
+  "bit": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Cut with the teeth. The past of bite.",
+   "senses": [
+    {
+     "meaning": "Cut with the teeth. The past of bite.",
+     "whyHard": "Not the usual meaning! Usually: a bit is a small piece, or a little.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "in his confusion he bit a large piece out",
+       "form": "bit"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "bite": {
    "pos": "base verb",
-   "meaning": "To cut into food with the teeth."
+   "meaning": "To hurt with the teeth or a beak. A sharp taste bites too."
   },
   "blacking": {
    "pos": "uncountable noun",
@@ -433,13 +525,21 @@
    "pos": "past-tense verb",
    "meaning": "Sent out air from the mouth. (Past tense of \"blow\".)"
   },
+  "blow": {
+   "pos": "singular noun",
+   "meaning": "A hard hit.",
+   "whyHard": "Not the usual meaning! Usually: to blow is to push air from the mouth.",
+   "forms": [
+    "blows"
+   ]
+  },
   "boldly": {
    "pos": "adverb",
    "meaning": "In a brave way that is not afraid."
   },
   "boon": {
    "pos": "singular noun",
-   "meaning": "Something that helps you and is a blessing.",
+   "meaning": "A favour someone is given. Here, the Owl may take the spoon.",
    "whyHard": "An old word."
   },
   "boot": {
@@ -468,9 +568,31 @@
    "pos": "present participle",
    "meaning": "Bending the body forward to show respect."
   },
+  "box": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To hit someone on the side of the head.",
+   "senses": [
+    {
+     "meaning": "To hit someone on the side of the head.",
+     "whyHard": "Not the usual meaning! Usually: a box is a container.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "remembered trying to box her own ears for",
+       "form": "box"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "boxed": {
    "pos": "past-tense verb",
-   "meaning": "Hit with the fist."
+   "meaning": "Hit someone on the side of the head.",
+   "whyHard": "Not the usual meaning! Usually: a box is a container."
   },
   "brandy": {
    "pos": "uncountable noun",
@@ -511,8 +633,13 @@
    "meaning": "To hurt or damage with fire or heat.",
    "forms": [
     "burn",
-    "burning"
+    "burnt"
    ]
+  },
+  "burning": {
+   "pos": "present participle",
+   "meaning": "Full of a strong wish to know.",
+   "whyHard": "Not the usual meaning! Usually: burning means on fire."
   },
   "burst": {
    "pos": "singular noun",
@@ -981,22 +1108,47 @@
      "default": true
     },
     {
-     "meaning": "Part of \"cross-examine\": to ask a witness more questions to test if their words are true.",
+     "meaning": "Part of cross-examine: to ask a witness more questions, to test if their words are true.",
      "pos": "base verb",
+     "whyHard": "Not the usual meaning! Usually: cross means angry.",
+     "trickyMeaning": true,
      "anchors": [
       {
        "chapter": 10,
        "occurrence": 1,
-       "form": "cross",
-       "context": "Your Majesty must cross-examine this witness"
+       "context": "Your Majesty must cross-examine this witness",
+       "form": "cross"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "you must cross-examine the next witness",
+       "form": "cross"
       }
      ]
     }
    ]
   },
   "crossed": {
+   "senseOnly": true,
    "pos": "past-tense verb",
-   "meaning": "Put one thing over another."
+   "meaning": "Put one hand over the other.",
+   "senses": [
+    {
+     "meaning": "Put one hand over the other.",
+     "whyHard": "Not the usual meaning! Usually: crossed means went from one side to the other.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "and she crossed her hands on her lap",
+       "form": "crossed"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "crossly": {
    "pos": "adverb",
@@ -1360,6 +1512,33 @@
    "pos": "singular noun",
    "meaning": "A big bird that could not fly. It died out a long time ago. In this book it is a character."
   },
+  "does": {
+   "senseOnly": true,
+   "pos": "third-person verb",
+   "meaning": "Cleans or polishes. Here, the fish is what makes the shoes shine.",
+   "senses": [
+    {
+     "meaning": "Cleans or polishes. The fish is what makes the shoes shine.",
+     "whyHard": "Not the usual meaning! Usually: does is only a helper word, as in she does not know.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "does",
+       "context": "It does the boots and shoes,” the Gryphon replied"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "does",
+       "context": "“Does the boots and shoes!” she repeated"
+      }
+     ]
+    }
+   ]
+  },
   "doorway": {
    "pos": "singular noun",
    "meaning": "The space in a wall where a door is."
@@ -1463,7 +1642,8 @@
   },
   "driest": {
    "pos": "superlative adjective",
-   "meaning": "The most dry; with the least water."
+   "meaning": "The most boring. The Mouse says this about his history.",
+   "whyHard": "Not the usual meaning! Usually: driest means the least water."
   },
   "dripping": {
    "pos": "present participle",
@@ -1490,7 +1670,26 @@
   },
   "dull": {
    "pos": "adjective",
-   "meaning": "Not interesting. Boring."
+   "meaning": "Not interesting. Boring.",
+   "senses": [
+    {
+     "meaning": "Not interesting. Boring.",
+     "default": true
+    },
+    {
+     "meaning": "Slow to understand.",
+     "whyHard": "Not the usual meaning! Usually: dull means boring.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "Mock Turtle angrily: “really you are very dull",
+       "form": "dull"
+      }
+     ]
+    }
+   ]
   },
   "dunce": {
    "pos": "singular noun",
@@ -1763,6 +1962,12 @@
        "occurrence": 1,
        "form": "fancy",
        "context": "the Gryphon. “It’s all her fancy, that: they"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "fancy",
+       "context": "It’s all his fancy, that: he hasn’t"
       }
      ]
     }
@@ -1798,7 +2003,7 @@
   },
   "fear": {
    "pos": "base verb",
-   "meaning": "Here, \"I feared it might hurt the brain\" means \"I was afraid that it would\".",
+   "meaning": "Afraid that something bad may happen.",
    "forms": [
     "fear",
     "feared"
@@ -2180,8 +2385,25 @@
    ]
   },
   "goes": {
+   "senseOnly": true,
    "pos": "third-person verb",
-   "meaning": "Here \"her hair goes in ringlets\" means it falls or grows in that shape."
+   "meaning": "Hangs in that shape.",
+   "senses": [
+    {
+     "meaning": "Hangs in that shape. Her hair hangs in long curls.",
+     "whyHard": "Not the usual meaning! Usually: goes means moves along.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "for her hair goes in such long ringlets",
+       "form": "goes"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "goldfish": {
    "pos": "singular noun",
@@ -2319,6 +2541,11 @@
   "handwriting": {
    "pos": "uncountable noun",
    "meaning": "The way a person writes with a pen."
+  },
+  "hardly": {
+   "pos": "adverb",
+   "meaning": "Almost not.",
+   "whyHard": "It looks like hard, which means difficult. Here it means almost not."
   },
   "hare": {
    "pos": "singular noun",
@@ -2616,10 +2843,33 @@
   },
   "introduce": {
    "pos": "base verb",
-   "meaning": "To tell two people each other's names when they first meet.",
+   "meaning": "To tell someone another person's name when they first meet.",
    "forms": [
     "introduce",
     "introduced"
+   ],
+   "senses": [
+    {
+     "meaning": "To tell someone another person's name when they first meet.",
+     "default": true,
+     "forms": [
+      "introduce",
+      "introduced"
+     ]
+    },
+    {
+     "meaning": "To start a new thing to talk about.",
+     "whyHard": "Not the usual meaning! Usually: to introduce someone is to tell their name.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "as well to introduce some other subject of",
+       "form": "introduce"
+      }
+     ]
+    }
    ]
   },
   "invent": {
@@ -2776,13 +3026,9 @@
    "pos": "singular noun",
    "meaning": "A small brown bird that sings sweetly."
   },
-  "last": {
-   "pos": "base verb",
-   "meaning": "To continue for a period of time without ending.",
-   "forms": [
-    "last",
-    "lasted"
-   ]
+  "lasted": {
+   "pos": "past-tense verb",
+   "meaning": "Continued for that time."
   },
   "latitude": {
    "pos": "singular noun",
@@ -2829,18 +3075,45 @@
   "left": {
    "senseOnly": true,
    "pos": "adjective",
-   "meaning": "Still there, after the rest has gone.",
+   "meaning": "Remaining. The part that is still here.",
    "senses": [
     {
-     "meaning": "Still there, after the rest has gone.",
-     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "meaning": "Remaining. The part that is still here. In \"enough of me left\", it is the part of me that has not gone.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right. Here it is the part that remains.",
      "trickyMeaning": true,
-     "default": true,
      "anchors": [
-      { "chapter": 0, "occurrence": 1, "form": "left", "context": "there's hardly enough of me left to" },
-      { "chapter": 2, "occurrence": 2, "form": "left", "context": "and Alice was soon left alone" },
-      { "chapter": 7, "occurrence": 1, "form": "left", "context": "that there’s any one left alive" },
-      { "chapter": 8, "occurrence": 2, "form": "left", "context": "there were no arches left, and" }
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "there's hardly enough of me left to",
+       "form": "left"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "that there’s any one left alive",
+       "form": "left"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "there were no arches left, and",
+       "form": "left"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Made to stay with nobody else.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right. Here the others have gone, and she stays.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "context": "and Alice was soon left alone",
+       "form": "left"
+      }
      ]
     }
    ]
@@ -2889,6 +3162,33 @@
   "lit": {
    "pos": "past participle",
    "meaning": "Made bright. The past of light."
+  },
+  "live": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Alive.",
+   "senses": [
+    {
+     "meaning": "Alive. Not dead.",
+     "whyHard": "Not the usual meaning! Usually: to live is to have your home in a place. Here it sounds like five.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "the balls were live hedgehogs, the mallets",
+       "form": "live"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "context": "the mallets live flamingoes, and the soldiers",
+       "form": "live"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "livery": {
    "pos": "singular noun",
@@ -3008,10 +3308,29 @@
   },
   "manner": {
    "pos": "singular noun",
-   "meaning": "A way of doing something. \"Good manners\" means polite ways of acting.",
+   "meaning": "A way of doing something. Good manners means polite ways of acting.",
    "forms": [
     "manner",
     "manners"
+   ],
+   "senses": [
+    {
+     "meaning": "A way of doing something. Good manners means polite ways of acting.",
+     "default": true
+    },
+    {
+     "meaning": "Every kind.",
+     "whyHard": "Not the usual meaning! Usually: a manner is a way of doing something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "they drew all manner of things—everything that",
+       "form": "manner"
+      }
+     ]
+    }
    ]
   },
   "marched": {
@@ -3089,12 +3408,36 @@
    "meaning": "In a happy and lively way."
   },
   "mind": {
+   "senseOnly": true,
    "pos": "base verb",
-   "meaning": "Here, \"minded their own business\" means that they cared only about their own matters.",
-   "forms": [
-    "mind",
-    "minded",
-    "minding"
+   "meaning": "Be careful of this.",
+   "senses": [
+    {
+     "meaning": "Be careful of this.",
+     "whyHard": "Not the usual meaning! Usually: mind means the thoughts in your head, or to be bothered by something.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "mind",
+       "context": "Mind that loose slate—Oh, it’s coming down"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "mind",
+       "context": "please mind what you’re doing!” cried Alice"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "mind",
+       "context": "Mind now!” The poor little thing sobbed"
+      }
+     ]
+    }
    ]
   },
   "mine": {
@@ -3955,12 +4298,57 @@
    "meaning": "Happy because something bad did not happen or has ended."
   },
   "remark": {
-   "pos": "base verb",
-   "meaning": "To say something, especially about what you see.",
+   "pos": "singular noun",
+   "meaning": "Something a person said.",
    "forms": [
     "remark",
     "remarking",
     "remarks"
+   ],
+   "senses": [
+    {
+     "pos": "singular noun",
+     "meaning": "Something a person said.",
+     "default": true
+    },
+    {
+     "meaning": "To say something.",
+     "pos": "base verb",
+     "whyHard": "Not the usual meaning! Usually: a remark is something a person said. Here it is the action of saying it.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "remark",
+       "context": "just what I was going to remark myself"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "remark",
+       "context": "Perhaps it hasn’t one,” Alice ventured to remark"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "remarking",
+       "context": "wrapping itself up very carefully, remarking"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "remarking",
+       "context": "crawled away in the grass, merely remarking as it went"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "remarking",
+       "context": "the Queen merely remarking that a moment"
+      }
+     ]
+    }
    ]
   },
   "remarkable": {
@@ -4009,18 +4397,80 @@
   },
   "respectable": {
    "pos": "adjective",
-   "meaning": "Good enough to be seen by other people; proper."
+   "meaning": "Good enough, or big enough, to count as a real one. Here, one whole person."
   },
   "respectful": {
    "pos": "adjective",
    "meaning": "Showing respect to someone."
   },
   "rest": {
-   "pos": "base verb",
-   "meaning": "To stop work and lie or sit to get strength back.",
-   "forms": [
-    "rest",
-    "resting"
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The other people, or the part that remains.",
+   "senses": [
+    {
+     "meaning": "The other people, not the one just named.",
+     "whyHard": "Not the usual meaning! Usually: to rest is to stop and sit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "while the rest waited in silence. At",
+       "form": "rest"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "same as the rest of the pack, she",
+       "form": "rest"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "context": "while all the rest were quite silent",
+       "form": "rest"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "context": "while the rest of the party went back",
+       "form": "rest"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "kept from all the rest, Between yourself",
+       "form": "rest"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "The part that remains.",
+     "whyHard": "Not the usual meaning! Usually: to rest is to stop and sit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "lasted the rest of my life.” “You",
+       "form": "rest"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "after the rest of it had gone",
+       "form": "rest"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "finger for the rest of the day; and",
+       "form": "rest"
+      }
+     ]
+    }
    ]
   },
   "retire": {
@@ -4081,6 +4531,27 @@
   "rocket": {
    "pos": "singular noun",
    "meaning": "A thing that shoots up into the sky."
+  },
+  "rose": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Went up. The past of rise.",
+   "senses": [
+    {
+     "meaning": "Went up. The past of rise.",
+     "whyHard": "Not the usual meaning! Usually: a rose is a flower.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "the whole pack rose up into the air",
+       "form": "rose"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "roughly": {
    "pos": "adverb",
@@ -4225,7 +4696,34 @@
   },
   "sensation": {
    "pos": "singular noun",
-   "meaning": "A strong feeling of surprise or excitement among many people."
+   "meaning": "A strong feeling.",
+   "senses": [
+    {
+     "meaning": "A strong feeling of surprise among the people there.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "caused a remarkable sensation among the party",
+       "form": "sensation"
+      }
+     ]
+    },
+    {
+     "meaning": "A feeling in the body.",
+     "whyHard": "Not the usual meaning! Usually: a sensation is excitement among many people.",
+     "trickyMeaning": false,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "felt a very curious sensation, which puzzled",
+       "form": "sensation"
+      }
+     ]
+    }
+   ]
   },
   "sentence": {
    "senseOnly": true,
@@ -4239,10 +4737,18 @@
      "default": true,
      "anchors": [
       { "chapter": 7, "occurrence": 1, "form": "sentence", "context": "whispered “She’s under sentence of execution" },
-      { "chapter": 7, "occurrence": 2, "form": "sentence", "context": "heard her sentence three of the players to be executed" },
       { "chapter": 8, "occurrence": 1, "form": "sentence", "context": "in custody and under sentence of execution" },
       { "chapter": 11, "occurrence": 1, "form": "sentence", "context": "said the Queen. “Sentence first—verdict afterwards" },
       { "chapter": 11, "occurrence": 2, "form": "sentence", "context": "The idea of having the sentence first" }
+     ]
+    },
+    {
+     "meaning": "To order someone's punishment.",
+     "pos": "base verb",
+     "whyHard": "Not the usual meaning! Usually: a sentence is a group of words, or the punishment itself. Here she orders the punishment.",
+     "trickyMeaning": true,
+     "anchors": [
+      { "chapter": 7, "occurrence": 2, "form": "sentence", "context": "heard her sentence three of the players to be executed" }
      ]
     }
    ]
@@ -4283,6 +4789,27 @@
   "shaped": {
    "pos": "adjective",
    "meaning": "Having a certain form."
+  },
+  "share": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The part that one gets.",
+   "senses": [
+    {
+     "meaning": "The part that one gets.",
+     "whyHard": "Not the usual meaning! Usually: to share is to use something together.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "had the dish as its share of the",
+       "form": "share"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "shark": {
    "pos": "singular noun",
@@ -4890,7 +5417,8 @@
   },
   "swallowing": {
    "pos": "present participle",
-   "meaning": "Moving food or drink from the mouth down the throat."
+   "meaning": "Keeping a strong feeling in, so it does not burst out. Here, her anger.",
+   "whyHard": "Not the usual meaning! Usually: swallowing means sending food down the throat."
   },
   "swam": {
    "pos": "past-tense verb",
@@ -4958,11 +5486,40 @@
   },
   "temper": {
    "pos": "singular noun",
-   "meaning": "The way you feel when you are angry. \"Lose your temper\" means to become very angry."
+   "meaning": "How a person or an animal usually feels."
   },
   "tempered": {
    "pos": "adjective",
-   "meaning": "In \"hot-tempered\" it means easily made angry."
+   "meaning": "Having a kind of temper.",
+   "senses": [
+    {
+     "meaning": "Easily made angry.",
+     "whyHard": "In hot-tempered, this means easily made angry.",
+     "trickyMeaning": false,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "always pepper that makes people hot-tempered,” she",
+       "form": "tempered"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Kind and gentle.",
+     "whyHard": "In sweet-tempered, this means kind and gentle.",
+     "trickyMeaning": false,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "things that make children sweet-tempered. I only",
+       "form": "tempered"
+      }
+     ]
+    }
+   ]
   },
   "terrier": {
    "pos": "singular noun",
@@ -5093,10 +5650,51 @@
   },
   "toss": {
    "pos": "base verb",
-   "meaning": "To throw something in a light or careless way.",
+   "meaning": "A quick move of the head.",
    "forms": [
     "toss",
     "tossing"
+   ],
+   "senses": [
+    {
+     "meaning": "A quick move of the head, showing pride or anger.",
+     "whyHard": "Not the usual meaning! Usually: to toss is to throw something lightly.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "the Hatter said, tossing his head contemptuously",
+       "form": "tossing"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "said the Queen, tossing her head impatiently",
+       "form": "tossing"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "that queer little toss of her head to",
+       "form": "toss"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To throw something up and down.",
+     "whyHard": "To throw something up and down.",
+     "trickyMeaning": false,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "she kept tossing the baby violently up",
+       "form": "tossing"
+      }
+     ]
+    }
    ]
   },
   "tough": {
@@ -5121,6 +5719,11 @@
   "treading": {
    "pos": "present participle",
    "meaning": "Putting the foot down on something."
+  },
+  "treat": {
+   "pos": "singular noun",
+   "meaning": "A special nice food. Here, the pie.",
+   "whyHard": "Not the usual meaning! Usually: to treat someone is to act towards them in some way."
   },
   "tremble": {
    "pos": "base verb",
@@ -5228,7 +5831,38 @@
   },
   "twinkling": {
    "pos": "singular noun",
-   "meaning": "A very short time. \"In a twinkling\" means \"in a moment\"."
+   "meaning": "A very short time. In a twinkling means in a moment.",
+   "senses": [
+    {
+     "meaning": "A very short time. In a twinkling means in a moment.",
+     "default": true
+    },
+    {
+     "meaning": "Shining with small flashes of light.",
+     "whyHard": "Not the usual meaning! Usually: in a twinkling means in a very short time.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "and the twinkling of the tea—”",
+       "form": "twinkling"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "“The twinkling of the what?” said the",
+       "form": "twinkling"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "context": "Of course twinkling begins with a T",
+       "form": "twinkling"
+      }
+     ]
+    }
+   ]
   },
   "twist": {
    "pos": "base verb",
@@ -5410,6 +6044,33 @@
     "verses"
    ]
   },
+  "very": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Exactly this one.",
+   "senses": [
+    {
+     "meaning": "Exactly this one, and no other.",
+     "whyHard": "Not the usual meaning! Usually: very means a lot, as in very big.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "In the very middle of the court was",
+       "form": "very"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 6,
+       "context": "hear the very tones of her voice, and",
+       "form": "very"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
   "vinegar": {
    "pos": "uncountable noun",
    "meaning": "A sour liquid used to give food a sharp taste."
@@ -5578,7 +6239,26 @@
   },
   "wink": {
    "pos": "base verb",
-   "meaning": "To close and open one eye quickly, as a sign to someone."
+   "meaning": "To close and open one eye quickly, as a sign.",
+   "senses": [
+    {
+     "meaning": "To close and open one eye quickly, as a sign.",
+     "default": true
+    },
+    {
+     "meaning": "Any sleep at all. Not a wink of sleep means she has not slept.",
+     "whyHard": "Not the usual meaning! Usually: to wink is to close one eye as a sign.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "I haven’t had a wink of sleep these",
+       "form": "wink"
+      }
+     ]
+    }
+   ]
   },
   "witness": {
    "pos": "singular noun",
@@ -6871,6 +7551,53 @@
    "meaning": "For example.",
    "pos": "idiom",
    "example": "For instance, if you were inside"
+  },
+  "at last": {
+   "meaning": "Finally, after waiting.",
+   "pos": "idiom",
+   "example": "At last the Mouse"
+  },
+  "narrow escape": {
+   "meaning": "Only just got away.",
+   "pos": "idiom",
+   "example": "That was a narrow escape"
+  },
+  "never mind": {
+   "meaning": "It does not matter. Do not worry about it.",
+   "pos": "idiom",
+   "example": "Never mind"
+  },
+  "by the bye": {
+   "meaning": "By the way. Used to add something else.",
+   "pos": "idiom",
+   "example": "By-the-bye, what became of the baby"
+  },
+  "beg one's pardon": {
+   "meaning": "A way to say sorry, or to ask someone to say that again.",
+   "pos": "idiom",
+   "forms": [
+    "beg pardon"
+   ],
+   "example": "I beg your pardon"
+  },
+  "mind one's own business": {
+   "meaning": "To care only about your own matters.",
+   "pos": "idiom",
+   "forms": [
+    "minded their own business",
+    "minding their own business"
+   ],
+   "example": "everybody minded their own business"
+  },
+  "change one's mind": {
+   "meaning": "To decide something different from before.",
+   "pos": "idiom",
+   "example": "the Mouse had changed his mind"
+  },
+  "this minute": {
+   "meaning": "Right now. Not after waiting.",
+   "pos": "idiom",
+   "example": "leave off this minute"
   }
  }
 }
