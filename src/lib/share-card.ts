@@ -115,13 +115,20 @@ export function drawShareCard(canvas: HTMLCanvasElement, text: ShareCardText) {
   ctx.fillStyle = ACCENT;
   ctx.fillRect(0, 0, width, 8);
 
-  fillFitted(ctx, text.dateLabel, width / 2, 64, width - 48, 600, 16, 13, SANS, MUTED);
-  fillFitted(ctx, text.nickname, width / 2, 118, width - 48, 650, 34, 20, SANS, INK);
-
   const plateW = 240;
   const plateH = 176;
+  const block = 16 + 36 + 34 + 28 + plateH;
+  const top = 28;
+  const bottom = height - 108;
+  const origin = top + Math.max(0, (bottom - top - block) / 2);
+  const dateY = origin + 8;
+  const nameY = dateY + 52;
+  const plateY = nameY + 40;
+
+  fillFitted(ctx, text.dateLabel, width / 2, dateY, width - 48, 600, 16, 13, SANS, MUTED);
+  fillFitted(ctx, text.nickname, width / 2, nameY, width - 48, 650, 34, 20, SANS, INK);
+
   const plateX = (width - plateW) / 2;
-  const plateY = 176;
   ctx.fillStyle = ACCENT_SOFT;
   roundRect(ctx, plateX, plateY, plateW, plateH, 28);
   ctx.fill();
