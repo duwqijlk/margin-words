@@ -122,7 +122,145 @@ export function migrateWords(
       order.push(key);
     } else out.set(key, mergeCards(prior, card));
   }
-  return order.map((key) => out.get(key) as VocabEntry);
+  return rehomeForeignSources(order.map((key) => out.get(key) as VocabEntry));
+}
+
+/** True when `surface` stands on its own in `text` (not inside a longer word). Same rule as `sentenceHasWord` in text.ts. */
+function containsWord(text: string, surface: string): boolean {
+  const word = surface.trim();
+  if (!word || !text) return false;
+  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^\\p{L}\\p{M}])${escaped}(?![\\p{L}\\p{M}])`, "iu").test(text);
+}
+
+/**
+ * Two forms of one word ("cry" / "cried", "shed" / "shedding"). Unrelated words
+ * ("queer" / "fortunately") are not the same.
+ */
+function sameWord(lemma: string, surface: string): boolean {
+  const a = lemma.trim().toLowerCase();
+  const b = surface.trim().toLowerCase();
+  if (!a || !b) return false;
+  if (a === b) return true;
+  const yForm = (left: string, right: string) =>
+    left.endsWith("y") &&
+    (right.endsWith("ied") || right.endsWith("ies")) &&
+    left.slice(0, -1) === right.slice(0, -3);
+  if (yForm(a, b) || yForm(b, a)) return true;
+  const shorter = a.length <= b.length ? a : b;
+  const longer = shorter === a ? b : a;
+  if (shorter.length < 3 || !longer.startsWith(shorter)) return false;
+  const rest = longer.slice(shorter.length);
+  return /^(s|es|ed|ing|ly|er|est|ied|ies|'s)$/.test(rest) || /^(.)\1?(s|es|ed|ing|ly|er|est)$/.test(rest);
+}
+
+/**
+ * A saved place belongs on this card when the sentence is about this word.
+ * A second form ("went" on "go") stays when it carries the same meaning.
+ * A place whose sentence and meaning are another word's ("fortunately" on "queer") does not.
+ */
+export function sourceBelongsTo(
+  card: Pick<VocabEntry, "lemma" | "surface" | "meaning" | "sources">,
+  source: WordSource,
+): boolean {
+  const lemma = card.lemma.trim();
+  const sentence = source.sentence ?? "";
+  if (lemma && containsWord(sentence, lemma)) return true;
+  const cardSurface = card.surface.trim();
+  if (cardSurface && sameWord(lemma, cardSurface) && containsWord(sentence, cardSurface)) return true;
+  const surface = (source.surface ?? "").trim();
+  if (surface && sameWord(lemma, surface) && containsWord(sentence, surface)) return true;
+  const own = card.sources.find(
+    (item) =>
+      (lemma && containsWord(item.sentence, lemma)) ||
+      (cardSurface && sameWord(lemma, cardSurface) && containsWord(item.sentence, cardSurface)),
+  );
+  if (!own) return true;
+  const ownMeaning = (own.meaning ?? "").trim();
+  const meaning = (source.meaning ?? "").trim();
+  // Same gloss, including an irregular form such as "went" on "go".
+  if (!ownMeaning || !meaning || meaning === ownMeaning) return true;
+  return false;
+}
+
+function alignCard(card: VocabEntry): VocabEntry {
+  const own =
+    card.sources.find((source) => containsWord(source.sentence, card.lemma)) ?? card.sources[0];
+  if (!own) return card;
+  const sentenceOk =
+    containsWord(card.sentence, card.lemma) ||
+    (sameWord(card.lemma, card.surface) && containsWord(card.sentence, card.surface));
+  const surfaceOk = sameWord(card.lemma, card.surface);
+  const meaningOk = !own.meaning || card.meaning === own.meaning;
+  if (sentenceOk && surfaceOk && meaningOk) return card;
+  return {
+    ...card,
+    sentence: sentenceOk ? card.sentence : own.sentence,
+    surface: surfaceOk ? card.surface : own.surface || card.lemma,
+    meaning: own.meaning || card.meaning,
+    pos: own.pos || card.pos,
+  };
+}
+
+function cardForDisplaced(source: WordSource): VocabEntry {
+  const surface = source.surface.trim();
+  const now = source.savedAt || Date.now();
+  return {
+    id: crypto.randomUUID(),
+    surface,
+    lemma: surface,
+    pos: source.pos ?? "",
+    meaning: source.meaning ?? "",
+    whyHard: "",
+    recommend: true,
+    sentence: source.sentence,
+    sources: [source],
+    stage: 0,
+    dueAt: now,
+    createdAt: now,
+    reps: 0,
+    lapses: 0,
+  };
+}
+
+/**
+ * A place that is really another word moves onto that word's card (a new card when
+ * that word was not saved on its own). Cards that are already right are left as they are.
+ */
+export function rehomeForeignSources(words: readonly VocabEntry[]): VocabEntry[] {
+  const displaced: WordSource[] = [];
+  let changed = false;
+  const kept: VocabEntry[] = [];
+  for (const word of words) {
+    const sources: WordSource[] = [];
+    for (const source of word.sources) {
+      if (sourceBelongsTo(word, source)) sources.push(source);
+      else {
+        displaced.push(source);
+        changed = true;
+      }
+    }
+    if (sources.length === word.sources.length) {
+      kept.push(word);
+      continue;
+    }
+    changed = true;
+    if (sources.length === 0) continue;
+    kept.push(alignCard({ ...word, sources }));
+  }
+  if (!changed) return words as VocabEntry[];
+  for (const source of displaced) {
+    const surface = source.surface.trim();
+    if (!surface) continue;
+    const key = lemmaKey(surface);
+    const at = kept.findIndex((word) => lemmaKey(word.lemma) === key);
+    if (at >= 0) {
+      kept[at] = addSourceTo(kept[at] as VocabEntry, source);
+      continue;
+    }
+    kept.push(cardForDisplaced(source));
+  }
+  return kept;
 }
 
 /** Add one source to a word (same lemma already saved), or start a new card. The schedule is untouched. */

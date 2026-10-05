@@ -11,6 +11,7 @@ import {
   mergeCards,
   mergeSources,
   migrateWords,
+  rehomeForeignSources,
   withoutBook,
   MAX_SOURCES,
 } from "../src/lib/wordbook.ts";
@@ -134,6 +135,68 @@ test("mergeCards unites sources and keeps the earliest save date", () => {
   assert.equal(merged.createdAt, 500);
   assert.equal(merged.reps, 2);
   assert.equal(merged.sources.length, 2);
+});
+
+const place = (surface, sentence, meaning, pos, chapterTitle) => ({
+  book: keyA,
+  title: alice.title,
+  author: alice.author,
+  sentence,
+  surface,
+  meaning,
+  pos,
+  chapterTitle,
+  savedAt: 1,
+});
+
+test("a place from another word moves off the card and onto that word", () => {
+  const queer = {
+    ...old("a1", "queer", {
+      surface: "queer",
+      pos: "adjective",
+      meaning: "Strange or unusual.",
+      sentence: "How queer everything is to-day!",
+    }),
+    sources: [
+      place(
+        "fortunately",
+        "…with either a waistcoat-pocket, or a watch to take out of it, and burning with curiosity, she ran across the field after it, and fortunately was just in time to see it pop down a large rabbit-hole under the hedge.",
+        "By good luck.",
+        "adverb",
+        "CHAPTER I. Down the Rabbit-Hole",
+      ),
+      place("queer", "How queer everything is to-day!", "Strange or unusual.", "adjective", "CHAPTER II. The Pool of Tears"),
+    ],
+  };
+  const [fixed, moved] = rehomeForeignSources([queer]);
+  assert.equal(fixed.lemma, "queer");
+  assert.equal(fixed.sources.length, 1);
+  assert.equal(fixed.sources[0].surface, "queer");
+  assert.equal(fixed.meaning, "Strange or unusual.");
+  assert.match(fixed.sentence, /How queer/);
+  assert.equal(moved.lemma, "fortunately");
+  assert.equal(moved.sources.length, 1);
+  assert.equal(moved.meaning, "By good luck.");
+  assert.match(moved.sentence, /fortunately/);
+  const again = rehomeForeignSources([fixed, moved]);
+  assert.equal(again.length, 2);
+  assert.equal(again[0].sources.length, 1);
+  assert.equal(again[1].sources.length, 1);
+});
+
+test("an irregular form with the same meaning stays on the card", () => {
+  const go = {
+    ...old("a1", "go", { surface: "go", pos: "base verb", meaning: "To move.", sentence: "I go home." }),
+    sources: [
+      place("go", "I go home.", "To move.", "base verb", "Chapter 1"),
+      place("went", "She went home.", "To move.", "past-tense verb", "Chapter 2"),
+    ],
+  };
+  const [fixed] = rehomeForeignSources([go]);
+  assert.deepEqual(
+    fixed.sources.map((source) => source.surface),
+    ["go", "went"],
+  );
 });
 
 test("a source finds its shelf book by title and author, not by card id", () => {

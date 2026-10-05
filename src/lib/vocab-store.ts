@@ -19,6 +19,7 @@ import {
   lemmaKey,
   mergeSources,
   migrateWords,
+  rehomeForeignSources,
   sourceKey,
   withoutBook,
 } from "@/lib/wordbook";
@@ -308,7 +309,7 @@ export const useVocab = create<VocabState>()(
           if (at >= 0) {
             const words = state.words.slice();
             words[at] = addSourceTo(words[at] as VocabEntry, source);
-            return { words, books };
+            return { words: rehomeForeignSources(words), books };
           }
           added = true;
           const home = state.books.find((book) => bookSyncKey(book) === source.book);
@@ -323,7 +324,7 @@ export const useVocab = create<VocabState>()(
             reps: 0,
             lapses: 0,
           };
-          return { words: [...state.words, card], books };
+          return { words: rehomeForeignSources([...state.words, card]), books };
         });
         return { added };
       },
