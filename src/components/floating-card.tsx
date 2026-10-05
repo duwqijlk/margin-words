@@ -122,7 +122,9 @@ function usePanelFocus(active: boolean, panelRef: RefObject<HTMLElement | null>,
     if (!panel) return;
     // The card stays hidden until it has a position. Focusing it earlier does nothing.
     if (getComputedStyle(panel).visibility === "hidden") return;
-    panel.focus({ preventScroll: true });
+    // Focus the card so Tab stays inside it, but do not ask for a focus ring.
+    // The ring is drawn outside the rounded border and looks like a second frame.
+    panel.focus({ preventScroll: true, focusVisible: false } as FocusOptions);
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "Tab") return;
       const items = focusable(panel);
