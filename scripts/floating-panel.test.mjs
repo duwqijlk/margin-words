@@ -63,3 +63,29 @@ test("a short card sits against the word instead of stretching", () => {
   assert.equal(place.side, "bottom");
   assert.ok(Math.abs(place.top - (anchor.top + anchor.height + 10)) < 1);
 });
+
+test("a tall card opens above a low word instead of shrinking into the gap", () => {
+  const anchor = { left: 480, top: 560, width: 48, height: 28 };
+  const place = placeFloatingPanel({ anchor, width: 336, height: 420, ...view });
+  assert.equal(place.side, "top");
+  assert.ok(place.maxHeight >= 420);
+  assert.ok(place.top + Math.min(420, place.maxHeight) <= anchor.top);
+  assert.equal(overlaps(place, anchor, 420), false);
+  assert.equal(inside(place, 420), true);
+});
+
+test("a card that fits under the word stays there even when the space above is taller", () => {
+  const anchor = { left: 400, top: 260, width: 40, height: 24 };
+  const place = placeFloatingPanel({ anchor, width: 336, height: 280, ...view });
+  assert.equal(place.side, "bottom");
+  assert.ok(place.maxHeight >= 280);
+});
+
+test("when neither side can show the whole card, the clearly taller side is used", () => {
+  const anchor = { left: 480, top: 430, width: 40, height: 24 };
+  const place = placeFloatingPanel({ anchor, width: 336, height: 640, ...view });
+  assert.equal(place.side, "top");
+  assert.ok(place.maxHeight >= 400);
+  assert.equal(overlaps(place, anchor, 640), false);
+  assert.equal(inside(place, 640), true);
+});
