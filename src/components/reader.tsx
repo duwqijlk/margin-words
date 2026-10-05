@@ -16,18 +16,21 @@ import {
   X,
 } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { loadBookMeta, loadStoredBook, type Gloss, type StoredBook } from "@/lib/book-db";
+import { loadBookExtras, loadBookMeta, loadStoredBook, type Gloss, type StoredBook } from "@/lib/book-db";
 import { readingSlots } from "@/lib/epub";
 import {
   entryAppliesAt,
   hasTrickySense,
+  markWordRanges,
   pickSense,
   plainSurface,
   readingHtml,
   TAP_WORD_PATTERN,
   type OtherMeaning,
 } from "@/lib/glossary-format";
+import type { PhraseEntry } from "@/lib/glossary-extras";
 import { hyphenateReadingHtml } from "@/lib/hyphenate";
+import { phraseWordRanges } from "@/lib/help-match";
 import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
@@ -791,6 +794,7 @@ function SidePlaceholder() {
     >
       <p className="font-semibold">{t("reader.sideTitle")}</p>
       <p>{t("reader.sideHint")}</p>
+      <p>{t("about.markPhrase")}</p>
       <p>{t("reader.trickyHint")}</p>
     </aside>
   );
@@ -860,6 +864,8 @@ export function ReaderScreen({
   const [helpState, setHelpState] = useState<ParagraphPanelState>({ status: "loading" });
   const helpToken = useRef(0);
   const [phraseHit, setPhraseHit] = useState<{ at: string; hit: PhraseHit } | null>(null);
+  // Phrases live beside the word list. Empty until that record loads, then the dotted line appears.
+  const [phraseList, setPhraseList] = useState<Record<string, PhraseEntry>>({});
   const articleRef = useRef<HTMLElement | null>(null);
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
   // A place found through the file-independent anchor (saved position, or "go to the sentence" from the wordbook).
@@ -955,6 +961,25 @@ export function ReaderScreen({
     };
   }, [bookId, fillPrepared]);
 
+  useEffect(() => {
+    let alive = true;
+    const pull = () => {
+      void loadBookExtras(bookId).then((extras) => {
+        if (alive) setPhraseList(extras?.phrases ?? {});
+      });
+    };
+    pull();
+    const onProgress = (event: Event) => {
+      const detail = (event as CustomEvent<{ bookId?: string }>).detail;
+      if (detail?.bookId === bookId) pull();
+    };
+    window.addEventListener("cibian-progress", onProgress);
+    return () => {
+      alive = false;
+      window.removeEventListener("cibian-progress", onProgress);
+    };
+  }, [bookId]);
+
   const lastChapter = book ? Math.max(book.chapters.length - 1, 0) : 0;
   // A book opened for the first time starts at the first chapter with real text,
   // skipping the cover, title page and contents.
@@ -1007,15 +1032,15 @@ export function ReaderScreen({
     (surface: string) => resolveGlossKey(surface, marked.keys, marked.forms),
     [marked],
   );
-  const linkedHtml = useMemo(
-    () =>
-      chapterHtml
-        ? hyphenateReadingHtml(
-            readingHtml(chapterHtml, marked.ready, resolveKey, viewChapter, marked.sparse, marked.tricky),
-          )
-        : "",
-    [chapterHtml, marked, resolveKey, viewChapter],
-  );
+  const linkedHtml = useMemo(() => {
+    if (!chapterHtml) return "";
+    const words = readingHtml(chapterHtml, marked.ready, resolveKey, viewChapter, marked.sparse, marked.tricky);
+    const withPhrases =
+      Object.keys(phraseList).length > 0
+        ? markWordRanges(words, (paragraph) => phraseWordRanges(phraseList, paragraph), "book-phrase")
+        : words;
+    return hyphenateReadingHtml(withPhrases);
+  }, [chapterHtml, marked, resolveKey, viewChapter, phraseList]);
   const bookChapters = book?.chapters;
   const bookStats = useMemo(() => (bookChapters ? indexBook(bookChapters) : {}), [bookChapters]);
 
@@ -1408,6 +1433,7 @@ export function ReaderScreen({
     const group = buttons.slice(at, at + tokens.length);
     const best =
       group.find((b) => b.classList.contains("book-hard") || b.classList.contains("book-tricky")) ??
+      group.find((b) => b.classList.contains("book-phrase")) ??
       [...group].sort((a, b) => (b.dataset.word?.length ?? 0) - (a.dataset.word?.length ?? 0))[0];
     if (best) pickButton(best);
   }

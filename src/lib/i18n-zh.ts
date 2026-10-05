@@ -588,6 +588,7 @@ export const zh: Record<Key, string> = {
   "about.tapBody": "点有下划线的词，会打开一张卡片：用简单的英文写的意思、词性，还有这个词为什么难。书不会被翻译，你是在用英文学英文。",
   "about.marksTitle": "文字里的标记",
   "about.markHard": "词下面的直线：一个难词。点一点看看。",
+  "about.markPhrase": "词下面的点线：这个词属于一个短语。点一点看看。",
   "about.markTricky": "词下面的波浪线：这个词你可能认识，但在这里是别的意思。点一点看看。",
   "about.markBulb": "段落旁边的灯泡：这一段有一条说明，帮你读懂整段。",
   "about.listsTitle": "老师做的词表",

@@ -291,6 +291,20 @@
     background: var(--accent-soft);
   }
 
+  /* A word of a phrase (tune in, give up): a dotted line, so it is not the solid hard-word line
+     or the wavy tricky line. A word that already has one of those keeps it. */
+  .book-body button.book-phrase .book-tap {
+    text-decoration: underline dotted;
+    text-decoration-color: color-mix(in srgb, var(--accent) 70%, transparent);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.24em;
+  }
+
+  .book-body button.book-phrase:hover .book-tap,
+  .book-body button.book-phrase:focus-visible .book-tap {
+    background: var(--accent-soft);
+  }
+
   /* A familiar word used here in a meaning learners will not expect ("well" = a water well): a calm wavy
      accent line, different from the straight underline of a hard word and from the phrase underline. */
   .book-body button.book-tricky .book-tap {

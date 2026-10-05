@@ -149,6 +149,66 @@ export function flowText(node: Node | NodeLike | null | undefined): string {
 }
 
 /**
+ * Where each chosen element starts inside `flowText(root)`.
+ * One walk, same line-break and space rules as `flowTextBefore`, so a phrase line can
+ * be placed on every word of a chapter without walking the paragraph once per word.
+ * The element's own text is not part of the offset: it starts where a tap would.
+ */
+export function flowCutOffsets(root: Node | NodeLike, isCut: (el: ElLike) => boolean): Map<Element, number> {
+  const parts: string[] = [];
+  const cuts: { el: Element; at: number }[] = [];
+  let rawLen = 0;
+  const push = (value: string) => {
+    if (!value) return;
+    parts.push(value);
+    rawLen += value.length;
+  };
+  const go = (node: NodeLike) => {
+    if (node.nodeType === 3) {
+      push(visibleText(node.nodeValue ?? ""));
+      return;
+    }
+    if (node.nodeType !== 1 && node.nodeType !== 11 && node.nodeType !== 9) return;
+    if (node.nodeType === 1 && isCut(node as ElLike)) cuts.push({ el: node as Element, at: rawLen });
+    const name = node.nodeType === 1 ? (node.localName ?? "").toLowerCase() : "";
+    if (BREAK_TAGS.has(name)) {
+      push(" ");
+      return;
+    }
+    const block = BLOCK_TAGS.has(name);
+    if (block) push(" ");
+    for (let i = 0; i < node.childNodes.length; i += 1) go(node.childNodes[i] as NodeLike);
+    if (block) push(" ");
+  };
+  go(root as NodeLike);
+  const raw = parts.join("");
+  const collapsedAt = new Array<number>(raw.length + 1);
+  collapsedAt[0] = 0;
+  let outLen = 0;
+  let started = false;
+  let inSpace = false;
+  for (let i = 0; i < raw.length; i += 1) {
+    const space = /\s/.test(raw[i] as string);
+    if (!started) {
+      if (!space) {
+        started = true;
+        outLen = 1;
+      }
+    } else if (space) {
+      if (!inSpace) outLen += 1;
+      inSpace = true;
+    } else {
+      outLen += 1;
+      inSpace = false;
+    }
+    collapsedAt[i + 1] = outLen;
+  }
+  const out = new Map<Element, number>();
+  for (const cut of cuts) out.set(cut.el, collapsedAt[cut.at] ?? 0);
+  return out;
+}
+
+/**
  * Shortest snippet for which the "ignore spaces" match is used. Shorter snippets must match as whole words,
  * so a short snippet cannot match by accident inside other words.
  */
