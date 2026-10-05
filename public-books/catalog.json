@@ -508,11 +508,49 @@
     "bytes": 399277,
     "sha256": "567a2483c730fe258bbad701c8c17431440269a3e0ed72c6a71d1362e98df88a"
    }
+  },
+  {
+   "id": "joint-session",
+   "title": "Address to a Joint Session",
+   "author": "George W. Bush",
+   "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+   "notes": "Public domain in the USA. A work of the United States government (17 USC 105), delivered September 20, 2001. The cover is an original study cover, not an official publication.",
+   "category": "speech",
+   "updated": "2026-10-05",
+   "rev": "8631e7b57c65",
+   "version": 2,
+   "chapters": 8,
+   "words": 324,
+   "paragraphs": 0,
+   "sentences": 8,
+   "phrases": 47,
+   "coined": 0,
+   "epub": {
+    "url": "joint-session/book.epub",
+    "bytes": 398531,
+    "sha256": "e4998e2e5efed6ff6ecbbd82212784758353df3cd086f71168037922564db976"
+   },
+   "glossary": {
+    "url": "joint-session/glossary.json",
+    "bytes": 63180,
+    "sha256": "65159a459cf81a7b63643a6ba37391cab29975a1692abcdf7c198c98ccebe2a4",
+    "rev": "65159a459cf8"
+   },
+   "cover": {
+    "url": "joint-session/cover.jpg",
+    "bytes": 32336,
+    "sha256": "74917a89c23e295118ab3c53aff8cf8c188cc7bbcd499c6040b250b8c2a19958"
+   },
+   "zip": {
+    "url": "joint-session.zip",
+    "bytes": 444330,
+    "sha256": "1dae50bc436721f223d709b85b3ebe755d036f706abde7e488d826c9f4ff68cb"
+   }
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11709446,
-  "sha256": "74d786ffc85a568daf41417d0d6fa5b2570fbd47c20e59e213b44714ee9ce5a3"
+  "bytes": 12154108,
+  "sha256": "6198557881a7cd50dc17c43ab9ab1e5ef16fb2bb97c6e9cd3f50842a69b2a498"
  }
 }
