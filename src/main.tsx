@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { MarginApp } from "@/components/margin-app";
+import { RELOAD_QUIET_MS, RELOAD_STOP, reloadPlan } from "@/lib/reload-guard";
 import "./styles.css";
 
 createRoot(document.getElementById("root") as HTMLElement).render(
@@ -9,29 +10,86 @@ createRoot(document.getElementById("root") as HTMLElement).render(
   </StrictMode>,
 );
 
-/** One reload at most per visit, so a broken connection cannot make a reload loop. */
-function reloadOnce() {
+/** Survives a reload. Cleared only after the page has stayed up (see the load handler). */
+const RELOAD_KEY = "cibian-reloaded";
+let memoryMark: string | null = null;
+
+function readReloadMark(): string | null {
   try {
-    if (sessionStorage.getItem("cibian-reloaded") === "1") return;
-    sessionStorage.setItem("cibian-reloaded", "1");
+    return sessionStorage.getItem(RELOAD_KEY) ?? memoryMark;
   } catch {
-    // no session storage: reload anyway, once, because the flag below stops a second call
+    return memoryMark;
+  }
+}
+
+function writeReloadMark(value: string): void {
+  memoryMark = value;
+  try {
+    sessionStorage.setItem(RELOAD_KEY, value);
+  } catch {
+    // Private mode can block session storage. The memory mark still stops a second call here.
+  }
+}
+
+/** One reload for this burst. A second call in the quiet window does nothing. */
+function reloadOnce(): boolean {
+  if (reloadPlan(Date.now(), readReloadMark()) !== "reload") return false;
+  writeReloadMark(String(Date.now()));
+  window.location.reload();
+  return true;
+}
+
+/**
+ * The chunks still failed after a reload. Step the worker aside and load once more
+ * from the network. This is the hard refresh that used to be the only way out.
+ */
+async function dropStaleShell(): Promise<void> {
+  writeReloadMark(RELOAD_STOP);
+  try {
+    if ("serviceWorker" in navigator) {
+      const current = await navigator.serviceWorker.getRegistration();
+      current?.active?.postMessage("cibian-bypass");
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map((reg) => reg.unregister()));
+    }
+    if ("caches" in window) {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys.filter((key) => key.startsWith("margin-words-shell-")).map((key) => caches.delete(key)),
+      );
+    }
+  } catch {
+    // Reload anyway.
   }
   window.location.reload();
 }
 
 if (import.meta.env.PROD) {
   // A page from an older build asks for a page chunk that a newer build has replaced: load the new build.
+  // The mark is not cleared on load. Load fires even when the next chunk fails, and clearing it
+  // there made every refresh reload again (a blank page, or a refresh that never stopped).
+  let chunkFailed = false;
   window.addEventListener("vite:preloadError", (event) => {
     event.preventDefault();
-    reloadOnce();
+    chunkFailed = true;
+    const plan = reloadPlan(Date.now(), readReloadMark());
+    if (plan === "reload") {
+      writeReloadMark(String(Date.now()));
+      window.location.reload();
+      return;
+    }
+    if (plan === "reset") void dropStaleShell();
   });
   window.addEventListener("load", () => {
-    try {
-      sessionStorage.removeItem("cibian-reloaded");
-    } catch {
-      // see reloadOnce
-    }
+    window.setTimeout(() => {
+      if (chunkFailed) return;
+      try {
+        sessionStorage.removeItem(RELOAD_KEY);
+      } catch {
+        // see writeReloadMark
+      }
+      memoryMark = null;
+    }, RELOAD_QUIET_MS);
   });
 }
 

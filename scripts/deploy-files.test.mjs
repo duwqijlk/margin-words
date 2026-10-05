@@ -67,7 +67,16 @@ test("the service worker never answers its own address or the manifest from a ca
   assert.match(sw, /path === "sw\.js" \|\| path === "manifest\.webmanifest"/);
   assert.match(sw, /path\.startsWith\("api\/"\)/);
   assert.match(sw, /cache: "reload"/);
-  assert.match(sw, /fetch\(request, \{ cache: "no-cache" \}\)/, "a page is always checked with the server");
+  assert.match(
+    sw,
+    /fetch\(request\.url, \{ cache: "reload", credentials: "same-origin", redirect: "follow", headers \}\)/,
+    "a page is always checked with the server, and not by reusing the navigation request",
+  );
+  assert.doesNotMatch(sw, /caches\.match\(/, "a book being saved must not block a lookup of the app shell");
+  assert.match(sw, /caches\.open\(CACHE\)/);
+  assert.match(sw, /caches\.open\(BOOKS\)/);
+  assert.match(sw, /cibian-bypass/);
+  assert.match(sw, /text\/html/);
   assert.match(sw, /key !== CACHE && key !== BOOKS/, "every old cache is deleted when a new version starts");
   assert.match(sw, /skipWaiting/);
   assert.match(sw, /clients\.claim/);
@@ -79,4 +88,6 @@ test("the app registers the worker from the site root and checks for a new one",
   assert.match(main, /updateViaCache: "none"/);
   assert.match(main, /registration\.update\(\)/);
   assert.match(main, /vite:preloadError/);
+  assert.match(main, /reloadPlan/);
+  assert.match(main, /if \(chunkFailed\) return/, "a healthy load may clear the mark; a failed chunk must not");
 });
