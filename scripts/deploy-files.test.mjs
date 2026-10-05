@@ -48,8 +48,8 @@ test("_redirects sends every other address to index.html, last, and leaves real 
 });
 
 test("files the reader never opens are not in the site folder", () => {
-  // The service worker caches every file in public/. These two were cached on first visit
-  // and nothing in the app asked for them.
+  // These two used to be copied into the site and stored on the first visit.
+  // Nothing in the app asks for them.
   assert.equal(existsSync(join(ROOT, "public/og.jpg")), false);
   assert.equal(existsSync(join(ROOT, "public/data/basic-words.txt")), false);
 });
@@ -62,29 +62,27 @@ test("the host files are not part of the offline shell (they are not served as f
   assert.equal(isShellFile("index.html"), true);
 });
 
-test("the service worker never answers its own address or the manifest from a cache", () => {
+test("the service worker does not answer a request", () => {
   const sw = read("scripts/sw-template.js");
-  assert.match(sw, /path === "sw\.js" \|\| path === "manifest\.webmanifest"/);
-  assert.match(sw, /path\.startsWith\("api\/"\)/);
-  assert.match(sw, /cache: "reload"/);
-  assert.match(
-    sw,
-    /fetch\(request\.url,\s*\{[^}]*cache:\s*"no-store"[^}]*credentials:\s*"same-origin"[^}]*redirect:\s*"follow"/,
-    "a page is checked with the server, and not by reusing the navigation request or cache: reload",
-  );
-  assert.match(sw, /byteLength === 0/, "an empty 200 must not be shown as the page");
-  assert.match(sw, /navigationPreload\.enable/);
-  assert.match(sw, /await self\.clients\.claim\(\)/, "the new worker takes over before old caches are deleted");
-  assert.doesNotMatch(sw, /caches\.match\(/, "a book being saved must not block a lookup of the app shell");
-  assert.match(sw, /caches\.open\(CACHE\)/);
-  assert.doesNotMatch(sw, /margin-words-books/, "book files are not written into Cache Storage");
-  assert.match(sw, /if \(isBookFile\(path\)\) return;/);
+  // Answering from here is what left a normal refresh blank: a cached file kept gzip
+  // headers on an already-decoded body, and onLine was false for the page only.
+  assert.doesNotMatch(sw, /respondWith/);
+  assert.doesNotMatch(sw, /self\.navigator\.onLine/);
+  assert.doesNotMatch(sw, /navigationPreload\.enable/, "preload must stay off or the next refresh is blank");
+  assert.match(sw, /navigationPreload\.disable/);
+  assert.doesNotMatch(sw, /caches\.match\(/);
+  assert.doesNotMatch(sw, /caches\.open\(/);
+  assert.doesNotMatch(sw, /margin-words-books/);
+  assert.doesNotMatch(sw, /cache:\s*"reload"/);
+  assert.doesNotMatch(sw, /cache:\s*"no-store"/);
   assert.match(sw, /cibian-bypass/);
-  assert.match(sw, /text\/html/);
-  assert.match(sw, /key !== CACHE\)/, "every old cache, including a saved book cache, is deleted when a new version starts");
-  assert.doesNotMatch(sw, /key !== BOOKS/);
   assert.match(sw, /skipWaiting/);
   assert.match(sw, /clients\.claim/);
+  assert.match(sw, /caches\.keys\(\)/);
+  assert.match(sw, /key === CACHE \|\| key !== CACHE/, "every cache, including this shell name, is deleted");
+  const claim = sw.indexOf("await self.clients.claim()");
+  const del = sw.indexOf("caches.delete");
+  assert.ok(claim !== -1 && del !== -1 && claim < del, "the new worker takes over before old caches are deleted");
 });
 
 test("the app registers the worker from the site root and checks for a new one", () => {

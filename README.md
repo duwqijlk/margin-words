@@ -30,7 +30,7 @@ The live reader is [inputread.site](https://inputread.site). This repository is 
 - **Copyrighted books stay with the reader.** For those titles, Discover offers a word list and an ISBN, not the novel. You add your own EPUB of that book. The app shows how well the file matches, and it warns you when the match is under 80%.
 - **A notebook.** Save a word and review it later. Each word is one card, with the sentence it came from.
 - **A library dashboard.** One page counts the whole Discover library: books, marked words, paragraph notes, sentence notes, phrases, and series.
-- **Offline after the download.** The book and its word list stay in the browser. After the first visit, the app itself also opens with no network.
+- **Saved on this device.** The book and its word list stay in the browser. Opening the site needs the internet.
 - **An optional account.** Sign in to add books. The same account can sync the shelf, the reading place, saved words, and settings. Reading itself does not need an account.
 
 Built with Vite, React, and Tailwind. Accounts, when they are turned on, use Cloudflare Pages Functions and D1. See [docs/ACCOUNTS.md](docs/ACCOUNTS.md).
@@ -125,7 +125,7 @@ A reader can also set another catalog address in Settings. That host must allow 
 1. Open the app. A new shelf is empty and suggests *Alice's Adventures in Wonderland*. The suggestion links to Discover.
 2. Sign in. On Discover, tap the plus on a cover. The plus becomes a check (“On shelf”). Tap the check and choose “Remove from shelf” to take it off. A book you just added can be undone. A book you have started, or one that has your own EPUB, asks first.
 3. A public-domain book downloads when you add it. A word-list book downloads its word list and asks for your EPUB of the ISBN on the card. A match under 80% is shown before it is saved. The book and the word list are stored in the browser (IndexedDB).
-4. After that, the book works with no internet. The app files stay available offline after the first visit (a service worker; it needs `https://` or `localhost`).
+4. After that, the book and the word list stay on this device (IndexedDB). Opening the site needs the internet. The service worker does not serve the page.
 5. When a word list changes (a new `rev`), the next load fetches the new list in the background. The book file, reading place, saved words, and settings stay. A small notice says how many books were updated. A list the reader added or edited by hand is never replaced. If a new list matches the reader's EPUB under 80%, or an automatic update fails, the old list stays and the Discover card shows a manual **Update** button with the reason.
 
 The shelf menu can still **Add word list** (a `.json` for a book that is already there).
