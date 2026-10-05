@@ -10,18 +10,21 @@
   "adjust": {
    "pos": "verb",
    "meaning": "To get used to a new time or a new place.",
+   "here": "Some of you are still getting used to being back at school.",
    "forms": [
     "adjusting"
    ]
   },
   "admit": {
    "pos": "verb",
-   "meaning": "To say that something is true, even when you would rather not.",
+   "meaning": "To say a hard truth, even when you would rather not.",
+   "here": "Asking for help shows you can say that you do not know something.",
    "whyHard": "Not the usual meaning! Usually: admit means to let someone in. Here it means to say a hard truth.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "To say that something is true, even when you would rather not.",
+     "meaning": "To say a hard truth, even when you would rather not.",
+     "here": "Asking for help shows you can say that you do not know something.",
      "anchors": [
       {
        "chapter": 5,
@@ -37,23 +40,27 @@
   },
   "advantage": {
    "pos": "singular noun",
-   "meaning": "Something that makes one person's life easier than another's."
+   "meaning": "Something that makes one person's life easier than another's.",
+   "here": "Some of you may not have helpful adults, enough money, or a safe place to live."
   },
   "affect": {
    "pos": "verb",
-   "meaning": "To change something.",
+   "meaning": "To change how something works or how a person is.",
+   "here": "One operation changed his memory, so the school work took much longer.",
    "forms": [
     "affected"
    ]
   },
   "aids": {
    "pos": "singular noun",
-   "meaning": "A serious sickness. The name is four letters. It is not the verb that means help.",
+   "meaning": "A serious sickness that the body cannot fight off.",
+   "here": "Science and math can help you stop sicknesses such as cancer and this one.",
    "whyHard": "Not the usual meaning! Usually: aid means help. AIDS is the name of a sickness.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "A serious sickness. The name is four letters. It is not the verb that means help.",
+     "meaning": "A serious sickness that the body cannot fight off.",
+     "here": "Science and math can help you stop sicknesses such as cancer and this one.",
      "anchors": [
       {
        "chapter": 2,
@@ -69,11 +76,13 @@
   },
   "applause": {
    "pos": "singular noun",
-   "meaning": "The sound of people hitting their hands together to show they liked something."
+   "meaning": "The sound of many people clapping to show they liked something.",
+   "here": "He asks the students to clap for themselves."
   },
   "apply": {
    "pos": "verb",
-   "meaning": "To be true for this case too.",
+   "meaning": "To be true in this case too.",
+   "here": "The rule that practice makes you better is true for school work too.",
    "whyHard": "Not the usual meaning! Usually: apply means to ask for a job, or to put something on. Here a rule fits schoolwork too.",
    "forms": [
     "applies"
@@ -81,7 +90,8 @@
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "To be true for this case too.",
+     "meaning": "To be true in this case too.",
+     "here": "The rule that practice makes you better is true for school work too.",
      "anchors": [
       {
        "chapter": 5,
@@ -98,39 +108,47 @@
   },
   "architect": {
    "pos": "singular noun",
-   "meaning": "A person who plans buildings."
+   "meaning": "A person whose job is to plan buildings.",
+   "here": "He lists that job beside a nurse, a lawyer, and service in the armed forces."
   },
   "article": {
    "pos": "singular noun",
-   "meaning": "A piece of writing in a newspaper."
+   "meaning": "A piece of writing in a newspaper or a magazine.",
+   "here": "You might write a book or pieces for a newspaper, and an English paper might show you."
   },
   "assign": {
    "pos": "verb",
-   "meaning": "To give a piece of work to someone.",
+   "meaning": "To give someone a piece of work to do.",
+   "here": "You might not know you can write until you do the English paper a teacher gives you.",
    "forms": [
     "assigned"
    ]
   },
   "assignment": {
    "pos": "singular noun",
-   "meaning": "A piece of work a teacher gives you."
+   "meaning": "A piece of work a teacher gives you.",
+   "here": "Not every piece of homework will seem to fit your life at this moment."
   },
   "athlete": {
    "pos": "singular noun",
-   "meaning": "A person who plays a sport."
+   "meaning": "A person who plays a sport in a contest.",
+   "here": "The first time you try a new sport, you are not yet on the school's top team."
   },
   "attitude": {
    "pos": "singular noun",
-   "meaning": "The way you think and act about school or about other people."
+   "meaning": "The way you think and act toward something.",
+   "here": "Looks, origin, and money are no reason to act badly at school."
   },
   "bill": {
    "pos": "singular noun",
    "meaning": "A paper that says how much money you must pay.",
+   "here": "His mother sometimes found it hard to pay what the family owed.",
    "whyHard": "Not the usual meaning! Usually: a bill can be a bird's beak. Here it is a paper about money you owe.",
    "senseOnly": true,
    "senses": [
     {
      "meaning": "A paper that says how much money you must pay.",
+     "here": "His mother sometimes found it hard to pay what the family owed.",
      "anchors": [
       {
        "chapter": 3,
@@ -147,20 +165,24 @@
   },
   "bless": {
    "pos": "verb",
-   "meaning": "To ask God to take care of someone."
+   "meaning": "To ask God to take care of someone or some place.",
+   "here": "He asks God to take care of the students, and to take care of the country."
   },
   "boost": {
    "pos": "verb",
-   "meaning": "To make something grow or get stronger."
+   "meaning": "To make something grow stronger or larger.",
+   "here": "New companies can make the country's work and money grow."
   },
   "brown": {
    "pos": "singular noun",
-   "meaning": "The name of a university. Not the color.",
+   "meaning": "The name of a university.",
+   "here": "Hard work and good marks earned her money to study at that university.",
    "whyHard": "Not the usual meaning! Usually: brown is a color. Here Brown is the name of a school.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "The name of a university. Not the color.",
+     "meaning": "The name of a university.",
+     "here": "Hard work and good marks earned her money to study at that university.",
      "anchors": [
       {
        "chapter": 4,
@@ -176,47 +198,57 @@
   },
   "bully": {
    "pos": "verb",
-   "meaning": "To hurt or frighten someone who is weaker.",
+   "meaning": "To frighten or hurt someone who is weaker.",
+   "here": "You might stand up for students whom others frighten for who they are or how they look.",
    "forms": [
     "bullied"
    ]
   },
   "buster": {
    "pos": "singular noun",
-   "meaning": "A sharp name for a child who is complaining. Here a mother is telling her son to stop."
+   "meaning": "A sharp name for a child who is complaining.",
+   "here": "His mother used that name when she said the early lessons were hard for her too."
   },
   "cancer": {
    "pos": "singular noun",
-   "meaning": "A serious sickness that grows inside the body."
+   "meaning": "A serious sickness in which some cells grow the wrong way.",
+   "here": "Andoni has fought this sickness in his brain since he was three. Science class might one day help you stop it."
   },
   "career": {
    "pos": "singular noun",
-   "meaning": "The work a person trains for and does for many years."
+   "meaning": "The work a person trains for and does for many years.",
+   "here": "Across those years of play, he lost hundreds of games and missed thousands of shots."
   },
   "challenge": {
    "pos": "singular noun",
-   "meaning": "A hard problem you have to face."
+   "meaning": "A hard problem you have to face.",
+   "here": "Some sit in your life now and make school hard. Later the country must face its own."
   },
   "circumstance": {
    "pos": "singular noun",
-   "meaning": "A fact about your life, such as your money, your home, or your family."
+   "meaning": "A fact about your life, such as your money, your home, or your family.",
+   "here": "Looks, origin, money, and home are not a reason to leave the work undone."
   },
   "coach": {
    "pos": "singular noun",
-   "meaning": "A person who trains a sports team."
+   "meaning": "A person who trains people in a sport.",
+   "here": "A parent, a teacher, or this person can help you keep moving toward your goals."
   },
   "college": {
    "pos": "singular noun",
-   "meaning": "A school you go to after high school."
+   "meaning": "A school you go to after high school.",
+   "here": "He went, some parents had not, and these students are working to get there."
   },
   "commit": {
    "pos": "verb",
    "meaning": "To promise that you will keep doing something.",
+   "here": "Whatever you decide to do, he wants you to promise you will stay with it.",
    "whyHard": "Not the usual meaning! Usually: commit can mean to do a crime. Here it means to promise you will stick to a goal.",
    "senseOnly": true,
    "senses": [
     {
      "meaning": "To promise that you will keep doing something.",
+     "here": "Whatever you decide to do, he wants you to promise you will stay with it.",
      "anchors": [
       {
        "chapter": 4,
@@ -232,53 +264,65 @@
   },
   "communicate": {
    "pos": "verb",
-   "meaning": "To share news or ideas with another person."
+   "meaning": "To share news or ideas with other people.",
+   "here": "Students who started Google, Twitter, and Facebook changed how people share news and ideas."
   },
   "community": {
    "pos": "singular noun",
-   "meaning": "The people who live in one place."
+   "meaning": "The people who live in one place.",
+   "here": "You might choose to help the people where you live, and not take any pay."
   },
   "company": {
    "pos": "singular noun",
-   "meaning": "A business.",
+   "meaning": "A business that makes or sells things.",
+   "here": "Ideas from your classes can help you start new businesses and new jobs.",
    "whyHard": "Not the usual meaning! Usually: company can mean people who are with you. Here it is a business."
   },
   "complain": {
    "pos": "verb",
-   "meaning": "To say that you are not happy about something."
+   "meaning": "To say that you are unhappy about something.",
+   "here": "When he said he was unhappy, his mother told him the early lessons were hard for her too."
   },
   "contribution": {
    "pos": "singular noun",
-   "meaning": "The part you give to a bigger piece of work."
+   "meaning": "The part you give so a bigger work can succeed.",
+   "here": "He asks what part you will give to this country."
   },
   "counselor": {
    "pos": "singular noun",
-   "meaning": "A person at school whose job is to listen and to help students."
+   "meaning": "A person at school who listens to students and helps them.",
+   "here": "A parent, a teacher, a coach, or this person can help you keep moving toward your goals."
   },
   "courage": {
    "pos": "singular noun",
-   "meaning": "Being brave enough to do a hard thing."
+   "meaning": "The bravery to do something hard.",
+   "here": "Asking for help shows you are brave enough to say you do not know."
   },
   "creativity": {
    "pos": "singular noun",
-   "meaning": "The skill of making new things or new ideas."
+   "meaning": "The skill of making new ideas or new things.",
+   "here": "You will need that skill from class to start new companies and new jobs."
   },
   "crime": {
    "pos": "singular noun",
-   "meaning": "An act that breaks the law."
+   "meaning": "An act that breaks the law.",
+   "here": "History class can help you fight poverty, life without a home, law-breaking, and unfair treatment."
   },
   "cure": {
    "pos": "verb",
-   "meaning": "To make a sick person well."
+   "meaning": "To make a sickness go away.",
+   "here": "Science and math can help you make sicknesses such as cancer go away."
   },
   "cut": {
    "pos": "verb",
-   "meaning": "Not chosen for a team. Told to leave it.",
+   "meaning": "Not chosen for a team, and told to leave.",
+   "here": "The high school basketball team told Michael Jordan to leave.",
    "whyHard": "Not the usual meaning! Usually: cut means to divide something with a knife. Here the team told him to leave.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "Not chosen for a team. Told to leave it.",
+     "meaning": "Not chosen for a team, and told to leave.",
+     "here": "The high school basketball team told Michael Jordan to leave.",
      "anchors": [
       {
        "chapter": 5,
@@ -294,28 +338,34 @@
   },
   "debate": {
    "pos": "singular noun",
-   "meaning": "A planned argument between two sides. A debate team does this at school."
+   "meaning": "A planned argument between two sides.",
+   "here": "You might not see that you could help lead a city until you join this school team."
   },
   "dedicated": {
    "pos": "adjective",
-   "meaning": "Giving a lot of time and care to a job."
+   "meaning": "Giving a great deal of time and care to a job.",
+   "here": "Even the teachers who give the most care change nothing if you do not do your own part."
   },
   "define": {
    "pos": "verb",
-   "meaning": "To decide what kind of person someone is."
+   "meaning": "To decide what kind of person someone is.",
+   "here": "A time you failed must not decide who you are. It should teach you what to try next."
   },
   "definitely": {
    "pos": "adverb",
-   "meaning": "For sure."
+   "meaning": "For sure, with no doubt.",
+   "here": "A paper needs more than one try before it is good enough to hand in."
   },
   "depression": {
    "pos": "singular noun",
-   "meaning": "A time when many people had no jobs and little money.",
+   "meaning": "A time when a whole country has little work and little money.",
+   "here": "Students of 75 years ago got through that hard time and also won a world war.",
    "whyHard": "Not the usual meaning! Usually: depression is a deep sad feeling. Here it is a hard time for a whole country.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "A time when many people had no jobs and little money.",
+     "meaning": "A time when a whole country has little work and little money.",
+     "here": "Students of 75 years ago got through that hard time and also won a world war.",
      "anchors": [
       {
        "chapter": 6,
@@ -331,90 +381,110 @@
   },
   "deserve": {
    "pos": "verb",
-   "meaning": "To have a right to something. It ought to be yours."
+   "meaning": "To have earned a right to something.",
+   "here": "Students have a right to real chances at school, and to a safe place to study."
   },
   "destiny": {
    "pos": "singular noun",
-   "meaning": "The future of your life. Here, you write it yourself."
+   "meaning": "The future of a person's life.",
+   "here": "Nobody else has written yours. In this country you write it yourself."
   },
   "determine": {
    "pos": "verb",
-   "meaning": "To control what happens next."
+   "meaning": "To control what happens next.",
+   "here": "It decides where you end up, and whether the country can face its hardest problems."
   },
   "develop": {
    "pos": "verb",
-   "meaning": "To grow a skill, or to make something new."
+   "meaning": "To grow a skill, or to make something new.",
+   "here": "You grow talents in class, and you use them to make new things, including new ways to produce energy."
   },
   "discourage": {
    "pos": "verb",
-   "meaning": "To make someone feel like stopping, because the work is hard.",
+   "meaning": "To make someone feel like stopping.",
+   "here": "Even when you feel like stopping, and others seem to have stopped hoping for you, do not stop on yourself.",
    "forms": [
     "discouraged"
    ]
   },
   "discovery": {
    "pos": "singular noun",
-   "meaning": "Something new that a person finds."
+   "meaning": "Something new that someone finds.",
+   "here": "He asks what new things you will find."
   },
   "discrimination": {
    "pos": "singular noun",
-   "meaning": "Treating a person badly because of who they are."
+   "meaning": "Unfair treatment of a person because of who they are.",
+   "here": "History class can help you fight that unfair treatment, and also poverty and crime."
   },
   "disease": {
    "pos": "singular noun",
-   "meaning": "A sickness."
+   "meaning": "A sickness.",
+   "here": "Science and math can help you stop sicknesses such as cancer."
   },
   "draft": {
    "pos": "singular noun",
-   "meaning": "A version of a paper you write before the last one."
+   "meaning": "An early version of a paper, before the last one.",
+   "here": "You need more than one version before a paper is good enough to hand in."
   },
   "economy": {
    "pos": "singular noun",
-   "meaning": "The work and the money of a whole country."
+   "meaning": "The work and the money of a whole country.",
+   "here": "New companies can create jobs and make that work and money grow."
   },
   "effort": {
    "pos": "singular noun",
-   "meaning": "The hard work you put into something."
+   "meaning": "The hard work you put into something.",
+   "here": "He expects that hard work from you in everything you do."
   },
   "endure": {
    "pos": "verb",
-   "meaning": "To live with something hard for a long time."
+   "meaning": "To live through a hard or painful time for a long while.",
+   "here": "He had to keep going through many hard treatments and operations."
   },
   "energy": {
    "pos": "singular noun",
-   "meaning": "Power that runs lights and machines."
+   "meaning": "Power that makes heat and keeps machines going.",
+   "here": "Classes in science and in math can help you build new ways to make and use that power."
   },
   "environment": {
    "pos": "singular noun",
-   "meaning": "The place and the conditions around you. It can be the air, land, and water, or the place where you study."
+   "meaning": "What is around you, from the air and land to the place you study.",
+   "here": "One line is the air and land you should protect. The other is a safe place for students to learn."
   },
   "equipment": {
    "pos": "singular noun",
-   "meaning": "The tools and machines you need."
+   "meaning": "Tools and machines that a certain job needs.",
+   "here": "He is working to get you those tools for learning, plus books and computers."
   },
   "excuse": {
    "pos": "singular noun",
-   "meaning": "A reason you give for not doing what you should."
+   "meaning": "A reason offered for not doing what you should.",
+   "here": "Nothing about your life is a reason to leave the work undone or to stop trying."
   },
   "extracurricular": {
    "pos": "adjective",
-   "meaning": "A school activity that is not a class, such as a club or a team."
+   "meaning": "Separate from the classes in the school course.",
+   "here": "You might take part in a school activity that sits outside your classes."
   },
   "failure": {
    "pos": "singular noun",
-   "meaning": "A time when you do not succeed.",
+   "meaning": "A time when you try and do not succeed.",
+   "here": "Those times should teach you what to try next. They should not decide who you are.",
    "forms": [
     "failed"
    ]
   },
   "fall": {
    "pos": "singular noun",
-   "meaning": "The season after summer. Another name for autumn.",
+   "meaning": "The season after summer and before winter.",
+   "here": "He is going to college in that season.",
    "whyHard": "Not the usual meaning! Usually: fall means to drop down. Here it is the season.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "The season after summer. Another name for autumn.",
+     "meaning": "The season after summer and before winter.",
+     "here": "He is going to college in that season.",
      "anchors": [
       {
        "chapter": 4,
@@ -435,23 +505,27 @@
   },
   "flu": {
    "pos": "singular noun",
-   "meaning": "A sickness you can catch from other people."
+   "meaning": "A sickness that leaves you weak and gives you a raw throat plus a lot of coughing.",
+   "here": "He hopes you wash your hands and stay home when sick, so others do not catch this illness in autumn and winter."
   },
   "focus": {
    "pos": "verb",
-   "meaning": "To keep your mind on one thing.",
+   "meaning": "To hold your attention on one thing.",
+   "here": "The thing to hold it on is school, and the duty you have for your own learning.",
    "forms": [
     "focused"
    ]
   },
   "folk": {
    "pos": "singular noun",
-   "meaning": "People. Old folks means older people.",
+   "meaning": "A set of people.",
+   "here": "Here they are the older people, and he wants students to help them with what is most difficult.",
    "whyHard": "Not the usual meaning! Usually: folk can mean a kind of music. Here it means people.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "People. Old folks means older people.",
+     "meaning": "A set of people.",
+     "here": "Here they are the older people, and he wants students to help them with what is most difficult.",
      "anchors": [
       {
        "chapter": 2,
@@ -468,36 +542,44 @@
   },
   "fought": {
    "pos": "past-tense verb",
-   "meaning": "Tried hard against something for a long time."
+   "meaning": "Struggled for a long time against something hard.",
+   "here": "Andoni has struggled against brain cancer since he was three. Students of 75 years ago struggled for fair treatment."
   },
   "founded": {
    "pos": "past-tense verb",
-   "meaning": "Started something that lasts, such as a country or a company.",
+   "meaning": "Started something important that is still here.",
+   "here": "Young people started this country, and later young people started Google, Twitter, and Facebook.",
    "whyHard": "Not the usual meaning! Usually: found is the past of find. Founded means started."
   },
   "fulfill": {
    "pos": "verb",
-   "meaning": "To do what you are supposed to do."
+   "meaning": "To carry out a duty you are supposed to do.",
+   "here": "The best teachers, parents, and schools will not help if you do not carry out your duties."
   },
   "gang": {
    "pos": "singular noun",
-   "meaning": "A group that fights and breaks the law."
+   "meaning": "A group that fights and breaks the law together.",
+   "here": "She began a plan so that young people would stay away from those groups."
   },
   "goal": {
    "pos": "singular noun",
-   "meaning": "Something you decide you will reach."
+   "meaning": "A result you choose to work toward.",
+   "here": "Yours can be small, like finishing school work, listening during class, or reading for a while each day."
   },
   "government": {
    "pos": "singular noun",
-   "meaning": "The people who lead a country. A student government leads students at a school."
+   "meaning": "A group of people who run a country or a school.",
+   "here": "He means the group that runs the country, and also the student group you can join at school."
   },
   "graduate": {
    "pos": "verb",
    "meaning": "To finish high school or college.",
+   "here": "She is on the way to finish high school with a high mark, then go on to college.",
    "senseOnly": true,
    "senses": [
     {
      "meaning": "To finish high school or college.",
+     "here": "She is on the way to finish high school with a high mark, then go on to college.",
      "anchors": [
       {
        "chapter": 4,
@@ -508,7 +590,8 @@
      "default": true
     },
     {
-     "meaning": "The school you go to after you have finished college.",
+     "meaning": "The school you go to after college.",
+     "here": "She is in that school now, studying how to keep many people well.",
      "anchors": [
       {
        "chapter": 4,
@@ -523,16 +606,19 @@
   },
   "guarantee": {
    "pos": "verb",
-   "meaning": "To promise that something will happen."
+   "meaning": "To promise that something will surely happen.",
+   "here": "Whatever you hope to do in life, he promises that you will need school to do it."
   },
   "headed": {
    "pos": "adjective",
-   "meaning": "Going toward a place.",
+   "meaning": "On the way toward a place.",
+   "here": "He is on the way to college in the season after summer.",
    "whyHard": "Not the usual meaning! Usually: a head is the top part of the body. Headed means going toward a place.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "Going toward a place.",
+     "meaning": "On the way toward a place.",
+     "here": "He is on the way to college in the season after summer.",
      "anchors": [
       {
        "chapter": 4,
@@ -548,51 +634,62 @@
   },
   "homelessness": {
    "pos": "singular noun",
-   "meaning": "Having no home to live in."
+   "meaning": "The state of living without a home.",
+   "here": "You would use ideas from history class and from lessons about society to work against living with no home."
   },
   "host": {
    "pos": "singular noun",
-   "meaning": "A person or a school that welcomes guests."
+   "meaning": "A person or place that welcomes guests.",
+   "here": "He thanks Wakefield for welcoming the people who came."
   },
   "ingenuity": {
    "pos": "singular noun",
-   "meaning": "The skill of finding a clever way to do something."
+   "meaning": "Clever skill at thinking up new ideas.",
+   "here": "You will need that clever skill, built in your classes, to start new companies and new jobs."
   },
   "innovator": {
    "pos": "singular noun",
-   "meaning": "A person who thinks of a new way to do something."
+   "meaning": "A person who brings a new idea into use.",
+   "here": "You might be a person who brings in new ideas, such as a new phone or a new medicine. A science project might be how you find that out."
   },
   "insight": {
    "pos": "singular noun",
-   "meaning": "A clear idea you get after thinking."
+   "meaning": "A clear new grasp of a hard idea.",
+   "here": "You will need these clear ideas from history class and from lessons about society to work against too little money, life with no home, crime, and unfair treatment."
   },
   "inspire": {
    "pos": "verb",
-   "meaning": "To make someone want to do well.",
+   "meaning": "To make someone eager and brave enough to try.",
+   "here": "He has talked about the duty of teachers to make students eager and to push them to learn.",
    "forms": [
     "inspiring"
    ]
   },
   "intellect": {
    "pos": "singular noun",
-   "meaning": "The power of a person's mind."
+   "meaning": "The power to understand and to think well.",
+   "here": "He wants every student to grow that power so they can help older people with the hardest problems."
   },
   "inventor": {
    "pos": "singular noun",
-   "meaning": "A person who makes a thing that did not exist before."
+   "meaning": "A person who creates a thing nobody made before.",
+   "here": "You might be a person who makes a brand-new thing, such as a new phone or a new medicine. A science project might be how you find that out."
   },
   "iphone": {
    "pos": "singular noun",
-   "meaning": "A small computer you carry and use as a phone."
+   "meaning": "A pocket computer that also works as a phone.",
+   "here": "You might make the next one of these. A science project might be how you find that out."
   },
   "justice": {
    "pos": "singular noun",
-   "meaning": "A judge on the highest court.",
+   "meaning": "A judge who sits on the top court.",
+   "here": "You might become a judge on the country's top court. A student group or a debate team might show you that.",
    "whyHard": "Not the usual meaning! Usually: justice means fairness. Here a justice is a judge.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "A judge on the highest court.",
+     "meaning": "A judge who sits on the top court.",
+     "here": "You might become a judge on the country's top court. A student group or a debate team might show you that.",
      "anchors": [
       {
        "chapter": 2,
@@ -608,23 +705,28 @@
   },
   "kindergarten": {
    "pos": "singular noun",
-   "meaning": "The school year before grade 1."
+   "meaning": "The class for children about five, before grade one.",
+   "here": "Some of you are in that first class today, and students from that class through grade twelve are listening."
   },
   "knowledge": {
    "pos": "singular noun",
-   "meaning": "The things you know."
+   "meaning": "Facts and ideas picked up by learning.",
+   "here": "You will need what science class and math class teach if you hope to stop diseases, build new power, and keep air and ground safe."
   },
   "lawyer": {
    "pos": "singular noun",
-   "meaning": "A person whose job is the law."
+   "meaning": "A person whose job is helping others with the law.",
+   "here": "The question lists that law job beside a nurse, a building planner, and a place in the armed forces."
   },
   "local": {
    "pos": "adjective",
-   "meaning": "In that same town, not far away."
+   "meaning": "In the area close to you, not far off.",
+   "here": "She got work at a health center close to that place."
   },
   "manage": {
    "pos": "verb",
-   "meaning": "To succeed in doing something hard.",
+   "meaning": "To succeed at something that is hard to do.",
+   "here": "Even while moving from home to home in the hardest parts of town, she was able to find work and start a plan.",
    "whyHard": "Not the usual meaning! Usually: manage can mean to be the boss. Here it means she was able to do a hard thing.",
    "forms": [
     "managed"
@@ -632,7 +734,8 @@
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "To succeed in doing something hard.",
+     "meaning": "To succeed at something that is hard to do.",
+     "here": "Even while moving from home to home in the hardest parts of town, she was able to find work and start a plan.",
      "anchors": [
       {
        "chapter": 4,
@@ -649,12 +752,14 @@
   },
   "matter": {
    "pos": "verb",
-   "meaning": "To be important.",
+   "meaning": "To be important enough to change the result.",
+   "here": "It will not be important if you do not do what you should.",
    "whyHard": "Not the usual meaning! Usually: no matter means the fact does not change. Here matter means to be important.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "To be important.",
+     "meaning": "To be important enough to change the result.",
+     "here": "It will not be important if you do not do what you should.",
      "anchors": [
       {
        "chapter": 2,
@@ -670,56 +775,68 @@
   },
   "mayor": {
    "pos": "singular noun",
-   "meaning": "The leader of a city."
+   "meaning": "The person chosen by votes to lead a city.",
+   "here": "You might lead a city. A student group or a debate team might be how you first see that."
   },
   "medicine": {
    "pos": "singular noun",
-   "meaning": "A drug a doctor uses to treat a sickness."
+   "meaning": "Something you take in order to treat a sickness.",
+   "here": "You might make a new one for treating sickness. A science project might be how you find that out."
   },
   "meet": {
    "pos": "verb",
-   "meaning": "To reach a goal, or to face a hard problem.",
+   "meaning": "To do what a goal or a hard problem asks of you.",
+   "here": "You do what your own goals ask, and the country must do what its hardest problems ask.",
    "whyHard": "Not the usual meaning! Usually: meet means to see a person. Here it means to reach a goal or face a problem."
   },
   "military": {
    "pos": "singular noun",
-   "meaning": "A country's soldiers and other forces."
+   "meaning": "A country's soldiers together with its other armed services.",
+   "here": "The question lists a place in those services beside a nurse, a building planner, and a law job."
   },
   "nation": {
    "pos": "singular noun",
-   "meaning": "A country and its people."
+   "meaning": "A country and the people who live in it.",
+   "here": "It is this country, and what you learn helps decide what it becomes."
   },
   "necessarily": {
    "pos": "adverb",
-   "meaning": "In every case. Not necessarily means maybe not."
+   "meaning": "For sure, as a result that must follow.",
+   "here": "Success on an opening try is not certain."
   },
   "neglect": {
    "pos": "verb",
-   "meaning": "To leave undone something you should do.",
+   "meaning": "To leave undone a thing you should take care of.",
+   "here": "None of those facts about your life is a reason to leave school work undone or to behave badly at school.",
    "forms": [
     "neglecting"
    ]
   },
   "neighborhood": {
    "pos": "singular noun",
-   "meaning": "The streets and houses around your home."
+   "meaning": "The homes and streets around the place you live.",
+   "here": "You might live in one of those areas and not feel safe."
   },
   "nervous": {
    "pos": "adjective",
-   "meaning": "A little afraid."
+   "meaning": "A little scared or worried, and not calm.",
+   "here": "Day one at a school that is new can leave you a little scared, and that is easy to understand."
   },
   "newspaper": {
    "pos": "singular noun",
-   "meaning": "Paper printed with the news."
+   "meaning": "Sheets of paper, folded, with the day's news on them.",
+   "here": "You might produce a book, or short pieces for those news sheets. An English class paper might show you that."
   },
   "note": {
    "pos": "singular noun",
-   "meaning": "One sound in a song.",
+   "meaning": "One musical sound in a song.",
+   "here": "On a first try at a song, some of the musical sounds will not come out right.",
    "whyHard": "Not the usual meaning! Usually: a note is a short message you write. Here it is one sound in music.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "One sound in a song.",
+     "meaning": "One musical sound in a song.",
+     "here": "On a first try at a song, some of the musical sounds will not come out right.",
      "anchors": [
       {
        "chapter": 5,
@@ -735,43 +852,52 @@
   },
   "officer": {
    "pos": "singular noun",
-   "meaning": "A person in the police."
+   "meaning": "A person who works for the police.",
+   "here": "The question asks if a doctor, a teacher, or police work is what you want."
   },
   "opportunity": {
    "pos": "singular noun",
-   "meaning": "A real chance to do something."
+   "meaning": "A chance that lets you do something.",
+   "here": "School can open that chance, and he himself got the chance to go on to college."
   },
   "outstanding": {
    "pos": "adjective",
-   "meaning": "Much better than most."
+   "meaning": "Far better than what is usual.",
+   "here": "He says Wakefield was much better than most at welcoming people."
   },
   "overcame": {
    "pos": "past-tense verb",
-   "meaning": "Got through a very hard time."
+   "meaning": "Got through a very hard time.",
+   "here": "Students from 75 years ago got through a Depression."
   },
   "overseas": {
    "pos": "adverb",
-   "meaning": "In a country across the sea."
+   "meaning": "In a foreign land on the far side of the sea.",
+   "here": "When he was young, his family lived in a country on the far side of the sea."
   },
   "poverty": {
    "pos": "singular noun",
-   "meaning": "Being very poor."
+   "meaning": "The hard life of having far too little money.",
+   "here": "You would use ideas from history class and from lessons about society to work against that hard life of having far too little money."
   },
   "pressure": {
    "pos": "verb",
-   "meaning": "To push someone to do something.",
+   "meaning": "To push someone to do what you want.",
+   "here": "Friends may push you toward things you already know are wrong.",
    "forms": [
     "pressuring"
    ]
   },
   "pretty": {
    "pos": "adverb",
-   "meaning": "Quite. More than a little.",
+   "meaning": "More than a little, but not the most.",
+   "here": "Some students in their last year feel more than a little glad, because only one school year remains.",
    "whyHard": "Not the usual meaning! Usually: pretty means nice to look at. Here it means quite.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "Quite. More than a little.",
+     "meaning": "More than a little, but not the most.",
+     "here": "Some students in their last year feel more than a little glad, because only one school year remains.",
      "anchors": [
       {
        "chapter": 1,
@@ -787,45 +913,54 @@
   },
   "principal": {
    "pos": "singular noun",
-   "meaning": "The person who leads a school.",
+   "meaning": "The person in charge of a school.",
+   "here": "The government has the job of helping the people who run schools.",
    "whyHard": "A principle is a rule. A principal is the person who leads a school."
   },
   "principle": {
    "pos": "singular noun",
    "meaning": "A rule that stays true in many places.",
+   "here": "That same rule also fits the work you do for class.",
    "whyHard": "A principal is the person who leads a school. A principle is a rule."
   },
   "program": {
    "pos": "singular noun",
-   "meaning": "A plan of things people will do."
+   "meaning": "A plan of things a group will do.",
+   "here": "She started a plan that helps young people stay away from gangs."
   },
   "project": {
    "pos": "singular noun",
-   "meaning": "A piece of school work that takes more than one day."
+   "meaning": "School work you plan, which takes more than one day.",
+   "here": "You may not find out you can invent things until you do this planned work in science class."
   },
   "provide": {
    "pos": "verb",
-   "meaning": "To give something that is needed."
+   "meaning": "To supply something that is needed.",
+   "here": "An education can supply that chance."
   },
   "publish": {
    "pos": "verb",
-   "meaning": "To print a book so people can buy it and read it.",
+   "meaning": "To have a book printed and sold for others to read.",
+   "here": "Her book was printed and sold only after it had been turned down twelve times.",
    "forms": [
     "published"
    ]
   },
   "quit": {
    "pos": "verb",
-   "meaning": "To stop trying, or to leave."
+   "meaning": "To stop trying.",
+   "here": "He wants people who keep going when the work is hard, and who do not walk away from school."
   },
   "raised": {
    "pos": "past-tense verb",
-   "meaning": "Brought up as a child.",
+   "meaning": "Cared for and brought up during childhood.",
+   "here": "After his father left, his mother brought him up while she worked.",
    "whyHard": "Not the usual meaning! Usually: raise means to lift something up. Here it means brought up as a child.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "Brought up as a child.",
+     "meaning": "Cared for and brought up during childhood.",
+     "here": "After his father left, his mother brought him up while she worked.",
      "anchors": [
       {
        "chapter": 3,
@@ -841,54 +976,65 @@
   },
   "rap": {
    "pos": "verb",
-   "meaning": "To speak in rhythm with music.",
+   "meaning": "To speak words in time with music.",
+   "here": "The shows point to speaking words with music as a way to become rich.",
    "forms": [
     "rapping"
    ]
   },
   "reject": {
    "pos": "verb",
-   "meaning": "To say no to something that was offered.",
+   "meaning": "To turn something down and not take it.",
+   "here": "It was turned down twelve times before it was printed and sold.",
    "forms": [
     "rejected"
    ]
   },
   "relevant": {
    "pos": "adjective",
-   "meaning": "Connected to your real life."
+   "meaning": "Tied closely to the thing you are dealing with.",
+   "here": "Some homework will not seem tied closely to your life at this moment."
   },
   "resolve": {
    "pos": "verb",
-   "meaning": "To decide firmly that you will do something."
+   "meaning": "To make a firm decision to do something.",
+   "here": "Whatever you firmly decide to do, he wants you to stay with it."
   },
   "responsibility": {
    "pos": "singular noun",
-   "meaning": "Your duty. The part you are supposed to do."
+   "meaning": "A duty a person is supposed to carry out.",
+   "here": "He names the duty of teachers, of parents, of the country's leaders, and of each student."
   },
   "revolution": {
    "pos": "singular noun",
-   "meaning": "A fight that changes who leads a country."
+   "meaning": "A fight to change who leads a country.",
+   "here": "Students from 250 years ago carried on that fight, and then they started this country."
   },
   "scholarship": {
    "pos": "singular noun",
-   "meaning": "Money a school gives you so you can study there."
+   "meaning": "Money a school gives so you can study there.",
+   "here": "After hard study and strong marks, a school gave her money to study at Brown."
   },
   "schoolwork": {
    "pos": "singular noun",
-   "meaning": "The work a student does for school."
+   "meaning": "The work a student does for class.",
+   "here": "Hard things in life can pull your mind off it, and getting better at it takes practice."
   },
   "senator": {
    "pos": "singular noun",
-   "meaning": "A person chosen to help make a country's laws."
+   "meaning": "A person in the group that helps make a country's laws.",
+   "here": "You might one day help make laws, but you may not know it until you try leading or arguing at school."
   },
   "senior": {
    "pos": "singular noun",
    "meaning": "A student in the last year of high school.",
+   "here": "Some students in their last year of high school feel glad, with only one year left.",
    "whyHard": "Not the usual meaning! Usually: senior can mean an older person. Here it is a student in the last year.",
    "senseOnly": true,
    "senses": [
     {
      "meaning": "A student in the last year of high school.",
+     "here": "Some students in their last year of high school feel glad, with only one year left.",
      "anchors": [
       {
        "chapter": 1,
@@ -905,12 +1051,14 @@
   },
   "sense": {
    "pos": "singular noun",
-   "meaning": "A feeling or an idea you pick up from something.",
+   "meaning": "An idea or feeling you pick up about something.",
+   "here": "Television can leave you thinking you can get rich without hard work.",
    "whyHard": "Not the usual meaning! Usually: a sense is one of the five ways you see, hear, smell, taste, and touch. Here it is an idea you get from television.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "A feeling or an idea you pick up from something.",
+     "meaning": "An idea or feeling you pick up about something.",
+     "here": "Television can leave you thinking you can get rich without hard work.",
      "anchors": [
       {
        "chapter": 5,
@@ -926,12 +1074,14 @@
   },
   "shot": {
    "pos": "singular noun",
-   "meaning": "In basketball, a throw toward the basket.",
+   "meaning": "A throw of the ball toward the basket.",
+   "here": "In his years of play he missed thousands of throws toward the basket.",
    "whyHard": "Not the usual meaning! Usually: a shot can be from a gun. Here it is a throw in basketball.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "In basketball, a throw toward the basket.",
+     "meaning": "A throw of the ball toward the basket.",
+     "here": "In his years of play he missed thousands of throws toward the basket.",
      "anchors": [
       {
        "chapter": 5,
@@ -948,12 +1098,14 @@
   },
   "sign": {
    "pos": "singular noun",
-   "meaning": "A thing that shows something else.",
+   "meaning": "A thing that shows something else is true.",
+   "here": "Asking for help shows courage. It does not show a lack of courage.",
    "whyHard": "Not the usual meaning! Usually: a sign can be a board with words, or writing your name. Here it is a thing that shows a feeling.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "A thing that shows something else.",
+     "meaning": "A thing that shows something else is true.",
+     "here": "Asking for help shows courage. It does not show a lack of courage.",
      "anchors": [
       {
        "chapter": 5,
@@ -974,34 +1126,41 @@
   },
   "similar": {
    "pos": "adjective",
-   "meaning": "Almost the same."
+   "meaning": "Very close, but not exactly the same.",
+   "here": "His wife's life story is very close to his own."
   },
   "skill": {
    "pos": "singular noun",
-   "meaning": "Something you have learned to do well."
+   "meaning": "A learned ability that comes from practice.",
+   "here": "You should grow the abilities that come from practice, so you can help older people with hard problems."
   },
   "solve": {
    "pos": "verb",
    "meaning": "To find an answer to a hard problem.",
+   "here": "The hard problems belong to older people and to this country, and he asks which ones you will take.",
    "forms": [
     "solving"
    ]
   },
   "speech": {
    "pos": "singular noun",
-   "meaning": "A talk a person gives to a group."
+   "meaning": "A talk one person gives to a group.",
+   "here": "This one is his talk to the country's students, and he has given many talks about school."
   },
   "standard": {
    "pos": "singular noun",
-   "meaning": "A rule for how good work must be."
+   "meaning": "How good something must be.",
+   "here": "The government has the job of setting a high level for how good schools must be."
   },
   "strength": {
    "pos": "singular noun",
-   "meaning": "Being strong."
+   "meaning": "The courage to face something hard.",
+   "here": "Asking for help shows you can say you do not know, and that takes courage."
   },
   "struggle": {
    "pos": "verb",
-   "meaning": "To try hard when something is difficult.",
+   "meaning": "To keep trying when something is hard.",
+   "here": "At times his mother found it hard and had to keep trying to pay what the family owed.",
    "forms": [
     "struggled",
     "struggling"
@@ -1009,50 +1168,60 @@
   },
   "stupid": {
    "pos": "adjective",
-   "meaning": "Slow to learn. A bad grade does not mean you are this."
+   "meaning": "Slow to learn and understand.",
+   "here": "A low mark does not mean you are slow to learn. It means you should study for longer."
   },
   "succeed": {
    "pos": "verb",
-   "meaning": "To do well at what you are trying.",
+   "meaning": "To reach the good end you were working toward.",
+   "here": "Reaching it takes hard work, and it often comes only after many tries.",
    "forms": [
     "succeeded"
    ]
   },
   "successful": {
    "pos": "adjective",
-   "meaning": "Having done well."
+   "meaning": "Doing well at what you hoped to do.",
+   "here": "Doing well is hard. Shows that make it look easy, with no work, are wrong."
   },
   "supportive": {
    "pos": "adjective",
-   "meaning": "Ready to help."
+   "meaning": "Ready to help someone and cheer them on.",
+   "here": "The parents who help you and cheer you on the most still count for nothing if you do not do your own part."
   },
   "surgery": {
    "pos": "singular noun",
-   "meaning": "A doctor's work inside the body to treat a sickness."
+   "meaning": "When a doctor cuts the body open to fix a problem inside.",
+   "here": "He had to bear times when doctors cut his body open to fix a problem inside."
   },
   "talent": {
    "pos": "singular noun",
-   "meaning": "A strong natural skill."
+   "meaning": "A strong ability you have by nature.",
+   "here": "You should grow the strong abilities you have by nature, so you can help with hard problems."
   },
   "tease": {
    "pos": "verb",
-   "meaning": "To make fun of someone in a mean way.",
+   "meaning": "To make fun of someone in a cruel way.",
+   "here": "You might defend students whom others make fun of for their looks or the kind of person they are.",
    "forms": [
     "teased"
    ]
   },
   "technology": {
    "pos": "singular noun",
-   "meaning": "A machine, or a way of doing work with science."
+   "meaning": "New tools and ways of working that come from science.",
+   "here": "Skills from science can help you create new ways to make energy."
   },
   "ticket": {
    "pos": "singular noun",
-   "meaning": "The thing that gets you what you want. Here, the way people think you become rich.",
+   "meaning": "The way that leads to a goal.",
+   "here": "The shows treat music, basketball, or a television show as the way to do well.",
    "whyHard": "Not the usual meaning! Usually: a ticket is a paper for a bus, a train, or a show. Here it is the way to success.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "The thing that gets you what you want. Here, the way people think you become rich.",
+     "meaning": "The way that leads to a goal.",
+     "here": "The shows treat music, basketball, or a television show as the way to do well.",
      "anchors": [
       {
        "chapter": 5,
@@ -1068,12 +1237,14 @@
   },
   "train": {
    "pos": "verb",
-   "meaning": "To learn the skills a job needs.",
+   "meaning": "To learn and practice the skills a job needs.",
+   "here": "You have to learn the skills a job needs, then keep working and studying for it.",
    "whyHard": "Not the usual meaning! Usually: a train is a line of cars on a track. Here train means to learn a job.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "To learn the skills a job needs.",
+     "meaning": "To learn and practice the skills a job needs.",
+     "here": "You have to learn the skills a job needs, then keep working and studying for it.",
      "anchors": [
       {
        "chapter": 2,
@@ -1089,44 +1260,54 @@
   },
   "treatment": {
    "pos": "singular noun",
-   "meaning": "Care a doctor gives to treat a sickness."
+   "meaning": "Care a doctor gives in order to fight an illness.",
+   "here": "He had to bear many kinds of care that doctors use to fight illness."
   },
   "troublemaker": {
    "pos": "singular noun",
-   "meaning": "A person who keeps causing trouble."
+   "meaning": "A person who causes problems on purpose.",
+   "here": "Landing in a bad spot does not mean you cause problems on purpose. It means you must work harder to behave well."
   },
   "understandable": {
    "pos": "adjective",
-   "meaning": "Easy to see why a person feels that way."
+   "meaning": "Reasonable because of the situation you are in.",
+   "here": "Feeling a little uneasy is reasonable when the school is new to you."
   },
   "university": {
    "pos": "singular noun",
-   "meaning": "A large school after high school."
+   "meaning": "A big school you go to after high school.",
+   "here": "The money for study let her go to Brown, a school that comes after high school."
   },
   "unless": {
    "pos": "joining word",
-   "meaning": "If not. The other thing happens only when this is true."
+   "meaning": "If that does not happen.",
+   "here": "Great teachers, parents, and schools change nothing if you do not do your own part."
   },
   "vaccine": {
    "pos": "singular noun",
-   "meaning": "A medicine that keeps you from catching a sickness."
+   "meaning": "A weak bit of a sickness, given so your body learns to fight it.",
+   "here": "You might invent one that stops people from catching a sickness, but you may not know until science class."
   },
   "varsity": {
    "pos": "adjective",
-   "meaning": "The top sports team at a school."
+   "meaning": "On the top sports team of a school.",
+   "here": "When you try a sport you have never played, you are not on the school's top team yet."
   },
   "volunteer": {
    "pos": "verb",
-   "meaning": "To do useful work and not ask to be paid."
+   "meaning": "To choose useful work and not take money for it.",
+   "here": "You might choose to help where you live and not ask for any pay."
   },
   "wage": {
    "pos": "verb",
-   "meaning": "To carry on a fight.",
+   "meaning": "To carry on a war or a long fight.",
+   "here": "Students of 250 years ago carried on a long fight, and then they started this country.",
    "whyHard": "Not the usual meaning! Usually: a wage is the money you earn for work. Here wage means to carry on a fight.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "To carry on a fight.",
+     "meaning": "To carry on a war or a long fight.",
+     "here": "Students of 250 years ago carried on a long fight, and then they started this country.",
      "anchors": [
       {
        "chapter": 6,
@@ -1142,11 +1323,13 @@
   },
   "weakness": {
    "pos": "singular noun",
-   "meaning": "A lack of strength."
+   "meaning": "A lack of courage in your character.",
+   "here": "Asking for help does not show a lack of courage. It shows you can admit what you do not know."
   },
   "xbox": {
    "pos": "singular noun",
-   "meaning": "A machine for playing video games."
+   "meaning": "A machine made for playing video games.",
+   "here": "Parents should keep you from spending all your free time on television or that game machine."
   }
  },
  "paragraphs": [],
@@ -1184,192 +1367,230 @@
  ],
  "phrases": {
   "along those lines": {
-   "meaning": "About that same idea.",
+   "meaning": "In a similar way to what was just said.",
+   "here": "Taking care of your body is that same idea, so he hopes they wash their hands and stay home when sick.",
    "pos": "idiom",
    "example": "And along those lines, by the way, I hope all of you are washing your hands"
   },
   "at the end of the day": {
-   "meaning": "When you look at what really matters.",
+   "meaning": "In the end, after you think about all of it.",
+   "here": "After everything else is counted, this is the result that still stands.",
    "pos": "idiom",
    "example": "But at the end of the day, the circumstances of your life"
   },
   "by the way": {
-   "meaning": "A short turn to a related point.",
+   "meaning": "A short extra point next to the main one.",
+   "here": "He marks washing hands as a short extra point, not the main goal he was just setting.",
    "pos": "idiom",
    "example": "And along those lines, by the way, I hope all of you are washing your hands"
   },
   "chances are": {
    "meaning": "It is likely.",
+   "here": "He decides that most students will not become a rapper, a basketball player, or a television star.",
    "pos": "idiom",
    "example": "Chances are you're not going to be any of those things."
   },
   "civil rights": {
-   "meaning": "The rights every person should have, such as fair treatment.",
+   "meaning": "The fair treatment every person should have by law.",
+   "here": "Students of that time worked so people would be treated fairly, and they also sent a person to the moon.",
    "pos": "phrase",
    "example": "who fought for civil rights and put a man on the moon"
   },
   "click with": {
-   "meaning": "To get along well with a person.",
+   "meaning": "To feel a friendly connection to someone.",
+   "here": "He says you will not feel a friendly connection to every teacher you have.",
    "pos": "idiom",
    "example": "You won't click with every teacher that you have."
   },
   "come up with": {
-   "meaning": "To think of an idea or a new thing.",
+   "meaning": "To think of a new idea or thing.",
+   "here": "You may not know you can invent a new phone until you do the science project.",
    "pos": "idiom",
    "example": "maybe even good enough to come up with the next iPhone"
   },
   "critical thinking": {
-   "meaning": "Thinking carefully about ideas, and not just believing them.",
+   "meaning": "Careful thought that tests an idea before you believe it.",
+   "here": "History is where you learn to test ideas, and you will need that against poverty and unfair treatment.",
    "pos": "phrase",
    "example": "the insights and critical-thinking skills you gain in history"
   },
   "cut class": {
-   "meaning": "To stay out of a class when you should be there.",
+   "meaning": "To stay away from a class you should go to.",
+   "here": "A hard life is no reason to skip a lesson you should be in.",
    "pos": "idiom",
    "example": "or cutting class, or dropping out of school"
   },
   "do one's part": {
-   "meaning": "To do your own share of the work.",
+   "meaning": "To carry the share of the work that is yours.",
+   "here": "Adults are already helping, so each student must still carry the share that belongs to them.",
    "pos": "idiom",
    "example": "But you've got to do your part, too."
   },
   "drop into": {
-   "meaning": "To get something good without the work it needs, as if you fell into it.",
+   "meaning": "To land in a good place as if you simply fell there.",
+   "here": "You cannot leave school and fall into a good job.",
    "pos": "idiom",
    "example": "You cannot drop out of school and just drop into a good job."
   },
   "drop out": {
    "meaning": "To leave school before you finish.",
+   "here": "A hard life is no reason to leave school before you finish.",
    "pos": "idiom",
    "example": "or cutting class, or dropping out of school"
   },
   "end up": {
-   "meaning": "To arrive at a result at the end.",
+   "meaning": "To reach a later result.",
+   "here": "The place you are now does not have to decide the result you reach later.",
    "pos": "idiom",
    "example": "Where you are right now doesn't have to determine where you'll end up."
   },
   "fall asleep": {
-   "meaning": "To begin to sleep.",
+   "meaning": "To start sleeping.",
+   "here": "The lessons were so early that he often started sleeping at the table in the kitchen.",
    "pos": "idiom",
    "example": "I'd fall asleep right there at the kitchen table."
   },
   "fall behind": {
-   "meaning": "To become slower than you should be, so the work gets ahead of you.",
+   "meaning": "To get slower than you should.",
+   "here": "The extra hours did not leave Andoni slower than his class.",
    "pos": "idiom",
    "example": "But he never fell behind."
   },
   "first lady": {
-   "meaning": "The title of the President's wife.",
+   "meaning": "The title for the wife of the President.",
+   "here": "He gives his wife, Michelle Obama, that title, and says her story is like his.",
    "pos": "phrase",
    "example": "our First Lady Michelle Obama"
   },
   "fit in": {
-   "meaning": "To feel that you belong with the people around you.",
+   "meaning": "To feel you are one of the people around you.",
+   "here": "When he was young he felt lonely and felt he did not belong.",
    "pos": "idiom",
    "example": "I felt like I didn't fit in."
   },
   "fix up": {
-   "meaning": "To repair something and make it better.",
+   "meaning": "To make a place better so people can use it.",
+   "here": "He says his work includes repairing the classrooms so students can learn.",
    "pos": "idiom",
    "example": "I'm working hard to fix up your classrooms"
   },
   "foster home": {
-   "meaning": "A home that looks after a child whose own parents cannot.",
+   "meaning": "A place where other adults look after a child who cannot live with their parents.",
+   "here": "Shantell kept moving from one care family to another, and she still worked toward finishing school.",
    "pos": "phrase",
    "example": "bouncing from foster home to foster home"
   },
   "get involved": {
-   "meaning": "To take part in something.",
+   "meaning": "To join in and take part.",
+   "here": "One goal he offers is joining a school activity outside ordinary class.",
    "pos": "idiom",
    "example": "Maybe you'll decide to get involved in an extracurricular activity"
   },
   "get it right": {
-   "meaning": "To do it correctly.",
+   "meaning": "To do something correctly.",
+   "here": "A math problem may take several tries before the answer is correct.",
    "pos": "idiom",
    "example": "before you get it right"
   },
   "give up": {
    "meaning": "To stop trying.",
+   "here": "The students he praises refused to stop, and he tells you not to stop on yourself or on your country.",
    "pos": "idiom",
    "example": "don't ever give up on yourself"
   },
   "go ahead": {
-   "meaning": "To start. Do it.",
+   "meaning": "You may start now.",
+   "here": "He tells everyone they may start, and the thing to start is sitting down.",
    "pos": "idiom",
    "example": "everybody go ahead and have a seat"
   },
   "go around": {
-   "meaning": "To be enough for everyone.",
+   "meaning": "To be enough for every person.",
+   "here": "Someone in the family may have lost a job, so there is not enough money for everyone.",
    "pos": "idiom",
    "example": "there's not enough money to go around"
   },
   "going on": {
-   "meaning": "Happening.",
+   "meaning": "What is happening.",
+   "here": "What is happening at home is one hard fact, along with your looks and your money, and none of them excuses skipped work.",
    "pos": "idiom",
    "example": "what you've got going on at home"
   },
   "hand in": {
    "meaning": "To give a finished paper to the teacher.",
+   "here": "A paper needs several drafts before it is ready to give to the teacher.",
    "pos": "idiom",
    "example": "before it's good enough to hand in"
   },
   "have a seat": {
    "meaning": "To sit down.",
+   "here": "He asks everyone in the room to sit down.",
    "pos": "idiom",
    "example": "everybody go ahead and have a seat"
   },
   "health center": {
-   "meaning": "A place people go to for medical help.",
+   "meaning": "A place people go for medical help.",
+   "here": "Shantell got a job at a neighborhood place that gives medical help.",
    "pos": "phrase",
    "example": "get a job at a local health center"
   },
   "i get it": {
    "meaning": "I understand.",
+   "here": "He says he understands that many students have hard lives that make school difficult.",
    "pos": "idiom",
    "example": "I get it."
   },
   "keep up with": {
-   "meaning": "To stay at the same level.",
+   "meaning": "To stay as fast as the others.",
+   "here": "His mother wanted his lessons to match the pace of school in America.",
    "pos": "idiom",
    "example": "important for me to keep up with an American education"
   },
   "let down": {
-   "meaning": "To fail a person who was counting on you.",
+   "meaning": "To not do what someone was counting on you to do.",
+   "here": "He asks the students not to fail the adults who are already helping them.",
    "pos": "phrasal verb",
    "example": "So don't let us down."
   },
   "no matter": {
-   "meaning": "It does not change the fact.",
+   "meaning": "Whatever the case, this stays true.",
+   "here": "Whatever grade they are in, some students still wish summer had not ended.",
    "pos": "idiom",
    "example": "And no matter what grade you're in"
   },
   "no picnic": {
    "meaning": "Not easy, and not fun.",
+   "here": "His mother says the early morning lessons are hard for her too, not only for him.",
    "pos": "idiom",
    "example": "This is no picnic for me either, buster."
   },
   "nothing less than": {
-   "meaning": "Exactly as big as this. Not smaller.",
+   "meaning": "Exactly this, and not something smaller.",
+   "here": "What students make of school will decide the country's future, and that future is not a smaller thing.",
    "pos": "idiom",
    "example": "will decide nothing less than the future of this country"
   },
   "on track": {
-   "meaning": "Doing what leads where you want to go.",
+   "meaning": "Moving along the path that leads to a goal.",
+   "here": "Parents should keep you moving that way, and Shantell is moving that way toward finishing high school.",
    "pos": "idiom",
    "example": "making sure you stay on track"
   },
   "public health": {
-   "meaning": "The work of keeping many people healthy.",
+   "meaning": "The work of keeping many people well.",
+   "here": "Jazmin is studying how to keep many people well, and she is on the way to becoming a doctor.",
    "pos": "phrase",
    "example": "studying public health, on her way to becoming"
   },
   "put in": {
-   "meaning": "To spend effort or time.",
+   "meaning": "To spend time or effort.",
+   "here": "Success takes hard effort, and the students themselves must spend it.",
    "pos": "idiom",
    "example": "and put in the hard work it takes to succeed"
   },
   "quit on": {
-   "meaning": "To stop trying for a person or a group, and leave them.",
+   "meaning": "To stop your effort for someone and leave them.",
+   "here": "If you stop your effort for school, you also stop it for yourself and for the country.",
    "pos": "idiom",
    "forms": [
     "quitting on"
@@ -1377,17 +1598,20 @@
    "example": "if you quit on school"
   },
   "reality tv": {
-   "meaning": "A television show about real people, not a made-up story.",
+   "meaning": "A show on TV about real people, not a made-up story.",
+   "here": "The television picture of easy success includes becoming a star of a show about real people.",
    "pos": "phrase",
    "example": "or being a reality TV star"
   },
   "round of applause": {
    "meaning": "People hitting their hands together to show they liked something.",
+   "here": "He asks the students at Wakefield to clap for themselves because they are good hosts.",
    "pos": "phrase",
    "example": "Give yourselves a big round of applause."
   },
   "second chance": {
-   "meaning": "Another try after you have failed.",
+   "meaning": "Another try after a failure.",
+   "here": "After his mistakes, he was given many more tries, and he could still go to college.",
    "pos": "phrase",
    "forms": [
     "second chances"
@@ -1395,67 +1619,80 @@
    "example": "I got a lot of second chances"
   },
   "show up": {
-   "meaning": "To arrive where you should be.",
+   "meaning": "To come to the place where you are wanted.",
+   "here": "The best schools will not matter unless the students actually arrive there.",
    "pos": "idiom",
    "example": "unless you show up to those schools"
   },
   "single mom": {
-   "meaning": "A mother who raises her child without the other parent.",
+   "meaning": "A mother who is bringing up a child on her own.",
+   "here": "His father left when he was two, so his mother raised him alone while she worked.",
    "pos": "phrase",
    "example": "I was raised by a single mom who had to work"
   },
   "social studies": {
    "meaning": "The school subject about people and how they live together.",
+   "here": "This school subject, like history, gives you ideas for the fight against poverty and unfairness.",
    "pos": "phrase",
    "example": "you gain in history and social studies to fight poverty"
   },
   "stand up for": {
-   "meaning": "To speak or act for someone who is being hurt.",
+   "meaning": "To speak for someone others are treating in a bad way.",
+   "here": "One goal is to defend students who are teased for their looks or for who they are.",
    "pos": "idiom",
    "example": "Maybe you'll decide to stand up for kids who are being teased"
   },
   "supreme court": {
-   "meaning": "The highest court of law in the country.",
+   "meaning": "The highest group of judges in the country.",
+   "here": "You might one day be a judge in that highest group. You may find that out only after student government or debate.",
    "pos": "phrase",
    "example": "a senator or a Supreme Court justice"
   },
   "talk back": {
-   "meaning": "To answer a teacher or a parent in a rude way.",
+   "meaning": "To answer a teacher in a bad way.",
+   "here": "A hard life does not excuse a rude answer to your teacher.",
    "pos": "idiom",
    "example": "That's no excuse for talking back to your teacher"
   },
   "this minute": {
-   "meaning": "Right now. Not later.",
+   "meaning": "Right now, not later.",
+   "here": "Not every homework task will seem to fit your life at the present moment.",
    "pos": "idiom",
    "example": "relevant to your life right at this minute"
   },
   "tune in": {
    "meaning": "To watch or listen from another place.",
+   "here": "Students all over the country are watching this talk from their own schools.",
    "pos": "idiom",
    "example": "we've got students tuning in from all across America"
   },
   "turn around": {
-   "meaning": "To change a failing school so that it starts to work.",
+   "meaning": "To change a school that is not working so students can learn there.",
+   "here": "He counts changing failing schools as part of the government's job.",
    "pos": "idiom",
    "example": "and turning around schools that aren't working"
   },
   "turn for the worse": {
    "meaning": "A change that makes things harder.",
+   "here": "After his mistakes, his life could easily have become much harder.",
    "pos": "idiom",
    "example": "my life could have easily taken a turn for the worse"
   },
   "waking hour": {
-   "meaning": "Any time you are awake.",
+   "meaning": "Any time you are not sleeping.",
+   "here": "Parents are responsible for keeping students from using every awake moment on television or games.",
    "pos": "phrase",
    "example": "don't spend every waking hour in front of the TV"
   },
   "with honors": {
-   "meaning": "With a special high mark at the end of school.",
+   "meaning": "A special high result given when you finish school.",
+   "here": "Shantell is set to finish high school and earn a special high mark, then enter college.",
    "pos": "phrase",
    "example": "graduate high school with honors and go on to college"
   },
   "worse off": {
    "meaning": "In a harder situation.",
+   "here": "In some cases their lives were harder than the lives of many students listening.",
    "pos": "idiom",
    "example": "they've got it a lot worse off than many of you"
   }
