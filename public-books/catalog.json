@@ -50,14 +50,14 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA (Project Gutenberg).",
    "lexile": "980L",
-   "updated": "2026-10-04",
-   "rev": "b847b25487ee",
+   "updated": "2026-10-05",
+   "rev": "e7f66cb0d326",
    "version": 2,
    "chapters": 36,
-   "words": 1787,
+   "words": 1818,
    "paragraphs": 46,
    "sentences": 10,
-   "phrases": 40,
+   "phrases": 78,
    "coined": 0,
    "epub": {
     "url": "treasure-island/book.epub",
@@ -66,9 +66,9 @@
    },
    "glossary": {
     "url": "treasure-island/glossary.json",
-    "bytes": 319322,
-    "sha256": "6b6440019f9b0173c83243f863bf48efb4a0f345e0072dc9231a58bbbd67bc6c",
-    "rev": "6b6440019f9b"
+    "bytes": 360493,
+    "sha256": "c3ef93885145b55042ceaa72b765d994f9f424dfafef81cb20329304b1441c87",
+    "rev": "c3ef93885145"
    },
    "cover": {
     "url": "treasure-island/cover.jpg",
@@ -77,8 +77,8 @@
    },
    "zip": {
     "url": "treasure-island.zip",
-    "bytes": 407230,
-    "sha256": "2245fdf4544fda9c4df9ba14682f9a0b714f3038d8d99eb2cf0248fb1f7502a3"
+    "bytes": 415192,
+    "sha256": "894780b431b736be94c891f07d516a91ffa22a85db35f10271c8a1f09d60e748"
    }
   },
   {
@@ -474,7 +474,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 11245875,
-  "sha256": "9c5cb95d47a8418e7ec90b9d0d746c68dd9a6f108b49d7c661f83cc1f575a53e"
+  "bytes": 11253840,
+  "sha256": "fcc9cbcf9398c86baa530c0a251901e0072de51f197cd1265e0393a5f84b7016"
  }
 }
