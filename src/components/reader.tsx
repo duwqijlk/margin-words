@@ -586,37 +586,41 @@ function WordCard({
         SIDE_PANEL,
       )}
     >
-      <div className="relative mb-1 flex h-11 items-center justify-end">
-        <div
-          className="pointer-events-none absolute top-1/2 left-1/2 h-1 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-line md:hidden"
-          aria-hidden
-        />
-        <button
-          type="button"
-          className={cn(btn.icon, "-mr-2")}
-          onClick={onClose}
-          aria-label={t("card.close")}
-          data-panel-close
-        >
-          <X className="size-5" aria-hidden />
-        </button>
-      </div>
+      <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden" aria-hidden />
       <div className="grid gap-3.5">
         <div className="grid min-w-0 gap-1">
-          <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-2" data-word-head>
-            <h2 className="w-fit max-w-full shrink-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words" lang="en">
+          {/* The close control sits in the corner. A short float keeps the first line
+              clear of it; the next line uses the full width, so a long word stays whole. */}
+          <div className="relative flow-root min-w-0" data-word-head>
+            <span className="float-right h-8 w-9" aria-hidden />
+            <button
+              type="button"
+              className={cn(btn.icon, "absolute top-0 right-0 z-10 -mt-2 -mr-2")}
+              onClick={onClose}
+              aria-label={t("card.close")}
+              data-panel-close
+            >
+              <X className="size-5" aria-hidden />
+            </button>
+            <h2
+              className={cn(
+                "inline font-display text-[1.85rem] leading-tight font-semibold tracking-tight",
+                (phrase || state.pos || state.status === "easy") && "mr-3",
+              )}
+              lang="en"
+            >
               {phrase ? phrase.key : state.key}
             </h2>
             {phrase ? (
-              <span className={wordPosClass()} data-phrase-pos data-word-pos>
+              <span className={cn(wordPosClass(), "align-baseline")} data-phrase-pos data-word-pos>
                 {phrase.entry.pos ? <span lang="en">{phrase.entry.pos}</span> : t("card.phraseFallback")}
               </span>
             ) : state.pos ? (
-              <span className={wordPosClass()} data-word-pos>
+              <span className={cn(wordPosClass(), "align-baseline")} data-word-pos>
                 <span lang="en">{state.pos}</span>
               </span>
             ) : state.status === "easy" ? (
-              <span className={wordPosClass(true)} data-word-pos>
+              <span className={cn(wordPosClass(true), "align-baseline")} data-word-pos>
                 {t("card.easyChip")}
               </span>
             ) : null}
