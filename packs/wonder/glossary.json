@@ -4,7 +4,7 @@
  "author": "R J Palacio",
  "sha256": "08664288e6c26e23ac4989c94b915d0436ab81aca56d2d53341b17f710615898",
  "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
- "count": 2141,
+ "count": 2172,
  "glossary": {
   "nodded": {
    "pos": "past-tense verb",
@@ -1925,18 +1925,48 @@
    "count": 8
   },
   "stuck": {
-   "pos": "past participle",
-   "meaning": "Here \"got stuck with\" means had to deal with something you did not want.",
-   "whyHard": "This word is harder than everyday English.",
-   "example": "Meanwhile, Mom’s regular doctor wasn’t on duty that night, so Mom got stuck with this cranky kid doctor she and Dad nicknamed Doogie after some old TV show or something (they didn’t actually call him that to his face).",
-   "examples": [
-    "Meanwhile, Mom’s regular doctor wasn’t on duty that night, so Mom got stuck with this cranky kid doctor she and Dad nicknamed Doogie after some old TV show or something (they didn’t actually call him that to his face).",
-    "But my eyes were covered by my bangs as I stared at a piece of old gum that was stuck to the bottom of Mr."
-   ],
-   "forms": [
-    "stuck"
-   ],
-   "count": 8
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Had to deal with something you did not choose.",
+   "whyHard": "Not the usual meaning! Usually: stuck means not able to move, or joined so it stays.",
+   "senses": [
+    {
+     "meaning": "Had to deal with something you did not choose.",
+     "whyHard": "Not the usual meaning! Usually: stuck means not able to move, or joined so it stays.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "night, so Mom got stuck with this cranky"
+      },
+      {
+       "chapter": 54,
+       "occurrence": 1,
+       "context": "life I won’t be stuck with this face"
+      },
+      {
+       "chapter": 65,
+       "occurrence": 1,
+       "context": "so bummed you got stuck with him,” he"
+      }
+     ],
+     "default": true
+    },
+    {
+     "pos": "past-tense verb",
+     "meaning": "Pushed something deep into a place.",
+     "whyHard": "Not the usual meaning! Usually: stuck means not able to move, or joined so it stays.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 103,
+       "occurrence": 1,
+       "context": "She stuck Baboo deep inside the bag and"
+      }
+     ]
+    }
+   ]
   },
   "tube": {
    "pos": "singular noun",
@@ -2978,19 +3008,33 @@
    "count": 6
   },
   "measure": {
-   "pos": "singular noun",
-   "meaning": "A step you take to fix a problem.",
-   "whyHard": "This word is harder than everyday English.",
-   "example": "Although I think hitting a child would be valid grounds for expulsion in other schools, I agree such extreme measures aren’t warranted here.",
-   "examples": [
-    "Although I think hitting a child would be valid grounds for expulsion in other schools, I agree such extreme measures aren’t warranted here.",
-    "“But the best way to measure how much you’ve grown isn’t by inches or the number of laps you can now run around the track, or even your grade point average—though those things are important, to be sure."
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "An action taken so a problem does not happen.",
+   "whyHard": "Not the usual meaning! Usually: measure means to find the size of something.",
+   "senses": [
+    {
+     "meaning": "An action taken so a problem does not happen.",
+     "whyHard": "Not the usual meaning! Usually: measure means to find the size of something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 68,
+       "occurrence": 1,
+       "context": "are confident that every measure will be taken"
+      },
+      {
+       "chapter": 68,
+       "occurrence": 1,
+       "context": "I agree such extreme measures aren’t warranted here",
+       "form": "measures"
+      }
+     ]
+    }
    ],
    "forms": [
-    "measure",
     "measures"
-   ],
-   "count": 6
+   ]
   },
   "mumbled": {
    "pos": "past-tense verb",
@@ -4135,19 +4179,33 @@
    "count": 5
   },
   "wave": {
-   "pos": "singular noun",
+   "pos": "noun",
    "meaning": "A quick movement of the hand to say hello or goodbye.",
-   "whyHard": "This word is harder than everyday English.",
-   "example": "She didn’t shake my hand but gave me a quick little wave and smiled.",
-   "examples": [
-    "She didn’t shake my hand but gave me a quick little wave and smiled.",
-    "” It was Charlotte, giving me her little wave as she sat down at a desk in the front of the class."
-   ],
+   "whyHard": "This word has more than one meaning.",
    "forms": [
-    "wave",
     "waves"
    ],
-   "count": 5
+   "senses": [
+    {
+     "meaning": "A quick movement of the hand to say hello or goodbye.",
+     "whyHard": "This word has more than one meaning.",
+     "default": true
+    },
+    {
+     "pos": "plural noun",
+     "meaning": "Water moving up and down on the sea.",
+     "whyHard": "Not the usual meaning! Usually: a wave is a quick movement of the hand to say hello or goodbye.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "to smooth out the waves, “You are my",
+       "form": "waves"
+      }
+     ]
+    }
+   ]
   },
   "wherever": {
    "pos": "conjunction",
@@ -5082,19 +5140,40 @@
    "count": 4
   },
   "odd": {
-   "pos": "singular noun",
-   "meaning": "Here \"odds\" means how likely it is that something will happen.",
-   "whyHard": "This word is harder than everyday English.",
-   "example": "If he marries someone who has the gene, their kids will have the same odds as my kids.",
-   "examples": [
-    "If he marries someone who has the gene, their kids will have the same odds as my kids.",
-    "they look at me, laughs dying on their lips when they see me, ice cream cones at odd angles."
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The chance that something will happen.",
+   "whyHard": "Not the usual meaning! Usually: odd means strange.",
+   "senses": [
+    {
+     "meaning": "The chance that something will happen.",
+     "whyHard": "Not the usual meaning! Usually: odd means strange.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 45,
+       "occurrence": 1,
+       "context": "will have the same odds as my kids",
+       "form": "odds"
+      },
+      {
+       "chapter": 45,
+       "occurrence": 2,
+       "context": "try to forecast the odds, but they can’t",
+       "form": "odds"
+      },
+      {
+       "chapter": 83,
+       "occurrence": 1,
+       "context": "her parents that the odds of someone getting",
+       "form": "odds"
+      }
+     ]
+    }
    ],
    "forms": [
-    "odds",
-    "odd"
-   ],
-   "count": 4
+    "odds"
+   ]
   },
   "orc": {
    "pos": "singular noun",
@@ -7227,18 +7306,24 @@
    "count": 3
   },
   "plain": {
-   "pos": "adjective",
-   "meaning": "Simple. Without anything extra.",
-   "whyHard": "This word is harder than everyday English.",
-   "example": "After that, we got into the habit of doing the one-to-ten scale for anything that hurt, like if I just had a plain old sore throat, she’d ask: “One to ten?",
-   "examples": [
-    "After that, we got into the habit of doing the one-to-ten scale for anything that hurt, like if I just had a plain old sore throat, she’d ask: “One to ten?",
-    "I don’t remember what it felt like, of course, but I can see it plain as can be in the pictures."
-   ],
-   "forms": [
-    "plain"
-   ],
-   "count": 3
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Clearly. Easy to see.",
+   "whyHard": "Not the usual meaning! Usually: plain means simple, with nothing extra.",
+   "senses": [
+    {
+     "meaning": "Clearly. Easy to see.",
+     "whyHard": "Not the usual meaning! Usually: plain means simple, with nothing extra.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 35,
+       "occurrence": 1,
+       "context": "I can see it plain as can be"
+      }
+     ]
+    }
+   ]
   },
   "planet": {
    "pos": "singular noun",
@@ -12453,18 +12538,28 @@
    "count": 2
   },
   "slip": {
-   "pos": "base verb",
+   "pos": "verb",
    "meaning": "To slide out by accident.",
-   "whyHard": "This word is harder than everyday English.",
-   "example": "” Incredible how easily a lie can slip through your lips.",
-   "examples": [
-    "” Incredible how easily a lie can slip through your lips.",
-    "So I unfolded Auggie’s little slip of paper."
-   ],
-   "forms": [
-    "slip"
-   ],
-   "count": 2
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "To slide out by accident.",
+     "whyHard": "This word has more than one meaning.",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "A small piece of paper.",
+     "whyHard": "This word has more than one meaning.",
+     "anchors": [
+      {
+       "chapter": 53,
+       "occurrence": 1,
+       "context": "So I unfolded Auggie’s little slip of paper"
+      }
+     ]
+    }
+   ]
   },
   "sliver": {
    "pos": "singular noun",
@@ -17128,9 +17223,24 @@
    "whyHard": "This word is harder than everyday English."
   },
   "mark": {
+   "senseOnly": true,
    "pos": "verb",
    "meaning": "To note a day as special.",
-   "whyHard": "This word is harder than everyday English."
+   "whyHard": "This word is harder than everyday English.",
+   "senses": [
+    {
+     "meaning": "To note a day as special.",
+     "whyHard": "This word is harder than everyday English.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 112,
+       "occurrence": 1,
+       "context": "home, I would mark this as being"
+      }
+     ]
+    }
+   ]
   },
   "marked": {
    "pos": "past-tense verb",
@@ -20208,6 +20318,1465 @@
      ]
     }
    ]
+  },
+  "act": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "One section of a play.",
+   "whyHard": "Not the usual meaning! Usually: act means to do something, or to pretend.",
+   "senses": [
+    {
+     "meaning": "One section of a play.",
+     "whyHard": "Not the usual meaning! Usually: act means to do something, or to pretend.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 93,
+       "occurrence": 1,
+       "context": "degrees 37 minutes. The First Act shows a day"
+      }
+     ]
+    }
+   ]
+  },
+  "band": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A strip that holds two parts together.",
+   "whyHard": "Not the usual meaning! Usually: a band is a group of people who play music.",
+   "senses": [
+    {
+     "meaning": "A strip that holds two parts together.",
+     "whyHard": "Not the usual meaning! Usually: a band is a group of people who play music.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 110,
+       "occurrence": 1,
+       "context": "ears. The hearing aid band was definitely gone"
+      },
+      {
+       "chapter": 117,
+       "occurrence": 1,
+       "context": "one was mangled. The band that connected the"
+      }
+     ]
+    }
+   ]
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Near.",
+   "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "her desk was closest to the front.",
+       "form": "closest"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "tell he was close to crying."
+      },
+      {
+       "chapter": 81,
+       "occurrence": 1,
+       "context": "as we get closer to opening night.",
+       "form": "closer"
+      },
+      {
+       "chapter": 91,
+       "occurrence": 1,
+       "context": "and pulled me closer to her. I",
+       "form": "closer"
+      },
+      {
+       "chapter": 93,
+       "occurrence": 1,
+       "context": "the fifth row, close to the middle."
+      },
+      {
+       "chapter": 93,
+       "occurrence": 1,
+       "context": "want to move closer?” said Dad.",
+       "form": "closer"
+      },
+      {
+       "chapter": 94,
+       "occurrence": 1,
+       "context": "When he got close enough, he hugged"
+      },
+      {
+       "chapter": 96,
+       "occurrence": 1,
+       "context": "would hit too close to home. He"
+      },
+      {
+       "chapter": 97,
+       "occurrence": 1,
+       "context": "and I weren’t close anymore. “It’s different"
+      },
+      {
+       "chapter": 98,
+       "occurrence": 1,
+       "context": "that was remotely close to me was"
+      },
+      {
+       "chapter": 111,
+       "occurrence": 1,
+       "context": "And Jack was close on the other"
+      },
+      {
+       "chapter": 111,
+       "occurrence": 1,
+       "context": "As we got closer to the screen,",
+       "form": "closer"
+      },
+      {
+       "chapter": 123,
+       "occurrence": 1,
+       "context": "As I got closer to the stage,",
+       "form": "closer"
+      },
+      {
+       "chapter": 124,
+       "occurrence": 1,
+       "context": "wanted to get close to me."
+      },
+      {
+       "chapter": 125,
+       "occurrence": 1,
+       "context": "She hugged me close and leaned down"
+      }
+     ],
+     "pos": "adjective",
+     "forms": [
+      "closer",
+      "closest"
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "closer",
+    "closest"
+   ]
+  },
+  "company": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Being with someone. The people who are there.",
+   "whyHard": "Not the usual meaning! Usually: a company is a business.",
+   "senses": [
+    {
+     "meaning": "Being with someone. The people who are there.",
+     "whyHard": "Not the usual meaning! Usually: a company is a business.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 68,
+       "occurrence": 1,
+       "context": "He enjoys August’s company and feels like"
+      },
+      {
+       "chapter": 127,
+       "occurrence": 1,
+       "context": "care of Auggie & Company: I knew we"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "fair": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A school show where students share projects they made.",
+   "whyHard": "Not the usual meaning! Usually: fair means just and equal.",
+   "senses": [
+    {
+     "meaning": "A school show where students share projects they made.",
+     "whyHard": "Not the usual meaning! Usually: fair means just and equal.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 64,
+       "occurrence": 1,
+       "context": "the fifth-grade science-fair project, how we"
+      },
+      {
+       "chapter": 65,
+       "occurrence": 1,
+       "context": "Blah blah blah. Science-fair project. Blah blah"
+      },
+      {
+       "chapter": 65,
+       "occurrence": 2,
+       "context": "Jack had this science-fair project idea we"
+      },
+      {
+       "chapter": 74,
+       "occurrence": 1,
+       "context": "even chosen what science-fair project we were"
+      },
+      {
+       "chapter": 74,
+       "occurrence": 2,
+       "context": "here to work on the science-fair project"
+      },
+      {
+       "chapter": 74,
+       "occurrence": 3,
+       "context": "the list of science-fair projects. “Can you"
+      },
+      {
+       "chapter": 84,
+       "occurrence": 1,
+       "context": "hit at the science fair. Jack and I"
+      },
+      {
+       "chapter": 84,
+       "occurrence": 2,
+       "context": "All the science-fair projects were set up"
+      }
+     ]
+    }
+   ]
+  },
+  "fall": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The season after summer.",
+   "whyHard": "Not the usual meaning! Usually: to fall means to drop down.",
+   "senses": [
+    {
+     "meaning": "The season after summer.",
+     "whyHard": "Not the usual meaning! Usually: to fall means to drop down.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "school in the fall. I had never,"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "starting Faulkner High School this fall.”"
+      }
+     ],
+     "pos": "noun",
+     "default": true
+    },
+    {
+     "meaning": "A drop to the ground.",
+     "whyHard": "Not the usual meaning! Usually: to fall means to drop down.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 34,
+       "occurrence": 2,
+       "context": "worst day, worst fall, worst headache, worst"
+      },
+      {
+       "chapter": 109,
+       "occurrence": 2,
+       "context": "was a hard fall, and I hurt"
+      }
+     ],
+     "pos": "noun"
+    }
+   ]
+  },
+  "fly": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A small insect with wings.",
+   "whyHard": "Not the usual meaning! Usually: fly means to move through the air.",
+   "senses": [
+    {
+     "meaning": "A small insect with wings.",
+     "whyHard": "Not the usual meaning! Usually: fly means to move through the air.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 63,
+       "occurrence": 1,
+       "context": "oh wow, there’s another fly on the wall"
+      }
+     ]
+    }
+   ]
+  },
+  "form": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To come together into a group.",
+   "whyHard": "Not the usual meaning! Usually: a form is a shape, or a paper you fill in.",
+   "senses": [
+    {
+     "meaning": "To come together into a group.",
+     "whyHard": "Not the usual meaning! Usually: a form is a shape, or a paper you fill in.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 84,
+       "occurrence": 1,
+       "context": "little groups their kids form. Like my parents"
+      }
+     ]
+    }
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To give something to someone.",
+   "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+   "senses": [
+    {
+     "meaning": "To give something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "up and I’ll hand you a folder"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "She handed a folder to each",
+       "form": "handed"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "She handed him his folder and",
+       "form": "handed"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "After she handed Jack his folder,",
+       "form": "handed"
+      },
+      {
+       "chapter": 54,
+       "occurrence": 1,
+       "context": "“Yeah.” I nodded, handing him a picture",
+       "form": "handing"
+      },
+      {
+       "chapter": 54,
+       "occurrence": 2,
+       "context": "wow.” He nodded, handing me back the",
+       "form": "handing"
+      },
+      {
+       "chapter": 80,
+       "occurrence": 1,
+       "context": "i tell him, handing back the paper.",
+       "form": "handing"
+      },
+      {
+       "chapter": 93,
+       "occurrence": 1,
+       "context": "auditorium, where students handed out programs at",
+       "form": "handed"
+      },
+      {
+       "chapter": 98,
+       "occurrence": 1,
+       "context": "on,” I answered, handing her the dress.",
+       "form": "handing"
+      },
+      {
+       "chapter": 117,
+       "occurrence": 1,
+       "context": "Edward’s locker.” He handed me what was",
+       "form": "handed"
+      },
+      {
+       "chapter": 120,
+       "occurrence": 1,
+       "context": "at the entrance, handing out the programs",
+       "form": "handing"
+      }
+     ],
+     "pos": "verb",
+     "forms": [
+      "handed",
+      "handing"
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "handed",
+    "handing"
+   ]
+  },
+  "lead": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The main part in a play.",
+   "whyHard": "Not the usual meaning! Usually: lead means to go first and show the way.",
+   "senses": [
+    {
+     "meaning": "The main part in a play.",
+     "whyHard": "Not the usual meaning! Usually: lead means to go first and show the way.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 78,
+       "occurrence": 1,
+       "context": "try out for the lead role, the stage"
+      },
+      {
+       "chapter": 78,
+       "occurrence": 2,
+       "context": "fluke. never got any lead roles in anything"
+      },
+      {
+       "chapter": 78,
+       "occurrence": 3,
+       "context": "doesn’t get the female lead, emily gibbs. the"
+      }
+     ]
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there, after the other part has gone.",
+   "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+   "senses": [
+    {
+     "meaning": "Still there, after the other part has gone.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "sliver of sun left over the ocean."
+      },
+      {
+       "chapter": 61,
+       "occurrence": 1,
+       "context": "Monday, there was no snow left."
+      },
+      {
+       "chapter": 95,
+       "occurrence": 1,
+       "context": "not a lot left over for me."
+      },
+      {
+       "chapter": 111,
+       "occurrence": 1,
+       "context": "pulled what was left of my hoodie"
+      },
+      {
+       "chapter": 117,
+       "occurrence": 1,
+       "context": "me what was left of my hearing"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "light": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Pale. A color that is not strong.",
+   "whyHard": "Not the usual meaning! Usually: light means a lamp, or not heavy.",
+   "senses": [
+    {
+     "meaning": "Pale. A color that is not strong.",
+     "whyHard": "Not the usual meaning! Usually: light means a lamp, or not heavy.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 120,
+       "occurrence": 1,
+       "context": "She was wearing a light pink dress and"
+      }
+     ]
+    }
+   ]
+  },
+  "live": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To stay alive.",
+   "whyHard": "Not the usual meaning! Usually: live means to have your home in a place.",
+   "senses": [
+    {
+     "meaning": "To stay alive.",
+     "whyHard": "Not the usual meaning! Usually: live means to have your home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "her I probably wouldn’t live through the night"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "context": "a baby, the doctors didn’t think he’d live"
+      }
+     ]
+    }
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "plural noun",
+   "meaning": "The time a person is alive.",
+   "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+   "senses": [
+    {
+     "meaning": "The time a person is alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "Tushman like their lives depended on it."
+      },
+      {
+       "chapter": 54,
+       "occurrence": 1,
+       "context": "thinking about their lives on earth, like"
+      },
+      {
+       "chapter": 62,
+       "occurrence": 1,
+       "context": "time in our lives when we did"
+      },
+      {
+       "chapter": 94,
+       "occurrence": 1,
+       "context": "at least once in their lives."
+      },
+      {
+       "chapter": 121,
+       "occurrence": 1,
+       "context": "moment in your lives that, even after"
+      },
+      {
+       "chapter": 125,
+       "occurrence": 1,
+       "context": "coming into our lives. For being you.”"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "master": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To learn to do something very well.",
+   "whyHard": "Not the usual meaning! Usually: a master is a teacher.",
+   "senses": [
+    {
+     "meaning": "To learn to do something very well.",
+     "whyHard": "Not the usual meaning! Usually: a master is a teacher.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "context": "him several years to master. He’s also learned"
+      }
+     ]
+    }
+   ]
+  },
+  "match": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To be the same, or to go together.",
+   "whyHard": "Not the usual meaning! Usually: a match is a game between two sides.",
+   "senses": [
+    {
+     "meaning": "To be the same, or to go together.",
+     "whyHard": "Not the usual meaning! Usually: a match is a game between two sides.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "names kind of match,” she said as"
+      }
+     ],
+     "pos": "verb",
+     "default": true
+    }
+   ]
+  },
+  "mean": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Unkind.",
+   "whyHard": "Not the usual meaning! Usually: mean means to have a certain meaning, or to plan to do something.",
+   "senses": [
+    {
+     "meaning": "Unkind.",
+     "whyHard": "Not the usual meaning! Usually: mean means to have a certain meaning, or to plan to do something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "say it in a mean way,” I said"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "wasn’t trying to be mean, but he got"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "these things in a mean way, by the"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "wasn’t trying to be mean. I was just"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "know kids can be mean. I know, I"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "bruise, worst cramp, worst mean thing anyone could"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "context": "say this to be mean, of course (though"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 2,
+       "context": "was a little bit mean). The truth is"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 3,
+       "context": "rich, not druggies, not mean, not goody-goody"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 3,
+       "context": "Why would people be mean?” he said. It"
+      },
+      {
+       "chapter": 48,
+       "occurrence": 1,
+       "context": "had overheard some very mean things some boys"
+      },
+      {
+       "chapter": 53,
+       "occurrence": 1,
+       "context": "you won’t ever be mean like that to"
+      },
+      {
+       "chapter": 58,
+       "occurrence": 3,
+       "context": "kid, can be that mean, then a kid"
+      },
+      {
+       "chapter": 64,
+       "occurrence": 1,
+       "context": "understood! I was so mean. I don’t even"
+      },
+      {
+       "chapter": 73,
+       "occurrence": 1,
+       "context": "Don’t be mean,” said Summer. “I think Charlotte"
+      },
+      {
+       "chapter": 80,
+       "occurrence": 1,
+       "context": "my face scrunched up, mean-looking. they look"
+      },
+      {
+       "chapter": 85,
+       "occurrence": 1,
+       "context": "though ours weren’t really mean. They were kind"
+      },
+      {
+       "chapter": 96,
+       "occurrence": 1,
+       "context": "knew we were being mean, but it was"
+      },
+      {
+       "chapter": 117,
+       "occurrence": 2,
+       "context": "to me about the mean notes that were"
+      }
+     ]
+    }
+   ]
+  },
+  "miss": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A word put before a woman's name.",
+   "whyHard": "Not the usual meaning! Usually: to miss means to feel sad that someone is away, or to fail to hit.",
+   "senses": [
+    {
+     "meaning": "A word put before a woman's name.",
+     "whyHard": "Not the usual meaning! Usually: to miss means to feel sad that someone is away, or to fail to hit.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "context": "professor in college called Miss Butt.”"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "context": "Can you imagine? Miss Butt, meet Mr."
+      },
+      {
+       "chapter": 7,
+       "occurrence": 4,
+       "context": "Mr. Tushman, here’s Miss Butt. They could"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "a teacher called Miss Butt,” I said."
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "she’d look like Miss Fowl from Jimmy"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "note": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A sound in a song.",
+   "whyHard": "Not the usual meaning! Usually: a note is a short written message.",
+   "senses": [
+    {
+     "meaning": "A sound in a song.",
+     "whyHard": "Not the usual meaning! Usually: a note is a short written message.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 119,
+       "occurrence": 1,
+       "context": "to hold that last note as long as"
+      }
+     ],
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "To pay attention to a fact.",
+     "whyHard": "Not the usual meaning! Usually: a note is a short written message.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 68,
+       "occurrence": 1,
+       "context": "new student August, please note that he does"
+      }
+     ]
+    }
+   ]
+  },
+  "park": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To leave a car in a place for a time.",
+   "whyHard": "Not the usual meaning! Usually: a park is a green place in a town where people walk.",
+   "senses": [
+    {
+     "meaning": "To leave a car in a place for a time.",
+     "whyHard": "Not the usual meaning! Usually: a park is a green place in a town where people walk.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 63,
+       "occurrence": 2,
+       "context": "don’t want to park their cars. Me"
+      },
+      {
+       "chapter": 106,
+       "occurrence": 1,
+       "context": "row of food trucks parked at the edge",
+       "form": "parked"
+      }
+     ],
+     "pos": "verb",
+     "default": true
+    }
+   ]
+  },
+  "party": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A group of people who are together.",
+   "whyHard": "Not the usual meaning! Usually: a party is a time when people meet to have fun.",
+   "senses": [
+    {
+     "meaning": "A group of people who are together.",
+     "whyHard": "Not the usual meaning! Usually: a party is a time when people meet to have fun.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "were a gloomy party that night, and"
+      },
+      {
+       "chapter": 107,
+       "occurrence": 1,
+       "context": "least one lost party on Big Movie"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "patient": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Able to wait without getting angry.",
+   "whyHard": "Not the usual meaning! Usually: a patient is a sick person a doctor looks after.",
+   "senses": [
+    {
+     "meaning": "Able to wait without getting angry.",
+     "whyHard": "Not the usual meaning! Usually: a patient is a sick person a doctor looks after.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "Usually Dad is super patient about things, but"
+      }
+     ]
+    }
+   ]
+  },
+  "play": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A story that people act for a crowd.",
+   "whyHard": "Not the usual meaning! Usually: to play means to have fun, to make music, or to take part in a game.",
+   "senses": [
+    {
+     "meaning": "A story that people act for a crowd.",
+     "whyHard": "Not the usual meaning! Usually: to play means to have fun, to make music, or to take part in a game.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "was describing the play they had put"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "put on a play every year,” said"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 3,
+       "context": "in the school play, Charlotte,” said Julian"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 4,
+       "context": "be in the play without actually being"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 5,
+       "context": "being ‘in’ the play,” Charlotte answered, looking"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "about the school play and some of"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 3,
+       "context": "missing a school play. I knew this"
+      },
+      {
+       "chapter": 38,
+       "occurrence": 1,
+       "context": "all my class plays and concerts and",
+       "form": "plays"
+      },
+      {
+       "chapter": 78,
+       "occurrence": 1,
+       "context": "WE’RE DOING THE play our town for"
+      },
+      {
+       "chapter": 81,
+       "occurrence": 1,
+       "context": "THE PLAY IS taking up most"
+      },
+      {
+       "chapter": 82,
+       "occurrence": 1,
+       "context": "comes to the play, then everyone will"
+      },
+      {
+       "chapter": 88,
+       "occurrence": 1,
+       "context": "about a school play that was happening"
+      },
+      {
+       "chapter": 88,
+       "occurrence": 2,
+       "context": "about a stupid play?” Via practically screamed."
+      },
+      {
+       "chapter": 89,
+       "occurrence": 1,
+       "context": "to see Justin in a play?”"
+      },
+      {
+       "chapter": 89,
+       "occurrence": 2,
+       "context": "hadn’t realized what play it was, and"
+      },
+      {
+       "chapter": 89,
+       "occurrence": 3,
+       "context": "to her stupid play. And I knew"
+      },
+      {
+       "chapter": 93,
+       "occurrence": 1,
+       "context": "to her school play a few days"
+      },
+      {
+       "chapter": 93,
+       "occurrence": 2,
+       "context": "night of the play, right before she"
+      },
+      {
+       "chapter": 93,
+       "occurrence": 3,
+       "context": "The play started. The curtain opened."
+      },
+      {
+       "chapter": 93,
+       "occurrence": 4,
+       "context": "“This play is called ‘Our Town,’”"
+      },
+      {
+       "chapter": 93,
+       "occurrence": 5,
+       "context": "to like the play. It wasn’t like"
+      },
+      {
+       "chapter": 93,
+       "occurrence": 6,
+       "context": "later in the play, a character named"
+      },
+      {
+       "chapter": 93,
+       "occurrence": 1,
+       "context": "like other school plays I’ve been to,",
+       "form": "plays"
+      },
+      {
+       "chapter": 94,
+       "occurrence": 1,
+       "context": "THE PLAY WAS so amazing. I"
+      },
+      {
+       "chapter": 96,
+       "occurrence": 1,
+       "context": "copies of the play he was planning"
+      },
+      {
+       "chapter": 96,
+       "occurrence": 2,
+       "context": "can’t do this play, Mr. D,” I"
+      },
+      {
+       "chapter": 96,
+       "occurrence": 3,
+       "context": "face and this play would hit too"
+      },
+      {
+       "chapter": 96,
+       "occurrence": 4,
+       "context": "school doing this play. So anyway, he"
+      },
+      {
+       "chapter": 98,
+       "occurrence": 1,
+       "context": "come see the play on opening night:"
+      },
+      {
+       "chapter": 98,
+       "occurrence": 2,
+       "context": "minutes into the play, so the girl"
+      },
+      {
+       "chapter": 99,
+       "occurrence": 1,
+       "context": "rest of the play from the wings"
+      },
+      {
+       "chapter": 99,
+       "occurrence": 2,
+       "context": "end of the play when everyone went"
+      },
+      {
+       "chapter": 100,
+       "occurrence": 1,
+       "context": "be in the play!” he said."
+      }
+     ],
+     "pos": "noun",
+     "forms": [
+      "plays"
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To act a part in a story for a crowd.",
+     "whyHard": "Not the usual meaning! Usually: to play means to have fun, to make music, or to take part in a game.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "was Oliver! She played Oliver even though",
+       "form": "played"
+      },
+      {
+       "chapter": 81,
+       "occurrence": 1,
+       "context": "pink-haired girl who plays emily. turns out",
+       "form": "plays"
+      },
+      {
+       "chapter": 93,
+       "occurrence": 1,
+       "context": "part Miranda was playing, so I leaned",
+       "form": "playing"
+      }
+     ],
+     "pos": "verb",
+     "forms": [
+      "played",
+      "playing",
+      "plays"
+     ]
+    }
+   ],
+   "forms": [
+    "plays",
+    "played",
+    "playing"
+   ]
+  },
+  "rest": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The other part. What is still there.",
+   "whyHard": "Not the usual meaning! Usually: to rest means to stop and be quiet, or to sleep.",
+   "senses": [
+    {
+     "meaning": "The other part. What is still there.",
+     "whyHard": "Not the usual meaning! Usually: to rest means to stop and be quiet, or to sleep.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "noticed, since the rest of her face"
+      },
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "other. But the rest of you, I"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "THE REST OF September was hard."
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "weeks for the rest of the kids"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 3,
+       "context": "month for the rest of the kids"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "the Sun. The rest of our family"
+      },
+      {
+       "chapter": 44,
+       "occurrence": 1,
+       "context": "was born, the rest of Mom’s family—all"
+      },
+      {
+       "chapter": 49,
+       "occurrence": 1,
+       "context": "a baby the rest of your life,"
+      },
+      {
+       "chapter": 61,
+       "occurrence": 1,
+       "context": "I spent the rest of the day"
+      },
+      {
+       "chapter": 65,
+       "occurrence": 1,
+       "context": "and …” I didn’t hear the rest."
+      },
+      {
+       "chapter": 66,
+       "occurrence": 1,
+       "context": "home for the rest of this week,"
+      },
+      {
+       "chapter": 68,
+       "occurrence": 1,
+       "context": "interview) that the rest of the incoming"
+      },
+      {
+       "chapter": 79,
+       "occurrence": 1,
+       "context": "my head. can’t remember the rest."
+      },
+      {
+       "chapter": 95,
+       "occurrence": 1,
+       "context": "face for the rest of the world"
+      },
+      {
+       "chapter": 99,
+       "occurrence": 1,
+       "context": "I WATCHED THE rest of the play"
+      },
+      {
+       "chapter": 105,
+       "occurrence": 1,
+       "context": "rained for the rest of the day,"
+      },
+      {
+       "chapter": 106,
+       "occurrence": 2,
+       "context": "entire field. The rest of the field"
+      },
+      {
+       "chapter": 112,
+       "occurrence": 1,
+       "context": "and all the rest of Aslan’s army"
+      },
+      {
+       "chapter": 112,
+       "occurrence": 2,
+       "context": "and all the rest of the kids"
+      },
+      {
+       "chapter": 112,
+       "occurrence": 3,
+       "context": "But for the rest of the world,"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "ring": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To make a bell sound.",
+   "whyHard": "Not the usual meaning! Usually: a ring is a small circle you wear on a finger.",
+   "senses": [
+    {
+     "meaning": "To make a bell sound.",
+     "whyHard": "Not the usual meaning! Usually: a ring is a small circle you wear on a finger.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 52,
+       "occurrence": 1,
+       "context": "Don’t ring the bell,” I told her. “Just"
+      }
+     ]
+    }
+   ]
+  },
+  "roll": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A list of names.",
+   "whyHard": "Not the usual meaning! Usually: roll means to turn over and over.",
+   "senses": [
+    {
+     "meaning": "A list of names.",
+     "whyHard": "Not the usual meaning! Usually: roll means to turn over and over.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 117,
+       "occurrence": 1,
+       "context": "top students. Congrats on the High Honor Roll"
+      },
+      {
+       "chapter": 122,
+       "occurrence": 1,
+       "context": "made the High Honor Roll because we were"
+      }
+     ]
+    }
+   ]
+  },
+  "show": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A program or a performance that people watch.",
+   "whyHard": "Not the usual meaning! Usually: to show means to let someone see something.",
+   "senses": [
+    {
+     "meaning": "A program or a performance that people watch.",
+     "whyHard": "Not the usual meaning! Usually: to show means to let someone see something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "some old TV show or something (they"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "the dachshund dad on the show."
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "movies and TV shows where people receive",
+       "form": "shows"
+      },
+      {
+       "chapter": 70,
+       "occurrence": 1,
+       "context": "New Year Art Show? In past years"
+      },
+      {
+       "chapter": 78,
+       "occurrence": 1,
+       "context": "for the spring show this year. olivia"
+      },
+      {
+       "chapter": 78,
+       "occurrence": 2,
+       "context": "the spring show is at the"
+      },
+      {
+       "chapter": 81,
+       "occurrence": 1,
+       "context": "kids in the show a lot better,"
+      },
+      {
+       "chapter": 82,
+       "occurrence": 1,
+       "context": "parents about the show, she says quickly."
+      },
+      {
+       "chapter": 82,
+       "occurrence": 2,
+       "context": "come to the show, justin, she interrupts"
+      },
+      {
+       "chapter": 84,
+       "occurrence": 1,
+       "context": "New Year Art Show wasn’t quite as"
+      },
+      {
+       "chapter": 94,
+       "occurrence": 1,
+       "context": "right before the show started,” said Via,"
+      },
+      {
+       "chapter": 100,
+       "occurrence": 1,
+       "context": "to celebrate the show. Are you feeling"
+      },
+      {
+       "chapter": 100,
+       "occurrence": 1,
+       "context": "have two more shows anyway, though I",
+       "form": "shows"
+      },
+      {
+       "chapter": 117,
+       "occurrence": 1,
+       "context": "New Year Art Show, was now framed"
+      }
+     ],
+     "pos": "noun",
+     "forms": [
+      "shows"
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "shows"
+   ]
+  },
+  "trip": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To catch a foot and start to fall.",
+   "whyHard": "Not the usual meaning! Usually: a trip is a journey.",
+   "senses": [
+    {
+     "meaning": "To catch a foot and start to fall.",
+     "whyHard": "Not the usual meaning! Usually: a trip is a journey.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 111,
+       "occurrence": 1,
+       "context": "file so we wouldn’t trip over one another"
+      }
+     ]
+    }
+   ]
+  },
+  "watch": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A small clock worn on the wrist.",
+   "whyHard": "Not the usual meaning! Usually: to watch means to look at something.",
+   "senses": [
+    {
+     "meaning": "A small clock worn on the wrist.",
+     "whyHard": "Not the usual meaning! Usually: to watch means to look at something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "time on her watch. “I’m sorry, everybody."
+      },
+      {
+       "chapter": 122,
+       "occurrence": 1,
+       "context": "looked at my watch: 10:56. I was getting"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "wonder": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person or thing that is amazing.",
+   "whyHard": "Not the usual meaning! Usually: wonder means to want to know.",
+   "senses": [
+    {
+     "meaning": "A person or thing that is amazing.",
+     "whyHard": "Not the usual meaning! Usually: wonder means to want to know.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 54,
+       "occurrence": 2,
+       "context": "considered something of a medical wonder, you know"
+      },
+      {
+       "chapter": 125,
+       "occurrence": 1,
+       "context": "You really are a wonder, Auggie. You are"
+      },
+      {
+       "chapter": 125,
+       "occurrence": 2,
+       "context": "are a wonder, Auggie. You are a wonder"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "say I must be one of the wonders",
+       "form": "wonders"
+      },
+      {
+       "chapter": 127,
+       "occurrence": 1,
+       "context": "for always choosing “kind.” You are my wonders",
+       "form": "wonders"
+      }
+     ],
+     "default": true
+    },
+    {
+     "pos": "plural noun",
+     "meaning": "A great good result.",
+     "whyHard": "Not the usual meaning! Usually: wonder means to want to know.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 95,
+       "occurrence": 1,
+       "context": "told, these fictions, did wonders for my popularity",
+       "form": "wonders"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "wonders"
+   ]
+  },
+  "stuck-up": {
+   "pos": "adjective",
+   "meaning": "Acting as if you are better than other people."
   }
  },
  "chapters": 130,
@@ -21344,6 +22913,231 @@
     "pinky swore"
    ],
    "example": "“Promise,” he said, and we pinky swore."
+  },
+  "draw a blank": {
+   "meaning": "To be unable to remember.",
+   "pos": "idiom",
+   "example": "“I’m drawing a blank,” said Mom."
+  },
+  "state of the art": {
+   "meaning": "The newest and best kind.",
+   "pos": "idiom",
+   "example": "It’s so state of the art.”"
+  },
+  "close to home": {
+   "meaning": "Too much like your own life, so it hurts.",
+   "pos": "idiom",
+   "example": "hit too close to home. He seemed"
+  },
+  "out of the blue": {
+   "meaning": "Suddenly, when you did not think it would happen.",
+   "pos": "idiom",
+   "example": "so completely out of the blue. Apparently, she"
+  },
+  "never mind": {
+   "meaning": "Forget it. It does not matter.",
+   "pos": "idiom",
+   "example": "“Never mind,” said the"
+  },
+  "on the other hand": {
+   "meaning": "But, from the other side of the idea.",
+   "pos": "idiom",
+   "example": "On the other hand, I’m really"
+  },
+  "out of the loop": {
+   "meaning": "Not told the news that other people know.",
+   "pos": "idiom",
+   "example": "was really out of the loop. Miles and"
+  },
+  "jump ship": {
+   "meaning": "To leave a group and stop being on its side.",
+   "pos": "idiom",
+   "example": "side now jumped ship and were"
+  },
+  "get away with": {
+   "meaning": "To do something and not be stopped for it.",
+   "pos": "phrasal verb",
+   "example": "could still get away with wearing that"
+  },
+  "the apple doesn't fall far from the tree": {
+   "meaning": "A child is like the mother or the father.",
+   "pos": "idiom",
+   "example": "apple doesn’t fall far from the tree.”"
+  },
+  "walk in the park": {
+   "meaning": "Something that is easy to do.",
+   "pos": "idiom",
+   "example": "such a “walk in the park” (Mom’s expression)"
+  },
+  "in good hands": {
+   "meaning": "Being looked after well.",
+   "pos": "idiom",
+   "example": "were all in good hands."
+  },
+  "find out": {
+   "meaning": "To learn something you did not know.",
+   "pos": "phrasal verb",
+   "example": "if they find out other people"
+  },
+  "leave off": {
+   "meaning": "To stop at a place, so you can start there again.",
+   "pos": "phrasal verb",
+   "example": "we had left off. We were"
+  },
+  "get along": {
+   "meaning": "To be friendly with someone.",
+   "pos": "phrasal verb",
+   "example": "like and get along with each"
+  },
+  "ups and downs": {
+   "meaning": "Good times and bad times.",
+   "pos": "idiom",
+   "example": "share of ups and downs,” he said,"
+  },
+  "ins and outs": {
+   "meaning": "All the small facts about how a thing works.",
+   "pos": "idiom",
+   "example": "all the ins and outs of the"
+  },
+  "take place": {
+   "meaning": "To happen.",
+   "pos": "phrasal verb",
+   "example": "that will take place tomorrow. And"
+  },
+  "all along": {
+   "meaning": "For the whole time.",
+   "pos": "idiom",
+   "example": "been right all along. But Mom,"
+  },
+  "carry on": {
+   "meaning": "To keep doing something.",
+   "pos": "phrasal verb",
+   "example": "calm and carry on! —some saying"
+  },
+  "over and over": {
+   "meaning": "Again and again.",
+   "pos": "idiom",
+   "example": "her goodbye over and over again and"
+  },
+  "all in all": {
+   "meaning": "When you put everything together.",
+   "pos": "idiom",
+   "example": "recess. But all in all, I’d be"
+  },
+  "so far": {
+   "meaning": "Until now.",
+   "pos": "idiom",
+   "example": "to admit: so far, nothing bad"
+  },
+  "no matter": {
+   "meaning": "It does not change what happens.",
+   "pos": "idiom",
+   "example": "me laugh no matter how much"
+  },
+  "as for": {
+   "meaning": "About this next thing.",
+   "pos": "idiom",
+   "example": "As for your other concerns"
+  },
+  "in the first place": {
+   "meaning": "At the start. As the first reason.",
+   "pos": "idiom",
+   "example": "to school in the first place.”"
+  },
+  "in a way": {
+   "meaning": "Partly, not fully.",
+   "pos": "idiom",
+   "example": "like that. In a way, it’s your"
+  },
+  "go ahead": {
+   "meaning": "To start. To do it now.",
+   "pos": "phrasal verb",
+   "example": "numbers. Now go ahead, take your"
+  },
+  "get through": {
+   "meaning": "To finish something that is hard.",
+   "pos": "phrasal verb",
+   "example": "lot to get through, so take"
+  },
+  "work out": {
+   "meaning": "To end in a good way.",
+   "pos": "phrasal verb",
+   "example": "better. everything’ll work out."
+  },
+  "in touch": {
+   "meaning": "Writing or talking to someone.",
+   "pos": "idiom",
+   "example": "for being in touch."
+  },
+  "pass on": {
+   "meaning": "To give something to a person who comes later.",
+   "pos": "phrasal verb",
+   "example": "I will pass on the defective gene"
+  },
+  "pay attention": {
+   "meaning": "To listen or look with care.",
+   "pos": "phrase",
+   "example": "like, Don’t pay attention to them."
+  },
+  "fire back": {
+   "meaning": "To answer someone quickly in an angry way.",
+   "pos": "phrasal verb",
+   "example": "nice, i fire back."
+  },
+  "rest assured": {
+   "meaning": "You can be sure of this.",
+   "pos": "idiom",
+   "example": "those actions, rest assured that I"
+  },
+  "play up": {
+   "meaning": "To make a pain seem worse than it is.",
+   "pos": "phrasal verb",
+   "example": "AUGUST PLAYED UP the stomach"
+  },
+  "deal with": {
+   "meaning": "To take care of a hard thing.",
+   "pos": "phrasal verb",
+   "example": "him learn to deal with it. We can’t"
+  },
+  "what's the deal with": {
+   "meaning": "What is going on with this.",
+   "pos": "idiom",
+   "example": "“What’s the deal with your face?"
+  },
+  "bear with me": {
+   "meaning": "Please wait patiently while I do this.",
+   "pos": "idiom",
+   "example": "“If you’ll bear with me while I find it."
+  },
+  "lay of the land": {
+   "meaning": "How a place is arranged.",
+   "pos": "idiom",
+   "example": "I figure they could take you around the school a bit, show you the lay of the land, so to speak.”"
+  },
+  "live down": {
+   "meaning": "To get past a silly thing so people forget it.",
+   "pos": "phrasal verb",
+   "example": "Like Max G and Max W will never live down their Dungeons & Dragons obsession."
+  },
+  "behind one's back": {
+   "meaning": "In secret, when that person cannot hear.",
+   "pos": "idiom",
+   "example": "Basically, he heard Jack bad-mouthing him and saying really horrible things behind his back."
+  },
+  "make a face": {
+   "meaning": "To show, with a look, that you do not like something.",
+   "pos": "idiom",
+   "example": "didn’t even make a face when Ms. Rubin told them"
+  },
+  "right away": {
+   "meaning": "Immediately.",
+   "pos": "idiom",
+   "example": "Of course, I’d been thinking about it since last Halloween, so I knew right away."
+  },
+  "lose track": {
+   "meaning": "To stop knowing the time, the count, or who was there.",
+   "pos": "idiom",
+   "example": "I lost track of the time."
   }
  },
  "language": "English"

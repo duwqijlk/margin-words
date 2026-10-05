@@ -4108,6 +4108,1036 @@
    "forms": [
     "yokes"
    ]
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Near.",
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: to close means to shut.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "close",
+       "context": "cubs to get close to the warm hide"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "close",
+       "context": "pressed his face close to the window and"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "close",
+       "context": "flattered. Bagheera lay close to Mowgli, and the"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "close",
+       "context": "the rocks as close to the sea as"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "close",
+       "context": "fin, drifting along close to shore, and he"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "close",
+       "context": "a dolphin, flippers close to the side and"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 4,
+       "form": "close",
+       "context": "He landed close to old Sea Vitch"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 5,
+       "form": "close",
+       "context": "night, and kept close to the shore all"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "close",
+       "context": "Rikki bit him close to the back of"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "form": "close",
+       "context": "together, his head close to the floor. “He"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "close",
+       "context": "was a bazaar close by, and only three"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "close",
+       "context": "tail, and landed close to the mule"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "close",
+       "context": "young mule huddled close to Billy"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "close",
+       "context": "of other camels close by, and a great"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "form": "close",
+       "context": "a good place close to the Viceroy and"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 4,
+       "form": "close",
+       "context": "his chin. Bagheera followed close, in case of accidents"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "close",
+       "context": "him if we follow too close"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "close",
+       "context": "Toomai laid himself down close to the great neck"
+      }
+     ]
+    }
+   ]
+  },
+  "content": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Happy with the way things are.",
+   "senses": [
+    {
+     "meaning": "Happy with the way things are.",
+     "whyHard": "Not the usual meaning! Usually: content means what is inside something.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "content",
+       "context": "you must be content to skip ten or"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "content",
+       "context": "young hunters were content to be led by"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "curious": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Strange.",
+   "senses": [
+    {
+     "meaning": "Strange.",
+     "whyHard": "Not the usual meaning! Usually: curious means wanting to know.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "curious",
+       "context": "grain-chest with curious raised patterns on it"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "deal": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A lot. A large amount.",
+   "senses": [
+    {
+     "meaning": "A lot. A large amount.",
+     "whyHard": "Not the usual meaning! Usually: a deal is an agreement, or giving out cards.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "deal",
+       "context": "to learn a great deal more than this. Sometimes"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "deal",
+       "context": "comforted them a great deal. None of the beasts"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "deal",
+       "context": "saw with a great deal of satisfaction that they"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "deal",
+       "context": "It takes a good deal of prodding to put"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "deal",
+       "context": "you are a good deal braver than you think"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "deal",
+       "context": "there’s a great deal of me to take"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "form": "deal",
+       "context": "I’ve a good deal of Government property on"
+      }
+     ]
+    }
+   ]
+  },
+  "draw": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To pull something, or to move it.",
+   "senses": [
+    {
+     "meaning": "To pull something, or to move it.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "were going to draw his sword and slash"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "mist rose, and drew breath, and looked down"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "drew",
+       "context": "all the Council drew back in terror before"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "houses, and Baloo drew a deep breath of"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "drew",
+       "context": "ringing snap that drew all the monkeys’ eyes"
+      }
+     ],
+     "default": true,
+     "forms": [
+      "drew"
+     ]
+    }
+   ],
+   "forms": [
+    "drew"
+   ]
+  },
+  "drawing": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "Pulling something, or moving it.",
+   "senses": [
+    {
+     "meaning": "Pulling something, or moving it.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "drawing",
+       "context": "while Rikki-tikki was drawing breath, she caught it"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "drawing",
+       "context": "full-stroke, the terrible drawing scrape, of a tiger"
+      }
+     ]
+    }
+   ]
+  },
+  "drawn": {
+   "senseOnly": true,
+   "pos": "past participle",
+   "meaning": "Pulled along, or pulled out.",
+   "senses": [
+    {
+     "meaning": "Pulled along, or pulled out.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "drawn",
+       "context": "thorn-bush that was drawn up before the gate"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "drawn",
+       "context": "and the wolves had drawn the great gay skin"
+      }
+     ]
+    }
+   ]
+  },
+  "drew": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Pulled something, or moved closer.",
+   "senses": [
+    {
+     "meaning": "Pulled something, or moved closer.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "evening mist rose, and drew breath, and looked down"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "drew",
+       "context": "as all the Council drew back in terror before"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "drew",
+       "context": "the houses, and Baloo drew a deep breath of"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "drew",
+       "context": "a ringing snap that drew all the monkeys’ eyes"
+      }
+     ]
+    }
+   ]
+  },
+  "fast": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Stuck tight, or fully, as in a deep sleep.",
+   "senses": [
+    {
+     "meaning": "Stuck tight, or fully, as in a deep sleep.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "head and held fast. The big man brought"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "he was tied fast. He knew that he"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "fast",
+       "context": "convolvuluses, hung down fast asleep; but within the"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To go without food.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "Khan could never fast even for the sake"
+      }
+     ]
+    }
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To give or pass something to someone.",
+   "senses": [
+    {
+     "meaning": "To give or pass something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "handed",
+       "context": "in his trunk, and handed him up to Big"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "handed"
+   ]
+  },
+  "judge": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To decide.",
+   "senses": [
+    {
+     "meaning": "To decide.",
+     "whyHard": "Not the usual meaning! Usually: a judge is a person who decides in a court.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "judge",
+       "context": "that we shall judge later,” said Bagheera, in"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "judge",
+       "context": "it difficult to judge distances), and, picking out"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there, after the rest has gone.",
+   "senses": [
+    {
+     "meaning": "Still there, after the rest has gone.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "left",
+       "context": "been beaten and left for dead; so he"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "left",
+       "context": "own wolves were left. Shere Khan roared still"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "left",
+       "context": "friends would be left far behind. It was"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "form": "left",
+       "context": "with what was left of the fruit. Mowgli"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 8,
+       "form": "left",
+       "context": "all that were left of them, and saw"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 9,
+       "form": "left",
+       "context": "no more breath left, while Gray Brother and"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "left",
+       "context": "saw what was left of Nag, and Rikki"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "left",
+       "context": "the line was left standing up; and he"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "form": "left",
+       "context": "was no more left to fall, and the"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "form": "left",
+       "context": "were only three eggs left, and Rikki-tikki began"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "left",
+       "context": "for those that are left. This is Fate —nothing"
+      }
+     ]
+    }
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To be alive, or the time a person or an animal is alive.",
+   "senses": [
+    {
+     "meaning": "To be alive, or the time a person or an animal is alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "lives",
+       "context": "long as he lives, which is not long"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "lives",
+       "context": "the Pack three lives. More I cannot do"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "I think, our lives —Bagheera and I"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "far into the lives of men"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "lives",
+       "context": "most people’s whole lives, and perhaps they make"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "in all their lives. I shall certainly stay"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "lives",
+       "context": "has saved our lives now.” Then Teddy’s mother"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "form": "lives",
+       "context": "think, he saved all our lives"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 4,
+       "form": "lives",
+       "context": "think, he saved all our lives"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "lives",
+       "context": "before in their lives —savage men and savage"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "master": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The person in charge, or the chief one.",
+   "senses": [
+    {
+     "meaning": "The person in charge, or the chief one.",
+     "whyHard": "Not the usual meaning! Usually: to master something means to learn it very well.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "master",
+       "context": "hunt with thy master. Thou hast done harm"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "master",
+       "context": "Thou art the master,” said Bagheera, in an"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "master",
+       "context": "teaching him the Master Words of the Jungle"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "master",
+       "context": "what are those Master Words? I am more"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "form": "master",
+       "context": "Bagheera, then, the Master Words of the Jungle"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 4,
+       "form": "master",
+       "context": "Master Words for which people?” said"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 5,
+       "form": "master",
+       "context": "had begged the Master Words from Hathi, the"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 6,
+       "form": "master",
+       "context": "the jungle without the Master Words"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 7,
+       "form": "master",
+       "context": "well of their master. Aaa-sssh! We must"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 8,
+       "form": "master",
+       "context": "boy held the Master Word. I could have"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 9,
+       "form": "master",
+       "context": "young remembering the Master Word for the birds"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "master",
+       "context": "he was the master. He beat the buffaloes"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "master",
+       "context": "to salute his master that was to be"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "master",
+       "context": "laughingly she said, “Master, of a million mouths"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "masters",
+       "context": "hunting to ye all, my masters"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "masters",
+       "context": "down and let our masters fire across us, but"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "nursing": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "Holding a baby and looking after it.",
+   "senses": [
+    {
+     "meaning": "Holding a baby and looking after it.",
+     "whyHard": "Not the usual meaning! Usually: a nurse is a person who looks after sick people.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "nursing",
+       "context": "his mother, who was nursing his baby-brother, and"
+      }
+     ]
+    }
+   ]
+  },
+  "scale": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "One hard plate on a snake or a fish.",
+   "senses": [
+    {
+     "meaning": "One hard plate on a snake or a fish.",
+     "whyHard": "Not the usual meaning! Usually: a scale is a tool for weighing, or how big something is.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "scales",
+       "context": "hear the rustle of the scales"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "scales",
+       "context": "of a snake’s scales on brickwork"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "scale",
+       "context": "or fin or scale or feather — Jabber it"
+      }
+     ],
+     "default": true,
+     "forms": [
+      "scales"
+     ]
+    }
+   ],
+   "forms": [
+    "scales"
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "still",
+       "context": "Tabaqui sat still, rejoicing in the mischief"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 3,
+       "form": "still",
+       "context": "keep him. Lie still, little frog. O thou"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 7,
+       "form": "still",
+       "context": "thee open. Sit still and think! Make a"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 9,
+       "form": "still",
+       "context": "with cobras. “Stand still, Little Brother, lest thy"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 10,
+       "form": "still",
+       "context": "of Kaa. Sit still and watch"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 11,
+       "form": "still",
+       "context": "and Bagheera stood still as stone, growling in"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 4,
+       "form": "still",
+       "context": "would only stay still, to charge down and"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 6,
+       "form": "still",
+       "context": "He lay as still as still, expecting every"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 7,
+       "form": "still",
+       "context": "as still as still, expecting every minute to"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "still",
+       "context": "as still as still, but he thought he"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 2,
+       "form": "still",
+       "context": "as still as still, but he thought he"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 4,
+       "form": "still",
+       "context": "Rikki-tikki stayed still as death. After an"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 8,
+       "form": "still",
+       "context": "she hissed, “stay still. I am not ready"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 10,
+       "form": "still",
+       "context": "to whisper, “Sit still, Teddy. You mustn’t move"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 11,
+       "form": "still",
+       "context": "You mustn’t move. Teddy, keep still"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 3,
+       "form": "still",
+       "context": "did. He stood still, looking out across the"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 4,
+       "form": "still",
+       "context": "Kala Nag stood still between two tree-trunks"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 5,
+       "form": "still",
+       "context": "as he lay still on Kala Nag’s neck"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "still",
+       "context": "Then you stand still and keep quiet —never"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "still",
+       "context": "then. I sit still and wait"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 5,
+       "form": "still",
+       "context": "the ground stood still, the whole line saluted"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 4,
+       "form": "still",
+       "context": "the forest was very still now that Baloo had"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 6,
+       "form": "still",
+       "context": "and miles over the still green jungle, as a"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 12,
+       "form": "still",
+       "context": "he stood under the still trees again. “Never more"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "form": "still",
+       "context": "him in those long still mornings"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 6,
+       "form": "still",
+       "context": "house will lie very still. What is the use"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 9,
+       "form": "still",
+       "context": "a little. Keep very still, all you three. If"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "still",
+       "context": "swim the calves. Stop still, you behind there"
+      }
+     ]
+    }
+   ]
+  },
+  "well": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A deep hole in the ground where people get water.",
+   "senses": [
+    {
+     "meaning": "A deep hole in the ground where people get water.",
+     "whyHard": "Not the usual meaning! Usually: well means in a good way.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "wells",
+       "context": "corners where the public wells once stood, and the"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "wells"
+   ]
+  },
+  "will": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "What a person wants.",
+   "senses": [
+    {
+     "meaning": "What a person wants.",
+     "whyHard": "Not the usual meaning! Usually: will means something is going to happen.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 39,
+       "form": "will",
+       "context": "is not my will. Nor do I think"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "will",
+       "context": "Give him his will,” said Messua’s husband. “Remember"
+      }
+     ],
+     "default": true
+    }
+   ]
   }
  },
  "paragraphs": [
@@ -5472,6 +6502,42 @@
     "worked his way"
    ],
    "example": "worked his way desperately, inch by inch"
+  },
+  "might as well": {
+   "meaning": "There is no strong reason not to.",
+   "pos": "idiom",
+   "example": "I may as well give you something on account now",
+   "forms": [
+    "may as well"
+   ]
+  },
+  "set to work": {
+   "meaning": "To start working.",
+   "pos": "idiom",
+   "example": "Mowgli had better be set to work"
+  },
+  "a good deal": {
+   "meaning": "A large amount.",
+   "pos": "phrase",
+   "example": "had to learn a great deal more",
+   "forms": [
+    "a great deal"
+   ]
+  },
+  "make up one's mind": {
+   "meaning": "To decide.",
+   "pos": "idiom",
+   "example": "trying to make up his mind to run"
+  },
+  "at hand": {
+   "meaning": "Near. Close enough to reach now.",
+   "pos": "phrase",
+   "example": "Baloo must be at hand; Bagheera would not have come"
+  },
+  "may as well": {
+   "meaning": "There is no strong reason not to. You could do it.",
+   "pos": "idiom",
+   "example": "morning; but I may as well give you something on"
   }
  }
 }

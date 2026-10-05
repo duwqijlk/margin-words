@@ -5,7 +5,7 @@
  "sha256": "4804c3bd16c4c15a0e55ea64206ae8ed1c9fa932458d3027e3f9f8b76795e460",
  "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
  "chapters": 29,
- "count": 557,
+ "count": 560,
  "glossary": {
   "twit": {
    "pos": "singular noun",
@@ -5262,6 +5262,95 @@
    "pos": "singular noun",
    "meaning": "A word in Mrs Twit's angry rhyme. It has no clear meaning here.",
    "whyHard": "It is part of an angry rhyme."
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Near. Not far away.",
+   "whyHard": "Not the usual meaning! Usually: close means to shut.",
+   "senses": [
+    {
+     "meaning": "Near. Not far away.",
+     "whyHard": "Not the usual meaning! Usually: close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "If you looked closer still (hold your noses, ladies",
+       "form": "closer"
+      }
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "closer",
+    "closely"
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there. Not yet gone or used.",
+   "whyHard": "Not the usual meaning! Usually: left means the side that is not right, or the past of leave.",
+   "senses": [
+    {
+     "meaning": "Still there. Not yet gone or used.",
+     "whyHard": "Not the usual meaning! Usually: left means the side that is not right, or the past of leave.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "end there’s nothing left except a pair of"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "There was nothing more left in this world of"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "left",
+       "context": "left except a pair of shoes and a"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "left",
+       "context": "left in this world of Mr and Mrs"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "life": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The state of being alive.",
+   "whyHard": "Not the usual meaning! Usually: lives means to have your home in a place.",
+   "senses": [
+    {
+     "meaning": "The state of being alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means to have your home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 17,
+       "occurrence": 1,
+       "context": "and Mrs Twit for making their lives so miserable",
+       "form": "lives"
+      }
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "lives"
+   ]
   }
  },
  "paragraphs": [

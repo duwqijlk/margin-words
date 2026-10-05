@@ -5,7 +5,7 @@
  "sha256": "eb337e339897df0a7027ef046fee58fba33d7ebe70d751043951d3e1d337610b",
  "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
  "chapters": 21,
- "count": 2022,
+ "count": 2047,
  "glossary": {
   "headmistress": {
    "pos": "singular noun",
@@ -1574,18 +1574,30 @@
   },
   "object": {
    "pos": "singular noun",
-   "meaning": "A thing that you can see or touch.",
+   "meaning": "A thing you can see or touch.",
    "whyHard": "This word is harder than everyday English.",
-   "example": "\"I can't help wondering\", she said, \"whether this sudden ability that has come to you, of being able to move an object without touching it, whether it might not have something to do with your brainpower.",
-   "examples": [
-    "\"I can't help wondering\", she said, \"whether this sudden ability that has come to you, of being able to move an object without touching it, whether it might not have something to do with your brainpower.",
-    "The whole object of life, Headmistress, is to go forwards."
-   ],
    "forms": [
     "object",
     "objects"
    ],
-   "count": 6
+   "senses": [
+    {
+     "meaning": "A thing you can see or touch.",
+     "default": true
+    },
+    {
+     "meaning": "The aim. The thing you are trying to reach.",
+     "whyHard": "Not the usual meaning! Usually an object is a thing you can see or touch.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "anything backwards. The whole object of life, Headmistress, is"
+      }
+     ]
+    }
+   ]
   },
   "pale": {
    "pos": "adjective",
@@ -2236,17 +2248,29 @@
   },
   "sink": {
    "pos": "singular noun",
-   "meaning": "A bowl in a kitchen or bathroom where you wash things. As a verb it means to go down under water.",
+   "meaning": "A bowl in a kitchen or bathroom where you wash things.",
    "whyHard": "This word is harder than everyday English.",
-   "example": "A bottle of this smelly purple mixture always stood on the shelf above the sink in the bathroom alongside all the toothbrushes, and a very vigorous scalp massage with oil of violets took place daily after shaving was completed.",
-   "examples": [
-    "A bottle of this smelly purple mixture always stood on the shelf above the sink in the bathroom alongside all the toothbrushes, and a very vigorous scalp massage with oil of violets took place daily after shaving was completed.",
-    "Miss Honey took a few moments to let this curious statement sink in."
-   ],
    "forms": [
     "sink"
    ],
-   "count": 5
+   "senses": [
+    {
+     "meaning": "A bowl in a kitchen or bathroom where you wash things.",
+     "default": true
+    },
+    {
+     "meaning": "To become slowly clear in the mind.",
+     "whyHard": "Not the usual meaning! Usually a sink is a bowl for washing.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "let this curious statement sink in. \"You mean\", she"
+      }
+     ]
+    }
+   ]
   },
   "slimy": {
    "pos": "adjective",
@@ -2672,18 +2696,42 @@
    "count": 4
   },
   "curious": {
+   "senseOnly": true,
    "pos": "adjective",
-   "meaning": "Wanting to know about something. It can also mean strange.",
-   "whyHard": "This word is harder than everyday English.",
-   "example": "\" Or if I were feeling lyrical that day, I might write, \"It is a curious truth that grasshoppers have their hearing-organs in the sides of the abdomen.",
-   "examples": [
-    "\" Or if I were feeling lyrical that day, I might write, \"It is a curious truth that grasshoppers have their hearing-organs in the sides of the abdomen.",
-    "Some curious warmth that was almost tangible shone out of Miss Honey's face when she spoke to a confused and homesick newcomer to the class."
-   ],
+   "meaning": "Strange. Not the ordinary kind.",
+   "whyHard": "Not the usual meaning! Usually curious means wanting to know.",
    "forms": [
     "curious"
    ],
-   "count": 4
+   "senses": [
+    {
+     "meaning": "Strange. Not the ordinary kind.",
+     "whyHard": "Not the usual meaning! Usually curious means wanting to know.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "write, \"It is a curious truth that grasshoppers have"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "to obey orders. Some curious warmth that was almost"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "context": "moments to let this curious statement sink in. \"You"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "times. It was a curious noise. You can hear"
+      }
+     ]
+    }
+   ]
   },
   "eyeball": {
    "pos": "singular noun",
@@ -6636,18 +6684,40 @@
    "count": 2
   },
   "drew": {
+   "senseOnly": true,
    "pos": "past-tense verb",
-   "meaning": "Pulled. \"Drew back\" means moved back.",
-   "whyHard": "This word is harder than everyday English.",
-   "example": "The children drew back hastily to let her through and her progress across the asphalt was like that of Moses going through the Red Sea when the waters parted.",
-   "examples": [
-    "The children drew back hastily to let her through and her progress across the asphalt was like that of Moses going through the Red Sea when the waters parted.",
-    "\"You would be a lot better off, Miss Honey,\" she said, \"if you gave up your job and drew unemployment money."
-   ],
+   "meaning": "Moved back.",
+   "whyHard": "Not the usual meaning! Usually drew means made a picture.",
    "forms": [
     "drew"
    ],
-   "count": 2
+   "senses": [
+    {
+     "meaning": "Moved back.",
+     "whyHard": "Not the usual meaning! Usually drew means made a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "menacing strides. The children drew back hastily to let"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Got the money paid to people who have no job.",
+     "whyHard": "Not the usual meaning! Usually drew means made a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "up your job and drew unemployment money"
+      }
+     ]
+    }
+   ]
   },
   "dusting": {
    "pos": "present participle",
@@ -20464,33 +20534,1063 @@
   },
   "figure": {
    "pos": "noun",
-   "meaning": "A person's shape or body.",
-   "whyHard": "This word is used for a body, a statue, and a number.",
+   "meaning": "A person, or the shape of a person's body.",
+   "whyHard": "This word is used for a person, a statue, and a number.",
    "forms": [
-    "figure"
+    "figure",
+    "figures"
    ],
    "senses": [
     {
-     "meaning": "A person's shape or body.",
-     "default": true
-    },
-    {
-     "meaning": "A number, often a round one.",
+     "meaning": "A number.",
+     "whyHard": "Here it is a number, not a person's shape.",
      "anchors": [
       {
        "chapter": 4,
+       "occurrence": 2,
+       "context": "got all those figures written down",
+       "form": "figures"
+      },
+      {
+       "chapter": 8,
        "occurrence": 1,
-       "context": "Never ask for a big round figure"
+       "context": "complicated figures in her head like",
+       "form": "figures"
+      }
+     ]
+    }
+   ]
+  },
+  "break": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A short rest from lessons in the school day.",
+   "whyHard": "Not the usual meaning! Usually break means to make something come apart.",
+   "forms": [
+    "break"
+   ],
+   "senses": [
+    {
+     "meaning": "A short rest from lessons in the school day.",
+     "whyHard": "Not the usual meaning! Usually break means to make something come apart.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "together during the morning-break and in the lunch"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "the playground during morning-break on the third day"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "shouted. \"Yesterday morning, during break, you sneaked like a"
+      }
+     ]
+    }
+   ]
+  },
+  "bright": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Clever. Quick at learning.",
+   "senses": [
+    {
+     "meaning": "Clever. Quick at learning.",
+     "whyHard": "Not the usual meaning! Usually: bright means full of light, or shining.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "coaching a child as bright as this appealed"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "be an unusually bright child and his"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "You are much too bright not to"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "was every bit as bright as Miss Honey"
+      }
+     ]
+    }
+   ]
+  },
+  "clean": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Completely. All the way.",
+   "whyHard": "Not the usual meaning! Usually clean means not dirty.",
+   "forms": [
+    "clean"
+   ],
+   "senses": [
+    {
+     "meaning": "Completely. All the way.",
+     "whyHard": "Not the usual meaning! Usually clean means not dirty.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "lifted the helpless boy clean out of his chair"
+      }
+     ]
+    }
+   ]
+  },
+  "clear": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "All the way, so that nothing is still touching.",
+   "senses": [
+    {
+     "meaning": "All the way, so that nothing is still touching.",
+     "whyHard": "Not the usual meaning! Usually: clear means easy to see, or easy to understand.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "context": "flung him clear out of the open classroom"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "lift the whole cigar clear off the table"
+      }
+     ]
+    }
+   ]
+  },
+  "closely": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "With great care, staying near what you watch or hear.",
+   "whyHard": "Not the usual meaning! Usually close means to shut.",
+   "forms": [
+    "closely"
+   ],
+   "senses": [
+    {
+     "meaning": "With great care, staying near what you watch or hear.",
+     "whyHard": "Not the usual meaning! Usually close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "who had been listening closely, said, \"But daddy, that's"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "row, was watching things very closely"
+      }
+     ]
+    }
+   ]
+  },
+  "cook": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person whose job is to make meals.",
+   "whyHard": "Not the usual meaning! Usually cook means to make food hot and ready to eat.",
+   "forms": [
+    "cook"
+   ],
+   "senses": [
+    {
+     "meaning": "A person whose job is to make meals.",
+     "whyHard": "Not the usual meaning! Usually cook means to make food hot and ready to eat.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "said cosy nook. Nosey cook might have been better"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "me personally by the cook! It was my morning"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "barked the Trunchbull. \"The cook saw you! What's more"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "context": "you should congratulate the cook. When a gentleman has"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 4,
+       "context": "Cook!\" the Trunchbull shouted, turning her"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 5,
+       "context": "the door. \"Come here, cook! Bogtrotter wishes to tell"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 6,
+       "context": "The cook, a tall shrivelled female"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 7,
+       "context": "the Trunchbull boomed. \"Tell cook what you think of"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 8,
+       "context": "There you are, cook,\" the Trunchbull cried. \"Bogtrotter"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 9,
+       "context": "I do indeed,\" the cook said. She seemed to"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 10,
+       "context": "The cook disappeared. Almost at once"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 11,
+       "context": "chair behind it. The cook placed the cake carefully"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 12,
+       "context": "very much, I ordered cook to bake you an"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 13,
+       "context": "Thank cook, not me,\" the Trunchbull"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 14,
+       "context": "Thank you, cook,\" the boy said"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 15,
+       "context": "The cook stood there like a"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 16,
+       "context": "at the tall stringy cook with her lemon-juice"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 17,
+       "context": "Trunchbull said. \"You're insulting the cook"
+      }
+     ]
+    }
+   ]
+  },
+  "cool": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Calm. Not upset.",
+   "whyHard": "Not the usual meaning! Usually cool means a little cold.",
+   "forms": [
+    "cool"
+   ],
+   "senses": [
+    {
+     "meaning": "Calm. Not upset.",
+     "whyHard": "Not the usual meaning! Usually cool means a little cold.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "much. They seemed pretty cool. So the large one"
+      }
+     ]
+    }
+   ]
+  },
+  "dead": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Completely. Used when a person stops suddenly, or stands completely straight.",
+   "senses": [
+    {
+     "meaning": "Completely. Used when a person stops suddenly, or stands completely straight.",
+     "whyHard": "Not the usual meaning! Usually: dead means not alive.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "to stand up dead straight and if you"
+      }
+     ]
+    }
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To give something to someone.",
+   "forms": [
+    "handed"
+   ],
+   "senses": [
+    {
+     "meaning": "To give something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "the compact and handed it to her husband",
+       "form": "handed"
+      }
+     ]
+    }
+   ]
+  },
+  "handed": {
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Gave something to someone.",
+   "whyHard": "Not the usual meaning! Usually a hand is the end of the arm.",
+   "forms": [
+    "handed"
+   ],
+   "senses": [
+    {
+     "meaning": "Gave something to someone.",
+     "whyHard": "Not the usual meaning! Usually a hand is the end of the arm.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "opened the compact and handed it to her husband"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "the children, Miss Honey handed out a brand-new"
+      }
+     ]
+    }
+   ]
+  },
+  "hard": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "With a lot of force or effort.",
+   "whyHard": "Not the usual meaning! Usually hard means difficult.",
+   "forms": [
+    "hard"
+   ],
+   "senses": [
+    {
+     "meaning": "With a lot of force or effort.",
+     "whyHard": "Not the usual meaning! Usually hard means difficult.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "if you pull too hard. Mr Wormwood didn't want"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "you weren't looking very hard and you simply took"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "Miss Honey stared hard into the other woman's"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "his mother had worked hard with him at home"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "am staring at it hard enough . . . I have to"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "stare at it very hard, Miss Honey, very very"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "context": "Miss Honey, very very hard, and then I can"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 4,
+       "context": "I've been thinking very hard about what you did"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Firm and solid. Not soft.",
+     "whyHard": "Not the usual meaning! Usually hard means difficult.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "to sleep on a hard surface"
+      }
+     ]
+    }
+   ]
+  },
+  "head": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The person in charge of a school.",
+   "forms": [
+    "headed"
+   ],
+   "senses": [
+    {
+     "meaning": "The person in charge of a school.",
+     "whyHard": "Not the usual meaning! Usually: a head is the top part of the body.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "most head teachers are chosen because they"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "Trilby was appointed Head Teacher in her place"
       }
      ]
     },
     {
-     "meaning": "A small statue.",
+     "meaning": "The end of a table, where the leader sits.",
+     "whyHard": "Not the usual meaning! Usually: a head is the top part of the body.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "to sit at the head of the table when"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "asked from the head of the table"
+      }
+     ]
+    },
+    {
+     "pos": "past-tense verb",
+     "meaning": "Went straight toward a place.",
+     "whyHard": "Not the usual meaning! Usually: a head is the top part of the body.",
+     "trickyMeaning": true,
+     "forms": [
+      "headed"
+     ],
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "left the classroom and headed straight for the",
+       "form": "headed"
+      }
+     ]
+    }
+   ]
+  },
+  "kind": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A type. A sort of thing.",
+   "senses": [
+    {
+     "meaning": "A type. A sort of thing.",
+     "whyHard": "Not the usual meaning! Usually: kind means nice and good to someone.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "romance of the kind that is written for"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "the kind of man a wife dreams"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "with the same kind of care the"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "kind of electricity seemed to be gathering"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "there is some kind of magic in you"
+      }
+     ]
+    }
+   ]
+  },
+  "last": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To go on.",
+   "whyHard": "Not the usual meaning! Usually last means the one after all the others.",
+   "forms": [
+    "last"
+   ],
+   "senses": [
+    {
+     "meaning": "To go on.",
+     "whyHard": "Not the usual meaning! Usually last means the one after all the others.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "But alas, this couldn't last. The next flare-up"
+      }
+     ]
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there, after the rest has gone.",
+   "senses": [
+    {
+     "meaning": "Still there, after the rest has gone.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "Matilda was left alone in the house"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 3,
+       "context": "had enough energy left to cook an"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "She carefully left enough of her father's"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "down the sound but left the picture on"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "and you're left slaving away teaching"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "the only two left in the class"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "think there's still a drop left"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "so I was left to live alone with"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "when you were left all alone with the"
+      }
+     ]
+    },
+    {
+     "meaning": "Given to someone so that it stays with them.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 5,
+       "context": "nearly always left in trust for the child"
+      }
+     ]
+    }
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "plural noun",
+   "meaning": "The years a person is alive, or the way those years are spent.",
+   "whyHard": "Not the usual meaning! Usually lives means has a home in a place.",
+   "forms": [
+    "lives"
+   ],
+   "senses": [
+    {
+     "meaning": "The years a person is alive, or the way those years are spent.",
+     "whyHard": "Not the usual meaning! Usually lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "their own silly little lives that they failed to"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 2,
+       "context": "people who lived exciting lives. She went on olden"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "first time in their lives are herded into a"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "army fighting for our lives with hardly any weapons"
+      }
+     ]
+    }
+   ]
+  },
+  "march": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A strong steady walk.",
+   "whyHard": "Not the usual meaning! Usually March is the third month.",
+   "forms": [
+    "march"
+   ],
+   "senses": [
+    {
+     "meaning": "A strong steady walk.",
+     "whyHard": "Not the usual meaning! Usually March is the third month.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "Trunchbull began a slow march along the rows of"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To walk in a strong steady way.",
+     "whyHard": "Not the usual meaning! Usually March is the third month.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "it. She longed to march up and grab the"
+      }
+     ]
+    }
+   ]
+  },
+  "mind": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To be upset about something, or to care.",
+   "senses": [
+    {
+     "meaning": "To be upset about something, or to care.",
+     "whyHard": "Not the usual meaning! Usually: a mind is the part of you that thinks.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "But I don't mind telling young Mike"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "would you mind if I ate my supper"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "didn't in the least mind being accused"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "burning but I don't mind that in the"
+      }
+     ]
+    }
+   ]
+  },
+  "miss": {
+   "pos": "noun",
+   "meaning": "A word put before a woman's family name, or before a teacher's name.",
+   "whyHard": "Not the usual meaning! Usually miss means to fail to hit or catch something, or to feel sad because someone is away.",
+   "forms": [
+    "miss"
+   ]
+  },
+  "rest": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The other people, or the part that remains.",
+   "whyHard": "Not the usual meaning! Usually rest means to stop work and be quiet.",
+   "forms": [
+    "rest"
+   ],
+   "senses": [
+    {
+     "meaning": "The other people, or the part that remains.",
+     "whyHard": "Not the usual meaning! Usually rest means to stop work and be quiet.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "possible for all the rest of you to live"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "I hope the rest of you are listening"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "context": "some attention to the rest of the class but"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 4,
+       "context": "it about Or the rest will be wanting one"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 5,
+       "context": "forgotten now about the rest of the class. \"What"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "I am teaching the rest of the form the"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "to live through the rest of your time here"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "pixie look for the rest of his life"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "as well from the rest of the world"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "Bears and all the rest of them. It was"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "pence rent, and the rest just about buys me"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "colour and all the rest of it. And now"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To set something down so that it is held up.",
+     "whyHard": "Not the usual meaning! Usually rest means to stop work and be quiet.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "It was necessary to rest it on the lap"
+      }
+     ]
+    }
+   ]
+  },
+  "second": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A very small bit of time. Sixty of them make one minute.",
+   "whyHard": "Not the usual meaning! Usually second means the one after the first.",
+   "forms": [
+    "second",
+    "seconds"
+   ],
+   "senses": [
+    {
+     "meaning": "A very small bit of time. Sixty of them make one minute.",
+     "whyHard": "Not the usual meaning! Usually second means the one after the first.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "hundred and fifty times a second"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "it for a few seconds. \"All right, then,\" he",
+       "form": "seconds"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "was back in thirty seconds carrying a thick book",
+       "form": "seconds"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "her for a few seconds until the thick syrup",
+       "form": "seconds"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "be dead in ten seconds flat. Or perhaps it",
+       "form": "seconds"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "wildly for a few seconds before settling down. And",
+       "form": "seconds"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "teetered for a few seconds before finally toppling over",
+       "form": "seconds"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "the space of thirty seconds the atmosphere in the",
+       "form": "seconds"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "there for about ten seconds. Then it fell back",
+       "form": "seconds"
+      }
+     ]
+    }
+   ]
+  },
+  "stick": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To fasten something so that it stays on.",
+   "whyHard": "Not the usual meaning! Usually a stick is a long thin piece of wood.",
+   "forms": [
+    "stick"
+   ],
+   "senses": [
+    {
+     "meaning": "To fasten something so that it stays on.",
+     "whyHard": "Not the usual meaning! Usually a stick is a long thin piece of wood.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 3,
+       "context": "you were trying to stick another feather in your"
+      }
+     ]
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving.",
+   "whyHard": "Not the usual meaning! Usually still means even now, or that something goes on.",
+   "forms": [
+    "still"
+   ],
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually still means even now, or that something goes on.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "context": "She sat there very still and white and thoughtful"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "Amanda Thripp, stood quite still, watching the advancing giant"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "newt was lying quite still. With great care, she"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "snorted the Trunchbull. \"Keep still, you squirming worm"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 5,
+       "context": "second row, sat very still and said nothing. A"
+      }
+     ]
+    }
+   ]
+  },
+  "warm": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To start to feel friendly toward someone.",
+   "whyHard": "Not the usual meaning! Usually warm means a little hot.",
+   "forms": [
+    "warm"
+   ],
+   "senses": [
+    {
+     "meaning": "To start to feel friendly toward someone.",
+     "whyHard": "Not the usual meaning! Usually warm means a little hot.",
+     "trickyMeaning": true,
      "anchors": [
       {
        "chapter": 6,
        "occurrence": 1,
-       "context": "smash into a thousand pieces, like a porcelain figure"
+       "context": "class had begun to warm towards Miss Honey, although"
+      }
+     ]
+    }
+   ]
+  },
+  "will": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A paper that says who gets a person's things after that person dies.",
+   "whyHard": "Not the usual meaning! Usually will is a helper word about the future.",
+   "forms": [
+    "will"
+   ],
+   "senses": [
+    {
+     "meaning": "A paper that says who gets a person's things after that person dies.",
+     "whyHard": "Not the usual meaning! Usually will is a helper word about the future.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 3,
+       "context": "My father's will was never found,\" Miss"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 4,
+       "context": "if there is no will, Miss Honey, then surely"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "her that the last will and testament of her"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "Miss Agatha Trunchbull. The will also showed that her"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "The power of the mind to want something and to push.",
+     "whyHard": "Not the usual meaning! Usually will is a helper word about the future.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "her brain and her will up into her eyes"
       }
      ]
     }
@@ -21757,6 +22857,320 @@
   "pork pie": {
    "meaning": "A round hat with a flat top.",
    "pos": "phrase"
+  },
+  "on the other hand": {
+   "meaning": "Looking at the other side of the question.",
+   "pos": "idiom",
+   "example": "On the other hand, she was certainly not about to own up."
+  },
+  "red handed": {
+   "meaning": "Caught while doing the bad thing.",
+   "pos": "idiom",
+   "example": "Go out and collar them red-handed!"
+  },
+  "in order to": {
+   "meaning": "So that this can happen. For this purpose.",
+   "pos": "idiom",
+   "example": "she had to sit leaning forward in order to read."
+  },
+  "take place": {
+   "meaning": "To happen.",
+   "pos": "phrasal verb",
+   "example": "took place daily after shaving was completed."
+  },
+  "watch out": {
+   "meaning": "Be careful. Something bad is near.",
+   "pos": "phrasal verb",
+   "example": "\"Watch out,\" Hortensia whispered."
+  },
+  "give up": {
+   "meaning": "To stop doing a job, or to stop trying.",
+   "pos": "phrasal verb",
+   "example": "if you gave up your job and drew unemployment money."
+  },
+  "own up": {
+   "meaning": "To say that you did the bad thing.",
+   "pos": "phrasal verb",
+   "example": "Come on! Own up!"
+  },
+  "for the life of me": {
+   "meaning": "However hard I try. I cannot see why.",
+   "pos": "idiom",
+   "example": "I cannot for the life of me see why children have to take so long to grow up."
+  },
+  "well nigh": {
+   "meaning": "Almost. Very nearly.",
+   "pos": "idiom",
+   "example": "Sometimes it was well nigh impossible"
+  },
+  "in the first place": {
+   "meaning": "As the first point, or from the start.",
+   "pos": "idiom",
+   "example": "He shouldn't have put his finger up there in the first place."
+  },
+  "come to rest": {
+   "meaning": "To stop moving.",
+   "pos": "phrasal verb",
+   "example": "finally came to rest."
+  },
+  "turn down": {
+   "meaning": "To make the sound less big.",
+   "pos": "phrasal verb",
+   "example": "turned down the sound but left the picture on the screen."
+  },
+  "stick em up": {
+   "meaning": "A big order that means put your hands up.",
+   "pos": "idiom",
+   "example": "\"Stick 'em up!\" she yelled."
+  },
+  "had better": {
+   "meaning": "Should. It is the right thing to do.",
+   "pos": "idiom",
+   "example": "you had better watch out."
+  },
+  "what on earth": {
+   "meaning": "Words that show great surprise.",
+   "pos": "idiom",
+   "example": "What on earth were you trying to do"
+  },
+  "now and then": {
+   "meaning": "Sometimes, but not often.",
+   "pos": "idiom",
+   "forms": [
+    "every now and then",
+    "now and again"
+   ],
+   "example": "the lifting of the hand every now and then to turn over a page"
+  },
+  "have a go": {
+   "meaning": "To try.",
+   "pos": "idiom",
+   "example": "she was determined to have a go."
+  },
+  "bring up": {
+   "meaning": "To raise a child.",
+   "pos": "phrasal verb",
+   "example": "the very place in which she had been brought up"
+  },
+  "bring up to": {
+   "meaning": "To take a person up to a better place in school.",
+   "pos": "phrasal verb",
+   "example": "she could be brought up to university standard"
+  },
+  "no matter": {
+   "meaning": "It does not change what happens. It is not important.",
+   "pos": "idiom",
+   "example": "no matter what it was, I obeyed it instantly."
+  },
+  "all the same": {
+   "meaning": "Even so.",
+   "pos": "idiom",
+   "example": "But I loved it all the same."
+  },
+  "better off": {
+   "meaning": "In a better situation.",
+   "pos": "idiom",
+   "example": "You would be a lot better off, Miss Honey"
+  },
+  "mind you": {
+   "meaning": "But remember this as well.",
+   "pos": "idiom",
+   "example": "That's only a theory, mind you"
+  },
+  "at once": {
+   "meaning": "Immediately, or suddenly.",
+   "pos": "idiom",
+   "example": "stand up at once before you answer it."
+  },
+  "by the way": {
+   "meaning": "I am adding this extra thing.",
+   "pos": "idiom",
+   "example": "And that, by the way, is another of my nifty little tricks"
+  },
+  "out of the way": {
+   "meaning": "Not there to stop you. Gone.",
+   "pos": "idiom",
+   "example": "when I knew the Trunchbull was out of the way"
+  },
+  "at any rate": {
+   "meaning": "Anyway. At least this much is true.",
+   "pos": "idiom",
+   "example": "they seemed to work, at any rate for short periods."
+  },
+  "life and limb": {
+   "meaning": "Your life and your body, when someone risks being badly hurt.",
+   "pos": "idiom",
+   "example": "willing to risk life and limb"
+  },
+  "strong point": {
+   "meaning": "The thing a person is good at.",
+   "pos": "idiom",
+   "example": "Natural history was not her strong point."
+  },
+  "let the matter rest": {
+   "meaning": "To stop talking about a problem and leave it.",
+   "pos": "idiom",
+   "example": "too excited to let the matter rest."
+  },
+  "up to you": {
+   "meaning": "You are the person who must decide, or who must do it.",
+   "pos": "idiom",
+   "forms": [
+    "up to me"
+   ],
+   "example": "It's up to you, Headmistress."
+  },
+  "used to": {
+   "meaning": "Did something often in the past, but not now.",
+   "pos": "idiom",
+   "example": "Mrs Wormwood used to freshen it up"
+  },
+  "be used to": {
+   "meaning": "Already knowing something, so it does not surprise you.",
+   "pos": "idiom",
+   "forms": [
+    "not used to"
+   ],
+   "example": "Matilda was used to it."
+  },
+  "as well": {
+   "meaning": "Also. Too.",
+   "pos": "idiom",
+   "example": "Yes, but I've read the books as well."
+  },
+  "in spite of": {
+   "meaning": "Even though this other thing is true.",
+   "pos": "idiom",
+   "example": "not a bit stuck up in spite of her brilliance."
+  },
+  "to do with": {
+   "meaning": "Connected with.",
+   "pos": "idiom",
+   "example": "nothing to do with that beastly creature"
+  },
+  "what's the matter": {
+   "meaning": "What is wrong.",
+   "pos": "idiom",
+   "forms": [
+    "the matter with",
+    "is the matter"
+   ],
+   "example": "What's the matter, daddy?"
+  },
+  "so far so good": {
+   "meaning": "Up to now, things are fine.",
+   "pos": "idiom",
+   "example": "So far so good."
+  },
+  "so far as": {
+   "meaning": "To the degree that. As much as someone knows.",
+   "pos": "idiom",
+   "example": "so far as I can gather"
+  },
+  "worth while": {
+   "meaning": "Worth the time and the effort.",
+   "pos": "idiom",
+   "example": "it was seldom worth while to interfere"
+  },
+  "in any case": {
+   "meaning": "Whatever happens. Anyway.",
+   "pos": "idiom",
+   "example": "And in any case, I have a rule in this school"
+  },
+  "in that case": {
+   "meaning": "If that is true, then this follows.",
+   "pos": "idiom",
+   "example": "\"In that case\", Lavender said"
+  },
+  "the other day": {
+   "meaning": "A few days ago.",
+   "pos": "idiom",
+   "example": "The other day we saw her grab a girl by the pigtails"
+  },
+  "right away": {
+   "meaning": "Immediately. With no wait.",
+   "pos": "idiom",
+   "example": "She knew she wouldn't manage it right away"
+  },
+  "on second thoughts": {
+   "meaning": "After thinking again, and changing the plan.",
+   "pos": "idiom",
+   "example": "Then, on second thoughts, she opened the lid"
+  },
+  "save face": {
+   "meaning": "To keep other people from seeing that you look foolish.",
+   "pos": "idiom",
+   "example": "In an effort to save face, he adopted a casual attitude."
+  },
+  "one's head off": {
+   "meaning": "Very loudly. Used when someone screams.",
+   "pos": "idiom",
+   "example": "shrieking his head off."
+  },
+  "stuck up": {
+   "meaning": "Too proud. Acting as if you are better than other people.",
+   "pos": "idiom",
+   "example": "And not a bit stuck up in spite of her brilliance."
+  },
+  "like a stuck pig": {
+   "meaning": "Screaming very loudly, like a pig that has been stabbed.",
+   "pos": "idiom",
+   "example": "went on yelling like a stuck pig"
+  },
+  "out of one's mind": {
+   "meaning": "Crazy. Not thinking in a normal way.",
+   "pos": "idiom",
+   "example": "You must be out of your mind!"
+  },
+  "blue murder": {
+   "meaning": "Very loud screaming, as if something terrible is happening.",
+   "pos": "idiom",
+   "example": "Amanda was screaming blue murder"
+  },
+  "as a matter of fact": {
+   "meaning": "Actually. Used to say what is true.",
+   "pos": "idiom",
+   "example": "As a matter of fact you are the first visitor to come to the cottage since I moved in."
+  },
+  "for the heck of it": {
+   "meaning": "For no serious reason. Just for fun.",
+   "pos": "idiom",
+   "example": "just for the heck of it, like gangsters do in the films."
+  },
+  "dash it": {
+   "meaning": "A mild angry cry, like saying that something is annoying.",
+   "pos": "idiom",
+   "example": "I mean, dash it all, Headmistress."
+  },
+  "what's more": {
+   "meaning": "And another thing. Also.",
+   "pos": "idiom",
+   "example": "What's more, she saw you eating it!"
+  },
+  "serve someone right": {
+   "meaning": "That person deserved the bad thing that happened.",
+   "pos": "idiom",
+   "example": "Serve him right, Mrs Wormwood said."
+  },
+  "serve as": {
+   "meaning": "To be used as. To do the job of.",
+   "pos": "phrase",
+   "example": "two upturned wooden boxes to serve as chairs"
+  },
+  "you can say that again": {
+   "meaning": "I agree with that very strongly.",
+   "pos": "idiom",
+   "example": "You can say that again, Lavender murmured."
+  },
+  "for that matter": {
+   "meaning": "And the same is true about that other person or thing.",
+   "pos": "idiom",
+   "example": "or anyone else for that matter"
+  },
+  "not in the least": {
+   "meaning": "Not at all. Not even a little.",
+   "pos": "idiom",
+   "example": "She didn't in the least mind being accused"
   }
  }
 }

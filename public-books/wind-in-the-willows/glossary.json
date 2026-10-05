@@ -5469,6 +5469,737 @@
   "ma'am": {
    "pos": "noun",
    "meaning": "A polite old name for a woman. A short form of madam."
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Near.",
+   "whyHard": "Not the usual meaning! Usually: close means to shut.",
+   "senses": [
+    {
+     "meaning": "Near.",
+     "whyHard": "Not the usual meaning! Usually: close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "and forgotten —most pulsated. Close against the white blind"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "context": "it must be quite close by him at that"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "context": "it, and it’s close by here, really quite"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 4,
+       "context": "by here, really quite close. And I must go"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 5,
+       "context": "one look —it was close by —but you wouldn"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 6,
+       "context": "Rat, much excited, kept close to his heels as"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "The river runs somewhere close by, for I hear"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "context": "me? My hole is close by; it is some"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "ma’am,” replied Toad. “Close to a fine house"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "She steered the barge close to the bank, and"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 3,
+       "context": "He could hear them close behind him now. Ceasing"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "this time, and very close above them. “Ooo-ray"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "close",
+       "context": "and forgotten —most pulsated. Close against the white blind"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "close",
+       "context": "it must be quite close by him at that"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "close",
+       "context": "of it, and it’s close by here, really quite"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 4,
+       "form": "close",
+       "context": "of it, and it’s close by here, really quite"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 5,
+       "form": "close",
+       "context": "one look —it was close by —but you wouldn’t"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 6,
+       "form": "close",
+       "context": "Rat, much excited, kept close to his heels as"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "close",
+       "context": "The river runs somewhere close by, for I hear"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "close",
+       "context": "me? My hole is close by; it is some"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "close",
+       "context": "river, ma’am,” replied Toad. “Close to a fine house"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "close",
+       "context": "She steered the barge close to the bank, and"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 3,
+       "form": "close",
+       "context": "He could hear them close behind him now. Ceasing"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "close",
+       "context": "this time, and very close above them. “Ooo-ray-oo-ray-oo-ray-ooray!” they"
+      }
+     ]
+    }
+   ]
+  },
+  "company": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "People who are with you, or guests.",
+   "whyHard": "Not the usual meaning! Usually: a company is a business.",
+   "senses": [
+    {
+     "meaning": "People who are with you, or guests.",
+     "whyHard": "Not the usual meaning! Usually: a company is a business.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "me, and aunts, and company, and food and drink"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "context": "then grunted, “H’m! Company,” and turned his back"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "in the river, in company with his friends, the"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "context": "came to keep them company and listen to their"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "One member of the company was still awaited; the"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "way. Animals when in company walk in a proper"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "his retorts to his company and his supposed character"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "of goodly memories for company. You can easily overtake"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "and to keep him company, as it always had"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "be looking anxiously for company. Toad, however, was looking"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "the chap that keeps company with gaol-birds"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "and offices; while a company of skirmishing stoats who"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "company",
+       "context": "me, and aunts, and company, and food and drink,"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "form": "company",
+       "context": "two, then grunted, “H’m! Company,” and turned his back"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "company",
+       "context": "in the river, in company with his friends, the"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 2,
+       "form": "company",
+       "context": "came to keep them company and listen to their"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "company",
+       "context": "One member of the company was still awaited; the"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "company",
+       "context": "way. Animals when in company walk in a proper"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "company",
+       "context": "his retorts to his company and his supposed character,"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "company",
+       "context": "of goodly memories for company. You can easily overtake"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "company",
+       "context": "and to keep him company, as it always had"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "company",
+       "context": "be looking anxiously for company. Toad, however, was looking"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "company",
+       "context": "the chap that keeps company with gaol-birds?”"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "form": "company",
+       "context": "and offices; while a company of skirmishing stoats who"
+      }
+     ]
+    }
+   ]
+  },
+  "draw": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To pull.",
+   "whyHard": "Not the usual meaning! Usually: draw means to make a picture.",
+   "senses": [
+    {
+     "meaning": "To pull.",
+     "whyHard": "Not the usual meaning! Usually: draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "and snow beside, Yet draw us in by your"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "context": "the Mole, failing to draw them into easy conversation"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "context": "ready, Mole, while I draw the corks"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "the banquet began to draw near, and Toad, who"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "miles from home, they drew up on a remote",
+       "form": "drew"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "kicked the fire up, drew their chairs in, brewed",
+       "form": "drew"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "over. The poop-poop! drew nearer and nearer, the",
+       "form": "drew"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "context": "lonely vigil. As they drew near the familiar ford",
+       "form": "drew"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "to Toad, as she drew up level with him",
+       "form": "drew"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "context": "still laughing when he drew up level with her",
+       "form": "drew"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 3,
+       "context": "The terrible motorcar drew slowly nearer and nearer",
+       "form": "drew"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 4,
+       "context": "and with difficulty he drew himself up out of",
+       "form": "drew"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "down to the table, drew his chair up, and",
+       "form": "drew"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 2,
+       "context": "I can.” And he drew a handkerchief over his",
+       "form": "drew"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 3,
+       "context": "end; so the Mole drew his arm through Toad",
+       "form": "drew"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "stick or a cutlass, drew a pistol, and was",
+       "form": "drew"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 2,
+       "context": "The Badger drew himself up, took a",
+       "form": "drew"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 3,
+       "context": "up, locked the door, drew the curtains across the",
+       "form": "drew"
+      },
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "mistrustful expression; and there, drawn out of the coach",
+       "form": "drawn"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "window, with its blind drawn down, a mere blank",
+       "form": "drawn"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "at intervals by long-drawn sobs, evidently proceeding from",
+       "form": "drawn"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "swaggering down the steps, drawing on his gauntleted gloves",
+       "form": "drawing"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "as they went, and drawing after them the long",
+       "form": "drawing"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "draw",
+       "context": "the Mole, failing to draw them into easy conversation,"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 3,
+       "form": "draw",
+       "context": "ready, Mole, while I draw the corks.”"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "draw",
+       "context": "the banquet began to draw near, and Toad, who"
+      }
+     ],
+     "forms": [
+      "drew",
+      "drawn",
+      "drawing"
+     ]
+    }
+   ],
+   "forms": [
+    "drew",
+    "drawn",
+    "drawing"
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To give something to someone.",
+   "senses": [
+    {
+     "meaning": "To give something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 3,
+       "context": "last word. You shall hand me over six shillings"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "into a lane, now handed them over to the",
+       "form": "handed"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 3,
+       "form": "hand",
+       "context": "last word. You shall hand me over six shillings"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "handed",
+       "context": "in chimney corners, and handed down to be sung"
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "handed"
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there; not gone yet.",
+   "senses": [
+    {
+     "meaning": "Still there; not gone yet.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or the past of leave.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "won’t be much left of you to wash"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 2,
+       "form": "left",
+       "context": "still a little light left. It will never do"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "left",
+       "context": "dead tired. No talk left in you, and your"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 4,
+       "form": "left",
+       "context": "There’s just one thing left for us to do,"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "left",
+       "context": "There won’t be much left of you to wash,"
+      }
+     ]
+    }
+   ]
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The time of being alive.",
+   "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+   "senses": [
+    {
+     "meaning": "The time of being alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "spoil all the after-lives of little animals helped"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "context": "leading full and busy lives, but always with a"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "context": "continued to lead their lives, so rudely broken in"
+      }
+     ]
+    }
+   ]
+  },
+  "nurse": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To look after a sick person, an animal, or a hurt part.",
+   "senses": [
+    {
+     "meaning": "To look after a sick person, an animal, or a hurt part.",
+     "whyHard": "Not the usual meaning! Usually: a nurse is a person who looks after sick people.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "nursed",
+       "context": "on the snow and nursed his leg in both"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "nursing",
+       "context": "asked the Mole, still nursing his leg."
+      }
+     ]
+    }
+   ],
+   "forms": [
+    "nursed",
+    "nursing"
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving.",
+   "whyHard": "Not the usual meaning! Usually: still means even now, or that something continues.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means even now, or that something continues.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 6,
+       "context": "Everything was very still now. The dusk advanced"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 9,
+       "context": "him. As he stood still to hearken, a rabbit"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 10,
+       "context": "and all was very still. He made his way"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "context": "He certainly lay very still and flat, and his"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 14,
+       "context": "But Mole stood still a moment, held in"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 9,
+       "context": "him, and he lay still and exhausted, with closed"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 6,
+       "context": "gentleman. “Now keep quite still, and, above all, don"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 8,
+       "context": "who always escapes! Sit still, and you shall know"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 9,
+       "context": "singing songs again! Sitting still and gassing again! O"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 6,
+       "form": "still",
+       "context": "Everything was very still now. The dusk advanced"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 9,
+       "form": "still",
+       "context": "him. As he stood still to hearken, a rabbit"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 10,
+       "form": "still",
+       "context": "and all was very still. He made his way"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "form": "still",
+       "context": "He certainly lay very still and flat, and his"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 14,
+       "form": "still",
+       "context": "But Mole stood still a moment, held in"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 9,
+       "form": "still",
+       "context": "him, and he lay still and exhausted, with closed"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 6,
+       "form": "still",
+       "context": "gentleman. “Now keep quite still, and, above all, don’t"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 8,
+       "form": "still",
+       "context": "who always escapes! Sit still, and you shall know"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 9,
+       "form": "still",
+       "context": "singing songs again! Sitting still and gassing again! O"
+      }
+     ]
+    }
+   ]
   }
  },
  "paragraphs": [
@@ -7428,6 +8159,82 @@
    "meaning": "To stop a ship and let it wait.",
    "pos": "phrasal verb",
    "example": "We made Alassio in the evening, lay to, hauled up our wine-casks"
+  },
+  "on the other hand": {
+   "meaning": "From the other side of the question.",
+   "pos": "idiom",
+   "example": "On the other hand, it did not seem very much to get for a horse"
+  },
+  "at hand": {
+   "meaning": "Near, or about to happen.",
+   "pos": "idiom",
+   "example": "its gurglings and “cloops” more unexpected and near at hand; and constantly they started at what seemed a"
+  },
+  "for the life of him": {
+   "meaning": "No matter how hard he tried.",
+   "pos": "idiom",
+   "example": "jealousy, more especially as he couldn’t make out for the life of him what the Mole had done"
+  },
+  "old hand": {
+   "meaning": "A person who has done this work for a long time.",
+   "pos": "phrase",
+   "example": "I’m an old hand,” he remarked with much simplicity"
+  },
+  "now and then": {
+   "meaning": "Sometimes, but not often.",
+   "pos": "idiom",
+   "example": "As you went along in the stillness, every now and then masses of snow slid off the branches suddenly with a flop"
+  },
+  "at length": {
+   "meaning": "After a long time.",
+   "pos": "idiom",
+   "example": "for Rat when the Badger and the Mole at length returned, and he had to face them at"
+  },
+  "give way": {
+   "meaning": "To yield, or to move aside.",
+   "pos": "phrasal verb",
+   "example": "of the lone trail, before whom all must give way or be smitten into nothingness and everlasting night"
+  },
+  "bring up the rear": {
+   "meaning": "To come last in a line.",
+   "pos": "idiom",
+   "example": "procession moved on; only this time the Rat brought up the rear, with a firm grip on the",
+   "forms": [
+    "brought up the rear"
+   ]
+  },
+  "hand down": {
+   "meaning": "To pass something on to people who come later.",
+   "pos": "phrasal verb",
+   "example": "frost, or when snowbound in chimney corners, and handed down to be sung in the miry street to",
+   "forms": [
+    "handed down"
+   ]
+  },
+  "of course": {
+   "meaning": "Certainly.",
+   "pos": "idiom",
+   "example": "the usual way; but, of course, it was then much"
+  },
+  "had better": {
+   "meaning": "Ought to. It is the wise thing to do.",
+   "pos": "idiom",
+   "example": "wonder which of us had better pack the luncheon-basket?” He"
+  },
+  "used to": {
+   "meaning": "Did this often in the past.",
+   "pos": "idiom",
+   "example": "it isn’t what it used to be, at all. Otters,"
+  },
+  "look after": {
+   "meaning": "To take care of a person, an animal, or a thing.",
+   "pos": "phrasal verb",
+   "example": "he wasn’t there to look after it. So he had"
+  },
+  "set off": {
+   "meaning": "To start to go.",
+   "pos": "phrasal verb",
+   "example": "boat; and as they set off, he said in a"
   }
  }
 }
