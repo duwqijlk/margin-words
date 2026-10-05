@@ -745,6 +745,11 @@
     "clinging"
    ]
   },
+  "close": {
+   "pos": "adverb",
+   "meaning": "Near.",
+   "whyHard": "Not the usual meaning! Usually: to close means to shut."
+  },
   "club": {
    "senseOnly": true,
    "pos": "singular noun",
@@ -794,6 +799,11 @@
   "commotion": {
    "pos": "singular noun",
    "meaning": "A lot of noise and excited movement."
+  },
+  "company": {
+   "pos": "singular noun",
+   "meaning": "The people who are there together.",
+   "whyHard": "Not the usual meaning! Usually: a company is a business."
   },
   "complain": {
    "pos": "base verb",
@@ -874,12 +884,22 @@
    "pos": "adverb",
    "meaning": "In a way that shows you think someone is not worth your respect."
   },
+  "content": {
+   "pos": "adjective",
+   "meaning": "Happy with the way things are.",
+   "whyHard": "Not the usual meaning! Usually: content means what is inside something."
+  },
   "contradict": {
    "pos": "base verb",
    "meaning": "To say that what someone says is not true.",
    "forms": [
     "contradicted"
    ]
+  },
+  "cook": {
+   "pos": "singular noun",
+   "meaning": "A person whose job is to make meals.",
+   "whyHard": "Not the usual meaning! Usually: to cook means to make food hot and ready to eat."
   },
   "courage": {
    "pos": "uncountable noun",
@@ -1030,6 +1050,38 @@
   "curiosity": {
    "pos": "uncountable noun",
    "meaning": "A strong wish to know or learn about something."
+  },
+  "curious": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Strange.",
+   "senses": [
+    {
+     "meaning": "Strange.",
+     "whyHard": "Not the usual meaning! Usually: curious means wanting to know.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 0, "occurrence": 1, "form": "curious", "context": "What a curious feeling!” said Alice" },
+      { "chapter": 0, "occurrence": 2, "form": "curious", "context": "for this curious child was very fond" },
+      { "chapter": 1, "occurrence": 1, "form": "curious", "context": "several other curious creatures. Alice led" },
+      { "chapter": 3, "occurrence": 1, "form": "curious", "context": "it's rather curious, you know, this" },
+      { "chapter": 5, "occurrence": 2, "form": "curious", "context": "the most curious thing I ever saw" },
+      { "chapter": 6, "occurrence": 1, "form": "curious", "context": "That’s very curious!” she thought" },
+      { "chapter": 6, "occurrence": 2, "form": "curious", "context": "But everything's curious today. I think" },
+      { "chapter": 7, "occurrence": 1, "form": "curious", "context": "thought this a very curious thing, and" },
+      { "chapter": 7, "occurrence": 2, "form": "curious", "context": "seen such a curious croquet-ground in her" },
+      { "chapter": 7, "occurrence": 3, "form": "curious", "context": "noticed a curious appearance in the air" },
+      { "chapter": 8, "occurrence": 1, "form": "curious", "context": "What a curious plan!” exclaimed Alice" },
+      { "chapter": 9, "occurrence": 1, "form": "curious", "context": "like that curious song about the whiting" },
+      { "chapter": 9, "occurrence": 2, "form": "curious", "context": "and said “That’s very curious.”" },
+      { "chapter": 9, "occurrence": 3, "form": "curious", "context": "all about as curious as it can be" },
+      { "chapter": 10, "occurrence": 1, "form": "curious", "context": "felt a very curious sensation, which puzzled" },
+      { "chapter": 11, "occurrence": 1, "form": "curious", "context": "had such a curious dream!” said Alice" },
+      { "chapter": 11, "occurrence": 2, "form": "curious", "context": "It was a curious dream, dear, certainly" }
+     ]
+    }
+   ]
   },
   "curiouser": {
    "pos": "adjective",
@@ -1358,6 +1410,32 @@
    "pos": "adjective",
    "meaning": "Wet and dirty, as if pulled through mud.",
    "whyHard": "A rare word."
+  },
+  "draw": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To pull something, or to move it.",
+   "forms": [
+    "drew"
+   ],
+   "senses": [
+    {
+     "meaning": "To pull something, or to move it.",
+     "whyHard": "Not the usual meaning! Usually: to draw means to make a picture.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 4, "occurrence": 1, "form": "draw", "context": "made her draw back in a hurry" },
+      { "chapter": 6, "occurrence": 3, "form": "draw", "context": "Where did they draw the treacle from" },
+      { "chapter": 6, "occurrence": 4, "form": "draw", "context": "You can draw water out of a" },
+      { "chapter": 6, "occurrence": 5, "form": "draw", "context": "you could draw treacle out of a" },
+      { "chapter": 3, "occurrence": 1, "form": "drew", "context": "She drew her foot as far down" },
+      { "chapter": 4, "occurrence": 1, "form": "drew", "context": "and she drew herself up and said" },
+      { "chapter": 9, "occurrence": 1, "form": "drew", "context": "and drew the back of one flapper" },
+      { "chapter": 9, "occurrence": 2, "form": "drew", "context": "Turtle drew a long breath, and said" }
+     ]
+    }
+   ]
   },
   "drawling": {
    "pos": "singular noun",
@@ -1694,6 +1772,22 @@
    "pos": "adverb",
    "meaning": "At a greater distance."
   },
+  "fast": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Stuck tight, so it cannot come loose.",
+   "senses": [
+    {
+     "meaning": "Stuck tight, so it cannot come loose.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 9, "occurrence": 1, "form": "fast", "context": "got their tails fast in their mouths" }
+     ]
+    }
+   ]
+  },
   "favour": {
    "pos": "base verb",
    "meaning": "To help or support one side more than another.",
@@ -1752,6 +1846,19 @@
    "forms": [
     "figure",
     "figures"
+   ],
+   "senses": [
+    {
+     "meaning": "One part of a dance, made of a set of steps.",
+     "default": true
+    },
+    {
+     "meaning": "Numbers, as in a sum.",
+     "whyHard": "Here it means numbers. In the dance it is one part of the steps.",
+     "anchors": [
+      { "chapter": 5, "occurrence": 1, "form": "figures", "context": "I never could abide figures!” And with" }
+     ]
+    }
    ]
   },
   "fireplace": {
@@ -2173,6 +2280,38 @@
    "pos": "singular noun",
    "meaning": "Here \"guinea-pig\" is a small furry animal with short ears that people keep as a pet."
   },
+  "hand": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To give or pass something to someone.",
+   "forms": [
+    "handed"
+   ],
+   "senses": [
+    {
+     "meaning": "To give or pass something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 2, "occurrence": 2, "form": "hand", "context": "Hand it over here,” said the Dodo" },
+      { "chapter": 10, "occurrence": 2, "form": "hand", "context": "and hand round the refreshments!” But there" },
+      { "chapter": 2, "occurrence": 1, "form": "handed", "context": "and handed them round as prizes" },
+      { "chapter": 5, "occurrence": 1, "form": "handed", "context": "this he handed over to the other" },
+      { "chapter": 11, "occurrence": 1, "form": "handed", "context": "found and handed back to them, they" }
+     ]
+    },
+    {
+     "pos": "singular noun",
+     "meaning": "The way a person writes.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of your arm.",
+     "trickyMeaning": true,
+     "anchors": [
+      { "chapter": 11, "occurrence": 1, "form": "hand", "context": "imitated somebody else’s hand,” said the" }
+     ]
+    }
+   ]
+  },
   "handsome": {
    "pos": "adjective",
    "meaning": "Good to look at."
@@ -2520,12 +2659,31 @@
    "meaning": "Pushed gently, for example to get attention."
   },
   "judge": {
-   "pos": "base verb",
-   "meaning": "To form an opinion about something after you look at it.",
-   "whyHard": "The book word is \"judging\".",
+   "pos": "singular noun",
+   "meaning": "A person who decides in a court if someone has done something wrong.",
+   "whyHard": "A job in a court.",
    "forms": [
     "judge",
     "judging"
+   ],
+   "senses": [
+    {
+     "pos": "singular noun",
+     "meaning": "A person who decides in a court if someone has done something wrong.",
+     "default": true
+    },
+    {
+     "pos": "present participle",
+     "meaning": "Deciding what you think after you look.",
+     "whyHard": "Not the usual meaning! Usually: a judge is a person who decides in a court.",
+     "trickyMeaning": true,
+     "forms": [
+      "judging"
+     ],
+     "anchors": [
+      { "chapter": 5, "occurrence": 1, "form": "judging", "context": "otherwise, judging by his face only, she" }
+     ]
+    }
    ]
   },
   "jug": {
@@ -2668,6 +2826,25 @@
    "pos": "singular noun",
    "meaning": "A narrow flat place that sticks out from a wall or a rock."
   },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there, after the rest has gone.",
+   "senses": [
+    {
+     "meaning": "Still there, after the rest has gone.",
+     "whyHard": "Not the usual meaning! Usually: left is the side that is not right, or it means someone went away.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 0, "occurrence": 1, "form": "left", "context": "there's hardly enough of me left to" },
+      { "chapter": 2, "occurrence": 2, "form": "left", "context": "and Alice was soon left alone" },
+      { "chapter": 7, "occurrence": 1, "form": "left", "context": "that there’s any one left alive" },
+      { "chapter": 8, "occurrence": 2, "form": "left", "context": "there were no arches left, and" }
+     ]
+    }
+   ]
+  },
   "lefthand": {
    "pos": "adjective",
    "meaning": "On the left side."
@@ -2717,6 +2894,22 @@
    "pos": "singular noun",
    "meaning": "A special uniform that servants wore in a rich house in the past.",
    "whyHard": "Old custom."
+  },
+  "lives": {
+   "senseOnly": true,
+   "pos": "plural noun",
+   "meaning": "The time a person or an animal is alive. Here, they would die.",
+   "senses": [
+    {
+     "meaning": "The time a person or an animal is alive. Here, they would die.",
+     "whyHard": "Not the usual meaning! Usually: lives means has a home in a place.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 8, "occurrence": 1, "form": "lives", "context": "delay would cost them their lives" }
+     ]
+    }
+   ]
   },
   "lizard": {
    "pos": "singular noun",
@@ -2869,6 +3062,11 @@
    "meaning": "A girl's name. The Rabbit's servant.",
    "whyHard": "A name, not an ordinary word."
   },
+  "master": {
+   "pos": "singular noun",
+   "meaning": "A teacher, or the person in charge.",
+   "whyHard": "Not the usual meaning! Usually: to master something means to learn it very well."
+  },
   "meekly": {
    "pos": "adverb",
    "meaning": "In a quiet and gentle way that does not argue."
@@ -2926,6 +3124,24 @@
   "miserable": {
    "pos": "adjective",
    "meaning": "Very unhappy."
+  },
+  "miss": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A word used before a girl's name.",
+   "senses": [
+    {
+     "meaning": "A word used before a girl's name.",
+     "whyHard": "Not the usual meaning! Usually: to miss means to feel sad that someone is away, or to fail to hit.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 3, "occurrence": 1, "form": "miss", "context": "Miss Alice! Come here directly, and" },
+      { "chapter": 7, "occurrence": 1, "form": "miss", "context": "you see, Miss, this here ought" },
+      { "chapter": 7, "occurrence": 2, "form": "miss", "context": "So you see, Miss, we're doing our" }
+     ]
+    }
+   ]
   },
   "mock": {
    "pos": "adjective",
@@ -3078,9 +3294,27 @@
    "pos": "adverb",
    "meaning": "Not in any place."
   },
+  "nurse": {
+   "senseOnly": true,
+   "pos": "base verb",
+   "meaning": "To hold a baby or a soft animal in your arms and look after it.",
+   "senses": [
+    {
+     "meaning": "To hold a baby or a soft animal in your arms and look after it.",
+     "whyHard": "Not the usual meaning! Usually: a nurse is a person who looks after sick people.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 1, "occurrence": 1, "form": "nurse", "context": "such a nice soft thing to nurse" },
+      { "chapter": 5, "occurrence": 1, "form": "nurse", "context": "you may nurse it a bit, if you like" }
+     ]
+    }
+   ]
+  },
   "nursing": {
    "pos": "present participle",
-   "meaning": "Here, looking after a baby or someone who is ill."
+   "meaning": "Holding a baby in your arms and looking after it.",
+   "whyHard": "Not the usual meaning! Usually: a nurse is a person who looks after sick people."
   },
   "obliged": {
    "pos": "adjective",
@@ -3180,6 +3414,29 @@
   "pardoned": {
    "pos": "past-tense verb",
    "meaning": "Forgave someone and did not punish them."
+  },
+  "party": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A group of people who are together.",
+   "senses": [
+    {
+     "meaning": "A group of people who are together.",
+     "whyHard": "Not the usual meaning! Usually: a party is a time when people meet to have fun.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 1, "occurrence": 1, "form": "party", "context": "and the whole party swam to the" },
+      { "chapter": 2, "occurrence": 1, "form": "party", "context": "a queer-looking party that assembled on" },
+      { "chapter": 2, "occurrence": 2, "form": "party", "context": "then all the party were placed along" },
+      { "chapter": 2, "occurrence": 3, "form": "party", "context": "and the whole party at once crowded" },
+      { "chapter": 2, "occurrence": 4, "form": "party", "context": "a remarkable sensation among the party" },
+      { "chapter": 6, "occurrence": 2, "form": "party", "context": "and the party sat silent for a" },
+      { "chapter": 7, "occurrence": 1, "form": "party", "context": "made the whole party look so grave" },
+      { "chapter": 7, "occurrence": 2, "form": "party", "context": "the rest of the party went back to" }
+     ]
+    }
+   ]
   },
   "passage": {
    "pos": "singular noun",
@@ -4475,6 +4732,22 @@
    "pos": "adjective",
    "meaning": "Surprised and a little afraid."
   },
+  "state": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The way someone is at one time.",
+   "senses": [
+    {
+     "meaning": "The way someone is at one time.",
+     "whyHard": "Not the usual meaning! Usually: a state is a country, or a part of one.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 4, "occurrence": 1, "form": "state", "context": "a very unpleasant state of mind" }
+     ]
+    }
+   ]
+  },
   "steady": {
    "pos": "adjective",
    "meaning": "Not shaking. Staying the same."
@@ -4486,6 +4759,24 @@
   "stiff": {
    "pos": "adjective",
    "meaning": "Not able to bend or move easily."
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Not moving.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means that something goes on.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 7, "occurrence": 1, "form": "still", "context": "So she stood still where she was" },
+      { "chapter": 8, "occurrence": 1, "form": "still", "context": "so she sat still and said nothing" },
+      { "chapter": 11, "occurrence": 1, "form": "still", "context": "sister sat still just as she left" }
+     ]
+    }
+   ]
   },
   "stingy": {
    "pos": "adjective",
@@ -5297,6 +5588,22 @@
   "wits": {
    "pos": "plural noun",
    "meaning": "The ability to think clearly. \"Frighten them out of their wits\" means to make them very afraid."
+  },
+  "works": {
+   "senseOnly": true,
+   "pos": "plural noun",
+   "meaning": "The moving parts inside a machine. Here, inside a watch.",
+   "senses": [
+    {
+     "meaning": "The moving parts inside a machine. Here, inside a watch.",
+     "whyHard": "Not the usual meaning! Usually: works means does a job.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 6, "occurrence": 1, "form": "works", "context": "told you butter wouldn't suit the works" }
+     ]
+    }
+   ]
   },
   "worm": {
    "pos": "singular noun",
