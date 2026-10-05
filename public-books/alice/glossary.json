@@ -314,7 +314,7 @@
   },
   "axe": {
    "pos": "singular noun",
-   "meaning": "A tool with a sharp metal head on a long handle, used for cutting wood.",
+   "meaning": "A tool with a sharp metal head on a long handle, used for chopping. It sounds like axis.",
    "forms": [
     "axes"
    ]
@@ -459,8 +459,25 @@
    "meaning": "Dearly loved."
   },
   "bend": {
-   "pos": "base verb",
-   "meaning": "Here, the Mouse says \"the fifth bend\", meaning a turn in a line. The word usually means to curve or turn."
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A turn in a line.",
+   "senses": [
+    {
+     "meaning": "A turn in a line. The Mouse has got to the fifth turn of his story.",
+     "whyHard": "Not the usual meaning! Usually: to bend is to curve.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "bend",
+       "context": "you had got to the fifth bend, I think"
+      }
+     ]
+    }
+   ]
   },
   "bill": {
    "senseOnly": true,
@@ -1430,10 +1447,27 @@
    "meaning": "In a careful way, working hard."
   },
   "dip": {
-   "pos": "base verb",
-   "meaning": "To go down for a short way, and then often come up again. Here the tunnel turns down.",
+   "senseOnly": true,
+   "pos": "past-tense verb",
+   "meaning": "Went down suddenly.",
    "forms": [
     "dipped"
+   ],
+   "senses": [
+    {
+     "meaning": "Went down suddenly.",
+     "whyHard": "Not the usual meaning! Usually: to dip is to lower something into a liquid.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "dipped",
+       "context": "and then dipped suddenly down, so suddenly"
+      }
+     ]
+    }
    ]
   },
   "direction": {
@@ -1728,6 +1762,25 @@
    "forms": [
     "eel",
     "eels"
+   ],
+   "senses": [
+    {
+     "meaning": "A long thin fish that looks like a snake.",
+     "default": true
+    },
+    {
+     "meaning": "It sounds like heel, the back of a shoe. Soles and eels means the bottoms and the heels.",
+     "whyHard": "Not the usual meaning! Usually: an eel is a long thin fish.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "eels",
+       "context": "Soles and eels, of course,” the Gryphon"
+      }
+     ]
+    }
    ]
   },
   "elbow": {
@@ -2990,7 +3043,26 @@
   },
   "knot": {
    "pos": "singular noun",
-   "meaning": "A place where string or rope is tied together."
+   "meaning": "A place where string or rope is tied together.",
+   "senses": [
+    {
+     "meaning": "A place where string or rope is tied together.",
+     "default": true
+    },
+    {
+     "meaning": "Alice heard not as this word. She thinks there is a tied place in a rope, and she wants to undo it.",
+     "whyHard": "Not the usual meaning! Usually: a knot is where a rope is tied. Here the Mouse said not.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "knot",
+       "context": "A knot!” said Alice, always ready to make"
+      }
+     ]
+    }
+   ]
   },
   "knuckle": {
    "pos": "singular noun",
@@ -3524,11 +3596,12 @@
   },
   "murder": {
    "pos": "base verb",
-   "meaning": "To kill a person on purpose. Here \"murdering the time\" is a joke: it means singing badly out of time.",
-   "forms": [
-    "murder",
-    "murdering"
-   ]
+   "meaning": "To kill a person on purpose."
+  },
+  "murdering": {
+   "pos": "present participle",
+   "meaning": "Singing so badly that the time of the music is spoiled.",
+   "whyHard": "Not the usual meaning! Usually: to murder is to kill a person."
   },
   "muscular": {
    "pos": "adjective",
@@ -3552,7 +3625,7 @@
   },
   "mystery": {
    "pos": "singular noun",
-   "meaning": "Something you cannot understand."
+   "meaning": "The school subject history. The Mock Turtle says it because it sounds like history."
   },
   "narrow": {
    "pos": "adjective",
@@ -5166,7 +5239,7 @@
   },
   "sour": {
    "pos": "adjective",
-   "meaning": "Having a sharp taste, like a lemon. Here it also means unfriendly."
+   "meaning": "Having a sharp taste, like a lemon."
   },
   "spade": {
    "pos": "singular noun",
@@ -6227,7 +6300,26 @@
   },
   "whiting": {
    "pos": "singular noun",
-   "meaning": "A small sea fish that people eat."
+   "meaning": "A small sea fish that people eat.",
+   "senses": [
+    {
+     "meaning": "A small sea fish that people eat.",
+     "default": true
+    },
+    {
+     "meaning": "What they use to make shoes shine. Under the sea, it is this fish.",
+     "whyHard": "Not the usual meaning! Usually: a whiting is only a sea fish.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 7,
+       "form": "whiting",
+       "context": "are done with a whiting. Now you know"
+      }
+     ]
+    }
+   ]
   },
   "wig": {
    "pos": "singular noun",
