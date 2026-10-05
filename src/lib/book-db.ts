@@ -377,7 +377,13 @@ export async function loadStoredBook(id: string): Promise<StoredBook | null> {
   await done;
   if (!book) return null;
   return meta
-    ? { ...book, glossary: meta.glossary, pending: meta.pending, totalHard: meta.totalHard }
+    ? {
+        ...book,
+        glossary: meta.glossary,
+        pending: meta.pending,
+        totalHard: meta.totalHard,
+        ...(meta.bundled ? { bundled: meta.bundled } : {}),
+      }
     : book;
 }
 

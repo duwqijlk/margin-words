@@ -28,9 +28,14 @@ function detail(source: WordSource): number {
   return (source.at ? 2 : 0) + (source.chapter !== undefined ? 1 : 0) + (source.chapterTitle ? 1 : 0);
 }
 
-/** Keep a sense that only one of the two copies stored. */
+/** Keep a sense that only one of the two copies stored. A word-list pointer does not take a copied meaning. */
 function withSense(winner: WordSource, other: WordSource | undefined): WordSource {
   if (!other) return winner;
+  if (winner.ref) {
+    const next = { ...winner };
+    if (!next.pos && other.pos) next.pos = other.pos;
+    return next;
+  }
   const next = { ...winner };
   if (!next.meaning && other.meaning) next.meaning = other.meaning;
   if (!next.pos && other.pos) next.pos = other.pos;
@@ -163,6 +168,7 @@ export function sourceBelongsTo(
   card: Pick<VocabEntry, "lemma" | "surface" | "meaning" | "sources">,
   source: WordSource,
 ): boolean {
+  if (source.ref) return true;
   const lemma = card.lemma.trim();
   const sentence = source.sentence ?? "";
   if (lemma && containsWord(sentence, lemma)) return true;
@@ -172,8 +178,8 @@ export function sourceBelongsTo(
   if (surface && sameWord(lemma, surface) && containsWord(sentence, surface)) return true;
   const own = card.sources.find(
     (item) =>
-      (lemma && containsWord(item.sentence, lemma)) ||
-      (cardSurface && sameWord(lemma, cardSurface) && containsWord(item.sentence, cardSurface)),
+      (lemma && containsWord(item.sentence ?? "", lemma)) ||
+      (cardSurface && sameWord(lemma, cardSurface) && containsWord(item.sentence ?? "", cardSurface)),
   );
   if (!own) return true;
   const ownMeaning = (own.meaning ?? "").trim();
@@ -185,8 +191,10 @@ export function sourceBelongsTo(
 
 function alignCard(card: VocabEntry): VocabEntry {
   const own =
-    card.sources.find((source) => containsWord(source.sentence, card.lemma)) ?? card.sources[0];
-  if (!own) return card;
+    card.sources.find((source) => source.sentence && containsWord(source.sentence, card.lemma)) ??
+    card.sources.find((source) => !source.ref && source.sentence) ??
+    card.sources[0];
+  if (!own || own.ref) return card;
   const sentenceOk =
     containsWord(card.sentence, card.lemma) ||
     (sameWord(card.lemma, card.surface) && containsWord(card.sentence, card.surface));
@@ -195,7 +203,7 @@ function alignCard(card: VocabEntry): VocabEntry {
   if (sentenceOk && surfaceOk && meaningOk) return card;
   return {
     ...card,
-    sentence: sentenceOk ? card.sentence : own.sentence,
+    sentence: sentenceOk ? card.sentence : own.sentence || card.sentence,
     surface: surfaceOk ? card.surface : own.surface || card.lemma,
     meaning: own.meaning || card.meaning,
     pos: own.pos || card.pos,
@@ -213,7 +221,7 @@ function cardForDisplaced(source: WordSource): VocabEntry {
     meaning: source.meaning ?? "",
     whyHard: "",
     recommend: true,
-    sentence: source.sentence,
+    sentence: source.sentence ?? "",
     sources: [source],
     stage: 0,
     dueAt: now,

@@ -9,6 +9,7 @@
  * Kind `words` is the old per-book word list. New clients no longer write it; they read it once per pull
  * and fold it into the wordbook (`foldLegacyWords`), so an older client that still writes it is not lost.
  */
+import { asGlossPoint, type GlossPoint } from "./gloss-point.ts";
 import { asAnchor, normalizeQuote, type TextAnchor } from "./position.ts";
 
 export const SYNC_KINDS = ["shelf", "progress", "words", "wordbook", "settings"] as const;
@@ -48,16 +49,18 @@ export type WordTombstone = { lemma: string; updatedAt: number };
 export type SourceLive = {
   k: string;
   book: string;
-  title: string;
-  author: string;
+  title?: string;
+  author?: string;
   chapter?: number;
   chapterTitle?: string;
-  sentence: string;
+  sentence?: string;
   surface: string;
   meaning?: string;
   pos?: string;
   at?: TextAnchor;
   savedAt: number;
+  /** Word-list pointer. When this is set, the sentence and the meaning are not stored. */
+  ref?: GlossPoint;
 };
 /** The reader took this source away at `removed`. Kept for a while so an older copy cannot bring it back. */
 export type SourceGone = { k: string; removed: number };
@@ -69,9 +72,24 @@ export type WordbookBlob = { words: WordbookRecord[]; removed: WordTombstone[] }
 export const MAX_LIVE_SOURCES = 12;
 const GONE_KEEP_MS = 90 * 86_400_000;
 
-/** The same save on two devices has the same key: the book plus the start of the sentence. */
-export function sourceKey(source: { book: string; sentence: string }): string {
-  return `${source.book}#${normalizeQuote(source.sentence).slice(0, 48)}`;
+/**
+ * The same save on two devices has the same key.
+ * A word-list pointer uses the list place. An older save uses the book plus the start of the sentence.
+ */
+export function sourceKey(source: {
+  book: string;
+  sentence?: string;
+  surface?: string;
+  ref?: GlossPoint | null;
+}): string {
+  const ref = source.ref;
+  if (ref?.list) {
+    const form = (ref.form ?? "").trim().toLowerCase();
+    return `${source.book}#${ref.list}#${ref.phrase ? "p" : "w"}#${ref.chapter ?? ""}#${ref.occurrence ?? ""}#${form}#${ref.mark ?? ""}`;
+  }
+  const sentence = normalizeQuote(source.sentence ?? "");
+  if (sentence) return `${source.book}#${sentence.slice(0, 48)}`;
+  return `${source.book}#${(source.surface ?? "").trim().toLowerCase()}`;
 }
 
 /** The wordbook is stored in 27 items (first letter of the lemma, or 0) so no row grows without bound. */
@@ -249,8 +267,44 @@ function asSource(value: unknown): SourceRecord | null {
     return k ? { k, removed } : null;
   }
   const book = text(raw.book, 180);
+  if (!book) return null;
+  const ref = asGlossPoint(raw.ref);
+  if (ref) {
+    const source: SourceLive = {
+      k: "",
+      book,
+      surface: text(raw.surface, 80),
+      savedAt: time(raw.savedAt),
+      ref,
+    };
+    source.k = sourceKey(source);
+    if (typeof raw.chapter === "number") source.chapter = integer(raw.chapter, 0, 100_000);
+    const pos = text(raw.pos, 60);
+    if (pos) source.pos = pos;
+    return source;
+  }
   const sentence = text(raw.sentence, 500);
-  if (!book || !sentence) return null;
+  if (!sentence) {
+    const surface = text(raw.surface, 80);
+    if (!surface) return null;
+    const bare: SourceLive = {
+      k: "",
+      book,
+      surface,
+      savedAt: time(raw.savedAt),
+    };
+    bare.k = sourceKey(bare);
+    const title = text(raw.title, 300);
+    if (title) bare.title = title;
+    const author = text(raw.author, 200);
+    if (author) bare.author = author;
+    if (typeof raw.chapter === "number") bare.chapter = integer(raw.chapter, 0, 100_000);
+    const chapterTitle = text(raw.chapterTitle, 200);
+    if (chapterTitle) bare.chapterTitle = chapterTitle;
+    const pos = text(raw.pos, 60);
+    if (pos) bare.pos = pos;
+    return bare;
+  }
   const source: SourceLive = {
     k: sourceKey({ book, sentence }),
     book,
@@ -284,7 +338,15 @@ export function asWordbookRecord(value: unknown): WordbookRecord | null {
       if (sources.length >= 40) break;
     }
   }
-  return { ...base, sources };
+  const record: WordbookRecord = { ...base, sources };
+  const live = sources.filter(isLive);
+  if (live.length > 0 && live.every((source) => source.ref)) {
+    record.sentence = "";
+    record.meaning = "";
+    record.whyHard = "";
+    delete record.uses;
+  }
+  return record;
 }
 
 export function asWordbookBlob(data: unknown): WordbookBlob {

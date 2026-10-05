@@ -15,6 +15,7 @@ import { bookSyncKey } from "@/lib/sync-merge";
 import { isDue, type Book, type VocabEntry } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
 import { hasSourceFrom } from "@/lib/wordbook";
+import { usePresentedWord } from "@/components/presented-word";
 import { WordSources } from "@/components/word-sources";
 import {
   btn,
@@ -380,6 +381,7 @@ function Session({
   const byId = useMemo(() => new Map(allWords.map((word) => [word.id, word])), [allWords]);
   const currentId = queue[index];
   const current = currentId ? byId.get(currentId) : undefined;
+  const shown = usePresentedWord(current, books) ?? current;
 
   // Choices are drawn once per card, so they do not reshuffle when the card re-renders.
   const options = useMemo(() => {
@@ -472,6 +474,8 @@ function Session({
     );
   }
 
+  if (!shown) return null;
+
   const forecast = previewCorrect(current);
   const due = isDue(current);
 
@@ -529,25 +533,25 @@ function Session({
                 </p>
               ) : null}
             </div>
-            {current.sources.length > 0 ? (
-              <WordSources word={current} books={books} showMeaning={revealed} />
-            ) : current.sentence ? (
+            {shown.sources.length > 0 ? (
+              <WordSources word={shown} books={books} showMeaning={revealed} />
+            ) : shown.sentence ? (
               <p className="border-l-2 border-accent/40 pl-3 text-left font-display text-[1.05rem] leading-relaxed text-ink">
-                <Highlighted sentence={current.sentence} surface={current.surface} />
+                <Highlighted sentence={shown.sentence} surface={shown.surface} />
               </p>
             ) : null}
-            {revealed && current.sources.length === 0 ? (
+            {revealed && shown.sources.length === 0 ? (
               <div className="anim-pop grid gap-3 border-t border-line pt-5">
-                {current.pos ? (
+                {shown.pos ? (
                   <div>
                     <span className={cn(chip, "bg-accent-soft text-accent")}>
-                      <span lang="en">{current.pos}</span>
+                      <span lang="en">{shown.pos}</span>
                     </span>
                   </div>
                 ) : null}
-                {current.meaning ? (
+                {shown.meaning ? (
                   <p className="text-xl leading-relaxed" lang="en" data-source-meaning>
-                    {current.meaning}
+                    {shown.meaning}
                   </p>
                 ) : null}
               </div>
@@ -560,9 +564,9 @@ function Session({
             <p className="text-sm font-semibold text-muted">{t("rv.which")}</p>
             <p className="font-display text-2xl leading-snug" lang="en">
               {picked ? (
-                <Highlighted sentence={current.sentence} surface={current.surface} />
+                <Highlighted sentence={shown.sentence} surface={shown.surface} />
               ) : (
-                blankOut(current.sentence, current.surface, current.lemma)
+                blankOut(shown.sentence, shown.surface, shown.lemma)
               )}
             </p>
             <div className="grid gap-2 sm:grid-cols-2">
@@ -597,7 +601,7 @@ function Session({
             </div>
             {picked ? (
               <p className="text-base leading-relaxed text-muted" lang="en">
-                {current.meaning}
+                {shown.meaning}
               </p>
             ) : null}
           </div>
@@ -617,10 +621,10 @@ function Session({
           >
             <p className="text-sm font-semibold text-muted">{t("rv.spellPrompt")}</p>
             <p className="text-xl leading-relaxed" lang="en">
-              {current.meaning}
+              {shown.meaning}
             </p>
             <p className="font-display text-base leading-relaxed text-muted" lang="en">
-              {blankOut(current.sentence, current.surface, current.lemma)}
+              {blankOut(shown.sentence, shown.surface, shown.lemma)}
             </p>
             <input
               ref={spellRef}

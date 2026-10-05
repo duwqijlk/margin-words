@@ -6,7 +6,7 @@ import { jumpToSource } from "@/lib/jump-store";
 import { focusSentence, recoverClippedSentence, sentenceHasWord } from "@/lib/text";
 import type { Book, VocabEntry } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
-import { bookForSource, sourceBelongsTo } from "@/lib/wordbook";
+import { bookForSource, sourceBelongsTo, sourceKey } from "@/lib/wordbook";
 import { btn, chip, cn, Highlighted } from "@/components/ui";
 
 /** Where a saved word was met: the sentence with the word marked, the book and chapter, and a way back to it. */
@@ -36,8 +36,9 @@ export function WordSources({
   // When this device still has the book, put the word back into the excerpt.
   useEffect(() => {
     const pending = sources.filter((source) => {
+      if (source.ref || !source.sentence) return false;
       const surface = source.surface || word.surface || word.lemma;
-      return Boolean(source.sentence) && !sentenceHasWord(source.sentence, surface);
+      return !sentenceHasWord(source.sentence, surface);
     });
     if (pending.length === 0) return;
     let alive = true;
@@ -58,9 +59,11 @@ export function WordSources({
           ...(stored.extras ?? []).flatMap((extra) => extra.paragraphs),
         ];
         for (const source of list) {
+          const sentence = source.sentence;
+          if (!sentence || source.ref) continue;
           const surface = source.surface || word.surface || word.lemma;
-          const next = recoverClippedSentence(source.sentence, surface, paragraphs);
-          if (next) repairSourceSentence(word.lemma, source.book, source.sentence, next);
+          const next = recoverClippedSentence(sentence, surface, paragraphs);
+          if (next) repairSourceSentence(word.lemma, source.book, sentence, next);
         }
       }
     })();
@@ -84,7 +87,7 @@ export function WordSources({
           const surface = source.surface || word.surface || word.lemma;
           const sentence = source.sentence ? focusSentence(source.sentence, surface) : "";
           return (
-            <li key={`${source.book}#${source.sentence.slice(0, 40)}`} className="grid min-w-0 gap-1.5" data-word-source>
+            <li key={sourceKey(source)} className="grid min-w-0 gap-1.5" data-word-source>
               {sentence ? (
                 <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed break-words text-ink">
                   <Highlighted sentence={sentence} surface={surface} />
