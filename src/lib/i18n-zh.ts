@@ -429,6 +429,8 @@ export const zh: Record<Key, string> = {
   "card.noMeaning": "这本书里还没有这个词的解释。",
   "card.noList": "这本书还没有词表。请在书架上打开这本书的菜单，选“添加词表”。",
   "card.coined": "这是作者自己编出来的词。",
+  "card.plain": "意思",
+  "card.here": "在这句里",
   "card.sentenceFrom": "书中的句子",
   "card.example": "另一个例句",
   "card.saved": "已在生词本里 · 点一下可移除",

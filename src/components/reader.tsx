@@ -460,6 +460,8 @@ type CardState = {
   pos: string;
   meaning: string;
   whyHard: string;
+  /** The same sense, said for this sentence. */
+  here?: string;
   sentence: string;
   ready: boolean;
   status: "ready" | "easy" | "unknown";
@@ -517,7 +519,7 @@ function phrasePlace(paragraph: string, surface: string, tapAt: number): number 
 
 type PhraseHit = {
   key: string;
-  entry: { meaning: string; pos?: string; example?: string };
+  entry: { meaning: string; pos?: string; example?: string; here?: string };
   matched: string;
 };
 
@@ -528,6 +530,18 @@ function wordPosClass(quiet = false) {
     quiet
       ? "bg-line px-3.5 py-1.5 text-xl text-ink"
       : "bg-accent px-4 py-2 text-2xl text-accent-ink",
+  );
+}
+
+function SceneLine({ text, plain = false }: { text: string; plain?: boolean }) {
+  const { t } = useT();
+  return (
+    <section className="grid gap-1" data-part="word-here">
+      <h3 className="text-xs font-semibold text-muted">{t("card.here")}</h3>
+      <p className={plain ? "text-[1.05rem] leading-relaxed" : "rounded-xl bg-paper px-3.5 py-3 text-[1.05rem] leading-relaxed"} lang="en">
+        {text}
+      </p>
+    </section>
   );
 }
 
@@ -603,7 +617,9 @@ function WordCard({
         // Always out of the page flow (fixed): opening, moving or closing it can never move the text.
         // Phone: a sheet on the bottom edge. Tablet: a column on the right, in the gutter the page
         // keeps free (see READER_GUTTER). Wide screens float this card next to the tapped word.
-        "scroll-thin fixed z-40 max-h-[46dvh] overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
+        // A card with a scene line needs room for that line and the book sentence.
+        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
+        state.here || phrase?.entry.here ? "max-h-[72dvh]" : "max-h-[46dvh]",
         "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3",
         SIDE_PANEL,
       )}
@@ -690,9 +706,15 @@ function WordCard({
 
         {phrase ? (
           <>
+            {phrase.entry.here ? (
+              <h3 className="text-xs font-semibold text-muted" data-part="meaning-label">
+                {t("card.plain")}
+              </h3>
+            ) : null}
             <p className="rounded-xl bg-paper px-3.5 py-3 text-[1.05rem] leading-relaxed" lang="en" data-part="phrase-meaning">
               {phrase.entry.meaning}
             </p>
+            {phrase.entry.here ? <SceneLine text={phrase.entry.here} /> : null}
             <section
               className="grid gap-1.5 rounded-lg border border-line px-3 py-2.5"
               aria-label={t("card.alone")}
@@ -712,6 +734,19 @@ function WordCard({
               {meaningBlock}
               {state.coined ? <CoinedBadge /> : null}
             </section>
+          </>
+        ) : state.here ? (
+          <>
+            <div className="grid gap-2 rounded-xl bg-paper px-3.5 py-3">
+              <h3 className="text-xs font-semibold text-muted" data-part="meaning-label">
+                {t("card.plain")}
+              </h3>
+              <p className="text-[1.05rem] leading-relaxed" lang="en" data-part="word-meaning">
+                {state.meaning}
+              </p>
+              <SceneLine text={state.here} plain />
+            </div>
+            {state.coined ? <CoinedBadge /> : null}
           </>
         ) : (
           <>
@@ -1551,6 +1586,7 @@ export function ReaderScreen({
         pos: contextPos(surface, choice.pos),
         meaning: choice.meaning,
         whyHard: choice.whyHard,
+        here: choice.here,
         sentence,
         fullSentence,
         ready: true,

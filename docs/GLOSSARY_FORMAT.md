@@ -13,7 +13,7 @@ place in the book where it is used.
 - Dump chapters and find word positions: `node scripts/extract-epub-text.mjs book.epub ...`
 - Skill for an AI assistant: [`skills/annotate-book-glossary/SKILL.md`](../skills/annotate-book-glossary/SKILL.md)
 
-All text the reader sees (meanings, notes) should be plain, simple English. A meaning that is only close is wrong when the reader can turn it around. Put the meaning in place of the word. The sentence must report the same event, with the same sides. Swap the two sides: that reading must be false for this line. `unless` in `none of it will matter unless you do your part` is `If that does not happen.` `The other thing happens only when this is true` turns the sides around. `at the end of the day` is `In the end, after you think about all of it`, not `when you look at what really matters.` The app does not
+All text the reader sees (meanings, notes) should be plain, simple English. A meaning that is only close is wrong when the reader can turn it around. Put the meaning in place of the word. The sentence must report the same event, with the same sides. Swap the two sides: that reading must be false for this line. `unless` in `none of it will matter unless you do your part` is `If that does not happen.` `The other thing happens only when this is true` turns the sides around. `at the end of the day` is `In the end, after you think about all of it`, not `when you look at what really matters.` Write two layers. `meaning` is that plain sense in your own words. Do not copy a Longman sentence. `here` says what that sense does in this line. The card shows the book's sentence under it. That sentence is the example. The app does not
 block other writing in a list that a user uploads (it shows a small notice), but the files
 shipped with the app or in the book packs (`src/`, `public/`, `packs/`) must pass `npm run check:cjk`.
 
@@ -53,7 +53,8 @@ Optional top-level parts (section 7): `paragraphs[]`, `sentences[]`, `phrases{}`
 
 | Field | Needed | Meaning |
 | --- | --- | --- |
-| `meaning` | yes, unless `senses` is given | The default meaning. |
+| `meaning` | yes, unless `senses` is given | The plain sense. One idea. |
+| `here` | no | The same sense, said for this sentence. Up to 600 letters. Shown under `meaning`. A sense may set its own. |
 | `pos` | no | Part of speech, free text (`noun`, `past-tense verb`). |
 | `whyHard` | no | One short reason. Default: "This word is harder than everyday English." |
 | `forms` | no | Other word shapes in the book that belong to this entry (`["saw","sawn"]`). The app adds a tap target for them. |
@@ -70,7 +71,8 @@ use the shape the book uses, or list it in `forms`.
 
 | Field | Needed | Meaning |
 | --- | --- | --- |
-| `meaning` | **yes** | Simple English. Up to 600 letters. |
+| `meaning` | **yes** | The plain sense. Simple English. Up to 600 letters. |
+| `here` | no | This sense, said for the anchored sentence. Falls back to the entry's `here`. |
 | `pos` | no | Falls back to the entry's `pos`. |
 | `whyHard` | no | Falls back to the entry's `whyHard`. |
 | `default` | no | `true` on at most one sense: shown when nothing matches (step 3 below). |

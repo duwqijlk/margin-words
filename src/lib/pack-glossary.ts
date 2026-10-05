@@ -12,6 +12,7 @@ type PackRow = {
   pos: string;
   meaning: string;
   whyHard: string;
+  here?: string;
   example?: string;
   forms?: string[];
   senses?: Gloss["senses"];
@@ -41,6 +42,7 @@ function toGloss(
   extra?: { senses?: Gloss["senses"]; forms?: string[]; coined?: boolean; senseOnly?: boolean },
 ): Gloss {
   const gloss: Gloss = { pos: row.pos, meaning: row.meaning, whyHard: row.whyHard };
+  if (typeof row.here === "string" && row.here.trim()) gloss.here = row.here.trim();
   // Version 2 lists add other meanings and word forms. Version 1 lists stay as they were.
   if (extra?.senses) gloss.senses = extra.senses;
   if (extra?.forms) gloss.forms = extra.forms;

@@ -438,6 +438,8 @@ export const en = {
   "card.noList":
     "This book has no word list yet. On the shelf, open the book’s menu and choose Add word list.",
   "card.coined": "The author made up this word.",
+  "card.plain": "Meaning",
+  "card.here": "In this sentence",
   "card.sentenceFrom": "Sentence from the book",
   "card.example": "Another example",
   "card.saved": "In your notebook · Tap to remove",

@@ -139,7 +139,8 @@ at hyphens (`muggle-wump` is the two words `muggle` and `wump`), so list the par
 
 ```ts
 type Entry = {
-  meaning?: string;     // REQUIRED unless "senses" is given. Max 600 chars.
+  meaning?: string;     // REQUIRED unless "senses" is given. Max 600 chars. The plain sense.
+  here?: string;        // optional. The same sense, said for this sentence. Max 600. Shown under meaning.
   pos?: string;         // part of speech, free text, max 48 chars. Use the app's labels (below).
   whyHard?: string;     // one short reason, max 400. Default when missing: "This word is harder than everyday English."
   forms?: string[];     // other spellings in the book that belong to this entry (lower case, one plain word each)
@@ -148,7 +149,8 @@ type Entry = {
   senseOnly?: boolean;  // true: underline/open the word ONLY at the places named by the anchors of its senses (4.7)
 };
 type Sense = {
-  meaning: string;      // REQUIRED. Max 600.
+  meaning: string;      // REQUIRED. Max 600. The plain sense.
+  here?: string;        // optional. This sense, said for the anchored sentence. Falls back to the entry's here.
   pos?: string;         // falls back to the entry's pos
   whyHard?: string;     // falls back to the entry's whyHard
   default?: boolean;    // true on at most ONE sense of the entry
@@ -218,7 +220,8 @@ Write notes for 1 or 2 sentences with tricky grammar per chapter (inversion such
 
 ```ts
 type Phrase = {
-  meaning: string;                              // max 600
+  meaning: string;                              // max 600. The plain sense.
+  here?: string;                                // optional. The same sense, said for this sentence. Max 600.
   pos?: "phrasal verb" | "idiom" | "phrase";    // any other value is an error
   forms?: string[];                             // extra full forms, e.g. ["packed up"]
   example?: string;                             // a short sentence from the book, max 400
@@ -348,7 +351,7 @@ Language and level
 
 Truthfulness
 5. Only restate the original. No new facts, opinions, guesses, background, or what happens later. A paragraph or sentence note must not explain more than the text says. Two short facts may sit outside the sentence: a size in centimetres or litres, and how a familiar object used to move or fit together when the comparison needs that motion (see Old thing). Do not add who made it, the year, or any other history.
-6. Explain the word as used IN THIS BOOK. Add no meanings the book does not use. Write that sense the way a learner dictionary does. Longman is the model: one everyday idea, the sense this sentence needs. If it gives two senses, use the one this sentence needs. Do not invent a picture it does not say. Read the card against that sentence. A close meaning is still wrong when the reader can turn it around. Put the meaning in place of the word and read the sentence. It must report the same event, with the same sides. If the meaning has two sides, swap them. The swapped sentence must now be false for this line. If the swap still sounds right, the card did not say which side fails. `unless` in `none of it will matter unless you do your part` means the first thing happens if the second thing does not. Longman says something will happen or be true if something else does not happen or is not true. The card is `If that does not happen.` `If not. The other thing happens only when this is true` can be read as the opposite: doing your part happens only when nothing matters. `at the end of the day` means `In the end, after you think about all of it.` It is not the end of the clock day, and it is not `when you look at what really matters.` Choosing which words to mark stays the tests below. This check is only about the words on the card. `respectable` in `one respectable person` is good enough, or big enough, to count as a real one, not "fit to be seen by other people." `left` in `enough of me left` is the part that remains. Say what remains. "Still there" alone sounds like a place. `Keep your temper` is stay calm. `a wink of sleep` is any sleep at all. `boxed the Queen's ears` is a hit on the side of the head. A meaning taken from one line belongs only to the lines that say that. Do not put that line on the base key, and do not list the plain spelling in `forms`. `minded their own business` is not the meaning of every `mind`. `lasted` means continued. `at last` is a phrase. List a form only when that spelling has the same meaning. `burning with curiosity` does not belong on the fire entry.
+6. Explain the word as used IN THIS BOOK. Add no meanings the book does not use. Write that sense the way a learner dictionary does. Longman is the model: one everyday idea, the sense this sentence needs. If it gives two senses, use the one this sentence needs. Do not invent a picture it does not say. Read the card against that sentence. A close meaning is still wrong when the reader can turn it around. Put the meaning in place of the word and read the sentence. It must report the same event, with the same sides. If the meaning has two sides, swap them. The swapped sentence must now be false for this line. If the swap still sounds right, the card did not say which side fails. `unless` in `none of it will matter unless you do your part` means the first thing happens if the second thing does not. Longman says something will happen or be true if something else does not happen or is not true. The card is `If that does not happen.` `If not. The other thing happens only when this is true` can be read as the opposite: doing your part happens only when nothing matters. `at the end of the day` means `In the end, after you think about all of it.` It is not the end of the clock day, and it is not `when you look at what really matters.` Choosing which words to mark stays the tests below. This check is only about the words on the card. Write two layers. `meaning` is the plain sense in your own words: the Longman sense that fits this sentence. Do not copy their sentence or their example. `here` says what that sense does in this line. The card shows the book's sentence under it. That sentence is the example. A card with no `here` is not finished. `respectable` in `one respectable person` is good enough, or big enough, to count as a real one, not "fit to be seen by other people." `left` in `enough of me left` is the part that remains. Say what remains. "Still there" alone sounds like a place. `Keep your temper` is stay calm. `a wink of sleep` is any sleep at all. `boxed the Queen's ears` is a hit on the side of the head. A meaning taken from one line belongs only to the lines that say that. Do not put that line on the base key, and do not list the plain spelling in `forms`. `minded their own business` is not the meaning of every `mind`. `lasted` means continued. `at last` is a phrase. List a form only when that spelling has the same meaning. `burning with curiosity` does not belong on the fire entry.
 7. Keep names and key story words unchanged (`Mira`, `Willy Wonka`, `moonwick`) even if they are not common words.
 8. If you are not sure a line is in the EPUB, or you cannot copy its `context`, leave that item out. A short correct list beats a long list with errors. This is not the rule for "maybe they know this word." When you are not sure they know it, mark it.
 
