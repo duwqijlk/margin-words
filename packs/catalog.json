@@ -50,14 +50,14 @@
    "notes": "",
    "lexile": "640L",
    "isbn": "9780141929859",
-   "updated": "2026-10-04",
-   "rev": "2f1df4167e59",
+   "updated": "2026-10-05",
+   "rev": "72597d350be0",
    "version": 2,
    "chapters": 15,
-   "words": 805,
+   "words": 806,
    "paragraphs": 30,
    "sentences": 38,
-   "phrases": 75,
+   "phrases": 86,
    "coined": 12,
    "epub": {
     "url": "george/book.epub",
@@ -66,9 +66,9 @@
    },
    "glossary": {
     "url": "george/glossary.json",
-    "bytes": 321023,
-    "sha256": "cca92ea6501b835647aa9fb01c83ad24cd3dfe65822ab8106dad152e35ec7553",
-    "rev": "cca92ea6501b"
+    "bytes": 324018,
+    "sha256": "9cede0fcbab032b688d0afd0bf4c3e566357b204e04649ce9c50cb2c99fff323",
+    "rev": "9cede0fcbab0"
    },
    "cover": {
     "url": "george/cover.jpg",
@@ -77,8 +77,8 @@
    },
    "zip": {
     "url": "george.zip",
-    "bytes": 3618807,
-    "sha256": "4af8b3d82a4e61f4f12e6adabfc159ec6bba6002e07133fca043efdb060d44f9"
+    "bytes": 3619405,
+    "sha256": "b2f9df5a9608638bbfaf27d2f1865fe61e60593f3eb9b8ecc09c2f94088f1dc3"
    }
   },
   {
@@ -89,14 +89,14 @@
    "notes": "",
    "lexile": "790L",
    "isbn": "9780141929873",
-   "updated": "2026-10-04",
-   "rev": "11a1d168326e",
+   "updated": "2026-10-05",
+   "rev": "5b9fb25082b4",
    "version": 2,
    "chapters": 42,
-   "words": 799,
+   "words": 809,
    "paragraphs": 45,
    "sentences": 40,
-   "phrases": 52,
+   "phrases": 68,
    "coined": 15,
    "epub": {
     "url": "james/book.epub",
@@ -105,9 +105,9 @@
    },
    "glossary": {
     "url": "james/glossary.json",
-    "bytes": 447246,
-    "sha256": "1f41948c7485fa91ec090d20824f77e9f9e00ee77936dd90b7a2bfa6735851be",
-    "rev": "1f41948c7485"
+    "bytes": 471630,
+    "sha256": "5784b1d631f7ec101f59a6cc071bdad6b873b85203562b287bf5f3e80a371294",
+    "rev": "5784b1d631f7"
    },
    "cover": {
     "url": "james/cover.jpg",
@@ -116,8 +116,8 @@
    },
    "zip": {
     "url": "james.zip",
-    "bytes": 2907151,
-    "sha256": "c582347fae3a9e8ff8d0233f9137e7b80db64303f6ce87fc1d8a0632ab34a721"
+    "bytes": 2911154,
+    "sha256": "862148ef66b32e20055bef9033bcf57450065ae85852e71a8693046e320df822"
    }
   },
   {
@@ -167,14 +167,14 @@
    "notes": "",
    "lexile": "560L",
    "isbn": "9780141957111",
-   "updated": "2026-10-04",
-   "rev": "243f7eee09f0",
+   "updated": "2026-10-05",
+   "rev": "f574a2180e38",
    "version": 2,
    "chapters": 0,
-   "words": 137,
+   "words": 139,
    "paragraphs": 20,
    "sentences": 30,
-   "phrases": 50,
+   "phrases": 52,
    "coined": 12,
    "epub": {
     "url": "magicfinger/book.epub",
@@ -183,9 +183,9 @@
    },
    "glossary": {
     "url": "magicfinger/glossary.json",
-    "bytes": 86125,
-    "sha256": "0daec1042ee7500236c72e0f34d12b9da641a841994b9fb0dd052b77fcdee04a",
-    "rev": "0daec1042ee7"
+    "bytes": 88626,
+    "sha256": "35e3701dc982fa4d2c944b7c37f8f15808adc411f6cd11e793c0294386993d39",
+    "rev": "35e3701dc982"
    },
    "cover": {
     "url": "magicfinger/cover.jpg",
@@ -194,8 +194,8 @@
    },
    "zip": {
     "url": "magicfinger.zip",
-    "bytes": 3758961,
-    "sha256": "43324a3d9f6c1502520a0b42ab443e1ee6ac8004907bf6489ece505abab75d28"
+    "bytes": 3759386,
+    "sha256": "9721089baa99af550f2441c4f1a8193f76b13044dd9d5ca2e061a65cee345cf7"
    }
   },
   {
@@ -205,11 +205,11 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "",
    "lexile": "750L",
-   "updated": "2026-10-04",
-   "rev": "eeee2736acfe",
+   "updated": "2026-10-05",
+   "rev": "8bd5def8990c",
    "version": 2,
    "chapters": 29,
-   "words": 557,
+   "words": 560,
    "paragraphs": 16,
    "sentences": 18,
    "phrases": 46,
@@ -221,9 +221,9 @@
    },
    "glossary": {
     "url": "twits/glossary.json",
-    "bytes": 185217,
-    "sha256": "68f71f93479f80971a98bba03dff40637aefd3db4f81a9ae31df8a3827ba8520",
-    "rev": "68f71f93479f"
+    "bytes": 187462,
+    "sha256": "556c6c4dfc8a1e5c6ad62a341b0eadf3b8f6c6c0ff6a8f7ec8de4bfccfb75761",
+    "rev": "556c6c4dfc8a"
    },
    "cover": {
     "url": "twits/cover.jpg",
@@ -232,8 +232,8 @@
    },
    "zip": {
     "url": "twits.zip",
-    "bytes": 2952067,
-    "sha256": "5b370e2d05db23f2e50da70525a9b5b70be8b24fcdeaab31cd6fcfba56525827"
+    "bytes": 2952471,
+    "sha256": "f5640238f82fba24ac9a6645a20e3fcc68ed6b36629a453c16781028fcf21f4f"
    }
   },
   {
@@ -359,7 +359,7 @@
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 25540002,
-  "sha256": "cc67bb724579f171cfebbf452d395f269e802fcafa450881070e40724951d50f"
+  "bytes": 25545432,
+  "sha256": "54cc9badc577ef496ae22cdef418621367ecaf01cc8de2abe2210135ce1132a1"
  }
 }
