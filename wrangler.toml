@@ -8,9 +8,11 @@
 # applied by itself; `pages deploy` reads it for the D1 binding.
 #
 # database_id is the live D1 database "margin-words" (already created, migration
-# 0001 applied). Do not create a second database. Local `wrangler pages dev`
-# still uses a local D1. Do not point this binding at R2. Book files stay on
-# books.inputread.site.
+# 0001 applied). It names the database. It is not a key or a token. Reading it
+# still needs a Cloudflare login. Do not create a second database. Local
+# `wrangler pages dev` still uses a local D1. Do not point this binding at R2.
+# Book files stay on books.inputread.site. Do not put API tokens or the
+# Turnstile secret in this file.
 
 name = "margin-words"
 compatibility_date = "2026-10-02"
