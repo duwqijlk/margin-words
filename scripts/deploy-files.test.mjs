@@ -69,9 +69,12 @@ test("the service worker never answers its own address or the manifest from a ca
   assert.match(sw, /cache: "reload"/);
   assert.match(
     sw,
-    /fetch\(request\.url, \{ cache: "reload", credentials: "same-origin", redirect: "follow", headers \}\)/,
-    "a page is always checked with the server, and not by reusing the navigation request",
+    /fetch\(request\.url,\s*\{[^}]*cache:\s*"no-store"[^}]*credentials:\s*"same-origin"[^}]*redirect:\s*"follow"/,
+    "a page is checked with the server, and not by reusing the navigation request or cache: reload",
   );
+  assert.match(sw, /byteLength === 0/, "an empty 200 must not be shown as the page");
+  assert.match(sw, /navigationPreload\.enable/);
+  assert.match(sw, /await self\.clients\.claim\(\)/, "the new worker takes over before old caches are deleted");
   assert.doesNotMatch(sw, /caches\.match\(/, "a book being saved must not block a lookup of the app shell");
   assert.match(sw, /caches\.open\(CACHE\)/);
   assert.doesNotMatch(sw, /margin-words-books/, "book files are not written into Cache Storage");
