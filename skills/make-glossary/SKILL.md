@@ -213,9 +213,15 @@ One or two sentence notes in a chapter. Do not also write a paragraph note for t
 
 ## Phrases (`phrases`)
 
-A phrase is two or more words that work as one unit: a phrasal verb, an idiom, a short order said again in the same words, or an old name for a thing. An unfamiliar name for a thing is a phrase, not a paragraph note. If that thing is inside a riddle, the riddle is the note.
+A phrase is two or more words that work as one unit: a phrasal verb, an idiom, a short order said again in the same words, or an old name for a thing. It is not slang. Slang is a word a small group uses instead of the ordinary word. A phrase here is ordinary textbook words whose joined meaning the textbook does not teach. An unfamiliar name for a thing is a phrase, not a paragraph note. If that thing is inside a riddle, the riddle is the note.
 
-Write a phrase only when the book uses it. One scene gets one entry, not a new entry every time the words repeat.
+Before you leave a group of neighbouring words out, put the textbook meaning of each word into the sentence, in order. When the sentence still reports the same event, leave the group out. When the sentence stops reporting that event, write one phrase for the whole unit. Do not shorten the key to a piece that is ordinary in other sentences.
+
+- `Come up again, dear!` is "move to a higher place." The people above the hole are calling her back up. Leave `come up` out.
+- `next to no toys` is not "beside no toys." `next to no` means almost none. The key is `next to no`, so `next to the door` stays plain.
+- `made up my mind` is not "built my mind in a higher place." `make up one's mind` means to decide. The key keeps `one's mind`, so `made up the story` stays plain.
+
+Write a phrase only when the book uses it. One scene gets one entry, not a new entry every time the words repeat. Leave out a group the same sentence explains in plain words.
 
 ```json
 "off with one's head": {

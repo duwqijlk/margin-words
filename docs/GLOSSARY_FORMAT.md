@@ -400,6 +400,7 @@ Found by `context` inside the sentence (same chapter first, longest snippet firs
 ```
 
 The key is the base form in lower case, two or more words (`one's` stands for my/your/his/her/its/our/their). A comma may sit between words (`oh, brother`, and the same in `forms`). That entry matches the words with the comma or without it, and only when they are next to each other. A key with no comma still stops at a comma. `pos` is `phrasal verb`, `idiom` or `phrase`.
+A phrase is not slang. Write one when the textbook meaning of each word, put into the sentence in order, stops reporting the same event (`next to no` is almost none; `make up one's mind` is to decide). Leave the group out when those meanings still report the same event (`come up` is still "move to a higher place"). The key is the whole unit, so an ordinary use of a shorter piece stays plain (`next to the door`, `made up the story`).
 When a learner taps a word of the phrase, the reader shows the phrase card if the whole phrase is in that sentence.
 Rules: simple verb forms are known without `forms` (give, gives, gave, giving; regular -s, -ed, -ing; about 100 common irregular verbs).
 A two-word phrasal verb may be split by up to 3 words (`picked the big box up`) when nothing that ends a clause (comma, full stop, `and`, `to`...) sits in between.

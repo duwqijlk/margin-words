@@ -140,7 +140,7 @@ The `paragraph` index is 0-based, counted as the reader counts it (the chapter h
 **`sentences`** (one tricky sentence each): `{ "chapter": 11, "context": "6 to 14 words copied exactly from the sentence", "simple": "...", "grammar": "ONE line: the tricky grammar and what it means." }`
 
 **`phrases`** (phrasal verbs and idioms that appear in the book): key = base form in lower case, `{ "meaning": "...", "pos": "phrasal verb" | "idiom" | "phrase", "forms": ["gave up"], "example": "a sentence from the book" }`.
-Write only phrases the book really uses. The reader knows simple forms (gave, giving, gives) and phrasal verbs split by up to 3 words, so you only list odd forms.
+These are not slang. Before you leave neighbouring words out, put the textbook meaning of each word into the sentence, in order. The sentence still reports the same event: leave them out (`Come up again` is still "move to a higher place"). The sentence stops: write one phrase for the whole unit (`next to no` is almost none, not "beside no"; `make up one's mind` is to decide, not "build a mind higher"). Do not shorten the key to a piece that is ordinary elsewhere (`next to the door`, `made up the story` stay plain). Write only phrases the book really uses. The reader knows simple forms (gave, giving, gives) and phrasal verbs split by up to 3 words, so you only list odd forms.
 
 **Coined words**: add `"coined": true` to the entry of a word the **author invented** (`snozzcumber`). Not for real rare words or funny spellings.
 
@@ -175,6 +175,7 @@ is in `docs/book-pack-spec.md` (also inside `book-pack-kit.zip`).
 
 - [ ] JSON is valid; `version` is 2; `validate-glossary.mjs` with the EPUB says OK.
 - [ ] Every familiar word was tried with its textbook meaning in the sentence. A sentence that stops reporting the same event is marked at that place only.
+- [ ] Neighbouring words were tried the same way. A group whose textbook meanings stop the sentence is one phrase for the whole unit, not slang, and the key is not shortened to an ordinary piece.
 - [ ] Every `hardWords` item has a glossary entry, unless that sentence explains the word.
 - [ ] Every multi-sense word has real, different meanings seen in the book, and a `default`.
 - [ ] No meaning uses a word harder than `target_level`.
