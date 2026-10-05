@@ -14,6 +14,7 @@ import {
 } from "@/lib/vocab-model";
 import type { TextAnchor } from "@/lib/position";
 import { bookSyncKey } from "@/lib/sync-merge";
+import { adoptWord, type GlossFileView } from "@/lib/gloss-ref";
 import {
   addSourceTo,
   lemmaKey,
@@ -154,6 +155,8 @@ type VocabState = {
    */
   mergeBook: (keepId: string, dropId: string) => void;
   replaceWords: (words: VocabEntry[]) => void;
+  /** Turn saved sentences into word-list pointers when this device has the current list. */
+  adoptGlossPointers: (lists: ReadonlyMap<string, { list: string; file: GlossFileView }>) => void;
 };
 
 function memoryStorage(): StateStorage {
@@ -464,6 +467,20 @@ export const useVocab = create<VocabState>()(
       },
       replaceWords: (words) => {
         set((state) => ({ words: normalizeWordbook(words, state.books) }));
+      },
+      adoptGlossPointers: (lists) => {
+        if (lists.size === 0) return;
+        set((state) => {
+          let changed = false;
+          const words = state.words.map((word) => {
+            const adopted = adoptWord(word, lists);
+            if (!adopted) return word;
+            changed = true;
+            return adopted;
+          });
+          if (!changed) return state;
+          return { words: normalizeWordbook(words, state.books) };
+        });
       },
       mergeBook: (keepId, dropId) => {
         if (keepId === dropId) return;

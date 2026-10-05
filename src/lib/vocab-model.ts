@@ -48,7 +48,8 @@ export type Book = {
  * its sync key (title and author), not by this device's shelf card, so it means the same on every device.
  *
  * A new save sets `ref` and leaves the sentence out. The snippet and the meaning are read from that word
- * list when the card is shown. Older saves still carry `sentence`, `title` and `at`.
+ * list when the card is shown, so a later edit to the list replaces the explanation. An older save may
+ * still carry `sentence`, `title` and `at` until this device has that book's list and rewrites it as a pointer.
  */
 export type WordSource = {
   /** `bookSyncKey` of the book: the same on every device */

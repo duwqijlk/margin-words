@@ -36,6 +36,7 @@ import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
 import { AccountDialog } from "@/components/account-dialog";
 import { autoUpdateWordLists, useListUpdates } from "@/lib/word-list-update";
 import { rememberListPack, resolveFileOffer } from "@/lib/file-gap";
+import { useLiveGlossMeanings } from "@/components/presented-word";
 
 type Screen = Route;
 
@@ -83,6 +84,7 @@ export function MarginApp() {
   const { t, tn } = useT();
   const books = useVocab((state) => state.books);
   const words = useVocab((state) => state.words);
+  useLiveGlossMeanings(words, books);
   const addDemo = useVocab((state) => state.addDemo);
   const restoreBooks = useVocab((state) => state.restoreBooks);
   const replaceWords = useVocab((state) => state.replaceWords);

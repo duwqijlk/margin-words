@@ -3,10 +3,10 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { loadAppModules } from "./lib/app-modules.mjs";
 import { asWordbookRecord, sourceKey } from "../src/lib/sync-merge.ts";
-import { buildSyncItems, captureSnapshot, emptyMeta } from "../src/lib/sync-diff.ts";
+import { buildSyncItems, captureSnapshot, emptyMeta, noteChanges } from "../src/lib/sync-diff.ts";
 
 const { glossRef } = await loadAppModules();
-const { contextMark, phrasePoint, pointFromEntry, presentWord, readPoint } = glossRef;
+const { adoptWord, bookGlossKey, contextMark, phrasePoint, pointFromEntry, pointFromStored, presentWord, readPoint } = glossRef;
 
 const CONTEXT = "curiouser and curiouser cried Alice";
 const EPUB = "The full sentence copied from the uploaded book, which must never be shown.";
@@ -161,7 +161,7 @@ test("the notebook copy ignores a sentence stored next to the pointer", () => {
   assert.equal(JSON.stringify(waiting).includes("uploaded"), false);
 });
 
-test("an older saved sentence still shows when the word has no pointer", () => {
+test("an older saved sentence still shows when no word list is loaded", () => {
   const word = {
     id: "1",
     surface: "faint",
@@ -190,6 +190,176 @@ test("an older saved sentence still shows when the word has no pointer", () => {
   const shown = presentWord(word, new Map());
   assert.equal(shown.sentence, "A faint light on the water.");
   assert.equal(shown.sources[0].sentence, "A faint light on the water.");
+});
+
+const BOOK = "book:alice|carrolllewis";
+
+function oldCurious(meaning = "Copied from the day it was saved.") {
+  return {
+    id: "1",
+    surface: "curious",
+    lemma: "curious",
+    pos: "adjective",
+    meaning,
+    whyHard: "old note",
+    recommend: true,
+    sentence: `How ${CONTEXT} today, copied from the uploaded book.`,
+    uses: "curious and curiouser",
+    sources: [
+      {
+        book: BOOK,
+        title: "Uploaded title",
+        author: "Uploaded author",
+        sentence: `How ${CONTEXT} today, copied from the uploaded book.`,
+        meaning,
+        surface: "curious",
+        savedAt: 1,
+        at: { chapter: 0, paragraph: 3, quote: "uploaded quote", offset: 4 },
+      },
+    ],
+    stage: 2,
+    dueAt: 1,
+    createdAt: 1,
+    reps: 3,
+    lapses: 0,
+  };
+}
+
+test("a stored sentence picks the list anchor and does not keep the sentence", () => {
+  const point = pointFromStored("alice", "curious", "curious", oldCurious().sentence, file);
+  assert.equal(point.list, "alice");
+  assert.equal(point.chapter, 0);
+  assert.equal(point.occurrence, 2);
+  assert.equal(point.mark, contextMark(CONTEXT));
+  assert.equal(JSON.stringify(point).includes("uploaded"), false);
+  assert.equal(JSON.stringify(point).includes(CONTEXT), false);
+});
+
+test("a stored sentence with no matching snippet still points at the list", () => {
+  const point = pointFromStored("alice", "curious", "curious", "A curious child walked in.", file);
+  assert.deepEqual(point, { list: "alice" });
+  const hit = readPoint(point, "curious", file);
+  assert.equal(hit.meaning, "Wanting to know more.");
+  assert.equal(hit.sentence, "");
+});
+
+test("a word that is not in the list keeps no pointer", () => {
+  assert.equal(pointFromStored("alice", "faint", "faint", "A faint light on the water.", file), null);
+});
+
+test("an older save shows the current list meaning, and a later edit replaces it", () => {
+  const word = oldCurious();
+  const shown = presentWord(word, new Map([[bookGlossKey(BOOK), file]]));
+  assert.equal(shown.sentence, CONTEXT);
+  assert.equal(shown.meaning, "Strange and interesting.");
+  assert.equal(shown.sources[0].at, undefined);
+  assert.equal(JSON.stringify(shown).includes("Copied from the day"), false);
+  assert.equal(JSON.stringify(shown).includes("uploaded"), false);
+  assert.equal(word.meaning, "Copied from the day it was saved.");
+
+  const edited = {
+    ...file,
+    glossary: {
+      ...file.glossary,
+      curious: {
+        ...file.glossary.curious,
+        senses: [
+          {
+            meaning: "Odd in a playful way.",
+            pos: "adjective",
+            anchors: [{ chapter: 0, occurrence: 2, form: "curious", context: CONTEXT }],
+          },
+        ],
+      },
+    },
+  };
+  const next = presentWord(word, new Map([[bookGlossKey(BOOK), edited]]));
+  assert.equal(next.meaning, "Odd in a playful way.");
+  assert.equal(next.sentence, CONTEXT);
+  assert.equal(word.meaning, "Copied from the day it was saved.");
+});
+
+test("an easy word stays on its old sentence when the list has no entry", () => {
+  const word = {
+    id: "1",
+    surface: "faint",
+    lemma: "faint",
+    pos: "adjective",
+    meaning: "Not strong.",
+    whyHard: "",
+    recommend: true,
+    sentence: "A faint light on the water.",
+    sources: [
+      {
+        book: BOOK,
+        title: "Alice",
+        author: "Lewis Carroll",
+        sentence: "A faint light on the water.",
+        meaning: "Not strong.",
+        surface: "faint",
+        savedAt: 1,
+      },
+    ],
+    stage: 0,
+    dueAt: 1,
+    createdAt: 1,
+    reps: 0,
+    lapses: 0,
+  };
+  const shown = presentWord(word, new Map([[bookGlossKey(BOOK), file]]));
+  assert.equal(shown.sentence, "A faint light on the water.");
+  assert.equal(shown.meaning, "Not strong.");
+});
+
+test("adopting an older save stores a pointer and drops the old explanation", () => {
+  const word = oldCurious();
+  const adopted = adoptWord(word, new Map([[BOOK, { list: "alice", file }]]));
+  assert.equal(adopted.sentence, "");
+  assert.equal(adopted.meaning, "");
+  assert.equal(adopted.whyHard, "");
+  assert.equal(adopted.uses, undefined);
+  assert.equal(adopted.reps, 3);
+  assert.equal(adopted.sources[0].ref.list, "alice");
+  assert.equal(adopted.sources[0].ref.chapter, 0);
+  assert.equal(adopted.sources[0].sentence, undefined);
+  assert.equal(adopted.sources[0].at, undefined);
+  assert.equal(JSON.stringify(adopted).includes("uploaded"), false);
+  assert.equal(JSON.stringify(adopted).includes(CONTEXT), false);
+  assert.equal(adoptWord(adopted, new Map([[BOOK, { list: "alice", file }]])), null);
+
+  const parsed = asWordbookRecord(adopted);
+  assert.equal(parsed.meaning, "");
+  assert.equal(parsed.sources[0].ref.mark, contextMark(CONTEXT));
+  const before = captureSnapshot({ books: [], words: [word], progress: {}, settings: {} });
+  const after = captureSnapshot({ books: [], words: [adopted], progress: {}, settings: {} });
+  const meta = noteChanges(emptyMeta(), before, after, 50);
+  const oldKey = sourceKey(word.sources[0]);
+  const newKey = sourceKey(adopted.sources[0]);
+  assert.equal(meta.sourceRemoved.curious[oldKey], 50);
+  assert.equal(meta.sourceRemoved.curious[newKey], undefined);
+  const edited = {
+    ...file,
+    glossary: {
+      curious: {
+        ...file.glossary.curious,
+        senses: [{ meaning: "Odd in a playful way.", anchors: [{ chapter: 0, occurrence: 2, context: CONTEXT }] }],
+      },
+    },
+  };
+  assert.equal(presentWord(adopted, new Map([["alice", edited]])).meaning, "Odd in a playful way.");
+  const blob = JSON.stringify(buildSyncItems(after, meta));
+  assert.equal(blob.includes("uploaded"), false);
+  assert.equal(blob.includes("Copied from the day"), false);
+  assert.equal(blob.includes('"ref"'), true);
+});
+
+test("a saved phrase becomes a phrase pointer", () => {
+  const point = pointFromStored("alice", "give up", "give up", "I will give up now.", file);
+  assert.equal(point.phrase, true);
+  assert.equal(point.list, "alice");
+  const hit = readPoint(point, "give up", file);
+  assert.equal(hit.meaning, "Stop trying.");
+  assert.equal(hit.sentence, "");
 });
 
 test("sync keeps the pointer and drops the e-book sentence", () => {
