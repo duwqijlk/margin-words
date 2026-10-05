@@ -9,7 +9,8 @@
  *   - a new shelf is empty and points to Discover; Alice is added like any other book
  *   - saving words from two books gives ONE list; a word saved in both books is one card with two sources
  *   - data of the older per-book version migrates (review state kept, sources made), also after a reload
- *   - the notebook: book filter, search, due count; the review card shows the sentence first, then the meaning
+ *   - the notebook: book filter, search, due count; starting a review opens the card (not the chart);
+ *     the card shows the sentence first, then the meaning, and the answer buttons stay on screen
  *   - "Go to this place" opens the book at that sentence
  *   - taking a book off the shelf keeps its words
  *   - a reading place saved by another copy of the book (other chapter, other paragraph number) still opens in
@@ -214,9 +215,12 @@ async function scenario(lang, size) {
 
   // ---- 7. one review queue across both books: the sentence is on the card, the meaning comes after
   await page.goto(at("review"));
-  await page.locator("h1").first().waitFor();
-  await page.getByRole("button", { name: new RegExp(escapeRe(t("rv.startToday")).replace("\\{n\\}", "\\d+")) }).click();
+  await page.waitForURL((url) => new URL(url).pathname === "/words", { timeout: 30000 });
+  ok(new URL(page.url()).pathname === "/words", `${label}: a direct /review visit opens the word list`);
+  await page.locator("[data-word-sources]").first().waitFor();
+  await page.getByRole("button", { name: new RegExp(escapeRe(t("nb.startReview")).replace("\\{n\\}", "\\d+")) }).click();
   await page.locator("article h1[lang=en]").waitFor();
+  ok((await page.getByRole("heading", { name: t("rv.next7") }).count()) === 0, `${label}: review opens on the card, not the chart`);
   await page.locator("article [data-word-source] mark").first().waitFor();
   ok((await page.locator("article [data-source-meaning]").count()) === 0, `${label}: the review card shows the sentence before the meaning`);
   await page.getByRole("button", { name: t("rv.showMeaning") }).click();
@@ -225,6 +229,15 @@ async function scenario(lang, size) {
   const bookLine = await page.locator("article [data-word-source]").first().innerText();
   ok(marks >= 1, `${label}: the word stays highlighted in its sentence`);
   ok(/Alice|Lantern/.test(bookLine), `${label}: and the book is named ("${bookLine.replace(/\n/g, " | ").slice(0, 70)}")`);
+  if (size === "phone") {
+    const actionsInView = await page.locator("[data-review-actions]").evaluate((el) => {
+      const box = el.getBoundingClientRect();
+      return box.height > 0 && box.top >= 0 && box.bottom <= window.innerHeight + 1;
+    });
+    ok(actionsInView, `${label}: know / don't know stay on screen after the meaning`);
+    const lines = await page.locator("article [data-source-place]").first().evaluate((el) => el.getClientRects().length);
+    ok(lines === 1, `${label}: the book and chapter stay on one line (${lines})`);
+  }
   ok(!(await overflow()), `${label}: no horizontal overflow (review card)`);
   await shot("review-card-source");
 

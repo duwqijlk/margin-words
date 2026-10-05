@@ -123,14 +123,27 @@ function subscribe(onChange: () => void): () => void {
   };
 }
 
-/** Go to a page. `replace` swaps the current history entry (used for redirects). */
-export function navigate(route: Route, options: { replace?: boolean } = {}): void {
+/**
+ * Go to a page. `replace` swaps the current history entry (used for redirects).
+ * `state` stays on that entry. Starting a review stores `{ review: "due" }` so a refresh
+ * of that visit opens the cards again. Every other visit clears the state.
+ */
+export function navigate(route: Route, options: { replace?: boolean; state?: unknown } = {}): void {
   const path = pathFor(route);
+  const state = options.state === undefined ? null : options.state;
   if (window.location.pathname !== path) {
-    if (options.replace) window.history.replaceState(null, "", path);
-    else window.history.pushState(null, "", path);
+    if (options.replace) window.history.replaceState(state, "", path);
+    else window.history.pushState(state, "", path);
+  } else if (options.state !== undefined) {
+    window.history.replaceState(state, "", path);
   }
   window.dispatchEvent(new Event(CHANGED));
+}
+
+/** True when this history entry was opened by "Start review" and should show the cards. */
+export function reviewDueIntent(): boolean {
+  const state = window.history.state as { review?: unknown } | null;
+  return Boolean(state && typeof state === "object" && state.review === "due");
 }
 
 /** The route of the address bar. An address that is not a page of the app reads as the shelf. */

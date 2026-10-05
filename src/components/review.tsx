@@ -10,6 +10,7 @@ import {
   type SrsStats,
 } from "@/lib/srs";
 import { tr, trn, useT, type Key } from "@/lib/i18n";
+import { reviewDueIntent } from "@/lib/router";
 import { bookSyncKey } from "@/lib/sync-merge";
 import { isDue, type Book, type VocabEntry } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
@@ -474,11 +475,17 @@ function Session({
   const forecast = previewCorrect(current);
   const due = isDue(current);
 
+  const actions = mode === "cards" || answered;
   return (
-    <div className="mx-auto grid min-h-[calc(100dvh-3.5rem)] max-w-2xl grid-rows-[auto_1fr_auto] gap-4 px-4 py-4 sm:px-6 sm:py-8">
+    <div
+      className={cn(
+        "mx-auto grid max-w-2xl gap-4 px-4 pt-4 pb-4 sm:px-6 sm:pt-8 sm:pb-8",
+        actions && "max-sm:pb-36",
+      )}
+    >
       <div className="grid gap-3">
         <div className="flex items-center justify-between gap-3">
-          <button type="button" className={cn(btn.ghost, "-ml-3 min-h-10")} onClick={onOverview}>
+          <button type="button" className={cn(btn.ghost, "-ml-3 min-h-10")} onClick={onExit}>
             <X className="size-4" aria-hidden />
             {t("rv.end")}
           </button>
@@ -544,18 +551,7 @@ function Session({
                   </p>
                 ) : null}
               </div>
-            ) : revealed ? null : (
-              <button
-                type="button"
-                className={cn(btn.quiet, "mt-2 min-h-12")}
-                onClick={() => setRevealed(true)}
-              >
-                {t("rv.showMeaning")}
-                <kbd className="hidden rounded border border-line px-1.5 text-xs text-muted sm:inline">
-                  {t("rv.space")}
-                </kbd>
-              </button>
-            )}
+            ) : null}
           </>
         ) : null}
 
@@ -670,51 +666,66 @@ function Session({
         ) : null}
       </article>
 
-      <div className="grid gap-2">
-        {mode === "cards" && revealed ? (
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              className={cn(
-                btn.quiet,
-                "min-h-14 flex-col gap-0 border-warn/40 text-warn hover:bg-warn-soft",
-              )}
-              onClick={() => {
-                record(false);
-                next();
-              }}
-            >
-              <span>{t("rv.dontKnow")}</span>
-              <span className="text-xs font-normal opacity-75">{t("rv.dontKnowSub")}</span>
-            </button>
-            <button
-              type="button"
-              className={cn(btn.primary, "min-h-14 flex-col gap-0")}
-              onClick={() => {
-                record(true);
-                next();
-              }}
-            >
-              <span>{t("rv.know")}</span>
-              <span className="text-xs font-normal opacity-80">
-                {!due
-                  ? t("rv.noChange")
-                  : forecast.mastered
-                    ? t("rv.fully")
-                    : tn("rv.seeAgain", forecast.days)}
-              </span>
-            </button>
+      {actions ? (
+        <div
+          data-review-actions
+          className="max-sm:fixed max-sm:inset-x-0 max-sm:bottom-[calc(4.25rem+env(safe-area-inset-bottom))] max-sm:z-30 max-sm:border-t max-sm:border-line max-sm:bg-paper/95 max-sm:px-4 max-sm:py-3 max-sm:backdrop-blur"
+        >
+          <div className="mx-auto grid max-w-2xl gap-2">
+            {mode === "cards" && !revealed ? (
+              <>
+                <p className="text-center text-xs text-muted">{t("rv.think")}</p>
+                <button type="button" className={cn(btn.quiet, "min-h-12")} onClick={() => setRevealed(true)}>
+                  {t("rv.showMeaning")}
+                  <kbd className="hidden rounded border border-line px-1.5 text-xs text-muted sm:inline">
+                    {t("rv.space")}
+                  </kbd>
+                </button>
+              </>
+            ) : null}
+            {mode === "cards" && revealed ? (
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  className={cn(
+                    btn.quiet,
+                    "min-h-14 flex-col gap-0 border-warn/40 text-warn hover:bg-warn-soft",
+                  )}
+                  onClick={() => {
+                    record(false);
+                    next();
+                  }}
+                >
+                  <span>{t("rv.dontKnow")}</span>
+                  <span className="text-xs font-normal opacity-75">{t("rv.dontKnowSub")}</span>
+                </button>
+                <button
+                  type="button"
+                  className={cn(btn.primary, "min-h-14 flex-col gap-0")}
+                  onClick={() => {
+                    record(true);
+                    next();
+                  }}
+                >
+                  <span>{t("rv.know")}</span>
+                  <span className="text-xs font-normal opacity-80">
+                    {!due
+                      ? t("rv.noChange")
+                      : forecast.mastered
+                        ? t("rv.fully")
+                        : tn("rv.seeAgain", forecast.days)}
+                  </span>
+                </button>
+              </div>
+            ) : null}
+            {mode !== "cards" && answered ? (
+              <button type="button" className={cn(btn.primary, "min-h-12")} onClick={next} autoFocus>
+                {t("rv.nextCard")}
+              </button>
+            ) : null}
           </div>
-        ) : null}
-        {mode !== "cards" && answered ? (
-          <button type="button" className={cn(btn.primary, "min-h-12")} onClick={next} autoFocus>
-            {t("rv.nextCard")}
-          </button>
-        ) : null}
-        {mode === "cards" && !revealed ? (
-          <p className="text-center text-xs text-muted">{t("rv.think")}</p>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -734,7 +745,11 @@ export function ReviewScreen({
 }) {
   const { t } = useT();
   const [mode, setMode] = useState<Mode>("cards");
+  const [phase, setPhase] = useState<"pending" | "overview" | "session">("pending");
   const [session, setSession] = useState<{ ids: string[]; key: number } | null>(null);
+  // One boot per visit. A refresh keeps history.state, so the cards open again.
+  // The chart page is only reached from "See review overview" after a round.
+  const booted = useRef(false);
   const bookKey = useMemo(() => {
     const book = bookId ? books.find((item) => item.id === bookId) : undefined;
     return book ? bookSyncKey(book) : "";
@@ -744,6 +759,27 @@ export function ReviewScreen({
     [words, bookId, bookKey],
   );
   const title = bookId ? (books.find((book) => book.id === bookId)?.title ?? "") : t("nb.allBooks");
+
+  useEffect(() => {
+    if (booted.current) return;
+    booted.current = true;
+    // The notebook is the stable page. A bare /review visit (or a refresh that lost the
+    // in-memory session) goes back there instead of showing the chart.
+    if (!reviewDueIntent()) {
+      onBack();
+      return;
+    }
+    const due = scoped.filter((word) => isDue(word));
+    if (due.length === 0) {
+      onBack();
+      return;
+    }
+    const order = shuffle(due);
+    const first = order[0];
+    if (first) speakEnglish(first.lemma);
+    setSession({ ids: order.map((word) => word.id), key: Date.now() });
+    setPhase("session");
+  }, [onBack, scoped]);
 
   function start(kind: Pool) {
     const list =
@@ -756,9 +792,10 @@ export function ReviewScreen({
     const order = shuffle(list);
     if (mode === "cards" && order[0]) speakEnglish(order[0].lemma);
     setSession({ ids: order.map((word) => word.id), key: Date.now() });
+    setPhase("session");
   }
 
-  if (session) {
+  if (phase === "session" && session) {
     return (
       <Session
         key={session.key}
@@ -767,18 +804,24 @@ export function ReviewScreen({
         pool={scoped}
         books={books}
         onExit={onBack}
-        onOverview={() => setSession(null)}
+        onOverview={() => {
+          setSession(null);
+          setPhase("overview");
+        }}
       />
     );
   }
-  return (
-    <Overview
-      title={title}
-      scoped={scoped}
-      mode={mode}
-      onMode={setMode}
-      onStart={start}
-      onBack={onBack}
-    />
-  );
+  if (phase === "overview") {
+    return (
+      <Overview
+        title={title}
+        scoped={scoped}
+        mode={mode}
+        onMode={setMode}
+        onStart={start}
+        onBack={onBack}
+      />
+    );
+  }
+  return <div className="min-h-[60dvh]" aria-busy="true" />;
 }
