@@ -84,13 +84,14 @@ For a dictionary anchor, `occurrence` is how many times that exact lower-case sp
 Mark a word when any test below is yes. There is no maximum and no per-chapter quota. A cap of 15 or 30 words is why a real hard word gets left out. Do not enter a word twice unless this book uses it in a new meaning.
 
 1. **Wrong twin.** The spelling looks like a word they know, or they would guess the wrong meaning. `struck` in `her head struck against the roof` means hit. It does not mean stuck. The meaning says both.
-2. **Old thing.** A thing, a tool, clothes, a room, food, or a job that a school book does not teach, even once. `hearthrug` is the rug in front of the fire. `fender` here is the metal guard in front of the fire. `carrier` is the person who takes parcels.
+2. **Old thing.** A thing, a tool, clothes, a room, food, or a job that a school book does not teach, even once. `hearthrug` is the rug in front of the fire. `fender` here is the metal guard in front of the fire. `carrier` is the person who takes parcels. A measure they cannot picture is this test too: say the size in centimetres or litres. One inch is about 2.5 centimetres. A gallon is about four and a half litres. That size is the one fact that is not in the story. Do not add history.
 3. **Old label.** A title or a short form they have not met. `Esq.` after a name.
-4. **Not the school meaning.** They know the word, but this place uses another meaning. Mark only that place (`senseOnly`). `directions` in `how odd the directions will look` means the address on a letter, not which way to go.
+4. **Not the school meaning.** A familiar spelling, used here for something else. Before you leave any familiar word out, put the meaning a first-year textbook gives that spelling into this sentence. If the textbook gives two meanings, try each one. When the sentence still reports the same event, leave the word out. When the sentence stops reporting that event, mark only the places that use the other meaning (`senseOnly`, and `trickyMeaning` on that sense). Start `whyHard` with `Not the usual meaning!` and say the textbook meaning. `puzzle` in `that's the great puzzle` is a hard question; a textbook puzzle is a picture cut into pieces. `shedding` in `shedding gallons of tears` is the verb "to let something fall"; a textbook shed is a small building. `scale` in `On every golden scale` is one hard plate on the crocodile; a textbook scale is a tool for weighing, or how big something is.
+5. **Unclear name.** A person's name a first-year reader may try to translate as an ordinary word. `Ada` and `Mabel` are girls Alice knows. The meaning says only that it is a name, and who it is if this sentence says so. Skip a name the sentence already calls a name. Skip a place name used as a label.
 
 If you are not sure they know the word, mark it. A missing mark is the mistake. An extra mark on a real hard word is fine.
 
-Still skip a word when a first-year textbook uses it in this same meaning (`she`, `said`, `little`, `head`, `foot`, `roof`, `door`). Skip names of people and places. Skip a word the same sentence explains in plain words.
+Leave a word out only after its textbook meaning still fits this sentence (`she`, `said`, `little`, `head`, `foot`, `roof`, `door`). Leave it out when the same sentence explains it in plain words. A word already named in a paragraph note's `hardWords` still needs its own dictionary entry, unless that sentence explains it. The note does not stand in for the entry.
 
 A word inside a letter, a label, or lines that are not a numbered paragraph is still a dictionary word. The reader can tap it there. `Hearthrug` and `Fender` in the address to Alice's foot are this case.
 
@@ -160,7 +161,7 @@ The anchor `context` contains the word. `whyHard` starts with `Not the usual mea
 
 ## Hard paragraphs (`paragraphs`)
 
-Write a paragraph note where the student cannot follow the paragraph even after knowing the words. Ordinary action gets nothing. One scene gets one note. A paragraph note does not replace the dictionary: the hard words are still entries.
+Write a paragraph note where the student cannot follow the paragraph even after knowing the words. Ordinary action gets nothing. One scene gets one note. A paragraph note does not replace the dictionary: every word in `hardWords` is still an entry, unless the same sentence explains it.
 
 Also write a note when the paragraph sets up a letter, a label, or an address, including when those lines are not themselves a numbered paragraph. `And how odd the directions will look!` is that setup: she is picturing the address on a present to her own foot. Do not write a paragraph note whose only hard part is one word (`struck`). That word is a dictionary entry.
 

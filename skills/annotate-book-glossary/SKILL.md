@@ -41,7 +41,7 @@ chapters from the summary.
 
 - Read the chapters (or sample them if the book is long). Optionally get frequent candidates the app would
   pick: `node scripts/extract-epub-text.mjs book.epub --candidates 300`.
-- Keep a word when any test in `skills/make-glossary/SKILL.md` is yes (wrong twin, old thing, old label, or not the school meaning). If you are not sure they know it, keep it. Skip names, a textbook word used in the textbook meaning, and words the book itself explains. A word that appears once, including inside a letter or a label, still counts. `max_words` is only a safety stop for a huge book, not a reason to drop `hearthrug` or `struck`.
+- Keep a word when any test in `skills/make-glossary/SKILL.md` is yes (wrong twin, old thing, old label, not the school meaning, or an unclear personal name). If you are not sure they know it, keep it. Before you leave a familiar word out, put each textbook meaning of that spelling into the sentence. Leave it out only when the sentence still reports the same event. When the sentence stops reporting that event, keep that place only (`senseOnly`, `trickyMeaning`, `whyHard` starting `Not the usual meaning!`). Also leave out a place name used as a label, a personal name the sentence already calls a name, and words the book itself explains. A word that appears once, including inside a letter or a label, still counts. Every word you put in a paragraph note's `hardWords` gets its own entry, unless that sentence explains it. `max_words` is only a safety stop for a huge book, not a reason to drop `hearthrug` or `struck`.
 - Use **lower-case** entries. The key is the word as the reader can tap it: nouns in the singular
   (`monkey`, the app maps `monkeys` to it), but a verb form that is not mapped by plural rules is its own key
   (`cried`, `shrinks` -> `shrink` only when it ends in a plural-like -s: check with `--find`). For other
@@ -174,6 +174,8 @@ is in `docs/book-pack-spec.md` (also inside `book-pack-kit.zip`).
 ## Quality checklist
 
 - [ ] JSON is valid; `version` is 2; `validate-glossary.mjs` with the EPUB says OK.
+- [ ] Every familiar word was tried with its textbook meaning in the sentence. A sentence that stops reporting the same event is marked at that place only.
+- [ ] Every `hardWords` item has a glossary entry, unless that sentence explains the word.
 - [ ] Every multi-sense word has real, different meanings seen in the book, and a `default`.
 - [ ] No meaning uses a word harder than `target_level`.
 - [ ] No copied book passages longer than a short context snippet in any field.
