@@ -89,7 +89,7 @@ Mark a word when any test below is yes. There is no maximum and no per-chapter q
 4. **Not the school meaning.** A familiar spelling, used here for something else. Before you leave any familiar word out, put the meaning a first-year textbook gives that spelling into this sentence. If the textbook gives two meanings, try each one. When the sentence still reports the same event, leave the word out. When the sentence stops reporting that event, mark only the places that use the other meaning (`senseOnly`, and `trickyMeaning` on that sense). Start `whyHard` with `Not the usual meaning!` and say the textbook meaning. `puzzle` in `that's the great puzzle` is a hard question; a textbook puzzle is a picture cut into pieces. `shedding` in `shedding gallons of tears` is the verb "to let something fall"; a textbook shed is a small building. `scale` in `On every golden scale` is one hard plate on the crocodile; a textbook scale is a tool for weighing, or how big something is.
 5. **Unclear name.** A person's name a first-year reader may try to translate as an ordinary word. `Ada` and `Mabel` are girls Alice knows. The meaning says only that it is a name, and who it is if this sentence says so. Skip a name the sentence already calls a name. Skip a place name used as a label.
 
-If you are not sure they know the word, mark it. A missing mark is the mistake. An extra mark on a real hard word is fine.
+If you are not sure they know the word, mark it. A missing mark is the mistake. An extra mark on a real hard word is fine. `coast` in `on the English coast` is the land beside the sea. A first-year book often has `sea` and not `coast`. The textbook meaning still fits this sentence, so it is an ordinary entry, not `senseOnly`.
 
 Leave a word out only after its textbook meaning still fits this sentence (`she`, `said`, `little`, `head`, `foot`, `roof`, `door`). Leave it out when the same sentence explains it in plain words. A word already named in a paragraph note's `hardWords` still needs its own dictionary entry, unless that sentence explains it. The note does not stand in for the entry.
 
@@ -221,8 +221,9 @@ Before you leave a group of neighbouring words out, put the textbook meaning of 
 - `next to no toys` is not "beside no toys." `next to no` means almost none. The key is `next to no`, so `next to the door` stays plain.
 - `made up my mind` is not "built my mind in a higher place." `make up one's mind` means to decide. The key keeps `one's mind`, so `made up the story` stays plain.
 - `had come to the general conclusion` is not a move toward an ending, and it is not "what everyone already knows." `come to a conclusion` means to decide after thinking. `general` means that decision covers many places, not only one. The key is `come to a conclusion`. When the book puts an extra word inside, list that shape in `forms` (`come to the general conclusion`), so `come to the door` stays plain. Do not define the noun `conclusion` with the words `come to`.
+- `she soon made out that` is not "she made something outside." `make out` means to manage to see, hear, or understand.
 
-Write a phrase only when the book uses it. One scene gets one entry, not a new entry every time the words repeat. Leave out a group the same sentence explains in plain words.
+Write a phrase only when the book uses it. One scene gets one entry, not a new entry every time the words repeat. Leave out a group the same sentence explains in plain words. Do not write a short key that also sits inside a longer ordinary group: `as well` sits inside `as well as she could`, and there `well` still means "in a good way." Write the longer idiom (`might as well`) or leave the short group out. If a word entry already gives the meaning of the group (`a good deal` on `deal`, `in spite of` on `spite`), do not add a second phrase for those same words.
 
 ```json
 "off with one's head": {
