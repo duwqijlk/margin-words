@@ -152,6 +152,11 @@
    "pos": "adverb",
    "meaning": "In an angry way."
   },
+  "ann": {
+   "pos": "singular noun",
+   "meaning": "A girl's name, used with Mary. She is the Rabbit's servant.",
+   "whyHard": "A name, not an ordinary word."
+  },
   "annoy": {
    "pos": "base verb",
    "meaning": "To make someone a little angry."
@@ -565,6 +570,23 @@
    "pos": "present participle",
    "meaning": "Jumping around in a playful way."
   },
+  "capital": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Excellent; very good at something.",
+   "senses": [
+    {
+     "meaning": "Excellent; very good at something.",
+     "whyHard": "Not the usual meaning! Usually: a capital is the main city of a country.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 1, "occurrence": 3, "form": "capital", "context": "nurse—and she’s such a capital one for catching mice" },
+      { "chapter": 2, "occurrence": 1, "form": "capital", "context": "And she’s such a capital one for catching mice" }
+     ]
+    }
+   ]
+  },
   "cardboard": {
    "pos": "uncountable noun",
    "meaning": "Thick stiff paper."
@@ -611,6 +633,11 @@
   "chanced": {
    "pos": "past-tense verb",
    "meaning": "Happened by luck."
+  },
+  "chatte": {
+   "pos": "singular noun",
+   "meaning": "A French word for a female cat.",
+   "whyHard": "A French word. Alice asks where her cat is."
   },
   "cheat": {
    "pos": "base verb",
@@ -718,6 +745,25 @@
     "clinging"
    ]
   },
+  "club": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The black shape on a playing card.",
+   "forms": [
+    "clubs"
+   ],
+   "senses": [
+    {
+     "meaning": "The black shape on a playing card.",
+     "whyHard": "Not the usual meaning! Usually: a club is a heavy stick, or a group of people.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 7, "occurrence": 1, "form": "clubs", "context": "ten soldiers carrying clubs; these were all shaped" }
+     ]
+    }
+   ]
+  },
   "coaxing": {
    "pos": "adjective",
    "meaning": "Gentle and kind, trying to persuade someone to do something."
@@ -787,6 +833,11 @@
   "conger": {
    "pos": "singular noun",
    "meaning": "A kind of large sea fish like an eel."
+  },
+  "conqueror": {
+   "pos": "singular noun",
+   "meaning": "A person who takes a country by fighting.",
+   "whyHard": "A name in Alice's history lesson."
   },
   "conquest": {
    "pos": "singular noun",
@@ -1130,6 +1181,25 @@
   "desperately": {
    "pos": "adverb",
    "meaning": "In a way that shows you will do anything because you have no hope."
+  },
+  "diamond": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The red shape on a playing card.",
+   "forms": [
+    "diamonds"
+   ],
+   "senses": [
+    {
+     "meaning": "The red shape on a playing card.",
+     "whyHard": "Not the usual meaning! Usually: a diamond is a bright hard stone.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 7, "occurrence": 1, "form": "diamonds", "context": "ornamented all over with diamonds, and walked two" }
+     ]
+    }
+   ]
   },
   "difficulty": {
    "pos": "singular noun",
@@ -1785,6 +1855,30 @@
    "pos": "adjective",
    "meaning": "Liking something or someone very much. \"Fond of\" means you like it a lot."
   },
+  "foot": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A measure of length: about 30 centimetres.",
+   "forms": [
+    "feet"
+   ],
+   "senses": [
+    {
+     "meaning": "A measure of length: about 30 centimetres.",
+     "whyHard": "Not the usual meaning! Usually: a foot is the end of a leg. A measure they count in centimetres.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 1, "occurrence": 5, "form": "feet", "context": "she was now more than nine feet high" },
+      { "chapter": 1, "occurrence": 7, "form": "feet", "context": "she was now about two feet high" },
+      { "chapter": 1, "occurrence": 8, "form": "feet", "context": "when she was nine feet high" },
+      { "chapter": 4, "occurrence": 1, "form": "feet", "context": "a little house in it about four feet high" },
+      { "chapter": 5, "occurrence": 1, "form": "feet", "context": "raised herself to about two feet high" },
+      { "chapter": 6, "occurrence": 1, "form": "foot", "context": "till she was about a foot high" }
+     ]
+    }
+   ]
+  },
   "footman": {
    "pos": "singular noun",
    "meaning": "A man servant who answers the door and serves food in a rich house."
@@ -1887,6 +1981,22 @@
    "meaning": "A large amount of liquid. A gallon is about four and a half litres.",
    "forms": [
     "gallons"
+   ]
+  },
+  "game": {
+   "senseOnly": true,
+   "pos": "uncountable noun",
+   "meaning": "Wild birds or animals that people hunt for food.",
+   "senses": [
+    {
+     "meaning": "Wild birds or animals that people hunt for food.",
+     "whyHard": "Not the usual meaning! Usually: a game is something you play.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 9, "occurrence": 1, "form": "game", "context": "Who cares for fish, Game, or any other dish" }
+     ]
+    }
    ]
   },
   "gardener": {
@@ -2087,6 +2197,32 @@
   "heap": {
    "pos": "singular noun",
    "meaning": "A large untidy pile of things."
+  },
+  "heart": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The red shape on a playing card.",
+   "forms": [
+    "hearts"
+   ],
+   "senses": [
+    {
+     "meaning": "The red shape on a playing card.",
+     "whyHard": "Not the usual meaning! Usually: a heart is the part of the body that beats.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 6, "occurrence": 1, "form": "hearts", "context": "the great concert given by the Queen of Hearts" },
+      { "chapter": 7, "occurrence": 1, "form": "hearts", "context": "they were all ornamented with hearts" },
+      { "chapter": 7, "occurrence": 2, "form": "hearts", "context": "Then followed the Knave of Hearts" },
+      { "chapter": 7, "occurrence": 3, "form": "hearts", "context": "came THE KING AND QUEEN OF HEARTS" },
+      { "chapter": 7, "occurrence": 4, "form": "hearts", "context": "said it to the Knave of Hearts" },
+      { "chapter": 10, "occurrence": 1, "form": "hearts", "context": "The King and Queen of Hearts were seated" },
+      { "chapter": 10, "occurrence": 2, "form": "hearts", "context": "The Queen of Hearts, she made some tarts" },
+      { "chapter": 10, "occurrence": 3, "form": "hearts", "context": "The Knave of Hearts, he stole those tarts" }
+     ]
+    }
+   ]
   },
   "hearth": {
    "pos": "singular noun",
@@ -2705,6 +2841,11 @@
    "pos": "uncountable noun",
    "meaning": "A sweet food made from oranges. People put it on bread."
   },
+  "mary": {
+   "pos": "singular noun",
+   "meaning": "A girl's name. The Rabbit's servant.",
+   "whyHard": "A name, not an ordinary word."
+  },
   "meekly": {
    "pos": "adverb",
    "meaning": "In a quiet and gentle way that does not argue."
@@ -3101,6 +3242,11 @@
   "pence": {
    "pos": "plural noun",
    "meaning": "Small coins from an old money system."
+  },
+  "pennyworth": {
+   "pos": "singular noun",
+   "meaning": "As much as you can buy with one old penny.",
+   "whyHard": "Old money."
   },
   "pepper": {
    "pos": "uncountable noun",
@@ -3720,6 +3866,22 @@
    "pos": "adjective",
    "meaning": "Fierce and angry. Here the Rabbit means very angry."
   },
+  "scale": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "One hard plate on a crocodile or a fish.",
+   "senses": [
+    {
+     "meaning": "One hard plate on a crocodile or a fish.",
+     "whyHard": "Not the usual meaning! Usually: a scale is a tool for weighing, or how big something is.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 1, "occurrence": 1, "form": "scale", "context": "pour the waters of the Nile On every golden scale" }
+     ]
+    }
+   ]
+  },
   "scaly": {
    "pos": "adjective",
    "meaning": "Covered with small, flat, hard pieces of skin, like a fish."
@@ -3784,6 +3946,26 @@
   "sensation": {
    "pos": "singular noun",
    "meaning": "A strong feeling of surprise or excitement among many people."
+  },
+  "sentence": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The punishment a judge orders.",
+   "senses": [
+    {
+     "meaning": "The punishment a judge orders.",
+     "whyHard": "Not the usual meaning! Usually: a sentence is a group of words.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 7, "occurrence": 1, "form": "sentence", "context": "whispered “She’s under sentence of execution" },
+      { "chapter": 7, "occurrence": 2, "form": "sentence", "context": "heard her sentence three of the players to be executed" },
+      { "chapter": 8, "occurrence": 1, "form": "sentence", "context": "in custody and under sentence of execution" },
+      { "chapter": 11, "occurrence": 1, "form": "sentence", "context": "said the Queen. “Sentence first—verdict afterwards" },
+      { "chapter": 11, "occurrence": 2, "form": "sentence", "context": "The idea of having the sentence first" }
+     ]
+    }
+   ]
   },
   "sentenced": {
    "pos": "past-tense verb",
@@ -5121,13 +5303,14 @@
   },
   "yard": {
    "pos": "singular noun",
-   "meaning": "A measure about as long as one big step.",
+   "meaning": "A measure of length: about 90 centimetres.",
    "forms": [
     "yards"
    ],
    "senses": [
     {
-     "meaning": "A measure about as long as one big step.",
+     "meaning": "A measure of length: about 90 centimetres.",
+     "whyHard": "A measure they count in centimetres.",
      "default": true,
      "anchors": [
       { "chapter": 5, "occurrence": 1, "form": "yards", "context": "tree a few yards off" }
