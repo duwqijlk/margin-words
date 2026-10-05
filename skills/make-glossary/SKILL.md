@@ -220,6 +220,7 @@ Before you leave a group of neighbouring words out, put the textbook meaning of 
 - `Come up again, dear!` is "move to a higher place." The people above the hole are calling her back up. Leave `come up` out.
 - `next to no toys` is not "beside no toys." `next to no` means almost none. The key is `next to no`, so `next to the door` stays plain.
 - `made up my mind` is not "built my mind in a higher place." `make up one's mind` means to decide. The key keeps `one's mind`, so `made up the story` stays plain.
+- `had come to the general conclusion` is not a move toward an ending, and it is not "what everyone already knows." `come to a conclusion` means to decide after thinking. `general` means that decision covers many places, not only one. The key is `come to a conclusion`. When the book puts an extra word inside, list that shape in `forms` (`come to the general conclusion`), so `come to the door` stays plain. Do not define the noun `conclusion` with the words `come to`.
 
 Write a phrase only when the book uses it. One scene gets one entry, not a new entry every time the words repeat. Leave out a group the same sentence explains in plain words.
 
