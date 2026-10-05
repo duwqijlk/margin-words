@@ -1,0 +1,2349 @@
+{
+ "version": 2,
+ "title": "Address to a Joint Session of Congress and the American People",
+ "author": "George W. Bush",
+ "sha256": "e4998e2e5efed6ff6ecbbd82212784758353df3cd086f71168037922564db976",
+ "chapters": 8,
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+ "language": "English",
+ "glossary": {
+  "abandon": {
+   "pos": "verb",
+   "meaning": "To leave something completely.",
+   "forms": [
+    "abandoning"
+   ]
+  },
+  "abet": {
+   "pos": "verb",
+   "meaning": "To help someone do a crime.",
+   "forms": [
+    "abetting"
+   ]
+  },
+  "access": {
+   "pos": "singular noun",
+   "meaning": "A way in."
+  },
+  "accompany": {
+   "pos": "verb",
+   "meaning": "To go along with something."
+  },
+  "achievement": {
+   "pos": "singular noun",
+   "meaning": "Something important that was done."
+  },
+  "additional": {
+   "pos": "adjective",
+   "meaning": "Extra. More than there was before."
+  },
+  "address": {
+   "pos": "singular noun",
+   "meaning": "A formal speech.",
+   "whyHard": "Not the usual meaning! Usually an address is a street and a house number. Here it is a formal speech."
+  },
+  "administration": {
+   "pos": "singular noun",
+   "meaning": "The president and the people who work for him."
+  },
+  "advance": {
+   "pos": "singular noun",
+   "meaning": "Movement forward."
+  },
+  "affect": {
+   "pos": "verb",
+   "meaning": "To change something.",
+   "forms": [
+    "affecting"
+   ]
+  },
+  "affiliated": {
+   "pos": "adjective",
+   "meaning": "Joined to a larger group."
+  },
+  "age": {
+   "pos": "singular noun",
+   "meaning": "A period of time.",
+   "whyHard": "Not the usual meaning! Usually age is how old a person is. Here it is a period of time, such as an age of liberty."
+  },
+  "agency": {
+   "pos": "singular noun",
+   "meaning": "A government office."
+  },
+  "airline": {
+   "pos": "singular noun",
+   "meaning": "A company that flies planes."
+  },
+  "alert": {
+   "pos": "singular noun",
+   "meaning": "A state of being ready for danger."
+  },
+  "allah": {
+   "pos": "singular noun",
+   "meaning": "The name of God for Muslims."
+  },
+  "announce": {
+   "pos": "verb",
+   "meaning": "To say something publicly."
+  },
+  "appropriate": {
+   "pos": "adjective",
+   "meaning": "Right for this job."
+  },
+  "arab": {
+   "pos": "singular noun",
+   "meaning": "A person of the people who speak Arabic."
+  },
+  "arabic": {
+   "pos": "singular noun",
+   "meaning": "A language of the Arab people."
+  },
+  "armed": {
+   "pos": "adjective",
+   "meaning": "Having weapons."
+  },
+  "assemble": {
+   "pos": "verb",
+   "meaning": "To come together in a group.",
+   "whyHard": "Not the usual meaning! Usually assemble means to put parts together. Here it means to meet as a group."
+  },
+  "assistance": {
+   "pos": "singular noun",
+   "meaning": "Help."
+  },
+  "assure": {
+   "pos": "verb",
+   "meaning": "To be sure.",
+   "forms": [
+    "assured"
+   ]
+  },
+  "atrocity": {
+   "pos": "singular noun",
+   "meaning": "A very cruel act."
+  },
+  "attitude": {
+   "pos": "singular noun",
+   "meaning": "A way of thinking."
+  },
+  "authority": {
+   "pos": "singular noun",
+   "meaning": "A person or an office with the official power to decide."
+  },
+  "awakened": {
+   "pos": "past-tense verb",
+   "meaning": "Made to see a danger.",
+   "whyHard": "Not the usual meaning! Usually awakened means woken from sleep. Here the country starts to see danger.",
+   "senses": [
+    {
+     "meaning": "Made to see a danger.",
+     "whyHard": "Not the usual meaning! Usually awakened means woken from sleep. Here the country starts to see danger.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "Tonight we are a country awakened to danger and called"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "background": {
+   "pos": "singular noun",
+   "meaning": "The people and the place a person comes from.",
+   "whyHard": "Not the usual meaning! Usually the background is what sits behind a picture. Here it is a person's family and people.",
+   "senses": [
+    {
+     "meaning": "The people and the place a person comes from.",
+     "whyHard": "Not the usual meaning! Usually the background is what sits behind a picture. Here it is a person's family and people.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "because of their ethnic background or religious faith"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "banking": {
+   "pos": "singular noun",
+   "meaning": "The business of banks."
+  },
+  "beard": {
+   "pos": "singular noun",
+   "meaning": "The hair on a man's chin and cheeks."
+  },
+  "belief": {
+   "pos": "singular noun",
+   "meaning": "Something a person holds to be true."
+  },
+  "blaspheme": {
+   "pos": "verb",
+   "meaning": "To speak about God in a way a religion says is wrong."
+  },
+  "bomb": {
+   "pos": "verb",
+   "meaning": "To attack by blowing a place up.",
+   "forms": [
+    "bombing"
+   ]
+  },
+  "brutalized": {
+   "pos": "past-tense verb",
+   "meaning": "Treated in a very cruel way."
+  },
+  "bullhorn": {
+   "pos": "singular noun",
+   "meaning": "A cone you shout through so a crowd can hear you."
+  },
+  "cabinet": {
+   "pos": "singular noun",
+   "meaning": "The president's top group of helpers."
+  },
+  "called": {
+   "pos": "past-tense verb",
+   "meaning": "Ordered to a duty.",
+   "whyHard": "Not the usual meaning! Usually called means a phone call, or that someone shouted your name. Here it means ordered to a duty."
+  },
+  "campaign": {
+   "pos": "singular noun",
+   "meaning": "A long planned effort."
+  },
+  "capability": {
+   "pos": "singular noun",
+   "meaning": "Something a person or a group is able to do."
+  },
+  "capitol": {
+   "pos": "singular noun",
+   "meaning": "The building where Congress meets."
+  },
+  "casualty": {
+   "pos": "singular noun",
+   "meaning": "A person who is hurt or killed."
+  },
+  "cause": {
+   "pos": "singular noun",
+   "meaning": "An aim that people join.",
+   "whyHard": "Not the usual meaning! Usually a cause is the reason something happened. Here it is an aim people join."
+  },
+  "century": {
+   "pos": "singular noun",
+   "meaning": "A hundred years."
+  },
+  "challenge": {
+   "pos": "singular noun",
+   "meaning": "A hard new test."
+  },
+  "chamber": {
+   "pos": "singular noun",
+   "meaning": "The room where Congress meets."
+  },
+  "charter": {
+   "pos": "singular noun",
+   "meaning": "A written agreement."
+  },
+  "christian": {
+   "pos": "singular noun",
+   "meaning": "A follower of Christianity."
+  },
+  "citizen": {
+   "pos": "singular noun",
+   "meaning": "A person who belongs to a country."
+  },
+  "civilization": {
+   "pos": "singular noun",
+   "meaning": "A society with laws, cities, and a shared life."
+  },
+  "civilized": {
+   "pos": "adjective",
+   "meaning": "Living with laws and with care for people."
+  },
+  "cleric": {
+   "pos": "singular noun",
+   "meaning": "A religious leader."
+  },
+  "collection": {
+   "pos": "singular noun",
+   "meaning": "A group brought together."
+  },
+  "combat": {
+   "pos": "singular noun",
+   "meaning": "Fighting in a war."
+  },
+  "comfort": {
+   "pos": "verb",
+   "meaning": "To make someone feel less sad.",
+   "forms": [
+    "comforted"
+   ]
+  },
+  "comprehensive": {
+   "pos": "adjective",
+   "meaning": "Covering all the parts."
+  },
+  "condemn": {
+   "pos": "verb",
+   "meaning": "To say that something is very wrong."
+  },
+  "confidence": {
+   "pos": "singular noun",
+   "meaning": "Trust."
+  },
+  "confident": {
+   "pos": "adjective",
+   "meaning": "Sure that things will go well."
+  },
+  "conflict": {
+   "pos": "singular noun",
+   "meaning": "A fight."
+  },
+  "congress": {
+   "pos": "singular noun",
+   "meaning": "The group that makes the laws of the United States."
+  },
+  "contribution": {
+   "pos": "singular noun",
+   "meaning": "Money or help that someone gives."
+  },
+  "cooperation": {
+   "pos": "singular noun",
+   "meaning": "Working together to help."
+  },
+  "coordinate": {
+   "pos": "verb",
+   "meaning": "To make separate parts work together.",
+   "forms": [
+    "coordinated"
+   ]
+  },
+  "courage": {
+   "pos": "singular noun",
+   "meaning": "Being brave when you are afraid."
+  },
+  "course": {
+   "pos": "singular noun",
+   "meaning": "The way something goes.",
+   "whyHard": "Not the usual meaning! Usually a course is a class at school. Here it is the way events go."
+  },
+  "covert": {
+   "pos": "adjective",
+   "meaning": "Hidden. Done in secret."
+  },
+  "creation": {
+   "pos": "singular noun",
+   "meaning": "The making of something new."
+  },
+  "creativity": {
+   "pos": "singular noun",
+   "meaning": "The ability to make new things."
+  },
+  "cruelty": {
+   "pos": "singular noun",
+   "meaning": "Cruel acts, or the wish to hurt."
+  },
+  "currently": {
+   "pos": "adverb",
+   "meaning": "At this time. Now."
+  },
+  "deceive": {
+   "pos": "verb",
+   "meaning": "To trick someone.",
+   "forms": [
+    "deceived"
+   ]
+  },
+  "decency": {
+   "pos": "singular noun",
+   "meaning": "Being kind and fair."
+  },
+  "decisive": {
+   "pos": "adjective",
+   "meaning": "Clear and final. It settles the question."
+  },
+  "defeat": {
+   "pos": "verb",
+   "meaning": "To beat an enemy.",
+   "whyHard": "This word is both an action and a thing.",
+   "forms": [
+    "defeated"
+   ],
+   "senses": [
+    {
+     "meaning": "To beat an enemy.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "the only way to defeat terrorism as a threat"
+      },
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "found, stopped, and defeated",
+       "form": "defeated"
+      }
+     ]
+    },
+    {
+     "meaning": "A win over the other side.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "to the disruption and to the defeat of the global terror"
+      }
+     ]
+    }
+   ]
+  },
+  "defensive": {
+   "pos": "adjective",
+   "meaning": "For protecting, not for attacking first."
+  },
+  "define": {
+   "pos": "verb",
+   "meaning": "To decide what a time will be.",
+   "whyHard": "Not the usual meaning! Usually define means to say what a word means. Here it means to decide what these times will be.",
+   "senses": [
+    {
+     "meaning": "To decide what a time will be.",
+     "whyHard": "Not the usual meaning! Usually define means to say what a word means. Here it means to decide what these times will be.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "this country will define our times, not be defined"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "our times, not be defined by them",
+       "form": "defined"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true,
+   "forms": [
+    "defined"
+   ]
+  },
+  "delay": {
+   "pos": "singular noun",
+   "meaning": "A time of waiting."
+  },
+  "deliver": {
+   "pos": "verb",
+   "meaning": "To hand something over, or to give a speech.",
+   "forms": [
+    "delivered",
+    "delivering"
+   ]
+  },
+  "democrat": {
+   "pos": "singular noun",
+   "meaning": "A member of one of the two big political groups in the United States."
+  },
+  "democratically": {
+   "pos": "adverb",
+   "meaning": "By a vote of the people."
+  },
+  "department": {
+   "pos": "singular noun",
+   "meaning": "One part of the government."
+  },
+  "depend": {
+   "pos": "verb",
+   "meaning": "To need something in order to go on.",
+   "forms": [
+    "depends"
+   ]
+  },
+  "diplomacy": {
+   "pos": "singular noun",
+   "meaning": "Talking between countries."
+  },
+  "diplomat": {
+   "pos": "singular noun",
+   "meaning": "A person who speaks for their country to another country."
+  },
+  "direct": {
+   "pos": "verb",
+   "meaning": "To send or aim something.",
+   "whyHard": "Not the usual meaning! Usually direct means straight. Here it means to send every resource we have.",
+   "senses": [
+    {
+     "meaning": "To send or aim something.",
+     "whyHard": "Not the usual meaning! Usually direct means straight. Here it means to send every resource we have.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "We will direct every resource at our command"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "directive": {
+   "pos": "singular noun",
+   "meaning": "An order."
+  },
+  "discard": {
+   "pos": "verb",
+   "meaning": "To throw something away.",
+   "forms": [
+    "discarded"
+   ]
+  },
+  "disrupt": {
+   "pos": "verb",
+   "meaning": "To break the normal way things work."
+  },
+  "disruption": {
+   "pos": "singular noun",
+   "meaning": "The breaking of normal life."
+  },
+  "distinction": {
+   "pos": "singular noun",
+   "meaning": "A difference between two things."
+  },
+  "distinguished": {
+   "pos": "adjective",
+   "meaning": "Highly respected."
+  },
+  "domestic": {
+   "pos": "adjective",
+   "meaning": "Inside this country, not abroad."
+  },
+  "dozen": {
+   "pos": "singular noun",
+   "meaning": "Twelve. Often used for quite a few."
+  },
+  "dramatic": {
+   "pos": "adjective",
+   "meaning": "Very striking. Easy to notice."
+  },
+  "dramatically": {
+   "pos": "adverb",
+   "meaning": "In a very big way."
+  },
+  "drive": {
+   "pos": "verb",
+   "meaning": "To force someone to go.",
+   "whyHard": "Not the usual meaning! Usually drive means to steer a car. Here it means to force people to leave."
+  },
+  "economy": {
+   "pos": "singular noun",
+   "meaning": "The system of work, money, and buying."
+  },
+  "effective": {
+   "pos": "adjective",
+   "meaning": "Works well."
+  },
+  "elect": {
+   "pos": "verb",
+   "meaning": "To choose by voting.",
+   "forms": [
+    "elected"
+   ]
+  },
+  "eliminate": {
+   "pos": "verb",
+   "meaning": "To remove something completely."
+  },
+  "embassy": {
+   "pos": "singular noun",
+   "meaning": "A country's office in another country."
+  },
+  "embody": {
+   "pos": "verb",
+   "meaning": "To be a clear example of an idea."
+  },
+  "emergency": {
+   "pos": "singular noun",
+   "meaning": "A sudden dangerous time."
+  },
+  "endurance": {
+   "pos": "singular noun",
+   "meaning": "The ability to keep going when you are very tired."
+  },
+  "enterprise": {
+   "pos": "singular noun",
+   "meaning": "The will to start work and build something.",
+   "whyHard": "Not the usual meaning! An enterprise can be a business. Here it is the will to start work."
+  },
+  "entire": {
+   "pos": "adjective",
+   "meaning": "Whole. All of it."
+  },
+  "ethnic": {
+   "pos": "adjective",
+   "meaning": "Of a people and their culture."
+  },
+  "evidence": {
+   "pos": "singular noun",
+   "meaning": "Facts that show what happened."
+  },
+  "exceptional": {
+   "pos": "adjective",
+   "meaning": "Far better than usual."
+  },
+  "exhaustion": {
+   "pos": "singular noun",
+   "meaning": "Being so tired that you cannot go on."
+  },
+  "expand": {
+   "pos": "verb",
+   "meaning": "To make something larger."
+  },
+  "expect": {
+   "pos": "verb",
+   "meaning": "Required of a person. What we must do.",
+   "whyHard": "Not the usual meaning! Usually expect means to think something will happen. Here it means what is required of us.",
+   "senses": [
+    {
+     "meaning": "Required of a person. What we must do.",
+     "whyHard": "Not the usual meaning! Usually expect means to think something will happen. Here it means what is required of us.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "What is expected of us",
+       "form": "expected"
+      },
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "context": "Americans are asking: What is expected of us",
+       "form": "expected"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true,
+   "forms": [
+    "expected"
+   ]
+  },
+  "extraordinary": {
+   "pos": "adjective",
+   "meaning": "Very unusual. Far past the ordinary."
+  },
+  "extremism": {
+   "pos": "singular noun",
+   "meaning": "Beliefs that go so far that most people refuse them."
+  },
+  "faith": {
+   "pos": "singular noun",
+   "meaning": "Religion. What a person believes about God.",
+   "whyHard": "Not the usual meaning! Usually faith means trust. Here it means a religion."
+  },
+  "falter": {
+   "pos": "verb",
+   "meaning": "To weaken, or to hesitate."
+  },
+  "fascism": {
+   "pos": "singular noun",
+   "meaning": "A kind of government that allows no disagreement and uses force."
+  },
+  "fate": {
+   "pos": "singular noun",
+   "meaning": "What happens to someone in the end."
+  },
+  "federal": {
+   "pos": "adjective",
+   "meaning": "Of the national government, not of one state."
+  },
+  "fellow": {
+   "pos": "singular noun",
+   "meaning": "A person in the same group as you."
+  },
+  "financial": {
+   "pos": "adjective",
+   "meaning": "About money."
+  },
+  "fled": {
+   "pos": "past-tense verb",
+   "meaning": "Ran away."
+  },
+  "force": {
+   "pos": "singular noun",
+   "meaning": "A group of police or soldiers.",
+   "whyHard": "Not the usual meaning! Usually force means a push. Here it is a group of police or soldiers."
+  },
+  "foreign": {
+   "pos": "adjective",
+   "meaning": "From another country."
+  },
+  "form": {
+   "pos": "singular noun",
+   "meaning": "A kind or a type.",
+   "whyHard": "Not the usual meaning! Usually a form is a paper you fill in. Here it is a kind.",
+   "senses": [
+    {
+     "meaning": "A kind or a type.",
+     "whyHard": "Not the usual meaning! Usually a form is a paper you fill in. Here it is a kind.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "a fringe form of Islamic extremism that has been rejected"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "forsake": {
+   "pos": "verb",
+   "meaning": "To leave someone you should stay with.",
+   "forms": [
+    "forsaking"
+   ]
+  },
+  "fringe": {
+   "pos": "adjective",
+   "meaning": "At the far edge, not in the main group."
+  },
+  "funding": {
+   "pos": "singular noun",
+   "meaning": "Money given for a purpose."
+  },
+  "generation": {
+   "pos": "singular noun",
+   "meaning": "The people of about the same age, alive at one time."
+  },
+  "global": {
+   "pos": "adjective",
+   "meaning": "Of the whole world."
+  },
+  "governor": {
+   "pos": "singular noun",
+   "meaning": "The leader of a state."
+  },
+  "grace": {
+   "pos": "singular noun",
+   "meaning": "Quiet kindness."
+  },
+  "grant": {
+   "pos": "verb",
+   "meaning": "To give something that was asked for."
+  },
+  "grateful": {
+   "pos": "adjective",
+   "meaning": "Thankful."
+  },
+  "grave": {
+   "pos": "singular noun",
+   "meaning": "The place in the ground where a dead person is put.",
+   "whyHard": "Not the usual meaning! Usually grave means very serious. Here it is a burial place.",
+   "senses": [
+    {
+     "meaning": "The place in the ground where a dead person is put.",
+     "whyHard": "Not the usual meaning! Usually grave means very serious. Here it is a burial place.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "in history's unmarked grave of discarded lies"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "grief": {
+   "pos": "singular noun",
+   "meaning": "Deep sadness."
+  },
+  "harbor": {
+   "pos": "verb",
+   "meaning": "To give someone a hiding place.",
+   "whyHard": "Not the usual meaning! Usually a harbor is a port for ships. Here it means to hide someone.",
+   "senses": [
+    {
+     "meaning": "To give someone a hiding place.",
+     "whyHard": "Not the usual meaning! Usually a harbor is a port for ships. Here it means to hide someone.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "any nation that continues to harbor or support terrorism"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "hebrew": {
+   "pos": "singular noun",
+   "meaning": "A language used in Jewish prayer."
+  },
+  "heir": {
+   "pos": "singular noun",
+   "meaning": "A person who receives what an earlier group left behind."
+  },
+  "hijack": {
+   "pos": "verb",
+   "meaning": "To take something over and use it for your own aim.",
+   "whyHard": "Not the usual meaning! Usually hijack means to seize a plane. Here it means to seize a religion and use it wrongly.",
+   "senses": [
+    {
+     "meaning": "To take something over and use it for your own aim.",
+     "whyHard": "Not the usual meaning! Usually hijack means to seize a plane. Here it means to seize a religion and use it wrongly.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "trying, in effect, to hijack Islam itself"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "hour": {
+   "pos": "singular noun",
+   "meaning": "The time when something will happen.",
+   "whyHard": "Not the usual meaning! Usually an hour is sixty minutes. Here the time to act is near.",
+   "senses": [
+    {
+     "meaning": "The time when something will happen.",
+     "whyHard": "Not the usual meaning! Usually an hour is sixty minutes. Here the time to act is near.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "The hour is coming when America will act"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "humanitarian": {
+   "pos": "adjective",
+   "meaning": "Meant to help people who are suffering."
+  },
+  "ideology": {
+   "pos": "singular noun",
+   "meaning": "A set of political ideas."
+  },
+  "immediately": {
+   "pos": "adverb",
+   "meaning": "Right now. At once."
+  },
+  "immune": {
+   "pos": "adjective",
+   "meaning": "Safe from something. Not able to be hurt by it."
+  },
+  "impose": {
+   "pos": "verb",
+   "meaning": "To force a belief onto people.",
+   "forms": [
+    "imposing"
+   ]
+  },
+  "imprison": {
+   "pos": "verb",
+   "meaning": "To put someone in prison.",
+   "forms": [
+    "imprisoned"
+   ]
+  },
+  "inconvenience": {
+   "pos": "singular noun",
+   "meaning": "Something that makes daily life harder."
+  },
+  "indict": {
+   "pos": "verb",
+   "meaning": "To charge someone officially with a crime.",
+   "forms": [
+    "indicted"
+   ]
+  },
+  "inflict": {
+   "pos": "verb",
+   "meaning": "To cause a hurt.",
+   "forms": [
+    "inflicted"
+   ]
+  },
+  "influence": {
+   "pos": "singular noun",
+   "meaning": "The power to change what people do."
+  },
+  "instrument": {
+   "pos": "singular noun",
+   "meaning": "A tool used for a job.",
+   "whyHard": "Not the usual meaning! Usually an instrument is something you play music on. Here it is a tool of the police.",
+   "senses": [
+    {
+     "meaning": "A tool used for a job.",
+     "whyHard": "Not the usual meaning! Usually an instrument is something you play music on. Here it is a tool of the police.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "every instrument of law enforcement, every financial influence"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "intelligence": {
+   "pos": "singular noun",
+   "meaning": "Secret facts, and the work of gathering them.",
+   "whyHard": "Not the usual meaning! Usually intelligence means being smart. Here it is secret information."
+  },
+  "international": {
+   "pos": "adjective",
+   "meaning": "Between countries."
+  },
+  "investigation": {
+   "pos": "singular noun",
+   "meaning": "A careful search for the facts."
+  },
+  "involve": {
+   "pos": "verb",
+   "meaning": "To include.",
+   "forms": [
+    "involves"
+   ]
+  },
+  "islam": {
+   "pos": "singular noun",
+   "meaning": "The religion of Muslims."
+  },
+  "islamic": {
+   "pos": "adjective",
+   "meaning": "Of the religion of Muslims."
+  },
+  "isolated": {
+   "pos": "adjective",
+   "meaning": "Alone. Not part of a bigger fight."
+  },
+  "jail": {
+   "pos": "verb",
+   "meaning": "To put someone in prison.",
+   "forms": [
+    "jailed"
+   ]
+  },
+  "jew": {
+   "pos": "singular noun",
+   "meaning": "A person of the Jewish people."
+  },
+  "jihad": {
+   "pos": "singular noun",
+   "meaning": "A fight in the name of Islam, as this speech uses the word."
+  },
+  "journalist": {
+   "pos": "singular noun",
+   "meaning": "A person who writes the news."
+  },
+  "just": {
+   "pos": "adverb",
+   "meaning": "Only.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Only.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "This is not, however, just America's fight"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "at stake is not just America's freedom"
+      }
+     ]
+    },
+    {
+     "meaning": "A moment ago.",
+     "whyHard": "Usually just means only. Here it means a moment ago.",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "After all that has just passed — all the lives"
+      }
+     ]
+    }
+   ]
+  },
+  "kind": {
+   "pos": "singular noun",
+   "meaning": "A type of people.",
+   "whyHard": "Not the usual meaning! Usually kind means nice or gentle. Here it means this type of people.",
+   "senses": [
+    {
+     "meaning": "A type of people.",
+     "whyHard": "Not the usual meaning! Usually kind means nice or gentle. Here it means this type of people.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "We have seen their kind before. They are the heirs"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "lead": {
+   "pos": "verb",
+   "meaning": "To be in charge.",
+   "whyHard": "Not the usual meaning! Lead can be a metal. Here it means to be in charge."
+  },
+  "leadership": {
+   "pos": "singular noun",
+   "meaning": "The work of leading, or the people who lead."
+  },
+  "lengthy": {
+   "pos": "adjective",
+   "meaning": "Long."
+  },
+  "liberation": {
+   "pos": "singular noun",
+   "meaning": "Setting people free."
+  },
+  "liberty": {
+   "pos": "singular noun",
+   "meaning": "Freedom."
+  },
+  "lie": {
+   "pos": "verb",
+   "meaning": "To be there, waiting in front of us.",
+   "whyHard": "Not the usual meaning! Usually lie means to say something untrue, or to rest flat. Here it means to be ahead of us.",
+   "senses": [
+    {
+     "meaning": "To be there, waiting in front of us.",
+     "whyHard": "Not the usual meaning! Usually lie means to say something untrue, or to rest flat. Here it means to be ahead of us.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "In all that lies before us, may God grant",
+       "form": "lies"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true,
+   "forms": [
+    "lies"
+   ]
+  },
+  "loosely": {
+   "pos": "adverb",
+   "meaning": "Not tightly. Not closely joined."
+  },
+  "mafia": {
+   "pos": "singular noun",
+   "meaning": "A secret group that commits crimes."
+  },
+  "majority": {
+   "pos": "singular noun",
+   "meaning": "The larger part of a group."
+  },
+  "mean": {
+   "pos": "singular noun",
+   "meaning": "A way to do something.",
+   "whyHard": "Not the usual meaning! Usually mean is to have a meaning, or to be unkind. Here a means is a way to do something.",
+   "senses": [
+    {
+     "meaning": "A way to do something.",
+     "whyHard": "Not the usual meaning! Usually mean is to have a meaning, or to be unkind. Here a means is a way to do something.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "every means of diplomacy, every tool of intelligence",
+       "form": "means"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true,
+   "forms": [
+    "means"
+   ]
+  },
+  "measure": {
+   "pos": "singular noun",
+   "meaning": "A step taken against a danger.",
+   "whyHard": "Not the usual meaning! Usually measure means to find a size. Here it is a step taken to protect people."
+  },
+  "meet": {
+   "pos": "verb",
+   "meaning": "To give what is needed.",
+   "whyHard": "Not the usual meaning! Usually meet means to come face to face with a person.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "To give what is needed.",
+     "whyHard": "Not the usual meaning! Usually meet means to come face to face with a person. Here it means to give what our military needs.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "rebuild our communities and meet the needs of our military"
+      }
+     ]
+    },
+    {
+     "meaning": "To answer one thing with another.",
+     "whyHard": "Not the usual meaning! Usually meet means to come face to face with a person. Here it means to answer violence with justice.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "we'll meet violence with patient justice — assured of"
+      }
+     ]
+    }
+   ]
+  },
+  "memorial": {
+   "pos": "singular noun",
+   "meaning": "Something kept to remember a person who died."
+  },
+  "merely": {
+   "pos": "adverb",
+   "meaning": "Only. And nothing more."
+  },
+  "military": {
+   "pos": "singular noun",
+   "meaning": "A country's soldiers, ships, and air forces."
+  },
+  "million": {
+   "pos": "singular noun",
+   "meaning": "A thousand thousand."
+  },
+  "minority": {
+   "pos": "singular noun",
+   "meaning": "The smaller part of a group."
+  },
+  "mission": {
+   "pos": "singular noun",
+   "meaning": "An important job that must be done."
+  },
+  "moment": {
+   "pos": "singular noun",
+   "meaning": "The important time for us to act.",
+   "whyHard": "Not the usual meaning! Usually a moment is a short time. Here it is our time to act.",
+   "senses": [
+    {
+     "meaning": "The important time for us to act.",
+     "whyHard": "Not the usual meaning! Usually a moment is a short time. Here it is our time to act.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "found our mission and our moment. Freedom and fear"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "mosque": {
+   "pos": "singular noun",
+   "meaning": "A building where Muslims pray."
+  },
+  "mourning": {
+   "pos": "singular noun",
+   "meaning": "The sadness people show after a death."
+  },
+  "movement": {
+   "pos": "singular noun",
+   "meaning": "A group of people who share one aim.",
+   "whyHard": "Not the usual meaning! Usually movement means a body moving. Here it is a group with one aim."
+  },
+  "murderer": {
+   "pos": "singular noun",
+   "meaning": "A person who kills someone on purpose."
+  },
+  "murderous": {
+   "pos": "adjective",
+   "meaning": "Ready to kill."
+  },
+  "muslim": {
+   "pos": "singular noun",
+   "meaning": "A person who follows Islam."
+  },
+  "nation": {
+   "pos": "singular noun",
+   "meaning": "A country."
+  },
+  "national": {
+   "pos": "singular noun",
+   "meaning": "A person who belongs to a country.",
+   "whyHard": "Not the usual meaning! Usually national means of the whole country. Here a national is a person from a country.",
+   "senses": [
+    {
+     "meaning": "A person who belongs to a country.",
+     "whyHard": "Not the usual meaning! Usually national means of the whole country. Here a national is a person from a country.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "Release all foreign nationals, including American citizens",
+       "form": "nationals"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true,
+   "forms": [
+    "nationals"
+   ]
+  },
+  "nato": {
+   "pos": "singular noun",
+   "meaning": "A group of countries that promised to defend one another."
+  },
+  "nazism": {
+   "pos": "singular noun",
+   "meaning": "A cruel kind of government, named here beside fascism, that allows no freedom."
+  },
+  "negotiation": {
+   "pos": "singular noun",
+   "meaning": "Talking in order to reach an agreement."
+  },
+  "network": {
+   "pos": "singular noun",
+   "meaning": "A set of people or groups that are joined."
+  },
+  "neutral": {
+   "pos": "adjective",
+   "meaning": "Not on either side."
+  },
+  "official": {
+   "pos": "adjective",
+   "meaning": "Coming from the government, not from a private person."
+  },
+  "operate": {
+   "pos": "verb",
+   "meaning": "To be working.",
+   "forms": [
+    "operating"
+   ]
+  },
+  "operation": {
+   "pos": "singular noun",
+   "meaning": "A planned action."
+  },
+  "organization": {
+   "pos": "singular noun",
+   "meaning": "A group set up to do work together."
+  },
+  "outcome": {
+   "pos": "singular noun",
+   "meaning": "The way something ends."
+  },
+  "outpouring": {
+   "pos": "singular noun",
+   "meaning": "A sudden large show of a feeling."
+  },
+  "oversee": {
+   "pos": "verb",
+   "meaning": "To watch work and direct it."
+  },
+  "overthrow": {
+   "pos": "verb",
+   "meaning": "To remove a government by force."
+  },
+  "palace": {
+   "pos": "singular noun",
+   "meaning": "A very large house of a king or queen."
+  },
+  "participation": {
+   "pos": "singular noun",
+   "meaning": "Taking part."
+  },
+  "pass": {
+   "pos": "verb",
+   "meaning": "To go away, or to come to an end.",
+   "whyHard": "It looks like walking past. Here it means to fade and be gone."
+  },
+  "passenger": {
+   "pos": "singular noun",
+   "meaning": "A person who is riding, not driving."
+  },
+  "past": {
+   "pos": "adverb",
+   "meaning": "Beyond. Further than.",
+   "whyHard": "Not the usual meaning! Usually the past is an earlier time. Here it means beyond exhaustion, further than the body can go.",
+   "senses": [
+    {
+     "meaning": "Beyond. Further than.",
+     "whyHard": "Not the usual meaning! Usually the past is an earlier time. Here it means beyond exhaustion, further than the body can go.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "of rescuers, working past exhaustion. We've seen"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "patient": {
+   "pos": "adjective",
+   "meaning": "Able to wait.",
+   "whyHard": "A patient can be a sick person. Here it means able to wait."
+  },
+  "patriot": {
+   "pos": "singular noun",
+   "meaning": "A person who loves their country."
+  },
+  "pentagon": {
+   "pos": "singular noun",
+   "meaning": "The main building of the United States military."
+  },
+  "permanently": {
+   "pos": "adverb",
+   "meaning": "For good. Not only for a short time."
+  },
+  "pervert": {
+   "pos": "verb",
+   "meaning": "To twist something good into something bad."
+  },
+  "piety": {
+   "pos": "singular noun",
+   "meaning": "A show of strong religion."
+  },
+  "plot": {
+   "pos": "verb",
+   "meaning": "To make a secret plan to do harm.",
+   "whyHard": "Not the usual meaning! Usually a plot is the story of a book. Here it means to plan harm in secret.",
+   "senses": [
+    {
+     "meaning": "To make a secret plan to do harm.",
+     "whyHard": "Not the usual meaning! Usually a plot is the story of a book. Here it means to plan harm in secret.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "around the world to plot evil and destruction"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "pluralism": {
+   "pos": "singular noun",
+   "meaning": "Allowing many beliefs to live side by side."
+  },
+  "possibility": {
+   "pos": "singular noun",
+   "meaning": "Something that could happen."
+  },
+  "practice": {
+   "pos": "verb",
+   "meaning": "To do something as your way of life.",
+   "whyHard": "Not the usual meaning! Usually practice means piano or sports practice. Here it means to live by a belief.",
+   "forms": [
+    "practiced"
+   ]
+  },
+  "prayer": {
+   "pos": "singular noun",
+   "meaning": "Words said to God."
+  },
+  "pretense": {
+   "pos": "singular noun",
+   "meaning": "A false show."
+  },
+  "principle": {
+   "pos": "singular noun",
+   "meaning": "A basic rule of what is right."
+  },
+  "progress": {
+   "pos": "singular noun",
+   "meaning": "Things getting better over time."
+  },
+  "promote": {
+   "pos": "verb",
+   "meaning": "To help something grow."
+  },
+  "prosperity": {
+   "pos": "singular noun",
+   "meaning": "Doing well, with work and enough money."
+  },
+  "publication": {
+   "pos": "singular noun",
+   "meaning": "Something printed for people to read."
+  },
+  "pursue": {
+   "pos": "verb",
+   "meaning": "To go after someone."
+  },
+  "radical": {
+   "pos": "adjective",
+   "meaning": "Wanting change that goes very far."
+  },
+  "rally": {
+   "pos": "verb",
+   "meaning": "To come together to support a side.",
+   "forms": [
+    "rallying"
+   ]
+  },
+  "recede": {
+   "pos": "verb",
+   "meaning": "To move back and become less.",
+   "forms": [
+    "recedes"
+   ]
+  },
+  "recruit": {
+   "pos": "verb",
+   "meaning": "To bring someone in to join.",
+   "forms": [
+    "recruited"
+   ]
+  },
+  "reflect": {
+   "pos": "verb",
+   "meaning": "To show something.",
+   "forms": [
+    "reflects"
+   ]
+  },
+  "refuge": {
+   "pos": "singular noun",
+   "meaning": "A safe place."
+  },
+  "regard": {
+   "pos": "verb",
+   "meaning": "To think of someone in a certain way.",
+   "forms": [
+    "regarded"
+   ]
+  },
+  "regime": {
+   "pos": "singular noun",
+   "meaning": "A government, especially a hard one."
+  },
+  "region": {
+   "pos": "singular noun",
+   "meaning": "A large area of land."
+  },
+  "reject": {
+   "pos": "verb",
+   "meaning": "To say no to something.",
+   "forms": [
+    "rejected"
+   ]
+  },
+  "relent": {
+   "pos": "verb",
+   "meaning": "To become less hard and to stop pushing."
+  },
+  "remake": {
+   "pos": "verb",
+   "meaning": "To make something again in a new way.",
+   "forms": [
+    "remaking"
+   ]
+  },
+  "remark": {
+   "pos": "singular noun",
+   "meaning": "A short thing that someone says."
+  },
+  "reminder": {
+   "pos": "singular noun",
+   "meaning": "Something that makes you remember."
+  },
+  "report": {
+   "pos": "verb",
+   "meaning": "To answer to a leader.",
+   "whyHard": "Not the usual meaning! Usually report means to tell what happened. Here the job answers directly to the president.",
+   "senses": [
+    {
+     "meaning": "To answer to a leader.",
+     "whyHard": "Not the usual meaning! Usually report means to tell what happened. Here the job answers directly to the president.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "a Cabinet-level position reporting directly to me",
+       "form": "reporting"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true,
+   "forms": [
+    "reporting"
+   ]
+  },
+  "repress": {
+   "pos": "verb",
+   "meaning": "To hold people down by force.",
+   "forms": [
+    "repressing"
+   ]
+  },
+  "republican": {
+   "pos": "singular noun",
+   "meaning": "A member of one of the two big political groups in the United States."
+  },
+  "rescuer": {
+   "pos": "singular noun",
+   "meaning": "A person who saves others."
+  },
+  "reservist": {
+   "pos": "singular noun",
+   "meaning": "A soldier who is called only when needed."
+  },
+  "resolute": {
+   "pos": "adjective",
+   "meaning": "Firm. Not giving up."
+  },
+  "resolution": {
+   "pos": "singular noun",
+   "meaning": "A firm decision to go on."
+  },
+  "resolve": {
+   "pos": "singular noun",
+   "meaning": "A firm decision to go on."
+  },
+  "resource": {
+   "pos": "singular noun",
+   "meaning": "Something you can use to do a job."
+  },
+  "response": {
+   "pos": "singular noun",
+   "meaning": "What you do in return."
+  },
+  "responsibility": {
+   "pos": "singular noun",
+   "meaning": "A duty. Something you are supposed to do."
+  },
+  "retaliation": {
+   "pos": "singular noun",
+   "meaning": "Hitting back after an attack."
+  },
+  "retreat": {
+   "pos": "verb",
+   "meaning": "To move back and away.",
+   "forms": [
+    "retreating"
+   ]
+  },
+  "rightness": {
+   "pos": "singular noun",
+   "meaning": "Being right."
+  },
+  "routine": {
+   "pos": "singular noun",
+   "meaning": "The usual things a person does each day."
+  },
+  "sacrifice": {
+   "pos": "verb",
+   "meaning": "To give up something important.",
+   "forms": [
+    "sacrificing"
+   ]
+  },
+  "safeguard": {
+   "pos": "verb",
+   "meaning": "To protect."
+  },
+  "scholar": {
+   "pos": "singular noun",
+   "meaning": "A person who studies a subject deeply."
+  },
+  "security": {
+   "pos": "singular noun",
+   "meaning": "Being safe, and the work of keeping people safe."
+  },
+  "senator": {
+   "pos": "singular noun",
+   "meaning": "A member of the higher house of Congress."
+  },
+  "service": {
+   "pos": "singular noun",
+   "meaning": "Work done for your country.",
+   "whyHard": "This word has more than one meaning.",
+   "senses": [
+    {
+     "meaning": "Work done for your country.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "for your leadership, and for your service to our country"
+      }
+     ]
+    },
+    {
+     "meaning": "A government office that does one kind of work.",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "police forces, intelligence services, and banking systems",
+       "form": "services"
+      }
+     ]
+    }
+   ]
+  },
+  "shelter": {
+   "pos": "verb",
+   "meaning": "To hide someone.",
+   "whyHard": "Not the usual meaning! Usually a shelter is a place that keeps the rain off. Here it means to hide a person.",
+   "senses": [
+    {
+     "meaning": "To hide someone.",
+     "whyHard": "Not the usual meaning! Usually a shelter is a place that keeps the rain off. Here it means to hide a person.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "context": "by sponsoring and sheltering and supplying terrorists",
+       "form": "sheltering"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true,
+   "forms": [
+    "sheltering"
+   ]
+  },
+  "shield": {
+   "pos": "singular noun",
+   "meaning": "A police officer's badge.",
+   "whyHard": "Not the usual meaning! Usually a shield is a board a fighter holds up. Here it is a police badge.",
+   "senses": [
+    {
+     "meaning": "A police officer's badge.",
+     "whyHard": "Not the usual meaning! Usually a shield is a board a fighter holds up. Here it is a police badge.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "It is the police shield of a man named George"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "sorrow": {
+   "pos": "singular noun",
+   "meaning": "Sadness."
+  },
+  "source": {
+   "pos": "singular noun",
+   "meaning": "The place something comes from."
+  },
+  "speaker": {
+   "pos": "singular noun",
+   "meaning": "The title of the person who leads this meeting of Congress."
+  },
+  "spirit": {
+   "pos": "singular noun",
+   "meaning": "The feeling and character of people.",
+   "whyHard": "Not the usual meaning! A spirit can be a ghost. Here it is people's character."
+  },
+  "sponsor": {
+   "pos": "verb",
+   "meaning": "To pay for something and support it.",
+   "forms": [
+    "sponsoring"
+   ]
+  },
+  "stability": {
+   "pos": "singular noun",
+   "meaning": "Staying steady, and not falling apart."
+  },
+  "starve": {
+   "pos": "verb",
+   "meaning": "To cut off what someone needs. Here, their money.",
+   "whyHard": "Not the usual meaning! Usually starve means to have no food. Here it means to cut off money.",
+   "senses": [
+    {
+     "meaning": "To cut off what someone needs. Here, their money.",
+     "whyHard": "Not the usual meaning! Usually starve means to have no food. Here it means to cut off money.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "We will starve terrorists of funding, turn them one"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "state": {
+   "pos": "singular noun",
+   "meaning": "How the country is.",
+   "whyHard": "Not the usual meaning! Usually a state is one part of the United States. Here it is how the country is.",
+   "senses": [
+    {
+     "meaning": "How the country is.",
+     "whyHard": "Not the usual meaning! Usually a state is one part of the United States. Here it is how the country is.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "The state of our Union"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "come to this chamber to report on the state of the Union"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "context": "We have seen the state of our Union in the endurance"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 4,
+       "context": "seen for itself the state of our Union — and it is strong"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "strategy": {
+   "pos": "singular noun",
+   "meaning": "A plan for how to succeed."
+  },
+  "strength": {
+   "pos": "singular noun",
+   "meaning": "A thing that makes someone strong."
+  },
+  "strengthen": {
+   "pos": "verb",
+   "meaning": "To make something stronger."
+  },
+  "strike": {
+   "pos": "singular noun",
+   "meaning": "An attack.",
+   "whyHard": "Not the usual meaning! A strike can mean workers stopping work. Here it is an attack."
+  },
+  "struggle": {
+   "pos": "singular noun",
+   "meaning": "A long hard fight."
+  },
+  "suffer": {
+   "pos": "verb",
+   "meaning": "To go through pain or loss.",
+   "forms": [
+    "suffered"
+   ]
+  },
+  "swift": {
+   "pos": "adjective",
+   "meaning": "Quick."
+  },
+  "symbol": {
+   "pos": "singular noun",
+   "meaning": "A thing that stands for an idea."
+  },
+  "sympathy": {
+   "pos": "singular noun",
+   "meaning": "A sad feeling for someone else's pain."
+  },
+  "tactic": {
+   "pos": "singular noun",
+   "meaning": "A way of fighting."
+  },
+  "taliban": {
+   "pos": "singular noun",
+   "meaning": "The group that was ruling Afghanistan in this speech."
+  },
+  "task": {
+   "pos": "singular noun",
+   "meaning": "A piece of work."
+  },
+  "teaching": {
+   "pos": "singular noun",
+   "meaning": "What a religion tells people to believe and do."
+  },
+  "territory": {
+   "pos": "singular noun",
+   "meaning": "Land that a country holds."
+  },
+  "terror": {
+   "pos": "singular noun",
+   "meaning": "Great fear, used to control people."
+  },
+  "terrorism": {
+   "pos": "singular noun",
+   "meaning": "The use of fear and killing to force a political aim."
+  },
+  "terrorist": {
+   "pos": "singular noun",
+   "meaning": "A person who uses fear and killing to force a political aim."
+  },
+  "threat": {
+   "pos": "singular noun",
+   "meaning": "A danger that may come."
+  },
+  "throughout": {
+   "pos": "adverb",
+   "meaning": "In every part of a place."
+  },
+  "tighter": {
+   "pos": "adjective",
+   "meaning": "More strict."
+  },
+  "tire": {
+   "pos": "verb",
+   "meaning": "To become too tired to go on.",
+   "whyHard": "Not the usual meaning! A tire is the rubber ring on a car. Here it means to grow too tired."
+  },
+  "tolerance": {
+   "pos": "singular noun",
+   "meaning": "Allowing beliefs you do not share."
+  },
+  "totalitarianism": {
+   "pos": "singular noun",
+   "meaning": "A government that tries to control every part of life."
+  },
+  "touch": {
+   "pos": "verb",
+   "meaning": "To reach something and harm it.",
+   "whyHard": "Not the usual meaning! Usually touch means to put your hand on something. Here it means they did not reach the real source.",
+   "senses": [
+    {
+     "meaning": "To reach something and harm it.",
+     "whyHard": "Not the usual meaning! Usually touch means to put your hand on something. Here it means they did not reach the real source.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "context": "They did not touch its source. America is successful"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "touched": {
+   "pos": "past-tense verb",
+   "meaning": "Made people feel something strongly.",
+   "whyHard": "Not the usual meaning! Usually touch means to put your hand on something. Here the whole country was moved.",
+   "senses": [
+    {
+     "meaning": "Made people feel something strongly.",
+     "whyHard": "Not the usual meaning! Usually touch means to put your hand on something. Here the whole country was moved.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "All of America was touched on the evening of the tragedy"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "tragedy": {
+   "pos": "singular noun",
+   "meaning": "A very sad event."
+  },
+  "traitor": {
+   "pos": "singular noun",
+   "meaning": "A person who turns against their own people."
+  },
+  "treatment": {
+   "pos": "singular noun",
+   "meaning": "The way people are dealt with."
+  },
+  "unanswered": {
+   "pos": "adjective",
+   "meaning": "Given no answer."
+  },
+  "unfurl": {
+   "pos": "verb",
+   "meaning": "To open a flag out so that it shows.",
+   "forms": [
+    "unfurling"
+   ]
+  },
+  "uniform": {
+   "pos": "singular noun",
+   "meaning": "The clothes of a soldier or a police officer.",
+   "whyHard": "Not the usual meaning! Usually uniform means all the same. Here it is a soldier's or an officer's clothes."
+  },
+  "union": {
+   "pos": "singular noun",
+   "meaning": "The country as one whole.",
+   "whyHard": "Not the usual meaning! A union can be a club of workers. Here it is the United States as one country."
+  },
+  "unity": {
+   "pos": "singular noun",
+   "meaning": "Being joined as one."
+  },
+  "unjustly": {
+   "pos": "adverb",
+   "meaning": "Not in a fair way."
+  },
+  "unmarked": {
+   "pos": "adjective",
+   "meaning": "With no name written on it."
+  },
+  "unpunished": {
+   "pos": "adjective",
+   "meaning": "Not made to pay for a wrong."
+  },
+  "uphold": {
+   "pos": "verb",
+   "meaning": "To keep a rule and defend it."
+  },
+  "value": {
+   "pos": "singular noun",
+   "meaning": "A belief about what is right.",
+   "whyHard": "Not the usual meaning! Usually value means a price. Here it is a belief about what is right."
+  },
+  "vast": {
+   "pos": "adjective",
+   "meaning": "Very great in size."
+  },
+  "veteran": {
+   "pos": "singular noun",
+   "meaning": "A person who has served as a soldier."
+  },
+  "victim": {
+   "pos": "singular noun",
+   "meaning": "A person who is hurt."
+  },
+  "victory": {
+   "pos": "singular noun",
+   "meaning": "A win."
+  },
+  "violence": {
+   "pos": "singular noun",
+   "meaning": "Hurting people by force."
+  },
+  "vision": {
+   "pos": "singular noun",
+   "meaning": "A picture of a future that someone wants.",
+   "whyHard": "Not the usual meaning! Usually vision means eyesight. Here it is a picture of a wanted future."
+  },
+  "wage": {
+   "pos": "verb",
+   "meaning": "To carry on a war or a struggle.",
+   "whyHard": "Not the usual meaning! A wage is the money a job pays. Here it means to carry on a fight.",
+   "forms": [
+    "waging"
+   ]
+  },
+  "wisdom": {
+   "pos": "singular noun",
+   "meaning": "Good sense."
+  },
+  "wonder": {
+   "pos": "verb",
+   "meaning": "To ask yourself.",
+   "whyHard": "Not the usual meaning! Usually wonder is a feeling of surprise. Here it means to ask yourself a question.",
+   "senses": [
+    {
+     "meaning": "To ask yourself.",
+     "whyHard": "Not the usual meaning! Usually wonder is a feeling of surprise. Here it means to ask yourself a question.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "it is natural to wonder if America's future is one"
+      }
+     ]
+    }
+   ],
+   "senseOnly": true
+  },
+  "wording": {
+   "pos": "singular noun",
+   "meaning": "The words that were chosen."
+  },
+  "wound": {
+   "pos": "singular noun",
+   "meaning": "A deep hurt."
+  },
+  "yield": {
+   "pos": "verb",
+   "meaning": "To give up.",
+   "whyHard": "Not the usual meaning! Yield can mean the amount a farm grows. Here it means to give up."
+  }
+ },
+ "paragraphs": [],
+ "sentences": [
+  {
+   "chapter": 1,
+   "context": "Whether we bring our enemies to justice, or bring justice to our enemies",
+   "simple": "We may take the people who attacked us before the law, or we may take the law to them. Either way, it will be fair.",
+   "grammar": "The same words come twice, and the people and the law change places."
+  },
+  {
+   "chapter": 2,
+   "context": "Americans have known wars — but for the past 136 years",
+   "simple": "People here have known wars. But for 136 years those wars were in other countries, except for one Sunday in 1941.",
+   "grammar": "It starts with what people have known, then but says this time is not the same."
+  },
+  {
+   "chapter": 3,
+   "context": "Al Qaeda is to terror what the mafia is to crime",
+   "simple": "This group stands to great fear the way a crime group stands to crime.",
+   "grammar": "Two pairs sit side by side, so the second pair tells you the first."
+  },
+  {
+   "chapter": 4,
+   "context": "By sacrificing human life to serve their radical visions",
+   "simple": "They give up human life for their far ideas, and they drop every idea of what is right except the wish for power. Then they follow those hard governments.",
+   "grammar": "Two by pieces come first. The main point comes after them."
+  },
+  {
+   "chapter": 5,
+   "context": "We will direct every resource at our command — every means of diplomacy",
+   "simple": "We will use everything we can. After the break, a list says what that everything is.",
+   "grammar": "The main line comes first. A list after the break names the parts."
+  },
+  {
+   "chapter": 5,
+   "context": "An attack on one is an attack on all",
+   "simple": "If someone attacks one country in the group, it counts as an attack on every country in the group.",
+   "grammar": "The same shape is used twice, and one changes to all."
+  },
+  {
+   "chapter": 6,
+   "context": "I ask for your patience, with the delays and inconveniences",
+   "simple": "I ask you to wait. The first wait is for slow checks. Then the same ask adds a long fight.",
+   "grammar": "I ask once, and a second ask of the same kind adds one more thing."
+  },
+  {
+   "chapter": 7,
+   "context": "this country will define our times, not be defined by them",
+   "simple": "We will decide what this time is. This time will not decide what we are.",
+   "grammar": "The same idea is turned around."
+  }
+ ],
+ "phrases": {
+  "active duty": {
+   "meaning": "Full work in the army, not waiting at home.",
+   "pos": "phrase",
+   "example": "the reservists we have called to active duty."
+  },
+  "air marshal": {
+   "meaning": "An officer who flies on a plane to keep it safe.",
+   "pos": "phrase",
+   "forms": [
+    "air marshals"
+   ],
+   "example": "expand the number of air marshals on domestic flights"
+  },
+  "al qaeda": {
+   "meaning": "The group this speech says made the attacks.",
+   "pos": "phrase",
+   "example": "terrorist organizations known as al Qaeda."
+  },
+  "all the way": {
+   "meaning": "Until the very end.",
+   "pos": "idiom",
+   "example": "And they will follow that path all the way, to where it ends"
+  },
+  "as well as": {
+   "meaning": "And also.",
+   "pos": "idiom",
+   "example": "as well as state and local governments, have responsibilities"
+  },
+  "at one's command": {
+   "meaning": "Ready for you to use.",
+   "pos": "idiom",
+   "example": "We will direct every resource at our command"
+  },
+  "at stake": {
+   "meaning": "Able to be lost.",
+   "pos": "idiom",
+   "example": "And what is at stake is not just America's freedom."
+  },
+  "bring down": {
+   "meaning": "To make something fall.",
+   "pos": "phrasal verb",
+   "example": "can not only bring down buildings, it can threaten"
+  },
+  "bring to justice": {
+   "meaning": "To catch people and make them answer for a crime.",
+   "pos": "idiom",
+   "forms": [
+    "bring our enemies to justice"
+   ],
+   "example": "Whether we bring our enemies to justice, or bring justice to our enemies"
+  },
+  "cabinet level": {
+   "meaning": "A job as high as the people who help the president at the top.",
+   "pos": "phrase",
+   "example": "the creation of a Cabinet-level position reporting directly to me"
+  },
+  "count as": {
+   "meaning": "To be thought of as.",
+   "pos": "idiom",
+   "example": "in countries that America counts as friends."
+  },
+  "foreign soil": {
+   "meaning": "Land of another country.",
+   "pos": "phrase",
+   "example": "they have been wars on foreign soil, except for one Sunday in 1941."
+  },
+  "from this day forward": {
+   "meaning": "From today on.",
+   "pos": "idiom",
+   "example": "From this day forward, any nation that continues to harbor or support terrorism"
+  },
+  "global reach": {
+   "meaning": "The power to act in countries far away.",
+   "pos": "phrase",
+   "example": "every terrorist group of global reach has been found, stopped, and defeated."
+  },
+  "god bless america": {
+   "meaning": "The name of a song that asks God to care for America.",
+   "pos": "phrase",
+   "example": "singing \"God Bless America.\""
+  },
+  "ground troops": {
+   "meaning": "Soldiers who fight on the land, not from planes.",
+   "pos": "phrase",
+   "example": "where no ground troops were used and not a single American was lost"
+  },
+  "hand over": {
+   "meaning": "To give a person or a thing to someone who has a right to take them.",
+   "pos": "phrasal verb",
+   "example": "and hand over every terrorist, and every person in their support structure"
+  },
+  "homeland security": {
+   "meaning": "The work of keeping the home country safe.",
+   "pos": "phrase",
+   "example": "have responsibilities affecting homeland security."
+  },
+  "in effect": {
+   "meaning": "Really. What it comes to, even if those words are not used.",
+   "pos": "idiom",
+   "example": "trying, in effect, to hijack Islam itself."
+  },
+  "in the face of": {
+   "meaning": "While something hard is going on.",
+   "pos": "idiom",
+   "example": "even in the face of a continuing threat."
+  },
+  "in the name of": {
+   "meaning": "Using a name as the reason for an act.",
+   "pos": "idiom",
+   "example": "those who commit evil in the name of Allah"
+  },
+  "joint session": {
+   "meaning": "A meeting of both groups that make the laws, sitting together.",
+   "pos": "phrase",
+   "example": "Address to a Joint Session of Congress and the American People"
+  },
+  "law enforcement": {
+   "meaning": "The police and their work.",
+   "pos": "phrase",
+   "example": "every instrument of law enforcement"
+  },
+  "live by": {
+   "meaning": "To live in the way an idea tells you.",
+   "pos": "idiom",
+   "example": "our first responsibility is to live by them."
+  },
+  "national anthem": {
+   "meaning": "A country's own song.",
+   "pos": "phrase",
+   "example": "the sounds of our National Anthem playing at Buckingham Palace"
+  },
+  "night fell": {
+   "meaning": "The day ended, and a darker time began.",
+   "pos": "idiom",
+   "example": "and night fell on a different world, a world where freedom itself is under attack."
+  },
+  "on behalf of": {
+   "meaning": "Speaking for other people.",
+   "pos": "idiom",
+   "example": "And on behalf of the American people, I thank the world"
+  },
+  "open to negotiation": {
+   "meaning": "Willing to talk and to change what you demand.",
+   "pos": "phrase",
+   "example": "These demands are not open to negotiation or discussion."
+  },
+  "point to": {
+   "meaning": "To show who or what is responsible.",
+   "pos": "phrasal verb",
+   "example": "The evidence we have gathered all points to a collection"
+  },
+  "prime minister": {
+   "meaning": "The leader of the government in Britain.",
+   "pos": "phrase",
+   "example": "the British Prime Minister has crossed an ocean to show his unity"
+  },
+  "pro tempore": {
+   "meaning": "The title of the person who leads the Senate for a time.",
+   "pos": "phrase",
+   "example": "Mr. Speaker, Mr. President Pro Tempore, members of Congress, and fellow Americans:"
+  },
+  "put on notice": {
+   "meaning": "To tell someone, in a hard way, that you will act.",
+   "pos": "idiom",
+   "example": "Our nation has been put on notice: We're not immune from attack."
+  },
+  "right here": {
+   "meaning": "In this very place.",
+   "pos": "idiom",
+   "example": "They hate what they see right here in this chamber"
+  },
+  "safe haven": {
+   "meaning": "A safe place to stay, where others cannot get you.",
+   "pos": "phrase",
+   "example": "nations that provide aid or safe haven to terrorism."
+  },
+  "self appointed": {
+   "meaning": "Chosen by themselves, not by the people.",
+   "pos": "phrase",
+   "example": "Their leaders are self-appointed."
+  },
+  "single out": {
+   "meaning": "To pick one person out from the rest.",
+   "pos": "phrasal verb",
+   "example": "No one should be singled out for unfair treatment"
+  },
+  "stand against": {
+   "meaning": "To be on the other side from someone.",
+   "pos": "idiom",
+   "example": "They stand against us, because we stand in their way."
+  },
+  "stand in one's way": {
+   "meaning": "To be the person who stops someone.",
+   "pos": "idiom",
+   "example": "because we stand in their way."
+  },
+  "support structure": {
+   "meaning": "The people who help a group, and the way they are joined.",
+   "pos": "phrase",
+   "example": "every person in their support structure, to appropriate authorities."
+  },
+  "track down": {
+   "meaning": "To find someone by searching.",
+   "pos": "phrasal verb",
+   "example": "the additional tools it needs to track down terror here at home."
+  },
+  "turn against": {
+   "meaning": "To make people on one side start to fight each other.",
+   "pos": "phrasal verb",
+   "forms": [
+    "turn them one against another"
+   ],
+   "example": "turn them one against another, drive them from place to place"
+  },
+  "under attack": {
+   "meaning": "Being attacked.",
+   "pos": "idiom",
+   "example": "a world where freedom itself is under attack."
+  },
+  "uss cole": {
+   "meaning": "The name of a United States ship.",
+   "pos": "phrase",
+   "example": "responsible for bombing the USS Cole."
+  },
+  "war on terror": {
+   "meaning": "A war against people who use fear and killing.",
+   "pos": "phrase",
+   "example": "Our war on terror begins with al Qaeda, but it does not end there."
+  },
+  "watch over": {
+   "meaning": "To stay near and keep someone safe.",
+   "pos": "phrasal verb",
+   "example": "may He watch over the United States of America."
+  },
+  "way of life": {
+   "meaning": "The way people live from day to day.",
+   "pos": "phrase",
+   "example": "but to disrupt and end a way of life."
+  },
+  "will to power": {
+   "meaning": "The wish to have power over other people.",
+   "pos": "idiom",
+   "example": "by abandoning every value except the will to power"
+  }
+ }
+}
