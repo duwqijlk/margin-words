@@ -1,3 +1,4 @@
+import { cleanNickname } from "../../src/lib/nickname.ts";
 import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merge.ts";
 import type { Env, SyncRow, UserRow } from "./db.ts";
 import { deliverPasswordReset, type PasswordResetSender } from "./email.ts";
@@ -31,8 +32,9 @@ function withCookie(body: unknown, status: number, cookie: string): Response {
   return json(body, status, headers);
 }
 
-async function publicUser(row: UserRow) {
-  return { id: row.id, email: row.email, createdAt: row.created_at };
+function publicUser(row: Pick<UserRow, "id" | "email" | "created_at" | "nickname">) {
+  const nickname = typeof row.nickname === "string" && row.nickname ? row.nickname : null;
+  return { id: row.id, email: row.email, createdAt: row.created_at, nickname };
 }
 
 export async function handleRegister(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
@@ -61,7 +63,7 @@ export async function handleRegister(request: Request, env: Env, options?: Handl
       throw error;
     }
     const cookie = await createSession(env.DB, id, request, now);
-    return withCookie({ user: { id, email, createdAt: now } }, 201, cookie);
+    return withCookie({ user: publicUser({ id, email, created_at: now, nickname: null }) }, 201, cookie);
   } catch (error) {
     return errorResponse(error);
   }
@@ -79,7 +81,7 @@ export async function handleLogin(request: Request, env: Env, options?: HandlerO
     if (!human) throw new HttpError(403, "turnstile");
     await assertRateLimit(env.DB, "login", clientIp(request), email, now, { countEmail: false });
     const user = await env.DB.prepare(
-      "SELECT id, email, password_hash, password_salt, password_iters, created_at FROM users WHERE email = ?",
+      "SELECT id, email, nickname, password_hash, password_salt, password_iters, created_at FROM users WHERE email = ?",
     )
       .bind(email)
       .first<UserRow>();
@@ -98,7 +100,7 @@ export async function handleLogin(request: Request, env: Env, options?: HandlerO
         .run();
     }
     const cookie = await createSession(env.DB, user.id, request, now);
-    return withCookie({ user: await publicUser(user) }, 200, cookie);
+    return withCookie({ user: publicUser(user) }, 200, cookie);
   } catch (error) {
     return errorResponse(error);
   }
@@ -119,7 +121,20 @@ export async function handleMe(request: Request, env: Env, options?: HandlerOpti
     // 200 so a signed-out page load is not a failed request in the browser console.
     // Other routes still use requireUser and answer 401.
     if (!user) return json({ user: null });
-    return json({ user: await publicUser(user) });
+    return json({ user: publicUser(user) });
+  } catch (error) {
+    return errorResponse(error);
+  }
+}
+
+export async function handleNickname(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
+  try {
+    const user = await requireUser(env.DB, request, nowOf(options));
+    const body = (await readJson(request, 8_000)) as Record<string, unknown>;
+    const nickname = cleanNickname(body.nickname);
+    if (!nickname) throw new HttpError(400, "nickname");
+    await env.DB.prepare("UPDATE users SET nickname = ? WHERE id = ?").bind(nickname, user.id).run();
+    return json({ user: publicUser({ ...user, nickname }) });
   } catch (error) {
     return errorResponse(error);
   }
@@ -150,7 +165,7 @@ export async function handleExport(request: Request, env: Env, options?: Handler
       .all<SyncRow>();
     return json({
       exportedAt: nowOf(options),
-      account: { email: user.email, createdAt: user.created_at },
+      account: { email: user.email, createdAt: user.created_at, nickname: user.nickname ?? null },
       items: items.results.map(rowToItem),
     });
   } catch (error) {

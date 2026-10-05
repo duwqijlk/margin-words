@@ -43,6 +43,7 @@ import type { Book, VocabEntry, WordSource } from "@/lib/vocab-model";
 
 const META_KEY = "cibian-sync-meta-v1";
 const EMAIL_KEY = "cibian-account-email-v1";
+const NICK_KEY = "cibian-account-nickname-v1";
 const DIRTY_KEY = "cibian-sync-dirty-v1";
 const PUSH_DELAY_MS = 1500;
 
@@ -105,9 +106,25 @@ function capture(): LocalSnapshot {
   });
 }
 
-function rememberEmail(email: string | null) {
+function rememberEmail(email: string | null, nickname?: string | null) {
   writeStorage(EMAIL_KEY, email);
-  useAccount.getState().patch({ email, phase: email ? "in" : "out" });
+  const nextNick = email ? (nickname === undefined ? useAccount.getState().nickname : nickname) : null;
+  if (!email || nickname !== undefined) writeStorage(NICK_KEY, nextNick);
+  useAccount.getState().patch({
+    email,
+    nickname: nextNick,
+    phase: email ? "in" : "out",
+    ...(email ? {} : { nicknamePrompt: false }),
+  });
+}
+
+function userFields(payload: Record<string, unknown>): { email: string | null; nickname: string | null } {
+  const user = payload.user;
+  if (!user || typeof user !== "object") return { email: null, nickname: null };
+  const record = user as { email?: unknown; nickname?: unknown };
+  const email = typeof record.email === "string" && record.email ? record.email : null;
+  const nickname = typeof record.nickname === "string" && record.nickname ? record.nickname : null;
+  return { email, nickname };
 }
 
 function saveMeta() {
@@ -427,18 +444,10 @@ async function flush() {
   }
 }
 
-/** Signed-out `/api/auth/me` is 200 `{ user: null }`, not an error. */
-function sessionEmail(payload: Record<string, unknown>): string | null {
-  const user = payload.user;
-  if (!user || typeof user !== "object") return null;
-  const email = (user as { email?: unknown }).email;
-  return typeof email === "string" && email ? email : null;
-}
-
 async function refreshSession() {
   const epoch = sessionEpoch;
   const saved = readStorage(EMAIL_KEY);
-  if (saved) useAccount.getState().patch({ email: saved, phase: "in" });
+  if (saved) useAccount.getState().patch({ email: saved, nickname: readStorage(NICK_KEY), phase: "in" });
   if (!online()) {
     useAccount.getState().patch({ phase: saved ? "in" : "out", sync: saved ? "offline" : "idle" });
     return;
@@ -446,9 +455,9 @@ async function refreshSession() {
   try {
     const payload = await accountRequest("/api/auth/me");
     if (epoch !== sessionEpoch) return;
-    const email = sessionEmail(payload);
-    if (email) {
-      rememberEmail(email);
+    const fields = userFields(payload);
+    if (fields.email) {
+      rememberEmail(fields.email, fields.nickname);
       await flush();
     } else {
       rememberEmail(null);
@@ -543,8 +552,8 @@ export async function signIn(email: string, password: string, turnstileToken?: s
     turnstileToken: turnstileToken || undefined,
   });
   if (epoch !== sessionEpoch) return;
-  const user = payload.user as { email?: string };
-  rememberEmail(typeof user.email === "string" ? user.email : email);
+  const fields = userFields(payload);
+  rememberEmail(fields.email ?? email, fields.nickname);
   await flush();
 }
 
@@ -556,10 +565,17 @@ export async function signUp(email: string, password: string, turnstileToken?: s
     password,
     turnstileToken: turnstileToken || undefined,
   });
-  const user = payload.user as { email?: string };
   if (epoch !== sessionEpoch) return;
-  rememberEmail(typeof user.email === "string" ? user.email : email);
+  const fields = userFields(payload);
+  rememberEmail(fields.email ?? email, fields.nickname);
   await flush();
+}
+
+export async function saveNickname(nickname: string): Promise<void> {
+  const payload = await accountRequest("/api/auth/nickname", { nickname });
+  const fields = userFields(payload);
+  const email = fields.email ?? useAccount.getState().email;
+  if (email) rememberEmail(email, fields.nickname);
 }
 
 export async function signOut(): Promise<void> {

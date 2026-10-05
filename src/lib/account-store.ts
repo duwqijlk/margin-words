@@ -7,6 +7,10 @@ export type AccountMode = "login" | "register" | "reset";
 type AccountState = {
   phase: AccountPhase;
   email: string | null;
+  /** Chosen label. Null until the reader saves one. Not unique. */
+  nickname: string | null;
+  /** Set only right after a new account is created, so the dialog asks for a nickname. */
+  nicknamePrompt: boolean;
   sync: SyncStatus;
   dialogOpen: boolean;
   mode: AccountMode;
@@ -19,6 +23,8 @@ type AccountState = {
 export const useAccount = create<AccountState>()((set) => ({
   phase: "unknown",
   email: null,
+  nickname: null,
+  nicknamePrompt: false,
   sync: "idle",
   dialogOpen: false,
   mode: "login",
@@ -26,5 +32,5 @@ export const useAccount = create<AccountState>()((set) => ({
   patch: (partial) => set(partial),
   openDialog: (mode = "login", resetToken = "") =>
     set({ dialogOpen: true, mode, resetToken: resetToken || "" }),
-  closeDialog: () => set({ dialogOpen: false, resetToken: "" }),
+  closeDialog: () => set({ dialogOpen: false, resetToken: "", nicknamePrompt: false }),
 }));
