@@ -33,6 +33,14 @@ export function glossCacheKey(ref: GlossPoint, book: string): string {
   return ref.list === "custom" ? `custom:${book}` : ref.list;
 }
 
+/**
+ * Cache key for the word list of one shelf book, used when a saved word has no pointer yet.
+ * The book sync key is the same on every device, so the notebook can find the file from the source alone.
+ */
+export function bookGlossKey(book: string): string {
+  return `book:${book}`;
+}
+
 export function asGlossPoint(value: unknown): GlossPoint | null {
   if (!value || typeof value !== "object") return null;
   const raw = value as Record<string, unknown>;

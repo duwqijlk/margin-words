@@ -7,7 +7,8 @@ import { isDue, isMastered, MASTERED_STAGE, type Book, type VocabEntry } from "@
 import { useVocab } from "@/lib/vocab-store";
 import { focusSentence } from "@/lib/text";
 import { hasSourceFrom } from "@/lib/wordbook";
-import { usePresentedWord } from "@/components/presented-word";
+import { useGlossFiles, usePresentedWord } from "@/components/presented-word";
+import { presentWord } from "@/lib/gloss-ref";
 import { WordSources } from "@/components/word-sources";
 import {
   btn,
@@ -200,6 +201,7 @@ export function Notebook({
 }) {
   const { t } = useT();
   const removeWord = useVocab((state) => state.removeWord);
+  const glossFiles = useGlossFiles();
   const [filter, setFilter] = useState<Filter>("all");
   const [order, setOrder] = useState<Order>("new");
   const [query, setQuery] = useState("");
@@ -235,8 +237,9 @@ export function Notebook({
       if (filter === "learning" && isMastered(word)) return false;
       if (filter === "mastered" && !isMastered(word)) return false;
       if (!q) return true;
-      return `${word.lemma} ${word.surface} ${word.meaning} ${word.sentence} ${word.sources
-        .map((source) => `${source.title ?? ""} ${source.chapterTitle ?? ""}`)
+      const shown = presentWord(word, glossFiles);
+      return `${shown.lemma} ${shown.surface} ${shown.meaning} ${shown.sentence} ${shown.sources
+        .map((source) => `${source.title ?? ""} ${source.sentence ?? ""} ${source.meaning ?? ""} ${source.chapterTitle ?? ""}`)
         .join(" ")}`
         .toLowerCase()
         .includes(q);
@@ -247,7 +250,7 @@ export function Notebook({
       return b.createdAt - a.createdAt;
     });
     return list;
-  }, [scoped, filter, order, query]);
+  }, [scoped, filter, order, query, glossFiles]);
 
   const counts: Record<Filter, number> = {
     all: stats.total,
