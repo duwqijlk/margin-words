@@ -1,0 +1,2027 @@
+{
+ "version": 2,
+ "title": "Inaugural Address, January 20, 2009",
+ "author": "Barack Obama",
+ "sha256": "5acfb8c7f07eaae8b691c5dcb95c45eb6a525d5337ff57baa76b7ca063d72a1d",
+ "chapters": 2,
+ "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
+ "language": "English",
+ "glossary": {
+  "humble": {
+   "pos": "adjective",
+   "meaning": "Not proud. Feeling that the job is bigger than you are.",
+   "forms": [
+    "humbled"
+   ]
+  },
+  "bestow": {
+   "pos": "verb",
+   "meaning": "To give something, as an honor.",
+   "forms": [
+    "bestowed"
+   ]
+  },
+  "mindful": {
+   "pos": "adjective",
+   "meaning": "Careful to keep something in mind."
+  },
+  "sacrifice": {
+   "pos": "singular noun",
+   "meaning": "Something hard a person gives up for other people."
+  },
+  "ancestor": {
+   "pos": "singular noun",
+   "meaning": "A person in your family who lived long ago."
+  },
+  "generosity": {
+   "pos": "singular noun",
+   "meaning": "Kindness that gives more than it has to."
+  },
+  "cooperation": {
+   "pos": "singular noun",
+   "meaning": "Working together."
+  },
+  "transition": {
+   "pos": "singular noun",
+   "meaning": "The change from one leader to the next."
+  },
+  "presidential": {
+   "pos": "adjective",
+   "meaning": "Of a president."
+  },
+  "oath": {
+   "pos": "singular noun",
+   "meaning": "A very serious promise."
+  },
+  "prosperity": {
+   "pos": "singular noun",
+   "meaning": "A time when people have enough and life is going well."
+  },
+  "amidst": {
+   "pos": "preposition",
+   "meaning": "In the middle of."
+  },
+  "raging": {
+   "pos": "adjective",
+   "meaning": "Wild and angry, like a storm."
+  },
+  "forebear": {
+   "pos": "singular noun",
+   "meaning": "A person who lived before us."
+  },
+  "founding": {
+   "pos": "adjective",
+   "meaning": "Of the time when the country began."
+  },
+  "midst": {
+   "pos": "singular noun",
+   "meaning": "The middle of something."
+  },
+  "crisis": {
+   "pos": "singular noun",
+   "meaning": "A time of great danger or trouble."
+  },
+  "hatred": {
+   "pos": "singular noun",
+   "meaning": "Very strong hate."
+  },
+  "weaken": {
+   "pos": "verb",
+   "meaning": "To make something less strong.",
+   "forms": [
+    "weakened"
+   ]
+  },
+  "consequence": {
+   "pos": "singular noun",
+   "meaning": "A result that follows from what people did."
+  },
+  "greed": {
+   "pos": "singular noun",
+   "meaning": "Wanting more than you need."
+  },
+  "irresponsibility": {
+   "pos": "singular noun",
+   "meaning": "Not taking care of what you should."
+  },
+  "collective": {
+   "pos": "adjective",
+   "meaning": "Done by everyone together."
+  },
+  "evidence": {
+   "pos": "singular noun",
+   "meaning": "Facts that show something is true."
+  },
+  "adversary": {
+   "pos": "singular noun",
+   "meaning": "An enemy.",
+   "forms": [
+    "adversaries"
+   ]
+  },
+  "threaten": {
+   "pos": "verb",
+   "meaning": "To be a danger to."
+  },
+  "indicator": {
+   "pos": "singular noun",
+   "meaning": "A sign that shows what is happening."
+  },
+  "statistic": {
+   "pos": "singular noun",
+   "meaning": "A number people collect so they can study it."
+  },
+  "measurable": {
+   "pos": "adjective",
+   "meaning": "Able to be counted."
+  },
+  "profound": {
+   "pos": "adjective",
+   "meaning": "Deep and serious."
+  },
+  "sapping": {
+   "pos": "noun",
+   "meaning": "A slow taking away of strength."
+  },
+  "nagging": {
+   "pos": "adjective",
+   "meaning": "Not stopping. A nagging fear will not go away."
+  },
+  "decline": {
+   "pos": "singular noun",
+   "meaning": "A slow fall into a weaker state."
+  },
+  "inevitable": {
+   "pos": "adjective",
+   "meaning": "Sure to happen. Nothing can stop it."
+  },
+  "span": {
+   "pos": "singular noun",
+   "meaning": "A length of time."
+  },
+  "unity": {
+   "pos": "singular noun",
+   "meaning": "Being together as one."
+  },
+  "purpose": {
+   "pos": "singular noun",
+   "meaning": "The thing you mean to do."
+  },
+  "discord": {
+   "pos": "singular noun",
+   "meaning": "People not agreeing, and the bad feeling that comes with it."
+  },
+  "proclaim": {
+   "pos": "verb",
+   "meaning": "To say something in public, so everyone hears."
+  },
+  "petty": {
+   "pos": "adjective",
+   "meaning": "Small, and not worth a fight."
+  },
+  "grievance": {
+   "pos": "singular noun",
+   "meaning": "A complaint about being treated unfairly."
+  },
+  "recrimination": {
+   "pos": "singular noun",
+   "meaning": "Blaming someone back after they blame you."
+  },
+  "dogma": {
+   "pos": "singular noun",
+   "meaning": "A belief some people refuse to question."
+  },
+  "strangle": {
+   "pos": "verb",
+   "meaning": "To hold so tight that something cannot work.",
+   "whyHard": "They know this word as killing by the throat. Here it is our politics that cannot move.",
+   "forms": [
+    "strangled"
+   ]
+  },
+  "scripture": {
+   "pos": "singular noun",
+   "meaning": "Holy writing. Here, the Bible."
+  },
+  "reaffirm": {
+   "pos": "verb",
+   "meaning": "To say again that you still believe something.",
+   "forms": [
+    "reaffirming"
+   ]
+  },
+  "enduring": {
+   "pos": "adjective",
+   "meaning": "Lasting a long time."
+  },
+  "noble": {
+   "pos": "adjective",
+   "meaning": "Good, and high in spirit."
+  },
+  "precious": {
+   "pos": "adjective",
+   "meaning": "Very special, and easy to lose."
+  },
+  "pursue": {
+   "pos": "verb",
+   "meaning": "To try hard to reach something."
+  },
+  "leisure": {
+   "pos": "singular noun",
+   "meaning": "Free time, when you are not working."
+  },
+  "riches": {
+   "pos": "plural noun",
+   "meaning": "A lot of money and fine things."
+  },
+  "fame": {
+   "pos": "singular noun",
+   "meaning": "Being known by many people."
+  },
+  "obscure": {
+   "pos": "adjective",
+   "meaning": "Not famous. Few people know the name."
+  },
+  "labor": {
+   "pos": "singular noun",
+   "meaning": "Hard work."
+  },
+  "rugged": {
+   "pos": "adjective",
+   "meaning": "Rough, and hard to travel."
+  },
+  "possession": {
+   "pos": "singular noun",
+   "meaning": "A thing you own."
+  },
+  "toil": {
+   "pos": "verb",
+   "meaning": "To work very hard for a long time.",
+   "forms": [
+    "toiled"
+   ]
+  },
+  "sweatshop": {
+   "pos": "singular noun",
+   "meaning": "A workplace where people work too hard for too little pay."
+  },
+  "endure": {
+   "pos": "verb",
+   "meaning": "To live through something very hard.",
+   "forms": [
+    "endured"
+   ]
+  },
+  "lash": {
+   "pos": "singular noun",
+   "meaning": "A hit with a whip."
+  },
+  "whip": {
+   "pos": "singular noun",
+   "meaning": "A long strip used to hit a person or an animal."
+  },
+  "plow": {
+   "pos": "verb",
+   "meaning": "To turn the soil so crops can grow.",
+   "forms": [
+    "plowed"
+   ]
+  },
+  "ambition": {
+   "pos": "singular noun",
+   "meaning": "A strong wish to succeed."
+  },
+  "faction": {
+   "pos": "singular noun",
+   "meaning": "A group inside a larger group that fights the others."
+  },
+  "prosperous": {
+   "pos": "adjective",
+   "meaning": "Rich, and doing well."
+  },
+  "productive": {
+   "pos": "adjective",
+   "meaning": "Making a lot of useful things."
+  },
+  "inventive": {
+   "pos": "adjective",
+   "meaning": "Good at thinking of new things."
+  },
+  "capacity": {
+   "pos": "singular noun",
+   "meaning": "The power to do something."
+  },
+  "undiminished": {
+   "pos": "adjective",
+   "meaning": "Not made smaller. Still as strong as before."
+  },
+  "bold": {
+   "pos": "adjective",
+   "meaning": "Brave, and willing to act."
+  },
+  "swift": {
+   "pos": "adjective",
+   "meaning": "Very fast."
+  },
+  "foundation": {
+   "pos": "singular noun",
+   "meaning": "The base that something is built on."
+  },
+  "grid": {
+   "pos": "singular noun",
+   "meaning": "A net of wires that carries power."
+  },
+  "digital": {
+   "pos": "adjective",
+   "meaning": "Using computers."
+  },
+  "commerce": {
+   "pos": "singular noun",
+   "meaning": "Buying and selling."
+  },
+  "restore": {
+   "pos": "verb",
+   "meaning": "To put something back as it should be."
+  },
+  "rightful": {
+   "pos": "adjective",
+   "meaning": "Right and fair. The place that belongs to it."
+  },
+  "wield": {
+   "pos": "verb",
+   "meaning": "To use something with skill and force."
+  },
+  "transform": {
+   "pos": "verb",
+   "meaning": "To change something completely."
+  },
+  "tolerate": {
+   "pos": "verb",
+   "meaning": "To allow something, even when it is hard."
+  },
+  "necessity": {
+   "pos": "singular noun",
+   "meaning": "Something you must have."
+  },
+  "cynic": {
+   "pos": "singular noun",
+   "meaning": "A person who does not believe people will do good."
+  },
+  "scale": {
+   "pos": "singular noun",
+   "meaning": "How big something is."
+  },
+  "decent": {
+   "pos": "adjective",
+   "meaning": "Good enough, and fair."
+  },
+  "wage": {
+   "pos": "singular noun",
+   "meaning": "Pay for work."
+  },
+  "retirement": {
+   "pos": "singular noun",
+   "meaning": "The years after you stop working."
+  },
+  "dignified": {
+   "pos": "adjective",
+   "meaning": "Calm, and worthy of respect."
+  },
+  "intend": {
+   "pos": "verb",
+   "meaning": "To plan to do something."
+  },
+  "reform": {
+   "pos": "verb",
+   "meaning": "To change a bad habit or a bad system."
+  },
+  "vital": {
+   "pos": "adjective",
+   "meaning": "Needed. Without it, something important fails."
+  },
+  "generate": {
+   "pos": "verb",
+   "meaning": "To make or to produce."
+  },
+  "unmatched": {
+   "pos": "adjective",
+   "meaning": "Better than any other. Nothing else equals it."
+  },
+  "watchful": {
+   "pos": "adjective",
+   "meaning": "Careful to notice danger."
+  },
+  "prosper": {
+   "pos": "verb",
+   "meaning": "To do well and to grow."
+  },
+  "charity": {
+   "pos": "singular noun",
+   "meaning": "Help given to people in need."
+  },
+  "route": {
+   "pos": "singular noun",
+   "meaning": "A way to get somewhere."
+  },
+  "defense": {
+   "pos": "singular noun",
+   "meaning": "Keeping a country safe."
+  },
+  "reject": {
+   "pos": "verb",
+   "meaning": "To say no to something."
+  },
+  "ideal": {
+   "pos": "singular noun",
+   "meaning": "A high idea of what is best."
+  },
+  "peril": {
+   "pos": "singular noun",
+   "meaning": "A great danger."
+  },
+  "scarcely": {
+   "pos": "adverb",
+   "meaning": "Almost not."
+  },
+  "charter": {
+   "pos": "singular noun",
+   "meaning": "A written paper that sets out rights and rules."
+  },
+  "assure": {
+   "pos": "verb",
+   "meaning": "To make sure of something."
+  },
+  "expedience": {
+   "pos": "singular noun",
+   "meaning": "Choosing what is easy now, not what is right."
+  },
+  "dignity": {
+   "pos": "singular noun",
+   "meaning": "Being worthy of respect."
+  },
+  "fascism": {
+   "pos": "singular noun",
+   "meaning": "Harsh rule by one party that crushes people who disagree."
+  },
+  "communism": {
+   "pos": "singular noun",
+   "meaning": "A system in which the state owns the farms and the factories."
+  },
+  "missile": {
+   "pos": "singular noun",
+   "meaning": "A weapon that flies to its target."
+  },
+  "tank": {
+   "pos": "singular noun",
+   "meaning": "A heavy army vehicle with a gun."
+  },
+  "sturdy": {
+   "pos": "adjective",
+   "meaning": "Strong and solid."
+  },
+  "alliance": {
+   "pos": "singular noun",
+   "meaning": "An agreement that countries will help each other."
+  },
+  "conviction": {
+   "pos": "singular noun",
+   "meaning": "A belief you hold firmly."
+  },
+  "entitle": {
+   "pos": "verb",
+   "meaning": "To give someone a right."
+  },
+  "prudent": {
+   "pos": "adjective",
+   "meaning": "Careful, and wise about what comes next."
+  },
+  "emanate": {
+   "pos": "verb",
+   "meaning": "To come out from something."
+  },
+  "justness": {
+   "pos": "singular noun",
+   "meaning": "Being fair and right."
+  },
+  "temper": {
+   "pos": "verb",
+   "meaning": "To make something less extreme.",
+   "whyHard": "Not the usual meaning! Usually temper is the mood that makes you angry. Here tempering means making a strong thing gentler.",
+   "forms": [
+    "tempering"
+   ]
+  },
+  "humility": {
+   "pos": "singular noun",
+   "meaning": "Not thinking you are better than other people."
+  },
+  "restraint": {
+   "pos": "singular noun",
+   "meaning": "Holding yourself back."
+  },
+  "keeper": {
+   "pos": "singular noun",
+   "meaning": "A person who looks after something."
+  },
+  "legacy": {
+   "pos": "singular noun",
+   "meaning": "What one time leaves for the people who come later."
+  },
+  "principle": {
+   "pos": "singular noun",
+   "meaning": "A basic rule you try to live by."
+  },
+  "threat": {
+   "pos": "singular noun",
+   "meaning": "A danger."
+  },
+  "tirelessly": {
+   "pos": "adverb",
+   "meaning": "Without stopping to rest."
+  },
+  "lessen": {
+   "pos": "verb",
+   "meaning": "To make something smaller."
+  },
+  "nuclear": {
+   "pos": "adjective",
+   "meaning": "Of the most powerful bombs."
+  },
+  "specter": {
+   "pos": "singular noun",
+   "meaning": "A frightening picture of something that may come."
+  },
+  "apologize": {
+   "pos": "verb",
+   "meaning": "To say you are sorry."
+  },
+  "waver": {
+   "pos": "verb",
+   "meaning": "To become unsure, and to start to give way."
+  },
+  "induce": {
+   "pos": "verb",
+   "meaning": "To cause something to happen.",
+   "forms": [
+    "inducing"
+   ]
+  },
+  "terror": {
+   "pos": "singular noun",
+   "meaning": "Great fear, used here to attack people."
+  },
+  "slaughter": {
+   "pos": "verb",
+   "meaning": "To kill many people or animals.",
+   "forms": [
+    "slaughtering"
+   ]
+  },
+  "innocent": {
+   "pos": "singular noun",
+   "meaning": "A person who has done no wrong."
+  },
+  "outlast": {
+   "pos": "verb",
+   "meaning": "To last longer than someone else."
+  },
+  "patchwork": {
+   "pos": "singular noun",
+   "meaning": "Something made of many different pieces."
+  },
+  "heritage": {
+   "pos": "singular noun",
+   "meaning": "What we receive from the people before us."
+  },
+  "swill": {
+   "pos": "singular noun",
+   "meaning": "Dirty liquid. Here it is a picture of something awful to take in."
+  },
+  "segregation": {
+   "pos": "singular noun",
+   "meaning": "Keeping people apart because of their race."
+  },
+  "emerge": {
+   "pos": "verb",
+   "meaning": "To come out.",
+   "forms": [
+    "emerged"
+   ]
+  },
+  "dissolve": {
+   "pos": "verb",
+   "meaning": "To melt away."
+  },
+  "humanity": {
+   "pos": "singular noun",
+   "meaning": "All people, thought of as one family."
+  },
+  "reveal": {
+   "pos": "verb",
+   "meaning": "To show something that was hidden."
+  },
+  "usher": {
+   "pos": "verb",
+   "meaning": "To lead the way into a new time.",
+   "forms": [
+    "ushering"
+   ]
+  },
+  "mutual": {
+   "pos": "adjective",
+   "meaning": "Shared by both sides."
+  },
+  "corruption": {
+   "pos": "singular noun",
+   "meaning": "Dishonest use of power."
+  },
+  "deceit": {
+   "pos": "singular noun",
+   "meaning": "Lying, in order to trick people."
+  },
+  "silence": {
+   "pos": "verb",
+   "meaning": "To stop people from speaking.",
+   "forms": [
+    "silencing"
+   ]
+  },
+  "dissent": {
+   "pos": "singular noun",
+   "meaning": "Saying in public that you disagree."
+  },
+  "unclench": {
+   "pos": "verb",
+   "meaning": "To open a hand that was closed tight."
+  },
+  "pledge": {
+   "pos": "verb",
+   "meaning": "To make a serious promise."
+  },
+  "flourish": {
+   "pos": "verb",
+   "meaning": "To grow well."
+  },
+  "nourish": {
+   "pos": "verb",
+   "meaning": "To feed, and to help something grow."
+  },
+  "starved": {
+   "pos": "adjective",
+   "meaning": "Extremely hungry."
+  },
+  "indifference": {
+   "pos": "singular noun",
+   "meaning": "Not caring."
+  },
+  "unfold": {
+   "pos": "verb",
+   "meaning": "To open out in front of you.",
+   "forms": [
+    "unfolds"
+   ]
+  },
+  "gratitude": {
+   "pos": "singular noun",
+   "meaning": "The feeling of thanks."
+  },
+  "patrol": {
+   "pos": "verb",
+   "meaning": "To go around a place, watching for danger."
+  },
+  "guardian": {
+   "pos": "singular noun",
+   "meaning": "A person who protects someone or something."
+  },
+  "liberty": {
+   "pos": "singular noun",
+   "meaning": "Freedom."
+  },
+  "embody": {
+   "pos": "verb",
+   "meaning": "To be a living example of an idea."
+  },
+  "willingness": {
+   "pos": "singular noun",
+   "meaning": "Being ready to do something."
+  },
+  "inhabit": {
+   "pos": "verb",
+   "meaning": "To live in a place. Here, the spirit lives in us."
+  },
+  "ultimately": {
+   "pos": "adverb",
+   "meaning": "In the end, when everything else is counted."
+  },
+  "determination": {
+   "pos": "singular noun",
+   "meaning": "Refusing to give up."
+  },
+  "rely": {
+   "pos": "verb",
+   "meaning": "To depend on.",
+   "forms": [
+    "relies"
+   ]
+  },
+  "levee": {
+   "pos": "singular noun",
+   "meaning": "A wall built to hold a river back."
+  },
+  "selflessness": {
+   "pos": "singular noun",
+   "meaning": "Caring about other people before yourself."
+  },
+  "nurture": {
+   "pos": "verb",
+   "meaning": "To care for someone so they can grow."
+  },
+  "fate": {
+   "pos": "singular noun",
+   "meaning": "What will happen to a person or a country."
+  },
+  "instrument": {
+   "pos": "singular noun",
+   "meaning": "A tool used to do a job."
+  },
+  "tolerance": {
+   "pos": "singular noun",
+   "meaning": "Allowing people who are different from you."
+  },
+  "loyalty": {
+   "pos": "singular noun",
+   "meaning": "Staying true to a person or a country."
+  },
+  "patriotism": {
+   "pos": "singular noun",
+   "meaning": "Love of your country."
+  },
+  "responsibility": {
+   "pos": "singular noun",
+   "meaning": "The duty to take care of something."
+  },
+  "recognition": {
+   "pos": "singular noun",
+   "meaning": "Seeing a fact clearly and accepting it."
+  },
+  "duty": {
+   "pos": "singular noun",
+   "meaning": "Something you must do."
+  },
+  "grudgingly": {
+   "pos": "adverb",
+   "meaning": "Without wanting to. As if it hurts to say yes."
+  },
+  "defining": {
+   "pos": "adjective",
+   "meaning": "Showing what something really is."
+  },
+  "character": {
+   "pos": "singular noun",
+   "meaning": "The kind of person you are."
+  },
+  "citizenship": {
+   "pos": "singular noun",
+   "meaning": "Being a member of a country, with the duties that come with it."
+  },
+  "creed": {
+   "pos": "singular noun",
+   "meaning": "A set of beliefs."
+  },
+  "magnificent": {
+   "pos": "adjective",
+   "meaning": "Very grand."
+  },
+  "sacred": {
+   "pos": "adjective",
+   "meaning": "Holy. Set apart for God."
+  },
+  "remembrance": {
+   "pos": "singular noun",
+   "meaning": "The act of remembering."
+  },
+  "patriot": {
+   "pos": "singular noun",
+   "meaning": "A person who loves their country."
+  },
+  "huddle": {
+   "pos": "verb",
+   "meaning": "To crowd close together for warmth or safety.",
+   "forms": [
+    "huddled"
+   ]
+  },
+  "campfire": {
+   "pos": "singular noun",
+   "meaning": "A small fire made outdoors at a camp."
+  },
+  "shore": {
+   "pos": "singular noun",
+   "meaning": "The land at the edge of the water."
+  },
+  "abandon": {
+   "pos": "verb",
+   "meaning": "To leave a place empty.",
+   "forms": [
+    "abandoned"
+   ]
+  },
+  "advance": {
+   "pos": "verb",
+   "meaning": "To move forward.",
+   "forms": [
+    "advancing"
+   ]
+  },
+  "stain": {
+   "pos": "verb",
+   "meaning": "To mark with a color that will not wash off.",
+   "forms": [
+    "stained"
+   ]
+  },
+  "outcome": {
+   "pos": "singular noun",
+   "meaning": "The way something ends."
+  },
+  "revolution": {
+   "pos": "singular noun",
+   "meaning": "A war that throws off the old rulers and makes a new country."
+  },
+  "virtue": {
+   "pos": "singular noun",
+   "meaning": "Goodness. Doing what is right."
+  },
+  "alarm": {
+   "pos": "verb",
+   "meaning": "To make someone suddenly afraid.",
+   "forms": [
+    "alarmed"
+   ]
+  },
+  "hardship": {
+   "pos": "singular noun",
+   "meaning": "A hard time that hurts to live through."
+  },
+  "timeless": {
+   "pos": "adjective",
+   "meaning": "Still true after many years."
+  },
+  "falter": {
+   "pos": "verb",
+   "meaning": "To hesitate, and almost stop."
+  },
+  "horizon": {
+   "pos": "singular noun",
+   "meaning": "The line where the sky meets the land."
+  },
+  "grace": {
+   "pos": "singular noun",
+   "meaning": "Kindness from God."
+  },
+  "icy": {
+   "pos": "adjective",
+   "meaning": "Covered with ice. Very cold."
+  },
+  "applause": {
+   "pos": "singular noun",
+   "meaning": "Clapping, to show that people agree."
+  },
+  "inaugural": {
+   "pos": "adjective",
+   "meaning": "Of the day a new president starts the job."
+  },
+  "address": {
+   "pos": "singular noun",
+   "meaning": "A formal speech.",
+   "whyHard": "Not the usual meaning! Usually an address is the place where a person lives."
+  },
+  "citizen": {
+   "pos": "singular noun",
+   "meaning": "A person who belongs to a country."
+  },
+  "economy": {
+   "pos": "singular noun",
+   "meaning": "The way a country makes things, buys, and sells."
+  },
+  "government": {
+   "pos": "singular noun",
+   "meaning": "The people who run a country."
+  },
+  "seek": {
+   "pos": "verb",
+   "meaning": "To try to find something, or to try to get it."
+  },
+  "spirit": {
+   "pos": "singular noun",
+   "meaning": "The feeling that keeps a person, or a whole people, going."
+  },
+  "remain": {
+   "pos": "verb",
+   "meaning": "To stay."
+  },
+  "generation": {
+   "pos": "singular noun",
+   "meaning": "The people born around the same time."
+  },
+  "office": {
+   "pos": "singular noun",
+   "meaning": "An important job, or the group of people who do that work."
+  },
+  "press": {
+   "pos": "singular noun",
+   "meaning": "The news, and the people who report it.",
+   "whyHard": "Not the usual meaning! Usually press means to push."
+  },
+  "archive": {
+   "pos": "singular noun",
+   "meaning": "A place where old papers are kept."
+  },
+  "capitol": {
+   "pos": "singular noun",
+   "meaning": "The building where the country's lawmakers meet.",
+   "whyHard": "Not the city. The city is the capital."
+  },
+  "capital": {
+   "pos": "singular noun",
+   "meaning": "The main city of a country, where the government sits."
+  },
+  "secretary": {
+   "pos": "singular noun",
+   "meaning": "Here, a high official who speaks for the president."
+  },
+  "network": {
+   "pos": "singular noun",
+   "meaning": "A set of people or things joined together."
+  },
+  "service": {
+   "pos": "singular noun",
+   "meaning": "Work done for other people."
+  },
+  "age": {
+   "pos": "singular noun",
+   "meaning": "A long time in history.",
+   "whyHard": "Not the usual meaning! Usually age is how old a person is."
+  },
+  "force": {
+   "pos": "singular noun",
+   "meaning": "Power that makes things happen."
+  },
+  "document": {
+   "pos": "singular noun",
+   "meaning": "An important paper."
+  },
+  "vision": {
+   "pos": "singular noun",
+   "meaning": "A clear picture of what the future could be."
+  },
+  "confidence": {
+   "pos": "singular noun",
+   "meaning": "The feeling that you can face what is coming."
+  },
+  "data": {
+   "pos": "plural noun",
+   "meaning": "Facts and numbers collected for study."
+  },
+  "fellow": {
+   "pos": "adjective",
+   "meaning": "Belonging to the same group. Fellow citizens are the other people of your country."
+  },
+  "childish": {
+   "pos": "adjective",
+   "meaning": "Like a small child, and not fit for this moment."
+  },
+  "pleasure": {
+   "pos": "singular noun",
+   "meaning": "Something you enjoy."
+  },
+  "celebrate": {
+   "pos": "verb",
+   "meaning": "To honor someone in public.",
+   "forms": [
+    "celebrated"
+   ]
+  },
+  "individual": {
+   "pos": "adjective",
+   "meaning": "Of one person, not of the whole group."
+  },
+  "sum": {
+   "pos": "singular noun",
+   "meaning": "The total, when things are added together."
+  },
+  "wealth": {
+   "pos": "singular noun",
+   "meaning": "A lot of money and property."
+  },
+  "challenge": {
+   "pos": "singular noun",
+   "meaning": "A hard problem you have to face."
+  },
+  "college": {
+   "pos": "singular noun",
+   "meaning": "A school you go to after high school."
+  },
+  "university": {
+   "pos": "singular noun",
+   "meaning": "A large school for older students."
+  },
+  "technology": {
+   "pos": "singular noun",
+   "meaning": "Tools and machines that use new knowledge."
+  },
+  "quality": {
+   "pos": "singular noun",
+   "meaning": "How good something is."
+  },
+  "imagination": {
+   "pos": "singular noun",
+   "meaning": "The power to picture what is not in front of you."
+  },
+  "political": {
+   "pos": "adjective",
+   "meaning": "Of government and public life."
+  },
+  "shift": {
+   "pos": "verb",
+   "meaning": "To move to a different place.",
+   "forms": [
+    "shifted"
+   ]
+  },
+  "program": {
+   "pos": "singular noun",
+   "meaning": "A plan the government runs and pays for."
+  },
+  "market": {
+   "pos": "singular noun",
+   "meaning": "Buying and selling, taken all together."
+  },
+  "expand": {
+   "pos": "verb",
+   "meaning": "To make something larger."
+  },
+  "opportunity": {
+   "pos": "singular noun",
+   "meaning": "A real chance to do better."
+  },
+  "extend": {
+   "pos": "verb",
+   "meaning": "To reach something out to more people."
+  },
+  "recall": {
+   "pos": "verb",
+   "meaning": "To remember."
+  },
+  "foe": {
+   "pos": "singular noun",
+   "meaning": "An enemy."
+  },
+  "security": {
+   "pos": "singular noun",
+   "meaning": "Being safe from attack."
+  },
+  "responsible": {
+   "pos": "adjective",
+   "meaning": "Careful, because the duty is yours.",
+   "forms": [
+    "responsibly"
+   ]
+  },
+  "culture": {
+   "pos": "singular noun",
+   "meaning": "The way of life of a people: language, food, beliefs, and art."
+  },
+  "bitter": {
+   "pos": "adjective",
+   "meaning": "Harsh and painful, like a bad taste that stays."
+  },
+  "tribe": {
+   "pos": "singular noun",
+   "meaning": "A group of people joined by family and old customs."
+  },
+  "era": {
+   "pos": "singular noun",
+   "meaning": "A long period of history."
+  },
+  "globe": {
+   "pos": "singular noun",
+   "meaning": "The whole world."
+  },
+  "cling": {
+   "pos": "verb",
+   "meaning": "To hold on tight."
+  },
+  "plenty": {
+   "pos": "singular noun",
+   "meaning": "More than enough."
+  },
+  "suffering": {
+   "pos": "singular noun",
+   "meaning": "Pain that goes on."
+  },
+  "border": {
+   "pos": "singular noun",
+   "meaning": "The line at the edge of a country."
+  },
+  "resource": {
+   "pos": "singular noun",
+   "meaning": "Something people use, such as water, oil, or land."
+  },
+  "regard": {
+   "pos": "singular noun",
+   "meaning": "Care or attention.",
+   "whyHard": "Without regard means not caring about the result."
+  },
+  "role": {
+   "pos": "singular noun",
+   "meaning": "The part someone is meant to play."
+  },
+  "distant": {
+   "pos": "adjective",
+   "meaning": "Far away."
+  },
+  "hero": {
+   "pos": "singular noun",
+   "meaning": "A person honored for a brave act."
+  },
+  "precisely": {
+   "pos": "adverb",
+   "meaning": "Exactly."
+  },
+  "firefighter": {
+   "pos": "singular noun",
+   "meaning": "A person whose job is to put out fires."
+  },
+  "stairway": {
+   "pos": "singular noun",
+   "meaning": "A set of stairs."
+  },
+  "progress": {
+   "pos": "singular noun",
+   "meaning": "Moving forward to something better."
+  },
+  "require": {
+   "pos": "verb",
+   "meaning": "To need something. It is not a choice.",
+   "forms": [
+    "required"
+   ]
+  },
+  "satisfy": {
+   "pos": "verb",
+   "meaning": "To give a deep, good feeling.",
+   "forms": [
+    "satisfying"
+   ]
+  },
+  "destiny": {
+   "pos": "singular noun",
+   "meaning": "What the future will be."
+  },
+  "uncertain": {
+   "pos": "adjective",
+   "meaning": "Not yet known."
+  },
+  "race": {
+   "pos": "singular noun",
+   "meaning": "A group of people, in the way this speech speaks of all peoples.",
+   "whyHard": "Not the usual meaning! Usually a race is a contest to see who is fastest."
+  },
+  "celebration": {
+   "pos": "singular noun",
+   "meaning": "A happy public gathering."
+  },
+  "survive": {
+   "pos": "verb",
+   "meaning": "To stay alive through a hard time."
+  },
+  "bind": {
+   "pos": "verb",
+   "meaning": "To hold people together."
+  },
+  "remake": {
+   "pos": "verb",
+   "meaning": "To make again, in a new way.",
+   "forms": [
+    "remaking"
+   ]
+  },
+  "unpleasant": {
+   "pos": "adjective",
+   "meaning": "Not nice to face."
+  },
+  "christian": {
+   "pos": "singular noun",
+   "meaning": "A follower of Jesus."
+  },
+  "muslim": {
+   "pos": "singular noun",
+   "meaning": "A follower of Islam."
+  },
+  "jew": {
+   "pos": "singular noun",
+   "meaning": "A person of the Jewish people."
+  },
+  "hindu": {
+   "pos": "singular noun",
+   "meaning": "A person whose religion began in India."
+  },
+  "borne": {
+   "pos": "past-tense verb",
+   "meaning": "Carried.",
+   "whyHard": "Not the usual meaning! This is not born, the word for a baby's birth."
+  },
+  "shutter": {
+   "pos": "verb",
+   "meaning": "To close a shop or a business for good.",
+   "whyHard": "Not a part of a camera.",
+   "forms": [
+    "shuttered"
+   ]
+  },
+  "shed": {
+   "pos": "verb",
+   "meaning": "To let something fall away. Here, the jobs are gone.",
+   "whyHard": "Not the usual meaning! A shed is a small building. Shed here is a doing word: the jobs were lost."
+  },
+  "raw": {
+   "pos": "adjective",
+   "meaning": "Sore and open, from too much work.",
+   "whyHard": "Not the usual meaning! Usually raw means food that is not cooked."
+  },
+  "narrow": {
+   "pos": "adjective",
+   "meaning": "Small, and only for one group.",
+   "whyHard": "Not the usual meaning! Usually narrow means not wide."
+  },
+  "harness": {
+   "pos": "verb",
+   "meaning": "To catch a power and use it.",
+   "whyHard": "Not the usual meaning! Usually a harness is the straps on a horse."
+  },
+  "fuel": {
+   "pos": "verb",
+   "meaning": "To give a machine what it needs to run.",
+   "whyHard": "Not the usual meaning! Usually fuel is the liquid a car burns."
+  },
+  "draft": {
+   "pos": "verb",
+   "meaning": "To write the first form of an important paper.",
+   "whyHard": "Not the usual meaning! Usually draft means calling someone into the army, or a cold breeze.",
+   "forms": [
+    "drafted"
+   ]
+  },
+  "stale": {
+   "pos": "adjective",
+   "meaning": "Old, and no longer useful.",
+   "whyHard": "Not the usual meaning! Usually stale describes bread that is no longer fresh."
+  },
+  "reach": {
+   "pos": "singular noun",
+   "meaning": "How far something goes.",
+   "whyHard": "Not the usual meaning! Usually reach means to stretch out your hand."
+  },
+  "forge": {
+   "pos": "verb",
+   "meaning": "To build something strong by hard work.",
+   "whyHard": "Not the usual meaning! Usually a forge is a workshop where metal is heated."
+  },
+  "ground": {
+   "pos": "singular noun",
+   "meaning": "The situation under you. The facts you stand on.",
+   "whyHard": "Not the usual meaning! Usually the ground is the floor under your feet."
+  },
+  "apply": {
+   "pos": "verb",
+   "meaning": "To fit a case.",
+   "whyHard": "Not the usual meaning! Usually apply means to put something on, or to ask for a job."
+  },
+  "favor": {
+   "pos": "verb",
+   "meaning": "To help one side more than the others.",
+   "whyHard": "Not the usual meaning! Usually a favor is a kind act you do for someone."
+  },
+  "cause": {
+   "pos": "singular noun",
+   "meaning": "The thing you are fighting for.",
+   "whyHard": "Not the usual meaning! Usually a cause is the reason something happens."
+  },
+  "chapter": {
+   "pos": "singular noun",
+   "meaning": "One part of a long story. Here, a part of the country's past.",
+   "whyHard": "Not only a numbered part of a book."
+  },
+  "pass": {
+   "pos": "verb",
+   "meaning": "To go away and end."
+  },
+  "interest": {
+   "pos": "singular noun",
+   "meaning": "What a person or a country wants.",
+   "whyHard": "Not the usual meaning! Usually an interest is a hobby, or wanting to know about something."
+  },
+  "lie": {
+   "pos": "verb",
+   "meaning": "To rest in a place. The dead lie in their graves.",
+   "whyHard": "Not the usual meaning! Usually lie means to say something that is not true."
+  },
+  "fallen": {
+   "pos": "adjective",
+   "meaning": "Killed in a war."
+  },
+  "relative": {
+   "pos": "adjective",
+   "meaning": "Compared with others.",
+   "whyHard": "Not the usual meaning! Usually a relative is a person in your family."
+  },
+  "seize": {
+   "pos": "verb",
+   "meaning": "To take hold of something firmly.",
+   "whyHard": "Not the usual meaning! Usually seize means to grab a person."
+  },
+  "mall": {
+   "pos": "singular noun",
+   "meaning": "The long open park in the capital where great crowds gather.",
+   "whyHard": "Not the usual meaning! Usually a mall is a place full of shops."
+  },
+  "band": {
+   "pos": "singular noun",
+   "meaning": "A small group of people.",
+   "whyHard": "Not the usual meaning! Usually a band is a music group."
+  },
+  "fix": {
+   "pos": "verb",
+   "meaning": "To keep something in one place.",
+   "whyHard": "Not the usual meaning! Usually fix means to repair.",
+   "forms": [
+    "fixed"
+   ]
+  },
+  "mark": {
+   "pos": "verb",
+   "meaning": "To notice a day and remember it.",
+   "whyHard": "Not the usual meaning! Usually a mark is a grade in school."
+  },
+  "test": {
+   "pos": "verb",
+   "meaning": "To try someone by trouble.",
+   "whyHard": "Not the usual meaning! Usually a test is a school exam.",
+   "forms": [
+    "tested"
+   ]
+  },
+  "value": {
+   "pos": "plural noun",
+   "meaning": "The beliefs a person tries to live by.",
+   "whyHard": "Not the usual meaning! Usually value is what something is worth, or what it costs."
+  },
+  "current": {
+   "pos": "singular noun",
+   "meaning": "Water that is moving.",
+   "whyHard": "Not the usual meaning! Usually current means now."
+  },
+  "ill": {
+   "pos": "adjective",
+   "meaning": "Bad.",
+   "whyHard": "Not the usual meaning! Usually ill means sick."
+  },
+  "state": {
+   "pos": "singular noun",
+   "meaning": "The way things are.",
+   "whyHard": "Not the usual meaning! Usually a state is one part of the United States."
+  },
+  "draw": {
+   "pos": "verb",
+   "meaning": "To bring from somewhere.",
+   "whyHard": "Not the usual meaning! Usually draw means to make a picture.",
+   "forms": [
+    "drawn"
+   ]
+  },
+  "sight": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "The hope you aim at.",
+   "whyHard": "Not the usual meaning! Usually sight is what the eyes see.",
+   "senses": [
+    {
+     "meaning": "The hope you aim at.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "the next generation must lower its sights",
+       "form": "sights"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually sight is what the eyes see.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "measure": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A person's full share.",
+   "whyHard": "Not the usual meaning! Usually measure means to find the size of something, or a ruler.",
+   "senses": [
+    {
+     "meaning": "A person's full share.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "pursue their full measure of happiness"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually measure means to find the size of something, or a ruler.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Calm. Not moving.",
+   "whyHard": "Not the usual meaning! Usually still means that something goes on.",
+   "senses": [
+    {
+     "meaning": "Calm. Not moving.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "of prosperity and the still waters of peace"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually still means that something goes on.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "earth": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "Soil. The ground farmers turn.",
+   "whyHard": "Not the usual meaning! Usually the Earth is our planet.",
+   "senses": [
+    {
+     "meaning": "Soil. The ground farmers turn.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "and plowed the hard earth. For us, they"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually the Earth is our planet.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "given": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Something you get without having to earn it.",
+   "whyHard": "Not the usual meaning! Usually given means handed to someone.",
+   "senses": [
+    {
+     "meaning": "Something you get without having to earn it.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "that greatness is never a given. It must"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually given means handed to someone.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "end": {
+   "senseOnly": true,
+   "pos": "singular noun",
+   "meaning": "A far part, not the finish.",
+   "whyHard": "Not the usual meaning! Usually the end is where something finishes.",
+   "senses": [
+    {
+     "meaning": "A far part, not the finish.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "context": "drawn from every end of this Earth"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually the end is where something finishes.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "feed": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To supply what something needs.",
+   "whyHard": "Not the usual meaning! Usually feed means to give food.",
+   "senses": [
+    {
+     "meaning": "To supply what something needs.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "lines that feed our commerce and bind"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually feed means to give food.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "brave": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To face something hard without turning away.",
+   "whyHard": "Not the usual meaning! Usually brave means full of courage, a word about a person.",
+   "senses": [
+    {
+     "meaning": "To face something hard without turning away.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "let us brave once more the icy currents"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually brave means full of courage, a word about a person.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "storm": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To rush into a dangerous place.",
+   "whyHard": "Not the usual meaning! Usually a storm is wild weather.",
+   "senses": [
+    {
+     "meaning": "To rush into a dangerous place.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "courage to storm a stairway filled with smoke"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually a storm is wild weather.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "sow": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To plant. Here, to start trouble on purpose.",
+   "whyHard": "Not the usual meaning! A sow is a mother pig. Here sow means to plant.",
+   "senses": [
+    {
+     "meaning": "To plant. Here, to start trouble on purpose.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "around the globe who seek to sow conflict"
+      }
+     ],
+     "whyHard": "Not the usual meaning! A sow is a mother pig. Here sow means to plant.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "good": {
+   "senseOnly": true,
+   "pos": "plural noun",
+   "meaning": "Things made to be sold.",
+   "whyHard": "Not the usual meaning! Usually good means the opposite of bad.",
+   "senses": [
+    {
+     "meaning": "Things made to be sold.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "our goods and services no less needed than",
+       "form": "goods"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually good means the opposite of bad.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "consume": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "To take up all of a person's mind.",
+   "whyHard": "Not the usual meaning! Usually consume means to eat, or to use something up.",
+   "senses": [
+    {
+     "meaning": "To take up all of a person's mind.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "political arguments that have consumed us for so long",
+       "form": "consumed"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually consume means to eat, or to use something up.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "light": {
+   "pos": "verb",
+   "meaning": "To shine on. To show the way.",
+   "whyHard": "This word is a lamp, a brightness, or a doing word.",
+   "senses": [
+    {
+     "meaning": "To shine on. To show the way.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "Those ideals still light the world"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Brightness where everyone can see.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "do our business in the light of day"
+      }
+     ],
+     "whyHard": "Not a lamp you switch on. In the light of day means where nothing is hidden.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "faith": {
+   "pos": "singular noun",
+   "meaning": "A strong belief you hold on to.",
+   "whyHard": "This word is trust, and it is also a religion.",
+   "senses": [
+    {
+     "meaning": "A strong belief you hold on to.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "ultimately the faith and determination of the American"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A religion.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "of every race and every faith can join"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Here a faith is a religion, not the feeling of trust.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "deliver": {
+   "pos": "verb",
+   "meaning": "To bring something safely to someone.",
+   "whyHard": "This word is to bring something, and also to give a speech.",
+   "senses": [
+    {
+     "meaning": "To bring something safely to someone.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "of freedom and delivered it safely to future",
+       "form": "delivered"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "To give a speech.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "of the address as delivered, from the White",
+       "form": "delivered"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Here the speech was delivered: it was spoken to the crowd.",
+     "trickyMeaning": true
+    }
+   ]
+  },
+  "common": {
+   "pos": "adjective",
+   "meaning": "Shared by everyone, not owned by one side.",
+   "whyHard": "Not the usual meaning! Usually common means ordinary, or seen often."
+  }
+ },
+ "sentences": [
+  {
+   "chapter": 1,
+   "context": "That we are in the midst of crisis is now well understood",
+   "simple": "People already know that we are in a very hard time.",
+   "grammar": "The words after That are the thing this line is about. The hard time comes first, and then we hear that people understand it."
+  },
+  {
+   "chapter": 1,
+   "context": "Homes have been lost, jobs shed, businesses shuttered",
+   "simple": "People have lost their homes, jobs have gone, and shops have closed.",
+   "grammar": "After the first have been, the next two parts leave those words out. Jobs shed means jobs have been shed."
+  },
+  {
+   "chapter": 1,
+   "context": "that greatness is never a given",
+   "simple": "Being great is not something you just get. You have to work for it.",
+   "grammar": "A given here is a thing handed to you with no work. The next line says you must work for it."
+  },
+  {
+   "chapter": 1,
+   "context": "Nor is the question before us whether the market",
+   "simple": "And the question is also not whether buying and selling is all good or all bad.",
+   "grammar": "Nor is puts the doing word before the question. The line starts with Nor, so it adds on to the question that came before."
+  },
+  {
+   "chapter": 1,
+   "context": "the kindness to take in a stranger when the levees break",
+   "simple": "It is being kind enough to let a person you do not know stay when the river walls break.",
+   "grammar": "This is one it is after another. Each it is names one way people show the same spirit."
+  },
+  {
+   "chapter": 1,
+   "context": "let us brave once more the icy currents",
+   "simple": "Let us face the cold moving water one more time.",
+   "grammar": "Here the word means to face something hard. It is not only a word about the person."
+  },
+  {
+   "chapter": 1,
+   "context": "when we were tested we refused to let this journey end",
+   "simple": "When hard times tried us, we would not let this long trip stop.",
+   "grammar": "Tested here means tried by trouble. It is not a test at school."
+  }
+ ],
+ "phrases": {
+  "standing pat": {
+   "meaning": "Staying the same and not changing.",
+   "pos": "idiom",
+   "example": "our time of standing pat, of protecting narrow"
+  },
+  "pick up": {
+   "meaning": "To get up and start again after a fall.",
+   "pos": "phrasal verb",
+   "example": "we must pick ourselves up, dust ourselves off"
+  },
+  "dust off": {
+   "meaning": "To get ready again after you have fallen.",
+   "pos": "phrasal verb",
+   "example": "pick ourselves up, dust ourselves off, and begin"
+  },
+  "settle for": {
+   "meaning": "To accept less than you could have.",
+   "pos": "phrasal verb",
+   "example": "never been one of short-cuts or settling for less"
+  },
+  "set aside": {
+   "meaning": "To decide not to use something for now.",
+   "pos": "phrasal verb",
+   "example": "the time has come to set aside childish things"
+  },
+  "carry forward": {
+   "meaning": "To keep going with something that was handed to you.",
+   "pos": "phrasal verb",
+   "example": "to carry forward that precious gift, that noble idea"
+  },
+  "call for": {
+   "meaning": "To need. The situation asks for it.",
+   "pos": "phrasal verb",
+   "example": "The state of our economy calls for action, bold"
+  },
+  "call on": {
+   "meaning": "To ask someone to do something.",
+   "pos": "phrasal verb",
+   "example": "the knowledge that God calls on us to shape"
+  },
+  "hold to account": {
+   "meaning": "To make someone explain what they did with what was trusted to them.",
+   "pos": "idiom",
+   "example": "who manage the public's dollars will be held to account"
+  },
+  "spin out of control": {
+   "meaning": "To go so wild that no one can stop it.",
+   "pos": "idiom",
+   "example": "the market can spin out of control"
+  },
+  "gross domestic product": {
+   "meaning": "How much a country makes and sells in a year.",
+   "pos": "phrase",
+   "example": "not just on the size of our gross domestic product"
+  },
+  "common good": {
+   "meaning": "What is good for all the people, not for one person only.",
+   "pos": "phrase",
+   "example": "because it is the surest route to our common good"
+  },
+  "rule of law": {
+   "meaning": "The idea that laws, not one person's wish, are in charge.",
+   "pos": "phrase",
+   "example": "a charter to assure the rule of law and the rights"
+  },
+  "founding fathers": {
+   "meaning": "The men who started the United States.",
+   "pos": "phrase",
+   "example": "and our ideals. Our Founding Fathers, faced with perils"
+  },
+  "give up": {
+   "meaning": "To let something go. To stop holding it.",
+   "pos": "phrasal verb",
+   "example": "and we will not give them up for expedience"
+  },
+  "face down": {
+   "meaning": "To stand against something hard and not run.",
+   "pos": "phrasal verb",
+   "example": "Recall that earlier generations faced down fascism and communism"
+  },
+  "do as one pleases": {
+   "meaning": "To do whatever you want.",
+   "pos": "idiom",
+   "example": "nor does it entitle us to do as we please"
+  },
+  "roll back": {
+   "meaning": "To push something back so that it grows smaller.",
+   "pos": "phrasal verb",
+   "example": "and roll back the specter of a warming planet"
+  },
+  "way of life": {
+   "meaning": "How a people lives, day after day.",
+   "pos": "phrase",
+   "example": "We will not apologize for our way of life"
+  },
+  "hard earned": {
+   "meaning": "Got by hard work, not as a gift.",
+   "pos": "phrase",
+   "example": "and forge a hard-earned peace in Afghanistan"
+  },
+  "civil war": {
+   "meaning": "A war between people of the same country.",
+   "pos": "phrase",
+   "example": "because we have tasted the bitter swill of civil war"
+  },
+  "play one's role": {
+   "meaning": "To do the part that is yours.",
+   "pos": "idiom",
+   "example": "and that America must play its role in ushering"
+  },
+  "way forward": {
+   "meaning": "A better way to go on from here.",
+   "pos": "phrase",
+   "example": "To the Muslim world, we seek a new way forward"
+  },
+  "wrong side of history": {
+   "meaning": "The side that later years will call wrong.",
+   "pos": "idiom",
+   "example": "know that you are on the wrong side of history"
+  },
+  "extend a hand": {
+   "meaning": "To offer help, or peace.",
+   "pos": "idiom",
+   "example": "but that we will extend a hand if you are willing"
+  },
+  "take in": {
+   "meaning": "To let someone stay in your home.",
+   "pos": "phrasal verb",
+   "example": "It is the kindness to take in a stranger when"
+  },
+  "see through": {
+   "meaning": "To help someone last to the end of a hard time.",
+   "pos": "phrasal verb",
+   "example": "lose their job which sees us through our darkest"
+  },
+  "fair play": {
+   "meaning": "Honest play. Keeping the rules.",
+   "pos": "phrase",
+   "example": "honesty and hard work, courage and fair play"
+  },
+  "give one's all": {
+   "meaning": "To give everything you can.",
+   "pos": "idiom",
+   "example": "so defining of our character than giving our all"
+  },
+  "in doubt": {
+   "meaning": "Not sure how something will end.",
+   "pos": "phrase",
+   "example": "when the outcome of our revolution was most in doubt"
+  },
+  "come forth": {
+   "meaning": "To come out and meet what is coming.",
+   "pos": "phrasal verb",
+   "example": "alarmed at one common danger, came forth to meet"
+  },
+  "in the face of": {
+   "meaning": "While you are looking straight at a hard thing.",
+   "pos": "idiom",
+   "example": "America: In the face of our common dangers, in this winter"
+  },
+  "turn back": {
+   "meaning": "To go back, and to stop the long trip.",
+   "pos": "phrasal verb",
+   "example": "that we did not turn back nor did we falter"
+  },
+  "carry forth": {
+   "meaning": "To carry something on, toward the people who come next.",
+   "pos": "phrasal verb",
+   "example": "us, we carried forth that great gift of freedom"
+  },
+  "public domain": {
+   "meaning": "Free for anyone to copy. No one owns it.",
+   "pos": "phrase",
+   "example": "United States Government are in the public domain"
+  },
+  "far reaching": {
+   "meaning": "Reaching many places, not only one.",
+   "pos": "phrase",
+   "example": "at war against a far-reaching network of violence and hatred"
+  },
+  "short cut": {
+   "meaning": "An easier way that leaves out the real work.",
+   "pos": "phrase",
+   "example": "has never been one of short-cuts or settling for less"
+  },
+  "faint hearted": {
+   "meaning": "Easily afraid. Not willing to face a hard path.",
+   "pos": "phrase",
+   "example": "It has not been the path for the faint-hearted, for those"
+  },
+  "worn out": {
+   "meaning": "Used so long that it no longer works.",
+   "pos": "phrase",
+   "example": "the recriminations and worn-out dogmas that for far too"
+  },
+  "on the part of": {
+   "meaning": "Done by. Coming from.",
+   "pos": "phrase",
+   "example": "a consequence of greed and irresponsibility on the part of some"
+  },
+  "time and again": {
+   "meaning": "Many times. Over and over.",
+   "pos": "idiom",
+   "example": "Time and again these men and women struggled and sacrificed"
+  },
+  "cannot help but": {
+   "meaning": "To have no choice but to do something.",
+   "pos": "idiom",
+   "example": "more united, we cannot help but believe that the old"
+  },
+  "depth of winter": {
+   "meaning": "The coldest, hardest part of winter.",
+   "pos": "phrase",
+   "example": "that in the depth of winter, when nothing but hope"
+  },
+  "god given": {
+   "meaning": "Given by God. A person did not work for it.",
+   "pos": "phrase",
+   "example": "to generation: the God-given promise that all are equal"
+  },
+  "non believer": {
+   "meaning": "A person who does not follow a religion.",
+   "pos": "phrase",
+   "example": "Jews and Hindus, and non-believers"
+  }
+ }
+}
