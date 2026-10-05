@@ -41,7 +41,7 @@ chapters from the summary.
 
 - Read the chapters (or sample them if the book is long). Optionally get frequent candidates the app would
   pick: `node scripts/extract-epub-text.mjs book.epub --candidates 300`.
-- Keep a word when any test in `skills/make-glossary/SKILL.md` is yes (wrong twin, old thing, old label, or not the school meaning). If you are not sure they know it, keep it. Skip names, a textbook word used in the textbook meaning, and words the book itself explains. A word that appears once, including inside a letter or a label, still counts. `max_words` is only a safety stop for a huge book, not a reason to drop `hearthrug` or `struck`.
+- Keep a word when any test in `skills/make-glossary/SKILL.md` is yes (wrong twin, old thing, old label, not the school meaning, or an unclear personal name). If you are not sure they know it, keep it. Skip a textbook word used in the textbook meaning, a place name used as a label, a personal name the sentence already calls a name, and words the book itself explains. A word that appears once, including inside a letter or a label, still counts. `max_words` is only a safety stop for a huge book, not a reason to drop `hearthrug` or `struck`.
 - Use **lower-case** entries. The key is the word as the reader can tap it: nouns in the singular
   (`monkey`, the app maps `monkeys` to it), but a verb form that is not mapped by plural rules is its own key
   (`cried`, `shrinks` -> `shrink` only when it ends in a plural-like -s: check with `--find`). For other

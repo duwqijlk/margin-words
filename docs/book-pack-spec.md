@@ -359,10 +359,11 @@ Copyright
 Choosing words
 10. The reader is in the first year of Chinese junior high, about 12. They can read a school sentence. They do not know old house words, old titles, or a verb that looks like another verb. The 2000 most common words is the wrong line for this choice: `struck` is on that list, and these readers still mix it up with `stuck`. Mark a word when any test is yes. There is no maximum and no per-chapter quota.
     - Wrong twin. The word looks like one they know. `her head struck against the roof` means hit, not stuck. The meaning says both.
-    - Old thing, even once: a thing, tool, clothes, room, food, or job a school book does not teach. `hearthrug`, `fender`, `carrier`.
+    - Old thing, even once: a thing, tool, clothes, room, food, or job a school book does not teach. `hearthrug`, `fender`, `carrier`. A measure they cannot picture is this test: say the size in centimetres or litres. One inch is about 2.5 centimetres. That size is the one fact that is not in the story. Do not add history.
     - Old label: `Esq.`
-    - Not the school meaning. Mark only that place (`senseOnly`). `how odd the directions will look` means the address on a letter, not which way to go.
-    If you are not sure they know it, mark it. Still skip a textbook word used in the textbook meaning, names of people and places, and a word the same sentence explains. A word in a letter or a label is still a dictionary word, even when those lines are not a numbered paragraph.
+    - Not the school meaning. Mark only that place (`senseOnly`, and `trickyMeaning` on that sense). Start `whyHard` with `Not the usual meaning!` and say the school meaning. `that's the great puzzle` is a hard question, not a picture cut into pieces. `shedding gallons of tears` is the verb "to let something fall", not a small building.
+    - Unclear name. A person's name a first-year reader may try to translate as an ordinary word. `Ada` and `Mabel` are girls Alice knows. The meaning says only that it is a name, and who it is if this sentence says so. Skip a name the sentence already calls a name. Skip a place name used as a label.
+    If you are not sure they know it, mark it. Still skip a textbook word used in the textbook meaning, and a word the same sentence explains. A word in a letter or a label is still a dictionary word, even when those lines are not a numbered paragraph.
 11. Key = lower-case base form (`lantern`, not `lanterns`); see section 4.1 for shapes the app cannot reduce. `struck` does not reduce to `strike`, so the key is `struck`.
 12. Do not repeat a word unless it has a new meaning. Do not stop at 15 or 30 words. A cap drops real hard words.
 

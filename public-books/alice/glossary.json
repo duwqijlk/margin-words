@@ -32,6 +32,11 @@
    "pos": "base verb",
    "meaning": "To have a pain that does not stop."
   },
+  "ada": {
+   "pos": "singular noun",
+   "meaning": "A girl's name. Alice knows a girl with long curls of hair.",
+   "whyHard": "A name, not an ordinary word."
+  },
   "address": {
    "pos": "base verb",
    "meaning": "To speak to someone.",
@@ -2251,7 +2256,8 @@
   },
   "inch": {
    "pos": "singular noun",
-   "meaning": "A very short measure of length.",
+   "meaning": "A short measure of length: about 2.5 centimetres.",
+   "whyHard": "A measure they count in centimetres.",
    "forms": [
     "inches"
    ]
@@ -2623,6 +2629,11 @@
   "lullaby": {
    "pos": "singular noun",
    "meaning": "A soft song for making a baby go to sleep."
+  },
+  "mabel": {
+   "pos": "singular noun",
+   "meaning": "A girl's name. Alice knows her, and thinks this girl knows very little.",
+   "whyHard": "A name, not an ordinary word."
   },
   "mad": {
    "pos": "adjective",
@@ -3351,8 +3362,20 @@
    ]
   },
   "puzzle": {
+   "senseOnly": true,
    "pos": "singular noun",
-   "meaning": "Something that is hard to understand or to answer."
+   "meaning": "A question that is hard to answer.",
+   "senses": [
+    {
+     "meaning": "A question that is hard to answer.",
+     "whyHard": "Not the usual meaning! Usually: a puzzle is a picture cut into pieces that you put together.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 1, "occurrence": 1, "form": "puzzle", "context": "Ah, that’s the great puzzle!” And she began" }
+     ]
+    }
+   ]
   },
   "puzzled": {
    "pos": "adjective",
@@ -3812,10 +3835,22 @@
    "meaning": "In a quick, cross way."
   },
   "shed": {
+   "senseOnly": true,
    "pos": "base verb",
-   "meaning": "Here, \"shed tears\" means to cry.",
+   "meaning": "To let something fall. Letting tears fall means crying.",
    "forms": [
     "shedding"
+   ],
+   "senses": [
+    {
+     "meaning": "To let something fall. Letting tears fall means crying.",
+     "whyHard": "Not the usual meaning! Usually: a shed is a small building for tools.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      { "chapter": 1, "occurrence": 1, "form": "shedding", "context": "she went on all the same, shedding gallons of tears" }
+     ]
+    }
    ]
   },
   "shelf": {
