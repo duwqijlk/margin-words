@@ -4,7 +4,7 @@
  "author": "Roald Dahl",
  "sha256": "1b24c1ed6bb4c0e2d8a50a2e683b1de5dfa5f166e6567d05ff3b9995828adbbb",
  "level": "Middle-school level. Skips easy words. English-only meanings in simple English.",
- "count": 137,
+ "count": 139,
  "glossary": {
   "duck": {
    "pos": "singular noun",
@@ -1875,6 +1875,90 @@
    "forms": [
     "foxes"
    ]
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Near. Not far away.",
+   "forms": [
+    "close"
+   ],
+   "senses": [
+    {
+     "meaning": "Near. Not far away.",
+     "whyHard": "Not the usual meaning! Usually: close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "night sky, flying very close together. They were going"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "blue sky, flying very close together, heading back to"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "Roald was very close to his sisters, particularly his"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close together. They were going around and around"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "form": "close",
+       "context": "close together, heading back to the lake in"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close to his sisters, particularly his big sister,"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close to Roald Dahl during his lifetime –"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there. Not yet gone or used.",
+   "whyHard": "Not the usual meaning! Usually: left means the side that is not right, or the past of leave.",
+   "senses": [
+    {
+     "meaning": "Still there. Not yet gone or used.",
+     "whyHard": "Not the usual meaning! Usually: left means the side that is not right, or the past of leave.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "had absolutely no money left. Luckily a fellow passenger"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "left",
+       "context": "left. Luckily a fellow passenger gave him ten"
+      }
+     ],
+     "default": true
+    }
+   ]
   }
  },
  "paragraphs": [
@@ -2677,6 +2761,19 @@
    "meaning": "Into small pieces.",
    "pos": "phrase",
    "example": "we will be pecked to bits"
+  },
+  "in spite of": {
+   "meaning": "Although. Even though.",
+   "pos": "phrase",
+   "example": "in spite of missing a hand, he always managed to tie his own shoelaces"
+  },
+  "live on": {
+   "meaning": "To stay alive by eating only that food.",
+   "pos": "phrase",
+   "forms": [
+    "lived on"
+   ],
+   "example": "The boys lived on pemmican"
   }
  }
 }

@@ -4,7 +4,7 @@
  "author": "Roald Dahl",
  "sha256": "5c6b33edc886f7f32fbb39d8836b4cd4817f1bbd6cf02d653d3a462ce865c228",
  "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
- "count": 799,
+ "count": 809,
  "glossary": {
   "peach": {
    "pos": "singular noun",
@@ -4700,18 +4700,30 @@
    "count": 2
   },
   "curious": {
+   "senseOnly": true,
    "pos": "adjective",
-   "meaning": "Wanting to know about something. It can also mean strange.",
-   "whyHard": "This word is harder than everyday English.",
-   "example": "The tunnel was damp and murky, and all around him there was the curious bittersweet smell of fresh peach.",
-   "examples": [
-    "The tunnel was damp and murky, and all around him there was the curious bittersweet smell of fresh peach.",
-    "Then a rather curious thing happened."
-   ],
-   "forms": [
-    "curious"
-   ],
-   "count": 2
+   "meaning": "Strange. Not the ordinary kind.",
+   "whyHard": "Not the usual meaning! Usually: curious means wanting to know.",
+   "senses": [
+    {
+     "meaning": "Strange. Not the ordinary kind.",
+     "whyHard": "Not the usual meaning! Usually: curious means wanting to know.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "him there was the curious bittersweet smell of fresh"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "context": "Then a rather curious thing happened. The procession was"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "darkness": {
    "pos": "uncountable noun",
@@ -10087,6 +10099,841 @@
      ]
     }
    ]
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Near. Not far away.",
+   "whyHard": "Not the usual meaning! Usually: close means to shut.",
+   "senses": [
+    {
+     "meaning": "Near. Not far away.",
+     "whyHard": "Not the usual meaning! Usually: close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "slow and creaky. ‘Come closer to me, little boy",
+       "form": "closer"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "pushing his face still closer and closer to James",
+       "form": "closer"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 3,
+       "context": "face still closer and closer to James until the",
+       "form": "closer"
+      },
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "context": "James tiptoed a little closer to the tree. The",
+       "form": "closer"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "He moved a step closer and rubbed his cheek",
+       "form": "closer"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "The peach was rushing closer and closer to it",
+       "form": "closer"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 2,
+       "context": "was rushing closer and closer to it every second",
+       "form": "closer"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 3,
+       "context": "it every second, and closer also to the towering",
+       "form": "closer"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "all moved a little closer to him. There was",
+       "form": "closer"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "point of fact, was closer to the truth than",
+       "form": "closer"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "as the peach sailed closer, it became obvious that",
+       "form": "closer"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 2,
+       "context": "Men!’ they murmured, huddling closer together for comfort. ‘Oh",
+       "form": "closer"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "a dreadful silence. The peach floated closer and closer",
+       "form": "closer"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 2,
+       "context": "a dreadful silence. The peach floated closer and closer",
+       "form": "closer"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 1,
+       "context": "and streets down below began coming closer and closer",
+       "form": "closer"
+      },
+      {
+       "chapter": 36,
+       "occurrence": 2,
+       "context": "and streets down below began coming closer and closer",
+       "form": "closer"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 1,
+       "context": "down and down, racing closer and closer to the",
+       "form": "closer"
+      },
+      {
+       "chapter": 37,
+       "occurrence": 2,
+       "context": "down, racing closer and closer to the houses and",
+       "form": "closer"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "context": "finger. ‘Come right up close to me and I"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "context": "pushing his face so close to James that James"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "him and below him, close to the ground, there"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "context": "Entwistle was standing so close to it as it"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "James was crouching close beside the Earthworm in the"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "suddenly it was so close that he could see"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "had suddenly gone too close to the downward curving"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "and his companions crouched close together on top of"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "right. The travellers were close enough now to see"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close to me and I will show you"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "close",
+       "context": "close to James that James could feel breath"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close to the ground, there was a hole"
+      },
+      {
+       "chapter": 18,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close to it as it passed that she"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close beside the Earthworm in the tunnel entrance,"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "form": "close",
+       "context": "close that he could see its small black"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close to the downward curving edge of the"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close together on top of the peach as"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close enough now to see that this was"
+      }
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "closer"
+   ]
+  },
+  "company": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The people who are with you.",
+   "forms": [
+    "company"
+   ],
+   "senses": [
+    {
+     "meaning": "Being with someone so that person is not alone.",
+     "whyHard": "Not the usual meaning! Usually: a company is a business.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 3,
+       "occurrence": 1,
+       "form": "company",
+       "context": "company. And as time went on, he became"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "A group of people who are together.",
+     "whyHard": "Not the usual meaning! Usually: a company is a business.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "company",
+       "context": "company climbed up the ladder one by one"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "company",
+       "context": "up at the company with small evil eyes."
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "form": "company",
+       "context": "company sat themselves down in a circle around"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "form": "company",
+       "context": "company carried away in this manner that they"
+      }
+     ]
+    }
+   ]
+  },
+  "cook": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A person who makes meals.",
+   "whyHard": "Not the usual meaning! Usually: cook means to heat food so you can eat it.",
+   "senses": [
+    {
+     "meaning": "A person who makes meals.",
+     "whyHard": "Not the usual meaning! Usually: cook means to heat food so you can eat it.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "eaten fresh mudburgers by the greatest cooks there are",
+       "form": "cooks"
+      }
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "cooks"
+   ]
+  },
+  "draw": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "Pulled toward something.",
+   "whyHard": "Not the usual meaning! Usually: draw means to make a picture.",
+   "senses": [
+    {
+     "meaning": "Pulled toward something.",
+     "whyHard": "Not the usual meaning! Usually: draw means to make a picture.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "context": "was doing, as though drawn by some powerful magnet",
+       "form": "drawn"
+      }
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "drawn"
+   ]
+  },
+  "fast": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Sleeping so deeply that you do not wake.",
+   "whyHard": "Not the usual meaning! Usually: fast means quick.",
+   "senses": [
+    {
+     "meaning": "Sleeping so deeply that you do not wake.",
+     "whyHard": "Not the usual meaning! Usually: fast means quick.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "twenty-one pairs altogether – the Centipede was fast asleep"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "go through them all, he had fallen fast asleep"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "fast",
+       "context": "pairs altogether – the Centipede was fast asleep."
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "fast",
+       "context": "through them all, he had fallen fast asleep."
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "hand": {
+   "senseOnly": true,
+   "pos": "verb",
+   "meaning": "Passed something to someone.",
+   "forms": [
+    "handed",
+    "hands"
+   ],
+   "senses": [
+    {
+     "meaning": "Passed something to someone.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of the arm.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "form": "handed",
+       "context": "handed the telescope to the Captain. The Captain"
+      }
+     ],
+     "pos": "past-tense verb",
+     "default": true
+    },
+    {
+     "meaning": "The people who do the work. Everyone on the ship.",
+     "whyHard": "Not the usual meaning! Usually: a hand is the end of the arm.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "form": "hands",
+       "context": "‘All hands below deck except Earthworm!’ he ordered."
+      }
+     ],
+     "pos": "plural noun"
+    }
+   ]
+  },
+  "left": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Still there. Not yet gone or used.",
+   "whyHard": "Not the usual meaning! Usually: left means the side that is not right, or the past of leave.",
+   "senses": [
+    {
+     "meaning": "Still there. Not yet gone or used.",
+     "whyHard": "Not the usual meaning! Usually: left means the side that is not right, or the past of leave.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "of those that were left, but they were too"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "there’ll be nothing left for us to stand"
+      },
+      {
+       "chapter": 40,
+       "occurrence": 1,
+       "context": "eager little tongues, was left standing on the truck"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "left",
+       "context": "left, but they were too quick for him."
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "form": "left",
+       "context": "left for us to stand on and they’ll"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "life": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "The state of being alive.",
+   "whyHard": "Not the usual meaning! Usually: lives means to have your home in a place.",
+   "senses": [
+    {
+     "meaning": "The state of being alive.",
+     "whyHard": "Not the usual meaning! Usually: lives means to have your home in a place.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "never spun before! Our lives depend upon it! And",
+       "form": "lives"
+      }
+     ],
+     "default": true
+    }
+   ],
+   "forms": [
+    "lives"
+   ]
+  },
+  "miss": {
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "A title before a woman's name.",
+   "whyHard": "Not the usual meaning! Usually: miss means to fail to hit, or to feel sad that someone is away.",
+   "senses": [
+    {
+     "meaning": "A title before a woman's name.",
+     "whyHard": "Not the usual meaning! Usually: miss means to fail to hit, or to feel sad that someone is away.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "context": "And me!’ Miss Spider said. ‘Suddenly there were little"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "context": "you be kind enough, Miss Spider, to make the"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "context": "A few-minutes later, Miss Spider had made the"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "context": "ll find it comfortable,’ Miss Spider said to the"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 3,
+       "context": "Then Miss Spider spun the next hammock, and the"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 4,
+       "context": "open mouth. As for Miss Spider, she had made"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 5,
+       "context": "night, Ladybird – Good night, Miss Spider –’ But before he"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "context": "Watch it!’ cried Miss Spider, as the room gave"
+      },
+      {
+       "chapter": 16,
+       "occurrence": 2,
+       "context": "Old-Green-Grasshopper and Miss Spider and the Earthworm"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "got tangled up in Miss Spider’s legs (a"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 2,
+       "context": "they did, all except Miss Spider, who set about"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 1,
+       "context": "Nor I!’ said Miss Spider. ‘None of us three"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 2,
+       "context": "bit of it?’ asked Miss Spider. ‘I am so"
+      },
+      {
+       "chapter": 20,
+       "occurrence": 3,
+       "context": "Isn’t it glorious!’ Miss Spider said, coming over"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 1,
+       "context": "There are two of them,’ said Miss Spider"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 2,
+       "context": "are finished now!’ cried Miss Spider, wringing her feet"
+      },
+      {
+       "chapter": 21,
+       "occurrence": 3,
+       "context": "Think!’ begged Miss Spider. ‘Think, James, think"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 1,
+       "context": "may I ask?’ said Miss Spider. ‘I can spin"
+      },
+      {
+       "chapter": 22,
+       "occurrence": 2,
+       "context": "So will I,’ said Miss Spider. ‘And your name"
+      },
+      {
+       "chapter": 23,
+       "occurrence": 1,
+       "context": "same applies to you, Miss Spider! Hurry on down"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "spinners, the Silkworm and Miss Spider, could see what"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "keep it up much longer. Nor can Miss Spider"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 1,
+       "context": "Miss Spider, who was literally squealing with excitement, grabbed"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 2,
+       "context": "and make an inspection?’ Miss Spider said. ‘It’ll"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 3,
+       "context": "Are you all right, Miss Spider?’ shouted the Old"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 4,
+       "context": "Miss Spider clambered back on to the deck with"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 5,
+       "context": "I promise you I‘m not,’ Miss Spider answered"
+      },
+      {
+       "chapter": 25,
+       "occurrence": 6,
+       "context": "care what you saw,’ Miss Spider answered. ‘They certainly"
+      },
+      {
+       "chapter": 26,
+       "occurrence": 1,
+       "context": "everyone clapped madly, and Miss Spider stood up and"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 1,
+       "context": "But what about you, Miss Spider?’ asked James. ‘Aren"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 2,
+       "context": "Alas, no,’ Miss Spider answered, sighing long and loud"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 3,
+       "context": "we Spiders are treated,’ Miss Spider went on. ‘Why"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 4,
+       "context": "up in the ceiling,’ Miss Spider murmured. ‘It was"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 5,
+       "context": "bump that must have been for you, Miss Spider"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 6,
+       "context": "It was very satisfactory,’ Miss Spider answered. Will you"
+      },
+      {
+       "chapter": 27,
+       "occurrence": 7,
+       "context": "That was very nice,’ Miss Spider said. ‘Now sing"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 1,
+       "context": "Miss Spider, the Glow-worm, and the Ladybird all"
+      },
+      {
+       "chapter": 28,
+       "occurrence": 2,
+       "context": "and keep warm until tomorrow morning?’ Miss Spider suggested"
+      },
+      {
+       "chapter": 29,
+       "occurrence": 1,
+       "context": "t turn round and see us,’ Miss Spider stammered"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 1,
+       "context": "We are lost!’ Miss Spider cried, wringing her feet"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 1,
+       "context": "I detest paint,’ Miss Spider announced. ‘It frightens me"
+      },
+      {
+       "chapter": 31,
+       "occurrence": 2,
+       "context": "to think of it…’ Miss Spider wiped away a"
+      },
+      {
+       "chapter": 32,
+       "occurrence": 1,
+       "context": "s a Cloud-Man!’ Miss Spider cried. ‘I just"
+      },
+      {
+       "chapter": 33,
+       "occurrence": 1,
+       "context": "the morning would come!’ Miss Spider said, shivering all"
+      },
+      {
+       "chapter": 34,
+       "occurrence": 1,
+       "context": "Then where is it?’ asked Miss Spider"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 1,
+       "context": "Then Miss Spider’s large black murderous-looking head"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 2,
+       "context": "get down from here?’ Miss Spider called out. ‘It"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 3,
+       "context": "Old-Green-Grasshopper‘s, Miss Spider‘s, the Earthworm"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 4,
+       "context": "Miss Spider clapped and cheered and cried"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 5,
+       "context": "And here we have Miss Spider"
+      },
+      {
+       "chapter": 39,
+       "occurrence": 6,
+       "context": "That she‘s NEVER met Miss Muffet"
+      },
+      {
+       "chapter": 41,
+       "occurrence": 1,
+       "context": "The Silkworm and Miss Spider, after they had both"
+      }
+     ]
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Not moving.",
+   "whyHard": "Not the usual meaning! Usually: still means continuing, as in still there.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means continuing, as in still there.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "context": "small boy stood absolutely still on the grass underneath"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "context": "room was suddenly very still and quiet. Everybody was"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "context": "seagull!’ whispered James. ‘Keep still now, Earthworm. Keep still"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "context": "still now, Earthworm. Keep still. The rest of you"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 3,
+       "context": "Ssshh!’ whispered James. ‘Keep still! Here comes another one"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 3,
+       "context": "They crouched very still on top of the peach"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "still",
+       "context": "still on the grass underneath the tree, gazing"
+      },
+      {
+       "chapter": 19,
+       "occurrence": 1,
+       "form": "still",
+       "context": "still and quiet. Everybody was beginning slowly and"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 1,
+       "form": "still",
+       "context": "seagull!’ whispered James. ‘Keep still now, Earthworm. Keep"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 2,
+       "form": "still",
+       "context": "still. The rest of you get ready to"
+      },
+      {
+       "chapter": 24,
+       "occurrence": 3,
+       "form": "still",
+       "context": "whispered James. ‘Keep still! Here comes another one!’"
+      },
+      {
+       "chapter": 30,
+       "occurrence": 3,
+       "form": "still",
+       "context": "still on top of the peach, staring at"
+      }
+     ],
+     "default": true
+    }
+   ]
   }
  },
  "chapters": 42,
@@ -11350,6 +12197,96 @@
     "deck-chairs"
    ],
    "example": "deck-chairs"
+  },
+  "all at once": {
+   "meaning": "Suddenly.",
+   "pos": "idiom",
+   "example": "and all at once he found himself alone and frightened"
+  },
+  "bound to": {
+   "meaning": "Sure to happen.",
+   "pos": "idiom",
+   "example": "sooner or later a ship is bound to come along"
+  },
+  "shut up": {
+   "meaning": "Stop talking.",
+   "pos": "phrasal verb",
+   "example": "Shut up, you little twerp!"
+  },
+  "right away": {
+   "meaning": "Now, with no wait.",
+   "pos": "idiom",
+   "example": "get a shovel right away and dig out a great big chunk"
+  },
+  "what on earth": {
+   "meaning": "A surprised way of saying what.",
+   "pos": "idiom",
+   "example": "wondering what on earth it was going to be"
+  },
+  "would rather": {
+   "meaning": "Would choose to.",
+   "pos": "idiom",
+   "example": "I would rather drown."
+  },
+  "jump to it": {
+   "meaning": "Start now. Do not wait.",
+   "pos": "idiom",
+   "example": "Jump to it! There’s not a moment to lose!"
+  },
+  "mind you": {
+   "meaning": "But remember this.",
+   "pos": "idiom",
+   "example": "Not too many, mind you, but just enough"
+  },
+  "in spite of": {
+   "meaning": "Although. Even though.",
+   "pos": "phrase",
+   "example": "kind and helpful in spite of all the shouting"
+  },
+  "in point of fact": {
+   "meaning": "Actually. The truth is.",
+   "pos": "idiom",
+   "example": "This, in point of fact, was closer to the truth"
+  },
+  "give someone a hand": {
+   "meaning": "To help someone.",
+   "pos": "idiom",
+   "example": "give me a hand with these boots"
+  },
+  "lend someone a hand": {
+   "meaning": "To help someone.",
+   "pos": "idiom",
+   "example": "lend the Centipede a hand and get it over with",
+   "forms": [
+    "lend the centipede a hand"
+   ]
+  },
+  "to one's heart's content": {
+   "meaning": "As much as you want.",
+   "pos": "idiom",
+   "example": "eating and eating to their hearts’ content",
+   "forms": [
+    "to their hearts content"
+   ]
+  },
+  "for goodness sake": {
+   "meaning": "Words that tell someone to stop.",
+   "pos": "idiom",
+   "example": "For goodness’ sake stop staring round the room"
+  },
+  "give a hand": {
+   "meaning": "To help someone.",
+   "pos": "idiom",
+   "forms": [
+    "give me a hand",
+    "lend the centipede a hand"
+   ],
+   "example": "come over here and give me a hand with these boots"
+  },
+  "close in": {
+   "meaning": "To come nearer from all sides.",
+   "pos": "phrase",
+   "example": "as the night began closing in around them"
   }
  },
  "language": "English"

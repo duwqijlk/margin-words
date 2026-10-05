@@ -4,7 +4,7 @@
  "author": "Roald Dahl",
  "sha256": "125850915c85478de9c492f6678ae6956eba160209aa7f7d7a4ed86f885da517",
  "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
- "count": 805,
+ "count": 806,
  "glossary": {
   "cried": {
    "pos": "past-tense verb",
@@ -9079,30 +9079,6 @@
     "space"
    ]
   },
-  "company": {
-   "senseOnly": true,
-   "pos": "singular noun",
-   "meaning": "A business. A group of people who sell a service.",
-   "senses": [
-    {
-     "meaning": "A business.",
-     "whyHard": "Not the usual meaning! Usually: company means people who are with you.",
-     "trickyMeaning": true,
-     "anchors": [
-      {
-       "chapter": 9,
-       "occurrence": 1,
-       "form": "company",
-       "context": "Kranky telephoned the Crane Company and asked them to send"
-      }
-     ],
-     "default": true
-    }
-   ],
-   "forms": [
-    "company"
-   ]
-  },
   "state": {
    "senseOnly": true,
    "pos": "singular noun",
@@ -9545,6 +9521,87 @@
    "forms": [
     "plop",
     "plopped"
+   ]
+  },
+  "close": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Near. Not far away.",
+   "forms": [
+    "close",
+    "closer"
+   ],
+   "senses": [
+    {
+     "meaning": "Near. Not far away.",
+     "whyHard": "Not the usual meaning! Usually: close means to shut.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "Come closer to me, little boy,’ she said, beckoning",
+       "form": "closer"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 2,
+       "context": "a horny finger. ‘Come closer to me and I",
+       "form": "closer"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 3,
+       "context": "took a step backwards, edging closer to the door",
+       "form": "closer"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "context": "about in the yard close to where George was"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close to where George was standing. The hen"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "close",
+       "context": "close at hand, the whole job didn’t take"
+      }
+     ],
+     "default": true
+    }
+   ]
+  },
+  "still": {
+   "senseOnly": true,
+   "pos": "adverb",
+   "meaning": "Not moving.",
+   "whyHard": "Not the usual meaning! Usually: still means continuing, as in still there.",
+   "senses": [
+    {
+     "meaning": "Not moving.",
+     "whyHard": "Not the usual meaning! Usually: still means continuing, as in still there.",
+     "trickyMeaning": true,
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "context": "The cockerel stood quite still. It looked as though"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "still",
+       "context": "still. It looked as though it had a"
+      }
+     ],
+     "default": true
+    }
    ]
   }
  },
@@ -10651,6 +10708,64 @@
    "meaning": "A small fruit. George names its tree in his rhyme.",
    "pos": "phrase",
    "example": "the fruit of the ju-jube tree"
+  },
+  "let's face it": {
+   "meaning": "Accept the fact, even if you do not like it.",
+   "pos": "idiom",
+   "example": "Let’s face it, George said to himself"
+  },
+  "close at hand": {
+   "meaning": "Near and ready to use.",
+   "pos": "phrase",
+   "example": "With everything so close at hand, the whole job didn’t take him more than ten minutes."
+  },
+  "bound to": {
+   "meaning": "Sure to happen.",
+   "pos": "idiom",
+   "example": "George thought she was bound to stop."
+  },
+  "never mind": {
+   "meaning": "Do not worry about that.",
+   "pos": "idiom",
+   "example": "Never mind about the hen!"
+  },
+  "shut up": {
+   "meaning": "Stop talking.",
+   "pos": "phrasal verb",
+   "example": "Shut up, Grandma,"
+  },
+  "right away": {
+   "meaning": "Now, with no wait.",
+   "pos": "idiom",
+   "example": "I’ll get you something right away."
+  },
+  "thank goodness": {
+   "meaning": "I am glad.",
+   "pos": "idiom",
+   "example": "Thank goodness for that."
+  },
+  "all at once": {
+   "meaning": "Suddenly.",
+   "pos": "idiom",
+   "example": "and all at once she was leaning forward in her chair"
+  },
+  "start off": {
+   "meaning": "To begin.",
+   "pos": "phrasal verb",
+   "example": "She had started off with her head as high as the roof"
+  },
+  "at hand": {
+   "meaning": "Near enough to reach. Ready to use.",
+   "pos": "phrase",
+   "example": "With everything so close at hand, the whole job"
+  },
+  "on one's hands": {
+   "meaning": "Something you must take care of. Your problem.",
+   "pos": "idiom",
+   "forms": [
+    "on his hands"
+   ],
+   "example": "didn’t really want a dead body on his hands"
   }
  }
 }
