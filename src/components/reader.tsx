@@ -65,7 +65,6 @@ import { MissingBook } from "@/components/missing-book";
 import { READER_GUTTER, SIDE_PANEL } from "@/components/side-panel";
 import {
   btn,
-  chip,
   cn,
   field,
   Highlighted,
@@ -503,6 +502,16 @@ type PhraseHit = {
   matched: string;
 };
 
+/** Part of speech beside the word. Large and high-contrast, and it drops under a long word. */
+function wordPosClass(quiet = false) {
+  return cn(
+    "inline-flex max-w-full items-center rounded-full font-bold leading-none tracking-tight",
+    quiet
+      ? "bg-line px-3.5 py-1.5 text-xl text-ink"
+      : "bg-accent px-4 py-2 text-2xl text-accent-ink",
+  );
+}
+
 function CoinedBadge() {
   const { t } = useT();
   return (
@@ -577,82 +586,78 @@ function WordCard({
         SIDE_PANEL,
       )}
     >
-      <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden" aria-hidden />
+      <div className="relative mb-1 flex h-11 items-center justify-end">
+        <div
+          className="pointer-events-none absolute top-1/2 left-1/2 h-1 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-line md:hidden"
+          aria-hidden
+        />
+        <button
+          type="button"
+          className={cn(btn.icon, "-mr-2")}
+          onClick={onClose}
+          aria-label={t("card.close")}
+          data-panel-close
+        >
+          <X className="size-5" aria-hidden />
+        </button>
+      </div>
       <div className="grid gap-3.5">
-        <div className="flex items-start justify-between gap-2">
-          <div className="grid min-w-0 flex-1 gap-1">
-            <div className="flex min-w-0 items-end gap-2">
-              <h2 className="min-w-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words" lang="en">
-                {phrase ? phrase.key : state.key}
-              </h2>
-              {phrase ? (
-                <span
-                  className={cn(chip, "mb-1 shrink-0 whitespace-nowrap bg-accent-soft text-accent")}
-                  data-phrase-pos
-                  data-word-pos
-                >
-                  {phrase.entry.pos ? <span lang="en">{phrase.entry.pos}</span> : t("card.phraseFallback")}
-                </span>
-              ) : state.pos ? (
-                <span
-                  className={cn(chip, "mb-1 shrink-0 whitespace-nowrap bg-accent-soft text-accent")}
-                  data-word-pos
-                >
-                  <span lang="en">{state.pos}</span>
-                </span>
-              ) : state.status === "easy" ? (
-                <span className={cn(chip, "mb-1 shrink-0 whitespace-nowrap bg-line text-muted")} data-word-pos>
-                  {t("card.easyChip")}
-                </span>
-              ) : null}
-            </div>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-              {phrase ? (
-                <span>
-                  {t("common.inBook", { word: "\u0001" })
-                    .split("\u0001")
-                    .flatMap((piece, i) =>
-                      i === 0
-                        ? [piece]
-                        : [
-                            <span key="m" lang="en">
-                              {phrase.matched}
-                            </span>,
-                            piece,
-                          ],
-                    )}
-                </span>
-              ) : (
-                <>
-                  {showForm ? (
-                    <span>
-                      {t("common.inBook", { word: "\u0001" })
-                        .split("\u0001")
-                        .flatMap((piece, i) =>
-                          i === 0
-                            ? [piece]
-                            : [
-                                <span key="m" lang="en">
-                                  {state.surface}
-                                </span>,
-                                piece,
-                              ],
-                        )}
-                    </span>
-                  ) : null}
-                </>
-              )}
-            </div>
+        <div className="grid min-w-0 gap-1">
+          <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-2" data-word-head>
+            <h2 className="w-fit max-w-full shrink-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words" lang="en">
+              {phrase ? phrase.key : state.key}
+            </h2>
+            {phrase ? (
+              <span className={wordPosClass()} data-phrase-pos data-word-pos>
+                {phrase.entry.pos ? <span lang="en">{phrase.entry.pos}</span> : t("card.phraseFallback")}
+              </span>
+            ) : state.pos ? (
+              <span className={wordPosClass()} data-word-pos>
+                <span lang="en">{state.pos}</span>
+              </span>
+            ) : state.status === "easy" ? (
+              <span className={wordPosClass(true)} data-word-pos>
+                {t("card.easyChip")}
+              </span>
+            ) : null}
           </div>
-          <button
-            type="button"
-            className={cn(btn.icon, "-mt-1 -mr-2")}
-            onClick={onClose}
-            aria-label={t("card.close")}
-            data-panel-close
-          >
-            <X className="size-5" aria-hidden />
-          </button>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+            {phrase ? (
+              <span>
+                {t("common.inBook", { word: "\u0001" })
+                  .split("\u0001")
+                  .flatMap((piece, i) =>
+                    i === 0
+                      ? [piece]
+                      : [
+                          <span key="m" lang="en">
+                            {phrase.matched}
+                          </span>,
+                          piece,
+                        ],
+                  )}
+              </span>
+            ) : (
+              <>
+                {showForm ? (
+                  <span>
+                    {t("common.inBook", { word: "\u0001" })
+                      .split("\u0001")
+                      .flatMap((piece, i) =>
+                        i === 0
+                          ? [piece]
+                          : [
+                              <span key="m" lang="en">
+                                {state.surface}
+                              </span>,
+                              piece,
+                            ],
+                      )}
+                  </span>
+                ) : null}
+              </>
+            )}
+          </div>
         </div>
 
         <SpeakButton text={phrase ? phrase.key : state.key} className="-ml-3 w-fit" />
@@ -668,12 +673,12 @@ function WordCard({
               data-part="word-alone"
             >
               <h3 className="text-xs font-semibold text-muted">{t("card.alone")}</h3>
-              <div className="flex min-w-0 items-end gap-2">
-                <span className="min-w-0 font-display text-lg font-semibold break-words" lang="en">
+              <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-2">
+                <span className="w-fit max-w-full shrink-0 font-display text-lg font-semibold break-words" lang="en">
                   {state.key}
                 </span>
                 {state.pos ? (
-                  <span className={cn(chip, "mb-0.5 shrink-0 whitespace-nowrap bg-line text-muted")} data-word-pos>
+                  <span className={wordPosClass(true)} data-word-pos>
                     <span lang="en">{state.pos}</span>
                   </span>
                 ) : null}
