@@ -605,6 +605,7 @@ export const en = {
     "Tap a word with a line under it. A card opens with the meaning in simple English, the part of speech, and why the word is hard. The book is not translated. You learn English with English.",
   "about.marksTitle": "What the marks mean",
   "about.markHard": "A straight line under a word: a hard word. Tap it.",
+  "about.markPhrase": "A dotted line under a word: it belongs to a phrase. Tap it.",
   "about.markTricky":
     "A wavy line under a word: you may know the word, but here it has another meaning. Tap it.",
   "about.markBulb":

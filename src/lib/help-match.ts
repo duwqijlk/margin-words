@@ -1446,6 +1446,83 @@ function phraseScore(indexes: number[]): number {
   return (gap === 0 ? 1000 : 0) + indexes.length * 10 - gap;
 }
 
+type PhraseCandidate = {
+  key: string;
+  entry: PhraseEntry;
+  matched: string;
+  indexes: number[];
+  score: number;
+};
+
+/** Every phrase match in the text, plus the zero-gap ones a split phrase must not steal a particle from. */
+function phraseCandidates(
+  phrases: Record<string, PhraseEntry>,
+  sentenceText: string,
+  tokens: Token[],
+): { hits: PhraseCandidate[]; solid: { start: number; indexes: number[] }[] } {
+  const solid: { start: number; indexes: number[] }[] = [];
+  const hits: PhraseCandidate[] = [];
+  for (const [key, entry] of Object.entries(phrases)) {
+    if (!entry || typeof entry.meaning !== "string") continue;
+    for (const variant of variantsOf(key, entry)) {
+      for (let from = 0; from < tokens.length; from += 1) {
+        const hit = matchAt(sentenceText, tokens, from, variant);
+        if (!hit) continue;
+        if (gapSize(hit.indexes) === 0) {
+          solid.push({ start: hit.indexes[0] as number, indexes: hit.indexes });
+        }
+        const a = tokens[hit.indexes[0] as number] as Token;
+        const z = tokens[hit.indexes[hit.indexes.length - 1] as number] as Token;
+        hits.push({
+          key,
+          entry,
+          matched: sentenceText.slice(a.start, z.end),
+          indexes: hit.indexes,
+          score: phraseScore(hit.indexes),
+        });
+      }
+    }
+  }
+  return { hits, solid };
+}
+
+/**
+ * The phrase a tap on token `focus` opens. `focus` < 0 is the old fallback: the tapped
+ * spelling may sit anywhere in a match. A known tap uses only a match whose span covers
+ * that token. A split phrase loses when a tighter phrase already owns its particle.
+ */
+function phraseAt(
+  hits: PhraseCandidate[],
+  solid: { start: number; indexes: number[] }[],
+  tokens: Token[],
+  focus: number,
+  tapped: string,
+): PhraseCandidate | null {
+  let bestCover: PhraseCandidate | null = null;
+  let bestAny: PhraseCandidate | null = null;
+  for (const hit of hits) {
+    const covers = spanCovers(hit.indexes, focus);
+    const wordHit = hit.indexes.some((i) => (tokens[i] as Token).w === tapped);
+    if (!covers && !wordHit) continue;
+    const gap = gapSize(hit.indexes);
+    if (gap > 0) {
+      const verbAt = hit.indexes[0] as number;
+      const particleAt = hit.indexes[hit.indexes.length - 1] as number;
+      // "make her show up": `show up` already owns the particle, so `make up` does not.
+      const owned = solid.some(
+        (other) => other.start > verbAt && other.start < particleAt && other.indexes.includes(particleAt),
+      );
+      if (owned) continue;
+    }
+    if (covers) {
+      if (!bestCover || hit.score > bestCover.score) bestCover = hit;
+    } else if (!bestAny || hit.score > bestAny.score) bestAny = hit;
+  }
+  // A known tap opens a card only from a token inside the span. Another copy of the
+  // word stays a plain tap. With no offset, keep the old fallback.
+  return focus >= 0 ? bestCover : (bestCover ?? bestAny);
+}
+
 /**
  * Find the listed phrase that the tapped word belongs to in this sentence.
  * When `tappedAt` is the character offset of the tapped word in `sentenceText`, the card
@@ -1473,61 +1550,33 @@ export function pickPhrase(
     focus = tokens.findIndex((token) => tappedAt >= token.start && tappedAt < token.end);
     if (focus >= 0 && (tokens[focus] as Token).w !== tapped) focus = -1;
   }
-  const solid: { start: number; indexes: number[] }[] = [];
-  const hits: {
-    key: string;
-    entry: PhraseEntry;
-    matched: string;
-    indexes: number[];
-    covers: boolean;
-    score: number;
-  }[] = [];
-  for (const [key, entry] of Object.entries(phrases)) {
-    if (!entry || typeof entry.meaning !== "string") continue;
-    for (const variant of variantsOf(key, entry)) {
-      for (let from = 0; from < tokens.length; from += 1) {
-        const hit = matchAt(sentenceText, tokens, from, variant);
-        if (!hit) continue;
-        if (gapSize(hit.indexes) === 0) {
-          solid.push({ start: hit.indexes[0] as number, indexes: hit.indexes });
-        }
-        const covers = spanCovers(hit.indexes, focus);
-        const wordHit = hit.indexes.some((i) => (tokens[i] as Token).w === tapped);
-        if (!covers && !wordHit) continue;
-        const a = tokens[hit.indexes[0] as number] as Token;
-        const z = tokens[hit.indexes[hit.indexes.length - 1] as number] as Token;
-        hits.push({
-          key,
-          entry,
-          matched: sentenceText.slice(a.start, z.end),
-          indexes: hit.indexes,
-          covers,
-          score: phraseScore(hit.indexes),
-        });
-      }
-    }
-  }
-  let bestCover: (typeof hits)[number] | null = null;
-  let bestAny: (typeof hits)[number] | null = null;
-  for (const hit of hits) {
-    const gap = gapSize(hit.indexes);
-    if (gap > 0) {
-      const verbAt = hit.indexes[0] as number;
-      const particleAt = hit.indexes[hit.indexes.length - 1] as number;
-      // "make her show up": `show up` already owns the particle, so `make up` does not.
-      const owned = solid.some(
-        (other) => other.start > verbAt && other.start < particleAt && other.indexes.includes(particleAt),
-      );
-      if (owned) continue;
-    }
-    if (hit.covers) {
-      if (!bestCover || hit.score > bestCover.score) bestCover = hit;
-    } else if (!bestAny || hit.score > bestAny.score) bestAny = hit;
-  }
-  // A known tap opens a card only from a token inside the span. Another copy of the
-  // word, and a word in the gap, stay plain taps. With no offset, keep the old fallback.
-  const best = focus >= 0 ? bestCover : (bestCover ?? bestAny);
+  const { hits, solid } = phraseCandidates(phrases, sentenceText, tokens);
+  const best = phraseAt(hits, solid, tokens, focus, tapped);
   return best ? { key: best.key, entry: best.entry, matched: best.matched } : null;
+}
+
+/**
+ * Character ranges of the phrase's own words in `text` (the same string a tap uses).
+ * A word is included only when a tap on that word opens a phrase and the word is one of
+ * that phrase's own words. A word sitting in the gap (`your family` in `let your family down`)
+ * is left out: the tap still opens the phrase, but the line is for the phrase itself.
+ */
+export function phraseWordRanges(
+  phrases: Record<string, PhraseEntry> | undefined,
+  text: string,
+): { start: number; end: number }[] {
+  if (!phrases || Object.keys(phrases).length === 0 || !text) return [];
+  const tokens = tokenize(text);
+  if (tokens.length === 0) return [];
+  const { hits, solid } = phraseCandidates(phrases, text, tokens);
+  const ranges: { start: number; end: number }[] = [];
+  for (let i = 0; i < tokens.length; i += 1) {
+    const token = tokens[i] as Token;
+    const best = phraseAt(hits, solid, tokens, i, token.w);
+    if (!best || !best.indexes.includes(i)) continue;
+    ranges.push({ start: token.start, end: token.end });
+  }
+  return ranges;
 }
 
 /* ------------------------------------------------------------------ merging stored extras */

@@ -75,6 +75,15 @@ function Marks() {
         </span>{" "}
         {t("about.markHard")}
       </li>
+      <li data-about-phrase>
+        <span
+          className="font-display underline decoration-dotted decoration-accent/70 decoration-[1.5px] underline-offset-[0.24em]"
+          lang="en"
+        >
+          tuning
+        </span>{" "}
+        {t("about.markPhrase")}
+      </li>
       <li data-about-tricky>
         <span
           className="font-display underline decoration-accent/80 decoration-wavy decoration-[1.2px] underline-offset-[0.3em]"

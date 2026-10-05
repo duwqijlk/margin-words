@@ -230,6 +230,8 @@ Before you leave a group of neighbouring words out, put the textbook meaning of 
 
 Write a phrase only when the book uses it. One scene gets one entry, not a new entry every time the words repeat. Leave out a group the same sentence explains in plain words. Do not write a short key that also sits inside a longer ordinary group: `as well` sits inside `as well as she could`, and there `well` still means "in a good way." Write the longer idiom (`might as well`) or leave the short group out. If a word entry already gives the meaning of the group (`a good deal` on `deal`, `in spite of` on `spite`), do not add a second phrase for those same words.
 
+The reader draws a dotted line under the phrase's own words. A tap on those words opens the phrase. A word that already has a straight line or a wavy line keeps that mark. Do not add a word entry only to force a line under a phrase. `tuning in` is the phrase `tune in` (to watch or listen from another place). It is not a separate word `tuning`.
+
 ```json
 "off with one's head": {
   "meaning": "A short angry order to cut off someone's head.",

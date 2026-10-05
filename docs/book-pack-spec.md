@@ -230,7 +230,7 @@ my/your/his/her/its/our/their. A comma may sit between words (`oh, brother`, and
 the words with the comma or without it, and only when they are next to each other: the comma does not open a gap. A key
 with no comma still stops at a comma. Max 60 chars. The app already knows regular verb forms (`packs up`, `packing up`, and about
 100 common irregular verbs), and it accepts a phrasal verb split by up to 3 words (`pack the apples up`). List only forms it
-cannot derive. A phrase card shows only when the whole phrase is in the tapped sentence.
+cannot derive. A phrase card shows only when the whole phrase is in the tapped sentence. The phrase's own words get a dotted line. A word that already has a hard-word line or a wavy line keeps that mark. A word that only sits in the gap of a split phrasal verb is not dotted.
 
 ### 4.6 `coined`
 

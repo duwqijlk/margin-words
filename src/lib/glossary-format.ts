@@ -15,7 +15,7 @@
 import type { ParagraphHelp, SentenceHelp, PhraseEntry } from "@/lib/glossary-extras";
 import { isbnDigits, readSeries, seriesNumber } from "@/lib/book-meta";
 import { lexileMeasure } from "@/lib/lexile";
-import { flowText, flowTextBefore, includesLoose, squash, SQUASH_MIN } from "@/lib/flow-text";
+import { flowCutOffsets, flowText, flowTextBefore, includesLoose, squash, SQUASH_MIN } from "@/lib/flow-text";
 
 export type GlossaryAnchor = {
   /** 0-based index of the chapter, as the app splits the book (see docs). */
@@ -1826,6 +1826,45 @@ export function readingHtml(
       fragment.append(button);
     }
     node.parentNode?.replaceChild(fragment, node);
+  }
+  return root.innerHTML;
+}
+
+const READING_BLOCKS = "p, h1, h2, h3, h4, li, blockquote, div[data-para]";
+
+/**
+ * Add `className` to tap buttons whose letters sit inside one of the ranges for their paragraph.
+ * The paragraph is the same block a tap uses (the nearest of those tags, so a line inside a
+ * quotation is that line, not the whole quotation). A button that already has `book-hard` or
+ * `book-tricky` keeps that mark. The text does not move: the class only changes the underline.
+ * `rangesFor` sees the same paragraph string a tap uses.
+ */
+export function markWordRanges(
+  html: string,
+  rangesFor: (paragraph: string) => { start: number; end: number }[],
+  className: string,
+): string {
+  if (!html || !className) return html;
+  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
+  const root = doc.body.firstElementChild;
+  if (!root) return html;
+  const blocks = [...root.querySelectorAll(READING_BLOCKS)];
+  for (const block of blocks) {
+    if (blocks.some((other) => other !== block && block.contains(other))) continue;
+    const paragraph = flowText(block);
+    const ranges = rangesFor(paragraph);
+    if (ranges.length === 0) continue;
+    const starts = flowCutOffsets(block, (el) => el.localName === "button" && el.getAttribute?.("data-word") != null);
+    for (const button of block.querySelectorAll("button[data-word]")) {
+      if (button.closest(READING_BLOCKS) !== block) continue;
+      if (button.classList.contains("book-hard") || button.classList.contains("book-tricky")) continue;
+      const word = button.getAttribute("data-word") ?? "";
+      if (!word) continue;
+      const start = starts.get(button);
+      if (start === undefined) continue;
+      const end = start + word.length;
+      if (ranges.some((range) => start >= range.start && end <= range.end)) button.classList.add(className);
+    }
   }
   return root.innerHTML;
 }
