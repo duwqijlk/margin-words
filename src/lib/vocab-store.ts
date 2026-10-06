@@ -155,8 +155,10 @@ type VocabState = {
    */
   mergeBook: (keepId: string, dropId: string) => void;
   replaceWords: (words: VocabEntry[]) => void;
-  /** Turn saved sentences into word-list pointers when this device has the current list. */
+  /** Turn saved sentences into word-list pointers when this device has the current list. The sentence stays. */
   adoptGlossPointers: (lists: ReadonlyMap<string, { list: string; file: GlossFileView }>) => void;
+  /** Put a paragraph back on a source that lost it. Does nothing when that source already has one. */
+  fillSourceSentence: (lemma: string, book: string, savedAt: number, sentence: string) => void;
 };
 
 function memoryStorage(): StateStorage {
@@ -480,6 +482,27 @@ export const useVocab = create<VocabState>()(
           });
           if (!changed) return state;
           return { words: normalizeWordbook(words, state.books) };
+        });
+      },
+      fillSourceSentence: (lemma, book, savedAt, sentence) => {
+        const text = sentence.replace(/\s+/g, " ").trim();
+        if (!text) return;
+        const key = lemmaKey(lemma);
+        set((state) => {
+          let changed = false;
+          const words = state.words.map((card) => {
+            if (lemmaKey(card.lemma) !== key) return card;
+            let touched = false;
+            const sources = card.sources.map((source) => {
+              if (source.book !== book || source.savedAt !== savedAt || source.sentence) return source;
+              touched = true;
+              changed = true;
+              return { ...source, sentence: text };
+            });
+            if (!touched) return card;
+            return { ...card, sources, sentence: card.sentence || text };
+          });
+          return changed ? { words } : state;
         });
       },
       mergeBook: (keepId, dropId) => {

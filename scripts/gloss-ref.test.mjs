@@ -1,12 +1,13 @@
-// A saved word points at the word list. The snippet on screen is the list's own context.
+// A saved word points at the word list. The notebook keeps the saved paragraph and reads the meaning from the list.
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { loadAppModules } from "./lib/app-modules.mjs";
 import { asWordbookRecord, sourceKey } from "../src/lib/sync-merge.ts";
 import { buildSyncItems, captureSnapshot, emptyMeta, noteChanges } from "../src/lib/sync-diff.ts";
 
-const { glossRef } = await loadAppModules();
+const { glossRef, text } = await loadAppModules();
 const { adoptWord, bookGlossKey, contextMark, phrasePoint, pointFromEntry, pointFromStored, presentWord, readPoint } = glossRef;
+const { restoreParagraph } = text;
 
 const CONTEXT = "curiouser and curiouser cried Alice";
 const EPUB = "The full sentence copied from the uploaded book, which must never be shown.";
@@ -118,7 +119,7 @@ test("a phrase pointer has no snippet and uses the phrase meaning", () => {
   assert.equal(hit.pos, "phrasal verb");
 });
 
-test("the notebook copy ignores a sentence stored next to the pointer", () => {
+test("the notebook keeps the saved paragraph and reads the list meaning", () => {
   const point = pointFromEntry("alice", "curious", file.glossary.curious, tap);
   const word = {
     id: "1",
@@ -149,16 +150,27 @@ test("the notebook copy ignores a sentence stored next to the pointer", () => {
     lapses: 0,
   };
   const shown = presentWord(word, new Map([[point.list, file]]));
-  assert.equal(shown.sentence, CONTEXT);
+  assert.equal(shown.sentence, EPUB);
   assert.equal(shown.meaning, "Strange and interesting.");
-  assert.equal(shown.sources[0].at, undefined);
-  assert.equal(JSON.stringify(shown.sources[0]).includes("uploaded"), false);
-  assert.equal(JSON.stringify(shown.sources[0]).includes("Uploaded"), false);
+  assert.equal(shown.sources[0].sentence, EPUB);
+  assert.equal(shown.sources[0].title, "Uploaded title");
+  assert.equal(shown.sources[0].at.quote, "uploaded quote");
+  assert.equal(JSON.stringify(shown.sources[0].ref).includes("uploaded"), false);
+  assert.equal(JSON.stringify(shown).includes("meaning copied from the book file"), false);
 
   const waiting = presentWord(word, new Map());
-  assert.equal(waiting.sentence, "");
-  assert.equal(waiting.meaning, "");
-  assert.equal(JSON.stringify(waiting).includes("uploaded"), false);
+  assert.equal(waiting.sentence, EPUB);
+  assert.equal(waiting.meaning, EPUB);
+
+  const blank = {
+    ...word,
+    sentence: "",
+    meaning: "",
+    sources: [{ ...word.sources[0], sentence: undefined, meaning: undefined }],
+  };
+  const fallback = presentWord(blank, new Map([[point.list, file]]));
+  assert.equal(fallback.sentence, CONTEXT);
+  assert.equal(fallback.meaning, "Strange and interesting.");
 });
 
 test("an older saved sentence still shows when no word list is loaded", () => {
@@ -249,12 +261,13 @@ test("a word that is not in the list keeps no pointer", () => {
 
 test("an older save shows the current list meaning, and a later edit replaces it", () => {
   const word = oldCurious();
+  const stored = word.sentence;
   const shown = presentWord(word, new Map([[bookGlossKey(BOOK), file]]));
-  assert.equal(shown.sentence, CONTEXT);
+  assert.equal(shown.sentence, stored);
   assert.equal(shown.meaning, "Strange and interesting.");
-  assert.equal(shown.sources[0].at, undefined);
+  assert.equal(shown.sources[0].sentence, stored);
+  assert.equal(shown.sources[0].at.quote, "uploaded quote");
   assert.equal(JSON.stringify(shown).includes("Copied from the day"), false);
-  assert.equal(JSON.stringify(shown).includes("uploaded"), false);
   assert.equal(word.meaning, "Copied from the day it was saved.");
 
   const edited = {
@@ -275,7 +288,7 @@ test("an older save shows the current list meaning, and a later edit replaces it
   };
   const next = presentWord(word, new Map([[bookGlossKey(BOOK), edited]]));
   assert.equal(next.meaning, "Odd in a playful way.");
-  assert.equal(next.sentence, CONTEXT);
+  assert.equal(next.sentence, stored);
   assert.equal(word.meaning, "Copied from the day it was saved.");
 });
 
@@ -311,20 +324,19 @@ test("an easy word stays on its old sentence when the list has no entry", () => 
   assert.equal(shown.meaning, "Not strong.");
 });
 
-test("adopting an older save stores a pointer and drops the old explanation", () => {
+test("adopting an older save stores a pointer and keeps the paragraph", () => {
   const word = oldCurious();
   const adopted = adoptWord(word, new Map([[BOOK, { list: "alice", file }]]));
-  assert.equal(adopted.sentence, "");
-  assert.equal(adopted.meaning, "");
-  assert.equal(adopted.whyHard, "");
-  assert.equal(adopted.uses, undefined);
+  assert.equal(adopted.sentence, word.sentence);
+  assert.equal(adopted.meaning, word.meaning);
+  assert.equal(adopted.whyHard, "old note");
   assert.equal(adopted.reps, 3);
   assert.equal(adopted.sources[0].ref.list, "alice");
   assert.equal(adopted.sources[0].ref.chapter, 0);
-  assert.equal(adopted.sources[0].sentence, undefined);
-  assert.equal(adopted.sources[0].at, undefined);
-  assert.equal(JSON.stringify(adopted).includes("uploaded"), false);
-  assert.equal(JSON.stringify(adopted).includes(CONTEXT), false);
+  assert.equal(adopted.sources[0].sentence, word.sentence);
+  assert.equal(adopted.sources[0].at.quote, "uploaded quote");
+  assert.equal(JSON.stringify(adopted.sources[0].ref).includes("uploaded"), false);
+  assert.equal(JSON.stringify(adopted.sources[0].ref).includes(CONTEXT), false);
   assert.equal(adoptWord(adopted, new Map([[BOOK, { list: "alice", file }]])), null);
 
   const parsed = asWordbookRecord(adopted);
@@ -346,9 +358,11 @@ test("adopting an older save stores a pointer and drops the old explanation", ()
       },
     },
   };
-  assert.equal(presentWord(adopted, new Map([["alice", edited]])).meaning, "Odd in a playful way.");
+  const shown = presentWord(adopted, new Map([["alice", edited]]));
+  assert.equal(shown.meaning, "Odd in a playful way.");
+  assert.equal(shown.sentence, word.sentence);
   const blob = JSON.stringify(buildSyncItems(after, meta));
-  assert.equal(blob.includes("uploaded"), false);
+  assert.equal(blob.includes("uploaded"), true);
   assert.equal(blob.includes("Copied from the day"), false);
   assert.equal(blob.includes('"ref"'), true);
 });
@@ -362,7 +376,7 @@ test("a saved phrase becomes a phrase pointer", () => {
   assert.equal(hit.sentence, "");
 });
 
-test("sync keeps the pointer and drops the e-book sentence", () => {
+test("sync keeps the pointer and the paragraph, and drops the stored meaning", () => {
   const point = { list: "alice", chapter: 0, occurrence: 2, mark: contextMark(CONTEXT) };
   const parsed = asWordbookRecord({
     id: "1",
@@ -396,21 +410,21 @@ test("sync keeps the pointer and drops the e-book sentence", () => {
       },
     ],
   });
-  assert.equal(parsed.sentence, "");
+  assert.equal(parsed.sentence, EPUB);
   assert.equal(parsed.meaning, "");
   assert.equal(parsed.whyHard, "");
   assert.equal(parsed.uses, undefined);
   assert.equal(parsed.stage, 2);
   assert.equal(parsed.sources[0].ref.list, "alice");
   assert.equal(parsed.sources[0].ref.mark, point.mark);
-  assert.equal(parsed.sources[0].sentence, undefined);
-  assert.equal(parsed.sources[0].at, undefined);
-  assert.equal(parsed.sources[0].title, undefined);
+  assert.equal(parsed.sources[0].sentence, EPUB);
+  assert.equal(parsed.sources[0].meaning, undefined);
+  assert.equal(parsed.sources[0].at.quote, "uploaded quote");
+  assert.equal(parsed.sources[0].title, "Alice");
   assert.equal(parsed.sources[0].chapter, 0);
   const key = sourceKey(parsed.sources[0]);
   assert.equal(parsed.sources[0].k, key);
   assert.equal(key.includes("alice"), true);
-  assert.ok(JSON.stringify(parsed).length < 500);
 
   const snapshot = captureSnapshot({
     books: [],
@@ -420,7 +434,37 @@ test("sync keeps the pointer and drops the e-book sentence", () => {
   });
   const items = buildSyncItems(snapshot, emptyMeta());
   const blob = JSON.stringify(items);
-  assert.equal(blob.includes("uploaded"), false);
+  assert.equal(blob.includes(EPUB), true);
+  assert.equal(blob.includes("copied meaning"), false);
   assert.equal(blob.includes(CONTEXT), false);
   assert.equal(blob.includes('"ref"'), true);
+});
+
+test("a missing paragraph is filled from the chapter that holds that occurrence", () => {
+  const chapters = [
+    { paragraphs: ["Nothing here.", "Alice was curious. Then she was curious again about the rabbit."] },
+    { paragraphs: ["Later she saw a door. She did not give up."] },
+  ];
+  assert.equal(
+    restoreParagraph({ surface: "curious", chapter: 0, occurrence: 2, chapters }),
+    "Then she was curious again about the rabbit.",
+  );
+  assert.equal(
+    restoreParagraph({ surface: "give up", phrase: true, chapter: 1, chapters }),
+    "She did not give up.",
+  );
+  assert.equal(
+    restoreParagraph({
+      surface: "curious",
+      chapter: 1,
+      occurrence: 9,
+      hint: "curious again about the rabbit",
+      chapters,
+    }),
+    "Then she was curious again about the rabbit.",
+  );
+  assert.equal(
+    restoreParagraph({ surface: "curious", chapter: 1, occurrence: 9, guess: false, chapters }),
+    "",
+  );
 });

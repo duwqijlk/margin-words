@@ -256,19 +256,13 @@ export function buildSyncItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncIte
   return items;
 }
 
-/** A pointer source is stored without the sentence, the meaning, or a quote from the e-book. */
+/** A pointer source keeps the paragraph and drops the stored meaning. The meaning is read from the word list. */
 function publishSource(source: Extract<SourceRecord, { book: string }>): SourceRecord {
   const keyed = { ...source, k: sourceKey(source) };
   if (!keyed.ref) return keyed;
-  return {
-    k: keyed.k,
-    book: keyed.book,
-    surface: keyed.surface,
-    savedAt: keyed.savedAt,
-    ref: keyed.ref,
-    ...(keyed.chapter !== undefined ? { chapter: keyed.chapter } : {}),
-    ...(keyed.pos ? { pos: keyed.pos } : {}),
-  };
+  const next = { ...keyed };
+  delete next.meaning;
+  return next;
 }
 
 /** The wordbook as sync items: one per first letter, so no stored row grows without bound. */
@@ -290,7 +284,14 @@ export function wordbookItems(snapshot: LocalSnapshot, meta: SyncMeta): SyncItem
       .map(([k, removed]) => ({ k, removed }));
     const published: WordbookRecord = { ...word, updatedAt, sources: [...liveSources, ...stubs] };
     if (liveSources.length > 0 && liveSources.every((source) => isLive(source) && source.ref)) {
-      published.sentence = "";
+      let kept = "";
+      for (const source of liveSources) {
+        if (isLive(source) && source.sentence) {
+          kept = source.sentence;
+          break;
+        }
+      }
+      published.sentence = kept || published.sentence;
       published.meaning = "";
       published.whyHard = "";
       delete published.uses;

@@ -59,7 +59,7 @@ export type SourceLive = {
   pos?: string;
   at?: TextAnchor;
   savedAt: number;
-  /** Word-list pointer. When this is set, the sentence and the meaning are not stored. */
+  /** Word-list pointer. The meaning is read from that list. The sentence stays so the notebook can show the paragraph. */
   ref?: GlossPoint;
 };
 /** The reader took this source away at `removed`. Kept for a while so an older copy cannot bring it back. */
@@ -279,8 +279,18 @@ function asSource(value: unknown): SourceRecord | null {
     };
     source.k = sourceKey(source);
     if (typeof raw.chapter === "number") source.chapter = integer(raw.chapter, 0, 100_000);
+    const chapterTitle = text(raw.chapterTitle, 200);
+    if (chapterTitle) source.chapterTitle = chapterTitle;
+    const sentence = text(raw.sentence, 500);
+    if (sentence) source.sentence = sentence;
+    const title = text(raw.title, 300);
+    if (title) source.title = title;
+    const author = text(raw.author, 200);
+    if (author) source.author = author;
     const pos = text(raw.pos, 60);
     if (pos) source.pos = pos;
+    const at = asAnchor(raw.at);
+    if (at) source.at = at;
     return source;
   }
   const sentence = text(raw.sentence, 500);
@@ -341,7 +351,8 @@ export function asWordbookRecord(value: unknown): WordbookRecord | null {
   const record: WordbookRecord = { ...base, sources };
   const live = sources.filter(isLive);
   if (live.length > 0 && live.every((source) => source.ref)) {
-    record.sentence = "";
+    const kept = live.find((source) => source.sentence)?.sentence;
+    record.sentence = kept || record.sentence;
     record.meaning = "";
     record.whyHard = "";
     delete record.uses;

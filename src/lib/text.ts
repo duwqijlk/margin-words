@@ -248,6 +248,87 @@ export function recoverClippedSentence(
   return null;
 }
 
+/**
+ * The sentence that holds the nth time `surface` appears in this chapter (1-based),
+ * counted the same way the reader numbers a tap. Empty when that occurrence is not here.
+ */
+export function sentenceForOccurrence(paragraphs: readonly string[], surface: string, occurrence: number): string {
+  const form = surface.trim().toLowerCase();
+  if (!form || occurrence < 1) return "";
+  const pattern = new RegExp(WORD_PATTERN, "gu");
+  let seen = 0;
+  for (const paragraph of paragraphs) {
+    pattern.lastIndex = 0;
+    let match: RegExpExecArray | null;
+    while ((match = pattern.exec(paragraph))) {
+      if (match[0].toLowerCase() !== form) continue;
+      seen += 1;
+      if (seen === occurrence) return sentenceAround(paragraph, match[0], match.index);
+    }
+  }
+  return "";
+}
+
+/** The first sentence in these paragraphs that contains `surface`. */
+export function firstSentenceWith(paragraphs: readonly string[], surface: string): string {
+  return sentenceForOccurrence(paragraphs, surface, 1);
+}
+
+/**
+ * The sentence a notebook card lost, taken from this device's own chapter text.
+ * A numbered occurrence wins. A list snippet is the next try. Otherwise the first
+ * sentence that contains the word.
+ */
+export function restoreParagraph(input: {
+  surface: string;
+  phrase?: boolean;
+  chapter?: number;
+  occurrence?: number;
+  /** A short quote from the word list, used when the occurrence is not in this file. */
+  hint?: string;
+  /** When false, do not guess the first sentence. Used while the word list is still loading. */
+  guess?: boolean;
+  chapters: readonly { paragraphs: readonly string[] }[];
+  extras?: readonly { paragraphs: readonly string[] }[];
+}): string {
+  const surface = input.surface.trim();
+  if (!surface) return "";
+  const chapter =
+    input.chapter !== undefined && input.chapter >= 0 ? (input.chapters[input.chapter]?.paragraphs ?? []) : [];
+  const all = [
+    ...input.chapters.flatMap((item) => item.paragraphs),
+    ...(input.extras ?? []).flatMap((item) => item.paragraphs),
+  ];
+  if (!input.phrase && chapter.length && input.occurrence !== undefined && input.occurrence >= 1) {
+    const exact = sentenceForOccurrence(chapter, surface, input.occurrence);
+    if (exact) return exact;
+  }
+  const hint = (input.hint ?? "").replace(/\s+/g, " ").trim();
+  if (hint.length >= 8) {
+    const held = (chapter.length ? sentenceHolding(chapter, hint) : "") || sentenceHolding(all, hint);
+    if (held) return held;
+  }
+  if (input.phrase || /\s/.test(surface)) {
+    return (chapter.length ? sentenceHolding(chapter, surface) : "") || sentenceHolding(all, surface);
+  }
+  if (input.guess === false) return "";
+  return (chapter.length ? firstSentenceWith(chapter, surface) : "") || firstSentenceWith(all, surface);
+}
+
+/** The sentence that holds this snippet, when the snippet is a phrase or a short quote. */
+export function sentenceHolding(paragraphs: readonly string[], snippet: string): string {
+  const needle = snippet.replace(/\s+/g, " ").trim().toLowerCase();
+  if (needle.length < 2) return "";
+  for (const paragraph of paragraphs) {
+    const flat = paragraph.replace(/\s+/g, " ");
+    const at = flat.toLowerCase().indexOf(needle);
+    if (at < 0) continue;
+    const word = snippet.trim().split(/\s+/)[0] ?? snippet;
+    return sentenceAround(flat, word, at);
+  }
+  return "";
+}
+
 export function sentenceAround(paragraph: string, surface: string, at?: number): string {
   // `at` is where the tapped word really is in the paragraph (so a word that appears
   // twice shows the sentence that was tapped, not the first one).
