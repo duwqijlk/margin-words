@@ -9,9 +9,38 @@
  "glossary": {
   "humble": {
    "pos": "adjective",
-   "meaning": "Not proud. Feeling that the job is bigger than you are.",
+   "meaning": "Modest, and not proud.",
+   "here": "He remembers the soldiers with quiet thanks, not with pride.",
    "forms": [
     "humbled"
+   ],
+   "senses": [
+    {
+     "meaning": "Modest, and not proud.",
+     "here": "He remembers the soldiers with quiet thanks, not with pride.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "we remember with humble gratitude those brave Americans"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "Made to feel modest by something large and important.",
+     "here": "The task of becoming president makes him feel serious and modest. He is not saying the task is small.",
+     "whyHard": "The task makes him feel this way. He is not saying the task itself is humble.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "humbled",
+       "context": "I stand here today humbled by the task before us"
+      }
+     ],
+     "default": false
+    }
    ]
   },
   "bestow": {
@@ -43,7 +72,8 @@
   },
   "transition": {
    "pos": "singular noun",
-   "meaning": "The change from one leader to the next."
+   "meaning": "The process of moving from one leader or government to the next.",
+   "here": "He thanks President Bush for help while the presidency passes from Bush to him."
   },
   "presidential": {
    "pos": "adjective",
@@ -201,7 +231,8 @@
   },
   "scripture": {
    "pos": "singular noun",
-   "meaning": "Holy writing. Here, the Bible."
+   "meaning": "Holy writing, such as the Bible.",
+   "here": "He uses a line from the Bible about putting away childish things."
   },
   "reaffirm": {
    "pos": "verb",
@@ -362,6 +393,29 @@
   "necessity": {
    "pos": "singular noun",
    "meaning": "Something you must have."
+  },
+  "short": {
+   "senseOnly": true,
+   "pos": "adjective",
+   "meaning": "Quick to forget. Not kept in mind for long.",
+   "here": "Those people forgot what the country has already done. Their memory is not short in length.",
+   "whyHard": "Not the usual meaning! Usually short means small in length or in time.",
+   "senses": [
+    {
+     "meaning": "Quick to forget. Not kept in mind for long.",
+     "here": "Those people forgot what the country has already done. Their memory is not short in length.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 3,
+       "context": "Their memories are short, for they have forgotten"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually short means small in length or in time.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
   },
   "cynic": {
    "pos": "singular noun",
@@ -568,7 +622,8 @@
   },
   "terror": {
    "pos": "singular noun",
-   "meaning": "Great fear, used here to attack people."
+   "meaning": "Great fear.",
+   "here": "Some people try to get what they want by causing this fear, and by killing people who have done no wrong."
   },
   "slaughter": {
    "pos": "verb",
@@ -595,7 +650,8 @@
   },
   "swill": {
    "pos": "singular noun",
-   "meaning": "Dirty liquid. Here it is a picture of something awful to take in."
+   "meaning": "Dirty liquid that is awful to swallow.",
+   "here": "Civil war and keeping races apart are pictured as a bitter drink the country has already tasted."
   },
   "segregation": {
    "pos": "singular noun",
@@ -707,7 +763,8 @@
   },
   "inhabit": {
    "pos": "verb",
-   "meaning": "To live in a place. Here, the spirit lives in us."
+   "meaning": "To live in a place.",
+   "here": "This spirit of service has to live in every American, not only in the soldiers."
   },
   "ultimately": {
    "pos": "adverb",
@@ -925,8 +982,40 @@
    "meaning": "The people born around the same time."
   },
   "office": {
+   "senseOnly": true,
    "pos": "singular noun",
-   "meaning": "An important job, or the group of people who do that work."
+   "meaning": "An important government job.",
+   "here": "The country went on not only because of people in the highest jobs.",
+   "senses": [
+    {
+     "meaning": "An important government job.",
+     "here": "The country went on not only because of people in the highest jobs.",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "skill or vision of those in high office"
+      }
+     ]
+    },
+    {
+     "meaning": "A government department, and the people who work in it.",
+     "here": "This names the White House office that kept the text of the speech.",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "context": "the White House Office of the Press Secretary"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 2,
+       "context": "The White House, Office of the Press Secretary"
+      }
+     ]
+    }
+   ]
   },
   "press": {
    "pos": "singular noun",
@@ -948,7 +1037,8 @@
   },
   "secretary": {
    "pos": "singular noun",
-   "meaning": "Here, a high official who speaks for the president."
+   "meaning": "A high official who speaks for a leader.",
+   "here": "This names the White House official whose office kept the text of the speech."
   },
   "network": {
    "pos": "singular noun",
@@ -965,7 +1055,8 @@
   },
   "force": {
    "pos": "singular noun",
-   "meaning": "Power that makes things happen."
+   "meaning": "Power that makes things happen.",
+   "here": "This is a power that changes what happens, not a push with the body."
   },
   "document": {
    "pos": "singular noun",
@@ -1229,8 +1320,9 @@
   },
   "borne": {
    "pos": "past-tense verb",
-   "meaning": "Carried.",
-   "whyHard": "Not the usual meaning! This is not born, the word for a baby's birth."
+   "meaning": "Carried, as a weight or a hard duty.",
+   "whyHard": "Not the usual meaning! This is not born, the word for a baby's birth.",
+   "here": "The ancestors carried the hard sacrifices they made for the people who came later."
   },
   "shutter": {
    "pos": "verb",
@@ -1241,9 +1333,27 @@
    ]
   },
   "shed": {
+   "senseOnly": true,
    "pos": "verb",
-   "meaning": "To let something fall away. Here, the jobs are gone.",
-   "whyHard": "Not the usual meaning! A shed is a small building. Shed here is a doing word: the jobs were lost."
+   "meaning": "To lose something, or to let it drop away.",
+   "here": "Jobs have been lost.",
+   "whyHard": "Not the usual meaning! A shed is a small building. Shed here is a doing word: the jobs were lost.",
+   "senses": [
+    {
+     "meaning": "To lose something, or to let it drop away.",
+     "here": "Jobs have been lost.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "Homes have been lost, jobs shed, businesses shuttered"
+      }
+     ],
+     "whyHard": "Not the usual meaning! A shed is a small building. Shed here is a doing word: the jobs were lost.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
   },
   "raw": {
    "pos": "adjective",
@@ -1279,9 +1389,27 @@
    "whyHard": "Not the usual meaning! Usually stale describes bread that is no longer fresh."
   },
   "reach": {
+   "senseOnly": true,
    "pos": "singular noun",
    "meaning": "How far something goes.",
-   "whyHard": "Not the usual meaning! Usually reach means to stretch out your hand."
+   "here": "He means how widely good times should spread, not how far a person can stretch a hand.",
+   "whyHard": "Not the usual meaning! Usually reach means to stretch out your hand.",
+   "senses": [
+    {
+     "meaning": "How far something goes.",
+     "here": "He means how widely good times should spread, not how far a person can stretch a hand.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "but on the reach of our prosperity, on the ability"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually reach means to stretch out your hand.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
   },
   "forge": {
    "pos": "verb",
@@ -1294,9 +1422,27 @@
    "whyHard": "Not the usual meaning! Usually the ground is the floor under your feet."
   },
   "apply": {
+   "senseOnly": true,
    "pos": "verb",
-   "meaning": "To fit a case.",
-   "whyHard": "Not the usual meaning! Usually apply means to put something on, or to ask for a job."
+   "meaning": "To be right for a situation, or to fit it.",
+   "here": "Those old political arguments no longer fit the country as it is now.",
+   "whyHard": "Not the usual meaning! Usually apply means to put something on, or to ask for a job.",
+   "senses": [
+    {
+     "meaning": "To be right for a situation, or to fit it.",
+     "here": "Those old political arguments no longer fit the country as it is now.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "arguments that have consumed us for so long no longer apply"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually apply means to put something on, or to ask for a job.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
   },
   "favor": {
    "pos": "verb",
@@ -1309,9 +1455,27 @@
    "whyHard": "Not the usual meaning! Usually a cause is the reason something happens."
   },
   "chapter": {
+   "senseOnly": true,
    "pos": "singular noun",
-   "meaning": "One part of a long story. Here, a part of the country's past.",
-   "whyHard": "Not only a numbered part of a book."
+   "meaning": "One part of a longer story.",
+   "here": "The Civil War and the years of keeping races apart are one dark part of the country's past.",
+   "whyHard": "Not only a numbered part of a book.",
+   "senses": [
+    {
+     "meaning": "One part of a longer story.",
+     "here": "The Civil War and the years of keeping races apart are one dark part of the country's past.",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "emerged from that dark chapter stronger and more united"
+      }
+     ],
+     "whyHard": "Not only a numbered part of a book.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
   },
   "pass": {
    "pos": "verb",
@@ -1383,9 +1547,36 @@
    "whyHard": "Not the usual meaning! Usually current means now."
   },
   "ill": {
-   "pos": "adjective",
-   "meaning": "Bad.",
-   "whyHard": "Not the usual meaning! Usually ill means sick."
+   "senseOnly": true,
+   "pos": "noun",
+   "meaning": "Harm, or something that is bad.",
+   "here": "Good or ill means good or harm. A society's ills are its troubles, not an illness.",
+   "whyHard": "Not the usual meaning! Usually ill means sick.",
+   "forms": [
+    "ills"
+   ],
+   "senses": [
+    {
+     "meaning": "Harm, or something that is bad.",
+     "here": "Good or ill means good or harm. A society's ills are its troubles, not an illness.",
+     "whyHard": "Not the usual meaning! Usually ill means sick.",
+     "trickyMeaning": true,
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "context": "market is a force for good or ill"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "ills",
+       "context": "blame their society's ills on the West"
+      }
+     ]
+    }
+   ]
   },
   "state": {
    "pos": "singular noun",
@@ -1593,11 +1784,11 @@
   "sow": {
    "senseOnly": true,
    "pos": "verb",
-   "meaning": "To plant. Here, to start trouble on purpose.",
+   "meaning": "To plant something so that it will grow.",
    "whyHard": "Not the usual meaning! A sow is a mother pig. Here sow means to plant.",
    "senses": [
     {
-     "meaning": "To plant. Here, to start trouble on purpose.",
+     "meaning": "To plant something so that it will grow.",
      "anchors": [
       {
        "chapter": 1,
@@ -1607,9 +1798,11 @@
      ],
      "whyHard": "Not the usual meaning! A sow is a mother pig. Here sow means to plant.",
      "trickyMeaning": true,
-     "default": true
+     "default": true,
+     "here": "These leaders plant conflict on purpose, the way a farmer plants a seed."
     }
-   ]
+   ],
+   "here": "These leaders plant conflict on purpose, the way a farmer plants a seed."
   },
   "good": {
    "senseOnly": true,
@@ -1754,6 +1947,12 @@
   }
  },
  "sentences": [
+  {
+   "chapter": 1,
+   "context": "The words have been spoken during rising tides of prosperity and the still waters of peace.",
+   "simple": "The promise was spoken when the country was rich and at peace. The next line uses bad weather to mean the hard years.",
+   "grammar": "The high water and the water that is not moving are a picture, not a real sea. They mean good times. The bad weather in the next line means hard times."
+  },
   {
    "chapter": 1,
    "context": "That we are in the midst of crisis is now well understood",

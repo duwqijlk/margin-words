@@ -1,7 +1,7 @@
 {
  "format": 1,
  "name": "Margin Words book packs",
- "updated": "2026-10-05",
+ "updated": "2026-10-06",
  "packs": [
   {
    "id": "alice",
@@ -554,13 +554,13 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA. A work of the United States government (17 USC 105), delivered January 20, 2009. The cover is the photograph supplied with this reading text.",
    "category": "speech",
-   "updated": "2026-10-05",
-   "rev": "5d443a08807d",
+   "updated": "2026-10-06",
+   "rev": "d9e7b36db748",
    "version": 2,
    "chapters": 2,
-   "words": 330,
+   "words": 331,
    "paragraphs": 0,
-   "sentences": 7,
+   "sentences": 8,
    "phrases": 45,
    "coined": 0,
    "epub": {
@@ -570,9 +570,9 @@
    },
    "glossary": {
     "url": "obama-inaugural-2009/glossary.json",
-    "bytes": 52809,
-    "sha256": "d191c66b8d367969d49f59a97946652c67ac9091401dc08374fd7e62e4ea017b",
-    "rev": "d191c66b8d36"
+    "bytes": 59746,
+    "sha256": "5d145372fd6300c2cb2ba265bf7bcf3d76172ad9c52551c319333936bea09d72",
+    "rev": "5d145372fd63"
    },
    "cover": {
     "url": "obama-inaugural-2009/cover.jpg",
