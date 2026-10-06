@@ -1099,14 +1099,6 @@
    "usage": "common",
    "usageNote": "A common word. Good to understand."
   },
-  "ballistic": {
-   "pos": "adjective",
-   "meaning": "(Informal) \"Go ballistic\" = become very angry and wild.",
-   "level": "beyond",
-   "importance": "good",
-   "usage": "common",
-   "usageNote": "A common word. Good to understand."
-  },
   "bam": {
    "pos": "exclamation",
    "meaning": "A word for a sudden hit or event: \"Bam!\"",
@@ -1651,20 +1643,6 @@
    "importance": "skip",
    "usage": "common",
    "usageNote": "You only need to understand it for this story."
-  },
-  "blurt": {
-   "pos": "base verb",
-   "meaning": "To say something suddenly, without thinking.",
-   "forms": [
-    "blurt",
-    "blurted",
-    "blurts"
-   ],
-   "level": "beyond",
-   "importance": "good",
-   "usage": "common",
-   "usageNote": "A common word. Good to understand.",
-   "example": "\"I'm sorry!\" she blurted."
   },
   "blush": {
    "pos": "base verb",
@@ -2745,22 +2723,6 @@
    "usage": "common",
    "usageNote": "A common word. Good to understand."
   },
-  "cell": {
-   "pos": "singular noun",
-   "meaning": "\"Cell phone\" = a mobile phone.",
-   "level": "beyond",
-   "importance": "good",
-   "usage": "common",
-   "usageNote": "A common word. Good to understand."
-  },
-  "cerebral": {
-   "pos": "adjective",
-   "meaning": "Of the brain. \"Cerebral palsy\" = a condition caused by brain damage at birth that makes it hard to control the body.",
-   "level": "beyond",
-   "importance": "good",
-   "usage": "common",
-   "usageNote": "A common word. Good to understand."
-  },
   "certainty": {
    "pos": "uncountable noun",
    "meaning": "The feeling of being sure.",
@@ -3425,14 +3387,6 @@
    "importance": "good",
    "usage": "common",
    "usageNote": "A common word. Good to understand."
-  },
-  "commission": {
-   "pos": "uncountable noun",
-   "meaning": "\"Out of commission\" = not working, because it is broken or hurt.",
-   "level": "beyond",
-   "importance": "skip",
-   "usage": "common",
-   "usageNote": "You only need to understand it for this story."
   },
   "commotion": {
    "pos": "singular noun",
@@ -4240,14 +4194,6 @@
    "usage": "common",
    "usageNote": "A common word. Good to understand."
   },
-  "cue": {
-   "pos": "singular noun",
-   "meaning": "\"On cue\" = at exactly the right moment.",
-   "level": "beyond",
-   "importance": "good",
-   "usage": "common",
-   "usageNote": "A common word. Good to understand."
-  },
   "cure": {
    "pos": "singular noun",
    "meaning": "A medicine or treatment that makes a sick person well.",
@@ -4472,35 +4418,6 @@
        "chapter": 32,
        "occurrence": 1,
        "context": "I look her dead in the eye and wait."
-      }
-     ],
-     "level": "junior",
-     "importance": "good",
-     "trickyMeaning": true
-    }
-   ]
-  },
-  "deal": {
-   "pos": "base verb",
-   "meaning": "To take action to solve a problem (\"deal with\").",
-   "whyHard": "A common word with more than one meaning. Check the meaning here.",
-   "forms": [
-    "deals"
-   ],
-   "level": "junior",
-   "importance": "skip",
-   "usage": "common",
-   "senses": [
-    {
-     "pos": "base verb",
-     "meaning": "\"Deal with\" a subject = be about it (\"The next question deals with math\").",
-     "whyHard": "Not the usual meaning! Usually: To take action on.",
-     "anchors": [
-      {
-       "chapter": 24,
-       "occurrence": 1,
-       "form": "deals",
-       "context": "Mr. Kingsley says, “deals with math."
       }
      ],
      "level": "junior",
@@ -6425,7 +6342,7 @@
   },
   "figure": {
    "pos": "base verb",
-   "meaning": "To think; to decide. \"Figure out\" = understand something or find the answer. \"I figured\" = I thought.",
+   "meaning": "To think, or to decide. \"I figured\" means \"I thought.\"",
    "forms": [
     "figure",
     "figured",
@@ -6991,14 +6908,6 @@
    "usageNote": "A common word. Good to understand.",
    "example": "She looked frantically for her lost child."
   },
-  "freak": {
-   "pos": "base verb",
-   "meaning": "\"Freak out\" = to become very upset or scared.",
-   "level": "beyond",
-   "importance": "skip",
-   "usage": "common",
-   "usageNote": "You only need to understand it for this story."
-  },
   "freaking": {
    "pos": "adverb",
    "meaning": "Informal and a bit rude: very. It is used to make a word stronger.",
@@ -7022,14 +6931,6 @@
    "importance": "good",
    "usage": "common",
    "usageNote": "A common word. Good to understand."
-  },
-  "fritz": {
-   "pos": "singular noun",
-   "meaning": "\"On the fritz\" (informal) = broken; not working.",
-   "level": "beyond",
-   "importance": "skip",
-   "usage": "common",
-   "usageNote": "You only need to understand it for this story."
   },
   "frizzy": {
    "pos": "adjective",
@@ -11841,14 +11742,6 @@
    "usage": "common",
    "usageNote": "A common word. Good to understand."
   },
-  "palsy": {
-   "pos": "uncountable noun",
-   "meaning": "\"Cerebral palsy\" = a condition caused by brain damage at birth that makes it hard to control the body.",
-   "level": "beyond",
-   "importance": "good",
-   "usage": "common",
-   "usageNote": "A common word. Good to understand."
-  },
   "pan": {
    "pos": "singular noun",
    "meaning": "A wide metal pot used for cooking.",
@@ -12876,7 +12769,7 @@
   },
   "potty": {
    "pos": "singular noun",
-   "meaning": "(A child's word) A toilet. \"Potty trained\" = able to use the toilet.",
+   "meaning": "(A child's word) A toilet.",
    "level": "beyond",
    "importance": "skip",
    "usage": "common",
@@ -14130,18 +14023,6 @@
    "usageNote": "A common word. Good to understand.",
    "example": "The dog retrieved the ball."
   },
-  "retriever": {
-   "pos": "singular noun",
-   "meaning": "\"Golden retriever\" = a big, friendly dog with golden fur.",
-   "forms": [
-    "retriever",
-    "retrievers"
-   ],
-   "level": "beyond",
-   "importance": "good",
-   "usage": "common",
-   "usageNote": "A common word. Good to understand."
-  },
   "reveal": {
    "pos": "base verb",
    "meaning": "To show something that was hidden.",
@@ -15054,20 +14935,6 @@
    "usageNote": "A common word. Good to understand.",
    "example": "He scraped the ice off the car window."
   },
-  "scratch": {
-   "pos": "base verb",
-   "meaning": "To cut the skin a little with something sharp.",
-   "forms": [
-    "scratch",
-    "scratched",
-    "scratches",
-    "scratching"
-   ],
-   "level": "beyond",
-   "importance": "key",
-   "usage": "common",
-   "usageNote": "A common word. Good to learn."
-  },
   "scratchy": {
    "pos": "adjective",
    "meaning": "Rough on your skin, so that it makes you want to scratch.",
@@ -15891,14 +15758,6 @@
    "usageNote": "A common word. Good to understand.",
    "example": "She took a sip of tea."
   },
-  "sippy": {
-   "pos": "adjective",
-   "meaning": "\"Sippy cup\" = a baby's cup with a lid and a small spout to drink from.",
-   "level": "beyond",
-   "importance": "skip",
-   "usage": "common",
-   "usageNote": "You only need to understand it for this story."
-  },
   "siren": {
    "pos": "singular noun",
    "meaning": "A machine that makes a long, loud warning sound.",
@@ -16562,19 +16421,6 @@
    "importance": "skip",
    "usage": "common",
    "usageNote": "You only need to understand it for this story."
-  },
-  "sort": {
-   "pos": "singular noun",
-   "meaning": "\"Sort of\" means \"a little\" or \"in some way\".",
-   "forms": [
-    "sort",
-    "sorts"
-   ],
-   "level": "beyond",
-   "importance": "good",
-   "usage": "common",
-   "usageNote": "A common word. Good to understand.",
-   "example": "I sort of like it."
   },
   "sour": {
    "pos": "adjective",
@@ -21195,11 +21041,6 @@
    "pos": "verb",
    "meaning": "Singing.",
    "whyHard": "This is a short way people say the words when they talk fast."
-  },
-  "bout": {
-   "pos": "adverb",
-   "meaning": "About. With near, it means almost.",
-   "whyHard": "In this book it is a short way to say about."
   },
   "hon": {
    "pos": "noun",
@@ -27236,6 +27077,11 @@
    "usage": "common",
    "usageNote": "A common phrase. Good to learn."
   },
+  "deals and wheels": {
+   "meaning": "A playful way to say she will take care of Melody and her wheelchair.",
+   "pos": "phrase",
+   "example": "I'm gonna be your deals and wheels every day."
+  },
   "do your best": {
    "meaning": "To try as hard as you can.",
    "pos": "idiom",
@@ -27664,7 +27510,7 @@
    "usage": "common",
    "usageNote": "A common phrase. Good to understand."
   },
-  "go out of your mind": {
+  "go out of one's mind": {
    "meaning": "To become almost crazy with worry, fear or anger.",
    "pos": "idiom",
    "forms": [
@@ -29045,12 +28891,17 @@
    "usageNote": "A common phrase. Good to know."
   },
   "sort of": {
-   "meaning": "A type of; a little bit.",
+   "meaning": "A little, or in some way.",
    "pos": "phrase",
    "example": "Since I never had trouble thinking or remembering, it actually sort of surprised me that I couldn’t do stuff.",
    "importance": "good",
    "usage": "common",
    "usageNote": "A common phrase. Good to understand."
+  },
+  "some sort of": {
+   "meaning": "A kind of.",
+   "pos": "phrase",
+   "example": "I've heard it's some sort of a tradition round here to decorate this old Styrofoam snowman"
   },
   "spaz out": {
    "meaning": "To lose control of your body and move wildly. \"Spaz\" is a rude, hurtful word that people should not use; Melody uses it only about herself.",
