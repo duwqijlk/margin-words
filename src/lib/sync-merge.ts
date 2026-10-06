@@ -375,6 +375,23 @@ export function asWordbookBlob(data: unknown): WordbookBlob {
 
 const sourceTime = (source: SourceRecord): number => (isLive(source) ? source.savedAt : source.removed);
 
+/**
+ * The later copy wins, but a pointer often has no sentence. Keep the paragraph the other copy still has,
+ * or the notebook line appears and disappears on every sync. A removal does not gain a sentence.
+ */
+function keepParagraph(chosen: SourceRecord, other: SourceRecord): SourceRecord {
+  if (!isLive(chosen) || !isLive(other)) return chosen;
+  const next: SourceLive = { ...chosen };
+  if (!next.sentence?.trim() && other.sentence?.trim()) next.sentence = other.sentence;
+  if (!next.title && other.title) next.title = other.title;
+  if (!next.author && other.author) next.author = other.author;
+  if (!next.chapterTitle && other.chapterTitle) next.chapterTitle = other.chapterTitle;
+  if (next.chapter === undefined && other.chapter !== undefined) next.chapter = other.chapter;
+  if (!next.pos && other.pos) next.pos = other.pos;
+  if (!next.at && other.at) next.at = other.at;
+  return next;
+}
+
 /** Union of source lists by key. The later of save and removal wins; a tie keeps the removal. */
 export function mergeSourceRecords(...lists: ReadonlyArray<readonly SourceRecord[]>): SourceRecord[] {
   const map = new Map<string, SourceRecord>();
@@ -387,8 +404,10 @@ export function mergeSourceRecords(...lists: ReadonlyArray<readonly SourceRecord
       }
       const a = sourceTime(prior);
       const b = sourceTime(source);
-      if (b > a || (b === a && !isLive(source))) map.set(source.k, source);
-      else if (b === a && isLive(prior) && isLive(source) && detailOf(source) > detailOf(prior)) map.set(source.k, source);
+      let chosen = prior;
+      if (b > a || (b === a && !isLive(source))) chosen = source;
+      else if (b === a && isLive(prior) && isLive(source) && detailOf(source) > detailOf(prior)) chosen = source;
+      map.set(source.k, keepParagraph(chosen, chosen === source ? prior : source));
     }
   }
   const all = [...map.values()];

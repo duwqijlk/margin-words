@@ -215,6 +215,7 @@ import {
   asWordbookBlob,
   foldLegacyWords,
   mergeSourceRecords,
+  sourceKey,
   wordbookItemId,
 } from "../src/lib/sync-merge.ts";
 import { captureSnapshot, loadMeta } from "../src/lib/sync-diff.ts";
@@ -286,6 +287,39 @@ test("a removed source stays removed against an older copy that still has it", (
     assert.deepEqual(liveOnes.map((s) => s.book), [BOOK_P]);
   }
   assert.equal(mergeSourceRecords([live(BOOK_A, "x y z", 900)], [{ k: live(BOOK_A, "x y z").k, removed: 500 }]).filter((s) => !("removed" in s)).length, 1);
+});
+
+test("a pointer without a sentence does not erase the paragraph saved on the other copy", () => {
+  const ref = { list: "alice", chapter: 1, occurrence: 2, mark: "0123abcd", form: "faint" };
+  const paragraph = "A faint light on the water.";
+  const k = sourceKey({ book: BOOK_A, ref, surface: "faint" });
+  const withSentence = {
+    k,
+    book: BOOK_A,
+    title: "Alice",
+    author: "Lewis Carroll",
+    chapterTitle: "Down the Rabbit-Hole",
+    sentence: paragraph,
+    surface: "faint",
+    savedAt: 50,
+    ref,
+  };
+  const pointer = { k, book: BOOK_A, surface: "faint", savedAt: 50, ref };
+  const newer = { ...pointer, savedAt: 80 };
+  for (const [a, b] of [
+    [withSentence, pointer],
+    [pointer, withSentence],
+    [withSentence, newer],
+    [newer, withSentence],
+  ]) {
+    const kept = mergeSourceRecords([a], [b]).find((s) => !("removed" in s));
+    assert.equal(kept.sentence, paragraph);
+    assert.equal(kept.title, "Alice");
+    assert.equal(kept.chapterTitle, "Down the Rabbit-Hole");
+    assert.equal(kept.ref.list, "alice");
+  }
+  const gone = mergeSourceRecords([withSentence], [{ k, removed: 90 }]);
+  assert.equal(gone.filter((s) => !("removed" in s)).length, 0);
 });
 
 test("a word removed on one device is removed on the other, unless it was saved again later", () => {

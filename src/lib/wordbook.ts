@@ -31,14 +31,11 @@ function detail(source: WordSource): number {
 /** Keep a sense that only one of the two copies stored. A word-list pointer does not take a copied meaning. */
 function withSense(winner: WordSource, other: WordSource | undefined): WordSource {
   if (!other) return winner;
-  if (winner.ref) {
-    const next = { ...winner };
-    if (!next.pos && other.pos) next.pos = other.pos;
-    return next;
-  }
   const next = { ...winner };
-  if (!next.meaning && other.meaning) next.meaning = other.meaning;
+  if (!next.sentence?.trim() && other.sentence?.trim()) next.sentence = other.sentence;
   if (!next.pos && other.pos) next.pos = other.pos;
+  if (winner.ref) return next;
+  if (!next.meaning && other.meaning) next.meaning = other.meaning;
   return next;
 }
 

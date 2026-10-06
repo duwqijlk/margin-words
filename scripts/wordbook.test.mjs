@@ -282,3 +282,23 @@ test("a word-list pointer stays on its card and does not erase an older sentence
   assert.equal(rehomed[0].lemma, "faint");
   assert.equal(rehomed[0].sources[0].ref.list, "alice");
 });
+
+test("two copies of one word-list pointer keep the paragraph and do not copy a meaning", () => {
+  const ref = { list: "alice", chapter: 1, occurrence: 2, mark: "0123abcd" };
+  const paragraph = "A faint light on the water.";
+  const bare = { book: keyA, surface: "faint", savedAt: 2, ref };
+  const full = { book: keyA, surface: "faint", savedAt: 2, ref, sentence: paragraph, meaning: "Copied meaning." };
+  const placed = { ...bare, chapter: 1, chapterTitle: "Down the Rabbit-Hole" };
+  const fromBare = mergeSources([bare], [full]);
+  assert.equal(fromBare.length, 1);
+  assert.equal(fromBare[0].sentence, paragraph);
+  assert.equal(fromBare[0].meaning, undefined);
+  const fromFull = mergeSources([full], [bare]);
+  assert.equal(fromFull[0].sentence, paragraph);
+  assert.equal(fromFull[0].meaning, "Copied meaning.");
+  const detailed = mergeSources([full], [placed]);
+  assert.equal(detailed.length, 1);
+  assert.equal(detailed[0].sentence, paragraph);
+  assert.equal(detailed[0].chapter, 1);
+  assert.equal(detailed[0].meaning, undefined);
+});
