@@ -4,10 +4,19 @@ import { useT } from "@/lib/i18n";
 import { loadStoredBook } from "@/lib/book-db";
 import { jumpToSource } from "@/lib/jump-store";
 import { focusSentence, recoverClippedSentence, sentenceHasWord } from "@/lib/text";
-import type { Book, VocabEntry } from "@/lib/vocab-model";
+import type { Book, VocabEntry, WordSource } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
-import { bookForSource, sourceBelongsTo, sourceKey } from "@/lib/wordbook";
+import { bookForSource, sourceBelongsTo } from "@/lib/wordbook";
 import { btn, chip, cn, Highlighted } from "@/components/ui";
+
+/** Stable while a restored paragraph is written in. The sentence text is not part of the key. */
+function sourceRowKey(source: WordSource): string {
+  const ref = source.ref;
+  if (ref?.list) {
+    return `${source.book}|${ref.list}|${ref.phrase ? "p" : "w"}|${ref.chapter ?? ""}|${ref.occurrence ?? ""}|${ref.form ?? ""}|${ref.mark ?? ""}`;
+  }
+  return `${source.book}|${source.savedAt}|${source.chapter ?? ""}|${source.surface}`;
+}
 
 /** Where a saved word was met: the sentence with the word marked, the book and chapter, and a way back to it. */
 export function WordSources({
@@ -87,7 +96,7 @@ export function WordSources({
           const surface = source.surface || word.surface || word.lemma;
           const sentence = source.sentence ? focusSentence(source.sentence, surface) : "";
           return (
-            <li key={sourceKey(source)} className="grid min-w-0 gap-1.5" data-word-source>
+            <li key={sourceRowKey(source)} className="grid min-w-0 gap-1.5" data-word-source>
               {sentence ? (
                 <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed break-words text-ink">
                   <Highlighted sentence={sentence} surface={surface} />
