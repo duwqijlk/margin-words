@@ -1,5 +1,7 @@
-# Cloudflare Pages. Static files are served first, so /assets/*, /fonts/* and the rest are never
-# rewritten. /api/* is a Pages Function (see public/_routes.json and functions/), not a page.
+# Cloudflare Pages. A file that exists is served as that file. /assets/* is also a Pages
+# Function (functions/assets/[[path]].ts): a missing script is a 404, never this page.
+# A missing script used to be rewritten to index.html with status 200 and cached for a
+# year, so a refresh stayed blank. /api/* is a Pages Function too.
 # Every other path is a page of the single-page app (/shelf, /discover, /guide, /words,
 # /read/<id>) and gets index.html. The old address of the book pack kit keeps working.
 /guide/book-pack-kit.zip /kit/book-pack-kit.zip 301

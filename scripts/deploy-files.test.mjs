@@ -85,6 +85,16 @@ test("the service worker does not answer a request", () => {
   assert.ok(claim !== -1 && del !== -1 && claim < del, "the new worker takes over before old caches are deleted");
 });
 
+test("a missing hashed file is not the app page", () => {
+  const routes = JSON.parse(read("public/_routes.json"));
+  assert.ok(routes.include.includes("/assets/*"), "/assets must be handled by the function, not the page rewrite");
+  const guard = read("functions/assets/[[path]].ts");
+  assert.match(guard, /text\/html/);
+  assert.match(guard, /status: 404/);
+  assert.match(guard, /no-store/);
+  assert.match(guard, /ASSETS\.fetch/);
+});
+
 test("the app registers the worker from the site root and checks for a new one", () => {
   const main = read("src/main.tsx");
   assert.match(main, /register\("\/sw\.js"/);
