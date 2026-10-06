@@ -47,9 +47,9 @@ export type Book = {
  * Where a saved word was met. A word can have several (one per book it was saved from). The book is named by
  * its sync key (title and author), not by this device's shelf card, so it means the same on every device.
  *
- * A new save sets `ref` and leaves the sentence out. The snippet and the meaning are read from that word
- * list when the card is shown, so a later edit to the list replaces the explanation. An older save may
- * still carry `sentence`, `title` and `at` until this device has that book's list and rewrites it as a pointer.
+ * A save keeps the sentence, so the notebook can show that paragraph. The meaning is read from the word
+ * list when this device has it, so a later edit to the list replaces the explanation. An older save may
+ * still carry `title` and `at` as well.
  */
 export type WordSource = {
   /** `bookSyncKey` of the book: the same on every device */
@@ -60,7 +60,7 @@ export type WordSource = {
   /** 0-based chapter, when known (words saved by older versions have none until the book is opened) */
   chapter?: number;
   chapterTitle?: string;
-  /** the whole sentence, for a word saved before word-list pointers. A `ref` save leaves this out. */
+  /** the sentence that holds the word, shown on the notebook card */
   sentence?: string;
   /** the word as it was written there */
   surface: string;

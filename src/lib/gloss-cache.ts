@@ -17,6 +17,8 @@ const listeners = new Set<Listener>();
 const cache = new Map<string, GlossFileView>();
 const bookLists = new Map<string, string>();
 const inflight = new Map<string, Promise<void>>();
+/** A list that finished loading with no file. Stops a retry loop, and lets the notebook stop waiting. */
+const missed = new Set<string>();
 let packsPromise: Promise<PackRecord[]> | null = null;
 let epoch = 0;
 let watching = false;
@@ -34,6 +36,7 @@ function watchListUpdates(): void {
     cache.clear();
     bookLists.clear();
     inflight.clear();
+    missed.clear();
     notify();
   });
 }
@@ -49,8 +52,20 @@ export function glossSnapshot(): ReadonlyMap<string, GlossFileView> {
 }
 
 function publish(key: string, file: GlossFileView): void {
+  missed.delete(key);
   cache.set(key, file);
   notify();
+}
+
+function miss(key: string): void {
+  if (cache.has(key) || missed.has(key)) return;
+  missed.add(key);
+  notify();
+}
+
+/** True once a list has loaded, or the load finished with no file. */
+export function glossSettled(key: string): boolean {
+  return cache.has(key) || missed.has(key);
 }
 
 /** List id plus file for each shelf book whose list has been loaded. Used to turn old saves into pointers. */
@@ -156,8 +171,12 @@ async function resolveBook(bookKey: string, books: readonly Book[]): Promise<{ l
 function remember(started: number, bookKey: string, result: { list: string; file: GlossFileView }): void {
   if (started !== epoch) return;
   bookLists.set(bookKey, result.list);
-  cache.set(bookGlossKey(bookKey), result.file);
-  cache.set(glossCacheKey({ list: result.list }, bookKey), result.file);
+  const stored = bookGlossKey(bookKey);
+  const listed = glossCacheKey({ list: result.list }, bookKey);
+  missed.delete(stored);
+  missed.delete(listed);
+  cache.set(stored, result.file);
+  cache.set(listed, result.file);
   notify();
 }
 
@@ -166,15 +185,18 @@ export function requestBookGloss(bookKey: string, books: readonly Book[]): void 
   watchListUpdates();
   if (!bookKey) return;
   const key = bookGlossKey(bookKey);
-  if (cache.has(key) || inflight.has(key)) return;
+  if (cache.has(key) || inflight.has(key) || missed.has(key)) return;
   const started = epoch;
   const job = resolveBook(bookKey, books)
     .then((result) => {
       inflight.delete(key);
+      if (started !== epoch) return;
       if (result) remember(started, bookKey, result);
+      else miss(key);
     })
     .catch(() => {
       inflight.delete(key);
+      if (started === epoch) miss(key);
     });
   inflight.set(key, job);
 }
@@ -183,15 +205,18 @@ export function requestBookGloss(bookKey: string, books: readonly Book[]): void 
 export function requestGloss(ref: GlossPoint, bookKey: string, books: readonly Book[]): void {
   watchListUpdates();
   const key = glossCacheKey(ref, bookKey);
-  if (cache.has(key) || inflight.has(key)) return;
+  if (cache.has(key) || inflight.has(key) || missed.has(key)) return;
   const started = epoch;
   const job = resolveOne(ref, bookKey, books)
     .then((file) => {
       inflight.delete(key);
-      if (file && started === epoch) publish(key, file);
+      if (started !== epoch) return;
+      if (file) publish(key, file);
+      else miss(key);
     })
     .catch(() => {
       inflight.delete(key);
+      if (started === epoch) miss(key);
     });
   inflight.set(key, job);
 }

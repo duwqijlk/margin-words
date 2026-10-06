@@ -1,7 +1,6 @@
 /**
- * A saved word points at one place in a word list. The list already holds the short
- * original snippet and the meaning. The account stores this pointer, not text copied
- * from the reader's own e-book.
+ * A saved word points at one place in a word list. The meaning is read from that list.
+ * The sentence stays on the source so the notebook can show the paragraph.
  */
 
 export type GlossPoint = {

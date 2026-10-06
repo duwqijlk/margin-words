@@ -1867,14 +1867,19 @@ export function ReaderScreen({
                     before: picked.before,
                   })
                 : undefined;
+            const sentence = card.fullSentence || card.sentence;
             const source: WordSource = ref
               ? {
                   book: bookKey,
+                  title: shelfBook.title,
+                  author: shelfBook.author,
+                  chapter: ref.chapter ?? safeIndex,
+                  ...(chapter.title ? { chapterTitle: chapter.title } : {}),
+                  sentence,
                   surface: saveAs.surface,
                   savedAt: Date.now(),
                   ref,
                   ...(saveAs.pos ? { pos: saveAs.pos } : {}),
-                  ...(ref.chapter !== undefined ? { chapter: ref.chapter } : {}),
                 }
               : {
                   book: bookKey,
@@ -1882,6 +1887,7 @@ export function ReaderScreen({
                   author: shelfBook.author,
                   chapter: safeIndex,
                   ...(chapter.title ? { chapterTitle: chapter.title } : {}),
+                  sentence,
                   surface: saveAs.surface,
                   savedAt: Date.now(),
                   ...(saveAs.pos ? { pos: saveAs.pos } : {}),
@@ -1891,10 +1897,10 @@ export function ReaderScreen({
                 surface: saveAs.surface,
                 lemma: saveAs.lemma,
                 pos: saveAs.pos,
-                meaning: "",
+                meaning: ref ? "" : saveAs.meaning,
                 whyHard: "",
                 recommend: !isEasyKey(saveAs.lemma),
-                sentence: "",
+                sentence,
               },
               source,
             );

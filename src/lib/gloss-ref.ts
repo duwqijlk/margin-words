@@ -273,36 +273,30 @@ export function readPoint(point: GlossPoint, lemma: string, file: GlossFileView)
 
 type ShownSource = { source: WordSource; fromList: boolean; whyHard: string };
 
-function filledSource(source: WordSource, hit: GlossRead, chapter: number | undefined): WordSource {
+function withListMeaning(source: WordSource, hit: GlossRead, chapter: number | undefined): WordSource {
+  const sentence = source.sentence || hit.sentence;
   return {
-    book: source.book,
-    surface: source.surface,
-    savedAt: source.savedAt,
-    ...(source.ref ? { ref: source.ref } : {}),
-    ...(hit.pos || source.pos ? { pos: hit.pos || source.pos } : {}),
-    ...(chapter !== undefined ? { chapter } : {}),
-    ...(hit.sentence ? { sentence: hit.sentence } : {}),
+    ...source,
+    ...(hit.pos ? { pos: hit.pos } : {}),
+    ...(chapter !== undefined && source.chapter === undefined ? { chapter } : {}),
+    ...(sentence ? { sentence } : {}),
     ...(hit.meaning ? { meaning: hit.meaning } : {}),
-    ...(hit.title ? { title: hit.title } : {}),
-    ...(hit.author ? { author: hit.author } : {}),
+    ...(source.title ? {} : hit.title ? { title: hit.title } : {}),
+    ...(source.author ? {} : hit.author ? { author: hit.author } : {}),
   };
 }
 
 function displaySource(source: WordSource, lemma: string, files: ReadonlyMap<string, GlossFileView>): ShownSource {
   if (source.ref) {
-    const bare: WordSource = {
-      book: source.book,
-      surface: source.surface,
-      savedAt: source.savedAt,
-      ref: source.ref,
-      ...(source.pos ? { pos: source.pos } : {}),
-      ...(source.chapter !== undefined ? { chapter: source.chapter } : {}),
-    };
     const file = files.get(glossCacheKey(source.ref, source.book));
-    if (!file) return { source: bare, fromList: true, whyHard: "" };
+    if (!file) return { source, fromList: false, whyHard: "" };
     const hit = readPoint(source.ref, lemma, file);
-    if (!hit) return { source: bare, fromList: true, whyHard: "" };
-    return { source: filledSource(source, hit, source.chapter ?? source.ref.chapter), fromList: true, whyHard: hit.whyHard };
+    if (!hit?.meaning) return { source, fromList: false, whyHard: "" };
+    return {
+      source: withListMeaning(source, hit, source.chapter ?? source.ref.chapter),
+      fromList: true,
+      whyHard: hit.whyHard,
+    };
   }
   const file = files.get(bookGlossKey(source.book));
   if (!file) return { source, fromList: false, whyHard: "" };
@@ -311,17 +305,16 @@ function displaySource(source: WordSource, lemma: string, files: ReadonlyMap<str
   const hit = readPoint(point, lemma, file);
   if (!hit?.meaning) return { source, fromList: false, whyHard: "" };
   return {
-    source: filledSource(source, hit, point.chapter ?? source.chapter),
+    source: withListMeaning(source, hit, point.chapter ?? source.chapter),
     fromList: true,
     whyHard: hit.whyHard,
   };
 }
 
 /**
- * A copy for the notebook and review. Snippet and meaning come from the word list
- * when this device has it, including for a word saved before pointers. Text stored
- * beside that list is left out of the copy. A word that is not in any loaded list
- * keeps the sentence it already has.
+ * A copy for the notebook and review. The meaning comes from the word list when this
+ * device has it. The sentence already saved with the word stays: that is the paragraph
+ * on the card. A list snippet fills in only when no sentence was saved.
  */
 export function presentWord(word: VocabEntry, files: ReadonlyMap<string, GlossFileView>): VocabEntry {
   const shown = word.sources.map((source) => displaySource(source, word.lemma, files));
@@ -345,19 +338,16 @@ export function presentWord(word: VocabEntry, files: ReadonlyMap<string, GlossFi
 
 function sourceAsPointer(source: WordSource, point: GlossPoint): WordSource {
   return {
-    book: source.book,
-    surface: source.surface,
-    savedAt: source.savedAt,
+    ...source,
     ref: point,
-    ...(source.pos ? { pos: source.pos } : {}),
-    ...(point.chapter !== undefined ? { chapter: point.chapter } : source.chapter !== undefined ? { chapter: source.chapter } : {}),
+    ...(point.chapter !== undefined ? { chapter: point.chapter } : {}),
   };
 }
 
 /**
- * Rewrite sources that still store a sentence into word-list pointers, when this device
- * has that book's list and the list explains the word. The stored sentence is not kept.
- * Returns null when nothing changes. Easy words, and lists that are not loaded, stay as they are.
+ * Add a word-list pointer to a source that does not have one yet, when this device
+ * has that book's list and the list explains the word. The saved sentence stays, so
+ * the notebook can still show that paragraph. Returns null when nothing changes.
  */
 export function adoptWord(
   word: VocabEntry,
@@ -376,12 +366,5 @@ export function adoptWord(
     return sourceAsPointer(source, point);
   });
   if (!changed) return null;
-  const next: VocabEntry = { ...word, sources };
-  if (sources.every((source) => source.ref)) {
-    next.sentence = "";
-    next.meaning = "";
-    next.whyHard = "";
-    delete next.uses;
-  }
-  return next;
+  return { ...word, sources };
 }
