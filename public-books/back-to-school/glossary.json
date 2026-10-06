@@ -173,6 +173,33 @@
    "meaning": "To make something grow stronger or larger.",
    "here": "New companies can make the country's work and money grow."
   },
+  "bounce": {
+   "pos": "verb",
+   "meaning": "To keep moving from one place to another.",
+   "here": "She was sent from one foster home to another, again and again.",
+   "forms": [
+    "bouncing"
+   ],
+   "whyHard": "Not the usual meaning! Usually: bounce means a ball going up and down. Here she moves from one home to another.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "To keep moving from one place to another.",
+     "here": "She was sent from one foster home to another, again and again.",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "Even when bouncing from foster home to foster home",
+       "form": "bouncing"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: bounce means a ball going up and down. Here she moves from one home to another.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
   "brown": {
    "pos": "singular noun",
    "meaning": "The name of a university.",
@@ -275,8 +302,29 @@
   "company": {
    "pos": "singular noun",
    "meaning": "A business that makes or sells things.",
-   "here": "Ideas from your classes can help you start new businesses and new jobs.",
-   "whyHard": "Not the usual meaning! Usually: company can mean people who are with you. Here it is a business."
+   "here": "Ideas from class can help you start new businesses, and those businesses can make new jobs.",
+   "forms": [
+    "companies"
+   ],
+   "whyHard": "Not the usual meaning! Usually: company can mean people who are with you. Here it is a business.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "A business that makes or sells things.",
+     "here": "Ideas from class can help you start new businesses, and those businesses can make new jobs.",
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "classes to build new companies that will create",
+       "form": "companies"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: company can mean people who are with you. Here it is a business.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
   },
   "complain": {
    "pos": "verb",
@@ -315,14 +363,14 @@
   },
   "cut": {
    "pos": "verb",
-   "meaning": "Not chosen for a team, and told to leave.",
-   "here": "The high school basketball team told Michael Jordan to leave.",
+   "meaning": "To remove someone from a team.",
+   "here": "The high school basketball team removed Michael Jordan.",
    "whyHard": "Not the usual meaning! Usually: cut means to divide something with a knife. Here the team told him to leave.",
    "senseOnly": true,
    "senses": [
     {
-     "meaning": "Not chosen for a team, and told to leave.",
-     "here": "The high school basketball team told Michael Jordan to leave.",
+     "meaning": "To remove someone from a team.",
+     "here": "The high school basketball team removed Michael Jordan.",
      "anchors": [
       {
        "chapter": 5,
@@ -396,8 +444,38 @@
   },
   "develop": {
    "pos": "verb",
-   "meaning": "To grow a skill, or to make something new.",
-   "here": "You grow talents in class, and you use them to make new things, including new ways to produce energy."
+   "meaning": "To grow a skill or an ability.",
+   "here": "You grow creativity in class, and you grow your own talents.",
+   "senses": [
+    {
+     "meaning": "To make something new.",
+     "here": "Science and math can help you make new ways to produce energy.",
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "and to develop new energy technologies and protect"
+      }
+     ]
+    },
+    {
+     "meaning": "To grow a skill or an ability.",
+     "here": "You grow creativity in class, and you grow your own talents.",
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 2,
+       "context": "ingenuity you develop in all your classes to"
+      },
+      {
+       "chapter": 2,
+       "occurrence": 3,
+       "context": "of you to develop your talents and your skills"
+      }
+     ],
+     "default": true
+    }
+   ]
   },
   "discourage": {
    "pos": "verb",
@@ -449,8 +527,33 @@
   },
   "environment": {
    "pos": "singular noun",
-   "meaning": "What is around you, from the air and land to the place you study.",
-   "here": "One line is the air and land you should protect. The other is a safe place for students to learn."
+   "meaning": "The air, land, and water around people.",
+   "here": "Science and math can help you protect the air, land, and water.",
+   "senses": [
+    {
+     "meaning": "The air, land, and water around people.",
+     "here": "Science and math can help you protect the air, land, and water.",
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "context": "and protect our environment. You'll need the insights"
+      }
+     ],
+     "default": true
+    },
+    {
+     "meaning": "The conditions around a person.",
+     "here": "He says every young person should have a safe place to study.",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "deserve a safe environment to study and learn"
+      }
+     ]
+    }
+   ]
   },
   "equipment": {
    "pos": "singular noun",
@@ -1002,8 +1105,11 @@
   },
   "responsibility": {
    "pos": "singular noun",
-   "meaning": "A duty a person is supposed to carry out.",
-   "here": "He names the duty of teachers, of parents, of the country's leaders, and of each student."
+   "meaning": "A duty to do what you should.",
+   "here": "Teachers, parents, the government, and each student have this duty for the school year.",
+   "forms": [
+    "responsibilities"
+   ]
   },
   "revolution": {
    "pos": "singular noun",
@@ -1230,6 +1336,33 @@
       }
      ],
      "whyHard": "Not the usual meaning! Usually: a ticket is a paper for a bus, a train, or a show. Here it is the way to success.",
+     "trickyMeaning": true,
+     "default": true
+    }
+   ]
+  },
+  "tough": {
+   "pos": "adjective",
+   "meaning": "Hard and rough, for a place where life is difficult.",
+   "here": "Those neighborhoods were the hardest places to live.",
+   "forms": [
+    "toughest"
+   ],
+   "whyHard": "Not the usual meaning! Usually: tough means strong, or hard to break. Here the places are the hardest to live in.",
+   "senseOnly": true,
+   "senses": [
+    {
+     "meaning": "Hard and rough, for a place where life is difficult.",
+     "here": "Those neighborhoods were the hardest places to live.",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "context": "in the toughest neighborhoods, she managed to get",
+       "form": "toughest"
+      }
+     ],
+     "whyHard": "Not the usual meaning! Usually: tough means strong, or hard to break. Here the places are the hardest to live in.",
      "trickyMeaning": true,
      "default": true
     }
@@ -1528,12 +1661,6 @@
    "pos": "idiom",
    "example": "everybody go ahead and have a seat"
   },
-  "health center": {
-   "meaning": "A place people go for medical help.",
-   "here": "Shantell got a job at a neighborhood place that gives medical help.",
-   "pos": "phrase",
-   "example": "get a job at a local health center"
-  },
   "i get it": {
    "meaning": "I understand.",
    "here": "He says he understands that many students have hard lives that make school difficult.",
@@ -1602,12 +1729,6 @@
    "here": "The television picture of easy success includes becoming a star of a show about real people.",
    "pos": "phrase",
    "example": "or being a reality TV star"
-  },
-  "round of applause": {
-   "meaning": "People hitting their hands together to show they liked something.",
-   "here": "He asks the students at Wakefield to clap for themselves because they are good hosts.",
-   "pos": "phrase",
-   "example": "Give yourselves a big round of applause."
   },
   "second chance": {
    "meaning": "Another try after a failure.",
