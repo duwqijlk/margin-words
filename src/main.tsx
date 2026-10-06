@@ -4,6 +4,9 @@ import { MarginApp } from "@/components/margin-app";
 import { RELOAD_QUIET_MS, RELOAD_STOP, reloadPlan } from "@/lib/reload-guard";
 import "./styles.css";
 
+// Kept in the built file so this version cannot reuse a script name the edge cached as the app page.
+performance.mark("mw-boot");
+
 createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
     <MarginApp />
@@ -68,6 +71,7 @@ async function dropStaleShell(): Promise<void> {
 
 if (import.meta.env.PROD) {
   // A page from an older build asks for a page chunk that a newer build has replaced: load the new build.
+  // The entry script is not covered here. A missing file must come back as a real 404, not the app page.
   // The mark is not cleared on load. Load fires even when the next chunk fails, and clearing it
   // there made every refresh reload again (a blank page, or a refresh that never stopped).
   let chunkFailed = false;
