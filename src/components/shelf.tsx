@@ -74,7 +74,8 @@ function offerLine(offer: ListOffer, t: (key: Key, params?: Record<string, strin
   return { text: t("lists.newList"), warn: false };
 }
 
-function ListUpdateButton({
+/** A cover tag the size of Public domain. Tapping it runs the update. */
+function CoverUpdate({
   title,
   offer,
   busy,
@@ -87,22 +88,19 @@ function ListUpdateButton({
 }) {
   const { t } = useT();
   const line = offerLine(offer, t);
+  const label = busy ? t("lists.updating") : t("pack.update");
   return (
-    <div className="grid gap-1.5" data-list-update={offer.why}>
-      <p className={cn("text-xs leading-4", line.warn ? "font-medium text-warn" : "text-muted")} role={line.warn ? "alert" : undefined}>
-        {line.text}
-      </p>
-      <button
-        type="button"
-        className={cn(btn.primary, "w-full")}
-        disabled={busy}
-        onClick={onUpdate}
-        data-list-update-button=""
-        aria-label={`${t("pack.update")}: ${title}`}
-      >
-        {busy ? t("lists.updating") : t("pack.update")}
-      </button>
-    </div>
+    <CoverBadge
+      tone="publicDomain"
+      onClick={onUpdate}
+      disabled={busy}
+      title={line.text}
+      aria-label={`${label}: ${title}`}
+      data-list-update={offer.why}
+      data-list-update-button=""
+    >
+      {label}
+    </CoverBadge>
   );
 }
 
@@ -195,14 +193,21 @@ function ContinueCard({
           "linear-gradient(120deg, color-mix(in srgb, var(--accent-soft) 85%, var(--card)), var(--card) 70%)",
       }}
     >
-      <button
-        type="button"
-        onClick={onOpen}
-        className="w-24 shrink-0 sm:w-36"
-        aria-label={t("shelf.openAria", { title: book.title })}
-      >
-        <BookCover title={book.title} author={book.author} cover={cover} />
-      </button>
+      <div className="relative w-24 shrink-0 sm:w-36">
+        <button
+          type="button"
+          onClick={onOpen}
+          className="block w-full rounded-md text-left"
+          aria-label={t("shelf.openAria", { title: book.title })}
+        >
+          <BookCover title={book.title} author={book.author} cover={cover} />
+        </button>
+        {offer ? (
+          <div className="pointer-events-none absolute top-1.5 left-1.5 z-[1] flex max-w-[calc(100%-0.75rem)]">
+            <CoverUpdate title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} />
+          </div>
+        ) : null}
+      </div>
       <div className="grid min-w-0 flex-1 content-center gap-1.5 sm:gap-2.5">
         <p className="text-xs font-bold tracking-wider text-accent uppercase">
           {started ? t("shelf.continueReading") : t("shelf.startReading")}
@@ -226,11 +231,6 @@ function ContinueCard({
               {t("shelf.chapterOf", { n: progress.chapter + 1, total: progress.chapters })} · {pct}%
               {progress.updatedAt ? ` · ${relativeTime(progress.updatedAt)}` : ""}
             </p>
-          </div>
-        ) : null}
-        {offer ? (
-          <div className="pt-1">
-            <ListUpdateButton title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} />
           </div>
         ) : null}
         <div className="pt-1.5 sm:pt-2">
@@ -379,6 +379,7 @@ function BookCard({
           <BookCover title={book.title} author={book.author} cover={cover} />
         </button>
         <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-1rem)] flex-col items-start gap-1">
+          {offer ? <CoverUpdate title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} /> : null}
           {book.needsEpub ? (
             <CoverBadge tone="needs" data-needs-epub="">
               {t("shelf.needsEpub")}
@@ -504,11 +505,7 @@ function BookCard({
           aside={book.oldFashioned ? t("shelf.oldFashionedNote") : undefined}
         />
       </div>
-      {offer ? (
-        <div className="mt-auto pt-1">
-          <ListUpdateButton title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} />
-        </div>
-      ) : book.source === "epub" ? null : (
+      {book.source === "epub" ? null : (
         <p className="mt-auto flex min-h-11 items-center text-xs text-muted" data-card-actions>
           {t("shelf.sampleNotebook")}
         </p>
