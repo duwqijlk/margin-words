@@ -17,6 +17,10 @@
  * No per-book zip, no all-packs.zip, and no copyrighted EPUB. A word-list book with no cover.jpg
  * keeps the generated title-and-author cover in the app. Pack zips stay a local sideload
  * (`node scripts/build-packs.mjs`), not a hosted object. The private EPUBs are `npm run build:private`.
+ *
+ * The public catalog in this folder lists every glossary hash in git. Uploading that
+ * catalog alone retargets books whose files were not uploaded. To publish one public
+ * book, use `node scripts/publish-public-book.mjs` instead of this whole folder.
  */
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
