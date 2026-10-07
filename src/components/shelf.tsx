@@ -7,6 +7,7 @@ import {
   FileJson,
   MoreVertical,
   Pencil,
+  RotateCw,
   Search,
   Trash2,
 } from "lucide-react";
@@ -428,10 +429,12 @@ function BookCard({
           </button>
           <Menu.Root>
             <Menu.Trigger
-              className="-mr-2.5 inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-accent-soft hover:text-ink"
+              className="-mr-2.5 relative inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-accent-soft hover:text-ink"
               aria-label={t("shelf.moreAria", { title: book.title })}
+              data-shelf-more={offer ? "update" : "menu"}
             >
               <MoreVertical className="size-4" aria-hidden />
+              {offer ? <span className="absolute top-2 right-2 size-2 rounded-full bg-accent" data-shelf-update-dot="" /> : null}
             </Menu.Trigger>
             <Menu.Portal>
               <Menu.Content
@@ -439,6 +442,17 @@ function BookCard({
                 sideOffset={4}
                 className="anim-pop z-50 min-w-44 rounded-xl border border-line bg-card p-1.5 text-ink shadow-pop"
               >
+                {offer ? (
+                  <Menu.Item
+                    className={menuItem}
+                    disabled={updating}
+                    onSelect={onUpdate}
+                    data-list-update-menu=""
+                  >
+                    <RotateCw className={cn("size-4", updating && "animate-spin")} aria-hidden />
+                    {updating ? t("lists.updating") : t("pack.update")}
+                  </Menu.Item>
+                ) : null}
                 <Menu.Item className={menuItem} onSelect={onNotebook}>
                   <BookPlus className="size-4" aria-hidden />
                   {t("shelf.menuWords")}
@@ -790,6 +804,7 @@ export function Shelf({
                       name={item.name}
                       books={item.rows.map((row) => row.book)}
                       covers={covers}
+                      updates={item.rows.filter((row) => offerByBook.has(row.book.id)).length}
                       onOpen={() => toggleStack(item.key)}
                     />
                   );

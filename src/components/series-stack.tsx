@@ -19,11 +19,14 @@ export function ClosedStack({
   name,
   books,
   covers,
+  updates = 0,
   onOpen,
 }: {
   name: string;
   books: StackBook[];
   covers: Record<string, string>;
+  /** Books in this stack whose word list has a newer version. */
+  updates?: number;
   onOpen: () => void;
 }) {
   const { t, tn } = useT();
@@ -59,9 +62,16 @@ export function ClosedStack({
         </span>
       </div>
       <div className="grid flex-1 content-start gap-1">
-        <button type="button" onClick={onOpen} className={cn(cardTitleClass, "w-full text-left")} lang="en" tabIndex={-1}>
-          {name}
-        </button>
+        <div className="flex items-start gap-2">
+          <button type="button" onClick={onOpen} className={cn(cardTitleClass, "min-w-0 flex-1 text-left")} lang="en" tabIndex={-1}>
+            {name}
+          </button>
+          {updates > 0 ? (
+            <span className="shrink-0 pt-0.5 text-xs font-semibold text-accent" data-stack-update={updates}>
+              {t("pack.update")}
+            </span>
+          ) : null}
+        </div>
         <p className={cardAuthorClass} lang="en">
           {authors.slice(0, 2).join(", ")}
         </p>
