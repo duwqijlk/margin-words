@@ -6,6 +6,7 @@
  * host; the reader downloads one from its Discover card. After a pack is stored in this browser
  * (IndexedDB) the reader needs no network at all. See README, "Reader and book packs".
  */
+import { readUpdated } from "@/lib/list-updated";
 import {
   deleteStoredBook,
   listBookSummaries,
@@ -75,7 +76,7 @@ export type CatalogPack = {
   oldFashioned: boolean;
   /** Short English reason. "" when the book is not flagged, or when no reason was written. */
   oldFashionedReason: string;
-  /** Day the word list last changed, YYYY-MM-DD. "" when the catalog has no date. */
+  /** When the word list last changed: a day, or an instant with a clock time. "" when the catalog has neither. */
   updated: string;
 };
 
@@ -162,7 +163,7 @@ export function parseCatalog(value: unknown): Catalog | null {
       category: readContentCategory(row.category),
       oldFashioned: row.oldFashioned === true,
       oldFashionedReason: row.oldFashioned === true ? text(row.oldFashionedReason, 240) : "",
-      updated: /^\d{4}-\d{2}-\d{2}$/.test(text(row.updated, 10)) ? text(row.updated, 10) : "",
+      updated: readUpdated(row.updated),
     });
   }
   return {

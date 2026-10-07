@@ -82,7 +82,7 @@ type Row = {
   oldFashioned: boolean;
   oldFashionedReason: string;
   coverUrl?: string;
-  /** YYYY-MM-DD the word list last changed. "" when the catalog has no date. */
+  /** A day or an instant for when the word list last changed. "" when the catalog has neither. */
   updated: string;
   pack?: CatalogPack;
   list?: WordListPack;

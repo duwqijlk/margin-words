@@ -263,7 +263,7 @@ const previous = existsSync(catalogPath) ? JSON.parse(readFileSync(catalogPath, 
 const sameAsBefore =
   previous &&
   JSON.stringify({ ...previous, updated: "", allPacks: undefined }) === JSON.stringify(catalogOf(""));
-const updated0 = () => (sameAsBefore ? previous.updated : new Date().toISOString().slice(0, 10));
+const updated0 = () => (sameAsBefore ? previous.updated : new Date().toISOString());
 const updated = updated0();
 
 // The all-in-one zip holds every pack folder plus a catalog.json, so it unpacks into a folder that is ready to host.
@@ -275,7 +275,7 @@ for (const [name, bytes] of allFiles) {
     compression: /\.(epub|jpe?g|png)$/i.test(name) ? "STORE" : "DEFLATE",
   });
 }
-const hostable = catalogOf(updated0());
+const hostable = catalogOf(updated);
 hostable.packs = hostable.packs.map((pack) => ({ ...pack, zip: null }));
 allZip.file("catalog.json", `${JSON.stringify(hostable, null, 1)}\n`, { date: ZIP_DATE, createFolders: false, compression: "DEFLATE" });
 const allBytes = await allZip.generateAsync({ type: "nodebuffer", platform: "UNIX", compression: "DEFLATE" });

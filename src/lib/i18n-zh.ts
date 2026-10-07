@@ -158,6 +158,7 @@ export const zh: Record<Key, string> = {
   "discover.title": "发现",
   "discover.hint": "点封面上的加号，把书放进书架。点了才会下载。",
   "discover.updated": "更新于 {year}年{month}月{day}日",
+  "discover.updatedAt": "更新于 {year}年{month}月{day}日 {hour}:{minute}",
   "discover.month.1": "1",
   "discover.month.2": "2",
   "discover.month.3": "3",

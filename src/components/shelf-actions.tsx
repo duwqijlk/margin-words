@@ -3,6 +3,7 @@ import { BookOpen, Check, Loader2, Plus, RotateCw, Trash2, Undo2 } from "lucide-
 import { useRef, useState } from "react";
 import { ConfirmDialog, cn } from "@/components/ui";
 import { useT, type Key } from "@/lib/i18n";
+import { listUpdatedParts } from "@/lib/list-updated";
 import { forgetBook, useShelfRemove } from "@/lib/shelf-remove";
 
 export type ShelfState = "off" | "busy" | "on" | "update" | "error";
@@ -34,7 +35,7 @@ export function ShelfCardStatus({
   fraction?: number;
   error?: string;
   note?: string;
-  /** YYYY-MM-DD from the catalog. Empty when this list has no date. */
+  /** A day (`YYYY-MM-DD`) or an instant with a clock time. Empty when this list has no date. */
   updated?: string;
 }) {
   const { t } = useT();
@@ -60,13 +61,22 @@ export function ShelfCardStatus({
       </p>
     );
   }
-  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(updated);
-  const month = match ? Number(match[2]) : 0;
-  const day = match ? Number(match[3]) : 0;
-  if (!match || month < 1 || month > 12 || day < 1 || day > 31) return null;
+  const clock = listUpdatedParts(updated);
+  if (!clock) return null;
+  const month = t(MONTH_KEY[clock.month - 1]);
+  const label =
+    "hour" in clock
+      ? t("discover.updatedAt", {
+          day: clock.day,
+          month,
+          year: clock.year,
+          hour: clock.hour,
+          minute: clock.minute,
+        })
+      : t("discover.updated", { day: clock.day, month, year: clock.year });
   return (
     <p className="text-xs leading-4 text-muted" data-list-updated={updated}>
-      {t("discover.updated", { day, month: t(MONTH_KEY[month - 1]), year: match[1] })}
+      {label}
     </p>
   );
 }

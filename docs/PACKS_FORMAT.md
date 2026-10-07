@@ -62,6 +62,7 @@ it does not include `all-packs.zip` or the per-book `.zip` files. Those zips rem
 | `seriesNumber` | Optional 1-based place in `series`. Kept only when `series` is set. With a number, the shelf lists the series in that order. |
 | `category` | Optional Discover tab: `speech`. Leave it out for a novel. Set it in the pack's `info.json`. A missing value is a novel. |
 | `rev` | Changes when the book or its word list changes (first 12 letters of the sha256 of the epub + list). When it differs from the installed copy the card shows **Update available**. |
+| `updated` | When this word list last changed. A day `YYYY-MM-DD`, or an instant such as `2026-10-07T01:17:00Z`. Discover shows the month, the day, the hour and the minute in the reader's own time zone. A day with no clock still shows the date. |
 | `version` | The word list format version (1 or 2). |
 | `chapters`, `words`, `paragraphs`, `sentences`, `phrases`, `coined` | Counts, from the list. |
 | `epub`, `glossary` | The two files the reader downloads. `sha256` is checked after the download. |

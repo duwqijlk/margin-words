@@ -157,6 +157,7 @@ export const en = {
   "discover.title": "Discover",
   "discover.hint": "Tap the plus on a cover to keep a book. Nothing is downloaded until you do.",
   "discover.updated": "Updated {day} {month} {year}",
+  "discover.updatedAt": "Updated {day} {month} {year}, {hour}:{minute}",
   "discover.month.1": "Jan",
   "discover.month.2": "Feb",
   "discover.month.3": "Mar",
