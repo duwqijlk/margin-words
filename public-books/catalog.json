@@ -1,7 +1,7 @@
 {
  "format": 1,
  "name": "Margin Words book packs",
- "updated": "2026-10-05",
+ "updated": "2026-10-06",
  "packs": [
   {
    "id": "alice",
@@ -478,14 +478,14 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA. A work of the United States government (17 USC 105), delivered September 8, 2009. The cover is an original study cover, not an official publication.",
    "category": "speech",
-   "updated": "2026-10-05",
-   "rev": "bdfd1e2bf858",
+   "updated": "2026-10-06",
+   "rev": "29cf93ea6e79",
    "version": 2,
    "chapters": 7,
-   "words": 157,
+   "words": 159,
    "paragraphs": 0,
    "sentences": 5,
-   "phrases": 54,
+   "phrases": 52,
    "coined": 0,
    "epub": {
     "url": "back-to-school/book.epub",
@@ -494,9 +494,9 @@
    },
    "glossary": {
     "url": "back-to-school/glossary.json",
-    "bytes": 65336,
-    "sha256": "b1d7af1257c2a863e463826de00a2313cd1d1ce0d00a2a3b927b33fb21e3bc8b",
-    "rev": "b1d7af1257c2"
+    "bytes": 68523,
+    "sha256": "4ee7750bebf79a4fd4a88d511bd72123505dc52ffe97b2f221a026901036b8ff",
+    "rev": "4ee7750bebf7"
    },
    "cover": {
     "url": "back-to-school/cover.jpg",
