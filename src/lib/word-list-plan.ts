@@ -34,12 +34,39 @@ export function planListUpdate(input: {
   installedSha: string;
   /** classics: sha256 of the catalog EPUB. "" for word-list books. */
   catalogSha: string;
+  /**
+   * Words stored on this book. Omit when the e-book is not stored yet.
+   * Compared with `catalogWords` so a stale list saved under the current revision
+   * still offers Update.
+   */
+  installedWords?: number;
+  /** Words in the catalog list. 0 when the catalog does not say. */
+  catalogWords?: number;
 }): ListUpdatePlan {
-  if (!input.catalogRev || input.installedRev === input.catalogRev) return { kind: "none" };
+  const countsDiffer =
+    input.listSource !== "custom" &&
+    typeof input.installedWords === "number" &&
+    typeof input.catalogWords === "number" &&
+    input.catalogWords > 0 &&
+    input.installedWords !== input.catalogWords;
+  if (!input.catalogRev || input.installedRev === input.catalogRev) {
+    if (countsDiffer) return { kind: "manual", why: "newList" };
+    return { kind: "none" };
+  }
   if (input.listSource === "custom") return { kind: "manual", why: "ownList" };
   if (input.catalogSha && input.installedSha !== input.catalogSha)
     return { kind: "manual", why: "bookChanged" };
   return { kind: "manual", why: "newList" };
+}
+
+/**
+ * A saved copy of a word list may be paired only when it is the catalog file.
+ * An empty catalog hash cannot be checked, so the copy is kept.
+ * An empty saved hash means the copy could not be checked, so it is not current.
+ */
+export function savedListIsCurrent(savedSha: string, catalogSha: string): boolean {
+  if (!catalogSha) return true;
+  return savedSha === catalogSha;
 }
 
 /**

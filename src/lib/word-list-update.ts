@@ -15,6 +15,7 @@ import { create } from "zustand";
 import {
   listPackRecords,
   loadBookExtras,
+  loadBookMeta,
   loadStoredBook,
   savePackRecord,
   type PackRecord,
@@ -291,7 +292,17 @@ async function runUpdates(): Promise<void> {
     const list = classic ? undefined : lists.get(record.packId);
     if (!classic && !list) continue;
     const catalogRev = classic ? classic.pack.rev : wordListRev(list as WordListPack);
-    if (record.rev === catalogRev) {
+    const catalogWords = list?.words ?? 0;
+    // The revision string can already match while the stored list is an older file
+    // (a cached copy paired under the new revision). The word count tells them apart.
+    let installedWords: number | undefined;
+    if (list && record.rev === catalogRev && catalogWords > 0) {
+      const meta = await loadBookMeta(record.bookId).catch(() => null);
+      if (meta) installedWords = Object.keys(meta.glossary ?? {}).length;
+    }
+    const countsMightDiffer =
+      typeof installedWords === "number" && catalogWords > 0 && installedWords !== catalogWords;
+    if (record.rev === catalogRev && !countsMightDiffer) {
       useListUpdates.getState().clearFailure(record.packId);
       continue;
     }
@@ -302,8 +313,13 @@ async function runUpdates(): Promise<void> {
       listSource: extras?.source,
       installedSha: classic ? record.sha256 : "",
       catalogSha: classic ? classic.pack.epub.sha256 : "",
+      installedWords,
+      catalogWords,
     });
-    if (plan.kind !== "manual") continue;
+    if (plan.kind !== "manual") {
+      if (record.rev === catalogRev) useListUpdates.getState().clearFailure(record.packId);
+      continue;
+    }
     rememberHold(record.packId, plan.why);
     if (plan.why !== "ownList") waiting += 1;
   }

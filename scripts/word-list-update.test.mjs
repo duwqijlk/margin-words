@@ -17,6 +17,7 @@ const {
   wordListUpdateActions,
   holdOffersUpdate,
   holdReasonKey,
+  savedListIsCurrent,
 } = wordListPlan;
 
 const base = {
@@ -34,6 +35,32 @@ test("a changed catalog revision waits for the reader to tap Update", () => {
 test("an unchanged or unknown revision does nothing", () => {
   assert.deepEqual(planListUpdate({ ...base, catalogRev: "aaa" }), { kind: "none" });
   assert.deepEqual(planListUpdate({ ...base, catalogRev: "" }), { kind: "none" });
+});
+
+test("a stored list with the current revision but a different word count still waits for Update", () => {
+  assert.deepEqual(
+    planListUpdate({ ...base, catalogRev: "aaa", installedWords: 1325, catalogWords: 2859 }),
+    { kind: "manual", why: "newList" },
+  );
+  assert.deepEqual(
+    planListUpdate({ ...base, catalogRev: "aaa", installedWords: 2859, catalogWords: 2859 }),
+    { kind: "none" },
+  );
+  // the e-book is not stored yet, so there is no list on the book to compare
+  assert.deepEqual(planListUpdate({ ...base, catalogRev: "aaa", catalogWords: 2859 }), {
+    kind: "none",
+  });
+  // a hand-edited list stays, even when its size is not the catalog size
+  assert.deepEqual(
+    planListUpdate({
+      ...base,
+      catalogRev: "aaa",
+      listSource: "custom",
+      installedWords: 1325,
+      catalogWords: 2859,
+    }),
+    { kind: "none" },
+  );
 });
 
 test("a list the reader added or edited by hand is never replaced", () => {
@@ -87,6 +114,13 @@ test("a hand-edited list does not get an Update button, and the card says why", 
   assert.match(zh, /"lists\.keptYours": "/);
   assert.match(zh, /"lists\.keptBook": "/);
   assert.match(zh, /"lists\.newList": "/);
+});
+
+test("a saved word list is paired only when it is the catalog file", () => {
+  assert.equal(savedListIsCurrent("abc", "abc"), true);
+  assert.equal(savedListIsCurrent("old", "abc"), false);
+  assert.equal(savedListIsCurrent("", "abc"), false);
+  assert.equal(savedListIsCurrent("abc", ""), true);
 });
 
 test("a classic whose book file changed keeps the manual Update button", () => {
