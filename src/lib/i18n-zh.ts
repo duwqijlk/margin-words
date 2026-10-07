@@ -228,10 +228,12 @@ export const zh: Record<Key, string> = {
   "pack.update": "更新",
   "lists.keptYours": "你改过的词表会保留",
   "lists.keptBook": "书的文件变了。点更新可以换上新词表。",
+  "lists.newList": "有新词表。点“更新”换上。",
+  "lists.updating": "正在更新…",
   "pack.openAria": "打开《{title}》",
   "pack.progressFor": "《{title}》的下载进度",
-  "msg.listsUpdated.one": "已更新 {n} 本书的词表。",
-  "msg.listsUpdated.other": "已更新 {n} 本书的词表。",
+  "msg.listsReady.one": "有 {n} 本书有新词表。在卡片上点“更新”。",
+  "msg.listsReady.other": "有 {n} 本书有新词表。在每张卡片上点“更新”。",
 
   /* ---- settings */
   "settings.title": "设置",
@@ -605,7 +607,7 @@ export const zh: Record<Key, string> = {
   "about.listsBody": "每本书都有一份老师写的词表。老师挑出难词和短语，用简单的英文写出意思，并给难懂的段落写说明。你读书时，没有电脑在现场编造内容。",
   "about.booksTitle": "公有领域的书和你自己的书",
   "about.booksBody":
-    "已进入公有领域的书（例如《爱丽丝梦游仙境》）放在我们的图书服务器上，在“发现”里点一下就能添加。仍有版权的书不在我们的服务器上，我们只提供词表和 ISBN。你需要自己合法获得这本书的 EPUB 文件，并在自己的设备上添加。词表改进后，你的书会自动换上新词表。",
+    "已进入公有领域的书（例如《爱丽丝梦游仙境》）放在我们的图书服务器上，在“发现”里点一下就能添加。仍有版权的书不在我们的服务器上，我们只提供词表和 ISBN。你需要自己合法获得这本书的 EPUB 文件，并在自己的设备上添加。词表改进后，在那本书上点“更新”。新词表不会自己换上。",
   "about.matchTitle": "匹配检查",
   "about.matchBody":
     "你添加自己的 EPUB 时，应用会把书里的句子和词表里的句子对比，并显示匹配率，例如 96%。匹配率 80% 以上就很合适。匹配率低，说明你的文件可能是另一个版本，有些说明可能找不到或位置不对。",

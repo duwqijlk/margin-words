@@ -8,7 +8,7 @@
  *   1. Discover signed out: the button says "Sign in to add", and it opens the sign-in dialog.
  *   2. The empty shelf points to Discover.
  *   3. The reader with the permanent paragraph bulbs, at 1280px and at 390px.
- *   4. The quiet "Word lists updated for 1 book." notice after a catalog rev bump.
+ *   4. A newer catalog rev offers Update. The list stays until that button is tapped.
  */
 import { chromium } from "playwright";
 import { mkdirSync, readFileSync } from "node:fs";
@@ -110,18 +110,20 @@ async function readerShot(width, height, name) {
 await readerShot(1280, 800, "reader-bulbs-1280.png");
 await readerShot(390, 844, "reader-bulbs-390.png");
 
-/* ---- 4. The quiet word-lists-updated notice (catalog rev bumped, same files) */
+/* ---- 4. A newer word list waits for Update (catalog rev bumped, list not replaced yet) */
 {
   const { context, page } = await fresh({ width: 1280, height: 800, signedIn: true });
   await addAlice(page);
-  // The same catalog with a bumped rev for Alice: only the word list should be fetched again.
   const catalog = JSON.parse(readFileSync(join(ROOT, "public-books/catalog.json"), "utf8"));
   for (const pack of catalog.packs) if (pack.id === "alice") pack.rev = `${pack.rev}-next`;
   await context.route("**/public-books/catalog.json*", (route) => route.fulfill({ json: catalog }));
   await page.goto(BASE + "shelf");
-  await page.waitForSelector("[data-lists-updated]");
-  console.log("notice:", (await page.textContent("[data-lists-updated]"))?.trim());
-  await shot(page, "word-lists-updated-1280.png");
+  await page.waitForSelector("[data-lists-ready]");
+  await page.waitForSelector("[data-list-update-button]");
+  const notice = (await page.textContent("[data-lists-ready]"))?.trim();
+  console.log("notice:", notice);
+  if (!notice?.includes("Tap Update")) throw new Error(`notice says "${notice}"`);
+  await shot(page, "word-lists-ready-1280.png");
   await context.close();
 }
 

@@ -126,7 +126,7 @@ A reader can also set another catalog address in Settings. That host must allow 
 2. Sign in. On Discover, tap the plus on a cover. The plus becomes a check (“On shelf”). Tap the check and choose “Remove from shelf” to take it off. A book you just added can be undone. A book you have started, or one that has your own EPUB, asks first.
 3. A public-domain book downloads when you add it. A word-list book downloads its word list and asks for your EPUB of the ISBN on the card. A match under 80% is shown before it is saved. The book and the word list are stored in the browser (IndexedDB).
 4. After that, the book and the word list stay on this device (IndexedDB). Opening the site needs the internet. The service worker does not serve the page.
-5. When a word list changes (a new `rev`), the next load fetches the new list in the background. The book file, reading place, saved words, and settings stay. A small notice says how many books were updated. A list the reader added or edited by hand is never replaced. If a new list matches the reader's EPUB under 80%, or an automatic update fails, the old list stays and the Discover card shows a manual **Update** button with the reason.
+5. When a word list changes (a new `rev`), the book already on the shelf keeps the list it has. The shelf card and the Discover card show **Update**, and a notice says how many books are waiting. The new list is fetched only when you tap Update. The book file, reading place, saved words, and settings stay. A list you added or edited by hand is never replaced. If a new list matches your EPUB under 80%, the old list stays and the card says why.
 
 The shelf menu can still **Add word list** (a `.json` for a book that is already there).
 
