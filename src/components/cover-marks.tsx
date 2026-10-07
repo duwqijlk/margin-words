@@ -7,21 +7,37 @@ const pill = "rounded-full px-2 py-0.5 text-left text-[0.68rem] leading-4 font-b
 export function CoverBadge({
   tone,
   children,
+  onClick,
+  disabled,
+  title,
+  "aria-label": ariaLabel,
   ...rest
 }: {
   tone: "publicDomain" | "list" | "needs";
   children: React.ReactNode;
+  /** When set, the label is a button. Used for the shelf Update tag. */
+  onClick?: () => void;
+  disabled?: boolean;
+  title?: string;
+  "aria-label"?: string;
 } & Record<`data-${string}`, unknown>) {
+  const className = cn(
+    pill,
+    onClick && "pointer-events-auto",
+    tone === "publicDomain" && "bg-card/95 text-accent ring-black/10",
+    tone === "list" && "bg-card/95 text-ink ring-black/10",
+    tone === "needs" && "bg-warn text-accent-ink ring-black/10",
+    disabled && "opacity-70",
+  );
+  if (onClick) {
+    return (
+      <button type="button" className={className} onClick={onClick} disabled={disabled} title={title} aria-label={ariaLabel} {...rest}>
+        {children}
+      </button>
+    );
+  }
   return (
-    <span
-      className={cn(
-        pill,
-        tone === "publicDomain" && "bg-card/95 text-accent ring-black/10",
-        tone === "list" && "bg-card/95 text-ink ring-black/10",
-        tone === "needs" && "bg-warn text-accent-ink ring-black/10",
-      )}
-      {...rest}
-    >
+    <span className={className} title={title} aria-label={ariaLabel} {...rest}>
       {children}
     </span>
   );
