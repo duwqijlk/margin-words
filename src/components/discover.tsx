@@ -399,7 +399,8 @@ export function DiscoverScreen({
     const cardError = busy ? "" : item?.error || listError[row.id] || "";
     // A newer list stays until the reader taps Update. A hand-edited list stays "On shelf"
     // and the card says that list is kept. A changed book file, or a list that matches this
-    // e-book under 80%, keeps Update and says why.
+    // e-book under 80%, keeps Update and says why. A hold of "newList" also counts when the
+    // revision string already matches: the stored list can be an older file of a different size.
     const direct = byPack.get(row.id);
     const catalogRev = row.kind === "classic" ? (row.pack?.rev ?? "") : row.list ? wordListRev(row.list) : "";
     const revDiffers = Boolean(held && direct && catalogRev && direct.rev !== catalogRev);
@@ -408,6 +409,7 @@ export function DiscoverScreen({
     );
     const hold = updateHolds[row.id];
     const failure = updateFailures[row.id] ?? "";
+    const staleList = Boolean(held && !revDiffers && hold === "newList");
     const why: ListHoldWhy | null =
       revDiffers && (customPacks.has(row.id) || hold === "ownList")
         ? "ownList"
@@ -415,7 +417,7 @@ export function DiscoverScreen({
           ? "bookChanged"
           : revDiffers && hold === "mismatch"
             ? "mismatch"
-            : revDiffers
+            : revDiffers || staleList
               ? "newList"
               : null;
     const updateReady = Boolean(why && holdOffersUpdate(why));

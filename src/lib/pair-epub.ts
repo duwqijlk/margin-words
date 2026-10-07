@@ -9,7 +9,9 @@ import { editionMatch, matchPercent, type EditionMatch } from "@/lib/edition-mat
 import { applySpineMerge, importedCoverChoice, importSpineWarnings, parseEpub, type SpineNameWarning } from "@/lib/epub";
 import { validateGlossary } from "@/lib/glossary-format";
 import { errorText, tr } from "@/lib/i18n";
+import { hashBytes } from "@/lib/pack-glossary";
 import { installPack, resolveAgainst, type InstallResult } from "@/lib/packs";
+import { savedListIsCurrent } from "@/lib/word-list-plan";
 import type { WordListPack } from "@/lib/word-list-catalog";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 
@@ -25,11 +27,20 @@ export async function storeWordListText(id: string, text: string): Promise<void>
 }
 
 export async function fetchWordList(pack: WordListPack, catalogUrl = WORD_LIST_CATALOG_URL): Promise<string> {
+  const want = pack.glossary.sha256;
   const saved = await cachedWordList(pack.id);
-  if (saved) return saved;
-  const response = await fetch(resolveAgainst(catalogUrl, pack.glossary.url));
+  // An older copy must not be paired just because it is still on the device.
+  // The catalog revision would then say "current" while the stored list is the old one.
+  if (saved) {
+    const sha = want ? await hashBytes(new TextEncoder().encode(saved)) : "";
+    if (savedListIsCurrent(sha, want)) return saved;
+  }
+  const response = await fetch(resolveAgainst(catalogUrl, pack.glossary.url), { cache: "no-cache" });
   if (!response.ok) throw new Error(tr("err.bookAddFailed"));
-  const text = await response.text();
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  const sha = await hashBytes(bytes);
+  if (want && sha && sha !== want) throw new Error(tr("err.damaged"));
+  const text = new TextDecoder().decode(bytes);
   await saveCachedText(cacheKey(pack.id), text);
   return text;
 }
