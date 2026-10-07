@@ -554,14 +554,14 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA. A work of the United States government (17 USC 105), delivered January 20, 2009. The cover is the photograph supplied with this reading text.",
    "category": "speech",
-   "updated": "2026-10-05",
-   "rev": "5d443a08807d",
+   "updated": "2026-10-06",
+   "rev": "e2e29b7ccd2d",
    "version": 2,
    "chapters": 2,
-   "words": 330,
+   "words": 321,
    "paragraphs": 0,
-   "sentences": 7,
-   "phrases": 45,
+   "sentences": 5,
+   "phrases": 44,
    "coined": 0,
    "epub": {
     "url": "obama-inaugural-2009/book.epub",
@@ -570,9 +570,9 @@
    },
    "glossary": {
     "url": "obama-inaugural-2009/glossary.json",
-    "bytes": 52809,
-    "sha256": "d191c66b8d367969d49f59a97946652c67ac9091401dc08374fd7e62e4ea017b",
-    "rev": "d191c66b8d36"
+    "bytes": 60586,
+    "sha256": "24eadb849c883abef16bc88fd5db855b86a3166fa5bdae0ed0b5f17e03325bfc",
+    "rev": "24eadb849c88"
    },
    "cover": {
     "url": "obama-inaugural-2009/cover.jpg",
