@@ -7,10 +7,14 @@ import {
   FileJson,
   MoreVertical,
   Pencil,
+  RotateCw,
   Search,
   Trash2,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { listPackRecords, type PackRecord } from "@/lib/book-db";
+import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
+import { updateInstalledBook, useListUpdates } from "@/lib/word-list-update";
 import {
   overallProgress,
   relativeTime,
@@ -58,6 +62,49 @@ type Row = {
   words: number;
   due: number;
 };
+
+type ListOffer = { why: ListHoldWhy; failure: string };
+
+function offerLine(offer: ListOffer, t: (key: Key, params?: Record<string, string | number>) => string): {
+  text: string;
+  warn: boolean;
+} {
+  if (offer.failure) return { text: offer.failure, warn: true };
+  if (offer.why === "bookChanged") return { text: t("lists.keptBook"), warn: true };
+  return { text: t("lists.newList"), warn: false };
+}
+
+function ListUpdateButton({
+  title,
+  offer,
+  busy,
+  onUpdate,
+}: {
+  title: string;
+  offer: ListOffer;
+  busy: boolean;
+  onUpdate: () => void;
+}) {
+  const { t } = useT();
+  const line = offerLine(offer, t);
+  return (
+    <div className="grid gap-1.5" data-list-update={offer.why}>
+      <p className={cn("text-xs leading-4", line.warn ? "font-medium text-warn" : "text-muted")} role={line.warn ? "alert" : undefined}>
+        {line.text}
+      </p>
+      <button
+        type="button"
+        className={cn(btn.primary, "w-full")}
+        disabled={busy}
+        onClick={onUpdate}
+        data-list-update-button=""
+        aria-label={`${t("pack.update")}: ${title}`}
+      >
+        {busy ? t("lists.updating") : t("pack.update")}
+      </button>
+    </div>
+  );
+}
 
 function RenameDialog({ book, onClose }: { book: Book | null; onClose: () => void }) {
   const { t } = useT();
@@ -120,7 +167,21 @@ function RenameDialog({ book, onClose }: { book: Book | null; onClose: () => voi
   );
 }
 
-function ContinueCard({ row, cover, onOpen }: { row: Row; cover?: string; onOpen: () => void }) {
+function ContinueCard({
+  row,
+  cover,
+  offer,
+  updating,
+  onOpen,
+  onUpdate,
+}: {
+  row: Row;
+  cover?: string;
+  offer: ListOffer | null;
+  updating: boolean;
+  onOpen: () => void;
+  onUpdate: () => void;
+}) {
   const { t } = useT();
   const { book, progress, fraction } = row;
   const started = Boolean(progress && progress.updatedAt > 0 && fraction > 0);
@@ -165,6 +226,11 @@ function ContinueCard({ row, cover, onOpen }: { row: Row; cover?: string; onOpen
               {t("shelf.chapterOf", { n: progress.chapter + 1, total: progress.chapters })} · {pct}%
               {progress.updatedAt ? ` · ${relativeTime(progress.updatedAt)}` : ""}
             </p>
+          </div>
+        ) : null}
+        {offer ? (
+          <div className="pt-1">
+            <ListUpdateButton title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} />
           </div>
         ) : null}
         <div className="pt-1.5 sm:pt-2">
@@ -277,20 +343,26 @@ function BookCard({
   cover,
   classic,
   fileHere,
+  offer,
+  updating,
   onOpen,
   onNotebook,
   onAddList,
   onRename,
+  onUpdate,
 }: {
   row: Row;
   cover?: string;
   classic: boolean;
   /** false when the shelf card is here but the book file is not */
   fileHere: boolean;
+  offer: ListOffer | null;
+  updating: boolean;
   onOpen: () => void;
   onNotebook: () => void;
   onAddList: () => void;
   onRename: () => void;
+  onUpdate: () => void;
 }) {
   const { t } = useT();
   const { book } = row;
@@ -357,10 +429,12 @@ function BookCard({
           </button>
           <Menu.Root>
             <Menu.Trigger
-              className="-mr-2.5 inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-accent-soft hover:text-ink"
+              className="-mr-2.5 relative inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-accent-soft hover:text-ink"
               aria-label={t("shelf.moreAria", { title: book.title })}
+              data-shelf-more={offer ? "update" : "menu"}
             >
               <MoreVertical className="size-4" aria-hidden />
+              {offer ? <span className="absolute top-2 right-2 size-2 rounded-full bg-accent" data-shelf-update-dot="" /> : null}
             </Menu.Trigger>
             <Menu.Portal>
               <Menu.Content
@@ -368,6 +442,17 @@ function BookCard({
                 sideOffset={4}
                 className="anim-pop z-50 min-w-44 rounded-xl border border-line bg-card p-1.5 text-ink shadow-pop"
               >
+                {offer ? (
+                  <Menu.Item
+                    className={menuItem}
+                    disabled={updating}
+                    onSelect={onUpdate}
+                    data-list-update-menu=""
+                  >
+                    <RotateCw className={cn("size-4", updating && "animate-spin")} aria-hidden />
+                    {updating ? t("lists.updating") : t("pack.update")}
+                  </Menu.Item>
+                ) : null}
                 <Menu.Item className={menuItem} onSelect={onNotebook}>
                   <BookPlus className="size-4" aria-hidden />
                   {t("shelf.menuWords")}
@@ -419,7 +504,11 @@ function BookCard({
           aside={book.oldFashioned ? t("shelf.oldFashionedNote") : undefined}
         />
       </div>
-      {book.source === "epub" ? null : (
+      {offer ? (
+        <div className="mt-auto pt-1">
+          <ListUpdateButton title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} />
+        </div>
+      ) : book.source === "epub" ? null : (
         <p className="mt-auto flex min-h-11 items-center text-xs text-muted" data-card-actions>
           {t("shelf.sampleNotebook")}
         </p>
@@ -464,6 +553,38 @@ export function Shelf({
   const [author, setAuthor] = useState("all");
   const [series, setSeries] = useState<SeriesChoice>("all");
   const [renaming, setRenaming] = useState<Book | null>(null);
+  const [updatingId, setUpdatingId] = useState("");
+  const [packRecords, setPackRecords] = useState<PackRecord[]>([]);
+  const holds = useListUpdates((state) => state.holds);
+  const failures = useListUpdates((state) => state.failures);
+  const listsFinished = useListUpdates((state) => state.finished);
+  useEffect(() => {
+    let alive = true;
+    void listPackRecords()
+      .then((rows) => {
+        if (alive) setPackRecords(rows);
+      })
+      .catch(() => undefined);
+    return () => {
+      alive = false;
+    };
+  }, [listsFinished, books.length]);
+  const offerByBook = useMemo(() => {
+    const map = new Map<string, ListOffer>();
+    for (const record of packRecords) {
+      const why = holds[record.packId];
+      if (!why || !holdOffersUpdate(why)) continue;
+      map.set(record.bookId, { why, failure: failures[record.packId] ?? "" });
+    }
+    return map;
+  }, [packRecords, holds, failures]);
+  function updateBook(bookId: string) {
+    if (updatingId) return;
+    setUpdatingId(bookId);
+    void updateInstalledBook(bookId)
+      .catch(() => undefined)
+      .finally(() => setUpdatingId(""));
+  }
 
   const liveBooks = useMemo(
     () => books.filter((book) => book.id !== pendingId),
@@ -559,10 +680,13 @@ export function Shelf({
       cover={covers[row.book.id]}
       classic={classicIds.has(row.book.id)}
       fileHere={storedIds === null || storedIds.has(row.book.id) || row.book.needsEpub === true}
+      offer={offerByBook.get(row.book.id) ?? null}
+      updating={updatingId === row.book.id}
       onOpen={() => onOpen(row.book.id)}
       onNotebook={() => onNotebook(row.book.id)}
       onAddList={() => onAddList(row.book.id)}
       onRename={() => setRenaming(row.book)}
+      onUpdate={() => updateBook(row.book.id)}
     />
   );
   const filtering = band !== "all" || author !== "all" || series !== "all" || (sort !== "recent" && sort !== "listed");
@@ -600,7 +724,10 @@ export function Shelf({
             <ContinueCard
               row={hero}
               cover={covers[hero.book.id]}
+              offer={offerByBook.get(hero.book.id) ?? null}
+              updating={updatingId === hero.book.id}
               onOpen={() => onOpen(hero.book.id)}
+              onUpdate={() => updateBook(hero.book.id)}
             />
           ) : null}
 
@@ -677,6 +804,7 @@ export function Shelf({
                       name={item.name}
                       books={item.rows.map((row) => row.book)}
                       covers={covers}
+                      updates={item.rows.filter((row) => offerByBook.has(row.book.id)).length}
                       onOpen={() => toggleStack(item.key)}
                     />
                   );

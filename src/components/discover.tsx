@@ -176,7 +176,7 @@ export function DiscoverScreen({
         setRecords(shelfMarks.records);
         setCustomPacks(shelfMarks.custom);
         setError("");
-        // The catalogs are fresh: quietly give installed books their new word lists.
+        // The catalogs are fresh: notice which installed books have a newer word list.
         void autoUpdateWordLists();
       } catch (reason) {
         if (alive) setError(errorText(reason, "err.catalogLoad"));
@@ -313,7 +313,7 @@ export function DiscoverScreen({
     }
   }
 
-  /** The manual Update button: the fallback when the quiet word-list update did not happen. */
+  /** The Update button. A newer word list is applied only when the reader taps it. */
   function update(row: Row) {
     // A hand-edited list has no Update action. This also covers a signed-out tap: add() checks
     // the update before it checks the account, and that tap must not replace the list.
@@ -397,9 +397,9 @@ export function DiscoverScreen({
     const item = row.kind === "classic" ? items[row.id] : undefined;
     const busy = Boolean(item && !item.error) || busyId === row.id;
     const cardError = busy ? "" : item?.error || listError[row.id] || "";
-    // Word lists update by themselves. Update stays only when a tap can still change the stored
-    // list or book: a failed quiet update, a changed book file, or a list that matches this
-    // e-book under 80%. A hand-edited list stays "On shelf"; the card says that list is kept.
+    // A newer list stays until the reader taps Update. A hand-edited list stays "On shelf"
+    // and the card says that list is kept. A changed book file, or a list that matches this
+    // e-book under 80%, keeps Update and says why.
     const direct = byPack.get(row.id);
     const catalogRev = row.kind === "classic" ? (row.pack?.rev ?? "") : row.list ? wordListRev(row.list) : "";
     const revDiffers = Boolean(held && direct && catalogRev && direct.rev !== catalogRev);
@@ -407,6 +407,7 @@ export function DiscoverScreen({
       row.kind === "classic" && direct?.sha256 && row.pack?.epub.sha256 && direct.sha256 !== row.pack.epub.sha256,
     );
     const hold = updateHolds[row.id];
+    const failure = updateFailures[row.id] ?? "";
     const why: ListHoldWhy | null =
       revDiffers && (customPacks.has(row.id) || hold === "ownList")
         ? "ownList"
@@ -414,15 +415,22 @@ export function DiscoverScreen({
           ? "bookChanged"
           : revDiffers && hold === "mismatch"
             ? "mismatch"
-            : null;
-    const updateReady = Boolean(revDiffers && (why === null || holdOffersUpdate(why)));
-    const reason = !revDiffers
-      ? ""
-      : why === "ownList"
+            : revDiffers
+              ? "newList"
+              : null;
+    const updateReady = Boolean(why && holdOffersUpdate(why));
+    const note =
+      why === "ownList"
         ? t("lists.keptYours")
-        : why === "bookChanged"
-          ? t("lists.keptBook")
-          : (updateFailures[row.id] ?? "");
+        : why === "newList" && !failure
+          ? t("lists.newList")
+          : "";
+    const reason =
+      why === "bookChanged"
+        ? failure || t("lists.keptBook")
+        : why === "mismatch" || (why === "newList" && failure)
+          ? failure
+          : "";
     const state: ShelfState = busy
       ? "busy"
       : cardError
@@ -513,8 +521,8 @@ export function DiscoverScreen({
           <ShelfCardStatus
             state={state}
             fraction={busy && item ? item.fraction : undefined}
-            error={cardError || (updateReady ? reason : "")}
-            note={why === "ownList" ? reason : ""}
+            error={cardError || reason}
+            note={note}
             updated={row.updated}
           />
         </div>

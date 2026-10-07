@@ -75,7 +75,7 @@ export function ShelfCardStatus({
  * The control that puts a book on the shelf and takes it off again. On Discover it sits on the
  * cover, as a plus, so the card can show the word list's date instead of a full-width button.
  *   plus  ->  spinner  ->  check (a small menu: open the book, or remove it).
- * "update" is the fallback for a word-list update that was not applied by itself. A signed-out
+ * "update" is a newer word list the reader has not tapped yet. A signed-out
  * visitor's plus says "Sign in to add"; the tap opens the sign-in dialog.
  * It is one button the whole time, so keyboard focus stays on it while the state changes.
  */

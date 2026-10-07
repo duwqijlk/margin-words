@@ -1,18 +1,15 @@
 /**
- * Automatic word-list updates. When the app loads the catalogs (app start, and when Discover
- * opens), every installed book whose catalog revision changed gets its NEW WORD LIST quietly, one
- * book at a time, for public-domain packs and word-list books alike. Only the list is replaced:
- * the EPUB, the reading place, saved words and settings stay. The decisions are pure and live in
- * src/lib/word-list-plan.ts:
- *   - a list the reader added or edited by hand is never replaced, not even by the manual
- *     Update button: the card says the edited list is kept and does not offer that button;
- *   - a classic whose BOOK file changed is left to the manual Update button on Discover;
+ * Word-list updates the reader chooses. When the app loads the catalogs (app start, and when
+ * Discover opens), every installed book whose catalog revision changed is marked, for public-domain
+ * packs and word-list books alike. Nothing is replaced until the reader taps Update on that card.
+ * The tap replaces only the list: the EPUB, the reading place, saved words and settings stay.
+ * The decisions are pure and live in src/lib/word-list-plan.ts:
+ *   - a list the reader added or edited by hand is never replaced, not even by Update:
+ *     the card says the edited list is kept and does not offer that button;
+ *   - a classic whose BOOK file changed keeps Update, and the card says why;
  *   - a word-list book on the reader's own EPUB keeps its old list when the new one does not
- *     match that EPUB (the same edition check as the own-EPUB dialog), with the reason shown;
- *   - offline, and the book open in the reader, wait. Closing the reader tries again,
- *     and so does the next app load.
- * A hold stays on the Discover card with its reason (Update, or a note when the list is the
- * reader's own). A run that found the book still open does not count as a failed try.
+ *     match that EPUB (the same edition check as the own-EPUB dialog), with the reason shown.
+ * A hold stays on the shelf card and the Discover card. A banner says how many books are waiting.
  */
 import { create } from "zustand";
 import {
@@ -36,7 +33,6 @@ import {
   type CatalogPack,
 } from "@/lib/packs";
 import { storeWordListText } from "@/lib/pair-epub";
-import { parsePath } from "@/lib/router";
 import { useVocab } from "@/lib/vocab-store";
 import {
   loadWordListCatalog,
@@ -45,7 +41,6 @@ import {
 } from "@/lib/word-list-catalog";
 import {
   checkListAgainstBook,
-  holdReasonKey,
   planListUpdate,
   wordListUpdateActions,
   type ListHoldWhy,
@@ -67,12 +62,12 @@ type ListUpdateState = {
   /** pack id -> plain-language reason its list was NOT replaced (shown under the Update button) */
   failures: Record<string, string>;
   /**
-   * pack id -> why the quiet update left this book alone.
-   * `ownList` is a note, not an Update button. The other two keep the button.
+   * pack id -> why this book was left for the reader.
+   * `ownList` is a note, not an Update button. The others keep the button.
    */
   holds: Record<string, ListHoldWhy>;
-  /** how many books got a new list in the last quiet run (0 = say nothing) */
-  updated: number;
+  /** how many installed books are waiting for Update (0 = say nothing) */
+  waiting: number;
   /** goes up after every run, so Discover re-reads the pack records */
   finished: number;
   dismiss: () => void;
@@ -82,9 +77,9 @@ type ListUpdateState = {
 export const useListUpdates = create<ListUpdateState>()((set) => ({
   failures: {},
   holds: {},
-  updated: 0,
+  waiting: 0,
   finished: 0,
-  dismiss: () => set({ updated: 0 }),
+  dismiss: () => set({ waiting: 0 }),
   clearFailure: (packId) =>
     set((state) => {
       if (!(packId in state.failures) && !(packId in state.holds)) return state;
@@ -107,10 +102,9 @@ function rememberFailure(packId: string, reason: unknown): void {
   }));
 }
 
-/** The card explains why this book was left for the reader. The text follows the current language. */
-function rememberHold(packId: string, why: "ownList" | "bookChanged"): void {
+/** The card explains why this book was left for the reader. The sentence is translated at render. */
+function rememberHold(packId: string, why: "ownList" | "bookChanged" | "newList"): void {
   useListUpdates.setState((prev) => ({
-    failures: { ...prev.failures, [packId]: tr(holdReasonKey(why)) },
     holds: { ...prev.holds, [packId]: why },
   }));
 }
@@ -177,39 +171,91 @@ async function updateWordListBook(record: PackRecord, pack: WordListPack): Promi
   if (actions.saveRev) await savePackRecord({ ...record, rev });
 }
 
-/** Retry one word-list book from its Discover card (the manual Update button). Throws on failure. */
+function markUpdated(packId: string): void {
+  useListUpdates.getState().clearFailure(packId);
+  useListUpdates.setState((prev) => ({
+    finished: prev.finished + 1,
+    waiting: Math.max(0, prev.waiting - 1),
+  }));
+}
+
+/** Retry one word-list book from its Discover card (the Update button). Throws on failure. */
 export async function retryWordListUpdate(pack: WordListPack): Promise<void> {
   const records = await listPackRecords();
   const record = records.find((item) => item.packId === pack.id);
   if (!record) throw new Error(tr("err.bookGone"));
-  const state = useListUpdates.getState();
   try {
     await updateWordListBook(record, pack);
-    state.clearFailure(pack.id);
-    useListUpdates.setState((prev) => ({ finished: prev.finished + 1 }));
+    markUpdated(pack.id);
   } catch (reason) {
     rememberFailure(pack.id, reason);
     throw reason;
   }
 }
 
-/** The book open in the reader right now, or "". Its list waits until that page is closed. */
-function readingBookId(): string {
-  if (typeof window === "undefined") return "";
-  const route = parsePath(window.location.pathname);
-  return route?.kind === "read" ? route.bookId : "";
+type CatalogMaps = {
+  classics: Map<string, { pack: CatalogPack; url: string }>;
+  lists: Map<string, WordListPack>;
+};
+
+async function loadCatalogMaps(): Promise<CatalogMaps> {
+  const classics = new Map<string, { pack: CatalogPack; url: string }>();
+  try {
+    const { catalog } = await loadCatalog(BUNDLED_CATALOG_URL);
+    for (const pack of catalog.packs) classics.set(pack.id, { pack, url: BUNDLED_CATALOG_URL });
+  } catch {
+    // Offline or no catalog: the word-list catalog below may still answer.
+  }
+  const custom = getCatalogUrl();
+  if (custom !== BUNDLED_CATALOG_URL) {
+    try {
+      const { catalog } = await loadCatalog(custom);
+      for (const pack of catalog.packs) classics.set(pack.id, { pack, url: custom });
+    } catch {
+      // The extra list is optional.
+    }
+  }
+  const lists = new Map<string, WordListPack>();
+  try {
+    for (const pack of await loadWordListCatalog()) lists.set(pack.id, pack);
+  } catch {
+    // The word-list catalog is optional.
+  }
+  return { classics, lists };
 }
 
-/** packs tried this session (packId@rev): a failure is not retried until the next app load. */
-const attempted = new Set<string>();
+/**
+ * Apply the current catalog list to one book already on the shelf. The reader tapped Update.
+ * Throws on failure. A hand-edited list is left as it is.
+ */
+export async function updateInstalledBook(bookId: string): Promise<void> {
+  const records = await listPackRecords();
+  const record = records.find((item) => item.bookId === bookId);
+  if (!record) throw new Error(tr("err.bookGone"));
+  const source = (await loadBookExtras(bookId).catch(() => null))?.source;
+  if (source === "custom") return;
+  const { classics, lists } = await loadCatalogMaps();
+  const classic = classics.get(record.packId);
+  const list = classic ? undefined : lists.get(record.packId);
+  try {
+    if (classic) await downloadPack(classic.url, classic.pack, () => undefined);
+    else if (list) await updateWordListBook(record, list);
+    else throw new Error(tr("err.downloadFailed"));
+    markUpdated(record.packId);
+  } catch (reason) {
+    rememberFailure(record.packId, reason);
+    throw reason;
+  }
+}
+
 let running: Promise<void> | null = null;
-/** A call arrived while a run was already going (the reader just closed). One more run follows. */
+/** A call arrived while a run was already going. One more run follows. */
 let queued = false;
 
 /**
- * Quietly update the word lists of installed books whose catalog revision changed. Never throws.
- * A second call during a run is not dropped: that run may have skipped the open book, and the
- * caller is asking again because the book is no longer open.
+ * Notice installed books whose catalog revision changed, and offer Update.
+ * Never replaces a list. Never throws.
+ * A second call during a run is not dropped.
  */
 export function autoUpdateWordLists(): Promise<void> {
   if (running) {
@@ -236,44 +282,19 @@ async function runUpdates(): Promise<void> {
   const live = records.filter((record) => onShelf.has(record.bookId));
   if (live.length === 0) return;
 
-  const classics = new Map<string, { pack: CatalogPack; url: string }>();
-  try {
-    const { catalog } = await loadCatalog(BUNDLED_CATALOG_URL);
-    for (const pack of catalog.packs) classics.set(pack.id, { pack, url: BUNDLED_CATALOG_URL });
-  } catch {
-    // Offline or no catalog: the word-list catalog below may still answer.
-  }
-  const custom = getCatalogUrl();
-  if (custom !== BUNDLED_CATALOG_URL) {
-    try {
-      const { catalog } = await loadCatalog(custom);
-      for (const pack of catalog.packs) classics.set(pack.id, { pack, url: custom });
-    } catch {
-      // The extra list is optional.
-    }
-  }
-  const lists = new Map<string, WordListPack>();
-  try {
-    for (const pack of await loadWordListCatalog()) lists.set(pack.id, pack);
-  } catch {
-    // The word-list catalog is optional.
-  }
+  const { classics, lists } = await loadCatalogMaps();
   if (classics.size === 0 && lists.size === 0) return;
 
-  const titleOf = (bookId: string) =>
-    useVocab.getState().books.find((book) => book.id === bookId)?.title ?? "";
-  let updated = 0;
-  // One book at a time, quietly; a failure is kept for the manual Update button.
-  // Read the open book here, not once before the catalogs: those fetches are slow, and
-  // the reader may have opened or closed since this run started.
+  let waiting = 0;
   for (const record of live) {
     const classic = classics.get(record.packId);
     const list = classic ? undefined : lists.get(record.packId);
     if (!classic && !list) continue;
     const catalogRev = classic ? classic.pack.rev : wordListRev(list as WordListPack);
-    if (record.rev === catalogRev) continue;
-    const key = `${record.packId}@${catalogRev}`;
-    if (attempted.has(key)) continue;
+    if (record.rev === catalogRev) {
+      useListUpdates.getState().clearFailure(record.packId);
+      continue;
+    }
     const extras = await loadBookExtras(record.bookId).catch(() => null);
     const plan = planListUpdate({
       installedRev: record.rev,
@@ -281,28 +302,13 @@ async function runUpdates(): Promise<void> {
       listSource: extras?.source,
       installedSha: classic ? record.sha256 : "",
       catalogSha: classic ? classic.pack.epub.sha256 : "",
-      offline: typeof navigator !== "undefined" && navigator.onLine === false,
-      reading: record.bookId === readingBookId(),
     });
-    if (plan.kind === "none" || plan.kind === "wait") continue;
-    attempted.add(key);
-    if (plan.kind === "manual") {
-      rememberHold(record.packId, plan.why);
-      continue;
-    }
-    try {
-      if (classic) await downloadPack(classic.url, classic.pack, () => undefined);
-      else await updateWordListBook(record, list as WordListPack);
-      updated += 1;
-      useListUpdates.getState().clearFailure(record.packId);
-      if (import.meta.env.DEV)
-        console.info(`[word lists] updated "${titleOf(record.bookId)}" to ${catalogRev}`);
-    } catch (reason) {
-      rememberFailure(record.packId, reason);
-    }
+    if (plan.kind !== "manual") continue;
+    rememberHold(record.packId, plan.why);
+    if (plan.why !== "ownList") waiting += 1;
   }
   useListUpdates.setState((prev) => ({
     finished: prev.finished + 1,
-    ...(updated > 0 ? { updated } : {}),
+    waiting,
   }));
 }

@@ -228,10 +228,12 @@ export const en = {
   "pack.update": "Update",
   "lists.keptYours": "Your edited list is kept",
   "lists.keptBook": "The book file changed. Tap Update for the new list.",
+  "lists.newList": "A new word list is ready. Tap Update.",
+  "lists.updating": "Updating…",
   "pack.openAria": "Open “{title}”",
   "pack.progressFor": "Download progress for “{title}”",
-  "msg.listsUpdated.one": "Word lists updated for {n} book.",
-  "msg.listsUpdated.other": "Word lists updated for {n} books.",
+  "msg.listsReady.one": "A new word list is ready for {n} book. Tap Update on its card.",
+  "msg.listsReady.other": "New word lists are ready for {n} books. Tap Update on each card.",
 
   /* ---- settings */
   "settings.title": "Settings",
@@ -625,7 +627,7 @@ export const en = {
     "Every book has a word list written by our teachers. They choose the hard words and phrases, write short meanings in simple English, and add notes for hard paragraphs. Nothing is made up by a computer while you read.",
   "about.booksTitle": "Public-domain books and your own books",
   "about.booksBody":
-    "Books in the public domain, such as Alice in Wonderland, are stored on our book server. Add one on Discover with one tap. Books that are still under copyright are not on our server. For them we give only the word list and the ISBN. You need your own legal copy of the book as an EPUB file, and you add it on your own device. When we improve a word list, your book gets the new list by itself.",
+    "Books in the public domain, such as Alice in Wonderland, are stored on our book server. Add one on Discover with one tap. Books that are still under copyright are not on our server. For them we give only the word list and the ISBN. You need your own legal copy of the book as an EPUB file, and you add it on your own device. When we improve a word list, tap Update on that book. The new list is not put on by itself.",
   "about.matchTitle": "The match check",
   "about.matchBody":
     "When you add your own EPUB, the app compares its sentences with the sentences in the word list. It shows a match rate, such as 96%. A rate of 80% or more is a good fit. A low rate means your file may be a different edition, and some notes may be missing or in the wrong place.",

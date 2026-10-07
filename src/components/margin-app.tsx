@@ -100,8 +100,8 @@ export function MarginApp() {
   const [listFlow, setListFlow] = useState<ListFlow | null>(null);
   const [notes, setNotes] = useState<string[]>([]);
   const [spineWarnings, setSpineWarnings] = useState<SpineNameWarning[]>([]);
-  const listsUpdated = useListUpdates((state) => state.updated);
-  const dismissListsUpdated = useListUpdates((state) => state.dismiss);
+  const listsWaiting = useListUpdates((state) => state.waiting);
+  const dismissListsWaiting = useListUpdates((state) => state.dismiss);
   const [storedIds, setStoredIds] = useState<Set<string> | null>(null);
   const opening = useRef(false);
   // The previous screen, so closing the reader can retry a word-list update that waited.
@@ -184,7 +184,7 @@ export function MarginApp() {
         if (state.ok) void requestPersistentStorage();
       });
       void ensureClassics().finally(() => void refreshCovers().catch(() => undefined));
-      // Installed books whose catalog revision changed get their new word list in the background.
+      // Installed books whose catalog revision changed get an Update button. Nothing is replaced yet.
       void autoUpdateWordLists();
       notifySyncReady();
       setReady(true);
@@ -295,8 +295,8 @@ export function MarginApp() {
   useEffect(() => {
     if (screen.kind === "shelf") useShelfRemove.getState().dismissNotice();
   }, [screen.kind]);
-  // A list update skips the book that is open. Ask again as soon as that page closes,
-  // so the shelf can say the lists were updated and the next open reads the new list.
+  // Leaving the reader asks again, so the shelf can offer Update for a list that changed
+  // while that book was open. The list stays until the reader taps Update.
   useEffect(() => {
     const leftReader = wasReading.current && screen.kind !== "read";
     wasReading.current = screen.kind === "read";
@@ -478,9 +478,9 @@ export function MarginApp() {
               {importError}
             </Banner>
           ) : null}
-          {listsUpdated > 0 ? (
-            <Banner tone="good" onClose={dismissListsUpdated} data-lists-updated>
-              {tn("msg.listsUpdated", listsUpdated)}
+          {listsWaiting > 0 ? (
+            <Banner tone="good" onClose={dismissListsWaiting} data-lists-ready>
+              {tn("msg.listsReady", listsWaiting)}
             </Banner>
           ) : null}
           {notes.length > 0 ? (
