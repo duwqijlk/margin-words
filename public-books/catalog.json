@@ -1,7 +1,7 @@
 {
  "format": 1,
  "name": "Margin Words book packs",
- "updated": "2026-10-06",
+ "updated": "2026-10-07T01:41:21.132Z",
  "packs": [
   {
    "id": "alice",
@@ -12,7 +12,7 @@
    "lexile": "880L",
    "series": "Alice",
    "seriesNumber": 1,
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T04:47:03+00:00",
    "rev": "512a05865c22",
    "version": 2,
    "chapters": 13,
@@ -50,7 +50,7 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA (Project Gutenberg).",
    "lexile": "980L",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T03:05:33+00:00",
    "rev": "e7f66cb0d326",
    "version": 2,
    "chapters": 36,
@@ -88,7 +88,7 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA (Project Gutenberg).",
    "lexile": "970L",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T03:05:33+00:00",
    "rev": "03ab0105b79f",
    "version": 2,
    "chapters": 39,
@@ -128,7 +128,7 @@
    "lexile": "900L",
    "oldFashioned": true,
    "oldFashionedReason": "Barrie uses words like anon, fain and ofttimes.",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T03:05:33+00:00",
    "rev": "ccec696591db",
    "version": 2,
    "chapters": 21,
@@ -166,7 +166,7 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA.",
    "lexile": "930L",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T03:05:33+00:00",
    "rev": "46eb78820744",
    "version": 2,
    "chapters": 42,
@@ -206,7 +206,7 @@
    "lexile": "1060L",
    "oldFashioned": true,
    "oldFashionedReason": "Long, old-fashioned sentences. Lexile 1060L, with thee, thy and anon.",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T03:05:33+00:00",
    "rev": "0341a4da5550",
    "version": 2,
    "chapters": 16,
@@ -244,7 +244,7 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA.",
    "lexile": "1090L",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T03:05:33+00:00",
    "rev": "6773bdfbd344",
    "version": 2,
    "chapters": 52,
@@ -282,7 +282,7 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA.",
    "lexile": "970L",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T03:05:33+00:00",
    "rev": "8b5d8159104d",
    "version": 2,
    "chapters": 31,
@@ -320,7 +320,7 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA.",
    "lexile": "1020L",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T03:05:33+00:00",
    "rev": "5236ec8b3f0f",
    "version": 2,
    "chapters": 54,
@@ -362,7 +362,7 @@
    "seriesNumber": 2,
    "oldFashioned": true,
    "oldFashionedReason": "Poems and talk use thou, quoth and hast. More old-fashioned than Alice.",
-   "updated": "2026-10-04",
+   "updated": "2026-10-04T09:48:48+00:00",
    "rev": "bce368d203bd",
    "version": 2,
    "chapters": 19,
@@ -402,7 +402,7 @@
    "lexile": "1100L",
    "oldFashioned": true,
    "oldFashionedReason": "Kipling's stories use thou, thee and hath. The language is old and the Lexile is 1100L.",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T03:05:33+00:00",
    "rev": "dc9f66e862d8",
    "version": 2,
    "chapters": 12,
@@ -440,7 +440,7 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA.",
    "lexile": "1030L",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T03:05:33+00:00",
    "rev": "a7a6b4072ae9",
    "version": 2,
    "chapters": 29,
@@ -478,7 +478,7 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA. A work of the United States government (17 USC 105), delivered September 8, 2009. The cover is an original study cover, not an official publication.",
    "category": "speech",
-   "updated": "2026-10-06",
+   "updated": "2026-10-06T02:02:45+00:00",
    "rev": "29cf93ea6e79",
    "version": 2,
    "chapters": 7,
@@ -505,8 +505,8 @@
    },
    "zip": {
     "url": "back-to-school.zip",
-    "bytes": 405187,
-    "sha256": "e34419ef5585e9c4e96e836c300416f3ec5e844a56ae60c97457f86adb334d1c"
+    "bytes": 405564,
+    "sha256": "10a4429c2ac75b29936ace7eb8b4f2a1e061d255cc1d189eb18f63b9d6a6220f"
    }
   },
   {
@@ -516,7 +516,7 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA. A work of the United States government (17 USC 105), delivered September 20, 2001. The cover is an original study cover, not an official publication.",
    "category": "speech",
-   "updated": "2026-10-05",
+   "updated": "2026-10-05T07:26:22+00:00",
    "rev": "8631e7b57c65",
    "version": 2,
    "chapters": 8,
@@ -554,7 +554,7 @@
    "level": "Chinese junior-high (CEFR A2-B1). Simple English meanings.",
    "notes": "Public domain in the USA. A work of the United States government (17 USC 105), delivered January 20, 2009. The cover is the photograph supplied with this reading text.",
    "category": "speech",
-   "updated": "2026-10-06",
+   "updated": "2026-10-06T04:54:13+00:00",
    "rev": "e2e29b7ccd2d",
    "version": 2,
    "chapters": 2,
@@ -581,14 +581,14 @@
    },
    "zip": {
     "url": "obama-inaugural-2009.zip",
-    "bytes": 415543,
-    "sha256": "9d789aad16dff98f3f3faed2b3ccab5a7a316d714f5342b9fc2478f7100eb206"
+    "bytes": 416796,
+    "sha256": "1c64b8c0ecf363920ad86b0b4128c9895744961089b6d372c50acf78c5d0e7f6"
    }
   }
  ],
  "allPacks": {
   "url": "all-packs.zip",
-  "bytes": 12575966,
-  "sha256": "18b96f94e5757dfa6d4bf2c4d5d6cacd0027f718cd1e7ba47abe7d7eab0d08c1"
+  "bytes": 12577673,
+  "sha256": "e9062b9f872fdcb13db9f9222a8f4b61a6891202febdce942d553f25fdd464bd"
  }
 }

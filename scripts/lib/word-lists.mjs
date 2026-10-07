@@ -127,7 +127,7 @@ export function buildWordLists(packsDir) {
   const catalog = {
     format: 1,
     name: "Word lists",
-    updated: new Date().toISOString().slice(0, 10),
+    updated: new Date().toISOString(),
     lists: lists.map((item) => item.row),
   };
   const catalogBytes = Buffer.from(`${JSON.stringify(catalog, null, 1)}\n`);

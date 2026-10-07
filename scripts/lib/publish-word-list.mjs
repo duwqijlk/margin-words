@@ -38,14 +38,16 @@ export function assertWordListPublish(before, after, id) {
 /**
  * @param {object} live catalog JSON already on the books host
  * @param {object} row one list from buildWordLists
- * @param {string} [updated] YYYY-MM-DD
+ * @param {string} [updated] a day `YYYY-MM-DD`, or an ISO instant
  */
-export function mergeWordListCatalog(live, row, updated = new Date().toISOString().slice(0, 10)) {
+export function mergeWordListCatalog(live, row, updated = new Date().toISOString()) {
   if (!live || !Array.isArray(live.lists)) throw new Error("live catalog has no lists");
   if (!row || typeof row.id !== "string" || !/^[a-z0-9][a-z0-9_-]{0,63}$/.test(row.id)) {
     throw new Error("word-list id is missing");
   }
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(updated)) throw new Error("updated day is not YYYY-MM-DD");
+  if (!/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2}))?$/.test(updated)) {
+    throw new Error("updated time is not a day or an ISO instant");
+  }
   const lists = live.lists.map((item) => ({ ...item }));
   const index = lists.findIndex((item) => item.id === row.id);
   if (index >= 0) lists[index] = row;

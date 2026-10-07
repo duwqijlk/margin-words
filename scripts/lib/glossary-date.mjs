@@ -1,7 +1,7 @@
 /**
- * The day a glossary file last changed in git, as YYYY-MM-DD.
- * Discover shows this as the word list's last update. An uncommitted or
- * untracked file has no date.
+ * When a glossary file last changed in git, as an ISO instant (`2026-10-07T01:17:00+08:00`).
+ * Discover shows that clock time in the reader's own time zone. An uncommitted or
+ * untracked file has no time.
  */
 import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
@@ -16,12 +16,12 @@ export function committedOn(file) {
   let date = "";
   if (existsSync(file)) {
     try {
-      const out = execFileSync("git", ["log", "-1", "--format=%cs", "--", file], {
+      const out = execFileSync("git", ["log", "-1", "--format=%cI", "--", file], {
         cwd: ROOT,
         encoding: "utf8",
         stdio: ["ignore", "pipe", "ignore"],
       }).trim();
-      if (/^\d{4}-\d{2}-\d{2}$/.test(out)) date = out;
+      if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/.test(out)) date = out;
     } catch {
       date = "";
     }
