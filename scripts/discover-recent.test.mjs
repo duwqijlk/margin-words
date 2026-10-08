@@ -11,11 +11,11 @@ function day(offset) {
   return `${date.getFullYear()}-${month}-${d}`;
 }
 
-test("a recent window is seven local days, including today", () => {
-  assert.equal(RECENT_UPDATE_DAYS, 7);
+test("a recent window is three local days, including today", () => {
+  assert.equal(RECENT_UPDATE_DAYS, 3);
   assert.equal(isRecentUpdate(day(0), now), true);
-  assert.equal(isRecentUpdate(day(-6), now), true);
-  assert.equal(isRecentUpdate(day(-7), now), false);
+  assert.equal(isRecentUpdate(day(-2), now), true);
+  assert.equal(isRecentUpdate(day(-3), now), false);
   assert.equal(isRecentUpdate("", now), false);
   assert.equal(isRecentUpdate("yesterday", now), false);
   assert.equal(updateInstant("2026-13-40"), null);

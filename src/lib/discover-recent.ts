@@ -7,7 +7,7 @@
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 /** How many local calendar days, including today, count as recent. */
-export const RECENT_UPDATE_DAYS = 7;
+export const RECENT_UPDATE_DAYS = 3;
 
 const DAY = /^(\d{4})-(\d{2})-(\d{2})$/;
 const INSTANT =
