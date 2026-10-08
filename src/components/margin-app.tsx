@@ -1,4 +1,4 @@
-import { AlertCircle, BookOpen, CheckCircle2, Compass, LayoutDashboard, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
+import { AlertCircle, CheckCircle2, Compass, LayoutDashboard, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   bookFileExists,
@@ -363,15 +363,6 @@ export function MarginApp() {
       {reading ? null : (
         <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-6xl items-center gap-1 px-2 sm:gap-2 sm:px-6">
-            <button
-              type="button"
-              className="mr-1 flex shrink-0 items-center gap-2 rounded-lg px-2 py-1.5 font-display text-xl font-semibold"
-              onClick={() => setScreen({ kind: "shelf" })}
-              aria-label={t("common.brand")}
-            >
-              <BookOpen className="size-6 text-accent" strokeWidth={1.5} aria-hidden />
-              <span className="max-lg:sr-only">{t("common.brand")}</span>
-            </button>
             <nav className="hidden min-w-0 flex-1 items-center gap-1 sm:flex" aria-label={t("nav.main")}>
               {tabs.map((tab) => (
                 <NavButton key={tab.id} active={tab.active} onClick={tab.go}>
