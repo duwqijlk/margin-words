@@ -29,6 +29,7 @@ import { useVocab } from "@/lib/vocab-store";
 import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category";
+import { RECENT_UPDATE_DAYS, recentUpdates } from "@/lib/discover-recent";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import {
   autoUpdateWordLists,
@@ -218,6 +219,7 @@ export function DiscoverScreen({
   }, [canAdd]);
 
   const inCategory = useMemo(() => rows.filter((item) => item.category === category), [rows, category]);
+  const recent = useMemo(() => recentUpdates(inCategory, new Date()), [inCategory]);
   const authors = useMemo(
     () => [...new Set(inCategory.map((item) => item.author).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
     [inCategory],
@@ -291,7 +293,45 @@ export function DiscoverScreen({
     return () => observer.disconnect();
   }, [hasMore, filterKey, limit]);
 
+  const [jumpId, setJumpId] = useState("");
+  const [highlightId, setHighlightId] = useState("");
   const shelfIds = useMemo(() => new Set(shelf.map((book) => book.id)), [shelf]);
+
+  function jumpTo(id: string) {
+    const visible = shown.some((row) => row.id === id);
+    if (!visible) {
+      setQuery("");
+      setAuthor("all");
+      setSeries("all");
+      setBand("all");
+      setSort("listed");
+    }
+    setJumpId(id);
+  }
+
+  useEffect(() => {
+    if (!jumpId || !ready) return;
+    const index = shown.findIndex((row) => row.id === jumpId);
+    if (index < 0) return;
+    if (index >= limit) {
+      setWindowState({ key: filterKey, limit: index + 1 });
+      return;
+    }
+    const frame = requestAnimationFrame(() => {
+      const card = document.querySelector<HTMLElement>(`[data-discover-card="${CSS.escape(jumpId)}"]`);
+      if (!card) return;
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      setHighlightId(jumpId);
+      setJumpId("");
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [jumpId, shown, limit, filterKey, ready]);
+
+  useEffect(() => {
+    if (!highlightId) return;
+    const timer = window.setTimeout(() => setHighlightId(""), 2500);
+    return () => window.clearTimeout(timer);
+  }, [highlightId]);
   const byPack = useMemo(() => new Map(records.map((record) => [record.packId, record])), [records]);
 
   async function addList(pack: WordListPack) {
@@ -445,7 +485,8 @@ export function DiscoverScreen({
     return (
       <li
         key={row.key}
-        className={bookCardShell}
+        className={cn(bookCardShell, "scroll-mt-20", highlightId === row.id && "rounded-md outline outline-2 outline-offset-4 outline-accent")}
+        data-discover-card={row.id}
         {...(row.kind === "classic" ? { "data-pack": row.id } : { "data-word-list": row.id })}
         data-list-hold={why ?? undefined}
       >
@@ -578,6 +619,29 @@ export function DiscoverScreen({
         aria-labelledby={`discover-cat-${category}`}
         className="grid gap-5 sm:gap-6"
       >
+        {ready && recent.length > 0 ? (
+          <section className="grid min-w-0 gap-2" aria-label={t("discover.recentAria", { n: RECENT_UPDATE_DAYS })} data-discover-recent={recent.length}>
+            <h2 className="font-display text-lg font-semibold">{t("discover.recent")}</h2>
+            <ul className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
+              {recent.map((row) => (
+                <li key={row.id} className="w-20 shrink-0">
+                  <button
+                    type="button"
+                    className="grid w-full gap-1 rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    data-recent-book={row.id}
+                    aria-label={t("discover.recentShow", { title: row.title })}
+                    onClick={() => jumpTo(row.id)}
+                  >
+                    <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
+                    <span className="overflow-hidden text-xs leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]" lang="en">
+                      {row.title}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
         {!ready || inCategory.length > 0 ? (
           <div className="grid gap-3">
             <label className="relative block">
