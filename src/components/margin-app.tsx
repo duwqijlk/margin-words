@@ -544,7 +544,6 @@ export function MarginApp() {
           <SettingsDialog
             open={settingsOpen}
             onOpenChange={setSettingsOpen}
-            onSaved={() => undefined}
             onOpenGuide={() => setScreen({ kind: "guide" })}
           />
         ) : null}

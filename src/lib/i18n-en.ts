@@ -212,7 +212,6 @@ export const en = {
   "lists.working": "Checking your e-book…",
   "shelf.due": "{n} due",
   "shelf.chapterOf": "Chapter {n} of {total}",
-  "settings.advanced": "Book list address",
   "err.pack.listBad": "The word list (glossary.json) cannot be used. {problems}",
 
   /* ---- word-list updates */
@@ -228,13 +227,8 @@ export const en = {
 
   /* ---- settings */
   "settings.title": "Settings",
-  "settings.desc": "Language, your account, and where the app looks for books.",
+  "settings.desc": "Language, theme, and your account.",
   "settings.langTitle": "Language",
-  "settings.catalogLabel": "Book list address (catalog.json)",
-  "settings.placeholder": "Built-in address: {url}",
-  "settings.help":
-    "Leave this empty to use the book list that comes with the app. To use your own list, put the packs folder on a website and paste the address of its catalog.json here.",
-  "settings.useBuiltin": "Use built-in",
   "settings.guide": "How to make a book pack",
   "settings.accountTitle": "Account",
 
@@ -268,6 +262,7 @@ export const en = {
   "account.syncSaving": "Syncing…",
   "account.syncOffline": "Offline. Changes will sync when you are back online.",
   "account.syncError": "Sync did not finish. It will try again.",
+  "account.more": "More",
   "account.export": "Export my data",
   "account.exportDone": "Download started",
   "account.delete": "Delete account",
@@ -299,8 +294,7 @@ export const en = {
   "err.notEpub": "This is not an EPUB book.",
   "err.noToc": "This EPUB has no table of contents.",
   "err.noEnglishText": "Could not find any English text in this EPUB.",
-  "err.catalogLoad":
-    "The book list could not be loaded. Check your connection, or check the catalog address in Settings.",
+  "err.catalogLoad": "The book list could not be loaded. Check your connection and try again.",
   "err.notCatalog": "This address does not give a book list. It should be a catalog.json file.",
   "err.catalogScheme":
     "The address must start with http:// or https://, or be a path such as ./packs/catalog.json.",

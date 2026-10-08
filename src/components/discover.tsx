@@ -589,10 +589,7 @@ export function DiscoverScreen({
       data-discover-matches={ready ? shown.length : undefined}
     >
       <div className="grid gap-3">
-        <div className="grid gap-1">
-          <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("discover.title")}</h1>
-          <p className="max-w-xl text-sm text-muted">{t("discover.hint")}</p>
-        </div>
+        <p className="max-w-xl text-sm text-muted">{t("discover.hint")}</p>
         <div role="tablist" aria-label={t("discover.cat.list")} className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0" data-discover-categories>
           {CONTENT_CATEGORIES.map((id) => {
             const on = category === id;

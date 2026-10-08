@@ -118,7 +118,7 @@ public-books/              免费的公版书，同样的方式
    `https://books.inputread.site` 后面的存储桶必须允许这些来源跨域读取：`https://inputread.site`、`https://www.inputread.site`、`https://margin-words.pages.dev`，以及 localhost。页面从这次跨域响应读到书，再存在浏览器里。
 3. `packs/`、`site/` 和 `dist-private/` 不要放到公开网站上。`node scripts/build-site.mjs` 会写出 `site/`（`dist/` 加上 `packs/`），给自己的电脑用。
 
-读者也可以在“设置”里填写另一个目录地址。那个站点必须允许跨站读取。`catalog.json` 里的地址是相对于目录文件本身的。
+`catalog.json` 里的地址是相对于目录文件本身的。应用使用内置书目。
 
 ### 一本书怎样进书架
 
