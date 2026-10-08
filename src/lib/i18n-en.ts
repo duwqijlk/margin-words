@@ -45,12 +45,11 @@ export const en = {
   "nav.main": "Main navigation",
   "nav.shelf": "Shelf",
   "nav.discover": "Discover",
-  "nav.dashboard": "Dashboard",
+  "nav.dashboard": "Overview",
   "nav.guide": "Guide",
   "nav.notebook": "Notebook",
   "nav.settings": "Settings",
   "nav.account": "Account",
-  "nav.thanks": "Thanks",
   "notice.text": "We don't provide copyrighted books. For those, bring your own EPUB.",
   "notice.dismiss": "Hide this notice",
   "nav.dueAria": "{n} to review",
@@ -65,7 +64,7 @@ export const en = {
     "You need the internet to open this site. A book file that is already on this device stays on this device. Sign in, and another device shows the same shelf card, but that device still needs the book file: download a public-domain classic, or add your own e-book. Your progress and your notebook can sync when you are signed in.",
 
   /* ---- dashboard */
-  "dashboard.title": "Dashboard",
+  "dashboard.title": "Overview",
   "dashboard.intro":
     "These numbers are for every book on Discover: the words, phrases, and notes our teachers marked, and which books belong together.",
   "dashboard.books": "Books",

@@ -737,19 +737,21 @@ async function run(lang, size) {
       (await vp.locator("[data-pack]").count()) === FREE_COUNT,
       `${label}: Discover lists ${FREE_COUNT} classics (${await vp.locator("[data-pack]").count()})`,
     );
-    await vp.getByRole("button", { name: t("nav.guide"), exact: true }).click();
+    await vp.getByRole("button", { name: t("nav.settings"), exact: true }).click();
+    await vp.locator("[data-settings-guide]").click();
     await vp.getByRole("heading", { name: t("guide.title"), exact: true }).waitFor();
     ok((await vp.locator("[data-guide-section]").count()) === 12, `${label}: the guide is the one how-to and about page`);
     ok(
       (await vp.locator("[data-guide-source]").getAttribute("href")) === "https://github.com/bitbw/english-read",
       `${label}: the guide credits English Read`,
     );
-    ok((await vp.locator("header nav button").count()) === 5, `${label}: Shelf, Discover, Dashboard, Notebook and Guide are the tabs`);
+    ok((await vp.locator("header nav button").count()) === 4, `${label}: Shelf, Discover, Notebook and Overview are the tabs`);
     const tabNames = await vp.locator("header nav button").evaluateAll((list) =>
       list.map((b) => (b.textContent ?? "").replace(/\s+/g, " ").trim()),
     );
-    ok(tabNames.at(-1) === t("nav.guide"), `${label}: Guide is the last tab (${tabNames.at(-1)})`);
-    ok(tabNames[2] === t("nav.dashboard"), `${label}: Dashboard is a tab (${tabNames[2]})`);
+    ok(tabNames.at(-1) === t("nav.dashboard"), `${label}: Overview is the last tab (${tabNames.at(-1)})`);
+    ok(tabNames[2] === t("nav.notebook"), `${label}: Notebook is the third tab (${tabNames[2]})`);
+    ok((await vp.locator("[data-thanks-nav]").count()) === 0, `${label}: the thank-you list is not a header button`);
     ok(!(await overflow2(vp)), `${label}: no horizontal overflow (guide)`);
     await openDiscover();
     // covers are loaded lazily: scroll down the list so that all of them come into view
@@ -814,7 +816,7 @@ async function run(lang, size) {
             return r.left >= 0 && r.right <= innerWidth && r.bottom <= innerHeight && r.width > 40 && r.height >= 44;
           }),
         );
-        ok(tabs.length === 5 && tabs.every(Boolean), `${label}: the bottom tab bar shows all five screens, each with a big tap target`);
+        ok(tabs.length === 4 && tabs.every(Boolean), `${label}: the bottom tab bar shows all four screens, each with a big tap target`);
       }
     }
     for (const c of CLASSICS) {

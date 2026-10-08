@@ -48,12 +48,11 @@ export const zh: Record<Key, string> = {
   "nav.main": "主菜单",
   "nav.shelf": "书架",
   "nav.discover": "发现",
-  "nav.dashboard": "数据",
+  "nav.dashboard": "概况",
   "nav.guide": "使用说明",
   "nav.notebook": "生词本",
   "nav.settings": "设置",
   "nav.account": "账号",
-  "nav.thanks": "感谢",
   "notice.text": "本站不提供有版权的书。这类书请自己导入合法获得的 EPUB。",
   "notice.dismiss": "关闭这条提示",
   "nav.dueAria": "有 {n} 个词要复习",
@@ -68,7 +67,7 @@ export const zh: Record<Key, string> = {
     "打开这个网站需要网络。已经保存在这台设备上的书，还在这台设备上。登录以后，另一台设备会显示同一张书架卡片，但那台设备还要再拿到书的文件：公版书可以下载，其他书要添加你自己的电子书。登录后，阅读进度和生词本可以同步。",
 
   /* ---- dashboard */
-  "dashboard.title": "数据",
+  "dashboard.title": "概况",
   "dashboard.intro": "这些数字是“发现”里的全部书：老师标出的单词、短语和笔记，还有哪些书是一个系列。",
   "dashboard.books": "书",
   "dashboard.words": "标出的单词",

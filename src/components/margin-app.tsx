@@ -1,4 +1,4 @@
-import { AlertCircle, BookOpen, CheckCircle2, CircleHelp, Compass, Heart, LayoutDashboard, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
+import { AlertCircle, BookOpen, CheckCircle2, Compass, LayoutDashboard, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   bookFileExists,
@@ -71,7 +71,6 @@ const Notebook = lazy(() => import("@/components/notebook").then((m) => ({ defau
 const DiscoverScreen = lazy(() => import("@/components/discover").then((m) => ({ default: m.DiscoverScreen })));
 const GuideScreen = lazy(() => import("@/components/guide-page").then((m) => ({ default: m.GuideScreen })));
 const DashboardScreen = lazy(() => import("@/components/dashboard-page").then((m) => ({ default: m.DashboardScreen })));
-const ThanksScreen = lazy(() => import("@/components/thanks-page").then((m) => ({ default: m.ThanksScreen })));
 const SettingsDialog = lazy(() => import("@/components/get-books").then((m) => ({ default: m.SettingsDialog })));
 const OwnEpubDialog = lazy(() => import("@/components/own-epub-dialog").then((m) => ({ default: m.OwnEpubDialog })));
 const ReaderScreen = lazy(() => import("@/components/reader").then((m) => ({ default: m.ReaderScreen })));
@@ -119,11 +118,16 @@ export function MarginApp() {
 
   // "/" and any address that is not a page go to the bookshelf, without adding a history entry.
   // /about is the old About page: it is the Guide now, so the address becomes /guide.
-  // popstate covers a Back press that lands on an old /about entry.
+  // /thanks is the old thank-you page: the list is on the overview, so the address becomes /dashboard.
+  // popstate covers a Back press that lands on an old entry.
   useEffect(() => {
     const fix = () => {
       if (pathNeedsRedirect()) navigate(DEFAULT_ROUTE, { replace: true });
       else if (window.location.pathname === "/about") navigate({ kind: "guide" }, { replace: true });
+      else if (window.location.pathname === "/thanks") {
+        navigate({ kind: "dashboard" }, { replace: true });
+        window.history.replaceState(window.history.state, "", "/dashboard#thanks");
+      }
     };
     fix();
     window.addEventListener("popstate", fix);
@@ -322,14 +326,6 @@ export function MarginApp() {
       badge: 0,
     },
     {
-      id: "dashboard",
-      label: t("nav.dashboard"),
-      Icon: LayoutDashboard,
-      active: menu === "dashboard",
-      go: () => setScreen({ kind: "dashboard" }),
-      badge: 0,
-    },
-    {
       id: "notebook",
       label: t("nav.notebook"),
       Icon: NotebookPen,
@@ -338,11 +334,11 @@ export function MarginApp() {
       badge: due,
     },
     {
-      id: "guide",
-      label: t("nav.guide"),
-      Icon: CircleHelp,
-      active: menu === "guide",
-      go: () => setScreen({ kind: "guide" }),
+      id: "dashboard",
+      label: t("nav.dashboard"),
+      Icon: LayoutDashboard,
+      active: menu === "dashboard",
+      go: () => setScreen({ kind: "dashboard" }),
       badge: 0,
     },
   ];
@@ -396,21 +392,6 @@ export function MarginApp() {
               ))}
             </nav>
             <div className="min-w-0 flex-1 sm:hidden" />
-            <button
-              type="button"
-              className={cn(
-                btn.icon,
-                "w-auto gap-1.5 px-2.5",
-                menu === "thanks" && "bg-accent-soft text-accent",
-              )}
-              onClick={() => setScreen({ kind: "thanks" })}
-              aria-label={t("nav.thanks")}
-              aria-current={menu === "thanks" ? "page" : undefined}
-              data-thanks-nav
-            >
-              <Heart className={cn("size-5", menu === "thanks" ? "fill-accent text-accent" : "")} aria-hidden />
-              <span className="hidden text-sm font-semibold lg:inline">{t("nav.thanks")}</span>
-            </button>
             <LanguageButton />
             <button
               type="button"
@@ -423,9 +404,11 @@ export function MarginApp() {
             </button>
             <button
               type="button"
-              className={cn(btn.icon, "size-11")}
+              className={cn(btn.icon, "size-11", menu === "guide" && "bg-accent-soft text-accent")}
               onClick={() => setSettingsOpen(true)}
               aria-label={t("nav.settings")}
+              aria-current={menu === "guide" ? "page" : undefined}
+              data-settings-button
             >
               <Settings className="size-5" aria-hidden />
             </button>
@@ -439,7 +422,7 @@ export function MarginApp() {
           aria-label={t("nav.main")}
           data-tab-bar
         >
-          <div className="mx-auto grid max-w-md grid-cols-5">
+          <div className="mx-auto grid max-w-md grid-cols-4">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -514,8 +497,6 @@ export function MarginApp() {
             <DashboardScreen />
           ) : screen.kind === "guide" ? (
             <GuideScreen />
-          ) : screen.kind === "thanks" ? (
-            <ThanksScreen />
           ) : screen.kind === "discover" ? (
             <DiscoverScreen
               shelf={orderedBooks}
@@ -571,7 +552,12 @@ export function MarginApp() {
           />
         ) : null}
         {settingsOpen ? (
-          <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} onSaved={() => undefined} />
+          <SettingsDialog
+            open={settingsOpen}
+            onOpenChange={setSettingsOpen}
+            onSaved={() => undefined}
+            onOpenGuide={() => setScreen({ kind: "guide" })}
+          />
         ) : null}
       </Suspense>
       <AccountDialog />
