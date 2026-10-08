@@ -86,7 +86,7 @@ async function scenario(lang, size) {
 
   // ---- 1. empty shelf, then Discover
   await page.goto(at("shelf"));
-  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 60000 });
+  await page.locator("[data-empty-discover]").waitFor({ timeout: 60000 });
   await page.waitForTimeout(2000);
   ok((await page.locator("ul li").count()) === 0, `${label}: a new shelf is empty (no forced Alice)`);
   ok((await page.locator("[data-empty-discover]").count()) === 1, `${label}: the empty shelf points to Discover`);

@@ -81,10 +81,6 @@ export const en = {
 
   /* ---- shelf */
   "shelf.title": "Shelf",
-  "shelf.emptyTitle": "Your shelf is empty",
-  "shelf.emptyBody":
-    "Nothing here yet. Sign in, then find a book on Discover. Tap hard words to learn them.",
-  "shelf.sample": "Try the sample notebook",
   "shelf.search": "Search by title or author",
   "shelf.noMatch": "No books found for “{query}”.",
   "shelf.continueReading": "Continue reading",
@@ -216,12 +212,6 @@ export const en = {
   "lists.working": "Checking your e-book…",
   "shelf.due": "{n} due",
   "shelf.chapterOf": "Chapter {n} of {total}",
-  "shelf.step1": "Add a book",
-  "shelf.step1Body": "Sign in, then open Discover and add a public-domain book or a word list.",
-  "shelf.step2": "Tap a hard word",
-  "shelf.step2Body": "See a simple English meaning.",
-  "shelf.step3": "Save and review",
-  "shelf.step3Body": "Saved words go to your notebook.",
   "settings.advanced": "Book list address",
   "err.pack.listBad": "The word list (glossary.json) cannot be used. {problems}",
 
@@ -596,10 +586,6 @@ export const en = {
   "rv.nextCard": "Next",
   "rv.think": "First, think about what this word means in the sentence",
   "shelf.findBooks": "Find books on Discover",
-  "shelf.suggestTitle": "A good first book",
-  "shelf.suggestBody":
-    "A public-domain classic. Its hard words have simple English meanings.",
-  "shelf.suggestGo": "See it on Discover",
   "notice.link": "How this site works",
   "src.chapterN": "Chapter {n}",
   "src.open": "Go to this place",

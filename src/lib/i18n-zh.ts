@@ -83,9 +83,6 @@ export const zh: Record<Key, string> = {
 
   /* ---- shelf */
   "shelf.title": "书架",
-  "shelf.emptyTitle": "书架上还没有书",
-  "shelf.emptyBody": "这里还没有书。先登录，再到“发现”里找一本。点难词就能学。",
-  "shelf.sample": "试一试示例生词本",
   "shelf.search": "按书名或作者搜索",
   "shelf.noMatch": "没有找到“{query}”相关的书。",
   "shelf.continueReading": "继续阅读",
@@ -216,12 +213,6 @@ export const zh: Record<Key, string> = {
   "lists.working": "正在检查你的电子书…",
   "shelf.due": "{n} 个待复习",
   "shelf.chapterOf": "第 {n} 章，共 {total} 章",
-  "shelf.step1": "添加一本书",
-  "shelf.step1Body": "先登录，再打开“发现”，添加公版书或词表书。",
-  "shelf.step2": "点一个难词",
-  "shelf.step2Body": "看简单的英文解释。",
-  "shelf.step3": "保存并复习",
-  "shelf.step3Body": "保存的词会进入生词本。",
   "settings.advanced": "书目地址",
   "err.pack.listBad": "词表（glossary.json）不能用。{problems}",
 
@@ -583,9 +574,6 @@ export const zh: Record<Key, string> = {
   "rv.nextCard": "下一个",
   "rv.think": "先想一想，这个词在句子里是什么意思",
   "shelf.findBooks": "到“发现”找书",
-  "shelf.suggestTitle": "适合第一本读的书",
-  "shelf.suggestBody": "公有领域的经典名著。难词都有简单的英文解释。",
-  "shelf.suggestGo": "到“发现”里看",
   "notice.link": "了解本站如何运作",
   "src.chapterN": "第 {n} 章",
   "src.open": "回到这个位置",

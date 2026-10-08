@@ -19,7 +19,7 @@ Chinese version: [docs/MIGRATION.zh-CN.md](docs/MIGRATION.zh-CN.md).
 - **Bilingual UI.** Buttons, menus and messages are in Simplified Chinese and English (language button in the top
   bar). The books and their meanings stay in English.
 - Twelve free public-domain classics are loaded from the books host (`public-books/`). A new shelf starts empty
-  and suggests Alice as a first book (one tap); Alice is a normal book. The books, and the copyrighted word lists, are on Discover and download on tap.
+  and shows one button that opens Discover. Alice is a normal book. The books, and the copyrighted word lists, are on Discover and download on tap.
   A deleted book stays deleted. Word lists are `word-lists/` on the same host (glossary, and a resized cover
   from `packs/<id>/cover.jpg` when that file exists). `npm run build:private` writes `dist-private/` for the
   private bucket `margin-words-private` (no public access; the app never fetches it).
