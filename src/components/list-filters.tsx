@@ -93,7 +93,7 @@ export function FilterMenu({
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger
           type="button"
-          className={cn(btn.quiet, "sm:hidden")}
+          className={cn(btn.quiet, "shrink-0 sm:hidden")}
           data-filter-menu={active ? "on" : "off"}
         >
           {t("list.filter")}

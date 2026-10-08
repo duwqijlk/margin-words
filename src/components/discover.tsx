@@ -655,8 +655,8 @@ export function DiscoverScreen({
           </section>
         ) : null}
         {!ready || inCategory.length > 0 ? (
-          <div className="grid gap-3">
-            <label className="relative block">
+          <div className="flex flex-wrap items-center gap-2">
+            <label className="relative block min-w-0 flex-1 sm:basis-full">
               <span className="sr-only">{t("discover.search")}</span>
               <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted" aria-hidden />
               <input
