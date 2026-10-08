@@ -28,7 +28,7 @@ Dev and `npm run build:local` serve this folder on the same origin so tests run 
 2. Rebuild the catalog and the local sideload zips: `node scripts/build-packs.mjs --out public-books`
 3. `npm run build:books`, then upload `dist-books/`. The hosted catalog sets each `zip` to null and omits
    `all-packs.zip`. The app downloads the loose files when the reader adds the book.
-4. First run: the shelf is empty. The empty shelf suggests Alice with a one-tap add, and Discover lists every
+4. First run: the shelf is empty, with one button that opens Discover. Discover lists every
    classic. Books already on a device stay there. A book the user deleted stays off the shelf until it is
    added again (`localStorage` key `cibian-removed-packs-v1` is still written for compatibility).
 

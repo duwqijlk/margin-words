@@ -78,7 +78,7 @@ async function addAlice(page) {
 {
   const { context, page } = await fresh({ width: 1280, height: 800, signedIn: false });
   await page.goto(BASE + "shelf");
-  await page.waitForSelector("[data-first-book-add]");
+  await page.waitForSelector("[data-empty-discover]");
   await shot(page, "shelf-empty-1280.png");
   await context.close();
 }

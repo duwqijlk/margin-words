@@ -9,14 +9,14 @@
  *   npm run build:local && npx vite preview --host 127.0.0.1 --port 8090
  * Preview serves ./public-books and ./word-lists from the repo. They are not inside dist/.
  * Runs in English and Chinese, at 1280px and 390px. Checks:
- *   - FIRST OPEN: the shelf is empty and suggests Alice; one tap adds it, with a cover, a Lexile measure and the
+ *   - FIRST OPEN: the shelf is empty, with one button to Discover. Alice is added from Discover, with a cover, a Lexile measure and the
  *     "Public domain" label; it opens and a word can be looked up
  *   - DISCOVER: lists all 12 classics and the 10 word lists (covers, Lexile). Alice's button says "On shelf".
  *     "Add to shelf" adds Peter and Wendy and Looking-Glass; they open from the cover, and a normal reload still opens them
  *   - deleting Alice keeps it deleted after a reload (the "removed" flag); the shelf can be emptied
  *   - a fresh visit reloads and still opens Alice; the service worker does not cache the book file
  *   - no standalone EPUB input anywhere; the only file inputs take .zip (and .json for a word list)
- *   - empty shelf with 3 steps; one clear "Add book"
+ *   - empty shelf is one button that opens Discover
  *   - a good pack (the kit's sample pack) imports and opens; title, author and cover come from the EPUB
  *   - a bare .epub (choose and drop) shows the friendly message with the guide link and adds nothing
  *   - bad packs (no list, list for another book, invalid list, two books, not a zip) show a readable error, add nothing
@@ -72,6 +72,18 @@ const T = { en: dict("en"), zh: dict("zh") };
 const escapeRe = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 /** A regex for an aria-label like "Open “{title}”": the text before {title}, then the given title part. */
 const labelRe = (template, rest = "") => new RegExp("^" + escapeRe(template.split("{")[0]) + rest);
+
+/** Put Alice on the shelf from Discover, then come back to the shelf. */
+async function putAliceOnShelf(page, t) {
+  await page.getByRole("button", { name: t("nav.discover"), exact: true }).first().click();
+  await page.locator("[data-discover]").waitFor({ timeout: 30000 });
+  const add = page.locator('[data-pack="alice"] [data-shelf-add]');
+  await add.waitFor({ timeout: 60000 });
+  if ((await add.getAttribute("data-shelf-state")) !== "on") await add.click();
+  await page.locator('[data-pack="alice"] [data-shelf-state="on"]').waitFor({ timeout: 90000 });
+  await page.getByRole("button", { name: t("nav.shelf"), exact: true }).first().click();
+  await page.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
+}
 
 /* ---- fixtures: built in memory from the sample book and the Alice word list */
 const SAMPLE_EPUB = readFileSync(join(ROOT, "examples/sample-book/the-lantern-seller.epub"));
@@ -199,19 +211,21 @@ async function run(lang, size) {
     await page.locator("#pack-file").waitFor({ state: "attached" });
   };
 
-  // ---- first visit: the shelf is empty (nothing is installed on its own). Alice is only suggested.
+  // ---- first visit: the shelf is empty (nothing is installed on its own). One button opens Discover.
   await page.goto(BASE);
-  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 30000 });
+  await page.locator("[data-empty-discover]").waitFor({ timeout: 30000 });
   await page.waitForTimeout(2500); // the start-up work has run by now
   ok((await page.locator("ul li").count()) === 0, `${label}: a first visit starts with an empty shelf`);
   ok(
     (await page.locator("[data-empty-discover]").count()) === 1 &&
-      (await page.locator("[data-first-book]").count()) === 1,
-    `${label}: the empty shelf points to Discover and suggests Alice`,
+      (await page.locator("[data-first-book]").count()) === 0 &&
+      (await page.locator("ol li").count()) === 0,
+    `${label}: the empty shelf is one button to Discover`,
   );
   await shot("first-empty");
-  await page.locator("[data-first-book-add]").click();
-  await page.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
+  await page.locator("[data-empty-discover]").click();
+  await page.locator("[data-discover]").waitFor({ timeout: 30000 });
+  await putAliceOnShelf(page, t);
   ok(
     (await page.locator("ul li [data-classic-label]").count()) === 1,
     `${label}: Alice, added with one tap, shows with the "${t("shelf.classic")}" label`,
@@ -267,11 +281,11 @@ async function run(lang, size) {
     .first()
     .click();
   await removeFromMenu(page);
-  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 15000 });
+  await page.locator("[data-empty-discover]").waitFor({ timeout: 15000 });
   await page.waitForTimeout(800);
   for (let i = 0; i < 2; i += 1) {
     await page.reload();
-    await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 30000 });
+    await page.locator("[data-empty-discover]").waitFor({ timeout: 30000 });
     await page.waitForTimeout(2500); // the start-up check for missing classics has run by now
   }
   ok(
@@ -294,10 +308,10 @@ async function run(lang, size) {
     );
   }
   await page.reload();
-  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor();
+  await page.locator("[data-empty-discover]").waitFor();
   await page.waitForTimeout(2000);
   ok(
-    (await page.getByRole("heading", { name: t("shelf.emptyTitle") }).count()) === 1,
+    (await page.locator("[data-empty-discover]").count()) === 1,
     `${label}: with every classic deleted the shelf stays empty after reload`,
   );
 
@@ -305,11 +319,8 @@ async function run(lang, size) {
     (await page.getAttribute("html", "lang")) === (lang === "zh" ? "zh-CN" : "en"),
     `${label}: page language follows the browser`,
   );
-  ok((await page.locator("ol li").count()) === 3, `${label}: empty shelf shows 3 steps`);
-  ok(
-    (await addBtn().count()) === 1,
-    `${label}: one clear "${t("shelf.add")}" button on the empty shelf`,
-  );
+  ok((await page.locator("[data-empty-discover]").count()) === 1, `${label}: one button on the empty shelf`);
+  ok((await page.locator("[data-first-book], ol li").count()) === 0, `${label}: the empty shelf has no suggestion and no steps`);
   ok(!(await overflow()), `${label}: no horizontal overflow (empty shelf)`);
   await shot("empty");
 
@@ -332,10 +343,10 @@ async function run(lang, size) {
   await page.locator("[data-settings-button]").click();
   await page.locator("[data-settings-language]").waitFor();
   await page.locator("[data-settings-language] button[aria-pressed=false]").click();
-  await page.getByRole("heading", { name: T[other]("shelf.emptyTitle") }).waitFor();
+  await page.getByRole("button", { name: T[other]("shelf.findBooks"), exact: true }).waitFor();
   ok(true, `${label}: language switch in settings -> ${other}`);
   await page.locator("[data-settings-language] button[aria-pressed=false]").click();
-  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor();
+  await page.getByRole("button", { name: t("shelf.findBooks"), exact: true }).waitFor();
   await page.keyboard.press("Escape");
   await page.getByRole("dialog").waitFor({ state: "hidden" });
 
@@ -433,7 +444,7 @@ async function run(lang, size) {
   ok((await page.locator("[data-needs-epub]").count()) === 0, `${label}: the card no longer asks for an e-book`);
   await page.locator("ul li").first().locator("button").last().click();
   await removeFromMenu(page);
-  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 15000 });
+  await page.locator("[data-empty-discover]").waitFor({ timeout: 15000 });
   for (const id of [
     "narnia1-magicians-nephew",
     "narnia2-lion-witch-wardrobe",
@@ -522,7 +533,7 @@ async function run(lang, size) {
     .getByRole("button", { name: t("nav.shelf"), exact: true })
     .first()
     .click();
-  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor();
+  await page.locator("[data-empty-discover]").waitFor();
   ok(true, `${label}: shelf still empty after bare EPUB and bad packs`);
 
   // ---- good pack (kit naming first, then the standard names: the second is an update of the same book)
@@ -678,8 +689,8 @@ async function run(lang, size) {
     const ferrors = [];
     fp.on("pageerror", (e) => ferrors.push(String(e).slice(0, 200)));
     await fp.goto(BASE);
-    await fp.locator("[data-first-book-add]").waitFor({ timeout: 60000 });
-    await fp.locator("[data-first-book-add]").click();
+    await fp.locator("[data-empty-discover]").waitFor({ timeout: 60000 });
+    await putAliceOnShelf(fp, t);
     await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
     ok((await fp.locator("ul li").count()) === 1, `${label}: a new shelf has Alice (added with one tap)`);
     await fp.evaluate(() => navigator.serviceWorker.ready);
@@ -730,9 +741,9 @@ async function run(lang, size) {
       await vp.locator("[data-pack]").first().waitFor({ timeout: 30000 });
     };
     await vp.goto(BASE);
-    await vp.locator("[data-first-book-add]").waitFor({ timeout: 60000 });
+    await vp.locator("[data-empty-discover]").waitFor({ timeout: 60000 });
     ok((await vp.locator("ul li").count()) === 0, `${label}: first run installs nothing`);
-    await vp.locator("[data-first-book-add]").click();
+    await putAliceOnShelf(vp, t);
     await vp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
     await vp.waitForTimeout(1500);
     ok((await vp.locator("ul li").count()) === 1, `${label}: the one-tap suggestion adds only Alice`);

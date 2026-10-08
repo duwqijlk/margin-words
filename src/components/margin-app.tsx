@@ -82,7 +82,6 @@ export function MarginApp() {
   const books = useVocab((state) => state.books);
   const words = useVocab((state) => state.words);
   useLiveGlossMeanings(words, books);
-  const addDemo = useVocab((state) => state.addDemo);
   const restoreBooks = useVocab((state) => state.restoreBooks);
   const replaceWords = useVocab((state) => state.replaceWords);
   const theme = usePrefs((state) => state.theme);
@@ -521,11 +520,6 @@ export function MarginApp() {
               storedIds={storedIds}
               onNotebook={(bookId) => setScreen({ kind: "words", bookId })}
               onAddList={(bookId) => void openListPicker(bookId)}
-              onDemo={() => {
-                if (!ready) return;
-                const id = addDemo();
-                setScreen({ kind: "words", bookId: id });
-              }}
             />
           )}
           </>

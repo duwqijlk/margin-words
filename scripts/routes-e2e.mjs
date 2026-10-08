@@ -65,10 +65,15 @@ const newPage = async ({ width = 1280, height = 800, mobile = false, lang = "en"
   return { ctx, page, errors };
 };
 
-/** A new shelf is empty. The empty shelf suggests Alice; one tap adds it. */
+/** A new shelf is empty. Alice is added from Discover, like any other book. */
 async function ensureAlice(page) {
-  await page.locator("[data-first-book-add]").waitFor({ timeout: 60000 });
-  await page.locator("[data-first-book-add]").click();
+  await page.goto(at("discover"));
+  await page.locator("[data-discover]").waitFor({ timeout: 30000 });
+  const add = page.locator('[data-pack="alice"] [data-shelf-add]');
+  await add.waitFor({ timeout: 60000 });
+  if ((await add.getAttribute("data-shelf-state")) !== "on") await add.click();
+  await page.locator('[data-pack="alice"] [data-shelf-state="on"]').waitFor({ timeout: 90000 });
+  await page.goto(at("shelf"));
   await page.locator("li.book-card").first().waitFor({ timeout: 90000 });
 }
 
@@ -162,7 +167,7 @@ async function routes(lang) {
   const { ctx, page, errors } = await newPage({ lang });
   const t = T[lang];
   await page.goto(BASE);
-  await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor({ timeout: 60000 });
+  await page.locator("[data-empty-discover]").waitFor({ timeout: 60000 });
   ok(new URL(page.url()).pathname === "/shelf", `${lang}: "/" goes to /shelf (${new URL(page.url()).pathname})`);
   ok((await page.evaluate(() => history.length)) <= 2, `${lang}: the redirect from "/" adds no history entry`);
 

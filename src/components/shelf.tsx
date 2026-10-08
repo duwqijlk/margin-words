@@ -31,7 +31,6 @@ import { bookSyncKey } from "@/lib/sync-merge";
 import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import { BookCover } from "@/components/book-cover";
-import { FirstBookSuggestion } from "@/components/first-book";
 import { navigate } from "@/lib/router";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
 import { btn, cn, field, ProgressBar } from "@/components/ui";
@@ -312,73 +311,15 @@ function ShelfSkeleton() {
   );
 }
 
-/** Three small covers, slightly fanned: the picture of an empty shelf. */
-function EmptyArt() {
-  const demo = [
-    { title: "The Lantern Seller", author: "A. Sample Writer", turn: "-rotate-6 translate-y-2" },
-    { title: "Tales of the Night", author: "Anonymous", turn: "z-10 -translate-y-1" },
-    { title: "Little Rain", author: "M. Grey", turn: "rotate-6 translate-y-2" },
-  ];
-  return (
-    <div className="flex items-end justify-center -space-x-5" aria-hidden>
-      {demo.map((item) => (
-        <div key={item.title} className={cn("relative w-20 sm:w-24", item.turn)}>
-          <BookCover title={item.title} author={item.author} />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function EmptyShelf({
-  onDemo,
-  onDiscover,
-}: {
-  onDemo: () => void;
-  onDiscover: () => void;
-}) {
+/** An empty shelf is one door to Discover. Books are added there, and only there. */
+function EmptyShelf({ onDiscover }: { onDiscover: () => void }) {
   const { t } = useT();
-  const steps: Array<{ title: Key; body: Key }> = [
-    { title: "shelf.step1", body: "shelf.step1Body" },
-    { title: "shelf.step2", body: "shelf.step2Body" },
-    { title: "shelf.step3", body: "shelf.step3Body" },
-  ];
   return (
-    <div className="grid justify-items-center gap-8 rounded-3xl border border-line bg-card px-5 py-10 text-center sm:px-10 sm:py-14">
-      <EmptyArt />
-      <div className="grid gap-2">
-        <h2 className="font-display text-2xl font-semibold sm:text-3xl">{t("shelf.emptyTitle")}</h2>
-        <p className="mx-auto max-w-md text-muted">{t("shelf.emptyBody")}</p>
-      </div>
-      <div className="grid w-full justify-items-center gap-3">
-        <button type="button" className={cn(btn.primary, "px-6")} onClick={onDiscover} data-empty-discover>
-          <Compass className="size-5" aria-hidden />
-          {t("shelf.findBooks")}
-        </button>
-        <FirstBookSuggestion />
-      </div>
-      <ol className="grid w-full max-w-2xl gap-3 text-left sm:grid-cols-3">
-        {steps.map((step, index) => (
-          <li key={step.title} className="flex gap-3 rounded-2xl bg-paper p-3.5 sm:grid sm:gap-2">
-            <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-bold text-accent-ink">
-              {index + 1}
-            </span>
-            <span className="grid gap-0.5">
-              <span className="font-semibold">{t(step.title)}</span>
-              <span className="text-sm text-muted">{t(step.body)}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
-      <div className="grid justify-items-center gap-3">
-        <button
-          type="button"
-          className="min-h-11 px-3 text-sm font-semibold text-accent underline"
-          onClick={onDemo}
-        >
-          {t("shelf.sample")}
-        </button>
-      </div>
+    <div className="flex min-h-[50dvh] items-center justify-center">
+      <button type="button" className={cn(btn.primary, "px-6")} onClick={onDiscover} data-empty-discover>
+        <Compass className="size-5" aria-hidden />
+        {t("shelf.findBooks")}
+      </button>
     </div>
   );
 }
@@ -576,7 +517,6 @@ export function Shelf({
   onOpen,
   onNotebook,
   onAddList,
-  onDemo,
 }: {
   books: Book[];
   words: VocabEntry[];
@@ -587,7 +527,6 @@ export function Shelf({
   onOpen: (bookId: string) => void;
   onNotebook: (bookId: string) => void;
   onAddList: (bookId: string | null) => void;
-  onDemo: () => void;
 }) {
   const { t, tn } = useT();
   const progress = useProgress((state) => state.items);
@@ -727,9 +666,11 @@ export function Shelf({
     />
   );
   const filtering = band !== "all" || author !== "all" || series !== "all" || (sort !== "recent" && sort !== "listed");
+  const empty = ready && books.length === 0 && !installingClassics;
 
   return (
     <div className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-10">
+      {empty ? null : (
       <header className="flex items-end justify-between gap-3">
         <div className="grid gap-0.5">
           <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("shelf.title")}</h1>
@@ -750,11 +691,12 @@ export function Shelf({
           </button>
         ) : null}
       </header>
+      )}
 
       {!ready || (books.length === 0 && installingClassics) ? (
         <ShelfSkeleton />
       ) : books.length === 0 ? (
-        <EmptyShelf onDemo={onDemo} onDiscover={() => navigate({ kind: "discover" })} />
+        <EmptyShelf onDiscover={() => navigate({ kind: "discover" })} />
       ) : liveBooks.length === 0 ? null : (
         <>
           {hero && !q && !filtering ? (

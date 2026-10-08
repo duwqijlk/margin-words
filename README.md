@@ -122,7 +122,7 @@ A reader can also set another catalog address in Settings. That host must allow 
 
 ### How a book gets onto a shelf
 
-1. Open the app. A new shelf is empty and suggests *Alice's Adventures in Wonderland*. The suggestion links to Discover.
+1. Open the app. A new shelf is empty and shows one button, Find books on Discover.
 2. Sign in. On Discover, tap the plus on a cover. The plus becomes a check (“On shelf”). Tap the check and choose “Remove from shelf” to take it off. A book you just added can be undone. A book you have started, or one that has your own EPUB, asks first.
 3. A public-domain book downloads when you add it. A word-list book downloads its word list and asks for your EPUB of the ISBN on the card. A match under 80% is shown before it is saved. The book and the word list are stored in the browser (IndexedDB).
 4. After that, the book and the word list stay on this device (IndexedDB). Opening the site needs the internet. The service worker does not serve the page.
