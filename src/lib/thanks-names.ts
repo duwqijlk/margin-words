@@ -1,11 +1,8 @@
 /**
- * People who support this reading app. Add a name when someone asks to be listed.
- * Do not invent names. The overview shows one name at a time, so a longer list
- * still fits on one screen.
+ * Which name is on screen, and which comes next. The overview rotates one name
+ * at a time so a longer list still fits on one screen. An empty list has no frame.
+ * Names come from confirmed sponsorships, not from a list typed here.
  */
-export const THANKS_NAMES: readonly string[] = [];
-
-/** Which name is on screen, and which comes next. An empty list has no frame. */
 export function thanksFrame(
   names: readonly string[],
   index: number,

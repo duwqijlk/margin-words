@@ -11,9 +11,11 @@ export const RATE_LIMITS = {
   "register:email": 5,
   "reset:ip": 10,
   "reset:email": 5,
+  "sponsor:ip": 10,
+  "sponsor:email": 5,
 } as const;
 
-export type RateAction = "login" | "register" | "reset";
+export type RateAction = "login" | "register" | "reset" | "sponsor";
 
 async function prune(db: D1Database, now: number): Promise<void> {
   await db

@@ -199,3 +199,20 @@ Signing out or deleting the account does not wipe the books on this device.
 - `rate_limits` — bucket, window_start, hits
 - `sync_items` — user_id, kind, item_id, data, updated_at, deleted (cascade delete)
 - `password_resets` — token_hash, user_id, created_at, expires_at, used_at (cascade delete)
+- `sponsorships` — (`0003_sponsorship.sql`) id, user_id, method (`wechat`, `alipay`, or `crypto`), display_name, created_at, email_sent_at, amount_cents, listed_at, closed_at (cascade delete)
+
+Apply `0003` before a deploy that serves the sponsorship functions: `npx wrangler d1 migrations apply margin-words --remote`.
+
+## Sponsorship
+
+A sponsorship is a public-interest donation. The site does not take payment, does not store a WeChat id, an Alipay account, or a wallet address, and does not send the instruction email. The reader picks a way. The name on the thank-you list is the account nickname, not a name typed in the dialog. A request needs a nickname already saved on the account. The dialog always shows the official address `xcrunnnn@outlook.com`. One open request per account. After it is listed or closed, the reader can send another. If the nickname changes later, the public list uses the new one.
+
+`/admin` is not in the menu. `GET` and `POST /api/admin/sponsorships` answer 403 unless the signed-in email is that official address. The admin marks the email sent, types the USD amount (the only unit; no conversion in the app), and lists the row. A listed row is one gift. Repeat gifts add up. The public `GET /api/sponsorships` returns two lists, `month` and `total`, one line per person: cents confirmed in the current China month (UTC+8), and cents confirmed in total. The overview rotates one name in each column. Deleting the account removes that person's rows, so the name leaves the list.
+
+| Method | Path | Who |
+| --- | --- | --- |
+| GET | `/api/sponsorships` | anyone; listed gifts only |
+| POST | `/api/sponsorships` | signed in, with a nickname; `{ method }` |
+| GET | `/api/sponsorship-request` | signed in; the open request, or `{ open: null }` |
+| GET | `/api/admin/sponsorships` | admin |
+| POST | `/api/admin/sponsorships` | admin; `{ id, action: "email" \| "list" \| "close", amount? }` |
