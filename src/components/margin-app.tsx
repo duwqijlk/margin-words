@@ -363,6 +363,14 @@ export function MarginApp() {
       {reading ? null : (
         <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-6xl items-center gap-1 px-2 sm:gap-2 sm:px-6">
+            <button
+              type="button"
+              className="shrink-0 rounded-lg px-2 py-1.5 font-display text-lg font-semibold tracking-tight text-ink sm:text-xl"
+              onClick={() => setScreen({ kind: "shelf" })}
+              data-brand
+            >
+              {t("common.brand")}
+            </button>
             <nav className="hidden min-w-0 flex-1 items-center gap-1 sm:flex" aria-label={t("nav.main")}>
               {tabs.map((tab) => (
                 <NavButton key={tab.id} active={tab.active} onClick={tab.go}>

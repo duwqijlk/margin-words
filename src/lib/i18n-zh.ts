@@ -21,7 +21,7 @@ export const zh: Record<Key, string> = {
   "common.hide": "收起",
   "common.show": "展开",
   "common.inBook": "书中写的是：{word}",
-  "common.brand": "Margin Words",
+  "common.brand": "inputread",
   "count.book.one": "{n} 本书",
   "count.book.other": "{n} 本书",
   "count.word.one": "{n} 个单词",

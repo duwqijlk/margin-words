@@ -1,6 +1,6 @@
 {
-  "name": "Margin Words",
-  "short_name": "Margin Words",
+  "name": "inputread",
+  "short_name": "inputread",
   "description": "Read English books. Tap a word to see a simple English meaning.",
   "start_url": "/shelf",
   "scope": "/",
