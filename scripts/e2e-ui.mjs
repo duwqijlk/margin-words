@@ -326,13 +326,18 @@ async function run(lang, size) {
   );
   ok(!(await page.locator("text=/upload epub/i").count()), `${label}: no "Upload EPUB" label`);
 
-  // ---- the language switch
+  // ---- language lives in Settings, not in the header
   const other = lang === "zh" ? "en" : "zh";
-  await page.locator("[data-lang-button]").click();
+  ok((await page.locator("[data-lang-button]").count()) === 0, `${label}: the header has no language button`);
+  await page.locator("[data-settings-button]").click();
+  await page.locator("[data-settings-language]").waitFor();
+  await page.locator("[data-settings-language] button[aria-pressed=false]").click();
   await page.getByRole("heading", { name: T[other]("shelf.emptyTitle") }).waitFor();
-  ok(true, `${label}: language switch -> ${other}`);
-  await page.locator("[data-lang-button]").click();
+  ok(true, `${label}: language switch in settings -> ${other}`);
+  await page.locator("[data-settings-language] button[aria-pressed=false]").click();
   await page.getByRole("heading", { name: t("shelf.emptyTitle") }).waitFor();
+  await page.keyboard.press("Escape");
+  await page.getByRole("dialog").waitFor({ state: "hidden" });
 
   // ---- add book screen
   await addBtn().click();
@@ -745,12 +750,13 @@ async function run(lang, size) {
       (await vp.locator("[data-guide-source]").getAttribute("href")) === "https://github.com/bitbw/english-read",
       `${label}: the guide credits English Read`,
     );
-    ok((await vp.locator("header nav button").count()) === 4, `${label}: Shelf, Discover, Notebook and Overview are the tabs`);
+    ok((await vp.locator("header nav button").count()) === 3, `${label}: Shelf, Discover and Overview are the tabs`);
     const tabNames = await vp.locator("header nav button").evaluateAll((list) =>
       list.map((b) => (b.textContent ?? "").replace(/\s+/g, " ").trim()),
     );
     ok(tabNames.at(-1) === t("nav.dashboard"), `${label}: Overview is the last tab (${tabNames.at(-1)})`);
-    ok(tabNames[2] === t("nav.notebook"), `${label}: Notebook is the third tab (${tabNames[2]})`);
+    ok((await vp.locator("[data-notebook-button]").count()) === 1, `${label}: the notebook is a header button, not a tab`);
+    ok(!tabNames.includes(t("nav.notebook")), `${label}: the notebook is not a menu tab`);
     ok((await vp.locator("[data-thanks-nav]").count()) === 0, `${label}: the thank-you list is not a header button`);
     ok(!(await overflow2(vp)), `${label}: no horizontal overflow (guide)`);
     await openDiscover();
@@ -816,7 +822,7 @@ async function run(lang, size) {
             return r.left >= 0 && r.right <= innerWidth && r.bottom <= innerHeight && r.width > 40 && r.height >= 44;
           }),
         );
-        ok(tabs.length === 4 && tabs.every(Boolean), `${label}: the bottom tab bar shows all four screens, each with a big tap target`);
+        ok(tabs.length === 3 && tabs.every(Boolean), `${label}: the bottom tab bar shows Shelf, Discover and Overview, each with a big tap target`);
       }
     }
     for (const c of CLASSICS) {

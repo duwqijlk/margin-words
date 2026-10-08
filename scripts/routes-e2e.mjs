@@ -178,8 +178,8 @@ async function routes(lang) {
     await page.locator(probe).first().waitFor({ timeout: 30000 });
     ok(new URL(page.url()).pathname === path, `${lang}: the "${name}" tab opens ${path}`);
     ok(
-      (await page.locator("nav [aria-current=page]").count()) >= 1,
-      `${lang}: ${path} marks its tab as the current page`,
+      (await page.locator("[aria-current=page]").count()) >= 1,
+      `${lang}: ${path} marks its place as the current page`,
     );
   }
 

@@ -26,7 +26,6 @@ import { finishPendingRemoval, useShelfRemove } from "@/lib/shelf-remove";
 import { SpineWarningList } from "@/components/spine-warnings";
 import { btn, cn } from "@/components/ui";
 import type { SpineNameWarning } from "@/lib/epub";
-import { LanguageButton } from "@/components/language";
 import type { ListFlow } from "@/components/word-list";
 import { NoticeBar } from "@/components/notice-bar";
 import { DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useRoute, type Route } from "@/lib/router";
@@ -326,14 +325,6 @@ export function MarginApp() {
       badge: 0,
     },
     {
-      id: "notebook",
-      label: t("nav.notebook"),
-      Icon: NotebookPen,
-      active: menu === "words",
-      go: () => setScreen({ kind: "words", bookId: null }),
-      badge: due,
-    },
-    {
       id: "dashboard",
       label: t("nav.dashboard"),
       Icon: LayoutDashboard,
@@ -392,7 +383,21 @@ export function MarginApp() {
               ))}
             </nav>
             <div className="min-w-0 flex-1 sm:hidden" />
-            <LanguageButton />
+            <button
+              type="button"
+              className={cn(btn.icon, "relative size-11", menu === "words" && "bg-accent-soft text-accent")}
+              onClick={() => setScreen({ kind: "words", bookId: null })}
+              aria-label={t("nav.notebook")}
+              aria-current={menu === "words" ? "page" : undefined}
+              data-notebook-button
+            >
+              <NotebookPen className="size-5" aria-hidden />
+              {due > 0 ? (
+                <span className="absolute top-0.5 right-0.5">
+                  <DueBadge n={due} />
+                </span>
+              ) : null}
+            </button>
             <button
               type="button"
               className={cn(btn.icon, "size-11")}
@@ -422,7 +427,7 @@ export function MarginApp() {
           aria-label={t("nav.main")}
           data-tab-bar
         >
-          <div className="mx-auto grid max-w-md grid-cols-4">
+          <div className="mx-auto grid max-w-md grid-cols-3">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
