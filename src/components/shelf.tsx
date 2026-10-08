@@ -3,7 +3,6 @@ import * as Menu from "@radix-ui/react-dropdown-menu";
 import {
   BookOpen,
   BookPlus,
-  Compass,
   FileJson,
   MoreVertical,
   Pencil,
@@ -267,8 +266,12 @@ function EmptyShelf({ onDiscover }: { onDiscover: () => void }) {
   const { t } = useT();
   return (
     <div className="flex min-h-[50dvh] items-center justify-center">
-      <button type="button" className={cn(btn.primary, "px-6")} onClick={onDiscover} data-empty-discover>
-        <Compass className="size-5" aria-hidden />
+      <button
+        type="button"
+        className="min-h-11 text-base font-semibold text-accent underline underline-offset-4"
+        onClick={onDiscover}
+        data-empty-discover
+      >
         {t("shelf.findBooks")}
       </button>
     </div>
