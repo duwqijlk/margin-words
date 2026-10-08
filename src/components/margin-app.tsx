@@ -361,7 +361,7 @@ export function MarginApp() {
       ) : null}
       {reading ? null : <NoticeBar />}
       {reading ? null : (
-        <header className="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
+        <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-6xl items-center gap-1 px-2 sm:gap-2 sm:px-6">
             <button
               type="button"
@@ -369,7 +369,7 @@ export function MarginApp() {
               onClick={() => setScreen({ kind: "shelf" })}
               aria-label={t("common.brand")}
             >
-              <BookOpen className="size-6 text-accent" aria-hidden />
+              <BookOpen className="size-6 text-accent" strokeWidth={1.5} aria-hidden />
               <span className="max-lg:sr-only">{t("common.brand")}</span>
             </button>
             <nav className="hidden min-w-0 flex-1 items-center gap-1 sm:flex" aria-label={t("nav.main")}>
@@ -382,13 +382,13 @@ export function MarginApp() {
             <div className="min-w-0 flex-1 sm:hidden" />
             <button
               type="button"
-              className={cn(btn.icon, "size-11", menu === "words" && "bg-accent-soft text-accent")}
+              className={cn(btn.icon, "size-11", menu === "words" && "text-accent")}
               onClick={() => setScreen({ kind: "words", bookId: null })}
               aria-label={t("nav.notebook")}
               aria-current={menu === "words" ? "page" : undefined}
               data-notebook-button
             >
-              <NotebookPen className="size-5" aria-hidden />
+              <NotebookPen className="size-5" strokeWidth={1.5} aria-hidden />
             </button>
             <button
               type="button"
@@ -397,17 +397,17 @@ export function MarginApp() {
               aria-label={t("nav.account")}
               data-account-button
             >
-              <UserRound className="size-5" aria-hidden />
+              <UserRound className="size-5" strokeWidth={1.5} aria-hidden />
             </button>
             <button
               type="button"
-              className={cn(btn.icon, "size-11", menu === "guide" && "bg-accent-soft text-accent")}
+              className={cn(btn.icon, "size-11", menu === "guide" && "text-accent")}
               onClick={() => setSettingsOpen(true)}
               aria-label={t("nav.settings")}
               aria-current={menu === "guide" ? "page" : undefined}
               data-settings-button
             >
-              <Settings className="size-5" aria-hidden />
+              <Settings className="size-5" strokeWidth={1.5} aria-hidden />
             </button>
           </div>
         </header>
@@ -637,8 +637,8 @@ function NavButton({
       onClick={onClick}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-3 text-[0.95rem] font-semibold transition-colors sm:px-3.5",
-        active ? "bg-accent-soft text-accent" : "text-muted hover:bg-accent-soft/70 hover:text-ink",
+        "inline-flex min-h-11 shrink-0 items-center px-3 text-[0.95rem] font-semibold transition-colors sm:px-3.5",
+        active ? "text-accent" : "text-muted hover:text-ink",
       )}
     >
       {children}

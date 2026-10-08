@@ -479,7 +479,7 @@ export function Shelf({
   onNotebook: (bookId: string) => void;
   onAddList: (bookId: string | null) => void;
 }) {
-  const { t, tn } = useT();
+  const { t } = useT();
   const progress = useProgress((state) => state.items);
   const pendingId = useShelfRemove((state) => state.pending?.bookId ?? "");
   const classicIds = useClassicBookIds(books.map((book) => book.id).join("|"));
@@ -622,7 +622,6 @@ export function Shelf({
         <EmptyShelf onDiscover={() => navigate({ kind: "discover" })} />
       ) : liveBooks.length === 0 ? null : (
         <>
-          <p className="text-sm text-muted">{tn("count.book", liveBooks.length)}</p>
           {hero && !q && !filtering ? (
             <ContinueCard
               row={hero}
@@ -636,8 +635,20 @@ export function Shelf({
 
           <section className="grid gap-4" aria-label={t("shelf.all")}>
             <div className="grid gap-3">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <h2 className="font-display text-xl font-semibold">{t("shelf.all")}</h2>
+              <div
+                className={cn(
+                  "flex flex-wrap items-center gap-3",
+                  hero && !q && !filtering ? "justify-end sm:justify-between" : "justify-end",
+                )}
+              >
+                <h2
+                  className={cn(
+                    "font-display text-xl font-semibold",
+                    hero && !q && !filtering ? "hidden sm:block" : "sr-only",
+                  )}
+                >
+                  {t("shelf.all")}
+                </h2>
                 {liveBooks.length >= 2 ? (
                   <FilterMenu
                     active={sort !== "recent" || band !== "all" || author !== "all" || series !== "all"}
