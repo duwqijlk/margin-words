@@ -1,5 +1,7 @@
+import * as Dialog from "@radix-ui/react-dialog";
+import { type ReactNode, useState } from "react";
 import { useT } from "@/lib/i18n";
-import { cn, selectCls } from "@/components/ui";
+import { btn, cn, selectCls } from "@/components/ui";
 
 export type SeriesChoice = "all" | "grouped" | "none" | string;
 
@@ -62,12 +64,53 @@ export function ListFilters({
 }
 
 export const bookCardGrid =
-  "grid grid-cols-2 items-stretch gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-5 md:grid-cols-4 lg:grid-cols-5";
+  "grid grid-cols-3 items-stretch gap-x-2 gap-y-4 sm:gap-x-5 sm:gap-y-8 md:grid-cols-4 lg:grid-cols-5";
 
 /** Same title and author slots on every card, so the action row lines up. */
 export const cardTitleClass =
-  "min-h-[2.6em] overflow-hidden font-display text-[0.97rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]";
+  "min-h-[2.6em] overflow-hidden font-display text-[0.78rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.97rem]";
 
-export const cardAuthorClass = "min-h-4 truncate text-xs leading-4 text-muted";
+export const cardAuthorClass = "min-h-4 truncate text-xs leading-4 text-muted max-sm:sr-only";
 
-export const bookCardShell = "book-card flex h-full min-h-full flex-col gap-3";
+export const bookCardShell = "book-card flex h-full min-h-full flex-col gap-1.5 sm:gap-3";
+
+/**
+ * Sort and list filters. On a phone they sit in one overlay, so the book grid can start
+ * higher. Wide screens keep the controls in the page header.
+ */
+export function FilterMenu({
+  active,
+  render,
+}: {
+  active: boolean;
+  render: () => ReactNode;
+}) {
+  const { t } = useT();
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <div className="hidden gap-2 sm:flex sm:flex-wrap">{render()}</div>
+      <Dialog.Root open={open} onOpenChange={setOpen}>
+        <Dialog.Trigger
+          type="button"
+          className={cn(btn.quiet, "sm:hidden")}
+          data-filter-menu={active ? "on" : "off"}
+        >
+          {t("list.filter")}
+          {active ? <span className="size-2 rounded-full bg-accent" data-filter-on="" /> : null}
+        </Dialog.Trigger>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/45 sm:hidden" />
+          <Dialog.Content className="fixed inset-x-3 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-50 grid max-h-[70dvh] gap-3 overflow-y-auto rounded-2xl border border-line bg-card p-4 text-ink shadow-pop sm:hidden">
+            <div className="flex items-center justify-between gap-3">
+              <Dialog.Title className="font-display text-xl font-semibold">{t("list.filter")}</Dialog.Title>
+              <Dialog.Close className={btn.primary}>{t("common.done")}</Dialog.Close>
+            </div>
+            <Dialog.Description className="sr-only">{t("list.filter")}</Dialog.Description>
+            <div className="grid gap-2 [&_select]:w-full">{render()}</div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+    </>
+  );
+}

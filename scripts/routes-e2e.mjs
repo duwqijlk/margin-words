@@ -654,8 +654,10 @@ async function stacks(lang, size) {
   await page.locator("[data-series-stack]").waitFor();
   ok((await open.count()) === 0 && (await cards(page).count()) === 3, `${lang}: closing puts the stack back`);
 
-  // the series filters still work
-  const grouped = page.locator("[data-series-filter]");
+  // the series filters still work. On a phone they live in the filter overlay.
+  const menu = page.locator("[data-filter-menu]");
+  if (await menu.isVisible()) await menu.click();
+  const grouped = page.locator("[data-series-filter]:visible");
   if ((await grouped.count()) > 0) {
     await grouped.selectOption("grouped");
     ok((await page.locator("[data-series-stack]").count()) === 0, `${lang}: "Group by series" shows its own groups, no stacks`);

@@ -119,7 +119,7 @@ export function OpenStack({
             {t("shelf.stackClose")}
           </button>
         </div>
-        <ul className="grid grid-cols-2 items-stretch gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-5 md:grid-cols-4 lg:grid-cols-5">
+        <ul className="grid grid-cols-3 items-stretch gap-x-2 gap-y-4 sm:gap-x-5 sm:gap-y-8 md:grid-cols-4 lg:grid-cols-5">
           {children}
         </ul>
       </section>
