@@ -118,7 +118,7 @@ Word-list format: [docs/GLOSSARY_FORMAT.md](docs/GLOSSARY_FORMAT.md). Pack folde
    The bucket behind `https://books.inputread.site` must allow cross-origin reads from `https://inputread.site`, `https://www.inputread.site`, `https://margin-words.pages.dev`, and localhost. The page reads the book file from that response and stores it in the browser.
 3. Leave `packs/`, `site/`, and `dist-private/` off the public host. `node scripts/build-site.mjs` writes `site/` (`dist/` plus `packs/`) for a machine of your own.
 
-A reader can also set another catalog address in Settings. That host must allow cross-site reads. Addresses inside `catalog.json` are relative to the catalog file.
+Discover reads the catalog on the books host. Addresses inside `catalog.json` are relative to the catalog file.
 
 ### How a book gets onto a shelf
 

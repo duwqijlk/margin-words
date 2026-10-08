@@ -221,7 +221,6 @@ export const zh: Record<Key, string> = {
   "shelf.step2Body": "看简单的英文解释。",
   "shelf.step3": "保存并复习",
   "shelf.step3Body": "保存的词会进入生词本。",
-  "settings.advanced": "书目地址",
   "err.pack.listBad": "词表（glossary.json）不能用。{problems}",
 
   /* ---- word-list updates */
@@ -237,13 +236,8 @@ export const zh: Record<Key, string> = {
 
   /* ---- settings */
   "settings.title": "设置",
-  "settings.desc": "选择语言、账号，以及到哪里找书。",
+  "settings.desc": "选择语言和账号。",
   "settings.langTitle": "语言",
-  "settings.catalogLabel": "书目地址（catalog.json）",
-  "settings.placeholder": "内置地址：{url}",
-  "settings.help":
-    "留空就使用应用自带的书目。要用自己的书目，把 packs 文件夹放到网站上，再把 catalog.json 的地址粘贴到这里。",
-  "settings.useBuiltin": "使用自带地址",
   "settings.guide": "怎样做图书包",
   "settings.accountTitle": "账号",
 
@@ -305,12 +299,8 @@ export const zh: Record<Key, string> = {
   "err.notEpub": "这不是 EPUB 图书。",
   "err.noToc": "这本 EPUB 里没有目录。",
   "err.noEnglishText": "在这本 EPUB 里找不到英文内容。",
-  "err.catalogLoad": "书目加载不出来。请检查网络，或者检查“设置”里的书目地址。",
+  "err.catalogLoad": "书目加载不出来。请检查网络，再试一次。",
   "err.notCatalog": "这个地址里没有书目。它应该是一个 catalog.json 文件。",
-  "err.catalogScheme":
-    "地址要以 http:// 或 https:// 开头，或者是像 ./packs/catalog.json 这样的路径。",
-  "err.catalogBad":
-    "这个地址看起来不对。可以试试像 https://example.com/packs/catalog.json 这样的地址。",
   "err.damaged": "下载的文件好像坏了，请再试一次。",
   "err.downloadFailed": "下载没有成功。请检查网络，再试一次。",
   "err.fileNotFound": "这本书下载不了，找不到文件。",

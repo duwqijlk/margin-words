@@ -28,7 +28,7 @@ import { findOnShelf, type Identity } from "@/lib/shelf-identity";
 import { useVocab } from "@/lib/vocab-store";
 import { applySpineMerge, parseEpub, type ParsedEpub } from "@/lib/epub";
 import { validateGlossary } from "@/lib/glossary-format";
-import { tr, type Key } from "@/lib/i18n";
+import { tr } from "@/lib/i18n";
 import { applyPackGlossary, hashBytes } from "@/lib/pack-glossary";
 import { booksUrl } from "@/lib/books-base";
 import { isbnDigits, readSeries } from "@/lib/book-meta";
@@ -90,7 +90,6 @@ export type Catalog = {
 /** The public-domain books. Fetched from the books host, or from this origin in dev. */
 export const BUNDLED_CATALOG_URL = booksUrl("public-books/catalog.json");
 export const DEFAULT_CATALOG_URL = BUNDLED_CATALOG_URL;
-const URL_KEY = "cibian-catalog-url-v1";
 const CACHE_KEY = "cibian-catalog-cache-v1";
 const LEGACY_LIBRARY_KEY = "cibian-library-v1";
 
@@ -174,39 +173,6 @@ export function parseCatalog(value: unknown): Catalog | null {
   };
 }
 
-/* ------------------------------------------------------------------ catalog address (Settings) */
-
-export function getCatalogUrl(): string {
-  try {
-    return localStorage.getItem(URL_KEY)?.trim() || DEFAULT_CATALOG_URL;
-  } catch {
-    return DEFAULT_CATALOG_URL;
-  }
-}
-
-export function setCatalogUrl(value: string): void {
-  try {
-    const clean = value.trim();
-    if (!clean || clean === DEFAULT_CATALOG_URL) localStorage.removeItem(URL_KEY);
-    else localStorage.setItem(URL_KEY, clean);
-  } catch {
-    // Blocked storage: the default address is used.
-  }
-}
-
-/** Is this text a usable catalog address? Returns a plain-English problem, or "" when it is fine. */
-export function catalogUrlProblem(value: string): Key | "" {
-  const clean = value.trim();
-  if (!clean) return "";
-  try {
-    const url = new URL(clean, document.baseURI);
-    if (url.protocol !== "http:" && url.protocol !== "https:") return "err.catalogScheme";
-    return "";
-  } catch {
-    return "err.catalogBad";
-  }
-}
-
 /** The absolute address of a file named in the catalog. File addresses are relative to the catalog. */
 export function resolveAgainst(catalogUrl: string, file: string): string {
   const base = new URL(catalogUrl, document.baseURI);
@@ -246,7 +212,7 @@ function writeCache(url: string, catalog: Catalog) {
   }
 }
 
-export async function loadCatalog(url = getCatalogUrl()): Promise<CatalogResult> {
+export async function loadCatalog(url = DEFAULT_CATALOG_URL): Promise<CatalogResult> {
   let failure = tr("err.catalogLoad");
   try {
     const res = await fetch(resolveAgainst(url, ""), { cache: "no-cache" });

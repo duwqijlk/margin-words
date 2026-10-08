@@ -17,7 +17,7 @@ import { create } from "zustand";
 import { useEffect, useState } from "react";
 import { listPackRecords } from "@/lib/book-db";
 import { useDownloads } from "@/lib/downloads";
-import { BUNDLED_CATALOG_URL, getCatalogUrl, loadCatalog, type CatalogPack } from "@/lib/packs";
+import { BUNDLED_CATALOG_URL, loadCatalog, type CatalogPack } from "@/lib/packs";
 import { loadWordListCatalog, type WordListPack } from "@/lib/word-list-catalog";
 import { useVocab } from "@/lib/vocab-store";
 
@@ -131,15 +131,6 @@ async function run(): Promise<void> {
       await rememberFacts(lists.map(asFacts));
     } catch {
       // The word-list catalog is optional.
-    }
-    const custom = getCatalogUrl();
-    if (custom !== BUNDLED_CATALOG_URL) {
-      try {
-        const extra = await withTimeout(loadCatalog(custom), 5000);
-        await rememberFacts(extra.catalog.packs.map(asFacts));
-      } catch {
-        // The extra list is optional.
-      }
     }
   } catch {
     // Offline, or no bundled catalog: nothing to do.

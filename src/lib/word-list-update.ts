@@ -28,7 +28,6 @@ import { applyPackGlossary, hashBytes } from "@/lib/pack-glossary";
 import {
   BUNDLED_CATALOG_URL,
   downloadPack,
-  getCatalogUrl,
   loadCatalog,
   resolveAgainst,
   type CatalogPack,
@@ -206,15 +205,6 @@ async function loadCatalogMaps(): Promise<CatalogMaps> {
     for (const pack of catalog.packs) classics.set(pack.id, { pack, url: BUNDLED_CATALOG_URL });
   } catch {
     // Offline or no catalog: the word-list catalog below may still answer.
-  }
-  const custom = getCatalogUrl();
-  if (custom !== BUNDLED_CATALOG_URL) {
-    try {
-      const { catalog } = await loadCatalog(custom);
-      for (const pack of catalog.packs) classics.set(pack.id, { pack, url: custom });
-    } catch {
-      // The extra list is optional.
-    }
   }
   const lists = new Map<string, WordListPack>();
   try {

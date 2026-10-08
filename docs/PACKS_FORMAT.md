@@ -2,7 +2,7 @@
 
 > The short, complete spec for AI agents is [book-pack-spec.md](book-pack-spec.md) (also in the downloadable book-pack-kit.zip). Sample: `examples/sample-book/`.
 
-A **book pack** is one book plus its word list. The books host carries twelve free public-domain classics (in `public-books/`, same pack format). A new shelf starts empty; every classic is on Discover and downloads when a signed-in reader adds it. A book the user deleted stays deleted. The app has no `.zip` import: packs reach readers through a catalog on a books host (the built-in one, or another catalog address set in Settings).
+A **book pack** is one book plus its word list. The books host carries twelve free public-domain classics (in `public-books/`, same pack format). A new shelf starts empty; every classic is on Discover and downloads when a signed-in reader adds it. A book the user deleted stays deleted. The app has no `.zip` import: packs reach readers through the catalog on the books host.
 
 ## Folder layout (what you host)
 

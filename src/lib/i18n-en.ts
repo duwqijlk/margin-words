@@ -221,7 +221,6 @@ export const en = {
   "shelf.step2Body": "See a simple English meaning.",
   "shelf.step3": "Save and review",
   "shelf.step3Body": "Saved words go to your notebook.",
-  "settings.advanced": "Book list address",
   "err.pack.listBad": "The word list (glossary.json) cannot be used. {problems}",
 
   /* ---- word-list updates */
@@ -237,13 +236,8 @@ export const en = {
 
   /* ---- settings */
   "settings.title": "Settings",
-  "settings.desc": "Language, your account, and where the app looks for books.",
+  "settings.desc": "Language and your account.",
   "settings.langTitle": "Language",
-  "settings.catalogLabel": "Book list address (catalog.json)",
-  "settings.placeholder": "Built-in address: {url}",
-  "settings.help":
-    "Leave this empty to use the book list that comes with the app. To use your own list, put the packs folder on a website and paste the address of its catalog.json here.",
-  "settings.useBuiltin": "Use built-in",
   "settings.guide": "How to make a book pack",
   "settings.accountTitle": "Account",
 
@@ -308,13 +302,8 @@ export const en = {
   "err.notEpub": "This is not an EPUB book.",
   "err.noToc": "This EPUB has no table of contents.",
   "err.noEnglishText": "Could not find any English text in this EPUB.",
-  "err.catalogLoad":
-    "The book list could not be loaded. Check your connection, or check the catalog address in Settings.",
+  "err.catalogLoad": "The book list could not be loaded. Check your connection and try again.",
   "err.notCatalog": "This address does not give a book list. It should be a catalog.json file.",
-  "err.catalogScheme":
-    "The address must start with http:// or https://, or be a path such as ./packs/catalog.json.",
-  "err.catalogBad":
-    "This address does not look right. Try something like https://example.com/packs/catalog.json.",
   "err.damaged": "This download looks damaged. Please try again.",
   "err.downloadFailed": "The download did not work. Check your connection and try again.",
   "err.fileNotFound": "This book could not be downloaded. The file was not found.",
