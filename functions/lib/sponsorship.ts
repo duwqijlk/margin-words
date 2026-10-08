@@ -19,6 +19,7 @@ type GiftRow = {
 type AdminRow = {
   id: string;
   email: string;
+  nickname: string | null;
   display_name: string;
   method: string;
   created_at: number;
@@ -32,7 +33,7 @@ function adminView(row: AdminRow) {
   return {
     id: row.id,
     email: row.email,
-    displayName: row.display_name,
+    displayName: sponsorName(row.nickname) ?? row.display_name,
     method: row.method,
     createdAt: row.created_at,
     emailSentAt: row.email_sent_at,
@@ -45,9 +46,13 @@ function adminView(row: AdminRow) {
 export async function handlePublicSponsorships(_request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
   try {
     const rows = await env.DB.prepare(
-      `SELECT user_id, display_name, amount_cents, listed_at
+      `SELECT sponsorships.user_id,
+              COALESCE(NULLIF(users.nickname, ''), sponsorships.display_name) AS display_name,
+              sponsorships.amount_cents, sponsorships.listed_at
        FROM sponsorships
-       WHERE listed_at IS NOT NULL AND amount_cents > 0 AND closed_at IS NULL`,
+       JOIN users ON users.id = sponsorships.user_id
+       WHERE sponsorships.listed_at IS NOT NULL AND sponsorships.amount_cents > 0
+         AND sponsorships.closed_at IS NULL`,
     ).all<GiftRow>();
     const boards = sponsorBoards(
       rows.results.map((row) => ({
@@ -71,7 +76,7 @@ export async function handleCreateSponsorship(request: Request, env: Env, option
     await assertRateLimit(env.DB, "sponsor", clientIp(request), user.email, now);
     const body = (await readJson(request, 8_000)) as Record<string, unknown>;
     if (!isSponsorMethod(body.method)) throw new HttpError(400, "method");
-    const name = sponsorName(body.displayName ?? user.nickname);
+    const name = sponsorName(user.nickname);
     if (!name) throw new HttpError(400, "name");
     const open = await env.DB.prepare(
       "SELECT id FROM sponsorships WHERE user_id = ? AND listed_at IS NULL AND closed_at IS NULL",
@@ -130,7 +135,7 @@ export async function handleAdminSponsorshipsGet(request: Request, env: Env, opt
   try {
     await requireAdmin(env, request, nowOf(options));
     const rows = await env.DB.prepare(
-      `SELECT sponsorships.id, users.email, sponsorships.display_name, sponsorships.method,
+      `SELECT sponsorships.id, users.email, users.nickname, sponsorships.display_name, sponsorships.method,
               sponsorships.created_at, sponsorships.email_sent_at, sponsorships.amount_cents,
               sponsorships.listed_at, sponsorships.closed_at
        FROM sponsorships JOIN users ON users.id = sponsorships.user_id
@@ -151,7 +156,7 @@ export async function handleAdminSponsorshipsPost(request: Request, env: Env, op
     const id = typeof body.id === "string" ? body.id : "";
     if (!/^[0-9a-f-]{36}$/i.test(id)) throw new HttpError(400, "id");
     const row = await env.DB.prepare(
-      `SELECT sponsorships.id, users.email, sponsorships.display_name, sponsorships.method,
+      `SELECT sponsorships.id, users.email, users.nickname, sponsorships.display_name, sponsorships.method,
               sponsorships.created_at, sponsorships.email_sent_at, sponsorships.amount_cents,
               sponsorships.listed_at, sponsorships.closed_at
        FROM sponsorships JOIN users ON users.id = sponsorships.user_id
@@ -180,14 +185,16 @@ export async function handleAdminSponsorshipsPost(request: Request, env: Env, op
       const cents = parseUsdToCents(body.amount);
       if (cents == null) throw new HttpError(400, "amount");
       const emailed = row.email_sent_at ?? now;
+      const listedName = sponsorName(row.nickname) ?? row.display_name;
       await env.DB.prepare(
-        "UPDATE sponsorships SET amount_cents = ?, listed_at = ?, email_sent_at = ? WHERE id = ?",
+        "UPDATE sponsorships SET amount_cents = ?, listed_at = ?, email_sent_at = ?, display_name = ? WHERE id = ?",
       )
-        .bind(cents, now, emailed, id)
+        .bind(cents, now, emailed, listedName, id)
         .run();
       row.amount_cents = cents;
       row.listed_at = now;
       row.email_sent_at = emailed;
+      row.display_name = listedName;
       return json({ request: adminView(row) });
     }
     throw new HttpError(400, "action");

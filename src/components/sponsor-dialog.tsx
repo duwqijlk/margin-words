@@ -6,7 +6,7 @@ import { askToSignIn } from "@/lib/can-add";
 import { useT, type Key } from "@/lib/i18n";
 import { SPONSOR_EMAIL, SPONSOR_METHODS, isSponsorMethod, sponsorName, type SponsorMethod } from "@/lib/sponsor";
 import { accountRequest } from "@/lib/sync-engine";
-import { btn, cn, field, Segmented } from "@/components/ui";
+import { btn, cn, Segmented } from "@/components/ui";
 
 const METHOD_KEY = {
   wechat: "thanks.method.wechat",
@@ -15,7 +15,7 @@ const METHOD_KEY = {
 } as const satisfies Record<SponsorMethod, Key>;
 
 const ERROR_KEYS: Record<string, Key> = {
-  name: "thanks.err.name",
+  name: "thanks.needNickname",
   method: "thanks.err.method",
   open: "thanks.openExists",
   rate: "thanks.err.rate",
@@ -38,8 +38,8 @@ export function SponsorDialog({
   const phase = useAccount((state) => state.phase);
   const nickname = useAccount((state) => state.nickname);
   const signedIn = phase === "in";
+  const shownName = sponsorName(nickname);
   const [method, setMethod] = useState<SponsorMethod | "">("");
-  const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<Key | null>(null);
   const [sent, setSent] = useState(false);
@@ -48,7 +48,6 @@ export function SponsorDialog({
   useEffect(() => {
     if (!open) return;
     setMethod("");
-    setName(nickname ?? "");
     setError(null);
     setSent(false);
     setExisting(null);
@@ -80,14 +79,14 @@ export function SponsorDialog({
       setError("thanks.err.method");
       return;
     }
-    if (!sponsorName(name)) {
-      setError("thanks.err.name");
+    if (!shownName) {
+      setError("thanks.needNickname");
       return;
     }
     setBusy(true);
     setError(null);
     try {
-      await accountRequest("/api/sponsorships", { method, displayName: name });
+      await accountRequest("/api/sponsorships", { method });
       setSent(true);
       onSubmitted();
     } catch (caught) {
@@ -125,9 +124,29 @@ export function SponsorDialog({
             <p className="text-[0.95rem] leading-7" data-sponsor-pending>
               {existing.emailSent ? t("thanks.emailed") : t("thanks.pending")}
             </p>
+          ) : signedIn && !shownName ? (
+            <div className="grid gap-3">
+              <p className="text-[0.95rem] leading-7">{t("thanks.needNickname")}</p>
+              <button
+                type="button"
+                className={cn(btn.primary, "w-full")}
+                data-sponsor-nickname
+                onClick={() => {
+                  onOpenChange(false);
+                  useAccount.getState().patch({ dialogOpen: true, nicknamePrompt: true });
+                }}
+              >
+                {t("thanks.setNickname")}
+              </button>
+            </div>
           ) : (
             <form className="grid gap-3" onSubmit={(event) => void submit(event)}>
               {signedIn ? null : <p className="text-[0.95rem] leading-7">{t("thanks.needSignIn")}</p>}
+              {shownName ? (
+                <p className="text-[0.95rem] leading-7" data-sponsor-name>
+                  {t("thanks.usesNickname", { name: shownName })}
+                </p>
+              ) : null}
               <Segmented<SponsorMethod | "">
                 label={t("thanks.method")}
                 layout="wrap"
@@ -138,18 +157,6 @@ export function SponsorDialog({
                   label: t(METHOD_KEY[item]),
                 }))}
               />
-              <label className="grid gap-1 text-sm font-semibold">
-                {t("thanks.name")}
-                <input
-                  className={field}
-                  value={name}
-                  maxLength={32}
-                  autoComplete="nickname"
-                  data-sponsor-name
-                  onChange={(event) => setName(event.target.value)}
-                />
-                <span className="font-normal text-muted">{t("thanks.nameHint")}</span>
-              </label>
               {error ? (
                 <p className="text-sm text-warn" role="alert">
                   {t(error)}

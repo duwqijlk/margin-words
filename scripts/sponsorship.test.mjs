@@ -4,7 +4,7 @@ import { DatabaseSync } from "node:sqlite";
 import test from "node:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { handleRegister } from "../functions/lib/handlers.ts";
+import { handleNickname, handleRegister } from "../functions/lib/handlers.ts";
 import {
   handleAdminSponsorshipsGet,
   handleAdminSponsorshipsPost,
@@ -81,20 +81,30 @@ test("a gift is hidden until the admin types dollars and ticks it", async () => 
   });
   const adminCookie = cookieFrom(admin);
 
-  const denied = await call(handleCreateSponsorship, env, { body: { method: "wechat", displayName: "Lin" } });
+  const denied = await call(handleCreateSponsorship, env, { body: { method: "wechat" } });
   assert.equal(denied.status, 401);
 
-  const created = await call(handleCreateSponsorship, env, {
+  const unnamed = await call(handleCreateSponsorship, env, {
     cookie: readerCookie,
     body: { method: "wechat", displayName: "Lin" },
   });
+  assert.equal(unnamed.status, 400);
+
+  const named = await call(handleNickname, env, { cookie: readerCookie, body: { nickname: "Lin" } });
+  assert.equal(named.status, 200);
+
+  const created = await call(handleCreateSponsorship, env, {
+    cookie: readerCookie,
+    body: { method: "wechat", displayName: "Someone else" },
+  });
   assert.equal(created.status, 201);
   const createdBody = await created.json();
+  assert.equal(createdBody.displayName, "Lin");
   assert.equal(createdBody.officialEmail, "xcrunnnn@outlook.com");
 
   const again = await call(handleCreateSponsorship, env, {
     cookie: readerCookie,
-    body: { method: "alipay", displayName: "Lin" },
+    body: { method: "alipay" },
   });
   assert.equal(again.status, 409);
 
@@ -126,7 +136,7 @@ test("a gift is hidden until the admin types dollars and ticks it", async () => 
 
   const second = await call(handleCreateSponsorship, env, {
     cookie: readerCookie,
-    body: { method: "crypto", displayName: "Lin" },
+    body: { method: "crypto" },
   });
   assert.equal(second.status, 201);
   const secondId = (await second.json()).id;
@@ -141,4 +151,9 @@ test("a gift is hidden until the admin types dollars and ticks it", async () => 
 
   const mine = await (await call(handleMySponsorship, env, { method: "GET", cookie: readerCookie })).json();
   assert.equal(mine.open, null);
+
+  await call(handleNickname, env, { cookie: readerCookie, body: { nickname: "Mei" } });
+  const renamed = await (await call(handlePublicSponsorships, env, { method: "GET" })).json();
+  assert.deepEqual(renamed.month, [{ name: "Mei", cents: 550 }]);
+  assert.deepEqual(renamed.total, [{ name: "Mei", cents: 1550 }]);
 });

@@ -205,14 +205,14 @@ Apply `0003` before a deploy that serves the sponsorship functions: `npx wrangle
 
 ## Sponsorship
 
-A sponsorship is a public-interest donation. The site does not take payment, does not store a WeChat id, an Alipay account, or a wallet address, and does not send the instruction email. The reader picks a way and a display name (1–16 characters). The dialog always shows the official address `xcrunnnn@outlook.com`. One open request per account. After it is listed or closed, the reader can send another.
+A sponsorship is a public-interest donation. The site does not take payment, does not store a WeChat id, an Alipay account, or a wallet address, and does not send the instruction email. The reader picks a way. The name on the thank-you list is the account nickname, not a name typed in the dialog. A request needs a nickname already saved on the account. The dialog always shows the official address `xcrunnnn@outlook.com`. One open request per account. After it is listed or closed, the reader can send another. If the nickname changes later, the public list uses the new one.
 
 `/admin` is not in the menu. `GET` and `POST /api/admin/sponsorships` answer 403 unless the signed-in email is that official address. The admin marks the email sent, types the USD amount (the only unit; no conversion in the app), and lists the row. A listed row is one gift. Repeat gifts add up. The public `GET /api/sponsorships` returns two lists, `month` and `total`, one line per person: cents confirmed in the current China month (UTC+8), and cents confirmed in total. The overview rotates one name in each column. Deleting the account removes that person's rows, so the name leaves the list.
 
 | Method | Path | Who |
 | --- | --- | --- |
 | GET | `/api/sponsorships` | anyone; listed gifts only |
-| POST | `/api/sponsorships` | signed in; `{ method, displayName }` |
+| POST | `/api/sponsorships` | signed in, with a nickname; `{ method }` |
 | GET | `/api/sponsorship-request` | signed in; the open request, or `{ open: null }` |
 | GET | `/api/admin/sponsorships` | admin |
 | POST | `/api/admin/sponsorships` | admin; `{ id, action: "email" \| "list" \| "close", amount? }` |

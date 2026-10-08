@@ -1,7 +1,7 @@
 /**
  * Public-interest sponsorships. The reader picks a way to give. The admin types the
  * USD amount and ticks the row, and only then does the name appear on the overview.
- * Names are not invented here.
+ * The name is the account nickname. Names are not invented here.
  */
 
 import { cleanNickname } from "./nickname.ts";
