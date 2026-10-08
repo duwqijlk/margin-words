@@ -459,9 +459,6 @@ function BookCard({
   );
 }
 
-/** Books to show before a search box is useful. */
-const SEARCH_FROM = 8;
-
 export function Shelf({
   books,
   words,
@@ -638,21 +635,26 @@ export function Shelf({
 
           <section className="grid gap-4" aria-label={t("shelf.all")}>
             <div className="grid gap-3">
-              <div
-                className={cn(
-                  "flex flex-wrap items-center gap-3",
-                  hero && !q && !filtering ? "justify-end sm:justify-between" : "justify-end",
-                )}
-              >
-                <h2
-                  className={cn(
-                    "font-display text-xl font-semibold",
-                    hero && !q && !filtering ? "hidden sm:block" : "sr-only",
-                  )}
-                >
-                  {t("shelf.all")}
-                </h2>
-                {liveBooks.length >= 2 ? (
+              {hero && !q && !filtering ? (
+                <h2 className="hidden font-display text-xl font-semibold sm:block">{t("shelf.all")}</h2>
+              ) : null}
+              {liveBooks.length >= 2 ? (
+                <div className="flex items-center gap-2">
+                  <label className="relative block min-w-0 flex-1">
+                    <span className="sr-only">{t("shelf.search")}</span>
+                    <Search
+                      className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted"
+                      aria-hidden
+                    />
+                    <input
+                      className={cn(field, "pl-9")}
+                      value={query}
+                      onChange={(event) => setQuery(event.target.value)}
+                      placeholder={t("shelf.search")}
+                      type="search"
+                      data-shelf-search
+                    />
+                  </label>
                   <FilterMenu
                     active={sort !== "recent" || band !== "all" || author !== "all" || series !== "all"}
                     render={() => (
@@ -675,23 +677,7 @@ export function Shelf({
                       </>
                     )}
                   />
-                ) : null}
-              </div>
-              {liveBooks.length >= SEARCH_FROM ? (
-                <label className="relative block w-full sm:max-w-64">
-                  <span className="sr-only">{t("shelf.search")}</span>
-                  <Search
-                    className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted"
-                    aria-hidden
-                  />
-                  <input
-                    className={cn(field, "pl-9")}
-                    value={query}
-                    onChange={(event) => setQuery(event.target.value)}
-                    placeholder={t("shelf.search")}
-                    type="search"
-                  />
-                </label>
+                </div>
               ) : null}
             </div>
 
