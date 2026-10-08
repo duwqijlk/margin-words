@@ -891,16 +891,9 @@ async function run(lang, size) {
     }
 
     await vp.getByRole("button", { name: t("nav.shelf"), exact: true }).first().click();
-    // Alice and Looking-Glass are one series: they sit in one stack. Peter and Wendy is a single card.
-    await vp.locator("[data-series-stack]").waitFor({ timeout: 30000 });
-    ok(
-      (await vp.locator("[data-series-stack]").getAttribute("data-stack-count")) === "2",
-      `${label}: Alice and Looking-Glass are one stack of 2`,
-    );
-    ok((await vp.locator("li.book-card").count()) === 2, `${label}: the shelf shows the stack and Peter and Wendy`);
-    await vp.locator("[data-series-stack] [data-stack-toggle]").click();
-    await vp.locator("[data-series-stack-open]").waitFor();
-    await vp.locator("ul li [data-classic-label]").nth(2).waitFor({ timeout: 30000 });
+    // Alice and Looking-Glass are one series, and each is still its own card.
+    await vp.locator("li.book-card").nth(2).waitFor({ timeout: 30000 });
+    ok((await vp.locator("[data-series-stack]").count()) === 0, `${label}: books of one series stay separate cards`);
     ok((await vp.locator("li.book-card").count()) === 3, `${label}: shelf has Alice plus the two books that were added`);
     ok(
       (await vp.locator("ul li [data-classic-label]").count()) === 3,
@@ -930,7 +923,6 @@ async function run(lang, size) {
 
     // Looking-Glass (shrunk epub): opens and its illustrations load
     await toShelfOn(vp);
-    await vp.locator("[data-series-stack] [data-stack-toggle]").click();
     await vp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Through the Looking") }).first().click();
     await vp.waitForSelector("button.book-hard", { timeout: 30000 });
     await vp.waitForFunction(() => document.querySelectorAll("article.book-body img").length > 0, null, { timeout: 30000 });

@@ -1,11 +1,11 @@
 /**
- * The pure rules behind one-card-per-book, series stacks, cover repair and the page addresses.
+ * The pure rules behind one-card-per-book, cover repair and the page addresses.
  */
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { loadAppModules } from "./lib/app-modules.mjs";
 
-const { identity, stacks, coverPlan, covers, router } = await loadAppModules();
+const { identity, coverPlan, covers, router } = await loadAppModules();
 const { sameBook, sameAuthor, planMerges, findOnShelf, titleKeys } = identity;
 
 const entry = (over) => ({
@@ -73,24 +73,6 @@ test("findOnShelf prefers the card with the e-book", () => {
   assert.equal(findOnShelf(shelf, [{ title: "Nope", author: "" }, { title: "Matilda", author: "" }]).id, "b");
   assert.equal(findOnShelf(shelf, { title: "Wonder", author: "" }), null);
   assert.equal(findOnShelf(shelf, { title: "", author: "" }), null);
-});
-
-const row = (id, series, seriesNumber, title = id) => ({ id, book: { series, seriesNumber, title } });
-
-test("a series with two or more books becomes one stack; the rest stay single cards", () => {
-  const rows = [row("solo"), row("mth3", "Magic Tree House", 3), row("other", "Narnia", 1), row("mth1", "Magic Tree House", 1), row("mth2", "magic tree  house", 2)];
-  const items = stacks.stackShelf(rows);
-  assert.deepEqual(items.map((i) => i.kind), ["book", "stack", "book"]);
-  const stack = items[1];
-  assert.equal(stack.name, "Magic Tree House");
-  assert.deepEqual(stack.rows.map((r) => r.id), ["mth1", "mth2", "mth3"], "books inside a stack are in series order");
-  assert.equal(items[2].row.id, "other", "a series with a single book is a single card");
-});
-
-test("a stack sits where its first book was, and books without a number go last", () => {
-  const items = stacks.stackShelf([row("x", "S", 0, "B"), row("y", "S", 2, "A"), row("z", "S", 1, "C")]);
-  assert.equal(items.length, 1);
-  assert.deepEqual(items[0].rows.map((r) => r.id), ["z", "y", "x"]);
 });
 
 const sha = "a".repeat(64);

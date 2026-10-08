@@ -33,8 +33,6 @@ import { useShelfRemove } from "@/lib/shelf-remove";
 import { BookCover } from "@/components/book-cover";
 import { FirstBookSuggestion } from "@/components/first-book";
 import { navigate } from "@/lib/router";
-import { ClosedStack, OpenStack } from "@/components/series-stack";
-import { stackShelf } from "@/lib/shelf-stacks";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
 import { btn, cn, field, ProgressBar } from "@/components/ui";
 import { compareLexile } from "@/lib/lexile";
@@ -712,20 +710,6 @@ export function Shelf({
     if (rest.length) blocks.push({ key: "none", title: "", rows: rest });
     return blocks;
   }, [visible, series]);
-  // Series with two or more books on the shelf are shown as stacks, except where the list is already grouped
-  // or limited to one series. A search or a filter only stacks the books that are left.
-  const items = useMemo(
-    () => (series === "all" ? stackShelf(visible) : visible.map((row) => ({ kind: "book" as const, row }))),
-    [visible, series],
-  );
-  const [openStacks, setOpenStacks] = useState<Set<string>>(() => new Set());
-  const toggleStack = (key: string) =>
-    setOpenStacks((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
   const renderCard = (row: Row) => (
     <BookCard
       key={row.book.id}
@@ -853,26 +837,7 @@ export function Shelf({
                   ))}
                 </div>
               ) : (
-              <ul className={bookCardGrid}>
-                {items.map((item) => {
-                  if (item.kind === "book") return renderCard(item.row);
-                  const open = openStacks.has(item.key);
-                  return open ? (
-                    <OpenStack key={`stack:${item.key}`} name={item.name} count={item.rows.length} onClose={() => toggleStack(item.key)}>
-                      {item.rows.map(renderCard)}
-                    </OpenStack>
-                  ) : (
-                    <ClosedStack
-                      key={`stack:${item.key}`}
-                      name={item.name}
-                      books={item.rows.map((row) => row.book)}
-                      covers={covers}
-                      updates={item.rows.filter((row) => offerByBook.has(row.book.id)).length}
-                      onOpen={() => toggleStack(item.key)}
-                    />
-                  );
-                })}
-              </ul>
+              <ul className={bookCardGrid}>{visible.map(renderCard)}</ul>
               )
             )}
           </section>

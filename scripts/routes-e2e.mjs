@@ -619,10 +619,9 @@ async function covers(lang) {
   await ctx.close();
 }
 
-/* ------------------------------------------------------------------ series stacks */
-async function stacks(lang, size) {
-  console.log(`\n== series stacks (${lang}/${size.name})`);
-  const t = T[lang];
+/* ------------------------------------------------------------------ one card per book */
+async function separateBooks(lang, size) {
+  console.log(`\n== separate books (${lang}/${size.name})`);
   const { ctx, page, errors } = await newPage({ ...size, lang });
   // Alice, two books of one series, added in the "wrong" order, and one standalone book.
   await page.goto(at("shelf"));
@@ -631,36 +630,23 @@ async function stacks(lang, size) {
   await addFromDiscover(page, "wof1");
   await addFromDiscover(page, "twits");
   await page.goto(at("shelf"));
-  await page.locator("[data-series-stack]").waitFor({ timeout: 30000 });
-  const stack = page.locator("[data-series-stack]");
-  ok((await stack.count()) === 1, `${lang}: books of one series are one stack`);
-  ok((await stack.getAttribute("data-stack-count")) === "2", `${lang}: the stack counts 2 books`);
-  ok((await stack.locator("[data-stack-badge]").innerText()).trim() === "2", `${lang}: the count badge shows 2`);
-  ok((await stack.locator("img, [data-generated-cover]").count()) >= 2, `${lang}: the stack shows more than one cover`);
-  ok((await cards(page).count()) === 3, `${lang}: Alice, the stack and The Twits are 3 cards`);
-  ok((await page.locator('li.book-card:has-text("Twits")[data-series-stack]').count()) === 0, `${lang}: a standalone book is not stacked`);
-
-  await stack.locator("[data-stack-toggle]").click();
-  const open = page.locator("[data-series-stack-open]");
-  await open.waitFor();
-  const titles = await open.locator("li.book-card h3, li.book-card button[lang=en]").allInnerTexts();
-  const first = titles.findIndex((x) => /Dragonet|Dragonet Prophecy/i.test(x));
-  const second = titles.findIndex((x) => /Lost Heir/i.test(x));
-  ok(first >= 0 && second >= 0 && first < second, `${lang}: opened, the books are in series order (${titles.slice(0, 4).join(" | ")})`);
-  ok((await open.locator("li.book-card").count()) === 2, `${lang}: the open stack lists both books`);
+  await page.locator("li.book-card").nth(3).waitFor({ timeout: 30000 });
+  const titles = await page.locator("li.book-card button[lang=en]").allInnerTexts();
+  ok((await page.locator("[data-series-stack]").count()) === 0, `${lang}: books of one series are not folded together`);
+  ok((await cards(page).count()) === 4, `${lang}: Alice, two Wings of Fire books and The Twits are 4 cards`);
+  ok(titles.some((text) => /Dragonet/i.test(text)) && titles.some((text) => /Lost Heir/i.test(text)), `${lang}: both books of the series are on the shelf`);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
-  ok(!overflow, `${lang}: no horizontal overflow with the stack open`);
-  await page.locator("[data-series-stack-open] [data-stack-toggle]").click();
-  await page.locator("[data-series-stack]").waitFor();
-  ok((await open.count()) === 0 && (await cards(page).count()) === 3, `${lang}: closing puts the stack back`);
+  ok(!overflow, `${lang}: no horizontal overflow`);
 
-  // the series filters still work. On a phone they live in the filter overlay.
+  // the series filter still works. On a phone it lives in the filter overlay.
   const menu = page.locator("[data-filter-menu]");
   if (await menu.isVisible()) await menu.click();
   const grouped = page.locator("[data-series-filter]:visible");
   if ((await grouped.count()) > 0) {
     await grouped.selectOption("grouped");
-    ok((await page.locator("[data-series-stack]").count()) === 0, `${lang}: "Group by series" shows its own groups, no stacks`);
+    await page.locator("[data-series-group]").first().waitFor();
+    ok((await page.locator("[data-series-stack]").count()) === 0, `${lang}: grouping still shows one card per book`);
+    ok((await cards(page).count()) === 4, `${lang}: grouping does not hide a book`);
   }
   ok(errors.length === 0, `${lang}: no page errors${errors[0] ? " " + errors[0] : ""}`);
   await ctx.close();
@@ -677,8 +663,8 @@ for (const lang of ["en", "zh"]) {
   await oneCard(lang);
   await covers(lang);
 }
-await stacks("en", { name: "desktop", width: 1280, height: 800 });
-await stacks("zh", { name: "phone", width: 390, height: 844, mobile: true });
+await separateBooks("en", { name: "desktop", width: 1280, height: 800 });
+await separateBooks("zh", { name: "phone", width: 390, height: 844, mobile: true });
 
 await browser.close();
 console.log(failures === 0 ? `\nROUTES E2E OK: ${checks}/${checks} checks passed` : `\nROUTES E2E FAILED: ${failures} of ${checks}`);
