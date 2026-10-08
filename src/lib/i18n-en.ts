@@ -18,7 +18,7 @@ export const en = {
   "common.hide": "Hide",
   "common.show": "Show",
   "common.inBook": "In the book: {word}",
-  "common.brand": "inputread",
+  "common.brand": "InputRead",
   "count.book.one": "{n} book",
   "count.book.other": "{n} books",
   "count.word.one": "{n} word",

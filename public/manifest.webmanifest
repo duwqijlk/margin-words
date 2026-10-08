@@ -1,6 +1,6 @@
 {
-  "name": "inputread",
-  "short_name": "inputread",
+  "name": "InputRead",
+  "short_name": "InputRead",
   "description": "Read English books. Tap a word to see a simple English meaning.",
   "start_url": "/shelf",
   "scope": "/",

@@ -59,7 +59,7 @@ export async function buildGuide() {
   const sections = ["en", "zh"].map((lang) => {
     const c = chrome[lang];
     const lines = c.lines.map((line) => `<p>${esc(line)}</p>`).join("");
-    return `<section data-lang-section="${lang}" data-title="${esc(c.title)} - inputread" lang="${lang === "zh" ? "zh-CN" : "en"}"><h1>${esc(c.title)}</h1>${lines}<a class="download" href="${KIT_NAME}" download data-download>${esc(c.download)}</a></section>`;
+    return `<section data-lang-section="${lang}" data-title="${esc(c.title)} - InputRead" lang="${lang === "zh" ? "zh-CN" : "en"}"><h1>${esc(c.title)}</h1>${lines}<a class="download" href="${KIT_NAME}" download data-download>${esc(c.download)}</a></section>`;
   });
   const bar = `<header class="bar"><a href="../" data-back><span data-lang-section="en">&larr; ${esc(chrome.en.back)}</span><span data-lang-section="zh">&larr; ${esc(chrome.zh.back)}</span></a><button type="button" data-set-lang aria-label="${esc(chrome.en.langLabel)} / ${esc(chrome.zh.langLabel)}"><span data-lang-section="en">${esc(chrome.en.langButton)}</span><span data-lang-section="zh">${esc(chrome.zh.langButton)}</span></button></header>`;
   const page = `<!doctype html>
@@ -67,7 +67,7 @@ export async function buildGuide() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(chrome.en.title)} - inputread</title>
+<title>${esc(chrome.en.title)} - InputRead</title>
 <meta name="robots" content="noindex">
 <style>${CSS}</style>
 <script>${SCRIPT}</script>
