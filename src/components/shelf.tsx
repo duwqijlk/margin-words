@@ -246,59 +246,10 @@ function ContinueCard({
   );
 }
 
-/** Phone only: small covers of books already started. Wide screens keep the large card. */
-function ContinueStrip({
-  rows,
-  covers,
-  onOpen,
-}: {
-  rows: Row[];
-  covers: Record<string, string>;
-  onOpen: (bookId: string) => void;
-}) {
-  const { t } = useT();
-  return (
-    <section
-      className="grid min-w-0 gap-2 sm:hidden"
-      aria-label={t("shelf.continueReading")}
-      data-shelf-continue={rows.length}
-    >
-      <h2 className="font-display text-lg font-semibold">{t("shelf.continueReading")}</h2>
-      <ul className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
-        {rows.map((row) => {
-          const pct = Math.round(row.fraction * 100);
-          return (
-            <li key={row.book.id} className="w-16 shrink-0">
-              <button
-                type="button"
-                className="grid w-full gap-1 rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                data-shelf-continue-book={row.book.id}
-                aria-label={t("shelf.openAria", { title: row.book.title })}
-                onClick={() => onOpen(row.book.id)}
-              >
-                <span className="relative block">
-                  <BookCover title={row.book.title} author={row.book.author} cover={covers[row.book.id]} />
-                  <span className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-black/35" aria-hidden>
-                    <span className="block h-full bg-accent" style={{ width: `${pct}%` }} />
-                  </span>
-                </span>
-                <span className="overflow-hidden text-xs leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]" lang="en">
-                  {row.book.title}
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
-  );
-}
-
 function ShelfSkeleton() {
   return (
     <div className="grid gap-6 sm:gap-8" aria-busy="true">
       <div className="hidden h-60 animate-pulse rounded-3xl bg-line sm:block" />
-      <div className="h-28 animate-pulse rounded-2xl bg-line sm:hidden" />
       <div className={bookCardGrid}>
         {Array.from({ length: 6 }, (_, index) => (
           <div key={index} className="grid gap-2">
@@ -599,10 +550,6 @@ export function Shelf({
   }, [rows]);
 
   const hero = useMemo(() => recent.find((row) => row.book.source === "epub") ?? null, [recent]);
-  const started = useMemo(
-    () => recent.filter((row) => Boolean(row.progress && row.progress.updatedAt > 0 && row.fraction > 0)).slice(0, 8),
-    [recent],
-  );
 
   const authors = useMemo(
     () => [...new Set(rows.map((row) => row.book.author).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
@@ -708,9 +655,6 @@ export function Shelf({
               onOpen={() => onOpen(hero.book.id)}
               onUpdate={() => updateBook(hero.book.id)}
             />
-          ) : null}
-          {started.length > 0 && !q && !filtering ? (
-            <ContinueStrip rows={started} covers={covers} onOpen={onOpen} />
           ) : null}
 
           <section className="grid gap-4" aria-label={t("shelf.all")}>
