@@ -129,4 +129,8 @@ test("every top-menu page has its own address, and the address maps back", () =>
   assert.equal(parsePath("/dashboard/x"), null);
   assert.equal(parsePath("/thanks").kind, "dashboard", "the old thank-you address opens the overview");
   assert.equal(menuOf(parsePath("/thanks")), "dashboard");
+  assert.equal(parsePath("/admin").kind, "admin");
+  assert.equal(pathFor({ kind: "admin" }), "/admin");
+  assert.equal(menuOf(parsePath("/admin")), "admin");
+  assert.equal(parsePath("/admin/x"), null);
 });

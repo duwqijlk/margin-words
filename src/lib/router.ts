@@ -4,6 +4,7 @@
  *
  *   /shelf            Bookshelf        /discover         Discover
  *   /dashboard        Overview: how many books, marked words, and notes, plus the thank-you list
+ *   /admin            Sponsorship requests. Not a menu item. Only the admin account can use it.
  *   /guide            Guide (how to use the app, and about the site). Opened from Settings.
  *   /words            Word book (all books)
  *   /words/<bookId>   Word book of one book
@@ -21,6 +22,7 @@ export type Route =
   | { kind: "shelf" }
   | { kind: "discover" }
   | { kind: "dashboard" }
+  | { kind: "admin" }
   | { kind: "guide" }
   | { kind: "words"; bookId: string | null }
   | { kind: "review"; bookId: string | null }
@@ -57,6 +59,8 @@ export function parsePath(pathname: string): Route | null {
       return rest === undefined ? { kind: "discover" } : null;
     case "dashboard":
       return rest === undefined ? { kind: "dashboard" } : null;
+    case "admin":
+      return rest === undefined ? { kind: "admin" } : null;
     case "guide":
       return rest === undefined ? { kind: "guide" } : null;
     case "thanks":
@@ -90,12 +94,14 @@ export function pathFor(route: Route): string {
 }
 
 /** Which top-menu page a route belongs to. */
-export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "guide" | "words" {
+export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "guide" | "words" | "admin" {
   switch (route.kind) {
     case "discover":
       return "discover";
     case "dashboard":
       return "dashboard";
+    case "admin":
+      return "admin";
     case "guide":
       return "guide";
     case "words":
