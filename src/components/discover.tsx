@@ -30,7 +30,7 @@ import { useVocab } from "@/lib/vocab-store";
 import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category";
-import { RECENT_UPDATE_DAYS, recentUpdates } from "@/lib/discover-recent";
+import { recentUpdates } from "@/lib/discover-recent";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import {
   autoUpdateWordLists,
@@ -625,11 +625,8 @@ export function DiscoverScreen({
         className="grid gap-5 sm:gap-6"
       >
         {ready && recent.length > 0 ? (
-          <section
-            className="grid min-w-0 gap-2"
-            aria-label={t("discover.recentAria", { n: RECENT_UPDATE_DAYS })}
-            data-discover-recent={recent.length}
-          >
+          <section className="grid min-w-0 gap-2" data-discover-recent={recent.length}>
+            <h2 className="text-sm font-semibold text-muted">{t("discover.recent")}</h2>
             <ul className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
               {recent.map((row) => (
                 <li key={row.id} className="w-16 shrink-0 sm:w-20">
