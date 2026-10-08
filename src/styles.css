@@ -559,6 +559,18 @@
 }
 
 @layer utilities {
+  @keyframes thanks-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .thanks-name {
+    animation: thanks-in 0.45s ease;
+  }
+
   @keyframes drawer-in {
     from {
       transform: translateX(-100%);

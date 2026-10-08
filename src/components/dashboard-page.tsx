@@ -22,19 +22,14 @@ const CARDS: ReadonlyArray<{
 ];
 
 /**
- * How many books Discover offers, and how many words and paragraph notes those lists mark.
- * The numbers are the library, not the books on this device.
+ * One screen: the thank-you list fills the page, and the library counts sit along the bottom.
+ * The counts are every book on Discover, not the books on this device.
  */
 export function DashboardScreen() {
   const { t } = useT();
   const [attempt, setAttempt] = useState(0);
   const [state, setState] = useState<LoadState>("loading");
   const [totals, setTotals] = useState<LibraryTotals | null>(null);
-
-  useEffect(() => {
-    if (window.location.hash !== "#thanks") return;
-    document.getElementById("thanks")?.scrollIntoView({ block: "start" });
-  }, []);
 
   useEffect(() => {
     let alive = true;
@@ -57,63 +52,41 @@ export function DashboardScreen() {
   }, [attempt]);
 
   return (
-    <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-6 sm:px-6 sm:py-10" data-dashboard data-dashboard-state={state}>
-      <div className="grid gap-1.5">
-        <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("dashboard.title")}</h1>
-        <p className="max-w-2xl text-[1rem] leading-7 text-muted">{t("dashboard.intro")}</p>
-      </div>
+    <div
+      className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-6 sm:px-6 sm:py-8"
+      data-dashboard
+      data-dashboard-state={state}
+    >
+      <ThanksSection />
       {state === "error" ? (
-        <div className="grid justify-items-start gap-3 rounded-2xl border border-line bg-card px-5 py-8" role="alert">
+        <div className="grid justify-items-center gap-3 text-center" role="alert">
           <p className="text-[0.95rem] leading-7">{t("dashboard.error")}</p>
           <button type="button" className={btn.primary} onClick={() => setAttempt((n) => n + 1)}>
             {t("dashboard.retry")}
           </button>
         </div>
       ) : (
-        <>
-        <ul className="grid gap-3 sm:grid-cols-3">
+        <ul className="grid grid-cols-3 gap-x-2 gap-y-3 sm:grid-cols-6">
           {CARDS.map((card) => {
             const n = card.id === "series" ? (totals?.series.length ?? 0) : (totals?.[card.id] ?? 0);
             const shown = state === "ready";
             return (
               <li
                 key={card.id}
-                className="grid content-start gap-1 rounded-2xl border border-line bg-card px-5 py-6"
+                className="grid justify-items-center gap-0.5 text-center"
                 data-dash={card.id}
                 data-dash-value={shown ? n : undefined}
                 aria-label={shown ? trn(card.count, n) : t("dashboard.loading")}
               >
-                <p className="font-display text-4xl font-semibold tabular-nums sm:text-5xl" aria-hidden>
+                <p className="font-display text-2xl font-semibold tabular-nums sm:text-3xl" aria-hidden>
                   {shown ? groupDigits(n) : "…"}
                 </p>
-                <p className="text-[0.95rem] font-medium text-muted">{t(card.label)}</p>
-                {shown && card.id === "books" && totals ? (
-                  <p className="text-sm leading-6 text-muted">{t("dashboard.mix", { classics: totals.classics, lists: totals.lists })}</p>
-                ) : null}
+                <p className="text-xs leading-4 text-muted">{t(card.label)}</p>
               </li>
             );
           })}
         </ul>
-        {state === "ready" && totals ? (
-          <section className="grid gap-3" data-dash-series-list>
-            <h2 className="font-display text-xl font-semibold">{t("dashboard.series")}</h2>
-            <ul className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-card">
-              {totals.series.map((row) => (
-                <li key={row.name} className="flex items-baseline justify-between gap-4 px-5 py-3" data-series={row.name}>
-                  <span className="min-w-0 font-medium" lang="en">{row.name}</span>
-                  <span className="shrink-0 tabular-nums text-muted">{trn("count.book", row.books)}</span>
-                </li>
-              ))}
-              <li className="flex items-baseline justify-between gap-4 px-5 py-3" data-dash="standalone" data-dash-value={totals.standalone}>
-                <span className="font-medium">{t("dashboard.standalone")}</span>
-                <span className="shrink-0 tabular-nums text-muted">{trn("count.book", totals.standalone)}</span>
-              </li>
-            </ul>
-          </section>
-        ) : null}
-        </>
       )}
-      <ThanksSection />
     </div>
   );
 }

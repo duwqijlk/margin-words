@@ -17,7 +17,6 @@ import { ensureClassics } from "@/lib/classics";
 import { useProgress } from "@/lib/progress-store";
 import { tr, trn, useT } from "@/lib/i18n";
 import { applyTheme, usePrefs } from "@/lib/reader-prefs";
-import { summarize } from "@/lib/srs";
 import type { VocabEntry } from "@/lib/vocab-model";
 import { markVocabHydrated, normalizeWord, useVocab } from "@/lib/vocab-store";
 import { useCovers } from "@/components/book-cover";
@@ -206,7 +205,6 @@ export function MarginApp() {
 
   const orderedBooks = useMemo(() => [...books].sort((a, b) => b.updatedAt - a.updatedAt), [books]);
   const covers = useCovers(books.map((book) => book.id));
-  const due = useMemo(() => summarize(words).due, [words]);
 
   // If the book on screen was deleted (here or in another tab), fall back to the shelf.
   useEffect(() => {
@@ -314,7 +312,6 @@ export function MarginApp() {
       Icon: Library,
       active: menu === "shelf",
       go: () => setScreen({ kind: "shelf" }),
-      badge: 0,
     },
     {
       id: "discover",
@@ -322,7 +319,6 @@ export function MarginApp() {
       Icon: Compass,
       active: menu === "discover",
       go: () => setScreen({ kind: "discover" }),
-      badge: 0,
     },
     {
       id: "dashboard",
@@ -330,12 +326,14 @@ export function MarginApp() {
       Icon: LayoutDashboard,
       active: menu === "dashboard",
       go: () => setScreen({ kind: "dashboard" }),
-      badge: 0,
     },
   ];
   return (
     <div
-      className={cn("min-h-dvh bg-paper text-ink", !reading && "max-sm:pb-[calc(4.25rem+env(safe-area-inset-bottom))]")}
+      className={cn(
+        "min-h-dvh bg-paper text-ink",
+        !reading && "flex flex-col max-sm:pb-[calc(4.25rem+env(safe-area-inset-bottom))]",
+      )}
     >
       {/* The only file input of the app: a word list (.json) for a book that is already on the shelf.
           Books themselves are added only on Discover. */}
@@ -378,25 +376,19 @@ export function MarginApp() {
               {tabs.map((tab) => (
                 <NavButton key={tab.id} active={tab.active} onClick={tab.go}>
                   {tab.label}
-                  {tab.badge > 0 ? <DueBadge n={tab.badge} /> : null}
                 </NavButton>
               ))}
             </nav>
             <div className="min-w-0 flex-1 sm:hidden" />
             <button
               type="button"
-              className={cn(btn.icon, "relative size-11", menu === "words" && "bg-accent-soft text-accent")}
+              className={cn(btn.icon, "size-11", menu === "words" && "bg-accent-soft text-accent")}
               onClick={() => setScreen({ kind: "words", bookId: null })}
               aria-label={t("nav.notebook")}
               aria-current={menu === "words" ? "page" : undefined}
               data-notebook-button
             >
               <NotebookPen className="size-5" aria-hidden />
-              {due > 0 ? (
-                <span className="absolute top-0.5 right-0.5">
-                  <DueBadge n={due} />
-                </span>
-              ) : null}
             </button>
             <button
               type="button"
@@ -441,16 +433,11 @@ export function MarginApp() {
               >
                 <span
                   className={cn(
-                    "relative flex h-8 w-14 items-center justify-center rounded-full transition-colors",
+                    "flex h-8 w-14 items-center justify-center rounded-full transition-colors",
                     tab.active ? "bg-accent-soft" : "group-active:bg-accent-soft/60",
                   )}
                 >
                   <tab.Icon className="size-[1.35rem]" strokeWidth={tab.active ? 2.4 : 2} aria-hidden />
-                  {tab.badge > 0 ? (
-                    <span className="absolute top-0 right-1.5">
-                      <DueBadge n={tab.badge} />
-                    </span>
-                  ) : null}
                 </span>
                 <span className="max-w-full truncate">{tab.label}</span>
               </button>
@@ -636,18 +623,6 @@ function Banner({
         </button>
       ) : null}
     </div>
-  );
-}
-
-function DueBadge({ n }: { n: number }) {
-  const { t } = useT();
-  return (
-    <span
-      className="rounded-full bg-warn px-1.5 text-[0.7rem] leading-5 font-bold text-accent-ink tabular-nums"
-      aria-label={t("nav.dueAria", { n })}
-    >
-      {n}
-    </span>
   );
 }
 
