@@ -75,8 +75,8 @@ export const cardAuthorClass = "min-h-4 truncate text-xs leading-4 text-muted ma
 export const bookCardShell = "book-card flex h-full min-h-full flex-col gap-1.5 sm:gap-3";
 
 /**
- * Sort and list filters. On a phone they sit in one overlay, so the book grid can start
- * higher. Wide screens keep the controls in the page header.
+ * Sort and list filters. One button on every screen. The choices open in an overlay,
+ * so the page does not show a row of menus.
  */
 export function FilterMenu({
   active,
@@ -88,29 +88,26 @@ export function FilterMenu({
   const { t } = useT();
   const [open, setOpen] = useState(false);
   return (
-    <>
-      <div className="hidden gap-2 sm:flex sm:flex-wrap">{render()}</div>
-      <Dialog.Root open={open} onOpenChange={setOpen}>
-        <Dialog.Trigger
-          type="button"
-          className={cn(btn.quiet, "shrink-0 sm:hidden")}
-          data-filter-menu={active ? "on" : "off"}
-        >
-          {t("list.filter")}
-          {active ? <span className="size-2 rounded-full bg-accent" data-filter-on="" /> : null}
-        </Dialog.Trigger>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/45 sm:hidden" />
-          <Dialog.Content className="fixed inset-x-3 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-50 grid max-h-[70dvh] gap-3 overflow-y-auto rounded-2xl border border-line bg-card p-4 text-ink shadow-pop sm:hidden">
-            <div className="flex items-center justify-between gap-3">
-              <Dialog.Title className="font-display text-xl font-semibold">{t("list.filter")}</Dialog.Title>
-              <Dialog.Close className={btn.primary}>{t("common.done")}</Dialog.Close>
-            </div>
-            <Dialog.Description className="sr-only">{t("list.filter")}</Dialog.Description>
-            <div className="grid gap-2 [&_select]:w-full">{render()}</div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-    </>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger
+        type="button"
+        className={cn(btn.quiet, "shrink-0")}
+        data-filter-menu={active ? "on" : "off"}
+      >
+        {t("list.filter")}
+        {active ? <span className="size-2 rounded-full bg-accent" data-filter-on="" /> : null}
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/45" />
+        <Dialog.Content className="anim-pop fixed inset-x-3 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-50 grid max-h-[70dvh] gap-3 overflow-y-auto rounded-2xl border border-line bg-card p-4 text-ink shadow-pop sm:inset-x-auto sm:top-1/2 sm:bottom-auto sm:left-1/2 sm:w-[min(24rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2">
+          <div className="flex items-center justify-between gap-3">
+            <Dialog.Title className="font-display text-xl font-semibold">{t("list.filter")}</Dialog.Title>
+            <Dialog.Close className={btn.primary}>{t("common.done")}</Dialog.Close>
+          </div>
+          <Dialog.Description className="sr-only">{t("list.filter")}</Dialog.Description>
+          <div className="grid gap-2 [&_select]:w-full">{render()}</div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }

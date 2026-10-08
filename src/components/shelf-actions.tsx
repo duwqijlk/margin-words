@@ -23,7 +23,7 @@ const MONTH_KEY = [
   "discover.month.12",
 ] as const satisfies readonly Key[];
 
-/** The line under a Discover card: the word list's last update, or what the add is doing right now. */
+/** The line under a Discover card while an add is busy, or when there is an error or a short note. */
 export function ShelfCardStatus({
   state,
   fraction,
@@ -83,7 +83,7 @@ export function ShelfCardStatus({
 
 /**
  * The control that puts a book on the shelf and takes it off again. On Discover it sits on the
- * cover, as a plus, so the card can show the word list's date instead of a full-width button.
+ * cover, as a plus. The card does not stamp the word-list date under the title.
  *   plus  ->  spinner  ->  check (a small menu: open the book, or remove it).
  * "update" is a newer word list the reader has not tapped yet. A signed-out
  * visitor's plus says "Sign in to add"; the tap opens the sign-in dialog.

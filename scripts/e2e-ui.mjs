@@ -823,8 +823,8 @@ async function run(lang, size) {
       const filled = (await vp.locator('[data-pack="alice"] [data-shelf-state="on"]').getAttribute("aria-label")) ?? "";
       ok(filled.includes(t("discover.onShelf")), `${label}: a book on the shelf says "${t("discover.onShelf")}"`);
       ok(
-        (await vp.locator("[data-discover] [data-list-updated]").count()) > 0,
-        `${label}: Discover shows when a word list was updated`,
+        (await vp.locator("[data-discover] [data-list-updated]").count()) === 0,
+        `${label}: Discover cards do not stamp the word-list date`,
       );
       if (mobile) {
         const tabs = await vp.locator("[data-tab-bar] button").evaluateAll((list) =>

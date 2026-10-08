@@ -568,15 +568,16 @@ export function DiscoverScreen({
             />
           </div>
         </div>
-        <div className="mt-auto min-h-4 pt-1">
-          <ShelfCardStatus
-            state={state}
-            fraction={busy && item ? item.fraction : undefined}
-            error={cardError || reason}
-            note={note}
-            updated={row.updated}
-          />
-        </div>
+        {busy || cardError || reason || note ? (
+          <div className="mt-auto pt-1">
+            <ShelfCardStatus
+              state={state}
+              fraction={busy && item ? item.fraction : undefined}
+              error={cardError || reason}
+              note={note}
+            />
+          </div>
+        ) : null}
       </li>
     );
   }
@@ -589,7 +590,6 @@ export function DiscoverScreen({
       data-discover-matches={ready ? shown.length : undefined}
     >
       <div className="grid gap-3">
-        <p className="max-w-xl text-sm text-muted">{t("discover.hint")}</p>
         <div role="tablist" aria-label={t("discover.cat.list")} className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0" data-discover-categories>
           {CONTENT_CATEGORIES.map((id) => {
             const on = category === id;
@@ -630,21 +630,17 @@ export function DiscoverScreen({
             aria-label={t("discover.recentAria", { n: RECENT_UPDATE_DAYS })}
             data-discover-recent={recent.length}
           >
-            <h2 className="font-display text-lg font-semibold">{t("discover.recent")}</h2>
             <ul className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
               {recent.map((row) => (
                 <li key={row.id} className="w-16 shrink-0 sm:w-20">
                   <button
                     type="button"
-                    className="grid w-full gap-1 rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    className="block w-full rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                     data-recent-book={row.id}
                     aria-label={t("discover.recentShow", { title: row.title })}
                     onClick={() => jumpTo(row.id)}
                   >
                     <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
-                    <span className="overflow-hidden text-xs leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]" lang="en">
-                      {row.title}
-                    </span>
                   </button>
                 </li>
               ))}
@@ -652,8 +648,8 @@ export function DiscoverScreen({
           </section>
         ) : null}
         {!ready || inCategory.length > 0 ? (
-          <div className="flex flex-wrap items-center gap-2">
-            <label className="relative block min-w-0 flex-1 sm:basis-full">
+          <div className="flex items-center gap-2">
+            <label className="relative block min-w-0 flex-1">
               <span className="sr-only">{t("discover.search")}</span>
               <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted" aria-hidden />
               <input
