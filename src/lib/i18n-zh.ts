@@ -568,7 +568,7 @@ export const zh: Record<Key, string> = {
   "rv.seeAgain.other": "{n} 天后再看",
   "rv.nextCard": "下一个",
   "rv.think": "先想一想，这个词在句子里是什么意思",
-  "shelf.findBooks": "到“发现”找书",
+  "shelf.findBooks": "到发现里面添加一本书",
   "notice.link": "了解本站如何运作",
   "src.chapterN": "第 {n} 章",
   "src.open": "回到这个位置",

@@ -579,7 +579,7 @@ export const en = {
   "rv.seeAgain.other": "See again in {n} days",
   "rv.nextCard": "Next",
   "rv.think": "First, think about what this word means in the sentence",
-  "shelf.findBooks": "Find books on Discover",
+  "shelf.findBooks": "Add a book on Discover",
   "notice.link": "How this site works",
   "src.chapterN": "Chapter {n}",
   "src.open": "Go to this place",
