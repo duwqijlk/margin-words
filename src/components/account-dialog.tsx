@@ -34,10 +34,8 @@ function errorKey(error: unknown): Key {
 }
 
 function syncLabel(status: SyncStatus, t: (key: Key) => string): string {
-  if (status === "saving") return t("account.syncSaving");
   if (status === "offline") return t("account.syncOffline");
   if (status === "error") return t("account.syncError");
-  if (status === "saved") return t("account.syncSaved");
   return "";
 }
 
@@ -316,8 +314,8 @@ export function AccountDialog() {
               <X className="size-5" aria-hidden />
             </Dialog.Close>
           </div>
-          <Dialog.Description className="mt-2 text-sm text-muted">
-            {prompting ? t("account.nicknamePrompt") : signedIn ? t("account.signedDesc") : t("account.desc")}
+          <Dialog.Description className={signedIn ? "sr-only" : "mt-2 text-sm text-muted"}>
+            {prompting ? t("account.nicknamePrompt") : signedIn ? t("account.title") : t("account.desc")}
           </Dialog.Description>
 
           {prompting ? (
@@ -349,11 +347,11 @@ export function AccountDialog() {
               </button>
             </form>
           ) : signedIn ? (
-            <div className="mt-5 grid gap-4">
+            <div className="mt-5">
               <p className="text-sm font-semibold" data-account-signed-in>
                 {t("account.signedIn", { email: emailSaved })}
               </p>
-              <form className="grid gap-2" onSubmit={(event) => void onSaveNickname(event)}>
+              <form className="mt-5 grid gap-2" onSubmit={(event) => void onSaveNickname(event)}>
                 <label className="grid gap-1 text-sm font-medium" htmlFor="account-nickname-edit">
                   {t("account.nickname")}
                   <input
@@ -367,64 +365,62 @@ export function AccountDialog() {
                   />
                 </label>
                 <p className="text-xs text-muted">{t("account.nicknameHint")}</p>
-                <button
-                  type="submit"
-                  className={cn(btn.quiet, "justify-start")}
-                  disabled={busy || cleanNickname(nickname) === (nicknameSaved ?? null)}
-                  data-account-nickname-save
-                >
-                  {t("account.nicknameSave")}
-                </button>
+                {cleanNickname(nickname) !== (nicknameSaved ?? null) ? (
+                  <button type="submit" className={cn(btn.quiet, "justify-start")} disabled={busy} data-account-nickname-save>
+                    {t("account.nicknameSave")}
+                  </button>
+                ) : null}
               </form>
+              <button
+                type="button"
+                className={cn(btn.quiet, "mt-5 w-full justify-start")}
+                onClick={() => {
+                  setBusy(true);
+                  void signOut().finally(() => {
+                    setBusy(false);
+                    closeDialog();
+                  });
+                }}
+                disabled={busy}
+              >
+                {t("account.logout")}
+              </button>
               {syncLabel(sync, t) ? (
-                <p className="text-sm text-muted" data-account-sync>
+                <p className="mt-3 text-sm text-muted" data-account-sync>
                   {syncLabel(sync, t)}
                 </p>
               ) : null}
-              <section className="grid gap-1 rounded-xl border border-line px-4 py-3" data-account-privacy>
-                <h3 className="text-sm font-semibold">{t("account.privacyTitle")}</h3>
-                <p className="text-xs text-muted">{t("account.privacy")}</p>
-              </section>
-              <div className="flex flex-col gap-2 sm:flex-row">
-                <button type="button" className={btn.quiet} onClick={() => void onExport()} disabled={busy}>
-                  {t("account.export")}
-                </button>
-                <button
-                  type="button"
-                  className={btn.quiet}
-                  onClick={() => {
-                    setBusy(true);
-                    void signOut().finally(() => {
-                      setBusy(false);
-                      closeDialog();
-                    });
-                  }}
-                  disabled={busy}
-                >
-                  {t("account.logout")}
-                </button>
-              </div>
-              {deleting ? (
-                <form className="grid gap-3" onSubmit={(event) => void onDelete(event)}>
-                  <p className="text-sm text-warn">{t("account.deleteWarn")}</p>
-                  <PasswordField
-                    id="account-delete-password"
-                    label={t("account.password")}
-                    value={password}
-                    onChange={setPassword}
-                    autoComplete="current-password"
-                    show={show}
-                    onToggle={() => setShow((value) => !value)}
-                  />
-                  <button type="submit" className={btn.danger} disabled={busy}>
-                    {busy ? t("account.working") : t("account.deleteConfirm")}
+              <details className="mt-5 rounded-xl border border-line px-4 py-1 open:pb-4" data-account-more>
+                <summary className="flex min-h-11 cursor-pointer items-center text-sm font-semibold">
+                  {t("account.more")}
+                </summary>
+                <div className="grid gap-3">
+                  <button type="button" className={cn(btn.quiet, "justify-start")} onClick={() => void onExport()} disabled={busy}>
+                    {t("account.export")}
                   </button>
-                </form>
-              ) : (
-                <button type="button" className={cn(btn.ghost, "justify-start px-0 text-warn")} onClick={() => setDeleting(true)}>
-                  {t("account.delete")}
-                </button>
-              )}
+                  {deleting ? (
+                    <form className="grid gap-3" onSubmit={(event) => void onDelete(event)}>
+                      <p className="text-sm text-warn">{t("account.deleteWarn")}</p>
+                      <PasswordField
+                        id="account-delete-password"
+                        label={t("account.password")}
+                        value={password}
+                        onChange={setPassword}
+                        autoComplete="current-password"
+                        show={show}
+                        onToggle={() => setShow((value) => !value)}
+                      />
+                      <button type="submit" className={btn.danger} disabled={busy}>
+                        {busy ? t("account.working") : t("account.deleteConfirm")}
+                      </button>
+                    </form>
+                  ) : (
+                    <button type="button" className={cn(btn.ghost, "justify-start px-0 text-warn")} onClick={() => setDeleting(true)}>
+                      {t("account.delete")}
+                    </button>
+                  )}
+                </div>
+              </details>
               {problem ? (
                 <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">
                   {problem}
@@ -491,10 +487,6 @@ export function AccountDialog() {
                   resetRef={resetTurnstile}
                 />
               ) : null}
-              <section className="grid gap-1" data-account-privacy>
-                <h3 className="text-sm font-semibold">{t("account.privacyTitle")}</h3>
-                <p className="text-xs text-muted">{t("account.privacy")}</p>
-              </section>
               {problem ? (
                 <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert" data-account-error>
                   {problem}
@@ -529,7 +521,6 @@ export function AccountSection({ beforeOpen }: { beforeOpen?: () => void }) {
   return (
     <section className="mt-5 grid gap-2" aria-label={t("settings.accountTitle")} data-settings-account>
       <h3 className="text-sm font-semibold">{t("settings.accountTitle")}</h3>
-      <p className="text-xs text-muted">{t("account.privacy")}</p>
       <button
         type="button"
         className={cn(btn.quiet, "justify-start")}

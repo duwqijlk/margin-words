@@ -613,39 +613,16 @@ export function Shelf({
     />
   );
   const filtering = band !== "all" || author !== "all" || series !== "all" || (sort !== "recent" && sort !== "listed");
-  const empty = ready && books.length === 0 && !installingClassics;
 
   return (
     <div className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-10">
-      {empty ? null : (
-      <header className="flex items-end justify-between gap-3">
-        <div className="grid gap-0.5">
-          <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("shelf.title")}</h1>
-          {ready && liveBooks.length > 0 ? (
-            <p className="text-sm text-muted">{tn("count.book", liveBooks.length)}</p>
-          ) : null}
-        </div>
-        {ready && liveBooks.length > 0 ? (
-          // Books are added on Discover only: this is a door, not an import button.
-          <button
-            type="button"
-            className={btn.primary}
-            onClick={() => navigate({ kind: "discover" })}
-            data-shelf-discover
-          >
-            <Compass className="size-5" aria-hidden />
-            {t("shelf.findBooks")}
-          </button>
-        ) : null}
-      </header>
-      )}
-
       {!ready || (books.length === 0 && installingClassics) ? (
         <ShelfSkeleton />
       ) : books.length === 0 ? (
         <EmptyShelf onDiscover={() => navigate({ kind: "discover" })} />
       ) : liveBooks.length === 0 ? null : (
         <>
+          <p className="text-sm text-muted">{tn("count.book", liveBooks.length)}</p>
           {hero && !q && !filtering ? (
             <ContinueCard
               row={hero}

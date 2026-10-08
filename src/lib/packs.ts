@@ -174,7 +174,7 @@ export function parseCatalog(value: unknown): Catalog | null {
   };
 }
 
-/* ------------------------------------------------------------------ catalog address (Settings) */
+/* Optional extra catalog address in local storage. The settings screen does not edit it. */
 
 export function getCatalogUrl(): string {
   try {

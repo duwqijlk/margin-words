@@ -1,14 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useT } from "@/lib/i18n";
-import {
-  catalogUrlProblem,
-  DEFAULT_CATALOG_URL,
-  getCatalogUrl,
-  setCatalogUrl,
-} from "@/lib/packs";
-import { btn, cn, field, Segmented } from "@/components/ui";
+import { btn, cn, Segmented } from "@/components/ui";
 import { usePrefs } from "@/lib/reader-prefs";
 import { LanguageSwitch } from "@/components/language";
 import { AccountSection } from "@/components/account-dialog";
@@ -22,37 +15,15 @@ import { guideUrl } from "@/lib/guide";
 export function SettingsDialog({
   open,
   onOpenChange,
-  onSaved,
   onOpenGuide,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSaved: () => void;
   onOpenGuide: () => void;
 }) {
   const { t } = useT();
   const theme = usePrefs((state) => state.theme);
   const setPrefs = usePrefs((state) => state.set);
-  const [value, setValue] = useState("");
-  const [problem, setProblem] = useState("");
-  useEffect(() => {
-    if (open) {
-      const now = getCatalogUrl();
-      setValue(now === DEFAULT_CATALOG_URL ? "" : now);
-      setProblem("");
-    }
-  }, [open]);
-
-  function save(next: string) {
-    const bad = catalogUrlProblem(next);
-    if (bad) {
-      setProblem(t(bad));
-      return;
-    }
-    setCatalogUrl(next);
-    onSaved();
-    onOpenChange(false);
-  }
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -90,53 +61,6 @@ export function SettingsDialog({
             />
           </section>
           <AccountSection beforeOpen={() => onOpenChange(false)} />
-          <details
-            className="mt-5 rounded-xl border border-line px-4 py-1 open:pb-4"
-            data-settings-advanced
-          >
-            <summary className="flex min-h-11 cursor-pointer items-center text-sm font-semibold">
-              {t("settings.advanced")}
-            </summary>
-            <form
-              className="grid gap-3"
-              onSubmit={(event) => {
-                event.preventDefault();
-                save(value);
-              }}
-            >
-              <label className="grid gap-1 text-sm font-medium">
-                {t("settings.catalogLabel")}
-                <input
-                  className={field}
-                  value={value}
-                  onChange={(event) => {
-                    setValue(event.target.value);
-                    setProblem("");
-                  }}
-                  placeholder={t("settings.placeholder", { url: DEFAULT_CATALOG_URL })}
-                  inputMode="url"
-                  autoCapitalize="none"
-                  autoCorrect="off"
-                  spellCheck={false}
-                  aria-invalid={Boolean(problem)}
-                />
-              </label>
-              <p className="text-xs text-muted">{t("settings.help")}</p>
-              {problem ? (
-                <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">
-                  {problem}
-                </p>
-              ) : null}
-              <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-between">
-                <button type="button" className={btn.quiet} onClick={() => save("")}>
-                  {t("settings.useBuiltin")}
-                </button>
-                <button type="submit" className={btn.primary}>
-                  {t("common.save")}
-                </button>
-              </div>
-            </form>
-          </details>
           <button
             type="button"
             className={cn(btn.quiet, "mt-5 w-full justify-start")}
