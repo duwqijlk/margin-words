@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ThanksSection } from "@/components/thanks-page";
 import { btn } from "@/components/ui";
 import { trn, useT } from "@/lib/i18n";
 import { groupDigits, libraryTotals, type LibraryTotals } from "@/lib/library-totals";
@@ -29,6 +30,11 @@ export function DashboardScreen() {
   const [attempt, setAttempt] = useState(0);
   const [state, setState] = useState<LoadState>("loading");
   const [totals, setTotals] = useState<LibraryTotals | null>(null);
+
+  useEffect(() => {
+    if (window.location.hash !== "#thanks") return;
+    document.getElementById("thanks")?.scrollIntoView({ block: "start" });
+  }, []);
 
   useEffect(() => {
     let alive = true;
@@ -107,6 +113,7 @@ export function DashboardScreen() {
         ) : null}
         </>
       )}
+      <ThanksSection />
     </div>
   );
 }

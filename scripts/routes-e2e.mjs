@@ -170,9 +170,8 @@ async function routes(lang) {
   const tab = (name) => page.getByRole("button", { name, exact: true }).first();
   for (const [name, path, probe] of [
     [t("nav.discover"), "/discover", "[data-discover]"],
-    [t("nav.dashboard"), "/dashboard", "[data-dashboard]"],
     [t("nav.notebook"), "/words", "h1, h2"],
-    [t("nav.guide"), "/guide", "[data-guide-page]"],
+    [t("nav.dashboard"), "/dashboard", "[data-dashboard]"],
     [t("nav.shelf"), "/shelf", "li.book-card"],
   ]) {
     await tab(name).click();
@@ -185,12 +184,12 @@ async function routes(lang) {
   }
 
   await page.goBack();
-  await page.locator("[data-guide-page]").waitFor();
-  ok(new URL(page.url()).pathname === "/guide", `${lang}: back goes to /guide`);
+  await page.locator("[data-dashboard]").waitFor();
+  ok(new URL(page.url()).pathname === "/dashboard", `${lang}: back goes to /dashboard`);
   await page.goBack();
   ok(new URL(page.url()).pathname === "/words", `${lang}: back again goes to /words`);
   await page.goForward();
-  ok(new URL(page.url()).pathname === "/guide", `${lang}: forward goes to /guide`);
+  ok(new URL(page.url()).pathname === "/dashboard", `${lang}: forward goes to /dashboard`);
 
   for (const path of ["/discover", "/dashboard", "/guide", "/words"]) {
     await page.goto(at(path));

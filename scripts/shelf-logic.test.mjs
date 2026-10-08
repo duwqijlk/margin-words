@@ -121,7 +121,7 @@ test("a catalog cover is fetched under an address that depends on its version", 
 
 test("every top-menu page has its own address, and the address maps back", () => {
   const { parsePath, pathFor, menuOf } = router;
-  for (const [path, kind] of [["/shelf", "shelf"], ["/discover", "discover"], ["/dashboard", "dashboard"], ["/guide", "guide"], ["/thanks", "thanks"], ["/words", "words"], ["/review", "review"]]) {
+  for (const [path, kind] of [["/shelf", "shelf"], ["/discover", "discover"], ["/dashboard", "dashboard"], ["/guide", "guide"], ["/words", "words"], ["/review", "review"]]) {
     assert.equal(parsePath(path).kind, kind);
     assert.equal(pathFor(parsePath(path)), path);
   }
@@ -145,6 +145,6 @@ test("every top-menu page has its own address, and the address maps back", () =>
   assert.equal(pathFor({ kind: "dashboard" }), "/dashboard");
   assert.equal(menuOf(parsePath("/dashboard")), "dashboard");
   assert.equal(parsePath("/dashboard/x"), null);
-  assert.equal(pathFor({ kind: "thanks" }), "/thanks");
-  assert.equal(menuOf(parsePath("/thanks")), "thanks");
+  assert.equal(parsePath("/thanks").kind, "dashboard", "the old thank-you address opens the overview");
+  assert.equal(menuOf(parsePath("/thanks")), "dashboard");
 });

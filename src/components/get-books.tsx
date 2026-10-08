@@ -23,10 +23,12 @@ export function SettingsDialog({
   open,
   onOpenChange,
   onSaved,
+  onOpenGuide,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSaved: () => void;
+  onOpenGuide: () => void;
 }) {
   const { t } = useT();
   const theme = usePrefs((state) => state.theme);
@@ -135,6 +137,17 @@ export function SettingsDialog({
               </div>
             </form>
           </details>
+          <button
+            type="button"
+            className={cn(btn.quiet, "mt-5 w-full justify-start")}
+            data-settings-guide
+            onClick={() => {
+              onOpenChange(false);
+              onOpenGuide();
+            }}
+          >
+            {t("nav.guide")}
+          </button>
           <a
             className="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-accent underline"
             href={guideUrl()}

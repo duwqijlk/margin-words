@@ -3,15 +3,15 @@
  * a link to a page all work:
  *
  *   /shelf            Bookshelf        /discover         Discover
- *   /dashboard        How many books, marked words, and paragraph notes
- *   /guide            Guide (how to use the app, and about the site)
- *   /thanks           Thank-you page for supporters
+ *   /dashboard        Overview: how many books, marked words, and notes, plus the thank-you list
+ *   /guide            Guide (how to use the app, and about the site). Opened from Settings.
  *   /words            Word book (all books)
  *   /words/<bookId>   Word book of one book
  *   /review[/<id>]    Review           /read/<bookId>    the reader
  *
  * `/` and unknown paths go to /shelf. `/add` (the old add-book page) reads as Discover, the only
- * place that adds books. `/about` (the old About page) reads as the Guide. A small hand-made
+ * place that adds books. `/about` (the old About page) reads as the Guide. `/thanks` (the old
+ * thank-you page) reads as the overview, where that list now sits. A small hand-made
  * router: the app has no server and a handful of addresses, so a library would add more code
  * than it saves.
  */
@@ -22,7 +22,6 @@ export type Route =
   | { kind: "discover" }
   | { kind: "dashboard" }
   | { kind: "guide" }
-  | { kind: "thanks" }
   | { kind: "words"; bookId: string | null }
   | { kind: "review"; bookId: string | null }
   | { kind: "read"; bookId: string };
@@ -61,7 +60,8 @@ export function parsePath(pathname: string): Route | null {
     case "guide":
       return rest === undefined ? { kind: "guide" } : null;
     case "thanks":
-      return rest === undefined ? { kind: "thanks" } : null;
+      // The old thank-you page. The list is a section of the overview now.
+      return rest === undefined ? { kind: "dashboard" } : null;
     case "about":
       // The old About page is the Guide now. The app replaces this address with /guide.
       return rest === undefined ? { kind: "guide" } : null;
@@ -90,7 +90,7 @@ export function pathFor(route: Route): string {
 }
 
 /** Which top-menu page a route belongs to. */
-export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "guide" | "words" | "thanks" {
+export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "guide" | "words" {
   switch (route.kind) {
     case "discover":
       return "discover";
@@ -98,8 +98,6 @@ export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "guid
       return "dashboard";
     case "guide":
       return "guide";
-    case "thanks":
-      return "thanks";
     case "words":
     case "review":
       return "words";
