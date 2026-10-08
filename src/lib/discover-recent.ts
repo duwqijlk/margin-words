@@ -7,6 +7,12 @@
 /** How many local calendar days, including today, count as recent. */
 export const RECENT_UPDATE_DAYS = 3;
 
+/**
+ * Covers in the wide row once the page is at its full width (the `xl` breakpoint).
+ * Ten fill the same edges from `lg` until then. A phone keeps the short recent window.
+ */
+export const RECENT_ROW_WIDE = 12;
+
 const DAY = /^(\d{4})-(\d{2})-(\d{2})$/;
 const INSTANT =
   /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/;
@@ -50,16 +56,35 @@ export function isRecentUpdate(updated: string, now: Date, days = RECENT_UPDATE_
   return at >= recentWindowStart(now, days) && at <= now.getTime();
 }
 
+function byNewest<T extends { updated: string; title: string }>(a: T, b: T): number {
+  const at = updateInstant(b.updated)! - updateInstant(a.updated)!;
+  return at || a.title.localeCompare(b.title);
+}
+
 /** Newest first. Same time keeps title order. Books with no usable time are left out. */
 export function recentUpdates<T extends { updated: string; title: string }>(
   rows: readonly T[],
   now: Date,
   days = RECENT_UPDATE_DAYS,
 ): T[] {
+  return rows.filter((row) => isRecentUpdate(row.updated, now, days)).sort(byNewest);
+}
+
+/**
+ * Newest books for the wide Discover row, capped at `limit`.
+ * A future time and a blank time stay out. This is not limited to the short recent window,
+ * so a wide screen can fill the page width when only a few books changed in that window.
+ */
+export function newestUpdates<T extends { updated: string; title: string }>(
+  rows: readonly T[],
+  now: Date,
+  limit = RECENT_ROW_WIDE,
+): T[] {
   return rows
-    .filter((row) => isRecentUpdate(row.updated, now, days))
-    .sort((a, b) => {
-      const at = updateInstant(b.updated)! - updateInstant(a.updated)!;
-      return at || a.title.localeCompare(b.title);
-    });
+    .filter((row) => {
+      const at = updateInstant(row.updated);
+      return at != null && at <= now.getTime();
+    })
+    .sort(byNewest)
+    .slice(0, limit);
 }

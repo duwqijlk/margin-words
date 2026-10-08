@@ -30,7 +30,7 @@ import { useVocab } from "@/lib/vocab-store";
 import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category";
-import { recentUpdates } from "@/lib/discover-recent";
+import { newestUpdates, RECENT_ROW_WIDE, recentUpdates } from "@/lib/discover-recent";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import {
   autoUpdateWordLists,
@@ -89,6 +89,28 @@ type Row = {
   pack?: CatalogPack;
   list?: WordListPack;
 };
+
+function RecentCover({
+  row,
+  label,
+  onOpen,
+}: {
+  row: Row;
+  label: string;
+  onOpen: (id: string) => void;
+}) {
+  return (
+    <button
+      type="button"
+      className="block w-full rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      data-recent-book={row.id}
+      aria-label={label}
+      onClick={() => onOpen(row.id)}
+    >
+      <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
+    </button>
+  );
+}
 
 /**
  * Every book we have, from the books host. The two catalog files are one fetch each. Covers load as
@@ -221,6 +243,7 @@ export function DiscoverScreen({
 
   const inCategory = useMemo(() => rows.filter((item) => item.category === category), [rows, category]);
   const recent = useMemo(() => recentUpdates(inCategory, new Date()), [inCategory]);
+  const recentWide = useMemo(() => newestUpdates(inCategory, new Date()), [inCategory]);
   const authors = useMemo(
     () => [...new Set(inCategory.map((item) => item.author).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
     [inCategory],
@@ -624,21 +647,38 @@ export function DiscoverScreen({
         aria-labelledby={`discover-cat-${category}`}
         className="grid gap-5 sm:gap-6"
       >
-        {ready && recent.length > 0 ? (
-          <section className="grid min-w-0 gap-2" data-discover-recent={recent.length}>
+        {ready && (recent.length > 0 || recentWide.length > 0) ? (
+          <section
+            className={cn("grid min-w-0 gap-2", recent.length === 0 && "hidden lg:grid")}
+            data-discover-recent={recentWide.length || recent.length}
+          >
             <h2 className="text-sm font-semibold text-muted">{t("discover.recent")}</h2>
-            <ul className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
+            <ul className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0 lg:hidden">
               {recent.map((row) => (
                 <li key={row.id} className="w-16 shrink-0 sm:w-20">
-                  <button
-                    type="button"
-                    className="block w-full rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                    data-recent-book={row.id}
-                    aria-label={t("discover.recentShow", { title: row.title })}
-                    onClick={() => jumpTo(row.id)}
-                  >
-                    <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
-                  </button>
+                  <RecentCover row={row} label={t("discover.recentShow", { title: row.title })} onOpen={jumpTo} />
+                </li>
+              ))}
+            </ul>
+            <ul
+              className={cn(
+                "hidden gap-3",
+                recentWide.length >= RECENT_ROW_WIDE
+                  ? "lg:grid lg:w-full lg:grid-cols-10 xl:grid-cols-12"
+                  : "lg:flex",
+              )}
+              data-discover-recent-wide={recentWide.length}
+            >
+              {recentWide.map((row, index) => (
+                <li
+                  key={row.id}
+                  className={cn(
+                    "w-20 shrink-0",
+                    recentWide.length >= RECENT_ROW_WIDE && "min-w-0 lg:w-auto",
+                    recentWide.length >= RECENT_ROW_WIDE && index >= 10 && "max-xl:hidden",
+                  )}
+                >
+                  <RecentCover row={row} label={t("discover.recentShow", { title: row.title })} onOpen={jumpTo} />
                 </li>
               ))}
             </ul>
