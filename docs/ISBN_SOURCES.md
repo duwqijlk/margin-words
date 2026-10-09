@@ -17,6 +17,9 @@ Checked 2026-10-02. ISBN-10 values were converted to ISBN-13 after the checksum 
 | wof2 | 9780545470100 | `dc:identifier` with `opf:scheme="ISBN"`, same number on the copyright page (`978-0-545-47010-0`) |
 | wonder | 9781448119141 | `dc:identifier` with `opf:scheme="ISBN"`, same number on the copyright page |
 | narnia | 9780062245762 | Copyright page of the HarperCollins EPUB (October 2013), titled "The Chronicles of Narnia Complete 7-Book Collection with Bonus Book". That page reads: "EPUB Edition OCTOBER 2013 ISBN 9780062245762". |
+| a-storm-of-swords | 9780553106633 | `dc:identifier` with `opf:scheme="ISBN"` in the EPUB the word list names. That file has no second ISBN. |
+| a-feast-for-crows | 9780553900323 | The copyright page of that same EPUB: `eISBN: 978-0-553-90032-3`. No other ISBN is in the file. |
+| a-dance-with-dragons | 9780553905656 | `dc:identifier` with `opf:scheme="ISBN"` in that EPUB (`978-0-553-90565-6`). The same number is the file name of the cover page. |
 
 ## Left unset
 
