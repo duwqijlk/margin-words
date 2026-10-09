@@ -80,6 +80,9 @@ export const zh: Record<Key, string> = {
   "dashboard.loading": "正在统计…",
   "dashboard.error": "现在读不到书目。过一会儿再试。",
   "dashboard.retry": "再试一次",
+  "dashboard.links": "链接",
+  "dashboard.github": "GitHub",
+  "dashboard.telegram": "Telegram",
 
   /* ---- shelf */
   "shelf.title": "书架",
