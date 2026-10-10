@@ -41,7 +41,7 @@ npx wrangler d1 migrations apply margin-words --remote
 
 There is one migration file. Wrangler applies `migrations/` in filename order.
 
-There is no required secret. Passwords and session tokens are generated in the Worker. Session tokens are stored only as SHA-256 hashes. The cookie is `mw_session`, HttpOnly, SameSite=Lax, and Secure on https. It expires after 30 days.
+The account API itself needs no secret. Passwords and session tokens are generated in the Worker. Session tokens are stored only as SHA-256 hashes. The cookie is `mw_session`, HttpOnly, SameSite=Lax, and Secure on https. It expires after 30 days. Email reset needs one more secret, `RESEND_API_KEY` (see the password reset section below).
 
 Turnstile on registration and login is on in production. The public site key in `.env.production` is the world-region widget. The secret is the Pages secret `TURNSTILE_SECRET_KEY`. A production build bakes the site key into the page. The server accepts a token only when siteverify returns success on `inputread.site`, `www.inputread.site`, or `margin-words.pages.dev`, with action `signup` for register and action `login` for login. If the secret is unset, neither route requires a token.
 
@@ -76,10 +76,11 @@ Do these in order, logged in to the Cloudflare account that owns the Pages proje
    | --- | --- | --- |
    | `DB` | yes | Pages binding from `wrangler.toml` (`binding = "DB"`). Not a secret. |
    | `TURNSTILE_SECRET_KEY` | yes in production | Pages secret. When it is set, register and login require a token. |
+   | `RESEND_API_KEY` | only to send reset mail | Pages secret. When it is set, password-reset requests send mail through Resend; `/api/auth/me` reports `resetEmail: true`. Unset keeps the hook off. |
    | `VITE_TURNSTILE_SITE_KEY` | yes for a production build | Public world-region site key in `.env.production`. `npm run build` picks it up. |
    | `VITE_BOOKS_BASE` | no | Build-time only. Leave unset so production uses `https://books.inputread.site`. |
 
-   No other secret is used. Session tokens are random and stored as SHA-256 hashes. There is no JWT signing key and no email API key.
+   No other secret is used. Session tokens are random and stored as SHA-256 hashes. There is no JWT signing key.
 
    The production secret is a Pages secret. Do not put it in the repo. `npm run build` reads the public site key from `.env.production`.
 
@@ -118,7 +119,7 @@ curl -sS -b /tmp/mw.cookies https://inputread.site/api/auth/me
 curl -sS -o /dev/null -w '%{http_code}\n' -b /tmp/mw.cookies https://inputread.site/api/auth/export
 ```
 
-After delete, `/api/auth/me` is `200` with `{"user":null}`. `/api/auth/export` (and `/api/sync`) is `401`. A signed-out `GET /api/auth/me` is also `200` with `{"user":null}`, and the shelf page should still load.
+After delete, `/api/auth/me` is `200` with `{"user":null,"resetEmail":true}` (`resetEmail` is `true` in production because the Resend key is set; it does not depend on sign-in). `/api/auth/export` (and `/api/sync`) is `401`. A signed-out `GET /api/auth/me` is also `200` with `{"user":null,"resetEmail":true}`, and the shelf page should still load.
 
 ## Local development
 
@@ -150,17 +151,17 @@ npm run typecheck:functions
 
 ## Password reset hook
 
-No email provider is included. Mainland China cannot rely on Google or GitHub login, and this app does not send mail.
+Email reset is served by **Resend** (`https://api.resend.com/emails`, `Authorization: Bearer` with the Pages secret `RESEND_API_KEY`). Mail goes out from `no-reply@inputread.site`, so the domain must stay verified in the Resend dashboard (DKIM/CNAME records on Cloudflare DNS). Mainland China cannot rely on Google or GitHub login, and this app does not send any other mail.
 
-`functions/lib/email.ts` exports `deliverPasswordReset`. It returns `{ sent: false }`. Replace that function with a call to your mailer. You receive `{ email, resetUrl, token, expiresAt }`. The link is:
+`functions/lib/email.ts` exports `resendSender(apiKey)`. `handlePasswordResetRequest` uses it when `RESEND_API_KEY` is set, and the no-op `deliverPasswordReset` otherwise. You receive `{ email, resetUrl, token, expiresAt }`. The link is:
 
 ```text
 https://inputread.site/shelf?reset=<token>
 ```
 
-The page opens a "new password" form. Confirming calls `POST /api/auth/password-reset/confirm` with `{ token, password }`, stores a new hash, and signs every session out. Tokens expire after one hour. The request endpoint always answers `{ ok: true }` so it does not reveal whether the email exists. Until `deliverPasswordReset` returns `{ sent: true }`, the app tells the reader that email reset is not turned on.
+The page opens a "new password" form. Confirming calls `POST /api/auth/password-reset/confirm` with `{ token, password }`, stores a new hash, and signs every session out. Tokens expire after one hour. The request endpoint always answers `{ ok: true }` so it does not reveal whether the email exists. The login dialog shows a "send reset link" form only when `/api/auth/me` reports `resetEmail: true`; without the key it keeps the note that email reset is not turned on.
 
-Do not log the token.
+Do not log the token. If the key must rotate, put the new one in Resend and replace the Pages secret; no code change is needed.
 
 ## API
 
@@ -171,7 +172,7 @@ All routes are same-origin. The service worker does not answer requests, so `/ap
 | POST | `/api/auth/register` | `{ email, password, turnstileToken? }` |
 | POST | `/api/auth/login` | `{ email, password, turnstileToken? }` |
 | POST | `/api/auth/logout` | clears the cookie |
-| GET | `/api/auth/me` | `200` and `{ user }` when signed in, `200` and `{ user: null }` when signed out. `user.nickname` is a string or null |
+| GET | `/api/auth/me` | `200` and `{ user, resetEmail }` when signed in, `200` and `{ user: null, resetEmail }` when signed out. `user.nickname` is a string or null. `resetEmail` is the global flag for the reset-mail provider |
 | POST | `/api/auth/nickname` | `{ nickname }` saves a 1–16 character label. Not unique |
 | POST | `/api/auth/delete` | `{ password }` deletes every row for that user |
 | GET | `/api/auth/export` | email, created time, nickname, and sync items (no password hash) |

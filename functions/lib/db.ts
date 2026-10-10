@@ -17,6 +17,8 @@ export type Env = {
   DB: D1Database;
   /** When set, register requires a Turnstile token. Unset means the check is off. */
   TURNSTILE_SECRET_KEY?: string;
+  /** When set, password-reset requests send mail through Resend. Unset keeps the hook off. */
+  RESEND_API_KEY?: string;
 };
 
 export type UserRow = {

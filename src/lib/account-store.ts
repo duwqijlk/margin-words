@@ -15,6 +15,8 @@ type AccountState = {
   dialogOpen: boolean;
   mode: AccountMode;
   resetToken: string;
+  /** The server offers email reset (Resend key set on the account API). */
+  resetEmail: boolean;
   patch: (partial: Partial<Omit<AccountState, "patch" | "openDialog" | "closeDialog">>) => void;
   openDialog: (mode?: AccountMode, resetToken?: string) => void;
   closeDialog: () => void;
@@ -29,6 +31,7 @@ export const useAccount = create<AccountState>()((set) => ({
   dialogOpen: false,
   mode: "login",
   resetToken: "",
+  resetEmail: false,
   patch: (partial) => set(partial),
   openDialog: (mode = "login", resetToken = "") =>
     set({ dialogOpen: true, mode, resetToken: resetToken || "" }),

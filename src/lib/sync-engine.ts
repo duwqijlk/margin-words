@@ -456,6 +456,7 @@ async function refreshSession() {
     const payload = await accountRequest("/api/auth/me");
     if (epoch !== sessionEpoch) return;
     const fields = userFields(payload);
+    useAccount.getState().patch({ resetEmail: payload.resetEmail === true });
     if (fields.email) {
       rememberEmail(fields.email, fields.nickname);
       await flush();
@@ -609,4 +610,8 @@ export async function exportAccount(): Promise<void> {
 
 export async function confirmPasswordReset(token: string, password: string): Promise<void> {
   await accountRequest("/api/auth/password-reset/confirm", { token, password });
+}
+
+export async function requestPasswordReset(email: string): Promise<void> {
+  await accountRequest("/api/auth/password-reset/request", { email });
 }
