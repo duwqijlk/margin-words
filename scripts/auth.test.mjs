@@ -420,6 +420,51 @@ test("password reset stores a token for the hook and then replaces the password"
   assert.equal(loggedIn.status, 200);
 });
 
+test("password reset request requires a turnstile token when the secret is set", async () => {
+  const db = openDb();
+  const created = await call(handleRegister, envOf(db), {
+    body: { email: "reader@example.com", password: "correct horse" },
+  });
+  assert.equal(created.status, 201);
+  const env = envOf(db, { TURNSTILE_SECRET_KEY: "secret" });
+  const missing = await call(handlePasswordResetRequest, env, {
+    body: { email: "reader@example.com" },
+  });
+  assert.equal(missing.status, 403);
+  assert.equal((await missing.json()).error, "turnstile");
+
+  const ok = await handlePasswordResetRequest(
+    new Request("http://localhost/api/auth/password-reset/request", {
+      method: "POST",
+      body: JSON.stringify({ email: "reader@example.com", turnstileToken: "token-token-token" }),
+    }),
+    env,
+    {
+      now: NOW,
+      fetch: async () =>
+        new Response(JSON.stringify({ success: true, action: "reset", hostname: "inputread.site" }), { status: 200 }),
+      sendReset: async () => ({ sent: false }),
+    },
+  );
+  assert.equal(ok.status, 200);
+  assert.equal((await ok.json()).ok, true);
+
+  const wrongAction = await handlePasswordResetRequest(
+    new Request("http://localhost/api/auth/password-reset/request", {
+      method: "POST",
+      body: JSON.stringify({ email: "reader@example.com", turnstileToken: "token-token-token" }),
+    }),
+    env,
+    {
+      now: NOW,
+      fetch: async () =>
+        new Response(JSON.stringify({ success: true, action: "login", hostname: "inputread.site" }), { status: 200 }),
+    },
+  );
+  assert.equal(wrongAction.status, 403);
+  assert.equal((await wrongAction.json()).error, "turnstile");
+});
+
 test("sync merges word blobs and keeps the newer shelf card", async () => {
   const db = openDb();
   const env = envOf(db);

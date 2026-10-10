@@ -612,6 +612,6 @@ export async function confirmPasswordReset(token: string, password: string): Pro
   await accountRequest("/api/auth/password-reset/confirm", { token, password });
 }
 
-export async function requestPasswordReset(email: string): Promise<void> {
-  await accountRequest("/api/auth/password-reset/request", { email });
+export async function requestPasswordReset(email: string, turnstileToken?: string): Promise<void> {
+  await accountRequest("/api/auth/password-reset/request", { email, turnstileToken });
 }
