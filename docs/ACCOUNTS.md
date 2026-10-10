@@ -43,9 +43,9 @@ There is one migration file. Wrangler applies `migrations/` in filename order.
 
 The account API itself needs no secret. Passwords and session tokens are generated in the Worker. Session tokens are stored only as SHA-256 hashes. The cookie is `mw_session`, HttpOnly, SameSite=Lax, and Secure on https. It expires after 30 days. Email reset needs one more secret, `RESEND_API_KEY` (see the password reset section below).
 
-Turnstile on registration and login is on in production. The public site key in `.env.production` is the world-region widget. The secret is the Pages secret `TURNSTILE_SECRET_KEY`. A production build bakes the site key into the page. The server accepts a token only when siteverify returns success on `inputread.site`, `www.inputread.site`, or `margin-words.pages.dev`, with action `signup` for register and action `login` for login. If the secret is unset, neither route requires a token.
+Turnstile on registration, login, and the password-reset request is on in production. The public site key in `.env.production` is the world-region widget. The secret is the Pages secret `TURNSTILE_SECRET_KEY`. A production build bakes the site key into the page. The server accepts a token only when siteverify returns success on `inputread.site`, `www.inputread.site`, or `margin-words.pages.dev`, with action `signup` for register, `login` for login, and `reset` for the password-reset request. If the secret is unset, none of the routes require a token.
 
-The widget region is `world`. Readers in mainland China can stay on the widget's own Troubleshoot screen, because that challenge host does not finish there. This account cannot create a `china` widget (`not entitled` for region `china`), and a world site key loaded from `https://challenges.cloudflare-cn.com/turnstile/v0/api.js` is rejected. Rate limits on register stay in place.
+The widget region is `world`. Readers in mainland China can stay on the widget's own Troubleshoot screen, because that challenge host does not finish there. This account cannot create a `china` widget (`not entitled` for region `china`), and a world site key loaded from `https://challenges.cloudflare-cn.com/turnstile/v0/api.js` is rejected. Rate limits on register and the reset request stay in place.
 
 Deploy (owner, not this repo's automation). `npm run build` with no `VITE_BOOKS_BASE` keeps book files on `https://books.inputread.site`. Do not deploy a `build:local` folder.
 
@@ -176,7 +176,7 @@ All routes are same-origin. The service worker does not answer requests, so `/ap
 | POST | `/api/auth/nickname` | `{ nickname }` saves a 1–16 character label. Not unique |
 | POST | `/api/auth/delete` | `{ password }` deletes every row for that user |
 | GET | `/api/auth/export` | email, created time, nickname, and sync items (no password hash) |
-| POST | `/api/auth/password-reset/request` | `{ email }` |
+| POST | `/api/auth/password-reset/request` | `{ email, turnstileToken? }` |
 | POST | `/api/auth/password-reset/confirm` | `{ token, password }` |
 | GET | `/api/sync` | all items (optional `?since=` unix ms) |
 | POST | `/api/sync` | `{ items: [...] }` merges and returns the stored rows |

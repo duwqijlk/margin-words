@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export type AccountPhase = "unknown" | "out" | "in";
 export type SyncStatus = "idle" | "saving" | "saved" | "offline" | "error";
-export type AccountMode = "login" | "register" | "reset";
+export type AccountMode = "login" | "register" | "forgot" | "reset";
 
 type AccountState = {
   phase: AccountPhase;

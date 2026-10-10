@@ -42,17 +42,19 @@ function syncLabel(status: SyncStatus, t: (key: Key) => string): string {
 
 function Turnstile({
   action,
+  id,
   onToken,
   resetRef,
 }: {
-  action: "signup" | "login";
+  action: "signup" | "login" | "reset";
+  id: string;
   onToken: (token: string) => void;
   resetRef: { current: () => void };
 }) {
   const widgetId = useRef<string | undefined>(undefined);
   useEffect(() => {
     if (!SITE_KEY) return;
-    const holder = document.getElementById("mw-turnstile");
+    const holder = document.getElementById(id);
     if (!holder) return;
     let cancelled = false;
     const clear = () => onToken("");
@@ -85,9 +87,9 @@ function Turnstile({
       if (widgetId.current) window.turnstile?.remove(widgetId.current);
       widgetId.current = undefined;
     };
-  }, [action, onToken, resetRef]);
+  }, [action, id, onToken, resetRef]);
   if (!SITE_KEY) return null;
-  return <div id="mw-turnstile" className="min-h-16" data-turnstile />;
+  return <div id={id} className="min-h-16" data-turnstile />;
 }
 
 declare global {
@@ -170,10 +172,19 @@ export function AccountDialog() {
   const [busy, setBusy] = useState(false);
   const [problem, setProblem] = useState("");
   const [note, setNote] = useState("");
-  const [forgot, setForgot] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
   const [forgotBusy, setForgotBusy] = useState(false);
   const [forgotNote, setForgotNote] = useState("");
+  const [forgotTurnstileToken, setForgotTurnstileToken] = useState("");
+  const resetForgotTurnstile = useRef<() => void>(() => {});
+
+  useEffect(() => {
+    if (mode === "forgot") {
+      setForgotNote("");
+      setForgotTurnstileToken("");
+      setForgotEmail(email);
+    }
+  }, [mode, email]);
   const [deleting, setDeleting] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState("");
   const [nickname, setNickname] = useState("");
@@ -186,10 +197,10 @@ export function AccountDialog() {
     setShow(false);
     setProblem("");
     setNote("");
-    setForgot(false);
     setForgotEmail("");
     setForgotBusy(false);
     setForgotNote("");
+    setForgotTurnstileToken("");
     setDeleting(false);
     setBusy(false);
     setTurnstileToken("");
@@ -249,21 +260,29 @@ export function AccountDialog() {
     }
   }
 
-  async function onForgotSend() {
+  async function onForgotSubmit(event: FormEvent) {
+    event.preventDefault();
     if (forgotBusy) return;
     const address = forgotEmail.trim().toLowerCase();
+    setProblem("");
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)) {
       setProblem(t("account.err.email"));
+      return;
+    }
+    if (SITE_KEY && !forgotTurnstileToken) {
+      setProblem(t("account.err.turnstile"));
       return;
     }
     setForgotBusy(true);
     setForgotNote("");
     try {
-      await requestPasswordReset(address);
+      await requestPasswordReset(address, forgotTurnstileToken || undefined);
       setForgotNote(t("account.forgotSent"));
     } catch (error) {
       setProblem(t(errorKey(error)));
     } finally {
+      setForgotTurnstileToken("");
+      resetForgotTurnstile.current();
       setForgotBusy(false);
     }
   }
@@ -335,14 +354,26 @@ export function AccountDialog() {
         >
           <div className="flex items-start justify-between gap-3">
             <Dialog.Title className="font-display text-2xl font-semibold">
-              {mode === "reset" ? t("account.resetTitle") : prompting ? t("account.nicknamePromptTitle") : t("account.title")}
+              {mode === "reset"
+                ? t("account.resetTitle")
+                : mode === "forgot"
+                  ? t("account.forgotTitle")
+                  : prompting
+                    ? t("account.nicknamePromptTitle")
+                    : t("account.title")}
             </Dialog.Title>
             <Dialog.Close className={cn(btn.icon, "-mt-1 -mr-2")} aria-label={t("common.close")}>
               <X className="size-5" aria-hidden />
             </Dialog.Close>
           </div>
           <Dialog.Description className={signedIn ? "sr-only" : "mt-2 text-sm text-muted"}>
-            {prompting ? t("account.nicknamePrompt") : signedIn ? t("account.title") : t("account.desc")}
+            {prompting
+              ? t("account.nicknamePrompt")
+              : signedIn
+                ? t("account.title")
+                : mode === "forgot"
+                  ? t("account.forgotIntro")
+                  : t("account.desc")}
           </Dialog.Description>
 
           {prompting ? (
@@ -455,6 +486,43 @@ export function AccountDialog() {
               ) : null}
               {note ? <p className="text-sm text-accent">{note}</p> : null}
             </div>
+          ) : mode === "forgot" ? (
+            <form className="mt-5 grid gap-3" onSubmit={(event) => void onForgotSubmit(event)} data-account-forgot>
+              <button type="button" className={cn(btn.ghost, "justify-start px-0")} onClick={() => setMode("login")} data-account-forgot-back>
+                {t("account.backToLogin")}
+              </button>
+              <label className="grid gap-1 text-sm font-medium" htmlFor="account-forgot-email">
+                {t("account.forgotEmail")}
+                <input
+                  id="account-forgot-email"
+                  className={field}
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  value={forgotEmail}
+                  onChange={(event) => setForgotEmail(event.target.value)}
+                  data-account-forgot-email
+                />
+              </label>
+              {problem ? (
+                <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert" data-account-error>
+                  {problem}
+                </p>
+              ) : null}
+              <Turnstile
+                action="reset"
+                id="mw-turnstile-reset"
+                onToken={setForgotTurnstileToken}
+                resetRef={resetForgotTurnstile}
+              />
+              {forgotNote ? <p className="text-sm text-accent">{forgotNote}</p> : null}
+              <button type="submit" className={btn.primary} disabled={forgotBusy} data-account-forgot-send>
+                {forgotBusy ? t("account.working") : t("account.forgotSend")}
+              </button>
+            </form>
           ) : (
             <form className="mt-5 grid gap-3" onSubmit={(event) => void onSubmit(event)}>
               {mode === "reset" ? null : (
@@ -510,6 +578,7 @@ export function AccountDialog() {
                 <Turnstile
                   key={mode}
                   action={mode === "register" ? "signup" : "login"}
+                  id="mw-turnstile"
                   onToken={setTurnstileToken}
                   resetRef={resetTurnstile}
                 />
@@ -524,41 +593,13 @@ export function AccountDialog() {
                 {busy ? t("account.working") : mode === "reset" ? t("account.resetSubmit") : mode === "register" ? t("account.register") : t("account.login")}
               </button>
               {mode === "login" ? (
-                <div className="grid gap-1">
-                  <button type="button" className={cn(btn.ghost, "justify-start px-0")} onClick={() => setForgot((value) => !value)}>
+                resetEmailReady ? (
+                  <button type="button" className={cn(btn.ghost, "justify-start px-0")} onClick={() => setMode("forgot")} data-account-forgot-open>
                     {t("account.forgot")}
                   </button>
-                  {forgot ? (
-                    resetEmailReady ? (
-                      <div className="grid gap-2" data-account-forgot>
-                        <input
-                          className={cn(field, "w-full")}
-                          type="email"
-                          value={forgotEmail}
-                          placeholder={t("account.forgotEmail")}
-                          aria-label={t("account.forgotEmail")}
-                          autoComplete="email"
-                          onChange={(event) => setForgotEmail(event.target.value)}
-                          onKeyDown={(event) => {
-                            if (event.key === "Enter") void onForgotSend();
-                          }}
-                          data-account-forgot-email
-                        />
-                        <button
-                          type="button"
-                          className={cn(btn.quiet, "justify-start px-0")}
-                          disabled={forgotBusy}
-                          onClick={() => void onForgotSend()}
-                        >
-                          {forgotBusy ? t("account.working") : t("account.forgotSend")}
-                        </button>
-                        {forgotNote ? <p className="text-xs text-muted">{forgotNote}</p> : null}
-                      </div>
-                    ) : (
-                      <p className="text-xs text-muted">{t("account.forgotBody")}</p>
-                    )
-                  ) : null}
-                </div>
+                ) : (
+                  <p className="text-xs text-muted">{t("account.forgotBody")}</p>
+                )
               ) : null}
             </form>
           )}

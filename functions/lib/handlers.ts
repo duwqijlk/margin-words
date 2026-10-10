@@ -185,6 +185,8 @@ export async function handlePasswordResetRequest(
     const email = normalizeEmail(body.email);
     if (!email) throw new HttpError(400, "email");
     await assertRateLimit(env.DB, "reset", clientIp(request), email, now);
+    const human = await verifyTurnstile(env.TURNSTILE_SECRET_KEY, body.turnstileToken, clientIp(request), "reset", options?.fetch);
+    if (!human) throw new HttpError(403, "turnstile");
     const user = await env.DB.prepare("SELECT id FROM users WHERE email = ?").bind(email).first<{ id: string }>();
     // Always the same response. The hook decides whether a message is actually sent.
     if (user) {

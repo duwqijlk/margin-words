@@ -1,12 +1,14 @@
-/** Login and registration check. Off unless TURNSTILE_SECRET_KEY is set. */
+/** Login, registration, and the password-reset request check. Off unless TURNSTILE_SECRET_KEY is set. */
 
 const ALLOWED_HOSTS = new Set(["inputread.site", "www.inputread.site", "margin-words.pages.dev"]);
+
+export type TurnstileAction = "signup" | "login" | "reset";
 
 export async function verifyTurnstile(
   secret: string | undefined,
   token: unknown,
   remoteIp: string,
-  action: "signup" | "login",
+  action: TurnstileAction,
   fetchImpl: typeof fetch = fetch,
 ): Promise<boolean> {
   if (!secret) return true;
