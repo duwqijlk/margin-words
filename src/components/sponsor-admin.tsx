@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAccount } from "@/lib/account-store";
-import { askToSignIn } from "@/lib/can-add";
 import { useT, type Key } from "@/lib/i18n";
-import { formatShanghaiDate, formatSponsorUsd, isSponsorAdmin, isSponsorMethod, parseUsdToCents, type SponsorMethod } from "@/lib/sponsor";
+import { formatShanghaiDate, formatSponsorUsd, isSponsorMethod, parseUsdToCents, type SponsorMethod } from "@/lib/sponsor";
 import { accountRequest } from "@/lib/sync-engine";
 import { btn, cn, field } from "@/components/ui";
 
@@ -51,19 +49,15 @@ function methodLabel(method: string, t: (key: Key) => string): string {
   return isSponsorMethod(method) ? t(METHOD_KEY[method]) : method;
 }
 
-/** The admin list of sponsorship requests. Anyone else sees a short refusal. */
-export function SponsorAdmin() {
+/** The gift-request tab on the admin page. The page itself checks the role. */
+export function SponsorTab() {
   const { t } = useT();
-  const phase = useAccount((state) => state.phase);
-  const email = useAccount((state) => state.email);
-  const admin = phase === "in" && isSponsorAdmin(email);
   const [rows, setRows] = useState<RequestRow[] | null>(null);
   const [error, setError] = useState<Key | null>(null);
   const [amounts, setAmounts] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState("");
 
   useEffect(() => {
-    if (!admin) return;
     let alive = true;
     void accountRequest("/api/admin/sponsorships")
       .then((payload) => {
@@ -75,7 +69,7 @@ export function SponsorAdmin() {
     return () => {
       alive = false;
     };
-  }, [admin]);
+  }, []);
 
   async function act(id: string, action: "email" | "list" | "close", amount?: string) {
     setBusy(id);
@@ -93,20 +87,8 @@ export function SponsorAdmin() {
   }
 
   return (
-    <div className="mx-auto grid w-full max-w-3xl gap-4 px-4 py-6 sm:px-6 sm:py-10" data-sponsor-admin>
-      <h1 className="font-display text-3xl font-semibold">{t("admin.title")}</h1>
-      {phase === "unknown" ? (
-        <p>{t("dashboard.loading")}</p>
-      ) : phase !== "in" ? (
-        <div className="grid justify-items-start gap-3">
-          <p>{t("admin.only")}</p>
-          <button type="button" className={btn.primary} onClick={() => askToSignIn()}>
-            {t("admin.signIn")}
-          </button>
-        </div>
-      ) : !admin ? (
-        <p>{t("admin.only")}</p>
-      ) : error && rows === null ? (
+    <div className="grid gap-4" data-sponsor-admin>
+      {error && rows === null ? (
         <p role="alert">{t(error)}</p>
       ) : rows === null ? (
         <p>{t("dashboard.loading")}</p>

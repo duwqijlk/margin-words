@@ -1,5 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
+import { useAccount } from "@/lib/account-store";
 import { loadPackRecord } from "@/lib/book-db";
 import { EDITION_MATCH_OK } from "@/lib/edition-match";
 import { errorText, useT } from "@/lib/i18n";
@@ -13,7 +14,8 @@ import type { SpineNameWarning } from "@/lib/epub";
 
 /**
  * Ask for the reader's own e-book of a word-list title already on the shelf.
- * A match under 80% is shown before the book is saved.
+ * A match under 80% is shown before the book is saved. A trusted reader can
+ * pull the file from the private library instead of pairing their own.
  */
 export function OwnEpubDialog({
   bookId,
@@ -25,6 +27,8 @@ export function OwnEpubDialog({
   onSaved: (bookId: string, warnings: SpineNameWarning[]) => void;
 }) {
   const { t } = useT();
+  const role = useAccount((state) => state.role);
+  const trusted = role === "trusted" || role === "admin";
   const shelfIsbn = useVocab((state) => state.books.find((item) => item.id === bookId)?.isbn ?? "");
   const [pack, setPack] = useState<WordListPack | null>(null);
   const [pending, setPending] = useState<PairPreview | null>(null);
@@ -59,6 +63,28 @@ export function OwnEpubDialog({
     setError("");
     setBusy(true);
     try {
+      const glossaryText = await fetchWordList(pack);
+      setPending(await previewOwnEpub(file, pack, glossaryText));
+    } catch (reason) {
+      setError(errorText(reason, "err.bookAddFailed"));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function onLibrary() {
+    if (!pack) return;
+    setError("");
+    setBusy(true);
+    try {
+      const response = await fetch(`/api/book/${encodeURIComponent(pack.id)}/epub`, { cache: "no-store" });
+      if (!response.ok) {
+        if (response.status === 404) throw new Error(t("err.libraryMissing"));
+        if (response.status === 429) throw new Error(t("account.err.rate"));
+        throw new Error(t("err.bookAddFailed"));
+      }
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      const file = new File([bytes], `${pack.id}.epub`, { type: "application/epub+zip" });
       const glossaryText = await fetchWordList(pack);
       setPending(await previewOwnEpub(file, pack, glossaryText));
     } catch (reason) {
@@ -119,21 +145,34 @@ export function OwnEpubDialog({
                 {t("lists.add")}
               </button>
             ) : (
-              <label className={cn(btn.primary, busy || !pack ? "pointer-events-none opacity-60" : "")}>
-                {busy ? t("lists.working") : t("discover.addEpub")}
-                <input
-                  data-own-epub
-                  className="sr-only"
-                  type="file"
-                  accept=".epub,application/epub+zip"
-                  disabled={!pack || busy}
-                  onChange={(event) => {
-                    const file = event.target.files?.[0];
-                    event.target.value = "";
-                    void onFile(file);
-                  }}
-                />
-              </label>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                {trusted && pack ? (
+                  <button
+                    type="button"
+                    className={cn(btn.quiet, busy ? "pointer-events-none opacity-60" : "")}
+                    disabled={busy || !pack}
+                    data-library-open
+                    onClick={() => void onLibrary()}
+                  >
+                    {busy ? t("lists.working") : t("lists.openLibrary")}
+                  </button>
+                ) : null}
+                <label className={cn(btn.primary, busy || !pack ? "pointer-events-none opacity-60" : "")}>
+                  {busy ? t("lists.working") : t("discover.addEpub")}
+                  <input
+                    data-own-epub
+                    className="sr-only"
+                    type="file"
+                    accept=".epub,application/epub+zip"
+                    disabled={!pack || busy}
+                    onChange={(event) => {
+                      const file = event.target.files?.[0];
+                      event.target.value = "";
+                      void onFile(file);
+                    }}
+                  />
+                </label>
+              </div>
             )}
           </div>
         </Dialog.Content>

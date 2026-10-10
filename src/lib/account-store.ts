@@ -3,12 +3,16 @@ import { create } from "zustand";
 export type AccountPhase = "unknown" | "out" | "in";
 export type SyncStatus = "idle" | "saving" | "saved" | "offline" | "error";
 export type AccountMode = "login" | "register" | "forgot" | "reset";
+/** Mirrors the server role: "admin" owns the site, "trusted" may open private-library EPUBs. */
+export type AccountRole = "user" | "trusted" | "admin";
 
 type AccountState = {
   phase: AccountPhase;
   email: string | null;
   /** Chosen label. Null until the reader saves one. Not unique. */
   nickname: string | null;
+  /** From /api/auth/me. "user" until the server says otherwise. */
+  role: AccountRole;
   /** Set only right after a new account is created, so the dialog asks for a nickname. */
   nicknamePrompt: boolean;
   sync: SyncStatus;
@@ -26,6 +30,7 @@ export const useAccount = create<AccountState>()((set) => ({
   phase: "unknown",
   email: null,
   nickname: null,
+  role: "user",
   nicknamePrompt: false,
   sync: "idle",
   dialogOpen: false,
