@@ -20,6 +20,9 @@ import {
   handleSyncPull,
   handleSyncPush,
 } from "../functions/lib/handlers.ts";
+import { handleList, handleSetRole } from "../functions/api/admin/users.ts";
+import { handlePublish } from "../functions/api/admin/word-lists.ts";
+import { handleEpub } from "../functions/api/book/[id]/epub.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const NOW = 1_700_000_000_000;
@@ -27,7 +30,7 @@ const NOW = 1_700_000_000_000;
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  for (const name of ["0001_init.sql", "0002_nickname.sql"]) {
+  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql"]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
   return {
@@ -608,4 +611,204 @@ test("a nickname is optional, can be shared by two accounts, and is not a passwo
 
   const signedOut = await call(handleNickname, env, { body: { nickname: "Mina" } });
   assert.equal(signedOut.status, 401);
+});
+
+test("admin users: gate, search, grant trusted, admin locked", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const admin = await call(handleRegister, env, {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  assert.equal(admin.status, 201);
+  const adminCookie = cookieHeader(admin);
+  const adminId = (await admin.json()).user.id;
+  const reader = await call(handleRegister, env, {
+    body: { email: "reader@example.com", password: "correct horse" },
+  });
+  const readerCookie = cookieHeader(reader);
+
+  const refused = await call(handleList, env, { method: "GET", cookie: readerCookie });
+  assert.equal(refused.status, 403);
+  assert.equal((await refused.json()).error, "forbidden");
+
+  const listed = await call(handleList, env, {
+    method: "GET",
+    path: "/api/admin/users?q=reader",
+    cookie: adminCookie,
+  });
+  assert.equal(listed.status, 200);
+  const payload = await listed.json();
+  assert.equal(payload.total, 1);
+  assert.equal(payload.users[0].email, "reader@example.com");
+  assert.equal(payload.users[0].role, "user");
+
+  const granted = await call(handleSetRole, env, {
+    body: { id: payload.users[0].id, role: "trusted" },
+    cookie: adminCookie,
+  });
+  assert.equal(granted.status, 200);
+  assert.equal((await granted.json()).user.role, "trusted");
+
+  const revoked = await call(handleSetRole, env, {
+    body: { id: payload.users[0].id, role: "user" },
+    cookie: adminCookie,
+  });
+  assert.equal((await revoked.json()).user.role, "user");
+
+  const locked = await call(handleSetRole, env, {
+    body: { id: adminId, role: "user" },
+    cookie: adminCookie,
+  });
+  assert.equal(locked.status, 400);
+  assert.equal((await locked.json()).error, "admin-locked");
+});
+
+function stubBucket(files) {
+  return {
+    async get(key) {
+      const value = files.get(key);
+      if (!value) return null;
+      const copy = value.slice();
+      return {
+        body: new Blob([copy]).stream(),
+        arrayBuffer: async () => copy.buffer,
+        size: copy.byteLength,
+      };
+    },
+    async put(key, value) {
+      const bytes = typeof value === "string"
+        ? new TextEncoder().encode(value)
+        : value instanceof Uint8Array
+          ? value
+          : new Uint8Array(value);
+      files.set(key, bytes);
+      return {};
+    },
+  };
+}
+
+function raw(path, cookie, body) {
+  const headers = new Headers();
+  if (cookie) headers.set("cookie", cookie);
+  if (body !== undefined) headers.set("content-type", "application/json");
+  return new Request(`http://localhost${path}`, {
+    method: body === undefined ? "GET" : "POST",
+    headers,
+    body,
+  });
+}
+
+test("word-list publish: hash computed once, other rows untouched, unknown id refused", async () => {
+  const db = openDb();
+  await call(handleRegister, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const login = await call(handleLogin, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const adminCookie = cookieHeader(login);
+  const files = new Map();
+  const liveCatalog = {
+    format: 1,
+    name: "Word lists",
+    updated: "2026-10-01T00:00:00.000Z",
+    lists: [
+      {
+        id: "charlie",
+        title: "Charlie",
+        words: 10,
+        glossary: { url: "charlie/glossary.json", bytes: 5, sha256: "aaa" },
+        updated: "2026-10-01T00:00:00+00:00",
+        paragraphs: 1,
+        sentences: 1,
+        phrases: 1,
+      },
+      {
+        id: "george",
+        title: "George",
+        words: 20,
+        glossary: { url: "george/glossary.json", bytes: 6, sha256: "bbb" },
+        updated: "2026-10-01T00:00:00+00:00",
+        paragraphs: 2,
+        sentences: 2,
+        phrases: 2,
+      },
+    ],
+  };
+  files.set("word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(liveCatalog, null, 1)}\n`));
+  const env = envOf(db, { BOOKS: stubBucket(files) });
+
+  const glossary = JSON.stringify({
+    count: 3,
+    glossary: { a: {}, b: {}, c: {} },
+    paragraphs: [1, 2],
+    sentences: [1],
+    phrases: { x: 1 },
+  });
+  const published = await handlePublish(
+    raw("/api/admin/word-lists?id=charlie", adminCookie, glossary),
+    env,
+    { now: NOW },
+  );
+  assert.equal(published.status, 200);
+  const { row } = await published.json();
+  assert.equal(row.words, 3);
+  assert.equal(row.paragraphs, 2);
+  assert.equal(row.sentences, 1);
+  assert.equal(row.phrases, 1);
+
+  const storedCatalog = JSON.parse(new TextDecoder().decode(files.get("word-lists/catalog.json")));
+  const storedRow = storedCatalog.lists.find((item) => item.id === "charlie");
+  assert.equal(storedRow.glossary.sha256, row.glossary.sha256);
+  assert.equal(storedRow.glossary.bytes, new TextEncoder().encode(glossary).length);
+  assert.equal(new TextDecoder().decode(files.get("word-lists/charlie/glossary.json")), glossary);
+  assert.equal(
+    storedCatalog.lists.find((item) => item.id === "george").glossary.sha256,
+    "bbb",
+  );
+
+  const unknown = await handlePublish(
+    raw("/api/admin/word-lists?id=nope", adminCookie, glossary),
+    env,
+    { now: NOW },
+  );
+  assert.equal(unknown.status, 404);
+  assert.equal((await unknown.json()).error, "unknown-id");
+});
+
+test("private epub: user denied, trusted allowed and logged, missing book 404", async () => {
+  const db = openDb();
+  const reader = await call(handleRegister, envOf(db), {
+    body: { email: "reader@example.com", password: "correct horse" },
+  });
+  const readerCookie = cookieHeader(reader);
+  const readerId = (await reader.json()).user.id;
+  // grant trusted through the handler (admin cookie needed)
+  const admin = await call(handleRegister, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const adminCookie = cookieHeader(admin);
+  const listed = await call(handleList, envOf(db), { method: "GET", cookie: adminCookie });
+  const target = (await listed.json()).users.find((item) => item.email === "reader@example.com");
+  await call(handleSetRole, envOf(db), { body: { id: target.id, role: "trusted" }, cookie: adminCookie });
+
+  const files = new Map([["great-book/book.epub", new Uint8Array([1, 2, 3])]]);
+  const env = envOf(db, { PRIVATE: stubBucket(files) });
+
+  const denied = await handleEpub(raw("/api/book/great-book/epub", ""), env, "great-book", { now: NOW });
+  assert.equal(denied.status, 401);
+
+  const reLogin = await call(handleLogin, envOf(db), {
+    body: { email: "reader@example.com", password: "correct horse" },
+  });
+  const freshCookie = cookieHeader(reLogin);
+  const ok = await handleEpub(raw("/api/book/great-book/epub", freshCookie), env, "great-book", { now: NOW });
+  assert.equal(ok.status, 200);
+  assert.equal(new Uint8Array(await ok.arrayBuffer())[0], 1);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM book_downloads").get().n, 1);
+
+  const missing = await handleEpub(raw("/api/book/no-such-book/epub", freshCookie), env, "no-such-book", { now: NOW });
+  assert.equal(missing.status, 404);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM book_downloads").get().n, 1);
+  assert.equal(readerId !== "", true);
 });

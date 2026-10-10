@@ -1,5 +1,6 @@
 import { cleanNickname } from "../../src/lib/nickname.ts";
 import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merge.ts";
+import { roleOf } from "./admin.ts";
 import type { Env, SyncRow, UserRow } from "./db.ts";
 import { deliverPasswordReset, resendSender, type PasswordResetSender } from "./email.ts";
 import {
@@ -32,9 +33,9 @@ function withCookie(body: unknown, status: number, cookie: string): Response {
   return json(body, status, headers);
 }
 
-function publicUser(row: Pick<UserRow, "id" | "email" | "created_at" | "nickname">) {
+function publicUser(row: Pick<UserRow, "id" | "email" | "created_at" | "nickname" | "role">) {
   const nickname = typeof row.nickname === "string" && row.nickname ? row.nickname : null;
-  return { id: row.id, email: row.email, createdAt: row.created_at, nickname };
+  return { id: row.id, email: row.email, createdAt: row.created_at, nickname, role: roleOf(row) };
 }
 
 export async function handleRegister(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
@@ -63,7 +64,7 @@ export async function handleRegister(request: Request, env: Env, options?: Handl
       throw error;
     }
     const cookie = await createSession(env.DB, id, request, now);
-    return withCookie({ user: publicUser({ id, email, created_at: now, nickname: null }) }, 201, cookie);
+    return withCookie({ user: publicUser({ id, email, created_at: now, nickname: null, role: "user" }) }, 201, cookie);
   } catch (error) {
     return errorResponse(error);
   }

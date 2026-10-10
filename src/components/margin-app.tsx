@@ -69,7 +69,7 @@ const Notebook = lazy(() => import("@/components/notebook").then((m) => ({ defau
 const DiscoverScreen = lazy(() => import("@/components/discover").then((m) => ({ default: m.DiscoverScreen })));
 const GuideScreen = lazy(() => import("@/components/guide-page").then((m) => ({ default: m.GuideScreen })));
 const DashboardScreen = lazy(() => import("@/components/dashboard-page").then((m) => ({ default: m.DashboardScreen })));
-const SponsorAdmin = lazy(() => import("@/components/sponsor-admin").then((m) => ({ default: m.SponsorAdmin })));
+const AdminPage = lazy(() => import("@/components/admin-page").then((m) => ({ default: m.AdminPage })));
 const SettingsDialog = lazy(() => import("@/components/get-books").then((m) => ({ default: m.SettingsDialog })));
 const OwnEpubDialog = lazy(() => import("@/components/own-epub-dialog").then((m) => ({ default: m.OwnEpubDialog })));
 const ReaderScreen = lazy(() => import("@/components/reader").then((m) => ({ default: m.ReaderScreen })));
@@ -487,7 +487,7 @@ export function MarginApp() {
           ) : screen.kind === "dashboard" ? (
             <DashboardScreen />
           ) : screen.kind === "admin" ? (
-            <SponsorAdmin />
+            <AdminPage />
           ) : screen.kind === "guide" ? (
             <GuideScreen />
           ) : screen.kind === "discover" ? (

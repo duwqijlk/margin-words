@@ -23,3 +23,15 @@ binding = "DB"
 database_name = "margin-words"
 database_id = "c286e644-2ead-438c-bb65-70ee028d957a"
 migrations_dir = "migrations"
+
+# Public books host bucket (word-lists, public-books catalogs and files).
+# Read by the admin word-list publisher through the BOOKS binding.
+[[r2_buckets]]
+binding = "BOOKS"
+bucket_name = "margin-words-books"
+
+# Copyrighted EPUBs. No public access. Streamed only to trusted accounts
+# through /api/book/<id>/epub, which logs every download.
+[[r2_buckets]]
+binding = "PRIVATE"
+bucket_name = "margin-words-private"

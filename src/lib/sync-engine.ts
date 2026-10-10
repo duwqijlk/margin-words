@@ -118,13 +118,18 @@ function rememberEmail(email: string | null, nickname?: string | null) {
   });
 }
 
-function userFields(payload: Record<string, unknown>): { email: string | null; nickname: string | null } {
+function userFields(payload: Record<string, unknown>): {
+  email: string | null;
+  nickname: string | null;
+  role: "user" | "trusted" | "admin";
+} {
   const user = payload.user;
-  if (!user || typeof user !== "object") return { email: null, nickname: null };
-  const record = user as { email?: unknown; nickname?: unknown };
+  if (!user || typeof user !== "object") return { email: null, nickname: null, role: "user" };
+  const record = user as { email?: unknown; nickname?: unknown; role?: unknown };
   const email = typeof record.email === "string" && record.email ? record.email : null;
   const nickname = typeof record.nickname === "string" && record.nickname ? record.nickname : null;
-  return { email, nickname };
+  const role = record.role === "trusted" || record.role === "admin" ? record.role : "user";
+  return { email, nickname, role };
 }
 
 function saveMeta() {
@@ -166,6 +171,22 @@ export async function accountRequest(path: string, body?: unknown): Promise<Reco
   let response: Response;
   try {
     response = await request(path, body === undefined ? { method: "GET" } : { method: "POST", body: JSON.stringify(body) });
+  } catch {
+    throw new Error("network");
+  }
+  const payload = await readBody(response);
+  if (!response.ok) {
+    if (response.status === 401 && payload.error !== "credentials") throw new Error("unauthorized");
+    throw new Error(typeof payload.error === "string" ? payload.error : "generic");
+  }
+  return payload;
+}
+
+/** POST a body that must reach the server byte-for-byte, such as a glossary file. */
+export async function accountPostRaw(path: string, body: string): Promise<Record<string, unknown>> {
+  let response: Response;
+  try {
+    response = await request(path, { method: "POST", body });
   } catch {
     throw new Error("network");
   }
@@ -456,7 +477,7 @@ async function refreshSession() {
     const payload = await accountRequest("/api/auth/me");
     if (epoch !== sessionEpoch) return;
     const fields = userFields(payload);
-    useAccount.getState().patch({ resetEmail: payload.resetEmail === true });
+    useAccount.getState().patch({ resetEmail: payload.resetEmail === true, role: fields.role });
     if (fields.email) {
       rememberEmail(fields.email, fields.nickname);
       await flush();
@@ -555,6 +576,7 @@ export async function signIn(email: string, password: string, turnstileToken?: s
   if (epoch !== sessionEpoch) return;
   const fields = userFields(payload);
   rememberEmail(fields.email ?? email, fields.nickname);
+  useAccount.getState().patch({ role: fields.role });
   await flush();
 }
 
@@ -569,6 +591,7 @@ export async function signUp(email: string, password: string, turnstileToken?: s
   if (epoch !== sessionEpoch) return;
   const fields = userFields(payload);
   rememberEmail(fields.email ?? email, fields.nickname);
+  useAccount.getState().patch({ role: fields.role });
   await flush();
 }
 

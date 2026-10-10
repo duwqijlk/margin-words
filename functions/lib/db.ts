@@ -11,15 +11,34 @@ export interface D1Statement {
 
 export interface D1Database {
   prepare(sql: string): D1Statement;
+  batch(statements: D1Statement[]): Promise<unknown>;
+}
+
+/** Minimal R2 surface the admin handlers use. */
+export interface R2ObjectLike {
+  body: ReadableStream;
+  arrayBuffer(): Promise<ArrayBuffer>;
+  size: number;
+}
+
+export interface R2BucketLike {
+  get(key: string): Promise<R2ObjectLike | null>;
+  put(key: string, value: ArrayBuffer | Uint8Array | string): Promise<unknown>;
 }
 
 export type Env = {
   DB: D1Database;
+  /** Public books bucket (word-list catalogs, glossaries, covers). Optional in tests. */
+  BOOKS?: R2BucketLike;
+  /** Private copyrighted-EPUB bucket. Never exposed without a trusted account. */
+  PRIVATE?: R2BucketLike;
   /** When set, register requires a Turnstile token. Unset means the check is off. */
   TURNSTILE_SECRET_KEY?: string;
   /** When set, password-reset requests send mail through Resend. Unset keeps the hook off. */
   RESEND_API_KEY?: string;
 };
+
+export type UserRole = "user" | "trusted" | "admin";
 
 export type UserRow = {
   id: string;
@@ -30,6 +49,8 @@ export type UserRow = {
   created_at: number;
   /** Empty when the reader has not chosen one. Not unique. */
   nickname: string | null;
+  /** "admin" is the owner account; "trusted" may open private-library EPUBs. */
+  role: UserRole;
 };
 
 export type SyncRow = {

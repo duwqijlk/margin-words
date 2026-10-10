@@ -195,14 +195,32 @@ Signing out or deleting the account does not wipe the books on this device.
 
 `migrations/0001_init.sql`:
 
-- `users` — id, email, password_hash, password_salt, password_iters, created_at, and (from `0002_nickname.sql`) nickname
+- `users` — id, email, password_hash, password_salt, password_iters, created_at, (from `0002_nickname.sql`) nickname, and (from `0004_roles.sql`) role (`user` by default; `trusted` may open private-library EPUBs; `admin` is the owner)
 - `sessions` — token_hash, user_id, created_at, expires_at (cascade delete)
 - `rate_limits` — bucket, window_start, hits
 - `sync_items` — user_id, kind, item_id, data, updated_at, deleted (cascade delete)
 - `password_resets` — token_hash, user_id, created_at, expires_at, used_at (cascade delete)
 - `sponsorships` — (`0003_sponsorship.sql`) id, user_id, method (`wechat`, `alipay`, or `crypto`), display_name, created_at, email_sent_at, amount_cents, listed_at, closed_at (cascade delete)
+- `book_downloads` — (`0004_roles.sql`) user_id, book_id, created_at. One row per private-library EPUB download, capped at 30 per user per day.
 
-Apply `0003` before a deploy that serves the sponsorship functions: `npx wrangler d1 migrations apply margin-words --remote`.
+Apply `0003` before a deploy that serves the sponsorship functions, and `0004` before a deploy that serves the role-aware functions (every session lookup reads `users.role` from `0004` on):
+
+```bash
+npx wrangler d1 migrations apply margin-words --remote
+```
+
+## Roles
+
+`roleOf(user)` in `functions/lib/admin.ts`: `admin` is the role or the official email `xcrunnnn@outlook.com` (so the first admin needs no SQL); `trusted` may stream EPUBs from the private bucket; everyone else is `user`. `/api/auth/me` returns the role as `user.role`. `/admin` has three tabs: gift requests, the word-list publisher, and user management (search, grant/revoke `trusted`). Admin APIs answer 403 `forbidden` for anyone else; the owner row cannot be demoted there (`admin-locked`).
+
+| Method | Path | Who |
+| --- | --- | --- |
+| GET | `/api/admin/users?q=&page=` | admin; 20 per page |
+| POST | `/api/admin/users` | admin; `{ id, role: "trusted" \| "user" }` |
+| POST | `/api/admin/word-lists?id=<id>` | admin; body is the glossary JSON file itself. The server hashes those bytes, writes `word-lists/<id>/glossary.json` to the BOOKS bucket, and rewrites `word-lists/catalog.json` with only this row changed. The book must already exist in the live catalog — new books still start with `scripts/publish-word-list.mjs`. |
+| GET | `/api/book/<id>/epub` | signed in + trusted (or admin); streams `<id>/book.epub` from the PRIVATE bucket and logs one `book_downloads` row. 30 per user per day. |
+
+The R2 bindings live in `wrangler.toml`: `BOOKS` → `margin-words-books` (public books host files), `PRIVATE` → `margin-words-private` (copyrighted EPUBs; no public access; every byte leaves it only through the checked endpoint above).
 
 ## Sponsorship
 
