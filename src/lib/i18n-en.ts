@@ -274,6 +274,9 @@ export const en = {
   "account.forgot": "Forgot password?",
   "account.forgotBody":
     "Password reset by email is not turned on yet, so this app cannot send a reset message. You can keep reading without an account.",
+  "account.forgotEmail": "Your email",
+  "account.forgotSend": "Send reset link",
+  "account.forgotSent": "If that email has an account, the reset link is on its way. The link works for one hour.",
   "account.resetTitle": "Choose a new password",
   "account.newPassword": "New password",
   "account.resetSubmit": "Save new password",

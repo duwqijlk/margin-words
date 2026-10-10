@@ -149,11 +149,11 @@ test("register, login, me, logout, and a wrong password", async () => {
   assert.equal(loggedOut.status, 200);
   const after = await call(handleMe, env, { method: "GET", cookie });
   assert.equal(after.status, 200);
-  assert.deepEqual(await after.json(), { user: null });
+  assert.deepEqual(await after.json(), { user: null, resetEmail: false });
 
   const anon = await call(handleMe, env, { method: "GET" });
   assert.equal(anon.status, 200);
-  assert.deepEqual(await anon.json(), { user: null });
+  assert.deepEqual(await anon.json(), { user: null, resetEmail: false });
 });
 
 test("the same email cannot register twice", async () => {
@@ -413,7 +413,7 @@ test("password reset stores a token for the hook and then replaces the password"
   assert.equal(confirmed.status, 200);
   const oldSession = await call(handleMe, env, { method: "GET", cookie });
   assert.equal(oldSession.status, 200);
-  assert.deepEqual(await oldSession.json(), { user: null });
+  assert.deepEqual(await oldSession.json(), { user: null, resetEmail: false });
   const loggedIn = await call(handleLogin, env, {
     body: { email: "reader@example.com", password: "a newer horse" },
   });

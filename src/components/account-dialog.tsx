@@ -7,6 +7,7 @@ import {
   confirmPasswordReset,
   deleteAccount,
   exportAccount,
+  requestPasswordReset,
   saveNickname,
   signIn,
   signOut,
@@ -158,6 +159,7 @@ export function AccountDialog() {
   const nicknameSaved = useAccount((state) => state.nickname);
   const nicknamePrompt = useAccount((state) => state.nicknamePrompt);
   const sync = useAccount((state) => state.sync);
+  const resetEmailReady = useAccount((state) => state.resetEmail);
   const closeDialog = useAccount((state) => state.closeDialog);
   const openDialog = useAccount((state) => state.openDialog);
 
@@ -169,6 +171,9 @@ export function AccountDialog() {
   const [problem, setProblem] = useState("");
   const [note, setNote] = useState("");
   const [forgot, setForgot] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotBusy, setForgotBusy] = useState(false);
+  const [forgotNote, setForgotNote] = useState("");
   const [deleting, setDeleting] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState("");
   const [nickname, setNickname] = useState("");
@@ -182,6 +187,9 @@ export function AccountDialog() {
     setProblem("");
     setNote("");
     setForgot(false);
+    setForgotEmail("");
+    setForgotBusy(false);
+    setForgotNote("");
     setDeleting(false);
     setBusy(false);
     setTurnstileToken("");
@@ -238,6 +246,25 @@ export function AccountDialog() {
       setProblem(t(errorKey(error)));
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function onForgotSend() {
+    if (forgotBusy) return;
+    const address = forgotEmail.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)) {
+      setProblem(t("account.err.email"));
+      return;
+    }
+    setForgotBusy(true);
+    setForgotNote("");
+    try {
+      await requestPasswordReset(address);
+      setForgotNote(t("account.forgotSent"));
+    } catch (error) {
+      setProblem(t(errorKey(error)));
+    } finally {
+      setForgotBusy(false);
     }
   }
 
@@ -501,7 +528,36 @@ export function AccountDialog() {
                   <button type="button" className={cn(btn.ghost, "justify-start px-0")} onClick={() => setForgot((value) => !value)}>
                     {t("account.forgot")}
                   </button>
-                  {forgot ? <p className="text-xs text-muted">{t("account.forgotBody")}</p> : null}
+                  {forgot ? (
+                    resetEmailReady ? (
+                      <div className="grid gap-2" data-account-forgot>
+                        <input
+                          className={cn(field, "w-full")}
+                          type="email"
+                          value={forgotEmail}
+                          placeholder={t("account.forgotEmail")}
+                          aria-label={t("account.forgotEmail")}
+                          autoComplete="email"
+                          onChange={(event) => setForgotEmail(event.target.value)}
+                          onKeyDown={(event) => {
+                            if (event.key === "Enter") void onForgotSend();
+                          }}
+                          data-account-forgot-email
+                        />
+                        <button
+                          type="button"
+                          className={cn(btn.quiet, "justify-start px-0")}
+                          disabled={forgotBusy}
+                          onClick={() => void onForgotSend()}
+                        >
+                          {forgotBusy ? t("account.working") : t("account.forgotSend")}
+                        </button>
+                        {forgotNote ? <p className="text-xs text-muted">{forgotNote}</p> : null}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-muted">{t("account.forgotBody")}</p>
+                    )
+                  ) : null}
                 </div>
               ) : null}
             </form>

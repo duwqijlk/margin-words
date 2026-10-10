@@ -1,7 +1,7 @@
 import { cleanNickname } from "../../src/lib/nickname.ts";
 import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merge.ts";
 import type { Env, SyncRow, UserRow } from "./db.ts";
-import { deliverPasswordReset, type PasswordResetSender } from "./email.ts";
+import { deliverPasswordReset, resendSender, type PasswordResetSender } from "./email.ts";
 import {
   clientIp,
   errorResponse,
@@ -118,10 +118,11 @@ export async function handleLogout(request: Request, env: Env): Promise<Response
 export async function handleMe(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
   try {
     const user = await userFromRequest(env.DB, request, nowOf(options));
+    const resetEmail = Boolean(env.RESEND_API_KEY);
     // 200 so a signed-out page load is not a failed request in the browser console.
     // Other routes still use requireUser and answer 401.
-    if (!user) return json({ user: null });
-    return json({ user: publicUser(user) });
+    if (!user) return json({ user: null, resetEmail });
+    return json({ user: publicUser(user), resetEmail });
   } catch (error) {
     return errorResponse(error);
   }
@@ -197,7 +198,8 @@ export async function handlePasswordResetRequest(
         .bind(tokenHash, user.id, now, expiresAt)
         .run();
       const origin = new URL(request.url).origin;
-      const send = options?.sendReset ?? deliverPasswordReset;
+      // A test may pass its own sender; otherwise use Resend when the key is set.
+      const send = options?.sendReset ?? (env.RESEND_API_KEY ? resendSender(env.RESEND_API_KEY) : deliverPasswordReset);
       await send({
         email,
         token,
