@@ -34,6 +34,7 @@ export function OwnEpubDialog({
   const [pending, setPending] = useState<PairPreview | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [stage, setStage] = useState("");
 
   useEffect(() => {
     setPending(null);
@@ -61,13 +62,19 @@ export function OwnEpubDialog({
   async function onFile(file: File | undefined) {
     if (!file || !pack) return;
     setError("");
+    setStage("");
     setBusy(true);
     try {
       const glossaryText = await fetchWordList(pack);
-      setPending(await previewOwnEpub(file, pack, glossaryText));
+      setPending(
+        await previewOwnEpub(file, pack, glossaryText, (done, total) =>
+          setStage(t("lists.checkProgress", { done, total })),
+        ),
+      );
     } catch (reason) {
       setError(errorText(reason, "err.bookAddFailed"));
     } finally {
+      setStage("");
       setBusy(false);
     }
   }
@@ -75,6 +82,7 @@ export function OwnEpubDialog({
   async function onLibrary() {
     if (!pack) return;
     setError("");
+    setStage("");
     setBusy(true);
     try {
       const response = await fetch(`/api/book/${encodeURIComponent(pack.id)}/epub`, { cache: "no-store" });
@@ -83,13 +91,42 @@ export function OwnEpubDialog({
         if (response.status === 429) throw new Error(t("account.err.rate"));
         throw new Error(t("err.bookAddFailed"));
       }
-      const bytes = new Uint8Array(await response.arrayBuffer());
-      const file = new File([bytes], `${pack.id}.epub`, { type: "application/epub+zip" });
+      // The library EPUB can be large; stream it and show how far it has come.
+      let buffer: ArrayBuffer;
+      const reader = response.body?.getReader();
+      if (reader) {
+        const chunks: Uint8Array[] = [];
+        let received = 0;
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          if (value) {
+            chunks.push(value);
+            received += value.length;
+            setStage(t("lists.downloaded", { mb: (received / 1048576).toFixed(1) }));
+          }
+        }
+        buffer = new ArrayBuffer(received);
+        const bytes = new Uint8Array(buffer);
+        let offset = 0;
+        for (const chunk of chunks) {
+          bytes.set(chunk, offset);
+          offset += chunk.length;
+        }
+      } else {
+        buffer = await response.arrayBuffer();
+      }
+      const file = new File([buffer], `${pack.id}.epub`, { type: "application/epub+zip" });
       const glossaryText = await fetchWordList(pack);
-      setPending(await previewOwnEpub(file, pack, glossaryText));
+      setPending(
+        await previewOwnEpub(file, pack, glossaryText, (done, total) =>
+          setStage(t("lists.checkProgress", { done, total })),
+        ),
+      );
     } catch (reason) {
       setError(errorText(reason, "err.bookAddFailed"));
     } finally {
+      setStage("");
       setBusy(false);
     }
   }
@@ -121,7 +158,12 @@ export function OwnEpubDialog({
               {error}
             </p>
           ) : null}
-          <div className="mt-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          {busy && stage ? (
+        <p className="mt-3 text-sm text-muted" data-own-epub-stage>
+          {stage}
+        </p>
+      ) : null}
+      <div className="mt-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <Dialog.Close className={btn.quiet}>{t("common.close")}</Dialog.Close>
             {pending ? (
               <button

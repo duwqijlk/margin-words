@@ -217,6 +217,8 @@ export const zh: Record<Key, string> = {
   "lists.matchNone": "这份词表没有可对照的原文片段。",
   "lists.add": "放进书架",
   "lists.working": "正在检查你的电子书…",
+  "lists.checkProgress": "正在检查 {done}/{total}…",
+  "lists.downloaded": "已下载 {mb} MB",
   "lists.openLibrary": "从书库打开",
   "shelf.due": "{n} 个待复习",
   "shelf.chapterOf": "第 {n} 章，共 {total} 章",

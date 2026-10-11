@@ -927,8 +927,14 @@ function encryptionLocksBook(xml: string): boolean {
 
 export async function parseEpub(
   buffer: ArrayBuffer,
-  options: { cover?: boolean; segmentation?: number } = {},
+  options: {
+    cover?: boolean;
+    segmentation?: number;
+    /** Parsing runs on the main thread; reports chapter progress so callers can keep the page honest. */
+    onProgress?: (done: number, total: number) => void;
+  } = {},
 ): Promise<ParsedEpub> {
+  const yieldToUi = () => new Promise<void>((resolve) => setTimeout(resolve, 0));
   let zip: JSZip;
   try {
     // Loaded when a book is opened, so the first screen does not carry the zip reader.
@@ -1193,6 +1199,8 @@ export async function parseEpub(
       lastSlice: boolean;
     }[] = [];
     for (let index = 0; index < toc.length && chapters.length < CHAPTER_CAP; index += 1) {
+      options.onProgress?.(index + 1, toc.length);
+      await yieldToUi();
       const entry = toc[index];
       if (!entry) continue;
       const path = entry.href.split("#")[0] ?? "";
@@ -1281,8 +1289,12 @@ export async function parseEpub(
   const fromContents = chapters.length >= 2;
   if (!fromContents) {
     chapters.length = 0;
+    let fallbackIndex = 0;
     for (const item of spine) {
       if (chapters.length >= CHAPTER_CAP) break;
+      fallbackIndex += 1;
+      options.onProgress?.(fallbackIndex, spine.length);
+      await yieldToUi();
       const path = resolveZipPath(opfBase, item.href);
       const doc = await loadDoc(path);
       if (!doc?.body || looksLikeContents(doc)) continue;
@@ -1310,6 +1322,8 @@ export async function parseEpub(
     const fillAt = new Map(fills.map((fill) => [fill.spineAt, fill]));
     let count = 0;
     for (let spineAt = 0; spineAt < spineRefs.length; spineAt += 1) {
+      options.onProgress?.(toc.length + spineAt + 1, toc.length + spineRefs.length);
+      await yieldToUi();
       const fill = fillAt.get(spineAt);
       if (fill) {
         extras.push({

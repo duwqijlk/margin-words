@@ -57,7 +57,12 @@ export type PairPreview = {
 };
 
 /** Open the reader's EPUB and measure the word list. Nothing is stored yet. */
-export async function previewOwnEpub(file: File, pack: WordListPack, glossaryText: string): Promise<PairPreview> {
+export async function previewOwnEpub(
+  file: File,
+  pack: WordListPack,
+  glossaryText: string,
+  onProgress?: (done: number, total: number) => void,
+): Promise<PairPreview> {
   const check = validateGlossary(glossaryText);
   if (!check.ok || !check.file) {
     const shown = check.errors.slice(0, 3).join(" ");
@@ -66,9 +71,10 @@ export async function previewOwnEpub(file: File, pack: WordListPack, glossaryTex
   const bytes = new Uint8Array(await file.arrayBuffer());
   let parsed;
   try {
-    parsed = await parseEpub(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), {
-      segmentation: check.file.segmentation,
-    });
+    parsed = await parseEpub(
+      bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength),
+      { segmentation: check.file.segmentation, onProgress },
+    );
   } catch (reason) {
     throw new Error(errorText(reason, "err.openFailed"));
   }
