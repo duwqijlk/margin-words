@@ -22,6 +22,7 @@ import {
 } from "../functions/lib/handlers.ts";
 import { handleList, handleSetRole } from "../functions/api/admin/users.ts";
 import { handlePublish } from "../functions/api/admin/word-lists.ts";
+import { handleUpload } from "../functions/api/admin/books.ts";
 import { handleEpub } from "../functions/api/book/[id]/epub.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -842,3 +843,135 @@ test("private epub: user denied, trusted allowed and logged, missing book 404", 
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM book_downloads").get().n, 1);
   assert.equal(readerId !== "", true);
 });
+
+test("book upload: private streams to PRIVATE, public updates its catalog row", async () => {
+  const db = openDb();
+  const admin = await call(handleRegister, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const adminCookie = cookieHeader(admin);
+  const epubBytes = new Uint8Array([80, 75, 3, 4, 9, 9]);
+  const coverBytes = new Uint8Array([255, 216, 255, 1, 2]);
+
+  function formWith(kindFiles) {
+    const form = new FormData();
+    form.set("epub", new File([epubBytes], "book.epub", { type: "application/epub+zip" }));
+    if (kindFiles.cover) form.set("cover", new File([coverBytes], "cover.jpg", { type: "image/jpeg" }));
+    if (kindFiles.glossary) form.set("glossary", new File([kindFiles.glossary], "glossary.json", { type: "application/json" }));
+    return form;
+  }
+
+  // private: epub + cover land in the PRIVATE bucket
+  const privateFiles = new Map();
+  const privateEnv = envOf(db, { PRIVATE: stubBucket(privateFiles) });
+  const privateOk = await handleUpload(
+    form("/api/admin/books?id=great-book&kind=private", adminCookie, formWith({ cover: true })),
+    privateEnv,
+    { now: NOW },
+  );
+  assert.equal(privateOk.status, 200);
+  const privateJson = await privateOk.json();
+  assert.equal(privateJson.kind, "private");
+  assert.equal(new Uint8Array(privateFiles.get("great-book/book.epub"))[0], 80);
+  assert.ok(privateFiles.has("great-book/cover.jpg"));
+
+  // public without a glossary file is refused
+  const booksFiles = new Map();
+  const livePublic = {
+    format: 1,
+    name: "Public books",
+    updated: "2026-10-01T00:00:00.000Z",
+    packs: [{ id: "alice", title: "Alice", glossary: { url: "alice/glossary.json", bytes: 1, sha256: "aaa" } }],
+  };
+  booksFiles.set("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(livePublic, null, 1)}\n`));
+  const publicEnv = envOf(db, { BOOKS: stubBucket(booksFiles) });
+  const noGlossary = await handleUpload(
+    form("/api/admin/books?id=alice&kind=public", adminCookie, formWith({ cover: false })),
+    publicEnv,
+    { now: NOW },
+  );
+  assert.equal(noGlossary.status, 400);
+  assert.equal((await noGlossary.json()).error, "no-glossary");
+
+  // public unknown id is refused
+  const unknownBook = await handleUpload(
+    form("/api/admin/books?id=nope&kind=public", adminCookie, formWith({ glossary: "{}" })),
+    publicEnv,
+    { now: NOW },
+  );
+  assert.equal(unknownBook.status, 404);
+
+  // public happy path: epub + glossary + cover stored, row updated
+  const okPublic = await handleUpload(
+    form("/api/admin/books?id=alice&kind=public", adminCookie, formWith({ cover: true, glossary: '{"glossary":{"a":{}}}' })),
+    publicEnv,
+    { now: NOW },
+  );
+  assert.equal(okPublic.status, 200);
+  const storedCatalog = JSON.parse(new TextDecoder().decode(booksFiles.get("public-books/catalog.json")));
+  const alice = storedCatalog.packs.find((item) => item.id === "alice");
+  assert.equal(alice.epub.url, "alice/book.epub");
+  assert.equal(alice.epub.bytes, epubBytes.length);
+  assert.equal(alice.glossary.rev.length, 12);
+  assert.equal(alice.cover.url, "alice/cover.jpg");
+  assert.ok(booksFiles.has("public-books/alice/glossary.json"));
+
+  // missing epub
+  const noEpub = await handleUpload(form("/api/admin/books?id=alice&kind=public", adminCookie, new FormData()), publicEnv, {
+    now: NOW,
+  });
+  assert.equal(noEpub.status, 400);
+  assert.equal((await noEpub.json()).error, "no-epub");
+});
+
+test("word-list publish: isbn param sets and clears the edition number", async () => {
+  const db = openDb();
+  await call(handleRegister, envOf(db), { body: { email: "xcrunnnn@outlook.com", password: "correct horse" } });
+  const login = await call(handleLogin, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const adminCookie = cookieHeader(login);
+  const files = new Map();
+  const liveCatalog = {
+    format: 1,
+    name: "Word lists",
+    updated: "2026-10-01T00:00:00.000Z",
+    lists: [
+      {
+        id: "charlie",
+        title: "Charlie",
+        isbn: "9780000000002",
+        words: 10,
+        glossary: { url: "charlie/glossary.json", bytes: 5, sha256: "aaa" },
+        updated: "2026-10-01T00:00:00+00:00",
+        paragraphs: 1,
+        sentences: 1,
+        phrases: 1,
+      },
+    ],
+  };
+  files.set("word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(liveCatalog, null, 1)}\n`));
+  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const glossary = JSON.stringify({ glossary: { a: {} }, count: 1 });
+
+  const set = await handlePublish(
+    raw("/api/admin/word-lists?id=charlie&isbn=9780062285768", adminCookie, glossary),
+    env,
+    { now: NOW },
+  );
+  assert.equal((await set.json()).row.isbn, "9780062285768");
+
+  const cleared = await handlePublish(
+    raw("/api/admin/word-lists?id=charlie&isbn=", adminCookie, glossary),
+    env,
+    { now: NOW },
+  );
+  const clearedRow = (await cleared.json()).row;
+  assert.equal("isbn" in clearedRow, false);
+});
+
+function form(path, cookie, body) {
+  const headers = new Headers();
+  if (cookie) headers.set("cookie", cookie);
+  return new Request(`http://localhost${path}`, { method: "POST", headers, body });
+}
