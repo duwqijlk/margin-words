@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import JSZip from "jszip";
 import { errorText, useT } from "@/lib/i18n";
 import { accountPostForm, accountPostRaw } from "@/lib/sync-engine";
 import { parseEpub } from "@/lib/epub";
@@ -11,6 +12,8 @@ type GlossaryInfo = {
   words: number;
   isbn: string;
 };
+
+type CoverCandidate = { path: string; thumb: string };
 
 const ERROR_KEYS: Record<string, string> = {
   "unknown-id": "admin.books.publicNew",
@@ -48,21 +51,71 @@ async function sha256Hex(bytes: Uint8Array): Promise<string> {
   return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
+/** Every real image inside the EPUB, as clickable thumbnails. */
+async function extractCoverCandidates(file: File): Promise<CoverCandidate[]> {
+  const zip = await JSZip.loadAsync(file);
+  const paths: string[] = [];
+  zip.forEach((path, entry) => {
+    if (!entry.dir && /\.(jpe?g|png)$/i.test(path)) paths.push(path);
+  });
+  paths.sort();
+  const picked: CoverCandidate[] = [];
+  for (const path of paths.slice(0, 24)) {
+    const entry = zip.file(path);
+    if (!entry) continue;
+    const buffer = await entry.async("arraybuffer");
+    if (buffer.byteLength < 3000) continue;
+    const url = URL.createObjectURL(new Blob([buffer]));
+    try {
+      const bitmap = await createImageBitmap(await (await fetch(url)).blob());
+      const height = 110;
+      const width = Math.max(1, Math.round((bitmap.width * height) / bitmap.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext("2d")?.drawImage(bitmap, 0, 0, width, height);
+      picked.push({ path, thumb: canvas.toDataURL("image/jpeg", 0.8) });
+    } catch {
+      // not a displayable image; skip
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  }
+  return picked;
+}
+
+async function chosenCoverBytes(file: File, path: string): Promise<ArrayBuffer | null> {
+  try {
+    const zip = await JSZip.loadAsync(file);
+    const entry = zip.file(path);
+    if (!entry) return null;
+    const buffer = await entry.async("arraybuffer");
+    const url = URL.createObjectURL(new Blob([buffer]));
+    try {
+      return await coverBytesFromDataUrl(url);
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  } catch {
+    return null;
+  }
+}
+
 /** Upload a whole book: the word list plus its EPUB, with the ISBN filled in automatically. */
 export function BooksAdmin() {
   const { t } = useT();
   const [glossary, setGlossary] = useState<GlossaryInfo | null>(null);
-  const [epubName, setEpubName] = useState("");
   const [epubFile, setEpubFile] = useState<File | null>(null);
+  const [epubName, setEpubName] = useState("");
   const [epubBusy, setEpubBusy] = useState(false);
   const [epubError, setEpubError] = useState("");
   const [parsedTitle, setParsedTitle] = useState("");
   const [parsedAuthor, setParsedAuthor] = useState("");
-  const [coverDataUrl, setCoverDataUrl] = useState<string | null>(null);
+  const [covers, setCovers] = useState<CoverCandidate[]>([]);
+  const [coverChoice, setCoverChoice] = useState<string | null>(null);
   const [kind, setKind] = useState<"private" | "public">("private");
   const [isbn, setIsbn] = useState("");
   const [isbnTouched, setIsbnTouched] = useState(false);
-  const [autoCover, setAutoCover] = useState(true);
   const [step, setStep] = useState("");
   const [note, setNote] = useState("");
   const [error, setError] = useState("");
@@ -97,7 +150,8 @@ export function BooksAdmin() {
     setEpubError("");
     setParsedTitle("");
     setParsedAuthor("");
-    setCoverDataUrl(null);
+    setCovers([]);
+    setCoverChoice(null);
     if (!file) {
       setEpubFile(null);
       setEpubName("");
@@ -114,8 +168,10 @@ export function BooksAdmin() {
       );
       setParsedTitle(parsed.title);
       setParsedAuthor(parsed.author);
-      setCoverDataUrl(parsed.coverTagged ? parsed.cover : null);
       if (!isbnTouched && parsed.isbn) setIsbn(parsed.isbn);
+      const candidates = await extractCoverCandidates(file);
+      setCovers(candidates);
+      setCoverChoice(candidates.length === 1 ? candidates[0].path : null);
     } catch (reason) {
       // The parse only fills in metadata; the file itself is still publishable.
       setEpubError(errorText(reason, "err.openFailed"));
@@ -136,8 +192,8 @@ export function BooksAdmin() {
       const form = new FormData();
       form.set("epub", epubFile, "book.epub");
       form.set("glossary", new File([glossary.text], "glossary.json", { type: "application/json" }), "glossary.json");
-      if (autoCover && coverDataUrl) {
-        const cover = await coverBytesFromDataUrl(coverDataUrl);
+      if (coverChoice) {
+        const cover = await chosenCoverBytes(epubFile, coverChoice);
         if (cover) form.set("cover", new Blob([cover], { type: "image/jpeg" }), "cover.jpg");
       }
       await accountPostForm(`/api/admin/books?id=${encodeURIComponent(glossary.id)}&kind=${kind}`, form);
@@ -213,6 +269,32 @@ export function BooksAdmin() {
           {t("admin.books.detected", { title: parsedTitle, author: parsedAuthor || "—" })}
         </p>
       ) : null}
+      {covers.length > 0 ? (
+        <div className="grid gap-2" data-admin-books-covers>
+          <p className="text-sm font-medium">{t("admin.books.coverPick")}</p>
+          <div className="flex flex-wrap gap-2">
+            {covers.map((candidate) => (
+              <button
+                key={candidate.path}
+                type="button"
+                aria-pressed={coverChoice === candidate.path}
+                title={candidate.path}
+                className={cn(
+                  "rounded-lg border p-1",
+                  coverChoice === candidate.path ? "border-accent ring-1 ring-accent" : "border-line",
+                )}
+                onClick={() => setCoverChoice(candidate.path)}
+              >
+                <img src={candidate.thumb} alt={candidate.path.split("/").pop() ?? candidate.path} className="h-28 w-auto" />
+              </button>
+            ))}
+          </div>
+          <label className="flex items-center gap-2 text-sm">
+            <input type="radio" name="cover-choice" checked={coverChoice === null} onChange={() => setCoverChoice(null)} />
+            {t("admin.books.noCover")}
+          </label>
+        </div>
+      ) : null}
       <label className="grid gap-1 text-sm font-medium" htmlFor="admin-books-isbn">
         {t("admin.books.isbn")}
         <input
@@ -228,12 +310,6 @@ export function BooksAdmin() {
           }}
         />
       </label>
-      {coverDataUrl ? (
-        <label className="flex items-center gap-2 text-sm">
-          <input type="checkbox" checked={autoCover} onChange={(event) => setAutoCover(event.target.checked)} />
-          {t("admin.books.autoCover")}
-        </label>
-      ) : null}
       {step ? <p className="text-sm text-muted">{step}</p> : null}
       {note ? <p className="text-sm text-accent">{note}</p> : null}
       {error ? (

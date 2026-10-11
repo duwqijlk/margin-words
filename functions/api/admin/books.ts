@@ -9,6 +9,29 @@ const COVER_MAX = 5_000_000;
 const GLOSSARY_MAX = 4_000_000;
 
 /**
+ * The Discover card reads its picture from the books host
+ * (`word-lists/<id>/cover.jpg` + the row's cover field), whatever kind the
+ * book is. Best effort: a card-cover miss must not fail the upload.
+ */
+async function putCardCover(env: Env, id: string, coverBytes: Uint8Array | null): Promise<void> {
+  if (!coverBytes || !env.BOOKS) return;
+  try {
+    const catalogObject = await env.BOOKS.get("word-lists/catalog.json");
+    if (!catalogObject) return;
+    const live = JSON.parse(new TextDecoder().decode(await catalogObject.arrayBuffer())) as {
+      lists?: { id: string; cover?: unknown }[];
+    };
+    const row = (live.lists ?? []).find((item) => item && item.id === id);
+    if (!row) return;
+    await env.BOOKS.put(`word-lists/${id}/cover.jpg`, coverBytes);
+    row.cover = { url: `${id}/cover.jpg`, bytes: coverBytes.length, sha256: await sha256HexBytes(coverBytes) };
+    await env.BOOKS.put("word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
+  } catch {
+    // The card falls back to the generated cover; the upload itself stands.
+  }
+}
+
+/**
  * Upload the book file that belongs to a word list.
  *
  *   POST /api/admin/books?id=<id>&kind=private|public
@@ -56,6 +79,7 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
       if (!bucket) throw new HttpError(500, "no-private-bucket");
       await bucket.put(epubKey, epubBytes);
       if (coverBytes) await bucket.put(coverKey, coverBytes);
+      await putCardCover(env, id, coverBytes);
       return json({
         kind,
         epub: { bytes: epubBytes.length, sha256: epubSha },
