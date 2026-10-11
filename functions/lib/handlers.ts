@@ -1,7 +1,7 @@
 import { cleanNickname } from "../../src/lib/nickname.ts";
 import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merge.ts";
 import { roleOf } from "./admin.ts";
-import type { Env, SyncRow, UserRow } from "./db.ts";
+import type { D1Result, Env, SyncRow, UserRow } from "./db.ts";
 import { deliverPasswordReset, resendSender, type PasswordResetSender } from "./email.ts";
 import {
   clientIp,
@@ -301,17 +301,27 @@ export async function handleSyncPush(request: Request, env: Env, options?: Handl
     const body = (await readJson(request)) as { items?: unknown };
     if (!body || !Array.isArray(body.items)) throw new HttpError(400, "bad-request");
     if (body.items.length > 500) throw new HttpError(413, "too-large");
-    const saved: SyncItem[] = [];
+    const incoming: SyncItem[] = [];
     for (const raw of body.items) {
-      const incoming = normalizeItem(raw, now);
-      if (!incoming) throw new HttpError(400, "bad-item");
-      const existing = await env.DB.prepare(
-        "SELECT kind, item_id, data, updated_at, deleted FROM sync_items WHERE user_id = ? AND kind = ? AND item_id = ?",
-      )
-        .bind(user.id, incoming.kind, incoming.itemId)
-        .first<SyncRow>();
-      const merged = mergeItem(existing ? rowToItem(existing) : undefined, incoming) ?? incoming;
-      await env.DB.prepare(
+      const item = normalizeItem(raw, now);
+      if (!item) throw new HttpError(400, "bad-item");
+      incoming.push(item);
+    }
+    // Phase 1: read the existing rows for every item in one round trip.
+    const readBatch = incoming.map((item) =>
+      env.DB.prepare("SELECT kind, item_id, data, updated_at, deleted FROM sync_items WHERE user_id = ? AND kind = ? AND item_id = ?")
+        .bind(user.id, item.kind, item.itemId),
+    );
+    const readResults = (await env.DB.batch(readBatch)) as D1Result<SyncRow>[];
+    // Phase 2: merge, then write everything as one atomic transaction. A failure
+    // mid-push now rolls back instead of leaving half the items saved.
+    const saved: SyncItem[] = [];
+    const writeBatch = incoming.map((item, index) => {
+      const rows = readResults[index]?.results ?? [];
+      const existing = rows.length > 0 ? rowToItem(rows[0] as SyncRow) : undefined;
+      const merged = mergeItem(existing, item) ?? item;
+      saved.push(merged);
+      return env.DB.prepare(
         `INSERT INTO sync_items (user_id, kind, item_id, data, updated_at, deleted)
          VALUES (?, ?, ?, ?, ?, ?)
          ON CONFLICT(user_id, kind, item_id) DO UPDATE SET
@@ -319,9 +329,10 @@ export async function handleSyncPush(request: Request, env: Env, options?: Handl
            updated_at = excluded.updated_at,
            deleted = excluded.deleted`,
       )
-        .bind(user.id, merged.kind, merged.itemId, JSON.stringify(merged.data), merged.updatedAt, merged.deleted ? 1 : 0)
-        .run();
-      saved.push(merged);
+        .bind(user.id, merged.kind, merged.itemId, JSON.stringify(merged.data), merged.updatedAt, merged.deleted ? 1 : 0);
+    });
+    for (let index = 0; index < writeBatch.length; index += 100) {
+      await env.DB.batch(writeBatch.slice(index, index + 100));
     }
     return json({ items: saved });
   } catch (error) {
