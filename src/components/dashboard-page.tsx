@@ -112,22 +112,22 @@ export function DashboardScreen() {
             </button>
           </div>
         ) : (
-          <ul className="grid grid-cols-3 gap-x-3 gap-y-8 sm:grid-cols-6" data-dashboard-counts>
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3" data-dashboard-counts>
             {CARDS.map((card) => {
               const n = card.id === "series" ? (totals?.series.length ?? 0) : (totals?.[card.id] ?? 0);
               const shown = state === "ready";
               return (
                 <li
                   key={card.id}
-                  className="grid justify-items-center gap-1 text-center"
+                  className="grid justify-items-center gap-1 rounded-2xl border border-line bg-card px-2 py-6 text-center"
                   data-dash={card.id}
                   data-dash-value={shown ? n : undefined}
                   aria-label={shown ? trn(card.count, n) : t("dashboard.loading")}
                 >
-                  <p className="font-display text-4xl font-semibold tabular-nums sm:text-5xl" aria-hidden>
+                  <p className="font-display text-3xl font-semibold tabular-nums sm:text-4xl" aria-hidden>
                     {shown ? groupDigits(n) : "…"}
                   </p>
-                  <p className="text-sm leading-5 text-muted">{t(card.label)}</p>
+                  <p className="text-xs leading-5 text-muted sm:text-sm">{t(card.label)}</p>
                 </li>
               );
             })}
