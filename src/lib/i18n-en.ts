@@ -722,6 +722,7 @@ export const en = {
   "admin.lists.needsTitle": "This book is not on the host yet and the file has no title, so it cannot be onboarded.",
   "admin.lists.duplicateTitle": "A book with this title already exists ({id}). Rename the file to {id}.glossary.json and publish again.",
   "admin.lists.duplicate": "A book with this title already exists — check the file name and the book id.",
+  "admin.lists.publishAs": "Publish as {id}",
   "admin.lists.publish": "Publish",
   "admin.lists.published": "Published. Discover picks it up right away.",
   "admin.lists.badGlossary": "That file is not a word-list JSON.",
