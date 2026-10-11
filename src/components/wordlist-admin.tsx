@@ -157,6 +157,16 @@ export function WordListAdmin() {
     if (ok > 0) loadCatalog();
   }
 
+  /** The file name was wrong but the book exists: publish it under the existing id. */
+  function publishAs(file: PendingFile, id: string) {
+    setFiles((current) => {
+      const withoutTarget = current.filter((item) => item.id !== id);
+      return withoutTarget.map((item) =>
+        item.id === file.id ? { ...item, id, result: undefined, resultNote: undefined } : item,
+      );
+    });
+  }
+
   return (
     <div className="grid gap-4" data-admin-lists>
       <p className="text-sm text-muted">{t("admin.lists.hint")}</p>
@@ -212,9 +222,19 @@ export function WordListAdmin() {
                       </p>
                     )}
                     {clashId ? (
-                      <p className="text-sm text-warn" role="alert" data-admin-list-clash>
-                        {t("admin.lists.duplicateTitle", { id: clashId })}
-                      </p>
+                      <div className="grid gap-1">
+                        <p className="text-sm text-warn" role="alert" data-admin-list-clash>
+                          {t("admin.lists.duplicateTitle", { id: clashId })}
+                        </p>
+                        <button
+                          type="button"
+                          className={cn(btn.quiet, "justify-start px-0")}
+                          data-admin-list-publish-as
+                          onClick={() => publishAs(file, clashId)}
+                        >
+                          {t("admin.lists.publishAs", { id: clashId })}
+                        </button>
+                      </div>
                     ) : null}
                     {file.result === "ok" ? <p className="text-sm text-accent">{t("admin.lists.published")}</p> : null}
                     {file.result === "error" && file.resultNote ? (
