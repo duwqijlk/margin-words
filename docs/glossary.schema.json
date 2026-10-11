@@ -160,7 +160,7 @@
         "senses": {
           "type": "array",
           "minItems": 1,
-          "maxItems": 12,
+          "maxItems": 24,
           "items": {
             "$ref": "#/$defs/sense"
           }

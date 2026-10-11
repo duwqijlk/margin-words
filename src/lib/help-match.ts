@@ -465,8 +465,14 @@ function phrasePieces(raw: string): { words: string[]; commaJoins: boolean[] } {
   const commaJoins: boolean[] = [];
   let commaBeforeNext = false;
   for (const rawChunk of cleanWord(raw).split(/\s+/).filter(Boolean)) {
-    const commaAfter = rawChunk.endsWith(",");
-    const chunk = commaAfter ? rawChunk.replace(/,+$/, "") : rawChunk;
+    let chunk = rawChunk;
+    let commaAfter = false;
+    while (chunk && /[^\p{L}\p{N}']$/u.test(chunk)) {
+      if (chunk.endsWith(",")) commaAfter = true;
+      chunk = chunk.slice(0, -1);
+    }
+    chunk = chunk.replace(/^[^\p{L}\p{N}']+/u, "");
+    if (!chunk) continue;
     const bits = chunk.split("-").filter(Boolean);
     if (bits.length === 0) continue;
     for (let b = 0; b < bits.length; b += 1) {

@@ -563,6 +563,113 @@ export function tapSegments(text: string, pieceInList: (piece: string) => boolea
   return out;
 }
 
+function tokenKey(value: string): string {
+  return plainSurface(value).replace(/\.+$/g, "");
+}
+
+function trailingDots(value: string): number {
+  return plainSurface(value).match(/\.+$/)?.[0].length ?? 0;
+}
+
+/** The joined text is this key. A sentence period after `Y2K.` is not part of the key. */
+function sameListedToken(joined: string, key: string): boolean {
+  return tokenKey(joined) === tokenKey(key) && trailingDots(joined) <= trailingDots(key);
+}
+
+function escapeReg(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Tap buttons for one text node, plus listed tokens the letter split does not see.
+ * `911` sits in the gap between letter-words. `Y2K` and `A.M.` are letter pieces
+ * with a digit or a period between them. They become one button only when that
+ * exact key is in the word list, and only when none of those letters is already
+ * its own entry. Occurrence numbers of ordinary words stay on `WORD_PATTERN`.
+ */
+export function listedTokenSegments(
+  text: string,
+  pieceInList: (piece: string) => boolean,
+  listed: ReadonlySet<string>,
+): TapSegment[] {
+  const specials = [...listed].filter((key) => TOKEN_LEMMA.test(key) && !PLAIN_LEMMA.test(key));
+  if (specials.length === 0) return tapSegments(text, pieceInList);
+  const glued = glueListedRuns(tapSegments(text, pieceInList), specials, pieceInList);
+  return explodeDigitKeys(
+    glued,
+    specials.filter((key) => /^\d+$/.test(key)),
+  );
+}
+
+function glueListedRuns(
+  segments: TapSegment[],
+  specials: string[],
+  pieceInList: (piece: string) => boolean,
+): TapSegment[] {
+  const byToken = new Map<string, string>();
+  for (const key of specials) {
+    if (/^\d+$/.test(key)) continue;
+    byToken.set(tokenKey(key), key);
+  }
+  if (byToken.size === 0) return segments;
+  const out: TapSegment[] = [];
+  let i = 0;
+  while (i < segments.length) {
+    let bestEnd = -1;
+    let bestKey = "";
+    const max = Math.min(segments.length, i + 8);
+    for (let end = i; end < max; end += 1) {
+      const slice = segments.slice(i, end + 1);
+      const joined = slice.map((seg) => seg.text).join("");
+      const key = byToken.get(tokenKey(joined));
+      if (!key || !sameListedToken(joined, key)) continue;
+      const pieces = slice.flatMap((seg) => (seg.kind === "word" ? seg.words : []));
+      if (pieces.some((piece) => pieceInList(piece))) continue;
+      bestEnd = end;
+      bestKey = key;
+    }
+    if (bestEnd >= 0) {
+      const joined = segments
+        .slice(i, bestEnd + 1)
+        .map((seg) => seg.text)
+        .join("");
+      out.push({ kind: "word", text: joined, words: [bestKey] });
+      i = bestEnd + 1;
+      continue;
+    }
+    out.push(segments[i] as TapSegment);
+    i += 1;
+  }
+  return out;
+}
+
+function explodeDigitKeys(segments: TapSegment[], keys: string[]): TapSegment[] {
+  if (keys.length === 0) return segments;
+  const body = [...keys].sort((a, b) => b.length - a.length).map(escapeReg).join("|");
+  const re = new RegExp(`(?<![A-Za-z0-9])(?:${body})(?![A-Za-z0-9])`, "gi");
+  const out: TapSegment[] = [];
+  for (const seg of segments) {
+    if (seg.kind !== "text") {
+      out.push(seg);
+      continue;
+    }
+    re.lastIndex = 0;
+    let cursor = 0;
+    let hit = false;
+    for (const match of seg.text.matchAll(re)) {
+      hit = true;
+      const at = match.index ?? 0;
+      if (at > cursor) out.push({ kind: "text", text: seg.text.slice(cursor, at) });
+      const raw = match[0];
+      out.push({ kind: "word", text: raw, words: [plainSurface(raw)] });
+      cursor = at + raw.length;
+    }
+    if (!hit) out.push(seg);
+    else if (cursor < seg.text.length) out.push({ kind: "text", text: seg.text.slice(cursor) });
+  }
+  return out;
+}
+
 export function wordsIn(text: string): string[] {
   return text.match(new RegExp(WORD_PATTERN, "gu")) ?? [];
 }
@@ -700,7 +807,7 @@ export type GlossaryCheck = {
 export const LIMITS = {
   bytes: 8 * 1024 * 1024,
   words: 30000,
-  sensesPerWord: 12,
+  sensesPerWord: 24,
   anchorsPerSense: 60,
   meaning: 600,
   here: 600,
@@ -920,9 +1027,35 @@ function checkSense(
 
 const PHRASE_POS = new Set(["phrasal verb", "idiom", "phrase"]);
 
-/** Two or more words. A comma may sit before the space between words (`oh, brother`). */
-const PHRASE_WORD = String.raw`[a-z]+(?:['-]?[a-z]+)*`;
-const PHRASE_KEY = new RegExp(`^${PHRASE_WORD}(?:(?:,)? ${PHRASE_WORD})+$`);
+/**
+ * One glossary key. Letters or digits, with an apostrophe, hyphen, or period inside
+ * (`don't`, `a.m.`, `y2k`, `911`). `...` may join two of those (`either...or`).
+ * A space is still refused (`tree house`).
+ */
+const LEMMA_ATOM = String.raw`[a-z0-9]+(?:['.\-][a-z0-9]+)*\.?`;
+const LEMMA_KEY = new RegExp(`^${LEMMA_ATOM}(?:\\.{3}${LEMMA_ATOM})*$`);
+/** A letter-only lemma, the shape occurrence counting already treats as one word. */
+const PLAIN_LEMMA = /^[a-z]+(?:['-][a-z]+)*$/;
+/** One tap token that is not a plain letter word: `911`, `y2k`, `a.m.` */
+const TOKEN_LEMMA = new RegExp(`^${LEMMA_ATOM}$`);
+
+/**
+ * Two or more words, with a space between them. A comma may sit on a word (`oh, brother`).
+ * A full stop, question mark, number, or ellipsis may sit in the key (`that will do.`,
+ * `psychology 101`, `the longer... the more`). `oh,brother` has no space, so it is refused.
+ */
+function phraseKeyOk(key: string): boolean {
+  if (!key || key.length > LIMITS.phraseKey || !/\s/.test(key)) return false;
+  let words = 0;
+  for (const chunk of key.split(/\s+/)) {
+    if (!chunk) continue;
+    const core = chunk.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, "");
+    if (!core) continue;
+    if (!/^[\p{L}\p{N}]+(?:['.\-][\p{L}\p{N}]+)*$/u.test(core)) return false;
+    words += 1;
+  }
+  return words >= 2;
+}
 
 function checkExtras(
   issues: Issues,
@@ -1060,7 +1193,7 @@ function checkExtras(
             .replace(/[\u2018\u2019\u02bc]/g, "'")
             .replace(/\s+/g, " ");
           const where = `The phrase ${q(rawKey)}`;
-          if (!key || key.length > LIMITS.phraseKey || !PHRASE_KEY.test(key)) {
+          if (!phraseKeyOk(key)) {
             issues.error(
               `${where} must be two or more plain English words in lower case, like "give up" or "oh, brother".`,
             );
@@ -1242,9 +1375,9 @@ export function validateGlossary(input: unknown): GlossaryCheck {
       .trim()
       .toLowerCase()
       .replace(/[\u2018\u2019\u02bc]/g, "'");
-    if (!lemma || lemma.length > LIMITS.lemma || !/^[a-z]+(?:['-][a-z]+)*$/.test(lemma)) {
+    if (!lemma || lemma.length > LIMITS.lemma || !LEMMA_KEY.test(lemma)) {
       issues.error(
-        `The word ${q(rawLemma)} is not a plain English word. Use letters only (an apostrophe or hyphen in the middle is allowed).`,
+        `The word ${q(rawLemma)} is not a plain English word. Use letters or digits. An apostrophe, hyphen, or period may sit inside, and ... may join words, as in either...or.`,
       );
       continue;
     }
@@ -1804,7 +1937,7 @@ export function readingHtml(
   for (const node of nodes) {
     const fragment = doc.createDocumentFragment();
     let offset = 0;
-    for (const seg of tapSegments(node.data, pieceInList)) {
+    for (const seg of listedTokenSegments(node.data, pieceInList, ready)) {
       const start = offset;
       offset += seg.text.length;
       if (seg.kind === "text") {
