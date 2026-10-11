@@ -5,17 +5,46 @@ import type { HandlerOptions } from "../../lib/handlers.ts";
 import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../../lib/word-list-publish.ts";
 
 /**
- * Publish one word list from the admin page: the request body is the glossary
+ * Publish word lists from the admin page: the request body is the glossary
  * JSON file exactly as it should live on the books host. The server hashes
  * those bytes, writes the glossary, and rewrites word-lists/catalog.json with
  * only this row changed, so the hash and the file can never drift apart.
  *
  *   POST /api/admin/word-lists?id=<book id>   body: raw glossary JSON text
  *
- * The book must already exist in the live catalog; a brand-new book still goes
- * through scripts/publish-word-list.mjs, which also brings its metadata.
+ * A book that is already in the catalog is updated in place. A new id is
+ * onboarded from the glossary's own metadata (title, author, lexile, isbn,
+ * series, category) — no cover, so the app keeps its generated one.
  */
 export const onRequestPost = (context: { request: Request; env: Env }) => handlePublish(context.request, context.env);
+
+function rowFromGlossary(
+  id: string,
+  record: Record<string, unknown>,
+  counts: { words: number; paragraphs: number; sentences: number; phrases: number; bytes: number; sha256: string },
+): CatalogRow {
+  const text = (value: unknown) => (typeof value === "string" && value.trim() ? value.trim() : undefined);
+  const lexile = text(record.lexile);
+  const isbn = text(record.isbn);
+  const series = text(record.series);
+  const seriesNumber = typeof record.seriesNumber === "number" ? record.seriesNumber : undefined;
+  const category = record.category === "speech" ? "speech" : undefined;
+  return {
+    id,
+    title: text(record.title) ?? id,
+    author: text(record.author) ?? "",
+    ...(lexile ? { lexile } : {}),
+    ...(isbn ? { isbn } : {}),
+    ...(series ? { series, ...(seriesNumber ? { seriesNumber } : {}) } : {}),
+    ...(category ? { category } : {}),
+    words: counts.words,
+    paragraphs: counts.paragraphs,
+    sentences: counts.sentences,
+    phrases: counts.phrases,
+    updated: new Date().toISOString(),
+    glossary: { url: `${id}/glossary.json`, bytes: counts.bytes, sha256: counts.sha256 },
+  };
+}
 
 export async function handlePublish(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
   try {
@@ -57,17 +86,29 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     if (!current) throw new HttpError(500, "no-catalog");
     const live = JSON.parse(new TextDecoder().decode(await current.arrayBuffer())) as WordListCatalog;
     const existing = (live.lists ?? []).find((item) => item && item.id === id) as CatalogRow | undefined;
-    if (!existing) throw new HttpError(404, "unknown-id");
+    if (!existing && typeof (record as { title?: unknown }).title !== "string") {
+      // A new book needs at least a title from the glossary itself.
+      throw new HttpError(404, "unknown-id");
+    }
 
-    const row: CatalogRow = {
-      ...existing,
-      words,
-      paragraphs,
-      sentences,
-      phrases,
-      updated: new Date().toISOString(),
-      glossary: { url: `${id}/glossary.json`, bytes: bytes.byteLength, sha256 },
-    };
+    const row: CatalogRow = existing
+      ? {
+          ...existing,
+          words,
+          paragraphs,
+          sentences,
+          phrases,
+          updated: new Date().toISOString(),
+          glossary: { url: `${id}/glossary.json`, bytes: bytes.byteLength, sha256 },
+        }
+      : rowFromGlossary(id, record as Record<string, unknown>, {
+          words,
+          paragraphs,
+          sentences,
+          phrases,
+          bytes: bytes.byteLength,
+          sha256,
+        });
     const next = mergeWordListCatalog(live, row);
     const catalogBytes = new TextEncoder().encode(`${JSON.stringify(next, null, 1)}\n`);
 

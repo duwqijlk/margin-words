@@ -7,7 +7,8 @@
  *
  * Copies each packs/<id>/book.epub (when that pack has one), glossary.json, and cover.jpg
  * into dist-private/<id>/. Upload that folder to the private R2 bucket margin-words-private.
- * That bucket has no public access. The app never fetches it. Do not put these files in
+ * That bucket has no public access; the app streams EPUBs from it only to trusted
+ * accounts through /api/book/<id>/epub (see docs/ACCOUNTS.md). Do not put these files in
  * dist/ or dist-books/.
  */
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";

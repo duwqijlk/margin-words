@@ -774,6 +774,24 @@ test("word-list publish: hash computed once, other rows untouched, unknown id re
   );
   assert.equal(unknown.status, 404);
   assert.equal((await unknown.json()).error, "unknown-id");
+
+  const onboarded = await handlePublish(
+    raw(
+      "/api/admin/word-lists?id=brand-new-book",
+      adminCookie,
+      JSON.stringify({ title: "A New Book", author: "Someone", glossary: { z: {} }, count: 1 }),
+    ),
+    env,
+    { now: NOW },
+  );
+  assert.equal(onboarded.status, 200);
+  const storedAfter = JSON.parse(new TextDecoder().decode(files.get("word-lists/catalog.json")));
+  const newRow = storedAfter.lists.find((item) => item.id === "brand-new-book");
+  assert.equal(newRow.title, "A New Book");
+  assert.equal(newRow.author, "Someone");
+  assert.equal(newRow.words, 1);
+  assert.equal(newRow.glossary.url, "brand-new-book/glossary.json");
+  assert.equal(storedAfter.lists.length, 3);
 });
 
 test("private epub: user denied, trusted allowed and logged, missing book 404", async () => {
