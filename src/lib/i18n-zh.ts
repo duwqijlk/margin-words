@@ -81,6 +81,9 @@ export const zh: Record<Key, string> = {
   "dashboard.error": "现在读不到书目。过一会儿再试。",
   "dashboard.retry": "再试一次",
   "dashboard.links": "链接",
+  "dashboard.supporters": "{n} 位支持者",
+  "dashboard.namesMore": "等 {n} 位",
+  "dashboard.supportUs": "支持我们",
   "dashboard.github": "GitHub",
   "dashboard.telegram": "Telegram",
 

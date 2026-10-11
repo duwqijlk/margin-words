@@ -79,6 +79,9 @@ export const en = {
   "dashboard.error": "The book list could not be loaded. Try again in a moment.",
   "dashboard.retry": "Try again",
   "dashboard.links": "Links",
+  "dashboard.supporters": "{n} supporters",
+  "dashboard.namesMore": "{n} more",
+  "dashboard.supportUs": "Support us",
   "dashboard.github": "GitHub",
   "dashboard.telegram": "Telegram",
 
