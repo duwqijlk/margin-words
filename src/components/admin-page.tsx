@@ -2,14 +2,15 @@ import { useState } from "react";
 import { useAccount } from "@/lib/account-store";
 import { askToSignIn } from "@/lib/can-add";
 import { useT } from "@/lib/i18n";
+import { BooksAdmin } from "@/components/books-admin";
 import { SponsorTab } from "@/components/sponsor-admin";
 import { UsersAdmin } from "@/components/users-admin";
 import { WordListAdmin } from "@/components/wordlist-admin";
 import { btn, Segmented } from "@/components/ui";
 
-type AdminTab = "thanks" | "lists" | "users";
+type AdminTab = "thanks" | "lists" | "books" | "users";
 
-/** The /admin page: gift requests, the word-list publisher, and user roles. */
+/** The /admin page: gift requests, the word-list publisher, whole-book uploads, and user roles. */
 export function AdminPage() {
   const { t } = useT();
   const phase = useAccount((state) => state.phase);
@@ -40,10 +41,19 @@ export function AdminPage() {
             options={[
               { value: "thanks" as const, label: t("admin.tab.thanks") },
               { value: "lists" as const, label: t("admin.tab.lists") },
+              { value: "books" as const, label: t("admin.tab.books") },
               { value: "users" as const, label: t("admin.tab.users") },
             ]}
           />
-          {tab === "thanks" ? <SponsorTab /> : tab === "lists" ? <WordListAdmin /> : <UsersAdmin />}
+          {tab === "thanks" ? (
+            <SponsorTab />
+          ) : tab === "lists" ? (
+            <WordListAdmin />
+          ) : tab === "books" ? (
+            <BooksAdmin />
+          ) : (
+            <UsersAdmin />
+          )}
         </>
       )}
     </div>

@@ -1,6 +1,7 @@
 import { requireAdmin } from "../../lib/admin.ts";
 import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError, json } from "../../lib/http.ts";
+import { sha256HexBytes } from "../../lib/password.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../../lib/word-list-publish.ts";
 
@@ -83,8 +84,7 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     const phrases = record.phrases && typeof record.phrases === "object" ? Object.keys(record.phrases).length : 0;
 
     const bytes = new TextEncoder().encode(text);
-    const digest = await crypto.subtle.digest("SHA-256", bytes as BufferSource);
-    const sha256 = [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+    const sha256 = await sha256HexBytes(bytes);
 
     const current = await bucket.get("word-lists/catalog.json");
     if (!current) throw new HttpError(500, "no-catalog");
@@ -123,6 +123,12 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
           bytes: bytes.byteLength,
           sha256,
         });
+    // ?isbn= overrides the edition number: a value sets it, an empty value clears it.
+    if (url.searchParams.has("isbn")) {
+      const isbn = (url.searchParams.get("isbn") ?? "").trim();
+      if (isbn) row.isbn = isbn;
+      else delete row.isbn;
+    }
     const next = mergeWordListCatalog(live, row);
     const catalogBytes = new TextEncoder().encode(`${JSON.stringify(next, null, 1)}\n`);
 

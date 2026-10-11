@@ -60,6 +60,8 @@ export type ReadingSlot =
 export type ParsedEpub = {
   title: string;
   author: string;
+  /** The ISBN-13 from the OPF identifiers, dashes stripped. Null when none names itself an ISBN. */
+  isbn: string | null;
   chapters: EpubChapter[];
   /** Spine files the chapter list drops. Empty when every spine file is already a chapter. */
   extras: EpubExtra[];
@@ -952,6 +954,7 @@ export async function parseEpub(
   const opf = new DOMParser().parseFromString(opfXml, "application/xml");
   const title = englishTitle(textOf(byLocal(opf, "title")[0]), "Untitled");
   const author = englishTitle(textOf(byLocal(opf, "creator")[0]), "");
+  const isbn = isbnOf(opf);
   const opfBase = dirOf(opfPath);
   const manifest = new Map<string, { href: string; type: string; props: string }>();
   for (const item of byLocal(opf, "item")) {
@@ -1360,12 +1363,23 @@ export async function parseEpub(
   return {
     title,
     author,
+    isbn,
     chapters: ready,
     extras,
     spine: spineRefs.map((item) => ({ href: item.path, opfHref: item.href, itemId: item.id })),
     cover,
     coverTagged,
   };
+}
+
+/** The first OPF identifier that names an ISBN, either by scheme or by ISBN-13 shape. */
+function isbnOf(opf: Document): string | null {
+  for (const node of byLocal(opf, "identifier")) {
+    const scheme = (node.getAttribute("opf:scheme") ?? "").toUpperCase();
+    const value = (node.textContent ?? "").replace(/[-\s]/g, "");
+    if (scheme === "ISBN" || /^(97[89])\d{10}$/.test(value)) return value;
+  }
+  return null;
 }
 
 function fileKey(value: string): string {

@@ -198,6 +198,22 @@ export async function accountPostRaw(path: string, body: string): Promise<Record
   return payload;
 }
 
+/** POST multipart form data (file uploads). The browser sets the content type. */
+export async function accountPostForm(path: string, form: FormData): Promise<Record<string, unknown>> {
+  let response: Response;
+  try {
+    response = await fetch(path, { method: "POST", body: form, credentials: "same-origin" });
+  } catch {
+    throw new Error("network");
+  }
+  const payload = await readBody(response);
+  if (!response.ok) {
+    if (response.status === 401 && payload.error !== "credentials") throw new Error("unauthorized");
+    throw new Error(typeof payload.error === "string" ? payload.error : "generic");
+  }
+  return payload;
+}
+
 function asItems(value: unknown): SyncItem[] {
   if (!Array.isArray(value)) return [];
   const out: SyncItem[] = [];
