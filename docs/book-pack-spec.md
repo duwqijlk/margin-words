@@ -133,7 +133,7 @@ type GlossaryFile = {
 
 ### 4.1 Entry (one word), key = lemma
 
-Key rules: lower case, letters only, one apostrophe or hyphen allowed inside (`^[a-z]+(['-][a-z]+)*$`), at most 48 characters.
+Key rules: lower case, letters or digits, one apostrophe, hyphen, or period allowed inside (`don't`, `a.m.`, `y2k`, `911`), and `...` may join words (`either...or`). A space is not allowed. At most 48 characters.
 Duplicate keys (also after lower-casing) are an error. A hyphenated key gives a warning, because the reader splits words
 at hyphens (`muggle-wump` is the two words `muggle` and `wump`), so list the parts instead.
 
@@ -144,7 +144,7 @@ type Entry = {
   pos?: string;         // part of speech, free text, max 48 chars. Use the app's labels (below).
   whyHard?: string;     // one short reason, max 400. Default when missing: "This word is harder than everyday English."
   forms?: string[];     // other spellings in the book that belong to this entry (lower case, one plain word each)
-  senses?: Sense[];     // 1 to 12 meanings (version 2 only)
+  senses?: Sense[];     // 1 to 24 meanings (version 2 only)
   coined?: boolean;     // true only if the AUTHOR INVENTED the word
   senseOnly?: boolean;  // true: underline/open the word ONLY at the places named by the anchors of its senses (4.7)
 };
@@ -407,11 +407,11 @@ Work chapter by chapter: take the chapter text, answer with the JSON pieces for 
 A file is accepted by the app when all of these hold (these are the exact error conditions of the app's validator):
 
 1. Valid JSON; top level is an object with `version` (1 or 2) and `glossary` (an object, not a list, not empty).
-2. Every key matches `^[a-z]+(['-][a-z]+)*$`, length <= 48, no duplicates after lower-casing.
+2. Every key is lower case, length <= 48, no duplicates after lower-casing. Letters or digits; an apostrophe, hyphen, or period may sit inside; `...` may join words (`either...or`). A space is refused.
 3. Every entry is an object; `meaning` is a non-empty string unless `senses` is present; strings are within their length limits; `forms` is a list of strings; `coined` is a boolean.
-4. `senses` only with `version: 2`; 1 to 12 items; each has a non-empty `meaning`; at most one `default: true` per entry; no two senses share one (`chapter`, `form`, `occurrence`).
+4. `senses` only with `version: 2`; 1 to 24 items; each has a non-empty `meaning`; at most one `default: true` per entry; no two senses share one (`chapter`, `form`, `occurrence`).
 5. Every anchor: `chapter` integer >= 0, `occurrence` integer >= 1, `occurrence` only together with `chapter`, and (`context` or `chapter`+`occurrence`) present; at most 60 anchors per sense.
-6. Paragraph notes have integer `chapter`/`paragraph` >= 0 and non-empty `context`, `mainIdea`, `simple`; `hardWords` is a list of at most 20 non-empty strings. Sentence notes have integer `chapter` >= 0 and non-empty `context`, `simple`, `grammar`. Phrases: key of two or more plain lower-case words, `meaning` present, `pos` one of the three values.
+6. Paragraph notes have integer `chapter`/`paragraph` >= 0 and non-empty `context`, `mainIdea`, `simple`; `hardWords` is a list of at most 20 non-empty strings. Sentence notes have integer `chapter` >= 0 and non-empty `context`, `simple`, `grammar`. Phrases: key of two or more lower-case words with a space between them (a comma, full stop, number, or ellipsis may sit in the key), `meaning` present, `pos` one of the three values.
 
 Extra checks when the EPUB is available (`validate-glossary.mjs book.epub glossary.json`; the app only warns for these, the script makes them errors):
 7. The chapter exists; the form occurs at least `occurrence` times in that chapter; `context` is inside the paragraph that holds that occurrence.

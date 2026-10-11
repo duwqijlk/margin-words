@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { loadAppModules } from "./lib/app-modules.mjs";
 
-const { format, text } = await loadAppModules();
+const { format, text, help } = await loadAppModules();
 const ok = (value) => format.validateGlossary(value);
 
 test("segmentation 2 is kept, and any other value is only a warning", () => {
@@ -89,6 +89,64 @@ test("errors name the word", () => {
   assert.equal(r.ok, false);
   assert.match(r.errors.join("\n"), /"bank" has no "meaning"/);
   assert.match(r.errors.join("\n"), /"tree house" is not a plain English word/);
+});
+
+test("a digit, an abbreviation, and an ellipsis are words, and a word may have 24 meanings", () => {
+  const senses = Array.from({ length: 15 }, (_, index) => ({ meaning: `Sense ${index + 1} of the yard.` }));
+  const many = ok({
+    version: 2,
+    glossary: {
+      "911": { meaning: "The phone number for help.", senses: [{ meaning: "Call this when someone is hurt.", anchors: [{ chapter: 0, occurrence: 1, context: "Someone had called 911, and he" }] }] },
+      "a.m.": { meaning: "The morning hours." },
+      y2k: { meaning: "The year 2000." },
+      "either...or": { meaning: "A choice between two things." },
+      junkyard: { meaning: "A yard of junk.", senses },
+    },
+    phrases: {
+      "that will do.": { meaning: "That is enough.", pos: "phrase" },
+      "psychology 101": { meaning: "A first class in how people think.", pos: "phrase" },
+    },
+  });
+  assert.equal(many.ok, true, many.errors.join("\n"));
+  assert.equal(many.file.glossary["911"].meaning.length > 0, true);
+  assert.ok(many.file.phrases["that will do."]);
+  const tooMany = ok({
+    version: 2,
+    glossary: { yard: { meaning: "A yard.", senses: Array.from({ length: 25 }, () => ({ meaning: "One more." })) } },
+  });
+  assert.equal(tooMany.ok, false);
+  assert.match(tooMany.errors.join("\n"), /too many meanings \(25/);
+});
+
+test("911, Y2K, and A.M. are buttons without moving another word's count", () => {
+  const html = "<p>She called 911 at four A.M. after Y2K.</p>";
+  const ready = new Set(["911", "a.m.", "y2k", "called"]);
+  const keys = new Map([
+    ["911", "911"],
+    ["a.m.", "a.m."],
+    ["a.m", "a.m."],
+    ["y2k", "y2k"],
+    ["called", "called"],
+  ]);
+  const shown = format.readingHtml(html, ready, (surface) => text.resolveGlossKey(surface, keys, new Map()), 0, new Map());
+  const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
+  const byText = (value) => [...doc.querySelectorAll("button")].find((button) => button.textContent === value);
+  const called = byText("called");
+  const emergency = byText("911");
+  const morning = [...doc.querySelectorAll("button")].find((button) => button.textContent.replace(/\.$/, "") === "A.M");
+  const year = byText("Y2K");
+  assert.ok(called && emergency && morning && year);
+  assert.equal(called.getAttribute("data-n"), "1");
+  assert.equal(called.className, "book-hard");
+  assert.equal(emergency.className, "book-hard");
+  assert.equal(morning.className, "book-hard");
+  assert.equal(year.className, "book-hard");
+  assert.equal(byText("A"), undefined);
+  assert.equal(byText("M"), undefined);
+  assert.equal(byText("Y"), undefined);
+  assert.equal(byText("K"), undefined);
+  const hit = help.pickPhrase({ "that will do.": { meaning: "That is enough.", pos: "phrase" } }, "That will do.", "do");
+  assert.equal(hit && hit.key, "that will do.");
 });
 
 test("senses are not allowed in version 1; broken JSON is explained", () => {

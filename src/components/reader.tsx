@@ -1069,6 +1069,9 @@ export function ReaderScreen({
         if (!keys.has(key)) keys.set(key, key);
         const straight = plainSurface(key);
         if (!keys.has(straight)) keys.set(straight, key);
+        // `A.M` and `a.m.` are the same listed token. The period is part of the key.
+        const bare = straight.replace(/\.+$/g, "");
+        if (bare && !keys.has(bare)) keys.set(bare, key);
         if (gloss.senseOnly === true) sparse.set(key, gloss);
         if (hasTrickySense(gloss)) tricky.set(key, gloss);
         for (const form of gloss.forms ?? []) {
