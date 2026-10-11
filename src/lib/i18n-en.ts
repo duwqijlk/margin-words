@@ -216,6 +216,8 @@ export const en = {
   "lists.matchNone": "This word list has no snippets to compare with your e-book.",
   "lists.add": "Add to my shelf",
   "lists.working": "Checking your e-book…",
+  "lists.checkProgress": "Checking {done}/{total}…",
+  "lists.downloaded": "Downloaded {mb} MB",
   "lists.openLibrary": "Open from library",
   "shelf.due": "{n} due",
   "shelf.chapterOf": "Chapter {n} of {total}",
