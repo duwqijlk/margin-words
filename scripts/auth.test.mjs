@@ -861,9 +861,29 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
     return form;
   }
 
-  // private: epub + cover land in the PRIVATE bucket
+  // private: epub + cover land in the PRIVATE bucket, and the card cover reaches the books host
   const privateFiles = new Map();
-  const privateEnv = envOf(db, { PRIVATE: stubBucket(privateFiles) });
+  const cardCatalog = {
+    format: 1,
+    name: "Word lists",
+    updated: "2026-10-01T00:00:00.000Z",
+    lists: [
+      {
+        id: "great-book",
+        title: "Great Book",
+        words: 10,
+        glossary: { url: "great-book/glossary.json", bytes: 5, sha256: "aaa" },
+        updated: "2026-10-01T00:00:00+00:00",
+        paragraphs: 1,
+        sentences: 1,
+        phrases: 1,
+      },
+    ],
+  };
+  const cardFiles = new Map([
+    ["word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(cardCatalog, null, 1)}\n`)],
+  ]);
+  const privateEnv = envOf(db, { PRIVATE: stubBucket(privateFiles), BOOKS: stubBucket(cardFiles) });
   const privateOk = await handleUpload(
     form("/api/admin/books?id=great-book&kind=private", adminCookie, formWith({ cover: true })),
     privateEnv,
@@ -874,6 +894,9 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
   assert.equal(privateJson.kind, "private");
   assert.equal(new Uint8Array(privateFiles.get("great-book/book.epub"))[0], 80);
   assert.ok(privateFiles.has("great-book/cover.jpg"));
+  const storedCardCatalog = JSON.parse(new TextDecoder().decode(cardFiles.get("word-lists/catalog.json")));
+  assert.equal(storedCardCatalog.lists[0].cover.url, "great-book/cover.jpg");
+  assert.ok(cardFiles.has("word-lists/great-book/cover.jpg"));
 
   // public without a glossary file is refused
   const booksFiles = new Map();
