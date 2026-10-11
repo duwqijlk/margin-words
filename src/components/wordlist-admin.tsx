@@ -1,26 +1,36 @@
 import { useEffect, useMemo, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { accountPostRaw } from "@/lib/sync-engine";
+import { BUNDLED_CATALOG_URL } from "@/lib/packs";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
-import { btn, cn, field } from "@/components/ui";
-
-type CatalogList = { id: string; title: string; author?: string; words?: number };
+import { bookKey, matchGlossaryBook, type BookKind, type KnownBook } from "@/lib/glossary-target";
+import { btn, cn, field, selectCls } from "@/components/ui";
 
 type Preview =
-  | { ok: true; words: number; paragraphs: number; sentences: number; phrases: number; bytes: number; title?: string }
+  | { ok: true; words: number; paragraphs: number; sentences: number; phrases: number; bytes: number; title: string; author: string; isbn: string }
   | { ok: false; problem: string };
 
 type PendingFile = {
+  /** Id taken from the file name. Used only when this file is published as a new word list. */
   id: string;
   name: string;
   text: string;
   preview: Preview;
+  /** "" until a book is chosen. "new" publishes a new word list. Otherwise "lists:id" or "public:id". */
+  target: string;
   result?: "ok" | "error";
   resultNote?: string;
 };
 
+const NEW_TARGET = "new";
+const ID_PATTERN = /^[a-z0-9][a-z0-9_-]{0,63}$/;
+
 function normalizeTitle(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function textOf(value: unknown): string {
+  return typeof value === "string" ? value.trim() : "";
 }
 
 function previewOf(text: string): Preview {
@@ -38,6 +48,8 @@ function previewOf(text: string): Preview {
   const record = data as {
     count?: unknown;
     title?: unknown;
+    author?: unknown;
+    isbn?: unknown;
     glossary: Record<string, unknown>;
     paragraphs?: unknown;
     sentences?: unknown;
@@ -45,7 +57,9 @@ function previewOf(text: string): Preview {
   };
   return {
     ok: true,
-    title: typeof record.title === "string" ? record.title : undefined,
+    title: textOf(record.title),
+    author: textOf(record.author),
+    isbn: textOf(record.isbn),
     words: Number(record.count) || Object.keys(record.glossary).length,
     paragraphs: Array.isArray(record.paragraphs) ? record.paragraphs.length : 0,
     sentences: Array.isArray(record.sentences) ? record.sentences.length : 0,
@@ -60,66 +74,122 @@ function idFromName(name: string): string {
   return base.trim().toLowerCase();
 }
 
+function booksOf(kind: BookKind, rows: unknown): KnownBook[] {
+  if (!Array.isArray(rows)) return [];
+  const out: KnownBook[] = [];
+  for (const item of rows) {
+    if (!item || typeof item !== "object") continue;
+    const row = item as { id?: unknown; title?: unknown; author?: unknown; isbn?: unknown };
+    const id = textOf(row.id);
+    if (!ID_PATTERN.test(id)) continue;
+    out.push({ id, title: textOf(row.title) || id, author: textOf(row.author), isbn: textOf(row.isbn), kind });
+  }
+  return out;
+}
+
+function parseTarget(value: string): { kind: BookKind; id: string } | "new" | "" {
+  if (!value) return "";
+  if (value === NEW_TARGET) return "new";
+  const split = value.indexOf(":");
+  if (split < 1) return "";
+  const kind = value.slice(0, split);
+  const id = value.slice(split + 1);
+  if ((kind !== "lists" && kind !== "public") || !ID_PATTERN.test(id)) return "";
+  return { kind, id };
+}
+
 const ERROR_KEYS: Record<string, string> = {
   "unknown-id": "admin.lists.needsTitle",
   "duplicate-title": "admin.lists.duplicate",
   "bad-glossary": "admin.lists.badGlossary",
   "bad-json": "admin.lists.badGlossary",
+  "bad-id": "admin.lists.error",
   "too-large": "admin.lists.tooLarge",
   "no-books-bucket": "admin.error",
   "no-catalog": "admin.error",
 };
 
-/** The word-list tab: drop one or many glossary JSON files, publish them in one go. */
+/** The word-list tab: choose a glossary file, match it to a book, then publish. */
 export function WordListAdmin() {
   const { t } = useT();
-  const [known, setKnown] = useState<CatalogList[] | null>(null);
+  const [books, setBooks] = useState<KnownBook[] | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [files, setFiles] = useState<PendingFile[]>([]);
   const [busy, setBusy] = useState(false);
   const [summary, setSummary] = useState("");
 
-  const loadCatalog = (onDone?: (rows: CatalogList[]) => void) => {
-    void fetch(WORD_LIST_CATALOG_URL, { cache: "no-cache" })
-      .then((response) => (response.ok ? response.json() : Promise.reject(new Error(String(response.status)))))
-      .then((catalog: { lists?: CatalogList[] }) => {
-        setKnown(catalog.lists ?? []);
-        onDone?.(catalog.lists ?? []);
+  const loadCatalogs = () => {
+    setLoadError(false);
+    void Promise.all([
+      fetch(WORD_LIST_CATALOG_URL, { cache: "no-cache" }).then((response) =>
+        response.ok ? response.json() : Promise.reject(new Error(String(response.status))),
+      ),
+      fetch(BUNDLED_CATALOG_URL, { cache: "no-cache" }).then((response) =>
+        response.ok ? response.json() : Promise.reject(new Error(String(response.status))),
+      ),
+    ])
+      .then(([lists, packs]) => {
+        const listRows = booksOf("lists", (lists as { lists?: unknown }).lists);
+        const publicRows = booksOf("public", (packs as { packs?: unknown }).packs);
+        setBooks([...listRows, ...publicRows]);
       })
       .catch(() => setLoadError(true));
   };
 
   useEffect(() => {
-    loadCatalog();
+    loadCatalogs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const knownById = useMemo(() => new Map((known ?? []).map((row) => [row.id, row])), [known]);
-  const knownTitles = useMemo(
-    () => new Map((known ?? []).map((row) => [normalizeTitle(row.title), row.id])),
-    [known],
+  const byKey = useMemo(() => new Map((books ?? []).map((book) => [bookKey(book), book])), [books]);
+  const lists = useMemo(
+    () => (books ?? []).filter((book) => book.kind === "lists").sort((a, b) => a.title.localeCompare(b.title)),
+    [books],
+  );
+  const publics = useMemo(
+    () => (books ?? []).filter((book) => book.kind === "public").sort((a, b) => a.title.localeCompare(b.title)),
+    [books],
   );
 
-  const publishable = files.filter((file) => file.preview.ok && !blockedIdOf(file));
-
-  function kindOf(file: PendingFile): "update" | "new" {
-    return knownById.has(file.id) ? "update" : "new";
+  function titleClash(file: PendingFile): KnownBook | undefined {
+    if (file.preview.ok !== true || !file.preview.title) return undefined;
+    const key = normalizeTitle(file.preview.title);
+    return (books ?? []).find((book) => normalizeTitle(book.title) === key);
   }
 
-  /** A "new" id whose title already sits on the host under another id is a file-name mistake. */
-  function blockedIdOf(file: PendingFile): string | undefined {
-    if (file.preview.ok !== true || !file.preview.title || knownById.has(file.id)) return undefined;
-    return knownTitles.get(normalizeTitle(file.preview.title));
+  function chosen(file: PendingFile): KnownBook | "new" | "" {
+    const parsed = parseTarget(file.target);
+    if (parsed === "" || parsed === "new") return parsed;
+    return byKey.get(file.target) ?? "";
   }
+
+  /** A new word list whose title is already on the host is a file aimed at the wrong book. */
+  function blocked(file: PendingFile): KnownBook | undefined {
+    if (chosen(file) !== "new") return undefined;
+    return titleClash(file);
+  }
+
+  const publishable = files.filter((file) => {
+    if (file.preview.ok !== true || blocked(file)) return false;
+    const pick = chosen(file);
+    if (pick === "") return false;
+    if (pick === "new") return ID_PATTERN.test(file.id);
+    return true;
+  });
 
   async function readFiles(list: FileList | null) {
-    if (!list || list.length === 0) return;
+    if (!list || list.length === 0 || !books) return;
     setSummary("");
     const incoming: PendingFile[] = [];
     for (const file of Array.from(list)) {
       const id = idFromName(file.name);
       const text = await file.text();
-      incoming.push({ id, name: file.name, text, preview: previewOf(text) });
+      const preview = previewOf(text);
+      const match =
+        preview.ok === true
+          ? matchGlossaryBook(books, { fileId: id, title: preview.title, author: preview.author, isbn: preview.isbn })
+          : null;
+      incoming.push({ id, name: file.name, text, preview, target: match ? bookKey(match) : "" });
     }
     setFiles((current) => {
       const byId = new Map(current.map((file) => [file.id, file]));
@@ -128,14 +198,23 @@ export function WordListAdmin() {
     });
   }
 
+  function setTarget(fileId: string, target: string) {
+    setFiles((current) =>
+      current.map((item) => (item.id === fileId ? { ...item, target, result: undefined, resultNote: undefined } : item)),
+    );
+  }
+
   async function publish() {
     if (busy || publishable.length === 0) return;
     setBusy(true);
     let ok = 0;
     let failed = 0;
     for (const file of publishable) {
+      const pick = chosen(file);
+      const id = pick === "new" ? file.id : pick === "" ? "" : pick.id;
+      const catalog = pick !== "new" && pick !== "" && pick.kind === "public" ? "&catalog=public" : "";
       try {
-        await accountPostRaw(`/api/admin/word-lists?id=${encodeURIComponent(file.id)}`, file.text);
+        await accountPostRaw(`/api/admin/word-lists?id=${encodeURIComponent(id)}${catalog}`, file.text);
         ok += 1;
         setFiles((current) =>
           current.map((item) => (item.id === file.id ? { ...item, result: "ok", resultNote: undefined } : item)),
@@ -154,17 +233,7 @@ export function WordListAdmin() {
     }
     setBusy(false);
     setSummary(t("admin.lists.batchDone", { ok, failed }));
-    if (ok > 0) loadCatalog();
-  }
-
-  /** The file name was wrong but the book exists: publish it under the existing id. */
-  function publishAs(file: PendingFile, id: string) {
-    setFiles((current) => {
-      const withoutTarget = current.filter((item) => item.id !== id);
-      return withoutTarget.map((item) =>
-        item.id === file.id ? { ...item, id, result: undefined, resultNote: undefined } : item,
-      );
-    });
+    if (ok > 0) loadCatalogs();
   }
 
   return (
@@ -172,7 +241,7 @@ export function WordListAdmin() {
       <p className="text-sm text-muted">{t("admin.lists.hint")}</p>
       {loadError ? (
         <p role="alert">{t("admin.lists.error")}</p>
-      ) : known === null ? (
+      ) : books === null ? (
         <p>{t("dashboard.loading")}</p>
       ) : (
         <>
@@ -196,16 +265,12 @@ export function WordListAdmin() {
           {files.length > 0 ? (
             <ul className="grid gap-2">
               {files.map((file) => {
-                const kind = kindOf(file);
-                const clashId = blockedIdOf(file);
+                const pick = chosen(file);
+                const clash = blocked(file);
+                const canBeNew = file.preview.ok === true && file.preview.title && ID_PATTERN.test(file.id);
                 return (
-                  <li key={file.id} className="grid gap-1 rounded-xl border border-line bg-card p-3" data-admin-list-item={file.id}>
-                    <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <p className="text-sm font-semibold">{file.id}</p>
-                      <p className={cn("text-xs", kind === "new" ? "text-accent" : "text-muted")}>
-                        {kind === "new" ? t("admin.lists.newBook") : t("admin.lists.update")}
-                      </p>
-                    </div>
+                  <li key={file.id} className="grid gap-2 rounded-xl border border-line bg-card p-3" data-admin-list-item={file.id}>
+                    <p className="text-sm font-semibold">{file.name}</p>
                     {file.preview.ok ? (
                       <p className="text-sm">
                         {t("admin.lists.preview", {
@@ -221,20 +286,51 @@ export function WordListAdmin() {
                         {t(file.preview.problem as Parameters<typeof t>[0])}
                       </p>
                     )}
-                    {clashId ? (
-                      <div className="grid gap-1">
-                        <p className="text-sm text-warn" role="alert" data-admin-list-clash>
-                          {t("admin.lists.duplicateTitle", { id: clashId })}
-                        </p>
-                        <button
-                          type="button"
-                          className={cn(btn.quiet, "justify-start px-0")}
-                          data-admin-list-publish-as
-                          onClick={() => publishAs(file, clashId)}
+                    {file.preview.ok ? (
+                      <label className="grid gap-1 text-sm font-medium" htmlFor={`admin-list-book-${file.id}`}>
+                        {t("admin.lists.book")}
+                        <select
+                          id={`admin-list-book-${file.id}`}
+                          className={cn(selectCls, "w-full")}
+                          data-admin-list-book={file.id}
+                          value={file.target}
+                          disabled={busy}
+                          onChange={(event) => setTarget(file.id, event.target.value)}
                         >
-                          {t("admin.lists.publishAs", { id: clashId })}
-                        </button>
-                      </div>
+                          <option value="">{t("admin.lists.chooseBook")}</option>
+                          {canBeNew ? <option value={NEW_TARGET}>{t("admin.lists.newWordList", { id: file.id })}</option> : null}
+                          {lists.length > 0 ? (
+                            <optgroup label={t("admin.lists.wordLists")}>
+                              {lists.map((book) => (
+                                <option key={bookKey(book)} value={bookKey(book)}>
+                                  {book.title} ({book.id})
+                                </option>
+                              ))}
+                            </optgroup>
+                          ) : null}
+                          {publics.length > 0 ? (
+                            <optgroup label={t("admin.lists.publicBooks")}>
+                              {publics.map((book) => (
+                                <option key={bookKey(book)} value={bookKey(book)}>
+                                  {book.title} ({book.id})
+                                </option>
+                              ))}
+                            </optgroup>
+                          ) : null}
+                        </select>
+                      </label>
+                    ) : null}
+                    {pick && pick !== "new" ? (
+                      <p className="text-xs text-muted" data-admin-list-matched={file.id}>
+                        {t("admin.lists.matched", { title: pick.title, id: pick.id })}
+                      </p>
+                    ) : null}
+                    {pick === "new" && !clash ? <p className="text-xs text-accent">{t("admin.lists.newBook")}</p> : null}
+                    {file.preview.ok && pick === "" ? <p className="text-sm text-warn">{t("admin.lists.needBook")}</p> : null}
+                    {clash ? (
+                      <p className="text-sm text-warn" role="alert" data-admin-list-clash>
+                        {t("admin.lists.duplicateTitle", { id: clash.id })}
+                      </p>
                     ) : null}
                     {file.result === "ok" ? <p className="text-sm text-accent">{t("admin.lists.published")}</p> : null}
                     {file.result === "error" && file.resultNote ? (

@@ -817,6 +817,95 @@ test("word-list publish: hash computed once, other rows untouched, unknown id re
   assert.equal((await clash.json()).error, "duplicate-title");
 });
 
+test("public glossary update replaces the list and keeps the epub", async () => {
+  const db = openDb();
+  await call(handleRegister, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const login = await call(handleLogin, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const adminCookie = cookieHeader(login);
+  const files = new Map();
+  const live = {
+    format: 1,
+    packs: [
+      {
+        id: "alice",
+        title: "Alice's Adventures in Wonderland",
+        author: "Lewis Carroll",
+        rev: "oldrevoldrev",
+        words: 10,
+        epub: { url: "alice/book.epub", bytes: 4, sha256: "abc" },
+        glossary: { url: "alice/glossary.json", bytes: 2, sha256: "dd", rev: "dd" },
+      },
+      {
+        id: "looking-glass",
+        title: "Through the Looking-Glass",
+        rev: "keepmekeepme",
+        words: 7,
+        epub: { url: "looking-glass/book.epub", bytes: 4, sha256: "eee" },
+        glossary: { url: "looking-glass/glossary.json", bytes: 2, sha256: "ff", rev: "ff" },
+      },
+    ],
+  };
+  files.set("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
+  files.set("public-books/alice/book.epub", new Uint8Array([9, 9, 9, 9]));
+  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const glossary = JSON.stringify({
+    title: "Alice's Adventures in Wonderland",
+    author: "Lewis Carroll",
+    glossary: { rabbit: {}, tea: {} },
+    phrases: { "the present": {} },
+  });
+  const published = await handlePublish(
+    raw("/api/admin/word-lists?id=alice&catalog=public", adminCookie, glossary),
+    env,
+    { now: NOW },
+  );
+  assert.equal(published.status, 200);
+  const body = await published.json();
+  assert.equal(body.catalog, "public");
+  assert.equal(body.row.words, 2);
+  assert.equal(body.row.phrases, 1);
+  assert.equal(body.row.epub.sha256, "abc");
+  assert.equal(body.row.rev, body.row.glossary.sha256.slice(0, 12));
+  assert.notEqual(body.row.rev, "oldrevoldrev");
+
+  const stored = JSON.parse(new TextDecoder().decode(files.get("public-books/catalog.json")));
+  const alice = stored.packs.find((item) => item.id === "alice");
+  const other = stored.packs.find((item) => item.id === "looking-glass");
+  assert.equal(alice.glossary.sha256, body.row.glossary.sha256);
+  assert.equal(alice.epub.sha256, "abc");
+  assert.equal(other.rev, "keepmekeepme");
+  assert.equal(new TextDecoder().decode(files.get("public-books/alice/glossary.json")), glossary);
+  assert.equal(files.has("word-lists/catalog.json"), false);
+  assert.deepEqual([...files.get("public-books/alice/book.epub")], [9, 9, 9, 9]);
+
+  const missing = await handlePublish(
+    raw("/api/admin/word-lists?id=no-such-book&catalog=public", adminCookie, glossary),
+    env,
+    { now: NOW },
+  );
+  assert.equal(missing.status, 404);
+
+  files.set(
+    "word-lists/catalog.json",
+    new TextEncoder().encode(`${JSON.stringify({ format: 1, lists: [] }, null, 1)}\n`),
+  );
+  const duplicate = await handlePublish(
+    raw(
+      "/api/admin/word-lists?id=alice-in-wonderland-lite",
+      adminCookie,
+      JSON.stringify({ title: "Alice's Adventures in Wonderland", glossary: { a: {} } }),
+    ),
+    env,
+    { now: NOW },
+  );
+  assert.equal(duplicate.status, 409);
+  assert.equal((await duplicate.json()).error, "duplicate-title");
+});
+
 test("private epub: user denied, trusted allowed and logged, missing book 404", async () => {
   const db = openDb();
   const reader = await call(handleRegister, envOf(db), {

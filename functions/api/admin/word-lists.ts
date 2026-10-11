@@ -12,10 +12,14 @@ import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../
  * only this row changed, so the hash and the file can never drift apart.
  *
  *   POST /api/admin/word-lists?id=<book id>   body: raw glossary JSON text
+ *   POST /api/admin/word-lists?id=<book id>&catalog=public
  *
  * A book that is already in the catalog is updated in place. A new id is
  * onboarded from the glossary's own metadata (title, author, lexile, isbn,
  * series, category) — no cover, so the app keeps its generated one.
+ * catalog=public updates the glossary of a public-domain book already in
+ * public-books/catalog.json. It does not add a new public book, and it does
+ * not write the word-list catalog.
  */
 export const onRequestPost = (context: { request: Request; env: Env }) => handlePublish(context.request, context.env);
 
@@ -85,6 +89,12 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
 
     const bytes = new TextEncoder().encode(text);
     const sha256 = await sha256HexBytes(bytes);
+    const counts = { words, paragraphs, sentences, phrases, bytes: bytes.byteLength, sha256 };
+
+    if (url.searchParams.get("catalog") === "public") {
+      const row = await updatePublicGlossary(bucket, id, bytes, counts);
+      return json({ row, catalog: "public" });
+    }
 
     const current = await bucket.get("word-lists/catalog.json");
     if (!current) throw new HttpError(500, "no-catalog");
@@ -103,6 +113,8 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
         (item) => typeof item?.title === "string" && normalizeTitle(item.title) === titleKey,
       );
       if (clash) throw new HttpError(409, "duplicate-title");
+      const publicClash = await publicTitleClash(bucket, titleKey);
+      if (publicClash) throw new HttpError(409, "duplicate-title");
     }
 
     const row: CatalogRow = existing
@@ -140,4 +152,55 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
   } catch (error) {
     return errorResponse(error);
   }
+}
+
+type PublicPack = {
+  id: string;
+  title?: string;
+  rev?: string;
+  words?: number;
+  paragraphs?: number;
+  sentences?: number;
+  phrases?: number;
+  updated?: string;
+  epub?: unknown;
+  glossary?: { url?: string; bytes?: number; sha256?: string; rev?: string };
+};
+
+/**
+ * Replace the glossary of a public-domain book that is already on the host.
+ * The EPUB stays. The catalog revision changes so a reader who has the book
+ * is offered Update.
+ */
+async function updatePublicGlossary(
+  bucket: NonNullable<Env["BOOKS"]>,
+  id: string,
+  bytes: Uint8Array,
+  counts: { words: number; paragraphs: number; sentences: number; phrases: number; bytes: number; sha256: string },
+): Promise<PublicPack> {
+  const current = await bucket.get("public-books/catalog.json");
+  if (!current) throw new HttpError(500, "no-catalog");
+  const live = JSON.parse(new TextDecoder().decode(await current.arrayBuffer())) as { packs?: PublicPack[]; updated?: string };
+  const row = (live.packs ?? []).find((item) => item && item.id === id);
+  if (!row) throw new HttpError(404, "unknown-id");
+  const rev = counts.sha256.slice(0, 12);
+  row.words = counts.words;
+  row.paragraphs = counts.paragraphs;
+  row.sentences = counts.sentences;
+  row.phrases = counts.phrases;
+  row.updated = new Date().toISOString();
+  row.rev = rev;
+  row.glossary = { url: `${id}/glossary.json`, bytes: counts.bytes, sha256: counts.sha256, rev };
+  live.updated = row.updated;
+  // The glossary goes first: if the catalog write fails, Discover keeps the previous file.
+  await bucket.put(`public-books/${id}/glossary.json`, bytes);
+  await bucket.put("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
+  return row;
+}
+
+async function publicTitleClash(bucket: NonNullable<Env["BOOKS"]>, titleKey: string): Promise<boolean> {
+  const current = await bucket.get("public-books/catalog.json");
+  if (!current) return false;
+  const live = JSON.parse(new TextDecoder().decode(await current.arrayBuffer())) as { packs?: PublicPack[] };
+  return (live.packs ?? []).some((item) => typeof item?.title === "string" && normalizeTitle(item.title) === titleKey);
 }
