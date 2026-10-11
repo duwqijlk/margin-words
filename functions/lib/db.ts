@@ -11,7 +11,8 @@ export interface D1Statement {
 
 export interface D1Database {
   prepare(sql: string): D1Statement;
-  batch(statements: D1Statement[]): Promise<unknown>;
+  /** Runs the statements as one SQL transaction: all succeed or all roll back. */
+  batch(statements: D1Statement[]): Promise<D1Result<unknown>[]>;
 }
 
 /** Minimal R2 surface the admin handlers use. */

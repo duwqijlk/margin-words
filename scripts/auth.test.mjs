@@ -61,6 +61,16 @@ function openDb() {
       };
       return api;
     },
+    async batch(statements) {
+      // node:sqlite has no shared transaction handle here; run in order. The
+      // handlers only rely on "every statement executed and results returned".
+      const results = [];
+      for (const stmt of statements) {
+        const rows = stmt.all ? await stmt.all() : null;
+        results.push(rows ?? { results: [] });
+      }
+      return results;
+    },
     raw: db,
   };
 }
@@ -998,3 +1008,26 @@ function form(path, cookie, body) {
   if (cookie) headers.set("cookie", cookie);
   return new Request(`http://localhost${path}`, { method: "POST", headers, body });
 }
+
+test("sync push chunks batches over 100 items and saves all of them", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const created = await call(handleRegister, env, { body: { email: "reader@example.com", password: "correct horse" } });
+  const cookie = cookieHeader(created);
+  const items = [];
+  for (let n = 0; n < 130; n += 1) {
+    const itemId = `chunk-book-${n}`;
+    items.push({
+      kind: "shelf",
+      itemId,
+      updatedAt: NOW + n,
+      deleted: false,
+      data: { id: itemId, title: `Book ${n}`, author: "A", cloth: "cloth", createdAt: NOW, updatedAt: NOW },
+    });
+  }
+  const pushed = await call(handleSyncPush, env, { body: { items }, cookie });
+  assert.equal(pushed.status, 200);
+  const saved = (await pushed.json()).items;
+  assert.equal(saved.length, 130);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM sync_items").get().n, 130);
+});
