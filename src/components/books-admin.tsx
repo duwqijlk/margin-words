@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useT } from "@/lib/i18n";
+import { errorText, useT } from "@/lib/i18n";
 import { accountPostForm, accountPostRaw } from "@/lib/sync-engine";
 import { parseEpub } from "@/lib/epub";
 import { btn, cn, field } from "@/components/ui";
@@ -103,6 +103,7 @@ export function BooksAdmin() {
       setEpubName("");
       return;
     }
+    setEpubFile(file);
     setEpubName(file.name);
     setEpubBusy(true);
     try {
@@ -116,7 +117,8 @@ export function BooksAdmin() {
       setCoverDataUrl(parsed.coverTagged ? parsed.cover : null);
       if (!isbnTouched && parsed.isbn) setIsbn(parsed.isbn);
     } catch (reason) {
-      setEpubError(reason instanceof Error ? reason.message : t("err.openFailed"));
+      // The parse only fills in metadata; the file itself is still publishable.
+      setEpubError(errorText(reason, "err.openFailed"));
     } finally {
       setEpubBusy(false);
     }
