@@ -792,6 +792,18 @@ test("word-list publish: hash computed once, other rows untouched, unknown id re
   assert.equal(newRow.words, 1);
   assert.equal(newRow.glossary.url, "brand-new-book/glossary.json");
   assert.equal(storedAfter.lists.length, 3);
+
+  const clash = await handlePublish(
+    raw(
+      "/api/admin/word-lists?id=charlie-2",
+      adminCookie,
+      JSON.stringify({ title: "Charlie!", glossary: { z: {} }, count: 1 }),
+    ),
+    env,
+    { now: NOW },
+  );
+  assert.equal(clash.status, 409);
+  assert.equal((await clash.json()).error, "duplicate-title");
 });
 
 test("private epub: user denied, trusted allowed and logged, missing book 404", async () => {

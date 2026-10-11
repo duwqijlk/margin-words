@@ -18,6 +18,10 @@ import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../
  */
 export const onRequestPost = (context: { request: Request; env: Env }) => handlePublish(context.request, context.env);
 
+function normalizeTitle(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
 function rowFromGlossary(
   id: string,
   record: Record<string, unknown>,
@@ -89,6 +93,16 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     if (!existing && typeof (record as { title?: unknown }).title !== "string") {
       // A new book needs at least a title from the glossary itself.
       throw new HttpError(404, "unknown-id");
+    }
+    if (!existing) {
+      // A new id must not shadow a book that is already on the host under
+      // another id: the same title means the file name is wrong, not that
+      // this is a new book.
+      const titleKey = normalizeTitle(String((record as Record<string, unknown>).title));
+      const clash = (live.lists ?? []).find(
+        (item) => typeof item?.title === "string" && normalizeTitle(item.title) === titleKey,
+      );
+      if (clash) throw new HttpError(409, "duplicate-title");
     }
 
     const row: CatalogRow = existing

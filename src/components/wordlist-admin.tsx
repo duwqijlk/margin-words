@@ -7,7 +7,7 @@ import { btn, cn, field } from "@/components/ui";
 type CatalogList = { id: string; title: string; author?: string; words?: number };
 
 type Preview =
-  | { ok: true; words: number; paragraphs: number; sentences: number; phrases: number; bytes: number }
+  | { ok: true; words: number; paragraphs: number; sentences: number; phrases: number; bytes: number; title?: string }
   | { ok: false; problem: string };
 
 type PendingFile = {
@@ -15,11 +15,13 @@ type PendingFile = {
   name: string;
   text: string;
   preview: Preview;
-  /** "update" when the id is already on the books host, "new" when it would be onboarded. */
-  kind: "update" | "new";
   result?: "ok" | "error";
   resultNote?: string;
 };
+
+function normalizeTitle(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
 
 function previewOf(text: string): Preview {
   if (!text.trim()) return { ok: false, problem: "admin.lists.badGlossary" };
@@ -35,6 +37,7 @@ function previewOf(text: string): Preview {
   }
   const record = data as {
     count?: unknown;
+    title?: unknown;
     glossary: Record<string, unknown>;
     paragraphs?: unknown;
     sentences?: unknown;
@@ -42,6 +45,7 @@ function previewOf(text: string): Preview {
   };
   return {
     ok: true,
+    title: typeof record.title === "string" ? record.title : undefined,
     words: Number(record.count) || Object.keys(record.glossary).length,
     paragraphs: Array.isArray(record.paragraphs) ? record.paragraphs.length : 0,
     sentences: Array.isArray(record.sentences) ? record.sentences.length : 0,
@@ -58,6 +62,7 @@ function idFromName(name: string): string {
 
 const ERROR_KEYS: Record<string, string> = {
   "unknown-id": "admin.lists.needsTitle",
+  "duplicate-title": "admin.lists.duplicate",
   "bad-glossary": "admin.lists.badGlossary",
   "bad-json": "admin.lists.badGlossary",
   "too-large": "admin.lists.tooLarge",
@@ -68,33 +73,44 @@ const ERROR_KEYS: Record<string, string> = {
 /** The word-list tab: drop one or many glossary JSON files, publish them in one go. */
 export function WordListAdmin() {
   const { t } = useT();
-  const [knownIds, setKnownIds] = useState<Set<string> | null>(null);
+  const [known, setKnown] = useState<CatalogList[] | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [files, setFiles] = useState<PendingFile[]>([]);
   const [busy, setBusy] = useState(false);
   const [summary, setSummary] = useState("");
 
-  useEffect(() => {
-    let alive = true;
+  const loadCatalog = (onDone?: (rows: CatalogList[]) => void) => {
     void fetch(WORD_LIST_CATALOG_URL, { cache: "no-cache" })
       .then((response) => (response.ok ? response.json() : Promise.reject(new Error(String(response.status)))))
       .then((catalog: { lists?: CatalogList[] }) => {
-        if (alive) setKnownIds(new Set((catalog.lists ?? []).map((item) => item.id)));
+        setKnown(catalog.lists ?? []);
+        onDone?.(catalog.lists ?? []);
       })
-      .catch(() => {
-        if (alive) setLoadError(true);
-      });
-    return () => {
-      alive = false;
-    };
+      .catch(() => setLoadError(true));
+  };
+
+  useEffect(() => {
+    loadCatalog();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const publishable = files.filter((file) => file.preview.ok);
+  const knownById = useMemo(() => new Map((known ?? []).map((row) => [row.id, row])), [known]);
+  const knownTitles = useMemo(
+    () => new Map((known ?? []).map((row) => [normalizeTitle(row.title), row.id])),
+    [known],
+  );
 
-  const totals = useMemo(() => {
-    const words = files.reduce((sum, file) => sum + (file.preview.ok ? file.preview.words : 0), 0);
-    return { words };
-  }, [files]);
+  const publishable = files.filter((file) => file.preview.ok && !blockedIdOf(file));
+
+  function kindOf(file: PendingFile): "update" | "new" {
+    return knownById.has(file.id) ? "update" : "new";
+  }
+
+  /** A "new" id whose title already sits on the host under another id is a file-name mistake. */
+  function blockedIdOf(file: PendingFile): string | undefined {
+    if (file.preview.ok !== true || !file.preview.title || knownById.has(file.id)) return undefined;
+    return knownTitles.get(normalizeTitle(file.preview.title));
+  }
 
   async function readFiles(list: FileList | null) {
     if (!list || list.length === 0) return;
@@ -103,13 +119,7 @@ export function WordListAdmin() {
     for (const file of Array.from(list)) {
       const id = idFromName(file.name);
       const text = await file.text();
-      incoming.push({
-        id,
-        name: file.name,
-        text,
-        preview: previewOf(text),
-        kind: knownIds?.has(id) ? "update" : "new",
-      });
+      incoming.push({ id, name: file.name, text, preview: previewOf(text) });
     }
     setFiles((current) => {
       const byId = new Map(current.map((file) => [file.id, file]));
@@ -144,12 +154,7 @@ export function WordListAdmin() {
     }
     setBusy(false);
     setSummary(t("admin.lists.batchDone", { ok, failed }));
-    if (ok > 0) {
-      void fetch(WORD_LIST_CATALOG_URL, { cache: "no-cache" })
-        .then((response) => (response.ok ? response.json() : Promise.reject(new Error(String(response.status)))))
-        .then((catalog: { lists?: CatalogList[] }) => setKnownIds(new Set((catalog.lists ?? []).map((item) => item.id))))
-        .catch(() => undefined);
-    }
+    if (ok > 0) loadCatalog();
   }
 
   return (
@@ -157,7 +162,7 @@ export function WordListAdmin() {
       <p className="text-sm text-muted">{t("admin.lists.hint")}</p>
       {loadError ? (
         <p role="alert">{t("admin.lists.error")}</p>
-      ) : knownIds === null ? (
+      ) : known === null ? (
         <p>{t("dashboard.loading")}</p>
       ) : (
         <>
@@ -180,37 +185,46 @@ export function WordListAdmin() {
           </label>
           {files.length > 0 ? (
             <ul className="grid gap-2">
-              {files.map((file) => (
-                <li key={file.id} className="grid gap-1 rounded-xl border border-line bg-card p-3" data-admin-list-item={file.id}>
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <p className="text-sm font-semibold">{file.id}</p>
-                    <p className={cn("text-xs", file.kind === "new" ? "text-accent" : "text-muted")}>
-                      {file.kind === "new" ? t("admin.lists.newBook") : t("admin.lists.update")}
-                    </p>
-                  </div>
-                  {file.preview.ok ? (
-                    <p className="text-sm">
-                      {t("admin.lists.preview", {
-                        words: file.preview.words,
-                        paragraphs: file.preview.paragraphs,
-                        sentences: file.preview.sentences,
-                        phrases: file.preview.phrases,
-                      })}{" "}
-                      · {(file.preview.bytes / 1024).toFixed(0)} KB
-                    </p>
-                  ) : (
-                    <p className="text-sm text-warn" role="alert">
-                      {t(file.preview.problem as Parameters<typeof t>[0])}
-                    </p>
-                  )}
-                  {file.result === "ok" ? <p className="text-sm text-accent">{t("admin.lists.published")}</p> : null}
-                  {file.result === "error" && file.resultNote ? (
-                    <p className="text-sm text-warn" role="alert">
-                      {file.resultNote}
-                    </p>
-                  ) : null}
-                </li>
-              ))}
+              {files.map((file) => {
+                const kind = kindOf(file);
+                const clashId = blockedIdOf(file);
+                return (
+                  <li key={file.id} className="grid gap-1 rounded-xl border border-line bg-card p-3" data-admin-list-item={file.id}>
+                    <div className="flex flex-wrap items-baseline justify-between gap-2">
+                      <p className="text-sm font-semibold">{file.id}</p>
+                      <p className={cn("text-xs", kind === "new" ? "text-accent" : "text-muted")}>
+                        {kind === "new" ? t("admin.lists.newBook") : t("admin.lists.update")}
+                      </p>
+                    </div>
+                    {file.preview.ok ? (
+                      <p className="text-sm">
+                        {t("admin.lists.preview", {
+                          words: file.preview.words,
+                          paragraphs: file.preview.paragraphs,
+                          sentences: file.preview.sentences,
+                          phrases: file.preview.phrases,
+                        })}{" "}
+                        · {(file.preview.bytes / 1024).toFixed(0)} KB
+                      </p>
+                    ) : (
+                      <p className="text-sm text-warn" role="alert">
+                        {t(file.preview.problem as Parameters<typeof t>[0])}
+                      </p>
+                    )}
+                    {clashId ? (
+                      <p className="text-sm text-warn" role="alert" data-admin-list-clash>
+                        {t("admin.lists.duplicateTitle", { id: clashId })}
+                      </p>
+                    ) : null}
+                    {file.result === "ok" ? <p className="text-sm text-accent">{t("admin.lists.published")}</p> : null}
+                    {file.result === "error" && file.resultNote ? (
+                      <p className="text-sm text-warn" role="alert">
+                        {file.resultNote}
+                      </p>
+                    ) : null}
+                  </li>
+                );
+              })}
             </ul>
           ) : null}
           {summary ? <p className="text-sm text-accent" data-admin-list-summary>{summary}</p> : null}
@@ -223,9 +237,6 @@ export function WordListAdmin() {
           >
             {busy ? t("account.working") : t("admin.lists.batch", { n: publishable.length })}
           </button>
-          {totals.words > 0 ? (
-            <p className="text-xs text-muted">{t("admin.lists.totalWords", { n: totals.words })}</p>
-          ) : null}
         </>
       )}
     </div>
