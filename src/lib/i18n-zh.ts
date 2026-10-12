@@ -161,6 +161,8 @@ export const zh: Record<Key, string> = {
   "discover.recentAria": "最近 {n} 天上架的书",
   "discover.recentShow": "在书单里看《{title}》",
   "browse.seeAll": "全部",
+  "browse.pages": "{title} 的分页",
+  "browse.page": "第 {n} 页，共 {total} 页",
   "browse.prev": "往前看",
   "browse.next": "往后看",
   "browse.openAria": "《{title}》的介绍",

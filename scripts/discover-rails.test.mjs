@@ -33,3 +33,21 @@ test("a strip is capped, and See all keeps every book", () => {
   assert.equal(classics.rows.length, RAIL_SIZE);
   assert.equal(classics.all.length, RAIL_SIZE + 5);
 });
+
+test("a collection with no number sits where its first book is", async () => {
+  const { seriesPlace } = await import("../src/lib/discover-rails.ts");
+  const books = [
+    book("Magic Tree House 6: Afternoon", { series: "Magic Tree House", seriesNumber: 6 }),
+    book("Magic Tree House Books 1-4 Collection", { series: "Magic Tree House" }),
+    book("Magic Tree House 5: Night of the Ninjas", { series: "Magic Tree House", seriesNumber: 5 }),
+    book("Magic Tree House Guide", { series: "Magic Tree House" }),
+  ];
+  const [rail] = browseRails(books);
+  assert.deepEqual(rail.rows.map((b) => b.title), [
+    "Magic Tree House Books 1-4 Collection",
+    "Magic Tree House 5: Night of the Ninjas",
+    "Magic Tree House 6: Afternoon",
+    "Magic Tree House Guide",
+  ]);
+  assert.equal(seriesPlace({ title: "Books 5 to 8", seriesNumber: 0 }), 4.5);
+});

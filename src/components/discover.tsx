@@ -28,7 +28,7 @@ import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category";
 import { newestUpdates } from "@/lib/discover-recent";
-import { browseRails, RAIL_MIN, RAIL_SIZE } from "@/lib/discover-rails";
+import { browseRails, compareSeriesPlace, RAIL_MIN, RAIL_SIZE } from "@/lib/discover-rails";
 import { BookDetail, BookRail, FeaturedBook, type CardModel, type DiscoverRow } from "@/components/discover-browse";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import {
@@ -254,7 +254,7 @@ export function DiscoverScreen({
       title: name,
       rows: shown
         .filter((item) => item.series === name)
-        .sort((a, b) => a.seriesNumber - b.seriesNumber || a.title.localeCompare(b.title)),
+        .sort(compareSeriesPlace),
     }));
     const rest = shown.filter((item) => !item.series);
     if (rest.length) blocks.push({ key: "none", title: "", rows: rest });

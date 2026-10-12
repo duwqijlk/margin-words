@@ -34,6 +34,7 @@ import { navigate } from "@/lib/router";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
 import { btn, cn, field, ProgressBar } from "@/components/ui";
 import { compareLexile } from "@/lib/lexile";
+import { compareSeriesPlace } from "@/lib/discover-rails";
 import {
   BookMetaLines,
   DifficultyControls,
@@ -629,8 +630,7 @@ export function Shelf({
       return [...banded].sort(
         (a, b) =>
           (a.book.series ?? "\uffff").localeCompare(b.book.series ?? "\uffff") ||
-          (a.book.seriesNumber ?? 99) - (b.book.seriesNumber ?? 99) ||
-          a.book.title.localeCompare(b.book.title),
+          compareSeriesPlace(a.book, b.book),
       );
     }
     if (sort === "recent" || sort === "listed") return banded;
@@ -647,7 +647,7 @@ export function Shelf({
       title: name,
       rows: visible
         .filter((row) => row.book.series === name)
-        .sort((a, b) => (a.book.seriesNumber ?? 0) - (b.book.seriesNumber ?? 0)),
+        .sort((a, b) => compareSeriesPlace(a.book, b.book)),
     }));
     const rest = visible.filter((row) => !row.book.series);
     if (rest.length) blocks.push({ key: "none", title: "", rows: rest });
