@@ -381,19 +381,19 @@ async function run(lang, size) {
   await page.locator('[data-word-list="narnia"]').waitFor({ timeout: 20000 });
   const narniaCard = page.locator('[data-word-list="narnia"]');
   ok(
-    (await narniaCard.locator("[data-isbn]").getAttribute("data-isbn")) === "9780062245762",
-    `${label}: Narnia collection shows ISBN 9780062245762`,
+    (await narniaCard.getAttribute("data-isbn")) === "9780062245762",
+    `${label}: Narnia collection carries ISBN 9780062245762`,
   );
   ok(
-    (await narniaCard.locator("[data-series]").getAttribute("data-series")) === "Narnia",
+    (await narniaCard.getAttribute("data-series")) === "Narnia",
     `${label}: Narnia collection series name is Narnia`,
   );
   ok(
-    (await narniaCard.locator("[data-series-number]").count()) === 0,
+    (await narniaCard.getAttribute("data-series-number")) === null,
     `${label}: Narnia collection has no book number`,
   );
   ok(
-    (await narniaCard.locator('[data-lexile="unrated"]').count()) === 1,
+    (await narniaCard.getAttribute("data-lexile-measure")) === "unrated",
     `${label}: Narnia collection has no Lexile`,
   );
   await loadWholeDiscover(page);

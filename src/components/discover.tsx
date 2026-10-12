@@ -3,12 +3,9 @@ import { Search } from "lucide-react";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
 import { BookCover } from "@/components/book-cover";
 import { AddToShelfButton, ShelfCardStatus, type ShelfState } from "@/components/shelf-actions";
-import { BookMetaLines, DifficultyControls, matchesBand, type BandChoice, type SortChoice } from "@/components/lexile-ui";
+import { DifficultyControls, matchesBand, type BandChoice, type SortChoice } from "@/components/lexile-ui";
 import {
-  bookCardGrid,
   bookCardShell,
-  cardAuthorClass,
-  cardTitleClass,
   FilterMenu,
   ListFilters,
   type SeriesChoice,
@@ -19,7 +16,7 @@ import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst, type CatalogPack } fr
 import { askToSignIn, useCanAddBooks } from "@/lib/can-add";
 import { useDownloads } from "@/lib/downloads";
 import { errorText, useT } from "@/lib/i18n";
-import { compareLexile } from "@/lib/lexile";
+import { compareLexile, lexileMeasure } from "@/lib/lexile";
 import { placeWordList } from "@/lib/place-word-list";
 import { findOnShelf } from "@/lib/shelf-identity";
 import { useProgress } from "@/lib/progress-store";
@@ -41,6 +38,15 @@ import {
 
 /** How many cards to mount at once. The rest of the catalog stays in memory for search and filters. */
 const DISCOVER_PAGE = 12;
+
+/**
+ * Store-style grid: a cover, the title, one quiet line. On wide screens the columns and the gap
+ * match the new-books row (10 or 12 covers there are 5 or 6 here), so both line up.
+ */
+const discoverGrid =
+  "grid grid-cols-3 items-stretch gap-x-3 gap-y-6 sm:grid-cols-4 sm:gap-x-4 sm:gap-y-8 lg:grid-cols-5 xl:grid-cols-6";
+const discoverTitle =
+  "overflow-hidden font-display text-[0.8rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.92rem]";
 
 /** Pack records plus the pack ids whose stored list the reader added or edited by hand. */
 async function loadDiscoverRecords(): Promise<{ records: PackRecord[]; custom: Set<string> }> {
@@ -86,6 +92,8 @@ type Row = {
   coverUrl?: string;
   /** A day or an instant for when the word list last changed. "" when the catalog has neither. */
   updated: string;
+  /** When the book first came to the catalog. Orders the new-books row. */
+  added: string;
   pack?: CatalogPack;
   list?: WordListPack;
 };
@@ -177,6 +185,7 @@ export function DiscoverScreen({
           oldFashionedReason: pack.oldFashionedReason,
           coverUrl: pack.cover?.url ? resolveAgainst(BUNDLED_CATALOG_URL, pack.cover.url) : undefined,
           updated: pack.updated,
+          added: pack.added,
           pack,
         }));
         const words: Row[] = lists.map((pack) => ({
@@ -194,6 +203,7 @@ export function DiscoverScreen({
           oldFashionedReason: pack.oldFashionedReason,
           coverUrl: pack.cover?.url ? resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url) : undefined,
           updated: pack.updated,
+          added: pack.added,
           list: pack,
         }));
         setRows([...classics, ...words]);
@@ -498,6 +508,7 @@ export function DiscoverScreen({
         : why === "mismatch" || (why === "newList" && failure)
           ? failure
           : "";
+    const lexile = lexileMeasure(row.lexile);
     const state: ShelfState = busy
       ? "busy"
       : cardError
@@ -518,6 +529,10 @@ export function DiscoverScreen({
         data-discover-card={row.id}
         {...(row.kind === "classic" ? { "data-pack": row.id } : { "data-word-list": row.id })}
         data-list-hold={why ?? undefined}
+        data-isbn={row.isbn || undefined}
+        data-series={row.series || undefined}
+        data-series-number={row.series && row.seriesNumber ? row.seriesNumber : undefined}
+        data-lexile-measure={lexile || "unrated"}
       >
         <div className="relative">
           {held && record ? (
@@ -532,7 +547,7 @@ export function DiscoverScreen({
           ) : (
             <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
           )}
-          <div className="absolute right-2 bottom-2 z-[2]">
+          <div className="absolute right-1.5 bottom-1.5 z-[2]">
             <AddToShelfButton
               state={state}
               fraction={busy && item ? item.fraction : undefined}
@@ -551,7 +566,7 @@ export function DiscoverScreen({
               <span className="block h-full bg-accent transition-[width] duration-200" style={{ width: `${Math.round(Math.min(1, Math.max(0, item.fraction)) * 100)}%` }} />
             </span>
           ) : null}
-          <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-1rem)] flex-col items-start gap-1">
+          <div className="pointer-events-none absolute top-1.5 left-1.5 z-[1] flex max-w-[calc(100%-0.75rem)] flex-col items-start gap-0.5">
             {needs ? (
               <CoverBadge tone="needs" data-needs-epub="">
                 {t("shelf.needsEpub")}
@@ -564,8 +579,8 @@ export function DiscoverScreen({
             {row.oldFashioned ? <OldFashionedBadge reason={row.oldFashionedReason} /> : null}
           </div>
         </div>
-        <div className="grid flex-1 content-start gap-1">
-          <h3 className={cardTitleClass} lang="en">
+        <div className="grid min-w-0 flex-1 content-start gap-0.5">
+          <h3 className={discoverTitle} lang="en" title={row.title}>
             {held && record ? (
               <button
                 type="button"
@@ -578,18 +593,20 @@ export function DiscoverScreen({
               row.title
             )}
           </h3>
-          <p className={cardAuthorClass} lang="en">
-            {row.author}
+          <p className="flex min-w-0 items-baseline gap-2 text-xs leading-5 text-muted">
+            <span className="min-w-0 flex-1 truncate" lang="en">
+              {row.author}
+            </span>
+            {lexile ? (
+              <span
+                className="shrink-0 tabular-nums max-sm:hidden"
+                data-lexile={lexile}
+                aria-label={t("lexile.aria", { measure: lexile })}
+              >
+                {lexile}
+              </span>
+            ) : null}
           </p>
-          <div className="max-sm:hidden">
-            <BookMetaLines
-              lexile={row.lexile}
-              isbn={row.isbn}
-              series={row.series}
-              seriesNumber={row.seriesNumber}
-              aside={row.oldFashioned ? t("shelf.oldFashionedNote") : undefined}
-            />
-          </div>
         </div>
         {busy || cardError || reason || note ? (
           <div className="mt-auto pt-1">
@@ -662,7 +679,7 @@ export function DiscoverScreen({
             </ul>
             <ul
               className={cn(
-                "hidden gap-3",
+                "hidden gap-4",
                 recentWide.length >= RECENT_ROW_WIDE
                   ? "lg:grid lg:w-full lg:grid-cols-10 xl:grid-cols-12"
                   : "lg:flex",
@@ -719,7 +736,7 @@ export function DiscoverScreen({
             <p className="text-sm text-muted" role="status">
               {t("discover.loading")}
             </p>
-            <ul className={bookCardGrid} data-discover-loading>
+            <ul className={discoverGrid} data-discover-loading>
               {Array.from({ length: 8 }, (_, index) => (
                 <CardSkeleton key={index} />
               ))}
@@ -740,17 +757,17 @@ export function DiscoverScreen({
                 <h2 className="font-display text-lg font-semibold" lang={group.title ? "en" : undefined}>
                   {group.title || t("shelf.series.none")}
                 </h2>
-                <ul className={bookCardGrid}>{group.rows.map(renderCard)}</ul>
+                <ul className={discoverGrid}>{group.rows.map(renderCard)}</ul>
               </div>
             ))}
           </div>
         ) : (
-          <ul className={bookCardGrid}>{visible.map(renderCard)}</ul>
+          <ul className={discoverGrid}>{visible.map(renderCard)}</ul>
         )}
         {ready && hasMore ? (
           <div ref={moreRef} data-discover-more className="grid gap-3" aria-busy="true">
             <p className="text-center text-sm text-muted">{t("discover.loadingMore")}</p>
-            <ul className={bookCardGrid}>
+            <ul className={discoverGrid}>
               {Array.from({ length: 4 }, (_, index) => (
                 <CardSkeleton key={index} />
               ))}
