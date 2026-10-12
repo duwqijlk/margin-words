@@ -209,6 +209,56 @@ export function flowCutOffsets(root: Node | NodeLike, isCut: (el: ElLike) => boo
 }
 
 /**
+ * The text node and the index inside it where character `at` of `flowText(root)` is.
+ * The reverse of `flowTextBefore`, in one walk with the same space and soft-hyphen rules.
+ * Null when `at` is past the end of the text.
+ */
+export function flowPoint(root: Node | NodeLike, at: number): { node: NodeLike; offset: number } | null {
+  let outLen = 0;
+  let started = false;
+  let inSpace = false;
+  let found: { node: NodeLike; offset: number } | null = null;
+  const space = () => {
+    if (started && !inSpace) outLen += 1;
+    inSpace = true;
+  };
+  const go = (node: NodeLike) => {
+    if (found) return;
+    if (node.nodeType === 3) {
+      const value = node.nodeValue ?? "";
+      for (let i = 0; i < value.length; i += 1) {
+        const ch = value[i] as string;
+        if (ch === "\u00AD") continue;
+        if (/\s/.test(ch)) {
+          space();
+          continue;
+        }
+        if (outLen >= at) {
+          found = { node, offset: i };
+          return;
+        }
+        started = true;
+        inSpace = false;
+        outLen += 1;
+      }
+      return;
+    }
+    if (node.nodeType !== 1 && node.nodeType !== 11 && node.nodeType !== 9) return;
+    const name = node.nodeType === 1 ? (node.localName ?? "").toLowerCase() : "";
+    if (BREAK_TAGS.has(name)) {
+      space();
+      return;
+    }
+    const block = BLOCK_TAGS.has(name);
+    if (block) space();
+    for (let i = 0; i < node.childNodes.length && !found; i += 1) go(node.childNodes[i] as NodeLike);
+    if (block) space();
+  };
+  go(root as NodeLike);
+  return found;
+}
+
+/**
  * Shortest snippet for which the "ignore spaces" match is used. Shorter snippets must match as whole words,
  * so a short snippet cannot match by accident inside other words.
  */

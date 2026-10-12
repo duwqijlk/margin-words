@@ -236,6 +236,8 @@ export type RestoredReading = {
   chapter: number;
   /** Paragraph to scroll to. Null means use the saved scroll fraction instead. */
   paragraph: number | null;
+  /** Where the place starts inside that paragraph, in characters. 0 is the start of the paragraph. */
+  offset: number;
 };
 
 /**
@@ -256,17 +258,23 @@ export function restoreReadingPlace(
   const extra = saved?.extraId ? book.extras?.find((item) => item.id === saved.extraId) : undefined;
   if (extra) {
     let paragraph: number | null = null;
+    let offset = 0;
     if (saved?.anchor && extra.paragraphs.length > 0) {
       const hit = resolveAnchor(saved.anchor, [extra.paragraphs]);
-      if (hit.via !== "nearest") paragraph = hit.paragraph;
+      if (hit.via !== "nearest") {
+        paragraph = hit.paragraph;
+        offset = hit.offset;
+      }
     }
-    return { extraId: extra.id, chapter, paragraph };
+    return { extraId: extra.id, chapter, paragraph, offset };
   }
   if (saved?.anchor && book.chapters.length > 0) {
     const hit = resolveAnchor(saved.anchor, book.chapters);
-    if (hit.via !== "nearest") return { extraId: "", chapter: hit.chapter, paragraph: hit.paragraph };
+    if (hit.via !== "nearest") {
+      return { extraId: "", chapter: hit.chapter, paragraph: hit.paragraph, offset: hit.offset };
+    }
   }
-  return { extraId: "", chapter, paragraph: null };
+  return { extraId: "", chapter, paragraph: null, offset: 0 };
 }
 
 /**

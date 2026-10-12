@@ -106,7 +106,7 @@ test("restore with only extraId, only an anchor, or neither", () => {
     { chapter: 2, extraId: "x3" },
     { chapters: [["A chapter."]], extras: [{ id: "x3", paragraphs: ["An extra page."] }] },
   );
-  assert.deepEqual(onlyExtra, { extraId: "x3", chapter: 2, paragraph: null });
+  assert.deepEqual(onlyExtra, { extraId: "x3", chapter: 2, paragraph: null, offset: 0 });
 
   const anchor = makeAnchor({ chapter: 0, paragraph: 1, text: chapters[0][1], at: 0 });
   const onlyAnchor = restoreReadingPlace({ chapter: 4, anchor }, { chapters, extras: [{ id: "x2", paragraphs: ["Elsewhere."] }] });
@@ -115,7 +115,7 @@ test("restore with only extraId, only an anchor, or neither", () => {
   assert.equal(onlyAnchor.paragraph, 1);
 
   const neither = restoreReadingPlace({ chapter: 2 }, { chapters });
-  assert.deepEqual(neither, { extraId: "", chapter: 2, paragraph: null });
+  assert.deepEqual(neither, { extraId: "", chapter: 2, paragraph: null, offset: 0 });
 
   const unknownExtra = restoreReadingPlace(
     { chapter: 1, extraId: "x9", anchor },
@@ -124,4 +124,13 @@ test("restore with only extraId, only an anchor, or neither", () => {
   assert.equal(unknownExtra.extraId, "");
   assert.equal(unknownExtra.chapter, 0);
   assert.equal(unknownExtra.paragraph, 1);
+});
+
+test("restore keeps the place inside a long paragraph", () => {
+  const long = `${"Alice sat by the river and watched the water. ".repeat(20)}Then a White Rabbit with pink eyes ran close by her.`;
+  const at = long.indexOf("Then a White Rabbit");
+  const anchor = { chapter: 0, paragraph: 0, quote: long.slice(at, at + 60).replace(/ \S*$/, ""), offset: at };
+  const place = restoreReadingPlace({ chapter: 0, anchor }, { chapters: [[long]] });
+  assert.equal(place.paragraph, 0);
+  assert.equal(place.offset, at);
 });

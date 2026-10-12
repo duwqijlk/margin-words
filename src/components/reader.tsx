@@ -36,7 +36,7 @@ import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
 import { useJump } from "@/lib/jump-store";
-import { findSentence, makeAnchor, resolveAnchor, restoreReadingPlace, type TextAnchor } from "@/lib/position";
+import { findSentence, makeAnchor, QUOTE_MAX, resolveAnchor, restoreReadingPlace, type TextAnchor } from "@/lib/position";
 import { legacyChapter, overallProgress, useProgress } from "@/lib/progress-store";
 import { bookSyncKey } from "@/lib/sync-merge";
 import type { WordSource } from "@/lib/vocab-model";
@@ -63,7 +63,7 @@ import {
   type WordStat,
 } from "@/lib/text";
 import { useVocab } from "@/lib/vocab-store";
-import { flowCutOffsets, flowText, flowTextBefore } from "@/lib/flow-text";
+import { flowCutOffsets, flowPoint, flowText, flowTextBefore } from "@/lib/flow-text";
 import { FloatingAside } from "@/components/floating-card";
 import { MissingBook } from "@/components/missing-book";
 import { READER_GUTTER, SIDE_PANEL } from "@/components/side-panel";
@@ -841,15 +841,73 @@ function SidePlaceholder() {
 
 /* ------------------------------------------------------------------ reader */
 
-/** The first paragraph that is still (partly) below the top bar, as a file-independent place. */
+/** A restored paragraph starts this far below the top of the window, just under the top bar. */
+const PLACE_TOP = 96;
+
+/**
+ * The first paragraph that reaches below the restore line, as a file-independent place.
+ * The same line as the restore, so reopening a book does not step back one paragraph each time.
+ */
 function topAnchor(root: HTMLElement | null, chapter: number): TextAnchor | null {
   if (!root) return null;
   const blocks = paragraphBlocks(root);
-  const at = blocks.findIndex((block) => block.getBoundingClientRect().bottom > 72);
+  const at = blocks.findIndex((block) => block.getBoundingClientRect().bottom > PLACE_TOP + 1);
   const block = at >= 0 ? blocks[at] : undefined;
   if (!block) return null;
   const text = flowText(block);
-  return text ? makeAnchor({ chapter, paragraph: at, text, at: 0 }) : null;
+  if (!text) return null;
+  const rect = block.getBoundingClientRect();
+  // Text the paragraph rule does not count (plain divs) fills the window: no paragraph marks this place.
+  if (rect.top > window.innerHeight) return null;
+  // Some books are one huge paragraph per chapter. There the paragraph start alone would reopen at the top.
+  if (rect.top < PLACE_TOP && tallBlock(rect)) {
+    const inside = flowOffsetAt(block, rect.left + 2, PLACE_TOP + 4);
+    if (inside !== null && inside > 0 && inside < text.length) {
+      const start = text.lastIndexOf(" ", inside - 1) + 1;
+      let end = Math.min(text.length, start + QUOTE_MAX);
+      if (end < text.length) {
+        const space = text.lastIndexOf(" ", end);
+        if (space > start) end = space;
+      }
+      const quote = text.slice(start, end).trim();
+      if (quote.length >= 20) return { chapter, paragraph: at, quote, offset: start };
+    }
+  }
+  return makeAnchor({ chapter, paragraph: at, text, at: 0 });
+}
+
+/** A paragraph taller than half the window: a place inside it is kept, not only its start. */
+function tallBlock(rect: DOMRect): boolean {
+  return rect.height > window.innerHeight / 2;
+}
+
+/** Character of `flowText(block)` under a window point, or null when the point is not on its text. */
+function flowOffsetAt(block: Element, x: number, y: number): number | null {
+  let node: Node | null = null;
+  let offset = 0;
+  if (typeof document.caretPositionFromPoint === "function") {
+    const point = document.caretPositionFromPoint(x, y);
+    node = point?.offsetNode ?? null;
+    offset = point?.offset ?? 0;
+  } else if (typeof document.caretRangeFromPoint === "function") {
+    const range = document.caretRangeFromPoint(x, y);
+    node = range?.startContainer ?? null;
+    offset = range?.startOffset ?? 0;
+  }
+  if (!node || !block.contains(node)) return null;
+  return flowTextBefore(block, node, node.nodeType === Node.TEXT_NODE ? offset : 0).length;
+}
+
+/** Window top of the text line that holds character `at` of `flowText(block)`, or null. */
+function lineTopAt(block: Element, at: number): number | null {
+  const point = flowPoint(block, at);
+  if (!point) return null;
+  const node = point.node as unknown as Text;
+  const range = document.createRange();
+  range.setStart(node, point.offset);
+  range.setEnd(node, Math.min(node.length, point.offset + 1));
+  const rect = range.getClientRects()[0];
+  return rect && rect.height > 0 ? rect.top : null;
 }
 
 export function ReaderScreen({
@@ -911,7 +969,17 @@ export function ReaderScreen({
   const articleRef = useRef<HTMLElement | null>(null);
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
   // A place found through the file-independent anchor (saved position, or "go to the sentence" from the wordbook).
-  const restoreAt = useRef<{ paragraph: number; flash: boolean } | null>(null);
+  const restoreAt = useRef<{ paragraph: number; offset: number; flash: boolean } | null>(null);
+  // The page that was last placed, and the spot still held while late text (phrases, a list update) redraws it.
+  const placed = useRef<{
+    page: string;
+    paragraph: number | null;
+    offset: number;
+    target: number | null;
+    until: number;
+  } | null>(null);
+  // The last scroll position not yet written to the progress store.
+  const pendingSave = useRef<(() => void) | null>(null);
 
   const waitingFile = useRef(false);
   // True once a full read is on screen. A word-list event before that must re-read the book:
@@ -932,6 +1000,7 @@ export function ReaderScreen({
       waitingFile.current = false;
       bookShown.current = true;
       const jump = useJump.getState().take(bookId);
+      pendingSave.current?.();
       const saved = useProgress.getState().items[bookId];
       if (jump?.at && next.chapters.length > 0) {
         // A jump from the wordbook names a numbered chapter. It leaves an extra page.
@@ -939,7 +1008,7 @@ export function ReaderScreen({
           jump.at,
           next.chapters.map((item) => item.paragraphs),
         );
-        restoreAt.current = { paragraph: hit.paragraph, flash: true };
+        restoreAt.current = { paragraph: hit.paragraph, offset: hit.offset, flash: true };
         setChapterIndex(hit.chapter);
         setExtraId("");
       } else if (saved) {
@@ -948,7 +1017,7 @@ export function ReaderScreen({
           chapters: next.chapters.map((item) => item.paragraphs),
           extras: next.extras,
         });
-        if (place.paragraph !== null) restoreAt.current = { paragraph: place.paragraph, flash: false };
+        if (place.paragraph !== null) restoreAt.current = { paragraph: place.paragraph, offset: place.offset, flash: false };
         setExtraId(place.extraId);
         if (!place.extraId && place.paragraph !== null) setChapterIndex(place.chapter);
       }
@@ -1153,17 +1222,39 @@ export function ReaderScreen({
   useLayoutEffect(() => {
     const root = articleRef.current;
     if (!root || !linkedHtml) return;
-    const target = restore.current;
+    const page = `${bookId}|${safeIndex}|${extraId}`;
+    let target = restore.current;
     restore.current = null;
-    const mark = restoreAt.current;
+    let mark = restoreAt.current;
     restoreAt.current = null;
+    const now = Date.now();
+    if (!mark && target === null) {
+      const held = placed.current;
+      // The same page drawn again (phrases loaded, the list changed): it must not jump to the top.
+      if (held?.page === page) {
+        if (now >= held.until) return;
+        target = held.target;
+        mark = held.paragraph === null ? null : { paragraph: held.paragraph, offset: held.offset, flash: false };
+      }
+    }
+    if (!mark && (target === null || target <= 0)) {
+      placed.current = { page, paragraph: null, offset: 0, target: null, until: 0 };
+      window.scrollTo({ top: 0 });
+      setScrolled(0);
+      return;
+    }
+    const until = placed.current?.page === page && placed.current.until > now ? placed.current.until : now + 2500;
+    placed.current = { page, paragraph: mark?.paragraph ?? null, offset: mark?.offset ?? 0, target, until };
     const block = mark ? paragraphBlocks(root)[mark.paragraph] : undefined;
     let place: () => void;
     let flashTimer: ReturnType<typeof setTimeout> | null = null;
     if (block) {
+      const inside = mark?.offset ?? 0;
       place = () => {
-        const top = block.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: Math.max(0, top - 96) });
+        const rect = block.getBoundingClientRect();
+        const line = inside > 0 && tallBlock(rect) ? lineTopAt(block, inside) : null;
+        const top = (line === null ? rect.top - PLACE_TOP : line - PLACE_TOP - 2) + window.scrollY;
+        window.scrollTo({ top: Math.max(0, top) });
       };
       if (mark?.flash) {
         block.classList.add("book-flash");
@@ -1190,23 +1281,27 @@ export function ReaderScreen({
     });
     observer.observe(root);
     observer.observe(document.body);
-    const stop = () => {
+    const release = () => {
       cancelled = true;
       observer.disconnect();
       window.removeEventListener("wheel", stop);
       window.removeEventListener("touchmove", stop);
       window.removeEventListener("keydown", stop);
     };
+    function stop() {
+      release();
+      if (placed.current?.page === page) placed.current.until = 0;
+    }
     window.addEventListener("wheel", stop, { passive: true });
     window.addEventListener("touchmove", stop, { passive: true });
     window.addEventListener("keydown", stop);
-    const timer = setTimeout(stop, 2500);
+    const timer = setTimeout(stop, Math.max(0, until - now));
     return () => {
       clearTimeout(timer);
       if (flashTimer) clearTimeout(flashTimer);
-      stop();
+      release();
     };
-  }, [linkedHtml, safeIndex, extraId]);
+  }, [linkedHtml, bookId, safeIndex, extraId]);
 
   // Track and save position in the chapter.
   useEffect(() => {
@@ -1219,27 +1314,39 @@ export function ReaderScreen({
       if (!root) return;
       const rect = root.getBoundingClientRect();
       const span = Math.max(1, rect.height - window.innerHeight);
-      const value = Math.min(1, Math.max(0, -rect.top / span));
+      // The end of the chapter on screen means the chapter is read, also when it fits on one screen.
+      const value = rect.bottom <= window.innerHeight ? 1 : Math.min(1, Math.max(0, -rect.top / span));
       setScrolled(value);
       if (saver) clearTimeout(saver);
-      saver = setTimeout(() => {
-        const onExtra = Boolean(activeExtra);
-        const anchor = topAnchor(articleRef.current, onExtra ? 0 : safeIndex);
+      const onExtra = Boolean(activeExtra);
+      const anchor = topAnchor(root, onExtra ? 0 : safeIndex);
+      const write = () => {
+        saver = null;
+        pendingSave.current = null;
         saveProgress(bookId, {
           scroll: value,
-          ...(anchor ? { anchor } : {}),
+          // No paragraph on screen: an older anchor would reopen somewhere else, so the scroll fraction is used.
+          anchor: anchor ?? undefined,
           ...(onExtra && activeExtra ? { extraId: activeExtra.id } : {}),
         });
-      }, 400);
+      };
+      pendingSave.current = write;
+      saver = setTimeout(write, 400);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(measure);
     };
+    const onHide = () => pendingSave.current?.();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pagehide", onHide);
+    frame = requestAnimationFrame(measure);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pagehide", onHide);
       if (frame) cancelAnimationFrame(frame);
       if (saver) clearTimeout(saver);
+      // Leaving the book (or the list redrawing) keeps the last spot. A chapter change clears this first.
+      pendingSave.current?.();
     };
   }, [book, bookId, saveProgress, safeIndex, activeExtra]);
 
@@ -1309,6 +1416,7 @@ export function ReaderScreen({
       const next = Math.min(Math.max(0, index), book.chapters.length - 1);
       restore.current = null;
       restoreAt.current = null;
+      pendingSave.current = null;
       setExtraId("");
       setChapterIndex(next);
       setPicked(null);
@@ -1345,6 +1453,7 @@ export function ReaderScreen({
       if (!slot) return;
       restore.current = null;
       restoreAt.current = null;
+      pendingSave.current = null;
       setPicked(null);
       setHelp(null);
       setScrolled(0);
