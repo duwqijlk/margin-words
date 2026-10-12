@@ -3,10 +3,12 @@ import * as Popover from "@radix-ui/react-popover";
 import {
   ArrowLeft,
   BookMarked,
+  BookOpen,
   Check,
   ChevronLeft,
   ChevronRight,
   Focus,
+  Image as ImageIcon,
   List,
   Minus,
   Plus,
@@ -37,6 +39,7 @@ import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
 import { useJump } from "@/lib/jump-store";
 import { findSentence, makeAnchor, QUOTE_MAX, resolveAnchor, restoreReadingPlace, type TextAnchor } from "@/lib/position";
+import { LOOKUP_SITES, lookupUrl, type LookupSite } from "@/lib/lookup-links";
 import { legacyChapter, overallProgress, useProgress } from "@/lib/progress-store";
 import { bookSyncKey } from "@/lib/sync-merge";
 import type { WordSource } from "@/lib/vocab-model";
@@ -508,25 +511,58 @@ type PhraseHit = {
   matched: string;
 };
 
-/** Part of speech beside the word. Large and high-contrast, and it drops under a long word. */
+/** Part of speech beside the word: dictionary style, small and in the accent colour. */
 function wordPosClass(quiet = false) {
   return cn(
-    "inline-flex max-w-full items-center rounded-full font-bold leading-none tracking-tight",
+    "inline-flex max-w-full items-center leading-none",
     quiet
-      ? "bg-line px-3.5 py-1.5 text-xl text-ink"
-      : "bg-accent px-4 py-2 text-2xl text-accent-ink",
+      ? "rounded-full bg-line px-2.5 py-1 text-xs font-semibold text-ink"
+      : "font-display text-[1.05rem] font-semibold text-accent italic",
   );
 }
 
-function SceneLine({ text, plain = false }: { text: string; plain?: boolean }) {
+function SceneLine({ text }: { text: string }) {
   const { t } = useT();
   return (
-    <section className="grid gap-1" data-part="word-here">
-      <h3 className="text-xs font-semibold text-muted">{t("card.here")}</h3>
-      <p className={plain ? "text-[1.05rem] leading-relaxed" : "rounded-xl bg-paper px-3.5 py-3 text-[1.05rem] leading-relaxed"} lang="en">
+    <section className="grid gap-0.5 rounded-lg bg-accent-soft/60 px-3 py-2" data-part="word-here">
+      <h3 className="text-[0.7rem] font-semibold tracking-wide text-accent uppercase">{t("card.here")}</h3>
+      <p className="text-[0.98rem] leading-snug" lang="en">
         {text}
       </p>
     </section>
+  );
+}
+
+const LOOKUP_LABEL = {
+  longman: "card.look.longman",
+  webster: "card.look.webster",
+  images: "card.look.images",
+} as const satisfies Record<LookupSite, Key>;
+
+/** Longman, Merriam-Webster and Bing pictures for the word. Plain links: a new tab, nothing fetched here. */
+function LookupLinks({ word }: { word: string }) {
+  const { t } = useT();
+  return (
+    <nav className="grid grid-cols-3 gap-1.5" aria-label={t("card.lookAria", { word })} data-word-lookup>
+      {LOOKUP_SITES.map((site) => (
+        <a
+          key={site}
+          href={lookupUrl(site, word)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-10 min-w-0 items-center justify-center gap-1 rounded-lg border border-line px-1.5 text-[0.8rem] font-semibold whitespace-nowrap text-ink transition-colors hover:border-accent/50 hover:bg-accent-soft hover:text-accent"
+          aria-label={t("card.lookOne", { site: t(LOOKUP_LABEL[site]), word })}
+          data-lookup={site}
+        >
+          {site === "images" ? (
+            <ImageIcon className="size-3.5 shrink-0 text-accent" strokeWidth={1.75} aria-hidden />
+          ) : (
+            <BookOpen className="size-3.5 shrink-0 text-accent" strokeWidth={1.75} aria-hidden />
+          )}
+          <span className="truncate">{t(LOOKUP_LABEL[site])}</span>
+        </a>
+      ))}
+    </nav>
   );
 }
 
@@ -577,6 +613,7 @@ function WordCard({
 }) {
   const { t } = useT();
   const showForm = state.key !== state.surface.toLowerCase();
+  const lookup = phrase ? phrase.key : state.key;
   const meaningBlock =
     state.status === "unknown" ? (
       <p
@@ -588,10 +625,28 @@ function WordCard({
         {noList ? <span className="mt-1 block text-muted">{t("card.noList")}</span> : null}
       </p>
     ) : (
-      <p className="rounded-xl bg-paper px-3.5 py-3 text-[1.05rem] leading-relaxed" lang="en" data-part="word-meaning">
+      <p
+        className="border-l-[3px] border-accent pl-3 text-[1.14rem] leading-snug font-medium text-ink"
+        lang="en"
+        data-part="word-meaning"
+      >
         {state.meaning}
       </p>
     );
+  const inBook = (word: string) =>
+    t("common.inBook", { word: "\u0001" })
+      .split("\u0001")
+      .flatMap((piece, i) =>
+        i === 0
+          ? [piece]
+          : [
+              <span key="m" className="font-semibold text-ink" lang="en">
+                {word}
+              </span>,
+              piece,
+            ],
+      );
+  const formLine = phrase ? phrase.matched : showForm ? state.surface : "";
   return (
     <FloatingAside
       anchor={anchor}
@@ -604,114 +659,73 @@ function WordCard({
         // keeps free (see READER_GUTTER). Wide screens float this card next to the tapped word.
         // A card with a scene line needs room for that line and the book sentence.
         "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
-        state.here || phrase?.entry.here ? "max-h-[72dvh]" : "max-h-[46dvh]",
+        state.here || phrase?.entry.here ? "max-h-[72dvh]" : "max-h-[52dvh]",
         "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3",
         SIDE_PANEL,
       )}
     >
       <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden" aria-hidden />
-      <div className="grid gap-3.5">
-        <div className="grid min-w-0 gap-1">
-          {/* The close control sits in the corner. A short float keeps the first line
-              clear of it; the next line uses the full width, so a long word stays whole. */}
-          <div className="relative flow-root min-w-0" data-word-head>
-            <span className="float-right h-8 w-9" aria-hidden />
-            <button
-              type="button"
-              className={cn(btn.icon, "absolute top-0 right-0 z-10 -mt-2 -mr-2")}
-              onClick={onClose}
-              aria-label={t("card.close")}
-              data-panel-close
-            >
-              <X className="size-5" aria-hidden />
-            </button>
-            <h2
-              className={cn(
-                "inline font-display text-[1.85rem] leading-tight font-semibold tracking-tight",
-                (phrase || state.pos || state.status === "easy") && "mr-3",
-              )}
-              lang="en"
-            >
-              {phrase ? phrase.key : state.key}
-            </h2>
-            {phrase ? (
-              <span className={cn(wordPosClass(), "align-baseline")} data-phrase-pos data-word-pos>
-                {phrase.entry.pos ? <span lang="en">{phrase.entry.pos}</span> : t("card.phraseFallback")}
-              </span>
-            ) : state.pos ? (
-              <span className={cn(wordPosClass(), "align-baseline")} data-word-pos>
-                <span lang="en">{state.pos}</span>
-              </span>
-            ) : state.status === "easy" ? (
-              <span className={cn(wordPosClass(true), "align-baseline")} data-word-pos>
-                {t("card.easyChip")}
-              </span>
-            ) : null}
+      <div className="grid gap-3">
+        <div className="flex min-w-0 items-start gap-1" data-word-head>
+          <div className="grid min-w-0 flex-1 gap-0.5 pt-0.5">
+            <div className="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-1">
+              <h2
+                className="min-w-0 font-display text-[1.75rem] leading-tight font-semibold tracking-tight break-words"
+                lang="en"
+              >
+                {lookup}
+              </h2>
+              {phrase ? (
+                <span className={wordPosClass()} data-phrase-pos data-word-pos>
+                  {phrase.entry.pos ? <span lang="en">{phrase.entry.pos}</span> : t("card.phraseFallback")}
+                </span>
+              ) : state.pos ? (
+                <span className={wordPosClass()} data-word-pos>
+                  <span lang="en">{state.pos}</span>
+                </span>
+              ) : state.status === "easy" ? (
+                <span className={cn(wordPosClass(true), "self-center")} data-word-pos>
+                  {t("card.easyChip")}
+                </span>
+              ) : null}
+            </div>
+            {formLine ? <p className="text-sm text-muted">{inBook(formLine)}</p> : null}
           </div>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-            {phrase ? (
-              <span>
-                {t("common.inBook", { word: "\u0001" })
-                  .split("\u0001")
-                  .flatMap((piece, i) =>
-                    i === 0
-                      ? [piece]
-                      : [
-                          <span key="m" lang="en">
-                            {phrase.matched}
-                          </span>,
-                          piece,
-                        ],
-                  )}
-              </span>
-            ) : (
-              <>
-                {showForm ? (
-                  <span>
-                    {t("common.inBook", { word: "\u0001" })
-                      .split("\u0001")
-                      .flatMap((piece, i) =>
-                        i === 0
-                          ? [piece]
-                          : [
-                              <span key="m" lang="en">
-                                {state.surface}
-                              </span>,
-                              piece,
-                            ],
-                      )}
-                  </span>
-                ) : null}
-              </>
-            )}
-          </div>
+          <SpeakButton text={lookup} compact className="-mt-1 shrink-0" />
+          <button
+            type="button"
+            className={cn(btn.icon, "-mt-1 -mr-2 shrink-0")}
+            onClick={onClose}
+            aria-label={t("card.close")}
+            data-panel-close
+          >
+            <X className="size-5" aria-hidden />
+          </button>
         </div>
-
-        <SpeakButton text={phrase ? phrase.key : state.key} className="-ml-3 w-fit" />
 
         {phrase ? (
           <>
-            {phrase.entry.here ? (
-              <h3 className="text-xs font-semibold text-muted" data-part="meaning-label">
-                {t("card.plain")}
-              </h3>
-            ) : null}
-            <p className="rounded-xl bg-paper px-3.5 py-3 text-[1.05rem] leading-relaxed" lang="en" data-part="phrase-meaning">
+            <p
+              className="border-l-[3px] border-accent pl-3 text-[1.14rem] leading-snug font-medium text-ink"
+              lang="en"
+              data-part="phrase-meaning"
+            >
               {phrase.entry.meaning}
             </p>
             {phrase.entry.here ? <SceneLine text={phrase.entry.here} /> : null}
+            <LookupLinks word={lookup} />
             <section
               className="grid gap-1.5 rounded-lg border border-line px-3 py-2.5"
               aria-label={t("card.alone")}
               data-part="word-alone"
             >
               <h3 className="text-xs font-semibold text-muted">{t("card.alone")}</h3>
-              <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-2">
+              <div className="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-1">
                 <span className="w-fit max-w-full shrink-0 font-display text-lg font-semibold break-words" lang="en">
                   {state.key}
                 </span>
                 {state.pos ? (
-                  <span className={wordPosClass(true)} data-word-pos>
+                  <span className={cn(wordPosClass(), "text-[0.95rem]")} data-word-pos>
                     <span lang="en">{state.pos}</span>
                   </span>
                 ) : null}
@@ -720,32 +734,21 @@ function WordCard({
               {state.coined ? <CoinedBadge /> : null}
             </section>
           </>
-        ) : state.here ? (
-          <>
-            <div className="grid gap-2 rounded-xl bg-paper px-3.5 py-3">
-              <h3 className="text-xs font-semibold text-muted" data-part="meaning-label">
-                {t("card.plain")}
-              </h3>
-              <p className="text-[1.05rem] leading-relaxed" lang="en" data-part="word-meaning">
-                {state.meaning}
-              </p>
-              <SceneLine text={state.here} plain />
-            </div>
-            {state.coined ? <CoinedBadge /> : null}
-          </>
         ) : (
           <>
             {meaningBlock}
+            {state.here ? <SceneLine text={state.here} /> : null}
             {state.coined ? <CoinedBadge /> : null}
+            <LookupLinks word={lookup} />
           </>
         )}
 
         {state.sentence ? (
-          <figure className="grid gap-1 border-l-2 border-accent/50 pl-3">
-            <figcaption className="text-xs font-semibold text-muted">
+          <figure className="grid gap-1 rounded-lg bg-paper px-3 py-2.5">
+            <figcaption className="text-[0.7rem] font-semibold tracking-wide text-muted uppercase">
               {t("card.sentenceFrom")}
             </figcaption>
-            <blockquote className="font-display text-[0.95rem] leading-relaxed">
+            <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/85">
               <Highlighted
                 sentence={state.sentence}
                 surface={phrase ? phrase.matched : state.surface}
