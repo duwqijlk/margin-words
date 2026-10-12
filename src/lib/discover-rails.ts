@@ -29,6 +29,26 @@ export type Rail<T> =
 
 const BANDS = ["under800", "mid", "high"] as const;
 
+/**
+ * Where a book stands in its series. A book with no number (an omnibus such as
+ * "Magic Tree House Books 1-4 Collection") takes the first number in its title, so it comes
+ * before book 5. No number at all goes last.
+ */
+export function seriesPlace(book: { title: string; seriesNumber?: number }): number {
+  if (book.seriesNumber && book.seriesNumber > 0) return book.seriesNumber;
+  const range = /\b(\d{1,3})\s*(?:-|\u2013|to|&|and)\s*\d{1,3}\b/i.exec(book.title);
+  if (range) return Number(range[1]) - 0.5;
+  return 999;
+}
+
+/** Series order, then title. */
+export function compareSeriesPlace(
+  a: { title: string; seriesNumber?: number },
+  b: { title: string; seriesNumber?: number },
+): number {
+  return seriesPlace(a) - seriesPlace(b) || a.title.localeCompare(b.title);
+}
+
 export function browseRails<T extends Railed>(books: readonly T[]): Rail<T>[] {
   const out: Rail<T>[] = [];
   const classics = books.filter((book) => book.kind === "classic");
@@ -46,7 +66,7 @@ export function browseRails<T extends Railed>(books: readonly T[]): Rail<T>[] {
     .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]))
     .slice(0, SERIES_RAILS);
   for (const [name, list] of series) {
-    const all = [...list].sort((a, b) => (a.seriesNumber || 999) - (b.seriesNumber || 999) || a.title.localeCompare(b.title));
+    const all = [...list].sort(compareSeriesPlace);
     out.push({ id: `series:${name}`, kind: "series", name, rows: all.slice(0, RAIL_SIZE), all });
   }
 

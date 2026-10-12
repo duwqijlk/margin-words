@@ -9,7 +9,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BookCover } from "@/components/book-cover";
 import { CoverBadge } from "@/components/cover-marks";
 import type { ShelfState } from "@/components/shelf-actions";
@@ -82,9 +82,12 @@ export function BookRail({
 }) {
   const { t } = useT();
   const strip = useRef<HTMLUListElement | null>(null);
-  const scroll = (direction: 1 | -1) => {
+  const { pages, page } = useRailPages(strip, rows.length);
+  const goPage = (index: number) => {
     const node = strip.current;
-    if (node) node.scrollBy({ left: direction * node.clientWidth * 0.85, behavior: "smooth" });
+    if (!node) return;
+    const target = Math.max(0, Math.min(pages - 1, index));
+    node.scrollTo({ left: Math.min(target * node.clientWidth, node.scrollWidth - node.clientWidth), behavior: "smooth" });
   };
   return (
     <section className="grid min-w-0 gap-3" aria-label={title} data-discover-rail={rail}>
@@ -111,7 +114,8 @@ export function BookRail({
             <button
               type="button"
               className={btn.icon}
-              onClick={() => scroll(-1)}
+              onClick={() => goPage(page - 1)}
+              disabled={page === 0}
               aria-label={t("browse.prev")}
             >
               <ChevronLeft className="size-5" aria-hidden />
@@ -119,7 +123,8 @@ export function BookRail({
             <button
               type="button"
               className={btn.icon}
-              onClick={() => scroll(1)}
+              onClick={() => goPage(page + 1)}
+              disabled={page >= pages - 1}
               aria-label={t("browse.next")}
             >
               <ChevronRight className="size-5" aria-hidden />
@@ -129,7 +134,7 @@ export function BookRail({
       </div>
       <ul
         ref={strip}
-        className="scroll-thin -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:scroll-px-0 sm:gap-4 sm:px-0"
+        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:scroll-px-0 sm:gap-4 sm:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {rows.map((row) => (
           <li key={row.key} className="w-[6.75rem] shrink-0 snap-start sm:w-32 lg:w-[8.6rem]">
@@ -156,8 +161,63 @@ export function BookRail({
           </li>
         ))}
       </ul>
+      {pages > 1 ? (
+        <div className="flex items-center justify-center gap-0.5" role="group" aria-label={t("browse.pages", { title })} data-rail-dots={pages}>
+          {Array.from({ length: pages }, (_, index) => (
+            <button
+              key={index}
+              type="button"
+              className="grid h-6 min-w-5 place-items-center rounded-full"
+              onClick={() => goPage(index)}
+              aria-label={t("browse.page", { n: index + 1, total: pages })}
+              aria-current={index === page ? "true" : undefined}
+              data-rail-dot={index}
+            >
+              <span
+                className={cn(
+                  "block h-1.5 rounded-full transition-all duration-300",
+                  index === page ? "w-5 bg-accent" : "w-1.5 bg-muted/30 hover:bg-muted/60",
+                )}
+              />
+            </button>
+          ))}
+        </div>
+      ) : null}
     </section>
   );
+}
+
+/**
+ * How many screen-wide pages a sideways row has, and which one is showing.
+ * Updates while the reader swipes, and when the window size changes.
+ */
+function useRailPages(ref: React.RefObject<HTMLElement | null>, count: number): { pages: number; page: number } {
+  const [state, setState] = useState({ pages: 1, page: 0 });
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    let frame = 0;
+    const measure = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const width = node.clientWidth || 1;
+        const max = Math.max(0, node.scrollWidth - width);
+        const pages = max <= 1 ? 1 : Math.ceil(max / width) + 1;
+        const page = node.scrollLeft >= max - 2 ? pages - 1 : Math.min(pages - 1, Math.round(node.scrollLeft / width));
+        setState((prev) => (prev.pages === pages && prev.page === page ? prev : { pages, page }));
+      });
+    };
+    measure();
+    node.addEventListener("scroll", measure, { passive: true });
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    return () => {
+      cancelAnimationFrame(frame);
+      node.removeEventListener("scroll", measure);
+      observer.disconnect();
+    };
+  }, [ref, count]);
+  return state;
 }
 
 /** The newest book, large, over a soft copy of its own cover. */

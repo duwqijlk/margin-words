@@ -159,6 +159,8 @@ export const en = {
   "discover.recentAria": "Books added in the last {n} days",
   "discover.recentShow": "Show {title} in the list",
   "browse.seeAll": "See all",
+  "browse.pages": "Pages of {title}",
+  "browse.page": "Page {n} of {total}",
   "browse.prev": "Earlier books",
   "browse.next": "More books",
   "browse.openAria": "About “{title}”",
