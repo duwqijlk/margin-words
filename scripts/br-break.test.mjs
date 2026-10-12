@@ -87,6 +87,25 @@ test("the paragraph of a block, and the text before a word, use the same spacing
   assert.equal(text.startsWith(before), true);
 });
 
+test("flowPoint finds the text node of a reading-text offset, across breaks and soft hyphens", async () => {
+  const book = await build(`${POEM}`);
+  const doc = parse(`<div>${book.chapters[0].html}</div>`);
+  const block = doc.querySelector("p");
+  const text = flow.flowText(block);
+  for (const word of ["The", "real", "and", "window", "clothing", "wore"]) {
+    const at = text.indexOf(word);
+    const point = flow.flowPoint(block, at);
+    assert.ok(point, word);
+    assert.equal(point.node.nodeValue.slice(point.offset, point.offset + word.length), word);
+    assert.equal(flow.flowTextBefore(block, point.node, point.offset).length, at);
+  }
+  const soft = parse("<div><p>  Cater\u00adpil\u00adlar   and <b>Alice</b></p></div>").querySelector("p");
+  const point = flow.flowPoint(soft, flow.flowText(soft).indexOf("Alice"));
+  assert.equal(point.node.nodeValue, "Alice");
+  assert.equal(point.offset, 0);
+  assert.equal(flow.flowPoint(soft, 999), null);
+});
+
 /** Underlined places of a senseOnly word, read back from the html the reader makes. */
 function hits(html, word, anchors) {
   const list = { [word]: { senseOnly: true, senses: [{ meaning: "x", anchors }] } };
