@@ -10,25 +10,23 @@ const GLOSSARY_MAX = 4_000_000;
 
 /**
  * The Discover card reads its picture from the books host
- * (`word-lists/<id>/cover.jpg` + the row's cover field), whatever kind the
- * book is. Best effort: a card-cover miss must not fail the upload.
+ * (`word-lists/<id>/cover.jpg` + the row's cover field). The word-list row
+ * is written before the book upload, so a chosen cover that cannot land on
+ * that row fails the upload instead of leaving the generated card.
  */
 async function putCardCover(env: Env, id: string, coverBytes: Uint8Array | null): Promise<void> {
-  if (!coverBytes || !env.BOOKS) return;
-  try {
-    const catalogObject = await env.BOOKS.get("word-lists/catalog.json");
-    if (!catalogObject) return;
-    const live = JSON.parse(new TextDecoder().decode(await catalogObject.arrayBuffer())) as {
-      lists?: { id: string; cover?: unknown }[];
-    };
-    const row = (live.lists ?? []).find((item) => item && item.id === id);
-    if (!row) return;
-    await env.BOOKS.put(`word-lists/${id}/cover.jpg`, coverBytes);
-    row.cover = { url: `${id}/cover.jpg`, bytes: coverBytes.length, sha256: await sha256HexBytes(coverBytes) };
-    await env.BOOKS.put("word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
-  } catch {
-    // The card falls back to the generated cover; the upload itself stands.
-  }
+  if (!coverBytes) return;
+  if (!env.BOOKS) throw new HttpError(500, "no-books-bucket");
+  const catalogObject = await env.BOOKS.get("word-lists/catalog.json");
+  if (!catalogObject) throw new HttpError(500, "no-catalog");
+  const live = JSON.parse(new TextDecoder().decode(await catalogObject.arrayBuffer())) as {
+    lists?: { id: string; cover?: unknown }[];
+  };
+  const row = (live.lists ?? []).find((item) => item && item.id === id);
+  if (!row) throw new HttpError(409, "cover-not-saved");
+  await env.BOOKS.put(`word-lists/${id}/cover.jpg`, coverBytes);
+  row.cover = { url: `${id}/cover.jpg`, bytes: coverBytes.length, sha256: await sha256HexBytes(coverBytes) };
+  await env.BOOKS.put("word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
 }
 
 /**
@@ -60,13 +58,9 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     if (!(epub instanceof File) || epub.size === 0) throw new HttpError(400, "no-epub");
     if (epub.size > EPUB_MAX) throw new HttpError(413, "too-large");
     const coverFile = form.get("cover");
+    if (coverFile instanceof Blob && coverFile.size > COVER_MAX) throw new HttpError(413, "too-large");
     const coverBytes =
-      coverFile instanceof File && coverFile.size > 0
-        ? coverFile.size <= COVER_MAX
-          ? new Uint8Array(await coverFile.arrayBuffer())
-          : null
-        : null;
-    if (coverFile instanceof File && coverFile.size > COVER_MAX) throw new HttpError(413, "too-large");
+      coverFile instanceof Blob && coverFile.size > 0 ? new Uint8Array(await coverFile.arrayBuffer()) : null;
 
     const epubBytes = new Uint8Array(await epub.arrayBuffer());
     const epubSha = await sha256HexBytes(epubBytes);
