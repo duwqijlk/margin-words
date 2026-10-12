@@ -122,7 +122,8 @@ await readerShot(390, 844, "reader-bulbs-390.png");
   await page.waitForSelector("[data-list-update-button]");
   const notice = (await page.textContent("[data-lists-ready]"))?.trim();
   console.log("notice:", notice);
-  if (!notice?.includes("Tap Update")) throw new Error(`notice says "${notice}"`);
+  if (!notice?.includes("New word list")) throw new Error(`notice says "${notice}"`);
+  if ((await page.locator("[data-lists-update-all]").count()) !== 1) throw new Error("no Update button on the shelf note");
   await shot(page, "word-lists-ready-1280.png");
   await context.close();
 }

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Search } from "lucide-react";
+import { ChevronLeft, Search } from "lucide-react";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
 import { BookCover } from "@/components/book-cover";
 import { AddToShelfButton, ShelfCardStatus, type ShelfState } from "@/components/shelf-actions";
@@ -10,7 +10,7 @@ import {
   ListFilters,
   type SeriesChoice,
 } from "@/components/list-filters";
-import { cn, field } from "@/components/ui";
+import { btn, cn, field } from "@/components/ui";
 import { listPackRecords, loadBookExtras, type PackRecord } from "@/lib/book-db";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst, type CatalogPack } from "@/lib/packs";
 import { askToSignIn, useCanAddBooks } from "@/lib/can-add";
@@ -27,10 +27,13 @@ import { useVocab } from "@/lib/vocab-store";
 import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category";
-import { newestUpdates, RECENT_ROW_WIDE, recentUpdates } from "@/lib/discover-recent";
+import { newestUpdates } from "@/lib/discover-recent";
+import { browseRails, RAIL_MIN, RAIL_SIZE } from "@/lib/discover-rails";
+import { BookDetail, BookRail, FeaturedBook, type CardModel, type DiscoverRow } from "@/components/discover-browse";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import {
   autoUpdateWordLists,
+  announceListUpdate,
   retryWordListUpdate,
   useListUpdates,
   wordListRev,
@@ -76,49 +79,7 @@ function CardSkeleton() {
   );
 }
 
-type Row = {
-  key: string;
-  id: string;
-  kind: "classic" | "list";
-  title: string;
-  author: string;
-  lexile: string;
-  isbn: string;
-  series: string;
-  seriesNumber: number;
-  category: ContentCategory;
-  oldFashioned: boolean;
-  oldFashionedReason: string;
-  coverUrl?: string;
-  /** A day or an instant for when the word list last changed. "" when the catalog has neither. */
-  updated: string;
-  /** When the book first came to the catalog. Orders the new-books row. */
-  added: string;
-  pack?: CatalogPack;
-  list?: WordListPack;
-};
-
-function RecentCover({
-  row,
-  label,
-  onOpen,
-}: {
-  row: Row;
-  label: string;
-  onOpen: (id: string) => void;
-}) {
-  return (
-    <button
-      type="button"
-      className="block w-full rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-      data-recent-book={row.id}
-      aria-label={label}
-      onClick={() => onOpen(row.id)}
-    >
-      <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
-    </button>
-  );
-}
+type Row = DiscoverRow;
 
 /**
  * Every book we have, from the books host. The two catalog files are one fetch each. Covers load as
@@ -133,7 +94,7 @@ export function DiscoverScreen({
   onOpen: (bookId: string) => void;
   onNeedsEpub: (bookId: string) => void;
 }) {
-  const { t } = useT();
+  const { t, tn } = useT();
   const [rows, setRows] = useState<Row[]>([]);
   const [ready, setReady] = useState(false);
   const [records, setRecords] = useState<PackRecord[]>([]);
@@ -144,6 +105,10 @@ export function DiscoverScreen({
   const [author, setAuthor] = useState("all");
   const [series, setSeries] = useState<SeriesChoice>("all");
   const [category, setCategory] = useState<ContentCategory>("novel");
+  /** A row opened with "See all": "new", "classic", "series:<name>" or "band:<band>". "" is the browse page. */
+  const [collection, setCollection] = useState("");
+  /** The row key of the book in the detail sheet. */
+  const [detailId, setDetailId] = useState("");
   const [error, setError] = useState("");
   const [listError, setListError] = useState<Record<string, string>>({});
   const [busyId, setBusyId] = useState("");
@@ -252,8 +217,13 @@ export function DiscoverScreen({
   }, [canAdd]);
 
   const inCategory = useMemo(() => rows.filter((item) => item.category === category), [rows, category]);
-  const recent = useMemo(() => recentUpdates(inCategory, new Date()), [inCategory]);
-  const recentWide = useMemo(() => newestUpdates(inCategory, new Date()), [inCategory]);
+  const newest = useMemo(() => newestUpdates(inCategory, new Date(), RAIL_SIZE), [inCategory]);
+  const rails = useMemo(() => browseRails(inCategory), [inCategory]);
+  const inCollection = useMemo(() => {
+    if (!collection) return inCategory;
+    if (collection === "new") return newestUpdates(inCategory, new Date(), inCategory.length);
+    return rails.find((rail) => rail.id === collection)?.all ?? [];
+  }, [inCategory, collection, rails]);
   const authors = useMemo(
     () => [...new Set(inCategory.map((item) => item.author).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
     [inCategory],
@@ -264,7 +234,7 @@ export function DiscoverScreen({
   );
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase();
-    let list = inCategory.filter((item) => matchesBand(item.lexile, band));
+    let list = inCollection.filter((item) => matchesBand(item.lexile, band));
     if (q) list = list.filter((item) => `${item.title} ${item.author}`.toLowerCase().includes(q));
     if (author !== "all") list = list.filter((item) => item.author === author);
     if (series === "none") list = list.filter((item) => !item.series);
@@ -274,7 +244,7 @@ export function DiscoverScreen({
     if (sort === "title") copy.sort((a, b) => a.title.localeCompare(b.title) || a.kind.localeCompare(b.kind));
     else copy.sort((a, b) => compareLexile(a.lexile, b.lexile, sort) || a.title.localeCompare(b.title));
     return copy;
-  }, [inCategory, query, band, author, series, sort]);
+  }, [inCollection, query, band, author, series, sort]);
 
   const groups = useMemo(() => {
     if (series !== "grouped") return [];
@@ -291,7 +261,7 @@ export function DiscoverScreen({
     return blocks;
   }, [shown, series]);
 
-  const filterKey = `${category}\0${query}\0${sort}\0${band}\0${author}\0${series}`;
+  const filterKey = `${category}\0${collection}\0${query}\0${sort}\0${band}\0${author}\0${series}`;
   const [windowState, setWindowState] = useState({ key: filterKey, limit: DISCOVER_PAGE });
   if (windowState.key !== filterKey) setWindowState({ key: filterKey, limit: DISCOVER_PAGE });
   const limit = windowState.key === filterKey ? windowState.limit : DISCOVER_PAGE;
@@ -327,45 +297,6 @@ export function DiscoverScreen({
     return () => observer.disconnect();
   }, [hasMore, filterKey, limit]);
 
-  const [jumpId, setJumpId] = useState("");
-  const [highlightId, setHighlightId] = useState("");
-
-  function jumpTo(id: string) {
-    const visibleNow = shown.some((row) => row.id === id);
-    if (!visibleNow) {
-      setQuery("");
-      setAuthor("all");
-      setSeries("all");
-      setBand("all");
-      setSort("listed");
-    }
-    setJumpId(id);
-  }
-
-  useEffect(() => {
-    if (!jumpId || !ready) return;
-    const index = shown.findIndex((row) => row.id === jumpId);
-    if (index < 0) return;
-    if (index >= limit) {
-      setWindowState({ key: filterKey, limit: index + 1 });
-      return;
-    }
-    const frame = requestAnimationFrame(() => {
-      const card = document.querySelector<HTMLElement>(`[data-discover-card="${CSS.escape(jumpId)}"]`);
-      if (!card) return;
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
-      setHighlightId(jumpId);
-      setJumpId("");
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [jumpId, shown, limit, filterKey, ready]);
-
-  useEffect(() => {
-    if (!highlightId) return;
-    const timer = window.setTimeout(() => setHighlightId(""), 2500);
-    return () => window.clearTimeout(timer);
-  }, [highlightId]);
-
   const shelfIds = useMemo(() => new Set(shelf.map((book) => book.id)), [shelf]);
   const byPack = useMemo(() => new Map(records.map((record) => [record.packId, record])), [records]);
 
@@ -398,12 +329,16 @@ export function DiscoverScreen({
     if (row.kind === "classic" && row.pack) {
       const pack = row.pack;
       useDownloads.getState().dismiss(pack.id);
-      void start(BUNDLED_CATALOG_URL, pack);
+      void start(BUNDLED_CATALOG_URL, pack).then(() => {
+        const failed = Boolean(useDownloads.getState().items[pack.id]?.error);
+        announceListUpdate(failed ? [] : [row.title], failed ? 1 : 0);
+      });
     } else if (row.list) {
       const pack = row.list;
       setBusyId(pack.id);
       void retryWordListUpdate(pack)
-        .catch(() => undefined)
+        .then(() => announceListUpdate([row.title], 0))
+        .catch(() => announceListUpdate([], 1))
         .finally(() => setBusyId(""));
     }
   }
@@ -464,7 +399,7 @@ export function DiscoverScreen({
     return hit && mine ? { ...mine, packId: row.id } : undefined;
   }
 
-  function renderCard(row: Row) {
+  function cardModel(row: Row) {
     const record = recordFor(row);
     const held = Boolean(record && shelfIds.has(record.bookId) && pendingId !== record.bookId);
     const book = record ? shelf.find((item) => item.id === record.bookId) : undefined;
@@ -518,13 +453,44 @@ export function DiscoverScreen({
           : held
             ? "on"
             : "off";
+    return { record, held, book, needs, item, busy, cardError, why, updateReady, note, reason, lexile, state };
+  }
+
+  function detailModel(row: Row): CardModel {
+    const m = cardModel(row);
+    return {
+      state: m.state,
+      fraction: m.busy && m.item ? m.item.fraction : undefined,
+      held: m.held,
+      needs: m.needs,
+      error: m.cardError || m.reason,
+      note: m.note,
+      lexile: m.lexile,
+    };
+  }
+
+  function detailAction(row: Row) {
+    const m = cardModel(row);
+    if (m.state === "busy") return;
+    if (m.state === "on") {
+      if (m.record) {
+        setDetailId("");
+        onOpen(m.record.bookId);
+      }
+      return;
+    }
+    if (!canAdd && m.state === "off") setDetailId("");
+    add(row, m.record, m.updateReady);
+  }
+
+  function renderCard(row: Row) {
+    const { record, held, book, needs, item, busy, cardError, why, updateReady, note, reason, lexile, state } = cardModel(row);
     return (
       <li
         key={row.key}
         className={cn(
           bookCardShell,
           "scroll-mt-20",
-          highlightId === row.id && "rounded-md outline outline-2 outline-offset-4 outline-accent",
         )}
         data-discover-card={row.id}
         {...(row.kind === "classic" ? { "data-pack": row.id } : { "data-word-list": row.id })}
@@ -545,7 +511,15 @@ export function DiscoverScreen({
               <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
             </button>
           ) : (
-            <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
+            <button
+              type="button"
+              onClick={() => setDetailId(row.key)}
+              className="block w-full rounded-md text-left"
+              aria-label={t("browse.openAria", { title: row.title })}
+              data-card-detail
+            >
+              <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
+            </button>
           )}
           <div className="absolute right-1.5 bottom-1.5 z-[2]">
             <AddToShelfButton
@@ -590,7 +564,13 @@ export function DiscoverScreen({
                 {row.title}
               </button>
             ) : (
-              row.title
+              <button
+                type="button"
+                onClick={() => setDetailId(row.key)}
+                className="w-full text-left font-[inherit] text-inherit"
+              >
+                {row.title}
+              </button>
             )}
           </h3>
           <p className="flex min-w-0 items-baseline gap-2 text-xs leading-5 text-muted">
@@ -620,6 +600,31 @@ export function DiscoverScreen({
         ) : null}
       </li>
     );
+  }
+
+  const browsing =
+    ready &&
+    !error &&
+    !collection &&
+    !query.trim() &&
+    band === "all" &&
+    author === "all" &&
+    series === "all" &&
+    sort === "listed" &&
+    inCategory.length > 0;
+  const detailRow = detailId ? (rows.find((row) => row.key === detailId) ?? null) : null;
+  function railTitle(id: string): string {
+    if (id === "new") return t("discover.recent");
+    if (id === "classic") return t("browse.rail.classic");
+    if (id.startsWith("series:")) return id.slice("series:".length);
+    if (id === "band:under800") return t("browse.rail.under800");
+    if (id === "band:mid") return t("browse.rail.mid");
+    if (id === "band:high") return t("browse.rail.high");
+    return t("browse.all");
+  }
+  function openCollection(id: string) {
+    setCollection(id);
+    window.scrollTo({ top: 0 });
   }
 
   return (
@@ -658,72 +663,83 @@ export function DiscoverScreen({
           })}
         </div>
       </div>
+      {!ready || inCategory.length > 0 ? (
+        <div className="flex items-center gap-2">
+          <label className="relative block min-w-0 flex-1">
+            <span className="sr-only">{t("discover.search")}</span>
+            <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted" aria-hidden />
+            <input
+              className={cn(field, "pl-9")}
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder={t("discover.search")}
+              data-discover-search
+            />
+          </label>
+          <FilterMenu
+            active={sort !== "listed" || band !== "all" || author !== "all" || series !== "all"}
+            render={() => (
+              <>
+                <DifficultyControls sort={sort} sorts={["listed", "easy", "hard", "title"]} onSort={setSort} band={band} onBand={setBand} />
+                <ListFilters authors={authors} seriesNames={seriesNames} author={author} series={series} onAuthor={setAuthor} onSeries={setSeries} />
+              </>
+            )}
+          />
+        </div>
+      ) : null}
       <div
         id="discover-results"
         role="tabpanel"
         aria-labelledby={`discover-cat-${category}`}
         className="grid gap-5 sm:gap-6"
       >
-        {ready && (recent.length > 0 || recentWide.length > 0) ? (
-          <section
-            className={cn("grid min-w-0 gap-2", recent.length === 0 && "hidden lg:grid")}
-            data-discover-recent={recentWide.length || recent.length}
-          >
-            <h2 className="text-sm font-semibold text-muted">{t("discover.recent")}</h2>
-            <ul className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0 lg:hidden">
-              {recent.map((row) => (
-                <li key={row.id} className="w-16 shrink-0 sm:w-20">
-                  <RecentCover row={row} label={t("discover.recentShow", { title: row.title })} onOpen={jumpTo} />
-                </li>
-              ))}
-            </ul>
-            <ul
-              className={cn(
-                "hidden gap-4",
-                recentWide.length >= RECENT_ROW_WIDE
-                  ? "lg:grid lg:w-full lg:grid-cols-10 xl:grid-cols-12"
-                  : "lg:flex",
-              )}
-              data-discover-recent-wide={recentWide.length}
-            >
-              {recentWide.map((row, index) => (
-                <li
-                  key={row.id}
-                  className={cn(
-                    "w-20 shrink-0",
-                    recentWide.length >= RECENT_ROW_WIDE && "min-w-0 lg:w-auto",
-                    recentWide.length >= RECENT_ROW_WIDE && index >= 10 && "max-xl:hidden",
-                  )}
-                >
-                  <RecentCover row={row} label={t("discover.recentShow", { title: row.title })} onOpen={jumpTo} />
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
-        {!ready || inCategory.length > 0 ? (
-          <div className="flex items-center gap-2">
-            <label className="relative block min-w-0 flex-1">
-              <span className="sr-only">{t("discover.search")}</span>
-              <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted" aria-hidden />
-              <input
-                className={cn(field, "pl-9")}
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder={t("discover.search")}
-                data-discover-search
+        {browsing ? (
+          <>
+            {newest[0] ? <FeaturedBook row={newest[0]} onOpen={(row) => setDetailId(row.key)} /> : null}
+            {newest.length >= RAIL_MIN ? (
+              <BookRail
+                rail="new"
+                title={railTitle("new")}
+                rows={newest}
+                onOpen={(row) => setDetailId(row.key)}
+                onSeeAll={() => openCollection("new")}
               />
-            </label>
-            <FilterMenu
-              active={sort !== "listed" || band !== "all" || author !== "all" || series !== "all"}
-              render={() => (
-                <>
-                  <DifficultyControls sort={sort} sorts={["listed", "easy", "hard", "title"]} onSort={setSort} band={band} onBand={setBand} />
-                  <ListFilters authors={authors} seriesNames={seriesNames} author={author} series={series} onAuthor={setAuthor} onSeries={setSeries} />
-                </>
-              )}
-            />
+            ) : null}
+            {rails.map((rail) => (
+              <BookRail
+                key={rail.id}
+                rail={rail.id}
+                title={railTitle(rail.id)}
+                rows={rail.rows}
+                onOpen={(row) => setDetailId(row.key)}
+                onSeeAll={rail.all.length > rail.rows.length ? () => openCollection(rail.id) : undefined}
+              />
+            ))}
+            <h2 className="pt-2 font-display text-[1.15rem] leading-tight font-semibold sm:text-[1.3rem]" data-discover-all>
+              {t("browse.all")}
+            </h2>
+          </>
+        ) : ready ? (
+          <div className="flex min-w-0 items-center gap-2" data-discover-results-head>
+            {collection ? (
+              <button
+                type="button"
+                className={cn(btn.icon, "-ml-2 shrink-0")}
+                onClick={() => setCollection("")}
+                aria-label={t("browse.back")}
+                data-collection-back
+              >
+                <ChevronLeft className="size-5" aria-hidden />
+              </button>
+            ) : null}
+            <h2
+              className="min-w-0 truncate font-display text-[1.15rem] font-semibold sm:text-[1.3rem]"
+              lang={collection.startsWith("series:") ? "en" : undefined}
+            >
+              {collection ? railTitle(collection) : t("browse.results")}
+            </h2>
+            <span className="shrink-0 text-sm text-muted tabular-nums">{tn("count.book", shown.length)}</span>
           </div>
         ) : null}
         {error ? (
@@ -777,6 +793,19 @@ export function DiscoverScreen({
           <div data-discover-end hidden />
         ) : null}
       </div>
+      <BookDetail
+        row={detailRow}
+        model={detailRow ? detailModel(detailRow) : null}
+        canAdd={canAdd}
+        onClose={() => setDetailId("")}
+        onAction={() => detailRow && detailAction(detailRow)}
+        onRemove={() => {
+          if (!detailRow) return;
+          const m = cardModel(detailRow);
+          setDetailId("");
+          remove(detailRow, m.record, m.book);
+        }}
+      />
     </div>
   );
 }

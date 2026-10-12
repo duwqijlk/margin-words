@@ -13,7 +13,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { listPackRecords, type PackRecord } from "@/lib/book-db";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
-import { updateInstalledBook, useListUpdates } from "@/lib/word-list-update";
+import { updateInstalledBooks, useListUpdates } from "@/lib/word-list-update";
 import {
   overallProgress,
   relativeTime,
@@ -88,16 +88,67 @@ function CoverUpdate({
   const label = busy ? t("lists.updating") : t("pack.update");
   return (
     <CoverBadge
-      tone="publicDomain"
+      tone="update"
       onClick={onUpdate}
       disabled={busy}
       title={line.text}
-      aria-label={`${label}: ${title}`}
+      aria-label={busy ? `${label}: ${title}` : t("lists.tagAria", { title })}
       data-list-update={offer.why}
       data-list-update-button=""
     >
+      <RotateCw className={cn("size-2.5", busy && "animate-spin")} strokeWidth={3} aria-hidden />
       {label}
     </CoverBadge>
+  );
+}
+
+/**
+ * The shelf's own note about new word lists: which books, what stays, and one button for all of them.
+ * A book whose last try kept its old list is left to its own card, where the reason is shown.
+ */
+function ListUpdatesStrip({
+  rows,
+  covers,
+  step,
+  onUpdateAll,
+}: {
+  rows: readonly Row[];
+  covers: Record<string, string>;
+  step: { done: number; total: number } | null;
+  onUpdateAll: () => void;
+}) {
+  const { t, tn } = useT();
+  const shown = rows.slice(0, 4);
+  return (
+    <section
+      className="flex flex-wrap items-center gap-x-4 gap-y-3 rounded-2xl border border-accent/25 bg-accent-soft/70 px-4 py-3 sm:px-5"
+      aria-label={tn("lists.strip", rows.length)}
+      data-lists-ready
+    >
+      <div className="flex shrink-0 -space-x-3" aria-hidden>
+        {shown.map((row) => (
+          <div key={row.book.id} className="w-9 overflow-hidden rounded-[3px] shadow-sm ring-2 ring-card sm:w-10">
+            <BookCover title={row.book.title} author={row.book.author} cover={covers[row.book.id]} />
+          </div>
+        ))}
+      </div>
+      <div className="grid min-w-0 flex-1 basis-48 gap-0.5">
+        <p className="font-semibold text-ink">{tn("lists.strip", rows.length)}</p>
+        <p className="text-sm leading-snug text-muted">
+          {step ? t("lists.updatingStep", { done: Math.min(step.done + 1, step.total), total: step.total }) : t("lists.stripBody")}
+        </p>
+      </div>
+      <button
+        type="button"
+        className={cn(btn.primary, "shrink-0 max-sm:w-full")}
+        onClick={onUpdateAll}
+        disabled={step !== null}
+        data-lists-update-all
+      >
+        <RotateCw className={cn("size-4", step && "animate-spin")} aria-hidden />
+        {rows.length === 1 ? t("pack.update") : t("lists.updateAll")}
+      </button>
+    </section>
   );
 }
 
@@ -439,6 +490,11 @@ function BookCard({
         <p className={cardAuthorClass} lang="en">
           {book.author}
         </p>
+        {offer && offerLine(offer, t).warn ? (
+          <p className="text-xs leading-snug text-warn" data-list-hold-reason>
+            {offerLine(offer, t).text}
+          </p>
+        ) : null}
         <div className="max-sm:hidden">
           <BookMetaLines
             lexile={book.lexile}
@@ -515,12 +571,13 @@ export function Shelf({
     }
     return map;
   }, [packRecords, holds, failures]);
+  const [step, setStep] = useState<{ done: number; total: number } | null>(null);
+  const [batch, setBatch] = useState<Row[]>([]);
   function updateBook(bookId: string) {
-    if (updatingId) return;
+    if (updatingId || step) return;
+    const book = books.find((item) => item.id === bookId);
     setUpdatingId(bookId);
-    void updateInstalledBook(bookId)
-      .catch(() => undefined)
-      .finally(() => setUpdatingId(""));
+    void updateInstalledBooks([{ bookId, title: book?.title ?? "" }]).finally(() => setUpdatingId(""));
   }
 
   const liveBooks = useMemo(
@@ -612,6 +669,24 @@ export function Shelf({
       onUpdate={() => updateBook(row.book.id)}
     />
   );
+  const waitingRows = useMemo(
+    () => recent.filter((row) => (offerByBook.get(row.book.id)?.failure ?? "") === "" && offerByBook.has(row.book.id)),
+    [recent, offerByBook],
+  );
+  function updateAll() {
+    if (updatingId || step || waitingRows.length === 0) return;
+    const list = waitingRows.map((row) => ({ bookId: row.book.id, title: row.book.title }));
+    setBatch(waitingRows);
+    setStep({ done: 0, total: list.length });
+    setUpdatingId(list[0].bookId);
+    void updateInstalledBooks(list, (done) => {
+      setStep({ done, total: list.length });
+      setUpdatingId(list[done]?.bookId ?? "");
+    }).finally(() => {
+      setStep(null);
+      setUpdatingId("");
+    });
+  }
   const filtering = band !== "all" || author !== "all" || series !== "all" || (sort !== "recent" && sort !== "listed");
 
   return (
@@ -622,6 +697,14 @@ export function Shelf({
         <EmptyShelf onDiscover={() => navigate({ kind: "discover" })} />
       ) : liveBooks.length === 0 ? null : (
         <>
+          {waitingRows.length > 0 || step ? (
+            <ListUpdatesStrip
+              rows={step ? batch : waitingRows}
+              covers={covers}
+              step={step}
+              onUpdateAll={updateAll}
+            />
+          ) : null}
           {hero && !q && !filtering ? (
             <ContinueCard
               row={hero}

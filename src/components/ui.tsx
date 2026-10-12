@@ -71,10 +71,13 @@ export function SpeakButton({
   text,
   label,
   className,
+  compact = false,
 }: {
   text: string;
   label?: string;
   className?: string;
+  /** Only the speaker icon, in a round 40px button. The name stays in the label and the tooltip. */
+  compact?: boolean;
 }) {
   const { t } = useT();
   const { status, play } = useSpeak();
@@ -86,13 +89,16 @@ export function SpeakButton({
       aria-label={`${name}: ${text}`}
       title={status === "error" ? t("common.noSound") : name}
       className={cn(
-        "inline-flex min-h-11 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold transition-colors hover:bg-accent-soft",
+        compact
+          ? "grid size-10 place-items-center rounded-full bg-accent-soft transition-colors hover:bg-accent hover:text-accent-ink"
+          : "inline-flex min-h-11 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold transition-colors hover:bg-accent-soft",
         status === "error" ? "text-warn" : "text-accent",
         className,
       )}
+      data-speak
     >
-      <Volume2 className="size-[1.1rem]" aria-hidden />
-      {status === "error" ? t("common.noSound") : name}
+      <Volume2 className={compact ? "size-5" : "size-[1.1rem]"} aria-hidden />
+      {compact ? null : status === "error" ? t("common.noSound") : name}
     </button>
   );
 }
