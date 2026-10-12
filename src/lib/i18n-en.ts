@@ -703,6 +703,7 @@ export const en = {
   "admin.books.isbn": "ISBN (auto-detected, editable, may be empty)",
   "admin.books.coverPick": "Pick the cover (click one image)",
   "admin.books.noCover": "No cover",
+  "admin.books.coverFailed": "That cover could not be prepared. Pick it again.",
   "admin.books.parsing": "Reading the EPUB…",
   "admin.books.detected": "Detected: {title} · {author}",
   "admin.books.words": "{n} words",

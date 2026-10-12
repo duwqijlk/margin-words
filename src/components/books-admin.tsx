@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import JSZip from "jszip";
 import { errorText, useT } from "@/lib/i18n";
+import { preferredCoverPath } from "@/lib/cover-choice";
 import { accountPostForm, accountPostRaw } from "@/lib/sync-engine";
 import { parseEpub } from "@/lib/epub";
 import { btn, cn, field } from "@/components/ui";
@@ -13,7 +14,8 @@ type GlossaryInfo = {
   isbn: string;
 };
 
-type CoverCandidate = { path: string; thumb: string };
+/** `jpeg` is the card file prepared while the thumbnail was drawn. */
+type CoverCandidate = { path: string; thumb: string; jpeg: Uint8Array; bytes: number };
 
 const ERROR_KEYS: Record<string, string> = {
   "unknown-id": "admin.books.publicNew",
@@ -23,35 +25,43 @@ const ERROR_KEYS: Record<string, string> = {
   "no-books-bucket": "admin.error",
   "no-private-bucket": "admin.error",
   "no-catalog": "admin.error",
+  "cover-not-saved": "admin.books.coverFailed",
 };
 
-/** Card-sized JPEG, width at most 400px — mirrors scripts/resize-cover.py. */
-async function coverBytesFromDataUrl(dataUrl: string): Promise<ArrayBuffer | null> {
+function dataUrlBytes(dataUrl: string): Uint8Array | null {
+  const comma = dataUrl.indexOf(",");
+  if (comma < 0) return null;
   try {
-    const blob = await (await fetch(dataUrl)).blob();
-    const bitmap = await createImageBitmap(blob);
-    const width = Math.min(400, bitmap.width);
-    const height = Math.max(1, Math.round((bitmap.height * width) / bitmap.width));
-    const canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = height;
-    const context = canvas.getContext("2d");
-    if (!context) return null;
-    context.drawImage(bitmap, 0, 0, width, height);
-    const jpeg = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.82));
-    if (!jpeg) return null;
-    return await jpeg.arrayBuffer();
+    const binary = atob(dataUrl.slice(comma + 1));
+    const out = new Uint8Array(binary.length);
+    for (let index = 0; index < binary.length; index += 1) out[index] = binary.charCodeAt(index);
+    return out.byteLength > 0 ? out : null;
   } catch {
     return null;
   }
 }
 
-async function sha256Hex(bytes: Uint8Array): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", bytes as BufferSource);
-  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+/** JPEG data URL. Card width is at most 400px, the same limit as scripts/resize-cover.py. */
+function canvasJpeg(bitmap: ImageBitmap, box: { height?: number; maxWidth?: number }, quality: number): string | null {
+  const canvas = document.createElement("canvas");
+  if (box.height) {
+    canvas.height = box.height;
+    canvas.width = Math.max(1, Math.round((bitmap.width * box.height) / Math.max(1, bitmap.height)));
+  } else {
+    canvas.width = Math.min(box.maxWidth ?? bitmap.width, bitmap.width);
+    canvas.height = Math.max(1, Math.round((bitmap.height * canvas.width) / Math.max(1, bitmap.width)));
+  }
+  const context = canvas.getContext("2d");
+  if (!context) return null;
+  context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  try {
+    return canvas.toDataURL("image/jpeg", quality);
+  } catch {
+    return null;
+  }
 }
 
-/** Every real image inside the EPUB, as clickable thumbnails. */
+/** Every real image inside the EPUB. The upload file is encoded here, with the thumbnail. */
 async function extractCoverCandidates(file: File): Promise<CoverCandidate[]> {
   const zip = await JSZip.loadAsync(file);
   const paths: string[] = [];
@@ -65,40 +75,22 @@ async function extractCoverCandidates(file: File): Promise<CoverCandidate[]> {
     if (!entry) continue;
     const buffer = await entry.async("arraybuffer");
     if (buffer.byteLength < 3000) continue;
-    const url = URL.createObjectURL(new Blob([buffer]));
     try {
-      const bitmap = await createImageBitmap(await (await fetch(url)).blob());
-      const height = 110;
-      const width = Math.max(1, Math.round((bitmap.width * height) / bitmap.height));
-      const canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-      canvas.getContext("2d")?.drawImage(bitmap, 0, 0, width, height);
-      picked.push({ path, thumb: canvas.toDataURL("image/jpeg", 0.8) });
+      const bitmap = await createImageBitmap(new Blob([buffer]));
+      try {
+        const thumb = canvasJpeg(bitmap, { height: 110 }, 0.8);
+        const card = canvasJpeg(bitmap, { maxWidth: 400 }, 0.82);
+        const jpeg = card ? dataUrlBytes(card) : null;
+        if (!thumb || !jpeg) continue;
+        picked.push({ path, thumb, jpeg, bytes: buffer.byteLength });
+      } finally {
+        bitmap.close();
+      }
     } catch {
       // not a displayable image; skip
-    } finally {
-      URL.revokeObjectURL(url);
     }
   }
   return picked;
-}
-
-async function chosenCoverBytes(file: File, path: string): Promise<ArrayBuffer | null> {
-  try {
-    const zip = await JSZip.loadAsync(file);
-    const entry = zip.file(path);
-    if (!entry) return null;
-    const buffer = await entry.async("arraybuffer");
-    const url = URL.createObjectURL(new Blob([buffer]));
-    try {
-      return await coverBytesFromDataUrl(url);
-    } finally {
-      URL.revokeObjectURL(url);
-    }
-  } catch {
-    return null;
-  }
 }
 
 /** Upload a whole book: the word list plus its EPUB, with the ISBN filled in automatically. */
@@ -171,7 +163,7 @@ export function BooksAdmin() {
       if (!isbnTouched && parsed.isbn) setIsbn(parsed.isbn);
       const candidates = await extractCoverCandidates(file);
       setCovers(candidates);
-      setCoverChoice(candidates.length === 1 ? candidates[0].path : null);
+      setCoverChoice(preferredCoverPath(candidates));
     } catch (reason) {
       // The parse only fills in metadata; the file itself is still publishable.
       setEpubError(errorText(reason, "err.openFailed"));
@@ -186,15 +178,21 @@ export function BooksAdmin() {
     setNote("");
     setError("");
     try {
+      const chosen = coverChoice ? covers.find((item) => item.path === coverChoice) : undefined;
+      if (coverChoice && (!chosen || chosen.jpeg.byteLength === 0)) {
+        setError(t("admin.books.coverFailed"));
+        return;
+      }
       const isbnParam = isbn.trim() ? encodeURIComponent(isbn.trim()) : "";
       await accountPostRaw(`/api/admin/word-lists?id=${encodeURIComponent(glossary.id)}&isbn=${isbnParam}`, glossary.text);
       setStep(t("admin.books.wordsDone"));
       const form = new FormData();
       form.set("epub", epubFile, "book.epub");
       form.set("glossary", new File([glossary.text], "glossary.json", { type: "application/json" }), "glossary.json");
-      if (coverChoice) {
-        const cover = await chosenCoverBytes(epubFile, coverChoice);
-        if (cover) form.set("cover", new Blob([cover], { type: "image/jpeg" }), "cover.jpg");
+      if (chosen) {
+        const copy = new ArrayBuffer(chosen.jpeg.byteLength);
+        new Uint8Array(copy).set(chosen.jpeg);
+        form.set("cover", new File([copy], "cover.jpg", { type: "image/jpeg" }));
       }
       await accountPostForm(`/api/admin/books?id=${encodeURIComponent(glossary.id)}&kind=${kind}`, form);
       setStep(t("admin.books.bookDone"));
@@ -274,23 +272,32 @@ export function BooksAdmin() {
           <p className="text-sm font-medium">{t("admin.books.coverPick")}</p>
           <div className="flex flex-wrap gap-2">
             {covers.map((candidate) => (
-              <button
+              <label
                 key={candidate.path}
-                type="button"
-                aria-pressed={coverChoice === candidate.path}
                 title={candidate.path}
                 className={cn(
                   "rounded-lg border p-1",
                   coverChoice === candidate.path ? "border-accent ring-1 ring-accent" : "border-line",
                 )}
-                onClick={() => setCoverChoice(candidate.path)}
               >
+                <input
+                  type="radio"
+                  name="admin-cover"
+                  className="sr-only"
+                  checked={coverChoice === candidate.path}
+                  onChange={() => setCoverChoice(candidate.path)}
+                />
                 <img src={candidate.thumb} alt={candidate.path.split("/").pop() ?? candidate.path} className="h-28 w-auto" />
-              </button>
+              </label>
             ))}
           </div>
           <label className="flex items-center gap-2 text-sm">
-            <input type="radio" name="cover-choice" checked={coverChoice === null} onChange={() => setCoverChoice(null)} />
+            <input
+              type="radio"
+              name="admin-cover"
+              checked={coverChoice === null}
+              onChange={() => setCoverChoice(null)}
+            />
             {t("admin.books.noCover")}
           </label>
         </div>

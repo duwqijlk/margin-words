@@ -997,6 +997,43 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
   assert.equal(storedCardCatalog.lists[0].cover.url, "great-book/cover.jpg");
   assert.ok(cardFiles.has("word-lists/great-book/cover.jpg"));
 
+  // A cover part that is a Blob, not a File, is still the picture Discover shows.
+  const blobFiles = new Map();
+  const blobCard = new Map([
+    ["word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(cardCatalog, null, 1)}\n`)],
+  ]);
+  const blobRequest = form(
+    "/api/admin/books?id=great-book&kind=private",
+    adminCookie,
+    formWith({ cover: false }),
+  );
+  blobRequest.formData = async () => ({
+    get(name) {
+      if (name === "epub") return new File([epubBytes], "book.epub", { type: "application/epub+zip" });
+      if (name === "cover") return new Blob([coverBytes], { type: "image/jpeg" });
+      return null;
+    },
+  });
+  const blobOk = await handleUpload(blobRequest, envOf(db, { PRIVATE: stubBucket(blobFiles), BOOKS: stubBucket(blobCard) }), {
+    now: NOW,
+  });
+  assert.equal(blobOk.status, 200);
+  assert.ok(blobFiles.has("great-book/cover.jpg"));
+  assert.ok(blobCard.has("word-lists/great-book/cover.jpg"));
+
+  // A chosen cover with no word-list row must not report success.
+  const lonelyCatalog = { ...cardCatalog, lists: [] };
+  const lonelyCard = new Map([
+    ["word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(lonelyCatalog, null, 1)}\n`)],
+  ]);
+  const lonely = await handleUpload(
+    form("/api/admin/books?id=great-book&kind=private", adminCookie, formWith({ cover: true })),
+    envOf(db, { PRIVATE: stubBucket(new Map()), BOOKS: stubBucket(lonelyCard) }),
+    { now: NOW },
+  );
+  assert.equal(lonely.status, 409);
+  assert.equal((await lonely.json()).error, "cover-not-saved");
+
   // public without a glossary file is refused
   const booksFiles = new Map();
   const livePublic = {
@@ -1065,6 +1102,7 @@ test("word-list publish: isbn param sets and clears the edition number", async (
         isbn: "9780000000002",
         words: 10,
         glossary: { url: "charlie/glossary.json", bytes: 5, sha256: "aaa" },
+        cover: { url: "charlie/cover.jpg", bytes: 12, sha256: "abc" },
         updated: "2026-10-01T00:00:00+00:00",
         paragraphs: 1,
         sentences: 1,
@@ -1090,6 +1128,8 @@ test("word-list publish: isbn param sets and clears the edition number", async (
   );
   const clearedRow = (await cleared.json()).row;
   assert.equal("isbn" in clearedRow, false);
+  assert.equal(clearedRow.cover.url, "charlie/cover.jpg");
+  assert.equal(clearedRow.cover.sha256, "abc");
 });
 
 function form(path, cookie, body) {

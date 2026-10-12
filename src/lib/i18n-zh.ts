@@ -685,6 +685,7 @@ export const zh: Record<Key, string> = {
   "admin.books.isbn": "ISBN（自动识别，可修改，可留空）",
   "admin.books.coverPick": "选择封面（点选一张图片）",
   "admin.books.noCover": "不用封面",
+  "admin.books.coverFailed": "这张封面没有做成图片。请再点一次。",
   "admin.books.parsing": "正在解析 EPUB…",
   "admin.books.detected": "识别到：{title} · {author}",
   "admin.books.words": "{n} 个词",
