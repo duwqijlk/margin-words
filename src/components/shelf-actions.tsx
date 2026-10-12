@@ -151,8 +151,8 @@ export function AddToShelfButton({
           aria-haspopup={state === "on" ? "dialog" : undefined}
           aria-expanded={state === "on" ? open : undefined}
           className={cn(
-            "shelf-add relative inline-flex size-11 items-center justify-center rounded-full border shadow-pop transition-colors",
-            (state === "off" || state === "update") && "border-line bg-paper/95 text-accent hover:bg-accent-soft",
+            "shelf-add relative inline-flex size-10 items-center justify-center rounded-full border shadow-sm backdrop-blur-sm transition-colors",
+            (state === "off" || state === "update") && "border-black/10 bg-paper/85 text-accent hover:bg-paper",
             state === "on" && "border-transparent bg-accent text-accent-ink hover:opacity-90",
             state === "busy" && "cursor-progress border-line bg-paper/95 text-muted",
             state === "error" && "border-warn bg-warn-soft text-warn hover:opacity-90",
@@ -164,7 +164,7 @@ export function AddToShelfButton({
         >
           <Icon
             key={state}
-            className={cn("size-5", state === "busy" && "animate-spin", state === "on" && "shelf-check")}
+            className={cn("size-[1.125rem]", state === "busy" && "animate-spin", state === "on" && "shelf-check")}
             strokeWidth={state === "on" ? 2.75 : 2.25}
             aria-hidden
           />

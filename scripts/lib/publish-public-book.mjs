@@ -4,6 +4,7 @@
  * from git and uploading it points those books at glossaries that were never uploaded,
  * and the reader then rejects the download.
  */
+import { keepAdded } from "./publish-word-list.mjs";
 
 function fileSha(row, key) {
   const value = row?.[key]?.sha256;
@@ -60,8 +61,8 @@ export function mergePublicCatalog(live, rows, updated = new Date().toISOString(
     }
     const nextRow = { ...row, zip: null };
     const index = packs.findIndex((item) => item.id === row.id);
-    if (index >= 0) packs[index] = nextRow;
-    else packs.push(nextRow);
+    if (index >= 0) packs[index] = keepAdded(packs[index], nextRow);
+    else packs.push({ ...nextRow, added: typeof row.added === "string" && row.added ? row.added : updated });
   }
   const next = {
     format: live.format ?? 1,

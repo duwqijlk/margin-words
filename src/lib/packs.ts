@@ -78,6 +78,8 @@ export type CatalogPack = {
   oldFashionedReason: string;
   /** When the word list last changed: a day, or an instant with a clock time. "" when the catalog has neither. */
   updated: string;
+  /** When the book first came to the catalog. A list update does not move it. "" on rows from before this field. */
+  added: string;
 };
 
 export type Catalog = {
@@ -164,6 +166,7 @@ export function parseCatalog(value: unknown): Catalog | null {
       oldFashioned: row.oldFashioned === true,
       oldFashionedReason: row.oldFashioned === true ? text(row.oldFashionedReason, 240) : "",
       updated: readUpdated(row.updated),
+      added: readUpdated(row.added),
     });
   }
   return {

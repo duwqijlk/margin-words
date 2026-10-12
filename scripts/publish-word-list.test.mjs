@@ -72,3 +72,16 @@ test("publish refuses a catalog that drops a book or changes another hash", () =
   };
   assert.throws(() => assertWordListPublish(live, changed, speech.id), /glossary hash of charlie/);
 });
+
+test("a new book gets added once, and a new list for it keeps that time", () => {
+  const first = mergeWordListCatalog(live, speech, "2026-10-05T08:00:00.000Z");
+  assert.equal(first.lists[2].added, "2026-10-05T08:00:00.000Z");
+  assert.equal(first.lists[0].added, undefined);
+  const again = mergeWordListCatalog(
+    first,
+    { ...speech, updated: "2026-10-12T08:00:00.000Z", glossary: { ...speech.glossary, sha256: "d".repeat(64) } },
+    "2026-10-12T08:00:00.000Z",
+  );
+  assert.equal(again.lists[2].added, "2026-10-05T08:00:00.000Z");
+  assert.equal(again.lists[2].updated, "2026-10-12T08:00:00.000Z");
+});

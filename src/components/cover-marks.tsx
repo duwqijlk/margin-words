@@ -1,7 +1,7 @@
 import { useT } from "@/lib/i18n";
 import { cn } from "@/components/ui";
 
-const pill = "rounded-full px-2 py-0.5 text-left text-[0.68rem] leading-4 font-bold shadow-sm ring-1";
+const pill = "rounded px-1.5 text-left text-[0.6rem] leading-4 font-semibold tracking-wide ring-1 backdrop-blur-sm";
 
 /** Small labels on the top-left of a cover. Light pills, so they stay quiet on any cover picture. */
 export function CoverBadge({
@@ -24,8 +24,8 @@ export function CoverBadge({
   const className = cn(
     pill,
     onClick && "pointer-events-auto",
-    tone === "publicDomain" && "bg-card/95 text-accent ring-black/10",
-    tone === "list" && "bg-card/95 text-ink ring-black/10",
+    tone === "publicDomain" && "bg-card/85 text-accent ring-black/5",
+    tone === "list" && "bg-card/85 text-ink ring-black/5",
     tone === "needs" && "bg-warn text-accent-ink ring-black/10",
     disabled && "opacity-70",
   );

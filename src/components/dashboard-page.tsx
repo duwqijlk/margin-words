@@ -17,11 +17,11 @@ const CARDS: ReadonlyArray<{
   count: "count.book" | "count.word" | "count.paragraph" | "count.sentence" | "count.phrase" | "count.series";
 }> = [
   { id: "books", label: "dashboard.books", count: "count.book" },
+  { id: "series", label: "dashboard.series", count: "count.series" },
   { id: "words", label: "dashboard.words", count: "count.word" },
+  { id: "phrases", label: "dashboard.phrases", count: "count.phrase" },
   { id: "paragraphs", label: "dashboard.paragraphs", count: "count.paragraph" },
   { id: "sentences", label: "dashboard.sentences", count: "count.sentence" },
-  { id: "phrases", label: "dashboard.phrases", count: "count.phrase" },
-  { id: "series", label: "dashboard.series", count: "count.series" },
 ];
 
 /** GitHub and Telegram, the last row under the library counts. Shown even when the counts fail to load. */
@@ -112,47 +112,67 @@ export function DashboardScreen() {
             </button>
           </div>
         ) : (
-          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3" data-dashboard-counts>
-            {CARDS.map((card) => {
-              const n = card.id === "series" ? (totals?.series.length ?? 0) : (totals?.[card.id] ?? 0);
-              const shown = state === "ready";
-              return (
-                <li
-                  key={card.id}
-                  className="grid justify-items-center gap-1 rounded-2xl border border-line bg-card px-2 py-6 text-center"
-                  data-dash={card.id}
-                  data-dash-value={shown ? n : undefined}
-                  aria-label={shown ? trn(card.count, n) : t("dashboard.loading")}
-                >
-                  <p className="font-display text-3xl font-semibold tabular-nums sm:text-4xl" aria-hidden>
-                    {shown ? groupDigits(n) : "…"}
-                  </p>
-                  <p className="text-xs leading-5 text-muted sm:text-sm">{t(card.label)}</p>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="grid gap-3">
+            <ul
+              className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-flow-col sm:grid-cols-3 sm:grid-rows-2"
+              data-dashboard-counts
+            >
+              {CARDS.map((card) => {
+                const n = card.id === "series" ? (totals?.series.length ?? 0) : (totals?.[card.id] ?? 0);
+                const shown = state === "ready";
+                return (
+                  <li
+                    key={card.id}
+                    className="grid content-center gap-1 bg-card px-4 py-6 sm:px-7 sm:py-9"
+                    data-dash={card.id}
+                    data-dash-value={shown ? n : undefined}
+                    aria-label={shown ? trn(card.count, n) : t("dashboard.loading")}
+                  >
+                    <p className="text-xs font-semibold tracking-wide text-muted sm:text-sm" aria-hidden>
+                      {t(card.label)}
+                    </p>
+                    <p
+                      className="font-display text-[1.7rem] leading-tight font-semibold tabular-nums sm:text-[2.6rem]"
+                      aria-hidden
+                    >
+                      {shown ? groupDigits(n) : "…"}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+            {state === "ready" && totals ? (
+              <p className="px-1 text-xs leading-5 text-muted sm:text-sm" data-dashboard-mix>
+                {t("dashboard.mix", { classics: groupDigits(totals.classics), lists: groupDigits(totals.lists) })}
+              </p>
+            ) : null}
+          </div>
         )}
-        <div className="grid justify-items-center gap-2 text-center" data-supporters>
+        <div
+          className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-sm leading-6 text-muted"
+          data-supporters
+        >
           {names !== null && names.length > 0 ? (
             <>
-              <p className="flex items-center gap-1.5 text-sm font-semibold text-muted" data-supporter-count>
-                <Heart className="size-4 text-accent" aria-hidden />
-                {t("dashboard.supporters", { n: names.length })}
-              </p>
-              <p className="text-sm leading-6 text-muted" data-supporter-names>
-                {shown.join(" · ")}
-                {more > 0 ? ` · ${t("dashboard.namesMore", { n: more })}` : ""}
-              </p>
+              <Heart className="size-4 shrink-0 text-accent" strokeWidth={1.5} aria-hidden />
+              <span className="font-semibold" data-supporter-count>
+                {trn("count.supporter", names.length)}
+              </span>
+              <span aria-hidden>·</span>
+              <span data-supporter-names>
+                {shown.join(", ")}
+                {more > 0 ? ` ${t("dashboard.namesMore", { n: more })}` : ""}
+              </span>
+              <span aria-hidden>·</span>
             </>
           ) : null}
           <button
             type="button"
-            className="inline-flex min-h-11 items-center gap-1.5 px-1 text-sm text-muted underline-offset-4 hover:text-ink hover:underline"
+            className="inline-flex min-h-11 items-center gap-1.5 px-1 font-semibold text-accent underline-offset-4 hover:underline"
             onClick={() => setOpen(true)}
             data-sponsor-link
           >
-            <Heart className="size-4" strokeWidth={1.5} aria-hidden />
+            {names !== null && names.length > 0 ? null : <Heart className="size-4" strokeWidth={1.5} aria-hidden />}
             {t("dashboard.supportUs")}
           </button>
         </div>

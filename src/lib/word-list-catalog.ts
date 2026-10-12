@@ -38,6 +38,8 @@ export type WordListPack = {
   glossary: { url: string; bytes: number; sha256: string };
   /** When the word list last changed: a day, or an instant with a clock time. "" when the catalog has neither. */
   updated: string;
+  /** When the book first came to the catalog. A list update does not move it. "" on rows from before this field. */
+  added: string;
 };
 
 const text = (value: unknown, max: number): string =>
@@ -93,6 +95,7 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
         sha256: /^[0-9a-f]{64}$/.test(String(glossary?.sha256)) ? String(glossary?.sha256) : "",
       },
       updated: readUpdated(row.updated),
+      added: readUpdated(row.added),
     });
   }
   return out;

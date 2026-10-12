@@ -1,7 +1,8 @@
 /**
- * Which Discover cards belong in the "updated recently" row.
- * The main list stays in its own order. A day-only catalog value is that calendar
- * day in the reader's time zone. An instant uses its real time.
+ * Which Discover cards belong in the "new books" row: the books that came to the
+ * catalog most recently (`added`). A new word list for an older book does not
+ * move it here. The main list stays in its own order. A day-only catalog value is
+ * that calendar day in the reader's time zone. An instant uses its real time.
  */
 
 /** How many local calendar days, including today, count as recent. */
@@ -56,18 +57,18 @@ export function isRecentUpdate(updated: string, now: Date, days = RECENT_UPDATE_
   return at >= recentWindowStart(now, days) && at <= now.getTime();
 }
 
-function byNewest<T extends { updated: string; title: string }>(a: T, b: T): number {
-  const at = updateInstant(b.updated)! - updateInstant(a.updated)!;
+function byNewest<T extends { added: string; title: string }>(a: T, b: T): number {
+  const at = updateInstant(b.added)! - updateInstant(a.added)!;
   return at || a.title.localeCompare(b.title);
 }
 
-/** Newest first. Same time keeps title order. Books with no usable time are left out. */
-export function recentUpdates<T extends { updated: string; title: string }>(
+/** Newest first. Same time keeps title order. Books with no usable `added` time are left out. */
+export function recentUpdates<T extends { added: string; title: string }>(
   rows: readonly T[],
   now: Date,
   days = RECENT_UPDATE_DAYS,
 ): T[] {
-  return rows.filter((row) => isRecentUpdate(row.updated, now, days)).sort(byNewest);
+  return rows.filter((row) => isRecentUpdate(row.added, now, days)).sort(byNewest);
 }
 
 /**
@@ -75,14 +76,14 @@ export function recentUpdates<T extends { updated: string; title: string }>(
  * A future time and a blank time stay out. This is not limited to the short recent window,
  * so a wide screen can fill the page width when only a few books changed in that window.
  */
-export function newestUpdates<T extends { updated: string; title: string }>(
+export function newestUpdates<T extends { added: string; title: string }>(
   rows: readonly T[],
   now: Date,
   limit = RECENT_ROW_WIDE,
 ): T[] {
   return rows
     .filter((row) => {
-      const at = updateInstant(row.updated);
+      const at = updateInstant(row.added);
       return at != null && at <= now.getTime();
     })
     .sort(byNewest)
