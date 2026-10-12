@@ -35,6 +35,17 @@ export function assertWordListPublish(before, after, id) {
   }
 }
 
+const addedOf = (row) => (row && typeof row.added === "string" ? row.added : "");
+
+/**
+ * `added` is when the book first came to the catalog. A new list for the same book keeps it,
+ * so Discover's new-books row does not fill with old books whose word list changed.
+ */
+export function keepAdded(prior, row) {
+  const added = addedOf(prior);
+  return added ? { ...row, added } : row;
+}
+
 /**
  * @param {object} live catalog JSON already on the books host
  * @param {object} row one list from buildWordLists
@@ -50,8 +61,8 @@ export function mergeWordListCatalog(live, row, updated = new Date().toISOString
   }
   const lists = live.lists.map((item) => ({ ...item }));
   const index = lists.findIndex((item) => item.id === row.id);
-  if (index >= 0) lists[index] = row;
-  else lists.push(row);
+  if (index >= 0) lists[index] = keepAdded(lists[index], row);
+  else lists.push({ ...row, added: addedOf(row) || updated });
   const next = {
     format: live.format ?? 1,
     name: typeof live.name === "string" ? live.name : "Word lists",

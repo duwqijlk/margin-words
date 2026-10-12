@@ -98,3 +98,11 @@ test("a rebuilt catalog that retargets another book is refused", () => {
   );
   assert.throws(() => assertPublicPublish(live, { packs: [live.packs[0], speech] }, "back-to-school"), /refusing to drop anne/);
 });
+
+test("a new public book gets added once, and a new list for it keeps that time", () => {
+  const first = mergePublicCatalog(live, speech, "2026-10-07");
+  assert.equal(first.packs[2].added, "2026-10-07");
+  assert.equal(first.packs[0].added, undefined);
+  const again = mergePublicCatalog(first, { ...speech, glossary: { ...speech.glossary, sha256: "8".repeat(64) } }, "2026-10-12");
+  assert.equal(again.packs[2].added, "2026-10-07");
+});
