@@ -15,6 +15,7 @@ import { CoverBadge } from "@/components/cover-marks";
 import type { ShelfState } from "@/components/shelf-actions";
 import { btn, cn } from "@/components/ui";
 import type { ContentCategory } from "@/lib/content-category";
+import { coverCrossOrigin } from "@/lib/cover-request";
 import { groupDigits } from "@/lib/library-totals";
 import type { CatalogPack } from "@/lib/packs";
 import type { WordListPack } from "@/lib/word-list-catalog";
@@ -178,6 +179,7 @@ export function FeaturedBook({
       {row.coverUrl ? (
         <img
           src={row.coverUrl}
+          crossOrigin={coverCrossOrigin(row.coverUrl)}
           alt=""
           aria-hidden
           className="absolute inset-0 -z-10 size-full scale-125 object-cover opacity-55 blur-2xl saturate-150"
