@@ -59,6 +59,14 @@ export class ListUpdateBlock extends Error {
   }
 }
 
+export type ListUpdateToast = {
+  id: number;
+  /** titles whose list was replaced */
+  updated: string[];
+  /** how many tapped books kept their old list (the card says why) */
+  failed: number;
+};
+
 type ListUpdateState = {
   /** pack id -> plain-language reason its list was NOT replaced (shown under the Update button) */
   failures: Record<string, string>;
@@ -71,7 +79,10 @@ type ListUpdateState = {
   waiting: number;
   /** goes up after every run, so Discover re-reads the pack records */
   finished: number;
+  /** The last Update the reader tapped: what changed, for the message at the bottom of the screen. */
+  toast: ListUpdateToast | null;
   dismiss: () => void;
+  dismissToast: () => void;
   clearFailure: (packId: string) => void;
 };
 
@@ -80,7 +91,9 @@ export const useListUpdates = create<ListUpdateState>()((set) => ({
   holds: {},
   waiting: 0,
   finished: 0,
+  toast: null,
   dismiss: () => set({ waiting: 0 }),
+  dismissToast: () => set({ toast: null }),
   clearFailure: (packId) =>
     set((state) => {
       if (!(packId in state.failures) && !(packId in state.holds)) return state;
@@ -247,6 +260,39 @@ export async function updateInstalledBook(bookId: string): Promise<void> {
     rememberFailure(record.packId, reason);
     throw reason;
   }
+}
+
+let toastId = 0;
+
+/** The message at the bottom of the screen after the reader tapped Update. */
+export function announceListUpdate(updated: string[], failed: number): void {
+  if (updated.length === 0 && failed === 0) return;
+  toastId += 1;
+  useListUpdates.setState({ toast: { id: toastId, updated, failed } });
+}
+
+/**
+ * The reader tapped Update (one card) or Update all (the shelf card). Books go one at a time,
+ * so a slow or failing list does not hold up the others. `onStep` reports how many are done.
+ * Never throws: a book that kept its old list is counted, and its card shows the reason.
+ */
+export async function updateInstalledBooks(
+  books: readonly { bookId: string; title: string }[],
+  onStep?: (done: number) => void,
+): Promise<{ updated: string[]; failed: number }> {
+  const updated: string[] = [];
+  let failed = 0;
+  for (const [index, book] of books.entries()) {
+    try {
+      await updateInstalledBook(book.bookId);
+      updated.push(book.title);
+    } catch {
+      failed += 1;
+    }
+    onStep?.(index + 1);
+  }
+  announceListUpdate(updated, failed);
+  return { updated, failed };
 }
 
 let running: Promise<void> | null = null;

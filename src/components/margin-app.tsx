@@ -452,9 +452,18 @@ export function MarginApp() {
               {importError}
             </Banner>
           ) : null}
-          {listsWaiting > 0 ? (
-            <Banner tone="good" onClose={dismissListsWaiting} data-lists-ready>
-              {tn("msg.listsReady", listsWaiting)}
+          {listsWaiting > 0 && screen.kind !== "shelf" ? (
+            <Banner tone="good" onClose={dismissListsWaiting} data-lists-waiting>
+              <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span>{tn("msg.listsReady", listsWaiting)}</span>
+                <button
+                  type="button"
+                  className="font-semibold text-accent underline underline-offset-4"
+                  onClick={() => setScreen({ kind: "shelf" })}
+                >
+                  {t("msg.listsGo")}
+                </button>
+              </span>
             </Banner>
           ) : null}
           {notes.length > 0 ? (

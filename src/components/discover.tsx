@@ -31,6 +31,7 @@ import { newestUpdates, RECENT_ROW_WIDE, recentUpdates } from "@/lib/discover-re
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import {
   autoUpdateWordLists,
+  announceListUpdate,
   retryWordListUpdate,
   useListUpdates,
   wordListRev,
@@ -398,12 +399,16 @@ export function DiscoverScreen({
     if (row.kind === "classic" && row.pack) {
       const pack = row.pack;
       useDownloads.getState().dismiss(pack.id);
-      void start(BUNDLED_CATALOG_URL, pack);
+      void start(BUNDLED_CATALOG_URL, pack).then(() => {
+        const failed = Boolean(useDownloads.getState().items[pack.id]?.error);
+        announceListUpdate(failed ? [] : [row.title], failed ? 1 : 0);
+      });
     } else if (row.list) {
       const pack = row.list;
       setBusyId(pack.id);
       void retryWordListUpdate(pack)
-        .catch(() => undefined)
+        .then(() => announceListUpdate([row.title], 0))
+        .catch(() => announceListUpdate([], 1))
         .finally(() => setBusyId(""));
     }
   }

@@ -13,7 +13,7 @@ export function CoverBadge({
   "aria-label": ariaLabel,
   ...rest
 }: {
-  tone: "publicDomain" | "list" | "needs";
+  tone: "publicDomain" | "list" | "needs" | "update";
   children: React.ReactNode;
   /** When set, the label is a button. Used for the shelf Update tag. */
   onClick?: () => void;
@@ -27,6 +27,7 @@ export function CoverBadge({
     tone === "publicDomain" && "bg-card/85 text-accent ring-black/5",
     tone === "list" && "bg-card/85 text-ink ring-black/5",
     tone === "needs" && "bg-warn text-accent-ink ring-black/10",
+    tone === "update" && "inline-flex items-center gap-1 bg-accent text-accent-ink shadow-sm ring-black/10 hover:brightness-110",
     disabled && "opacity-70",
   );
   if (onClick) {

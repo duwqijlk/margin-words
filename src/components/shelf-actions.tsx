@@ -1,10 +1,11 @@
 import * as Popover from "@radix-ui/react-popover";
-import { BookOpen, Check, Loader2, Plus, RotateCw, Trash2, Undo2 } from "lucide-react";
-import { useRef, useState } from "react";
+import { AlertCircle, BookOpen, Check, Loader2, Plus, RotateCw, Trash2, Undo2, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { ConfirmDialog, cn } from "@/components/ui";
 import { useT, type Key } from "@/lib/i18n";
 import { listUpdatedParts } from "@/lib/list-updated";
 import { forgetBook, useShelfRemove } from "@/lib/shelf-remove";
+import { useListUpdates } from "@/lib/word-list-update";
 
 export type ShelfState = "off" | "busy" | "on" | "update" | "error";
 
@@ -239,6 +240,13 @@ export function ShelfToastHost({
   const undo = useShelfRemove((state) => state.undo);
   const cancel = useShelfRemove((state) => state.cancel);
   const dismissNotice = useShelfRemove((state) => state.dismissNotice);
+  const listToast = useListUpdates((state) => state.toast);
+  const dismissListToast = useListUpdates((state) => state.dismissToast);
+  useEffect(() => {
+    if (!listToast) return;
+    const timer = window.setTimeout(dismissListToast, listToast.failed > 0 ? 9000 : 5000);
+    return () => window.clearTimeout(timer);
+  }, [listToast, dismissListToast]);
   const shell = cn(
     "toast-in fixed inset-x-4 z-50 mx-auto flex max-w-md items-center gap-3 rounded-2xl bg-ink py-2.5 pr-2.5 pl-4 text-sm font-medium text-paper shadow-pop",
     aboveTabs ? "bottom-[calc(4.75rem+env(safe-area-inset-bottom))] sm:bottom-4" : "bottom-[calc(1rem+env(safe-area-inset-bottom))]",
@@ -269,6 +277,27 @@ export function ShelfToastHost({
             }}
           >
             {t("discover.viewShelf")}
+          </button>
+        </div>
+      ) : listToast ? (
+        <div data-list-toast key={listToast.id} role="status" className={shell}>
+          {listToast.failed > 0 ? (
+            <AlertCircle className="size-4 shrink-0 text-warn-soft" aria-hidden />
+          ) : (
+            <Check className="size-4 shrink-0 text-accent-soft" strokeWidth={3} aria-hidden />
+          )}
+          <p className="min-w-0 flex-1 leading-snug">
+            {listToast.updated.length === 1
+              ? t("lists.doneOne", { title: listToast.updated[0] })
+              : listToast.updated.length > 1
+                ? t("lists.doneMany", { n: listToast.updated.length })
+                : ""}
+            {listToast.failed > 0 ? (
+              <span className="block text-paper/80">{t("lists.doneFailed", { n: listToast.failed })}</span>
+            ) : null}
+          </p>
+          <button type="button" className={action} onClick={dismissListToast} aria-label={t("common.close")}>
+            <X className="size-4" aria-hidden />
           </button>
         </div>
       ) : null}
