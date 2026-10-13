@@ -26,6 +26,7 @@ const ERROR_KEYS: Record<string, string> = {
   "no-private-bucket": "admin.error",
   "no-catalog": "admin.error",
   "cover-not-saved": "admin.books.coverFailed",
+  "different-book": "admin.lists.differentBook",
 };
 
 function dataUrlBytes(dataUrl: string): Uint8Array | null {

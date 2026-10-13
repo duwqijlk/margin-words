@@ -3,6 +3,7 @@ import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError, json } from "../../lib/http.ts";
 import { sha256HexBytes } from "../../lib/password.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
+import { normalizeTitle, replacesSameBook } from "../../lib/book-title.ts";
 import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../../lib/word-list-publish.ts";
 
 /**
@@ -14,18 +15,17 @@ import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../
  *   POST /api/admin/word-lists?id=<book id>   body: raw glossary JSON text
  *   POST /api/admin/word-lists?id=<book id>&catalog=public
  *
- * A book that is already in the catalog is updated in place. A new id is
- * onboarded from the glossary's own metadata (title, author, lexile, isbn,
- * series, category) — no cover, so the app keeps its generated one.
+ * A book that is already in the catalog is updated in place when this file is
+ * that same book (the same title, or no title). A file whose title is a
+ * different book is refused, so a new book cannot reuse the id and leave
+ * Discover showing the old name. A new id is onboarded from the glossary's
+ * own metadata (title, author, lexile, isbn, series, category) — no cover,
+ * so the app keeps its generated one.
  * catalog=public updates the glossary of a public-domain book already in
  * public-books/catalog.json. It does not add a new public book, and it does
  * not write the word-list catalog.
  */
 export const onRequestPost = (context: { request: Request; env: Env }) => handlePublish(context.request, context.env);
-
-function normalizeTitle(value: string): string {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
-}
 
 function rowFromGlossary(
   id: string,
@@ -100,6 +100,9 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     if (!current) throw new HttpError(500, "no-catalog");
     const live = JSON.parse(new TextDecoder().decode(await current.arrayBuffer())) as WordListCatalog;
     const existing = (live.lists ?? []).find((item) => item && item.id === id) as CatalogRow | undefined;
+    if (existing && !replacesSameBook(existing.title, (record as { title?: unknown }).title)) {
+      throw new HttpError(409, "different-book");
+    }
     if (!existing && typeof (record as { title?: unknown }).title !== "string") {
       // A new book needs at least a title from the glossary itself.
       throw new HttpError(404, "unknown-id");

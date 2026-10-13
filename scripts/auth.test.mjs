@@ -815,6 +815,38 @@ test("word-list publish: hash computed once, other rows untouched, unknown id re
   );
   assert.equal(clash.status, 409);
   assert.equal((await clash.json()).error, "duplicate-title");
+
+  const charlieBefore = storedAfter.lists.find((item) => item.id === "charlie");
+  const different = await handlePublish(
+    raw(
+      "/api/admin/word-lists?id=charlie",
+      adminCookie,
+      JSON.stringify({ title: "James", author: "Percival Everett", glossary: { jim: {} }, count: 1 }),
+    ),
+    env,
+    { now: NOW },
+  );
+  assert.equal(different.status, 409);
+  assert.equal((await different.json()).error, "different-book");
+  const afterRefuse = JSON.parse(new TextDecoder().decode(files.get("word-lists/catalog.json")));
+  const charlieKept = afterRefuse.lists.find((item) => item.id === "charlie");
+  assert.equal(charlieKept.title, "Charlie");
+  assert.equal(charlieKept.glossary.sha256, charlieBefore.glossary.sha256);
+  assert.equal(new TextDecoder().decode(files.get("word-lists/charlie/glossary.json")), glossary);
+
+  const sameBook = await handlePublish(
+    raw(
+      "/api/admin/word-lists?id=charlie",
+      adminCookie,
+      JSON.stringify({ title: "Charlie!", glossary: { a: {}, b: {}, c: {}, d: {} }, count: 4 }),
+    ),
+    env,
+    { now: NOW },
+  );
+  assert.equal(sameBook.status, 200);
+  const sameBody = await sameBook.json();
+  assert.equal(sameBody.row.title, "Charlie");
+  assert.equal(sameBody.row.words, 4);
 });
 
 test("public glossary update replaces the list and keeps the epub", async () => {
@@ -1033,6 +1065,27 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
   );
   assert.equal(lonely.status, 409);
   assert.equal((await lonely.json()).error, "cover-not-saved");
+
+  // A glossary for a different book must not replace this id's EPUB or cover.
+  const mismatchFiles = new Map();
+  const mismatchCard = new Map([
+    ["word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(cardCatalog, null, 1)}\n`)],
+  ]);
+  const mismatch = await handleUpload(
+    form(
+      "/api/admin/books?id=great-book&kind=private",
+      adminCookie,
+      formWith({ glossary: JSON.stringify({ title: "James", author: "Percival Everett", glossary: { jim: {} } }) }),
+    ),
+    envOf(db, { PRIVATE: stubBucket(mismatchFiles), BOOKS: stubBucket(mismatchCard) }),
+    { now: NOW },
+  );
+  assert.equal(mismatch.status, 409);
+  assert.equal((await mismatch.json()).error, "different-book");
+  assert.equal(mismatchFiles.has("great-book/book.epub"), false);
+  const mismatchCatalog = JSON.parse(new TextDecoder().decode(mismatchCard.get("word-lists/catalog.json")));
+  assert.equal(mismatchCatalog.lists[0].title, "Great Book");
+  assert.equal(mismatchCatalog.lists[0].cover, undefined);
 
   // public without a glossary file is refused
   const booksFiles = new Map();

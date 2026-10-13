@@ -1,4 +1,5 @@
 import { requireAdmin } from "../../lib/admin.ts";
+import { replacesSameBook } from "../../lib/book-title.ts";
 import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError, json } from "../../lib/http.ts";
 import { sha256HexBytes } from "../../lib/password.ts";
@@ -14,6 +15,29 @@ const GLOSSARY_MAX = 4_000_000;
  * is written before the book upload, so a chosen cover that cannot land on
  * that row fails the upload instead of leaving the generated card.
  */
+/**
+ * The book upload follows the word-list upload and can replace the private EPUB.
+ * Refuse before writing anything when the attached glossary names a different book
+ * than the catalog row for this id.
+ */
+async function refuseDifferentBook(env: Env, id: string, glossary: FormDataEntryValue | null): Promise<void> {
+  if (!(glossary instanceof File) || glossary.size === 0 || !env.BOOKS) return;
+  const catalogObject = await env.BOOKS.get("word-lists/catalog.json");
+  if (!catalogObject) return;
+  const live = JSON.parse(new TextDecoder().decode(await catalogObject.arrayBuffer())) as {
+    lists?: { id: string; title?: unknown }[];
+  };
+  const row = (live.lists ?? []).find((item) => item && item.id === id);
+  if (!row) return;
+  let data: unknown;
+  try {
+    data = JSON.parse(await glossary.text());
+  } catch {
+    throw new HttpError(400, "bad-json");
+  }
+  if (!replacesSameBook(row.title, (data as { title?: unknown })?.title)) throw new HttpError(409, "different-book");
+}
+
 async function putCardCover(env: Env, id: string, coverBytes: Uint8Array | null): Promise<void> {
   if (!coverBytes) return;
   if (!env.BOOKS) throw new HttpError(500, "no-books-bucket");
@@ -69,6 +93,7 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     const coverKey = kind === "public" ? `public-books/${id}/cover.jpg` : `${id}/cover.jpg`;
 
     if (kind === "private") {
+      await refuseDifferentBook(env, id, form.get("glossary"));
       const bucket = env.PRIVATE;
       if (!bucket) throw new HttpError(500, "no-private-bucket");
       await bucket.put(epubKey, epubBytes);

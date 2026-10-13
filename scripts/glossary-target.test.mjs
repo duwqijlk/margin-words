@@ -28,11 +28,31 @@ test("a glossary matches the public book by title when the file name is differen
   assert.equal(match && bookKey(match), "public:alice");
 });
 
-test("a file name that is already a book id wins over the title", () => {
+test("a file named like one book but titled as another does not update the named book", () => {
   const match = matchGlossaryBook(books, {
     fileId: "educated-lite",
     title: "Alice's Adventures in Wonderland",
     author: "Lewis Carroll",
+    isbn: "",
+  });
+  assert.equal(match && bookKey(match), "public:alice");
+});
+
+test("the same title still updates the book named by the file", () => {
+  const match = matchGlossaryBook(books, {
+    fileId: "educated-lite",
+    title: "Educated",
+    author: "Tara Westover",
+    isbn: "",
+  });
+  assert.equal(match && match.id, "educated-lite");
+});
+
+test("a file with no title still updates the book named by the file", () => {
+  const match = matchGlossaryBook(books, {
+    fileId: "educated-lite",
+    title: "",
+    author: "",
     isbn: "",
   });
   assert.equal(match && match.id, "educated-lite");
