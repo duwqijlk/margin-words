@@ -1,6 +1,7 @@
 import { cleanNickname } from "../../src/lib/nickname.ts";
 import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merge.ts";
 import { effectiveRole } from "./admin.ts";
+import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS } from "./trust.ts";
 import type { D1Result, Env, SyncRow, UserRow } from "./db.ts";
 import { deliverPasswordReset, resendSender, type PasswordResetSender } from "./email.ts";
 import {
@@ -127,7 +128,13 @@ export async function handleMe(request: Request, env: Env, options?: HandlerOpti
     // 200 so a signed-out page load is not a failed request in the browser console.
     // Other routes still use requireUser and answer 401.
     if (!user) return json({ user: null, resetEmail });
-    return json({ user: publicUser(user, now), resetEmail });
+    const unlimited = effectiveRole(user, now) !== "user";
+    const used = unlimited ? 0 : await glossaryWeekUsed(env.DB, user.id, now);
+    return json({
+      user: publicUser(user, now),
+      resetEmail,
+      glossary: { used, limit: GLOSSARY_WEEK_BOOKS, unlimited },
+    });
   } catch (error) {
     return errorResponse(error);
   }

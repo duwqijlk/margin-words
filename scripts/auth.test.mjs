@@ -25,7 +25,7 @@ import { handlePublish } from "../functions/api/admin/word-lists.ts";
 import { handleUpload } from "../functions/api/admin/books.ts";
 import { handleGlossary } from "../functions/api/glossary/[id].ts";
 import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
-import { GLOSSARY_WEEK_MS, trustedUntil } from "../functions/lib/trust.ts";
+import { GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS, trustedUntil } from "../functions/lib/trust.ts";
 import { handleEpub } from "../functions/api/book/[id]/epub.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -141,7 +141,9 @@ test("register, login, me, logout, and a wrong password", async () => {
 
   const me = await call(handleMe, env, { method: "GET", cookie });
   assert.equal(me.status, 200);
-  assert.equal((await me.json()).user.email, "reader@example.com");
+  const meBody = await me.json();
+  assert.equal(meBody.user.email, "reader@example.com");
+  assert.deepEqual(meBody.glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
 
   const bad = await call(handleLogin, env, {
     body: { email: "reader@example.com", password: "not the password" },
@@ -1032,7 +1034,9 @@ test("private epub: user denied, trusted allowed and logged, missing book 404", 
   const me = await handleMe(raw("/api/auth/me", freshCookie), envOf(db), {
     now: NOW + 8 * 24 * 60 * 60 * 1000,
   });
-  assert.equal((await me.json()).user.role, "user");
+  const meBody = await me.json();
+  assert.equal(meBody.user.role, "user");
+  assert.deepEqual(meBody.glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
 });
 
 test("word-list reads: five books a week, trusted is unlimited, a missing list is not counted", async () => {
@@ -1060,6 +1064,8 @@ test("word-list reads: five books a week, trusted is unlimited, a missing list i
   for (let n = 1; n <= 4; n += 1) assert.equal((await open(`book-${n}`, readerCookie)).status, 200);
   assert.equal((await open("book-1", readerCookie)).status, 200);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 5);
+  const capped = await handleMe(raw("/api/auth/me", readerCookie), envOf(db), { now: NOW });
+  assert.deepEqual((await capped.json()).glossary, { used: 5, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
 
   const blocked = await open("book-5", readerCookie);
   assert.equal(blocked.status, 429);
@@ -1077,6 +1083,8 @@ test("word-list reads: five books a week, trusted is unlimited, a missing list i
   const reads = db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n;
   assert.equal((await open("book-6", readerCookie)).status, 200);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, reads);
+  const trustedMe = await handleMe(raw("/api/auth/me", readerCookie), envOf(db), { now: NOW });
+  assert.deepEqual((await trustedMe.json()).glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, unlimited: true });
 });
 
 test("book upload: private streams to PRIVATE, public updates its catalog row", async () => {
