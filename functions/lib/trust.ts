@@ -21,8 +21,8 @@ export function trustedUntil(term: TrustTerm, now: number): number | null {
   return date.getTime();
 }
 
-/** Distinct word lists a plain reader may open in one rolling week. */
-export const GLOSSARY_WEEK_BOOKS = 5;
+/** Distinct new word lists a plain reader may open in one rolling week. */
+export const GLOSSARY_WEEK_BOOKS = 7;
 export const GLOSSARY_WEEK_MS = 7 * DAY_MS;
 
 type CountDb = {

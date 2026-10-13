@@ -303,7 +303,7 @@ export const zh: Record<Key, string> = {
   "account.glossaryTitle": "词表",
   "account.glossaryCount": "{used} / {limit}",
   "account.glossaryUnlimited": "不受限制",
-  "account.glossaryHint": "7 天内最多 5 本。同一本再次打开不占名额。",
+  "account.glossaryHint": "7 天内最多新开 7 本。书架上已有的书不占名额。",
   "account.syncSaved": "已同步",
   "account.syncSaving": "正在同步…",
   "account.syncOffline": "现在离线。联网后会自动同步。",
@@ -785,5 +785,5 @@ export const zh: Record<Key, string> = {
   "admin.users.until": "至 {date}",
   "admin.users.expired": "已到期",
   "admin.users.update": "更新期限",
-  "err.glossaryWeek": "普通读者每周只能查看 5 本书的词表。开通书库后不受限制。",
+  "err.glossaryWeek": "普通读者每 7 天最多新开 7 本书的词表。书架上已有的书可以重新下载。开通书库后不受限制。",
 };
