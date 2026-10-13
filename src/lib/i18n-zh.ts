@@ -270,13 +270,11 @@ export const zh: Record<Key, string> = {
 
   /* ---- settings */
   "settings.title": "设置",
-  "settings.desc": "选择语言、主题和账号。",
+  "settings.desc": "选择语言和主题。",
   "settings.langTitle": "语言",
   "settings.guide": "怎样做图书包",
-  "settings.accountTitle": "账号",
 
   /* ---- account */
-  "account.open": "登录",
   "account.manage": "账号",
   "account.title": "账号",
   "account.desc": "登录后可以添加图书，书架、读到哪里和生词也会同步到其他设备。设备上已有的书，不登录也能读。",

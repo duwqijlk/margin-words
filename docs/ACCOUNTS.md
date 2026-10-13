@@ -132,7 +132,7 @@ npm run build:local
 npx wrangler pages dev dist --port 8788
 ```
 
-Open `http://localhost:8788`. The account button is in the top bar, and the same screen is linked from Settings. `build:local` keeps book files on this origin so Discover still works.
+Open `http://localhost:8788`. The account button is in the top bar. `build:local` keeps book files on this origin so Discover still works.
 
 For a live front end while editing UI, run Vite and point Pages at it (functions stay on Wrangler, the page is proxied):
 

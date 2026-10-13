@@ -269,13 +269,11 @@ export const en = {
 
   /* ---- settings */
   "settings.title": "Settings",
-  "settings.desc": "Language, theme, and your account.",
+  "settings.desc": "Language and theme.",
   "settings.langTitle": "Language",
   "settings.guide": "How to make a book pack",
-  "settings.accountTitle": "Account",
 
   /* ---- account */
-  "account.open": "Sign in",
   "account.manage": "Account",
   "account.title": "Account",
   "account.desc": "Sign in to add books, and to sync your shelf, reading place, and saved words. Books already on this device can be read without an account.",
