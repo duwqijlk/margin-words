@@ -34,7 +34,7 @@ const NOW = 1_700_000_000_000;
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql"]) {
+  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql", "0006_shelf_grant.sql"]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
   return {
@@ -1039,7 +1039,7 @@ test("private epub: user denied, trusted allowed and logged, missing book 404", 
   assert.deepEqual(meBody.glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
 });
 
-test("word-list reads: five books a week, trusted is unlimited, a missing list is not counted", async () => {
+test("word-list reads: seven new books a week, an old book stays free, trusted is unlimited", async () => {
   const db = openDb();
   const reader = await call(handleRegister, envOf(db), {
     body: { email: "reader@example.com", password: "correct horse" },
@@ -1053,26 +1053,33 @@ test("word-list reads: five books a week, trusted is unlimited, a missing list i
   const files = new Map();
   const text = (id) => new TextEncoder().encode(`{"glossary":{"${id}":{}}}`);
   files.set("public-books/public-one/glossary.json", text("public-one"));
-  for (let n = 1; n <= 6; n += 1) files.set(`word-lists/book-${n}/glossary.json`, text(`book-${n}`));
+  for (let n = 1; n <= 8; n += 1) files.set(`word-lists/book-${n}/glossary.json`, text(`book-${n}`));
   const env = envOf(db, { BOOKS: stubBucket(files) });
   const open = (id, cookie, now = NOW) => handleGlossary(raw(`/api/glossary/${id}`, cookie), env, id, { now });
+  const later = NOW + GLOSSARY_WEEK_MS + 1;
 
   assert.equal((await open("book-1", "")).status, 401);
   assert.equal((await open("missing-book", readerCookie)).status, 404);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 0);
   assert.equal((await open("public-one", readerCookie)).status, 200);
-  for (let n = 1; n <= 4; n += 1) assert.equal((await open(`book-${n}`, readerCookie)).status, 200);
+  for (let n = 1; n <= 6; n += 1) assert.equal((await open(`book-${n}`, readerCookie)).status, 200);
   assert.equal((await open("book-1", readerCookie)).status, 200);
-  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 5);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 7);
   const capped = await handleMe(raw("/api/auth/me", readerCookie), envOf(db), { now: NOW });
-  assert.deepEqual((await capped.json()).glossary, { used: 5, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
+  assert.deepEqual((await capped.json()).glossary, { used: 7, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
 
-  const blocked = await open("book-5", readerCookie);
+  const blocked = await open("book-7", readerCookie);
   assert.equal(blocked.status, 429);
   assert.equal((await blocked.json()).error, "glossary-week");
-  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 5);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 7);
 
-  assert.equal((await open("book-5", readerCookie, NOW + GLOSSARY_WEEK_MS + 1)).status, 200);
+  // Another device, a week later: a book already opened is free and takes no new place.
+  assert.equal((await open("book-1", readerCookie, later)).status, 200);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 7);
+  assert.equal((await open("book-7", readerCookie, later)).status, 200);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 8);
+  const laterMe = await handleMe(raw("/api/auth/me", readerCookie), envOf(db), { now: later });
+  assert.deepEqual((await laterMe.json()).glossary, { used: 1, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
 
   const listed = await call(handleList, envOf(db), { method: "GET", cookie: adminCookie });
   const target = (await listed.json()).users.find((item) => item.id === readerId);
@@ -1081,10 +1088,54 @@ test("word-list reads: five books a week, trusted is unlimited, a missing list i
     cookie: adminCookie,
   });
   const reads = db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n;
-  assert.equal((await open("book-6", readerCookie)).status, 200);
+  assert.equal((await open("book-8", readerCookie)).status, 200);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, reads);
   const trustedMe = await handleMe(raw("/api/auth/me", readerCookie), envOf(db), { now: NOW });
   assert.deepEqual((await trustedMe.json()).glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, unlimited: true });
+});
+
+test("a book already on the shelf can be downloaded when the week is full", async () => {
+  const db = openDb();
+  const reader = await call(handleRegister, envOf(db), {
+    body: { email: "reader@example.com", password: "correct horse" },
+  });
+  const readerCookie = cookieHeader(reader);
+  const readerId = (await reader.json()).user.id;
+  const files = new Map();
+  const text = (id) => new TextEncoder().encode(`{"glossary":{"${id}":{}}}`);
+  const catalog = {
+    format: 1,
+    lists: [
+      { id: "owned-book", title: "Owned Book", author: "Ada Lovelace" },
+      { id: "fresh-book", title: "Fresh Book", author: "Ada Lovelace" },
+    ],
+  };
+  files.set("word-lists/catalog.json", new TextEncoder().encode(JSON.stringify(catalog)));
+  files.set("word-lists/owned-book/glossary.json", text("owned"));
+  files.set("word-lists/fresh-book/glossary.json", text("fresh"));
+  for (let n = 1; n <= 7; n += 1) files.set(`word-lists/book-${n}/glossary.json`, text(`book-${n}`));
+  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const open = (id) => handleGlossary(raw(`/api/glossary/${id}`, readerCookie), env, id, { now: NOW });
+  db.raw
+    .prepare(
+      "INSERT INTO sync_items (user_id, kind, item_id, data, updated_at, deleted, grant_title, grant_author, grant_isbn) VALUES (?, 'shelf', 'book:owned', '{}', ?, 0, 'Owned Book', 'Ada Lovelace', '')",
+    )
+    .run(readerId, NOW);
+  db.raw
+    .prepare(
+      "INSERT INTO sync_items (user_id, kind, item_id, data, updated_at, deleted, grant_title, grant_author, grant_isbn) VALUES (?, 'shelf', 'book:fresh', ?, ?, 0, '', '', '')",
+    )
+    .run(readerId, JSON.stringify({ title: "Fresh Book", author: "Ada Lovelace" }), NOW);
+
+  for (let n = 1; n <= 7; n += 1) assert.equal((await open(`book-${n}`)).status, 200);
+  assert.equal((await open("fresh-book")).status, 429);
+  assert.equal((await open("owned-book")).status, 200);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads WHERE created_at > 0").get().n, 7);
+  assert.equal(db.raw.prepare("SELECT created_at AS at FROM glossary_reads WHERE book_id = 'owned-book'").get().at, 0);
+  const me = await handleMe(raw("/api/auth/me", readerCookie), envOf(db), { now: NOW });
+  assert.deepEqual((await me.json()).glossary, { used: 7, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
+  assert.equal((await open("owned-book")).status, 200);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads WHERE book_id = 'owned-book'").get().n, 1);
 });
 
 test("book upload: private streams to PRIVATE, public updates its catalog row", async () => {

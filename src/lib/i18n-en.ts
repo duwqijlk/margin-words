@@ -303,7 +303,7 @@ export const en = {
   "account.glossaryTitle": "Word lists",
   "account.glossaryCount": "{used} of {limit}",
   "account.glossaryUnlimited": "No weekly limit",
-  "account.glossaryHint": "5 books in 7 days. Opening the same book again is free.",
+  "account.glossaryHint": "7 new books in 7 days. A book already on your shelf does not use a place.",
   "account.syncSaved": "Synced",
   "account.syncSaving": "Syncing…",
   "account.syncOffline": "Offline. Changes will sync when you are back online.",
@@ -804,7 +804,7 @@ export const en = {
   "admin.users.until": "Until {date}",
   "admin.users.expired": "Expired",
   "admin.users.update": "Update access",
-  "err.glossaryWeek": "A reader can open word lists for 5 books each week. Library access removes this limit.",
+  "err.glossaryWeek": "A reader can open 7 new word lists every 7 days. Books already on the shelf can be downloaded again. Library access removes this limit.",
 } as const;
 
 export type Key = keyof typeof en;
