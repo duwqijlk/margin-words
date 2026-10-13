@@ -805,7 +805,8 @@ export type GlossaryCheck = {
 };
 
 export const LIMITS = {
-  bytes: 8 * 1024 * 1024,
+  // Keep this equal to GLOSSARY_MAX in functions/lib/glossary-limit.ts.
+  bytes: 16_000_000,
   words: 30000,
   sensesPerWord: 24,
   anchorsPerSense: 60,
@@ -1266,6 +1267,17 @@ function formsFieldPhrase(issues: Issues, where: string, value: unknown): string
     .filter(Boolean);
 }
 
+/** The check returned when a word list is over LIMITS.bytes. */
+export function oversizedGlossaryCheck(): GlossaryCheck {
+  return {
+    ok: false,
+    errors: ["This file is too big (more than 16 MB). Please use a smaller word list."],
+    warnings: [],
+    file: null,
+    stats: { words: 0, senses: 0, anchors: 0, chineseWords: [] },
+  };
+}
+
 /**
  * Check a word list (JSON text, or an already parsed value). Never throws.
  * `file` is the cleaned-up list when there are no errors.
@@ -1285,10 +1297,7 @@ export function validateGlossary(input: unknown): GlossaryCheck {
 
   let data: unknown = input;
   if (typeof input === "string") {
-    if (input.length > LIMITS.bytes) {
-      issues.error("This file is too big (more than 8 MB). Please use a smaller word list.");
-      return fail();
-    }
+    if (input.length > LIMITS.bytes) return oversizedGlossaryCheck();
     try {
       data = JSON.parse(input.replace(/^\uFEFF/, ""));
     } catch (error) {

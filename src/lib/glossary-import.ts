@@ -15,6 +15,7 @@ import {
   indexChapterHtml,
   LIMITS,
   normText,
+  oversizedGlossaryCheck,
   validateGlossary,
   type ChapterIndex,
   type GlossaryCheck,
@@ -36,9 +37,7 @@ export type ImportResult = { written: number; kept: number; multi: number };
 
 /** Read a .json file from the user and check it. Never throws. */
 export async function readGlossaryFile(file: File): Promise<GlossaryCheck> {
-  if (file.size > LIMITS.bytes) {
-    return validateGlossary("x".repeat(LIMITS.bytes + 1));
-  }
+  if (file.size > LIMITS.bytes) return oversizedGlossaryCheck();
   let text = "";
   try {
     text = await file.text();

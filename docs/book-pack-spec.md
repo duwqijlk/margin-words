@@ -61,7 +61,7 @@ A book pack is **one `.zip` file** with **exactly** these two files at the top l
 | File | Required | What it is |
 | --- | --- | --- |
 | `book.epub` | **yes, exactly one** | The book, unchanged, DRM-free, English text. Maximum 40 MB. Any other single `*.epub` name also works (`my-book.epub`), but `book.epub` is the standard name. |
-| `glossary.json` | **yes, exactly one** | The word list for that book, format in section 4 (`version` 1 or 2, `glossary` with at least 1 word, maximum 8 MB). The kit naming `<name>.glossary.json` (for example `the-lantern-seller.glossary.json`) also works inside a zip. |
+| `glossary.json` | **yes, exactly one** | The word list for that book, format in section 4 (`version` 1 or 2, `glossary` with at least 1 word, maximum 16 MB). The kit naming `<name>.glossary.json` (for example `the-lantern-seller.glossary.json`) also works inside a zip. |
 | `cover.jpg` | no | Cover picture (`cover.png` or `cover.webp` also work). Used only when the EPUB has no cover of its own. |
 | `pack.json` | no | `{ "id": "my-book", "title": "...", "author": "...", "rev": "1", "lexile": "880L", "isbn": "9780141960616", "series": "Wings of Fire", "seriesNumber": 1 }`. `id` matches `^[a-z0-9][a-z0-9_-]{0,63}$`. `lexile`, `isbn`, `series` and `seriesNumber` are optional. `isbn` is the ISBN-13 of the edition this list was written for. `series` may stand alone. `seriesNumber` is kept only with a series name. |
 
@@ -106,7 +106,7 @@ Make it: `zip my-book.pack.zip book.epub glossary.json` (put the two files at th
 
 ## 4. `glossary.json` schema
 
-UTF-8 JSON, one object. Maximum file size 8 MB. Straight double quotes, no comments, no trailing commas.
+UTF-8 JSON, one object. Maximum file size 16 MB. Straight double quotes, no comments, no trailing commas.
 Unknown extra fields are ignored. Types below use TypeScript notation; `?` = optional.
 
 ```ts

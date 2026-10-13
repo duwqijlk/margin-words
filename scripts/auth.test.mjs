@@ -23,6 +23,7 @@ import {
 import { handleList, handleSetRole } from "../functions/api/admin/users.ts";
 import { handlePublish } from "../functions/api/admin/word-lists.ts";
 import { handleUpload } from "../functions/api/admin/books.ts";
+import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
 import { handleEpub } from "../functions/api/book/[id]/epub.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -847,7 +848,36 @@ test("word-list publish: hash computed once, other rows untouched, unknown id re
   const sameBody = await sameBook.json();
   assert.equal(sameBody.row.title, "Charlie");
   assert.equal(sameBody.row.words, 4);
+
+  const sized = glossaryOfLength(4_000_001);
+  assert.equal(sized.length, 4_000_001);
+  const accepted = await handlePublish(
+    raw("/api/admin/word-lists?id=charlie", adminCookie, sized),
+    env,
+    { now: NOW },
+  );
+  assert.equal(accepted.status, 200);
+  const acceptedBody = await accepted.json();
+  assert.equal(acceptedBody.row.title, "Charlie");
+  assert.equal(acceptedBody.row.words, 1);
+  assert.equal(acceptedBody.row.glossary.bytes, 4_000_001);
+
+  const beforeHuge = new TextDecoder().decode(files.get("word-lists/charlie/glossary.json"));
+  const refusedSize = await handlePublish(
+    raw("/api/admin/word-lists?id=charlie", adminCookie, "x".repeat(GLOSSARY_MAX + 1)),
+    env,
+    { now: NOW },
+  );
+  assert.equal(refusedSize.status, 413);
+  assert.equal((await refusedSize.json()).error, "too-large");
+  assert.equal(new TextDecoder().decode(files.get("word-lists/charlie/glossary.json")), beforeHuge);
 });
+
+function glossaryOfLength(length) {
+  const head = '{"title":"Charlie","count":1,"glossary":{"word":{}},"note":"';
+  const tail = '"}';
+  return head + "x".repeat(length - head.length - tail.length) + tail;
+}
 
 test("public glossary update replaces the list and keeps the epub", async () => {
   const db = openDb();
@@ -1127,6 +1157,35 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
   assert.equal(alice.glossary.rev.length, 12);
   assert.equal(alice.cover.url, "alice/cover.jpg");
   assert.ok(booksFiles.has("public-books/alice/glossary.json"));
+
+  const medium = new FormData();
+  medium.set("epub", new File([epubBytes], "book.epub", { type: "application/epub+zip" }));
+  medium.set(
+    "glossary",
+    new File([new Uint8Array(4_000_001)], "glossary.json", { type: "application/json" }),
+  );
+  const overOldCap = await handleUpload(
+    form("/api/admin/books?id=alice&kind=public", adminCookie, medium),
+    publicEnv,
+    { now: NOW },
+  );
+  assert.equal(overOldCap.status, 200);
+  assert.equal(booksFiles.get("public-books/alice/glossary.json").byteLength, 4_000_001);
+
+  const huge = new FormData();
+  huge.set("epub", new File([epubBytes], "book.epub", { type: "application/epub+zip" }));
+  huge.set(
+    "glossary",
+    new File([new Uint8Array(GLOSSARY_MAX + 1)], "glossary.json", { type: "application/json" }),
+  );
+  const overNewCap = await handleUpload(
+    form("/api/admin/books?id=alice&kind=public", adminCookie, huge),
+    publicEnv,
+    { now: NOW },
+  );
+  assert.equal(overNewCap.status, 413);
+  assert.equal((await overNewCap.json()).error, "too-large");
+  assert.equal(booksFiles.get("public-books/alice/glossary.json").byteLength, 4_000_001);
 
   // missing epub
   const noEpub = await handleUpload(form("/api/admin/books?id=alice&kind=public", adminCookie, new FormData()), publicEnv, {

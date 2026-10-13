@@ -1,5 +1,6 @@
 import { requireAdmin } from "../../lib/admin.ts";
 import { replacesSameBook } from "../../lib/book-title.ts";
+import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
 import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError, json } from "../../lib/http.ts";
 import { sha256HexBytes } from "../../lib/password.ts";
@@ -7,7 +8,6 @@ import type { HandlerOptions } from "../../lib/handlers.ts";
 
 const EPUB_MAX = 80_000_000;
 const COVER_MAX = 5_000_000;
-const GLOSSARY_MAX = 4_000_000;
 
 /**
  * The Discover card reads its picture from the books host
