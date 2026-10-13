@@ -23,7 +23,9 @@ import {
 import { handleList, handleSetRole } from "../functions/api/admin/users.ts";
 import { handlePublish } from "../functions/api/admin/word-lists.ts";
 import { handleUpload } from "../functions/api/admin/books.ts";
+import { handleGlossary } from "../functions/api/glossary/[id].ts";
 import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
+import { GLOSSARY_WEEK_MS, trustedUntil } from "../functions/lib/trust.ts";
 import { handleEpub } from "../functions/api/book/[id]/epub.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -32,7 +34,7 @@ const NOW = 1_700_000_000_000;
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql"]) {
+  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql"]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
   return {
@@ -660,12 +662,27 @@ test("admin users: gate, search, grant trusted, admin locked", async () => {
   });
   assert.equal(granted.status, 200);
   assert.equal((await granted.json()).user.role, "trusted");
+  assert.equal((await call(handleList, env, { method: "GET", path: "/api/admin/users?q=reader", cookie: adminCookie }).then((res) => res.json())).users[0].trustedUntil, null);
+
+  const week = await call(handleSetRole, env, {
+    body: { id: payload.users[0].id, role: "trusted", term: "week" },
+    cookie: adminCookie,
+  });
+  assert.equal((await week.json()).user.trustedUntil, trustedUntil("week", NOW));
+  const badTerm = await call(handleSetRole, env, {
+    body: { id: payload.users[0].id, role: "trusted", term: "nope" },
+    cookie: adminCookie,
+  });
+  assert.equal(badTerm.status, 400);
+  assert.equal((await badTerm.json()).error, "bad-term");
 
   const revoked = await call(handleSetRole, env, {
     body: { id: payload.users[0].id, role: "user" },
     cookie: adminCookie,
   });
-  assert.equal((await revoked.json()).user.role, "user");
+  const revokedBody = await revoked.json();
+  assert.equal(revokedBody.user.role, "user");
+  assert.equal(revokedBody.user.trustedUntil, null);
 
   const locked = await call(handleSetRole, env, {
     body: { id: adminId, role: "user" },
@@ -1003,6 +1020,63 @@ test("private epub: user denied, trusted allowed and logged, missing book 404", 
   assert.equal(missing.status, 404);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM book_downloads").get().n, 1);
   assert.equal(readerId !== "", true);
+
+  await call(handleSetRole, envOf(db), {
+    body: { id: target.id, role: "trusted", term: "week" },
+    cookie: adminCookie,
+  });
+  const expired = await handleEpub(raw("/api/book/great-book/epub", freshCookie), env, "great-book", {
+    now: NOW + 8 * 24 * 60 * 60 * 1000,
+  });
+  assert.equal(expired.status, 403);
+  const me = await handleMe(raw("/api/auth/me", freshCookie), envOf(db), {
+    now: NOW + 8 * 24 * 60 * 60 * 1000,
+  });
+  assert.equal((await me.json()).user.role, "user");
+});
+
+test("word-list reads: five books a week, trusted is unlimited, a missing list is not counted", async () => {
+  const db = openDb();
+  const reader = await call(handleRegister, envOf(db), {
+    body: { email: "reader@example.com", password: "correct horse" },
+  });
+  const readerCookie = cookieHeader(reader);
+  const readerId = (await reader.json()).user.id;
+  const admin = await call(handleRegister, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const adminCookie = cookieHeader(admin);
+  const files = new Map();
+  const text = (id) => new TextEncoder().encode(`{"glossary":{"${id}":{}}}`);
+  files.set("public-books/public-one/glossary.json", text("public-one"));
+  for (let n = 1; n <= 6; n += 1) files.set(`word-lists/book-${n}/glossary.json`, text(`book-${n}`));
+  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const open = (id, cookie, now = NOW) => handleGlossary(raw(`/api/glossary/${id}`, cookie), env, id, { now });
+
+  assert.equal((await open("book-1", "")).status, 401);
+  assert.equal((await open("missing-book", readerCookie)).status, 404);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 0);
+  assert.equal((await open("public-one", readerCookie)).status, 200);
+  for (let n = 1; n <= 4; n += 1) assert.equal((await open(`book-${n}`, readerCookie)).status, 200);
+  assert.equal((await open("book-1", readerCookie)).status, 200);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 5);
+
+  const blocked = await open("book-5", readerCookie);
+  assert.equal(blocked.status, 429);
+  assert.equal((await blocked.json()).error, "glossary-week");
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 5);
+
+  assert.equal((await open("book-5", readerCookie, NOW + GLOSSARY_WEEK_MS + 1)).status, 200);
+
+  const listed = await call(handleList, envOf(db), { method: "GET", cookie: adminCookie });
+  const target = (await listed.json()).users.find((item) => item.id === readerId);
+  await call(handleSetRole, envOf(db), {
+    body: { id: target.id, role: "trusted", term: "forever" },
+    cookie: adminCookie,
+  });
+  const reads = db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n;
+  assert.equal((await open("book-6", readerCookie)).status, 200);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, reads);
 });
 
 test("book upload: private streams to PRIVATE, public updates its catalog row", async () => {

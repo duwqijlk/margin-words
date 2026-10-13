@@ -791,6 +791,16 @@ export const en = {
   "admin.users.locked": "The owner account cannot be changed here.",
   "admin.users.prev": "Previous",
   "admin.users.next": "Next",
+  "admin.users.term": "Access length",
+  "admin.users.week": "1 week",
+  "admin.users.month": "1 month",
+  "admin.users.quarter": "1 quarter",
+  "admin.users.year": "1 year",
+  "admin.users.forever": "Forever",
+  "admin.users.until": "Until {date}",
+  "admin.users.expired": "Expired",
+  "admin.users.update": "Update access",
+  "err.glossaryWeek": "A reader can open word lists for 5 books each week. Library access removes this limit.",
 } as const;
 
 export type Key = keyof typeof en;

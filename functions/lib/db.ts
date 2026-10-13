@@ -52,6 +52,8 @@ export type UserRow = {
   nickname: string | null;
   /** "admin" is the owner account; "trusted" may open private-library EPUBs. */
   role: UserRole;
+  /** End of a trusted grant, in ms. Null means the grant does not expire. */
+  trusted_until?: number | null;
 };
 
 export type SyncRow = {

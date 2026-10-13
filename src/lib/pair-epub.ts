@@ -7,6 +7,7 @@ import { loadCachedText, saveCachedText } from "@/lib/book-db";
 import { fetchCoverData } from "@/lib/covers";
 import { editionMatch, matchPercent, type EditionMatch } from "@/lib/edition-match";
 import { applySpineMerge, importedCoverChoice, importSpineWarnings, parseEpub, type SpineNameWarning } from "@/lib/epub";
+import { fetchProtectedGlossary, remoteGlossaryId } from "@/lib/glossary-fetch";
 import { validateGlossary } from "@/lib/glossary-format";
 import { errorText, tr } from "@/lib/i18n";
 import { hashBytes } from "@/lib/pack-glossary";
@@ -26,6 +27,12 @@ export async function storeWordListText(id: string, text: string): Promise<void>
   await saveCachedText(cacheKey(id), text);
 }
 
+async function readDirect(url: string): Promise<Uint8Array> {
+  const response = await fetch(url, { cache: "no-cache" });
+  if (!response.ok) throw new Error(tr("err.bookAddFailed"));
+  return new Uint8Array(await response.arrayBuffer());
+}
+
 export async function fetchWordList(pack: WordListPack, catalogUrl = WORD_LIST_CATALOG_URL): Promise<string> {
   const want = pack.glossary.sha256;
   const saved = await cachedWordList(pack.id);
@@ -35,9 +42,11 @@ export async function fetchWordList(pack: WordListPack, catalogUrl = WORD_LIST_C
     const sha = want ? await hashBytes(new TextEncoder().encode(saved)) : "";
     if (savedListIsCurrent(sha, want)) return saved;
   }
-  const response = await fetch(resolveAgainst(catalogUrl, pack.glossary.url), { cache: "no-cache" });
-  if (!response.ok) throw new Error(tr("err.bookAddFailed"));
-  const bytes = new Uint8Array(await response.arrayBuffer());
+  const glossaryUrl = resolveAgainst(catalogUrl, pack.glossary.url);
+  const remoteId = remoteGlossaryId(glossaryUrl);
+  const bytes = remoteId
+    ? await fetchProtectedGlossary(pack.id, tr("err.bookAddFailed"))
+    : await readDirect(glossaryUrl);
   const sha = await hashBytes(bytes);
   if (want && sha && sha !== want) throw new Error(tr("err.damaged"));
   const text = new TextDecoder().decode(bytes);

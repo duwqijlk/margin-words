@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useT } from "@/lib/i18n";
+import { useT, type T } from "@/lib/i18n";
 import { accountRequest } from "@/lib/sync-engine";
 import { formatShanghaiDate } from "@/lib/sponsor";
 import { btn, cn, field } from "@/components/ui";
@@ -9,8 +9,26 @@ type UserRow = {
   email: string;
   nickname: string | null;
   role: "user" | "trusted" | "admin";
+  trustedUntil: number | null;
   createdAt: number;
 };
+
+const TERMS = ["week", "month", "quarter", "year", "forever"] as const;
+type TrustTerm = (typeof TERMS)[number];
+
+const TERM_KEY = {
+  week: "admin.users.week",
+  month: "admin.users.month",
+  quarter: "admin.users.quarter",
+  year: "admin.users.year",
+  forever: "admin.users.forever",
+} as const;
+
+function trustLabel(row: UserRow, t: T["t"]): string {
+  if (row.trustedUntil == null) return t("admin.users.forever");
+  if (row.trustedUntil <= Date.now()) return t("admin.users.expired");
+  return t("admin.users.until", { date: formatShanghaiDate(row.trustedUntil) });
+}
 
 const ROLE_KEY = {
   admin: "admin.users.roleAdmin",
@@ -30,19 +48,21 @@ function readUsers(value: unknown): UserRow[] {
       email: row.email,
       nickname: typeof row.nickname === "string" ? row.nickname : null,
       role: row.role === "trusted" || row.role === "admin" ? row.role : "user",
+      trustedUntil: typeof row.trustedUntil === "number" ? row.trustedUntil : null,
       createdAt: typeof row.createdAt === "number" ? row.createdAt : 0,
     });
   }
   return out;
 }
 
-/** The users tab: search accounts, grant or revoke private-library access. */
+/** The users tab: search accounts, grant library access for a chosen length, or revoke it. */
 export function UsersAdmin() {
   const { t } = useT();
   const [query, setQuery] = useState("");
   const [rows, setRows] = useState<UserRow[] | null>(null);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
+  const [term, setTerm] = useState<TrustTerm>("month");
   const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
 
@@ -70,7 +90,11 @@ export function UsersAdmin() {
     setBusy(row.id);
     setError("");
     try {
-      const payload = await accountRequest("/api/admin/users", { id: row.id, role });
+      const payload = await accountRequest("/api/admin/users", {
+        id: row.id,
+        role,
+        ...(role === "trusted" ? { term } : {}),
+      });
       const updated = readUsers([payload.user])[0];
       setRows((current) =>
         current ? current.map((item) => (item.id === row.id ? (updated ?? item) : item)) : current,
@@ -107,6 +131,22 @@ export function UsersAdmin() {
           {t("admin.users.find")}
         </button>
       </form>
+      <label className="flex flex-wrap items-center gap-2 text-sm">
+        {t("admin.users.term")}
+        <select
+          className={cn(field, "w-auto")}
+          value={term}
+          data-admin-trust-term
+          aria-label={t("admin.users.term")}
+          onChange={(event) => setTerm(event.target.value as TrustTerm)}
+        >
+          {TERMS.map((item) => (
+            <option key={item} value={item}>
+              {t(TERM_KEY[item])}
+            </option>
+          ))}
+        </select>
+      </label>
       {error ? (
         <p className="text-sm text-warn" role="alert">
           {error}
@@ -128,21 +168,34 @@ export function UsersAdmin() {
                 <p className="text-xs text-muted">
                   {row.nickname ? `${row.nickname} · ` : ""}
                   {t(ROLE_KEY[row.role])}
+                  {row.role === "trusted" ? ` · ${trustLabel(row, t)}` : ""}
                 </p>
                 {row.role === "admin" ? null : (
-                  <button
-                    type="button"
-                    className={row.role === "trusted" ? btn.quiet : btn.primary}
-                    disabled={busy === row.id}
-                    data-admin-user-role={row.role}
-                    onClick={() => void setRole(row, row.role === "trusted" ? "user" : "trusted")}
-                  >
-                    {busy === row.id
-                      ? t("account.working")
-                      : row.role === "trusted"
-                        ? t("admin.users.revoke")
-                        : t("admin.users.grant")}
-                  </button>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      className={btn.primary}
+                      disabled={busy === row.id}
+                      data-admin-user-role={row.role}
+                      onClick={() => void setRole(row, "trusted")}
+                    >
+                      {busy === row.id
+                        ? t("account.working")
+                        : row.role === "trusted"
+                          ? t("admin.users.update")
+                          : t("admin.users.grant")}
+                    </button>
+                    {row.role === "trusted" ? (
+                      <button
+                        type="button"
+                        className={btn.quiet}
+                        disabled={busy === row.id}
+                        onClick={() => void setRole(row, "user")}
+                      >
+                        {t("admin.users.revoke")}
+                      </button>
+                    ) : null}
+                  </div>
                 )}
               </div>
             </li>
