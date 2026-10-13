@@ -27,6 +27,7 @@ import { fetchCoverData } from "@/lib/covers";
 import { findOnShelf, type Identity } from "@/lib/shelf-identity";
 import { useVocab } from "@/lib/vocab-store";
 import { applySpineMerge, parseEpub, type ParsedEpub } from "@/lib/epub";
+import { fetchProtectedGlossary, remoteGlossaryId } from "@/lib/glossary-fetch";
 import { validateGlossary } from "@/lib/glossary-format";
 import { tr, type Key } from "@/lib/i18n";
 import { applyPackGlossary, hashBytes } from "@/lib/pack-glossary";
@@ -568,11 +569,11 @@ export async function downloadPack(
   onProgress({ stage: "words", fraction: 0.92 });
   let glossaryText = "";
   if (pack.glossary.url) {
-    const bytes = await fetchBytes(
-      resolveAgainst(catalogUrl, pack.glossary.url),
-      pack.glossary.bytes,
-      () => undefined,
-    );
+    const glossaryUrl = resolveAgainst(catalogUrl, pack.glossary.url);
+    const remoteId = remoteGlossaryId(glossaryUrl);
+    const bytes = remoteId
+      ? await fetchProtectedGlossary(pack.id, tr("err.fileNotFound"))
+      : await fetchBytes(glossaryUrl, pack.glossary.bytes, () => undefined);
     const sha = await hashBytes(bytes);
     if (pack.glossary.sha256 && sha && pack.glossary.sha256 !== sha)
       throw new Error(tr("err.damaged"));

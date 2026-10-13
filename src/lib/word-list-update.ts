@@ -22,6 +22,7 @@ import {
   type StoredChapter,
 } from "@/lib/book-db";
 import { flowText } from "@/lib/flow-text";
+import { fetchProtectedGlossary, remoteGlossaryId } from "@/lib/glossary-fetch";
 import { errorText, tr } from "@/lib/i18n";
 import { paragraphBlocks } from "@/lib/help-match";
 import { applyPackGlossary, hashBytes } from "@/lib/pack-glossary";
@@ -142,12 +143,18 @@ function bookParagraphs(chapters: StoredChapter[]): string[] {
   return out;
 }
 
-async function fetchListText(pack: WordListPack): Promise<string> {
-  const response = await fetch(resolveAgainst(WORD_LIST_CATALOG_URL, pack.glossary.url), {
-    cache: "no-cache",
-  });
+async function readDirectList(url: string): Promise<Uint8Array> {
+  const response = await fetch(url, { cache: "no-cache" });
   if (!response.ok) throw new Error(tr("err.downloadFailed"));
-  const bytes = new Uint8Array(await response.arrayBuffer());
+  return new Uint8Array(await response.arrayBuffer());
+}
+
+async function fetchListText(pack: WordListPack): Promise<string> {
+  const glossaryUrl = resolveAgainst(WORD_LIST_CATALOG_URL, pack.glossary.url);
+  const remoteId = remoteGlossaryId(glossaryUrl);
+  const bytes = remoteId
+    ? await fetchProtectedGlossary(pack.id, tr("err.downloadFailed"))
+    : await readDirectList(glossaryUrl);
   const sha = await hashBytes(bytes);
   if (pack.glossary.sha256 && sha && pack.glossary.sha256 !== sha)
     throw new Error(tr("err.damaged"));

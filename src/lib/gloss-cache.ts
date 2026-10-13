@@ -5,6 +5,7 @@
  * until that list exists locally.
  */
 import { booksUrl } from "@/lib/books-base";
+import { fetchProtectedGlossary, remoteGlossaryId } from "@/lib/glossary-fetch";
 import { listPackRecords, loadBookExtras, loadBookMeta, type BookMeta, type PackRecord } from "@/lib/book-db";
 import type { GlossFileView } from "@/lib/gloss-ref";
 import { bookGlossKey, catalogListId, glossCacheKey, type GlossPoint } from "@/lib/gloss-point";
@@ -134,6 +135,14 @@ async function localFile(ref: GlossPoint, bookKey: string, books: readonly Book[
 
 async function fetchList(id: string): Promise<GlossFileView | null> {
   if (catalogListId(id) === "custom") return null;
+  if (remoteGlossaryId(booksUrl(`word-lists/${id}/glossary.json`))) {
+    try {
+      const bytes = await fetchProtectedGlossary(id, "");
+      return viewFromJson(JSON.parse(new TextDecoder().decode(bytes)));
+    } catch {
+      return null;
+    }
+  }
   for (const path of [`word-lists/${id}/glossary.json`, `public-books/${id}/glossary.json`]) {
     try {
       const response = await fetch(booksUrl(path));

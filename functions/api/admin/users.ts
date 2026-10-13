@@ -2,6 +2,7 @@ import { requireAdmin, roleOf } from "../../lib/admin.ts";
 import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError, json, readJson } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
+import { isTrustTerm, trustedUntil } from "../../lib/trust.ts";
 
 type ListRow = {
   id: string;
@@ -9,6 +10,7 @@ type ListRow = {
   nickname: string | null;
   role: string;
   created_at: number;
+  trusted_until?: number | null;
 };
 
 export const onRequestGet = (context: { request: Request; env: Env }) => handleList(context.request, context.env);
@@ -31,7 +33,7 @@ export async function handleList(request: Request, env: Env, options?: HandlerOp
       .bind(like)
       .first<{ n: number }>();
     const rows = await env.DB.prepare(
-      `SELECT users.id, users.email, users.nickname, users.role, users.created_at
+      `SELECT users.id, users.email, users.nickname, users.role, users.trusted_until, users.created_at
        FROM users
        WHERE lower(users.email) LIKE ?1 ESCAPE '\\' OR lower(COALESCE(users.nickname, '')) LIKE ?1 ESCAPE '\\'
        ORDER BY users.created_at DESC
@@ -48,6 +50,7 @@ export async function handleList(request: Request, env: Env, options?: HandlerOp
         email: row.email,
         nickname: row.nickname,
         role: roleOf(row),
+        trustedUntil: typeof row.trusted_until === "number" ? row.trusted_until : null,
         createdAt: row.created_at,
       })),
     });
@@ -59,17 +62,27 @@ export async function handleList(request: Request, env: Env, options?: HandlerOp
 export async function handleSetRole(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
   try {
     const admin = await requireAdmin(env.DB, request, options);
-    const body = (await readJson(request, 8_000)) as { id?: unknown; role?: unknown };
+    const now = options?.now ?? Date.now();
+    const body = (await readJson(request, 8_000)) as { id?: unknown; role?: unknown; term?: unknown };
     if (typeof body.id !== "string" || !body.id) throw new HttpError(400, "bad-request");
     const role = body.role === "trusted" ? "trusted" : "user";
+    // An omitted term keeps the old grant button working: access that does not expire.
+    if (role === "trusted" && body.term !== undefined && !isTrustTerm(body.term)) throw new HttpError(400, "bad-term");
+    const until = role === "trusted" ? trustedUntil(isTrustTerm(body.term) ? body.term : "forever", now) : null;
     const existing = await env.DB.prepare("SELECT id, email, nickname, role FROM users WHERE id = ?")
       .bind(body.id)
       .first<ListRow>();
     if (!existing) throw new HttpError(404, "no-user");
     if (roleOf(existing) === "admin") throw new HttpError(400, "admin-locked");
-    await env.DB.prepare("UPDATE users SET role = ? WHERE id = ?").bind(role, existing.id).run();
+    await env.DB.prepare("UPDATE users SET role = ?, trusted_until = ? WHERE id = ?").bind(role, until, existing.id).run();
     return json({
-      user: { id: existing.id, email: existing.email, nickname: existing.nickname, role },
+      user: {
+        id: existing.id,
+        email: existing.email,
+        nickname: existing.nickname,
+        role,
+        trustedUntil: until,
+      },
       by: admin.id,
     });
   } catch (error) {

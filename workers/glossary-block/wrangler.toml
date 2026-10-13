@@ -1,0 +1,9 @@
+name = "margin-words-glossary-block"
+main = "src/index.ts"
+compatibility_date = "2026-10-02"
+
+# Only the word-list files. catalog.json, cover.jpg, and book.epub stay public.
+routes = [
+  { pattern = "books.inputread.site/word-lists/*/glossary.json", zone_name = "inputread.site" },
+  { pattern = "books.inputread.site/public-books/*/glossary.json", zone_name = "inputread.site" },
+]
