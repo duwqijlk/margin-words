@@ -4,7 +4,6 @@ import { useT } from "@/lib/i18n";
 import { btn, cn, Segmented } from "@/components/ui";
 import { usePrefs } from "@/lib/reader-prefs";
 import { LanguageSwitch } from "@/components/language";
-import { AccountSection } from "@/components/account-dialog";
 import { guideUrl } from "@/lib/guide";
 
 /*
@@ -60,7 +59,6 @@ export function SettingsDialog({
               ]}
             />
           </section>
-          <AccountSection beforeOpen={() => onOpenChange(false)} />
           <button
             type="button"
             className={cn(btn.quiet, "mt-5 w-full justify-start")}

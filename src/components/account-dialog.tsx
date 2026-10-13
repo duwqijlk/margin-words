@@ -1,5 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { UserRound, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useAccount, type AccountMode, type SyncStatus } from "@/lib/account-store";
 import { cleanNickname } from "@/lib/nickname";
@@ -665,30 +665,5 @@ export function AccountDialog() {
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  );
-}
-
-/** Small entry in Settings. The dialog itself is mounted once with the rest of the app. */
-export function AccountSection({ beforeOpen }: { beforeOpen?: () => void }) {
-  const { t } = useT();
-  const phase = useAccount((state) => state.phase);
-  const email = useAccount((state) => state.email);
-  const openDialog = useAccount((state) => state.openDialog);
-  return (
-    <section className="mt-5 grid gap-2" aria-label={t("settings.accountTitle")} data-settings-account>
-      <h3 className="text-sm font-semibold">{t("settings.accountTitle")}</h3>
-      <button
-        type="button"
-        className={cn(btn.quiet, "justify-start")}
-        onClick={() => {
-          beforeOpen?.();
-          openDialog();
-        }}
-        data-account-open
-      >
-        <UserRound className="size-4" aria-hidden />
-        {phase === "in" && email ? email : t("account.open")}
-      </button>
-    </section>
   );
 }
