@@ -4,6 +4,7 @@ import { errorResponse, HttpError, json } from "../../lib/http.ts";
 import { sha256HexBytes } from "../../lib/password.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { normalizeTitle, replacesSameBook } from "../../lib/book-title.ts";
+import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
 import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../../lib/word-list-publish.ts";
 
 /**
@@ -64,7 +65,7 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     const id = url.searchParams.get("id") ?? "";
     if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(id)) throw new HttpError(400, "bad-id");
     const text = await request.text();
-    if (!text || text.length > 4_000_000) throw new HttpError(413, "too-large");
+    if (!text || text.length > GLOSSARY_MAX) throw new HttpError(413, "too-large");
     let data: unknown;
     try {
       data = JSON.parse(text);

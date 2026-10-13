@@ -312,7 +312,7 @@ Notes:
 - Nothing is ever sent online when a word is tapped. All meanings, simple versions and explanations come from the list.
 - Problems that stop an import: broken JSON; no `version` / `glossary`; a word that is not letters; the same word twice;
   `senses` in a version 1 list; a missing `meaning`; wrong anchor numbers; two meanings for one place;
-  more than one `default`; too long (8 MB, 30000 words, 12 senses, 60 anchors).
+  more than one `default`; too long (16 MB, 30000 words, 12 senses, 60 anchors).
 - Warnings (import goes on): the title does not match, a different chapter count, anchors that
   cannot be found in this copy, very short or very long `context`, a snippet without the word.
 
