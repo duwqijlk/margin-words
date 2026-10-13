@@ -3,7 +3,7 @@ import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { requireUser } from "../../lib/session.ts";
-import { GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS } from "../../lib/trust.ts";
+import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS } from "../../lib/trust.ts";
 
 /**
  * One word list, for a signed-in reader.
@@ -65,9 +65,6 @@ async function weekSlot(
     .bind(userId, bookId, since)
     .first<{ book_id: string }>();
   if (again) return "again";
-  const recent = await db
-    .prepare("SELECT COUNT(DISTINCT book_id) AS n FROM glossary_reads WHERE user_id = ? AND created_at > ?")
-    .bind(userId, since)
-    .first<{ n: number }>();
-  return (recent?.n ?? 0) >= GLOSSARY_WEEK_BOOKS ? "full" : "new";
+  const used = await glossaryWeekUsed(db, userId, now);
+  return used >= GLOSSARY_WEEK_BOOKS ? "full" : "new";
 }

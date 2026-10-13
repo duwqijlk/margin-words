@@ -24,3 +24,19 @@ export function trustedUntil(term: TrustTerm, now: number): number | null {
 /** Distinct word lists a plain reader may open in one rolling week. */
 export const GLOSSARY_WEEK_BOOKS = 5;
 export const GLOSSARY_WEEK_MS = 7 * DAY_MS;
+
+type CountDb = {
+  prepare(sql: string): {
+    bind(...values: unknown[]): { first<T>(): Promise<T | null> };
+  };
+};
+
+/** How many distinct word lists this reader opened in the current week. */
+export async function glossaryWeekUsed(db: CountDb, userId: string, now: number): Promise<number> {
+  const since = now - GLOSSARY_WEEK_MS;
+  const recent = await db
+    .prepare("SELECT COUNT(DISTINCT book_id) AS n FROM glossary_reads WHERE user_id = ? AND created_at > ?")
+    .bind(userId, since)
+    .first<{ n: number }>();
+  return recent?.n ?? 0;
+}

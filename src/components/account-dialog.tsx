@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useAccount, type AccountMode, type SyncStatus } from "@/lib/account-store";
 import { cleanNickname } from "@/lib/nickname";
 import {
+  accountRequest,
   confirmPasswordReset,
   deleteAccount,
   exportAccount,
@@ -14,7 +15,7 @@ import {
   signUp,
 } from "@/lib/sync-engine";
 import { useT, type Key } from "@/lib/i18n";
-import { btn, cn, field, Segmented } from "@/components/ui";
+import { btn, cn, field, ProgressBar, Segmented } from "@/components/ui";
 
 const SITE_KEY = (import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "").trim();
 
@@ -147,6 +148,63 @@ function PasswordField({
         </button>
       </span>
     </label>
+  );
+}
+
+type GlossaryQuota = { used: number; limit: number; unlimited: boolean };
+
+function readGlossary(payload: Record<string, unknown>): GlossaryQuota | null {
+  const glossary = payload.glossary;
+  if (!glossary || typeof glossary !== "object") return null;
+  const row = glossary as { used?: unknown; limit?: unknown; unlimited?: unknown };
+  const used = typeof row.used === "number" && Number.isFinite(row.used) ? Math.max(0, row.used) : 0;
+  const limit = typeof row.limit === "number" && row.limit > 0 ? row.limit : 0;
+  if (row.unlimited !== true && limit <= 0) return null;
+  return { used, limit, unlimited: row.unlimited === true };
+}
+
+/** Fresh weekly allowance, loaded when the signed-in account dialog opens. */
+function GlossaryAllowance() {
+  const { t } = useT();
+  const [quota, setQuota] = useState<GlossaryQuota | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    void accountRequest("/api/auth/me")
+      .then((payload) => {
+        if (!cancelled) setQuota(readGlossary(payload));
+      })
+      .catch(() => {
+        if (!cancelled) setQuota(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  if (!quota) return null;
+  const count = quota.unlimited
+    ? t("account.glossaryUnlimited")
+    : t("account.glossaryCount", { used: quota.used, limit: quota.limit });
+  return (
+    <div className="mt-4 rounded-xl border border-line px-4 py-3" data-account-glossary>
+      <div className="flex items-baseline justify-between gap-3">
+        <p className="text-sm font-semibold">{t("account.glossaryTitle")}</p>
+        <p
+          className={cn(
+            "text-sm tabular-nums",
+            !quota.unlimited && quota.used >= quota.limit ? "font-semibold text-warn" : "text-muted",
+          )}
+          data-account-glossary-count
+        >
+          {count}
+        </p>
+      </div>
+      {quota.unlimited ? null : (
+        <>
+          <ProgressBar className="mt-2" value={quota.used / quota.limit} label={count} />
+          <p className="mt-2 text-xs text-muted">{t("account.glossaryHint")}</p>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -409,6 +467,7 @@ export function AccountDialog() {
               <p className="text-sm font-semibold" data-account-signed-in>
                 {t("account.signedIn", { email: emailSaved })}
               </p>
+              <GlossaryAllowance />
               <form className="mt-5 grid gap-2" onSubmit={(event) => void onSaveNickname(event)}>
                 <label className="grid gap-1 text-sm font-medium" htmlFor="account-nickname-edit">
                   {t("account.nickname")}
