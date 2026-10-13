@@ -2,8 +2,9 @@ name = "margin-words-glossary-block"
 main = "src/index.ts"
 compatibility_date = "2026-10-02"
 
-# Only the word-list files. catalog.json, cover.jpg, and book.epub stay public.
+# Prefix routes are the legal form (a * only at the end of the path).
+# The worker itself refuses only glossary.json and forwards the rest.
 routes = [
-  { pattern = "books.inputread.site/word-lists/*/glossary.json", zone_name = "inputread.site" },
-  { pattern = "books.inputread.site/public-books/*/glossary.json", zone_name = "inputread.site" },
+  { pattern = "books.inputread.site/word-lists/*", zone_name = "inputread.site" },
+  { pattern = "books.inputread.site/public-books/*", zone_name = "inputread.site" },
 ]
