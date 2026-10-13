@@ -753,6 +753,7 @@ export const zh: Record<Key, string> = {
   "admin.lists.needsTitle": "线上还没有这本书，文件里也没有标题，无法上架。",
   "admin.lists.duplicateTitle": "已有同名书（{id}）。请选那本书，不要当成新词表。",
   "admin.lists.duplicate": "已有同名书。请选那本书。",
+  "admin.lists.differentBook": "这份词表和这个编号上的不是同一本书。请把词表文件改成新的编号后再上传。",
   "admin.lists.publish": "发布",
   "admin.lists.published": "已发布，发现页立即生效。",
   "admin.lists.badGlossary": "这个文件不是词表 JSON。",

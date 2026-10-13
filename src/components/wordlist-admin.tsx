@@ -101,6 +101,7 @@ function parseTarget(value: string): { kind: BookKind; id: string } | "new" | ""
 const ERROR_KEYS: Record<string, string> = {
   "unknown-id": "admin.lists.needsTitle",
   "duplicate-title": "admin.lists.duplicate",
+  "different-book": "admin.lists.differentBook",
   "bad-glossary": "admin.lists.badGlossary",
   "bad-json": "admin.lists.badGlossary",
   "bad-id": "admin.lists.error",
