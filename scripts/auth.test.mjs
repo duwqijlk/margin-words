@@ -23,6 +23,8 @@ import {
 import { handleList, handleSetRole } from "../functions/api/admin/users.ts";
 import { handlePublish } from "../functions/api/admin/word-lists.ts";
 import { handleGet as handleGlossaryWorkGet, handlePut as handleGlossaryWorkPut } from "../functions/api/admin/glossary-work.ts";
+import { handlePut as handleQqGroupsPut } from "../functions/api/admin/qq-groups.ts";
+import { handleGet as handleQqGroupsGet } from "../functions/api/qq-groups.ts";
 import { handleUpload } from "../functions/api/admin/books.ts";
 import { handleGlossary } from "../functions/api/glossary/[id].ts";
 import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
@@ -1506,4 +1508,46 @@ test("in-progress marks stay until that book's glossary is published", async () 
   const cleared = await handleGlossaryWorkPut(putJson("/api/admin/glossary-work", adminCookie, { kind: "lists", id: "george", making: false }), env, { now: NOW });
   assert.equal(cleared.status, 200);
   assert.deepEqual((await cleared.json()).items, []);
+});
+
+test("QQ groups stay out of the catalog until an admin saves them", async () => {
+  const db = openDb();
+  await call(handleRegister, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const login = await call(handleLogin, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const adminCookie = cookieHeader(login);
+  const files = new Map();
+  files.set("word-lists/catalog.json", new TextEncoder().encode('{"format":1,"lists":[]}\n'));
+  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const catalogBefore = files.get("word-lists/catalog.json");
+
+  const missing = await handleQqGroupsGet(new Request("http://localhost/api/qq-groups"), env);
+  assert.equal(missing.status, 200);
+  assert.deepEqual(await missing.json(), { format: 1, saved: false, groups: [] });
+
+  const rejected = await handleQqGroupsPut(putJson("/api/admin/qq-groups", adminCookie, { groups: ["12"] }), env, { now: NOW });
+  assert.equal(rejected.status, 400);
+  assert.equal(files.has("word-lists/qq-groups.json"), false);
+
+  const saved = await handleQqGroupsPut(
+    putJson("/api/admin/qq-groups", adminCookie, { groups: ["656911882", "10001"] }),
+    env,
+    { now: NOW },
+  );
+  assert.equal(saved.status, 200);
+  assert.deepEqual((await saved.json()).groups, ["656911882", "10001"]);
+  assert.deepEqual(files.get("word-lists/catalog.json"), catalogBefore);
+
+  const listed = await handleQqGroupsGet(new Request("http://localhost/api/qq-groups"), env);
+  assert.deepEqual((await listed.json()).groups, ["656911882", "10001"]);
+
+  const cleared = await handleQqGroupsPut(putJson("/api/admin/qq-groups", adminCookie, { groups: [] }), env, { now: NOW });
+  assert.equal(cleared.status, 200);
+  const after = await handleQqGroupsGet(new Request("http://localhost/api/qq-groups"), env);
+  const body = await after.json();
+  assert.equal(body.saved, true);
+  assert.deepEqual(body.groups, []);
 });

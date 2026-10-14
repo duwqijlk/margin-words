@@ -1,10 +1,12 @@
-import { Github, Heart, Send } from "lucide-react";
+import { Github, Heart, Send, Users } from "lucide-react";
 import { useEffect, useState } from "react";
+import { QqDialog } from "@/components/qq-dialog";
 import { SponsorDialog } from "@/components/sponsor-dialog";
 import { btn } from "@/components/ui";
 import { trn, useT } from "@/lib/i18n";
 import { groupDigits, libraryTotals, type LibraryTotals } from "@/lib/library-totals";
 import { BUNDLED_CATALOG_URL, loadCatalog } from "@/lib/packs";
+import { loadQqGroups } from "@/lib/qq-groups-config";
 import { readSponsorLines } from "@/lib/sponsor";
 import { REPO_URL, TELEGRAM_URL } from "@/lib/site-info";
 import { loadWordListCatalog } from "@/lib/word-list-catalog";
@@ -24,13 +26,26 @@ const CARDS: ReadonlyArray<{
   { id: "sentences", label: "dashboard.sentences", count: "count.sentence" },
 ];
 
-/** GitHub and Telegram, the last row under the library counts. Shown even when the counts fail to load. */
+/** GitHub, Telegram, and QQ, the last row under the library counts. Shown even when the counts fail to load. */
 function DashboardLinks() {
   const { t } = useT();
+  const [qqOpen, setQqOpen] = useState(false);
+  const [groups, setGroups] = useState<string[] | null>(null);
   const linkClass =
     "inline-flex min-h-11 items-center gap-1.5 px-1 text-sm text-muted underline-offset-4 hover:text-ink hover:underline";
+
+  useEffect(() => {
+    let alive = true;
+    void loadQqGroups().then((state) => {
+      if (alive) setGroups(state.groups);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
   return (
-    <nav className="flex items-center justify-center gap-4" aria-label={t("dashboard.links")} data-dashboard-links>
+    <nav className="flex flex-wrap items-center justify-center gap-4" aria-label={t("dashboard.links")} data-dashboard-links>
       <a className={linkClass} href={REPO_URL} target="_blank" rel="noopener noreferrer" data-dashboard-github>
         <Github className="size-4" strokeWidth={1.5} aria-hidden />
         {t("dashboard.github")}
@@ -39,6 +54,13 @@ function DashboardLinks() {
         <Send className="size-4" strokeWidth={1.5} aria-hidden />
         {t("dashboard.telegram")}
       </a>
+      {groups && groups.length > 0 ? (
+        <button type="button" className={linkClass} onClick={() => setQqOpen(true)} data-dashboard-qq>
+          <Users className="size-4" strokeWidth={1.5} aria-hidden />
+          {t("dashboard.qq")}
+        </button>
+      ) : null}
+      <QqDialog open={qqOpen} onOpenChange={setQqOpen} groups={groups ?? []} />
     </nav>
   );
 }
