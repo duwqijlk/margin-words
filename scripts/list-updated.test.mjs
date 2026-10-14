@@ -7,7 +7,7 @@ import { test } from "node:test";
 import { loadAppModules } from "./lib/app-modules.mjs";
 
 const { listUpdated } = await loadAppModules();
-const { readUpdated, listUpdatedParts } = listUpdated;
+const { readUpdated, listUpdatedParts, listUpdatedStamp } = listUpdated;
 
 test("a day is kept, and a clock time is read", () => {
   assert.equal(readUpdated("2026-10-07"), "2026-10-07");
@@ -34,4 +34,17 @@ test("an instant becomes the local month, day, hour and minute", () => {
   assert.equal(parts.hour, String(when.getHours()).padStart(2, "0"));
   assert.equal(parts.minute, String(when.getMinutes()).padStart(2, "0"));
   assert.equal(parts.minute.length, 2);
+});
+
+test("a stamp is digits, with a clock only when the catalog stored one", () => {
+  assert.equal(listUpdatedStamp("2026-10-07"), "2026-10-07");
+  assert.equal(listUpdatedStamp("2026-02-31"), "");
+  assert.equal(listUpdatedStamp(""), "");
+  const raw = "2026-10-07T01:17:00Z";
+  const when = new Date(raw);
+  const month = String(when.getMonth() + 1).padStart(2, "0");
+  const day = String(when.getDate()).padStart(2, "0");
+  const hour = String(when.getHours()).padStart(2, "0");
+  const minute = String(when.getMinutes()).padStart(2, "0");
+  assert.equal(listUpdatedStamp(raw), `${when.getFullYear()}-${month}-${day} ${hour}:${minute}`);
 });

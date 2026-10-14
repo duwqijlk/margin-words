@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { useT, type Key } from "@/lib/i18n";
-import { listUpdatedParts, readUpdated } from "@/lib/list-updated";
+import { useT } from "@/lib/i18n";
+import { listUpdatedStamp, readUpdated } from "@/lib/list-updated";
 import { accountPostRaw } from "@/lib/sync-engine";
 import { BUNDLED_CATALOG_URL } from "@/lib/packs";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
@@ -25,21 +25,6 @@ type PendingFile = {
 
 const NEW_TARGET = "new";
 const ID_PATTERN = /^[a-z0-9][a-z0-9_-]{0,63}$/;
-
-const MONTH_KEY = [
-  "discover.month.1",
-  "discover.month.2",
-  "discover.month.3",
-  "discover.month.4",
-  "discover.month.5",
-  "discover.month.6",
-  "discover.month.7",
-  "discover.month.8",
-  "discover.month.9",
-  "discover.month.10",
-  "discover.month.11",
-  "discover.month.12",
-] as const satisfies readonly Key[];
 
 function normalizeTitle(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
@@ -118,6 +103,18 @@ function booksOf(kind: BookKind, rows: unknown): KnownBook[] {
   return out;
 }
 
+/** Newest glossary first. A book with no upload time stays at the bottom. */
+function byRecent(a: KnownBook, b: KnownBook): number {
+  const left = listUpdatedStamp(a.updated ?? "");
+  const right = listUpdatedStamp(b.updated ?? "");
+  if (left !== right) {
+    if (!left) return 1;
+    if (!right) return -1;
+    return right.localeCompare(left);
+  }
+  return a.title.localeCompare(b.title);
+}
+
 function parseTarget(value: string): { kind: BookKind; id: string } | "new" | "" {
   if (!value) return "";
   if (value === NEW_TARGET) return "new";
@@ -147,6 +144,7 @@ export function WordListAdmin() {
   const [books, setBooks] = useState<KnownBook[] | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [files, setFiles] = useState<PendingFile[]>([]);
+  const [query, setQuery] = useState("");
   const [busy, setBusy] = useState(false);
   const [summary, setSummary] = useState("");
 
@@ -182,6 +180,15 @@ export function WordListAdmin() {
     () => (books ?? []).filter((book) => book.kind === "public").sort((a, b) => a.title.localeCompare(b.title)),
     [books],
   );
+  const updates = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    return (books ?? [])
+      .filter((book) => {
+        if (!needle) return true;
+        return book.title.toLowerCase().includes(needle) || book.id.toLowerCase().includes(needle);
+      })
+      .sort(byRecent);
+  }, [books, query]);
 
   function titleClash(file: PendingFile): KnownBook | undefined {
     if (file.preview.ok !== true || !file.preview.title) return undefined;
@@ -228,15 +235,6 @@ export function WordListAdmin() {
       for (const file of incoming) byId.set(file.id, file);
       return [...byId.values()];
     });
-  }
-
-  function versionWhen(raw: string): string {
-    const clock = listUpdatedParts(raw);
-    if (!clock) return "";
-    const month = t(MONTH_KEY[clock.month - 1] ?? "discover.month.1");
-    return "hour" in clock
-      ? t("admin.lists.whenAt", { day: clock.day, month, year: clock.year, hour: clock.hour, minute: clock.minute })
-      : t("admin.lists.when", { day: clock.day, month, year: clock.year });
   }
 
   function setTarget(fileId: string, target: string) {
@@ -286,6 +284,56 @@ export function WordListAdmin() {
         <p>{t("dashboard.loading")}</p>
       ) : (
         <>
+          <div className="grid gap-2" data-admin-list-updates>
+            <p className="text-sm font-medium">{t("admin.lists.updates")}</p>
+            <input
+              className={field}
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder={t("admin.lists.filter")}
+              aria-label={t("admin.lists.filter")}
+              data-admin-list-filter
+            />
+            {updates.length === 0 ? (
+              <p className="text-sm text-muted">{t("admin.lists.noMatch")}</p>
+            ) : (
+              <div className="max-h-96 overflow-auto rounded-xl border border-line">
+                <table className="w-full border-collapse text-left text-sm">
+                  <thead className="text-xs text-muted">
+                    <tr>
+                      <th className="sticky top-0 bg-card px-3 py-2 font-medium" scope="col">
+                        {t("admin.lists.colBook")}
+                      </th>
+                      <th className="sticky top-0 bg-card px-3 py-2 font-medium whitespace-nowrap" scope="col">
+                        {t("admin.lists.colNow")}
+                      </th>
+                      <th className="sticky top-0 bg-card px-3 py-2 font-medium whitespace-nowrap" scope="col">
+                        {t("admin.lists.colPrev")}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {updates.map((book) => (
+                      <tr key={bookKey(book)} className="border-t border-line" data-admin-list-row={bookKey(book)}>
+                        <td className="px-3 py-2">
+                          <span className="font-medium">{book.title}</span>
+                          <span className="mt-0.5 block text-xs text-muted">
+                            {book.id} · {book.kind === "lists" ? t("admin.lists.wordLists") : t("admin.lists.publicBooks")}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2 whitespace-nowrap tabular-nums" data-admin-list-now>
+                          {listUpdatedStamp(book.updated ?? "") || "—"}
+                        </td>
+                        <td className="px-3 py-2 whitespace-nowrap tabular-nums" data-admin-list-prev>
+                          {listUpdatedStamp(book.previousUpdated ?? "") || "—"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
           <label className="grid gap-1 text-sm font-medium" htmlFor="admin-list-file">
             {t("admin.lists.file")}
             <input
@@ -366,12 +414,12 @@ export function WordListAdmin() {
                         <p className="text-xs text-muted">{t("admin.lists.matched", { title: pick.title, id: pick.id })}</p>
                         {pick.updated ? (
                           <p className="text-xs text-muted" data-admin-list-updated={file.id}>
-                            {t("admin.lists.versionNow", { when: versionWhen(pick.updated) })}
+                            {t("admin.lists.versionNow", { when: listUpdatedStamp(pick.updated) })}
                           </p>
                         ) : null}
                         {pick.previousUpdated ? (
                           <p className="text-xs text-muted" data-admin-list-previous={file.id}>
-                            {t("admin.lists.versionPrev", { when: versionWhen(pick.previousUpdated) })}
+                            {t("admin.lists.versionPrev", { when: listUpdatedStamp(pick.previousUpdated) })}
                           </p>
                         ) : (
                           <p className="text-xs text-muted" data-admin-list-previous={file.id}>
