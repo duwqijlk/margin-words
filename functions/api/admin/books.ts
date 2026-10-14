@@ -1,4 +1,5 @@
 import { requireAdmin } from "../../lib/admin.ts";
+import { previousGlossaryUpdated } from "../../lib/glossary-version.ts";
 import { replacesSameBook } from "../../lib/book-title.ts";
 import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
 import type { Env } from "../../lib/db.ts";
@@ -117,7 +118,7 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     const catalogObject = await bucket.get("public-books/catalog.json");
     if (!catalogObject) throw new HttpError(500, "no-catalog");
     const live = JSON.parse(new TextDecoder().decode(await catalogObject.arrayBuffer())) as {
-      packs?: { id: string; epub?: unknown; glossary?: unknown; cover?: unknown; updated?: string }[];
+      packs?: { id: string; epub?: unknown; glossary?: unknown; cover?: unknown; updated?: string; previousUpdated?: string }[];
     };
     const row = (live.packs ?? []).find((item) => item && item.id === id);
     if (!row) throw new HttpError(404, "unknown-id");
@@ -126,6 +127,8 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     await bucket.put(`public-books/${id}/glossary.json`, glossaryBytes);
     if (coverBytes) await bucket.put(coverKey, coverBytes);
     row.epub = { url: `${id}/book.epub`, bytes: epubBytes.length, sha256: epubSha };
+    const previous = previousGlossaryUpdated(row, glossarySha);
+    if (previous) row.previousUpdated = previous;
     row.glossary = { url: `${id}/glossary.json`, bytes: glossaryBytes.length, sha256: glossarySha, rev: glossarySha.slice(0, 12) };
     if (coverBytes) row.cover = { url: `${id}/cover.jpg`, bytes: coverBytes.length, sha256: coverSha };
     row.updated = new Date().toISOString();

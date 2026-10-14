@@ -28,7 +28,8 @@ import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category";
 import { newestUpdates } from "@/lib/discover-recent";
-import { browseRails, compareSeriesPlace, RAIL_MIN, RAIL_SIZE } from "@/lib/discover-rails";
+import { browseRails, compareSeriesPlace, RAIL_MIN, RAIL_SIZE, type DiscoverRailSpec } from "@/lib/discover-rails";
+import { loadDiscoverRailFile } from "@/lib/discover-rail-config";
 import { BookDetail, BookRail, FeaturedBook, type CardModel, type DiscoverRow } from "@/components/discover-browse";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import {
@@ -96,6 +97,8 @@ export function DiscoverScreen({
 }) {
   const { t, tn } = useT();
   const [rows, setRows] = useState<Row[]>([]);
+  /** null: no saved list, so the biggest series stay automatic. */
+  const [railSpecs, setRailSpecs] = useState<DiscoverRailSpec[] | null>(null);
   const [ready, setReady] = useState(false);
   const [records, setRecords] = useState<PackRecord[]>([]);
   const [customPacks, setCustomPacks] = useState<ReadonlySet<string>>(() => new Set());
@@ -127,12 +130,13 @@ export function DiscoverScreen({
     let alive = true;
     void (async () => {
       try {
-        const [catalog, lists, shelfMarks] = await Promise.all([
+        const [catalog, lists, shelfMarks, railFile] = await Promise.all([
           loadCatalog(BUNDLED_CATALOG_URL),
           // A word-list catalog that cannot be loaded must not hide the classics.
           // Those lists are not kept in the service worker.
           loadWordListCatalog().catch(() => [] as WordListPack[]),
           loadDiscoverRecords(),
+          loadDiscoverRailFile().catch(() => null),
         ]);
         if (!alive) return;
         const classics: Row[] = catalog.catalog.packs.map((pack) => ({
@@ -172,6 +176,7 @@ export function DiscoverScreen({
           list: pack,
         }));
         setRows([...classics, ...words]);
+        setRailSpecs(railFile);
         setRecords(shelfMarks.records);
         setCustomPacks(shelfMarks.custom);
         setError("");
@@ -218,7 +223,7 @@ export function DiscoverScreen({
 
   const inCategory = useMemo(() => rows.filter((item) => item.category === category), [rows, category]);
   const newest = useMemo(() => newestUpdates(inCategory, new Date(), RAIL_SIZE), [inCategory]);
-  const rails = useMemo(() => browseRails(inCategory), [inCategory]);
+  const rails = useMemo(() => browseRails(inCategory, railSpecs), [inCategory, railSpecs]);
   const inCollection = useMemo(() => {
     if (!collection) return inCategory;
     if (collection === "new") return newestUpdates(inCategory, new Date(), inCategory.length);
@@ -617,6 +622,7 @@ export function DiscoverScreen({
     if (id === "new") return t("discover.recent");
     if (id === "classic") return t("browse.rail.classic");
     if (id.startsWith("series:")) return id.slice("series:".length);
+    if (id.startsWith("curated:")) return id.slice("curated:".length);
     if (id === "band:under800") return t("browse.rail.under800");
     if (id === "band:mid") return t("browse.rail.mid");
     if (id === "band:high") return t("browse.rail.high");
@@ -735,7 +741,7 @@ export function DiscoverScreen({
             ) : null}
             <h2
               className="min-w-0 truncate font-display text-[1.15rem] font-semibold sm:text-[1.3rem]"
-              lang={collection.startsWith("series:") ? "en" : undefined}
+              lang={collection.startsWith("series:") || collection.startsWith("curated:") ? "en" : undefined}
             >
               {collection ? railTitle(collection) : t("browse.results")}
             </h2>

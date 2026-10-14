@@ -94,7 +94,7 @@ export function BookRail({
       <div className="flex items-end justify-between gap-3">
         <h2
           className="font-display text-[1.15rem] leading-tight font-semibold sm:text-[1.3rem]"
-          lang={rail.startsWith("series:") ? "en" : undefined}
+          lang={rail.startsWith("series:") || rail.startsWith("curated:") ? "en" : undefined}
         >
           {title}
         </h2>

@@ -5,6 +5,7 @@ import { sha256HexBytes } from "../../lib/password.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { normalizeTitle, replacesSameBook } from "../../lib/book-title.ts";
 import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
+import { previousGlossaryUpdated } from "../../lib/glossary-version.ts";
 import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../../lib/word-list-publish.ts";
 
 /**
@@ -167,6 +168,7 @@ type PublicPack = {
   sentences?: number;
   phrases?: number;
   updated?: string;
+  previousUpdated?: string;
   epub?: unknown;
   glossary?: { url?: string; bytes?: number; sha256?: string; rev?: string };
 };
@@ -192,6 +194,8 @@ async function updatePublicGlossary(
   row.paragraphs = counts.paragraphs;
   row.sentences = counts.sentences;
   row.phrases = counts.phrases;
+  const previous = previousGlossaryUpdated(row, counts.sha256);
+  if (previous) row.previousUpdated = previous;
   row.updated = new Date().toISOString();
   row.rev = rev;
   row.glossary = { url: `${id}/glossary.json`, bytes: counts.bytes, sha256: counts.sha256, rev };

@@ -61,8 +61,22 @@ export function mergeWordListCatalog(live, row, updated = new Date().toISOString
   }
   const lists = live.lists.map((item) => ({ ...item }));
   const index = lists.findIndex((item) => item.id === row.id);
-  if (index >= 0) lists[index] = keepAdded(lists[index], row);
-  else lists.push({ ...row, added: addedOf(row) || updated });
+  if (index >= 0) {
+    const prior = lists[index];
+    const nextRow = keepAdded(prior, row);
+    const oldHash = glossHash(prior);
+    const nextHash = glossHash(nextRow);
+    const oldUpdated = typeof prior.updated === "string" ? prior.updated.trim() : "";
+    const kept = typeof prior.previousUpdated === "string" ? prior.previousUpdated.trim() : "";
+    const previous = oldHash && nextHash && oldHash !== nextHash && oldUpdated ? oldUpdated : kept;
+    if (previous) nextRow.previousUpdated = previous;
+    else delete nextRow.previousUpdated;
+    lists[index] = nextRow;
+  } else {
+    const fresh = { ...row, added: addedOf(row) || updated };
+    delete fresh.previousUpdated;
+    lists.push(fresh);
+  }
   const next = {
     format: live.format ?? 1,
     name: typeof live.name === "string" ? live.name : "Word lists",

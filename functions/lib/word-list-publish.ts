@@ -5,6 +5,7 @@
  * Ported from scripts/lib/publish-word-list.mjs so the admin endpoint and the
  * CLI enforce the same invariants.
  */
+import { previousGlossaryUpdated } from "./glossary-version.ts";
 
 function glossHash(row: unknown): string {
   const value = (row as { glossary?: { sha256?: unknown } } | null)?.glossary?.sha256;
@@ -69,8 +70,18 @@ export function mergeWordListCatalog(
   }
   const lists: CatalogRow[] = live.lists.map((item) => ({ ...item }));
   const index = lists.findIndex((item) => item.id === row.id);
-  if (index >= 0) lists[index] = keepAdded(lists[index], row);
-  else lists.push({ ...row, added: addedOf(row) || updated });
+  if (index >= 0) {
+    const prior = lists[index];
+    const nextRow = keepAdded(prior, row);
+    const previous = previousGlossaryUpdated(prior, glossHash(nextRow));
+    if (previous) nextRow.previousUpdated = previous;
+    else delete nextRow.previousUpdated;
+    lists[index] = nextRow;
+  } else {
+    const fresh: CatalogRow = { ...row, added: addedOf(row) || updated };
+    delete fresh.previousUpdated;
+    lists.push(fresh);
+  }
   const next: WordListCatalog = {
     format: live.format ?? 1,
     name: typeof live.name === "string" ? live.name : "Word lists",

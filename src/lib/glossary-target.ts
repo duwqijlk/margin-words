@@ -14,6 +14,10 @@ export type KnownBook = {
   author: string;
   isbn: string;
   kind: BookKind;
+  /** When the glossary now on the host was uploaded. Empty when the catalog has no time. */
+  updated?: string;
+  /** When the glossary this one replaced was uploaded. Empty until a different file is published. */
+  previousUpdated?: string;
 };
 
 export type GlossaryFileIdentity = {
