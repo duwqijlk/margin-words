@@ -57,6 +57,17 @@ function pad2(value: number): string {
   return String(value).padStart(2, "0");
 }
 
+/**
+ * Order two stamps. A missing stamp stays last in either direction, so books
+ * with no time stay in one group at the bottom.
+ */
+export function compareListStamps(left: string, right: string, dir: "asc" | "desc"): number {
+  if (!left && !right) return 0;
+  if (!left) return 1;
+  if (!right) return -1;
+  return dir === "desc" ? right.localeCompare(left) : left.localeCompare(right);
+}
+
 /** `YYYY-MM-DD`, or `YYYY-MM-DD HH:mm` when the catalog stored a clock time. Digits only. */
 export function listUpdatedStamp(updated: string): string {
   const parts = listUpdatedParts(updated);

@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useT } from "@/lib/i18n";
-import { listUpdatedStamp, readUpdated } from "@/lib/list-updated";
+import { normalizeGlossaryWork, workKey, type GlossaryWorkItem } from "@/lib/glossary-work";
+import { compareListStamps, listUpdatedStamp, readUpdated } from "@/lib/list-updated";
 import { accountPostRaw } from "@/lib/sync-engine";
 import { BUNDLED_CATALOG_URL } from "@/lib/packs";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
@@ -25,6 +26,8 @@ type PendingFile = {
 
 const NEW_TARGET = "new";
 const ID_PATTERN = /^[a-z0-9][a-z0-9_-]{0,63}$/;
+type RowNote = { tone: "ok" | "warn"; text: string };
+type SortKey = "now" | "prev";
 
 function normalizeTitle(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
@@ -103,16 +106,29 @@ function booksOf(kind: BookKind, rows: unknown): KnownBook[] {
   return out;
 }
 
-/** Newest glossary first. A book with no upload time stays at the bottom. */
-function byRecent(a: KnownBook, b: KnownBook): number {
-  const left = listUpdatedStamp(a.updated ?? "");
-  const right = listUpdatedStamp(b.updated ?? "");
-  if (left !== right) {
-    if (!left) return 1;
-    if (!right) return -1;
-    return right.localeCompare(left);
+/** Newest first unless the header asks for the other direction. A missing time stays at the bottom. */
+function orderedUpdates(books: KnownBook[], needle: string, sortKey: SortKey, sortDir: "asc" | "desc"): KnownBook[] {
+  const field = sortKey === "now" ? "updated" : "previousUpdated";
+  return books
+    .filter((book) => {
+      if (!needle) return true;
+      return book.title.toLowerCase().includes(needle) || book.id.toLowerCase().includes(needle);
+    })
+    .sort((a, b) => {
+      const cmp = compareListStamps(listUpdatedStamp(a[field] ?? ""), listUpdatedStamp(b[field] ?? ""), sortDir);
+      return cmp || a.title.localeCompare(b.title);
+    });
+}
+
+async function loadWorkFile(): Promise<{ items: GlossaryWorkItem[]; failed: boolean }> {
+  try {
+    const response = await fetch("/api/admin/glossary-work", { credentials: "same-origin", cache: "no-store" });
+    if (!response.ok) return { items: [], failed: true };
+    const parsed = normalizeGlossaryWork(await response.json());
+    return parsed.ok ? { items: parsed.items, failed: false } : { items: [], failed: true };
+  } catch {
+    return { items: [], failed: true };
   }
-  return a.title.localeCompare(b.title);
 }
 
 function parseTarget(value: string): { kind: BookKind; id: string } | "new" | "" {
@@ -145,8 +161,17 @@ export function WordListAdmin() {
   const [loadError, setLoadError] = useState(false);
   const [files, setFiles] = useState<PendingFile[]>([]);
   const [query, setQuery] = useState("");
+  const [sortKey, setSortKey] = useState<SortKey>("now");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
+  const [work, setWork] = useState<GlossaryWorkItem[]>([]);
+  const [workError, setWorkError] = useState(false);
+  const [workBusy, setWorkBusy] = useState(false);
+  const [notes, setNotes] = useState<Record<string, RowNote>>({});
   const [busy, setBusy] = useState(false);
   const [summary, setSummary] = useState("");
+  const uploadTarget = useRef<KnownBook | null>(null);
+  const uploadInput = useRef<HTMLInputElement>(null);
+  const locked = busy || workBusy;
 
   const loadCatalogs = () => {
     setLoadError(false);
@@ -157,11 +182,14 @@ export function WordListAdmin() {
       fetch(BUNDLED_CATALOG_URL, { cache: "no-cache" }).then((response) =>
         response.ok ? response.json() : Promise.reject(new Error(String(response.status))),
       ),
+      loadWorkFile(),
     ])
-      .then(([lists, packs]) => {
+      .then(([lists, packs, marks]) => {
         const listRows = booksOf("lists", (lists as { lists?: unknown }).lists);
         const publicRows = booksOf("public", (packs as { packs?: unknown }).packs);
         setBooks([...listRows, ...publicRows]);
+        setWorkError(marks.failed);
+        if (!marks.failed) setWork(marks.items);
       })
       .catch(() => setLoadError(true));
   };
@@ -180,15 +208,91 @@ export function WordListAdmin() {
     () => (books ?? []).filter((book) => book.kind === "public").sort((a, b) => a.title.localeCompare(b.title)),
     [books],
   );
-  const updates = useMemo(() => {
-    const needle = query.trim().toLowerCase();
-    return (books ?? [])
-      .filter((book) => {
-        if (!needle) return true;
-        return book.title.toLowerCase().includes(needle) || book.id.toLowerCase().includes(needle);
-      })
-      .sort(byRecent);
-  }, [books, query]);
+  const updates = useMemo(
+    () => orderedUpdates(books ?? [], query.trim().toLowerCase(), sortKey, sortDir),
+    [books, query, sortDir, sortKey],
+  );
+  const makingSince = useMemo(() => {
+    const marks = new Map<string, string>();
+    for (const item of work) marks.set(workKey(item), item.since);
+    return marks;
+  }, [work]);
+
+  function onSort(next: SortKey) {
+    if (sortKey === next) setSortDir((dir) => (dir === "desc" ? "asc" : "desc"));
+    else {
+      setSortKey(next);
+      setSortDir("desc");
+    }
+  }
+
+  function noteOf(key: string, note: RowNote) {
+    setNotes((current) => ({ ...current, [key]: note }));
+  }
+
+  function pickUpload(book: KnownBook) {
+    if (locked) return;
+    uploadTarget.current = book;
+    uploadInput.current?.click();
+  }
+
+  async function uploadChosen(list: FileList | null) {
+    const book = uploadTarget.current;
+    uploadTarget.current = null;
+    const file = list?.item(0);
+    if (!book || !file || locked) return;
+    const key = bookKey(book);
+    const text = await file.text();
+    const preview = previewOf(text);
+    if (!preview.ok) {
+      noteOf(key, { tone: "warn", text: t(preview.problem as Parameters<typeof t>[0]) });
+      return;
+    }
+    setBusy(true);
+    noteOf(key, { tone: "ok", text: t("admin.lists.uploading") });
+    const catalog = book.kind === "public" ? "&catalog=public" : "";
+    try {
+      await accountPostRaw(`/api/admin/word-lists?id=${encodeURIComponent(book.id)}${catalog}`, text);
+      noteOf(key, { tone: "ok", text: t("admin.lists.published") });
+      setWork((current) => current.filter((item) => workKey(item) !== key));
+      loadCatalogs();
+    } catch (caught) {
+      const code = caught instanceof Error ? caught.message : "";
+      noteOf(key, { tone: "warn", text: t((ERROR_KEYS[code] ?? "admin.lists.error") as Parameters<typeof t>[0]) });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function toggleMaking(book: KnownBook) {
+    if (locked) return;
+    const key = bookKey(book);
+    const making = !makingSince.has(key);
+    setWorkBusy(true);
+    try {
+      const response = await fetch("/api/admin/glossary-work", {
+        method: "PUT",
+        credentials: "same-origin",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ kind: book.kind, id: book.id, making }),
+      });
+      if (!response.ok) throw new Error("work");
+      const parsed = normalizeGlossaryWork(await response.json());
+      if (!parsed.ok) throw new Error("work");
+      setWork(parsed.items);
+      setWorkError(false);
+      setNotes((current) => {
+        if (!current[key]) return current;
+        const next = { ...current };
+        delete next[key];
+        return next;
+      });
+    } catch {
+      noteOf(key, { tone: "warn", text: t("admin.lists.workFailed") });
+    } finally {
+      setWorkBusy(false);
+    }
+  }
 
   function titleClash(file: PendingFile): KnownBook | undefined {
     if (file.preview.ok !== true || !file.preview.title) return undefined;
@@ -294,41 +398,109 @@ export function WordListAdmin() {
               aria-label={t("admin.lists.filter")}
               data-admin-list-filter
             />
+            {workError ? (
+              <p className="text-sm text-warn" role="alert" data-admin-list-work-error>
+                {t("admin.lists.workError")}
+              </p>
+            ) : null}
+            <input
+              ref={uploadInput}
+              className="hidden"
+              type="file"
+              accept=".json,application/json"
+              data-admin-list-row-file
+              onChange={(event) => {
+                const list = event.target.files;
+                event.target.value = "";
+                void uploadChosen(list);
+              }}
+            />
             {updates.length === 0 ? (
               <p className="text-sm text-muted">{t("admin.lists.noMatch")}</p>
             ) : (
-              <div className="max-h-96 overflow-auto rounded-xl border border-line">
+              <div className="max-h-[32rem] overflow-auto rounded-xl border border-line">
                 <table className="w-full border-collapse text-left text-sm">
                   <thead className="text-xs text-muted">
                     <tr>
                       <th className="sticky top-0 bg-card px-3 py-2 font-medium" scope="col">
                         {t("admin.lists.colBook")}
                       </th>
-                      <th className="sticky top-0 bg-card px-3 py-2 font-medium whitespace-nowrap" scope="col">
-                        {t("admin.lists.colNow")}
+                      <th className="sticky top-0 bg-card px-3 py-2 whitespace-nowrap" scope="col" aria-sort={sortKey === "now" ? (sortDir === "desc" ? "descending" : "ascending") : "none"}>
+                        <button type="button" className="font-medium" data-admin-list-sort="now" onClick={() => onSort("now")}>
+                          {t("admin.lists.colNow")}
+                          {sortKey === "now" ? (sortDir === "desc" ? " ↓" : " ↑") : ""}
+                        </button>
+                      </th>
+                      <th className="sticky top-0 bg-card px-3 py-2 whitespace-nowrap" scope="col" aria-sort={sortKey === "prev" ? (sortDir === "desc" ? "descending" : "ascending") : "none"}>
+                        <button type="button" className="font-medium" data-admin-list-sort="prev" onClick={() => onSort("prev")}>
+                          {t("admin.lists.colPrev")}
+                          {sortKey === "prev" ? (sortDir === "desc" ? " ↓" : " ↑") : ""}
+                        </button>
                       </th>
                       <th className="sticky top-0 bg-card px-3 py-2 font-medium whitespace-nowrap" scope="col">
-                        {t("admin.lists.colPrev")}
+                        {t("admin.lists.colActions")}
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {updates.map((book) => (
-                      <tr key={bookKey(book)} className="border-t border-line" data-admin-list-row={bookKey(book)}>
-                        <td className="px-3 py-2">
-                          <span className="font-medium">{book.title}</span>
-                          <span className="mt-0.5 block text-xs text-muted">
-                            {book.id} · {book.kind === "lists" ? t("admin.lists.wordLists") : t("admin.lists.publicBooks")}
-                          </span>
-                        </td>
-                        <td className="px-3 py-2 whitespace-nowrap tabular-nums" data-admin-list-now>
-                          {listUpdatedStamp(book.updated ?? "") || "—"}
-                        </td>
-                        <td className="px-3 py-2 whitespace-nowrap tabular-nums" data-admin-list-prev>
-                          {listUpdatedStamp(book.previousUpdated ?? "") || "—"}
-                        </td>
-                      </tr>
-                    ))}
+                    {updates.map((book) => {
+                      const key = bookKey(book);
+                      const since = makingSince.get(key);
+                      const note = notes[key];
+                      const stamp = since ? listUpdatedStamp(since) : "";
+                      return (
+                        <tr key={key} className="border-t border-line" data-admin-list-row={key}>
+                          <td className="px-3 py-2">
+                            <span className="font-medium">{book.title}</span>
+                            <span className="mt-0.5 block text-xs text-muted">
+                              {book.id} · {book.kind === "lists" ? t("admin.lists.wordLists") : t("admin.lists.publicBooks")}
+                            </span>
+                          </td>
+                          <td className="px-3 py-2 whitespace-nowrap tabular-nums" data-admin-list-now>
+                            {listUpdatedStamp(book.updated ?? "") || "—"}
+                          </td>
+                          <td className="px-3 py-2 whitespace-nowrap tabular-nums" data-admin-list-prev>
+                            {listUpdatedStamp(book.previousUpdated ?? "") || "—"}
+                          </td>
+                          <td className="px-3 py-2">
+                            <div className="flex flex-wrap gap-2">
+                              <button
+                                type="button"
+                                className="inline-flex min-h-9 items-center rounded-lg border border-line bg-card px-2.5 text-xs font-semibold hover:bg-accent-soft disabled:opacity-45"
+                                data-admin-list-upload={key}
+                                disabled={locked}
+                                onClick={() => pickUpload(book)}
+                              >
+                                {t("admin.lists.uploadOne")}
+                              </button>
+                              <button
+                                type="button"
+                                className={cn(
+                                  "inline-flex min-h-9 items-center rounded-lg border border-line px-2.5 text-xs font-semibold hover:bg-accent-soft disabled:opacity-45",
+                                  since ? "bg-accent-soft" : "bg-card",
+                                )}
+                                data-admin-list-making={key}
+                                aria-pressed={!!since}
+                                disabled={locked}
+                                onClick={() => void toggleMaking(book)}
+                              >
+                                {t("admin.lists.making")}
+                              </button>
+                            </div>
+                            {stamp ? (
+                              <p className="mt-1 text-xs text-muted tabular-nums" data-admin-list-since={key}>
+                                {t("admin.lists.makingSince", { when: stamp })}
+                              </p>
+                            ) : null}
+                            {note ? (
+                              <p className={cn("mt-1 text-xs", note.tone === "warn" ? "text-warn" : "text-accent")} data-admin-list-note={key}>
+                                {note.text}
+                              </p>
+                            ) : null}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -450,7 +622,7 @@ export function WordListAdmin() {
           <button
             type="button"
             className={cn(btn.primary, "justify-start")}
-            disabled={busy || publishable.length === 0}
+            disabled={locked || publishable.length === 0}
             data-admin-list-publish
             onClick={() => void publish()}
           >
