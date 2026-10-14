@@ -21,19 +21,17 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { loadBookExtras, loadBookMeta, loadStoredBook, type Gloss, type StoredBook } from "@/lib/book-db";
 import { readingSlots } from "@/lib/epub";
 import { phrasePoint, pointFromEntry } from "@/lib/gloss-ref";
+import { linkChapterHtml, peekChapterHtml, rememberChapterHtml } from "@/lib/chapter-link";
 import {
   entryAppliesAt,
   hasTrickySense,
-  markWordRanges,
   pickSense,
   plainSurface,
-  readingHtml,
   TAP_WORD_PATTERN,
   type OtherMeaning,
 } from "@/lib/glossary-format";
 import type { PhraseEntry } from "@/lib/glossary-extras";
-import { hyphenateReadingHtml } from "@/lib/hyphenate";
-import { phraseWordMarks, phraseWordRanges } from "@/lib/help-match";
+import { phraseWordMarks } from "@/lib/help-match";
 import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
@@ -1158,15 +1156,24 @@ export function ReaderScreen({
     (surface: string) => resolveGlossKey(surface, marked.keys, marked.forms),
     [marked],
   );
+  const chapterKey = `${bookId}|${viewChapter}|${extraId}`;
+  // A chapter the reader just left is already linked. Coming back does not build it again.
   const linkedHtml = useMemo(() => {
-    if (!chapterHtml) return "";
-    const words = readingHtml(chapterHtml, marked.ready, resolveKey, viewChapter, marked.sparse, marked.tricky);
-    const withPhrases =
-      Object.keys(phraseList).length > 0
-        ? markWordRanges(words, (paragraph) => phraseWordRanges(phraseList, paragraph), "book-phrase")
-        : words;
-    return hyphenateReadingHtml(withPhrases);
-  }, [chapterHtml, marked, resolveKey, viewChapter, phraseList]);
+    if (!book || !chapterHtml) return "";
+    const cached = peekChapterHtml(book, phraseList, chapterKey);
+    if (cached !== undefined) return cached;
+    const html = linkChapterHtml(
+      chapterHtml,
+      marked.ready,
+      resolveKey,
+      viewChapter,
+      marked.sparse,
+      marked.tricky,
+      phraseList,
+    );
+    rememberChapterHtml(book, phraseList, chapterKey, html);
+    return html;
+  }, [book, chapterHtml, chapterKey, phraseList, marked, resolveKey, viewChapter]);
   const bookChapters = book?.chapters;
   const bookStats = useMemo(() => (bookChapters ? indexBook(bookChapters) : {}), [bookChapters]);
 

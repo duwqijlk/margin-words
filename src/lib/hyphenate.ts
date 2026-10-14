@@ -13,15 +13,23 @@ import patterns from "hyphen/patterns/en-us.js";
 const SHY = "\u00AD";
 
 const breakWord = createHyphenator(patterns, { minWordLength: 6 });
+const shownWords = new Map<string, string>();
 
 /**
  * The word as the page may break it. Short words, and words with an apostrophe,
  * are returned unchanged. The letters and their order never change.
+ * The same spelling is broken once per session. A chapter repeats it often.
  */
 export function hyphenateDisplay(word: string): string {
-  if (word.length < 6 || !/^[\p{L}]+$/u.test(word)) return word;
-  const broken = breakWord(word);
-  return broken.includes(SHY) ? broken : word;
+  const cached = shownWords.get(word);
+  if (cached !== undefined) return cached;
+  let shown = word;
+  if (word.length >= 6 && /^[\p{L}]+$/u.test(word)) {
+    const broken = breakWord(word);
+    if (broken.includes(SHY)) shown = broken;
+  }
+  shownWords.set(word, shown);
+  return shown;
 }
 
 /**
@@ -29,11 +37,9 @@ export function hyphenateDisplay(word: string): string {
  * inside a long word. `data-word` stays the real spelling, so a tap still finds
  * the glossary entry.
  */
-export function hyphenateReadingHtml(html: string): string {
-  if (!html || typeof DOMParser === "undefined") return html;
-  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
-  const root = doc.body.firstElementChild;
-  if (!root) return html;
+export function hyphenateReadingRoot(root: Element): void {
+  const doc = root.ownerDocument;
+  if (!doc) return;
   for (const button of root.querySelectorAll("button[data-word]")) {
     const surface = button.getAttribute("data-word") ?? "";
     const tap = doc.createElement("span");
@@ -41,5 +47,13 @@ export function hyphenateReadingHtml(html: string): string {
     tap.textContent = hyphenateDisplay(surface);
     button.replaceChildren(tap);
   }
+}
+
+export function hyphenateReadingHtml(html: string): string {
+  if (!html || typeof DOMParser === "undefined") return html;
+  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
+  const root = doc.body.firstElementChild;
+  if (!root) return html;
+  hyphenateReadingRoot(root);
   return root.innerHTML;
 }

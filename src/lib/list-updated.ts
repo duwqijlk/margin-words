@@ -52,3 +52,16 @@ export function listUpdatedParts(updated: string): ListUpdated | null {
     minute: String(when.getMinutes()).padStart(2, "0"),
   };
 }
+
+function pad2(value: number): string {
+  return String(value).padStart(2, "0");
+}
+
+/** `YYYY-MM-DD`, or `YYYY-MM-DD HH:mm` when the catalog stored a clock time. Digits only. */
+export function listUpdatedStamp(updated: string): string {
+  const parts = listUpdatedParts(updated);
+  if (!parts) return "";
+  const day = `${parts.year}-${pad2(parts.month)}-${pad2(parts.day)}`;
+  if (!("hour" in parts)) return day;
+  return `${day} ${parts.hour}:${parts.minute}`;
+}

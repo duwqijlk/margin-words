@@ -587,12 +587,26 @@ function escapeReg(value: string): string {
  * exact key is in the word list, and only when none of those letters is already
  * its own entry. Occurrence numbers of ordinary words stay on `WORD_PATTERN`.
  */
+const listedSpecialsCache = new WeakMap<ReadonlySet<string>, string[]>();
+
+/** Keys like `911` and `a.m.` The same word list is scanned once, not once per text node. */
+function listedSpecials(listed: ReadonlySet<string>): string[] {
+  const cached = listedSpecialsCache.get(listed);
+  if (cached) return cached;
+  const specials: string[] = [];
+  for (const key of listed) {
+    if (TOKEN_LEMMA.test(key) && !PLAIN_LEMMA.test(key)) specials.push(key);
+  }
+  listedSpecialsCache.set(listed, specials);
+  return specials;
+}
+
 export function listedTokenSegments(
   text: string,
   pieceInList: (piece: string) => boolean,
   listed: ReadonlySet<string>,
 ): TapSegment[] {
-  const specials = [...listed].filter((key) => TOKEN_LEMMA.test(key) && !PLAIN_LEMMA.test(key));
+  const specials = listedSpecials(listed);
   if (specials.length === 0) return tapSegments(text, pieceInList);
   const glued = glueListedRuns(tapSegments(text, pieceInList), specials, pieceInList);
   return explodeDigitKeys(
@@ -1912,17 +1926,16 @@ export function trickyAt(
  * Where the sense that resolves has `trickyMeaning: true`, the word gets `book-tricky` instead (`tricky` holds
  * the entries with such a sense, by key).
  */
-export function readingHtml(
-  html: string,
+export function fillReadingRoot(
+  root: Element,
   ready: Set<string>,
   resolve: (surface: string) => string,
   chapter: number,
   sparse: Map<string, { senseOnly?: boolean; senses?: GlossarySense[] }>,
   tricky: ReadonlyMap<string, { senses?: GlossarySense[] }> = new Map(),
-): string {
-  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
-  const root = doc.body.firstElementChild;
-  if (!root) return "";
+): void {
+  const doc = root.ownerDocument;
+  if (!doc) return;
   cleanReadingRoot(root);
   stripWordBreaksIn(root);
   for (const el of [...root.querySelectorAll("*")]) {
@@ -1982,6 +1995,20 @@ export function readingHtml(
     }
     node.parentNode?.replaceChild(fragment, node);
   }
+}
+
+export function readingHtml(
+  html: string,
+  ready: Set<string>,
+  resolve: (surface: string) => string,
+  chapter: number,
+  sparse: Map<string, { senseOnly?: boolean; senses?: GlossarySense[] }>,
+  tricky: ReadonlyMap<string, { senses?: GlossarySense[] }> = new Map(),
+): string {
+  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
+  const root = doc.body.firstElementChild;
+  if (!root) return "";
+  fillReadingRoot(root, ready, resolve, chapter, sparse, tricky);
   return root.innerHTML;
 }
 
@@ -1994,15 +2021,12 @@ const READING_BLOCKS = "p, h1, h2, h3, h4, li, blockquote, div[data-para]";
  * `book-tricky` keeps that mark. The text does not move: the class only changes the underline.
  * `rangesFor` sees the same paragraph string a tap uses.
  */
-export function markWordRanges(
-  html: string,
+export function markWordRangesOn(
+  root: Element,
   rangesFor: (paragraph: string) => { start: number; end: number }[],
   className: string,
-): string {
-  if (!html || !className) return html;
-  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
-  const root = doc.body.firstElementChild;
-  if (!root) return html;
+): void {
+  if (!className) return;
   const blocks = [...root.querySelectorAll(READING_BLOCKS)];
   for (const block of blocks) {
     if (blocks.some((other) => other !== block && block.contains(other))) continue;
@@ -2021,6 +2045,18 @@ export function markWordRanges(
       if (ranges.some((range) => start >= range.start && end <= range.end)) button.classList.add(className);
     }
   }
+}
+
+export function markWordRanges(
+  html: string,
+  rangesFor: (paragraph: string) => { start: number; end: number }[],
+  className: string,
+): string {
+  if (!html || !className) return html;
+  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
+  const root = doc.body.firstElementChild;
+  if (!root) return html;
+  markWordRangesOn(root, rangesFor, className);
   return root.innerHTML;
 }
 
