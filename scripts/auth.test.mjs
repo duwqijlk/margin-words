@@ -22,6 +22,7 @@ import {
 } from "../functions/lib/handlers.ts";
 import { handleList, handleSetRole } from "../functions/api/admin/users.ts";
 import { handlePublish } from "../functions/api/admin/word-lists.ts";
+import { handleGet as handleGlossaryWorkGet, handlePut as handleGlossaryWorkPut } from "../functions/api/admin/glossary-work.ts";
 import { handleUpload } from "../functions/api/admin/books.ts";
 import { handleGlossary } from "../functions/api/glossary/[id].ts";
 import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
@@ -1404,4 +1405,105 @@ test("sync push chunks batches over 100 items and saves all of them", async () =
   const saved = (await pushed.json()).items;
   assert.equal(saved.length, 130);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM sync_items").get().n, 130);
+});
+
+function putJson(path, cookie, body) {
+  const headers = new Headers();
+  if (cookie) headers.set("cookie", cookie);
+  headers.set("content-type", "application/json");
+  return new Request(`http://localhost${path}`, { method: "PUT", headers, body: JSON.stringify(body) });
+}
+
+test("in-progress marks stay until that book's glossary is published", async () => {
+  const db = openDb();
+  await call(handleRegister, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const login = await call(handleLogin, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const adminCookie = cookieHeader(login);
+  const files = new Map();
+  const liveCatalog = {
+    format: 1,
+    name: "Word lists",
+    updated: "2026-10-01T00:00:00.000Z",
+    lists: [
+      {
+        id: "charlie",
+        title: "Charlie",
+        words: 10,
+        glossary: { url: "charlie/glossary.json", bytes: 5, sha256: "aaa" },
+        updated: "2026-10-01T00:00:00.000Z",
+      },
+      {
+        id: "george",
+        title: "George",
+        words: 20,
+        glossary: { url: "george/glossary.json", bytes: 6, sha256: "bbb" },
+        updated: "2026-10-02T00:00:00.000Z",
+      },
+    ],
+  };
+  const publicCatalog = {
+    format: 1,
+    packs: [
+      {
+        id: "alice",
+        title: "Alice",
+        rev: "oldrevoldrev",
+        words: 4,
+        epub: { url: "alice/book.epub", bytes: 4, sha256: "abc" },
+        glossary: { url: "alice/glossary.json", bytes: 2, sha256: "dd", rev: "dd" },
+      },
+    ],
+  };
+  files.set("word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(liveCatalog, null, 1)}\n`));
+  files.set("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(publicCatalog, null, 1)}\n`));
+  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const catalogBefore = files.get("word-lists/catalog.json");
+
+  const empty = await handleGlossaryWorkGet(new Request("http://localhost/api/admin/glossary-work", { headers: { cookie: adminCookie } }), env, { now: NOW });
+  assert.equal(empty.status, 200);
+  assert.deepEqual((await empty.json()).items, []);
+
+  const rejected = await handleGlossaryWorkPut(putJson("/api/admin/glossary-work", adminCookie, { kind: "shelf", id: "charlie", making: true }), env, { now: NOW });
+  assert.equal(rejected.status, 400);
+  assert.equal(files.has("word-lists/glossary-work.json"), false);
+
+  const marked = await handleGlossaryWorkPut(putJson("/api/admin/glossary-work", adminCookie, { kind: "lists", id: "charlie", making: true }), env, { now: NOW });
+  assert.equal(marked.status, 200);
+  const first = await marked.json();
+  const again = await handleGlossaryWorkPut(putJson("/api/admin/glossary-work", adminCookie, { kind: "lists", id: "charlie", making: true }), env, { now: NOW });
+  assert.equal((await again.json()).items[0].since, first.items[0].since);
+  await handleGlossaryWorkPut(putJson("/api/admin/glossary-work", adminCookie, { kind: "lists", id: "george", making: true }), env, { now: NOW });
+  await handleGlossaryWorkPut(putJson("/api/admin/glossary-work", adminCookie, { kind: "public", id: "alice", making: true }), env, { now: NOW });
+  assert.deepEqual(files.get("word-lists/catalog.json"), catalogBefore);
+
+  const glossary = JSON.stringify({ glossary: { a: {}, b: {} }, count: 2 });
+  const published = await handlePublish(raw("/api/admin/word-lists?id=charlie", adminCookie, glossary), env, { now: NOW });
+  assert.equal(published.status, 200);
+  const storedWork = JSON.parse(new TextDecoder().decode(files.get("word-lists/glossary-work.json")));
+  assert.deepEqual(
+    storedWork.items.map((item) => `${item.kind}:${item.id}`).sort(),
+    ["lists:george", "public:alice"],
+  );
+  const storedCatalog = JSON.parse(new TextDecoder().decode(files.get("word-lists/catalog.json")));
+  assert.equal(storedCatalog.lists.find((item) => item.id === "george").glossary.sha256, "bbb");
+
+  const publicGlossary = JSON.stringify({ title: "Alice", glossary: { tea: {} }, count: 1 });
+  const publicPublished = await handlePublish(
+    raw("/api/admin/word-lists?id=alice&catalog=public", adminCookie, publicGlossary),
+    env,
+    { now: NOW },
+  );
+  assert.equal(publicPublished.status, 200);
+  const afterPublic = JSON.parse(new TextDecoder().decode(files.get("word-lists/glossary-work.json")));
+  assert.deepEqual(
+    afterPublic.items.map((item) => `${item.kind}:${item.id}`),
+    ["lists:george"],
+  );
+  const cleared = await handleGlossaryWorkPut(putJson("/api/admin/glossary-work", adminCookie, { kind: "lists", id: "george", making: false }), env, { now: NOW });
+  assert.equal(cleared.status, 200);
+  assert.deepEqual((await cleared.json()).items, []);
 });

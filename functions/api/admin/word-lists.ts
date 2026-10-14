@@ -5,6 +5,7 @@ import { sha256HexBytes } from "../../lib/password.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { normalizeTitle, replacesSameBook } from "../../lib/book-title.ts";
 import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
+import { clearGlossaryWork } from "../../lib/glossary-work-file.ts";
 import { previousGlossaryUpdated } from "../../lib/glossary-version.ts";
 import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../../lib/word-list-publish.ts";
 
@@ -95,6 +96,7 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
 
     if (url.searchParams.get("catalog") === "public") {
       const row = await updatePublicGlossary(bucket, id, bytes, counts);
+      await clearGlossaryWork(bucket, "public", id);
       return json({ row, catalog: "public" });
     }
 
@@ -153,6 +155,7 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     // pointing at the previous file, which is still on the host.
     await bucket.put(`word-lists/${id}/glossary.json`, bytes);
     await bucket.put("word-lists/catalog.json", catalogBytes);
+    await clearGlossaryWork(bucket, "lists", id);
     return json({ row, lists: next.lists.length });
   } catch (error) {
     return errorResponse(error);

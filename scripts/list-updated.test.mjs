@@ -7,7 +7,7 @@ import { test } from "node:test";
 import { loadAppModules } from "./lib/app-modules.mjs";
 
 const { listUpdated } = await loadAppModules();
-const { readUpdated, listUpdatedParts, listUpdatedStamp } = listUpdated;
+const { readUpdated, listUpdatedParts, listUpdatedStamp, compareListStamps } = listUpdated;
 
 test("a day is kept, and a clock time is read", () => {
   assert.equal(readUpdated("2026-10-07"), "2026-10-07");
@@ -47,4 +47,12 @@ test("a stamp is digits, with a clock only when the catalog stored one", () => {
   const hour = String(when.getHours()).padStart(2, "0");
   const minute = String(when.getMinutes()).padStart(2, "0");
   assert.equal(listUpdatedStamp(raw), `${when.getFullYear()}-${month}-${day} ${hour}:${minute}`);
+});
+
+test("a missing stamp stays last when the column is sorted either way", () => {
+  assert.equal(compareListStamps("", "", "desc"), 0);
+  assert.equal(compareListStamps("", "2026-10-07", "asc"), 1);
+  assert.equal(compareListStamps("", "2026-10-07", "desc"), 1);
+  assert.ok(compareListStamps("2026-10-01", "2026-10-07", "asc") < 0);
+  assert.ok(compareListStamps("2026-10-01", "2026-10-07", "desc") > 0);
 });
