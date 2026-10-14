@@ -1460,6 +1460,100 @@ type PhraseCandidate = {
   score: number;
 };
 
+type PhraseItem = {
+  id: number;
+  key: string;
+  entry: PhraseEntry;
+  variant: Variant;
+  first: string;
+};
+
+type PhraseIndex = {
+  byWord: Map<string, PhraseItem[]>;
+};
+
+const phraseIndexCache = new WeakMap<object, PhraseIndex>();
+
+/**
+ * A variant can start only on its first word (`wordFits`). Trying every phrase at every
+ * token made a chapter change wait on the whole list. The list is not mutated after it
+ * is stored, so one index per phrases object stays valid.
+ */
+function phraseIndex(phrases: Record<string, PhraseEntry>): PhraseIndex {
+  const cached = phraseIndexCache.get(phrases);
+  if (cached) return cached;
+  const byWord = new Map<string, PhraseItem[]>();
+  const add = (word: string, item: PhraseItem) => {
+    const list = byWord.get(word);
+    if (list) list.push(item);
+    else byWord.set(word, [item]);
+  };
+  let id = 0;
+  for (const [key, entry] of Object.entries(phrases)) {
+    if (!entry || typeof entry.meaning !== "string") continue;
+    for (const variant of variantsOf(key, entry)) {
+      const first = variant.words[0];
+      if (!first) continue;
+      const item: PhraseItem = { id, key, entry, variant, first };
+      id += 1;
+      if (first === "one's") {
+        for (const word of POSSESSIVE) add(word, item);
+      } else if (first === "someone" || first === "somebody") {
+        add(first, item);
+        for (const word of OBJECT_PRONOUN) {
+          if (word !== first) add(word, item);
+        }
+      } else add(first, item);
+    }
+  }
+  const index = { byWord };
+  phraseIndexCache.set(phrases, index);
+  return index;
+}
+
+/** Token indexes where this variant is allowed to start, low to high, same as a full scan. */
+function startPositions(first: string, positions: Map<string, number[]>): number[] {
+  if (first === "one's") {
+    const starts: number[] = [];
+    for (const word of POSSESSIVE) {
+      const list = positions.get(word);
+      if (list) starts.push(...list);
+    }
+    starts.sort((a, b) => a - b);
+    return starts;
+  }
+  if (first === "someone" || first === "somebody") {
+    const starts = [...(positions.get(first) ?? [])];
+    for (const word of OBJECT_PRONOUN) {
+      if (word === first) continue;
+      const list = positions.get(word);
+      if (list) starts.push(...list);
+    }
+    starts.sort((a, b) => a - b);
+    return starts;
+  }
+  return positions.get(first) ?? [];
+}
+
+/**
+ * `matchAt` is sure to fail when the next word of a fixed phrase is not the next token,
+ * and when a phrasal verb's particle is not within the gap it searches. Skipping those
+ * avoids the gap scan. A hit still has to pass `matchAt`.
+ */
+function variantCanStart(tokens: Token[], from: number, variant: Variant): boolean {
+  const second = variant.words[1];
+  if (!second) return true;
+  if (!variant.separable) {
+    const next = tokens[from + 1];
+    return !!next && wordFits(second, next.w);
+  }
+  const end = Math.min(tokens.length, from + 10);
+  for (let i = from + 1; i < end; i += 1) {
+    if (wordFits(second, (tokens[i] as Token).w)) return true;
+  }
+  return false;
+}
+
 /** Every phrase match in the text, plus the zero-gap ones a split phrase must not steal a particle from. */
 function phraseCandidates(
   phrases: Record<string, PhraseEntry>,
@@ -1468,25 +1562,44 @@ function phraseCandidates(
 ): { hits: PhraseCandidate[]; solid: { start: number; indexes: number[] }[] } {
   const solid: { start: number; indexes: number[] }[] = [];
   const hits: PhraseCandidate[] = [];
-  for (const [key, entry] of Object.entries(phrases)) {
-    if (!entry || typeof entry.meaning !== "string") continue;
-    for (const variant of variantsOf(key, entry)) {
-      for (let from = 0; from < tokens.length; from += 1) {
-        const hit = matchAt(sentenceText, tokens, from, variant);
-        if (!hit) continue;
-        if (gapSize(hit.indexes) === 0) {
-          solid.push({ start: hit.indexes[0] as number, indexes: hit.indexes });
-        }
-        const a = tokens[hit.indexes[0] as number] as Token;
-        const z = tokens[hit.indexes[hit.indexes.length - 1] as number] as Token;
-        hits.push({
-          key,
-          entry,
-          matched: sentenceText.slice(a.start, z.end),
-          indexes: hit.indexes,
-          score: phraseScore(hit.indexes),
-        });
+  if (tokens.length === 0) return { hits, solid };
+  const index = phraseIndex(phrases);
+  const positions = new Map<string, number[]>();
+  for (let i = 0; i < tokens.length; i += 1) {
+    const word = (tokens[i] as Token).w;
+    const list = positions.get(word);
+    if (list) list.push(i);
+    else positions.set(word, [i]);
+  }
+  const seen = new Set<number>();
+  const todo: PhraseItem[] = [];
+  for (const word of positions.keys()) {
+    const list = index.byWord.get(word);
+    if (!list) continue;
+    for (const item of list) {
+      if (seen.has(item.id)) continue;
+      seen.add(item.id);
+      todo.push(item);
+    }
+  }
+  todo.sort((a, b) => a.id - b.id);
+  for (const item of todo) {
+    for (const from of startPositions(item.first, positions)) {
+      if (!variantCanStart(tokens, from, item.variant)) continue;
+      const hit = matchAt(sentenceText, tokens, from, item.variant);
+      if (!hit) continue;
+      if (gapSize(hit.indexes) === 0) {
+        solid.push({ start: hit.indexes[0] as number, indexes: hit.indexes });
       }
+      const a = tokens[hit.indexes[0] as number] as Token;
+      const z = tokens[hit.indexes[hit.indexes.length - 1] as number] as Token;
+      hits.push({
+        key: item.key,
+        entry: item.entry,
+        matched: sentenceText.slice(a.start, z.end),
+        indexes: hit.indexes,
+        score: phraseScore(hit.indexes),
+      });
     }
   }
   return { hits, solid };
@@ -1576,11 +1689,38 @@ export function phraseWordMarks(
   const tokens = tokenize(text);
   if (tokens.length === 0) return [];
   const { hits, solid } = phraseCandidates(phrases, text, tokens);
+  if (hits.length === 0) return [];
+  // Same choice as `phraseAt` for a known tap: the covering match with the higher score,
+  // the earlier one on a tie, and a split phrase loses when a tighter one owns its particle.
+  // One pass over the matches, not one scan per word. A chapter has a match on most words.
+  const solidAt = new Map<number, number[]>();
+  for (const other of solid) {
+    for (const index of other.indexes) {
+      const list = solidAt.get(index);
+      if (list) list.push(other.start);
+      else solidAt.set(index, [other.start]);
+    }
+  }
+  const bestAt: Array<PhraseCandidate | null> = new Array(tokens.length).fill(null);
+  for (const hit of hits) {
+    if (gapSize(hit.indexes) > 0) {
+      const verbAt = hit.indexes[0] as number;
+      const particleAt = hit.indexes[hit.indexes.length - 1] as number;
+      const starts = solidAt.get(particleAt);
+      if (starts?.some((start) => start > verbAt && start < particleAt)) continue;
+    }
+    const from = hit.indexes[0] as number;
+    const to = hit.indexes[hit.indexes.length - 1] as number;
+    for (let i = from; i <= to; i += 1) {
+      const current = bestAt[i];
+      if (!current || hit.score > current.score) bestAt[i] = hit;
+    }
+  }
   const ranges: { start: number; end: number; key: string }[] = [];
   for (let i = 0; i < tokens.length; i += 1) {
-    const token = tokens[i] as Token;
-    const best = phraseAt(hits, solid, tokens, i, token.w);
+    const best = bestAt[i];
     if (!best || !best.indexes.includes(i)) continue;
+    const token = tokens[i] as Token;
     ranges.push({ start: token.start, end: token.end, key: best.key });
   }
   return ranges;
