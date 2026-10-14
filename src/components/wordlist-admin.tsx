@@ -462,11 +462,11 @@ export function WordListAdmin() {
                           <td className="px-3 py-2 whitespace-nowrap tabular-nums" data-admin-list-prev>
                             {listUpdatedStamp(book.previousUpdated ?? "") || "—"}
                           </td>
-                          <td className="px-3 py-2">
-                            <div className="flex flex-wrap gap-2">
+                          <td className="px-3 py-2 whitespace-nowrap">
+                            <div className="flex flex-nowrap gap-2">
                               <button
                                 type="button"
-                                className="inline-flex min-h-9 items-center rounded-lg border border-line bg-card px-2.5 text-xs font-semibold hover:bg-accent-soft disabled:opacity-45"
+                                className="inline-flex min-h-9 shrink-0 items-center whitespace-nowrap rounded-lg border border-line bg-card px-2.5 text-xs font-semibold hover:bg-accent-soft disabled:opacity-45"
                                 data-admin-list-upload={key}
                                 disabled={locked}
                                 onClick={() => pickUpload(book)}
@@ -476,7 +476,7 @@ export function WordListAdmin() {
                               <button
                                 type="button"
                                 className={cn(
-                                  "inline-flex min-h-9 items-center rounded-lg border border-line px-2.5 text-xs font-semibold hover:bg-accent-soft disabled:opacity-45",
+                                  "inline-flex min-h-9 shrink-0 items-center whitespace-nowrap rounded-lg border border-line px-2.5 text-xs font-semibold hover:bg-accent-soft disabled:opacity-45",
                                   since ? "bg-accent-soft" : "bg-card",
                                 )}
                                 data-admin-list-making={key}
@@ -488,7 +488,7 @@ export function WordListAdmin() {
                               </button>
                             </div>
                             {stamp ? (
-                              <p className="mt-1 text-xs text-muted tabular-nums" data-admin-list-since={key}>
+                              <p className="mt-1 whitespace-nowrap text-xs text-muted tabular-nums" data-admin-list-since={key}>
                                 {t("admin.lists.makingSince", { when: stamp })}
                               </p>
                             ) : null}

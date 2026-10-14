@@ -7,7 +7,7 @@ import { SponsorTab } from "@/components/sponsor-admin";
 import { UsersAdmin } from "@/components/users-admin";
 import { SeriesAdmin } from "@/components/series-admin";
 import { WordListAdmin } from "@/components/wordlist-admin";
-import { btn, Segmented } from "@/components/ui";
+import { btn, cn, Segmented } from "@/components/ui";
 
 type AdminTab = "thanks" | "lists" | "books" | "series" | "users";
 
@@ -20,7 +20,13 @@ export function AdminPage() {
   const admin = phase === "in" && role === "admin";
 
   return (
-    <div className="mx-auto grid w-full max-w-3xl gap-4 px-4 py-6 sm:px-6 sm:py-10" data-admin-page>
+    <div
+      className={cn(
+        "mx-auto grid w-full gap-4 px-4 py-6 sm:px-6 sm:py-10",
+        admin && tab === "lists" ? "max-w-6xl" : "max-w-3xl",
+      )}
+      data-admin-page
+    >
       <h1 className="font-display text-3xl font-semibold">{t("admin.title")}</h1>
       {phase === "unknown" ? (
         <p>{t("dashboard.loading")}</p>
