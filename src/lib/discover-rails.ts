@@ -13,6 +13,44 @@ export const SERIES_RAIL_MIN = 3;
 export const SERIES_RAILS = 3;
 /** A row shorter than this is left out: a strip of one or two covers looks broken. */
 export const RAIL_MIN = 3;
+/** Saved Discover rows. An admin list longer than this is refused. */
+export const DISCOVER_RAIL_LIMIT = 12;
+/** Books in one admin-picked row. */
+export const DISCOVER_RAIL_BOOKS = 60;
+
+const BOOK_KEY = /^(?:list|classic):[a-z0-9][a-z0-9_-]{0,63}$/;
+
+/** Keep a saved row list, or refuse it. An empty list is allowed. */
+export function normalizeDiscoverRails(value: unknown): { ok: true; rails: DiscoverRailSpec[] } | { ok: false } {
+  if (!value || typeof value !== "object") return { ok: false };
+  const rails = (value as { rails?: unknown }).rails;
+  if (!Array.isArray(rails) || rails.length > DISCOVER_RAIL_LIMIT) return { ok: false };
+  const out: DiscoverRailSpec[] = [];
+  const names = new Set<string>();
+  for (const item of rails) {
+    if (!item || typeof item !== "object") return { ok: false };
+    const row = item as { source?: unknown; name?: unknown; books?: unknown };
+    const name = typeof row.name === "string" ? row.name.replace(/\s+/g, " ").trim().slice(0, 80) : "";
+    if (!name || names.has(name)) return { ok: false };
+    names.add(name);
+    if (row.source === "series") {
+      out.push({ source: "series", name });
+      continue;
+    }
+    if (row.source !== "custom" || !Array.isArray(row.books) || row.books.length === 0 || row.books.length > DISCOVER_RAIL_BOOKS) {
+      return { ok: false };
+    }
+    const books: string[] = [];
+    const seen = new Set<string>();
+    for (const key of row.books) {
+      if (typeof key !== "string" || !BOOK_KEY.test(key) || seen.has(key)) return { ok: false };
+      seen.add(key);
+      books.push(key);
+    }
+    out.push({ source: "custom", name, books });
+  }
+  return { ok: true, rails: out };
+}
 
 type Railed = {
   kind: "classic" | "list";
@@ -20,11 +58,18 @@ type Railed = {
   lexile: string;
   series: string;
   seriesNumber: number;
+  /** `classic:<id>` or `list:<id>`, used by an admin-picked row. */
+  key?: string;
 };
+
+export type DiscoverRailSpec =
+  | { source: "series"; name: string }
+  | { source: "custom"; name: string; books: string[] };
 
 export type Rail<T> =
   | { id: "classic"; kind: "classic"; rows: T[]; all: T[] }
   | { id: `series:${string}`; kind: "series"; name: string; rows: T[]; all: T[] }
+  | { id: `curated:${string}`; kind: "curated"; name: string; rows: T[]; all: T[] }
   | { id: `band:${DifficultyBand}`; kind: "band"; band: Exclude<DifficultyBand, "unrated">; rows: T[]; all: T[] };
 
 const BANDS = ["under800", "mid", "high"] as const;
@@ -49,11 +94,20 @@ export function compareSeriesPlace(
   return seriesPlace(a) - seriesPlace(b) || a.title.localeCompare(b.title);
 }
 
-export function browseRails<T extends Railed>(books: readonly T[]): Rail<T>[] {
-  const out: Rail<T>[] = [];
-  const classics = books.filter((book) => book.kind === "classic");
-  if (classics.length >= RAIL_MIN) out.push({ id: "classic", kind: "classic", rows: classics.slice(0, RAIL_SIZE), all: classics });
+function booksInOrder<T extends Railed>(books: readonly T[], keys: readonly string[]): T[] {
+  const byKey = new Map<string, T>();
+  for (const book of books) {
+    if (book.key && !byKey.has(book.key)) byKey.set(book.key, book);
+  }
+  const out: T[] = [];
+  for (const key of keys) {
+    const book = byKey.get(key);
+    if (book) out.push(book);
+  }
+  return out;
+}
 
+function automaticSeries<T extends Railed>(books: readonly T[]): Rail<T>[] {
   const bySeries = new Map<string, T[]>();
   for (const book of books) {
     if (!book.series) continue;
@@ -65,9 +119,35 @@ export function browseRails<T extends Railed>(books: readonly T[]): Rail<T>[] {
     .filter(([, list]) => list.length >= SERIES_RAIL_MIN)
     .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]))
     .slice(0, SERIES_RAILS);
-  for (const [name, list] of series) {
+  return series.map(([name, list]) => {
     const all = [...list].sort(compareSeriesPlace);
-    out.push({ id: `series:${name}`, kind: "series", name, rows: all.slice(0, RAIL_SIZE), all });
+    return { id: `series:${name}` as const, kind: "series" as const, name, rows: all.slice(0, RAIL_SIZE), all };
+  });
+}
+
+/**
+ * `specs === null` keeps the automatic series rows. An array, including an
+ * empty one, is the admin's list: those rows, in that order, and no others.
+ */
+export function browseRails<T extends Railed>(books: readonly T[], specs: readonly DiscoverRailSpec[] | null = null): Rail<T>[] {
+  const out: Rail<T>[] = [];
+  const classics = books.filter((book) => book.kind === "classic");
+  if (classics.length >= RAIL_MIN) out.push({ id: "classic", kind: "classic", rows: classics.slice(0, RAIL_SIZE), all: classics });
+
+  if (specs === null) {
+    out.push(...automaticSeries(books));
+  } else {
+    for (const spec of specs) {
+      if (spec.source === "series") {
+        const all = books.filter((book) => book.series === spec.name).sort(compareSeriesPlace);
+        if (all.length === 0) continue;
+        out.push({ id: `series:${spec.name}`, kind: "series", name: spec.name, rows: all.slice(0, RAIL_SIZE), all });
+        continue;
+      }
+      const all = booksInOrder(books, spec.books);
+      if (all.length === 0) continue;
+      out.push({ id: `curated:${spec.name}`, kind: "curated", name: spec.name, rows: all.slice(0, RAIL_SIZE), all });
+    }
   }
 
   for (const band of BANDS) {

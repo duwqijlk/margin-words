@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { useT } from "@/lib/i18n";
+import { useT, type Key } from "@/lib/i18n";
+import { listUpdatedParts, readUpdated } from "@/lib/list-updated";
 import { accountPostRaw } from "@/lib/sync-engine";
 import { BUNDLED_CATALOG_URL } from "@/lib/packs";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
@@ -24,6 +25,21 @@ type PendingFile = {
 
 const NEW_TARGET = "new";
 const ID_PATTERN = /^[a-z0-9][a-z0-9_-]{0,63}$/;
+
+const MONTH_KEY = [
+  "discover.month.1",
+  "discover.month.2",
+  "discover.month.3",
+  "discover.month.4",
+  "discover.month.5",
+  "discover.month.6",
+  "discover.month.7",
+  "discover.month.8",
+  "discover.month.9",
+  "discover.month.10",
+  "discover.month.11",
+  "discover.month.12",
+] as const satisfies readonly Key[];
 
 function normalizeTitle(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
@@ -79,10 +95,25 @@ function booksOf(kind: BookKind, rows: unknown): KnownBook[] {
   const out: KnownBook[] = [];
   for (const item of rows) {
     if (!item || typeof item !== "object") continue;
-    const row = item as { id?: unknown; title?: unknown; author?: unknown; isbn?: unknown };
+    const row = item as {
+      id?: unknown;
+      title?: unknown;
+      author?: unknown;
+      isbn?: unknown;
+      updated?: unknown;
+      previousUpdated?: unknown;
+    };
     const id = textOf(row.id);
     if (!ID_PATTERN.test(id)) continue;
-    out.push({ id, title: textOf(row.title) || id, author: textOf(row.author), isbn: textOf(row.isbn), kind });
+    out.push({
+      id,
+      title: textOf(row.title) || id,
+      author: textOf(row.author),
+      isbn: textOf(row.isbn),
+      kind,
+      updated: readUpdated(row.updated),
+      previousUpdated: readUpdated(row.previousUpdated),
+    });
   }
   return out;
 }
@@ -197,6 +228,15 @@ export function WordListAdmin() {
       for (const file of incoming) byId.set(file.id, file);
       return [...byId.values()];
     });
+  }
+
+  function versionWhen(raw: string): string {
+    const clock = listUpdatedParts(raw);
+    if (!clock) return "";
+    const month = t(MONTH_KEY[clock.month - 1] ?? "discover.month.1");
+    return "hour" in clock
+      ? t("admin.lists.whenAt", { day: clock.day, month, year: clock.year, hour: clock.hour, minute: clock.minute })
+      : t("admin.lists.when", { day: clock.day, month, year: clock.year });
   }
 
   function setTarget(fileId: string, target: string) {
@@ -322,9 +362,23 @@ export function WordListAdmin() {
                       </label>
                     ) : null}
                     {pick && pick !== "new" ? (
-                      <p className="text-xs text-muted" data-admin-list-matched={file.id}>
-                        {t("admin.lists.matched", { title: pick.title, id: pick.id })}
-                      </p>
+                      <div className="grid gap-1" data-admin-list-matched={file.id}>
+                        <p className="text-xs text-muted">{t("admin.lists.matched", { title: pick.title, id: pick.id })}</p>
+                        {pick.updated ? (
+                          <p className="text-xs text-muted" data-admin-list-updated={file.id}>
+                            {t("admin.lists.versionNow", { when: versionWhen(pick.updated) })}
+                          </p>
+                        ) : null}
+                        {pick.previousUpdated ? (
+                          <p className="text-xs text-muted" data-admin-list-previous={file.id}>
+                            {t("admin.lists.versionPrev", { when: versionWhen(pick.previousUpdated) })}
+                          </p>
+                        ) : (
+                          <p className="text-xs text-muted" data-admin-list-previous={file.id}>
+                            {t("admin.lists.versionFirst")}
+                          </p>
+                        )}
+                      </div>
                     ) : null}
                     {pick === "new" && !clash ? <p className="text-xs text-accent">{t("admin.lists.newBook")}</p> : null}
                     {file.preview.ok && pick === "" ? <p className="text-sm text-warn">{t("admin.lists.needBook")}</p> : null}

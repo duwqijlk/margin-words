@@ -85,3 +85,28 @@ test("a new book gets added once, and a new list for it keeps that time", () => 
   assert.equal(again.lists[2].added, "2026-10-05T08:00:00.000Z");
   assert.equal(again.lists[2].updated, "2026-10-12T08:00:00.000Z");
 });
+
+test("replacing a glossary remembers when the previous file was uploaded", () => {
+  const dated = {
+    ...live,
+    lists: live.lists.map((row, index) => (index === 0 ? { ...row, updated: "2026-10-01T00:00:00.000Z" } : row)),
+  };
+  const next = mergeWordListCatalog(
+    dated,
+    {
+      ...dated.lists[0],
+      updated: "2026-10-14T00:00:00.000Z",
+      glossary: { ...dated.lists[0].glossary, sha256: "f".repeat(64) },
+    },
+    "2026-10-14T00:00:00.000Z",
+  );
+  assert.equal(next.lists[0].previousUpdated, "2026-10-01T00:00:00.000Z");
+  assert.equal(next.lists[0].updated, "2026-10-14T00:00:00.000Z");
+  assert.equal(next.lists[1].previousUpdated, undefined);
+  const same = mergeWordListCatalog(
+    next,
+    { ...next.lists[0], updated: "2026-10-15T00:00:00.000Z" },
+    "2026-10-15T00:00:00.000Z",
+  );
+  assert.equal(same.lists[0].previousUpdated, "2026-10-01T00:00:00.000Z");
+});

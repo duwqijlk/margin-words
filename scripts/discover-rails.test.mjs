@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { browseRails, RAIL_SIZE } from "../src/lib/discover-rails.ts";
+import { browseRails, normalizeDiscoverRails, RAIL_SIZE } from "../src/lib/discover-rails.ts";
 
 const book = (title, extra = {}) => ({ kind: "list", title, lexile: "", series: "", seriesNumber: 0, ...extra });
 
@@ -50,4 +50,49 @@ test("a collection with no number sits where its first book is", async () => {
     "Magic Tree House Guide",
   ]);
   assert.equal(seriesPlace({ title: "Books 5 to 8", seriesNumber: 0 }), 4.5);
+});
+
+test("a saved list is the series rows, in that order", () => {
+  const books = [
+    book("MTH 1", { series: "Magic Tree House", seriesNumber: 1, key: "list:mth-1" }),
+    book("MTH 2", { series: "Magic Tree House", seriesNumber: 2, key: "list:mth-2" }),
+    book("MTH 3", { series: "Magic Tree House", seriesNumber: 3, key: "list:mth-3" }),
+    book("James", { key: "list:james" }),
+    book("Matilda", { key: "list:matilda" }),
+  ];
+  const rails = browseRails(books, [
+    { source: "series", name: "Magic Tree House" },
+    { source: "custom", name: "Roald Dahl", books: ["list:matilda", "list:james", "list:missing"] },
+  ]);
+  assert.deepEqual(
+    rails.map((rail) => rail.id),
+    ["series:Magic Tree House", "curated:Roald Dahl"],
+  );
+  assert.deepEqual(rails[1].rows.map((item) => item.title), ["Matilda", "James"]);
+});
+
+test("an empty saved list does not invent a series row", () => {
+  const books = [
+    book("MTH 1", { series: "Magic Tree House", seriesNumber: 1 }),
+    book("MTH 2", { series: "Magic Tree House", seriesNumber: 2 }),
+    book("MTH 3", { series: "Magic Tree House", seriesNumber: 3 }),
+  ];
+  assert.deepEqual(
+    browseRails(books, []).map((rail) => rail.id),
+    [],
+  );
+});
+
+test("a saved row list refuses a repeated name or a bad book key", () => {
+  assert.equal(normalizeDiscoverRails({ rails: [] }).ok, true);
+  assert.equal(
+    normalizeDiscoverRails({
+      rails: [
+        { source: "custom", name: "Roald Dahl", books: ["list:james"] },
+        { source: "custom", name: "Roald Dahl", books: ["list:matilda"] },
+      ],
+    }).ok,
+    false,
+  );
+  assert.equal(normalizeDiscoverRails({ rails: [{ source: "custom", name: "Roald Dahl", books: ["james"] }] }).ok, false);
 });

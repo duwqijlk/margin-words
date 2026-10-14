@@ -5,10 +5,11 @@ import { useT } from "@/lib/i18n";
 import { BooksAdmin } from "@/components/books-admin";
 import { SponsorTab } from "@/components/sponsor-admin";
 import { UsersAdmin } from "@/components/users-admin";
+import { SeriesAdmin } from "@/components/series-admin";
 import { WordListAdmin } from "@/components/wordlist-admin";
 import { btn, Segmented } from "@/components/ui";
 
-type AdminTab = "thanks" | "lists" | "books" | "users";
+type AdminTab = "thanks" | "lists" | "books" | "series" | "users";
 
 /** The /admin page: gift requests, the word-list publisher, whole-book uploads, and user roles. */
 export function AdminPage() {
@@ -38,10 +39,12 @@ export function AdminPage() {
             label={t("admin.title")}
             value={tab}
             onChange={setTab}
+            layout="wrap"
             options={[
               { value: "thanks" as const, label: t("admin.tab.thanks") },
               { value: "lists" as const, label: t("admin.tab.lists") },
               { value: "books" as const, label: t("admin.tab.books") },
+              { value: "series" as const, label: t("admin.tab.series") },
               { value: "users" as const, label: t("admin.tab.users") },
             ]}
           />
@@ -51,6 +54,8 @@ export function AdminPage() {
             <WordListAdmin />
           ) : tab === "books" ? (
             <BooksAdmin />
+          ) : tab === "series" ? (
+            <SeriesAdmin />
           ) : (
             <UsersAdmin />
           )}
