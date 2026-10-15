@@ -1,28 +1,27 @@
-/** How long a finger must stay on a shelf card's menu before that menu opens. */
-export const SHELF_MENU_HOLD_MS = 450;
+/** How long a phone menu stays ready for its second tap. */
+export const SHELF_MENU_ARM_MS = 2500;
 
-export type ShelfArm = "idle" | "wait" | "menu" | "scroll";
+export type ShelfArm = "idle" | "wait" | "armed" | "scroll";
 
-/** A press on the phone menu starts waiting. It is not a menu yet. */
-export function shelfPressDown(): ShelfArm {
-  return "wait";
+/**
+ * A press on the phone menu. The first press only gets ready.
+ * A second press, while that ready state lasts, can open the menu.
+ * A long press is not used: on a phone that gesture selects text.
+ */
+export function shelfPressDown(arm: ShelfArm): ShelfArm {
+  return arm === "armed" ? "armed" : "wait";
 }
 
-/** A finger that slides is a scroll, not a tap and not a hold. */
+/** A finger that slides is a scroll, not either tap. */
 export function shelfPressMove(arm: ShelfArm, distanceSq: number): ShelfArm {
-  if ((arm === "wait" || arm === "menu") && distanceSq > 144) return "scroll";
+  if ((arm === "wait" || arm === "armed") && distanceSq > 144) return "scroll";
   return arm;
 }
 
-/** The hold has lasted long enough. The menu opens when the finger lifts. */
-export function shelfPressHeld(arm: ShelfArm): ShelfArm {
-  return arm === "wait" ? "menu" : arm;
-}
-
-/** What releasing the phone menu does. */
-export function shelfPressRelease(arm: ShelfArm): "menu" | "book" | "none" {
-  if (arm === "menu") return "menu";
-  if (arm === "wait") return "book";
+/** What lifting the finger does. The first tap arms. The second tap opens. */
+export function shelfPressRelease(arm: ShelfArm): "menu" | "arm" | "none" {
+  if (arm === "armed") return "menu";
+  if (arm === "wait") return "arm";
   return "none";
 }
 

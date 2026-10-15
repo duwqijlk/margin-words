@@ -105,6 +105,7 @@ export const zh: Record<Key, string> = {
   "shelf.progressFor": "《{title}》的阅读进度",
   "shelf.openAria": "打开《{title}》",
   "shelf.moreAria": "《{title}》的更多操作",
+  "shelf.moreAgain": "再点一次",
   "shelf.menuWords": "这本书的生词",
   "shelf.menuAddList": "添加词表",
   "shelf.menuEdit": "修改书名",
