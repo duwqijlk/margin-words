@@ -58,6 +58,40 @@ test("a file with no title still updates the book named by the file", () => {
   assert.equal(match && match.id, "educated-lite");
 });
 
+test("an edition label matches the book by title", () => {
+  const light = {
+    id: "all-the-light-we-cannot-see",
+    title: "All the Light We Cannot See",
+    author: "Anthony Doerr",
+    isbn: "9781476746586",
+    kind: "lists",
+  };
+  const match = matchGlossaryBook([light], {
+    fileId: "all_the_light_we_cannot_see",
+    title: "All the Light We Cannot See: A Novel",
+    author: "Anthony Doerr",
+    isbn: "",
+  });
+  assert.equal(match && match.id, "all-the-light-we-cannot-see");
+});
+
+test("a real subtitle does not match the shorter title", () => {
+  const games = {
+    id: "hunger-games",
+    title: "The Hunger Games",
+    author: "Suzanne Collins",
+    isbn: "",
+    kind: "lists",
+  };
+  const match = matchGlossaryBook([games], {
+    fileId: "catching-fire",
+    title: "The Hunger Games: Catching Fire",
+    author: "Suzanne Collins",
+    isbn: "",
+  });
+  assert.equal(match, null);
+});
+
 test("an ISBN matches when the title does not", () => {
   const match = matchGlossaryBook(books, {
     fileId: "westover-notes",
