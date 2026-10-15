@@ -10,7 +10,7 @@ import {
   Search,
   Trash2,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { listPackRecords, type PackRecord } from "@/lib/book-db";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import { updateInstalledBooks, useListUpdates } from "@/lib/word-list-update";
@@ -29,7 +29,7 @@ import { bookHasUserWork } from "@/lib/shelf-work";
 import { bookSyncKey } from "@/lib/sync-merge";
 import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
-import { SHELF_MENU_HOLD_MS, shelfPressDown, shelfPressHeld, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
+import { SHELF_MENU_ARM_MS, shelfPressDown, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
 import { BookCover } from "@/components/book-cover";
 import { navigate } from "@/lib/router";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
@@ -375,13 +375,22 @@ function BookCard({
   onAddList: () => void;
   onRename: () => void;
   onUpdate: () => void;
-  /** On a phone a short tap opens the book. The menu opens only after a hold. */
+  /** On a phone the menu opens on a second tap. A long press does not open it. */
   phoneMenu: boolean;
 }) {
   const { t } = useT();
   const { book } = row;
+  const hintId = useId();
   const [menuOpen, setMenuOpen] = useState(false);
-  const press = useRef({ arm: "idle" as "idle" | "wait" | "menu" | "scroll", x: 0, y: 0, timer: 0 });
+  const [armed, setArmed] = useState(false);
+  const press = useRef({
+    arm: "idle" as "idle" | "wait" | "armed" | "scroll",
+    x: 0,
+    y: 0,
+    timer: 0,
+    suppress: false,
+  });
+  useEffect(() => () => window.clearTimeout(press.current.timer), []);
   const pct = Math.round(row.fraction * 100);
   return (
     <li className={bookCardShell}>
@@ -446,50 +455,81 @@ function BookCard({
           </button>
           <Menu.Root open={menuOpen} onOpenChange={setMenuOpen}>
             <Menu.Trigger
-              className="relative inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-accent-soft hover:text-ink sm:-mr-2.5"
+              className={cn(
+                "relative inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-lg text-muted select-none hover:bg-accent-soft hover:text-ink sm:-mr-2.5 [-webkit-touch-callout:none]",
+                armed && "bg-accent-soft text-ink",
+              )}
               aria-label={t("shelf.moreAria", { title: book.title })}
+              aria-describedby={armed ? hintId : undefined}
               data-shelf-more={offer ? "update" : "menu"}
-              data-shelf-hold={phoneMenu ? "" : undefined}
+              data-shelf-arm={armed ? "" : undefined}
               onPointerDown={(event) => {
                 if (!phoneMenu || menuOpen || event.button !== 0) return;
+                // Keep the browser from starting a text selection or opening on this press.
                 event.preventDefault();
+                event.currentTarget.setPointerCapture(event.pointerId);
                 window.clearTimeout(press.current.timer);
-                press.current.arm = shelfPressDown();
+                press.current.suppress = false;
+                press.current.arm = shelfPressDown(press.current.arm);
                 press.current.x = event.clientX;
                 press.current.y = event.clientY;
-                press.current.timer = window.setTimeout(() => {
-                  press.current.arm = shelfPressHeld(press.current.arm);
-                }, SHELF_MENU_HOLD_MS);
               }}
               onPointerMove={(event) => {
-                if (press.current.arm !== "wait" && press.current.arm !== "menu") return;
+                if (press.current.arm !== "wait" && press.current.arm !== "armed") return;
                 const dx = event.clientX - press.current.x;
                 const dy = event.clientY - press.current.y;
-                const next = shelfPressMove(press.current.arm, dx * dx + dy * dy);
-                if (next !== press.current.arm) window.clearTimeout(press.current.timer);
-                press.current.arm = next;
+                press.current.arm = shelfPressMove(press.current.arm, dx * dx + dy * dy);
               }}
               onPointerUp={() => {
+                if (press.current.suppress) {
+                  press.current.suppress = false;
+                  press.current.arm = "idle";
+                  setArmed(false);
+                  return;
+                }
                 if (press.current.arm === "idle") return;
-                window.clearTimeout(press.current.timer);
                 const action = shelfPressRelease(press.current.arm);
+                if (action === "menu") {
+                  press.current.arm = "idle";
+                  setArmed(false);
+                  setMenuOpen(true);
+                  return;
+                }
+                if (action === "arm") {
+                  press.current.arm = "armed";
+                  setArmed(true);
+                  press.current.timer = window.setTimeout(() => {
+                    if (press.current.arm !== "armed") return;
+                    press.current.arm = "idle";
+                    setArmed(false);
+                  }, SHELF_MENU_ARM_MS);
+                  return;
+                }
                 press.current.arm = "idle";
-                if (action === "menu") setMenuOpen(true);
-                else if (action === "book") onOpen();
+                setArmed(false);
               }}
               onPointerCancel={() => {
                 window.clearTimeout(press.current.timer);
                 press.current.arm = "idle";
+                press.current.suppress = false;
+                setArmed(false);
               }}
               onContextMenu={(event) => {
                 if (!phoneMenu) return;
+                // A long press selects text on a phone. It does not open this menu.
                 event.preventDefault();
                 window.clearTimeout(press.current.timer);
+                press.current.suppress = true;
                 press.current.arm = "idle";
-                setMenuOpen(true);
+                setArmed(false);
               }}
             >
               <MoreVertical className="size-4" aria-hidden />
+              {armed ? (
+                <span id={hintId} className="sr-only">
+                  {t("shelf.moreAgain")}
+                </span>
+              ) : null}
               {offer ? <span className="absolute top-2 right-2 size-2 rounded-full bg-accent" data-shelf-update-dot="" /> : null}
             </Menu.Trigger>
             <Menu.Portal>

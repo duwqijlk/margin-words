@@ -202,6 +202,10 @@ async function run(lang, size) {
       await dialog.getByRole("button", { name: t("discover.removeConfirm"), exact: true }).click();
   };
   const overflow = () => page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
+  const openShelfMenu = async (button) => {
+    await button.click();
+    if (mobile) await button.click();
+  };
   const addBtn = () => page.getByRole("button", { name: t("shelf.add"), exact: true }).first();
   const alertText = async () => (await page.locator('[role="alert"]').allInnerTexts()).join(" | ");
   const setFile = (file) => page.locator("#pack-file").setInputFiles(file);
@@ -277,16 +281,7 @@ async function run(lang, size) {
   await toShelf(page);
   await page.locator("ul li").first().waitFor();
   const more = page.getByRole("button", { name: labelRe(t("shelf.moreAria"), "Alice") }).first();
-  if (mobile) {
-    const box = await more.boundingBox();
-    if (!box) throw new Error("shelf menu missing");
-    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-    await page.mouse.down();
-    await page.waitForTimeout(520);
-    await page.mouse.up();
-  } else {
-    await more.click();
-  }
+  await openShelfMenu(more);
   await removeFromMenu(page);
   await page.locator("[data-empty-discover]").waitFor({ timeout: 15000 });
   await page.waitForTimeout(800);
@@ -307,7 +302,7 @@ async function run(lang, size) {
   // delete the rest: the empty shelf, which the rest of this test starts from
   while ((await page.locator("ul li").count()) > 0) {
     const left = await page.locator("ul li").count();
-    await page.locator("ul li").first().locator("button").last().click();
+    await openShelfMenu(page.locator("ul li").first().locator("button").last());
     await removeFromMenu(page);
     await page.waitForFunction(
       (n) => document.querySelectorAll("ul li").length === n,
@@ -449,7 +444,7 @@ async function run(lang, size) {
   await page.locator("ul li").first().waitFor({ timeout: 20000 });
   ok((await page.locator("ul li").count()) === 1, `${label}: the e-book attaches to the word-list card`);
   ok((await page.locator("[data-needs-epub]").count()) === 0, `${label}: the card no longer asks for an e-book`);
-  await page.locator("ul li").first().locator("button").last().click();
+  await openShelfMenu(page.locator("ul li").first().locator("button").last());
   await removeFromMenu(page);
   await page.locator("[data-empty-discover]").waitFor({ timeout: 15000 });
   for (const id of [

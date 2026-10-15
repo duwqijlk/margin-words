@@ -2,9 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   readingPageTap,
-  SHELF_MENU_HOLD_MS,
+  SHELF_MENU_ARM_MS,
   shelfPressDown,
-  shelfPressHeld,
   shelfPressMove,
   shelfPressRelease,
 } from "../src/lib/phone-gestures.ts";
@@ -23,17 +22,16 @@ test("a wider screen can switch to another word while a card is open", () => {
   assert.equal(readingPageTap({ phone: false, cardOpen: true, hitWord: true }), "open");
 });
 
-test("a short press on the phone shelf menu opens the book", () => {
-  assert.equal(shelfPressRelease(shelfPressDown()), "book");
+test("the first phone tap arms the shelf menu and does not open it", () => {
+  assert.equal(shelfPressRelease(shelfPressDown("idle")), "arm");
 });
 
-test("holding the phone shelf menu opens the menu when the finger lifts", () => {
-  assert.equal(shelfPressRelease(shelfPressHeld(shelfPressDown())), "menu");
+test("the second phone tap opens the shelf menu", () => {
+  assert.equal(shelfPressRelease(shelfPressDown("armed")), "menu");
 });
 
-test("sliding off the phone shelf menu does nothing", () => {
-  const slid = shelfPressMove(shelfPressHeld(shelfPressDown()), 145);
-  assert.equal(slid, "scroll");
-  assert.equal(shelfPressRelease(slid), "none");
-  assert.ok(SHELF_MENU_HOLD_MS >= 400);
+test("a slide does not arm or open the shelf menu", () => {
+  assert.equal(shelfPressRelease(shelfPressMove(shelfPressDown("idle"), 145)), "none");
+  assert.equal(shelfPressRelease(shelfPressMove(shelfPressDown("armed"), 145)), "none");
+  assert.ok(SHELF_MENU_ARM_MS >= 1000);
 });

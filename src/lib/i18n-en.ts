@@ -103,6 +103,7 @@ export const en = {
   "shelf.progressFor": "Reading progress for “{title}”",
   "shelf.openAria": "Open “{title}”",
   "shelf.moreAria": "More actions for “{title}”",
+  "shelf.moreAgain": "Tap again",
   "shelf.menuWords": "Words from this book",
   "shelf.menuAddList": "Add word list",
   "shelf.menuEdit": "Edit title",
