@@ -3,7 +3,6 @@ import * as Popover from "@radix-ui/react-popover";
 import {
   ArrowLeft,
   BookMarked,
-  BookOpen,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -17,7 +16,9 @@ import {
   Type,
   X,
 } from "lucide-react";
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import longmanLogo from "@/assets/longman-logo.svg";
+import merriamWebsterLogo from "@/assets/merriam-webster-logo.png";
 import { loadBookExtras, loadBookMeta, loadStoredBook, type Gloss, type StoredBook } from "@/lib/book-db";
 import { readingSlots } from "@/lib/epub";
 import { phrasePoint, pointFromEntry } from "@/lib/gloss-ref";
@@ -395,29 +396,77 @@ function Contents({
 
 /* ------------------------------------------------------------------ word card */
 
-function WordFacts({ stat, current }: { stat: WordStat | undefined; current: string }) {
+/** One quiet quote: a small optional label and a serif line with a thin left rule. Every quote on the card shares this one style. */
+function CardQuote({
+  label,
+  part,
+  children,
+}: {
+  label?: string;
+  part?: string;
+  children: ReactNode;
+}) {
+  return (
+    <figure className="grid gap-0.5 border-l-2 border-line pl-3" {...(part ? { "data-part": part } : {})}>
+      {label ? (
+        <figcaption className="text-[0.7rem] font-semibold tracking-wide text-muted uppercase">
+          {label}
+        </figcaption>
+      ) : null}
+      <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/85">
+        {children}
+      </blockquote>
+    </figure>
+  );
+}
+
+function WordFacts({
+  stat,
+  current,
+  suppressQuote = false,
+}: {
+  stat: WordStat | undefined;
+  current: string;
+  /** true when the word list already shows an example: a second "another sentence" would only repeat the card */
+  suppressQuote?: boolean;
+}) {
   const { t, tn } = useT();
   if (!stat) return null;
-  const others = stat.sentences.filter((sentence) => sentence !== current).slice(0, 1);
+  const others = suppressQuote ? [] : stat.sentences.filter((sentence) => sentence !== current).slice(0, 1);
+  const other = others[0];
+  const facts = (
+    <>
+      {tn("facts.seen", stat.count)}
+      {stat.chapters > 1 ? t("facts.chapters", { n: stat.chapters }) : ""}
+      {stat.forms.length > 1 ? (
+        <>
+          {t("facts.forms")}
+          <span lang="en">
+            {stat.forms.map((form) => `${form.form} ×${form.count}`).join(", ")}
+          </span>
+        </>
+      ) : null}
+    </>
+  );
   return (
-    <div className="grid gap-2 border-t border-line pt-3 text-sm text-muted">
-      <p>
-        {tn("facts.seen", stat.count)}
-        {stat.chapters > 1 ? t("facts.chapters", { n: stat.chapters }) : ""}
-        {stat.forms.length > 1 ? (
-          <>
-            {t("facts.forms")}
-            <span lang="en">
-              {stat.forms.map((form) => `${form.form} ×${form.count}`).join(", ")}
-            </span>
-          </>
-        ) : null}
-      </p>
-      {others.map((sentence) => (
-        <p key={sentence} lang="en" className="italic">
-          “{sentence}”
-        </p>
-      ))}
+    <div className="text-xs leading-relaxed text-muted">
+      {other ? (
+        // The count line is the toggle: one quiet row, and the book's other sentence opens under it.
+        <details className="group">
+          <summary className="flex min-h-9 cursor-pointer list-none items-center gap-1 select-none marker:hidden hover:text-ink">
+            <ChevronRight
+              className="size-3 shrink-0 transition-transform group-open:rotate-90"
+              aria-hidden
+            />
+            <span>{facts}</span>
+          </summary>
+          <CardQuote>
+            <span lang="en">“{other}”</span>
+          </CardQuote>
+        </details>
+      ) : (
+        <p>{facts}</p>
+      )}
     </div>
   );
 }
@@ -425,7 +474,7 @@ function WordFacts({ stat, current }: { stat: WordStat | undefined; current: str
 function OtherMeanings({ items }: { items: OtherMeaning[] }) {
   const { t, tn } = useT();
   return (
-    <details className="group rounded-lg border border-line px-3 py-2 text-sm">
+    <details className="group rounded-lg bg-paper px-3 py-2 text-sm">
       <summary className="cursor-pointer list-none font-semibold text-muted select-none marker:hidden hover:text-ink">
         <span className="inline-flex items-center gap-1.5">
           <ChevronRight
@@ -538,27 +587,34 @@ const LOOKUP_LABEL = {
   images: "card.look.images",
 } as const satisfies Record<LookupSite, Key>;
 
-/** Longman, Merriam-Webster and Bing pictures for the word. Plain links: a new tab, nothing fetched here. */
+/** Longman, Merriam-Webster and Bing pictures for the word. Plain links: a new tab, nothing fetched here.
+ *  Three tiles of one size, each in its brand's own plate (Longman's white mark needs its header blue);
+ *  the name rides on the tooltip and the aria label. */
 function LookupLinks({ word }: { word: string }) {
   const { t } = useT();
   return (
-    <nav className="grid grid-cols-3 gap-1.5" aria-label={t("card.lookAria", { word })} data-word-lookup>
+    <nav className="flex items-center gap-1.5" aria-label={t("card.lookAria", { word })} data-word-lookup>
       {LOOKUP_SITES.map((site) => (
         <a
           key={site}
           href={lookupUrl(site, word)}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-10 min-w-0 items-center justify-center gap-1 rounded-lg border border-line px-1.5 text-[0.8rem] font-semibold whitespace-nowrap text-ink transition-colors hover:border-accent/50 hover:bg-accent-soft hover:text-accent"
+          className={cn(
+            "grid h-9 w-16 place-items-center rounded-lg transition-opacity hover:opacity-80",
+            site === "longman" ? "bg-[#314089]" : "border border-line bg-card",
+          )}
           aria-label={t("card.lookOne", { site: t(LOOKUP_LABEL[site]), word })}
+          title={t(LOOKUP_LABEL[site])}
           data-lookup={site}
         >
-          {site === "images" ? (
-            <ImageIcon className="size-3.5 shrink-0 text-accent" strokeWidth={1.75} aria-hidden />
+          {site === "longman" ? (
+            <img src={longmanLogo} alt="" className="h-5 w-auto" aria-hidden />
+          ) : site === "webster" ? (
+            <img src={merriamWebsterLogo} alt="" className="h-7 w-7" aria-hidden />
           ) : (
-            <BookOpen className="size-3.5 shrink-0 text-accent" strokeWidth={1.75} aria-hidden />
+            <ImageIcon className="size-5 text-accent" strokeWidth={1.75} aria-hidden />
           )}
-          <span className="truncate">{t(LOOKUP_LABEL[site])}</span>
         </a>
       ))}
     </nav>
@@ -613,7 +669,7 @@ function WordCard({
   const { t } = useT();
   const showForm = state.key !== state.surface.toLowerCase();
   const lookup = phrase ? phrase.key : state.key;
-  const meaningBlock =
+  const noMeaning =
     state.status === "unknown" ? (
       <p
         className="rounded-lg bg-accent-soft px-3 py-2.5 text-[0.95rem] leading-snug"
@@ -623,9 +679,23 @@ function WordCard({
         {t("card.noMeaning")}
         {noList ? <span className="mt-1 block text-muted">{t("card.noList")}</span> : null}
       </p>
-    ) : (
+    ) : null;
+  /** The word's own meaning inside the phrase card's "alone" box: secondary there, so smaller. */
+  const meaningBlock =
+    noMeaning ?? (
       <p
         className="border-l-[3px] border-accent pl-3 text-[1.14rem] leading-snug font-medium text-ink"
+        lang="en"
+        data-part="word-meaning"
+      >
+        {state.meaning}
+      </p>
+    );
+  /** The hero of the plain word card: the meaning is the point, so it is the largest text after the word. */
+  const heroMeaning =
+    noMeaning ?? (
+      <p
+        className="border-l-[3px] border-accent pl-3 text-[1.3rem] leading-snug font-medium text-ink"
         lang="en"
         data-part="word-meaning"
       >
@@ -669,7 +739,7 @@ function WordCard({
           <div className="grid min-w-0 flex-1 gap-0.5 pt-0.5">
             <div className="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-1">
               <h2
-                className="min-w-0 font-display text-[1.75rem] leading-tight font-semibold tracking-tight break-words"
+                className="min-w-0 font-display text-[2rem] leading-tight font-semibold tracking-tight break-words"
                 lang="en"
               >
                 {lookup}
@@ -705,7 +775,7 @@ function WordCard({
         {phrase ? (
           <>
             <p
-              className="border-l-[3px] border-accent pl-3 text-[1.14rem] leading-snug font-medium text-ink"
+              className="border-l-[3px] border-accent pl-3 text-[1.3rem] leading-snug font-medium text-ink"
               lang="en"
               data-part="phrase-meaning"
             >
@@ -713,7 +783,7 @@ function WordCard({
             </p>
             {phrase.entry.here ? <SceneLine text={phrase.entry.here} /> : null}
             <section
-              className="grid gap-1.5 rounded-lg border border-line px-3 py-2.5"
+              className="grid gap-1.5 rounded-lg bg-paper px-3 py-2.5"
               aria-label={t("card.alone")}
               data-part="word-alone"
             >
@@ -736,68 +806,82 @@ function WordCard({
           </>
         ) : (
           <>
-            {meaningBlock}
+            {heroMeaning}
             {state.here ? <SceneLine text={state.here} /> : null}
             {state.coined ? <CoinedBadge /> : null}
             <LookupLinks word={state.key} />
           </>
         )}
 
-        {state.sentence ? (
-          <figure className="grid gap-1 rounded-lg bg-paper px-3 py-2.5">
-            <figcaption className="text-[0.7rem] font-semibold tracking-wide text-muted uppercase">
-              {t("card.sentenceFrom")}
-            </figcaption>
-            <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/85">
-              <Highlighted
-                sentence={state.sentence}
-                surface={phrase ? phrase.matched : state.surface}
-              />
-            </blockquote>
-          </figure>
-        ) : null}
+        {state.sentence ||
+        state.example ||
+        (state.whyHard && state.ready && state.status === "ready") ||
+        (state.others && state.others.length > 0 && state.status === "ready") ||
+        stat ? (
+          <div className="grid gap-3 border-t border-line/70 pt-3" data-part="word-more">
+            {state.sentence ? (
+              <details className="group rounded-lg bg-paper px-3 py-2 text-sm">
+                <summary className="cursor-pointer list-none font-semibold text-muted select-none marker:hidden hover:text-ink">
+                  <span className="inline-flex items-center gap-1.5">
+                    <ChevronRight
+                      className="size-3.5 transition-transform group-open:rotate-90"
+                      aria-hidden
+                    />
+                    {t("card.sentenceFrom")}
+                  </span>
+                </summary>
+                <div className="mt-2 grid gap-2.5">
+                  <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/85">
+                    <Highlighted
+                      sentence={state.sentence}
+                      surface={phrase ? phrase.matched : state.surface}
+                    />
+                  </blockquote>
+                  <ExplainSentence
+                    key={`${noteChapter ?? chapter}|${state.sentence}`}
+                    bookId={bookId}
+                    chapter={noteChapter ?? chapter}
+                    sentence={state.fullSentence || state.sentence}
+                  />
+                </div>
+              </details>
+            ) : null}
 
-        {state.sentence ? (
-          <ExplainSentence
-            key={`${noteChapter ?? chapter}|${state.sentence}`}
-            bookId={bookId}
-            chapter={noteChapter ?? chapter}
-            sentence={state.fullSentence || state.sentence}
-          />
-        ) : null}
+            {state.example ? (
+              <CardQuote label={t("card.example")} part="example">
+                <Highlighted sentence={state.example} surface={state.surface} />
+              </CardQuote>
+            ) : null}
 
-        {state.example ? (
-          <figure className="grid gap-1 border-l-2 border-line pl-3" data-part="example">
-            <figcaption className="text-xs font-semibold text-muted">
-              {t("card.example")}
-            </figcaption>
-            <blockquote className="font-display text-[0.95rem] leading-relaxed">
-              <Highlighted sentence={state.example} surface={state.surface} />
-            </blockquote>
-          </figure>
-        ) : null}
+            {state.whyHard && state.ready && state.status === "ready" ? (
+              <p className="text-sm text-muted" lang="en">
+                {state.whyHard}
+              </p>
+            ) : null}
 
-        {state.whyHard && state.ready && state.status === "ready" ? (
-          <p className="text-sm text-muted" lang="en">
-            {state.whyHard}
-          </p>
-        ) : null}
+            {state.others && state.others.length > 0 && state.status === "ready" ? (
+              <OtherMeanings items={state.others} />
+            ) : null}
 
-        {state.others && state.others.length > 0 && state.status === "ready" ? (
-          <OtherMeanings items={state.others} />
+            <WordFacts stat={stat} current={state.sentence} suppressQuote={Boolean(state.example)} />
+          </div>
         ) : null}
-
-        <WordFacts stat={stat} current={state.sentence} />
 
         <div
           className={cn(
-            // The main action stays in view while the card scrolls.
-            "sticky bottom-0 z-10 -mx-5 grid bg-card px-5 pt-2 pb-[max(1.25rem,env(safe-area-inset-bottom))] md:pb-5",
+            // The main action stays in view while the card scrolls. Slimmer than a page button:
+            // the card is a small overlay and the save does not need to shout.
+            "sticky bottom-0 z-10 -mx-5 grid bg-card px-5 pt-1.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:pb-4",
           )}
         >
           <button
             type="button"
-            className={saved ? btn.quiet : btn.primary}
+            className={cn(
+              "inline-flex min-h-10 w-full select-none items-center justify-center gap-1.5 rounded-lg px-4 text-sm font-semibold transition-[background-color,opacity,transform] duration-150 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100",
+              saved
+                ? "border border-line bg-card text-ink hover:bg-accent-soft"
+                : "bg-accent text-accent-ink shadow-[0_1px_0_rgb(0_0_0/0.18)] hover:opacity-90",
+            )}
             disabled={!saved && !canSave}
             onClick={onToggle}
             aria-pressed={saved}

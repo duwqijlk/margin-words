@@ -388,7 +388,7 @@ export function ExplainSentence({
           {t("hp.explain")}
         </button>
       ) : (
-        <div ref={box} className="grid gap-2.5 rounded-lg border border-line px-3 py-2.5">
+        <div ref={box} className="grid gap-2.5 border-t border-line/70 pt-2.5">
           <span className="text-xs font-semibold text-muted">{t("hp.explain")}</span>
           <section className="grid gap-0.5" aria-label={t("hp.easier")}>
             <h4 className="text-xs font-semibold text-muted">{t("hp.easier")}</h4>
