@@ -340,6 +340,28 @@ async function panel(label, size) {
     await page.keyboard.press("Escape");
     await page.locator("[data-word-card]").waitFor({ state: "hidden" });
   }
+  if (phone && count > 1) {
+    await words.nth(0).scrollIntoViewIfNeeded();
+    await words.nth(0).click();
+    await page.locator("[data-word-card]").waitFor();
+    const tapped = await page.evaluate(() => {
+      const sheet = document.querySelector("[data-word-card]");
+      if (!sheet) return false;
+      const limit = sheet.getBoundingClientRect().top;
+      const hit = [...document.querySelectorAll("article.book-body button[data-word]")].find((button) => {
+        const box = button.getBoundingClientRect();
+        return box.width > 0 && box.top >= 0 && box.bottom < limit - 2;
+      });
+      if (!hit) return false;
+      hit.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+      return true;
+    });
+    ok(tapped, `${label}: a word above the open sheet can be tapped`);
+    if (tapped) {
+      await page.locator("[data-word-card]").waitFor({ state: "hidden" });
+      ok(true, `${label}: that tap closes the sheet instead of switching words`);
+    }
+  }
   if (!wide) {
     const first = JSON.stringify(seen[0].card.slice(0, 3));
     ok(seen.every((s) => JSON.stringify(s.card.slice(0, 3)) === first), `${label}: the panel is in the same place for every tapped word (${seen[0].card.slice(0, 3)})`);
