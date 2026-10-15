@@ -276,10 +276,17 @@ async function run(lang, size) {
   // delete Alice: it stays deleted after a reload (and after another start)
   await toShelf(page);
   await page.locator("ul li").first().waitFor();
-  await page
-    .getByRole("button", { name: labelRe(t("shelf.moreAria"), "Alice") })
-    .first()
-    .click();
+  const more = page.getByRole("button", { name: labelRe(t("shelf.moreAria"), "Alice") }).first();
+  if (mobile) {
+    const box = await more.boundingBox();
+    if (!box) throw new Error("shelf menu missing");
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.mouse.down();
+    await page.waitForTimeout(520);
+    await page.mouse.up();
+  } else {
+    await more.click();
+  }
   await removeFromMenu(page);
   await page.locator("[data-empty-discover]").waitFor({ timeout: 15000 });
   await page.waitForTimeout(800);

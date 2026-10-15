@@ -65,7 +65,8 @@ import {
 } from "@/lib/text";
 import { useVocab } from "@/lib/vocab-store";
 import { flowCutOffsets, flowPoint, flowText, flowTextBefore } from "@/lib/flow-text";
-import { FloatingAside } from "@/components/floating-card";
+import { FloatingAside, phoneSheet } from "@/components/floating-card";
+import { readingPageTap } from "@/lib/phone-gestures";
 import { MissingBook } from "@/components/missing-book";
 import { READER_GUTTER, SIDE_PANEL } from "@/components/side-panel";
 import {
@@ -1871,12 +1872,14 @@ export function ReaderScreen({
             onClick={(event) => {
               event.preventDefault();
               const button = (event.target as HTMLElement).closest("button[data-word]");
-              if (!button) {
+              // On a phone the open sheet sits over the page. A tap on the text, even on
+              // another word, puts the sheet away. It does not switch the card.
+              if (readingPageTap({ phone: phoneSheet(), cardOpen: picked !== null, hitWord: Boolean(button) }) === "close") {
                 setPicked(null);
                 closeHelp();
                 return;
               }
-              pickButton(button);
+              if (button) pickButton(button);
             }}
             dangerouslySetInnerHTML={{ __html: linkedHtml }}
           />

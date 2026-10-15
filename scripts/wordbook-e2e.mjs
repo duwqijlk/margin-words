@@ -316,7 +316,17 @@ async function scenario(lang, size) {
   const wordsBefore = (await store()).words.length;
   await page.goto(at("shelf"));
   const moreAria = (title) => t("shelf.moreAria").replace("{title}", title);
-  await page.getByRole("button", { name: moreAria("Alice's Adventures in Wonderland") }).first().click();
+  const more = page.getByRole("button", { name: moreAria("Alice's Adventures in Wonderland") }).first();
+  if (mobile) {
+    const box = await more.boundingBox();
+    if (!box) throw new Error("shelf menu missing");
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.mouse.down();
+    await page.waitForTimeout(520);
+    await page.mouse.up();
+  } else {
+    await more.click();
+  }
   await page.getByRole("menuitem", { name: t("discover.remove") }).click();
   const dialog = page.getByRole("alertdialog");
   if (await dialog.waitFor({ timeout: 1500 }).then(() => true, () => false)) {

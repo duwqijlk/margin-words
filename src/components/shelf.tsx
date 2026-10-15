@@ -10,7 +10,7 @@ import {
   Search,
   Trash2,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { listPackRecords, type PackRecord } from "@/lib/book-db";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import { updateInstalledBooks, useListUpdates } from "@/lib/word-list-update";
@@ -29,6 +29,7 @@ import { bookHasUserWork } from "@/lib/shelf-work";
 import { bookSyncKey } from "@/lib/sync-merge";
 import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
+import { SHELF_MENU_HOLD_MS, shelfPressDown, shelfPressHeld, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
 import { BookCover } from "@/components/book-cover";
 import { navigate } from "@/lib/router";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
@@ -333,6 +334,21 @@ function EmptyShelf({ onDiscover }: { onDiscover: () => void }) {
 const menuItem =
   "flex min-h-11 cursor-pointer items-center gap-2.5 rounded-lg px-3 text-sm outline-none data-[highlighted]:bg-accent-soft";
 
+/** Phones use a 3-column shelf. A passing touch on the corner menu must not open it. */
+const PHONE_SHELF_QUERY = "(max-width: 639px)";
+
+function usePhoneShelf(): boolean {
+  return useSyncExternalStore(
+    (onChange) => {
+      const query = window.matchMedia(PHONE_SHELF_QUERY);
+      query.addEventListener("change", onChange);
+      return () => query.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia(PHONE_SHELF_QUERY).matches,
+    () => false,
+  );
+}
+
 function BookCard({
   row,
   cover,
@@ -345,6 +361,7 @@ function BookCard({
   onAddList,
   onRename,
   onUpdate,
+  phoneMenu,
 }: {
   row: Row;
   cover?: string;
@@ -358,9 +375,13 @@ function BookCard({
   onAddList: () => void;
   onRename: () => void;
   onUpdate: () => void;
+  /** On a phone a short tap opens the book. The menu opens only after a hold. */
+  phoneMenu: boolean;
 }) {
   const { t } = useT();
   const { book } = row;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const press = useRef({ arm: "idle" as "idle" | "wait" | "menu" | "scroll", x: 0, y: 0, timer: 0 });
   const pct = Math.round(row.fraction * 100);
   return (
     <li className={bookCardShell}>
@@ -423,11 +444,50 @@ function BookCard({
           >
             {book.title}
           </button>
-          <Menu.Root>
+          <Menu.Root open={menuOpen} onOpenChange={setMenuOpen}>
             <Menu.Trigger
               className="relative inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-accent-soft hover:text-ink sm:-mr-2.5"
               aria-label={t("shelf.moreAria", { title: book.title })}
               data-shelf-more={offer ? "update" : "menu"}
+              data-shelf-hold={phoneMenu ? "" : undefined}
+              onPointerDown={(event) => {
+                if (!phoneMenu || menuOpen || event.button !== 0) return;
+                event.preventDefault();
+                window.clearTimeout(press.current.timer);
+                press.current.arm = shelfPressDown();
+                press.current.x = event.clientX;
+                press.current.y = event.clientY;
+                press.current.timer = window.setTimeout(() => {
+                  press.current.arm = shelfPressHeld(press.current.arm);
+                }, SHELF_MENU_HOLD_MS);
+              }}
+              onPointerMove={(event) => {
+                if (press.current.arm !== "wait" && press.current.arm !== "menu") return;
+                const dx = event.clientX - press.current.x;
+                const dy = event.clientY - press.current.y;
+                const next = shelfPressMove(press.current.arm, dx * dx + dy * dy);
+                if (next !== press.current.arm) window.clearTimeout(press.current.timer);
+                press.current.arm = next;
+              }}
+              onPointerUp={() => {
+                if (press.current.arm === "idle") return;
+                window.clearTimeout(press.current.timer);
+                const action = shelfPressRelease(press.current.arm);
+                press.current.arm = "idle";
+                if (action === "menu") setMenuOpen(true);
+                else if (action === "book") onOpen();
+              }}
+              onPointerCancel={() => {
+                window.clearTimeout(press.current.timer);
+                press.current.arm = "idle";
+              }}
+              onContextMenu={(event) => {
+                if (!phoneMenu) return;
+                event.preventDefault();
+                window.clearTimeout(press.current.timer);
+                press.current.arm = "idle";
+                setMenuOpen(true);
+              }}
             >
               <MoreVertical className="size-4" aria-hidden />
               {offer ? <span className="absolute top-2 right-2 size-2 rounded-full bg-accent" data-shelf-update-dot="" /> : null}
@@ -539,6 +599,7 @@ export function Shelf({
   const { t } = useT();
   const progress = useProgress((state) => state.items);
   const pendingId = useShelfRemove((state) => state.pending?.bookId ?? "");
+  const phoneMenu = usePhoneShelf();
   const classicIds = useClassicBookIds(books.map((book) => book.id).join("|"));
   const installingClassics = useClassicsRunning((state) => state.running);
   const [query, setQuery] = useState("");
@@ -667,6 +728,7 @@ export function Shelf({
       onAddList={() => onAddList(row.book.id)}
       onRename={() => setRenaming(row.book)}
       onUpdate={() => updateBook(row.book.id)}
+      phoneMenu={phoneMenu}
     />
   );
   const waitingRows = useMemo(

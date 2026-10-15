@@ -5,6 +5,7 @@ import { compareListStamps, listUpdatedStamp, readUpdated } from "@/lib/list-upd
 import { accountPostRaw } from "@/lib/sync-engine";
 import { BUNDLED_CATALOG_URL } from "@/lib/packs";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
+import { normalizeTitle } from "@/lib/book-title";
 import { bookKey, matchGlossaryBook, type BookKind, type KnownBook } from "@/lib/glossary-target";
 import { btn, cn, field, selectCls } from "@/components/ui";
 
@@ -28,10 +29,6 @@ const NEW_TARGET = "new";
 const ID_PATTERN = /^[a-z0-9][a-z0-9_-]{0,63}$/;
 type RowNote = { tone: "ok" | "warn"; text: string };
 type SortKey = "now" | "prev";
-
-function normalizeTitle(value: string): string {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
-}
 
 function textOf(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";

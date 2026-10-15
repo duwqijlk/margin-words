@@ -871,6 +871,42 @@ test("word-list publish: hash computed once, other rows untouched, unknown id re
   assert.equal(sameBody.row.title, "Charlie");
   assert.equal(sameBody.row.words, 4);
 
+  const edition = await handlePublish(
+    raw(
+      "/api/admin/word-lists?id=charlie",
+      adminCookie,
+      JSON.stringify({ title: "Charlie: A Novel", glossary: { a: {} }, count: 1 }),
+    ),
+    env,
+    { now: NOW },
+  );
+  assert.equal(edition.status, 200);
+  assert.equal((await edition.json()).row.title, "Charlie");
+
+  const editionClash = await handlePublish(
+    raw(
+      "/api/admin/word-lists?id=charlie-edition",
+      adminCookie,
+      JSON.stringify({ title: "Charlie: A Memoir", glossary: { a: {} }, count: 1 }),
+    ),
+    env,
+    { now: NOW },
+  );
+  assert.equal(editionClash.status, 409);
+  assert.equal((await editionClash.json()).error, "duplicate-title");
+
+  const sequel = await handlePublish(
+    raw(
+      "/api/admin/word-lists?id=charlie",
+      adminCookie,
+      JSON.stringify({ title: "Charlie: Catching Fire", glossary: { a: {} }, count: 1 }),
+    ),
+    env,
+    { now: NOW },
+  );
+  assert.equal(sequel.status, 409);
+  assert.equal((await sequel.json()).error, "different-book");
+
   const sized = glossaryOfLength(4_000_001);
   assert.equal(sized.length, 4_000_001);
   const accepted = await handlePublish(

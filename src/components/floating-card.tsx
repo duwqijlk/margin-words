@@ -152,6 +152,12 @@ function usePanelFocus(active: boolean, panelRef: RefObject<HTMLElement | null>,
 /** Phone bottom sheet only. Tablets keep the side column; wide screens float. */
 const PHONE_SHEET = "(max-width: 47.99rem)";
 
+export function phoneSheet(): boolean {
+  return typeof window !== "undefined" && typeof window.matchMedia === "function"
+    ? window.matchMedia(PHONE_SHEET).matches
+    : false;
+}
+
 /**
  * Pull the phone sheet down to close it. A downward drag closes only when the sheet
  * is already at the top of its scroll, so a long note still scrolls first.
