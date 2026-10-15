@@ -712,7 +712,6 @@ function WordCard({
               {phrase.entry.meaning}
             </p>
             {phrase.entry.here ? <SceneLine text={phrase.entry.here} /> : null}
-            <LookupLinks word={lookup} />
             <section
               className="grid gap-1.5 rounded-lg border border-line px-3 py-2.5"
               aria-label={t("card.alone")}
@@ -730,6 +729,8 @@ function WordCard({
                 ) : null}
               </div>
               {meaningBlock}
+              {/* One row, for the tapped word. The phrase keeps its meaning and does not get a second row. */}
+              <LookupLinks word={state.key} />
               {state.coined ? <CoinedBadge /> : null}
             </section>
           </>
@@ -738,7 +739,7 @@ function WordCard({
             {meaningBlock}
             {state.here ? <SceneLine text={state.here} /> : null}
             {state.coined ? <CoinedBadge /> : null}
-            <LookupLinks word={lookup} />
+            <LookupLinks word={state.key} />
           </>
         )}
 
