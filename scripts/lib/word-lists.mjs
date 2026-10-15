@@ -20,7 +20,11 @@ export function coverJpeg(path) {
   const key = `${path}:${st.mtimeMs}:${st.size}`;
   const hit = coverCache.get(key);
   if (hit) return hit;
-  const run = spawnSync("python3", [COVER_SCRIPT, path], { maxBuffer: 8 * 1024 * 1024 });
+  // Windows has no python3 (the name is the Microsoft Store stub there), so fall back to python.
+  let run = spawnSync("python3", [COVER_SCRIPT, path], { maxBuffer: 8 * 1024 * 1024 });
+  if (run.status !== 0 || !run.stdout?.length) {
+    run = spawnSync("python", [COVER_SCRIPT, path], { maxBuffer: 8 * 1024 * 1024 });
+  }
   if (run.status !== 0 || !run.stdout?.length) {
     const detail = run.stderr?.toString() || String(run.status);
     throw new Error(`cover resize failed for ${path}: ${detail}`);
