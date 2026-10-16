@@ -728,18 +728,18 @@ function WordCard({
         // keeps free (see READER_GUTTER). Wide screens float this card next to the tapped word.
         // A card with a scene line needs room for that line and the book sentence.
         "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
-        state.here || phrase?.entry.here ? "max-h-[72dvh]" : "max-h-[52dvh]",
-        "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3",
+        state.here || phrase?.entry.here ? "max-h-[72dvh]" : "max-h-[60dvh]",
+        "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3.5 pb-5 md:pb-6",
         SIDE_PANEL,
       )}
     >
       <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden" aria-hidden />
-      <div className="grid gap-3">
-        <div className="flex min-w-0 items-start gap-1" data-word-head>
-          <div className="grid min-w-0 flex-1 gap-0.5 pt-0.5">
+      <div className="grid gap-3.5">
+        <div className="flex min-w-0 items-start justify-between gap-2" data-word-head>
+          <div className="grid min-w-0 flex-1 gap-0.5">
             <div className="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-1">
               <h2
-                className="min-w-0 font-display text-[2rem] leading-tight font-semibold tracking-tight break-words"
+                className="min-w-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words text-ink"
                 lang="en"
               >
                 {lookup}
@@ -758,24 +758,47 @@ function WordCard({
                 </span>
               ) : null}
             </div>
-            {formLine ? <p className="text-sm text-muted">{inBook(formLine)}</p> : null}
+            {formLine ? <p className="text-xs text-muted">{inBook(formLine)}</p> : null}
           </div>
-          <SpeakButton text={lookup} compact className="-mt-1 shrink-0" />
-          <button
-            type="button"
-            className={cn(btn.icon, "-mt-1 -mr-2 shrink-0")}
-            onClick={onClose}
-            aria-label={t("card.close")}
-            data-panel-close
-          >
-            <X className="size-5" aria-hidden />
-          </button>
+          <div className="flex items-center gap-1 shrink-0 pt-0.5">
+            <SpeakButton text={lookup} compact className="shrink-0" />
+            <button
+              type="button"
+              className={cn(
+                "inline-flex size-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-150 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40",
+                saved
+                  ? "border-accent/40 bg-accent-soft text-accent hover:bg-accent-soft/80"
+                  : "border-line/70 bg-card text-muted hover:border-line hover:bg-paper hover:text-ink",
+              )}
+              disabled={!saved && !canSave}
+              onClick={onToggle}
+              aria-pressed={saved}
+              aria-label={saved ? t("card.saved") : t("card.add")}
+              title={saved ? t("card.saved") : t("card.add")}
+              data-word-save
+            >
+              {saved ? (
+                <Check className="size-4.5 stroke-[2.25] text-accent" aria-hidden />
+              ) : (
+                <BookMarked className="size-4.5" aria-hidden />
+              )}
+            </button>
+            <button
+              type="button"
+              className={cn(btn.icon, "size-9 shrink-0")}
+              onClick={onClose}
+              aria-label={t("card.close")}
+              data-panel-close
+            >
+              <X className="size-5" aria-hidden />
+            </button>
+          </div>
         </div>
 
         {phrase ? (
-          <>
+          <div className="grid gap-2">
             <p
-              className="border-l-[3px] border-accent pl-3 text-[1.3rem] leading-snug font-medium text-ink"
+              className="border-l-[3px] border-accent pl-3 text-[1.25rem] leading-snug font-medium text-ink"
               lang="en"
               data-part="phrase-meaning"
             >
@@ -783,70 +806,57 @@ function WordCard({
             </p>
             {phrase.entry.here ? <SceneLine text={phrase.entry.here} /> : null}
             <section
-              className="grid gap-1.5 rounded-lg bg-paper px-3 py-2.5"
+              className="grid gap-1.5 rounded-xl bg-paper/80 border border-line/60 p-3 text-sm"
               aria-label={t("card.alone")}
               data-part="word-alone"
             >
-              <h3 className="text-xs font-semibold text-muted">{t("card.alone")}</h3>
-              <div className="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-1">
-                <span className="w-fit max-w-full shrink-0 font-display text-lg font-semibold break-words" lang="en">
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="font-display font-semibold text-ink" lang="en">
                   {state.key}
                 </span>
                 {state.pos ? (
-                  <span className={cn(wordPosClass(), "text-[0.95rem]")} data-word-pos>
+                  <span className={cn(wordPosClass(), "text-[0.8rem]")} data-word-pos>
                     <span lang="en">{state.pos}</span>
                   </span>
                 ) : null}
               </div>
               {meaningBlock}
-              {/* One row, for the tapped word. The phrase keeps its meaning and does not get a second row. */}
-              <LookupLinks word={state.key} />
               {state.coined ? <CoinedBadge /> : null}
             </section>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="grid gap-2">
             {heroMeaning}
             {state.here ? <SceneLine text={state.here} /> : null}
             {state.coined ? <CoinedBadge /> : null}
-            <LookupLinks word={state.key} />
-          </>
+          </div>
         )}
 
-        {state.sentence ||
-        state.example ||
+        {state.sentence ? (
+          <div className="grid gap-2 rounded-xl bg-paper/60 border border-line/60 p-3" data-part="sentence-box">
+            <span className="text-[0.7rem] font-semibold tracking-wider text-muted uppercase">
+              {t("card.sentenceFrom")}
+            </span>
+            <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/90">
+              <Highlighted
+                sentence={state.sentence}
+                surface={phrase ? phrase.matched : state.surface}
+              />
+            </blockquote>
+            <ExplainSentence
+              key={`${noteChapter ?? chapter}|${state.sentence}`}
+              bookId={bookId}
+              chapter={noteChapter ?? chapter}
+              sentence={state.fullSentence || state.sentence}
+            />
+          </div>
+        ) : null}
+
+        {state.example ||
         (state.whyHard && state.ready && state.status === "ready") ||
         (state.others && state.others.length > 0 && state.status === "ready") ||
         stat ? (
-          <div className="grid gap-3 border-t border-line/70 pt-3" data-part="word-more">
-            {state.sentence ? (
-              <details className="group rounded-lg bg-paper px-3 py-2 text-sm">
-                <summary className="cursor-pointer list-none font-semibold text-muted select-none marker:hidden hover:text-ink">
-                  <span className="inline-flex items-center gap-1.5">
-                    <ChevronRight
-                      className="size-3.5 transition-transform group-open:rotate-90"
-                      aria-hidden
-                    />
-                    {t("card.sentenceFrom")}
-                  </span>
-                </summary>
-                <div className="mt-2 grid gap-2.5">
-                  <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/85">
-                    <Highlighted
-                      sentence={state.sentence}
-                      surface={phrase ? phrase.matched : state.surface}
-                    />
-                  </blockquote>
-                  <ExplainSentence
-                    key={`${noteChapter ?? chapter}|${state.sentence}`}
-                    bookId={bookId}
-                    chapter={noteChapter ?? chapter}
-                    sentence={state.fullSentence || state.sentence}
-                  />
-                </div>
-              </details>
-            ) : null}
-
+          <div className="grid gap-2.5 border-t border-line/60 pt-3" data-part="word-more">
             {state.example ? (
               <CardQuote label={t("card.example")} part="example">
                 <Highlighted sentence={state.example} surface={state.surface} />
@@ -854,7 +864,8 @@ function WordCard({
             ) : null}
 
             {state.whyHard && state.ready && state.status === "ready" ? (
-              <p className="text-sm text-muted" lang="en">
+              <p className="text-xs leading-relaxed text-muted" lang="en">
+                <span className="font-semibold text-ink/75">Why hard: </span>
                 {state.whyHard}
               </p>
             ) : null}
@@ -867,37 +878,11 @@ function WordCard({
           </div>
         ) : null}
 
-        <div
-          className={cn(
-            // The main action stays in view while the card scrolls. Slimmer than a page button:
-            // the card is a small overlay and the save does not need to shout.
-            "sticky bottom-0 z-10 -mx-5 grid bg-card px-5 pt-1.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:pb-4",
-          )}
-        >
-          <button
-            type="button"
-            className={cn(
-              "inline-flex min-h-10 w-full select-none items-center justify-center gap-1.5 rounded-lg px-4 text-sm font-semibold transition-[background-color,opacity,transform] duration-150 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100",
-              saved
-                ? "border border-line bg-card text-ink hover:bg-accent-soft"
-                : "bg-accent text-accent-ink shadow-[0_1px_0_rgb(0_0_0/0.18)] hover:opacity-90",
-            )}
-            disabled={!saved && !canSave}
-            onClick={onToggle}
-            aria-pressed={saved}
-          >
-            {saved ? (
-              <>
-                <Check className="size-4 text-accent" aria-hidden />
-                {t("card.saved")}
-              </>
-            ) : (
-              <>
-                <BookMarked className="size-4" aria-hidden />
-                {t("card.add")}
-              </>
-            )}
-          </button>
+        <div className="flex items-center justify-between border-t border-line/60 pt-2.5" data-word-footer>
+          <span className="text-[0.75rem] font-medium text-muted">
+            {saved ? t("card.saved") : t("card.add")}
+          </span>
+          <LookupLinks word={phrase ? phrase.key : state.key} />
         </div>
       </div>
     </FloatingAside>
