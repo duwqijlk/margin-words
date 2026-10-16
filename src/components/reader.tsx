@@ -591,14 +591,14 @@ const LOOKUP_LABEL = {
 function LookupLinks({ word }: { word: string }) {
   const { t } = useT();
   return (
-    <nav className="flex items-center gap-1.5" aria-label={t("card.lookAria", { word })} data-word-lookup>
+    <nav className="grid grid-cols-3 gap-2 w-full" aria-label={t("card.lookAria", { word })} data-word-lookup>
       {LOOKUP_SITES.map((site) => (
         <a
           key={site}
           href={lookupUrl(site, word)}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line/70 bg-card px-2.5 text-xs font-semibold text-ink shadow-xs transition-colors hover:border-line hover:bg-paper"
+          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-line/70 bg-card px-2 text-xs font-semibold text-ink shadow-xs transition-colors hover:border-line hover:bg-paper"
           aria-label={t("card.lookOne", { site: t(LOOKUP_LABEL[site]), word })}
           title={t(LOOKUP_LABEL[site])}
           data-lookup={site}
@@ -612,7 +612,7 @@ function LookupLinks({ word }: { word: string }) {
           ) : (
             <ImageIcon className="size-3.5 shrink-0 text-accent" strokeWidth={2} aria-hidden />
           )}
-          <span>{t(LOOKUP_LABEL[site])}</span>
+          <span className="truncate">{t(LOOKUP_LABEL[site])}</span>
         </a>
       ))}
     </nav>
@@ -876,10 +876,10 @@ function WordCard({
           </div>
         ) : null}
 
-        <div className="flex items-center justify-between border-t border-line/60 pt-3" data-word-footer>
-          <span className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
+        <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
+          <div className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
             {t("card.lookTitle")}
-          </span>
+          </div>
           <LookupLinks word={phrase ? phrase.key : state.key} />
         </div>
       </div>
