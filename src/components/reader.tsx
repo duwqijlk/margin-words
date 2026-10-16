@@ -835,23 +835,34 @@ function WordCard({
         )}
 
         {state.sentence ? (
-          <div className="grid gap-2 rounded-xl bg-paper/60 border border-line/60 p-3" data-part="sentence-box">
-            <span className="text-[0.7rem] font-semibold tracking-wider text-muted uppercase">
-              {t("card.sentenceFrom")}
-            </span>
-            <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/90">
-              <Highlighted
-                sentence={state.sentence}
-                surface={phrase ? phrase.matched : state.surface}
+          <details
+            className="group rounded-xl border border-line/60 bg-paper/60 px-3.5 py-2.5 text-sm transition-colors"
+            data-part="sentence-box"
+          >
+            <summary className="flex cursor-pointer list-none items-center justify-between font-semibold text-muted select-none marker:hidden hover:text-ink">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-muted group-hover:text-ink">
+                <ChevronRight
+                  className="size-3.5 transition-transform duration-150 group-open:rotate-90"
+                  aria-hidden
+                />
+                {t("card.sentenceFrom")}
+              </span>
+            </summary>
+            <div className="mt-2.5 grid gap-2.5 pt-1">
+              <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/90">
+                <Highlighted
+                  sentence={state.sentence}
+                  surface={phrase ? phrase.matched : state.surface}
+                />
+              </blockquote>
+              <ExplainSentence
+                key={`${noteChapter ?? chapter}|${state.sentence}`}
+                bookId={bookId}
+                chapter={noteChapter ?? chapter}
+                sentence={state.fullSentence || state.sentence}
               />
-            </blockquote>
-            <ExplainSentence
-              key={`${noteChapter ?? chapter}|${state.sentence}`}
-              bookId={bookId}
-              chapter={noteChapter ?? chapter}
-              sentence={state.fullSentence || state.sentence}
-            />
-          </div>
+            </div>
+          </details>
         ) : null}
 
         {state.example ||
