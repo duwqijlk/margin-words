@@ -665,6 +665,10 @@ function WordCard({
   onToggle: () => void;
 }) {
   const { t } = useT();
+  const [targetMode, setTargetMode] = useState<"phrase" | "word">("phrase");
+  useEffect(() => {
+    setTargetMode("phrase");
+  }, [phrase?.key]);
   const showForm = state.key !== state.surface.toLowerCase();
   const lookup = phrase ? phrase.key : state.key;
   const noMeaning =
@@ -877,10 +881,51 @@ function WordCard({
         ) : null}
 
         <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
-          <div className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
-            {t("card.lookTitle")}
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
+              {t("card.lookTitle")}
+            </span>
+            {phrase ? (
+              <div
+                className="inline-flex items-center rounded-lg bg-paper p-0.5 text-xs border border-line/60"
+                role="radiogroup"
+                aria-label={t("card.lookTitle")}
+                data-look-target-group
+              >
+                <button
+                  type="button"
+                  onClick={() => setTargetMode("phrase")}
+                  role="radio"
+                  aria-checked={targetMode === "phrase"}
+                  className={cn(
+                    "rounded-md px-2 py-0.5 text-[0.72rem] transition-colors",
+                    targetMode === "phrase"
+                      ? "bg-card text-ink font-semibold shadow-xs"
+                      : "text-muted hover:text-ink",
+                  )}
+                  data-look-target="phrase"
+                >
+                  {t("card.lookTargetPhrase")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTargetMode("word")}
+                  role="radio"
+                  aria-checked={targetMode === "word"}
+                  className={cn(
+                    "rounded-md px-2 py-0.5 text-[0.72rem] transition-colors",
+                    targetMode === "word"
+                      ? "bg-card text-ink font-semibold shadow-xs"
+                      : "text-muted hover:text-ink",
+                  )}
+                  data-look-target="word"
+                >
+                  {t("card.lookTargetWord")}
+                </button>
+              </div>
+            ) : null}
           </div>
-          <LookupLinks word={phrase ? phrase.key : state.key} />
+          <LookupLinks word={phrase && targetMode === "phrase" ? phrase.key : state.key} />
         </div>
       </div>
     </FloatingAside>

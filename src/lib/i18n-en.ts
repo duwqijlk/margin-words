@@ -498,6 +498,8 @@ export const en = {
   "card.look.webster": "Webster",
   "card.look.images": "Pictures",
   "card.lookTitle": "Other dictionaries",
+  "card.lookTargetPhrase": "Phrase",
+  "card.lookTargetWord": "Word",
   "card.lookAria": "Look up {word} on other sites",
   "card.lookOne": "{site}: {word} (opens a new page)",
   "card.saved": "In your notebook · Tap to remove",

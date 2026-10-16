@@ -491,6 +491,8 @@ export const zh: Record<Key, string> = {
   "card.look.webster": "韦氏",
   "card.look.images": "看图片",
   "card.lookTitle": "其他词典",
+  "card.lookTargetPhrase": "短语",
+  "card.lookTargetWord": "单词",
   "card.lookAria": "去别的网站查 {word}",
   "card.lookOne": "{site}：{word}（打开新页面）",
   "card.saved": "已在生词本里 · 点一下可移除",
