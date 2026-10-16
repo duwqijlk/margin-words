@@ -587,9 +587,7 @@ const LOOKUP_LABEL = {
   images: "card.look.images",
 } as const satisfies Record<LookupSite, Key>;
 
-/** Longman, Merriam-Webster and Bing pictures for the word. Plain links: a new tab, nothing fetched here.
- *  Three tiles of one size, each in its brand's own plate (Longman's white mark needs its header blue);
- *  the name rides on the tooltip and the aria label. */
+/** Longman, Merriam-Webster and Bing pictures for the word. Plain links: a new tab, nothing fetched here. */
 function LookupLinks({ word }: { word: string }) {
   const { t } = useT();
   return (
@@ -600,21 +598,21 @@ function LookupLinks({ word }: { word: string }) {
           href={lookupUrl(site, word)}
           target="_blank"
           rel="noopener noreferrer"
-          className={cn(
-            "grid h-9 w-16 place-items-center rounded-lg transition-opacity hover:opacity-80",
-            site === "longman" ? "bg-[#314089]" : "border border-line bg-card",
-          )}
+          className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line/70 bg-card px-2.5 text-xs font-semibold text-ink shadow-xs transition-colors hover:border-line hover:bg-paper"
           aria-label={t("card.lookOne", { site: t(LOOKUP_LABEL[site]), word })}
           title={t(LOOKUP_LABEL[site])}
           data-lookup={site}
         >
           {site === "longman" ? (
-            <img src={longmanLogo} alt="" className="h-5 w-auto" aria-hidden />
+            <span className="inline-grid size-4 shrink-0 place-items-center rounded bg-[#314089] text-[0.62rem] font-bold text-white leading-none">
+              L
+            </span>
           ) : site === "webster" ? (
-            <img src={merriamWebsterLogo} alt="" className="h-7 w-7" aria-hidden />
+            <img src={merriamWebsterLogo} alt="" className="size-4 shrink-0 rounded-full" aria-hidden />
           ) : (
-            <ImageIcon className="size-5 text-accent" strokeWidth={1.75} aria-hidden />
+            <ImageIcon className="size-3.5 shrink-0 text-accent" strokeWidth={2} aria-hidden />
           )}
+          <span>{t(LOOKUP_LABEL[site])}</span>
         </a>
       ))}
     </nav>
@@ -878,9 +876,9 @@ function WordCard({
           </div>
         ) : null}
 
-        <div className="flex items-center justify-between border-t border-line/60 pt-2.5" data-word-footer>
-          <span className="text-[0.75rem] font-medium text-muted">
-            {saved ? t("card.saved") : t("card.add")}
+        <div className="flex items-center justify-between border-t border-line/60 pt-3" data-word-footer>
+          <span className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
+            {t("card.lookTitle")}
           </span>
           <LookupLinks word={phrase ? phrase.key : state.key} />
         </div>
