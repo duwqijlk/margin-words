@@ -45,14 +45,14 @@
 :root,
 [data-theme="light"] {
   color-scheme: light;
-  --paper: #f3efe4;
-  --card: #fffcf7;
-  --ink: #1f1d1a;
-  --muted: #6e675c;
-  --line: #e4dccb;
-  --accent: #28604f;
+  --paper: #f8f6f0;
+  --card: #ffffff;
+  --ink: #181715;
+  --muted: #6b655c;
+  --line: #e8e3d8;
+  --accent: #235948;
   --accent-ink: #ffffff;
-  --accent-soft: #e2eee8;
+  --accent-soft: #e6f0ea;
   --warn: #a9481f;
   --warn-soft: #f8e7dd;
   --mark: #fbe7a1;

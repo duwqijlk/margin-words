@@ -68,11 +68,11 @@ export const bookCardGrid =
 
 /** Same title and author slots on every card, so the action row lines up. */
 export const cardTitleClass =
-  "min-h-[2.5em] overflow-hidden font-display text-[0.82rem] leading-[1.3] font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.97rem]";
+  "min-h-[2.5em] overflow-hidden font-display text-[0.84rem] leading-[1.28] font-semibold tracking-tight text-ink group-hover:text-accent transition-colors [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.96rem]";
 
-export const cardAuthorClass = "min-h-4 truncate text-xs leading-4 text-muted max-sm:sr-only";
+export const cardAuthorClass = "min-h-4 truncate text-xs leading-4 text-muted/80 max-sm:sr-only";
 
-export const bookCardShell = "book-card flex h-full min-h-full flex-col gap-1.5 sm:gap-3";
+export const bookCardShell = "book-card group flex h-full min-h-full flex-col gap-2 sm:gap-3";
 
 /**
  * Sort and list filters. One button on every screen. The choices open in an overlay,

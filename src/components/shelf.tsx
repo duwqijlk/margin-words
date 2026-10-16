@@ -237,13 +237,13 @@ function ContinueCard({
   return (
     <section
       aria-label={t("shelf.continueReading")}
-      className="hidden items-center gap-4 rounded-3xl border border-line/80 p-5 shadow-xs sm:flex sm:gap-8 sm:p-6"
+      className="group relative hidden items-center gap-6 overflow-hidden rounded-3xl border border-line/70 bg-card p-6 shadow-xs transition-all hover:shadow-md sm:flex sm:gap-9 sm:p-7"
       style={{
         backgroundImage:
-          "linear-gradient(120deg, color-mix(in srgb, var(--accent-soft) 85%, var(--card)), var(--card) 70%)",
+          "radial-gradient(ellipse at top right, color-mix(in srgb, var(--accent-soft) 60%, transparent), transparent 75%)",
       }}
     >
-      <div className="relative w-24 shrink-0 sm:w-36">
+      <div className="relative w-28 shrink-0 transition-transform duration-300 group-hover:scale-[1.02] sm:w-36">
         <button
           type="button"
           onClick={onOpen}
@@ -258,28 +258,33 @@ function ContinueCard({
           </div>
         ) : null}
       </div>
-      <div className="grid min-w-0 flex-1 content-center gap-1.5 sm:gap-2.5">
-        <p className="text-xs font-bold tracking-wider text-accent uppercase">
-          {started ? t("shelf.continueReading") : t("shelf.startReading")}
-        </p>
+      <div className="grid min-w-0 flex-1 content-center gap-2 sm:gap-2.5">
+        <div className="flex items-center gap-2">
+          <span className="size-1.5 rounded-full bg-accent" aria-hidden />
+          <p className="text-[0.68rem] font-bold tracking-[0.16em] text-accent uppercase">
+            {started ? t("shelf.continueReading") : t("shelf.startReading")}
+          </p>
+        </div>
         <h2
-          className="font-display text-[1.3rem] leading-snug font-semibold sm:text-[2rem] sm:leading-tight [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
+          className="font-display text-[1.4rem] leading-snug font-bold tracking-tight text-ink sm:text-[2.1rem] sm:leading-tight [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
           lang="en"
         >
           {book.title}
         </h2>
-        {book.author ? (
-          <p className="truncate text-sm text-muted" lang="en">
-            {book.author}
-          </p>
-        ) : null}
-        <div className="w-fit">
-          <LexileBadge measure={book.lexile} />
+        <div className="flex flex-wrap items-center gap-3">
+          {book.author ? (
+            <p className="truncate text-sm font-medium text-muted" lang="en">
+              {book.author}
+            </p>
+          ) : null}
+          <div className="w-fit">
+            <LexileBadge measure={book.lexile} />
+          </div>
         </div>
         {started && progress ? (
           <div className="grid gap-1.5 pt-1">
-            <ProgressBar value={fraction} className="h-1 rounded-full bg-accent/15" label={t("shelf.progress")} />
-            <p className="text-xs text-muted tabular-nums">
+            <ProgressBar value={fraction} className="h-1.5 rounded-full bg-line/60" label={t("shelf.progress")} />
+            <p className="text-xs font-medium text-muted tabular-nums">
               {t("shelf.chapterOf", { n: progress.chapter + 1, total: progress.chapters })} · {pct}%
               {progress.updatedAt ? ` · ${relativeTime(progress.updatedAt)}` : ""}
             </p>
@@ -288,7 +293,7 @@ function ContinueCard({
         <div className="pt-1.5 sm:pt-2">
           <button
             type="button"
-            className={cn(btn.primary, "w-fit px-5")}
+            className={cn(btn.primary, "w-fit rounded-full px-6 py-2.5 shadow-xs hover:shadow-md")}
             onClick={onOpen}
           >
             <BookOpen className="size-4" aria-hidden />
@@ -400,7 +405,7 @@ function BookCard({
         <button
           type="button"
           onClick={onOpen}
-          className="block w-full rounded-md text-left"
+          className="block w-full rounded-md text-left transition-transform duration-200 group-hover:-translate-y-1"
           aria-label={t("shelf.openAria", { title: book.title })}
         >
           <BookCover title={book.title} author={book.author} cover={cover} />

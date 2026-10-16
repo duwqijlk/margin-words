@@ -190,15 +190,17 @@ function Overview({
 
       <section
         className={cn(
-          "grid gap-4 rounded-2xl border p-5 sm:p-6",
-          stats.due > 0 ? "border-accent/30 bg-accent-soft" : "border-line bg-card",
+          "grid gap-4 rounded-3xl border p-6 sm:p-7 shadow-xs relative overflow-hidden",
+          stats.due > 0
+            ? "border-accent/40 bg-gradient-to-br from-card via-card to-accent-soft/40"
+            : "border-line/70 bg-card",
         )}
       >
         <div className="flex items-baseline gap-3">
-          <span className="font-display text-5xl leading-none font-semibold tabular-nums">
+          <span className="font-display text-5xl sm:text-6xl leading-none font-bold tabular-nums text-ink tracking-tight">
             {stats.due}
           </span>
-          <span className="text-muted">{tn("rv.dueText", stats.due)}</span>
+          <span className="text-sm font-semibold tracking-wide text-muted/90 uppercase">{tn("rv.dueText", stats.due)}</span>
         </div>
         {stats.due === 0 ? (
           <p className="flex items-center gap-2 text-sm font-medium text-accent">
@@ -208,21 +210,21 @@ function Overview({
         ) : (
           <p className="text-sm text-muted">{t("rv.ladderHelp")}</p>
         )}
-        <div className="grid gap-3">
+        <div className="grid gap-2">
           <Segmented
             label={t("rv.type")}
             value={mode}
             onChange={onMode}
             options={MODES.map((item) => ({ value: item.value, label: t(item.label) }))}
           />
-          <p className="text-sm text-muted">
+          <p className="text-xs text-muted/80">
             {t(MODES.find((item) => item.value === mode)?.hint ?? "rv.mode.cardsHint")}
           </p>
         </div>
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid gap-2.5 sm:grid-cols-2 pt-1">
           <button
             type="button"
-            className={cn(btn.primary, "sm:col-span-2")}
+            className={cn(btn.primary, "sm:col-span-2 py-3 rounded-xl shadow-xs hover:shadow-md")}
             disabled={stats.due === 0 || (needsChoice && !choiceOk)}
             onClick={() => onStart("due")}
           >
@@ -267,12 +269,12 @@ function Overview({
       />
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <section className="grid gap-3 rounded-2xl border border-line/80 bg-card p-5 shadow-xs">
-          <h2 className="text-sm font-semibold">{t("rv.next7")}</h2>
+        <section className="grid gap-3 rounded-2xl border border-line/70 bg-card p-5 sm:p-6 shadow-xs">
+          <h2 className="text-sm font-bold tracking-tight text-ink">{t("rv.next7")}</h2>
           <UpcomingChart stats={stats} />
         </section>
-        <section className="grid gap-3 rounded-2xl border border-line/80 bg-card p-5 shadow-xs">
-          <h2 className="text-sm font-semibold">{t("rv.memory")}</h2>
+        <section className="grid gap-3 rounded-2xl border border-line/70 bg-card p-5 sm:p-6 shadow-xs">
+          <h2 className="text-sm font-bold tracking-tight text-ink">{t("rv.memory")}</h2>
           <StageBars stats={stats} />
         </section>
       </div>

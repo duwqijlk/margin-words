@@ -8,24 +8,24 @@ export function cn(...parts: Array<string | false | null | undefined>) {
 }
 
 const btnBase =
-  "inline-flex min-h-11 select-none items-center justify-center gap-2 rounded-lg px-4 text-[0.95rem] font-semibold transition-[background-color,opacity,transform] duration-150 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100";
+  "inline-flex min-h-11 select-none items-center justify-center gap-2 rounded-xl px-4 text-[0.92rem] font-semibold transition-all duration-150 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100";
 
 export const btn = {
-  primary: cn(btnBase, "bg-accent text-accent-ink shadow-[0_1px_0_rgb(0_0_0/0.18)] hover:opacity-90"),
-  quiet: cn(btnBase, "border border-line bg-card text-ink hover:bg-accent-soft"),
-  ghost: cn(btnBase, "text-ink hover:bg-accent-soft"),
-  danger: cn(btnBase, "bg-warn text-accent-ink hover:opacity-90"),
-  icon: "inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-ink transition-colors hover:bg-accent-soft disabled:opacity-45",
+  primary: cn(btnBase, "bg-accent text-accent-ink shadow-xs hover:bg-accent/90 hover:shadow-sm"),
+  quiet: cn(btnBase, "border border-line/80 bg-card text-ink shadow-2xs hover:bg-accent-soft/50 hover:border-accent/40"),
+  ghost: cn(btnBase, "text-ink hover:bg-accent-soft/60"),
+  danger: cn(btnBase, "bg-warn text-accent-ink hover:opacity-90 shadow-xs"),
+  icon: "inline-flex size-11 shrink-0 items-center justify-center rounded-xl text-ink transition-colors hover:bg-black/5 disabled:opacity-45",
 } as const;
 
 export const field =
-  "min-h-11 w-full rounded-lg border border-line bg-card px-3 text-base text-ink placeholder:text-muted focus:border-accent";
+  "min-h-11 w-full rounded-xl border border-line/80 bg-card px-3.5 text-base text-ink shadow-2xs placeholder:text-muted/60 transition-all focus:border-accent focus:shadow-xs focus:outline-none";
 
 export const selectCls =
-  "min-h-11 rounded-lg border border-line bg-card px-3 text-base text-ink focus:border-accent";
+  "min-h-11 rounded-xl border border-line/80 bg-card px-3.5 text-base text-ink shadow-2xs transition-all focus:border-accent focus:outline-none";
 
 export const chip =
-  "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold leading-5";
+  "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold leading-5 shadow-2xs";
 
 /* ---------------------------------------------------------------- pronunciation */
 
@@ -171,20 +171,20 @@ export function StatRow({
   }>;
 }) {
   return (
-    <dl className="grid grid-cols-2 overflow-hidden rounded-2xl border border-line/80 bg-card shadow-xs sm:grid-cols-4 [&>div]:border-line/70 max-sm:[&>div:nth-child(n+3)]:border-t max-sm:[&>div:nth-child(even)]:border-l sm:[&>div:not(:first-child)]:border-l">
+    <dl className="grid grid-cols-2 overflow-hidden rounded-2xl border border-line/70 bg-card shadow-xs sm:grid-cols-4 [&>div]:border-line/60 max-sm:[&>div:nth-child(n+3)]:border-t max-sm:[&>div:nth-child(even)]:border-l sm:[&>div:not(:first-child)]:border-l">
       {items.map((item) => (
-        <div key={item.label} className="grid content-start gap-1 px-3.5 py-3 sm:px-4 sm:py-3.5">
-          <dt className="text-xs font-semibold text-muted">{item.label}</dt>
+        <div key={item.label} className="grid content-start gap-1 p-4 sm:p-5">
+          <dt className="text-xs font-semibold tracking-wide text-muted/90">{item.label}</dt>
           <dd
             className={cn(
-              "font-display text-2xl leading-none font-semibold tabular-nums sm:text-3xl",
+              "font-display text-2xl leading-none font-bold tabular-nums tracking-tight sm:text-3xl",
               item.tone === "warn" && "text-warn",
               item.tone === "good" && "text-accent",
             )}
           >
             {item.value}
           </dd>
-          {item.hint ? <dd className="text-xs text-muted">{item.hint}</dd> : null}
+          {item.hint ? <dd className="text-xs text-muted/80">{item.hint}</dd> : null}
         </div>
       ))}
     </dl>
@@ -212,8 +212,8 @@ export function Segmented<T extends string | number>({
       aria-label={label}
       className={cn(
         wrap
-          ? "grid grid-cols-2 gap-1 sm:flex sm:rounded-lg sm:bg-line/60 sm:p-0.5"
-          : "flex rounded-lg bg-line/60 p-0.5",
+          ? "grid grid-cols-2 gap-1.5 sm:flex sm:rounded-xl sm:bg-line/40 sm:p-1"
+          : "flex rounded-xl bg-line/40 p-1 backdrop-blur-xs",
       )}
     >
       {options.map((option) => (
@@ -223,9 +223,9 @@ export function Segmented<T extends string | number>({
           aria-pressed={option.value === value}
           onClick={() => onChange(option.value)}
           className={cn(
-            "min-h-10 rounded-md px-2 text-sm font-semibold transition-colors",
-            wrap ? "border border-line whitespace-normal sm:flex-1 sm:border-0 sm:whitespace-nowrap" : "flex-1 whitespace-nowrap",
-            option.value === value ? "bg-card text-ink shadow-sm" : "text-muted hover:text-ink",
+            "min-h-10 rounded-lg px-3 text-sm font-semibold transition-all duration-150",
+            wrap ? "border border-line/60 whitespace-normal sm:flex-1 sm:border-0 sm:whitespace-nowrap" : "flex-1 whitespace-nowrap",
+            option.value === value ? "bg-card text-ink shadow-xs" : "text-muted hover:text-ink",
             wrap && option.value !== value && "bg-card/40 sm:bg-transparent",
           )}
         >

@@ -145,16 +145,16 @@ export function BookRail({
               aria-label={t("browse.openAria", { title: row.title })}
               data-rail-book={row.id}
             >
-              <span className="block transition-transform duration-200 group-hover:-translate-y-0.5">
+              <span className="block transition-transform duration-200 group-hover:-translate-y-1">
                 <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
               </span>
               <span
-                className="overflow-hidden font-display text-[0.8rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.88rem]"
+                className="overflow-hidden font-display text-[0.82rem] leading-snug font-semibold text-ink group-hover:text-accent transition-colors [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.92rem]"
                 lang="en"
               >
                 {row.title}
               </span>
-              <span className="-mt-1 truncate text-xs text-muted" lang="en">
+              <span className="-mt-0.5 truncate text-xs text-muted/80" lang="en">
                 {row.author}
               </span>
             </button>
@@ -232,7 +232,7 @@ export function FeaturedBook({
   const { words } = counts(row);
   return (
     <section
-      className="relative isolate overflow-hidden rounded-3xl bg-ink text-paper shadow-sm"
+      className="group relative isolate overflow-hidden rounded-3xl bg-neutral-900 text-paper shadow-md transition-shadow hover:shadow-lg"
       aria-label={t("browse.featured")}
       data-discover-featured={row.id}
     >
@@ -242,43 +242,44 @@ export function FeaturedBook({
           crossOrigin={coverCrossOrigin(row.coverUrl)}
           alt=""
           aria-hidden
-          className="absolute inset-0 -z-10 size-full scale-125 object-cover opacity-55 blur-2xl saturate-150"
+          className="absolute inset-0 -z-10 size-full scale-125 object-cover opacity-45 blur-2xl saturate-150 transition-opacity duration-300 group-hover:opacity-55"
         />
       ) : null}
       <div
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-black/70 via-black/45 to-black/10"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/55 to-black/25 backdrop-blur-[1px]"
         aria-hidden
       />
       <button
         type="button"
-        className="flex w-full items-center gap-4 p-4 text-left sm:gap-8 sm:p-8"
+        className="flex w-full items-center gap-4 p-5 text-left sm:gap-8 sm:p-8"
         onClick={() => onOpen(row)}
         aria-label={t("browse.openAria", { title: row.title })}
       >
-        <span className="w-24 shrink-0 shadow-pop sm:w-36">
+        <span className="w-24 shrink-0 shadow-pop transition-transform duration-300 group-hover:scale-[1.03] sm:w-36">
           <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
         </span>
         <span className="grid min-w-0 gap-1.5 sm:gap-2.5">
-          <span className="text-[0.7rem] font-bold tracking-[0.14em] text-white/75 uppercase">
+          <span className="flex items-center gap-1.5 text-[0.68rem] font-bold tracking-[0.18em] text-emerald-300/95 uppercase">
+            <span className="size-1.5 rounded-full bg-emerald-400" aria-hidden />
             {t("browse.featured")}
           </span>
           <span
-            className="overflow-hidden font-display text-[1.35rem] leading-tight font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[2.2rem]"
+            className="overflow-hidden font-display text-[1.4rem] leading-tight font-bold tracking-tight text-white [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[2.2rem]"
             lang="en"
           >
             {row.title}
           </span>
-          <span className="truncate text-sm text-white/80 sm:text-base" lang="en">
+          <span className="truncate text-sm font-medium text-white/80 sm:text-base" lang="en">
             {row.author}
           </span>
           <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/75 sm:text-sm">
-            {row.lexile ? <span className="tabular-nums">{row.lexile}</span> : null}
+            {row.lexile ? <span className="tabular-nums font-semibold">{row.lexile}</span> : null}
             {words > 0 ? <span>{t("browse.wordsMarked", { n: groupDigits(words) })}</span> : null}
-            <span>{row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}</span>
+            <span className="rounded-full bg-white/10 px-2 py-0.5 text-[0.7rem]">{row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}</span>
           </span>
-          <span className="mt-1 inline-flex w-fit items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink max-sm:hidden">
+          <span className="mt-1 inline-flex w-fit items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-900 shadow-sm transition-all group-hover:bg-white group-hover:shadow-md max-sm:hidden">
             {t("browse.view")}
-            <ChevronRight className="size-4" aria-hidden />
+            <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
           </span>
         </span>
       </button>
