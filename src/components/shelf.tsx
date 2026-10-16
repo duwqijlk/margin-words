@@ -237,7 +237,7 @@ function ContinueCard({
   return (
     <section
       aria-label={t("shelf.continueReading")}
-      className="hidden items-center gap-4 rounded-3xl border border-line p-4 shadow-sm sm:flex sm:gap-8 sm:p-6"
+      className="hidden items-center gap-4 rounded-3xl border border-line/80 p-5 shadow-xs sm:flex sm:gap-8 sm:p-6"
       style={{
         backgroundImage:
           "linear-gradient(120deg, color-mix(in srgb, var(--accent-soft) 85%, var(--card)), var(--card) 70%)",
@@ -273,10 +273,12 @@ function ContinueCard({
             {book.author}
           </p>
         ) : null}
-        <LexileBadge measure={book.lexile} />
+        <div className="w-fit">
+          <LexileBadge measure={book.lexile} />
+        </div>
         {started && progress ? (
           <div className="grid gap-1.5 pt-1">
-            <ProgressBar value={fraction} className="h-1.5" label={t("shelf.progress")} />
+            <ProgressBar value={fraction} className="h-1 rounded-full bg-accent/15" label={t("shelf.progress")} />
             <p className="text-xs text-muted tabular-nums">
               {t("shelf.chapterOf", { n: progress.chapter + 1, total: progress.chapters })} · {pct}%
               {progress.updatedAt ? ` · ${relativeTime(progress.updatedAt)}` : ""}
@@ -286,7 +288,7 @@ function ContinueCard({
         <div className="pt-1.5 sm:pt-2">
           <button
             type="button"
-            className={cn(btn.primary, "max-sm:w-full sm:px-6")}
+            className={cn(btn.primary, "w-fit px-5")}
             onClick={onOpen}
           >
             <BookOpen className="size-4" aria-hidden />
@@ -422,7 +424,7 @@ function BookCard({
         </div>
         {book.source === "epub" ? (
           <div className="cover-progress pointer-events-none absolute inset-x-0 bottom-0 z-[1]">
-            <p className="cover-progress-detail items-end justify-between gap-2 bg-gradient-to-t from-black/75 via-black/35 to-transparent px-2 pt-7 pb-1 text-[0.68rem] leading-4 font-semibold text-white">
+            <p className="cover-progress-detail items-end justify-between gap-2 bg-gradient-to-t from-black/60 to-transparent px-2 pt-4 pb-0.5 text-[0.68rem] leading-4 font-medium text-white">
               <span>{pct > 0 ? `${pct}%` : t("shelf.new")}</span>
               {row.progress && row.progress.chapters > 0 ? (
                 <span className="truncate text-right">
@@ -432,7 +434,7 @@ function BookCard({
             </p>
             <ProgressBar
               value={row.fraction}
-              className="cover-progress-bar h-1 rounded-none bg-black/35"
+              className="cover-progress-bar h-0.5 rounded-none bg-black/20"
               label={t("shelf.progressFor", { title: book.title })}
             />
           </div>
@@ -456,7 +458,7 @@ function BookCard({
           <Menu.Root open={menuOpen} onOpenChange={setMenuOpen}>
             <Menu.Trigger
               className={cn(
-                "relative inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-lg text-muted select-none hover:bg-accent-soft hover:text-ink sm:-mr-2.5 [-webkit-touch-callout:none]",
+                "relative inline-flex min-h-10 w-8 shrink-0 touch-manipulation items-center justify-center rounded-lg text-muted/75 select-none hover:bg-accent-soft hover:text-ink sm:-mr-2 [-webkit-touch-callout:none]",
                 armed && "bg-accent-soft text-ink",
               )}
               aria-label={t("shelf.moreAria", { title: book.title })}

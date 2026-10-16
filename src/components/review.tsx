@@ -267,11 +267,11 @@ function Overview({
       />
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <section className="grid gap-3 rounded-2xl border border-line bg-card p-5">
+        <section className="grid gap-3 rounded-2xl border border-line/80 bg-card p-5 shadow-xs">
           <h2 className="text-sm font-semibold">{t("rv.next7")}</h2>
           <UpcomingChart stats={stats} />
         </section>
-        <section className="grid gap-3 rounded-2xl border border-line bg-card p-5">
+        <section className="grid gap-3 rounded-2xl border border-line/80 bg-card p-5 shadow-xs">
           <h2 className="text-sm font-semibold">{t("rv.memory")}</h2>
           <StageBars stats={stats} />
         </section>
@@ -500,7 +500,7 @@ function Session({
         <ProgressBar value={index / queue.length} label={t("rv.roundProgress")} />
       </div>
 
-      <article className="grid content-start gap-5 rounded-3xl border border-line bg-card p-6 shadow-sm sm:p-9">
+      <article className="grid content-start gap-5 rounded-3xl border border-line/80 bg-card p-6 shadow-xs sm:p-9">
         <div className="flex items-center justify-between gap-2">
           <span className={cn(chip, due ? "bg-warn-soft text-warn" : "bg-line text-muted")}>
             {due ? t("rv.dueChip") : t("rv.extra")}

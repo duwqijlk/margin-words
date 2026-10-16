@@ -171,9 +171,9 @@ export function StatRow({
   }>;
 }) {
   return (
-    <dl className="grid grid-cols-2 overflow-hidden rounded-2xl border border-line bg-card sm:grid-cols-4 [&>div]:border-line max-sm:[&>div:nth-child(n+3)]:border-t max-sm:[&>div:nth-child(even)]:border-l sm:[&>div:not(:first-child)]:border-l">
+    <dl className="grid grid-cols-2 overflow-hidden rounded-2xl border border-line/80 bg-card shadow-xs sm:grid-cols-4 [&>div]:border-line/70 max-sm:[&>div:nth-child(n+3)]:border-t max-sm:[&>div:nth-child(even)]:border-l sm:[&>div:not(:first-child)]:border-l">
       {items.map((item) => (
-        <div key={item.label} className="grid content-start gap-0.5 px-3 py-2.5 sm:px-4 sm:py-3.5">
+        <div key={item.label} className="grid content-start gap-1 px-3.5 py-3 sm:px-4 sm:py-3.5">
           <dt className="text-xs font-semibold text-muted">{item.label}</dt>
           <dd
             className={cn(

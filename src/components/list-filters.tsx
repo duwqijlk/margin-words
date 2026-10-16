@@ -64,11 +64,11 @@ export function ListFilters({
 }
 
 export const bookCardGrid =
-  "grid grid-cols-3 items-stretch gap-x-2 gap-y-4 sm:gap-x-5 sm:gap-y-8 md:grid-cols-4 lg:grid-cols-5";
+  "grid grid-cols-3 items-stretch gap-x-2.5 gap-y-4 sm:gap-x-5 sm:gap-y-8 md:grid-cols-4 lg:grid-cols-5";
 
 /** Same title and author slots on every card, so the action row lines up. */
 export const cardTitleClass =
-  "min-h-[2.6em] overflow-hidden font-display text-[0.78rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.97rem]";
+  "min-h-[2.5em] overflow-hidden font-display text-[0.82rem] leading-[1.3] font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.97rem]";
 
 export const cardAuthorClass = "min-h-4 truncate text-xs leading-4 text-muted max-sm:sr-only";
 

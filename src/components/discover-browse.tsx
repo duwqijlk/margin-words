@@ -380,16 +380,18 @@ export function BookDetail({
                 </div>
               </div>
 
-              <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
+              <dl className="grid grid-cols-2 gap-2.5 rounded-2xl bg-accent-soft/35 p-3.5 sm:grid-cols-4 sm:gap-3 sm:p-4">
                 {[
                   { label: t("browse.fact.level"), value: model.lexile || t("lexile.unrated") },
                   { label: t("dashboard.words"), value: groupDigits(facts.words) },
                   { label: t("dashboard.phrases"), value: groupDigits(facts.phrases) },
                   { label: t("browse.fact.notes"), value: groupDigits(facts.notes) },
                 ].map((fact) => (
-                  <div key={fact.label} className="grid gap-0.5 bg-card px-3 py-2.5">
-                    <dt className="text-[0.7rem] font-semibold text-muted">{fact.label}</dt>
-                    <dd className="font-display text-lg leading-tight font-semibold tabular-nums">
+                  <div key={fact.label} className="grid gap-0.5">
+                    <dt className="text-[0.68rem] font-medium tracking-wide text-muted uppercase">
+                      {fact.label}
+                    </dt>
+                    <dd className="font-display text-lg font-semibold tabular-nums text-ink">
                       {fact.value}
                     </dd>
                   </div>
