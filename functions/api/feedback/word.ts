@@ -17,6 +17,14 @@ export async function handleWordFeedbackPost(
       bookTitle?: unknown;
       word?: unknown;
       reason?: unknown;
+      form?: unknown;
+      chapter?: unknown;
+      occurrence?: unknown;
+      paragraph?: unknown;
+      context?: unknown;
+      sentence?: unknown;
+      senseIndex?: unknown;
+      senseMeaning?: unknown;
     };
     const bookId = typeof body.bookId === "string" ? body.bookId.trim().slice(0, 64) : "";
     if (!bookId || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(bookId)) {
@@ -36,18 +44,27 @@ export async function handleWordFeedbackPost(
       throw new HttpError(400, "bad-reason");
     }
 
+    const form = typeof body.form === "string" ? body.form.trim().toLowerCase().slice(0, 48) : rawWord;
+    const chapter = Math.max(0, Math.floor(Number(body.chapter) || 0));
+    const occurrence = Math.max(1, Math.floor(Number(body.occurrence) || 1));
+    const paragraph = Math.max(0, Math.floor(Number(body.paragraph) || 0));
+    const context = typeof body.context === "string" ? body.context.trim().slice(0, 300) : "";
+    const sentence = typeof body.sentence === "string" ? body.sentence.trim().slice(0, 600) : "";
+    const senseIndex = typeof body.senseIndex === "number" ? Math.floor(body.senseIndex) : -1;
+    const senseMeaning = typeof body.senseMeaning === "string" ? body.senseMeaning.trim().slice(0, 300) : "";
+
     const now = options?.now ?? Date.now();
     const ip = clientIp(request);
     await assertIpRateLimit(env.DB, "feedback", ip, now);
 
-    // Prevent duplicate spam from the same IP within 24 hours
+    // Prevent duplicate spam from the same IP for the same word occurrence within 24 hours
     const oneDayAgo = now - 24 * 60 * 60 * 1000;
     const existing = await env.DB.prepare(
       `SELECT id FROM word_feedback
-       WHERE book_id = ? AND word = ? AND reason = ? AND ip = ? AND created_at > ?
+       WHERE book_id = ? AND word = ? AND chapter = ? AND occurrence = ? AND reason = ? AND ip = ? AND created_at > ?
        LIMIT 1`,
     )
-      .bind(bookId, rawWord, reason, ip, oneDayAgo)
+      .bind(bookId, rawWord, chapter, occurrence, reason, ip, oneDayAgo)
       .first<{ id: number }>();
 
     if (existing) {
@@ -55,10 +72,27 @@ export async function handleWordFeedbackPost(
     }
 
     await env.DB.prepare(
-      `INSERT INTO word_feedback (book_id, book_title, word, reason, created_at, ip)
-       VALUES (?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO word_feedback (
+         book_id, book_title, word, reason, form, chapter, occurrence,
+         paragraph, context, sentence, sense_index, sense_meaning, created_at, ip
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
-      .bind(bookId, bookTitle, rawWord, reason, now, ip)
+      .bind(
+        bookId,
+        bookTitle,
+        rawWord,
+        reason,
+        form || rawWord,
+        chapter,
+        occurrence,
+        paragraph,
+        context,
+        sentence,
+        senseIndex,
+        senseMeaning,
+        now,
+        ip,
+      )
       .run();
 
     return json({ ok: true, saved: true });
