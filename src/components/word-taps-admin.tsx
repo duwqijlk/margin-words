@@ -69,6 +69,14 @@ type FeedbackRow = {
   bookId: string;
   bookTitle: string;
   word: string;
+  form: string;
+  chapter: number;
+  occurrence: number;
+  paragraph: number;
+  context: string;
+  sentence: string;
+  senseIndex: number;
+  senseMeaning: string;
   reason: "too_hard" | "wrong_meaning";
   count: number;
   lastReportedAt: number;
@@ -92,6 +100,14 @@ function readFeedback(value: unknown): FeedbackRow[] {
       bookId: row.bookId,
       bookTitle: typeof row.bookTitle === "string" ? row.bookTitle : "",
       word: row.word,
+      form: typeof row.form === "string" ? row.form : row.word,
+      chapter: typeof row.chapter === "number" ? row.chapter : 0,
+      occurrence: typeof row.occurrence === "number" ? row.occurrence : 1,
+      paragraph: typeof row.paragraph === "number" ? row.paragraph : 0,
+      context: typeof row.context === "string" ? row.context : "",
+      sentence: typeof row.sentence === "string" ? row.sentence : "",
+      senseIndex: typeof row.senseIndex === "number" ? row.senseIndex : -1,
+      senseMeaning: typeof row.senseMeaning === "string" ? row.senseMeaning : "",
       reason: row.reason === "wrong_meaning" ? "wrong_meaning" : "too_hard",
       count: typeof row.count === "number" ? row.count : 1,
       lastReportedAt: typeof row.lastReportedAt === "number" ? row.lastReportedAt : 0,
@@ -631,46 +647,86 @@ function WordFeedbackSubView() {
         <ul className="grid gap-3">
           {rows.map((row) => (
             <li
-              key={`${row.bookId}:${row.word}:${row.reason}`}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs"
+              key={`${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}:${row.reason}:${row.senseIndex}`}
+              className="grid gap-2.5 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs"
             >
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
-                  {row.word}
-                </span>
-
-                <span
-                  className={cn(
-                    "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
-                    row.reason === "too_hard"
-                      ? "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300"
-                      : "border border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
-                  )}
-                >
-                  {row.reason === "too_hard"
-                    ? t("admin.feedback.reasonTooHard")
-                    : t("admin.feedback.reasonWrong")}
-                </span>
-
-                {row.bookTitle ? (
-                  <span className="font-semibold text-ink text-xs sm:text-sm">
-                    {t("admin.taps.bookTitle", { title: row.bookTitle })}
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
+                    {row.word}
                   </span>
-                ) : null}
+                  {row.form && row.form !== row.word ? (
+                    <span className="text-xs text-muted font-mono">({row.form})</span>
+                  ) : null}
 
-                <span className="rounded-md border border-line/70 bg-line/20 px-2 py-0.5 font-mono text-[11px] text-muted">
-                  {row.bookId}
-                </span>
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
+                      row.reason === "too_hard"
+                        ? "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                        : "border border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+                    )}
+                  >
+                    {row.reason === "too_hard"
+                      ? t("admin.feedback.reasonTooHard")
+                      : t("admin.feedback.reasonWrong")}
+                  </span>
+
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide border border-accent/25 bg-accent-soft text-accent",
+                    )}
+                  >
+                    {row.senseIndex >= 0
+                      ? t("admin.feedback.senseNumbered", { n: row.senseIndex + 1 })
+                      : t("admin.feedback.senseEntry")}
+                  </span>
+
+                  {row.bookTitle ? (
+                    <span className="font-semibold text-ink text-xs sm:text-sm">
+                      {t("admin.taps.bookTitle", { title: row.bookTitle })}
+                    </span>
+                  ) : null}
+
+                  <span className="rounded-md border border-line/70 bg-line/20 px-2 py-0.5 font-mono text-[11px] text-muted">
+                    {row.bookId}
+                  </span>
+
+                  <span className="rounded-md border border-accent/25 bg-accent-soft/60 px-2 py-0.5 text-[11px] font-medium text-accent">
+                    {t("admin.taps.location", { chapter: row.chapter + 1, occurrence: row.occurrence })}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
+                    {t("admin.feedback.reportCount", { n: row.count })}
+                  </span>
+                  <span className="text-xs text-muted">
+                    {formatShanghaiDate(row.lastReportedAt)}
+                  </span>
+                </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
-                  {t("admin.feedback.reportCount", { n: row.count })}
-                </span>
-                <span className="text-xs text-muted">
-                  {formatShanghaiDate(row.lastReportedAt)}
-                </span>
-              </div>
+              {row.senseMeaning || row.sentence || row.context ? (
+                <div className="rounded-xl border border-line/50 bg-paper/50 p-2.5 text-xs leading-relaxed space-y-1.5">
+                  {row.senseMeaning ? (
+                    <p className="text-ink text-xs">
+                      <span className="font-semibold text-muted uppercase text-[10px] tracking-wider mr-1">
+                        {t("admin.feedback.reportedMeaning")}:
+                      </span>
+                      <span className="font-medium text-ink italic">“{row.senseMeaning}”</span>
+                    </p>
+                  ) : null}
+                  {row.sentence ? (
+                    <p className="font-display text-ink/90 italic">“{row.sentence}”</p>
+                  ) : null}
+                  {row.context ? (
+                    <p className="font-mono text-[11px] text-muted">
+                      Anchor context: &quot;{row.context}&quot;
+                    </p>
+                  ) : null}
+                </div>
+              ) : null}
             </li>
           ))}
         </ul>

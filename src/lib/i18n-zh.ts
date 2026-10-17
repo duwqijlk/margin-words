@@ -882,6 +882,9 @@ export const zh: Record<Key, string> = {
   "admin.feedback.reasonWrong": "解释错误",
   "admin.feedback.filterAll": "全部反馈",
   "admin.feedback.reportCount": "{n} 次反馈",
+  "admin.feedback.senseNumbered": "释义 #{n}",
+  "admin.feedback.senseEntry": "主释义",
+  "admin.feedback.reportedMeaning": "上报释义",
   "admin.feedback.empty": "暂无释义反馈记录",
   "err.glossaryWeek": "普通读者每 7 天最多新开 7 本书的词表。书架上已有的书可以重新下载。开通书库后不受限制。",
 };

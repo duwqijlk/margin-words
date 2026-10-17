@@ -8,7 +8,16 @@ export const onRequestGet = (context: { request: Request; env: Env }) =>
 
 type FeedbackGroupRow = {
   book_id: string;
+  book_title: string;
   word: string;
+  form: string;
+  chapter: number;
+  occurrence: number;
+  paragraph: number;
+  context: string;
+  sentence: string;
+  sense_index: number;
+  sense_meaning: string;
   reason: string;
   report_count: number;
   last_reported_at: number;
@@ -64,7 +73,7 @@ export async function handleAdminWordFeedbackGet(
 
     const countRow = await env.DB.prepare(
       `SELECT COUNT(*) AS n FROM (
-         SELECT 1 FROM word_feedback ${whereSql} GROUP BY book_id, word, reason
+         SELECT 1 FROM word_feedback ${whereSql} GROUP BY book_id, word, chapter, occurrence, reason
        )`,
     )
       .bind(...bindings)
@@ -75,17 +84,25 @@ export async function handleAdminWordFeedbackGet(
          book_id,
          COALESCE(MAX(book_title), '') AS book_title,
          word,
+         COALESCE(MAX(form), word) AS form,
+         chapter,
+         occurrence,
+         paragraph,
+         COALESCE(MAX(context), '') AS context,
+         COALESCE(MAX(sentence), '') AS sentence,
+         sense_index,
+         COALESCE(MAX(sense_meaning), '') AS sense_meaning,
          reason,
          COUNT(*) AS report_count,
          MAX(created_at) AS last_reported_at
        FROM word_feedback
        ${whereSql}
-       GROUP BY book_id, word, reason
+       GROUP BY book_id, word, chapter, occurrence, reason
        ORDER BY report_count DESC, last_reported_at DESC
        LIMIT ? OFFSET ?`,
     )
       .bind(...bindings, pageSize, (page - 1) * pageSize)
-      .all<FeedbackGroupRow & { book_title: string }>();
+      .all<FeedbackGroupRow>();
 
     return json({
       total: countRow?.n ?? 0,
@@ -101,6 +118,20 @@ export async function handleAdminWordFeedbackGet(
         bookId: row.book_id,
         bookTitle: row.book_title || "",
         word: row.word,
+        form: row.form || row.word,
+        chapter: row.chapter,
+        occurrence: row.occurrence,
+        paragraph: row.paragraph,
+        context: row.context || "",
+        sentence: row.sentence || "",
+        senseIndex: row.sense_index,
+        senseMeaning: row.sense_meaning || "",
+        anchor: {
+          chapter: row.chapter,
+          occurrence: row.occurrence,
+          form: row.form || row.word,
+          context: row.context || "",
+        },
         reason: row.reason,
         count: row.report_count,
         lastReportedAt: row.last_reported_at,

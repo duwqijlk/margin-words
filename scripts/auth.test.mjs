@@ -41,7 +41,7 @@ const NOW = 1_700_000_000_000;
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql", "0006_shelf_grant.sql", "0007_word_taps.sql", "0008_word_feedback.sql", "0009_word_taps_location.sql"]) {
+  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql", "0006_shelf_grant.sql", "0007_word_taps.sql", "0008_word_feedback.sql", "0009_word_taps_location.sql", "0010_word_feedback_location.sql"]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
   return {
@@ -1744,6 +1744,14 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
         bookId: "charlie",
         bookTitle: "Charlie and the Chocolate Factory",
         word: "eavesdrop",
+        form: "eavesdropping",
+        chapter: 2,
+        occurrence: 1,
+        paragraph: 5,
+        context: "he was eavesdropping outside the small room",
+        sentence: "Charlie realized he was eavesdropping outside the small room without making a sound.",
+        senseIndex: 0,
+        senseMeaning: "to listen secretly to what other people are saying",
         reason: "too_hard",
       },
       "1.2.3.4",
@@ -1761,7 +1769,16 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
       null,
       {
         bookId: "charlie",
+        bookTitle: "Charlie and the Chocolate Factory",
         word: "eavesdrop",
+        form: "eavesdropping",
+        chapter: 2,
+        occurrence: 1,
+        paragraph: 5,
+        context: "he was eavesdropping outside the small room",
+        sentence: "Charlie realized he was eavesdropping outside the small room without making a sound.",
+        senseIndex: 0,
+        senseMeaning: "to listen secretly to what other people are saying",
         reason: "too_hard",
       },
       "1.2.3.4",
@@ -1779,7 +1796,16 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
       null,
       {
         bookId: "charlie",
+        bookTitle: "Charlie and the Chocolate Factory",
         word: "eavesdrop",
+        form: "eavesdropping",
+        chapter: 2,
+        occurrence: 1,
+        paragraph: 5,
+        context: "he was eavesdropping outside the small room",
+        sentence: "Charlie realized he was eavesdropping outside the small room without making a sound.",
+        senseIndex: 0,
+        senseMeaning: "to listen secretly to what other people are saying",
         reason: "too_hard",
       },
       "5.6.7.8",
@@ -1796,7 +1822,16 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
       null,
       {
         bookId: "wonder",
+        bookTitle: "Wonder",
         word: "cricket",
+        form: "cricket",
+        chapter: 1,
+        occurrence: 1,
+        paragraph: 2,
+        context: "the chirping of a cricket in the dark",
+        sentence: "He heard the chirping of a cricket in the dark corner.",
+        senseIndex: 1,
+        senseMeaning: "an open-air game played with a ball, bats, and wickets",
         reason: "wrong_meaning",
       },
       "9.10.11.12",
@@ -1844,7 +1879,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   );
   assert.equal(adminList.status, 200);
   const body = await adminList.json();
-  assert.equal(body.total, 2); // 2 distinct (book, word, reason) groups
+  assert.equal(body.total, 2); // 2 distinct (book, word, chapter, occurrence, reason) groups
   assert.equal(body.summary.totalReports, 3);
   assert.equal(body.summary.tooHardReports, 2);
   assert.equal(body.summary.wrongMeaningReports, 1);
@@ -1855,6 +1890,15 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   assert.equal(body.items[0].bookTitle, "Charlie and the Chocolate Factory");
   assert.equal(body.items[0].reason, "too_hard");
   assert.equal(body.items[0].count, 2);
+  assert.equal(body.items[0].senseIndex, 0);
+  assert.equal(body.items[0].senseMeaning, "to listen secretly to what other people are saying");
+  assert.deepEqual(body.items[0].anchor, {
+    chapter: 2,
+    occurrence: 1,
+    form: "eavesdropping",
+    context: "he was eavesdropping outside the small room",
+  });
+  assert.equal(body.items[0].sentence, "Charlie realized he was eavesdropping outside the small room without making a sound.");
 
   // Filter by reason=wrong_meaning
   const filtered = await handleAdminWordFeedbackGet(

@@ -528,6 +528,16 @@ type CardState = {
   fullSentence?: string;
   /** an example sentence from the word list, when it is not the sentence that was tapped */
   example?: string;
+  /** index in entry.senses, or -1 for entry's own meaning */
+  senseIndex?: number;
+  /** anchor context snippet conforming to dictionary Anchor spec */
+  context?: string;
+  /** 1-based occurrence */
+  occurrence?: number;
+  /** paragraph index */
+  paragraph?: number;
+  /** chapter index */
+  chapter?: number;
 };
 
 /** The whole sentence around a tapped word, and where that word starts inside it. */
@@ -898,10 +908,18 @@ function WordCard({
 
         {state.status !== "unknown" || phrase ? (
           <WordExplanationFeedback
-            key={`${bookId}:${lookup}`}
+            key={`${bookId}:${lookup}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
             bookId={bookId}
             bookTitle={bookTitle}
             word={lookup}
+            form={countSurface(state.surface)}
+            chapter={state.chapter ?? (typeof noteChapter === "number" ? noteChapter : chapter)}
+            occurrence={state.occurrence ?? 1}
+            paragraph={state.paragraph ?? 0}
+            context={state.context ?? ""}
+            sentence={state.fullSentence ?? state.sentence}
+            senseIndex={state.senseIndex ?? -1}
+            senseMeaning={phrase ? phrase.entry.meaning : state.meaning}
           />
         ) : null}
 
@@ -1849,6 +1867,7 @@ export function ReaderScreen({
     const key = resolveKey(surface);
     const sentence = sentenceAround(paragraph, surface, tap.before.length);
     const fullSentence = wholeSentence(paragraph, surface, tap.before.length);
+    const context = extractAnchorContext(paragraph, surface, tap.before.length);
     const tapAt = {
       chapter: viewChapter,
       surface,
@@ -1876,6 +1895,11 @@ export function ReaderScreen({
         others: choice.others,
         coined: gloss.coined === true,
         example: exampleOf(gloss, sentence),
+        senseIndex: choice.at,
+        context,
+        occurrence: tap.nth,
+        paragraph: tap.block,
+        chapter: viewChapter,
       };
     }
     if (isEasyKey(key)) {
@@ -1889,6 +1913,10 @@ export function ReaderScreen({
         fullSentence,
         ready: true,
         status: "easy",
+        context,
+        occurrence: tap.nth,
+        paragraph: tap.block,
+        chapter: viewChapter,
       };
     }
     // Not in this book's word list: say so in a friendly way. Nothing is looked up online.
@@ -1902,6 +1930,10 @@ export function ReaderScreen({
       fullSentence,
       ready: false,
       status: "unknown",
+      context,
+      occurrence: tap.nth,
+      paragraph: tap.block,
+      chapter: viewChapter,
     };
   }
 

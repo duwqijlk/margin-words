@@ -7,11 +7,27 @@ export function WordExplanationFeedback({
   bookId,
   bookTitle,
   word,
+  form,
+  chapter,
+  occurrence,
+  paragraph,
+  context,
+  sentence,
+  senseIndex,
+  senseMeaning,
   className,
 }: {
   bookId: string;
   bookTitle?: string;
   word: string;
+  form?: string;
+  chapter?: number;
+  occurrence?: number;
+  paragraph?: number;
+  context?: string;
+  sentence?: string;
+  senseIndex?: number;
+  senseMeaning?: string;
   className?: string;
 }) {
   const { t } = useT();
@@ -25,7 +41,20 @@ export function WordExplanationFeedback({
       await fetch("/api/feedback/word", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ bookId, bookTitle, word, reason }),
+        body: JSON.stringify({
+          bookId,
+          bookTitle,
+          word,
+          reason,
+          form,
+          chapter,
+          occurrence,
+          paragraph,
+          context,
+          sentence,
+          senseIndex,
+          senseMeaning,
+        }),
       });
       setSubmitted(reason);
     } catch {
