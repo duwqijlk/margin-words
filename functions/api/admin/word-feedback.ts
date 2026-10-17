@@ -208,8 +208,8 @@ export async function handleAdminWordFeedbackPost(
     const chapter = Math.max(0, Math.floor(Number(body.chapter) || 0));
     const occurrence = Math.max(1, Math.floor(Number(body.occurrence) || 1));
     const reason = typeof body.reason === "string" ? body.reason.trim() : "";
-    const catalogRev = await catalogGlossaryRev(env.BOOKS, bookId);
-    const rev = (typeof body.rev === "string" && body.rev.trim() ? body.rev.trim().slice(0, 100) : "") || catalogRev;
+    const catalogRev = await catalogGlossaryRev(env.BOOKS, bookId, { bypassCache: true });
+    const rev = catalogRev || (typeof body.rev === "string" && body.rev.trim() ? body.rev.trim().slice(0, 100) : "");
     const now = options?.now ?? Date.now();
 
     await env.DB.prepare(

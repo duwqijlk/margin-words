@@ -2102,4 +2102,116 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const cricketRow = allFeedbackBody.items.find((it) => it.word === "cricket" && it.reason === "wrong_meaning");
   assert.ok(cricketRow);
   assert.equal(cricketRow.status, "reopened");
+
+  // Admin resolves again. Even if an old client sends a stale rev in payload,
+  // the backend prioritizes the catalog revision.
+  const resolveWithStaleClientRev = await handleAdminWordFeedbackPost(
+    postJson("/api/admin/word-feedback", adminCookie, {
+      action: "resolve",
+      bookId: "wonder",
+      word: "cricket",
+      chapter: 1,
+      occurrence: 1,
+      reason: "wrong_meaning",
+      rev: "stale-client-rev",
+    }),
+    env,
+    { now: NOW + 6300 },
+  );
+  assert.equal(resolveWithStaleClientRev.status, 200);
+  assert.equal((await resolveWithStaleClientRev.json()).resolvedRev, "wonder-rev-v");
+
+  // Update catalog to v3 (within 60s). BypassCache guarantees resolve immediately picks up v3
+  const v3Catalog = {
+    lists: [
+      {
+        id: "wonder",
+        glossary: { url: "wonder/glossary.json", bytes: 1000, sha256: "wonder-v3-000000000000000000000000000000000000000000000000000" },
+      },
+    ],
+  };
+  booksMap.set("word-lists/catalog.json", new TextEncoder().encode(JSON.stringify(v3Catalog)));
+
+  const resolveV3 = await handleAdminWordFeedbackPost(
+    postJson("/api/admin/word-feedback", adminCookie, {
+      action: "resolve",
+      bookId: "wonder",
+      word: "cricket",
+      chapter: 1,
+      occurrence: 1,
+      reason: "wrong_meaning",
+    }),
+    env,
+    { now: NOW + 6400 },
+  );
+  assert.equal(resolveV3.status, 200);
+  assert.equal((await resolveV3.json()).resolvedRev, "wonder-v3-00");
+
+  // Outdated client on v1 reports -> stays resolved (suppressed)
+  const legacyReport = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      {
+        bookId: "wonder",
+        bookTitle: "Wonder",
+        word: "cricket",
+        form: "cricket",
+        chapter: 1,
+        occurrence: 1,
+        paragraph: 2,
+        context: "the chirping of a cricket in the dark",
+        sentence: "He heard the chirping of a cricket in the dark corner.",
+        senseIndex: 1,
+        senseMeaning: "wrong meaning from old v1",
+        reason: "wrong_meaning",
+        glossaryRev: "wonder-rev-v1",
+      },
+      "21.22.23.24",
+    ),
+    env,
+    { now: NOW + 6500 },
+  );
+  assert.equal(legacyReport.status, 200);
+
+  const checkNoReopened = await handleAdminWordFeedbackGet(
+    raw("/api/admin/word-feedback?status=reopened", adminCookie),
+    env,
+    { now: NOW + 6600 },
+  );
+  assert.equal((await checkNoReopened.json()).total, 0);
+
+  // Client on current v3 reports -> genuine regression, correctly marked reopened
+  const v3Regression = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      {
+        bookId: "wonder",
+        bookTitle: "Wonder",
+        word: "cricket",
+        form: "cricket",
+        chapter: 1,
+        occurrence: 1,
+        paragraph: 2,
+        context: "the chirping of a cricket in the dark",
+        sentence: "He heard the chirping of a cricket in the dark corner.",
+        senseIndex: 1,
+        senseMeaning: "still broken in v3",
+        reason: "wrong_meaning",
+        glossaryRev: "wonder-v3-00",
+      },
+      "25.26.27.28",
+    ),
+    env,
+    { now: NOW + 6700 },
+  );
+  assert.equal(v3Regression.status, 200);
+
+  const checkReopenedV3 = await handleAdminWordFeedbackGet(
+    raw("/api/admin/word-feedback?status=reopened", adminCookie),
+    env,
+    { now: NOW + 6800 },
+  );
+  assert.equal((await checkReopenedV3.json()).total, 1);
 });
