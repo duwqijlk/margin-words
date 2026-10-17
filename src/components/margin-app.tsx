@@ -365,7 +365,7 @@ export function MarginApp() {
           <div className="mx-auto flex h-14 max-w-6xl items-center gap-1 px-2 sm:gap-2 sm:px-6">
             <button
               type="button"
-              className="shrink-0 rounded-lg px-2 py-1.5 font-display text-lg font-semibold tracking-tight text-ink sm:text-xl"
+              className="shrink-0 inline-flex min-h-11 items-center rounded-lg px-2 font-display text-lg font-semibold tracking-tight text-ink sm:text-xl -translate-y-0.5"
               onClick={() => setScreen({ kind: "shelf" })}
               data-brand
             >
