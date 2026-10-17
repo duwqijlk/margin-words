@@ -37,6 +37,7 @@ export async function handleWordTapsPost(
       paragraph: number;
       context: string;
       sentence: string;
+      glossaryRev: string;
       count: number;
       inGlossary: number;
     };
@@ -51,6 +52,7 @@ export async function handleWordTapsPost(
         paragraph?: unknown;
         context?: unknown;
         sentence?: unknown;
+        glossaryRev?: unknown;
         count?: unknown;
         inGlossary?: unknown;
       };
@@ -78,6 +80,8 @@ export async function handleWordTapsPost(
         typeof record.context === "string" ? record.context.trim().slice(0, 300) : "";
       const sentence =
         typeof record.sentence === "string" ? record.sentence.trim().slice(0, 600) : "";
+      const glossaryRev =
+        typeof record.glossaryRev === "string" ? record.glossaryRev.trim().slice(0, 100) : "";
 
       const count =
         typeof record.count === "number" && Number.isSafeInteger(record.count) && record.count > 0
@@ -92,6 +96,7 @@ export async function handleWordTapsPost(
         paragraph,
         context,
         sentence,
+        glossaryRev,
         count,
         inGlossary,
       });
@@ -109,16 +114,18 @@ export async function handleWordTapsPost(
       env.DB.prepare(
         `INSERT INTO book_word_taps (
            book_id, book_title, word, form, chapter, occurrence, paragraph, context, sentence,
-           tap_count, in_glossary, last_tapped_at
-         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+           glossary_rev, tap_count, in_glossary, last_tapped_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
          ON CONFLICT(book_id, word, chapter, occurrence) DO UPDATE SET
            tap_count = book_word_taps.tap_count + excluded.tap_count,
            in_glossary = CASE WHEN excluded.in_glossary = 1 THEN 1 ELSE book_word_taps.in_glossary END,
+           status = CASE WHEN excluded.in_glossary = 1 THEN 'resolved' ELSE book_word_taps.status END,
            book_title = CASE WHEN excluded.book_title != '' THEN excluded.book_title ELSE book_word_taps.book_title END,
            form = CASE WHEN excluded.form != '' THEN excluded.form ELSE book_word_taps.form END,
            paragraph = excluded.paragraph,
            context = CASE WHEN excluded.context != '' THEN excluded.context ELSE book_word_taps.context END,
            sentence = CASE WHEN excluded.sentence != '' THEN excluded.sentence ELSE book_word_taps.sentence END,
+           glossary_rev = CASE WHEN excluded.glossary_rev != '' THEN excluded.glossary_rev ELSE book_word_taps.glossary_rev END,
            last_tapped_at = excluded.last_tapped_at`,
       ).bind(
         bookId,
@@ -130,6 +137,7 @@ export async function handleWordTapsPost(
         item.paragraph,
         item.context,
         item.sentence,
+        item.glossaryRev,
         item.count,
         item.inGlossary,
         now,
