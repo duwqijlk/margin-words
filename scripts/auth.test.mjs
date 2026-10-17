@@ -1995,7 +1995,43 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   assert.equal(resolvedListBody.items[0].status, "resolved");
   assert.equal(resolvedListBody.items[0].resolvedRev, "wonder-rev-v2");
 
-  // A reader reports cricket wrong_meaning again after resolution -> automatically marked as 'reopened'
+  // A reader on an outdated version (wonder-rev-v1) reports cricket wrong_meaning:
+  // Since wonder-rev-v1 != resolvedRev (wonder-rev-v2), it should NOT be marked as reopened (stays resolved)
+  const outdatedClientResp = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      {
+        bookId: "wonder",
+        bookTitle: "Wonder",
+        word: "cricket",
+        form: "cricket",
+        chapter: 1,
+        occurrence: 1,
+        paragraph: 2,
+        context: "the chirping of a cricket in the dark",
+        sentence: "He heard the chirping of a cricket in the dark corner.",
+        senseIndex: 1,
+        senseMeaning: "wrong meaning from old v1 version",
+        reason: "wrong_meaning",
+        glossaryRev: "wonder-rev-v1",
+      },
+      "17.18.19.20",
+    ),
+    env,
+    { now: NOW + 5500 },
+  );
+  assert.equal(outdatedClientResp.status, 200);
+
+  // Still 0 reopened items
+  const noReopenedYet = await handleAdminWordFeedbackGet(
+    raw("/api/admin/word-feedback?status=reopened", adminCookie),
+    env,
+    { now: NOW + 5600 },
+  );
+  assert.equal((await noReopenedYet.json()).total, 0);
+
+  // A reader reports cricket wrong_meaning again on the new resolved version (wonder-rev-v2) -> automatically marked as 'reopened'
   const reopenResp = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
@@ -2011,7 +2047,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
         context: "the chirping of a cricket in the dark",
         sentence: "He heard the chirping of a cricket in the dark corner.",
         senseIndex: 1,
-        senseMeaning: "still a wrong meaning",
+        senseMeaning: "still a wrong meaning in new version",
         reason: "wrong_meaning",
         glossaryRev: "wonder-rev-v2",
       },
@@ -2033,4 +2069,15 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   assert.equal(reopenedListBody.items[0].word, "cricket");
   assert.equal(reopenedListBody.items[0].status, "reopened");
   assert.equal(reopenedListBody.items[0].glossaryRev, "wonder-rev-v2");
+
+  // In the 'all' view, the group status must be 'reopened' (not masked by earlier 'resolved' reports)
+  const allFeedbackList = await handleAdminWordFeedbackGet(
+    raw("/api/admin/word-feedback?status=all", adminCookie),
+    env,
+    { now: NOW + 6200 },
+  );
+  const allFeedbackBody = await allFeedbackList.json();
+  const cricketRow = allFeedbackBody.items.find((it) => it.word === "cricket" && it.reason === "wrong_meaning");
+  assert.ok(cricketRow);
+  assert.equal(cricketRow.status, "reopened");
 });

@@ -243,7 +243,7 @@ function WordTapsSubView() {
               r.word === row.word &&
               r.chapter === row.chapter &&
               r.occurrence === row.occurrence
-                ? { ...r, status: "resolved", inGlossary: true, resolvedAt: Date.now() }
+                ? { ...r, status: "resolved", resolvedAt: Date.now() }
                 : r,
             )
           : null,
