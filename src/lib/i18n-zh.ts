@@ -719,6 +719,7 @@ export const zh: Record<Key, string> = {
   "admin.signIn": "管理员登录",
   "admin.empty": "还没有申请。",
   "admin.sent": "已发邮件",
+  "admin.pending": "待处理",
   "admin.amount": "美元",
   "admin.list": "显示到感谢名单",
   "admin.listed": "已显示",

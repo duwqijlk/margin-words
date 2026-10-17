@@ -89,37 +89,69 @@ export function SponsorTab() {
   return (
     <div className="grid gap-4" data-sponsor-admin>
       {error && rows === null ? (
-        <p role="alert">{t(error)}</p>
+        <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-4 text-sm text-warn" role="alert">{t(error)}</p>
       ) : rows === null ? (
-        <p>{t("dashboard.loading")}</p>
+        <p className="py-8 text-center text-muted">{t("dashboard.loading")}</p>
       ) : rows.length === 0 ? (
-        <p data-sponsor-admin-empty>{t("admin.empty")}</p>
+        <div className="rounded-2xl border border-line/80 bg-card p-10 text-center text-muted" data-sponsor-admin-empty>
+          {t("admin.empty")}
+        </div>
       ) : (
-        <ul className="grid gap-3">
+        <ul className="grid gap-3.5">
           {rows.map((row) => {
             const listed = row.listedAt != null;
             const closed = row.closedAt != null;
             const amount = amounts[row.id] ?? "";
+            const initial = (row.displayName || row.email || "?").trim().slice(0, 1).toUpperCase();
             return (
-              <li key={row.id} className="grid gap-2 rounded-2xl border border-line bg-card p-4" data-sponsor-request={row.id}>
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <p className="font-display text-xl font-semibold">{row.displayName}</p>
-                  <p className="text-sm text-muted">{formatShanghaiDate(row.createdAt)}</p>
+              <li
+                key={row.id}
+                className="grid gap-3 rounded-2xl border border-line/80 bg-card p-4.5 shadow-2xs transition-shadow hover:shadow-xs sm:p-5"
+                data-sponsor-request={row.id}
+              >
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-soft font-display text-sm font-bold text-accent shadow-2xs">
+                      {initial}
+                    </div>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="font-display text-lg font-bold text-ink">{row.displayName}</p>
+                        <span className="rounded-md border border-line/70 bg-line/30 px-2 py-0.5 text-xs font-medium text-muted">
+                          {methodLabel(row.method, t)}
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted/80">{row.email}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted">{formatShanghaiDate(row.createdAt)}</span>
+                    {listed && row.amountCents ? (
+                      <span
+                        className="inline-flex items-center gap-1 rounded-full border border-accent/20 bg-accent-soft px-2.5 py-0.5 text-xs font-semibold text-accent"
+                        data-sponsor-listed
+                      >
+                        {t("admin.listed")} · {t("thanks.amount", { amount: formatSponsorUsd(row.amountCents) })}
+                      </span>
+                    ) : closed ? (
+                      <span className="inline-flex items-center rounded-full border border-line/80 bg-line/40 px-2.5 py-0.5 text-xs font-medium text-muted">
+                        {t("admin.closed")}
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-700 dark:text-amber-300">
+                        <span className="size-1.5 rounded-full bg-amber-500" />
+                        {row.emailSentAt ? t("admin.sent") : t("admin.pending")}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <p className="text-sm">
-                  {row.email} · {methodLabel(row.method, t)}
-                </p>
-                {listed && row.amountCents ? (
-                  <p className="text-sm font-semibold" data-sponsor-listed>
-                    {t("admin.listed")} · {t("thanks.amount", { amount: formatSponsorUsd(row.amountCents) })}
-                  </p>
-                ) : closed ? (
-                  <p className="text-sm text-muted">{t("admin.closed")}</p>
-                ) : (
-                  <div className="flex flex-wrap items-center gap-2">
-                    <label className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold">
+
+                {!listed && !closed ? (
+                  <div className="flex flex-wrap items-center gap-2.5 border-t border-line/50 pt-3">
+                    <label className="inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-xl border border-line/70 bg-paper/50 px-3 text-xs font-semibold text-ink transition-colors hover:border-accent/40 hover:bg-card">
                       <input
                         type="checkbox"
+                        className="size-4 rounded accent-accent"
                         checked={row.emailSentAt != null}
                         disabled={row.emailSentAt != null || busy === row.id}
                         data-sponsor-email-sent
@@ -127,18 +159,23 @@ export function SponsorTab() {
                       />
                       {t("admin.sent")}
                     </label>
-                    <input
-                      className={cn(field, "w-28")}
-                      inputMode="decimal"
-                      value={amount}
-                      placeholder={t("admin.amount")}
-                      aria-label={t("admin.amount")}
-                      data-sponsor-amount
-                      onChange={(event) => setAmounts((current) => ({ ...current, [row.id]: event.target.value }))}
-                    />
+
+                    <div className="relative inline-flex items-center">
+                      <span className="pointer-events-none absolute left-3 text-xs font-bold text-muted">$</span>
+                      <input
+                        className={cn(field, "h-10 min-h-0 w-28 pl-6.5 text-xs font-semibold")}
+                        inputMode="decimal"
+                        value={amount}
+                        placeholder={t("admin.amount")}
+                        aria-label={t("admin.amount")}
+                        data-sponsor-amount
+                        onChange={(event) => setAmounts((current) => ({ ...current, [row.id]: event.target.value }))}
+                      />
+                    </div>
+
                     <button
                       type="button"
-                      className={btn.primary}
+                      className={cn(btn.primary, "h-10 min-h-0 px-3.5 text-xs")}
                       disabled={busy === row.id || parseUsdToCents(amount) == null}
                       data-sponsor-list
                       onClick={() => void act(row.id, "list", amount)}
@@ -147,21 +184,21 @@ export function SponsorTab() {
                     </button>
                     <button
                       type="button"
-                      className={btn.quiet}
+                      className={cn(btn.quiet, "h-10 min-h-0 px-3 text-xs")}
                       disabled={busy === row.id}
                       onClick={() => void act(row.id, "close")}
                     >
                       {t("admin.close")}
                     </button>
                   </div>
-                )}
+                ) : null}
               </li>
             );
           })}
         </ul>
       )}
       {error && rows ? (
-        <p className="text-sm text-warn" role="alert">
+        <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn" role="alert">
           {t(error)}
         </p>
       ) : null}

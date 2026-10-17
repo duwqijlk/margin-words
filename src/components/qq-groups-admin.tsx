@@ -89,35 +89,59 @@ export function QqGroupsAdmin() {
     }
   }
 
-  if (loadError) return <p role="alert">{t("admin.qq.error")}</p>;
-  if (!groups) return <p>{t("dashboard.loading")}</p>;
+  if (loadError) return <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-4 text-xs text-warn" role="alert">{t("admin.qq.error")}</p>;
+  if (!groups) return <p className="py-8 text-center text-muted">{t("dashboard.loading")}</p>;
 
   return (
-    <div className="grid gap-4" data-admin-qq>
-      <p className="text-sm text-muted">{t("admin.qq.hint")}</p>
-      {saved ? null : <p className="text-sm text-muted">{t("admin.qq.unsaved", { number: DEFAULT_QQ_GROUPS[0] })}</p>}
-      {groups.length === 0 ? <p className="text-sm text-muted">{t("admin.qq.empty")}</p> : null}
-      <ul className="grid gap-2">
-        {groups.map((item) => (
-          <li key={item} className="flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-3 py-2" data-admin-qq-row={item}>
-            <span className="font-mono tabular-nums">{item}</span>
-            <button type="button" className={cn(btn.quiet, "min-h-9 px-3 text-sm")} onClick={() => remove(item)} data-admin-qq-remove={item}>
-              {t("admin.qq.remove")}
-            </button>
-          </li>
-        ))}
-      </ul>
+    <div className="grid gap-6 rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6" data-admin-qq>
+      <div>
+        <p className="text-sm text-muted">{t("admin.qq.hint")}</p>
+        {!saved ? (
+          <p className="mt-1 text-xs text-muted/80">
+            {t("admin.qq.unsaved", { number: DEFAULT_QQ_GROUPS[0] })}
+          </p>
+        ) : null}
+      </div>
+
+      {groups.length === 0 ? (
+        <div className="rounded-xl border border-dashed border-line/80 p-8 text-center text-xs text-muted">
+          {t("admin.qq.empty")}
+        </div>
+      ) : (
+        <ul className="grid gap-2">
+          {groups.map((item) => (
+            <li
+              key={item}
+              className="flex items-center justify-between gap-3 rounded-xl border border-line/70 bg-paper/50 px-4 py-2.5 shadow-2xs transition-colors hover:border-line hover:bg-card"
+              data-admin-qq-row={item}
+            >
+              <span className="font-mono text-sm font-semibold tracking-wider text-ink tabular-nums">
+                {item}
+              </span>
+              <button
+                type="button"
+                className={cn(btn.quiet, "h-8 min-h-0 px-2.5 text-xs text-muted hover:text-warn")}
+                onClick={() => remove(item)}
+                data-admin-qq-remove={item}
+              >
+                {t("admin.qq.remove")}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
       <form
-        className="flex flex-wrap items-center gap-2"
+        className="flex flex-wrap items-end gap-2 border-t border-line/50 pt-4"
         onSubmit={(event) => {
           event.preventDefault();
           add();
         }}
       >
-        <label className="grid min-w-0 flex-1 gap-1 text-sm font-medium">
+        <label className="grid min-w-0 flex-1 gap-1 text-xs font-bold uppercase tracking-wider text-muted">
           {t("admin.qq.number")}
           <input
-            className={field}
+            className={cn(field, "h-10 min-h-0 text-xs font-semibold")}
             value={number}
             inputMode="numeric"
             autoComplete="off"
@@ -125,19 +149,33 @@ export function QqGroupsAdmin() {
             data-admin-qq-number
           />
         </label>
-        <button type="submit" className={cn(btn.quiet, "mt-6")} data-admin-qq-add>
+        <button
+          type="submit"
+          className={cn(btn.quiet, "h-10 min-h-0 px-3.5 text-xs font-semibold")}
+          data-admin-qq-add
+        >
           {t("admin.qq.add")}
         </button>
       </form>
+
       {error ? (
-        <p className="text-sm text-warn" role="alert">
+        <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn" role="alert">
           {error}
         </p>
       ) : null}
-      {note ? <p className="text-sm text-accent">{note}</p> : null}
-      <button type="button" className={cn(btn.primary, "justify-start")} disabled={busy} onClick={() => void save()} data-admin-qq-save>
-        {busy ? t("account.working") : t("admin.qq.save")}
-      </button>
+      {note ? <p className="text-xs font-semibold text-accent">{note}</p> : null}
+
+      <div className="border-t border-line/50 pt-2">
+        <button
+          type="button"
+          className={cn(btn.primary, "px-5 text-xs font-semibold")}
+          disabled={busy}
+          onClick={() => void save()}
+          data-admin-qq-save
+        >
+          {busy ? t("account.working") : t("admin.qq.save")}
+        </button>
+      </div>
     </div>
   );
 }

@@ -22,18 +22,28 @@ export function AdminPage() {
 
   return (
     <div
-      className={cn(
-        "mx-auto grid w-full gap-4 px-4 py-6 sm:px-6 sm:py-10",
-        admin && tab === "lists" ? "max-w-6xl" : "max-w-3xl",
-      )}
+      className="mx-auto grid w-full max-w-5xl gap-6 px-4 py-6 sm:px-6 sm:py-10"
       data-admin-page
     >
-      <h1 className="font-display text-3xl font-semibold">{t("admin.title")}</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line/60 pb-5">
+        <div className="flex items-center gap-3">
+          <h1 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+            {t("admin.title")}
+          </h1>
+          {admin ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/25 bg-accent-soft px-3 py-0.5 text-xs font-semibold text-accent shadow-2xs">
+              <span className="size-1.5 rounded-full bg-accent" />
+              Admin
+            </span>
+          ) : null}
+        </div>
+      </div>
+
       {phase === "unknown" ? (
-        <p>{t("dashboard.loading")}</p>
+        <p className="text-muted">{t("dashboard.loading")}</p>
       ) : !admin ? (
-        <div className="grid justify-items-start gap-3">
-          <p>{t("admin.only")}</p>
+        <div className="grid justify-items-start gap-4 rounded-2xl border border-line/80 bg-card p-6 shadow-sm">
+          <p className="text-base text-muted">{t("admin.only")}</p>
           {!phase || phase !== "in" ? (
             <button type="button" className={btn.primary} onClick={() => askToSignIn()}>
               {t("admin.signIn")}
@@ -42,33 +52,54 @@ export function AdminPage() {
         </div>
       ) : (
         <>
-          <Segmented
-            label={t("admin.title")}
-            value={tab}
-            onChange={setTab}
-            layout="wrap"
-            options={[
+          <div
+            role="group"
+            aria-label={t("admin.title")}
+            className="flex flex-wrap items-center gap-1.5 rounded-2xl border border-line/60 bg-line/35 p-1.5 backdrop-blur-xs sm:flex-nowrap"
+          >
+            {[
               { value: "thanks" as const, label: t("admin.tab.thanks") },
               { value: "lists" as const, label: t("admin.tab.lists") },
               { value: "books" as const, label: t("admin.tab.books") },
               { value: "series" as const, label: t("admin.tab.series") },
               { value: "users" as const, label: t("admin.tab.users") },
               { value: "qq" as const, label: t("admin.tab.qq") },
-            ]}
-          />
-          {tab === "thanks" ? (
-            <SponsorTab />
-          ) : tab === "lists" ? (
-            <WordListAdmin />
-          ) : tab === "books" ? (
-            <BooksAdmin />
-          ) : tab === "series" ? (
-            <SeriesAdmin />
-          ) : tab === "qq" ? (
-            <QqGroupsAdmin />
-          ) : (
-            <UsersAdmin />
-          )}
+            ].map((option) => {
+              const active = tab === option.value;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => setTab(option.value)}
+                  className={cn(
+                    "min-h-10 flex-1 whitespace-nowrap rounded-xl px-3.5 text-sm font-semibold transition-all duration-150 active:scale-98",
+                    active
+                      ? "border border-line/60 bg-card text-ink shadow-xs"
+                      : "text-muted hover:text-ink hover:bg-card/40",
+                  )}
+                >
+                  {option.label}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="min-w-0">
+            {tab === "thanks" ? (
+              <SponsorTab />
+            ) : tab === "lists" ? (
+              <WordListAdmin />
+            ) : tab === "books" ? (
+              <BooksAdmin />
+            ) : tab === "series" ? (
+              <SeriesAdmin />
+            ) : tab === "qq" ? (
+              <QqGroupsAdmin />
+            ) : (
+              <UsersAdmin />
+            )}
+          </div>
         </>
       )}
     </div>

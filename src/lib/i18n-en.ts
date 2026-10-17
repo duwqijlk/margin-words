@@ -736,6 +736,7 @@ export const en = {
   "admin.signIn": "Admin sign in",
   "admin.empty": "No requests yet.",
   "admin.sent": "Email sent",
+  "admin.pending": "Pending",
   "admin.amount": "USD",
   "admin.list": "Show on the thank-you list",
   "admin.listed": "Shown",

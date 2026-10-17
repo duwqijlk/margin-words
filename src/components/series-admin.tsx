@@ -163,56 +163,93 @@ export function SeriesAdmin() {
     }
   }
 
-  if (loadError) return <p role="alert">{t("admin.series.error")}</p>;
-  if (!books || saved === null) return <p>{t("dashboard.loading")}</p>;
+  if (loadError) return <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-4 text-xs text-warn" role="alert">{t("admin.series.error")}</p>;
+  if (!books || saved === null) return <p className="py-8 text-center text-muted">{t("dashboard.loading")}</p>;
 
   return (
-    <div className="grid gap-4" data-admin-series>
-      <p className="text-sm text-muted">{t("admin.series.hint")}</p>
-      {saved ? null : <p className="text-sm text-muted">{t("admin.series.unsaved")}</p>}
-      {rails.length === 0 ? <p className="text-sm text-muted">{t("admin.series.empty")}</p> : null}
-      <ol className="grid gap-2">
-        {rails.map((rail, index) => (
-          <li key={`${rail.source}:${rail.name}`} className="grid gap-1 rounded-xl border border-line bg-card p-3" data-admin-series-row={rail.name}>
-            <div className="flex flex-wrap items-center gap-2">
-              <p className="min-w-0 flex-1 font-semibold" lang="en">
-                {rail.name}
-              </p>
-              <span className="text-xs text-muted">
-                {rail.source === "series"
-                  ? t("admin.series.kindSeries")
-                  : t("admin.series.books", { n: rail.books.length })}
-              </span>
-            </div>
-            {rail.source === "custom" ? (
-              <p className="text-sm text-muted">
-                {rail.books.map((key) => byKey.get(key)?.title ?? key).join(" · ")}
-              </p>
-            ) : null}
-            <div className="flex flex-wrap gap-2">
-              <button type="button" className={btn.quiet} disabled={index === 0} onClick={() => setRails((current) => move(current, index, -1))}>
-                {t("admin.series.up")}
-              </button>
-              <button
-                type="button"
-                className={btn.quiet}
-                disabled={index === rails.length - 1}
-                onClick={() => setRails((current) => move(current, index, 1))}
-              >
-                {t("admin.series.down")}
-              </button>
-              <button type="button" className={btn.quiet} onClick={() => setRails((current) => current.filter((_, at) => at !== index))}>
-                {t("admin.series.remove")}
-              </button>
-            </div>
-          </li>
-        ))}
-      </ol>
+    <div className="grid gap-6" data-admin-series>
+      <div className="rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6">
+        <div>
+          <p className="text-sm text-muted">{t("admin.series.hint")}</p>
+          {!saved ? <p className="mt-1 text-xs text-muted/80">{t("admin.series.unsaved")}</p> : null}
+        </div>
 
-      <div className="grid gap-2 rounded-xl border border-line p-3">
-        <p className="text-sm font-medium">{t("admin.series.addSeries")}</p>
+        {rails.length === 0 ? (
+          <div className="mt-4 rounded-xl border border-dashed border-line/80 p-8 text-center text-xs text-muted">
+            {t("admin.series.empty")}
+          </div>
+        ) : (
+          <ol className="mt-4 grid gap-2.5">
+            {rails.map((rail, index) => (
+              <li
+                key={`${rail.source}:${rail.name}`}
+                className="grid gap-2 rounded-xl border border-line/70 bg-paper/50 p-3.5 shadow-2xs transition-colors hover:border-line hover:bg-card sm:p-4"
+                data-admin-series-row={rail.name}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-line/50 font-mono text-xs font-bold text-muted tabular-nums">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <p className="font-display text-sm font-bold text-ink" lang="en">
+                      {rail.name}
+                    </p>
+                    <span className="rounded-md border border-line/70 bg-card px-2 py-0.5 text-[0.7rem] font-medium text-muted">
+                      {rail.source === "series"
+                        ? t("admin.series.kindSeries")
+                        : t("admin.series.books", { n: rail.books.length })}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      className={cn(btn.quiet, "h-8 min-h-0 px-2 text-xs")}
+                      disabled={index === 0}
+                      onClick={() => setRails((current) => move(current, index, -1))}
+                    >
+                      {t("admin.series.up")}
+                    </button>
+                    <button
+                      type="button"
+                      className={cn(btn.quiet, "h-8 min-h-0 px-2 text-xs")}
+                      disabled={index === rails.length - 1}
+                      onClick={() => setRails((current) => move(current, index, 1))}
+                    >
+                      {t("admin.series.down")}
+                    </button>
+                    <button
+                      type="button"
+                      className={cn(btn.quiet, "h-8 min-h-0 px-2 text-xs text-muted hover:text-warn")}
+                      onClick={() => setRails((current) => current.filter((_, at) => at !== index))}
+                    >
+                      {t("admin.series.remove")}
+                    </button>
+                  </div>
+                </div>
+
+                {rail.source === "custom" ? (
+                  <p className="text-xs text-muted/80">
+                    {rail.books.map((key) => byKey.get(key)?.title ?? key).join(" · ")}
+                  </p>
+                ) : null}
+              </li>
+            ))}
+          </ol>
+        )}
+      </div>
+
+      <div className="grid gap-4 rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6">
+        <span className="text-xs font-bold uppercase tracking-wider text-muted">
+          {t("admin.series.addSeries")}
+        </span>
         <div className="flex flex-wrap gap-2">
-          <select className={cn(field, "min-w-0 flex-1")} value={seriesName} onChange={(event) => setSeriesName(event.target.value)} data-admin-series-pick>
+          <select
+            className={cn(field, "h-10 min-h-0 min-w-0 flex-1 text-xs font-semibold")}
+            value={seriesName}
+            onChange={(event) => setSeriesName(event.target.value)}
+            data-admin-series-pick
+          >
             <option value="">{t("admin.series.pickSeries")}</option>
             {seriesChoices.map((series) => (
               <option key={series} value={series}>
@@ -220,47 +257,89 @@ export function SeriesAdmin() {
               </option>
             ))}
           </select>
-          <button type="button" className={btn.quiet} disabled={!seriesName} onClick={addSeries}>
+          <button
+            type="button"
+            className={cn(btn.quiet, "h-10 min-h-0 px-4 text-xs font-semibold")}
+            disabled={!seriesName}
+            onClick={addSeries}
+          >
             {t("admin.series.add")}
           </button>
         </div>
       </div>
 
-      <div className="grid gap-2 rounded-xl border border-line p-3" data-admin-series-custom>
-        <p className="text-sm font-medium">{t("admin.series.addCustom")}</p>
-        <label className="grid gap-1 text-sm">
-          {t("admin.series.name")}
-          <input className={field} value={name} onChange={(event) => setName(event.target.value)} data-admin-series-name />
-        </label>
-        <label className="grid gap-1 text-sm">
-          {t("admin.series.search")}
-          <input className={field} value={query} onChange={(event) => setQuery(event.target.value)} data-admin-series-search />
-        </label>
-        <ul className="grid max-h-64 gap-1 overflow-y-auto">
+      <div className="grid gap-4 rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6" data-admin-series-custom>
+        <span className="text-xs font-bold uppercase tracking-wider text-muted">
+          {t("admin.series.addCustom")}
+        </span>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="grid gap-1 text-xs font-semibold text-muted">
+            {t("admin.series.name")}
+            <input
+              className={cn(field, "h-10 min-h-0 text-xs font-semibold")}
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              data-admin-series-name
+            />
+          </label>
+          <label className="grid gap-1 text-xs font-semibold text-muted">
+            {t("admin.series.search")}
+            <input
+              className={cn(field, "h-10 min-h-0 text-xs font-semibold")}
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              data-admin-series-search
+            />
+          </label>
+        </div>
+
+        <ul className="grid max-h-56 gap-1 overflow-y-auto rounded-xl border border-line/60 bg-paper/40 p-2">
           {matches.map((book) => (
             <li key={book.key}>
-              <label className="flex items-center gap-2 text-sm">
-                <input type="checkbox" checked={picked.includes(book.key)} onChange={() => toggleBook(book.key)} />
-                <span lang="en">{book.title}</span>
-                {book.author ? <span className="text-muted">{book.author}</span> : null}
+              <label className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition-colors hover:bg-card">
+                <input
+                  type="checkbox"
+                  className="size-3.5 rounded accent-accent"
+                  checked={picked.includes(book.key)}
+                  onChange={() => toggleBook(book.key)}
+                />
+                <span className="font-medium text-ink" lang="en">{book.title}</span>
+                {book.author ? <span className="text-muted">· {book.author}</span> : null}
               </label>
             </li>
           ))}
         </ul>
-        <button type="button" className={cn(btn.quiet, "justify-start")} disabled={!name.trim() || picked.length === 0} onClick={addCustom}>
-          {t("admin.series.add")}
-        </button>
+
+        <div>
+          <button
+            type="button"
+            className={cn(btn.quiet, "h-10 min-h-0 px-4 text-xs font-semibold")}
+            disabled={!name.trim() || picked.length === 0}
+            onClick={addCustom}
+          >
+            {t("admin.series.add")}
+          </button>
+        </div>
       </div>
 
-      {note ? <p className="text-sm text-accent">{note}</p> : null}
+      {note ? <p className="text-xs font-semibold text-accent">{note}</p> : null}
       {error ? (
-        <p className="text-sm text-warn" role="alert">
+        <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn" role="alert">
           {error}
         </p>
       ) : null}
-      <button type="button" className={cn(btn.primary, "justify-start")} disabled={busy} data-admin-series-save onClick={() => void save()}>
-        {busy ? t("account.working") : t("admin.series.save")}
-      </button>
+
+      <div>
+        <button
+          type="button"
+          className={cn(btn.primary, "px-5 text-xs font-semibold")}
+          disabled={busy}
+          data-admin-series-save
+          onClick={() => void save()}
+        >
+          {busy ? t("account.working") : t("admin.series.save")}
+        </button>
+      </div>
     </div>
   );
 }

@@ -110,101 +110,147 @@ export function UsersAdmin() {
   const pages = Math.max(1, Math.ceil(total / 20));
 
   return (
-    <div className="grid gap-4" data-admin-users>
-      <form
-        className="flex gap-2"
-        onSubmit={(event) => {
-          event.preventDefault();
-          void load(query.trim(), 1);
-        }}
-      >
-        <input
-          className={cn(field, "min-w-0 flex-1")}
-          type="search"
-          value={query}
-          placeholder={t("admin.users.search")}
-          aria-label={t("admin.users.search")}
-          data-admin-users-search
-          onChange={(event) => setQuery(event.target.value)}
-        />
-        <button type="submit" className={btn.primary}>
-          {t("admin.users.find")}
-        </button>
-      </form>
-      <label className="flex flex-wrap items-center gap-2 text-sm">
-        {t("admin.users.term")}
-        <select
-          className={cn(field, "w-auto")}
-          value={term}
-          data-admin-trust-term
-          aria-label={t("admin.users.term")}
-          onChange={(event) => setTerm(event.target.value as TrustTerm)}
+    <div className="grid gap-5" data-admin-users>
+      <div className="flex flex-col gap-3 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs sm:flex-row sm:items-center sm:justify-between">
+        <form
+          className="flex min-w-0 flex-1 gap-2"
+          onSubmit={(event) => {
+            event.preventDefault();
+            void load(query.trim(), 1);
+          }}
         >
-          {TERMS.map((item) => (
-            <option key={item} value={item}>
-              {t(TERM_KEY[item])}
-            </option>
-          ))}
-        </select>
-      </label>
+          <input
+            className={cn(field, "min-w-0 flex-1 text-sm")}
+            type="search"
+            value={query}
+            placeholder={t("admin.users.search")}
+            aria-label={t("admin.users.search")}
+            data-admin-users-search
+            onChange={(event) => setQuery(event.target.value)}
+          />
+          <button type="submit" className={cn(btn.primary, "px-4 text-xs font-semibold")}>
+            {t("admin.users.find")}
+          </button>
+        </form>
+
+        <label className="flex items-center gap-2 text-xs font-medium text-muted">
+          <span className="shrink-0">{t("admin.users.term")}:</span>
+          <select
+            className={cn(field, "h-10 min-h-0 w-auto py-1 pl-3 pr-8 text-xs font-semibold")}
+            value={term}
+            data-admin-trust-term
+            aria-label={t("admin.users.term")}
+            onChange={(event) => setTerm(event.target.value as TrustTerm)}
+          >
+            {TERMS.map((item) => (
+              <option key={item} value={item}>
+                {t(TERM_KEY[item])}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
       {error ? (
-        <p className="text-sm text-warn" role="alert">
+        <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn" role="alert">
           {error}
         </p>
       ) : null}
+
       {rows === null ? (
-        <p>{t("dashboard.loading")}</p>
+        <p className="py-8 text-center text-muted">{t("dashboard.loading")}</p>
       ) : rows.length === 0 ? (
-        <p>{t("admin.users.empty")}</p>
+        <div className="rounded-2xl border border-line/80 bg-card p-10 text-center text-muted">
+          {t("admin.users.empty")}
+        </div>
       ) : (
-        <ul className="grid gap-2">
-          {rows.map((row) => (
-            <li key={row.id} className="grid gap-1 rounded-xl border border-line bg-card p-3" data-admin-user={row.id}>
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <p className="text-sm font-semibold">{row.email}</p>
-                <p className="text-xs text-muted">{formatShanghaiDate(row.createdAt)}</p>
-              </div>
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-xs text-muted">
-                  {row.nickname ? `${row.nickname} · ` : ""}
-                  {t(ROLE_KEY[row.role])}
-                  {row.role === "trusted" ? ` · ${trustLabel(row, t)}` : ""}
-                </p>
-                {row.role === "admin" ? null : (
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      className={btn.primary}
-                      disabled={busy === row.id}
-                      data-admin-user-role={row.role}
-                      onClick={() => void setRole(row, "trusted")}
-                    >
-                      {busy === row.id
-                        ? t("account.working")
-                        : row.role === "trusted"
-                          ? t("admin.users.update")
-                          : t("admin.users.grant")}
-                    </button>
-                    {row.role === "trusted" ? (
-                      <button
-                        type="button"
-                        className={btn.quiet}
-                        disabled={busy === row.id}
-                        onClick={() => void setRole(row, "user")}
-                      >
-                        {t("admin.users.revoke")}
-                      </button>
-                    ) : null}
+        <ul className="grid gap-3">
+          {rows.map((row) => {
+            const initial = (row.nickname || row.email || "?").trim().slice(0, 1).toUpperCase();
+            return (
+              <li
+                key={row.id}
+                className="grid gap-3 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs sm:p-4.5"
+                data-admin-user={row.id}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-soft font-display text-sm font-bold text-accent shadow-2xs">
+                      {initial}
+                    </div>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="text-sm font-bold text-ink">{row.email}</p>
+                        {row.nickname ? (
+                          <span className="text-xs text-muted">({row.nickname})</span>
+                        ) : null}
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                        <span
+                          className={cn(
+                            "inline-flex items-center rounded-full px-2 py-0.5 text-[0.7rem] font-bold tracking-wide uppercase",
+                            row.role === "admin"
+                              ? "border border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300"
+                              : row.role === "trusted"
+                                ? "border border-accent/25 bg-accent-soft text-accent"
+                                : "border border-line/80 bg-line/40 text-muted",
+                          )}
+                        >
+                          {t(ROLE_KEY[row.role])}
+                        </span>
+                        {row.role === "trusted" ? (
+                          <span className="text-xs text-muted">· {trustLabel(row, t)}</span>
+                        ) : null}
+                      </div>
+                    </div>
                   </div>
-                )}
-              </div>
-            </li>
-          ))}
+
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-xs text-muted">{formatShanghaiDate(row.createdAt)}</span>
+
+                    {row.role === "admin" ? null : (
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          className={cn(btn.primary, "h-9 min-h-0 px-3 text-xs")}
+                          disabled={busy === row.id}
+                          data-admin-user-role={row.role}
+                          onClick={() => void setRole(row, "trusted")}
+                        >
+                          {busy === row.id
+                            ? t("account.working")
+                            : row.role === "trusted"
+                              ? t("admin.users.update")
+                              : t("admin.users.grant")}
+                        </button>
+                        {row.role === "trusted" ? (
+                          <button
+                            type="button"
+                            className={cn(btn.quiet, "h-9 min-h-0 px-2.5 text-xs")}
+                            disabled={busy === row.id}
+                            onClick={() => void setRole(row, "user")}
+                          >
+                            {t("admin.users.revoke")}
+                          </button>
+                        ) : null}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
+
       {pages > 1 ? (
-        <div className="flex items-center justify-between text-sm">
-          <button type="button" className={btn.quiet} disabled={page <= 1} onClick={() => void load(query.trim(), page - 1)}>
+        <div className="flex items-center justify-between rounded-xl border border-line/60 bg-card p-3 text-xs font-semibold">
+          <button
+            type="button"
+            className={cn(btn.quiet, "h-8 min-h-0 px-3 text-xs")}
+            disabled={page <= 1}
+            onClick={() => void load(query.trim(), page - 1)}
+          >
             {t("admin.users.prev")}
           </button>
           <p className="text-muted">
@@ -212,7 +258,7 @@ export function UsersAdmin() {
           </p>
           <button
             type="button"
-            className={btn.quiet}
+            className={cn(btn.quiet, "h-8 min-h-0 px-3 text-xs")}
             disabled={page >= pages}
             onClick={() => void load(query.trim(), page + 1)}
           >
