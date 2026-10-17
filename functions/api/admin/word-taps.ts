@@ -171,7 +171,7 @@ export async function handleAdminWordTapsPost(
 
     await env.DB.prepare(
       `UPDATE book_word_taps
-       SET status = 'resolved', in_glossary = 1, resolved_at = ?, resolved_rev = ?
+       SET status = 'resolved', resolved_at = ?, resolved_rev = ?
        WHERE book_id = ? AND word = ? AND chapter = ? AND occurrence = ?`,
     )
       .bind(now, rev, bookId, word, chapter, occurrence)

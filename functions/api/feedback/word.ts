@@ -76,7 +76,7 @@ export async function handleWordFeedbackPost(
     // Check if this issue was previously resolved
     const priorResolved = await env.DB.prepare(
       `SELECT resolved_at, resolved_rev FROM word_feedback
-       WHERE book_id = ? AND word = ? AND chapter = ? AND occurrence = ? AND reason = ? AND status = 'resolved'
+       WHERE book_id = ? AND word = ? AND chapter = ? AND occurrence = ? AND reason = ? AND (status = 'resolved' OR resolved_at IS NOT NULL)
        ORDER BY resolved_at DESC LIMIT 1`,
     )
       .bind(bookId, rawWord, chapter, occurrence, reason)
@@ -84,7 +84,16 @@ export async function handleWordFeedbackPost(
 
     let status = "pending";
     if (priorResolved && priorResolved.resolved_at > 0 && now > priorResolved.resolved_at) {
-      status = "reopened";
+      const resolvedRev = priorResolved.resolved_rev || "";
+      // If the report specifies a glossary revision that is older than the resolved revision,
+      // it was filed by a legacy client on an outdated version, so it is already fixed in the new version.
+      // If no revisions are specified, or if the report's revision matches or is newer, it's a real regression.
+      const isOutdatedClient = glossaryRev && resolvedRev && glossaryRev !== resolvedRev;
+      if (isOutdatedClient) {
+        status = "resolved";
+      } else {
+        status = "reopened";
+      }
     }
 
     await env.DB.prepare(

@@ -70,10 +70,6 @@ export async function handleAdminWordFeedbackGet(
       whereParts.push("reason = ?");
       bindings.push(reason);
     }
-    if (statusFilter === "pending" || statusFilter === "resolved" || statusFilter === "reopened") {
-      whereParts.push("status = ?");
-      bindings.push(statusFilter);
-    }
     if (bookId) {
       whereParts.push("book_id = ?");
       bindings.push(bookId);
@@ -85,9 +81,18 @@ export async function handleAdminWordFeedbackGet(
 
     const whereSql = whereParts.length > 0 ? `WHERE ${whereParts.join(" AND ")}` : "";
 
+    let havingSql = "";
+    if (statusFilter === "reopened") {
+      havingSql = "HAVING SUM(CASE WHEN status = 'reopened' THEN 1 ELSE 0 END) > 0";
+    } else if (statusFilter === "pending") {
+      havingSql = "HAVING SUM(CASE WHEN status = 'reopened' THEN 1 ELSE 0 END) = 0 AND SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) > 0";
+    } else if (statusFilter === "resolved") {
+      havingSql = "HAVING SUM(CASE WHEN status = 'reopened' THEN 1 ELSE 0 END) = 0 AND SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) = 0";
+    }
+
     const countRow = await env.DB.prepare(
       `SELECT COUNT(*) AS n FROM (
-         SELECT 1 FROM word_feedback ${whereSql} GROUP BY book_id, word, chapter, occurrence, reason
+         SELECT 1 FROM word_feedback ${whereSql} GROUP BY book_id, word, chapter, occurrence, reason ${havingSql}
        )`,
     )
       .bind(...bindings)
@@ -110,12 +115,17 @@ export async function handleAdminWordFeedbackGet(
          COUNT(*) AS report_count,
          MAX(created_at) AS last_reported_at,
          MAX(glossary_rev) AS glossary_rev,
-         MAX(status) AS status,
+         CASE
+           WHEN SUM(CASE WHEN status = 'reopened' THEN 1 ELSE 0 END) > 0 THEN 'reopened'
+           WHEN SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) > 0 THEN 'pending'
+           ELSE 'resolved'
+         END AS status,
          MAX(resolved_at) AS resolved_at,
          MAX(resolved_rev) AS resolved_rev
        FROM word_feedback
        ${whereSql}
        GROUP BY book_id, word, chapter, occurrence, reason
+       ${havingSql}
        ORDER BY report_count DESC, last_reported_at DESC
        LIMIT ? OFFSET ?`,
     )
