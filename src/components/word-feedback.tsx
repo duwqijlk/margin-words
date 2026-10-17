@@ -15,6 +15,7 @@ export function WordExplanationFeedback({
   sentence,
   senseIndex,
   senseMeaning,
+  glossaryRev,
   className,
 }: {
   bookId: string;
@@ -28,6 +29,7 @@ export function WordExplanationFeedback({
   sentence?: string;
   senseIndex?: number;
   senseMeaning?: string;
+  glossaryRev?: string;
   className?: string;
 }) {
   const { t } = useT();
@@ -54,6 +56,7 @@ export function WordExplanationFeedback({
           sentence,
           senseIndex,
           senseMeaning,
+          glossaryRev,
         }),
       });
       setSubmitted(reason);

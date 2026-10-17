@@ -25,6 +25,7 @@ export async function handleWordFeedbackPost(
       sentence?: unknown;
       senseIndex?: unknown;
       senseMeaning?: unknown;
+      glossaryRev?: unknown;
     };
     const bookId = typeof body.bookId === "string" ? body.bookId.trim().slice(0, 64) : "";
     if (!bookId || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(bookId)) {
@@ -52,6 +53,7 @@ export async function handleWordFeedbackPost(
     const sentence = typeof body.sentence === "string" ? body.sentence.trim().slice(0, 600) : "";
     const senseIndex = typeof body.senseIndex === "number" ? Math.floor(body.senseIndex) : -1;
     const senseMeaning = typeof body.senseMeaning === "string" ? body.senseMeaning.trim().slice(0, 300) : "";
+    const glossaryRev = typeof body.glossaryRev === "string" ? body.glossaryRev.trim().slice(0, 100) : "";
 
     const now = options?.now ?? Date.now();
     const ip = clientIp(request);
@@ -71,11 +73,26 @@ export async function handleWordFeedbackPost(
       return json({ ok: true, duplicate: true });
     }
 
+    // Check if this issue was previously resolved
+    const priorResolved = await env.DB.prepare(
+      `SELECT resolved_at, resolved_rev FROM word_feedback
+       WHERE book_id = ? AND word = ? AND chapter = ? AND occurrence = ? AND reason = ? AND status = 'resolved'
+       ORDER BY resolved_at DESC LIMIT 1`,
+    )
+      .bind(bookId, rawWord, chapter, occurrence, reason)
+      .first<{ resolved_at: number; resolved_rev: string }>();
+
+    let status = "pending";
+    if (priorResolved && priorResolved.resolved_at > 0 && now > priorResolved.resolved_at) {
+      status = "reopened";
+    }
+
     await env.DB.prepare(
       `INSERT INTO word_feedback (
          book_id, book_title, word, reason, form, chapter, occurrence,
-         paragraph, context, sentence, sense_index, sense_meaning, created_at, ip
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         paragraph, context, sentence, sense_index, sense_meaning,
+         glossary_rev, status, created_at, ip
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
       .bind(
         bookId,
@@ -90,6 +107,8 @@ export async function handleWordFeedbackPost(
         sentence,
         senseIndex,
         senseMeaning,
+        glossaryRev,
+        status,
         now,
         ip,
       )

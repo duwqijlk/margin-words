@@ -886,5 +886,13 @@ export const zh: Record<Key, string> = {
   "admin.feedback.senseEntry": "主释义",
   "admin.feedback.reportedMeaning": "上报释义",
   "admin.feedback.empty": "暂无释义反馈记录",
+  "admin.taps.revLabel": "词表版本: {rev}",
+  "admin.taps.filterResolved": "已解决",
+  "admin.action.resolve": "标记为已解决",
+  "admin.action.resolving": "处理中...",
+  "admin.action.resolvedDone": "已标记解决",
+  "admin.status.pending": "待处理",
+  "admin.status.resolved": "已解决",
+  "admin.status.reopened": "再次异常",
   "err.glossaryWeek": "普通读者每 7 天最多新开 7 本书的词表。书架上已有的书可以重新下载。开通书库后不受限制。",
 };

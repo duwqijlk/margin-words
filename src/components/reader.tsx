@@ -19,7 +19,7 @@ import {
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import longmanLogo from "@/assets/longman-logo.svg";
 import merriamWebsterLogo from "@/assets/merriam-webster-logo.png";
-import { loadBookExtras, loadBookMeta, loadStoredBook, type Gloss, type StoredBook } from "@/lib/book-db";
+import { loadBookExtras, loadBookMeta, loadPackRecord, loadStoredBook, type Gloss, type StoredBook } from "@/lib/book-db";
 import { readingSlots } from "@/lib/epub";
 import { phrasePoint, pointFromEntry } from "@/lib/gloss-ref";
 import { linkChapterHtml, peekChapterHtml, rememberChapterHtml } from "@/lib/chapter-link";
@@ -538,6 +538,8 @@ type CardState = {
   paragraph?: number;
   /** chapter index */
   chapter?: number;
+  /** revision of the glossary loaded on this device */
+  glossaryRev?: string;
 };
 
 /** The whole sentence around a tapped word, and where that word starts inside it. */
@@ -920,6 +922,7 @@ function WordCard({
             sentence={state.fullSentence ?? state.sentence}
             senseIndex={state.senseIndex ?? -1}
             senseMeaning={phrase ? phrase.entry.meaning : state.meaning}
+            glossaryRev={state.glossaryRev}
           />
         ) : null}
 
@@ -1124,6 +1127,7 @@ export function ReaderScreen({
   // Phrases live beside the word list. Empty until that record loads, then the dotted line appears.
   const [phraseList, setPhraseList] = useState<Record<string, PhraseEntry>>({});
   const [listSource, setListSource] = useState("");
+  const [glossaryRev, setGlossaryRev] = useState("");
   const articleRef = useRef<HTMLElement | null>(null);
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
   // A place found through the file-independent anchor (saved position, or "go to the sentence" from the wordbook).
@@ -1246,10 +1250,16 @@ export function ReaderScreen({
     let alive = true;
     setListSource("");
     const pull = () => {
-      void loadBookExtras(bookId).then((extras) => {
+      void loadBookExtras(bookId).then(async (extras) => {
         if (!alive) return;
         setPhraseList(extras?.phrases ?? {});
         setListSource(extras?.source ?? "");
+        let rev = extras?.rev ?? "";
+        if (!rev) {
+          const pack = await loadPackRecord(bookId);
+          if (pack?.rev) rev = pack.rev;
+        }
+        setGlossaryRev(rev);
       });
     };
     pull();
@@ -1779,6 +1789,7 @@ export function ReaderScreen({
       paragraph: Math.max(0, blockAt),
       context,
       sentence,
+      glossaryRev,
     });
     closeHelp();
     setPhraseHit(null);
@@ -1900,6 +1911,7 @@ export function ReaderScreen({
         occurrence: tap.nth,
         paragraph: tap.block,
         chapter: viewChapter,
+        glossaryRev,
       };
     }
     if (isEasyKey(key)) {
@@ -1917,6 +1929,7 @@ export function ReaderScreen({
         occurrence: tap.nth,
         paragraph: tap.block,
         chapter: viewChapter,
+        glossaryRev,
       };
     }
     // Not in this book's word list: say so in a friendly way. Nothing is looked up online.
@@ -1934,6 +1947,7 @@ export function ReaderScreen({
       occurrence: tap.nth,
       paragraph: tap.block,
       chapter: viewChapter,
+      glossaryRev,
     };
   }
 

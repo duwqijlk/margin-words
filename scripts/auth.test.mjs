@@ -31,9 +31,9 @@ import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
 import { GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS, trustedUntil } from "../functions/lib/trust.ts";
 import { handleEpub } from "../functions/api/book/[id]/epub.ts";
 import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
-import { handleAdminWordTapsGet } from "../functions/api/admin/word-taps.ts";
+import { handleAdminWordTapsGet, handleAdminWordTapsPost } from "../functions/api/admin/word-taps.ts";
 import { handleWordFeedbackPost } from "../functions/api/feedback/word.ts";
-import { handleAdminWordFeedbackGet } from "../functions/api/admin/word-feedback.ts";
+import { handleAdminWordFeedbackGet, handleAdminWordFeedbackPost } from "../functions/api/admin/word-feedback.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const NOW = 1_700_000_000_000;
@@ -41,7 +41,19 @@ const NOW = 1_700_000_000_000;
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql", "0006_shelf_grant.sql", "0007_word_taps.sql", "0008_word_feedback.sql", "0009_word_taps_location.sql", "0010_word_feedback_location.sql"]) {
+  for (const name of [
+    "0001_init.sql",
+    "0002_nickname.sql",
+    "0003_sponsorship.sql",
+    "0004_roles.sql",
+    "0005_glossary_quota.sql",
+    "0006_shelf_grant.sql",
+    "0007_word_taps.sql",
+    "0008_word_feedback.sql",
+    "0009_word_taps_location.sql",
+    "0010_word_feedback_location.sql",
+    "0011_word_analytics_rev_status.sql",
+  ]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
   return {
@@ -1656,6 +1668,7 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
           sentence: "Charlie realized he was eavesdropping outside the small room without making a sound.",
           count: 3,
           inGlossary: false,
+          glossaryRev: "rev-charlie-v1",
         },
         {
           word: "veruca",
@@ -1667,6 +1680,7 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
           sentence: "Then screamed Veruca Salt in a loud voice to her father.",
           count: 4,
           inGlossary: false,
+          glossaryRev: "rev-charlie-v1",
         },
       ],
     }),
@@ -1709,6 +1723,8 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
   assert.equal(missingBody.items[0].word, "eavesdrop");
   assert.equal(missingBody.items[0].tapCount, 5); // 2 + 3
   assert.equal(missingBody.items[0].inGlossary, false);
+  assert.equal(missingBody.items[0].glossaryRev, "rev-charlie-v1");
+  assert.equal(missingBody.items[0].status, "pending");
   assert.equal(missingBody.items[0].bookTitle, "Charlie and the Chocolate Factory");
   assert.deepEqual(missingBody.items[0].anchor, {
     chapter: 2,
@@ -1719,6 +1735,44 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
   assert.equal(missingBody.items[0].sentence, "Charlie realized he was eavesdropping outside the small room without making a sound.");
   assert.equal(missingBody.items[1].word, "veruca");
   assert.equal(missingBody.items[1].tapCount, 4);
+
+  // Mark eavesdrop as resolved by admin
+  const resolveResp = await handleAdminWordTapsPost(
+    postJson("/api/admin/word-taps", adminCookie, {
+      action: "resolve",
+      bookId: "charlie",
+      word: "eavesdrop",
+      chapter: 2,
+      occurrence: 1,
+      rev: "rev-charlie-v2",
+    }),
+    env,
+    { now: NOW + 1500 },
+  );
+  assert.equal(resolveResp.status, 200);
+  assert.deepEqual(await resolveResp.json(), { ok: true, resolved: true });
+
+  // Now missing query excludes eavesdrop
+  const afterResolveMissing = await handleAdminWordTapsGet(
+    raw("/api/admin/word-taps?filter=missing", adminCookie),
+    env,
+    { now: NOW + 1600 },
+  );
+  const afterResolveBody = await afterResolveMissing.json();
+  assert.equal(afterResolveBody.total, 1);
+  assert.equal(afterResolveBody.items[0].word, "veruca");
+
+  // Resolved filter includes eavesdrop
+  const resolvedFilter = await handleAdminWordTapsGet(
+    raw("/api/admin/word-taps?filter=resolved", adminCookie),
+    env,
+    { now: NOW + 1600 },
+  );
+  const resolvedBody = await resolvedFilter.json();
+  assert.equal(resolvedBody.total, 1);
+  assert.equal(resolvedBody.items[0].word, "eavesdrop");
+  assert.equal(resolvedBody.items[0].status, "resolved");
+  assert.equal(resolvedBody.items[0].resolvedRev, "rev-charlie-v2");
 
   // Admin query: all words
   const allWords = await handleAdminWordTapsGet(
@@ -1910,4 +1964,73 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   assert.equal(filteredBody.total, 1);
   assert.equal(filteredBody.items[0].word, "cricket");
   assert.equal(filteredBody.items[0].reason, "wrong_meaning");
+  assert.equal(filteredBody.items[0].status, "pending");
+
+  // Admin marks cricket wrong_meaning as resolved
+  const resolveFeedback = await handleAdminWordFeedbackPost(
+    postJson("/api/admin/word-feedback", adminCookie, {
+      action: "resolve",
+      bookId: "wonder",
+      word: "cricket",
+      chapter: 1,
+      occurrence: 1,
+      reason: "wrong_meaning",
+      rev: "wonder-rev-v2",
+    }),
+    env,
+    { now: NOW + 5000 },
+  );
+  assert.equal(resolveFeedback.status, 200);
+  assert.deepEqual(await resolveFeedback.json(), { ok: true, resolved: true });
+
+  // Query resolved status
+  const resolvedList = await handleAdminWordFeedbackGet(
+    raw("/api/admin/word-feedback?status=resolved", adminCookie),
+    env,
+    { now: NOW + 5100 },
+  );
+  const resolvedListBody = await resolvedList.json();
+  assert.equal(resolvedListBody.total, 1);
+  assert.equal(resolvedListBody.items[0].word, "cricket");
+  assert.equal(resolvedListBody.items[0].status, "resolved");
+  assert.equal(resolvedListBody.items[0].resolvedRev, "wonder-rev-v2");
+
+  // A reader reports cricket wrong_meaning again after resolution -> automatically marked as 'reopened'
+  const reopenResp = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      {
+        bookId: "wonder",
+        bookTitle: "Wonder",
+        word: "cricket",
+        form: "cricket",
+        chapter: 1,
+        occurrence: 1,
+        paragraph: 2,
+        context: "the chirping of a cricket in the dark",
+        sentence: "He heard the chirping of a cricket in the dark corner.",
+        senseIndex: 1,
+        senseMeaning: "still a wrong meaning",
+        reason: "wrong_meaning",
+        glossaryRev: "wonder-rev-v2",
+      },
+      "13.14.15.16",
+    ),
+    env,
+    { now: NOW + 6000 },
+  );
+  assert.equal(reopenResp.status, 200);
+
+  // Query reopened status
+  const reopenedList = await handleAdminWordFeedbackGet(
+    raw("/api/admin/word-feedback?status=reopened", adminCookie),
+    env,
+    { now: NOW + 6100 },
+  );
+  const reopenedListBody = await reopenedList.json();
+  assert.equal(reopenedListBody.total, 1);
+  assert.equal(reopenedListBody.items[0].word, "cricket");
+  assert.equal(reopenedListBody.items[0].status, "reopened");
+  assert.equal(reopenedListBody.items[0].glossaryRev, "wonder-rev-v2");
 });

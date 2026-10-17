@@ -7,6 +7,7 @@ import {
   AlertCircle,
   AlertTriangle,
   BookOpen,
+  Check,
   HelpCircle,
   MousePointerClick,
   Search,
@@ -23,6 +24,10 @@ type TapRow = {
   paragraph: number;
   context: string;
   sentence: string;
+  glossaryRev: string;
+  status: "pending" | "resolved";
+  resolvedAt: number;
+  resolvedRev: string;
   tapCount: number;
   inGlossary: boolean;
   lastTappedAt: number;
@@ -57,6 +62,10 @@ function readTaps(value: unknown): TapRow[] {
       paragraph: typeof row.paragraph === "number" ? row.paragraph : 0,
       context: typeof row.context === "string" ? row.context : "",
       sentence: typeof row.sentence === "string" ? row.sentence : "",
+      glossaryRev: typeof row.glossaryRev === "string" ? row.glossaryRev : "",
+      status: row.status === "resolved" ? "resolved" : "pending",
+      resolvedAt: typeof row.resolvedAt === "number" ? row.resolvedAt : 0,
+      resolvedRev: typeof row.resolvedRev === "string" ? row.resolvedRev : "",
       tapCount: typeof row.tapCount === "number" ? row.tapCount : 1,
       inGlossary: row.inGlossary === true,
       lastTappedAt: typeof row.lastTappedAt === "number" ? row.lastTappedAt : 0,
@@ -80,12 +89,17 @@ type FeedbackRow = {
   reason: "too_hard" | "wrong_meaning";
   count: number;
   lastReportedAt: number;
+  glossaryRev: string;
+  status: "pending" | "resolved" | "reopened";
+  resolvedAt: number;
+  resolvedRev: string;
 };
 
 type FeedbackSummary = {
   totalReports: number;
   tooHardReports: number;
   wrongMeaningReports: number;
+  reopenedReports?: number;
   distinctWords: number;
 };
 
@@ -111,6 +125,15 @@ function readFeedback(value: unknown): FeedbackRow[] {
       reason: row.reason === "wrong_meaning" ? "wrong_meaning" : "too_hard",
       count: typeof row.count === "number" ? row.count : 1,
       lastReportedAt: typeof row.lastReportedAt === "number" ? row.lastReportedAt : 0,
+      glossaryRev: typeof row.glossaryRev === "string" ? row.glossaryRev : "",
+      status:
+        row.status === "reopened"
+          ? "reopened"
+          : row.status === "resolved"
+            ? "resolved"
+            : "pending",
+      resolvedAt: typeof row.resolvedAt === "number" ? row.resolvedAt : 0,
+      resolvedRev: typeof row.resolvedRev === "string" ? row.resolvedRev : "",
     });
   }
   return out;
@@ -161,13 +184,14 @@ function WordTapsSubView() {
   const { t } = useT();
   const [rows, setRows] = useState<TapRow[] | null>(null);
   const [summary, setSummary] = useState<TapSummary>({ totalWords: 0, missingWords: 0, totalTaps: 0 });
-  const [filter, setFilter] = useState<"missing" | "all">("missing");
+  const [filter, setFilter] = useState<"missing" | "all" | "resolved">("missing");
   const [search, setSearch] = useState("");
   const [bookFilter, setBookFilter] = useState("");
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [resolvingKey, setResolvingKey] = useState<string | null>(null);
 
   async function load(nextPage: number, nextFilter = filter, nextSearch = search, nextBook = bookFilter) {
     setLoading(true);
@@ -193,6 +217,41 @@ function WordTapsSubView() {
       setRows([]);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleResolveTap(row: TapRow) {
+    const key = `${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}`;
+    setResolvingKey(key);
+    try {
+      await accountRequest("/api/admin/word-taps", {
+        method: "POST",
+        body: JSON.stringify({
+          action: "resolve",
+          bookId: row.bookId,
+          word: row.word,
+          chapter: row.chapter,
+          occurrence: row.occurrence,
+          rev: row.glossaryRev || "",
+        }),
+      });
+      // Mark as resolved locally
+      setRows((prev) =>
+        prev
+          ? prev.map((r) =>
+              r.bookId === row.bookId &&
+              r.word === row.word &&
+              r.chapter === row.chapter &&
+              r.occurrence === row.occurrence
+                ? { ...r, status: "resolved", inGlossary: true, resolvedAt: Date.now() }
+                : r,
+            )
+          : null,
+      );
+    } catch {
+      setError(t("admin.users.error"));
+    } finally {
+      setResolvingKey(null);
     }
   }
 
@@ -312,6 +371,18 @@ function WordTapsSubView() {
             type="button"
             className={cn(
               "rounded-lg px-3 py-1 font-semibold transition-colors",
+              filter === "resolved"
+                ? "bg-card text-ink shadow-2xs"
+                : "text-muted hover:text-ink",
+            )}
+            onClick={() => setFilter("resolved")}
+          >
+            {t("admin.taps.filterResolved")}
+          </button>
+          <button
+            type="button"
+            className={cn(
+              "rounded-lg px-3 py-1 font-semibold transition-colors",
               filter === "all"
                 ? "bg-card text-ink shadow-2xs"
                 : "text-muted hover:text-ink",
@@ -338,70 +409,106 @@ function WordTapsSubView() {
         </div>
       ) : (
         <ul className="grid gap-3">
-          {rows.map((row) => (
-            <li
-              key={`${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}`}
-              className="flex flex-col gap-2.5 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
-                    {row.word}
-                  </span>
-                  {row.form && row.form !== row.word ? (
-                    <span className="text-xs text-muted font-mono">({row.form})</span>
-                  ) : null}
-
-                  <span
-                    className={cn(
-                      "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
-                      row.inGlossary
-                        ? "border border-accent/25 bg-accent-soft text-accent"
-                        : "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-                    )}
-                  >
-                    {row.inGlossary ? t("admin.taps.statusInGlossary") : t("admin.taps.statusMissing")}
-                  </span>
-
-                  {row.bookTitle ? (
-                    <span className="font-semibold text-ink text-xs sm:text-sm">
-                      {t("admin.taps.bookTitle", { title: row.bookTitle })}
+          {rows.map((row) => {
+            const rowKey = `${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}`;
+            const isResolving = resolvingKey === rowKey;
+            return (
+              <li
+                key={rowKey}
+                className="flex flex-col gap-2.5 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
+                      {row.word}
                     </span>
-                  ) : null}
+                    {row.form && row.form !== row.word ? (
+                      <span className="text-xs text-muted font-mono">({row.form})</span>
+                    ) : null}
 
-                  <span className="rounded-md border border-line/70 bg-line/20 px-2 py-0.5 font-mono text-[11px] text-muted">
-                    {row.bookId}
-                  </span>
+                    <span
+                      className={cn(
+                        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
+                        row.status === "resolved"
+                          ? "border border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                          : row.inGlossary
+                            ? "border border-accent/25 bg-accent-soft text-accent"
+                            : "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+                      )}
+                    >
+                      {row.status === "resolved"
+                        ? t("admin.status.resolved")
+                        : row.inGlossary
+                          ? t("admin.taps.statusInGlossary")
+                          : t("admin.taps.statusMissing")}
+                    </span>
 
-                  <span className="rounded-md border border-accent/25 bg-accent-soft/60 px-2 py-0.5 text-[11px] font-medium text-accent">
-                    {t("admin.taps.location", { chapter: row.chapter + 1, occurrence: row.occurrence })}
-                  </span>
+                    {row.bookTitle ? (
+                      <span className="font-semibold text-ink text-xs sm:text-sm">
+                        {t("admin.taps.bookTitle", { title: row.bookTitle })}
+                      </span>
+                    ) : null}
+
+                    <span className="rounded-md border border-line/70 bg-line/20 px-2 py-0.5 font-mono text-[11px] text-muted">
+                      {row.bookId}
+                    </span>
+
+                    <span className="rounded-md border border-accent/25 bg-accent-soft/60 px-2 py-0.5 text-[11px] font-medium text-accent">
+                      {t("admin.taps.location", { chapter: row.chapter + 1, occurrence: row.occurrence })}
+                    </span>
+
+                    {row.glossaryRev ? (
+                      <span className="rounded-md border border-line/70 bg-line/10 px-2 py-0.5 font-mono text-[11px] text-muted">
+                        {t("admin.taps.revLabel", { rev: row.glossaryRev })}
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    {row.status !== "resolved" ? (
+                      <button
+                        type="button"
+                        disabled={isResolving}
+                        onClick={() => void handleResolveTap(row)}
+                        className={cn(
+                          btn.quiet,
+                          "h-7 min-h-0 px-2.5 text-xs text-accent hover:bg-accent-soft border border-accent/25 font-semibold",
+                        )}
+                      >
+                        <Check className="size-3.5 mr-1 inline" />
+                        {isResolving ? t("admin.action.resolving") : t("admin.action.resolve")}
+                      </button>
+                    ) : (
+                      <span className="inline-flex items-center text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                        <Check className="size-3.5 mr-1" />
+                        {t("admin.action.resolvedDone")}
+                      </span>
+                    )}
+
+                    <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
+                      {t("admin.taps.clickCount", { n: row.tapCount })}
+                    </span>
+                    <span className="text-xs text-muted">
+                      {formatShanghaiDate(row.lastTappedAt)}
+                    </span>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-4">
-                  <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
-                    {t("admin.taps.clickCount", { n: row.tapCount })}
-                  </span>
-                  <span className="text-xs text-muted">
-                    {formatShanghaiDate(row.lastTappedAt)}
-                  </span>
-                </div>
-              </div>
-
-              {row.sentence || row.context ? (
-                <div className="rounded-xl border border-line/50 bg-paper/50 p-2.5 text-xs leading-relaxed">
-                  {row.sentence ? (
-                    <p className="font-display text-ink/90 italic">“{row.sentence}”</p>
-                  ) : null}
-                  {row.context ? (
-                    <p className="mt-1 font-mono text-[11px] text-muted">
-                      Anchor context: &quot;{row.context}&quot;
-                    </p>
-                  ) : null}
-                </div>
-              ) : null}
-            </li>
-          ))}
+                {row.sentence || row.context ? (
+                  <div className="rounded-xl border border-line/50 bg-paper/50 p-2.5 text-xs leading-relaxed">
+                    {row.sentence ? (
+                      <p className="font-display text-ink/90 italic">“{row.sentence}”</p>
+                    ) : null}
+                    {row.context ? (
+                      <p className="mt-1 font-mono text-[11px] text-muted">
+                        Anchor context: &quot;{row.context}&quot;
+                      </p>
+                    ) : null}
+                  </div>
+                ) : null}
+              </li>
+            );
+          })}
         </ul>
       )}
 
@@ -443,20 +550,28 @@ function WordFeedbackSubView() {
     distinctWords: 0,
   });
   const [reasonFilter, setReasonFilter] = useState<"all" | "too_hard" | "wrong_meaning">("all");
+  const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "resolved" | "reopened">("all");
   const [search, setSearch] = useState("");
   const [bookFilter, setBookFilter] = useState("");
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [resolvingKey, setResolvingKey] = useState<string | null>(null);
 
-  async function load(nextPage: number, nextReason = reasonFilter, nextSearch = search, nextBook = bookFilter) {
+  async function load(
+    nextPage: number,
+    nextReason = reasonFilter,
+    nextStatus = statusFilter,
+    nextSearch = search,
+    nextBook = bookFilter,
+  ) {
     setLoading(true);
     setError("");
     try {
       const q = encodeURIComponent(nextSearch.trim());
       const b = encodeURIComponent(nextBook.trim());
-      const url = `/api/admin/word-feedback?reason=${nextReason}&q=${q}&bookId=${b}&page=${nextPage}&pageSize=30`;
+      const url = `/api/admin/word-feedback?reason=${nextReason}&status=${nextStatus}&q=${q}&bookId=${b}&page=${nextPage}&pageSize=30`;
       const payload = await accountRequest(url);
       setRows(readFeedback(payload.items));
       setTotal(typeof payload.total === "number" ? payload.total : 0);
@@ -466,6 +581,7 @@ function WordFeedbackSubView() {
           totalReports: typeof s.totalReports === "number" ? s.totalReports : 0,
           tooHardReports: typeof s.tooHardReports === "number" ? s.tooHardReports : 0,
           wrongMeaningReports: typeof s.wrongMeaningReports === "number" ? s.wrongMeaningReports : 0,
+          reopenedReports: typeof s.reopenedReports === "number" ? s.reopenedReports : 0,
           distinctWords: typeof s.distinctWords === "number" ? s.distinctWords : 0,
         });
       }
@@ -478,10 +594,47 @@ function WordFeedbackSubView() {
     }
   }
 
+  async function handleResolveFeedback(row: FeedbackRow) {
+    const key = `${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}:${row.reason}`;
+    setResolvingKey(key);
+    try {
+      await accountRequest("/api/admin/word-feedback", {
+        method: "POST",
+        body: JSON.stringify({
+          action: "resolve",
+          bookId: row.bookId,
+          word: row.word,
+          chapter: row.chapter,
+          occurrence: row.occurrence,
+          reason: row.reason,
+          rev: row.glossaryRev || "",
+        }),
+      });
+      // Mark as resolved locally
+      setRows((prev) =>
+        prev
+          ? prev.map((r) =>
+              r.bookId === row.bookId &&
+              r.word === row.word &&
+              r.chapter === row.chapter &&
+              r.occurrence === row.occurrence &&
+              r.reason === row.reason
+                ? { ...r, status: "resolved", resolvedAt: Date.now() }
+                : r,
+            )
+          : null,
+      );
+    } catch {
+      setError(t("admin.users.error"));
+    } finally {
+      setResolvingKey(null);
+    }
+  }
+
   useEffect(() => {
-    void load(1);
+    void load(1, reasonFilter, statusFilter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reasonFilter]);
+  }, [reasonFilter, statusFilter]);
 
   const pages = Math.max(1, Math.ceil(total / 30));
 
@@ -561,7 +714,7 @@ function WordFeedbackSubView() {
           className="flex min-w-0 flex-1 flex-wrap gap-2 sm:flex-nowrap"
           onSubmit={(event) => {
             event.preventDefault();
-            void load(1, reasonFilter, search, bookFilter);
+            void load(1, reasonFilter, statusFilter, search, bookFilter);
           }}
         >
           <div className="relative min-w-0 flex-1">
@@ -590,43 +743,98 @@ function WordFeedbackSubView() {
           </button>
         </form>
 
-        <div className="inline-flex rounded-xl border border-line/80 bg-paper/60 p-1 text-xs">
-          <button
-            type="button"
-            className={cn(
-              "rounded-lg px-3 py-1 font-semibold transition-colors",
-              reasonFilter === "all"
-                ? "bg-card text-ink shadow-2xs"
-                : "text-muted hover:text-ink",
-            )}
-            onClick={() => setReasonFilter("all")}
-          >
-            {t("admin.feedback.filterAll")}
-          </button>
-          <button
-            type="button"
-            className={cn(
-              "rounded-lg px-3 py-1 font-semibold transition-colors",
-              reasonFilter === "too_hard"
-                ? "bg-card text-ink shadow-2xs"
-                : "text-muted hover:text-ink",
-            )}
-            onClick={() => setReasonFilter("too_hard")}
-          >
-            {t("admin.feedback.reasonTooHard")}
-          </button>
-          <button
-            type="button"
-            className={cn(
-              "rounded-lg px-3 py-1 font-semibold transition-colors",
-              reasonFilter === "wrong_meaning"
-                ? "bg-card text-ink shadow-2xs"
-                : "text-muted hover:text-ink",
-            )}
-            onClick={() => setReasonFilter("wrong_meaning")}
-          >
-            {t("admin.feedback.reasonWrong")}
-          </button>
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Reason filters */}
+          <div className="inline-flex rounded-xl border border-line/80 bg-paper/60 p-1 text-xs">
+            <button
+              type="button"
+              className={cn(
+                "rounded-lg px-3 py-1 font-semibold transition-colors",
+                reasonFilter === "all"
+                  ? "bg-card text-ink shadow-2xs"
+                  : "text-muted hover:text-ink",
+              )}
+              onClick={() => setReasonFilter("all")}
+            >
+              {t("admin.feedback.filterAll")}
+            </button>
+            <button
+              type="button"
+              className={cn(
+                "rounded-lg px-3 py-1 font-semibold transition-colors",
+                reasonFilter === "too_hard"
+                  ? "bg-card text-ink shadow-2xs"
+                  : "text-muted hover:text-ink",
+              )}
+              onClick={() => setReasonFilter("too_hard")}
+            >
+              {t("admin.feedback.reasonTooHard")}
+            </button>
+            <button
+              type="button"
+              className={cn(
+                "rounded-lg px-3 py-1 font-semibold transition-colors",
+                reasonFilter === "wrong_meaning"
+                  ? "bg-card text-ink shadow-2xs"
+                  : "text-muted hover:text-ink",
+              )}
+              onClick={() => setReasonFilter("wrong_meaning")}
+            >
+              {t("admin.feedback.reasonWrong")}
+            </button>
+          </div>
+
+          {/* Status filters */}
+          <div className="inline-flex rounded-xl border border-line/80 bg-paper/60 p-1 text-xs">
+            <button
+              type="button"
+              className={cn(
+                "rounded-lg px-2.5 py-1 font-semibold transition-colors",
+                statusFilter === "all"
+                  ? "bg-card text-ink shadow-2xs"
+                  : "text-muted hover:text-ink",
+              )}
+              onClick={() => setStatusFilter("all")}
+            >
+              {t("admin.feedback.filterAll")}
+            </button>
+            <button
+              type="button"
+              className={cn(
+                "rounded-lg px-2.5 py-1 font-semibold transition-colors",
+                statusFilter === "pending"
+                  ? "bg-card text-ink shadow-2xs"
+                  : "text-muted hover:text-ink",
+              )}
+              onClick={() => setStatusFilter("pending")}
+            >
+              {t("admin.status.pending")}
+            </button>
+            <button
+              type="button"
+              className={cn(
+                "rounded-lg px-2.5 py-1 font-semibold transition-colors",
+                statusFilter === "resolved"
+                  ? "bg-card text-ink shadow-2xs"
+                  : "text-muted hover:text-ink",
+              )}
+              onClick={() => setStatusFilter("resolved")}
+            >
+              {t("admin.status.resolved")}
+            </button>
+            <button
+              type="button"
+              className={cn(
+                "rounded-lg px-2.5 py-1 font-semibold transition-colors",
+                statusFilter === "reopened"
+                  ? "bg-card text-ink shadow-2xs"
+                  : "text-muted hover:text-ink",
+              )}
+              onClick={() => setStatusFilter("reopened")}
+            >
+              {t("admin.status.reopened")}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -645,90 +853,139 @@ function WordFeedbackSubView() {
         </div>
       ) : (
         <ul className="grid gap-3">
-          {rows.map((row) => (
-            <li
-              key={`${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}:${row.reason}:${row.senseIndex}`}
-              className="grid gap-2.5 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
-                    {row.word}
-                  </span>
-                  {row.form && row.form !== row.word ? (
-                    <span className="text-xs text-muted font-mono">({row.form})</span>
-                  ) : null}
-
-                  <span
-                    className={cn(
-                      "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
-                      row.reason === "too_hard"
-                        ? "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300"
-                        : "border border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
-                    )}
-                  >
-                    {row.reason === "too_hard"
-                      ? t("admin.feedback.reasonTooHard")
-                      : t("admin.feedback.reasonWrong")}
-                  </span>
-
-                  <span
-                    className={cn(
-                      "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide border border-accent/25 bg-accent-soft text-accent",
-                    )}
-                  >
-                    {row.senseIndex >= 0
-                      ? t("admin.feedback.senseNumbered", { n: row.senseIndex + 1 })
-                      : t("admin.feedback.senseEntry")}
-                  </span>
-
-                  {row.bookTitle ? (
-                    <span className="font-semibold text-ink text-xs sm:text-sm">
-                      {t("admin.taps.bookTitle", { title: row.bookTitle })}
+          {rows.map((row) => {
+            const rowKey = `${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}:${row.reason}:${row.senseIndex}`;
+            const resolveKey = `${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}:${row.reason}`;
+            const isResolving = resolvingKey === resolveKey;
+            return (
+              <li
+                key={rowKey}
+                className="grid gap-2.5 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
+                      {row.word}
                     </span>
-                  ) : null}
+                    {row.form && row.form !== row.word ? (
+                      <span className="text-xs text-muted font-mono">({row.form})</span>
+                    ) : null}
 
-                  <span className="rounded-md border border-line/70 bg-line/20 px-2 py-0.5 font-mono text-[11px] text-muted">
-                    {row.bookId}
-                  </span>
+                    {/* Status badge */}
+                    <span
+                      className={cn(
+                        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
+                        row.status === "reopened"
+                          ? "border border-red-500/30 bg-red-500/15 text-red-700 dark:text-red-300"
+                          : row.status === "resolved"
+                            ? "border border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                            : "border border-line/80 bg-paper/60 text-muted",
+                      )}
+                    >
+                      {row.status === "reopened"
+                        ? `⚠️ ${t("admin.status.reopened")}`
+                        : row.status === "resolved"
+                          ? t("admin.status.resolved")
+                          : t("admin.status.pending")}
+                    </span>
 
-                  <span className="rounded-md border border-accent/25 bg-accent-soft/60 px-2 py-0.5 text-[11px] font-medium text-accent">
-                    {t("admin.taps.location", { chapter: row.chapter + 1, occurrence: row.occurrence })}
-                  </span>
-                </div>
+                    <span
+                      className={cn(
+                        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
+                        row.reason === "too_hard"
+                          ? "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                          : "border border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+                      )}
+                    >
+                      {row.reason === "too_hard"
+                        ? t("admin.feedback.reasonTooHard")
+                        : t("admin.feedback.reasonWrong")}
+                    </span>
 
-                <div className="flex items-center gap-4">
-                  <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
-                    {t("admin.feedback.reportCount", { n: row.count })}
-                  </span>
-                  <span className="text-xs text-muted">
-                    {formatShanghaiDate(row.lastReportedAt)}
-                  </span>
-                </div>
-              </div>
+                    <span
+                      className={cn(
+                        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide border border-accent/25 bg-accent-soft text-accent",
+                      )}
+                    >
+                      {row.senseIndex >= 0
+                        ? t("admin.feedback.senseNumbered", { n: row.senseIndex + 1 })
+                        : t("admin.feedback.senseEntry")}
+                    </span>
 
-              {row.senseMeaning || row.sentence || row.context ? (
-                <div className="rounded-xl border border-line/50 bg-paper/50 p-2.5 text-xs leading-relaxed space-y-1.5">
-                  {row.senseMeaning ? (
-                    <p className="text-ink text-xs">
-                      <span className="font-semibold text-muted uppercase text-[10px] tracking-wider mr-1">
-                        {t("admin.feedback.reportedMeaning")}:
+                    {row.bookTitle ? (
+                      <span className="font-semibold text-ink text-xs sm:text-sm">
+                        {t("admin.taps.bookTitle", { title: row.bookTitle })}
                       </span>
-                      <span className="font-medium text-ink italic">“{row.senseMeaning}”</span>
-                    </p>
-                  ) : null}
-                  {row.sentence ? (
-                    <p className="font-display text-ink/90 italic">“{row.sentence}”</p>
-                  ) : null}
-                  {row.context ? (
-                    <p className="font-mono text-[11px] text-muted">
-                      Anchor context: &quot;{row.context}&quot;
-                    </p>
-                  ) : null}
+                    ) : null}
+
+                    <span className="rounded-md border border-line/70 bg-line/20 px-2 py-0.5 font-mono text-[11px] text-muted">
+                      {row.bookId}
+                    </span>
+
+                    <span className="rounded-md border border-accent/25 bg-accent-soft/60 px-2 py-0.5 text-[11px] font-medium text-accent">
+                      {t("admin.taps.location", { chapter: row.chapter + 1, occurrence: row.occurrence })}
+                    </span>
+
+                    {row.glossaryRev ? (
+                      <span className="rounded-md border border-line/70 bg-line/10 px-2 py-0.5 font-mono text-[11px] text-muted">
+                        {t("admin.taps.revLabel", { rev: row.glossaryRev })}
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    {row.status !== "resolved" ? (
+                      <button
+                        type="button"
+                        disabled={isResolving}
+                        onClick={() => void handleResolveFeedback(row)}
+                        className={cn(
+                          btn.quiet,
+                          "h-7 min-h-0 px-2.5 text-xs text-accent hover:bg-accent-soft border border-accent/25 font-semibold",
+                        )}
+                      >
+                        <Check className="size-3.5 mr-1 inline" />
+                        {isResolving ? t("admin.action.resolving") : t("admin.action.resolve")}
+                      </button>
+                    ) : (
+                      <span className="inline-flex items-center text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                        <Check className="size-3.5 mr-1" />
+                        {t("admin.action.resolvedDone")}
+                      </span>
+                    )}
+
+                    <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
+                      {t("admin.feedback.reportCount", { n: row.count })}
+                    </span>
+                    <span className="text-xs text-muted">
+                      {formatShanghaiDate(row.lastReportedAt)}
+                    </span>
+                  </div>
                 </div>
-              ) : null}
-            </li>
-          ))}
+
+                {row.senseMeaning || row.sentence || row.context ? (
+                  <div className="rounded-xl border border-line/50 bg-paper/50 p-2.5 text-xs leading-relaxed space-y-1.5">
+                    {row.senseMeaning ? (
+                      <p className="text-ink text-xs">
+                        <span className="font-semibold text-muted uppercase text-[10px] tracking-wider mr-1">
+                          {t("admin.feedback.reportedMeaning")}:
+                        </span>
+                        <span className="font-medium text-ink italic">“{row.senseMeaning}”</span>
+                      </p>
+                    ) : null}
+                    {row.sentence ? (
+                      <p className="font-display text-ink/90 italic">“{row.sentence}”</p>
+                    ) : null}
+                    {row.context ? (
+                      <p className="font-mono text-[11px] text-muted">
+                        Anchor context: &quot;{row.context}&quot;
+                      </p>
+                    ) : null}
+                  </div>
+                ) : null}
+              </li>
+            );
+          })}
         </ul>
       )}
 

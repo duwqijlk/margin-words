@@ -28,6 +28,7 @@ export type TapLocationContext = {
   paragraph?: number;
   context?: string;
   sentence?: string;
+  glossaryRev?: string;
 };
 
 type BufferedTap = {
@@ -40,6 +41,7 @@ type BufferedTap = {
   paragraph: number;
   context: string;
   sentence: string;
+  glossaryRev: string;
   count: number;
   inGlossary: boolean;
 };
@@ -100,6 +102,7 @@ export function recordWordTap(
   const context = (meta?.context ?? "").trim().slice(0, 300);
   const sentence = (meta?.sentence ?? "").trim().slice(0, 600);
   const bookTitle = (meta?.bookTitle ?? "").trim().slice(0, 150);
+  const glossaryRev = (meta?.glossaryRev ?? "").trim().slice(0, 100);
 
   const key = `${bookId}:${word}:${chapter}:${occurrence}`;
   const existing = buffer.get(key);
@@ -109,6 +112,7 @@ export function recordWordTap(
     if (context && !existing.context) existing.context = context;
     if (sentence && !existing.sentence) existing.sentence = sentence;
     if (bookTitle && !existing.bookTitle) existing.bookTitle = bookTitle;
+    if (glossaryRev && !existing.glossaryRev) existing.glossaryRev = glossaryRev;
   } else {
     if (buffer.size >= 120) return; // Prevent unbound memory growth
     buffer.set(key, {
@@ -121,6 +125,7 @@ export function recordWordTap(
       paragraph,
       context,
       sentence,
+      glossaryRev,
       count: 1,
       inGlossary,
     });
@@ -167,6 +172,7 @@ export async function flushWordTaps(): Promise<void> {
         paragraph: t.paragraph,
         context: t.context,
         sentence: t.sentence,
+        glossaryRev: t.glossaryRev,
         count: t.count,
         inGlossary: t.inGlossary,
       })),

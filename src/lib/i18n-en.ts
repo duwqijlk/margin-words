@@ -906,6 +906,14 @@ export const en = {
   "admin.feedback.senseEntry": "Main sense",
   "admin.feedback.reportedMeaning": "Reported sense",
   "admin.feedback.empty": "No meaning feedback recorded",
+  "admin.taps.revLabel": "rev: {rev}",
+  "admin.taps.filterResolved": "Resolved",
+  "admin.action.resolve": "Mark resolved",
+  "admin.action.resolving": "Resolving...",
+  "admin.action.resolvedDone": "Resolved",
+  "admin.status.pending": "Pending",
+  "admin.status.resolved": "Resolved",
+  "admin.status.reopened": "Reopened",
   "err.glossaryWeek": "A reader can open 7 new word lists every 7 days. Books already on the shelf can be downloaded again. Library access removes this limit.",
 } as const;
 
