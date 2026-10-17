@@ -224,7 +224,7 @@ function WordTapsSubView() {
     const key = `${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}`;
     setResolvingKey(key);
     try {
-      await accountRequest("/api/admin/word-taps", {
+      const res = await accountRequest("/api/admin/word-taps", {
         method: "POST",
         body: JSON.stringify({
           action: "resolve",
@@ -232,9 +232,12 @@ function WordTapsSubView() {
           word: row.word,
           chapter: row.chapter,
           occurrence: row.occurrence,
-          rev: row.glossaryRev || "",
         }),
       });
+      const resolvedRev =
+        res && typeof res === "object" && typeof (res as { resolvedRev?: unknown }).resolvedRev === "string"
+          ? (res as { resolvedRev: string }).resolvedRev
+          : "";
       // Mark as resolved locally
       setRows((prev) =>
         prev
@@ -243,7 +246,7 @@ function WordTapsSubView() {
               r.word === row.word &&
               r.chapter === row.chapter &&
               r.occurrence === row.occurrence
-                ? { ...r, status: "resolved", resolvedAt: Date.now() }
+                ? { ...r, status: "resolved", resolvedAt: Date.now(), resolvedRev }
                 : r,
             )
           : null,
@@ -598,7 +601,7 @@ function WordFeedbackSubView() {
     const key = `${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}:${row.reason}`;
     setResolvingKey(key);
     try {
-      await accountRequest("/api/admin/word-feedback", {
+      const res = await accountRequest("/api/admin/word-feedback", {
         method: "POST",
         body: JSON.stringify({
           action: "resolve",
@@ -607,9 +610,12 @@ function WordFeedbackSubView() {
           chapter: row.chapter,
           occurrence: row.occurrence,
           reason: row.reason,
-          rev: row.glossaryRev || "",
         }),
       });
+      const resolvedRev =
+        res && typeof res === "object" && typeof (res as { resolvedRev?: unknown }).resolvedRev === "string"
+          ? (res as { resolvedRev: string }).resolvedRev
+          : "";
       // Mark as resolved locally
       setRows((prev) =>
         prev
@@ -619,7 +625,7 @@ function WordFeedbackSubView() {
               r.chapter === row.chapter &&
               r.occurrence === row.occurrence &&
               r.reason === row.reason
-                ? { ...r, status: "resolved", resolvedAt: Date.now() }
+                ? { ...r, status: "resolved", resolvedAt: Date.now(), resolvedRev }
                 : r,
             )
           : null,

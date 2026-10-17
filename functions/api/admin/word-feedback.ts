@@ -2,6 +2,7 @@ import { requireAdmin } from "../../lib/admin.ts";
 import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError, json, readJson } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
+import { catalogGlossaryRev } from "../../lib/catalog-rev.ts";
 
 export const onRequestGet = (context: { request: Request; env: Env }) =>
   handleAdminWordFeedbackGet(context.request, context.env);
@@ -114,7 +115,15 @@ export async function handleAdminWordFeedbackGet(
          reason,
          COUNT(*) AS report_count,
          MAX(created_at) AS last_reported_at,
-         MAX(glossary_rev) AS glossary_rev,
+         (
+           SELECT f2.glossary_rev FROM word_feedback f2
+           WHERE f2.book_id = word_feedback.book_id
+             AND f2.word = word_feedback.word
+             AND f2.chapter = word_feedback.chapter
+             AND f2.occurrence = word_feedback.occurrence
+             AND f2.reason = word_feedback.reason
+           ORDER BY f2.created_at DESC LIMIT 1
+         ) AS glossary_rev,
          CASE
            WHEN SUM(CASE WHEN status = 'reopened' THEN 1 ELSE 0 END) > 0 THEN 'reopened'
            WHEN SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) > 0 THEN 'pending'
@@ -199,7 +208,8 @@ export async function handleAdminWordFeedbackPost(
     const chapter = Math.max(0, Math.floor(Number(body.chapter) || 0));
     const occurrence = Math.max(1, Math.floor(Number(body.occurrence) || 1));
     const reason = typeof body.reason === "string" ? body.reason.trim() : "";
-    const rev = typeof body.rev === "string" ? body.rev.trim().slice(0, 100) : "";
+    const catalogRev = await catalogGlossaryRev(env.BOOKS, bookId);
+    const rev = (typeof body.rev === "string" && body.rev.trim() ? body.rev.trim().slice(0, 100) : "") || catalogRev;
     const now = options?.now ?? Date.now();
 
     await env.DB.prepare(
@@ -210,7 +220,7 @@ export async function handleAdminWordFeedbackPost(
       .bind(now, rev, bookId, word, chapter, occurrence, reason)
       .run();
 
-    return json({ ok: true, resolved: true });
+    return json({ ok: true, resolved: true, resolvedRev: rev });
   } catch (error) {
     return errorResponse(error);
   }

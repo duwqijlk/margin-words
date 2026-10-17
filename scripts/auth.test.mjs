@@ -1750,7 +1750,7 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
     { now: NOW + 1500 },
   );
   assert.equal(resolveResp.status, 200);
-  assert.deepEqual(await resolveResp.json(), { ok: true, resolved: true });
+  assert.deepEqual(await resolveResp.json(), { ok: true, resolved: true, resolvedRev: "rev-charlie-v2" });
 
   // Now missing query excludes eavesdrop
   const afterResolveMissing = await handleAdminWordTapsGet(
@@ -1967,6 +1967,26 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   assert.equal(filteredBody.items[0].status, "pending");
 
   // Admin marks cricket wrong_meaning as resolved
+  // Admin marks cricket wrong_meaning as resolved without passing rev explicitly:
+  // It automatically looks up the current catalog revision from BOOKS bucket ("wonder-rev-v2")
+  const mockCatalog = {
+    lists: [
+      {
+        id: "wonder",
+        glossary: { url: "wonder/glossary.json", bytes: 1000, sha256: "wonder-rev-v200000000000000000000000000000000000000000000000000" },
+      },
+    ],
+  };
+  const booksMap = new Map();
+  booksMap.set("word-lists/catalog.json", new TextEncoder().encode(JSON.stringify(mockCatalog)));
+  env.BOOKS = {
+    async get(key) {
+      const data = booksMap.get(key);
+      if (!data) return null;
+      return { body: new ReadableStream({ start(c) { c.enqueue(data); c.close(); } }) };
+    },
+  };
+
   const resolveFeedback = await handleAdminWordFeedbackPost(
     postJson("/api/admin/word-feedback", adminCookie, {
       action: "resolve",
@@ -1975,13 +1995,15 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
       chapter: 1,
       occurrence: 1,
       reason: "wrong_meaning",
-      rev: "wonder-rev-v2",
     }),
     env,
     { now: NOW + 5000 },
   );
   assert.equal(resolveFeedback.status, 200);
-  assert.deepEqual(await resolveFeedback.json(), { ok: true, resolved: true });
+  const resolveJson = await resolveFeedback.json();
+  assert.equal(resolveJson.ok, true);
+  assert.equal(resolveJson.resolved, true);
+  assert.equal(resolveJson.resolvedRev, "wonder-rev-v");
 
   // Query resolved status
   const resolvedList = await handleAdminWordFeedbackGet(
@@ -1993,10 +2015,10 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   assert.equal(resolvedListBody.total, 1);
   assert.equal(resolvedListBody.items[0].word, "cricket");
   assert.equal(resolvedListBody.items[0].status, "resolved");
-  assert.equal(resolvedListBody.items[0].resolvedRev, "wonder-rev-v2");
+  assert.equal(resolvedListBody.items[0].resolvedRev, "wonder-rev-v");
 
   // A reader on an outdated version (wonder-rev-v1) reports cricket wrong_meaning:
-  // Since wonder-rev-v1 != resolvedRev (wonder-rev-v2), it should NOT be marked as reopened (stays resolved)
+  // Since wonder-rev-v1 != resolvedRev (wonder-rev-v), it should NOT be marked as reopened (stays resolved)
   const outdatedClientResp = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
@@ -2031,7 +2053,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   );
   assert.equal((await noReopenedYet.json()).total, 0);
 
-  // A reader reports cricket wrong_meaning again on the new resolved version (wonder-rev-v2) -> automatically marked as 'reopened'
+  // A reader reports cricket wrong_meaning again on the new resolved version (wonder-rev-v) -> automatically marked as 'reopened'
   const reopenResp = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
@@ -2049,7 +2071,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
         senseIndex: 1,
         senseMeaning: "still a wrong meaning in new version",
         reason: "wrong_meaning",
-        glossaryRev: "wonder-rev-v2",
+        glossaryRev: "wonder-rev-v",
       },
       "13.14.15.16",
     ),
@@ -2068,7 +2090,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   assert.equal(reopenedListBody.total, 1);
   assert.equal(reopenedListBody.items[0].word, "cricket");
   assert.equal(reopenedListBody.items[0].status, "reopened");
-  assert.equal(reopenedListBody.items[0].glossaryRev, "wonder-rev-v2");
+  assert.equal(reopenedListBody.items[0].glossaryRev, "wonder-rev-v");
 
   // In the 'all' view, the group status must be 'reopened' (not masked by earlier 'resolved' reports)
   const allFeedbackList = await handleAdminWordFeedbackGet(
