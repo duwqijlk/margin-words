@@ -12,11 +12,19 @@ export async function handleWordFeedbackPost(
   options?: HandlerOptions,
 ): Promise<Response> {
   try {
-    const body = (await readJson(request)) as { bookId?: unknown; word?: unknown; reason?: unknown };
+    const body = (await readJson(request)) as {
+      bookId?: unknown;
+      bookTitle?: unknown;
+      word?: unknown;
+      reason?: unknown;
+    };
     const bookId = typeof body.bookId === "string" ? body.bookId.trim().slice(0, 64) : "";
     if (!bookId || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(bookId)) {
       throw new HttpError(400, "bad-book");
     }
+
+    const bookTitle =
+      typeof body.bookTitle === "string" ? body.bookTitle.trim().slice(0, 150) : "";
 
     const rawWord = typeof body.word === "string" ? body.word.trim().toLowerCase() : "";
     if (!rawWord || !/^[a-z]+(?:[ '-][a-z]+)*$/.test(rawWord) || rawWord.length < 2 || rawWord.length > 48) {
@@ -47,10 +55,10 @@ export async function handleWordFeedbackPost(
     }
 
     await env.DB.prepare(
-      `INSERT INTO word_feedback (book_id, word, reason, created_at, ip)
-       VALUES (?, ?, ?, ?, ?)`,
+      `INSERT INTO word_feedback (book_id, book_title, word, reason, created_at, ip)
+       VALUES (?, ?, ?, ?, ?, ?)`,
     )
-      .bind(bookId, rawWord, reason, now, ip)
+      .bind(bookId, bookTitle, rawWord, reason, now, ip)
       .run();
 
     return json({ ok: true, saved: true });

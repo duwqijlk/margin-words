@@ -5,10 +5,12 @@ import { Check, HelpCircle } from "lucide-react";
 
 export function WordExplanationFeedback({
   bookId,
+  bookTitle,
   word,
   className,
 }: {
   bookId: string;
+  bookTitle?: string;
   word: string;
   className?: string;
 }) {
@@ -23,7 +25,7 @@ export function WordExplanationFeedback({
       await fetch("/api/feedback/word", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ bookId, word, reason }),
+        body: JSON.stringify({ bookId, bookTitle, word, reason }),
       });
       setSubmitted(reason);
     } catch {

@@ -41,7 +41,7 @@ const NOW = 1_700_000_000_000;
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql", "0006_shelf_grant.sql", "0007_word_taps.sql", "0008_word_feedback.sql"]) {
+  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql", "0006_shelf_grant.sql", "0007_word_taps.sql", "0008_word_feedback.sql", "0009_word_taps_location.sql"]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
   return {
@@ -1604,13 +1604,34 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
   const db = openDb();
   const env = envOf(db);
 
-  // Ingestion: batch with 1 covered word and 1 missing word
+  // Ingestion: batch with 1 covered word and 1 missing word with location metadata
   const resp1 = await handleWordTapsPost(
     postJson("/api/analytics/word-taps", null, {
       bookId: "charlie",
+      bookTitle: "Charlie and the Chocolate Factory",
       taps: [
-        { word: "eavesdrop", count: 2, inGlossary: false },
-        { word: "chocolate", count: 1, inGlossary: true },
+        {
+          word: "eavesdrop",
+          form: "eavesdropping",
+          chapter: 2,
+          occurrence: 1,
+          paragraph: 5,
+          context: "he was eavesdropping outside the small room",
+          sentence: "Charlie realized he was eavesdropping outside the small room without making a sound.",
+          count: 2,
+          inGlossary: false,
+        },
+        {
+          word: "chocolate",
+          form: "chocolate",
+          chapter: 0,
+          occurrence: 1,
+          paragraph: 1,
+          context: "the great chocolate palace had melted away",
+          sentence: "The great chocolate palace had melted away in the hot sun.",
+          count: 1,
+          inGlossary: true,
+        },
       ],
     }),
     env,
@@ -1623,9 +1644,30 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
   const resp2 = await handleWordTapsPost(
     postJson("/api/analytics/word-taps", null, {
       bookId: "charlie",
+      bookTitle: "Charlie and the Chocolate Factory",
       taps: [
-        { word: "eavesdrop", count: 3, inGlossary: false },
-        { word: "veruca", count: 4, inGlossary: false },
+        {
+          word: "eavesdrop",
+          form: "eavesdropping",
+          chapter: 2,
+          occurrence: 1,
+          paragraph: 5,
+          context: "he was eavesdropping outside the small room",
+          sentence: "Charlie realized he was eavesdropping outside the small room without making a sound.",
+          count: 3,
+          inGlossary: false,
+        },
+        {
+          word: "veruca",
+          form: "veruca",
+          chapter: 3,
+          occurrence: 1,
+          paragraph: 2,
+          context: "screamed veruca salt in a loud voice",
+          sentence: "Then screamed Veruca Salt in a loud voice to her father.",
+          count: 4,
+          inGlossary: false,
+        },
       ],
     }),
     env,
@@ -1667,6 +1709,14 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
   assert.equal(missingBody.items[0].word, "eavesdrop");
   assert.equal(missingBody.items[0].tapCount, 5); // 2 + 3
   assert.equal(missingBody.items[0].inGlossary, false);
+  assert.equal(missingBody.items[0].bookTitle, "Charlie and the Chocolate Factory");
+  assert.deepEqual(missingBody.items[0].anchor, {
+    chapter: 2,
+    occurrence: 1,
+    form: "eavesdropping",
+    context: "he was eavesdropping outside the small room",
+  });
+  assert.equal(missingBody.items[0].sentence, "Charlie realized he was eavesdropping outside the small room without making a sound.");
   assert.equal(missingBody.items[1].word, "veruca");
   assert.equal(missingBody.items[1].tapCount, 4);
 
@@ -1692,6 +1742,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
       null,
       {
         bookId: "charlie",
+        bookTitle: "Charlie and the Chocolate Factory",
         word: "eavesdrop",
         reason: "too_hard",
       },
@@ -1801,6 +1852,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
 
   // Most reported group is eavesdrop too_hard with count 2
   assert.equal(body.items[0].word, "eavesdrop");
+  assert.equal(body.items[0].bookTitle, "Charlie and the Chocolate Factory");
   assert.equal(body.items[0].reason, "too_hard");
   assert.equal(body.items[0].count, 2);
 

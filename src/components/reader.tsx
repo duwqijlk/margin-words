@@ -24,6 +24,7 @@ import { readingSlots } from "@/lib/epub";
 import { phrasePoint, pointFromEntry } from "@/lib/gloss-ref";
 import { linkChapterHtml, peekChapterHtml, rememberChapterHtml } from "@/lib/chapter-link";
 import {
+  countSurface,
   entryAppliesAt,
   hasTrickySense,
   pickSense,
@@ -43,7 +44,7 @@ import { legacyChapter, overallProgress, useProgress } from "@/lib/progress-stor
 import { bookSyncKey } from "@/lib/sync-merge";
 import type { WordSource } from "@/lib/vocab-model";
 import { hasSourceFrom, savedFromCard } from "@/lib/wordbook";
-import { flushWordTaps, recordWordTap } from "@/lib/word-taps-collector";
+import { extractAnchorContext, flushWordTaps, recordWordTap } from "@/lib/word-taps-collector";
 import { WordExplanationFeedback } from "@/components/word-feedback";
 import {
   COLUMN_MAX,
@@ -641,6 +642,7 @@ function WordCard({
   phrase,
   canSave,
   bookId,
+  bookTitle,
   chapter,
   noteChapter,
   noList,
@@ -654,6 +656,7 @@ function WordCard({
   /** The notebook can take this card. A phrase counts even when the tapped word has no entry of its own. */
   canSave: boolean;
   bookId: string;
+  bookTitle?: string;
   chapter: number;
   /** Chapter index, or an extra id such as "x3" when the note sits on a recovered contents file. */
   noteChapter?: number | string;
@@ -894,7 +897,12 @@ function WordCard({
         ) : null}
 
         {state.status !== "unknown" || phrase ? (
-          <WordExplanationFeedback key={`${bookId}:${lookup}`} bookId={bookId} word={lookup} />
+          <WordExplanationFeedback
+            key={`${bookId}:${lookup}`}
+            bookId={bookId}
+            bookTitle={bookTitle}
+            word={lookup}
+          />
         ) : null}
 
         <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
@@ -1737,12 +1745,23 @@ export function ReaderScreen({
     const surface = button.getAttribute("data-word") ?? "";
     const key = resolveKey(surface) || surface;
     const inGlossary = Boolean(book?.glossary && (book.glossary[key] || book.glossary[surface.toLowerCase()]));
-    recordWordTap(bookId, surface, inGlossary);
     const block = button.closest("p, li, blockquote, h1, h2, h3, h4, div[data-para]");
     const paragraph = block ? flowText(block) : surface;
     const before = block ? flowTextBefore(block, button) : "";
     const blocks = articleRef.current ? paragraphBlocks(articleRef.current) : [];
     const blockAt = blocks.findIndex((item) => item.contains(button));
+    const nth = Number(button.getAttribute("data-n")) || 1;
+    const context = extractAnchorContext(paragraph, surface, before.length);
+    const sentence = wholeSentence(paragraph, surface, before.length);
+    recordWordTap(bookId, surface, inGlossary, {
+      bookTitle: book?.title,
+      form: countSurface(surface),
+      chapter: activeExtra ? 0 : safeIndex,
+      occurrence: nth,
+      paragraph: Math.max(0, blockAt),
+      context,
+      sentence,
+    });
     closeHelp();
     setPhraseHit(null);
     setPhrasePending(!activeExtra);
@@ -1751,7 +1770,7 @@ export function ReaderScreen({
       surface,
       paragraph,
       index: button.getAttribute("data-i") ?? "",
-      nth: Number(button.getAttribute("data-n")) || 0,
+      nth,
       before,
       block: Math.max(0, blockAt),
     });
@@ -2106,6 +2125,7 @@ export function ReaderScreen({
           phrase={shownPhrase}
           canSave={!phrasePending && (card.ready || shownPhrase != null)}
           bookId={bookId}
+          bookTitle={book?.title}
           noList={noList}
           chapter={viewChapter}
           noteChapter={activeExtra?.fromToc ? activeExtra.id : viewChapter}

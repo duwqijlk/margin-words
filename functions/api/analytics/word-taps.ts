@@ -12,31 +12,89 @@ export async function handleWordTapsPost(
   options?: HandlerOptions,
 ): Promise<Response> {
   try {
-    const body = (await readJson(request)) as { bookId?: unknown; taps?: unknown };
+    const body = (await readJson(request)) as {
+      bookId?: unknown;
+      bookTitle?: unknown;
+      taps?: unknown;
+    };
     const bookId = typeof body.bookId === "string" ? body.bookId.trim().slice(0, 64) : "";
-    if (!bookId || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(bookId)) {
+    if (!bookId || !/^[a-z0-9][a-z0-9_.-]{0,63}$/i.test(bookId)) {
       throw new HttpError(400, "bad-book");
     }
+
+    const bookTitle =
+      typeof body.bookTitle === "string" ? body.bookTitle.trim().slice(0, 150) : "";
 
     if (!Array.isArray(body.taps) || body.taps.length === 0 || body.taps.length > 50) {
       throw new HttpError(400, "bad-taps");
     }
 
-    type CleanTap = { word: string; count: number; inGlossary: number };
+    type CleanTap = {
+      word: string;
+      form: string;
+      chapter: number;
+      occurrence: number;
+      paragraph: number;
+      context: string;
+      sentence: string;
+      count: number;
+      inGlossary: number;
+    };
     const clean: CleanTap[] = [];
     for (const item of body.taps) {
       if (!item || typeof item !== "object") continue;
-      const record = item as { word?: unknown; count?: unknown; inGlossary?: unknown };
+      const record = item as {
+        word?: unknown;
+        form?: unknown;
+        chapter?: unknown;
+        occurrence?: unknown;
+        paragraph?: unknown;
+        context?: unknown;
+        sentence?: unknown;
+        count?: unknown;
+        inGlossary?: unknown;
+      };
       const rawWord = typeof record.word === "string" ? record.word.trim().toLowerCase() : "";
-      if (!rawWord || !/^[a-z]+(?:-[a-z]+)?$/.test(rawWord) || rawWord.length < 2 || rawWord.length > 40) {
+      if (!rawWord || !/^[a-z]+(?:-[a-z]+)?$/.test(rawWord) || rawWord.length < 2 || rawWord.length > 48) {
         continue;
       }
+      const rawForm =
+        typeof record.form === "string" && record.form.trim()
+          ? record.form.trim().toLowerCase().slice(0, 48)
+          : rawWord;
+      const chapter =
+        typeof record.chapter === "number" && Number.isInteger(record.chapter) && record.chapter >= 0
+          ? Math.min(record.chapter, 2000)
+          : 0;
+      const occurrence =
+        typeof record.occurrence === "number" && Number.isInteger(record.occurrence) && record.occurrence >= 1
+          ? Math.min(record.occurrence, 50000)
+          : 1;
+      const paragraph =
+        typeof record.paragraph === "number" && Number.isInteger(record.paragraph) && record.paragraph >= 0
+          ? Math.min(record.paragraph, 100000)
+          : 0;
+      const context =
+        typeof record.context === "string" ? record.context.trim().slice(0, 300) : "";
+      const sentence =
+        typeof record.sentence === "string" ? record.sentence.trim().slice(0, 600) : "";
+
       const count =
         typeof record.count === "number" && Number.isSafeInteger(record.count) && record.count > 0
           ? Math.min(record.count, 100)
           : 1;
       const inGlossary = record.inGlossary === true || record.inGlossary === 1 ? 1 : 0;
-      clean.push({ word: rawWord, count, inGlossary });
+      clean.push({
+        word: rawWord,
+        form: rawForm,
+        chapter,
+        occurrence,
+        paragraph,
+        context,
+        sentence,
+        count,
+        inGlossary,
+      });
     }
 
     if (clean.length === 0) {
@@ -49,13 +107,33 @@ export async function handleWordTapsPost(
 
     const writeBatch = clean.map((item) =>
       env.DB.prepare(
-        `INSERT INTO book_word_taps (book_id, word, tap_count, in_glossary, last_tapped_at)
-         VALUES (?, ?, ?, ?, ?)
-         ON CONFLICT(book_id, word) DO UPDATE SET
+        `INSERT INTO book_word_taps (
+           book_id, book_title, word, form, chapter, occurrence, paragraph, context, sentence,
+           tap_count, in_glossary, last_tapped_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT(book_id, word, chapter, occurrence) DO UPDATE SET
            tap_count = book_word_taps.tap_count + excluded.tap_count,
            in_glossary = CASE WHEN excluded.in_glossary = 1 THEN 1 ELSE book_word_taps.in_glossary END,
+           book_title = CASE WHEN excluded.book_title != '' THEN excluded.book_title ELSE book_word_taps.book_title END,
+           form = CASE WHEN excluded.form != '' THEN excluded.form ELSE book_word_taps.form END,
+           paragraph = excluded.paragraph,
+           context = CASE WHEN excluded.context != '' THEN excluded.context ELSE book_word_taps.context END,
+           sentence = CASE WHEN excluded.sentence != '' THEN excluded.sentence ELSE book_word_taps.sentence END,
            last_tapped_at = excluded.last_tapped_at`,
-      ).bind(bookId, item.word, item.count, item.inGlossary, now),
+      ).bind(
+        bookId,
+        bookTitle,
+        item.word,
+        item.form,
+        item.chapter,
+        item.occurrence,
+        item.paragraph,
+        item.context,
+        item.sentence,
+        item.count,
+        item.inGlossary,
+        now,
+      ),
     );
     await env.DB.batch(writeBatch);
 

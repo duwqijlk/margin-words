@@ -884,6 +884,8 @@ export const en = {
   "admin.taps.empty": "No word tap records found",
   "admin.taps.prev": "Previous",
   "admin.taps.next": "Next",
+  "admin.taps.location": "Ch {chapter} · #{occurrence}",
+  "admin.taps.bookTitle": "\"{title}\"",
   "admin.taps.tabTaps": "Word tap tracking",
   "admin.taps.tabFeedback": "Meaning feedback",
   "card.feedbackPrompt": "Meaning feedback",

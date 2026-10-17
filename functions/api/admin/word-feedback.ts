@@ -73,6 +73,7 @@ export async function handleAdminWordFeedbackGet(
     const rows = await env.DB.prepare(
       `SELECT
          book_id,
+         COALESCE(MAX(book_title), '') AS book_title,
          word,
          reason,
          COUNT(*) AS report_count,
@@ -84,7 +85,7 @@ export async function handleAdminWordFeedbackGet(
        LIMIT ? OFFSET ?`,
     )
       .bind(...bindings, pageSize, (page - 1) * pageSize)
-      .all<FeedbackGroupRow>();
+      .all<FeedbackGroupRow & { book_title: string }>();
 
     return json({
       total: countRow?.n ?? 0,
@@ -98,6 +99,7 @@ export async function handleAdminWordFeedbackGet(
       },
       items: (rows.results ?? []).map((row) => ({
         bookId: row.book_id,
+        bookTitle: row.book_title || "",
         word: row.word,
         reason: row.reason,
         count: row.report_count,

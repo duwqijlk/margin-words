@@ -1,6 +1,7 @@
 /**
  * Lightweight client-side aggregator for word taps during reading.
- * Collects tapped words in memory, filters out noise/stop-words,
+ * Collects tapped words in memory with full dictionary-standard location
+ * context (chapter, occurrence, form, context snippet, and natural sentence),
  * and flushes in debounced batches to /api/analytics/word-taps.
  */
 
@@ -19,9 +20,26 @@ const STOP_WORDS = new Set([
   "who", "will", "with", "work", "would", "year", "you", "your",
 ]);
 
+export type TapLocationContext = {
+  bookTitle?: string;
+  form?: string;
+  chapter?: number;
+  occurrence?: number;
+  paragraph?: number;
+  context?: string;
+  sentence?: string;
+};
+
 type BufferedTap = {
   bookId: string;
+  bookTitle: string;
   word: string;
+  form: string;
+  chapter: number;
+  occurrence: number;
+  paragraph: number;
+  context: string;
+  sentence: string;
   count: number;
   inGlossary: boolean;
 };
@@ -32,25 +50,80 @@ const FLUSH_INTERVAL_MS = 3 * 60 * 1000; // 3 minutes
 
 function cleanWord(surface: string): string | null {
   const norm = surface.trim().toLowerCase().replace(/^[^a-z]+|[^a-z]+$/g, "");
-  if (norm.length < 2 || norm.length > 40) return null;
+  if (norm.length < 2 || norm.length > 48) return null;
   if (!/^[a-z]+(?:-[a-z]+)?$/.test(norm)) return null;
   if (STOP_WORDS.has(norm)) return null;
   return norm;
 }
 
-/** Record a word tap in memory. Completely non-blocking and silent. */
-export function recordWordTap(bookId: string, surface: string, inGlossary: boolean): void {
+/**
+ * Extract a clean 6 to 12 words snippet copied directly from paragraph
+ * containing the target word, perfectly conforming to the dictionary Anchor spec.
+ */
+export function extractAnchorContext(
+  paragraph: string,
+  surface: string,
+  beforeOffset: number,
+): string {
+  if (!paragraph || !surface || beforeOffset < 0) return surface;
+  const beforeText = paragraph.slice(0, beforeOffset);
+  const afterText = paragraph.slice(beforeOffset + surface.length);
+
+  // Match up to 4 words before
+  const beforeMatch = beforeText.match(/(?:[^\s]+\s+){0,4}$/);
+  const startIdx = beforeMatch ? beforeOffset - beforeMatch[0].length : 0;
+
+  // Match up to 4 words after
+  const afterMatch = afterText.match(/^(?:\s*[^\s]+){0,4}/);
+  const endIdx = afterMatch
+    ? beforeOffset + surface.length + afterMatch[0].length
+    : beforeOffset + surface.length;
+
+  const raw = paragraph.slice(startIdx, endIdx).trim();
+  return raw.slice(0, 300);
+}
+
+/** Record a word tap in memory with location context. Completely non-blocking and silent. */
+export function recordWordTap(
+  bookId: string,
+  surface: string,
+  inGlossary: boolean,
+  meta?: TapLocationContext,
+): void {
   const word = cleanWord(surface);
   if (!word || !bookId) return;
 
-  const key = `${bookId}:${word}`;
+  const chapter = Math.max(0, meta?.chapter ?? 0);
+  const occurrence = Math.max(1, meta?.occurrence ?? 1);
+  const form = (meta?.form || surface).trim().toLowerCase().slice(0, 48) || word;
+  const paragraph = Math.max(0, meta?.paragraph ?? 0);
+  const context = (meta?.context ?? "").trim().slice(0, 300);
+  const sentence = (meta?.sentence ?? "").trim().slice(0, 600);
+  const bookTitle = (meta?.bookTitle ?? "").trim().slice(0, 150);
+
+  const key = `${bookId}:${word}:${chapter}:${occurrence}`;
   const existing = buffer.get(key);
   if (existing) {
     existing.count += 1;
     if (inGlossary) existing.inGlossary = true;
+    if (context && !existing.context) existing.context = context;
+    if (sentence && !existing.sentence) existing.sentence = sentence;
+    if (bookTitle && !existing.bookTitle) existing.bookTitle = bookTitle;
   } else {
-    if (buffer.size >= 100) return; // Prevent unbound memory growth
-    buffer.set(key, { bookId, word, count: 1, inGlossary });
+    if (buffer.size >= 120) return; // Prevent unbound memory growth
+    buffer.set(key, {
+      bookId,
+      bookTitle,
+      word,
+      form,
+      chapter,
+      occurrence,
+      paragraph,
+      context,
+      sentence,
+      count: 1,
+      inGlossary,
+    });
   }
 
   ensureTimer();
@@ -64,7 +137,7 @@ function ensureTimer(): void {
   }, FLUSH_INTERVAL_MS);
 }
 
-/** Flush buffered taps to the analytics endpoint in batches. */
+/** Flush buffered taps to the analytics API. Safe to call on pagehide / visibilitychange. */
 export async function flushWordTaps(): Promise<void> {
   if (timer !== null) {
     clearTimeout(timer);
@@ -72,47 +145,42 @@ export async function flushWordTaps(): Promise<void> {
   }
   if (buffer.size === 0) return;
 
-  // Group by bookId
-  const groups = new Map<string, Array<{ word: string; count: number; inGlossary: boolean }>>();
-  for (const item of buffer.values()) {
-    const list = groups.get(item.bookId) ?? [];
-    list.push({ word: item.word, count: item.count, inGlossary: item.inGlossary });
-    groups.set(item.bookId, list);
+  // Group taps by bookId
+  const byBook = new Map<string, { bookTitle: string; taps: BufferedTap[] }>();
+  for (const tap of buffer.values()) {
+    const list = byBook.get(tap.bookId) ?? { bookTitle: tap.bookTitle, taps: [] };
+    list.taps.push(tap);
+    if (tap.bookTitle && !list.bookTitle) list.bookTitle = tap.bookTitle;
+    byBook.set(tap.bookId, list);
   }
   buffer.clear();
 
-  for (const [bookId, taps] of groups) {
-    // Send in chunks of 50
-    for (let i = 0; i < taps.length; i += 50) {
-      const chunk = taps.slice(i, i + 50);
-      const payload = JSON.stringify({ bookId, taps: chunk });
-      try {
-        if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
-          const blob = new Blob([payload], { type: "application/json" });
-          const sent = navigator.sendBeacon("/api/analytics/word-taps", blob);
-          if (sent) continue;
-        }
-        await fetch("/api/analytics/word-taps", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: payload,
-          keepalive: true,
-        });
-      } catch {
-        // Silently swallow network errors during flush
-      }
+  for (const [bookId, entry] of byBook.entries()) {
+    const payload = JSON.stringify({
+      bookId,
+      bookTitle: entry.bookTitle,
+      taps: entry.taps.slice(0, 50).map((t) => ({
+        word: t.word,
+        form: t.form,
+        chapter: t.chapter,
+        occurrence: t.occurrence,
+        paragraph: t.paragraph,
+        context: t.context,
+        sentence: t.sentence,
+        count: t.count,
+        inGlossary: t.inGlossary,
+      })),
+    });
+
+    try {
+      await fetch("/api/analytics/word-taps", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: payload,
+        keepalive: true,
+      });
+    } catch {
+      // Best-effort analytics, silently ignore network failures
     }
   }
-}
-
-// Auto-flush on page hide / tab close
-if (typeof window !== "undefined" && typeof document !== "undefined") {
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") {
-      void flushWordTaps();
-    }
-  });
-  window.addEventListener("pagehide", () => {
-    void flushWordTaps();
-  });
 }

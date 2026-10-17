@@ -15,10 +15,23 @@ import {
 
 type TapRow = {
   bookId: string;
+  bookTitle: string;
   word: string;
+  form: string;
+  chapter: number;
+  occurrence: number;
+  paragraph: number;
+  context: string;
+  sentence: string;
   tapCount: number;
   inGlossary: boolean;
   lastTappedAt: number;
+  anchor?: {
+    chapter: number;
+    occurrence: number;
+    form: string;
+    context: string;
+  };
 };
 
 type TapSummary = {
@@ -36,7 +49,14 @@ function readTaps(value: unknown): TapRow[] {
     if (typeof row.bookId !== "string" || typeof row.word !== "string") continue;
     out.push({
       bookId: row.bookId,
+      bookTitle: typeof row.bookTitle === "string" ? row.bookTitle : "",
       word: row.word,
+      form: typeof row.form === "string" ? row.form : row.word,
+      chapter: typeof row.chapter === "number" ? row.chapter : 0,
+      occurrence: typeof row.occurrence === "number" ? row.occurrence : 1,
+      paragraph: typeof row.paragraph === "number" ? row.paragraph : 0,
+      context: typeof row.context === "string" ? row.context : "",
+      sentence: typeof row.sentence === "string" ? row.sentence : "",
       tapCount: typeof row.tapCount === "number" ? row.tapCount : 1,
       inGlossary: row.inGlossary === true,
       lastTappedAt: typeof row.lastTappedAt === "number" ? row.lastTappedAt : 0,
@@ -47,6 +67,7 @@ function readTaps(value: unknown): TapRow[] {
 
 type FeedbackRow = {
   bookId: string;
+  bookTitle: string;
   word: string;
   reason: "too_hard" | "wrong_meaning";
   count: number;
@@ -69,6 +90,7 @@ function readFeedback(value: unknown): FeedbackRow[] {
     if (typeof row.bookId !== "string" || typeof row.word !== "string") continue;
     out.push({
       bookId: row.bookId,
+      bookTitle: typeof row.bookTitle === "string" ? row.bookTitle : "",
       word: row.word,
       reason: row.reason === "wrong_meaning" ? "wrong_meaning" : "too_hard",
       count: typeof row.count === "number" ? row.count : 1,
@@ -291,7 +313,7 @@ function WordTapsSubView() {
         </p>
       ) : null}
 
-      {/* Words List */}
+      {/* Words List with Location and Book Information */}
       {rows === null || loading ? (
         <p className="py-8 text-center text-muted">{t("dashboard.loading")}</p>
       ) : rows.length === 0 ? (
@@ -302,38 +324,66 @@ function WordTapsSubView() {
         <ul className="grid gap-3">
           {rows.map((row) => (
             <li
-              key={`${row.bookId}:${row.word}`}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs"
+              key={`${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}`}
+              className="flex flex-col gap-2.5 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs"
             >
-              <div className="flex items-center gap-3">
-                <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
-                  {row.word}
-                </span>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
+                    {row.word}
+                  </span>
+                  {row.form && row.form !== row.word ? (
+                    <span className="text-xs text-muted font-mono">({row.form})</span>
+                  ) : null}
 
-                <span
-                  className={cn(
-                    "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
-                    row.inGlossary
-                      ? "border border-accent/25 bg-accent-soft text-accent"
-                      : "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-                  )}
-                >
-                  {row.inGlossary ? t("admin.taps.statusInGlossary") : t("admin.taps.statusMissing")}
-                </span>
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
+                      row.inGlossary
+                        ? "border border-accent/25 bg-accent-soft text-accent"
+                        : "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+                    )}
+                  >
+                    {row.inGlossary ? t("admin.taps.statusInGlossary") : t("admin.taps.statusMissing")}
+                  </span>
 
-                <span className="rounded-md border border-line/70 bg-line/20 px-2 py-0.5 font-mono text-[11px] text-muted">
-                  {row.bookId}
-                </span>
+                  {row.bookTitle ? (
+                    <span className="font-semibold text-ink text-xs sm:text-sm">
+                      {t("admin.taps.bookTitle", { title: row.bookTitle })}
+                    </span>
+                  ) : null}
+
+                  <span className="rounded-md border border-line/70 bg-line/20 px-2 py-0.5 font-mono text-[11px] text-muted">
+                    {row.bookId}
+                  </span>
+
+                  <span className="rounded-md border border-accent/25 bg-accent-soft/60 px-2 py-0.5 text-[11px] font-medium text-accent">
+                    {t("admin.taps.location", { chapter: row.chapter + 1, occurrence: row.occurrence })}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
+                    {t("admin.taps.clickCount", { n: row.tapCount })}
+                  </span>
+                  <span className="text-xs text-muted">
+                    {formatShanghaiDate(row.lastTappedAt)}
+                  </span>
+                </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
-                  {t("admin.taps.clickCount", { n: row.tapCount })}
-                </span>
-                <span className="text-xs text-muted">
-                  {formatShanghaiDate(row.lastTappedAt)}
-                </span>
-              </div>
+              {row.sentence || row.context ? (
+                <div className="rounded-xl border border-line/50 bg-paper/50 p-2.5 text-xs leading-relaxed">
+                  {row.sentence ? (
+                    <p className="font-display text-ink/90 italic">“{row.sentence}”</p>
+                  ) : null}
+                  {row.context ? (
+                    <p className="mt-1 font-mono text-[11px] text-muted">
+                      Anchor context: &quot;{row.context}&quot;
+                    </p>
+                  ) : null}
+                </div>
+              ) : null}
             </li>
           ))}
         </ul>
@@ -570,7 +620,7 @@ function WordFeedbackSubView() {
         </p>
       ) : null}
 
-      {/* Words List */}
+      {/* Feedback List */}
       {rows === null || loading ? (
         <p className="py-8 text-center text-muted">{t("dashboard.loading")}</p>
       ) : rows.length === 0 ? (
@@ -584,7 +634,7 @@ function WordFeedbackSubView() {
               key={`${row.bookId}:${row.word}:${row.reason}`}
               className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs"
             >
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
                   {row.word}
                 </span>
@@ -601,6 +651,12 @@ function WordFeedbackSubView() {
                     ? t("admin.feedback.reasonTooHard")
                     : t("admin.feedback.reasonWrong")}
                 </span>
+
+                {row.bookTitle ? (
+                  <span className="font-semibold text-ink text-xs sm:text-sm">
+                    {t("admin.taps.bookTitle", { title: row.bookTitle })}
+                  </span>
+                ) : null}
 
                 <span className="rounded-md border border-line/70 bg-line/20 px-2 py-0.5 font-mono text-[11px] text-muted">
                   {row.bookId}

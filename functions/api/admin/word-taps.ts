@@ -8,7 +8,14 @@ export const onRequestGet = (context: { request: Request; env: Env }) =>
 
 type TapRow = {
   book_id: string;
+  book_title: string;
   word: string;
+  form: string;
+  chapter: number;
+  occurrence: number;
+  paragraph: number;
+  context: string;
+  sentence: string;
   tap_count: number;
   in_glossary: number;
   last_tapped_at: number;
@@ -45,12 +52,12 @@ export async function handleAdminWordTapsGet(
       whereParts.push("in_glossary = 0");
     }
     if (bookId) {
-      whereParts.push("book_id = ?");
-      bindings.push(bookId);
+      whereParts.push("(book_id = ? OR book_title LIKE ?)");
+      bindings.push(bookId, `%${bookId}%`);
     }
     if (search) {
-      whereParts.push("word LIKE ?");
-      bindings.push(`%${search}%`);
+      whereParts.push("(word LIKE ? OR form LIKE ?)");
+      bindings.push(`%${search}%`, `%${search}%`);
     }
 
     const whereSql = whereParts.length > 0 ? `WHERE ${whereParts.join(" AND ")}` : "";
@@ -62,7 +69,19 @@ export async function handleAdminWordTapsGet(
       .first<{ n: number }>();
 
     const rows = await env.DB.prepare(
-      `SELECT book_id, word, tap_count, in_glossary, last_tapped_at
+      `SELECT
+         book_id,
+         book_title,
+         word,
+         form,
+         chapter,
+         occurrence,
+         paragraph,
+         context,
+         sentence,
+         tap_count,
+         in_glossary,
+         last_tapped_at
        FROM book_word_taps
        ${whereSql}
        ORDER BY tap_count DESC, last_tapped_at DESC
@@ -82,10 +101,23 @@ export async function handleAdminWordTapsGet(
       },
       items: (rows.results ?? []).map((row) => ({
         bookId: row.book_id,
+        bookTitle: row.book_title || "",
         word: row.word,
+        form: row.form || row.word,
+        chapter: row.chapter,
+        occurrence: row.occurrence,
+        paragraph: row.paragraph,
+        context: row.context,
+        sentence: row.sentence,
         tapCount: row.tap_count,
         inGlossary: row.in_glossary === 1,
         lastTappedAt: row.last_tapped_at,
+        anchor: {
+          chapter: row.chapter,
+          occurrence: row.occurrence,
+          form: row.form || row.word,
+          context: row.context,
+        },
       })),
     });
   } catch (error) {
