@@ -70,6 +70,7 @@ export function AdminPage() {
                 <button
                   key={option.value}
                   type="button"
+                  data-admin-tab={option.value}
                   aria-pressed={active}
                   onClick={() => setTab(option.value)}
                   className={cn(

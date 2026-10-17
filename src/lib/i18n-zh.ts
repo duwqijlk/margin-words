@@ -839,5 +839,13 @@ export const zh: Record<Key, string> = {
   "admin.users.until": "至 {date}",
   "admin.users.expired": "已到期",
   "admin.users.update": "更新期限",
+  "admin.users.dailyTitle": "每日注册趋势",
+  "admin.users.today": "今日新增",
+  "admin.users.last7Days": "近 7 天",
+  "admin.users.last30Days": "近 30 天",
+  "admin.users.total": "用户总数",
+  "admin.users.range14": "14天",
+  "admin.users.range30": "30天",
+  "admin.users.registeredCount": "{n} 位用户",
   "err.glossaryWeek": "普通读者每 7 天最多新开 7 本书的词表。书架上已有的书可以重新下载。开通书库后不受限制。",
 };
