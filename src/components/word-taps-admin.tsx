@@ -3,7 +3,15 @@ import { useT } from "@/lib/i18n";
 import { accountRequest } from "@/lib/sync-engine";
 import { formatShanghaiDate } from "@/lib/sponsor";
 import { btn, cn, field } from "@/components/ui";
-import { AlertCircle, BookOpen, MousePointerClick, Search, Sparkles } from "lucide-react";
+import {
+  AlertCircle,
+  AlertTriangle,
+  BookOpen,
+  HelpCircle,
+  MousePointerClick,
+  Search,
+  Sparkles,
+} from "lucide-react";
 
 type TapRow = {
   bookId: string;
@@ -37,7 +45,81 @@ function readTaps(value: unknown): TapRow[] {
   return out;
 }
 
+type FeedbackRow = {
+  bookId: string;
+  word: string;
+  reason: "too_hard" | "wrong_meaning";
+  count: number;
+  lastReportedAt: number;
+};
+
+type FeedbackSummary = {
+  totalReports: number;
+  tooHardReports: number;
+  wrongMeaningReports: number;
+  distinctWords: number;
+};
+
+function readFeedback(value: unknown): FeedbackRow[] {
+  if (!Array.isArray(value)) return [];
+  const out: FeedbackRow[] = [];
+  for (const item of value) {
+    if (!item || typeof item !== "object") continue;
+    const row = item as Partial<FeedbackRow>;
+    if (typeof row.bookId !== "string" || typeof row.word !== "string") continue;
+    out.push({
+      bookId: row.bookId,
+      word: row.word,
+      reason: row.reason === "wrong_meaning" ? "wrong_meaning" : "too_hard",
+      count: typeof row.count === "number" ? row.count : 1,
+      lastReportedAt: typeof row.lastReportedAt === "number" ? row.lastReportedAt : 0,
+    });
+  }
+  return out;
+}
+
 export function WordTapsAdmin() {
+  const { t } = useT();
+  const [subTab, setSubTab] = useState<"taps" | "feedback">("taps");
+
+  return (
+    <div className="grid gap-5" data-admin-word-analytics>
+      {/* Sub Tab Navigation */}
+      <div className="flex items-center gap-1.5 rounded-xl border border-line/60 bg-paper/60 p-1 w-fit text-xs font-semibold">
+        <button
+          type="button"
+          onClick={() => setSubTab("taps")}
+          className={cn(
+            "rounded-lg px-3.5 py-1.5 transition-colors",
+            subTab === "taps"
+              ? "bg-card text-ink shadow-2xs"
+              : "text-muted hover:text-ink",
+          )}
+          data-subtab="taps"
+        >
+          {t("admin.taps.tabTaps")}
+        </button>
+        <button
+          type="button"
+          onClick={() => setSubTab("feedback")}
+          className={cn(
+            "rounded-lg px-3.5 py-1.5 transition-colors",
+            subTab === "feedback"
+              ? "bg-card text-ink shadow-2xs"
+              : "text-muted hover:text-ink",
+          )}
+          data-subtab="feedback"
+        >
+          {t("admin.taps.tabFeedback")}
+        </button>
+      </div>
+
+      {subTab === "taps" ? <WordTapsSubView /> : <WordFeedbackSubView />}
+    </div>
+  );
+}
+
+function WordTapsSubView() {
   const { t } = useT();
   const [rows, setRows] = useState<TapRow[] | null>(null);
   const [summary, setSummary] = useState<TapSummary>({ totalWords: 0, missingWords: 0, totalTaps: 0 });
@@ -250,6 +332,287 @@ export function WordTapsAdmin() {
                 </span>
                 <span className="text-xs text-muted">
                   {formatShanghaiDate(row.lastTappedAt)}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* Pagination */}
+      {pages > 1 ? (
+        <div className="flex items-center justify-between rounded-xl border border-line/60 bg-card p-3 text-xs font-semibold">
+          <button
+            type="button"
+            className={cn(btn.quiet, "h-8 min-h-0 px-3 text-xs")}
+            disabled={page <= 1}
+            onClick={() => void load(page - 1)}
+          >
+            {t("admin.taps.prev")}
+          </button>
+          <p className="text-muted">
+            {page} / {pages}
+          </p>
+          <button
+            type="button"
+            className={cn(btn.quiet, "h-8 min-h-0 px-3 text-xs")}
+            disabled={page >= pages}
+            onClick={() => void load(page + 1)}
+          >
+            {t("admin.taps.next")}
+          </button>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function WordFeedbackSubView() {
+  const { t } = useT();
+  const [rows, setRows] = useState<FeedbackRow[] | null>(null);
+  const [summary, setSummary] = useState<FeedbackSummary>({
+    totalReports: 0,
+    tooHardReports: 0,
+    wrongMeaningReports: 0,
+    distinctWords: 0,
+  });
+  const [reasonFilter, setReasonFilter] = useState<"all" | "too_hard" | "wrong_meaning">("all");
+  const [search, setSearch] = useState("");
+  const [bookFilter, setBookFilter] = useState("");
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function load(nextPage: number, nextReason = reasonFilter, nextSearch = search, nextBook = bookFilter) {
+    setLoading(true);
+    setError("");
+    try {
+      const q = encodeURIComponent(nextSearch.trim());
+      const b = encodeURIComponent(nextBook.trim());
+      const url = `/api/admin/word-feedback?reason=${nextReason}&q=${q}&bookId=${b}&page=${nextPage}&pageSize=30`;
+      const payload = await accountRequest(url);
+      setRows(readFeedback(payload.items));
+      setTotal(typeof payload.total === "number" ? payload.total : 0);
+      if (payload.summary && typeof payload.summary === "object") {
+        const s = payload.summary as Partial<FeedbackSummary>;
+        setSummary({
+          totalReports: typeof s.totalReports === "number" ? s.totalReports : 0,
+          tooHardReports: typeof s.tooHardReports === "number" ? s.tooHardReports : 0,
+          wrongMeaningReports: typeof s.wrongMeaningReports === "number" ? s.wrongMeaningReports : 0,
+          distinctWords: typeof s.distinctWords === "number" ? s.distinctWords : 0,
+        });
+      }
+      setPage(nextPage);
+    } catch {
+      setError(t("admin.users.error"));
+      setRows([]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    void load(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reasonFilter]);
+
+  const pages = Math.max(1, Math.ceil(total / 30));
+
+  return (
+    <div className="grid gap-5" data-admin-word-feedback>
+      {/* Information Header */}
+      <div className="rounded-2xl border border-line/80 bg-card p-5 shadow-2xs">
+        <div className="flex items-start gap-3">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent">
+            <HelpCircle className="size-5" />
+          </div>
+          <div>
+            <h2 className="text-base font-bold text-ink sm:text-lg">{t("admin.feedback.title")}</h2>
+            <p className="mt-1 text-xs leading-relaxed text-muted">{t("admin.feedback.desc")}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Summary Metrics */}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-4 sm:gap-4">
+        {/* Total Reports */}
+        <div className="flex items-center gap-3.5 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400">
+            <AlertCircle className="size-5" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-medium text-muted">{t("admin.feedback.totalReports")}</p>
+            <p className="font-display text-xl font-bold tracking-tight text-ink sm:text-2xl">
+              {summary.totalReports}
+            </p>
+          </div>
+        </div>
+
+        {/* Too Hard */}
+        <div className="flex items-center gap-3.5 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4 shadow-2xs">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400">
+            <AlertCircle className="size-5" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-medium text-muted">{t("admin.feedback.tooHardCount")}</p>
+            <p className="font-display text-xl font-bold tracking-tight text-amber-700 dark:text-amber-300 sm:text-2xl">
+              {summary.tooHardReports}
+            </p>
+          </div>
+        </div>
+
+        {/* Wrong Meaning */}
+        <div className="flex items-center gap-3.5 rounded-2xl border border-rose-500/20 bg-rose-500/5 p-4 shadow-2xs">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-rose-500/15 text-rose-600 dark:text-rose-400">
+            <AlertTriangle className="size-5" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-medium text-muted">{t("admin.feedback.wrongMeaningCount")}</p>
+            <p className="font-display text-xl font-bold tracking-tight text-rose-700 dark:text-rose-300 sm:text-2xl">
+              {summary.wrongMeaningReports}
+            </p>
+          </div>
+        </div>
+
+        {/* Distinct Words */}
+        <div className="flex items-center gap-3.5 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
+            <BookOpen className="size-5" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-medium text-muted">{t("admin.feedback.distinctWords")}</p>
+            <p className="font-display text-xl font-bold tracking-tight text-ink sm:text-2xl">
+              {summary.distinctWords}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Filter and Search Bar */}
+      <div className="flex flex-col gap-3 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs sm:flex-row sm:items-center sm:justify-between">
+        <form
+          className="flex min-w-0 flex-1 flex-wrap gap-2 sm:flex-nowrap"
+          onSubmit={(event) => {
+            event.preventDefault();
+            void load(1, reasonFilter, search, bookFilter);
+          }}
+        >
+          <div className="relative min-w-0 flex-1">
+            <input
+              className={cn(field, "min-w-0 flex-1 pl-8 text-sm")}
+              type="search"
+              value={search}
+              placeholder={t("admin.taps.searchPlaceholder")}
+              aria-label={t("admin.taps.searchPlaceholder")}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted" />
+          </div>
+
+          <input
+            className={cn(field, "w-full text-sm sm:w-44")}
+            type="search"
+            value={bookFilter}
+            placeholder={t("admin.taps.bookFilterPlaceholder")}
+            aria-label={t("admin.taps.bookFilterPlaceholder")}
+            onChange={(e) => setBookFilter(e.target.value)}
+          />
+
+          <button type="submit" className={cn(btn.primary, "px-4 text-xs font-semibold")}>
+            {t("admin.taps.find")}
+          </button>
+        </form>
+
+        <div className="inline-flex rounded-xl border border-line/80 bg-paper/60 p-1 text-xs">
+          <button
+            type="button"
+            className={cn(
+              "rounded-lg px-3 py-1 font-semibold transition-colors",
+              reasonFilter === "all"
+                ? "bg-card text-ink shadow-2xs"
+                : "text-muted hover:text-ink",
+            )}
+            onClick={() => setReasonFilter("all")}
+          >
+            {t("admin.feedback.filterAll")}
+          </button>
+          <button
+            type="button"
+            className={cn(
+              "rounded-lg px-3 py-1 font-semibold transition-colors",
+              reasonFilter === "too_hard"
+                ? "bg-card text-ink shadow-2xs"
+                : "text-muted hover:text-ink",
+            )}
+            onClick={() => setReasonFilter("too_hard")}
+          >
+            {t("admin.feedback.reasonTooHard")}
+          </button>
+          <button
+            type="button"
+            className={cn(
+              "rounded-lg px-3 py-1 font-semibold transition-colors",
+              reasonFilter === "wrong_meaning"
+                ? "bg-card text-ink shadow-2xs"
+                : "text-muted hover:text-ink",
+            )}
+            onClick={() => setReasonFilter("wrong_meaning")}
+          >
+            {t("admin.feedback.reasonWrong")}
+          </button>
+        </div>
+      </div>
+
+      {error ? (
+        <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn" role="alert">
+          {error}
+        </p>
+      ) : null}
+
+      {/* Words List */}
+      {rows === null || loading ? (
+        <p className="py-8 text-center text-muted">{t("dashboard.loading")}</p>
+      ) : rows.length === 0 ? (
+        <div className="rounded-2xl border border-line/80 bg-card p-10 text-center text-muted">
+          {t("admin.feedback.empty")}
+        </div>
+      ) : (
+        <ul className="grid gap-3">
+          {rows.map((row) => (
+            <li
+              key={`${row.bookId}:${row.word}:${row.reason}`}
+              className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line/80 bg-card p-4 shadow-2xs transition-shadow hover:shadow-xs"
+            >
+              <div className="flex items-center gap-3">
+                <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
+                  {row.word}
+                </span>
+
+                <span
+                  className={cn(
+                    "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
+                    row.reason === "too_hard"
+                      ? "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                      : "border border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+                  )}
+                >
+                  {row.reason === "too_hard"
+                    ? t("admin.feedback.reasonTooHard")
+                    : t("admin.feedback.reasonWrong")}
+                </span>
+
+                <span className="rounded-md border border-line/70 bg-line/20 px-2 py-0.5 font-mono text-[11px] text-muted">
+                  {row.bookId}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
+                  {t("admin.feedback.reportCount", { n: row.count })}
+                </span>
+                <span className="text-xs text-muted">
+                  {formatShanghaiDate(row.lastReportedAt)}
                 </span>
               </div>
             </li>

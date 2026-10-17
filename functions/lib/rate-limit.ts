@@ -14,10 +14,11 @@ export const RATE_LIMITS = {
   "sponsor:ip": 10,
   "sponsor:email": 5,
   "taps:ip": 60,
+  "feedback:ip": 30,
 } as const;
 
 export type RateAction = "login" | "register" | "reset" | "sponsor";
-export type IpRateAction = RateAction | "taps";
+export type IpRateAction = RateAction | "taps" | "feedback";
 
 async function prune(db: D1Database, now: number): Promise<void> {
   await db

@@ -32,6 +32,8 @@ import { GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS, trustedUntil } from "../function
 import { handleEpub } from "../functions/api/book/[id]/epub.ts";
 import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
 import { handleAdminWordTapsGet } from "../functions/api/admin/word-taps.ts";
+import { handleWordFeedbackPost } from "../functions/api/feedback/word.ts";
+import { handleAdminWordFeedbackGet } from "../functions/api/admin/word-feedback.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const NOW = 1_700_000_000_000;
@@ -39,7 +41,7 @@ const NOW = 1_700_000_000_000;
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql", "0006_shelf_grant.sql", "0007_word_taps.sql"]) {
+  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql", "0006_shelf_grant.sql", "0007_word_taps.sql", "0008_word_feedback.sql"]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
   return {
@@ -1454,9 +1456,10 @@ function putJson(path, cookie, body) {
   return new Request(`http://localhost${path}`, { method: "PUT", headers, body: JSON.stringify(body) });
 }
 
-function postJson(path, cookie, body) {
+function postJson(path, cookie, body, ip) {
   const headers = new Headers();
   if (cookie) headers.set("cookie", cookie);
+  if (ip) headers.set("cf-connecting-ip", ip);
   headers.set("content-type", "application/json");
   return new Request(`http://localhost${path}`, { method: "POST", headers, body: JSON.stringify(body) });
 }
@@ -1676,4 +1679,139 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
   const allBody = await allWords.json();
   assert.equal(allBody.total, 3);
   assert.ok(allBody.items.some((item) => item.word === "chocolate" && item.inGlossary === true));
+});
+
+test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin query", async () => {
+  const db = openDb();
+  const env = envOf(db);
+
+  // Submit feedback from IP A: too_hard for "eavesdrop"
+  const resp1 = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      {
+        bookId: "charlie",
+        word: "eavesdrop",
+        reason: "too_hard",
+      },
+      "1.2.3.4",
+    ),
+    env,
+    { now: NOW },
+  );
+  assert.equal(resp1.status, 200);
+  assert.deepEqual(await resp1.json(), { ok: true, saved: true });
+
+  // Duplicate submit from same IP within 24h: accepted quietly without duplicate insert
+  const dup = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      {
+        bookId: "charlie",
+        word: "eavesdrop",
+        reason: "too_hard",
+      },
+      "1.2.3.4",
+    ),
+    env,
+    { now: NOW + 1000 },
+  );
+  assert.equal(dup.status, 200);
+  assert.deepEqual(await dup.json(), { ok: true, duplicate: true });
+
+  // Submit from IP B: too_hard for "eavesdrop" (increases report count to 2)
+  const resp2 = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      {
+        bookId: "charlie",
+        word: "eavesdrop",
+        reason: "too_hard",
+      },
+      "5.6.7.8",
+    ),
+    env,
+    { now: NOW + 2000 },
+  );
+  assert.equal(resp2.status, 200);
+
+  // Submit from IP C: wrong_meaning for "cricket" in wonder
+  const resp3 = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      {
+        bookId: "wonder",
+        word: "cricket",
+        reason: "wrong_meaning",
+      },
+      "9.10.11.12",
+    ),
+    env,
+    { now: NOW + 3000 },
+  );
+  assert.equal(resp3.status, 200);
+
+  // Reject invalid payload
+  const badReason = await handleWordFeedbackPost(
+    postJson("/api/feedback/word", null, {
+      bookId: "wonder",
+      word: "cricket",
+      reason: "other_bad",
+    }),
+    env,
+    { now: NOW + 4000 },
+  );
+  assert.equal(badReason.status, 400);
+
+  // Non-admin blocked from admin query
+  const unauthorized = await handleAdminWordFeedbackGet(
+    raw("/api/admin/word-feedback", "mw_session=fake"),
+    env,
+    { now: NOW },
+  );
+  assert.equal(unauthorized.status, 401);
+
+  // Set up admin session
+  await call(handleRegister, env, {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const adminCookie = cookieHeader(
+    await call(handleLogin, env, {
+      body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+    }),
+  );
+
+  // Admin query: all feedback
+  const adminList = await handleAdminWordFeedbackGet(
+    raw("/api/admin/word-feedback", adminCookie),
+    env,
+    { now: NOW },
+  );
+  assert.equal(adminList.status, 200);
+  const body = await adminList.json();
+  assert.equal(body.total, 2); // 2 distinct (book, word, reason) groups
+  assert.equal(body.summary.totalReports, 3);
+  assert.equal(body.summary.tooHardReports, 2);
+  assert.equal(body.summary.wrongMeaningReports, 1);
+  assert.equal(body.summary.distinctWords, 2);
+
+  // Most reported group is eavesdrop too_hard with count 2
+  assert.equal(body.items[0].word, "eavesdrop");
+  assert.equal(body.items[0].reason, "too_hard");
+  assert.equal(body.items[0].count, 2);
+
+  // Filter by reason=wrong_meaning
+  const filtered = await handleAdminWordFeedbackGet(
+    raw("/api/admin/word-feedback?reason=wrong_meaning", adminCookie),
+    env,
+    { now: NOW },
+  );
+  const filteredBody = await filtered.json();
+  assert.equal(filteredBody.total, 1);
+  assert.equal(filteredBody.items[0].word, "cricket");
+  assert.equal(filteredBody.items[0].reason, "wrong_meaning");
 });

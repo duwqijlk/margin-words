@@ -44,6 +44,7 @@ import { bookSyncKey } from "@/lib/sync-merge";
 import type { WordSource } from "@/lib/vocab-model";
 import { hasSourceFrom, savedFromCard } from "@/lib/wordbook";
 import { flushWordTaps, recordWordTap } from "@/lib/word-taps-collector";
+import { WordExplanationFeedback } from "@/components/word-feedback";
 import {
   COLUMN_MAX,
   COLUMN_MIN,
@@ -890,6 +891,10 @@ function WordCard({
 
             <WordFacts stat={stat} current={state.sentence} suppressQuote={Boolean(state.example)} />
           </div>
+        ) : null}
+
+        {state.status !== "unknown" || phrase ? (
+          <WordExplanationFeedback key={`${bookId}:${lookup}`} bookId={bookId} word={lookup} />
         ) : null}
 
         <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
