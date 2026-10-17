@@ -46,7 +46,7 @@ type BufferedTap = {
 
 const buffer = new Map<string, BufferedTap>();
 let timer: ReturnType<typeof setTimeout> | null = null;
-const FLUSH_INTERVAL_MS = 3 * 60 * 1000; // 3 minutes
+const FLUSH_INTERVAL_MS = 15 * 60 * 1000; // 15 minutes
 
 function cleanWord(surface: string): string | null {
   const norm = surface.trim().toLowerCase().replace(/^[^a-z]+|[^a-z]+$/g, "");
