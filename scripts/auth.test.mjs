@@ -1887,6 +1887,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
         senseIndex: 1,
         senseMeaning: "an open-air game played with a ball, bats, and wickets",
         reason: "wrong_meaning",
+        glossaryRev: "wonder-rev-v1",
       },
       "9.10.11.12",
     ),
@@ -2214,4 +2215,46 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
     { now: NOW + 6800 },
   );
   assert.equal((await checkReopenedV3.json()).total, 1);
+
+  // Same IP on the same revision within 24h is deduplicated
+  const dupResp = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      {
+        bookId: "wonder",
+        word: "cricket",
+        chapter: 1,
+        occurrence: 1,
+        reason: "wrong_meaning",
+        glossaryRev: "wonder-v3-00",
+      },
+      "25.26.27.28",
+    ),
+    env,
+    { now: NOW + 6900 },
+  );
+  assert.equal(dupResp.status, 200);
+  assert.equal((await dupResp.json()).duplicate, true);
+
+  // But if the same IP updates to a new version (v4) within 24h, it is NOT blocked
+  const upgradedResp = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      {
+        bookId: "wonder",
+        word: "cricket",
+        chapter: 1,
+        occurrence: 1,
+        reason: "wrong_meaning",
+        glossaryRev: "wonder-v4-00",
+      },
+      "25.26.27.28",
+    ),
+    env,
+    { now: NOW + 7000 },
+  );
+  assert.equal(upgradedResp.status, 200);
+  assert.equal((await upgradedResp.json()).saved, true);
 });
