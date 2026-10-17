@@ -2,6 +2,7 @@ import type { Env } from "../../lib/db.ts";
 import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertIpRateLimit } from "../../lib/rate-limit.ts";
+import { catalogGlossaryRev } from "../../lib/catalog-rev.ts";
 
 export const onRequestPost = (context: { request: Request; env: Env }) =>
   handleWordFeedbackPost(context.request, context.env);
@@ -85,10 +86,34 @@ export async function handleWordFeedbackPost(
     let status = "pending";
     if (priorResolved && priorResolved.resolved_at > 0 && now > priorResolved.resolved_at) {
       const resolvedRev = priorResolved.resolved_rev || "";
-      // If the report specifies a glossary revision that is older than the resolved revision,
-      // it was filed by a legacy client on an outdated version, so it is already fixed in the new version.
-      // If no revisions are specified, or if the report's revision matches or is newer, it's a real regression.
-      const isOutdatedClient = glossaryRev && resolvedRev && glossaryRev !== resolvedRev;
+      const currentRev = await catalogGlossaryRev(env.BOOKS, bookId);
+
+      const priorReports = await env.DB.prepare(
+        `SELECT DISTINCT glossary_rev FROM word_feedback
+         WHERE book_id = ? AND word = ? AND chapter = ? AND occurrence = ? AND reason = ?
+           AND created_at <= ? AND glossary_rev != ''`,
+      )
+        .bind(bookId, rawWord, chapter, occurrence, reason, priorResolved.resolved_at)
+        .all<{ glossary_rev: string }>();
+
+      const preResolutionRevs = new Set(
+        (priorReports.results ?? []).map((r) => r.glossary_rev).filter(Boolean),
+      );
+
+      // An incoming report is an outdated client IF:
+      // 1. A client glossaryRev is provided
+      // 2. AND it does NOT match the resolved revision (not reproducing on the fix version)
+      // 3. AND it does NOT match the current live catalog revision (not reproducing on live version)
+      // 4. AND EITHER:
+      //    a) It matches one of the known pre-resolution reported revisions (e.g. v1), OR
+      //    b) The current catalog revision is resolvedRev (so resolvedRev is the latest published version,
+      //       meaning any different revision is an older client).
+      const isOutdatedClient =
+        Boolean(glossaryRev) &&
+        glossaryRev !== resolvedRev &&
+        (!currentRev || glossaryRev !== currentRev) &&
+        (preResolutionRevs.has(glossaryRev) || (Boolean(resolvedRev) && currentRev === resolvedRev));
+
       if (isOutdatedClient) {
         status = "resolved";
       } else {

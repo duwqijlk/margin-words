@@ -44,11 +44,19 @@ async function loadRevs(bucket: R2BucketLike): Promise<Map<string, string>> {
   return map;
 }
 
-export async function catalogGlossaryRev(bucket: R2BucketLike | undefined, bookId: string): Promise<string> {
+export type CatalogRevOptions = {
+  bypassCache?: boolean;
+};
+
+export async function catalogGlossaryRev(
+  bucket: R2BucketLike | undefined,
+  bookId: string,
+  options?: CatalogRevOptions,
+): Promise<string> {
   if (!bucket) return "";
   const now = Date.now();
   let entry = catalogRevs.get(bucket);
-  if (!entry || now - entry.at > CATALOG_MS) {
+  if (!entry || options?.bypassCache || now - entry.at > CATALOG_MS) {
     entry = { at: now, revById: await loadRevs(bucket) };
     catalogRevs.set(bucket, entry);
   }
