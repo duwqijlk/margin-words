@@ -33,7 +33,7 @@ import {
   type OtherMeaning,
 } from "@/lib/glossary-format";
 import type { PhraseEntry } from "@/lib/glossary-extras";
-import { phraseWordMarks } from "@/lib/help-match";
+import { pickPhrase, phraseWordMarks } from "@/lib/help-match";
 import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
@@ -1772,7 +1772,6 @@ export function ReaderScreen({
   function pickButton(button: Element) {
     const surface = button.getAttribute("data-word") ?? "";
     const key = resolveKey(surface) || surface;
-    const inGlossary = Boolean(book?.glossary && (book.glossary[key] || book.glossary[surface.toLowerCase()]));
     const block = button.closest("p, li, blockquote, h1, h2, h3, h4, div[data-para]");
     const paragraph = block ? flowText(block) : surface;
     const before = block ? flowTextBefore(block, button) : "";
@@ -1780,7 +1779,12 @@ export function ReaderScreen({
     const blockAt = blocks.findIndex((item) => item.contains(button));
     const nth = Number(button.getAttribute("data-n")) || 1;
     const context = extractAnchorContext(paragraph, surface, before.length);
-    const sentence = wholeSentence(paragraph, surface, before.length);
+    const located = locateSentence(paragraph, surface, before.length);
+    const sentence = located.text;
+    const offset = located.offset;
+    const inDict = Boolean(book?.glossary && (book.glossary[key] || book.glossary[surface.toLowerCase()]));
+    const inPhrase = Boolean(!activeExtra && phraseList && pickPhrase(phraseList, sentence, surface, offset >= 0 ? offset : undefined));
+    const inGlossary = inDict || inPhrase;
     recordWordTap(bookId, surface, inGlossary, {
       bookTitle: book?.title,
       form: countSurface(surface),
