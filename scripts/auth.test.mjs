@@ -30,6 +30,8 @@ import { handleGlossary } from "../functions/api/glossary/[id].ts";
 import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
 import { GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS, trustedUntil } from "../functions/lib/trust.ts";
 import { handleEpub } from "../functions/api/book/[id]/epub.ts";
+import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
+import { handleAdminWordTapsGet } from "../functions/api/admin/word-taps.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const NOW = 1_700_000_000_000;
@@ -37,7 +39,7 @@ const NOW = 1_700_000_000_000;
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql", "0006_shelf_grant.sql"]) {
+  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql", "0006_shelf_grant.sql", "0007_word_taps.sql"]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
   return {
@@ -1452,6 +1454,13 @@ function putJson(path, cookie, body) {
   return new Request(`http://localhost${path}`, { method: "PUT", headers, body: JSON.stringify(body) });
 }
 
+function postJson(path, cookie, body) {
+  const headers = new Headers();
+  if (cookie) headers.set("cookie", cookie);
+  headers.set("content-type", "application/json");
+  return new Request(`http://localhost${path}`, { method: "POST", headers, body: JSON.stringify(body) });
+}
+
 test("in-progress marks stay until that book's glossary is published", async () => {
   const db = openDb();
   await call(handleRegister, envOf(db), {
@@ -1586,4 +1595,85 @@ test("QQ groups stay out of the catalog until an admin saves them", async () => 
   const body = await after.json();
   assert.equal(body.saved, true);
   assert.deepEqual(body.groups, []);
+});
+
+test("reading word taps: batch ingestion, accumulation, rate limit, and admin query", async () => {
+  const db = openDb();
+  const env = envOf(db);
+
+  // Ingestion: batch with 1 covered word and 1 missing word
+  const resp1 = await handleWordTapsPost(
+    postJson("/api/analytics/word-taps", null, {
+      bookId: "charlie",
+      taps: [
+        { word: "eavesdrop", count: 2, inGlossary: false },
+        { word: "chocolate", count: 1, inGlossary: true },
+      ],
+    }),
+    env,
+    { now: NOW },
+  );
+  assert.equal(resp1.status, 200);
+  assert.deepEqual(await resp1.json(), { ok: true, saved: 2 });
+
+  // Ingestion: second batch accumulating counts for "eavesdrop" and adding "veruca"
+  const resp2 = await handleWordTapsPost(
+    postJson("/api/analytics/word-taps", null, {
+      bookId: "charlie",
+      taps: [
+        { word: "eavesdrop", count: 3, inGlossary: false },
+        { word: "veruca", count: 4, inGlossary: false },
+      ],
+    }),
+    env,
+    { now: NOW + 1000 },
+  );
+  assert.equal(resp2.status, 200);
+  assert.deepEqual(await resp2.json(), { ok: true, saved: 2 });
+
+  // Gate admin query
+  const unauthorized = await handleAdminWordTapsGet(
+    raw("/api/admin/word-taps", "mw_session=fake"),
+    env,
+    { now: NOW },
+  );
+  assert.equal(unauthorized.status, 401);
+
+  // Set up admin session
+  await call(handleRegister, env, {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const adminCookie = cookieHeader(
+    await call(handleLogin, env, {
+      body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+    }),
+  );
+
+  // Admin query: default missing filter
+  const missingOnly = await handleAdminWordTapsGet(
+    raw("/api/admin/word-taps?filter=missing", adminCookie),
+    env,
+    { now: NOW },
+  );
+  assert.equal(missingOnly.status, 200);
+  const missingBody = await missingOnly.json();
+  assert.equal(missingBody.total, 2); // eavesdrop and veruca
+  assert.equal(missingBody.summary.missingWords, 2);
+  assert.equal(missingBody.summary.totalWords, 3);
+  assert.equal(missingBody.summary.totalTaps, 10); // 2+3 + 1 + 4
+  assert.equal(missingBody.items[0].word, "eavesdrop");
+  assert.equal(missingBody.items[0].tapCount, 5); // 2 + 3
+  assert.equal(missingBody.items[0].inGlossary, false);
+  assert.equal(missingBody.items[1].word, "veruca");
+  assert.equal(missingBody.items[1].tapCount, 4);
+
+  // Admin query: all words
+  const allWords = await handleAdminWordTapsGet(
+    raw("/api/admin/word-taps?filter=all", adminCookie),
+    env,
+    { now: NOW },
+  );
+  const allBody = await allWords.json();
+  assert.equal(allBody.total, 3);
+  assert.ok(allBody.items.some((item) => item.word === "chocolate" && item.inGlossary === true));
 });

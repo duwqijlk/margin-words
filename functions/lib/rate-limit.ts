@@ -13,9 +13,11 @@ export const RATE_LIMITS = {
   "reset:email": 5,
   "sponsor:ip": 10,
   "sponsor:email": 5,
+  "taps:ip": 60,
 } as const;
 
 export type RateAction = "login" | "register" | "reset" | "sponsor";
+export type IpRateAction = RateAction | "taps";
 
 async function prune(db: D1Database, now: number): Promise<void> {
   await db
@@ -69,6 +71,17 @@ export async function assertRateLimit(
     return;
   }
   await addHit(db, emailBucket, windowStart, emailLimit);
+}
+
+export async function assertIpRateLimit(
+  db: D1Database,
+  action: IpRateAction,
+  ip: string,
+  now: number,
+): Promise<void> {
+  const windowStart = windowStartOf(now);
+  await prune(db, now);
+  await addHit(db, `${action}:ip:${rateLimitIp(ip)}`, windowStart, RATE_LIMITS[`${action}:ip`]);
 }
 
 /** Count one failed login toward the per-email limit. The per-IP limit is already counted. */

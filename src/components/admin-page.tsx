@@ -8,9 +8,10 @@ import { UsersAdmin } from "@/components/users-admin";
 import { SeriesAdmin } from "@/components/series-admin";
 import { QqGroupsAdmin } from "@/components/qq-groups-admin";
 import { WordListAdmin } from "@/components/wordlist-admin";
+import { WordTapsAdmin } from "@/components/word-taps-admin";
 import { btn, cn, Segmented } from "@/components/ui";
 
-type AdminTab = "thanks" | "lists" | "books" | "series" | "users" | "qq";
+type AdminTab = "thanks" | "lists" | "books" | "series" | "users" | "taps" | "qq";
 
 /** The /admin page: gift requests, the word-list publisher, whole-book uploads, and user roles. */
 export function AdminPage() {
@@ -60,6 +61,7 @@ export function AdminPage() {
             {[
               { value: "thanks" as const, label: t("admin.tab.thanks") },
               { value: "lists" as const, label: t("admin.tab.lists") },
+              { value: "taps" as const, label: t("admin.tab.taps") },
               { value: "books" as const, label: t("admin.tab.books") },
               { value: "series" as const, label: t("admin.tab.series") },
               { value: "users" as const, label: t("admin.tab.users") },
@@ -91,6 +93,8 @@ export function AdminPage() {
               <SponsorTab />
             ) : tab === "lists" ? (
               <WordListAdmin />
+            ) : tab === "taps" ? (
+              <WordTapsAdmin />
             ) : tab === "books" ? (
               <BooksAdmin />
             ) : tab === "series" ? (

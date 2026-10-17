@@ -43,6 +43,7 @@ import { legacyChapter, overallProgress, useProgress } from "@/lib/progress-stor
 import { bookSyncKey } from "@/lib/sync-merge";
 import type { WordSource } from "@/lib/vocab-model";
 import { hasSourceFrom, savedFromCard } from "@/lib/wordbook";
+import { flushWordTaps, recordWordTap } from "@/lib/word-taps-collector";
 import {
   COLUMN_MAX,
   COLUMN_MIN,
@@ -1205,6 +1206,12 @@ export function ReaderScreen({
   }, [bookId, fillPrepared]);
 
   useEffect(() => {
+    return () => {
+      void flushWordTaps();
+    };
+  }, [bookId]);
+
+  useEffect(() => {
     let alive = true;
     setListSource("");
     const pull = () => {
@@ -1723,6 +1730,9 @@ export function ReaderScreen({
   /** Open the word card for a word button on the page (shared by taps and the hard-word list). */
   function pickButton(button: Element) {
     const surface = button.getAttribute("data-word") ?? "";
+    const key = resolveKey(surface) || surface;
+    const inGlossary = Boolean(book?.glossary && (book.glossary[key] || book.glossary[surface.toLowerCase()]));
+    recordWordTap(bookId, surface, inGlossary);
     const block = button.closest("p, li, blockquote, h1, h2, h3, h4, div[data-para]");
     const paragraph = block ? flowText(block) : surface;
     const before = block ? flowTextBefore(block, button) : "";
