@@ -2,6 +2,7 @@ import { requireAdmin } from "../../lib/admin.ts";
 import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError, json, readJson } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
+import { catalogGlossaryRev } from "../../lib/catalog-rev.ts";
 
 export const onRequestGet = (context: { request: Request; env: Env }) =>
   handleAdminWordTapsGet(context.request, context.env);
@@ -166,7 +167,8 @@ export async function handleAdminWordTapsPost(
     const word = typeof body.word === "string" ? body.word.trim().toLowerCase() : "";
     const chapter = Math.max(0, Math.floor(Number(body.chapter) || 0));
     const occurrence = Math.max(1, Math.floor(Number(body.occurrence) || 1));
-    const rev = typeof body.rev === "string" ? body.rev.trim().slice(0, 100) : "";
+    const catalogRev = await catalogGlossaryRev(env.BOOKS, bookId);
+    const rev = (typeof body.rev === "string" && body.rev.trim() ? body.rev.trim().slice(0, 100) : "") || catalogRev;
     const now = options?.now ?? Date.now();
 
     await env.DB.prepare(
@@ -177,7 +179,7 @@ export async function handleAdminWordTapsPost(
       .bind(now, rev, bookId, word, chapter, occurrence)
       .run();
 
-    return json({ ok: true, resolved: true });
+    return json({ ok: true, resolved: true, resolvedRev: rev });
   } catch (error) {
     return errorResponse(error);
   }
