@@ -2,7 +2,6 @@ import type { Env } from "../../lib/db.ts";
 import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertIpRateLimit } from "../../lib/rate-limit.ts";
-import { catalogGlossaryRev } from "../../lib/catalog-rev.ts";
 
 export const onRequestPost = (context: { request: Request; env: Env }) =>
   handleWordFeedbackPost(context.request, context.env);
@@ -60,14 +59,14 @@ export async function handleWordFeedbackPost(
     const ip = clientIp(request);
     await assertIpRateLimit(env.DB, "feedback", ip, now);
 
-    // Prevent duplicate spam from the same IP for the same word occurrence within 24 hours
+    // Prevent duplicate spam from the same IP for the same word occurrence on the same glossary revision within 24 hours
     const oneDayAgo = now - 24 * 60 * 60 * 1000;
     const existing = await env.DB.prepare(
       `SELECT id FROM word_feedback
-       WHERE book_id = ? AND word = ? AND chapter = ? AND occurrence = ? AND reason = ? AND ip = ? AND created_at > ?
+       WHERE book_id = ? AND word = ? AND chapter = ? AND occurrence = ? AND reason = ? AND glossary_rev = ? AND ip = ? AND created_at > ?
        LIMIT 1`,
     )
-      .bind(bookId, rawWord, chapter, occurrence, reason, ip, oneDayAgo)
+      .bind(bookId, rawWord, chapter, occurrence, reason, glossaryRev, ip, oneDayAgo)
       .first<{ id: number }>();
 
     if (existing) {
@@ -86,7 +85,6 @@ export async function handleWordFeedbackPost(
     let status = "pending";
     if (priorResolved && priorResolved.resolved_at > 0 && now > priorResolved.resolved_at) {
       const resolvedRev = priorResolved.resolved_rev || "";
-      const currentRev = await catalogGlossaryRev(env.BOOKS, bookId);
 
       const priorReports = await env.DB.prepare(
         `SELECT DISTINCT glossary_rev FROM word_feedback
@@ -100,25 +98,16 @@ export async function handleWordFeedbackPost(
         (priorReports.results ?? []).map((r) => r.glossary_rev).filter(Boolean),
       );
 
-      // An incoming report is an outdated client IF:
-      // 1. A client glossaryRev is provided
-      // 2. AND it does NOT match the resolved revision (not reproducing on the fix version)
-      // 3. AND it does NOT match the current live catalog revision (not reproducing on live version)
-      // 4. AND EITHER:
-      //    a) It matches one of the known pre-resolution reported revisions (e.g. v1), OR
-      //    b) The current catalog revision is resolvedRev (so resolvedRev is the latest published version,
-      //       meaning any different revision is an older client).
+      // Simple Occam's razor:
+      // An incoming report is only suppressed as an outdated client if its revision
+      // explicitly matches one of the known pre-resolution buggy revisions (and != resolvedRev).
+      // All other cases (reproduced on resolvedRev, on any newer revision, or unknown) trigger 'reopened'.
       const isOutdatedClient =
         Boolean(glossaryRev) &&
-        glossaryRev !== resolvedRev &&
-        (!currentRev || glossaryRev !== currentRev) &&
-        (preResolutionRevs.has(glossaryRev) || (Boolean(resolvedRev) && currentRev === resolvedRev));
+        preResolutionRevs.has(glossaryRev) &&
+        glossaryRev !== resolvedRev;
 
-      if (isOutdatedClient) {
-        status = "resolved";
-      } else {
-        status = "reopened";
-      }
+      status = isOutdatedClient ? "resolved" : "reopened";
     }
 
     await env.DB.prepare(
