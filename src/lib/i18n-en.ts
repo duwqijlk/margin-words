@@ -736,6 +736,7 @@ export const en = {
   "admin.signIn": "Admin sign in",
   "admin.empty": "No requests yet.",
   "admin.sent": "Email sent",
+  "admin.pending": "Pending",
   "admin.amount": "USD",
   "admin.list": "Show on the thank-you list",
   "admin.listed": "Shown",
@@ -858,6 +859,14 @@ export const en = {
   "admin.users.until": "Until {date}",
   "admin.users.expired": "Expired",
   "admin.users.update": "Update access",
+  "admin.users.dailyTitle": "Daily registrations",
+  "admin.users.today": "Today",
+  "admin.users.last7Days": "Last 7 days",
+  "admin.users.last30Days": "Last 30 days",
+  "admin.users.total": "Total users",
+  "admin.users.range14": "14 days",
+  "admin.users.range30": "30 days",
+  "admin.users.registeredCount": "{n} users",
   "err.glossaryWeek": "A reader can open 7 new word lists every 7 days. Books already on the shelf can be downloaded again. Library access removes this limit.",
 } as const;
 

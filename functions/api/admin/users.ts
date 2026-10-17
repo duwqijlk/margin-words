@@ -41,10 +41,24 @@ export async function handleList(request: Request, env: Env, options?: HandlerOp
     )
       .bind(like, pageSize, (page - 1) * pageSize)
       .all<ListRow>();
+
+    const now = options?.now ?? Date.now();
+    const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
+    const daily = await env.DB.prepare(
+      `SELECT date(created_at / 1000, 'unixepoch', '+8 hours') AS day, COUNT(*) AS count
+       FROM users
+       WHERE created_at >= ?
+       GROUP BY day
+       ORDER BY day ASC`,
+    )
+      .bind(thirtyDaysAgo)
+      .all<{ day: string; count: number }>();
+
     return json({
       total: total?.n ?? 0,
       page,
       pageSize,
+      daily: daily.results ?? [],
       users: rows.results.map((row) => ({
         id: row.id,
         email: row.email,

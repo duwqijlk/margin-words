@@ -377,29 +377,43 @@ export function WordListAdmin() {
   }
 
   return (
-    <div className="grid gap-4" data-admin-lists>
-      <p className="text-sm text-muted">{t("admin.lists.hint")}</p>
-      {loadError ? (
-        <p role="alert">{t("admin.lists.error")}</p>
-      ) : books === null ? (
-        <p>{t("dashboard.loading")}</p>
-      ) : (
-        <>
-          <div className="grid gap-2" data-admin-list-updates>
-            <p className="text-sm font-medium">{t("admin.lists.updates")}</p>
-            <input
-              className={field}
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder={t("admin.lists.filter")}
-              aria-label={t("admin.lists.filter")}
-              data-admin-list-filter
-            />
+    <div className="grid gap-6" data-admin-lists>
+      <div className="rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6">
+        <p className="text-sm text-muted">{t("admin.lists.hint")}</p>
+        {loadError ? (
+          <p className="mt-3 rounded-xl border border-warn/30 bg-warn-soft/40 p-4 text-xs text-warn" role="alert">
+            {t("admin.lists.error")}
+          </p>
+        ) : books === null ? (
+          <p className="py-8 text-center text-muted">{t("dashboard.loading")}</p>
+        ) : (
+          <div className="mt-4 grid gap-4" data-admin-list-updates>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted">
+                {t("admin.lists.updates")}
+              </span>
+              <span className="text-xs text-muted">
+                {updates.length} books
+              </span>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                className={cn(field, "h-10 min-h-0 text-xs font-semibold")}
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder={t("admin.lists.filter")}
+                aria-label={t("admin.lists.filter")}
+                data-admin-list-filter
+              />
+            </div>
+
             {workError ? (
-              <p className="text-sm text-warn" role="alert" data-admin-list-work-error>
+              <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn" role="alert" data-admin-list-work-error>
                 {t("admin.lists.workError")}
               </p>
             ) : null}
+
             <input
               ref={uploadInput}
               className="hidden"
@@ -412,58 +426,59 @@ export function WordListAdmin() {
                 void uploadChosen(list);
               }}
             />
+
             {updates.length === 0 ? (
-              <p className="text-sm text-muted">{t("admin.lists.noMatch")}</p>
+              <p className="py-8 text-center text-xs text-muted">{t("admin.lists.noMatch")}</p>
             ) : (
-              <div className="max-h-[32rem] overflow-auto rounded-xl border border-line">
-                <table className="w-full border-collapse text-left text-sm">
-                  <thead className="text-xs text-muted">
+              <div className="max-h-[32rem] overflow-auto rounded-xl border border-line/80 shadow-2xs">
+                <table className="w-full border-collapse text-left text-xs">
+                  <thead className="sticky top-0 z-10 border-b border-line/80 bg-paper/95 text-[0.7rem] font-bold uppercase tracking-wider text-muted backdrop-blur-xs">
                     <tr>
-                      <th className="sticky top-0 bg-card px-3 py-2 font-medium" scope="col">
+                      <th className="px-3.5 py-2.5 font-bold" scope="col">
                         {t("admin.lists.colBook")}
                       </th>
-                      <th className="sticky top-0 bg-card px-3 py-2 whitespace-nowrap" scope="col" aria-sort={sortKey === "now" ? (sortDir === "desc" ? "descending" : "ascending") : "none"}>
-                        <button type="button" className="font-medium" data-admin-list-sort="now" onClick={() => onSort("now")}>
+                      <th className="px-3.5 py-2.5 whitespace-nowrap" scope="col" aria-sort={sortKey === "now" ? (sortDir === "desc" ? "descending" : "ascending") : "none"}>
+                        <button type="button" className="font-bold hover:text-ink" data-admin-list-sort="now" onClick={() => onSort("now")}>
                           {t("admin.lists.colNow")}
                           {sortKey === "now" ? (sortDir === "desc" ? " ↓" : " ↑") : ""}
                         </button>
                       </th>
-                      <th className="sticky top-0 bg-card px-3 py-2 whitespace-nowrap" scope="col" aria-sort={sortKey === "prev" ? (sortDir === "desc" ? "descending" : "ascending") : "none"}>
-                        <button type="button" className="font-medium" data-admin-list-sort="prev" onClick={() => onSort("prev")}>
+                      <th className="px-3.5 py-2.5 whitespace-nowrap" scope="col" aria-sort={sortKey === "prev" ? (sortDir === "desc" ? "descending" : "ascending") : "none"}>
+                        <button type="button" className="font-bold hover:text-ink" data-admin-list-sort="prev" onClick={() => onSort("prev")}>
                           {t("admin.lists.colPrev")}
                           {sortKey === "prev" ? (sortDir === "desc" ? " ↓" : " ↑") : ""}
                         </button>
                       </th>
-                      <th className="sticky top-0 bg-card px-3 py-2 font-medium whitespace-nowrap" scope="col">
+                      <th className="px-3.5 py-2.5 font-bold whitespace-nowrap" scope="col">
                         {t("admin.lists.colActions")}
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-line/50 bg-card">
                     {updates.map((book) => {
                       const key = bookKey(book);
                       const since = makingSince.get(key);
                       const note = notes[key];
                       const stamp = since ? listUpdatedStamp(since) : "";
                       return (
-                        <tr key={key} className="border-t border-line" data-admin-list-row={key}>
-                          <td className="px-3 py-2">
-                            <span className="font-medium">{book.title}</span>
-                            <span className="mt-0.5 block text-xs text-muted">
+                        <tr key={key} className="transition-colors hover:bg-accent-soft/20" data-admin-list-row={key}>
+                          <td className="px-3.5 py-2.5">
+                            <span className="font-semibold text-ink">{book.title}</span>
+                            <span className="mt-0.5 block font-mono text-[0.7rem] text-muted">
                               {book.id} · {book.kind === "lists" ? t("admin.lists.wordLists") : t("admin.lists.publicBooks")}
                             </span>
                           </td>
-                          <td className="px-3 py-2 whitespace-nowrap tabular-nums" data-admin-list-now>
+                          <td className="px-3.5 py-2.5 whitespace-nowrap font-mono text-[0.75rem] text-muted tabular-nums" data-admin-list-now>
                             {listUpdatedStamp(book.updated ?? "") || "—"}
                           </td>
-                          <td className="px-3 py-2 whitespace-nowrap tabular-nums" data-admin-list-prev>
+                          <td className="px-3.5 py-2.5 whitespace-nowrap font-mono text-[0.75rem] text-muted tabular-nums" data-admin-list-prev>
                             {listUpdatedStamp(book.previousUpdated ?? "") || "—"}
                           </td>
-                          <td className="px-3 py-2 whitespace-nowrap">
-                            <div className="flex flex-nowrap gap-2">
+                          <td className="px-3.5 py-2.5 whitespace-nowrap">
+                            <div className="flex flex-nowrap items-center gap-1.5">
                               <button
                                 type="button"
-                                className="inline-flex min-h-9 shrink-0 items-center whitespace-nowrap rounded-lg border border-line bg-card px-2.5 text-xs font-semibold hover:bg-accent-soft disabled:opacity-45"
+                                className={cn(btn.quiet, "h-8 min-h-0 px-2.5 text-xs font-semibold")}
                                 data-admin-list-upload={key}
                                 disabled={locked}
                                 onClick={() => pickUpload(book)}
@@ -473,8 +488,10 @@ export function WordListAdmin() {
                               <button
                                 type="button"
                                 className={cn(
-                                  "inline-flex min-h-9 shrink-0 items-center whitespace-nowrap rounded-lg border border-line px-2.5 text-xs font-semibold hover:bg-accent-soft disabled:opacity-45",
-                                  since ? "bg-accent-soft" : "bg-card",
+                                  "inline-flex h-8 min-h-0 shrink-0 items-center whitespace-nowrap rounded-xl border px-2.5 text-xs font-semibold transition-all duration-150 active:scale-97 disabled:opacity-45",
+                                  since
+                                    ? "border-accent/30 bg-accent-soft text-accent shadow-2xs"
+                                    : "border-line/80 bg-card text-ink hover:bg-accent-soft/40",
                                 )}
                                 data-admin-list-making={key}
                                 aria-pressed={!!since}
@@ -485,12 +502,12 @@ export function WordListAdmin() {
                               </button>
                             </div>
                             {stamp ? (
-                              <p className="mt-1 whitespace-nowrap text-xs text-muted tabular-nums" data-admin-list-since={key}>
+                              <p className="mt-1 whitespace-nowrap font-mono text-[0.7rem] text-muted tabular-nums" data-admin-list-since={key}>
                                 {t("admin.lists.makingSince", { when: stamp })}
                               </p>
                             ) : null}
                             {note ? (
-                              <p className={cn("mt-1 text-xs", note.tone === "warn" ? "text-warn" : "text-accent")} data-admin-list-note={key}>
+                              <p className={cn("mt-1 text-xs font-medium", note.tone === "warn" ? "text-warn" : "text-accent")} data-admin-list-note={key}>
                                 {note.text}
                               </p>
                             ) : null}
@@ -503,130 +520,138 @@ export function WordListAdmin() {
               </div>
             )}
           </div>
-          <label className="grid gap-1 text-sm font-medium" htmlFor="admin-list-file">
-            {t("admin.lists.file")}
-            <input
-              id="admin-list-file"
-              className={cn(field, "py-2")}
-              type="file"
-              accept=".json,application/json"
-              multiple
-              data-admin-list-file
-              disabled={busy}
-              onChange={(event) => {
-                const list = event.target.files;
-                void readFiles(list);
-                event.target.value = "";
-              }}
-            />
-          </label>
-          {files.length > 0 ? (
-            <ul className="grid gap-2">
-              {files.map((file) => {
-                const pick = chosen(file);
-                const clash = blocked(file);
-                const canBeNew = file.preview.ok === true && file.preview.title && ID_PATTERN.test(file.id);
-                return (
-                  <li key={file.id} className="grid gap-2 rounded-xl border border-line bg-card p-3" data-admin-list-item={file.id}>
-                    <p className="text-sm font-semibold">{file.name}</p>
-                    {file.preview.ok ? (
-                      <p className="text-sm">
-                        {t("admin.lists.preview", {
-                          words: file.preview.words,
-                          paragraphs: file.preview.paragraphs,
-                          sentences: file.preview.sentences,
-                          phrases: file.preview.phrases,
-                        })}{" "}
-                        · {(file.preview.bytes / 1024).toFixed(0)} KB
-                      </p>
-                    ) : (
-                      <p className="text-sm text-warn" role="alert">
-                        {t(file.preview.problem as Parameters<typeof t>[0])}
-                      </p>
-                    )}
-                    {file.preview.ok ? (
-                      <label className="grid gap-1 text-sm font-medium" htmlFor={`admin-list-book-${file.id}`}>
-                        {t("admin.lists.book")}
-                        <select
-                          id={`admin-list-book-${file.id}`}
-                          className={cn(selectCls, "w-full")}
-                          data-admin-list-book={file.id}
-                          value={file.target}
-                          disabled={busy}
-                          onChange={(event) => setTarget(file.id, event.target.value)}
-                        >
-                          <option value="">{t("admin.lists.chooseBook")}</option>
-                          {canBeNew ? <option value={NEW_TARGET}>{t("admin.lists.newWordList", { id: file.id })}</option> : null}
-                          {lists.length > 0 ? (
-                            <optgroup label={t("admin.lists.wordLists")}>
-                              {lists.map((book) => (
-                                <option key={bookKey(book)} value={bookKey(book)}>
-                                  {book.title} ({book.id})
-                                </option>
-                              ))}
-                            </optgroup>
-                          ) : null}
-                          {publics.length > 0 ? (
-                            <optgroup label={t("admin.lists.publicBooks")}>
-                              {publics.map((book) => (
-                                <option key={bookKey(book)} value={bookKey(book)}>
-                                  {book.title} ({book.id})
-                                </option>
-                              ))}
-                            </optgroup>
-                          ) : null}
-                        </select>
-                      </label>
-                    ) : null}
-                    {pick && pick !== "new" ? (
-                      <div className="grid gap-1" data-admin-list-matched={file.id}>
-                        <p className="text-xs text-muted">{t("admin.lists.matched", { title: pick.title, id: pick.id })}</p>
-                        {pick.updated ? (
-                          <p className="text-xs text-muted" data-admin-list-updated={file.id}>
-                            {t("admin.lists.versionNow", { when: listUpdatedStamp(pick.updated) })}
-                          </p>
+        )}
+      </div>
+
+      <div className="grid gap-4 rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6">
+        <label className="grid gap-1.5 text-xs font-bold uppercase tracking-wider text-muted" htmlFor="admin-list-file">
+          {t("admin.lists.file")}
+          <input
+            id="admin-list-file"
+            className={cn(field, "py-2 text-xs")}
+            type="file"
+            accept=".json,application/json"
+            multiple
+            data-admin-list-file
+            disabled={busy}
+            onChange={(event) => {
+              const list = event.target.files;
+              void readFiles(list);
+              event.target.value = "";
+            }}
+          />
+        </label>
+
+        {files.length > 0 ? (
+          <ul className="grid gap-3">
+            {files.map((file) => {
+              const pick = chosen(file);
+              const clash = blocked(file);
+              const canBeNew = file.preview.ok === true && file.preview.title && ID_PATTERN.test(file.id);
+              return (
+                <li key={file.id} className="grid gap-2.5 rounded-xl border border-line/80 bg-paper/50 p-4 shadow-2xs" data-admin-list-item={file.id}>
+                  <p className="font-mono text-sm font-bold text-ink">{file.name}</p>
+                  {file.preview.ok ? (
+                    <p className="text-xs text-muted">
+                      {t("admin.lists.preview", {
+                        words: file.preview.words,
+                        paragraphs: file.preview.paragraphs,
+                        sentences: file.preview.sentences,
+                        phrases: file.preview.phrases,
+                      })}{" "}
+                      · {(file.preview.bytes / 1024).toFixed(0)} KB
+                    </p>
+                  ) : (
+                    <p className="text-xs text-warn" role="alert">
+                      {t(file.preview.problem as Parameters<typeof t>[0])}
+                    </p>
+                  )}
+                  {file.preview.ok ? (
+                    <label className="grid gap-1 text-xs font-semibold text-muted" htmlFor={`admin-list-book-${file.id}`}>
+                      {t("admin.lists.book")}
+                      <select
+                        id={`admin-list-book-${file.id}`}
+                        className={cn(selectCls, "h-10 min-h-0 w-full text-xs font-semibold")}
+                        data-admin-list-book={file.id}
+                        value={file.target}
+                        disabled={busy}
+                        onChange={(event) => setTarget(file.id, event.target.value)}
+                      >
+                        <option value="">{t("admin.lists.chooseBook")}</option>
+                        {canBeNew ? <option value={NEW_TARGET}>{t("admin.lists.newWordList", { id: file.id })}</option> : null}
+                        {lists.length > 0 ? (
+                          <optgroup label={t("admin.lists.wordLists")}>
+                            {lists.map((book) => (
+                              <option key={bookKey(book)} value={bookKey(book)}>
+                                {book.title} ({book.id})
+                              </option>
+                            ))}
+                          </optgroup>
                         ) : null}
-                        {pick.previousUpdated ? (
-                          <p className="text-xs text-muted" data-admin-list-previous={file.id}>
-                            {t("admin.lists.versionPrev", { when: listUpdatedStamp(pick.previousUpdated) })}
-                          </p>
-                        ) : (
-                          <p className="text-xs text-muted" data-admin-list-previous={file.id}>
-                            {t("admin.lists.versionFirst")}
-                          </p>
-                        )}
-                      </div>
-                    ) : null}
-                    {pick === "new" && !clash ? <p className="text-xs text-accent">{t("admin.lists.newBook")}</p> : null}
-                    {file.preview.ok && pick === "" ? <p className="text-sm text-warn">{t("admin.lists.needBook")}</p> : null}
-                    {clash ? (
-                      <p className="text-sm text-warn" role="alert" data-admin-list-clash>
-                        {t("admin.lists.duplicateTitle", { id: clash.id })}
-                      </p>
-                    ) : null}
-                    {file.result === "ok" ? <p className="text-sm text-accent">{t("admin.lists.published")}</p> : null}
-                    {file.result === "error" && file.resultNote ? (
-                      <p className="text-sm text-warn" role="alert">
-                        {file.resultNote}
-                      </p>
-                    ) : null}
-                  </li>
-                );
-              })}
-            </ul>
-          ) : null}
-          {summary ? <p className="text-sm text-accent" data-admin-list-summary>{summary}</p> : null}
+                        {publics.length > 0 ? (
+                          <optgroup label={t("admin.lists.publicBooks")}>
+                            {publics.map((book) => (
+                              <option key={bookKey(book)} value={bookKey(book)}>
+                                {book.title} ({book.id})
+                              </option>
+                            ))}
+                          </optgroup>
+                        ) : null}
+                      </select>
+                    </label>
+                  ) : null}
+                  {pick && pick !== "new" ? (
+                    <div className="grid gap-1 rounded-lg border border-line/60 bg-card p-2.5 text-xs text-muted" data-admin-list-matched={file.id}>
+                      <p>{t("admin.lists.matched", { title: pick.title, id: pick.id })}</p>
+                      {pick.updated ? (
+                        <p data-admin-list-updated={file.id}>
+                          {t("admin.lists.versionNow", { when: listUpdatedStamp(pick.updated) })}
+                        </p>
+                      ) : null}
+                      {pick.previousUpdated ? (
+                        <p data-admin-list-previous={file.id}>
+                          {t("admin.lists.versionPrev", { when: listUpdatedStamp(pick.previousUpdated) })}
+                        </p>
+                      ) : (
+                        <p data-admin-list-previous={file.id}>
+                          {t("admin.lists.versionFirst")}
+                        </p>
+                      )}
+                    </div>
+                  ) : null}
+                  {pick === "new" && !clash ? <p className="text-xs font-semibold text-accent">{t("admin.lists.newBook")}</p> : null}
+                  {file.preview.ok && pick === "" ? <p className="text-xs text-warn">{t("admin.lists.needBook")}</p> : null}
+                  {clash ? (
+                    <p className="text-xs text-warn" role="alert" data-admin-list-clash>
+                      {t("admin.lists.duplicateTitle", { id: clash.id })}
+                    </p>
+                  ) : null}
+                  {file.result === "ok" ? <p className="text-xs font-semibold text-accent">{t("admin.lists.published")}</p> : null}
+                  {file.result === "error" && file.resultNote ? (
+                    <p className="text-xs text-warn" role="alert">
+                      {file.resultNote}
+                    </p>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
+
+        {summary ? <p className="text-xs font-semibold text-accent" data-admin-list-summary>{summary}</p> : null}
+
+        <div className="border-t border-line/50 pt-2">
           <button
             type="button"
-            className={cn(btn.primary, "justify-start")}
+            className={cn(btn.primary, "px-5 text-xs font-semibold")}
             disabled={locked || publishable.length === 0}
             data-admin-list-publish
             onClick={() => void publish()}
           >
             {busy ? t("account.working") : t("admin.lists.batch", { n: publishable.length })}
           </button>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 }

@@ -209,131 +209,207 @@ export function BooksAdmin() {
   const ready = Boolean(glossary && epubFile && !epubBusy);
 
   return (
-    <div className="grid gap-4" data-admin-books>
-      <p className="text-sm text-muted">{t("admin.books.hint")}</p>
-      <fieldset className="grid gap-2" data-admin-books-kind>
-        <legend className="text-sm font-medium">{t("admin.books.kind")}</legend>
-        <label className="flex items-center gap-2 text-sm">
-          <input type="radio" name="book-kind" checked={kind === "private"} onChange={() => setKind("private")} />
-          {t("admin.books.private")}
-        </label>
-        <label className="flex items-center gap-2 text-sm">
-          <input type="radio" name="book-kind" checked={kind === "public"} onChange={() => setKind("public")} />
-          {t("admin.books.public")}
-        </label>
-      </fieldset>
-      <label className="grid gap-1 text-sm font-medium" htmlFor="admin-books-glossary">
-        {t("admin.lists.file")}
-        <input
-          id="admin-books-glossary"
-          className={cn(field, "py-2")}
-          type="file"
-          accept=".json,application/json"
-          data-admin-books-glossary
-          disabled={busy}
-          onChange={(event) => {
-            void onGlossary(event.target.files?.[0]);
-            event.target.value = "";
-          }}
-        />
-      </label>
-      {glossary ? (
-        <p className="text-sm" data-admin-books-glossary-info>
-          {glossary.id} · {t("admin.books.words", { n: glossary.words })}
-        </p>
-      ) : null}
-      <label className="grid gap-1 text-sm font-medium" htmlFor="admin-books-epub">
-        {t("admin.books.epub")}
-        <input
-          id="admin-books-epub"
-          className={cn(field, "py-2")}
-          type="file"
-          accept=".epub,application/epub+zip"
-          data-admin-books-epub
-          disabled={busy}
-          onChange={(event) => {
-            void onEpub(event.target.files?.[0]);
-            event.target.value = "";
-          }}
-        />
-      </label>
-      {epubBusy ? <p className="text-sm text-muted">{t("admin.books.parsing")}</p> : null}
-      {epubError ? (
-        <p className="text-sm text-warn" role="alert">
-          {epubError}
-        </p>
-      ) : null}
-      {parsedTitle ? (
-        <p className="text-sm" data-admin-books-detected>
-          {t("admin.books.detected", { title: parsedTitle, author: parsedAuthor || "—" })}
-        </p>
-      ) : null}
-      {covers.length > 0 ? (
-        <div className="grid gap-2" data-admin-books-covers>
-          <p className="text-sm font-medium">{t("admin.books.coverPick")}</p>
-          <div className="flex flex-wrap gap-2">
-            {covers.map((candidate) => (
-              <label
-                key={candidate.path}
-                title={candidate.path}
-                className={cn(
-                  "rounded-lg border p-1",
-                  coverChoice === candidate.path ? "border-accent ring-1 ring-accent" : "border-line",
-                )}
-              >
-                <input
-                  type="radio"
-                  name="admin-cover"
-                  className="sr-only"
-                  checked={coverChoice === candidate.path}
-                  onChange={() => setCoverChoice(candidate.path)}
-                />
-                <img src={candidate.thumb} alt={candidate.path.split("/").pop() ?? candidate.path} className="h-28 w-auto" />
-              </label>
-            ))}
+    <div className="grid gap-6" data-admin-books>
+      <div className="rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6">
+        <p className="text-sm text-muted">{t("admin.books.hint")}</p>
+
+        <div className="mt-4 border-t border-line/50 pt-4" data-admin-books-kind>
+          <span className="block text-xs font-bold uppercase tracking-wider text-muted">
+            {t("admin.books.kind")}
+          </span>
+          <div className="mt-2 flex flex-wrap gap-2.5">
+            <label
+              className={cn(
+                "inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3.5 py-2 text-xs font-semibold transition-all",
+                kind === "private"
+                  ? "border-accent bg-accent-soft text-accent shadow-2xs"
+                  : "border-line/80 bg-paper/50 text-muted hover:border-line hover:bg-card",
+              )}
+            >
+              <input
+                type="radio"
+                name="book-kind"
+                className="size-3.5 accent-accent"
+                checked={kind === "private"}
+                onChange={() => setKind("private")}
+              />
+              {t("admin.books.private")}
+            </label>
+            <label
+              className={cn(
+                "inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3.5 py-2 text-xs font-semibold transition-all",
+                kind === "public"
+                  ? "border-accent bg-accent-soft text-accent shadow-2xs"
+                  : "border-line/80 bg-paper/50 text-muted hover:border-line hover:bg-card",
+              )}
+            >
+              <input
+                type="radio"
+                name="book-kind"
+                className="size-3.5 accent-accent"
+                checked={kind === "public"}
+                onChange={() => setKind("public")}
+              />
+              {t("admin.books.public")}
+            </label>
           </div>
-          <label className="flex items-center gap-2 text-sm">
-            <input
-              type="radio"
-              name="admin-cover"
-              checked={coverChoice === null}
-              onChange={() => setCoverChoice(null)}
-            />
-            {t("admin.books.noCover")}
-          </label>
         </div>
-      ) : null}
-      <label className="grid gap-1 text-sm font-medium" htmlFor="admin-books-isbn">
-        {t("admin.books.isbn")}
-        <input
-          id="admin-books-isbn"
-          className={field}
-          value={isbn}
-          inputMode="numeric"
-          autoComplete="off"
-          data-admin-books-isbn
-          onChange={(event) => {
-            setIsbnTouched(true);
-            setIsbn(event.target.value);
-          }}
-        />
-      </label>
-      {step ? <p className="text-sm text-muted">{step}</p> : null}
-      {note ? <p className="text-sm text-accent">{note}</p> : null}
-      {error ? (
-        <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert">
-          {error}
-        </p>
-      ) : null}
-      <button
-        type="button"
-        className={cn(btn.primary, "justify-start")}
-        disabled={!ready || busy}
-        data-admin-books-publish
-        onClick={() => void publish()}
-      >
-        {busy ? t("account.working") : t("admin.books.publish")}
-      </button>
+      </div>
+
+      <div className="grid gap-5 rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6">
+        <div className="grid gap-2">
+          <label className="text-xs font-bold uppercase tracking-wider text-muted" htmlFor="admin-books-glossary">
+            {t("admin.lists.file")}
+          </label>
+          <input
+            id="admin-books-glossary"
+            className={cn(field, "py-2 text-xs")}
+            type="file"
+            accept=".json,application/json"
+            data-admin-books-glossary
+            disabled={busy}
+            onChange={(event) => {
+              void onGlossary(event.target.files?.[0]);
+              event.target.value = "";
+            }}
+          />
+          {glossary ? (
+            <div
+              className="mt-1 flex items-center gap-2 rounded-xl border border-accent/20 bg-accent-soft/60 px-3 py-2 text-xs font-semibold text-accent"
+              data-admin-books-glossary-info
+            >
+              <span>{glossary.id}</span>
+              <span className="text-muted/60">·</span>
+              <span>{t("admin.books.words", { n: glossary.words })}</span>
+            </div>
+          ) : null}
+        </div>
+
+        <div className="grid gap-2 border-t border-line/50 pt-4">
+          <label className="text-xs font-bold uppercase tracking-wider text-muted" htmlFor="admin-books-epub">
+            {t("admin.books.epub")}
+          </label>
+          <input
+            id="admin-books-epub"
+            className={cn(field, "py-2 text-xs")}
+            type="file"
+            accept=".epub,application/epub+zip"
+            data-admin-books-epub
+            disabled={busy}
+            onChange={(event) => {
+              void onEpub(event.target.files?.[0]);
+              event.target.value = "";
+            }}
+          />
+          {epubBusy ? <p className="text-xs text-muted">{t("admin.books.parsing")}</p> : null}
+          {epubError ? (
+            <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn" role="alert">
+              {epubError}
+            </p>
+          ) : null}
+          {parsedTitle ? (
+            <div
+              className="mt-1 rounded-xl border border-line/80 bg-paper/60 p-3 text-xs"
+              data-admin-books-detected
+            >
+              {t("admin.books.detected", { title: parsedTitle, author: parsedAuthor || "—" })}
+            </div>
+          ) : null}
+        </div>
+
+        {covers.length > 0 ? (
+          <div className="grid gap-3 border-t border-line/50 pt-4" data-admin-books-covers>
+            <span className="text-xs font-bold uppercase tracking-wider text-muted">
+              {t("admin.books.coverPick")}
+            </span>
+            <div className="flex flex-wrap gap-2.5">
+              {covers.map((candidate) => {
+                const isSelected = coverChoice === candidate.path;
+                return (
+                  <label
+                    key={candidate.path}
+                    title={candidate.path}
+                    className={cn(
+                      "group relative cursor-pointer overflow-hidden rounded-xl border p-1 transition-all",
+                      isSelected
+                        ? "border-accent ring-2 ring-accent shadow-sm"
+                        : "border-line/80 hover:border-line hover:shadow-2xs",
+                    )}
+                  >
+                    <input
+                      type="radio"
+                      name="admin-cover"
+                      className="sr-only"
+                      checked={isSelected}
+                      onChange={() => setCoverChoice(candidate.path)}
+                    />
+                    <img
+                      src={candidate.thumb}
+                      alt={candidate.path.split("/").pop() ?? candidate.path}
+                      className="h-28 w-auto rounded-lg object-cover"
+                    />
+                    {isSelected ? (
+                      <span className="absolute top-2 right-2 rounded-full bg-accent p-0.5 text-accent-ink shadow-xs">
+                        <svg className="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    ) : null}
+                  </label>
+                );
+              })}
+            </div>
+            <label className="inline-flex cursor-pointer items-center gap-2 text-xs font-semibold text-muted">
+              <input
+                type="radio"
+                name="admin-cover"
+                className="size-3.5 accent-accent"
+                checked={coverChoice === null}
+                onChange={() => setCoverChoice(null)}
+              />
+              {t("admin.books.noCover")}
+            </label>
+          </div>
+        ) : null}
+
+        <div className="grid gap-2 border-t border-line/50 pt-4">
+          <label className="text-xs font-bold uppercase tracking-wider text-muted" htmlFor="admin-books-isbn">
+            {t("admin.books.isbn")}
+          </label>
+          <input
+            id="admin-books-isbn"
+            className={cn(field, "max-w-xs text-xs font-semibold")}
+            value={isbn}
+            inputMode="numeric"
+            autoComplete="off"
+            data-admin-books-isbn
+            onChange={(event) => {
+              setIsbnTouched(true);
+              setIsbn(event.target.value);
+            }}
+          />
+        </div>
+
+        {step ? <p className="text-xs text-muted">{step}</p> : null}
+        {note ? <p className="text-xs font-semibold text-accent">{note}</p> : null}
+        {error ? (
+          <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn" role="alert">
+            {error}
+          </p>
+        ) : null}
+
+        <div className="border-t border-line/50 pt-4">
+          <button
+            type="button"
+            className={cn(btn.primary, "px-5 text-xs font-semibold")}
+            disabled={!ready || busy}
+            data-admin-books-publish
+            onClick={() => void publish()}
+          >
+            {busy ? t("account.working") : t("admin.books.publish")}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
