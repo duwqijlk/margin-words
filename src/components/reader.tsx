@@ -1024,6 +1024,21 @@ function SidePlaceholder() {
 const PLACE_TOP = 96;
 
 /**
+ * `restore.current` holds the place to move to when the next page is on screen: a 0..1 read
+ * fraction, or this value for "the very end of the page" (see `placeRestored`). The end of a
+ * page is the end of the DOCUMENT, not of the article: the previous/next buttons and the
+ * bottom padding sit below the article, so a fraction of the article stops one screenful short.
+ */
+const RESTORE_BOTTOM = -1;
+
+/** Height of the sticky top bar, which covers the top of the text while reading. */
+function topBarHeight(bar: HTMLElement | null): number {
+  if (!bar) return 56;
+  const height = bar.getBoundingClientRect().height;
+  return height > 0 ? height : 56;
+}
+
+/**
  * The first paragraph that reaches below the restore line, as a file-independent place.
  * The same line as the restore, so reopening a book does not step back one paragraph each time.
  */
@@ -1158,6 +1173,8 @@ export function ReaderScreen({
   const [listSource, setListSource] = useState("");
   const [glossaryRev, setGlossaryRev] = useState("");
   const articleRef = useRef<HTMLElement | null>(null);
+  /** The sticky top bar. Its height is what a page turn must not hide. */
+  const headerRef = useRef<HTMLElement | null>(null);
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
   // A place found through the file-independent anchor (saved position, or "go to the sentence" from the wordbook).
   const restoreAt = useRef<{ paragraph: number; offset: number; flash: boolean } | null>(null);
@@ -1455,12 +1472,20 @@ export function ReaderScreen({
     let mark = restoreAt.current;
     restoreAt.current = null;
     const now = Date.now();
+    // A turn backwards lands on the LAST line of the previous page, which is the end of the
+    // document, not the end of the article (the buttons and padding sit below the article).
+    let bottom = target !== null && target < 0;
+    if (bottom) target = 1;
     if (!mark && target === null) {
       const held = placed.current;
       // The same page drawn again (phrases loaded, the list changed): it must not jump to the top.
       if (held?.page === page) {
         if (now >= held.until) return;
         target = held.target;
+        if (target !== null && target < 0) {
+          bottom = true;
+          target = 1;
+        }
         mark = held.paragraph === null ? null : { paragraph: held.paragraph, offset: held.offset, flash: false };
       }
     }
@@ -1471,7 +1496,13 @@ export function ReaderScreen({
       return;
     }
     const until = placed.current?.page === page && placed.current.until > now ? placed.current.until : now + 2500;
-    placed.current = { page, paragraph: mark?.paragraph ?? null, offset: mark?.offset ?? 0, target, until };
+    placed.current = {
+      page,
+      paragraph: mark?.paragraph ?? null,
+      offset: mark?.offset ?? 0,
+      target: bottom ? RESTORE_BOTTOM : target,
+      until,
+    };
     const block = mark ? paragraphBlocks(root)[mark.paragraph] : undefined;
     let place: () => void;
     let flashTimer: ReturnType<typeof setTimeout> | null = null;
@@ -1491,6 +1522,10 @@ export function ReaderScreen({
       window.scrollTo({ top: 0 });
       setScrolled(0);
       return;
+    } else if (bottom) {
+      place = () => {
+        window.scrollTo({ top: Math.max(0, document.documentElement.scrollHeight - window.innerHeight) });
+      };
     } else {
       place = () => {
         const top = root.getBoundingClientRect().top + window.scrollY;
@@ -1499,7 +1534,7 @@ export function ReaderScreen({
       };
     }
     place();
-    if (!block && target !== null) setScrolled(target);
+    if (!block && target !== null) setScrolled(bottom ? 1 : target);
     // Fonts, pictures and banners change the page height right after load; keep the
     // saved spot until the reader scrolls on their own (or a few seconds pass).
     let cancelled = false;
@@ -1648,7 +1683,10 @@ export function ReaderScreen({
     (index: number, toBottom = false) => {
       if (!book) return;
       const next = Math.min(Math.max(0, index), book.chapters.length - 1);
-      restore.current = toBottom ? 1 : null;
+      // The place is applied by the restore effect, after the new chapter is on screen. Scrolling
+      // here would move the page that is still showing (a flash) and the height measured would be
+      // the old chapter's.
+      restore.current = toBottom ? RESTORE_BOTTOM : null;
       restoreAt.current = null;
       pendingSave.current = null;
       setExtraId("");
@@ -1664,7 +1702,6 @@ export function ReaderScreen({
         extraId: "",
         anchor: first ? makeAnchor({ chapter: next, paragraph: 0, text: first, at: 0 }) : undefined,
       });
-      window.scrollTo(0, toBottom ? document.documentElement.scrollHeight : 0);
     },
     [book, bookId, saveProgress],
   );
@@ -1685,7 +1722,7 @@ export function ReaderScreen({
       if (!book || !slots) return;
       const slot = slots[at];
       if (!slot) return;
-      restore.current = toBottom ? 1 : null;
+      restore.current = toBottom ? RESTORE_BOTTOM : null;
       restoreAt.current = null;
       pendingSave.current = null;
       setPicked(null);
@@ -1716,57 +1753,103 @@ export function ReaderScreen({
           anchor: first ? makeAnchor({ chapter: 0, paragraph: 0, text: first, at: 0 }) : undefined,
         });
       }
-      window.scrollTo(0, toBottom ? document.documentElement.scrollHeight : 0);
+      // The restore effect places the page once it is on screen (see goChapter).
     },
     [book, slots, bookId, saveProgress, safeIndex],
   );
 
+  /**
+   * One page is what can be read between the top bar and the bottom of the window.
+   * The bar is measured, not assumed: it carries a 1px rule and a 2px progress bar, so its
+   * height is not the 56px of its inner row, and a fixed 56 left a sliver of text hidden
+   * under it on every turn.
+   */
+  const pageStep = useCallback(() => {
+    const bar = prefs.focus ? 0 : topBarHeight(headerRef.current);
+    return Math.max(120, window.innerHeight - bar);
+  }, [prefs.focus]);
+
   const pageForward = useCallback(() => {
     if (!book) return;
-    const step = Math.max(120, window.innerHeight - 56);
+    const step = pageStep();
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-    const currentScroll = window.scrollY;
-
-    if (currentScroll >= maxScroll - 20) {
-      const hasNext = slots ? slotIndex < slots.length - 1 : safeIndex < book.chapters.length - 1;
+    const top = window.scrollY;
+    const hasNext = slots ? slotIndex < slots.length - 1 : safeIndex < book.chapters.length - 1;
+    // Only at the end of the page does a forward turn open the next chapter: a short last
+    // strip is shown first, so no line of the chapter is ever skipped.
+    if (maxScroll - top <= 4) {
       if (hasNext) {
         if (slots) goSlot(slotIndex + 1);
         else goChapter(safeIndex + 1);
       }
-    } else {
-      const target = Math.min(maxScroll, currentScroll + step);
-      window.scrollTo(0, target);
+      return;
     }
-  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter]);
+    window.scrollTo(0, Math.min(maxScroll, top + step));
+  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep]);
 
   const pageBackward = useCallback(() => {
     if (!book) return;
-    const step = Math.max(120, window.innerHeight - 56);
-    const currentScroll = window.scrollY;
-
-    if (currentScroll <= 20) {
-      const hasPrev = slots ? slotIndex > 0 : safeIndex > 0;
-      if (hasPrev) {
-        if (slots) goSlot(slotIndex - 1, true);
-        else goChapter(safeIndex - 1, true);
-      }
-    } else {
-      const target = Math.max(0, currentScroll - step);
-      window.scrollTo(0, target);
+    const step = pageStep();
+    const top = window.scrollY;
+    const hasPrev = slots ? slotIndex > 0 : safeIndex > 0;
+    if (top > 0) {
+      window.scrollTo(0, Math.max(0, top - step));
+      return;
     }
-  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter]);
+    // At the top of a page, a backward turn opens the previous one at its last line.
+    if (hasPrev) {
+      if (slots) goSlot(slotIndex - 1, true);
+      else goChapter(safeIndex - 1, true);
+    }
+  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep]);
 
-  const pagingHandlers = useRef({ pageForward, pageBackward, paging: prefs.paging });
-  pagingHandlers.current = { pageForward, pageBackward, paging: prefs.paging };
+  const pagingHandlers = useRef({ pageForward, pageBackward, paging: prefs.paging, cardOpen: false });
+  pagingHandlers.current = {
+    pageForward,
+    pageBackward,
+    paging: prefs.paging,
+    cardOpen: picked !== null || help !== null,
+  };
 
   useEffect(() => {
+    /** The names the DOM uses for the hardware volume keys, plus the Android and media key codes. */
     const isVolKey = (event: KeyboardEvent) =>
+      event.key === "AudioVolumeDown" ||
+      event.key === "AudioVolumeUp" ||
       event.key === "VolumeDown" ||
       event.key === "VolumeUp" ||
+      event.code === "AudioVolumeDown" ||
+      event.code === "AudioVolumeUp" ||
       event.code === "VolumeDown" ||
       event.code === "VolumeUp" ||
       event.keyCode === 24 ||
-      event.keyCode === 25;
+      event.keyCode === 25 ||
+      event.keyCode === 174 ||
+      event.keyCode === 175;
+
+    /** Which of the two was pressed. A device that sends neither leaves both false. */
+    const volumeDirection = (event: KeyboardEvent): "up" | "down" | "" => {
+      if (!isVolKey(event)) return "";
+      if (
+        event.key === "AudioVolumeUp" ||
+        event.key === "VolumeUp" ||
+        event.code === "AudioVolumeUp" ||
+        event.code === "VolumeUp" ||
+        event.keyCode === 24 ||
+        event.keyCode === 175
+      )
+        return "up";
+      if (
+        event.key === "AudioVolumeDown" ||
+        event.key === "VolumeDown" ||
+        event.code === "AudioVolumeDown" ||
+        event.code === "VolumeDown" ||
+        event.keyCode === 25 ||
+        event.keyCode === 174
+      )
+        return "down";
+      return "";
+    };
 
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -1774,43 +1857,45 @@ export function ReaderScreen({
         setHelp(null);
         return;
       }
-      const { pageForward: next, pageBackward: prev, paging } = pagingHandlers.current;
+      const { pageForward: next, pageBackward: prev, paging, cardOpen } = pagingHandlers.current;
       if (!paging) return;
 
       const target = event.target as HTMLElement | null;
       const tag = target?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable) return;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target?.isContentEditable) return;
+      // A card or a panel is open over the text: the keys belong to it (its own list scrolls,
+      // its own buttons take Space), not to the page behind it.
+      if (cardOpen) return;
+      if (target?.closest?.('aside, [role="dialog"], [data-radix-popper-content-wrapper], [data-para-ui]')) return;
 
-      const isVolDown = event.key === "VolumeDown" || event.code === "VolumeDown" || event.keyCode === 25;
-      const isVolUp = event.key === "VolumeUp" || event.code === "VolumeUp" || event.keyCode === 24;
+      const volume = volumeDirection(event);
       const isNext =
-        isVolDown ||
+        volume === "down" ||
         event.key === "PageDown" ||
         event.keyCode === 34 ||
         event.key === "ArrowDown" ||
         event.key === "ArrowRight" ||
         (event.key === " " && !event.shiftKey);
       const isPrev =
-        isVolUp ||
+        volume === "up" ||
         event.key === "PageUp" ||
         event.keyCode === 33 ||
         event.key === "ArrowUp" ||
         event.key === "ArrowLeft" ||
         (event.key === " " && event.shiftKey);
 
-      if (isNext) {
+      if (isNext || isPrev) {
+        // Held keys would run the page away on a slow e-ink screen: one press, one page.
+        if (event.repeat) return;
         event.preventDefault();
-        next();
-      } else if (isPrev) {
-        event.preventDefault();
-        prev();
+        if (isNext) next();
+        else prev();
       }
     };
 
+    // A volume key that the device does hand to the page must not also change the volume.
     const onKeyUp = (event: KeyboardEvent) => {
-      if (pagingHandlers.current.paging && isVolKey(event)) {
-        event.preventDefault();
-      }
+      if (pagingHandlers.current.paging && isVolKey(event)) event.preventDefault();
     };
 
     // A click anywhere outside the card (and not on a word) closes it.
@@ -2180,6 +2265,7 @@ export function ReaderScreen({
   return (
     <div style={style} className="min-h-dvh">
       <header
+        ref={headerRef}
         className={cn(
           "sticky top-0 z-30 border-b border-line bg-paper/90 backdrop-blur transition-transform duration-300",
           focus && "-translate-y-full",

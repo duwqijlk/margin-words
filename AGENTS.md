@@ -31,6 +31,14 @@ data in R2. Books and word lists come from **book packs** (see README.md, "Reade
 
 ## Rules
 
+- Tailwind 3 puts every transform in one `transform` declaration (`--tw-translate-x/-y`, rotate, scale).
+  A `@keyframes` that writes `transform` replaces that declaration whole, so the entrance animations
+  repeat the translate: `pop-in` starts and ends with
+  `translate(var(--tw-translate-x, 0px), var(--tw-translate-y, 0px)) scale(...)`. Drop it and a
+  centered dialog paints its corner at the middle of the screen for the length of the animation and
+  then jumps into place. Tailwind 4 did not have this problem (`-translate-x-1/2` was the separate
+  `translate` property), so the mistake came in with the move to v3.
+
 - The UI has two languages, `en` and `zh`. Every visible string (labels, aria-labels, toasts, errors) goes
   through `useT()` / `tr()` from `src/lib/i18n.ts` and lives in BOTH `src/lib/i18n-en.ts` (plain, simple English)
   and `src/lib/i18n-zh.ts` (simple Simplified Chinese for junior-high students). Both must have the same keys (tsc
@@ -81,4 +89,5 @@ data in R2. Books and word lists come from **book packs** (see README.md, "Reade
 - Guide page: `src/components/guide-page.tsx`, `/guide`. Opened from the Settings button (how to use the app and about the site: marks, notebook, accounts, privacy, copyright, contact). Contact from `VITE_CONTACT_EMAIL` (`src/lib/site-info.ts`). `/about` opens this page. The supporters are a quiet line on the Overview page (`/dashboard`), without amounts, not a header button. Sponsorship is a public-interest donation. Confirmed gifts are summed per person into this month and all time (`sponsorBoards` in `src/lib/sponsor.ts`); the overview shows the supporter count and names without amounts. Names are not invented. The library counts are the main block of that screen, and under them are the GitHub repository link (`REPO_URL`) and the Telegram group link (`TELEGRAM_URL` in `src/lib/site-info.ts`). `/admin` is the request list, not a menu item.
 - One book is one shelf card. Books in the same series stay separate covers. They are never folded into a stack.
 - Text extraction treats `<br>`, `<hr>` and block boundaries as one space (`src/lib/flow-text.ts`); stored HTML and token indexes are unchanged, and example matching tolerates words glued at a `<br>`.
-- Tests: `npm test` (unit), `node scripts/e2e-ui.mjs`, `npm run test:routes`, `node scripts/wordbook-e2e.mjs` (wordbook, positions, About), `npm run test:sense-only` (the e2e ones need `npm run build:local` plus a preview server).
+- Tests: `npm test` (unit), `node scripts/e2e-ui.mjs`, `npm run test:routes`, `node scripts/wordbook-e2e.mjs` (wordbook, positions, About), `npm run test:sense-only`, `npm run test:paging` (page-turn distance, chapter boundaries, a centered dialog that must not move after its first frame), `npm run test:legacy` (the build an engine without module scripts gets). The e2e ones need `npm run build:local` plus a preview server.
+- Two builds come out of `vite build`: the module build, and a second ES5 copy (`@vitejs/plugin-legacy`) that the page picks up through `nomodule`. The Kindle browser ignores `<script type="module">` completely, so without that copy the page stayed white. Never remove the plugin, and never post-process `dist/index.html` in a way that drops the `nomodule` tags. `index.html` also carries a small ES5 notice that appears after 12s only when nothing mounted, so a browser that still cannot run the app says so instead of showing nothing.

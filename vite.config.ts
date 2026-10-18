@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import viteReact from "@vitejs/plugin-react";
+import legacy from "@vitejs/plugin-legacy";
 // @ts-expect-error plain JS plugins next to the TS config
 import { dvhFallbacks, guideFolder, offlineShell, packsFolder, publicBooks, wordLists } from "./scripts/vite-plugins.mjs";
 
@@ -37,6 +38,20 @@ export default defineConfig({
     wordLists(),
     guideFolder(),
     viteReact(),
+    /**
+     * A second, ES5 copy of the app for engines that do not understand `<script type="module">`
+     * at all: the Kindle browser (WebKit from 2012) ignores the module script, so the page stayed
+     * blank - the app never started and the `<noscript>` line was hidden because JavaScript is on.
+     * This build writes `nomodule` chunks plus a small ES5 loader; every modern browser skips
+     * them. Keep it before the shell plugins: they hash the finished bundle.
+     */
+    legacy({
+      targets: ["chrome >= 49", "safari >= 10", "ios >= 10", "firefox >= 52", "edge >= 15"],
+      // The reader is not a polyfill demo: only what the app calls is pulled in.
+      modernPolyfills: false,
+      renderLegacyChunks: true,
+      polyfills: true,
+    }),
     offlineShell(),
     dvhFallbacks(),
   ],
