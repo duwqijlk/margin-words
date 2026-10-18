@@ -29,25 +29,58 @@ export const chip =
 
 /* ---------------------------------------------------------------- pronunciation */
 
-/**
- * Pronunciation uses the voice that is built into the browser or phone (works offline).
- * Nothing is sent anywhere. Call this from the click that opened the word: a later effect
- * often runs after the browser has dropped the user gesture, and then speech stays silent.
- */
-export function speakEnglish(text: string): boolean {
-  const spoken = text.trim();
-  if (!spoken) return false;
+let currentAudio: HTMLAudioElement | null = null;
+
+function speakWithSynthesis(spoken: string): boolean {
   try {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return false;
+    const synth = window.speechSynthesis;
+    if (synth.paused) synth.resume();
+    synth.cancel();
     const voice = new SpeechSynthesisUtterance(spoken);
     voice.lang = "en-US";
     voice.rate = 0.9;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(voice);
+    synth.speak(voice);
     return true;
   } catch {
     return false;
   }
+}
+
+/**
+ * Pronunciation plays native dictionary audio, with built-in SpeechSynthesis as fallback.
+ * Works on Kindle, Android e-ink readers (Boox, Meebook, etc.), and standard web browsers.
+ */
+export function speakEnglish(text: string): boolean {
+  const spoken = text.trim();
+  if (!spoken) return false;
+  if (typeof window === "undefined") return false;
+
+  const clean = spoken.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, "");
+  if (!clean) return false;
+
+  try {
+    if (typeof Audio !== "undefined") {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+      }
+      const audioUrl = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(clean)}&type=2`;
+      const audio = new Audio(audioUrl);
+      currentAudio = audio;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          speakWithSynthesis(clean);
+        });
+      }
+      return true;
+    }
+  } catch {
+    // Audio element failed or blocked, fall through to speech synthesis
+  }
+
+  return speakWithSynthesis(clean);
 }
 
 export function useSpeak() {

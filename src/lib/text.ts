@@ -444,3 +444,84 @@ export function indexBook(chapters: { paragraphs: string[] }[]): Record<string, 
   }
   return stats;
 }
+
+/**
+ * Statistics for a single word in the book, computed on demand.
+ * Avoids indexing the entire book upfront when opening a chapter.
+ */
+export function wordStatInBook(
+  chapters: { paragraphs: string[] }[],
+  targetKey: string,
+): WordStat | undefined {
+  const norm = targetKey.toLowerCase();
+  if (norm.length < 3 || !/^[a-z][a-z'-]*$/.test(norm)) return undefined;
+
+  let count = 0;
+  const chapterSet = new Set<number>();
+  const formMap = new Map<string, number>();
+  const sentences: string[] = [];
+  const sentenceChapters = new Set<number>();
+  const tags = new Map<WordUse, number>();
+
+  const token = new RegExp(WORD_PATTERN, "gu");
+
+  for (let chapterIndex = 0; chapterIndex < chapters.length; chapterIndex++) {
+    const chapter = chapters[chapterIndex];
+    if (!chapter?.paragraphs) continue;
+    for (const paragraph of chapter.paragraphs) {
+      if (!paragraph.toLowerCase().includes(norm)) continue;
+
+      const tokens = [...paragraph.matchAll(token)];
+      for (let index = 0; index < tokens.length; index++) {
+        const match = tokens[index];
+        const surface = match[0] ?? "";
+        const key = lookupKey(surface);
+        if (key !== norm) continue;
+
+        count += 1;
+        chapterSet.add(chapterIndex);
+        const form = surface.toLowerCase();
+        formMap.set(form, (formMap.get(form) ?? 0) + 1);
+
+        if (
+          !isEasyKey(key) &&
+          sentences.length < 3 &&
+          !sentenceChapters.has(chapterIndex)
+        ) {
+          const sentence = sentenceAround(paragraph, surface);
+          if (sentence.split(/\s+/).length >= 5) {
+            sentences.push(sentence);
+            sentenceChapters.add(chapterIndex);
+          }
+        }
+
+        if (isEasyKey(key)) continue;
+        const prev = (tokens[index - 1]?.[0] ?? "").toLowerCase();
+        const next = (tokens[index + 1]?.[0] ?? "").toLowerCase();
+        let use: WordUse | "" = "";
+        if (ARTICLE.has(prev)) use = next ? "adjective" : "noun";
+        else if (SUBJECT.has(prev)) use = "verb";
+        else if (DEGREE.has(prev)) use = "adjective";
+        if (use) tags.set(use, (tags.get(use) ?? 0) + 1);
+      }
+    }
+  }
+
+  if (count === 0) return undefined;
+
+  const uses = [...tags.entries()]
+    .filter(([, c]) => c >= 2)
+    .sort((a, b) => b[1] - a[1])
+    .map(([use]) => use);
+
+  return {
+    count,
+    chapters: chapterSet.size,
+    forms: [...formMap.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .slice(0, 4)
+      .map(([form, c]) => ({ form, count: c })),
+    sentences,
+    uses: uses.length > 1 ? uses : [],
+  };
+}

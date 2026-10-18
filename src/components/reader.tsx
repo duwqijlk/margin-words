@@ -60,11 +60,11 @@ import {
 } from "@/lib/reader-prefs";
 import {
   contextPos,
-  indexBook,
   isEasyKey,
   resolveGlossKey,
   sentenceAround,
   surfaceOffset,
+  wordStatInBook,
   type WordStat,
 } from "@/lib/text";
 import { useVocab } from "@/lib/vocab-store";
@@ -1375,7 +1375,6 @@ export function ReaderScreen({
     }
   }, [book, chapterHtml, chapterKey, phraseList, marked, resolveKey, viewChapter]);
   const bookChapters = book?.chapters;
-  const bookStats = useMemo(() => (bookChapters ? indexBook(bookChapters) : {}), [bookChapters]);
 
   const bookKey = shelfBook ? bookSyncKey(shelfBook) : "";
   const savedKeys = useMemo(
@@ -1733,6 +1732,20 @@ export function ReaderScreen({
   }, []);
 
   const pickedKey = picked ? resolveKey(picked.surface) : "";
+  const statCache = useRef<Map<string, WordStat | null>>(new Map());
+  useEffect(() => {
+    statCache.current.clear();
+  }, [book]);
+
+  const currentStat = useMemo(() => {
+    if (!pickedKey || !bookChapters) return undefined;
+    if (statCache.current.has(pickedKey)) {
+      return statCache.current.get(pickedKey) ?? undefined;
+    }
+    const stat = wordStatInBook(bookChapters, pickedKey);
+    statCache.current.set(pickedKey, stat ?? null);
+    return stat;
+  }, [pickedKey, bookChapters]);
   // A phrasal verb or idiom that contains the tapped word (from the word list).
   const located = picked
     ? locateSentence(picked.paragraph, picked.surface, picked.before.length)
@@ -2204,7 +2217,7 @@ export function ReaderScreen({
       {card ? (
         <WordCard
           state={card}
-          stat={bookStats[pickedKey]}
+          stat={currentStat}
           saved={!phrasePending && alreadySaved}
           phrase={shownPhrase}
           canSave={!phrasePending && (card.ready || shownPhrase != null)}
