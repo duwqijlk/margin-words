@@ -7,8 +7,14 @@
  *
  * Without these polyfills, any call to them throws an uncaught TypeError that triggers
  * the root ErrorBoundary ("This page did not load").
+ *
+ * The install has to be an exported function that `main.tsx` CALLS: `package.json` says
+ * `sideEffects: false`, so a bare `import "@/lib/polyfills"` is dropped from the bundle
+ * and none of this ran. The reader calls `Object.fromEntries`, so on an engine without it
+ * the shelf worked and opening a book threw - a white page with no clue.
  */
 
+export function installPolyfills(): void {
 // 1. Array.prototype.flat / flatMap (Chrome 69+)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const arrProto = Array.prototype as any;
@@ -220,3 +226,22 @@ if (typeof Object.hasOwn !== "function") {
     return Object.prototype.hasOwnProperty.call(obj, prop);
   };
 }
+
+// 11. crypto.randomUUID (Chrome 92). Adding a book and saving a word both mint an id with it,
+// so on an older WebView those actions threw a TypeError and did nothing.
+if (typeof crypto !== "undefined" && typeof crypto.randomUUID !== "function" && crypto.getRandomValues) {
+  const hex: string[] = [];
+  for (let i = 0; i < 256; i += 1) hex.push((i + 0x100).toString(16).slice(1));
+  crypto.randomUUID = function randomUUID(): `${string}-${string}-${string}-${string}-${string}` {
+    const bytes = crypto.getRandomValues(new Uint8Array(16));
+    // Version 4, variant 10xx, the same shape the browser returns.
+    bytes[6] = (bytes[6]! & 0x0f) | 0x40;
+    bytes[8] = (bytes[8]! & 0x3f) | 0x80;
+    const hexAt = (at: number) => hex[bytes[at]!]! + hex[bytes[at + 1]!]!;
+    return `${hexAt(0)}${hexAt(2)}-${hexAt(4)}-${hexAt(6)}-${hexAt(8)}-${hexAt(10)}${hexAt(12)}${hexAt(14)}` as `${string}-${string}-${string}-${string}-${string}`;
+  };
+}
+}
+
+// Keep working on import too, for any caller that only needs the side effect.
+installPolyfills();

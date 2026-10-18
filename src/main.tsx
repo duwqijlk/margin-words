@@ -1,10 +1,15 @@
-import "@/lib/polyfills";
+import { installPolyfills } from "@/lib/polyfills";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { MarginApp } from "@/components/margin-app";
 import { RELOAD_QUIET_MS, RELOAD_STOP, reloadPlan } from "@/lib/reload-guard";
 import "./styles.css";
+
+// Before anything renders. The call (not the import) is what keeps this in the bundle:
+// `package.json` says `sideEffects: false`, so a bare import of the polyfills was dropped
+// and an old WebView lost every patch - the reader threw on `Object.fromEntries`.
+installPolyfills();
 
 // Kept in the built file so this version cannot reuse a script name the edge cached as the app page.
 performance.mark("mw-boot");

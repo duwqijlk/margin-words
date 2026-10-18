@@ -30,7 +30,7 @@
       hidden
       style="position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 16px; border-top: 1px solid #ccc; background: #fff; color: #111; font: 14px/1.5 -apple-system, 'Segoe UI', Arial, sans-serif; z-index: 9999"
     >
-      <b>The reader did not start in this browser.</b> Please try a newer browser or another
+      <b>The reader is not working in this browser.</b> Please try a newer browser or another
       device. If you are reading on an e-reader, this line tells us why:
       <code id="boot-ua" style="display: block; margin-top: 6px; word-break: break-all; color: #555"></code>
     </div>
@@ -44,6 +44,8 @@
         // Why it did not start is the one thing a reader cannot tell us from a photo of the
         // screen, so the notice carries it: the newest errors, and any file that never loaded.
         var seen = [];
+        var noted = false;
+        var noted = false;
         function record(text) {
           if (text && seen.length < 3) seen.push(String(text));
         }
@@ -67,14 +69,22 @@
         function mounted() {
           return root.childNodes.length > 0;
         }
+        function show(text) {
+          if (line) line.textContent = text;
+          box.hidden = false;
+        }
+        // The app uses this when it knows it is stuck (for example a start that never finishes).
+        window.__mwNote = function (text) {
+          noted = true;
+          record(text);
+          show(navigator.userAgent + " | " + seen.join(" | "));
+        };
         setTimeout(function () {
           if (mounted() || !box.hidden) return;
-          if (line)
-            line.textContent = navigator.userAgent + (seen.length ? " | " + seen.join(" | ") : "");
-          box.hidden = false;
+          show(navigator.userAgent + (seen.length ? " | " + seen.join(" | ") : ""));
         }, 12000);
         setTimeout(function () {
-          if (mounted()) box.hidden = true;
+          if (mounted() && !noted) box.hidden = true;
         }, 20000);
       })();
     </script>
