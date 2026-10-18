@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import test from "node:test";
 import { dirname, join } from "node:path";
@@ -20,8 +20,11 @@ const EARLIER = Date.parse("2026-09-15T04:00:00Z");
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  for (const name of ["0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql"]) {
-    db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
+  // Every migration, in filename order: `requireUser` reads users.role (0004) and the handlers
+  // touch tables added later. A hand-kept list here went stale and turned a 400 into a 500.
+  const dir = join(ROOT, "migrations");
+  for (const name of readdirSync(dir).filter((file) => file.endsWith(".sql")).sort()) {
+    db.exec(readFileSync(join(dir, name), "utf8"));
   }
   return {
     prepare(sql) {

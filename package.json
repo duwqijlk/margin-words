@@ -3,6 +3,9 @@
   "private": true,
   "license": "MIT",
   "author": "XCRUN",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -18,6 +21,7 @@
     "typecheck:functions": "tsc -p functions/tsconfig.json",
     "check:cjk": "node scripts/check-no-cjk.mjs",
     "test": "node --experimental-strip-types --test scripts/*.test.mjs && node --experimental-strip-types --test src/lib/srs.test.ts",
+    "test:ci": "node --experimental-strip-types --test --test-concurrency=1 scripts/*.test.mjs && node --experimental-strip-types --test src/lib/srs.test.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "check:example": "node scripts/check-example.mjs",

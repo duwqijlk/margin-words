@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * Fails if any CJK (Chinese/Japanese/Korean) character, CJK punctuation or full-width form
- * appears in the shipped sources: src/, public/, packs/, examples/ and scripts/
- * (fonts and other binary files are skipped).
+ * appears in the shipped sources: src/, public/, packs/, examples/, scripts/, functions/ and
+ * workers/ (fonts and other binary files are skipped).
  *
  * Chinese is allowed ONLY in:
  *   - src/lib/i18n-zh.ts   the Chinese dictionary of the app
@@ -19,7 +19,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CJK = /[\u3400-\u4dbf\u4e00-\u9fff\u3000-\u303f\uff00-\uffef\u3040-\u30ff\uac00-\ud7af]/u;
-const SCAN = ["src", "public", "packs", "examples", "scripts"];
+const SCAN = ["src", "public", "packs", "examples", "scripts", "functions", "workers"];
 /** Files (relative to the project root, with /) that may contain Chinese. */
 export const ALLOWED = new Set(["src/lib/i18n-zh.ts", "README.zh-CN.md"]);
 /** Folders (with trailing /) that may contain Chinese. */
@@ -94,5 +94,5 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     for (const hit of hits.slice(0, 50)) console.error(`  ${hit.file}:${hit.line}  ${hit.text}`);
     process.exit(1);
   }
-  console.log("check:cjk OK - no CJK characters in src/, public/, packs/, examples/ or scripts/ (Chinese is allowed only in src/lib/i18n-zh.ts, docs/ and README.zh-CN.md).");
+  console.log("check:cjk OK - no CJK characters in src/, public/, packs/, examples/, scripts/, functions/ or workers/ (Chinese is allowed only in src/lib/i18n-zh.ts, docs/ and README.zh-CN.md).");
 }

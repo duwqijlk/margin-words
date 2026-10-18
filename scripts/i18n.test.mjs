@@ -62,10 +62,14 @@ test("English texts have no Chinese; Chinese texts are Chinese (apart from names
   const same = [];
   for (const key of Object.keys(en)) {
     assert.ok(!CJK.test(en[key]), `en ${key} has Chinese`);
-    if (!CJK.test(zh[key])) same.push(key);
+    // A text made only of numbers, placeholders and punctuation ("{used} / {limit}", or a month
+    // number dropped into a date template) has nothing to translate. A text with letters left
+    // after its placeholders are removed and no Chinese is an English string never translated.
+    const bare = zh[key].replace(/\{\w+\}/g, "");
+    if (!CJK.test(zh[key]) && /[A-Za-z]/.test(bare)) same.push(key);
   }
-  // Only a few texts may stay the same in zh (the brand name, "A-Z" and similar).
-  const allowed = new Set(["common.brand", "nb.order.az", "shelf.summary"]);
+  // Only a few texts may stay the same in zh (the brand name, "A-Z", the two link names and similar).
+  const allowed = new Set(["common.brand", "nb.order.az", "shelf.summary", "dashboard.github", "dashboard.telegram"]);
   assert.deepEqual(same.filter((k) => !allowed.has(k)), [], "zh texts without any Chinese");
 });
 
@@ -87,7 +91,8 @@ test("plural pairs exist for both forms", async () => {
 test("language choice: saved choice first, else browser language (zh* -> zh, else en)", async () => {
   // detectLocale is small; load it from source with the dictionaries stubbed out.
   const source = readFileSync(join(ROOT, "src", "lib", "i18n.ts"), "utf8");
-  const match = source.match(/export function detectLocale[\s\S]*?\n}\n/);
+  // \r? so the pattern also matches a Windows checkout (CRLF).
+  const match = source.match(/export function detectLocale[\s\S]*?\r?\n}\r?\n/);
   assert.ok(match, "detectLocale not found");
   const fn = new Function(`${match[0].replace("export function", "function").replace(/: string \| null \| undefined/g, "").replace(/\): Locale/, ")")}; return detectLocale;`)();
   assert.equal(fn("en", "zh-CN"), "en");

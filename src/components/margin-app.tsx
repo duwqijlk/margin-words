@@ -26,7 +26,7 @@ import { SpineWarningList } from "@/components/spine-warnings";
 import { btn, cn } from "@/components/ui";
 import type { SpineNameWarning } from "@/lib/epub";
 import type { ListFlow } from "@/components/word-list";
-import { NoticeBar } from "@/components/notice-bar";
+import { SiteNotice } from "@/components/site-notice";
 import { DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useRoute, type Route } from "@/lib/router";
 import { refreshCovers, repairShelf } from "@/lib/shelf-repair";
 import { useAccount } from "@/lib/account-store";
@@ -359,7 +359,9 @@ export function MarginApp() {
           </div>
         </div>
       ) : null}
-      {reading ? null : <NoticeBar />}
+      {/* One notice for the whole site: the copyright line and what a word tap reports. Not in the
+          reader, where it would sit over the words. */}
+      {reading ? null : <SiteNotice />}
       {reading ? null : (
         <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-6xl items-center gap-1 px-2 sm:gap-2 sm:px-6">
