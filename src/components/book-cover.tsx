@@ -137,6 +137,7 @@ export function BookCover({
       ) : null}
       {showGenerated ? (
         <span
+          data-generated-inner=""
           className="absolute inset-0 flex flex-col items-center justify-between text-center text-[#fbf6ea]"
           style={{
             backgroundImage: `linear-gradient(155deg, ${from}, ${to})`,
@@ -153,6 +154,7 @@ export function BookCover({
           />
           <span className="h-px w-[16cqw] bg-white/60" aria-hidden />
           <span
+            data-cover-title=""
             className="relative font-display leading-[1.12] font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:5] overflow-hidden text-balance"
             style={{ fontSize: size }}
             lang="en"
@@ -163,6 +165,7 @@ export function BookCover({
             <span className="h-px w-[16cqw] bg-white/60" aria-hidden />
             {author ? (
               <span
+                data-cover-author=""
                 className="max-w-full tracking-[0.08em] uppercase opacity-90 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
                 style={{ fontSize: "5.6cqw", lineHeight: 1.3 }}
                 lang="en"

@@ -240,7 +240,7 @@ function ContinueCard({
       className="group relative hidden items-center gap-6 overflow-hidden rounded-3xl border border-line/70 bg-card p-6 shadow-xs transition-all hover:shadow-md sm:flex sm:gap-9 sm:p-7"
       style={{
         backgroundImage:
-          "radial-gradient(ellipse at top right, color-mix(in srgb, var(--accent-soft) 60%, transparent), transparent 75%)",
+          "radial-gradient(ellipse at top right, rgb(var(--accent-soft-rgb) / 0.6), transparent 75%)",
       }}
     >
       <div className="relative w-28 shrink-0 transition-transform duration-300 group-hover:scale-[1.02] sm:w-36">
@@ -463,7 +463,7 @@ function BookCard({
           <Menu.Root open={menuOpen} onOpenChange={setMenuOpen}>
             <Menu.Trigger
               className={cn(
-                "relative inline-flex min-h-10 w-8 shrink-0 touch-manipulation items-center justify-center rounded-lg text-muted/75 select-none hover:bg-accent-soft hover:text-ink sm:-mr-2 [-webkit-touch-callout:none]",
+                "relative inline-flex min-h-10 min-w-7 w-7 shrink-0 touch-manipulation items-center justify-center rounded-lg text-muted/75 select-none hover:bg-accent-soft hover:text-ink -mr-1 sm:w-8 sm:-mr-2 [-webkit-touch-callout:none]",
                 armed && "bg-accent-soft text-ink",
               )}
               aria-label={t("shelf.moreAria", { title: book.title })}

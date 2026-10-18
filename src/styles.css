@@ -642,3 +642,18 @@
     padding-top: 150%;
   }
 }
+
+/* Fallback for engines without container queries (below Chrome 105) on generated typographic covers */
+@supports not (container-type: inline-size) {
+  .cover-frame > [data-generated-inner] {
+    padding: 1rem 0.75rem 0.75rem !important;
+  }
+  .cover-frame [data-cover-title] {
+    font-size: 0.95rem !important;
+    line-height: 1.25 !important;
+  }
+  .cover-frame [data-cover-author] {
+    font-size: 0.7rem !important;
+    line-height: 1.3 !important;
+  }
+}

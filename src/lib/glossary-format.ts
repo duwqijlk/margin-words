@@ -660,7 +660,8 @@ function glueListedRuns(
 function explodeDigitKeys(segments: TapSegment[], keys: string[]): TapSegment[] {
   if (keys.length === 0) return segments;
   const body = [...keys].sort((a, b) => b.length - a.length).map(escapeReg).join("|");
-  const re = new RegExp(`(?<![A-Za-z0-9])(?:${body})(?![A-Za-z0-9])`, "gi");
+  // Do not use lookbehind `(?<!...)`: older WebViews (below Chrome 62/iOS 16.4) throw SyntaxError.
+  const re = new RegExp(`(^|[^A-Za-z0-9])(${body})(?![A-Za-z0-9])`, "gi");
   const out: TapSegment[] = [];
   for (const seg of segments) {
     if (seg.kind !== "text") {
@@ -670,13 +671,16 @@ function explodeDigitKeys(segments: TapSegment[], keys: string[]): TapSegment[] 
     re.lastIndex = 0;
     let cursor = 0;
     let hit = false;
-    for (const match of seg.text.matchAll(re)) {
+    let match: RegExpExecArray | null;
+    while ((match = re.exec(seg.text)) !== null) {
       hit = true;
-      const at = match.index ?? 0;
+      const prefix = match[1] ?? "";
+      const raw = match[2] ?? "";
+      const at = match.index + prefix.length;
       if (at > cursor) out.push({ kind: "text", text: seg.text.slice(cursor, at) });
-      const raw = match[0];
       out.push({ kind: "word", text: raw, words: [plainSurface(raw)] });
       cursor = at + raw.length;
+      re.lastIndex = cursor;
     }
     if (!hit) out.push(seg);
     else if (cursor < seg.text.length) out.push({ kind: "text", text: seg.text.slice(cursor) });
