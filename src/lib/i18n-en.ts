@@ -485,7 +485,7 @@ export const en = {
   "rs.focus": "Focus mode",
   "rs.focusHint": "Hide the top bar",
   "rs.paging": "Page-turn mode",
-  "rs.pagingHint": "Page keys & volume keys",
+  "rs.pagingHint": "Volume keys & arrow keys",
   "contents.title": "Contents",
   "contents.desc": "Choose a chapter to read",
   "contents.close": "Close contents",

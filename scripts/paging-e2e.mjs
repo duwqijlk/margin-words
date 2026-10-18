@@ -65,7 +65,10 @@ await page.evaluate(() => {
     const el = document.querySelector("[role=dialog]");
     if (el) {
       const box = el.getBoundingClientRect();
-      window.__boxes.push({ x: Math.round(box.x + box.width / 2), y: Math.round(box.y + box.height / 2) });
+      window.__boxes.push({
+        x: Math.round(box.x + box.width / 2),
+        y: Math.round(box.y + box.height / 2),
+      });
     }
     if (window.__boxes.length < 40) requestAnimationFrame(sample);
   };
@@ -93,7 +96,18 @@ await page.evaluate(
       "cibian-notebook-v1",
       JSON.stringify({
         state: {
-          books: [{ id: book, title: "Probe Book", author: "Nobody", cloth: "cloth", createdAt: now, updatedAt: now, source: "epub", lexile: "800L" }],
+          books: [
+            {
+              id: book,
+              title: "Probe Book",
+              author: "Nobody",
+              cloth: "cloth",
+              createdAt: now,
+              updatedAt: now,
+              source: "epub",
+              lexile: "800L",
+            },
+          ],
           words: [],
         },
         version: 0,
@@ -103,7 +117,8 @@ await page.evaluate(
       const request = indexedDB.open("cibian-books", 3);
       request.onupgradeneeded = () => {
         const created = request.result;
-        for (const name of ["books", "covers", "notes"]) if (!created.objectStoreNames.contains(name)) created.createObjectStore(name);
+        for (const name of ["books", "covers", "notes"])
+          if (!created.objectStoreNames.contains(name)) created.createObjectStore(name);
       };
       request.onsuccess = () => resolve(request.result);
       request.onerror = () => reject(request.error);
@@ -111,7 +126,15 @@ await page.evaluate(
     await new Promise((resolve, reject) => {
       const tx = db.transaction(["books", "notes"], "readwrite");
       tx.objectStore("books").put(
-        { id: book, title: "Probe Book", author: "Nobody", chapters, glossary, pending: [], totalHard: Object.keys(glossary).length },
+        {
+          id: book,
+          title: "Probe Book",
+          author: "Nobody",
+          chapters,
+          glossary,
+          pending: [],
+          totalHard: Object.keys(glossary).length,
+        },
         book,
       );
       tx.objectStore("notes").put(
@@ -130,14 +153,9 @@ await page.goto(BASE + "read/" + BOOK);
 await page.waitForTimeout(2000);
 check((await page.locator("article.book-body").count()) === 1, "the reader opens the seeded book");
 
-// Page-turn mode on, the way the settings popover saves it.
-await page.evaluate(() => {
-  const raw = JSON.parse(localStorage.getItem("cibian-prefs-v1") || '{"state":{},"version":0}');
-  raw.state = { ...raw.state, paging: true };
-  localStorage.setItem("cibian-prefs-v1", JSON.stringify(raw));
-});
-await page.reload();
-await page.waitForTimeout(2000);
+// No page-turn setting is written on purpose: this is the DEFAULT state (the setting is off),
+// which is what almost every reader runs. PageDown must still turn exactly one page - leaving
+// those keys to the engine is what silently bypassed the whole calculation on the e-readers.
 
 const page_ = () =>
   page.evaluate(() => {
@@ -198,17 +216,27 @@ check(
 );
 
 // the last short strip is shown, then the next turn opens the next chapter
-await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight - window.innerHeight - 200));
+await page.evaluate(() =>
+  window.scrollTo(0, document.documentElement.scrollHeight - window.innerHeight - 200),
+);
 await page.waitForTimeout(400);
 await page.keyboard.press("PageDown");
 await page.waitForTimeout(600);
 const strip = await page_();
-check(strip.chapter === afterTwo.chapter && Math.abs(strip.y - strip.max) <= 3, "the last strip is shown without skipping a line", `${strip.chapter} at ${strip.y}px of ${strip.max}px`);
+check(
+  strip.chapter === afterTwo.chapter && Math.abs(strip.y - strip.max) <= 3,
+  "the last strip is shown without skipping a line",
+  `${strip.chapter} at ${strip.y}px of ${strip.max}px`,
+);
 
 await page.keyboard.press("PageDown");
 await page.waitForTimeout(1000);
 const stripNext = await page_();
-check(stripNext.chapter !== strip.chapter && stripNext.y <= 4, "the turn after it opens the next chapter", `${stripNext.chapter} at ${stripNext.y}px`);
+check(
+  stripNext.chapter !== strip.chapter && stripNext.y <= 4,
+  "the turn after it opens the next chapter",
+  `${stripNext.chapter} at ${stripNext.y}px`,
+);
 
 // at the bottom of a chapter: next chapter, top
 await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
@@ -245,6 +273,46 @@ await page.mouse.click(VIEW_W - 14, Math.round(VIEW_H / 2));
 await page.waitForTimeout(600);
 const tapped = await page_();
 check(tapped.y === 0, "taps do not turn the page", `${tapped.y}px after four taps`);
+
+/* ---- the setting still governs the keys that are only page keys on some devices */
+const setPaging = async (on) => {
+  await page.evaluate((on) => {
+    const raw = JSON.parse(localStorage.getItem("cibian-prefs-v1") || '{"state":{},"version":0}');
+    raw.state = { ...raw.state, paging: on };
+    localStorage.setItem("cibian-prefs-v1", JSON.stringify(raw));
+  }, on);
+  await page.reload();
+  await page.waitForTimeout(1800);
+  await page.evaluate(() => window.scrollTo(0, 600));
+  await page.waitForTimeout(400);
+};
+
+const pressVolumeKey = async (key) => {
+  await page.evaluate((key) => {
+    window.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true }));
+  }, key);
+  await page.waitForTimeout(500);
+};
+
+await setPaging(false);
+let beforeVolume = await page_();
+await pressVolumeKey("AudioVolumeDown");
+let afterVolume = await page_();
+check(
+  afterVolume.y === beforeVolume.y,
+  "with page-turn mode off a volume key does nothing",
+  `moved ${afterVolume.y - beforeVolume.y}px`,
+);
+
+await setPaging(true);
+beforeVolume = await page_();
+await pressVolumeKey("AudioVolumeDown");
+afterVolume = await page_();
+check(
+  Math.abs(afterVolume.y - beforeVolume.y - afterVolume.step) <= 3,
+  "with page-turn mode on a volume key turns one page",
+  `moved ${afterVolume.y - beforeVolume.y}px, one page is ${afterVolume.step}px`,
+);
 
 await page.screenshot({ path: SHOT });
 await browser.close();
