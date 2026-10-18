@@ -263,20 +263,32 @@ export function dvhFallbacks() {
 }
 
 /**
- * Drop the `import.meta.resolve` probe that @vitejs/plugin-legacy puts in the page.
+ * Drop the `import.meta.resolve` probes that @vitejs/plugin-legacy puts in the page AND in the
+ * entry chunk.
  *
  * The plugin writes two inline MODULE scripts: one sets `__vite_is_modern_browser` when the
- * browser knows `import.meta.resolve`, the other loads the ES5 build when it does not. That
- * method only exists from Chrome 105, so EVERY engine between our floor (Chrome 69) and 104
- * failed the test and loaded the ES5 copy on top of the modern one: two React roots in `#root`,
- * which is the broken wide-screen layout the e-ink readers showed, and on Chrome 69-79 the
- * modern entry could not even be parsed. The legacy chunks are still emitted and the `nomodule`
- * tags are the whole fallback: a browser without module support runs exactly those, and a
- * browser with module support runs the modern build alone (the situation before the legacy
- * build existed).
+ * browser knows `import.meta.resolve`, the other loads the ES5 build when it does not. It also
+ * prepends a "legacy guard" to the entry chunk:
+ *
+ *     import 'data:text/javascript,...;if(!import.meta.resolve)throw Error(...)';
+ *     export function __vite_legacy_guard() { ... }
+ *
+ * That method only exists from Chrome 105. The inline pair therefore sent EVERY engine between
+ * our floor (Chrome 69) and 104 into the ES5 build on top of the modern one (two React roots in
+ * `#root`), and the guard import makes it far worse: it is evaluated before the entry runs, so
+ * the modern app never starts at all. Chrome 83 on the Moaan e-reader died on exactly that line
+ * ("Uncaught Error: import.meta.resolve not supported (index-*.js)").
+ *
+ * Both are removed here. The legacy chunks are still emitted and the `nomodule` tags are the
+ * whole fallback: a browser without module support runs exactly those, and a browser with module
+ * support runs the modern build alone - the arrangement before the legacy build existed.
+ *
+ * The one `import.meta.resolve` that stays is inside the CSS preload helper, where it is a
+ * guarded ternary (`import.meta.resolve ? ... : new URL(...)`) and runs on no engine's boot path.
  */
 export function legacyOnlyWithoutModules() {
   const PROBE = "__vite_is_modern_browser";
+  const GUARD_IMPORT = /import\s*'data:text\/javascript,[^']*';?/g;
   return {
     name: "margin-words:legacy-without-probe",
     apply: "build",
@@ -289,7 +301,41 @@ export function legacyOnlyWithoutModules() {
         );
       },
     },
+    generateBundle(_options, bundle) {
+      // `renderChunk` already stripped the guard; this is only the last line of defence for a
+      // chunk the plugin wrote after that hook.
+      for (const file of Object.values(bundle)) {
+        if (file.type !== "chunk" || file.fileName.includes("legacy")) continue;
+        file.code = stripLegacyGuard(file.code, GUARD_IMPORT);
+      }
+    },
+    renderChunk(code, chunk) {
+      if (chunk.fileName.includes("legacy")) return null;
+      const stripped = stripLegacyGuard(code, GUARD_IMPORT);
+      // Returning the new code here (and not in `generateBundle`) keeps the file hash honest:
+      // `/assets/*` is served `immutable` for a year, so two builds must never share a name.
+      return stripped === code ? null : { code: stripped, map: null };
+    },
   };
+}
+
+/** Remove the guard import and its exported probe from one chunk. Returns the code unchanged when absent. */
+function stripLegacyGuard(code, guardImport) {
+  let out = code.replace(guardImport, "");
+  const at = out.indexOf("export function __vite_legacy_guard");
+  if (at < 0) return out;
+  // Its body holds `(async function*(){})`, so braces must be counted, not guessed.
+  const open = out.indexOf("{", at);
+  let depth = 0;
+  for (let index = open; index < out.length; index += 1) {
+    const char = out[index];
+    if (char === "{") depth += 1;
+    else if (char === "}") {
+      depth -= 1;
+      if (depth === 0) return out.slice(0, at) + out.slice(index + 1);
+    }
+  }
+  return out;
 }
 
 function withVhFallbacks(css) {
