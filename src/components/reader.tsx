@@ -1045,6 +1045,26 @@ function topBarHeight(bar: HTMLElement | null): number {
  */
 const MIN_TURN_MS = 220;
 
+/**
+ * Lines kept back on every turn: a turn moves one page MINUS these, so the bottom lines of the
+ * page just read stay at the top of the new one.
+ *
+ * This is tolerance, not arithmetic. `min(innerHeight, visualViewport.height)` is what the engine
+ * SAYS is visible, and on an e-ink reader it can include a strip that is not on the glass: the
+ * built-in browser is a WebView whose layout viewport runs under a native bar, so the last lines
+ * of every page sit behind it. The Moaan MIX7 loses three lines that way, and since the step is
+ * computed from the height the engine reports, every single turn lost exactly those three lines
+ * - which is why "PageDown turns three lines too far" survived a fix that made the arithmetic
+ * exact.
+ *
+ * Four, not three: the strip is a native bar measured in pixels, so it rarely ends on a line
+ * boundary - keeping one line more than the reported loss leaves a line of margin instead of a
+ * half-cut line at the bottom. Keeping lines back costs nothing when no strip is hidden (the
+ * reader simply sees those lines again). It is deliberately the knob to reach for if a device
+ * still overshoots: raise it, and a turn moves less.
+ */
+const PAGE_KEEP_LINES = 4;
+
 /** One line of the book text, in px: the reading column's own line-height. */
 function readerLineHeight(article: HTMLElement | null): number {
   if (!article) return 32;
@@ -1783,15 +1803,15 @@ export function ReaderScreen({
   );
 
   /**
-   * One page = the WHOLE lines that fit under the top bar, and nothing else.
+   * One page = the whole lines that fit, MINUS `PAGE_KEEP_LINES` lines of tolerance.
    *
    * A page must break on a line, not on an arbitrary pixel: `innerHeight - bar` is almost never
    * a multiple of the line height, so a bare height scroll leaves the first line of the new page
-   * cut in half at the top and makes every turn feel off by a bit. Counting lines gives exact
-   * pages - no line skipped, no line shown twice.
+   * cut in half at the top. Counting lines gives exact pages instead.
    *
-   * `innerHeight` is the layout viewport and not always what is on screen (a zoomed e-ink
-   * browser, a pinned toolbar), so the smaller of it and `visualViewport.height` sets the limit.
+   * The measured height is what the engine REPORTS as visible, and on an e-ink WebView that can
+   * include a strip covered by a native bar. Trusting it exactly meant every turn lost the same
+   * three lines on the Moaan. Keeping those lines back is the tolerance: see `PAGE_KEEP_LINES`.
    */
   const pageStep = useCallback(() => {
     const bar = prefs.focus ? 0 : topBarHeight(headerRef.current);
@@ -1800,8 +1820,10 @@ export function ReaderScreen({
       Math.min(window.innerHeight, window.visualViewport?.height ?? window.innerHeight) - bar,
     );
     const line = readerLineHeight(articleRef.current);
-    const lines = Math.floor(visible / line);
-    return lines >= 1 ? Math.round(lines * line) : Math.round(visible);
+    const lines = Math.floor(visible / line) - PAGE_KEEP_LINES;
+    // A viewport too short for two readable lines: move one line, never the whole screen.
+    if (lines < 1) return Math.round(Math.min(visible, line));
+    return Math.round(lines * line);
   }, [prefs.focus]);
 
   /**

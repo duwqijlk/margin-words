@@ -152,14 +152,27 @@ const page_ = () =>
       y: Math.round(window.scrollY),
       max: Math.round(document.documentElement.scrollHeight - window.innerHeight),
       chapter: document.querySelector("header p.text-xs")?.textContent ?? "",
-      // The reader turns whole lines: floor(visible / line) of them.
-      step: Math.floor(visible / line) >= 1 ? Math.round(Math.floor(visible / line) * line) : Math.round(visible),
+      // The reader turns whole lines, keeping 4 of them back as tolerance (PAGE_KEEP_LINES).
+      step:
+        Math.floor(visible / line) - 4 >= 1
+          ? Math.round((Math.floor(visible / line) - 4) * line)
+          : Math.round(Math.min(visible, line)),
       line: Math.round(line),
+      visible: Math.round(visible),
     };
   });
 
 const start = await page_();
-check(start.step > 200, "one page is a whole number of lines", `${start.step}px (${Math.round(start.step / start.line)} lines of ${start.line}px)`);
+check(
+  start.step > 200,
+  "one page is a whole number of lines, minus four kept back",
+  `${start.step}px (${Math.round(start.step / start.line)} of ${Math.round(start.visible / start.line)} lines, ${start.line}px each)`,
+);
+check(
+  start.visible - start.step >= start.line * 4 - 1,
+  "a turn keeps four lines of the page just read on screen",
+  `step ${start.step}px of ${start.visible}px visible`,
+);
 
 await page.keyboard.press("PageDown");
 await page.waitForTimeout(600);
