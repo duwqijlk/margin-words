@@ -32,6 +32,7 @@
     "test:lightbulb": "node scripts/lightbulb-e2e.mjs",
     "test:paging": "node scripts/paging-e2e.mjs",
     "test:legacy": "node scripts/legacy-boot-e2e.mjs",
+    "test:pronounce": "node scripts/pronounce-e2e.mjs",
     "make:sample": "node scripts/make-sample-epub.mjs",
     "build:kit": "node scripts/build-kit.mjs"
   },

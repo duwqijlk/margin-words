@@ -1175,6 +1175,8 @@ export function ReaderScreen({
   const articleRef = useRef<HTMLElement | null>(null);
   /** The sticky top bar. Its height is what a page turn must not hide. */
   const headerRef = useRef<HTMLElement | null>(null);
+  /** What the last tap said out loud, so the phrase lookup does not say it a second time. */
+  const spoken = useRef("");
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
   // A place found through the file-independent anchor (saved position, or "go to the sentence" from the wordbook).
   const restoreAt = useRef<{ paragraph: number; offset: number; flash: boolean } | null>(null);
@@ -1964,8 +1966,12 @@ export function ReaderScreen({
       if (!alive) return;
       setPhraseHit(hit ? { at, hit } : null);
       setPhrasePending(false);
-      const spoken = (resolveKey(surface) || surface).trim().toLowerCase();
-      if (hit && hit.key.trim().toLowerCase() !== spoken) speakEnglish(hit.key);
+      // The tap already said the word, or the phrase when the list in memory knew it. Only a
+      // phrase found here for the first time replaces that: one voice per tap.
+      if (hit && hit.key.trim().toLowerCase() !== spoken.current.trim().toLowerCase()) {
+        spoken.current = hit.key;
+        speakEnglish(hit.key);
+      }
     });
     return () => {
       alive = false;
@@ -2020,8 +2026,12 @@ export function ReaderScreen({
     const sentence = located.text;
     const offset = located.offset;
     const inDict = Boolean(book?.glossary && (book.glossary[key] || book.glossary[surface.toLowerCase()]));
-    const inPhrase = Boolean(!activeExtra && phraseList && pickPhrase(phraseList, sentence, surface, offset >= 0 ? offset : undefined));
-    const inGlossary = inDict || inPhrase;
+    // The phrase list is already in memory, so a tapped word that belongs to a phrase can say the
+    // phrase straight away: hearing the word first and the phrase on top of it was the bug.
+    const phraseNow = activeExtra || !phraseList
+      ? null
+      : pickPhrase(phraseList, sentence, surface, offset >= 0 ? offset : undefined);
+    const inGlossary = inDict || Boolean(phraseNow);
     recordWordTap(bookId, surface, inGlossary, {
       bookTitle: book?.title,
       form: countSurface(surface),
@@ -2044,7 +2054,11 @@ export function ReaderScreen({
       before,
       block: Math.max(0, blockAt),
     });
-    speakEnglish(resolveKey(surface) || surface);
+    // One voice per tap. The card's own lookup (`findPhrase`) speaks later only when this list
+    // did not know the phrase, and it compares against `spoken.current` so nothing says it twice.
+    const saying = phraseNow ? phraseNow.key : resolveKey(surface) || surface;
+    spoken.current = saying;
+    speakEnglish(saying);
   }
 
   /** A hard word from the paragraph panel: find it in the paragraph and open its normal card. */
