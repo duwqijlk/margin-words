@@ -17,10 +17,25 @@ import {
   Type,
   X,
 } from "lucide-react";
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import longmanLogo from "@/assets/longman-logo.svg";
 import merriamWebsterLogo from "@/assets/merriam-webster-logo.png";
-import { loadBookExtras, loadBookMeta, loadPackRecord, loadStoredBook, type Gloss, type StoredBook } from "@/lib/book-db";
+import {
+  loadBookExtras,
+  loadBookMeta,
+  loadPackRecord,
+  loadStoredBook,
+  type Gloss,
+  type StoredBook,
+} from "@/lib/book-db";
 import { readingSlots } from "@/lib/epub";
 import { phrasePoint, pointFromEntry } from "@/lib/gloss-ref";
 import { linkChapterHtml, peekChapterHtml, rememberChapterHtml } from "@/lib/chapter-link";
@@ -39,7 +54,14 @@ import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
 import { useJump } from "@/lib/jump-store";
-import { findSentence, makeAnchor, QUOTE_MAX, resolveAnchor, restoreReadingPlace, type TextAnchor } from "@/lib/position";
+import {
+  findSentence,
+  makeAnchor,
+  QUOTE_MAX,
+  resolveAnchor,
+  restoreReadingPlace,
+  type TextAnchor,
+} from "@/lib/position";
 import { LOOKUP_SITES, lookupUrl, type LookupSite } from "@/lib/lookup-links";
 import { legacyChapter, overallProgress, useProgress } from "@/lib/progress-store";
 import { bookSyncKey } from "@/lib/sync-merge";
@@ -379,35 +401,35 @@ function Contents({
             {rows
               ? null
               : chapters.map((chapter, index) => {
-              if (q && !chapter.title.toLowerCase().includes(q)) return null;
-              const active = index === current;
-              return (
-                <li key={`${chapter.title}-${index}`}>
-                  <button
-                    type="button"
-                    ref={active ? currentRef : undefined}
-                    aria-current={active ? "true" : undefined}
-                    onClick={() => {
-                      onPick(index);
-                      setOpen(false);
-                    }}
-                    className={cn(
-                      "flex min-h-11 w-full items-baseline gap-3 rounded-lg px-3 py-2 text-left text-[0.95rem] leading-snug transition-colors",
-                      active
-                        ? "bg-accent-soft font-semibold text-accent"
-                        : "hover:bg-accent-soft/60",
-                    )}
-                  >
-                    <span className="w-7 shrink-0 text-right text-xs tabular-nums text-muted">
-                      {index + 1}
-                    </span>
-                    <span className="min-w-0 flex-1" lang="en">
-                      {chapter.title}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
+                  if (q && !chapter.title.toLowerCase().includes(q)) return null;
+                  const active = index === current;
+                  return (
+                    <li key={`${chapter.title}-${index}`}>
+                      <button
+                        type="button"
+                        ref={active ? currentRef : undefined}
+                        aria-current={active ? "true" : undefined}
+                        onClick={() => {
+                          onPick(index);
+                          setOpen(false);
+                        }}
+                        className={cn(
+                          "flex min-h-11 w-full items-baseline gap-3 rounded-lg px-3 py-2 text-left text-[0.95rem] leading-snug transition-colors",
+                          active
+                            ? "bg-accent-soft font-semibold text-accent"
+                            : "hover:bg-accent-soft/60",
+                        )}
+                      >
+                        <span className="w-7 shrink-0 text-right text-xs tabular-nums text-muted">
+                          {index + 1}
+                        </span>
+                        <span className="min-w-0 flex-1" lang="en">
+                          {chapter.title}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
           </ol>
         </Dialog.Content>
       </Dialog.Portal>
@@ -428,7 +450,10 @@ function CardQuote({
   children: ReactNode;
 }) {
   return (
-    <figure className="grid gap-0.5 border-l-2 border-line pl-3" {...(part ? { "data-part": part } : {})}>
+    <figure
+      className="grid gap-0.5 border-l-2 border-line pl-3"
+      {...(part ? { "data-part": part } : {})}
+    >
       {label ? (
         <figcaption className="text-[0.7rem] font-semibold tracking-wide text-muted uppercase">
           {label}
@@ -453,7 +478,9 @@ function WordFacts({
 }) {
   const { t, tn } = useT();
   if (!stat) return null;
-  const others = suppressQuote ? [] : stat.sentences.filter((sentence) => sentence !== current).slice(0, 1);
+  const others = suppressQuote
+    ? []
+    : stat.sentences.filter((sentence) => sentence !== current).slice(0, 1);
   const other = others[0];
   const facts = (
     <>
@@ -606,7 +633,9 @@ function SceneLine({ text }: { text: string }) {
   const { t } = useT();
   return (
     <section className="grid gap-0.5 rounded-lg bg-accent-soft/60 px-3 py-2" data-part="word-here">
-      <h3 className="text-[0.7rem] font-semibold tracking-wide text-accent uppercase">{t("card.here")}</h3>
+      <h3 className="text-[0.7rem] font-semibold tracking-wide text-accent uppercase">
+        {t("card.here")}
+      </h3>
       <p className="text-[0.98rem] leading-snug" lang="en">
         {text}
       </p>
@@ -624,7 +653,11 @@ const LOOKUP_LABEL = {
 function LookupLinks({ word }: { word: string }) {
   const { t } = useT();
   return (
-    <nav className="grid grid-cols-3 gap-2 w-full" aria-label={t("card.lookAria", { word })} data-word-lookup>
+    <nav
+      className="grid grid-cols-3 gap-2 w-full"
+      aria-label={t("card.lookAria", { word })}
+      data-word-lookup
+    >
       {LOOKUP_SITES.map((site) => (
         <a
           key={site}
@@ -641,7 +674,12 @@ function LookupLinks({ word }: { word: string }) {
               L
             </span>
           ) : site === "webster" ? (
-            <img src={merriamWebsterLogo} alt="" className="size-4 shrink-0 rounded-full" aria-hidden />
+            <img
+              src={merriamWebsterLogo}
+              alt=""
+              className="size-4 shrink-0 rounded-full"
+              aria-hidden
+            />
           ) : (
             <ImageIcon className="size-3.5 shrink-0 text-accent" strokeWidth={2} aria-hidden />
           )}
@@ -718,27 +756,25 @@ function WordCard({
       </p>
     ) : null;
   /** The word's own meaning inside the phrase card's "alone" box: secondary there, so smaller. */
-  const meaningBlock =
-    noMeaning ?? (
-      <p
-        className="border-l-[3px] border-accent pl-3 text-[1.14rem] leading-snug font-medium text-ink"
-        lang="en"
-        data-part="word-meaning"
-      >
-        {state.meaning}
-      </p>
-    );
+  const meaningBlock = noMeaning ?? (
+    <p
+      className="border-l-[3px] border-accent pl-3 text-[1.14rem] leading-snug font-medium text-ink"
+      lang="en"
+      data-part="word-meaning"
+    >
+      {state.meaning}
+    </p>
+  );
   /** The hero of the plain word card: the meaning is the point, so it is the largest text after the word. */
-  const heroMeaning =
-    noMeaning ?? (
-      <p
-        className="border-l-[3px] border-accent pl-3 text-[1.3rem] leading-snug font-medium text-ink"
-        lang="en"
-        data-part="word-meaning"
-      >
-        {state.meaning}
-      </p>
-    );
+  const heroMeaning = noMeaning ?? (
+    <p
+      className="border-l-[3px] border-accent pl-3 text-[1.3rem] leading-snug font-medium text-ink"
+      lang="en"
+      data-part="word-meaning"
+    >
+      {state.meaning}
+    </p>
+  );
   const inBook = (word: string) =>
     t("common.inBook", { word: "\u0001" })
       .split("\u0001")
@@ -783,7 +819,11 @@ function WordCard({
               </h2>
               {phrase ? (
                 <span className={wordPosClass()} data-phrase-pos data-word-pos>
-                  {phrase.entry.pos ? <span lang="en">{phrase.entry.pos}</span> : t("card.phraseFallback")}
+                  {phrase.entry.pos ? (
+                    <span lang="en">{phrase.entry.pos}</span>
+                  ) : (
+                    t("card.phraseFallback")
+                  )}
                 </span>
               ) : state.pos ? (
                 <span className={wordPosClass()} data-word-pos>
@@ -922,7 +962,11 @@ function WordCard({
               <OtherMeanings items={state.others} />
             ) : null}
 
-            <WordFacts stat={stat} current={state.sentence} suppressQuote={Boolean(state.example)} />
+            <WordFacts
+              stat={stat}
+              current={state.sentence}
+              suppressQuote={Boolean(state.example)}
+            />
           </div>
         ) : null}
 
@@ -1182,9 +1226,7 @@ export function ReaderScreen({
     const saved = useProgress.getState().items[bookId];
     return saved ? saved.chapter : (legacyChapter(bookId) ?? -1);
   });
-  const [extraId, setExtraId] = useState(
-    () => useProgress.getState().items[bookId]?.extraId ?? "",
-  );
+  const [extraId, setExtraId] = useState(() => useProgress.getState().items[bookId]?.extraId ?? "");
   const [scrolled, setScrolled] = useState(0);
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [picked, setPicked] = useState<{
@@ -1264,7 +1306,8 @@ export function ReaderScreen({
           chapters: next.chapters.map((item) => item.paragraphs),
           extras: next.extras,
         });
-        if (place.paragraph !== null) restoreAt.current = { paragraph: place.paragraph, offset: place.offset, flash: false };
+        if (place.paragraph !== null)
+          restoreAt.current = { paragraph: place.paragraph, offset: place.offset, flash: false };
         setExtraId(place.extraId);
         if (!place.extraId && place.paragraph !== null) setChapterIndex(place.chapter);
       }
@@ -1454,7 +1497,9 @@ export function ReaderScreen({
   const savedKeys = useMemo(
     () =>
       new Set(
-        words.filter((word) => bookKey !== "" && hasSourceFrom(word, bookKey)).map((word) => word.lemma.toLowerCase()),
+        words
+          .filter((word) => bookKey !== "" && hasSourceFrom(word, bookKey))
+          .map((word) => word.lemma.toLowerCase()),
       ),
     [words, bookKey],
   );
@@ -1481,7 +1526,9 @@ export function ReaderScreen({
     if (Object.keys(savedPhrases).length > 0) {
       const sel = "p, h1, h2, h3, h4, li, blockquote, div[data-para]";
       const all = [...root.querySelectorAll<HTMLElement>(sel)];
-      const blocks = all.filter((block) => !all.some((other) => other !== block && block.contains(other)));
+      const blocks = all.filter(
+        (block) => !all.some((other) => other !== block && block.contains(other)),
+      );
       for (const block of blocks) {
         const marks = phraseWordMarks(savedPhrases, flowText(block));
         if (marks.length === 0) continue;
@@ -1495,7 +1542,8 @@ export function ReaderScreen({
           const start = starts.get(button);
           if (start === undefined || !word) continue;
           const end = start + word.length;
-          if (marks.some((mark) => start >= mark.start && end <= mark.end)) button.classList.add("book-saved");
+          if (marks.some((mark) => start >= mark.start && end <= mark.end))
+            button.classList.add("book-saved");
         }
       }
     }
@@ -1525,7 +1573,10 @@ export function ReaderScreen({
           bottom = true;
           target = 1;
         }
-        mark = held.paragraph === null ? null : { paragraph: held.paragraph, offset: held.offset, flash: false };
+        mark =
+          held.paragraph === null
+            ? null
+            : { paragraph: held.paragraph, offset: held.offset, flash: false };
       }
     }
     if (!mark && (target === null || target <= 0)) {
@@ -1534,7 +1585,10 @@ export function ReaderScreen({
       setScrolled(0);
       return;
     }
-    const until = placed.current?.page === page && placed.current.until > now ? placed.current.until : now + 2500;
+    const until =
+      placed.current?.page === page && placed.current.until > now
+        ? placed.current.until
+        : now + 2500;
     placed.current = {
       page,
       paragraph: mark?.paragraph ?? null,
@@ -1563,7 +1617,9 @@ export function ReaderScreen({
       return;
     } else if (bottom) {
       place = () => {
-        window.scrollTo({ top: Math.max(0, document.documentElement.scrollHeight - window.innerHeight) });
+        window.scrollTo({
+          top: Math.max(0, document.documentElement.scrollHeight - window.innerHeight),
+        });
       };
     } else {
       place = () => {
@@ -1623,7 +1679,8 @@ export function ReaderScreen({
       const rect = root.getBoundingClientRect();
       const span = Math.max(1, rect.height - window.innerHeight);
       // The end of the chapter on screen means the chapter is read, also when it fits on one screen.
-      const value = rect.bottom <= window.innerHeight ? 1 : Math.min(1, Math.max(0, -rect.top / span));
+      const value =
+        rect.bottom <= window.innerHeight ? 1 : Math.min(1, Math.max(0, -rect.top / span));
       // The bar shows whole percent. Setting the exact fraction re-rendered this whole screen on
       // every animation frame of a scroll (a long chapter, dozens of times a second) for a number
       // nobody can see change.
@@ -1698,7 +1755,9 @@ export function ReaderScreen({
         .getState()
         .words.flatMap((card) =>
           card.sources
-            .filter((source) => source.book === bookKey && !source.ref && !source.at && source.sentence)
+            .filter(
+              (source) => source.book === bookKey && !source.ref && !source.at && source.sentence,
+            )
             .map((source) => ({ card, source })),
         );
       if (open.length === 0) return;
@@ -1781,7 +1840,9 @@ export function ReaderScreen({
           chapters: book.chapters.length,
           scroll: toBottom ? 1 : 0,
           extraId: "",
-          anchor: first ? makeAnchor({ chapter: slot.index, paragraph: 0, text: first, at: 0 }) : undefined,
+          anchor: first
+            ? makeAnchor({ chapter: slot.index, paragraph: 0, text: first, at: 0 })
+            : undefined,
         });
       } else {
         const extra = book.extras?.[slot.index];
@@ -1875,7 +1936,12 @@ export function ReaderScreen({
     }
   }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep, turnAllowed]);
 
-  const pagingHandlers = useRef({ pageForward, pageBackward, paging: prefs.paging, cardOpen: false });
+  const pagingHandlers = useRef({
+    pageForward,
+    pageBackward,
+    paging: prefs.paging,
+    cardOpen: false,
+  });
   pagingHandlers.current = {
     pageForward,
     pageBackward,
@@ -1930,31 +1996,45 @@ export function ReaderScreen({
         return;
       }
       const { pageForward: next, pageBackward: prev, paging, cardOpen } = pagingHandlers.current;
-      if (!paging) return;
 
       const target = event.target as HTMLElement | null;
       const tag = target?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target?.isContentEditable) return;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target?.isContentEditable)
+        return;
       // A card or a panel is open over the text: the keys belong to it (its own list scrolls,
       // its own buttons take Space), not to the page behind it.
       if (cardOpen) return;
-      if (target?.closest?.('aside, [role="dialog"], [data-radix-popper-content-wrapper], [data-para-ui]')) return;
+      if (
+        target?.closest?.(
+          'aside, [role="dialog"], [data-radix-popper-content-wrapper], [data-para-ui]',
+        )
+      )
+        return;
 
-      const volume = volumeDirection(event);
+      // PageDown / PageUp are ALWAYS ours, whatever the page-turn setting says. The engine's own
+      // page scroll is `innerHeight` minus a small overlap, and `innerHeight` is not what is on
+      // the glass on an e-ink WebView - that is the three lines the Moaan kept losing. Leaving
+      // these two keys to the browser meant the setting (off by default) silently bypassed every
+      // page-turn calculation the reader makes.
+      const isPageDown = event.key === "PageDown" || event.keyCode === 34;
+      const isPageUp = event.key === "PageUp" || event.keyCode === 33;
+      // The volume keys, the arrows and Space stay behind the setting: they are only page keys on
+      // the devices that map them, and Space belongs to whichever button has focus.
+      const volume = paging ? volumeDirection(event) : "";
       const isNext =
+        isPageDown ||
         volume === "down" ||
-        event.key === "PageDown" ||
-        event.keyCode === 34 ||
-        event.key === "ArrowDown" ||
-        event.key === "ArrowRight" ||
-        (event.key === " " && !event.shiftKey);
+        (paging &&
+          (event.key === "ArrowDown" ||
+            event.key === "ArrowRight" ||
+            (event.key === " " && !event.shiftKey)));
       const isPrev =
+        isPageUp ||
         volume === "up" ||
-        event.key === "PageUp" ||
-        event.keyCode === 33 ||
-        event.key === "ArrowUp" ||
-        event.key === "ArrowLeft" ||
-        (event.key === " " && event.shiftKey);
+        (paging &&
+          (event.key === "ArrowUp" ||
+            event.key === "ArrowLeft" ||
+            (event.key === " " && event.shiftKey)));
 
       if (isNext || isPrev) {
         // Held keys would run the page away on a slow e-ink screen: one press, one page.
@@ -2014,7 +2094,9 @@ export function ReaderScreen({
     : null;
   const pickedSentence = located?.text ?? "";
   const phraseOffset = located?.offset ?? -1;
-  const phraseAt = picked ? `${picked.index}|${picked.surface}|${pickedSentence}|${phraseOffset}` : "";
+  const phraseAt = picked
+    ? `${picked.index}|${picked.surface}|${pickedSentence}|${phraseOffset}`
+    : "";
   useEffect(() => {
     // Phrase notes are anchored to this book's chapters. An extra (often the next
     // book's opening) must not pick one up from the same words.
@@ -2032,17 +2114,19 @@ export function ReaderScreen({
     const surface = picked.surface;
     const offset = phraseOffset;
     setPhrasePending(true);
-    void findPhrase(bookId, pickedSentence, surface, offset >= 0 ? offset : undefined).then((hit) => {
-      if (!alive) return;
-      setPhraseHit(hit ? { at, hit } : null);
-      setPhrasePending(false);
-      // The tap already said the word, or the phrase when the list in memory knew it. Only a
-      // phrase found here for the first time replaces that: one voice per tap.
-      if (hit && hit.key.trim().toLowerCase() !== spoken.current.trim().toLowerCase()) {
-        spoken.current = hit.key;
-        speakEnglish(hit.key);
-      }
-    });
+    void findPhrase(bookId, pickedSentence, surface, offset >= 0 ? offset : undefined).then(
+      (hit) => {
+        if (!alive) return;
+        setPhraseHit(hit ? { at, hit } : null);
+        setPhrasePending(false);
+        // The tap already said the word, or the phrase when the list in memory knew it. Only a
+        // phrase found here for the first time replaces that: one voice per tap.
+        if (hit && hit.key.trim().toLowerCase() !== spoken.current.trim().toLowerCase()) {
+          spoken.current = hit.key;
+          speakEnglish(hit.key);
+        }
+      },
+    );
     return () => {
       alive = false;
     };
@@ -2095,12 +2179,15 @@ export function ReaderScreen({
     const located = locateSentence(paragraph, surface, before.length);
     const sentence = located.text;
     const offset = located.offset;
-    const inDict = Boolean(book?.glossary && (book.glossary[key] || book.glossary[surface.toLowerCase()]));
+    const inDict = Boolean(
+      book?.glossary && (book.glossary[key] || book.glossary[surface.toLowerCase()]),
+    );
     // The phrase list is already in memory, so a tapped word that belongs to a phrase can say the
     // phrase straight away: hearing the word first and the phrase on top of it was the bug.
-    const phraseNow = activeExtra || !phraseList
-      ? null
-      : pickPhrase(phraseList, sentence, surface, offset >= 0 ? offset : undefined);
+    const phraseNow =
+      activeExtra || !phraseList
+        ? null
+        : pickPhrase(phraseList, sentence, surface, offset >= 0 ? offset : undefined);
     const inGlossary = inDict || Boolean(phraseNow);
     recordWordTap(bookId, surface, inGlossary, {
       bookTitle: book?.title,
@@ -2136,7 +2223,9 @@ export function ReaderScreen({
     if (!help) return;
     const el = paragraphElement(help.index);
     if (!el) return;
-    const tokens = (word.match(new RegExp(TAP_WORD_PATTERN, "gu")) ?? []).map((t) => plainSurface(t));
+    const tokens = (word.match(new RegExp(TAP_WORD_PATTERN, "gu")) ?? []).map((t) =>
+      plainSurface(t),
+    );
     if (tokens.length === 0) return;
     const buttons = [...el.querySelectorAll<HTMLButtonElement>("button[data-word]")];
     const same = (i: number) =>
@@ -2315,7 +2404,13 @@ export function ReaderScreen({
 
     const button = target.closest("button[data-word]");
     const cardOpen = picked !== null || help !== null;
-    if (readingPageTap({ phone: phoneSheet(), cardOpen: picked !== null, hitWord: Boolean(button) }) === "close") {
+    if (
+      readingPageTap({
+        phone: phoneSheet(),
+        cardOpen: picked !== null,
+        hitWord: Boolean(button),
+      }) === "close"
+    ) {
       if (cardOpen) {
         setPicked(null);
         closeHelp();
@@ -2425,7 +2520,10 @@ export function ReaderScreen({
         </button>
       ) : null}
 
-      <main className={cn("px-5 pt-8 pb-12 sm:px-8 sm:pt-12", READER_GUTTER)} onClick={onReadingClick}>
+      <main
+        className={cn("px-5 pt-8 pb-12 sm:px-8 sm:pt-12", READER_GUTTER)}
+        onClick={onReadingClick}
+      >
         {linkedHtml ? (
           <article
             ref={articleRef}
@@ -2467,7 +2565,9 @@ export function ReaderScreen({
             <button
               type="button"
               className={cn(btn.primary, "flex-1")}
-              disabled={slots ? slotIndex >= slots.length - 1 : safeIndex >= book.chapters.length - 1}
+              disabled={
+                slots ? slotIndex >= slots.length - 1 : safeIndex >= book.chapters.length - 1
+              }
               onClick={() => (slots ? goSlot(slotIndex + 1) : goChapter(safeIndex + 1))}
             >
               {t("reader.next")}
@@ -2532,7 +2632,8 @@ export function ReaderScreen({
               return;
             }
             const listId = book?.bundled || listSource;
-            const gloss = book?.glossary[saveAs.lemma] ?? book?.glossary[saveAs.lemma.toLowerCase()];
+            const gloss =
+              book?.glossary[saveAs.lemma] ?? book?.glossary[saveAs.lemma.toLowerCase()];
             const ref = shownPhrase
               ? phrasePoint(listId)
               : gloss
