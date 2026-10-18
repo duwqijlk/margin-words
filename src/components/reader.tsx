@@ -1039,6 +1039,26 @@ function topBarHeight(bar: HTMLElement | null): number {
 }
 
 /**
+ * Two page turns closer together than this are one turn. A device can deliver the same press
+ * twice (a page button mapped to both a key event and a click, a keydown repeated without the
+ * `repeat` flag), and a reader cannot turn a page twice in a fifth of a second.
+ */
+const MIN_TURN_MS = 220;
+
+/** Lines of the page just read that stay on screen after a turn. The knob for "it moves too far". */
+const PAGE_OVERLAP_LINES = 3;
+
+/** One line of the book text, in px: the reading column's own line-height. */
+function readerLineHeight(article: HTMLElement | null): number {
+  if (!article) return 32;
+  const style = window.getComputedStyle(article);
+  const line = Number.parseFloat(style.lineHeight);
+  if (Number.isFinite(line) && line > 4) return line;
+  const size = Number.parseFloat(style.fontSize);
+  return Number.isFinite(size) && size > 4 ? size * 1.8 : 32;
+}
+
+/**
  * The first paragraph that reaches below the restore line, as a file-independent place.
  * The same line as the restore, so reopening a book does not step back one paragraph each time.
  */
@@ -1761,18 +1781,41 @@ export function ReaderScreen({
   );
 
   /**
-   * One page is what can be read between the top bar and the bottom of the window.
-   * The bar is measured, not assumed: it carries a 1px rule and a 2px progress bar, so its
-   * height is not the 56px of its inner row, and a fixed 56 left a sliver of text hidden
-   * under it on every turn.
+   * One page is what the reader can SEE, from under the top bar to the bottom of the window,
+   * MINUS a few lines of the page just read (`PAGE_OVERLAP_LINES`).
+   *
+   * The overlap is the point: a wide reader shows thirty-odd lines at once, and taking all of
+   * them away in one press loses the thread ("it scrolls a bit too far"). Keeping a few lines on
+   * screen is what a paper page does when you turn it. `innerHeight` is the layout viewport and
+   * not always what is on screen (a zoomed e-ink browser, a pinned toolbar), so the smaller of
+   * it and `visualViewport.height` sets the ceiling.
    */
   const pageStep = useCallback(() => {
     const bar = prefs.focus ? 0 : topBarHeight(headerRef.current);
-    return Math.max(120, window.innerHeight - bar);
+    const visible = Math.max(
+      120,
+      Math.min(window.innerHeight, window.visualViewport?.height ?? window.innerHeight) - bar,
+    );
+    const overlap = Math.round(readerLineHeight(articleRef.current) * PAGE_OVERLAP_LINES);
+    return Math.max(Math.round(visible * 0.5), visible - overlap);
   }, [prefs.focus]);
+
+  /**
+   * One turn per press. The same physical key can reach the page twice (a WebView that maps a
+   * page button to both a key event and a click, a double tap, a device that repeats keydown
+   * without setting `repeat`), and every extra event used to be another page.
+   */
+  const lastTurnAt = useRef(0);
+  const turnAllowed = useCallback(() => {
+    const now = Date.now();
+    if (now - lastTurnAt.current < MIN_TURN_MS) return false;
+    lastTurnAt.current = now;
+    return true;
+  }, []);
 
   const pageForward = useCallback(() => {
     if (!book) return;
+    if (!turnAllowed()) return;
     const step = pageStep();
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
     const top = window.scrollY;
@@ -1787,10 +1830,11 @@ export function ReaderScreen({
       return;
     }
     window.scrollTo(0, Math.min(maxScroll, top + step));
-  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep]);
+  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep, turnAllowed]);
 
   const pageBackward = useCallback(() => {
     if (!book) return;
+    if (!turnAllowed()) return;
     const step = pageStep();
     const top = window.scrollY;
     const hasPrev = slots ? slotIndex > 0 : safeIndex > 0;
@@ -1803,7 +1847,7 @@ export function ReaderScreen({
       if (slots) goSlot(slotIndex - 1, true);
       else goChapter(safeIndex - 1, true);
     }
-  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep]);
+  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep, turnAllowed]);
 
   const pagingHandlers = useRef({ pageForward, pageBackward, paging: prefs.paging, cardOpen: false });
   pagingHandlers.current = {
@@ -2265,15 +2309,10 @@ export function ReaderScreen({
       closeHelp();
       return;
     }
-    if (prefs.paging) {
-      const x = event.clientX;
-      const width = window.innerWidth;
-      if (x < width * 0.28) {
-        pageBackward();
-      } else if (x > width * 0.72) {
-        pageForward();
-      }
-    }
+    // A tap on the page never turns it. Page-turn mode is for the keyboard, the volume keys and
+    // a reader's own page buttons; a tap here is for reading - opening a word, putting a card
+    // away. Edge and double-tap gestures turned pages while the reader was only looking at a
+    // line, so they are gone.
   };
 
   return (
