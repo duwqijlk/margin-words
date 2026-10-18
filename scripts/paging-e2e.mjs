@@ -15,7 +15,10 @@
  *   - the last short strip of a chapter turns the page instead of being shown twice
  *   - a forward turn opens the next chapter at its top; a backward turn opens the previous one
  *     at its last line
- *   - a tap on the right edge turns one page
+ *   - a tap in the margin either side of the text turns one page, and a tap in the middle
+ *     of the text turns none
+ *   - two taps in quick succession turn one page, not two (a device that delivers the same
+ *     press twice must not skip a page)
  */
 import { chromium } from "playwright";
 import { tmpdir } from "node:os";
@@ -200,13 +203,39 @@ check(
   `${previous.chapter} at ${previous.y}px of ${previous.max}px`,
 );
 
-// a tap on the right edge turns one page
+// a tap in the margin turns one page, a tap in the text turns none
 await page.evaluate(() => window.scrollTo(0, 0));
 await page.waitForTimeout(400);
-await page.mouse.click(VIEW_W - 40, Math.round(VIEW_H / 2));
+const column = await page.evaluate(() => {
+  const box = document.querySelector("article.book-body")?.getBoundingClientRect();
+  return box ? { left: box.left, right: box.right } : null;
+});
+const marginX = Math.min(Math.round((column?.right ?? VIEW_W - 40) + 8), VIEW_W - 14);
+await page.mouse.click(marginX, Math.round(VIEW_H / 2));
 await page.waitForTimeout(600);
 const tapped = await page_();
-check(Math.abs(tapped.y - tapped.step) <= 3, "a tap on the right edge turns a page", `${tapped.y}px`);
+check(
+  Math.abs(tapped.y - tapped.step) <= 3,
+  "a tap in the right margin turns one page",
+  `${tapped.y}px of ${tapped.step}${column ? ` (column ends at ${Math.round(column.right)})` : ""}`,
+);
+
+await page.evaluate(() => window.scrollTo(0, 0));
+await page.waitForTimeout(400);
+await page.mouse.click(Math.round(VIEW_W / 2), Math.round(VIEW_H / 2));
+await page.waitForTimeout(500);
+const middle = await page_();
+check(middle.y === 0, "a tap in the middle of the text turns no page", `${middle.y}px`);
+
+// the same press delivered twice is one turn
+await page.evaluate(() => window.scrollTo(0, 0));
+await page.waitForTimeout(400);
+await page.mouse.click(VIEW_W - 6, Math.round(VIEW_H / 2));
+await page.waitForTimeout(80);
+await page.mouse.click(marginX, Math.round(VIEW_H / 2));
+await page.waitForTimeout(600);
+const twice = await page_();
+check(Math.abs(twice.y - twice.step) <= 3, "two taps 80ms apart turn one page", `${twice.y}px`);
 
 await page.screenshot({ path: SHOT });
 await browser.close();

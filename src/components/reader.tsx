@@ -1039,6 +1039,13 @@ function topBarHeight(bar: HTMLElement | null): number {
 }
 
 /**
+ * Two page turns closer together than this are one turn. A device can deliver the same press
+ * twice (a page button mapped to both a key event and a click, a double tap, a keydown repeated
+ * without the `repeat` flag), and a reader cannot turn a page twice in a fifth of a second.
+ */
+const MIN_TURN_MS = 220;
+
+/**
  * The first paragraph that reaches below the restore line, as a file-independent place.
  * The same line as the restore, so reopening a book does not step back one paragraph each time.
  */
@@ -1761,18 +1768,36 @@ export function ReaderScreen({
   );
 
   /**
-   * One page is what can be read between the top bar and the bottom of the window.
-   * The bar is measured, not assumed: it carries a 1px rule and a 2px progress bar, so its
-   * height is not the 56px of its inner row, and a fixed 56 left a sliver of text hidden
-   * under it on every turn.
+   * One page is what the reader can SEE, from under the top bar to the bottom of the window.
+   *
+   * `innerHeight` is the layout viewport, which is not always what is on screen: an e-ink
+   * browser that zooms the page, or a WebView with a pinned toolbar, can report a layout
+   * viewport taller than the glass. `visualViewport.height` is what is really visible, so the
+   * smaller of the two is the page - trusting `innerHeight` made one turn skip a part of the
+   * screen on those devices ("it turns too far").
    */
   const pageStep = useCallback(() => {
     const bar = prefs.focus ? 0 : topBarHeight(headerRef.current);
-    return Math.max(120, window.innerHeight - bar);
+    const visible = window.visualViewport?.height ?? window.innerHeight;
+    return Math.max(120, Math.min(window.innerHeight, visible) - bar);
   }, [prefs.focus]);
+
+  /**
+   * One turn per press. The same physical key can reach the page twice (a WebView that maps a
+   * page button to both a key event and a click, a double tap, a device that repeats keydown
+   * without setting `repeat`), and every extra event used to be another page.
+   */
+  const lastTurnAt = useRef(0);
+  const turnAllowed = useCallback(() => {
+    const now = Date.now();
+    if (now - lastTurnAt.current < MIN_TURN_MS) return false;
+    lastTurnAt.current = now;
+    return true;
+  }, []);
 
   const pageForward = useCallback(() => {
     if (!book) return;
+    if (!turnAllowed()) return;
     const step = pageStep();
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
     const top = window.scrollY;
@@ -1787,10 +1812,11 @@ export function ReaderScreen({
       return;
     }
     window.scrollTo(0, Math.min(maxScroll, top + step));
-  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep]);
+  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep, turnAllowed]);
 
   const pageBackward = useCallback(() => {
     if (!book) return;
+    if (!turnAllowed()) return;
     const step = pageStep();
     const top = window.scrollY;
     const hasPrev = slots ? slotIndex > 0 : safeIndex > 0;
@@ -1803,7 +1829,7 @@ export function ReaderScreen({
       if (slots) goSlot(slotIndex - 1, true);
       else goChapter(safeIndex - 1, true);
     }
-  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep]);
+  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep, turnAllowed]);
 
   const pagingHandlers = useRef({ pageForward, pageBackward, paging: prefs.paging, cardOpen: false });
   pagingHandlers.current = {
@@ -2266,13 +2292,34 @@ export function ReaderScreen({
       return;
     }
     if (prefs.paging) {
+      // The turn area is measured from the TEXT COLUMN, not from the window: on a wide screen
+      // the margins either side of the column are the whole gesture, and on a phone a quarter
+      // of the screen each side was far too much - a tap meant to close a card or to look at a
+      // line turned the page instead.
+      const column = articleRef.current?.getBoundingClientRect();
       const x = event.clientX;
-      const width = window.innerWidth;
-      if (x < width * 0.28) {
-        pageBackward();
-      } else if (x > width * 0.72) {
-        pageForward();
+      if (column && column.width > 0) {
+        if (x < column.left) {
+          pageBackward();
+          return;
+        }
+        if (x > column.right) {
+          pageForward();
+          return;
+        }
+        const band = column.width * (window.innerWidth < 640 ? 0.1 : 0.16);
+        if (x < column.left + band) {
+          pageBackward();
+          return;
+        }
+        if (x > column.right - band) {
+          pageForward();
+        }
+        return;
       }
+      const width = window.innerWidth;
+      if (x < width * 0.12) pageBackward();
+      else if (x > width * 0.88) pageForward();
     }
   };
 
