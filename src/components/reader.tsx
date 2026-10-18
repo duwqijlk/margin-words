@@ -1040,10 +1040,23 @@ function topBarHeight(bar: HTMLElement | null): number {
 
 /**
  * Two page turns closer together than this are one turn. A device can deliver the same press
- * twice (a page button mapped to both a key event and a click, a double tap, a keydown repeated
- * without the `repeat` flag), and a reader cannot turn a page twice in a fifth of a second.
+ * twice (a page button mapped to both a key event and a click, a keydown repeated without the
+ * `repeat` flag), and a reader cannot turn a page twice in a fifth of a second.
  */
 const MIN_TURN_MS = 220;
+
+/** Lines of the page just read that stay on screen after a turn. The knob for "it moves too far". */
+const PAGE_OVERLAP_LINES = 3;
+
+/** One line of the book text, in px: the reading column's own line-height. */
+function readerLineHeight(article: HTMLElement | null): number {
+  if (!article) return 32;
+  const style = window.getComputedStyle(article);
+  const line = Number.parseFloat(style.lineHeight);
+  if (Number.isFinite(line) && line > 4) return line;
+  const size = Number.parseFloat(style.fontSize);
+  return Number.isFinite(size) && size > 4 ? size * 1.8 : 32;
+}
 
 /**
  * The first paragraph that reaches below the restore line, as a file-independent place.
@@ -1768,18 +1781,23 @@ export function ReaderScreen({
   );
 
   /**
-   * One page is what the reader can SEE, from under the top bar to the bottom of the window.
+   * One page is what the reader can SEE, from under the top bar to the bottom of the window,
+   * MINUS a few lines of the page just read (`PAGE_OVERLAP_LINES`).
    *
-   * `innerHeight` is the layout viewport, which is not always what is on screen: an e-ink
-   * browser that zooms the page, or a WebView with a pinned toolbar, can report a layout
-   * viewport taller than the glass. `visualViewport.height` is what is really visible, so the
-   * smaller of the two is the page - trusting `innerHeight` made one turn skip a part of the
-   * screen on those devices ("it turns too far").
+   * The overlap is the point: a wide reader shows thirty-odd lines at once, and taking all of
+   * them away in one press loses the thread ("it scrolls a bit too far"). Keeping a few lines on
+   * screen is what a paper page does when you turn it. `innerHeight` is the layout viewport and
+   * not always what is on screen (a zoomed e-ink browser, a pinned toolbar), so the smaller of
+   * it and `visualViewport.height` sets the ceiling.
    */
   const pageStep = useCallback(() => {
     const bar = prefs.focus ? 0 : topBarHeight(headerRef.current);
-    const visible = window.visualViewport?.height ?? window.innerHeight;
-    return Math.max(120, Math.min(window.innerHeight, visible) - bar);
+    const visible = Math.max(
+      120,
+      Math.min(window.innerHeight, window.visualViewport?.height ?? window.innerHeight) - bar,
+    );
+    const overlap = Math.round(readerLineHeight(articleRef.current) * PAGE_OVERLAP_LINES);
+    return Math.max(Math.round(visible * 0.5), visible - overlap);
   }, [prefs.focus]);
 
   /**
@@ -2291,36 +2309,10 @@ export function ReaderScreen({
       closeHelp();
       return;
     }
-    if (prefs.paging) {
-      // The turn area is measured from the TEXT COLUMN, not from the window: on a wide screen
-      // the margins either side of the column are the whole gesture, and on a phone a quarter
-      // of the screen each side was far too much - a tap meant to close a card or to look at a
-      // line turned the page instead.
-      const column = articleRef.current?.getBoundingClientRect();
-      const x = event.clientX;
-      if (column && column.width > 0) {
-        if (x < column.left) {
-          pageBackward();
-          return;
-        }
-        if (x > column.right) {
-          pageForward();
-          return;
-        }
-        const band = column.width * (window.innerWidth < 640 ? 0.1 : 0.16);
-        if (x < column.left + band) {
-          pageBackward();
-          return;
-        }
-        if (x > column.right - band) {
-          pageForward();
-        }
-        return;
-      }
-      const width = window.innerWidth;
-      if (x < width * 0.12) pageBackward();
-      else if (x > width * 0.88) pageForward();
-    }
+    // A tap on the page never turns it. Page-turn mode is for the keyboard, the volume keys and
+    // a reader's own page buttons; a tap here is for reading - opening a word, putting a card
+    // away. Edge and double-tap gestures turned pages while the reader was only looking at a
+    // line, so they are gone.
   };
 
   return (

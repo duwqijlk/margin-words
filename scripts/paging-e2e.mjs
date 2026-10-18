@@ -15,10 +15,10 @@
  *   - the last short strip of a chapter turns the page instead of being shown twice
  *   - a forward turn opens the next chapter at its top; a backward turn opens the previous one
  *     at its last line
- *   - a tap in the margin either side of the text turns one page, and a tap in the middle
- *     of the text turns none
- *   - two taps in quick succession turn one page, not two (a device that delivers the same
- *     press twice must not skip a page)
+ *   - a page keeps three lines of the page just read on screen (a wide screen shows thirty at
+ *     once; taking all of them away loses the thread)
+ *   - a tap never turns the page, wherever it lands, and two taps turn nothing either:
+ *     page-turn mode belongs to the keys and the reader's own page buttons
  */
 import { chromium } from "playwright";
 import { tmpdir } from "node:os";
@@ -140,15 +140,26 @@ await page.reload();
 await page.waitForTimeout(2000);
 
 const page_ = () =>
-  page.evaluate(() => ({
-    y: Math.round(window.scrollY),
-    max: Math.round(document.documentElement.scrollHeight - window.innerHeight),
-    chapter: document.querySelector("header p.text-xs")?.textContent ?? "",
-    step: Math.round(window.innerHeight - (document.querySelector("header")?.getBoundingClientRect().height ?? 0)),
-  }));
+  page.evaluate(() => {
+    const article = document.querySelector("article.book-body");
+    const line = article ? Number.parseFloat(getComputedStyle(article).lineHeight) || 32 : 32;
+    const bar = document.querySelector("header")?.getBoundingClientRect().height ?? 0;
+    const visible = Math.max(
+      120,
+      Math.min(window.innerHeight, window.visualViewport?.height ?? window.innerHeight) - bar,
+    );
+    return {
+      y: Math.round(window.scrollY),
+      max: Math.round(document.documentElement.scrollHeight - window.innerHeight),
+      chapter: document.querySelector("header p.text-xs")?.textContent ?? "",
+      // The reader keeps 3 lines of the previous page on screen (PAGE_OVERLAP_LINES).
+      step: Math.max(Math.round(visible * 0.5), visible - Math.round(line * 3)),
+      line: Math.round(line),
+    };
+  });
 
 const start = await page_();
-check(start.step > 200, "one page is the window height minus the top bar", `${start.step}px`);
+check(start.step > 200, "one page is the visible text minus three lines", `${start.step}px (line ${start.line}px)`);
 
 await page.keyboard.press("PageDown");
 await page.waitForTimeout(600);
@@ -203,39 +214,19 @@ check(
   `${previous.chapter} at ${previous.y}px of ${previous.max}px`,
 );
 
-// a tap in the margin turns one page, a tap in the text turns none
+// a tap never turns the page - not in the margin, not in the middle, not twice
 await page.evaluate(() => window.scrollTo(0, 0));
 await page.waitForTimeout(400);
-const column = await page.evaluate(() => {
-  const box = document.querySelector("article.book-body")?.getBoundingClientRect();
-  return box ? { left: box.left, right: box.right } : null;
-});
-const marginX = Math.min(Math.round((column?.right ?? VIEW_W - 40) + 8), VIEW_W - 14);
-await page.mouse.click(marginX, Math.round(VIEW_H / 2));
+await page.mouse.click(VIEW_W - 14, Math.round(VIEW_H / 2));
+await page.waitForTimeout(300);
+await page.mouse.click(Math.round(VIEW_W / 2), Math.round(VIEW_H / 2));
+await page.waitForTimeout(300);
+await page.mouse.click(VIEW_W - 14, Math.round(VIEW_H / 2));
+await page.waitForTimeout(80);
+await page.mouse.click(VIEW_W - 14, Math.round(VIEW_H / 2));
 await page.waitForTimeout(600);
 const tapped = await page_();
-check(
-  Math.abs(tapped.y - tapped.step) <= 3,
-  "a tap in the right margin turns one page",
-  `${tapped.y}px of ${tapped.step}${column ? ` (column ends at ${Math.round(column.right)})` : ""}`,
-);
-
-await page.evaluate(() => window.scrollTo(0, 0));
-await page.waitForTimeout(400);
-await page.mouse.click(Math.round(VIEW_W / 2), Math.round(VIEW_H / 2));
-await page.waitForTimeout(500);
-const middle = await page_();
-check(middle.y === 0, "a tap in the middle of the text turns no page", `${middle.y}px`);
-
-// the same press delivered twice is one turn
-await page.evaluate(() => window.scrollTo(0, 0));
-await page.waitForTimeout(400);
-await page.mouse.click(VIEW_W - 6, Math.round(VIEW_H / 2));
-await page.waitForTimeout(80);
-await page.mouse.click(marginX, Math.round(VIEW_H / 2));
-await page.waitForTimeout(600);
-const twice = await page_();
-check(Math.abs(twice.y - twice.step) <= 3, "two taps 80ms apart turn one page", `${twice.y}px`);
+check(tapped.y === 0, "taps do not turn the page", `${tapped.y}px after four taps`);
 
 await page.screenshot({ path: SHOT });
 await browser.close();
