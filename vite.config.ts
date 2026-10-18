@@ -19,6 +19,17 @@ export default defineConfig({
   server: { host: "0.0.0.0", port: 8080, strictPort: true },
   preview: { host: "127.0.0.1", port: 8081, strictPort: true },
   resolve: { tsconfigPaths: true },
-  build: { outDir: "dist", emptyOutDir: true },
+  build: {
+    outDir: "dist",
+    emptyOutDir: true,
+    /**
+     * `chrome69`, not the default `baseline-widely-available` (chrome107). The default leaves
+     * optional chaining, `??`, `??=` and class static blocks in the bundle. An Android e-ink
+     * reader such as the Moaan InkPalm runs Android 8.1 with a WebView around Chrome 69, which
+     * cannot PARSE those, so the entry chunk throws before a single line runs and the page stays
+     * blank. The floor is the oldest engine we can still support; it costs a little size.
+     */
+    target: "chrome69",
+  },
   plugins: [packsFolder(), publicBooks(), wordLists(), guideFolder(), tailwindcss(), viteReact(), offlineShell()],
 });
