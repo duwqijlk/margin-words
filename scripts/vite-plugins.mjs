@@ -241,41 +241,29 @@ export function offlineShell() {
 }
 
 /**
- * Tailwind 4 puts every rule inside `@layer`. A browser older than Chrome 99 does not know
- * `@layer` and drops each block whole, so the entire utility set disappears and the page comes
- * out unstyled: plain buttons stacked in a column. An Android e-ink reader is exactly that
- * browser.
+ * `dvh` needs Chrome 108. Tailwind 3 has no `dvh` in its spacing scale, but the components use
+ * arbitrary values such as `max-h-[52dvh]`, so the built CSS still carries it. This writes a
+ * `vh` line before every `dvh` one: on an engine that does not know `dvh`, a panel keeps a
+ * height limit instead of growing to cover the screen.
  *
- * This unwraps the layer blocks once the CSS is built. The blocks are already written in cascade
- * order (properties, theme, base, components, utilities), so unwrapping each one in place keeps
- * the order it had. Custom rules in src/styles.css come after them and still win.
- *
- * It also writes a `vh` line before every `dvh` one. `dvh` needs Chrome 108; `vh` works
- * everywhere and means the same thing on a device with no collapsing address bar.
+ * (Tailwind 3 writes no `@layer` at all, so the layer unwrapping this replaced is gone.)
  */
-export function flattenCssLayers() {
+export function dvhFallbacks() {
   return {
-    name: "margin-words:flatten-css-layers",
+    name: "margin-words:dvh-fallbacks",
     apply: "build",
     enforce: "post",
     generateBundle(_options, bundle) {
       for (const file of Object.values(bundle)) {
         if (file.type !== "asset" || !String(file.fileName).endsWith(".css")) continue;
-        file.source = flattenLayers(String(file.source));
+        file.source = withVhFallbacks(String(file.source));
       }
     },
   };
 }
 
-function flattenLayers(css) {
+function withVhFallbacks(css) {
   const root = postcss.parse(css);
-  const layers = [];
-  root.walkAtRules("layer", (rule) => layers.push(rule));
-  for (const rule of layers) {
-    // `@layer a, b;` only names an order; the blocks below already follow it.
-    if (!rule.nodes) rule.remove();
-    else rule.replaceWith(...rule.nodes);
-  }
   root.walkDecls((decl) => {
     if (!decl.value.includes("dvh")) return;
     const fallback = decl.value.replace(/(\d*\.?\d+)dvh/g, "$1vh");

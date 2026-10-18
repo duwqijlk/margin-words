@@ -1,8 +1,7 @@
 import { defineConfig } from "vite";
 import viteReact from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
 // @ts-expect-error plain JS plugins next to the TS config
-import { flattenCssLayers, guideFolder, offlineShell, packsFolder, publicBooks, wordLists } from "./scripts/vite-plugins.mjs";
+import { dvhFallbacks, guideFolder, offlineShell, packsFolder, publicBooks, wordLists } from "./scripts/vite-plugins.mjs";
 
 /**
  * The reader is a plain static single-page app: `vite build` writes ordinary files to ./dist
@@ -31,14 +30,14 @@ export default defineConfig({
      */
     target: "chrome69",
   },
+  // Tailwind is a PostCSS plugin now (postcss.config.js), not a Vite plugin: that is how v3 works.
   plugins: [
     packsFolder(),
     publicBooks(),
     wordLists(),
     guideFolder(),
-    tailwindcss(),
     viteReact(),
     offlineShell(),
-    flattenCssLayers(),
+    dvhFallbacks(),
   ],
 });

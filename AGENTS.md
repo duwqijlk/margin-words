@@ -1,7 +1,11 @@
 # Margin Words: project notes
 
 A static reader for English novels, for Chinese junior-high learners. It is a plain Vite + React 19 +
-Tailwind 4 + zustand single-page app. It has no AI calls. The reader works fully with no account.
+Tailwind 3 + zustand single-page app. It has no AI calls. The reader works fully with no account.
+**Stay on Tailwind 3.** 4 needs Chrome 99 for `@layer` and Chrome 111 for the colours it emits, so
+it cannot reach the Android e-ink readers some of these students use; v3 writes plain CSS with
+physical properties. The theme tokens are the CSS variables in `src/styles.css`, each with an
+`-rgb` twin so `bg-paper/90` still works (see `tailwind.config.js`).
 Optional accounts (email, password, and sync of shelf, progress, saved words, and settings) are
 Cloudflare Pages Functions in `functions/` plus a D1 database. See docs/ACCOUNTS.md. Do not store user
 data in R2. Books and word lists come from **book packs** (see README.md, "Reader and book packs"). A pack is one `.zip` with exactly `book.epub` + `glossary.json` (docs/book-pack-spec.md, section 3; `src/lib/pack-check.ts`, used by the pack tools in `scripts/`). **The app has no file import**: books are added ONLY from the Discover page, and only by a signed-in reader (`canAddBooks` in `src/lib/can-add.ts`; signed-out visitors browse everything, the add button says "Sign in to add", and books already stored on the device stay readable). A word-list book takes the reader's own EPUB from its Discover card (the own-EPUB dialog with the 80% match check). A standalone EPUB is never imported as a new book.
