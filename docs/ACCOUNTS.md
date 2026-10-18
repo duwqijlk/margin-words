@@ -47,6 +47,10 @@ Turnstile on registration, login, and the password-reset request is on in produc
 
 The widget region is `world`. Readers in mainland China can stay on the widget's own Troubleshoot screen, because that challenge host does not finish there. This account cannot create a `china` widget (`not entitled` for region `china`), and a world site key loaded from `https://challenges.cloudflare-cn.com/turnstile/v0/api.js` is rejected. Rate limits on register and the reset request stay in place.
 
+That failure used to be silent: the widget area stayed empty, the form only said "complete the check first", and there was no check to complete. The dialog now says so after 12 seconds, or as soon as the script fails to load, and offers a reload link (`account.turnstileFailed` / `account.turnstileRetry`). It does not make sign-in possible on such a network.
+
+Turning the check off takes **two** steps, because the page bakes the site key in: remove `VITE_TURNSTILE_SITE_KEY` from `.env.production` (otherwise the dialog still waits for a token that will never come) and unset the `TURNSTILE_SECRET_KEY` Pages secret. Registration and the reset request then rely on the rate limits in `functions/lib/rate-limit.ts` alone.
+
 Deploy (owner, not this repo's automation). `npm run build` with no `VITE_BOOKS_BASE` keeps book files on `https://books.inputread.site`. Do not deploy a `build:local` folder.
 
 ```bash

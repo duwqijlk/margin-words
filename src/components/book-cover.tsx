@@ -103,11 +103,18 @@ export function BookCover({
   const showImage = Boolean(cover) && !failed && near;
   const pending = Boolean(cover) && !failed && !showImage;
   const showGenerated = !cover || failed;
+  // A picture already in the cache can finish before React attaches `onLoad`, and then the image
+  // stayed at opacity 0 with nothing to un-hide it. Check the element itself once it is mounted.
+  const imgRef = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const el = imgRef.current;
+    if (el?.complete && el.naturalWidth > 0) setLoaded(cover ?? null);
+  }, [cover, showImage]);
   return (
     <span
       ref={frame}
       className={cn(
-        "cover-frame relative block aspect-[2/3] w-full shrink-0 overflow-hidden rounded-md bg-line shadow-cover ring-1 ring-ink/10 transition-[transform,box-shadow] duration-200 [container-type:inline-size]",
+        "cover-frame relative block aspect-cover w-full shrink-0 overflow-hidden rounded-md bg-line shadow-cover ring-1 ring-ink/10 transition-[transform,box-shadow] duration-200 [container-type:inline-size]",
         className,
       )}
       {...(showGenerated ? { "data-generated-cover": "" } : {})}
@@ -117,6 +124,7 @@ export function BookCover({
       ) : null}
       {showImage ? (
         <img
+          ref={imgRef}
           src={cover}
           alt=""
           crossOrigin={coverCrossOrigin(cover)}

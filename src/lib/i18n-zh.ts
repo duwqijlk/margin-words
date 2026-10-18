@@ -343,6 +343,8 @@ export const zh: Record<Key, string> = {
   "account.err.credentials": "邮箱或密码不对。",
   "account.err.rate": "试得太多次了。请过一会儿再试。",
   "account.err.turnstile": "请先完成验证。",
+  "account.turnstileFailed": "人机验证没有完成。请检查网络，然后再试一次。",
+  "account.turnstileRetry": "重新加载验证",
   "account.err.network": "连不上账号服务。不登录也可以读书。",
   "account.err.generic": "没有完成。请再试一次。",
   "account.err.nickname": "请填写 1 到 16 个字。",
