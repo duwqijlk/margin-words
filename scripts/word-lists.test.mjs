@@ -1,11 +1,23 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildWordLists } from "./lib/word-lists.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+// buildWordLists() makes the card-sized cover with scripts/resize-cover.py, which needs Pillow.
+// Without it the covers cannot be built, so this check skips instead of failing.
+function hasPillow() {
+  for (const python of ["python3", "python"]) {
+    const run = spawnSync(python, ["-c", "import PIL"], { encoding: "utf8" });
+    if (run.status === 0) return true;
+  }
+  return false;
+}
+const skipCovers = hasPillow() ? false : "python with Pillow is needed to resize covers";
 const OLD_NARNIA = [
   "narnia1-magicians-nephew",
   "narnia2-lion-witch-wardrobe",
@@ -30,7 +42,7 @@ function jpegSize(buf) {
   throw new Error("jpeg has no size marker");
 }
 
-test("word lists ship glossaries and card-sized covers, never an epub", () => {
+test("word lists ship glossaries and card-sized covers, never an epub", { skip: skipCovers }, () => {
   const { catalog, files } = buildWordLists(join(ROOT, "packs"));
   const glossaryDirs = readdirSync(join(ROOT, "packs")).filter((name) => {
     const dir = join(ROOT, "packs", name);

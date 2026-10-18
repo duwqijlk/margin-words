@@ -11,6 +11,14 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const HAS_PACKS = existsSync(join(ROOT, "packs/catalog.json")); // the app-only zip has no packs
 const catalog = HAS_PACKS ? JSON.parse(readFileSync(join(ROOT, "packs/catalog.json"), "utf8")) : { packs: [] };
 const skip = HAS_PACKS ? false : "no packs/ folder (app-only copy)";
+// The EPUB of a pack under copyright is deliberately not in git (README: "Where the book files
+// live"). A clone therefore has the catalog and the word lists but not the books, so the checks
+// that read a book file skip instead of failing. They run on a machine that has the files.
+const HAS_BOOKS =
+  HAS_PACKS &&
+  catalog.packs.length > 0 &&
+  catalog.packs.every((pack) => existsSync(join(ROOT, "packs", pack.epub.url)));
+const skipFiles = HAS_BOOKS ? false : "book.epub files are not in git";
 const sha = (file) => createHash("sha256").update(readFileSync(file)).digest("hex");
 
 test("catalog lists 9 packs with the fields readers need", { skip }, () => {
@@ -35,7 +43,7 @@ test("catalog lists 9 packs with the fields readers need", { skip }, () => {
   }
 });
 
-test("catalog sizes and sha256 match the files", { skip }, () => {
+test("catalog sizes and sha256 match the files", { skip: skipFiles }, () => {
   for (const pack of catalog.packs) {
     for (const key of ["epub", "glossary", "zip"]) {
       const file = join(ROOT, "packs", pack[key].url);
@@ -46,7 +54,7 @@ test("catalog sizes and sha256 match the files", { skip }, () => {
   }
 });
 
-test("build-packs --check says the packs folder is up to date", { skip }, () => {
+test("build-packs --check says the packs folder is up to date", { skip: skipFiles }, () => {
   const run = spawnSync("node", ["scripts/build-packs.mjs", "--check"], { cwd: ROOT, encoding: "utf8" });
   assert.equal(run.status, 0, run.stdout + run.stderr);
 });

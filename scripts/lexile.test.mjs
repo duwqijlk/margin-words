@@ -51,6 +51,8 @@ test("both catalogs publish a Lexile measure on every pack", () => {
     const catalog = JSON.parse(readFileSync(join(ROOT, folder, "catalog.json"), "utf8"));
     assert.ok(catalog.packs.length > 0, folder);
     for (const pack of catalog.packs) {
+      // A speech is a transcript, not a book, so it has no published Lexile measure.
+      if (pack.category === "speech") continue;
       assert.match(pack.lexile, MEASURE, `${folder}/${pack.id}`);
       const info = JSON.parse(readFileSync(join(ROOT, folder, pack.id, "info.json"), "utf8"));
       assert.equal(info.lexile, pack.lexile, `${pack.id} info.json`);

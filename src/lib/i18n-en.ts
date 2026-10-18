@@ -52,6 +52,13 @@ export const en = {
   "nav.account": "Account",
   "notice.text": "We don't provide copyrighted books. For those, bring your own EPUB.",
   "notice.dismiss": "Hide this notice",
+  "privacyNote.text":
+    "We count which words get tapped. The report holds the word, its place in the book, and the sentence around it.",
+  "privacyNote.link": "Privacy",
+  "error.title": "This page did not load",
+  "error.body":
+    "Something went wrong while drawing the page. Your books, your saved words and your place are still on this device.",
+  "error.reload": "Reload the page",
   "nav.dueAria": "{n} to review",
 
   /* ---- guide */
@@ -685,7 +692,7 @@ export const en = {
     "You do not need an account. If you make one, we keep a copy of your shelf list, where you stopped reading, your saved words with the places they came from, your review counts, and your reading settings. You can also choose a nickname. It can be the same as someone else's. Sign in on another device to see them there. You can export or delete your data at any time.",
   "about.privacyTitle": "Privacy",
   "about.privacyBody":
-    "Your EPUB files stay on your device. They are never uploaded, even when you have an account. To find your place on another device, sync stores the word list’s paragraph number and one short line of the book’s text, and it stores the sentence of each word you save. No book file is sent to us.",
+    "Your EPUB files stay on your device. They are never uploaded, even when you have an account. To find your place on another device, sync stores the word list’s paragraph number and one short line of the book’s text, and it stores the sentence of each word you save. We also count which words readers tap, so the word lists can grow where they are thin: that report holds the word, the book, the word’s place in the book, and the sentence around it. No book file is sent to us.",
   "about.copyrightTitle": "Copyright notice and disclaimer",
   "about.copyrightBody":
     "Books, titles and characters belong to their authors and publishers. This site does not host, sell or share books that are under copyright. Our word lists are our own study notes. They quote only short pieces of text for learning. Public-domain books are offered because anyone may use them. We try to be correct, but a note can have a mistake. This site is for study only. If you think something here should not be here, please tell us and we will check it quickly.",

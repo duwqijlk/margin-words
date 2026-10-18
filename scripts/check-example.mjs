@@ -86,9 +86,9 @@ if (problems.length === 0) {
 
   // 4. the JSON example inside the spec
   const spec = readFileSync(join(ROOT, SPEC), "utf8");
-  const block = /<!-- example:start -->\s*```json\n([\s\S]*?)\n```\s*<!-- example:end -->/.exec(
-    spec,
-  );
+  // \r? so a Windows checkout (CRLF) finds the block too.
+  const block =
+    /<!-- example:start -->\s*```json\r?\n([\s\S]*?)\r?\n```\s*<!-- example:end -->/.exec(spec);
   if (!block) bad("docs/book-pack-spec.md has no <!-- example:start --> JSON block");
   else {
     const dir = mkdtempSync(join(tmpdir(), "spec-"));

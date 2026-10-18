@@ -1968,6 +1968,10 @@ export function fillReadingRoot(
       }
       const button = doc.createElement("button");
       button.type = "button";
+      // Not in the tab order. A chapter can hold hundreds of these, and every one of them in the
+      // tab order made Tab walk the whole page word by word. They stay in the accessibility tree
+      // and still work with a screen reader's own cursor; a tap or a click opens the card.
+      button.tabIndex = -1;
       button.dataset.word = seg.text;
       button.dataset.i = String(order);
       order += 1;
