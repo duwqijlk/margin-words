@@ -19,7 +19,7 @@
  *      second pass serves
  */
 import { chromium } from "playwright";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -45,6 +45,16 @@ try {
 check(!html.includes("__vite_is_modern_browser"), "the page carries no import.meta.resolve probe");
 check(/<script nomodule[^>]*polyfills-legacy/.test(html), "the page carries the nomodule polyfills");
 check(/<script nomodule[^>]*vite-legacy-entry/.test(html), "the page carries the nomodule entry");
+
+// The probe also went INSIDE the entry chunk as a guard import, which ran before the app did:
+// that is what killed Chrome 83 ("Uncaught Error: import.meta.resolve not supported").
+const assets = join(ROOT, "dist", "assets");
+const chunks = readdirSync(assets).filter((name) => name.endsWith(".js") && !name.includes("legacy"));
+const guarded = chunks.filter((name) => {
+  const code = readFileSync(join(assets, name), "utf8");
+  return /import\s*'data:text\/javascript/.test(code) || code.includes("if(!import.meta.resolve)");
+});
+check(guarded.length === 0, "no chunk boots on an import.meta.resolve probe", guarded.join(", ") || "none");
 
 const entry = (html.match(/<script type="module"[^>]*src="([^"]+)"/) ?? [])[1] ?? "";
 if (!entry) {
