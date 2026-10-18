@@ -41,12 +41,36 @@
         var box = document.getElementById("boot-help");
         var line = document.getElementById("boot-ua");
         if (!root || !box) return;
+        // Why it did not start is the one thing a reader cannot tell us from a photo of the
+        // screen, so the notice carries it: the newest errors, and any file that never loaded.
+        var seen = [];
+        function record(text) {
+          if (text && seen.length < 3) seen.push(String(text));
+        }
+        window.onerror = function (message, source, lineno) {
+          record(message + " (" + String(source || "").split("/").pop() + ":" + lineno + ")");
+        };
+        // A missing or blocked file fires on the element, not on window.onerror.
+        window.addEventListener(
+          "error",
+          function (event) {
+            var el = event && event.target;
+            if (el && el !== window && el.tagName)
+              record("could not load " + (el.src || el.href || el.tagName));
+          },
+          true,
+        );
+        window.addEventListener("unhandledrejection", function (event) {
+          var reason = event && event.reason;
+          record("promise: " + ((reason && reason.message) || reason));
+        });
         function mounted() {
           return root.childNodes.length > 0;
         }
         setTimeout(function () {
           if (mounted() || !box.hidden) return;
-          if (line) line.textContent = navigator.userAgent;
+          if (line)
+            line.textContent = navigator.userAgent + (seen.length ? " | " + seen.join(" | ") : "");
           box.hidden = false;
         }, 12000);
         setTimeout(function () {
