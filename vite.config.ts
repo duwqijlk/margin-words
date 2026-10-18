@@ -2,7 +2,15 @@ import { defineConfig } from "vite";
 import viteReact from "@vitejs/plugin-react";
 import legacy from "@vitejs/plugin-legacy";
 // @ts-expect-error plain JS plugins next to the TS config
-import { dvhFallbacks, guideFolder, offlineShell, packsFolder, publicBooks, wordLists } from "./scripts/vite-plugins.mjs";
+import {
+  dvhFallbacks,
+  guideFolder,
+  legacyOnlyWithoutModules,
+  offlineShell,
+  packsFolder,
+  publicBooks,
+  wordLists,
+} from "./scripts/vite-plugins.mjs";
 
 /**
  * The reader is a plain static single-page app: `vite build` writes ordinary files to ./dist
@@ -44,14 +52,22 @@ export default defineConfig({
      * blank - the app never started and the `<noscript>` line was hidden because JavaScript is on.
      * This build writes `nomodule` chunks plus a small ES5 loader; every modern browser skips
      * them. Keep it before the shell plugins: they hash the finished bundle.
+     *
+     * `modernTargets` MUST repeat the floor from `build.target` below: without it the plugin
+     * replaces `build.target` with its own default (chrome105) and puts optional chaining and
+     * `??` back into the modern bundle, which the e-ink WebView cannot parse at all. The plugin
+     * prints "plugin-legacy overrode 'build.target'" for that: expected, the two lists match.
+     * `legacyOnlyWithoutModules()` then removes the plugin's `import.meta.resolve` probe, which
+     * would send every Chrome 69-104 device to the ES5 build as well.
      */
     legacy({
       targets: ["chrome >= 49", "safari >= 10", "ios >= 10", "firefox >= 52", "edge >= 15"],
-      // The reader is not a polyfill demo: only what the app calls is pulled in.
+      modernTargets: ["chrome >= 69", "safari >= 12", "ios >= 12", "firefox >= 62", "edge >= 79"],
       modernPolyfills: false,
       renderLegacyChunks: true,
       polyfills: true,
     }),
+    legacyOnlyWithoutModules(),
     offlineShell(),
     dvhFallbacks(),
   ],

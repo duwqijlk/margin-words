@@ -262,6 +262,36 @@ export function dvhFallbacks() {
   };
 }
 
+/**
+ * Drop the `import.meta.resolve` probe that @vitejs/plugin-legacy puts in the page.
+ *
+ * The plugin writes two inline MODULE scripts: one sets `__vite_is_modern_browser` when the
+ * browser knows `import.meta.resolve`, the other loads the ES5 build when it does not. That
+ * method only exists from Chrome 105, so EVERY engine between our floor (Chrome 69) and 104
+ * failed the test and loaded the ES5 copy on top of the modern one: two React roots in `#root`,
+ * which is the broken wide-screen layout the e-ink readers showed, and on Chrome 69-79 the
+ * modern entry could not even be parsed. The legacy chunks are still emitted and the `nomodule`
+ * tags are the whole fallback: a browser without module support runs exactly those, and a
+ * browser with module support runs the modern build alone (the situation before the legacy
+ * build existed).
+ */
+export function legacyOnlyWithoutModules() {
+  const PROBE = "__vite_is_modern_browser";
+  return {
+    name: "margin-words:legacy-without-probe",
+    apply: "build",
+    enforce: "post",
+    transformIndexHtml: {
+      order: "post",
+      handler(html) {
+        return html.replace(/<script type="module">([\s\S]*?)<\/script>/g, (whole, body) =>
+          String(body).includes(PROBE) ? "" : whole,
+        );
+      },
+    },
+  };
+}
+
 function withVhFallbacks(css) {
   const root = postcss.parse(css);
   root.walkDecls((decl) => {
