@@ -45,7 +45,8 @@ export function hyphenateReadingRoot(root: Element): void {
     const tap = doc.createElement("span");
     tap.className = "book-tap";
     tap.textContent = hyphenateDisplay(surface);
-    button.replaceChildren(tap);
+    button.textContent = "";
+    button.appendChild(tap);
   }
 }
 

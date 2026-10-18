@@ -12,17 +12,18 @@ import { tr } from "@/lib/i18n";
  * so a reload does not lose them.
  */
 type Props = { children: ReactNode };
-type State = { failed: boolean };
+type State = { failed: boolean; error: Error | null; componentStack?: string };
 
 export class ErrorBoundary extends Component<Props, State> {
-  state: State = { failed: false };
+  state: State = { failed: false, error: null };
 
-  static getDerivedStateFromError(): State {
-    return { failed: true };
+  static getDerivedStateFromError(error: Error): Partial<State> {
+    return { failed: true, error };
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     console.error("margin-words: a screen failed to draw", error, info.componentStack);
+    this.setState({ error, componentStack: info.componentStack ?? "" });
   }
 
   render() {
@@ -39,6 +40,16 @@ export class ErrorBoundary extends Component<Props, State> {
         >
           {tr("error.reload")}
         </button>
+        {this.state.error ? (
+          <details className="mx-auto mt-3 max-w-md text-left text-xs text-muted">
+            <summary className="cursor-pointer font-mono text-warn">
+              {this.state.error.name}: {this.state.error.message}
+            </summary>
+            <pre className="mt-2 max-h-40 overflow-auto whitespace-pre-wrap rounded bg-card p-2 font-mono text-[0.7rem] text-ink border border-line">
+              {this.state.error.stack || this.state.componentStack || ""}
+            </pre>
+          </details>
+        ) : null}
       </div>
     );
   }

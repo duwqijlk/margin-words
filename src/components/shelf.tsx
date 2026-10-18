@@ -237,20 +237,20 @@ function ContinueCard({
   return (
     <section
       aria-label={t("shelf.continueReading")}
-      className="group relative hidden items-center gap-6 overflow-hidden rounded-3xl border border-line/70 bg-card p-6 shadow-xs transition-all hover:shadow-md sm:flex sm:gap-9 sm:p-7"
+      className="group relative hidden sm:grid sm:grid-cols-[auto_1fr] sm:items-center sm:gap-6 lg:gap-9 overflow-hidden rounded-3xl border border-line/70 bg-card p-5 sm:p-6 lg:p-7 shadow-xs transition-all hover:shadow-md"
       style={{
         backgroundImage:
           "radial-gradient(ellipse at top right, rgb(var(--accent-soft-rgb) / 0.6), transparent 75%)",
       }}
     >
-      <div className="relative w-28 shrink-0 transition-transform duration-300 group-hover:scale-[1.02] sm:w-36">
+      <div className="relative w-28 h-[10.5rem] sm:w-36 sm:h-[13.5rem] shrink-0 transition-transform duration-300 group-hover:scale-[1.02]">
         <button
           type="button"
           onClick={onOpen}
-          className="block w-full rounded-md text-left"
+          className="block h-full w-full rounded-md text-left"
           aria-label={t("shelf.openAria", { title: book.title })}
         >
-          <BookCover title={book.title} author={book.author} cover={cover} />
+          <BookCover title={book.title} author={book.author} cover={cover} className="h-full w-full" />
         </button>
         {offer ? (
           <div className="pointer-events-none absolute top-1.5 left-1.5 z-[1] flex max-w-[calc(100%-0.75rem)]">
@@ -266,12 +266,12 @@ function ContinueCard({
           </p>
         </div>
         <h2
-          className="font-display text-[1.4rem] leading-snug font-bold tracking-tight text-ink sm:text-[2.1rem] sm:leading-tight [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
+          className="font-display text-[1.35rem] leading-snug font-bold tracking-tight text-ink sm:text-2xl sm:leading-tight lg:text-[2rem] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
           lang="en"
         >
           {book.title}
         </h2>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
           {book.author ? (
             <p className="truncate text-sm font-medium text-muted" lang="en">
               {book.author}
@@ -282,7 +282,7 @@ function ContinueCard({
           </div>
         </div>
         {started && progress ? (
-          <div className="grid gap-1.5 pt-1">
+          <div className="grid gap-1.5 pt-0.5 sm:pt-1">
             <ProgressBar value={fraction} className="h-1.5 rounded-full bg-line/60" label={t("shelf.progress")} />
             <p className="text-xs font-medium text-muted tabular-nums">
               {t("shelf.chapterOf", { n: progress.chapter + 1, total: progress.chapters })} · {pct}%
@@ -290,7 +290,7 @@ function ContinueCard({
             </p>
           </div>
         ) : null}
-        <div className="pt-1.5 sm:pt-2">
+        <div className="pt-1 sm:pt-2">
           <button
             type="button"
             className={cn(btn.primary, "w-fit rounded-full px-6 py-2.5 shadow-xs hover:shadow-md")}

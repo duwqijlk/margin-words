@@ -154,3 +154,69 @@ if (typeof window !== "undefined" && typeof (window as unknown as { ResizeObserv
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).ResizeObserver = ResizeObserverPolyfill;
 }
+
+// 7. Element.prototype.replaceChildren (Chrome 86 / Safari 14)
+if (typeof Element !== "undefined" && !Element.prototype.replaceChildren) {
+  const replaceChildrenPolyfill = function (this: Node, ...nodes: (Node | string)[]): void {
+    while (this.firstChild) {
+      this.removeChild(this.firstChild);
+    }
+    for (const node of nodes) {
+      this.appendChild(typeof node === "string" ? document.createTextNode(node) : node);
+    }
+  };
+  Element.prototype.replaceChildren = replaceChildrenPolyfill;
+  if (typeof DocumentFragment !== "undefined") {
+    DocumentFragment.prototype.replaceChildren = replaceChildrenPolyfill;
+  }
+  if (typeof Document !== "undefined") {
+    Document.prototype.replaceChildren = replaceChildrenPolyfill;
+  }
+}
+
+// 8. String.prototype.replaceAll (Chrome 85)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const replaceAllStrProto = String.prototype as any;
+if (!replaceAllStrProto.replaceAll) {
+  replaceAllStrProto.replaceAll = function (
+    searchValue: string | RegExp,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    replaceValue: string | ((substring: string, ...args: any[]) => string),
+  ): string {
+    if (searchValue instanceof RegExp) {
+      if (!searchValue.flags.includes("g")) {
+        throw new TypeError("String.prototype.replaceAll called with a non-global RegExp argument");
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return this.replace(searchValue, replaceValue as any);
+    }
+    return this.split(String(searchValue)).join(
+      typeof replaceValue === "function" ? replaceValue(searchValue) : replaceValue,
+    );
+  };
+}
+
+// 9. Array.prototype.at & String.prototype.at (Chrome 92)
+if (!arrProto.at) {
+  arrProto.at = function (n: number) {
+    let i = Math.trunc(n) || 0;
+    if (i < 0) i += this.length;
+    if (i < 0 || i >= this.length) return undefined;
+    return this[i];
+  };
+}
+if (!replaceAllStrProto.at) {
+  replaceAllStrProto.at = function (n: number) {
+    let i = Math.trunc(n) || 0;
+    if (i < 0) i += this.length;
+    if (i < 0 || i >= this.length) return undefined;
+    return this.charAt(i);
+  };
+}
+
+// 10. Object.hasOwn (Chrome 93)
+if (typeof Object.hasOwn !== "function") {
+  Object.hasOwn = function (obj: object, prop: PropertyKey): boolean {
+    return Object.prototype.hasOwnProperty.call(obj, prop);
+  };
+}

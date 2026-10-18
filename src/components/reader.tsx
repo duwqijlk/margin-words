@@ -1044,31 +1044,42 @@ function tallBlock(rect: DOMRect): boolean {
 
 /** Character of `flowText(block)` under a window point, or null when the point is not on its text. */
 function flowOffsetAt(block: Element, x: number, y: number): number | null {
-  let node: Node | null = null;
-  let offset = 0;
-  if (typeof document.caretPositionFromPoint === "function") {
-    const point = document.caretPositionFromPoint(x, y);
-    node = point?.offsetNode ?? null;
-    offset = point?.offset ?? 0;
-  } else if (typeof document.caretRangeFromPoint === "function") {
-    const range = document.caretRangeFromPoint(x, y);
-    node = range?.startContainer ?? null;
-    offset = range?.startOffset ?? 0;
+  try {
+    let node: Node | null = null;
+    let offset = 0;
+    if (typeof document.caretPositionFromPoint === "function") {
+      const point = document.caretPositionFromPoint(x, y);
+      node = point?.offsetNode ?? null;
+      offset = point?.offset ?? 0;
+    } else if (typeof document.caretRangeFromPoint === "function") {
+      const range = document.caretRangeFromPoint(x, y);
+      node = range?.startContainer ?? null;
+      offset = range?.startOffset ?? 0;
+    }
+    if (!node || !block.contains(node)) return null;
+    return flowTextBefore(block, node, node.nodeType === Node.TEXT_NODE ? offset : 0).length;
+  } catch {
+    return null;
   }
-  if (!node || !block.contains(node)) return null;
-  return flowTextBefore(block, node, node.nodeType === Node.TEXT_NODE ? offset : 0).length;
 }
 
 /** Window top of the text line that holds character `at` of `flowText(block)`, or null. */
 function lineTopAt(block: Element, at: number): number | null {
-  const point = flowPoint(block, at);
-  if (!point) return null;
-  const node = point.node as unknown as Text;
-  const range = document.createRange();
-  range.setStart(node, point.offset);
-  range.setEnd(node, Math.min(node.length, point.offset + 1));
-  const rect = range.getClientRects()[0];
-  return rect && rect.height > 0 ? rect.top : null;
+  try {
+    const point = flowPoint(block, at);
+    if (!point) return null;
+    const node = point.node as unknown as Text;
+    if (!node || node.nodeType !== Node.TEXT_NODE) return null;
+    const range = document.createRange();
+    const start = Math.min(node.length, Math.max(0, point.offset));
+    const end = Math.min(node.length, start + 1);
+    range.setStart(node, start);
+    range.setEnd(node, end);
+    const rect = range.getClientRects()[0];
+    return rect && rect.height > 0 ? rect.top : null;
+  } catch {
+    return null;
+  }
 }
 
 export function ReaderScreen({
@@ -1188,13 +1199,20 @@ export function ReaderScreen({
       fillPrepared(bookId, next.glossary);
     };
     const readWhole = (seen: number) => {
-      void loadStoredBook(bookId).then((next) => {
-        if (!alive || seen !== generation) return;
-        if (!next) {
-          waitingFile.current = true;
-          setMissing(true);
-        } else adopt(next, seen);
-      });
+      void loadStoredBook(bookId)
+        .then((next) => {
+          if (!alive || seen !== generation) return;
+          if (!next) {
+            waitingFile.current = true;
+            setMissing(true);
+          } else adopt(next, seen);
+        })
+        .catch(() => {
+          if (alive && seen === generation) {
+            waitingFile.current = true;
+            setMissing(true);
+          }
+        });
     };
     // First open: read the whole book once (chapter text is big).
     readWhole(generation);
@@ -1208,21 +1226,23 @@ export function ReaderScreen({
         readWhole(seen);
         return;
       }
-      void loadBookMeta(bookId).then((meta) => {
-        if (!alive || seen !== generation || !meta) return;
-        setBook((prev) =>
-          prev
-            ? {
-                ...prev,
-                glossary: meta.glossary,
-                pending: meta.pending,
-                totalHard: meta.totalHard,
-                ...(meta.bundled ? { bundled: meta.bundled } : {}),
-              }
-            : prev,
-        );
-        fillPrepared(bookId, meta.glossary);
-      });
+      void loadBookMeta(bookId)
+        .then((meta) => {
+          if (!alive || seen !== generation || !meta) return;
+          setBook((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  glossary: meta.glossary,
+                  pending: meta.pending,
+                  totalHard: meta.totalHard,
+                  ...(meta.bundled ? { bundled: meta.bundled } : {}),
+                }
+              : prev,
+          );
+          fillPrepared(bookId, meta.glossary);
+        })
+        .catch(() => undefined);
     };
     const onProgress = (event: Event) => {
       const detail = (event as CustomEvent<{ bookId?: string }>).detail;
@@ -1250,17 +1270,19 @@ export function ReaderScreen({
     let alive = true;
     setListSource("");
     const pull = () => {
-      void loadBookExtras(bookId).then(async (extras) => {
-        if (!alive) return;
-        setPhraseList(extras?.phrases ?? {});
-        setListSource(extras?.source ?? "");
-        let rev = extras?.rev ?? "";
-        if (!rev) {
-          const pack = await loadPackRecord(bookId);
-          if (pack?.rev) rev = pack.rev;
-        }
-        setGlossaryRev(rev);
-      });
+      void loadBookExtras(bookId)
+        .then(async (extras) => {
+          if (!alive) return;
+          setPhraseList(extras?.phrases ?? {});
+          setListSource(extras?.source ?? "");
+          let rev = extras?.rev ?? "";
+          if (!rev) {
+            const pack = await loadPackRecord(bookId).catch(() => null);
+            if (pack?.rev) rev = pack.rev;
+          }
+          setGlossaryRev(rev);
+        })
+        .catch(() => undefined);
     };
     pull();
     const onProgress = (event: Event) => {
@@ -1335,17 +1357,22 @@ export function ReaderScreen({
     if (!book || !chapterHtml) return "";
     const cached = peekChapterHtml(book, phraseList, chapterKey);
     if (cached !== undefined) return cached;
-    const html = linkChapterHtml(
-      chapterHtml,
-      marked.ready,
-      resolveKey,
-      viewChapter,
-      marked.sparse,
-      marked.tricky,
-      phraseList,
-    );
-    rememberChapterHtml(book, phraseList, chapterKey, html);
-    return html;
+    try {
+      const html = linkChapterHtml(
+        chapterHtml,
+        marked.ready,
+        resolveKey,
+        viewChapter,
+        marked.sparse,
+        marked.tricky,
+        phraseList,
+      );
+      rememberChapterHtml(book, phraseList, chapterKey, html);
+      return html;
+    } catch (error) {
+      console.error("Failed to link chapter HTML", error);
+      return chapterHtml;
+    }
   }, [book, chapterHtml, chapterKey, phraseList, marked, resolveKey, viewChapter]);
   const bookChapters = book?.chapters;
   const bookStats = useMemo(() => (bookChapters ? indexBook(bookChapters) : {}), [bookChapters]);
@@ -1459,14 +1486,21 @@ export function ReaderScreen({
     // Fonts, pictures and banners change the page height right after load; keep the
     // saved spot until the reader scrolls on their own (or a few seconds pass).
     let cancelled = false;
-    const observer = new ResizeObserver(() => {
-      if (!cancelled) place();
-    });
-    observer.observe(root);
-    observer.observe(document.body);
+    let observer: ResizeObserver | null = null;
+    try {
+      observer = new ResizeObserver(() => {
+        if (!cancelled) place();
+      });
+      observer.observe(root);
+      if (document.body) observer.observe(document.body);
+    } catch {
+      // ResizeObserver may fail or not support observing document.body in older engines.
+    }
     const release = () => {
       cancelled = true;
-      observer.disconnect();
+      try {
+        observer?.disconnect();
+      } catch {}
       window.removeEventListener("wheel", stop);
       window.removeEventListener("touchmove", stop);
       window.removeEventListener("keydown", stop);
