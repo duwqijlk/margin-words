@@ -19,6 +19,41 @@
   <body>
     <div id="root"></div>
     <noscript>inputread needs JavaScript to run.</noscript>
+    <!--
+      Shown only when nothing has mounted after 12s, so a browser that cannot run the app says so
+      instead of staying white. The style is inline: the stylesheet may be the thing that failed.
+      The Kindle browser is the reason this exists - it ignores module scripts, and if its engine
+      still cannot run the older build there is nothing else to look at.
+    -->
+    <div
+      id="boot-help"
+      hidden
+      style="position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 16px; border-top: 1px solid #ccc; background: #fff; color: #111; font: 14px/1.5 -apple-system, 'Segoe UI', Arial, sans-serif; z-index: 9999"
+    >
+      <b>The reader did not start in this browser.</b> Please try a newer browser or another
+      device. If you are reading on an e-reader, this line tells us why:
+      <code id="boot-ua" style="display: block; margin-top: 6px; word-break: break-all; color: #555"></code>
+    </div>
+    <script>
+      /* ES5 on purpose: the oldest engine that gets this far must run it. */
+      (function () {
+        var root = document.getElementById("root");
+        var box = document.getElementById("boot-help");
+        var line = document.getElementById("boot-ua");
+        if (!root || !box) return;
+        function mounted() {
+          return root.childNodes.length > 0;
+        }
+        setTimeout(function () {
+          if (mounted() || !box.hidden) return;
+          if (line) line.textContent = navigator.userAgent;
+          box.hidden = false;
+        }, 12000);
+        setTimeout(function () {
+          if (mounted()) box.hidden = true;
+        }, 20000);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

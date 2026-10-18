@@ -30,6 +30,8 @@
     "test:wordbook": "node scripts/wordbook-e2e.mjs",
     "test:comma-phrase": "node scripts/comma-phrase-e2e.mjs",
     "test:lightbulb": "node scripts/lightbulb-e2e.mjs",
+    "test:paging": "node scripts/paging-e2e.mjs",
+    "test:legacy": "node scripts/legacy-boot-e2e.mjs",
     "make:sample": "node scripts/make-sample-epub.mjs",
     "build:kit": "node scripts/build-kit.mjs"
   },
@@ -84,6 +86,7 @@
     "@types/node": "^22.16.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-legacy": "^8.2.3",
     "autoprefixer": "^10.6.1",
     "eslint": "^9.20.0",
     "eslint-config-prettier": "^10.1.1",
@@ -96,6 +99,7 @@
     "postcss": "^8.5.30",
     "prettier": "^3.4.0",
     "tailwindcss": "^3.4.19",
+    "terser": "^5.51.2",
     "typescript-eslint": "^8.56.1"
   }
 }

@@ -452,13 +452,23 @@
     }
   }
 
+  /*
+   * `pop-in` moves the SAME `transform` the Tailwind 3 translate utilities write.
+   *
+   * v4 kept `-translate-x-1/2` in the separate `translate` property, so a keyframe that only
+   * scaled the box could not fight it. v3 folds every transform into one `transform`
+   * declaration, and a running animation replaces that declaration whole: for 0.16s the card
+   * painted with its top-left corner at the middle of the screen (so it looked like it came
+   * from the bottom-right) and then jumped into place when the animation ended. Repeat the
+   * translate in both frames, from the two variables the utilities set.
+   */
   @keyframes pop-in {
     from {
-      transform: scale(0.97);
+      transform: translate(var(--tw-translate-x, 0px), var(--tw-translate-y, 0px)) scale(0.97);
       opacity: 0;
     }
     to {
-      transform: none;
+      transform: translate(var(--tw-translate-x, 0px), var(--tw-translate-y, 0px)) scale(1);
       opacity: 1;
     }
   }

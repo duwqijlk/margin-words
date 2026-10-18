@@ -1,0 +1,214 @@
+#!/usr/bin/env node
+/**
+ * Page-turn mode and the dialogs, in a real browser.
+ *
+ *   node scripts/paging-e2e.mjs [baseUrl]
+ *
+ * Needs the built app on baseUrl (default http://127.0.0.1:8090/), Playwright and Chrome:
+ *   VITE_BOOKS_BASE= npx vite build && npx vite preview --host 127.0.0.1 --port 8090
+ * The book is seeded into IndexedDB by this script, so no network and no account are needed.
+ *
+ * Checks:
+ *   - a centered dialog (Settings, Account) is centered on its FIRST frame: no card that first
+ *     paints with its corner at the middle of the screen and then jumps
+ *   - PageDown / PageUp move exactly one screenful of text (the window height minus the top bar)
+ *   - the last short strip of a chapter turns the page instead of being shown twice
+ *   - a forward turn opens the next chapter at its top; a backward turn opens the previous one
+ *     at its last line
+ *   - a tap on the right edge turns one page
+ */
+import { chromium } from "playwright";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+const BASE = (process.argv[2] ?? "http://127.0.0.1:8090/").replace(/\/?$/, "/");
+const BOOK = "probe-book";
+const SHOT = join(process.env.SHOT_DIR ?? tmpdir(), "paging-e2e.png");
+// VIEWPORT=390x844 runs the same checks on a phone-sized screen.
+const [VIEW_W, VIEW_H] = (process.env.VIEWPORT ?? "1280x800").split("x").map(Number);
+
+const para = (n) =>
+  `<p>The lantern seller walked down the long street number ${n}, and every window showed a small yellow light. ` +
+  `He counted the doors and the steps and the stones under his feet, then he stopped to listen to the rain on the roof.</p>`;
+const CHAPTERS = [1, 2, 3].map((n) => ({
+  title: `Chapter ${n}`,
+  paragraphs: Array.from({ length: 30 }, (_, i) => para(n * 100 + i).replace(/<[^>]+>/g, "")),
+  html: `<h2>Chapter ${n}</h2>` + Array.from({ length: 30 }, (_, i) => para(n * 100 + i)).join(""),
+}));
+const GLOSS = {
+  lantern: { pos: "noun", meaning: "a light you can carry", whyHard: "A less common word." },
+  seller: { pos: "noun", meaning: "a person who sells things", whyHard: "Two words joined." },
+};
+
+let failures = 0;
+const check = (ok, label, detail = "") => {
+  console.log(`${ok ? "ok  " : "FAIL"} ${label}${detail ? ` - ${detail}` : ""}`);
+  if (!ok) failures += 1;
+};
+
+const browser = await chromium.launch({
+  executablePath: process.env.CHROME || "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  args: ["--no-sandbox"],
+});
+const page = await browser.newPage({ viewport: { width: VIEW_W, height: VIEW_H } });
+page.on("pageerror", (error) => console.log("page error:", error.message));
+
+await page.goto(BASE + "shelf");
+await page.waitForTimeout(1200);
+
+/* ---- a centered dialog must not move after its first frame */
+await page.evaluate(() => {
+  window.__boxes = [];
+  const sample = () => {
+    const el = document.querySelector("[role=dialog]");
+    if (el) {
+      const box = el.getBoundingClientRect();
+      window.__boxes.push({ x: Math.round(box.x + box.width / 2), y: Math.round(box.y + box.height / 2) });
+    }
+    if (window.__boxes.length < 40) requestAnimationFrame(sample);
+  };
+  requestAnimationFrame(sample);
+});
+await page.click("[data-account-button]");
+await page.waitForTimeout(700);
+const boxes = await page.evaluate(() => window.__boxes);
+const first = boxes[0];
+const settled = boxes[boxes.length - 1];
+const dx = Math.abs(settled.x - first.x);
+const dy = Math.abs(settled.y - first.y);
+check(
+  boxes.length > 2 && dx <= 12 && dy <= 12,
+  "the account dialog stays where it first paints",
+  `center moved ${dx}px right and ${dy}px down over ${boxes.length} frames`,
+);
+await page.keyboard.press("Escape");
+
+/* ---- seed one book, then read it */
+await page.evaluate(
+  async ({ chapters, glossary, book }) => {
+    const now = Date.now();
+    localStorage.setItem(
+      "cibian-notebook-v1",
+      JSON.stringify({
+        state: {
+          books: [{ id: book, title: "Probe Book", author: "Nobody", cloth: "cloth", createdAt: now, updatedAt: now, source: "epub", lexile: "800L" }],
+          words: [],
+        },
+        version: 0,
+      }),
+    );
+    const db = await new Promise((resolve, reject) => {
+      const request = indexedDB.open("cibian-books", 3);
+      request.onupgradeneeded = () => {
+        const created = request.result;
+        for (const name of ["books", "covers", "notes"]) if (!created.objectStoreNames.contains(name)) created.createObjectStore(name);
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(["books", "notes"], "readwrite");
+      tx.objectStore("books").put(
+        { id: book, title: "Probe Book", author: "Nobody", chapters, glossary, pending: [], totalHard: Object.keys(glossary).length },
+        book,
+      );
+      tx.objectStore("notes").put(
+        { id: book, title: "Probe Book", author: "Nobody", glossary, pending: [], totalHard: 2 },
+        `gloss:${book}`,
+      );
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+    db.close();
+  },
+  { chapters: CHAPTERS, glossary: GLOSS, book: BOOK },
+);
+
+await page.goto(BASE + "read/" + BOOK);
+await page.waitForTimeout(2000);
+check((await page.locator("article.book-body").count()) === 1, "the reader opens the seeded book");
+
+// Page-turn mode on, the way the settings popover saves it.
+await page.evaluate(() => {
+  const raw = JSON.parse(localStorage.getItem("cibian-prefs-v1") || '{"state":{},"version":0}');
+  raw.state = { ...raw.state, paging: true };
+  localStorage.setItem("cibian-prefs-v1", JSON.stringify(raw));
+});
+await page.reload();
+await page.waitForTimeout(2000);
+
+const page_ = () =>
+  page.evaluate(() => ({
+    y: Math.round(window.scrollY),
+    max: Math.round(document.documentElement.scrollHeight - window.innerHeight),
+    chapter: document.querySelector("header p.text-xs")?.textContent ?? "",
+    step: Math.round(window.innerHeight - (document.querySelector("header")?.getBoundingClientRect().height ?? 0)),
+  }));
+
+const start = await page_();
+check(start.step > 200, "one page is the window height minus the top bar", `${start.step}px`);
+
+await page.keyboard.press("PageDown");
+await page.waitForTimeout(600);
+const afterDown = await page_();
+check(
+  Math.abs(afterDown.y - start.y - start.step) <= 3,
+  "PageDown moves one page",
+  `moved ${afterDown.y - start.y}px, one page is ${start.step}px`,
+);
+
+await page.keyboard.press("PageDown");
+await page.waitForTimeout(600);
+const afterTwo = await page_();
+check(
+  Math.abs(afterTwo.y - afterDown.y - start.step) <= 3,
+  "the second PageDown moves one more page",
+  `moved ${afterTwo.y - afterDown.y}px`,
+);
+
+// the last short strip is shown, then the next turn opens the next chapter
+await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight - window.innerHeight - 200));
+await page.waitForTimeout(400);
+await page.keyboard.press("PageDown");
+await page.waitForTimeout(600);
+const strip = await page_();
+check(strip.chapter === afterTwo.chapter && Math.abs(strip.y - strip.max) <= 3, "the last strip is shown without skipping a line", `${strip.chapter} at ${strip.y}px of ${strip.max}px`);
+
+await page.keyboard.press("PageDown");
+await page.waitForTimeout(1000);
+const stripNext = await page_();
+check(stripNext.chapter !== strip.chapter && stripNext.y <= 4, "the turn after it opens the next chapter", `${stripNext.chapter} at ${stripNext.y}px`);
+
+// at the bottom of a chapter: next chapter, top
+await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+await page.waitForTimeout(400);
+await page.keyboard.press("PageDown");
+await page.waitForTimeout(1000);
+const nextChapter = await page_();
+check(
+  nextChapter.chapter !== stripNext.chapter && nextChapter.y <= 4,
+  "a turn at the end of a chapter opens the next one at its top",
+  `${nextChapter.chapter} at ${nextChapter.y}px`,
+);
+
+// at the top of a chapter: previous chapter, BOTTOM
+await page.keyboard.press("PageUp");
+await page.waitForTimeout(1400);
+const previous = await page_();
+check(
+  previous.chapter === stripNext.chapter && Math.abs(previous.y - previous.max) <= 8,
+  "a turn back opens the previous chapter at its last line",
+  `${previous.chapter} at ${previous.y}px of ${previous.max}px`,
+);
+
+// a tap on the right edge turns one page
+await page.evaluate(() => window.scrollTo(0, 0));
+await page.waitForTimeout(400);
+await page.mouse.click(VIEW_W - 40, Math.round(VIEW_H / 2));
+await page.waitForTimeout(600);
+const tapped = await page_();
+check(Math.abs(tapped.y - tapped.step) <= 3, "a tap on the right edge turns a page", `${tapped.y}px`);
+
+await page.screenshot({ path: SHOT });
+await browser.close();
+console.log(failures === 0 ? "\nall checks passed" : `\n${failures} check(s) failed`);
+process.exit(failures === 0 ? 0 : 1);
