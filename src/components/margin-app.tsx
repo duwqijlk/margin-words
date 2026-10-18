@@ -108,6 +108,23 @@ export function MarginApp() {
     applyTheme(theme);
   }, [theme]);
 
+  /**
+   * A start that never finishes had no visible symptom until a book was opened (the reader
+   * waited on `ready`). Say it out loud, into the notice `index.html` shows.
+   */
+  useEffect(() => {
+    if (ready) return;
+    const timer = setTimeout(() => {
+      const note = (window as unknown as { __mwNote?: (text: string) => void }).__mwNote;
+      try {
+        note?.("the app is still starting");
+      } catch {
+        // The notice is a diagnostic, never a requirement.
+      }
+    }, 12000);
+    return () => clearTimeout(timer);
+  }, [ready]);
+
   useEffect(() => {
     const token = new URLSearchParams(window.location.search).get("reset");
     if (token) useAccount.getState().openDialog("reset", token);
@@ -482,7 +499,12 @@ export function MarginApp() {
       )}
 
       <Suspense fallback={<div className="min-h-[60dvh]" aria-busy="true" />}>
-        {!ready && screen.kind !== "shelf" ? (
+        {/*
+          The reader is never held behind the boot sequence: it loads its own book, and a slow
+          or stuck start used to leave `/read/<id>` as an empty block - the shelf still drew
+          (it is exempt below), so the only symptom was a white page when a book was opened.
+        */}
+        {!ready && screen.kind !== "shelf" && screen.kind !== "read" ? (
           <div className="min-h-[60dvh]" aria-busy="true" />
         ) : (
           <>
