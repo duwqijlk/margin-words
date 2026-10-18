@@ -82,8 +82,10 @@ export async function handleLogin(request: Request, env: Env, options?: HandlerO
     if (!email) throw new HttpError(400, "email");
     if (passwordProblem(body.password)) throw new HttpError(401, "credentials");
     const password = body.password as string;
-    const human = await verifyTurnstile(env.TURNSTILE_SECRET_KEY, body.turnstileToken, clientIp(request), "login", options?.fetch);
-    if (!human) throw new HttpError(403, "turnstile");
+    // No human check on login. Turnstile's challenge host does not finish on some networks in
+    // mainland China (docs/ACCOUNTS.md), and a reader who already has an account must still be
+    // able to sign in. Registration and the reset request keep the check; this route is covered
+    // by the per-IP and per-email limits below, plus recordFailedLogin.
     await assertRateLimit(env.DB, "login", clientIp(request), email, now, { countEmail: false });
     const user = await env.DB.prepare(
       "SELECT id, email, nickname, role, trusted_until, password_hash, password_salt, password_iters, created_at FROM users WHERE email = ?",

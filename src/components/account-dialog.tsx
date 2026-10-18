@@ -338,7 +338,8 @@ export function AccountDialog() {
       setProblem(t("account.err.passwordMatch"));
       return;
     }
-    if ((mode === "register" || mode === "login") && SITE_KEY && !turnstileToken) {
+    // Only registration asks for the human check; login does not (see functions/lib/handlers.ts).
+    if (mode === "register" && SITE_KEY && !turnstileToken) {
       setProblem(t("account.err.turnstile"));
       return;
     }
@@ -354,11 +355,11 @@ export function AccountDialog() {
         await signUp(address, password, turnstileToken);
         useAccount.getState().patch({ nicknamePrompt: true, dialogOpen: true });
       } else {
-        await signIn(address, password, turnstileToken);
+        await signIn(address, password);
         closeDialog();
       }
     } catch (error) {
-      if (mode === "register" || mode === "login") resetTurnstile.current();
+      if (mode === "register") resetTurnstile.current();
       setProblem(t(errorKey(error)));
     } finally {
       setBusy(false);
@@ -680,10 +681,10 @@ export function AccountDialog() {
                   onToggle={() => setShow((value) => !value)}
                 />
               ) : null}
-              {mode === "login" || mode === "register" ? (
+              {mode === "register" ? (
                 <Turnstile
                   key={mode}
-                  action={mode === "register" ? "signup" : "login"}
+                  action="signup"
                   id="mw-turnstile"
                   onToken={setTurnstileToken}
                   resetRef={resetTurnstile}
