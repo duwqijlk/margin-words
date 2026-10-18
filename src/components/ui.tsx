@@ -30,8 +30,35 @@ export const chip =
 /* ---------------------------------------------------------------- pronunciation */
 
 let currentAudio: HTMLAudioElement | null = null;
+/**
+ * Bumped by every `speakEnglish` call. A newer call (the phrase that a tapped word turns out to
+ * belong to) must silence the older one completely - including a fallback voice that the older,
+ * already cancelled call would otherwise start on top of it.
+ */
+let spokenToken = 0;
 
-function speakWithSynthesis(spoken: string): boolean {
+/** Stop the audio element and any fallback voice. Returns the token of the call that owns the sound now. */
+function stopSpeaking(): number {
+  spokenToken += 1;
+  if (currentAudio) {
+    try {
+      currentAudio.pause();
+    } catch {
+      // A detached or broken element: the next call still takes over.
+    }
+    currentAudio = null;
+  }
+  try {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+  } catch {
+    // No speech synthesis on this engine.
+  }
+  return spokenToken;
+}
+
+function speakWithSynthesis(spoken: string, token: number): boolean {
+  // A newer word replaced this one while its audio was loading: stay silent.
+  if (token !== spokenToken) return false;
   try {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return false;
     const synth = window.speechSynthesis;
@@ -50,6 +77,11 @@ function speakWithSynthesis(spoken: string): boolean {
 /**
  * Pronunciation plays native dictionary audio, with built-in SpeechSynthesis as fallback.
  * Works on Kindle, Android e-ink readers (Boox, Meebook, etc.), and standard web browsers.
+ *
+ * One voice at a time. Every call stops what the previous one started: a tap speaks the word,
+ * and when that word belongs to a phrase the phrase replaces it a moment later. Without the
+ * stop, the word's `play()` rejects with `AbortError` (paused by the phrase), the old code took
+ * that for a failure and spoke the word with the fallback voice, and both sounded at once.
  */
 export function speakEnglish(text: string): boolean {
   const spoken = text.trim();
@@ -59,19 +91,18 @@ export function speakEnglish(text: string): boolean {
   const clean = spoken.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, "");
   if (!clean) return false;
 
+  const token = stopSpeaking();
   try {
     if (typeof Audio !== "undefined") {
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio = null;
-      }
       const audioUrl = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(clean)}&type=2`;
       const audio = new Audio(audioUrl);
       currentAudio = audio;
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          speakWithSynthesis(clean);
+      const started = audio.play();
+      if (started !== undefined) {
+        started.catch((error: unknown) => {
+          // `AbortError` is our own `pause()` in a newer call, not a failed playback.
+          if ((error as { name?: string } | null)?.name === "AbortError") return;
+          speakWithSynthesis(clean, token);
         });
       }
       return true;
@@ -80,7 +111,7 @@ export function speakEnglish(text: string): boolean {
     // Audio element failed or blocked, fall through to speech synthesis
   }
 
-  return speakWithSynthesis(clean);
+  return speakWithSynthesis(clean, token);
 }
 
 export function useSpeak() {
