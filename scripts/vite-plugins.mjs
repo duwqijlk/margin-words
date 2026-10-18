@@ -20,6 +20,7 @@
 import { createHash } from "node:crypto";
 import { createReadStream, existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { extname, join, normalize, sep } from "node:path";
+import postcss from "postcss";
 import { buildGuide } from "./build-guide.mjs";
 import { buildWordLists } from "./lib/word-lists.mjs";
 
@@ -237,4 +238,49 @@ export function offlineShell() {
       this.emitFile({ type: "asset", fileName: "sw.js", source });
     },
   };
+}
+
+/**
+ * Tailwind 4 puts every rule inside `@layer`. A browser older than Chrome 99 does not know
+ * `@layer` and drops each block whole, so the entire utility set disappears and the page comes
+ * out unstyled: plain buttons stacked in a column. An Android e-ink reader is exactly that
+ * browser.
+ *
+ * This unwraps the layer blocks once the CSS is built. The blocks are already written in cascade
+ * order (properties, theme, base, components, utilities), so unwrapping each one in place keeps
+ * the order it had. Custom rules in src/styles.css come after them and still win.
+ *
+ * It also writes a `vh` line before every `dvh` one. `dvh` needs Chrome 108; `vh` works
+ * everywhere and means the same thing on a device with no collapsing address bar.
+ */
+export function flattenCssLayers() {
+  return {
+    name: "margin-words:flatten-css-layers",
+    apply: "build",
+    enforce: "post",
+    generateBundle(_options, bundle) {
+      for (const file of Object.values(bundle)) {
+        if (file.type !== "asset" || !String(file.fileName).endsWith(".css")) continue;
+        file.source = flattenLayers(String(file.source));
+      }
+    },
+  };
+}
+
+function flattenLayers(css) {
+  const root = postcss.parse(css);
+  const layers = [];
+  root.walkAtRules("layer", (rule) => layers.push(rule));
+  for (const rule of layers) {
+    // `@layer a, b;` only names an order; the blocks below already follow it.
+    if (!rule.nodes) rule.remove();
+    else rule.replaceWith(...rule.nodes);
+  }
+  root.walkDecls((decl) => {
+    if (!decl.value.includes("dvh")) return;
+    const fallback = decl.value.replace(/(\d*\.?\d+)dvh/g, "$1vh");
+    if (fallback === decl.value) return;
+    decl.cloneBefore({ value: fallback });
+  });
+  return root.toString();
 }
