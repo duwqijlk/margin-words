@@ -3,6 +3,7 @@ import * as Popover from "@radix-ui/react-popover";
 import {
   ArrowLeft,
   BookMarked,
+  BookOpen,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -254,6 +255,23 @@ function ReaderSettings() {
               <span className="font-normal text-muted">{t("rs.focusHint")}</span>
             </span>
             {prefs.focus ? <Check className="size-4 text-accent" aria-hidden /> : null}
+          </button>
+
+          <button
+            type="button"
+            aria-pressed={prefs.paging}
+            onClick={() => set({ paging: !prefs.paging })}
+            className={cn(
+              "flex min-h-11 items-center justify-between rounded-lg border px-3 text-sm font-semibold",
+              prefs.paging ? "border-accent bg-accent-soft" : "border-line",
+            )}
+          >
+            <span className="flex items-center gap-2">
+              <BookOpen className="size-4" aria-hidden />
+              {t("rs.paging")}
+              <span className="font-normal text-muted">{t("rs.pagingHint")}</span>
+            </span>
+            {prefs.paging ? <Check className="size-4 text-accent" aria-hidden /> : null}
           </button>
         </Popover.Content>
       </Popover.Portal>
@@ -1627,26 +1645,26 @@ export function ReaderScreen({
   }, [book, bookKey, setSourcePlaces]);
 
   const goChapter = useCallback(
-    (index: number) => {
+    (index: number, toBottom = false) => {
       if (!book) return;
       const next = Math.min(Math.max(0, index), book.chapters.length - 1);
-      restore.current = null;
+      restore.current = toBottom ? 1 : null;
       restoreAt.current = null;
       pendingSave.current = null;
       setExtraId("");
       setChapterIndex(next);
       setPicked(null);
       setHelp(null);
-      setScrolled(0);
+      setScrolled(toBottom ? 1 : 0);
       const first = book.chapters[next]?.paragraphs[0] ?? "";
       saveProgress(bookId, {
         chapter: next,
         chapters: book.chapters.length,
-        scroll: 0,
+        scroll: toBottom ? 1 : 0,
         extraId: "",
         anchor: first ? makeAnchor({ chapter: next, paragraph: 0, text: first, at: 0 }) : undefined,
       });
-      window.scrollTo({ top: 0 });
+      window.scrollTo(0, toBottom ? document.documentElement.scrollHeight : 0);
     },
     [book, bookId, saveProgress],
   );
@@ -1663,16 +1681,16 @@ export function ReaderScreen({
     : safeIndex;
 
   const goSlot = useCallback(
-    (at: number) => {
+    (at: number, toBottom = false) => {
       if (!book || !slots) return;
       const slot = slots[at];
       if (!slot) return;
-      restore.current = null;
+      restore.current = toBottom ? 1 : null;
       restoreAt.current = null;
       pendingSave.current = null;
       setPicked(null);
       setHelp(null);
-      setScrolled(0);
+      setScrolled(toBottom ? 1 : 0);
       if (slot.kind === "chapter") {
         setExtraId("");
         setChapterIndex(slot.index);
@@ -1680,7 +1698,7 @@ export function ReaderScreen({
         saveProgress(bookId, {
           chapter: slot.index,
           chapters: book.chapters.length,
-          scroll: 0,
+          scroll: toBottom ? 1 : 0,
           extraId: "",
           anchor: first ? makeAnchor({ chapter: slot.index, paragraph: 0, text: first, at: 0 }) : undefined,
         });
@@ -1692,24 +1710,109 @@ export function ReaderScreen({
         saveProgress(bookId, {
           chapter: safeIndex,
           chapters: book.chapters.length,
-          scroll: 0,
+          scroll: toBottom ? 1 : 0,
           extraId: extra.id,
           // The anchor is a paragraph of this extra. Restore searches only that extra.
           anchor: first ? makeAnchor({ chapter: 0, paragraph: 0, text: first, at: 0 }) : undefined,
         });
       }
-      window.scrollTo({ top: 0 });
+      window.scrollTo(0, toBottom ? document.documentElement.scrollHeight : 0);
     },
     [book, slots, bookId, saveProgress, safeIndex],
   );
 
+  const pageForward = useCallback(() => {
+    if (!book) return;
+    const step = Math.max(120, window.innerHeight - 56);
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const currentScroll = window.scrollY;
+
+    if (currentScroll >= maxScroll - 20) {
+      const hasNext = slots ? slotIndex < slots.length - 1 : safeIndex < book.chapters.length - 1;
+      if (hasNext) {
+        if (slots) goSlot(slotIndex + 1);
+        else goChapter(safeIndex + 1);
+      }
+    } else {
+      const target = Math.min(maxScroll, currentScroll + step);
+      window.scrollTo(0, target);
+    }
+  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter]);
+
+  const pageBackward = useCallback(() => {
+    if (!book) return;
+    const step = Math.max(120, window.innerHeight - 56);
+    const currentScroll = window.scrollY;
+
+    if (currentScroll <= 20) {
+      const hasPrev = slots ? slotIndex > 0 : safeIndex > 0;
+      if (hasPrev) {
+        if (slots) goSlot(slotIndex - 1, true);
+        else goChapter(safeIndex - 1, true);
+      }
+    } else {
+      const target = Math.max(0, currentScroll - step);
+      window.scrollTo(0, target);
+    }
+  }, [book, slots, slotIndex, safeIndex, goSlot, goChapter]);
+
+  const pagingHandlers = useRef({ pageForward, pageBackward, paging: prefs.paging });
+  pagingHandlers.current = { pageForward, pageBackward, paging: prefs.paging };
+
   useEffect(() => {
+    const isVolKey = (event: KeyboardEvent) =>
+      event.key === "VolumeDown" ||
+      event.key === "VolumeUp" ||
+      event.code === "VolumeDown" ||
+      event.code === "VolumeUp" ||
+      event.keyCode === 24 ||
+      event.keyCode === 25;
+
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setPicked(null);
         setHelp(null);
+        return;
+      }
+      const { pageForward: next, pageBackward: prev, paging } = pagingHandlers.current;
+      if (!paging) return;
+
+      const target = event.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable) return;
+
+      const isVolDown = event.key === "VolumeDown" || event.code === "VolumeDown" || event.keyCode === 25;
+      const isVolUp = event.key === "VolumeUp" || event.code === "VolumeUp" || event.keyCode === 24;
+      const isNext =
+        isVolDown ||
+        event.key === "PageDown" ||
+        event.keyCode === 34 ||
+        event.key === "ArrowDown" ||
+        event.key === "ArrowRight" ||
+        (event.key === " " && !event.shiftKey);
+      const isPrev =
+        isVolUp ||
+        event.key === "PageUp" ||
+        event.keyCode === 33 ||
+        event.key === "ArrowUp" ||
+        event.key === "ArrowLeft" ||
+        (event.key === " " && event.shiftKey);
+
+      if (isNext) {
+        event.preventDefault();
+        next();
+      } else if (isPrev) {
+        event.preventDefault();
+        prev();
       }
     };
+
+    const onKeyUp = (event: KeyboardEvent) => {
+      if (pagingHandlers.current.paging && isVolKey(event)) {
+        event.preventDefault();
+      }
+    };
+
     // A click anywhere outside the card (and not on a word) closes it.
     const onClickAway = (event: MouseEvent) => {
       const target = event.target as Element | null;
@@ -1724,9 +1827,11 @@ export function ReaderScreen({
       setHelp(null);
     };
     window.addEventListener("keydown", onKey);
+    window.addEventListener("keyup", onKeyUp);
     document.addEventListener("click", onClickAway);
     return () => {
       window.removeEventListener("keydown", onKey);
+      window.removeEventListener("keyup", onKeyUp);
       document.removeEventListener("click", onClickAway);
     };
   }, []);
@@ -2034,6 +2139,44 @@ export function ReaderScreen({
   const style = readerVars(prefs) as React.CSSProperties;
   const focus = prefs.focus;
 
+  const onReadingClick = (event: React.MouseEvent) => {
+    const target = event.target as HTMLElement | null;
+    if (!target) return;
+    if (target.closest("nav, aside, [role='dialog'], [data-para-ui]")) return;
+
+    const button = target.closest("button[data-word]");
+    const cardOpen = picked !== null || help !== null;
+    if (readingPageTap({ phone: phoneSheet(), cardOpen: picked !== null, hitWord: Boolean(button) }) === "close") {
+      if (cardOpen) {
+        setPicked(null);
+        closeHelp();
+        return;
+      }
+    }
+    if (button) {
+      event.preventDefault();
+      pickButton(button as HTMLButtonElement);
+      return;
+    }
+    if (target.closest("article a")) {
+      event.preventDefault();
+    }
+    if (cardOpen) {
+      setPicked(null);
+      closeHelp();
+      return;
+    }
+    if (prefs.paging) {
+      const x = event.clientX;
+      const width = window.innerWidth;
+      if (x < width * 0.28) {
+        pageBackward();
+      } else if (x > width * 0.72) {
+        pageForward();
+      }
+    }
+  };
+
   return (
     <div style={style} className="min-h-dvh">
       <header
@@ -2117,25 +2260,13 @@ export function ReaderScreen({
         </button>
       ) : null}
 
-      <main className={cn("px-5 pt-8 pb-12 sm:px-8 sm:pt-12", READER_GUTTER)}>
+      <main className={cn("px-5 pt-8 pb-12 sm:px-8 sm:pt-12", READER_GUTTER)} onClick={onReadingClick}>
         {linkedHtml ? (
           <article
             ref={articleRef}
             className="book-body"
             lang="en"
             data-segmentation={book.segmentation === 2 ? "2" : undefined}
-            onClick={(event) => {
-              event.preventDefault();
-              const button = (event.target as HTMLElement).closest("button[data-word]");
-              // On a phone the open sheet sits over the page. A tap on the text, even on
-              // another word, puts the sheet away. It does not switch the card.
-              if (readingPageTap({ phone: phoneSheet(), cardOpen: picked !== null, hitWord: Boolean(button) }) === "close") {
-                setPicked(null);
-                closeHelp();
-                return;
-              }
-              if (button) pickButton(button);
-            }}
             dangerouslySetInnerHTML={{ __html: linkedHtml }}
           />
         ) : activeExtra ? (

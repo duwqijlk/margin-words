@@ -88,6 +88,7 @@ function prefsOf(): Prefs {
     width: state.width,
     column: state.column,
     focus: state.focus,
+    paging: state.paging,
   };
 }
 
@@ -392,6 +393,7 @@ function applySettings(settings: SettingsData) {
     width: settings.width,
     column: settings.column,
     focus: settings.focus,
+    paging: settings.paging === true,
   };
   if (JSON.stringify(current) !== JSON.stringify(next)) usePrefs.getState().set(next);
   if (useLocale.getState().locale !== settings.locale) useLocale.getState().setLocale(settings.locale as Locale);

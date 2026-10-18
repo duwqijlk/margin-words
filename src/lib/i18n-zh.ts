@@ -475,6 +475,8 @@ export const zh: Record<Key, string> = {
   "rs.width.wide": "宽",
   "rs.focus": "专注模式",
   "rs.focusHint": "隐藏顶部栏",
+  "rs.paging": "翻页模式",
+  "rs.pagingHint": "音量键与屏幕边缘翻整页",
   "contents.title": "目录",
   "contents.desc": "选一章来读",
   "contents.close": "关闭目录",

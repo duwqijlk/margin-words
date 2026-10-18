@@ -49,6 +49,7 @@ export type Prefs = {
   /** Text column width in rem. */
   column: number;
   focus: boolean;
+  paging: boolean;
 };
 
 type PrefsState = Prefs & {
@@ -95,13 +96,14 @@ export const usePrefs = create<PrefsState>()(
       width: "medium",
       column: COLUMN_DEFAULT,
       focus: false,
+      paging: false,
       set: (patch) => set(patch),
     }),
     {
       name: PREFS_KEY,
       skipHydration: true,
       storage: createJSONStorage(safeStorage),
-      partialize: ({ theme, font, size, leading, width, column, focus }) => ({
+      partialize: ({ theme, font, size, leading, width, column, focus, paging }) => ({
         theme,
         font,
         size,
@@ -109,10 +111,16 @@ export const usePrefs = create<PrefsState>()(
         width,
         column,
         focus,
+        paging: Boolean(paging),
       }),
       merge: (persisted, current) => {
         const saved = (persisted ?? {}) as Partial<Prefs>;
-        return { ...current, ...saved, column: columnRem({ column: saved.column, width: saved.width ?? current.width }) };
+        return {
+          ...current,
+          ...saved,
+          column: columnRem({ column: saved.column, width: saved.width ?? current.width }),
+          paging: Boolean(saved.paging),
+        };
       },
     },
   ),

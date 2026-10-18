@@ -148,6 +148,7 @@ export type SettingsData = {
   width: "narrow" | "medium" | "wide";
   column: number;
   focus: boolean;
+  paging?: boolean;
   locale: "en" | "zh";
   reviewLog: Record<string, ReviewDay>;
 };
@@ -586,6 +587,7 @@ export function asSettings(data: unknown): SettingsData {
     width: WIDTHS.has(width) ? (width as SettingsData["width"]) : "medium",
     column: integer(raw.column, 24, 90, 39),
     focus: raw.focus === true,
+    paging: raw.paging === true,
     locale,
     reviewLog: asReviewLog(raw.reviewLog),
   };
