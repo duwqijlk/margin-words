@@ -346,6 +346,9 @@ export const en = {
   "account.err.credentials": "The email or password is not right.",
   "account.err.rate": "Too many tries. Please wait and try again.",
   "account.err.turnstile": "Please complete the check first.",
+  "account.turnstileFailed":
+    "The human check did not finish. Check your connection, then try again.",
+  "account.turnstileRetry": "Reload the check",
   "account.err.network": "The account service could not be reached. You can still read without signing in.",
   "account.err.generic": "That did not work. Please try again.",
   "account.err.nickname": "Use 1 to 16 characters.",

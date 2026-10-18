@@ -52,13 +52,33 @@ function Turnstile({
   onToken: (token: string) => void;
   resetRef: { current: () => void };
 }) {
+  const { t } = useT();
   const widgetId = useRef<string | undefined>(undefined);
+  const tokenSeen = useRef(false);
+  // The widget is an iframe from challenges.cloudflare.com. On some networks that host never
+  // answers, and then this used to leave an empty 64px box and a form that could never be sent:
+  // the button only said "finish the human check", and there was no check to finish.
+  const [phase, setPhase] = useState<"waiting" | "ok" | "failed">("waiting");
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     if (!SITE_KEY) return;
     const holder = document.getElementById(id);
     if (!holder) return;
     let cancelled = false;
-    const clear = () => onToken("");
+    tokenSeen.current = false;
+    setPhase("waiting");
+    const timer = setTimeout(() => {
+      if (!cancelled && !tokenSeen.current) setPhase("failed");
+    }, 12_000);
+    const give = (token: string) => {
+      tokenSeen.current = Boolean(token);
+      if (token) {
+        clearTimeout(timer);
+        setPhase("ok");
+      }
+      onToken(token);
+    };
+    const clear = () => give("");
     resetRef.current = () => {
       clear();
       if (widgetId.current) window.turnstile?.reset(widgetId.current);
@@ -68,9 +88,12 @@ function Turnstile({
       widgetId.current = window.turnstile?.render(holder, {
         sitekey: SITE_KEY,
         action,
-        callback: onToken,
+        callback: give,
         "expired-callback": clear,
-        "error-callback": clear,
+        "error-callback": () => {
+          if (!cancelled) setPhase("failed");
+          clear();
+        },
       });
     };
     if (window.turnstile) {
@@ -81,16 +104,40 @@ function Turnstile({
       script.async = true;
       script.dataset.turnstileApi = "1";
       script.onload = render;
+      script.onerror = () => {
+        if (!cancelled) setPhase("failed");
+      };
       document.head.appendChild(script);
     }
     return () => {
       cancelled = true;
+      clearTimeout(timer);
       if (widgetId.current) window.turnstile?.remove(widgetId.current);
       widgetId.current = undefined;
     };
-  }, [action, id, onToken, resetRef]);
+  }, [action, id, onToken, resetRef, attempt]);
   if (!SITE_KEY) return null;
-  return <div id={id} className="min-h-16" data-turnstile />;
+  return (
+    <>
+      <div id={id} className="min-h-16" data-turnstile />
+      {phase === "failed" ? (
+        <p className="text-xs leading-snug text-muted" data-turnstile-failed>
+          {t("account.turnstileFailed")}{" "}
+          <button
+            type="button"
+            className="font-semibold underline underline-offset-2"
+            data-turnstile-retry
+            onClick={() => {
+              document.querySelector("script[data-turnstile-api]")?.remove();
+              setAttempt((value) => value + 1);
+            }}
+          >
+            {t("account.turnstileRetry")}
+          </button>
+        </p>
+      ) : null}
+    </>
+  );
 }
 
 declare global {
@@ -291,7 +338,8 @@ export function AccountDialog() {
       setProblem(t("account.err.passwordMatch"));
       return;
     }
-    if ((mode === "register" || mode === "login") && SITE_KEY && !turnstileToken) {
+    // Only registration asks for the human check; login does not (see functions/lib/handlers.ts).
+    if (mode === "register" && SITE_KEY && !turnstileToken) {
       setProblem(t("account.err.turnstile"));
       return;
     }
@@ -307,11 +355,11 @@ export function AccountDialog() {
         await signUp(address, password, turnstileToken);
         useAccount.getState().patch({ nicknamePrompt: true, dialogOpen: true });
       } else {
-        await signIn(address, password, turnstileToken);
+        await signIn(address, password);
         closeDialog();
       }
     } catch (error) {
-      if (mode === "register" || mode === "login") resetTurnstile.current();
+      if (mode === "register") resetTurnstile.current();
       setProblem(t(errorKey(error)));
     } finally {
       setBusy(false);
@@ -633,10 +681,10 @@ export function AccountDialog() {
                   onToggle={() => setShow((value) => !value)}
                 />
               ) : null}
-              {mode === "login" || mode === "register" ? (
+              {mode === "register" ? (
                 <Turnstile
                   key={mode}
-                  action={mode === "register" ? "signup" : "login"}
+                  action="signup"
                   id="mw-turnstile"
                   onToken={setTurnstileToken}
                   resetRef={resetTurnstile}

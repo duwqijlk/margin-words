@@ -625,3 +625,20 @@
   height: 100vh;
   height: 100dvh;
 }
+
+/*
+ * A 2:3 box, used by a cover and by the placeholder that stands in while it loads.
+ *
+ * `aspect-ratio` needs Chrome 88. Where it is missing, `aspect-[2/3]` was simply ignored, so the
+ * box had no height at all: the image was downloaded and decoded but had nowhere to show, which
+ * looks exactly like "the cover did not load". The padding trick keeps the box open instead.
+ */
+.aspect-cover {
+  aspect-ratio: 2 / 3;
+}
+@supports not (aspect-ratio: 2 / 3) {
+  .aspect-cover {
+    height: 0;
+    padding-top: 150%;
+  }
+}
