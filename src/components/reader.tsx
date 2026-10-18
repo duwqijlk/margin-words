@@ -1045,9 +1045,6 @@ function topBarHeight(bar: HTMLElement | null): number {
  */
 const MIN_TURN_MS = 220;
 
-/** Lines of the page just read that stay on screen after a turn. The knob for "it moves too far". */
-const PAGE_OVERLAP_LINES = 3;
-
 /** One line of the book text, in px: the reading column's own line-height. */
 function readerLineHeight(article: HTMLElement | null): number {
   if (!article) return 32;
@@ -1607,18 +1604,23 @@ export function ReaderScreen({
       const span = Math.max(1, rect.height - window.innerHeight);
       // The end of the chapter on screen means the chapter is read, also when it fits on one screen.
       const value = rect.bottom <= window.innerHeight ? 1 : Math.min(1, Math.max(0, -rect.top / span));
-      setScrolled(value);
+      // The bar shows whole percent. Setting the exact fraction re-rendered this whole screen on
+      // every animation frame of a scroll (a long chapter, dozens of times a second) for a number
+      // nobody can see change.
+      setScrolled((held) => (Math.round(held * 100) === Math.round(value * 100) ? held : value));
       if (saver) clearTimeout(saver);
-      const onExtra = Boolean(activeExtra);
-      const anchor = topAnchor(root, onExtra ? 0 : safeIndex);
       const write = () => {
         saver = null;
         pendingSave.current = null;
+        // Read the anchor when the scrolling has stopped, not on every frame: `topAnchor` walks
+        // every paragraph of the chapter and reads a rectangle for each, which forced a layout
+        // on every animation frame.
+        const anchor = topAnchor(root, activeExtra ? 0 : safeIndex);
         saveProgress(bookId, {
           scroll: value,
           // No paragraph on screen: an older anchor would reopen somewhere else, so the scroll fraction is used.
           anchor: anchor ?? undefined,
-          ...(onExtra && activeExtra ? { extraId: activeExtra.id } : {}),
+          ...(activeExtra ? { extraId: activeExtra.id } : {}),
         });
       };
       pendingSave.current = write;
@@ -1781,14 +1783,15 @@ export function ReaderScreen({
   );
 
   /**
-   * One page is what the reader can SEE, from under the top bar to the bottom of the window,
-   * MINUS a few lines of the page just read (`PAGE_OVERLAP_LINES`).
+   * One page = the WHOLE lines that fit under the top bar, and nothing else.
    *
-   * The overlap is the point: a wide reader shows thirty-odd lines at once, and taking all of
-   * them away in one press loses the thread ("it scrolls a bit too far"). Keeping a few lines on
-   * screen is what a paper page does when you turn it. `innerHeight` is the layout viewport and
-   * not always what is on screen (a zoomed e-ink browser, a pinned toolbar), so the smaller of
-   * it and `visualViewport.height` sets the ceiling.
+   * A page must break on a line, not on an arbitrary pixel: `innerHeight - bar` is almost never
+   * a multiple of the line height, so a bare height scroll leaves the first line of the new page
+   * cut in half at the top and makes every turn feel off by a bit. Counting lines gives exact
+   * pages - no line skipped, no line shown twice.
+   *
+   * `innerHeight` is the layout viewport and not always what is on screen (a zoomed e-ink
+   * browser, a pinned toolbar), so the smaller of it and `visualViewport.height` sets the limit.
    */
   const pageStep = useCallback(() => {
     const bar = prefs.focus ? 0 : topBarHeight(headerRef.current);
@@ -1796,8 +1799,9 @@ export function ReaderScreen({
       120,
       Math.min(window.innerHeight, window.visualViewport?.height ?? window.innerHeight) - bar,
     );
-    const overlap = Math.round(readerLineHeight(articleRef.current) * PAGE_OVERLAP_LINES);
-    return Math.max(Math.round(visible * 0.5), visible - overlap);
+    const line = readerLineHeight(articleRef.current);
+    const lines = Math.floor(visible / line);
+    return lines >= 1 ? Math.round(lines * line) : Math.round(visible);
   }, [prefs.focus]);
 
   /**

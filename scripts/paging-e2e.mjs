@@ -15,8 +15,8 @@
  *   - the last short strip of a chapter turns the page instead of being shown twice
  *   - a forward turn opens the next chapter at its top; a backward turn opens the previous one
  *     at its last line
- *   - a page keeps three lines of the page just read on screen (a wide screen shows thirty at
- *     once; taking all of them away loses the thread)
+ *   - a page is a WHOLE number of lines: the first line of the new page starts at the top bar,
+ *     uncut, and no line is shown twice
  *   - a tap never turns the page, wherever it lands, and two taps turn nothing either:
  *     page-turn mode belongs to the keys and the reader's own page buttons
  */
@@ -152,14 +152,14 @@ const page_ = () =>
       y: Math.round(window.scrollY),
       max: Math.round(document.documentElement.scrollHeight - window.innerHeight),
       chapter: document.querySelector("header p.text-xs")?.textContent ?? "",
-      // The reader keeps 3 lines of the previous page on screen (PAGE_OVERLAP_LINES).
-      step: Math.max(Math.round(visible * 0.5), visible - Math.round(line * 3)),
+      // The reader turns whole lines: floor(visible / line) of them.
+      step: Math.floor(visible / line) >= 1 ? Math.round(Math.floor(visible / line) * line) : Math.round(visible),
       line: Math.round(line),
     };
   });
 
 const start = await page_();
-check(start.step > 200, "one page is the visible text minus three lines", `${start.step}px (line ${start.line}px)`);
+check(start.step > 200, "one page is a whole number of lines", `${start.step}px (${Math.round(start.step / start.line)} lines of ${start.line}px)`);
 
 await page.keyboard.press("PageDown");
 await page.waitForTimeout(600);
@@ -177,6 +177,11 @@ check(
   Math.abs(afterTwo.y - afterDown.y - start.step) <= 3,
   "the second PageDown moves one more page",
   `moved ${afterTwo.y - afterDown.y}px`,
+);
+check(
+  Math.abs(afterTwo.y - Math.round(afterTwo.y / start.line) * start.line) <= 1,
+  "the page break lands on a line, so the first line is not cut",
+  `y=${afterTwo.y}px, line=${start.line}px`,
 );
 
 // the last short strip is shown, then the next turn opens the next chapter
