@@ -20,9 +20,28 @@ export const RATE_LIMITS = {
 export type RateAction = "login" | "register" | "reset" | "sponsor";
 export type IpRateAction = RateAction | "taps" | "feedback";
 
+/**
+ * Buckets that live a day rather than a window. They are kept out of the short prune: today's row
+ * must not be deleted an hour after it was written, or the ceiling would reset every hour.
+ */
+const DAILY_PREFIX = "budget:";
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+/**
+ * A hard daily ceiling on the rows anyone can make the database write.
+ *
+ * `word-taps` is anonymous telemetry: every request writes up to `WORD_TAPS_MAX` rows, and the
+ * per-IP limit does not bound the total because addresses are cheap. This is the fuse that caps
+ * the bill whatever the traffic - when the day's rows are gone the endpoint answers 429 and
+ * writes nothing. A reader loses a day of anonymous statistics at worst.
+ */
+export const DAILY_WRITE_BUDGET = {
+  taps: 120_000,
+} as const;
+
 async function prune(db: D1Database, now: number): Promise<void> {
   await db
-    .prepare("DELETE FROM rate_limits WHERE window_start < ?")
+    .prepare(`DELETE FROM rate_limits WHERE bucket NOT LIKE '${DAILY_PREFIX}%' AND window_start < ?`)
     .bind(now - RATE_WINDOW_MS * 4)
     .run();
 }
@@ -31,17 +50,23 @@ function windowStartOf(now: number): number {
   return Math.floor(now / RATE_WINDOW_MS) * RATE_WINDOW_MS;
 }
 
-async function addHit(db: D1Database, bucket: string, windowStart: number, limit: number): Promise<void> {
+async function addHit(
+  db: D1Database,
+  bucket: string,
+  windowStart: number,
+  limit: number,
+  by = 1,
+): Promise<void> {
   const row = await db
     .prepare(
       `INSERT INTO rate_limits (bucket, window_start, hits)
-       VALUES (?, ?, 1)
-       ON CONFLICT(bucket, window_start) DO UPDATE SET hits = hits + 1
+       VALUES (?, ?, ?)
+       ON CONFLICT(bucket, window_start) DO UPDATE SET hits = hits + excluded.hits
        RETURNING hits`,
     )
-    .bind(bucket, windowStart)
+    .bind(bucket, windowStart, by)
     .first<{ hits: number }>();
-  if ((row?.hits ?? 1) > limit) throw new HttpError(429, "rate");
+  if ((row?.hits ?? by) > limit) throw new HttpError(429, "rate");
 }
 
 async function hitsOf(db: D1Database, bucket: string, windowStart: number): Promise<number> {
@@ -89,4 +114,18 @@ export async function assertIpRateLimit(
 export async function recordFailedLogin(db: D1Database, email: string, now: number): Promise<void> {
   const windowStart = windowStartOf(now);
   await addHit(db, `login:email:${email}`, windowStart, RATE_LIMITS["login:email"]);
+}
+
+/**
+ * Count `rows` against today's ceiling before a write that anyone can trigger.
+ * Throws 429 once the day's budget is gone; the caller writes nothing.
+ */
+export async function assertDailyWriteBudget(
+  db: D1Database,
+  kind: keyof typeof DAILY_WRITE_BUDGET,
+  now: number,
+  rows: number,
+): Promise<void> {
+  const dayStart = Math.floor(now / DAY_MS) * DAY_MS;
+  await addHit(db, `${DAILY_PREFIX}${kind}:${dayStart}`, dayStart, DAILY_WRITE_BUDGET[kind], Math.max(1, rows));
 }

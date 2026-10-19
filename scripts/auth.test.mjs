@@ -124,8 +124,12 @@ function cookieHeader(response) {
   return token ? `mw_session=${token}` : "";
 }
 
-test("password hashing uses PBKDF2-SHA256 with at least 100k iterations and a per-user salt", async () => {
-  assert.ok(PBKDF2_ITERATIONS >= 100_000);
+test("password hashing uses PBKDF2-SHA256 with a per-user salt, at a count the Free plan can pay for", async () => {
+  // 100k iterations measured 16.4ms of CPU in V8/BoringSSL, and a Pages Function on the Free
+  // plan gets 10ms: every sign-in was cut off with error 1101. 10k measured 1.7ms. The salt is
+  // what carries the security here, and an old 100k hash is rewritten on the next sign-in.
+  assert.ok(PBKDF2_ITERATIONS >= 10_000, "below that the hash stops resisting offline guessing");
+  assert.equal((await hashPassword("correct horse")).iterations, PBKDF2_ITERATIONS);
   const a = await hashPassword("correct horse", undefined, 1_000);
   const b = await hashPassword("correct horse", undefined, 1_000);
   assert.notEqual(a.salt, b.salt);
@@ -2230,4 +2234,67 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   );
   assert.equal(upgradedResp.status, 200);
   assert.equal((await upgradedResp.json()).saved, true);
+});
+
+test("a hash from the 100k era still signs in, and is rewritten at the current count", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  await call(handleRegister, env, { body: { email: "reader@example.com", password: "correct horse" } });
+  // Put the account back to what it looked like before the CPU cut.
+  const legacy = await hashPassword("correct horse", undefined, 100_000);
+  db.raw
+    .prepare("UPDATE users SET password_hash = ?, password_salt = ?, password_iters = 100000 WHERE email = ?")
+    .run(legacy.hash, legacy.salt, "reader@example.com");
+
+  const ok = await call(handleLogin, env, { body: { email: "reader@example.com", password: "correct horse" } });
+  assert.equal(ok.status, 200, "the old hash must still be accepted");
+  const after = db.raw.prepare("SELECT password_iters FROM users WHERE email = ?").get("reader@example.com");
+  assert.equal(after.password_iters, PBKDF2_ITERATIONS, "the next sign-in rewrites it at the current count");
+});
+
+test("one request may only carry a batch the CPU budget can pay for", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const tap = (word) => ({ word, chapter: 1, occurrence: 1, paragraph: 0, context: "", sentence: "" });
+
+  const tooManyTaps = await handleWordTapsPost(
+    postJson("/api/analytics/word-taps", null, {
+      bookId: "charlie",
+      taps: Array.from({ length: 21 }, (_, i) => tap(`word${"abcdefghij"[i % 10]}${i}`)),
+    }),
+    env,
+    { now: NOW },
+  );
+  assert.equal(tooManyTaps.status, 400);
+  assert.equal((await tooManyTaps.json()).error, "bad-taps");
+
+  const cookie = cookieHeader(await call(handleRegister, env, { body: { email: "reader@example.com", password: "correct horse" } }));
+  const item = { kind: "settings", itemId: "main", updatedAt: NOW, deleted: false, data: {} };
+  const tooManyItems = await call(handleSyncPush, env, {
+    cookie,
+    body: { items: Array.from({ length: 201 }, () => item) },
+  });
+  assert.equal(tooManyItems.status, 413);
+  assert.equal((await tooManyItems.json()).error, "too-large");
+});
+
+test("the day's telemetry budget is a hard fuse, and a spent one writes nothing", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const day = 24 * 60 * 60 * 1000;
+  const dayStart = Math.floor(NOW / day) * day;
+  db.raw
+    .prepare("INSERT INTO rate_limits (bucket, window_start, hits) VALUES (?, ?, ?)")
+    .run(`budget:taps:${dayStart}`, dayStart, 120_000);
+
+  const response = await handleWordTapsPost(
+    postJson("/api/analytics/word-taps", null, {
+      bookId: "charlie",
+      taps: [{ word: "eavesdrop", chapter: 1, occurrence: 1, paragraph: 0, context: "", sentence: "" }],
+    }),
+    env,
+    { now: NOW },
+  );
+  assert.equal(response.status, 429);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM book_word_taps").get().n, 0, "nothing is written");
 });

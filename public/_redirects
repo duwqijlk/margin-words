@@ -1,8 +1,39 @@
-# Cloudflare Pages. A file that exists is served as that file. /assets/* is also a Pages
-# Function (functions/assets/[[path]].ts): a missing script is a 404, never this page.
-# A missing script used to be rewritten to index.html with status 200 and cached for a
-# year, so a refresh stayed blank. /api/* is a Pages Function too.
-# Every other path is a page of the single-page app (/shelf, /discover, /guide, /words,
-# /read/<id>) and gets index.html. The old address of the book pack kit keeps working.
+# Cloudflare Pages.
+#
+# Only /api/* starts a Function (see _routes.json). A file that exists is served as that file, so
+# /assets/* goes straight from the CDN: no Function call, no CPU budget, no request against the
+# daily limit. It used to be a catch-all Function just to stop a missing script from becoming the
+# app page, and that cost one Function invocation per script, stylesheet and chunk on every visit.
+#
+# The app's addresses are listed one by one rather than with `/*` for the same reason: a
+# catch-all also catches a missing /assets/<hash>.js, answers with index.html and status 200, and
+# /assets is cached for a year - the browser then keeps a page where a script should be and every
+# refresh is blank. An address that is not listed here is an honest 404.
+#
+# A new screen needs a line here as well as a case in src/lib/router.ts;
+# scripts/deploy-files.test.mjs fails when the two disagree.
 /guide/book-pack-kit.zip /kit/book-pack-kit.zip 301
-/* /index.html 200
+/ /index.html 200
+/shelf /index.html 200
+/shelf/ /index.html 200
+/add /index.html 200
+/add/ /index.html 200
+/discover /index.html 200
+/discover/ /index.html 200
+/dashboard /index.html 200
+/dashboard/ /index.html 200
+/admin /index.html 200
+/admin/ /index.html 200
+/guide /index.html 200
+/guide/ /index.html 200
+/about /index.html 200
+/about/ /index.html 200
+/thanks /index.html 200
+/thanks/ /index.html 200
+/words /index.html 200
+/words/ /index.html 200
+/words/* /index.html 200
+/review /index.html 200
+/review/ /index.html 200
+/review/* /index.html 200
+/read/* /index.html 200

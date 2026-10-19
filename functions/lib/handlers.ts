@@ -1,4 +1,5 @@
 import { cleanNickname } from "../../src/lib/nickname.ts";
+import { SYNC_PUSH_MAX } from "../../src/lib/limits.ts";
 import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merge.ts";
 import { effectiveRole } from "./admin.ts";
 import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS } from "./trust.ts";
@@ -100,7 +101,10 @@ export async function handleLogin(request: Request, env: Env, options?: HandlerO
       await recordFailedLogin(env.DB, email, now);
       throw new HttpError(401, "credentials");
     }
-    if (user.password_iters < PBKDF2_ITERATIONS) {
+    // A hash minted under an older count (the 100k era) is rewritten at the current one, so the
+    // next sign-in is cheap. `!==` rather than `<`: the count went DOWN to fit the Free plan's
+    // 10ms CPU budget, and an old 100k hash would otherwise stay expensive for ever.
+    if (user.password_iters !== PBKDF2_ITERATIONS) {
       const next = await hashPassword(password);
       await env.DB.prepare("UPDATE users SET password_hash = ?, password_salt = ?, password_iters = ? WHERE id = ?")
         .bind(next.hash, next.salt, next.iterations, user.id)
@@ -313,7 +317,10 @@ export async function handleSyncPush(request: Request, env: Env, options?: Handl
     const user = await requireUser(env.DB, request, now);
     const body = (await readJson(request)) as { items?: unknown };
     if (!body || !Array.isArray(body.items)) throw new HttpError(400, "bad-request");
-    if (body.items.length > 500) throw new HttpError(413, "too-large");
+    // 200, not 500. Every item costs a read, a merge and a JSON round trip in the same request,
+    // and 500 of them is a solid slice of the 10ms CPU the Free plan allows. The client sends at
+    // most this many per request and calls again for the rest.
+    if (body.items.length > SYNC_PUSH_MAX) throw new HttpError(413, "too-large");
     const incoming: SyncItem[] = [];
     for (const raw of body.items) {
       const item = normalizeItem(raw, now);

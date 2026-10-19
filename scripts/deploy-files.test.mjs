@@ -36,15 +36,31 @@ test("hashed files under /assets are cached for good", () => {
   assert.ok(headers()["/assets/*"]?.some((line) => /immutable/.test(line) && /max-age=31536000/.test(line)));
 });
 
-test("_redirects sends every other address to index.html, last, and leaves real files alone", () => {
+test("every address of the app is listed in _redirects, and no rule catches the files", () => {
   const rules = read("public/_redirects")
     .split("\n")
     .map((line) => line.trim())
     .filter((line) => line && !line.startsWith("#"));
-  assert.equal(rules.at(-1), "/* /index.html 200");
-  for (const rule of rules.slice(0, -1)) assert.doesNotMatch(rule, /\/assets|\/fonts|\/icons|\/sw\.js|\/manifest/);
-  // Cloudflare Pages serves a real file before it looks at a catch-all rule, so /assets/x.js stays a file.
-  assert.equal(rules.filter((rule) => rule.startsWith("/*")).length, 1);
+  const sources = rules.map((rule) => rule.split(/\s+/)[0]);
+  // No catch-all. It would also catch a missing /assets/<hash>.js and answer with index.html and
+  // status 200, and /assets is cached for a year: the browser then keeps a page where a script
+  // should be, and every refresh stays blank.
+  assert.equal(sources.filter((source) => source === "/*").length, 0, "no catch-all rule");
+  assert.deepEqual(
+    sources.filter((source) => /^\/(assets|fonts|icons)\b/.test(source)),
+    [],
+    "files are served by Pages, never rewritten",
+  );
+  // A screen without a line here answers 404 instead of opening the app.
+  const heads = new Set([...read("src/lib/router.ts").matchAll(/case "([a-z]+)":/g)].map((match) => match[1]));
+  for (const head of heads) {
+    assert.ok(
+      sources.includes(`/${head}`) || sources.includes(`/${head}/*`),
+      `/${head} is a route of the app and needs a line in _redirects`,
+    );
+  }
+  assert.ok(sources.includes("/"), "the root still opens the app");
+  assert.ok(sources.includes("/read/*"), "the reader address carries a book id");
 });
 
 test("files the reader never opens are not in the site folder", () => {
@@ -85,14 +101,12 @@ test("the service worker does not answer a request", () => {
   assert.ok(claim !== -1 && del !== -1 && claim < del, "the new worker takes over before old caches are deleted");
 });
 
-test("a missing hashed file is not the app page", () => {
+test("static files never start a Function", () => {
   const routes = JSON.parse(read("public/_routes.json"));
-  assert.ok(routes.include.includes("/assets/*"), "/assets must be handled by the function, not the page rewrite");
-  const guard = read("functions/assets/[[path]].ts");
-  assert.match(guard, /text\/html/);
-  assert.match(guard, /status: 404/);
-  assert.match(guard, /no-store/);
-  assert.match(guard, /ASSETS\.fetch/);
+  // Every Function call is billed and has a CPU budget; a page view loads a dozen chunks, and
+  // they used to run through functions/assets/[[path]].ts one invocation each.
+  assert.deepEqual(routes.include, ["/api/*"]);
+  assert.equal(existsSync(join(ROOT, "functions/assets/[[path]].ts")), false, "the asset guard must be gone");
 });
 
 test("the app registers the worker from the site root and checks for a new one", () => {

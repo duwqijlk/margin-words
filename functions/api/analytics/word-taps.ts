@@ -1,7 +1,9 @@
 import type { Env } from "../../lib/db.ts";
 import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
-import { assertIpRateLimit } from "../../lib/rate-limit.ts";
+import { assertDailyWriteBudget, assertIpRateLimit } from "../../lib/rate-limit.ts";
+import { WORD_TAPS_MAX } from "../../../src/lib/limits.ts";
+
 
 export const onRequestPost = (context: { request: Request; env: Env }) =>
   handleWordTapsPost(context.request, context.env);
@@ -25,7 +27,7 @@ export async function handleWordTapsPost(
     const bookTitle =
       typeof body.bookTitle === "string" ? body.bookTitle.trim().slice(0, 150) : "";
 
-    if (!Array.isArray(body.taps) || body.taps.length === 0 || body.taps.length > 50) {
+    if (!Array.isArray(body.taps) || body.taps.length === 0 || body.taps.length > WORD_TAPS_MAX) {
       throw new HttpError(400, "bad-taps");
     }
 
@@ -109,6 +111,9 @@ export async function handleWordTapsPost(
     const now = options?.now ?? Date.now();
     const ip = clientIp(request);
     await assertIpRateLimit(env.DB, "taps", ip, now);
+    // A ceiling for the whole day, not just this address: the per-IP limit does not bound a
+    // botnet, and every row here is a billable write.
+    await assertDailyWriteBudget(env.DB, "taps", now, clean.length);
 
     const writeBatch = clean.map((item) =>
       env.DB.prepare(
