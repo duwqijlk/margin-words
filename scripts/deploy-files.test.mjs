@@ -32,6 +32,23 @@ test("the page, the service worker and the manifest are always checked with the 
   }
 });
 
+test("every route that answers with the page is never cached", () => {
+  const h = headers();
+  const noCache = (path) => (h[path] ?? []).some((line) => line.startsWith("Cache-Control: no-cache"));
+  // The browser's own guess is what served a stale /read/<id> after a deploy: the page named
+  // chunks that had just been replaced, and the site was dead until a hard refresh.
+  const heads = new Set([...read("src/lib/router.ts").matchAll(/case "([a-z]+)":/g)].map((m) => m[1]));
+  for (const head of heads) {
+    assert.ok(
+      noCache(`/${head}`) || noCache(`/${head}/*`),
+      `/${head} answers with index.html and needs a no-cache rule`,
+    );
+  }
+  for (const alias of ["/add", "/about", "/thanks", "/words/*", "/review/*", "/read/*"]) {
+    assert.ok(noCache(alias), `${alias} needs a no-cache rule`);
+  }
+});
+
 test("hashed files under /assets are cached for good", () => {
   assert.ok(headers()["/assets/*"]?.some((line) => /immutable/.test(line) && /max-age=31536000/.test(line)));
 });
