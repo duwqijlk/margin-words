@@ -5,7 +5,8 @@
  * normal: the push waits and runs on the next start, focus, or reconnect.
  */
 import { SYNC_PUSH_MAX } from "@/lib/limits";
-import { useAccount } from "@/lib/account-store";
+import { useAccount, type AccountRole } from "@/lib/account-store";
+import { isSponsorAdmin } from "@/lib/sponsor";
 import { useLocale, type Locale } from "@/lib/i18n";
 import { usePrefs, type Prefs } from "@/lib/reader-prefs";
 import { useProgress } from "@/lib/progress-store";
@@ -45,6 +46,7 @@ import type { Book, VocabEntry, WordSource } from "@/lib/vocab-model";
 const META_KEY = "cibian-sync-meta-v1";
 const EMAIL_KEY = "cibian-account-email-v1";
 const NICK_KEY = "cibian-account-nickname-v1";
+const ROLE_KEY = "cibian-account-role-v1";
 const DIRTY_KEY = "cibian-sync-dirty-v1";
 const PUSH_DELAY_MS = 1500;
 
@@ -108,14 +110,17 @@ function capture(): LocalSnapshot {
   });
 }
 
-function rememberEmail(email: string | null, nickname?: string | null) {
+function rememberEmail(email: string | null, nickname?: string | null, role?: AccountRole) {
   writeStorage(EMAIL_KEY, email);
+  if (!email) writeStorage(ROLE_KEY, null);
+  else if (role !== undefined) writeStorage(ROLE_KEY, role);
   const nextNick = email ? (nickname === undefined ? useAccount.getState().nickname : nickname) : null;
   if (!email || nickname !== undefined) writeStorage(NICK_KEY, nextNick);
   useAccount.getState().patch({
     email,
     nickname: nextNick,
     phase: email ? "in" : "out",
+    ...(role !== undefined ? { role } : {}),
     ...(email ? {} : { nicknamePrompt: false }),
   });
 }
@@ -494,7 +499,16 @@ async function flush() {
 async function refreshSession() {
   const epoch = sessionEpoch;
   const saved = readStorage(EMAIL_KEY);
-  if (saved) useAccount.getState().patch({ email: saved, nickname: readStorage(NICK_KEY), phase: "in" });
+  const storedRole = readStorage(ROLE_KEY) as AccountRole | null;
+  const initialRole: AccountRole = storedRole ?? (isSponsorAdmin(saved) ? "admin" : "user");
+  if (saved) {
+    useAccount.getState().patch({
+      email: saved,
+      nickname: readStorage(NICK_KEY),
+      role: initialRole,
+      phase: "in",
+    });
+  }
   if (!online()) {
     useAccount.getState().patch({ phase: saved ? "in" : "out", sync: saved ? "offline" : "idle" });
     return;
@@ -505,7 +519,7 @@ async function refreshSession() {
     const fields = userFields(payload);
     useAccount.getState().patch({ resetEmail: payload.resetEmail === true, role: fields.role });
     if (fields.email) {
-      rememberEmail(fields.email, fields.nickname);
+      rememberEmail(fields.email, fields.nickname, fields.role);
       await flush();
     } else {
       rememberEmail(null);
@@ -601,8 +615,7 @@ export async function signIn(email: string, password: string, turnstileToken?: s
   });
   if (epoch !== sessionEpoch) return;
   const fields = userFields(payload);
-  rememberEmail(fields.email ?? email, fields.nickname);
-  useAccount.getState().patch({ role: fields.role });
+  rememberEmail(fields.email ?? email, fields.nickname, fields.role);
   await flush();
 }
 
@@ -616,8 +629,7 @@ export async function signUp(email: string, password: string, turnstileToken?: s
   });
   if (epoch !== sessionEpoch) return;
   const fields = userFields(payload);
-  rememberEmail(fields.email ?? email, fields.nickname);
-  useAccount.getState().patch({ role: fields.role });
+  rememberEmail(fields.email ?? email, fields.nickname, fields.role);
   await flush();
 }
 

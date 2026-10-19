@@ -725,6 +725,8 @@ export const zh: Record<Key, string> = {
   "thanks.err.rate": "提交太频繁。过一会儿再试。",
   "admin.title": "赞助申请",
   "admin.only": "这个页面只有管理员能看。",
+  "admin.signedInAs": "当前登录账号：{email}（非管理员账号）。",
+  "admin.switchAccount": "切换账号",
   "admin.signIn": "管理员登录",
   "admin.empty": "还没有申请。",
   "admin.sent": "已发邮件",

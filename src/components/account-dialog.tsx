@@ -14,6 +14,8 @@ import {
   signOut,
   signUp,
 } from "@/lib/sync-engine";
+import { navigate } from "@/lib/router";
+import { isSponsorAdmin } from "@/lib/sponsor";
 import { useT, type Key } from "@/lib/i18n";
 import { btn, cn, field, ProgressBar, Segmented } from "@/components/ui";
 
@@ -262,6 +264,7 @@ export function AccountDialog() {
   const mode = useAccount((state) => state.mode);
   const resetToken = useAccount((state) => state.resetToken);
   const phase = useAccount((state) => state.phase);
+  const role = useAccount((state) => state.role);
   const emailSaved = useAccount((state) => state.email);
   const nicknameSaved = useAccount((state) => state.nickname);
   const nicknamePrompt = useAccount((state) => state.nicknamePrompt);
@@ -536,9 +539,22 @@ export function AccountDialog() {
                   </button>
                 ) : null}
               </form>
+              {role === "admin" || isSponsorAdmin(emailSaved) ? (
+                <button
+                  type="button"
+                  className={cn(btn.primary, "mt-5 w-full justify-center")}
+                  onClick={() => {
+                    closeDialog();
+                    navigate({ kind: "admin" });
+                  }}
+                  data-account-admin
+                >
+                  {t("admin.title")}
+                </button>
+              ) : null}
               <button
                 type="button"
-                className={cn(btn.quiet, "mt-5 w-full justify-start")}
+                className={cn(btn.quiet, "mt-3 w-full justify-start")}
                 onClick={() => {
                   setBusy(true);
                   void signOut().finally(() => {

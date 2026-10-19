@@ -745,6 +745,8 @@ export const en = {
   "thanks.err.rate": "Too many requests. Try again in a moment.",
   "admin.title": "Sponsorship requests",
   "admin.only": "Only the admin can open this page.",
+  "admin.signedInAs": "Signed in as {email} (not an admin account).",
+  "admin.switchAccount": "Switch account",
   "admin.signIn": "Admin sign in",
   "admin.empty": "No requests yet.",
   "admin.sent": "Email sent",

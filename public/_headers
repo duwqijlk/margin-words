@@ -12,6 +12,48 @@
 /manifest.webmanifest
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
+/admin
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/admin/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/shelf
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/shelf/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/discover
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/discover/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/dashboard
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/dashboard/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/guide
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/guide/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/words
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/words/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/review
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/review/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
 /kit/*
   Cache-Control: no-cache
 /assets/*

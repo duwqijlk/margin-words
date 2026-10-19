@@ -88,6 +88,8 @@ export function pathFor(route: Route): string {
       return route.bookId ? `/review/${encodeURIComponent(route.bookId)}` : "/review";
     case "read":
       return `/read/${encodeURIComponent(route.bookId)}`;
+    case "admin":
+      return "/admin/";
     default:
       return `/${route.kind}`;
   }

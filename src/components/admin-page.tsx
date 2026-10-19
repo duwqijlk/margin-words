@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAccount } from "@/lib/account-store";
+import { isSponsorAdmin } from "@/lib/sponsor";
 import { askToSignIn } from "@/lib/can-add";
 import { useT } from "@/lib/i18n";
 import { BooksAdmin } from "@/components/books-admin";
@@ -18,8 +19,9 @@ export function AdminPage() {
   const { t } = useT();
   const phase = useAccount((state) => state.phase);
   const role = useAccount((state) => state.role);
+  const email = useAccount((state) => state.email);
   const [tab, setTab] = useState<AdminTab>("thanks");
-  const admin = phase === "in" && role === "admin";
+  const admin = phase === "in" && (role === "admin" || isSponsorAdmin(email));
 
   return (
     <div
@@ -45,11 +47,24 @@ export function AdminPage() {
       ) : !admin ? (
         <div className="grid justify-items-start gap-4 rounded-2xl border border-line/80 bg-card p-6 shadow-sm">
           <p className="text-base text-muted">{t("admin.only")}</p>
-          {!phase || phase !== "in" ? (
-            <button type="button" className={btn.primary} onClick={() => askToSignIn()}>
-              {t("admin.signIn")}
-            </button>
+          {email ? (
+            <p className="text-sm text-muted">
+              {t("admin.signedInAs", { email })}
+            </p>
           ) : null}
+          <button
+            type="button"
+            className={btn.primary}
+            onClick={() => {
+              if (phase === "in") {
+                useAccount.getState().openDialog("login");
+              } else {
+                askToSignIn();
+              }
+            }}
+          >
+            {phase === "in" ? t("admin.switchAccount") : t("admin.signIn")}
+          </button>
         </div>
       ) : (
         <>
