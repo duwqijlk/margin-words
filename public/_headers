@@ -1,5 +1,18 @@
-# Cloudflare Pages. The page and the files that decide which version runs are checked with the
-# server on every visit; only the hashed files in /assets are cached for good.
+# Cloudflare Pages.
+#
+# Two rules: a page is never cached, a hashed file under /assets always is.
+#
+# This file is not decoration. A route with no rule here gets the browser's own guess at how long
+# a page stays fresh - and that guess is what broke the site: a reader opened /read/<id> once, the
+# browser kept that day's index.html, the next deploy replaced the chunks it names, and the page
+# then asked for files that no longer exist. Dead page until a hard refresh, while incognito
+# (nothing cached) looked fine. Every address that can answer with index.html is listed below, and
+# scripts/deploy-files.test.mjs fails when a route in src/lib/router.ts has no rule.
+#
+# A catch-all `/*` would not work: matching rules are MERGED, so `/*` would send `no-cache` along
+# with `/assets/*`'s `immutable` and stop the chunks from caching at all.
+#
+# /sw.js is checked every visit too: an old worker must not keep answering for a new deploy.
 /
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
@@ -12,12 +25,8 @@
 /manifest.webmanifest
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
-/admin
+/kit/*
   Cache-Control: no-cache
-  CDN-Cache-Control: no-store
-/admin/
-  Cache-Control: no-cache
-  CDN-Cache-Control: no-store
 /shelf
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
@@ -36,6 +45,12 @@
 /dashboard/
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
+/admin
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/admin/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
 /guide
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
@@ -48,13 +63,40 @@
 /words/
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
+/words/*
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
 /review
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
 /review/
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
-/kit/*
+/review/*
   Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/read/*
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/add
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/add/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/about
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/about/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/thanks
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/thanks/
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+
+# The only long cache in the project: a hashed file never changes under its own name.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
