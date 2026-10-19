@@ -57,12 +57,13 @@ export function isEinkScreen(width: number, height: number, ua?: string): boolea
 
 export function calculatePageStep(input: {
   viewportHeight: number;
-  topBarHeight: number;
+  topBarHeight?: number;
   lineHeight: number;
   viewportWidth: number;
   userAgent?: string;
 }): number {
-  const visible = Math.max(120, input.viewportHeight - input.topBarHeight);
+  const bar = typeof input.topBarHeight === "number" ? input.topBarHeight : 0;
+  const visible = Math.max(120, input.viewportHeight - bar);
   const line = input.lineHeight > 4 ? input.lineHeight : 32;
   const rawLines = Math.floor(visible / line);
 

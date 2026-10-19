@@ -1,5 +1,5 @@
 import * as Popover from "@radix-ui/react-popover";
-import { BookOpen, Check, Focus, Minus, Plus, Type } from "lucide-react";
+import { Check, Focus, Minus, Plus, Type } from "lucide-react";
 import { useT, type Key } from "@/lib/i18n";
 import {
   COLUMN_MAX,
@@ -175,23 +175,6 @@ export function ReaderSettings() {
               <span className="font-normal text-muted">{t("rs.focusHint")}</span>
             </span>
             {prefs.focus ? <Check className="size-4 text-accent" aria-hidden /> : null}
-          </button>
-
-          <button
-            type="button"
-            aria-pressed={prefs.paging}
-            onClick={() => set({ paging: !prefs.paging })}
-            className={cn(
-              "flex min-h-11 items-center justify-between rounded-lg border px-3 text-sm font-semibold",
-              prefs.paging ? "border-accent bg-accent-soft" : "border-line",
-            )}
-          >
-            <span className="flex items-center gap-2">
-              <BookOpen className="size-4" aria-hidden />
-              {t("rs.paging")}
-              <span className="font-normal text-muted">{t("rs.pagingHint")}</span>
-            </span>
-            {prefs.paging ? <Check className="size-4 text-accent" aria-hidden /> : null}
           </button>
         </Popover.Content>
       </Popover.Portal>

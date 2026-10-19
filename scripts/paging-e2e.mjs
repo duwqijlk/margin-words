@@ -274,46 +274,6 @@ await page.waitForTimeout(600);
 const tapped = await page_();
 check(tapped.y === 0, "taps do not turn the page", `${tapped.y}px after four taps`);
 
-/* ---- the setting still governs the keys that are only page keys on some devices */
-const setPaging = async (on) => {
-  await page.evaluate((on) => {
-    const raw = JSON.parse(localStorage.getItem("cibian-prefs-v1") || '{"state":{},"version":0}');
-    raw.state = { ...raw.state, paging: on };
-    localStorage.setItem("cibian-prefs-v1", JSON.stringify(raw));
-  }, on);
-  await page.reload();
-  await page.waitForTimeout(1800);
-  await page.evaluate(() => window.scrollTo(0, 600));
-  await page.waitForTimeout(400);
-};
-
-const pressVolumeKey = async (key) => {
-  await page.evaluate((key) => {
-    window.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true }));
-  }, key);
-  await page.waitForTimeout(500);
-};
-
-await setPaging(false);
-let beforeVolume = await page_();
-await pressVolumeKey("AudioVolumeDown");
-let afterVolume = await page_();
-check(
-  afterVolume.y === beforeVolume.y,
-  "with page-turn mode off a volume key does nothing",
-  `moved ${afterVolume.y - beforeVolume.y}px`,
-);
-
-await setPaging(true);
-beforeVolume = await page_();
-await pressVolumeKey("AudioVolumeDown");
-afterVolume = await page_();
-check(
-  Math.abs(afterVolume.y - beforeVolume.y - afterVolume.step) <= 3,
-  "with page-turn mode on a volume key turns one page",
-  `moved ${afterVolume.y - beforeVolume.y}px, one page is ${afterVolume.step}px`,
-);
-
 await page.screenshot({ path: SHOT });
 await browser.close();
 console.log(failures === 0 ? "\nall checks passed" : `\n${failures} check(s) failed`);

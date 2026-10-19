@@ -91,7 +91,6 @@ import {
   isEinkScreen,
   MIN_TURN_MS,
   readerLineHeight,
-  topBarHeight,
 } from "@/lib/reader-paging";
 import {
   PLACE_TOP,
@@ -806,15 +805,13 @@ export function ReaderScreen({
    * three lines on the Moaan. Keeping those lines back is the tolerance: see `PAGE_KEEP_LINES`.
    */
   const pageStep = useCallback(() => {
-    const bar = prefs.focus ? 0 : topBarHeight(headerRef.current);
     const line = readerLineHeight(articleRef.current);
     return calculatePageStep({
       viewportWidth: window.innerWidth,
       viewportHeight: Math.min(window.innerHeight, window.visualViewport?.height ?? window.innerHeight),
-      topBarHeight: bar,
       lineHeight: line,
     });
-  }, [prefs.focus]);
+  }, []);
 
   /**
    * One turn per press. The same physical key can reach the page twice (a WebView that maps a
@@ -868,63 +865,22 @@ export function ReaderScreen({
   const pagingHandlers = useRef({
     pageForward,
     pageBackward,
-    paging: prefs.paging,
     cardOpen: false,
   });
   pagingHandlers.current = {
     pageForward,
     pageBackward,
-    paging: prefs.paging,
     cardOpen: picked !== null || help !== null,
   };
 
   useEffect(() => {
-    /** The names the DOM uses for the hardware volume keys, plus the Android and media key codes. */
-    const isVolKey = (event: KeyboardEvent) =>
-      event.key === "AudioVolumeDown" ||
-      event.key === "AudioVolumeUp" ||
-      event.key === "VolumeDown" ||
-      event.key === "VolumeUp" ||
-      event.code === "AudioVolumeDown" ||
-      event.code === "AudioVolumeUp" ||
-      event.code === "VolumeDown" ||
-      event.code === "VolumeUp" ||
-      event.keyCode === 24 ||
-      event.keyCode === 25 ||
-      event.keyCode === 174 ||
-      event.keyCode === 175;
-
-    /** Which of the two was pressed. A device that sends neither leaves both false. */
-    const volumeDirection = (event: KeyboardEvent): "up" | "down" | "" => {
-      if (!isVolKey(event)) return "";
-      if (
-        event.key === "AudioVolumeUp" ||
-        event.key === "VolumeUp" ||
-        event.code === "AudioVolumeUp" ||
-        event.code === "VolumeUp" ||
-        event.keyCode === 24 ||
-        event.keyCode === 175
-      )
-        return "up";
-      if (
-        event.key === "AudioVolumeDown" ||
-        event.key === "VolumeDown" ||
-        event.code === "AudioVolumeDown" ||
-        event.code === "VolumeDown" ||
-        event.keyCode === 25 ||
-        event.keyCode === 174
-      )
-        return "down";
-      return "";
-    };
-
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setPicked(null);
         setHelp(null);
         return;
       }
-      const { pageForward: next, pageBackward: prev, paging, cardOpen } = pagingHandlers.current;
+      const { pageForward: next, pageBackward: prev, cardOpen } = pagingHandlers.current;
 
       const target = event.target as HTMLElement | null;
       const tag = target?.tagName;
@@ -940,12 +896,7 @@ export function ReaderScreen({
       )
         return;
 
-      // PageDown / PageUp are ALWAYS ours, whatever the page-turn setting says. The engine's own
-      // page scroll is `innerHeight` minus a small overlap, and `innerHeight` is not what is on
-      // the glass on an e-ink WebView - that is the three lines the Moaan kept losing. Leaving
-      // these two keys to the browser meant the setting (off by default) silently bypassed every
-      // page-turn calculation the reader makes.
-      //
+      // PageDown / PageUp and page arrows are handled cleanly by our pageStep calculation.
       // In addition to standard 34/33, Android KeyEvent.KEYCODE_PAGE_DOWN is 93 and KEYCODE_PAGE_UP is 92,
       // which many e-reader WebViews (Onyx Boox, Moaan, Meebook) dispatch as keyCode/which 93/92.
       const isPageDown =
@@ -961,24 +912,16 @@ export function ReaderScreen({
         event.keyCode === 92 ||
         event.which === 92;
 
-      // On e-ink readers, volume buttons are dedicated hardware page buttons, so allow them even
-      // if the general paging setting is off.
-      const isEink = isEinkScreen(window.innerWidth, window.innerHeight);
-      const volume = paging || isEink ? volumeDirection(event) : "";
       const isNext =
         isPageDown ||
-        volume === "down" ||
-        (paging &&
-          (event.key === "ArrowDown" ||
-            event.key === "ArrowRight" ||
-            (event.key === " " && !event.shiftKey)));
+        event.key === "ArrowDown" ||
+        event.key === "ArrowRight" ||
+        (event.key === " " && !event.shiftKey);
       const isPrev =
         isPageUp ||
-        volume === "up" ||
-        (paging &&
-          (event.key === "ArrowUp" ||
-            event.key === "ArrowLeft" ||
-            (event.key === " " && event.shiftKey)));
+        event.key === "ArrowUp" ||
+        event.key === "ArrowLeft" ||
+        (event.key === " " && event.shiftKey);
 
       if (isNext || isPrev) {
         // ALWAYS prevent browser native scrolling immediately, even on key repeat.
@@ -988,15 +931,6 @@ export function ReaderScreen({
         if (event.repeat) return;
         if (isNext) next();
         else prev();
-      }
-    };
-
-    // A volume key that the device does hand to the page must not also change the volume.
-    const onKeyUp = (event: KeyboardEvent) => {
-      const isEink = isEinkScreen(window.innerWidth, window.innerHeight);
-      if ((pagingHandlers.current.paging || isEink) && isVolKey(event)) {
-        event.preventDefault();
-        event.stopPropagation();
       }
     };
 
@@ -1014,11 +948,9 @@ export function ReaderScreen({
       setHelp(null);
     };
     window.addEventListener("keydown", onKey, { capture: true });
-    window.addEventListener("keyup", onKeyUp, { capture: true });
     document.addEventListener("click", onClickAway);
     return () => {
       window.removeEventListener("keydown", onKey, { capture: true });
-      window.removeEventListener("keyup", onKeyUp, { capture: true });
       document.removeEventListener("click", onClickAway);
     };
   }, []);
