@@ -2298,3 +2298,19 @@ test("the day's telemetry budget is a hard fuse, and a spent one writes nothing"
   assert.equal(response.status, 429);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM book_word_taps").get().n, 0, "nothing is written");
 });
+
+test("a signed-in account cannot loop the word-list endpoint", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const created = await call(handleRegister, env, { body: { email: "reader@example.com", password: "correct horse" } });
+  const cookie = cookieHeader(created);
+  const userId = db.raw.prepare("SELECT id FROM users WHERE email = ?").get("reader@example.com").id;
+  const windowStart = Math.floor(NOW / (15 * 60 * 1000)) * (15 * 60 * 1000);
+  db.raw
+    .prepare("INSERT INTO rate_limits (bucket, window_start, hits) VALUES (?, ?, ?)")
+    .run(`glossary:user:${userId}`, windowStart, 120);
+
+  const response = await handleGlossary(raw("/api/glossary/book-1", cookie), env, "book-1", { now: NOW });
+  assert.equal(response.status, 429);
+  assert.equal((await response.json()).error, "rate");
+});

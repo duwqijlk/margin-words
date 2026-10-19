@@ -15,7 +15,7 @@ import {
   readJson,
 } from "./http.ts";
 import { hashPassword, PBKDF2_ITERATIONS, randomToken, sha256Hex, verifyPassword } from "./password.ts";
-import { assertRateLimit, recordFailedLogin } from "./rate-limit.ts";
+import { assertRateLimit, assertUserRateLimit, recordFailedLogin } from "./rate-limit.ts";
 import { createSession, destroySession, logoutCookie, requireUser, userFromRequest } from "./session.ts";
 import { verifyTurnstile } from "./turnstile.ts";
 
@@ -294,7 +294,9 @@ function rowToItem(row: SyncRow): SyncItem {
 
 export async function handleSyncPull(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
   try {
-    const user = await requireUser(env.DB, request, nowOf(options));
+    const now = nowOf(options);
+    const user = await requireUser(env.DB, request, now);
+    await assertUserRateLimit(env.DB, "sync", user.id, now);
     const url = new URL(request.url);
     const since = Number(url.searchParams.get("since") ?? "0");
     const hasSince = Number.isFinite(since) && since > 0;
@@ -315,6 +317,7 @@ export async function handleSyncPush(request: Request, env: Env, options?: Handl
   try {
     const now = nowOf(options);
     const user = await requireUser(env.DB, request, now);
+    await assertUserRateLimit(env.DB, "sync", user.id, now);
     const body = (await readJson(request)) as { items?: unknown };
     if (!body || !Array.isArray(body.items)) throw new HttpError(400, "bad-request");
     // 200, not 500. Every item costs a read, a merge and a JSON round trip in the same request,

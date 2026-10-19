@@ -2,6 +2,7 @@ import { effectiveRole } from "../../lib/admin.ts";
 import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
+import { assertUserRateLimit } from "../../lib/rate-limit.ts";
 import { requireUser } from "../../lib/session.ts";
 import { shelfGrantsBook } from "../../lib/shelf-grant.ts";
 import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS } from "../../lib/trust.ts";
@@ -27,6 +28,7 @@ export async function handleGlossary(
   try {
     const now = options?.now ?? Date.now();
     const user = await requireUser(env.DB, request, now);
+    await assertUserRateLimit(env.DB, "glossary", user.id, now);
     if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(id)) throw new HttpError(400, "bad-id");
     const bucket = env.BOOKS;
     if (!bucket) throw new HttpError(500, "no-books-bucket");

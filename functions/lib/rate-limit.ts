@@ -15,10 +15,15 @@ export const RATE_LIMITS = {
   "sponsor:email": 5,
   "taps:ip": 60,
   "feedback:ip": 30,
+  // Per signed-in account. Any free account can call these in a loop, and each call is a D1 read
+  // plus an R2 get of a word list or a sync body - a cheap way to spend someone else's quota.
+  "glossary:user": 120,
+  "sync:user": 300,
 } as const;
 
 export type RateAction = "login" | "register" | "reset" | "sponsor";
 export type IpRateAction = RateAction | "taps" | "feedback";
+export type UserRateAction = "glossary" | "sync";
 
 /**
  * Buckets that live a day rather than a window. They are kept out of the short prune: today's row
@@ -128,4 +133,16 @@ export async function assertDailyWriteBudget(
 ): Promise<void> {
   const dayStart = Math.floor(now / DAY_MS) * DAY_MS;
   await addHit(db, `${DAILY_PREFIX}${kind}:${dayStart}`, dayStart, DAILY_WRITE_BUDGET[kind], Math.max(1, rows));
+}
+
+/** Limit an endpoint that needs a signed-in account, per account rather than per address. */
+export async function assertUserRateLimit(
+  db: D1Database,
+  action: UserRateAction,
+  userId: string,
+  now: number,
+): Promise<void> {
+  const windowStart = windowStartOf(now);
+  await prune(db, now);
+  await addHit(db, `${action}:user:${userId}`, windowStart, RATE_LIMITS[`${action}:user`]);
 }
