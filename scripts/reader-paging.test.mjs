@@ -12,10 +12,14 @@ test("isEinkScreen detects 3:4 and 4:5 aspect ratio devices under 1024px", () =>
   assert.equal(isEinkScreen(600, 800), true);
   // 758x1024 e-ink (ratio 1.35)
   assert.equal(isEinkScreen(758, 1024), true);
-  // 1072x1448 e-ink (ratio 1.35) - wait, width is 1072 >= 1024 so it is desktop class
+  // 1072x1448 e-ink (ratio 1.35) - desktop class without UA
   assert.equal(isEinkScreen(1072, 1448), false);
+  // 1072x1448 with Boox/Kindle UA
+  assert.equal(isEinkScreen(1072, 1448, "Mozilla/5.0 (Linux; Android 11; BOOX Note Air)"), true);
   // typical CSS pixels on 6-inch / 7.8-inch e-reader (e.g. 702x936)
   assert.equal(isEinkScreen(702, 936), true);
+  // InkPalm 5 (360x640, ratio 1.78)
+  assert.equal(isEinkScreen(360, 640), true);
 
   // Phone (390x844, ratio 2.16)
   assert.equal(isEinkScreen(390, 844), false);
@@ -47,20 +51,20 @@ test("calculatePageStep keeps extra tolerance on e-ink screen to prevent oversho
   // 600x800 e-ink, 56px top bar, 36px line
   // visible = 800 - 56 = 744px
   // rawLines = floor(744 / 36) = 20
-  // on e-ink: keepLines = max(5, ceil(20 * 0.28 = 5.6) = 6) = 6
-  // lines = 20 - 6 = 14
-  // step = 14 * 36 = 504px
+  // on e-ink: keepLines = max(7, ceil(20 * 0.38 = 7.6) = 8) = 8
+  // lines = 20 - 8 = 12
+  // step = 12 * 36 = 432px
   const step = calculatePageStep({
     viewportWidth: 600,
     viewportHeight: 800,
     topBarHeight: 56,
     lineHeight: 36,
   });
-  assert.equal(step, 14 * 36);
+  assert.equal(step, 12 * 36);
   // Step is always an exact multiple of line height
   assert.equal(step % 36, 0);
-  // Ensures at least 6 lines overlap (216px of overlap out of 744px)
-  assert.equal(744 - step, 240);
+  // Ensures at least 8 lines overlap (312px of overlap out of 744px)
+  assert.equal(744 - step, 312);
 });
 
 test("calculatePageStep moves at least one line on very short viewports", () => {

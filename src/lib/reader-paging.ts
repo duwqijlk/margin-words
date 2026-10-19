@@ -11,7 +11,7 @@
 
 export const MIN_TURN_MS = 220;
 export const PAGE_KEEP_LINES_DEFAULT = 4;
-export const PAGE_KEEP_LINES_EINK = 5;
+export const PAGE_KEEP_LINES_EINK = 7;
 
 /** Height of the sticky top bar, which covers the top of the text while reading. */
 export function topBarHeight(bar: HTMLElement | null): number {
@@ -31,14 +31,28 @@ export function readerLineHeight(article: HTMLElement | null): number {
 }
 
 /**
- * An e-ink reader in portrait orientation has an aspect ratio (height / width)
- * between 1.15 and 1.62 (e.g. 3:4 = 1.33, 4:5 = 1.25, 10:16 = 1.60) and width < 1024px.
- * Wide screens (>= 1024px) are computer layouts; tall screens (> 1.62) are phones.
+ * Detects whether the current device is an e-ink reader.
+ * Checks media queries (update: slow, monochrome), user-agent keywords,
+ * and portrait screen dimensions with aspect ratio between 1.10 and 1.85.
  */
-export function isEinkScreen(width: number, height: number): boolean {
-  if (width >= 1024) return false;
-  const ratio = height / Math.max(1, width);
-  return ratio >= 1.15 && ratio <= 1.62;
+export function isEinkScreen(width: number, height: number, ua?: string): boolean {
+  if (typeof window !== "undefined") {
+    try {
+      if (window.matchMedia?.("(update: slow)").matches) return true;
+      if (window.matchMedia?.("(monochrome)").matches) return true;
+    } catch {
+      // ignore
+    }
+  }
+  const userAgent = ua ?? (typeof navigator !== "undefined" ? navigator.userAgent : "");
+  if (/e[-]?ink|moaan|inkpalm|onyx|boox|meebook|likebook|kindle|kobo|tolino|pocketbook/i.test(userAgent)) {
+    return true;
+  }
+  if (width < 1024) {
+    const ratio = height / Math.max(1, width);
+    return ratio >= 1.10 && ratio <= 1.85;
+  }
+  return false;
 }
 
 export function calculatePageStep(input: {
@@ -46,14 +60,15 @@ export function calculatePageStep(input: {
   topBarHeight: number;
   lineHeight: number;
   viewportWidth: number;
+  userAgent?: string;
 }): number {
   const visible = Math.max(120, input.viewportHeight - input.topBarHeight);
   const line = input.lineHeight > 4 ? input.lineHeight : 32;
   const rawLines = Math.floor(visible / line);
 
-  const isEink = isEinkScreen(input.viewportWidth, input.viewportHeight);
+  const isEink = isEinkScreen(input.viewportWidth, input.viewportHeight, input.userAgent);
   const keepLines = isEink
-    ? Math.max(PAGE_KEEP_LINES_EINK, Math.ceil(rawLines * 0.28))
+    ? Math.max(PAGE_KEEP_LINES_EINK, Math.ceil(rawLines * 0.38))
     : PAGE_KEEP_LINES_DEFAULT;
 
   const lines = rawLines - keepLines;

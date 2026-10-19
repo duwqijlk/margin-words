@@ -88,6 +88,7 @@ import {
 } from "@/components/word-card";
 import {
   calculatePageStep,
+  isEinkScreen,
   MIN_TURN_MS,
   readerLineHeight,
   topBarHeight,
@@ -944,11 +945,26 @@ export function ReaderScreen({
       // the glass on an e-ink WebView - that is the three lines the Moaan kept losing. Leaving
       // these two keys to the browser meant the setting (off by default) silently bypassed every
       // page-turn calculation the reader makes.
-      const isPageDown = event.key === "PageDown" || event.keyCode === 34;
-      const isPageUp = event.key === "PageUp" || event.keyCode === 33;
-      // The volume keys, the arrows and Space stay behind the setting: they are only page keys on
-      // the devices that map them, and Space belongs to whichever button has focus.
-      const volume = paging ? volumeDirection(event) : "";
+      //
+      // In addition to standard 34/33, Android KeyEvent.KEYCODE_PAGE_DOWN is 93 and KEYCODE_PAGE_UP is 92,
+      // which many e-reader WebViews (Onyx Boox, Moaan, Meebook) dispatch as keyCode/which 93/92.
+      const isPageDown =
+        event.key === "PageDown" ||
+        event.code === "PageDown" ||
+        event.keyCode === 34 ||
+        event.keyCode === 93 ||
+        event.which === 93;
+      const isPageUp =
+        event.key === "PageUp" ||
+        event.code === "PageUp" ||
+        event.keyCode === 33 ||
+        event.keyCode === 92 ||
+        event.which === 92;
+
+      // On e-ink readers, volume buttons are dedicated hardware page buttons, so allow them even
+      // if the general paging setting is off.
+      const isEink = isEinkScreen(window.innerWidth, window.innerHeight);
+      const volume = paging || isEink ? volumeDirection(event) : "";
       const isNext =
         isPageDown ||
         volume === "down" ||
@@ -965,9 +981,11 @@ export function ReaderScreen({
             (event.key === " " && event.shiftKey)));
 
       if (isNext || isPrev) {
+        // ALWAYS prevent browser native scrolling immediately, even on key repeat.
+        event.preventDefault();
+        event.stopPropagation();
         // Held keys would run the page away on a slow e-ink screen: one press, one page.
         if (event.repeat) return;
-        event.preventDefault();
         if (isNext) next();
         else prev();
       }
@@ -975,7 +993,11 @@ export function ReaderScreen({
 
     // A volume key that the device does hand to the page must not also change the volume.
     const onKeyUp = (event: KeyboardEvent) => {
-      if (pagingHandlers.current.paging && isVolKey(event)) event.preventDefault();
+      const isEink = isEinkScreen(window.innerWidth, window.innerHeight);
+      if ((pagingHandlers.current.paging || isEink) && isVolKey(event)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
     };
 
     // A click anywhere outside the card (and not on a word) closes it.
@@ -991,12 +1013,12 @@ export function ReaderScreen({
       setPicked(null);
       setHelp(null);
     };
-    window.addEventListener("keydown", onKey);
-    window.addEventListener("keyup", onKeyUp);
+    window.addEventListener("keydown", onKey, { capture: true });
+    window.addEventListener("keyup", onKeyUp, { capture: true });
     document.addEventListener("click", onClickAway);
     return () => {
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("keyup", onKeyUp);
+      window.removeEventListener("keydown", onKey, { capture: true });
+      window.removeEventListener("keyup", onKeyUp, { capture: true });
       document.removeEventListener("click", onClickAway);
     };
   }, []);
