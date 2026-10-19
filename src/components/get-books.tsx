@@ -3,6 +3,9 @@ import { X } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { btn, cn, Segmented } from "@/components/ui";
 import { usePrefs } from "@/lib/reader-prefs";
+import { useAccount } from "@/lib/account-store";
+import { isSponsorAdmin } from "@/lib/sponsor";
+import { navigate } from "@/lib/router";
 import { LanguageSwitch } from "@/components/language";
 import { guideUrl } from "@/lib/guide";
 
@@ -23,6 +26,9 @@ export function SettingsDialog({
   const { t } = useT();
   const theme = usePrefs((state) => state.theme);
   const setPrefs = usePrefs((state) => state.set);
+  const role = useAccount((state) => state.role);
+  const email = useAccount((state) => state.email);
+  const isAdmin = role === "admin" || isSponsorAdmin(email);
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -70,6 +76,19 @@ export function SettingsDialog({
           >
             {t("nav.guide")}
           </button>
+          {isAdmin ? (
+            <button
+              type="button"
+              className={cn(btn.quiet, "mt-2 w-full justify-start font-semibold text-accent")}
+              data-settings-admin
+              onClick={() => {
+                onOpenChange(false);
+                navigate({ kind: "admin" });
+              }}
+            >
+              {t("admin.title")}
+            </button>
+          ) : null}
           <a
             className="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-accent underline"
             href={guideUrl()}

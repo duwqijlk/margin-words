@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAccount } from "@/lib/account-store";
 import { isSponsorAdmin } from "@/lib/sponsor";
 import { askToSignIn } from "@/lib/can-add";
+import { signOut } from "@/lib/sync-engine";
 import { useT } from "@/lib/i18n";
 import { BooksAdmin } from "@/components/books-admin";
 import { SponsorTab } from "@/components/sponsor-admin";
@@ -57,7 +58,9 @@ export function AdminPage() {
             className={btn.primary}
             onClick={() => {
               if (phase === "in") {
-                useAccount.getState().openDialog("login");
+                void signOut().finally(() => {
+                  useAccount.getState().openDialog("login");
+                });
               } else {
                 askToSignIn();
               }
