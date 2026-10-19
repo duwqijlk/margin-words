@@ -6,6 +6,7 @@
 import { squash, SQUASH_MIN } from "./flow-text.ts";
 import { countSurface, matchAnchor, normText, type GlossaryAnchor, type GlossarySense, type TapInfo } from "./glossary-format.ts";
 import { bookGlossKey, catalogListId, glossCacheKey, type GlossPoint } from "./gloss-point.ts";
+import { lookupKey } from "./text.ts";
 
 export { bookGlossKey };
 import type { VocabEntry, WordSource } from "./vocab-model.ts";
@@ -185,6 +186,11 @@ function entryOf(file: GlossFileView, lemma: string) {
   }
   for (const entry of Object.values(glossary)) {
     if (entry.forms?.some((form) => form.trim().toLowerCase() === want)) return entry;
+  }
+  const stemmed = lookupKey(lemma);
+  if (stemmed !== want) {
+    const match = glossary[stemmed] ?? glossary[stemmed.toLowerCase()];
+    if (match) return match;
   }
   return undefined;
 }
