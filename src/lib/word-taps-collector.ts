@@ -5,6 +5,8 @@
  * and flushes in debounced batches to /api/analytics/word-taps.
  */
 
+import { WORD_TAPS_MAX } from "@/lib/limits";
+
 // Top English function words / stop-words that readers might accidentally tap.
 const STOP_WORDS = new Set([
   "a", "about", "after", "all", "also", "am", "an", "and", "any", "are",
@@ -160,33 +162,40 @@ export async function flushWordTaps(): Promise<void> {
   }
   buffer.clear();
 
+  // A batch is small on purpose (WORD_TAPS_MAX): the server validates and writes the whole batch
+  // inside one request, and that request has 10ms of CPU on the Free plan. Anything above the
+  // limit used to be dropped on the floor; now the extra taps go in a second request.
+  const MAX_TAPS_PER_FLUSH = WORD_TAPS_MAX * 5;
   for (const [bookId, entry] of byBook.entries()) {
-    const payload = JSON.stringify({
-      bookId,
-      bookTitle: entry.bookTitle,
-      taps: entry.taps.slice(0, 50).map((t) => ({
-        word: t.word,
-        form: t.form,
-        chapter: t.chapter,
-        occurrence: t.occurrence,
-        paragraph: t.paragraph,
-        context: t.context,
-        sentence: t.sentence,
-        glossaryRev: t.glossaryRev,
-        count: t.count,
-        inGlossary: t.inGlossary,
-      })),
-    });
-
-    try {
-      await fetch("/api/analytics/word-taps", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: payload,
-        keepalive: true,
+    const taps = entry.taps.slice(0, MAX_TAPS_PER_FLUSH);
+    for (let start = 0; start < taps.length; start += WORD_TAPS_MAX) {
+      const payload = JSON.stringify({
+        bookId,
+        bookTitle: entry.bookTitle,
+        taps: taps.slice(start, start + WORD_TAPS_MAX).map((t) => ({
+          word: t.word,
+          form: t.form,
+          chapter: t.chapter,
+          occurrence: t.occurrence,
+          paragraph: t.paragraph,
+          context: t.context,
+          sentence: t.sentence,
+          glossaryRev: t.glossaryRev,
+          count: t.count,
+          inGlossary: t.inGlossary,
+        })),
       });
-    } catch {
-      // Best-effort analytics, silently ignore network failures
+
+      try {
+        await fetch("/api/analytics/word-taps", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: payload,
+          keepalive: true,
+        });
+      } catch {
+        // Best-effort analytics, silently ignore network failures
+      }
     }
   }
 }

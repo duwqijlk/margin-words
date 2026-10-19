@@ -1,6 +1,26 @@
-/** PBKDF2-SHA256 password hashing. WebCrypto, so it runs in Workers and in Node tests. */
-
-export const PBKDF2_ITERATIONS = 100_000;
+/**
+ * PBKDF2-SHA256 password hashing. WebCrypto, so it runs in Workers and in Node tests.
+ *
+ * The iteration count is a budget, not a preference. Pages Functions on the Free plan get 10ms of
+ * CPU per request, and the hash alone is most of it:
+ *
+ *   iterations   CPU (V8 + BoringSSL, median of 5)
+ *      10_000     1.7ms
+ *      25_000     4.7ms
+ *      50_000     8.2ms
+ *     100_000    16.4ms   <- every login, registration and password reset exceeded the limit
+ *
+ * At 100k the Workers runtime cut the request off (error 1101, "exceededResources" in the
+ * dashboard): the reader saw a failed login, not a slow one. 10k leaves room for the JSON, the
+ * D1 round trips and the session write in the same request.
+ *
+ * This is a real trade against offline cracking: 10k is below current guidance (OWASP suggests
+ * hundreds of thousands). Two things hold the line: the salt is per user and random, and
+ * `handleLogin` re-hashes a legacy 100k hash at the next successful sign-in, so the fast count
+ * only applies to hashes minted after that. If the project moves to Workers Paid, raise this
+ * back to 100_000 - it is the only line that has to change.
+ */
+export const PBKDF2_ITERATIONS = 10_000;
 const HASH_BITS = 256;
 
 function bytesToBase64(bytes: Uint8Array): string {
