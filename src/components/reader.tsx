@@ -40,7 +40,7 @@ import {
 } from "@/lib/glossary-format";
 import type { PhraseEntry } from "@/lib/glossary-extras";
 import { pickPhrase, phraseWordMarks } from "@/lib/help-match";
-import { findPhrase, paragraphBlocks } from "@/lib/help-lookup";
+import { findPhrase, paragraphBlocks, shareStoredBook } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
 import { useJump } from "@/lib/jump-store";
@@ -90,9 +90,11 @@ import {
   calculatePageStep,
   isEinkScreen,
   MIN_TURN_MS,
+  pagingProbeOn,
   readerLineHeight,
   topBarHeight,
 } from "@/lib/reader-paging";
+import { watchPageMoves, type PageMove } from "@/lib/page-guard";
 import {
   PLACE_TOP,
   RESTORE_BOTTOM,
@@ -181,6 +183,9 @@ export function ReaderScreen({
   // Phrases live beside the word list. Empty until that record loads, then the dotted line appears.
   const [phraseList, setPhraseList] = useState<Record<string, PhraseEntry>>({});
   const [listSource, setListSource] = useState("");
+  // The book whose phrase list has answered. The chapter is linked only after that: linking it
+  // first without phrases and again with them built and laid out the whole chapter twice.
+  const [phrasesFor, setPhrasesFor] = useState("");
   const [glossaryRev, setGlossaryRev] = useState("");
   const articleRef = useRef<HTMLElement | null>(null);
   /** The sticky top bar. Its height is what a page turn must not hide. */
@@ -200,6 +205,9 @@ export function ReaderScreen({
   } | null>(null);
   // The last scroll position not yet written to the progress store.
   const pendingSave = useRef<(() => void) | null>(null);
+  // Holds every page turn to one page, whoever scrolled (see page-guard.ts). The reader's own
+  // placing (restore, a new chapter) tells it with `quiet()` so it is never undone.
+  const pageGuard = useRef<ReturnType<typeof watchPageMoves> | null>(null);
 
   const waitingFile = useRef(false);
   // True once a full read is on screen. A word-list event before that must re-read the book:
@@ -243,6 +251,7 @@ export function ReaderScreen({
         if (!place.extraId && place.paragraph !== null) setChapterIndex(place.chapter);
       }
       setMissing(false);
+      shareStoredBook(bookId, next);
       setBook(next);
       fillPrepared(bookId, next.glossary);
     };
@@ -322,6 +331,7 @@ export function ReaderScreen({
         .then(async (extras) => {
           if (!alive) return;
           setPhraseList(extras?.phrases ?? {});
+          setPhrasesFor(bookId);
           setListSource(extras?.source ?? "");
           let rev = extras?.rev ?? "";
           if (!rev) {
@@ -330,7 +340,9 @@ export function ReaderScreen({
           }
           setGlossaryRev(rev);
         })
-        .catch(() => undefined);
+        .catch(() => {
+          if (alive) setPhrasesFor(bookId);
+        });
     };
     pull();
     const onProgress = (event: Event) => {
@@ -400,9 +412,10 @@ export function ReaderScreen({
     [marked],
   );
   const chapterKey = `${bookId}|${viewChapter}|${extraId}`;
+  const phrasesReady = phrasesFor === bookId;
   // A chapter the reader just left is already linked. Coming back does not build it again.
   const linkedHtml = useMemo(() => {
-    if (!book || !chapterHtml) return "";
+    if (!book || !chapterHtml || !phrasesReady) return "";
     const cached = peekChapterHtml(book, phraseList, chapterKey);
     if (cached !== undefined) return cached;
     try {
@@ -421,7 +434,7 @@ export function ReaderScreen({
       console.error("Failed to link chapter HTML", error);
       return chapterHtml;
     }
-  }, [book, chapterHtml, chapterKey, phraseList, marked, resolveKey, viewChapter]);
+  }, [book, chapterHtml, chapterKey, phraseList, marked, resolveKey, viewChapter, phrasesReady]);
   const bookChapters = book?.chapters;
 
   const bookKey = shelfBook ? bookSyncKey(shelfBook) : "";
@@ -512,6 +525,7 @@ export function ReaderScreen({
     }
     if (!mark && (target === null || target <= 0)) {
       placed.current = { page, paragraph: null, offset: 0, target: null, until: 0 };
+      pageGuard.current?.quiet();
       window.scrollTo({ top: 0 });
       setScrolled(0);
       return;
@@ -536,6 +550,7 @@ export function ReaderScreen({
         const rect = block.getBoundingClientRect();
         const line = inside > 0 && tallBlock(rect) ? lineTopAt(block, inside) : null;
         const top = (line === null ? rect.top - PLACE_TOP : line - PLACE_TOP - 2) + window.scrollY;
+        pageGuard.current?.quiet();
         window.scrollTo({ top: Math.max(0, top) });
       };
       if (mark?.flash) {
@@ -543,11 +558,13 @@ export function ReaderScreen({
         flashTimer = setTimeout(() => block.classList.remove("book-flash"), 3000);
       }
     } else if (target === null || target <= 0) {
+      pageGuard.current?.quiet();
       window.scrollTo({ top: 0 });
       setScrolled(0);
       return;
     } else if (bottom) {
       place = () => {
+        pageGuard.current?.quiet();
         window.scrollTo({
           top: Math.max(0, document.documentElement.scrollHeight - window.innerHeight),
         });
@@ -556,6 +573,7 @@ export function ReaderScreen({
       place = () => {
         const top = root.getBoundingClientRect().top + window.scrollY;
         const span = Math.max(1, root.offsetHeight - window.innerHeight);
+        pageGuard.current?.quiet();
         window.scrollTo({ top: top + target * span });
       };
     }
@@ -581,7 +599,7 @@ export function ReaderScreen({
       } catch {}
       window.removeEventListener("wheel", stop);
       window.removeEventListener("touchmove", stop);
-      window.removeEventListener("keydown", stop);
+      window.removeEventListener("keydown", stop, true);
     };
     function stop() {
       release();
@@ -589,7 +607,9 @@ export function ReaderScreen({
     }
     window.addEventListener("wheel", stop, { passive: true });
     window.addEventListener("touchmove", stop, { passive: true });
-    window.addEventListener("keydown", stop);
+    // Capture: the page keys stop propagating at the window's capture phase (onKey below), so a
+    // bubbling listener never heard them and the hold dragged the first turn back to the saved spot.
+    window.addEventListener("keydown", stop, true);
     const timer = setTimeout(stop, Math.max(0, until - now));
     return () => {
       clearTimeout(timer);
@@ -845,6 +865,7 @@ export function ReaderScreen({
       }
       return;
     }
+    pageGuard.current?.turn(top);
     window.scrollTo(0, Math.min(maxScroll, top + step));
   }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep, turnAllowed]);
 
@@ -855,6 +876,7 @@ export function ReaderScreen({
     const top = window.scrollY;
     const hasPrev = slots ? slotIndex > 0 : safeIndex > 0;
     if (top > 0) {
+      pageGuard.current?.turn(top);
       window.scrollTo(0, Math.max(0, top - step));
       return;
     }
@@ -957,6 +979,41 @@ export function ReaderScreen({
       document.removeEventListener("click", onClickAway);
     };
   }, []);
+
+  // After the key handler on purpose: the guard's own keydown listener must see the page keys
+  // already default-prevented, so it can tell them from keys that move the page on purpose.
+  const pageStepRef = useRef(pageStep);
+  pageStepRef.current = pageStep;
+  const [probe] = useState(pagingProbeOn);
+  const [probeKey, setProbeKey] = useState("");
+  const [probeMove, setProbeMove] = useState<PageMove | null>(null);
+  useEffect(() => {
+    const coarse = () => {
+      try {
+        return window.matchMedia?.("(pointer: coarse)").matches === true;
+      } catch {
+        return false;
+      }
+    };
+    const watch = watchPageMoves({
+      step: () => pageStepRef.current(),
+      line: () => readerLineHeight(articleRef.current),
+      // A jump with no input is normal on a desktop (find in page). On a phone or an e-ink reader
+      // it is the browser's own page turn.
+      enabled: () => coarse() || isEinkScreen(window.innerWidth, window.innerHeight),
+      onMove: probe ? setProbeMove : undefined,
+    });
+    pageGuard.current = watch;
+    // The probe shows every key the device sends, also the ones the reader does not use.
+    const onProbeKey = (event: KeyboardEvent) =>
+      setProbeKey(`${event.key || "?"}/${event.code || "?"}/${event.keyCode}`);
+    if (probe) window.addEventListener("keydown", onProbeKey, true);
+    return () => {
+      watch.stop();
+      pageGuard.current = null;
+      if (probe) window.removeEventListener("keydown", onProbeKey, true);
+    };
+  }, [probe]);
 
   const pickedKey = picked ? resolveKey(picked.surface) : "";
   const statCache = useRef<Map<string, WordStat | null>>(new Map());
@@ -1153,7 +1210,7 @@ export function ReaderScreen({
     );
   }
 
-  if (!book || !chapter) {
+  if (!book || !chapter || !phrasesReady) {
     return (
       <div className="mx-auto grid max-w-md justify-items-center gap-4 px-6 py-24" aria-busy="true">
         <div className="size-8 animate-spin rounded-full border-2 border-line border-t-accent" />
@@ -1387,6 +1444,24 @@ export function ReaderScreen({
           <Focus className="size-3.5" aria-hidden />
           {t("reader.exitFocus")}
         </button>
+      ) : null}
+
+      {probe ? (
+        <p
+          data-paging-probe
+          className="pointer-events-none fixed bottom-2 left-2 z-40 max-w-[calc(100vw-1rem)] rounded border border-line bg-card px-2 py-1 font-mono text-[11px] leading-snug text-ink"
+        >
+          {t("reader.probe", {
+            key: probeKey || t("reader.probeNone"),
+            step: pageStep(),
+            visible: `${Math.round(
+              Math.min(window.innerHeight, window.visualViewport?.height ?? window.innerHeight) -
+                (focus ? 0 : topBarHeight(headerRef.current)),
+            )} (${window.innerHeight}/${Math.round(window.visualViewport?.height ?? 0)})`,
+            moved: probeMove ? Math.round(probeMove.end - probeMove.start) : 0,
+            fix: probeMove?.to != null ? t("reader.probeFix", { to: Math.round(probeMove.to) }) : "",
+          })}
+        </p>
       ) : null}
 
       <main

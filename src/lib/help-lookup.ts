@@ -5,7 +5,14 @@
  * Nothing here goes online.
  * The matching rules themselves are in help-match.ts (pure, unit tested).
  */
-import { extrasRevision, loadBookExtras, loadStoredBook, type BookExtras, type StoredChapter } from "@/lib/book-db";
+import {
+  extrasRevision,
+  loadBookExtras,
+  loadStoredBook,
+  type BookExtras,
+  type StoredBook,
+  type StoredChapter,
+} from "@/lib/book-db";
 import { flowText } from "@/lib/flow-text";
 import type { ParagraphHelp, PhraseEntry, SentenceHelp } from "@/lib/glossary-extras";
 import { paragraphBlocks, pickPhrase, pickSentenceHelp } from "@/lib/help-match";
@@ -42,19 +49,44 @@ type StoredTexts = {
 
 const bookTexts = new Map<string, { rev: number; data: Promise<StoredTexts | null> }>();
 
+/**
+ * The book the reader already read for the page on screen. The lightbulbs used to read the whole
+ * book from IndexedDB a second time on every open (all chapter text, cloned again) while the first
+ * read was still being drawn, which is most of the wait on a slow phone or e-ink reader.
+ */
+const shared = new Map<string, Pick<StoredBook, "chapters" | "extras">>();
+
+/** The reader hands over the book it has on screen, so the paragraph notes do not read it again. */
+export function shareStoredBook(bookId: string, book: Pick<StoredBook, "chapters" | "extras">): void {
+  shared.clear();
+  shared.set(bookId, book);
+}
+
+/** One macrotask: a tap or a frame can run between two chapters. */
+const breathe = () => new Promise<void>((resolve) => setTimeout(resolve, 0));
+
+/** Every chapter's paragraph texts, one chapter per task (parsing them all at once held the page for seconds). */
+async function storedTexts(book: Pick<StoredBook, "chapters" | "extras">): Promise<StoredTexts> {
+  const chapters: string[][] = [];
+  for (const chapter of book.chapters) {
+    await breathe();
+    chapters.push(chapterTexts(chapter));
+  }
+  const extras: StoredTexts["extras"] = [];
+  for (const extra of book.extras ?? []) {
+    await breathe();
+    extras.push({ id: extra.id, paragraphs: chapterTexts(extra) });
+  }
+  return { chapters, extras };
+}
+
 function textsOf(bookId: string): Promise<StoredTexts | null> {
   const rev = extrasRevision(bookId);
   const known = bookTexts.get(bookId);
   if (known && known.rev === rev) return known.data;
-  const data = loadStoredBook(bookId)
-    .then((book) =>
-      book
-        ? {
-            chapters: book.chapters.map(chapterTexts),
-            extras: (book.extras ?? []).map((extra) => ({ id: extra.id, paragraphs: chapterTexts(extra) })),
-          }
-        : null,
-    )
+  const held = shared.get(bookId);
+  const data = (held ? Promise.resolve(held) : loadStoredBook(bookId))
+    .then((book) => (book ? storedTexts(book) : null))
     .catch(() => null);
   bookTexts.set(bookId, { rev, data });
   return data;

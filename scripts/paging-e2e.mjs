@@ -215,6 +215,26 @@ check(
   `y=${afterTwo.y}px, line=${start.line}px`,
 );
 
+// The browser's own page scroll on top of ours (a WebView or a reader app that also scrolls on a
+// page key). Six rounds of shrinking our own step never helped with this; the page guard puts the
+// page back to exactly one of our pages.
+const beforeExtra = await page_();
+await page.evaluate(() => {
+  window.addEventListener(
+    "keydown",
+    () => setTimeout(() => window.scrollBy(0, window.innerHeight), 40),
+    { once: true, capture: true },
+  );
+});
+await page.keyboard.press("PageDown");
+await page.waitForTimeout(1000);
+const afterExtra = await page_();
+check(
+  Math.abs(afterExtra.y - beforeExtra.y - start.step) <= 3,
+  "a browser scroll on top of a turn is put back to one page",
+  `moved ${afterExtra.y - beforeExtra.y}px, one page is ${start.step}px`,
+);
+
 // the last short strip is shown, then the next turn opens the next chapter
 await page.evaluate(() =>
   window.scrollTo(0, document.documentElement.scrollHeight - window.innerHeight - 200),

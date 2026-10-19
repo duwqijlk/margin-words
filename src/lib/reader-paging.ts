@@ -76,3 +76,23 @@ export function calculatePageStep(input: {
   if (lines < 1) return Math.round(Math.min(visible, line));
   return Math.round(lines * line);
 }
+
+const PROBE_KEY = "cibian-paging-probe";
+
+/**
+ * The paging probe: a small line on the reading page with the last key the device sent, our page
+ * size and the last move, so a device that still turns too far can say why. Turned on by opening
+ * a book with `?probe=paging` on its address (`/read/<id>?probe=paging`) and off with
+ * `?probe=off`; in between it stays on in this browser.
+ */
+export function pagingProbeOn(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    const asked = new URLSearchParams(window.location.search).get("probe");
+    if (asked === "paging") window.localStorage.setItem(PROBE_KEY, "1");
+    else if (asked === "off") window.localStorage.removeItem(PROBE_KEY);
+    return window.localStorage.getItem(PROBE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
