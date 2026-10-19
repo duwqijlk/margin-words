@@ -48,7 +48,7 @@ const SNAP = ({ wordIds, paraIdx }) => {
     article: r(art),
     main: r(document.querySelector("main")),
     paras: paraIdx.map((i) => r(paras[i])),
-    words: wordIds.map((i) => r(art.querySelector(`button[data-i="${i}"]`))),
+    words: wordIds.map((i) => r(art.querySelector(`[role=button][data-word][data-i="${i}"]`))),
     // per-line breaks of the visible paragraph: number of client rects of the paragraph
     lines: paraIdx.map((i) => (paras[i] ? paras[i].getClientRects().length + ":" + Math.round(paras[i].getBoundingClientRect().height) : null)),
   };
@@ -89,7 +89,7 @@ async function panelsPhase({ page, vp, cfg, label, OUT, results, log, errors }) 
     localStorage.setItem("cibian-progress-v1", JSON.stringify(raw));
   });
   await page.reload();
-  await page.waitForSelector("button[data-word]", { timeout: 30000 });
+  await page.waitForSelector("[role=button][data-word]", { timeout: 30000 });
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(3000);
   const at = cfg.low ? 0.7 : mobile ? 0.25 : 0.3;
@@ -106,7 +106,7 @@ async function panelsPhase({ page, vp, cfg, label, OUT, results, log, errors }) 
     const art = document.querySelector("article.book-body");
     const paras = [...art.querySelectorAll("p")];
     const idx = paras.findIndex((x) => x.textContent.replace(/\s+/g, " ").includes(text));
-    const vis = [...art.querySelectorAll("button[data-word]")].filter((b) => { const r = b.getBoundingClientRect(); return r.top > 70 && r.bottom < innerHeight - 8 && r.width > 8; });
+    const vis = [...art.querySelectorAll("[role=button][data-word]")].filter((b) => { const r = b.getBoundingClientRect(); return r.top > 70 && r.bottom < innerHeight - 8 && r.width > 8; });
     const spread = [];
     for (let k = 0; k < 14 && vis.length; k++) spread.push(vis[Math.floor((k * (vis.length - 1)) / 13)].dataset.i);
     const near = [];
@@ -156,7 +156,7 @@ async function panelsPhase({ page, vp, cfg, label, OUT, results, log, errors }) 
   // phrase + coined taps on the page
   for (const [w, name] of [["sticking", "phrase card"], ["moustachy", "coined word card"], ["bristles", "plain word card"]]) {
     await page.keyboard.press("Escape"); await page.waitForTimeout(400); // a card on the side may sit over the next word (same as the old test)
-    await tap(page.locator(`article.book-body p:has-text("${PANEL_PARA}") button[data-word="${w}"]`).first());
+    await tap(page.locator(`article.book-body p:has-text("${PANEL_PARA}") [role=button][data-word="${w}"]`).first());
     await page.waitForTimeout(900);
     await record(name, { card: true, para: false });
     if (w === "sticking") await shot("5-phrase");
@@ -231,7 +231,7 @@ for (const vp of VIEWPORTS) {
   const openBtn = card.getByRole("button", { name: /^Open\b/ });
   await openBtn.waitFor({ timeout: 90000 });
   await openBtn.click();
-  await page.waitForSelector("button[data-word]", { timeout: 30000 });
+  await page.waitForSelector("[role=button][data-word]", { timeout: 30000 });
 
   for (const cfg of CONFIGS) {
     const label = `${vp.name}/${cfg.name}`;
@@ -244,12 +244,12 @@ for (const vp of VIEWPORTS) {
     await page.reload();
     const open = page.getByRole("button", { name: /^Open\b.*The Twits/ }).first();
     await Promise.race([
-      page.waitForSelector("button[data-word]", { timeout: 20000 }).catch(() => {}),
+      page.waitForSelector("[role=button][data-word]", { timeout: 20000 }).catch(() => {}),
       open.waitFor({ timeout: 20000 }).catch(() => {}),
     ]);
-    if (!(await page.$("button[data-word]"))) {
+    if (!(await page.$("[role=button][data-word]"))) {
       await open.click();
-      await page.waitForSelector("button[data-word]", { timeout: 20000 });
+      await page.waitForSelector("[role=button][data-word]", { timeout: 20000 });
     }
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(3000); // let the position-restore observer finish
@@ -261,7 +261,7 @@ for (const vp of VIEWPORTS) {
     const target = await page.evaluate(
       ({ multi, topFrac }) => {
         const art = document.querySelector("article.book-body");
-        const btns = [...art.querySelectorAll("button[data-word]")];
+        const btns = [...art.querySelectorAll("[role=button][data-word]")];
         const m = btns.find((b) => multi.includes(b.dataset.word.toLowerCase()) && b.classList.contains("book-hard"));
         if (!m) return null;
         const y = m.getBoundingClientRect().top + window.scrollY;
@@ -281,7 +281,7 @@ for (const vp of VIEWPORTS) {
     const picks = await page.evaluate(
       ({ mi, vh, mobile, low }) => {
         const art = document.querySelector("article.book-body");
-        const btns = [...art.querySelectorAll("button[data-word]")];
+        const btns = [...art.querySelectorAll("[role=button][data-word]")];
         const vis = btns
           .map((b) => ({ b, r: b.getBoundingClientRect() }))
           .filter(({ r }) => r.top > (low && mobile ? vh * 0.5 : 90) && r.bottom < vh * (mobile && !low ? 0.45 : 0.92) && r.width > 8);
@@ -313,7 +313,7 @@ for (const vp of VIEWPORTS) {
 
     const tapWord = async (i) => {
       const covered = await page.evaluate((idx) => {
-        const w = document.querySelector(`article.book-body button[data-i="${idx}"]`);
+        const w = document.querySelector(`article.book-body [role=button][data-word][data-i="${idx}"]`);
         const r = w.getBoundingClientRect();
         const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
         return hit !== w && !w.contains(hit);
@@ -323,7 +323,7 @@ for (const vp of VIEWPORTS) {
         await page.keyboard.press("Escape");
         await page.waitForTimeout(400);
       }
-      const loc = page.locator(`article.book-body button[data-i="${i}"]`);
+      const loc = page.locator(`article.book-body [role=button][data-word][data-i="${i}"]`);
       if (vp.mobile) await loc.tap({ timeout: 5000 });
       else await loc.click({ timeout: 5000 });
       await page.waitForTimeout(vp.mobile ? 1100 : 700);
@@ -331,7 +331,7 @@ for (const vp of VIEWPORTS) {
     const cardInfo = (i) =>
       page.evaluate((idx) => {
         const card = document.querySelector('aside[aria-label^="Word card"]');
-        const w = document.querySelector(`article.book-body button[data-i="${idx}"]`);
+        const w = document.querySelector(`article.book-body [role=button][data-word][data-i="${idx}"]`);
         if (!card) return { open: false };
         const c = card.getBoundingClientRect();
         const r = w ? w.getBoundingClientRect() : null;

@@ -126,18 +126,18 @@ export function placeFloatingPanel(input: {
 }
 
 /**
- * Boxes of a word. The button itself draws nothing (it is `display: contents` so the
- * word can break across a line). The span inside it is the ink.
+ * Boxes of a word. The inline control can break across lines; measure its inner
+ * ink span so placement avoids the same fragments that are highlighted.
  */
 function wordRects(el: HTMLElement): DOMRect[] {
-  const tap = el.tagName === "BUTTON" ? el.querySelector(":scope > .book-tap") : null;
+  const tap = el.matches('[role="button"][data-word]') ? el.querySelector<HTMLElement>(":scope > .book-tap") : null;
   const node = tap instanceof HTMLElement ? tap : el;
   return [...node.getClientRects()].filter((rect) => rect.width >= 1 && rect.height >= 1);
 }
 
 /** The box the card should avoid. A word uses its own box. A paragraph uses a short visible strip. */
 export function anchorBox(el: HTMLElement): AnchorRect {
-  if (el.tagName === "BUTTON") {
+  if (el.matches('[role="button"][data-word]')) {
     const box = wordRects(el)[0] ?? el.getBoundingClientRect();
     return { left: box.left, top: box.top, width: box.width, height: box.height };
   }

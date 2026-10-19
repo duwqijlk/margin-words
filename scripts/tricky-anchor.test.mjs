@@ -16,7 +16,7 @@ function marks(html, anchors, chapter = 0) {
   const ready = new Set(["tap"]);
   const out = format.readingHtml(html, ready, (surface) => surface.toLowerCase(), chapter, new Map([["tap", gloss]]), new Map([["tap", gloss]]));
   const doc = new DOMParser().parseFromString(`<div>${out}</div>`, "text/html");
-  return [...doc.querySelectorAll("button.book-tricky")].map((b) => Number(b.dataset.n));
+  return [...doc.querySelectorAll('[role="button"][data-word].book-tricky')].map((b) => Number(b.dataset.n));
 }
 
 const html = "<p>Tap tap tap. Then she heard a tap on the glass.</p>";

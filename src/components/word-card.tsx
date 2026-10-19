@@ -286,7 +286,7 @@ export function WordCard({
   stat: WordStat | undefined;
   saved: boolean;
   anchor: HTMLElement | null;
-  onClose: () => void;
+  onClose: (restoreFocus?: boolean) => void;
   onToggle: () => void;
 }) {
   const { t } = useT();
@@ -348,6 +348,7 @@ export function WordCard({
       onClose={onClose}
       label={t("card.aria", { word: state.key })}
       kind="word"
+      desktopWidth={24 * 16}
       className={cn(
         "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
         state.here || phrase?.entry.here ? "max-h-[72dvh]" : "max-h-[60dvh]",
@@ -412,7 +413,7 @@ export function WordCard({
             <button
               type="button"
               className={cn(btn.icon, "size-9 shrink-0")}
-              onClick={onClose}
+              onClick={() => onClose(true)}
               aria-label={t("card.close")}
               data-panel-close
             >

@@ -78,6 +78,8 @@ import {
   ParagraphPanel,
   type ParagraphPanelState,
 } from "@/components/help-panels";
+import { desktopPanel } from "@/components/floating-card";
+import { anchorOffscreen } from "@/lib/floating-panel";
 import { ReaderSettings } from "@/components/reader-settings";
 import { ReaderContents } from "@/components/reader-contents";
 import {
@@ -466,7 +468,7 @@ export function ReaderScreen({
   useLayoutEffect(() => {
     const root = articleRef.current;
     if (!root) return;
-    for (const button of root.querySelectorAll<HTMLButtonElement>("button[data-word]")) {
+    for (const button of root.querySelectorAll<HTMLElement>("[role=button][data-word]")) {
       const key = resolveKey(button.dataset.word ?? "");
       const sparseOff =
         marked.sparse.has(key) &&
@@ -486,9 +488,9 @@ export function ReaderScreen({
         if (marks.length === 0) continue;
         const starts = flowCutOffsets(
           block,
-          (el) => el.localName === "button" && el.getAttribute?.("data-word") != null,
+          (el) => el.localName === "span" && el.getAttribute?.("role") === "button" && el.getAttribute?.("data-word") != null,
         );
-        for (const button of block.querySelectorAll<HTMLButtonElement>("button[data-word]")) {
+        for (const button of block.querySelectorAll<HTMLElement>("[role=button][data-word]")) {
           if (button.closest(sel) !== block) continue;
           const word = button.getAttribute("data-word") ?? "";
           const start = starts.get(button);
@@ -507,7 +509,7 @@ export function ReaderScreen({
     const root = articleRef.current;
     // data-i is the linker's numeric token order, not a word supplied by the book.
     const next = root && /^\d+$/.test(pickedIndex)
-      ? root.querySelector<HTMLElement>(`button[data-i="${pickedIndex}"]`)
+      ? root.querySelector<HTMLElement>(`[role=button][data-i="${pickedIndex}"]`)
       : null;
     next?.classList.add("book-on");
     selectedButton.current = next;
@@ -927,6 +929,20 @@ export function ReaderScreen({
     }
   }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep, turnAllowed]);
 
+  const pendingWordSpace = useRef<HTMLElement | null>(null);
+  const closeWordCard = (restoreFocus = false) => {
+    pendingWordSpace.current = null;
+    const target = anchor;
+    setPicked(null);
+    const focusInCard = document.querySelector("[data-word-card]")?.contains(document.activeElement);
+    if (restoreFocus && focusInCard && picked && desktopPanel() && target?.isConnected &&
+        articleRef.current?.contains(target) && !anchorOffscreen(target)) {
+      target.focus({ preventScroll: true });
+    }
+  };
+  const closeWordRef = useRef(closeWordCard);
+  closeWordRef.current = closeWordCard;
+
   const pagingHandlers = useRef({
     pageForward,
     pageBackward,
@@ -941,13 +957,25 @@ export function ReaderScreen({
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setPicked(null);
+        closeWordRef.current(true);
         setHelp(null);
         return;
       }
       const { pageForward: next, pageBackward: prev, cardOpen } = pagingHandlers.current;
 
       const target = event.target as HTMLElement | null;
+      if (!cardOpen && target === document.activeElement &&
+          target?.matches('[role="button"][data-word]') && articleRef.current?.contains(target) &&
+          (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.repeat) return;
+        if (event.key === "Enter") {
+          pendingWordSpace.current = null;
+          target.click();
+        } else pendingWordSpace.current = target;
+        return;
+      }
       const tag = target?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target?.isContentEditable)
         return;
@@ -982,7 +1010,7 @@ export function ReaderScreen({
       const target = event.target as Element | null;
       if (!target || !target.closest) return;
       const inside =
-        'aside[data-word-card], aside[data-para-panel], [data-para-ui], button[data-word], header, [role="dialog"], [data-radix-popper-content-wrapper]';
+        'aside[data-word-card], aside[data-para-panel], [data-para-ui], [role=button][data-word], header, [role="dialog"], [data-radix-popper-content-wrapper]';
       // A button inside a card may remove itself when it is pressed (for example "Explain this
       // sentence"). Look at the path the click took, so it still counts as a click inside.
       const path = (event.composedPath?.() ?? []) as Element[];
@@ -990,10 +1018,29 @@ export function ReaderScreen({
       setPicked(null);
       setHelp(null);
     };
+    const cancelWordSpace = () => { pendingWordSpace.current = null; };
+    const onKeyUp = (event: KeyboardEvent) => {
+      if (event.key !== " ") return;
+      const word = pendingWordSpace.current;
+      cancelWordSpace();
+      if (!word) return;
+      event.preventDefault();
+      if (!pagingHandlers.current.cardOpen && word.isConnected &&
+          document.activeElement === word && event.target === word && articleRef.current?.contains(word)) {
+        word.click();
+      }
+    };
     window.addEventListener("keydown", onKey, { capture: true });
+    window.addEventListener("keyup", onKeyUp, { capture: true });
+    window.addEventListener("blur", cancelWordSpace);
+    document.addEventListener("focusout", cancelWordSpace);
     document.addEventListener("click", onClickAway);
     return () => {
+      cancelWordSpace();
       window.removeEventListener("keydown", onKey, { capture: true });
+      window.removeEventListener("keyup", onKeyUp, { capture: true });
+      window.removeEventListener("blur", cancelWordSpace);
+      document.removeEventListener("focusout", cancelWordSpace);
       document.removeEventListener("click", onClickAway);
     };
   }, []);
@@ -1187,7 +1234,7 @@ export function ReaderScreen({
       plainSurface(t),
     );
     if (tokens.length === 0) return;
-    const buttons = [...el.querySelectorAll<HTMLButtonElement>("button[data-word]")];
+    const buttons = [...el.querySelectorAll<HTMLElement>("[role=button][data-word]")];
     const same = (i: number) =>
       tokens.every((t, k) => plainSurface(buttons[i + k]?.dataset.word ?? "") === t);
     let at = -1;
@@ -1362,19 +1409,19 @@ export function ReaderScreen({
     if (!target) return;
     if (target.closest("nav, aside, [role='dialog'], [data-para-ui]")) return;
 
-    const button = target.closest("button[data-word]");
+    const button = target.closest("[role=button][data-word]");
     const cardOpen = picked !== null || help !== null;
 
     if (button) {
       event.preventDefault();
-      pickButton(button as HTMLButtonElement);
+      pickButton(button as HTMLElement);
       return;
     }
     if (target.closest("article a")) {
       event.preventDefault();
     }
     if (cardOpen) {
-      setPicked(null);
+      closeWordCard(false);
       closeHelp();
       return;
     }
@@ -1585,7 +1632,7 @@ export function ReaderScreen({
           chapter={viewChapter}
           noteChapter={activeExtra?.fromToc ? activeExtra.id : viewChapter}
           anchor={anchor}
-          onClose={() => setPicked(null)}
+          onClose={closeWordCard}
           onToggle={() => {
             if (!picked || !shelfBook || phrasePending) return;
             if (!shownPhrase && !card.ready) return;

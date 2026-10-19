@@ -133,7 +133,7 @@ function underlined(html) {
   const ready = new Set(["mysteriously", "nickname", "pillow", "blanket", "rattlesnake"]);
   const out = format.readingHtml(html, ready, (surface) => surface.toLowerCase(), 0, new Map());
   const doc = new DOMParser().parseFromString(`<div>${out}</div>`, "text/html");
-  return [...doc.querySelectorAll("button.book-hard")].map((b) => ({
+  return [...doc.querySelectorAll('[role="button"][data-word].book-hard')].map((b) => ({
     word: b.textContent,
     nth: Number(b.dataset.n),
   }));
@@ -184,7 +184,7 @@ test("separate spans around &#xad; become one word button", () => {
   );
   const shown = format.readingHtml(raw, new Set(["mysteriously", "rattlesnake"]), (s) => s.toLowerCase(), 0, new Map());
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
-  const buttons = [...doc.querySelectorAll("button")].map((b) => b.textContent);
+  const buttons = [...doc.querySelectorAll('[role="button"][data-word]')].map((b) => b.textContent);
   assert.deepEqual(
     buttons.filter((w) => w === "mysteriously"),
     ["mysteriously"],
@@ -231,7 +231,7 @@ test("a line break between the soft-hyphen spans is still one word", () => {
     new Map(),
   );
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
-  const buttons = [...doc.querySelectorAll("button")].map((b) => b.textContent);
+  const buttons = [...doc.querySelectorAll('[role="button"][data-word]')].map((b) => b.textContent);
   assert.deepEqual(
     buttons.filter((w) => w === "mysteriously" || w === "rattlesnake" || w === "nickname" || w === "pillow"),
     ["mysteriously", "nickname", "pillow", "rattlesnake"],
@@ -287,7 +287,7 @@ test("a word split by U+00AD is underlined, and a normal hyphen is not joined", 
   assert.equal(html.includes("mys<"), false);
   const shown = format.readingHtml(html, new Set(), (s) => s.toLowerCase(), 0, new Map());
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
-  const words = [...doc.querySelectorAll("button")].map((b) => b.textContent);
+  const words = [...doc.querySelectorAll('[role="button"][data-word]')].map((b) => b.textContent);
   assert.ok(words.includes("well") && words.includes("known"));
   assert.equal(words.includes("well-known"), false);
   assert.equal(words.includes("mys"), false);

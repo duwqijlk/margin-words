@@ -116,7 +116,7 @@ async function scenario(lang, size) {
   // ---- 3. save words from both books through the reader
   const saveWords = async (count) => {
     const saved = [];
-    const buttons = page.locator("article.book-body button.book-hard");
+    const buttons = page.locator("article.book-body [role=button][data-word].book-hard");
     const total = await buttons.count();
     for (let i = 0; i < total && saved.length < count; i += 3) {
       const button = buttons.nth(i);
@@ -138,7 +138,7 @@ async function scenario(lang, size) {
   ok(lanternWords.length === 2, `${label}: saved ${lanternWords.length} words from The Lantern Seller (${lanternWords.join(", ")})`);
   const aliceId = await bookIdOf(/Alice/);
   await page.goto(at(`read/${aliceId}`));
-  await page.waitForSelector("button.book-hard", { timeout: 60000 });
+  await page.waitForSelector("[role=button][data-word].book-hard", { timeout: 60000 });
   const aliceWords = await saveWords(3);
   ok(aliceWords.length === 3, `${label}: saved ${aliceWords.length} words from Alice (${aliceWords.join(", ")})`);
   let state = await store();

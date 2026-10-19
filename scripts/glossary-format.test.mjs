@@ -130,10 +130,10 @@ test("911, Y2K, and A.M. are buttons without moving another word's count", () =>
   ]);
   const shown = format.readingHtml(html, ready, (surface) => text.resolveGlossKey(surface, keys, new Map()), 0, new Map());
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
-  const byText = (value) => [...doc.querySelectorAll("button")].find((button) => button.textContent === value);
+  const byText = (value) => [...doc.querySelectorAll('[role="button"][data-word]')].find((button) => button.textContent === value);
   const called = byText("called");
   const emergency = byText("911");
-  const morning = [...doc.querySelectorAll("button")].find((button) => button.textContent.replace(/\.$/, "") === "A.M");
+  const morning = [...doc.querySelectorAll('[role="button"][data-word]')].find((button) => button.textContent.replace(/\.$/, "") === "A.M");
   const year = byText("Y2K");
   assert.ok(called && emergency && morning && year);
   assert.equal(called.getAttribute("data-n"), "1");
@@ -404,7 +404,7 @@ test("curly possessives keep main's occurrence map", () => {
   // button: couldn and t are not entries, and the tap looks up couldn't.
   const shown = format.readingHtml(html, new Set(["coral", "couldn't", "carving"]), (surface) => text.lookupKey(surface), 0, new Map());
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
-  const buttons = [...doc.querySelectorAll("button")];
+  const buttons = [...doc.querySelectorAll('[role="button"][data-word]')];
   const byText = (value) => buttons.find((button) => button.textContent === value);
   const head = byText("Coral");
   const bare = byText("coral");
@@ -485,7 +485,7 @@ test("a word main could tap inside a curly apostrophe stays its own button", () 
   const resolve = (surface) => text.resolveGlossKey(surface, new Map(lemmas.map((key) => [key, key])), new Map());
   const shown = format.readingHtml(html, ready, resolve, 0, new Map());
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
-  const buttons = [...doc.querySelectorAll("button")];
+  const buttons = [...doc.querySelectorAll('[role="button"][data-word]')];
   const hard = buttons.filter((button) => button.className === "book-hard").map((button) => button.textContent);
   assert.deepEqual(hard, ["Cap", "clock", "ticket", "guv", "Oughtn", "daren", "Don", "Don", "hen", "vet", "couldn\u2019t"]);
   const nOf = (label) => buttons.filter((button) => button.textContent === label).map((button) => button.getAttribute("data-n"));
@@ -523,7 +523,7 @@ test("a plural stem does not match another entry's form", () => {
   const ready = new Set(["carve", "hatch"]);
   const shown = format.readingHtml(html, ready, (surface) => text.resolveGlossKey(surface, keys, forms), 0, new Map());
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
-  const hard = [...doc.querySelectorAll("button.book-hard")].map((button) => button.textContent);
+  const hard = [...doc.querySelectorAll('[role="button"][data-word].book-hard')].map((button) => button.textContent);
   assert.deepEqual(hard, []);
   const withLemma = format.readingHtml(
     html,
@@ -533,7 +533,7 @@ test("a plural stem does not match another entry's form", () => {
     new Map(),
   );
   const again = new DOMParser().parseFromString(`<div>${withLemma}</div>`, "text/html");
-  const underlined = [...again.querySelectorAll("button.book-hard")].map((button) => button.textContent).sort();
+  const underlined = [...again.querySelectorAll('[role="button"][data-word].book-hard')].map((button) => button.textContent).sort();
   assert.deepEqual(underlined, ["carvings", "gatherings", "hatchings"]);
 
   // roses -> rose, and rose is only a form of rise. numbers -> number, a form of numb.
@@ -561,7 +561,7 @@ test("a plural stem does not match another entry's form", () => {
     new Map(),
   );
   const view = new DOMParser().parseFromString(`<div>${page}</div>`, "text/html");
-  assert.deepEqual([...view.querySelectorAll("button.book-hard")].map((button) => button.textContent), []);
+  assert.deepEqual([...view.querySelectorAll('[role="button"][data-word].book-hard')].map((button) => button.textContent), []);
 });
 
 test("lookupKey stems irregulars and -oes/-ves correctly without breaking consonant -oes", () => {

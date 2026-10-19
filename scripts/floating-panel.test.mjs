@@ -81,6 +81,27 @@ test("a card that fits under the word stays there even when the space above is t
   assert.ok(place.maxHeight >= 280);
 });
 
+for (const [viewportWidth, viewportHeight] of [[1024, 768], [1280, 800], [1280, 600]]) {
+  test(`a wider word card stays clear of anchors at ${viewportWidth}x${viewportHeight}`, () => {
+    for (const anchor of [
+      { left: 400, top: 120, width: 48, height: 28 },
+      { left: 12, top: 240, width: 48, height: 28 },
+      { left: viewportWidth - 72, top: 300, width: 48, height: 28 },
+      { left: viewportWidth - 72, top: viewportHeight - 60, width: 48, height: 28 },
+      // A tall anchor requires side placement rather than a top/bottom gap.
+      { left: 420, top: 12, width: 48, height: viewportHeight - 24 },
+    ]) {
+      const height = 620;
+      const place = placeFloatingPanel({ anchor, width: 384, height, viewportWidth, viewportHeight });
+      assert.ok(place.width >= 200 && place.width <= 384);
+      assert.ok(place.left >= 12 && place.top >= 12);
+      assert.ok(place.left + place.width <= viewportWidth - 12 + 0.5);
+      assert.ok(place.top + Math.min(height, place.maxHeight) <= viewportHeight - 12 + 0.5);
+      assert.equal(overlaps(place, anchor, height), false);
+    }
+  });
+}
+
 test("when neither side can show the whole card, the clearly taller side is used", () => {
   const anchor = { left: 480, top: 430, width: 40, height: 24 };
   const place = placeFloatingPanel({ anchor, width: 336, height: 640, ...view });

@@ -112,7 +112,7 @@ function hits(html, word, anchors) {
   const ready = new Set([word]);
   const sparse = new Map(Object.entries(list));
   const out = format.readingHtml(html, ready, (s) => s.toLowerCase(), 0, sparse);
-  return [...parse(`<div>${out}</div>`).querySelectorAll("button.book-hard")].map((b) => Number(b.dataset.n));
+  return [...parse(`<div>${out}</div>`).querySelectorAll('[role="button"][data-word].book-hard')].map((b) => Number(b.dataset.n));
 }
 
 test("an example stored with glued words ('realand') still finds its place", async () => {

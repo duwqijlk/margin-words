@@ -24,10 +24,10 @@ test("a long word can break, and the letters stay in order", () => {
 
 test("the reading html keeps the spelling on the button and the break out of the sentence", () => {
   const shown = hyphenate.hyphenateReadingHtml(
-    `<p><button type="button" data-word="There" data-i="0">There</button> <button type="button" data-word="remarkable" data-i="1" class="book-hard">remarkable</button>.</p>`,
+    `<p><span role="button" tabindex="-1" data-word="There" data-i="0">There</span> <span role="button" tabindex="-1" data-word="remarkable" data-i="1" class="book-hard">remarkable</span>.</p>`,
   );
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
-  const hard = doc.querySelector("button.book-hard");
+  const hard = doc.querySelector('[role="button"][data-word].book-hard');
   assert.equal(hard?.getAttribute("data-word"), "remarkable");
   const shownWord = hard?.querySelector(".book-tap")?.textContent ?? "";
   assert.equal(shownWord.replaceAll(SHY, ""), "remarkable");

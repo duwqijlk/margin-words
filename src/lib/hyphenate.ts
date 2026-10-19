@@ -33,14 +33,14 @@ export function hyphenateDisplay(word: string): string {
 }
 
 /**
- * Reading html with a tappable span inside each word button, and a soft hyphen
- * inside a long word. `data-word` stays the real spelling, so a tap still finds
- * the glossary entry.
+ * Reading html with a non-interactive span inside each word control, and a soft
+ * hyphen inside a long word. `data-word` stays the real spelling, so a tap still
+ * finds the glossary entry.
  */
 export function hyphenateReadingRoot(root: Element): void {
   const doc = root.ownerDocument;
   if (!doc) return;
-  for (const button of root.querySelectorAll("button[data-word]")) {
+  for (const button of root.querySelectorAll('[role="button"][data-word]')) {
     const surface = button.getAttribute("data-word") ?? "";
     const tap = doc.createElement("span");
     tap.className = "book-tap";

@@ -42,18 +42,18 @@ try {
       localStorage.setItem("cibian-notebook-v1", JSON.stringify({ version: 0, state: { books: [{ id, title: "Layout regression", author: "Test", source: "epub", cloth: "cloth", createdAt: 1 }], words: [], log: {} } }));
     });
     await page.goto(base + "read/layout-regression");
-    await page.waitForSelector("article.book-body button[data-word]");
+    await page.waitForSelector('article.book-body [role=button][data-word]');
     await page.evaluate(() => document.fonts.ready);
     await page.waitForSelector("[data-para-marker]");
     const typography = await page.evaluate(() => {
       const paragraphs = document.querySelectorAll("article p");
-      const weather = document.querySelector('button[data-word="weather"]');
+      const weather = document.querySelector('[role=button][data-word="weather"]');
       return {
         align: getComputedStyle(paragraphs[0]).textAlign,
         last: getComputedStyle(paragraphs[0]).textAlignLast,
         weatherItalic: Boolean(weather.closest("em")),
         weatherFont: getComputedStyle(weather.querySelector(".book-tap")).fontStyle,
-        words: [...paragraphs[1].querySelectorAll("button")].map(el => el.dataset.word),
+        words: [...paragraphs[1].querySelectorAll('[role=button][data-word]')].map(el => el.dataset.word),
       };
     });
     assert.equal(typography.align, "center");
@@ -75,14 +75,14 @@ try {
     assert.equal(geometry.inside, true);
     assert.equal(geometry.overlap, false);
     const position = await page.locator("article").boundingBox();
-    await page.locator('button[data-word="lantern"] .book-tap').first().click();
+    await page.locator('[role=button][data-word="lantern"] .book-tap').first().click();
     await page.waitForSelector("[data-word-card]");
-    assert.equal(await page.locator("button.book-on").count(), 1);
+    assert.equal(await page.locator("[role=button][data-word].book-on").count(), 1);
     const after = await page.locator("article").boundingBox();
     assert.deepEqual(after, position, "opening a card must not shift the article");
     await page.keyboard.press("Escape");
     await page.waitForSelector("[data-word-card]", { state: "detached" });
-    assert.equal(await page.locator("button.book-on").count(), 0);
+    assert.equal(await page.locator("[role=button][data-word].book-on").count(), 0);
     assert.deepEqual(errors, []);
     console.log(`PASS ${width}px: centered text, inline-word formatting, bulbs, selection and overlay stability`);
     await page.close();

@@ -31,7 +31,7 @@ function render(file, chapter) {
   };
   const html = format.readingHtml(book.chapters[chapter].html, ready, resolve, chapter, sparse, tricky);
   const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
-  const pick = (cls) => [...doc.querySelectorAll(`button.${cls}`)].map((b) => ({ word: b.dataset.word.toLowerCase(), nth: Number(b.dataset.n) }));
+  const pick = (cls) => [...doc.querySelectorAll(`[role="button"][data-word].${cls}`)].map((b) => ({ word: b.dataset.word.toLowerCase(), nth: Number(b.dataset.n) }));
   return { tricky: pick("book-tricky"), hard: pick("book-hard") };
 }
 

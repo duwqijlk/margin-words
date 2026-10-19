@@ -265,12 +265,12 @@ async function run(lang, size) {
     .getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") })
     .first()
     .click();
-  await page.waitForSelector("button.book-hard", { timeout: 30000 });
+  await page.waitForSelector("[role=button][data-word].book-hard", { timeout: 30000 });
   ok(
     (await page.locator("article.book-body").innerText()).length > 200,
     `${label}: Alice opens and shows text`,
   );
-  await page.locator("button.book-hard").first().click();
+  await page.locator("[role=button][data-word].book-hard").first().click();
   await page.locator("[data-word-card]").waitFor();
   const cardText = await page.locator("[data-word-card]").innerText();
   ok(cardText.trim().length > 10, `${label}: looking up a word opens a card ("${cardText.trim().slice(0, 40).replace(/\n/g, " ")}")`);
@@ -545,15 +545,15 @@ async function run(lang, size) {
     mimeType: "application/zip",
     buffer: FIX.kitNaming,
   });
-  await page.waitForSelector("button[data-word]", { timeout: 30000 });
+  await page.waitForSelector("[role=button][data-word]", { timeout: 30000 });
   ok(true, `${label}: good pack (<name>.epub + <name>.glossary.json) imported and the book opened`);
   ok(
     (await page.locator("article.book-body").innerText()).length > 200,
     `${label}: book text shown`,
   );
-  const hard = await page.locator("button.book-hard").count();
+  const hard = await page.locator("[role=button][data-word].book-hard").count();
   ok(hard > 3, `${label}: word list applied (${hard} underlined words)`);
-  await page.locator("button.book-hard").first().click();
+  await page.locator("[role=button][data-word].book-hard").first().click();
   await page.locator("[data-word-card]").waitFor();
   ok(true, `${label}: tapping a word opens the word card`);
   await page.keyboard.press("Escape");
@@ -619,7 +619,7 @@ async function run(lang, size) {
     .getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") })
     .first()
     .click();
-  await page.waitForSelector("button[data-word]", { timeout: 30000 });
+  await page.waitForSelector("[role=button][data-word]", { timeout: 30000 });
   await page.evaluate(() => window.scrollTo(0, 1500));
   await page.waitForTimeout(1500);
   await page.evaluate(() => {
@@ -677,7 +677,7 @@ async function run(lang, size) {
       .getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") })
       .first()
       .click();
-    await page.waitForSelector("button[data-word]", { timeout: 30000 });
+    await page.waitForSelector("[role=button][data-word]", { timeout: 30000 });
     ok(true, `${label}: a normal reload still shows the shelf and the book opens`);
   }
 
@@ -708,8 +708,8 @@ async function run(lang, size) {
     await fp.reload();
     await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 30000 });
     await fp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") }).first().click();
-    await fp.waitForSelector("button.book-hard", { timeout: 30000 });
-    await fp.locator("button.book-hard").first().click();
+    await fp.waitForSelector("[role=button][data-word].book-hard", { timeout: 30000 });
+    await fp.locator("[role=button][data-word].book-hard").first().click();
     await fp.locator("[data-word-card]").waitFor();
     ok(true, `${label}: a normal reload still opens Alice and a word is looked up`);
     await fp.keyboard.press("Escape");
@@ -930,8 +930,8 @@ async function run(lang, size) {
     await vshot("shelf-added");
 
     await vp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Peter and Wendy") }).first().click();
-    await vp.waitForSelector("button.book-hard", { timeout: 30000 });
-    await vp.locator("button.book-hard").first().click();
+    await vp.waitForSelector("[role=button][data-word].book-hard", { timeout: 30000 });
+    await vp.locator("[role=button][data-word].book-hard").first().click();
     await vp.locator("[data-word-card]").waitFor();
     ok(
       (await vp.locator("[data-word-card]").innerText()).trim().length > 10,
@@ -943,7 +943,7 @@ async function run(lang, size) {
     // Looking-Glass (shrunk epub): opens and its illustrations load
     await toShelfOn(vp);
     await vp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Through the Looking") }).first().click();
-    await vp.waitForSelector("button.book-hard", { timeout: 30000 });
+    await vp.waitForSelector("[role=button][data-word].book-hard", { timeout: 30000 });
     await vp.waitForFunction(() => document.querySelectorAll("article.book-body img").length > 0, null, { timeout: 30000 });
     await vp.waitForFunction(
       () => [...document.querySelectorAll("article.book-body img")].some((i) => i.complete && i.naturalWidth > 0),
@@ -958,8 +958,8 @@ async function run(lang, size) {
     await vp.reload();
     await vp.locator("li.book-card").nth(1).waitFor({ timeout: 30000 });
     await vp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Peter and Wendy") }).first().click();
-    await vp.waitForSelector("button.book-hard", { timeout: 30000 });
-    await vp.locator("button.book-hard").first().click();
+    await vp.waitForSelector("[role=button][data-word].book-hard", { timeout: 30000 });
+    await vp.locator("[role=button][data-word].book-hard").first().click();
     await vp.locator("[data-word-card]").waitFor();
     ok(true, `${label}: a normal reload still opens Peter and Wendy`);
     await vp.keyboard.press("Escape");

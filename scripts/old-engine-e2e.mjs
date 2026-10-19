@@ -125,7 +125,7 @@ const reading = await page.evaluate(() => {
   const box = article?.getBoundingClientRect();
   return {
     article: Boolean(article),
-    words: article?.querySelectorAll("button[data-word]").length ?? 0,
+    words: article?.querySelectorAll("[role=button][data-word]").length ?? 0,
     letters: (article?.textContent ?? "").replace(/\s+/g, "").length,
     height: box ? Math.round(box.height) : 0,
     visible: article ? getComputedStyle(article).visibility : "",
@@ -136,7 +136,7 @@ check(reading.visible === "visible" && reading.letters > 50, "the reading text i
 check(errors.length === 0, "opening a book throws nothing", errors.join(" | ") || "none");
 
 // a tap must open the word card, which is the other place that reaches for newer APIs
-await page.locator('button[data-word="lantern"]').first().click();
+await page.locator('[role=button][data-word="lantern"]').first().click();
 await page.waitForTimeout(900);
 const card = await page.evaluate(() => {
   const aside = document.querySelector("aside[data-word-card], [data-para-panel]");

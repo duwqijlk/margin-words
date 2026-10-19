@@ -727,8 +727,8 @@ test("a drop cap joins into one tappable word without moving paragraphs", async 
     new Map(),
   );
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
-  const jack = [...doc.querySelectorAll("button")].find((button) => button.textContent === "Jack");
-  assert.ok(jack, "Jack is one button");
+  const jack = [...doc.querySelectorAll('[role="button"][data-word]')].find((button) => button.textContent === "Jack");
+  assert.ok(jack, "Jack is one semantic word control");
   assert.equal(jack.className, "book-hard");
   assert.ok(doc.querySelector("p.dropcap"));
 });
@@ -756,7 +756,7 @@ test("accented letters and combining marks are one tappable word", () => {
   );
   const shown = format.readingHtml(html, new Set(["café", "yucatán"]), (surface) => surface.toLowerCase(), 0, new Map());
   const doc = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html");
-  const words = [...doc.querySelectorAll("button")].map((button) => button.textContent);
+  const words = [...doc.querySelectorAll('[role="button"][data-word]')].map((button) => button.textContent);
   assert.ok(words.includes("café"));
   assert.ok(words.includes("Yucatán"));
   assert.ok(words.includes(cafe));

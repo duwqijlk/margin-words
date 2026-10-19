@@ -770,13 +770,13 @@ const SKIPPED_PARENTS = new Set([
   "embed",
 ]);
 
-/** Remove what the reader never shows: scripts and the like are dropped, links and forms are unwrapped. */
+/** Drop hidden resources and unwrap links/forms/controls before creating the reader's own controls. */
 export function cleanReadingRoot(root: Element) {
   for (const el of [
     ...root.querySelectorAll("script, style, iframe, base, meta, link, object, embed"),
   ])
     el.remove();
-  for (const el of [...root.querySelectorAll("a, form")]) {
+  for (const el of [...root.querySelectorAll('a, form, button, [role="button"]')]) {
     const parent = el.parentNode;
     if (!parent) continue;
     while (el.firstChild) parent.insertBefore(el.firstChild, el);
@@ -2025,8 +2025,8 @@ export function fillReadingRoot(
         fragment.append(doc.createTextNode(seg.text));
         continue;
       }
-      const button = doc.createElement("button");
-      button.type = "button";
+      const button = doc.createElement("span");
+      button.setAttribute("role", "button");
       // Not in the tab order. A chapter can hold hundreds of these, and every one of them in the
       // tab order made Tab walk the whole page word by word. They stay in the accessibility tree
       // and still work with a screen reader's own cursor; a tap or a click opens the card.
@@ -2100,8 +2100,11 @@ export function markWordRangesOn(
     const paragraph = flowText(block);
     const ranges = rangesFor(paragraph);
     if (ranges.length === 0) continue;
-    const starts = flowCutOffsets(block, (el) => el.localName === "button" && el.getAttribute?.("data-word") != null);
-    for (const button of block.querySelectorAll("button[data-word]")) {
+    const starts = flowCutOffsets(
+      block,
+      (el) => el.localName === "span" && el.getAttribute?.("role") === "button" && el.getAttribute?.("data-word") != null,
+    );
+    for (const button of block.querySelectorAll('[role="button"][data-word]')) {
       if (button.closest(READING_BLOCKS) !== block) continue;
       if (button.classList.contains("book-hard") || button.classList.contains("book-tricky")) continue;
       const word = button.getAttribute("data-word") ?? "";

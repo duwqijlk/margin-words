@@ -208,7 +208,7 @@ const heard = () =>
 
 // 1. a word inside a phrase: the phrase is said, once, with no fallback voice
 await reset();
-await page.locator('button[data-word="lantern"]').first().click();
+await page.locator('[role=button][data-word="lantern"]').first().click();
 await page.waitForTimeout(900);
 const phrase = await heard();
 check(
@@ -224,7 +224,7 @@ check(
 
 // 2. a word with no phrase: that word, once
 await reset();
-await page.locator('button[data-word="window"]').first().click();
+await page.locator('[role=button][data-word="window"]').first().click();
 await page.waitForTimeout(900);
 const word = await heard();
 check(
@@ -239,9 +239,9 @@ check(
 );
 
 // 3. tapping twice does not stack voices
-await page.locator('button[data-word="lantern"]').first().click();
+await page.locator('[role=button][data-word="lantern"]').first().click();
 await page.waitForTimeout(120);
-await page.locator('button[data-word="window"]').first().click();
+await page.locator('[role=button][data-word="window"]').first().click();
 await page.waitForTimeout(900);
 const both = await heard();
 const stillPlaying = both.audios.filter((audio) => audio.playing);
@@ -261,7 +261,7 @@ await page.evaluate(() => {
   window.__failAudio = true;
 });
 await reset();
-await page.locator('button[data-word="window"]').first().click();
+await page.locator('[role=button][data-word="window"]').first().click();
 await page.waitForTimeout(1200);
 const fallback = await heard();
 check(
@@ -280,7 +280,7 @@ await page.evaluate(() => {
 
 // 5. the audio element is in the document: a detached one does not start on some Android WebViews
 await reset();
-await page.locator('button[data-word="window"]').first().click();
+await page.locator('[role=button][data-word="window"]').first().click();
 await page.waitForTimeout(600);
 const attached = await heard();
 check(
@@ -291,7 +291,7 @@ check(
 
 // 6. a word that ends in an accented letter is asked for whole, not cut down to its ASCII part
 await reset();
-await page.locator('button[data-word="café"]').first().click();
+await page.locator('[role=button][data-word="café"]').first().click();
 await page.waitForTimeout(700);
 const accented = await heard();
 check(

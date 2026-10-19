@@ -28,6 +28,7 @@ export function useFloatingCard(
   anchor: HTMLElement | null,
   panelRef: RefObject<HTMLElement | null>,
   onClose: () => void,
+  desktopWidth = PANEL_WIDTH,
 ): FloatState {
   const [active, setActive] = useState(desktopPanel);
   const [style, setStyle] = useState<CSSProperties | undefined>(undefined);
@@ -59,7 +60,7 @@ export function useFloatingCard(
       const panel = panelRef.current;
       const vw = document.documentElement.clientWidth;
       const vh = window.innerHeight;
-      const width = Math.min(PANEL_WIDTH, Math.max(220, vw - 24));
+      const width = Math.min(desktopWidth, Math.max(220, vw - 24));
       // scrollHeight keeps the full content after max-height clamps the box, so a later
       // pass can still move a growing card (a sentence note, for example) to a taller side.
       const measured = panel ? Math.max(panel.offsetHeight, panel.scrollHeight) : 0;
@@ -103,7 +104,7 @@ export function useFloatingCard(
       observer.disconnect();
       if (frame) cancelAnimationFrame(frame);
     };
-  }, [active, anchor, panelRef]);
+  }, [active, anchor, panelRef, desktopWidth]);
 
   return { active, placed: Boolean(style), style: active ? style : undefined };
 }
@@ -144,7 +145,8 @@ function usePanelFocus(active: boolean, panelRef: RefObject<HTMLElement | null>,
     panel.addEventListener("keydown", onKey);
     return () => {
       panel.removeEventListener("keydown", onKey);
-      if (anchor?.isConnected) anchor.focus({ preventScroll: true });
+      // Word cards restore only on an explicit close, never on resize or click-away.
+      if (anchor?.isConnected && !anchor.hasAttribute("data-word")) anchor.focus({ preventScroll: true });
     };
   }, [active, anchor, panelRef]);
 }
@@ -301,6 +303,7 @@ export function FloatingAside({
   onClose,
   label,
   kind,
+  desktopWidth,
   className,
   children,
 }: {
@@ -308,11 +311,12 @@ export function FloatingAside({
   onClose: () => void;
   label: string;
   kind: "word" | "para";
+  desktopWidth?: number;
   className?: string;
   children: ReactNode;
 }) {
   const ref = useRef<HTMLElement | null>(null);
-  const float = useFloatingCard(anchor, ref, onClose);
+  const float = useFloatingCard(anchor, ref, onClose, desktopWidth);
   usePanelFocus(float.active && float.placed, ref, anchor);
   usePhoneSheetDismiss(ref, onClose);
   return (

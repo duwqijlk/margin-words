@@ -251,10 +251,10 @@
     font-weight: 650;
   }
 
-  .book-body .dropcap button {
+  .book-body .dropcap [role="button"][data-word] {
     /* The first letter is floated from the paragraph. The word stays in the line,
        same as every other word, so a long opening word can still break. */
-    display: contents;
+    display: inline;
   }
 
   .book-body h1,
@@ -288,10 +288,10 @@
     border-radius: 6px;
   }
 
-  /* The button draws no box, so the word can break in the middle of a line.
-     The span is the ink: underline, highlight, and the soft hyphen. */
-  .book-body button {
-    display: contents;
+  /* A focusable inline control still lets a word break in the middle of a line.
+     The inner span is the ink: underline, highlight, and the soft hyphen. */
+  .book-body [role="button"][data-word] {
+    display: inline;
     font: inherit;
     color: inherit;
     background: none;
@@ -309,7 +309,7 @@
   }
 
   /* Hard word whose meaning is ready: a crisp, clear underline. */
-  .book-body button.book-hard .book-tap {
+  .book-body [role="button"][data-word].book-hard .book-tap {
     text-decoration: underline;
     text-decoration-color: rgb(var(--accent-rgb) / 0.85);
     text-decoration-thickness: 1.5px;
@@ -317,28 +317,28 @@
     text-underline-offset: 0.24em;
   }
 
-  .book-body button.book-hard:hover .book-tap,
-  .book-body button.book-hard:focus-visible .book-tap {
+  .book-body [role="button"][data-word].book-hard:hover .book-tap,
+  .book-body [role="button"][data-word].book-hard:focus-visible .book-tap {
     background: var(--accent-soft);
   }
 
   /* A word of a phrase (tune in, give up): a dashed line, distinct from the solid hard-word line
      and tricky wavy line, and clearly legible on both LCD and e-ink. */
-  .book-body button.book-phrase .book-tap {
+  .book-body [role="button"][data-word].book-phrase .book-tap {
     text-decoration: underline dashed;
     text-decoration-color: rgb(var(--accent-rgb) / 0.85);
     text-decoration-thickness: 1.5px;
     text-underline-offset: 0.24em;
   }
 
-  .book-body button.book-phrase:hover .book-tap,
-  .book-body button.book-phrase:focus-visible .book-tap {
+  .book-body [role="button"][data-word].book-phrase:hover .book-tap,
+  .book-body [role="button"][data-word].book-phrase:focus-visible .book-tap {
     background: var(--accent-soft);
   }
 
   /* A familiar word used here in a meaning learners will not expect ("well" = a water well): a calm wavy
      accent line, different from the straight underline of a hard word and from the phrase underline. */
-  .book-body button.book-tricky .book-tap {
+  .book-body [role="button"][data-word].book-tricky .book-tap {
     text-decoration: underline wavy;
     text-decoration-color: rgb(var(--accent-rgb) / 0.9);
     text-decoration-thickness: 1.5px;
@@ -346,8 +346,8 @@
     text-underline-offset: 0.28em;
   }
 
-  .book-body button.book-tricky:hover .book-tap,
-  .book-body button.book-tricky:focus-visible .book-tap {
+  .book-body [role="button"][data-word].book-tricky:hover .book-tap,
+  .book-body [role="button"][data-word].book-tricky:focus-visible .book-tap {
     background: var(--accent-soft);
   }
 
@@ -376,7 +376,7 @@
   }
 
   /* Hard word whose meaning is still being prepared: only a faint dotted hint. */
-  .book-body button.book-wait .book-tap {
+  .book-body [role="button"][data-word].book-wait .book-tap {
     text-decoration: underline dotted;
     text-decoration-color: rgb(var(--muted-rgb) / 0.6);
     text-decoration-thickness: 1.2px;
@@ -384,7 +384,7 @@
   }
 
   /* Already in the notebook: marker highlight with a distinct accent underline so it stays clear on e-ink. */
-  .book-body button.book-saved .book-tap {
+  .book-body [role="button"][data-word].book-saved .book-tap {
     background: rgb(var(--mark-rgb) / 0.65);
     text-decoration: underline;
     text-decoration-color: rgb(var(--accent-rgb) / 0.85);
@@ -392,7 +392,7 @@
     text-underline-offset: 0.24em;
   }
 
-  .book-body button.book-on .book-tap {
+  .book-body [role="button"][data-word].book-on .book-tap {
     background: var(--accent-soft);
     outline: 2px solid var(--accent);
     outline-offset: 1px;
@@ -400,7 +400,7 @@
     text-decoration-color: var(--accent);
   }
 
-  .book-body button.book-saved.book-on .book-tap {
+  .book-body [role="button"][data-word].book-saved.book-on .book-tap {
     background: rgb(var(--mark-rgb) / 0.85);
     outline: 2px solid var(--accent);
     outline-offset: 1px;
@@ -410,28 +410,28 @@
 
   /* E-ink screens and slow-refresh monochrome displays: crisp high contrast ink rules. */
   @media (monochrome), (update: slow) {
-    .book-body button.book-hard .book-tap {
+    .book-body [role="button"][data-word].book-hard .book-tap {
       text-decoration-color: currentColor !important;
       text-decoration-thickness: 1.5px !important;
     }
-    .book-body button.book-phrase .book-tap {
+    .book-body [role="button"][data-word].book-phrase .book-tap {
       text-decoration-style: dashed !important;
       text-decoration-color: currentColor !important;
       text-decoration-thickness: 1.5px !important;
     }
-    .book-body button.book-tricky .book-tap {
+    .book-body [role="button"][data-word].book-tricky .book-tap {
       text-decoration-thickness: 1.5px !important;
       text-decoration-color: currentColor !important;
     }
-    .book-body button.book-saved .book-tap {
+    .book-body [role="button"][data-word].book-saved .book-tap {
       background: rgb(0 0 0 / 0.12) !important;
       text-decoration: underline !important;
       text-decoration-color: currentColor !important;
       text-decoration-thickness: 2px !important;
       text-underline-offset: 0.24em !important;
     }
-    .book-body button.book-on .book-tap,
-    .book-body button.book-saved.book-on .book-tap {
+    .book-body [role="button"][data-word].book-on .book-tap,
+    .book-body [role="button"][data-word].book-saved.book-on .book-tap {
       outline: 2px solid currentColor !important;
       outline-offset: 1px !important;
     }
@@ -540,6 +540,11 @@
       border-radius: 1rem;
       padding-top: 1.25rem;
       animation: pop-in 0.16s ease-out;
+    }
+
+    /* Match WordCard's desktopWidth before its first placement measurement. */
+    [data-float][data-word-card] {
+      width: min(24rem, calc(100vw - 1.5rem));
     }
 
     [data-float]:not([data-placed]) {

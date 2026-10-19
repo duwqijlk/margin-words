@@ -25,7 +25,7 @@ function underlined(file, chapter) {
   };
   const html = format.readingHtml(book.chapters[chapter].html, ready, resolve, chapter, sparse);
   const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
-  return [...doc.querySelectorAll("button.book-hard")].map((b) => ({ word: b.dataset.word.toLowerCase(), nth: Number(b.dataset.n) }));
+  return [...doc.querySelectorAll('[role="button"][data-word].book-hard')].map((b) => ({ word: b.dataset.word.toLowerCase(), nth: Number(b.dataset.n) }));
 }
 const only = (list, word) => list.filter((item) => item.word === word);
 

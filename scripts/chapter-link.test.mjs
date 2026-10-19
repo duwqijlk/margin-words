@@ -7,20 +7,46 @@ const { format, help, hyphenate, chapterLink } = await loadAppModules();
 
 function buttons(html) {
   const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
-  return [...doc.querySelectorAll("button[data-word]")].map((button) => ({
+  return [...doc.querySelectorAll('[role="button"][data-word]')].map((button) => ({
     word: button.getAttribute("data-word"),
     cls: button.className,
     tap: button.querySelector(".book-tap")?.textContent ?? "",
   }));
 }
 
+test("reader controls stay semantic and unnested across imported controls and two linking passes", () => {
+  const source = '<p><button>Lantern</button> <span role="button"><em>lantern</em></span> <a href="#old">quietly</a> waited.</p>';
+  const link = html => chapterLink.linkChapterHtml(html, new Set(["lantern"]), s => s.toLowerCase(), 0, new Map(), new Map());
+  const once = link(source);
+  const twice = link(once);
+  const metadata = html => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    assert.equal(doc.querySelectorAll('button, a, [role="button"] [role="button"]').length, 0);
+    const words = [...doc.querySelectorAll("[data-word]")];
+    assert.equal(words.length, 4);
+    for (const word of words) {
+      assert.equal(word.localName, "span");
+      assert.equal(word.getAttribute("role"), "button");
+      assert.equal(word.getAttribute("tabindex"), "-1");
+      const tap = word.querySelector(":scope > .book-tap");
+      assert.ok(tap);
+      assert.equal(tap.getAttribute("role"), null);
+      assert.equal(tap.getAttribute("tabindex"), null);
+    }
+    return words.map(el => [el.dataset.word, el.dataset.i, el.dataset.n, el.className]);
+  };
+  const expected = [["Lantern", "0", "1", "book-hard"], ["lantern", "1", "2", "book-hard"], ["quietly", "2", "1", ""], ["waited", "3", "1", ""]];
+  assert.deepEqual(metadata(once), expected);
+  assert.deepEqual(metadata(twice), expected);
+});
+
 test("joining inline word fragments preserves the following text's formatting", () => {
   for (const tag of ["em", "strong", "sup", "sub"]) {
     const html = `<p><${tag}>un</${tag}>believable weather today.</p>`;
     const linked = chapterLink.linkChapterHtml(html, new Set(), s => s.toLowerCase(), 0, new Map(), new Map());
     const doc = new DOMParser().parseFromString(linked, "text/html");
-    assert.deepEqual([...doc.querySelectorAll("button")].map(b => b.dataset.word), ["unbelievable", "weather", "today"]);
-    assert.equal(doc.querySelector('button[data-word="weather"]').closest(tag), null);
+    assert.deepEqual([...doc.querySelectorAll('[role="button"][data-word]')].map(b => b.dataset.word), ["unbelievable", "weather", "today"]);
+    assert.equal(doc.querySelector('[role="button"][data-word="weather"]').closest(tag), null);
     assert.equal(doc.querySelector(tag).textContent.replace(/­/g, ""), "unbelievable");
   }
   for (const html of ["<p><em>un</em>believ<span>able weather</span> today.</p>", "<p><em>don</em>'t leave.</p>"]) {

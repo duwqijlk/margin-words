@@ -44,7 +44,7 @@ test("the reading page dots the phrase and keeps a hard-word line", () => {
   );
   const doc = new DOMParser().parseFromString(`<div>${marked}</div>`, "text/html");
   const cls = (word, n = 0) => {
-    const all = [...doc.querySelectorAll("button")].filter((button) => button.getAttribute("data-word") === word);
+    const all = [...doc.querySelectorAll('[role="button"][data-word]')].filter((button) => button.getAttribute("data-word") === word);
     return all[n]?.className ?? "MISSING";
   };
   assert.equal(cls("in", 0), "");

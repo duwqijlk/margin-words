@@ -42,11 +42,11 @@ page.on("pageerror", (e) => errors.push(String(e).slice(0, 200)));
 /** Underlined uses of `word` on the page: their 1-based number among all uses of that word in the chapter. */
 const underlined = (word) =>
   page.evaluate(
-    (w) => [...document.querySelectorAll("article.book-body button.book-hard")].filter((b) => b.dataset.word.toLowerCase() === w).map((b) => Number(b.dataset.n)),
+    (w) => [...document.querySelectorAll("article.book-body [role=button][data-word].book-hard")].filter((b) => b.dataset.word.toLowerCase() === w).map((b) => Number(b.dataset.n)),
     word,
   );
 const uses = (word) =>
-  page.evaluate((w) => [...document.querySelectorAll("article.book-body button[data-word]")].filter((b) => b.dataset.word.toLowerCase() === w).length, word);
+  page.evaluate((w) => [...document.querySelectorAll("article.book-body [role=button][data-word]")].filter((b) => b.dataset.word.toLowerCase() === w).length, word);
 
 async function goToChapter(title) {
   for (let i = 0; i < 6; i += 1) {
@@ -66,7 +66,7 @@ async function backToFirstChapter() {
   }
 }
 async function tapUse(word, nth) {
-  await page.locator(`article.book-body button[data-word][data-n="${nth}"]`).evaluateAll(
+  await page.locator(`article.book-body [role=button][data-word][data-n="${nth}"]`).evaluateAll(
     (list, w) => list.find((b) => b.dataset.word.toLowerCase() === w)?.click(),
     word,
   );
@@ -100,7 +100,7 @@ const toShelf = async () => {
 };
 
 async function checkReader(label) {
-  await page.waitForSelector("button[data-word]", { timeout: 30000 });
+  await page.waitForSelector("[role=button][data-word]", { timeout: 30000 });
   await backToFirstChapter();
   await goToChapter("The Fair");
   ok((await underlined("stood")).length === 0 && (await uses("stood")) === 1, `${label}: chapter 1, "stood" (not named here) is not underlined`);
@@ -157,7 +157,7 @@ const again = await storedGlossary();
 ok(again?.light?.senseOnly === true && again?.run?.senseOnly === true && again?.stood?.senseOnly === true, "after adding a .json list, IndexedDB still has senseOnly");
 ok(again?.light?.senses?.[0]?.anchors?.[0]?.occurrence === 3, "after adding a .json list, the new place replaced the old one");
 await page.getByRole("button", { name: /Open “The Lantern Seller”/ }).first().click();
-await page.waitForSelector("button[data-word]", { timeout: 30000 });
+await page.waitForSelector("[role=button][data-word]", { timeout: 30000 });
 await backToFirstChapter();
 await goToChapter("The Road Home");
 const movedMarks = await underlined("light");

@@ -278,8 +278,8 @@ async function panel(label, size) {
   await page.goto(at("shelf"));
   await ensureAlice(page);
   await page.locator("li.book-card button[aria-label]").first().click();
-  await page.waitForSelector("button.book-hard", { timeout: 30000 });
-  const words = page.locator("article.book-body button.book-hard");
+  await page.waitForSelector("[role=button][data-word].book-hard", { timeout: 30000 });
+  const words = page.locator("article.book-body [role=button][data-word].book-hard");
   const count = await words.count();
   const phone = size.width < 768;
   const wide = size.width >= 1024;
@@ -298,7 +298,7 @@ async function panel(label, size) {
     const geo = await page.evaluate(() => {
       const card = document.querySelector("[data-word-card]").getBoundingClientRect();
       const art = document.querySelector("article.book-body").getBoundingClientRect();
-      const on = document.querySelector("article.book-body button.book-on");
+      const on = document.querySelector("article.book-body [role=button][data-word].book-on");
       const w = on ? on.getBoundingClientRect() : null;
       const overlap = w
         ? !(w.right <= card.left + 0.5 || w.left >= card.right - 0.5 || w.bottom <= card.top + 0.5 || w.top >= card.bottom - 0.5)
@@ -348,7 +348,7 @@ async function panel(label, size) {
       const sheet = document.querySelector("[data-word-card]");
       if (!sheet) return false;
       const limit = sheet.getBoundingClientRect().top;
-      const hit = [...document.querySelectorAll("article.book-body button[data-word]")].find((button) => {
+      const hit = [...document.querySelectorAll("article.book-body [role=button][data-word]")].find((button) => {
         const box = button.getBoundingClientRect();
         return box.width > 0 && box.top >= 0 && box.bottom < limit - 2;
       });
@@ -387,7 +387,7 @@ async function panel(label, size) {
     }), `${label}: Tab stays inside the card`);
     await page.keyboard.press("Escape");
     await page.locator("[data-word-card]").waitFor({ state: "hidden" });
-    await page.waitForFunction(() => document.activeElement?.matches?.("article.book-body button[data-word]") === true);
+    await page.waitForFunction(() => document.activeElement?.matches?.("article.book-body [role=button][data-word]") === true);
     ok(true, `${label}: Escape returns focus to the word`);
     await page.getByRole("button", { name: "Reading settings: font, size, theme" }).click();
     await page.locator("[data-reader-width]").evaluate((el) => {
