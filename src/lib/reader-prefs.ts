@@ -133,7 +133,7 @@ export function applyTheme(theme: Theme) {
   if (typeof document === "undefined") return;
   document.documentElement.setAttribute("data-theme", theme);
   const meta = document.querySelector('meta[name="theme-color"]');
-  const color = theme === "dark" ? "#14161a" : theme === "sepia" ? "#f0e4c8" : "#f6f4ee";
+  const color = theme === "dark" ? "#14161a" : theme === "sepia" ? "#f7f1e5" : "#f6f4ee";
   meta?.setAttribute("content", color);
 }
 

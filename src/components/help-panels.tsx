@@ -192,11 +192,11 @@ export function ParagraphBulbs({
           title={t("hp.simplifyAria")}
           onClick={() => onOpen(spot.index)}
           className={cn(
-            "fixed z-20 inline-flex items-center justify-center rounded-full text-accent transition-colors hover:bg-accent-soft",
-            spot.small
-              ? "size-6 border border-line bg-card shadow-sm"
-              : "size-7 border border-line bg-card shadow-sm",
-            spot.index === activeIndex && "bg-accent-soft",
+            "fixed z-20 inline-flex items-center justify-center rounded-full transition-colors",
+            spot.small ? "size-6" : "size-7",
+            spot.index === activeIndex
+              ? "border-2 border-accent bg-accent text-accent-ink shadow-sm"
+              : "border border-line bg-card text-accent shadow-xs hover:bg-accent-soft",
           )}
           style={{ top: spot.top, left: spot.left }}
         >

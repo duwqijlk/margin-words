@@ -119,7 +119,7 @@ import {
 
 const THEMES: Array<{ value: Theme; label: Key; bg: string; fg: string }> = [
   { value: "light", label: "rs.theme.light", bg: "#f6f4ee", fg: "#1f1d1a" },
-  { value: "sepia", label: "rs.theme.sepia", bg: "#f0e4c8", fg: "#3f3020" },
+  { value: "sepia", label: "rs.theme.sepia", bg: "#f7f1e5", fg: "#332517" },
   { value: "dark", label: "rs.theme.dark", bg: "#14161a", fg: "#e9e6df" },
 ];
 const LEADING_LABEL: Record<number, Key> = {
@@ -664,7 +664,7 @@ function LookupLinks({ word }: { word: string }) {
           href={lookupUrl(site, word)}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-line/70 bg-card px-2 text-xs font-semibold text-ink shadow-xs transition-colors hover:border-line hover:bg-paper"
+          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-line bg-card px-2 text-xs font-semibold text-ink shadow-xs transition-colors hover:border-muted hover:bg-paper"
           aria-label={t("card.lookOne", { site: t(LOOKUP_LABEL[site]), word })}
           title={t(LOOKUP_LABEL[site])}
           data-lookup={site}
@@ -844,8 +844,8 @@ function WordCard({
               className={cn(
                 "inline-flex size-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-150 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40",
                 saved
-                  ? "border-accent/40 bg-accent-soft text-accent hover:bg-accent-soft/80"
-                  : "border-line/70 bg-card text-muted hover:border-line hover:bg-paper hover:text-ink",
+                  ? "border-accent bg-accent text-accent-ink shadow-xs"
+                  : "border-line bg-card text-ink/80 hover:border-muted hover:bg-paper hover:text-ink shadow-2xs",
               )}
               disabled={!saved && !canSave}
               onClick={onToggle}
@@ -855,9 +855,9 @@ function WordCard({
               data-word-save
             >
               {saved ? (
-                <Check className="size-4.5 stroke-[2.25] text-accent" aria-hidden />
+                <Check className="size-4.5 stroke-[2.5]" aria-hidden />
               ) : (
-                <BookMarked className="size-4.5" aria-hidden />
+                <BookMarked className="size-4.5 stroke-[1.8]" aria-hidden />
               )}
             </button>
             <button

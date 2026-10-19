@@ -67,33 +67,33 @@
   --warn-rgb: 169 72 31;
   --warn-soft: #f8e7dd;
   --warn-soft-rgb: 248 231 221;
-  --mark: #fbe7a1;
-  --mark-rgb: 251 231 161;
+  --mark: #f6d860;
+  --mark-rgb: 246 216 96;
 }
 [data-theme="sepia"] {
   color-scheme: light;
-  --paper: #f0e4c8;
-  --paper-rgb: 240 228 200;
-  --card: #f8efd9;
-  --card-rgb: 248 239 217;
-  --ink: #3f3020;
-  --ink-rgb: 63 48 32;
-  --muted: #76664f;
-  --muted-rgb: 118 102 79;
-  --line: #dccdab;
-  --line-rgb: 220 205 171;
+  --paper: #f7f1e5;
+  --paper-rgb: 247 241 229;
+  --card: #fdfaf3;
+  --card-rgb: 253 250 243;
+  --ink: #332517;
+  --ink-rgb: 51 37 23;
+  --muted: #756550;
+  --muted-rgb: 117 101 80;
+  --line: #e6dbcb;
+  --line-rgb: 230 219 203;
   --accent: #7b4b24;
   --accent-rgb: 123 75 36;
-  --accent-ink: #fbf4e4;
-  --accent-ink-rgb: 251 244 228;
-  --accent-soft: #ead9b4;
-  --accent-soft-rgb: 234 217 180;
+  --accent-ink: #fdf8ee;
+  --accent-ink-rgb: 253 248 238;
+  --accent-soft: #efe4cf;
+  --accent-soft-rgb: 239 228 207;
   --warn: #9c3f26;
   --warn-rgb: 156 63 38;
-  --warn-soft: #f0d9c4;
-  --warn-soft-rgb: 240 217 196;
-  --mark: #efd17c;
-  --mark-rgb: 239 209 124;
+  --warn-soft: #f5dfcf;
+  --warn-soft-rgb: 245 223 207;
+  --mark: #f3dd94;
+  --mark-rgb: 243 221 148;
 }
 [data-theme="dark"] {
   color-scheme: dark;
@@ -302,12 +302,12 @@
     -webkit-hyphens: auto;
   }
 
-  /* Hard word whose meaning is ready: a soft, thin underline that does not shout. */
+  /* Hard word whose meaning is ready: a crisp, clear underline. */
   .book-body button.book-hard .book-tap {
     text-decoration: underline;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.55);
+    text-decoration-color: rgb(var(--accent-rgb) / 0.85);
     text-decoration-thickness: 1.5px;
-    text-decoration-skip-ink: auto;
+    text-decoration-skip-ink: none;
     text-underline-offset: 0.24em;
   }
 
@@ -316,11 +316,11 @@
     background: var(--accent-soft);
   }
 
-  /* A word of a phrase (tune in, give up): a dotted line, so it is not the solid hard-word line
-     or the wavy tricky line. A word that already has one of those keeps it. */
+  /* A word of a phrase (tune in, give up): a dashed line, distinct from the solid hard-word line
+     and tricky wavy line, and clearly legible on both LCD and e-ink. */
   .book-body button.book-phrase .book-tap {
-    text-decoration: underline dotted;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.7);
+    text-decoration: underline dashed;
+    text-decoration-color: rgb(var(--accent-rgb) / 0.85);
     text-decoration-thickness: 1.5px;
     text-underline-offset: 0.24em;
   }
@@ -334,10 +334,10 @@
      accent line, different from the straight underline of a hard word and from the phrase underline. */
   .book-body button.book-tricky .book-tap {
     text-decoration: underline wavy;
-    text-decoration-color: rgb(var(--accent-rgb) / 0.8);
-    text-decoration-thickness: 1.2px;
+    text-decoration-color: rgb(var(--accent-rgb) / 0.9);
+    text-decoration-thickness: 1.5px;
     text-decoration-skip-ink: none;
-    text-underline-offset: 0.3em;
+    text-underline-offset: 0.28em;
   }
 
   .book-body button.book-tricky:hover .book-tap,
@@ -372,26 +372,63 @@
   /* Hard word whose meaning is still being prepared: only a faint dotted hint. */
   .book-body button.book-wait .book-tap {
     text-decoration: underline dotted;
-    text-decoration-color: rgb(var(--muted-rgb) / 0.45);
-    text-decoration-thickness: 1px;
+    text-decoration-color: rgb(var(--muted-rgb) / 0.6);
+    text-decoration-thickness: 1.2px;
     text-underline-offset: 0.24em;
   }
 
-  /* Already in the notebook: marker highlight. */
+  /* Already in the notebook: marker highlight with a distinct accent underline so it stays clear on e-ink. */
   .book-body button.book-saved .book-tap {
-    background: rgb(var(--mark-rgb) / 0.75);
-    text-decoration-color: transparent;
+    background: rgb(var(--mark-rgb) / 0.65);
+    text-decoration: underline;
+    text-decoration-color: rgb(var(--accent-rgb) / 0.85);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.24em;
   }
 
   .book-body button.book-on .book-tap {
     background: var(--accent-soft);
-    box-shadow: 0 0 0 2px var(--accent-soft);
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-radius: 0.2em;
     text-decoration-color: var(--accent);
   }
 
   .book-body button.book-saved.book-on .book-tap {
-    background: var(--mark);
-    box-shadow: 0 0 0 2px var(--mark);
+    background: rgb(var(--mark-rgb) / 0.85);
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-radius: 0.2em;
+    text-decoration-color: var(--accent);
+  }
+
+  /* E-ink screens and slow-refresh monochrome displays: crisp high contrast ink rules. */
+  @media (monochrome), (update: slow) {
+    .book-body button.book-hard .book-tap {
+      text-decoration-color: currentColor !important;
+      text-decoration-thickness: 1.5px !important;
+    }
+    .book-body button.book-phrase .book-tap {
+      text-decoration-style: dashed !important;
+      text-decoration-color: currentColor !important;
+      text-decoration-thickness: 1.5px !important;
+    }
+    .book-body button.book-tricky .book-tap {
+      text-decoration-thickness: 1.5px !important;
+      text-decoration-color: currentColor !important;
+    }
+    .book-body button.book-saved .book-tap {
+      background: rgb(0 0 0 / 0.12) !important;
+      text-decoration: underline !important;
+      text-decoration-color: currentColor !important;
+      text-decoration-thickness: 2px !important;
+      text-underline-offset: 0.24em !important;
+    }
+    .book-body button.book-on .book-tap,
+    .book-body button.book-saved.book-on .book-tap {
+      outline: 2px solid currentColor !important;
+      outline-offset: 1px !important;
+    }
   }
 
   .scroll-thin {

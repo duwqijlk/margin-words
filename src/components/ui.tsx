@@ -276,8 +276,8 @@ export function SpeakButton({
       title={status === "error" ? t("common.noSound") : name}
       className={cn(
         compact
-          ? "grid size-10 place-items-center rounded-full bg-accent-soft transition-colors hover:bg-accent hover:text-accent-ink"
-          : "inline-flex min-h-11 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold transition-colors hover:bg-accent-soft",
+          ? "grid size-10 place-items-center rounded-full border border-accent/25 bg-accent-soft transition-colors hover:bg-accent hover:text-accent-ink shadow-2xs"
+          : "inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-line/60 px-3 text-sm font-semibold transition-colors hover:bg-accent-soft",
         status === "error" ? "text-warn" : "text-accent",
         className,
       )}
@@ -415,7 +415,9 @@ export function Segmented<T extends string | number>({
             wrap
               ? "border border-line/60 whitespace-normal sm:flex-1 sm:border-0 sm:whitespace-nowrap"
               : "flex-1 whitespace-nowrap",
-            option.value === value ? "bg-card text-ink shadow-xs" : "text-muted hover:text-ink",
+            option.value === value
+              ? "bg-card text-ink shadow-xs border border-line/80 font-bold"
+              : "text-muted hover:text-ink",
             wrap && option.value !== value && "bg-card/40 sm:bg-transparent",
           )}
         >
