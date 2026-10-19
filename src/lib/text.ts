@@ -16,13 +16,26 @@ const IRREGULAR: Record<string, string> = {
   wolves: "wolf",
   lives: "life",
   wives: "wife",
+  shelves: "shelf",
+  halves: "half",
+  calves: "calf",
+  loaves: "loaf",
+  thieves: "thief",
+  scarves: "scarf",
+  goes: "go",
+  does: "do",
+  shoes: "shoe",
+  canoes: "canoe",
+  themselves: "themselves",
+  ourselves: "ourselves",
+  yourselves: "yourselves",
 };
 
 export function lookupKey(token: string): string {
   const w = plainSurface(token).replace(/'s$/, "").replace(/'$/, "");
   if (IRREGULAR[w]) return IRREGULAR[w];
   if (w.endsWith("ies") && w.length > 4) return `${w.slice(0, -3)}y`;
-  if (/(ches|shes|sses|xes|zes|oes)$/.test(w) && w.length > 4) return w.slice(0, -2);
+  if (/(ches|shes|sses|xes|zes|[^aeiou]oes)$/.test(w) && w.length > 4) return w.slice(0, -2);
   if (
     w.endsWith("s") &&
     !w.endsWith("ss") &&

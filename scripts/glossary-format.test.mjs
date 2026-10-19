@@ -563,3 +563,26 @@ test("a plural stem does not match another entry's form", () => {
   const view = new DOMParser().parseFromString(`<div>${page}</div>`, "text/html");
   assert.deepEqual([...view.querySelectorAll("button.book-hard")].map((button) => button.textContent), []);
 });
+
+test("lookupKey stems irregulars and -oes/-ves correctly without breaking consonant -oes", () => {
+  assert.equal(text.lookupKey("goes"), "go");
+  assert.equal(text.lookupKey("does"), "do");
+  assert.equal(text.lookupKey("potatoes"), "potato");
+  assert.equal(text.lookupKey("heroes"), "hero");
+  assert.equal(text.lookupKey("themselves"), "themselves");
+  assert.equal(text.lookupKey("ourselves"), "ourselves");
+  assert.equal(text.lookupKey("yourselves"), "yourselves");
+  assert.equal(text.lookupKey("shelves"), "shelf");
+  assert.equal(text.lookupKey("halves"), "half");
+  assert.equal(text.lookupKey("calves"), "calf");
+  assert.equal(text.lookupKey("loaves"), "loaf");
+  assert.equal(text.lookupKey("thieves"), "thief");
+  assert.equal(text.lookupKey("scarves"), "scarf");
+  assert.equal(text.lookupKey("shoes"), "shoe");
+  assert.equal(text.lookupKey("canoes"), "canoe");
+
+  const keys = new Map([["go", "go"]]);
+  const forms = new Map();
+  assert.equal(text.resolveGlossKey("goes", keys, forms), "go");
+});
+

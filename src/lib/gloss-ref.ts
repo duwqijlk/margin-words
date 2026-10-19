@@ -19,6 +19,7 @@ export type GlossFileView = {
       pos?: string;
       meaning?: string;
       whyHard?: string;
+      forms?: string[];
       senses?: GlossarySense[];
     }
   >;
@@ -181,6 +182,9 @@ function entryOf(file: GlossFileView, lemma: string) {
   const want = lemma.trim().toLowerCase();
   for (const [key, entry] of Object.entries(glossary)) {
     if (key.toLowerCase() === want) return entry;
+  }
+  for (const entry of Object.values(glossary)) {
+    if (entry.forms?.some((form) => form.trim().toLowerCase() === want)) return entry;
   }
   return undefined;
 }
