@@ -130,7 +130,10 @@ test("every top-menu page has its own address, and the address maps back", () =>
   assert.equal(parsePath("/thanks").kind, "dashboard", "the old thank-you address opens the overview");
   assert.equal(menuOf(parsePath("/thanks")), "dashboard");
   assert.equal(parsePath("/admin").kind, "admin");
-  assert.equal(pathFor({ kind: "admin" }), "/admin");
+  // The admin screen is linked with the trailing slash on purpose: a reload of it is served as the
+  // page directly, instead of /admin -> 302 -> /admin/ -> page.
+  assert.equal(pathFor({ kind: "admin" }), "/admin/");
+  assert.equal(parsePath(pathFor({ kind: "admin" })).kind, "admin", "the address still maps back");
   assert.equal(menuOf(parsePath("/admin")), "admin");
   assert.equal(parsePath("/admin/x"), null);
 });
