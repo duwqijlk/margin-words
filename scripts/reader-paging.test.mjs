@@ -4,7 +4,6 @@ import {
   isEinkScreen,
   calculatePageStep,
   PAGE_KEEP_LINES_DEFAULT,
-  PAGE_KEEP_LINES_EINK,
 } from "../src/lib/reader-paging.ts";
 
 test("isEinkScreen detects 3:4 and 4:5 aspect ratio devices under 1024px", () => {
@@ -47,24 +46,30 @@ test("calculatePageStep preserves standard 4 lines on desktop", () => {
   assert.equal(step, 19 * 32);
 });
 
-test("calculatePageStep keeps extra tolerance on e-ink screen to prevent overshooting", () => {
-  // 600x800 e-ink, 56px top bar, 36px line
-  // visible = 800 - 56 = 744px
-  // rawLines = floor(744 / 36) = 20
-  // on e-ink: keepLines = max(8, ceil(20 * 0.42 = 8.4) = 9) = 9
-  // lines = 20 - 9 = 11
-  // step = 11 * 36 = 396px
-  const step = calculatePageStep({
-    viewportWidth: 600,
-    viewportHeight: 800,
-    topBarHeight: 56,
-    lineHeight: 36,
-  });
-  assert.equal(step, 11 * 36);
-  // Step is always an exact multiple of line height
-  assert.equal(step % 36, 0);
-  // Ensures at least 9 lines overlap (348px of overlap out of 744px)
-  assert.equal(744 - step, 348);
+test("e-ink pages keep four lines, not the old eight-line / 42% holdback", () => {
+  for (const [width, height] of [
+    [600, 800],
+    [758, 1024],
+    [1072, 1448],
+    [360, 640],
+  ]) {
+    for (const line of [32, 36, 48, 54]) {
+      for (const bar of [0, 56]) {
+        const visible = height - bar;
+        const step = calculatePageStep({
+          viewportWidth: width,
+          viewportHeight: height,
+          topBarHeight: bar,
+          lineHeight: line,
+          userAgent: "BOOX",
+        });
+        assert.equal(step, (Math.floor(visible / line) - PAGE_KEEP_LINES_DEFAULT) * line);
+        assert.ok(visible - step >= 4 * line);
+        assert.ok(visible - step < 5 * line, "never hold back a second device-specific margin");
+        assert.ok(step >= visible * 0.55, "large fonts must not collapse a page to a few lines");
+      }
+    }
+  }
 });
 
 test("calculatePageStep moves at least one line on very short viewports", () => {

@@ -4,14 +4,13 @@
  * PageDown and PageUp move by whole text lines, leaving an overlap of lines kept back
  * as tolerance so that the reader never skips unread lines across page turns.
  *
- * On squarish e-ink screens (aspect ratio ~3:4 or 4:5, e.g. 600x800, 758x1024, 1072x1448),
- * paragraph margins (1.1em) and Android WebView navigation/status bars reduce physical
- * line capacity, so a larger tolerance is applied to avoid overshooting.
+ * Keep four lines for native bars and reading continuity on every device. Extra browser
+ * scrolling is handled by the page guard, not by shrinking e-ink pages to half a screen.
+ * Paragraph margins already occupy scroll distance; they do not need another deduction.
  */
 
 export const MIN_TURN_MS = 220;
 export const PAGE_KEEP_LINES_DEFAULT = 4;
-export const PAGE_KEEP_LINES_EINK = 8;
 
 /** Height of the sticky top bar, which covers the top of the text while reading. */
 export function topBarHeight(bar: HTMLElement | null): number {
@@ -45,12 +44,16 @@ export function isEinkScreen(width: number, height: number, ua?: string): boolea
     }
   }
   const userAgent = ua ?? (typeof navigator !== "undefined" ? navigator.userAgent : "");
-  if (/e[-]?ink|moaan|inkpalm|onyx|boox|meebook|likebook|kindle|kobo|tolino|pocketbook/i.test(userAgent)) {
+  if (
+    /e[-]?ink|moaan|inkpalm|onyx|boox|meebook|likebook|kindle|kobo|tolino|pocketbook/i.test(
+      userAgent,
+    )
+  ) {
     return true;
   }
   if (width < 1024) {
     const ratio = height / Math.max(1, width);
-    return ratio >= 1.10 && ratio <= 1.85;
+    return ratio >= 1.1 && ratio <= 1.85;
   }
   return false;
 }
@@ -67,12 +70,7 @@ export function calculatePageStep(input: {
   const line = input.lineHeight > 4 ? input.lineHeight : 32;
   const rawLines = Math.floor(visible / line);
 
-  const isEink = isEinkScreen(input.viewportWidth, input.viewportHeight, input.userAgent);
-  const keepLines = isEink
-    ? Math.max(PAGE_KEEP_LINES_EINK, Math.ceil(rawLines * 0.42))
-    : PAGE_KEEP_LINES_DEFAULT;
-
-  const lines = rawLines - keepLines;
+  const lines = rawLines - PAGE_KEEP_LINES_DEFAULT;
   if (lines < 1) return Math.round(Math.min(visible, line));
   return Math.round(lines * line);
 }

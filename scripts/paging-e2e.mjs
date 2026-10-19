@@ -25,6 +25,8 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 const BASE = (process.argv[2] ?? "http://127.0.0.1:8090/").replace(/\/?$/, "/");
 const BOOK = "probe-book";
+const FOCUS = process.env.FOCUS === "1";
+const FONT_SIZE = Number(process.env.FONT_SIZE ?? 20);
 const SHOT = join(process.env.SHOT_DIR ?? tmpdir(), "paging-e2e.png");
 // VIEWPORT=390x844 runs the same checks on a phone-sized screen.
 const [VIEW_W, VIEW_H] = (process.env.VIEWPORT ?? "1280x800").split("x").map(Number);
@@ -90,7 +92,8 @@ await page.keyboard.press("Escape");
 
 /* ---- seed one book, then read it */
 await page.evaluate(
-  async ({ chapters, glossary, book }) => {
+  async ({ chapters, glossary, book, focus, size }) => {
+    localStorage.setItem("cibian-prefs-v1", JSON.stringify({ state: { focus, size }, version: 0 }));
     const now = Date.now();
     localStorage.setItem(
       "cibian-notebook-v1",
@@ -146,7 +149,7 @@ await page.evaluate(
     });
     db.close();
   },
-  { chapters: CHAPTERS, glossary: GLOSS, book: BOOK },
+  { chapters: CHAPTERS, glossary: GLOSS, book: BOOK, focus: FOCUS, size: FONT_SIZE },
 );
 
 await page.goto(BASE + "read/" + BOOK);
@@ -161,7 +164,9 @@ const page_ = () =>
   page.evaluate(() => {
     const article = document.querySelector("article.book-body");
     const line = article ? Number.parseFloat(getComputedStyle(article).lineHeight) || 32 : 32;
-    const bar = document.querySelector("header")?.getBoundingClientRect().height ?? 0;
+    const header = document.querySelector("header")?.getBoundingClientRect();
+    // Focus mode translates the header offscreen without changing its height.
+    const bar = header ? Math.max(0, header.bottom) : 0;
     const visible = Math.max(
       120,
       Math.min(window.innerHeight, window.visualViewport?.height ?? window.innerHeight) - bar,
@@ -235,10 +240,32 @@ check(
   `moved ${afterExtra.y - beforeExtra.y}px, one page is ${start.step}px`,
 );
 
-// the last short strip is shown, then the next turn opens the next chapter
-await page.evaluate(() =>
-  window.scrollTo(0, document.documentElement.scrollHeight - window.innerHeight - 200),
+await page.keyboard.press("PageUp");
+await page.waitForTimeout(600);
+const afterUp = await page_();
+check(
+  Math.abs(afterExtra.y - afterUp.y - start.step) <= 3,
+  "PageUp moves back one full page",
+  `moved ${afterExtra.y - afterUp.y}px`,
 );
+check(
+  start.visible - start.step < 5 * start.line + 2,
+  "overlap is bounded to four lines plus rounding, never a percentage of the screen",
+);
+
+// Setup jumps simulate a reader gesture, not an unowned native page-key jump.
+// Otherwise the e-ink guard correctly undoes the test's own teleport.
+const place = async (fromEnd) =>
+  page.evaluate((offset) => {
+    window.dispatchEvent(new WheelEvent("wheel"));
+    window.scrollTo(
+      0,
+      offset === null ? 0 : document.documentElement.scrollHeight - window.innerHeight - offset,
+    );
+  }, fromEnd);
+
+// the last short strip is shown, then the next turn opens the next chapter
+await place(200);
 await page.waitForTimeout(400);
 await page.keyboard.press("PageDown");
 await page.waitForTimeout(600);
@@ -259,7 +286,7 @@ check(
 );
 
 // at the bottom of a chapter: next chapter, top
-await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+await place(0);
 await page.waitForTimeout(400);
 await page.keyboard.press("PageDown");
 await page.waitForTimeout(1000);
@@ -281,7 +308,7 @@ check(
 );
 
 // a tap never turns the page - not in the margin, not in the middle, not twice
-await page.evaluate(() => window.scrollTo(0, 0));
+await place(null);
 await page.waitForTimeout(400);
 await page.mouse.click(VIEW_W - 14, Math.round(VIEW_H / 2));
 await page.waitForTimeout(300);

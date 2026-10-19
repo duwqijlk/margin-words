@@ -27,3 +27,22 @@ test("the corrected place stays inside the page", () => {
   assert.equal(correctedTurn({ ...base, start: 9800, end: 10000, maxScroll: 10000 }), null);
   assert.equal(correctedTurn({ ...base, start: 9000, end: 10000, maxScroll: 9300 }), 9300);
 });
+
+// Integration contract: the guard must enforce the practical page, not the old half-page.
+test("e-ink normal and focus turns retain their full calculated step", async () => {
+  const { calculatePageStep } = await import("../src/lib/reader-paging.ts");
+  for (const bar of [0, 56]) {
+    const step = calculatePageStep({
+      viewportWidth: 600,
+      viewportHeight: 800,
+      topBarHeight: bar,
+      lineHeight: 36,
+    });
+    assert.ok(step >= 576);
+    for (const direction of [-1, 1]) {
+      const run = { ...base, step, start: 3000, end: 3000 + direction * step };
+      assert.equal(correctedTurn(run), null);
+      assert.equal(correctedTurn({ ...run, end: run.end + direction * 800 }), run.end);
+    }
+  }
+});
