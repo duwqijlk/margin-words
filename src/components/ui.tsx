@@ -12,7 +12,10 @@ const btnBase =
 
 export const btn = {
   primary: cn(btnBase, "bg-accent text-accent-ink shadow-xs hover:bg-accent/90 hover:shadow-sm"),
-  quiet: cn(btnBase, "border border-line/80 bg-card text-ink shadow-2xs hover:bg-accent-soft/50 hover:border-accent/40"),
+  quiet: cn(
+    btnBase,
+    "border border-line/80 bg-card text-ink shadow-2xs hover:bg-accent-soft/50 hover:border-accent/40",
+  ),
   ghost: cn(btnBase, "text-ink hover:bg-accent-soft/60"),
   danger: cn(btnBase, "bg-warn text-accent-ink hover:opacity-90 shadow-xs"),
   icon: "inline-flex size-11 shrink-0 items-center justify-center rounded-xl text-ink transition-colors hover:bg-black/5 disabled:opacity-45",
@@ -37,23 +40,145 @@ let currentAudio: HTMLAudioElement | null = null;
  */
 let spokenToken = 0;
 
-/** Stop the audio element and any fallback voice. Returns the token of the call that owns the sound now. */
+/** Stop whatever is speaking and return the token that owns the sound from now on. */
 function stopSpeaking(): number {
   spokenToken += 1;
   if (currentAudio) {
+    const audio = currentAudio;
+    currentAudio = null;
     try {
-      currentAudio.pause();
+      audio.pause();
     } catch {
       // A detached or broken element: the next call still takes over.
     }
-    currentAudio = null;
+    audio.remove();
   }
   try {
-    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    if (typeof window !== "undefined" && "speechSynthesis" in window)
+      window.speechSynthesis.cancel();
   } catch {
     // No speech synthesis on this engine.
   }
   return spokenToken;
+}
+
+/** Characters that are punctuation at the edge of a word, never part of it. */
+const EDGE_PUNCTUATION = /^[\s"'()[\]{}.,;:!?\u2014\u2013-]+|[\s"'()[\]{}.,;:!?\u2014\u2013-]+$/g;
+
+/**
+ * The text the voice service is asked for.
+ *
+ * Quotes, brackets and stray punctuation are dropped, but every LETTER is kept. The old rule kept
+ * only `a-zA-Z0-9`, so "cafe" with an accent became "caf", "resume" with accents became "r", and
+ * the reader heard a syllable that is not the word. Curly apostrophes are folded to the straight
+ * one, which is the form the dictionary expects.
+ */
+function voiceText(text: string): string {
+  return text
+    .replace(/[\u2018\u2019\u02BC\u2032]/g, "'")
+    .replace(/[\u201C\u201D]/g, '"')
+    .replace(EDGE_PUNCTUATION, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * The dictionary audio to try, in order. `type=2` is the British recording, `type=1` the American
+ * one, and plenty of words exist in only one of the two - asking for both cuts the number of words
+ * that end up on the synthesized fallback, which is the voice a reader hears as "wrong".
+ */
+function voiceUrls(text: string): string[] {
+  const query = encodeURIComponent(text);
+  return [
+    `https://dict.youdao.com/dictvoice?audio=${query}&type=2`,
+    `https://dict.youdao.com/dictvoice?audio=${query}&type=1`,
+  ];
+}
+
+type AudioResult = "started" | "aborted" | "failed";
+
+function playAudio(url: string, token: number): Promise<AudioResult> {
+  return new Promise((resolve) => {
+    if (typeof Audio === "undefined" || typeof document === "undefined" || !document.body) {
+      resolve("failed");
+      return;
+    }
+    let settled = false;
+    const audio = document.createElement("audio");
+    audio.preload = "auto";
+    audio.setAttribute("playsinline", "");
+    audio.style.display = "none";
+    audio.src = url;
+    const finish = (result: AudioResult) => {
+      if (settled) return;
+      settled = true;
+      if (result !== "started") {
+        audio.remove();
+        if (currentAudio === audio) currentAudio = null;
+      }
+      resolve(result);
+    };
+    audio.addEventListener("error", () => finish("failed"), { once: true });
+    audio.addEventListener(
+      "ended",
+      () => {
+        if (currentAudio === audio) currentAudio = null;
+        audio.remove();
+      },
+      { once: true },
+    );
+    // A detached `Audio` element does not start on some Android WebViews - the very devices this
+    // path exists for. In the document, hidden, it does.
+    document.body.appendChild(audio);
+    currentAudio = audio;
+    const started = audio.play();
+    if (started && typeof started.then === "function") {
+      started
+        .then(() => finish(token === spokenToken ? "started" : "aborted"))
+        .catch((error: unknown) => {
+          // `AbortError` is our own `pause()` in a newer call, not a failed playback.
+          finish((error as { name?: string } | null)?.name === "AbortError" ? "aborted" : "failed");
+        });
+    } else {
+      finish("started");
+    }
+  });
+}
+
+let voiceCache: SpeechSynthesisVoice | null = null;
+
+/**
+ * An English voice, chosen once. `lang = "en-US"` alone lets the engine keep its default voice,
+ * and on an Android reader that default is often the system voice, which reads English with the
+ * wrong sounds - the flat, robotic voice a reader notices next to the dictionary recordings.
+ */
+function englishVoice(): SpeechSynthesisVoice | null {
+  if (voiceCache) return voiceCache;
+  try {
+    const voices = window.speechSynthesis.getVoices?.() ?? [];
+    if (voices.length === 0) return null; // Still loading: try again on the next tap.
+    const score = (voice: SpeechSynthesisVoice) => {
+      const lang = String(voice.lang ?? "")
+        .toLowerCase()
+        .replace("_", "-");
+      let value = 0;
+      if (lang.startsWith("en-us")) value = 6;
+      else if (lang.startsWith("en-gb")) value = 5;
+      else if (lang.startsWith("en")) value = 3;
+      if (value === 0) return 0;
+      if (voice.localService) value += 1;
+      if (/google|samantha|daniel|natural|enhanced|premium/i.test(voice.name ?? "")) value += 1;
+      return value;
+    };
+    const best = voices
+      .map((voice) => ({ voice, value: score(voice) }))
+      .filter((row) => row.value > 0)
+      .sort((a, b) => b.value - a.value)[0];
+    voiceCache = best?.voice ?? null;
+    return voiceCache;
+  } catch {
+    return null;
+  }
 }
 
 function speakWithSynthesis(spoken: string, token: number): boolean {
@@ -63,11 +188,22 @@ function speakWithSynthesis(spoken: string, token: number): boolean {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return false;
     const synth = window.speechSynthesis;
     if (synth.paused) synth.resume();
-    synth.cancel();
-    const voice = new SpeechSynthesisUtterance(spoken);
-    voice.lang = "en-US";
-    voice.rate = 0.9;
-    synth.speak(voice);
+    const start = () => {
+      if (token !== spokenToken) return;
+      const utterance = new SpeechSynthesisUtterance(spoken);
+      const voice = englishVoice();
+      if (voice) utterance.voice = voice;
+      utterance.lang = voice?.lang ?? "en-US";
+      utterance.rate = 0.9;
+      synth.speak(utterance);
+    };
+    if (synth.speaking || synth.pending) {
+      // Chrome on Android drops an utterance that is queued in the same task as `cancel()`.
+      synth.cancel();
+      setTimeout(start, 60);
+    } else {
+      start();
+    }
     return true;
   } catch {
     return false;
@@ -75,43 +211,29 @@ function speakWithSynthesis(spoken: string, token: number): boolean {
 }
 
 /**
- * Pronunciation plays native dictionary audio, with built-in SpeechSynthesis as fallback.
+ * Pronunciation plays the dictionary recording, with the device's own voice as the last resort.
  * Works on Kindle, Android e-ink readers (Boox, Meebook, etc.), and standard web browsers.
  *
- * One voice at a time. Every call stops what the previous one started: a tap speaks the word,
- * and when that word belongs to a phrase the phrase replaces it a moment later. Without the
- * stop, the word's `play()` rejects with `AbortError` (paused by the phrase), the old code took
- * that for a failure and spoke the word with the fallback voice, and both sounded at once.
+ * One voice at a time. Every call stops what the previous one started: a tap speaks the word, and
+ * when that word belongs to a phrase the phrase replaces it a moment later. Without the stop, the
+ * word's `play()` rejects with `AbortError` (paused by the phrase), the old code took that for a
+ * failure and spoke the word with the fallback voice, and both sounded at once.
  */
 export function speakEnglish(text: string): boolean {
-  const spoken = text.trim();
+  const spoken = voiceText(text);
   if (!spoken) return false;
   if (typeof window === "undefined") return false;
 
-  const clean = spoken.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, "");
-  if (!clean) return false;
-
   const token = stopSpeaking();
-  try {
-    if (typeof Audio !== "undefined") {
-      const audioUrl = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(clean)}&type=2`;
-      const audio = new Audio(audioUrl);
-      currentAudio = audio;
-      const started = audio.play();
-      if (started !== undefined) {
-        started.catch((error: unknown) => {
-          // `AbortError` is our own `pause()` in a newer call, not a failed playback.
-          if ((error as { name?: string } | null)?.name === "AbortError") return;
-          speakWithSynthesis(clean, token);
-        });
-      }
-      return true;
+  const urls = voiceUrls(spoken);
+  void (async () => {
+    for (const url of urls) {
+      const result = await playAudio(url, token);
+      if (result === "started" || result === "aborted") return;
     }
-  } catch {
-    // Audio element failed or blocked, fall through to speech synthesis
-  }
-
-  return speakWithSynthesis(clean, token);
+    speakWithSynthesis(spoken, token);
+  })();
+  return true;
 }
 
 export function useSpeak() {
@@ -175,7 +297,9 @@ export function Highlighted({ sentence, surface }: { sentence: string; surface: 
   let length = 0;
   if (surface) {
     const escaped = surface.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
-    const found = new RegExp(`(^|[^\\p{L}\\p{M}])(${escaped})(?![\\p{L}\\p{M}])`, "iu").exec(sentence);
+    const found = new RegExp(`(^|[^\\p{L}\\p{M}])(${escaped})(?![\\p{L}\\p{M}])`, "iu").exec(
+      sentence,
+    );
     if (found) {
       index = found.index + (found[1]?.length ?? 0);
       length = found[2]?.length ?? 0;
@@ -288,7 +412,9 @@ export function Segmented<T extends string | number>({
           onClick={() => onChange(option.value)}
           className={cn(
             "min-h-10 rounded-lg px-3 text-sm font-semibold transition-all duration-150",
-            wrap ? "border border-line/60 whitespace-normal sm:flex-1 sm:border-0 sm:whitespace-nowrap" : "flex-1 whitespace-nowrap",
+            wrap
+              ? "border border-line/60 whitespace-normal sm:flex-1 sm:border-0 sm:whitespace-nowrap"
+              : "flex-1 whitespace-nowrap",
             option.value === value ? "bg-card text-ink shadow-xs" : "text-muted hover:text-ink",
             wrap && option.value !== value && "bg-card/40 sm:bg-transparent",
           )}
