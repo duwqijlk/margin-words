@@ -31,22 +31,31 @@ ${body}
 </body></html>`;
 }
 
+function encodePath(path) {
+  return path.split("/").map((part) => encodeURIComponent(part)).join("/");
+}
+
 /**
- * @param {{ title: string, files: Record<string, string>, spine: { id: string, href: string, linear?: "yes" | "no" }[], toc: { title: string, href: string }[], ncx?: { title: string, href: string }[] | null, encryption?: string }} spec
+ * @param {{ title: string, files: Record<string, string>, spine: { id: string, href: string, linear?: "yes" | "no" }[], toc: { title: string, href: string }[], ncx?: { title: string, href: string }[] | null, encryption?: string, opfPath?: string, rootfilePath?: string, rawFiles?: Record<string, Uint8Array> }} spec
  * ncx: omitted means no NCX. null means an empty navMap. An array is the nav points.
  * toc is the EPUB 3 nav. Pass [] to omit the nav document.
  * encryption: optional META-INF/encryption.xml text.
+ * opfPath is a decoded ZIP path; rootfilePath overrides its encoded container reference.
+ * files and rawFiles use decoded ZIP paths relative to the OPF directory.
  */
 async function buildEpub(spec) {
   const date = new Date("2026-01-01T00:00:00Z");
   const zip = new JSZip();
   const add = (name, data) => zip.file(name, data, { date, createFolders: false, compression: "DEFLATE" });
+  const opfPath = spec.opfPath ?? "OEBPS/content.opf";
+  const opfDir = opfPath.slice(0, opfPath.lastIndexOf("/") + 1);
+  const bookPath = (href) => `${opfDir}${href}`;
   add("mimetype", "application/epub+zip");
   add(
     "META-INF/container.xml",
     `<?xml version="1.0" encoding="UTF-8"?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
-  <rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/></rootfiles>
+  <rootfiles><rootfile full-path="${spec.rootfilePath ?? encodePath(opfPath)}" media-type="application/oebps-package+xml"/></rootfiles>
 </container>`,
   );
   const manifest = [];
@@ -63,7 +72,7 @@ async function buildEpub(spec) {
     .map((item) => `<itemref idref="${item.id}"${item.linear === "no" ? ' linear="no"' : ""}/>`)
     .join("");
   add(
-    "OEBPS/content.opf",
+    opfPath,
     `<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -80,7 +89,7 @@ async function buildEpub(spec) {
   if (spec.toc.length > 0) {
     const items = spec.toc.map((item) => `<li><a href="${item.href}">${item.title}</a></li>`).join("");
     add(
-      "OEBPS/nav.xhtml",
+      bookPath("nav.xhtml"),
       `<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
 <head><title>Contents</title></head>
@@ -99,16 +108,17 @@ async function buildEpub(spec) {
       ? `<head><meta name="dtb:uid" content="urn:uuid:extract-test"/><meta name="dtb:depth" content="${spec.ncxDepth}"/><meta name="dtb:totalPageCount" content="0"/><meta name="dtb:maxPageNumber" content="0"/></head>`
       : "";
     add(
-      "OEBPS/toc.ncx",
+      bookPath("toc.ncx"),
       `<?xml version="1.0" encoding="utf-8"?>
 <ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">${depth}<navMap>${points}</navMap></ncx>`,
     );
   }
   if (spec.encryption) add("META-INF/encryption.xml", spec.encryption);
   for (const [href, body] of Object.entries(spec.files)) {
-    if (typeof body === "string") add(`OEBPS/${href}`, page(href, body));
-    else add(`OEBPS/${href}`, page(href, body.html, body));
+    if (typeof body === "string") add(bookPath(href), page(href, body));
+    else add(bookPath(href), page(href, body.html, body));
   }
+  for (const [path, bytes] of Object.entries(spec.rawFiles ?? {})) add(bookPath(path), bytes);
   const bytes = await zip.generateAsync({ type: "nodebuffer" });
   if (spec.writeTo) writeFileSync(spec.writeTo, bytes);
   return epub.parseEpub(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), {
@@ -146,6 +156,108 @@ const TWO_CHAPTERS = {
     "c02.xhtml": `<h1>Two</h1><p>The second chapter is readable too. ${LONG}</p>`,
   },
 };
+
+for (const contents of ["nav", "ncx"]) {
+  const contentsSpec = (toc) => contents === "nav" ? { toc } : { toc: [], ncx: toc };
+
+  test(`EPUB paths: ${contents} resolves an encoded OPF directory exactly once`, async (t) => {
+    const spec = {
+      ...TWO_CHAPTERS,
+      ...contentsSpec(TWO_CHAPTERS.toc),
+      spine: [TWO_CHAPTERS.spine[0], { id: "extra", href: "extra.xhtml" }, TWO_CHAPTERS.spine[1]],
+      files: { ...TWO_CHAPTERS.files, "extra.xhtml": `<p>An unlisted extra keeps its place. ${LONG}</p>` },
+    };
+    const baseline = await buildEpub(spec);
+    for (const dir of ["Book Files", "Book%20Files", "Book#Files?Edition", "Books/Café"]) {
+      await t.test(dir, async () => {
+        const book = await buildEpub({ ...spec, opfPath: `${dir}/content.opf` });
+        assert.deepEqual(paragraphs(book), paragraphs(baseline));
+        assert.deepEqual(book.chapters.map((chapter) => chapter.title), ["One", "Two"]);
+        assert.deepEqual(book.chapters.map((chapter) => chapter.href), [`${dir}/c01.xhtml`, `${dir}/c02.xhtml`]);
+        assert.deepEqual(book.chapters.map((chapter) => chapter.spineAt), [0, 2]);
+        assert.deepEqual(book.extras.map((extra) => [extra.id, extra.spineAt, extra.paragraphs]),
+          baseline.extras.map((extra) => [extra.id, extra.spineAt, extra.paragraphs]));
+        assert.deepEqual(book.spine.map((item) => item.href),
+          [`${dir}/c01.xhtml`, `${dir}/extra.xhtml`, `${dir}/c02.xhtml`]);
+      });
+    }
+  });
+
+  test(`EPUB paths: ${contents} decodes fragment IDs only once`, async () => {
+    const ids = ["part%20one", "part one", "part#three?four", "part%unfinished"];
+    const toc = ids.map((id, index) => ({ title: `Section ${index + 1}`, href: `story.xhtml#${encodeURIComponent(id)}` }));
+    const book = await buildEpub({
+      title: "Fragment Book",
+      ...contentsSpec(toc),
+      spine: [{ id: "story", href: "story.xhtml" }],
+      files: { "story.xhtml": ids.map((id, index) => `<p id="${id}">Section ${index + 1} stays separate. ${LONG}</p>`).join("") },
+    });
+    assert.deepEqual(book.chapters.map((chapter) => chapter.title), toc.map((item) => item.title));
+    assert.deepEqual(paragraphs(book), ids.map((_, index) => [`Section ${index + 1} stays separate. ${LONG}`]));
+    assert.deepEqual(book.chapters.map((chapter) => chapter.href), ids.map(() => "OEBPS/story.xhtml"));
+    assert.deepEqual(book.extras, []);
+  });
+
+  test(`EPUB paths: ${contents} keeps encoded filename delimiters and literal percent`, async () => {
+    const paths = ["Text/part#one.xhtml", "Text/part?two.xhtml", "Text/part%20three.xhtml"];
+    const toc = paths.map((path, index) => ({ title: `Section ${index + 1}`, href: `${encodePath(path)}?edition=1#start` }));
+    const book = await buildEpub({
+      title: "Filename Book",
+      ...contentsSpec(toc),
+      spine: paths.map((path, index) => ({ id: `p${index}`, href: encodePath(path) })),
+      files: Object.fromEntries(paths.map((path, index) => [path, `<p id="start">Section ${index + 1} has its own file. ${LONG}</p>`])),
+    });
+    assert.deepEqual(book.chapters.map((chapter) => chapter.title), toc.map((item) => item.title));
+    assert.deepEqual(paragraphs(book), paths.map((_, index) => [`Section ${index + 1} has its own file. ${LONG}`]));
+    assert.deepEqual(book.chapters.map((chapter) => chapter.href), paths.map((path) => `OEBPS/${path}`));
+    assert.deepEqual(book.extras, []);
+  });
+}
+
+test("EPUB paths: malformed percent references stay literal without URIError", async (t) => {
+  await t.test("container path", async () => {
+    const book = await buildEpub({ ...TWO_CHAPTERS, opfPath: "Book%Files/content.opf", rootfilePath: "Book%Files/content.opf" });
+    assert.deepEqual(book.chapters.map((chapter) => chapter.title), ["One", "Two"]);
+    assert.equal(book.chapters[0].href, "Book%Files/c01.xhtml");
+    await assert.rejects(() => buildEpub({ ...TWO_CHAPTERS, rootfilePath: "missing%file.opf" }),
+      (error) => error.code === "noToc");
+  });
+  for (const path of ["chapter%.xhtml", "chapter%ZZ.xhtml", "chapter%E0%A4.xhtml"]) {
+    await t.test(path, async () => {
+      const toc = [{ title: "First", href: `${path}#first%` }, { title: "Second", href: "c02.xhtml" }];
+      const book = await buildEpub({
+        title: "Malformed Percent Book",
+        toc,
+        spine: [{ id: "first", href: path }, { id: "second", href: "c02.xhtml" }],
+        files: { [path]: `<p id="first%">The first paragraph stays readable. ${LONG}</p>`, "c02.xhtml": TWO_CHAPTERS.files["c02.xhtml"] },
+      });
+      assert.deepEqual(book.chapters.map((chapter) => chapter.title), ["First", "Second"]);
+      assert.equal(book.chapters[0].href, `OEBPS/${path}`);
+      assert.deepEqual(book.chapters[0].paragraphs, [`The first paragraph stays readable. ${LONG}`]);
+    });
+  }
+});
+
+test("EPUB paths: images resolve against decoded paths without external fetching", async (t) => {
+  const fetches = [];
+  t.mock.method(globalThis, "fetch", (...args) => { fetches.push(args); throw new Error("Unexpected fetch"); });
+  const image = Uint8Array.from([137, 80, 78, 71]);
+  const book = await buildEpub({
+    title: "Image Paths",
+    opfPath: "Book%20Files/content.opf",
+    toc: [],
+    spine: [{ id: "story", href: "Text%23Part%3FOne/story.xhtml" }],
+    files: {
+      "Text#Part?One/story.xhtml": `<p>${LONG}</p><img src="../Images/pic%2520%23%3F.png?size=small#view"/><img src="../Images/literal%.png"/><img src="https://example.invalid/image.png"/><img src="//example.invalid/image.png"/>`,
+    },
+    rawFiles: { "Images/pic%20#?.png": image, "Images/literal%.png": image },
+  });
+  assert.deepEqual(book.chapters[0].paragraphs, [LONG]);
+  const doc = new DOMParser().parseFromString(book.chapters[0].html, "text/html");
+  assert.deepEqual([...doc.querySelectorAll("img")].map((img) => img.getAttribute("src")),
+    ["data:image/png;base64,iVBORw==", "data:image/png;base64,iVBORw=="]);
+  assert.deepEqual(fetches, []);
+});
 
 test("an obfuscated font is not treated as a lock", async () => {
   const opened = await buildEpub({

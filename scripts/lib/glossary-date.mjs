@@ -11,6 +11,12 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const cache = new Map();
 
+/** Git can spell UTC as Z; catalogs keep the explicit offset on every platform. */
+export function normalizeCommitDate(value) {
+  const date = value.trim().replace(/Z$/, "+00:00");
+  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/.test(date) ? date : "";
+}
+
 export function committedOn(file) {
   if (cache.has(file)) return cache.get(file);
   let date = "";
@@ -21,7 +27,7 @@ export function committedOn(file) {
         encoding: "utf8",
         stdio: ["ignore", "pipe", "ignore"],
       }).trim();
-      if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/.test(out)) date = out;
+      date = normalizeCommitDate(out);
     } catch {
       date = "";
     }

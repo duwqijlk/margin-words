@@ -145,8 +145,15 @@ export function resolveAnchor(anchor: TextAnchor, chapters: ReadonlyArray<Readon
   };
   const where = (c: number, p: number): number => {
     const raw = chapters[c]?.[p] ?? "";
-    const at = raw.indexOf(anchor.quote);
-    return at >= 0 ? at : Math.min(anchor.offset, raw.length);
+    let best = -1;
+    if (anchor.quote) {
+      for (let at = raw.indexOf(anchor.quote); at >= 0; at = raw.indexOf(anchor.quote, at + 1)) {
+        // Repeated passages in a long paragraph keep their saved occurrence.
+        // Strictly closer wins, so ties consistently choose the earlier one.
+        if (best < 0 || Math.abs(at - anchor.offset) < Math.abs(best - anchor.offset)) best = at;
+      }
+    }
+    return best >= 0 ? best : Math.min(anchor.offset, raw.length);
   };
   const finish = (c: number, p: number, via: Resolved["via"]): Resolved => ({
     chapter: c,

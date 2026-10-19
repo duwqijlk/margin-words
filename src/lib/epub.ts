@@ -162,8 +162,18 @@ function isFrontMatterTitle(title: string): boolean {
   );
 }
 
+function decodeUrlPart(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    // Some books use a literal percent or an invalid escape. Keep it as a ZIP name/id.
+    return value;
+  }
+}
+
+/** `base` is a decoded ZIP directory; only the incoming URL path is decoded. */
 function resolveZipPath(base: string, href: string): string {
-  const clean = decodeURIComponent((href.split("#")[0] ?? "").split("?")[0] ?? "");
+  const clean = decodeUrlPart((href.split("#")[0] ?? "").split("?")[0] ?? "");
   const parts = `${base}${clean}`.split("/");
   const out: string[] = [];
   for (const part of parts) {
@@ -195,12 +205,8 @@ function splitPrefix(path: string): string {
 }
 
 function hashOf(href: string): string {
-  const hash = href.split("#")[1] ?? "";
-  try {
-    return decodeURIComponent(hash);
-  } catch {
-    return hash;
-  }
+  const at = href.indexOf("#");
+  return at < 0 ? "" : decodeUrlPart(href.slice(at + 1));
 }
 
 function bytesToBase64(bytes: Uint8Array): string {
@@ -480,11 +486,11 @@ function parseHtml(html: string): Document {
   return new DOMParser().parseFromString(html, "text/html");
 }
 
-function resolveHref(documentPath: string, href: string): string {
-  const hash = hashOf(href);
+/** Keep decoded ZIP names and fragment ids separate: either may contain a literal # or %. */
+function resolveHref(documentPath: string, href: string): { path: string; anchor: string } {
   const file = (href.split("#")[0] ?? "").trim();
   const path = file ? resolveZipPath(dirOf(documentPath), file) : documentPath;
-  return hash ? `${path}#${hash}` : path;
+  return { path, anchor: hashOf(href) };
 }
 
 async function renderFragment(
@@ -963,9 +969,10 @@ export async function parseEpub(
   const containerXml = await zip.file("META-INF/container.xml")?.async("string");
   if (!containerXml) throw new CodedError("notEpub", "This is not an EPUB book.");
   const container = new DOMParser().parseFromString(containerXml, "application/xml");
-  const opfPath = byLocal(container, "rootfile")[0]?.getAttribute("full-path");
-  if (!opfPath) throw new CodedError("noToc", "This EPUB has no table of contents.");
-  const opfXml = await zip.file(decodeURIComponent(opfPath))?.async("string");
+  const opfHref = byLocal(container, "rootfile")[0]?.getAttribute("full-path");
+  if (!opfHref) throw new CodedError("noToc", "This EPUB has no table of contents.");
+  const opfPath = decodeUrlPart(opfHref);
+  const opfXml = await zip.file(opfPath)?.async("string");
   if (!opfXml) throw new CodedError("noToc", "This EPUB has no table of contents.");
   const opf = new DOMParser().parseFromString(opfXml, "application/xml");
   const title = englishTitle(textOf(byLocal(opf, "title")[0]), "Untitled");
@@ -1020,7 +1027,7 @@ export async function parseEpub(
     return doc;
   }
 
-  let toc: { title: string; href: string }[] = [];
+  let toc: { title: string; path: string; anchor: string }[] = [];
   const navItem = [...manifest.values()].find((item) => item.props.includes("nav"));
   const ncxItem = [...manifest.values()].find(
     (item) => item.type.includes("ncx") || item.href.endsWith(".ncx"),
@@ -1031,7 +1038,7 @@ export async function parseEpub(
     if (navFile) {
       toc = flattenToc(parseNavHtml(await navFile.async("string"))).map((item) => ({
         title: item.title,
-        href: resolveHref(navPath, item.href),
+        ...resolveHref(navPath, item.href),
       }));
     }
   }
@@ -1041,7 +1048,7 @@ export async function parseEpub(
     if (ncxFile) {
       toc = flattenToc(parseNcx(await ncxFile.async("string"))).map((item) => ({
         title: item.title,
-        href: resolveHref(ncxPath, item.href),
+        ...resolveHref(ncxPath, item.href),
       }));
     }
   }
@@ -1060,7 +1067,7 @@ export async function parseEpub(
   }
 
   const chapters: EpubChapter[] = [];
-  const tocFiles = new Set(toc.map((entry) => entry.href.split("#")[0] ?? ""));
+  const tocFiles = new Set(toc.map((entry) => entry.path));
   /** Spine files already copied onto a chapter by the split-continuation rule. */
   const attached = new Set<string>();
   /**
@@ -1080,7 +1087,7 @@ export async function parseEpub(
   const filledPaths = new Set<string>();
   const prefixCounts = new Map<string, number>();
   for (const entry of toc) {
-    const file = entry.href.split("#")[0] ?? "";
+    const file = entry.path;
     if (!file) continue;
     const prefix = splitPrefix(file);
     prefixCounts.set(prefix, (prefixCounts.get(prefix) ?? 0) + 1);
@@ -1213,14 +1220,13 @@ export async function parseEpub(
       await yieldToUi();
       const entry = toc[index];
       if (!entry) continue;
-      const path = entry.href.split("#")[0] ?? "";
-      const anchor = hashOf(entry.href);
+      const { path, anchor } = entry;
       const doc = await loadDoc(path);
       if (!doc?.body || looksLikeContents(doc)) continue;
       const body = doc.body;
       const next = toc[index + 1];
-      const nextPath = next ? (next.href.split("#")[0] ?? "") : "";
-      const nextAnchor = next && nextPath === path ? hashOf(next.href) : "";
+      const nextPath = next?.path ?? "";
+      const nextAnchor = next && nextPath === path ? next.anchor : "";
       const start = anchor ? findById(body, anchor) : null;
       const lastSlice = !(next && nextPath === path);
       if (anchor && !start) {

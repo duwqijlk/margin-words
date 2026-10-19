@@ -85,6 +85,30 @@ test("a place made from a sentence alone is found in the whole book", () => {
   assert.equal(anchorFits(at, chapters[0][1]), false);
 });
 
+test("repeated quotes resolve nearest the saved offset, with earlier ties", () => {
+  const quote = "The lantern shone across the water.";
+  const text = `${quote} A different sentence separates the echoes. ${quote} ${quote}`;
+  const second = text.indexOf(quote, 1);
+  const third = text.indexOf(quote, second + 1);
+  for (const [offset, expected] of [[0, 0], [second, second], [second - 1, second], [third, third], [text.length + 100, third], [second / 2, 0]]) {
+    const hit = resolveAnchor({ chapter: 0, paragraph: 0, quote, offset }, [[text]]);
+    assert.equal(hit.offset, expected, `offset ${offset}`);
+    assert.equal(hit.via, "paragraph");
+  }
+  const saved = { chapter: 0, extraId: "x0", anchor: { chapter: 0, paragraph: 0, quote, offset: third } };
+  assert.equal(restoreReadingPlace(saved, { chapters: [[text]], extras: [{ id: "x0", paragraphs: [text] }] }).offset, third);
+});
+
+test("half-quote matching keeps its bounded offset fallback after a real text edit", () => {
+  const quote = "The lantern shone across the quiet water while the captain counted every silver coin";
+  const edited = "The lantern shone across the quiet water while the gardener planted several young trees";
+  const hit = resolveAnchor({ chapter: 0, paragraph: 0, quote, offset: 9 }, [[edited]]);
+  assert.equal(hit.via, "paragraph");
+  assert.equal(hit.offset, 9);
+  const pastEnd = resolveAnchor({ chapter: 0, paragraph: 0, quote, offset: 1000 }, [[edited]]);
+  assert.equal(pastEnd.offset, edited.length);
+});
+
 const extraLine = "The brass lantern hung above the narrow stair and lit the last step.";
 
 test("restore uses the anchor inside the extra, even when a numbered chapter has the same words", () => {

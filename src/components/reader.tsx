@@ -41,7 +41,7 @@ import {
 } from "@/lib/glossary-format";
 import type { PhraseEntry } from "@/lib/glossary-extras";
 import { pickPhrase, phraseWordMarks } from "@/lib/help-match";
-import { findPhrase, paragraphBlocks, shareStoredBook } from "@/lib/help-lookup";
+import { findPhrase, shareStoredBook } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
 import { tr, useT, type Key } from "@/lib/i18n";
 import { useJump } from "@/lib/jump-store";
@@ -100,6 +100,7 @@ import { watchPageMoves, type PageMove } from "@/lib/page-guard";
 import {
   PLACE_TOP,
   RESTORE_BOTTOM,
+  readerParagraphBlocks,
   topAnchor,
   tallBlock,
   lineTopAt,
@@ -162,6 +163,8 @@ export function ReaderScreen({
     return saved ? saved.chapter : (legacyChapter(bookId) ?? -1);
   });
   const [extraId, setExtraId] = useState(() => useProgress.getState().items[bookId]?.extraId ?? "");
+  // Selecting the current contents entry is still a navigation, without remounting its text.
+  const [navigationRevision, setNavigationRevision] = useState(0);
   const [scrolled, setScrolled] = useState(0);
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [picked, setPicked] = useState<{
@@ -207,6 +210,9 @@ export function ReaderScreen({
   } | null>(null);
   // The last scroll position not yet written to the progress store.
   const pendingSave = useRef<(() => void) | null>(null);
+  // Bumped synchronously before navigation: callbacks for the old DOM must never save
+  // into the new chapter, even before React has cleaned up their effects.
+  const positionGeneration = useRef(0);
   // Holds every page turn to one page, whoever scrolled (see page-guard.ts). The reader's own
   // placing (restore, a new chapter) tells it with `quiet()` so it is never undone.
   const pageGuard = useRef<ReturnType<typeof watchPageMoves> | null>(null);
@@ -238,7 +244,11 @@ export function ReaderScreen({
           jump.at,
           next.chapters.map((item) => item.paragraphs),
         );
-        restoreAt.current = { paragraph: hit.paragraph, offset: hit.offset, flash: true };
+        restoreAt.current = {
+          paragraph: hit.paragraph,
+          offset: hit.offset,
+          flash: hit.via !== "nearest",
+        };
         setChapterIndex(hit.chapter);
         setExtraId("");
       } else if (saved) {
@@ -506,7 +516,7 @@ export function ReaderScreen({
   // Restore the saved reading position once per chapter, after its text is on screen.
   useLayoutEffect(() => {
     const root = articleRef.current;
-    if (!root || !linkedHtml) return;
+    if (!root || !book || !phrasesReady) return;
     const page = `${bookId}|${safeIndex}|${extraId}`;
     let target = restore.current;
     restore.current = null;
@@ -551,7 +561,7 @@ export function ReaderScreen({
       target: bottom ? RESTORE_BOTTOM : target,
       until,
     };
-    const block = mark ? paragraphBlocks(root)[mark.paragraph] : undefined;
+    const block = mark ? readerParagraphBlocks(root)[mark.paragraph] : undefined;
     let place: () => void;
     let flashTimer: ReturnType<typeof setTimeout> | null = null;
     if (block) {
@@ -626,17 +636,20 @@ export function ReaderScreen({
       if (flashTimer) clearTimeout(flashTimer);
       release();
     };
-  }, [linkedHtml, bookId, safeIndex, extraId]);
+  }, [linkedHtml, book, phrasesReady, bookId, safeIndex, extraId, navigationRevision]);
 
-  // Track and save position in the chapter.
-  useEffect(() => {
-    if (!book) return;
+  // Layout cleanup still has the reading DOM. Passive cleanup runs after it has been
+  // removed, when even a previously measured scroll would acquire the wrong anchor.
+  useLayoutEffect(() => {
+    const root = articleRef.current;
+    if (!book || !phrasesReady || !root) return;
+    const generation = positionGeneration.current;
+    const current = () => positionGeneration.current === generation;
     let frame = 0;
     let saver: ReturnType<typeof setTimeout> | null = null;
     const measure = () => {
       frame = 0;
-      const root = articleRef.current;
-      if (!root) return;
+      if (!current()) return;
       const rect = root.getBoundingClientRect();
       const span = Math.max(1, rect.height - window.innerHeight);
       // The end of the chapter on screen means the chapter is read, also when it fits on one screen.
@@ -648,17 +661,21 @@ export function ReaderScreen({
       setScrolled((held) => (Math.round(held * 100) === Math.round(value * 100) ? held : value));
       if (saver) clearTimeout(saver);
       const write = () => {
+        if (saver) clearTimeout(saver);
         saver = null;
+        if (!current()) return;
         pendingSave.current = null;
         // Read the anchor when the scrolling has stopped, not on every frame: `topAnchor` walks
         // every paragraph of the chapter and reads a rectangle for each, which forced a layout
         // on every animation frame.
         const anchor = topAnchor(root, activeExtra ? 0 : safeIndex);
         saveProgress(bookId, {
+          chapter: safeIndex,
+          chapters: book.chapters.length,
+          extraId: activeExtra?.id ?? "",
           scroll: value,
           // No paragraph on screen: an older anchor would reopen somewhere else, so the scroll fraction is used.
           anchor: anchor ?? undefined,
-          ...(activeExtra ? { extraId: activeExtra.id } : {}),
         });
       };
       pendingSave.current = write;
@@ -667,7 +684,13 @@ export function ReaderScreen({
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(measure);
     };
-    const onHide = () => pendingSave.current?.();
+    const onHide = () => {
+      if (!current()) return;
+      // A fast exit can precede both the scroll event and its scheduled frame.
+      if (frame) cancelAnimationFrame(frame);
+      measure();
+      pendingSave.current?.();
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("pagehide", onHide);
     frame = requestAnimationFrame(measure);
@@ -676,10 +699,11 @@ export function ReaderScreen({
       window.removeEventListener("pagehide", onHide);
       if (frame) cancelAnimationFrame(frame);
       if (saver) clearTimeout(saver);
-      // Leaving the book (or the list redrawing) keeps the last spot. A chapter change clears this first.
-      pendingSave.current?.();
+      // Old callbacks are invalidated before a chapter selection. Only a genuine exit
+      // (or a redraw of this page) flushes the still-connected reading DOM.
+      if (root.isConnected) onHide();
     };
-  }, [book, bookId, saveProgress, safeIndex, activeExtra]);
+  }, [book, bookId, phrasesReady, linkedHtml, saveProgress, safeIndex, activeExtra, navigationRevision]);
 
   useEffect(() => {
     if (!book || !extraId) return;
@@ -692,8 +716,10 @@ export function ReaderScreen({
 
   // Positions saved before anchors existed get one now, from where the page actually is.
   useEffect(() => {
-    if (!book || !linkedHtml) return;
+    if (!book || !phrasesReady) return;
+    const generation = positionGeneration.current;
     const timer = setTimeout(() => {
+      if (positionGeneration.current !== generation) return;
       const saved = useProgress.getState().items[bookId];
       if (extraId) {
         if (saved?.extraId === extraId && saved.anchor) return;
@@ -706,7 +732,7 @@ export function ReaderScreen({
       if (anchor) saveProgress(bookId, { anchor });
     }, 900);
     return () => clearTimeout(timer);
-  }, [book, bookId, linkedHtml, safeIndex, extraId, saveProgress]);
+  }, [book, bookId, linkedHtml, phrasesReady, safeIndex, extraId, saveProgress]);
 
   // Saved words from before places were stored: find each sentence in this device's text once.
   useEffect(() => {
@@ -750,7 +776,9 @@ export function ReaderScreen({
       // The place is applied by the restore effect, after the new chapter is on screen. Scrolling
       // here would move the page that is still showing (a flash) and the height measured would be
       // the old chapter's.
-      restore.current = toBottom ? RESTORE_BOTTOM : null;
+      restore.current = toBottom ? RESTORE_BOTTOM : 0;
+      positionGeneration.current += 1;
+      setNavigationRevision((revision) => revision + 1);
       restoreAt.current = null;
       pendingSave.current = null;
       setExtraId("");
@@ -764,7 +792,7 @@ export function ReaderScreen({
         chapters: book.chapters.length,
         scroll: toBottom ? 1 : 0,
         extraId: "",
-        anchor: first ? makeAnchor({ chapter: next, paragraph: 0, text: first, at: 0 }) : undefined,
+        anchor: !toBottom && first ? makeAnchor({ chapter: next, paragraph: 0, text: first, at: 0 }) : undefined,
       });
     },
     [book, bookId, saveProgress],
@@ -786,7 +814,9 @@ export function ReaderScreen({
       if (!book || !slots) return;
       const slot = slots[at];
       if (!slot) return;
-      restore.current = toBottom ? RESTORE_BOTTOM : null;
+      restore.current = toBottom ? RESTORE_BOTTOM : 0;
+      positionGeneration.current += 1;
+      setNavigationRevision((revision) => revision + 1);
       restoreAt.current = null;
       pendingSave.current = null;
       setPicked(null);
@@ -801,7 +831,7 @@ export function ReaderScreen({
           chapters: book.chapters.length,
           scroll: toBottom ? 1 : 0,
           extraId: "",
-          anchor: first
+          anchor: !toBottom && first
             ? makeAnchor({ chapter: slot.index, paragraph: 0, text: first, at: 0 })
             : undefined,
         });
@@ -816,7 +846,7 @@ export function ReaderScreen({
           scroll: toBottom ? 1 : 0,
           extraId: extra.id,
           // The anchor is a paragraph of this extra. Restore searches only that extra.
-          anchor: first ? makeAnchor({ chapter: 0, paragraph: 0, text: first, at: 0 }) : undefined,
+          anchor: !toBottom && first ? makeAnchor({ chapter: 0, paragraph: 0, text: first, at: 0 }) : undefined,
         });
       }
       // The restore effect places the page once it is on screen (see goChapter).
@@ -1065,14 +1095,14 @@ export function ReaderScreen({
 
   function paragraphElement(index: number): Element | null {
     const root = articleRef.current;
-    return root ? (paragraphBlocks(root)[index] ?? null) : null;
+    return root ? (readerParagraphBlocks(root)[index] ?? null) : null;
   }
 
   function openHelp(index: number) {
     const el = paragraphElement(index);
     if (!el || !book) return;
     const root = articleRef.current;
-    const texts = root ? paragraphBlocks(root).map((block) => flowText(block)) : [];
+    const texts = root ? readerParagraphBlocks(root).map((block) => flowText(block)) : [];
     setAnchor(el instanceof HTMLElement ? el : null);
     setPicked(null);
     setHelp({ index });
@@ -1099,7 +1129,7 @@ export function ReaderScreen({
   function pickButton(button: Element) {
     const surface = button.getAttribute("data-word") ?? "";
     const key = resolveKey(surface) || surface;
-    const blocks = articleRef.current ? paragraphBlocks(articleRef.current) : [];
+    const blocks = articleRef.current ? readerParagraphBlocks(articleRef.current) : [];
     const blockAt = blocks.findIndex((item) => item.contains(button));
     const block = button.closest("p, li, blockquote, h1, h2, h3, h4, div[data-para]") ?? blocks[blockAt];
     const paragraph = block ? flowText(block) : surface;
@@ -1465,15 +1495,15 @@ export function ReaderScreen({
             dangerouslySetInnerHTML={{ __html: linkedHtml }}
           />
         ) : activeExtra ? (
-          <article ref={articleRef} className="book-body" lang="en">
-            {activeExtra.title ? <h2>{activeExtra.title}</h2> : null}
+          <article ref={articleRef} className="book-body" lang="en" data-reader-paragraphs>
+            {activeExtra.title ? <h2 data-merge-title="1">{activeExtra.title}</h2> : null}
             {activeExtra.paragraphs.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
           </article>
         ) : (
-          <article ref={articleRef} className="book-body" lang="en">
-            <h2>{chapter.title}</h2>
+          <article ref={articleRef} className="book-body" lang="en" data-reader-paragraphs>
+            <h2 data-merge-title="1">{chapter.title}</h2>
             {chapter.paragraphs.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}

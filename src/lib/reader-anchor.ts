@@ -13,12 +13,24 @@ export const PLACE_TOP = 96;
 export const RESTORE_BOTTOM = -1;
 
 /**
+ * The reader's rendered blocks, excluding headings the reader adds only to give an old
+ * paragraphs-only book a title. Those headings are visual decoration, not word-list
+ * paragraphs, so they must not shift a saved paragraph index.
+ */
+export function readerParagraphBlocks(root: ParentNode): Element[] {
+  // The stored array already defines the indexes; do not filter out short/empty strings again.
+  if (root instanceof Element && root.hasAttribute("data-reader-paragraphs"))
+    return Array.from(root.querySelectorAll("p"));
+  return paragraphBlocks(root);
+}
+
+/**
  * The first paragraph that reaches below the restore line, as a file-independent place.
  * The same line as the restore, so reopening a book does not step back one paragraph each time.
  */
 export function topAnchor(root: HTMLElement | null, chapter: number): TextAnchor | null {
   if (!root) return null;
-  const blocks = paragraphBlocks(root);
+  const blocks = readerParagraphBlocks(root);
   const at = blocks.findIndex((block) => block.getBoundingClientRect().bottom > PLACE_TOP + 1);
   const block = at >= 0 ? blocks[at] : undefined;
   if (!block) return null;
