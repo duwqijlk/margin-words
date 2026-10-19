@@ -1782,7 +1782,8 @@ const PARAGRAPH_BLOCKS = "p, h1, h2, h3, h4, li, blockquote, div[data-para]";
  * marks it with data-para. Those marked divs are paragraphs here too, in the same order.
  * A book that has a p never gets that mark, so its blocks stay as before.
  * This helper applies the same rule to a rendered chapter, so the reader can number the blocks it shows.
- * (If the chapter has no such block at all, the whole chapter text is the one paragraph, index 0.)
+ * If no block survives and the whole chapter has more than 20 English letters, the root
+ * is paragraph 0, matching the importer's whole-fragment fallback.
  */
 export function paragraphBlocks(root: ParentNode, segmentation?: number): Element[] {
   const split =
@@ -1795,6 +1796,16 @@ export function paragraphBlocks(root: ParentNode, segmentation?: number): Elemen
     if (skipNestedParagraph(block, split)) continue;
     const text = flowText(block);
     if ((text.match(/[A-Za-z]/g)?.length ?? 0) > 1) out.push(block);
+  }
+  // paragraphsOf uses the whole fragment only when no numbered block survived,
+  // and only above 20 English letters. Return the actual container for bulbs/taps.
+  const container = root.nodeType === 9 ? (root as Document).body : root;
+  if (
+    out.length === 0 &&
+    container instanceof Element &&
+    (flowText(container).match(/[A-Za-z]/g)?.length ?? 0) > 20
+  ) {
+    out.push(container);
   }
   return out;
 }

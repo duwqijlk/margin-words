@@ -236,6 +236,12 @@
     }
   }
 
+  /* Only the importer's approved alignment survives, never publisher fonts or sizes. */
+  .book-body [data-reading-centered="1"] {
+    text-align: center;
+    text-align-last: center;
+  }
+
   /* The opening letter of a chapter, kept inside the same tappable word. */
   .book-body .dropcap::first-letter {
     float: left;

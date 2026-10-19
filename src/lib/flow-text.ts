@@ -29,7 +29,30 @@ const BLOCK_TAGS = new Set([
   "dl",
   "figure",
   "figcaption",
+  "td",
+  "th",
+  "thead",
+  "tbody",
+  "tfoot",
+  "caption",
+  "section",
+  "article",
+  "aside",
+  "header",
+  "footer",
+  "main",
+  "address",
+  "details",
+  "summary",
+  "fieldset",
+  "legend",
+  "form",
 ]);
+
+/** Structural boundaries must survive even when the importer unwraps an unsupported tag. */
+export function isFlowBlockTag(name: string): boolean {
+  return BLOCK_TAGS.has(name);
+}
 
 type NodeLike = {
   nodeType: number;
@@ -57,7 +80,9 @@ export function isChapterWrapper(el: ElLike | null | undefined): boolean {
   if (!el || el.localName !== "blockquote") return false;
   if (!el.querySelector?.("p, li, h1, h2, h3, h4")) return false;
   const cls = el.getAttribute?.("class") ?? "";
-  if (/\bcalibre\d*\b/i.test(cls)) return true;
+  // The importer derives this marker before discarding publisher classes. Incoming
+  // EPUB markers are removed first, so an arbitrary data attribute cannot opt in.
+  if (el.getAttribute?.("data-chapter-wrapper") === "1" || /\bcalibre\d*\b/i.test(cls)) return true;
   return Boolean(el.querySelector?.("h1, h2, h3, h4"));
 }
 

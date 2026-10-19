@@ -156,6 +156,20 @@ await page.goto(BASE + "read/" + BOOK);
 await page.waitForTimeout(2000);
 check((await page.locator("article.book-body").count()) === 1, "the reader opens the seeded book");
 
+const optionalKeys = await page.evaluate(() => {
+  const send = (target, key) => {
+    const event = new KeyboardEvent("keydown", { key, bubbles: true, cancelable: true });
+    target.dispatchEvent(event);
+    return event.defaultPrevented;
+  };
+  return {
+    arrow: send(document.body, "ArrowDown"),
+    space: send(document.querySelector("header button"), " "),
+  };
+});
+check(!optionalKeys.arrow, "with paging off, arrows keep their native behavior");
+check(!optionalKeys.space, "Space on a header button is not intercepted for paging");
+
 // No page-turn setting is written on purpose: this is the DEFAULT state (the setting is off),
 // which is what almost every reader runs. PageDown must still turn exactly one page - leaving
 // those keys to the engine is what silently bypassed the whole calculation on the e-readers.
@@ -180,7 +194,7 @@ const page_ = () =>
         Math.floor(visible / line) - 4 >= 1
           ? Math.round((Math.floor(visible / line) - 4) * line)
           : Math.round(Math.min(visible, line)),
-      line: Math.round(line),
+      line,
       visible: Math.round(visible),
     };
   });

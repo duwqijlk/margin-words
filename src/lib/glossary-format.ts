@@ -195,11 +195,28 @@ const STOP_TAGS = new Set([
   "tr",
   "td",
   "th",
+  "thead",
+  "tbody",
+  "tfoot",
+  "caption",
+  "dl",
+  "dt",
+  "dd",
   "figure",
   "figcaption",
   "pre",
   "section",
   "article",
+  "aside",
+  "header",
+  "footer",
+  "main",
+  "address",
+  "details",
+  "summary",
+  "fieldset",
+  "legend",
+  "form",
   "br",
   "hr",
 ]);
@@ -432,6 +449,35 @@ function wordEdgesJoin(left: string, right: string): boolean {
   return false;
 }
 
+/**
+ * The first word-shaped part of `right` that belongs to a join with `left`.
+ * Only that part changes style: text after it remains in its original inline wrapper.
+ */
+function joinedWordPrefix(left: string, right: string): string {
+  if (!right) return "";
+  if (isLetter(right[0] ?? "")) {
+    return right.match(new RegExp(`^${WORD_PATTERN}`, "u"))?.[0] ?? "";
+  }
+  if (right[0] === "'" && isLetter(left[left.length - 1] ?? "")) {
+    return right.match(/^'(?:\p{L}\p{M}*)+/u)?.[0] ?? "";
+  }
+  return "";
+}
+
+/**
+ * Move just the joined word's prefix into `left`; return whether `right` still has text.
+ * Break marks at the two text-node edges are not visible and are removed while joining.
+ */
+function appendJoinedWord(left: Text, right: Text): boolean {
+  const leftText = left.data.replace(/[\u00AD\u200B\u2060]+$/g, "");
+  const rightText = right.data.replace(/^[\u00AD\u200B\u2060]+/g, "");
+  const prefix = joinedWordPrefix(leftText, rightText);
+  if (!prefix) return false;
+  left.data = leftText + prefix;
+  right.data = rightText.slice(prefix.length);
+  return right.data.length > 0;
+}
+
 /** The gap holds only empty inline wrappers. A space, `<br>`, image, or block stops the join. */
 function gapIsBareInline(fragment: Node): boolean {
   const visit = (node: Node): boolean => {
@@ -488,10 +534,16 @@ function joinInlineWords(root: ParentNode) {
   for (const node of texts) {
     if (!node.data) continue;
     if (left && canJoinInline(left, node)) {
-      left.data += node.data;
-      node.data = "";
-      markAncestors(node, touched);
-      continue;
+      const hasRemainder = appendJoinedWord(left, node);
+      markAncestors(left, touched);
+      if (!hasRemainder) {
+        node.data = "";
+        markAncestors(node, touched);
+      }
+      // Keep the original node as the next candidate when punctuation or a space
+      // follows the joined word. This prevents the whole remainder from moving
+      // into the emphasis/drop-cap wrapper while still allowing repeated joins.
+      if (!hasRemainder) continue;
     }
     left = node;
   }
@@ -1944,6 +1996,8 @@ export function fillReadingRoot(
   stripWordBreaksIn(root);
   for (const el of [...root.querySelectorAll("*")]) {
     const dropcap = el.classList.contains("dropcap");
+    const centered = /^\s*text-align\s*:\s*center\s*;?\s*$/i.test(el.getAttribute("style") ?? "");
+    el.removeAttribute("data-reading-centered");
     for (const attr of [...el.attributes]) {
       if (attr.name.startsWith("on") || attr.name === "href" || attr.name === "action")
         el.removeAttribute(attr.name);
@@ -1953,6 +2007,7 @@ export function fillReadingRoot(
     }
     // Kept so a chapter-opening drop cap can still style the first letter.
     if (dropcap) el.setAttribute("class", "dropcap");
+    if (centered) el.setAttribute("data-reading-centered", "1");
   }
   // A curly join is one button only when none of its counted pieces is in the list.
   // data-n still counts every piece with WORD_PATTERN, in order.
@@ -2022,6 +2077,12 @@ export function readingHtml(
 
 const READING_BLOCKS = "p, h1, h2, h3, h4, li, blockquote, div[data-para]";
 
+/** querySelectorAll is in document order: a non-leaf block contains the next matching block. */
+export function leafReadingBlocks(root: ParentNode): Element[] {
+  const blocks = [...root.querySelectorAll(READING_BLOCKS)];
+  return blocks.filter((block, index) => !blocks[index + 1] || !block.contains(blocks[index + 1] as Element));
+}
+
 /**
  * Add `className` to tap buttons whose letters sit inside one of the ranges for their paragraph.
  * The paragraph is the same block a tap uses (the nearest of those tags, so a line inside a
@@ -2035,9 +2096,7 @@ export function markWordRangesOn(
   className: string,
 ): void {
   if (!className) return;
-  const blocks = [...root.querySelectorAll(READING_BLOCKS)];
-  for (const block of blocks) {
-    if (blocks.some((other) => other !== block && block.contains(other))) continue;
+  for (const block of leafReadingBlocks(root)) {
     const paragraph = flowText(block);
     const ranges = rangesFor(paragraph);
     if (ranges.length === 0) continue;

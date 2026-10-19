@@ -34,10 +34,10 @@ function extrasOf(bookId: string): Promise<BookExtras | null> {
 }
 
 /** The text of every paragraph of a stored chapter, numbered the way the reader and the word lists number them. */
-function chapterTexts(chapter: Pick<StoredChapter, "html" | "paragraphs">): string[] {
+function chapterTexts(chapter: Pick<StoredChapter, "html" | "paragraphs">, segmentation?: 2): string[] {
   if (chapter.html && typeof DOMParser !== "undefined") {
     const doc = new DOMParser().parseFromString(`<div>${chapter.html}</div>`, "text/html");
-    return paragraphBlocks(doc.body).map((block) => flowText(block));
+    return paragraphBlocks(doc.body, segmentation).map((block) => flowText(block));
   }
   return chapter.paragraphs ?? [];
 }
@@ -54,10 +54,10 @@ const bookTexts = new Map<string, { rev: number; data: Promise<StoredTexts | nul
  * book from IndexedDB a second time on every open (all chapter text, cloned again) while the first
  * read was still being drawn, which is most of the wait on a slow phone or e-ink reader.
  */
-const shared = new Map<string, Pick<StoredBook, "chapters" | "extras">>();
+const shared = new Map<string, Pick<StoredBook, "chapters" | "extras" | "segmentation">>();
 
 /** The reader hands over the book it has on screen, so the paragraph notes do not read it again. */
-export function shareStoredBook(bookId: string, book: Pick<StoredBook, "chapters" | "extras">): void {
+export function shareStoredBook(bookId: string, book: Pick<StoredBook, "chapters" | "extras" | "segmentation">): void {
   shared.clear();
   shared.set(bookId, book);
 }
@@ -66,16 +66,16 @@ export function shareStoredBook(bookId: string, book: Pick<StoredBook, "chapters
 const breathe = () => new Promise<void>((resolve) => setTimeout(resolve, 0));
 
 /** Every chapter's paragraph texts, one chapter per task (parsing them all at once held the page for seconds). */
-async function storedTexts(book: Pick<StoredBook, "chapters" | "extras">): Promise<StoredTexts> {
+async function storedTexts(book: Pick<StoredBook, "chapters" | "extras" | "segmentation">): Promise<StoredTexts> {
   const chapters: string[][] = [];
   for (const chapter of book.chapters) {
     await breathe();
-    chapters.push(chapterTexts(chapter));
+    chapters.push(chapterTexts(chapter, book.segmentation));
   }
   const extras: StoredTexts["extras"] = [];
   for (const extra of book.extras ?? []) {
     await breathe();
-    extras.push({ id: extra.id, paragraphs: chapterTexts(extra) });
+    extras.push({ id: extra.id, paragraphs: chapterTexts(extra, book.segmentation) });
   }
   return { chapters, extras };
 }

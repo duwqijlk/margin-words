@@ -6,7 +6,7 @@ import { loadSentenceView, type ParagraphView, type SentenceView } from "@/lib/h
 import { FloatingAside } from "@/components/floating-card";
 import { btn, cn } from "@/components/ui";
 import { flowText } from "@/lib/flow-text";
-import { planBulbs, type BulbSpot } from "@/lib/paragraph-bulbs";
+import { lastLineBox, planBulbs, MARGIN_BULB_SIZE, type BulbSpot } from "@/lib/paragraph-bulbs";
 import { SIDE_PANEL } from "@/components/side-panel";
 
 /*
@@ -23,42 +23,15 @@ type Geo = {
 };
 
 /**
- * One small, permanent bulb at the end of EVERY paragraph that owns a real paragraph note, on a
- * phone and on a wide screen. It sits just after that paragraph's last word. No hover is needed,
- * and a paragraph without a note shows nothing. The bulbs are position: fixed overlays, so they
+ * A permanent bulb beside the last line of each paragraph that owns a real note. Prefer the
+ * last word's right margin; a narrow phone can use a smaller margin bulb instead. If neither
+ * margin safely fits, omit the bulb rather than cover text. No hover is needed, and paragraphs
+ * without notes show nothing. The bulbs are position: fixed overlays, so they
  * take no room in the page and the text never moves. Which spots to draw is pure geometry
  * (planBulbs in src/lib/paragraph-bulbs.ts). While help is open, a thin bar in the margin shows
  * which paragraph it is about.
  */
 
-/** The last line of a paragraph, in viewport pixels. Null when the paragraph has no text box. */
-function lastLineBox(el: Element): {
-  top: number;
-  bottom: number;
-  lineTop: number;
-  lineBottom: number;
-  lineRight: number;
-} | null {
-  const box = el.getBoundingClientRect();
-  if (box.width < 1 && box.height < 1) return null;
-  const range = document.createRange();
-  range.selectNodeContents(el);
-  const rects = range.getClientRects();
-  let last: DOMRect | null = null;
-  for (let i = 0; i < rects.length; i += 1) {
-    const rect = rects[i];
-    if (rect.width < 1 || rect.height < 1) continue;
-    last = rect;
-  }
-  if (!last) return null;
-  return {
-    top: box.top,
-    bottom: box.bottom,
-    lineTop: last.top,
-    lineBottom: last.bottom,
-    lineRight: last.right,
-  };
-}
 export function ParagraphBulbs({
   articleRef,
   version,
@@ -94,7 +67,8 @@ export function ParagraphBulbs({
     const vw = document.documentElement.clientWidth;
     const vh = window.innerHeight;
     const header = document.querySelector("header")?.getBoundingClientRect().bottom ?? 0;
-    const rects = blocks.current.map((block) => (block.ok ? lastLineBox(block.el) : null));
+    const viewport = { width: vw, height: vh, headerHeight: Math.max(0, Math.round(header)) };
+    const rects = blocks.current.map((block) => (block.ok ? lastLineBox(block.el, viewport) : null));
     const bulbs = planBulbs({
       flags: blocks.current.map((block) => block.ok),
       rects,
@@ -193,14 +167,20 @@ export function ParagraphBulbs({
           onClick={() => onOpen(spot.index)}
           className={cn(
             "fixed z-20 inline-flex items-center justify-center rounded-full transition-colors",
-            spot.small ? "size-6" : "size-7",
             spot.index === activeIndex
-              ? "border-2 border-accent bg-accent text-accent-ink shadow-sm"
-              : "border border-line bg-card text-accent shadow-xs hover:bg-accent-soft",
+              ? "border-2 border-accent bg-accent text-accent-ink"
+              : "border border-line bg-card text-accent hover:bg-accent-soft",
+            // Do not let a shadow/focus ring spend the narrow fallback's 2px text gap.
+            spot.size === MARGIN_BULB_SIZE
+              ? "focus-visible:outline-offset-0"
+              : spot.index === activeIndex ? "shadow-sm" : "shadow-xs",
           )}
-          style={{ top: spot.top, left: spot.left }}
+          style={{ top: spot.top, left: spot.left, width: spot.size, height: spot.size }}
         >
-          <Lightbulb className={spot.small ? "size-[0.95rem]" : "size-[1.05rem]"} aria-hidden />
+          <Lightbulb
+            className={spot.size === MARGIN_BULB_SIZE ? "size-3" : spot.small ? "size-[0.95rem]" : "size-[1.05rem]"}
+            aria-hidden
+          />
         </button>
       ))}
     </>

@@ -4,7 +4,31 @@ import {
   isEinkScreen,
   calculatePageStep,
   PAGE_KEEP_LINES_DEFAULT,
+  readerPageDirection,
 } from "../src/lib/reader-paging.ts";
+
+test("page keys work without paging, but arrows and Space require it", () => {
+  for (const key of ["ArrowDown", "ArrowRight", " "]) {
+    assert.equal(readerPageDirection({ key }, false, false), 0);
+    assert.equal(readerPageDirection({ key }, true, false), 1);
+    assert.equal(readerPageDirection({ key }, true, true), 0);
+  }
+  for (const event of [{ key: "ArrowUp" }, { key: "ArrowLeft" }, { key: " ", shiftKey: true }]) {
+    assert.equal(readerPageDirection(event, false, false), 0);
+    assert.equal(readerPageDirection(event, true, false), -1);
+    assert.equal(readerPageDirection(event, true, true), 0);
+  }
+  for (const paging of [true, false]) {
+    for (const interactive of [true, false]) {
+      for (const event of [{ key: "PageDown" }, { code: "PageDown" }, { keyCode: 34 }, { keyCode: 93 }, { which: 93 }])
+        assert.equal(readerPageDirection(event, paging, interactive), 1);
+      for (const event of [{ key: "PageUp" }, { code: "PageUp" }, { keyCode: 33 }, { keyCode: 92 }, { which: 92 }])
+        assert.equal(readerPageDirection(event, paging, interactive), -1);
+    }
+  }
+  for (const modifier of ["ctrlKey", "altKey", "metaKey"])
+    assert.equal(readerPageDirection({ key: "PageDown", [modifier]: true }, true, false), 0);
+});
 
 test("isEinkScreen detects 3:4 and 4:5 aspect ratio devices under 1024px", () => {
   // 600x800 e-ink (ratio 1.33)

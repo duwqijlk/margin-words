@@ -436,18 +436,21 @@ export const useVocab = create<VocabState>()(
         const home = get().books.find((book) => book.id === bookId);
         if (!home) return;
         const bookKey = bookSyncKey(home);
-        set((state) => ({
-          words: state.words.map((word) => {
-            if (
-              word.meaning !== "The meaning is still being prepared." ||
-              !word.sources.some((source) => source.book === bookKey)
-            )
-              return word;
-            const gloss = glossary[word.lemma.toLowerCase()];
-            if (!gloss) return word;
-            return { ...word, pos: gloss.pos, meaning: gloss.meaning, whyHard: gloss.whyHard };
-          }),
-        }));
+        let changed = false;
+        const words = get().words.map((word) => {
+          if (
+            word.meaning !== "The meaning is still being prepared." ||
+            !word.sources.some((source) => source.book === bookKey)
+          )
+            return word;
+          const gloss = glossary[word.lemma.toLowerCase()];
+          if (!gloss || (word.pos === gloss.pos && word.meaning === gloss.meaning && word.whyHard === gloss.whyHard))
+            return word;
+          changed = true;
+          return { ...word, pos: gloss.pos, meaning: gloss.meaning, whyHard: gloss.whyHard };
+        });
+        // Even set(state => state) invokes persist's storage writer. Skip set entirely on a no-op.
+        if (changed) set({ words });
       },
       restoreBooks: (incoming) => {
         set((state) => {

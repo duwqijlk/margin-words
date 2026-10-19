@@ -1054,7 +1054,11 @@ test("a book that already has a p element ignores text divs", async () => {
     ["Kept Chapter", "The real paragraph stays exactly as it is today."],
     ["First div sentence of the second chapter. Second div sentence of the second chapter."],
   ]);
-  for (const chapter of book.chapters) assert.equal(chapter.html.includes("data-para"), false);
+  for (const chapter of book.chapters) {
+    assert.equal(chapter.html.includes("data-para"), false);
+    const root = new DOMParser().parseFromString(`<div>${chapter.html}</div>`, "text/html").body.firstElementChild;
+    assert.deepEqual(help.paragraphBlocks(root).map(flow.flowText), chapter.paragraphs);
+  }
 });
 
 /** Paragraph text of the bundled classics, hashed before the extraction fixes. */
@@ -1145,6 +1149,72 @@ test("a blockquote that holds a heading stays one paragraph unless segmentation 
     help.paragraphBlocks(root).map((block) => flow.flowText(block)),
     paragraphs(split)[0],
   );
+});
+
+test("class-only calibre wrappers survive sanitizing only with segmentation 2", async () => {
+  const lines = ["The first paragraph has no heading above it.", "The second paragraph stays separate in this chapter."];
+  const spec = {
+    ...TWO_CHAPTERS,
+    files: {
+      ...TWO_CHAPTERS.files,
+      "c01.xhtml": `<blockquote class="other calibre4" onclick="bad()">${lines.map((line) => `<p>${line}</p>`).join("")}</blockquote>`,
+    },
+  };
+  const legacy = await buildEpub(spec);
+  assert.deepEqual(legacy.chapters[0].paragraphs, [lines.join(" ")]);
+  const split = await buildEpub({ ...spec, segmentation: 2 });
+  assert.deepEqual(split.chapters[0].paragraphs, lines);
+  assert.deepEqual(split.chapters[1].paragraphs, legacy.chapters[1].paragraphs);
+  assert.doesNotMatch(split.chapters[0].html, /class=|onclick=/);
+  const root = new DOMParser().parseFromString(`<div>${split.chapters[0].html}</div>`, "text/html").body.firstElementChild;
+  assert.equal(root.querySelector("blockquote").getAttribute("data-chapter-wrapper"), "1");
+  assert.deepEqual(help.paragraphBlocks(root, 2).map(flow.flowText), lines);
+  assert.deepEqual(help.paragraphBlocks(root).map(flow.flowText), [lines.join(" ")]);
+  const shown = format.readingHtml(split.chapters[0].html, new Set(), (surface) => surface.toLowerCase(), 0, new Map());
+  const live = new DOMParser().parseFromString(`<div>${shown}</div>`, "text/html").body.firstElementChild;
+  assert.deepEqual(help.paragraphBlocks(live, 2).map(flow.flowText), lines);
+});
+
+test("untrusted EPUB data markers cannot turn a poem into a chapter wrapper or hide text", async () => {
+  const lines = ["The first line belongs to a real quotation.", "The next line belongs to that same quotation."];
+  const book = await buildEpub({
+    ...TWO_CHAPTERS,
+    segmentation: 2,
+    files: {
+      ...TWO_CHAPTERS.files,
+      "c01.xhtml": `<blockquote data-chapter-wrapper="1" data-segmentation="2"><p data-merge-title="1">${lines[0]}</p><p>${lines[1]}</p></blockquote>`,
+    },
+  });
+  assert.deepEqual(book.chapters[0].paragraphs, [lines.join(" ")]);
+  assert.doesNotMatch(book.chapters[0].html, /data-chapter-wrapper|data-segmentation|data-merge-title/);
+});
+
+test("unsupported structural tags keep text boundaries without adding paragraph indexes", async () => {
+  for (const tag of ["section", "article", "aside", "header", "footer", "main", "pre", "h5", "h6", "dl"]) {
+    const book = await buildEpub({
+      ...TWO_CHAPTERS,
+      files: {
+        ...TWO_CHAPTERS.files,
+        "c01.xhtml": `<blockquote>Before<${tag}>middle</${tag}>after the structural boundary stays readable.</blockquote><p>${LONG}</p>`,
+      },
+    });
+    assert.deepEqual(book.chapters[0].paragraphs, ["Before middle after the structural boundary stays readable.", LONG], tag);
+    const root = new DOMParser().parseFromString(`<div>${book.chapters[0].html}</div>`, "text/html").body.firstElementChild;
+    assert.deepEqual(help.paragraphBlocks(root).map(flow.flowText), book.chapters[0].paragraphs, tag);
+    const indexed = format.indexChapterHtml(book.chapters[0].html, (html) => new DOMParser().parseFromString(html, "text/html"));
+    assert.deepEqual(indexed.tokens.slice(0, 3).map((token) => token.w), ["before", "middle", "after"], tag);
+  }
+  const book = await buildEpub({
+    ...TWO_CHAPTERS,
+    files: {
+      ...TWO_CHAPTERS.files,
+      "c01.xhtml": `<blockquote><table><tbody><tr><td>First</td><td>second</td></tr><tr><td>third</td><td>fourth</td></tr></tbody></table><dl><dt>Term</dt><dd>definition</dd></dl>remaining words are separate.</blockquote><p>Inline <u>under</u>line stays joined. ${LONG}</p>`,
+    },
+  });
+  assert.deepEqual(book.chapters[0].paragraphs, [
+    "First second third fourth Term definition remaining words are separate.",
+    `Inline underline stays joined. ${LONG}`,
+  ]);
 });
 
 test("a calibre chapter wrapper splits into its paragraphs and keeps contents numbers", async () => {

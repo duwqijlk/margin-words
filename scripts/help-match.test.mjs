@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { loadAppModules } from "./lib/app-modules.mjs";
 
-const { help } = await loadAppModules();
+const { help, flow } = await loadAppModules();
 const { containsContext, looseText, mergeExtras, pickParagraphHelp, pickPhrase, pickSentenceHelp, tokenize, verbForms } = help;
 
 const para = (chapter, paragraph, context) => ({
@@ -11,6 +11,35 @@ const para = (chapter, paragraph, context) => ({
   context,
   mainIdea: "x",
   simple: "y",
+});
+
+test("paragraphBlocks uses the importer's whole-chapter fallback and letter threshold", () => {
+  const rootFor = (html) => new DOMParser().parseFromString(`<div>${html}</div>`, "text/html").body.firstElementChild;
+  for (const html of [
+    "A chapter made of bare text has one paragraph in the reader.",
+    "<div>First unmarked div has enough text.</div><div>The second div belongs to the same fallback paragraph.</div>",
+    "<p>X</p><span>Only rejected paragraph blocks precede this substantial text.</span>",
+  ]) {
+    const root = rootFor(html);
+    assert.deepEqual(help.paragraphBlocks(root), [root]);
+  }
+  for (const html of ["", "<img>", "<p>X</p>", "abcdefghijklmnopqrst"]) {
+    assert.deepEqual(help.paragraphBlocks(rootFor(html)), []);
+  }
+  const root = rootFor("<p>Kept paragraph.</p><div>Unmarked prose must not add another paragraph when a kept block exists.</div>");
+  assert.deepEqual(help.paragraphBlocks(root).map(flow.flowText), ["Kept paragraph."]);
+});
+
+test("flow text offsets agree across structural boundaries", () => {
+  const root = new DOMParser().parseFromString("<div>Before<section>middle</section><table><tr><td>cell</td><td><span id='cut'>after</span></td></tr></table></div>", "text/html").body.firstElementChild;
+  const cut = root.querySelector("#cut");
+  assert.equal(flow.flowText(root), "Before middle cell after");
+  const before = flow.flowTextBefore(root, cut);
+  const offset = flow.flowCutOffsets(root, (el) => el.getAttribute?.("id") === "cut").get(cut);
+  assert.equal(before, "Before middle cell ");
+  assert.equal(offset, before.length);
+  assert.equal(flow.flowPoint(root, offset).node, cut.firstChild);
+  assert.equal(flow.flowPoint(root, offset).offset, 0);
 });
 
 test("looseText ignores quotes, dashes, case and punctuation", () => {

@@ -1,7 +1,7 @@
 import type JSZip from "jszip";
 import { CodedError } from "./errors.ts";
 import { normText, stripWordBreaks, stripWordBreaksIn } from "./glossary-format.ts";
-import { flowText, skipNestedParagraph } from "./flow-text.ts";
+import { flowText, isChapterWrapper, isFlowBlockTag, skipNestedParagraph } from "./flow-text.ts";
 
 export type EpubChapter = {
   title: string;
@@ -359,6 +359,10 @@ function unwrapDropCaps(root: ParentNode) {
 
 function sanitize(root: HTMLElement) {
   const all = [...root.querySelectorAll("*")];
+  // Publisher attributes are untrusted. Derive our marker from the original
+  // class/structure, never from an incoming copy of the marker itself.
+  for (const el of all) el.removeAttribute("data-chapter-wrapper");
+  const chapterWrappers = new Set(all.filter((el) => isChapterWrapper(el)));
   for (const el of all) {
     if (!el.parentNode) continue;
     const tag = localName(el);
@@ -374,7 +378,12 @@ function sanitize(root: HTMLElement) {
     }
     if (!KEEP.has(tag)) {
       const parent = el.parentNode;
+      // Keep the boundary, not a new paragraph element: adding p/div wrappers
+      // would renumber legacy chapters. Inline tags still unwrap without spaces.
+      const boundary = isFlowBlockTag(tag);
+      if (boundary) parent.insertBefore(el.ownerDocument.createTextNode(" "), el);
       while (el.firstChild) parent.insertBefore(el.firstChild, el);
+      if (boundary) parent.insertBefore(el.ownerDocument.createTextNode(" "), el);
       el.remove();
       continue;
     }
@@ -386,6 +395,7 @@ function sanitize(root: HTMLElement) {
     for (const attr of [...el.attributes]) el.removeAttribute(attr.name);
     if (centered) el.setAttribute("style", "text-align:center");
     if (dropcap) el.setAttribute("class", "dropcap");
+    if (chapterWrappers.has(el)) el.setAttribute("data-chapter-wrapper", "1");
     if (tag === "img" && src?.startsWith("data:image/")) el.setAttribute("src", src);
   }
 }

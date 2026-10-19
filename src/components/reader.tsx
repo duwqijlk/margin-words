@@ -33,6 +33,7 @@ import {
   countSurface,
   entryAppliesAt,
   hasTrickySense,
+  leafReadingBlocks,
   pickSense,
   plainSurface,
   TAP_WORD_PATTERN,
@@ -92,6 +93,7 @@ import {
   MIN_TURN_MS,
   pagingProbeOn,
   readerLineHeight,
+  readerPageDirection,
   topBarHeight,
 } from "@/lib/reader-paging";
 import { watchPageMoves, type PageMove } from "@/lib/page-guard";
@@ -448,8 +450,8 @@ export function ReaderScreen({
     [words, bookKey],
   );
 
-  // Paint saved words and the selected word straight onto the page. Doing it in the DOM
-  // (not in the HTML string) keeps the scroll position and selection when you save a word.
+  // Paint saved words straight onto the page, without rebuilding its HTML.
+  // Selection is separate: tapping a word must not repeat every saved-phrase match.
   const pickedIndex = picked?.index ?? "";
   useLayoutEffect(() => {
     const root = articleRef.current;
@@ -461,7 +463,6 @@ export function ReaderScreen({
         !button.classList.contains("book-hard") &&
         !button.classList.contains("book-tricky");
       button.classList.toggle("book-saved", savedKeys.has(key) && !sparseOff);
-      button.classList.toggle("book-on", pickedIndex !== "" && button.dataset.i === pickedIndex);
     }
     // A saved phrase marks its own words, not the single easy word that was tapped.
     const savedPhrases = Object.fromEntries(
@@ -469,10 +470,7 @@ export function ReaderScreen({
     );
     if (Object.keys(savedPhrases).length > 0) {
       const sel = "p, h1, h2, h3, h4, li, blockquote, div[data-para]";
-      const all = [...root.querySelectorAll<HTMLElement>(sel)];
-      const blocks = all.filter(
-        (block) => !all.some((other) => other !== block && block.contains(other)),
-      );
+      const blocks = leafReadingBlocks(root);
       for (const block of blocks) {
         const marks = phraseWordMarks(savedPhrases, flowText(block));
         if (marks.length === 0) continue;
@@ -491,7 +489,19 @@ export function ReaderScreen({
         }
       }
     }
-  }, [linkedHtml, savedKeys, pickedIndex, resolveKey, marked, phraseList]);
+  }, [linkedHtml, savedKeys, resolveKey, marked, phraseList]);
+
+  const selectedButton = useRef<HTMLElement | null>(null);
+  useLayoutEffect(() => {
+    selectedButton.current?.classList.remove("book-on");
+    const root = articleRef.current;
+    // data-i is the linker's numeric token order, not a word supplied by the book.
+    const next = root && /^\d+$/.test(pickedIndex)
+      ? root.querySelector<HTMLElement>(`button[data-i="${pickedIndex}"]`)
+      : null;
+    next?.classList.add("book-on");
+    selectedButton.current = next;
+  }, [linkedHtml, pickedIndex]);
 
   // Restore the saved reading position once per chapter, after its text is on screen.
   useLayoutEffect(() => {
@@ -921,40 +931,18 @@ export function ReaderScreen({
       )
         return;
 
-      // PageDown / PageUp and page arrows are handled cleanly by our pageStep calculation.
-      // In addition to standard 34/33, Android KeyEvent.KEYCODE_PAGE_DOWN is 93 and KEYCODE_PAGE_UP is 92,
-      // which many e-reader WebViews (Onyx Boox, Moaan, Meebook) dispatch as keyCode/which 93/92.
-      const isPageDown =
-        event.key === "PageDown" ||
-        event.code === "PageDown" ||
-        event.keyCode === 34 ||
-        event.keyCode === 93 ||
-        event.which === 93;
-      const isPageUp =
-        event.key === "PageUp" ||
-        event.code === "PageUp" ||
-        event.keyCode === 33 ||
-        event.keyCode === 92 ||
-        event.which === 92;
-
-      const isNext =
-        isPageDown ||
-        event.key === "ArrowDown" ||
-        event.key === "ArrowRight" ||
-        (event.key === " " && !event.shiftKey);
-      const isPrev =
-        isPageUp ||
-        event.key === "ArrowUp" ||
-        event.key === "ArrowLeft" ||
-        (event.key === " " && event.shiftKey);
-
-      if (isNext || isPrev) {
+      const direction = readerPageDirection(
+        event,
+        usePrefs.getState().paging,
+        Boolean(target?.closest?.('button, a[href], summary, [role="button"], [role="link"]')),
+      );
+      if (direction !== 0) {
         // ALWAYS prevent browser native scrolling immediately, even on key repeat.
         event.preventDefault();
         event.stopPropagation();
         // Held keys would run the page away on a slow e-ink screen: one press, one page.
         if (event.repeat) return;
-        if (isNext) next();
+        if (direction > 0) next();
         else prev();
       }
     };
@@ -1111,11 +1099,11 @@ export function ReaderScreen({
   function pickButton(button: Element) {
     const surface = button.getAttribute("data-word") ?? "";
     const key = resolveKey(surface) || surface;
-    const block = button.closest("p, li, blockquote, h1, h2, h3, h4, div[data-para]");
-    const paragraph = block ? flowText(block) : surface;
-    const before = block ? flowTextBefore(block, button) : "";
     const blocks = articleRef.current ? paragraphBlocks(articleRef.current) : [];
     const blockAt = blocks.findIndex((item) => item.contains(button));
+    const block = button.closest("p, li, blockquote, h1, h2, h3, h4, div[data-para]") ?? blocks[blockAt];
+    const paragraph = block ? flowText(block) : surface;
+    const before = block ? flowTextBefore(block, button) : "";
     const nth = Number(button.getAttribute("data-n")) || 1;
     const context = extractAnchorContext(paragraph, surface, before.length);
     const located = locateSentence(paragraph, surface, before.length);

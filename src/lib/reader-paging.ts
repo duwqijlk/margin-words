@@ -12,6 +12,24 @@
 export const MIN_TURN_MS = 220;
 export const PAGE_KEEP_LINES_DEFAULT = 4;
 
+/** Page keys always belong to the reader; optional keys keep normal control activation. */
+export function readerPageDirection(
+  event: Pick<KeyboardEvent, "key" | "code" | "keyCode" | "which" | "shiftKey" | "ctrlKey" | "altKey" | "metaKey">,
+  paging: boolean,
+  interactive: boolean,
+): -1 | 0 | 1 {
+  if (event.ctrlKey || event.altKey || event.metaKey) return 0;
+  if (event.key === "PageDown" || event.code === "PageDown" || event.keyCode === 34 || event.keyCode === 93 || event.which === 93)
+    return 1;
+  if (event.key === "PageUp" || event.code === "PageUp" || event.keyCode === 33 || event.keyCode === 92 || event.which === 92)
+    return -1;
+  if (!paging || interactive) return 0;
+  if (event.key === "ArrowDown" || event.key === "ArrowRight") return 1;
+  if (event.key === "ArrowUp" || event.key === "ArrowLeft") return -1;
+  if (event.key === " ") return event.shiftKey ? -1 : 1;
+  return 0;
+}
+
 /** Height of the sticky top bar, which covers the top of the text while reading. */
 export function topBarHeight(bar: HTMLElement | null): number {
   if (!bar) return 56;
