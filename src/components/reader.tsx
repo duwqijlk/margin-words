@@ -91,6 +91,7 @@ import {
   isEinkScreen,
   MIN_TURN_MS,
   readerLineHeight,
+  topBarHeight,
 } from "@/lib/reader-paging";
 import {
   PLACE_TOP,
@@ -805,13 +806,15 @@ export function ReaderScreen({
    * three lines on the Moaan. Keeping those lines back is the tolerance: see `PAGE_KEEP_LINES`.
    */
   const pageStep = useCallback(() => {
+    const bar = prefs.focus ? 0 : topBarHeight(headerRef.current);
     const line = readerLineHeight(articleRef.current);
     return calculatePageStep({
       viewportWidth: window.innerWidth,
       viewportHeight: Math.min(window.innerHeight, window.visualViewport?.height ?? window.innerHeight),
+      topBarHeight: bar,
       lineHeight: line,
     });
-  }, []);
+  }, [prefs.focus]);
 
   /**
    * One turn per press. The same physical key can reach the page twice (a WebView that maps a

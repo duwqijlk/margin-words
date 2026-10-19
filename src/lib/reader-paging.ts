@@ -11,7 +11,7 @@
 
 export const MIN_TURN_MS = 220;
 export const PAGE_KEEP_LINES_DEFAULT = 4;
-export const PAGE_KEEP_LINES_EINK = 7;
+export const PAGE_KEEP_LINES_EINK = 8;
 
 /** Height of the sticky top bar, which covers the top of the text while reading. */
 export function topBarHeight(bar: HTMLElement | null): number {
@@ -69,7 +69,7 @@ export function calculatePageStep(input: {
 
   const isEink = isEinkScreen(input.viewportWidth, input.viewportHeight, input.userAgent);
   const keepLines = isEink
-    ? Math.max(PAGE_KEEP_LINES_EINK, Math.ceil(rawLines * 0.38))
+    ? Math.max(PAGE_KEEP_LINES_EINK, Math.ceil(rawLines * 0.42))
     : PAGE_KEEP_LINES_DEFAULT;
 
   const lines = rawLines - keepLines;

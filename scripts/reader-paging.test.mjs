@@ -51,20 +51,20 @@ test("calculatePageStep keeps extra tolerance on e-ink screen to prevent oversho
   // 600x800 e-ink, 56px top bar, 36px line
   // visible = 800 - 56 = 744px
   // rawLines = floor(744 / 36) = 20
-  // on e-ink: keepLines = max(7, ceil(20 * 0.38 = 7.6) = 8) = 8
-  // lines = 20 - 8 = 12
-  // step = 12 * 36 = 432px
+  // on e-ink: keepLines = max(8, ceil(20 * 0.42 = 8.4) = 9) = 9
+  // lines = 20 - 9 = 11
+  // step = 11 * 36 = 396px
   const step = calculatePageStep({
     viewportWidth: 600,
     viewportHeight: 800,
     topBarHeight: 56,
     lineHeight: 36,
   });
-  assert.equal(step, 12 * 36);
+  assert.equal(step, 11 * 36);
   // Step is always an exact multiple of line height
   assert.equal(step % 36, 0);
-  // Ensures at least 8 lines overlap (312px of overlap out of 744px)
-  assert.equal(744 - step, 312);
+  // Ensures at least 9 lines overlap (348px of overlap out of 744px)
+  assert.equal(744 - step, 348);
 });
 
 test("calculatePageStep moves at least one line on very short viewports", () => {
