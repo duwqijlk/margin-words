@@ -45,10 +45,52 @@
         // screen, so the notice carries it: the newest errors, and any file that never loaded.
         var seen = [];
         var noted = false;
-        var noted = false;
+        var tried = false;
         function record(text) {
           if (text && seen.length < 3) seen.push(String(text));
         }
+        function mounted() {
+          return root.childNodes.length > 0;
+        }
+
+        /**
+         * A page from an older deploy names chunks that no longer exist, so nothing can start.
+         * Reloading is the cure, and a DIFFERENT URL is what makes the browser ask the server
+         * instead of its own cache: the address stays, only a query string is added. Once per
+         * 30 seconds - a deploy that is genuinely broken shows the notice rather than a loop.
+         */
+        function recover() {
+          if (tried || mounted()) return false;
+          tried = true;
+          try {
+            var last = Number(sessionStorage.getItem("mw-boot-retry") || "0");
+            if (Date.now() - last < 30000) return false;
+            sessionStorage.setItem("mw-boot-retry", String(Date.now()));
+          } catch (e) {
+            return false;
+          }
+          var go = function () {
+            var url = location.pathname + location.search;
+            url += (url.indexOf("?") === -1 ? "?" : "&") + "r=" + Date.now();
+            location.replace(url);
+          };
+          // An old service worker could answer the reload with the same stale page: step away
+          // from it first. It is a no-op worker, so unregistering costs nothing.
+          try {
+            if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+              navigator.serviceWorker.getRegistrations().then(function (list) {
+                for (var i = 0; i < list.length; i += 1) list[i].unregister();
+                go();
+              }, go);
+            } else {
+              go();
+            }
+          } catch (e) {
+            go();
+          }
+          return true;
+        }
+
         window.onerror = function (message, source, lineno) {
           record(message + " (" + String(source || "").split("/").pop() + ":" + lineno + ")");
         };
@@ -57,18 +99,19 @@
           "error",
           function (event) {
             var el = event && event.target;
-            if (el && el !== window && el.tagName)
-              record("could not load " + (el.src || el.href || el.tagName));
+            if (!el || el === window || !el.tagName) return;
+            var src = el.src || el.href || "";
+            record("could not load " + (src || el.tagName));
+            if (/\/assets\/[^/]*\.js(\?|$)/.test(src)) recover();
           },
           true,
         );
         window.addEventListener("unhandledrejection", function (event) {
           var reason = event && event.reason;
-          record("promise: " + ((reason && reason.message) || reason));
+          var text = (reason && reason.message) || reason;
+          record("promise: " + text);
+          if (/dynamically imported module|module script|Importing a module/i.test(String(text))) recover();
         });
-        function mounted() {
-          return root.childNodes.length > 0;
-        }
         function show(text) {
           if (line) line.textContent = text;
           box.hidden = false;
@@ -81,6 +124,8 @@
         };
         setTimeout(function () {
           if (mounted() || !box.hidden) return;
+          // A chunk that never arrived means a page from an older deploy: one reload first.
+          if (recover()) return;
           show(navigator.userAgent + (seen.length ? " | " + seen.join(" | ") : ""));
         }, 12000);
         setTimeout(function () {
