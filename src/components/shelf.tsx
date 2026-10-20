@@ -725,6 +725,10 @@ export function Shelf({
     () => [...new Set(rows.map((row) => row.book.series ?? "").filter(Boolean))].sort((a, b) => a.localeCompare(b)),
     [rows],
   );
+  const shelfCovers = useMemo(() => {
+    if (!storedIds) return {};
+    return Object.fromEntries(Object.entries(covers).filter(([bookId]) => storedIds.has(bookId)));
+  }, [covers, storedIds]);
   const q = query.trim().toLowerCase();
   const visible = useMemo(() => {
     const searched = q
@@ -765,7 +769,7 @@ export function Shelf({
     <BookCard
       key={row.book.id}
       row={row}
-      cover={covers[row.book.id]}
+      cover={shelfCovers[row.book.id]}
       classic={classicIds.has(row.book.id)}
       fileHere={storedIds === null || storedIds.has(row.book.id) || row.book.needsEpub === true}
       offer={offerByBook.get(row.book.id) ?? null}
@@ -809,7 +813,7 @@ export function Shelf({
           {waitingRows.length > 0 || step ? (
             <ListUpdatesStrip
               rows={step ? batch : waitingRows}
-              covers={covers}
+              covers={shelfCovers}
               step={step}
               onUpdateAll={updateAll}
             />
@@ -817,7 +821,7 @@ export function Shelf({
           {hero && !q && !filtering ? (
             <ContinueCard
               row={hero}
-              cover={covers[hero.book.id]}
+              cover={shelfCovers[hero.book.id]}
               offer={offerByBook.get(hero.book.id) ?? null}
               updating={updatingId === hero.book.id}
               onOpen={() => onOpen(hero.book.id)}

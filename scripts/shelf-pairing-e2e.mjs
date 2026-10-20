@@ -22,6 +22,11 @@ const TITLE = "The Lantern Seller";
 const EMAIL = "shelf-pairing@example.invalid";
 const STORAGE = "cibian-notebook-v1";
 const EPUB = readFileSync(join(ROOT, "examples/sample-book/the-lantern-seller.epub"));
+const COVER = Buffer.from(
+  "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
+  "base64",
+);
+const COVER_SHA = createHash("sha256").update(COVER).digest("hex");
 const LIST = JSON.stringify({
   version: 2,
   title: TITLE,
@@ -89,7 +94,11 @@ async function newCase(mobile, legacy = false) {
     const path = url.pathname;
     const json = (body) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(body) });
     // Match both same-origin dev files and the books host baked into production builds.
-    if (path === "/word-lists/catalog.json") return json(CATALOG);
+    if (path === "/word-lists/catalog.json") return json({
+      ...CATALOG,
+      lists: CATALOG.lists.map((list) => ({ ...list, cover: { url: `${ID}/cover.png`, bytes: COVER.length, sha256: COVER_SHA } })),
+    });
+    if (path === `/word-lists/${ID}/cover.png`) return route.fulfill({ status: 200, contentType: "image/png", body: COVER });
     if (path === "/public-books/catalog.json") return json({ packs: [] });
     if (path === "/word-lists/discover-rails.json") return json({ rails: [] });
     if (path === `/word-lists/${ID}/glossary.json` || path === `/api/glossary/${ID}`) {
@@ -145,6 +154,49 @@ async function stored(page, id) {
 async function shelf(page) {
   await page.goto(at("/shelf"));
   await cards(page).first().waitFor();
+}
+
+async function coverState(page, id) {
+  return page.evaluate(async (bookId) => {
+    const db = await new Promise((resolve, reject) => {
+      const request = indexedDB.open("cibian-books");
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(["covers", "notes"], "readonly");
+      const cover = tx.objectStore("covers").get(bookId);
+      const info = tx.objectStore("notes").get(`coverinfo:${bookId}`);
+      tx.oncomplete = () => {
+        db.close();
+        resolve({ cover: cover.result ?? "", info: info.result });
+      };
+      tx.onerror = tx.onabort = () => { db.close(); reject(tx.error); };
+    });
+  }, id);
+}
+
+async function generatedCover(page) {
+  check(await page.locator("li.book-card [data-generated-cover]").count() === 1,
+    "an unpaired card uses its generated title cover");
+  check(await page.locator("li.book-card img").count() === 0,
+    "an unpaired card does not render cached EPUB artwork");
+}
+
+async function seedCover(page, id, value, info) {
+  await page.evaluate(({ id, value, info }) => new Promise((resolve, reject) => {
+    const request = indexedDB.open("cibian-books");
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => {
+      const db = request.result;
+      const tx = db.transaction(["covers", "notes"], "readwrite");
+      tx.objectStore("covers").put(value, id);
+      if (info) tx.objectStore("notes").put(info, `coverinfo:${id}`);
+      else tx.objectStore("notes").delete(`coverinfo:${id}`);
+      tx.oncomplete = () => { db.close(); resolve(true); };
+      tx.onerror = tx.onabort = () => { db.close(); reject(tx.error); };
+    };
+  }), { id, value, info });
 }
 
 async function sameCard(page, id, needsEpub) {
@@ -242,12 +294,21 @@ async function mainFlow(mobile) {
     check(state.glossaryFetches > 0, "Discover fetched the mocked glossary");
     await dismiss(page);
     await shelf(page);
+    await generatedCover(page);
+    await seedCover(page, id, "data:image/gif;base64,wrong-cached-cover", { source: "epub", ref: "" });
+    await page.reload();
+    await cards(page).first().waitFor();
+    await generatedCover(page);
+    const placeholderCover = await coverState(page, id);
+    check(placeholderCover.cover === "data:image/gif;base64,wrong-cached-cover" && placeholderCover.info?.source === "epub",
+      "a stale cover record may remain cached but is not authoritative while unpaired");
     await untouched(page, id, baseline);
     await wordbook(test, id);
 
     for (const target of ["cover", "title"]) {
       await resumePairing(test, target);
       await dismiss(page);
+      await generatedCover(page);
       await untouched(page, id, baseline);
     }
     await page.reload();
@@ -255,6 +316,7 @@ async function mainFlow(mobile) {
     for (const target of ["cover", "title"]) {
       await resumePairing(test, target);
       await dismiss(page);
+      await generatedCover(page);
       await untouched(page, id, baseline);
     }
 
@@ -300,6 +362,9 @@ async function mainFlow(mobile) {
     await untouched(page, id, baseline);
     await pairing(page).getByRole("button", { name: "Add to my shelf", exact: true }).click();
     await readBook(page, id);
+    check(await page.locator("article.book-body").count() === 1, "pairing opens the reader before cover validation");
+    const pairedCover = await coverState(page, id);
+    check(pairedCover.cover.length > 0 && pairedCover.info?.source === "catalog", "paired book stores its selected cover provenance");
     await sameCard(page, id, false);
     const installed = await stored(page, id);
     check(installed.bodies.length === 1 && installed.bodies[0] === id, "confirmation installs body under the original ID only");
@@ -312,12 +377,12 @@ async function mainFlow(mobile) {
     await readBook(page, id);
 
     // Model old/synced metadata in this isolated context, while preserving the real installed body.
-    await page.evaluate((key) => {
+    await page.evaluate(({ key }) => {
       const persisted = JSON.parse(localStorage.getItem(key));
       persisted.state.books[0].source = "notes";
       persisted.state.books[0].needsEpub = true;
       localStorage.setItem(key, JSON.stringify(persisted));
-    }, STORAGE);
+    }, { key: STORAGE });
     await shelf(page);
     await sameCard(page, id, true);
     check((await shelfState(page)).books[0].source === "notes", "stale source flag survives reload for the regression check");

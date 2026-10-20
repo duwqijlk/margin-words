@@ -71,7 +71,7 @@ async function place(pack: WordListPack): Promise<string> {
         installedAt: old?.installedAt ?? Date.now(),
       });
     }
-    await fillCover(card, pack).catch(() => undefined);
+    if (stored.has(card)) await fillCover(card, pack).catch(() => undefined);
     return card;
   }
 
@@ -86,7 +86,7 @@ async function place(pack: WordListPack): Promise<string> {
     sha256: "",
     installedAt: Date.now(),
   });
-  await fillCover(bookId, pack).catch(() => undefined);
+  if (stored.has(bookId)) await fillCover(bookId, pack).catch(() => undefined);
   if (typeof window !== "undefined") {
     window.dispatchEvent(new CustomEvent("cibian-covers"));
     window.dispatchEvent(new CustomEvent("cibian-progress", { detail: { bookId } }));

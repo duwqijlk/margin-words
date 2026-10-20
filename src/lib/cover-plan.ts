@@ -21,7 +21,11 @@ export function coverPlan(input: {
   haveSha?: string;
 }): "keep" | "fetch" | "tag" | "derive" {
   const { have, info, stored, target } = input;
-  if (!target) return !have && stored ? "derive" : "keep";
+  // A cover from an EPUB is not trustworthy for a card whose EPUB is no longer here.
+  // The shelf hides all cached art in that state; keep the record untouched for offline use
+  // and let the next real install choose its cover again.
+  if (!stored) return "keep";
+  if (!target) return !have ? "derive" : "keep";
   if (!have) return "fetch";
   if (info?.source === "catalog") return !target.sha256 || info.ref === target.sha256 ? "keep" : "fetch";
   if (info?.source === "epub") return "keep";
