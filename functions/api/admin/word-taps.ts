@@ -152,14 +152,23 @@ export async function handleAdminWordTapsPost(
 ): Promise<Response> {
   try {
     await requireAdmin(env.DB, request, options);
-    const body = (await readJson(request)) as {
+    let body = (await readJson(request)) as {
       action?: unknown;
       bookId?: unknown;
       word?: unknown;
       chapter?: unknown;
       occurrence?: unknown;
       rev?: unknown;
+      body?: unknown;
     };
+    if (typeof body.body === "string" && !body.action) {
+      try {
+        const nested = JSON.parse(body.body) as typeof body;
+        if (nested && typeof nested === "object") body = nested;
+      } catch {
+        // ignore
+      }
+    }
     if (body.action !== "resolve") {
       throw new HttpError(400, "bad-action");
     }

@@ -223,16 +223,15 @@ function WordTapsSubView() {
   async function handleResolveTap(row: TapRow) {
     const key = `${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}`;
     setResolvingKey(key);
+    setError("");
     try {
       const res = await accountRequest("/api/admin/word-taps", {
-        method: "POST",
-        body: JSON.stringify({
-          action: "resolve",
-          bookId: row.bookId,
-          word: row.word,
-          chapter: row.chapter,
-          occurrence: row.occurrence,
-        }),
+        action: "resolve",
+        bookId: row.bookId,
+        word: row.word,
+        chapter: row.chapter,
+        occurrence: row.occurrence,
+        rev: row.glossaryRev,
       });
       const resolvedRev =
         res && typeof res === "object" && typeof (res as { resolvedRev?: unknown }).resolvedRev === "string"
@@ -251,6 +250,12 @@ function WordTapsSubView() {
             )
           : null,
       );
+      if (row.status !== "resolved") {
+        setSummary((prev) => ({
+          ...prev,
+          missingWords: Math.max(0, prev.missingWords - 1),
+        }));
+      }
     } catch {
       setError(t("admin.users.error"));
     } finally {
@@ -600,17 +605,16 @@ function WordFeedbackSubView() {
   async function handleResolveFeedback(row: FeedbackRow) {
     const key = `${row.bookId}:${row.word}:${row.chapter}:${row.occurrence}:${row.reason}`;
     setResolvingKey(key);
+    setError("");
     try {
       const res = await accountRequest("/api/admin/word-feedback", {
-        method: "POST",
-        body: JSON.stringify({
-          action: "resolve",
-          bookId: row.bookId,
-          word: row.word,
-          chapter: row.chapter,
-          occurrence: row.occurrence,
-          reason: row.reason,
-        }),
+        action: "resolve",
+        bookId: row.bookId,
+        word: row.word,
+        chapter: row.chapter,
+        occurrence: row.occurrence,
+        reason: row.reason,
+        rev: row.glossaryRev,
       });
       const resolvedRev =
         res && typeof res === "object" && typeof (res as { resolvedRev?: unknown }).resolvedRev === "string"

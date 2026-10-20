@@ -1729,6 +1729,24 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
   assert.equal(resolveResp.status, 200);
   assert.deepEqual(await resolveResp.json(), { ok: true, resolved: true, resolvedRev: "rev-charlie-v2" });
 
+  // Wrapped request format from legacy client also unwraps and resolves
+  const resolveWrappedResp = await handleAdminWordTapsPost(
+    postJson("/api/admin/word-taps", adminCookie, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "resolve",
+        bookId: "charlie",
+        word: "veruca",
+        chapter: 2,
+        occurrence: 1,
+        rev: "rev-charlie-v2",
+      }),
+    }),
+    env,
+    { now: NOW + 1550 },
+  );
+  assert.equal(resolveWrappedResp.status, 200);
+
   // Now missing query excludes eavesdrop
   const afterResolveMissing = await handleAdminWordTapsGet(
     raw("/api/admin/word-taps?filter=missing", adminCookie),
@@ -2124,6 +2142,24 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   );
   assert.equal(resolveV3.status, 200);
   assert.equal((await resolveV3.json()).resolvedRev, "wonder-v3-00");
+
+  // Wrapped request format from legacy client also unwraps and resolves
+  const resolveWrappedFeedback = await handleAdminWordFeedbackPost(
+    postJson("/api/admin/word-feedback", adminCookie, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "resolve",
+        bookId: "wonder",
+        word: "cricket",
+        chapter: 1,
+        occurrence: 1,
+        reason: "wrong_meaning",
+      }),
+    }),
+    env,
+    { now: NOW + 6450 },
+  );
+  assert.equal(resolveWrappedFeedback.status, 200);
 
   // Outdated client on v1 reports -> stays resolved (suppressed)
   const legacyReport = await handleWordFeedbackPost(

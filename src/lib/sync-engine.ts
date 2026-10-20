@@ -177,7 +177,20 @@ async function readBody(response: Response): Promise<ApiError & Record<string, u
 export async function accountRequest(path: string, body?: unknown): Promise<Record<string, unknown>> {
   let response: Response;
   try {
-    response = await request(path, body === undefined ? { method: "GET" } : { method: "POST", body: JSON.stringify(body) });
+    let payload = body;
+    if (payload && typeof payload === "object" && "body" in payload && !("action" in payload)) {
+      const inner = (payload as { body: unknown }).body;
+      if (typeof inner === "string") {
+        try {
+          payload = JSON.parse(inner) as unknown;
+        } catch {
+          payload = inner;
+        }
+      } else if (inner && typeof inner === "object") {
+        payload = inner;
+      }
+    }
+    response = await request(path, payload === undefined ? { method: "GET" } : { method: "POST", body: JSON.stringify(payload) });
   } catch {
     throw new Error("network");
   }
