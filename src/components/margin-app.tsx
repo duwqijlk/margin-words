@@ -284,13 +284,15 @@ export function MarginApp() {
       const book =
         useVocab.getState().books.find((item) => item.id === bookId) ??
         books.find((item) => item.id === bookId);
-      if (!book || book.source !== "epub") {
-        if (book) setScreen({ kind: "words", bookId });
-        return;
-      }
-      const here = !book.needsEpub && (await bookFileExists(bookId).catch(() => false));
+      if (!book) return;
+      const here = await bookFileExists(bookId).catch(() => false);
       if (here) {
         setScreen({ kind: "read", bookId });
+        return;
+      }
+      // An unpaired word list is also stored as notes, but still needs its EPUB.
+      if (book.source !== "epub" && !book.needsEpub) {
+        setScreen({ kind: "words", bookId });
         return;
       }
       // The card stays. A word-list book asks for the EPUB here. A classic downloads from the reader.

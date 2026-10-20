@@ -4,10 +4,10 @@
  * exactly like the app. There is no second copy of the rules to keep in sync.
  *
  * How: TypeScript (already a dependency) turns the .ts files into plain JavaScript
- * in node_modules/.cache/glossary-tools, and jsdom stands in for the browser's DOM.
+ * in a private directory under node_modules/.cache/glossary-tools; jsdom supplies the DOM.
  * Needs: `npm install` once in the project folder.
  */
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { createRequire } from "node:module";
@@ -33,10 +33,27 @@ function installDom() {
 }
 
 let cached;
+let generatedDir;
+
+/** URL for a generated app module, for tests that load another source module beside the bundle. */
+export function appModuleUrl(name) {
+  if (!generatedDir) throw new Error("App modules have not been loaded");
+  return pathToFileURL(join(generatedDir, `${name}.js`)).href;
+}
 
 /** Returns { epub, format, text, help, basic, packCheck } with the app's own functions. */
-export async function loadAppModules() {
-  if (cached) return cached;
+export function loadAppModules() {
+  // Share the in-flight work too: overlapping callers must not reinstall the DOM or rewrite modules.
+  if (!cached) {
+    cached = Promise.resolve().then(initialize).catch((error) => {
+      cached = undefined;
+      throw error;
+    });
+  }
+  return cached;
+}
+
+async function initialize() {
   installDom();
   let ts;
   try {
@@ -44,24 +61,45 @@ export async function loadAppModules() {
   } catch {
     throw new Error("typescript is missing. Run `npm install` in the project folder first.");
   }
-  const out = join(ROOT, "node_modules", ".cache", "glossary-tools");
-  mkdirSync(out, { recursive: true });
-  writeFileSync(join(out, "package.json"), '{"type":"module"}\n');
-  for (const name of FILES) {
-    const source = readFileSync(join(ROOT, "src", "lib", `${name}.ts`), "utf8");
-    const js = ts.transpileModule(source, {
-      compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
-    }).outputText.replace(/from\s+"(?:@\/lib\/|\.\/)([\w-]+)(?:\.ts)?"/g, 'from "./$1.js"');
-    writeFileSync(join(out, `${name}.js`), js);
+  const parent = join(ROOT, "node_modules", ".cache", "glossary-tools");
+  mkdirSync(parent, { recursive: true });
+  // Each attempt owns its files; other test processes can never import a half-written module.
+  const out = mkdtempSync(join(parent, "run-"));
+  generatedDir = out;
+  const cleanup = () => {
+    try {
+      rmSync(out, { recursive: true, force: true, maxRetries: 3, retryDelay: 50 });
+      process.removeListener("exit", cleanup);
+    } catch {
+      // A locked file can be retried at exit; cleanup must not hide an initialization error.
+    }
+  };
+  process.once("exit", cleanup);
+  try {
+    writeFileSync(join(out, "package.json"), '{"type":"module"}\n');
+    for (const name of FILES) {
+      const source = readFileSync(join(ROOT, "src", "lib", `${name}.ts`), "utf8");
+      const js = ts.transpileModule(source, {
+        compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
+      }).outputText.replace(/from\s+"(?:@\/lib\/|\.\/)([\w-]+)(?:\.ts)?"/g, 'from "./$1.js"');
+      writeFileSync(join(out, `${name}.js`), js);
+    }
+    // Stay below node_modules so epub.js can still lazily import jszip.
+    // Settle every import before removing failed output; sibling imports may still be reading it.
+    const loaded = await Promise.allSettled(
+      ["epub", "glossary-format", "text", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "pack-check", "book-meta", "flow-text", "shelf-identity", "cover-plan", "covers", "router", "word-list-plan", "paragraph-bulbs", "can-add", "account-store", "file-offer", "hyphenate", "gloss-ref", "list-updated", "chapter-link"].map((name) =>
+        import(pathToFileURL(join(out, `${name}.js`)).href),
+      ),
+    );
+    const failed = loaded.find((result) => result.status === "rejected");
+    if (failed) throw failed.reason;
+    const [epub, format, text, help, paragraphNote, edition, basicData, basic, packCheck, meta, flow, identity, coverPlan, covers, router, wordListPlan, bulbs, canAdd, accountStore, fileOffer, hyphenate, glossRef, listUpdated, chapterLink] = loaded.map((result) => result.value);
+    return { epub, format, text, help, paragraphNote, edition, basic: { ...basicData, ...basic }, packCheck, meta, flow, identity, coverPlan, covers, router, wordListPlan, bulbs, canAdd, accountStore, fileOffer, hyphenate, glossRef, listUpdated, chapterLink };
+  } catch (error) {
+    cleanup();
+    if (generatedDir === out) generatedDir = undefined;
+    throw error;
   }
-  // jszip is imported by epub.js: make sure it resolves from this folder.
-  const [epub, format, text, help, paragraphNote, edition, basicData, basic, packCheck, meta, flow, identity, coverPlan, covers, router, wordListPlan, bulbs, canAdd, accountStore, fileOffer, hyphenate, glossRef, listUpdated, chapterLink] = await Promise.all(
-    ["epub", "glossary-format", "text", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "pack-check", "book-meta", "flow-text", "shelf-identity", "cover-plan", "covers", "router", "word-list-plan", "paragraph-bulbs", "can-add", "account-store", "file-offer", "hyphenate", "gloss-ref", "list-updated", "chapter-link"].map((name) =>
-      import(pathToFileURL(join(out, `${name}.js`)).href),
-    ),
-  );
-  cached = { epub, format, text, help, paragraphNote, edition, basic: { ...basicData, ...basic }, packCheck, meta, flow, identity, coverPlan, covers, router, wordListPlan, bulbs, canAdd, accountStore, fileOffer, hyphenate, glossRef, listUpdated, chapterLink };
-  return cached;
 }
 
 /**

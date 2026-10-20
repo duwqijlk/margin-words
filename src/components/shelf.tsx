@@ -614,7 +614,7 @@ function BookCard({
           />
         </div>
       </div>
-      {book.source === "epub" ? null : (
+      {book.source === "epub" || book.needsEpub ? null : (
         <p className="mt-auto flex min-h-11 items-center text-xs text-muted" data-card-actions>
           {t("shelf.sampleNotebook")}
         </p>

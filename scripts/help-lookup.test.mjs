@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import ts from "typescript";
-import { loadAppModules } from "./lib/app-modules.mjs";
+import { appModuleUrl, loadAppModules } from "./lib/app-modules.mjs";
 
 await loadAppModules();
 
@@ -19,7 +19,7 @@ const js = ts.transpileModule(source, {
 }).outputText.replace(/from "@\/lib\/([\w-]+)"/g, (_, name) => {
   const url = name === "book-db"
     ? `data:text/javascript,${encodeURIComponent(storage)}`
-    : new URL(`../node_modules/.cache/glossary-tools/${name}.js`, import.meta.url).href;
+    : appModuleUrl(name);
   return `from ${JSON.stringify(url)}`;
 }).replace(/import\.meta\.env\.DEV/g, "false");
 const lookup = await import(`data:text/javascript,${encodeURIComponent(js)}`);
