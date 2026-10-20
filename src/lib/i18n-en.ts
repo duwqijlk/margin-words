@@ -501,6 +501,9 @@ export const en = {
   "card.easyChip": "Easy word",
   "card.easy": "This is an easy word. You may already know it. Save it only if you want.",
   "card.alone": "This word alone",
+  "card.aloneWord": "{word} on its own",
+  "card.more": "More uses and examples",
+  "card.whyHard": "Why it may be difficult:",
   "card.noMeaning": "No meaning for this word in this book yet.",
   "card.noList":
     "This book has no word list yet. On the shelf, open the book’s menu and choose Add word list.",
@@ -513,7 +516,7 @@ export const en = {
   "card.look.webster": "Webster",
   "card.look.images": "Pictures",
   "card.lookTitle": "Other dictionaries",
-  "card.lookTargetPhrase": "Phrase",
+  "card.lookTargetPhrase": "Whole phrase",
   "card.lookTargetWord": "Word",
   "card.lookAria": "Look up {word} on other sites",
   "card.lookOne": "{site}: {word} (opens a new page)",

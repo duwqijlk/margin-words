@@ -528,6 +528,103 @@
     animation: pop-in 0.16s ease-out;
   }
 
+  /* A quiet hierarchy, with actions outside the scrolling explanation on every screen. */
+  [data-word-card].word-sheet-plain,
+  [data-word-card].word-sheet-context {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  [data-word-card] [data-word-header],
+  [data-word-card] [data-word-footer] {
+    flex-shrink: 0;
+  }
+  [data-word-card] [data-word-title] {
+    max-height: 20vh;
+    max-height: 20dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  [data-word-card] [data-word-body] {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  [data-word-card] [data-look-target-group] {
+    min-width: 0;
+    max-width: 100%;
+  }
+  [data-word-card] [data-look-target] {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  [data-word-card] [data-word-footer] > div {
+    flex-wrap: wrap;
+  }
+  .word-detail {
+    border-top: 1px solid var(--line);
+  }
+  .word-detail > summary {
+    cursor: pointer;
+    padding: 0.6rem 0;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .word-detail > summary:hover,
+  .word-detail[open] > summary {
+    color: var(--ink);
+  }
+  @media (max-width: 767px) {
+    [data-word-card].word-sheet-plain,
+    [data-word-card].word-sheet-context {
+      padding-bottom: 1.25rem;
+      padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+    }
+    [data-word-card].word-sheet-plain {
+      max-height: 60vh;
+      max-height: 60dvh;
+    }
+    [data-word-card].word-sheet-context {
+      max-height: 72vh;
+      max-height: 72dvh;
+    }
+    [data-word-card] [data-word-title] {
+      max-height: 24vh;
+      max-height: 24dvh;
+    }
+    [data-word-card] [data-word-lookup] a {
+      min-height: 44px;
+    }
+    [data-word-card] [data-look-target] {
+      min-height: 32px;
+    }
+  }
+  @media (max-width: 767px) and (max-height: 450px) {
+    [data-word-card].word-sheet-plain,
+    [data-word-card].word-sheet-context {
+      max-height: 92vh;
+      max-height: 92dvh;
+    }
+  }
+
+  /* In a short desktop window, reserve room for the definition rather than a second action row. */
+  @media (min-width: 1024px) and (max-height: 500px) {
+    [data-float][data-word-card].word-sheet-plain,
+    [data-float][data-word-card].word-sheet-context {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    [data-word-card] [data-word-title] {
+      width: auto;
+      flex: 1;
+    }
+    [data-word-card] [data-word-body] {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+
   /* Wide screens: word and paragraph cards float. Top and left come from the placement script. */
   @media (min-width: 64rem) {
     [data-float] {

@@ -102,6 +102,30 @@ for (const [viewportWidth, viewportHeight] of [[1024, 768], [1280, 800], [1280, 
   });
 }
 
+for (const viewportWidth of [1024, 1280]) {
+  test(`fixed card chrome gets a readable body in a short ${viewportWidth}px window`, () => {
+    const anchor = { left: 430, top: 225, width: 48, height: 28 };
+    const place = placeFloatingPanel({
+      anchor, width: 384, height: 600, minHeight: 360,
+      viewportWidth, viewportHeight: 450,
+    });
+    assert.ok(place.side === "left" || place.side === "right");
+    assert.ok(place.maxHeight >= 360);
+    assert.ok(place.top >= 12 && place.top + place.maxHeight <= 438);
+    assert.equal(overlaps(place, anchor, 600), false);
+  });
+}
+
+test("a collapsed card only reserves its actual content height", () => {
+  const anchor = { left: 430, top: 200, width: 48, height: 28 };
+  const place = placeFloatingPanel({
+    anchor, width: 384, height: 150, minHeight: 360,
+    viewportWidth: 1024, viewportHeight: 450,
+  });
+  assert.equal(place.side, "bottom");
+  assert.equal(overlaps(place, anchor, 150), false);
+});
+
 test("when neither side can show the whole card, the clearly taller side is used", () => {
   const anchor = { left: 480, top: 430, width: 40, height: 24 };
   const place = placeFloatingPanel({ anchor, width: 336, height: 640, ...view });

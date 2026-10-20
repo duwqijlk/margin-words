@@ -1,4 +1,12 @@
-import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import { anchorBox, anchorOffscreen, placeFloatingPanel } from "@/lib/floating-panel";
 import { cn } from "@/components/ui";
 
@@ -61,14 +69,35 @@ export function useFloatingCard(
       const vw = document.documentElement.clientWidth;
       const vh = window.innerHeight;
       const width = Math.min(desktopWidth, Math.max(220, vw - 24));
-      // scrollHeight keeps the full content after max-height clamps the box, so a later
-      // pass can still move a growing card (a sentence note, for example) to a taller side.
-      const measured = panel ? Math.max(panel.offsetHeight, panel.scrollHeight) : 0;
+      // The word body scrolls independently. Measure its unconstrained content so
+      // expanding AND collapsing details can reposition and resize the outer card.
+      const content = panel?.querySelector<HTMLElement>("[data-word-content]");
+      let measured = panel ? Math.max(panel.offsetHeight, panel.scrollHeight) : 0;
+      if (panel && content) {
+        const css = getComputedStyle(panel);
+        measured =
+          parseFloat(css.paddingTop) +
+          parseFloat(css.paddingBottom) +
+          parseFloat(css.borderTopWidth) +
+          parseFloat(css.borderBottomWidth);
+        for (const child of panel.children) {
+          if (!(child instanceof HTMLElement)) continue;
+          const style = getComputedStyle(child);
+          const height = child.hasAttribute("data-word-body")
+            ? content.offsetHeight
+            : child.offsetHeight;
+          measured += height + parseFloat(style.marginTop) + parseFloat(style.marginBottom);
+        }
+      }
       const height = measured || 280;
       const placed = placeFloatingPanel({
         anchor: anchorBox(anchorEl),
         width,
         height,
+        // offsetHeight rounds each section; leave two pixels for fractional font metrics.
+        minHeight: content
+          ? Math.ceil(measured - content.offsetHeight + Math.min(80, content.offsetHeight)) + 2
+          : undefined,
         viewportWidth: vw,
         viewportHeight: vh,
       });
@@ -95,8 +124,18 @@ export function useFloatingCard(
     const article = anchor?.closest("article");
     if (article) observer.observe(article);
     observer.observe(document.documentElement);
-    if (panelRef.current) observer.observe(panelRef.current);
+    const panel = panelRef.current;
+    if (panel) {
+      observer.observe(panel);
+      for (const part of panel.querySelectorAll(
+        "[data-word-header], [data-word-content], [data-word-footer]",
+      )) {
+        observer.observe(part);
+      }
+      panel.addEventListener("toggle", schedule, true);
+    }
     return () => {
+      panel?.removeEventListener("toggle", schedule, true);
       window.removeEventListener("scroll", schedule, true);
       window.removeEventListener("resize", schedule);
       viewport?.removeEventListener("resize", schedule);
@@ -110,13 +149,23 @@ export function useFloatingCard(
 }
 
 function focusable(root: HTMLElement): HTMLElement[] {
-  return [...root.querySelectorAll<HTMLElement>("button, [href], input, select, textarea")].filter(
-    (el) => !el.hasAttribute("disabled") && el.tabIndex !== -1,
+  return [
+    ...root.querySelectorAll<HTMLElement>("button, [href], input, select, textarea, summary"),
+  ].filter(
+    (el) =>
+      !el.hasAttribute("disabled") &&
+      el.tabIndex !== -1 &&
+      el.getClientRects().length > 0 &&
+      getComputedStyle(el).visibility !== "hidden",
   );
 }
 
 /** Move focus into the card, keep Tab inside it, and return focus to the anchor when it closes. */
-function usePanelFocus(active: boolean, panelRef: RefObject<HTMLElement | null>, anchor: HTMLElement | null) {
+function usePanelFocus(
+  active: boolean,
+  panelRef: RefObject<HTMLElement | null>,
+  anchor: HTMLElement | null,
+) {
   useEffect(() => {
     if (!active) return;
     const panel = panelRef.current;
@@ -146,7 +195,8 @@ function usePanelFocus(active: boolean, panelRef: RefObject<HTMLElement | null>,
     return () => {
       panel.removeEventListener("keydown", onKey);
       // Word cards restore only on an explicit close, never on resize or click-away.
-      if (anchor?.isConnected && !anchor.hasAttribute("data-word")) anchor.focus({ preventScroll: true });
+      if (anchor?.isConnected && !anchor.hasAttribute("data-word"))
+        anchor.focus({ preventScroll: true });
     };
   }, [active, anchor, panelRef]);
 }
@@ -189,8 +239,28 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
         if (timer) window.clearTimeout(timer);
         timer = 0;
       };
-      const begin = (x: number, y: number) => {
+      const begin = (x: number, y: number, target: EventTarget | null) => {
         clearTimer();
+        const origin = target instanceof Element ? target : null;
+        // Actions are taps, not drag handles. A gesture that starts in scrolled
+        // content belongs to that scroller even if it reaches the top midway.
+        if (
+          origin?.closest(
+            'a, button, input, textarea, select, summary, [role="button"], [data-word-footer]',
+          )
+        ) {
+          mode = "idle";
+          return;
+        }
+        let node = origin;
+        while (node && el.contains(node)) {
+          if (node.scrollTop > 0) {
+            mode = "scroll";
+            return;
+          }
+          if (node === el) break;
+          node = node.parentElement;
+        }
         startX = x;
         startY = y;
         lastY = y;
@@ -232,12 +302,21 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
           el.style.transform = "";
         }
       };
+      const cancel = () => {
+        clearTimer();
+        mode = "idle";
+        el.style.transition = "transform 0.18s ease-out";
+        el.style.transform = "";
+      };
       const onTouchStart = (event: TouchEvent) => {
-        if (event.touches.length !== 1) return;
+        if (event.touches.length !== 1) {
+          cancel();
+          return;
+        }
         const touch = event.touches[0];
         if (!touch) return;
         ignoreMouseUntil = Date.now() + 700;
-        begin(touch.clientX, touch.clientY);
+        begin(touch.clientX, touch.clientY, event.target);
       };
       const onTouchMove = (event: TouchEvent) => {
         const touch = event.touches[0];
@@ -252,9 +331,10 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
       };
       const onMouseDown = (event: MouseEvent) => {
         if (event.button !== 0 || Date.now() < ignoreMouseUntil) return;
-        begin(event.clientX, event.clientY);
+        begin(event.clientX, event.clientY, event.target);
         stopMouse();
-        const onMouseMove = (moveEvent: MouseEvent) => move(moveEvent.clientX, moveEvent.clientY, moveEvent);
+        const onMouseMove = (moveEvent: MouseEvent) =>
+          move(moveEvent.clientX, moveEvent.clientY, moveEvent);
         const onMouseUp = () => {
           stopMouse();
           end();
@@ -269,7 +349,7 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
       el.addEventListener("touchstart", onTouchStart, { passive: true });
       el.addEventListener("touchmove", onTouchMove, { passive: false });
       el.addEventListener("touchend", end);
-      el.addEventListener("touchcancel", end);
+      el.addEventListener("touchcancel", cancel);
       el.addEventListener("mousedown", onMouseDown);
       el.addEventListener("click", onClick, true);
       detach = () => {
@@ -278,7 +358,7 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
         el.removeEventListener("touchstart", onTouchStart);
         el.removeEventListener("touchmove", onTouchMove);
         el.removeEventListener("touchend", end);
-        el.removeEventListener("touchcancel", end);
+        el.removeEventListener("touchcancel", cancel);
         el.removeEventListener("mousedown", onMouseDown);
         el.removeEventListener("click", onClick, true);
         el.style.transform = "";

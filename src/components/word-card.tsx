@@ -1,5 +1,5 @@
 import { BookMarked, Check, ChevronRight, Image as ImageIcon, Sparkles, X } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import merriamWebsterLogo from "@/assets/merriam-webster-logo.png";
 import { countSurface, type OtherMeaning } from "@/lib/glossary-format";
 import { useT, type Key } from "@/lib/i18n";
@@ -190,7 +190,7 @@ export function wordPosClass(quiet = false) {
 export function SceneLine({ text }: { text: string }) {
   const { t } = useT();
   return (
-    <section className="grid gap-0.5 rounded-lg bg-accent-soft/60 px-3 py-2" data-part="word-here">
+    <section className="grid gap-1 py-1" data-part="word-here">
       <h3 className="text-[0.7rem] font-semibold tracking-wide text-accent uppercase">
         {t("card.here")}
       </h3>
@@ -290,10 +290,17 @@ export function WordCard({
   onToggle: () => void;
 }) {
   const { t } = useT();
+  const bodyRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const body = bodyRef.current;
+    if (!body) return;
+    for (const details of body.querySelectorAll("details")) details.open = false;
+    body.scrollTop = 0;
+  }, [anchor, state.key, phrase?.key]);
   const [targetMode, setTargetMode] = useState<"phrase" | "word">("phrase");
   useEffect(() => {
     setTargetMode("phrase");
-  }, [phrase?.key]);
+  }, [anchor, state.key, phrase?.key]);
   const showForm = state.key !== state.surface.toLowerCase();
   const lookup = phrase ? phrase.key : state.key;
   const noMeaning =
@@ -351,15 +358,19 @@ export function WordCard({
       desktopWidth={24 * 16}
       className={cn(
         "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
-        state.here || phrase?.entry.here ? "max-h-[72dvh]" : "max-h-[60dvh]",
+        state.here || phrase?.entry.here ? "word-sheet-context" : "word-sheet-plain",
         "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3.5 pb-5 md:pb-6",
         SIDE_PANEL,
       )}
     >
-      <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden" aria-hidden />
-      <div className="grid gap-3.5">
-        <div className="flex min-w-0 items-start justify-between gap-2" data-word-head>
-          <div className="grid min-w-0 flex-1 gap-0.5">
+      <div data-word-header>
+        <div
+          className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden"
+          data-sheet-handle
+          aria-hidden
+        />
+        <div className="flex min-w-0 flex-wrap items-start justify-between gap-2" data-word-head>
+          <div className={cn("grid min-w-0 gap-0.5", phrase ? "w-full" : "flex-1")} data-word-title>
             <div className="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-1">
               <h2
                 className="min-w-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words text-ink"
@@ -387,7 +398,7 @@ export function WordCard({
             </div>
             {formLine ? <p className="text-xs text-muted">{inBook(formLine)}</p> : null}
           </div>
-          <div className="flex items-center gap-1 shrink-0 pt-0.5">
+          <div className="ml-auto flex items-center gap-1 shrink-0 pt-0.5">
             <SpeakButton text={lookup} compact className="shrink-0" />
             <button
               type="button"
@@ -421,170 +432,161 @@ export function WordCard({
             </button>
           </div>
         </div>
-
-        {phrase ? (
-          <div className="grid gap-2">
-            <p
-              className="border-l-[3px] border-accent pl-3 text-[1.25rem] leading-snug font-medium text-ink"
-              lang="en"
-              data-part="phrase-meaning"
-            >
-              {phrase.entry.meaning}
-            </p>
-            {phrase.entry.here ? <SceneLine text={phrase.entry.here} /> : null}
-            <section
-              className="grid gap-1.5 rounded-xl bg-paper/80 border border-line/60 p-3 text-sm"
-              aria-label={t("card.alone")}
-              data-part="word-alone"
-            >
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="font-display font-semibold text-ink" lang="en">
-                  {state.key}
-                </span>
-                {state.pos ? (
-                  <span className={cn(wordPosClass(), "text-[0.8rem]")} data-word-pos>
-                    <span lang="en">{state.pos}</span>
-                  </span>
-                ) : null}
-              </div>
-              {meaningBlock}
-              {state.coined ? <CoinedBadge /> : null}
-            </section>
-          </div>
-        ) : (
-          <div className="grid gap-2">
-            {heroMeaning}
-            {state.here ? <SceneLine text={state.here} /> : null}
-            {state.coined ? <CoinedBadge /> : null}
-          </div>
-        )}
-
-        {state.sentence ? (
-          <details
-            className="group rounded-xl border border-line/60 bg-paper/60 px-3.5 py-2.5 text-sm transition-colors"
-            data-part="sentence-box"
-          >
-            <summary className="flex cursor-pointer list-none items-center justify-between font-semibold text-muted select-none marker:hidden hover:text-ink">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-muted group-hover:text-ink">
-                <ChevronRight
-                  className="size-3.5 transition-transform duration-150 group-open:rotate-90"
-                  aria-hidden
-                />
-                {t("card.sentenceFrom")}
-              </span>
-            </summary>
-            <div className="mt-2.5 grid gap-2.5 pt-1">
-              <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/90">
-                <Highlighted
-                  sentence={state.sentence}
-                  surface={phrase ? phrase.matched : state.surface}
-                />
-              </blockquote>
-              <ExplainSentence
-                key={`${noteChapter ?? chapter}|${state.sentence}`}
-                bookId={bookId}
-                chapter={noteChapter ?? chapter}
-                sentence={state.fullSentence || state.sentence}
-              />
-            </div>
-          </details>
-        ) : null}
-
-        {state.example ||
-        (state.whyHard && state.ready && state.status === "ready") ||
-        (state.others && state.others.length > 0 && state.status === "ready") ||
-        stat ? (
-          <div className="grid gap-2.5 border-t border-line/60 pt-3" data-part="word-more">
-            {state.example ? (
-              <CardQuote label={t("card.example")} part="example">
-                <Highlighted sentence={state.example} surface={state.surface} />
-              </CardQuote>
-            ) : null}
-
-            {state.whyHard && state.ready && state.status === "ready" ? (
-              <p className="text-xs leading-relaxed text-muted" lang="en">
-                <span className="font-semibold text-ink/75">Why hard: </span>
-                {state.whyHard}
-              </p>
-            ) : null}
-
-            {state.others && state.others.length > 0 && state.status === "ready" ? (
-              <OtherMeanings items={state.others} />
-            ) : null}
-
-            <WordFacts
-              stat={stat}
-              current={state.sentence}
-              suppressQuote={Boolean(state.example)}
-            />
-          </div>
-        ) : null}
-
-        {state.status !== "unknown" || phrase ? (
-          <WordExplanationFeedback
-            key={`${bookId}:${lookup}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
-            bookId={bookId}
-            bookTitle={bookTitle}
-            word={lookup}
-            form={countSurface(state.surface)}
-            chapter={state.chapter ?? (typeof noteChapter === "number" ? noteChapter : chapter)}
-            occurrence={state.occurrence ?? 1}
-            paragraph={state.paragraph ?? 0}
-            context={state.context ?? ""}
-            sentence={state.fullSentence ?? state.sentence}
-            senseIndex={state.senseIndex ?? -1}
-            senseMeaning={phrase ? phrase.entry.meaning : state.meaning}
-            glossaryRev={state.glossaryRev}
-          />
-        ) : null}
-
-        <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
-              {t("card.lookTitle")}
-            </span>
-            {phrase ? (
-              <div
-                className="inline-flex items-center rounded-lg bg-paper p-0.5 text-xs border border-line/60"
-                role="radiogroup"
-                aria-label={t("card.lookTitle")}
-                data-look-target-group
+      </div>
+      <div ref={bodyRef} className="scroll-thin my-3.5" data-word-body>
+        <div className="grid gap-3.5" data-word-content>
+          {phrase ? (
+            <div className="grid gap-2">
+              <p
+                className="border-l-[3px] border-accent pl-3 text-[1.25rem] leading-snug font-medium text-ink"
+                lang="en"
+                data-part="phrase-meaning"
               >
-                <button
-                  type="button"
-                  onClick={() => setTargetMode("phrase")}
-                  role="radio"
-                  aria-checked={targetMode === "phrase"}
-                  className={cn(
-                    "rounded-md px-2 py-0.5 text-[0.72rem] transition-colors",
-                    targetMode === "phrase"
-                      ? "bg-card text-ink font-semibold shadow-xs"
-                      : "text-muted hover:text-ink",
-                  )}
-                  data-look-target="phrase"
-                >
-                  {t("card.lookTargetPhrase")}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setTargetMode("word")}
-                  role="radio"
-                  aria-checked={targetMode === "word"}
-                  className={cn(
-                    "rounded-md px-2 py-0.5 text-[0.72rem] transition-colors",
-                    targetMode === "word"
-                      ? "bg-card text-ink font-semibold shadow-xs"
-                      : "text-muted hover:text-ink",
-                  )}
-                  data-look-target="word"
-                >
-                  {t("card.lookTargetWord")}
-                </button>
+                {phrase.entry.meaning}
+              </p>
+              {phrase.entry.here ? <SceneLine text={phrase.entry.here} /> : null}
+              <details className="word-detail text-sm" data-part="word-alone">
+                <summary>{t("card.aloneWord", { word: state.key })}</summary>
+                <div className="grid gap-2 pt-2">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="font-display font-semibold text-ink" lang="en">
+                      {state.key}
+                    </span>
+                    {state.pos ? (
+                      <span className={cn(wordPosClass(), "text-[0.8rem]")} data-word-pos>
+                        <span lang="en">{state.pos}</span>
+                      </span>
+                    ) : null}
+                  </div>
+                  {meaningBlock}
+                  {state.coined ? <CoinedBadge /> : null}
+                </div>
+              </details>
+            </div>
+          ) : (
+            <div className="grid gap-2">
+              {heroMeaning}
+              {state.here ? <SceneLine text={state.here} /> : null}
+              {state.coined ? <CoinedBadge /> : null}
+            </div>
+          )}
+
+          {state.sentence ? (
+            <details className="word-detail text-sm" data-part="sentence-box">
+              <summary>{t("card.sentenceFrom")}</summary>
+              <div className="mt-2.5 grid gap-2.5 pt-1">
+                <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/90">
+                  <Highlighted
+                    sentence={state.sentence}
+                    surface={phrase ? phrase.matched : state.surface}
+                  />
+                </blockquote>
+                <ExplainSentence
+                  key={`${noteChapter ?? chapter}|${state.sentence}`}
+                  bookId={bookId}
+                  chapter={noteChapter ?? chapter}
+                  sentence={state.fullSentence || state.sentence}
+                />
               </div>
-            ) : null}
-          </div>
-          <LookupLinks word={phrase && targetMode === "phrase" ? phrase.key : state.key} />
+            </details>
+          ) : null}
+
+          {state.example ||
+          (state.whyHard && state.ready && state.status === "ready") ||
+          (state.others && state.others.length > 0 && state.status === "ready") ||
+          stat ? (
+            <details className="word-detail text-sm" data-part="word-more">
+              <summary>{t("card.more")}</summary>
+              <div className="grid gap-2.5 pt-2">
+                {state.example ? (
+                  <CardQuote label={t("card.example")} part="example">
+                    <Highlighted sentence={state.example} surface={state.surface} />
+                  </CardQuote>
+                ) : null}
+
+                {state.whyHard && state.ready && state.status === "ready" ? (
+                  <p className="text-xs leading-relaxed text-muted" lang="en">
+                    <span className="font-semibold text-ink/75">{t("card.whyHard")} </span>
+                    {state.whyHard}
+                  </p>
+                ) : null}
+
+                {state.others && state.others.length > 0 && state.status === "ready" ? (
+                  <OtherMeanings items={state.others} />
+                ) : null}
+
+                <WordFacts
+                  stat={stat}
+                  current={state.sentence}
+                  suppressQuote={Boolean(state.example)}
+                />
+              </div>
+            </details>
+          ) : null}
+
+          {state.status !== "unknown" || phrase ? (
+            <WordExplanationFeedback
+              key={`${bookId}:${lookup}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
+              bookId={bookId}
+              bookTitle={bookTitle}
+              word={lookup}
+              form={countSurface(state.surface)}
+              chapter={state.chapter ?? (typeof noteChapter === "number" ? noteChapter : chapter)}
+              occurrence={state.occurrence ?? 1}
+              paragraph={state.paragraph ?? 0}
+              context={state.context ?? ""}
+              sentence={state.fullSentence ?? state.sentence}
+              senseIndex={state.senseIndex ?? -1}
+              senseMeaning={phrase ? phrase.entry.meaning : state.meaning}
+              glossaryRev={state.glossaryRev}
+            />
+          ) : null}
         </div>
+      </div>
+      <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
+            {t("card.lookTitle")}
+          </span>
+          {phrase ? (
+            <div
+              className="inline-flex items-center rounded-lg bg-paper p-0.5 text-xs border border-line/60"
+              role="group"
+              aria-label={t("card.lookTitle")}
+              data-look-target-group
+            >
+              <button
+                type="button"
+                onClick={() => setTargetMode("phrase")}
+                aria-pressed={targetMode === "phrase"}
+                className={cn(
+                  "rounded-md px-2 py-0.5 text-[0.72rem] transition-colors",
+                  targetMode === "phrase"
+                    ? "bg-card text-ink font-semibold shadow-xs"
+                    : "text-muted hover:text-ink",
+                )}
+                data-look-target="phrase"
+              >
+                {t("card.lookTargetPhrase")}
+              </button>
+              <button
+                type="button"
+                onClick={() => setTargetMode("word")}
+                aria-pressed={targetMode === "word"}
+                className={cn(
+                  "rounded-md px-2 py-0.5 text-[0.72rem] transition-colors",
+                  targetMode === "word"
+                    ? "bg-card text-ink font-semibold shadow-xs"
+                    : "text-muted hover:text-ink",
+                )}
+                data-look-target="word"
+              >
+                {state.key}
+              </button>
+            </div>
+          ) : null}
+        </div>
+        <LookupLinks word={phrase && targetMode === "phrase" ? phrase.key : state.key} />
       </div>
     </FloatingAside>
   );

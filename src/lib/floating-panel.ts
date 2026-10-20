@@ -37,6 +37,7 @@ function covers(panel: { left: number; top: number; width: number; height: numbe
 /**
  * Pick a top/left for a card of `width` × `height` next to `anchor`.
  * `height` is the card's content height; the card scrolls inside `maxHeight` when it is taller.
+ * `minHeight` reserves fixed actions and a readable body before considering a top/bottom gap.
  * The card sits just under the anchor when that gap can show it. A short gap under a word
  * near the bottom of the screen would squash the card, so the card opens above instead.
  */
@@ -44,6 +45,7 @@ export function placeFloatingPanel(input: {
   anchor: AnchorRect;
   width: number;
   height: number;
+  minHeight?: number;
   viewportWidth: number;
   viewportHeight: number;
 }): PanelPlace {
@@ -55,7 +57,8 @@ export function placeFloatingPanel(input: {
   const spaceAbove = anchor.top - GAP - PAD;
   const spaceRight = vw - aRight - GAP - PAD;
   const spaceLeft = anchor.left - GAP - PAD;
-  const cap = Math.min(Math.round(vh * 0.72), 640);
+  const minimum = Math.min(height, input.minHeight ?? 72, Math.max(72, vh - PAD * 2));
+  const cap = Math.min(vh - PAD * 2, Math.max(minimum, Math.min(Math.round(vh * 0.72), 640)));
   const content = Math.max(1, height);
   const need = Math.min(content, cap);
   // Under the word when that gap can show the card. Otherwise the taller side, so a word
@@ -83,7 +86,7 @@ export function placeFloatingPanel(input: {
   function trySide(side: PanelPlace["side"]): PanelPlace | null {
     if (side === "bottom" || side === "top") {
       const room = side === "bottom" ? spaceBelow : spaceAbove;
-      if (room < 72) return null;
+      if (room < Math.max(72, minimum)) return null;
       const maxHeight = Math.min(cap, room);
       const used = Math.min(content, maxHeight);
       let top = side === "bottom" ? aBottom + GAP : anchor.top - GAP - used;
