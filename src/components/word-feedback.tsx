@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { cn } from "@/components/ui";
 import { Check, HelpCircle } from "lucide-react";
@@ -33,6 +33,8 @@ export function WordExplanationFeedback({
   className?: string;
 }) {
   const { t } = useT();
+  const optionsId = useId();
+  const [expanded, setExpanded] = useState(false);
   const [submitted, setSubmitted] = useState<"too_hard" | "wrong_meaning" | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -86,40 +88,47 @@ export function WordExplanationFeedback({
 
   return (
     <div
-      className={cn(
-        "flex flex-wrap items-center justify-between gap-2 rounded-xl bg-paper/50 px-3 py-2 text-xs text-muted",
-        className,
-      )}
+      className={cn("flex flex-wrap items-center gap-2 text-xs text-muted", className)}
       data-word-feedback
     >
-      <div className="flex items-center gap-1 text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
-        <HelpCircle className="size-3.5 shrink-0 text-muted" aria-hidden />
-        <span>{t("card.feedbackPrompt")}</span>
-      </div>
+      <button
+        type="button"
+        onClick={() => setExpanded((open) => !open)}
+        className="grid size-11 shrink-0 place-items-center rounded-lg text-muted transition-colors hover:bg-paper hover:text-ink md:size-8"
+        aria-label={t("card.feedbackPrompt")}
+        title={t("card.feedbackPrompt")}
+        aria-expanded={expanded}
+        aria-controls={expanded ? optionsId : undefined}
+        data-feedback-toggle
+      >
+        <HelpCircle className="size-4" aria-hidden />
+      </button>
 
-      <div className="flex items-center gap-1.5">
-        <button
-          type="button"
-          disabled={submitting}
-          onClick={() => void sendFeedback("too_hard")}
-          className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
-          title={t("card.feedbackTooHard")}
-          data-feedback-too-hard
-        >
-          {t("card.feedbackTooHard")}
-        </button>
+      {expanded ? (
+        <div id={optionsId} className="flex flex-wrap items-center gap-2" data-feedback-options>
+          <button
+            type="button"
+            disabled={submitting}
+            onClick={() => void sendFeedback("too_hard")}
+            className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
+            title={t("card.feedbackTooHard")}
+            data-feedback-too-hard
+          >
+            {t("card.feedbackTooHard")}
+          </button>
 
-        <button
-          type="button"
-          disabled={submitting}
-          onClick={() => void sendFeedback("wrong_meaning")}
-          className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
-          title={t("card.feedbackWrong")}
-          data-feedback-wrong
-        >
-          {t("card.feedbackWrong")}
-        </button>
-      </div>
+          <button
+            type="button"
+            disabled={submitting}
+            onClick={() => void sendFeedback("wrong_meaning")}
+            className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
+            title={t("card.feedbackWrong")}
+            data-feedback-wrong
+          >
+            {t("card.feedbackWrong")}
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

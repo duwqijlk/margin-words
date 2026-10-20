@@ -367,7 +367,10 @@ export function WordCard({
         <div className="word-sheet-handle md:hidden" data-sheet-handle aria-hidden>
           <div className="h-1 w-10 rounded-full bg-line" />
         </div>
-        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-3" data-word-head>
+        <div
+          className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-3"
+          data-word-head
+        >
           <div className="min-w-0" data-word-title>
             <h2
               className="min-w-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words text-ink"
@@ -523,31 +526,32 @@ export function WordCard({
               </div>
             </details>
           ) : null}
-
-          {state.status !== "unknown" || phrase ? (
-            <WordExplanationFeedback
-              key={`${bookId}:${lookup}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
-              bookId={bookId}
-              bookTitle={bookTitle}
-              word={lookup}
-              form={countSurface(state.surface)}
-              chapter={state.chapter ?? (typeof noteChapter === "number" ? noteChapter : chapter)}
-              occurrence={state.occurrence ?? 1}
-              paragraph={state.paragraph ?? 0}
-              context={state.context ?? ""}
-              sentence={state.fullSentence ?? state.sentence}
-              senseIndex={state.senseIndex ?? -1}
-              senseMeaning={phrase ? phrase.entry.meaning : state.meaning}
-              glossaryRev={state.glossaryRev}
-            />
-          ) : null}
         </div>
       </div>
       <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
         <div className="flex items-center justify-between gap-2">
-          <span className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
-            {t("card.lookTitle")}
-          </span>
+          <div className="flex min-w-0 flex-wrap items-center gap-1">
+            <span className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
+              {t("card.lookTitle")}
+            </span>
+            {state.status !== "unknown" || phrase ? (
+              <WordExplanationFeedback
+                key={`${bookId}:${lookup}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
+                bookId={bookId}
+                bookTitle={bookTitle}
+                word={lookup}
+                form={countSurface(state.surface)}
+                chapter={state.chapter ?? (typeof noteChapter === "number" ? noteChapter : chapter)}
+                occurrence={state.occurrence ?? 1}
+                paragraph={state.paragraph ?? 0}
+                context={state.context ?? ""}
+                sentence={state.fullSentence ?? state.sentence}
+                senseIndex={state.senseIndex ?? -1}
+                senseMeaning={phrase ? phrase.entry.meaning : state.meaning}
+                glossaryRev={state.glossaryRev}
+              />
+            ) : null}
+          </div>
           {phrase ? (
             <div
               className="inline-flex items-center rounded-lg bg-paper p-0.5 text-xs border border-line/60"

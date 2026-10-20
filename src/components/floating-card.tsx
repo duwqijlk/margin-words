@@ -211,8 +211,8 @@ export function phoneSheet(): boolean {
 }
 
 /**
- * Pull the phone sheet down to close it. Word cards use only their dedicated handle;
- * paragraph cards keep the scroll-at-top gesture.
+ * Pull the phone sheet down from noninteractive content at its scroll top to close it.
+ * A gesture that starts scrolled belongs to the content until the finger lifts.
  * Touch and mouse are handled apart, so a phone tap is not also read as a mouse drag.
  */
 function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: () => void) {
@@ -242,7 +242,14 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
       const begin = (x: number, y: number, target: EventTarget | null) => {
         clearTimer();
         const origin = target instanceof Element ? target : null;
-        if (el.hasAttribute("data-word-card") && !origin?.closest("[data-sheet-handle]")) {
+        const selection = window.getSelection();
+        if (
+          el.hasAttribute("data-word-card") &&
+          selection &&
+          !selection.isCollapsed &&
+          selection.anchorNode &&
+          el.contains(selection.anchorNode)
+        ) {
           mode = "idle";
           return;
         }
@@ -286,6 +293,12 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
             return;
           }
         }
+        // Once native scrolling owns a touch, never move the sheet on top of it.
+        if (event.type === "touchmove" && !event.cancelable) {
+          mode = "scroll";
+          el.style.transform = "";
+          return;
+        }
         event.preventDefault();
         el.style.transform = `translateY(${Math.max(0, dy)}px)`;
       };
@@ -296,7 +309,6 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
         }
         const dy = lastY - startY;
         mode = "idle";
-        if (dy < 8) return;
         suppressClick = true;
         el.style.transition = "transform 0.18s ease-out";
         if (dy > 72) {
@@ -323,6 +335,10 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
         begin(touch.clientX, touch.clientY, event.target);
       };
       const onTouchMove = (event: TouchEvent) => {
+        if (event.touches.length !== 1) {
+          cancel();
+          return;
+        }
         const touch = event.touches[0];
         if (!touch) return;
         move(touch.clientX, touch.clientY, event);
