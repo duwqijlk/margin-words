@@ -364,41 +364,50 @@ export function WordCard({
       )}
     >
       <div data-word-header>
-        <div
-          className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden"
-          data-sheet-handle
-          aria-hidden
-        />
-        <div className="flex min-w-0 flex-wrap items-start justify-between gap-2" data-word-head>
-          <div className={cn("grid min-w-0 gap-0.5", phrase ? "w-full" : "flex-1")} data-word-title>
-            <div className="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-1">
-              <h2
-                className="min-w-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words text-ink"
-                lang="en"
-              >
-                {lookup}
-              </h2>
-              {phrase ? (
-                <span className={wordPosClass()} data-phrase-pos data-word-pos>
-                  {phrase.entry.pos ? (
-                    <span lang="en">{phrase.entry.pos}</span>
-                  ) : (
-                    t("card.phraseFallback")
-                  )}
-                </span>
-              ) : state.pos ? (
-                <span className={wordPosClass()} data-word-pos>
-                  <span lang="en">{state.pos}</span>
-                </span>
-              ) : state.status === "easy" ? (
-                <span className={cn(wordPosClass(true), "self-center")} data-word-pos>
-                  {t("card.easyChip")}
-                </span>
-              ) : null}
-            </div>
+        <div className="word-sheet-handle md:hidden" data-sheet-handle aria-hidden>
+          <div className="h-1 w-10 rounded-full bg-line" />
+        </div>
+        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-3" data-word-head>
+          <div className="min-w-0" data-word-title>
+            <h2
+              className="min-w-0 font-display text-[1.85rem] leading-tight font-semibold tracking-tight break-words text-ink"
+              lang="en"
+            >
+              {lookup}
+            </h2>
+          </div>
+          <button
+            type="button"
+            className={cn(btn.icon, "shrink-0")}
+            onClick={() => onClose(true)}
+            aria-label={t("card.close")}
+            data-panel-close
+          >
+            <X className="size-5" aria-hidden />
+          </button>
+        </div>
+        <div className="mt-2 flex min-w-0 items-center gap-3" data-word-tools>
+          <div className="grid min-w-0 gap-0.5" data-word-meta>
+            {phrase ? (
+              <span className={wordPosClass()} data-phrase-pos data-word-pos>
+                {phrase.entry.pos ? (
+                  <span lang="en">{phrase.entry.pos}</span>
+                ) : (
+                  t("card.phraseFallback")
+                )}
+              </span>
+            ) : state.pos ? (
+              <span className={wordPosClass()} data-word-pos>
+                <span lang="en">{state.pos}</span>
+              </span>
+            ) : state.status === "easy" ? (
+              <span className={wordPosClass(true)} data-word-pos>
+                {t("card.easyChip")}
+              </span>
+            ) : null}
             {formLine ? <p className="text-xs text-muted">{inBook(formLine)}</p> : null}
           </div>
-          <div className="ml-auto flex items-center gap-1 shrink-0 pt-0.5">
+          <div className="flex shrink-0 items-center gap-2" data-word-actions>
             <SpeakButton text={lookup} compact className="shrink-0" />
             <button
               type="button"
@@ -420,15 +429,6 @@ export function WordCard({
               ) : (
                 <BookMarked className="size-4.5 stroke-[1.8]" aria-hidden />
               )}
-            </button>
-            <button
-              type="button"
-              className={cn(btn.icon, "size-9 shrink-0")}
-              onClick={() => onClose(true)}
-              aria-label={t("card.close")}
-              data-panel-close
-            >
-              <X className="size-5" aria-hidden />
             </button>
           </div>
         </div>

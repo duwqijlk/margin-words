@@ -540,9 +540,17 @@
     flex-shrink: 0;
   }
   [data-word-card] [data-word-title] {
+    padding-bottom: 4px;
     max-height: 20vh;
     max-height: 20dvh;
     overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  [data-word-card] [data-word-meta] {
+    max-width: 100%;
+    max-height: 3.5rem;
+    overflow-y: auto;
+    overflow-wrap: break-word;
     overscroll-behavior: contain;
   }
   [data-word-card] [data-word-body] {
@@ -578,6 +586,7 @@
   @media (max-width: 767px) {
     [data-word-card].word-sheet-plain,
     [data-word-card].word-sheet-context {
+      padding-top: 4px;
       padding-bottom: 1.25rem;
       padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
     }
@@ -589,9 +598,23 @@
       max-height: 72vh;
       max-height: 72dvh;
     }
+    [data-word-card] [data-sheet-handle] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 24px;
+      touch-action: none;
+      user-select: none;
+    }
     [data-word-card] [data-word-title] {
-      max-height: 24vh;
-      max-height: 24dvh;
+      max-height: 18vh;
+      max-height: 18dvh;
+    }
+    [data-word-card] [data-word-header] [data-speak],
+    [data-word-card] [data-word-save],
+    [data-word-card] [data-panel-close] {
+      width: 44px;
+      height: 44px;
     }
     [data-word-card] [data-word-lookup] a {
       min-height: 44px;
@@ -608,16 +631,15 @@
     }
   }
 
-  /* In a short desktop window, reserve room for the definition rather than a second action row. */
+  /* Reserve more definition space in a short desktop window. */
   @media (min-width: 1024px) and (max-height: 500px) {
     [data-float][data-word-card].word-sheet-plain,
     [data-float][data-word-card].word-sheet-context {
       padding-top: 12px;
       padding-bottom: 12px;
     }
-    [data-word-card] [data-word-title] {
-      width: auto;
-      flex: 1;
+    [data-word-card] [data-word-meta] {
+      max-height: 44px;
     }
     [data-word-card] [data-word-body] {
       margin-top: 10px;

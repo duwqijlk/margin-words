@@ -211,8 +211,8 @@ export function phoneSheet(): boolean {
 }
 
 /**
- * Pull the phone sheet down to close it. A downward drag closes only when the sheet
- * is already at the top of its scroll, so a long note still scrolls first.
+ * Pull the phone sheet down to close it. Word cards use only their dedicated handle;
+ * paragraph cards keep the scroll-at-top gesture.
  * Touch and mouse are handled apart, so a phone tap is not also read as a mouse drag.
  */
 function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: () => void) {
@@ -242,6 +242,10 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
       const begin = (x: number, y: number, target: EventTarget | null) => {
         clearTimer();
         const origin = target instanceof Element ? target : null;
+        if (el.hasAttribute("data-word-card") && !origin?.closest("[data-sheet-handle]")) {
+          mode = "idle";
+          return;
+        }
         // Actions are taps, not drag handles. A gesture that starts in scrolled
         // content belongs to that scroller even if it reaches the top midway.
         if (

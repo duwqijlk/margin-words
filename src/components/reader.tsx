@@ -78,7 +78,8 @@ import {
   ParagraphPanel,
   type ParagraphPanelState,
 } from "@/components/help-panels";
-import { desktopPanel } from "@/components/floating-card";
+import { desktopPanel, phoneSheet } from "@/components/floating-card";
+import { readingPageTap } from "@/lib/phone-gestures";
 import { anchorOffscreen } from "@/lib/floating-panel";
 import { ReaderSettings } from "@/components/reader-settings";
 import { ReaderContents } from "@/components/reader-contents";
@@ -1412,19 +1413,16 @@ export function ReaderScreen({
     const button = target.closest("[role=button][data-word]");
     const cardOpen = picked !== null || help !== null;
 
-    if (button) {
-      event.preventDefault();
-      pickButton(button as HTMLElement);
+    if (button || target.closest("article a")) event.preventDefault();
+    const action = readingPageTap({ phone: phoneSheet(), cardOpen, hitWord: Boolean(button) });
+    if (action === "close") {
+      if (cardOpen) {
+        closeWordCard(false);
+        closeHelp();
+      }
       return;
     }
-    if (target.closest("article a")) {
-      event.preventDefault();
-    }
-    if (cardOpen) {
-      closeWordCard(false);
-      closeHelp();
-      return;
-    }
+    if (button) pickButton(button as HTMLElement);
   };
 
   return (

@@ -1,6 +1,7 @@
 // Synthetic IndexedDB fixture; run against an already-running app. No external lookups are opened.
 // WORD_CARD_STRESS=1 runs dark, centered-anchor, 100/125/150% root-font desktop cases
 // plus a tall-window expand/shrink case. Add STRESS_LONG_TITLE=1 for the long phrase fixture.
+// The long-title run also probes 125/150% root fonts on a narrow phone.
 import assert from "node:assert/strict";
 import { chromium } from "playwright";
 
@@ -74,12 +75,26 @@ async function cardChrome(page, card) {
       contentOverflow: getComputedStyle(content).overflowY, contentMaxHeight: getComputedStyle(content).maxHeight,
       contentScrollHeight: content.scrollHeight, contentClientHeight: content.clientHeight,
       card: box(el), body: box(body), content: box(content), head: box(head), footer: box(footer),
+      header: Object.fromEntries(['head', 'title', 'tools', 'meta', 'actions'].map(part => {
+        const node = el.querySelector(`[data-word-${part}]`);
+        const style = getComputedStyle(node);
+        return [part, { ...box(node), position: style.position, display: style.display,
+          justifyContent: style.justifyContent, flexWrap: style.flexWrap,
+          columnGap: parseFloat(style.columnGap), scrollWidth: node.scrollWidth, clientWidth: node.clientWidth }];
+      })),
+      titleText: box(el.querySelector('h2')),
+      handle: (() => {
+        const node = el.querySelector('[data-sheet-handle]');
+        return { ...box(node), touchAction: getComputedStyle(node).touchAction };
+      })(),
       scroll: [scrollX, scrollY, el.scrollTop, body.scrollTop],
       viewport: [innerWidth, innerHeight],
-      controls: [...el.querySelectorAll('[data-lookup], [data-look-target], [data-panel-close]')].map(node => {
+      controls: [...el.querySelectorAll('[data-lookup], [data-look-target], [data-panel-close], [data-word-actions] [data-speak], [data-word-save]')].map(node => {
         const r = box(node);
         const hit = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
-        return { ...r, hit: !!hit && node.contains(hit), name: node.dataset.lookup || node.dataset.lookTarget || 'close' };
+        const name = node.dataset.lookup || node.dataset.lookTarget || (node.hasAttribute('data-speak') ? 'speak'
+          : node.hasAttribute('data-word-save') ? 'save' : 'close');
+        return { ...r, hit: !!hit && node.contains(hit), name };
       }) };
   });
   assert.equal(state.tag, 'ASIDE');
@@ -106,6 +121,44 @@ async function cardChrome(page, card) {
     assert.ok(control.x >= 0 && control.right <= state.viewport[0] + 1 && control.y >= 0 && control.bottom <= state.viewport[1] + 1,
       `${control.name} fully visible before interaction`);
     assert.ok(control.hit, `${control.name} receives a center hit without scrolling`);
+  }
+  const { head, title, tools, meta, actions } = state.header;
+  const buttons = ['speak', 'save', 'close'].map(name => {
+    const matches = state.controls.filter(control => control.name === name);
+    assert.equal(matches.length, 1, `header has exactly one ${name} button`);
+    return matches[0];
+  });
+  const [speak, save, close] = buttons;
+  const separated = (a, b, gap = 0) => a.right + gap <= b.x + 0.5 || b.right + gap <= a.x + 0.5
+    || a.bottom + gap <= b.y + 0.5 || b.bottom + gap <= a.y + 0.5;
+  assert.ok(['static', 'relative'].includes(title.position), 'title stays in normal document flow');
+  assert.ok(title.x >= head.x - 1 && title.right <= close.x - 8, 'long title reserves a separate right-hand close column');
+  assert.ok(state.titleText.width <= title.width + 1 && title.scrollWidth <= title.clientWidth + 1,
+    'long title wraps without horizontal clipping or overflow');
+  assert.ok(separated(title, close, 8), 'title never overlaps close, including long-title regressions');
+  assert.ok(head.bottom <= tools.y + 1, 'toolbar occupies a separate row below title and close');
+  assert.equal(tools.display, 'flex', 'metadata and actions share a flex toolbar');
+  assert.ok(tools.scrollWidth <= tools.clientWidth + 1, 'toolbar never overflows horizontally (metadata may wrap or scroll internally)');
+  assert.ok(['normal', 'flex-start', 'start'].includes(tools.justifyContent), 'toolbar is left aligned, never space-between');
+  assert.ok(Math.abs(meta.x - tools.x) <= 1 && Math.abs(title.x - tools.x) <= 1,
+    'metadata and toolbar align with title on the left');
+  assert.ok(actions.x >= tools.x - 1 && actions.right <= tools.right + 1, 'actions fit in toolbar');
+  assert.ok(separated(actions, close, 8), `close stays at least 8px from speak/save: ${JSON.stringify({ actions, close })}`);
+  assert.ok(save.x - speak.right >= 8 - 0.5, 'speak and save have at least 8px horizontal spacing');
+  if (state.viewport[0] >= 1024) {
+    const sameRow = actions.y < meta.bottom && meta.y < actions.bottom;
+    assert.ok(sameRow ? Math.abs(actions.x - meta.right - tools.columnGap) <= 1 : Math.abs(actions.x - tools.x) <= 1,
+      'desktop actions follow metadata on the left, or wrap to the left edge');
+  }
+  if (state.viewport[0] < 768) {
+    assert.equal(state.handle.height, 24, 'phone dismissal handle is a dedicated 24px hit band');
+    assert.equal(state.handle.touchAction, 'none', 'handle owns its touch gesture');
+    assert.ok(state.handle.bottom <= head.y + 1, 'handle does not cover title or buttons');
+    for (const button of buttons) assert.ok(button.width >= 44 && button.height >= 44,
+      `${button.name} has a minimum 44x44px phone target`);
+    for (let i = 0; i < buttons.length; i++) for (let j = i + 1; j < buttons.length; j++) {
+      assert.ok(separated(buttons[i], buttons[j], 8), `${buttons[i].name}/${buttons[j].name} have at least 8px separation`);
+    }
   }
   return state;
 }
@@ -174,31 +227,99 @@ async function lookupTarget(card, mode) {
     assert.equal(await button.getAttribute('aria-pressed'), String(target === mode));
   }
 }
+// Test-only sound/analytics recorders, installed before app code. Keep the collector's
+// real buffering path: capture only its 15-minute timer and flush it deterministically.
+// A positive open below must produce audio AND a real collector payload, so silence
+// on dismissal cannot pass merely because analytics or playback was never observed.
+async function installPhoneRecorders(page) {
+  await page.addInitScript(() => {
+    const state = { audios: [], voices: [], batches: [] };
+    window.__wordCardEffects = state;
+    HTMLMediaElement.prototype.play = function () {
+      state.audios.push(this.src || this.getAttribute('src') || '');
+      return Promise.resolve();
+    };
+    HTMLMediaElement.prototype.pause = function () {};
+    window.SpeechSynthesisUtterance = class { constructor(text) { this.text = text; } };
+    Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: {
+      paused: false, pending: false, speaking: false, getVoices: () => [],
+      cancel() {}, resume() {}, speak(utterance) { state.voices.push(utterance.text); },
+    } });
+    const fetch = window.fetch.bind(window);
+    window.fetch = (input, init) => {
+      const url = new URL(typeof input === 'string' || input instanceof URL ? input : input.url, location.href);
+      if (url.origin === location.origin && url.pathname === '/api/analytics/word-taps') {
+        state.batches.push(JSON.parse(init.body));
+        return Promise.resolve(new Response('{}', { status: 200, headers: { 'content-type': 'application/json' } }));
+      }
+      return fetch(input, init);
+    };
+    const setTimeout = window.setTimeout.bind(window), clearTimeout = window.clearTimeout.bind(window);
+    const pending = new Map();
+    window.setTimeout = (callback, delay, ...args) => {
+      if (delay !== 15 * 60 * 1000 || typeof callback !== 'function') return setTimeout(callback, delay, ...args);
+      const id = setTimeout(() => {
+        pending.delete(id);
+        callback(...args);
+      }, delay);
+      pending.set(id, () => callback(...args));
+      return id;
+    };
+    window.clearTimeout = id => { pending.delete(id); clearTimeout(id); };
+    window.__flushWordCardTaps = () => {
+      for (const [id, callback] of [...pending]) {
+        pending.delete(id);
+        clearTimeout(id);
+        callback();
+      }
+    };
+  });
+}
+async function phoneEffects(page) {
+  return page.evaluate(async () => {
+    window.__flushWordCardTaps();
+    await Promise.resolve();
+    const state = window.__wordCardEffects;
+    const taps = state.batches.flatMap(batch => batch.taps);
+    return { audios: [...state.audios], voices: [...state.voices],
+      taps: taps.reduce((sum, tap) => sum + tap.count, 0),
+      words: taps.map(tap => [tap.word, tap.count]) };
+  });
+}
 async function phoneRegression(page, width, height) {
   const card = page.locator('[data-word-card]');
   const body = card.locator('[data-word-body]');
   const cdp = await page.context().newCDPSession(page);
-  const touch = (type, x, y) => cdp.send('Input.dispatchTouchEvent', {
-    type, touchPoints: type === 'touchEnd' || type === 'touchCancel' ? [] : [{ x, y, id: 1 }],
+  const handle = card.locator('[data-sheet-handle]');
+  const touch = (type, x, y, multi = false) => cdp.send('Input.dispatchTouchEvent', {
+    type, touchPoints: type === 'touchEnd' || type === 'touchCancel' ? []
+      : [{ x, y, id: 1 }, ...(multi ? [{ x: x + 24, y, id: 2 }] : [])],
   });
-  const drag = async (dy, end = 'touchEnd') => {
-    const r = await body.boundingBox();
-    assert.ok(r && r.height > 24, 'body has room for a touch gesture');
+  const drag = async (dy, { target = body, end = 'touchEnd', dx = 0, multi = false } = {}) => {
+    const r = await target.boundingBox();
+    assert.ok(r && r.height >= 24, 'gesture origin has a real hit band');
     const x = r.x + r.width / 2;
-    const y = dy > 0 ? r.y + 12 : r.y + r.height - 12;
-    assert.ok(y + dy > 0 && y + dy < height, 'touch gesture stays in viewport');
-    await touch('touchStart', x, y);
+    const y = dy >= 0 ? r.y + 12 : r.y + r.height - 12;
+    assert.ok(y + dy > 0 && y + dy < height && x + dx > 0 && x + dx + (multi ? 24 : 0) < width,
+      'touch gesture stays in viewport');
+    assert.ok(await target.evaluate((el, point) => el.contains(document.elementFromPoint(point.x, point.y)), { x, y }),
+      'gesture starts on the intended element without locator auto-scroll');
+    await touch('touchStart', x, y, multi);
     for (let i = 1; i <= 6; i++) {
-      await touch('touchMove', x, y + dy * i / 6);
+      await touch('touchMove', x + dx * i / 6, y + dy * i / 6, multi);
       await page.waitForTimeout(20);
     }
-    if (end === 'touchCancel') {
-      assert.ok(await card.evaluate(el => new DOMMatrixReadOnly(getComputedStyle(el).transform).m42 > 72),
-        'cancel test first pulls beyond the dismissal threshold');
-    }
+    const pulled = await card.evaluate(el => new DOMMatrixReadOnly(getComputedStyle(el).transform).m42);
     await touch(end);
     // Dismissal uses a 160ms timer and snap-back a 180ms transition.
     await page.waitForTimeout(260);
+    return pulled;
+  };
+  const remains = async label => {
+    assert.equal(await card.count(), 1, `${label} does not dismiss`);
+    assert.ok(await card.evaluate(el => Math.abs(new DOMMatrixReadOnly(getComputedStyle(el).transform).m42) < 1),
+      `${label} leaves sheet in its original position`);
+    await cardChrome(page, card);
   };
   const open = async word => {
     const anchor = page.locator(`article [role="button"][data-word="${word}"] .book-tap`).nth(10);
@@ -284,14 +405,23 @@ async function phoneRegression(page, width, height) {
   assert.equal(await card.count(), 1, 'downward gesture starting in a scrolled body must not dismiss');
   assert.equal(await body.evaluate(el => el.scrollTop), 0, 'same gesture can reach top without becoming a dismissal');
   await cardChrome(page, card);
-  await drag(100, 'touchCancel');
-  assert.equal(await card.count(), 1, 'touchcancel beyond threshold does not close');
-  assert.ok(await card.evaluate(el => Math.abs(new DOMMatrixReadOnly(getComputedStyle(el).transform).m42) < 1),
-    'touchcancel returns the sheet to its original position');
-  await cardChrome(page, card);
-  await drag(100);
+  assert.ok(Math.abs(await drag(100)) < 1, 'body-at-top downward drag never translates the sheet');
+  await remains('body-at-top downward gesture');
+  assert.ok(Math.abs(await drag(100, { end: 'touchCancel' })) < 1, 'body touchcancel never starts a sheet drag');
+  await remains('body touchcancel');
+  const shortPull = await drag(40, { target: handle });
+  assert.ok(shortPull >= 30 && shortPull <= 50, 'short handle drag really pulls but stays below 72px');
+  await remains('short handle drag');
+  assert.ok(await drag(100, { target: handle, end: 'touchCancel' }) > 72,
+    'handle touchcancel first pulls beyond dismissal threshold');
+  await remains('handle touchcancel beyond threshold');
+  assert.ok(Math.abs(await drag(12, { target: handle, dx: 90 })) < 1, 'horizontal handle gesture never translates sheet');
+  await remains('horizontal handle gesture');
+  assert.ok(Math.abs(await drag(100, { target: handle, multi: true })) < 1, 'two-finger handle gesture never translates sheet');
+  await remains('two-finger handle gesture');
+  assert.ok(await drag(100, { target: handle }) > 72, 'long downward handle drag crosses dismissal threshold');
   await card.waitFor({ state: 'detached' });
-  // Switch actual words, not only lookup targets; a previously scrolled card must reset.
+  // Actual phone word taps close first; a later, separate tap opens with fresh state.
   await open('odds');
   await collapsedDetails(card, true);
   await expandDisclosure(page, card, 'word-alone', 'chances that something');
@@ -304,29 +434,54 @@ async function phoneRegression(page, width, height) {
   assert.ok(await body.evaluate(el => el.scrollTop) > 0, 'word switch starts from a scrolled explanation');
   await cardChrome(page, card);
   if (width === 430) {
-    // There is enough reader space above this sheet for the next word on the same line.
-    const originalBody = await body.elementHandle();
+    // Same-line targets are exposed above the sheet at this viewport. Do not use
+    // locator.tap(): its auto-scroll could dismiss the sheet before the actual tap.
+    const phraseAnchor = page.locator('article [role="button"][data-word="odds"] .book-tap').nth(10);
+    const nextAnchor = page.locator('article [role="button"][data-word="lantern"] .book-tap').nth(10);
     const readerScroll = await page.evaluate(() => [scrollX, scrollY]);
-    await coordinateTap(page, page.locator('article [role="button"][data-word="lantern"] .book-tap').nth(10));
-    await page.waitForFunction(() => document.querySelector('[data-word-card] h2')?.textContent === 'lantern');
-    assert.ok(await originalBody.evaluate(el => el.isConnected && el === document.querySelector('[data-word-body]')),
-      'tapping another reader word reuses the mounted body instead of close/reopen');
-    assert.equal(await originalBody.evaluate(el => el.scrollTop), 0, 'same body resets scroll on word switch');
-    assert.deepEqual(await page.evaluate(() => [scrollX, scrollY]), readerScroll, 'direct word switch does not scroll reader');
-    await collapsedDetails(card, false);
-    await cardChrome(page, card);
-    await coordinateTap(page, page.locator('article [role="button"][data-word="odds"] .book-tap').nth(10));
-    await card.locator('[data-part="phrase-meaning"]').waitFor();
-    await settle(page);
-    assert.ok(await originalBody.evaluate(el => el.isConnected && el === document.querySelector('[data-word-body]')),
-      'returning to phrase also reuses the mounted body');
-    await collapsedDetails(card, true);
-    await lookupTarget(card, 'phrase');
-    assert.equal(await body.evaluate(el => el.scrollTop), 0, 'same-card return resets body scroll');
-    await coordinateTap(page, page.locator('article [role="button"][data-word="lantern"] .book-tap').nth(10));
-    await page.waitForFunction(() => document.querySelector('[data-word-card] h2')?.textContent === 'lantern');
-    await originalBody.dispose();
-    await cardChrome(page, card);
+    const baseline = await phoneEffects(page);
+    assert.ok(baseline.audios.length + baseline.voices.length > 0, 'real word opens are observed by audio recorder');
+    assert.ok(baseline.taps > 0 && baseline.words.some(([word]) => word === 'odds'),
+      'real word opens reach the deterministic production telemetry collector');
+    const dismissOnly = async (anchor, label) => {
+      const originalBody = await body.elementHandle();
+      const effects = await phoneEffects(page);
+      await coordinateTap(page, anchor);
+      await card.waitFor({ state: 'detached' });
+      await page.waitForTimeout(260); // Include delayed synthetic click/phrase/audio work.
+      await settle(page);
+      assert.equal(await card.count(), 0, `${label}: first tap closes without reopening`);
+      assert.equal(await originalBody.evaluate(el => el.isConnected), false, `${label}: old body is unmounted`);
+      assert.deepEqual(await phoneEffects(page), effects, `${label}: dismissal adds neither audio nor word-tap telemetry`);
+      assert.deepEqual(await page.evaluate(() => [scrollX, scrollY]), readerScroll, `${label}: reader remains still`);
+      await originalBody.dispose();
+    };
+    const reopen = async (anchor, word) => {
+      const effects = await phoneEffects(page);
+      await coordinateTap(page, anchor);
+      await card.waitFor({ state: 'visible' });
+      if (word === 'odds') await card.locator('[data-part="phrase-meaning"]').waitFor();
+      await card.evaluate(el => Promise.all(el.getAnimations().map(a => a.finished.catch(() => {}))));
+      await settle(page);
+      assert.equal(await card.locator('h2').innerText(), word === 'odds' ? phrase : word,
+        'only a separate second tap opens the requested word');
+      const after = await phoneEffects(page);
+      assert.equal(after.taps, effects.taps + 1, 'second tap records exactly one genuine word open');
+      assert.ok(after.audios.length + after.voices.length > effects.audios.length + effects.voices.length,
+        'second tap genuinely starts pronunciation');
+      assert.equal(await body.evaluate(el => el.scrollTop), 0, 'separate reopening resets body scroll');
+      await collapsedDetails(card, word === 'odds');
+      if (word === 'odds') await lookupTarget(card, 'phrase');
+      await cardChrome(page, card);
+    };
+    await dismissOnly(phraseAnchor, 'same originating word');
+    await reopen(phraseAnchor, 'odds');
+    await dismissOnly(nextAnchor, 'different reader word');
+    await reopen(nextAnchor, 'lantern');
+    await dismissOnly(phraseAnchor, 'return to phrase word');
+    await reopen(phraseAnchor, 'odds');
+    await dismissOnly(nextAnchor, 'phrase to plain word again');
+    await reopen(nextAnchor, 'lantern');
   } else {
     await coordinateTap(page, card.locator('[data-panel-close]'));
     await card.waitFor({ state: 'detached' });
@@ -358,7 +513,47 @@ async function phoneRegression(page, width, height) {
   await coordinateTap(page, card.locator('[data-panel-close]'));
   await card.waitFor({ state: 'detached' });
   await cdp.detach();
-  console.log(`PASS ${width}x${height}: mobile touch, persistent hit-testable lookup footer, body scrolling, sentence explanation, word switching, long plain definition, pull-down and touchcancel`);
+  console.log(`PASS ${width}x${height}: mobile touch, persistent hit-testable chrome, body-only scrolling, sentence explanation, close-only word taps then separate reopen, long title, handle-only dismissal (short/long/cancel/horizontal/multitouch)`);
+}
+async function mobileHeaderStress(page, width, height, scale) {
+  const label = `${width}x${height} mobile root=${scale}% title=${phrase.length}`;
+  const failures = [];
+  const check = async (name, run) => {
+    try { await run(); } catch (error) { failures.push(`${name}: ${error.message}`); }
+  };
+  await page.evaluate(scale => { document.documentElement.style.fontSize = `${scale}%`; }, scale);
+  await page.evaluate(() => document.fonts.ready);
+  await page.keyboard.press('Escape');
+  const anchor = page.locator('article [role="button"][data-word="odds"] .book-tap').nth(10);
+  await position(page, anchor, 100);
+  const article = await page.locator('article').boundingBox();
+  await coordinateTap(page, anchor);
+  const card = page.locator('[data-word-card]');
+  await card.locator('[data-part="phrase-meaning"]').waitFor();
+  await card.evaluate(el => Promise.all(el.getAnimations().map(a => a.finished.catch(() => {}))));
+  await settle(page);
+  assert.equal(await card.locator('h2').innerText(), phrase, 'mobile stress actually uses long title');
+  assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).fontSize), `${16 * scale / 100}px`);
+  for (const stage of ['collapsed', 'expanded', 'scrolled']) {
+    if (stage === 'expanded') await card.locator('[data-word-content]').evaluate(el => {
+      for (const details of el.querySelectorAll('details')) details.open = true;
+    });
+    if (stage === 'scrolled') await card.locator('[data-word-body]').evaluate(el => { el.scrollTop = el.scrollHeight; });
+    await settle(page);
+    await check(`${stage} chrome and touch targets`, () => cardChrome(page, card));
+    await check(`${stage} geometry`, () => geometry(page, anchor, card, width, height, 'bottom', article));
+    await check(`${stage} usable explanation body`, async () => {
+      const m = await metrics(card);
+      assert.ok(m.clientHeight > 0, 'font-scaled header leaves a nonzero explanation body');
+      if (stage === 'scrolled') assert.ok(m.scrollTop > 0, 'font-scaled explanation can scroll internally');
+    });
+  }
+  await check('close is touch reachable', async () => {
+    await coordinateTap(page, card.locator('[data-panel-close]'));
+    await card.waitFor({ state: 'detached' });
+  });
+  console.log(JSON.stringify({ mobileHeaderStress: label, failures }));
+  stressFailures.push(...failures.map(failure => `${label}: ${failure}`));
 }
 async function stressRegression(page, width, height, scale) {
   const isPhrase = height < 1200;
@@ -381,6 +576,17 @@ async function stressRegression(page, width, height, scale) {
   const card = page.locator('[data-word-card]');
   await card.locator(`[data-part="${isPhrase ? 'phrase-meaning' : 'word-meaning'}"]`).waitFor();
   await card.evaluate(el => Promise.all(el.getAnimations().map(a => a.finished.catch(() => {}))));
+  await settle(page);
+  // Prewarm fonts hidden by native details before measuring the collapsed baseline;
+  // otherwise the expanded pass can trigger a late font swap in the collapse comparison.
+  await card.locator('[data-word-content]').evaluate(el => {
+    for (const details of el.querySelectorAll('details')) details.open = true;
+  });
+  await settle(page);
+  await page.evaluate(() => document.fonts.ready);
+  await card.locator('[data-word-content]').evaluate(el => {
+    for (const details of el.querySelectorAll('details')) details.open = false;
+  });
   await settle(page);
   const snapshot = async () => card.evaluate(el => {
     const rect = node => {
@@ -470,7 +676,8 @@ async function stressRegression(page, width, height, scale) {
 }
 try {
   const viewports = stress
-    ? [...[1024, 1280].flatMap(width => [100, 125, 150].map(scale => [width, 450, scale])), [1280, 1200, 100]]
+    ? [...[1024, 1280].flatMap(width => [100, 125, 150].map(scale => [width, 450, scale])), [1280, 1200, 100],
+      ...(process.env.STRESS_LONG_TITLE === '1' ? [125, 150].map(scale => [375, 812, scale]) : [])]
     : [[1280, 800], [1024, 768], [1280, 600], [820, 1100], [768, 1024], [390, 844], [375, 667], [430, 932], [320, 568], [667, 375]];
   for (const [width, height, scale = 100] of viewports) {
     // Cover both UI languages without multiplying the entire viewport matrix.
@@ -479,6 +686,7 @@ try {
       hasTouch: width < 768, serviceWorkers: 'block', locale });
     await page.route("**/*", route => new URL(route.request().url()).origin === new URL(base).origin
       ? route.continue() : route.abort());
+    if (width < 768) await installPhoneRecorders(page);
     const errors = [];
     page.on("pageerror", error => errors.push(error.message));
     await page.goto(base + "shelf");
@@ -524,7 +732,8 @@ try {
     assert.equal(await page.locator('html').getAttribute('lang'), locale === 'zh-CN' ? 'zh-CN' : 'en',
       `${width}x${height}: expected UI language is applied`);
     if (stress) {
-      await stressRegression(page, width, height, scale);
+      if (width < 768) await mobileHeaderStress(page, width, height, scale);
+      else await stressRegression(page, width, height, scale);
       assert.deepEqual(errors, []);
       await page.close();
       continue;
