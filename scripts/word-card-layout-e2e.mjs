@@ -3,6 +3,8 @@
 // plus a tall-window expand/shrink case. Add STRESS_LONG_TITLE=1 for the long phrase fixture.
 // The long-title run also probes 125/150% root fonts on a narrow phone.
 // WORD_CARD_VIEWPORT=phone (or e.g. 390x844) filters iteration only; default retains all 10 cases.
+// Fixed-position sparse-surface drags + reader layout-shift probes use 320x568 (zh) / 667x375 (en).
+// WORD_CARD_NO_LIST=1 also checks the empty-glossary notice on that isolated fixture pair.
 import assert from "node:assert/strict";
 import { chromium } from "playwright";
 
@@ -83,11 +85,60 @@ async function cardChrome(page, card) {
     const content = body.querySelector('[data-word-content]');
     const head = el.querySelector('[data-word-header]');
     const footer = el.querySelector('[data-word-footer]');
+    const primary = el.querySelector('[data-word-primary]');
     const box = node => {
       const r = node.getBoundingClientRect();
       return { x: r.x, y: r.y, width: r.width, height: r.height, bottom: r.bottom, right: r.right };
     };
+    // Measure the intersection actually exposed by the scrolling body, not the
+    // primary block's un-clipped natural box (especially on 320x568/667x375).
+    const clipped = (node, clip) => {
+      const r = node.getBoundingClientRect(), c = clip.getBoundingClientRect();
+      const x = Math.max(0, r.left, c.left), y = Math.max(0, r.top, c.top);
+      const right = Math.min(innerWidth, r.right, c.right), bottom = Math.min(innerHeight, r.bottom, c.bottom);
+      return { x, y, right, bottom, width: Math.max(0, right - x), height: Math.max(0, bottom - y) };
+    };
+    const exposed = clipped(primary, body);
+    const points = (r, target) => r.width > 0 && r.height > 0
+      ? [0.15, 0.5, 0.85].flatMap(fx => [0.25, 0.75].map(fy => {
+        const x = r.x + r.width * fx, y = r.y + r.height * fy;
+        const hit = document.elementFromPoint(x, y);
+        return { x, y, hit: !!hit && target.contains(hit), interactive: !!hit?.closest('a, button, input, textarea, select, summary, [role="button"], [data-word-footer]') };
+      })) : [];
+    const handle = el.querySelector('[data-sheet-handle]');
+    const handleBox = box(handle);
+    const cardBox = box(el), cardStyle = getComputedStyle(el);
+    // Overflow clipping follows the rounded card, whose rem radius grows under
+    // root-font stress. Derive each edge point from that curve, not a lucky hit
+    // search or a fixed 5px point outside the painted top corner at 150%.
+    const cornerInset = (radius, y) => {
+      const parts = radius.split(/\s+/);
+      const pixels = (value, size) => parseFloat(value) * (value.endsWith('%') ? size / 100 : 1);
+      const rx = pixels(parts[0], cardBox.width), ry = pixels(parts[1] ?? parts[0], cardBox.height);
+      const dy = y - cardBox.y;
+      if (!rx || !ry || dy >= ry) return 5;
+      const normalized = Math.max(0, Math.min(1, (ry - dy) / ry));
+      return rx * (1 - Math.sqrt(1 - normalized ** 2)) + 5;
+    };
+    const handlePoints = [0.25, 0.75].flatMap(fy => {
+      const y = handleBox.y + handleBox.height * fy;
+      return [
+        { edge: 'left', x: cardBox.x + cornerInset(cardStyle.borderTopLeftRadius, y) },
+        { edge: 'center', x: cardBox.x + cardBox.width / 2 },
+        { edge: 'right', x: cardBox.right - cornerInset(cardStyle.borderTopRightRadius, y) },
+      ].map(({ edge, x }) => {
+        const hit = document.elementFromPoint(x, y);
+        const inPadding = edge === 'center' || (edge === 'left'
+          ? x < cardBox.x + parseFloat(cardStyle.paddingLeft)
+          : x > cardBox.right - parseFloat(cardStyle.paddingRight));
+        return { edge, x, y, inPadding, hit: !!hit && handle.contains(hit) };
+      });
+    });
     return { tag: el.tagName, display: getComputedStyle(el).display, direction: getComputedStyle(el).flexDirection,
+      maxHeight: getComputedStyle(el).maxHeight, bodyMinHeight: getComputedStyle(body).minHeight,
+      primary: { ...box(primary), minHeight: getComputedStyle(primary).minHeight,
+        alignContent: getComputedStyle(primary).alignContent, exposed, points: points(exposed, primary),
+        first: box(primary.firstElementChild) },
       overflow: getComputedStyle(el).overflowY, bodyOverflow: getComputedStyle(body).overflowY,
       contentOverflow: getComputedStyle(content).overflowY, contentMaxHeight: getComputedStyle(content).maxHeight,
       contentScrollHeight: content.scrollHeight, contentClientHeight: content.clientHeight,
@@ -100,10 +151,7 @@ async function cardChrome(page, card) {
           columnGap: parseFloat(style.columnGap), scrollWidth: node.scrollWidth, clientWidth: node.clientWidth }];
       })),
       titleText: box(el.querySelector('h2')),
-      handle: (() => {
-        const node = el.querySelector('[data-sheet-handle]');
-        return { ...box(node), touchAction: getComputedStyle(node).touchAction };
-      })(),
+      handle: { ...handleBox, touchAction: getComputedStyle(handle).touchAction, points: handlePoints },
       scroll: [scrollX, scrollY, el.scrollTop, body.scrollTop],
       viewport: [innerWidth, innerHeight],
       controls: [...el.querySelectorAll('[data-lookup], [data-look-target], [data-panel-close], [data-word-actions] [data-speak], [data-word-save], [data-feedback-toggle], [data-feedback-options] button')].map(node => {
@@ -171,8 +219,30 @@ async function cardChrome(page, card) {
       'desktop actions follow metadata on the left, or wrap to the left edge');
   }
   if (state.viewport[0] < 768) {
-    assert.equal(state.handle.height, 24, 'phone dismissal handle is a dedicated 24px hit band');
+    assert.equal(state.handle.height, 44, 'phone dismissal handle is a dedicated 44px hit band');
+    assert.ok(Math.abs(state.handle.x - state.card.x) <= 1 && Math.abs(state.handle.right - state.card.right) <= 1,
+      'phone handle spans the full card width, including horizontal padding');
+    assert.ok(state.handle.points.every(point => point.inPadding), 'rounded-corner edge samples remain within left/right card padding');
+    assert.ok(state.handle.points.every(point => point.hit), 'left padding, center and right padding hit the handle at both vertical quarters');
     assert.equal(state.handle.touchAction, 'none', 'handle owns its touch gesture');
+    const minimum = state.viewport[1] <= 450 ? 64 : 96;
+    assert.equal(state.primary.minHeight, `${minimum}px`, 'first meaning block reserves a natural phone swipe surface');
+    assert.ok(state.primary.height >= minimum - 1, 'natural primary block is not shrunk to its clipped visible height');
+    assert.equal(state.primary.alignContent, 'start', 'extra primary space stays below the meaning instead of stretching grid rows');
+    assert.ok(Math.abs(state.primary.first.y - state.primary.y) <= 1, 'first meaning stays at the top of the primary surface');
+    assert.equal(state.bodyMinHeight, '0px', 'constrained body can shrink while persistent controls remain visible');
+    assert.ok(Math.abs(parseFloat(state.maxHeight) - state.viewport[1] * (state.viewport[1] <= 450 ? 0.92 : 0.8)) <= 1,
+      'plain and context phone sheets use the increased viewport height budget');
+    if (state.scroll[3] === 0) {
+      assert.ok(state.primary.exposed.height > 0 && state.primary.exposed.width > 0,
+        `primary has a real exposed clipped region: ${JSON.stringify(state.primary)}`);
+      assert.ok(state.primary.points.length === 6 && state.primary.points.every(point => point.hit && !point.interactive),
+        'predetermined primary positions hit noninteractive content without scrolling');
+      // A small phone may show less than the natural 96/64px after header/footer
+      // budgeting. Assert the intersection, never pretend all of that minimum is visible.
+      assert.ok(Math.abs(state.primary.exposed.height - Math.min(state.primary.height, state.body.height)) <= 1,
+        'reported primary exposure is clipped to the available body');
+    }
     assert.ok(state.handle.bottom <= head.y + 1, 'handle does not cover title or buttons');
     for (const button of buttons) assert.ok(button.width >= 44 && button.height >= 44,
       `${button.name} has a minimum 44x44px phone target: ${JSON.stringify(button)}`);
@@ -611,15 +681,25 @@ async function phraseWordAvailability(page, card) {
   await page.locator('article [data-word="odds"]').first().waitFor();
   await page.keyboard.press('Escape');
   const savedWords = () => page.evaluate(() => JSON.parse(localStorage.getItem('cibian-notebook-v1')).state.words);
+  const gestures = surfaceViewport(page) ? await phoneGestures(page, page.viewportSize().width, page.viewportSize().height) : null;
+  let stability;
+  try {
   for (const test of cases) {
     const anchor = page.locator(`article [data-word="${test.word}"] .book-tap`).nth(test.index);
     await position(page, anchor, 120);
+    // Unknown phrase/word is the shortest switched surface and gets the full
+    // open/mode/drag/snap-back/close reader stability run in both UI languages.
+    stability = gestures && test.word === 'quuxstone' ? await readerStability(page) : null;
     await coordinateTap(page, anchor);
     await card.locator('[data-part="phrase-meaning"]').waitFor();
     await card.evaluate(el => Promise.all(el.getAnimations().map(a => a.finished.catch(() => {}))));
     await settle(page);
     const save = card.locator('[data-word-save]');
     const phraseMeaning = `Synthetic phrase meaning for ${test.phrase}.`;
+    if (stability) {
+      await stability.check('unknown phrase open');
+      await surfaceDrag(page, card, gestures, 0, 'unknown phrase fixed primary position', stability);
+    }
     await lookupTarget(card, 'phrase');
     assert.equal(await card.locator('h2').innerText(), test.phrase);
     assert.equal(await card.locator('[data-part="phrase-meaning"]').innerText(), phraseMeaning);
@@ -657,8 +737,13 @@ async function phraseWordAvailability(page, card) {
       assert.deepEqual(await page.evaluate(() => [scrollX, scrollY]), scroll);
       assert.deepEqual(await phoneEffects(page), effects);
       await cardChrome(page, card);
+      if (stability) await stability.check(`unknown switched to ${mode}`);
     };
     await switchMode('word');
+    if (gestures && (test.word !== 'fragile' || test.status === 'ready')) {
+      const slot = test.word === 'quuxstone' ? 2 : test.word === 'doctor' ? 0 : 1;
+      await surfaceDrag(page, card, gestures, slot, `${test.status} phrase-to-word fixed primary position`, stability);
+    }
     assert.equal(await card.locator('h2').innerText(), test.word);
     await links(card, test.word);
     assert.equal(await card.locator('[data-part="phrase-meaning"]').count(), 0);
@@ -678,11 +763,22 @@ async function phraseWordAvailability(page, card) {
       assert.ok((await savedWords()).some(word => word.lemma === test.phrase), 'removing constituent word retains phrase');
     } else assert.ok(!(await savedWords()).some(word => word.lemma === test.word));
     await switchMode('phrase');
+    if (stability) await surfaceDrag(page, card, gestures, 1, 'unknown word-to-phrase fixed primary position', stability);
     assert.equal(await save.isEnabled(), true);
     assert.equal(await save.getAttribute('aria-pressed'), 'true', 'phrase remains independently saved');
     await coordinateTap(page, save);
     await coordinateTap(page, card.locator('[data-panel-close]'));
     await card.waitFor({ state: 'detached' });
+    await settle(page);
+    if (stability) {
+      await stability.check('unknown phrase close');
+      await stability.stop();
+      stability = null;
+    }
+  }
+  } finally {
+    if (stability) await stability.stop();
+    if (gestures) await gestures.detach();
   }
 }
 async function expandDisclosure(page, card, part, text) {
@@ -782,7 +878,62 @@ async function phoneEffects(page) {
       words: taps.map(tap => [tap.word, tap.count]) };
   });
 }
-async function phoneRegression(page, width, height) {
+// Independent reader geometry is stronger than CLS alone: recent-input shifts
+// may be excluded from CLS, while this fixture must not move at all during a drag.
+async function readerStability(page) {
+  await page.evaluate(() => {
+    const article = document.querySelector('article');
+    const rect = node => {
+      const r = node.getBoundingClientRect();
+      return [r.x, r.y, r.width, r.height];
+    };
+    const nodes = [article, ...[9, 10, 11].map(i => article.querySelectorAll('p')[i]),
+      ...['odds', 'quuxstone', 'fragile'].map(word => article.querySelectorAll(`[data-word="${word}"]`)[10])];
+    if (nodes.some(node => !node)) throw new Error('Synthetic reader stability anchors are missing');
+    const shifts = [];
+    const collect = entries => {
+      for (const entry of entries) {
+        // Keep only text-bearing reader sources; overlay animation is not reader
+        // layout. Include hadRecentInput entries instead of relying on CLS rules.
+        const sources = (entry.sources ?? []).filter(source => source.node && article.contains(source.node)
+          && (source.node.nodeType === Node.TEXT_NODE || source.node.textContent?.trim()));
+        if (sources.length) shifts.push({ value: entry.value, hadRecentInput: entry.hadRecentInput,
+          sources: sources.map(source => ({ text: source.node.textContent.slice(0, 80),
+            before: [source.previousRect.x, source.previousRect.y, source.previousRect.width, source.previousRect.height],
+            after: [source.currentRect.x, source.currentRect.y, source.currentRect.width, source.currentRect.height] })) });
+      }
+    };
+    let observer;
+    if (typeof PerformanceObserver !== 'undefined' && PerformanceObserver.supportedEntryTypes?.includes('layout-shift')) {
+      observer = new PerformanceObserver(list => collect(list.getEntries()));
+      observer.observe({ type: 'layout-shift', buffered: false });
+    }
+    window.__wordCardReaderProbe = {
+      snapshot() {
+        if (observer) collect(observer.takeRecords());
+        const root = document.documentElement, body = document.body;
+        return { boxes: nodes.map(rect), fragments: nodes.slice(-3).map(node => [...node.getClientRects()].map(r => [r.x, r.y, r.width, r.height])),
+          window: [scrollX, scrollY, innerWidth, innerHeight],
+          visual: visualViewport ? [visualViewport.offsetLeft, visualViewport.offsetTop, visualViewport.width, visualViewport.height, visualViewport.scale] : null,
+          document: [root.clientWidth, root.clientHeight, root.scrollWidth, root.scrollHeight, root.scrollLeft, root.scrollTop,
+            body.clientWidth, body.clientHeight, body.scrollWidth, body.scrollHeight, body.scrollLeft, body.scrollTop], shifts: [...shifts] };
+      },
+      stop() { observer?.disconnect(); },
+    };
+  });
+  const baseline = await page.evaluate(() => window.__wordCardReaderProbe.snapshot());
+  return {
+    async check(label) {
+      const state = await page.evaluate(() => window.__wordCardReaderProbe.snapshot());
+      assert.deepEqual(state.shifts, [], `${label}: no text-bearing reader layout-shift sources`);
+      assert.deepEqual(state, baseline, `${label}: article, paragraphs, word fragments, window and document geometry stay fixed`);
+    },
+    async stop() {
+      await page.evaluate(() => { window.__wordCardReaderProbe.stop(); delete window.__wordCardReaderProbe; });
+    },
+  };
+}
+async function phoneGestures(page, width, height) {
   const card = page.locator('[data-word-card]');
   const body = card.locator('[data-word-body]');
   const cdp = await page.context().newCDPSession(page);
@@ -791,7 +942,9 @@ async function phoneRegression(page, width, height) {
   // Observe trusted events without cancelling them ourselves. A deferred task
   // reads defaultPrevented after propagation (microtasks can run BETWEEN native
   // listeners, before the production handler has had its turn).
-  await page.evaluate(() => {
+  const observe = () => page.evaluate(() => {
+    if (window.__sheetGestureObserver) return;
+    window.__sheetGestureObserver = true;
     window.__sheetGestureEvents = [];
     for (const type of ['touchstart', 'touchmove', 'touchend', 'touchcancel', 'pointercancel']) {
       document.addEventListener(type, event => {
@@ -803,6 +956,7 @@ async function phoneRegression(page, width, height) {
       }, { capture: true, passive: true });
     }
   });
+  await observe();
   let lastGesture;
   const diagnostics = () => JSON.stringify(lastGesture);
   const touch = (type, x, y, multi = false) => cdp.send('Input.dispatchTouchEvent', {
@@ -820,7 +974,8 @@ async function phoneRegression(page, width, height) {
     return null;
   }, { dy, excluded });
   const drag = async (dy, { target = body, origin, end = 'touchEnd', dx = 0, multi = false,
-    secondFinger = false, returnToOrigin = false, expected = 'still', label = 'gesture' } = {}) => {
+    secondFinger = false, returnToOrigin = false, expected = 'still', label = 'gesture', stability } = {}) => {
+    await observe(); // Reinstall after the optional noList fixture reload.
     origin ??= await safeOrigin(target, dy);
     assert.ok(origin, `${label}: a noninteractive real hit origin is exposed`);
     const { x, y } = origin;
@@ -844,6 +999,7 @@ async function phoneRegression(page, width, height) {
         scrollTop: el.querySelector('[data-word-body]').scrollTop,
       }));
       lastGesture.samples.push({ stage, ...state });
+      if (stability) await stability.check(`${label} ${stage}`);
       return state.translation;
     };
     try {
@@ -881,6 +1037,7 @@ async function phoneRegression(page, width, height) {
       // Dismissal uses a 160ms timer and snap-back a 180ms transition.
       await page.waitForTimeout(260);
       lastGesture.events = await page.evaluate(() => window.__sheetGestureEvents);
+      if (stability) await stability.check(`${label} released/snap-back`);
     }
   };
   const remains = async label => {
@@ -902,6 +1059,188 @@ async function phoneRegression(page, width, height) {
     await settle(page);
     return cardChrome(page, card);
   };
+  return { drag, remains, dismissed, open, diagnostics, detach: () => cdp.detach() };
+}
+// Keep slow trusted additions to the narrow portrait + short landscape pair;
+// these cover both languages while the complete matrix still runs all old guards.
+const surfaceViewport = page => [320, 667].includes(page.viewportSize().width);
+async function surfaceDrag(page, card, gestures, slot, label, stability) {
+  const state = await cardChrome(page, card);
+  assert.equal(state.scroll[3], 0, `${label}: surface is measured at body scroll zero`);
+  const r = state.primary.exposed;
+  // Predetermined, not a search for whichever lone pixel happens to work.
+  const [fx, fy] = [[0.15, 0.25], [0.5, 0.5], [0.85, 0.75]][slot % 3];
+  const origin = { x: r.x + r.width * fx, y: r.y + r.height * fy };
+  assert.ok(r.width > 0 && r.height > 0 && state.primary.points.every(point => point.hit && !point.interactive),
+    `${label}: actual clipped primary surface is exposed at multiple fixed positions`);
+  const effects = await phoneEffects(page);
+  await gestures.drag(40, { target: card.locator('[data-word-primary]'), origin, expected: 'pull', label, stability });
+  await gestures.remains(label);
+  const after = await cardChrome(page, card);
+  assert.deepEqual(after.scroll, state.scroll, `${label}: no reader, sheet or body scrolling after snap-back`);
+  assert.deepEqual(after.head, state.head, `${label}: header returns to its exact box`);
+  assert.deepEqual(after.footer, state.footer, `${label}: footer controls retain their exact box`);
+  assert.deepEqual(await phoneEffects(page), effects, `${label}: no pronunciation or word-tap telemetry`);
+  return state;
+}
+async function phoneSurfaceRegression(page, width, height) {
+  const card = page.locator('[data-word-card]');
+  const gestures = await phoneGestures(page, width, height);
+  const close = async () => {
+    await coordinateTap(page, card.locator('[data-panel-close]'));
+    await card.waitFor({ state: 'detached' });
+    await settle(page);
+  };
+  try {
+    for (const [slot, word] of ['quuxstone', 'doctor', 'fragile'].entries()) {
+      const anchor = page.locator(`article [data-word="${word}"] .book-tap`).nth(10);
+      await position(page, anchor, 120);
+      // Capture before open, not after the overlay has already had a chance to
+      // shift the reader. Do not reposition the page until this probe is stopped.
+      const stability = await readerStability(page);
+      try {
+        await coordinateTap(page, anchor);
+        await card.waitFor({ state: 'visible' });
+        await card.evaluate(el => Promise.all(el.getAnimations().map(a => a.finished.catch(() => {}))));
+        await settle(page);
+        await stability.check(`${word} open`);
+        assert.equal(await card.locator('h2').innerText(), word);
+        await collapsedDetails(card, false);
+        assert.equal(await card.locator('[data-look-target-group]').count(), 0, 'plain sparse fixtures have no phrase switch');
+        assert.equal(await card.locator('[data-part="word-here"]').count(), 0, 'sparse surface has no contextual filler');
+        if (word === 'quuxstone') {
+          assert.equal(await card.locator('[data-part="no-meaning"]').count(), 1);
+          assert.equal(await card.locator('[data-word-save]').isEnabled(), false, 'unknown save stays gated');
+          assert.equal(await card.locator('[data-feedback-toggle]').count(), 0);
+        }
+        if (word === 'doctor') assert.ok((await card.locator('[data-word-pos]').innerText()).trim(), 'easy status is exposed');
+        if (word === 'fragile') assert.equal(await card.locator('[data-part="word-meaning"]').innerText(), fixture.sparseMeaning);
+        if (word !== 'quuxstone') assert.equal(await card.locator('[data-word-save]').isEnabled(), true);
+        const effects = await phoneEffects(page);
+        await surfaceDrag(page, card, gestures, slot, `${word} fixed primary position`, stability);
+        // Every sparse status gets a second fixed origin, never safeOrigin's
+        // first lucky noninteractive point in an otherwise occluded surface.
+        await surfaceDrag(page, card, gestures, (slot + 2) % 3, `${word} second fixed primary position`, stability);
+        assert.deepEqual(await phoneEffects(page), effects, 'surface gestures add no audio or word telemetry');
+        await close();
+        await stability.check(`${word} close`);
+      } finally { await stability.stop(); }
+    }
+    // Release beyond threshold from a fixed primary point too: a snap-back alone
+    // cannot prove the sparse body can actually dismiss rather than just animate.
+    const unknown = await gestures.open('quuxstone');
+    const exposed = unknown.primary.exposed;
+    await gestures.drag(100, { target: card.locator('[data-word-primary]'),
+      origin: { x: exposed.x + exposed.width * 0.5, y: exposed.y + exposed.height * 0.25 },
+      expected: 'pull', label: 'unknown fixed primary dismissal' });
+    await gestures.dismissed('unknown fixed primary dismissal');
+    // Exercise both padding ends, not merely the visible center grip. Geometry
+    // above already probes six positions including the full 44px band.
+    for (const side of ['left', 'right']) {
+      const state = await gestures.open('quuxstone');
+      const origin = { x: side === 'left' ? state.card.x + 5 : state.card.right - 5,
+        y: state.handle.y + state.handle.height * (side === 'left' ? 0.25 : 0.75) };
+      const effects = await phoneEffects(page);
+      await gestures.drag(100, { target: card.locator('[data-sheet-handle]'), origin, expected: 'pull',
+        label: `unknown full-width handle ${side} padding dismissal` });
+      await gestures.dismissed(`unknown ${side} padding`);
+      assert.deepEqual(await phoneEffects(page), effects, 'handle dismissal adds no audio or word telemetry');
+    }
+    if (process.env.WORD_CARD_NO_LIST === '1') {
+      // loadStoredBook overlays books.glossary with notes[`gloss:${id}`]. A
+      // prior shelf load may already have migrated that metadata; clearing only
+      // the legacy book field therefore does not produce a no-list reader.
+      // Save/restore both exact fixture records (including metadata absence).
+      // extras is deliberately untouched: it has reader notes, not this list.
+      const originalList = await page.evaluate(async () => {
+        const id = 'word-card-layout-regression', key = `gloss:${id}`;
+        const db = await new Promise((resolve, reject) => {
+          const open = indexedDB.open('cibian-books', 3);
+          open.onsuccess = () => resolve(open.result); open.onerror = () => reject(open.error);
+        });
+        const original = {};
+        try {
+          await new Promise((resolve, reject) => {
+            const tx = db.transaction(['books', 'notes'], 'readwrite');
+            const books = tx.objectStore('books'), notes = tx.objectStore('notes');
+            const book = books.get(id), meta = notes.get(key);
+            let bookReady = false, metaReady = false;
+            const replace = () => {
+              if (!bookReady || !metaReady) return;
+              if (!original.book) { tx.abort(); return; }
+              const empty = { glossary: {}, pending: [], totalHard: 0 };
+              books.put({ ...original.book, ...empty }, id);
+              notes.put({ ...(original.hasMeta ? original.meta : {
+                id, title: original.book.title, author: original.book.author,
+              }), ...empty }, key);
+            };
+            book.onsuccess = () => { original.book = book.result; bookReady = true; replace(); };
+            meta.onsuccess = () => {
+              original.hasMeta = meta.result !== undefined;
+              original.meta = meta.result ?? null;
+              metaReady = true; replace();
+            };
+            tx.oncomplete = resolve;
+            tx.onerror = () => reject(tx.error);
+            tx.onabort = () => reject(tx.error ?? new Error('Missing synthetic noList book'));
+          });
+          return original;
+        } finally { db.close(); }
+      });
+      try {
+        await page.reload();
+        await page.locator('article [data-word="quuxstone"]').first().waitFor();
+        // Reload brings back the saved-position ResizeObserver hold and reloads
+        // reader fonts. Let fonts/layout finish first, then release that hold,
+        // exactly as initial phone setup does, before manual fixture positioning.
+        // Otherwise opening the overlay can deliver a late body resize and move
+        // the reader to the saved position during the first measured gesture.
+        await page.evaluate(() => document.fonts.ready);
+        await settle(page);
+        await page.keyboard.press('Escape');
+        await settle(page);
+        await gestures.open('quuxstone');
+        const notice = card.locator('[data-part="no-meaning"] > span');
+        assert.equal(await notice.count(), 1, 'noList notice accompanies unknown status');
+        assert.ok((await notice.innerText()).trim(), 'noList notice is localized and nonempty');
+        await surfaceDrag(page, card, gestures, 1, 'noList fixed primary position');
+        await close();
+      } finally {
+        await page.evaluate(async original => {
+          const id = 'word-card-layout-regression', key = `gloss:${id}`;
+          const db = await new Promise((resolve, reject) => {
+            const open = indexedDB.open('cibian-books', 3);
+            open.onsuccess = () => resolve(open.result); open.onerror = () => reject(open.error);
+          });
+          try {
+            await new Promise((resolve, reject) => {
+              const tx = db.transaction(['books', 'notes'], 'readwrite');
+              tx.objectStore('books').put(original.book, id);
+              if (original.hasMeta) tx.objectStore('notes').put(original.meta, key);
+              else tx.objectStore('notes').delete(key);
+              tx.oncomplete = resolve;
+              tx.onerror = () => reject(tx.error);
+              tx.onabort = () => reject(tx.error ?? new Error('Synthetic noList restore aborted'));
+            });
+          } finally { db.close(); }
+        }, originalList);
+        await page.reload();
+        await page.locator('article [data-word="odds"]').first().waitFor();
+        await page.evaluate(() => document.fonts.ready);
+        await settle(page);
+        await page.keyboard.press('Escape');
+        await settle(page);
+      }
+    }
+  } finally { await gestures.detach(); }
+  console.log(`PASS ${width}x${height}: sparse/easy/unknown clipped primary geometry, fixed-position trusted drags, full-width handle padding, synthetic reader layout stability${process.env.WORD_CARD_NO_LIST === '1' ? ', noList' : ''}`);
+}
+async function phoneRegression(page, width, height) {
+  const card = page.locator('[data-word-card]');
+  const body = card.locator('[data-word-body]');
+  const handle = card.locator('[data-sheet-handle]');
+  const gestures = await phoneGestures(page, width, height);
+  const { drag, remains, dismissed, open, diagnostics } = gestures;
   assert.deepEqual(await page.evaluate(() => [matchMedia('(pointer: coarse)').matches, navigator.maxTouchPoints > 0]),
     [true, true], 'phone context really has mobile touch input');
   let initial = await open('odds');
@@ -1132,7 +1471,7 @@ async function phoneRegression(page, width, height) {
   if (width === 430) {
     await feedbackTargets(page, card, () => open('odds'));
   }
-  await cdp.detach();
+  await gestures.detach();
   console.log(`PASS ${width}x${height}: trusted slow-start mobile touch, persistent hit-testable chrome, body-only native scrolling, sentence explanation, close-only word taps then separate reopen, long title, natural title/body/padding/handle dismissal, start-time body/title/meta scroll locks, short/return/cancel/horizontal/multitouch/button/footer exclusions`);
 }
 async function mobileHeaderStress(page, width, height, scale) {
@@ -1414,6 +1753,7 @@ try {
       await page.evaluate(() => document.fonts.ready);
       await page.keyboard.press('Escape'); // Release initial saved-position hold before positioning the fixture.
       await phoneRegression(page, width, height);
+      if (surfaceViewport(page)) await phoneSurfaceRegression(page, width, height);
       await savedTargetsAndVariants(page, width, height);
       assert.deepEqual(errors, []);
       await page.close();

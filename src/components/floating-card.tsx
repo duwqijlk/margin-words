@@ -241,6 +241,8 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
       };
       const begin = (x: number, y: number, target: EventTarget | null) => {
         clearTimer();
+        // Only suppress the drag's trailing click, never a new deliberate press.
+        suppressClick = false;
         const origin = target instanceof Element ? target : null;
         const selection = window.getSelection();
         if (

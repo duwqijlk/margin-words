@@ -590,24 +590,23 @@
       padding-bottom: 1.25rem;
       padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
     }
-    [data-word-card].word-sheet-plain {
-      max-height: 60vh;
-      max-height: 60dvh;
-    }
+    /* Sparse words need the same available swipe surface as a phrase. */
+    [data-word-card].word-sheet-plain,
     [data-word-card].word-sheet-context {
-      max-height: 72vh;
-      max-height: 72dvh;
-    }
-    /* The target selector is persistent chrome; leave room for a scrollable meaning too. */
-    [data-word-card].word-sheet-target {
       max-height: 80vh;
       max-height: 80dvh;
+    }
+    [data-word-card] [data-word-primary] {
+      min-height: 96px;
+      align-content: start;
     }
     [data-word-card] [data-sheet-handle] {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 24px;
+      height: 44px;
+      margin-left: -1.25rem;
+      margin-right: -1.25rem;
       touch-action: none;
       user-select: none;
     }
@@ -633,6 +632,9 @@
     [data-word-card].word-sheet-context {
       max-height: 92vh;
       max-height: 92dvh;
+    }
+    [data-word-card] [data-word-primary] {
+      min-height: 64px;
     }
     [data-word-card] [data-word-body] {
       margin-top: 8px;

@@ -360,7 +360,6 @@ export function WordCard({
       className={cn(
         "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
         targetHere ? "word-sheet-context" : "word-sheet-plain",
-        phrase && "word-sheet-target",
         "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3.5 pb-5 md:pb-6",
         SIDE_PANEL,
       )}
@@ -478,7 +477,7 @@ export function WordCard({
       </div>
       <div ref={bodyRef} className="scroll-thin my-3.5" data-word-body>
         <div className="grid gap-3.5" data-word-content>
-          <div className="grid gap-2">
+          <div className="grid gap-2" data-word-primary>
             {activePhrase ? (
               <p
                 className="border-l-[3px] border-accent pl-3 text-[1.25rem] leading-snug font-medium text-ink"
