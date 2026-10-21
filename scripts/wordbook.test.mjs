@@ -224,6 +224,37 @@ test("a phrase card stores the phrase, not the easy word that was tapped", () =>
   assert.equal(word.surface, "in");
 });
 
+test("a selected phrase and its inflected word coexist and keep independent sources and schedules", () => {
+  const word = { surface: "tuning", key: "tune", pos: "verb", meaning: "To adjust a musical instrument." };
+  const phrase = { key: "tune in", matched: "tuning in", pos: "idiom", meaning: "To watch or listen from another place." };
+  const phraseSave = savedFromCard(word, phrase);
+  const wordSave = savedFromCard(word, null);
+  const sentence = "They were tuning in from home.";
+  const reviewed = applyReview(old("a1", wordSave.lemma, wordSave), true, 5000);
+  const list = migrateWords([
+    old("a1", phraseSave.lemma, { ...phraseSave, sentence }),
+    { ...reviewed, sentence },
+    old("p1", wordSave.lemma, { ...wordSave, sentence: "They were tuning the piano." }),
+  ], [alice, peter]);
+  assert.deepEqual(list.map((entry) => entry.lemma).sort(), ["tune", "tune in"]);
+  const savedPhrase = list.find((entry) => entry.lemma === "tune in");
+  const savedWord = list.find((entry) => entry.lemma === "tune");
+  assert.equal(savedPhrase.surface, "tuning in");
+  assert.equal(savedWord.surface, "tuning");
+  assert.equal(savedPhrase.meaning, phrase.meaning);
+  assert.equal(savedWord.meaning, word.meaning);
+  assert.equal(savedWord.stage, reviewed.stage);
+  assert.equal(savedWord.dueAt, reviewed.dueAt);
+  assert.equal(savedWord.reps, reviewed.reps);
+  assert.equal(withoutBook(savedPhrase, keyA), null);
+  assert.deepEqual(savedWord.sources.map((place) => place.book).sort(), [keyA, keyP].sort());
+  const remainingWord = withoutBook(savedWord, keyA);
+  assert.deepEqual(remainingWord.sources.map((place) => place.book), [keyP]);
+  assert.equal(remainingWord.stage, reviewed.stage);
+  assert.equal(remainingWord.dueAt, reviewed.dueAt);
+  assert.equal(savedPhrase.sources.length, 1, "removing a word source does not change the phrase");
+});
+
 test("a saved phrase stays a phrase when the sentence only contains the written form", () => {
   const sentence = "And we've got students tuning in from all across America.";
   const card = {

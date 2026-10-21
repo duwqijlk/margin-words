@@ -62,6 +62,41 @@ test("prepared meanings update only matching placeholders and persist once", () 
   assert.equal(writes.length, 1);
 });
 
+test("phrase and word saves persist independently without resetting an existing review schedule", () => {
+  reset([]);
+  const book = bookSyncKey(home);
+  const sentence = "They were tuning in from home.";
+  const save = (lemma, surface, phrase) => useVocab.getState().saveWord({
+    lemma, surface, pos: phrase ? "idiom" : "verb", meaning: "", whyHard: "", recommend: true, sentence,
+  }, { book, title: home.title, author: home.author, sentence, surface, savedAt: 100,
+    ref: phrase ? { list: "test-list", phrase: true } : { list: "test-list", chapter: 0, occurrence: 1 } });
+  save("tune in", "tuning in", true);
+  save("tune", "tuning", false);
+  assert.deepEqual(useVocab.getState().words.map((entry) => entry.lemma).sort(), ["tune", "tune in"]);
+  assert.equal(writes.length, 2);
+  assert.equal(globalThis.__noteWrites.length, 2);
+  const phrase = useVocab.getState().words.find((entry) => entry.lemma === "tune in");
+  const word = useVocab.getState().words.find((entry) => entry.lemma === "tune");
+  assert.equal(phrase.sources[0].ref.phrase, true);
+  assert.equal(word.sources[0].ref.phrase, undefined);
+  useVocab.setState({ words: [phrase, { ...word, stage: 3, reps: 6, dueAt: 12345 }] });
+  save("tune", "tuning", false);
+  const reviewed = useVocab.getState().words.find((entry) => entry.lemma === "tune");
+  assert.equal(reviewed.id, word.id);
+  assert.equal(reviewed.stage, 3);
+  assert.equal(reviewed.reps, 6);
+  assert.equal(reviewed.dueAt, 12345);
+  useVocab.getState().removeWordFromBook(book, "tune in");
+  assert.deepEqual(useVocab.getState().words.map((entry) => entry.lemma), ["tune"]);
+  assert.equal(useVocab.getState().words[0].dueAt, 12345);
+  save("tune in", "tuning in", true);
+  useVocab.getState().removeWordFromBook(book, "tune");
+  assert.deepEqual(useVocab.getState().words.map((entry) => entry.lemma), ["tune in"]);
+  const stored = JSON.parse(writes.at(-1)[1]);
+  assert.deepEqual(stored.state.words.map((entry) => entry.lemma), ["tune in"]);
+  assert.deepEqual(globalThis.__noteWrites.at(-1).map((entry) => entry.lemma), ["tune in"]);
+});
+
 test("unchanged placeholder and another book's sources do not trigger writes", () => {
   const foreign = { ...word(), sources: [{ book: "another-book" }] };
   reset([word(), foreign]);

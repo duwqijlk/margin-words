@@ -170,7 +170,10 @@ export function ReaderScreen({
   const [navigationRevision, setNavigationRevision] = useState(0);
   const [scrolled, setScrolled] = useState(0);
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
+  const selectionSequence = useRef(0);
   const [picked, setPicked] = useState<{
+    selectionId: number;
+    targetMode: "phrase" | "word";
     surface: string;
     paragraph: string;
     index: string;
@@ -1103,7 +1106,7 @@ export function ReaderScreen({
   const pickedSentence = located?.text ?? "";
   const phraseOffset = located?.offset ?? -1;
   const phraseAt = picked
-    ? `${picked.index}|${picked.surface}|${pickedSentence}|${phraseOffset}`
+    ? `${bookId}|${safeIndex}|${extraId}|${picked.selectionId}|${picked.index}|${picked.surface}|${pickedSentence}|${phraseOffset}`
     : "";
   useEffect(() => {
     // Phrase notes are anchored to this book's chapters. An extra (often the next
@@ -1212,6 +1215,8 @@ export function ReaderScreen({
     setPhrasePending(!activeExtra);
     setAnchor(button instanceof HTMLElement ? button : null);
     setPicked({
+      selectionId: ++selectionSequence.current,
+      targetMode: "phrase",
       surface,
       paragraph,
       index: button.getAttribute("data-i") ?? "",
@@ -1375,6 +1380,7 @@ export function ReaderScreen({
 
   const card = picked ? cardFor(picked) : null;
   const shownPhrase = phraseHit && phraseHit.at === phraseAt ? phraseHit.hit : null;
+  const activePhrase = picked?.targetMode === "phrase" ? shownPhrase : null;
   const saveAs = savedFromCard(
     {
       surface: picked?.surface ?? "",
@@ -1382,18 +1388,18 @@ export function ReaderScreen({
       pos: card?.pos ?? "",
       meaning: card?.meaning ?? "",
     },
-    shownPhrase
+    activePhrase
       ? {
-          key: shownPhrase.key,
-          matched: shownPhrase.matched,
-          pos: shownPhrase.entry.pos,
-          meaning: shownPhrase.entry.meaning,
+          key: activePhrase.key,
+          matched: activePhrase.matched,
+          pos: activePhrase.entry.pos,
+          meaning: activePhrase.entry.meaning,
         }
       : null,
   );
   const alreadySaved = saveAs.lemma
     ? savedKeys.has(saveAs.lemma.toLowerCase()) &&
-      (shownPhrase != null || !(marked.sparse.has(pickedKey) && card?.status !== "ready"))
+      (activePhrase != null || !(marked.sparse.has(pickedKey) && card?.status !== "ready"))
     : false;
   const noList = Object.keys(book.glossary).length === 0;
   const fraction = overallProgress({
@@ -1623,7 +1629,15 @@ export function ReaderScreen({
           stat={currentStat}
           saved={!phrasePending && alreadySaved}
           phrase={shownPhrase}
-          canSave={!phrasePending && (card.ready || shownPhrase != null)}
+          selectionId={picked?.selectionId ?? 0}
+          targetMode={activePhrase ? "phrase" : "word"}
+          onTargetChange={(targetMode) => {
+            const selectionId = picked?.selectionId;
+            setPicked((current) => current && current.selectionId === selectionId
+              ? { ...current, targetMode }
+              : current);
+          }}
+          canSave={!phrasePending && (card.ready || activePhrase != null)}
           bookId={bookId}
           bookTitle={book?.title}
           noList={noList}
@@ -1633,7 +1647,7 @@ export function ReaderScreen({
           onClose={closeWordCard}
           onToggle={() => {
             if (!picked || !shelfBook || phrasePending) return;
-            if (!shownPhrase && !card.ready) return;
+            if (!activePhrase && !card.ready) return;
             if (alreadySaved) {
               removeWordFromBook(bookKey, saveAs.lemma);
               return;
@@ -1641,7 +1655,7 @@ export function ReaderScreen({
             const listId = book?.bundled || listSource;
             const gloss =
               book?.glossary[saveAs.lemma] ?? book?.glossary[saveAs.lemma.toLowerCase()];
-            const ref = shownPhrase
+            const ref = activePhrase
               ? phrasePoint(listId)
               : gloss
                 ? pointFromEntry(listId, saveAs.lemma, gloss, {

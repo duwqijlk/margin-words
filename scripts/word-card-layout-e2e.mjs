@@ -14,6 +14,17 @@ const stressFailures = [];
 const phrase = stress && process.env.STRESS_LONG_TITLE === '1'
   ? 'against all odds and despite every possible obstacle' : 'against all odds';
 const longWord = 'pneumonoultramicroscopicsilicovolcanoconiosis';
+const fixture = {
+  phraseMeaning: 'Despite many serious difficulties and very little chance of success, continuing to try until an unexpected result becomes possible through patience, determination, and help from others.',
+  phraseHere: 'The seller keeps carrying the lanterns toward the village even though the flooded streets, rising river, and approaching darkness all make a safe arrival seem almost impossible.',
+  phraseExample: `They finished the journey ${phrase}.`,
+  wordMeaning: 'The chances that something will happen, especially when several difficulties make the hoped-for result seem very unlikely.',
+  wordHere: 'The seller has very little chance of reaching the village safely.',
+  wordWhy: 'An abstract plural noun used in a fixed expression.',
+  wordExample: 'The odds of finding a blue lantern were small.',
+  otherMeaning: 'A comparison between amounts paid on a bet.',
+  sparseMeaning: 'Easily broken or damaged.',
+};
 const browser = await chromium.launch({
   executablePath: process.env.CHROME || "C:/Program Files/Google/Chrome/Application/chrome.exe",
 });
@@ -62,6 +73,11 @@ async function metrics(card) {
 }
 // No locator.click()/tap() on lookup controls: those auto-scroll and can hide this regression.
 async function cardChrome(page, card) {
+  // A preceding real tap may still be finishing active:scale-95's 150ms return.
+  // Measure stable geometry, not a transient 43.87px projection of a 44px button.
+  await card.evaluate(el => Promise.all(el.getAnimations({ subtree: true }).filter(animation =>
+    animation.playState !== 'finished' && animation.effect?.getComputedTiming().iterations !== Infinity)
+    .map(animation => animation.finished.catch(() => {}))));
   const state = await card.evaluate(el => {
     const body = el.querySelector('[data-word-body]');
     const content = body.querySelector('[data-word-content]');
@@ -114,12 +130,14 @@ async function cardChrome(page, card) {
   }
   for (const [name, box] of [['header', state.head], ['body', state.body], ['footer', state.footer]]) {
     assert.ok(box.height > 0 && box.y >= state.card.y - 1 && box.bottom <= state.card.bottom + 1,
-      `${name} fits inside sheet`);
+      `${name} fits inside sheet: ${JSON.stringify({ box, card: state.card, header: state.head, footer: state.footer })}`);
     assert.ok(box.y >= 0 && box.bottom <= state.viewport[1] + 1, `${name} is in viewport`);
   }
   assert.ok(state.head.bottom <= state.body.y + 1 && state.body.bottom <= state.footer.y + 1,
     'scrolling body does not overlap persistent header/footer');
   for (const control of state.controls) {
+    if (['word', 'phrase'].includes(control.name)) assert.ok(control.y >= state.head.y - 1 && control.bottom <= state.head.bottom + 1,
+      `${control.name} toggle remains inside persistent header`);
     assert.ok(control.x >= 0 && control.right <= state.viewport[0] + 1 && control.y >= 0 && control.bottom <= state.viewport[1] + 1,
       `${control.name} fully visible before interaction`);
     assert.ok(control.hit, `${control.name} receives a center hit without scrolling`);
@@ -157,7 +175,7 @@ async function cardChrome(page, card) {
     assert.equal(state.handle.touchAction, 'none', 'handle owns its touch gesture');
     assert.ok(state.handle.bottom <= head.y + 1, 'handle does not cover title or buttons');
     for (const button of buttons) assert.ok(button.width >= 44 && button.height >= 44,
-      `${button.name} has a minimum 44x44px phone target`);
+      `${button.name} has a minimum 44x44px phone target: ${JSON.stringify(button)}`);
     for (let i = 0; i < buttons.length; i++) for (let j = i + 1; j < buttons.length; j++) {
       assert.ok(separated(buttons[i], buttons[j], 8), `${buttons[i].name}/${buttons[j].name} have at least 8px separation`);
     }
@@ -166,11 +184,25 @@ async function cardChrome(page, card) {
 }
 async function coordinateTap(page, locator) {
   const point = await locator.evaluate(el => {
-    const r = el.getBoundingClientRect();
+    // An inline word may wrap across two lines (e.g. soft-hyphenated doctor at 320px).
+    // Its union box center can be blank paragraph space; use an actual painted fragment.
+    const rects = [...el.getClientRects()];
+    const r = rects.find(r => el.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)))
+      ?? el.getBoundingClientRect();
     const x = r.x + r.width / 2, y = r.y + r.height / 2;
-    return { x, y, hit: el.contains(document.elementFromPoint(x, y)) };
+    const hit = document.elementFromPoint(x, y);
+    const box = node => {
+      if (!node) return null;
+      const r = node.getBoundingClientRect();
+      return { x: r.x, y: r.y, width: r.width, height: r.height, bottom: r.bottom, scrollTop: node.scrollTop };
+    };
+    const card = el.closest('[data-word-card]');
+    return { x, y, hit: el.contains(hit), target: el.outerHTML.slice(0, 180), interceptedBy: hit?.outerHTML.slice(0, 180),
+      scroll: [scrollX, scrollY], viewport: [innerWidth, innerHeight],
+      card: box(card), body: box(card?.querySelector('[data-word-body]')),
+      header: box(card?.querySelector('[data-word-header]')), footer: box(card?.querySelector('[data-word-footer]')) };
   });
-  assert.ok(point.hit, 'tap target is already exposed (no automatic scroll)');
+  assert.ok(point.hit, `tap target is already exposed (no automatic scroll): ${JSON.stringify(point)}`);
   if (page.viewportSize().width < 768) await page.touchscreen.tap(point.x, point.y);
   else await page.mouse.click(point.x, point.y);
   await settle(page);
@@ -187,8 +219,9 @@ async function collapsedDetails(card, isPhrase) {
     assert.equal(await feedback.getAttribute('aria-expanded'), 'false', 'feedback starts collapsed on each word open/switch');
     assert.equal(await card.locator('[data-feedback-options]').isVisible(), false, 'feedback choices are initially hidden');
   }
-  assert.equal(await card.locator('[data-part="word-alone"]').count(), isPhrase ? 1 : 0);
-  for (const part of ['word-alone', 'sentence-box', 'word-more']) {
+  assert.equal(await card.locator('[data-part="word-alone"]').count(), 0, 'obsolete constituent-word disclosure never renders');
+  assert.equal(await card.locator('[data-word-body] details[open]').count(), 0, 'every body disclosure resets on open/target change');
+  for (const part of ['sentence-box', 'word-more']) {
     const details = card.locator(`[data-part="${part}"]`);
     if (!await details.count()) continue;
     assert.equal(await details.evaluate(el => el.tagName), 'DETAILS', `${part} uses native details`);
@@ -196,11 +229,95 @@ async function collapsedDetails(card, isPhrase) {
     assert.equal(await details.locator(':scope > summary').count(), 1, `${part} has a direct summary`);
     assert.ok((await details.locator(':scope > summary').innerText()).trim(), `${part} has a readable summary`);
   }
+  if (isPhrase) await targetContent(card, 'phrase');
+}
+async function targetContent(card, mode) {
+  const isPhrase = mode === 'phrase';
+  assert.equal(await card.locator('h2').innerText(), isPhrase ? phrase : 'odds', 'target changes card title');
+  assert.equal(await card.locator('[data-word-pos]').innerText(), isPhrase ? 'idiom' : 'plural noun', 'target changes POS');
+  assert.ok((await card.locator('[data-word-actions] [data-speak]').getAttribute('aria-label')).endsWith(`: ${isPhrase ? phrase : 'odds'}`),
+    'speaker accessible name follows displayed target');
+  assert.equal(await card.locator(`[data-part="${isPhrase ? 'phrase' : 'word'}-meaning"]`).innerText(),
+    isPhrase ? fixture.phraseMeaning : fixture.wordMeaning, 'target changes primary meaning');
+  assert.equal(await card.locator(`[data-part="${isPhrase ? 'word' : 'phrase'}-meaning"]`).count(), 0,
+    'other target meaning is unmounted, not just hidden');
+  assert.equal(await card.locator('[data-part="word-here"] p').innerText(), isPhrase ? fixture.phraseHere : fixture.wordHere,
+    'target changes here text');
+  assert.equal(await card.locator('[data-part="word-alone"]').count(), 0);
+  const text = await card.innerText();
   if (isPhrase) {
-    assert.equal(await card.locator('[data-part="word-more"]').count(), 1, 'fixture supplies more information');
-    assert.equal(await card.locator('[data-part="word-alone"] [data-part="word-meaning"]').isVisible(), false,
-      'standalone definition is hidden until expanded');
+    // textContent sees collapsed content too: hiding word facts in a disclosure is not sufficient.
+    const all = await card.textContent();
+    for (const wordFact of [fixture.wordWhy, fixture.wordExample, fixture.otherMeaning])
+      assert.ok(!all.includes(wordFact), 'phrase mode never mounts constituent whyHard/example/other meanings');
+    assert.equal(await card.locator('[data-part="word-more"] details').count(), 0,
+      'phrase mode has neither constituent occurrence facts nor OtherMeanings disclosures');
+    assert.ok(!all.includes(fixture.wordMeaning), 'phrase mode has no constituent meaning');
+    assert.ok(all.includes(fixture.phraseExample), 'supplied phrase example is retained');
+    assert.ok(!(await card.locator('[data-word-content]').textContent()).includes('40'),
+      'phrase mode excludes the constituent 40-occurrence fact in either UI language');
+  } else {
+    assert.ok(!text.includes(fixture.phraseMeaning), 'word mode excludes phrase meaning');
+    assert.ok(!(await card.textContent()).includes(fixture.phraseExample), 'word mode excludes phrase example');
+    assert.equal(await card.locator('[data-part="word-more"]').count(), 1, 'word mode preserves original extra sections');
+    const more = await card.locator('[data-part="word-more"]').textContent();
+    for (const wordFact of [fixture.wordWhy, fixture.wordExample, fixture.otherMeaning])
+      assert.ok(more.includes(wordFact), 'word mode retains whyHard/example/other meanings');
   }
+}
+async function switchTarget(page, card, mode, key) {
+  const before = await page.evaluate(() => [scrollX, scrollY]);
+  const effects = await phoneEffects(page);
+  const target = card.locator(`[data-look-target="${mode}"]`);
+  if (key) {
+    await target.evaluate(el => el.focus({ preventScroll: true }));
+    await page.keyboard.press(key);
+    await settle(page);
+    assert.equal(await target.evaluate(el => document.activeElement === el), true, `${key} target activation retains focus`);
+  } else await coordinateTap(page, target);
+  await lookupTarget(card, mode);
+  await targetContent(card, mode);
+  await links(card, mode === 'phrase' ? phrase : 'odds');
+  assert.equal((await metrics(card)).scrollTop, 0, 'target switch resets body scroll');
+  await collapsedDetails(card, mode === 'phrase');
+  assert.deepEqual(await page.evaluate(() => [scrollX, scrollY]), before, 'target switch never moves reader');
+  assert.deepEqual(await phoneEffects(page), effects, 'target switch adds neither pronunciation nor word-tap telemetry');
+  await cardChrome(page, card);
+}
+async function targetRoundTrip(page, card) {
+  await lookupTarget(card, 'phrase');
+  await targetContent(card, 'phrase');
+  await switchTarget(page, card, 'word');
+  await expandDisclosure(page, card, 'word-more', fixture.wordWhy);
+  const more = card.locator('[data-part="word-more"]');
+  assert.equal(await more.locator('[data-part="example"] blockquote').innerText(), fixture.wordExample);
+  const other = more.locator('details');
+  assert.equal(await other.count(), 1, 'word extra sections include other meanings');
+  await exposeInBody(card, other.locator(':scope > summary'));
+  await settle(page);
+  await coordinateTap(page, other.locator(':scope > summary'));
+  assert.ok((await other.innerText()).includes(fixture.otherMeaning), 'other meaning can be disclosed');
+  await expandDisclosure(page, card, 'sentence-box', 'Against all odds');
+  await feedbackDisclosure(page, card, true);
+  await card.locator('[data-word-body]').evaluate(el => { el.scrollTop = el.scrollHeight; });
+  await settle(page);
+  assert.ok((await metrics(card)).scrollTop > 0, 'whole-card switch begins with scrolled expanded word details');
+  await switchTarget(page, card, 'phrase');
+  // Reveal the supplied phrase example without assuming whether it is a direct quote or in More.
+  const example = card.locator('[data-part="example"]');
+  assert.equal(await example.count(), 1, 'phrase has exactly its own example');
+  const exampleDetails = example.locator('xpath=ancestor::details[1]');
+  if (await exampleDetails.count()) {
+    const summary = exampleDetails.locator(':scope > summary');
+    await exposeInBody(card, summary);
+    await settle(page);
+    await coordinateTap(page, summary);
+  }
+  await exposeInBody(card, example);
+  await settle(page);
+  assert.equal(await example.locator('blockquote').innerText(), fixture.phraseExample, 'phrase example is readable');
+  await switchTarget(page, card, 'word', page.viewportSize().width >= 768 ? 'Enter' : undefined);
+  await switchTarget(page, card, 'phrase', page.viewportSize().width >= 768 ? 'Space' : undefined);
 }
 async function feedbackDisclosure(page, card, leaveOpen = false) {
   const toggle = card.locator('[data-feedback-toggle]');
@@ -237,7 +354,7 @@ async function feedbackDisclosure(page, card, leaveOpen = false) {
   }
   await cardChrome(page, card);
 }
-async function feedbackSubmission(page, card, reason) {
+async function feedbackSubmission(page, card, reason, mode) {
   const requests = [];
   const endpoint = '**/api/feedback/word';
   const mock = async route => {
@@ -258,15 +375,314 @@ async function feedbackSubmission(page, card, reason) {
     assert.equal(payload.reason, reason);
     assert.equal(payload.bookId, 'word-card-layout-regression');
     assert.equal(payload.bookTitle, 'Word card layout');
-    assert.equal(payload.word, phrase, 'feedback names the displayed phrase, not only its tapped word');
+    assert.equal(payload.word, mode === 'phrase' ? phrase : 'odds', 'feedback names the displayed target');
+    assert.equal(payload.form, mode === 'phrase' ? phrase : 'odds', 'feedback form matches phrase span or tapped word');
+    assert.equal(payload.senseIndex, mode === 'phrase' ? -1 : 1, 'phrase never inherits constituent sense index');
     assert.equal(payload.chapter, 0);
     assert.equal(payload.paragraph, 10);
+    assert.equal(payload.occurrence, 11);
     assert.ok(payload.context.includes('lantern seller'), 'feedback preserves reading context');
-    assert.ok(payload.senseMeaning.includes('Despite many serious difficulties'), 'feedback identifies phrase meaning');
+    assert.ok(payload.sentence.startsWith('Against all odds'), 'feedback keeps full source sentence');
+    assert.equal(payload.senseMeaning, mode === 'phrase' ? fixture.phraseMeaning : fixture.wordMeaning,
+      'feedback identifies only the displayed target meaning');
     assert.equal(await card.locator('[data-feedback-toggle]').count(), 0, 'thanks replaces question control');
     await cardChrome(page, card);
   } finally {
     await page.unroute(endpoint, mock);
+  }
+}
+async function feedbackTargets(page, card, open) {
+  for (const reason of ['too_hard', 'wrong_meaning']) {
+    await open();
+    await feedbackSubmission(page, card, reason, 'phrase');
+    await switchTarget(page, card, 'word');
+    assert.equal(await card.locator('[data-feedback-submitted]').count(), 0, 'phrase acknowledgement never leaks to word');
+    await feedbackSubmission(page, card, reason, 'word');
+    await switchTarget(page, card, 'phrase');
+    assert.equal(await card.locator('[data-feedback-submitted]').count(), 0, 'word acknowledgement never leaks to phrase');
+    await coordinateTap(page, card.locator('[data-panel-close]'));
+    await card.waitFor({ state: 'detached' });
+  }
+  // A response for an unmounted target must not acknowledge the newly selected target.
+  await open();
+  const endpoint = '**/api/feedback/word';
+  let release, received, finished;
+  const gate = new Promise(resolve => { release = resolve; });
+  const requestSeen = new Promise(resolve => { received = resolve; });
+  const responseDone = new Promise(resolve => { finished = resolve; });
+  const delayed = async route => {
+    received();
+    await gate;
+    await route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
+    finished();
+  };
+  await page.route(endpoint, delayed);
+  try {
+    await feedbackDisclosure(page, card, true);
+    await coordinateTap(page, card.locator('[data-feedback-wrong]'));
+    await requestSeen;
+    await switchTarget(page, card, 'word');
+    release();
+    await responseDone;
+    await settle(page);
+    assert.equal(await card.locator('[data-feedback-submitted]').count(), 0, 'late phrase response cannot acknowledge word feedback');
+    await collapsedDetails(card, false);
+    await switchTarget(page, card, 'phrase');
+    assert.equal(await card.locator('[data-feedback-submitted]').count(), 0, 'returning phrase has fresh feedback despite late response');
+    await coordinateTap(page, card.locator('[data-panel-close]'));
+    await card.waitFor({ state: 'detached' });
+  } finally {
+    release();
+    await page.unroute(endpoint, delayed);
+  }
+}
+async function pronunciationTarget(page, card, mode) {
+  const before = await phoneEffects(page);
+  await coordinateTap(page, card.locator('[data-word-actions] [data-speak]'));
+  const after = await phoneEffects(page);
+  assert.equal(after.taps, before.taps, 'explicit speaker does not count as another reader-word tap');
+  const spoken = [...after.audios.slice(before.audios.length).map(url => new URL(url).searchParams.get('audio')),
+    ...after.voices.slice(before.voices.length)];
+  assert.deepEqual(spoken, [mode === 'phrase' ? phrase : 'odds'], 'one speaker tap pronounces only displayed target');
+}
+async function savedTargetsAndVariants(page, width, height) {
+  const card = page.locator('[data-word-card]');
+  const close = async () => {
+    await coordinateTap(page, card.locator('[data-panel-close]'));
+    await card.waitFor({ state: 'detached' });
+  };
+  const open = async (word, index = 10) => {
+    const anchor = page.locator(`article [role="button"][data-word="${word}"] .book-tap`).nth(index);
+    await position(page, anchor, 120);
+    await coordinateTap(page, anchor);
+    await card.waitFor({ state: 'visible' });
+    if (word === 'odds') await card.locator('[data-part="phrase-meaning"]').waitFor();
+    await card.evaluate(el => Promise.all(el.getAnimations().map(a => a.finished.catch(() => {}))));
+    await settle(page);
+  };
+  const words = () => page.evaluate(() => JSON.parse(localStorage.getItem('cibian-notebook-v1')).state.words);
+  const save = card.locator('[data-word-save]'); // Never use generic aria-pressed: target buttons have it too.
+  const saved = async value => {
+    assert.equal(await save.count(), 1, 'exactly one unambiguous save button');
+    assert.equal(await save.getAttribute('aria-pressed'), String(value));
+    assert.equal(await save.isEnabled(), true);
+    assert.ok((await save.getAttribute('aria-label')).includes(await card.locator('h2').innerText()),
+      'save accessible name identifies displayed target');
+  };
+  await open('odds');
+  await saved(false);
+  await pronunciationTarget(page, card, 'phrase');
+  await coordinateTap(page, save);
+  await saved(true);
+  await switchTarget(page, card, 'word');
+  await saved(false);
+  await pronunciationTarget(page, card, 'word');
+  await coordinateTap(page, save);
+  await saved(true);
+  const checkSaved = async () => {
+    const all = await words();
+    assert.deepEqual(all.map(word => word.lemma).sort(), [phrase, 'odds'].sort(), 'phrase and word save as two independent entries');
+    const phraseWord = all.find(word => word.lemma === phrase);
+    const plainWord = all.find(word => word.lemma === 'odds');
+    assert.notEqual(phraseWord.id, plainWord.id);
+    for (const [word, surface, pos, ref] of [[phraseWord, phrase, 'idiom', { list: 'custom', phrase: true }],
+      [plainWord, 'odds', 'plural noun', { list: 'custom', chapter: 0, occurrence: 11 }]]) {
+      assert.equal(word.sources.length, 1);
+      const source = word.sources[0];
+      assert.deepEqual(source.ref, ref, 'save points to the displayed phrase or anchored word sense');
+      assert.equal(source.surface.toLowerCase(), surface);
+      assert.equal(source.pos, pos);
+      assert.equal(source.title, 'Word card layout');
+      assert.equal(source.chapter, 0);
+      assert.ok(source.sentence.startsWith('Against all odds') && source.sentence.includes('lantern seller'),
+        'both saves retain the same original reader sentence');
+      assert.ok(source.book, 'source retains book identity');
+    }
+    assert.equal(phraseWord.sources[0].book, plainWord.sources[0].book, 'separate targets retain same source book');
+  };
+  await checkSaved();
+  await switchTarget(page, card, 'phrase');
+  await saved(true);
+  await coordinateTap(page, save); // Removing phrase must not remove the separately saved word.
+  assert.deepEqual((await words()).map(word => word.lemma), ['odds']);
+  await switchTarget(page, card, 'word');
+  await saved(true);
+  await coordinateTap(page, save);
+  assert.deepEqual(await words(), []);
+  await switchTarget(page, card, 'phrase');
+  await saved(false);
+  await coordinateTap(page, save);
+  await switchTarget(page, card, 'word');
+  await saved(false);
+  await coordinateTap(page, save);
+  await close();
+  await page.reload();
+  await page.locator('article [data-word="odds"]').first().waitFor();
+  await page.keyboard.press('Escape');
+  await open('odds');
+  await lookupTarget(card, 'phrase');
+  await collapsedDetails(card, true);
+  await saved(true);
+  await switchTarget(page, card, 'word');
+  await saved(true);
+  await checkSaved();
+  await close();
+
+  for (const [word, index, status] of [['lantern', 10, 'ready'], ['doctor', 10, 'easy'],
+    ['quuxstone', 10, 'unknown'], ['fragile', 10, 'ready'], ['fragile', 9, 'unknown']]) {
+    await open(word, index);
+    assert.equal(await card.locator('h2').innerText(), word);
+    assert.equal(await card.locator('[data-look-target-group]').count(), 0, 'non-phrase cards have no target toggle');
+    await collapsedDetails(card, false);
+    await links(card, word);
+    assert.equal(await save.isEnabled(), status !== 'unknown', 'save availability follows word status');
+    assert.equal(await save.getAttribute('aria-pressed'), 'false');
+    assert.equal(await card.locator('[data-part="no-meaning"]').count(), status === 'unknown' ? 1 : 0);
+    assert.equal(await card.locator('[data-feedback-toggle]').count(), status === 'unknown' ? 0 : 1,
+      'unknown and out-of-scope senseOnly cards do not ask for meaning feedback');
+    if (word === 'lantern') assert.equal(await card.locator('[data-part="word-meaning"]').innerText(), 'A portable light.');
+    if (status === 'easy') assert.ok((await card.locator('[data-word-pos]').innerText()).trim(), 'easy chip remains readable');
+    if (word === 'fragile') {
+      if (status === 'ready') assert.equal(await card.locator('[data-part="word-meaning"]').innerText(), fixture.sparseMeaning);
+      else assert.ok(!(await card.textContent()).includes(fixture.sparseMeaning), 'senseOnly meaning never leaks outside its anchor');
+    }
+    await cardChrome(page, card);
+    await close();
+  }
+  assert.equal(await page.locator('article [data-word="fragile"].book-hard').count(), 1,
+    'senseOnly is underlined only at fixture anchor');
+  await open('odds');
+  await lookupTarget(card, 'phrase');
+  await switchTarget(page, card, 'word');
+  await close();
+  await open('odds');
+  await lookupTarget(card, 'phrase');
+  await collapsedDetails(card, true);
+  if ((width === 1280 && height === 800) || width === 820) {
+    await close();
+    await feedbackTargets(page, card, () => open('odds'));
+  } else await close();
+
+  await phraseWordAvailability(page, card);
+  await page.goto(base + 'words');
+  await page.locator('[data-word-sources]').first().waitFor();
+  await page.reload();
+  await page.locator('[data-word-sources]').first().waitFor();
+  for (const [lemma, meaning, pos] of [[phrase, fixture.phraseMeaning, 'idiom'], ['odds', fixture.wordMeaning, 'noun']]) {
+    const row = page.locator('li').filter({ has: page.getByRole('heading', { level: 3, name: lemma, exact: true }) });
+    assert.equal(await row.count(), 1, 'notebook retains separate phrase and word rows after reload');
+    await row.locator('[data-source-meaning]').filter({ hasText: meaning }).waitFor();
+    assert.equal(await row.locator('[data-source-meaning]').innerText(), meaning, 'notebook resolves the correct target ref');
+    assert.ok((await row.innerText()).includes(pos), 'notebook preserves target POS');
+    assert.equal(await row.locator('[data-word-source]').count(), 1);
+  }
+  await checkSaved();
+  console.log(`PASS ${width}x${height}: independent target save/remove/refs/reload/notebook, target pronunciation, plain/easy/unknown/senseOnly, default phrase reset`);
+}
+async function phraseWordAvailability(page, card) {
+  // Add overlapping phrase coverage only after plain-word cases, retaining both paths.
+  const cases = [
+    { phrase: 'doctor discussed', word: 'doctor', index: 10, status: 'easy', ref: undefined },
+    { phrase: 'quuxstone lay by Hook’s bridge', word: 'quuxstone', index: 10, status: 'unknown', ref: undefined },
+    { phrase: 'fragile lights', word: 'fragile', index: 9, status: 'unknown', ref: undefined },
+    { phrase: 'fragile lights', word: 'fragile', index: 10, status: 'ready', ref: { list: 'custom', chapter: 0, occurrence: 11 } },
+  ];
+  await page.evaluate(async phrases => {
+    const db = await new Promise((resolve, reject) => {
+      const open = indexedDB.open('cibian-books', 3);
+      open.onsuccess = () => resolve(open.result);
+      open.onerror = () => reject(open.error);
+    });
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction('notes', 'readwrite');
+      const notes = tx.objectStore('notes');
+      const request = notes.get('extras:word-card-layout-regression');
+      request.onsuccess = () => {
+        const extras = request.result;
+        for (const phrase of phrases) extras.phrases[phrase] = { pos: 'phrase', meaning: `Synthetic phrase meaning for ${phrase}.` };
+        notes.put(extras, 'extras:word-card-layout-regression');
+      };
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error);
+    });
+    db.close();
+  }, [...new Set(cases.map(test => test.phrase))]);
+  await page.reload();
+  await page.locator('article [data-word="odds"]').first().waitFor();
+  await page.keyboard.press('Escape');
+  const savedWords = () => page.evaluate(() => JSON.parse(localStorage.getItem('cibian-notebook-v1')).state.words);
+  for (const test of cases) {
+    const anchor = page.locator(`article [data-word="${test.word}"] .book-tap`).nth(test.index);
+    await position(page, anchor, 120);
+    await coordinateTap(page, anchor);
+    await card.locator('[data-part="phrase-meaning"]').waitFor();
+    await card.evaluate(el => Promise.all(el.getAnimations().map(a => a.finished.catch(() => {}))));
+    await settle(page);
+    const save = card.locator('[data-word-save]');
+    const phraseMeaning = `Synthetic phrase meaning for ${test.phrase}.`;
+    await lookupTarget(card, 'phrase');
+    assert.equal(await card.locator('h2').innerText(), test.phrase);
+    assert.equal(await card.locator('[data-part="phrase-meaning"]').innerText(), phraseMeaning);
+    assert.equal(await save.isEnabled(), true, 'known phrase can save even when its tapped word cannot');
+    assert.equal(await save.getAttribute('aria-pressed'), 'false');
+    await coordinateTap(page, save);
+    const phraseEntry = (await savedWords()).find(word => word.lemma === test.phrase);
+    assert.deepEqual(phraseEntry.sources[0].ref, { list: 'custom', phrase: true });
+    if (test.word === 'quuxstone') {
+      const endpoint = '**/api/feedback/word';
+      const payloads = [];
+      const mock = async route => {
+        payloads.push(route.request().postDataJSON());
+        await route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
+      };
+      await page.route(endpoint, mock);
+      try {
+        await feedbackDisclosure(page, card, true);
+        await coordinateTap(page, card.locator('[data-feedback-wrong]'));
+        await card.locator('[data-feedback-submitted]').waitFor();
+        assert.equal(payloads.length, 1);
+        assert.equal(payloads[0].word, test.phrase);
+        assert.equal(payloads[0].form, test.phrase.toLowerCase(), 'curly apostrophe preserves entire matched phrase form');
+        assert.equal(payloads[0].senseIndex, -1);
+        assert.equal(payloads[0].senseMeaning, phraseMeaning);
+      } finally { await page.unroute(endpoint, mock); }
+    }
+    const switchMode = async mode => {
+      const scroll = await page.evaluate(() => [scrollX, scrollY]);
+      const effects = await phoneEffects(page);
+      await coordinateTap(page, card.locator(`[data-look-target="${mode}"]`));
+      await lookupTarget(card, mode);
+      await collapsedDetails(card, false);
+      assert.equal((await metrics(card)).scrollTop, 0);
+      assert.deepEqual(await page.evaluate(() => [scrollX, scrollY]), scroll);
+      assert.deepEqual(await phoneEffects(page), effects);
+      await cardChrome(page, card);
+    };
+    await switchMode('word');
+    assert.equal(await card.locator('h2').innerText(), test.word);
+    await links(card, test.word);
+    assert.equal(await card.locator('[data-part="phrase-meaning"]').count(), 0);
+    assert.equal(await save.getAttribute('aria-pressed'), 'false', 'phrase save never marks constituent word saved');
+    assert.equal(await save.isEnabled(), test.status !== 'unknown', 'phrase presence never bypasses word save gating');
+    assert.equal(await card.locator('[data-part="no-meaning"]').count(), test.status === 'unknown' ? 1 : 0);
+    assert.equal(await card.locator('[data-feedback-toggle]').count(), test.status === 'unknown' ? 0 : 1);
+    if (test.word === 'fragile' && test.status === 'unknown')
+      assert.ok(!(await card.textContent()).includes(fixture.sparseMeaning), 'recognized phrase cannot leak out-of-scope senseOnly meaning');
+    if (test.status !== 'unknown') {
+      if (test.status === 'ready') assert.equal(await card.locator('[data-part="word-meaning"]').innerText(), fixture.sparseMeaning);
+      await coordinateTap(page, save);
+      const wordEntry = (await savedWords()).find(word => word.lemma === test.word);
+      assert.deepEqual(wordEntry.sources[0].ref, test.ref, 'constituent save uses its own word pointer, never phrase ref');
+      assert.notEqual(wordEntry.id, phraseEntry.id);
+      await coordinateTap(page, save);
+      assert.ok((await savedWords()).some(word => word.lemma === test.phrase), 'removing constituent word retains phrase');
+    } else assert.ok(!(await savedWords()).some(word => word.lemma === test.word));
+    await switchMode('phrase');
+    assert.equal(await save.isEnabled(), true);
+    assert.equal(await save.getAttribute('aria-pressed'), 'true', 'phrase remains independently saved');
+    await coordinateTap(page, save);
+    await coordinateTap(page, card.locator('[data-panel-close]'));
+    await card.waitFor({ state: 'detached' });
   }
 }
 async function expandDisclosure(page, card, part, text) {
@@ -292,9 +708,15 @@ async function expandDisclosure(page, card, part, text) {
   }
 }
 async function lookupTarget(card, mode) {
+  assert.equal(await card.locator('[data-look-target-group]').count(), 1, 'exactly one whole-card target group');
+  assert.equal(await card.locator('[data-word-header] [data-look-target-group]').count(), 1,
+    'whole-card target group is in persistent header');
+  assert.equal(await card.locator('[data-word-footer] [data-look-target-group]').count(), 0,
+    'footer no longer owns target switch');
   assert.equal(await card.locator('[data-look-target-group]').getAttribute('role'), 'group');
   for (const target of ['word', 'phrase']) {
     const button = card.locator(`[data-look-target="${target}"]`);
+    assert.equal(await button.count(), 1, `one ${target} target control`);
     assert.equal(await button.evaluate(el => el.tagName), 'BUTTON');
     assert.notEqual(await button.getAttribute('role'), 'radio');
     assert.equal(await button.getAttribute('aria-checked'), null);
@@ -482,7 +904,7 @@ async function phoneRegression(page, width, height) {
   };
   assert.deepEqual(await page.evaluate(() => [matchMedia('(pointer: coarse)').matches, navigator.maxTouchPoints > 0]),
     [true, true], 'phone context really has mobile touch input');
-  const initial = await open('odds');
+  let initial = await open('odds');
   assert.equal(initial.scroll[3], 0, 'new word body starts at top');
   await collapsedDetails(card, true);
   await lookupTarget(card, 'phrase');
@@ -502,15 +924,10 @@ async function phoneRegression(page, width, height) {
     assert.deepEqual((await cardChrome(page, card)).scroll, initial.scroll, 'lookup tap never scrolls reader, sheet or body');
   }
   assert.equal(await card.getAttribute('data-test-lookup-clicks'), '3', 'all external actions receive actual touch clicks');
-  for (const mode of ['word', 'phrase']) {
-    await coordinateTap(page, card.locator(`[data-look-target="${mode}"]`));
-    await lookupTarget(card, mode);
-    await links(card, mode === 'word' ? 'odds' : phrase);
-    assert.deepEqual((await cardChrome(page, card)).scroll, initial.scroll, 'target toggle never auto-scrolls');
-  }
-  await expandDisclosure(page, card, 'word-alone', 'chances that something');
-  assert.equal(await card.locator('[data-part="word-alone"] [data-part="word-meaning"]').isVisible(), true);
-  await expandDisclosure(page, card, 'word-more', 'An abstract plural noun');
+  await targetRoundTrip(page, card);
+  await switchTarget(page, card, 'word');
+  initial = await cardChrome(page, card); // Whole-card mode legitimately changes chrome height; expansion must not.
+  await expandDisclosure(page, card, 'word-more', fixture.wordWhy);
   const collapsed = await metrics(card);
   // Explicit internal scroll is allowed to reach the sentence; never scroll the outer sheet.
   await body.evaluate(el => {
@@ -522,8 +939,10 @@ async function phoneRegression(page, width, height) {
   assert.equal(await card.locator('[data-part="sentence-box"]').getAttribute('open'), '');
   assert.ok((await metrics(card)).contentHeight > collapsed.contentHeight, 'expanded sentence adds body content');
   const expanded = await cardChrome(page, card);
-  assert.deepEqual(expanded.head, initial.head, 'sentence expansion keeps header fixed');
-  assert.deepEqual(expanded.footer, initial.footer, 'sentence expansion keeps footer fixed');
+  assert.equal(expanded.head.height, initial.head.height, 'sentence expansion never resizes header chrome');
+  assert.deepEqual(expanded.footer, initial.footer, 'sentence expansion keeps bottom-aligned footer fixed');
+  assert.deepEqual(expanded.scroll.slice(0, 3), initial.scroll.slice(0, 3), 'natural sheet growth never scrolls reader or outer card');
+  initial = expanded; // A max-height sheet may grow upward before reaching its cap; internal scrolling may not move chrome.
   const explain = card.locator('[data-explain] button');
   await explain.waitFor({ state: 'visible' });
   await body.evaluate(el => {
@@ -623,11 +1042,9 @@ async function phoneRegression(page, width, height) {
   // Actual phone word taps close first; a later, separate tap opens with fresh state.
   await open('odds');
   await collapsedDetails(card, true);
-  await expandDisclosure(page, card, 'word-alone', 'chances that something');
-  await expandDisclosure(page, card, 'word-more', 'An abstract plural noun');
+  await switchTarget(page, card, 'word');
+  await expandDisclosure(page, card, 'word-more', fixture.wordWhy);
   await expandDisclosure(page, card, 'sentence-box', 'Against all odds');
-  await coordinateTap(page, card.locator('[data-look-target="word"]'));
-  await lookupTarget(card, 'word');
   await feedbackDisclosure(page, card, true);
   await body.evaluate(el => { el.scrollTop = el.scrollHeight; });
   await settle(page);
@@ -713,12 +1130,7 @@ async function phoneRegression(page, width, height) {
   await coordinateTap(page, card.locator('[data-panel-close]'));
   await card.waitFor({ state: 'detached' });
   if (width === 430) {
-    for (const reason of ['too_hard', 'wrong_meaning']) {
-      await open('odds');
-      await feedbackSubmission(page, card, reason);
-      await coordinateTap(page, card.locator('[data-panel-close]'));
-      await card.waitFor({ state: 'detached' });
-    }
+    await feedbackTargets(page, card, () => open('odds'));
   }
   await cdp.detach();
   console.log(`PASS ${width}x${height}: trusted slow-start mobile touch, persistent hit-testable chrome, body-only native scrolling, sentence explanation, close-only word taps then separate reopen, long title, natural title/body/padding/handle dismissal, start-time body/title/meta scroll locks, short/return/cancel/horizontal/multitouch/button/footer exclusions`);
@@ -756,6 +1168,21 @@ async function mobileHeaderStress(page, width, height, scale) {
       if (stage === 'scrolled') assert.ok(m.scrollTop > 0, 'font-scaled explanation can scroll internally');
     });
   }
+  await check('word-target switch at enlarged font', () => switchTarget(page, card, 'word'));
+  for (const stage of ['collapsed', 'expanded', 'scrolled']) {
+    if (stage === 'expanded') await card.locator('[data-word-content]').evaluate(el => {
+      for (const details of el.querySelectorAll('details')) details.open = true;
+    });
+    if (stage === 'scrolled') await card.locator('[data-word-body]').evaluate(el => { el.scrollTop = el.scrollHeight; });
+    await settle(page);
+    await check(`word ${stage} chrome and touch targets`, () => cardChrome(page, card));
+    await check(`word ${stage} geometry`, () => geometry(page, anchor, card, width, height, 'bottom', article));
+    await check(`word ${stage} usable explanation body`, async () => {
+      assert.ok((await metrics(card)).clientHeight > 0);
+      if (stage === 'scrolled') assert.ok((await metrics(card)).scrollTop > 0, 'scaled word details scroll internally');
+    });
+  }
+  await check('phrase reset from scrolled word at enlarged font', () => switchTarget(page, card, 'phrase'));
   await check('close is touch reachable', async () => {
     await coordinateTap(page, card.locator('[data-panel-close]'));
     await card.waitFor({ state: 'detached' });
@@ -871,6 +1298,24 @@ async function stressRegression(page, width, height, scale) {
     assert.ok(Math.abs(recollapsed.naturalContent - initial.naturalContent) <= 1, 'content shrinks back');
     assert.ok(Math.abs(recollapsed.card.height - initial.card.height) <= 1, 'card shrinks back to initial height');
   });
+  if (isPhrase) {
+    await check('word-target switch under stress', () => switchTarget(page, card, 'word'));
+    const wordInitial = await validate('word collapsed');
+    await card.locator('[data-word-content]').evaluate(el => {
+      for (const details of el.querySelectorAll('details')) details.open = true;
+    });
+    await settle(page);
+    const wordExpanded = await validate('word expanded');
+    await card.locator('[data-word-body]').evaluate(el => { el.scrollTop = el.scrollHeight; });
+    await settle(page);
+    await validate('word scrolled');
+    await check('word details add natural content', async () => {
+      assert.ok(wordExpanded.naturalContent > wordInitial.naturalContent);
+      assert.ok((await metrics(card)).scrollTop > 0, 'stress word body scrolls independently');
+    });
+    await check('phrase reset from scrolled expanded word under stress', () => switchTarget(page, card, 'phrase'));
+    await validate('phrase reset');
+  }
   await check('close is pointer-reachable', async () => {
     await coordinateTap(page, card.locator('[data-panel-close]'));
     await card.waitFor({ state: 'detached' });
@@ -896,21 +1341,36 @@ try {
     const locale = width === 375 || width === 320 ? 'zh-CN' : 'en-US';
     const page = await browser.newPage({ viewport: { width, height }, isMobile: width < 768,
       hasTouch: width < 768, serviceWorkers: 'block', locale });
-    await page.route("**/*", route => new URL(route.request().url()).origin === new URL(base).origin
-      ? route.continue() : route.abort());
-    if (width < 768) await installPhoneRecorders(page);
+    await page.route('**/*', route => {
+      const url = new URL(route.request().url());
+      if (url.origin !== new URL(base).origin) return route.abort();
+      // Even when pointed at a hosted preview, never hit account, telemetry, feedback,
+      // protected-book or other real service endpoints. Specific feedback mocks override this.
+      if (url.pathname.startsWith('/api/')) return route.fulfill({ status: 401,
+        contentType: 'application/json', body: '{"error":"Synthetic fixture: services disabled"}' });
+      return route.continue();
+    });
+    await installPhoneRecorders(page); // All sizes need positive audio/telemetry and silent-switch assertions.
     const errors = [];
     page.on("pageerror", error => errors.push(error.message));
     await page.goto(base + "shelf");
     await page.waitForSelector("header");
-    await page.evaluate(async ({ phraseKey, longWord }) => {
+    await page.evaluate(async ({ phraseKey, longWord, fixture }) => {
       const id = "word-card-layout-regression";
       const sentence = `${phraseKey[0].toUpperCase()}${phraseKey.slice(1)} the lantern seller carried the fragile lights through the flooded streets, while neighbors watched from their windows and wondered whether the exhausted traveler could reach the distant village before the rising river covered the last safe bridge.`;
-      const paragraphs = Array.from({ length: 40 }, () => `${sentence} The doctor discussed ${longWord} after the journey.`);
+      const paragraphs = Array.from({ length: 40 }, () => `${sentence} The doctor discussed ${longWord} after the journey. A quuxstone lay by Hook’s bridge.`);
       const glossary = {
         [longWord]: { pos: 'noun', meaning: 'A name for a lung illness caused by breathing very fine dust. '.repeat(24), whyHard: 'A very long technical word.' },
-        lantern: { pos: "noun", meaning: "A portable light.", whyHard: "" },
-        odds: { pos: "noun", meaning: "The chances that something will happen, especially when several difficulties make the hoped-for result seem very unlikely.", whyHard: "An abstract plural noun used in a fixed expression." },
+        lantern: { pos: 'noun', meaning: 'A portable light.', whyHard: '' },
+        odds: { pos: 'noun', meaning: fixture.wordMeaning, whyHard: fixture.wordWhy, example: fixture.wordExample,
+          senses: [
+            { pos: 'noun', meaning: fixture.otherMeaning, anchors: [{ chapter: 1, occurrence: 1 }] },
+            { pos: 'noun', meaning: fixture.wordMeaning, whyHard: fixture.wordWhy, here: fixture.wordHere,
+              anchors: [{ chapter: 0, occurrence: 11 }] },
+          ] },
+        fragile: { pos: 'adjective', meaning: '', whyHard: '', senseOnly: true,
+          senses: [{ pos: 'adjective', meaning: fixture.sparseMeaning,
+            anchors: [{ chapter: 0, occurrence: 11 }] }] },
       };
       const db = await new Promise((resolve, reject) => {
         const request = indexedDB.open("cibian-books", 3);
@@ -930,15 +1390,15 @@ try {
           sentences: [{ chapter: 0, context: sentence,
             simple: 'The seller carried lights through the flood while the neighbors watched.',
             grammar: 'While introduces an action happening at the same time as the journey.' }],
-          phrases: { [phraseKey]: { pos: "idiom", meaning: "Despite many serious difficulties and very little chance of success, continuing to try until an unexpected result becomes possible through patience, determination, and help from others.",
-            here: "The seller keeps carrying the lanterns toward the village even though the flooded streets, rising river, and approaching darkness all make a safe arrival seem almost impossible." } } }, `extras:${id}`);
+          phrases: { [phraseKey]: { pos: 'idiom', meaning: fixture.phraseMeaning,
+            here: fixture.phraseHere, example: fixture.phraseExample } } }, `extras:${id}`);
         tx.oncomplete = resolve;
         tx.onerror = () => reject(tx.error);
       });
       db.close();
       localStorage.setItem("cibian-notebook-v1", JSON.stringify({ version: 0, state: {
         books: [{ id, title: "Word card layout", author: "Test", source: "epub", cloth: "cloth", createdAt: 1 }], words: [], log: {} } }));
-    }, { phraseKey: phrase, longWord });
+    }, { phraseKey: phrase, longWord, fixture });
     await page.goto(base + "read/word-card-layout-regression");
     await page.waitForSelector('article.book-body [role="button"][data-word="odds"]');
     assert.equal(await page.locator('html').getAttribute('lang'), locale === 'zh-CN' ? 'zh-CN' : 'en',
@@ -954,6 +1414,7 @@ try {
       await page.evaluate(() => document.fonts.ready);
       await page.keyboard.press('Escape'); // Release initial saved-position hold before positioning the fixture.
       await phoneRegression(page, width, height);
+      await savedTargetsAndVariants(page, width, height);
       assert.deepEqual(errors, []);
       await page.close();
       continue;
@@ -992,17 +1453,10 @@ try {
         if (word === "odds") {
           assert.ok((await card.locator('[data-part="word-here"]').innerText()).includes("flooded streets"));
           await lookupTarget(card, 'phrase');
+          await targetRoundTrip(page, card);
+          await switchTarget(page, card, 'word');
           const initialChrome = await cardChrome(page, card);
-          for (const mode of ['word', 'phrase']) {
-            await coordinateTap(page, card.locator(`[data-look-target="${mode}"]`));
-            await lookupTarget(card, mode);
-            await links(card, mode === 'word' ? word : phrase);
-            assert.deepEqual((await cardChrome(page, card)).scroll, initialChrome.scroll,
-              'lookup target click does not scroll reader, card or body');
-          }
-          await expandDisclosure(page, card, 'word-alone', 'chances that something');
-          assert.equal(await card.locator('[data-part="word-alone"] [data-part="word-meaning"]').isVisible(), true);
-          await expandDisclosure(page, card, 'word-more', 'An abstract plural noun');
+          await expandDisclosure(page, card, 'word-more', fixture.wordWhy);
           const collapsed = await metrics(card);
           await expandDisclosure(page, card, 'sentence-box', 'Against all odds');
           const expanded = await metrics(card);
@@ -1065,11 +1519,9 @@ try {
       await card.evaluate(el => Promise.all(el.getAnimations().map(a => a.finished.catch(() => {}))));
       await settle(page);
       await collapsedDetails(card, true);
-      await expandDisclosure(page, card, 'word-alone', 'chances that something');
-      await expandDisclosure(page, card, 'word-more', 'An abstract plural noun');
+      await switchTarget(page, card, 'word');
+      await expandDisclosure(page, card, 'word-more', fixture.wordWhy);
       await expandDisclosure(page, card, 'sentence-box', 'Against all odds');
-      await coordinateTap(page, card.locator('[data-look-target="word"]'));
-      await lookupTarget(card, 'word');
       const body = card.locator('[data-word-body]');
       await feedbackDisclosure(page, card);
       await feedbackDisclosure(page, card, true);
@@ -1198,6 +1650,7 @@ try {
       await page.keyboard.press("Escape");
       await panel.waitFor({ state: "detached" });
     }
+    await savedTargetsAndVariants(page, width, height);
     assert.deepEqual(errors, []);
     console.log(`PASS ${width}x${height}: widths, placement, article stability, lookup targets, sentence, click-away${width >= 1024 ? ", exact focus return, Enter/Space, close button, offscreen and breakpoint focus" : " and Escape dismissal"}`);
     await page.close();

@@ -598,6 +598,11 @@
       max-height: 72vh;
       max-height: 72dvh;
     }
+    /* The target selector is persistent chrome; leave room for a scrollable meaning too. */
+    [data-word-card].word-sheet-target {
+      max-height: 80vh;
+      max-height: 80dvh;
+    }
     [data-word-card] [data-sheet-handle] {
       display: flex;
       align-items: center;
@@ -628,6 +633,20 @@
     [data-word-card].word-sheet-context {
       max-height: 92vh;
       max-height: 92dvh;
+    }
+    [data-word-card] [data-word-body] {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    [data-word-card] [data-word-footer] {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 8px;
+      padding-top: 8px;
+    }
+    [data-word-card] [data-word-footer] > [data-word-lookup] {
+      margin-top: 0;
     }
   }
 

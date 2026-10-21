@@ -270,8 +270,8 @@ export function rehomeForeignSources(words: readonly VocabEntry[]): VocabEntry[]
 
 /**
  * What the notebook stores from the open card.
- * A phrase card stores the phrase (`tune in`, as written `tuning in`), not the single word
- * that was tapped (`in`). A card with no phrase stores that word.
+ * The selected phrase stores the phrase (`tune in`, as written `tuning in`), not the single word
+ * that was tapped (`in`). Selecting the word passes no phrase and stores that word instead.
  */
 export function savedFromCard(
   word: { surface: string; key: string; pos: string; meaning: string },
