@@ -3,6 +3,7 @@
  * The two builds, and who gets which one.
  *
  *   node scripts/legacy-boot-e2e.mjs [baseUrl]
+ *   BUILD_DIR=local-exports/ipa-word-card/preview node scripts/legacy-boot-e2e.mjs [baseUrl]
  *
  * Needs the built app on baseUrl (default http://127.0.0.1:8090/), Playwright and Chrome:
  *   VITE_BOOKS_BASE= npx vite build && npx vite preview --host 127.0.0.1 --port 8090
@@ -26,6 +27,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BASE = (process.argv[2] ?? "http://127.0.0.1:8090/").replace(/\/?$/, "/");
+const BUILD = join(ROOT, process.env.BUILD_DIR ?? "dist");
 const SHOT = join(process.env.SHOT_DIR ?? tmpdir(), "legacy-boot-e2e.png");
 
 let failures = 0;
@@ -37,9 +39,9 @@ const check = (ok, label, detail = "") => {
 /* ---- 1 and 2: straight from the built files */
 let html = "";
 try {
-  html = readFileSync(join(ROOT, "dist/index.html"), "utf8");
+  html = readFileSync(join(BUILD, "index.html"), "utf8");
 } catch {
-  console.log("FAIL dist/index.html not found - build first (see the comment at the top of this file)");
+  console.log(`FAIL ${BUILD}/index.html not found - build first (see the comment at the top of this file)`);
   process.exit(1);
 }
 check(!html.includes("__vite_is_modern_browser"), "the page carries no import.meta.resolve probe");
@@ -48,7 +50,7 @@ check(/<script nomodule[^>]*vite-legacy-entry/.test(html), "the page carries the
 
 // The probe also went INSIDE the entry chunk as a guard import, which ran before the app did:
 // that is what killed Chrome 83 ("Uncaught Error: import.meta.resolve not supported").
-const assets = join(ROOT, "dist", "assets");
+const assets = join(BUILD, "assets");
 const chunks = readdirSync(assets).filter((name) => name.endsWith(".js") && !name.includes("legacy"));
 const guarded = chunks.filter((name) => {
   const code = readFileSync(join(assets, name), "utf8");
@@ -60,7 +62,7 @@ const entry = (html.match(/<script type="module"[^>]*src="([^"]+)"/) ?? [])[1] ?
 if (!entry) {
   check(false, "the page carries the modern entry");
 } else {
-  const code = readFileSync(join(ROOT, "dist", entry.replace(/^\//, "")), "utf8");
+  const code = readFileSync(join(BUILD, entry.replace(/^\//, "")), "utf8");
   const optional = (code.match(/\?\.[A-Za-z_[(]/g) ?? []).length;
   const nullish = (code.match(/\?\?/g) ?? []).length;
   const fields = /\bclass [^{]*\{[^}]*#[A-Za-z_]\w*\s*[=;(]/.test(code);

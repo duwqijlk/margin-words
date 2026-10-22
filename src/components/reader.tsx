@@ -1631,6 +1631,7 @@ export function ReaderScreen({
           phrase={shownPhrase}
           selectionId={picked?.selectionId ?? 0}
           targetMode={activePhrase ? "phrase" : "word"}
+          phrasePending={phrasePending}
           onTargetChange={(targetMode) => {
             const selectionId = picked?.selectionId;
             setPicked((current) => current && current.selectionId === selectionId

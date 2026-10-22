@@ -1,5 +1,10 @@
 /// <reference types="vite/client" />
 
+declare module "virtual:local-ipa-data" {
+  export const version: string;
+  export const loaders: Record<string, () => Promise<unknown>>;
+}
+
 interface ImportMetaEnv {
   /** Book-file host. Empty, "." or "./" keeps same-origin paths. Unset in production uses the books domain. */
   readonly VITE_BOOKS_BASE?: string;

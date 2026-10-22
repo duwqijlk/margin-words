@@ -5,6 +5,7 @@
 // WORD_CARD_VIEWPORT=phone (or e.g. 390x844) filters iteration only; default retains all 10 cases.
 // Fixed-position sparse-surface drags + reader layout-shift probes use 320x568 (zh) / 667x375 (en).
 // WORD_CARD_NO_LIST=1 also checks the empty-glossary notice on that isolated fixture pair.
+// WORD_CARD_REQUIRE_IPA=1 requires locale-only word audio on the explicitly enabled IPA build.
 import assert from "node:assert/strict";
 import { chromium } from "playwright";
 
@@ -12,6 +13,7 @@ const base = (process.argv[2] ?? "http://127.0.0.1:8098/").replace(/\/?$/, "/");
 const desktopWidth = Number(process.env.EXPECT_DESKTOP_WIDTH ?? 384);
 assert.ok([336, 384].includes(desktopWidth), "EXPECT_DESKTOP_WIDTH must be 336 or 384");
 const stress = process.env.WORD_CARD_STRESS === '1';
+const requireIpa = process.env.WORD_CARD_REQUIRE_IPA === '1';
 const stressFailures = [];
 const phrase = stress && process.env.STRESS_LONG_TITLE === '1'
   ? 'against all odds and despite every possible obstacle' : 'against all odds';
@@ -73,8 +75,50 @@ async function metrics(card) {
       contentHeight: content.getBoundingClientRect().height, maxScroll: body.scrollHeight - body.clientHeight };
   });
 }
+// Assert the build's audio contract, not whichever controls happened to mount. In particular,
+// absent/broken IPA must not silently turn an enabled word card back into a generic-speaker case.
+async function pronunciationControls(card) {
+  const word = await card.locator('h2').innerText();
+  const isPhrase = await card.locator('[data-part="phrase-meaning"]').count() > 0;
+  const localeOnly = requireIpa && !isPhrase;
+  const header = card.locator('[data-word-header] [data-speak]');
+  assert.equal(await header.count(), localeOnly ? 0 : 1,
+    localeOnly ? 'enabled word card has no redundant header speaker' : 'phrase/default card retains one generic header speaker');
+  if (!localeOnly) {
+    assert.equal(await card.locator('[data-speak-accent]').count(), 0, 'phrase/default card has no locale speakers');
+    assert.equal(await card.locator('[data-word-ipa]').count(), 0, 'phrase/default card has no IPA row');
+    assert.equal(await card.locator('[data-speak]').count(), 1, 'phrase/default card has only its generic speaker');
+    assert.ok((await header.getAttribute('aria-label')).endsWith(`: ${word}`), 'generic speaker names displayed target');
+    return { localeOnly, accents: [] };
+  }
+  const ipa = card.locator('[data-word-ipa]');
+  assert.equal(await ipa.count(), 1, 'enabled word has exactly one IPA section');
+  assert.equal(await ipa.getAttribute('data-ipa-word'), word, 'IPA matches the visible word');
+  assert.equal(await ipa.evaluate(el => {
+    const content = el.closest('[data-word-content]');
+    return content?.firstElementChild === el && el.nextElementSibling?.hasAttribute('data-word-primary');
+  }), true, 'IPA is the first scroll-body content, immediately before primary meaning');
+  await card.locator('[data-word-ipa]:not([data-ipa-status="loading"])').waitFor();
+  const accents = [];
+  for (const accent of ['UK', 'US']) {
+    const group = ipa.locator(`[data-ipa-locale="${accent}"]`);
+    const readings = await group.locator('[data-ipa-reading]').count();
+    const button = group.locator(`[data-speak-accent="${accent}"]`);
+    assert.ok(readings <= 1, 'one primary IPA per accent');
+    assert.equal(await button.count(), readings ? 1 : 0, `${accent} has one speaker exactly when a reading exists`);
+    if (readings) {
+      accents.push(accent);
+      assert.equal(await button.evaluate(el => el.tagName), 'BUTTON', `${accent} speaker is a native button`);
+      assert.ok((await button.getAttribute('aria-label')).endsWith(`: ${word}`), `${accent} accessible name names displayed word`);
+    }
+  }
+  assert.equal(await card.locator('[data-speak]').count(), accents.length, 'enabled word has only matching locale speakers');
+  if (word === 'odds') assert.deepEqual(accents, ['UK', 'US'], 'known fixture word requires exactly UK and US speakers');
+  return { localeOnly, accents };
+}
 // No locator.click()/tap() on lookup controls: those auto-scroll and can hide this regression.
 async function cardChrome(page, card) {
+  const audioControls = await pronunciationControls(card);
   // A preceding real tap may still be finishing active:scale-95's 150ms return.
   // Measure stable geometry, not a transient 43.87px projection of a 44px button.
   await card.evaluate(el => Promise.all(el.getAnimations({ subtree: true }).filter(animation =>
@@ -154,7 +198,7 @@ async function cardChrome(page, card) {
       handle: { ...handleBox, touchAction: getComputedStyle(handle).touchAction, points: handlePoints },
       scroll: [scrollX, scrollY, el.scrollTop, body.scrollTop],
       viewport: [innerWidth, innerHeight],
-      controls: [...el.querySelectorAll('[data-lookup], [data-look-target], [data-panel-close], [data-word-actions] [data-speak], [data-word-save], [data-feedback-toggle], [data-feedback-options] button')].map(node => {
+      controls: [...el.querySelectorAll('[data-lookup], [data-look-target], [data-panel-close], [data-word-header] [data-speak], [data-word-save], [data-feedback-toggle], [data-feedback-options] button')].map(node => {
         const r = box(node);
         const hit = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
         const name = node.dataset.lookup || node.dataset.lookTarget || (node.hasAttribute('data-speak') ? 'speak'
@@ -191,32 +235,40 @@ async function cardChrome(page, card) {
     assert.ok(control.hit, `${control.name} receives a center hit without scrolling`);
   }
   const { head, title, tools, meta, actions } = state.header;
-  const buttons = ['speak', 'save', 'close'].map(name => {
+  const buttons = (audioControls.localeOnly ? ['save', 'close'] : ['speak', 'save', 'close']).map(name => {
     const matches = state.controls.filter(control => control.name === name);
     assert.equal(matches.length, 1, `header has exactly one ${name} button`);
     return matches[0];
   });
-  const [speak, save, close] = buttons;
+  const speak = buttons.find(button => button.name === 'speak');
+  const save = buttons.find(button => button.name === 'save');
+  const close = buttons.find(button => button.name === 'close');
   const separated = (a, b, gap = 0) => a.right + gap <= b.x + 0.5 || b.right + gap <= a.x + 0.5
     || a.bottom + gap <= b.y + 0.5 || b.bottom + gap <= a.y + 0.5;
   assert.ok(['static', 'relative'].includes(title.position), 'title stays in normal document flow');
-  assert.ok(title.x >= head.x - 1 && title.right <= close.x - 8, 'long title reserves a separate right-hand close column');
+  assert.ok(title.x >= head.x - 1 && title.right <= actions.x - 8, 'long title reserves a separate right-hand save/close column');
   assert.ok(state.titleText.width <= title.width + 1 && title.scrollWidth <= title.clientWidth + 1,
     'long title wraps without horizontal clipping or overflow');
-  assert.ok(separated(title, close, 8), 'title never overlaps close, including long-title regressions');
-  assert.ok(head.bottom <= tools.y + 1, 'toolbar occupies a separate row below title and close');
-  assert.equal(tools.display, 'flex', 'metadata and actions share a flex toolbar');
+  assert.ok(separated(title, actions, 8), 'title never overlaps save/close, including long-title regressions');
+  assert.ok(head.bottom <= tools.y + 1, 'POS toolbar occupies a separate row below title/save/close');
+  assert.equal(tools.display, 'flex', 'metadata and optional generic speaker share a flex toolbar');
   assert.ok(tools.scrollWidth <= tools.clientWidth + 1, 'toolbar never overflows horizontally (metadata may wrap or scroll internally)');
   assert.ok(['normal', 'flex-start', 'start'].includes(tools.justifyContent), 'toolbar is left aligned, never space-between');
   assert.ok(Math.abs(meta.x - tools.x) <= 1 && Math.abs(title.x - tools.x) <= 1,
     'metadata and toolbar align with title on the left');
-  assert.ok(actions.x >= tools.x - 1 && actions.right <= tools.right + 1, 'actions fit in toolbar');
-  assert.ok(separated(actions, close, 8), `close stays at least 8px from speak/save: ${JSON.stringify({ actions, close })}`);
-  assert.ok(save.x - speak.right >= 8 - 0.5, 'speak and save have at least 8px horizontal spacing');
-  if (state.viewport[0] >= 1024) {
-    const sameRow = actions.y < meta.bottom && meta.y < actions.bottom;
-    assert.ok(sameRow ? Math.abs(actions.x - meta.right - tools.columnGap) <= 1 : Math.abs(actions.x - tools.x) <= 1,
-      'desktop actions follow metadata on the left, or wrap to the left edge');
+  assert.ok(actions.x >= head.x - 1 && actions.right <= head.right + 1
+    && actions.y >= head.y - 1 && actions.bottom <= head.bottom + 1, 'save/close actions fit in title row');
+  assert.ok(save.x >= actions.x - 1 && close.right <= actions.right + 1
+    && Math.abs(save.y + save.height / 2 - close.y - close.height / 2) <= 1,
+    'save and close share the top-right title action row');
+  assert.ok(close.x - save.right >= 8 - 0.5, 'save precedes close with at least 8px horizontal spacing');
+  if (speak) {
+    assert.ok(speak.x >= tools.x - 1 && speak.right <= tools.right + 1
+      && speak.y >= tools.y - 1 && speak.bottom <= tools.bottom + 1, 'generic speaker stays in POS toolbar');
+    const sameRow = speak.y < meta.bottom && meta.y < speak.bottom;
+    assert.ok(sameRow ? Math.abs(speak.x - meta.right - tools.columnGap) <= 1 : Math.abs(speak.x - tools.x) <= 1,
+      'generic speaker follows metadata on the left, or wraps to the left edge');
+    assert.ok(separated(speak, save, 8) && separated(speak, close, 8), 'generic speaker is separate from title actions');
   }
   if (state.viewport[0] < 768) {
     assert.equal(state.handle.height, 44, 'phone dismissal handle is a dedicated 44px hit band');
@@ -231,7 +283,7 @@ async function cardChrome(page, card) {
     assert.equal(state.primary.alignContent, 'start', 'extra primary space stays below the meaning instead of stretching grid rows');
     assert.ok(Math.abs(state.primary.first.y - state.primary.y) <= 1, 'first meaning stays at the top of the primary surface');
     assert.equal(state.bodyMinHeight, '0px', 'constrained body can shrink while persistent controls remain visible');
-    assert.ok(Math.abs(parseFloat(state.maxHeight) - state.viewport[1] * (state.viewport[1] <= 450 ? 0.92 : 0.8)) <= 1,
+    assert.ok(Math.abs(parseFloat(state.maxHeight) - state.viewport[1] * (state.viewport[1] <= 600 ? 0.92 : 0.8)) <= 1,
       'plain and context phone sheets use the increased viewport height budget');
     if (state.scroll[3] === 0) {
       assert.ok(state.primary.exposed.height > 0 && state.primary.exposed.width > 0,
@@ -240,8 +292,10 @@ async function cardChrome(page, card) {
         'predetermined primary positions hit noninteractive content without scrolling');
       // A small phone may show less than the natural 96/64px after header/footer
       // budgeting. Assert the intersection, never pretend all of that minimum is visible.
-      assert.ok(Math.abs(state.primary.exposed.height - Math.min(state.primary.height, state.body.height)) <= 1,
-        'reported primary exposure is clipped to the available body');
+      const expectedExposure = Math.max(0, Math.min(state.primary.bottom, state.body.bottom, state.viewport[1])
+        - Math.max(state.primary.y, state.body.y, 0));
+      assert.ok(Math.abs(state.primary.exposed.height - expectedExposure) <= 1,
+        'reported primary exposure is clipped to actual primary/body intersection after IPA');
     }
     assert.ok(state.handle.bottom <= head.y + 1, 'handle does not cover title or buttons');
     for (const button of buttons) assert.ok(button.width >= 44 && button.height >= 44,
@@ -305,8 +359,7 @@ async function targetContent(card, mode) {
   const isPhrase = mode === 'phrase';
   assert.equal(await card.locator('h2').innerText(), isPhrase ? phrase : 'odds', 'target changes card title');
   assert.equal(await card.locator('[data-word-pos]').innerText(), isPhrase ? 'idiom' : 'plural noun', 'target changes POS');
-  assert.ok((await card.locator('[data-word-actions] [data-speak]').getAttribute('aria-label')).endsWith(`: ${isPhrase ? phrase : 'odds'}`),
-    'speaker accessible name follows displayed target');
+  await pronunciationControls(card);
   assert.equal(await card.locator(`[data-part="${isPhrase ? 'phrase' : 'word'}-meaning"]`).innerText(),
     isPhrase ? fixture.phraseMeaning : fixture.wordMeaning, 'target changes primary meaning');
   assert.equal(await card.locator(`[data-part="${isPhrase ? 'word' : 'phrase'}-meaning"]`).count(), 0,
@@ -507,13 +560,34 @@ async function feedbackTargets(page, card, open) {
   }
 }
 async function pronunciationTarget(page, card, mode) {
-  const before = await phoneEffects(page);
-  await coordinateTap(page, card.locator('[data-word-actions] [data-speak]'));
-  const after = await phoneEffects(page);
-  assert.equal(after.taps, before.taps, 'explicit speaker does not count as another reader-word tap');
-  const spoken = [...after.audios.slice(before.audios.length).map(url => new URL(url).searchParams.get('audio')),
-    ...after.voices.slice(before.voices.length)];
-  assert.deepEqual(spoken, [mode === 'phrase' ? phrase : 'odds'], 'one speaker tap pronounces only displayed target');
+  const controls = await pronunciationControls(card);
+  const beforeScroll = await page.evaluate(() => [scrollX, scrollY]);
+  const saved = await card.locator('[data-word-save]').getAttribute('aria-pressed');
+  const bodyScroll = await card.locator('[data-word-body]').evaluate(el => el.scrollTop);
+  for (const accent of controls.localeOnly ? controls.accents : [null]) {
+    const button = card.locator(accent ? `[data-speak-accent="${accent}"]` : '[data-word-header] [data-speak]');
+    if (accent) {
+      await exposeInBody(card, button);
+      await settle(page);
+      const box = await button.boundingBox();
+      assert.ok(box.width >= 44 && box.height >= 44, `${accent} has a minimum 44x44 target after internal scroll`);
+    }
+    const before = await phoneEffects(page);
+    await coordinateTap(page, button);
+    const after = await phoneEffects(page);
+    assert.equal(after.taps, before.taps, 'explicit speaker does not count as another reader-word tap');
+    const urls = after.audios.slice(before.audios.length);
+    const spoken = [...urls.map(url => new URL(url).searchParams.get('audio')),
+      ...after.voices.slice(before.voices.length)];
+    assert.deepEqual(spoken, [mode === 'phrase' ? phrase : 'odds'], 'one speaker tap pronounces only displayed target');
+    if (accent) assert.deepEqual(urls.map(url => new URL(url).searchParams.get('type')), [accent === 'UK' ? '1' : '2'],
+      `${accent} button requests only its selected recording`);
+    assert.equal(await card.count(), 1, 'speaker interaction never dismisses the card');
+    assert.equal(await card.locator('[data-word-save]').getAttribute('aria-pressed'), saved, 'speaker leaves save state unchanged');
+    assert.deepEqual(await page.evaluate(() => [scrollX, scrollY]), beforeScroll, 'speaker internal reveal and playback never scroll reader');
+  }
+  await card.locator('[data-word-body]').evaluate((el, scrollTop) => { el.scrollTop = scrollTop; }, bodyScroll);
+  await settle(page);
 }
 async function savedTargetsAndVariants(page, width, height) {
   const card = page.locator('[data-word-card]');
@@ -1330,7 +1404,7 @@ async function phoneRegression(page, width, height) {
   await remains('two fingers from start');
   await drag(100, { target: title, expected: 'pull', secondFinger: true, label: 'second finger after active drag' });
   await remains('second finger after active drag');
-  const speak = card.locator('[data-word-actions] [data-speak]');
+  const speak = card.locator('[data-word-header] [data-speak]');
   const speakBox = await speak.boundingBox();
   await drag(100, { target: speak, origin: { x: speakBox.x + speakBox.width / 2, y: speakBox.y + 5 },
     label: 'button-origin downward drag' });

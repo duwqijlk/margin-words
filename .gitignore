@@ -31,6 +31,9 @@ classics/**/*.pack.zip
 # Layout-shift test output
 layout-shift-out/
 
+# Local pronunciation research and opt-in preview data (never published)
+local-exports/
+
 # Local secrets. .env.production holds only the public Turnstile site key.
 .env
 .env.local

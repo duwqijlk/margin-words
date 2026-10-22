@@ -10,6 +10,8 @@ import { ExplainSentence } from "@/components/help-panels";
 import { SIDE_PANEL } from "@/components/side-panel";
 import { btn, cn, Highlighted, SpeakButton } from "@/components/ui";
 import { WordExplanationFeedback } from "@/components/word-feedback";
+import { WordIpa } from "@/components/word-ipa";
+import { version as localIpaVersion } from "virtual:local-ipa-data";
 
 /** One quiet quote: a small optional label and a serif line with a thin left rule. */
 export function CardQuote({
@@ -266,6 +268,7 @@ export function WordCard({
   saved,
   phrase,
   targetMode,
+  phrasePending,
   onTargetChange,
   selectionId,
   canSave,
@@ -281,6 +284,7 @@ export function WordCard({
   state: CardState;
   phrase: PhraseHit | null;
   targetMode: "phrase" | "word";
+  phrasePending: boolean;
   onTargetChange: (mode: "phrase" | "word") => void;
   selectionId: number;
   canSave: boolean;
@@ -304,7 +308,7 @@ export function WordCard({
   const targetHere = activePhrase ? activePhrase.entry.here : state.here;
   const targetMeaning = activePhrase ? activePhrase.entry.meaning : state.meaning;
   const targetForm = activePhrase
-    ? activePhrase.matched
+    ? activePhrase.matched.toLowerCase() !== activePhrase.key.toLowerCase() ? activePhrase.matched : ""
     : state.key !== state.surface.toLowerCase()
       ? state.surface
       : "";
@@ -380,15 +384,38 @@ export function WordCard({
               {target}
             </h2>
           </div>
-          <button
-            type="button"
-            className={cn(btn.icon, "shrink-0")}
-            onClick={() => onClose(true)}
-            aria-label={t("card.close")}
-            data-panel-close
-          >
-            <X className="size-5" aria-hidden />
-          </button>
+          <div className="flex shrink-0 items-center gap-2" data-word-actions>
+            <button
+              type="button"
+              className={cn(
+                "inline-flex size-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-150 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40",
+                saved
+                  ? "border-accent bg-accent text-accent-ink shadow-xs"
+                  : "border-line bg-card text-ink/80 hover:border-muted hover:bg-paper hover:text-ink shadow-2xs",
+              )}
+              disabled={!saved && !canSave}
+              onClick={onToggle}
+              aria-pressed={saved}
+              aria-label={t(saved ? "card.savedTarget" : "card.addTarget", { word: target })}
+              title={t(saved ? "card.savedTarget" : "card.addTarget", { word: target })}
+              data-word-save
+            >
+              {saved ? (
+                <Check className="size-4.5 stroke-[2.5]" aria-hidden />
+              ) : (
+                <BookMarked className="size-4.5 stroke-[1.8]" aria-hidden />
+              )}
+            </button>
+            <button
+              type="button"
+              className={cn(btn.icon, "shrink-0")}
+              onClick={() => onClose(true)}
+              aria-label={t("card.close")}
+              data-panel-close
+            >
+              <X className="size-5" aria-hidden />
+            </button>
+          </div>
         </div>
         {phrase ? (
           <div
@@ -449,34 +476,12 @@ export function WordCard({
             ) : null}
             {formLine ? <p className="text-xs text-muted">{inBook(formLine)}</p> : null}
           </div>
-          <div className="flex shrink-0 items-center gap-2" data-word-actions>
-            <SpeakButton text={target} compact className="shrink-0" />
-            <button
-              type="button"
-              className={cn(
-                "inline-flex size-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-150 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40",
-                saved
-                  ? "border-accent bg-accent text-accent-ink shadow-xs"
-                  : "border-line bg-card text-ink/80 hover:border-muted hover:bg-paper hover:text-ink shadow-2xs",
-              )}
-              disabled={!saved && !canSave}
-              onClick={onToggle}
-              aria-pressed={saved}
-              aria-label={t(saved ? "card.savedTarget" : "card.addTarget", { word: target })}
-              title={t(saved ? "card.savedTarget" : "card.addTarget", { word: target })}
-              data-word-save
-            >
-              {saved ? (
-                <Check className="size-4.5 stroke-[2.5]" aria-hidden />
-              ) : (
-                <BookMarked className="size-4.5 stroke-[1.8]" aria-hidden />
-              )}
-            </button>
-          </div>
+          {!localIpaVersion || activePhrase ? <SpeakButton text={target} compact className="shrink-0" /> : null}
         </div>
       </div>
       <div ref={bodyRef} className="scroll-thin my-3.5" data-word-body>
         <div className="grid gap-3.5" data-word-content>
+          {localIpaVersion && !activePhrase && !phrasePending ? <WordIpa key={`${selectionId}:${state.key}`} word={state.key} /> : null}
           <div className="grid gap-2" data-word-primary>
             {activePhrase ? (
               <p

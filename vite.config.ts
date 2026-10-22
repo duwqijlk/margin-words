@@ -1,4 +1,7 @@
 import { defineConfig } from "vite";
+import { fileURLToPath } from "node:url";
+// @ts-expect-error build-only JS plugin
+import { localIpaData } from "./scripts/ipa-data-plugin.mjs";
 import viteReact from "@vitejs/plugin-react";
 import legacy from "@vitejs/plugin-legacy";
 // @ts-expect-error plain JS plugins next to the TS config
@@ -22,7 +25,7 @@ import {
  * site root. A host must answer unknown paths with index.html (public/_redirects does that on Cloudflare
  * Pages). Copyrighted EPUBs live in ./packs and are never deployed (see README).
  */
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: "/",
   server: { host: "0.0.0.0", port: 8080, strictPort: true },
   preview: { host: "127.0.0.1", port: 8081, strictPort: true },
@@ -41,6 +44,7 @@ export default defineConfig({
   },
   // Tailwind is a PostCSS plugin now (postcss.config.js), not a Vite plugin: that is how v3 works.
   plugins: [
+    localIpaData({ mode, root: fileURLToPath(new URL(".", import.meta.url)), directory: process.env.LOCAL_IPA_DATA_DIR }),
     packsFolder(),
     publicBooks(),
     wordLists(),
@@ -71,4 +75,4 @@ export default defineConfig({
     offlineShell(),
     dvhFallbacks(),
   ],
-});
+}));

@@ -32,17 +32,38 @@ export const chip =
 
 /* ---------------------------------------------------------------- pronunciation */
 
+export type PronunciationAccent = "UK" | "US";
+/** `started` can be followed by `failed` if playback fails after starting. */
+export type PronunciationOutcome = "started" | "failed" | "aborted";
+export type PronunciationOptions = {
+  accent?: PronunciationAccent;
+  onOutcome?: (outcome: PronunciationOutcome) => void;
+};
+
+type PronunciationRequest = {
+  token: number;
+  accent?: PronunciationAccent;
+  cancelAttempt: (() => void) | null;
+  notify: (outcome: PronunciationOutcome) => void;
+  finish: (outcome?: PronunciationOutcome) => void;
+};
+
 let currentAudio: HTMLAudioElement | null = null;
-/**
- * Bumped by every `speakEnglish` call. A newer call (the phrase that a tapped word turns out to
- * belong to) must silence the older one completely - including a fallback voice that the older,
- * already cancelled call would otherwise start on top of it.
- */
+let cancelPronunciation: (() => void) | null = null;
+// A newer word/phrase owns the entire pipeline, not just the current recording. Cancelling also
+// settles a pending play promise, even on engines that never resolve or reject it after pause().
 let spokenToken = 0;
+const PRONUNCIATION_START_TIMEOUT = 8000;
 
 /** Stop whatever is speaking and return the token that owns the sound from now on. */
 function stopSpeaking(): number {
   spokenToken += 1;
+  const token = spokenToken;
+  const cancel = cancelPronunciation;
+  cancelPronunciation = null;
+  cancel?.();
+  // A callback may itself start a new pronunciation. Do not cancel that newer owner's sound.
+  if (token !== spokenToken) return token;
   if (currentAudio) {
     const audio = currentAudio;
     currentAudio = null;
@@ -59,7 +80,7 @@ function stopSpeaking(): number {
   } catch {
     // No speech synthesis on this engine.
   }
-  return spokenToken;
+  return token;
 }
 
 /** Characters that are punctuation at the edge of a word, never part of it. */
@@ -83,64 +104,108 @@ function voiceText(text: string): string {
 }
 
 /**
- * The dictionary audio to try, in order. `type=2` is the British recording, `type=1` the American
- * one, and plenty of words exist in only one of the two - asking for both cuts the number of words
+ * Youdao uses `type=1` for British and `type=2` for American recordings. Generic callers retain
+ * their existing [2, 1] order; plenty of words exist in only one accent, so trying both cuts the words
  * that end up on the synthesized fallback, which is the voice a reader hears as "wrong".
  */
-function voiceUrls(text: string): string[] {
+function voiceUrls(text: string, accent?: PronunciationAccent): string[] {
   const query = encodeURIComponent(text);
-  return [
-    `https://dict.youdao.com/dictvoice?audio=${query}&type=2`,
-    `https://dict.youdao.com/dictvoice?audio=${query}&type=1`,
-  ];
+  const types = accent ? [accent === "UK" ? 1 : 2] : [2, 1];
+  return types.map((type) => `https://dict.youdao.com/dictvoice?audio=${query}&type=${type}`);
 }
 
-type AudioResult = "started" | "aborted" | "failed";
-
-function playAudio(url: string, token: number): Promise<AudioResult> {
+function playAudio(url: string, request: PronunciationRequest): Promise<PronunciationOutcome> {
   return new Promise((resolve) => {
+    if (request.token !== spokenToken) {
+      resolve("aborted");
+      return;
+    }
     if (typeof Audio === "undefined" || typeof document === "undefined" || !document.body) {
       resolve("failed");
       return;
     }
-    let settled = false;
     const audio = document.createElement("audio");
+    let disposed = false;
+    let started = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const clearTimer = () => {
+      clearTimeout(timer);
+      timer = undefined;
+    };
+    const cleanup = (pause: boolean) => {
+      if (disposed) return;
+      disposed = true;
+      clearTimer();
+      audio.removeEventListener("playing", onStarted);
+      audio.removeEventListener("error", onError);
+      audio.removeEventListener("ended", onEnded);
+      if (request.cancelAttempt === cancel) request.cancelAttempt = null;
+      if (currentAudio === audio) currentAudio = null;
+      if (pause) {
+        try {
+          audio.pause();
+        } catch {
+          // Removal and request settlement must still happen if this engine cannot pause.
+        }
+      }
+      audio.remove();
+    };
+    const cancel = () => {
+      cleanup(true);
+      resolve("aborted");
+    };
+    const onStarted = () => {
+      if (disposed) return;
+      if (request.token !== spokenToken) {
+        cancel();
+        return;
+      }
+      if (started) return;
+      started = true;
+      clearTimer();
+      request.notify("started");
+      resolve("started");
+    };
+    const fail = (result: "failed" | "aborted") => {
+      if (disposed) return;
+      const outcome = request.token === spokenToken ? result : "aborted";
+      cleanup(true);
+      resolve(outcome);
+      // The promise already resolved on start; a later media error still reaches the button.
+      if (started || outcome === "aborted") request.finish(outcome);
+    };
+    const onError = () => fail("failed");
+    const onEnded = () => {
+      if (disposed) return;
+      onStarted();
+      cleanup(false);
+      request.finish();
+    };
+    request.cancelAttempt = cancel;
     audio.preload = "auto";
     audio.setAttribute("playsinline", "");
     audio.style.display = "none";
     audio.src = url;
-    const finish = (result: AudioResult) => {
-      if (settled) return;
-      settled = true;
-      if (result !== "started") {
-        audio.remove();
-        if (currentAudio === audio) currentAudio = null;
-      }
-      resolve(result);
-    };
-    audio.addEventListener("error", () => finish("failed"), { once: true });
-    audio.addEventListener(
-      "ended",
-      () => {
-        if (currentAudio === audio) currentAudio = null;
-        audio.remove();
-      },
-      { once: true },
-    );
+    audio.addEventListener("playing", onStarted);
+    audio.addEventListener("error", onError);
+    audio.addEventListener("ended", onEnded);
     // A detached `Audio` element does not start on some Android WebViews - the very devices this
     // path exists for. In the document, hidden, it does.
     document.body.appendChild(audio);
     currentAudio = audio;
-    const started = audio.play();
-    if (started && typeof started.then === "function") {
-      started
-        .then(() => finish(token === spokenToken ? "started" : "aborted"))
-        .catch((error: unknown) => {
-          // `AbortError` is our own `pause()` in a newer call, not a failed playback.
-          finish((error as { name?: string } | null)?.name === "AbortError" ? "aborted" : "failed");
+    if (request.accent) timer = setTimeout(onError, PRONUNCIATION_START_TIMEOUT);
+    try {
+      const playing = audio.play();
+      if (playing && typeof playing.then === "function") {
+        playing.then(onStarted, (error: unknown) => {
+          fail((error as { name?: string } | null)?.name === "AbortError" ? "aborted" : "failed");
         });
-    } else {
-      finish("started");
+      } else if (!request.accent) {
+        // Older engines do not return a promise. Explicit accents wait for an actual playing event.
+        onStarted();
+      }
+    } catch {
+      fail("failed");
     }
   });
 }
@@ -152,17 +217,19 @@ let voiceCache: SpeechSynthesisVoice | null = null;
  * and on an Android reader that default is often the system voice, which reads English with the
  * wrong sounds - the flat, robotic voice a reader notices next to the dictionary recordings.
  */
-function englishVoice(): SpeechSynthesisVoice | null {
-  if (voiceCache) return voiceCache;
+function englishVoice(accent?: PronunciationAccent): SpeechSynthesisVoice | null {
+  if (!accent && voiceCache) return voiceCache;
   try {
     const voices = window.speechSynthesis.getVoices?.() ?? [];
     if (voices.length === 0) return null; // Still loading: try again on the next tap.
     const score = (voice: SpeechSynthesisVoice) => {
-      const lang = String(voice.lang ?? "")
-        .toLowerCase()
-        .replace("_", "-");
+      const lang = String(voice.lang ?? "").toLowerCase().replace(/_/g, "-");
       let value = 0;
-      if (lang.startsWith("en-us")) value = 6;
+      if (accent) {
+        // Do not label a default or opposite-accent voice as this accent. Extension subtags are OK.
+        if (!(accent === "UK" ? /^en-gb(?:-|$)/ : /^en-us(?:-|$)/).test(lang)) return 0;
+        value = 6;
+      } else if (lang.startsWith("en-us")) value = 6;
       else if (lang.startsWith("en-gb")) value = 5;
       else if (lang.startsWith("en")) value = 3;
       if (value === 0) return 0;
@@ -174,35 +241,97 @@ function englishVoice(): SpeechSynthesisVoice | null {
       .map((voice) => ({ voice, value: score(voice) }))
       .filter((row) => row.value > 0)
       .sort((a, b) => b.value - a.value)[0];
-    voiceCache = best?.voice ?? null;
-    return voiceCache;
+    if (!accent) voiceCache = best?.voice ?? null;
+    return best?.voice ?? null;
   } catch {
     return null;
   }
 }
 
-function speakWithSynthesis(spoken: string, token: number): boolean {
-  // A newer word replaced this one while its audio was loading: stay silent.
-  if (token !== spokenToken) return false;
+function speakWithSynthesis(spoken: string, request: PronunciationRequest): boolean {
+  if (request.token !== spokenToken) return false;
   try {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return false;
     const synth = window.speechSynthesis;
-    if (synth.paused) synth.resume();
-    const start = () => {
-      if (token !== spokenToken) return;
-      const utterance = new SpeechSynthesisUtterance(spoken);
-      const voice = englishVoice();
-      if (voice) utterance.voice = voice;
-      utterance.lang = voice?.lang ?? "en-US";
-      utterance.rate = 0.9;
-      synth.speak(utterance);
+    const voice = englishVoice(request.accent);
+    if (request.accent && !voice) return false;
+    let disposed = false;
+    let started = false;
+    let utterance: SpeechSynthesisUtterance | null = null;
+    let delay: ReturnType<typeof setTimeout> | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const cleanup = () => {
+      disposed = true;
+      clearTimeout(delay);
+      clearTimeout(timer);
+      if (utterance) utterance.onstart = utterance.onend = utterance.onerror = null;
+      if (request.cancelAttempt === cleanup) request.cancelAttempt = null;
     };
-    if (synth.speaking || synth.pending) {
-      // Chrome on Android drops an utterance that is queued in the same task as `cancel()`.
-      synth.cancel();
-      setTimeout(start, 60);
-    } else {
-      start();
+    const fail = (outcome: "failed" | "aborted") => {
+      if (disposed) return;
+      cleanup();
+      if (request.token !== spokenToken) outcome = "aborted";
+      else {
+        try {
+          synth.cancel();
+        } catch {
+          // The error outcome must still reach the button on a broken engine.
+        }
+      }
+      request.finish(outcome);
+    };
+    const onStarted = () => {
+      if (disposed) return;
+      if (request.token !== spokenToken) {
+        fail("aborted");
+        return;
+      }
+      if (started) return;
+      started = true;
+      clearTimeout(timer);
+      request.notify("started");
+    };
+    const start = () => {
+      if (disposed) return;
+      if (request.token !== spokenToken) {
+        fail("aborted");
+        return;
+      }
+      try {
+        utterance = new SpeechSynthesisUtterance(spoken);
+        if (voice) utterance.voice = voice;
+        utterance.lang =
+          request.accent === "UK" ? "en-GB" : request.accent === "US" ? "en-US" : voice?.lang ?? "en-US";
+        utterance.rate = 0.9;
+        utterance.onstart = onStarted;
+        utterance.onend = () => {
+          if (disposed) return;
+          onStarted();
+          cleanup();
+          request.finish();
+        };
+        utterance.onerror = (event) =>
+          fail(event.error === "canceled" || event.error === "interrupted" ? "aborted" : "failed");
+        synth.speak(utterance);
+        // Existing generic callers and older engine mocks accept speak() without an onstart event.
+        if (!request.accent) onStarted();
+      } catch {
+        fail("failed");
+      }
+    };
+    request.cancelAttempt = cleanup;
+    if (request.accent) timer = setTimeout(() => fail("failed"), PRONUNCIATION_START_TIMEOUT);
+    try {
+      if (synth.paused) synth.resume();
+      if (synth.speaking || synth.pending) {
+        // Chrome on Android drops an utterance queued in the same task as cancel().
+        synth.cancel();
+        delay = setTimeout(start, 60);
+      } else {
+        start();
+      }
+    } catch {
+      fail("failed");
     }
     return true;
   } catch {
@@ -219,38 +348,112 @@ function speakWithSynthesis(spoken: string, token: number): boolean {
  * word's `play()` rejects with `AbortError` (paused by the phrase), the old code took that for a
  * failure and spoke the word with the fallback voice, and both sounded at once.
  */
-export function speakEnglish(text: string): boolean {
+export function speakEnglish(text: string, options: PronunciationOptions = {}): boolean {
   const spoken = voiceText(text);
-  if (!spoken) return false;
-  if (typeof window === "undefined") return false;
+  if (!spoken || typeof window === "undefined") return false;
 
   const token = stopSpeaking();
-  const urls = voiceUrls(spoken);
-  void (async () => {
-    for (const url of urls) {
-      const result = await playAudio(url, token);
-      if (result === "started" || result === "aborted") return;
+  let finished = false;
+  let lastOutcome: PronunciationOutcome | undefined;
+  const notify = (outcome: PronunciationOutcome) => {
+    if (finished || lastOutcome === outcome) return;
+    lastOutcome = outcome;
+    try {
+      options.onOutcome?.(outcome);
+    } catch {
+      // UI observers must not break cleanup or start another fallback.
     }
-    speakWithSynthesis(spoken, token);
+  };
+  const finish = (outcome?: PronunciationOutcome) => {
+    if (finished) return;
+    // Detach this owner before notifying: an observer may immediately start a new request.
+    if (cancelPronunciation === cancel) cancelPronunciation = null;
+    request.cancelAttempt?.();
+    request.cancelAttempt = null;
+    if (outcome) notify(outcome);
+    finished = true;
+  };
+  const request: PronunciationRequest = {
+    token,
+    accent: options.accent,
+    cancelAttempt: null,
+    notify,
+    finish,
+  };
+  const cancel = () => finish("aborted");
+  if (token !== spokenToken) {
+    finish("aborted");
+    return true;
+  }
+  cancelPronunciation = cancel;
+  void (async () => {
+    try {
+      for (const url of voiceUrls(spoken, options.accent)) {
+        if (finished || token !== spokenToken) {
+          finish("aborted");
+          return;
+        }
+        const result = await playAudio(url, request);
+        if (finished || token !== spokenToken || result === "aborted") {
+          finish("aborted");
+          return;
+        }
+        if (result === "started") return;
+      }
+      if (finished || token !== spokenToken) finish("aborted");
+      else if (!speakWithSynthesis(spoken, request)) finish("failed");
+    } catch {
+      finish(token === spokenToken ? "failed" : "aborted");
+    }
   })();
   return true;
 }
 
-export function useSpeak() {
-  const [status, setStatus] = useState<"idle" | "error">("idle");
+export function useSpeak(
+  accent?: PronunciationAccent,
+  onOutcome?: (outcome: PronunciationOutcome) => void,
+) {
+  const [playback, setPlayback] = useState<{
+    text: string;
+    accent?: PronunciationAccent;
+    outcome: "idle" | "loading" | PronunciationOutcome;
+  }>({ text: "", outcome: "idle" });
   const alive = useRef(true);
+  const requestId = useRef(0);
+  const observer = useRef(onOutcome);
+  observer.current = onOutcome;
   useEffect(() => {
     alive.current = true;
     return () => {
       alive.current = false;
+      requestId.current += 1;
+      // Do not globally stop here: another mounted button may already own the newer sound.
     };
   }, []);
 
-  function play(text: string) {
-    const ok = speakEnglish(text);
-    if (alive.current) setStatus(ok ? "idle" : "error");
+  function reset() {
+    requestId.current += 1;
+    if (alive.current) setPlayback({ text: "", accent, outcome: "idle" });
   }
-  return { status, play };
+  function play(text: string) {
+    const id = ++requestId.current;
+    if (alive.current) setPlayback({ text, accent, outcome: "loading" });
+    const update = (outcome: PronunciationOutcome) => {
+      if (!alive.current || id !== requestId.current) return;
+      setPlayback({ text, accent, outcome });
+      observer.current?.(outcome);
+    };
+    const ok = speakEnglish(text, { accent, onOutcome: update });
+    if (!ok) update("failed");
+  }
+  const outcome = playback.accent === accent ? playback.outcome : "idle";
+  return {
+    status: outcome === "failed" ? ("error" as const) : ("idle" as const),
+    playbackStatus: outcome,
+    playedText: playback.text,
+    play,
+    reset,
+  };
 }
 
 export function SpeakButton({
@@ -258,34 +461,64 @@ export function SpeakButton({
   label,
   className,
   compact = false,
+  accent,
+  onOutcome,
 }: {
   text: string;
   label?: string;
   className?: string;
-  /** Only the speaker icon, in a round 40px button. The name stays in the label and the tooltip. */
+  /** Icon only: accents use a text-sized icon; generic controls keep the round button. */
   compact?: boolean;
+  accent?: PronunciationAccent;
+  onOutcome?: (outcome: PronunciationOutcome) => void;
 }) {
   const { t } = useT();
-  const { status, play } = useSpeak();
-  const name = label ?? t("common.listen");
-  return (
+  const { playbackStatus, playedText, play, reset } = useSpeak(accent, onOutcome);
+  useEffect(() => {
+    reset();
+    // Changing the visible word invalidates feedback, but must not stop a newer button's audio.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text, accent]);
+  const outcome = playedText === text ? playbackStatus : "idle";
+  const failed = outcome === "failed";
+  const name =
+    label ?? (accent ? t(accent === "UK" ? "ipa.listenUk" : "ipa.listenUs") : t("common.listen"));
+  const failure = accent
+    ? t(accent === "UK" ? "ipa.audioFailedUk" : "ipa.audioFailedUs")
+    : t("common.noSound");
+  const button = (
     <button
       type="button"
       onClick={() => play(text)}
       aria-label={`${name}: ${text}`}
-      title={status === "error" ? t("common.noSound") : name}
+      title={failed ? failure : name}
       className={cn(
         compact
-          ? "grid size-10 place-items-center rounded-full border border-accent/25 bg-accent-soft transition-colors hover:bg-accent hover:text-accent-ink shadow-2xs"
+          ? accent
+            ? "grid size-11 place-items-center rounded transition-colors hover:bg-accent-soft"
+            : "grid size-10 place-items-center rounded-full border border-accent/25 bg-accent-soft transition-colors hover:bg-accent hover:text-accent-ink shadow-2xs"
           : "inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-line/60 px-3 text-sm font-semibold transition-colors hover:bg-accent-soft",
-        status === "error" ? "text-warn" : "text-accent",
+        failed ? "text-warn" : "text-accent",
         className,
       )}
       data-speak
+      data-speak-accent={accent}
+      data-speak-status={outcome}
     >
-      <Volume2 className={compact ? "size-5" : "size-[1.1rem]"} aria-hidden />
-      {compact ? null : status === "error" ? t("common.noSound") : name}
+      <Volume2 className={compact ? accent ? "size-[1em]" : "size-5" : "size-[1.1rem]"} aria-hidden />
+      {compact ? null : failed ? failure : name}
     </button>
+  );
+  if (!accent) return button;
+  return (
+    <span data-speak-control className="inline-flex max-w-full flex-col items-start">
+      {button}
+      {failed ? (
+        <span data-speak-error role="status" className="max-w-full text-xs text-warn">
+          {failure}
+        </span>
+      ) : null}
+    </span>
   );
 }
 
