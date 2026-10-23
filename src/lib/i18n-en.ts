@@ -51,6 +51,7 @@ export const en = {
   "nav.settings": "Settings",
   "nav.account": "Account",
   "notice.text": "We don't provide copyrighted books. For those, bring your own EPUB.",
+  "notice.short": "We host no copyrighted books, and we count which words are tapped.",
   "notice.dismiss": "Hide this notice",
   "privacyNote.text":
     "We count which words get tapped. The report holds the word, its place in the book, and the sentence around it.",

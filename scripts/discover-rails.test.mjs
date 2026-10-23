@@ -4,7 +4,7 @@ import { browseRails, normalizeDiscoverRails, RAIL_SIZE } from "../src/lib/disco
 
 const book = (title, extra = {}) => ({ kind: "list", title, lexile: "", series: "", seriesNumber: 0, ...extra });
 
-test("browse rows: classics, the largest series in number order, then levels easiest first", () => {
+test("browse rows: classics, then the largest series in number order; no level rows", () => {
   const books = [
     book("Alice", { kind: "classic", lexile: "880L" }),
     book("Peter Pan", { kind: "classic", lexile: "900L" }),
@@ -18,13 +18,10 @@ test("browse rows: classics, the largest series in number order, then levels eas
     book("Narnia", { series: "Narnia" }),
   ];
   const rails = browseRails(books);
-  assert.deepEqual(
-    rails.map((rail) => rail.id),
-    ["classic", "series:Magic Tree House", "band:under800"],
-  );
+  // Five books under 800L used to make a level row too. The Filter menu chooses a level now.
+  assert.deepEqual(rails.map((rail) => rail.id), ["classic", "series:Magic Tree House"]);
   assert.deepEqual(rails[1].rows.map((b) => b.title), ["MTH 1", "MTH 2", "MTH 3", "MTH 4"]);
-  assert.deepEqual(rails[2].rows.map((b) => b.title).slice(0, 3), ["MTH 1", "MTH 2", "MTH 4"]);
-  assert.equal(rails.find((rail) => rail.id === "band:mid"), undefined, "two books are too few for a row");
+  assert.equal(rails.some((rail) => rail.id.startsWith("band:")), false, "no reading-level rows");
 });
 
 test("a strip is capped, and See all keeps every book", () => {

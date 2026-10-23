@@ -412,15 +412,8 @@ function BookCard({
         </button>
         <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-1rem)] flex-col items-start gap-1">
           {offer ? <CoverUpdate title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} /> : null}
-          {book.needsEpub ? (
-            <CoverBadge tone="needs" data-needs-epub="">
-              {t("shelf.needsEpub")}
-            </CoverBadge>
-          ) : book.source === "epub" && !fileHere ? (
-            <CoverBadge tone="needs" data-file-missing="">
-              {t("shelf.fileMissing")}
-            </CoverBadge>
-          ) : classic ? (
+          {/* A missing e-book is said under the author, not on the cover: a red tag there covered the title of the art. */}
+          {!book.needsEpub && !(book.source === "epub" && !fileHere) && classic ? (
             <CoverBadge tone="publicDomain" data-classic-label="">
               {t("shelf.classic")}
             </CoverBadge>
@@ -598,6 +591,15 @@ function BookCard({
         <p className={cardAuthorClass} lang="en">
           {book.author}
         </p>
+        {book.needsEpub ? (
+          <p className="text-xs leading-snug font-medium text-warn" data-needs-epub="">
+            {t("shelf.needsEpub")}
+          </p>
+        ) : book.source === "epub" && !fileHere ? (
+          <p className="text-xs leading-snug font-medium text-warn" data-file-missing="">
+            {t("shelf.fileMissing")}
+          </p>
+        ) : null}
         {offer && offerLine(offer, t).warn ? (
           <p className="text-xs leading-snug text-warn" data-list-hold-reason>
             {offerLine(offer, t).text}
