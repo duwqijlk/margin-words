@@ -69,7 +69,7 @@ test("English texts have no Chinese; Chinese texts are Chinese (apart from names
     if (!CJK.test(zh[key]) && /[A-Za-z]/.test(bare)) same.push(key);
   }
   // Only a few texts may stay the same in zh (the brand name, "A-Z", the two link names and similar).
-  const allowed = new Set(["common.brand", "nb.order.az", "shelf.summary", "dashboard.github", "dashboard.telegram"]);
+  const allowed = new Set(["common.brand", "nb.order.az", "shelf.summary", "dashboard.github", "dashboard.telegram", "thanks.wallet.evmShort"]);
   assert.deepEqual(same.filter((k) => !allowed.has(k)), [], "zh texts without any Chinese");
 });
 

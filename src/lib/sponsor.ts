@@ -20,10 +20,12 @@ export type SponsorMethod = "wechat" | "alipay" | "crypto";
  * The project's receiving addresses. Changing one is a code change, reviewed like any other:
  * a wrong address loses the gift. The QR codes in public/sponsor/qr-*.svg encode exactly these.
  * One EVM address works on Ethereum and every EVM chain (L2s and BNB Chain alike).
+ * Tron (TRC-20) is its own chain with its own address, like Solana.
  */
 export const SPONSOR_WALLETS = [
   { id: "evm", address: "0x4cede244ea8a43052264c658d9a3b004f0a22103", qr: "/sponsor/qr-evm.svg" },
   { id: "solana", address: "EDZTbZydDSLXJMryWDBgFxmHZ8aX6Su5SqgHHVasupg9", qr: "/sponsor/qr-solana.svg" },
+  { id: "tron", address: "TDDt1ZmdBkyTcXcPN2APfseaPcRNucHbDH", qr: "/sponsor/qr-tron.svg" },
 ] as const;
 export type SponsorWallet = (typeof SPONSOR_WALLETS)[number];
 

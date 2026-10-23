@@ -22,10 +22,17 @@ const ERROR_KEYS: Record<string, Key> = {
 type OpenRequest = { method: string; displayName: string; emailSent: boolean } | null;
 
 /** One receiving address: what it is for, its QR code and a copy button. */
+const WALLET_TEXT = {
+  evm: { icon: "/sponsor/ethereum.svg", title: "thanks.wallet.evm", short: "thanks.wallet.evmShort", note: "thanks.wallet.evmNote", qr: "thanks.wallet.qrEvm" },
+  solana: { icon: "/sponsor/solana.svg", title: "thanks.wallet.solana", short: "thanks.wallet.solanaShort", note: "thanks.wallet.solanaNote", qr: "thanks.wallet.qrSolana" },
+  tron: { icon: "/sponsor/tron.svg", title: "thanks.wallet.tron", short: "thanks.wallet.tronShort", note: "thanks.wallet.tronNote", qr: "thanks.wallet.qrTron" },
+} as const satisfies Record<SponsorWallet["id"], { icon: string; title: Key; short: Key; note: Key; qr: Key }>;
+
 function WalletCard({ wallet }: { wallet: SponsorWallet }) {
   const { t } = useT();
   const [copied, setCopied] = useState(false);
   const evm = wallet.id === "evm";
+  const text = WALLET_TEXT[wallet.id];
   async function copy() {
     try {
       await navigator.clipboard.writeText(wallet.address);
@@ -38,8 +45,8 @@ function WalletCard({ wallet }: { wallet: SponsorWallet }) {
   return (
     <section className="grid gap-3 rounded-xl border border-line bg-paper p-3" data-sponsor-wallet={wallet.id}>
       <div className="flex items-center gap-2">
-        <img src={evm ? "/sponsor/ethereum.svg" : "/sponsor/solana.svg"} alt="" className="size-6" aria-hidden />
-        <h3 className="text-base font-semibold">{t(evm ? "thanks.wallet.evm" : "thanks.wallet.solana")}</h3>
+        <img src={text.icon} alt="" className="size-6" aria-hidden />
+        <h3 className="text-base font-semibold">{t(text.title)}</h3>
       </div>
       {evm ? (
         <div className="grid gap-1.5">
@@ -58,13 +65,13 @@ function WalletCard({ wallet }: { wallet: SponsorWallet }) {
           <p className="text-xs leading-5 text-muted">{t("thanks.wallet.evmNote")}</p>
         </div>
       ) : (
-        <p className="text-xs leading-5 text-muted">{t("thanks.wallet.solanaNote")}</p>
+        <p className="text-xs leading-5 text-muted">{t(text.note)}</p>
       )}
       <div className="grid justify-items-center gap-3 sm:grid-cols-[auto_1fr] sm:items-center sm:justify-items-stretch">
         {/* The QR code holds the address text only. It is drawn black on white so every wallet camera reads it. */}
         <img
           src={wallet.qr}
-          alt={t(evm ? "thanks.wallet.qrEvm" : "thanks.wallet.qrSolana")}
+          alt={t(text.qr)}
           className="size-36 rounded-lg bg-white p-1"
           data-sponsor-qr={wallet.id}
         />
@@ -180,8 +187,8 @@ export function SponsorDialog({
                 value: item.id,
                 label: (
                   <span className="inline-flex items-center justify-center gap-1.5">
-                    <img src={item.id === "evm" ? "/sponsor/ethereum.svg" : "/sponsor/solana.svg"} alt="" className="size-4" aria-hidden />
-                    {t(item.id === "evm" ? "thanks.wallet.evmShort" : "thanks.wallet.solanaShort")}
+                    <img src={WALLET_TEXT[item.id].icon} alt="" className="size-4" aria-hidden />
+                    {t(WALLET_TEXT[item.id].short)}
                   </span>
                 ),
               }))}
