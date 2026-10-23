@@ -20,6 +20,7 @@ import { groupDigits } from "@/lib/library-totals";
 import type { CatalogPack } from "@/lib/packs";
 import type { WordListPack } from "@/lib/word-list-catalog";
 import { useT } from "@/lib/i18n";
+import { useBookBlurb } from "@/lib/book-blurbs";
 
 export type DiscoverRow = {
   key: string;
@@ -320,9 +321,11 @@ export function BookDetail({
   onAction: () => void;
   onRemove: () => void;
 }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const open = row !== null && model !== null;
   const facts = row ? counts(row) : { words: 0, phrases: 0, notes: 0 };
+  // What the book is about, in the interface language. "" while it loads, or when none is written yet.
+  const blurb = useBookBlurb(row?.id ?? null, locale);
   const Icon =
     model?.state === "busy"
       ? Loader2
@@ -380,6 +383,17 @@ export function BookDetail({
                   ) : null}
                 </div>
               </div>
+
+              {blurb ? (
+                <section className="grid gap-1.5" aria-labelledby="book-blurb-title" data-detail-blurb>
+                  <h3 id="book-blurb-title" className="text-sm font-semibold">
+                    {t("browse.blurbTitle")}
+                  </h3>
+                  <p className="text-[0.95rem] leading-7 whitespace-pre-line" lang={locale === "zh" ? "zh-CN" : "en"}>
+                    {blurb}
+                  </p>
+                </section>
+              ) : null}
 
               <dl className="grid grid-cols-2 gap-2.5 rounded-2xl bg-accent-soft/35 p-3.5 sm:grid-cols-4 sm:gap-3 sm:p-4">
                 {[
