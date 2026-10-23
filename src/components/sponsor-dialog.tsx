@@ -6,7 +6,7 @@ import { askToSignIn } from "@/lib/can-add";
 import { useT, type Key } from "@/lib/i18n";
 import { EVM_CHAINS, SPONSOR_EMAIL, SPONSOR_WALLETS, isSponsorMethod, sponsorName, type SponsorWallet } from "@/lib/sponsor";
 import { accountRequest } from "@/lib/sync-engine";
-import { btn, cn } from "@/components/ui";
+import { btn, cn, Segmented } from "@/components/ui";
 
 const STEPS = ["thanks.step.send", "thanks.step.email", "thanks.step.register"] as const satisfies readonly Key[];
 
@@ -103,9 +103,13 @@ export function SponsorDialog({
   const [error, setError] = useState<Key | null>(null);
   const [sent, setSent] = useState(false);
   const [existing, setExisting] = useState<OpenRequest>(null);
+  // One address on screen at a time. Two QR codes side by side invite a scan of the wrong one.
+  const [walletId, setWalletId] = useState<SponsorWallet["id"]>("evm");
+  const wallet = SPONSOR_WALLETS.find((item) => item.id === walletId) ?? SPONSOR_WALLETS[0];
 
   useEffect(() => {
     if (!open) return;
+    setWalletId("evm");
     setError(null);
     setSent(false);
     setExisting(null);
@@ -166,9 +170,25 @@ export function SponsorDialog({
             </Dialog.Close>
           </div>
           <Dialog.Description className="-mt-2 text-sm leading-6 text-muted">{t("thanks.gift")}</Dialog.Description>
-          {SPONSOR_WALLETS.map((wallet) => (
-            <WalletCard key={wallet.id} wallet={wallet} />
-          ))}
+          <div className="grid gap-1.5" data-sponsor-network-pick>
+            <p className="text-sm font-semibold">{t("thanks.wallet.pick")}</p>
+            <Segmented
+              label={t("thanks.wallet.pick")}
+              value={walletId}
+              onChange={setWalletId}
+              options={SPONSOR_WALLETS.map((item) => ({
+                value: item.id,
+                label: (
+                  <span className="inline-flex items-center justify-center gap-1.5">
+                    <img src={item.id === "evm" ? "/sponsor/ethereum.svg" : "/sponsor/solana.svg"} alt="" className="size-4" aria-hidden />
+                    {t(item.id === "evm" ? "thanks.wallet.evmShort" : "thanks.wallet.solanaShort")}
+                  </span>
+                ),
+              }))}
+            />
+          </div>
+          {/* key: switching remounts the card, so a "Copied" label never carries over to the other address. */}
+          <WalletCard key={wallet.id} wallet={wallet} />
           <p className="rounded-lg border border-warn/40 bg-warn/5 px-3 py-2 text-xs leading-5" data-sponsor-warning>
             {t("thanks.wallet.warning")}
           </p>
