@@ -325,7 +325,7 @@ export function BookDetail({
   const open = row !== null && model !== null;
   const facts = row ? counts(row) : { words: 0, phrases: 0, notes: 0 };
   // What the book is about, in the interface language. "" while it loads, or when none is written yet.
-  const blurb = useBookBlurb(row?.id ?? null, locale);
+  const blurb = useBookBlurb(row ? { kind: row.kind === "classic" ? "public" : "lists", id: row.id } : null, locale);
   const Icon =
     model?.state === "busy"
       ? Loader2

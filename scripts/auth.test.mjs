@@ -26,6 +26,7 @@ import { handleGet as handleGlossaryWorkGet, handlePut as handleGlossaryWorkPut 
 import { handlePut as handleQqGroupsPut } from "../functions/api/admin/qq-groups.ts";
 import { handleGet as handleQqGroupsGet } from "../functions/api/qq-groups.ts";
 import { handleUpload } from "../functions/api/admin/books.ts";
+import { handleGet as handleBlurbGet, handlePut as handleBlurbPut } from "../functions/api/admin/blurb.ts";
 import { handleGlossary } from "../functions/api/glossary/[id].ts";
 import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
 import { GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS, trustedUntil } from "../functions/lib/trust.ts";
@@ -2349,4 +2350,52 @@ test("a signed-in account cannot loop the word-list endpoint", async () => {
   const response = await handleGlossary(raw("/api/glossary/book-1", cookie), env, "book-1", { now: NOW });
   assert.equal(response.status, 429);
   assert.equal((await response.json()).error, "rate");
+});
+
+test("a story summary is saved only by the admin, only for a book in the catalog, in the right language", async () => {
+  const db = openDb();
+  const register = (email) => call(handleRegister, envOf(db), { body: { email, password: "correct horse" } });
+  await register("xcrunnnn@outlook.com");
+  const reader = await register("reader-blurb@example.com");
+  const adminCookie = cookieHeader(await call(handleLogin, envOf(db), { body: { email: "xcrunnnn@outlook.com", password: "correct horse" } }));
+  const readerCookie = cookieHeader(reader);
+  const files = new Map();
+  const catalog = new TextEncoder().encode(`${JSON.stringify({ format: 1, lists: [{ id: "wonder", title: "Wonder" }] })}\n`);
+  files.set("word-lists/catalog.json", catalog);
+  files.set("public-books/catalog.json", new TextEncoder().encode(JSON.stringify({ format: 1, packs: [{ id: "alice", title: "Alice" }] })));
+  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const put = (cookie, query, body) => handleBlurbPut(putJson(`/api/admin/blurb?${query}`, cookie, body), env, { now: NOW });
+  const stored = (key) => JSON.parse(new TextDecoder().decode(files.get(key)));
+  const zh = "\u4e00\u4e2a\u7537\u5b69\u7b2c\u4e00\u6b21\u53bb\u5b66\u6821\u3002";
+
+  assert.equal((await put(readerCookie, "kind=lists&id=wonder", { zh })).status, 403, "only the admin");
+  assert.equal((await put("", "kind=lists&id=wonder", { zh })).status, 401);
+  assert.equal((await put(adminCookie, "kind=lists&id=wondr", { zh })).status, 404, "a mistyped id is refused");
+  assert.equal((await put(adminCookie, "kind=public&id=wonder", { zh })).status, 404, "a list book is not a public book");
+  assert.equal((await put(adminCookie, "kind=lists&id=../x", { zh })).status, 400);
+
+  const wrong = await put(adminCookie, "kind=lists&id=wonder", { zh: "A boy goes to school.", en: zh });
+  assert.equal(wrong.status, 400);
+  assert.deepEqual((await wrong.json()).problems, ["zh:no-chinese", "en:has-chinese"]);
+  assert.equal((await put(adminCookie, "kind=lists&id=wonder", { en: "A <b>boy</b>." })).status, 400, "no markup");
+  assert.equal(files.has("word-lists/wonder/blurb.json"), false, "nothing is written when a check fails");
+
+  const saved = await put(adminCookie, "kind=lists&id=wonder", { zh, en: "  A boy goes to school\n for the first time.  " });
+  assert.equal(saved.status, 200);
+  assert.deepEqual(stored("word-lists/wonder/blurb.json"), { format: 1, zh, en: "A boy goes to school\nfor the first time." });
+  assert.deepEqual(files.get("word-lists/catalog.json"), catalog, "the catalog is not touched");
+
+  const read = await handleBlurbGet(
+    new Request("http://localhost/api/admin/blurb?kind=lists&id=wonder", { headers: { cookie: adminCookie } }),
+    env,
+    { now: NOW },
+  );
+  assert.deepEqual(await read.json(), { kind: "lists", id: "wonder", zh, en: "A boy goes to school\nfor the first time." });
+
+  // The body is the whole summary: saving one language clears the other.
+  await put(adminCookie, "kind=lists&id=wonder", { zh });
+  assert.deepEqual(stored("word-lists/wonder/blurb.json"), { format: 1, zh });
+
+  assert.equal((await put(adminCookie, "kind=public&id=alice", { en: "A girl falls down a rabbit hole." })).status, 200);
+  assert.ok(files.has("public-books/alice/blurb.json"), "a public book keeps its summary in public-books/");
 });

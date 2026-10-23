@@ -11,9 +11,10 @@ import { SeriesAdmin } from "@/components/series-admin";
 import { QqGroupsAdmin } from "@/components/qq-groups-admin";
 import { WordListAdmin } from "@/components/wordlist-admin";
 import { WordTapsAdmin } from "@/components/word-taps-admin";
+import { BlurbAdmin } from "@/components/blurb-admin";
 import { btn, cn, Segmented } from "@/components/ui";
 
-type AdminTab = "thanks" | "lists" | "books" | "series" | "users" | "taps" | "qq";
+type AdminTab = "thanks" | "lists" | "books" | "blurbs" | "series" | "users" | "taps" | "qq";
 
 /** The /admin page: gift requests, the word-list publisher, whole-book uploads, and user roles. */
 export function AdminPage() {
@@ -81,6 +82,7 @@ export function AdminPage() {
               { value: "lists" as const, label: t("admin.tab.lists") },
               { value: "taps" as const, label: t("admin.tab.taps") },
               { value: "books" as const, label: t("admin.tab.books") },
+              { value: "blurbs" as const, label: t("admin.tab.blurbs") },
               { value: "series" as const, label: t("admin.tab.series") },
               { value: "users" as const, label: t("admin.tab.users") },
               { value: "qq" as const, label: t("admin.tab.qq") },
@@ -115,6 +117,8 @@ export function AdminPage() {
               <WordTapsAdmin />
             ) : tab === "books" ? (
               <BooksAdmin />
+            ) : tab === "blurbs" ? (
+              <BlurbAdmin />
             ) : tab === "series" ? (
               <SeriesAdmin />
             ) : tab === "qq" ? (
