@@ -12,6 +12,7 @@ import {
 } from "@/components/list-filters";
 import { btn, cn, field } from "@/components/ui";
 import { listPackRecords, loadBookExtras, type PackRecord } from "@/lib/book-db";
+import { coverAddress } from "@/lib/covers";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst, type CatalogPack } from "@/lib/packs";
 import { askToSignIn, useCanAddBooks } from "@/lib/can-add";
 import { useDownloads } from "@/lib/downloads";
@@ -152,7 +153,9 @@ export function DiscoverScreen({
           category: pack.category,
           oldFashioned: pack.oldFashioned,
           oldFashionedReason: pack.oldFashionedReason,
-          coverUrl: pack.cover?.url ? resolveAgainst(BUNDLED_CATALOG_URL, pack.cover.url) : undefined,
+          // The version in the address (the cover's sha256) makes a replaced cover a new address, so the
+          // books host's 4-hour image cache never shows the old picture. The shelf already fetches this way.
+          coverUrl: pack.cover?.url ? coverAddress(resolveAgainst(BUNDLED_CATALOG_URL, pack.cover.url), pack.cover.sha256) : undefined,
           updated: pack.updated,
           added: pack.added,
           pack,
@@ -170,7 +173,7 @@ export function DiscoverScreen({
           category: pack.category,
           oldFashioned: pack.oldFashioned,
           oldFashionedReason: pack.oldFashionedReason,
-          coverUrl: pack.cover?.url ? resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url) : undefined,
+          coverUrl: pack.cover?.url ? coverAddress(resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url), pack.cover.sha256) : undefined,
           updated: pack.updated,
           added: pack.added,
           list: pack,
