@@ -192,6 +192,7 @@ export const zh: Record<Key, string> = {
   "browse.fact.notes": "笔记",
   "browse.classicNote": "公版书。整本书和词表会一起下载。",
   "browse.listNote": "这里只有词表。加入书架后，再导入你自己这个版本的电子书。",
+  "browse.blurbTitle": "故事简介",
   "browse.isbn": "书号（ISBN）：{isbn}",
   "list.filter": "筛选",
   "discover.updated": "更新于 {year}年{month}月{day}日",

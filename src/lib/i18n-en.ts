@@ -192,6 +192,7 @@ export const en = {
   "browse.fact.notes": "Notes",
   "browse.classicNote": "A public-domain book. The whole book and its word list download together.",
   "browse.listNote": "A word list only. After you add it, add your own e-book of this edition.",
+  "browse.blurbTitle": "What the story is about",
   "browse.isbn": "ISBN {isbn}",
   "list.filter": "Filter",
   "discover.updated": "Updated {day} {month} {year}",
