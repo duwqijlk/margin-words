@@ -19,7 +19,6 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "typecheck:functions": "tsc -p functions/tsconfig.json",
-    "check:blurbs": "node scripts/check-blurbs.mjs",
     "check:cjk": "node scripts/check-no-cjk.mjs",
     "test": "node --experimental-strip-types --test scripts/*.test.mjs && node --experimental-strip-types --test src/lib/srs.test.ts",
     "test:ci": "node --experimental-strip-types --test --test-concurrency=1 scripts/*.test.mjs && node --experimental-strip-types --test src/lib/srs.test.ts",

@@ -1,45 +1,61 @@
 import { useEffect, useState } from "react";
+import { booksUrl } from "@/lib/books-base";
 import type { Locale } from "@/lib/i18n";
-import { parseBlurbs, type BlurbTable } from "@/lib/book-blurbs-parse";
-// Hashed files in the site build, fetched only when a detail sheet opens. Same pattern as the IPA data.
-import zhUrl from "../../docs/blurbs/zh.json?url&no-inline";
-import enUrl from "../../docs/blurbs/en.json?url&no-inline";
+import { blurbKey, parseBlurbFile, type BlurbKind, type BookBlurb } from "@/lib/book-blurb-file";
 
-const URLS: Record<Locale, string> = { zh: zhUrl, en: enUrl };
-const tables = new Map<Locale, Promise<BlurbTable>>();
+/**
+ * Summaries read this session, by object key. A book with no file (404) is remembered as empty,
+ * so reopening its sheet does not ask again. A failed read is forgotten and tried next time.
+ */
+const seen = new Map<string, Promise<BookBlurb>>();
 
-function loadBlurbs(locale: Locale): Promise<BlurbTable> {
-  let table = tables.get(locale);
-  if (!table) {
-    table = fetch(URLS[locale])
-      .then((response) => (response.ok ? response.json() : null))
-      .then(parseBlurbs)
+function loadBlurb(kind: BlurbKind, id: string): Promise<BookBlurb> {
+  const key = blurbKey(kind, id);
+  let blurb = seen.get(key);
+  if (!blurb) {
+    // no-cache: an edit in the admin shows up on the next open, as the catalogs do.
+    blurb = fetch(booksUrl(key), { cache: "no-cache" })
+      .then((response) => {
+        if (response.status === 404) return { zh: "", en: "" };
+        if (!response.ok) throw new Error("blurb");
+        // A host that answers a missing file with a page (status 200, HTML) means "no summary" too,
+        // not a failure to retry on every open. Not "must be JSON": the books host sends files
+        // written by the admin with no content type at all.
+        if (/html/i.test(response.headers.get("content-type") ?? "")) return { zh: "", en: "" };
+        return response.json().then(parseBlurbFile);
+      })
       .catch(() => {
-        // A failed read is tried again the next time a sheet opens.
-        tables.delete(locale);
-        return {};
+        seen.delete(key);
+        return { zh: "", en: "" };
       });
-    tables.set(locale, table);
+    seen.set(key, blurb);
   }
-  return table;
+  return blurb;
+}
+
+/** Forget a cached summary, so the admin sees a save at once. */
+export function forgetBlurb(kind: BlurbKind, id: string): void {
+  seen.delete(blurbKey(kind, id));
 }
 
 /**
- * The summary of one book in the interface language, or "" when there is none (yet).
+ * The summary of one book in the interface language, or "" while it loads and when there is none.
  * There is no fallback to the other language: a Chinese screen shows Chinese or nothing.
  */
-export function useBookBlurb(id: string | null, locale: Locale): string {
+export function useBookBlurb(book: { kind: BlurbKind; id: string } | null, locale: Locale): string {
   const [blurb, setBlurb] = useState("");
+  const kind = book?.kind;
+  const id = book?.id;
   useEffect(() => {
     setBlurb("");
-    if (!id) return;
+    if (!kind || !id) return;
     let alive = true;
-    void loadBlurbs(locale).then((table) => {
-      if (alive) setBlurb(table[id] ?? "");
+    void loadBlurb(kind, id).then((value) => {
+      if (alive) setBlurb(value[locale]);
     });
     return () => {
       alive = false;
     };
-  }, [id, locale]);
+  }, [kind, id, locale]);
   return blurb;
 }
