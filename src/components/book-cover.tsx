@@ -1,20 +1,24 @@
 import { useEffect, useRef, useState } from "react";
-import { loadAllCovers } from "@/lib/book-db";
+import { loadAllCoverInfo, loadAllCovers, type CoverInfo } from "@/lib/book-db";
 import { coverCrossOrigin } from "@/lib/cover-request";
 import { cn } from "@/components/ui";
 
+/** Stored cover pictures, and where each came from (catalog, EPUB, or a picture in the text). */
 export function useCovers(ids: string[]) {
-  const [covers, setCovers] = useState<Record<string, string>>({});
+  const [covers, setCovers] = useState<{ covers: Record<string, string>; infos: Record<string, CoverInfo> }>({
+    covers: {},
+    infos: {},
+  });
   const key = ids.join("|");
   useEffect(() => {
     let alive = true;
     const load = () => {
-      void loadAllCovers()
-        .then((next) => {
-          if (alive) setCovers(next);
+      void Promise.all([loadAllCovers(), loadAllCoverInfo().catch(() => ({}) as Record<string, CoverInfo>)])
+        .then(([next, infos]) => {
+          if (alive) setCovers({ covers: next, infos });
         })
         .catch(() => {
-          if (alive) setCovers({});
+          if (alive) setCovers({ covers: {}, infos: {} });
         });
     };
     load();

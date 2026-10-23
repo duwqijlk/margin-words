@@ -71,7 +71,8 @@ async function place(pack: WordListPack): Promise<string> {
         installedAt: old?.installedAt ?? Date.now(),
       });
     }
-    if (stored.has(card)) await fillCover(card, pack).catch(() => undefined);
+    // The catalog cover does not depend on the EPUB, so a card still waiting for its file shows it too.
+    await fillCover(card, pack).catch(() => undefined);
     return card;
   }
 
@@ -86,7 +87,7 @@ async function place(pack: WordListPack): Promise<string> {
     sha256: "",
     installedAt: Date.now(),
   });
-  if (stored.has(bookId)) await fillCover(bookId, pack).catch(() => undefined);
+  await fillCover(bookId, pack).catch(() => undefined);
   if (typeof window !== "undefined") {
     window.dispatchEvent(new CustomEvent("cibian-covers"));
     window.dispatchEvent(new CustomEvent("cibian-progress", { detail: { bookId } }));

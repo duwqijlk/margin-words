@@ -81,10 +81,11 @@ const target = { url: "x/cover.jpg", sha256: sha };
 
 test("cover plan: what to do with the cover that is stored", () => {
   const plan = coverPlan.coverPlan;
-  assert.equal(plan({ have: false, info: undefined, stored: false, target }), "keep", "an unpaired card does not fetch artwork");
-  assert.equal(plan({ have: true, info: { source: "catalog", ref: sha }, stored: false, target }), "keep", "an unpaired card keeps its record but the shelf hides it");
-  assert.equal(plan({ have: true, info: { source: "catalog", ref: other }, stored: false, target }), "keep", "an unpaired stale image is not refreshed");
-  assert.equal(plan({ have: true, info: { source: "epub", ref: "" }, stored: false, target }), "keep", "an old EPUB cover is ignored while unpaired");
+  assert.equal(plan({ have: false, info: undefined, stored: false, target }), "fetch", "a card with no EPUB here (synced, or not paired) gets the catalog cover");
+  assert.equal(plan({ have: true, info: { source: "catalog", ref: sha }, stored: false, target }), "keep", "a current catalog cover stays");
+  assert.equal(plan({ have: true, info: { source: "catalog", ref: other }, stored: false, target }), "fetch", "a changed catalog cover is fetched again");
+  assert.equal(plan({ have: true, info: { source: "epub", ref: "" }, stored: false, target }), "fetch", "an old EPUB cover is replaced by the catalog one while the file is missing");
+  assert.equal(plan({ have: true, info: undefined, stored: false, target }), "fetch", "an unknown picture is not trusted while the file is missing");
   assert.equal(plan({ have: true, info: { source: "epub", ref: "" }, stored: true, target }), "keep", "the book's own cover stays");
   assert.equal(plan({ have: true, info: { source: "chapter", ref: "" }, stored: true, target }), "fetch", "a stored chapter cover yields to the catalog");
   assert.equal(plan({ have: true, info: { source: "chapter", ref: "" }, stored: true, target }), "fetch", "the catalog cover beats a picture found in the text");

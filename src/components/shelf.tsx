@@ -30,7 +30,7 @@ import { bookSyncKey } from "@/lib/sync-merge";
 import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import { SHELF_MENU_ARM_MS, shelfPressDown, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
-import { BookCover } from "@/components/book-cover";
+import { BookCover, type useCovers } from "@/components/book-cover";
 import { navigate } from "@/lib/router";
 import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
 import { btn, cn, field, ProgressBar } from "@/components/ui";
@@ -635,7 +635,7 @@ export function Shelf({
 }: {
   books: Book[];
   words: VocabEntry[];
-  covers: Record<string, string>;
+  covers: ReturnType<typeof useCovers>;
   ready: boolean;
   /** ids whose book file is on this device; null until that list has been read */
   storedIds: Set<string> | null;
@@ -727,7 +727,13 @@ export function Shelf({
   );
   const shelfCovers = useMemo(() => {
     if (!storedIds) return {};
-    return Object.fromEntries(Object.entries(covers).filter(([bookId]) => storedIds.has(bookId)));
+    // With no EPUB here (a card synced from another device, a list not paired yet) only the catalog
+    // picture is shown: it does not depend on the file. A picture taken from an EPUB may be a wrong one.
+    return Object.fromEntries(
+      Object.entries(covers.covers).filter(
+        ([bookId]) => storedIds.has(bookId) || covers.infos[bookId]?.source === "catalog",
+      ),
+    );
   }, [covers, storedIds]);
   const q = query.trim().toLowerCase();
   const visible = useMemo(() => {

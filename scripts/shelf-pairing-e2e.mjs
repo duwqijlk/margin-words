@@ -176,11 +176,16 @@ async function coverState(page, id) {
   }, id);
 }
 
-async function generatedCover(page) {
-  check(await page.locator("li.book-card [data-generated-cover]").count() === 1,
-    "an unpaired card uses its generated title cover");
-  check(await page.locator("li.book-card img").count() === 0,
-    "an unpaired card does not render cached EPUB artwork");
+// A card with no EPUB on this device shows the catalog picture (it does not depend on the file),
+// never a cached picture taken from an EPUB.
+async function catalogCover(page, id) {
+  const img = page.locator("li.book-card img");
+  await img.first().waitFor();
+  check(await page.locator("li.book-card [data-generated-cover]").count() === 0,
+    "an unpaired card shows its catalog cover, not the generated title cover");
+  const saved = await coverState(page, id);
+  check(saved.info?.source === "catalog" && saved.info.ref === COVER_SHA, "the shown cover is the catalog picture");
+  check((await img.first().getAttribute("src")) === saved.cover, "the card renders the stored catalog picture");
 }
 
 async function seedCover(page, id, value, info) {
@@ -294,21 +299,27 @@ async function mainFlow(mobile) {
     check(state.glossaryFetches > 0, "Discover fetched the mocked glossary");
     await dismiss(page);
     await shelf(page);
-    await generatedCover(page);
+    await catalogCover(page, id);
+    // A wrong picture from an EPUB (an old cache) is replaced by the catalog picture on the next start.
     await seedCover(page, id, "data:image/gif;base64,wrong-cached-cover", { source: "epub", ref: "" });
     await page.reload();
     await cards(page).first().waitFor();
-    await generatedCover(page);
-    const placeholderCover = await coverState(page, id);
-    check(placeholderCover.cover === "data:image/gif;base64,wrong-cached-cover" && placeholderCover.info?.source === "epub",
-      "a stale cover record may remain cached but is not authoritative while unpaired");
+    await page.waitForFunction(async (bookId) => {
+      const db = await new Promise((resolve) => { const r = indexedDB.open("cibian-books"); r.onsuccess = () => resolve(r.result); });
+      const info = await new Promise((resolve) => { const q = db.transaction("notes").objectStore("notes").get(`coverinfo:${bookId}`); q.onsuccess = () => resolve(q.result); });
+      db.close();
+      return info?.source === "catalog";
+    }, id);
+    await catalogCover(page, id);
+    check(!(await page.locator("li.book-card img").first().getAttribute("src")).includes("wrong-cached-cover"),
+      "a stale EPUB picture is never shown while unpaired");
     await untouched(page, id, baseline);
     await wordbook(test, id);
 
     for (const target of ["cover", "title"]) {
       await resumePairing(test, target);
       await dismiss(page);
-      await generatedCover(page);
+      await catalogCover(page, id);
       await untouched(page, id, baseline);
     }
     await page.reload();
@@ -316,7 +327,7 @@ async function mainFlow(mobile) {
     for (const target of ["cover", "title"]) {
       await resumePairing(test, target);
       await dismiss(page);
-      await generatedCover(page);
+      await catalogCover(page, id);
       await untouched(page, id, baseline);
     }
 
