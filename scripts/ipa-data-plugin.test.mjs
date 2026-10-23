@@ -6,20 +6,69 @@ import { resolve } from "node:path";
 import { test } from "node:test";
 import { localIpaData } from "./ipa-data-plugin.mjs";
 
-test("ordinary IPA build is empty and rejects accidental local input", () => {
+const letters = "abcdefghijklmnopqrstuvwxyz";
+const shard = (letter, version = "test") => JSON.stringify({
+  schemaVersion: 1,
+  version,
+  words: { [`${letter}bath`]: { UK: [{ ipa: "bɑːθ" }], US: [{ ipa: "bæθ" }] } },
+});
+function writeRuntime(root, missing = "") {
+  const directory = resolve(root, "src", "data", "ipa");
+  mkdirSync(directory, { recursive: true });
+  const shards = {};
+  for (const letter of letters) {
+    if (letter === missing) continue;
+    const bytes = shard(letter);
+    writeFileSync(resolve(directory, `${letter}.json`), bytes);
+    shards[letter] = { file: `${letter}.json`, sha256: createHash("sha256").update(bytes).digest("hex") };
+  }
+  writeFileSync(resolve(directory, "manifest.json"), JSON.stringify({ schemaVersion: 1, version: "test", shards }));
+  return directory;
+}
+
+test("ordinary builds load the complete tracked runtime snapshot", () => {
   const plugin = localIpaData({ mode: "production", root: process.cwd() });
-  assert.equal(plugin.load(plugin.resolveId("virtual:local-ipa-data")), "export const version = ''; export const loaders = {};");
+  const code = plugin.load(plugin.resolveId("virtual:local-ipa-data"));
+  assert.match(code, /export const version = "local-ipa-primary/);
+  assert.equal((code.match(/import url_[a-z] from/g) ?? []).length, 26);
+  assert.equal(plugin.config(), undefined, "production keeps the ordinary dist output");
   assert.throws(() => localIpaData({ mode: "production", root: process.cwd(), directory: "/data" }), /requires local-ipa/);
-  assert.throws(() => localIpaData({ mode: "local-ipa", root: process.cwd() }), /absolute/);
 });
 
-test("local IPA build validates hashes, confines inputs and isolates its output", () => {
-  const root = mkdtempSync(resolve(tmpdir(), "ipa-plugin-"));
+test("ordinary builds fail closed for missing or incomplete tracked data", () => {
+  const root = mkdtempSync(resolve(tmpdir(), "ipa-plugin-production-"));
+  try {
+    writeRuntime(root, "z");
+    assert.throws(() => localIpaData({ mode: "production", root }), /exactly a-z shards/);
+    writeRuntime(root);
+    const directory = resolve(root, "src", "data", "ipa");
+    writeFileSync(resolve(directory, "a.json"), "corrupted");
+    assert.throws(() => localIpaData({ mode: "production", root }), /hash mismatch/);
+    writeRuntime(root);
+    const malformed = JSON.parse(readFileSync(resolve(directory, "a.json"), "utf8"));
+    malformed.words.abath.UK.push({ ipa: "second" });
+    const bytes = JSON.stringify(malformed);
+    writeFileSync(resolve(directory, "a.json"), bytes);
+    const manifest = JSON.parse(readFileSync(resolve(directory, "manifest.json"), "utf8"));
+    manifest.shards.a.sha256 = createHash("sha256").update(bytes).digest("hex");
+    writeFileSync(resolve(directory, "manifest.json"), JSON.stringify(manifest));
+    assert.throws(() => localIpaData({ mode: "production", root }), /at most one reading/);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("local IPA preview validates hashes, confines inputs and isolates its output", () => {
+  const root = mkdtempSync(resolve(tmpdir(), "ipa-plugin-preview-"));
   try {
     const directory = resolve(root, "local-exports", "data"); mkdirSync(directory, { recursive: true });
-    const bytes = JSON.stringify({ schemaVersion: 1, version: "test", words: { bath: { UK: [{ ipa: "bɑːθ" }], US: [{ ipa: "bæθ" }] } } });
-    writeFileSync(resolve(directory, "b.json"), bytes);
-    const manifest = { schemaVersion: 1, version: "test", shards: { b: { file: "b.json", sha256: createHash("sha256").update(bytes).digest("hex") } } };
+    const shards = {};
+    for (const letter of letters) {
+      const word = letter === "b" ? "bath" : `${letter}word`;
+      const value = { schemaVersion: 1, version: "test", words: { [word]: { UK: [{ ipa: "bɑːθ" }], US: [{ ipa: "bæθ" }] } } };
+      const bytes = JSON.stringify(value);
+      writeFileSync(resolve(directory, `${letter}.json`), bytes);
+      shards[letter] = { file: `${letter}.json`, sha256: createHash("sha256").update(bytes).digest("hex") };
+    }
+    const manifest = { schemaVersion: 1, version: "test", shards };
     writeFileSync(resolve(directory, "manifest.json"), JSON.stringify(manifest));
     const plugin = localIpaData({ mode: "local-ipa", root, directory });
     const code = plugin.load(plugin.resolveId("virtual:local-ipa-data"));

@@ -1485,7 +1485,7 @@ export function ReaderScreen({
               if (at >= 0) goSlot(at);
             }}
           />
-          <div className="min-w-0 flex-1 px-2 text-center leading-tight">
+          <div className="min-w-0 flex-1 px-1 text-center leading-tight sm:px-2">
             <p className="truncate font-display text-[0.95rem] font-semibold">{book.title}</p>
             <p className="truncate text-xs text-muted" lang="en">
               {activeExtra ? activeExtra.title || t("reader.extra") : chapter.title}
@@ -1563,12 +1563,12 @@ export function ReaderScreen({
 
         <nav
           aria-label={t("reader.nav")}
-          className="mx-auto mt-12 grid max-w-[var(--reader-width,40rem)] gap-3 border-t border-line pt-6"
+          className="mx-auto mt-12 grid w-full min-w-0 max-w-[var(--reader-width,40rem)] gap-3 border-t border-line pt-6"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <button
               type="button"
-              className={cn(btn.quiet, "flex-1")}
+              className={cn(btn.quiet, "min-w-0 flex-1 break-words")}
               disabled={slots ? slotIndex <= 0 : safeIndex <= 0}
               onClick={() => (slots ? goSlot(slotIndex - 1) : goChapter(safeIndex - 1))}
             >
@@ -1577,7 +1577,7 @@ export function ReaderScreen({
             </button>
             <button
               type="button"
-              className={cn(btn.primary, "flex-1")}
+              className={cn(btn.primary, "min-w-0 flex-1 break-words")}
               disabled={
                 slots ? slotIndex >= slots.length - 1 : safeIndex >= book.chapters.length - 1
               }

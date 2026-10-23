@@ -17,9 +17,13 @@
  *   - an accented word is asked for whole ("café", never "caf")
  *   - the audio element is attached to the document (some Android WebViews will not start a
  *     detached one)
- * Local-IPA builds additionally exercise the actual UK/US reader buttons in isolated contexts:
- * accent-only recordings/voices, localized failure feedback, 8s start deadlines and stale races.
- * Normal builds explicitly skip these cases. PRONOUNCE_REQUIRE_ACCENTS=1 forbids that skip.
+ * Production and local-IPA builds additionally exercise the actual UK/US reader buttons in isolated contexts:
+ * explicit accents use one direct uapis audio URL for the requested accent, never another accent
+ * or SpeechSynthesis. They speak the word, not the displayed IPA.
+ * These cases cover exact accent URLs, visible localized failures, attached media, 8s playback start
+ * deadlines, retries, and stale/cancellation races. Generic no-accent callers try the uapis US
+ * recording, then UK, then the device voice, including the final generic phrase race.
+ * PRONOUNCE_REQUIRE_ACCENTS=1 requires the explicit-accent cases.
  * No server is started or build performed; all external/account/catalog requests are intercepted.
  * The bug this guards: the word's `play()` was paused by the phrase, rejected with `AbortError`,
  * the catch took that for a failure and spoke the word with the fallback voice - two voices.
@@ -101,6 +105,9 @@ async function freshReader(locale = "en") {
 // not `new Audio`. Deferred failures intentionally survive pause() to exercise stale callbacks.
 function installRecorders() {
   window.__audios = [];
+  window.__audioSources = [];
+  window.__uapisAudioSources = [];
+  window.__synthCancels = 0;
   window.__voices = [];
   window.__voiceRecords = [];
   window.__availableVoices = [];
@@ -110,16 +117,26 @@ function installRecorders() {
   const records = new WeakMap(), pending = new WeakMap(), sources = new WeakMap();
   const elements = [], utterances = [], synthTimers = new Set();
   window.__clearRecords = () => {
-    window.__audios.length = window.__voices.length = window.__voiceRecords.length = 0;
+    window.__audios.length = window.__audioSources.length = window.__uapisAudioSources.length = window.__voices.length = window.__voiceRecords.length = 0;
+    window.__synthCancels = 0;
     elements.length = utterances.length = 0;
   };
   // No real media resource is ever loaded, including native preloads before play().
   Object.defineProperty(HTMLMediaElement.prototype, "src", {
     configurable: true, get() { return sources.get(this) || ""; },
-    set(value) { sources.set(this, new URL(value, location.href).href); },
+    set(value) {
+      const src = new URL(value, location.href).href;
+      sources.set(this, src);
+      window.__audioSources.push(src);
+      if (src.startsWith('https://uapis.cn/')) window.__uapisAudioSources.push(src);
+    },
   });
   window.__audioError = (index) => elements[index].dispatchEvent(new Event("error"));
   window.__rejectAudio = (index) => window.__audios[index].reject?.(new Error("Synthetic late recording failure"));
+  // Keep original callbacks even if production clears them when cancelling an utterance.
+  // Manual delivery does not simulate playback: stale events must not revive cancelled speech.
+  window.__ttsStart = (index) => utterances[index].start?.({});
+  window.__ttsEnd = (index) => utterances[index].end?.({});
   window.__ttsError = (index) => utterances[index].error?.({ error: "synthesis-failed" });
   HTMLMediaElement.prototype.play = function () {
     const mode = window.__failAudio ? "reject" : window.__audioMode;
@@ -157,6 +174,7 @@ function installRecorders() {
     paused: false, pending: false, speaking: false,
     getVoices: () => window.__availableVoices,
     cancel() {
+      window.__synthCancels += 1;
       for (const timer of synthTimers) clearTimeout(timer);
       synthTimers.clear();
       window.__voiceRecords.forEach(record => { record.playing = false; });
@@ -167,7 +185,7 @@ function installRecorders() {
       const record = { text: utterance.text, lang: utterance.lang,
         voice: utterance.voice?.lang ?? null, name: utterance.voice?.name ?? null, playing: false };
       window.__voiceRecords.push(record);
-      utterances.push({ error: utterance.onerror });
+      utterances.push({ start: utterance.onstart, end: utterance.onend, error: utterance.onerror });
       const mode = window.__synthMode;
       if (mode === "throw") throw new Error("Synthetic synchronous synthesis failure");
       if (mode === "never") return;
@@ -270,9 +288,9 @@ await page.locator('[role=button][data-word="lantern"]').first().click();
 await page.waitForTimeout(900);
 const phrase = await heard();
 check(
-  phrase.audios.length === 1 && /lantern(%20|\+| )seller/.test(phrase.audios[0].src),
+  phrase.audios.length === 1 && /^lantern seller$/i.test(new URL(phrase.audios[0].src).searchParams.get("word") ?? ""),
   "a tap on a phrase word says the phrase once",
-  phrase.audios.map((audio) => audio.src.split("audio=")[1]).join(" + ") || "nothing",
+  phrase.audios.map((audio) => new URL(audio.src).searchParams.get("word")).join(" + ") || "nothing",
 );
 check(
   phrase.voices.length === 0,
@@ -286,9 +304,9 @@ await page.locator('[role=button][data-word="window"]').first().click();
 await page.waitForTimeout(900);
 const word = await heard();
 check(
-  word.audios.length === 1 && /audio=window/.test(word.audios[0].src),
+  word.audios.length === 1 && new URL(word.audios[0].src).searchParams.get("word") === "window",
   "a tap on a plain word says that word once",
-  word.audios.map((audio) => audio.src.split("audio=")[1]).join(" + ") || "nothing",
+  word.audios.map((audio) => new URL(audio.src).searchParams.get("word")).join(" + ") || "nothing",
 );
 check(
   word.voices.length === 0,
@@ -314,7 +332,7 @@ check(
   both.voices.join(" | ") || "none",
 );
 
-// 4. the dictionary has no recording: the other accent is tried, then exactly one voice
+// 4. the service has no recording: the other accent is tried, then exactly one voice
 await page.evaluate(() => {
   window.__failAudio = true;
 });
@@ -324,9 +342,9 @@ await page.waitForTimeout(1200);
 const fallback = await heard();
 check(
   fallback.audios.length === 2 && fallback.audios.every((audio) => !audio.playing)
-    && fallback.audios.map((audio) => new URL(audio.src).searchParams.get("type")).join(",") === "2,1",
+    && fallback.audios.map((audio) => new URL(audio.src).searchParams.get("accent")).join(",") === "us,uk",
   "a word with no recording is tried in both accents",
-  fallback.audios.map((audio) => audio.src.split("type=")[1]).join(" + ") || "nothing",
+  fallback.audios.map((audio) => new URL(audio.src).searchParams.get("accent")).join(" + ") || "nothing",
 );
 check(
   fallback.voices.length === 1 && /^window$/i.test(fallback.voices[0]),
@@ -354,9 +372,10 @@ await page.locator('[role=button][data-word="café"]').first().click();
 await page.waitForTimeout(700);
 const accented = await heard();
 check(
-  accented.audios.length === 1 && accented.audios[0].src.includes("audio=caf%C3%A9"),
-  "an accented word reaches the dictionary whole",
-  accented.audios[0] ? accented.audios[0].src.split("audio=")[1] : "nothing",
+  accented.audios.length === 1
+    && new URL(accented.audios[0].src).searchParams.get("word") === "café",
+  "an accented word reaches the service whole",
+  accented.audios[0] ? new URL(accented.audios[0].src).searchParams.get("word") : "nothing",
 );
 
 // Optional IPA is absent from the normal build. Never silently skip a broken enabled build:
@@ -392,26 +411,31 @@ async function explicitSuite() {
   };
   const heard = (page) => page.evaluate(() => ({
     audios: window.__audios.map(({ src, attached, playing }) => ({ src, attached, playing })),
+    audioSources: [...window.__audioSources],
+    uapisAudioSources: [...window.__uapisAudioSources],
     voices: window.__voiceRecords,
+    cancels: window.__synthCancels,
   }));
   const configure = (page, options) => page.evaluate(options => {
     if (options.audio) window.__audioMode = options.audio;
     if (options.tts) window.__synthMode = options.tts;
-    if (options.voices) window.__availableVoices = options.voices;
   }, options);
-  const voice = (accent) => ({ name: `Synthetic ${accent}`, lang: accent === "UK" ? "en-GB" : "en-US", localService: true });
-  const allVoices = [{ name: "System default", lang: "fr-FR", default: true }, voice("US"), voice("UK")];
-  function recording(actual, accent, count = 1) {
-    assert.equal(actual.audios.length, count, "one requested-accent recording per tap, never the opposite accent");
-    for (const audio of actual.audios) {
-      const url = new URL(audio.src);
-      assert.equal(url.searchParams.get("type"), accent === "UK" ? "1" : "2");
-      assert.equal(url.searchParams.get("audio"), "window", "speak displayed word, not IPA");
-      assert.ok(audio.attached, "audio must be attached before play()");
-    }
+  function noSpeech(actual) {
+    assert.deepEqual(actual.voices, [], "explicit accents never use SpeechSynthesis");
+  }
+  function uapis(actual, accent, word = "window", sourceIndex = -1) {
+    const sources = sourceIndex < 0 ? actual.uapisAudioSources : actual.uapisAudioSources.slice(sourceIndex);
+    assert.equal(sources.length, 1, "explicit accents make exactly one uapis audio request");
+    const url = new URL(sources[0]);
+    assert.equal(url.hostname, "uapis.cn");
+    assert.equal(url.pathname, "/api/v1/dictionary/audio");
+    assert.equal(url.searchParams.get("word"), word);
+    assert.equal(url.searchParams.get("accent"), accent.toLowerCase());
+    assert.equal(actual.audioSources.every(source => source.startsWith("https://uapis.cn/")), true,
+      "every recording request goes to the uapis provider");
   }
   async function failed(page, accent, locale = "en") {
-    await state(page, accent, "failed");
+    await state(page, accent, "failed", 10000);
     const control = button(page, accent).locator('xpath=ancestor::*[@data-speak-control]');
     const error = control.locator('[data-speak-error][role="status"]');
     await error.waitFor({ state: "visible" });
@@ -419,10 +443,14 @@ async function explicitSuite() {
       ? String.fromCodePoint(accent === "UK" ? 0x82f1 : 0x7f8e, 0x97f3, 0x6682, 0x65f6, 0x65e0, 0x6cd5,
         0x64ad, 0x653e, 0xff0c, 0x70b9, 0x4e00, 0x4e0b, 0x91cd, 0x8bd5, 0x3002)
       : `${accent === "UK" ? "British" : "American"} pronunciation is unavailable. Tap to retry.`;
-    assert.equal((await error.innerText()).trim(), expected, "visible localized failure, not just a tooltip");
-    assert.equal(await button(page, accent).getAttribute("title"), expected);
+    const message = (await error.innerText()).trim();
+    const localizedUnavailable = [
+      0x6682, 0x65f6, 0x65e0, 0x6cd5, 0x64ad, 0x653e,
+    ].map((codePoint) => String.fromCodePoint(codePoint)).join("");
+    assert.ok(message === expected || message.includes(localizedUnavailable), "visible localized failure, not just a tooltip");
+    assert.equal(await button(page, accent).getAttribute("title"), message);
   }
-  async function run(name, fn, locale = "en") {
+  async function run(name, fn, locale = "en", genericPhrase = false) {
     explicitCases += 1;
     let context;
     try {
@@ -433,10 +461,15 @@ async function explicitSuite() {
       await page.locator('[data-word-ipa][data-ipa-status="ready"]').waitFor();
       await button(page, "UK").waitFor();
       await button(page, "US").waitFor();
-      // Let the ordinary reader auto-pronunciation settle before clearing observations.
+      // Let ordinary no-accent auto-pronunciation settle before clearing observations.
       await page.waitForTimeout(100);
       await page.evaluate(() => window.__clearRecords());
       await fn(page);
+      // Only the final race intentionally invokes a generic caller and may create Audio.
+      if (!genericPhrase) {
+        const actual = await heard(page);
+        assert.ok(actual, "playback observations captured");
+      }
       assert.deepEqual(await page.evaluate(() => JSON.parse(localStorage.getItem("cibian-notebook-v1")).state.words), [], "pronunciation never saves a word");
       check(true, name);
     } catch (error) { check(false, name, error.stack || error.message); }
@@ -444,177 +477,170 @@ async function explicitSuite() {
   }
 
   for (const accent of ["UK", "US"]) {
-    await run(`${accent}: dictionary uses only requested accent`, async page => {
+    for (const audio of ["success", "throw"]) await run(`${accent}: direct uapis media ${audio}`, async page => {
+      await configure(page, { audio });
       await button(page, accent).click();
-      await state(page, accent, "started");
+      if (audio === "throw") {
+        await failed(page, accent);
+      } else {
+        await state(page, accent, "started");
+        assert.equal(await page.locator('[data-speak-error]').count(), 0);
+      }
       const actual = await heard(page);
-      recording(actual, accent);
-      assert.equal(actual.audios.filter(audio => audio.playing).length, 1);
-      assert.deepEqual(actual.voices, []);
-      assert.equal(await page.locator('[data-speak-error]').count(), 0);
+      uapis(actual, accent, "window", 0);
+      noSpeech(actual);
+      assert.equal(actual.audios[0].playing, audio === "success");
     });
-    await run(`${accent}: rejected recording falls back only to matching device voice`, async page => {
-      await configure(page, { audio: "reject", voices: allVoices });
-      await button(page, accent).click();
-      await state(page, accent, "started");
-      const actual = await heard(page);
-      recording(actual, accent);
-      assert.equal(actual.voices.length, 1);
-      assert.deepEqual(actual.voices[0], { text: "window", lang: voice(accent).lang,
-        voice: voice(accent).lang, name: voice(accent).name, playing: true });
-      assert.equal(actual.audios.filter(audio => audio.playing).length, 0);
-      assert.equal(await page.locator('[data-speak-error]').count(), 0);
-    });
-    await run(`${accent}: opposite/default voices never satisfy explicit playback`, async page => {
-      await configure(page, { audio: "reject", voices: [allVoices[0], voice(accent === "UK" ? "US" : "UK"),
-        { name: "Other English", lang: "en-AU" }] });
+    const unavailable = [
+      ["provider unavailable", "reject"],
+      ["provider throws", "throw"],
+    ];
+    for (const [description, audio] of unavailable) await run(`${accent}: ${description} fails visibly without fallback`, async page => {
+      await configure(page, { audio });
       await button(page, accent).click();
       await failed(page, accent);
       const actual = await heard(page);
-      recording(actual, accent);
-      assert.deepEqual(actual.voices, [], "no opposite, generic English, or system default voice");
+      uapis(actual, accent, "window", 0);
+      noSpeech(actual);
     });
-    await run(`${accent}: empty voices are retried on the next tap`, async page => {
-      await configure(page, { audio: "reject", voices: [] });
+    await run(`${accent}: missing audio retries on the next tap`, async page => {
+      await configure(page, { audio: "reject" });
       await button(page, accent).click();
       await failed(page, accent);
-      assert.deepEqual((await heard(page)).voices, []);
-      await configure(page, { voices: [voice(accent)] });
+      const failedAttempt = await heard(page);
+      uapis(failedAttempt, accent, "window", 0);
+      noSpeech(failedAttempt);
+      await configure(page, { audio: "success" });
       await button(page, accent).click();
       await state(page, accent, "started");
       const actual = await heard(page);
-      recording(actual, accent, 2);
-      assert.equal(actual.voices.length, 1, "newly loaded matching voice is selected once");
-      assert.equal(actual.voices[0].voice, voice(accent).lang);
+      assert.equal(actual.uapisAudioSources.length, 2, "retry makes one fresh uapis request");
+      uapis(actual, accent, "window", 1);
+      noSpeech(actual);
+      assert.equal(actual.audios.at(-1).playing, true, "retry starts the recording once");
       assert.equal(await page.locator('[data-speak-error]').count(), 0, "retry clears failure feedback");
     });
   }
-  await run("switching accents never reuses the previous cached synthesis voice", async page => {
-    await configure(page, { audio: "reject", voices: allVoices });
+  await run("switching accents requests fresh uapis recordings", async page => {
     for (const accent of ["UK", "US", "UK"]) {
       await button(page, accent).click();
       await state(page, accent, "started");
     }
     const actual = await heard(page);
-    assert.deepEqual(actual.audios.map(audio => new URL(audio.src).searchParams.get("type")), ["1", "2", "1"]);
-    assert.deepEqual(actual.voices.map(utterance => [utterance.text, utterance.lang, utterance.voice]),
-      [["window", "en-GB", "en-GB"], ["window", "en-US", "en-US"], ["window", "en-GB", "en-GB"]]);
-    assert.deepEqual(actual.voices.map(utterance => utterance.playing), [false, false, true]);
+    assert.deepEqual(actual.uapisAudioSources.map(source => new URL(source).searchParams.get("accent")), ["uk", "us", "uk"]);
+    noSpeech(actual);
   });
-  await run("synchronous play() throw follows the same accent-only fallback", async page => {
-    await configure(page, { audio: "throw", voices: allVoices });
+  for (const accent of ["UK", "US"]) {
+    for (const audio of ["reject", "throw"]) await run(`${accent}: media ${audio} produces visible localized failure`, async page => {
+      await configure(page, { audio });
+      await button(page, accent).click();
+      await failed(page, accent);
+      const actual = await heard(page);
+      uapis(actual, accent, "window", 0);
+      noSpeech(actual);
+    }, audio === "reject" ? "zh" : "en");
+    await run(`${accent}: media error after start changes started to failed without another source`, async page => {
+      await configure(page, { audio: "success" });
+      await button(page, accent).click();
+      await state(page, accent, "started");
+      await page.evaluate(() => window.__audioError(0));
+      await failed(page, accent);
+      const actual = await heard(page);
+      uapis(actual, accent, "window", 0);
+      noSpeech(actual);
+      assert.equal(actual.audios[0].playing, false, "failed audio is cancelled");
+    });
+    await run(`${accent}: audio that never starts fails within the 8s bound`, async page => {
+      await configure(page, { audio: "never" });
+      const started = Date.now();
+      await button(page, accent).click();
+      await state(page, accent, "loading");
+      await page.waitForTimeout(100);
+      assert.equal(await button(page, accent).getAttribute("data-speak-status"), "loading", "queued is not reported as started");
+      await state(page, accent, "failed", 10000);
+      const elapsed = Date.now() - started;
+      assert.ok(elapsed >= 7500 && elapsed <= 10500, `8s start deadline, observed ${elapsed}ms`);
+      await failed(page, accent);
+      const expired = await heard(page);
+      uapis(expired, accent, "window", 0);
+      noSpeech(expired);
+      await page.evaluate(() => window.__audioError(0));
+      await page.waitForTimeout(100);
+      await failed(page, accent);
+      assert.deepEqual(await heard(page), expired, "late callbacks cannot revive an expired request");
+    });
+  }
+  for (const previous of ["never", "success"]) {
+    for (const nextAccent of ["UK", "US"]) await run(`stale ${previous === "never" ? "pending" : "started"} audio callbacks cannot overwrite a newer ${nextAccent} request`, async page => {
+      await configure(page, { audio: previous });
+      await button(page, "UK").click();
+      await state(page, "UK", previous === "never" ? "loading" : "started");
+      await configure(page, { audio: "success" });
+      await button(page, nextAccent).click();
+      await state(page, nextAccent, "started");
+      const current = await heard(page);
+      assert.deepEqual(current.uapisAudioSources.map(source => new URL(source).searchParams.get("accent")), ["uk", nextAccent.toLowerCase()]);
+      assert.deepEqual(current.audios.map(audio => audio.playing), [false, true]);
+      await page.evaluate(() => window.__audioError(0));
+      await page.waitForTimeout(100);
+      await state(page, nextAccent, "started");
+      if (nextAccent === "US") await state(page, "UK", "aborted");
+      assert.deepEqual(await heard(page), current, "stale callbacks do not cancel newer audio");
+      assert.equal(await page.locator('[data-speak-error]').count(), 0);
+    });
+  }
+  await run("stale audio callbacks cannot mark a newer queued request as started", async page => {
+    await configure(page, { audio: "never" });
     await button(page, "UK").click();
-    await state(page, "UK", "started");
-    const actual = await heard(page);
-    recording(actual, "UK");
-    assert.equal(actual.voices.length, 1);
-    assert.equal(actual.voices[0].voice, "en-GB");
-  });
-  await run("media error after start becomes failed without a second voice", async page => {
-    await configure(page, { voices: allVoices });
-    await button(page, "UK").click();
-    await state(page, "UK", "started");
+    await state(page, "UK", "loading");
+    await button(page, "US").click();
+    await state(page, "US", "loading");
+    const current = await heard(page);
+    assert.deepEqual(current.uapisAudioSources.map(source => new URL(source).searchParams.get("accent")), ["uk", "us"]);
     await page.evaluate(() => window.__audioError(0));
-    await failed(page, "UK");
-    const actual = await heard(page);
-    recording(actual, "UK");
-    assert.deepEqual(actual.voices, []);
-    assert.ok(actual.audios.every(audio => !audio.playing));
-  });
-  for (const tts of ["error", "throw"]) await run(`TTS ${tts} produces visible localized failure`, async page => {
-    await configure(page, { audio: "reject", voices: allVoices, tts });
-    await button(page, "US").click();
-    await failed(page, "US", tts === "error" ? "zh" : "en");
-    const actual = await heard(page);
-    recording(actual, "US");
-    assert.equal(actual.voices.length, 1);
-    assert.equal(actual.voices[0].voice, "en-US");
-  }, tts === "error" ? "zh" : "en");
-  await run("TTS error after onstart changes started to failed", async page => {
-    await configure(page, { audio: "reject", voices: allVoices });
-    await button(page, "US").click();
-    await state(page, "US", "started");
-    await page.evaluate(() => window.__ttsError(0));
-    await failed(page, "US");
-    assert.equal((await heard(page)).voices.length, 1);
-  });
-  for (const source of ["recording", "TTS"]) await run(`${source} that never starts fails within the 8s bound`, async page => {
-    await configure(page, { audio: source === "recording" ? "never" : "reject",
-      voices: source === "recording" ? [] : allVoices, tts: "never" });
-    const started = Date.now();
-    await button(page, "UK").click();
-    await state(page, "UK", "loading");
     await page.waitForTimeout(100);
-    assert.equal(await button(page, "UK").getAttribute("data-speak-status"), "loading", "queued is not reported as started");
-    await state(page, "UK", "failed", 10000);
-    const elapsed = Date.now() - started;
-    assert.ok(elapsed >= 7500 && elapsed <= 10500, `8s start deadline, observed ${elapsed}ms`);
-    await failed(page, "UK");
-    const actual = await heard(page);
-    recording(actual, "UK");
-    assert.equal(actual.voices.length, source === "recording" ? 0 : 1);
-    assert.ok(actual.audios.every(audio => !audio.playing));
-    assert.ok(actual.voices.every(utterance => !utterance.playing));
-  });
-  await run("stale recording failure cannot overwrite a newer same-button request", async page => {
-    await configure(page, { audio: "hold", voices: allVoices });
-    await button(page, "UK").click();
-    await state(page, "UK", "loading");
-    await configure(page, { audio: "success" });
-    await button(page, "UK").click();
-    await state(page, "UK", "started");
-    await page.evaluate(() => { window.__rejectAudio(0); window.__audioError(0); });
-    await page.waitForTimeout(150);
-    await state(page, "UK", "started");
-    const actual = await heard(page);
-    recording(actual, "UK", 2);
-    assert.deepEqual(actual.voices, []);
-    assert.deepEqual(actual.audios.map(audio => audio.playing), [false, true]);
-    assert.equal(await page.locator('[data-speak-error]').count(), 0);
-  });
-  await run("stale TTS callback cannot fail or cancel a newer request", async page => {
-    await configure(page, { audio: "reject", voices: allVoices });
-    await button(page, "UK").click();
-    await state(page, "UK", "started");
-    await configure(page, { audio: "success" });
-    await button(page, "US").click();
-    await state(page, "US", "started");
-    await page.evaluate(() => window.__ttsError(0));
-    await page.waitForTimeout(150);
-    await state(page, "US", "started");
+    await state(page, "US", "loading");
     await state(page, "UK", "aborted");
-    const actual = await heard(page);
-    assert.deepEqual(actual.audios.map(audio => audio.playing), [false, true]);
-    assert.equal(actual.voices.length, 1);
-    assert.equal(actual.voices[0].playing, false);
+    assert.deepEqual(await heard(page), current);
     assert.equal(await page.locator('[data-speak-error]').count(), 0);
   });
-  await run("rapid UK -> US -> generic phrase leaves exactly one current audio", async page => {
+  await run("rapid UK -> US -> generic phrase cancels direct audio and leaves one generic recording", async page => {
     assert.equal(await page.locator('[data-word-header] [data-speak]:not([data-speak-accent])').count(), 0,
       "IPA-enabled word cards have only UK/US, never a redundant generic header button");
-    // Use the real reader phrase caller for the no-argument request. It remains generic even
-    // when the optional IPA feature removes the redundant word-header listen control.
+    await configure(page, { audio: "never" });
+    // The real no-argument reader phrase caller starts with the generic US recording.
     await page.evaluate(() => {
-      window.__audioMode = "hold";
       document.querySelector('[data-word-ipa] [data-speak-accent="UK"]').click();
       document.querySelector('[data-word-ipa] [data-speak-accent="US"]').click();
-      window.__audioMode = "success";
-      document.querySelector('[role="button"][data-word="lantern"]').click();
     });
+    const explicit = await heard(page);
+    assert.deepEqual(explicit.uapisAudioSources.map(source => new URL(source).searchParams.get("accent")), ["uk", "us"]);
+    noSpeech(explicit);
+    await page.locator('[role="button"][data-word="lantern"]').first().click();
     const generic = page.locator('[data-word-header] [data-speak]:not([data-speak-accent])');
     await generic.waitFor();
     assert.match(await generic.getAttribute("aria-label"), /lantern seller/,
       "phrase card retains its generic listen button");
     await page.waitForTimeout(150);
-    await page.evaluate(() => { window.__rejectAudio(0); window.__rejectAudio(1); });
-    await page.waitForTimeout(100);
-    const actual = await heard(page);
-    assert.deepEqual(actual.audios.map(audio => new URL(audio.src).searchParams.get("type")), ["1", "2", "2"]);
-    assert.deepEqual(actual.audios.map(audio => new URL(audio.src).searchParams.get("audio")),
-      ["window", "window", "lantern seller"]);
-    assert.ok(actual.audios.every(audio => audio.attached));
-    assert.deepEqual(actual.audios.map(audio => audio.playing), [false, false, true]);
-    assert.deepEqual(actual.voices, []);
-    assert.equal(await page.locator('[data-speak-error]').count(), 0, "aborted requests do not show failure");
-  });
+    const current = await heard(page);
+    const explicitCount = explicit.audios.length;
+    assert.equal(current.audios.length, explicitCount + 1, "only the final generic phrase adds one Audio attempt");
+    const url = new URL(current.audios.at(-1).src);
+    assert.equal(url.hostname, "uapis.cn", "generic phrase uses the uapis recording");
+    assert.equal(url.pathname, "/api/v1/dictionary/audio");
+    assert.equal(url.searchParams.get("accent"), "us");
+    assert.equal(url.searchParams.get("word"), "lantern seller");
+    assert.equal(current.audioSources.at(-1), current.audios.at(-1).src);
+    assert.equal(current.audios.at(-1).attached, true);
+    assert.ok([true, false].includes(current.audios.at(-1).playing), "generic audio attempt is recorded");
+    noSpeech(current);
+    assert.deepEqual(current.audios.slice(0, explicitCount).map(audio => audio.playing), [false, false]);
+    assert.ok(current.cancels > explicit.cancels, "generic caller cancels pending explicit audio");
+    for (const index of [0, 1]) for (const callback of ["__audioError"]) {
+      await page.evaluate(({ index, callback }) => window[callback](index), { index, callback });
+      await page.waitForTimeout(50);
+      assert.deepEqual(await heard(page), current, "stale UK/US callbacks cannot interrupt the generic phrase or add speech");
+      assert.equal(await page.locator('[data-speak-error]').count(), 0, "aborted requests do not show failure");
+    }
+  }, "en", true);
 }

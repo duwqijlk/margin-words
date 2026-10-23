@@ -7,7 +7,7 @@ import "../../src/styles.css";
 
 installPolyfills();
 useLocale.setState({ locale: "zh" });
-const samples = ["bath", "world", "does", "book", "bow", "use", "minute", "read", "university", "quuxstone"];
+const samples = ["bath", "water", "world", "does", "book", "bow", "use", "minute", "read", "university", "quuxstone"];
 const sentence = "The reader put a book beside the bath and looked at the world outside. These are synthetic preview words, not a stored book.";
 function App() {
   const [word, setWord] = useState("bath");

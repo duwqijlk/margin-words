@@ -17,25 +17,41 @@ export async function settle(page, frames = 5) {
 
 // Install before app code in a new, nonpersistent browser context. Nothing here
 // reads the user's browser profile, existing books, or existing saved words.
+// Explicit UK/US playback uses one direct uapis recording for the requested accent.
+// Every recording comes from uapis: generic playback tries US, then UK; explicit controls ask for one accent.
+// Recording and synthesis attempts are captured without real sound/network use.
 export async function installRecorders(context) {
   await context.addInitScript(({ phrase }) => {
     const effects = { audios: [], voices: [], voiceRecords: [] };
     window.__ipaEffects = effects;
-    window.__ipaPlayback = { audio: 'success', voices: [], tts: 'success' };
+    window.__ipaPlayback = { audio: 'success', voices: [
+      { name: 'Synthetic UK', lang: 'en_GB', default: false, localService: true, voiceURI: 'fixture-uk' },
+      { name: 'Synthetic US', lang: 'en-US', default: false, localService: true, voiceURI: 'fixture-us' },
+    ], tts: 'success' };
     // Keep native preloads out of the mock: an aborted remote preload emits an
     // error after a resolved play promise and would invalidate synthetic success.
     const sources = new WeakMap();
     Object.defineProperty(HTMLMediaElement.prototype, 'src', {
       configurable: true,
       get() { return sources.get(this) || ''; },
-      set(value) { sources.set(this, new URL(value, location.href).href); },
+      set(value) {
+        const url = new URL(value, location.href).href;
+        sources.set(this, url);
+      },
     });
     HTMLMediaElement.prototype.play = function () {
-      effects.audios.push({ src: this.src || this.getAttribute('src') || '', attached: this.isConnected });
+      const record = { src: this.src || this.getAttribute('src') || '', attached: this.isConnected, playing: false };
+      effects.audios.push(record);
       if (window.__ipaPlayback.audio === 'reject') return Promise.reject(new Error('Synthetic recording unavailable'));
+      if (window.__ipaPlayback.audio === 'never') return new Promise(() => {});
+      record.playing = true;
+      this.dispatchEvent(new Event('playing'));
       return Promise.resolve();
     };
-    HTMLMediaElement.prototype.pause = function () {};
+    HTMLMediaElement.prototype.pause = function () {
+      const record = effects.audios.find(item => item.src === this.src);
+      if (record) record.playing = false;
+    };
     window.SpeechSynthesisUtterance = class { constructor(text) { this.text = text; } };
     const ttsTimers = new Set();
     Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: {
@@ -173,6 +189,7 @@ export async function exposeBody(page, locator) {
 export async function effects(page) {
   return page.evaluate(() => ({
     ...window.__ipaEffects,
+    audioSources: [...window.__ipaEffects.audios].map(audio => audio.src),
     words: JSON.parse(localStorage.getItem('cibian-notebook-v1')).state.words,
   }));
 }
@@ -183,9 +200,12 @@ export async function assertOneAudio(page, before, expected) {
   assert.deepEqual(after.words, before.words, 'opening never saves a word');
   assert.deepEqual(after.voices, before.voices, 'opening adds no fallback voice');
   const audio = after.audios.slice(before.audios.length);
-  assert.equal(audio.length, 1, `exactly one unchanged dictionary recording for ${expected}`);
-  assert.equal(new URL(audio[0].src).searchParams.get('audio'), expected);
-  assert.equal(new URL(audio[0].src).searchParams.get('type'), '2', 'British recording remains first');
+  assert.equal(audio.length, 1, `exactly one unchanged recording for ${expected}`);
+  const url = new URL(audio[0].src);
+  assert.equal(url.hostname, 'uapis.cn');
+  assert.equal(url.pathname, '/api/v1/dictionary/audio');
+  assert.equal(url.searchParams.get('word'), expected);
+  assert.equal(url.searchParams.get('accent'), 'us', 'American recording remains first for generic playback');
   assert.equal(audio[0].attached, true, 'audio element remains attached before playback');
   return after;
 }

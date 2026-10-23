@@ -577,11 +577,12 @@ async function pronunciationTarget(page, card, mode) {
     const after = await phoneEffects(page);
     assert.equal(after.taps, before.taps, 'explicit speaker does not count as another reader-word tap');
     const urls = after.audios.slice(before.audios.length);
-    const spoken = [...urls.map(url => new URL(url).searchParams.get('audio')),
+    const spoken = [...urls.map(url => new URL(url).searchParams.get('word')),
       ...after.voices.slice(before.voices.length)];
     assert.deepEqual(spoken, [mode === 'phrase' ? phrase : 'odds'], 'one speaker tap pronounces only displayed target');
-    if (accent) assert.deepEqual(urls.map(url => new URL(url).searchParams.get('type')), [accent === 'UK' ? '1' : '2'],
-      `${accent} button requests only its selected recording`);
+    assert.equal(urls.every(url => new URL(url).hostname === 'uapis.cn'), true, 'speaker tap requests the uapis provider');
+    if (accent) assert.deepEqual(urls.map(url => new URL(url).searchParams.get('accent')),
+      [accent === 'UK' ? 'uk' : 'us'], `${accent} button requests only its selected recording`);
     assert.equal(await card.count(), 1, 'speaker interaction never dismisses the card');
     assert.equal(await card.locator('[data-word-save]').getAttribute('aria-pressed'), saved, 'speaker leaves save state unchanged');
     assert.deepEqual(await page.evaluate(() => [scrollX, scrollY]), beforeScroll, 'speaker internal reveal and playback never scroll reader');

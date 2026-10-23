@@ -1,6 +1,8 @@
-# 本地 IPA 清洗原型
+# IPA 运行时数据与本地清洗原型
 
-这是一份**仅本地研究/预览**的数据，不是可发布词典。来源授权没有因此变成适合再分发；不要把下载、生成分片或原始审计放进公开仓库、正式构建、部署包。运行时显示实现由应用层负责，本文只说明清洗器及其产物。
+`src/data/ipa/` 中的运行时快照已获得本项目发布所需的再分发授权，并随普通生产构建发布。它只包含经过固定清洗政策选择的每口音一个主读音，不是完整词典，也不保证独立语言学验证或上下文消歧。
+
+原始下载、完整候选审计、来源压缩包和 provenance 仍是仅本地研究产物，不进入公开仓库、正式构建或部署包。若重新生成快照，必须重新核对来源授权、固定输入哈希和 manifest 字节哈希。
 
 ## 运行
 
@@ -139,6 +141,19 @@ BNC 某些记录的 `word` 与 `headword` 不同，而发音可能仍是词元�
 
 主读音样例：运行时 `read` UK/US 均为 `riːd`，`wind` 均为 `wɪnd`，`record` UK 为 BNC 先到的 `ˈrekɔːd`、US 为 `ˈrekərd`，`use` UK/US 均为 `juːz`。`red`、`waɪnd`、`record` 的动词候选、`use` 的 /s/ 候选等仍可在原始审计中追溯，**不会展示在词卡**。不保证这个固定首选适合每个上下文含义，也不保证经独立验证的金标准准确率。选择首个显式候选只是收敛展示策略，不是新造音、全局音系替换或语言学纠错。
 
+## 生产构建与本地预览
+
+普通 `npm run build` 和 `npm run build:local` 使用已提交的 `src/data/ipa/` 快照，并把 26 个分片作为同源、内容哈希的 JSON 资源输出；运行时仍按首字母懒加载需要的分片。它们不需要 `LOCAL_IPA_DATA_DIR`，也不会把研究审计或合成预览入口放进生产输出。
+
+可选的 `--mode local-ipa` 仍是 loopback-only 的本地研究预览：必须传入位于 `local-exports/` 下、且不在预览输出目录中的绝对 `LOCAL_IPA_DATA_DIR`，输出固定到忽略的 `local-exports/ipa-word-card/preview/`，并额外包含合成入口。不要把该预览目录或原始研究目录部署。
+
+```bash
+npm run build
+node scripts/verify-local-ipa-build.mjs dist
+LOCAL_IPA_DATA_DIR='C:/Users/Administrator/Desktop/apyx套利/margin-words-audit/local-exports/ipa-word-card/data' VITE_BOOKS_BASE= node node_modules/vite/bin/vite.js build --mode local-ipa
+node scripts/verify-local-ipa-build.mjs local-exports/ipa-word-card/preview --preview
+```
+
 ## 本地词卡接入
 
 - `WordIpa` 位于词卡可滚动 body 中，词性之后、主释义／上下文之前，独立于保留的非交互下滑区域；分别显示一个英音主读音、一个美音主读音，并为有音标的口音各提供一个播放按钮（44×44px）。无展开、无备选列表。短音标按自然宽度并排，空间不足时按口音整体换行，单个很长的音标仍可在所属口音内折行；不用固定字符数判断，也不依赖旧引擎缺少的 flex gap。不把数组位置当成英美对应义项，不自动选择书中当前含义。
@@ -146,23 +161,15 @@ BNC 某些记录的 `word` 与 `headword` 不同，而发音可能仍是词元�
 - 查询词卡当前显示的 `state.key`，不从原始词形另猜词干。首字母大写回退遵循上文规则。短语模式及短语识别等待期间不显示组成词音标。
 - 与词表释义解耦：基础词、无释义词也可以命中；缺少某一口音明确显示不可用。快速换词或关闭后不显示过期结果。
 - 使用 Vite 的静态 `?url&no-inline` 导入生成内容哈希 JSON 资源，运行时才 `fetch` 所需字母；不是动态导入 JS 数据模块。这样音标资源失败不会触发应用代码块的自动刷新恢复，失败 promise 会移除，重新打开可请求重试；不会改变全站代码块恢复机制。
-- 录音参数已对照[有道自身bath页面](https://www.youdao.com/w/eng/bath/)的原始HTML核对：`dict.basic.ec.uk.voice`对应`bath&type=1`，`dict.basic.ec.us.voice`对应`bath&type=2`。此前代码与测试同时把参数映射写反；仅检查请求与代码一致不能证明真实口音正确。
-- 显式英音按钮仅尝试原录音服务的 `type=1`，再尝试设备确实提供的 `en-GB` 声音；美音对应 `type=2`／`en-US`，不静默换另一口音。两者都没有时给出可见、可读屏的失败提示，可点同一按钮重试。缺少该口音音标时不提供其播放按钮；数据存在不保证录音存在。
-- 收藏按钮与关闭按钮并排放在标题右侧。启用音标的单词卡移除顶部通用播放，只保留音标旁的英音／美音按钮；小喇叭与音标同字号，无大圆形底色，同时保留44×44px透明点击范围。短语卡及未启用音标的普通构建仍使用原通用按钮。原自动朗读保持原有录音参数顺序 `type=2`→`type=1`→通用系统语音（即美音→英音；此前将参数口音说明写反）；所有播放共用单一所有权，快速点击替换旧请求。显式请求的录音／合成启动有界等待；取消不会作为失败展示。不把 IPA 传给语音引擎，不声称录音已与多音词的显示首选逐一对齐，也不增加语音供应商或音频下载包。
+- 所有录音请求都改由 uapis 提供，不再请求有道音频：普通朗读按美音 `accent=us`→英音 `accent=uk` 顺序尝试，显式按钮只请求对应口音。请求不带 key，也不轮换 key；服务端按来源动态限流，超限时按失败显示并允许手动重试，客户端不做循环自动重试。仅检查测试中的 URL 映射不能证明真实音质或口音听辨。
+- 显式英音按钮直接请求 `https://uapis.cn/api/v1/dictionary/audio?word=<完整单词>&accent=uk`，美音对应 `accent=us`；每次点击只尝试请求口音对应的一条音频，不静默换另一口音、通用录音或系统语音。使用附加到 document 的隐藏 audio，不用 JavaScript `fetch()`（本地跨域 fetch 会失败 CORS），媒体不读取字节。启动失败、HTTP/媒体错误或超时给出可见、可读屏的失败提示，可点同一按钮重试；缺少该口音音标时不提供其播放按钮。当前实现不把 key 放入前端，也不轮换多条 key 绕过服务限额；uapis 的访客额度或服务状态耗尽时按失败显示。
+- 收藏按钮与关闭按钮并排放在标题右侧。启用音标的单词卡移除顶部通用播放，只保留音标旁的英音／美音按钮；小喇叭与音标同字号，无大圆形底色，同时保留44×44px透明点击范围。短语卡及未启用音标的普通构建仍使用原通用按钮。原自动朗读保持 `accent=us`→`accent=uk`→通用系统语音的顺序（即美音→英音）；所有播放共用单一所有权，快速点击替换旧请求。显式请求的音频启动有界等待；取消不会作为失败展示。不把 IPA 传给音频服务，不声称音频已与多音词的显示首选逐一对齐，也不增加音频下载包。
 - 分片是本站构建出的静态资源，按首字母懒加载并在页面会话内复用；不承诺首次无网络可用或已持久离线安装。系统语音是否具备目标口音、能否离线取决于设备，录音仍需要网络。
 
-只有同时指定 `local-ipa` 模式及绝对 `LOCAL_IPA_DATA_DIR` 才会打入数据。例如从 Git Bash 运行：
-
-```bash
-LOCAL_IPA_DATA_DIR='C:/Users/Administrator/Desktop/apyx套利/margin-words-audit/local-exports/ipa-word-card/data' VITE_BOOKS_BASE= node node_modules/vite/bin/vite.js build --mode local-ipa
-```
-
-输出固定为忽略的 `local-exports/ipa-word-card/preview/`，不会覆盖其他任务的 `dist/`。插件校验分片哈希、输入边界、输入不在输出内，并限制本地模式服务器绑定 `127.0.0.1`。普通构建导出空数据、隐藏 IPA 区，也不包含下面的本地合成预览入口；在其他模式误带该变量会拒绝构建。
-
-合成预览入口 `/scripts/fixtures/ipa-preview.html` 只属于本地构建，使用实际 WordCard，不写书籍、账号或收藏存储。真实 Reader 的独立浏览器回归见 `scripts/word-ipa-e2e.mjs`；它只用全新非持久浏览器上下文、合成书籍与真实生成分片，拦截外网和真实账号请求。
+合成预览入口 `/scripts/fixtures/ipa-preview.html` 只属于本地 `local-ipa` 构建，使用实际 WordCard，不写书籍、账号或收藏存储。普通生产构建不包含这个入口。真实 Reader 的独立浏览器回归见 `scripts/word-ipa-e2e.mjs`；它只用全新非持久浏览器上下文、合成书籍与真实生成分片，拦截外网和真实账号请求。
 
 ```bash
 node scripts/word-ipa-e2e.mjs http://127.0.0.1:8109/
 ```
 
-默认 30 个尺寸/语言/主题/轮换字号组合，加 8 个真实数据的短音标并排／长音标换行几何测试、6 个加载竞态／短语／错误测试，以及 4 个口音播放／可信触摸按钮排除案例，共 48 项。长音标样例使用 `university`，宽度测量包含实际字体塑形后的音标、标签、44px播放按钮及间距，不按字符数猜测。`IPA_FULL_MATRIX=1` 将基础组合扩成 90 个；`IPA_SCREENSHOTS=1` 保存截图。`scripts/verify-local-ipa-build.mjs <outDir> [--enabled]` 检查默认/本地构建的数据隔离。legacy 回归可用 `BUILD_DIR` 指定隔离产物，不必覆盖共享 `dist/`。
+默认 30 个尺寸/语言/主题/轮换字号组合，加 8 个真实数据的短音标并排／长音标换行几何测试、6 个加载竞态／短语／错误测试，以及 4 个口音播放／可信触摸按钮排除案例，共 48 项。长音标样例使用 `university`，宽度测量包含实际字体塑形后的音标、标签、44px播放按钮及间距，不按字符数猜测。`IPA_FULL_MATRIX=1` 将基础组合扩成 90 个；`IPA_SCREENSHOTS=1` 保存截图。`scripts/verify-local-ipa-build.mjs <outDir>` 检查普通构建；加 `--preview` 检查 local-ipa 预览并允许其合成入口。legacy 回归可用 `BUILD_DIR` 指定隔离产物，不必覆盖共享 `dist/`。

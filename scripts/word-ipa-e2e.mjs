@@ -4,9 +4,9 @@
  *
  *   node scripts/word-ipa-e2e.mjs [http://127.0.0.1:8099/]
  *
- * Requires existing Playwright/Chrome and the parent's already-running local-ipa
- * preview. Ordinary production builds intentionally contain no IPA database.
- * Oracle: local-exports/ipa-word-card/data/manifest.json + its hash-checked shards.
+ * Requires existing Playwright/Chrome and an already-running build server. Ordinary production
+ * builds use the committed runtime snapshot; local-ipa preview builds use the isolated research
+ * snapshot. Oracle: src/data/ipa/manifest.json + its hash-checked shards (IPA_DATA_DIR override).
  * Optional env: CHROME, IPA_DATA_DIR, IPA_VIEWPORT=320x568, IPA_LOCALE=en|zh,
  * IPA_FULL_MATRIX=1 (all theme/font combinations), IPA_SCREENSHOTS=1,
  * SHOT_DIR (default local-exports/ipa-word-card/proof), IPA_SKIP_RACES=1,
@@ -17,8 +17,12 @@
  * Runtime and UI both expose at most one accepted UK and one US reading;
  * alternatives/disclosures are forbidden. Only intended per-accent playback
  * controls are allowed: no redundant generic header speak in enabled word mode.
- * Accent icons match IPA text with transparent44px hit areas; phrases retain
- * generic header playback. Four extra playback/touch cases bring default total48.
+ * Accent icons match IPA text with transparent44px hit areas. Explicit UK/US
+ * buttons use one direct uapis audio request for the requested accent, never
+ * another accent or SpeechSynthesis; failures show visible retry feedback.
+ * Generic reader auto speech and phrase/header callers use the uapis American
+ * recording (accent=us) first, then the British one (accent=uk). Four extra
+ * playback/touch cases bring default total48.
  * Positive coverage includes an easy word with no glossary entry (the) and a
  * real single-accent, no-glossary hit (takin). Negative faults must recover by
  * closing/reopening, and no optional-data failure may reload the reader.
@@ -31,7 +35,8 @@
  *
  * Every case uses a fresh, nonpersistent context and a synthetic IndexedDB book.
  * All /api requests are mocked; remote requests, catalogs, book files and real
- * external lookups are blocked. Audio is recorded, not downloaded or played.
+ * external lookups are blocked. Audio and SpeechSynthesis are recorded, never
+ * downloaded or played; explicit uapis media URLs are also synthetic.
  * Successful IPA is NEVER mocked: delayed requests continue to the real shard.
  * Only dedicated negative cases replace a shard with malformed schema or HTTP 503.
  */
@@ -50,7 +55,7 @@ import {
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = new URL((process.argv[2] ?? 'http://127.0.0.1:8099/').replace(/\/?$/, '/'));
 assert.ok(['http:', 'https:'].includes(BASE.protocol), 'Base URL must use HTTP(S)');
-const DATA = resolve(process.env.IPA_DATA_DIR ?? resolve(ROOT, 'local-exports/ipa-word-card/data'));
+const DATA = resolve(process.env.IPA_DATA_DIR ?? resolve(ROOT, 'src/data/ipa'));
 const SHOT_DIR = resolve(process.env.SHOT_DIR ?? resolve(ROOT, 'local-exports/ipa-word-card/proof'));
 const screenshots = process.env.IPA_SCREENSHOTS === '1';
 const TIMEOUT = 12000;
@@ -173,6 +178,9 @@ async function fresh(spec, { gate, phrases = false, layoutWord = '' } = {}) {
       return route.abort('blockedbyclient');
     }
     if (url.origin !== BASE.origin) {
+      if (url.hostname === 'uapis.cn' && url.pathname === '/api/v1/dictionary/audio') {
+        return route.fulfill({ status: 200, contentType: 'audio/mpeg', body: Buffer.from('synthetic-uapis-audio') });
+      }
       remote.push(url.href);
       return route.abort('blockedbyclient');
     }
@@ -236,8 +244,8 @@ async function fresh(spec, { gate, phrases = false, layoutWord = '' } = {}) {
         assert.equal(readerNavigations, 1, `optional IPA never reloads or navigates away from the reader: ${JSON.stringify(navigation)}`);
         assert.deepEqual(remote.filter(value => {
           const url = new URL(value);
-          return !(url.hostname === 'dict.youdao.com' && url.pathname === '/dictvoice');
-        }), [], 'no external lookup or book request attempted (known audio preloads are aborted)');
+          return !(url.hostname === 'uapis.cn' && url.pathname === '/api/v1/dictionary/audio');
+        }), [], 'no external lookup or book request attempted (uapis audio is synthetic)');
         assert.ok(!blockedBooks.some(path => !path.endsWith('/catalog.json')), 'synthetic reader requests no real book file');
         assert.ok(!api.some(request => /(?:feedback|book\/|sync|save)/.test(request.path)), 'IPA never submits feedback, fetches a protected book, or syncs/saves');
         assert.deepEqual((await effects(page)).words, [], 'IPA testing never saves a word');
@@ -484,7 +492,7 @@ async function ordinary(spec) {
   });
 }
 
-async function accentPlay(page, locale, word, activation = 'pointer', { fallback = false, failure = false, probe } = {}) {
+async function accentPlay(page, locale, word, activation = 'pointer', { failure = false, probe } = {}) {
   const button = page.locator(`${ipaSelector} [data-speak-accent="${locale}"]`);
   await exposeBody(page, button);
   const before = await effects(page);
@@ -493,28 +501,25 @@ async function accentPlay(page, locale, word, activation = 'pointer', { fallback
     await button.evaluate(el => el.focus({ preventScroll: true }));
     await page.keyboard.press(activation);
   }
-  await page.waitForFunction(count => window.__ipaEffects.audios.length > count, before.audios.length);
-  if (fallback) await page.waitForFunction(count => window.__ipaEffects.voiceRecords.length > count, before.voiceRecords.length);
   if (failure) {
-    await page.locator(`${ipaSelector} [data-speak-error][role="status"]`).filter({ hasText: /\S/ }).first().waitFor();
+    await button.locator('xpath=..').locator('[data-speak-error][role="status"]').filter({ hasText: /\S/ }).waitFor();
     assert.equal(await button.getAttribute('data-speak-status'), 'failed', 'failed accent request is exposed on its own button');
   } else {
+    await page.waitForFunction(count => window.__ipaEffects.audios.length > count, before.audios.length);
     await page.waitForFunction(el => ['started', 'idle'].includes(el?.dataset.speakStatus), await button.elementHandle());
     assert.equal(await button.locator('xpath=..').locator('[data-speak-error]').count(), 0, 'successful request clears its own stale feedback');
   }
   await settle(page, 5);
   const after = await effects(page);
   const audio = after.audios.slice(before.audios.length);
-  assert.equal(audio.length, 1, 'explicit accent tries exactly one dictionary recording, never the other accent');
-  assert.equal(new URL(audio[0].src).searchParams.get('audio'), word, 'recording query uses exact displayed word, never IPA');
-  assert.equal(new URL(audio[0].src).searchParams.get('type'), locale === 'UK' ? '1' : '2');
-  assert.equal(audio[0].attached, true, 'explicit audio is attached to the document');
-  const voices = after.voiceRecords.slice(before.voiceRecords.length);
-  assert.equal(voices.length, Number(fallback), 'only a requested matching fallback may speak');
-  if (fallback) {
-    assert.equal(voices[0].text, word);
-    assert.equal(voices[0].voice?.toLowerCase().replaceAll('_', '-'), locale === 'UK' ? 'en-gb' : 'en-us');
-  }
+  assert.equal(audio.length, 1, 'explicit accent makes exactly one direct audio attempt');
+  const url = new URL(audio[0].src);
+  assert.equal(url.hostname, 'uapis.cn');
+  assert.equal(url.pathname, '/api/v1/dictionary/audio');
+  assert.equal(url.searchParams.get('word'), word);
+  assert.equal(url.searchParams.get('accent'), locale.toLowerCase());
+  assert.deepEqual(after.voiceRecords, before.voiceRecords, 'explicit accent does not use SpeechSynthesis');
+  assert.deepEqual(after.voices, before.voices, 'explicit accent does not queue browser speech');
   assert.deepEqual(after.words, before.words, 'accent controls never save words');
   assert.equal(await page.locator(`${cardSelector} h2`).innerText(), word, 'accent activation never switches the lookup target');
   await chromeGeometry(page);
@@ -537,22 +542,11 @@ async function playback(spec) {
       for (const locale of ['UK', 'US']) for (const activation of ['pointer', 'Enter', 'Space']) {
         await accentPlay(page, locale, 'bath', activation, { probe });
       }
-      await page.evaluate(() => {
-        window.__ipaPlayback.audio = 'reject';
-        window.__ipaPlayback.voices = [
-          { name: 'Synthetic UK', lang: 'en_GB', default: false, localService: true, voiceURI: 'fixture-uk' },
-          { name: 'Synthetic US', lang: 'en-US', default: false, localService: true, voiceURI: 'fixture-us' },
-        ];
-      });
-      for (const locale of ['UK', 'US']) await accentPlay(page, locale, 'bath', 'pointer', { fallback: true, probe });
-      await page.evaluate(() => { window.__ipaPlayback.voices = [
-        { name: 'Wrong US only', lang: 'en-US', default: true, localService: true, voiceURI: 'wrong-us' },
-      ]; });
-      await accentPlay(page, 'UK', 'bath', 'pointer', { failure: true, probe });
+      await page.evaluate(() => { window.__ipaPlayback.audio = 'reject'; });
+      for (const locale of ['UK', 'US']) await accentPlay(page, locale, 'bath', 'pointer', { failure: true, probe });
       await capture(page, `accent-error-${spec.width}-${spec.locale}`);
       await page.evaluate(() => { window.__ipaPlayback.audio = 'success'; });
-      await accentPlay(page, 'UK', 'bath', 'pointer', { probe });
-      await accentPlay(page, 'US', 'bath', 'pointer', { probe });
+      for (const locale of ['UK', 'US']) await accentPlay(page, locale, 'bath', 'pointer', { probe });
       await capture(page, `accent-playback-${spec.width}-${spec.locale}`);
       await close(page);
       await probe.check('accent playback close');

@@ -104,14 +104,21 @@ function voiceText(text: string): string {
 }
 
 /**
- * Youdao uses `type=1` for British and `type=2` for American recordings. Generic callers retain
- * their existing [2, 1] order; plenty of words exist in only one accent, so trying both cuts the words
- * that end up on the synthesized fallback, which is the voice a reader hears as "wrong".
+ * Every recording comes from uapis, keyless: one public media URL per accent.
+ * The labeled IPA controls ask for exactly the accent on the button. Generic callers keep the
+ * existing American-then-British order, because plenty of words exist in only one accent and
+ * trying both keeps more words off the synthesized fallback.
  */
-function voiceUrls(text: string, accent?: PronunciationAccent): string[] {
-  const query = encodeURIComponent(text);
-  const types = accent ? [accent === "UK" ? 1 : 2] : [2, 1];
-  return types.map((type) => `https://dict.youdao.com/dictvoice?audio=${query}&type=${type}`);
+function uapisAudioUrl(text: string, accent: PronunciationAccent): string {
+  const params = new URLSearchParams({
+    word: text,
+    accent: accent === "UK" ? "uk" : "us",
+  });
+  return `https://uapis.cn/api/v1/dictionary/audio?${params.toString()}`;
+}
+
+function voiceUrls(text: string): string[] {
+  return (["US", "UK"] as const).map((accent) => uapisAudioUrl(text, accent));
 }
 
 function playAudio(url: string, request: PronunciationRequest): Promise<PronunciationOutcome> {
@@ -215,7 +222,7 @@ let voiceCache: SpeechSynthesisVoice | null = null;
 /**
  * An English voice, chosen once. `lang = "en-US"` alone lets the engine keep its default voice,
  * and on an Android reader that default is often the system voice, which reads English with the
- * wrong sounds - the flat, robotic voice a reader notices next to the dictionary recordings.
+ * wrong sounds - the flat, robotic voice a reader notices next to the real recordings.
  */
 function englishVoice(accent?: PronunciationAccent): SpeechSynthesisVoice | null {
   if (!accent && voiceCache) return voiceCache;
@@ -340,8 +347,9 @@ function speakWithSynthesis(spoken: string, request: PronunciationRequest): bool
 }
 
 /**
- * Pronunciation plays the dictionary recording, with the device's own voice as the last resort.
- * Works on Kindle, Android e-ink readers (Boox, Meebook, etc.), and standard web browsers.
+ * Explicit UK/US buttons use one matching uapis recording, never a different accent or fallback voice.
+ * Generic callers keep the uapis recordings first, with the device voice as the last resort.
+ * The uapis request is intentionally keyless; callers must not add credentials or rotate keys.
  *
  * One voice at a time. Every call stops what the previous one started: a tap speaks the word, and
  * when that word belongs to a phrase the phrase replaces it a moment later. Without the stop, the
@@ -386,9 +394,20 @@ export function speakEnglish(text: string, options: PronunciationOptions = {}): 
     return true;
   }
   cancelPronunciation = cancel;
+  if (options.accent) {
+    // One labeled accent maps to one uapis recording; never substitute another accent or a voice.
+    void playAudio(uapisAudioUrl(spoken, options.accent), request).then((outcome) => {
+      if (finished || token !== spokenToken) {
+        finish("aborted");
+      } else if (outcome !== "started") {
+        finish(outcome);
+      }
+    });
+    return true;
+  }
   void (async () => {
     try {
-      for (const url of voiceUrls(spoken, options.accent)) {
+      for (const url of voiceUrls(spoken)) {
         if (finished || token !== spokenToken) {
           finish("aborted");
           return;
