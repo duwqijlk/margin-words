@@ -53,7 +53,7 @@ import {
   restoreReadingPlace,
   type TextAnchor,
 } from "@/lib/position";
-import { legacyChapter, overallProgress, useProgress } from "@/lib/progress-store";
+import { legacyChapter, overallProgress, samePlace, useProgress } from "@/lib/progress-store";
 import { bookSyncKey } from "@/lib/sync-merge";
 import type { WordSource } from "@/lib/vocab-model";
 import { hasSourceFrom, savedFromCard } from "@/lib/wordbook";
@@ -156,7 +156,21 @@ export function ReaderScreen({
   const setSourcePlaces = useVocab((state) => state.setSourcePlaces);
   const fillPrepared = useVocab((state) => state.fillPrepared);
   const prefs = usePrefs();
-  const saveProgress = useProgress((state) => state.save);
+  const storeSave = useProgress((state) => state.save);
+  // True while this screen writes its own place, so the store listener below can tell those
+  // writes from a place that arrived from elsewhere (an account sync, a shelf merge).
+  const savingOwn = useRef(false);
+  const saveProgress = useCallback(
+    (id: string, patch: Parameters<typeof storeSave>[1], touch?: boolean) => {
+      savingOwn.current = true;
+      try {
+        storeSave(id, patch, touch);
+      } finally {
+        savingOwn.current = false;
+      }
+    },
+    [storeSave],
+  );
 
   const [book, setBook] = useState<StoredBook | null>(null);
   const bookChaptersRaw = book?.chapters;
@@ -675,14 +689,18 @@ export function ReaderScreen({
         // every paragraph of the chapter and reads a rectangle for each, which forced a layout
         // on every animation frame.
         const anchor = topAnchor(root, activeExtra ? 0 : safeIndex);
-        saveProgress(bookId, {
+        const place = {
           chapter: safeIndex,
           chapters: book.chapters.length,
           extraId: activeExtra?.id ?? "",
           scroll: value,
           // No paragraph on screen: an older anchor would reopen somewhere else, so the scroll fraction is used.
           anchor: anchor ?? undefined,
-        });
+        };
+        // The first measure after a page is drawn reads where the restore put it. Only a real
+        // change of place is a move with a new time (see `touch` in progress-store.ts).
+        const saved = useProgress.getState().items[bookId];
+        saveProgress(bookId, place, !saved || !samePlace(saved, place));
       };
       pendingSave.current = write;
       saver = setTimeout(write, 400);
@@ -716,8 +734,42 @@ export function ReaderScreen({
     if (!book.extras?.some((item) => item.id === extraId)) setExtraId("");
   }, [book, extraId]);
 
+  // A newer place for this book can arrive while it is open: an account sync pulled what another
+  // device read. The screen moved only on the next open, and its own next save (scroll, leave)
+  // then wrote the old place back with a fresh time, so the account went back to it. Follow the
+  // newer place instead. A card or panel that is open keeps the page still until the next arrival.
   useEffect(() => {
-    if (book) saveProgress(bookId, { chapter: safeIndex, chapters: book.chapters.length, extraId });
+    if (!book) return;
+    return useProgress.subscribe((state, before) => {
+      if (savingOwn.current) return;
+      const next = state.items[bookId];
+      const prior = before.items[bookId];
+      if (!next || next === prior || (prior && next.updatedAt <= prior.updatedAt)) return;
+      if (prior && samePlace(prior, next)) return;
+      if (pagingHandlers.current.cardOpen) return;
+      const place = restoreReadingPlace(next, {
+        chapters: book.chapters.map((item) => item.paragraphs),
+        extras: book.extras,
+      });
+      positionGeneration.current += 1;
+      pendingSave.current = null;
+      placed.current = null;
+      restore.current = place.paragraph === null ? next.scroll : null;
+      restoreAt.current =
+        place.paragraph === null ? null : { paragraph: place.paragraph, offset: place.offset, flash: false };
+      setExtraId(place.extraId);
+      setChapterIndex(place.extraId || place.paragraph === null ? next.chapter : place.chapter);
+      setNavigationRevision((revision) => revision + 1);
+    });
+  }, [book, bookId]);
+
+  useEffect(() => {
+    if (!book) return;
+    // Showing the saved page is not a move: keep its time, so this echo of an old place cannot beat a
+    // newer place that another device synced in the meantime. A real move (a chapter pick, a page
+    // turn into the next chapter, scrolling) saves through goChapter/goSlot/the scroll saver.
+    const saved = useProgress.getState().items[bookId];
+    saveProgress(bookId, { chapter: safeIndex, chapters: book.chapters.length, extraId }, !saved);
   }, [book, bookId, safeIndex, extraId, saveProgress]);
 
   // Positions saved before anchors existed get one now, from where the page actually is.
@@ -727,15 +779,16 @@ export function ReaderScreen({
     const timer = setTimeout(() => {
       if (positionGeneration.current !== generation) return;
       const saved = useProgress.getState().items[bookId];
+      // Filling in a missing anchor describes the same place: it keeps the place's time.
       if (extraId) {
         if (saved?.extraId === extraId && saved.anchor) return;
         const anchor = topAnchor(articleRef.current, 0);
-        if (anchor) saveProgress(bookId, { anchor, extraId });
+        if (anchor) saveProgress(bookId, { anchor, extraId }, false);
         return;
       }
       if (saved?.anchor && saved.anchor.chapter === safeIndex) return;
       const anchor = topAnchor(articleRef.current, safeIndex);
-      if (anchor) saveProgress(bookId, { anchor });
+      if (anchor) saveProgress(bookId, { anchor }, false);
     }, 900);
     return () => clearTimeout(timer);
   }, [book, bookId, linkedHtml, phrasesReady, safeIndex, extraId, saveProgress]);

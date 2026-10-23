@@ -493,11 +493,26 @@ test("progress load and merge keep extraId and anchor, either field, or neither"
   assert.equal(kept.data.anchor.paragraph, 2);
 
   const filledAnchor = mergeItem(
-    row(1, { chapter: 0, chapters: 4, scroll: 0, updatedAt: 1, anchor }),
-    row(5, { chapter: 2, chapters: 8, scroll: 0.3, updatedAt: 5, extraId: "x2" }),
+    row(1, { chapter: 1, chapters: 4, scroll: 0, updatedAt: 1, anchor }),
+    row(5, { chapter: 1, chapters: 8, scroll: 0.3, updatedAt: 5 }),
   );
-  assert.equal(filledAnchor.data.extraId, "x2");
-  assert.equal(filledAnchor.data.anchor.paragraph, 2, "a newer save that never stored an anchor keeps the older one");
+  assert.equal(filledAnchor.data.chapter, 1);
+  assert.equal(filledAnchor.data.anchor.paragraph, 2, "a newer save on the same chapter with no anchor keeps the older one");
+
+  // The older anchor is in another chapter: restore prefers anchors, so keeping it reopened the old chapter.
+  const otherChapter = mergeItem(
+    row(1, { chapter: 1, chapters: 8, scroll: 0.4, updatedAt: 1, anchor }),
+    row(5, { chapter: 5, chapters: 8, scroll: 1, updatedAt: 5 }),
+  );
+  assert.equal(otherChapter.data.chapter, 5);
+  assert.equal(otherChapter.data.anchor, undefined, "an anchor from an older chapter is not put back on a newer chapter");
+
+  const intoExtra = mergeItem(
+    row(1, { chapter: 1, chapters: 4, scroll: 0, updatedAt: 1, anchor }),
+    row(5, { chapter: 1, chapters: 8, scroll: 0.3, updatedAt: 5, extraId: "x2" }),
+  );
+  assert.equal(intoExtra.data.extraId, "x2");
+  assert.equal(intoExtra.data.anchor, undefined, "a chapter anchor is not reused inside an extra");
 
   const filledExtra = mergeItem(
     row(1, { chapter: 1, chapters: 8, scroll: 0, updatedAt: 1, extraId: "x3" }),

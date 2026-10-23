@@ -683,8 +683,14 @@ function mergeProgress(winner: unknown, other: unknown): ProgressData | null {
   const secondary = asProgress(other);
   if (!secondary) return primary;
   const raw = winner && typeof winner === "object" ? (winner as Record<string, unknown>) : {};
-  if (!("anchor" in raw) && secondary.anchor) primary.anchor = secondary.anchor;
   if (!("extraId" in raw) && secondary.extraId) primary.extraId = secondary.extraId;
+  // A newer save with no anchor is an older client, or a place with no paragraph on screen (a chapter
+  // opened at its end). The older anchor is kept only when it is on that same page: restore prefers
+  // the anchor, so one from another chapter reopened the book back there instead of at the newer chapter.
+  const samePage =
+    (primary.extraId ?? "") === (secondary.extraId ?? "") &&
+    (Boolean(primary.extraId) || secondary.anchor?.chapter === primary.chapter);
+  if (!("anchor" in raw) && secondary.anchor && samePage) primary.anchor = secondary.anchor;
   return primary;
 }
 

@@ -22,7 +22,13 @@ export type BookProgress = {
 
 type ProgressState = {
   items: Record<string, BookProgress>;
-  save: (bookId: string, patch: Partial<BookProgress>) => void;
+  /**
+   * `touch: false` records where the page is without claiming the reader moved: the place keeps its
+   * old `updatedAt`. Opening a book writes its place back before any sync pull has run. With a fresh
+   * time that echo of an old place won over the newer place another device had already synced, and
+   * was then pushed back to the account.
+   */
+  save: (bookId: string, patch: Partial<BookProgress>, touch?: boolean) => void;
   remove: (bookId: string) => void;
 };
 
@@ -58,11 +64,14 @@ export const useProgress = create<ProgressState>()(
   persist(
     (set) => ({
       items: {},
-      save: (bookId, patch) =>
+      save: (bookId, patch, touch = true) =>
         set((state) => {
           const prev = state.items[bookId] ?? { chapter: 0, chapters: 0, scroll: 0, updatedAt: 0 };
           return {
-            items: { ...state.items, [bookId]: { ...prev, ...patch, updatedAt: Date.now() } },
+            items: {
+              ...state.items,
+              [bookId]: { ...prev, ...patch, updatedAt: touch ? Date.now() : prev.updatedAt },
+            },
           };
         }),
       remove: (bookId) =>
@@ -75,6 +84,18 @@ export const useProgress = create<ProgressState>()(
     { name: "cibian-progress-v1", skipHydration: true, storage: createJSONStorage(storage) },
   ),
 );
+
+/**
+ * Do two saves name the same reading place? Same page (chapter or extra), and the same paragraph when
+ * both have one; with no paragraph, nearly the same scroll. A save that only repeats where the page
+ * already is should not count as the reader moving.
+ */
+export function samePlace(a: BookProgress, b: Partial<BookProgress>): boolean {
+  if (a.chapter !== b.chapter || (a.extraId ?? "") !== (b.extraId ?? "")) return false;
+  if (a.anchor && b.anchor) return a.anchor.chapter === b.anchor.chapter && a.anchor.paragraph === b.anchor.paragraph;
+  if (a.anchor || b.anchor) return false;
+  return Math.abs(a.scroll - (b.scroll ?? 0)) < 0.02;
+}
 
 /** Whole-book progress 0..1. */
 export function overallProgress(progress: BookProgress | undefined): number {

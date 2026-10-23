@@ -215,5 +215,48 @@ try {
     const y = await page.evaluate(() => ({ y: scrollY, max: document.documentElement.scrollHeight - innerHeight }));
     assert.ok(y.y > y.max * 0.85, JSON.stringify(y));
   });
+  await scenario("opening a book keeps an unchanged place's time", async (page) => {
+    // Showing the saved place is not a move. A fresh time here let the old place of a device that
+    // had not synced yet beat the newer place of another device and be pushed back to the account.
+    await seedPlace(page, "position-html", { chapter: 1, anchor: { chapter: 1, paragraph: 12, quote: paragraphs("Second")[12].slice(0, 75), offset: 0 } });
+    await open(page);
+    await atParagraph(page, 12);
+    await page.waitForTimeout(1300);
+    const saved = await progress(page);
+    assert.equal(saved.chapter, 1, JSON.stringify(saved));
+    assert.equal(saved.anchor?.paragraph, 12, JSON.stringify(saved));
+    assert.equal(saved.updatedAt, 1, `restore must not refresh the time: ${JSON.stringify(saved)}`);
+    await scrollToParagraph(page, 20);
+    await page.waitForTimeout(600);
+    const moved = await progress(page);
+    assert.equal(moved.anchor?.paragraph, 20, JSON.stringify(moved));
+    assert.ok(moved.updatedAt > 1, "a real move still gets a new time");
+  });
+  await scenario("an open book follows a newer place that arrives from sync", async (page) => {
+    await open(page);
+    await page.waitForTimeout(700);
+    assert.ok((await page.locator("article p").first().textContent()).replace(/­/g, "").startsWith("First"));
+    // What applyMerged does after a pull: replace the stored place, newer than this screen's.
+    // Needs the Vite dev server, where the page and this import share one store module.
+    const replaced = await page.evaluate(async (quote) => {
+      // Import the same module URL the page loaded (Vite may add ?t= after an edit); a bare URL is a second store.
+      const url = performance.getEntriesByType("resource").map((entry) => entry.name)
+        .filter((name) => new URL(name).pathname === "/src/lib/progress-store.ts").pop();
+      const store = url ? await import(url).catch(() => null) : null;
+      if (!store) return false;
+      const raw = { chapter: 1, chapters: 2, scroll: 0.5, updatedAt: Date.now() + 60_000,
+        anchor: { chapter: 1, paragraph: 18, quote, offset: 0 }, extraId: "" };
+      store.useProgress.setState((state) => ({ items: { ...state.items, "position-html": raw } }));
+      return true;
+    }, paragraphs("Second")[18].slice(0, 75));
+    assert.ok(replaced, "run this scenario against the Vite dev server (it imports the live store)");
+    // Hyphenation puts soft hyphens into the text ("Sec­ond"); compare without them.
+    await page.waitForFunction(() => document.querySelector("article p")?.textContent.replace(/­/g, "").startsWith("Second"));
+    await atParagraph(page, 18);
+    await page.waitForTimeout(700);
+    const saved = await progress(page);
+    assert.equal(saved.chapter, 1, `the screen's next save keeps the synced chapter: ${JSON.stringify(saved)}`);
+    assert.equal(saved.anchor?.paragraph, 18, JSON.stringify(saved));
+  });
 } finally { await browser.close(); }
 if (failures) process.exitCode = 1;
