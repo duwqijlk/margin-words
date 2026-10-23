@@ -1,0 +1,3230 @@
+{
+ "version": 2,
+ "title": "Twister on Tuesday",
+ "author": "Mary Pope Osborne",
+ "chapters": 17,
+ "sha256": "7c6a572df68314800d2e4d7f9eb87aa569200739af81b94099b8f4f5b7257d23",
+ "language": "en",
+ "glossary": {
+  "prairie": {
+   "pos": "noun",
+   "meaning": "A large, flat area of land covered in grass, with very few trees.",
+   "whyHard": "background needed",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A large, flat area of land covered in grass, with very few trees.",
+     "whyHard": "background needed",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "Large, flat land in North America covered with grass and with few trees.",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "prairie",
+       "context": "pioneer times on the prairie frontier. As I always do"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "prairie",
+       "context": "The title was Life on the Prairie"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 3,
+       "form": "prairie",
+       "context": "are common on the prairie, so many dugouts had storm"
+      }
+     ],
+     "forms": [
+      "prairie"
+     ]
+    }
+   ]
+  },
+  "frontier": {
+   "pos": "noun",
+   "meaning": "Land at the edge of where people live, far from towns and cities.",
+   "whyHard": "rare word"
+  },
+  "research": {
+   "pos": "noun",
+   "meaning": "Careful work of reading and looking for facts about a subject.",
+   "whyHard": "rare word"
+  },
+  "pioneer": {
+   "pos": "adjective",
+   "meaning": "of the first people who moved to a new place to live, build homes, and farm.",
+   "whyHard": "background needed",
+   "forms": [
+    "pioneers"
+   ],
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "of the first people who moved to a new place to live, build homes, and farm.",
+     "whyHard": "background needed",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "People who were among the first to go and live in a new place.",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "pioneers",
+       "context": "nonfiction books about prairie pioneers. One day, I found a"
+      },
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "pioneers",
+       "context": "hard life was for pioneers and they experience the terror"
+      },
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "pioneers",
+       "context": "the prairie after the pioneers came. When we went to"
+      },
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "pioneers",
+       "context": "hard to find. So pioneers often made their houses out"
+      }
+     ],
+     "forms": [
+      "pioneers"
+     ]
+    }
+   ]
+  },
+  "nonfiction": {
+   "pos": "noun",
+   "meaning": "Books about real people, facts, and things that really happened, not made-up stories.",
+   "whyHard": "rare word"
+  },
+  "collection": {
+   "pos": "noun",
+   "meaning": "A group of things of the same kind gathered together in one place.",
+   "whyHard": "rare word"
+  },
+  "tornado": {
+   "pos": "noun",
+   "meaning": "A very strong, spinning wind that moves in a tall, narrow shape and can destroy buildings.",
+   "whyHard": "rare word",
+   "forms": [
+    "tornados"
+   ],
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A very strong, spinning wind that moves in a tall, narrow shape and can destroy buildings.",
+     "whyHard": "rare word",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "A very strong storm with fast spinning wind that can destroy houses and trees.",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "tornado",
+       "context": "the terror of a tornado. eISBN: 978-0-375-89480-0 [1. Time travel—Fiction. 2. Frontier"
+      }
+     ],
+     "forms": [
+      "tornado"
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "Very strong winds that turn fast in a tall tube shape and can destroy things.",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "tornados",
+       "context": "Tornados, or twisters, are common on the prairie, so many"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "tornados",
+       "context": "Twisters, or tornados, are the fastest winds on earth"
+      },
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "tornados",
+       "context": "Almost 1,000 tornados hit the United States each year"
+      }
+     ],
+     "forms": [
+      "tornados"
+     ]
+    }
+   ]
+  },
+  "roaring": {
+   "pos": "adjective",
+   "meaning": "making a very loud, deep sound, like a wild animal",
+   "whyHard": "rare word",
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "making a very loud, deep sound, like a wild animal",
+     "whyHard": "rare word",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "Moving with a very loud, deep sound, like the sound a lion makes.",
+     "whyHard": "figurative",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "roaring",
+       "context": "passage about a tornado roaring toward a prairie schoolhouse, I"
+      }
+     ],
+     "forms": [
+      "roaring"
+     ]
+    }
+   ]
+  },
+  "schoolhouse": {
+   "pos": "noun",
+   "meaning": "A building for a school, often a small one in the country in the past.",
+   "whyHard": "rare word",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A building for a school, often a small one in the country in the past.",
+     "whyHard": "rare word",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "A building where children are taught, in the past often with only one room.",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "schoolhouse",
+       "context": "home. When they moved, the dugout became a schoolhouse. The"
+      }
+     ],
+     "forms": [
+      "schoolhouse"
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "A small building where children learn, in a country area long ago.",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "schoolhouse",
+       "context": "Jack gently closed the door to the schoolhouse"
+      }
+     ],
+     "forms": [
+      "schoolhouse"
+     ]
+    }
+   ]
+  },
+  "setting": {
+   "pos": "verb",
+   "meaning": "to decide where the story in a book happens.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "to decide where the story in a book happens.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "setting",
+       "context": "d been thinking about setting my new book in a"
+      }
+     ],
+     "forms": [
+      "setting"
+     ]
+    }
+   ]
+  },
+  "combine": {
+   "pos": "verb",
+   "meaning": "To put two or more things together so they become one thing.",
+   "whyHard": "rare word"
+  },
+  "journey": {
+   "pos": "noun",
+   "meaning": "A trip from one place to another, here the adventure in the story.",
+   "whyHard": "figurative",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A trip from one place to another, here the adventure in the story.",
+     "whyHard": "figurative",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "journey",
+       "context": "you’ll enjoy your journey with Jack and Annie to"
+      }
+     ],
+     "forms": [
+      "journey"
+     ]
+    }
+   ]
+  },
+  "copyright": {
+   "pos": "noun",
+   "meaning": "The legal right to control who can copy, print, or sell a book or pictures.",
+   "whyHard": "background needed"
+  },
+  "convention": {
+   "pos": "noun",
+   "meaning": "Agreements between countries about rules that they all agree to follow.",
+   "whyHard": "unusual meaning here",
+   "forms": [
+    "conventions"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "Agreements between countries about rules that they all agree to follow.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 1,
+       "occurrence": 1,
+       "form": "conventions",
+       "context": "and Pan-American Copyright Conventions. Published in the United States"
+      }
+     ],
+     "forms": [
+      "conventions"
+     ]
+    }
+   ]
+  },
+  "simultaneously": {
+   "pos": "adverb",
+   "meaning": "At the same time, and not at a different time.",
+   "whyHard": "rare word"
+  },
+  "terror": {
+   "pos": "noun",
+   "meaning": "A very strong feeling of fear.",
+   "whyHard": "rare word"
+  },
+  "colophon": {
+   "pos": "noun",
+   "meaning": "A special mark or design that a book company uses on its books.",
+   "whyHard": "rare word"
+  },
+  "trademark": {
+   "pos": "noun",
+   "meaning": "A name or design that legally belongs to one company, so others cannot use it freely.",
+   "whyHard": "background needed"
+  },
+  "license": {
+   "pos": "noun",
+   "meaning": "Official permission to use something that belongs to another person.",
+   "whyHard": "background needed"
+  },
+  "dedication": {
+   "pos": "noun",
+   "meaning": "A short note at the start of a book, saying the book is for a special person.",
+   "whyHard": "rare word"
+  },
+  "prologue": {
+   "pos": "noun",
+   "meaning": "A short part at the beginning of a book that comes before the main story.",
+   "whyHard": "rare word"
+  },
+  "bully": {
+   "pos": "noun",
+   "meaning": "a person who often hurts people, scares them, or is unkind to people who are not as strong",
+   "whyHard": "rare word"
+  },
+  "grasshopper": {
+   "pos": "noun",
+   "meaning": "A jumping insect with long back legs that lives in grass and fields.",
+   "whyHard": "rare word",
+   "forms": [
+    "grasshoppers"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A jumping insect with long back legs that lives in grass and fields.",
+     "whyHard": "rare word",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 2,
+       "occurrence": 1,
+       "form": "grasshopper",
+       "context": "Grasshopper Attack"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "grasshopper",
+       "context": "Oh no! Grasshopper attack!” screamed Kate. She covered her head"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "grasshopper",
+       "context": "Grasshopper attack!” cried Will. He covered his head, too"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 4,
+       "form": "grasshopper",
+       "context": "Why did Will and Kate yell, ‘Grasshopper attack!’?” Jack asked"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 5,
+       "form": "grasshopper",
+       "context": "Jack. He’d never heard of a grasshopper attack before"
+      },
+      {
+       "chapter": 10,
+       "occurrence": 2,
+       "form": "grasshoppers",
+       "context": "Because last spring, grasshoppers did attack us,” said Miss Neely"
+      },
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "grasshopper",
+       "context": "you think it’s a grasshopper attack?” Annie asked nervously"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "A long-legged insect that jumps and can eat farm plants.",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 3,
+       "form": "grasshopper",
+       "context": "What’s a grasshopper attack? What are they talking about"
+      }
+     ],
+     "forms": [
+      "grasshopper"
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "a jumping insect with long back legs that eats plants",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "grasshopper",
+       "context": "fields again after the grasshopper attack, we’ll build our"
+      }
+     ],
+     "forms": [
+      "grasshopper"
+     ]
+    }
+   ]
+  },
+  "twister": {
+   "pos": "noun",
+   "meaning": "Very strong winds that spin fast in a circle and can destroy houses, trees, and other things.",
+   "whyHard": "rare word",
+   "forms": [
+    "twisters"
+   ],
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "Very strong winds that spin fast in a circle and can destroy houses, trees, and other things.",
+     "whyHard": "rare word",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "Very strong, turning wind storms that can destroy buildings; another word for tornados.",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "twisters",
+       "context": "Tornados, or twisters, are common on the prairie, so many"
+      },
+      {
+       "chapter": 14,
+       "occurrence": 2,
+       "form": "twister",
+       "context": "the nightmare of the twister was fading from his memory"
+      }
+     ],
+     "forms": [
+      "twisters",
+      "twister"
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "a very strong, spinning wind that moves across land and can destroy things",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "twister",
+       "context": "It’s a twister!” he said"
+      }
+     ],
+     "forms": [
+      "twister"
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "Very strong winds that turn fast in a tall tube shape and can destroy things.",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 2,
+       "form": "twisters",
+       "context": "Twisters, or tornados, are the fastest winds on earth"
+      }
+     ],
+     "forms": [
+      "twisters"
+     ]
+    }
+   ]
+  },
+  "preview": {
+   "pos": "noun",
+   "meaning": "A short look at part of a book before the whole book is read.",
+   "whyHard": "rare word"
+  },
+  "earthquake": {
+   "pos": "noun",
+   "meaning": "A sudden shaking of the ground that can damage buildings and hurt people.",
+   "whyHard": "rare word"
+  },
+  "pennsylvania": {
+   "pos": "other",
+   "meaning": "A state in the east of the United States of America.",
+   "whyHard": "background needed"
+  },
+  "mysterious": {
+   "pos": "adjective",
+   "meaning": "Hard to understand or explain; strange and full of secrets.",
+   "whyHard": "rare word"
+  },
+  "appeared": {
+   "pos": "verb",
+   "meaning": "Came into view suddenly, as if from nowhere.",
+   "whyHard": "rare word"
+  },
+  "discovered": {
+   "pos": "verb",
+   "meaning": "Learned or found out something for the first time.",
+   "whyHard": "rare word"
+  },
+  "wish": {
+   "pos": "verb",
+   "meaning": "To want something and hope magic will make it happen.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To want something and hope magic will make it happen.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "wish",
+       "context": "was point to a picture and wish to go there"
+      }
+     ],
+     "forms": [
+      "wish"
+     ]
+    }
+   ]
+  },
+  "librarian": {
+   "pos": "noun",
+   "meaning": "A person whose job is to work in a library and look after its books.",
+   "whyHard": "rare word"
+  },
+  "magical": {
+   "pos": "adjective",
+   "meaning": "Having special powers that can do things that are not normally possible.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "Having special powers that can do things that are not normally possible.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "magical",
+       "context": "Fay. Morgan is a magical librarian from Camelot, the long"
+      }
+     ],
+     "forms": [
+      "magical"
+     ]
+    }
+   ]
+  },
+  "camelot": {
+   "pos": "other",
+   "meaning": "The famous place in old stories where King Arthur ruled his kingdom.",
+   "whyHard": "background needed",
+   "senses": [
+    {
+     "pos": "other",
+     "meaning": "The famous place in old stories where King Arthur ruled his kingdom.",
+     "whyHard": "background needed",
+     "default": true
+    },
+    {
+     "pos": "other",
+     "meaning": "a famous place in old stories about King Arthur, presented here as a place that needs to be saved.",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "camelot",
+       "context": "I wonder how that will help save Camelot?” said Jack"
+      }
+     ],
+     "forms": [
+      "camelot"
+     ]
+    }
+   ]
+  },
+  "kingdom": {
+   "pos": "noun",
+   "meaning": "A country that is ruled by a king or a queen.",
+   "whyHard": "rare word"
+  },
+  "gathering": {
+   "pos": "verb",
+   "meaning": "Collecting things together from different places.",
+   "whyHard": "rare word"
+  },
+  "free": {
+   "pos": "verb",
+   "meaning": "To let a person or animal go when they are trapped or controlled.",
+   "whyHard": "different grammar role",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To let a person or animal go when they are trapped or controlled.",
+     "whyHard": "different grammar role",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "free",
+       "context": "Jack and Annie helped free Morgan from a spell. In"
+      }
+     ],
+     "forms": [
+      "free"
+     ]
+    }
+   ]
+  },
+  "spell": {
+   "pos": "noun",
+   "meaning": "Magic words or power that can control a person or keep them unable to act freely.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "Magic words or power that can control a person or keep them unable to act freely.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "spell",
+       "context": "free Morgan from a spell. In Books #9–12, they solved four"
+      }
+     ],
+     "forms": [
+      "spell"
+     ]
+    }
+   ]
+  },
+  "solved": {
+   "pos": "verb",
+   "meaning": "Found the right answer to a question or problem.",
+   "whyHard": "rare word"
+  },
+  "ancient": {
+   "pos": "adjective",
+   "meaning": "Very old; from a time long, long ago.",
+   "whyHard": "rare word"
+  },
+  "riddle": {
+   "pos": "noun",
+   "meaning": "Clever questions with hidden answers that are hard to guess.",
+   "whyHard": "rare word",
+   "forms": [
+    "riddles"
+   ]
+  },
+  "challenge": {
+   "pos": "noun",
+   "meaning": "A difficult job or problem that needs great effort to finish.",
+   "whyHard": "rare word"
+  },
+  "kind": {
+   "pos": "noun",
+   "meaning": "Types; different forms of the same general thing.",
+   "whyHard": "different grammar role",
+   "forms": [
+    "kinds"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "Types; different forms of the same general thing.",
+     "whyHard": "different grammar role",
+     "anchors": [
+      {
+       "chapter": 4,
+       "occurrence": 1,
+       "form": "kinds",
+       "context": "must find four special kinds of writing for Morgan’s"
+      }
+     ],
+     "forms": [
+      "kinds"
+     ]
+    }
+   ]
+  },
+  "streamed": {
+   "pos": "verb",
+   "meaning": "came in strongly and in a steady flow, like water moving",
+   "whyHard": "figurative",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "came in strongly and in a steady flow, like water moving",
+     "whyHard": "figurative",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "streamed",
+       "context": "Jack opened his eyes. Sunlight streamed through his window"
+      }
+     ],
+     "forms": [
+      "streamed"
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "came in strongly and steadily, like water flowing in",
+     "whyHard": "figurative",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "streamed",
+       "context": "open the cellar door. Daylight streamed in. He looked out"
+      }
+     ],
+     "forms": [
+      "streamed"
+     ]
+    }
+   ]
+  },
+  "whispered": {
+   "pos": "verb",
+   "meaning": "spoke very quietly, with a soft voice, so others could not hear easily",
+   "whyHard": "rare word",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "spoke very quietly, with a soft voice, so others could not hear easily",
+     "whyHard": "rare word",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "whispered",
+       "context": "Tuesday!” he whispered. Morgan’s note had told him and"
+      },
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "whispered",
+       "context": "Are we still alive?” she whispered"
+      }
+     ]
+    },
+    {
+     "pos": "verb",
+     "meaning": "spoke very quietly, using little voice, so only someone near can hear",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "whispered",
+       "context": "moving his lips, Jack whispered, “Up above the world so"
+      }
+     ],
+     "forms": [
+      "whispered"
+     ]
+    }
+   ]
+  },
+  "headed": {
+   "pos": "verb",
+   "meaning": "went towards a place; moved in that direction",
+   "whyHard": "different grammar role",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "went towards a place; moved in that direction",
+     "whyHard": "different grammar role",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "headed",
+       "context": "pencil into his backpack. Then he headed into the hall"
+      }
+     ],
+     "forms": [
+      "headed"
+     ]
+    }
+   ]
+  },
+  "grabbed": {
+   "pos": "verb",
+   "meaning": "took hold of something quickly and firmly with your hand",
+   "whyHard": "rare word"
+  },
+  "shady": {
+   "pos": "adjective",
+   "meaning": "not receiving much sun; dark and cool because trees block the sun",
+   "whyHard": "rare word"
+  },
+  "lend": {
+   "pos": "verb",
+   "meaning": "let someone use something of yours for a short time, then they give it back",
+   "whyHard": "rare word"
+  },
+  "follow": {
+   "pos": "verb",
+   "meaning": "do what a written instruction or rule tells you to do",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "do what a written instruction or rule tells you to do",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "follow",
+       "context": "first writing: something to follow.” He picked up a list"
+      }
+     ],
+     "forms": [
+      "follow"
+     ]
+    }
+   ]
+  },
+  "breeze": {
+   "pos": "noun",
+   "meaning": "a light and gentle wind",
+   "whyHard": "rare word",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "a light and gentle wind",
+     "whyHard": "rare word",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "a light, soft wind",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "breeze",
+       "context": "through the clouds. The wildflowers danced in a gentle breeze"
+      }
+     ],
+     "forms": [
+      "breeze"
+     ]
+    }
+   ]
+  },
+  "spin": {
+   "pos": "verb",
+   "meaning": "turn around and around in circles",
+   "whyHard": "rare word"
+  },
+  "spun": {
+   "pos": "verb",
+   "meaning": "turned around and around in a circle",
+   "whyHard": "rare word",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "turned around and around in a circle",
+     "whyHard": "rare word",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "turned around and around quickly in circles",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 1,
+       "form": "spun",
+       "context": "It spun faster and faster"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "spun",
+       "context": "It spun faster and faster"
+      }
+     ],
+     "forms": [
+      "spun"
+     ]
+    }
+   ]
+  },
+  "suspender": {
+   "pos": "noun",
+   "meaning": "Two straps worn over the shoulders to hold trousers up at the waist.",
+   "whyHard": "rare word",
+   "forms": [
+    "suspenders"
+   ]
+  },
+  "leather": {
+   "pos": "adjective",
+   "meaning": "Made from a strong material that comes from animal skin.",
+   "whyHard": "rare word"
+  },
+  "sunbonnet": {
+   "pos": "noun",
+   "meaning": "A wide hat that protects a woman's or girl's face from sunlight.",
+   "whyHard": "rare word"
+  },
+  "grove": {
+   "pos": "noun",
+   "meaning": "A small group of trees growing close together.",
+   "whyHard": "rare word"
+  },
+  "creek": {
+   "pos": "noun",
+   "meaning": "A small natural stream of water, smaller than a river.",
+   "whyHard": "rare word"
+  },
+  "wildflower": {
+   "pos": "noun",
+   "meaning": "Flowers that grow naturally in fields and are not planted by people.",
+   "whyHard": "rare word",
+   "forms": [
+    "wildflowers"
+   ]
+  },
+  "swayed": {
+   "pos": "verb",
+   "meaning": "Moved slowly from side to side.",
+   "whyHard": "rare word"
+  },
+  "chilly": {
+   "pos": "adjective",
+   "meaning": "A little cold.",
+   "whyHard": "rare word"
+  },
+  "puffed": {
+   "pos": "verb",
+   "meaning": "Moved along while sending out small clouds of smoke.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "Moved along while sending out small clouds of smoke.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "puffed",
+       "context": "the distance, a train puffed across the prairie. Sparks of"
+      }
+     ],
+     "forms": [
+      "puffed"
+     ]
+    }
+   ]
+  },
+  "spark": {
+   "pos": "noun",
+   "meaning": "Very small, bright pieces from a fire that fly into the air.",
+   "whyHard": "rare word",
+   "forms": [
+    "sparks"
+   ]
+  },
+  "smokestack": {
+   "pos": "noun",
+   "meaning": "A tall, round pipe that lets smoke out of an engine or building.",
+   "whyHard": "rare word"
+  },
+  "billowed": {
+   "pos": "verb",
+   "meaning": "spread out and puffed up in large soft shapes, like clouds",
+   "whyHard": "rare word",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "spread out and puffed up in large soft shapes, like clouds",
+     "whyHard": "rare word",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "Filled with wind and moved outward, like sails.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 2,
+       "form": "billowed",
+       "context": "the rippling grass. Their white coverings billowed in the breeze"
+      }
+     ],
+     "forms": [
+      "billowed"
+     ]
+    }
+   ]
+  },
+  "link": {
+   "pos": "verb",
+   "meaning": "To connect two places or things.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To connect two places or things.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "link",
+       "context": "government built railroads to link the eastern and western parts"
+      }
+     ],
+     "forms": [
+      "link"
+     ]
+    }
+   ]
+  },
+  "kansa": {
+   "pos": "other",
+   "meaning": "A state in the middle of the United States.",
+   "whyHard": "background needed",
+   "forms": [
+    "kansas"
+   ]
+  },
+  "rippling": {
+   "pos": "adjective",
+   "meaning": "Moving in small, gentle waves.",
+   "whyHard": "rare word"
+  },
+  "schooner": {
+   "pos": "noun",
+   "meaning": "Large boats with sails that move by wind.",
+   "whyHard": "rare word",
+   "forms": [
+    "schooners"
+   ]
+  },
+  "overhead": {
+   "pos": "adverb",
+   "meaning": "Above, over people's heads, in the sky.",
+   "whyHard": "rare word",
+   "senses": [
+    {
+     "pos": "adverb",
+     "meaning": "Above, over people's heads, in the sky.",
+     "whyHard": "rare word",
+     "default": true
+    },
+    {
+     "pos": "adverb",
+     "meaning": "Above, in the place higher than you.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "overhead",
+       "context": "thumping sounds came from overhead. It sounded as if someone"
+      }
+     ],
+     "forms": [
+      "overhead"
+     ]
+    }
+   ]
+  },
+  "panting": {
+   "pos": "verb",
+   "meaning": "Breathing quickly and heavily after running.",
+   "whyHard": "rare word"
+  },
+  "vanish": {
+   "pos": "verb",
+   "meaning": "To disappear completely from sight.",
+   "whyHard": "rare word"
+  },
+  "horizon": {
+   "pos": "noun",
+   "meaning": "The far line where the ground seems to meet the sky.",
+   "whyHard": "rare word"
+  },
+  "trail": {
+   "pos": "noun",
+   "meaning": "a long, thin line that something leaves behind it as it moves",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "a long, thin line that something leaves behind it as it moves",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "trail",
+       "context": "gone. Only a thin trail of smoke floated across the"
+      }
+     ],
+     "forms": [
+      "trail"
+     ]
+    }
+   ]
+  },
+  "tepee": {
+   "pos": "noun",
+   "meaning": "Tents shaped like pointed cones, used as homes by some Native American peoples.",
+   "whyHard": "rare word",
+   "forms": [
+    "tepees"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "Tents shaped like pointed cones, used as homes by some Native American peoples.",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "tepees",
+       "context": "of life anywhere—no pioneer cabins, no Native American tepees"
+      }
+     ],
+     "forms": [
+      "tepees"
+     ]
+    }
+   ]
+  },
+  "rusty": {
+   "pos": "adjective",
+   "meaning": "Having a brown-red color that comes on old, wet iron or steel.",
+   "whyHard": "rare word"
+  },
+  "column": {
+   "pos": "noun",
+   "meaning": "A tall, thin shape rising straight up.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A tall, thin shape rising straight up.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "column",
+       "context": "Streaming from the pipe was a column of black smoke"
+      }
+     ],
+     "forms": [
+      "column"
+     ]
+    }
+   ]
+  },
+  "streaming": {
+   "pos": "verb",
+   "meaning": "Moving out steadily without stopping.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "Moving out steadily without stopping.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 6,
+       "occurrence": 1,
+       "form": "streaming",
+       "context": "Streaming from the pipe was a column of black smoke"
+      }
+     ],
+     "forms": [
+      "streaming"
+     ]
+    }
+   ]
+  },
+  "beneath": {
+   "pos": "other",
+   "meaning": "Under or below something else.",
+   "whyHard": "rare word"
+  },
+  "dugout": {
+   "pos": "noun",
+   "meaning": "A home made by cutting a space into a hill or into the ground.",
+   "whyHard": "background needed",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A home made by cutting a space into a hill or into the ground.",
+     "whyHard": "background needed",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "a home made by digging into the earth, with walls of earth",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "dugout",
+       "context": "first day in this dugout. The family who lived here"
+      }
+     ],
+     "forms": [
+      "dugout"
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "a low building partly below the ground; here it is the children's school",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 2,
+       "form": "dugout",
+       "context": "barely stay on their feet. Finally, they reached the dugout"
+      }
+     ],
+     "forms": [
+      "dugout"
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "a small room made in the side of a hill or under the ground",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "dugout",
+       "context": "Jack grabbed Annie and pulled her into the dugout"
+      }
+     ],
+     "forms": [
+      "dugout"
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "a small building built partly into the ground",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "dugout",
+       "context": "the roof off the dugout and sucked everything out, even"
+      }
+     ],
+     "forms": [
+      "dugout"
+     ]
+    }
+   ]
+  },
+  "rough": {
+   "pos": "adjective",
+   "meaning": "simple and basic, not smooth and not well made.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "simple and basic, not smooth and not well made.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "rough",
+       "context": "cellar was like a rough basement below the ground. During"
+      }
+     ],
+     "forms": [
+      "rough"
+     ]
+    }
+   ]
+  },
+  "creaked": {
+   "pos": "verb",
+   "meaning": "Made a long, high sound when a stiff part moved slowly.",
+   "whyHard": "rare word"
+  },
+  "grownup": {
+   "pos": "noun",
+   "meaning": "A person who is an adult, not a child.",
+   "whyHard": "rare word"
+  },
+  "way": {
+   "pos": "adverb",
+   "meaning": "much; far more than is right",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adverb",
+     "meaning": "much; far more than is right",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 7,
+       "occurrence": 1,
+       "form": "way",
+       "context": "Jack. Miss Neely seemed way too young to be a"
+      }
+     ],
+     "forms": [
+      "way"
+     ]
+    }
+   ]
+  },
+  "lit": {
+   "pos": "verb",
+   "meaning": "made the dark place bright so people could see",
+   "whyHard": "rare word"
+  },
+  "bench": {
+   "pos": "noun",
+   "meaning": "a long seat where two or more people can sit together",
+   "whyHard": "rare word"
+  },
+  "worn": {
+   "pos": "adjective",
+   "meaning": "old and thin or damaged from being used for a long time",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "old and thin or damaged from being used for a long time",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "worn",
+       "context": "made of wood. It was covered by a worn rug"
+      }
+     ],
+     "forms": [
+      "worn"
+     ]
+    }
+   ]
+  },
+  "barrel": {
+   "pos": "noun",
+   "meaning": "a tall, round box made of wood, with sides that bend out in the middle",
+   "whyHard": "rare word"
+  },
+  "coal": {
+   "pos": "noun",
+   "meaning": "black rock that can burn to make heat",
+   "whyHard": "rare word"
+  },
+  "crate": {
+   "pos": "noun",
+   "meaning": "a large wooden box used for holding or carrying things",
+   "whyHard": "rare word"
+  },
+  "jug": {
+   "pos": "noun",
+   "meaning": "a thing with a handle that holds water, milk, or juice",
+   "whyHard": "rare word"
+  },
+  "politely": {
+   "pos": "adverb",
+   "meaning": "in a way that shows good manners and respect for other people",
+   "whyHard": "rare word"
+  },
+  "grateful": {
+   "pos": "adjective",
+   "meaning": "feeling thankful because someone has given or done something helpful",
+   "whyHard": "rare word"
+  },
+  "barely": {
+   "pos": "adverb",
+   "meaning": "only just; almost not at all",
+   "whyHard": "rare word",
+   "senses": [
+    {
+     "pos": "adverb",
+     "meaning": "only just; almost not at all",
+     "whyHard": "rare word",
+     "default": true
+    },
+    {
+     "pos": "adverb",
+     "meaning": "only just; Jack had just enough room to sit, and no more",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 2,
+       "form": "barely",
+       "context": "Jack barely had room to sit. He took a deep"
+      }
+     ],
+     "forms": [
+      "barely"
+     ]
+    },
+    {
+     "pos": "adverb",
+     "meaning": "only just; almost not able to do something",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "barely",
+       "context": "Jack and Annie could barely stay on their feet. Finally"
+      }
+     ],
+     "forms": [
+      "barely"
+     ]
+    }
+   ]
+  },
+  "scowl": {
+   "pos": "noun",
+   "meaning": "an angry look on the face, with the eyebrows pushed down",
+   "whyHard": "rare word"
+  },
+  "modestly": {
+   "pos": "adverb",
+   "meaning": "in a way that does not try to show you are better than other people",
+   "whyHard": "rare word"
+  },
+  "reader": {
+   "pos": "noun",
+   "meaning": "a school book with stories and lessons for children",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "a school book with stories and lessons for children",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 8,
+       "occurrence": 1,
+       "form": "reader",
+       "context": "This is our only reader,” she said. “It’s called"
+      }
+     ],
+     "forms": [
+      "reader"
+     ]
+    }
+   ]
+  },
+  "aloud": {
+   "pos": "adverb",
+   "meaning": "in a voice that other people can hear, not silently in your mind",
+   "whyHard": "rare word"
+  },
+  "twinkle": {
+   "pos": "verb",
+   "meaning": "shine with a small light that goes bright and dark again and again",
+   "whyHard": "rare word"
+  },
+  "confused": {
+   "pos": "adjective",
+   "meaning": "not able to understand what is happening or what to do",
+   "whyHard": "rare word"
+  },
+  "muttered": {
+   "pos": "verb",
+   "meaning": "spoke quietly and not clearly, in an unhappy or angry way",
+   "whyHard": "rare word"
+  },
+  "diamond": {
+   "pos": "noun",
+   "meaning": "a very hard, bright jewel that shines in light",
+   "whyHard": "rare word"
+  },
+  "sighed": {
+   "pos": "verb",
+   "meaning": "let out a long, slow breath, often when tired or sad",
+   "whyHard": "rare word",
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "let out a long, slow breath, often when tired or sad",
+     "whyHard": "rare word",
+     "default": true
+    },
+    {
+     "pos": "verb",
+     "meaning": "breathed out slowly in a way that shows sadness or tiredness",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "sighed",
+       "context": "Jeb stared at the book. Then he sighed"
+      }
+     ],
+     "forms": [
+      "sighed"
+     ]
+    }
+   ]
+  },
+  "sod": {
+   "pos": "noun",
+   "meaning": "blocks of earth held together by grass and its roots, used for building walls",
+   "whyHard": "background needed"
+  },
+  "cheerfully": {
+   "pos": "adverb",
+   "meaning": "in a happy and friendly way",
+   "whyHard": "rare word"
+  },
+  "glared": {
+   "pos": "verb",
+   "meaning": "looked for a long time in an angry way",
+   "whyHard": "rare word"
+  },
+  "strangely": {
+   "pos": "adverb",
+   "meaning": "in a way that is unusual and hard to understand or explain",
+   "whyHard": "rare word"
+  },
+  "still": {
+   "pos": "adjective",
+   "meaning": "not moving at all, with no wind blowing",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "not moving at all, with no wind blowing",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "still",
+       "context": "The air outside was strangely still. The dark clouds"
+      }
+     ],
+     "forms": [
+      "still"
+     ]
+    },
+    {
+     "pos": "adjective",
+     "meaning": "not moving at all; completely quiet and without movement",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 5,
+       "occurrence": 2,
+       "form": "still",
+       "context": "Then everything was still"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 4,
+       "form": "still",
+       "context": "Then everything was still"
+      }
+     ],
+     "forms": [
+      "still"
+     ]
+    }
+   ]
+  },
+  "hovered": {
+   "pos": "verb",
+   "meaning": "stayed in the same place in the sky for a long time",
+   "whyHard": "rare word"
+  },
+  "lumpy": {
+   "pos": "adjective",
+   "meaning": "not smooth or round, with many raised parts on the surface",
+   "whyHard": "rare word"
+  },
+  "frowning": {
+   "pos": "verb",
+   "meaning": "moving your eyebrows down and together because you are confused or thinking hard",
+   "whyHard": "rare word"
+  },
+  "embarrassed": {
+   "pos": "adjective",
+   "meaning": "feeling shy and uncomfortable because people may think badly of you",
+   "whyHard": "rare word"
+  },
+  "field": {
+   "pos": "noun",
+   "meaning": "large areas of open land where farmers grow plants for food",
+   "whyHard": "unusual meaning here",
+   "forms": [
+    "fields"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "large areas of open land where farmers grow plants for food",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "fields",
+       "context": "to work in the fields all the time,” said Will"
+      }
+     ],
+     "forms": [
+      "fields"
+     ]
+    }
+   ]
+  },
+  "mile": {
+   "pos": "noun",
+   "meaning": "a unit for measuring how far a place is; one unit is about 1.6 kilometres",
+   "whyHard": "background needed",
+   "forms": [
+    "miles"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "a unit for measuring how far a place is; one unit is about 1.6 kilometres",
+     "whyHard": "background needed",
+     "default": true,
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "miles",
+       "context": "Neely he walked five miles to get here today,” Kate"
+      },
+      {
+       "chapter": 9,
+       "occurrence": 2,
+       "form": "miles",
+       "context": "Miles,” said Kate"
+      }
+     ]
+    },
+    {
+     "pos": "noun",
+     "meaning": "a unit for measuring long distances; Kate and Will walked two of them to school",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 3,
+       "form": "miles",
+       "context": "Two miles,” Jack repeated"
+      }
+     ],
+     "forms": [
+      "miles"
+     ]
+    }
+   ]
+  },
+  "nodded": {
+   "pos": "verb",
+   "meaning": "moved their heads down and up a little to show yes or agreement",
+   "whyHard": "rare word"
+  },
+  "lonely": {
+   "pos": "adjective",
+   "meaning": "feeling sad because you are alone and far away from other people",
+   "whyHard": "rare word"
+  },
+  "pa": {
+   "pos": "noun",
+   "meaning": "a word for father, used by children in some families and places in the past",
+   "whyHard": "background needed",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "a word for father, used by children in some families and places in the past",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "pa",
+       "context": "always dirty. So our pa built us a log cabin"
+      }
+     ],
+     "forms": [
+      "pa"
+     ]
+    }
+   ]
+  },
+  "cracked": {
+   "pos": "verb",
+   "meaning": "made a sudden, loud, sharp sound, like something breaking",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "made a sudden, loud, sharp sound, like something breaking",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "cracked",
+       "context": "ask another question, thunder cracked in the sky. Then rain"
+      }
+     ],
+     "forms": [
+      "cracked"
+     ]
+    }
+   ]
+  },
+  "slammed": {
+   "pos": "verb",
+   "meaning": "closed very hard and suddenly, making a loud noise",
+   "whyHard": "rare word"
+  },
+  "lamplit": {
+   "pos": "adjective",
+   "meaning": "Lit by a lamp; having light from a lamp inside.",
+   "whyHard": "rare word"
+  },
+  "cozy": {
+   "pos": "adjective",
+   "meaning": "Warm, comfortable, and pleasant to be in.",
+   "whyHard": "rare word"
+  },
+  "hut": {
+   "pos": "noun",
+   "meaning": "A small, simple building, here used as a school room.",
+   "whyHard": "rare word",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A small, simple building, here used as a school room.",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "hut",
+       "context": "Inside the lamplit hut, it was dry and cozy"
+      }
+     ],
+     "forms": [
+      "hut"
+     ]
+    }
+   ]
+  },
+  "dare": {
+   "pos": "verb",
+   "meaning": "To be brave enough to do something.",
+   "whyHard": "different grammar role",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To be brave enough to do something.",
+     "whyHard": "different grammar role",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "dare",
+       "context": "on his bench. He didn’t dare look at Jeb"
+      }
+     ],
+     "forms": [
+      "dare"
+     ]
+    }
+   ]
+  },
+  "slate": {
+   "pos": "noun",
+   "meaning": "A small, flat, dark board that you write on and can clean and use again.",
+   "whyHard": "background needed",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "A small, flat, dark board that you write on and can clean and use again.",
+     "whyHard": "background needed",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "a small, flat, dark board that people, especially school children in the past, wrote on.",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "slate",
+       "context": "reached into his bag and pulled out the small slate"
+      }
+     ],
+     "forms": [
+      "slate"
+     ]
+    }
+   ]
+  },
+  "chalk": {
+   "pos": "noun",
+   "meaning": "Soft white sticks used for writing on dark boards.",
+   "whyHard": "rare word"
+  },
+  "thumping": {
+   "pos": "adjective",
+   "meaning": "Making loud, heavy beating sounds.",
+   "whyHard": "rare word"
+  },
+  "cried": {
+   "pos": "verb",
+   "meaning": "Shouted or called out loudly and suddenly.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "Shouted or called out loudly and suddenly.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "cried",
+       "context": "Grasshopper attack!” cried Will. He covered his head, too"
+      }
+     ],
+     "forms": [
+      "cried"
+     ]
+    }
+   ]
+  },
+  "calm": {
+   "pos": "adjective",
+   "meaning": "Not excited, angry, or afraid; quiet and in control.",
+   "whyHard": "rare word"
+  },
+  "stuck": {
+   "pos": "verb",
+   "meaning": "Put something back into a place quickly.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "Put something back into a place quickly.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 10,
+       "occurrence": 1,
+       "form": "stuck",
+       "context": "A moment later, she stuck her head back in and"
+      }
+     ],
+     "forms": [
+      "stuck"
+     ]
+    }
+   ]
+  },
+  "hailstone": {
+   "pos": "noun",
+   "meaning": "Small hard balls of ice that fall from the sky like rain.",
+   "whyHard": "rare word",
+   "forms": [
+    "hailstones"
+   ]
+  },
+  "yell": {
+   "pos": "verb",
+   "meaning": "To shout something loudly.",
+   "whyHard": "rare word"
+  },
+  "shiny": {
+   "pos": "adjective",
+   "meaning": "Bright because light shines back from it.",
+   "whyHard": "rare word"
+  },
+  "crop": {
+   "pos": "noun",
+   "meaning": "Plants that farmers grow for food or to sell.",
+   "whyHard": "rare word",
+   "forms": [
+    "crops"
+   ]
+  },
+  "turnip": {
+   "pos": "noun",
+   "meaning": "Round vegetables that grow under the ground.",
+   "whyHard": "rare word",
+   "forms": [
+    "turnips"
+   ]
+  },
+  "yuck": {
+   "pos": "other",
+   "meaning": "A word you say when something looks or tastes very bad or dirty.",
+   "whyHard": "rare word"
+  },
+  "replanted": {
+   "pos": "verb",
+   "meaning": "Put seeds in the ground again after earlier plants were lost.",
+   "whyHard": "rare word"
+  },
+  "gently": {
+   "pos": "adverb",
+   "meaning": "In a soft, kind, and quiet way.",
+   "whyHard": "rare word"
+  },
+  "puzzled": {
+   "pos": "adjective",
+   "meaning": "Confused and not understanding what is happening.",
+   "whyHard": "rare word"
+  },
+  "ma'am": {
+   "pos": "other",
+   "meaning": "A polite word used when speaking to a woman.",
+   "whyHard": "background needed"
+  },
+  "glanced": {
+   "pos": "verb",
+   "meaning": "Looked quickly at someone or something.",
+   "whyHard": "rare word"
+  },
+  "weird": {
+   "pos": "adjective",
+   "meaning": "Very strange and hard to explain.",
+   "whyHard": "rare word"
+  },
+  "odd": {
+   "pos": "adjective",
+   "meaning": "strange and not what you expect",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "strange and not what you expect",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "odd",
+       "context": "had taken on an odd greenish color. They all seemed"
+      }
+     ],
+     "forms": [
+      "odd"
+     ]
+    }
+   ]
+  },
+  "greenish": {
+   "pos": "adjective",
+   "meaning": "a little bit green in colour",
+   "whyHard": "rare word"
+  },
+  "nervously": {
+   "pos": "adverb",
+   "meaning": "in a worried way, because you are afraid something bad will happen",
+   "whyHard": "rare word"
+  },
+  "hailstorm": {
+   "pos": "noun",
+   "meaning": "bad weather when small hard balls of ice fall like rain",
+   "whyHard": "rare word"
+  },
+  "dipped": {
+   "pos": "verb",
+   "meaning": "went down to a lower place for a short time",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "went down to a lower place for a short time",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "dipped",
+       "context": "The greenish clouds had dipped down close to the prairie"
+      }
+     ],
+     "forms": [
+      "dipped"
+     ]
+    }
+   ]
+  },
+  "swirling": {
+   "pos": "verb",
+   "meaning": "moving round and round quickly in circles",
+   "whyHard": "rare word"
+  },
+  "funnel": {
+   "pos": "noun",
+   "meaning": "A shape that is wide at the top and gets thin at the bottom.",
+   "whyHard": "rare word"
+  },
+  "tearing": {
+   "pos": "verb",
+   "meaning": "moving fast and pulling things apart with great force",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "moving fast and pulling things apart with great force",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "tearing",
+       "context": "The twister was whirling and tearing across the grass"
+      }
+     ],
+     "forms": [
+      "tearing"
+     ]
+    }
+   ]
+  },
+  "clutched": {
+   "pos": "verb",
+   "meaning": "held something very tightly, because he was afraid of falling",
+   "whyHard": "rare word"
+  },
+  "deafening": {
+   "pos": "adjective",
+   "meaning": "so loud that you can almost hear nothing else",
+   "whyHard": "rare word"
+  },
+  "budge": {
+   "pos": "verb",
+   "meaning": "move a little; here the door would not move at all",
+   "whyHard": "rare word",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "move a little; here the door would not move at all",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "budge",
+       "context": "tried to open the door, but it wouldn’t budge"
+      }
+     ],
+     "forms": [
+      "budge"
+     ]
+    }
+   ]
+  },
+  "banged": {
+   "pos": "verb",
+   "meaning": "hit something hard and loudly, again and again",
+   "whyHard": "rare word"
+  },
+  "fist": {
+   "pos": "noun",
+   "meaning": "hands with the fingers closed tightly in a ball",
+   "whyHard": "rare word",
+   "forms": [
+    "fists"
+   ]
+  },
+  "hinge": {
+   "pos": "noun",
+   "meaning": "small metal parts that join a door to a wall and let it open and close",
+   "whyHard": "rare word",
+   "forms": [
+    "hinges"
+   ]
+  },
+  "overturned": {
+   "pos": "adjective",
+   "meaning": "turned over, with the top now facing down",
+   "whyHard": "rare word"
+  },
+  "mess": {
+   "pos": "noun",
+   "meaning": "a place in a bad, untidy state, with things thrown about",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "a place in a bad, untidy state, with things thrown about",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 12,
+       "occurrence": 1,
+       "form": "mess",
+       "context": "Inside, the benches were overturned. The room was a mess"
+      }
+     ],
+     "forms": [
+      "mess"
+     ]
+    }
+   ]
+  },
+  "cellar": {
+   "pos": "noun",
+   "meaning": "a room under a building, below the ground, used here for safety",
+   "whyHard": "background needed",
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "a room under a building, below the ground, used here for safety",
+     "whyHard": "background needed",
+     "default": true
+    },
+    {
+     "pos": "noun",
+     "meaning": "a small room under the ground, used here to stay safe from a storm",
+     "whyHard": "background needed",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "cellar",
+       "context": "Jeb pushed open the cellar door. Daylight streamed in. He"
+      }
+     ],
+     "forms": [
+      "cellar"
+     ]
+    }
+   ]
+  },
+  "uncovered": {
+   "pos": "verb",
+   "meaning": "made something able to be seen by taking away what was on top of it",
+   "whyHard": "rare word"
+  },
+  "ladder": {
+   "pos": "noun",
+   "meaning": "two long side pieces with steps between them, used for going up or down",
+   "whyHard": "rare word"
+  },
+  "fiercely": {
+   "pos": "adverb",
+   "meaning": "in a very strong and powerful way",
+   "whyHard": "rare word"
+  },
+  "barreling": {
+   "pos": "verb",
+   "meaning": "moving very fast, in a loud way that seems impossible to stop",
+   "whyHard": "rare word"
+  },
+  "howl": {
+   "pos": "noun",
+   "meaning": "a long, loud sound, like a wild animal crying",
+   "whyHard": "rare word"
+  },
+  "crawled": {
+   "pos": "verb",
+   "meaning": "moved slowly on his hands and knees",
+   "whyHard": "rare word"
+  },
+  "torn": {
+   "pos": "verb",
+   "meaning": "pulled something off or apart with great force",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "pulled something off or apart with great force",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "torn",
+       "context": "them. The twister had torn the roof off the dugout"
+      }
+     ],
+     "forms": [
+      "torn"
+     ]
+    }
+   ]
+  },
+  "sucked": {
+   "pos": "verb",
+   "meaning": "pulled everything out with a very strong force of air",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "pulled everything out with a very strong force of air",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "sucked",
+       "context": "off the dugout and sucked everything out, even the rug"
+      }
+     ],
+     "forms": [
+      "sucked"
+     ]
+    }
+   ]
+  },
+  "shock": {
+   "pos": "noun",
+   "meaning": "a sudden strong feeling of surprise because something bad has happened",
+   "whyHard": "rare word"
+  },
+  "thick": {
+   "pos": "adjective",
+   "meaning": "filled with a lot of dust and small pieces of grass",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "filled with a lot of dust and small pieces of grass",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "thick",
+       "context": "hut. The air was thick with dust and bits of"
+      }
+     ],
+     "forms": [
+      "thick"
+     ]
+    }
+   ]
+  },
+  "destruction": {
+   "pos": "noun",
+   "meaning": "very great damage, with land and buildings badly broken",
+   "whyHard": "rare word"
+  },
+  "whirling": {
+   "pos": "verb",
+   "meaning": "turning around and around very fast while moving away",
+   "whyHard": "rare word"
+  },
+  "vanished": {
+   "pos": "verb",
+   "meaning": "went away so that no one could see it any more",
+   "whyHard": "rare word"
+  },
+  "scowled": {
+   "pos": "verb",
+   "meaning": "showed he was angry or unhappy with the look on his face",
+   "whyHard": "rare word"
+  },
+  "bravest": {
+   "pos": "adjective",
+   "meaning": "not afraid at all, and ready to act in hard or scary times, more than most other people",
+   "whyHard": "rare word"
+  },
+  "breathed": {
+   "pos": "verb",
+   "meaning": "said something in a very quiet voice",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "said something in a very quiet voice",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "breathed",
+       "context": "Oh no,” Jack breathed. Did Jeb still want to fight"
+      }
+     ],
+     "forms": [
+      "breathed"
+     ]
+    }
+   ]
+  },
+  "fierce": {
+   "pos": "adjective",
+   "meaning": "very angry and ready to fight or attack",
+   "whyHard": "rare word"
+  },
+  "shh": {
+   "pos": "other",
+   "meaning": "be quiet; stop talking now",
+   "whyHard": "phrase"
+  },
+  "aim": {
+   "pos": "verb",
+   "meaning": "plan and hope to do something in the future",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "plan and hope to do something in the future",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "aim",
+       "context": "I aim to read someday, too,” he said. “That looks"
+      }
+     ],
+     "forms": [
+      "aim"
+     ]
+    }
+   ]
+  },
+  "someday": {
+   "pos": "adverb",
+   "meaning": "at some time in the future, but not on a known day",
+   "whyHard": "rare word"
+  },
+  "mad": {
+   "pos": "adjective",
+   "meaning": "angry",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "angry",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "mad",
+       "context": "still afraid of making Jeb mad. So he just nodded"
+      }
+     ],
+     "forms": [
+      "mad"
+     ]
+    }
+   ]
+  },
+  "mighty": {
+   "pos": "adverb",
+   "meaning": "very; to a great degree",
+   "whyHard": "different grammar role",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adverb",
+     "meaning": "very; to a great degree",
+     "whyHard": "different grammar role",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "mighty",
+       "context": "me to go. But I’m getting started mighty late"
+      }
+     ],
+     "forms": [
+      "mighty"
+     ]
+    }
+   ]
+  },
+  "narrowed": {
+   "pos": "verb",
+   "meaning": "almost closed his eyes so they looked like thin lines",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "almost closed his eyes so they looked like thin lines",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 9,
+       "occurrence": 1,
+       "form": "narrowed",
+       "context": "Jeb narrowed his eyes"
+      },
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "narrowed",
+       "context": "Jeb narrowed his eyes"
+      }
+     ],
+     "forms": [
+      "narrowed"
+     ]
+    }
+   ]
+  },
+  "threaten": {
+   "pos": "verb",
+   "meaning": "say or show that you will hurt or punish someone",
+   "whyHard": "rare word"
+  },
+  "rescue": {
+   "pos": "verb",
+   "meaning": "save someone from danger or a bad situation",
+   "whyHard": "rare word"
+  },
+  "reckon": {
+   "pos": "verb",
+   "meaning": "think or believe something is true",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "think or believe something is true",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 13,
+       "occurrence": 1,
+       "form": "reckon",
+       "context": "can’t stay. I reckon we’d all be good"
+      }
+     ],
+     "forms": [
+      "reckon"
+     ]
+    }
+   ]
+  },
+  "scrambled": {
+   "pos": "verb",
+   "meaning": "moved up fast using hands and feet, in a hurried way.",
+   "whyHard": "rare word"
+  },
+  "lawn": {
+   "pos": "noun",
+   "meaning": "an area of short, green grass around a house or in a garden.",
+   "whyHard": "rare word"
+  },
+  "paved": {
+   "pos": "adjective",
+   "meaning": "Having a hard, flat surface, like stone, to walk or drive on.",
+   "whyHard": "rare word"
+  },
+  "pretty": {
+   "pos": "adverb",
+   "meaning": "quite or fairly. Here it does not mean beautiful; life here is quite easy.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adverb",
+     "meaning": "quite or fairly. Here it does not mean beautiful; life here is quite easy.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "pretty",
+       "context": "Life here is pretty easy compared to pioneer life,” said"
+      }
+     ],
+     "forms": [
+      "pretty"
+     ]
+    }
+   ]
+  },
+  "shrugged": {
+   "pos": "verb",
+   "meaning": "lifted both shoulders up a little, usually to show you do not know or do not care.",
+   "whyHard": "rare word"
+  },
+  "mystery": {
+   "pos": "noun",
+   "meaning": "something that is difficult or impossible to understand or explain.",
+   "whyHard": "rare word"
+  },
+  "recover": {
+   "pos": "verb",
+   "meaning": "to feel well and normal again after something hard or scary.",
+   "whyHard": "rare word"
+  },
+  "nightmare": {
+   "pos": "noun",
+   "meaning": "a very bad, scary experience, like a bad dream that is hard to forget",
+   "whyHard": "figurative",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "a very bad, scary experience, like a bad dream that is hard to forget",
+     "whyHard": "figurative",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "nightmare",
+       "context": "Actually, the nightmare of the twister was fading from his"
+      }
+     ],
+     "forms": [
+      "nightmare"
+     ]
+    }
+   ]
+  },
+  "fading": {
+   "pos": "verb",
+   "meaning": "Slowly becoming less strong and less clear, and going away little by little.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "Slowly becoming less strong and less clear, and going away little by little.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 14,
+       "occurrence": 1,
+       "form": "fading",
+       "context": "nightmare of the twister was fading from his memory, too"
+      }
+     ],
+     "forms": [
+      "fading"
+     ]
+    }
+   ]
+  },
+  "courage": {
+   "pos": "noun",
+   "meaning": "the strength to do something brave or difficult even when you feel afraid.",
+   "whyHard": "rare word"
+  },
+  "spinning": {
+   "pos": "adjective",
+   "meaning": "Turning round and round very fast.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "Turning round and round very fast.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "spinning",
+       "context": "The spinning winds act like a giant vacuum cleaner as"
+      }
+     ],
+     "forms": [
+      "spinning"
+     ]
+    }
+   ]
+  },
+  "giant": {
+   "pos": "adjective",
+   "meaning": "Very big.",
+   "whyHard": "rare word"
+  },
+  "hit": {
+   "pos": "verb",
+   "meaning": "To reach a place and cause damage there, used here about a storm.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "To reach a place and cause damage there, used here about a storm.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 15,
+       "occurrence": 1,
+       "form": "hit",
+       "context": "Almost 1,000 tornados hit the United States each year"
+      }
+     ],
+     "forms": [
+      "hit"
+     ]
+    }
+   ]
+  },
+  "available": {
+   "pos": "adjective",
+   "meaning": "You can buy or get it now.",
+   "whyHard": "rare word"
+  },
+  "division": {
+   "pos": "noun",
+   "meaning": "One part of a large company, with its own kind of work.",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "One part of a large company, with its own kind of work.",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 16,
+       "occurrence": 1,
+       "form": "division",
+       "context": "House Children's Books, a division of Random House, Inc., New"
+      }
+     ],
+     "forms": [
+      "division"
+     ]
+    }
+   ]
+  },
+  "inc": {
+   "pos": "other",
+   "meaning": "The short form of Incorporated, a word that shows a business is an official company.",
+   "whyHard": "background needed"
+  },
+  "twisting": {
+   "pos": "verb",
+   "meaning": "Turning round and round in circles; here, the black clouds turn as they drop down out of the storm clouds and begin to make the funnel shape.",
+   "whyHard": "rare word",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "Turning round and round in circles; here, the black clouds turn as they drop down out of the storm clouds and begin to make the funnel shape.",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 11,
+       "occurrence": 1,
+       "form": "twisting",
+       "context": "In the distance, twisting black clouds had dropped out of"
+      }
+     ],
+     "forms": [
+      "twisting"
+     ]
+    }
+   ]
+  }
+ },
+ "phrases": {
+  "act like": {
+   "pos": "phrase",
+   "meaning": "To work or behave in the same way as someone or something else."
+  },
+  "all clear": {
+   "pos": "phrase",
+   "meaning": "there is no danger now; it is safe to come out"
+  },
+  "all rights reserved": {
+   "pos": "phrase",
+   "meaning": "No one may copy or use this work without permission from the owner."
+  },
+  "along the way": {
+   "pos": "phrase",
+   "meaning": "While traveling, or while something is happening over time."
+  },
+  "are about to set off": {
+   "pos": "phrase",
+   "meaning": "Will start a journey very soon; they are ready to leave now."
+  },
+  "as if": {
+   "pos": "phrase",
+   "meaning": "in a way that seems true but is not really true"
+  },
+  "at least": {
+   "pos": "phrase",
+   "meaning": "used to name a good thing in a bad situation; here, we are safe"
+  },
+  "be true to real life": {
+   "pos": "phrase",
+   "meaning": "To show people and events as they really are or really were."
+  },
+  "belongs to": {
+   "pos": "phrase",
+   "meaning": "Is owned by the person named after it."
+  },
+  "black and white": {
+   "pos": "phrase",
+   "meaning": "Showing only black, white, and grey, with no other colours."
+  },
+  "blew off": {
+   "pos": "phrase",
+   "meaning": "was forced off and away by the strong wind"
+  },
+  "blurted out": {
+   "pos": "phrase",
+   "meaning": "Said something suddenly and without thinking first."
+  },
+  "bounced up": {
+   "pos": "phrase",
+   "meaning": "got up very quickly with a happy jump"
+  },
+  "broke the silence": {
+   "pos": "phrase",
+   "meaning": "spoke first after a time when nobody said anything"
+  },
+  "broke through": {
+   "pos": "phrase",
+   "meaning": "suddenly came out from behind something that was hiding it"
+  },
+  "bumped into": {
+   "pos": "phrase",
+   "meaning": "suddenly met or lightly hit someone while walking, by chance"
+  },
+  "burlap sack": {
+   "pos": "phrase",
+   "meaning": "a bag made of rough, strong cloth"
+  },
+  "by hand": {
+   "pos": "phrase",
+   "meaning": "using your hands and simple tools, not a machine"
+  },
+  "catch up to it": {
+   "pos": "phrase",
+   "meaning": "To reach something ahead of you that is moving away."
+  },
+  "caught his breath": {
+   "pos": "phrase",
+   "meaning": "Was so surprised for a moment that he stopped and took air in quickly."
+  },
+  "check it out": {
+   "pos": "phrase",
+   "meaning": "To go and look at something closely to learn what it is."
+  },
+  "civil war": {
+   "pos": "phrase",
+   "meaning": "the war in the United States from 1861 to 1865, between the North and the South"
+  },
+  "cleared his throat": {
+   "pos": "phrase",
+   "meaning": "made a small coughing sound to make his voice ready before speaking"
+  },
+  "could hardly wait": {
+   "pos": "phrase",
+   "meaning": "was very excited and wanted something to happen very soon"
+  },
+  "covered wagons": {
+   "pos": "phrase",
+   "meaning": "Large carts with white cloth stretched over the top to protect people and things inside."
+  },
+  "deep breath": {
+   "pos": "phrase",
+   "meaning": "Breathing in a lot of air slowly and fully."
+  },
+  "died away": {
+   "pos": "phrase",
+   "meaning": "Slowly became quieter and then stopped."
+  },
+  "died down": {
+   "pos": "phrase",
+   "meaning": "slowly became weaker and then stopped"
+  },
+  "drowned out": {
+   "pos": "phrase",
+   "meaning": "a loud sound covered another sound, so people could not hear it"
+  },
+  "dug out": {
+   "pos": "phrase",
+   "meaning": "Made by removing earth to create a space inside something."
+  },
+  "every inch": {
+   "pos": "phrase",
+   "meaning": "All of something, even the smallest parts of it."
+  },
+  "frog creek": {
+   "pos": "phrase",
+   "meaning": "The name of the place in Pennsylvania where the magic tree house appeared."
+  },
+  "get below": {
+   "pos": "phrase",
+   "meaning": "Go down to a place under the ground or under something, for safety."
+  },
+  "get my hands on": {
+   "pos": "phrase",
+   "meaning": "find and take or use something that you want"
+  },
+  "gone crazy": {
+   "pos": "phrase",
+   "meaning": "Started acting in a wild way that does not make sense."
+  },
+  "handed out": {
+   "pos": "phrase",
+   "meaning": "Gave something to each person in a group."
+  },
+  "heart nearly jumped out of his chest": {
+   "pos": "phrase",
+   "meaning": "he was suddenly very frightened, and his heart beat very fast"
+  },
+  "hold on to": {
+   "pos": "phrase",
+   "meaning": "To keep something in your mind and not forget it."
+  },
+  "i'm afraid": {
+   "pos": "phrase",
+   "meaning": "Words used politely to say you are sorry that something must happen."
+  },
+  "i'm warning you": {
+   "pos": "phrase",
+   "meaning": "I am telling you seriously to stop, or something bad will happen"
+  },
+  "if at first you don't succeed try try again": {
+   "pos": "phrase",
+   "meaning": "if you fail the first time, do not stop; keep trying until you do well"
+  },
+  "in the distance": {
+   "pos": "phrase",
+   "meaning": "far away from where you are, but still able to be seen."
+  },
+  "in the end": {
+   "pos": "phrase",
+   "meaning": "finally, after a period of time or after trying."
+  },
+  "king arthur": {
+   "pos": "phrase",
+   "meaning": "A famous king in very old British stories, known as a brave leader."
+  },
+  "let go of": {
+   "pos": "phrase",
+   "meaning": "to stop keeping something in your mind and allow yourself to forget it."
+  },
+  "log cabin": {
+   "pos": "phrase",
+   "meaning": "a small house made from long, thick pieces of cut tree wood"
+  },
+  "lost forever": {
+   "pos": "phrase",
+   "meaning": "Gone for all time, and no one will ever be able to find them again."
+  },
+  "ma and pa": {
+   "pos": "phrase",
+   "meaning": "mother and father, in old family or country words"
+  },
+  "made room": {
+   "pos": "phrase",
+   "meaning": "moved aside so there was space for another person to sit"
+  },
+  "make friends with": {
+   "pos": "phrase",
+   "meaning": "to become friends with someone who was not your friend before."
+  },
+  "making fun": {
+   "pos": "phrase",
+   "meaning": "teasing or laughing at someone in a way that is not kind"
+  },
+  "master librarians": {
+   "pos": "phrase",
+   "meaning": "A special, important title for Jack and Annie after they solved the riddles."
+  },
+  "mcguffey reader": {
+   "pos": "phrase",
+   "meaning": "a famous old American school book that many children used long ago"
+  },
+  "miles per hour": {
+   "pos": "phrase",
+   "meaning": "A way to measure speed: the number of miles travelled in one hour."
+  },
+  "morgan le fay": {
+   "pos": "phrase",
+   "meaning": "A woman with magic powers in very old stories about King Arthur."
+  },
+  "native american": {
+   "pos": "phrase",
+   "meaning": "Belonging to the peoples who lived in America long before Europeans arrived."
+  },
+  "native americans": {
+   "pos": "phrase",
+   "meaning": "people whose families lived in America long before Europeans arrived there"
+  },
+  "noon meal": {
+   "pos": "phrase",
+   "meaning": "food eaten in the middle of the day"
+  },
+  "not even an inch": {
+   "pos": "phrase",
+   "meaning": "did not move even a very small distance at all"
+  },
+  "old fashioned": {
+   "pos": "phrase",
+   "meaning": "made or done in the style of a long time ago, not modern"
+  },
+  "on its own": {
+   "pos": "phrase",
+   "meaning": "by itself, without any person or thing making it happen"
+  },
+  "one-room schoolhouse": {
+   "pos": "phrase",
+   "meaning": "A building with only one room where children of different ages learn together."
+  },
+  "out of the corner of his eye": {
+   "pos": "phrase",
+   "meaning": "seeing something to the side, without looking straight at it or turning your head"
+  },
+  "passing through": {
+   "pos": "phrase",
+   "meaning": "traveling on the way to another place and only staying a short time"
+  },
+  "peeked out": {
+   "pos": "phrase",
+   "meaning": "Looked out quickly or only a little, before coming fully out."
+  },
+  "peered around": {
+   "pos": "phrase",
+   "meaning": "looked carefully in different directions, trying to see everything"
+  },
+  "picked up": {
+   "pos": "phrase",
+   "meaning": "became stronger or faster"
+  },
+  "pioneer cabins": {
+   "pos": "phrase",
+   "meaning": "Small, simple houses built by the first people who came to live in a new area."
+  },
+  "pocket watch": {
+   "pos": "phrase",
+   "meaning": "a small clock a person carries in clothing and takes out to check the time"
+  },
+  "prairie schooners": {
+   "pos": "phrase",
+   "meaning": "A name for covered wagons, because their white covers looked like ship sails on the grass."
+  },
+  "pressed against": {
+   "pos": "phrase",
+   "meaning": "pushed hard and held close against something"
+  },
+  "random house": {
+   "pos": "phrase",
+   "meaning": "The name of a company that makes and sells books. It is a name, not a house."
+  },
+  "read aloud": {
+   "pos": "phrase",
+   "meaning": "To say written words out loud so that other people can hear them."
+  },
+  "revolutionary war": {
+   "pos": "phrase",
+   "meaning": "The war in which people in America fought to become free from Britain."
+  },
+  "ripped up": {
+   "pos": "phrase",
+   "meaning": "pulled something out of the ground with great force"
+  },
+  "rope ladder": {
+   "pos": "phrase",
+   "meaning": "steps for climbing that hang between ropes"
+  },
+  "rusty pipe": {
+   "pos": "phrase",
+   "meaning": "A long, round metal thing, empty inside, brown-red from age and wet weather."
+  },
+  "scrambled out": {
+   "pos": "phrase",
+   "meaning": "climbed out quickly and in a hurry, not slowly or carefully"
+  },
+  "showing off": {
+   "pos": "phrase",
+   "meaning": "Trying to make other people notice how well you can do something."
+  },
+  "sigh of relief": {
+   "pos": "phrase",
+   "meaning": "A slow breath out that shows you feel safe and relaxed again after worry."
+  },
+  "sign of life": {
+   "pos": "phrase",
+   "meaning": "Something that shows a person or living thing is near or present."
+  },
+  "signs of life": {
+   "pos": "phrase",
+   "meaning": "Marks or movements that show a person, animal, or place is alive or active."
+  },
+  "sleeves rolled up": {
+   "pos": "phrase",
+   "meaning": "The parts of a shirt that cover the arms are folded up toward the shoulders."
+  },
+  "sod bricks": {
+   "pos": "phrase",
+   "meaning": "Blocks for building, made by cutting pieces of earth with grass and its roots in them."
+  },
+  "sod house": {
+   "pos": "phrase",
+   "meaning": "a house built from blocks of earth and grass, used on land with few trees"
+  },
+  "stay out of this": {
+   "pos": "phrase",
+   "meaning": "do not become part of this argument; leave it to other people"
+  },
+  "steam engines": {
+   "pos": "phrase",
+   "meaning": "Machines that pulled trains, powered by hot steam made from boiled water."
+  },
+  "sticking out": {
+   "pos": "phrase",
+   "meaning": "Coming out from a surface so that it can be seen easily."
+  },
+  "storm cellar": {
+   "pos": "phrase",
+   "meaning": "a safe room under the ground where people stay during a dangerous storm"
+  },
+  "swept up in": {
+   "pos": "phrase",
+   "meaning": "completely caught by a strong sound or feeling, and unable to think of anything else"
+  },
+  "the wrong way": {
+   "pos": "phrase",
+   "meaning": "He understood Jack's words as unkind, although Jack did not mean them that way."
+  },
+  "threw on": {
+   "pos": "phrase",
+   "meaning": "put clothes on your body very quickly"
+  },
+  "through time and space": {
+   "pos": "phrase",
+   "meaning": "To the past and future and to many different places."
+  },
+  "tight bun": {
+   "pos": "phrase",
+   "meaning": "Hair pulled back firmly and fixed into a small round shape."
+  },
+  "took off": {
+   "pos": "phrase",
+   "meaning": "left quickly and started to run"
+  },
+  "total darkness": {
+   "pos": "phrase",
+   "meaning": "no light at all, so nothing can be seen"
+  },
+  "tough looking": {
+   "pos": "phrase",
+   "meaning": "looking strong and unfriendly, as if ready to fight"
+  },
+  "up to": {
+   "pos": "phrase",
+   "meaning": "As much as, or as high as, a stated number or amount."
+  },
+  "used to": {
+   "pos": "phrase",
+   "meaning": "shows something was true in the past, but is not true now"
+  },
+  "vacuum cleaner": {
+   "pos": "phrase",
+   "meaning": "A machine that cleans floors by pulling in dirt with strong air. Here, the winds pull up things in a similar way."
+  },
+  "wagon train": {
+   "pos": "phrase",
+   "meaning": "A long line of covered carts pulled by animals, traveling together."
+  },
+  "watch out": {
+   "pos": "phrase",
+   "meaning": "Be careful, because danger is coming."
+  },
+  "we better leave": {
+   "pos": "phrase",
+   "meaning": "we should leave now; leaving now is the best thing to do"
+  },
+  "whipped around": {
+   "pos": "phrase",
+   "meaning": "moved around very fast and with great force"
+  },
+  "with all his might": {
+   "pos": "phrase",
+   "meaning": "using all his strength"
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 0,
+   "paragraph": 1,
+   "context": "in the late 1800s. When I read a passage about",
+   "mainIdea": "A short part of a book or another piece of writing.",
+   "simple": "A short part of a book or another piece of writing."
+  }
+ ]
+}
