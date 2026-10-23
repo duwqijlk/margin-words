@@ -585,10 +585,7 @@
   }
   [data-word-card] [data-word-meta] {
     max-width: 100%;
-    max-height: 3.5rem;
-    overflow-y: auto;
-    overflow-wrap: break-word;
-    overscroll-behavior: contain;
+    overflow-wrap: anywhere;
   }
   [data-word-card] [data-word-body] {
     min-height: 0;
@@ -709,9 +706,6 @@
     [data-float][data-word-card].word-sheet-context {
       padding-top: 12px;
       padding-bottom: 12px;
-    }
-    [data-word-card] [data-word-meta] {
-      max-height: 44px;
     }
     [data-word-card] [data-word-body] {
       margin-top: 10px;

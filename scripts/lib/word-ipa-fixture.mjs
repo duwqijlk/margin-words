@@ -236,6 +236,7 @@ export async function chromeGeometry(page) {
     const body = el.querySelector('[data-word-body]');
     const header = el.querySelector('[data-word-header]');
     const footer = el.querySelector('[data-word-footer]');
+    const metaStyle = getComputedStyle(el.querySelector('[data-word-meta]'));
     const save = el.querySelector('[data-word-save]'), close = el.querySelector('[data-panel-close]');
     const title = el.querySelector('h2'), actions = save.closest('[data-word-actions]');
     const titleActions = { shared: !!actions && actions.contains(close), save: rect(save), close: rect(close), title: rect(title),
@@ -248,6 +249,7 @@ export async function chromeGeometry(page) {
       });
     return { card: rect(el), header: rect(header), body: rect(body), footer: rect(footer), controls, titleActions,
       outerScroll: el.scrollTop, bodyOverflow: getComputedStyle(body).overflowY,
+      metaOverflow: metaStyle.overflowY, metaMaxHeight: metaStyle.maxHeight,
       bodyClientWidth: body.clientWidth, bodyScrollWidth: body.scrollWidth,
       rootWidth: document.documentElement.clientWidth, rootScrollWidth: document.documentElement.scrollWidth,
       overflowNodes: [...document.querySelectorAll('body *')].filter(node => {
@@ -265,6 +267,8 @@ export async function chromeGeometry(page) {
       'save and close remain on the title row');
   }
   assert.equal(state.outerScroll, 0, 'outer word card never scrolls');
+  assert.equal(state.metaOverflow, 'visible', 'POS metadata has no independent scroll control');
+  assert.equal(state.metaMaxHeight, 'none', 'POS metadata is not height-capped');
   assert.equal(state.bodyOverflow, 'auto', 'explanation body owns scrolling');
   assert.ok(state.body.height > 0, `body retains usable space: ${JSON.stringify({ word: await card.locator('h2').innerText(), card: state.card, header: state.header, body: state.body, footer: state.footer })}`);
   assert.ok(state.bodyScrollWidth <= state.bodyClientWidth + 1, 'no horizontal body overflow');
