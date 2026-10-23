@@ -3,21 +3,14 @@ import { difficultyBand, lexileMeasure } from "@/lib/lexile";
 import { useT, type Key } from "@/lib/i18n";
 import { cn, selectCls } from "@/components/ui";
 
-/** The measure on a shelf card or a Discover card. Empty means unrated. */
+/**
+ * The measure on a shelf card or a Discover card. An unrated book shows nothing: an "Unrated" chip
+ * on every such card said nothing and only added noise. The Filter menu still offers "Unrated".
+ */
 export function LexileBadge({ measure }: { measure?: string }) {
   const { t } = useT();
   const clean = lexileMeasure(measure ?? "");
-  if (!clean) {
-    return (
-      <p
-        className="inline-flex min-h-6 items-center rounded-full bg-line/70 px-2 text-[0.7rem] font-semibold text-muted"
-        data-lexile="unrated"
-        aria-label={t("lexile.ariaUnrated")}
-      >
-        {t("lexile.unrated")}
-      </p>
-    );
-  }
+  if (!clean) return null;
   return (
     <p
       className="inline-flex min-h-6 items-center gap-1 rounded-full bg-accent-soft px-2 text-[0.7rem] font-semibold text-accent"

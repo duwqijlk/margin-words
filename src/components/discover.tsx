@@ -108,7 +108,7 @@ export function DiscoverScreen({
   const [author, setAuthor] = useState("all");
   const [series, setSeries] = useState<SeriesChoice>("all");
   const [category, setCategory] = useState<ContentCategory>("novel");
-  /** A row opened with "See all": "new", "classic", "series:<name>" or "band:<band>". "" is the browse page. */
+  /** A row opened with "See all": "new", "classic", "series:<name>" or "curated:<name>". "" is the browse page. */
   const [collection, setCollection] = useState("");
   /** The row key of the book in the detail sheet. */
   const [detailId, setDetailId] = useState("");
@@ -623,9 +623,6 @@ export function DiscoverScreen({
     if (id === "classic") return t("browse.rail.classic");
     if (id.startsWith("series:")) return id.slice("series:".length);
     if (id.startsWith("curated:")) return id.slice("curated:".length);
-    if (id === "band:under800") return t("browse.rail.under800");
-    if (id === "band:mid") return t("browse.rail.mid");
-    if (id === "band:high") return t("browse.rail.high");
     return t("browse.all");
   }
   function openCollection(id: string) {

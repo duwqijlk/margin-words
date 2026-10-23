@@ -1,9 +1,8 @@
 /**
- * The browse rows of Discover, before any search or filter: free classics, the largest series,
- * then reading levels. Each row keeps every book it holds (`all`, for "See all") and a short
+ * The browse rows of Discover, before any search or filter: free classics, then the largest
+ * series. A reading level is chosen in the Filter menu, not in a row. Each row keeps every book it holds (`all`, for "See all") and a short
  * slice for the sideways strip (`rows`). Pure, so the order is tested without a page.
  */
-import { compareLexile, difficultyBand, type DifficultyBand } from "./lexile.ts";
 
 /** Covers in one sideways strip. "See all" shows the rest. */
 export const RAIL_SIZE = 18;
@@ -69,10 +68,7 @@ export type DiscoverRailSpec =
 export type Rail<T> =
   | { id: "classic"; kind: "classic"; rows: T[]; all: T[] }
   | { id: `series:${string}`; kind: "series"; name: string; rows: T[]; all: T[] }
-  | { id: `curated:${string}`; kind: "curated"; name: string; rows: T[]; all: T[] }
-  | { id: `band:${DifficultyBand}`; kind: "band"; band: Exclude<DifficultyBand, "unrated">; rows: T[]; all: T[] };
-
-const BANDS = ["under800", "mid", "high"] as const;
+  | { id: `curated:${string}`; kind: "curated"; name: string; rows: T[]; all: T[] };
 
 /**
  * Where a book stands in its series. A book with no number (an omnibus such as
@@ -150,11 +146,6 @@ export function browseRails<T extends Railed>(books: readonly T[], specs: readon
     }
   }
 
-  for (const band of BANDS) {
-    const all = books
-      .filter((book) => difficultyBand(book.lexile) === band)
-      .sort((a, b) => compareLexile(a.lexile, b.lexile, "easy") || a.title.localeCompare(b.title));
-    if (all.length >= RAIL_MIN) out.push({ id: `band:${band}`, kind: "band", band, rows: all.slice(0, RAIL_SIZE), all });
-  }
+  // No difficulty rows: the Filter menu already chooses a level, and three more rows made the page long.
   return out;
 }

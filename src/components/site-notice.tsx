@@ -1,15 +1,13 @@
-import { Info, ShieldCheck, X } from "lucide-react";
+import { Info, X } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import { useT } from "@/lib/i18n";
 import { navigate } from "@/lib/router";
 
 /**
- * The one notice of the site, above the bottom bar: the two things a reader should know before
- * they start, in one place instead of two bars.
- *
- *   1. This site does not host books under copyright; for those, bring your own EPUB.
- *   2. A word tap is reported: the word, its place in the book, and the sentence around it
- *      (`recordWordTap` in lib/word-taps-collector.ts).
+ * The one notice of the site, above the bottom bar: one short line that the site hosts no books
+ * under copyright and counts word taps, with a link to the Guide, which explains both (its
+ * "copyright" and "privacy" sections; taps are `recordWordTap` in lib/word-taps-collector.ts).
+ * It used to be two full paragraphs, which covered the bottom of the shelf.
  *
  * One close button hides both, and that choice is remembered on this device. The key is new, so
  * someone who hid the old top bar still sees this one once.
@@ -54,11 +52,12 @@ export function SiteNotice() {
       role="note"
       data-site-notice
     >
-      <div className="relative mx-auto max-w-md rounded-2xl border border-line bg-paper/95 px-3 py-2.5 pr-11 shadow-xs backdrop-blur">
-        <div className="flex items-start gap-2">
+      <div className="relative mx-auto max-w-md rounded-2xl border border-line bg-paper/95 px-3 py-2 pr-11 shadow-xs backdrop-blur">
+        {/* One short line. Copyright and privacy each have their own section in the Guide. */}
+        <p className="flex items-start gap-2 text-[0.8rem] leading-snug">
           <Info className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
-          <p className="min-w-0 flex-1 text-[0.8rem] leading-snug">
-            {t("notice.text")}{" "}
+          <span className="min-w-0 flex-1">
+            {t("notice.short")}{" "}
             <a
               href="/guide/"
               className="font-semibold underline underline-offset-2"
@@ -67,22 +66,8 @@ export function SiteNotice() {
             >
               {t("notice.link")}
             </a>
-          </p>
-        </div>
-        <div className="mt-1.5 flex items-start gap-2">
-          <ShieldCheck className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
-          <p className="min-w-0 flex-1 text-[0.8rem] leading-snug">
-            {t("privacyNote.text")}{" "}
-            <a
-              href="/guide/"
-              className="font-semibold underline underline-offset-2"
-              data-site-notice-privacy
-              onClick={toGuide}
-            >
-              {t("privacyNote.link")}
-            </a>
-          </p>
-        </div>
+          </span>
+        </p>
         <button
           type="button"
           className="absolute top-1 right-1 inline-flex size-9 items-center justify-center rounded-lg text-muted hover:bg-black/5"

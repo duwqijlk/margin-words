@@ -54,6 +54,7 @@ export const zh: Record<Key, string> = {
   "nav.settings": "设置",
   "nav.account": "账号",
   "notice.text": "本站不提供有版权的书。这类书请自己导入合法获得的 EPUB。",
+  "notice.short": "本站不提供有版权的书，并会统计哪些词被点开。",
   "notice.dismiss": "关闭这条提示",
   "privacyNote.text": "我们会统计哪些词被点开。上报内容包括这个单词、它在书中的位置，以及单词所在的句子。",
   "privacyNote.link": "隐私说明",
