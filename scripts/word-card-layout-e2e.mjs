@@ -111,8 +111,8 @@ async function pronunciationControls(card) {
     const readings = await group.locator('[data-ipa-reading]').count();
     const button = group.locator(`[data-speak-accent="${accent}"]`);
     assert.ok(readings <= 1, 'one primary IPA per accent');
-    assert.equal(await button.count(), readings ? 1 : 0, `${accent} has one speaker exactly when a reading exists`);
-    if (readings) {
+    assert.equal(await button.count(), 1, `${accent} retains its speaker independently of local IPA`);
+    {
       accents.push(accent);
       assert.equal(await button.evaluate(el => el.tagName), 'BUTTON', `${accent} speaker is a native button`);
       assert.ok((await button.getAttribute('aria-label')).endsWith(`: ${word}`), `${accent} accessible name names displayed word`);

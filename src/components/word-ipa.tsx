@@ -29,26 +29,23 @@ export function WordIpa({ word }: { word: string }) {
   const state = loaded.word === word ? loaded : { word, status: "loading" as const };
   return (
     <section className="word-ipa grid min-w-0 gap-1.5 text-sm leading-relaxed" aria-label={t("ipa.title")} data-word-ipa data-ipa-word={word} data-ipa-status={state.status}>
-      {state.status === "ready" && state.result ? (
-        <div className="word-ipa-values">
-          {(["UK", "US"] as const).map(locale => {
-            const values = state.result!.entry[locale];
-            return (
-              <div key={locale} className="word-ipa-locale" data-ipa-locale={locale}>
-                <span className="shrink-0 text-xs font-semibold text-muted">{t(locale === "UK" ? "ipa.uk" : "ipa.us")}</span>
-                <div className="min-w-0">
-                  {values.length ? <Reading reading={values[0]} /> : <span className="text-xs text-muted">{t("ipa.unavailable")}</span>}
-                </div>
-                {values.length ? <SpeakButton text={word} accent={locale} compact /> : null}
-              </div>
-            );
-          })}
-        </div>
-      ) : (
+      <div className="word-ipa-values">
+        {(["UK", "US"] as const).map(locale => {
+          const reading = state.status === "ready" ? state.result?.entry[locale][0] : undefined;
+          return (
+            <div key={locale} className="word-ipa-locale" data-ipa-locale={locale}>
+              <span className="shrink-0 text-xs font-semibold text-muted">{t(locale === "UK" ? "ipa.uk" : "ipa.us")}</span>
+              {reading ? <div className="min-w-0"><Reading reading={reading} /></div> : state.status === "ready" ? <span className="text-xs text-muted">{t("ipa.unavailable")}</span> : null}
+              <SpeakButton text={word} accent={locale} compact />
+            </div>
+          );
+        })}
+      </div>
+      {state.status !== "ready" ? (
         <p className="text-xs text-muted" role="status">
           {t(state.status === "loading" ? "ipa.loading" : state.status === "error" ? "ipa.failed" : "ipa.missing")}
         </p>
-      )}
+      ) : null}
     </section>
   );
 }

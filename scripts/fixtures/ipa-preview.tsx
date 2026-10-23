@@ -7,7 +7,7 @@ import "../../src/styles.css";
 
 installPolyfills();
 useLocale.setState({ locale: "zh" });
-const samples = ["bath", "water", "world", "does", "book", "bow", "use", "minute", "read", "university", "quuxstone"];
+const samples = ["bath", "water", "world", "does", "book", "bow", "use", "minute", "read", "university", "takin", "winky", "quuxstone"];
 const sentence = "The reader put a book beside the bath and looked at the world outside. These are synthetic preview words, not a stored book.";
 function App() {
   const [word, setWord] = useState("bath");
@@ -16,7 +16,7 @@ function App() {
   const [selection, setSelection] = useState(0);
   const [saved, setSaved] = useState(false);
   const anchors = useRef<Record<string, HTMLButtonElement | null>>({});
-  const state: CardState = { key: word, surface: word, pos: "n.", meaning: word === "bath" ? "A large container of water in which you wash your body." : "A synthetic word-card example for checking local pronunciations.", whyHard: "", sentence, ready: true, status: word === "quuxstone" ? "unknown" : "ready" };
+  const state: CardState = { key: word, surface: word === "winky" ? "Winkies" : word, pos: word === "winky" ? "plural noun" : "n.", meaning: word === "winky" ? "The people who live in the West. They live in the West of Oz." : word === "bath" ? "A large container of water in which you wash your body." : "A synthetic word-card example for checking local pronunciations.", whyHard: "", sentence, ready: true, status: word === "quuxstone" ? "unknown" : "ready" };
   const phrase = word === "bath" ? { key: "bath time", matched: "bath time", entry: { meaning: "The time when someone has a bath.", pos: "n." } } : null;
   return <div className="min-h-screen bg-paper text-ink">
     <header className="border-b border-line p-4">

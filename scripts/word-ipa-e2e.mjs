@@ -275,7 +275,7 @@ async function status(page, expected, word) {
     'IPA-enabled word mode has no redundant generic header speak button');
   if (expected !== 'ready') {
     assert.equal(await ipa.locator('[data-ipa-reading]').count(), 0, 'pending/missing/error never retains stale readings');
-    assert.equal(await ipa.locator('[data-speak-accent]').count(), 0, 'pending/missing/error has no accent playback controls');
+    assert.equal(await ipa.locator('[data-speak-accent]').count(), 2, 'pending/missing/error retains both independent audio controls');
     assert.ok((await ipa.innerText()).trim(), `${expected} status is readable`);
     assert.equal(await ipa.locator('[role="status"]').count(), 1, `${expected} is announced accessibly`);
   }
@@ -310,10 +310,10 @@ async function checkReadings(page, word, { probe } = {}) {
       assert.equal(await readings.count(), 0, 'an absent accent is not fabricated from the other accent');
     }
     const buttons = row.locator('[data-speak-accent]');
-    assert.equal(await buttons.count(), expected.length, `${word} ${locale}: exactly one intended accent button when IPA exists`);
-    assert.equal(await row.locator('button, a, input, select, textarea, [role="button"]').count(), expected.length,
+    assert.equal(await buttons.count(), 1, `${word} ${locale}: one intended accent button independently of IPA`);
+    assert.equal(await row.locator('button, a, input, select, textarea, [role="button"]').count(), 1,
       'IPA contains only the intended accent playback buttons, never alternative controls');
-    if (expected.length) {
+    {
       assert.equal(await buttons.getAttribute('data-speak-accent'), locale);
       assert.equal(await buttons.evaluate(el => el.tagName), 'BUTTON', 'accent control is a native button');
       assert.ok((await buttons.getAttribute('aria-label'))?.includes(word), 'accent accessible name names exact displayed word');
@@ -322,7 +322,7 @@ async function checkReadings(page, word, { probe } = {}) {
       const visual = await buttons.evaluate(el => {
         const style = getComputedStyle(el), icon = el.querySelector('svg');
         const iconBox = icon.getBoundingClientRect();
-        return { font: parseFloat(getComputedStyle(el.closest('[data-ipa-locale]').querySelector('[data-ipa-reading]')).fontSize),
+        return { font: parseFloat(getComputedStyle(el.closest('[data-ipa-locale]').querySelector('[data-ipa-reading]') || el.closest('[data-word-ipa]')).fontSize),
           icon: { width: iconBox.width, height: iconBox.height },
           borders: [style.borderTopWidth, style.borderRightWidth, style.borderBottomWidth, style.borderLeftWidth],
           radius: parseFloat(style.borderTopLeftRadius), shadow: style.boxShadow,
@@ -554,7 +554,16 @@ async function playback(spec) {
     await open(page, 'takin');
     await checkReadings(page, 'takin');
     await accentPlay(page, 'UK', 'takin');
-    assert.equal(await page.locator(`${ipaSelector} [data-speak-accent="US"]`).count(), 0, 'single-accent word has no fabricated US control');
+    await accentPlay(page, 'US', 'takin');
+    assert.equal(await page.locator(`${ipaSelector} [data-ipa-locale="US"] [data-ipa-reading]`).count(), 0, 'US audio remains available without fabricating US IPA');
+    await close(page);
+    await open(page, UNKNOWN);
+    await status(page, 'missing', UNKNOWN);
+    for (const locale of ['UK', 'US']) await accentPlay(page, locale, UNKNOWN);
+    await page.evaluate(() => { window.__ipaPlayback.audio = 'reject'; });
+    await accentPlay(page, 'UK', UNKNOWN, 'pointer', { failure: true });
+    await page.evaluate(() => { window.__ipaPlayback.audio = 'success'; });
+    await accentPlay(page, 'UK', UNKNOWN);
     await close(page);
   });
 }
@@ -852,7 +861,7 @@ try {
     base: BASE.href, version: oracle.manifest.version, hashes: oracle.hashes, sourceHashes,
     filtered: Boolean(process.env.IPA_VIEWPORT || process.env.IPA_LOCALE || process.env.IPA_ONLY_RACES === '1' || process.env.IPA_ONLY_LAYOUT === '1' || process.env.IPA_ONLY_PLAYBACK === '1'),
     races: process.env.IPA_SKIP_RACES === '1' || process.env.IPA_ONLY_LAYOUT === '1' || process.env.IPA_ONLY_PLAYBACK === '1' ? 'skipped' : failures.some(item => /(?:phrase|shard|pending)/.test(item.name)) ? 'failed' : 'passed',
-    screenshots, policy: 'one accepted UK/US reading and intended accent playback button per available locale; no alternative readings', results, failures,
+    screenshots, policy: 'at most one accepted UK/US reading; both accent playback buttons independent of local IPA; no alternative readings', results, failures,
   }, null, 2) + '\n');
   console.log(`${failures.length ? 'FAIL' : 'PASS'} ${results.length} passed IPA cases, ${failures.length} failed; proof ${resolve(SHOT_DIR, 'word-ipa-e2e.json')}`);
   assert.equal(failures.length, 0, `IPA regression failures: ${failures.map(item => item.name).join(', ')}`);
