@@ -168,16 +168,16 @@ async function routes(lang) {
   const t = T[lang];
   await page.goto(BASE);
   await page.locator("[data-empty-discover]").waitFor({ timeout: 60000 });
-  ok(new URL(page.url()).pathname === "/shelf", `${lang}: "/" goes to /shelf (${new URL(page.url()).pathname})`);
+  ok(new URL(page.url()).pathname === "/shelf/", `${lang}: "/" goes to /shelf (${new URL(page.url()).pathname})`);
   ok((await page.evaluate(() => history.length)) <= 2, `${lang}: the redirect from "/" adds no history entry`);
 
   await ensureAlice(page);
   const tab = (name) => page.getByRole("button", { name, exact: true }).first();
   for (const [name, path, probe] of [
-    [t("nav.discover"), "/discover", "[data-discover]"],
-    [t("nav.notebook"), "/words", "h1, h2"],
-    [t("nav.dashboard"), "/dashboard", "[data-dashboard]"],
-    [t("nav.shelf"), "/shelf", "li.book-card"],
+    [t("nav.discover"), "/discover/", "[data-discover]"],
+    [t("nav.notebook"), "/words/", "h1, h2"],
+    [t("nav.dashboard"), "/dashboard/", "[data-dashboard]"],
+    [t("nav.shelf"), "/shelf/", "li.book-card"],
   ]) {
     await tab(name).click();
     await page.locator(probe).first().waitFor({ timeout: 30000 });
@@ -190,17 +190,20 @@ async function routes(lang) {
 
   await page.goBack();
   await page.locator("[data-dashboard]").waitFor();
-  ok(new URL(page.url()).pathname === "/dashboard", `${lang}: back goes to /dashboard`);
+  ok(new URL(page.url()).pathname === "/dashboard/", `${lang}: back goes to /dashboard`);
   await page.goBack();
-  ok(new URL(page.url()).pathname === "/words", `${lang}: back again goes to /words`);
+  ok(new URL(page.url()).pathname === "/words/", `${lang}: back again goes to /words`);
   await page.goForward();
-  ok(new URL(page.url()).pathname === "/dashboard", `${lang}: forward goes to /dashboard`);
+  ok(new URL(page.url()).pathname === "/dashboard/", `${lang}: forward goes to /dashboard`);
 
-  for (const path of ["/discover", "/dashboard", "/guide", "/words"]) {
-    await page.goto(at(path));
-    await page.reload();
-    await page.locator("header").first().waitFor();
-    ok(new URL(page.url()).pathname === path, `${lang}: a deep link and a refresh stay on ${path}`);
+  // Typed with or without the slash, a page ends on the one address the app writes (with a slash).
+  for (const name of ["/discover", "/dashboard", "/guide", "/words"]) {
+    for (const path of [name, `${name}/`]) {
+      await page.goto(at(path));
+      await page.reload();
+      await page.locator("header").first().waitFor();
+      ok(new URL(page.url()).pathname === `${name}/`, `${lang}: ${path}, refreshed, stays on ${name}/`);
+    }
   }
   await page.goto(at("discover"));
   await page.locator("[data-discover]").waitFor({ timeout: 30000 });
@@ -209,7 +212,7 @@ async function routes(lang) {
 
   await page.goto(at("no-such-page"));
   await page.locator("li.book-card").first().waitFor({ timeout: 30000 });
-  ok(new URL(page.url()).pathname === "/shelf", `${lang}: an unknown address goes to /shelf`);
+  ok(new URL(page.url()).pathname === "/shelf/", `${lang}: an unknown address goes to /shelf`);
 
   // Open the first book: /read/<id>. A refresh and the back button keep working.
   await page.locator("li.book-card button[aria-label]").first().click();
@@ -221,7 +224,7 @@ async function routes(lang) {
   ok(new URL(page.url()).pathname === readPath, `${lang}: refreshing the book stays on ${readPath}`);
   await page.goto(at("read/not-a-book-here"));
   await page.locator("li.book-card").first().waitFor({ timeout: 30000 });
-  ok(new URL(page.url()).pathname === "/shelf", `${lang}: a book address that does not exist goes to /shelf`);
+  ok(new URL(page.url()).pathname === "/shelf/", `${lang}: a book address that does not exist goes to /shelf`);
 
   // Static files are never rewritten to the page.
   const js = await page.evaluate(async () => {
@@ -248,7 +251,7 @@ async function notice(lang) {
     (await bar.innerText()).replace(/\s+/g, " ").trim() === `${t("notice.text")} ${t("notice.link")}`,
     `${lang}: the notice says the right text and links to the Guide`,
   );
-  ok((await bar.locator("[data-notice-about]").getAttribute("href")) === "/guide", `${lang}: the notice links to the Guide`);
+  ok((await bar.locator("[data-notice-about]").getAttribute("href")) === "/guide/", `${lang}: the notice links to the Guide`);
   const box = await bar.boundingBox();
   ok(box !== null && box.y <= 1 && box.height < 80, `${lang}: the notice is a slim bar at the top (${Math.round(box?.height ?? 0)}px)`);
   for (const path of ["discover", "guide", "words"]) {
@@ -256,9 +259,9 @@ async function notice(lang) {
     ok((await bar.count()) === 1, `${lang}: the notice is on /${path}`);
   }
   await page.goto(at("about"));
-  await page.waitForURL((url) => new URL(url).pathname === "/guide", { timeout: 30000 });
+  await page.waitForURL((url) => new URL(url).pathname === "/guide/", { timeout: 30000 });
   await page.locator("[data-guide-page]").waitFor({ timeout: 30000 });
-  ok(new URL(page.url()).pathname === "/guide", `${lang}: /about opens the Guide`);
+  ok(new URL(page.url()).pathname === "/guide/", `${lang}: /about opens the Guide`);
   ok((await bar.count()) === 1, `${lang}: the notice is still there after /about`);
   await page.goto(at("shelf"));
   await page.locator("[data-notice-close]").click();

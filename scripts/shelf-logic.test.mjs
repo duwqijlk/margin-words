@@ -106,9 +106,12 @@ test("a catalog cover is fetched under an address that depends on its version", 
 
 test("every top-menu page has its own address, and the address maps back", () => {
   const { parsePath, pathFor, menuOf } = router;
-  for (const [path, kind] of [["/shelf", "shelf"], ["/discover", "discover"], ["/dashboard", "dashboard"], ["/guide", "guide"], ["/words", "words"], ["/review", "review"]]) {
+  // A page with no id is written with a trailing slash: the address the host serves (public/_redirects
+  // sends /shelf to /shelf/), so a reload takes no extra redirect. The form without a slash still reads.
+  for (const [path, kind] of [["/shelf/", "shelf"], ["/discover/", "discover"], ["/dashboard/", "dashboard"], ["/guide/", "guide"], ["/words/", "words"], ["/review/", "review"], ["/admin/", "admin"]]) {
     assert.equal(parsePath(path).kind, kind);
     assert.equal(pathFor(parsePath(path)), path);
+    assert.equal(pathFor(parsePath(path.slice(0, -1))), path, `${path.slice(0, -1)} is the same page`);
   }
   assert.deepEqual(parsePath("/read/abc-123"), { kind: "read", bookId: "abc-123" });
   assert.deepEqual(parsePath("/words/abc"), { kind: "words", bookId: "abc" });
@@ -126,15 +129,14 @@ test("every top-menu page has its own address, and the address maps back", () =>
   assert.equal(menuOf(parsePath("/add")), "discover");
   assert.equal(parsePath("/about").kind, "guide", "the old About page is the Guide");
   assert.equal(menuOf(parsePath("/about")), "guide");
-  assert.equal(pathFor({ kind: "guide" }), "/guide");
-  assert.equal(pathFor({ kind: "dashboard" }), "/dashboard");
+  assert.equal(pathFor({ kind: "guide" }), "/guide/");
+  assert.equal(pathFor({ kind: "dashboard" }), "/dashboard/");
+  assert.equal(pathFor({ kind: "words", bookId: "abc" }), "/words/abc", "a page with an id has no slash");
   assert.equal(menuOf(parsePath("/dashboard")), "dashboard");
   assert.equal(parsePath("/dashboard/x"), null);
   assert.equal(parsePath("/thanks").kind, "dashboard", "the old thank-you address opens the overview");
   assert.equal(menuOf(parsePath("/thanks")), "dashboard");
   assert.equal(parsePath("/admin").kind, "admin");
-  // The admin screen is linked with the trailing slash on purpose: a reload of it is served as the
-  // page directly, instead of /admin -> 302 -> /admin/ -> page.
   assert.equal(pathFor({ kind: "admin" }), "/admin/");
   assert.equal(parsePath(pathFor({ kind: "admin" })).kind, "admin", "the address still maps back");
   assert.equal(menuOf(parsePath("/admin")), "admin");

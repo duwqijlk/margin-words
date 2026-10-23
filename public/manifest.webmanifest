@@ -2,7 +2,7 @@
   "name": "inputread",
   "short_name": "inputread",
   "description": "Read English books. Tap a word to see a simple English meaning.",
-  "start_url": "/shelf",
+  "start_url": "/shelf/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#f6f4ee",

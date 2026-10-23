@@ -208,7 +208,7 @@ async function sameCard(page, id, needsEpub) {
   const saved = await shelfState(page);
   check(saved.books.length === 1 && saved.books[0].id === id, "one original shelf identity remains");
   check((saved.books[0].needsEpub === true) === needsEpub, `needsEpub is ${needsEpub}`);
-  if (new URL(page.url()).pathname === "/shelf") {
+  if (new URL(page.url()).pathname === "/shelf/") {
     check(await cards(page).count() === 1, "exactly one visible shelf card");
     check(!(await cards(page).innerText()).includes("Sample notebook"), "EPUB placeholder is not labeled Sample notebook");
   }
@@ -238,7 +238,7 @@ async function resumePairing(test, target) {
     const input = document.querySelector("[data-own-epub]");
     return input && !input.disabled;
   });
-  check(new URL(test.page.url()).pathname === "/shelf", `${target} resumes pairing, not /words or /read`);
+  check(new URL(test.page.url()).pathname === "/shelf/", `${target} resumes pairing, not /words or /read`);
 }
 
 async function dismiss(page) {
@@ -356,7 +356,7 @@ async function mainFlow(mobile) {
       await clickBook(test, target);
       const auth = page.getByRole("dialog");
       await auth.locator('input[type="password"]').waitFor();
-      check(new URL(page.url()).pathname === "/shelf" && await pairing(page).count() === 0,
+      check(new URL(page.url()).pathname === "/shelf/" && await pairing(page).count() === 0,
         `signed-out ${target} requests authentication, not wordbook or pairing`);
       await auth.getByRole("button", { name: "Close", exact: true }).click();
       await auth.waitFor({ state: "hidden" });

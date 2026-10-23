@@ -2,13 +2,15 @@
  * Addresses of the app. Every top-menu page has its own path, so back/forward, refresh and
  * a link to a page all work:
  *
- *   /shelf            Bookshelf        /discover         Discover
- *   /dashboard        Overview: how many books, marked words, and notes, plus the thank-you list
- *   /admin            Sponsorship requests. Not a menu item. Only the admin account can use it.
- *   /guide            Guide (how to use the app, and about the site). Opened from Settings.
- *   /words            Word book (all books)
+ *   /shelf/           Bookshelf        /discover/        Discover
+ *   /dashboard/       Overview: how many books, marked words, and notes, plus the thank-you list
+ *   /admin/           Sponsorship requests. Not a menu item. Only the admin account can use it.
+ *   /guide/           Guide (how to use the app, and about the site). Opened from Settings.
+ *   /words/           Word book (all books)
  *   /words/<bookId>   Word book of one book
- *   /review[/<id>]    Review           /read/<bookId>    the reader
+ *   /review/[<id>]    Review           /read/<bookId>    the reader
+ *
+ * A page with no id is written with a trailing slash; both forms are read.
  *
  * `/` and unknown paths go to /shelf. `/add` (the old add-book page) reads as Discover, the only
  * place that adds books. `/about` (the old About page) reads as the Guide. `/thanks` (the old
@@ -80,18 +82,22 @@ export function parsePath(pathname: string): Route | null {
   }
 }
 
+/**
+ * The address of a page. A page with no id ends in a slash (`/shelf/`), the address the host serves:
+ * public/_redirects sends `/shelf` to `/shelf/` (a rewrite of `/shelf` to index.html made Pages answer
+ * with a 308 to the site root). Writing the same address here keeps one address per page, so a
+ * refresh does not take an extra redirect. Pages with an id (`/read/<id>`) have no slash.
+ */
 export function pathFor(route: Route): string {
   switch (route.kind) {
     case "words":
-      return route.bookId ? `/words/${encodeURIComponent(route.bookId)}` : "/words";
+      return route.bookId ? `/words/${encodeURIComponent(route.bookId)}` : "/words/";
     case "review":
-      return route.bookId ? `/review/${encodeURIComponent(route.bookId)}` : "/review";
+      return route.bookId ? `/review/${encodeURIComponent(route.bookId)}` : "/review/";
     case "read":
       return `/read/${encodeURIComponent(route.bookId)}`;
-    case "admin":
-      return "/admin/";
     default:
-      return `/${route.kind}`;
+      return `/${route.kind}/`;
   }
 }
 
@@ -117,7 +123,7 @@ export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "guid
 const CHANGED = "cibian-route";
 
 function currentPath(): string {
-  return typeof window === "undefined" ? "/shelf" : window.location.pathname;
+  return typeof window === "undefined" ? "/shelf/" : window.location.pathname;
 }
 
 function subscribe(onChange: () => void): () => void {
@@ -154,11 +160,22 @@ export function reviewDueIntent(): boolean {
 
 /** The route of the address bar. An address that is not a page of the app reads as the shelf. */
 export function useRoute(): Route {
-  const path = useSyncExternalStore(subscribe, currentPath, () => "/shelf");
+  const path = useSyncExternalStore(subscribe, currentPath, () => "/shelf/");
   return parsePath(path) ?? DEFAULT_ROUTE;
 }
 
 /** True when the address bar is not a page of the app ("/" or a typo): the caller redirects. */
 export function pathNeedsRedirect(): boolean {
   return parsePath(currentPath()) === null;
+}
+
+/**
+ * The address of the page on screen, written the way `pathFor` writes it. `/shelf` and `/shelf/` are
+ * the same page; the caller replaces the address so there is one address per page.
+ */
+export function canonicalPath(): string | null {
+  const route = parsePath(currentPath());
+  if (!route) return null;
+  const path = pathFor(route);
+  return path === currentPath() ? null : path;
 }

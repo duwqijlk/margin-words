@@ -27,7 +27,7 @@ import { btn, cn } from "@/components/ui";
 import type { SpineNameWarning } from "@/lib/epub";
 import type { ListFlow } from "@/components/word-list";
 import { SiteNotice } from "@/components/site-notice";
-import { DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useRoute, type Route } from "@/lib/router";
+import { canonicalPath, DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useRoute, type Route } from "@/lib/router";
 import { refreshCovers, repairShelf } from "@/lib/shelf-repair";
 import { useAccount } from "@/lib/account-store";
 import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
@@ -138,10 +138,14 @@ export function MarginApp() {
   useEffect(() => {
     const fix = () => {
       if (pathNeedsRedirect()) navigate(DEFAULT_ROUTE, { replace: true });
-      else if (window.location.pathname === "/about") navigate({ kind: "guide" }, { replace: true });
-      else if (window.location.pathname === "/thanks") {
+      else if (/^\/about\/?$/.test(window.location.pathname)) navigate({ kind: "guide" }, { replace: true });
+      else if (/^\/thanks\/?$/.test(window.location.pathname)) {
         navigate({ kind: "dashboard" }, { replace: true });
-        window.history.replaceState(window.history.state, "", "/dashboard#thanks");
+        window.history.replaceState(window.history.state, "", "/dashboard/#thanks");
+      } else {
+        // `/shelf` and `/shelf/` are one page: keep the address the app itself writes.
+        const canonical = canonicalPath();
+        if (canonical) window.history.replaceState(window.history.state, "", canonical + window.location.search + window.location.hash);
       }
     };
     fix();

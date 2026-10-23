@@ -215,8 +215,8 @@ async function scenario(lang, size) {
 
   // ---- 7. one review queue across both books: the sentence is on the card, the meaning comes after
   await page.goto(at("review"));
-  await page.waitForURL((url) => new URL(url).pathname === "/words", { timeout: 30000 });
-  ok(new URL(page.url()).pathname === "/words", `${label}: a direct /review visit opens the word list`);
+  await page.waitForURL((url) => new URL(url).pathname === "/words/", { timeout: 30000 });
+  ok(new URL(page.url()).pathname === "/words/", `${label}: a direct /review visit opens the word list`);
   await page.locator("[data-word-sources]").first().waitFor();
   await page.getByRole("button", { name: new RegExp(escapeRe(t("nb.startReview")).replace("\\{n\\}", "\\d+")) }).click();
   await page.locator("article h1[lang=en]").waitFor();
@@ -335,9 +335,9 @@ async function scenario(lang, size) {
 
   // ---- 11. Guide (how to use the app, and about the site)
   await page.goto(at("about"));
-  await page.waitForURL((url) => new URL(url).pathname === "/guide", { timeout: 30000 });
+  await page.waitForURL((url) => new URL(url).pathname === "/guide/", { timeout: 30000 });
   await page.locator("[data-guide-page]").waitFor();
-  ok(new URL(page.url()).pathname === "/guide", `${label}: /about opens the Guide`);
+  ok(new URL(page.url()).pathname === "/guide/", `${label}: /about opens the Guide`);
   ok((await page.locator("[data-guide-section]").count()) === 12, `${label}: the Guide has the how-to and about sections`);
   ok(
     (await page.locator("[data-guide-source]").getAttribute("href")) === "https://github.com/bitbw/english-read",

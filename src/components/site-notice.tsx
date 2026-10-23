@@ -60,7 +60,7 @@ export function SiteNotice() {
           <p className="min-w-0 flex-1 text-[0.8rem] leading-snug">
             {t("notice.text")}{" "}
             <a
-              href="/guide"
+              href="/guide/"
               className="font-semibold underline underline-offset-2"
               data-site-notice-about
               onClick={toGuide}
@@ -74,7 +74,7 @@ export function SiteNotice() {
           <p className="min-w-0 flex-1 text-[0.8rem] leading-snug">
             {t("privacyNote.text")}{" "}
             <a
-              href="/guide"
+              href="/guide/"
               className="font-semibold underline underline-offset-2"
               data-site-notice-privacy
               onClick={toGuide}
