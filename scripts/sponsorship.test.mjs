@@ -72,6 +72,19 @@ async function call(handler, env, { method = "POST", body, cookie, now = NOW } =
   return handler(request, env, { now });
 }
 
+test("crypto is the only way to give; WeChat and Alipay requests are refused", async () => {
+  const env = { DB: openDb() };
+  const reader = await call(handleRegister, env, { body: { email: "giver@example.com", password: "correct horse" } });
+  const cookie = cookieFrom(reader);
+  await call(handleNickname, env, { cookie, body: { nickname: "Mei" } });
+  for (const method of ["wechat", "alipay"]) {
+    const retired = await call(handleCreateSponsorship, env, { cookie, body: { method } });
+    assert.equal(retired.status, 400, `${method} is not a way to give any more`);
+  }
+  const crypto = await call(handleCreateSponsorship, env, { cookie, body: { method: "crypto" } });
+  assert.equal(crypto.status, 201);
+});
+
 test("a gift is hidden until the admin types dollars and ticks it", async () => {
   const db = openDb();
   const env = { DB: db };
@@ -84,12 +97,12 @@ test("a gift is hidden until the admin types dollars and ticks it", async () => 
   });
   const adminCookie = cookieFrom(admin);
 
-  const denied = await call(handleCreateSponsorship, env, { body: { method: "wechat" } });
+  const denied = await call(handleCreateSponsorship, env, { body: { method: "crypto" } });
   assert.equal(denied.status, 401);
 
   const unnamed = await call(handleCreateSponsorship, env, {
     cookie: readerCookie,
-    body: { method: "wechat", displayName: "Lin" },
+    body: { method: "crypto", displayName: "Lin" },
   });
   assert.equal(unnamed.status, 400);
 
@@ -98,7 +111,7 @@ test("a gift is hidden until the admin types dollars and ticks it", async () => 
 
   const created = await call(handleCreateSponsorship, env, {
     cookie: readerCookie,
-    body: { method: "wechat", displayName: "Someone else" },
+    body: { method: "crypto", displayName: "Someone else" },
   });
   assert.equal(created.status, 201);
   const createdBody = await created.json();
@@ -107,7 +120,7 @@ test("a gift is hidden until the admin types dollars and ticks it", async () => 
 
   const again = await call(handleCreateSponsorship, env, {
     cookie: readerCookie,
-    body: { method: "alipay" },
+    body: { method: "crypto" },
   });
   assert.equal(again.status, 409);
 

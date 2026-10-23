@@ -1,4 +1,4 @@
-import { SPONSOR_EMAIL, isSponsorAdmin, isSponsorMethod, parseUsdToCents, sponsorBoards, sponsorName } from "../../src/lib/sponsor.ts";
+import { SPONSOR_EMAIL, SPONSOR_METHODS, isSponsorAdmin, isSponsorMethod, parseUsdToCents, sponsorBoards, sponsorName } from "../../src/lib/sponsor.ts";
 import type { Env } from "./db.ts";
 import { clientIp, errorResponse, HttpError, json, readJson } from "./http.ts";
 import { assertRateLimit } from "./rate-limit.ts";
@@ -75,7 +75,10 @@ export async function handleCreateSponsorship(request: Request, env: Env, option
     const user = await requireUser(env.DB, request, now);
     await assertRateLimit(env.DB, "sponsor", clientIp(request), user.email, now);
     const body = (await readJson(request, 8_000)) as Record<string, unknown>;
-    if (!isSponsorMethod(body.method)) throw new HttpError(400, "method");
+    // Crypto is the only way to give now. WeChat and Alipay stay valid on old rows, not on new ones.
+    if (!isSponsorMethod(body.method) || !(SPONSOR_METHODS as readonly string[]).includes(body.method)) {
+      throw new HttpError(400, "method");
+    }
     const name = sponsorName(user.nickname);
     if (!name) throw new HttpError(400, "name");
     const open = await env.DB.prepare(
