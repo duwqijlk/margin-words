@@ -50,6 +50,7 @@ export type Prefs = {
   column: number;
   focus: boolean;
   paging: boolean;
+  pronunciationAccent: "UK" | "US";
 };
 
 type PrefsState = Prefs & {
@@ -97,13 +98,14 @@ export const usePrefs = create<PrefsState>()(
       column: COLUMN_DEFAULT,
       focus: false,
       paging: false,
+      pronunciationAccent: "US",
       set: (patch) => set(patch),
     }),
     {
       name: PREFS_KEY,
       skipHydration: true,
       storage: createJSONStorage(safeStorage),
-      partialize: ({ theme, font, size, leading, width, column, focus, paging }) => ({
+      partialize: ({ theme, font, size, leading, width, column, focus, paging, pronunciationAccent }) => ({
         theme,
         font,
         size,
@@ -112,6 +114,7 @@ export const usePrefs = create<PrefsState>()(
         column,
         focus,
         paging: Boolean(paging),
+        pronunciationAccent,
       }),
       merge: (persisted, current) => {
         const saved = (persisted ?? {}) as Partial<Prefs>;
@@ -120,6 +123,7 @@ export const usePrefs = create<PrefsState>()(
           ...saved,
           column: columnRem({ column: saved.column, width: saved.width ?? current.width }),
           paging: Boolean(saved.paging),
+          pronunciationAccent: saved.pronunciationAccent === "UK" ? "UK" : "US",
         };
       },
     },

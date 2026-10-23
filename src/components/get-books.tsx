@@ -25,6 +25,7 @@ export function SettingsDialog({
 }) {
   const { t } = useT();
   const theme = usePrefs((state) => state.theme);
+  const pronunciationAccent = usePrefs((state) => state.pronunciationAccent);
   const setPrefs = usePrefs((state) => state.set);
   const role = useAccount((state) => state.role);
   const email = useAccount((state) => state.email);
@@ -64,6 +65,19 @@ export function SettingsDialog({
                 { value: "dark" as const, label: t("rs.theme.dark") },
               ]}
             />
+          </section>
+          <section className="mt-5 grid gap-2" aria-label={t("settings.pronunciation")} data-settings-pronunciation>
+            <h3 className="text-sm font-semibold">{t("settings.pronunciation")}</h3>
+            <Segmented
+              label={t("settings.pronunciation")}
+              value={pronunciationAccent}
+              onChange={(next) => setPrefs({ pronunciationAccent: next })}
+              options={[
+                { value: "UK" as const, label: t("ipa.uk") },
+                { value: "US" as const, label: t("ipa.us") },
+              ]}
+            />
+            <p className="text-xs leading-relaxed text-muted">{t("settings.pronunciationHelp")}</p>
           </section>
           <button
             type="button"

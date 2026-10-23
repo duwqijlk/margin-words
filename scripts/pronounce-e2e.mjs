@@ -21,14 +21,16 @@
  * explicit accents use one direct uapis audio URL for the requested accent, never another accent
  * or SpeechSynthesis. They speak the word, not the displayed IPA.
  * These cases cover exact accent URLs, visible localized failures, attached media, 8s playback start
- * deadlines, retries, and stale/cancellation races. Generic no-accent callers try the uapis US
- * recording, then UK, then the device voice, including the final generic phrase race.
+ * deadlines, retries, and stale/cancellation races. Generic callers try the selected accent,
+ * the other recording, then the device voice. PRONOUNCE_DEFAULT_ONLY=1 checks Settings,
+ * persistence, whole phrases and explicit controls only (PRONOUNCE_SCREENSHOTS=1 for proof).
  * PRONOUNCE_REQUIRE_ACCENTS=1 requires the explicit-accent cases.
  * No server is started or build performed; all external/account/catalog requests are intercepted.
  * The bug this guards: the word's `play()` was paused by the phrase, rejected with `AbortError`,
  * the catch took that for a failure and spoke the word with the fallback voice - two voices.
  */
 import assert from "node:assert/strict";
+import { mkdir } from "node:fs/promises";
 import { chromium } from "playwright";
 
 const BASE = (process.argv[2] ?? "http://127.0.0.1:8090/").replace(/\/?$/, "/");
@@ -267,7 +269,103 @@ await page.evaluate(
 );
 }
 
+async function defaultAccentSuite() {
+  const { context, page } = await freshReader();
+  try {
+    for (const accent of ["UK", "US"]) {
+      await page.goto(new URL("shelf", BASE).href);
+      await page.locator('[data-settings-button]').click();
+      const control = page.locator('[data-settings-pronunciation]');
+      await control.getByRole('button', { name: accent, exact: true }).click();
+      assert.equal(await control.getByRole('button', { name: accent, exact: true }).getAttribute('aria-pressed'), 'true');
+      if (process.env.PRONOUNCE_SCREENSHOTS === '1') {
+        await mkdir('local-exports/accent-proof', { recursive: true });
+        for (const width of [900, 375]) {
+          await page.setViewportSize({ width, height: 850 });
+          const dialog = page.getByRole('dialog');
+          assert.ok(await dialog.evaluate(el => el.scrollWidth <= el.clientWidth + 1), 'settings has no horizontal overflow');
+          await page.screenshot({ path: `local-exports/accent-proof/settings-${accent}-${width}.png` });
+        }
+        await page.setViewportSize({ width: 900, height: 900 });
+      }
+      await page.getByRole('dialog').getByRole('button', { name: 'Close', exact: true }).click();
+      await page.goto(BASE + 'read/' + BOOK);
+      await page.locator('[role=button][data-word="window"]').first().waitFor();
+      await page.reload();
+      await page.locator('[role=button][data-word="window"]').first().waitFor();
+      const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('cibian-prefs-v1')).state.pronunciationAccent);
+      assert.equal(saved, accent);
+      check(true, `${accent}: Settings selection persists after reload`);
+      for (const [surface, expected] of [['window', 'window'], ['lantern', 'lantern seller']]) {
+        await page.keyboard.press('Escape');
+        await page.evaluate(() => window.__clearRecords());
+        await page.locator(`[role=button][data-word="${surface}"]`).first().click();
+        await page.waitForFunction(() => window.__audioSources.length > 0);
+        await page.waitForTimeout(350);
+        const urls = await page.evaluate(() => [...window.__audioSources]);
+        assert.equal(urls.length, 1);
+        const url = new URL(urls[0]);
+        assert.equal(url.hostname, 'uapis.cn');
+        assert.equal(url.searchParams.get('word'), expected);
+        assert.equal(url.searchParams.get('accent'), accent.toLowerCase());
+        if (surface === 'lantern') {
+          assert.equal(await page.locator('[data-word-ipa]').count(), 0, 'phrase has no invented IPA');
+          assert.equal(await page.locator('[data-word-header] [data-speak]').count(), 0, 'phrase has no redundant generic speaker');
+          for (const explicit of ['UK', 'US']) {
+            await page.evaluate(() => window.__clearRecords());
+            const button = page.locator(`[data-phrase-audio] [data-speak-accent="${explicit}"]`);
+            await button.click();
+            await page.waitForFunction(() => window.__audioSources.length > 0);
+            const sources = await page.evaluate(() => [...window.__audioSources]);
+            assert.equal(sources.length, 1);
+            assert.equal(new URL(sources[0]).searchParams.get('word'), 'lantern seller');
+            assert.equal(new URL(sources[0]).searchParams.get('accent'), explicit.toLowerCase());
+          }
+          if (process.env.PRONOUNCE_SCREENSHOTS === '1') {
+            for (const width of [900, 375]) {
+              await page.setViewportSize({ width, height: 850 });
+              await page.screenshot({ path: `local-exports/accent-proof/phrase-${accent}-${width}.png` });
+            }
+            await page.setViewportSize({ width: 900, height: 900 });
+          }
+          check(true, `${accent}: phrase UK/US buttons request the full phrase without IPA`);
+        }
+        check(true, `${accent}: ${expected} uses the complete target and selected accent`);
+      }
+      await page.keyboard.press('Escape');
+      await page.locator('[role=button][data-word="window"]').first().click();
+      for (const explicit of ['UK', 'US']) {
+        const button = page.locator(`[data-speak-accent="${explicit}"]`);
+        await button.waitFor();
+        await page.evaluate(() => window.__clearRecords());
+        await button.click();
+        await page.waitForFunction(() => window.__audioSources.length > 0);
+        const urls = await page.evaluate(() => [...window.__audioSources]);
+        assert.equal(urls.length, 1);
+        assert.equal(new URL(urls[0]).searchParams.get('accent'), explicit.toLowerCase());
+      }
+      check(true, `${accent}: explicit IPA buttons ignore the default preference`);
+      await page.keyboard.press('Escape');
+      await page.evaluate(() => {
+        window.__clearRecords(); window.__failAudio = true;
+        window.__availableVoices = ['en-US', 'en-GB'].map(lang => ({ lang, name: lang, localService: true }));
+      });
+      await page.locator('[role=button][data-word="window"]').first().click();
+      await page.waitForFunction(() => window.__voiceRecords.length > 0);
+      const actual = await page.evaluate(() => ({ urls: [...window.__audioSources], voice: window.__voiceRecords[0].voice }));
+      assert.deepEqual(actual.urls.map(url => new URL(url).searchParams.get('accent')),
+        accent === 'UK' ? ['uk', 'us'] : ['us', 'uk']);
+      assert.equal(actual.voice, accent === 'UK' ? 'en-GB' : 'en-US');
+      check(true, `${accent}: generic fallback order and device voice prefer the selection`);
+      await page.evaluate(() => { window.__failAudio = false; });
+    }
+  } finally { await context.close(); }
+}
+
 try {
+if (process.env.PRONOUNCE_DEFAULT_ONLY === "1") {
+  await defaultAccentSuite();
+} else {
 const { context, page } = await freshReader();
 await page.waitForTimeout(2500);
 
@@ -394,6 +492,7 @@ if (await ipa.count()) {
   check(process.env.PRONOUNCE_REQUIRE_ACCENTS !== "1", "normal build has no explicit-accent controls",
     process.env.PRONOUNCE_REQUIRE_ACCENTS === "1" ? "PRONOUNCE_REQUIRE_ACCENTS=1 requires the local-IPA build" : "SKIP explicit-accent cases (IPA feature disabled)");
   await context.close();
+}
 }
 check(pageErrors.length === 0, "no uncaught app errors", pageErrors.join(" | "));
 } catch (error) {
@@ -608,7 +707,7 @@ async function explicitSuite() {
     assert.equal(await page.locator('[data-word-header] [data-speak]:not([data-speak-accent])').count(), 0,
       "IPA-enabled word cards have only UK/US, never a redundant generic header button");
     await configure(page, { audio: "never" });
-    // The real no-argument reader phrase caller starts with the generic US recording.
+    // The real no-argument reader phrase caller starts with the saved preference.
     await page.evaluate(() => {
       document.querySelector('[data-word-ipa] [data-speak-accent="UK"]').click();
       document.querySelector('[data-word-ipa] [data-speak-accent="US"]').click();
@@ -617,10 +716,10 @@ async function explicitSuite() {
     assert.deepEqual(explicit.uapisAudioSources.map(source => new URL(source).searchParams.get("accent")), ["uk", "us"]);
     noSpeech(explicit);
     await page.locator('[role="button"][data-word="lantern"]').first().click();
-    const generic = page.locator('[data-word-header] [data-speak]:not([data-speak-accent])');
-    await generic.waitFor();
-    assert.match(await generic.getAttribute("aria-label"), /lantern seller/,
-      "phrase card retains its generic listen button");
+    const phraseButtons = page.locator('[data-phrase-audio] [data-speak-accent]');
+    await phraseButtons.first().waitFor();
+    assert.equal(await phraseButtons.count(), 2, "phrase card has UK/US controls without IPA");
+    assert.equal(await page.locator('[data-word-ipa]').count(), 0);
     await page.waitForTimeout(150);
     const current = await heard(page);
     const explicitCount = explicit.audios.length;

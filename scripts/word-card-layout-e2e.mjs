@@ -80,7 +80,13 @@ async function metrics(card) {
 async function pronunciationControls(card) {
   const word = await card.locator('h2').innerText();
   const isPhrase = await card.locator('[data-part="phrase-meaning"]').count() > 0;
-  const localeOnly = requireIpa && !isPhrase;
+  if (isPhrase) {
+    assert.equal(await card.locator('[data-word-header] [data-speak]').count(), 0, 'phrase has no redundant generic header speaker');
+    assert.equal(await card.locator('[data-word-ipa]').count(), 0, 'phrase has no invented IPA');
+    assert.equal(await card.locator('[data-phrase-audio] [data-speak-accent]').count(), 2, 'phrase has UK and US controls');
+    return { localeOnly: true, accents: ['UK', 'US'] };
+  }
+  const localeOnly = requireIpa;
   const header = card.locator('[data-word-header] [data-speak]');
   assert.equal(await header.count(), localeOnly ? 0 : 1,
     localeOnly ? 'enabled word card has no redundant header speaker' : 'phrase/default card retains one generic header speaker');

@@ -282,7 +282,9 @@ export const en = {
 
   /* ---- settings */
   "settings.title": "Settings",
-  "settings.desc": "Language and theme.",
+  "settings.desc": "Language, theme, and default pronunciation.",
+  "settings.pronunciation": "Default pronunciation",
+  "settings.pronunciationHelp": "Try this accent first for words and phrases. UK and US card buttons always play their labeled accent.",
   "settings.langTitle": "Language",
   "settings.guide": "How to make a book pack",
 

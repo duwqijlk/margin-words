@@ -92,6 +92,7 @@ function prefsOf(): Prefs {
     column: state.column,
     focus: state.focus,
     paging: state.paging,
+    pronunciationAccent: state.pronunciationAccent,
   };
 }
 
@@ -420,6 +421,7 @@ function applySettings(settings: SettingsData) {
     column: settings.column,
     focus: settings.focus,
     paging: settings.paging === true,
+    pronunciationAccent: settings.pronunciationAccent === "UK" ? "UK" as const : "US" as const,
   };
   if (JSON.stringify(current) !== JSON.stringify(next)) usePrefs.getState().set(next);
   if (useLocale.getState().locale !== settings.locale) useLocale.getState().setLocale(settings.locale as Locale);

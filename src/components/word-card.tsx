@@ -476,12 +476,21 @@ export function WordCard({
             ) : null}
             {formLine ? <p className="text-xs text-muted">{inBook(formLine)}</p> : null}
           </div>
-          {!localIpaVersion || activePhrase ? <SpeakButton text={target} compact className="shrink-0" /> : null}
+          {!localIpaVersion && !activePhrase ? <SpeakButton text={target} compact className="shrink-0" /> : null}
         </div>
       </div>
       <div ref={bodyRef} className="scroll-thin my-3.5" data-word-body>
         <div className="grid gap-3.5" data-word-content>
-          {localIpaVersion && !activePhrase && !phrasePending ? <WordIpa key={`${selectionId}:${state.key}`} word={state.key} /> : null}
+          {activePhrase ? (
+            <div className="flex flex-wrap items-start gap-x-5 text-sm leading-relaxed" data-phrase-audio>
+              {(["UK", "US"] as const).map(accent => (
+                <div key={accent} className="inline-flex items-center gap-1.5" data-phrase-accent={accent}>
+                  <span className="text-xs font-semibold text-muted">{t(accent === "UK" ? "ipa.uk" : "ipa.us")}</span>
+                  <SpeakButton text={target} accent={accent} compact />
+                </div>
+              ))}
+            </div>
+          ) : localIpaVersion && !phrasePending ? <WordIpa key={`${selectionId}:${state.key}`} word={state.key} /> : null}
           <div className="grid gap-2" data-word-primary>
             {activePhrase ? (
               <p

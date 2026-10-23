@@ -2,6 +2,7 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { Volume2 } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useT } from "@/lib/i18n";
+import { usePrefs } from "@/lib/reader-prefs";
 
 export function cn(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(" ");
@@ -43,6 +44,7 @@ export type PronunciationOptions = {
 type PronunciationRequest = {
   token: number;
   accent?: PronunciationAccent;
+  preferredAccent: PronunciationAccent;
   cancelAttempt: (() => void) | null;
   notify: (outcome: PronunciationOutcome) => void;
   finish: (outcome?: PronunciationOutcome) => void;
@@ -105,9 +107,8 @@ function voiceText(text: string): string {
 
 /**
  * Every recording comes from uapis, keyless: one public media URL per accent.
- * The labeled IPA controls ask for exactly the accent on the button. Generic callers keep the
- * existing American-then-British order, because plenty of words exist in only one accent and
- * trying both keeps more words off the synthesized fallback.
+ * The labeled IPA controls ask for exactly the accent on the button. Generic callers try the
+ * reader's preferred accent first, then the other recording, before a synthesized fallback.
  */
 function uapisAudioUrl(text: string, accent: PronunciationAccent): string {
   const params = new URLSearchParams({
@@ -117,8 +118,9 @@ function uapisAudioUrl(text: string, accent: PronunciationAccent): string {
   return `https://uapis.cn/api/v1/dictionary/audio?${params.toString()}`;
 }
 
-function voiceUrls(text: string): string[] {
-  return (["US", "UK"] as const).map((accent) => uapisAudioUrl(text, accent));
+function voiceUrls(text: string, preferredAccent: PronunciationAccent): string[] {
+  const accents: PronunciationAccent[] = [preferredAccent, preferredAccent === "UK" ? "US" : "UK"];
+  return accents.map((accent) => uapisAudioUrl(text, accent));
 }
 
 function playAudio(url: string, request: PronunciationRequest): Promise<PronunciationOutcome> {
@@ -217,28 +219,23 @@ function playAudio(url: string, request: PronunciationRequest): Promise<Pronunci
   });
 }
 
-let voiceCache: SpeechSynthesisVoice | null = null;
-
 /**
- * An English voice, chosen once. `lang = "en-US"` alone lets the engine keep its default voice,
+ * Choose an English voice for the current preference. `lang = "en-US"` alone lets the engine keep its default voice,
  * and on an Android reader that default is often the system voice, which reads English with the
  * wrong sounds - the flat, robotic voice a reader notices next to the real recordings.
  */
-function englishVoice(accent?: PronunciationAccent): SpeechSynthesisVoice | null {
-  if (!accent && voiceCache) return voiceCache;
+function englishVoice(preferredAccent: PronunciationAccent, strict = false): SpeechSynthesisVoice | null {
   try {
     const voices = window.speechSynthesis.getVoices?.() ?? [];
     if (voices.length === 0) return null; // Still loading: try again on the next tap.
     const score = (voice: SpeechSynthesisVoice) => {
       const lang = String(voice.lang ?? "").toLowerCase().replace(/_/g, "-");
       let value = 0;
-      if (accent) {
-        // Do not label a default or opposite-accent voice as this accent. Extension subtags are OK.
-        if (!(accent === "UK" ? /^en-gb(?:-|$)/ : /^en-us(?:-|$)/).test(lang)) return 0;
-        value = 6;
-      } else if (lang.startsWith("en-us")) value = 6;
-      else if (lang.startsWith("en-gb")) value = 5;
-      else if (lang.startsWith("en")) value = 3;
+      const matching = (preferredAccent === "UK" ? /^en-gb(?:-|$)/ : /^en-us(?:-|$)/).test(lang);
+      if (strict && !matching) return 0;
+      if (matching) value = 10;
+      else if (/^en-(?:us|gb)(?:-|$)/.test(lang)) value = 5;
+      else if (/^en(?:-|$)/.test(lang)) value = 3;
       if (value === 0) return 0;
       if (voice.localService) value += 1;
       if (/google|samantha|daniel|natural|enhanced|premium/i.test(voice.name ?? "")) value += 1;
@@ -248,7 +245,6 @@ function englishVoice(accent?: PronunciationAccent): SpeechSynthesisVoice | null
       .map((voice) => ({ voice, value: score(voice) }))
       .filter((row) => row.value > 0)
       .sort((a, b) => b.value - a.value)[0];
-    if (!accent) voiceCache = best?.voice ?? null;
     return best?.voice ?? null;
   } catch {
     return null;
@@ -260,7 +256,7 @@ function speakWithSynthesis(spoken: string, request: PronunciationRequest): bool
   try {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return false;
     const synth = window.speechSynthesis;
-    const voice = englishVoice(request.accent);
+    const voice = englishVoice(request.accent ?? request.preferredAccent, Boolean(request.accent));
     if (request.accent && !voice) return false;
     let disposed = false;
     let started = false;
@@ -384,6 +380,7 @@ export function speakEnglish(text: string, options: PronunciationOptions = {}): 
   const request: PronunciationRequest = {
     token,
     accent: options.accent,
+    preferredAccent: usePrefs.getState().pronunciationAccent,
     cancelAttempt: null,
     notify,
     finish,
@@ -407,7 +404,7 @@ export function speakEnglish(text: string, options: PronunciationOptions = {}): 
   }
   void (async () => {
     try {
-      for (const url of voiceUrls(spoken)) {
+      for (const url of voiceUrls(spoken, request.preferredAccent)) {
         if (finished || token !== spokenToken) {
           finish("aborted");
           return;

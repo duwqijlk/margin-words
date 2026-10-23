@@ -18,7 +18,7 @@ export async function settle(page, frames = 5) {
 // Install before app code in a new, nonpersistent browser context. Nothing here
 // reads the user's browser profile, existing books, or existing saved words.
 // Explicit UK/US playback uses one direct uapis recording for the requested accent.
-// Every recording comes from uapis: generic playback tries US, then UK; explicit controls ask for one accent.
+// Every recording comes from uapis: generic playback tries the saved preference, then the other accent; explicit controls ask for one accent.
 // Recording and synthesis attempts are captured without real sound/network use.
 export async function installRecorders(context) {
   await context.addInitScript(({ phrase }) => {

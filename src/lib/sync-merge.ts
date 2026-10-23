@@ -149,6 +149,7 @@ export type SettingsData = {
   column: number;
   focus: boolean;
   paging?: boolean;
+  pronunciationAccent?: "UK" | "US";
   locale: "en" | "zh";
   reviewLog: Record<string, ReviewDay>;
 };
@@ -588,6 +589,7 @@ export function asSettings(data: unknown): SettingsData {
     column: integer(raw.column, 24, 90, 39),
     focus: raw.focus === true,
     paging: raw.paging === true,
+    pronunciationAccent: raw.pronunciationAccent === "UK" ? "UK" : "US",
     locale,
     reviewLog: asReviewLog(raw.reviewLog),
   };

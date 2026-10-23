@@ -4,6 +4,7 @@ import { test } from "node:test";
 import { buildSyncItems, emptyMeta, noteChanges } from "../src/lib/sync-diff.ts";
 import {
   bookSyncKey,
+  asSettings,
   mergeItem,
   mergeSnapshots,
   mergeWordBlobs,
@@ -113,6 +114,20 @@ test("settings keep the newer preferences and the higher review counts", () => {
   assert.equal(merged.data.reviewLog["2026-10-01"].reviewed, 4);
   assert.equal(merged.data.reviewLog["2026-10-01"].correct, 2);
   assert.equal(merged.data.reviewLog["2026-10-02"].reviewed, 1);
+});
+
+test("default pronunciation survives settings normalization and newer-device merge", () => {
+  for (const value of [undefined, null, "AU", "uk", 1]) {
+    assert.equal(asSettings({ pronunciationAccent: value }).pronunciationAccent, "US");
+  }
+  for (const pronunciationAccent of ["UK", "US"]) {
+    const data = asSettings(settings({ pronunciationAccent }));
+    assert.equal(asSettings(JSON.parse(JSON.stringify(data))).pronunciationAccent, pronunciationAccent);
+    const item = (updatedAt, accent) => ({ kind: "settings", itemId: "main", updatedAt,
+      deleted: false, data: settings({ pronunciationAccent: accent }) });
+    assert.equal(mergeItem(item(10, pronunciationAccent === "UK" ? "US" : "UK"), item(20, pronunciationAccent))
+      .data.pronunciationAccent, pronunciationAccent);
+  }
 });
 
 test("a bad sync payload is rejected", () => {

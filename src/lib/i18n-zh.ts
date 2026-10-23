@@ -281,7 +281,9 @@ export const zh: Record<Key, string> = {
 
   /* ---- settings */
   "settings.title": "设置",
-  "settings.desc": "选择语言和主题。",
+  "settings.desc": "选择语言、主题和默认发音。",
+  "settings.pronunciation": "默认发音",
+  "settings.pronunciationHelp": "单词和短语优先尝试所选口音。词卡上的英音、美音按钮仍播放各自标注的口音。",
   "settings.langTitle": "语言",
   "settings.guide": "怎样做图书包",
 
