@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
 
-export type Theme = "light" | "sepia" | "dark";
+export type Theme = "light" | "sepia" | "dark" | "clear";
 export type FontKey = "literata" | "lora" | "sans";
 export type WidthKey = "narrow" | "medium" | "wide";
 
@@ -136,13 +136,14 @@ export const usePrefs = create<PrefsState>()(
 );
 
 /** Runs before first paint (inlined in <head>) so a dark/sepia reader never flashes white. */
-export const THEME_BOOT_SCRIPT = `try{var p=JSON.parse(localStorage.getItem("${PREFS_KEY}")||"{}");var t=p.state&&p.state.theme;if(t==="dark"||t==="sepia"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}`;
+export const THEME_BOOT_SCRIPT = `try{var p=JSON.parse(localStorage.getItem("${PREFS_KEY}")||"{}");var t=p.state&&p.state.theme;if(t==="dark"||t==="sepia"||t==="light"||t==="clear")document.documentElement.setAttribute("data-theme",t)}catch(e){}`;
 
 export function applyTheme(theme: Theme) {
   if (typeof document === "undefined") return;
   document.documentElement.setAttribute("data-theme", theme);
   const meta = document.querySelector('meta[name="theme-color"]');
-  const color = theme === "dark" ? "#14161a" : theme === "sepia" ? "#f7f1e5" : "#f6f4ee";
+  const color =
+    theme === "dark" ? "#14161a" : theme === "sepia" ? "#f7f1e5" : theme === "clear" ? "#ffffff" : "#f6f4ee";
   meta?.setAttribute("content", color);
 }
 

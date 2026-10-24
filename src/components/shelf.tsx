@@ -123,7 +123,7 @@ function ListUpdatesStrip({
   const shown = rows.slice(0, 4);
   return (
     <section
-      className="flex flex-wrap items-center gap-x-4 gap-y-3 rounded-2xl border border-accent/25 bg-accent-soft/70 px-4 py-3 sm:px-5"
+      className="flex flex-wrap items-center gap-x-4 gap-y-3 rounded-2xl bg-accent-soft/70 px-4 py-3 sm:px-5"
       aria-label={tn("lists.strip", rows.length)}
       data-lists-ready
     >
@@ -168,8 +168,8 @@ function RenameDialog({ book, onClose }: { book: Book | null; onClose: () => voi
   return (
     <Dialog.Root open={book !== null} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/45 backdrop-blur-[2px]" />
-        <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-line bg-card p-5 text-ink shadow-pop">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
+        <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-line bg-card p-5 text-ink shadow-pop glass">
           <Dialog.Title className="font-display text-xl font-semibold">
             {t("rename.title")}
           </Dialog.Title>
@@ -237,11 +237,7 @@ function ContinueCard({
   return (
     <section
       aria-label={t("shelf.continueReading")}
-      className="group relative hidden sm:grid sm:grid-cols-[auto_1fr] sm:items-center sm:gap-6 lg:gap-9 overflow-hidden rounded-3xl border border-line/70 bg-card p-5 sm:p-6 lg:p-7 shadow-xs transition-all hover:shadow-md"
-      style={{
-        backgroundImage:
-          "radial-gradient(ellipse at top right, rgb(var(--accent-soft-rgb) / 0.6), transparent 75%)",
-      }}
+      className="group relative hidden sm:grid sm:grid-cols-[auto_1fr] sm:items-center sm:gap-6 lg:gap-9 overflow-hidden rounded-3xl bg-card p-5 sm:p-6 lg:p-7"
     >
       <div className="relative w-28 h-[10.5rem] sm:w-36 sm:h-[13.5rem] shrink-0 transition-transform duration-300 group-hover:scale-[1.02]">
         <button
@@ -261,12 +257,12 @@ function ContinueCard({
       <div className="grid min-w-0 flex-1 content-center gap-2 sm:gap-2.5">
         <div className="flex items-center gap-2">
           <span className="size-1.5 rounded-full bg-accent" aria-hidden />
-          <p className="text-[0.68rem] font-bold tracking-[0.16em] text-accent uppercase">
+          <p className="text-sm font-medium text-accent">
             {started ? t("shelf.continueReading") : t("shelf.startReading")}
           </p>
         </div>
         <h2
-          className="font-display text-[1.35rem] leading-snug font-bold tracking-tight text-ink sm:text-2xl sm:leading-tight lg:text-[2rem] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
+          className="font-display text-[1.35rem] leading-snug font-semibold tracking-tight text-ink sm:text-2xl sm:leading-tight lg:text-[2rem] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
           lang="en"
         >
           {book.title}
@@ -536,7 +532,7 @@ function BookCard({
               <Menu.Content
                 align="end"
                 sideOffset={4}
-                className="anim-pop z-50 min-w-44 rounded-xl border border-line bg-card p-1.5 text-ink shadow-pop"
+                className="anim-pop z-50 min-w-44 rounded-xl border border-line bg-card p-1.5 text-ink shadow-pop glass"
               >
                 {offer ? (
                   <Menu.Item

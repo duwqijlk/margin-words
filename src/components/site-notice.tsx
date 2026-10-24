@@ -52,7 +52,7 @@ export function SiteNotice() {
       role="note"
       data-site-notice
     >
-      <div className="relative mx-auto max-w-md rounded-2xl border border-line bg-paper/95 px-3 py-2 pr-11 shadow-xs backdrop-blur">
+      <div className="relative mx-auto max-w-md rounded-2xl bg-card/90 px-3 py-2 pr-11 shadow-pop glass backdrop-blur-xl">
         {/* One short line. Copyright and privacy each have their own section in the Guide. */}
         <p className="flex items-start gap-2 text-[0.8rem] leading-snug">
           <Info className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />

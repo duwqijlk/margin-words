@@ -386,7 +386,7 @@ export function MarginApp() {
           reader, where it would sit over the words. */}
       {reading ? null : <SiteNotice />}
       {reading ? null : (
-        <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur">
+        <header className="glass sticky top-0 z-40 bg-paper/80 backdrop-blur-xl">
           <div className="mx-auto flex h-14 max-w-6xl items-center gap-1 px-2 sm:gap-2 sm:px-6">
             <button
               type="button"
@@ -439,7 +439,7 @@ export function MarginApp() {
 
       {reading ? null : (
         <nav
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden"
+          className="glass fixed inset-x-0 bottom-0 z-40 border-t border-line/60 bg-paper/80 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl sm:hidden"
           aria-label={t("nav.main")}
           data-tab-bar
         >

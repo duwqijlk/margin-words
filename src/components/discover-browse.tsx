@@ -337,10 +337,10 @@ export function BookDetail({
   return (
     <Dialog.Root open={open} onOpenChange={(next) => !next && onClose()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/45 backdrop-blur-[2px]" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
         <Dialog.Content
           className={cn(
-            "fixed z-50 grid max-h-[calc(100dvh-1rem)] gap-5 overflow-y-auto border border-line bg-card p-5 text-ink shadow-pop",
+            "fixed z-50 grid max-h-[calc(100dvh-1rem)] gap-5 overflow-y-auto border border-line bg-card p-5 text-ink shadow-pop glass",
             "inset-x-0 bottom-0 rounded-t-3xl pb-[max(1.25rem,env(safe-area-inset-bottom))]",
             "anim-pop sm:inset-auto sm:top-1/2 sm:left-1/2 sm:w-[min(36rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl sm:p-6",
           )}
@@ -403,7 +403,7 @@ export function BookDetail({
                   { label: t("browse.fact.notes"), value: groupDigits(facts.notes) },
                 ].map((fact) => (
                   <div key={fact.label} className="grid gap-0.5">
-                    <dt className="text-[0.68rem] font-medium tracking-wide text-muted uppercase">
+                    <dt className="text-xs text-muted">
                       {fact.label}
                     </dt>
                     <dd className="font-display text-lg font-semibold tabular-nums text-ink">
