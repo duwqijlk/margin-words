@@ -100,6 +100,7 @@ import {
   topBarHeight,
 } from "@/lib/reader-paging";
 import { watchPageMoves, type PageMove } from "@/lib/page-guard";
+import { AUTO_HIDE_QUERY, barStart, nextBarState } from "@/lib/reader-bar";
 import {
   PLACE_TOP,
   RESTORE_BOTTOM,
@@ -215,6 +216,13 @@ export function ReaderScreen({
   const articleRef = useRef<HTMLElement | null>(null);
   /** The sticky top bar. Its height is what a page turn must not hide. */
   const headerRef = useRef<HTMLElement | null>(null);
+  // On a phone the bar slides away while the reader scrolls down and returns on a scroll up.
+  const [barHidden, setBarHidden] = useState(false);
+  const barHiddenRef = useRef(false);
+  barHiddenRef.current = barHidden;
+  // Where the reader's own page turn is scrolling to. A turn leaves the bar as it is: its step was
+  // worked out with the bar as it stands, so showing the bar after a turn back would cover lines.
+  const turnTarget = useRef<number | null>(null);
   /** What the last tap said out loud, so the phrase lookup does not say it a second time. */
   const spoken = useRef("");
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
@@ -925,7 +933,8 @@ export function ReaderScreen({
    * three lines on the Moaan. Keeping those lines back is the tolerance: see `PAGE_KEEP_LINES`.
    */
   const pageStep = useCallback(() => {
-    const bar = prefs.focus ? 0 : topBarHeight(headerRef.current);
+    // A bar that is hidden (focus mode, or slid away on a phone) covers no lines.
+    const bar = prefs.focus || barHiddenRef.current ? 0 : topBarHeight(headerRef.current);
     const line = readerLineHeight(articleRef.current);
     return calculatePageStep({
       viewportWidth: window.innerWidth,
@@ -965,7 +974,8 @@ export function ReaderScreen({
       return;
     }
     pageGuard.current?.turn(top);
-    window.scrollTo(0, Math.min(maxScroll, top + step));
+    turnTarget.current = Math.min(maxScroll, top + step);
+    window.scrollTo(0, turnTarget.current);
   }, [book, slots, slotIndex, safeIndex, goSlot, goChapter, pageStep, turnAllowed]);
 
   const pageBackward = useCallback(() => {
@@ -976,7 +986,8 @@ export function ReaderScreen({
     const hasPrev = slots ? slotIndex > 0 : safeIndex > 0;
     if (top > 0) {
       pageGuard.current?.turn(top);
-      window.scrollTo(0, Math.max(0, top - step));
+      turnTarget.current = Math.max(0, top - step);
+      window.scrollTo(0, turnTarget.current);
       return;
     }
     // At the top of a page, a backward turn opens the previous one at its last line.
@@ -1101,6 +1112,54 @@ export function ReaderScreen({
       document.removeEventListener("click", onClickAway);
     };
   }, []);
+
+  // Phone only: the top bar follows the scroll direction (lib/reader-bar.ts). Wider screens keep it.
+  useEffect(() => {
+    let query: MediaQueryList | null = null;
+    try {
+      query = window.matchMedia?.(AUTO_HIDE_QUERY) ?? null;
+    } catch {
+      query = null;
+    }
+    if (!query) return;
+    let state = barStart(window.scrollY);
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      if (!query?.matches) {
+        state = barStart(window.scrollY);
+        setBarHidden(false);
+        return;
+      }
+      const y = window.scrollY;
+      if (turnTarget.current !== null && Math.abs(y - turnTarget.current) <= 2) {
+        turnTarget.current = null;
+        state = { hidden: state.hidden, from: y, last: y };
+        return;
+      }
+      state = nextBarState(state, y);
+      setBarHidden(state.hidden);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    const onResize = () => measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    query.addEventListener?.("change", onResize);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      query?.removeEventListener?.("change", onResize);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  // A new chapter starts with the bar in view, and an open card or panel never leaves it out of reach.
+  useEffect(() => {
+    setBarHidden(false);
+  }, [safeIndex, extraId]);
+  useEffect(() => {
+    if (picked || help) setBarHidden(false);
+  }, [picked, help]);
 
   // After the key handler on purpose: the guard's own keydown listener must see the page keys
   // already default-prevented, so it can tell them from keys that move the page on purpose.
@@ -1488,9 +1547,10 @@ export function ReaderScreen({
     <div style={style} className="min-h-dvh">
       <header
         ref={headerRef}
+        data-reader-bar={barHidden ? "hidden" : "shown"}
         className={cn(
           "sticky top-0 z-30 border-b border-line bg-paper/90 backdrop-blur transition-transform duration-300",
-          focus && "-translate-y-full",
+          (focus || barHidden) && "-translate-y-full",
         )}
       >
         {/* Full width on purpose: tying this bar to --reader-width slides the text-width control while it is dragged. */}
@@ -1596,6 +1656,7 @@ export function ReaderScreen({
             className="book-body"
             lang="en"
             data-segmentation={book.segmentation === 2 ? "2" : undefined}
+            data-quiet-marks={prefs.quietMarks ? "" : undefined}
             dangerouslySetInnerHTML={{ __html: linkedHtml }}
           />
         ) : activeExtra ? (

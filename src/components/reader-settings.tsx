@@ -1,5 +1,5 @@
 import * as Popover from "@radix-ui/react-popover";
-import { Check, Focus, Minus, Plus, Type } from "lucide-react";
+import { Check, Focus, Minus, Plus, Type, Underline } from "lucide-react";
 import { useT, type Key } from "@/lib/i18n";
 import {
   COLUMN_MAX,
@@ -175,6 +175,24 @@ export function ReaderSettings() {
               <span className="font-normal text-muted">{t("rs.focusHint")}</span>
             </span>
             {prefs.focus ? <Check className="size-4 text-accent" aria-hidden /> : null}
+          </button>
+
+          <button
+            type="button"
+            aria-pressed={prefs.quietMarks}
+            onClick={() => set({ quietMarks: !prefs.quietMarks })}
+            className={cn(
+              "flex min-h-11 items-center justify-between rounded-lg border px-3 text-left text-sm font-semibold",
+              prefs.quietMarks ? "border-accent bg-accent-soft" : "border-line",
+            )}
+            data-reader-quiet-marks
+          >
+            <span className="flex items-center gap-2">
+              <Underline className="size-4" aria-hidden />
+              {t("rs.quietMarks")}
+              <span className="font-normal text-muted">{t("rs.quietMarksHint")}</span>
+            </span>
+            {prefs.quietMarks ? <Check className="size-4 text-accent" aria-hidden /> : null}
           </button>
         </Popover.Content>
       </Popover.Portal>

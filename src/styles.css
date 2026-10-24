@@ -474,6 +474,16 @@
     }
   }
 
+  /* "Hide underlines" (reader setting): no hard-word, phrase, tricky or waiting line. A tap still opens
+     the card. A notebook word keeps its highlight; the tapped word keeps its ring; bulbs stay. It sits
+     after the e-ink block and uses !important so it also wins over those !important lines. */
+  .book-body[data-quiet-marks] [role="button"][data-word].book-hard:not(.book-saved) .book-tap,
+  .book-body[data-quiet-marks] [role="button"][data-word].book-phrase:not(.book-saved) .book-tap,
+  .book-body[data-quiet-marks] [role="button"][data-word].book-tricky:not(.book-saved) .book-tap,
+  .book-body[data-quiet-marks] [role="button"][data-word].book-wait:not(.book-saved) .book-tap {
+    text-decoration: none !important;
+  }
+
   .scroll-thin {
     scrollbar-width: thin;
     scrollbar-color: var(--muted) transparent;

@@ -489,6 +489,8 @@ export const en = {
   "rs.width.narrow": "Narrow",
   "rs.width.medium": "Medium",
   "rs.width.wide": "Wide",
+  "rs.quietMarks": "Hide underlines",
+  "rs.quietMarksHint": "Tap any word for its meaning",
   "rs.focus": "Focus mode",
   "rs.focusHint": "Hide the top bar",
   "rs.paging": "Page-turn mode",

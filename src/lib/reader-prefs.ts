@@ -51,6 +51,8 @@ export type Prefs = {
   focus: boolean;
   paging: boolean;
   pronunciationAccent: "UK" | "US";
+  /** Hide the underlines of hard words, phrases and tricky meanings. Every word still opens its card on a tap. */
+  quietMarks: boolean;
 };
 
 type PrefsState = Prefs & {
@@ -99,13 +101,14 @@ export const usePrefs = create<PrefsState>()(
       focus: false,
       paging: false,
       pronunciationAccent: "US",
+      quietMarks: false,
       set: (patch) => set(patch),
     }),
     {
       name: PREFS_KEY,
       skipHydration: true,
       storage: createJSONStorage(safeStorage),
-      partialize: ({ theme, font, size, leading, width, column, focus, paging, pronunciationAccent }) => ({
+      partialize: ({ theme, font, size, leading, width, column, focus, paging, pronunciationAccent, quietMarks }) => ({
         theme,
         font,
         size,
@@ -115,6 +118,7 @@ export const usePrefs = create<PrefsState>()(
         focus,
         paging: Boolean(paging),
         pronunciationAccent,
+        quietMarks: Boolean(quietMarks),
       }),
       merge: (persisted, current) => {
         const saved = (persisted ?? {}) as Partial<Prefs>;
@@ -124,6 +128,7 @@ export const usePrefs = create<PrefsState>()(
           column: columnRem({ column: saved.column, width: saved.width ?? current.width }),
           paging: Boolean(saved.paging),
           pronunciationAccent: saved.pronunciationAccent === "UK" ? "UK" : "US",
+          quietMarks: saved.quietMarks === true,
         };
       },
     },
