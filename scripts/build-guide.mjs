@@ -83,6 +83,8 @@ ${sections.join("\n")}
   cache = new Map([
     ["kit/index.html", page],
     [`kit/${KIT_NAME}`, await buildKit()],
+    // The daily word-list patrol, for an agent that is given only a Cloudflare login.
+    ["kit/patrol.md", readFileSync(join(ROOT, "docs", "GLOSSARY_PATROL.md"), "utf8")],
   ]);
   return cache;
 }

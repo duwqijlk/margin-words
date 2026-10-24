@@ -160,7 +160,12 @@ export function publicBooks() {
  * in `vite dev` and `vite preview` they are served from memory.
  */
 export function guideFolder() {
-  const MIME = { ".html": "text/html; charset=utf-8", ".json": "application/json; charset=utf-8", ".zip": "application/zip" };
+  const MIME = {
+    ".html": "text/html; charset=utf-8",
+    ".json": "application/json; charset=utf-8",
+    ".md": "text/markdown; charset=utf-8",
+    ".zip": "application/zip",
+  };
   const middleware = async (req, res, next) => {
     const url = (req.url ?? "").split("?", 1)[0] ?? "";
     if (!url.startsWith("/kit")) return next();
