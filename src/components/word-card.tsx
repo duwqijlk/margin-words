@@ -1,4 +1,4 @@
-import { BookMarked, Check, Image as ImageIcon, Sparkles, X } from "lucide-react";
+import { Heart, Image as ImageIcon, Sparkles, X } from "lucide-react";
 import { useEffect, useRef, type ReactNode } from "react";
 import merriamWebsterLogo from "@/assets/merriam-webster-logo.png";
 import { countSurface, type OtherMeaning } from "@/lib/glossary-format";
@@ -299,10 +299,9 @@ export function WordCard({
             <button
               type="button"
               className={cn(
-                "inline-flex size-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-150 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40",
-                saved
-                  ? "border-accent bg-accent text-accent-ink shadow-xs"
-                  : "border-line bg-card text-ink/80 hover:border-muted hover:bg-paper hover:text-ink shadow-2xs",
+                btn.icon,
+                "transition-transform duration-150 active:scale-90 disabled:cursor-not-allowed",
+                saved ? "text-warn" : "text-ink/80 hover:text-ink",
               )}
               disabled={!saved && !canSave}
               onClick={onToggle}
@@ -311,11 +310,8 @@ export function WordCard({
               title={t(saved ? "card.savedTarget" : "card.addTarget", { word: target })}
               data-word-save
             >
-              {saved ? (
-                <Check className="size-4.5 stroke-[2.5]" aria-hidden />
-              ) : (
-                <BookMarked className="size-4.5 stroke-[1.8]" aria-hidden />
-              )}
+              {/* A heart: outline to save, filled once the word is in the notebook. */}
+              <Heart className={cn("size-5 stroke-[1.8]", saved && "fill-current")} aria-hidden />
             </button>
             <button
               type="button"
