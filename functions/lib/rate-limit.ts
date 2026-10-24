@@ -15,6 +15,9 @@ export const RATE_LIMITS = {
   "sponsor:email": 5,
   "taps:ip": 60,
   "feedback:ip": 30,
+  // Emailed codes: each send is a message from our Resend account, each check a guess at 6 digits.
+  "code-send:user": 5,
+  "code-check:user": 20,
   // Per signed-in account. Any free account can call these in a loop, and each call is a D1 read
   // plus an R2 get of a word list or a sync body - a cheap way to spend someone else's quota.
   "glossary:user": 120,
@@ -23,7 +26,7 @@ export const RATE_LIMITS = {
 
 export type RateAction = "login" | "register" | "reset" | "sponsor";
 export type IpRateAction = RateAction | "taps" | "feedback";
-export type UserRateAction = "glossary" | "sync";
+export type UserRateAction = "glossary" | "sync" | "code-send" | "code-check";
 
 /**
  * Buckets that live a day rather than a window. They are kept out of the short prune: today's row

@@ -9,6 +9,8 @@ import { PBKDF2_ITERATIONS, hashPassword, verifyPassword } from "../functions/li
 import { rateLimitIp, sessionCookie } from "../functions/lib/http.ts";
 import {
   handleDelete,
+  handleEmailCodeConfirm,
+  handleEmailCodeSend,
   handleExport,
   handleLogin,
   handleLogout,
@@ -55,6 +57,7 @@ function openDb() {
     "0009_word_taps_location.sql",
     "0010_word_feedback_location.sql",
     "0011_word_analytics_rev_status.sql",
+    "0012_email_verification.sql",
   ]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
@@ -1080,6 +1083,8 @@ test("word-list reads: seven new books a week, an old book stays free, trusted i
   });
   const readerCookie = cookieHeader(reader);
   const readerId = (await reader.json()).user.id;
+  // This test is about the weekly cap, for a reader who already checked their email.
+  db.raw.prepare("UPDATE users SET email_verified_at = ? WHERE id = ?").run(NOW, readerId);
   const admin = await call(handleRegister, envOf(db), {
     body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
   });
@@ -1128,6 +1133,94 @@ test("word-list reads: seven new books a week, an old book stays free, trusted i
   assert.deepEqual((await trustedMe.json()).glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, unlimited: true });
 });
 
+test("a new account opens word lists only after the emailed code", async () => {
+  const db = openDb();
+  const files = new Map([["word-lists/book-1/glossary.json", new TextEncoder().encode('{"glossary":{"a":{}}}')]]);
+  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const sent = [];
+  const sendCode = async (message) => {
+    sent.push(message);
+    return { sent: true };
+  };
+  const post = (path, body, cookie) =>
+    new Request(`http://localhost${path}`, {
+      method: "POST",
+      headers: cookie ? { cookie } : {},
+      body: body === undefined ? undefined : JSON.stringify(body),
+    });
+
+  const made = await handleRegister(post("/api/auth/register", { email: "new@example.com", password: "correct horse" }), env, { now: NOW, sendCode });
+  assert.equal(made.status, 201);
+  const madeBody = await made.json();
+  assert.equal(madeBody.user.emailVerified, false);
+  assert.equal(madeBody.codeSent, true);
+  assert.equal(sent.length, 1);
+  assert.equal(sent[0].email, "new@example.com");
+  assert.match(sent[0].code, /^\d{6}$/);
+  assert.notEqual(db.raw.prepare("SELECT code_hash FROM email_codes").get().code_hash, sent[0].code, "only a hash is stored");
+  const cookie = cookieHeader(made);
+
+  const blocked = await handleGlossary(raw("/api/glossary/book-1", cookie), env, "book-1", { now: NOW });
+  assert.equal(blocked.status, 403);
+  assert.equal((await blocked.json()).error, "email-unverified");
+
+  // Send again right away is refused, so a double click does not spend a second message.
+  const tooSoon = await handleEmailCodeSend(post("/api/auth/email-code/send", {}, cookie), env, { now: NOW + 1000, sendCode });
+  assert.equal(tooSoon.status, 429);
+  assert.equal((await tooSoon.json()).error, "code-wait");
+
+  const wrong = sent[0].code === "000000" ? "111111" : "000000";
+  const bad = await handleEmailCodeConfirm(post("/api/auth/email-code/confirm", { code: wrong }, cookie), env, { now: NOW });
+  assert.equal(bad.status, 400);
+  assert.equal((await bad.json()).error, "code");
+
+  const good = await handleEmailCodeConfirm(post("/api/auth/email-code/confirm", { code: sent[0].code }, cookie), env, { now: NOW });
+  assert.equal(good.status, 200);
+  assert.equal((await good.json()).user.emailVerified, true);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM email_codes").get().n, 0, "the used code is gone");
+  assert.equal((await handleGlossary(raw("/api/glossary/book-1", cookie), env, "book-1", { now: NOW })).status, 200);
+});
+
+test("five wrong codes end that code, and an old one stops working", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const sent = [];
+  const sendCode = async (message) => {
+    sent.push(message);
+    return { sent: true };
+  };
+  const post = (path, body, cookie) =>
+    new Request(`http://localhost${path}`, { method: "POST", headers: cookie ? { cookie } : {}, body: JSON.stringify(body) });
+  const made = await handleRegister(post("/api/auth/register", { email: "guess@example.com", password: "correct horse" }), env, { now: NOW, sendCode });
+  const cookie = cookieHeader(made);
+  const wrong = sent[0].code === "000000" ? "111111" : "000000";
+  for (let n = 0; n < 5; n += 1) {
+    const response = await handleEmailCodeConfirm(post("/api/auth/email-code/confirm", { code: wrong }, cookie), env, { now: NOW });
+    assert.equal((await response.json()).error, "code");
+  }
+  const locked = await handleEmailCodeConfirm(post("/api/auth/email-code/confirm", { code: sent[0].code }, cookie), env, { now: NOW });
+  assert.equal((await locked.json()).error, "code-expired", "after five misses even the right code is refused");
+
+  // A new code (a minute later) works, and the old one does not.
+  const again = await handleEmailCodeSend(post("/api/auth/email-code/send", {}, cookie), env, { now: NOW + 61_000, sendCode });
+  assert.equal(again.status, 200);
+  assert.equal(sent.length, 2);
+  if (sent[0].code !== sent[1].code) {
+    const old = await handleEmailCodeConfirm(post("/api/auth/email-code/confirm", { code: sent[0].code }, cookie), env, { now: NOW + 62_000 });
+    assert.equal((await old.json()).error, "code");
+  }
+  const expired = await handleEmailCodeConfirm(post("/api/auth/email-code/confirm", { code: sent[1].code }, cookie), env, { now: NOW + 61_000 + 15 * 60 * 1000 + 1 });
+  assert.equal((await expired.json()).error, "code-expired", "a code works for 15 minutes");
+});
+
+test("accounts made before the email check count as checked", async () => {
+  const db = openDb();
+  const migrated = db.raw.prepare("SELECT COUNT(*) AS n FROM users WHERE email_verified_at IS NULL").get().n;
+  assert.equal(migrated, 0);
+  const sql = readFileSync(join(ROOT, "migrations", "0012_email_verification.sql"), "utf8");
+  assert.match(sql, /UPDATE users SET email_verified_at = created_at WHERE email_verified_at IS NULL/);
+});
+
 test("a book already on the shelf can be downloaded when the week is full", async () => {
   const db = openDb();
   const reader = await call(handleRegister, envOf(db), {
@@ -1135,6 +1228,7 @@ test("a book already on the shelf can be downloaded when the week is full", asyn
   });
   const readerCookie = cookieHeader(reader);
   const readerId = (await reader.json()).user.id;
+  db.raw.prepare("UPDATE users SET email_verified_at = ? WHERE id = ?").run(NOW, readerId);
   const files = new Map();
   const text = (id) => new TextEncoder().encode(`{"glossary":{"${id}":{}}}`);
   const catalog = {

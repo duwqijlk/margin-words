@@ -131,14 +131,16 @@ function userFields(payload: Record<string, unknown>): {
   email: string | null;
   nickname: string | null;
   role: "user" | "trusted" | "admin";
+  emailVerified: boolean;
 } {
   const user = payload.user;
-  if (!user || typeof user !== "object") return { email: null, nickname: null, role: "user" };
-  const record = user as { email?: unknown; nickname?: unknown; role?: unknown };
+  if (!user || typeof user !== "object") return { email: null, nickname: null, role: "user", emailVerified: true };
+  const record = user as { email?: unknown; nickname?: unknown; role?: unknown; emailVerified?: unknown };
   const email = typeof record.email === "string" && record.email ? record.email : null;
   const nickname = typeof record.nickname === "string" && record.nickname ? record.nickname : null;
   const role = record.role === "trusted" || record.role === "admin" ? record.role : "user";
-  return { email, nickname, role };
+  // An older server does not send the field: treat that as checked.
+  return { email, nickname, role, emailVerified: record.emailVerified !== false };
 }
 
 function saveMeta() {
@@ -534,7 +536,7 @@ async function refreshSession() {
     const payload = await accountRequest("/api/auth/me");
     if (epoch !== sessionEpoch) return;
     const fields = userFields(payload);
-    useAccount.getState().patch({ resetEmail: payload.resetEmail === true, role: fields.role });
+    useAccount.getState().patch({ resetEmail: payload.resetEmail === true, role: fields.role, emailVerified: fields.emailVerified });
     if (fields.email) {
       rememberEmail(fields.email, fields.nickname, fields.role);
       await flush();
@@ -632,6 +634,7 @@ export async function signIn(email: string, password: string, turnstileToken?: s
   });
   if (epoch !== sessionEpoch) return;
   const fields = userFields(payload);
+  useAccount.getState().patch({ emailVerified: fields.emailVerified });
   rememberEmail(fields.email ?? email, fields.nickname, fields.role);
   await flush();
 }
@@ -646,8 +649,20 @@ export async function signUp(email: string, password: string, turnstileToken?: s
   });
   if (epoch !== sessionEpoch) return;
   const fields = userFields(payload);
+  useAccount.getState().patch({ emailVerified: fields.emailVerified });
   rememberEmail(fields.email ?? email, fields.nickname, fields.role);
   await flush();
+}
+
+/** Send the 6-digit code to the signed-in account's email again. */
+export async function sendEmailCode(): Promise<void> {
+  await accountRequest("/api/auth/email-code/send", {});
+}
+
+/** Check the emailed code. On success the account may open word lists. */
+export async function confirmEmailCode(code: string): Promise<void> {
+  const payload = await accountRequest("/api/auth/email-code/confirm", { code });
+  useAccount.getState().patch({ emailVerified: userFields(payload).emailVerified });
 }
 
 export async function saveNickname(nickname: string): Promise<void> {
