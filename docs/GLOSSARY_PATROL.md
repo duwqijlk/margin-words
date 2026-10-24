@@ -1,134 +1,176 @@
 # Daily word-list patrol (for an AI agent)
 
 Read this whole page before you start. It is the job description for an agent that runs once a
-day. It also lives in the repository as `docs/GLOSSARY_PATROL.md` and on the site at
-`https://inputread.site/kit/patrol.md`.
+day with **only a Cloudflare API token**. You do not need this repository, a site login, a build
+or a deploy: every step below is one HTTPS call to `api.cloudflare.com`. The page is also in the
+repository as `docs/GLOSSARY_PATROL.md` and on the site at `https://inputread.site/kit/patrol.md`.
 
-## 1. The job in one paragraph
+## 1. The job
 
-Readers of inputread.site tap words they do not know. When the book's word list has no meaning
-for that word at that place, the site records it (table `book_word_taps`), and a reader can also
-press "Meaning missing" (table `word_feedback`, reason `missing_meaning`). Once a day you collect
-these, write a short English meaning for the words that deserve one, publish the patched word
-list, and mark the words done. You only **add** words. You never change or delete what a list
-already has.
+Readers of inputread.site read English books with a word list (glossary) that explains hard
+words. Two things tell you a list needs work:
 
-## 2. What you need
+- **Taps** (table `book_word_taps`): a reader opened a word that has **no meaning of its own** at
+  that place. Only such words are recorded.
+- **Reports** (table `word_feedback`), sent with the card's feedback button:
+  - `missing_meaning`: the word has no meaning here.
+  - `too_hard`: the meaning uses words that are too hard for a learner.
+  - `wrong_meaning`: the meaning, or a phrase match, does not fit this place in the book.
 
-- A clone of `https://github.com/duwqijlk/margin-words` and Node 22.12 or newer. Run `npm ci` once.
-- A Cloudflare login for the account that owns the site: either `npx wrangler login`, or an API
-  token in `CLOUDFLARE_API_TOKEN` with **D1 Edit** and **R2 Edit** on that account. Nothing else.
-  You do not need a site admin login, a build, or a deploy.
-- Resources you will touch:
-  - D1 database `margin-words` (read open items, mark them resolved).
-  - R2 bucket `margin-words-books`: `word-lists/<id>/glossary.json`, `word-lists/catalog.json`,
-    `public-books/<id>/glossary.json`, `public-books/catalog.json`. This is what readers download.
-  - R2 bucket `margin-words-private`: `<id>/book.epub`. **Read only**, to check anchors.
+Once a day you read the open items, fix the word lists, publish them, and mark the items done.
+You may **add** entries and **fix** existing ones: rewrite a meaning that is too hard, correct one
+that is wrong, add or move an anchor, add a sense, and remove a wrong phrase match. Example: in
+The Wonderful Wizard of Oz the phrase "even to" was matched in "want to kill anybody, even to see
+Aunt Em", where the words are not that phrase. The fix was to remove that phrase match.
 
-## 3. The daily run
+## 2. Access
 
-All three steps use `scripts/glossary-patrol.mjs`. Work files go to `local-exports/patrol/`, which
-git ignores.
+- `Authorization: Bearer <token>` on every call. The token needs, on this account, **D1 Edit**
+  and **Workers R2 Storage Edit**. Never print the token, put it in a file, or send it anywhere
+  but `api.cloudflare.com`.
+- `API = https://api.cloudflare.com/client/v4/accounts/6ece9f6dbbc73db1be2810fb39f277c3`
+- D1 database `margin-words`, id `c286e644-2ead-438c-bb65-70ee028d957a`.
+- R2 buckets:
+  - `margin-words-books`: what readers download. You read and write here.
+  - `margin-words-private`: copyrighted EPUBs. **Read only**, to check anchors.
 
-### Step 1. Get the queue (read-only)
-
-```
-node scripts/glossary-patrol.mjs queue
-```
-
-This reads the open items from D1, matches each to a live book, downloads that book's live
-`glossary.json` and its EPUB next to it, and writes `local-exports/patrol/queue.json`:
+The three calls you use:
 
 ```
-{ "books": [ { "id": "mth14", "kind": "lists", "title": "...", "rev": "1924c8fce8d2",
-               "glossary": ".../mth14/glossary.json", "epub": ".../mth14/book.epub",
-               "words": [ { "word": "huge", "taps": 4, "reports": [],
-                            "places": [ { "chapter": 4, "occurrence": 1, "form": "huge",
-                                          "context": "they came to a huge oak.",
-                                          "sentence": "They slipped between ... a huge oak." } ] } ] } ],
-  "unmatched": [] }
+D1 query   POST {API}/d1/database/c286e644-2ead-438c-bb65-70ee028d957a/query
+           body {"sql": "...", "params": [...]}      rows in result[0].results
+R2 read    GET  {API}/r2/buckets/<bucket>/objects/<key, URL-encoded>
+R2 write   PUT  {API}/r2/buckets/<bucket>/objects/<key, URL-encoded>
+           body = the exact file bytes, header Content-Type: application/json
 ```
 
-Words with a reader report come first, then by number of taps. `chapter` is 0-based and
-`occurrence` is 1-based, exactly the numbers a glossary anchor uses.
+Always use `params` for values in SQL. Never build SQL by pasting text into it.
 
-### Step 2. Decide and write
+## 3. Find the work (read only)
 
-For each book, copy its `glossary.json` to `patched.json` in the same folder (so the EPUB sits
-next to it) and add entries under `"glossary"`. Decide word by word:
+Open taps and reports:
 
-| Add a meaning | Skip it (leave it open) |
-| --- | --- |
-| A word a learner can fairly not know (`huge`, `toward`, `except`, `peeked`) | A very common word tapped by mistake or to hear it (`said`, `top`, `started`) |
-| A word reported with "Meaning missing", unless it is clearly a mis-tap | A character or place name (`annie`, `jack`) - names are not glossed |
-| A word tapped by several readers | A word you cannot explain without guessing the plot |
+```sql
+SELECT book_title, word, form, chapter, occurrence, context, sentence, glossary_rev, tap_count
+  FROM book_word_taps WHERE in_glossary = 0 AND status != 'resolved'
+  ORDER BY tap_count DESC, last_tapped_at DESC LIMIT 500;
 
-Skipped words stay open and come back tomorrow. That is fine. Do not resolve a word you did not add.
+SELECT id, book_title, word, form, reason, chapter, occurrence, context, sentence,
+       sense_index, sense_meaning, glossary_rev, status
+  FROM word_feedback WHERE status != 'resolved' ORDER BY created_at DESC LIMIT 500;
+```
 
-Entry rules (full format: `docs/GLOSSARY_FORMAT.md`, writing rules in its section 7.6):
+`status` is `pending`, or `reopened` when a reader reported the same place again after it was
+resolved. A reopened item means the last fix did not work: look at it first.
+
+`book_id` in these rows is the reader's device id, not the catalog id. Find the book by **title**
+in the live catalogs (R2 read, bucket `margin-words-books`):
+
+- `word-lists/catalog.json`: `{ "lists": [ { "id", "title", "words", "phrases", "paragraphs",
+  "sentences", "updated", "glossary": { "url", "bytes", "sha256" }, ... } ] }`
+- `public-books/catalog.json`: `{ "packs": [ { "id", "title", "rev", ..., "glossary": { "url",
+  "bytes", "sha256", "rev" } } ] }`
+
+The book's list is `word-lists/<id>/glossary.json` or `public-books/<id>/glossary.json`. Its
+**revision** is the first 12 hex digits of `glossary.sha256`. A row whose `glossary_rev` is not the
+current revision was made on an older list: check whether the current list already fixed it.
+
+## 4. Fix the list
+
+Download the live `glossary.json` and the book (`margin-words-private`, key `<id>/book.epub`; for
+a public-domain book, `margin-words-books`, key `public-books/<id>/book.epub`). Use the book only
+to read the place the reader saw.
+
+The format is `docs/GLOSSARY_FORMAT.md` (online:
+`https://github.com/duwqijlk/margin-words/blob/main/docs/GLOSSARY_FORMAT.md`). The parts you need:
 
 ```
-"huge": {
-  "pos": "adjective",
-  "meaning": "Very, very big.",
-  "senses": [
-    { "meaning": "Very, very big.",
-      "anchors": [ { "chapter": 4, "occurrence": 1, "form": "huge", "context": "they came to a huge oak." } ] }
-  ]
+"glossary": {
+  "huge": {
+    "pos": "adjective",
+    "meaning": "Very, very big.",
+    "senses": [
+      { "meaning": "Very, very big.",
+        "anchors": [ { "chapter": 4, "occurrence": 1, "form": "huge", "context": "they came to a huge oak." } ] }
+    ]
+  }
 }
 ```
 
-- The key is the lemma in lower case. If the book shows another shape (`peeked`), use the shape
-  the book uses, or add it to `forms`.
-- `meaning`: simple English, one idea, the 2,000 most common words, no Chinese.
-- Anchors: copy `chapter`, `occurrence`, `form` and `context` from `places` in the queue. Up to
-  three places is enough.
-- Add nothing else to the file: no phrases, no notes, no changes to existing entries, no
-  reformatting of the rest. Keep `version`, `title`, `chapters`, `sha256` exactly as they are.
-- Copyright: only the short `context` (6 to 12 words) may come from the book. Never paste more of
-  the book anywhere, never upload or commit the EPUB.
+- The key is the lemma in lower case. A shape the book uses (`peeked`) can be its own key or go
+  in `forms`.
+- An anchor is a place: `chapter` (0-based), `occurrence` (1-based count of that word form in the
+  chapter), `form`, and `context` (6 to 12 words copied exactly from the book). Copy them from
+  the tap or report row: they use the same numbers.
+- `senseOnly: true` entries apply only at their anchors. Phrases live in `"phrases"`, keyed by the
+  phrase, with their own `forms` and `anchors`.
 
-### Step 3. Check, publish, resolve
+What to do with each kind of item:
 
+| Item | Usual fix | Leave it open |
+| --- | --- | --- |
+| Tap or `missing_meaning` | Add the entry, or add this place as an anchor to an existing sense | Very common words tapped to hear them (`said`, `top`); character and place names (`annie`) |
+| `too_hard` | Rewrite `meaning` (and `here`) in easier words, same sense | The meaning is already as easy as it can be |
+| `wrong_meaning` | Point the anchor at the right sense, add a sense, or remove the wrong phrase match / anchor | You cannot tell the right meaning without guessing the plot |
+
+Writing rules (GLOSSARY_FORMAT.md 7.6): English only, the 2,000 most common words, short, one
+idea; restate, never add facts or guess the plot; keep names. Change **only** what an item asks
+for. Do not reformat the file, reorder keys, or touch unrelated entries, and keep `version`,
+`title`, `chapters`, `sha256`, `spine` and `segmentation` as they are.
+
+Copyright: only a short `context` may come from the book. Never put more of the book anywhere,
+never upload the EPUB anywhere, never include book text in your report beyond a context.
+
+## 5. Check before you publish
+
+The file must parse as JSON, and every anchor you added or changed must point at a real place:
+in that chapter (split as GLOSSARY_FORMAT.md section 3 describes), the `occurrence`-th time the
+`form` appears must be inside the `context` text. If you cannot confirm a place, leave it out.
+Compare with the live file: every change must be one you meant to make for an item. If you can
+run Node and have the repository, `node scripts/validate-glossary.mjs book.epub glossary.json`
+does this check fully; it is optional.
+
+## 6. Publish (two R2 writes, in this order)
+
+1. Write the new `glossary.json` bytes to its key. Compute `sha256` of exactly those bytes.
+2. Read the catalog again (just before writing), change **only this book's row**, write it back:
+   - word list: `words` = number of keys in `glossary` (or the file's `count` if set), `phrases`,
+     `paragraphs`, `sentences` = their counts; `glossary.bytes`, `glossary.sha256`; set
+     `previousUpdated` to the old `updated` when the hash changed; `updated` = now (ISO time);
+     top-level `updated` = now.
+   - public book: the same, plus `rev` and `glossary.rev` = first 12 digits of the new sha256.
+   Keep every other row, field and order exactly. The catalog is JSON with one-space indent and a
+   newline at the end.
+
+If the catalog write fails, stop and report: readers keep the old list until the catalog points
+at the new one, so nothing breaks. Readers get the new list when they tap **Update** on the book.
+
+## 7. Mark items done
+
+Only for items your published change fixes, with the **new** revision:
+
+```sql
+UPDATE book_word_taps SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
+ WHERE book_title = ?3 AND word = ?4 AND in_glossary = 0 AND status != 'resolved';
+
+UPDATE word_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
+ WHERE id = ?3;
 ```
-node scripts/glossary-patrol.mjs publish <id> local-exports/patrol/<id>/patched.json
-```
 
-Check only. It runs `scripts/validate-glossary.mjs` against the real EPUB (every anchor must be
-found), refuses the file if any existing word, phrase, note or header field changed, and prints
-the plan: the new words, the new revision, the two files it would upload. Warnings about older
-entries can be ignored; errors cannot. Fix and run again until it passes. Then:
+`?1` = now in milliseconds, `?2` = new revision. If a reader reports the same place again on the
+new revision, the site reopens the item by itself.
 
-```
-node scripts/glossary-patrol.mjs publish <id> local-exports/patrol/<id>/patched.json --upload
-node scripts/glossary-patrol.mjs resolve <id> --words huge,toward,except --run
-```
+## 8. Limits
 
-`--upload` writes the glossary first, then the catalog (only that book's row changes; the script
-refuses anything else). `resolve` marks those words' taps and missing-meaning reports resolved at
-the new revision. Run `resolve` only for words that are in the uploaded file. Without `--run` it
-just prints the SQL.
+- At most 10 books per run; reopened and reported items first, then the most-tapped words.
+- D1 is on the Free plan (100,000 row writes a day for the whole site). The queries above read a
+  few thousand rows; each resolve writes a few. Do not loop queries.
+- No other SQL that writes. No `DELETE`, `DROP` or `ALTER`. No R2 writes except a glossary and
+  its catalog. Never write to `margin-words-private`.
+- Skipped items stay open and come back the next day. That is fine.
 
-Readers see the new meanings after they tap **Update** on that book, which the shelf offers once
-the catalog revision changes.
+## 9. Report
 
-## 4. Limits
-
-- At most 10 books and 200 new words per run. Start with the books that have the most reports.
-- D1 is on the Free plan (100,000 row writes a day for the whole site). One `queue` reads a few
-  thousand rows, one `resolve` writes a few rows. Do not loop queries.
-- Never run other SQL that writes (`UPDATE`, `DELETE`, `DROP`) on D1. Never upload other files to
-  R2. Never touch `margin-words-private` except to read an EPUB.
-- If something fails halfway (the glossary uploaded but the catalog did not), stop and report it.
-  Readers keep the old list until the catalog changes, so nothing breaks.
-
-## 5. Report
-
-End each run with a short report: for each book, the words added, the words skipped and why, the
-new revision, and any error. If nothing was open, say so.
-
-## 6. What the other reports mean (not your job)
-
-`word_feedback` also has `too_hard` (the meaning is too hard) and `wrong_meaning` (the meaning does
-not fit). Fixing those means changing existing entries, which this patrol does not do. Leave them
-for a person; mention their count in the report.
+End each run with a short report per book: what you added, what you changed and why (the
+item that asked for it), what you skipped and why, the new revision, and any error. Say so if
+nothing was open.
