@@ -40,7 +40,10 @@ export async function handleWordFeedbackPost(
       throw new HttpError(400, "bad-word");
     }
 
-    const reason = body.reason === "too_hard" || body.reason === "wrong_meaning" ? body.reason : null;
+    const reason =
+      body.reason === "too_hard" || body.reason === "wrong_meaning" || body.reason === "missing_meaning"
+        ? body.reason
+        : null;
     if (!reason) {
       throw new HttpError(400, "bad-reason");
     }

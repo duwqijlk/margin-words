@@ -2273,6 +2273,39 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   assert.equal((await upgradedResp.json()).saved, true);
 });
 
+test("word feedback: a word with no meaning in the book can be reported as missing", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const sent = await handleWordFeedbackPost(
+    postJson(
+      "/api/feedback/word",
+      null,
+      { bookId: "wonder", word: "slept", form: "slept", chapter: 3, occurrence: 1, reason: "missing_meaning" },
+      "31.32.33.34",
+    ),
+    env,
+    { now: NOW },
+  );
+  assert.equal(sent.status, 200);
+  assert.deepEqual(await sent.json(), { ok: true, saved: true });
+
+  await call(handleRegister, env, { body: { email: "xcrunnnn@outlook.com", password: "correct horse" } });
+  const adminCookie = cookieHeader(
+    await call(handleLogin, env, { body: { email: "xcrunnnn@outlook.com", password: "correct horse" } }),
+  );
+  const listed = await (
+    await handleAdminWordFeedbackGet(raw("/api/admin/word-feedback?reason=missing_meaning", adminCookie), env, {
+      now: NOW,
+    })
+  ).json();
+  assert.equal(listed.total, 1);
+  assert.equal(listed.items[0].word, "slept");
+  assert.equal(listed.items[0].reason, "missing_meaning");
+  // Not counted as either of the two meaning complaints.
+  assert.equal(listed.summary.tooHardReports, 0);
+  assert.equal(listed.summary.wrongMeaningReports, 0);
+});
+
 test("a hash from the 100k era still signs in, and is rewritten at the current count", async () => {
   const db = openDb();
   const env = envOf(db);
