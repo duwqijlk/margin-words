@@ -65,8 +65,6 @@ import {
   resolveGlossKey,
   sentenceAround,
   surfaceOffset,
-  wordStatInBook,
-  type WordStat,
 } from "@/lib/text";
 import { useVocab } from "@/lib/vocab-store";
 import { flowCutOffsets, flowPoint, flowText, flowTextBefore } from "@/lib/flow-text";
@@ -201,8 +199,6 @@ export function ReaderScreen({
   const turnTarget = useRef<number | null>(null);
   // Mouse only: a one-line meaning shown while the pointer rests on a marked word.
   const [hover, setHover] = useState<{ word: string; meaning: string; left: number; top: number } | null>(null);
-  // Width of the empty margin left of the text, for the optional side contents. 0 = no room.
-  const [sideRoom, setSideRoom] = useState(0);
   /** What the last tap said out loud, so the phrase lookup does not say it a second time. */
   const spoken = useRef("");
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
@@ -455,7 +451,6 @@ export function ReaderScreen({
       return chapterHtml;
     }
   }, [book, chapterHtml, chapterKey, phraseList, marked, resolveKey, viewChapter, phrasesReady]);
-  const bookChapters = book?.chapters;
 
   const bookKey = shelfBook ? bookSyncKey(shelfBook) : "";
   const savedKeys = useMemo(
@@ -1198,31 +1193,6 @@ export function ReaderScreen({
     };
   }, [book, phrasesReady, linkedHtml, prefs.quietMarks, viewChapter, resolveKey]);
 
-  // The side contents only fits a margin it cannot reach the text from. Measured, not assumed: the
-  // text column follows the width setting, so a wide screen with a wide column can have no room.
-  useEffect(() => {
-    const root = articleRef.current;
-    if (!root || !prefs.sideContents) {
-      setSideRoom(0);
-      return;
-    }
-    // 16px from the screen edge, at least 48px of air before the text, and at least 200px for titles.
-    const measure = () => {
-      const width = Math.min(288, Math.floor(root.getBoundingClientRect().left - 16 - 48));
-      setSideRoom(width >= 200 ? width : 0);
-    };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(root);
-    observer.observe(document.documentElement);
-    window.addEventListener("resize", measure);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  // `book` and `phrasesReady`: the article is drawn only once both are in, and must be measured then.
-  }, [prefs.sideContents, book, phrasesReady, linkedHtml, prefs.column, prefs.width]);
-
   // Phone only: the top bar follows the scroll direction (lib/reader-bar.ts). Wider screens keep it.
   useEffect(() => {
     let query: MediaQueryList | null = null;
@@ -1307,20 +1277,6 @@ export function ReaderScreen({
   }, [probe]);
 
   const pickedKey = picked ? resolveKey(picked.surface) : "";
-  const statCache = useRef<Map<string, WordStat | null>>(new Map());
-  useEffect(() => {
-    statCache.current.clear();
-  }, [book]);
-
-  const currentStat = useMemo(() => {
-    if (!pickedKey || !bookChapters) return undefined;
-    if (statCache.current.has(pickedKey)) {
-      return statCache.current.get(pickedKey) ?? undefined;
-    }
-    const stat = wordStatInBook(bookChapters, pickedKey);
-    statCache.current.set(pickedKey, stat ?? null);
-    return stat;
-  }, [pickedKey, bookChapters]);
   // A phrasal verb or idiom that contains the tapped word (from the word list).
   const located = picked
     ? locateSentence(picked.paragraph, picked.surface, picked.before.length)
@@ -1740,41 +1696,6 @@ export function ReaderScreen({
         </button>
       ) : null}
 
-      {sideRoom ? (
-        <nav
-          aria-label={t("contents.title")}
-          data-side-contents
-          className="scroll-thin fixed top-20 bottom-6 left-4 z-20 overflow-y-auto pr-1 text-sm"
-          style={{ width: sideRoom }}
-        >
-          <ol className="grid gap-0.5">
-            {(contentsRows ??
-              book.chapters.map((item, index) => ({
-                key: `c${index}`,
-                mark: String(index + 1),
-                title: item.title,
-                active: index === safeIndex,
-              }))
-            ).map((row) => (
-              <li key={row.key}>
-                <button
-                  type="button"
-                  aria-current={row.active ? "true" : undefined}
-                  onClick={() => (contentsRows ? pickContentsRow(row.key) : goChapter(Number(row.key.slice(1))))}
-                  className={cn(
-                    "flex w-full items-baseline gap-2 rounded-md px-2 py-1 text-left leading-snug transition-colors",
-                    row.active ? "bg-accent-soft font-semibold text-accent" : "text-muted hover:bg-accent-soft/60 hover:text-ink",
-                  )}
-                >
-                  <span className="w-6 shrink-0 text-right text-xs tabular-nums">{row.mark}</span>
-                  <span className="min-w-0 flex-1 truncate" lang="en">{row.title}</span>
-                </button>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      ) : null}
-
       {hover ? (
         <p
           role="tooltip"
@@ -1898,7 +1819,6 @@ export function ReaderScreen({
       {card ? (
         <WordCard
           state={card}
-          stat={currentStat}
           saved={!phrasePending && alreadySaved}
           phrase={shownPhrase}
           selectionId={picked?.selectionId ?? 0}

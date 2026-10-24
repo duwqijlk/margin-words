@@ -56,10 +56,11 @@ async function geometry(page, anchor, card, width, height, side, article) {
   const c = await card.boundingBox();
   const a = await anchor.boundingBox();
   assert.ok(c && a);
-  assert.equal(c.width, width >= 1024 ? desktopWidth : width >= 768 ? 288 : width);
+  // From 768px (tablets too) the card floats beside the word; below that it is a bottom sheet.
+  assert.equal(c.width, width >= 768 ? desktopWidth : width);
   assert.ok(c.x >= -1 && c.x + c.width <= width + 1 && c.y >= -1 && c.y + c.height <= height + 1, "card inside viewport");
   assert.ok(c.x + c.width <= a.x + 1 || c.x >= a.x + a.width - 1 || c.y + c.height <= a.y + 1 || c.y >= a.y + a.height - 1, "card does not cover anchor");
-  if (width >= 1024) {
+  if (width >= 768) {
     assert.equal(await card.getAttribute("data-float"), "");
     assert.ok(side === "bottom" ? c.y >= a.y + a.height : c.y + c.height <= a.y, `actual ${side} placement`);
   } else {
@@ -351,14 +352,8 @@ async function collapsedDetails(card, isPhrase) {
   }
   assert.equal(await card.locator('[data-part="word-alone"]').count(), 0, 'obsolete constituent-word disclosure never renders');
   assert.equal(await card.locator('[data-word-body] details[open]').count(), 0, 'every body disclosure resets on open/target change');
-  for (const part of ['sentence-box', 'word-more']) {
-    const details = card.locator(`[data-part="${part}"]`);
-    if (!await details.count()) continue;
-    assert.equal(await details.evaluate(el => el.tagName), 'DETAILS', `${part} uses native details`);
-    assert.equal(await details.getAttribute('open'), null, `${part} starts collapsed`);
-    assert.equal(await details.locator(':scope > summary').count(), 1, `${part} has a direct summary`);
-    assert.ok((await details.locator(':scope > summary').innerText()).trim(), `${part} has a readable summary`);
-  }
+  for (const part of ['sentence-box', 'word-more'])
+    assert.equal(await card.locator(`[data-part="${part}"]`).count(), 0, `${part} was removed from the card`);
   if (isPhrase) await targetContent(card, 'phrase');
 }
 async function targetContent(card, mode) {
@@ -388,10 +383,9 @@ async function targetContent(card, mode) {
   } else {
     assert.ok(!text.includes(fixture.phraseMeaning), 'word mode excludes phrase meaning');
     assert.ok(!(await card.textContent()).includes(fixture.phraseExample), 'word mode excludes phrase example');
-    assert.equal(await card.locator('[data-part="word-more"]').count(), 1, 'word mode preserves original extra sections');
-    const more = await card.locator('[data-part="word-more"]').textContent();
+    const all = await card.textContent();
     for (const wordFact of [fixture.wordWhy, fixture.wordExample, fixture.otherMeaning])
-      assert.ok(more.includes(wordFact), 'word mode retains whyHard/example/other meanings');
+      assert.ok(!all.includes(wordFact), 'word mode no longer shows whyHard/example/other meanings');
   }
 }
 async function switchTarget(page, card, mode, key) {
@@ -417,20 +411,10 @@ async function targetRoundTrip(page, card) {
   await lookupTarget(card, 'phrase');
   await targetContent(card, 'phrase');
   await switchTarget(page, card, 'word');
-  await expandDisclosure(page, card, 'word-more', fixture.wordWhy);
-  const more = card.locator('[data-part="word-more"]');
-  assert.equal(await more.locator('[data-part="example"] blockquote').innerText(), fixture.wordExample);
-  const other = more.locator('details');
-  assert.equal(await other.count(), 1, 'word extra sections include other meanings');
-  await exposeInBody(card, other.locator(':scope > summary'));
-  await settle(page);
-  await coordinateTap(page, other.locator(':scope > summary'));
-  assert.ok((await other.innerText()).includes(fixture.otherMeaning), 'other meaning can be disclosed');
-  await expandDisclosure(page, card, 'sentence-box', 'Against all odds');
   await feedbackDisclosure(page, card, true);
   await card.locator('[data-word-body]').evaluate(el => { el.scrollTop = el.scrollHeight; });
   await settle(page);
-  assert.ok((await metrics(card)).scrollTop > 0, 'whole-card switch begins with scrolled expanded word details');
+  { const m = await metrics(card); assert.ok(m.maxScroll <= 0 || m.scrollTop > 0, 'whole-card switch begins scrolled when the body can scroll'); }
   await switchTarget(page, card, 'phrase');
   // Reveal the supplied phrase example without assuming whether it is a direct quote or in More.
   const example = card.locator('[data-part="example"]');
@@ -860,28 +844,6 @@ async function phraseWordAvailability(page, card) {
   } finally {
     if (stability) await stability.stop();
     if (gestures) await gestures.detach();
-  }
-}
-async function expandDisclosure(page, card, part, text) {
-  const details = card.locator(`[data-part="${part}"]`);
-  const summary = details.locator(':scope > summary');
-  const before = await metrics(card);
-  await exposeInBody(card, summary);
-  await settle(page);
-  await coordinateTap(page, summary);
-  assert.equal(await details.getAttribute('open'), '', `${part} opens by pointer`);
-  assert.ok((await details.innerText()).includes(text), `${part} expanded text is readable`);
-  assert.ok((await metrics(card)).contentHeight > before.contentHeight, `${part} expands natural-height content`);
-  await cardChrome(page, card);
-  if (page.viewportSize().width >= 768) {
-    assert.equal(await summary.evaluate(el => document.activeElement === el), true, 'clicked summary receives focus');
-    await page.keyboard.press('Enter');
-    assert.equal(await details.getAttribute('open'), null, 'Enter collapses focused summary');
-    await page.keyboard.press('Space');
-    assert.equal(await details.getAttribute('open'), '', 'Space expands focused summary');
-    assert.equal(await summary.evaluate(el => document.activeElement === el), true, 'keyboard toggle preserves summary focus');
-    await settle(page);
-    await cardChrome(page, card);
   }
 }
 async function lookupTarget(card, mode) {
@@ -1347,40 +1309,14 @@ async function phoneRegression(page, width, height) {
   await targetRoundTrip(page, card);
   await switchTarget(page, card, 'word');
   initial = await cardChrome(page, card); // Whole-card mode legitimately changes chrome height; expansion must not.
-  await expandDisclosure(page, card, 'word-more', fixture.wordWhy);
-  const collapsed = await metrics(card);
-  // Explicit internal scroll is allowed to reach the sentence; never scroll the outer sheet.
-  await body.evaluate(el => {
-    const summary = el.querySelector('[data-part="sentence-box"] summary');
-    el.scrollTop += summary.getBoundingClientRect().top - el.getBoundingClientRect().top;
-  });
+  await feedbackDisclosure(page, card, true);
+  // The short card may fit without scrolling. Cap the real body (no added content) so the
+  // touch checks below run against an actual scroller; the next open remounts a fresh body.
+  if ((await metrics(card)).maxScroll <= 32)
+    await body.evaluate(el => { el.style.maxHeight = `${Math.min(el.clientHeight, 120)}px`; });
   await settle(page);
-  await coordinateTap(page, card.locator('[data-part="sentence-box"] summary'));
-  assert.equal(await card.locator('[data-part="sentence-box"]').getAttribute('open'), '');
-  assert.ok((await metrics(card)).contentHeight > collapsed.contentHeight, 'expanded sentence adds body content');
-  const expanded = await cardChrome(page, card);
-  assert.equal(expanded.head.height, initial.head.height, 'sentence expansion never resizes header chrome');
-  assert.deepEqual(expanded.footer, initial.footer, 'sentence expansion keeps bottom-aligned footer fixed');
-  assert.deepEqual(expanded.scroll.slice(0, 3), initial.scroll.slice(0, 3), 'natural sheet growth never scrolls reader or outer card');
-  initial = expanded; // A max-height sheet may grow upward before reaching its cap; internal scrolling may not move chrome.
-  const explain = card.locator('[data-explain] button');
-  await explain.waitFor({ state: 'visible' });
-  await body.evaluate(el => {
-    const button = el.querySelector('[data-explain] button');
-    el.scrollTop += button.getBoundingClientRect().top - el.getBoundingClientRect().top;
-  });
-  await settle(page);
-  await coordinateTap(page, explain);
-  assert.equal(await card.locator('[data-part="easier"]').innerText(),
-    'The seller carried lights through the flood while the neighbors watched.');
-  assert.equal(await card.locator('[data-part="grammar"]').innerText(),
-    'While introduces an action happening at the same time as the journey.');
-  const explained = await cardChrome(page, card);
-  assert.deepEqual(explained.head, initial.head, 'ExplainSentence keeps header fixed');
-  assert.deepEqual(explained.footer, initial.footer, 'ExplainSentence keeps footer fixed');
-  assert.deepEqual(explained.scroll.slice(0, 3), initial.scroll.slice(0, 3),
-    'ExplainSentence scrollIntoView affects only the explanation body');
-  await feedbackDisclosure(page, card);
+  assert.ok((await metrics(card)).maxScroll > 32, 'capped body can scroll');
+  initial = await cardChrome(page, card);
   await body.evaluate(el => { el.scrollTop = 0; });
   const r = await body.boundingBox();
   await drag(-Math.min(100, r.height - 24), { label: 'native upward body scroll' });
@@ -1411,7 +1347,8 @@ async function phoneRegression(page, width, height) {
   await remains('two fingers from start');
   await drag(100, { target: title, expected: 'pull', secondFinger: true, label: 'second finger after active drag' });
   await remains('second finger after active drag');
-  const speak = card.locator('[data-word-header] [data-speak]');
+  // IPA builds put the UK/US speakers under the title instead of one header speaker.
+  const speak = card.locator(requireIpa ? '[data-speak]' : '[data-word-header] [data-speak]').first();
   const speakBox = await speak.boundingBox();
   await drag(100, { target: speak, origin: { x: speakBox.x + speakBox.width / 2, y: speakBox.y + 5 },
     label: 'button-origin downward drag' });
@@ -1445,7 +1382,7 @@ async function phoneRegression(page, width, height) {
     await open('odds');
     const scroller = card.locator(`[data-word-${part}]`);
     const previous = await scroller.getAttribute('style');
-    await scroller.evaluate(el => { el.style.maxHeight = '12px'; el.scrollTop = 4; });
+    await scroller.evaluate(el => { el.style.maxHeight = '12px'; el.style.overflowY = 'auto'; el.scrollTop = 4; });
     await settle(page);
     assert.ok(await scroller.evaluate(el => el.scrollTop) > 0, `${part} has an actual scrolled ancestor at START`);
     await drag(100, { target: scroller, label: `scrolled ${part} downward gesture` });
@@ -1463,12 +1400,10 @@ async function phoneRegression(page, width, height) {
   await open('odds');
   await collapsedDetails(card, true);
   await switchTarget(page, card, 'word');
-  await expandDisclosure(page, card, 'word-more', fixture.wordWhy);
-  await expandDisclosure(page, card, 'sentence-box', 'Against all odds');
   await feedbackDisclosure(page, card, true);
   await body.evaluate(el => { el.scrollTop = el.scrollHeight; });
   await settle(page);
-  assert.ok(await body.evaluate(el => el.scrollTop) > 0, 'word switch starts from a scrolled explanation');
+  { const m = await metrics(card); assert.ok(m.maxScroll <= 0 || m.scrollTop > 0, 'word switch starts scrolled when the body can scroll'); }
   await cardChrome(page, card);
   if (width === 430) {
     // Same-line targets are exposed above the sheet at this viewport. Do not use
@@ -1877,36 +1812,14 @@ try {
           await targetRoundTrip(page, card);
           await switchTarget(page, card, 'word');
           const initialChrome = await cardChrome(page, card);
-          await expandDisclosure(page, card, 'word-more', fixture.wordWhy);
-          const collapsed = await metrics(card);
-          await expandDisclosure(page, card, 'sentence-box', 'Against all odds');
-          const expanded = await metrics(card);
-          assert.ok(expanded.contentHeight > collapsed.contentHeight, 'expanded sentence adds natural-height content');
-          console.log(JSON.stringify({ viewport: `${width}x${height}`, side, desktopWidth, collapsed, expanded }));
+          await feedbackDisclosure(page, card, true);
+          console.log(JSON.stringify({ viewport: `${width}x${height}`, side, desktopWidth, card: await metrics(card) }));
           // Desktop may resize/reposition on expansion; assert visibility and placement, not frozen coordinates.
           await geometry(page, anchor, card, width, height, side, article);
-          const explain = card.locator('[data-explain] button');
-          await exposeInBody(card, explain);
-          await settle(page);
-          await coordinateTap(page, explain);
-          assert.equal(await card.locator('[data-part="easier"]').innerText(),
-            'The seller carried lights through the flood while the neighbors watched.');
-          assert.equal(await card.locator('[data-part="grammar"]').innerText(),
-            'While introduces an action happening at the same time as the journey.');
-          const explainedChrome = await cardChrome(page, card);
-          assert.deepEqual(explainedChrome.scroll.slice(0, 3), initialChrome.scroll.slice(0, 3),
-            'ExplainSentence scrollIntoView affects only the explanation body');
-          await card.locator('[data-word-body]').evaluate(el => { el.scrollTop = el.scrollHeight; });
-          await settle(page);
-          assert.ok((await metrics(card)).scrollTop > 0, 'expanded explanation scrolls inside the body');
-          const scrolledChrome = await cardChrome(page, card);
-          assert.deepEqual(scrolledChrome.head, explainedChrome.head, 'internal scroll leaves header visible and still');
-          assert.deepEqual(scrolledChrome.footer, explainedChrome.footer, 'internal scroll leaves footer visible and still');
-          assert.deepEqual(scrolledChrome.scroll.slice(0, 3), initialChrome.scroll.slice(0, 3),
-            'body scrolling leaves reader and outer card still');
-          // Explain replaces its trigger with results. Restore a live in-card focus target
-          // before testing explicit-close focus return (which intentionally requires in-card focus).
-          await card.locator('[data-part="sentence-box"] > summary').evaluate(el => el.focus({ preventScroll: true }));
+          const openChrome = await cardChrome(page, card);
+          assert.deepEqual(openChrome.scroll.slice(0, 3), initialChrome.scroll.slice(0, 3),
+            'opening feedback affects only the card body');
+          await card.locator('[data-feedback-toggle]').evaluate(el => el.focus({ preventScroll: true }));
           assert.ok(await card.evaluate(el => el.contains(document.activeElement)), 'Escape starts with focus inside card');
         } else assert.equal(await card.locator("[data-look-target-group]").count(), 0);
         await page.keyboard.press("Escape");
@@ -1941,14 +1854,12 @@ try {
       await settle(page);
       await collapsedDetails(card, true);
       await switchTarget(page, card, 'word');
-      await expandDisclosure(page, card, 'word-more', fixture.wordWhy);
-      await expandDisclosure(page, card, 'sentence-box', 'Against all odds');
       const body = card.locator('[data-word-body]');
       await feedbackDisclosure(page, card);
       await feedbackDisclosure(page, card, true);
       await body.evaluate(el => { el.scrollTop = el.scrollHeight; });
       await settle(page);
-      assert.ok((await metrics(card)).scrollTop > 0, 'same-card switch begins with scrolled expanded content');
+      { const m = await metrics(card); assert.ok(m.maxScroll <= 0 || m.scrollTop > 0, 'same-card switch begins scrolled when the body can scroll'); }
       await cardChrome(page, card);
       const originalBody = await body.elementHandle();
       const readerScroll = await page.evaluate(() => [scrollX, scrollY]);

@@ -491,8 +491,6 @@ export const en = {
   "rs.width.wide": "Wide",
   "rs.quietMarks": "Hide underlines",
   "rs.quietMarksHint": "Tap any word for its meaning",
-  "rs.sideContents": "Side contents",
-  "rs.sideContentsHint": "Show chapters on the left of a wide screen",
   "rs.focus": "Focus mode",
   "rs.focusHint": "Hide the top bar",
   "rs.paging": "Page-turn mode",

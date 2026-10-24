@@ -152,7 +152,6 @@ export type SettingsData = {
   pronunciationAccent?: "UK" | "US";
   /** Optional like paging: an older device omits it, and that reads as false. */
   quietMarks?: boolean;
-  sideContents?: boolean;
   locale: "en" | "zh";
   reviewLog: Record<string, ReviewDay>;
 };
@@ -594,7 +593,6 @@ export function asSettings(data: unknown): SettingsData {
     paging: raw.paging === true,
     pronunciationAccent: raw.pronunciationAccent === "UK" ? "UK" : "US",
     quietMarks: raw.quietMarks === true,
-    sideContents: raw.sideContents === true,
     locale,
     reviewLog: asReviewLog(raw.reviewLog),
   };

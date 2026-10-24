@@ -1,5 +1,5 @@
 import * as Popover from "@radix-ui/react-popover";
-import { Check, Focus, ListTree, Minus, Plus, Type, Underline } from "lucide-react";
+import { Check, Focus, Minus, Plus, Type, Underline } from "lucide-react";
 import { useT, type Key } from "@/lib/i18n";
 import {
   COLUMN_MAX,
@@ -193,25 +193,6 @@ export function ReaderSettings() {
               <span className="font-normal text-muted">{t("rs.quietMarksHint")}</span>
             </span>
             {prefs.quietMarks ? <Check className="size-4 text-accent" aria-hidden /> : null}
-          </button>
-
-          {/* Only wide screens have room for it; a narrow window keeps the contents in the top bar. */}
-          <button
-            type="button"
-            aria-pressed={prefs.sideContents}
-            onClick={() => set({ sideContents: !prefs.sideContents })}
-            className={cn(
-              "hidden min-h-11 items-center justify-between rounded-lg border px-3 text-left text-sm font-semibold xl:flex",
-              prefs.sideContents ? "border-accent bg-accent-soft" : "border-line",
-            )}
-            data-reader-side-contents
-          >
-            <span className="flex items-center gap-2">
-              <ListTree className="size-4" aria-hidden />
-              {t("rs.sideContents")}
-              <span className="font-normal text-muted">{t("rs.sideContentsHint")}</span>
-            </span>
-            {prefs.sideContents ? <Check className="size-4 text-accent" aria-hidden /> : null}
           </button>
         </Popover.Content>
       </Popover.Portal>
