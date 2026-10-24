@@ -4,7 +4,8 @@ import { useEffect, useState, type FormEvent } from "react";
 import { useAccount } from "@/lib/account-store";
 import { askToSignIn } from "@/lib/can-add";
 import { useT, type Key } from "@/lib/i18n";
-import { EVM_CHAINS, SPONSOR_EMAIL, SPONSOR_WALLETS, isSponsorMethod, sponsorName, type SponsorWallet } from "@/lib/sponsor";
+import { SPONSOR_EMAIL, isSponsorMethod, sponsorName } from "@/lib/sponsor";
+import { EVM_CHAINS, SPONSOR_WALLETS, type SponsorWallet } from "@/lib/sponsor-wallets";
 import { accountRequest } from "@/lib/sync-engine";
 import { btn, cn, Segmented } from "@/components/ui";
 

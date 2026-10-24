@@ -16,29 +16,7 @@ export const SPONSOR_EMAIL = "xcrunnnn@outlook.com";
 export const SPONSOR_METHODS = ["crypto"] as const;
 export type SponsorMethod = "wechat" | "alipay" | "crypto";
 
-/**
- * The project's receiving addresses. Changing one is a code change, reviewed like any other:
- * a wrong address loses the gift. The QR codes in public/sponsor/qr-*.svg encode exactly these.
- * One EVM address works on Ethereum and every EVM chain (L2s and BNB Chain alike).
- * Tron (TRC-20) is its own chain with its own address, like Solana.
- */
-export const SPONSOR_WALLETS = [
-  { id: "evm", address: "0x4cede244ea8a43052264c658d9a3b004f0a22103", qr: "/sponsor/qr-evm.svg" },
-  { id: "solana", address: "EDZTbZydDSLXJMryWDBgFxmHZ8aX6Su5SqgHHVasupg9", qr: "/sponsor/qr-solana.svg" },
-  { id: "tron", address: "TDDt1ZmdBkyTcXcPN2APfseaPcRNucHbDH", qr: "/sponsor/qr-tron.svg" },
-] as const;
-export type SponsorWallet = (typeof SPONSOR_WALLETS)[number];
-
-/** EVM chains the one EVM address receives on. Icons: public/sponsor/<icon>.svg (web3icons, MIT). */
-export const EVM_CHAINS = [
-  { icon: "ethereum", name: "Ethereum" },
-  { icon: "bnb", name: "BNB Chain" },
-  { icon: "arbitrum", name: "Arbitrum" },
-  { icon: "optimism", name: "OP Mainnet" },
-  { icon: "base", name: "Base" },
-  { icon: "polygon", name: "Polygon" },
-  { icon: "plasma", name: "Plasma" },
-] as const;
+// The receiving addresses and their QR codes are in sponsor-wallets.ts (browser only: it imports images).
 
 const SHANGHAI_MS = 8 * 60 * 60 * 1000;
 const MAX_CENTS = 100_000_000;
