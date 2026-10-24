@@ -53,6 +53,8 @@ export type Prefs = {
   pronunciationAccent: "UK" | "US";
   /** Hide the underlines of hard words, phrases and tricky meanings. Every word still opens its card on a tap. */
   quietMarks: boolean;
+  /** Wide screens: keep the chapter list open in the empty left margin. */
+  sideContents: boolean;
 };
 
 type PrefsState = Prefs & {
@@ -102,13 +104,14 @@ export const usePrefs = create<PrefsState>()(
       paging: false,
       pronunciationAccent: "US",
       quietMarks: false,
+      sideContents: false,
       set: (patch) => set(patch),
     }),
     {
       name: PREFS_KEY,
       skipHydration: true,
       storage: createJSONStorage(safeStorage),
-      partialize: ({ theme, font, size, leading, width, column, focus, paging, pronunciationAccent, quietMarks }) => ({
+      partialize: ({ theme, font, size, leading, width, column, focus, paging, pronunciationAccent, quietMarks, sideContents }) => ({
         theme,
         font,
         size,
@@ -119,6 +122,7 @@ export const usePrefs = create<PrefsState>()(
         paging: Boolean(paging),
         pronunciationAccent,
         quietMarks: Boolean(quietMarks),
+        sideContents: Boolean(sideContents),
       }),
       merge: (persisted, current) => {
         const saved = (persisted ?? {}) as Partial<Prefs>;
@@ -129,6 +133,7 @@ export const usePrefs = create<PrefsState>()(
           paging: Boolean(saved.paging),
           pronunciationAccent: saved.pronunciationAccent === "UK" ? "UK" : "US",
           quietMarks: saved.quietMarks === true,
+          sideContents: saved.sideContents === true,
         };
       },
     },

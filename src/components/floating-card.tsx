@@ -10,8 +10,12 @@ import {
 import { anchorBox, anchorOffscreen, placeFloatingPanel } from "@/lib/floating-panel";
 import { cn } from "@/components/ui";
 
-/** Matches the `lg` screen in the style sheet: wide web desktop. Phones and tablets stay as they are. */
-export const DESKTOP_PANEL_QUERY = "(min-width: 1024px)";
+/**
+ * Tablets and desktops (Tailwind `md`, 768px and up): the card floats next to the tapped word.
+ * Phones keep the bottom sheet. Tablets used to keep a fixed right-hand column, which held a
+ * fifth of the screen empty while no card was open.
+ */
+export const DESKTOP_PANEL_QUERY = "(min-width: 768px)";
 
 export function desktopPanel(): boolean {
   return typeof window !== "undefined" && typeof window.matchMedia === "function"
@@ -397,8 +401,8 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
 }
 
 /**
- * The word card and the paragraph card. On a wide screen this floats next to the anchor.
- * On a phone it is the bottom sheet. On a tablet it is the right-hand column.
+ * The word card and the paragraph card. On a tablet or a wide screen this floats next to the anchor.
+ * On a phone it is the bottom sheet.
  */
 export function FloatingAside({
   anchor,

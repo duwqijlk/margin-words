@@ -482,6 +482,8 @@ export const zh: Record<Key, string> = {
   "rs.width.wide": "宽",
   "rs.quietMarks": "隐藏划线",
   "rs.quietMarksHint": "点词仍可查释义",
+  "rs.sideContents": "侧边目录",
+  "rs.sideContentsHint": "宽屏时在左侧显示",
   "rs.focus": "专注模式",
   "rs.focusHint": "隐藏顶部栏",
   "rs.paging": "翻页模式",

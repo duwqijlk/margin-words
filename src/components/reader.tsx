@@ -112,30 +112,6 @@ import {
 
 /* ------------------------------------------------------------------ reader */
 
-/** Tablet only: a quiet hint in the right-hand column. Wide screens have no column, so this stays hidden. */
-function SidePlaceholder() {
-  const { t } = useT();
-  return (
-    <aside
-      aria-hidden="true"
-      data-side-placeholder
-      className={cn(
-        "pointer-events-none fixed z-0 hidden content-start gap-1 border border-dashed border-line px-5 py-5 text-sm text-muted",
-        "md:grid lg:hidden",
-        SIDE_PANEL,
-        "md:bottom-auto md:h-40",
-      )}
-    >
-      <p className="font-semibold">{t("reader.sideTitle")}</p>
-      <p>{t("reader.sideHint")}</p>
-      <p>{t("about.markPhrase")}</p>
-      <p>{t("reader.trickyHint")}</p>
-    </aside>
-  );
-}
-
-
-
 export function ReaderScreen({
   bookId,
   onBack,
@@ -223,6 +199,10 @@ export function ReaderScreen({
   // Where the reader's own page turn is scrolling to. A turn leaves the bar as it is: its step was
   // worked out with the bar as it stands, so showing the bar after a turn back would cover lines.
   const turnTarget = useRef<number | null>(null);
+  // Mouse only: a one-line meaning shown while the pointer rests on a marked word.
+  const [hover, setHover] = useState<{ word: string; meaning: string; left: number; top: number } | null>(null);
+  // Width of the empty margin left of the text, for the optional side contents. 0 = no room.
+  const [sideRoom, setSideRoom] = useState(0);
   /** What the last tap said out loud, so the phrase lookup does not say it a second time. */
   const spoken = useRef("");
   const restore = useRef<number | null>(useProgress.getState().items[bookId]?.scroll ?? null);
@@ -1015,11 +995,23 @@ export function ReaderScreen({
     pageForward,
     pageBackward,
     cardOpen: false,
+    chapter: (_delta: number) => {},
   });
   pagingHandlers.current = {
     pageForward,
     pageBackward,
     cardOpen: picked !== null || help !== null,
+    // [ and ]: the previous or next chapter (or extra page), as the buttons under the text do.
+    chapter: (delta: number) => {
+      if (!book) return;
+      if (slots) {
+        const at = slotIndex + delta;
+        if (at >= 0 && at < slots.length) goSlot(at);
+      } else {
+        const at = safeIndex + delta;
+        if (at >= 0 && at < book.chapters.length) goChapter(at);
+      }
+    },
   };
 
   useEffect(() => {
@@ -1029,7 +1021,32 @@ export function ReaderScreen({
         setHelp(null);
         return;
       }
-      const { pageForward: next, pageBackward: prev, cardOpen } = pagingHandlers.current;
+      const { pageForward: next, pageBackward: prev, cardOpen, chapter: toChapter } = pagingHandlers.current;
+      // Single-letter shortcuts never take a key the browser or the system uses with a modifier.
+      const plainKey = !event.ctrlKey && !event.metaKey && !event.altKey;
+      const typing = (() => {
+        const el = event.target as HTMLElement | null;
+        return el?.tagName === "INPUT" || el?.tagName === "TEXTAREA" || el?.tagName === "SELECT" || Boolean(el?.isContentEditable);
+      })();
+      // In an open word card: S saves or unsaves, P plays its first pronunciation button.
+      if (cardOpen && plainKey && !typing && !event.repeat && (event.key === "s" || event.key === "S" || event.key === "p" || event.key === "P")) {
+        const card = document.querySelector<HTMLElement>("[data-word-card]");
+        const button = card?.querySelector<HTMLButtonElement>(
+          event.key.toLowerCase() === "s" ? "[data-word-save]:not(:disabled)" : "[data-speak]:not(:disabled)",
+        );
+        if (button) {
+          event.preventDefault();
+          button.click();
+        }
+        return;
+      }
+      if (!cardOpen && plainKey && !typing && (event.key === "[" || event.key === "]")) {
+        const el = event.target as HTMLElement | null;
+        if (el?.closest?.('aside, [role="dialog"], [data-radix-popper-content-wrapper], [data-para-ui]')) return;
+        event.preventDefault();
+        if (!event.repeat) toChapter(event.key === "]" ? 1 : -1);
+        return;
+      }
 
       const target = event.target as HTMLElement | null;
       if (!cardOpen && target === document.activeElement &&
@@ -1112,6 +1129,99 @@ export function ReaderScreen({
       document.removeEventListener("click", onClickAway);
     };
   }, []);
+
+  // A mouse resting on a marked word shows its meaning in one line, without a tap. Not on touch
+  // screens (they have no hover), not while a card or panel is open, and not with "Hide underlines":
+  // that setting means the reader asks, so the page must not point out which words have a meaning.
+  useEffect(() => {
+    const root = articleRef.current;
+    if (!root || !book || prefs.quietMarks) {
+      setHover(null);
+      return;
+    }
+    let canHover = false;
+    try {
+      canHover = window.matchMedia?.("(hover: hover) and (pointer: fine)").matches === true;
+    } catch {
+      canHover = false;
+    }
+    if (!canHover) return;
+    let timer = 0;
+    let current: Element | null = null;
+    const clear = () => {
+      window.clearTimeout(timer);
+      current = null;
+      setHover(null);
+    };
+    const onOver = (event: PointerEvent) => {
+      if (event.pointerType && event.pointerType !== "mouse") return;
+      const button = (event.target as Element | null)?.closest?.('[role="button"][data-word].book-hard, [role="button"][data-word].book-tricky');
+      if (button === current) return;
+      clear();
+      if (!button || pagingHandlers.current.cardOpen) return;
+      current = button;
+      timer = window.setTimeout(() => {
+        if (current !== button || !button.isConnected || pagingHandlers.current.cardOpen) return;
+        const surface = button.getAttribute("data-word") ?? "";
+        const key = resolveKey(surface) || surface;
+        let gloss: Gloss | undefined = book.glossary[key];
+        const blocks = readerParagraphBlocks(root);
+        const block = button.closest("p, li, blockquote, h1, h2, h3, h4, div[data-para]") ?? blocks.find((item) => item.contains(button));
+        const paragraph = block ? flowText(block) : surface;
+        const tapAt = {
+          chapter: viewChapter,
+          surface,
+          occurrence: Number(button.getAttribute("data-n")) || 1,
+          paragraph,
+          before: block ? flowTextBefore(block, button) : "",
+        };
+        if (gloss && !entryAppliesAt(key, gloss, tapAt)) gloss = undefined;
+        if (!gloss) return;
+        // The same choice the card makes, so hovering and tapping never disagree.
+        const meaning = pickSense(key, gloss, tapAt).meaning;
+        if (!meaning) return;
+        const box = button.getBoundingClientRect();
+        setHover({ word: key, meaning, left: box.left + box.width / 2, top: box.top });
+      }, 450);
+    };
+    const onScroll = () => clear();
+    root.addEventListener("pointerover", onOver);
+    root.addEventListener("pointerleave", clear);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pointerdown", clear, true);
+    return () => {
+      root.removeEventListener("pointerover", onOver);
+      root.removeEventListener("pointerleave", clear);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pointerdown", clear, true);
+      window.clearTimeout(timer);
+    };
+  }, [book, phrasesReady, linkedHtml, prefs.quietMarks, viewChapter, resolveKey]);
+
+  // The side contents only fits a margin it cannot reach the text from. Measured, not assumed: the
+  // text column follows the width setting, so a wide screen with a wide column can have no room.
+  useEffect(() => {
+    const root = articleRef.current;
+    if (!root || !prefs.sideContents) {
+      setSideRoom(0);
+      return;
+    }
+    // 16px from the screen edge, at least 48px of air before the text, and at least 200px for titles.
+    const measure = () => {
+      const width = Math.min(288, Math.floor(root.getBoundingClientRect().left - 16 - 48));
+      setSideRoom(width >= 200 ? width : 0);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(root);
+    observer.observe(document.documentElement);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  // `book` and `phrasesReady`: the article is drawn only once both are in, and must be measured then.
+  }, [prefs.sideContents, book, phrasesReady, linkedHtml, prefs.column, prefs.width]);
 
   // Phone only: the top bar follows the scroll direction (lib/reader-bar.ts). Wider screens keep it.
   useEffect(() => {
@@ -1520,6 +1630,36 @@ export function ReaderScreen({
     scroll: scrolled,
     updatedAt: 1,
   });
+  // The contents list: one row per chapter or extra page. The header dialog and the side list share it.
+  const contentsRows =
+              slots
+                ? slots.map((slot) => {
+                    if (slot.kind === "chapter") {
+                      return {
+                        key: `c${slot.index}`,
+                        mark: String(slot.index + 1),
+                        title: book.chapters[slot.index]?.title ?? "",
+                        active: !activeExtra && slot.index === safeIndex,
+                      };
+                    }
+                    const extra = book.extras?.[slot.index];
+                    return {
+                      key: `x${extra?.id ?? slot.index}`,
+                      mark: t("reader.extra"),
+                      title: extra?.title || t("reader.extra"),
+                      active: Boolean(extra && extra.id === activeExtra?.id),
+                    };
+                  })
+                : undefined;
+  const pickContentsRow = (key: string) => {
+              if (!slots) return;
+              const at = slots.findIndex((slot) =>
+                slot.kind === "chapter"
+                  ? key === `c${slot.index}`
+                  : key === `x${book.extras?.[slot.index]?.id ?? slot.index}`,
+              );
+              if (at >= 0) goSlot(at);
+            };
   const style = readerVars(prefs) as React.CSSProperties;
   const focus = prefs.focus;
 
@@ -1567,36 +1707,8 @@ export function ReaderScreen({
             chapters={book.chapters}
             current={safeIndex}
             onPick={goChapter}
-            rows={
-              slots
-                ? slots.map((slot) => {
-                    if (slot.kind === "chapter") {
-                      return {
-                        key: `c${slot.index}`,
-                        mark: String(slot.index + 1),
-                        title: book.chapters[slot.index]?.title ?? "",
-                        active: !activeExtra && slot.index === safeIndex,
-                      };
-                    }
-                    const extra = book.extras?.[slot.index];
-                    return {
-                      key: `x${extra?.id ?? slot.index}`,
-                      mark: t("reader.extra"),
-                      title: extra?.title || t("reader.extra"),
-                      active: Boolean(extra && extra.id === activeExtra?.id),
-                    };
-                  })
-                : undefined
-            }
-            onPickRow={(key) => {
-              if (!slots) return;
-              const at = slots.findIndex((slot) =>
-                slot.kind === "chapter"
-                  ? key === `c${slot.index}`
-                  : key === `x${book.extras?.[slot.index]?.id ?? slot.index}`,
-              );
-              if (at >= 0) goSlot(at);
-            }}
+            rows={contentsRows}
+            onPickRow={pickContentsRow}
           />
           <div className="min-w-0 flex-1 px-1 text-center leading-tight sm:px-2">
             <p className="truncate font-display text-[0.95rem] font-semibold">{book.title}</p>
@@ -1626,6 +1738,53 @@ export function ReaderScreen({
           <Focus className="size-3.5" aria-hidden />
           {t("reader.exitFocus")}
         </button>
+      ) : null}
+
+      {sideRoom ? (
+        <nav
+          aria-label={t("contents.title")}
+          data-side-contents
+          className="scroll-thin fixed top-20 bottom-6 left-4 z-20 overflow-y-auto pr-1 text-sm"
+          style={{ width: sideRoom }}
+        >
+          <ol className="grid gap-0.5">
+            {(contentsRows ??
+              book.chapters.map((item, index) => ({
+                key: `c${index}`,
+                mark: String(index + 1),
+                title: item.title,
+                active: index === safeIndex,
+              }))
+            ).map((row) => (
+              <li key={row.key}>
+                <button
+                  type="button"
+                  aria-current={row.active ? "true" : undefined}
+                  onClick={() => (contentsRows ? pickContentsRow(row.key) : goChapter(Number(row.key.slice(1))))}
+                  className={cn(
+                    "flex w-full items-baseline gap-2 rounded-md px-2 py-1 text-left leading-snug transition-colors",
+                    row.active ? "bg-accent-soft font-semibold text-accent" : "text-muted hover:bg-accent-soft/60 hover:text-ink",
+                  )}
+                >
+                  <span className="w-6 shrink-0 text-right text-xs tabular-nums">{row.mark}</span>
+                  <span className="min-w-0 flex-1 truncate" lang="en">{row.title}</span>
+                </button>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      ) : null}
+
+      {hover ? (
+        <p
+          role="tooltip"
+          data-word-hover={hover.word}
+          className="pointer-events-none fixed z-40 max-w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-full rounded-lg border border-line bg-card px-3 py-1.5 text-sm leading-snug text-ink shadow-pop"
+          style={{ left: Math.min(Math.max(hover.left, 180), window.innerWidth - 180), top: hover.top - 8 }}
+          lang="en"
+        >
+          <span className="font-semibold">{hover.word}</span> · {hover.meaning}
+        </p>
       ) : null}
 
       {probe ? (
@@ -1713,7 +1872,6 @@ export function ReaderScreen({
         </nav>
       </main>
 
-      {!card && !help ? <SidePlaceholder /> : null}
 
       {linkedHtml ? (
         <ParagraphBulbs
