@@ -424,23 +424,23 @@ export function WordCard({
           <span className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
             {t("card.lookTitle")}
           </span>
-          {state.status !== "unknown" || activePhrase ? (
-            <WordExplanationFeedback
-              key={`${bookId}:${selectionId}:${targetMode}:${target}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
-              bookId={bookId}
-              bookTitle={bookTitle}
-              word={target}
-              form={activePhrase ? activePhrase.matched.toLowerCase() : countSurface(state.surface)}
-              chapter={state.chapter ?? (typeof noteChapter === "number" ? noteChapter : chapter)}
-              occurrence={state.occurrence ?? 1}
-              paragraph={state.paragraph ?? 0}
-              context={state.context ?? ""}
-              sentence={state.fullSentence ?? state.sentence}
-              senseIndex={activePhrase ? -1 : state.senseIndex ?? -1}
-              senseMeaning={targetMeaning}
-              glossaryRev={state.glossaryRev}
-            />
-          ) : null}
+          {/* A word with no meaning here can still be reported, as a missing meaning. */}
+          <WordExplanationFeedback
+            key={`${bookId}:${selectionId}:${targetMode}:${target}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
+            bookId={bookId}
+            bookTitle={bookTitle}
+            word={target}
+            form={activePhrase ? activePhrase.matched.toLowerCase() : countSurface(state.surface)}
+            chapter={state.chapter ?? (typeof noteChapter === "number" ? noteChapter : chapter)}
+            occurrence={state.occurrence ?? 1}
+            paragraph={state.paragraph ?? 0}
+            context={state.context ?? ""}
+            sentence={state.fullSentence ?? state.sentence}
+            senseIndex={activePhrase ? -1 : state.senseIndex ?? -1}
+            senseMeaning={targetMeaning}
+            glossaryRev={state.glossaryRev}
+            missing={!activePhrase && state.status === "unknown"}
+          />
         </div>
         <LookupLinks word={target} />
       </div>

@@ -3,6 +3,7 @@ import { useT } from "@/lib/i18n";
 import { accountRequest } from "@/lib/sync-engine";
 import { formatShanghaiDate } from "@/lib/sponsor";
 import { btn, cn, field } from "@/components/ui";
+import type { FeedbackReason } from "@/components/word-feedback";
 import {
   AlertCircle,
   AlertTriangle,
@@ -86,7 +87,7 @@ type FeedbackRow = {
   sentence: string;
   senseIndex: number;
   senseMeaning: string;
-  reason: "too_hard" | "wrong_meaning";
+  reason: FeedbackReason;
   count: number;
   lastReportedAt: number;
   glossaryRev: string;
@@ -122,7 +123,7 @@ function readFeedback(value: unknown): FeedbackRow[] {
       sentence: typeof row.sentence === "string" ? row.sentence : "",
       senseIndex: typeof row.senseIndex === "number" ? row.senseIndex : -1,
       senseMeaning: typeof row.senseMeaning === "string" ? row.senseMeaning : "",
-      reason: row.reason === "wrong_meaning" ? "wrong_meaning" : "too_hard",
+      reason: row.reason === "wrong_meaning" || row.reason === "missing_meaning" ? row.reason : "too_hard",
       count: typeof row.count === "number" ? row.count : 1,
       lastReportedAt: typeof row.lastReportedAt === "number" ? row.lastReportedAt : 0,
       glossaryRev: typeof row.glossaryRev === "string" ? row.glossaryRev : "",
@@ -557,7 +558,7 @@ function WordFeedbackSubView() {
     wrongMeaningReports: 0,
     distinctWords: 0,
   });
-  const [reasonFilter, setReasonFilter] = useState<"all" | "too_hard" | "wrong_meaning">("all");
+  const [reasonFilter, setReasonFilter] = useState<"all" | FeedbackReason>("all");
   const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "resolved" | "reopened">("all");
   const [search, setSearch] = useState("");
   const [bookFilter, setBookFilter] = useState("");
@@ -792,6 +793,18 @@ function WordFeedbackSubView() {
             >
               {t("admin.feedback.reasonWrong")}
             </button>
+            <button
+              type="button"
+              className={cn(
+                "rounded-lg px-3 py-1 font-semibold transition-colors",
+                reasonFilter === "missing_meaning"
+                  ? "bg-card text-ink shadow-2xs"
+                  : "text-muted hover:text-ink",
+              )}
+              onClick={() => setReasonFilter("missing_meaning")}
+            >
+              {t("admin.feedback.reasonMissing")}
+            </button>
           </div>
 
           {/* Status filters */}
@@ -904,12 +917,16 @@ function WordFeedbackSubView() {
                         "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
                         row.reason === "too_hard"
                           ? "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300"
-                          : "border border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+                          : row.reason === "missing_meaning"
+                            ? "border border-blue-500/25 bg-blue-500/10 text-blue-700 dark:text-blue-300"
+                            : "border border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
                       )}
                     >
                       {row.reason === "too_hard"
                         ? t("admin.feedback.reasonTooHard")
-                        : t("admin.feedback.reasonWrong")}
+                        : row.reason === "missing_meaning"
+                          ? t("admin.feedback.reasonMissing")
+                          : t("admin.feedback.reasonWrong")}
                     </span>
 
                     <span

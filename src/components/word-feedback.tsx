@@ -3,6 +3,8 @@ import { useT } from "@/lib/i18n";
 import { cn } from "@/components/ui";
 import { Check, HelpCircle } from "lucide-react";
 
+export type FeedbackReason = "too_hard" | "wrong_meaning" | "missing_meaning";
+
 export function WordExplanationFeedback({
   bookId,
   bookTitle,
@@ -16,6 +18,7 @@ export function WordExplanationFeedback({
   senseIndex,
   senseMeaning,
   glossaryRev,
+  missing = false,
   className,
 }: {
   bookId: string;
@@ -30,15 +33,17 @@ export function WordExplanationFeedback({
   senseIndex?: number;
   senseMeaning?: string;
   glossaryRev?: string;
+  /** The book has no meaning for this word: the only report is that it is missing. */
+  missing?: boolean;
   className?: string;
 }) {
   const { t } = useT();
   const optionsId = useId();
   const [expanded, setExpanded] = useState(false);
-  const [submitted, setSubmitted] = useState<"too_hard" | "wrong_meaning" | null>(null);
+  const [submitted, setSubmitted] = useState<FeedbackReason | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  async function sendFeedback(reason: "too_hard" | "wrong_meaning") {
+  async function sendFeedback(reason: FeedbackReason) {
     if (submitting || submitted) return;
     setSubmitting(true);
     try {
@@ -106,27 +111,42 @@ export function WordExplanationFeedback({
 
       {expanded ? (
         <div id={optionsId} className="flex flex-wrap items-center gap-2" data-feedback-options>
-          <button
-            type="button"
-            disabled={submitting}
-            onClick={() => void sendFeedback("too_hard")}
-            className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
-            title={t("card.feedbackTooHard")}
-            data-feedback-too-hard
-          >
-            {t("card.feedbackTooHard")}
-          </button>
+          {missing ? (
+            <button
+              type="button"
+              disabled={submitting}
+              onClick={() => void sendFeedback("missing_meaning")}
+              className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
+              title={t("card.feedbackMissing")}
+              data-feedback-missing
+            >
+              {t("card.feedbackMissing")}
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={() => void sendFeedback("too_hard")}
+                className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
+                title={t("card.feedbackTooHard")}
+                data-feedback-too-hard
+              >
+                {t("card.feedbackTooHard")}
+              </button>
 
-          <button
-            type="button"
-            disabled={submitting}
-            onClick={() => void sendFeedback("wrong_meaning")}
-            className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
-            title={t("card.feedbackWrong")}
-            data-feedback-wrong
-          >
-            {t("card.feedbackWrong")}
-          </button>
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={() => void sendFeedback("wrong_meaning")}
+                className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
+                title={t("card.feedbackWrong")}
+                data-feedback-wrong
+              >
+                {t("card.feedbackWrong")}
+              </button>
+            </>
+          )}
         </div>
       ) : null}
     </div>

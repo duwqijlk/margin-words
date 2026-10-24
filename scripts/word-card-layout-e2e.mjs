@@ -673,8 +673,14 @@ async function savedTargetsAndVariants(page, width, height) {
     assert.equal(await save.isEnabled(), status !== 'unknown', 'save availability follows word status');
     assert.equal(await save.getAttribute('aria-pressed'), 'false');
     assert.equal(await card.locator('[data-part="no-meaning"]').count(), status === 'unknown' ? 1 : 0);
-    assert.equal(await card.locator('[data-feedback-toggle]').count(), status === 'unknown' ? 0 : 1,
-      'unknown and out-of-scope senseOnly cards do not ask for meaning feedback');
+    assert.equal(await card.locator('[data-feedback-toggle]').count(), 1, 'every word card offers feedback');
+    if (status === 'unknown') {
+      await card.locator('[data-feedback-toggle]').click();
+      assert.equal(await card.locator('[data-feedback-missing]').count(), 1, 'a word with no meaning can be reported missing');
+      assert.equal(await card.locator('[data-feedback-too-hard], [data-feedback-wrong]').count(), 0,
+        'there is no meaning to call too hard or wrong');
+      await card.locator('[data-feedback-toggle]').click();
+    }
     if (word === 'lantern') assert.equal(await card.locator('[data-part="word-meaning"]').innerText(), 'A portable light.');
     if (status === 'easy') assert.ok((await card.locator('[data-word-pos]').innerText()).trim(), 'easy chip remains readable');
     if (word === 'fragile') {
@@ -815,7 +821,7 @@ async function phraseWordAvailability(page, card) {
     assert.equal(await save.getAttribute('aria-pressed'), 'false', 'phrase save never marks constituent word saved');
     assert.equal(await save.isEnabled(), test.status !== 'unknown', 'phrase presence never bypasses word save gating');
     assert.equal(await card.locator('[data-part="no-meaning"]').count(), test.status === 'unknown' ? 1 : 0);
-    assert.equal(await card.locator('[data-feedback-toggle]').count(), test.status === 'unknown' ? 0 : 1);
+    assert.equal(await card.locator('[data-feedback-toggle]').count(), 1);
     if (test.word === 'fragile' && test.status === 'unknown')
       assert.ok(!(await card.textContent()).includes(fixture.sparseMeaning), 'recognized phrase cannot leak out-of-scope senseOnly meaning');
     if (test.status !== 'unknown') {

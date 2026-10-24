@@ -67,7 +67,7 @@ export async function handleAdminWordFeedbackGet(
     const whereParts: string[] = [];
     const bindings: (string | number)[] = [];
 
-    if (reason === "too_hard" || reason === "wrong_meaning") {
+    if (reason === "too_hard" || reason === "wrong_meaning" || reason === "missing_meaning") {
       whereParts.push("reason = ?");
       bindings.push(reason);
     }
