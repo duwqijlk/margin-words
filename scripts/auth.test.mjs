@@ -35,6 +35,7 @@ import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
 import { handleAdminWordTapsGet, handleAdminWordTapsPost } from "../functions/api/admin/word-taps.ts";
 import { handleWordFeedbackPost } from "../functions/api/feedback/word.ts";
 import { handleAdminWordFeedbackGet, handleAdminWordFeedbackPost } from "../functions/api/admin/word-feedback.ts";
+import { DAILY_WRITE_BUDGET } from "../functions/lib/rate-limit.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const NOW = 1_700_000_000_000;
@@ -1594,7 +1595,8 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
   const db = openDb();
   const env = envOf(db);
 
-  // Ingestion: batch with 1 covered word and 1 missing word with location metadata
+  // Ingestion: batch with 1 covered word and 1 missing word with location metadata.
+  // The covered word is skipped: only words with no meaning in the book are kept.
   const resp1 = await handleWordTapsPost(
     postJson("/api/analytics/word-taps", null, {
       bookId: "charlie",
@@ -1628,7 +1630,7 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
     { now: NOW },
   );
   assert.equal(resp1.status, 200);
-  assert.deepEqual(await resp1.json(), { ok: true, saved: 2 });
+  assert.deepEqual(await resp1.json(), { ok: true, saved: 1 });
 
   // Ingestion: second batch accumulating counts for "eavesdrop" and adding "veruca"
   const resp2 = await handleWordTapsPost(
@@ -1696,8 +1698,8 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
   const missingBody = await missingOnly.json();
   assert.equal(missingBody.total, 2); // eavesdrop and veruca
   assert.equal(missingBody.summary.missingWords, 2);
-  assert.equal(missingBody.summary.totalWords, 3);
-  assert.equal(missingBody.summary.totalTaps, 10); // 2+3 + 1 + 4
+  assert.equal(missingBody.summary.totalWords, 2); // "chocolate" has a meaning and was not stored
+  assert.equal(missingBody.summary.totalTaps, 9); // 2+3 + 4
   assert.equal(missingBody.items[0].word, "eavesdrop");
   assert.equal(missingBody.items[0].tapCount, 5); // 2 + 3
   assert.equal(missingBody.items[0].inGlossary, false);
@@ -1777,8 +1779,8 @@ test("reading word taps: batch ingestion, accumulation, rate limit, and admin qu
     { now: NOW },
   );
   const allBody = await allWords.json();
-  assert.equal(allBody.total, 3);
-  assert.ok(allBody.items.some((item) => item.word === "chocolate" && item.inGlossary === true));
+  assert.equal(allBody.total, 2);
+  assert.ok(!allBody.items.some((item) => item.word === "chocolate"), "a word with a meaning is never stored");
 });
 
 test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin query", async () => {
@@ -2355,7 +2357,7 @@ test("the day's telemetry budget is a hard fuse, and a spent one writes nothing"
   const dayStart = Math.floor(NOW / day) * day;
   db.raw
     .prepare("INSERT INTO rate_limits (bucket, window_start, hits) VALUES (?, ?, ?)")
-    .run(`budget:taps:${dayStart}`, dayStart, 120_000);
+    .run(`budget:taps:${dayStart}`, dayStart, DAILY_WRITE_BUDGET.taps);
 
   const response = await handleWordTapsPost(
     postJson("/api/analytics/word-taps", null, {

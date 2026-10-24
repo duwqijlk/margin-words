@@ -89,7 +89,10 @@ export async function handleWordTapsPost(
         typeof record.count === "number" && Number.isSafeInteger(record.count) && record.count > 0
           ? Math.min(record.count, 100)
           : 1;
-      const inGlossary = record.inGlossary === true || record.inGlossary === 1 ? 1 : 0;
+      // Only words with no meaning in the book are kept: they are what the word-list agent adds.
+      // A word that has one is skipped here too, so an old client cannot keep writing them.
+      if (record.inGlossary === true || record.inGlossary === 1) continue;
+      const inGlossary = 0;
       clean.push({
         word: rawWord,
         form: rawForm,

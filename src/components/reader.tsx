@@ -1368,17 +1368,29 @@ export function ReaderScreen({
     const located = locateSentence(paragraph, surface, before.length);
     const sentence = located.text;
     const offset = located.offset;
-    const inDict = Boolean(
-      book?.glossary && (book.glossary[key] || book.glossary[surface.toLowerCase()]),
-    );
     // The phrase list is already in memory, so a tapped word that belongs to a phrase can say the
     // phrase straight away: hearing the word first and the phrase on top of it was the bug.
     const phraseNow =
       activeExtra || !phraseList
         ? null
         : pickPhrase(phraseList, sentence, surface, offset >= 0 ? offset : undefined);
-    const inGlossary = inDict || Boolean(phraseNow);
-    recordWordTap(bookId, surface, inGlossary, {
+    // Only a word with no meaning of its own here is sent to be added to the word list: the same
+    // rule the card uses (an entry that applies at this place, or an easy word). A phrase with a
+    // meaning does not count, so an unknown word inside a known phrase is still sent.
+    const gloss = book?.glossary[key];
+    const ownMeaning =
+      isEasyKey(key) ||
+      Boolean(
+        gloss &&
+          entryAppliesAt(key, gloss, {
+            chapter: viewChapter,
+            surface,
+            occurrence: nth,
+            paragraph,
+            before,
+          }),
+      );
+    if (!ownMeaning) recordWordTap(bookId, surface, false, {
       bookTitle: book?.title,
       form: countSurface(surface),
       chapter: activeExtra ? 0 : safeIndex,

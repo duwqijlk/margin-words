@@ -39,9 +39,13 @@ const DAY_MS = 24 * 60 * 60 * 1000;
  * per-IP limit does not bound the total because addresses are cheap. This is the fuse that caps
  * the bill whatever the traffic - when the day's rows are gone the endpoint answers 429 and
  * writes nothing. A reader loses a day of anonymous statistics at worst.
+ *
+ * It must stay well under D1's daily write allowance (100,000 rows on the Free plan, shared by
+ * the whole site): above it, a flood of taps would spend the allowance and stop sign-in and sync
+ * until the next day. 20,000 rows, plus the index writes they cause, leaves most of it for them.
  */
 export const DAILY_WRITE_BUDGET = {
-  taps: 120_000,
+  taps: 20_000,
 } as const;
 
 async function prune(db: D1Database, now: number): Promise<void> {
