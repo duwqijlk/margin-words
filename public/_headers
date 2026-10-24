@@ -27,6 +27,8 @@
   CDN-Cache-Control: no-store
 /kit/*
   Cache-Control: no-cache
+/kit/patrol.md
+  Content-Type: text/plain; charset=utf-8
 /shelf
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
