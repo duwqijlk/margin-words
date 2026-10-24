@@ -141,7 +141,7 @@ export type ProgressData = {
 export type ReviewDay = { reviewed: number; correct: number };
 
 export type SettingsData = {
-  theme: "light" | "sepia" | "dark";
+  theme: "light" | "sepia" | "dark" | "clear";
   font: "literata" | "lora" | "sans";
   size: number;
   leading: number;
@@ -158,7 +158,7 @@ export type SettingsData = {
 
 const ITEM_ID = /^[a-z0-9][a-z0-9:._|-]{0,180}$/;
 const CLOTHS = new Set(["cloth", "ribbon", "ink", "sage"]);
-const THEMES = new Set(["light", "sepia", "dark"]);
+const THEMES = new Set(["light", "sepia", "dark", "clear"]);
 const FONTS = new Set(["literata", "lora", "sans"]);
 const WIDTHS = new Set(["narrow", "medium", "wide"]);
 

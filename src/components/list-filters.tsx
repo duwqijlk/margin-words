@@ -99,7 +99,7 @@ export function FilterMenu({
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/45" />
-        <Dialog.Content className="anim-pop fixed inset-x-3 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-50 grid max-h-[70dvh] gap-3 overflow-y-auto rounded-2xl border border-line bg-card p-4 text-ink shadow-pop sm:inset-x-auto sm:top-1/2 sm:bottom-auto sm:left-1/2 sm:w-[min(24rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2">
+        <Dialog.Content className="anim-pop fixed inset-x-3 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-50 grid max-h-[70dvh] gap-3 overflow-y-auto rounded-2xl border border-line bg-card p-4 text-ink shadow-pop glass sm:inset-x-auto sm:top-1/2 sm:bottom-auto sm:left-1/2 sm:w-[min(24rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2">
           <div className="flex items-center justify-between gap-3">
             <Dialog.Title className="font-display text-xl font-semibold">{t("list.filter")}</Dialog.Title>
             <Dialog.Close className={btn.primary}>{t("common.done")}</Dialog.Close>

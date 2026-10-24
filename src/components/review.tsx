@@ -188,19 +188,12 @@ function Overview({
         </p>
       </header>
 
-      <section
-        className={cn(
-          "grid gap-4 rounded-3xl border p-6 sm:p-7 shadow-xs relative overflow-hidden",
-          stats.due > 0
-            ? "border-accent/40 bg-gradient-to-br from-card via-card to-accent-soft/40"
-            : "border-line/70 bg-card",
-        )}
-      >
+      <section className="relative grid gap-4 overflow-hidden rounded-3xl bg-card p-6 sm:p-7">
         <div className="flex items-baseline gap-3">
-          <span className="font-display text-5xl sm:text-6xl leading-none font-bold tabular-nums text-ink tracking-tight">
+          <span className="text-5xl sm:text-6xl leading-none font-semibold tabular-nums text-ink tracking-tight">
             {stats.due}
           </span>
-          <span className="text-sm font-semibold tracking-wide text-muted/90 uppercase">{tn("rv.dueText", stats.due)}</span>
+          <span className="text-sm text-muted">{tn("rv.dueText", stats.due)}</span>
         </div>
         {stats.due === 0 ? (
           <p className="flex items-center gap-2 text-sm font-medium text-accent">
@@ -269,12 +262,12 @@ function Overview({
       />
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <section className="grid gap-3 rounded-2xl border border-line/70 bg-card p-5 sm:p-6 shadow-xs">
-          <h2 className="text-sm font-bold tracking-tight text-ink">{t("rv.next7")}</h2>
+        <section className="grid gap-3 rounded-2xl bg-card p-5 sm:p-6">
+          <h2 className="text-sm font-semibold text-ink">{t("rv.next7")}</h2>
           <UpcomingChart stats={stats} />
         </section>
-        <section className="grid gap-3 rounded-2xl border border-line/70 bg-card p-5 sm:p-6 shadow-xs">
-          <h2 className="text-sm font-bold tracking-tight text-ink">{t("rv.memory")}</h2>
+        <section className="grid gap-3 rounded-2xl bg-card p-5 sm:p-6">
+          <h2 className="text-sm font-semibold text-ink">{t("rv.memory")}</h2>
           <StageBars stats={stats} />
         </section>
       </div>
@@ -502,7 +495,7 @@ function Session({
         <ProgressBar value={index / queue.length} label={t("rv.roundProgress")} />
       </div>
 
-      <article className="grid content-start gap-5 rounded-3xl border border-line/80 bg-card p-6 shadow-xs sm:p-9">
+      <article className="grid content-start gap-5 rounded-3xl bg-card p-6 sm:p-9">
         <div className="flex items-center justify-between gap-2">
           <span className={cn(chip, due ? "bg-warn-soft text-warn" : "bg-line text-muted")}>
             {due ? t("rv.dueChip") : t("rv.extra")}

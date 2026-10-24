@@ -33,8 +33,8 @@ export function ReaderContents({
         <List className="size-5" aria-hidden />
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/45 backdrop-blur-[2px]" />
-        <Dialog.Content className="anim-drawer fixed inset-y-0 left-0 z-50 flex w-[min(24rem,88vw)] flex-col border-r border-line bg-card text-ink shadow-pop">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
+        <Dialog.Content className="anim-drawer fixed inset-y-0 left-0 z-50 flex w-[min(24rem,88vw)] flex-col border-r border-line bg-card text-ink shadow-pop glass">
           <div className="flex items-center justify-between gap-2 border-b border-line px-4 py-2">
             <Dialog.Title className="font-display text-lg font-semibold">
               {t("contents.title")}

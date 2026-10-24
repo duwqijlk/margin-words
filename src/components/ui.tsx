@@ -12,24 +12,22 @@ const btnBase =
   "inline-flex min-h-11 select-none items-center justify-center gap-2 rounded-xl px-4 text-[0.92rem] font-semibold transition-all duration-150 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100";
 
 export const btn = {
-  primary: cn(btnBase, "bg-accent text-accent-ink shadow-xs hover:bg-accent/90 hover:shadow-sm"),
-  quiet: cn(
-    btnBase,
-    "border border-line/80 bg-card text-ink shadow-2xs hover:bg-accent-soft/50 hover:border-accent/40",
-  ),
+  primary: cn(btnBase, "bg-accent text-accent-ink hover:bg-accent/90"),
+  // A filled tint, not a white box with a border.
+  quiet: cn(btnBase, "bg-ink/[0.06] text-ink hover:bg-ink/10"),
   ghost: cn(btnBase, "text-ink hover:bg-accent-soft/60"),
-  danger: cn(btnBase, "bg-warn text-accent-ink hover:opacity-90 shadow-xs"),
+  danger: cn(btnBase, "bg-warn text-accent-ink hover:opacity-90"),
   icon: "inline-flex size-11 shrink-0 items-center justify-center rounded-xl text-ink transition-colors hover:bg-black/5 disabled:opacity-45",
 } as const;
 
 export const field =
-  "min-h-11 w-full rounded-xl border border-line/80 bg-card px-3.5 text-base text-ink shadow-2xs placeholder:text-muted/60 transition-all focus:border-accent focus:shadow-xs focus:outline-none";
+  "min-h-11 w-full rounded-xl border border-line/80 bg-card px-3.5 text-base text-ink placeholder:text-muted/60 transition-all focus:border-accent focus:outline-none";
 
 export const selectCls =
-  "min-h-11 rounded-xl border border-line/80 bg-card px-3.5 text-base text-ink shadow-2xs transition-all focus:border-accent focus:outline-none";
+  "min-h-11 rounded-xl border border-line/80 bg-card px-3.5 text-base text-ink transition-all focus:border-accent focus:outline-none";
 
 export const chip =
-  "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold leading-5 shadow-2xs";
+  "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold leading-5";
 
 /* ---------------------------------------------------------------- pronunciation */
 
@@ -608,13 +606,13 @@ export function StatRow({
   }>;
 }) {
   return (
-    <dl className="grid grid-cols-2 overflow-hidden rounded-2xl border border-line/70 bg-card shadow-xs sm:grid-cols-4 [&>div]:border-line/60 max-sm:[&>div:nth-child(n+3)]:border-t max-sm:[&>div:nth-child(even)]:border-l sm:[&>div:not(:first-child)]:border-l">
+    <dl className="grid grid-cols-2 overflow-hidden rounded-2xl bg-card sm:grid-cols-4 [&>div]:border-line/60 max-sm:[&>div:nth-child(n+3)]:border-t max-sm:[&>div:nth-child(even)]:border-l sm:[&>div:not(:first-child)]:border-l">
       {items.map((item) => (
         <div key={item.label} className="grid content-start gap-1 p-4 sm:p-5">
-          <dt className="text-xs font-semibold tracking-wide text-muted/90">{item.label}</dt>
+          <dt className="text-xs text-muted">{item.label}</dt>
           <dd
             className={cn(
-              "font-display text-2xl leading-none font-bold tabular-nums tracking-tight sm:text-3xl",
+              "text-2xl leading-none font-semibold tabular-nums tracking-tight sm:text-3xl",
               item.tone === "warn" && "text-warn",
               item.tone === "good" && "text-accent",
             )}
@@ -650,7 +648,7 @@ export function Segmented<T extends string | number>({
       className={cn(
         wrap
           ? "grid grid-cols-2 gap-1.5 sm:flex sm:rounded-xl sm:bg-line/40 sm:p-1"
-          : "flex rounded-xl bg-line/40 p-1 backdrop-blur-xs",
+          : "flex rounded-xl bg-ink/[0.06] p-1",
       )}
     >
       {options.map((option) => (
@@ -660,12 +658,12 @@ export function Segmented<T extends string | number>({
           aria-pressed={option.value === value}
           onClick={() => onChange(option.value)}
           className={cn(
-            "min-h-10 rounded-lg px-3 text-sm font-semibold transition-all duration-150",
+            "min-h-10 rounded-lg px-3 text-sm font-medium transition-all duration-150",
             wrap
               ? "border border-line/60 whitespace-normal sm:flex-1 sm:border-0 sm:whitespace-nowrap"
               : "flex-1 whitespace-nowrap",
             option.value === value
-              ? "bg-card text-ink shadow-xs border border-line/80 font-bold"
+              ? "bg-card text-ink shadow-2xs font-semibold"
               : "text-muted hover:text-ink",
             wrap && option.value !== value && "bg-card/40 sm:bg-transparent",
           )}
@@ -696,9 +694,9 @@ export function ConfirmDialog({
   return (
     <AlertDialog.Root open={open} onOpenChange={onOpenChange}>
       <AlertDialog.Portal>
-        <AlertDialog.Overlay className="fixed inset-0 z-50 bg-black/45 backdrop-blur-[2px]" />
-        <AlertDialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-line bg-card p-5 text-ink shadow-pop">
-          <AlertDialog.Title className="font-display text-xl font-semibold">
+        <AlertDialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
+        <AlertDialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-card p-5 text-ink shadow-pop glass">
+          <AlertDialog.Title className="text-lg font-semibold">
             {title}
           </AlertDialog.Title>
           <AlertDialog.Description className="mt-2 text-[0.95rem] text-muted">

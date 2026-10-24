@@ -468,6 +468,7 @@ export const zh: Record<Key, string> = {
   "rs.theme.light": "浅色",
   "rs.theme.sepia": "护眼",
   "rs.theme.dark": "深色",
+  "rs.theme.clear": "简约",
   "rs.font": "字体",
   "rs.size": "字号",
   "rs.smaller": "把字变小",

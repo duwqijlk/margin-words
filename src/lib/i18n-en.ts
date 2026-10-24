@@ -477,6 +477,7 @@ export const en = {
   "rs.theme.light": "Light",
   "rs.theme.sepia": "Sepia",
   "rs.theme.dark": "Dark",
+  "rs.theme.clear": "Clear",
   "rs.font": "Font",
   "rs.size": "Text size",
   "rs.smaller": "Make text smaller",

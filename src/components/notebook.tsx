@@ -75,7 +75,7 @@ function WordRow({
   const due = isDue(word);
   const shown = usePresentedWord(word, books) ?? word;
   return (
-    <li className="grid gap-3 rounded-2xl border border-line bg-card p-3 sm:p-5">
+    <li className="grid gap-3 rounded-2xl bg-card p-3 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
         <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-3 gap-y-1">
           <h3 className="w-full font-display text-xl font-semibold break-words sm:w-auto sm:text-2xl" lang="en">
@@ -307,7 +307,7 @@ export function Notebook({
       />
 
       {scoped.length === 0 ? (
-        <div className="grid justify-items-center gap-3 rounded-3xl border border-line bg-card px-6 py-14 text-center">
+        <div className="grid justify-items-center gap-3 rounded-3xl bg-card px-6 py-14 text-center">
           <span className="flex size-14 items-center justify-center rounded-2xl bg-accent-soft text-accent">
             <BookMarked className="size-7" aria-hidden />
           </span>

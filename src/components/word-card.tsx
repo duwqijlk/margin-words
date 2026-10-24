@@ -28,7 +28,7 @@ export function CardQuote({
       {...(part ? { "data-part": part } : {})}
     >
       {label ? (
-        <figcaption className="text-[0.7rem] font-semibold tracking-wide text-muted uppercase">
+        <figcaption className="text-xs text-muted">
           {label}
         </figcaption>
       ) : null}
@@ -98,7 +98,7 @@ export function wordPosClass(quiet = false) {
     "inline-flex max-w-full items-center leading-none",
     quiet
       ? "rounded-full bg-line px-2.5 py-1 text-xs font-semibold text-ink"
-      : "font-display text-[1.05rem] font-semibold text-accent italic",
+      : "text-sm font-medium text-muted",
   );
 }
 
@@ -106,7 +106,7 @@ export function SceneLine({ text }: { text: string }) {
   const { t } = useT();
   return (
     <section className="grid gap-1 py-1" data-part="word-here">
-      <h3 className="text-[0.7rem] font-semibold tracking-wide text-accent uppercase">
+      <h3 className="text-xs font-medium text-accent">
         {t("card.here")}
       </h3>
       <p className="text-[0.98rem] leading-snug" lang="en">
@@ -136,7 +136,7 @@ export function LookupLinks({ word }: { word: string }) {
           href={lookupUrl(site, word)}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-line bg-card px-2 text-xs font-semibold text-ink shadow-xs transition-colors hover:border-muted hover:bg-paper"
+          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-ink/[0.05] px-2 text-xs font-medium text-ink transition-colors hover:bg-ink/10"
           aria-label={t("card.lookOne", { site: t(LOOKUP_LABEL[site]), word })}
           title={t(LOOKUP_LABEL[site])}
           data-lookup={site}
@@ -243,7 +243,7 @@ export function WordCard({
 
   const heroMeaning = noMeaning ?? (
     <p
-      className="border-l-[3px] border-accent pl-3 text-[1.3rem] leading-snug font-medium text-ink"
+      className="text-[1.3rem] leading-snug font-medium text-ink"
       lang="en"
       data-part="word-meaning"
     >
@@ -273,7 +273,7 @@ export function WordCard({
       kind="word"
       desktopWidth={24 * 16}
       className={cn(
-        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop",
+        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop glass",
         targetHere ? "word-sheet-context" : "word-sheet-plain",
         "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3.5 pb-5 md:pb-6",
         SIDE_PANEL,
@@ -401,7 +401,7 @@ export function WordCard({
           <div className="grid gap-2" data-word-primary>
             {activePhrase ? (
               <p
-                className="border-l-[3px] border-accent pl-3 text-[1.25rem] leading-snug font-medium text-ink"
+                className="text-[1.25rem] leading-snug font-medium text-ink"
                 lang="en"
                 data-part="phrase-meaning"
               >
@@ -421,7 +421,7 @@ export function WordCard({
       </div>
       <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
         <div className="flex items-center justify-between gap-2">
-          <span className="text-[0.72rem] font-semibold tracking-wider text-muted uppercase">
+          <span className="text-xs text-muted">
             {t("card.lookTitle")}
           </span>
           {/* A word with no meaning here can still be reported, as a missing meaning. */}

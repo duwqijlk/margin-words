@@ -131,7 +131,7 @@ export function GuideScreen() {
           <li
             key={section.id}
             id={section.id}
-            className="grid grid-cols-[auto_1fr] gap-x-4 rounded-2xl border border-line bg-card px-4 py-4 sm:px-5"
+            className="grid grid-cols-[auto_1fr] gap-x-4 rounded-2xl bg-card px-4 py-4 sm:px-5"
             data-guide-section={section.id}
           >
             <span

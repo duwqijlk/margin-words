@@ -1645,7 +1645,7 @@ export function ReaderScreen({
         ref={headerRef}
         data-reader-bar={barHidden ? "hidden" : "shown"}
         className={cn(
-          "sticky top-0 z-30 border-b border-line bg-paper/90 backdrop-blur transition-transform duration-300",
+          "glass sticky top-0 z-30 border-b border-line/60 bg-paper/80 backdrop-blur-xl transition-transform duration-300",
           (focus || barHidden) && "-translate-y-full",
         )}
       >
@@ -1700,7 +1700,7 @@ export function ReaderScreen({
         <p
           role="tooltip"
           data-word-hover={hover.word}
-          className="pointer-events-none fixed z-40 max-w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-full rounded-lg border border-line bg-card px-3 py-1.5 text-sm leading-snug text-ink shadow-pop"
+          className="pointer-events-none fixed z-40 max-w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-full rounded-lg border border-line bg-card px-3 py-1.5 text-sm leading-snug text-ink shadow-pop glass"
           style={{ left: Math.min(Math.max(hover.left, 180), window.innerWidth - 180), top: hover.top - 8 }}
           lang="en"
         >
