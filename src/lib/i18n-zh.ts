@@ -518,8 +518,6 @@ export const zh: Record<Key, string> = {
   "ipa.audioFailedUk": "英音暂时无法播放，点一下重试。",
   "ipa.audioFailedUs": "美音暂时无法播放，点一下重试。",
   "card.phraseFallback": "短语",
-  "card.easyChip": "简单词",
-  "card.easy": "这是一个简单的词，你可能已经会了。想存的话再存。",
   "card.alone": "这个词单独的意思",
   "card.aloneWord": "{word} 单独的意思",
   "card.more": "更多用法与例句",

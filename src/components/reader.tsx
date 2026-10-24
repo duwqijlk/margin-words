@@ -43,7 +43,7 @@ import type { PhraseEntry } from "@/lib/glossary-extras";
 import { pickPhrase, phraseWordMarks } from "@/lib/help-match";
 import { findPhrase, shareStoredBook } from "@/lib/help-lookup";
 import { loadParagraphView } from "@/lib/help-flow";
-import { tr, useT, type Key } from "@/lib/i18n";
+import { useT, type Key } from "@/lib/i18n";
 import { useJump } from "@/lib/jump-store";
 import {
   findSentence,
@@ -1374,9 +1374,10 @@ export function ReaderScreen({
       activeExtra || !phraseList
         ? null
         : pickPhrase(phraseList, sentence, surface, offset >= 0 ? offset : undefined);
-    // Only a word with no meaning of its own here is sent to be added to the word list: the same
-    // rule the card uses (an entry that applies at this place, or an easy word). A phrase with a
-    // meaning does not count, so an unknown word inside a known phrase is still sent.
+    // Only a word with no meaning of its own here is sent to be added to the word list (an entry
+    // that applies at this place, as on the card). Very common words are not sent either: the
+    // list will not explain "the". A phrase with a meaning does not count, so an unknown word
+    // inside a known phrase is still sent.
     const gloss = book?.glossary[key];
     const ownMeaning =
       isEasyKey(key) ||
@@ -1531,25 +1532,8 @@ export function ReaderScreen({
         glossaryRev,
       };
     }
-    if (isEasyKey(key)) {
-      return {
-        surface,
-        key,
-        pos: "",
-        meaning: tr("card.easy"),
-        whyHard: "",
-        sentence,
-        fullSentence,
-        ready: true,
-        status: "easy",
-        context,
-        occurrence: tap.nth,
-        paragraph: tap.block,
-        chapter: viewChapter,
-        glossaryRev,
-      };
-    }
-    // Not in this book's word list: say so in a friendly way. Nothing is looked up online.
+    // Not in this book's word list: say so in a friendly way, the same for every such word (a
+    // common word is no exception). Nothing is looked up online.
     return {
       surface,
       key,
