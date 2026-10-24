@@ -11,7 +11,7 @@ import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS } from "../../lib/trust.ts";
  * One word list, for a signed-in reader.
  * A plain reader may open 7 new books in a rolling week. A book already opened,
  * or already on the shelf before the cap, does not take another place.
- * Trusted and admin readers are not counted.
+ * Trusted and admin readers are not counted. A plain reader must have checked their email first.
  * There is no route that returns every list at once.
  *
  *   GET /api/glossary/:id
@@ -33,6 +33,9 @@ export async function handleGlossary(
     const bucket = env.BOOKS;
     if (!bucket) throw new HttpError(500, "no-books-bucket");
     const open = effectiveRole(user, now) !== "user";
+    // A new account opens word lists only after it typed the code sent to its email: a free
+    // account per made-up address was the cheap way around the weekly cap.
+    if (!open && !user.email_verified_at) throw new HttpError(403, "email-unverified");
     let slot: "again" | "new" | "full" | "shelf" = open ? "again" : await weekSlot(env.DB, user.id, id, now);
     // A shelf book is free even when the week is full, and it does not take a place.
     if (!open && slot !== "again" && (await shelfGrantsBook(env.DB, bucket, user.id, id))) slot = "shelf";

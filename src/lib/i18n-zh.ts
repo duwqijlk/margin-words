@@ -352,6 +352,17 @@ export const zh: Record<Key, string> = {
   "account.err.network": "连不上账号服务。不登录也可以读书。",
   "account.err.generic": "没有完成。请再试一次。",
   "account.err.nickname": "请填写 1 到 16 个字。",
+  "account.err.code": "验证码不对，请检查后再输入。",
+  "account.err.codeExpired": "验证码已失效，请点“重新发送”获取新的。",
+  "account.err.codeWait": "刚发过一次，请过一分钟再试。",
+  "account.err.codeSend": "验证码没有发出去，请稍后再试。",
+  "account.codeTitle": "验证邮箱",
+  "account.codeIntro": "我们给 {email} 发了一个 6 位验证码。输入后就能打开书的词表。",
+  "account.codeLabel": "验证码",
+  "account.codeConfirm": "验证",
+  "account.codeResend": "重新发送",
+  "account.codeResent": "已重新发送，请查收。",
+  "account.codeSpam": "几分钟内没收到，请看看垃圾邮件。验证码 15 分钟内有效。",
 
   /* ---- messages and errors */
   "err.notValidEpub": "这个文件不是有效的 EPUB 图书。",
@@ -962,4 +973,5 @@ export const zh: Record<Key, string> = {
   "admin.status.resolved": "已解决",
   "admin.status.reopened": "再次异常",
   "err.glossaryWeek": "普通读者每 7 天最多新开 7 本书的词表。书架上已有的书可以重新下载。开通书库后不受限制。",
+  "err.emailUnverified": "请先验证邮箱，再打开书的词表。验证码已发到你的注册邮箱，可以在账号里输入。",
 };

@@ -5,11 +5,13 @@ import { useAccount, type AccountMode, type SyncStatus } from "@/lib/account-sto
 import { cleanNickname } from "@/lib/nickname";
 import {
   accountRequest,
+  confirmEmailCode,
   confirmPasswordReset,
   deleteAccount,
   exportAccount,
   requestPasswordReset,
   saveNickname,
+  sendEmailCode,
   signIn,
   signOut,
   signUp,
@@ -30,6 +32,10 @@ const ERROR_KEYS: Record<string, Key> = {
   turnstile: "account.err.turnstile",
   network: "account.err.network",
   nickname: "account.err.nickname",
+  code: "account.err.code",
+  "code-expired": "account.err.codeExpired",
+  "code-wait": "account.err.codeWait",
+  "code-send": "account.err.codeSend",
 };
 
 function errorKey(error: unknown): Key {
@@ -213,6 +219,90 @@ function readGlossary(payload: Record<string, unknown>): GlossaryQuota | null {
 }
 
 /** Fresh weekly allowance, loaded when the signed-in account dialog opens. */
+/**
+ * The 6-digit code sent to a new account's email. Until it is typed, the account works (shelf,
+ * sync) but cannot open word lists. `onDone` runs after the right code.
+ */
+function EmailCodeBox({ email, onDone }: { email: string; onDone?: () => void }) {
+  const { t } = useT();
+  const [code, setCode] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [problem, setProblem] = useState("");
+  const [note, setNote] = useState("");
+
+  async function onConfirm(event: FormEvent) {
+    event.preventDefault();
+    if (busy) return;
+    const digits = code.replace(/\D/g, "");
+    if (digits.length !== 6) {
+      setProblem(t("account.err.code"));
+      return;
+    }
+    setBusy(true);
+    setProblem("");
+    try {
+      await confirmEmailCode(digits);
+      onDone?.();
+    } catch (error) {
+      setProblem(t(errorKey(error)));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function onResend() {
+    if (busy) return;
+    setBusy(true);
+    setProblem("");
+    setNote("");
+    try {
+      await sendEmailCode();
+      setNote(t("account.codeResent"));
+    } catch (error) {
+      setProblem(t(errorKey(error)));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <form className="grid gap-3" onSubmit={(event) => void onConfirm(event)} data-email-code>
+      <p className="text-sm text-muted">{t("account.codeIntro", { email })}</p>
+      <label className="grid gap-1 text-sm font-medium" htmlFor="account-email-code">
+        {t("account.codeLabel")}
+        <input
+          id="account-email-code"
+          className={cn(field, "text-center text-xl tracking-[0.4em] tabular-nums")}
+          value={code}
+          inputMode="numeric"
+          autoComplete="one-time-code"
+          maxLength={6}
+          autoFocus
+          onChange={(event) => setCode(event.target.value.replace(/\D/g, "").slice(0, 6))}
+          data-email-code-input
+        />
+      </label>
+      {problem ? (
+        <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert" data-account-error>
+          {problem}
+        </p>
+      ) : null}
+      {note ? (
+        <p className="text-sm text-muted" role="status" data-email-code-note>
+          {note}
+        </p>
+      ) : null}
+      <button type="submit" className={btn.primary} disabled={busy} data-email-code-confirm>
+        {busy ? t("account.working") : t("account.codeConfirm")}
+      </button>
+      <button type="button" className={btn.quiet} disabled={busy} onClick={() => void onResend()} data-email-code-resend>
+        {t("account.codeResend")}
+      </button>
+      <p className="text-xs text-muted">{t("account.codeSpam")}</p>
+    </form>
+  );
+}
+
 function GlossaryAllowance() {
   const { t } = useT();
   const [quota, setQuota] = useState<GlossaryQuota | null>(null);
@@ -268,6 +358,7 @@ export function AccountDialog() {
   const emailSaved = useAccount((state) => state.email);
   const nicknameSaved = useAccount((state) => state.nickname);
   const nicknamePrompt = useAccount((state) => state.nicknamePrompt);
+  const emailVerified = useAccount((state) => state.emailVerified);
   const sync = useAccount((state) => state.sync);
   const resetEmailReady = useAccount((state) => state.resetEmail);
   const closeDialog = useAccount((state) => state.closeDialog);
@@ -451,7 +542,9 @@ export function AccountDialog() {
   }
 
   const signedIn = phase === "in" && emailSaved && mode !== "reset";
-  const prompting = signedIn && nicknamePrompt;
+  // A new account types its emailed code first; the nickname question comes after.
+  const checking = Boolean(signedIn && !emailVerified);
+  const prompting = signedIn && nicknamePrompt && !checking;
 
   return (
     <Dialog.Root open={open} onOpenChange={(next) => (next ? openDialog(mode, resetToken) : closeDialog())}>
@@ -467,16 +560,20 @@ export function AccountDialog() {
                 ? t("account.resetTitle")
                 : mode === "forgot"
                   ? t("account.forgotTitle")
-                  : prompting
-                    ? t("account.nicknamePromptTitle")
-                    : t("account.title")}
+                  : checking
+                    ? t("account.codeTitle")
+                    : prompting
+                      ? t("account.nicknamePromptTitle")
+                      : t("account.title")}
             </Dialog.Title>
             <Dialog.Close className={cn(btn.icon, "-mt-1 -mr-2")} aria-label={t("common.close")}>
               <X className="size-5" aria-hidden />
             </Dialog.Close>
           </div>
           <Dialog.Description className={signedIn ? "sr-only" : "mt-2 text-sm text-muted"}>
-            {prompting
+            {checking
+              ? t("account.codeTitle")
+              : prompting
               ? t("account.nicknamePrompt")
               : signedIn
                 ? t("account.title")
@@ -485,7 +582,11 @@ export function AccountDialog() {
                   : t("account.desc")}
           </Dialog.Description>
 
-          {prompting ? (
+          {checking && emailSaved ? (
+            <div className="mt-4">
+              <EmailCodeBox email={emailSaved} />
+            </div>
+          ) : prompting ? (
             <form className="mt-5 grid gap-3" onSubmit={(event) => void onSaveNickname(event)} data-nickname-prompt>
               <label className="grid gap-1 text-sm font-medium" htmlFor="account-nickname">
                 {t("account.nickname")}

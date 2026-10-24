@@ -4,7 +4,14 @@ import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merg
 import { effectiveRole } from "./admin.ts";
 import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS } from "./trust.ts";
 import type { D1Result, Env, SyncRow, UserRow } from "./db.ts";
-import { deliverPasswordReset, resendSender, type PasswordResetSender } from "./email.ts";
+import {
+  deliverEmailCode,
+  deliverPasswordReset,
+  resendCodeSender,
+  resendSender,
+  type EmailCodeSender,
+  type PasswordResetSender,
+} from "./email.ts";
 import {
   clientIp,
   errorResponse,
@@ -23,6 +30,7 @@ export type HandlerOptions = {
   now?: number;
   fetch?: typeof fetch;
   sendReset?: PasswordResetSender;
+  sendCode?: EmailCodeSender;
 };
 
 function nowOf(options?: HandlerOptions): number {
@@ -36,11 +44,35 @@ function withCookie(body: unknown, status: number, cookie: string): Response {
 }
 
 function publicUser(
-  row: Pick<UserRow, "id" | "email" | "created_at" | "nickname" | "role"> & { trusted_until?: number | null },
+  row: Pick<UserRow, "id" | "email" | "created_at" | "nickname" | "role"> & {
+    trusted_until?: number | null;
+    email_verified_at?: number | null;
+  },
   now: number,
 ) {
   const nickname = typeof row.nickname === "string" && row.nickname ? row.nickname : null;
-  return { id: row.id, email: row.email, createdAt: row.created_at, nickname, role: effectiveRole(row, now) };
+  const emailVerified = typeof row.email_verified_at === "number" && row.email_verified_at > 0;
+  return { id: row.id, email: row.email, createdAt: row.created_at, nickname, role: effectiveRole(row, now), emailVerified };
+}
+
+const CODE_MS = 15 * 60 * 1000;
+const CODE_ATTEMPTS = 5;
+
+/** A fresh 6-digit code for this account, replacing any open one. Returns false when it could not be sent. */
+async function sendEmailCode(env: Env, userId: string, email: string, now: number, options?: HandlerOptions): Promise<boolean> {
+  const digits = crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000;
+  const code = String(digits).padStart(6, "0");
+  // The code is bound to the account, so its hash cannot be reused for another one.
+  const codeHash = await sha256Hex(`${userId}:${code}`);
+  await env.DB.prepare(
+    `INSERT INTO email_codes (user_id, code_hash, created_at, expires_at, attempts) VALUES (?, ?, ?, ?, 0)
+     ON CONFLICT(user_id) DO UPDATE SET code_hash = excluded.code_hash, created_at = excluded.created_at,
+       expires_at = excluded.expires_at, attempts = 0`,
+  )
+    .bind(userId, codeHash, now, now + CODE_MS)
+    .run();
+  const send = options?.sendCode ?? (env.RESEND_API_KEY ? resendCodeSender(env.RESEND_API_KEY) : deliverEmailCode);
+  return (await send({ email, code })).sent;
 }
 
 export async function handleRegister(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
@@ -60,7 +92,7 @@ export async function handleRegister(request: Request, env: Env, options?: Handl
     const id = crypto.randomUUID();
     try {
       await env.DB.prepare(
-        "INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at, email_verified_at) VALUES (?, ?, ?, ?, ?, ?, NULL)",
       )
         .bind(id, email, hashed.hash, hashed.salt, hashed.iterations, now)
         .run();
@@ -69,7 +101,13 @@ export async function handleRegister(request: Request, env: Env, options?: Handl
       throw error;
     }
     const cookie = await createSession(env.DB, id, request, now);
-    return withCookie({ user: publicUser({ id, email, created_at: now, nickname: null, role: "user" }, now) }, 201, cookie);
+    // The account works at once (shelf, sync). Word lists wait for the emailed code.
+    const codeSent = await sendEmailCode(env, id, email, now, options);
+    return withCookie(
+      { user: publicUser({ id, email, created_at: now, nickname: null, role: "user", email_verified_at: null }, now), codeSent },
+      201,
+      cookie,
+    );
   } catch (error) {
     return errorResponse(error);
   }
@@ -121,6 +159,52 @@ export async function handleLogout(request: Request, env: Env): Promise<Response
   try {
     await destroySession(env.DB, request);
     return withCookie({ ok: true }, 200, logoutCookie(request));
+  } catch (error) {
+    return errorResponse(error);
+  }
+}
+
+/** Send (again) the code that checks the signed-in account's email. */
+export async function handleEmailCodeSend(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
+  try {
+    const now = nowOf(options);
+    const user = await requireUser(env.DB, request, now);
+    if (user.email_verified_at) return json({ ok: true, verified: true });
+    await assertUserRateLimit(env.DB, "code-send", user.id, now);
+    // At most one code a minute: a click on Send again right after sign-up does not spend a message.
+    const last = await env.DB.prepare("SELECT created_at FROM email_codes WHERE user_id = ?")
+      .bind(user.id)
+      .first<{ created_at: number }>();
+    if (last && now - last.created_at < 60_000) throw new HttpError(429, "code-wait");
+    const sent = await sendEmailCode(env, user.id, user.email, now, options);
+    if (!sent) throw new HttpError(502, "code-send");
+    return json({ ok: true, sent: true });
+  } catch (error) {
+    return errorResponse(error);
+  }
+}
+
+/** Check the emailed code. A right code marks the email checked; five wrong ones end that code. */
+export async function handleEmailCodeConfirm(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
+  try {
+    const now = nowOf(options);
+    const user = await requireUser(env.DB, request, now);
+    if (user.email_verified_at) return json({ user: publicUser(user, now) });
+    await assertUserRateLimit(env.DB, "code-check", user.id, now);
+    const body = (await readJson(request, 2_000)) as Record<string, unknown>;
+    const code = typeof body.code === "string" ? body.code.replace(/\s+/g, "") : "";
+    if (!/^\d{6}$/.test(code)) throw new HttpError(400, "code");
+    const row = await env.DB.prepare("SELECT code_hash, expires_at, attempts FROM email_codes WHERE user_id = ?")
+      .bind(user.id)
+      .first<{ code_hash: string; expires_at: number; attempts: number }>();
+    if (!row || row.expires_at <= now || row.attempts >= CODE_ATTEMPTS) throw new HttpError(400, "code-expired");
+    if ((await sha256Hex(`${user.id}:${code}`)) !== row.code_hash) {
+      await env.DB.prepare("UPDATE email_codes SET attempts = attempts + 1 WHERE user_id = ?").bind(user.id).run();
+      throw new HttpError(400, "code");
+    }
+    await env.DB.prepare("UPDATE users SET email_verified_at = ? WHERE id = ?").bind(now, user.id).run();
+    await env.DB.prepare("DELETE FROM email_codes WHERE user_id = ?").bind(user.id).run();
+    return json({ user: publicUser({ ...user, email_verified_at: now }, now) });
   } catch (error) {
     return errorResponse(error);
   }

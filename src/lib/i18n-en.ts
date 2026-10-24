@@ -356,6 +356,17 @@ export const en = {
   "account.err.network": "The account service could not be reached. You can still read without signing in.",
   "account.err.generic": "That did not work. Please try again.",
   "account.err.nickname": "Use 1 to 16 characters.",
+  "account.err.code": "That code is not right. Check it and try again.",
+  "account.err.codeExpired": "This code no longer works. Tap Send again for a new one.",
+  "account.err.codeWait": "A code was just sent. Try again in a minute.",
+  "account.err.codeSend": "The code could not be sent. Try again later.",
+  "account.codeTitle": "Check your email",
+  "account.codeIntro": "We sent a 6-digit code to {email}. Type it to open word lists.",
+  "account.codeLabel": "Code",
+  "account.codeConfirm": "Check code",
+  "account.codeResend": "Send again",
+  "account.codeResent": "Sent again. Check your inbox.",
+  "account.codeSpam": "Nothing after a few minutes? Look in spam. The code works for 15 minutes.",
 
   /* ---- messages and errors */
   "err.notValidEpub": "This file is not a valid EPUB book.",
@@ -985,6 +996,7 @@ export const en = {
   "admin.status.resolved": "Resolved",
   "admin.status.reopened": "Reopened",
   "err.glossaryWeek": "A reader can open 7 new word lists every 7 days. Books already on the shelf can be downloaded again. Library access removes this limit.",
+  "err.emailUnverified": "Check your email before opening word lists. The code was sent to your sign-up email; type it in your account.",
 } as const;
 
 export type Key = keyof typeof en;

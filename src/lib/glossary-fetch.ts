@@ -1,6 +1,6 @@
 /**
  * Word lists on the public books host are fetched through the account API,
- * which counts five distinct books per week for a plain reader.
+ * which counts seven distinct books per week for a plain reader with a checked email.
  * A list on any other host (local dev, a catalog the reader typed) stays a direct fetch.
  */
 import { DEFAULT_BOOKS_BASE } from "@/lib/books-base";
@@ -43,5 +43,6 @@ export async function fetchProtectedGlossary(bookId: string, fallback: string): 
     code = "";
   }
   if (code === "glossary-week") throw new Error(tr("err.glossaryWeek"));
+  if (code === "email-unverified") throw new Error(tr("err.emailUnverified"));
   throw new Error(fallback);
 }

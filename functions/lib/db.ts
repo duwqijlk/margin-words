@@ -54,6 +54,8 @@ export type UserRow = {
   role: UserRole;
   /** End of a trusted grant, in ms. Null means the grant does not expire. */
   trusted_until?: number | null;
+  /** When the reader typed the emailed code. Null until then (accounts before the check count as checked). */
+  email_verified_at?: number | null;
 };
 
 export type SyncRow = {

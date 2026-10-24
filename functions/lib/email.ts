@@ -43,28 +43,58 @@ function bodyOf(message: PasswordResetMessage): { text: string; html: string } {
   return { text, html };
 }
 
+/** One message through Resend. True only when Resend accepted it. */
+async function sendWithResend(apiKey: string, to: string, subject: string, text: string, html: string): Promise<boolean> {
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${apiKey}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ from: FROM, to: [to], subject, text, html }),
+      signal: AbortSignal.timeout(10_000),
+    });
+    // Only the outcome is logged: never the address, the link or the code.
+    if (!response.ok) console.warn(`resend: ${subject}: HTTP ${response.status}`);
+    return response.ok;
+  } catch {
+    console.warn(`resend: ${subject}: request failed`);
+    return false;
+  }
+}
+
 export function resendSender(apiKey: string): PasswordResetSender {
   return async (message) => {
-    try {
-      const { text, html } = bodyOf(message);
-      const response = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          authorization: `Bearer ${apiKey}`,
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          from: FROM,
-          to: [message.email],
-          subject: SUBJECT,
-          text,
-          html,
-        }),
-        signal: AbortSignal.timeout(10_000),
-      });
-      return { sent: response.ok };
-    } catch {
-      return { sent: false };
-    }
+    const { text, html } = bodyOf(message);
+    return { sent: await sendWithResend(apiKey, message.email, SUBJECT, text, html) };
+  };
+}
+
+/**
+ * The code that checks a new account's email. Six digits, valid for 15 minutes. Do not log it.
+ */
+export type EmailCodeMessage = { email: string; code: string };
+
+export type EmailCodeSender = (message: EmailCodeMessage) => Promise<{ sent: boolean }>;
+
+export const deliverEmailCode: EmailCodeSender = async () => ({ sent: false });
+
+const CODE_SUBJECT = "Your inputread code";
+
+export function resendCodeSender(apiKey: string): EmailCodeSender {
+  return async ({ email, code }) => {
+    const text = [
+      `Your inputread code is ${code}.`,
+      "",
+      "Type it in the sign-up window to finish making your account. It works for 15 minutes.",
+      "If you did not sign up on inputread, ignore this email.",
+    ].join("\n");
+    const html = [
+      `<p>Your inputread code is</p><p style="font-size:28px;font-weight:600;letter-spacing:4px">${code}</p>`,
+      "<p>Type it in the sign-up window to finish making your account. It works for 15 minutes.</p>",
+      "<p>If you did not sign up on inputread, ignore this email.</p>",
+    ].join("");
+    return { sent: await sendWithResend(apiKey, email, CODE_SUBJECT, text, html) };
   };
 }
