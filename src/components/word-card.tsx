@@ -1,12 +1,11 @@
-import { BookMarked, Check, ChevronRight, Image as ImageIcon, Sparkles, X } from "lucide-react";
+import { Heart, Image as ImageIcon, Sparkles, X } from "lucide-react";
 import { useEffect, useRef, type ReactNode } from "react";
 import merriamWebsterLogo from "@/assets/merriam-webster-logo.png";
 import { countSurface, type OtherMeaning } from "@/lib/glossary-format";
 import { useT, type Key } from "@/lib/i18n";
 import { LOOKUP_SITES, lookupUrl, type LookupSite } from "@/lib/lookup-links";
-import { surfaceOffset, type WordStat } from "@/lib/text";
+import { surfaceOffset } from "@/lib/text";
 import { FloatingAside } from "@/components/floating-card";
-import { ExplainSentence } from "@/components/help-panels";
 import { SIDE_PANEL } from "@/components/side-panel";
 import { btn, cn, Highlighted, SpeakButton } from "@/components/ui";
 import { WordExplanationFeedback } from "@/components/word-feedback";
@@ -37,92 +36,6 @@ export function CardQuote({
         {children}
       </blockquote>
     </figure>
-  );
-}
-
-export function WordFacts({
-  stat,
-  current,
-  suppressQuote = false,
-}: {
-  stat: WordStat | undefined;
-  current: string;
-  suppressQuote?: boolean;
-}) {
-  const { t, tn } = useT();
-  if (!stat) return null;
-  const others = suppressQuote
-    ? []
-    : stat.sentences.filter((sentence) => sentence !== current).slice(0, 1);
-  const other = others[0];
-  const facts = (
-    <>
-      {tn("facts.seen", stat.count)}
-      {stat.chapters > 1 ? t("facts.chapters", { n: stat.chapters }) : ""}
-      {stat.forms.length > 1 ? (
-        <>
-          {t("facts.forms")}
-          <span lang="en">
-            {stat.forms.map((form) => `${form.form} ×${form.count}`).join(", ")}
-          </span>
-        </>
-      ) : null}
-    </>
-  );
-  return (
-    <div className="text-xs leading-relaxed text-muted">
-      {other ? (
-        <details className="group">
-          <summary className="flex min-h-9 cursor-pointer list-none items-center gap-1 select-none marker:hidden hover:text-ink">
-            <ChevronRight
-              className="size-3 shrink-0 transition-transform group-open:rotate-90"
-              aria-hidden
-            />
-            <span>{facts}</span>
-          </summary>
-          <CardQuote>
-            <span lang="en">“{other}”</span>
-          </CardQuote>
-        </details>
-      ) : (
-        <p>{facts}</p>
-      )}
-    </div>
-  );
-}
-
-export function OtherMeanings({ items }: { items: OtherMeaning[] }) {
-  const { t, tn } = useT();
-  return (
-    <details className="group rounded-lg bg-paper px-3 py-2 text-sm">
-      <summary className="cursor-pointer list-none font-semibold text-muted select-none marker:hidden hover:text-ink">
-        <span className="inline-flex items-center gap-1.5">
-          <ChevronRight
-            className="size-3.5 transition-transform group-open:rotate-90"
-            aria-hidden
-          />
-          {t("other.title", { n: items.length })}
-        </span>
-      </summary>
-      <ul className="mt-2 grid gap-2.5">
-        {items.map((item) => (
-          <li key={item.meaning} className="grid gap-0.5" lang="en">
-            <span className="text-xs text-muted">
-              {item.pos ? `${item.pos}` : t("other.another")}
-              {item.chapters.length > 0
-                ? ` · ${tn("other.chapters", item.chapters.length, {
-                    list: item.chapters
-                      .slice(0, 4)
-                      .map((c) => c + 1)
-                      .join(", "),
-                  })}`
-                : ""}
-            </span>
-            <span className="leading-snug">{item.meaning}</span>
-          </li>
-        ))}
-      </ul>
-    </details>
   );
 }
 
@@ -264,7 +177,6 @@ export function CoinedBadge() {
 
 export function WordCard({
   state,
-  stat,
   saved,
   phrase,
   targetMode,
@@ -293,7 +205,6 @@ export function WordCard({
   chapter: number;
   noteChapter?: number | string;
   noList: boolean;
-  stat: WordStat | undefined;
   saved: boolean;
   anchor: HTMLElement | null;
   onClose: (restoreFocus?: boolean) => void;
@@ -388,10 +299,9 @@ export function WordCard({
             <button
               type="button"
               className={cn(
-                "inline-flex size-9 shrink-0 items-center justify-center rounded-lg border transition-all duration-150 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40",
-                saved
-                  ? "border-accent bg-accent text-accent-ink shadow-xs"
-                  : "border-line bg-card text-ink/80 hover:border-muted hover:bg-paper hover:text-ink shadow-2xs",
+                btn.icon,
+                "transition-transform duration-150 active:scale-90 disabled:cursor-not-allowed",
+                saved ? "text-warn" : "text-ink/80 hover:text-ink",
               )}
               disabled={!saved && !canSave}
               onClick={onToggle}
@@ -400,11 +310,8 @@ export function WordCard({
               title={t(saved ? "card.savedTarget" : "card.addTarget", { word: target })}
               data-word-save
             >
-              {saved ? (
-                <Check className="size-4.5 stroke-[2.5]" aria-hidden />
-              ) : (
-                <BookMarked className="size-4.5 stroke-[1.8]" aria-hidden />
-              )}
+              {/* A heart: outline to save, filled once the word is in the notebook. */}
+              <Heart className={cn("size-5 stroke-[1.8]", saved && "fill-current")} aria-hidden />
             </button>
             <button
               type="button"
@@ -510,58 +417,6 @@ export function WordCard({
             {!activePhrase && state.coined ? <CoinedBadge /> : null}
           </div>
 
-          {state.sentence ? (
-            <details className="word-detail text-sm" data-part="sentence-box">
-              <summary>{t("card.sentenceFrom")}</summary>
-              <div className="mt-2.5 grid gap-2.5 pt-1">
-                <blockquote className="font-display text-[0.92rem] leading-relaxed text-ink/90">
-                  <Highlighted
-                    sentence={state.sentence}
-                    surface={targetSurface}
-                  />
-                </blockquote>
-                <ExplainSentence
-                  key={`${noteChapter ?? chapter}|${state.sentence}`}
-                  bookId={bookId}
-                  chapter={noteChapter ?? chapter}
-                  sentence={state.fullSentence || state.sentence}
-                />
-              </div>
-            </details>
-          ) : null}
-
-          {!activePhrase && (state.example ||
-          (state.whyHard && state.ready && state.status === "ready") ||
-          (state.others && state.others.length > 0 && state.status === "ready") ||
-          stat) ? (
-            <details className="word-detail text-sm" data-part="word-more">
-              <summary>{t("card.more")}</summary>
-              <div className="grid gap-2.5 pt-2">
-                {state.example ? (
-                  <CardQuote label={t("card.example")} part="example">
-                    <Highlighted sentence={state.example} surface={state.surface} />
-                  </CardQuote>
-                ) : null}
-
-                {state.whyHard && state.ready && state.status === "ready" ? (
-                  <p className="text-xs leading-relaxed text-muted" lang="en">
-                    <span className="font-semibold text-ink/75">{t("card.whyHard")} </span>
-                    {state.whyHard}
-                  </p>
-                ) : null}
-
-                {state.others && state.others.length > 0 && state.status === "ready" ? (
-                  <OtherMeanings items={state.others} />
-                ) : null}
-
-                <WordFacts
-                  stat={stat}
-                  current={state.sentence}
-                  suppressQuote={Boolean(state.example)}
-                />
-              </div>
-            </details>
-          ) : null}
         </div>
       </div>
       <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>

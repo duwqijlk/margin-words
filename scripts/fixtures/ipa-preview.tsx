@@ -39,7 +39,7 @@ function App() {
         </div>
       </article>
     </main>
-    {open ? <WordCard state={state} stat={undefined} saved={saved} phrase={phrase} targetMode={mode} phrasePending={false} onTargetChange={setMode} selectionId={selection} canSave={true} bookId="local-ipa-preview" bookTitle="Synthetic preview" chapter={0} noList={false} anchor={anchors.current[word]} onClose={() => setOpen(false)} onToggle={() => setSaved(value => !value)} /> : null}
+    {open ? <WordCard state={state} saved={saved} phrase={phrase} targetMode={mode} phrasePending={false} onTargetChange={setMode} selectionId={selection} canSave={true} bookId="local-ipa-preview" bookTitle="Synthetic preview" chapter={0} noList={false} anchor={anchors.current[word]} onClose={() => setOpen(false)} onToggle={() => setSaved(value => !value)} /> : null}
   </div>;
 }
 createRoot(document.getElementById("root")!).render(<App />);
