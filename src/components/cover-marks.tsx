@@ -1,11 +1,29 @@
 import { useT } from "@/lib/i18n";
 import { cn } from "@/components/ui";
 
-const pill = "rounded-full px-2 text-left text-[0.62rem] leading-4 font-medium tracking-wide shadow-xs ring-1 backdrop-blur-md";
+/**
+ * Book facts that used to sit on the cover as pills (Public domain, Word list, Old-fashioned,
+ * Needs your e-book, Update, words due). The cover now shows only its art, and these go under the
+ * author as quiet text, one per line: cards are narrow on a phone, and a line joined by dots
+ * wrapped with a dot at the start. Each part keeps its `data-*` hook.
+ */
+export function BookTags({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div
+      className={cn(
+        "grid min-w-0 justify-items-start gap-0.5 text-xs leading-4 text-muted",
+        className,
+      )}
+      data-book-tags=""
+    >
+      {children}
+    </div>
+  );
+}
 
-/** Small labels on the top-left of a cover. Light pills, so they stay quiet on any cover picture. */
-export function CoverBadge({
-  tone,
+/** One fact in `BookTags`. `warn` is for what needs the reader (a missing e-book, words due). */
+export function BookTag({
+  tone = "plain",
   children,
   onClick,
   disabled,
@@ -13,26 +31,30 @@ export function CoverBadge({
   "aria-label": ariaLabel,
   ...rest
 }: {
-  tone: "publicDomain" | "list" | "needs" | "update";
+  tone?: "plain" | "warn" | "action";
   children: React.ReactNode;
-  /** When set, the label is a button. Used for the shelf Update tag. */
+  /** When set, the tag is a button. Used for Update. */
   onClick?: () => void;
   disabled?: boolean;
   title?: string;
   "aria-label"?: string;
 } & Record<`data-${string}`, unknown>) {
   const className = cn(
-    pill,
-    onClick && "pointer-events-auto",
-    tone === "publicDomain" && "bg-card/90 text-accent ring-ink/10",
-    tone === "list" && "bg-card/90 text-ink ring-ink/10",
-    tone === "needs" && "bg-warn text-accent-ink ring-black/10",
-    tone === "update" && "inline-flex items-center gap-1 bg-accent text-accent-ink shadow-sm ring-black/10 hover:brightness-110",
-    disabled && "opacity-70",
+    "inline-flex max-w-full items-center gap-1 truncate",
+    tone === "warn" && "font-medium text-warn",
+    tone === "action" && "font-medium text-accent underline-offset-2 hover:underline disabled:opacity-60",
   );
   if (onClick) {
     return (
-      <button type="button" className={className} onClick={onClick} disabled={disabled} title={title} aria-label={ariaLabel} {...rest}>
+      <button
+        type="button"
+        className={cn(className, "-my-2 min-h-8 py-2")}
+        onClick={onClick}
+        disabled={disabled}
+        title={title}
+        aria-label={ariaLabel}
+        {...rest}
+      >
         {children}
       </button>
     );
@@ -44,20 +66,14 @@ export function CoverBadge({
   );
 }
 
-/** Warm badge on the cover when the English is too old for a beginner. */
-export function OldFashionedBadge({ reason }: { reason?: string }) {
+/** The English is too old for a beginner. The reason is in the tooltip. */
+export function OldFashionedTag({ reason }: { reason?: string }) {
   const { t } = useT();
   const note = t("shelf.oldFashionedNote");
   const tip = reason ? `${note} — ${reason}` : note;
   return (
-    <span
-      className={cn(pill, "pointer-events-auto max-w-full bg-[#f4e4d4] text-[#6b3e22] ring-[#8a5a3c]/40")}
-      data-old-fashioned=""
-      title={tip}
-      role="img"
-      aria-label={tip}
-    >
+    <BookTag data-old-fashioned="" title={tip} aria-label={tip}>
       {t("shelf.oldFashioned")}
-    </span>
+    </BookTag>
   );
 }

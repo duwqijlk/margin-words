@@ -136,7 +136,7 @@ export function DashboardScreen() {
         ) : (
           <div className="grid gap-3">
             <ul
-              className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-flow-col sm:grid-cols-3 sm:grid-rows-2"
+              className="grid grid-cols-2 gap-2 sm:grid-flow-col sm:grid-cols-3 sm:grid-rows-2 sm:gap-3"
               data-dashboard-counts
             >
               {CARDS.map((card) => {
@@ -145,16 +145,16 @@ export function DashboardScreen() {
                 return (
                   <li
                     key={card.id}
-                    className="grid content-center gap-1 bg-card px-4 py-6 sm:px-7 sm:py-9"
+                    className="grid content-center gap-1 rounded-2xl bg-card px-4 py-5 sm:px-6 sm:py-7"
                     data-dash={card.id}
                     data-dash-value={shown ? n : undefined}
                     aria-label={shown ? trn(card.count, n) : t("dashboard.loading")}
                   >
-                    <p className="text-xs font-semibold tracking-wide text-muted sm:text-sm" aria-hidden>
+                    <p className="text-xs text-muted sm:text-sm" aria-hidden>
                       {t(card.label)}
                     </p>
                     <p
-                      className="font-display text-[1.7rem] leading-tight font-semibold tabular-nums sm:text-[2.6rem]"
+                      className="text-[1.7rem] leading-tight font-semibold tracking-tight tabular-nums sm:text-[2.4rem]"
                       aria-hidden
                     >
                       {shown ? groupDigits(n) : "…"}
