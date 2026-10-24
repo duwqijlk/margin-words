@@ -32,7 +32,7 @@ import { useShelfRemove } from "@/lib/shelf-remove";
 import { SHELF_MENU_ARM_MS, shelfPressDown, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
 import { BookCover, type useCovers } from "@/components/book-cover";
 import { navigate } from "@/lib/router";
-import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
+import { BookTag, BookTags, OldFashionedTag } from "@/components/cover-marks";
 import { btn, cn, field, ProgressBar } from "@/components/ui";
 import { compareLexile } from "@/lib/lexile";
 import { compareSeriesPlace } from "@/lib/discover-rails";
@@ -73,8 +73,8 @@ function offerLine(offer: ListOffer, t: (key: Key, params?: Record<string, strin
   return { text: t("lists.newList"), warn: false };
 }
 
-/** A cover tag the size of Public domain. Tapping it runs the update. */
-function CoverUpdate({
+/** Update, in the line under the author. Tapping it runs the update. */
+function UpdateTag({
   title,
   offer,
   busy,
@@ -89,8 +89,8 @@ function CoverUpdate({
   const line = offerLine(offer, t);
   const label = busy ? t("lists.updating") : t("pack.update");
   return (
-    <CoverBadge
-      tone="update"
+    <BookTag
+      tone="action"
       onClick={onUpdate}
       disabled={busy}
       title={line.text}
@@ -98,9 +98,9 @@ function CoverUpdate({
       data-list-update={offer.why}
       data-list-update-button=""
     >
-      <RotateCw className={cn("size-2.5", busy && "animate-spin")} strokeWidth={3} aria-hidden />
+      <RotateCw className={cn("size-3", busy && "animate-spin")} strokeWidth={2.5} aria-hidden />
       {label}
-    </CoverBadge>
+    </BookTag>
   );
 }
 
@@ -248,11 +248,6 @@ function ContinueCard({
         >
           <BookCover title={book.title} author={book.author} cover={cover} className="h-full w-full" />
         </button>
-        {offer ? (
-          <div className="pointer-events-none absolute top-1.5 left-1.5 z-[1] flex max-w-[calc(100%-0.75rem)]">
-            <CoverUpdate title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} />
-          </div>
-        ) : null}
       </div>
       <div className="grid min-w-0 flex-1 content-center gap-2 sm:gap-2.5">
         <div className="flex items-center gap-2">
@@ -276,6 +271,11 @@ function ContinueCard({
           <div className="w-fit">
             <LexileBadge measure={book.lexile} />
           </div>
+          {offer ? (
+            <BookTags>
+              <UpdateTag title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} />
+            </BookTags>
+          ) : null}
         </div>
         {started && progress ? (
           <div className="grid gap-1.5 pt-0.5 sm:pt-1">
@@ -406,16 +406,6 @@ function BookCard({
         >
           <BookCover title={book.title} author={book.author} cover={cover} />
         </button>
-        <div className="pointer-events-none absolute top-2 left-2 z-[1] flex max-w-[calc(100%-1rem)] flex-col items-start gap-1">
-          {offer ? <CoverUpdate title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} /> : null}
-          {/* A missing e-book is said under the author, not on the cover: a red tag there covered the title of the art. */}
-          {!book.needsEpub && !(book.source === "epub" && !fileHere) && classic ? (
-            <CoverBadge tone="publicDomain" data-classic-label="">
-              {t("shelf.classic")}
-            </CoverBadge>
-          ) : null}
-          {book.oldFashioned ? <OldFashionedBadge reason={book.oldFashionedReason} /> : null}
-        </div>
         {book.source === "epub" ? (
           <div className="cover-progress pointer-events-none absolute inset-x-0 bottom-0 z-[1]">
             <p className="cover-progress-detail items-end justify-between gap-2 bg-gradient-to-t from-black/60 to-transparent px-2 pt-4 pb-0.5 text-[0.68rem] leading-4 font-medium text-white">
@@ -432,11 +422,6 @@ function BookCard({
               label={t("shelf.progressFor", { title: book.title })}
             />
           </div>
-        ) : null}
-        {row.due > 0 ? (
-          <span className="pointer-events-none absolute right-2 bottom-3 z-[2] rounded-full bg-warn px-2 py-0.5 text-[0.7rem] font-bold text-accent-ink tabular-nums shadow">
-            {t("shelf.due", { n: row.due })}
-          </span>
         ) : null}
       </div>
       <div className="grid flex-1 content-start gap-1">
@@ -587,6 +572,21 @@ function BookCard({
         <p className={cardAuthorClass} lang="en">
           {book.author}
         </p>
+        {/* Facts about the book go here, not on the cover: tags there covered the art and its title. */}
+        {offer || row.due > 0 || book.oldFashioned || (classic && !book.needsEpub && !(book.source === "epub" && !fileHere)) ? (
+          <BookTags>
+            {offer ? <UpdateTag title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} /> : null}
+            {row.due > 0 ? (
+              <BookTag tone="warn" data-shelf-due="">
+                {t("shelf.due", { n: row.due })}
+              </BookTag>
+            ) : null}
+            {!book.needsEpub && !(book.source === "epub" && !fileHere) && classic ? (
+              <BookTag data-classic-label="">{t("shelf.classic")}</BookTag>
+            ) : null}
+            {book.oldFashioned ? <OldFashionedTag reason={book.oldFashionedReason} /> : null}
+          </BookTags>
+        ) : null}
         {book.needsEpub ? (
           <p className="text-xs leading-snug font-medium text-warn" data-needs-epub="">
             {t("shelf.needsEpub")}
@@ -608,7 +608,6 @@ function BookCard({
             series={book.series}
             seriesNumber={book.seriesNumber}
             matchRate={book.matchRate}
-            aside={book.oldFashioned ? t("shelf.oldFashionedNote") : undefined}
           />
         </div>
       </div>

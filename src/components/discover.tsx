@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, Search } from "lucide-react";
-import { CoverBadge, OldFashionedBadge } from "@/components/cover-marks";
+import { BookTag, BookTags, OldFashionedTag } from "@/components/cover-marks";
 import { BookCover } from "@/components/book-cover";
 import { AddToShelfButton, ShelfCardStatus, type ShelfState } from "@/components/shelf-actions";
 import { DifficultyControls, matchesBand, type BandChoice, type SortChoice } from "@/components/lexile-ui";
@@ -548,18 +548,6 @@ export function DiscoverScreen({
               <span className="block h-full bg-accent transition-[width] duration-200" style={{ width: `${Math.round(Math.min(1, Math.max(0, item.fraction)) * 100)}%` }} />
             </span>
           ) : null}
-          <div className="pointer-events-none absolute top-1.5 left-1.5 z-[1] flex max-w-[calc(100%-0.75rem)] flex-col items-start gap-0.5">
-            {needs ? (
-              <CoverBadge tone="needs" data-needs-epub="">
-                {t("shelf.needsEpub")}
-              </CoverBadge>
-            ) : (
-              <CoverBadge tone={row.kind === "classic" ? "publicDomain" : "list"} data-kind={row.kind}>
-                {row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}
-              </CoverBadge>
-            )}
-            {row.oldFashioned ? <OldFashionedBadge reason={row.oldFashionedReason} /> : null}
-          </div>
         </div>
         <div className="grid min-w-0 flex-1 content-start gap-0.5">
           <h3 className={discoverTitle} lang="en" title={row.title}>
@@ -595,6 +583,19 @@ export function DiscoverScreen({
               </span>
             ) : null}
           </p>
+          {/* What the book is, under the author: tags on the cover covered the art. */}
+          <BookTags>
+            {needs ? (
+              <BookTag tone="warn" data-needs-epub="">
+                {t("shelf.needsEpub")}
+              </BookTag>
+            ) : (
+              <BookTag data-kind={row.kind}>
+                {row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}
+              </BookTag>
+            )}
+            {row.oldFashioned ? <OldFashionedTag reason={row.oldFashionedReason} /> : null}
+          </BookTags>
         </div>
         {busy || cardError || reason || note ? (
           <div className="mt-auto pt-1">
