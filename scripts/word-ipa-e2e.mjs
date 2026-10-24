@@ -440,8 +440,9 @@ async function ordinary(spec) {
           await checkReadings(page, word, { probe });
           if (word === 'bath') await ipaArrangement(page, 'auto');
           if (word === 'the') {
-            assert.equal(await page.locator('[data-part="no-meaning"]').count(), 0, 'easy word retains its easy card state');
-            assert.ok((await page.locator('[data-word-pos]').innerText()).trim(), 'easy status remains localized and visible');
+            // No entry in the list: the same no-meaning card as any other word, with its IPA.
+            assert.equal(await page.locator('[data-part="no-meaning"]').count(), 1, 'a common word without an entry says no meaning');
+            assert.equal(await page.locator('[data-word-save]').isEnabled(), false, 'it is not saveable without a meaning');
           }
           if (word === 'takin') {
             assert.equal(await page.locator('[data-part="no-meaning"]').count(), 1, 'IPA is independent of a missing glossary meaning');

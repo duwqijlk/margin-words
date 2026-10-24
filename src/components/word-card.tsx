@@ -48,7 +48,7 @@ export type CardState = {
   here?: string;
   sentence: string;
   ready: boolean;
-  status: "ready" | "easy" | "unknown";
+  status: "ready" | "unknown";
   others?: OtherMeaning[];
   coined?: boolean;
   fullSentence?: string;
@@ -93,13 +93,8 @@ export type PhraseHit = {
   matched: string;
 };
 
-export function wordPosClass(quiet = false) {
-  return cn(
-    "inline-flex max-w-full items-center leading-none",
-    quiet
-      ? "rounded-full bg-line px-2.5 py-1 text-xs font-semibold text-ink"
-      : "text-sm font-medium text-muted",
-  );
+export function wordPosClass() {
+  return "inline-flex max-w-full items-center leading-none text-sm font-medium text-muted";
 }
 
 export function SceneLine({ text }: { text: string }) {
@@ -375,10 +370,6 @@ export function WordCard({
             ) : targetPos ? (
               <span className={wordPosClass()} data-word-pos>
                 <span lang="en">{targetPos}</span>
-              </span>
-            ) : state.status === "easy" ? (
-              <span className={wordPosClass(true)} data-word-pos>
-                {t("card.easyChip")}
               </span>
             ) : null}
             {formLine ? <p className="text-xs text-muted">{inBook(formLine)}</p> : null}

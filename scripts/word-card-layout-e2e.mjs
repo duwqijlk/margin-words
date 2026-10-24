@@ -663,7 +663,8 @@ async function savedTargetsAndVariants(page, width, height) {
   await checkSaved();
   await close();
 
-  for (const [word, index, status] of [['lantern', 10, 'ready'], ['doctor', 10, 'easy'],
+  // A common word with no entry (doctor) shows the same no-meaning card as any other.
+  for (const [word, index, status] of [['lantern', 10, 'ready'], ['doctor', 10, 'unknown'],
     ['quuxstone', 10, 'unknown'], ['fragile', 10, 'ready'], ['fragile', 9, 'unknown']]) {
     await open(word, index);
     assert.equal(await card.locator('h2').innerText(), word);
@@ -682,7 +683,6 @@ async function savedTargetsAndVariants(page, width, height) {
       await card.locator('[data-feedback-toggle]').click();
     }
     if (word === 'lantern') assert.equal(await card.locator('[data-part="word-meaning"]').innerText(), 'A portable light.');
-    if (status === 'easy') assert.ok((await card.locator('[data-word-pos]').innerText()).trim(), 'easy chip remains readable');
     if (word === 'fragile') {
       if (status === 'ready') assert.equal(await card.locator('[data-part="word-meaning"]').innerText(), fixture.sparseMeaning);
       else assert.ok(!(await card.textContent()).includes(fixture.sparseMeaning), 'senseOnly meaning never leaks outside its anchor');
@@ -723,7 +723,7 @@ async function savedTargetsAndVariants(page, width, height) {
 async function phraseWordAvailability(page, card) {
   // Add overlapping phrase coverage only after plain-word cases, retaining both paths.
   const cases = [
-    { phrase: 'doctor discussed', word: 'doctor', index: 10, status: 'easy', ref: undefined },
+    { phrase: 'doctor discussed', word: 'doctor', index: 10, status: 'unknown', ref: undefined },
     { phrase: 'quuxstone lay by Hook’s bridge', word: 'quuxstone', index: 10, status: 'unknown', ref: undefined },
     { phrase: 'fragile lights', word: 'fragile', index: 9, status: 'unknown', ref: undefined },
     { phrase: 'fragile lights', word: 'fragile', index: 10, status: 'ready', ref: { list: 'custom', chapter: 0, occurrence: 11 } },
@@ -1157,14 +1157,13 @@ async function phoneSurfaceRegression(page, width, height) {
         await collapsedDetails(card, false);
         assert.equal(await card.locator('[data-look-target-group]').count(), 0, 'plain sparse fixtures have no phrase switch');
         assert.equal(await card.locator('[data-part="word-here"]').count(), 0, 'sparse surface has no contextual filler');
-        if (word === 'quuxstone') {
-          assert.equal(await card.locator('[data-part="no-meaning"]').count(), 1);
+        if (word === 'quuxstone' || word === 'doctor') {
+          assert.equal(await card.locator('[data-part="no-meaning"]').count(), 1, `${word}: no entry, so no meaning`);
           assert.equal(await card.locator('[data-word-save]').isEnabled(), false, 'unknown save stays gated');
-          assert.equal(await card.locator('[data-feedback-toggle]').count(), 0);
+          assert.equal(await card.locator('[data-word-pos]').count(), 0, 'no easy-word label');
         }
-        if (word === 'doctor') assert.ok((await card.locator('[data-word-pos]').innerText()).trim(), 'easy status is exposed');
         if (word === 'fragile') assert.equal(await card.locator('[data-part="word-meaning"]').innerText(), fixture.sparseMeaning);
-        if (word !== 'quuxstone') assert.equal(await card.locator('[data-word-save]').isEnabled(), true);
+        if (word === 'fragile') assert.equal(await card.locator('[data-word-save]').isEnabled(), true);
         const effects = await phoneEffects(page);
         await surfaceDrag(page, card, gestures, slot, `${word} fixed primary position`, stability);
         // Every sparse status gets a second fixed origin, never safeOrigin's

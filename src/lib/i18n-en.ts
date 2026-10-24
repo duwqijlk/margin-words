@@ -527,8 +527,6 @@ export const en = {
   "ipa.audioFailedUk": "British pronunciation is unavailable. Tap to retry.",
   "ipa.audioFailedUs": "American pronunciation is unavailable. Tap to retry.",
   "card.phraseFallback": "phrase",
-  "card.easyChip": "Easy word",
-  "card.easy": "This is an easy word. You may already know it. Save it only if you want.",
   "card.alone": "This word alone",
   "card.aloneWord": "{word} on its own",
   "card.more": "More uses and examples",
