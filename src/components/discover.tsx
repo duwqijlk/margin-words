@@ -31,7 +31,7 @@ import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category
 import { placesLeft, quotaFor, useGlossaryQuota } from "@/lib/glossary-quota";
 import { WeeklyQuota } from "@/components/weekly-quota";
 import { newestUpdates } from "@/lib/discover-recent";
-import { browseRails, compareSeriesPlace, RAIL_MIN, RAIL_SIZE, type DiscoverRailSpec } from "@/lib/discover-rails";
+import { browseRails, compareSeriesPlace, RAIL_MIN, RAIL_SIZE, railsFor, type DiscoverRailSpec } from "@/lib/discover-rails";
 import { loadDiscoverRailFile } from "@/lib/discover-rail-config";
 import { BookDetail, BookRail, FeaturedBook, type CardModel, type DiscoverRow } from "@/components/discover-browse";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
@@ -229,7 +229,11 @@ export function DiscoverScreen({
 
   const inCategory = useMemo(() => rows.filter((item) => item.category === category), [rows, category]);
   const newest = useMemo(() => newestUpdates(inCategory, new Date(), RAIL_SIZE), [inCategory]);
-  const rails = useMemo(() => browseRails(inCategory, railSpecs), [inCategory, railSpecs]);
+  // The admin saves rows per tab. No saved file at all keeps the automatic series rows.
+  const rails = useMemo(
+    () => browseRails(inCategory, railSpecs === null ? null : railsFor(railSpecs, category)),
+    [inCategory, railSpecs, category],
+  );
   const inCollection = useMemo(() => {
     if (!collection) return inCategory;
     if (collection === "new") return newestUpdates(inCategory, new Date(), inCategory.length);

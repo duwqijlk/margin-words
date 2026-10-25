@@ -890,9 +890,10 @@ export const en = {
   "admin.blurb.err.tooLong": "The summary is longer than the limit.",
   "admin.blurb.err.markup": "Plain text only: no HTML or Markdown marks.",
   "admin.series.hint":
-    "Discover already shows the biggest series on their own. Save a list here to choose which rows appear, and to add a row of books you pick.",
+    "Each Discover tab (Novels, Speeches, …) has its own series rows, shown only on that tab. Save a list here to choose which rows appear, and to add a row of books you pick.",
   "admin.series.unsaved": "Nothing is saved yet. Discover still shows the three biggest series on its own.",
   "admin.series.empty": "No series rows. After you save, Discover will not add a series strip on its own.",
+  "admin.series.emptyTab": "This tab has no series rows yet. Make one below: pick a series the books already have, or choose books for a new row.",
   "admin.series.addSeries": "Add a series already on the books",
   "admin.series.addCustom": "New row of books you pick",
   "admin.series.name": "Name of this row",
