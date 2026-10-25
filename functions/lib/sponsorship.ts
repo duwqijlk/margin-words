@@ -14,6 +14,8 @@ type GiftRow = {
   display_name: string;
   amount_cents: number;
   listed_at: number;
+  public_id: string | null;
+  avatar_rev: number | null;
 };
 
 type AdminRow = {
@@ -48,7 +50,8 @@ export async function handlePublicSponsorships(_request: Request, env: Env, opti
     const rows = await env.DB.prepare(
       `SELECT sponsorships.user_id,
               COALESCE(NULLIF(users.nickname, ''), sponsorships.display_name) AS display_name,
-              sponsorships.amount_cents, sponsorships.listed_at
+              sponsorships.amount_cents, sponsorships.listed_at,
+              users.public_id, users.avatar_rev
        FROM sponsorships
        JOIN users ON users.id = sponsorships.user_id
        WHERE sponsorships.listed_at IS NOT NULL AND sponsorships.amount_cents > 0
@@ -60,6 +63,9 @@ export async function handlePublicSponsorships(_request: Request, env: Env, opti
         name: row.display_name,
         cents: row.amount_cents,
         listedAt: row.listed_at,
+        // Only the public id and avatar version: enough for the picture, never the account id or email.
+        ...(row.public_id ? { publicId: row.public_id } : {}),
+        ...(row.avatar_rev ? { avatar: row.avatar_rev } : {}),
       })),
       nowOf(options),
     );

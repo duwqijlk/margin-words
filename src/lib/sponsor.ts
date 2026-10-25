@@ -76,12 +76,21 @@ export type ListedGift = {
   name: string;
   cents: number;
   listedAt: number;
+  /** The sponsor's public id (users.public_id), for their avatar. Never the account id. */
+  publicId?: string;
+  /** Their avatar version; 0 or absent means none. */
+  avatar?: number;
 };
 
 export type SponsorLine = {
   name: string;
   cents: number;
+  /** Present when the sponsor has a public id, so the page can show their avatar. */
+  publicId?: string;
+  avatar?: number;
 };
+
+const PUBLIC_ID = /^[a-z0-9]{12}$/;
 
 /**
  * One line per person. This month sums gifts confirmed in the current China month.
@@ -92,12 +101,14 @@ export function sponsorBoards(
   now: number,
 ): { month: SponsorLine[]; total: SponsorLine[] } {
   const monthKey = shanghaiMonthKey(now);
-  const byUser = new Map<string, { name: string; nameAt: number; month: number; total: number }>();
+  const byUser = new Map<string, { name: string; nameAt: number; month: number; total: number; publicId?: string; avatar?: number }>();
   for (const gift of gifts) {
     if (!gift.userId || !gift.name) continue;
     if (!Number.isSafeInteger(gift.cents) || gift.cents <= 0) continue;
     if (!Number.isFinite(gift.listedAt)) continue;
     const row = byUser.get(gift.userId) ?? { name: gift.name, nameAt: gift.listedAt, month: 0, total: 0 };
+    if (gift.publicId && PUBLIC_ID.test(gift.publicId)) row.publicId = gift.publicId;
+    if (gift.avatar && gift.avatar > 0) row.avatar = gift.avatar;
     row.total += gift.cents;
     if (shanghaiMonthKey(gift.listedAt) === monthKey) row.month += gift.cents;
     if (gift.listedAt >= row.nameAt) {
@@ -111,7 +122,12 @@ export function sponsorBoards(
     rows
       .filter((row) => amount(row) > 0)
       .sort((a, b) => amount(b) - amount(a) || a.name.localeCompare(b.name))
-      .map((row) => ({ name: row.name, cents: amount(row) }));
+      .map((row) => ({
+        name: row.name,
+        cents: amount(row),
+        ...(row.publicId ? { publicId: row.publicId } : {}),
+        ...(row.publicId && row.avatar ? { avatar: row.avatar } : {}),
+      }));
   return { month: byAmount((row) => row.month), total: byAmount((row) => row.total) };
 }
 
@@ -125,7 +141,15 @@ export function readSponsorLines(value: unknown): SponsorLine[] {
     const cents = (item as { cents?: unknown }).cents;
     if (typeof name !== "string" || !name.trim()) continue;
     if (typeof cents !== "number" || !Number.isSafeInteger(cents) || cents <= 0) continue;
-    out.push({ name, cents });
+    const publicId = (item as { publicId?: unknown }).publicId;
+    const avatar = (item as { avatar?: unknown }).avatar;
+    const id = typeof publicId === "string" && PUBLIC_ID.test(publicId) ? publicId : "";
+    out.push({
+      name,
+      cents,
+      ...(id ? { publicId: id } : {}),
+      ...(id && typeof avatar === "number" && avatar > 0 ? { avatar: Math.floor(avatar) } : {}),
+    });
   }
   return out;
 }
