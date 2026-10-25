@@ -92,6 +92,7 @@ test("a gift is hidden until the admin types dollars and ticks it", async () => 
     body: { email: "reader@example.com", password: "correct horse" },
   });
   const readerCookie = cookieFrom(reader);
+  const readerPublicId = (await reader.clone().json()).user.publicId;
   const admin = await call(handleRegister, env, {
     body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
   });
@@ -162,14 +163,17 @@ test("a gift is hidden until the admin types dollars and ticks it", async () => 
   });
 
   const boards = await (await call(handlePublicSponsorships, env, { method: "GET" })).json();
-  assert.deepEqual(boards.month, [{ name: "Lin", cents: 550 }]);
-  assert.deepEqual(boards.total, [{ name: "Lin", cents: 1550 }]);
+  // The public line carries the reader's public id for the avatar, never the account id or email.
+  assert.match(readerPublicId, /^[a-f0-9]{12}$/);
+  assert.deepEqual(boards.month, [{ name: "Lin", cents: 550, publicId: readerPublicId }]);
+  assert.deepEqual(boards.total, [{ name: "Lin", cents: 1550, publicId: readerPublicId }]);
+  assert.doesNotMatch(JSON.stringify(boards), /@|example\.com/);
 
   const mine = await (await call(handleMySponsorship, env, { method: "GET", cookie: readerCookie })).json();
   assert.equal(mine.open, null);
 
   await call(handleNickname, env, { cookie: readerCookie, body: { nickname: "Mei" } });
   const renamed = await (await call(handlePublicSponsorships, env, { method: "GET" })).json();
-  assert.deepEqual(renamed.month, [{ name: "Mei", cents: 550 }]);
-  assert.deepEqual(renamed.total, [{ name: "Mei", cents: 1550 }]);
+  assert.deepEqual(renamed.month, [{ name: "Mei", cents: 550, publicId: readerPublicId }]);
+  assert.deepEqual(renamed.total, [{ name: "Mei", cents: 1550, publicId: readerPublicId }]);
 });

@@ -216,7 +216,8 @@ export function DashboardScreen() {
   const [attempt, setAttempt] = useState(0);
   const [state, setState] = useState<LoadState>("loading");
   const [totals, setTotals] = useState<LibraryTotals | null>(null);
-  const [names, setNames] = useState<string[] | null>(null);
+  /** Supporters, all time first (the larger gifts), with their public id for the avatar when known. */
+  const [names, setNames] = useState<Array<{ name: string; publicId?: string; avatar?: number }> | null>(null);
   const [open, setOpen] = useState(false);
   const [reload, setReload] = useState(0);
 
@@ -247,9 +248,16 @@ export function DashboardScreen() {
       .then((payload) => {
         if (!alive || !payload || typeof payload !== "object") return;
         const body = payload as { month?: unknown; total?: unknown };
-        const month = readSponsorLines(body.month).map((line) => line.name);
-        const total = readSponsorLines(body.total).map((line) => line.name);
-        setNames([...new Set([...month, ...total])]);
+        // One row per person: all-time order, then anyone only on this month's board.
+        const seen = new Set<string>();
+        const people: Array<{ name: string; publicId?: string; avatar?: number }> = [];
+        for (const line of [...readSponsorLines(body.total), ...readSponsorLines(body.month)]) {
+          const key = line.publicId ?? `name:${line.name}`;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          people.push({ name: line.name, publicId: line.publicId, avatar: line.avatar });
+        }
+        setNames(people);
       })
       .catch(() => undefined);
     return () => {
@@ -333,10 +341,21 @@ export function DashboardScreen() {
                     <Heart className="size-4 shrink-0 text-accent" strokeWidth={1.5} aria-hidden />
                     {trn("count.supporter", names.length)}
                   </p>
-                  <ul className="flex flex-wrap gap-2" data-supporter-names>
-                    {names.map((name) => (
-                      <li key={name} className="rounded-full bg-card px-3 py-1.5 text-sm">
-                        {name}
+                  <ul className="grid grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-5" data-supporter-names>
+                    {names.map((person) => (
+                      <li
+                        key={person.publicId ?? person.name}
+                        className="grid justify-items-center gap-1 text-center"
+                        data-supporter={person.publicId ?? ""}
+                      >
+                        {person.publicId ? (
+                          <Avatar id={person.publicId} name={person.name} version={person.avatar} size={40} />
+                        ) : (
+                          <span className="inline-grid size-10 place-items-center rounded-full bg-accent-soft text-sm font-semibold text-accent" aria-hidden>
+                            {[...person.name.trim()][0]?.toUpperCase() ?? ""}
+                          </span>
+                        )}
+                        <span className="max-w-full truncate text-xs font-medium">{person.name}</span>
                       </li>
                     ))}
                   </ul>
