@@ -85,6 +85,8 @@ ${sections.join("\n")}
     [`kit/${KIT_NAME}`, await buildKit()],
     // The daily word-list patrol, for an agent that is given only a Cloudflare login.
     ["kit/patrol.md", readFileSync(join(ROOT, "docs", "GLOSSARY_PATROL.md"), "utf8")],
+    // Uploading one book with wrangler, for an agent with a Cloudflare login (same result as the admin Books tab).
+    ["kit/book-upload.md", readFileSync(join(ROOT, "docs", "BOOK_UPLOAD.md"), "utf8")],
   ]);
   return cache;
 }
