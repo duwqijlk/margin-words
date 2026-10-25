@@ -18,8 +18,6 @@ export const RATE_LIMITS = {
   // Emailed codes: each send is a message from our Resend account, each check a guess at 6 digits.
   "code-send:user": 5,
   "code-check:user": 20,
-  // An avatar change is an R2 write and may rebuild contributors.json.
-  "avatar:user": 3,
   // Per signed-in account. Any free account can call these in a loop, and each call is a D1 read
   // plus an R2 get of a word list or a sync body - a cheap way to spend someone else's quota.
   "glossary:user": 120,
@@ -28,7 +26,7 @@ export const RATE_LIMITS = {
 
 export type RateAction = "login" | "register" | "reset" | "sponsor";
 export type IpRateAction = RateAction | "taps" | "feedback";
-export type UserRateAction = "glossary" | "sync" | "code-send" | "code-check" | "avatar";
+export type UserRateAction = "glossary" | "sync" | "code-send" | "code-check";
 
 /**
  * Buckets that live a day rather than a window. They are kept out of the short prune: today's row
@@ -57,6 +55,11 @@ async function prune(db: D1Database, now: number): Promise<void> {
   await db
     .prepare(`DELETE FROM rate_limits WHERE bucket NOT LIKE '${DAILY_PREFIX}%' AND window_start < ?`)
     .bind(now - RATE_WINDOW_MS * 4)
+    .run();
+  // Daily rows from before yesterday count nothing any more.
+  await db
+    .prepare(`DELETE FROM rate_limits WHERE bucket LIKE '${DAILY_PREFIX}%' AND window_start < ?`)
+    .bind(Math.floor(now / DAY_MS) * DAY_MS - DAY_MS)
     .run();
 }
 
@@ -142,6 +145,42 @@ export async function assertDailyWriteBudget(
 ): Promise<void> {
   const dayStart = Math.floor(now / DAY_MS) * DAY_MS;
   await addHit(db, `${DAILY_PREFIX}${kind}:${dayStart}`, dayStart, DAILY_WRITE_BUDGET[kind], Math.max(1, rows));
+}
+
+/**
+ * Changes a reader may make to their avatar in one UTC day. Each change writes the picture to R2,
+ * can rebuild contributors.json, and gives the picture a new address that every reader downloads
+ * again, so once a day is plenty for a real reader and stops a script from spending the writes.
+ */
+export const AVATAR_PER_DAY = 1;
+
+/** Refused because today's avatar change is used. `nextAt` is the start of the next UTC day. */
+export class AvatarDailyError extends HttpError {
+  readonly nextAt: number;
+  constructor(nextAt: number) {
+    super(429, "avatar-daily");
+    this.nextAt = nextAt;
+  }
+}
+
+/**
+ * Take today's avatar change (UTC day) for this reader, or throw AvatarDailyError when it is used.
+ * One atomic upsert, so two uploads at the same moment cannot both pass. Call it after the file
+ * was checked: a refused file must not use the change.
+ */
+export async function takeAvatarChange(db: D1Database, userId: string, now: number): Promise<void> {
+  const dayStart = Math.floor(now / DAY_MS) * DAY_MS;
+  await prune(db, now);
+  const row = await db
+    .prepare(
+      `INSERT INTO rate_limits (bucket, window_start, hits)
+       VALUES (?, ?, 1)
+       ON CONFLICT(bucket, window_start) DO UPDATE SET hits = hits + 1
+       RETURNING hits`,
+    )
+    .bind(`${DAILY_PREFIX}avatar:${userId}:${dayStart}`, dayStart)
+    .first<{ hits: number }>();
+  if ((row?.hits ?? 1) > AVATAR_PER_DAY) throw new AvatarDailyError(dayStart + DAY_MS);
 }
 
 /** Limit an endpoint that needs a signed-in account, per account rather than per address. */

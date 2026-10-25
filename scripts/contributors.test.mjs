@@ -43,16 +43,19 @@ function openDb() {
 
 function bucket() {
   const files = new Map();
+  const meta = new Map();
   return {
     files,
+    meta,
     async get(key) {
       const value = files.get(key);
       if (!value) return null;
       const bytes = typeof value === "string" ? new TextEncoder().encode(value) : value;
       return { body: new Blob([bytes]).stream(), arrayBuffer: async () => bytes.buffer, size: bytes.byteLength };
     },
-    async put(key, value) {
+    async put(key, value, options) {
       files.set(key, value);
+      if (options?.httpMetadata) meta.set(key, options.httpMetadata);
       return {};
     },
   };
@@ -140,6 +143,40 @@ test("an avatar must be a small WebP from a checked account, and goes to the pub
   const ok = await handleAvatarPut(request("/api/auth/avatar", { method: "PUT", cookie, raw: webp }), env, { now: NOW });
   assert.equal(ok.status, 200);
   assert.ok(books.files.has(`avatars/${user.publicId}.webp`), "stored under the public id, not the account id");
+  assert.deepEqual(
+    books.meta.get(`avatars/${user.publicId}.webp`),
+    { contentType: "image/webp", cacheControl: "public, max-age=31536000, immutable" },
+    "kept a year by the browser and the CDN: a new picture gets a new ?v= address",
+  );
+});
+
+test("an avatar changes once a day; a refused file does not use the change", async () => {
+  const db = openDb();
+  const books = bucket();
+  const env = { DB: db, BOOKS: books };
+  const { cookie } = await signUp(env, "daily@example.com");
+  db.raw.prepare("UPDATE users SET email_verified_at = ? WHERE email = 'daily@example.com'").run(NOW);
+  const webp = new Uint8Array(64);
+  webp.set(new TextEncoder().encode("RIFF"), 0);
+  webp.set(new TextEncoder().encode("WEBP"), 8);
+  const put = (raw, now) => handleAvatarPut(request("/api/auth/avatar", { method: "PUT", cookie, raw }), env, { now });
+  const DAY = 24 * 60 * 60 * 1000;
+  const dayStart = Math.floor(NOW / DAY) * DAY;
+
+  assert.equal((await put(new Uint8Array(64), NOW)).status, 415, "not a WebP");
+  assert.equal((await put(webp, NOW)).status, 200, "the refused file did not use today's change");
+  const again = await put(webp, NOW + 1000);
+  assert.equal(again.status, 429);
+  assert.deepEqual(await again.json(), { error: "avatar-daily", nextAt: dayStart + DAY });
+  assert.equal((await put(webp, dayStart + DAY)).status, 200, "a new UTC day allows one more");
+  assert.equal((await put(webp, dayStart + DAY + 5)).status, 429);
+});
+
+test("contributors.json is kept five minutes", async () => {
+  const db = openDb();
+  const books = bucket();
+  await publishContributors(db, books, NOW);
+  assert.deepEqual(books.meta.get(CONTRIBUTORS_KEY), { contentType: "application/json", cacheControl: "public, max-age=300" });
 });
 
 test("a glossary credit must be a public id", () => {

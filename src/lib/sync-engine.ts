@@ -712,6 +712,15 @@ export async function signUp(email: string, password: string, turnstileToken?: s
  * Shrink a picked image to a 128x128 WebP (centre crop) in the browser and upload it as the
  * reader's avatar. Throws "avatar-type" when the browser cannot read or encode the image.
  */
+/** The reader already changed their avatar today. `nextAt` is when the next change is allowed. */
+export class AvatarDailyLimit extends Error {
+  readonly nextAt: number;
+  constructor(nextAt: number) {
+    super("avatar-daily");
+    this.nextAt = nextAt;
+  }
+}
+
 export async function uploadAvatar(file: File): Promise<void> {
   if (!file.type.startsWith("image/")) throw new Error("avatar-type");
   let bitmap: ImageBitmap;
@@ -744,7 +753,12 @@ export async function uploadAvatar(file: File): Promise<void> {
     throw new Error("network");
   }
   const payload = await readBody(response);
-  if (!response.ok) throw new Error(typeof payload.error === "string" ? payload.error : "generic");
+  if (!response.ok) {
+    const code = typeof payload.error === "string" ? payload.error : "generic";
+    // Once a day: say when the next change is allowed.
+    if (code === "avatar-daily" && typeof payload.nextAt === "number") throw new AvatarDailyLimit(payload.nextAt);
+    throw new Error(code);
+  }
   useAccount.getState().patch({ avatar: typeof payload.avatar === "number" ? payload.avatar : 0 });
 }
 

@@ -12,7 +12,8 @@ export type { Contributor };
 let loading: Promise<Contributor[]> | null = null;
 
 export function loadContributors(): Promise<Contributor[]> {
-  loading ??= fetch(booksUrl("contributors.json"), { cache: "no-cache" })
+  // The file is kept 5 minutes by the browser and the CDN (functions/lib/contributors.ts).
+  loading ??= fetch(booksUrl("contributors.json"))
     .then((response) => (response.ok ? response.json() : null))
     .then(parseContributors)
     .catch(() => {
@@ -20,6 +21,22 @@ export function loadContributors(): Promise<Contributor[]> {
       return [];
     });
   return loading;
+}
+
+/**
+ * Start loading the file early (when a book opens), so the first credit on a word card does not
+ * wait for it, and fetch the credited readers' pictures so the card shows them at once.
+ */
+export function preloadContributors(): void {
+  void loadContributors().then((people) => {
+    for (const person of people) {
+      const url = avatarUrl(person.id, person.avatar);
+      if (!url) continue;
+      const image = new Image();
+      image.decoding = "async";
+      image.src = url;
+    }
+  });
 }
 
 /** All credited readers, most help first. Empty until the file has loaded (or when there is none). */

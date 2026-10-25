@@ -76,7 +76,7 @@ function CreditLine({ id }: { id: string }) {
   const name = person.name || t("card.creditAnon");
   return (
     <p className="flex items-center gap-1.5 text-xs text-muted" data-part="credit" data-credit={id}>
-      <Avatar id={person.id} name={person.name} version={person.avatar} size={18} />
+      <Avatar id={person.id} name={person.name} version={person.avatar} size={18} eager />
       <span className="min-w-0 truncate">{t("card.creditBy", { name })}</span>
     </p>
   );

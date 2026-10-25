@@ -39,11 +39,17 @@ export async function contributorRows(db: D1Database): Promise<ContributorRow[]>
   }));
 }
 
+/**
+ * Five minutes in the browser and the CDN: a new credit shows up to five minutes late, and a page
+ * open is not an R2 read for every reader.
+ */
+export const CONTRIBUTORS_HTTP = { contentType: "application/json", cacheControl: "public, max-age=300" };
+
 /** Write contributors.json. Returns how many readers it lists. */
 export async function publishContributors(db: D1Database, bucket: R2BucketLike, now = Date.now()): Promise<number> {
   const people = await contributorRows(db);
   const file = { format: 1, updated: new Date(now).toISOString(), people };
-  await bucket.put(CONTRIBUTORS_KEY, `${JSON.stringify(file)}\n`);
+  await bucket.put(CONTRIBUTORS_KEY, `${JSON.stringify(file)}\n`, { httpMetadata: CONTRIBUTORS_HTTP });
   return people.length;
 }
 
