@@ -1007,7 +1007,7 @@ export const zh: Record<Key, string> = {
   "admin.taps.tabTaps": "生词点击追踪",
   "admin.taps.tabFeedback": "释义问题反馈",
   "passage.ask": "反馈这段",
-  "passage.oneParagraph": "请在一段之内选，最多 300 个字符",
+  "passage.oneParagraph": "请在一段之内选，最多 600 个字符",
   "passage.title": "这段话哪里难懂？",
   "passage.hard": "看不懂",
   "passage.phrase": "是固定搭配",

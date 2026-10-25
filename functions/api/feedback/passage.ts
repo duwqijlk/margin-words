@@ -3,8 +3,7 @@ import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/ht
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertIpRateLimit } from "../../lib/rate-limit.ts";
 import { requireUser } from "../../lib/session.ts";
-import { cleanSuggestion } from "./word.ts";
-import { PASSAGE_MAX } from "../../../src/lib/limits.ts";
+import { PASSAGE_MAX, PASSAGE_NOTE_MAX } from "../../../src/lib/limits.ts";
 
 /**
  * Help with a selected passage: a few words, a sentence, or a short part of one paragraph that a
@@ -12,13 +11,23 @@ import { PASSAGE_MAX } from "../../../src/lib/limits.ts";
  * one into a phrase, sentence or paragraph note in the live word list.
  *
  *   POST /api/feedback/passage
- *   { bookId, bookTitle, chapter, paragraph, selected, before, after, reason, suggestion?, glossaryRev }
+ *   { bookId, bookTitle, chapter, paragraph, start, end, selected, before, after, reason, suggestion?, glossaryRev }
  *
  * A selection never crosses paragraphs (the page refuses that), and the text is short: only enough
- * of the book to find the place again.
+ * of the book to find the place again. `start` / `end` are its character offsets in the paragraph.
+ *
+ * Reports on one paragraph that overlap are one topic, whoever sent them and however long each is:
+ * a short selection inside a longer one, or two that share words. Each report keeps its own text
+ * and explanation; `topic` is the id of the first open report it overlaps, so the patrol reads
+ * them together and writes one note (see docs/GLOSSARY_PATROL.md).
  */
 export const onRequestPost = (context: { request: Request; env: Env }) =>
   handlePassageFeedbackPost(context.request, context.env);
+
+/** Two [start, end) spans of one paragraph share at least one character. */
+export function overlaps(a: { start: number; end: number }, b: { start: number; end: number }): boolean {
+  return a.start < b.end && b.start < a.end;
+}
 
 /** "hard": I do not understand this. "phrase": these words go together. "wrong": the help shown here is wrong. */
 export const PASSAGE_REASONS = ["hard", "phrase", "wrong", "suggested"] as const;
@@ -61,13 +70,21 @@ export async function handlePassageFeedbackPost(
 
     const reason = PASSAGE_REASONS.includes(body.reason as PassageReason) ? (body.reason as PassageReason) : null;
     if (!reason) throw new HttpError(400, "bad-reason");
-    const suggestion = cleanSuggestion(body.suggestion);
+    const suggestion = cleanBookText(body.suggestion, PASSAGE_NOTE_MAX);
     if (reason === "suggested" && !suggestion) throw new HttpError(400, "bad-reason");
 
     const chapter = Math.max(0, Math.floor(Number(body.chapter) || 0));
     const paragraph = Math.max(0, Math.floor(Number(body.paragraph) || 0));
     const before = cleanBookText(body.before, 80);
     const after = cleanBookText(body.after, 80);
+    // Offsets of the selection in the paragraph. An older page sends none: treat it as unknown,
+    // and only an exact repeat of the same text counts as the same place.
+    const startRaw = Number(body.start);
+    const endRaw = Number(body.end);
+    const located = Number.isInteger(startRaw) && Number.isInteger(endRaw) && startRaw >= 0 && endRaw > startRaw && endRaw - startRaw <= PASSAGE_MAX * 2;
+    const start = located ? startRaw : -1;
+    const end = located ? endRaw : -1;
+    const span = body.span === "sentence" ? "sentence" : "words";
     const glossaryRev = cleanBookText(body.glossaryRev, 100);
 
     const ip = clientIp(request);
@@ -85,29 +102,54 @@ export async function handlePassageFeedbackPost(
       .first<{ id: number }>();
     if (repeat && !suggestion) return json({ ok: true, duplicate: true });
 
-    await env.DB.prepare(
+    // The open topic this report belongs to: the oldest open report on the same paragraph whose
+    // span overlaps this one (or, without offsets, whose text holds this one or is held by it).
+    const open = await env.DB.prepare(
+      `SELECT id, topic, sel_start, sel_end, selected FROM passage_feedback
+       WHERE book_id = ? AND chapter = ? AND paragraph = ? AND status != 'resolved'
+       ORDER BY id ASC LIMIT 200`,
+    )
+      .bind(bookId, chapter, paragraph)
+      .all<{ id: number; topic: number; sel_start: number; sel_end: number; selected: string }>();
+    const near = (open.results ?? []).find((row) =>
+      start >= 0 && row.sel_start >= 0
+        ? overlaps({ start, end }, { start: row.sel_start, end: row.sel_end })
+        : row.selected.includes(selected) || selected.includes(row.selected),
+    );
+    const topic = near ? near.topic || near.id : 0;
+
+    const inserted = await env.DB.prepare(
       `INSERT INTO passage_feedback (
-         book_id, book_title, chapter, paragraph, selected, before, after, reason,
-         suggestion, glossary_rev, status, user_id, ip, created_at
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?)`,
+         book_id, book_title, chapter, paragraph, sel_start, sel_end, span, selected, before, after, reason,
+         suggestion, glossary_rev, status, topic, user_id, ip, created_at
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?)
+       RETURNING id`,
     )
       .bind(
         bookId,
         bookTitle,
         chapter,
         paragraph,
+        start,
+        end,
+        span,
         selected,
         before,
         after,
         reason,
         suggestion,
         glossaryRev,
+        topic,
         suggestion ? user.id : null,
         ip,
         now,
       )
-      .run();
-    return json({ ok: true, saved: true });
+      .first<{ id: number }>();
+    // The first report of a topic names it with its own id.
+    if (!topic && inserted?.id) {
+      await env.DB.prepare("UPDATE passage_feedback SET topic = id WHERE id = ?").bind(inserted.id).run();
+    }
+    return json({ ok: true, saved: true, ...(near ? { joined: true } : {}) });
   } catch (error) {
     return errorResponse(error);
   }

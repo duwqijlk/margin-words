@@ -1030,7 +1030,7 @@ export const en = {
   "admin.taps.tabTaps": "Word tap tracking",
   "admin.taps.tabFeedback": "Meaning feedback",
   "passage.ask": "Ask about this",
-  "passage.oneParagraph": "Select within one paragraph, up to 300 characters",
+  "passage.oneParagraph": "Select within one paragraph, up to 600 characters",
   "passage.title": "What is hard here?",
   "passage.hard": "I don't understand it",
   "passage.phrase": "These words go together",

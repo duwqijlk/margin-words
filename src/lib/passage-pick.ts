@@ -1,6 +1,7 @@
 /**
  * The reader's current text selection, as a passage to ask about: the words, the paragraph it is
- * in, and a few words on each side so the place can be found again in the word list.
+ * in, where in that paragraph they are, and a few words on each side so the place can be found
+ * again in the word list.
  */
 import { PASSAGE_MAX } from "@/lib/limits";
 import { flowText, flowTextBefore } from "@/lib/flow-text";
@@ -12,6 +13,14 @@ export type PassagePick = {
   before: string;
   after: string;
   paragraph: number;
+  /**
+   * Where the selection is inside the paragraph text (book text: soft hyphens dropped, spaces
+   * folded), as [start, end) character offsets. Two reports on one paragraph overlap when these do.
+   */
+  start: number;
+  end: number;
+  /** "sentence" when the selection holds a whole sentence or more, else "words". */
+  span: "words" | "sentence";
   /** Where to put the button: just under the end of the selection, in page coordinates. */
   x: number;
   y: number;
@@ -23,7 +32,7 @@ const BLOCK = "p, li, blockquote, h1, h2, h3, h4, div[data-para]";
  * Text as the book has it: the soft hyphens the reader adds for line breaks are dropped, and
  * spaces folded, so the words match the word list and the book file.
  */
-function bookText(text: string): string {
+export function bookText(text: string): string {
   return text.replace(/­/g, "").replace(/\s+/g, " ");
 }
 
@@ -47,6 +56,27 @@ function someWords(text: string, max: number, fromEnd: boolean): string {
 }
 
 /**
+ * Where `selected` sits in `whole`: the match nearest to `near` (the length of the text before the
+ * selection), since a short selection ("the") can appear many times in one paragraph.
+ */
+export function locateIn(whole: string, selected: string, near: number): number {
+  let best = -1;
+  for (let at = whole.indexOf(selected); at >= 0; at = whole.indexOf(selected, at + 1)) {
+    if (best < 0 || Math.abs(at - near) < Math.abs(best - near)) best = at;
+  }
+  return best;
+}
+
+/** True when `text` is at least one whole sentence: it ends a sentence and has a verb-sized length. */
+export function holdsSentence(selected: string, whole: string, start: number): boolean {
+  const words = selected.trim().split(/\s+/).length;
+  if (words < 5) return false;
+  const startsSentence = start === 0 || /[.!?]["'”’)]?\s*$/.test(whole.slice(0, start));
+  const endsSentence = /[.!?]["'”’)]?$/.test(selected.trim());
+  return (startsSentence && endsSentence) || /[.!?]["'”’)]?\s+\S/.test(selected);
+}
+
+/**
  * Read the current page selection. Null when nothing useful is selected. `{ crossed: true }` when
  * it runs over more than one paragraph or is longer than PASSAGE_MAX: the button then says so.
  */
@@ -61,14 +91,24 @@ export function readPassage(root: HTMLElement): PassagePick | { crossed: true; x
   const rect = range.getBoundingClientRect();
   const x = rect.left + rect.width / 2 + window.scrollX;
   const y = rect.bottom + window.scrollY;
-  const start = blockOf(range.startContainer, root);
-  const end = blockOf(range.endContainer, root);
-  if (!start || start !== end || [...raw].length > PASSAGE_MAX) return { crossed: true, x, y };
-  const paragraph = readerParagraphBlocks(root).indexOf(start);
-  const whole = bookText(flowText(start));
-  const head = bookText(flowTextBefore(start, range.startContainer, range.startOffset));
-  const at = whole.indexOf(raw, Math.max(0, head.trimStart().length - 2));
-  const before = someWords(at >= 0 ? whole.slice(0, at) : head, 60, true);
-  const after = someWords(at >= 0 ? whole.slice(at + raw.length) : "", 60, false);
-  return { selected: raw, before, after, paragraph: Math.max(0, paragraph), x, y };
+  const startBlock = blockOf(range.startContainer, root);
+  const endBlock = blockOf(range.endContainer, root);
+  if (!startBlock || startBlock !== endBlock || [...raw].length > PASSAGE_MAX) return { crossed: true, x, y };
+  const paragraph = readerParagraphBlocks(root).indexOf(startBlock);
+  const whole = bookText(flowText(startBlock));
+  const head = bookText(flowTextBefore(startBlock, range.startContainer, range.startOffset));
+  const found = locateIn(whole, raw, head.trimStart().length);
+  const start = found >= 0 ? found : Math.min(head.trimStart().length, whole.length);
+  const end = Math.min(whole.length, start + raw.length);
+  return {
+    selected: raw,
+    before: someWords(whole.slice(0, start), 60, true),
+    after: someWords(whole.slice(end), 60, false),
+    paragraph: Math.max(0, paragraph),
+    start,
+    end,
+    span: holdsSentence(raw, whole, start) ? "sentence" : "words",
+    x,
+    y,
+  };
 }

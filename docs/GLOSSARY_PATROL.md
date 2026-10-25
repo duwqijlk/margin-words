@@ -24,13 +24,16 @@ words. Three things tell you a list needs work:
     usually the quickest way to the right sense. Review it; never paste it in unchecked.
 - **Passage reports** (table `passage_feedback`): a reader selected a few words, a sentence or a
   short part of one paragraph and asked for help with it. `selected` is the exact text (at most
-  300 characters, never across paragraphs); `before` / `after` are a few words around it;
+  600 characters, never across paragraphs); `before` / `after` are a few words around it;
   `chapter` and `paragraph` are the reader's numbers (the same as an anchor's chapter and a
-  paragraph note's `paragraph`). `reason`:
+  paragraph note's `paragraph`); `sel_start` / `sel_end` are its character offsets in that paragraph;
+  `span` is `sentence` when it holds a whole sentence. Reports that overlap on one paragraph share a
+  `topic` (see "Passage topics" below). `reason`:
   - `hard`: "I don't understand this part".
   - `phrase`: "these words go together" (often a phrasal verb or an idiom the list does not have).
   - `wrong`: the help shown at this place is wrong.
-  - `suggested`: only the reader's explanation, in `suggestion` (same rules as above).
+  - `suggested`: only the reader's explanation, in `suggestion` (plain text, at most 600
+    characters: room to say what a sentence means and why).
 
 Once a day you read the open items, fix the word lists, publish them, and mark the items done.
 You may **add** entries and **fix** existing ones: rewrite a meaning that is too hard, correct one
@@ -81,11 +84,12 @@ SELECT f.id, f.book_title, f.word, f.form, f.reason, f.chapter, f.occurrence, f.
 Open passage reports:
 
 ```sql
-SELECT p.id, p.book_title, p.chapter, p.paragraph, p.selected, p.before, p.after, p.reason,
-       p.suggestion, p.glossary_rev, p.status, u.public_id AS suggested_by
+SELECT p.id, p.topic, p.book_title, p.chapter, p.paragraph, p.sel_start, p.sel_end, p.span,
+       p.selected, p.before, p.after, p.reason, p.suggestion, p.glossary_rev, p.status, p.created_at,
+       u.public_id AS suggested_by
   FROM passage_feedback p LEFT JOIN users u ON u.id = p.user_id
  WHERE p.status != 'resolved'
- ORDER BY (p.suggestion != '') DESC, p.created_at DESC LIMIT 200;
+ ORDER BY p.topic, p.created_at LIMIT 300;
 ```
 
 `suggested_by` is set only on a report that carries a suggestion: the public id of the reader who
@@ -156,6 +160,33 @@ contain `before` + `selected` + `after` (spaces may differ). Then write the smal
 
 Leave it open when the selection is a single easy word, a name, or text you cannot find in the book.
 Never copy more of the book than a note's `context` needs.
+
+**Passage topics: one place, several readers.** All reports with the same `topic` overlap on one
+paragraph: a short selection inside a longer one (reader A selected the whole 10-word sentence,
+reader B only "as if the" inside it), or two that share words. Read the whole topic before you write:
+
+1. **Find what is really hard.** When most reports point at the same few words (B's "as if the" sits
+   inside A's sentence, and C also marked "as if"), the hard part is those words. Several readers
+   marking the same small part is a strong signal; one reader marking a big part is a weak one.
+2. **Write the smallest set of notes that answers every report**, never one note per report:
+   - The short part is a phrase or an idiom: a `phrases` entry for it. If the longer selection is
+     still hard once that phrase is explained, also a `sentences` note for the whole sentence. Its
+     `simple` uses the phrase's plain meaning, so the two say the same thing.
+   - The short part is only hard because of the sentence around it: one `sentences` note for the
+     sentence. It answers B too; do not add a phrase entry that is not a real phrase.
+   - Two reports that only share a few words and point at different hard parts: answer each part
+     on its own.
+3. **Explanations:** compare them with each other and with the sentence. Use the sense the best one
+   gives, write it in your own words (writing rules below), and credit that reader. The table for
+   "a new suggestion when a meaning already exists" below applies here too: a different sense of a
+   different part is its own note and its own credit; the same sense said better replaces the text
+   and moves the credit.
+4. **Mark the whole topic.** Resolve every report in the topic that your notes answer. Mark
+   `accepted` only the reports whose explanation you really used, one credit per note. A report you
+   could not answer stays open (it keeps its topic).
+
+A topic is closed once all its reports are resolved. A new report on that place later starts a new
+topic, so a fix that did not work comes back as fresh work.
 
 Reviewing a reader's `suggestion`:
 
@@ -257,7 +288,7 @@ UPDATE word_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?
  WHERE id = ?3;
 
 UPDATE passage_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
- WHERE id = ?3;
+ WHERE id = ?3;   -- or, for a topic you answered whole: WHERE topic = ?3 AND status != 'resolved'
 ```
 
 `?1` = now in milliseconds, `?2` = new revision. If a reader reports the same place again on the

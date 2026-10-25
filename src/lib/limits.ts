@@ -25,10 +25,17 @@ export const SYNC_BODY_TARGET = 900_000;
 export const SUGGESTION_MAX = 200;
 
 /**
- * Longest passage a reader may select for help, in characters: a phrase or a sentence or two,
- * never a page of the book. The page stops a longer selection; the server refuses one.
+ * Longest passage a reader may select for help, in characters: a phrase, a sentence, or the hard
+ * part of one paragraph, never a page of the book. The page stops a longer selection; the server
+ * refuses one.
  */
-export const PASSAGE_MAX = 300;
+export const PASSAGE_MAX = 600;
+
+/**
+ * Longest explanation a reader may write for a passage. A word meaning is one line
+ * (SUGGESTION_MAX); a sentence or a paragraph needs room for what it means and why.
+ */
+export const PASSAGE_NOTE_MAX = 600;
 
 /** Taps one `POST /api/analytics/word-taps` may carry. */
 export const WORD_TAPS_MAX = 20;

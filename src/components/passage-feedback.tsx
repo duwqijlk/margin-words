@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Check, MessageSquareText, X } from "lucide-react";
 import { useT } from "@/lib/i18n";
-import { SUGGESTION_MAX } from "@/lib/limits";
+import { PASSAGE_NOTE_MAX, SUGGESTION_MAX } from "@/lib/limits";
 import { readPassage, type PassagePick } from "@/lib/passage-pick";
 import { cn } from "@/components/ui";
 
@@ -39,6 +39,8 @@ export function PassageFeedback({
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const openRef = useRef(false);
   openRef.current = open;
+  // A few words get a short meaning, like a word card; a sentence or more gets room to explain.
+  const noteMax = pick?.span === "sentence" ? PASSAGE_NOTE_MAX : Math.max(SUGGESTION_MAX, 300);
 
   useEffect(() => {
     if (!enabled) {
@@ -91,7 +93,7 @@ export function PassageFeedback({
 
   async function send() {
     if (!pick || state === "sending") return;
-    const suggestion = text.trim().slice(0, SUGGESTION_MAX);
+    const suggestion = text.trim().slice(0, noteMax);
     const why: PassageReason = reason ?? "suggested";
     if (why === "suggested" && !suggestion) return;
     setState("sending");
@@ -105,6 +107,9 @@ export function PassageFeedback({
           bookTitle,
           chapter,
           paragraph: pick.paragraph,
+          start: pick.start,
+          end: pick.end,
+          span: pick.span,
           selected: pick.selected,
           before: pick.before,
           after: pick.after,
@@ -213,17 +218,17 @@ export function PassageFeedback({
           <textarea
             className="mt-3 min-h-16 w-full resize-none rounded-lg border border-line/80 bg-card px-2.5 py-2 text-sm text-ink placeholder:text-muted/60 focus:border-accent focus:outline-none"
             value={text}
-            maxLength={SUGGESTION_MAX}
-            rows={2}
+            maxLength={noteMax}
+            rows={pick?.span === "sentence" ? 4 : 2}
             placeholder={t("passage.placeholder")}
             aria-label={t("passage.placeholder")}
-            onChange={(event) => setText(event.target.value.slice(0, SUGGESTION_MAX))}
+            onChange={(event) => setText(event.target.value.slice(0, noteMax))}
             data-passage-text
           />
           <div className="mt-1 flex items-center justify-between gap-2 text-[0.7rem] text-muted">
             <span>{state === "error" ? t("passage.error") : t("passage.hint")}</span>
             <span className="tabular-nums">
-              {[...text].length}/{SUGGESTION_MAX}
+              {[...text].length}/{noteMax}
             </span>
           </div>
           <div className="mt-2 flex justify-end">
