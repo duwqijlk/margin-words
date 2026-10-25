@@ -147,6 +147,7 @@ type Entry = {
   senses?: Sense[];     // 1 to 24 meanings (version 2 only)
   coined?: boolean;     // true only if the AUTHOR INVENTED the word
   senseOnly?: boolean;  // true: underline/open the word ONLY at the places named by the anchors of its senses (4.7)
+  credit?: string;      // DO NOT WRITE. Added by the daily patrol for a reader's accepted meaning (4.9)
 };
 type Sense = {
   meaning: string;      // REQUIRED. Max 600. The plain sense.
@@ -157,6 +158,7 @@ type Sense = {
   trickyMeaning?: boolean; // true: familiar word, unfamiliar meaning here (4.8)
   forms?: string[];     // spellings this sense is for (used only to pick a sense when nothing else matches)
   anchors?: Anchor[];   // 0 to 60 places where this meaning is used
+  credit?: string;      // DO NOT WRITE. Added by the daily patrol for a reader's accepted meaning (4.9)
 };
 type Anchor = {
   chapter?: number;     // integer >= 0 (first chapter = 0)
@@ -255,6 +257,17 @@ Put `"trickyMeaning": true` on a sense when a word learners already know is used
 the word (different from the straight line of a hard word and from the phrase line) and the card opens with that sense first. Other
 uses of the word are not marked. Only the boolean matters; the reader never looks at the text of `whyHard`. Absent or `false` = no mark.
 Start `whyHard` with "Not the usual meaning!" and say what the usual meaning is. Use it together with `senseOnly` for very common words.
+
+### 4.9 `credit` (do not write it)
+
+A pack never writes `credit`. The daily patrol (`docs/GLOSSARY_PATROL.md`) adds it on the live list when it
+accepts a meaning a reader suggested: `"credit": "<public id>"`, 12 lowercase letters/digits, on the entry or
+the sense that holds that meaning. The card then shows "From <the reader's nickname>". It is never a name or
+an email; the validator rejects anything else.
+
+Because the patrol edits the **live** list, a list rebuilt from the book does not have its words, fixes or
+credits. `scripts/publish-word-list.mjs` compares with the live list and stops when the new file would drop
+any of them. Bring them over into the new list first, or pass `--replace-live` when losing them is intended.
 
 ## 5. How the reader numbers the book (needed for anchors and notes)
 

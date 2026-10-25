@@ -86,3 +86,38 @@ export function mergeWordListCatalog(live, row, updated = new Date().toISOString
   assertWordListPublish(live, next, row.id);
   return next;
 }
+
+const sameJson = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
+
+/** Credits on an entry and its senses, as "word" or "word#2" (sense 2) -> public id. */
+function creditsOf(glossary) {
+  const out = new Map();
+  for (const [word, entry] of Object.entries(glossary ?? {})) {
+    if (typeof entry?.credit === "string") out.set(word, entry.credit);
+    (entry?.senses ?? []).forEach((sense, index) => {
+      if (typeof sense?.credit === "string") out.set(`${word}#${index + 1}`, sense.credit);
+    });
+  }
+  return out;
+}
+
+/**
+ * What a rebuilt list would lose against the list that is live now. The daily patrol edits the live
+ * list (adds words, fixes meanings, credits readers), and a list rebuilt from the book has none of
+ * that. Returns the words the new list drops, the words whose entry changed, and the reader credits
+ * that would disappear (a credit that moved with an identical meaning still counts as kept).
+ * @param {{ glossary?: object, phrases?: object }} live
+ * @param {{ glossary?: object, phrases?: object }} next
+ */
+export function liveListLosses(live, next) {
+  const before = live?.glossary ?? {};
+  const after = next?.glossary ?? {};
+  const dropped = Object.keys(before).filter((word) => !(word in after));
+  const changed = Object.keys(before).filter((word) => word in after && !sameJson(before[word], after[word]));
+  const kept = new Set(creditsOf(after).values());
+  const credits = [...creditsOf(before)]
+    .filter(([, id]) => !kept.has(id))
+    .map(([where, id]) => `${where} (${id})`);
+  const phrases = Object.keys(live?.phrases ?? {}).filter((key) => !(key in (next?.phrases ?? {})));
+  return { dropped, changed, credits, phrases };
+}
