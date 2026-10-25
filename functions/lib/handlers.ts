@@ -3,7 +3,8 @@ import { SYNC_BODY_MAX, SYNC_PUSH_MAX } from "../../src/lib/limits.ts";
 import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merge.ts";
 import { effectiveRole } from "./admin.ts";
 import { isContributor, publishContributors } from "./contributors.ts";
-import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS } from "./trust.ts";
+import { speechIds } from "./book-category.ts";
+import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_SPEECHES } from "./trust.ts";
 import type { D1Result, Env, SyncRow, UserRow } from "./db.ts";
 import {
   deliverEmailCode,
@@ -237,11 +238,20 @@ export async function handleMe(request: Request, env: Env, options?: HandlerOpti
     // Other routes still use requireUser and answer 401.
     if (!user) return json({ user: null, resetEmail });
     const unlimited = effectiveRole(user, now) !== "user";
-    const used = unlimited ? 0 : await glossaryWeekUsed(env.DB, user.id, now);
+    const week = unlimited
+      ? { novels: { used: 0, resetAt: 0 }, speeches: { used: 0, resetAt: 0 } }
+      : await glossaryWeekUsed(env.DB, user.id, now, await speechIds(env.BOOKS));
     return json({
       user: publicUser(user, now),
       resetEmail,
-      glossary: { used, limit: GLOSSARY_WEEK_BOOKS, unlimited },
+      // used/limit stay the novel count, so an older client still reads them.
+      glossary: {
+        used: week.novels.used,
+        limit: GLOSSARY_WEEK_BOOKS,
+        resetAt: week.novels.resetAt,
+        unlimited,
+        speech: { used: week.speeches.used, limit: GLOSSARY_WEEK_SPEECHES, resetAt: week.speeches.resetAt },
+      },
     });
   } catch (error) {
     return errorResponse(error);

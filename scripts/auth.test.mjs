@@ -31,7 +31,7 @@ import { handleUpload } from "../functions/api/admin/books.ts";
 import { handleGet as handleBlurbGet, handlePut as handleBlurbPut } from "../functions/api/admin/blurb.ts";
 import { handleGlossary } from "../functions/api/glossary/[id].ts";
 import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
-import { GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS, trustedUntil } from "../functions/lib/trust.ts";
+import { GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS, GLOSSARY_WEEK_SPEECHES, trustedUntil } from "../functions/lib/trust.ts";
 import { handleEpub } from "../functions/api/book/[id]/epub.ts";
 import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
 import { handleAdminWordTapsGet, handleAdminWordTapsPost } from "../functions/api/admin/word-taps.ts";
@@ -173,7 +173,7 @@ test("register, login, me, logout, and a wrong password", async () => {
   assert.equal(me.status, 200);
   const meBody = await me.json();
   assert.equal(meBody.user.email, "reader@example.com");
-  assert.deepEqual(meBody.glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
+  assert.deepEqual(meBody.glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, resetAt: 0, unlimited: false, speech: { used: 0, limit: GLOSSARY_WEEK_SPEECHES, resetAt: 0 } });
 
   const bad = await call(handleLogin, env, {
     body: { email: "reader@example.com", password: "not the password" },
@@ -883,6 +883,27 @@ test("word-list publish: hash computed once, other rows untouched, unknown id re
   assert.equal(edition.status, 200);
   assert.equal((await edition.json()).row.title, "Charlie");
 
+  // ?category= moves a book between the novel and speech tabs (and weekly counts).
+  const george = JSON.stringify({ title: "George", glossary: { a: {} }, count: 1 });
+  const stored = () => JSON.parse(new TextDecoder().decode(files.get("word-lists/catalog.json")));
+  const toSpeech = await handlePublish(
+    raw("/api/admin/word-lists?id=george&category=speech", adminCookie, george),
+    env,
+    { now: NOW },
+  );
+  assert.equal(toSpeech.status, 200);
+  assert.equal(stored().lists.find((item) => item.id === "george").category, "speech");
+  const kept = await handlePublish(raw("/api/admin/word-lists?id=george", adminCookie, george), env, { now: NOW });
+  assert.equal(kept.status, 200);
+  assert.equal(stored().lists.find((item) => item.id === "george").category, "speech");
+  const toNovel = await handlePublish(
+    raw("/api/admin/word-lists?id=george&category=novel", adminCookie, george),
+    env,
+    { now: NOW },
+  );
+  assert.equal(toNovel.status, 200);
+  assert.equal("category" in stored().lists.find((item) => item.id === "george"), false);
+
   const editionClash = await handlePublish(
     raw(
       "/api/admin/word-lists?id=charlie-edition",
@@ -1075,7 +1096,7 @@ test("private epub: user denied, trusted allowed and logged, missing book 404", 
   });
   const meBody = await me.json();
   assert.equal(meBody.user.role, "user");
-  assert.deepEqual(meBody.glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
+  assert.deepEqual(meBody.glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, resetAt: 0, unlimited: false, speech: { used: 0, limit: GLOSSARY_WEEK_SPEECHES, resetAt: 0 } });
 });
 
 test("word-list reads: seven new books a week, an old book stays free, trusted is unlimited", async () => {
@@ -1107,11 +1128,11 @@ test("word-list reads: seven new books a week, an old book stays free, trusted i
   assert.equal((await open("book-1", readerCookie)).status, 200);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 7);
   const capped = await handleMe(raw("/api/auth/me", readerCookie), envOf(db), { now: NOW });
-  assert.deepEqual((await capped.json()).glossary, { used: 7, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
+  assert.deepEqual((await capped.json()).glossary, { used: 7, limit: GLOSSARY_WEEK_BOOKS, resetAt: NOW + GLOSSARY_WEEK_MS, unlimited: false, speech: { used: 0, limit: GLOSSARY_WEEK_SPEECHES, resetAt: 0 } });
 
   const blocked = await open("book-7", readerCookie);
   assert.equal(blocked.status, 429);
-  assert.equal((await blocked.json()).error, "glossary-week");
+  assert.deepEqual(await blocked.json(), { error: "glossary-week", resetAt: NOW + GLOSSARY_WEEK_MS });
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 7);
 
   // Another device, a week later: a book already opened is free and takes no new place.
@@ -1120,7 +1141,7 @@ test("word-list reads: seven new books a week, an old book stays free, trusted i
   assert.equal((await open("book-7", readerCookie, later)).status, 200);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 8);
   const laterMe = await handleMe(raw("/api/auth/me", readerCookie), envOf(db), { now: later });
-  assert.deepEqual((await laterMe.json()).glossary, { used: 1, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
+  assert.deepEqual((await laterMe.json()).glossary, { used: 1, limit: GLOSSARY_WEEK_BOOKS, resetAt: later + GLOSSARY_WEEK_MS, unlimited: false, speech: { used: 0, limit: GLOSSARY_WEEK_SPEECHES, resetAt: 0 } });
 
   const listed = await call(handleList, envOf(db), { method: "GET", cookie: adminCookie });
   const target = (await listed.json()).users.find((item) => item.id === readerId);
@@ -1132,7 +1153,56 @@ test("word-list reads: seven new books a week, an old book stays free, trusted i
   assert.equal((await open("book-8", readerCookie)).status, 200);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, reads);
   const trustedMe = await handleMe(raw("/api/auth/me", readerCookie), envOf(db), { now: NOW });
-  assert.deepEqual((await trustedMe.json()).glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, unlimited: true });
+  assert.deepEqual((await trustedMe.json()).glossary, { used: 0, limit: GLOSSARY_WEEK_BOOKS, resetAt: 0, unlimited: true, speech: { used: 0, limit: GLOSSARY_WEEK_SPEECHES, resetAt: 0 } });
+});
+
+test("word-list reads: speeches have their own seven a week, apart from novels", async () => {
+  const db = openDb();
+  const reader = await call(handleRegister, envOf(db), {
+    body: { email: "speech-reader@example.com", password: "correct horse" },
+  });
+  const readerCookie = cookieHeader(reader);
+  const readerId = (await reader.json()).user.id;
+  db.raw.prepare("UPDATE users SET email_verified_at = ? WHERE id = ?").run(NOW, readerId);
+  const files = new Map();
+  const text = (id) => new TextEncoder().encode(`{"glossary":{"${id}":{}}}`);
+  const lists = [];
+  for (let n = 1; n <= 8; n += 1) {
+    files.set(`word-lists/novel-${n}/glossary.json`, text(`novel-${n}`));
+    lists.push({ id: `novel-${n}`, title: `Novel ${n}` });
+  }
+  for (let n = 1; n <= 7; n += 1) {
+    files.set(`word-lists/talk-${n}/glossary.json`, text(`talk-${n}`));
+    lists.push({ id: `talk-${n}`, title: `Talk ${n}`, category: "speech" });
+  }
+  files.set("public-books/speech-8/glossary.json", text("speech-8"));
+  files.set("word-lists/catalog.json", new TextEncoder().encode(JSON.stringify({ lists })));
+  files.set(
+    "public-books/catalog.json",
+    new TextEncoder().encode(JSON.stringify({ packs: [{ id: "speech-8", title: "Speech 8", category: "speech" }] })),
+  );
+  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const open = (id) => handleGlossary(raw(`/api/glossary/${id}`, readerCookie), env, id, { now: NOW });
+
+  for (let n = 1; n <= 7; n += 1) assert.equal((await open(`novel-${n}`)).status, 200);
+  // Seven novels do not use any speech place.
+  for (let n = 1; n <= 7; n += 1) assert.equal((await open(`talk-${n}`)).status, 200);
+  const novelFull = await open("novel-8");
+  assert.equal(novelFull.status, 429);
+  assert.equal((await novelFull.json()).error, "glossary-week");
+  const speechFull = await open("speech-8");
+  assert.equal(speechFull.status, 429);
+  assert.deepEqual(await speechFull.json(), { error: "glossary-week-speech", resetAt: NOW + GLOSSARY_WEEK_MS });
+  // A speech opened before still downloads.
+  assert.equal((await open("talk-1")).status, 200);
+  const me = await handleMe(raw("/api/auth/me", readerCookie), env, { now: NOW });
+  assert.deepEqual((await me.json()).glossary, {
+    used: 7,
+    limit: GLOSSARY_WEEK_BOOKS,
+    resetAt: NOW + GLOSSARY_WEEK_MS,
+    unlimited: false,
+    speech: { used: 7, limit: GLOSSARY_WEEK_SPEECHES, resetAt: NOW + GLOSSARY_WEEK_MS },
+  });
 });
 
 test("a new account opens word lists only after the emailed code", async () => {
@@ -1263,7 +1333,7 @@ test("a book already on the shelf can be downloaded when the week is full", asyn
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads WHERE created_at > 0").get().n, 7);
   assert.equal(db.raw.prepare("SELECT created_at AS at FROM glossary_reads WHERE book_id = 'owned-book'").get().at, 0);
   const me = await handleMe(raw("/api/auth/me", readerCookie), envOf(db), { now: NOW });
-  assert.deepEqual((await me.json()).glossary, { used: 7, limit: GLOSSARY_WEEK_BOOKS, unlimited: false });
+  assert.deepEqual((await me.json()).glossary, { used: 7, limit: GLOSSARY_WEEK_BOOKS, resetAt: NOW + GLOSSARY_WEEK_MS, unlimited: false, speech: { used: 0, limit: GLOSSARY_WEEK_SPEECHES, resetAt: 0 } });
   assert.equal((await open("owned-book")).status, 200);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads WHERE book_id = 'owned-book'").get().n, 1);
 });

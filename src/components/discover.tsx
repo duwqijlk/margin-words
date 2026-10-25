@@ -28,6 +28,8 @@ import { useVocab } from "@/lib/vocab-store";
 import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category";
+import { placesLeft, quotaFor, useGlossaryQuota } from "@/lib/glossary-quota";
+import { WeeklyQuota } from "@/components/weekly-quota";
 import { newestUpdates } from "@/lib/discover-recent";
 import { browseRails, compareSeriesPlace, RAIL_MIN, RAIL_SIZE, type DiscoverRailSpec } from "@/lib/discover-rails";
 import { loadDiscoverRailFile } from "@/lib/discover-rail-config";
@@ -121,6 +123,7 @@ export function DiscoverScreen({
   const items = useDownloads((state) => state.items);
   const start = useDownloads((state) => state.start);
   const canAdd = useCanAddBooks();
+  const quota = useGlossaryQuota((state) => state.quota);
   const updateFailures = useListUpdates((state) => state.failures);
   const updateHolds = useListUpdates((state) => state.holds);
   const updatesFinished = useListUpdates((state) => state.finished);
@@ -369,8 +372,15 @@ export function DiscoverScreen({
     if (row.kind === "classic" && row.pack) {
       const pack = row.pack;
       useDownloads.getState().dismiss(pack.id);
-      void start(BUNDLED_CATALOG_URL, pack).then(() => {
-        if (!useDownloads.getState().items[pack.id]?.error) useShelfRemove.getState().announceAdded(row.title);
+      void start(BUNDLED_CATALOG_URL, pack).then(async () => {
+        if (useDownloads.getState().items[pack.id]?.error) return;
+        // Say so when only one or two places of this kind are left this week.
+        await useGlossaryQuota.getState().refresh();
+        const count = quotaFor(useGlossaryQuota.getState().quota, row.category);
+        const left = count ? placesLeft(count) : Infinity;
+        const extra =
+          left <= 2 ? tn(row.category === "speech" ? "quota.fewSpeeches" : "quota.fewNovels", left) : "";
+        useShelfRemove.getState().announceAdded(row.title, extra);
       });
     } else if (row.list) void addList(row.list);
   }
@@ -439,12 +449,17 @@ export function DiscoverScreen({
               ? "newList"
               : null;
     const updateReady = Boolean(why && holdOffersUpdate(why));
+    // A book not on the shelf yet, when this kind has no place left: say so before the tap.
+    // The plus still works, because a book opened before on another device is free.
+    const count = !held && !busy && canAdd ? quotaFor(quota, row.category) : null;
+    // Short on the card; the line above the grid names the day.
+    const quotaNote = count && placesLeft(count) === 0 ? t("quota.cardFull") : "";
     const note =
       why === "ownList"
         ? t("lists.keptYours")
         : why === "newList" && !failure
           ? t("lists.newList")
-          : "";
+          : quotaNote;
     const reason =
       why === "bookChanged"
         ? failure || t("lists.keptBook")
@@ -669,6 +684,7 @@ export function DiscoverScreen({
             );
           })}
         </div>
+        <WeeklyQuota />
       </div>
       {!ready || inCategory.length > 0 ? (
         <div className="flex items-center gap-2">

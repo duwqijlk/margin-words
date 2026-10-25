@@ -21,22 +21,43 @@ export function trustedUntil(term: TrustTerm, now: number): number | null {
   return date.getTime();
 }
 
-/** Distinct new word lists a plain reader may open in one rolling week. */
+/** Distinct new novels a plain reader may open in one rolling week. */
 export const GLOSSARY_WEEK_BOOKS = 7;
+/** Distinct new speeches, counted apart from novels. */
+export const GLOSSARY_WEEK_SPEECHES = 7;
 export const GLOSSARY_WEEK_MS = 7 * DAY_MS;
 
 type CountDb = {
   prepare(sql: string): {
-    bind(...values: unknown[]): { first<T>(): Promise<T | null> };
+    bind(...values: unknown[]): { all<T>(): Promise<{ results: T[] }> };
   };
 };
 
-/** How many distinct word lists this reader opened in the current week. */
-export async function glossaryWeekUsed(db: CountDb, userId: string, now: number): Promise<number> {
+/** Places used in the rolling week, and when the oldest one comes back (0 when none is used). */
+export type WeekCount = { used: number; resetAt: number };
+export type GlossaryWeek = { novels: WeekCount; speeches: WeekCount };
+
+/** How many distinct novels and speeches this reader opened in the current week. */
+export async function glossaryWeekUsed(
+  db: CountDb,
+  userId: string,
+  now: number,
+  speeches: ReadonlySet<string>,
+): Promise<GlossaryWeek> {
   const since = now - GLOSSARY_WEEK_MS;
   const recent = await db
-    .prepare("SELECT COUNT(DISTINCT book_id) AS n FROM glossary_reads WHERE user_id = ? AND created_at > ?")
+    .prepare(
+      "SELECT book_id, MIN(created_at) AS at FROM glossary_reads WHERE user_id = ? AND created_at > ? GROUP BY book_id",
+    )
     .bind(userId, since)
-    .first<{ n: number }>();
-  return recent?.n ?? 0;
+    .all<{ book_id: string; at: number }>();
+  const week: GlossaryWeek = { novels: { used: 0, resetAt: 0 }, speeches: { used: 0, resetAt: 0 } };
+  for (const row of recent.results ?? []) {
+    const count = speeches.has(row.book_id) ? week.speeches : week.novels;
+    count.used += 1;
+    // A place comes back 7 days after that book was first opened. The oldest one comes back first.
+    const back = Number(row.at) + GLOSSARY_WEEK_MS;
+    if (!count.resetAt || back < count.resetAt) count.resetAt = back;
+  }
+  return week;
 }

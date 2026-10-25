@@ -18,7 +18,7 @@ export type RemoveConfirm = { book: Book; words: number };
 type Pending = { bookId: string; title: string };
 
 /** A short message after a book was added. It goes away by itself. */
-export type ShelfNotice = { id: number; title: string };
+export type ShelfNotice = { id: number; title: string; extra?: string };
 
 export const NOTICE_MS = 5000;
 let noticeTimer: ReturnType<typeof setTimeout> | null = null;
@@ -27,7 +27,8 @@ type RemoveState = {
   pending: Pending | null;
   confirm: RemoveConfirm | null;
   notice: ShelfNotice | null;
-  announceAdded: (title: string) => void;
+  /** extra: a second, smaller line, such as how many weekly places are left. */
+  announceAdded: (title: string, extra?: string) => void;
   dismissNotice: () => void;
   ask: (book: Book, userWork: boolean, words: number) => void;
   undo: () => void;
@@ -100,9 +101,9 @@ export const useShelfRemove = create<RemoveState>()((set, get) => ({
   pending: null,
   confirm: null,
   notice: null,
-  announceAdded: (title) => {
+  announceAdded: (title, extra) => {
     if (noticeTimer) clearTimeout(noticeTimer);
-    set({ notice: { id: Date.now(), title } });
+    set({ notice: { id: Date.now(), title, extra } });
     noticeTimer = setTimeout(() => get().dismissNotice(), NOTICE_MS);
   },
   dismissNotice: () => {

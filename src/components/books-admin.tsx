@@ -5,6 +5,9 @@ import { preferredCoverPath } from "@/lib/cover-choice";
 import { accountPostForm, accountPostRaw } from "@/lib/sync-engine";
 import { parseEpub } from "@/lib/epub";
 import { btn, cn, field } from "@/components/ui";
+import { BUNDLED_CATALOG_URL } from "@/lib/packs";
+import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
+import type { ContentCategory } from "@/lib/content-category";
 
 type GlossaryInfo = {
   id: string;
@@ -13,6 +16,28 @@ type GlossaryInfo = {
   words: number;
   isbn: string;
 };
+
+/** The category a live catalog row already has for this id, or null when the id is new. */
+async function catalogCategory(id: string): Promise<ContentCategory | null> {
+  for (const [url, key] of [
+    [WORD_LIST_CATALOG_URL, "lists"],
+    [BUNDLED_CATALOG_URL, "packs"],
+  ] as const) {
+    try {
+      const response = await fetch(url, { cache: "no-cache" });
+      if (!response.ok) continue;
+      const rows = ((await response.json()) as Record<string, unknown>)[key];
+      if (!Array.isArray(rows)) continue;
+      const row = rows.find((item) => item && typeof item === "object" && (item as { id?: unknown }).id === id) as
+        | { category?: unknown }
+        | undefined;
+      if (row) return row.category === "speech" ? "speech" : "novel";
+    } catch {
+      // The other catalog may still know the book.
+    }
+  }
+  return null;
+}
 
 /** `jpeg` is the card file prepared while the thumbnail was drawn. */
 type CoverCandidate = { path: string; thumb: string; jpeg: Uint8Array; bytes: number };
@@ -107,6 +132,9 @@ export function BooksAdmin() {
   const [covers, setCovers] = useState<CoverCandidate[]>([]);
   const [coverChoice, setCoverChoice] = useState<string | null>(null);
   const [kind, setKind] = useState<"private" | "public">("private");
+  const [category, setCategory] = useState<ContentCategory>("novel");
+  /** Where the preselected category came from, shown under the choice. */
+  const [categoryFrom, setCategoryFrom] = useState<"file" | "catalog" | "">("");
   const [isbn, setIsbn] = useState("");
   const [isbnTouched, setIsbnTouched] = useState(false);
   const [step, setStep] = useState("");
@@ -128,15 +156,26 @@ export function BooksAdmin() {
     const text = await file.text();
     let isbn = "";
     let words = 0;
+    let fileCategory: ContentCategory | null = null;
     try {
-      const data = JSON.parse(text) as { isbn?: unknown; count?: unknown; glossary?: Record<string, unknown> };
+      const data = JSON.parse(text) as {
+        isbn?: unknown;
+        count?: unknown;
+        glossary?: Record<string, unknown>;
+        category?: unknown;
+      };
       isbn = typeof data.isbn === "string" ? data.isbn.trim() : "";
       words = Number(data.count) || Object.keys(data.glossary ?? {}).length;
+      if (data.category === "speech" || data.category === "novel") fileCategory = data.category;
     } catch {
       setError(t("admin.lists.badGlossary"));
       return;
     }
     setGlossary({ id, name: file.name, text, isbn, words });
+    // A book already on the site keeps its tab unless the admin changes it here.
+    const live = await catalogCategory(id);
+    setCategory(live ?? fileCategory ?? "novel");
+    setCategoryFrom(live ? "catalog" : fileCategory ? "file" : "");
   }
 
   async function onEpub(file: File | undefined) {
@@ -185,7 +224,10 @@ export function BooksAdmin() {
         return;
       }
       const isbnParam = isbn.trim() ? encodeURIComponent(isbn.trim()) : "";
-      await accountPostRaw(`/api/admin/word-lists?id=${encodeURIComponent(glossary.id)}&isbn=${isbnParam}`, glossary.text);
+      await accountPostRaw(
+        `/api/admin/word-lists?id=${encodeURIComponent(glossary.id)}&isbn=${isbnParam}&category=${category}`,
+        glossary.text,
+      );
       setStep(t("admin.books.wordsDone"));
       const form = new FormData();
       form.set("epub", epubFile, "book.epub");
@@ -195,7 +237,10 @@ export function BooksAdmin() {
         new Uint8Array(copy).set(chosen.jpeg);
         form.set("cover", new File([copy], "cover.jpg", { type: "image/jpeg" }));
       }
-      await accountPostForm(`/api/admin/books?id=${encodeURIComponent(glossary.id)}&kind=${kind}`, form);
+      await accountPostForm(
+        `/api/admin/books?id=${encodeURIComponent(glossary.id)}&kind=${kind}&category=${category}`,
+        form,
+      );
       setStep(t("admin.books.bookDone"));
       setNote(t("admin.lists.published"));
     } catch (caught) {
@@ -254,6 +299,42 @@ export function BooksAdmin() {
             </label>
           </div>
         </div>
+
+        <div className="mt-4 border-t border-line/50 pt-4" data-admin-books-category>
+          <span className="block text-xs font-bold uppercase tracking-wider text-muted">
+            {t("admin.books.category")}
+          </span>
+          <div className="mt-2 flex flex-wrap gap-2.5">
+            {(["novel", "speech"] as const).map((value) => (
+              <label
+                key={value}
+                className={cn(
+                  "inline-flex cursor-pointer items-center gap-2 rounded-xl border px-3.5 py-2 text-xs font-semibold transition-all",
+                  category === value
+                    ? "border-accent bg-accent-soft text-accent shadow-2xs"
+                    : "border-line/80 bg-paper/50 text-muted hover:border-line hover:bg-card",
+                )}
+              >
+                <input
+                  type="radio"
+                  name="book-category"
+                  className="size-3.5 accent-accent"
+                  checked={category === value}
+                  onChange={() => setCategory(value)}
+                  data-admin-books-category-option={value}
+                />
+                {t(value === "speech" ? "discover.cat.speech" : "discover.cat.novel")}
+              </label>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-muted">
+            {categoryFrom === "catalog"
+              ? t("admin.books.categoryLive")
+              : categoryFrom === "file"
+                ? t("admin.books.categoryFile")
+                : t("admin.books.categoryHint")}
+          </p>
+        </div>
       </div>
 
       <div className="grid gap-5 rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6">
@@ -281,6 +362,10 @@ export function BooksAdmin() {
               <span>{glossary.id}</span>
               <span className="text-muted/60">·</span>
               <span>{t("admin.books.words", { n: glossary.words })}</span>
+              <span className="text-muted/60">·</span>
+              <span data-admin-books-category-chip={category}>
+                {t(category === "speech" ? "discover.cat.speech" : "discover.cat.novel")}
+              </span>
             </div>
           ) : null}
         </div>

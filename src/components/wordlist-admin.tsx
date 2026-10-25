@@ -87,6 +87,7 @@ function booksOf(kind: BookKind, rows: unknown): KnownBook[] {
       isbn?: unknown;
       updated?: unknown;
       previousUpdated?: unknown;
+      category?: unknown;
     };
     const id = textOf(row.id);
     if (!ID_PATTERN.test(id)) continue;
@@ -96,6 +97,7 @@ function booksOf(kind: BookKind, rows: unknown): KnownBook[] {
       author: textOf(row.author),
       isbn: textOf(row.isbn),
       kind,
+      category: row.category === "speech" ? "speech" : "novel",
       updated: readUpdated(row.updated),
       previousUpdated: readUpdated(row.previousUpdated),
     });
@@ -465,7 +467,13 @@ export function WordListAdmin() {
                           <td className="px-3.5 py-2.5">
                             <span className="font-semibold text-ink">{book.title}</span>
                             <span className="mt-0.5 block font-mono text-[0.7rem] text-muted">
-                              {book.id} · {book.kind === "lists" ? t("admin.lists.wordLists") : t("admin.lists.publicBooks")}
+                              {book.id} · {book.kind === "lists" ? t("admin.lists.wordLists") : t("admin.lists.publicBooks")} ·{" "}
+                              <span
+                                className={book.category === "speech" ? "font-semibold text-accent" : undefined}
+                                data-admin-list-category={book.category}
+                              >
+                                {t(book.category === "speech" ? "discover.cat.speech" : "discover.cat.novel")}
+                              </span>
                             </span>
                           </td>
                           <td className="px-3.5 py-2.5 whitespace-nowrap font-mono text-[0.75rem] text-muted tabular-nums" data-admin-list-now>

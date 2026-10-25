@@ -16,6 +16,8 @@ export type KnownBook = {
   author: string;
   isbn: string;
   kind: BookKind;
+  /** Which Discover tab, and which weekly count, the book is in. Missing means novel. */
+  category?: "novel" | "speech";
   /** When the glossary now on the host was uploaded. Empty when the catalog has no time. */
   updated?: string;
   /** When the glossary this one replaced was uploaded. Empty until a different file is published. */
