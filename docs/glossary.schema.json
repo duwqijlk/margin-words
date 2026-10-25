@@ -172,6 +172,11 @@
         "senseOnly": {
           "type": "boolean",
           "description": "true: the entry only holds position-based senses. The word is underlined and opens only at the places named by the anchors of its senses, not at every use."
+        },
+        "credit": {
+          "type": "string",
+          "pattern": "^[a-z0-9]{12}$",
+          "description": "Do not write. Public id of the reader whose suggested meaning this is, added by the daily patrol."
         }
       },
       "anyOf": [
@@ -210,6 +215,11 @@
         "default": {
           "type": "boolean",
           "description": "Show this sense when no anchor matches. At most one per word."
+        },
+        "credit": {
+          "type": "string",
+          "pattern": "^[a-z0-9]{12}$",
+          "description": "Do not write. Public id of the reader who suggested this meaning, added by the daily patrol."
         },
         "trickyMeaning": {
           "type": "boolean",

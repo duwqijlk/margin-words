@@ -110,3 +110,35 @@ test("replacing a glossary remembers when the previous file was uploaded", () =>
   );
   assert.equal(same.lists[0].previousUpdated, "2026-10-01T00:00:00.000Z");
 });
+
+test("a rebuilt list that would undo live changes is reported", async () => {
+  const { liveListLosses } = await import("./lib/publish-word-list.mjs");
+  const live = {
+    glossary: {
+      dive: { meaning: "To jump in head first.", credit: "aaaaaaaaaaaa" },
+      lantern: { meaning: "A portable light." },
+      odds: { meaning: "Chances.", senses: [{ meaning: "Chances." }, { meaning: "Against all odds.", credit: "bbbbbbbbbbbb" }] },
+      huge: { meaning: "Very big." },
+    },
+    phrases: { "against all odds": { meaning: "Even though it seemed unlikely." } },
+  };
+  const rebuilt = {
+    glossary: {
+      lantern: { meaning: "A light you carry." },
+      odds: { meaning: "Chances.", senses: [{ meaning: "Chances." }] },
+      huge: { meaning: "Very big." },
+    },
+    phrases: {},
+  };
+  const losses = liveListLosses(live, rebuilt);
+  assert.deepEqual(losses.dropped, ["dive"]);
+  assert.deepEqual(losses.changed, ["lantern", "odds"]);
+  assert.deepEqual(losses.credits, ["dive (aaaaaaaaaaaa)", "odds#2 (bbbbbbbbbbbb)"]);
+  assert.deepEqual(losses.phrases, ["against all odds"]);
+
+  // The same list, or one that only adds, loses nothing.
+  assert.deepEqual(liveListLosses(live, live), { dropped: [], changed: [], credits: [], phrases: [] });
+  const more = structuredClone(live);
+  more.glossary.new = { meaning: "Added." };
+  assert.deepEqual(liveListLosses(live, more), { dropped: [], changed: [], credits: [], phrases: [] });
+});

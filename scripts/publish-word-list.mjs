@@ -4,6 +4,14 @@
  *
  *   node scripts/publish-word-list.mjs <id> --out /tmp/word-list-publish
  *   node scripts/publish-word-list.mjs <id> --live catalog.json --out /tmp/word-list-publish
+ *   node scripts/publish-word-list.mjs <id> --out dir --replace-live   (see below)
+ *
+ * The daily patrol (docs/GLOSSARY_PATROL.md) edits the LIVE glossary: it adds words, fixes meanings and
+ * credits readers. Before writing anything this script reads the live glossary of <id> from R2 with
+ * wrangler (the public URL refuses glossaries) and stops when the new file would drop a word, change an
+ * entry, lose a phrase or lose a reader credit. Bring those over into packs/<id>/glossary.json first, or
+ * pass --replace-live when losing them is intended. --live-glossary file.json compares with that file
+ * instead (no wrangler).
  *
  * Reads the live word-lists catalog (or --live), keeps every existing row and
  * its glossary hash, and adds or replaces only <id>. Writes:
@@ -14,11 +22,13 @@
  * Upload only the files it prints. Do not upload an EPUB, and do not upload
  * the rest of a dist-books folder.
  */
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildWordLists } from "./lib/word-lists.mjs";
-import { mergeWordListCatalog } from "./lib/publish-word-list.mjs";
+import { liveListLosses, mergeWordListCatalog } from "./lib/publish-word-list.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const LIVE = "https://books.inputread.site/word-lists/catalog.json";
@@ -52,6 +62,54 @@ const live = livePath
       if (!response.ok) throw new Error(`live catalog HTTP ${response.status}`);
       return response.json();
     })();
+
+/** The live glossary of this list, or null for a book that is not live yet. */
+function liveGlossary() {
+  const given = flag("--live-glossary");
+  if (given) return JSON.parse(readFileSync(given, "utf8"));
+  if (!live.lists.some((item) => item.id === id)) return null;
+  const dir = mkdtempSync(join(tmpdir(), "word-list-live-"));
+  const file = join(dir, "glossary.json");
+  try {
+    execFileSync(
+      "npx",
+      ["wrangler", "r2", "object", "get", `margin-words-books/word-lists/${id}/glossary.json`, "--remote", "--file", `"${file}"`],
+      { cwd: ROOT, stdio: ["ignore", "ignore", "inherit"], shell: process.platform === "win32" },
+    );
+    return JSON.parse(readFileSync(file, "utf8"));
+  } catch (error) {
+    console.error(`cannot read the live glossary of ${id} from R2 (${error instanceof Error ? error.message : error}).`);
+    console.error("Sign in with `npx wrangler login`, or pass --live-glossary <file>, or --replace-live.");
+    process.exit(1);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+
+if (!process.argv.includes("--replace-live")) {
+  const current = liveGlossary();
+  if (current) {
+    const built = files.find((file) => file.name === `word-lists/${id}/glossary.json`);
+    const losses = liveListLosses(current, JSON.parse(Buffer.from(built.bytes).toString("utf8")));
+    const total = losses.dropped.length + losses.changed.length + losses.credits.length + losses.phrases.length;
+    if (total > 0) {
+      const show = (label, list) => (list.length ? `  ${label} (${list.length}): ${list.slice(0, 15).join(", ")}${list.length > 15 ? ", ..." : ""}` : "");
+      console.error(
+        [
+          `The new list for ${id} would undo changes made on the live list (often by the daily patrol):`,
+          show("words dropped", losses.dropped),
+          show("entries changed", losses.changed),
+          show("phrases dropped", losses.phrases),
+          show("reader credits lost", losses.credits),
+          "Bring them into packs/" + id + "/glossary.json, or run again with --replace-live if losing them is intended.",
+        ]
+          .filter(Boolean)
+          .join("\n"),
+      );
+      process.exit(1);
+    }
+  }
+}
 
 const next = mergeWordListCatalog(live, row);
 const outDir = resolve(outFlag);
