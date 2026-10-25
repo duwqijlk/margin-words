@@ -40,6 +40,11 @@ export type GlossarySense = {
   forms?: string[];
   anchors?: GlossaryAnchor[];
   /**
+   * Public id of the reader whose suggested meaning this is (`users.public_id`, 12 lowercase
+   * letters/digits). The card shows that reader's current nickname. Optional.
+   */
+  credit?: string;
+  /**
    * `true`: at the places this sense's anchors name, the word is used in a meaning learners are unlikely to
    * know (for example "well" = a water well). The reader marks those places in the text. Only `true` counts.
    */
@@ -61,7 +66,15 @@ export type GlossaryEntry = {
    * opens the word ONLY at the places listed in its senses, not at every occurrence in the book.
    */
   senseOnly?: boolean;
+  /**
+   * Public id of the reader whose suggested meaning this is (`users.public_id`, 12 lowercase
+   * letters/digits). The card shows that reader's current nickname. Optional.
+   */
+  credit?: string;
 };
+
+/** A reader's public id in `credit`. Never an email or a nickname. */
+export const CREDIT_ID = /^[a-z0-9]{12}$/;
 
 export type GlossaryFile = {
   version: 1 | 2;
@@ -1042,6 +1055,16 @@ function checkAnchor(
   return out;
 }
 
+/** `credit` must be a reader's public id, or absent. */
+function creditField(issues: Issues, where: string, value: unknown): string | undefined {
+  if (value === undefined) return undefined;
+  if (typeof value !== "string" || !CREDIT_ID.test(value)) {
+    issues.error(`${where}: "credit" must be a reader id (12 lowercase letters and digits).`);
+    return undefined;
+  }
+  return value;
+}
+
 function checkSense(
   issues: Issues,
   lemma: string,
@@ -1074,6 +1097,8 @@ function checkSense(
   }
   const forms = formsField(issues, where, raw.forms);
   if (forms && forms.length) sense.forms = forms;
+  const credit = creditField(issues, where, raw.credit);
+  if (credit) sense.credit = credit;
   if (raw.anchors !== undefined) {
     if (!Array.isArray(raw.anchors)) {
       issues.error(`${where}: "anchors" must be a list.`);
@@ -1532,6 +1557,8 @@ export function validateGlossary(input: unknown): GlossaryCheck {
     };
     if (here) entry.here = here;
     if (forms && forms.length) entry.forms = forms;
+    const credit = creditField(issues, where, raw.credit);
+    if (credit) entry.credit = credit;
     if (raw.coined !== undefined) {
       if (typeof raw.coined !== "boolean")
         issues.error(`${where}: "coined" must be true or false.`);
@@ -1798,7 +1825,7 @@ export function forBook(file: GlossaryFile, chapterCount: number): GlossaryFile 
 
 /* ------------------------------------------------------------------ choosing a meaning */
 
-export type SenseView = { pos: string; meaning: string; whyHard: string; here?: string };
+export type SenseView = { pos: string; meaning: string; whyHard: string; here?: string; credit?: string };
 
 export type OtherMeaning = SenseView & { chapters: number[] };
 
@@ -1830,6 +1857,7 @@ type GlossLike = {
   here?: string;
   forms?: string[];
   senses?: GlossarySense[];
+  credit?: string;
 };
 
 /**
@@ -2152,6 +2180,7 @@ export function pickSense(lemma: string, gloss: GlossLike, tap: TapInfo): Picked
     meaning: gloss.meaning,
     whyHard: gloss.whyHard,
     ...(entryHere ? { here: entryHere } : {}),
+    ...(gloss.credit ? { credit: gloss.credit } : {}),
   };
   const view = (sense: GlossarySense): SenseView => {
     const here = sceneLine(sense.here, gloss.here);
@@ -2160,6 +2189,8 @@ export function pickSense(lemma: string, gloss: GlossLike, tap: TapInfo): Picked
       meaning: sense.meaning,
       whyHard: sense.whyHard ?? gloss.whyHard,
       ...(here ? { here } : {}),
+      // A sense's credit is its own: it never falls back to the entry's.
+      ...(sense.credit ? { credit: sense.credit } : {}),
     };
   };
   const finish = (via: Picked["via"], at: number, shown: SenseView): Picked => {

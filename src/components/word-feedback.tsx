@@ -53,6 +53,7 @@ export function WordExplanationFeedback({
     try {
       await fetch("/api/feedback/word", {
         method: "POST",
+        credentials: "same-origin",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           bookId,

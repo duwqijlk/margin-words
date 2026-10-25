@@ -1517,6 +1517,7 @@ export function ReaderScreen({
         meaning: choice.meaning,
         whyHard: choice.whyHard,
         here: choice.here,
+        ...(choice.credit ? { credit: choice.credit } : {}),
         sentence,
         fullSentence,
         ready: true,

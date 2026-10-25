@@ -2,6 +2,7 @@ import { cleanNickname } from "../../src/lib/nickname.ts";
 import { SYNC_PUSH_MAX } from "../../src/lib/limits.ts";
 import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merge.ts";
 import { effectiveRole } from "./admin.ts";
+import { isContributor, publishContributors } from "./contributors.ts";
 import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS } from "./trust.ts";
 import type { D1Result, Env, SyncRow, UserRow } from "./db.ts";
 import {
@@ -47,12 +48,28 @@ function publicUser(
   row: Pick<UserRow, "id" | "email" | "created_at" | "nickname" | "role"> & {
     trusted_until?: number | null;
     email_verified_at?: number | null;
+    public_id?: string | null;
+    avatar_rev?: number | null;
   },
   now: number,
 ) {
   const nickname = typeof row.nickname === "string" && row.nickname ? row.nickname : null;
   const emailVerified = typeof row.email_verified_at === "number" && row.email_verified_at > 0;
-  return { id: row.id, email: row.email, createdAt: row.created_at, nickname, role: effectiveRole(row, now), emailVerified };
+  return {
+    id: row.id,
+    email: row.email,
+    createdAt: row.created_at,
+    nickname,
+    role: effectiveRole(row, now),
+    emailVerified,
+    publicId: row.public_id ?? null,
+    avatar: row.avatar_rev ?? 0,
+  };
+}
+
+/** A reader's public id: 12 lowercase hex characters, shown and written into word lists instead of the email. */
+export function newPublicId(): string {
+  return [...crypto.getRandomValues(new Uint8Array(6))].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 const CODE_MS = 15 * 60 * 1000;
@@ -90,11 +107,12 @@ export async function handleRegister(request: Request, env: Env, options?: Handl
     if (existing) throw new HttpError(409, "email-taken");
     const hashed = await hashPassword(password);
     const id = crypto.randomUUID();
+    const publicId = newPublicId();
     try {
       await env.DB.prepare(
-        "INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at, email_verified_at) VALUES (?, ?, ?, ?, ?, ?, NULL)",
+        "INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at, email_verified_at, public_id) VALUES (?, ?, ?, ?, ?, ?, NULL, ?)",
       )
-        .bind(id, email, hashed.hash, hashed.salt, hashed.iterations, now)
+        .bind(id, email, hashed.hash, hashed.salt, hashed.iterations, now, publicId)
         .run();
     } catch (error) {
       if (error instanceof Error && /UNIQUE/i.test(error.message)) throw new HttpError(409, "email-taken");
@@ -104,7 +122,7 @@ export async function handleRegister(request: Request, env: Env, options?: Handl
     // The account works at once (shelf, sync). Word lists wait for the emailed code.
     const codeSent = await sendEmailCode(env, id, email, now, options);
     return withCookie(
-      { user: publicUser({ id, email, created_at: now, nickname: null, role: "user", email_verified_at: null }, now), codeSent },
+      { user: publicUser({ id, email, created_at: now, nickname: null, role: "user", email_verified_at: null, public_id: publicId }, now), codeSent },
       201,
       cookie,
     );
@@ -237,6 +255,8 @@ export async function handleNickname(request: Request, env: Env, options?: Handl
     const nickname = cleanNickname(body.nickname);
     if (!nickname) throw new HttpError(400, "nickname");
     await env.DB.prepare("UPDATE users SET nickname = ? WHERE id = ?").bind(nickname, user.id).run();
+    // A credited reader's new name shows on their meanings and in the rank.
+    if (env.BOOKS && (await isContributor(env.DB, user.id))) await publishContributors(env.DB, env.BOOKS, nowOf(options));
     return json({ user: publicUser({ ...user, nickname }, nowOf(options)) });
   } catch (error) {
     return errorResponse(error);

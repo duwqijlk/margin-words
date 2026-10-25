@@ -23,6 +23,9 @@ type AccountState = {
   resetEmail: boolean;
   /** From the server. False only for a new account that has not typed its emailed code yet. */
   emailVerified: boolean;
+  /** The reader's public id (shown with their accepted meanings) and avatar version (0 = none). */
+  publicId: string | null;
+  avatar: number;
   patch: (partial: Partial<Omit<AccountState, "patch" | "openDialog" | "closeDialog">>) => void;
   openDialog: (mode?: AccountMode, resetToken?: string) => void;
   closeDialog: () => void;
@@ -40,6 +43,8 @@ export const useAccount = create<AccountState>()((set) => ({
   resetToken: "",
   resetEmail: false,
   emailVerified: true,
+  publicId: null,
+  avatar: 0,
   patch: (partial) => set(partial),
   openDialog: (mode = "login", resetToken = "") =>
     set({ dialogOpen: true, mode, resetToken: resetToken || "" }),

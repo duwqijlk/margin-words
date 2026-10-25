@@ -58,11 +58,16 @@ SELECT book_title, word, form, chapter, occurrence, context, sentence, glossary_
   FROM book_word_taps WHERE in_glossary = 0 AND status != 'resolved'
   ORDER BY tap_count DESC, last_tapped_at DESC LIMIT 500;
 
-SELECT id, book_title, word, form, reason, chapter, occurrence, context, sentence,
-       sense_index, sense_meaning, suggestion, glossary_rev, status
-  FROM word_feedback WHERE status != 'resolved'
-  ORDER BY (suggestion != '') DESC, created_at DESC LIMIT 500;
+SELECT f.id, f.book_title, f.word, f.form, f.reason, f.chapter, f.occurrence, f.context,
+       f.sentence, f.sense_index, f.sense_meaning, f.suggestion, f.glossary_rev, f.status,
+       u.public_id AS suggested_by
+  FROM word_feedback f LEFT JOIN users u ON u.id = f.user_id
+ WHERE f.status != 'resolved'
+ ORDER BY (f.suggestion != '') DESC, f.created_at DESC LIMIT 500;
 ```
+
+`suggested_by` is set only on a report that carries a suggestion: the public id of the reader who
+wrote it (12 letters and digits; never an email). Use it for `credit` below.
 
 `status` is `pending`, or `reopened` when a reader reported the same place again after it was
 resolved. A reopened item means the last fix did not work: look at it first.
@@ -129,6 +134,11 @@ Reviewing a reader's `suggestion`:
   is a hint, not proof: check it against the sentence.
 - Never put a reader's text, name, or anything personal into the word list or your report beyond
   "accepted" / "rejected" and why.
+- **Credit an accepted suggestion.** On the sense (or entry) whose meaning came from it, add
+  `"credit": "<suggested_by>"`. The card then shows "From <their nickname>" with their picture. Use
+  only `suggested_by`; never write a name or email. One credit per sense: when several readers
+  suggested it, credit the earliest. Rewriting a credited meaning later keeps the credit only if
+  it is still that reader's sense.
 
 Writing rules (GLOSSARY_FORMAT.md 7.6): English only, the 2,000 most common words, short, one
 idea; restate, never add facts or guess the plot; keep names. Change **only** what an item asks
@@ -177,13 +187,38 @@ UPDATE word_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?
 `?1` = now in milliseconds, `?2` = new revision. If a reader reports the same place again on the
 new revision, the site reopens the item by itself.
 
+For each **accepted** suggestion, also record it (this is what the rank counts):
+
+```sql
+UPDATE word_feedback SET accepted_at = ?1, accepted_rev = ?2 WHERE id = ?3 AND suggestion != '';
+```
+
+Then, once per run after the last accepted suggestion, refresh the public credit file. Read the
+rows with this query and write them as `contributors.json` to bucket `margin-words-books`
+(R2 write, `Content-Type: application/json`):
+
+```sql
+SELECT u.public_id AS id, COALESCE(u.nickname, '') AS name, u.avatar_rev AS avatar,
+       COUNT(DISTINCT f.book_id || ':' || f.word || ':' || f.chapter || ':' || f.occurrence) AS helped
+  FROM word_feedback f JOIN users u ON u.id = f.user_id
+ WHERE f.accepted_at > 0 AND u.public_id IS NOT NULL
+ GROUP BY u.id ORDER BY helped DESC, MIN(f.accepted_at) ASC LIMIT 500;
+```
+
+```
+{ "format": 1, "updated": "<now, ISO>", "people": [ { "id": "...", "name": "...", "helped": 3, "avatar": 1792900000 } ] }
+```
+
+Leave out `avatar` when it is 0. Write nothing else into the file: no email, no internal id.
+
 ## 8. Limits
 
 - At most 10 books per run; reopened and reported items first, then the most-tapped words.
 - D1 is on the Free plan (100,000 row writes a day for the whole site). The queries above read a
   few thousand rows; each resolve writes a few. Do not loop queries.
-- No other SQL that writes. No `DELETE`, `DROP` or `ALTER`. No R2 writes except a glossary and
-  its catalog. Never write to `margin-words-private`.
+- No other SQL that writes. No `DELETE`, `DROP` or `ALTER`. No R2 writes except a glossary, its
+  catalog, and `contributors.json`. Never write to `margin-words-private`, and never touch
+  `avatars/`.
 - Skipped items stay open and come back the next day. That is fine.
 
 ## 9. Report

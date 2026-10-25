@@ -60,6 +60,7 @@ Optional top-level parts (section 7): `paragraphs[]`, `sentences[]`, `phrases{}`
 | `forms` | no | Other word shapes in the book that belong to this entry (`["saw","sawn"]`). The app adds a tap target for them. |
 | `senses` | no (v2) | List of 1 to 24 senses. |
 | `coined` | no | `true` when the **author invented** the word (for example `snozzcumber`). The reader can then say "made-up word". |
+| `credit` | no | Public id of the reader whose suggested meaning this entry's own `meaning` is (12 lowercase letters/digits, from `users.public_id`). The card shows "From <their nickname>". Never a name or an email. |
 | `senseOnly` | no | `true`: the entry exists only to hold position-based senses (7.5). The reader underlines and opens the word only at the places named by the `anchors` of its senses, not at every use in the book. Default: `false`. |
 
 The lemma is a lower-case run of letters or digits. One apostrophe, hyphen, or period may sit inside (`don't`, `a.m.`, `y2k`, `911`). `...` may join words (`either...or`). A space is not allowed. The
@@ -78,6 +79,7 @@ use the shape the book uses, or list it in `forms`.
 | `default` | no | `true` on at most one sense: shown when nothing matches (step 3 below). |
 | `forms` | no | Word shapes this sense is for. Used in step 3 when there is no `default`. |
 | `anchors` | no | Places in the book where this meaning is used (up to 60). |
+| `credit` | no | Public id of the reader who suggested this meaning (as for the entry). A sense does not inherit the entry's credit. |
 
 ### Anchor (one place)
 

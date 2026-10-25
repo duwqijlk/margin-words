@@ -132,15 +132,26 @@ function userFields(payload: Record<string, unknown>): {
   nickname: string | null;
   role: "user" | "trusted" | "admin";
   emailVerified: boolean;
+  publicId: string | null;
+  avatar: number;
 } {
   const user = payload.user;
-  if (!user || typeof user !== "object") return { email: null, nickname: null, role: "user", emailVerified: true };
-  const record = user as { email?: unknown; nickname?: unknown; role?: unknown; emailVerified?: unknown };
+  if (!user || typeof user !== "object") return { email: null, nickname: null, role: "user", emailVerified: true, publicId: null, avatar: 0 };
+  const record = user as {
+    email?: unknown;
+    nickname?: unknown;
+    role?: unknown;
+    emailVerified?: unknown;
+    publicId?: unknown;
+    avatar?: unknown;
+  };
   const email = typeof record.email === "string" && record.email ? record.email : null;
   const nickname = typeof record.nickname === "string" && record.nickname ? record.nickname : null;
   const role = record.role === "trusted" || record.role === "admin" ? record.role : "user";
   // An older server does not send the field: treat that as checked.
-  return { email, nickname, role, emailVerified: record.emailVerified !== false };
+  const publicId = typeof record.publicId === "string" && /^[a-z0-9]{12}$/.test(record.publicId) ? record.publicId : null;
+  const avatar = typeof record.avatar === "number" && record.avatar > 0 ? record.avatar : 0;
+  return { email, nickname, role, emailVerified: record.emailVerified !== false, publicId, avatar };
 }
 
 function saveMeta() {
@@ -536,7 +547,13 @@ async function refreshSession() {
     const payload = await accountRequest("/api/auth/me");
     if (epoch !== sessionEpoch) return;
     const fields = userFields(payload);
-    useAccount.getState().patch({ resetEmail: payload.resetEmail === true, role: fields.role, emailVerified: fields.emailVerified });
+    useAccount.getState().patch({
+      resetEmail: payload.resetEmail === true,
+      role: fields.role,
+      emailVerified: fields.emailVerified,
+      publicId: fields.publicId,
+      avatar: fields.avatar,
+    });
     if (fields.email) {
       rememberEmail(fields.email, fields.nickname, fields.role);
       await flush();
@@ -634,7 +651,7 @@ export async function signIn(email: string, password: string, turnstileToken?: s
   });
   if (epoch !== sessionEpoch) return;
   const fields = userFields(payload);
-  useAccount.getState().patch({ emailVerified: fields.emailVerified });
+  useAccount.getState().patch({ emailVerified: fields.emailVerified, publicId: fields.publicId, avatar: fields.avatar });
   rememberEmail(fields.email ?? email, fields.nickname, fields.role);
   await flush();
 }
@@ -649,9 +666,55 @@ export async function signUp(email: string, password: string, turnstileToken?: s
   });
   if (epoch !== sessionEpoch) return;
   const fields = userFields(payload);
-  useAccount.getState().patch({ emailVerified: fields.emailVerified });
+  useAccount.getState().patch({ emailVerified: fields.emailVerified, publicId: fields.publicId, avatar: fields.avatar });
   rememberEmail(fields.email ?? email, fields.nickname, fields.role);
   await flush();
+}
+
+/**
+ * Shrink a picked image to a 128x128 WebP (centre crop) in the browser and upload it as the
+ * reader's avatar. Throws "avatar-type" when the browser cannot read or encode the image.
+ */
+export async function uploadAvatar(file: File): Promise<void> {
+  if (!file.type.startsWith("image/")) throw new Error("avatar-type");
+  let bitmap: ImageBitmap;
+  try {
+    bitmap = await createImageBitmap(file);
+  } catch {
+    throw new Error("avatar-type");
+  }
+  const size = 128;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const context = canvas.getContext("2d");
+  if (!context) throw new Error("avatar-type");
+  const side = Math.min(bitmap.width, bitmap.height);
+  context.drawImage(bitmap, (bitmap.width - side) / 2, (bitmap.height - side) / 2, side, side, 0, 0, size, size);
+  bitmap.close();
+  const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/webp", 0.82));
+  // A browser that cannot write WebP returns PNG instead; the server only takes WebP.
+  if (!blob || blob.type !== "image/webp") throw new Error("avatar-type");
+  let response: Response;
+  try {
+    response = await fetch("/api/auth/avatar", {
+      method: "PUT",
+      credentials: "same-origin",
+      headers: { "content-type": "image/webp" },
+      body: blob,
+    });
+  } catch {
+    throw new Error("network");
+  }
+  const payload = await readBody(response);
+  if (!response.ok) throw new Error(typeof payload.error === "string" ? payload.error : "generic");
+  useAccount.getState().patch({ avatar: typeof payload.avatar === "number" ? payload.avatar : 0 });
+}
+
+export async function removeAvatar(): Promise<void> {
+  const response = await request("/api/auth/avatar", { method: "DELETE" });
+  if (!response.ok) throw new Error("generic");
+  useAccount.getState().patch({ avatar: 0 });
 }
 
 /** Send the 6-digit code to the signed-in account's email again. */

@@ -2,6 +2,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useAccount, type AccountMode, type SyncStatus } from "@/lib/account-store";
+import { Avatar } from "@/components/avatar";
 import { cleanNickname } from "@/lib/nickname";
 import {
   accountRequest,
@@ -9,9 +10,11 @@ import {
   confirmPasswordReset,
   deleteAccount,
   exportAccount,
+  removeAvatar,
   requestPasswordReset,
   saveNickname,
   sendEmailCode,
+  uploadAvatar,
   signIn,
   signOut,
   signUp,
@@ -36,6 +39,9 @@ const ERROR_KEYS: Record<string, Key> = {
   "code-expired": "account.err.codeExpired",
   "code-wait": "account.err.codeWait",
   "code-send": "account.err.codeSend",
+  "avatar-type": "account.err.avatarType",
+  "too-large": "account.err.avatarSize",
+  "email-unverified": "account.err.avatarVerify",
 };
 
 function errorKey(error: unknown): Key {
@@ -219,6 +225,85 @@ function readGlossary(payload: Record<string, unknown>): GlossaryQuota | null {
 }
 
 /** Fresh weekly allowance, loaded when the signed-in account dialog opens. */
+/** The reader's avatar, with Change and Remove. Shown with their accepted meanings and in the rank. */
+function AvatarPicker({ name }: { name: string }) {
+  const { t } = useT();
+  const publicId = useAccount((state) => state.publicId);
+  const avatar = useAccount((state) => state.avatar);
+  const verified = useAccount((state) => state.emailVerified);
+  const input = useRef<HTMLInputElement>(null);
+  const [busy, setBusy] = useState(false);
+  const [problem, setProblem] = useState("");
+  if (!publicId) return null;
+
+  async function onPick(file: File | undefined) {
+    if (!file || busy) return;
+    setBusy(true);
+    setProblem("");
+    try {
+      await uploadAvatar(file);
+    } catch (error) {
+      setProblem(t(errorKey(error)));
+    } finally {
+      setBusy(false);
+      if (input.current) input.current.value = "";
+    }
+  }
+
+  async function onRemove() {
+    if (busy) return;
+    setBusy(true);
+    setProblem("");
+    try {
+      await removeAvatar();
+    } catch (error) {
+      setProblem(t(errorKey(error)));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="mt-4 grid gap-2" data-account-avatar>
+      <div className="flex items-center gap-3">
+        <Avatar id={publicId} name={name} version={avatar} size={48} />
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            className={cn(btn.quiet, "min-h-9 px-3 text-sm")}
+            disabled={busy || !verified}
+            onClick={() => input.current?.click()}
+            data-account-avatar-change
+          >
+            {busy ? t("account.working") : t("account.avatarChange")}
+          </button>
+          {avatar ? (
+            <button type="button" className={cn(btn.ghost, "min-h-9 px-3 text-sm")} disabled={busy} onClick={() => void onRemove()} data-account-avatar-remove>
+              {t("account.avatarRemove")}
+            </button>
+          ) : null}
+        </div>
+        <input
+          ref={input}
+          type="file"
+          accept="image/png,image/jpeg,image/webp"
+          className="sr-only"
+          tabIndex={-1}
+          aria-hidden
+          onChange={(event) => void onPick(event.target.files?.[0])}
+          data-account-avatar-input
+        />
+      </div>
+      <p className="text-xs text-muted">{verified ? t("account.avatarHint") : t("account.err.avatarVerify")}</p>
+      {problem ? (
+        <p className="rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn" role="alert" data-account-error>
+          {problem}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 /**
  * The 6-digit code sent to a new account's email. Until it is typed, the account works (shelf,
  * sync) but cannot open word lists. `onDone` runs after the right code.
@@ -619,6 +704,7 @@ export function AccountDialog() {
               <p className="text-sm font-semibold" data-account-signed-in>
                 {t("account.signedIn", { email: emailSaved })}
               </p>
+              <AvatarPicker name={nickname || emailSaved || ""} />
               <GlossaryAllowance />
               <form className="mt-5 grid gap-2" onSubmit={(event) => void onSaveNickname(event)}>
                 <label className="grid gap-1 text-sm font-medium" htmlFor="account-nickname-edit">
