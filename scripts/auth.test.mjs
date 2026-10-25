@@ -58,6 +58,7 @@ function openDb() {
     "0010_word_feedback_location.sql",
     "0011_word_analytics_rev_status.sql",
     "0012_email_verification.sql",
+    "0013_feedback_suggestion.sql",
   ]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
@@ -2367,6 +2368,39 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   );
   assert.equal(upgradedResp.status, 200);
   assert.equal((await upgradedResp.json()).saved, true);
+});
+
+test("word feedback: a reader's own meaning is cleaned, capped and kept for review", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const base = { bookId: "wonder", word: "dive", form: "dive", chapter: 2, occurrence: 1, reason: "missing_meaning" };
+  const long = `To jump in <b>head first</b>\u0007 ${"x".repeat(400)}`;
+  const first = await handleWordFeedbackPost(postJson("/api/feedback/word", null, { ...base, suggestion: long }, "41.42.43.44"), env, { now: NOW });
+  assert.equal(first.status, 200);
+  const stored = db.raw.prepare("SELECT suggestion FROM word_feedback").get().suggestion;
+  assert.equal([...stored].length, 200, "at most 200 characters");
+  assert.ok(stored.startsWith("To jump in b head first /b x"), "markup brackets and control characters become single spaces");
+  assert.doesNotMatch(stored, /[<>\u0000-\u001f]/);
+
+  // The same place again from the same address: without a meaning it is a duplicate, with one it is kept.
+  const plain = await handleWordFeedbackPost(postJson("/api/feedback/word", null, base, "41.42.43.44"), env, { now: NOW + 1000 });
+  assert.equal((await plain.json()).duplicate, true);
+  const withMeaning = await handleWordFeedbackPost(
+    postJson("/api/feedback/word", null, { ...base, suggestion: "  To jump into water,\n head first.  " }, "41.42.43.44"),
+    env,
+    { now: NOW + 2000 },
+  );
+  assert.equal((await withMeaning.json()).saved, true);
+  const rows = db.raw.prepare("SELECT suggestion FROM word_feedback ORDER BY created_at").all();
+  assert.equal(rows.length, 2);
+  assert.equal(rows[1].suggestion, "To jump into water, head first.", "spaces and line breaks are folded");
+
+  await call(handleRegister, env, { body: { email: "xcrunnnn@outlook.com", password: "correct horse" } });
+  const adminCookie = cookieHeader(
+    await call(handleLogin, env, { body: { email: "xcrunnnn@outlook.com", password: "correct horse" } }),
+  );
+  const listed = await (await handleAdminWordFeedbackGet(raw("/api/admin/word-feedback", adminCookie), env, { now: NOW })).json();
+  assert.equal(listed.items[0].suggestions.length, 2, "the admin list shows every reader meaning for the place");
 });
 
 test("word feedback: a word with no meaning in the book can be reported as missing", async () => {

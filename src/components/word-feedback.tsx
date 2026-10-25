@@ -1,5 +1,6 @@
 import { useId, useState } from "react";
 import { useT } from "@/lib/i18n";
+import { SUGGESTION_MAX } from "@/lib/limits";
 import { cn } from "@/components/ui";
 import { Check, HelpCircle } from "lucide-react";
 
@@ -42,6 +43,9 @@ export function WordExplanationFeedback({
   const [expanded, setExpanded] = useState(false);
   const [submitted, setSubmitted] = useState<FeedbackReason | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  // The reader's own meaning, optional. A reason button sends it along with the report.
+  const [writing, setWriting] = useState(false);
+  const [suggestion, setSuggestion] = useState("");
 
   async function sendFeedback(reason: FeedbackReason) {
     if (submitting || submitted) return;
@@ -64,6 +68,7 @@ export function WordExplanationFeedback({
           senseIndex,
           senseMeaning,
           glossaryRev,
+          ...(suggestion.trim() ? { suggestion: suggestion.trim().slice(0, SUGGESTION_MAX) } : {}),
         }),
       });
       setSubmitted(reason);
@@ -93,7 +98,12 @@ export function WordExplanationFeedback({
 
   return (
     <div
-      className={cn("flex flex-wrap items-center gap-2 text-xs text-muted", className)}
+      className={cn(
+        "flex flex-wrap items-center justify-end gap-2 text-xs text-muted",
+        // While the reader writes a meaning, take the whole row so the box is full width.
+        writing && "order-first basis-full justify-start",
+        className,
+      )}
       data-word-feedback
     >
       <button
@@ -147,6 +157,38 @@ export function WordExplanationFeedback({
               </button>
             </>
           )}
+          {writing ? null : (
+            <button
+              type="button"
+              disabled={submitting}
+              onClick={() => setWriting(true)}
+              className="inline-flex min-h-8 items-center px-1 text-xs font-medium text-accent hover:underline disabled:opacity-50"
+              data-feedback-add-meaning
+            >
+              {t("card.feedbackAddMeaning")}
+            </button>
+          )}
+        </div>
+      ) : null}
+      {expanded && writing ? (
+        <div className="grid basis-full gap-1" data-feedback-suggestion>
+          <textarea
+            className="min-h-16 w-full resize-none rounded-lg border border-line/80 bg-card px-2.5 py-2 text-sm text-ink placeholder:text-muted/60 focus:border-accent focus:outline-none"
+            value={suggestion}
+            maxLength={SUGGESTION_MAX}
+            rows={2}
+            autoFocus
+            placeholder={t("card.feedbackMeaningPlaceholder")}
+            aria-label={t("card.feedbackAddMeaning")}
+            onChange={(event) => setSuggestion(event.target.value.slice(0, SUGGESTION_MAX))}
+            data-feedback-suggestion-input
+          />
+          <p className="flex justify-between gap-2 text-[0.7rem] text-muted">
+            <span>{t("card.feedbackMeaningHint")}</span>
+            <span className="tabular-nums" data-feedback-suggestion-count>
+              {[...suggestion].length}/{SUGGESTION_MAX}
+            </span>
+          </p>
         </div>
       ) : null}
     </div>

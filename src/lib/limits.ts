@@ -13,5 +13,8 @@
 /** Items one `POST /api/sync` may carry. */
 export const SYNC_PUSH_MAX = 200;
 
+/** Longest meaning a reader may suggest with a word report, in characters. */
+export const SUGGESTION_MAX = 200;
+
 /** Taps one `POST /api/analytics/word-taps` may carry. */
 export const WORD_TAPS_MAX = 20;

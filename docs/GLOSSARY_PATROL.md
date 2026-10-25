@@ -16,6 +16,9 @@ words. Two things tell you a list needs work:
   - `missing_meaning`: the word has no meaning here.
   - `too_hard`: the meaning uses words that are too hard for a learner.
   - `wrong_meaning`: the meaning, or a phrase match, does not fit this place in the book.
+  - Any report may carry `suggestion`: the reader's own meaning for this place (plain text, at most
+    200 characters, English or Chinese). Readers often look the word up while reading, so this is
+    usually the quickest way to the right sense. Review it; never paste it in unchecked.
 
 Once a day you read the open items, fix the word lists, publish them, and mark the items done.
 You may **add** entries and **fix** existing ones: rewrite a meaning that is too hard, correct one
@@ -56,8 +59,9 @@ SELECT book_title, word, form, chapter, occurrence, context, sentence, glossary_
   ORDER BY tap_count DESC, last_tapped_at DESC LIMIT 500;
 
 SELECT id, book_title, word, form, reason, chapter, occurrence, context, sentence,
-       sense_index, sense_meaning, glossary_rev, status
-  FROM word_feedback WHERE status != 'resolved' ORDER BY created_at DESC LIMIT 500;
+       sense_index, sense_meaning, suggestion, glossary_rev, status
+  FROM word_feedback WHERE status != 'resolved'
+  ORDER BY (suggestion != '') DESC, created_at DESC LIMIT 500;
 ```
 
 `status` is `pending`, or `reopened` when a reader reported the same place again after it was
@@ -112,6 +116,19 @@ What to do with each kind of item:
 | Tap or `missing_meaning` | Add the entry, or add this place as an anchor to an existing sense | Very common words tapped to hear them (`said`, `top`); character and place names (`annie`) |
 | `too_hard` | Rewrite `meaning` (and `here`) in easier words, same sense | The meaning is already as easy as it can be |
 | `wrong_meaning` | Point the anchor at the right sense, add a sense, or remove the wrong phrase match / anchor | You cannot tell the right meaning without guessing the plot |
+
+Reviewing a reader's `suggestion`:
+
+- **Accept the sense, rewrite the words.** If the suggestion names the sense that fits the
+  sentence, write the entry in your own simple English (rules below). Do not copy it word for
+  word: it may be copied from a dictionary, and it may be Chinese, which a word list must not hold.
+- **Reject** it when it does not fit the sentence, guesses at the plot, is a joke, spam, a link,
+  or anything other than a meaning. Then fix the item as if no suggestion was given, or leave it
+  open.
+- Several readers suggesting the same sense for one place is a strong signal. One reader alone
+  is a hint, not proof: check it against the sentence.
+- Never put a reader's text, name, or anything personal into the word list or your report beyond
+  "accepted" / "rejected" and why.
 
 Writing rules (GLOSSARY_FORMAT.md 7.6): English only, the 2,000 most common words, short, one
 idea; restate, never add facts or guess the plot; keep names. Change **only** what an item asks
@@ -172,5 +189,6 @@ new revision, the site reopens the item by itself.
 ## 9. Report
 
 End each run with a short report per book: what you added, what you changed and why (the
-item that asked for it), what you skipped and why, the new revision, and any error. Say so if
+item that asked for it), which reader suggestions you accepted or rejected and why, what you
+skipped and why, the new revision, and any error. Say so if
 nothing was open.

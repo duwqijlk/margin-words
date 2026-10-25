@@ -411,11 +411,12 @@ export function WordCard({
         </div>
       </div>
       <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2">
           <span className="text-xs text-muted">
             {t("card.lookTitle")}
           </span>
-          {/* A word with no meaning here can still be reported, as a missing meaning. */}
+          {/* A word with no meaning here can still be reported, as a missing meaning. The
+              reader's own meaning opens below this row, the full width of the card. */}
           <WordExplanationFeedback
             key={`${bookId}:${selectionId}:${targetMode}:${target}:${state.chapter ?? chapter}:${state.occurrence ?? 1}`}
             bookId={bookId}
