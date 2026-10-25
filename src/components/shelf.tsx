@@ -31,6 +31,7 @@ import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import { SHELF_MENU_ARM_MS, shelfPressDown, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
 import { BookCover, type useCovers } from "@/components/book-cover";
+import { useSpeechBookIds } from "@/lib/speech-books";
 import { navigate } from "@/lib/router";
 import { BookTag, BookTags, OldFashionedTag } from "@/components/cover-marks";
 import { btn, cn, field, ProgressBar } from "@/components/ui";
@@ -104,6 +105,11 @@ function UpdateTag({
   );
 }
 
+/** A speech's drawn cover is the talk look, as on Discover. */
+function lookOf(speeches: ReadonlySet<string>, bookId: string): "talk" | "book" {
+  return speeches.has(bookId) ? "talk" : "book";
+}
+
 /**
  * The shelf's own note about new word lists: which books, what stays, and one button for all of them.
  * A book whose last try kept its old list is left to its own card, where the reason is shown.
@@ -120,6 +126,7 @@ function ListUpdatesStrip({
   onUpdateAll: () => void;
 }) {
   const { t, tn } = useT();
+  const speeches = useSpeechBookIds();
   const shown = rows.slice(0, 4);
   return (
     <section
@@ -130,7 +137,7 @@ function ListUpdatesStrip({
       <div className="flex shrink-0 -space-x-3" aria-hidden>
         {shown.map((row) => (
           <div key={row.book.id} className="w-9 overflow-hidden rounded-[3px] shadow-sm ring-2 ring-card sm:w-10">
-            <BookCover title={row.book.title} author={row.book.author} cover={covers[row.book.id]} />
+            <BookCover title={row.book.title} author={row.book.author} cover={covers[row.book.id]} look={lookOf(speeches, row.book.id)} />
           </div>
         ))}
       </div>
@@ -230,6 +237,7 @@ function ContinueCard({
   onOpen: () => void;
   onUpdate: () => void;
 }) {
+  const speeches = useSpeechBookIds();
   const { t } = useT();
   const { book, progress, fraction } = row;
   const started = Boolean(progress && progress.updatedAt > 0 && fraction > 0);
@@ -246,7 +254,7 @@ function ContinueCard({
           className="block h-full w-full rounded-md text-left"
           aria-label={t("shelf.openAria", { title: book.title })}
         >
-          <BookCover title={book.title} author={book.author} cover={cover} className="h-full w-full" />
+          <BookCover title={book.title} author={book.author} cover={cover} className="h-full w-full" look={lookOf(speeches, book.id)} />
         </button>
       </div>
       <div className="grid min-w-0 flex-1 content-center gap-2 sm:gap-2.5">
@@ -381,6 +389,7 @@ function BookCard({
   /** On a phone the menu opens on a second tap. A long press does not open it. */
   phoneMenu: boolean;
 }) {
+  const speeches = useSpeechBookIds();
   const { t } = useT();
   const { book } = row;
   const hintId = useId();
@@ -404,7 +413,7 @@ function BookCard({
           className="block w-full rounded-md text-left transition-transform duration-200 group-hover:-translate-y-1"
           aria-label={t("shelf.openAria", { title: book.title })}
         >
-          <BookCover title={book.title} author={book.author} cover={cover} />
+          <BookCover title={book.title} author={book.author} cover={cover} look={lookOf(speeches, book.id)} />
         </button>
         {book.source === "epub" ? (
           <div className="cover-progress pointer-events-none absolute inset-x-0 bottom-0 z-[1]">

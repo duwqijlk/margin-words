@@ -162,4 +162,10 @@ test("a shelf cover is the live catalog picture, found by pack id or by title, w
   // No catalog picture, or no catalog book: no cover (the card draws its own).
   assert.equal(pick({ title: "No Cover", author: "Someone" }, undefined, sources), "");
   assert.equal(pick({ title: "My Own Book", author: "Me" }, undefined, sources), "");
+  // The same match tells the shelf a book is a speech, so its drawn cover is the talk look.
+  const talk = { id: "ted-1", title: "1 thing you can do today to be happier", author: "Sonja Lyubomirsky", isbn: "", cover: null, category: "speech" };
+  const withTalk = { ...sources, lists: [...sources.lists, talk] };
+  assert.equal(cloudCover.catalogRowOf({ title: "anything", author: "" }, "ted-1", withTalk)?.category, "speech");
+  assert.equal(cloudCover.catalogRowOf({ title: talk.title, author: talk.author }, undefined, withTalk)?.category, "speech");
+  assert.equal(cloudCover.catalogRowOf({ title: "My Own Book", author: "Me" }, undefined, withTalk), undefined);
 });

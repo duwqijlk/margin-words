@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { listPackRecords } from "@/lib/book-db";
-import { cloudCover, type CoverSources } from "@/lib/cloud-cover";
+import { catalogRowOf, cloudCover, type CoverSources } from "@/lib/cloud-cover";
+import { noteSpeechBooks } from "@/lib/speech-books";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst } from "@/lib/packs";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 import { coverCrossOrigin } from "@/lib/cover-request";
@@ -23,12 +24,20 @@ export function useCovers(books: ReadonlyArray<{ id: string; title: string; auth
       loadWordListCatalog().catch(() => []),
     ]).then(([classics, lists]) => {
       if (!alive) return;
-      const row = (catalogUrl: string) => (pack: { id: string; title: string; author: string; isbn?: string; cover: { url: string; sha256: string } | null }) => ({
+      const row = (catalogUrl: string) => (pack: {
+        id: string;
+        title: string;
+        author: string;
+        isbn?: string;
+        cover: { url: string; sha256: string } | null;
+        category?: "novel" | "speech";
+      }) => ({
         id: pack.id,
         title: pack.title,
         author: pack.author,
         isbn: pack.isbn ?? "",
         cover: pack.cover?.url ? { url: resolveAgainst(catalogUrl, pack.cover.url), sha256: pack.cover.sha256 } : null,
+        category: pack.category,
       });
       setSources({ classics: classics.map(row(BUNDLED_CATALOG_URL)), lists: lists.map(row(WORD_LIST_CATALOG_URL)) });
     });
@@ -51,10 +60,14 @@ export function useCovers(books: ReadonlyArray<{ id: string; title: string; auth
   return useMemo(() => {
     const out: Record<string, string> = {};
     if (!sources) return out;
+    const speeches: string[] = [];
     for (const book of books) {
       const url = cloudCover(book, packIds[book.id], sources);
       if (url) out[book.id] = url;
+      if (catalogRowOf(book, packIds[book.id], sources)?.category === "speech") speeches.push(book.id);
     }
+    // Shared with the shelf cards below; done after render so no listener is set during render.
+    queueMicrotask(() => noteSpeechBooks(speeches));
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sources, packIds, key]);
