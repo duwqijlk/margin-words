@@ -29,6 +29,18 @@ export const selectCls =
 export const chip =
   "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold leading-5";
 
+/**
+ * Second-level tabs as plain text (Discover's Novels / Speeches, Overview's sections): the row has a
+ * hairline under it, the current tab is ink with a short line under it. One look for both pages.
+ */
+export const subTabs = {
+  // No scrolling: two or three short words always fit, and a scroll box showed a scrollbar for the 1px overlap.
+  row: "flex gap-5 border-b border-line/60",
+  tab: "-mb-px inline-flex min-h-10 shrink-0 items-center border-b-2 text-[0.9rem] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+  on: "border-ink font-semibold text-ink",
+  off: "border-transparent font-medium text-muted hover:text-ink",
+} as const;
+
 /* ---------------------------------------------------------------- pronunciation */
 
 export type PronunciationAccent = "UK" | "US";

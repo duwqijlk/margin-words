@@ -896,6 +896,24 @@ test("word-list publish: hash computed once, other rows untouched, unknown id re
   const kept = await handlePublish(raw("/api/admin/word-lists?id=george", adminCookie, george), env, { now: NOW });
   assert.equal(kept.status, 200);
   assert.equal(stored().lists.find((item) => item.id === "george").category, "speech");
+  // ?series= gives a speech (or a novel) its series row; an empty name removes it.
+  const toSeries = await handlePublish(
+    raw("/api/admin/word-lists?id=george&series=TED&seriesNumber=3", adminCookie, george),
+    env,
+    { now: NOW },
+  );
+  assert.equal(toSeries.status, 200);
+  let georgeRow = stored().lists.find((item) => item.id === "george");
+  assert.equal(georgeRow.series, "TED");
+  assert.equal(georgeRow.seriesNumber, 3);
+  assert.equal(georgeRow.category, "speech", "the category stays when only the series changes");
+  await handlePublish(raw("/api/admin/word-lists?id=george&series=TED&seriesNumber=abc", adminCookie, george), env, { now: NOW });
+  georgeRow = stored().lists.find((item) => item.id === "george");
+  assert.equal(georgeRow.series, "TED");
+  assert.equal("seriesNumber" in georgeRow, false, "a number that is not a whole number above 0 is dropped");
+  await handlePublish(raw("/api/admin/word-lists?id=george&series=&seriesNumber=", adminCookie, george), env, { now: NOW });
+  georgeRow = stored().lists.find((item) => item.id === "george");
+  assert.equal("series" in georgeRow, false, "an empty name removes the series");
   const toNovel = await handlePublish(
     raw("/api/admin/word-lists?id=george&category=novel", adminCookie, george),
     env,

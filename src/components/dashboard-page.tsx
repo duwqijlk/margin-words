@@ -3,7 +3,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { Avatar } from "@/components/avatar";
 import { QqDialog } from "@/components/qq-dialog";
 import { SponsorDialog } from "@/components/sponsor-dialog";
-import { btn, cn } from "@/components/ui";
+import { btn, cn, subTabs } from "@/components/ui";
 import { trn, useT } from "@/lib/i18n";
 import { groupDigits, libraryTotals, type LibraryTotals } from "@/lib/library-totals";
 import { BUNDLED_CATALOG_URL, loadCatalog } from "@/lib/packs";
@@ -30,14 +30,11 @@ function tabFromUrl(): OverviewTab {
   return value === "contributors" || value === "supporters" ? value : "library";
 }
 
-/**
- * Overview sections as words in the book face, the current one marked with a highlighter stroke
- * (.overview-tab in styles.css), unlike the filled rounded category chips on Discover.
- */
+/** Overview sections, as the same plain text tabs as Discover's Novels / Speeches (subTabs in ui.tsx). */
 function OverviewTabs({ tab, onChange }: { tab: OverviewTab; onChange: (tab: OverviewTab) => void }) {
   const { t } = useT();
   return (
-    <div role="tablist" aria-label={t("dashboard.title")} className="flex gap-7 sm:gap-10" data-overview-tabs>
+    <div role="tablist" aria-label={t("dashboard.title")} className={subTabs.row} data-overview-tabs>
       {TABS.map((item) => {
         const on = item.id === tab;
         return (
@@ -60,10 +57,7 @@ function OverviewTabs({ tab, onChange }: { tab: OverviewTab; onChange: (tab: Ove
                 document.getElementById(`overview-tab-${next.id}`)?.focus();
               }
             }}
-            className={cn(
-              "overview-tab min-h-11 px-0.5 font-display text-[1.05rem] transition-colors sm:text-[1.15rem]",
-              on ? "font-semibold text-ink" : "text-muted hover:text-ink",
-            )}
+            className={cn(subTabs.tab, on ? subTabs.on : subTabs.off)}
             data-overview-tab={item.id}
           >
             {t(item.label)}
