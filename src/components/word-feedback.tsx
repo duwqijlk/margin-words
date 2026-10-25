@@ -43,9 +43,20 @@ export function WordExplanationFeedback({
   const [expanded, setExpanded] = useState(false);
   const [submitted, setSubmitted] = useState<FeedbackReason | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  // The reader's own meaning, optional. A reason button sends it along with the report.
+  // The reader's own meaning, optional. Without it a problem button sends at once. While writing,
+  // a problem button only picks the problem, and Send under the box sends both.
   const [writing, setWriting] = useState(false);
   const [suggestion, setSuggestion] = useState("");
+  const [picked, setPicked] = useState<FeedbackReason | null>(missing ? "missing_meaning" : null);
+  const choose = (reason: FeedbackReason) => (writing ? setPicked(reason) : void sendFeedback(reason));
+  const reasonClass = (reason: FeedbackReason) =>
+    cn(
+      "inline-flex items-center rounded-lg border px-2 py-1 text-xs font-medium transition-colors active:scale-95 disabled:opacity-50",
+      writing && picked === reason
+        ? "border-accent bg-accent text-accent-ink"
+        : "border-line/60 bg-card text-ink/80 hover:border-line hover:bg-paper hover:text-ink",
+    );
+  const canSend = Boolean(picked) && suggestion.trim().length > 0 && !submitting;
 
   async function sendFeedback(reason: FeedbackReason) {
     if (submitting || submitted) return;
@@ -126,8 +137,9 @@ export function WordExplanationFeedback({
             <button
               type="button"
               disabled={submitting}
-              onClick={() => void sendFeedback("missing_meaning")}
-              className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
+              onClick={() => choose("missing_meaning")}
+              className={reasonClass("missing_meaning")}
+              aria-pressed={writing ? picked === "missing_meaning" : undefined}
               title={t("card.feedbackMissing")}
               data-feedback-missing
             >
@@ -138,8 +150,9 @@ export function WordExplanationFeedback({
               <button
                 type="button"
                 disabled={submitting}
-                onClick={() => void sendFeedback("too_hard")}
-                className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
+                onClick={() => choose("too_hard")}
+                className={reasonClass("too_hard")}
+                aria-pressed={writing ? picked === "too_hard" : undefined}
                 title={t("card.feedbackTooHard")}
                 data-feedback-too-hard
               >
@@ -149,8 +162,9 @@ export function WordExplanationFeedback({
               <button
                 type="button"
                 disabled={submitting}
-                onClick={() => void sendFeedback("wrong_meaning")}
-                className="inline-flex items-center rounded-lg border border-line/60 bg-card px-2 py-1 text-xs font-medium text-ink/80 transition-colors hover:border-line hover:bg-paper hover:text-ink active:scale-95 disabled:opacity-50"
+                onClick={() => choose("wrong_meaning")}
+                className={reasonClass("wrong_meaning")}
+                aria-pressed={writing ? picked === "wrong_meaning" : undefined}
                 title={t("card.feedbackWrong")}
                 data-feedback-wrong
               >
@@ -185,11 +199,35 @@ export function WordExplanationFeedback({
             data-feedback-suggestion-input
           />
           <p className="flex justify-between gap-2 text-[0.7rem] text-muted">
-            <span>{t("card.feedbackMeaningHint")}</span>
+            <span>{t(picked ? "card.feedbackMeaningHint" : "card.feedbackPickProblem")}</span>
             <span className="tabular-nums" data-feedback-suggestion-count>
               {[...suggestion].length}/{SUGGESTION_MAX}
             </span>
           </p>
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              disabled={submitting}
+              onClick={() => {
+                setWriting(false);
+                setSuggestion("");
+                setPicked(missing ? "missing_meaning" : null);
+              }}
+              className="inline-flex min-h-9 items-center rounded-lg px-3 text-sm font-medium text-muted hover:text-ink"
+              data-feedback-suggestion-cancel
+            >
+              {t("common.cancel")}
+            </button>
+            <button
+              type="button"
+              disabled={!canSend}
+              onClick={() => picked && void sendFeedback(picked)}
+              className="inline-flex min-h-9 items-center rounded-lg bg-accent px-4 text-sm font-semibold text-accent-ink transition-opacity hover:opacity-90 disabled:opacity-40"
+              data-feedback-suggestion-send
+            >
+              {submitting ? t("account.working") : t("card.feedbackSend")}
+            </button>
+          </div>
         </div>
       ) : null}
     </div>
