@@ -142,3 +142,24 @@ test("every top-menu page has its own address, and the address maps back", () =>
   assert.equal(menuOf(parsePath("/admin")), "admin");
   assert.equal(parsePath("/admin/x"), null);
 });
+
+test("a shelf cover is the live catalog picture, found by pack id or by title, with its version", async () => {
+  const { cloudCover } = await loadAppModules();
+  const sha = "efd8384ea5b1".padEnd(64, "0");
+  const sources = {
+    classics: [{ id: "alice", title: "Alice's Adventures in Wonderland", author: "Lewis Carroll", isbn: "", cover: { url: "https://books.inputread.site/covers/public-alice.jpg", sha256: sha } }],
+    lists: [
+      { id: "flipped", title: "Flipped", author: "Wendelin Van Draanen", isbn: "9780375825446", cover: { url: "https://books.inputread.site/covers/lists-flipped.jpg", sha256: "a".repeat(64) } },
+      { id: "nocover", title: "No Cover", author: "Someone", isbn: "", cover: null },
+    ],
+  };
+  const pick = cloudCover.cloudCover;
+  // Installed here: by pack id.
+  assert.equal(pick({ title: "anything", author: "" }, "alice", sources), "https://books.inputread.site/covers/public-alice.jpg?v=efd8384ea5b1");
+  // Only synced here (no pack record): by title and author, and by ISBN.
+  assert.equal(pick({ title: "Alice's Adventures in Wonderland", author: "Lewis Carroll" }, undefined, sources), "https://books.inputread.site/covers/public-alice.jpg?v=efd8384ea5b1");
+  assert.equal(pick({ title: "Flipped (paperback)", author: "", isbn: "978-0-375-82544-6" }, undefined, sources), "https://books.inputread.site/covers/lists-flipped.jpg?v=aaaaaaaaaaaa");
+  // No catalog picture, or no catalog book: no cover (the card draws its own).
+  assert.equal(pick({ title: "No Cover", author: "Someone" }, undefined, sources), "");
+  assert.equal(pick({ title: "My Own Book", author: "Me" }, undefined, sources), "");
+});

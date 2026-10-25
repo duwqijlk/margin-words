@@ -1,34 +1,63 @@
-import { useEffect, useRef, useState } from "react";
-import { loadAllCoverInfo, loadAllCovers, type CoverInfo } from "@/lib/book-db";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { listPackRecords } from "@/lib/book-db";
+import { cloudCover, type CoverSources } from "@/lib/cloud-cover";
+import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst } from "@/lib/packs";
+import { loadWordListCatalog, WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 import { coverCrossOrigin } from "@/lib/cover-request";
 import { cn } from "@/components/ui";
 
-/** Stored cover pictures, and where each came from (catalog, EPUB, or a picture in the text). */
-export function useCovers(ids: string[]) {
-  const [covers, setCovers] = useState<{ covers: Record<string, string>; infos: Record<string, CoverInfo> }>({
-    covers: {},
-    infos: {},
-  });
-  const key = ids.join("|");
+/**
+ * The cover address of every shelf book, from the live catalogs (see src/lib/cloud-cover.ts). Each
+ * card's <img> loads it straight from the books host, cached by the browser and the CDN; nothing is
+ * stored on the device. A book with no catalog cover is not in the map and draws its own cover.
+ */
+export function useCovers(books: ReadonlyArray<{ id: string; title: string; author: string; isbn?: string }>) {
+  const [sources, setSources] = useState<CoverSources | null>(null);
+  const [packIds, setPackIds] = useState<Record<string, string>>({});
   useEffect(() => {
     let alive = true;
-    const load = () => {
-      void Promise.all([loadAllCovers(), loadAllCoverInfo().catch(() => ({}) as Record<string, CoverInfo>)])
-        .then(([next, infos]) => {
-          if (alive) setCovers({ covers: next, infos });
-        })
-        .catch(() => {
-          if (alive) setCovers({ covers: {}, infos: {} });
-        });
-    };
-    load();
-    window.addEventListener("cibian-covers", load);
+    void Promise.all([
+      loadCatalog(BUNDLED_CATALOG_URL)
+        .then((result) => result.catalog.packs)
+        .catch(() => []),
+      loadWordListCatalog().catch(() => []),
+    ]).then(([classics, lists]) => {
+      if (!alive) return;
+      const row = (catalogUrl: string) => (pack: { id: string; title: string; author: string; isbn?: string; cover: { url: string; sha256: string } | null }) => ({
+        id: pack.id,
+        title: pack.title,
+        author: pack.author,
+        isbn: pack.isbn ?? "",
+        cover: pack.cover?.url ? { url: resolveAgainst(catalogUrl, pack.cover.url), sha256: pack.cover.sha256 } : null,
+      });
+      setSources({ classics: classics.map(row(BUNDLED_CATALOG_URL)), lists: lists.map(row(WORD_LIST_CATALOG_URL)) });
+    });
     return () => {
       alive = false;
-      window.removeEventListener("cibian-covers", load);
+    };
+  }, []);
+  const key = books.map((book) => book.id).join("|");
+  useEffect(() => {
+    let alive = true;
+    void listPackRecords()
+      .then((records) => {
+        if (alive) setPackIds(Object.fromEntries(records.map((record) => [record.bookId, record.packId])));
+      })
+      .catch(() => undefined);
+    return () => {
+      alive = false;
     };
   }, [key]);
-  return covers;
+  return useMemo(() => {
+    const out: Record<string, string> = {};
+    if (!sources) return out;
+    for (const book of books) {
+      const url = cloudCover(book, packIds[book.id], sources);
+      if (url) out[book.id] = url;
+    }
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sources, packIds, key]);
 }
 
 /**

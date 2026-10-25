@@ -28,7 +28,7 @@ import type { SpineNameWarning } from "@/lib/epub";
 import type { ListFlow } from "@/components/word-list";
 import { SiteNotice } from "@/components/site-notice";
 import { canonicalPath, DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useRoute, type Route } from "@/lib/router";
-import { refreshCovers, repairShelf } from "@/lib/shelf-repair";
+import { repairShelf } from "@/lib/shelf-repair";
 import { useAccount } from "@/lib/account-store";
 import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
 import { AccountDialog } from "@/components/account-dialog";
@@ -206,7 +206,8 @@ export function MarginApp() {
         setStorageWarning(state.ok ? null : state.reason);
         if (state.ok) void requestPersistentStorage();
       });
-      void ensureClassics().finally(() => void refreshCovers().catch(() => undefined));
+      // Covers are read straight from the live catalog (useCovers); nothing is copied onto the device.
+      void ensureClassics();
       // Installed books whose catalog revision changed get an Update button. Nothing is replaced yet.
       void autoUpdateWordLists();
       notifySyncReady();
@@ -225,7 +226,7 @@ export function MarginApp() {
   }, []);
 
   const orderedBooks = useMemo(() => [...books].sort((a, b) => b.updatedAt - a.updatedAt), [books]);
-  const covers = useCovers(books.map((book) => book.id));
+  const covers = useCovers(books);
 
   // If the book on screen was deleted (here or in another tab), fall back to the shelf.
   useEffect(() => {

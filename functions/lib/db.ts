@@ -24,7 +24,11 @@ export interface R2ObjectLike {
 
 export interface R2BucketLike {
   get(key: string): Promise<R2ObjectLike | null>;
-  put(key: string, value: ArrayBuffer | Uint8Array | string): Promise<unknown>;
+  put(
+    key: string,
+    value: ArrayBuffer | Uint8Array | string,
+    options?: { httpMetadata?: { contentType?: string; cacheControl?: string } },
+  ): Promise<unknown>;
 }
 
 export type Env = {

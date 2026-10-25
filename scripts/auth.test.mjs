@@ -1319,8 +1319,9 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
   assert.equal(new Uint8Array(privateFiles.get("great-book/book.epub"))[0], 80);
   assert.ok(privateFiles.has("great-book/cover.jpg"));
   const storedCardCatalog = JSON.parse(new TextDecoder().decode(cardFiles.get("word-lists/catalog.json")));
-  assert.equal(storedCardCatalog.lists[0].cover.url, "great-book/cover.jpg");
-  assert.ok(cardFiles.has("word-lists/great-book/cover.jpg"));
+  // Card covers live under covers/ (no Worker on that path), named in the catalog by full address.
+  assert.equal(storedCardCatalog.lists[0].cover.url, "https://books.inputread.site/covers/lists-great-book.jpg");
+  assert.ok(cardFiles.has("covers/lists-great-book.jpg"));
 
   // A cover part that is a Blob, not a File, is still the picture Discover shows.
   const blobFiles = new Map();
@@ -1344,7 +1345,7 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
   });
   assert.equal(blobOk.status, 200);
   assert.ok(blobFiles.has("great-book/cover.jpg"));
-  assert.ok(blobCard.has("word-lists/great-book/cover.jpg"));
+  assert.ok(blobCard.has("covers/lists-great-book.jpg"));
 
   // A chosen cover with no word-list row must not report success.
   const lonelyCatalog = { ...cardCatalog, lists: [] };
@@ -1418,7 +1419,8 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
   assert.equal(alice.epub.url, "alice/book.epub");
   assert.equal(alice.epub.bytes, epubBytes.length);
   assert.equal(alice.glossary.rev.length, 12);
-  assert.equal(alice.cover.url, "alice/cover.jpg");
+  assert.equal(alice.cover.url, "https://books.inputread.site/covers/public-alice.jpg");
+  assert.ok(booksFiles.has("covers/public-alice.jpg"));
   assert.ok(booksFiles.has("public-books/alice/glossary.json"));
 
   const medium = new FormData();
