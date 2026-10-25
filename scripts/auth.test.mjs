@@ -60,6 +60,7 @@ function openDb() {
     "0012_email_verification.sql",
     "0013_feedback_suggestion.sql",
     "0014_contributor_credit.sql",
+    "0015_passage_feedback.sql",
   ]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }

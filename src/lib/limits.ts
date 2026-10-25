@@ -24,5 +24,11 @@ export const SYNC_BODY_TARGET = 900_000;
 /** Longest meaning a reader may suggest with a word report, in characters. */
 export const SUGGESTION_MAX = 200;
 
+/**
+ * Longest passage a reader may select for help, in characters: a phrase or a sentence or two,
+ * never a page of the book. The page stops a longer selection; the server refuses one.
+ */
+export const PASSAGE_MAX = 300;
+
 /** Taps one `POST /api/analytics/word-taps` may carry. */
 export const WORD_TAPS_MAX = 20;

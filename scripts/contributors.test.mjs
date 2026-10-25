@@ -6,6 +6,7 @@ import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { handleRegister } from "../functions/lib/handlers.ts";
 import { handleWordFeedbackPost } from "../functions/api/feedback/word.ts";
+import { handlePassageFeedbackPost } from "../functions/api/feedback/passage.ts";
 import { handleAvatarPut, isWebp } from "../functions/api/auth/avatar.ts";
 import { handleContributorsRebuild } from "../functions/api/contributors/rebuild.ts";
 import { CONTRIBUTORS_KEY, publishContributors } from "../functions/lib/contributors.ts";
@@ -25,7 +26,7 @@ function openDb() {
     "0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql",
     "0006_shelf_grant.sql", "0007_word_taps.sql", "0008_word_feedback.sql", "0009_word_taps_location.sql",
     "0010_word_feedback_location.sql", "0011_word_analytics_rev_status.sql", "0012_email_verification.sql",
-    "0013_feedback_suggestion.sql", "0014_contributor_credit.sql",
+    "0013_feedback_suggestion.sql", "0014_contributor_credit.sql", "0015_passage_feedback.sql",
   ]) db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   const wrap = (sql) => {
     const stmt = db.prepare(sql);
@@ -204,4 +205,66 @@ test("a meaning alone is a report of its own; without text it is refused", async
   assert.equal(row.reason, "suggested");
   assert.equal(row.suggestion, "A light in a box you carry.");
   assert.ok(row.user_id, "the reader is kept with their meaning");
+});
+
+const passage = {
+  bookId: "wonder",
+  bookTitle: "Wonder",
+  chapter: 3,
+  paragraph: 12,
+  selected: "a face only a mother could love",
+  before: "He said I had",
+  after: ", and laughed.",
+  reason: "hard",
+  glossaryRev: "abc123def456",
+};
+
+test("passage help: signed in, inside the limits, one report a day unless it brings an explanation", async () => {
+  const db = openDb();
+  const env = { DB: db };
+  const post = (body, cookie, ip = "7.7.7.7") =>
+    handlePassageFeedbackPost(request("/api/feedback/passage", { body, cookie, ip }), env, { now: NOW });
+  assert.equal((await post(passage, "")).status, 401, "only a signed-in reader reports");
+  const { cookie, user } = await signUp(env, "passage@example.com");
+
+  assert.equal((await post({ ...passage, selected: "x".repeat(301) }, cookie)).status, 400, "a page of the book is refused");
+  assert.equal((await post({ ...passage, selected: "!" }, cookie)).status, 400);
+  assert.equal((await post({ ...passage, reason: "boring" }, cookie)).status, 400);
+  assert.equal((await post({ ...passage, reason: "suggested" }, cookie)).status, 400, "suggested needs text");
+
+  assert.deepEqual(await (await post(passage, cookie)).json(), { ok: true, saved: true });
+  assert.deepEqual(await (await post(passage, cookie)).json(), { ok: true, duplicate: true });
+  const withHelp = await post({ ...passage, suggestion: "He means my face is not nice, as a joke." }, cookie);
+  assert.deepEqual(await withHelp.json(), { ok: true, saved: true }, "a repeat with an explanation is kept");
+
+  const rows = db.raw.prepare("SELECT selected, before, after, chapter, paragraph, reason, suggestion, user_id FROM passage_feedback ORDER BY id").all();
+  assert.equal(rows.length, 2);
+  assert.equal(rows[0].selected, "a face only a mother could love");
+  assert.equal(rows[0].user_id, null, "no explanation, no reader id");
+  assert.equal(rows[1].user_id, user.id, "kept so an accepted explanation can be credited");
+  assert.equal(rows[1].chapter, 3);
+  assert.equal(rows[1].paragraph, 12);
+});
+
+test("an accepted passage explanation counts in the contributor rank", async () => {
+  const db = openDb();
+  const books = bucket();
+  const env = { DB: db, BOOKS: books };
+  const a = await signUp(env, "rank@example.com");
+  db.raw.prepare("UPDATE users SET nickname = 'Rae' WHERE email = 'rank@example.com'").run();
+  await handlePassageFeedbackPost(
+    request("/api/feedback/passage", { body: { ...passage, suggestion: "A joke: he means I am not pretty." }, cookie: a.cookie }),
+    env,
+    { now: NOW },
+  );
+  await handleWordFeedbackPost(
+    request("/api/feedback/word", { body: { ...report, suggestion: "To jump in." }, cookie: a.cookie, ip: "dive.1" }),
+    env,
+    { now: NOW },
+  );
+  db.raw.prepare("UPDATE passage_feedback SET accepted_at = ?").run(NOW);
+  db.raw.prepare("UPDATE word_feedback SET accepted_at = ?").run(NOW);
+  await publishContributors(db, books, NOW);
+  const file = JSON.parse(books.files.get(CONTRIBUTORS_KEY));
+  assert.deepEqual(file.people, [{ id: a.user.publicId, name: "Rae", helped: 2 }], "one word and one passage");
 });

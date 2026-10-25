@@ -8,7 +8,7 @@ repository as `docs/GLOSSARY_PATROL.md` and on the site at `https://inputread.si
 ## 1. The job
 
 Readers of inputread.site read English books with a word list (glossary) that explains hard
-words. Two things tell you a list needs work:
+words. Three things tell you a list needs work:
 
 - **Taps** (table `book_word_taps`): a reader opened a word that has **no meaning of its own** at
   that place. Only such words are recorded.
@@ -22,6 +22,15 @@ words. Two things tell you a list needs work:
   - Any report may carry `suggestion`: the reader's own meaning for this place (plain text, at most
     200 characters, English or Chinese). Readers often look the word up while reading, so this is
     usually the quickest way to the right sense. Review it; never paste it in unchecked.
+- **Passage reports** (table `passage_feedback`): a reader selected a few words, a sentence or a
+  short part of one paragraph and asked for help with it. `selected` is the exact text (at most
+  300 characters, never across paragraphs); `before` / `after` are a few words around it;
+  `chapter` and `paragraph` are the reader's numbers (the same as an anchor's chapter and a
+  paragraph note's `paragraph`). `reason`:
+  - `hard`: "I don't understand this part".
+  - `phrase`: "these words go together" (often a phrasal verb or an idiom the list does not have).
+  - `wrong`: the help shown at this place is wrong.
+  - `suggested`: only the reader's explanation, in `suggestion` (same rules as above).
 
 Once a day you read the open items, fix the word lists, publish them, and mark the items done.
 You may **add** entries and **fix** existing ones: rewrite a meaning that is too hard, correct one
@@ -67,6 +76,16 @@ SELECT f.id, f.book_title, f.word, f.form, f.reason, f.chapter, f.occurrence, f.
   FROM word_feedback f LEFT JOIN users u ON u.id = f.user_id
  WHERE f.status != 'resolved'
  ORDER BY (f.suggestion != '') DESC, f.created_at DESC LIMIT 500;
+```
+
+Open passage reports:
+
+```sql
+SELECT p.id, p.book_title, p.chapter, p.paragraph, p.selected, p.before, p.after, p.reason,
+       p.suggestion, p.glossary_rev, p.status, u.public_id AS suggested_by
+  FROM passage_feedback p LEFT JOIN users u ON u.id = p.user_id
+ WHERE p.status != 'resolved'
+ ORDER BY (p.suggestion != '') DESC, p.created_at DESC LIMIT 200;
 ```
 
 `suggested_by` is set only on a report that carries a suggestion: the public id of the reader who
@@ -124,6 +143,19 @@ What to do with each kind of item:
 | Tap or `missing_meaning` | Add the entry, or add this place as an anchor to an existing sense | Very common words tapped to hear them (`said`, `top`); character and place names (`annie`) |
 | `too_hard` | Rewrite `meaning` (and `here`) in easier words, same sense | The meaning is already as easy as it can be |
 | `wrong_meaning` | Point the anchor at the right sense, add a sense, or remove the wrong phrase match / anchor | You cannot tell the right meaning without guessing the plot |
+
+What to do with a passage report. Find the place: in chapter `chapter`, paragraph `paragraph` must
+contain `before` + `selected` + `after` (spaces may differ). Then write the smallest note that helps:
+
+| The selection is | Write | Notes |
+| --- | --- | --- |
+| 2 to 5 words that belong together (`phrase`, or a hard group) | a `phrases` entry (GLOSSARY_FORMAT.md 7.3), key = base form | Only when it is really a phrase (7.3's rule). A single hard word inside it is a word entry instead. |
+| One sentence, or most of one | a `sentences` note (7.2): `context` copied from that sentence, `simple`, one-line `grammar` when the grammar is the hard part | A figure of speech: say plainly what it means here. |
+| Several sentences of one paragraph | a `paragraphs` note (7.1) on that paragraph: `mainIdea` and `simple` | Only when no sentence note would do. |
+| `wrong` | fix the phrase, sentence or paragraph note shown there, or remove a wrong phrase match | |
+
+Leave it open when the selection is a single easy word, a name, or text you cannot find in the book.
+Never copy more of the book than a note's `context` needs.
 
 Reviewing a reader's `suggestion`:
 
@@ -223,6 +255,9 @@ UPDATE book_word_taps SET status = 'resolved', resolved_at = ?1, resolved_rev = 
 
 UPDATE word_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
  WHERE id = ?3;
+
+UPDATE passage_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
+ WHERE id = ?3;
 ```
 
 `?1` = now in milliseconds, `?2` = new revision. If a reader reports the same place again on the
@@ -232,19 +267,33 @@ For each **accepted** suggestion, also record it (this is what the rank counts):
 
 ```sql
 UPDATE word_feedback SET accepted_at = ?1, accepted_rev = ?2 WHERE id = ?3 AND suggestion != '';
+
+UPDATE passage_feedback SET accepted_at = ?1, accepted_rev = ?2 WHERE id = ?3 AND suggestion != '';
 ```
+
+An accepted passage suggestion is credited like a word one: `"credit": "<suggested_by>"` on the phrase
+entry, sentence note or paragraph note whose text came from it.
 
 Then, once per run after the last accepted suggestion, refresh the public credit file. Read the
 rows with this query and write them as `contributors.json` to bucket `margin-words-books`
 (R2 write, `Content-Type: application/json`):
 
 ```sql
+WITH accepted AS (
+  SELECT user_id, 'w:' || book_id || ':' || word || ':' || chapter || ':' || occurrence AS place, accepted_at
+    FROM word_feedback WHERE accepted_at > 0 AND user_id IS NOT NULL
+  UNION ALL
+  SELECT user_id, 'p:' || book_id || ':' || chapter || ':' || paragraph || ':' || selected AS place, accepted_at
+    FROM passage_feedback WHERE accepted_at > 0 AND user_id IS NOT NULL
+)
 SELECT u.public_id AS id, COALESCE(u.nickname, '') AS name, u.avatar_rev AS avatar,
-       COUNT(DISTINCT f.book_id || ':' || f.word || ':' || f.chapter || ':' || f.occurrence) AS helped
-  FROM word_feedback f JOIN users u ON u.id = f.user_id
- WHERE f.accepted_at > 0 AND u.public_id IS NOT NULL
- GROUP BY u.id ORDER BY helped DESC, MIN(f.accepted_at) ASC LIMIT 500;
+       COUNT(DISTINCT a.place) AS helped
+  FROM accepted a JOIN users u ON u.id = a.user_id
+ WHERE u.public_id IS NOT NULL
+ GROUP BY u.id ORDER BY helped DESC, MIN(a.accepted_at) ASC LIMIT 500;
 ```
+
+(This is the same query the site uses in `functions/lib/contributors.ts`.)
 
 ```
 { "format": 1, "updated": "<now, ISO>", "people": [ { "id": "...", "name": "...", "helped": 3, "avatar": 1792900000 } ] }
