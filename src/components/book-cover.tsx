@@ -61,21 +61,27 @@ export function useCovers(books: ReadonlyArray<{ id: string; title: string; auth
 }
 
 /**
- * Typographic cover for a book that has no cover picture: a calm bookbinding colour picked from the title,
- * a framed title in a serif face, the author underneath. Sizes use container units, so the same cover is
- * right at 90px and at 220px wide.
+ * Typographic cover for a book that has no cover picture. Sizes use container units, so the same cover is
+ * right at 90px and at 220px wide. Two looks:
+ *  - "book": a bookbinding cloth colour, one hairline frame, the title centred in a serif face and the
+ *    author under a short rule.
+ *  - "talk" (speeches, which often may not use the event's own picture): a deep ground, a large opening
+ *    quotation mark in a light tint, the title set left like a pull quote and the speaker under a rule.
+ * Each colour is [ground, deeper ground, tint]. The bottom-right corner stays clear for the add button.
  */
-const COVER_PALETTES: ReadonlyArray<readonly [string, string]> = [
-  ["#2f6b57", "#1b4033"],
-  ["#b85c38", "#76381f"],
-  ["#35507a", "#1d2c47"],
-  ["#7a4a6b", "#472840"],
-  ["#b8872b", "#7d5512"],
-  ["#4a5568", "#252b37"],
-  ["#2f7f86", "#1a4c52"],
-  ["#8a5a3c", "#522f1e"],
-  ["#5f8a68", "#3b5e45"],
+const COVER_PALETTES: ReadonlyArray<readonly [string, string, string]> = [
+  ["#2c5a4a", "#18362c", "#bfe0cf"],
+  ["#9a4a2e", "#5e2a18", "#f3c9a8"],
+  ["#2f466c", "#18253d", "#bcd0ee"],
+  ["#6b3f5e", "#3c2236", "#ecc4dc"],
+  ["#8c6a24", "#56400f", "#f1dca3"],
+  ["#3f4756", "#22272f", "#cdd3dd"],
+  ["#286a70", "#153f43", "#b6e1e2"],
+  ["#5a4a8a", "#322858", "#d4ccf2"],
+  ["#4f7457", "#2d4834", "#cde3cf"],
 ];
+
+export type CoverLook = "book" | "talk";
 
 function hashOf(text: string): number {
   let h = 2166136261;
@@ -92,11 +98,14 @@ export function BookCover({
   cover,
   className,
   whenVisible = false,
+  look = "book",
 }: {
   title: string;
   author: string;
   cover?: string;
   className?: string;
+  /** How a cover with no picture is drawn. Speeches use "talk". */
+  look?: CoverLook;
   /** Set the image address only once this cover is near the screen. Discover uses this. */
   whenVisible?: boolean;
 }) {
@@ -130,8 +139,9 @@ export function BookCover({
   }, [whenVisible, cover]);
   const pair =
     COVER_PALETTES[hashOf(`${title}|${author}`) % COVER_PALETTES.length] ?? COVER_PALETTES[0];
-  const [from, to] = pair as readonly [string, string];
+  const [from, to, tint] = pair as readonly [string, string, string];
   const size = title.length <= 14 ? "11.5cqw" : title.length <= 30 ? "9.5cqw" : "8cqw";
+  const talkSize = title.length <= 24 ? "10.5cqw" : title.length <= 48 ? "9cqw" : "7.8cqw";
   const failed = Boolean(cover) && broken === cover;
   const showImage = Boolean(cover) && !failed && near;
   const pending = Boolean(cover) && !failed && !showImage;
@@ -168,24 +178,64 @@ export function BookCover({
           onError={() => setBroken(cover ?? null)}
         />
       ) : null}
-      {showGenerated ? (
+      {showGenerated && look === "talk" ? (
         <span
           data-generated-inner=""
-          className="absolute inset-0 flex flex-col items-center justify-between text-center text-[#fbf6ea]"
+          data-cover-look="talk"
+          className="absolute inset-0 flex flex-col text-left text-[#fbf7ee]"
           style={{
-            backgroundImage: `linear-gradient(155deg, ${from}, ${to})`,
-            padding: "13cqw 11cqw 11cqw",
+            // A soft light from the top left, like a stage, on a deep ground.
+            backgroundImage: `radial-gradient(120% 80% at 0% 0%, ${from} 0%, ${to} 70%)`,
+            padding: "10cqw 10cqw 9cqw",
           }}
         >
           <span
-            className="pointer-events-none absolute -top-[22cqw] -right-[22cqw] size-[76cqw] rounded-full bg-white/10"
+            className="pointer-events-none font-display leading-none font-semibold select-none"
+            style={{ fontSize: "34cqw", height: "20cqw", marginLeft: "-1.5cqw", color: tint, opacity: 0.9 }}
             aria-hidden
-          />
+          >
+            {"\u201c"}
+          </span>
           <span
-            className="pointer-events-none absolute inset-[5cqw] rounded-[1cqw] border border-white/35"
+            data-cover-title=""
+            className="relative font-display leading-[1.15] font-medium [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:6] overflow-hidden"
+            style={{ fontSize: talkSize, marginTop: "3cqw" }}
+            lang="en"
+          >
+            {title}
+          </span>
+          {author ? (
+            <span className="mt-auto grid gap-[2.5cqw]" style={{ paddingRight: "26cqw" }}>
+              <span className="h-px w-[12cqw]" style={{ backgroundColor: tint, opacity: 0.8 }} aria-hidden />
+              <span
+                data-cover-author=""
+                className="font-medium [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
+                style={{ fontSize: "5.8cqw", lineHeight: 1.25, color: tint }}
+                lang="en"
+              >
+                {author}
+              </span>
+            </span>
+          ) : null}
+        </span>
+      ) : null}
+      {showGenerated && look === "book" ? (
+        <span
+          data-generated-inner=""
+          data-cover-look="book"
+          className="absolute inset-0 flex flex-col items-center justify-between text-center text-[#fbf6ea]"
+          style={{
+            backgroundImage: `linear-gradient(160deg, ${from}, ${to})`,
+            padding: "15cqw 12cqw 17cqw",
+          }}
+        >
+          {/* One hairline frame, like a stamped cloth binding. */}
+          <span
+            className="pointer-events-none absolute inset-[5.5cqw] rounded-[0.8cqw] border"
+            style={{ borderColor: tint, opacity: 0.4 }}
             aria-hidden
           />
-          <span className="h-px w-[16cqw] bg-white/60" aria-hidden />
+          <span className="h-px w-[12cqw]" style={{ backgroundColor: tint, opacity: 0.7 }} aria-hidden />
           <span
             data-cover-title=""
             className="relative font-display leading-[1.12] font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:5] overflow-hidden text-balance"
@@ -194,13 +244,13 @@ export function BookCover({
           >
             {title}
           </span>
-          <span className="grid justify-items-center gap-[3cqw]">
-            <span className="h-px w-[16cqw] bg-white/60" aria-hidden />
+          <span className="grid justify-items-center gap-[2.5cqw]">
+            <span className="h-px w-[12cqw]" style={{ backgroundColor: tint, opacity: 0.7 }} aria-hidden />
             {author ? (
               <span
                 data-cover-author=""
-                className="max-w-full tracking-[0.08em] uppercase opacity-90 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
-                style={{ fontSize: "5.6cqw", lineHeight: 1.3 }}
+                className="max-w-[62cqw] tracking-[0.06em] uppercase [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
+                style={{ fontSize: "4.8cqw", lineHeight: 1.3, color: tint }}
                 lang="en"
               >
                 {author}

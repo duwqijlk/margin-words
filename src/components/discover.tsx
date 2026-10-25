@@ -535,7 +535,7 @@ export function DiscoverScreen({
               className="block w-full rounded-md text-left"
               aria-label={t("pack.openAria", { title: row.title })}
             >
-              <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
+              <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
             </button>
           ) : (
             <button
@@ -545,7 +545,7 @@ export function DiscoverScreen({
               aria-label={t("browse.openAria", { title: row.title })}
               data-card-detail
             >
-              <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
+              <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
             </button>
           )}
           <div className="absolute right-1.5 bottom-1.5 z-[2]">
