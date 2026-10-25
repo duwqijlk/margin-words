@@ -14,6 +14,9 @@ words. Two things tell you a list needs work:
   that place. Only such words are recorded.
 - **Reports** (table `word_feedback`), sent with the card's feedback button:
   - `missing_meaning`: the word has no meaning here.
+  - `suggested`: the reader wrote their own meaning without saying what was wrong with the one
+    shown. Treat it as "this place may need a better or different meaning" and judge it the same
+    way as a `wrong_meaning` that carries a suggestion.
   - `too_hard`: the meaning uses words that are too hard for a learner.
   - `wrong_meaning`: the meaning, or a phrase match, does not fit this place in the book.
   - Any report may carry `suggestion`: the reader's own meaning for this place (plain text, at most
@@ -142,9 +145,25 @@ Reviewing a reader's `suggestion`:
   from the report, and `whyHard` when a short reason helps. Never ask the reader for these.
 - **Credit an accepted suggestion.** On the sense (or entry) whose meaning came from it, add
   `"credit": "<suggested_by>"`. The card then shows "From <their nickname>" with their picture. Use
-  only `suggested_by`; never write a name or email. One credit per sense: when several readers
-  suggested it, credit the earliest. Rewriting a credited meaning later keeps the credit only if
-  it is still that reader's sense.
+  only `suggested_by`; never write a name or email. One credit per sense.
+
+When a place already has a meaning, possibly one credited to an earlier reader (A), and a new
+suggestion arrives from reader B, compare B's with the meaning shown **at this place** and choose one:
+
+| B's suggestion | What to do | Credit | Mark B's report |
+| --- | --- | --- | --- |
+| A **different sense** that fits this sentence (A's fits other places) | Add a new sense with an anchor for this place; leave A's sense as it is | New sense: B | resolved + accepted |
+| The **same sense, said clearly better** (simpler, closer to this sentence, or A's was wrong) | Rewrite that sense's `meaning` | Switch the sense's `credit` to B | resolved + accepted |
+| The same sense, **not better** | Change nothing | Keep A | resolved, **not** accepted |
+| Does not fit the sentence | Change nothing | Keep A | resolved, not accepted |
+
+- A's past help still counts: the rank counts accepted reports, not the credits shown now, so A
+  keeps their place after B improves the sense.
+- Several suggestions for one place in the same run: read them together, write one meaning, and
+  credit the earliest reader whose sense you essentially used. Mark the others resolved; mark one
+  accepted only when you really took their sense.
+- Repeated `wrong_meaning` or `too_hard` reports on a credited sense (status `reopened`) mean the
+  sense still does not work: fix it first, by the same table.
 
 Writing rules (GLOSSARY_FORMAT.md 7.6): English only, the 2,000 most common words, short, one
 idea; restate, never add facts or guess the plot; keep names. Change **only** what an item asks

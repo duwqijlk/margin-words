@@ -125,7 +125,10 @@ function readFeedback(value: unknown): FeedbackRow[] {
       senseIndex: typeof row.senseIndex === "number" ? row.senseIndex : -1,
       senseMeaning: typeof row.senseMeaning === "string" ? row.senseMeaning : "",
       suggestions: Array.isArray(row.suggestions) ? row.suggestions.filter((s): s is string => typeof s === "string") : [],
-      reason: row.reason === "wrong_meaning" || row.reason === "missing_meaning" ? row.reason : "too_hard",
+      reason:
+        row.reason === "wrong_meaning" || row.reason === "missing_meaning" || row.reason === "suggested"
+          ? row.reason
+          : "too_hard",
       count: typeof row.count === "number" ? row.count : 1,
       lastReportedAt: typeof row.lastReportedAt === "number" ? row.lastReportedAt : 0,
       glossaryRev: typeof row.glossaryRev === "string" ? row.glossaryRev : "",
@@ -807,6 +810,18 @@ function WordFeedbackSubView() {
             >
               {t("admin.feedback.reasonMissing")}
             </button>
+            <button
+              type="button"
+              className={cn(
+                "rounded-lg px-3 py-1 font-semibold transition-colors",
+                reasonFilter === "suggested"
+                  ? "bg-card text-ink shadow-2xs"
+                  : "text-muted hover:text-ink",
+              )}
+              onClick={() => setReasonFilter("suggested")}
+            >
+              {t("admin.feedback.reasonSuggested")}
+            </button>
           </div>
 
           {/* Status filters */}
@@ -921,14 +936,18 @@ function WordFeedbackSubView() {
                           ? "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300"
                           : row.reason === "missing_meaning"
                             ? "border border-blue-500/25 bg-blue-500/10 text-blue-700 dark:text-blue-300"
-                            : "border border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+                            : row.reason === "suggested"
+                              ? "border border-accent/25 bg-accent-soft text-accent"
+                              : "border border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
                       )}
                     >
                       {row.reason === "too_hard"
                         ? t("admin.feedback.reasonTooHard")
                         : row.reason === "missing_meaning"
                           ? t("admin.feedback.reasonMissing")
-                          : t("admin.feedback.reasonWrong")}
+                          : row.reason === "suggested"
+                            ? t("admin.feedback.reasonSuggested")
+                            : t("admin.feedback.reasonWrong")}
                     </span>
 
                     <span
