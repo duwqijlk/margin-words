@@ -10,6 +10,7 @@ import {
   confirmPasswordReset,
   deleteAccount,
   exportAccount,
+  AvatarDailyLimit,
   removeAvatar,
   requestPasswordReset,
   saveNickname,
@@ -43,6 +44,7 @@ const ERROR_KEYS: Record<string, Key> = {
   "avatar-type": "account.err.avatarType",
   "too-large": "account.err.avatarSize",
   "email-unverified": "account.err.avatarVerify",
+  "avatar-daily": "account.err.avatarDaily",
 };
 
 function errorKey(error: unknown): Key {
@@ -241,7 +243,7 @@ function QuotaRow({ label, count }: { label: string; count: QuotaCount }) {
 /** Fresh weekly allowance, loaded when the signed-in account dialog opens. */
 /** The reader's avatar, with Change and Remove. Shown with their accepted meanings and in the rank. */
 function AvatarPicker({ name }: { name: string }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const publicId = useAccount((state) => state.publicId);
   const avatar = useAccount((state) => state.avatar);
   const verified = useAccount((state) => state.emailVerified);
@@ -257,6 +259,16 @@ function AvatarPicker({ name }: { name: string }) {
     try {
       await uploadAvatar(file);
     } catch (error) {
+      if (error instanceof AvatarDailyLimit) {
+        const at = new Date(error.nextAt).toLocaleString(locale === "zh" ? "zh-CN" : "en-US", {
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        setProblem(t("account.err.avatarDailyAt", { at }));
+        return;
+      }
       setProblem(t(errorKey(error)));
     } finally {
       setBusy(false);

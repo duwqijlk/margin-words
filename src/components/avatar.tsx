@@ -39,12 +39,15 @@ export function Avatar({
   version,
   size = 20,
   className,
+  eager = false,
 }: {
   id: string;
   name: string;
   version?: number;
   size?: number;
   className?: string;
+  /** Load at once. The word card's picture is on screen as soon as the card opens. */
+  eager?: boolean;
 }) {
   const [broken, setBroken] = useState(false);
   const src = broken ? "" : avatarUrl(id, version);
@@ -58,7 +61,7 @@ export function Avatar({
         aria-hidden
         width={size}
         height={size}
-        loading="lazy"
+        loading={eager ? "eager" : "lazy"}
         decoding="async"
         style={box}
         className={cn("shrink-0 rounded-full bg-line object-cover", className)}
