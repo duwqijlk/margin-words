@@ -43,7 +43,11 @@ const addedOf = (row) => (row && typeof row.added === "string" ? row.added : "")
  */
 export function keepAdded(prior, row) {
   const added = addedOf(prior);
-  return added ? { ...row, added } : row;
+  const kept = added ? { ...row, added } : row;
+  // The live cover is the one shown (moved to covers/ by scripts/move-covers.mjs, or uploaded in the
+  // admin page). A list republished from git keeps it rather than pointing back at an old file.
+  if (prior?.cover?.url && /^https:\/\//.test(prior.cover.url)) return { ...kept, cover: prior.cover };
+  return kept;
 }
 
 /**

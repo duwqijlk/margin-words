@@ -722,16 +722,8 @@ export function Shelf({
     () => [...new Set(rows.map((row) => row.book.series ?? "").filter(Boolean))].sort((a, b) => a.localeCompare(b)),
     [rows],
   );
-  const shelfCovers = useMemo(() => {
-    if (!storedIds) return {};
-    // With no EPUB here (a card synced from another device, a list not paired yet) only the catalog
-    // picture is shown: it does not depend on the file. A picture taken from an EPUB may be a wrong one.
-    return Object.fromEntries(
-      Object.entries(covers.covers).filter(
-        ([bookId]) => storedIds.has(bookId) || covers.infos[bookId]?.source === "catalog",
-      ),
-    );
-  }, [covers, storedIds]);
+  // Covers come from the live catalog only (useCovers), the same on every device.
+  const shelfCovers = covers;
   const q = query.trim().toLowerCase();
   const visible = useMemo(() => {
     const searched = q

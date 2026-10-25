@@ -10,9 +10,26 @@ import type { HandlerOptions } from "../../lib/handlers.ts";
 const EPUB_MAX = 80_000_000;
 const COVER_MAX = 5_000_000;
 
+/** Public host base for absolute cover addresses in the catalogs. */
+const BOOKS_HOST = "https://books.inputread.site";
+
+/**
+ * Card covers live at covers/<kind>-<id>.jpg on the books host: outside word-lists/ and public-books/,
+ * so no Worker runs on a cover load, and kept for a year. The catalog row gives the address with the
+ * picture's sha256, and the page adds ?v=<sha>, so a new cover is a new address.
+ */
+async function putPublicCover(env: Env, kind: "lists" | "public", id: string, bytes: Uint8Array) {
+  if (!env.BOOKS) throw new HttpError(500, "no-books-bucket");
+  const key = `covers/${kind}-${id}.jpg`;
+  await env.BOOKS.put(key, bytes, {
+    httpMetadata: { contentType: "image/jpeg", cacheControl: "public, max-age=31536000, immutable" },
+  });
+  return { url: `${BOOKS_HOST}/${key}`, bytes: bytes.length, sha256: await sha256HexBytes(bytes) };
+}
+
 /**
  * The Discover card reads its picture from the books host
- * (`word-lists/<id>/cover.jpg` + the row's cover field). The word-list row
+ * (`covers/lists-<id>.jpg`, named by the row's cover field). The word-list row
  * is written before the book upload, so a chosen cover that cannot land on
  * that row fails the upload instead of leaving the generated card.
  */
@@ -49,8 +66,7 @@ async function putCardCover(env: Env, id: string, coverBytes: Uint8Array | null)
   };
   const row = (live.lists ?? []).find((item) => item && item.id === id);
   if (!row) throw new HttpError(409, "cover-not-saved");
-  await env.BOOKS.put(`word-lists/${id}/cover.jpg`, coverBytes);
-  row.cover = { url: `${id}/cover.jpg`, bytes: coverBytes.length, sha256: await sha256HexBytes(coverBytes) };
+  row.cover = await putPublicCover(env, "lists", id, coverBytes);
   await env.BOOKS.put("word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
 }
 
@@ -125,12 +141,11 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
 
     await bucket.put(epubKey, epubBytes);
     await bucket.put(`public-books/${id}/glossary.json`, glossaryBytes);
-    if (coverBytes) await bucket.put(coverKey, coverBytes);
     row.epub = { url: `${id}/book.epub`, bytes: epubBytes.length, sha256: epubSha };
     const previous = previousGlossaryUpdated(row, glossarySha);
     if (previous) row.previousUpdated = previous;
     row.glossary = { url: `${id}/glossary.json`, bytes: glossaryBytes.length, sha256: glossarySha, rev: glossarySha.slice(0, 12) };
-    if (coverBytes) row.cover = { url: `${id}/cover.jpg`, bytes: coverBytes.length, sha256: coverSha };
+    if (coverBytes) row.cover = await putPublicCover(env, "public", id, coverBytes);
     row.updated = new Date().toISOString();
     await bucket.put("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
     return json({
