@@ -974,27 +974,6 @@
  * and behind the big numbers, in each theme's own --mark colour. The rest is quiet: content rises
  * in once when a tab opens. Every motion here is off under prefers-reduced-motion.
  */
-.overview-tab {
-  position: relative;
-  isolation: isolate;
-}
-.overview-tab::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: -0.3em;
-  right: -0.3em;
-  bottom: 0.32em;
-  height: 0.62em;
-  border-radius: 0.2em 0.5em 0.3em 0.6em;
-  background: rgb(var(--mark-rgb) / 0.85);
-  transform: scaleX(0) rotate(-1deg);
-  transform-origin: left center;
-  transition: transform 0.32s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-.overview-tab[aria-selected="true"]::before {
-  transform: scaleX(1) rotate(-1deg);
-}
 .overview-mark {
   background-image: linear-gradient(transparent 66%, rgb(var(--mark-rgb) / 0.75) 66%, rgb(var(--mark-rgb) / 0.75) 90%, transparent 90%);
   background-repeat: no-repeat;
@@ -1032,10 +1011,5 @@
   }
   .overview-lift:hover {
     transform: translateY(-2px);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .overview-tab::before {
-    transition: none;
   }
 }

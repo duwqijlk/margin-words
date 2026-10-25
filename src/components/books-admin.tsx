@@ -17,8 +17,10 @@ type GlossaryInfo = {
   isbn: string;
 };
 
-/** The category a live catalog row already has for this id, or null when the id is new. */
-async function catalogCategory(id: string): Promise<ContentCategory | null> {
+type LiveRow = { category: ContentCategory; series: string; seriesNumber: number };
+
+/** What a live catalog row already says about this id (category, series), or null when the id is new. */
+async function catalogRow(id: string): Promise<LiveRow | null> {
   for (const [url, key] of [
     [WORD_LIST_CATALOG_URL, "lists"],
     [BUNDLED_CATALOG_URL, "packs"],
@@ -29,9 +31,15 @@ async function catalogCategory(id: string): Promise<ContentCategory | null> {
       const rows = ((await response.json()) as Record<string, unknown>)[key];
       if (!Array.isArray(rows)) continue;
       const row = rows.find((item) => item && typeof item === "object" && (item as { id?: unknown }).id === id) as
-        | { category?: unknown }
+        | { category?: unknown; series?: unknown; seriesNumber?: unknown }
         | undefined;
-      if (row) return row.category === "speech" ? "speech" : "novel";
+      if (row) {
+        return {
+          category: row.category === "speech" ? "speech" : "novel",
+          series: typeof row.series === "string" ? row.series : "",
+          seriesNumber: typeof row.seriesNumber === "number" ? row.seriesNumber : 0,
+        };
+      }
     } catch {
       // The other catalog may still know the book.
     }
@@ -135,6 +143,9 @@ export function BooksAdmin() {
   const [category, setCategory] = useState<ContentCategory>("novel");
   /** Where the preselected category came from, shown under the choice. */
   const [categoryFrom, setCategoryFrom] = useState<"file" | "catalog" | "">("");
+  /** Series row on Discover. Works for speeches too (for example "TED"). Empty: no series. */
+  const [series, setSeries] = useState("");
+  const [seriesNumber, setSeriesNumber] = useState("");
   const [isbn, setIsbn] = useState("");
   const [isbnTouched, setIsbnTouched] = useState(false);
   const [step, setStep] = useState("");
@@ -157,25 +168,34 @@ export function BooksAdmin() {
     let isbn = "";
     let words = 0;
     let fileCategory: ContentCategory | null = null;
+    let fileSeries = "";
+    let fileNumber = 0;
     try {
       const data = JSON.parse(text) as {
         isbn?: unknown;
         count?: unknown;
         glossary?: Record<string, unknown>;
         category?: unknown;
+        series?: unknown;
+        seriesNumber?: unknown;
       };
       isbn = typeof data.isbn === "string" ? data.isbn.trim() : "";
       words = Number(data.count) || Object.keys(data.glossary ?? {}).length;
       if (data.category === "speech" || data.category === "novel") fileCategory = data.category;
+      if (typeof data.series === "string") fileSeries = data.series.trim();
+      if (typeof data.seriesNumber === "number" && data.seriesNumber > 0) fileNumber = data.seriesNumber;
     } catch {
       setError(t("admin.lists.badGlossary"));
       return;
     }
     setGlossary({ id, name: file.name, text, isbn, words });
     // A book already on the site keeps its tab unless the admin changes it here.
-    const live = await catalogCategory(id);
-    setCategory(live ?? fileCategory ?? "novel");
+    const live = await catalogRow(id);
+    setCategory(live?.category ?? fileCategory ?? "novel");
     setCategoryFrom(live ? "catalog" : fileCategory ? "file" : "");
+    const liveSeries = live ? live.series : fileSeries;
+    setSeries(liveSeries);
+    setSeriesNumber(liveSeries && (live ? live.seriesNumber : fileNumber) ? String(live ? live.seriesNumber : fileNumber) : "");
   }
 
   async function onEpub(file: File | undefined) {
@@ -224,8 +244,10 @@ export function BooksAdmin() {
         return;
       }
       const isbnParam = isbn.trim() ? encodeURIComponent(isbn.trim()) : "";
+      // Always sent: an empty name removes the series from the row.
+      const seriesParams = new URLSearchParams({ series: series.trim(), seriesNumber: series.trim() ? seriesNumber.trim() : "" }).toString();
       await accountPostRaw(
-        `/api/admin/word-lists?id=${encodeURIComponent(glossary.id)}&isbn=${isbnParam}&category=${category}`,
+        `/api/admin/word-lists?id=${encodeURIComponent(glossary.id)}&isbn=${isbnParam}&category=${category}&${seriesParams}`,
         glossary.text,
       );
       setStep(t("admin.books.wordsDone"));
@@ -238,7 +260,7 @@ export function BooksAdmin() {
         form.set("cover", new File([copy], "cover.jpg", { type: "image/jpeg" }));
       }
       await accountPostForm(
-        `/api/admin/books?id=${encodeURIComponent(glossary.id)}&kind=${kind}&category=${category}`,
+        `/api/admin/books?id=${encodeURIComponent(glossary.id)}&kind=${kind}&category=${category}&${seriesParams}`,
         form,
       );
       setStep(t("admin.books.bookDone"));
@@ -456,6 +478,37 @@ export function BooksAdmin() {
             </label>
           </div>
         ) : null}
+
+        <div className="grid gap-2 border-t border-line/50 pt-4" data-admin-books-series>
+          <label className="text-xs font-bold uppercase tracking-wider text-muted" htmlFor="admin-books-series">
+            {t("admin.books.series")}
+          </label>
+          <div className="flex flex-wrap gap-2">
+            <input
+              id="admin-books-series"
+              className={cn(field, "max-w-xs text-xs font-semibold")}
+              value={series}
+              maxLength={80}
+              autoComplete="off"
+              placeholder={category === "speech" ? "TED" : "Magic Tree House"}
+              lang="en"
+              data-admin-books-series-name
+              onChange={(event) => setSeries(event.target.value)}
+            />
+            <input
+              className={cn(field, "w-24 text-xs font-semibold")}
+              value={seriesNumber}
+              inputMode="numeric"
+              autoComplete="off"
+              aria-label={t("admin.books.seriesNumber")}
+              placeholder={t("admin.books.seriesNumber")}
+              disabled={!series.trim()}
+              data-admin-books-series-number
+              onChange={(event) => setSeriesNumber(event.target.value.replace(/[^0-9]/g, "").slice(0, 4))}
+            />
+          </div>
+          <p className="text-xs text-muted">{t("admin.books.seriesHint")}</p>
+        </div>
 
         <div className="grid gap-2 border-t border-line/50 pt-4">
           <label className="text-xs font-bold uppercase tracking-wider text-muted" htmlFor="admin-books-isbn">

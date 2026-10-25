@@ -10,7 +10,7 @@ import {
   ListFilters,
   type SeriesChoice,
 } from "@/components/list-filters";
-import { btn, cn, field } from "@/components/ui";
+import { btn, cn, field, subTabs } from "@/components/ui";
 import { listPackRecords, loadBookExtras, type PackRecord } from "@/lib/book-db";
 import { coverAddress } from "@/lib/covers";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst, type CatalogPack } from "@/lib/packs";
@@ -657,7 +657,12 @@ export function DiscoverScreen({
       data-discover-matches={ready ? shown.length : undefined}
     >
       <div className="grid gap-3">
-        <div role="tablist" aria-label={t("discover.cat.list")} className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0" data-discover-categories>
+        <div
+          role="tablist"
+          aria-label={t("discover.cat.list")}
+          className={subTabs.row}
+          data-discover-categories
+        >
           {CONTENT_CATEGORIES.map((id) => {
             const on = category === id;
             return (
@@ -669,10 +674,7 @@ export function DiscoverScreen({
                 aria-selected={on}
                 aria-controls="discover-results"
                 data-discover-category-tab={id}
-                className={cn(
-                  "inline-flex min-h-11 shrink-0 items-center rounded-full px-4 text-sm font-semibold transition-colors",
-                  on ? "bg-accent text-accent-ink" : "border border-line bg-card text-ink hover:bg-accent-soft",
-                )}
+                className={cn(subTabs.tab, on ? subTabs.on : subTabs.off)}
                 onClick={() => {
                   setCategory(id);
                   setAuthor("all");
