@@ -1,5 +1,7 @@
 # Book pack format (version 1)
 
+> **Frozen.** The `packs/` and `public-books/` folders in this repository are an old snapshot and are no longer updated. The live books and word lists are in R2 and D1; upload a book with [BOOK_UPLOAD.md](BOOK_UPLOAD.md). This page still describes the pack format itself.
+
 > The short, complete spec for AI agents is [book-pack-spec.md](book-pack-spec.md) (also in the downloadable book-pack-kit.zip). Sample: `examples/sample-book/`.
 
 A **book pack** is one book plus its word list. The books host carries twelve free public-domain classics (in `public-books/`, same pack format). A new shelf starts empty; every classic is on Discover and downloads when a signed-in reader adds it. A book the user deleted stays deleted. The app has no `.zip` import: packs reach readers through the built-in catalog on the books host.

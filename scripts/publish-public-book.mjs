@@ -2,6 +2,9 @@
 /**
  * Prepare one public-domain book for the books host without touching the others.
  *
+ * RETIRED for book updates: it reads public-books/ in git, which is frozen. Upload straight to R2 as
+ * docs/BOOK_UPLOAD.md describes.
+ *
  *   node scripts/publish-public-book.mjs <id> --out /tmp/public-publish
  *   node scripts/publish-public-book.mjs <id> --live catalog.json --out /tmp/public-publish
  *

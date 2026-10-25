@@ -87,6 +87,8 @@ Copyright (c) 2026 XCRUN.
 
 ### 书的文件在哪里
 
+> **书不再放在 Git 里维护。** 线上的存储桶（`margin-words-books`、`margin-words-private`）和 D1 数据库是书和词表的唯一来源。这里的 `packs/` 和 `public-books/` 是冻结的旧快照，不再更新。新增书籍或修改词表，请按 [docs/BOOK_UPLOAD.md](docs/BOOK_UPLOAD.md) 直接上传到 R2，或者使用管理后台。不要把书的内容提交到 Git，也不要为此开 PR。下面的命令是旧流程，只作记录保留。
+
 克隆这个仓库，会得到词表和示例故事，不会得到小说。有版权的 EPUB 放在私有桶 `margin-words-private`。公版 EPUB 放在 `https://books.inputread.site`。Git 里唯一的 EPUB 是 `examples/sample-book/the-lantern-seller.epub`。
 
 在一台另外存有书文件的电脑上，目录是这样的：

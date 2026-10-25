@@ -7,6 +7,10 @@ Cloudflare login. It does the same job as the admin page's **Books** tab
 way ends up the same. You do not need a site login, a build or a deploy. The page is also in the
 repository as `docs/BOOK_UPLOAD.md` and on the site at `https://inputread.site/kit/book-upload.md`.
 
+Nothing in git changes when you upload a book: `packs/` and `public-books/` in the repository are a
+frozen snapshot, and the live buckets are the only source. Do not add the book to `packs/`, do not
+commit its files, and do not open a pull request for it.
+
 Use this page for **one book at a time**. To fix readers' reports in a live list, follow
 `docs/GLOSSARY_PATROL.md` instead.
 

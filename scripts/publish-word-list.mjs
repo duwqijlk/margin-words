@@ -2,6 +2,9 @@
 /**
  * Prepare one word list for the books host without touching the other lists.
  *
+ * RETIRED for book updates: it reads packs/ in git, which is frozen. Upload a book or a word list straight
+ * to R2 as docs/BOOK_UPLOAD.md describes. Do not add the book to packs/ or open a pull request for it.
+ *
  *   node scripts/publish-word-list.mjs <id> --out /tmp/word-list-publish
  *   node scripts/publish-word-list.mjs <id> --live catalog.json --out /tmp/word-list-publish
  *   node scripts/publish-word-list.mjs <id> --out dir --replace-live   (see below)
