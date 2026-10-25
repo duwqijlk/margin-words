@@ -404,20 +404,20 @@ export function DashboardScreen() {
               <p className="overview-rise max-w-prose px-1 text-[0.95rem] leading-7 text-muted">{t("dashboard.supportersIntro")}</p>
               {names !== null && names.length > 0 ? (
                 <div className="grid gap-5">
-                  <p className="overview-rise flex items-center gap-2 px-1 font-display text-xl" data-supporter-count>
-                    <Heart className="size-5 shrink-0 text-accent" strokeWidth={1.5} aria-hidden />
+                  <p className="overview-rise px-1 font-display text-xl" data-supporter-count>
                     <span className="overview-mark">{trn("count.supporter", names.length)}</span>
                   </p>
-                  <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4" data-supporter-names>
+                  {/* No card around each person: a dense wall, so a long list of supporters stays short. */}
+                  <ul className="grid grid-cols-5 gap-x-1 gap-y-4 sm:grid-cols-8" data-supporter-names>
                     {names.map((person, index) => (
                       <li
                         key={person.publicId ?? person.name}
-                        className="overview-rise overview-lift grid justify-items-center gap-2 rounded-3xl bg-card/70 px-2 py-5 text-center"
+                        className="overview-rise grid justify-items-center gap-1.5 text-center"
                         style={{ "--i": Math.min(index, 12) + 1 } as CSSProperties}
                         data-supporter={person.publicId ?? ""}
                       >
-                        <Avatar id={person.publicId ?? `name:${person.name}`} name={person.name} version={person.publicId ? person.avatar : undefined} size={52} />
-                        <span className="max-w-full truncate text-sm font-medium">{person.name}</span>
+                        <Avatar id={person.publicId ?? `name:${person.name}`} name={person.name} version={person.publicId ? person.avatar : undefined} size={40} />
+                        <span className="max-w-full truncate text-xs font-medium" title={person.name}>{person.name}</span>
                       </li>
                     ))}
                   </ul>
