@@ -182,6 +182,22 @@ Compare with the live file: every change must be one you meant to make for an it
 run Node and have the repository, `node scripts/validate-glossary.mjs book.epub glossary.json`
 does this check fully; it is optional.
 
+**Every suggestion you will mark accepted must have its credit in the file.** Before you publish,
+go through each report you plan to mark `accepted` in step 7 and find, in the new file, the entry or
+sense that now holds that meaning. It must carry `"credit": "<suggested_by>"` of that report:
+
+- An entry with no `senses`: `credit` sits on the entry itself, next to its `meaning`.
+- An entry with `senses`: `credit` sits on the sense whose anchor is this report's place
+  (same `chapter`, `occurrence` and `form`), not on the entry.
+- A phrase: `credit` sits on the phrase entry, or on its sense, the same way.
+- `credit` is a **field** inside that entry or sense. It is never a key of `glossary` or `phrases`:
+  a top-level `"credit": { ... }` is a word entry for the word "credit", not a credit. If you find one
+  you did not mean to add as a word, remove it.
+
+A reader sees "From <their nickname>" on the card only from this field. Recording `accepted_at` in D1
+alone counts them in the rank but shows nothing on the card. If you cannot place a credit, do not mark
+that report accepted. List in your report each accepted id with the word and where its credit is.
+
 ## 6. Publish (two R2 writes, in this order)
 
 1. Write the new `glossary.json` bytes to its key. Compute `sha256` of exactly those bytes.
@@ -249,6 +265,7 @@ Leave out `avatar` when it is 0. Write nothing else into the file: no email, no 
 ## 9. Report
 
 End each run with a short report per book: what you added, what you changed and why (the
-item that asked for it), which reader suggestions you accepted or rejected and why, what you
+item that asked for it), which reader suggestions you accepted or rejected and why (for each accepted
+one: report id, word, and the entry or sense that holds its `credit`), what you
 skipped and why, the new revision, and any error. Say so if
 nothing was open.
