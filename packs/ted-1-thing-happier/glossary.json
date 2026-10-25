@@ -1,0 +1,644 @@
+{
+ "version": 2,
+ "title": "1 thing you can do today to be happier",
+ "author": "Sonja Lyubomirsky",
+ "chapters": 1,
+ "sha256": "0b3f529427061446edbc6d6ba89f3ef8c8f31735329aa49afd01c17307b5a258",
+ "language": "en",
+ "glossary": {
+  "obsessed": {
+   "pos": "adjective",
+   "meaning": "thinking about something all the time, in a very strong way you cannot stop",
+   "whyHard": "rare word"
+  },
+  "lab": {
+   "pos": "noun",
+   "meaning": "the place where a scientist works and does tests, and the team who work there",
+   "whyHard": "rare word"
+  },
+  "pioneered": {
+   "pos": "verb",
+   "meaning": "did something for the first time, before other people did it",
+   "whyHard": "rare word"
+  },
+  "participant": {
+   "pos": "noun",
+   "meaning": "people who take part in a test, study or activity",
+   "whyHard": "rare word",
+   "forms": [
+    "participants"
+   ]
+  },
+  "dozen": {
+   "pos": "noun",
+   "meaning": "many groups of twelve; here, a large number",
+   "whyHard": "rare word",
+   "forms": [
+    "dozens"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "many groups of twelve; here, a large number",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "dozens",
+       "context": "the years, we've done dozens of these experiments, testing whether"
+      }
+     ],
+     "forms": [
+      "dozens"
+     ]
+    }
+   ]
+  },
+  "gratitude": {
+   "pos": "noun",
+   "meaning": "a feeling of being thankful to someone for something good they did",
+   "whyHard": "rare word"
+  },
+  "extrovert": {
+   "pos": "noun",
+   "meaning": "a person who is friendly, talks easily and enjoys being with other people",
+   "whyHard": "rare word"
+  },
+  "decade": {
+   "pos": "noun",
+   "meaning": "periods of ten years; here, many ten-year periods, a very long time",
+   "whyHard": "rare word",
+   "forms": [
+    "decades"
+   ],
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "periods of ten years; here, many ten-year periods, a very long time",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "decades",
+       "context": "students and I spent decades doing these experiments. This work"
+      }
+     ],
+     "forms": [
+      "decades"
+     ]
+    }
+   ]
+  },
+  "career": {
+   "pos": "noun",
+   "meaning": "the job or jobs a person does during their working life",
+   "whyHard": "rare word"
+  },
+  "clicked": {
+   "pos": "verb",
+   "meaning": "to suddenly understand something clearly",
+   "whyHard": "figurative",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "to suddenly understand something clearly",
+     "whyHard": "figurative",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "clicked",
+       "context": "And then it finally clicked. It dawned on me that"
+      }
+     ],
+     "forms": [
+      "clicked"
+     ]
+    }
+   ]
+  },
+  "precisely": {
+   "pos": "adverb",
+   "meaning": "exactly, and in no other way",
+   "whyHard": "rare word"
+  },
+  "colleague": {
+   "pos": "noun",
+   "meaning": "a person who works with you",
+   "whyHard": "rare word"
+  },
+  "connected": {
+   "pos": "adjective",
+   "meaning": "feeling close to other people and understood by them, not feeling alone",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "feeling close to other people and understood by them, not feeling alone",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 2,
+       "form": "connected",
+       "context": "out, the key to happiness is feeling connected and loved"
+      }
+     ],
+     "forms": [
+      "connected"
+     ]
+    }
+   ]
+  },
+  "distill": {
+   "pos": "verb",
+   "meaning": "to make an idea shorter and clearer by keeping only its most important part",
+   "whyHard": "figurative",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "to make an idea shorter and clearer by keeping only its most important part",
+     "whyHard": "figurative",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "distill",
+       "context": "ideas do once you distill them. The real challenge and"
+      }
+     ],
+     "forms": [
+      "distill"
+     ]
+    }
+   ]
+  },
+  "walls": {
+   "pos": "noun",
+   "meaning": "the way a person hides their real feelings and stops other people from getting close",
+   "whyHard": "figurative",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "the way a person hides their real feelings and stops other people from getting close",
+     "whyHard": "figurative",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "walls",
+       "context": "we're talking, we all have walls around us. There are"
+      }
+     ],
+     "forms": [
+      "walls"
+     ]
+    }
+   ]
+  },
+  "neighbor": {
+   "pos": "noun",
+   "meaning": "people who live near you, in a house or room close to yours",
+   "whyHard": "rare word",
+   "forms": [
+    "neighbors"
+   ]
+  },
+  "tip": {
+   "pos": "noun",
+   "meaning": "a useful small piece of advice that helps you do something well",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "a useful small piece of advice that helps you do something well",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "tip",
+       "context": "my number one happiness tip. The one thing I wish"
+      }
+     ],
+     "forms": [
+      "tip"
+     ]
+    }
+   ]
+  },
+  "profound": {
+   "pos": "adjective",
+   "meaning": "very deep and important; you need to think a lot about what it means",
+   "whyHard": "rare word"
+  },
+  "brave": {
+   "pos": "adjective",
+   "meaning": "not afraid to do something difficult or a little scary",
+   "whyHard": "rare word"
+  },
+  "pacing": {
+   "pos": "noun",
+   "meaning": "how fast you do something; here, how fast and how much you share about yourself",
+   "whyHard": "rare word",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "how fast you do something; here, how fast and how much you share about yourself",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "pacing",
+       "context": "simple practice. Start small. Pacing is really important. So don't"
+      }
+     ],
+     "forms": [
+      "pacing"
+     ]
+    }
+   ]
+  },
+  "trauma": {
+   "pos": "noun",
+   "meaning": "a very bad experience that hurts a person's feelings for a long time",
+   "whyHard": "rare word"
+  },
+  "deeper": {
+   "pos": "adjective",
+   "meaning": "about real feelings and important things, not only small and easy talk",
+   "whyHard": "figurative",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "about real feelings and important things, not only small and easy talk",
+     "whyHard": "figurative",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "deeper",
+       "context": "when the conversation is deeper, as opposed to shallower. Two"
+      }
+     ],
+     "forms": [
+      "deeper"
+     ]
+    }
+   ]
+  },
+  "shallower": {
+   "pos": "adjective",
+   "meaning": "about only small, easy things, not about real feelings or important things",
+   "whyHard": "figurative",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adjective",
+     "meaning": "about only small, easy things, not about real feelings or important things",
+     "whyHard": "figurative",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "shallower",
+       "context": "deeper, as opposed to shallower. Two, you help the other"
+      }
+     ],
+     "forms": [
+      "shallower"
+     ]
+    }
+   ]
+  },
+  "respond": {
+   "pos": "verb",
+   "meaning": "to say or do something as an answer to another person",
+   "whyHard": "rare word"
+  },
+  "quiz": {
+   "pos": "noun",
+   "meaning": "a short test with questions to check what you know",
+   "whyHard": "rare word"
+  },
+  "furthermore": {
+   "pos": "adverb",
+   "meaning": "also; here is one more idea to add to what was just said",
+   "whyHard": "logical connector",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "adverb",
+     "meaning": "also; here is one more idea to add to what was just said",
+     "whyHard": "logical connector",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "furthermore",
+       "context": "be a quiz tomorrow. Furthermore, ask one more question than"
+      }
+     ],
+     "forms": [
+      "furthermore"
+     ]
+    }
+   ]
+  },
+  "signal": {
+   "pos": "verb",
+   "meaning": "to show clearly, without saying it directly, that something is true",
+   "whyHard": "different grammar role",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "to show clearly, without saying it directly, that something is true",
+     "whyHard": "different grammar role",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "signal",
+       "context": "really feel? Such questions signal that you're right there with"
+      }
+     ],
+     "forms": [
+      "signal"
+     ]
+    }
+   ]
+  },
+  "rare": {
+   "pos": "adjective",
+   "meaning": "not happening often; not common",
+   "whyHard": "rare word"
+  },
+  "yearn": {
+   "pos": "verb",
+   "meaning": "to want something very strongly for a long time",
+   "whyHard": "rare word"
+  },
+  "monologue": {
+   "pos": "noun",
+   "meaning": "a long talk by only one person, when other people do not talk",
+   "whyHard": "rare word"
+  },
+  "applause": {
+   "pos": "noun",
+   "meaning": "people hitting their hands together many times to show they liked something",
+   "whyHard": "background needed"
+  },
+  "transcript": {
+   "pos": "noun",
+   "meaning": "the written words of a spoken talk, written down as they were said",
+   "whyHard": "rare word"
+  },
+  "licence": {
+   "pos": "noun",
+   "meaning": "official permission to use something, with rules you must follow",
+   "whyHard": "rare word"
+  },
+  "credit": {
+   "pos": "verb",
+   "meaning": "to name a person or group clearly as the maker or source of something",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "to name a person or group clearly as the maker or source of something",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "credit",
+       "context": "BY — credit TED, name the speaker and link to the"
+      }
+     ],
+     "forms": [
+      "credit"
+     ]
+    }
+   ]
+  },
+  "imply": {
+   "pos": "verb",
+   "meaning": "to show or suggest something without saying it directly in words",
+   "whyHard": "rare word"
+  },
+  "endorsement": {
+   "pos": "noun",
+   "meaning": "words people say in public to show they support a person or thing",
+   "whyHard": "rare word"
+  },
+  "commercial": {
+   "pos": "adjective",
+   "meaning": "connected with business and making money from something",
+   "whyHard": "rare word"
+  },
+  "abridgement": {
+   "pos": "noun",
+   "meaning": "shorter versions of a work, made by cutting out some parts",
+   "whyHard": "rare word",
+   "forms": [
+    "abridgements"
+   ]
+  },
+  "remix": {
+   "pos": "noun",
+   "meaning": "new versions made by changing or mixing parts of an original work",
+   "whyHard": "rare word",
+   "forms": [
+    "remixes"
+   ]
+  },
+  "scientist": {
+   "pos": "noun",
+   "meaning": "a person who studies happiness or love for work",
+   "whyHard": "rare word"
+  },
+  "connect": {
+   "pos": "verb",
+   "meaning": "to feel close to other people, for example through touch, dance, or looking at them",
+   "whyHard": "unusual meaning here",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "to feel close to other people, for example through touch, dance, or looking at them",
+     "whyHard": "unusual meaning here",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 2,
+       "form": "connect",
+       "context": "Well we can connect through touch or dance or eye"
+      }
+     ],
+     "forms": [
+      "connect"
+     ]
+    }
+   ]
+  },
+  "experiment": {
+   "pos": "noun",
+   "meaning": "tests done with people to learn if a practice makes those people feel happier",
+   "whyHard": "background needed",
+   "forms": [
+    "experiments"
+   ]
+  },
+  "intervention": {
+   "pos": "noun",
+   "meaning": "planned activities given to people in a test, like writing a gratitude letter or helping others, to see if they become happier",
+   "whyHard": "rare word",
+   "forms": [
+    "interventions"
+   ]
+  },
+  "usage": {
+   "pos": "noun",
+   "meaning": "the rules for how something may be used, here for how people may use TED material",
+   "whyHard": "rare word",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "noun",
+     "meaning": "the rules for how something may be used, here for how people may use TED material",
+     "whyHard": "rare word",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "usage",
+       "context": "org/licenses/by-nc-nd/4.0 TED usage policy: ted.com"
+      },
+      {
+       "chapter": 0,
+       "occurrence": 2,
+       "form": "usage",
+       "context": "policy: ted.com usage policy"
+      }
+     ],
+     "forms": [
+      "usage"
+     ]
+    }
+   ]
+  },
+  "link": {
+   "pos": "verb",
+   "meaning": "to add a connection that takes the reader to the original talk",
+   "whyHard": "different grammar role",
+   "senseOnly": true,
+   "senses": [
+    {
+     "pos": "verb",
+     "meaning": "to add a connection that takes the reader to the original talk",
+     "whyHard": "different grammar role",
+     "anchors": [
+      {
+       "chapter": 0,
+       "occurrence": 1,
+       "form": "link",
+       "context": "name the speaker and link to the original talk; do"
+      }
+     ],
+     "forms": [
+      "link"
+     ]
+    }
+   ]
+  },
+  "edit": {
+   "pos": "noun",
+   "meaning": "changes made to a written work, such as cutting or fixing parts of the text",
+   "whyHard": "rare word",
+   "forms": [
+    "edits"
+   ]
+  }
+ },
+ "phrases": {
+  "acts of kindness": {
+   "pos": "phrase",
+   "meaning": "kind things that you do to help other people"
+  },
+  "as opposed to": {
+   "pos": "phrase",
+   "meaning": "compared with, and different from, the other thing"
+  },
+  "dawned on me": {
+   "pos": "phrase",
+   "meaning": "I began to understand something clearly"
+  },
+  "first date": {
+   "pos": "phrase",
+   "meaning": "a person you go out with for the first time, who may become the special person you love"
+  },
+  "happiness interventions": {
+   "pos": "phrase",
+   "meaning": "actions or activities that scientists test to try to make people happier"
+  },
+  "highlight reel": {
+   "pos": "phrase",
+   "meaning": "only the best and happiest moments of your life that you show to other people"
+  },
+  "hold hands": {
+   "pos": "phrase",
+   "meaning": "to go together and need each other; here, sharing and listening must happen together"
+  },
+  "let's face it": {
+   "pos": "phrase",
+   "meaning": "we must be honest and accept something true, even if we do not like it"
+  },
+  "mentally rehearsing": {
+   "pos": "phrase",
+   "meaning": "thinking again and again in your mind about what you will say, before you say it"
+  },
+  "put it into practice": {
+   "pos": "phrase",
+   "meaning": "to do something in real life, not only think or talk about it"
+  },
+  "re translations": {
+   "pos": "phrase",
+   "meaning": "new versions of a work put into another language again, after a first version"
+  },
+  "rough day": {
+   "pos": "phrase",
+   "meaning": "a difficult day when things go wrong or you feel bad"
+  },
+  "sharing from the heart": {
+   "pos": "phrase",
+   "meaning": "telling people your real and honest feelings, not only easy or safe things"
+  },
+  "talks at you": {
+   "pos": "phrase",
+   "meaning": "talks to you for a long time without listening to you or asking about you"
+  }
+ },
+ "paragraphs": [
+  {
+   "chapter": 0,
+   "paragraph": 5,
+   "context": "wish everybody knew. We will feel more loved if we",
+   "mainIdea": "The talk says people feel happier and more loved when they share their real feelings and listen well to others, so the walls between people come down.",
+   "simple": "The talk says people feel happier and more loved when they share their real feelings and listen well to others, so the walls between people come down."
+  }
+ ]
+}
