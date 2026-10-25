@@ -266,7 +266,8 @@ the sense that holds that meaning. The card then shows "From <the reader's nickn
 an email; the validator rejects anything else.
 
 Because the patrol edits the **live** list, a list rebuilt from the book does not have its words, fixes or
-credits. `scripts/publish-word-list.mjs` compares with the live list and stops when the new file would drop
+credits. The live R2 copy is the only current one; `packs/` in git is a frozen snapshot. A new or changed
+list is uploaded to R2 (`docs/BOOK_UPLOAD.md`), never committed. `scripts/publish-word-list.mjs` compares with the live list and stops when the new file would drop
 any of them. Bring them over into the new list first, or pass `--replace-live` when losing them is intended.
 
 ## 5. How the reader numbers the book (needed for anchors and notes)

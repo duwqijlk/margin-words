@@ -87,6 +87,8 @@ Questions about a copyrighted excerpt: open an issue at <https://github.com/duwq
 
 ### Where the book files live
 
+> **The books are not maintained in git.** The live buckets (`margin-words-books`, `margin-words-private`) and the D1 database are the only source of books and word lists. `packs/` and `public-books/` here are a frozen snapshot and are not updated. To add a book or change a word list, upload it to R2 as [docs/BOOK_UPLOAD.md](docs/BOOK_UPLOAD.md) describes, or use the admin page. Do not commit book content or open a pull request for it. The commands below are the old way and are kept for the record.
+
 A clone of this repository has the word lists and the sample story. It does not have the novels. Copyrighted EPUBs belong in the private bucket `margin-words-private`. Public-domain EPUBs belong on `https://books.inputread.site`. The only EPUB in git is `examples/sample-book/the-lantern-seller.epub`.
 
 On a machine that also has the book files, the folders look like this:
