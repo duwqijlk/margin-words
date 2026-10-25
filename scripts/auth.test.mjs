@@ -883,6 +883,27 @@ test("word-list publish: hash computed once, other rows untouched, unknown id re
   assert.equal(edition.status, 200);
   assert.equal((await edition.json()).row.title, "Charlie");
 
+  // ?category= moves a book between the novel and speech tabs (and weekly counts).
+  const george = JSON.stringify({ title: "George", glossary: { a: {} }, count: 1 });
+  const stored = () => JSON.parse(new TextDecoder().decode(files.get("word-lists/catalog.json")));
+  const toSpeech = await handlePublish(
+    raw("/api/admin/word-lists?id=george&category=speech", adminCookie, george),
+    env,
+    { now: NOW },
+  );
+  assert.equal(toSpeech.status, 200);
+  assert.equal(stored().lists.find((item) => item.id === "george").category, "speech");
+  const kept = await handlePublish(raw("/api/admin/word-lists?id=george", adminCookie, george), env, { now: NOW });
+  assert.equal(kept.status, 200);
+  assert.equal(stored().lists.find((item) => item.id === "george").category, "speech");
+  const toNovel = await handlePublish(
+    raw("/api/admin/word-lists?id=george&category=novel", adminCookie, george),
+    env,
+    { now: NOW },
+  );
+  assert.equal(toNovel.status, 200);
+  assert.equal("category" in stored().lists.find((item) => item.id === "george"), false);
+
   const editionClash = await handlePublish(
     raw(
       "/api/admin/word-lists?id=charlie-edition",

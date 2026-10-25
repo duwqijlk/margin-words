@@ -8,6 +8,7 @@ import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
 import { clearGlossaryWork } from "../../lib/glossary-work-file.ts";
 import { previousGlossaryUpdated } from "../../lib/glossary-version.ts";
 import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../../lib/word-list-publish.ts";
+import { applyCategory } from "../../lib/book-category.ts";
 
 /**
  * Publish word lists from the admin page: the request body is the glossary
@@ -17,6 +18,7 @@ import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../
  *
  *   POST /api/admin/word-lists?id=<book id>   body: raw glossary JSON text
  *   POST /api/admin/word-lists?id=<book id>&catalog=public
+ *   &category=novel|speech sets which Discover tab and which weekly count the book belongs to.
  *
  * A book that is already in the catalog is updated in place when this file is
  * that same book (the same title, or no title). A file whose title is a
@@ -95,7 +97,7 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     const counts = { words, paragraphs, sentences, phrases, bytes: bytes.byteLength, sha256 };
 
     if (url.searchParams.get("catalog") === "public") {
-      const row = await updatePublicGlossary(bucket, id, bytes, counts);
+      const row = await updatePublicGlossary(bucket, id, bytes, counts, url.searchParams.get("category"));
       await clearGlossaryWork(bucket, "public", id);
       return json({ row, catalog: "public" });
     }
@@ -148,6 +150,7 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
       if (isbn) row.isbn = isbn;
       else delete row.isbn;
     }
+    applyCategory(row, url.searchParams.get("category"));
     const next = mergeWordListCatalog(live, row);
     const catalogBytes = new TextEncoder().encode(`${JSON.stringify(next, null, 1)}\n`);
 
@@ -186,6 +189,7 @@ async function updatePublicGlossary(
   id: string,
   bytes: Uint8Array,
   counts: { words: number; paragraphs: number; sentences: number; phrases: number; bytes: number; sha256: string },
+  category: string | null,
 ): Promise<PublicPack> {
   const current = await bucket.get("public-books/catalog.json");
   if (!current) throw new HttpError(500, "no-catalog");
@@ -202,6 +206,7 @@ async function updatePublicGlossary(
   row.updated = new Date().toISOString();
   row.rev = rev;
   row.glossary = { url: `${id}/glossary.json`, bytes: counts.bytes, sha256: counts.sha256, rev };
+  applyCategory(row, category);
   live.updated = row.updated;
   // The glossary goes first: if the catalog write fails, Discover keeps the previous file.
   await bucket.put(`public-books/${id}/glossary.json`, bytes);

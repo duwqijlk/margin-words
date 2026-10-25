@@ -905,6 +905,10 @@ export const en = {
   "admin.books.hint":
     "The glossary file name picks the book id (a-book.glossary.json). The word list goes to Discover; the EPUB goes to the library you pick. The ISBN is read from the EPUB metadata, then the word list — or type one, or leave it empty.",
   "admin.books.kind": "Book kind",
+  "admin.books.category": "Category",
+  "admin.books.categoryHint": "Sets the Discover tab and which weekly count the book uses (7 novels and 7 speeches).",
+  "admin.books.categoryLive": "Set from the current category of this book on the site. Changing it moves the Discover tab and the weekly count.",
+  "admin.books.categoryFile": "Set from the category in the word-list file. You can change it.",
   "admin.books.private": "Copyrighted (private library, trusted readers)",
   "admin.books.public": "Public domain (public books host)",
   "admin.books.epub": "EPUB file",

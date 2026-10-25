@@ -4,6 +4,7 @@ import { replacesSameBook } from "../../lib/book-title.ts";
 import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
 import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError, json } from "../../lib/http.ts";
+import { applyCategory } from "../../lib/book-category.ts";
 import { sha256HexBytes } from "../../lib/password.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 
@@ -147,6 +148,7 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     row.glossary = { url: `${id}/glossary.json`, bytes: glossaryBytes.length, sha256: glossarySha, rev: glossarySha.slice(0, 12) };
     if (coverBytes) row.cover = await putPublicCover(env, "public", id, coverBytes);
     row.updated = new Date().toISOString();
+    applyCategory(row, url.searchParams.get("category"));
     await bucket.put("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
     return json({
       kind,

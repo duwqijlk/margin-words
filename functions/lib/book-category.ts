@@ -42,3 +42,12 @@ export async function speechIds(bucket: R2BucketLike | undefined): Promise<Set<s
   }
   return entry.speeches;
 }
+
+/**
+ * ?category= on an admin upload: "speech" or "novel" sets the row, anything else leaves it.
+ * A novel has no field, the same as every older row.
+ */
+export function applyCategory(row: Record<string, unknown>, value: string | null): void {
+  if (value === "speech") row.category = "speech";
+  else if (value === "novel") delete row.category;
+}
