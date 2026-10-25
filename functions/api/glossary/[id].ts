@@ -1,6 +1,6 @@
 import { effectiveRole } from "../../lib/admin.ts";
 import type { Env } from "../../lib/db.ts";
-import { errorResponse, HttpError } from "../../lib/http.ts";
+import { errorResponse, HttpError, json } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertUserRateLimit } from "../../lib/rate-limit.ts";
 import { requireUser } from "../../lib/session.ts";
@@ -37,11 +37,13 @@ export async function handleGlossary(
     // A new account opens word lists only after it typed the code sent to its email: a free
     // account per made-up address was the cheap way around the weekly cap.
     if (!open && !user.email_verified_at) throw new HttpError(403, "email-unverified");
-    let slot: Slot | "shelf" = open ? "again" : await weekSlot(env.DB, bucket, user.id, id, now);
+    const week = open ? null : await weekSlot(env.DB, bucket, user.id, id, now);
+    let slot: Slot["slot"] | "shelf" = week?.slot ?? "again";
     // A shelf book is free even when the week is full, and it does not take a place.
     if (!open && slot !== "again" && (await shelfGrantsBook(env.DB, bucket, user.id, id))) slot = "shelf";
-    if (slot === "full") throw new HttpError(429, "glossary-week");
-    if (slot === "full-speech") throw new HttpError(429, "glossary-week-speech");
+    // A full week also says when the next place comes back, so the page can name the day.
+    if (slot === "full") return json({ error: "glossary-week", resetAt: week?.resetAt ?? 0 }, 429);
+    if (slot === "full-speech") return json({ error: "glossary-week-speech", resetAt: week?.resetAt ?? 0 }, 429);
     const object =
       (await bucket.get(`word-lists/${id}/glossary.json`)) ??
       (await bucket.get(`public-books/${id}/glossary.json`));
@@ -66,7 +68,7 @@ export async function handleGlossary(
   }
 }
 
-type Slot = "again" | "new" | "full" | "full-speech";
+type Slot = { slot: "again" | "new" | "full" | "full-speech"; resetAt: number };
 
 async function weekSlot(
   db: Env["DB"],
@@ -80,10 +82,13 @@ async function weekSlot(
     .prepare("SELECT book_id FROM glossary_reads WHERE user_id = ? AND book_id = ? LIMIT 1")
     .bind(userId, bookId)
     .first<{ book_id: string }>();
-  if (again) return "again";
+  if (again) return { slot: "again", resetAt: 0 };
   // Novels and speeches each have their own weekly places.
   const speeches = await speechIds(bucket);
   const used = await glossaryWeekUsed(db, userId, now, speeches);
-  if (speeches.has(bookId)) return used.speeches >= GLOSSARY_WEEK_SPEECHES ? "full-speech" : "new";
-  return used.novels >= GLOSSARY_WEEK_BOOKS ? "full" : "new";
+  if (speeches.has(bookId)) {
+    const full = used.speeches.used >= GLOSSARY_WEEK_SPEECHES;
+    return { slot: full ? "full-speech" : "new", resetAt: used.speeches.resetAt };
+  }
+  return { slot: used.novels.used >= GLOSSARY_WEEK_BOOKS ? "full" : "new", resetAt: used.novels.resetAt };
 }

@@ -239,17 +239,18 @@ export async function handleMe(request: Request, env: Env, options?: HandlerOpti
     if (!user) return json({ user: null, resetEmail });
     const unlimited = effectiveRole(user, now) !== "user";
     const week = unlimited
-      ? { novels: 0, speeches: 0 }
+      ? { novels: { used: 0, resetAt: 0 }, speeches: { used: 0, resetAt: 0 } }
       : await glossaryWeekUsed(env.DB, user.id, now, await speechIds(env.BOOKS));
     return json({
       user: publicUser(user, now),
       resetEmail,
       // used/limit stay the novel count, so an older client still reads them.
       glossary: {
-        used: week.novels,
+        used: week.novels.used,
         limit: GLOSSARY_WEEK_BOOKS,
+        resetAt: week.novels.resetAt,
         unlimited,
-        speech: { used: week.speeches, limit: GLOSSARY_WEEK_SPEECHES },
+        speech: { used: week.speeches.used, limit: GLOSSARY_WEEK_SPEECHES, resetAt: week.speeches.resetAt },
       },
     });
   } catch (error) {

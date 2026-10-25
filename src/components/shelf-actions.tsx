@@ -267,7 +267,14 @@ export function ShelfToastHost({
       ) : notice ? (
         <div data-added-toast key={notice.id} role="status" className={shell}>
           <Check className="size-4 shrink-0 text-accent-soft" strokeWidth={3} aria-hidden />
-          <p className="min-w-0 flex-1 leading-snug">{t("discover.added", { title: notice.title })}</p>
+          <p className="min-w-0 flex-1 leading-snug">
+            {t("discover.added", { title: notice.title })}
+            {notice.extra ? (
+              <span className="block text-paper/80" data-added-quota>
+                {notice.extra}
+              </span>
+            ) : null}
+          </p>
           <button
             type="button"
             className={action}

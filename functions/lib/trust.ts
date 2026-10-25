@@ -33,7 +33,9 @@ type CountDb = {
   };
 };
 
-export type GlossaryWeek = { novels: number; speeches: number };
+/** Places used in the rolling week, and when the oldest one comes back (0 when none is used). */
+export type WeekCount = { used: number; resetAt: number };
+export type GlossaryWeek = { novels: WeekCount; speeches: WeekCount };
 
 /** How many distinct novels and speeches this reader opened in the current week. */
 export async function glossaryWeekUsed(
@@ -44,13 +46,18 @@ export async function glossaryWeekUsed(
 ): Promise<GlossaryWeek> {
   const since = now - GLOSSARY_WEEK_MS;
   const recent = await db
-    .prepare("SELECT DISTINCT book_id FROM glossary_reads WHERE user_id = ? AND created_at > ?")
+    .prepare(
+      "SELECT book_id, MIN(created_at) AS at FROM glossary_reads WHERE user_id = ? AND created_at > ? GROUP BY book_id",
+    )
     .bind(userId, since)
-    .all<{ book_id: string }>();
-  const week = { novels: 0, speeches: 0 };
+    .all<{ book_id: string; at: number }>();
+  const week: GlossaryWeek = { novels: { used: 0, resetAt: 0 }, speeches: { used: 0, resetAt: 0 } };
   for (const row of recent.results ?? []) {
-    if (speeches.has(row.book_id)) week.speeches += 1;
-    else week.novels += 1;
+    const count = speeches.has(row.book_id) ? week.speeches : week.novels;
+    count.used += 1;
+    // A place comes back 7 days after that book was first opened. The oldest one comes back first.
+    const back = Number(row.at) + GLOSSARY_WEEK_MS;
+    if (!count.resetAt || back < count.resetAt) count.resetAt = back;
   }
   return week;
 }

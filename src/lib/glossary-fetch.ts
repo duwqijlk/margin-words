@@ -5,6 +5,7 @@
  */
 import { DEFAULT_BOOKS_BASE } from "@/lib/books-base";
 import { tr } from "@/lib/i18n";
+import { dayLabel, useGlossaryQuota } from "@/lib/glossary-quota";
 
 const BOOKS_HOST = new URL(DEFAULT_BOOKS_BASE).hostname;
 
@@ -35,15 +36,22 @@ export async function fetchProtectedGlossary(bookId: string, fallback: string): 
   } catch {
     throw new Error(fallback);
   }
+  // The weekly count changed (a new place used) or the server refused one: show the new numbers.
+  void useGlossaryQuota.getState().refresh();
   if (response.ok) return new Uint8Array(await response.arrayBuffer());
   let code = "";
+  let resetAt = 0;
   try {
-    code = ((await response.json()) as { error?: unknown }).error as string;
+    const body = (await response.json()) as { error?: unknown; resetAt?: unknown };
+    code = typeof body.error === "string" ? body.error : "";
+    resetAt = typeof body.resetAt === "number" && Number.isFinite(body.resetAt) ? body.resetAt : 0;
   } catch {
     code = "";
   }
-  if (code === "glossary-week") throw new Error(tr("err.glossaryWeek"));
-  if (code === "glossary-week-speech") throw new Error(tr("err.glossaryWeekSpeech"));
+  if (code === "glossary-week")
+    throw new Error(resetAt ? tr("quota.fullNovel", { day: dayLabel(resetAt) }) : tr("err.glossaryWeek"));
+  if (code === "glossary-week-speech")
+    throw new Error(resetAt ? tr("quota.fullSpeech", { day: dayLabel(resetAt) }) : tr("err.glossaryWeekSpeech"));
   if (code === "email-unverified") throw new Error(tr("err.emailUnverified"));
   throw new Error(fallback);
 }

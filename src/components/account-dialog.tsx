@@ -22,6 +22,7 @@ import {
 import { navigate } from "@/lib/router";
 import { isSponsorAdmin } from "@/lib/sponsor";
 import { useT, type Key } from "@/lib/i18n";
+import { dayLabel, useGlossaryQuota, type QuotaCount } from "@/lib/glossary-quota";
 import { btn, cn, field, ProgressBar, Segmented } from "@/components/ui";
 
 const SITE_KEY = (import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "").trim();
@@ -212,27 +213,6 @@ function PasswordField({
   );
 }
 
-type QuotaCount = { used: number; limit: number };
-type GlossaryQuota = { novel: QuotaCount; speech: QuotaCount | null; unlimited: boolean };
-
-function readCount(value: unknown): QuotaCount | null {
-  if (!value || typeof value !== "object") return null;
-  const row = value as { used?: unknown; limit?: unknown };
-  const used = typeof row.used === "number" && Number.isFinite(row.used) ? Math.max(0, row.used) : 0;
-  const limit = typeof row.limit === "number" && row.limit > 0 ? row.limit : 0;
-  return limit > 0 ? { used, limit } : null;
-}
-
-function readGlossary(payload: Record<string, unknown>): GlossaryQuota | null {
-  const glossary = payload.glossary;
-  if (!glossary || typeof glossary !== "object") return null;
-  const row = glossary as { unlimited?: unknown; speech?: unknown };
-  const unlimited = row.unlimited === true;
-  const novel = readCount(glossary);
-  if (!unlimited && !novel) return null;
-  return { novel: novel ?? { used: 0, limit: 0 }, speech: readCount(row.speech), unlimited };
-}
-
 /** One weekly count: novels or speeches. */
 function QuotaRow({ label, count }: { label: string; count: QuotaCount }) {
   const { t } = useT();
@@ -249,6 +229,11 @@ function QuotaRow({ label, count }: { label: string; count: QuotaCount }) {
         </span>
       </div>
       <ProgressBar className="mt-1" value={count.used / count.limit} label={`${label} ${text}`} />
+      {count.used >= count.limit && count.resetAt ? (
+        <p className="mt-1 text-xs text-muted" data-account-glossary-reset>
+          {t("quota.backOn", { day: dayLabel(count.resetAt) })}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -419,19 +404,9 @@ function EmailCodeBox({ email, onDone }: { email: string; onDone?: () => void })
 
 function GlossaryAllowance() {
   const { t } = useT();
-  const [quota, setQuota] = useState<GlossaryQuota | null>(null);
+  const quota = useGlossaryQuota((state) => state.quota);
   useEffect(() => {
-    let cancelled = false;
-    void accountRequest("/api/auth/me")
-      .then((payload) => {
-        if (!cancelled) setQuota(readGlossary(payload));
-      })
-      .catch(() => {
-        if (!cancelled) setQuota(null);
-      });
-    return () => {
-      cancelled = true;
-    };
+    void useGlossaryQuota.getState().refresh();
   }, []);
   if (!quota) return null;
   return (
