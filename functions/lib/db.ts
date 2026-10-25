@@ -56,6 +56,10 @@ export type UserRow = {
   trusted_until?: number | null;
   /** When the reader typed the emailed code. Null until then (accounts before the check count as checked). */
   email_verified_at?: number | null;
+  /** Shown and written into word lists instead of the email (12 lowercase hex characters). */
+  public_id?: string | null;
+  /** Version of the reader's avatar on the books host; 0 or null means none. */
+  avatar_rev?: number | null;
 };
 
 export type SyncRow = {

@@ -10,6 +10,8 @@ export type GlossSense = {
   anchors?: Array<{ chapter?: number; occurrence?: number; context?: string; form?: string }>;
   /** `true`: at this sense's anchors the word has a meaning learners rarely know; the reader marks the spot */
   trickyMeaning?: boolean;
+  /** Public id of the reader who suggested this meaning (see glossary-format.ts). */
+  credit?: string;
 };
 
 import { tr } from "@/lib/i18n";
@@ -20,6 +22,8 @@ export type Gloss = {
   coined?: boolean;
   /** `true`: only the places named in `senses` anchors are underlined and open the card (not every occurrence) */
   senseOnly?: boolean;
+  /** Public id of the reader who suggested the entry's own meaning (see glossary-format.ts). */
+  credit?: string;
   pos: string;
   meaning: string;
   /** The same sense, said for this sentence. Shown under the plain meaning. */

@@ -59,6 +59,7 @@ function openDb() {
     "0011_word_analytics_rev_status.sql",
     "0012_email_verification.sql",
     "0013_feedback_suggestion.sql",
+    "0014_contributor_credit.sql",
   ]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
@@ -1542,6 +1543,17 @@ function putJson(path, cookie, body) {
   return new Request(`http://localhost${path}`, { method: "PUT", headers, body: JSON.stringify(body) });
 }
 
+/** Sign a reader in once per test database; word feedback needs a session. */
+const readerSessions = new WeakMap();
+async function readerCookie(env) {
+  const cached = readerSessions.get(env.DB);
+  if (cached) return cached;
+  const made = await call(handleRegister, env, { body: { email: "feedback-reader@example.com", password: "correct horse" } });
+  const cookie = cookieHeader(made);
+  readerSessions.set(env.DB, cookie);
+  return cookie;
+}
+
 function postJson(path, cookie, body, ip) {
   const headers = new Headers();
   if (cookie) headers.set("cookie", cookie);
@@ -1886,7 +1898,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const resp1 = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       {
         bookId: "charlie",
         bookTitle: "Charlie and the Chocolate Factory",
@@ -1913,7 +1925,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const dup = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       {
         bookId: "charlie",
         bookTitle: "Charlie and the Chocolate Factory",
@@ -1940,7 +1952,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const resp2 = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       {
         bookId: "charlie",
         bookTitle: "Charlie and the Chocolate Factory",
@@ -1966,7 +1978,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const resp3 = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       {
         bookId: "wonder",
         bookTitle: "Wonder",
@@ -1991,7 +2003,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
 
   // Reject invalid payload
   const badReason = await handleWordFeedbackPost(
-    postJson("/api/feedback/word", null, {
+    postJson("/api/feedback/word", await readerCookie(env), {
       bookId: "wonder",
       word: "cricket",
       reason: "other_bad",
@@ -2116,7 +2128,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const outdatedClientResp = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       {
         bookId: "wonder",
         bookTitle: "Wonder",
@@ -2151,7 +2163,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const reopenResp = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       {
         bookId: "wonder",
         bookTitle: "Wonder",
@@ -2263,7 +2275,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const legacyReport = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       {
         bookId: "wonder",
         bookTitle: "Wonder",
@@ -2297,7 +2309,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const v3Regression = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       {
         bookId: "wonder",
         bookTitle: "Wonder",
@@ -2331,7 +2343,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const dupResp = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       {
         bookId: "wonder",
         word: "cricket",
@@ -2352,7 +2364,7 @@ test("word feedback: submit too_hard / wrong_meaning, deduplicate, and admin que
   const upgradedResp = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       {
         bookId: "wonder",
         word: "cricket",
@@ -2375,7 +2387,7 @@ test("word feedback: a reader's own meaning is cleaned, capped and kept for revi
   const env = envOf(db);
   const base = { bookId: "wonder", word: "dive", form: "dive", chapter: 2, occurrence: 1, reason: "missing_meaning" };
   const long = `To jump in <b>head first</b>\u0007 ${"x".repeat(400)}`;
-  const first = await handleWordFeedbackPost(postJson("/api/feedback/word", null, { ...base, suggestion: long }, "41.42.43.44"), env, { now: NOW });
+  const first = await handleWordFeedbackPost(postJson("/api/feedback/word", await readerCookie(env), { ...base, suggestion: long }, "41.42.43.44"), env, { now: NOW });
   assert.equal(first.status, 200);
   const stored = db.raw.prepare("SELECT suggestion FROM word_feedback").get().suggestion;
   assert.equal([...stored].length, 200, "at most 200 characters");
@@ -2383,10 +2395,10 @@ test("word feedback: a reader's own meaning is cleaned, capped and kept for revi
   assert.doesNotMatch(stored, /[<>\u0000-\u001f]/);
 
   // The same place again from the same address: without a meaning it is a duplicate, with one it is kept.
-  const plain = await handleWordFeedbackPost(postJson("/api/feedback/word", null, base, "41.42.43.44"), env, { now: NOW + 1000 });
+  const plain = await handleWordFeedbackPost(postJson("/api/feedback/word", await readerCookie(env), base, "41.42.43.44"), env, { now: NOW + 1000 });
   assert.equal((await plain.json()).duplicate, true);
   const withMeaning = await handleWordFeedbackPost(
-    postJson("/api/feedback/word", null, { ...base, suggestion: "  To jump into water,\n head first.  " }, "41.42.43.44"),
+    postJson("/api/feedback/word", await readerCookie(env), { ...base, suggestion: "  To jump into water,\n head first.  " }, "41.42.43.44"),
     env,
     { now: NOW + 2000 },
   );
@@ -2409,7 +2421,7 @@ test("word feedback: a word with no meaning in the book can be reported as missi
   const sent = await handleWordFeedbackPost(
     postJson(
       "/api/feedback/word",
-      null,
+      await readerCookie(env),
       { bookId: "wonder", word: "slept", form: "slept", chapter: 3, occurrence: 1, reason: "missing_meaning" },
       "31.32.33.34",
     ),

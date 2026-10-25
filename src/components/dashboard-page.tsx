@@ -1,5 +1,6 @@
 import { Github, Heart, Send, Users } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Avatar } from "@/components/avatar";
 import { QqDialog } from "@/components/qq-dialog";
 import { SponsorDialog } from "@/components/sponsor-dialog";
 import { btn } from "@/components/ui";
@@ -9,9 +10,44 @@ import { BUNDLED_CATALOG_URL, loadCatalog } from "@/lib/packs";
 import { loadQqGroups } from "@/lib/qq-groups-config";
 import { readSponsorLines } from "@/lib/sponsor";
 import { REPO_URL, TELEGRAM_URL } from "@/lib/site-info";
+import { useContributors } from "@/lib/contributors";
 import { loadWordListCatalog } from "@/lib/word-list-catalog";
 
 type LoadState = "loading" | "ready" | "error";
+
+/**
+ * Readers whose own meanings went into word lists, most help first (contributors.json, one cached
+ * file). Hidden until someone has been credited.
+ */
+function ContributorRank() {
+  const { t } = useT();
+  const people = useContributors();
+  if (people.length === 0) return null;
+  const top = people.slice(0, 10);
+  return (
+    <section className="grid gap-3" aria-label={t("dashboard.rankTitle")} data-contributor-rank>
+      <div className="grid gap-0.5 px-1">
+        <h2 className="text-base font-semibold">{t("dashboard.rankTitle")}</h2>
+        <p className="text-xs text-muted">{t("dashboard.rankIntro")}</p>
+      </div>
+      <ol className="grid gap-px overflow-hidden rounded-2xl bg-line/60">
+        {top.map((person, index) => {
+          const name = person.name || t("card.creditAnon");
+          return (
+            <li key={person.id} className="flex items-center gap-3 bg-card px-4 py-3" data-rank-row={person.id}>
+              <span className="w-5 shrink-0 text-right text-sm tabular-nums text-muted">{index + 1}</span>
+              <Avatar id={person.id} name={person.name} version={person.avatar} size={32} />
+              <span className="min-w-0 flex-1 truncate text-sm font-medium">{name}</span>
+              <span className="shrink-0 text-sm tabular-nums text-muted" data-rank-helped>
+                {trn("count.meaningHelped", person.helped)}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+  );
+}
 
 const CARDS: ReadonlyArray<{
   id: "books" | "words" | "paragraphs" | "sentences" | "phrases" | "series";
@@ -170,6 +206,7 @@ export function DashboardScreen() {
             ) : null}
           </div>
         )}
+        <ContributorRank />
         <div
           className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-sm leading-6 text-muted"
           data-supporters

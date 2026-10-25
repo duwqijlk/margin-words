@@ -2,6 +2,7 @@ import type { Env } from "../../lib/db.ts";
 import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertIpRateLimit } from "../../lib/rate-limit.ts";
+import { requireUser } from "../../lib/session.ts";
 import { SUGGESTION_MAX } from "../../../src/lib/limits.ts";
 
 /**
@@ -26,6 +27,9 @@ export async function handleWordFeedbackPost(
   options?: HandlerOptions,
 ): Promise<Response> {
   try {
+    // Only signed-in readers can open a book, so only they report. Who sent a report is kept
+    // only when it carries their own meaning: that is what the meaning may be credited to.
+    const user = await requireUser(env.DB, request, options?.now ?? Date.now());
     const body = (await readJson(request)) as {
       bookId?: unknown;
       bookTitle?: unknown;
@@ -134,8 +138,8 @@ export async function handleWordFeedbackPost(
       `INSERT INTO word_feedback (
          book_id, book_title, word, reason, form, chapter, occurrence,
          paragraph, context, sentence, sense_index, sense_meaning,
-         glossary_rev, status, created_at, ip, suggestion
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         glossary_rev, status, created_at, ip, suggestion, user_id
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
       .bind(
         bookId,
@@ -155,6 +159,7 @@ export async function handleWordFeedbackPost(
         now,
         ip,
         suggestion,
+        suggestion ? user.id : null,
       )
       .run();
 
