@@ -252,7 +252,9 @@ sense that now holds that meaning. It must carry `"credit": "<suggested_by>"` of
 - An entry with no `senses`: `credit` sits on the entry itself, next to its `meaning`.
 - An entry with `senses`: `credit` sits on the sense whose anchor is this report's place
   (same `chapter`, `occurrence` and `form`), not on the entry.
-- A phrase: `credit` sits on the phrase entry, or on its sense, the same way.
+- A phrase: `credit` sits on the phrase entry.
+- A passage report answered by a sentence note or a paragraph note: `credit` sits on that note
+  (`sentences[i].credit`, `paragraphs[i].credit`). The help panel shows "From <nickname>" there.
 - `credit` is a **field** inside that entry or sense. It is never a key of `glossary` or `phrases`:
   a top-level `"credit": { ... }` is a word entry for the word "credit", not a credit. If you find one
   you did not mean to add as a word, remove it.
@@ -303,7 +305,7 @@ UPDATE passage_feedback SET accepted_at = ?1, accepted_rev = ?2 WHERE id = ?3 AN
 ```
 
 An accepted passage suggestion is credited like a word one: `"credit": "<suggested_by>"` on the phrase
-entry, sentence note or paragraph note whose text came from it.
+entry, sentence note or paragraph note whose text came from it (GLOSSARY_FORMAT.md 7.1-7.3).
 
 Then, once per run after the last accepted suggestion, refresh the public credit file. Read the
 rows with this query and write them as `contributors.json` to bucket `margin-words-books`
@@ -334,7 +336,8 @@ Leave out `avatar` when it is 0. Write nothing else into the file: no email, no 
 
 ## 8. Limits
 
-- At most 10 books per run; reopened and reported items first, then the most-tapped words.
+- At most 10 books per run; reopened and reported items first (word and passage reports), then the
+  most-tapped words. Answer a passage topic whole or leave it for the next run.
 - D1 is on the Free plan (100,000 row writes a day for the whole site). The queries above read a
   few thousand rows; each resolve writes a few. Do not loop queries.
 - No other SQL that writes. No `DELETE`, `DROP` or `ALTER`. No R2 writes except a glossary, its
@@ -346,6 +349,7 @@ Leave out `avatar` when it is 0. Write nothing else into the file: no email, no 
 
 End each run with a short report per book: what you added, what you changed and why (the
 item that asked for it), which reader suggestions you accepted or rejected and why (for each accepted
-one: report id, word, and the entry or sense that holds its `credit`), what you
+one: report id, word or passage, and the entry, sense or note that holds its `credit`), each passage
+topic you answered (its id, the reports in it, and the notes you wrote for it), what you
 skipped and why, the new revision, and any error. Say so if
 nothing was open.

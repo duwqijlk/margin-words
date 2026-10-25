@@ -317,3 +317,21 @@ test("passage reports on one paragraph that overlap are one topic; apart ones ar
   const kept = db.raw.prepare("SELECT suggestion FROM passage_feedback ORDER BY id DESC LIMIT 1").get();
   assert.equal(kept.suggestion.length, 600);
 });
+
+test("phrases, sentence notes and paragraph notes may carry a reader credit", () => {
+  const id = "abc123def456";
+  const list = {
+    version: 2,
+    glossary: { dive: { meaning: "To jump in." } },
+    phrases: { "as if": { meaning: "In a way that seems true but is not.", credit: id } },
+    sentences: [{ chapter: 0, context: "The old man smiled as if the lamp knew", simple: "He smiled like the lamp knew him.", grammar: "'as if' + past: it only seems so.", credit: id }],
+    paragraphs: [{ chapter: 0, paragraph: 1, context: "The old man smiled as if the lamp knew", mainIdea: "He loves his lamps.", simple: "He smiled at the lamp like a friend.", credit: id }],
+  };
+  const ok = validateGlossary(JSON.stringify(list));
+  assert.equal(ok.ok, true, ok.errors.join(" "));
+  assert.equal(ok.file.phrases["as if"].credit, id);
+  assert.equal(ok.file.sentences[0].credit, id);
+  assert.equal(ok.file.paragraphs[0].credit, id);
+  const bad = validateGlossary(JSON.stringify({ ...list, sentences: [{ ...list.sentences[0], credit: "Ann" }] }));
+  assert.equal(bad.ok, false, "a name is not a credit");
+});

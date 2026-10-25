@@ -9,8 +9,7 @@ import { FloatingAside } from "@/components/floating-card";
 import { SIDE_PANEL } from "@/components/side-panel";
 import { btn, cn, Highlighted, SpeakButton } from "@/components/ui";
 import { WordExplanationFeedback } from "@/components/word-feedback";
-import { Avatar } from "@/components/avatar";
-import { useContributor } from "@/lib/contributors";
+import { CreditLine } from "@/components/credit-line";
 import { WordIpa } from "@/components/word-ipa";
 import { version as localIpaVersion } from "virtual:local-ipa-data";
 
@@ -65,22 +64,6 @@ export type CardState = {
   glossaryRev?: string;
 };
 
-/**
- * "From <reader>" above a meaning a reader suggested. Shown only once contributors.json names the
- * reader, so a credit never shows an id or an email. A reader without a nickname is "a reader".
- */
-function CreditLine({ id }: { id: string }) {
-  const { t } = useT();
-  const person = useContributor(id);
-  if (!person) return null;
-  const name = person.name || t("card.creditAnon");
-  return (
-    <p className="flex items-center gap-1.5 text-xs text-muted" data-part="credit" data-credit={id}>
-      <Avatar id={person.id} name={person.name} version={person.avatar} size={18} eager />
-      <span className="min-w-0 truncate">{t("card.creditBy", { name })}</span>
-    </p>
-  );
-}
 
 /** The whole sentence around a tapped word, and where that word starts inside it. */
 export function locateSentence(
@@ -110,7 +93,7 @@ export function wholeSentence(paragraph: string, surface: string, at: number): s
 
 export type PhraseHit = {
   key: string;
-  entry: { meaning: string; pos?: string; example?: string; here?: string };
+  entry: { meaning: string; pos?: string; example?: string; here?: string; credit?: string };
   matched: string;
 };
 
@@ -412,6 +395,7 @@ export function WordCard({
           ) : localIpaVersion && !phrasePending ? <WordIpa key={`${selectionId}:${state.key}`} word={state.key} /> : null}
           <div className="grid gap-2" data-word-primary>
             {!activePhrase && state.status === "ready" && state.credit ? <CreditLine id={state.credit} /> : null}
+            {activePhrase?.entry.credit ? <CreditLine id={activePhrase.entry.credit} /> : null}
             {activePhrase ? (
               <p
                 className="text-[1.25rem] leading-snug font-medium text-ink"
