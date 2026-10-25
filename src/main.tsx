@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { MarginApp } from "@/components/margin-app";
 import { RELOAD_QUIET_MS, RELOAD_STOP, reloadPlan } from "@/lib/reload-guard";
+import { finishDeviceWipe } from "@/lib/device-wipe";
 import "./styles.css";
 
 // Before anything renders. The call (not the import) is what keeps this in the bundle:
@@ -14,13 +15,18 @@ installPolyfills();
 // Kept in the built file so this version cannot reuse a script name the edge cached as the app page.
 performance.mark("mw-boot");
 
-createRoot(document.getElementById("root") as HTMLElement).render(
-  <StrictMode>
-    <ErrorBoundary>
-      <MarginApp />
-    </ErrorBoundary>
-  </StrictMode>,
-);
+// A sign-out asked for this device to be cleared: do it before the app reads any storage.
+void finishDeviceWipe()
+  .catch(() => false)
+  .finally(() => {
+    createRoot(document.getElementById("root") as HTMLElement).render(
+      <StrictMode>
+        <ErrorBoundary>
+          <MarginApp />
+        </ErrorBoundary>
+      </StrictMode>,
+    );
+  });
 
 /** Survives a reload. Cleared only after the page has stayed up (see the load handler). */
 const RELOAD_KEY = "cibian-reloaded";

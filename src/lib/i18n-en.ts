@@ -333,6 +333,9 @@ export const en = {
   "account.hidePassword": "Hide password",
   "account.login": "Sign in",
   "account.register": "Create account",
+  "account.logoutTitle": "Sign out and clear this device?",
+  "account.logoutBody": "Signing out clears the shelf, book files and word lists, reading progress, wordbook and settings on this device, so the next person who signs in here does not see or merge your things. What was synced stays in the cloud and comes back when you sign in. E-book files you added yourself are not in the cloud, so add them again.",
+  "account.logoutConfirm": "Sign out and clear",
   "account.logout": "Sign out",
   "account.signedIn": "Signed in as {email}",
   "quota.left": "New this week:",
@@ -367,7 +370,7 @@ export const en = {
   "account.export": "Export my data",
   "account.exportDone": "Download started",
   "account.delete": "Delete account",
-  "account.deleteWarn": "This deletes the account and everything stored for sync. Books on this device stay here.",
+  "account.deleteWarn": "This deletes the account and everything stored for sync, and clears the books and word lists on this device too.",
   "account.deleteConfirm": "Delete the account",
   "account.forgot": "Forgot password?",
   "account.forgotBody":
@@ -774,7 +777,7 @@ export const en = {
     "Words you save from any book go into one notebook, and review is one queue. Each word remembers the sentence, the book and the chapter it came from. You can tap to go back to that place. Review comes back after 1, 2, 4, 7, 15 and 30 days.",
   "about.accountTitle": "Accounts and sync (optional)",
   "about.accountBody":
-    "You do not need an account. If you make one, we keep a copy of your shelf list, where you stopped reading, your saved words with the places they came from, your review counts, and your reading settings. You can also choose a nickname. It can be the same as someone else's. Sign in on another device to see them there. You can export or delete your data at any time.",
+    "You do not need an account. If you make one, we keep a copy of your shelf list, where you stopped reading, your saved words with the places they came from, your review counts, and your reading settings. You can also choose a nickname. It can be the same as someone else's. Sign in on another device to see them there. You can export or delete your data at any time. Signing out clears the books and data on this device; sign in again to bring the synced part back.",
   "about.privacyTitle": "Privacy",
   "about.privacyBody":
     "Your EPUB files stay on your device. They are never uploaded, even when you have an account. To find your place on another device, sync stores the word list’s paragraph number and one short line of the book’s text, and it stores the sentence of each word you save. We also count which words readers tap, so the word lists can grow where they are thin: that report holds the word, the book, the word’s place in the book, and the sentence around it. No book file is sent to us.",

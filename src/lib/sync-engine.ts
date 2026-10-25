@@ -42,6 +42,7 @@ import {
 import { rehomeForeignSources } from "@/lib/wordbook";
 import { useVocab } from "@/lib/vocab-store";
 import type { Book, VocabEntry, WordSource } from "@/lib/vocab-model";
+import { claimDevice, ownedByAnother, PENDING_KEY, startDeviceWipe } from "@/lib/device-wipe";
 
 const META_KEY = "cibian-sync-meta-v1";
 const EMAIL_KEY = "cibian-account-email-v1";
@@ -63,6 +64,8 @@ let started = false;
 let readyWait: Array<() => void> = [];
 let ready = false;
 let sessionEpoch = 0;
+/** Set once the device is about to be cleared. Nothing is sent after that, not even on pagehide. */
+let stopped = false;
 
 function readStorage(key: string): string | null {
   try {
@@ -469,7 +472,7 @@ function schedulePush(delay = PUSH_DELAY_MS) {
 }
 
 async function flush() {
-  if (useAccount.getState().phase !== "in") return;
+  if (stopped || useAccount.getState().phase !== "in") return;
   if (running) {
     again = true;
     return;
@@ -526,6 +529,29 @@ async function flush() {
   }
 }
 
+/** No more pushes from this page: the device is about to be cleared and the page reloads. */
+function stopSyncing() {
+  stopped = true;
+  sessionEpoch += 1;
+  armed = false;
+  if (timer) clearTimeout(timer);
+  timer = null;
+}
+
+/**
+ * The data on this device belongs to another account: clear it before anything is merged, so the
+ * last reader's shelf and wordbook never reach this account. Returns true when the page reloads.
+ */
+function clearIfAnother(email: string): boolean {
+  if (!ownedByAnother(email)) {
+    claimDevice(email);
+    return false;
+  }
+  stopSyncing();
+  void startDeviceWipe(email);
+  return true;
+}
+
 async function refreshSession() {
   const epoch = sessionEpoch;
   const saved = readStorage(EMAIL_KEY);
@@ -556,6 +582,7 @@ async function refreshSession() {
     });
     if (fields.email) {
       rememberEmail(fields.email, fields.nickname, fields.role);
+      if (clearIfAnother(fields.email)) return;
       await flush();
     } else {
       rememberEmail(null);
@@ -619,6 +646,13 @@ export function startAccountSync(): () => void {
   const onPageHide = () => {
     if (dirty) void flush();
   };
+  // Another tab signed out or switched account: this tab must not save its old state back.
+  const onStorage = (event: StorageEvent) => {
+    if (event.key !== PENDING_KEY || !event.newValue) return;
+    stopSyncing();
+    window.location.reload();
+  };
+  window.addEventListener("storage", onStorage);
   document.addEventListener("visibilitychange", onFocus);
   window.addEventListener("online", onOnline);
   window.addEventListener("pagehide", onPageHide);
@@ -637,6 +671,7 @@ export function startAccountSync(): () => void {
     document.removeEventListener("visibilitychange", onFocus);
     window.removeEventListener("online", onOnline);
     window.removeEventListener("pagehide", onPageHide);
+    window.removeEventListener("storage", onStorage);
     if (timer) clearTimeout(timer);
   };
 }
@@ -653,6 +688,7 @@ export async function signIn(email: string, password: string, turnstileToken?: s
   const fields = userFields(payload);
   useAccount.getState().patch({ emailVerified: fields.emailVerified, publicId: fields.publicId, avatar: fields.avatar });
   rememberEmail(fields.email ?? email, fields.nickname, fields.role);
+  if (clearIfAnother(fields.email ?? email)) return;
   await flush();
 }
 
@@ -668,6 +704,7 @@ export async function signUp(email: string, password: string, turnstileToken?: s
   const fields = userFields(payload);
   useAccount.getState().patch({ emailVerified: fields.emailVerified, publicId: fields.publicId, avatar: fields.avatar });
   rememberEmail(fields.email ?? email, fields.nickname, fields.role);
+  if (clearIfAnother(fields.email ?? email)) return;
   await flush();
 }
 
@@ -735,22 +772,33 @@ export async function saveNickname(nickname: string): Promise<void> {
   if (email) rememberEmail(email, fields.nickname);
 }
 
-export async function signOut(): Promise<void> {
-  sessionEpoch += 1;
+/**
+ * Sign out and clear this device: the shelf, the book files and word lists, progress, the wordbook
+ * and settings. The cloud copy stays, so signing in again brings the synced part back. Changes not
+ * sent yet are sent first. The page reloads; `login` opens the sign-in dialog after it.
+ */
+export async function signOut(options: { login?: boolean } = {}): Promise<void> {
+  if (dirty && online()) {
+    try {
+      await flush();
+    } catch {
+      // Best effort: flush() reports its own failure.
+    }
+  }
+  stopSyncing();
   try {
     await accountRequest("/api/auth/logout", {});
   } catch {
-    // The cookie may already be gone. Local books stay.
+    // The cookie may already be gone. The device is still cleared.
   }
-  rememberEmail(null);
-  useAccount.getState().patch({ sync: "idle" });
+  await startDeviceWipe(null, options);
 }
 
+/** Delete the account, then clear this device the same way as a sign-out. */
 export async function deleteAccount(password: string): Promise<void> {
-  sessionEpoch += 1;
   await accountRequest("/api/auth/delete", { password });
-  rememberEmail(null);
-  useAccount.getState().patch({ sync: "idle" });
+  stopSyncing();
+  await startDeviceWipe(null);
 }
 
 export async function exportAccount(): Promise<void> {

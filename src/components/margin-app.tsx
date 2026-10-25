@@ -31,6 +31,7 @@ import { canonicalPath, DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useR
 import { repairShelf } from "@/lib/shelf-repair";
 import { useAccount } from "@/lib/account-store";
 import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
+import { takeLoginAfterWipe } from "@/lib/device-wipe";
 import { AccountDialog } from "@/components/account-dialog";
 import { autoUpdateWordLists, useListUpdates } from "@/lib/word-list-update";
 import { rememberListPack, resolveFileOffer } from "@/lib/file-gap";
@@ -128,6 +129,7 @@ export function MarginApp() {
   useEffect(() => {
     const token = new URLSearchParams(window.location.search).get("reset");
     if (token) useAccount.getState().openDialog("reset", token);
+    else if (takeLoginAfterWipe()) useAccount.getState().openDialog("login");
     return startAccountSync();
   }, []);
 

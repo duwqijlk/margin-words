@@ -59,9 +59,8 @@ export function AdminPage() {
             className={btn.primary}
             onClick={() => {
               if (phase === "in") {
-                void signOut().finally(() => {
-                  useAccount.getState().openDialog("login");
-                });
+                // The device is cleared and the page reloads with the sign-in dialog open.
+                void signOut({ login: true });
               } else {
                 askToSignIn();
               }

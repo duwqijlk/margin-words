@@ -23,7 +23,7 @@ import { navigate } from "@/lib/router";
 import { isSponsorAdmin } from "@/lib/sponsor";
 import { useT, type Key } from "@/lib/i18n";
 import { dayLabel, useGlossaryQuota, type QuotaCount } from "@/lib/glossary-quota";
-import { btn, cn, field, ProgressBar, Segmented } from "@/components/ui";
+import { btn, cn, ConfirmDialog, field, ProgressBar, Segmented } from "@/components/ui";
 
 const SITE_KEY = (import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "").trim();
 
@@ -443,6 +443,7 @@ export function AccountDialog() {
   const nicknamePrompt = useAccount((state) => state.nicknamePrompt);
   const emailVerified = useAccount((state) => state.emailVerified);
   const sync = useAccount((state) => state.sync);
+  const [askSignOut, setAskSignOut] = useState(false);
   const resetEmailReady = useAccount((state) => state.resetEmail);
   const closeDialog = useAccount((state) => state.closeDialog);
   const openDialog = useAccount((state) => state.openDialog);
@@ -740,17 +741,24 @@ export function AccountDialog() {
               <button
                 type="button"
                 className={cn(btn.quiet, "mt-3 w-full justify-start")}
-                onClick={() => {
-                  setBusy(true);
-                  void signOut().finally(() => {
-                    setBusy(false);
-                    closeDialog();
-                  });
-                }}
+                onClick={() => setAskSignOut(true)}
                 disabled={busy}
+                data-account-logout
               >
-                {t("account.logout")}
+                {busy ? t("account.working") : t("account.logout")}
               </button>
+              <ConfirmDialog
+                open={askSignOut}
+                onOpenChange={setAskSignOut}
+                title={t("account.logoutTitle")}
+                description={t("account.logoutBody")}
+                confirmLabel={t("account.logoutConfirm")}
+                onConfirm={() => {
+                  setBusy(true);
+                  // The page reloads when the device is clear.
+                  void signOut().catch(() => setBusy(false));
+                }}
+              />
               {syncLabel(sync, t) ? (
                 <p className="mt-3 text-sm text-muted" data-account-sync>
                   {syncLabel(sync, t)}
