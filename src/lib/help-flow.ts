@@ -12,6 +12,8 @@ export type ParagraphView = ParagraphNote;
 export type SentenceView = {
   simple: string;
   grammar: string;
+  /** Public id of the reader whose explanation this note uses. */
+  credit?: string;
 };
 
 const clean = cleanNoteText;
@@ -22,7 +24,8 @@ function asSentence(value: unknown): SentenceView | null {
   const simple = clean(row.simple, 800);
   const grammar = clean(row.grammar, 300);
   if (!simple || !grammar) return null;
-  return { simple, grammar };
+  const credit = typeof row.credit === "string" && /^[a-z0-9]{12}$/.test(row.credit) ? row.credit : undefined;
+  return { simple, grammar, ...(credit ? { credit } : {}) };
 }
 
 export async function loadParagraphView(args: {

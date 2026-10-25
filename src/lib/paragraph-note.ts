@@ -30,7 +30,11 @@ export type ParagraphNote = {
   mainIdea: string;
   simple: string;
   hardWords: string[];
+  /** Public id of the reader whose explanation this note uses. */
+  credit?: string;
 };
+
+const CREDIT_ID = /^[a-z0-9]{12}$/;
 
 const CJK = /[\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uff00-\uffef]/;
 
@@ -53,7 +57,8 @@ export function cleanParagraphNote(value: unknown): ParagraphNote | null {
         .filter(Boolean)
         .slice(0, 8)
     : [];
-  return { mainIdea, simple, hardWords };
+  const credit = typeof row.credit === "string" && CREDIT_ID.test(row.credit) ? row.credit : undefined;
+  return { mainIdea, simple, hardWords, ...(credit ? { credit } : {}) };
 }
 
 export type UnresolvedNote = (entry: ParagraphHelp, why: "no-match" | "ambiguous", matches: number) => void;

@@ -5,6 +5,7 @@ import { useT } from "@/lib/i18n";
 import { loadSentenceView, type ParagraphView, type SentenceView } from "@/lib/help-flow";
 import { FloatingAside } from "@/components/floating-card";
 import { btn, cn } from "@/components/ui";
+import { CreditLine } from "@/components/credit-line";
 import { flowText } from "@/lib/flow-text";
 import { lastLineBox, planBulbs, MARGIN_BULB_SIZE, type BulbSpot } from "@/lib/paragraph-bulbs";
 import { SIDE_PANEL } from "@/components/side-panel";
@@ -252,6 +253,7 @@ export function ParagraphPanel({
           </p>
         ) : (
           <>
+            {state.view.credit ? <CreditLine id={state.view.credit} /> : null}
             <section className="grid gap-1" aria-label={t("hp.mainIdea")}>
               <h3 className="text-xs font-semibold text-muted">{t("hp.mainIdea")}</h3>
               <p className="text-[1.05rem] leading-relaxed" lang="en" data-part="main-idea">
@@ -370,6 +372,7 @@ export function ExplainSentence({
       ) : (
         <div ref={box} className="grid gap-2.5 border-t border-line/70 pt-2.5">
           <span className="text-xs font-semibold text-muted">{t("hp.explain")}</span>
+          {view.credit ? <CreditLine id={view.credit} /> : null}
           <section className="grid gap-0.5" aria-label={t("hp.easier")}>
             <h4 className="text-xs font-semibold text-muted">{t("hp.easier")}</h4>
             <p className="text-[0.98rem] leading-relaxed" lang="en" data-part="easier">

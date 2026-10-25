@@ -21,12 +21,19 @@ export type ContributorRow = { id: string; name: string; helped: number; avatar?
 export async function contributorRows(db: D1Database): Promise<ContributorRow[]> {
   const rows = await db
     .prepare(
-      `SELECT u.public_id AS id, COALESCE(u.nickname, '') AS name, u.avatar_rev AS avatar,
-              COUNT(DISTINCT f.book_id || ':' || f.word || ':' || f.chapter || ':' || f.occurrence) AS helped
-         FROM word_feedback f JOIN users u ON u.id = f.user_id
-        WHERE f.accepted_at > 0 AND u.public_id IS NOT NULL
+      `WITH accepted AS (
+         SELECT user_id, 'w:' || book_id || ':' || word || ':' || chapter || ':' || occurrence AS place, accepted_at
+           FROM word_feedback WHERE accepted_at > 0 AND user_id IS NOT NULL
+         UNION ALL
+         SELECT user_id, 'p:' || book_id || ':' || chapter || ':' || paragraph || ':' || selected AS place, accepted_at
+           FROM passage_feedback WHERE accepted_at > 0 AND user_id IS NOT NULL
+       )
+       SELECT u.public_id AS id, COALESCE(u.nickname, '') AS name, u.avatar_rev AS avatar,
+              COUNT(DISTINCT a.place) AS helped
+         FROM accepted a JOIN users u ON u.id = a.user_id
+        WHERE u.public_id IS NOT NULL
         GROUP BY u.id
-        ORDER BY helped DESC, MIN(f.accepted_at) ASC
+        ORDER BY helped DESC, MIN(a.accepted_at) ASC
         LIMIT 500`,
     )
     .all<{ id: string; name: string; avatar: number | null; helped: number }>();
@@ -56,7 +63,12 @@ export async function publishContributors(db: D1Database, bucket: R2BucketLike, 
 /** Is this reader credited anywhere? Only then does a nickname or avatar change rebuild the file. */
 export async function isContributor(db: D1Database, userId: string): Promise<boolean> {
   const row = await db
-    .prepare("SELECT 1 AS yes FROM word_feedback WHERE user_id = ? AND accepted_at > 0 LIMIT 1")
+    .prepare(
+      `SELECT 1 AS yes FROM word_feedback WHERE user_id = ?1 AND accepted_at > 0
+       UNION ALL
+       SELECT 1 AS yes FROM passage_feedback WHERE user_id = ?1 AND accepted_at > 0
+       LIMIT 1`,
+    )
     .bind(userId)
     .first<{ yes: number }>();
   return Boolean(row);

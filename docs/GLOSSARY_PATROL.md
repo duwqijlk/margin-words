@@ -8,7 +8,7 @@ repository as `docs/GLOSSARY_PATROL.md` and on the site at `https://inputread.si
 ## 1. The job
 
 Readers of inputread.site read English books with a word list (glossary) that explains hard
-words. Two things tell you a list needs work:
+words. Three things tell you a list needs work:
 
 - **Taps** (table `book_word_taps`): a reader opened a word that has **no meaning of its own** at
   that place. Only such words are recorded.
@@ -22,6 +22,18 @@ words. Two things tell you a list needs work:
   - Any report may carry `suggestion`: the reader's own meaning for this place (plain text, at most
     200 characters, English or Chinese). Readers often look the word up while reading, so this is
     usually the quickest way to the right sense. Review it; never paste it in unchecked.
+- **Passage reports** (table `passage_feedback`): a reader selected a few words, a sentence or a
+  short part of one paragraph and asked for help with it. `selected` is the exact text (at most
+  600 characters, never across paragraphs); `before` / `after` are a few words around it;
+  `chapter` and `paragraph` are the reader's numbers (the same as an anchor's chapter and a
+  paragraph note's `paragraph`); `sel_start` / `sel_end` are its character offsets in that paragraph;
+  `span` is `sentence` when it holds a whole sentence. Reports that overlap on one paragraph share a
+  `topic` (see "Passage topics" below). `reason`:
+  - `hard`: "I don't understand this part".
+  - `phrase`: "these words go together" (often a phrasal verb or an idiom the list does not have).
+  - `wrong`: the help shown at this place is wrong.
+  - `suggested`: only the reader's explanation, in `suggestion` (plain text, at most 600
+    characters: room to say what a sentence means and why).
 
 Once a day you read the open items, fix the word lists, publish them, and mark the items done.
 You may **add** entries and **fix** existing ones: rewrite a meaning that is too hard, correct one
@@ -67,6 +79,17 @@ SELECT f.id, f.book_title, f.word, f.form, f.reason, f.chapter, f.occurrence, f.
   FROM word_feedback f LEFT JOIN users u ON u.id = f.user_id
  WHERE f.status != 'resolved'
  ORDER BY (f.suggestion != '') DESC, f.created_at DESC LIMIT 500;
+```
+
+Open passage reports:
+
+```sql
+SELECT p.id, p.topic, p.book_title, p.chapter, p.paragraph, p.sel_start, p.sel_end, p.span,
+       p.selected, p.before, p.after, p.reason, p.suggestion, p.glossary_rev, p.status, p.created_at,
+       u.public_id AS suggested_by
+  FROM passage_feedback p LEFT JOIN users u ON u.id = p.user_id
+ WHERE p.status != 'resolved'
+ ORDER BY p.topic, p.created_at LIMIT 300;
 ```
 
 `suggested_by` is set only on a report that carries a suggestion: the public id of the reader who
@@ -124,6 +147,46 @@ What to do with each kind of item:
 | Tap or `missing_meaning` | Add the entry, or add this place as an anchor to an existing sense | Very common words tapped to hear them (`said`, `top`); character and place names (`annie`) |
 | `too_hard` | Rewrite `meaning` (and `here`) in easier words, same sense | The meaning is already as easy as it can be |
 | `wrong_meaning` | Point the anchor at the right sense, add a sense, or remove the wrong phrase match / anchor | You cannot tell the right meaning without guessing the plot |
+
+What to do with a passage report. Find the place: in chapter `chapter`, paragraph `paragraph` must
+contain `before` + `selected` + `after` (spaces may differ). Then write the smallest note that helps:
+
+| The selection is | Write | Notes |
+| --- | --- | --- |
+| 2 to 5 words that belong together (`phrase`, or a hard group) | a `phrases` entry (GLOSSARY_FORMAT.md 7.3), key = base form | Only when it is really a phrase (7.3's rule). A single hard word inside it is a word entry instead. |
+| One sentence, or most of one | a `sentences` note (7.2): `context` copied from that sentence, `simple`, one-line `grammar` when the grammar is the hard part | A figure of speech: say plainly what it means here. |
+| Several sentences of one paragraph | a `paragraphs` note (7.1) on that paragraph: `mainIdea` and `simple` | Only when no sentence note would do. |
+| `wrong` | fix the phrase, sentence or paragraph note shown there, or remove a wrong phrase match | |
+
+Leave it open when the selection is a single easy word, a name, or text you cannot find in the book.
+Never copy more of the book than a note's `context` needs.
+
+**Passage topics: one place, several readers.** All reports with the same `topic` overlap on one
+paragraph: a short selection inside a longer one (reader A selected the whole 10-word sentence,
+reader B only "as if the" inside it), or two that share words. Read the whole topic before you write:
+
+1. **Find what is really hard.** When most reports point at the same few words (B's "as if the" sits
+   inside A's sentence, and C also marked "as if"), the hard part is those words. Several readers
+   marking the same small part is a strong signal; one reader marking a big part is a weak one.
+2. **Write the smallest set of notes that answers every report**, never one note per report:
+   - The short part is a phrase or an idiom: a `phrases` entry for it. If the longer selection is
+     still hard once that phrase is explained, also a `sentences` note for the whole sentence. Its
+     `simple` uses the phrase's plain meaning, so the two say the same thing.
+   - The short part is only hard because of the sentence around it: one `sentences` note for the
+     sentence. It answers B too; do not add a phrase entry that is not a real phrase.
+   - Two reports that only share a few words and point at different hard parts: answer each part
+     on its own.
+3. **Explanations:** compare them with each other and with the sentence. Use the sense the best one
+   gives, write it in your own words (writing rules below), and credit that reader. The table for
+   "a new suggestion when a meaning already exists" below applies here too: a different sense of a
+   different part is its own note and its own credit; the same sense said better replaces the text
+   and moves the credit.
+4. **Mark the whole topic.** Resolve every report in the topic that your notes answer. Mark
+   `accepted` only the reports whose explanation you really used, one credit per note. A report you
+   could not answer stays open (it keeps its topic).
+
+A topic is closed once all its reports are resolved. A new report on that place later starts a new
+topic, so a fix that did not work comes back as fresh work.
 
 Reviewing a reader's `suggestion`:
 
@@ -189,7 +252,9 @@ sense that now holds that meaning. It must carry `"credit": "<suggested_by>"` of
 - An entry with no `senses`: `credit` sits on the entry itself, next to its `meaning`.
 - An entry with `senses`: `credit` sits on the sense whose anchor is this report's place
   (same `chapter`, `occurrence` and `form`), not on the entry.
-- A phrase: `credit` sits on the phrase entry, or on its sense, the same way.
+- A phrase: `credit` sits on the phrase entry.
+- A passage report answered by a sentence note or a paragraph note: `credit` sits on that note
+  (`sentences[i].credit`, `paragraphs[i].credit`). The help panel shows "From <nickname>" there.
 - `credit` is a **field** inside that entry or sense. It is never a key of `glossary` or `phrases`:
   a top-level `"credit": { ... }` is a word entry for the word "credit", not a credit. If you find one
   you did not mean to add as a word, remove it.
@@ -223,6 +288,9 @@ UPDATE book_word_taps SET status = 'resolved', resolved_at = ?1, resolved_rev = 
 
 UPDATE word_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
  WHERE id = ?3;
+
+UPDATE passage_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
+ WHERE id = ?3;   -- or, for a topic you answered whole: WHERE topic = ?3 AND status != 'resolved'
 ```
 
 `?1` = now in milliseconds, `?2` = new revision. If a reader reports the same place again on the
@@ -232,19 +300,33 @@ For each **accepted** suggestion, also record it (this is what the rank counts):
 
 ```sql
 UPDATE word_feedback SET accepted_at = ?1, accepted_rev = ?2 WHERE id = ?3 AND suggestion != '';
+
+UPDATE passage_feedback SET accepted_at = ?1, accepted_rev = ?2 WHERE id = ?3 AND suggestion != '';
 ```
+
+An accepted passage suggestion is credited like a word one: `"credit": "<suggested_by>"` on the phrase
+entry, sentence note or paragraph note whose text came from it (GLOSSARY_FORMAT.md 7.1-7.3).
 
 Then, once per run after the last accepted suggestion, refresh the public credit file. Read the
 rows with this query and write them as `contributors.json` to bucket `margin-words-books`
 (R2 write, `Content-Type: application/json`):
 
 ```sql
+WITH accepted AS (
+  SELECT user_id, 'w:' || book_id || ':' || word || ':' || chapter || ':' || occurrence AS place, accepted_at
+    FROM word_feedback WHERE accepted_at > 0 AND user_id IS NOT NULL
+  UNION ALL
+  SELECT user_id, 'p:' || book_id || ':' || chapter || ':' || paragraph || ':' || selected AS place, accepted_at
+    FROM passage_feedback WHERE accepted_at > 0 AND user_id IS NOT NULL
+)
 SELECT u.public_id AS id, COALESCE(u.nickname, '') AS name, u.avatar_rev AS avatar,
-       COUNT(DISTINCT f.book_id || ':' || f.word || ':' || f.chapter || ':' || f.occurrence) AS helped
-  FROM word_feedback f JOIN users u ON u.id = f.user_id
- WHERE f.accepted_at > 0 AND u.public_id IS NOT NULL
- GROUP BY u.id ORDER BY helped DESC, MIN(f.accepted_at) ASC LIMIT 500;
+       COUNT(DISTINCT a.place) AS helped
+  FROM accepted a JOIN users u ON u.id = a.user_id
+ WHERE u.public_id IS NOT NULL
+ GROUP BY u.id ORDER BY helped DESC, MIN(a.accepted_at) ASC LIMIT 500;
 ```
+
+(This is the same query the site uses in `functions/lib/contributors.ts`.)
 
 ```
 { "format": 1, "updated": "<now, ISO>", "people": [ { "id": "...", "name": "...", "helped": 3, "avatar": 1792900000 } ] }
@@ -254,7 +336,8 @@ Leave out `avatar` when it is 0. Write nothing else into the file: no email, no 
 
 ## 8. Limits
 
-- At most 10 books per run; reopened and reported items first, then the most-tapped words.
+- At most 10 books per run; reopened and reported items first (word and passage reports), then the
+  most-tapped words. Answer a passage topic whole or leave it for the next run.
 - D1 is on the Free plan (100,000 row writes a day for the whole site). The queries above read a
   few thousand rows; each resolve writes a few. Do not loop queries.
 - No other SQL that writes. No `DELETE`, `DROP` or `ALTER`. No R2 writes except a glossary, its
@@ -266,6 +349,7 @@ Leave out `avatar` when it is 0. Write nothing else into the file: no email, no 
 
 End each run with a short report per book: what you added, what you changed and why (the
 item that asked for it), which reader suggestions you accepted or rejected and why (for each accepted
-one: report id, word, and the entry or sense that holds its `credit`), what you
+one: report id, word or passage, and the entry, sense or note that holds its `credit`), each passage
+topic you answered (its id, the reports in it, and the notes you wrote for it), what you
 skipped and why, the new revision, and any error. Say so if
 nothing was open.

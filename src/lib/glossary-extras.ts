@@ -18,6 +18,7 @@ export type ParagraphHelp = {
   mainIdea: string; // 1-2 short sentences
   simple: string; // the whole paragraph in very common words, restating only the original
   hardWords?: string[]; // hardest words or phrases from the ORIGINAL paragraph; shown as tappable
+  credit?: string; // public id of the reader whose explanation this note uses (see GLOSSARY_FORMAT.md)
 };
 
 /** A sentence explanation. Locate by chapter + context (verbatim snippet from the sentence). */
@@ -26,6 +27,7 @@ export type SentenceHelp = {
   context: string; // 6-14 words copied exactly from the sentence
   simple: string; // the sentence in easier English
   grammar: string; // ONE line naming the tricky grammar and what it means
+  credit?: string; // public id of the reader whose explanation this note uses
 };
 
 /** A phrase entry (phrasal verb or idiom). Key in the `phrases` map is the base form, lower case, e.g. "give up". */
@@ -36,6 +38,7 @@ export type PhraseEntry = {
   pos?: "phrasal verb" | "idiom" | "phrase";
   forms?: string[]; // e.g. ["gave up", "giving up", "gives up"]
   example?: string;
+  credit?: string; // public id of the reader who suggested this meaning
 };
 
 export type GlossaryExtras = {

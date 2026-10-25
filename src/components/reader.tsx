@@ -98,6 +98,7 @@ import {
   topBarHeight,
 } from "@/lib/reader-paging";
 import { preloadContributors } from "@/lib/contributors";
+import { PassageFeedback } from "@/components/passage-feedback";
 import { watchPageMoves, type PageMove } from "@/lib/page-guard";
 import { AUTO_HIDE_QUERY, barStart, nextBarState } from "@/lib/reader-bar";
 import {
@@ -1626,6 +1627,8 @@ export function ReaderScreen({
 
     const button = target.closest("[role=button][data-word]");
     const cardOpen = picked !== null || help !== null;
+    const selection = window.getSelection();
+    if (!cardOpen && selection && !selection.isCollapsed && selection.toString().trim().length > 1) return;
 
     if (button || target.closest("article a")) event.preventDefault();
     const action = readingPageTap({ phone: phoneSheet(), cardOpen, hitWord: Boolean(button) });
@@ -1754,6 +1757,16 @@ export function ReaderScreen({
             ))}
           </article>
         )}
+
+        <PassageFeedback
+          rootRef={articleRef}
+          bookId={bookId}
+          bookTitle={book?.title}
+          chapter={viewChapter}
+          glossaryRev={glossaryRev}
+          // Not in an extra (it has no fixed chapter number) or over an open card.
+          enabled={viewChapter >= 0 && picked === null && help === null}
+        />
 
         <nav
           aria-label={t("reader.nav")}

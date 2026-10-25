@@ -1233,6 +1233,7 @@ function checkExtras(
         }
         seen.add(id);
         mark(`paragraph ${chapter}/${paragraph}`, ctx, mainIdea, simple, ...(hardWords ?? []));
+        const credit = creditField(issues, where, raw.credit);
         list.push({
           chapter,
           paragraph,
@@ -1240,6 +1241,7 @@ function checkExtras(
           mainIdea,
           simple,
           ...(hardWords?.length ? { hardWords } : {}),
+          ...(credit ? { credit } : {}),
         });
       });
       if (list.length) out.paragraphs = list;
@@ -1267,7 +1269,8 @@ function checkExtras(
         const grammar = textField(issues, where, raw.grammar, "grammar", LIMITS.grammar, true);
         if (chapter === null || !ctx || !simple || !grammar) return;
         mark(`sentence ${chapter}/${at + 1}`, ctx, simple, grammar);
-        list.push({ chapter, context: ctx, simple, grammar });
+        const credit = creditField(issues, where, raw.credit);
+        list.push({ chapter, context: ctx, simple, grammar, ...(credit ? { credit } : {}) });
       });
       if (list.length) out.sentences = list;
     }
@@ -1316,6 +1319,8 @@ function checkExtras(
           if (example) entry.example = example;
           const here = textField(issues, where, raw.here, "here", LIMITS.here, false);
           if (here) entry.here = here;
+          const credit = creditField(issues, where, raw.credit);
+          if (credit) entry.credit = credit;
           if (!meaning) continue;
           mark(`phrase ${key}`, meaning, here, example, ...(forms ?? []));
           map[key] = entry;
