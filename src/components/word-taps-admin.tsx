@@ -87,6 +87,7 @@ type FeedbackRow = {
   sentence: string;
   senseIndex: number;
   senseMeaning: string;
+  suggestions: string[];
   reason: FeedbackReason;
   count: number;
   lastReportedAt: number;
@@ -123,6 +124,7 @@ function readFeedback(value: unknown): FeedbackRow[] {
       sentence: typeof row.sentence === "string" ? row.sentence : "",
       senseIndex: typeof row.senseIndex === "number" ? row.senseIndex : -1,
       senseMeaning: typeof row.senseMeaning === "string" ? row.senseMeaning : "",
+      suggestions: Array.isArray(row.suggestions) ? row.suggestions.filter((s): s is string => typeof s === "string") : [],
       reason: row.reason === "wrong_meaning" || row.reason === "missing_meaning" ? row.reason : "too_hard",
       count: typeof row.count === "number" ? row.count : 1,
       lastReportedAt: typeof row.lastReportedAt === "number" ? row.lastReportedAt : 0,
@@ -1008,6 +1010,18 @@ function WordFeedbackSubView() {
                         Anchor context: &quot;{row.context}&quot;
                       </p>
                     ) : null}
+                  </div>
+                ) : null}
+                {row.suggestions.length > 0 ? (
+                  <div className="mt-2 rounded-xl bg-accent-soft/60 p-2.5 text-xs leading-relaxed" data-feedback-suggestions>
+                    <p className="mb-1 text-[11px] text-muted">{t("admin.feedback.suggestions")}</p>
+                    <ul className="grid gap-1">
+                      {row.suggestions.map((text, index) => (
+                        <li key={index} className="text-ink" lang="en">
+                          “{text}”
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 ) : null}
               </li>

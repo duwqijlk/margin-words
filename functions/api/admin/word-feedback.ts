@@ -22,6 +22,7 @@ type FeedbackGroupRow = {
   sentence: string;
   sense_index: number;
   sense_meaning: string;
+  suggestions: string | null;
   reason: string;
   report_count: number;
   last_reported_at: number;
@@ -112,6 +113,7 @@ export async function handleAdminWordFeedbackGet(
          COALESCE(MAX(sentence), '') AS sentence,
          sense_index,
          COALESCE(MAX(sense_meaning), '') AS sense_meaning,
+         GROUP_CONCAT(CASE WHEN suggestion != '' THEN suggestion END, char(10)) AS suggestions,
          reason,
          COUNT(*) AS report_count,
          MAX(created_at) AS last_reported_at,
@@ -164,6 +166,8 @@ export async function handleAdminWordFeedbackGet(
         sentence: row.sentence || "",
         senseIndex: row.sense_index,
         senseMeaning: row.sense_meaning || "",
+        // Readers' own meanings for this place, one per line in the query, at most ten.
+        suggestions: row.suggestions ? row.suggestions.split("\n").filter(Boolean).slice(0, 10) : [],
         anchor: {
           chapter: row.chapter,
           occurrence: row.occurrence,

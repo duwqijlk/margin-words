@@ -710,6 +710,10 @@
     [data-word-card] [data-word-footer] > div {
       flex-wrap: nowrap;
     }
+    /* The reader's own meaning box takes a row of its own, the full width of the card. */
+    [data-word-card] [data-word-footer] > div:has([data-feedback-suggestion]) {
+      flex-wrap: wrap;
+    }
     [data-word-card] [data-word-footer] > div > span {
       min-width: 0;
     }

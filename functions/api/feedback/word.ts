@@ -2,6 +2,20 @@ import type { Env } from "../../lib/db.ts";
 import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/http.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertIpRateLimit } from "../../lib/rate-limit.ts";
+import { SUGGESTION_MAX } from "../../../src/lib/limits.ts";
+
+/**
+ * A reader's own meaning, as plain text: control characters and markup brackets removed, spaces
+ * folded, at most SUGGESTION_MAX characters. It is reviewed before any of it reaches a word list.
+ */
+export function cleanSuggestion(value: unknown): string {
+  if (typeof value !== "string") return "";
+  const text = value
+    .replace(/[\u0000-\u001f\u007f<>]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return [...text].slice(0, SUGGESTION_MAX).join("");
+}
 
 export const onRequestPost = (context: { request: Request; env: Env }) =>
   handleWordFeedbackPost(context.request, context.env);
@@ -26,6 +40,7 @@ export async function handleWordFeedbackPost(
       senseIndex?: unknown;
       senseMeaning?: unknown;
       glossaryRev?: unknown;
+      suggestion?: unknown;
     };
     const bookId = typeof body.bookId === "string" ? body.bookId.trim().slice(0, 64) : "";
     if (!bookId || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(bookId)) {
@@ -57,6 +72,7 @@ export async function handleWordFeedbackPost(
     const senseIndex = typeof body.senseIndex === "number" ? Math.floor(body.senseIndex) : -1;
     const senseMeaning = typeof body.senseMeaning === "string" ? body.senseMeaning.trim().slice(0, 300) : "";
     const glossaryRev = typeof body.glossaryRev === "string" ? body.glossaryRev.trim().slice(0, 100) : "";
+    const suggestion = cleanSuggestion(body.suggestion);
 
     const now = options?.now ?? Date.now();
     const ip = clientIp(request);
@@ -72,7 +88,8 @@ export async function handleWordFeedbackPost(
       .bind(bookId, rawWord, chapter, occurrence, reason, glossaryRev, ip, oneDayAgo)
       .first<{ id: number }>();
 
-    if (existing) {
+    // A repeat with the reader's own meaning is kept: the meaning is the part worth having.
+    if (existing && !suggestion) {
       return json({ ok: true, duplicate: true });
     }
 
@@ -117,8 +134,8 @@ export async function handleWordFeedbackPost(
       `INSERT INTO word_feedback (
          book_id, book_title, word, reason, form, chapter, occurrence,
          paragraph, context, sentence, sense_index, sense_meaning,
-         glossary_rev, status, created_at, ip
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         glossary_rev, status, created_at, ip, suggestion
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
       .bind(
         bookId,
@@ -137,6 +154,7 @@ export async function handleWordFeedbackPost(
         status,
         now,
         ip,
+        suggestion,
       )
       .run();
 
