@@ -265,9 +265,8 @@
     text-wrap: pretty;
   }
 
-  ::selection {
-    background: var(--mark);
-  }
+  /* No ::selection rule: selected text keeps the browser's own colour. The highlighter yellow
+     (--mark) is for marked words, and a yellow selection looked like a highlight. */
 
   /* ---- Reading surface ---------------------------------------------------- */
   .book-body {
