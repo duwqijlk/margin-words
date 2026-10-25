@@ -4,7 +4,7 @@ import { SUGGESTION_MAX } from "@/lib/limits";
 import { cn } from "@/components/ui";
 import { Check, HelpCircle } from "lucide-react";
 
-export type FeedbackReason = "too_hard" | "wrong_meaning" | "missing_meaning";
+export type FeedbackReason = "too_hard" | "wrong_meaning" | "missing_meaning" | "suggested";
 
 export function WordExplanationFeedback({
   bookId,
@@ -44,11 +44,13 @@ export function WordExplanationFeedback({
   const [submitted, setSubmitted] = useState<FeedbackReason | null>(null);
   const [submitting, setSubmitting] = useState(false);
   // The reader's own meaning, optional. Without it a problem button sends at once. While writing,
-  // a problem button only picks the problem, and Send under the box sends both.
+  // a problem button only marks what was wrong (optional), and Send sends the meaning: a meaning
+  // alone already says the one shown should change, so nothing has to be picked first.
   const [writing, setWriting] = useState(false);
   const [suggestion, setSuggestion] = useState("");
   const [picked, setPicked] = useState<FeedbackReason | null>(missing ? "missing_meaning" : null);
-  const choose = (reason: FeedbackReason) => (writing ? setPicked(reason) : void sendFeedback(reason));
+  const choose = (reason: FeedbackReason) =>
+    writing ? setPicked((now) => (now === reason && !missing ? null : reason)) : void sendFeedback(reason);
   const reasonClass = (reason: FeedbackReason) =>
     cn(
       "inline-flex items-center rounded-lg border px-2 py-1 text-xs font-medium transition-colors active:scale-95 disabled:opacity-50",
@@ -56,7 +58,7 @@ export function WordExplanationFeedback({
         ? "border-accent bg-accent text-accent-ink"
         : "border-line/60 bg-card text-ink/80 hover:border-line hover:bg-paper hover:text-ink",
     );
-  const canSend = Boolean(picked) && suggestion.trim().length > 0 && !submitting;
+  const canSend = suggestion.trim().length > 0 && !submitting;
 
   async function sendFeedback(reason: FeedbackReason) {
     if (submitting || submitted) return;
@@ -199,7 +201,7 @@ export function WordExplanationFeedback({
             data-feedback-suggestion-input
           />
           <p className="flex justify-between gap-2 text-[0.7rem] text-muted">
-            <span>{t(picked ? "card.feedbackMeaningHint" : "card.feedbackPickProblem")}</span>
+            <span>{t(missing ? "card.feedbackMeaningHint" : "card.feedbackMeaningOptional")}</span>
             <span className="tabular-nums" data-feedback-suggestion-count>
               {[...suggestion].length}/{SUGGESTION_MAX}
             </span>
@@ -221,7 +223,7 @@ export function WordExplanationFeedback({
             <button
               type="button"
               disabled={!canSend}
-              onClick={() => picked && void sendFeedback(picked)}
+              onClick={() => void sendFeedback(picked ?? "suggested")}
               className="inline-flex min-h-9 items-center rounded-lg bg-accent px-4 text-sm font-semibold text-accent-ink transition-opacity hover:opacity-90 disabled:opacity-40"
               data-feedback-suggestion-send
             >

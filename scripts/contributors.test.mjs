@@ -150,3 +150,21 @@ test("a glossary credit must be a public id", () => {
   const bad = validateGlossary(JSON.stringify({ version: 2, glossary: { dive: { meaning: "To jump in.", credit: "ann@example.com" } } }));
   assert.equal(bad.ok, false);
 });
+
+test("a meaning alone is a report of its own; without text it is refused", async () => {
+  const db = openDb();
+  const env = { DB: db };
+  const { cookie } = await signUp(env, "suggest@example.com");
+  const empty = await handleWordFeedbackPost(request("/api/feedback/word", { cookie, body: { ...report, word: "lantern", reason: "suggested" } }), env, { now: NOW });
+  assert.equal(empty.status, 400, "suggested needs a meaning");
+  const ok = await handleWordFeedbackPost(
+    request("/api/feedback/word", { cookie, body: { ...report, word: "lantern", reason: "suggested", suggestion: "A light in a box you carry." } }),
+    env,
+    { now: NOW },
+  );
+  assert.equal(ok.status, 200);
+  const row = db.raw.prepare("SELECT reason, suggestion, user_id FROM word_feedback").get();
+  assert.equal(row.reason, "suggested");
+  assert.equal(row.suggestion, "A light in a box you carry.");
+  assert.ok(row.user_id, "the reader is kept with their meaning");
+});

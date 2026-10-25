@@ -59,8 +59,12 @@ export async function handleWordFeedbackPost(
       throw new HttpError(400, "bad-word");
     }
 
+    // "suggested": the reader wrote a better meaning without saying what was wrong with the one shown.
     const reason =
-      body.reason === "too_hard" || body.reason === "wrong_meaning" || body.reason === "missing_meaning"
+      body.reason === "too_hard" ||
+      body.reason === "wrong_meaning" ||
+      body.reason === "missing_meaning" ||
+      body.reason === "suggested"
         ? body.reason
         : null;
     if (!reason) {
@@ -77,6 +81,7 @@ export async function handleWordFeedbackPost(
     const senseMeaning = typeof body.senseMeaning === "string" ? body.senseMeaning.trim().slice(0, 300) : "";
     const glossaryRev = typeof body.glossaryRev === "string" ? body.glossaryRev.trim().slice(0, 100) : "";
     const suggestion = cleanSuggestion(body.suggestion);
+    if (reason === "suggested" && !suggestion) throw new HttpError(400, "bad-reason");
 
     const now = options?.now ?? Date.now();
     const ip = clientIp(request);
