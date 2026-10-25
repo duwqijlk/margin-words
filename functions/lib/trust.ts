@@ -21,22 +21,36 @@ export function trustedUntil(term: TrustTerm, now: number): number | null {
   return date.getTime();
 }
 
-/** Distinct new word lists a plain reader may open in one rolling week. */
+/** Distinct new novels a plain reader may open in one rolling week. */
 export const GLOSSARY_WEEK_BOOKS = 7;
+/** Distinct new speeches, counted apart from novels. */
+export const GLOSSARY_WEEK_SPEECHES = 7;
 export const GLOSSARY_WEEK_MS = 7 * DAY_MS;
 
 type CountDb = {
   prepare(sql: string): {
-    bind(...values: unknown[]): { first<T>(): Promise<T | null> };
+    bind(...values: unknown[]): { all<T>(): Promise<{ results: T[] }> };
   };
 };
 
-/** How many distinct word lists this reader opened in the current week. */
-export async function glossaryWeekUsed(db: CountDb, userId: string, now: number): Promise<number> {
+export type GlossaryWeek = { novels: number; speeches: number };
+
+/** How many distinct novels and speeches this reader opened in the current week. */
+export async function glossaryWeekUsed(
+  db: CountDb,
+  userId: string,
+  now: number,
+  speeches: ReadonlySet<string>,
+): Promise<GlossaryWeek> {
   const since = now - GLOSSARY_WEEK_MS;
   const recent = await db
-    .prepare("SELECT COUNT(DISTINCT book_id) AS n FROM glossary_reads WHERE user_id = ? AND created_at > ?")
+    .prepare("SELECT DISTINCT book_id FROM glossary_reads WHERE user_id = ? AND created_at > ?")
     .bind(userId, since)
-    .first<{ n: number }>();
-  return recent?.n ?? 0;
+    .all<{ book_id: string }>();
+  const week = { novels: 0, speeches: 0 };
+  for (const row of recent.results ?? []) {
+    if (speeches.has(row.book_id)) week.speeches += 1;
+    else week.novels += 1;
+  }
+  return week;
 }

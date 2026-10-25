@@ -5,11 +5,12 @@ import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertUserRateLimit } from "../../lib/rate-limit.ts";
 import { requireUser } from "../../lib/session.ts";
 import { shelfGrantsBook } from "../../lib/shelf-grant.ts";
-import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS } from "../../lib/trust.ts";
+import { speechIds } from "../../lib/book-category.ts";
+import { glossaryWeekUsed, GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_SPEECHES } from "../../lib/trust.ts";
 
 /**
  * One word list, for a signed-in reader.
- * A plain reader may open 7 new books in a rolling week. A book already opened,
+ * A plain reader may open 7 new novels and 7 new speeches in a rolling week. A book already opened,
  * or already on the shelf before the cap, does not take another place.
  * Trusted and admin readers are not counted. A plain reader must have checked their email first.
  * There is no route that returns every list at once.
@@ -36,10 +37,11 @@ export async function handleGlossary(
     // A new account opens word lists only after it typed the code sent to its email: a free
     // account per made-up address was the cheap way around the weekly cap.
     if (!open && !user.email_verified_at) throw new HttpError(403, "email-unverified");
-    let slot: "again" | "new" | "full" | "shelf" = open ? "again" : await weekSlot(env.DB, user.id, id, now);
+    let slot: Slot | "shelf" = open ? "again" : await weekSlot(env.DB, bucket, user.id, id, now);
     // A shelf book is free even when the week is full, and it does not take a place.
     if (!open && slot !== "again" && (await shelfGrantsBook(env.DB, bucket, user.id, id))) slot = "shelf";
     if (slot === "full") throw new HttpError(429, "glossary-week");
+    if (slot === "full-speech") throw new HttpError(429, "glossary-week-speech");
     const object =
       (await bucket.get(`word-lists/${id}/glossary.json`)) ??
       (await bucket.get(`public-books/${id}/glossary.json`));
@@ -64,18 +66,24 @@ export async function handleGlossary(
   }
 }
 
+type Slot = "again" | "new" | "full" | "full-speech";
+
 async function weekSlot(
   db: Env["DB"],
+  bucket: NonNullable<Env["BOOKS"]>,
   userId: string,
   bookId: string,
   now: number,
-): Promise<"again" | "new" | "full"> {
+): Promise<Slot> {
   // Any earlier open counts, including one from a previous week, so another device can fetch it.
   const again = await db
     .prepare("SELECT book_id FROM glossary_reads WHERE user_id = ? AND book_id = ? LIMIT 1")
     .bind(userId, bookId)
     .first<{ book_id: string }>();
   if (again) return "again";
-  const used = await glossaryWeekUsed(db, userId, now);
-  return used >= GLOSSARY_WEEK_BOOKS ? "full" : "new";
+  // Novels and speeches each have their own weekly places.
+  const speeches = await speechIds(bucket);
+  const used = await glossaryWeekUsed(db, userId, now, speeches);
+  if (speeches.has(bookId)) return used.speeches >= GLOSSARY_WEEK_SPEECHES ? "full-speech" : "new";
+  return used.novels >= GLOSSARY_WEEK_BOOKS ? "full" : "new";
 }

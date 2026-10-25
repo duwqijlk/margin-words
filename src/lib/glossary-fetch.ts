@@ -43,6 +43,7 @@ export async function fetchProtectedGlossary(bookId: string, fallback: string): 
     code = "";
   }
   if (code === "glossary-week") throw new Error(tr("err.glossaryWeek"));
+  if (code === "glossary-week-speech") throw new Error(tr("err.glossaryWeekSpeech"));
   if (code === "email-unverified") throw new Error(tr("err.emailUnverified"));
   throw new Error(fallback);
 }

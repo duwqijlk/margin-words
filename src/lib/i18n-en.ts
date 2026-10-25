@@ -338,7 +338,9 @@ export const en = {
   "account.glossaryTitle": "Word lists",
   "account.glossaryCount": "{used} of {limit}",
   "account.glossaryUnlimited": "No weekly limit",
-  "account.glossaryHint": "7 new books in 7 days. A book already on your shelf does not use a place.",
+  "account.glossaryNovels": "Novels",
+  "account.glossarySpeeches": "Speeches",
+  "account.glossaryHint": "7 new novels and 7 new speeches in 7 days. A book already on your shelf does not use a place.",
   "account.syncSaved": "Synced",
   "account.syncSaving": "Syncing…",
   "account.syncOffline": "Offline. Changes will sync when you are back online.",
@@ -1028,7 +1030,8 @@ export const en = {
   "admin.status.pending": "Pending",
   "admin.status.resolved": "Resolved",
   "admin.status.reopened": "Reopened",
-  "err.glossaryWeek": "A reader can open 7 new word lists every 7 days. Books already on the shelf can be downloaded again. Library access removes this limit.",
+  "err.glossaryWeekSpeech": "A reader can open 7 new speech word lists every 7 days. Speeches already on the shelf can be downloaded again. Library access removes this limit.",
+  "err.glossaryWeek": "A reader can open 7 new novel word lists every 7 days. Books already on the shelf can be downloaded again. Library access removes this limit.",
   "err.emailUnverified": "Check your email before opening word lists. The code was sent to your sign-up email; type it in your account.",
 } as const;
 
