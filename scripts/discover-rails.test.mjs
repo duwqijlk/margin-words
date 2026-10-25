@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { browseRails, normalizeDiscoverRails, RAIL_SIZE } from "../src/lib/discover-rails.ts";
+import { browseRails, normalizeDiscoverRails, RAIL_SIZE, railsFor } from "../src/lib/discover-rails.ts";
 
 const book = (title, extra = {}) => ({ kind: "list", title, lexile: "", series: "", seriesNumber: 0, ...extra });
 
@@ -92,4 +92,47 @@ test("a saved row list refuses a repeated name or a bad book key", () => {
     false,
   );
   assert.equal(normalizeDiscoverRails({ rails: [{ source: "custom", name: "Roald Dahl", books: ["james"] }] }).ok, false);
+});
+
+test("each Discover tab keeps its own saved rows; an old file is all Novels", () => {
+  const parsed = normalizeDiscoverRails({
+    rails: [
+      { source: "series", name: "Magic Tree House" },
+      { source: "custom", name: "Obama", books: ["classic:back-to-school", "classic:obama-inaugural-2009"], category: "speech" },
+      { source: "series", name: "TED", category: "speech" },
+      { source: "series", name: "Narnia", category: "novel" },
+    ],
+  });
+  assert.equal(parsed.ok, true);
+  assert.deepEqual(railsFor(parsed.rails, "novel").map((rail) => rail.name), ["Magic Tree House", "Narnia"]);
+  assert.deepEqual(railsFor(parsed.rails, "speech").map((rail) => rail.name), ["Obama", "TED"]);
+  assert.equal("category" in parsed.rails[3], false, "a novel row writes no category, like an old file");
+  assert.equal(parsed.rails[1].category, "speech");
+
+  // A speech row shows with the speeches, in the saved order, and never on Novels.
+  const speeches = [
+    book("Back to School", { kind: "classic", key: "classic:back-to-school" }),
+    book("Inaugural Address", { kind: "classic", key: "classic:obama-inaugural-2009" }),
+  ];
+  const rails = browseRails(speeches, railsFor(parsed.rails, "speech"));
+  assert.deepEqual(rails.map((rail) => rail.id), ["curated:Obama"]);
+  assert.deepEqual(rails[0].rows.map((item) => item.title), ["Back to School", "Inaugural Address"]);
+});
+
+test("one name may be used once per tab, but on two tabs; an unknown tab is refused", () => {
+  const both = normalizeDiscoverRails({
+    rails: [
+      { source: "custom", name: "Favourites", books: ["list:james"] },
+      { source: "custom", name: "Favourites", books: ["list:ted-talk"], category: "speech" },
+    ],
+  });
+  assert.equal(both.ok, true);
+  const twice = normalizeDiscoverRails({
+    rails: [
+      { source: "series", name: "TED", category: "speech" },
+      { source: "series", name: "TED", category: "speech" },
+    ],
+  });
+  assert.equal(twice.ok, false);
+  assert.equal(normalizeDiscoverRails({ rails: [{ source: "series", name: "TED", category: "poems" }] }).ok, false);
 });

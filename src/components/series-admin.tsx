@@ -2,9 +2,17 @@ import { useEffect, useMemo, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { BUNDLED_CATALOG_URL } from "@/lib/packs";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
-import { browseRails, DISCOVER_RAIL_BOOKS, DISCOVER_RAIL_LIMIT, type DiscoverRailSpec } from "@/lib/discover-rails";
+import {
+  browseRails,
+  DISCOVER_RAIL_BOOKS,
+  DISCOVER_RAIL_LIMIT,
+  railCategory,
+  type DiscoverRailSpec,
+  type RailCategory,
+} from "@/lib/discover-rails";
+import { CONTENT_CATEGORIES, readContentCategory } from "@/lib/content-category";
 import { loadDiscoverRailFile } from "@/lib/discover-rail-config";
-import { btn, cn, field } from "@/components/ui";
+import { btn, cn, field, subTabs } from "@/components/ui";
 
 type ShelfBook = {
   key: string;
@@ -13,6 +21,7 @@ type ShelfBook = {
   series: string;
   seriesNumber: number;
   kind: "classic" | "list";
+  category: RailCategory;
 };
 
 const ID_PATTERN = /^[a-z0-9][a-z0-9_-]{0,63}$/;
@@ -27,7 +36,14 @@ function booksOf(kind: "classic" | "list", rows: unknown): ShelfBook[] {
   const out: ShelfBook[] = [];
   for (const item of rows) {
     if (!item || typeof item !== "object") continue;
-    const row = item as { id?: unknown; title?: unknown; author?: unknown; series?: unknown; seriesNumber?: unknown };
+    const row = item as {
+      id?: unknown;
+      title?: unknown;
+      author?: unknown;
+      series?: unknown;
+      seriesNumber?: unknown;
+      category?: unknown;
+    };
     const id = textOf(row.id);
     if (!ID_PATTERN.test(id)) continue;
     const series = textOf(row.series);
@@ -39,24 +55,19 @@ function booksOf(kind: "classic" | "list", rows: unknown): ShelfBook[] {
       series,
       seriesNumber: series ? number : 0,
       kind,
+      category: readContentCategory(row.category),
     });
   }
   return out;
 }
 
-function move<T>(list: T[], index: number, delta: number): T[] {
-  const next = index + delta;
-  if (next < 0 || next >= list.length) return list;
-  const copy = [...list];
-  const [item] = copy.splice(index, 1);
-  if (!item) return list;
-  copy.splice(next, 0, item);
-  return copy;
-}
-
-/** Admin list of the sideways series rows on Discover. */
+/**
+ * Admin list of the sideways series rows on Discover, one list per Discover tab (Novels, Speeches,
+ * and any tab added later). All tabs are saved together in word-lists/discover-rails.json.
+ */
 export function SeriesAdmin() {
   const { t } = useT();
+  const [tab, setTab] = useState<RailCategory>("novel");
   const [books, setBooks] = useState<ShelfBook[] | null>(null);
   const [rails, setRails] = useState<DiscoverRailSpec[]>([]);
   const [saved, setSaved] = useState<boolean | null>(null);
@@ -87,7 +98,9 @@ export function SeriesAdmin() {
           setRails(file);
           setSaved(true);
         } else {
-          const suggested = browseRails(loaded.map((book) => ({ ...book, lexile: "" })))
+          const suggested = browseRails(
+            loaded.filter((book) => book.category === "novel").map((book) => ({ ...book, lexile: "" })),
+          )
             .filter((rail) => rail.kind === "series")
             .map((rail) => ({ source: "series" as const, name: rail.name }));
           setRails(suggested);
@@ -103,30 +116,58 @@ export function SeriesAdmin() {
   }, []);
 
   const byKey = useMemo(() => new Map((books ?? []).map((book) => [book.key, book])), [books]);
+  /** Books on this tab of Discover, and this tab's saved rows (each still knows its place in `rails`). */
+  const tabBooks = useMemo(() => (books ?? []).filter((book) => book.category === tab), [books, tab]);
+  const tabRails = useMemo(
+    () => rails.map((rail, at) => ({ rail, at })).filter(({ rail }) => railCategory(rail) === tab),
+    [rails, tab],
+  );
   const seriesChoices = useMemo(() => {
-    const used = new Set(rails.filter((rail) => rail.source === "series").map((rail) => rail.name));
-    return [...new Set((books ?? []).map((book) => book.series).filter(Boolean))]
+    const used = new Set(tabRails.filter(({ rail }) => rail.source === "series").map(({ rail }) => rail.name));
+    return [...new Set(tabBooks.map((book) => book.series).filter(Boolean))]
       .filter((series) => !used.has(series))
       .sort((a, b) => a.localeCompare(b));
-  }, [books, rails]);
+  }, [tabBooks, tabRails]);
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return (books ?? [])
-      .filter((book) => !q || `${book.title} ${book.author}`.toLowerCase().includes(q))
-      .slice(0, 40);
-  }, [books, query]);
+    return tabBooks.filter((book) => !q || `${book.title} ${book.author}`.toLowerCase().includes(q)).slice(0, 40);
+  }, [tabBooks, query]);
+  const tabFull = tabRails.length >= DISCOVER_RAIL_LIMIT;
+  /** A novel row has no field (older files have none); any other tab writes its name. */
+  const tabField = tab === "novel" ? {} : { category: tab };
+
+  function switchTab(next: RailCategory) {
+    setTab(next);
+    setSeriesName("");
+    setName("");
+    setPicked([]);
+    setQuery("");
+    setNote("");
+  }
+
+  /** Move a row up or down among this tab's rows only. */
+  function moveInTab(index: number, delta: number) {
+    const other = tabRails[index + delta];
+    const self = tabRails[index];
+    if (!other || !self) return;
+    setRails((current) => {
+      const copy = [...current];
+      [copy[self.at], copy[other.at]] = [copy[other.at] as DiscoverRailSpec, copy[self.at] as DiscoverRailSpec];
+      return copy;
+    });
+  }
 
   function addSeries() {
-    if (!seriesName || rails.length >= DISCOVER_RAIL_LIMIT || rails.some((rail) => rail.name === seriesName)) return;
-    setRails((current) => [...current, { source: "series", name: seriesName }]);
+    if (!seriesName || tabFull || tabRails.some(({ rail }) => rail.name === seriesName)) return;
+    setRails((current) => [...current, { source: "series", name: seriesName, ...tabField }]);
     setSeriesName("");
     setNote("");
   }
 
   function addCustom() {
     const trimmed = name.replace(/\s+/g, " ").trim();
-    if (!trimmed || picked.length === 0 || rails.length >= DISCOVER_RAIL_LIMIT || rails.some((rail) => rail.name === trimmed)) return;
-    setRails((current) => [...current, { source: "custom", name: trimmed, books: picked }]);
+    if (!trimmed || picked.length === 0 || tabFull || tabRails.some(({ rail }) => rail.name === trimmed)) return;
+    setRails((current) => [...current, { source: "custom", name: trimmed, books: picked, ...tabField }]);
     setName("");
     setPicked([]);
     setQuery("");
@@ -167,22 +208,40 @@ export function SeriesAdmin() {
   if (!books || saved === null) return <p className="py-8 text-center text-muted">{t("dashboard.loading")}</p>;
 
   return (
-    <div className="grid gap-6" data-admin-series>
+    <div className="grid gap-6" data-admin-series data-admin-series-tab={tab}>
+      <div role="tablist" aria-label={t("discover.cat.list")} className={subTabs.row} data-admin-series-tabs>
+        {CONTENT_CATEGORIES.map((id) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={tab === id}
+            className={cn(subTabs.tab, tab === id ? subTabs.on : subTabs.off)}
+            onClick={() => switchTab(id)}
+            data-admin-series-tab-button={id}
+          >
+            {t(`discover.cat.${id}`)}
+            <span className="ml-1.5 text-xs font-normal text-muted tabular-nums">
+              {rails.filter((rail) => railCategory(rail) === id).length}
+            </span>
+          </button>
+        ))}
+      </div>
       <div className="rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6">
         <div>
           <p className="text-sm text-muted">{t("admin.series.hint")}</p>
           {!saved ? <p className="mt-1 text-xs text-muted/80">{t("admin.series.unsaved")}</p> : null}
         </div>
 
-        {rails.length === 0 ? (
+        {tabRails.length === 0 ? (
           <div className="mt-4 rounded-xl border border-dashed border-line/80 p-8 text-center text-xs text-muted">
-            {t("admin.series.empty")}
+            {tab === "novel" ? t("admin.series.empty") : t("admin.series.emptyTab")}
           </div>
         ) : (
           <ol className="mt-4 grid gap-2.5">
-            {rails.map((rail, index) => (
+            {tabRails.map(({ rail, at }, index) => (
               <li
-                key={`${rail.source}:${rail.name}`}
+                key={`${railCategory(rail)}:${rail.source}:${rail.name}`}
                 className="grid gap-2 rounded-xl border border-line/70 bg-paper/50 p-3.5 shadow-2xs transition-colors hover:border-line hover:bg-card sm:p-4"
                 data-admin-series-row={rail.name}
               >
@@ -206,22 +265,22 @@ export function SeriesAdmin() {
                       type="button"
                       className={cn(btn.quiet, "h-8 min-h-0 px-2 text-xs")}
                       disabled={index === 0}
-                      onClick={() => setRails((current) => move(current, index, -1))}
+                      onClick={() => moveInTab(index, -1)}
                     >
                       {t("admin.series.up")}
                     </button>
                     <button
                       type="button"
                       className={cn(btn.quiet, "h-8 min-h-0 px-2 text-xs")}
-                      disabled={index === rails.length - 1}
-                      onClick={() => setRails((current) => move(current, index, 1))}
+                      disabled={index === tabRails.length - 1}
+                      onClick={() => moveInTab(index, 1)}
                     >
                       {t("admin.series.down")}
                     </button>
                     <button
                       type="button"
                       className={cn(btn.quiet, "h-8 min-h-0 px-2 text-xs text-muted hover:text-warn")}
-                      onClick={() => setRails((current) => current.filter((_, at) => at !== index))}
+                      onClick={() => setRails((current) => current.filter((_, place) => place !== at))}
                     >
                       {t("admin.series.remove")}
                     </button>
@@ -260,7 +319,7 @@ export function SeriesAdmin() {
           <button
             type="button"
             className={cn(btn.quiet, "h-10 min-h-0 px-4 text-xs font-semibold")}
-            disabled={!seriesName}
+            disabled={!seriesName || tabFull}
             onClick={addSeries}
           >
             {t("admin.series.add")}
@@ -314,7 +373,7 @@ export function SeriesAdmin() {
           <button
             type="button"
             className={cn(btn.quiet, "h-10 min-h-0 px-4 text-xs font-semibold")}
-            disabled={!name.trim() || picked.length === 0}
+            disabled={!name.trim() || picked.length === 0 || tabFull}
             onClick={addCustom}
           >
             {t("admin.series.add")}

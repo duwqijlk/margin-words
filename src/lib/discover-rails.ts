@@ -19,6 +19,18 @@ export const DISCOVER_RAIL_BOOKS = 60;
 
 const BOOK_KEY = /^(?:list|classic):[a-z0-9][a-z0-9_-]{0,63}$/;
 
+/** The Discover tab a saved row belongs to. A row saved before tabs had rows has none: Novels. */
+export type RailCategory = "novel" | "speech";
+
+export function railCategory(spec: { category?: RailCategory }): RailCategory {
+  return spec.category === "speech" ? "speech" : "novel";
+}
+
+/** The saved rows of one Discover tab, in their saved order. */
+export function railsFor(specs: readonly DiscoverRailSpec[], category: RailCategory): DiscoverRailSpec[] {
+  return specs.filter((spec) => railCategory(spec) === category);
+}
+
 /** Keep a saved row list, or refuse it. An empty list is allowed. */
 export function normalizeDiscoverRails(value: unknown): { ok: true; rails: DiscoverRailSpec[] } | { ok: false } {
   if (!value || typeof value !== "object") return { ok: false };
@@ -28,12 +40,16 @@ export function normalizeDiscoverRails(value: unknown): { ok: true; rails: Disco
   const names = new Set<string>();
   for (const item of rails) {
     if (!item || typeof item !== "object") return { ok: false };
-    const row = item as { source?: unknown; name?: unknown; books?: unknown };
+    const row = item as { source?: unknown; name?: unknown; books?: unknown; category?: unknown };
     const name = typeof row.name === "string" ? row.name.replace(/\s+/g, " ").trim().slice(0, 80) : "";
-    if (!name || names.has(name)) return { ok: false };
-    names.add(name);
+    if (row.category !== undefined && row.category !== "novel" && row.category !== "speech") return { ok: false };
+    // Only a speech row writes its tab, so a file saved before tabs reads the same.
+    const tab = row.category === "speech" ? { category: "speech" as const } : {};
+    const scoped = `${row.category === "speech" ? "speech" : "novel"}:${name}`;
+    if (!name || names.has(scoped)) return { ok: false };
+    names.add(scoped);
     if (row.source === "series") {
-      out.push({ source: "series", name });
+      out.push({ source: "series", name, ...tab });
       continue;
     }
     if (row.source !== "custom" || !Array.isArray(row.books) || row.books.length === 0 || row.books.length > DISCOVER_RAIL_BOOKS) {
@@ -46,7 +62,7 @@ export function normalizeDiscoverRails(value: unknown): { ok: true; rails: Disco
       seen.add(key);
       books.push(key);
     }
-    out.push({ source: "custom", name, books });
+    out.push({ source: "custom", name, books, ...tab });
   }
   return { ok: true, rails: out };
 }
@@ -62,8 +78,8 @@ type Railed = {
 };
 
 export type DiscoverRailSpec =
-  | { source: "series"; name: string }
-  | { source: "custom"; name: string; books: string[] };
+  | { source: "series"; name: string; category?: RailCategory }
+  | { source: "custom"; name: string; books: string[]; category?: RailCategory };
 
 export type Rail<T> =
   | { id: "classic"; kind: "classic"; rows: T[]; all: T[] }
