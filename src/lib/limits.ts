@@ -13,6 +13,14 @@
 /** Items one `POST /api/sync` may carry. */
 export const SYNC_PUSH_MAX = 200;
 
+/**
+ * Characters one `POST /api/sync` body may hold. The Function refuses a larger body (413). A big
+ * word book is several hundred KB per shard, so the client also splits by size, keeping well under.
+ */
+export const SYNC_BODY_MAX = 1_500_000;
+/** The client's own target per request, leaving room under SYNC_BODY_MAX. */
+export const SYNC_BODY_TARGET = 900_000;
+
 /** Longest meaning a reader may suggest with a word report, in characters. */
 export const SUGGESTION_MAX = 200;
 

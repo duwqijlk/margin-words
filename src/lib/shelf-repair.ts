@@ -180,7 +180,16 @@ export async function refreshCovers(): Promise<number> {
   for (const book of books) {
     try {
       const record = records.find((item) => item.bookId === book.id);
-      const classic = classics?.find((pack) => pack.id === record?.packId);
+      // A classic synced from another device has no pack record here, so it is also found by title
+      // and author: without that it kept the made-up cover instead of the catalog picture.
+      const classic =
+        classics?.find((pack) => pack.id === record?.packId) ??
+        (classics && !record
+          ? matchWordListPack(
+              classics,
+              { title: book.title, author: book.author, isbn: book.isbn ?? "" },
+            )
+          : null);
       const list =
         lists?.find((pack) => pack.id === record?.packId) ??
         (lists ? matchWordListPack(lists, { title: book.title, author: book.author, isbn: book.isbn ?? "" }) : null);

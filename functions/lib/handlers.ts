@@ -1,5 +1,5 @@
 import { cleanNickname } from "../../src/lib/nickname.ts";
-import { SYNC_PUSH_MAX } from "../../src/lib/limits.ts";
+import { SYNC_BODY_MAX, SYNC_PUSH_MAX } from "../../src/lib/limits.ts";
 import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merge.ts";
 import { effectiveRole } from "./admin.ts";
 import { isContributor, publishContributors } from "./contributors.ts";
@@ -422,7 +422,7 @@ export async function handleSyncPush(request: Request, env: Env, options?: Handl
     const now = nowOf(options);
     const user = await requireUser(env.DB, request, now);
     await assertUserRateLimit(env.DB, "sync", user.id, now);
-    const body = (await readJson(request)) as { items?: unknown };
+    const body = (await readJson(request, SYNC_BODY_MAX)) as { items?: unknown };
     if (!body || !Array.isArray(body.items)) throw new HttpError(400, "bad-request");
     // 200, not 500. Every item costs a read, a merge and a JSON round trip in the same request,
     // and 500 of them is a solid slice of the 10ms CPU the Free plan allows. The client sends at

@@ -4,7 +4,6 @@
  * side is dropped), then later edits are pushed on a short delay. Offline is
  * normal: the push waits and runs on the next start, focus, or reconnect.
  */
-import { SYNC_PUSH_MAX } from "@/lib/limits";
 import { useAccount, type AccountRole } from "@/lib/account-store";
 import { isSponsorAdmin } from "@/lib/sponsor";
 import { useLocale, type Locale } from "@/lib/i18n";
@@ -18,6 +17,7 @@ import {
   emptyMeta,
   loadMeta,
   noteChanges,
+  syncBatches,
   type LocalSnapshot,
   type SyncMeta,
 } from "@/lib/sync-diff";
@@ -280,11 +280,11 @@ async function pullItems(): Promise<SyncItem[]> {
 async function pushItems(items: SyncItem[]): Promise<SyncItem[]> {
   if (items.length === 0) return [];
   // A first sync from a new device can carry a whole shelf and a whole word book. One request
-  // with all of it is a lot of CPU for a single Function call (10ms on the Free plan), so the
-  // upload goes in batches and the answers are joined.
+  // with all of it is a lot of CPU for a single Function call (10ms on the Free plan) and can be
+  // larger than the server takes, so the upload goes in batches and the answers are joined.
   const out: SyncItem[] = [];
-  for (let start = 0; start < items.length; start += SYNC_PUSH_MAX) {
-    const payload = await accountRequest("/api/sync", { items: items.slice(start, start + SYNC_PUSH_MAX) });
+  for (const batch of syncBatches(items)) {
+    const payload = await accountRequest("/api/sync", { items: batch });
     out.push(...asItems(payload.items));
   }
   return out;
