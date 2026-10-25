@@ -1,5 +1,5 @@
 import { Github, Heart, Send, Users } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { Avatar } from "@/components/avatar";
 import { QqDialog } from "@/components/qq-dialog";
 import { SponsorDialog } from "@/components/sponsor-dialog";
@@ -31,13 +31,13 @@ function tabFromUrl(): OverviewTab {
 }
 
 /**
- * Overview sections as text tabs with an underline under the current one: a quiet document-style
- * switch, unlike the filled rounded category chips on Discover.
+ * Overview sections as words in the book face, the current one marked with a highlighter stroke
+ * (.overview-tab in styles.css), unlike the filled rounded category chips on Discover.
  */
 function OverviewTabs({ tab, onChange }: { tab: OverviewTab; onChange: (tab: OverviewTab) => void }) {
   const { t } = useT();
   return (
-    <div role="tablist" aria-label={t("dashboard.title")} className="flex gap-6 border-b border-line/70 sm:gap-8" data-overview-tabs>
+    <div role="tablist" aria-label={t("dashboard.title")} className="flex gap-7 sm:gap-10" data-overview-tabs>
       {TABS.map((item) => {
         const on = item.id === tab;
         return (
@@ -61,8 +61,8 @@ function OverviewTabs({ tab, onChange }: { tab: OverviewTab; onChange: (tab: Ove
               }
             }}
             className={cn(
-              "relative -mb-px min-h-11 border-b-2 px-0.5 text-[0.95rem] transition-colors",
-              on ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:text-ink",
+              "overview-tab min-h-11 px-0.5 font-display text-[1.05rem] transition-colors sm:text-[1.15rem]",
+              on ? "font-semibold text-ink" : "text-muted hover:text-ink",
             )}
             data-overview-tab={item.id}
           >
@@ -86,48 +86,94 @@ function ContributorRank() {
   const [everyone, setEveryone] = useState(false);
   const mine = myId ? people.findIndex((person) => person.id === myId) : -1;
   const me = mine >= 0 ? people[mine] : undefined;
-  const top = people.slice(0, 10);
+  const podium = people.slice(0, 3);
+  const rows = people.slice(3, 10);
   const rest = people.slice(10);
+  const nameOf = (person: { name: string }) => person.name || t("card.creditAnon");
+  // Second, first, third: the leader stands in the middle and highest.
+  const stand = [podium[1], podium[0], podium[2]];
   return (
-    <section className="grid gap-5" aria-label={t("dashboard.rankTitle")} data-contributor-rank>
-      <p className="px-1 text-sm leading-6 text-muted">{t("dashboard.rankIntro")}</p>
+    <section className="grid gap-7" aria-label={t("dashboard.rankTitle")} data-contributor-rank>
+      <p className="overview-rise max-w-prose px-1 text-[0.95rem] leading-7 text-muted">{t("dashboard.rankIntro")}</p>
       {signedIn ? (
-        <p className="rounded-2xl bg-accent-soft px-4 py-3 text-sm" data-rank-mine>
-          {me
-            ? t("dashboard.rankMine", { n: me.helped, place: mine + 1 })
-            : t("dashboard.rankMineNone")}
+        <p
+          className="overview-rise rounded-2xl border border-line/70 px-4 py-3.5 text-sm leading-6"
+          style={{ "--i": 1 } as CSSProperties}
+          data-rank-mine
+        >
+          {me ? (
+            <>
+              <span className="overview-mark font-semibold">{t("dashboard.rankMinePlace", { place: mine + 1 })}</span>{" "}
+              {t("dashboard.rankMineCount", { n: me.helped })}
+            </>
+          ) : (
+            t("dashboard.rankMineNone")
+          )}
         </p>
       ) : null}
       {people.length === 0 ? (
-        <p className="px-1 py-6 text-center text-sm text-muted" data-rank-empty>
+        <p className="overview-rise px-1 py-10 text-center font-display text-lg text-muted" data-rank-empty>
           {t("dashboard.rankEmpty")}
         </p>
       ) : (
-        <ol className="grid gap-px overflow-hidden rounded-2xl bg-line/60">
-          {top.map((person, index) => {
-            const name = person.name || t("card.creditAnon");
-            return (
-              <li
-                key={person.id}
-                className={cn("flex items-center gap-3 bg-card px-4 py-3", person.id === myId && "bg-accent-soft/60")}
-                data-rank-row={person.id}
-              >
-                <span className="w-5 shrink-0 text-right text-sm tabular-nums text-muted">{index + 1}</span>
-                <Avatar id={person.id} name={person.name} version={person.avatar} size={32} />
-                <span className="min-w-0 flex-1 truncate text-sm font-medium">{name}</span>
-                <span className="shrink-0 text-sm tabular-nums text-muted" data-rank-helped>
-                  {trn("count.meaningHelped", person.helped)}
-                </span>
-              </li>
-            );
-          })}
-        </ol>
+        <>
+          <ol className="grid grid-cols-3 items-end gap-2 sm:gap-4" aria-label={t("dashboard.rankTop")} data-rank-podium>
+            {stand.map((person, slot) => {
+              if (!person) return <li key={`empty-${slot}`} aria-hidden />;
+              const place = people.indexOf(person) + 1;
+              const first = place === 1;
+              return (
+                <li
+                  key={person.id}
+                  className={cn(
+                    "overview-rise overview-lift grid justify-items-center gap-2 rounded-3xl px-2 pt-5 pb-4 text-center",
+                    first ? "bg-card pb-6 shadow-sm" : "bg-card/60",
+                    person.id === myId && "ring-2 ring-accent/40",
+                  )}
+                  style={{ "--i": slot + 2 } as CSSProperties}
+                  data-rank-row={person.id}
+                >
+                  <span className={cn("font-display tabular-nums", first ? "text-3xl font-semibold" : "text-xl text-muted")}>
+                    {place}
+                  </span>
+                  <Avatar id={person.id} name={person.name} version={person.avatar} size={first ? 64 : 48} />
+                  <span className="max-w-full truncate text-sm font-semibold">{nameOf(person)}</span>
+                  <span className="text-xs tabular-nums text-muted" data-rank-helped>
+                    {trn("count.meaningHelped", person.helped)}
+                  </span>
+                </li>
+              );
+            })}
+          </ol>
+          {rows.length > 0 ? (
+            <ol className="grid" start={4}>
+              {rows.map((person, index) => (
+                <li
+                  key={person.id}
+                  className={cn(
+                    "overview-rise flex items-center gap-3 border-b border-line/50 px-2 py-3 last:border-0",
+                    person.id === myId && "rounded-xl bg-accent-soft/60",
+                  )}
+                  style={{ "--i": index + 5 } as CSSProperties}
+                  data-rank-row={person.id}
+                >
+                  <span className="w-6 shrink-0 text-right font-display text-sm tabular-nums text-muted">{index + 4}</span>
+                  <Avatar id={person.id} name={person.name} version={person.avatar} size={36} />
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium">{nameOf(person)}</span>
+                  <span className="shrink-0 text-sm tabular-nums text-muted" data-rank-helped>
+                    {trn("count.meaningHelped", person.helped)}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          ) : null}
+        </>
       )}
       {rest.length > 0 ? (
-        <div className="grid gap-3">
+        <div className="grid gap-4">
           <button
             type="button"
-            className="justify-self-start px-1 text-sm font-medium text-accent underline-offset-4 hover:underline"
+            className="justify-self-center rounded-full border border-line px-5 py-2 text-sm font-medium transition-colors hover:bg-card"
             aria-expanded={everyone}
             onClick={() => setEveryone((open) => !open)}
             data-rank-everyone
@@ -135,17 +181,23 @@ function ContributorRank() {
             {everyone ? t("dashboard.rankLess") : t("dashboard.rankAll", { n: people.length })}
           </button>
           {everyone ? (
-            <ul className="grid grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-5" data-rank-grid>
-              {rest.map((person) => {
-                const name = person.name || t("card.creditAnon");
-                return (
-                  <li key={person.id} className="grid justify-items-center gap-1 text-center" data-rank-cell={person.id}>
-                    <Avatar id={person.id} name={person.name} version={person.avatar} size={40} />
-                    <span className="max-w-full truncate text-xs font-medium">{name}</span>
-                    <span className="text-[0.7rem] tabular-nums text-muted">{trn("count.meaningHelped", person.helped)}</span>
-                  </li>
-                );
-              })}
+            <ul
+              className="scroll-thin grid max-h-[26rem] grid-cols-4 gap-x-2 gap-y-5 overflow-y-auto overscroll-contain rounded-2xl p-1 sm:grid-cols-6"
+              data-rank-grid
+            >
+              {rest.map((person, index) => (
+                <li
+                  key={person.id}
+                  className="overview-rise grid justify-items-center gap-1.5 text-center"
+                  style={{ "--i": Math.min(index, 12) } as CSSProperties}
+                  title={`${nameOf(person)} · ${trn("count.meaningHelped", person.helped)}`}
+                  data-rank-cell={person.id}
+                >
+                  <Avatar id={person.id} name={person.name} version={person.avatar} size={44} />
+                  <span className="max-w-full truncate text-xs font-medium">{nameOf(person)}</span>
+                  <span className="text-[0.7rem] tabular-nums text-muted">{person.helped}</span>
+                </li>
+              ))}
             </ul>
           ) : null}
         </div>
@@ -168,7 +220,7 @@ const CARDS: ReadonlyArray<{
 ];
 
 /** GitHub, Telegram, and QQ, the last row under the library counts. Shown even when the counts fail to load. */
-function DashboardLinks() {
+function DashboardLinks({ onSponsor }: { onSponsor: () => void }) {
   const { t } = useT();
   const [qqOpen, setQqOpen] = useState(false);
   const [groups, setGroups] = useState<string[] | null>(null);
@@ -202,6 +254,16 @@ function DashboardLinks() {
         </button>
       ) : null}
       <QqDialog open={qqOpen} onOpenChange={setQqOpen} groups={groups ?? []} />
+      {/* Its own line under the links, on every tab: plain words that open the sponsor dialog. */}
+      <button
+        type="button"
+        className="inline-flex min-h-11 basis-full items-center justify-center gap-1.5 text-sm font-medium text-accent underline-offset-4 hover:underline"
+        onClick={onSponsor}
+        data-sponsor-link
+      >
+        <Heart className="size-4" strokeWidth={1.5} aria-hidden />
+        {t("dashboard.sponsorProject")}
+      </button>
     </nav>
   );
 }
@@ -282,7 +344,7 @@ export function DashboardScreen() {
     >
       <div className="grid gap-6">
         <OverviewTabs tab={tab} onChange={chooseTab} />
-        <div role="tabpanel" id={`overview-panel-${tab}`} aria-labelledby={`overview-tab-${tab}`} data-overview-panel={tab}>
+        <div key={tab} role="tabpanel" id={`overview-panel-${tab}`} aria-labelledby={`overview-tab-${tab}`} data-overview-panel={tab}>
           {tab === "library" ? (
             <div className="grid gap-6">
           {state === "error" ? (
@@ -293,30 +355,35 @@ export function DashboardScreen() {
               </button>
             </div>
           ) : (
-            <div className="grid gap-3">
-              <ul
-                className="grid grid-cols-2 gap-2 sm:grid-flow-col sm:grid-cols-3 sm:grid-rows-2 sm:gap-3"
-                data-dashboard-counts
-              >
-                {CARDS.map((card) => {
+            <div className="grid gap-8">
+              {/* The one large thing: how many words are explained, with the highlighter behind it. */}
+              <div className="overview-rise grid gap-2 px-1" data-dashboard-hero>
+                <p className="font-display text-[3.4rem] leading-none font-semibold tracking-tight tabular-nums sm:text-[5.5rem]">
+                  <span className="overview-mark">{state === "ready" && totals ? groupDigits(totals.words) : "…"}</span>
+                </p>
+                <p className="max-w-md text-[0.95rem] leading-7 text-muted sm:text-base">
+                  {t("dashboard.heroWords")}
+                  {state === "ready" && totals ? t("dashboard.heroIn", { books: groupDigits(totals.books) }) : ""}
+                </p>
+              </div>
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-5" data-dashboard-counts>
+                {CARDS.filter((card) => card.id !== "words").map((card, index) => {
                   const n = card.id === "series" ? (totals?.series.length ?? 0) : (totals?.[card.id] ?? 0);
                   const shown = state === "ready";
                   return (
                     <li
                       key={card.id}
-                      className="grid content-center gap-1 rounded-2xl bg-card px-4 py-5 sm:px-6 sm:py-7"
+                      className="overview-rise grid gap-1 border-l-2 border-line/80 pl-3"
+                      style={{ "--i": index + 1 } as CSSProperties}
                       data-dash={card.id}
                       data-dash-value={shown ? n : undefined}
                       aria-label={shown ? trn(card.count, n) : t("dashboard.loading")}
                     >
+                      <p className="font-display text-[1.6rem] leading-tight font-semibold tabular-nums sm:text-[1.9rem]" aria-hidden>
+                        {shown ? groupDigits(n) : "…"}
+                      </p>
                       <p className="text-xs text-muted sm:text-sm" aria-hidden>
                         {t(card.label)}
-                      </p>
-                      <p
-                        className="text-[1.7rem] leading-tight font-semibold tracking-tight tabular-nums sm:text-[2.4rem]"
-                        aria-hidden
-                      >
-                        {shown ? groupDigits(n) : "…"}
                       </p>
                     </li>
                   );
@@ -333,44 +400,35 @@ export function DashboardScreen() {
           ) : tab === "contributors" ? (
             <ContributorRank />
           ) : (
-            <section className="grid gap-5" aria-label={t("dashboard.tabSupporters")} data-supporters>
-              <p className="px-1 text-sm leading-6 text-muted">{t("dashboard.supportersIntro")}</p>
+            <section className="grid gap-7" aria-label={t("dashboard.tabSupporters")} data-supporters>
+              <p className="overview-rise max-w-prose px-1 text-[0.95rem] leading-7 text-muted">{t("dashboard.supportersIntro")}</p>
               {names !== null && names.length > 0 ? (
-                <>
-                  <p className="flex items-center gap-1.5 px-1 text-sm font-semibold" data-supporter-count>
-                    <Heart className="size-4 shrink-0 text-accent" strokeWidth={1.5} aria-hidden />
-                    {trn("count.supporter", names.length)}
+                <div className="grid gap-5">
+                  <p className="overview-rise flex items-center gap-2 px-1 font-display text-xl" data-supporter-count>
+                    <Heart className="size-5 shrink-0 text-accent" strokeWidth={1.5} aria-hidden />
+                    <span className="overview-mark">{trn("count.supporter", names.length)}</span>
                   </p>
-                  <ul className="grid grid-cols-3 gap-x-2 gap-y-4 sm:grid-cols-5" data-supporter-names>
-                    {names.map((person) => (
+                  <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4" data-supporter-names>
+                    {names.map((person, index) => (
                       <li
                         key={person.publicId ?? person.name}
-                        className="grid justify-items-center gap-1 text-center"
+                        className="overview-rise overview-lift grid justify-items-center gap-2 rounded-3xl bg-card/70 px-2 py-5 text-center"
+                        style={{ "--i": Math.min(index, 12) + 1 } as CSSProperties}
                         data-supporter={person.publicId ?? ""}
                       >
-                        {person.publicId ? (
-                          <Avatar id={person.publicId} name={person.name} version={person.avatar} size={40} />
-                        ) : (
-                          <span className="inline-grid size-10 place-items-center rounded-full bg-accent-soft text-sm font-semibold text-accent" aria-hidden>
-                            {[...person.name.trim()][0]?.toUpperCase() ?? ""}
-                          </span>
-                        )}
-                        <span className="max-w-full truncate text-xs font-medium">{person.name}</span>
+                        <Avatar id={person.publicId ?? `name:${person.name}`} name={person.name} version={person.publicId ? person.avatar : undefined} size={52} />
+                        <span className="max-w-full truncate text-sm font-medium">{person.name}</span>
                       </li>
                     ))}
                   </ul>
-                </>
+                </div>
               ) : names !== null ? (
-                <p className="px-1 py-6 text-center text-sm text-muted">{t("dashboard.supportersEmpty")}</p>
+                <p className="px-1 py-10 text-center font-display text-lg text-muted">{t("dashboard.supportersEmpty")}</p>
               ) : null}
-              <button type="button" className={cn(btn.primary, "justify-self-start rounded-full px-6")} onClick={() => setOpen(true)} data-sponsor-link>
-                <Heart className="size-4" strokeWidth={1.5} aria-hidden />
-                {t("dashboard.supportUs")}
-              </button>
             </section>
           )}
         </div>
-        <DashboardLinks />
+        <DashboardLinks onSponsor={() => setOpen(true)} />
       </div>
       <SponsorDialog open={open} onOpenChange={setOpen} onSubmitted={() => setReload((n) => n + 1)} />
     </div>
