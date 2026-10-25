@@ -134,6 +134,12 @@ Reviewing a reader's `suggestion`:
   is a hint, not proof: check it against the sentence.
 - Never put a reader's text, name, or anything personal into the word list or your report beyond
   "accepted" / "rejected" and why.
+- **You fill in the rest.** A reader sends only a meaning. Every entry and new sense you write must
+  also have `pos` (part of speech) for the word **as it appears in this sentence** (`drifted` ->
+  `past-tense verb`, `lanterns` -> `plural noun`). Use the labels the app knows, listed in
+  `docs/book-pack-spec.md` section 4.1 (online:
+  `https://github.com/duwqijlk/margin-words/blob/main/docs/book-pack-spec.md`). Also add the anchor
+  from the report, and `whyHard` when a short reason helps. Never ask the reader for these.
 - **Credit an accepted suggestion.** On the sense (or entry) whose meaning came from it, add
   `"credit": "<suggested_by>"`. The card then shows "From <their nickname>" with their picture. Use
   only `suggested_by`; never write a name or email. One credit per sense: when several readers
