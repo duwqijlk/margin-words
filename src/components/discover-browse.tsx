@@ -147,7 +147,7 @@ export function BookRail({
               data-rail-book={row.id}
             >
               <span className="block transition-transform duration-200 group-hover:-translate-y-1">
-                <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible />
+                <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
               </span>
               <span
                 className="overflow-hidden font-display text-[0.82rem] leading-snug font-semibold text-ink group-hover:text-accent transition-colors [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.92rem]"
@@ -257,7 +257,7 @@ export function FeaturedBook({
         aria-label={t("browse.openAria", { title: row.title })}
       >
         <span className="w-24 shrink-0 shadow-pop transition-transform duration-300 group-hover:scale-[1.03] sm:w-36">
-          <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
+          <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={row.category === "speech" ? "talk" : "book"} />
         </span>
         <span className="grid min-w-0 gap-1.5 sm:gap-2.5">
           <span className="text-sm font-medium text-white/70">{t("browse.featured")}</span>
@@ -347,7 +347,7 @@ export function BookDetail({
             <>
               <div className="flex items-start gap-4 sm:gap-6">
                 <div className="relative w-28 shrink-0 sm:w-40">
-                  <BookCover title={row.title} author={row.author} cover={row.coverUrl} />
+                  <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={row.category === "speech" ? "talk" : "book"} />
                 </div>
                 <div className="grid min-w-0 flex-1 content-start gap-1.5">
                   <div className="flex items-start justify-between gap-2">
