@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { BUNDLED_CATALOG_URL } from "@/lib/packs";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
@@ -76,6 +76,9 @@ export function SeriesAdmin() {
   const [picked, setPicked] = useState<string[]>([]);
   const [query, setQuery] = useState("");
   const [seriesName, setSeriesName] = useState("");
+  /** Index in `rails` of the row open in the form below, or null when the form makes a new row. */
+  const [editing, setEditing] = useState<number | null>(null);
+  const formRef = useRef<HTMLDivElement | null>(null);
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState("");
   const [error, setError] = useState("");
@@ -130,19 +133,71 @@ export function SeriesAdmin() {
   }, [tabBooks, tabRails]);
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return tabBooks.filter((book) => !q || `${book.title} ${book.author}`.toLowerCase().includes(q)).slice(0, 40);
-  }, [tabBooks, query]);
+    const inRow = picked.map((key) => byKey.get(key)).filter((book): book is ShelfBook => Boolean(book));
+    const chosen = new Set(picked);
+    const more = tabBooks
+      .filter((book) => !chosen.has(book.key))
+      .filter((book) => !q || `${book.title} ${book.author}`.toLowerCase().includes(q))
+      .slice(0, 40);
+    return [...inRow, ...more];
+  }, [tabBooks, query, picked, byKey]);
   const tabFull = tabRails.length >= DISCOVER_RAIL_LIMIT;
   /** A novel row has no field (older files have none); any other tab writes its name. */
   const tabField = tab === "novel" ? {} : { category: tab };
 
-  function switchTab(next: RailCategory) {
-    setTab(next);
-    setSeriesName("");
+  function clearForm() {
+    setEditing(null);
     setName("");
     setPicked([]);
     setQuery("");
+  }
+
+  function switchTab(next: RailCategory) {
+    setTab(next);
+    setSeriesName("");
+    clearForm();
     setNote("");
+  }
+
+  /**
+   * Open a row in the form: its name, and its books already ticked at the top of the list.
+   * A row made from a series name opens with the books that series has now; saving makes it a
+   * row of exactly the books ticked.
+   */
+  function startEdit(at: number) {
+    const rail = rails[at];
+    if (!rail) return;
+    const keys =
+      rail.source === "custom"
+        ? rail.books
+        : tabBooks
+            .filter((book) => book.series === rail.name)
+            .sort((a, b) => (a.seriesNumber || 999) - (b.seriesNumber || 999) || a.title.localeCompare(b.title))
+            .map((book) => book.key);
+    setEditing(at);
+    setName(rail.name);
+    setPicked(keys);
+    setQuery("");
+    setNote("");
+    setError("");
+    requestAnimationFrame(() => formRef.current?.scrollIntoView({ block: "start", behavior: "smooth" }));
+  }
+
+  /** Save the open row in place and write the file, so the table shows the change at once. */
+  async function saveEdit() {
+    if (editing === null) return;
+    const trimmed = name.replace(/\s+/g, " ").trim();
+    if (!trimmed || picked.length === 0) return;
+    if (tabRails.some(({ rail, at }) => at !== editing && rail.name === trimmed)) {
+      setError(t("admin.series.nameTaken"));
+      return;
+    }
+    const next = rails.map((rail, at) =>
+      at === editing ? ({ source: "custom", name: trimmed, books: picked, ...tabField } as DiscoverRailSpec) : rail,
+    );
+    setRails(next);
+    clearForm();
+    await save(next);
   }
 
   /** Move a row up or down among this tab's rows only. */
@@ -166,11 +221,13 @@ export function SeriesAdmin() {
 
   function addCustom() {
     const trimmed = name.replace(/\s+/g, " ").trim();
-    if (!trimmed || picked.length === 0 || tabFull || tabRails.some(({ rail }) => rail.name === trimmed)) return;
+    if (!trimmed || picked.length === 0 || tabFull) return;
+    if (tabRails.some(({ rail }) => rail.name === trimmed)) {
+      setError(t("admin.series.nameTaken"));
+      return;
+    }
     setRails((current) => [...current, { source: "custom", name: trimmed, books: picked, ...tabField }]);
-    setName("");
-    setPicked([]);
-    setQuery("");
+    clearForm();
     setNote("");
   }
 
@@ -182,7 +239,7 @@ export function SeriesAdmin() {
     });
   }
 
-  async function save() {
+  async function save(list: DiscoverRailSpec[] = rails) {
     if (busy) return;
     setBusy(true);
     setError("");
@@ -192,7 +249,7 @@ export function SeriesAdmin() {
         method: "PUT",
         credentials: "same-origin",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ rails }),
+        body: JSON.stringify({ rails: list }),
       });
       if (!response.ok) throw new Error("save");
       setSaved(true);
@@ -242,7 +299,10 @@ export function SeriesAdmin() {
             {tabRails.map(({ rail, at }, index) => (
               <li
                 key={`${railCategory(rail)}:${rail.source}:${rail.name}`}
-                className="grid gap-2 rounded-xl border border-line/70 bg-paper/50 p-3.5 shadow-2xs transition-colors hover:border-line hover:bg-card sm:p-4"
+                className={cn(
+                  "grid gap-2 rounded-xl border bg-paper/50 p-3.5 shadow-2xs transition-colors hover:bg-card sm:p-4",
+                  editing === at ? "border-accent" : "border-line/70 hover:border-line",
+                )}
                 data-admin-series-row={rail.name}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
@@ -263,6 +323,15 @@ export function SeriesAdmin() {
                   <div className="flex items-center gap-1.5">
                     <button
                       type="button"
+                      className={cn(btn.quiet, "h-8 min-h-0 px-2 text-xs font-semibold", editing === at && "text-accent")}
+                      onClick={() => startEdit(at)}
+                      aria-pressed={editing === at}
+                      data-admin-series-edit={rail.name}
+                    >
+                      {t("admin.series.edit")}
+                    </button>
+                    <button
+                      type="button"
                       className={cn(btn.quiet, "h-8 min-h-0 px-2 text-xs")}
                       disabled={index === 0}
                       onClick={() => moveInTab(index, -1)}
@@ -280,7 +349,11 @@ export function SeriesAdmin() {
                     <button
                       type="button"
                       className={cn(btn.quiet, "h-8 min-h-0 px-2 text-xs text-muted hover:text-warn")}
-                      onClick={() => setRails((current) => current.filter((_, place) => place !== at))}
+                      onClick={() => {
+                        if (editing === at) clearForm();
+                        else if (editing !== null && editing > at) setEditing(editing - 1);
+                        setRails((current) => current.filter((_, place) => place !== at));
+                      }}
                     >
                       {t("admin.series.remove")}
                     </button>
@@ -327,10 +400,25 @@ export function SeriesAdmin() {
         </div>
       </div>
 
-      <div className="grid gap-4 rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6" data-admin-series-custom>
-        <span className="text-xs font-bold uppercase tracking-wider text-muted">
-          {t("admin.series.addCustom")}
-        </span>
+      <div
+        ref={formRef}
+        className={cn(
+          "grid scroll-mt-20 gap-4 rounded-2xl border bg-card p-5 shadow-2xs sm:p-6",
+          editing === null ? "border-line/80" : "border-accent",
+        )}
+        data-admin-series-custom
+        data-admin-series-editing={editing === null ? undefined : (rails[editing]?.name ?? "")}
+      >
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-muted">
+            {editing === null
+              ? t("admin.series.addCustom")
+              : t("admin.series.editing", { name: rails[editing]?.name ?? "" })}
+          </span>
+          <span className="text-xs text-muted tabular-nums" data-admin-series-picked={picked.length}>
+            {t("admin.series.picked", { n: picked.length })}
+          </span>
+        </div>
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="grid gap-1 text-xs font-semibold text-muted">
             {t("admin.series.name")}
@@ -369,16 +457,38 @@ export function SeriesAdmin() {
           ))}
         </ul>
 
-        <div>
-          <button
-            type="button"
-            className={cn(btn.quiet, "h-10 min-h-0 px-4 text-xs font-semibold")}
-            disabled={!name.trim() || picked.length === 0 || tabFull}
-            onClick={addCustom}
-          >
-            {t("admin.series.add")}
-          </button>
-        </div>
+        {editing === null ? (
+          <div>
+            <button
+              type="button"
+              className={cn(btn.quiet, "h-10 min-h-0 px-4 text-xs font-semibold")}
+              disabled={!name.trim() || picked.length === 0 || tabFull}
+              onClick={addCustom}
+            >
+              {t("admin.series.add")}
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              className={cn(btn.primary, "h-10 min-h-0 px-5 text-xs font-semibold")}
+              disabled={!name.trim() || picked.length === 0 || busy}
+              onClick={() => void saveEdit()}
+              data-admin-series-edit-save
+            >
+              {busy ? t("account.working") : t("admin.series.editSave")}
+            </button>
+            <button
+              type="button"
+              className={cn(btn.quiet, "h-10 min-h-0 px-4 text-xs font-semibold")}
+              onClick={clearForm}
+              data-admin-series-edit-cancel
+            >
+              {t("common.cancel")}
+            </button>
+          </div>
+        )}
       </div>
 
       {note ? <p className="text-xs font-semibold text-accent">{note}</p> : null}
