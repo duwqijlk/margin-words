@@ -968,3 +968,74 @@
     backdrop-filter: blur(28px) saturate(180%);
   }
 }
+
+/*
+ * Overview. One signature: the highlighter stroke a reader uses in a book, under the current tab
+ * and behind the big numbers, in each theme's own --mark colour. The rest is quiet: content rises
+ * in once when a tab opens. Every motion here is off under prefers-reduced-motion.
+ */
+.overview-tab {
+  position: relative;
+  isolation: isolate;
+}
+.overview-tab::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -0.3em;
+  right: -0.3em;
+  bottom: 0.32em;
+  height: 0.62em;
+  border-radius: 0.2em 0.5em 0.3em 0.6em;
+  background: rgb(var(--mark-rgb) / 0.85);
+  transform: scaleX(0) rotate(-1deg);
+  transform-origin: left center;
+  transition: transform 0.32s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.overview-tab[aria-selected="true"]::before {
+  transform: scaleX(1) rotate(-1deg);
+}
+.overview-mark {
+  background-image: linear-gradient(transparent 66%, rgb(var(--mark-rgb) / 0.75) 66%, rgb(var(--mark-rgb) / 0.75) 90%, transparent 90%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0 0.08em;
+}
+@keyframes overview-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes overview-mark-in {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .overview-rise {
+    animation: overview-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 60ms);
+  }
+  .overview-mark {
+    animation: overview-mark-in 0.7s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .overview-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .overview-lift:hover {
+    transform: translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .overview-tab::before {
+    transition: none;
+  }
+}
