@@ -19,6 +19,7 @@ import {
   type SyncItem,
   type WordbookRecord,
 } from "./sync-merge.ts";
+import { SYNC_BODY_TARGET, SYNC_PUSH_MAX } from "./limits.ts";
 
 export type SyncMeta = {
   shelfDeleted: Record<string, number>;
@@ -334,4 +335,30 @@ export function captureSnapshot(input: {
     if (row) progress[bookId] = row;
   }
   return { books, words, progress, settings: asSettings(input.settings) };
+}
+
+/**
+ * Cut an upload into requests the server accepts: at most SYNC_PUSH_MAX items and about
+ * SYNC_BODY_TARGET characters each. Shelf, progress and settings go first, so a large word book
+ * (hundreds of KB per shard) never holds back a book added on this device. An item bigger than the
+ * target goes alone.
+ */
+export function syncBatches(items: readonly SyncItem[]): SyncItem[][] {
+  const weight = (item: SyncItem) => (item.kind === "wordbook" || item.kind === "words" ? 1 : 0);
+  const ordered = [...items].sort((a, b) => weight(a) - weight(b));
+  const batches: SyncItem[][] = [];
+  let current: SyncItem[] = [];
+  let size = 0;
+  for (const item of ordered) {
+    const length = JSON.stringify(item).length + 1;
+    if (current.length > 0 && (current.length >= SYNC_PUSH_MAX || size + length > SYNC_BODY_TARGET)) {
+      batches.push(current);
+      current = [];
+      size = 0;
+    }
+    current.push(item);
+    size += length;
+  }
+  if (current.length > 0) batches.push(current);
+  return batches;
 }

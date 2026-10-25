@@ -48,3 +48,15 @@ test("a saved width key still picks a column, and the slider stays in range", ()
   assert.equal(columnRem({ column: 1 }), COLUMN_MIN);
   assert.equal(columnRem({ column: 200 }), COLUMN_MAX);
 });
+
+test("a classic synced from another device is matched to its catalog row by title and author", async () => {
+  const { matchWordListPack } = await import("../src/lib/book-meta.ts");
+  // The shape of the public-books catalog: a classic has no pack record on a phone that only synced it.
+  const classics = [
+    { id: "treasure-island", title: "Treasure Island", author: "Robert Louis Stevenson", isbn: "" },
+    { id: "alice", title: "Alice's Adventures in Wonderland", author: "Lewis Carroll", isbn: "" },
+  ];
+  const synced = { title: "Alice's Adventures in Wonderland", author: "Lewis Carroll", isbn: "" };
+  assert.equal(matchWordListPack(classics, synced)?.id, "alice");
+  assert.equal(matchWordListPack(classics, { title: "Alice's Adventures in Wonderland", author: "Someone Else", isbn: "" }), null, "another author is another book");
+});

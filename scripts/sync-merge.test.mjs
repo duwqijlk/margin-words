@@ -1,7 +1,8 @@
 // Merge rules for optional account sync: union, last-write-wins, word tombstones.
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { buildSyncItems, emptyMeta, noteChanges } from "../src/lib/sync-diff.ts";
+import { buildSyncItems, emptyMeta, noteChanges, syncBatches } from "../src/lib/sync-diff.ts";
+import { SYNC_BODY_MAX, SYNC_PUSH_MAX } from "../src/lib/limits.ts";
 import {
   bookSyncKey,
   asSettings,
@@ -527,4 +528,36 @@ test("progress load and merge keep extraId and anchor, either field, or neither"
   );
   assert.equal(left.data.extraId, "", "an explicit empty extraId is not replaced by an older extra");
   assert.equal(left.data.anchor.paragraph, 2);
+});
+
+test("an upload is split by size, and shelf cards go before a large word book", () => {
+  const big = (letter, size) => ({
+    kind: "wordbook",
+    itemId: `w-${letter}`,
+    updatedAt: 1,
+    deleted: false,
+    data: { words: [{ lemma: letter, note: "x".repeat(size) }] },
+  });
+  // A word book like a real reader's: 1.8 MB in a few shards, plus one new shelf card.
+  const items = [
+    big("s", 280_000), big("c", 175_000), big("p", 150_000), big("b", 125_000), big("t", 120_000),
+    big("d", 110_000), big("a", 100_000), big("e", 100_000), big("m", 90_000), big("r", 90_000),
+    big("g", 80_000), big("h", 80_000), big("l", 70_000), big("f", 60_000), big("w", 60_000),
+    { kind: "shelf", itemId: "book:flipped|draanenvanwendelin", updatedAt: 2, deleted: false, data: { id: "f", title: "Flipped" } },
+  ];
+  assert.ok(JSON.stringify({ items }).length > SYNC_BODY_MAX, "one request would be refused");
+  const batches = syncBatches(items);
+  assert.ok(batches.length > 1);
+  for (const batch of batches) {
+    assert.ok(JSON.stringify({ items: batch }).length <= SYNC_BODY_MAX, "every request fits the server");
+    assert.ok(batch.length <= SYNC_PUSH_MAX);
+  }
+  assert.equal(batches[0][0].kind, "shelf", "the shelf card is in the first request");
+  assert.equal(batches.flat().length, items.length, "nothing is dropped");
+});
+
+test("an item larger than the target still goes, alone", () => {
+  const huge = { kind: "wordbook", itemId: "w-x", updatedAt: 1, deleted: false, data: { n: "x".repeat(1_000_000) } };
+  const small = { kind: "settings", itemId: "main", updatedAt: 1, deleted: false, data: {} };
+  assert.deepEqual(syncBatches([huge, small]).map((batch) => batch.map((item) => item.itemId)), [["main"], ["w-x"]]);
 });
