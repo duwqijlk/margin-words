@@ -178,7 +178,8 @@ export function ReaderScreen({
     block: number;
   } | null>(null);
   // Paragraph help (overlay). `index` is the paragraph number from paragraphBlocks().
-  const [help, setHelp] = useState<{ index: number } | null>(null);
+  // `sentence`: the sentence a word card was opened on, so its note starts selected.
+  const [help, setHelp] = useState<{ index: number; sentence?: string } | null>(null);
   const [helpState, setHelpState] = useState<ParagraphPanelState>({ status: "loading" });
   const helpToken = useRef(0);
   const [phraseHit, setPhraseHit] = useState<{ at: string; hit: PhraseHit } | null>(null);
@@ -1331,14 +1332,14 @@ export function ReaderScreen({
     return root ? (readerParagraphBlocks(root)[index] ?? null) : null;
   }
 
-  function openHelp(index: number) {
+  function openHelp(index: number, sentence?: string) {
     const el = paragraphElement(index);
     if (!el || !book) return;
     const root = articleRef.current;
     const texts = root ? readerParagraphBlocks(root).map((block) => flowText(block)) : [];
     setAnchor(el instanceof HTMLElement ? el : null);
     setPicked(null);
-    setHelp({ index });
+    setHelp(sentence ? { index, sentence } : { index });
     setHelpState({ status: "loading" });
     helpToken.current += 1;
     const token = helpToken.current;
@@ -1357,6 +1358,24 @@ export function ReaderScreen({
     helpToken.current += 1;
     setHelp(null);
   }
+
+  /**
+   * A phone sheet covers the lower half of the page. Scroll so a marked sentence sits in the part
+   * that stays visible, under the top bar and above the sheet. Wide screens float the panel beside
+   * the paragraph and need no scroll.
+   */
+  const revealAboveSheet = useCallback((top: number, bottom: number) => {
+    if (!phoneSheet()) return;
+    const sheet = document.querySelector("aside[data-para-panel]")?.getBoundingClientRect();
+    const barBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0;
+    const visibleTop = Math.max(0, barBottom) + 12;
+    const visibleBottom = (sheet ? sheet.top : window.innerHeight) - 12;
+    if (top >= visibleTop && bottom <= visibleBottom) return;
+    // Put the sentence's top just under the bar; a long sentence keeps its start in view.
+    const by = top - visibleTop;
+    pageGuard.current?.quiet();
+    window.scrollBy({ top: by });
+  }, []);
 
   /** Open the word card for a word button on the page (shared by taps and the hard-word list). */
   function pickButton(button: Element) {
@@ -1826,6 +1845,9 @@ export function ReaderScreen({
           key={help.index}
           state={helpState}
           anchor={anchor}
+          paragraphEl={paragraphElement(help.index)}
+          startSentence={help.sentence}
+          onRevealSentence={revealAboveSheet}
           onClose={closeHelp}
           onWord={pickFromParagraph}
         />
@@ -1853,7 +1875,9 @@ export function ReaderScreen({
           chapters={book?.chapters.length ?? 0}
           noteChapter={activeExtra?.fromToc ? activeExtra.id : viewChapter}
           // The sentence hint opens the same panel as the bulb of the tapped paragraph.
-          onSentenceHelp={picked ? () => openHelp(picked.block) : undefined}
+          onSentenceHelp={
+            picked ? () => openHelp(picked.block, card.fullSentence || card.sentence) : undefined
+          }
           anchor={anchor}
           onClose={closeWordCard}
           onToggle={() => {

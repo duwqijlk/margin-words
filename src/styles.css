@@ -270,6 +270,10 @@
 
   /* ---- Reading surface ---------------------------------------------------- */
   .book-body {
+    /* Above the sentence marks (help-panels.tsx, z-index 1), so a mark is a highlighter UNDER
+       the words, not a tint over them. The page background stays behind both. */
+    position: relative;
+    z-index: 2;
     font-family: var(--reader-font, var(--font-display));
     font-size: var(--reader-size, 1.25rem);
     line-height: var(--reader-leading, 1.8);

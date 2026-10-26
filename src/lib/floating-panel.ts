@@ -145,6 +145,15 @@ export function anchorBox(el: HTMLElement): AnchorRect {
     return { left: box.left, top: box.top, width: box.width, height: box.height };
   }
   const full = el.getBoundingClientRect();
+  // A paragraph whose sentences are marked in the page should stay visible: the panel goes
+  // beside it or under it, not over it. Only when the paragraph's visible part is small enough
+  // to leave room for the panel; a long paragraph keeps the one-line anchor below.
+  if (el.hasAttribute("data-help-keep") && typeof window !== "undefined") {
+    const top = Math.max(full.top, 8);
+    const bottom = Math.min(full.bottom, window.innerHeight - 8);
+    if (bottom - top > 16 && bottom - top <= window.innerHeight * 0.45)
+      return { left: full.left, top, width: full.width, height: bottom - top };
+  }
   const top = Math.min(Math.max(full.top, 8), Math.max(full.bottom - 24, 8));
   const height = Math.min(36, Math.max(16, full.bottom - top));
   return { left: full.left, top, width: full.width, height };

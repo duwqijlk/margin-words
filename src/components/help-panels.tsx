@@ -1,5 +1,6 @@
 import { ChevronDown, Lightbulb, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { getParagraphNoteFlags, paragraphBlocks } from "@/lib/help-lookup";
 import { useT } from "@/lib/i18n";
 import { loadSentenceView, type ParagraphHelpView, type SentenceInParagraph } from "@/lib/help-flow";
@@ -8,6 +9,8 @@ import { btn, cn } from "@/components/ui";
 import { CreditLine } from "@/components/credit-line";
 import { flowText } from "@/lib/flow-text";
 import { lastLineBox, planBulbs, MARGIN_BULB_SIZE, type BulbSpot } from "@/lib/paragraph-bulbs";
+import { containsContext } from "@/lib/help-match";
+import { noteSentenceRange } from "@/lib/note-sentence";
 import { SIDE_PANEL } from "@/components/side-panel";
 
 /*
@@ -196,12 +199,21 @@ export type ParagraphPanelState =
 export function ParagraphPanel({
   state,
   anchor,
+  paragraphEl,
+  startSentence,
+  onRevealSentence,
   onClose,
   onWord,
 }: {
   state: ParagraphPanelState;
   /** the paragraph the card should sit next to on a wide screen */
   anchor: HTMLElement | null;
+  /** the paragraph on the page, so the sentences the notes explain can be marked in it */
+  paragraphEl?: Element | null;
+  /** the sentence a word card was opened on: its note starts selected */
+  startSentence?: string;
+  /** Keep a marked sentence in view: called with its top and bottom on screen. */
+  onRevealSentence?: (top: number, bottom: number) => void;
   onClose: () => void;
   onWord: (word: string) => void;
 }) {
@@ -210,6 +222,15 @@ export function ParagraphPanel({
   const [open, setOpen] = useState(true);
   const paragraph = state.status === "ready" ? state.view.paragraph : null;
   const sentences = state.status === "ready" ? state.view.sentences : [];
+  const [chosen, setChosen] = useState<number | null>(null);
+  // Coming from a word card, the note of that sentence is the one the reader asked about.
+  useEffect(() => {
+    if (!startSentence || sentences.length === 0) return;
+    const at = sentences.findIndex((note) => containsContext(startSentence, note.context));
+    if (at >= 0) setChosen(at);
+    // Only when the notes arrive: a later click picks freely.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sentences.length, startSentence]);
   return (
     <FloatingAside
       anchor={anchor}
@@ -224,6 +245,15 @@ export function ParagraphPanel({
       )}
     >
       <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden" aria-hidden />
+      {paragraphEl && sentences.length > 0 ? (
+        <SentenceMarks
+          paragraphEl={paragraphEl}
+          contexts={sentences.map((note) => note.context)}
+          chosen={chosen}
+          onChoose={setChosen}
+          onReveal={onRevealSentence}
+        />
+      ) : null}
       <div className="grid gap-3.5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 flex-wrap items-center gap-x-2.5 gap-y-1">
@@ -318,7 +348,12 @@ export function ParagraphPanel({
               >
                 <h3 className="text-xs font-semibold text-muted">{t("hp.sentences")}</h3>
                 {sentences.map((note, at) => (
-                  <SentenceNote key={`${at}:${note.context}`} note={note} />
+                  <SentenceNote
+                    key={`${at}:${note.context}`}
+                    note={note}
+                    chosen={chosen === at}
+                    onChoose={() => setChosen((now) => (now === at ? null : at))}
+                  />
                 ))}
               </section>
             ) : null}
@@ -333,19 +368,36 @@ export function ParagraphPanel({
   );
 }
 
-/** One sentence note in the paragraph panel: which sentence (its context), then the help. */
-function SentenceNote({ note }: { note: SentenceInParagraph }) {
+/**
+ * One sentence note in the paragraph panel: which sentence (its context), then the help. A tap
+ * marks that sentence more strongly in the page, so the reader can see which one it explains.
+ */
+function SentenceNote({
+  note,
+  chosen,
+  onChoose,
+}: {
+  note: SentenceInParagraph;
+  chosen: boolean;
+  onChoose: () => void;
+}) {
   const { t } = useT();
   return (
-    <div className="grid gap-1.5" data-sentence-note>
-      <blockquote
-        className="border-l-2 border-line pl-2.5 font-display text-[0.92rem] leading-relaxed text-muted italic"
+    <div
+      className={cn("-mx-2 grid gap-1.5 rounded-lg px-2 py-1.5 transition-colors", chosen && "bg-mark/45")}
+      data-sentence-note
+      data-chosen={chosen ? "" : undefined}
+    >
+      <button
+        type="button"
+        onClick={onChoose}
+        aria-pressed={chosen}
+        className="border-l-2 border-mark pl-2.5 text-left font-display text-[0.92rem] leading-relaxed text-muted"
         lang="en"
         data-part="sentence-context"
       >
         {note.context}
-      </blockquote>
-      {note.credit ? <CreditLine id={note.credit} /> : null}
+      </button>
       <p className="text-[1.02rem] leading-relaxed" lang="en" data-part="easier">
         {note.simple}
       </p>
@@ -355,7 +407,147 @@ function SentenceNote({ note }: { note: SentenceInParagraph }) {
           {note.grammar}
         </p>
       ) : null}
+      {note.credit ? <CreditLine id={note.credit} /> : null}
     </div>
+  );
+}
+
+type MarkBox = { note: number; top: number; left: number; width: number; height: number };
+
+/**
+ * While the panel is open, every sentence of the paragraph that has a note is marked in the page,
+ * like a highlighter, and the chosen one more strongly. The marks are position: fixed boxes drawn
+ * from the sentence's line boxes, under the text (pointer-events off), so nothing in the page moves
+ * and a word under a mark still opens its card. A tap on a marked sentence, off a word, chooses its note.
+ */
+function SentenceMarks({
+  paragraphEl,
+  contexts,
+  chosen,
+  onChoose,
+  onReveal,
+}: {
+  paragraphEl: Element;
+  contexts: readonly string[];
+  chosen: number | null;
+  onChoose: (index: number) => void;
+  /** Asked once the marks are drawn: the top of the chosen (or first) marked sentence on screen. */
+  onReveal?: (top: number, bottom: number) => void;
+}) {
+  const [boxes, setBoxes] = useState<MarkBox[]>([]);
+  const key = contexts.join("\u0001");
+  const revealed = useRef("");
+  useEffect(() => {
+    if (!onReveal || boxes.length === 0) return;
+    const note = chosen ?? boxes[0]?.note ?? 0;
+    const tag = `${key}|${note}`;
+    if (revealed.current === tag) return;
+    revealed.current = tag;
+    const mine = boxes.filter((box) => box.note === note);
+    if (mine.length === 0) return;
+    onReveal(Math.min(...mine.map((b) => b.top)), Math.max(...mine.map((b) => b.top + b.height)));
+  }, [boxes, chosen, key, onReveal]);
+
+  useEffect(() => {
+    let frame = 0;
+    // The floating card keeps clear of a paragraph marked this way (anchorBox in floating-panel.ts).
+    paragraphEl.setAttribute("data-help-keep", "");
+    const ranges = contexts.map((context) => noteSentenceRange(paragraphEl, context));
+    const measure = () => {
+      frame = 0;
+      const next: MarkBox[] = [];
+      ranges.forEach((range, note) => {
+        if (!range) return;
+        // A range reports one box per word button and text piece; they overlap and would stack
+        // the colour. Join them into one box per line.
+        const lines: MarkBox[] = [];
+        for (const r of Array.from(range.getClientRects())) {
+          if (r.width < 1 || r.height < 1) continue;
+          const mid = r.top + r.height / 2;
+          const line = lines.find((box) => mid > box.top && mid < box.top + box.height);
+          if (line) {
+            const right = Math.max(line.left + line.width, r.right);
+            line.left = Math.min(line.left, r.left);
+            line.width = right - line.left;
+            const bottom = Math.max(line.top + line.height, r.bottom);
+            line.top = Math.min(line.top, r.top);
+            line.height = bottom - line.top;
+          } else {
+            lines.push({ note, top: r.top, left: r.left, width: r.width, height: r.height });
+          }
+        }
+        for (const box of lines)
+          next.push({
+            note,
+            top: Math.round(box.top),
+            left: Math.round(box.left),
+            width: Math.round(box.width),
+            height: Math.round(box.height),
+          });
+      });
+      setBoxes((prev) => (JSON.stringify(prev) === JSON.stringify(next) ? prev : next));
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", schedule, { passive: true, capture: true });
+    window.addEventListener("resize", schedule);
+    const observer = typeof ResizeObserver === "function" ? new ResizeObserver(schedule) : null;
+    observer?.observe(paragraphEl);
+    return () => {
+      paragraphEl.removeAttribute("data-help-keep");
+      window.removeEventListener("scroll", schedule, true);
+      window.removeEventListener("resize", schedule);
+      observer?.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+    };
+    // `key` stands for `contexts`: a new array holding the same notes must not re-measure.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paragraphEl, key]);
+
+  // A tap in the page on a marked sentence picks its note. Capture, so it runs before the reader's
+  // own tap handling closes the panel. A word under the mark still opens its card.
+  useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      const target = event.target as Element | null;
+      if (!target || !paragraphEl.contains(target) || target.closest?.("[data-word]")) return;
+      const hit = boxes.find(
+        (box) =>
+          event.clientX >= box.left &&
+          event.clientX <= box.left + box.width &&
+          event.clientY >= box.top &&
+          event.clientY <= box.top + box.height,
+      );
+      if (!hit) return;
+      event.preventDefault();
+      event.stopPropagation();
+      onChoose(hit.note);
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, [boxes, onChoose, paragraphEl]);
+
+  // A portal into the body: the panel is a transformed sheet, and position: fixed inside a
+  // transformed parent is placed against that parent, which drew the marks over the panel.
+  return createPortal(
+    <>
+      {boxes.map((box, at) => (
+        <div
+          key={at}
+          aria-hidden
+          data-para-ui
+          data-sentence-mark={box.note}
+          data-chosen={chosen === box.note ? "" : undefined}
+          className={cn(
+            "pointer-events-none fixed z-[1] rounded-[3px]",
+            chosen === box.note ? "bg-mark/80" : "bg-mark/35",
+          )}
+          style={{ top: box.top, left: box.left - 1, width: box.width + 2, height: box.height }}
+        />
+      ))}
+    </>,
+    document.body,
   );
 }
 

@@ -193,7 +193,9 @@ Never copy more of the book than a note's `context` needs.
 **Where readers see each note.** A paragraph note and a sentence note open from the same place:
 a lightbulb beside the paragraph. The paragraph panel shows the paragraph note, then a "Hard
 sentences" list with every sentence note whose `context` is inside that paragraph. In the word card
-a sentence note is only a small "Explain this sentence" link that opens that panel. Copy the
+a sentence note is only a small "Explain this sentence" link that opens that panel. While the panel
+is open, the sentence each note explains is marked in the page like a highlighter: the sentence that
+holds the note's `context`. Copy the
 `context` exactly from ONE sentence: the bulb needs it inside one paragraph, and the word-card link
 needs it inside the tapped sentence. A `context` that is not in the book, or runs across two
 paragraphs, lights no bulb and shows nowhere.
