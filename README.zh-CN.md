@@ -83,75 +83,45 @@ Copyright (c) 2026 XCRUN.
 
 如果某段引文不该出现在这里，请到 <https://github.com/duwqijlk/margin-words/issues> 告诉我们。
 
-## 开发和托管
+## 开发和维护
 
-### 书的文件在哪里
+书和词表不再在这个仓库里维护。这里的 `packs/` 和 `public-books/` 是冻结快照；线上 R2 存储桶和 D1 记录才是当前来源。不要把线上内容复制回 Git，不要提交书籍内容，也不要为书籍内容开 PR。当前操作地图见 [docs/MAINTENANCE.md](docs/MAINTENANCE.md)。
 
-> **书不再放在 Git 里维护。** 线上的存储桶（`margin-words-books`、`margin-words-private`）和 D1 数据库是书和词表的唯一来源。这里的 `packs/` 和 `public-books/` 是冻结的旧快照，不再更新。新增书籍或修改词表，请按 [docs/BOOK_UPLOAD.md](docs/BOOK_UPLOAD.md) 直接上传到 R2，或者使用管理后台。不要把书的内容提交到 Git，也不要为此开 PR。下面的命令是旧流程，只作记录保留。
+先看[维护地图](docs/MAINTENANCE.md)，了解存储归属、版本与缓存、发布安全和恢复，再按任务进入对应指南：
 
-克隆这个仓库，会得到词表和示例故事，不会得到小说。有版权的 EPUB 放在私有桶 `margin-words-private`。公版 EPUB 放在 `https://books.inputread.site`。Git 里唯一的 EPUB 是 `examples/sample-book/the-lantern-seller.epub`。
+| 想改什么 | 去哪里 | 是否需要部署 |
+| --- | --- | --- |
+| 界面、阅读器、浏览器行为 | `src/`；[项目约束](AGENTS.md) | 需要 |
+| API、登录、权限、配额行为 | `functions/`；[账号手册](docs/ACCOUNTS.md) | 需要；先满足数据库结构要求 |
+| 书籍、词典、封面、书籍系列/分类 | [上传手册](docs/BOOK_UPLOAD.md) | 不需要 |
+| 发现页保存的展示列 | 后台 → 系列；[系列与展示列的区别](docs/BOOK_UPLOAD.md#86-a-books-series-vs-a-discover-rail) | 不需要 |
+| 读者反馈、释义修正、采纳署名 | [巡检手册](docs/GLOSSARY_PATROL.md) | 不需要 |
+| 双语简介 | [简介手册](docs/BOOK_BLURBS.md) | 不需要 |
+| 账号数据和角色 | [账号手册](docs/ACCOUNTS.md) | 支持的纯数据操作不需要 |
+| 线上工作文档 | `docs/`；[文档归属](docs/MAINTENANCE.md#ownership) | 需要，发布到 `/kit/*.md` |
 
-在一台另外存有书文件的电脑上，目录是这样的：
+当前唯一的[部署流程](docs/MAINTENANCE.md#deploy)由维护地图说明，不放在书籍手册里。
 
-```
-packs/catalog.json         有版权书的清单
-packs/<id>/glossary.json   这本书的词表
-packs/<id>/book.epub       只在本机；Git 会忽略它
-public-books/              免费的公版书，同样的方式
-```
+不要用已经废弃的本机发布命令更新线上书籍。公开显示的贡献者姓名和头像文件，是“用户数据只放 D1”规则中已记录的 R2 例外；遇到这部分时按维护地图操作。
 
-`npm run build:books` 写出 `dist-books/`：散装的公版文件、散装的词表、有 `packs/<id>/cover.jpg` 时的小封面，以及目录。没有 zip，也没有有版权的 EPUB。没有封面的词表书，在应用里用生成的书名和作者封面。
+公开网站是 [inputread.site](https://inputread.site)。更早的 Pull Request 留在私有档案 [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive)；见 [docs/ARCHIVE.zh-CN.md](docs/ARCHIVE.zh-CN.md)。[迁移说明](docs/MIGRATION.zh-CN.md)只保留历史和兼容记录，当前操作请看[维护地图](docs/MAINTENANCE.md)，不要把迁移说明当作新的操作指南。
 
-`npm run build:private` 根据本机的 `packs/<id>/book.epub` 写出 `dist-private/`（EPUB、词表和封面）。这个文件夹只上传到 `margin-words-private`。应用不会去读那个桶。不要把 `dist-private/` 放进 `dist/` 或 `dist-books/`。
+### 本机检查
 
-词表格式：[docs/GLOSSARY_FORMAT.md](docs/GLOSSARY_FORMAT.md)。图书包目录：[docs/PACKS_FORMAT.md](docs/PACKS_FORMAT.md)。本机目录用 `node scripts/build-packs.mjs` 重新生成。
-
-### 把网站和书放到线上
-
-1. 用 `npx vite build` 构建前端，把 `dist/` 部署到 Cloudflare Pages。正式构建从 `https://books.inputread.site` 取书。换站点时设置 `VITE_BOOKS_BASE`。
-2. 用 `npm run build:books` 生成书籍文件，再按路径作为对象键上传：
-
-   ```bash
-   cd dist-books && find . -type f | sed 's|^\./||' | while read -r key; do
-     npx wrangler r2 object put "$BUCKET/$key" --file "$key" --remote
-   done
-   ```
-
-   `https://books.inputread.site` 后面的存储桶必须允许这些来源跨域读取：`https://inputread.site`、`https://www.inputread.site`、`https://margin-words.pages.dev`，以及 localhost。页面从这次跨域响应读到书，再存在浏览器里。
-3. `packs/`、`site/` 和 `dist-private/` 不要放到公开网站上。`node scripts/build-site.mjs` 会写出 `site/`（`dist/` 加上 `packs/`），给自己的电脑用。
-
-`catalog.json` 里的地址是相对于目录文件本身的。应用使用内置书目。
-
-### 一本书怎样进书架
-
-1. 打开应用。新书架是空的，只有一行字：到发现里面添加一本书。
-2. 登录。在“发现”里点封面上的加号。加号变成对勾（“已在书架”）。再点对勾，选择“移出书架”，书就离开。刚放上去的书可以撤销。已经读过的书，或者已经添加了自己 EPUB 的书，会先询问。
-3. 公版书在添加时下载。词表书会下载词表，并请你添加卡片上那个书号的 EPUB。低于 80% 的匹配会在保存前说明。书和词表存在浏览器里（IndexedDB）。
-4. 这之后，书和词表留在这台设备上（IndexedDB）。打开网站需要网络。服务工作线程不再代替浏览器打开页面。
-5. 词表有新版本（目录里的 `rev` 变了）时，已经在书架上的书仍用原来的词表。书架卡片和“发现”卡片会显示**更新**，并提示有几本书在等。只有点了更新，才会换上新词表。书、阅读位置、生词和设置都保留。自己添加或改过的词表不会被替换。新词表和读者的 EPUB 对不上（低于 80%）时，旧词表留着，卡片上会说明原因。
-
-已经在书架上的书，菜单里仍然可以**添加词表**（一份 `.json`）。
-
-### 检查
+常用的本机检查：
 
 ```bash
 npx tsc --noEmit
 npm run check:cjk          # 中文只允许出现在 src/lib/i18n-zh.ts、docs/ 和 README.zh-CN.md
 npm run check:example
-node scripts/validate-glossary.mjs packs/twits/book.epub packs/twits/glossary.json
-node scripts/build-packs.mjs --check
 npm test
 ```
+
+完整的词表检查需要匹配的 EPUB；本仓库没有线上书籍所需的本地 EPUB。只有在你有这本书的合法本地 EPUB 时，才运行 `node scripts/validate-glossary.mjs <book.epub> <glossary.json>`。`node scripts/build-packs.mjs --check` 只检查冻结快照，不会发布它。
 
 ### 界面语言
 
 所有看得见的文字都在两本词典里，键名相同：`src/lib/i18n-en.ts` 和 `src/lib/i18n-zh.ts`。少一个键，`npx tsc --noEmit` 就会失败。第一次打开时跟着浏览器语言（中文用中文，其他用英文），选择会保存下来。书的内容（解释、笔记、短语、书名）不会被翻译。
-
-### 这个公开仓库
-
-以后的开发在这里。更早的 Pull Request 留在私有档案 [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive)。记录：[docs/ARCHIVE.zh-CN.md](docs/ARCHIVE.zh-CN.md)。搬迁说明：[MIGRATION.md](MIGRATION.md)（中文：[docs/MIGRATION.zh-CN.md](docs/MIGRATION.zh-CN.md)）。
-
-更细的英文技术说明：[README.md](README.md)。
 
 ## 来源
 

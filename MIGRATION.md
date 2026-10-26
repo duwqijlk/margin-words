@@ -1,125 +1,78 @@
-# Margin Words: migration guide
+# Margin Words: migration and compatibility record
 
 > **Public repository.** On 2026-10-04 the old pull requests were left in the private archive `duwqijlk/margin-words-archive`. This repository is the public project. See [docs/ARCHIVE.md](docs/ARCHIVE.md).
 
 Chinese version: [docs/MIGRATION.zh-CN.md](docs/MIGRATION.zh-CN.md).
 
-> **No book files in git.** Copyrighted EPUBs live only in the private R2 bucket `margin-words-private`
-> (no public access; the app never fetches it). Public-domain EPUBs live only on the books host
-> `https://books.inputread.site`. `packs/` in git is word lists and covers, not the books.
-> Do not deploy `packs/` to a public site. Old pull requests in the private archive still contain the book files.
-> That archive stays private. This public repository does not have those files.
+This page records historical moves and compatibility behavior. It is not the current manual for uploading books, maintaining live word lists, or deploying the site. Current operations start at [docs/MAINTENANCE.md](docs/MAINTENANCE.md), with task-specific guides for [book upload](docs/BOOK_UPLOAD.md), [glossary patrol](docs/GLOSSARY_PATROL.md), [book summaries](docs/BOOK_BLURBS.md), and [accounts](docs/ACCOUNTS.md).
 
-## 1. Overview
+> **No book files in git.** Copyrighted EPUBs live only in the private R2 bucket `margin-words-private`; public-domain EPUBs live only on `https://books.inputread.site`. `packs/` and `public-books/` in this repository are frozen snapshots, not current stores. Do not deploy them as live book data. Old pull requests in the private archive still contain book files, so that archive stays private.
 
-- A **static reader** for English novels (Vite + React 19 + Tailwind 4 + zustand). No AI calls. Optional accounts are Pages Functions in `functions/` (docs/ACCOUNTS.md); the reader works without them. `dist/` is plain files that any static host can serve.
-- Tap a word and see a simple English meaning. All meanings come from the book's `glossary.json`.
-- **Pack-only import.** The app never imports a standalone EPUB. A book is a *book pack*: one `.zip` with exactly
-  `book.epub` + `glossary.json` (title, author and cover come from the EPUB). Spec: `docs/book-pack-spec.md`.
-- **Bilingual UI.** Buttons, menus and messages are in Simplified Chinese and English (language button in the top
-  bar). The books and their meanings stay in English.
-- Twelve free public-domain classics are loaded from the books host (`public-books/`). A new shelf starts empty
-  and shows one button that opens Discover. Alice is a normal book. The books, and the copyrighted word lists, are on Discover and download on tap.
-  A deleted book stays deleted. Word lists are `word-lists/` on the same host (glossary, and a resized cover
-  from `packs/<id>/cover.jpg` when that file exists). `npm run build:private` writes `dist-private/` for the
-  private bucket `margin-words-private` (no public access; the app never fetches it).
+## 1. Historical overview
 
-## 2. What is in this repo
+- The project is a static reader built with Vite, React, and zustand. It has no AI calls. Optional accounts use Pages Functions and D1; the reader works without an account.
+- The app's historical book-pack format is one `.zip` containing exactly `book.epub` and `glossary.json`. The format remains useful for the sample kit and compatibility checks; the app's current add flow is Discover, not a loose-file or zip import.
+- Buttons and messages are bilingual; book text and meanings remain English.
+- Earlier repository snapshots carried local pack catalogs and sample material. Those files remain only as frozen compatibility fixtures.
 
-| Path | What it is |
+## 2. Repository and snapshot contents
+
+| Path | Historical or compatibility role |
 | --- | --- |
 | `src/`, `public/`, `index.html`, `vite.config.ts` | The app |
-| `scripts/` | Build, check and test scripts (incl. `build-packs.mjs`, `layout-shift-test.mjs`) |
-| `docs/`, `examples/`, `skills/` | Specs, the sample book, helper skills |
-| `glossary-src/` | Sources of the hand-written word lists |
-| `packs/<id>/` | Word lists for copyrighted books (`glossary.json`, optional `cover.jpg`, `info.json`) + `packs/catalog.json`. The EPUB is not in git. |
-| `public-books/<id>/` | Word lists, covers, and `catalog.json` for the 12 public-domain classics. The EPUB is not in git. Uploaded with `dist-books/`, not inside `dist/`. |
-| `classics/<id>/` | Working notes for 9 public-domain books (`glossary.json`, `work/`) and `WRITER_BRIEF.md`. The EPUB is not in git. |
-| `book-pack-kit.zip` | The guide kit to give to an AI agent that makes a book pack |
-| `screenshots/`, `artifacts/` | Small reference images and notes |
+| `scripts/` | Build, check, and test scripts; some pack builders remain for local fixtures |
+| `docs/`, `examples/`, `skills/` | Specs, sample book, and helper skills |
+| `glossary-src/` | Sources of hand-written word lists |
+| `packs/<id>/` | Frozen word-list, cover, and metadata snapshots; not the live source |
+| `public-books/<id>/` | Frozen public-domain snapshots; not the live source |
+| `classics/<id>/` | Historical working notes |
+| `book-pack-kit.zip` | Compatibility kit for making a sample pack |
 
-**Not in git:** `*.epub` except `examples/sample-book/the-lantern-seller.epub`, plus `node_modules/`, `dist/`, `dist-books/`, `dist-private/`, `site/`, `packs/*.zip` (incl. `packs/all-packs.zip`),
-`public-books/*.zip`, and `classics/**/*.pack.zip`. A local `book.epub` (from the private bucket or the books host) is what `build-packs`, `build:books`, and `build:private` read.
+EPUBs are not generally in git. The only tracked EPUB is `examples/sample-book/the-lantern-seller.epub`; a live book's legal EPUB may be unavailable locally, so full EPUB/glossary validation is not always possible in a checkout.
 
-## 3. Rules
+## 3. Rules that remain current
 
-- **No layout shift.** Opening a word card or a panel must never move the reading text. Check it with
-  `node scripts/layout-shift-test.mjs after --quick`. The summary must say `max shift 0px` and `0 failing`.
-  The test needs Chrome at `/usr/bin/google-chrome`, the app served at `http://127.0.0.1:8090/` (or pass a URL as
-  the 2nd argument), and it uses some of the books in `packs/`, so run it on the full `site/` folder (see below).
-  Output goes to `layout-shift-out/` (git-ignored).
-- **UI text is simple English** (and simple Chinese for junior-high learners in `src/lib/i18n-zh.ts`). Every visible
-  string goes through `useT()` / `tr()` and exists in both `src/lib/i18n-en.ts` and `src/lib/i18n-zh.ts`.
-- **Glossaries are written by hand, no AI.** Do not generate or edit `glossary.json` word lists with AI tools. Copy
-  them byte for byte. `node scripts/build-packs.mjs --check` must pass.
-- **Chinese only in** `src/lib/i18n-zh.ts`, `docs/`, `README.zh-CN.md`. Run `npm run check:cjk` (it fails on Chinese
-  anywhere else in `src/`, `public/`, `packs/`, `examples/`, `scripts/`). This is why the Chinese migration guide is in
-  `docs/`.
-- No network call may depend on a server of ours.
+- Do not introduce layout shift when opening a card or panel. When Chrome and a matching local book are available, run `node scripts/layout-shift-test.mjs after --quick`; expect `max shift 0px` and `0 failing`.
+- Every visible UI string belongs in both `src/lib/i18n-en.ts` and `src/lib/i18n-zh.ts`; `npm run check:cjk` enforces the repository's Chinese-text boundary.
+- The reader makes no AI calls. That is not a ban on authorized agent-assisted glossary authoring or corrections; use [the authoring skill](skills/annotate-book-glossary/SKILL.md) and the current task playbooks, not an old publishing pipeline.
+- Do not place third-party EPUBs in git or copyrighted EPUBs in the public bucket; see [storage boundaries](docs/MAINTENANCE.md#storage).
 
-## 4. Setup
+## 4. Local compatibility checks
 
-Use Node 24 (the project was built with Node 24.11).
+Use Node 22 or newer as declared by `package.json`.
 
-```
+```bash
 npm ci
-npx vite build                                  # front end only, in dist/ (books host baked in)
-npm run build:books                             # dist-books/ object keys for the books bucket
-node scripts/build-packs.mjs --out public-books # rebuild the local zips + catalog of the 12 free classics
-node scripts/build-packs.mjs                    # rebuild packs/catalog.json and packs/*.zip (private books)
-node scripts/build-site.mjs                     # site/ = dist/ + packs/  (local use only!)
-npm run dev                                     # http://localhost:8080, also serves ./packs and the book folders
+npm run build:local       # local-origin book URLs for tests
+npm run check:cjk
+npm run check:example
+npm test
+npm run typecheck:functions
 ```
 
-Run `node scripts/build-packs.mjs --out public-books` **before** `npm run build:books` when a classic changed, so
-`dist-books/public-books/` matches the books. `dist/` itself has no book files.
+A full glossary check is conditional on having the matching legal EPUB:
 
-Checks: `npm run check:cjk`, `npm run typecheck`, `npm test`, `npm run check:example`, `npm run lint`.
-
-## 5. Deploy
-
-The public site is a Cloudflare Pages project named `margin-words`, with the domain `inputread.site`.
-
-The site deploy is manual. Leave `VITE_BOOKS_BASE` unset so the build keeps `https://books.inputread.site`. An empty `VITE_BOOKS_BASE` is `npm run build:local`, for tests only.
-
-```
-npm run build
-npx wrangler pages deploy dist --project-name margin-words --branch main
+```bash
+node scripts/validate-glossary.mjs <book.epub> <glossary.json>
 ```
 
-That command uploads the built site (`dist/` and `functions/`). Do not upload `dist-books/`, `packs/`, or `dist-private/` with it. Domains: `https://inputread.site` and `https://www.inputread.site`. The Pages project has no Git source. D1 and R2 stay where they are.
+Without that EPUB, do not substitute a different edition or claim the live list was fully checked. `node scripts/build-packs.mjs --check` verifies frozen local fixtures only and never publishes them.
 
-`dist/` is the front end only. When book objects change, `npm run build:books` writes `dist-books/` for a separate upload to the books bucket (see README, "Host the app and the books"). Book files go up as loose objects (no zip, no `all-packs.zip`).
-**NEVER deploy `packs/` (or `site/`) to a public host.** Word lists for copyrighted titles are glossaries in `dist-books/word-lists/`. Publisher covers in `packs/` are not uploaded.
-(`vercel.json` is also in the repo for a static Vercel setup of `dist/`.)
+## 5. Compatibility data behavior
 
-## 6. Add a book
+The following records describe behavior kept for older clients and data:
 
-1. Make a pack folder with `book.epub` and `glossary.json` (`docs/book-pack-spec.md`, `docs/GLOSSARY_FORMAT.md`).
-   Validate: `node scripts/validate-glossary.mjs <dir>/book.epub <dir>/glossary.json`.
-2. **Public-domain book (ships with the app):** put it in `public-books/<id>/` with `book.epub`, `glossary.json`,
-   optional `cover.jpg` and `info.json`, then run `node scripts/build-packs.mjs --out public-books`. See
-   `public-books/README.md`.
-3. **Copyrighted book (private only):** put it in `packs/<id>/`, then run `node scripts/build-packs.mjs`. It stays out
-   of `dist/`. Do not deploy it.
-4. Build one pack zip for a user: `node scripts/make-pack.mjs book.epub glossary.json my-book.pack.zip`.
-5. Give `book-pack-kit.zip` to an AI agent if it should make a pack for you (`npm run build:kit` rebuilds it).
+- Local words migrate from the former per-book store to one global wordbook card per lemma with `sources[]`; review schedule fields remain intact. `scripts/wordbook.test.mjs` and `scripts/wordbook-e2e.mjs` cover the migration.
+- Synced data keeps the legacy `words` kind. New clients fold legacy items into `wordbook` and do not delete them; old clients ignore `wordbook`. Deploy client and Functions together when changing that contract.
+- Reading positions may carry the newer `{ chapter, paragraph, quote, offset }` anchor beside the old chapter/scroll hint. Each device resolves it against its own local text; no EPUB is fetched or swapped for sync.
+- A shelf that already has a book keeps it. A new shelf installs nothing automatically.
 
-## 7. Copyright
+These notes preserve rollback and old-client behavior. They do not replace the current operational map or authorize direct writes.
 
-This repository is public. Its history has no third-party EPUB. The only EPUB in git is `examples/sample-book/the-lantern-seller.epub`. Copyrighted EPUBs live only in the private bucket `margin-words-private`. Public-domain EPUBs live only on `https://books.inputread.site`. Do not put a third-party EPUB in git. The private archive stays archived and private, because pull requests #1 through #32 there still contain copyrighted EPUB files.
+## 6. Historical deployment boundary
 
-## 8. Local and synced data: what the global wordbook changes
+The Pages project has no Git source. The site, D1 database, and R2 buckets remain separate from this repository. The production site build uses the books host; `npm run build:local` is for local checks only. Deployment ownership, cache rules, store safety, recovery, and any direct-write procedure belong in [docs/MAINTENANCE.md](docs/MAINTENANCE.md), not in this historical record.
 
-- Local words (`localStorage`, persist key of the vocab store) are migrated on load: each old per-book word becomes
-  one card per lemma with a `sources[]` list built from its saved sentence, keeping the review schedule fields
-  (stage, reps, dates) byte for byte. Words from two books with the same lemma merge into one card with two sources.
-  `scripts/wordbook.test.mjs` covers this, `scripts/wordbook-e2e.mjs` covers it in a browser.
-- Synced words: the D1 table is unchanged. The new `wordbook` kind (27 letter shards) is added next to the old
-  `words` kind. Old clients keep writing `words`; new clients fold those items into the wordbook on every pull and
-  never delete them. Roll back by deploying the old app: it simply ignores `wordbook`.
-- Deploy order: the client and `functions/` ship together (the server now accepts `wordbook`; an old server answers
-  400 to it).
-- Reading positions get an `anchor` (word-list paragraph id + quote + offset) next to the old chapter/scroll hint.
-  Older positions get one the first time the book is open for a moment. No EPUB is ever fetched from the server.
-- A shelf that already has Alice keeps it. A new shelf installs nothing on its own.
+## 7. Copyright boundary
+
+This repository is public and its history has no third-party EPUB beyond the sample. Copyrighted EPUBs remain private; public-domain files remain on the books host. The private archive stays private because its old pull requests contain copyrighted files.

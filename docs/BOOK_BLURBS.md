@@ -1,5 +1,9 @@
 # 书籍简介（“发现”详情弹窗）
 
+本页是简介的**格式、双语替换和写作规则的唯一说明**，托管于
+[book-blurbs.md](https://inputread.site/kit/book-blurbs.md)。共享的存储、发布安全、缓存和恢复规则见
+[维护地图](https://inputread.site/kit/maintenance.md)。
+
 “发现”页点开一本书，弹窗里的“故事简介”来自书籍站点（R2 桶 `margin-words-books`），每本书一个文件：
 
 | 书的类型 | 文件位置 |
@@ -12,12 +16,23 @@
 ```
 
 - 界面是中文就显示 `zh`，是英文就显示 `en`。某种语言没有简介时，弹窗不显示简介区块，不会改用另一种语言。
-- 纯文本，最长 600 个字符，换行会保留。
-- 简介**不在代码仓库里**，也**不在数据库（D1）里**。改简介不需要重新构建或部署网站，也不改词表和书目（`catalog.json`）。上传后重新打开弹窗就能看到。
+- 写 `zh` 和 `en` 两种语言；每种都是纯文本，最长 600 个字符，换行会保留。
+- 每本书的文件**整体替换**。只改一种语言也必须带上要保留的另一种；省略或清空一种语言就会删除它。
+- 简介**不在代码仓库里**，也**不在数据库（D1）里**。改简介不需要重新构建或部署网站，也不改词表和书目（`catalog.json`）。
+- 不是每次重新打开弹窗都会重取：已读取的简介（包括 404）会在本页生命周期内 memoize。
+  普通读者可能需要**完整刷新页面**；后台保存会清除管理员当前页面里该书的 memo，不会清除别人的。
+  共享缓存说明见[版本与缓存](https://inputread.site/kit/maintenance.md#versions)。
 
 ## 写入方式
 
-只有 Cloudflare 登录、没有仓库的 agent，直接用 wrangler 写这个文件：见 `docs/BOOK_UPLOAD.md` 第 11 节（网站上 `/kit/book-upload.md`）。下面两种方式写的是同一个文件，检查规则也相同。
+只有 Cloudflare 登录、没有仓库的 agent，见[上传任务第 11 节](https://inputread.site/kit/book-upload.md#11-the-story-summary)的 wrangler 命令。
+它不自动运行检查规则，写入前必须按本页检查。后台和脚本使用下方同一套校验规则。
+
+直接 R2 / wrangler / 上传脚本都不能当成带锁事务；遵守[发布检查点](https://inputread.site/kit/maintenance.md#publishing)：
+协调**所有写入者的独占窗口**，保留待改对象的精确原始字节及元数据（不存在也记录），
+写前重读，发现变化就中止并基于新快照重做，写后用 R2 重读核对字节及元数据。
+失败按[恢复规则](https://inputread.site/kit/maintenance.md#recovery)处理。
+不要用上传成功提示或旧页面里的简介代替核验。
 
 
 ### 1. 后台界面（人工改一两本）
@@ -55,9 +70,10 @@ node scripts/publish-blurbs.mjs local-exports/blurbs.json
 node scripts/publish-blurbs.mjs local-exports/blurbs.json --upload
 ```
 
-- 每本书的简介**整体替换**：草稿里某本书只写了 `zh`，上传后这本书的 `en` 会被删掉。只想改一种语言时，另一种也要照抄进去。
-- 有任何一本书没通过检查，**整批都不上传**。
+- 每本书按本页的整体替换规则处理，保留另一种语言时把它一起放进草稿。
+- 有任何一本书没通过预检查，**整批都不上传**；但上传阶段是逐个写文件，后一本失败不会自动撤回前一本。
 - 上传用的是这台电脑上已登录的 Cloudflare 账号（`npx wrangler login`），不需要管理员密码。
+- 脚本不代办独占窗口、快照、冲突重读和写后验证；按上面的发布检查点逐本核验。
 
 ## 检查规则
 
@@ -76,3 +92,4 @@ node scripts/publish-blurbs.mjs local-exports/blurbs.json --upload
 - 不剧透结局和关键反转。
 - 不评价好坏，不写“经典”“必读”之类的宣传词。
 - 情节要准确。拿不准的细节宁可不写，也不要编。
+- 演讲写清谁在何时向谁讲话，以及一个主要观点；不把演讲编成故事情节。

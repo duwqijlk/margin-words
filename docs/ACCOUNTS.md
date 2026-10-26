@@ -2,13 +2,27 @@
 
 Reading works with no account: books already on a device stay readable, and a signed-out visitor can browse Discover, the Guide and About. Adding new books (every add / download / "import my EPUB" action on Discover) requires sign-in. Sign-in also adds sync across devices. Book files are not synced and are not stored in D1. They stay on each device (and on `https://books.inputread.site` for the public books).
 
-Accounts use **Cloudflare Pages Functions** (`functions/`) and a **D1** database bound as `DB`. There is no Git integration on the Pages project `margin-words`. Deploy is still `npx wrangler pages deploy dist --project-name margin-words --branch main`. That command uploads `functions/` as well when `wrangler.toml` is present. Do not deploy from this task; the owner deploys.
+This page owns account/authentication, sync, roles and account-specific setup. Its source is
+[ACCOUNTS.md on GitHub main](https://github.com/duwqijlk/margin-words/blob/main/docs/ACCOUNTS.md).
+Shared storage, publishing, recovery and deployment rules live in the
+[maintenance map](https://inputread.site/kit/maintenance.md).
 
-`wrangler.toml` points `DB` at the live D1 database `margin-words`, id `c286e644-2ead-438c-bb65-70ee028d957a`. That database already exists and `migrations/0001_init.sql` is already applied. Do not create a second database. Local `wrangler pages dev` still uses a local D1.
+Accounts use **Cloudflare Pages Functions** (`functions/`) and a **D1** database bound as `DB`.
+For owner-only site deployment, use the [deploy checklist](https://inputread.site/kit/maintenance.md#deploy);
+account maintenance does not itself authorize a deploy.
+
+`wrangler.toml` points `DB` at the existing live D1 database `margin-words`, id
+`c286e644-2ead-438c-bb65-70ee028d957a`. Do not create a second database. Schema changes are the ordered
+files in `migrations/`; check and apply pending migrations for the target environment, rather than
+assuming only the initial schema is needed. Local `wrangler pages dev` uses a local D1.
 
 ## What is stored
 
-An email, a PBKDF2-SHA256 password hash (100,000 iterations, random salt per user), and an optional nickname. The nickname is not unique: two accounts may use the same one. No real name, age, school, or phone number.
+An email, a PBKDF2-SHA256 password hash (currently **10,000 iterations**, random salt per user), and
+an optional nickname. Verification uses the stored iteration count, so existing legacy hashes are
+still checked at their original count; after a successful login, a differing count is rehashed at
+the current count (`functions/lib/password.ts`, `functions/lib/handlers.ts`). The nickname is not
+unique: two accounts may use the same one. No real name, age, school, or phone number.
 
 Synced state is one JSON blob per item in `sync_items`, with `updated_at`:
 
@@ -30,7 +44,9 @@ The book file (EPUB) stays on the device. On a new device the shelf card can app
 
 ## Commands the owner runs
 
-The D1 database is already created. Name `margin-words`, id `c286e644-2ead-438c-bb65-70ee028d957a`, binding `DB`. Migration `migrations/0001_init.sql` is already applied on that database. Do not run `wrangler d1 create` again.
+The live D1 database already exists: `margin-words`, id `c286e644-2ead-438c-bb65-70ee028d957a`, binding
+`DB`. Do not run `wrangler d1 create` again for production. Check its pending migrations against the
+whole `migrations/` directory before deploying functions that require a schema change.
 
 For a new environment only:
 
@@ -39,7 +55,8 @@ npx wrangler d1 create margin-words
 npx wrangler d1 migrations apply margin-words --remote
 ```
 
-There is one migration file. Wrangler applies `migrations/` in filename order.
+Wrangler applies the files in `migrations/` in filename order; there are multiple migrations,
+not just `0001_init.sql`. Do not infer the live applied set from a filename mentioned in this page.
 
 The account API itself needs no secret. Passwords and session tokens are generated in the Worker. Session tokens are stored only as SHA-256 hashes. The cookie is `mw_session`, HttpOnly, SameSite=Lax, and Secure on https. It expires after 30 days. Email reset needs one more secret, `RESEND_API_KEY` (see the password reset section below).
 
@@ -53,16 +70,8 @@ That failure used to be silent: the widget area stayed empty, the form only said
 
 Turning the check off completely takes **two** steps, because the page bakes the site key in: remove `VITE_TURNSTILE_SITE_KEY` from `.env.production` (otherwise the dialog still waits for a token that will never come) and unset the `TURNSTILE_SECRET_KEY` Pages secret. Registration and the reset request then rely on the rate limits in `functions/lib/rate-limit.ts` alone.
 
-Deploy (owner, not this repo's automation). `npm run build` with no `VITE_BOOKS_BASE` keeps book files on `https://books.inputread.site`. Do not deploy a `build:local` folder.
-
-```bash
-npm run build
-npx wrangler pages deploy dist --project-name margin-words --branch main
-```
-
-That uploads `dist/` and `functions/` only. Do not upload `dist-books/`, `packs/`, or `dist-private/` with it.
-
-`pages deploy` uploads `dist/` and the `functions/` directory, and it attaches the `DB` binding from `wrangler.toml`. The Pages project name is `margin-words`.
+General build/deploy commands and production book-host safeguards are maintained only in the
+[owner deploy checklist](https://inputread.site/kit/maintenance.md#deploy).
 
 ### Live checklist
 
@@ -70,9 +79,12 @@ Do these in order, logged in to the Cloudflare account that owns the Pages proje
 
 1. Database. Already done: D1 name `margin-words`, id `c286e644-2ead-438c-bb65-70ee028d957a`, written in `wrangler.toml` as binding `DB`. Do not create another database.
 
-2. Schema. Already applied: `migrations/0001_init.sql`. `migrations/0002_nickname.sql` adds optional `users.nickname` (not unique). Apply it before deploying functions that read that column:
+2. Schema. Check all pending files in `migrations/`, then apply them in order before deploying
+   functions that read the new columns/tables. `0002_nickname.sql`, for example, adds optional
+   `users.nickname` (not unique); it is not the last migration.
 
    ```bash
+   npx wrangler d1 migrations list margin-words --remote
    npx wrangler d1 migrations apply margin-words --remote
    ```
 
@@ -81,7 +93,7 @@ Do these in order, logged in to the Cloudflare account that owns the Pages proje
    | Name | Required | Where it is set |
    | --- | --- | --- |
    | `DB` | yes | Pages binding from `wrangler.toml` (`binding = "DB"`). Not a secret. |
-   | `TURNSTILE_SECRET_KEY` | yes in production | Pages secret. When it is set, register and login require a token. |
+   | `TURNSTILE_SECRET_KEY` | yes in production | Pages secret. When set, registration and password-reset requests require a token; login does not. |
    | `RESEND_API_KEY` | only to send reset mail | Pages secret. When it is set, password-reset requests send mail through Resend; `/api/auth/me` reports `resetEmail: true`. Unset keeps the hook off. |
    | `VITE_TURNSTILE_SITE_KEY` | yes for a production build | Public world-region site key in `.env.production`. `npm run build` picks it up. |
    | `VITE_BOOKS_BASE` | no | Build-time only. Leave unset so production uses `https://books.inputread.site`. |
@@ -90,14 +102,8 @@ Do these in order, logged in to the Cloudflare account that owns the Pages proje
 
    The production secret is a Pages secret. Do not put it in the repo. `npm run build` reads the public site key from `.env.production`.
 
-4. Build and deploy, from the repo root:
-
-   ```bash
-   npm run build
-   npx wrangler pages deploy dist --project-name margin-words --branch main
-   ```
-
-   Do not upload `dist-books/`, `packs/`, or `dist-private/` with that deploy.
+4. Owner build/deploy: follow the [canonical deploy checklist](https://inputread.site/kit/maintenance.md#deploy),
+   after completing the account schema and secret checks above.
 
 ### Verify on the live site
 
@@ -178,7 +184,7 @@ All routes are same-origin. The service worker does not answer requests, so `/ap
 | POST | `/api/auth/register` | `{ email, password, turnstileToken? }`: checks the form and emails a 6-digit code. `202 { pending: true, email, codeSent, ticket }`. **No account and no session yet**; one try a minute per address |
 | POST | `/api/auth/register/confirm` | `{ email, code, ticket }` (`ticket` from the register answer; only the browser that started the sign-up has it): the right code makes the account (email already checked) and signs in. `201 { user }` with the cookie. Five wrong codes end the sign-up; a code lives 15 minutes |
 | POST | `/api/auth/register/resend` | `{ email, ticket }`: a new code for a sign-up in progress, no human check, once a minute; the old code stops working |
-| POST | `/api/auth/login` | `{ email, password, turnstileToken? }` |
+| POST | `/api/auth/login` | `{ email, password }`; no Turnstile token required |
 | POST | `/api/auth/logout` | clears the cookie |
 | GET | `/api/auth/me` | `200` and `{ user, resetEmail }` when signed in, `200` and `{ user: null, resetEmail }` when signed out. `user.nickname` is a string or null. `resetEmail` is the global flag for the reset-mail provider |
 | POST | `/api/auth/nickname` | `{ nickname }` saves a 1–16 character label. Not unique |
@@ -201,7 +207,7 @@ Signing out or deleting the account does not wipe the books on this device.
 
 ## Schema
 
-`migrations/0001_init.sql`:
+The schema is built by the ordered files in `migrations/` (not only `0001_init.sql`). Selected tables:
 
 - `users` — id, email, password_hash, password_salt, password_iters, created_at, (from `0002_nickname.sql`) nickname, and (from `0004_roles.sql`) role (`user` by default; `trusted` may open private-library EPUBs; `admin` is the owner)
 - `sessions` — token_hash, user_id, created_at, expires_at (cascade delete)
@@ -210,7 +216,7 @@ Signing out or deleting the account does not wipe the books on this device.
 - `password_resets` — token_hash, user_id, created_at, expires_at, used_at (cascade delete)
 - `sponsorships` — (`0003_sponsorship.sql`) id, user_id, method (`wechat`, `alipay`, or `crypto`), display_name, created_at, email_sent_at, amount_cents, listed_at, closed_at (cascade delete)
 - `book_downloads` — (`0004_roles.sql`) user_id, book_id, created_at. One row per private-library EPUB download, capped at 30 per user per day.
-- `catalog_locks` — (`0017_catalog_locks.sql`) name, owner, expires_at. One writer at a time for each catalog file (`functions/lib/catalog-lock.ts`): an admin publish holds it from reading the catalog to writing it back, so two publishes cannot drop each other's row. A lock left by a request that died ends after 60 seconds.
+- `catalog_locks` — (`0017_catalog_locks.sql`) name, owner, expires_at. Admin catalog publishers use a cooperative per-catalog lock (`functions/lib/catalog-lock.ts`), expiring after 60 seconds. Direct R2, wrangler and patrol writes bypass it; it is not a storage-wide transaction. External writers need the [coordinated publishing procedure](https://inputread.site/kit/maintenance.md#publishing).
 - `pending_signups` — (`0016_pending_signups.sql`) email (primary key), password hash/salt/iterations, code_hash, attempts, created_at, expires_at, and (from `0018_signup_ticket.sql`) ticket_hash. A sign-up waiting for its emailed code. The account (`users` row) is made only from this row and only with the right code, so a mistyped address leaves no account and does not hold the address. Expired rows are removed on the next sign-up. Accounts made before this change that never typed their code keep `email_verified_at` empty and still cannot open word lists (`/api/auth/email-code/*` still checks them).
 
 Apply `0003` before a deploy that serves the sponsorship functions, and `0004` before a deploy that serves the role-aware functions (every session lookup reads `users.role` from `0004` on):
@@ -227,7 +233,7 @@ npx wrangler d1 migrations apply margin-words --remote
 | --- | --- | --- |
 | GET | `/api/admin/users?q=&page=` | admin; 20 per page |
 | POST | `/api/admin/users` | admin; `{ id, role: "trusted" \| "user" }` |
-| POST | `/api/admin/word-lists?id=<id>` | admin; body is the glossary JSON file itself. The server hashes those bytes, writes `word-lists/<id>/glossary.json` to the BOOKS bucket, and rewrites `word-lists/catalog.json` with only this row changed. The book must already exist in the live catalog — new books still start with `scripts/publish-word-list.mjs`. |
+| POST | `/api/admin/word-lists?id=<id>` | admin; raw glossary JSON body. Hashes the bytes, writes the list to BOOKS and changes only its catalog row. Supports a **new copyrighted word-list id** from the file's own metadata (requires a title; rejects duplicate titles). `&catalog=public` updates an **existing** public id only. See the [book upload task](https://inputread.site/kit/book-upload.md) for validation and task steps. |
 | GET | `/api/book/<id>/epub` | signed in + trusted (or admin); streams `<id>/book.epub` from the PRIVATE bucket and logs one `book_downloads` row. 30 per user per day. |
 
 The R2 bindings live in `wrangler.toml`: `BOOKS` → `margin-words-books` (public books host files), `PRIVATE` → `margin-words-private` (copyrighted EPUBs; no public access; every byte leaves it only through the checked endpoint above).

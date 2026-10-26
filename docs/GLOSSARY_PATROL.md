@@ -2,8 +2,10 @@
 
 Read this whole page before you start. It is the job description for an agent that runs once a
 day with **only a Cloudflare API token**. You do not need this repository, a site login, a build
-or a deploy: every step below is one HTTPS call to `api.cloudflare.com`. The page is also in the
-repository as `docs/GLOSSARY_PATROL.md` and on the site at `https://inputread.site/kit/patrol.md`.
+or a deploy. Use only Cloudflare HTTPS API calls for remote access; no Node, repository scripts or
+site login are required. This task is hosted at [patrol.md](https://inputread.site/kit/patrol.md).
+The [maintenance map](https://inputread.site/kit/maintenance.md) owns shared storage, count/version,
+publishing and recovery rules; the actionable API/D1 steps for this patrol are below.
 
 ## 1. The job
 
@@ -64,6 +66,15 @@ R2 write   PUT  {API}/r2/buckets/<bucket>/objects/<key, URL-encoded>
 
 Always use `params` for values in SQL. Never build SQL by pasting text into it.
 
+**Before any R2 write**, coordinate an exclusive window with **all writers**, including admin
+publishers, other patrols and CLI/API agents. Direct Cloudflare R2 calls bypass the admin routes'
+cooperative D1 catalog lock; this task does **not** grant SQL lock acquisition or lock-table edits.
+Snapshot exact bytes and metadata of each affected object (including absence), reread immediately
+before publishing, and abort/rebase if anything changed. Keep the window through write verification.
+If you cannot coordinate it, remain read-only and report. Details:
+[publishing](https://inputread.site/kit/maintenance.md#publishing) and
+[recovery](https://inputread.site/kit/maintenance.md#recovery).
+
 ## 3. Find the work (read only)
 
 Open taps and reports:
@@ -113,11 +124,12 @@ current revision was made on an older list: check whether the current list alrea
 ## 4. Fix the list
 
 Download the live `glossary.json` and the book (`margin-words-private`, key `<id>/book.epub`; for
-a public-domain book, `margin-words-books`, key `public-books/<id>/book.epub`). Use the book only
-to read the place the reader saw.
+a public-domain book, `margin-words-books`, key `public-books/<id>/book.epub`). Retain the glossary
+and catalog's original exact bytes and metadata as the base snapshots **before editing** (§2).
+Use the book only to read the place the reader saw.
 
-The format is `docs/GLOSSARY_FORMAT.md` (online:
-`https://github.com/duwqijlk/margin-words/blob/main/docs/GLOSSARY_FORMAT.md`). The parts you need:
+The [glossary format](https://github.com/duwqijlk/margin-words/blob/main/docs/GLOSSARY_FORMAT.md)
+is the entry schema. The parts you need:
 
 ```
 "glossary": {
@@ -203,8 +215,8 @@ Reviewing a reader's `suggestion`:
 - **You fill in the rest.** A reader sends only a meaning. Every entry and new sense you write must
   also have `pos` (part of speech) for the word **as it appears in this sentence** (`drifted` ->
   `past-tense verb`, `lanterns` -> `plural noun`). Use the labels the app knows, listed in
-  `docs/book-pack-spec.md` section 4.1 (online:
-  `https://github.com/duwqijlk/margin-words/blob/main/docs/book-pack-spec.md`). Also add the anchor
+  [book-pack specification §4.1](https://github.com/duwqijlk/margin-words/blob/main/docs/book-pack-spec.md).
+  Also add the anchor
   from the report, and `whyHard` when a short reason helps. Never ask the reader for these.
 - **Credit an accepted suggestion.** On the sense (or entry) whose meaning came from it, add
   `"credit": "<suggested_by>"`. The card then shows "From <their nickname>" with their picture. Use
@@ -241,9 +253,9 @@ never upload the EPUB anywhere, never include book text in your report beyond a 
 The file must parse as JSON, and every anchor you added or changed must point at a real place:
 in that chapter (split as GLOSSARY_FORMAT.md section 3 describes), the `occurrence`-th time the
 `form` appears must be inside the `context` text. If you cannot confirm a place, leave it out.
-Compare with the live file: every change must be one you meant to make for an item. If you can
-run Node and have the repository, `node scripts/validate-glossary.mjs book.epub glossary.json`
-does this check fully; it is optional.
+Compare with the live snapshot: every change must be one you meant to make for an item. Confirm
+these checks from the downloaded bytes; this API-token-only task does not require Node or a
+repository checkout. If you cannot verify an anchor, leave that item open.
 
 **Every suggestion you will mark accepted must have its credit in the file.** Before you publish,
 go through each report you plan to mark `accepted` in step 7 and find, in the new file, the entry or
@@ -265,22 +277,42 @@ that report accepted. List in your report each accepted id with the word and whe
 
 ## 6. Publish (two R2 writes, in this order)
 
-1. Write the new `glossary.json` bytes to its key. Compute `sha256` of exactly those bytes.
-2. Read the catalog again (just before writing), change **only this book's row**, write it back:
-   - word list: `words` = number of keys in `glossary` (or the file's `count` if set), `phrases`,
-     `paragraphs`, `sentences` = their counts; `glossary.bytes`, `glossary.sha256`; set
-     `previousUpdated` to the old `updated` when the hash changed; `updated` = now (ISO time);
-     top-level `updated` = now.
-   - public book: the same, plus `rev` and `glossary.rev` = first 12 digits of the new sha256.
-   Keep every other row, field and order exactly. The catalog is JSON with one-space indent and a
-   newline at the end.
+Keep §2's coordinated exclusive window. Follow the
+[shared count/version rules](https://inputread.site/kit/maintenance.md#versions):
 
-If the catalog write fails, stop and report: readers keep the old list until the catalog points
-at the new one, so nothing breaks. Readers get the new list when they tap **Update** on the book.
+1. Retain §4's pre-edit snapshots of the glossary and catalog's exact bytes and metadata.
+   Immediately before the first write, reread both via the R2 API and compare with those snapshots.
+   If either changed, **abort and rebase** the edits on fresh snapshots, repeating §5. Compute
+   SHA-256 of the exact new glossary bytes.
+2. Write those `glossary.json` bytes to its key. Then reread the catalog, confirming it still matches
+   the snapshot. If it changed, stop for recovery below; do not overwrite it with the old candidate.
+   Otherwise change **only this book's row** and write it back:
+   - `words` = `Number(file.count) || Object.keys(file.glossary).length`, matching the admin
+     publisher. Check it is correct for the edited list; update a stale explicit `count` if your
+     edits change the word total. `phrases` = keys in its object, `paragraphs` / `sentences` = array
+     lengths (0 when absent); `glossary.bytes` and `glossary.sha256` come from the exact written bytes.
+   - Set `previousUpdated` to the old `updated` only when an existing glossary hash changes;
+     otherwise preserve it. Set row `updated` and top-level `updated` to now (ISO time).
+   - Public book: also set `rev` and `glossary.rev` to the first 12 hex digits of the new SHA-256.
+   Keep every other row, field and order exactly. Use one-space JSON indent and a final newline.
+3. **Verify before §7:** GET the glossary and catalog back through the authenticated R2 API.
+   Compare exact bytes and metadata with the intended writes, recompute the glossary byte length
+   and SHA-256, check counts/revisions and all preserved rows/fields, and confirm each intended fix
+   and accepted suggestion's credit is present. A PUT success is not enough.
+
+If a write or verification fails, **do not mark anything accepted or resolved**. Stop and report,
+using [recovery](https://inputread.site/kit/maintenance.md#recovery) under the exclusive window.
+Replacing `glossary.json` before the catalog can leave a hash mismatch if the catalog write fails;
+readers may be unable to download or update. This is not a transaction or automatic rollback.
+After verified publication and catalog refresh, readers can request **Update**; their device copy
+is not silently replaced.
 
 ## 7. Mark items done
 
-Only for items your published change fixes, with the **new** revision:
+Only after §6's R2 readback verifies the fix (and credit for an accepted suggestion), mark items
+that the verified live list answers, with its **verified revision**. If the current list already
+fixed an older report, verify that live list and catalog in the same way before resolving it;
+there is no need to rewrite identical bytes.
 
 ```sql
 UPDATE book_word_taps SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
@@ -333,6 +365,9 @@ SELECT u.public_id AS id, COALESCE(u.nickname, '') AS name, u.avatar_rev AS avat
 ```
 
 Leave out `avatar` when it is 0. Write nothing else into the file: no email, no internal id.
+For this file too, keep the coordinated window, snapshot bytes/metadata, reread before overwriting
+and verify the R2 readback against the query result. If it changed, abort/rebase instead of dropping
+another writer's changes. Report a failed credit-file refresh; do not claim the public rank is updated.
 
 ## 8. Limits
 
@@ -351,5 +386,5 @@ End each run with a short report per book: what you added, what you changed and 
 item that asked for it), which reader suggestions you accepted or rejected and why (for each accepted
 one: report id, word or passage, and the entry, sense or note that holds its `credit`), each passage
 topic you answered (its id, the reports in it, and the notes you wrote for it), what you
-skipped and why, the new revision, and any error. Say so if
-nothing was open.
+skipped and why, the verified revision, the R2 verification/credit-file refresh result, and any error
+or unresolved recovery. Say so if nothing was open.

@@ -50,6 +50,45 @@ function readJson(rel) {
   return JSON.parse(readFileSync(join(ROOT, rel), "utf8"));
 }
 
+/** One source for each hosted work document; the book-authoring ZIP stays separate. */
+export const HOSTED_DOCS = [
+  { source: "docs/MAINTENANCE.md", output: "kit/maintenance.md" },
+  { source: "docs/BOOK_UPLOAD.md", output: "kit/book-upload.md" },
+  { source: "docs/GLOSSARY_PATROL.md", output: "kit/patrol.md" },
+  { source: "docs/BOOK_BLURBS.md", output: "kit/book-blurbs.md" },
+];
+
+/** Check only links between hosted work documents, without fetching the production site. */
+export function checkDocumentLinks(files) {
+  const problems = [];
+  for (const { output } of HOSTED_DOCS) {
+    if (!files.has(output)) {
+      problems.push(`missing work document ${output}`);
+      continue;
+    }
+    const text = String(files.get(output));
+    // Fenced examples are not navigation links or headings.
+    const prose = text.replace(/^```[^\n]*\n[\s\S]*?^```\s*$/gm, "");
+    for (const match of prose.matchAll(/\[[^\]]+\]\((https:\/\/inputread\.site\/kit\/[^)\s]+\.md(?:#[^)\s]+)?)\)/g)) {
+      const url = new URL(match[1]);
+      const target = url.pathname.slice(1);
+      if (!files.has(target)) {
+        problems.push(`${output} links to missing ${target}`);
+        continue;
+      }
+      if (!url.hash) continue;
+      const anchor = decodeURIComponent(url.hash.slice(1));
+      const body = String(files.get(target)).replace(/^```[^\n]*\n[\s\S]*?^```\s*$/gm, "");
+      const ids = new Set([...body.matchAll(/<a\s+id="([^"]+)"\s*>/g)].map((m) => m[1]));
+      for (const heading of body.matchAll(/^#{1,6}\s+(.+)$/gm)) {
+        ids.add(heading[1].toLowerCase().replace(/[`*_]/g, "").replace(/[^\p{L}\p{N}\s-]/gu, "").replace(/\s/g, "-"));
+      }
+      if (!ids.has(anchor)) problems.push(`${output} links to missing anchor ${target}#${anchor}`);
+    }
+  }
+  return problems;
+}
+
 let cache = null;
 
 /** Returns Map<fileName inside dist, string | Buffer>. fileName starts with "kit/". */
@@ -83,17 +122,14 @@ ${sections.join("\n")}
   cache = new Map([
     ["kit/index.html", page],
     [`kit/${KIT_NAME}`, await buildKit()],
-    // The daily word-list patrol, for an agent that is given only a Cloudflare login.
-    ["kit/patrol.md", readFileSync(join(ROOT, "docs", "GLOSSARY_PATROL.md"), "utf8")],
-    // Uploading one book with wrangler, for an agent with a Cloudflare login (same result as the admin Books tab).
-    ["kit/book-upload.md", readFileSync(join(ROOT, "docs", "BOOK_UPLOAD.md"), "utf8")],
+    ...HOSTED_DOCS.map(({ source, output }) => [output, readFileSync(join(ROOT, source))]),
   ]);
   return cache;
 }
 
 async function check() {
-  const problems = [];
   const files = await buildGuide();
+  const problems = checkDocumentLinks(files);
   const page = files.get("kit/index.html");
   if (!files.has(`kit/${KIT_NAME}`)) problems.push(`${KIT_NAME} was not built`);
   for (const m of page.matchAll(/href="([^"#:]+)"/g)) {
