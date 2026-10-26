@@ -29,6 +29,8 @@ export interface R2BucketLike {
     value: ArrayBuffer | Uint8Array | string,
     options?: { httpMetadata?: { contentType?: string; cacheControl?: string } },
   ): Promise<unknown>;
+  /** Remove an object. Optional in tests; the real bucket always has it. */
+  delete?(key: string): Promise<unknown>;
 }
 
 export type Env = {

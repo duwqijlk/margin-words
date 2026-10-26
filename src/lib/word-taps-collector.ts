@@ -49,6 +49,8 @@ type BufferedTap = {
 };
 
 const buffer = new Map<string, BufferedTap>();
+/** Distinct places held at most; a tap past it is not counted until the buffer is sent. */
+const BUFFER_MAX = 120;
 let timer: ReturnType<typeof setTimeout> | null = null;
 const FLUSH_INTERVAL_MS = 15 * 60 * 1000; // 15 minutes
 
@@ -116,7 +118,7 @@ export function recordWordTap(
     if (bookTitle && !existing.bookTitle) existing.bookTitle = bookTitle;
     if (glossaryRev && !existing.glossaryRev) existing.glossaryRev = glossaryRev;
   } else {
-    if (buffer.size >= 120) return; // Prevent unbound memory growth
+    if (buffer.size >= BUFFER_MAX) return; // Prevent unbound memory growth
     buffer.set(key, {
       bookId,
       bookTitle,
@@ -160,14 +162,15 @@ export async function flushWordTaps(): Promise<void> {
     if (tap.bookTitle && !list.bookTitle) list.bookTitle = tap.bookTitle;
     byBook.set(tap.bookId, list);
   }
+  // Taken out of the buffer now, so a tap made while sending starts a new batch. A batch that
+  // could not be sent goes back in (see below) and is tried again on the next flush.
   buffer.clear();
 
   // A batch is small on purpose (WORD_TAPS_MAX): the server validates and writes the whole batch
-  // inside one request, and that request has 10ms of CPU on the Free plan. Anything above the
-  // limit used to be dropped on the floor; now the extra taps go in a second request.
-  const MAX_TAPS_PER_FLUSH = WORD_TAPS_MAX * 5;
+  // inside one request, and that request has 10ms of CPU on the Free plan. Every tap is sent, in
+  // as many requests as it takes (the buffer holds at most BUFFER_MAX taps, so that is bounded).
   for (const [bookId, entry] of byBook.entries()) {
-    const taps = entry.taps.slice(0, MAX_TAPS_PER_FLUSH);
+    const taps = entry.taps;
     for (let start = 0; start < taps.length; start += WORD_TAPS_MAX) {
       const payload = JSON.stringify({
         bookId,
@@ -187,14 +190,24 @@ export async function flushWordTaps(): Promise<void> {
       });
 
       try {
-        await fetch("/api/analytics/word-taps", {
+        const response = await fetch("/api/analytics/word-taps", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: payload,
           keepalive: true,
         });
+        // A full server (429) or a server error: keep the taps for the next flush.
+        if (!response.ok && response.status >= 429) throw new Error(String(response.status));
       } catch {
-        // Best-effort analytics, silently ignore network failures
+        // Offline or refused: put this batch back (merged with any tap made meanwhile), up to the
+        // buffer limit, and try again later. Still best effort: an old page may close first.
+        for (const tap of taps.slice(start, start + WORD_TAPS_MAX)) {
+          const key = `${tap.bookId}:${tap.word}:${tap.chapter}:${tap.occurrence}`;
+          const now = buffer.get(key);
+          if (now) now.count += tap.count;
+          else if (buffer.size < BUFFER_MAX) buffer.set(key, tap);
+        }
+        ensureTimer();
       }
     }
   }

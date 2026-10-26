@@ -175,9 +175,9 @@ All routes are same-origin. The service worker does not answer requests, so `/ap
 
 | Method | Path | |
 | --- | --- | --- |
-| POST | `/api/auth/register` | `{ email, password, turnstileToken? }`: checks the form and emails a 6-digit code. `202 { pending: true, email, codeSent }`. **No account and no session yet**; one try a minute per address |
-| POST | `/api/auth/register/confirm` | `{ email, code }`: the right code makes the account (email already checked) and signs in. `201 { user }` with the cookie. Five wrong codes end the sign-up; a code lives 15 minutes |
-| POST | `/api/auth/register/resend` | `{ email }`: a new code for a sign-up in progress, no human check, once a minute; the old code stops working |
+| POST | `/api/auth/register` | `{ email, password, turnstileToken? }`: checks the form and emails a 6-digit code. `202 { pending: true, email, codeSent, ticket }`. **No account and no session yet**; one try a minute per address |
+| POST | `/api/auth/register/confirm` | `{ email, code, ticket }` (`ticket` from the register answer; only the browser that started the sign-up has it): the right code makes the account (email already checked) and signs in. `201 { user }` with the cookie. Five wrong codes end the sign-up; a code lives 15 minutes |
+| POST | `/api/auth/register/resend` | `{ email, ticket }`: a new code for a sign-up in progress, no human check, once a minute; the old code stops working |
 | POST | `/api/auth/login` | `{ email, password, turnstileToken? }` |
 | POST | `/api/auth/logout` | clears the cookie |
 | GET | `/api/auth/me` | `200` and `{ user, resetEmail }` when signed in, `200` and `{ user: null, resetEmail }` when signed out. `user.nickname` is a string or null. `resetEmail` is the global flag for the reset-mail provider |
@@ -210,7 +210,8 @@ Signing out or deleting the account does not wipe the books on this device.
 - `password_resets` — token_hash, user_id, created_at, expires_at, used_at (cascade delete)
 - `sponsorships` — (`0003_sponsorship.sql`) id, user_id, method (`wechat`, `alipay`, or `crypto`), display_name, created_at, email_sent_at, amount_cents, listed_at, closed_at (cascade delete)
 - `book_downloads` — (`0004_roles.sql`) user_id, book_id, created_at. One row per private-library EPUB download, capped at 30 per user per day.
-- `pending_signups` — (`0016_pending_signups.sql`) email (primary key), password hash/salt/iterations, code_hash, attempts, created_at, expires_at. A sign-up waiting for its emailed code. The account (`users` row) is made only from this row and only with the right code, so a mistyped address leaves no account and does not hold the address. Expired rows are removed on the next sign-up. Accounts made before this change that never typed their code keep `email_verified_at` empty and still cannot open word lists (`/api/auth/email-code/*` still checks them).
+- `catalog_locks` — (`0017_catalog_locks.sql`) name, owner, expires_at. One writer at a time for each catalog file (`functions/lib/catalog-lock.ts`): an admin publish holds it from reading the catalog to writing it back, so two publishes cannot drop each other's row. A lock left by a request that died ends after 60 seconds.
+- `pending_signups` — (`0016_pending_signups.sql`) email (primary key), password hash/salt/iterations, code_hash, attempts, created_at, expires_at, and (from `0018_signup_ticket.sql`) ticket_hash. A sign-up waiting for its emailed code. The account (`users` row) is made only from this row and only with the right code, so a mistyped address leaves no account and does not hold the address. Expired rows are removed on the next sign-up. Accounts made before this change that never typed their code keep `email_verified_at` empty and still cannot open word lists (`/api/auth/email-code/*` still checks them).
 
 Apply `0003` before a deploy that serves the sponsorship functions, and `0004` before a deploy that serves the role-aware functions (every session lookup reads `users.role` from `0004` on):
 

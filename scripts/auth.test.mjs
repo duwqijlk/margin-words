@@ -32,6 +32,7 @@ import { handleGet as handleBlurbGet, handlePut as handleBlurbPut } from "../fun
 import { handleGlossary } from "../functions/api/glossary/[id].ts";
 import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
 import { GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS, GLOSSARY_WEEK_SPEECHES, trustedUntil } from "../functions/lib/trust.ts";
+import { SYNC_PUSH_MAX } from "../src/lib/limits.ts";
 import { handleEpub } from "../functions/api/book/[id]/epub.ts";
 import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
 import { handleAdminWordTapsGet, handleAdminWordTapsPost } from "../functions/api/admin/word-taps.ts";
@@ -57,11 +58,12 @@ async function signUpFully(handlerRegister, env, input, now = NOW) {
     opts,
   );
   if (started.status !== 202) return started;
+  const { ticket } = await started.json();
   return handleRegisterConfirm(
     new Request(`${input.https ? "https" : "http"}://localhost/api/auth/register/confirm`, {
       method: "POST",
       headers: { "content-type": "application/json", ...(input.ip ? { "cf-connecting-ip": input.ip } : {}) },
-      body: JSON.stringify({ email: body.email, code }),
+      body: JSON.stringify({ email: body.email, code, ticket }),
     }),
     env,
     { now },
@@ -86,7 +88,7 @@ function openDb() {
     "0012_email_verification.sql",
     "0013_feedback_suggestion.sql",
     "0014_contributor_credit.sql",
-    "0015_passage_feedback.sql", "0016_pending_signups.sql",
+    "0015_passage_feedback.sql", "0016_pending_signups.sql", "0017_catalog_locks.sql", "0018_signup_ticket.sql",
   ]) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
@@ -1252,6 +1254,7 @@ test("word-list reads: speeches have their own seven a week, apart from novels",
 });
 
 test("sign-up makes no account until the emailed code comes back", async () => {
+  const tickets = {};
   const db = openDb();
   const files = new Map([["word-lists/book-1/glossary.json", new TextEncoder().encode('{"glossary":{"a":{}}}')]]);
   const env = envOf(db, { BOOKS: stubBucket(files) });
@@ -1269,7 +1272,10 @@ test("sign-up makes no account until the emailed code comes back", async () => {
 
   const started = await handleRegister(post("/api/auth/register", { email: "New@Example.com", password: "correct horse" }), env, { now: NOW, sendCode });
   assert.equal(started.status, 202);
-  assert.deepEqual(await started.json(), { pending: true, email: "new@example.com", codeSent: true });
+  const startedBody = await started.json();
+  tickets["new@example.com"] = startedBody.ticket;
+  assert.deepEqual({ ...startedBody, ticket: undefined }, { pending: true, email: "new@example.com", codeSent: true, ticket: undefined });
+  assert.match(startedBody.ticket, /^[A-Za-z0-9_-]{40,}$/);
   assert.equal(started.headers.get("set-cookie"), null, "nothing is signed in yet");
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM users").get().n, 0, "no account before the code");
   assert.equal(sent.length, 1);
@@ -1285,12 +1291,12 @@ test("sign-up makes no account until the emailed code comes back", async () => {
   assert.equal((await tooSoon.json()).error, "code-wait");
 
   const wrong = sent[0].code === "000000" ? "111111" : "000000";
-  const bad = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "new@example.com", code: wrong }), env, { now: NOW });
+  const bad = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "new@example.com", code: wrong, ticket: tickets["new@example.com"] }), env, { now: NOW });
   assert.equal(bad.status, 400);
   assert.equal((await bad.json()).error, "code");
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM users").get().n, 0);
 
-  const done = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "new@example.com", code: sent[0].code }), env, { now: NOW });
+  const done = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "new@example.com", code: sent[0].code, ticket: tickets["new@example.com"] }), env, { now: NOW });
   assert.equal(done.status, 201);
   const user = (await done.json()).user;
   assert.equal(user.email, "new@example.com");
@@ -1306,10 +1312,12 @@ test("sign-up makes no account until the emailed code comes back", async () => {
   assert.equal(login.status, 200);
   // The address is taken now.
   const again = await handleRegister(post("/api/auth/register", { email: "new@example.com", password: "correct horse" }), env, { now: NOW + 120_000, sendCode });
+  if (again.status === 202) tickets["new@example.com"] = (await again.clone().json()).ticket;
   assert.equal(again.status, 409);
 });
 
 test("a mistyped address leaves no account, and the address is free once the code runs out", async () => {
+  const tickets = {};
   const db = openDb();
   const env = envOf(db);
   const sent = [];
@@ -1320,7 +1328,10 @@ test("a mistyped address leaves no account, and the address is free once the cod
   const post = (path, body) =>
     new Request(`http://localhost${path}`, { method: "POST", body: JSON.stringify(body) });
   // gamil.com: the code goes nowhere and is never typed.
-  await handleRegister(post("/api/auth/register", { email: "reader@gamil.com", password: "correct horse" }), env, { now: NOW, sendCode });
+  {
+    const made = await handleRegister(post("/api/auth/register", { email: "reader@gamil.com", password: "correct horse" }), env, { now: NOW, sendCode });
+    if (made.status === 202) tickets["reader@gamil.com"] = (await made.json()).ticket;
+  }
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM users").get().n, 0);
   // A code that never left: nothing is kept, so trying again is not blocked.
   const failed = await handleRegister(post("/api/auth/register", { email: "other@example.com", password: "correct horse" }), env, { now: NOW, sendCode: async () => ({ sent: false }) });
@@ -1329,15 +1340,20 @@ test("a mistyped address leaves no account, and the address is free once the cod
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM pending_signups WHERE email = 'other@example.com'").get().n, 0);
   // After 15 minutes the old pending sign-up is dropped on the next sign-up, and the address can start over.
   const later = NOW + 15 * 60 * 1000 + 1;
-  const expired = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "reader@gamil.com", code: sent[0].code }), env, { now: later });
+  const expired = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "reader@gamil.com", code: sent[0].code, ticket: tickets["reader@gamil.com"] }), env, { now: later });
   assert.equal((await expired.json()).error, "code-expired", "a code works for 15 minutes");
-  await handleRegister(post("/api/auth/register", { email: "someone@example.com", password: "correct horse" }), env, { now: later, sendCode });
+  {
+    const made = await handleRegister(post("/api/auth/register", { email: "someone@example.com", password: "correct horse" }), env, { now: later, sendCode });
+    if (made.status === 202) tickets["someone@example.com"] = (await made.json()).ticket;
+  }
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM pending_signups WHERE email = 'reader@gamil.com'").get().n, 0);
   const restart = await handleRegister(post("/api/auth/register", { email: "reader@gamil.com", password: "correct horse" }), env, { now: later, sendCode });
+  if (restart.status === 202) tickets["reader@gamil.com"] = (await restart.clone().json()).ticket;
   assert.equal(restart.status, 202);
 });
 
 test("five wrong codes end a pending sign-up; registering again sends a new one", async () => {
+  const tickets = {};
   const db = openDb();
   const env = envOf(db);
   const sent = [];
@@ -1347,22 +1363,26 @@ test("five wrong codes end a pending sign-up; registering again sends a new one"
   };
   const post = (path, body) =>
     new Request(`http://localhost${path}`, { method: "POST", body: JSON.stringify(body) });
-  await handleRegister(post("/api/auth/register", { email: "guess@example.com", password: "correct horse" }), env, { now: NOW, sendCode });
+  {
+    const made = await handleRegister(post("/api/auth/register", { email: "guess@example.com", password: "correct horse" }), env, { now: NOW, sendCode });
+    if (made.status === 202) tickets["guess@example.com"] = (await made.json()).ticket;
+  }
   const wrong = sent[0].code === "000000" ? "111111" : "000000";
   for (let n = 0; n < 5; n += 1) {
-    const response = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "guess@example.com", code: wrong }), env, { now: NOW });
+    const response = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "guess@example.com", code: wrong, ticket: tickets["guess@example.com"] }), env, { now: NOW });
     assert.equal((await response.json()).error, "code");
   }
-  const locked = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "guess@example.com", code: sent[0].code }), env, { now: NOW });
+  const locked = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "guess@example.com", code: sent[0].code, ticket: tickets["guess@example.com"] }), env, { now: NOW });
   assert.equal((await locked.json()).error, "code-expired", "after five misses even the right code is refused");
   const again = await handleRegister(post("/api/auth/register", { email: "guess@example.com", password: "correct horse" }), env, { now: NOW + 61_000, sendCode });
+  if (again.status === 202) tickets["guess@example.com"] = (await again.clone().json()).ticket;
   assert.equal(again.status, 202);
   assert.equal(sent.length, 2);
   if (sent[0].code !== sent[1].code) {
-    const old = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "guess@example.com", code: sent[0].code }), env, { now: NOW + 62_000 });
+    const old = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "guess@example.com", code: sent[0].code, ticket: tickets["guess@example.com"] }), env, { now: NOW + 62_000 });
     assert.equal((await old.json()).error, "code");
   }
-  const ok = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "guess@example.com", code: sent[1].code }), env, { now: NOW + 62_000 });
+  const ok = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "guess@example.com", code: sent[1].code, ticket: tickets["guess@example.com"] }), env, { now: NOW + 62_000 });
   assert.equal(ok.status, 201);
 });
 
@@ -1666,13 +1686,13 @@ function form(path, cookie, body) {
   return new Request(`http://localhost${path}`, { method: "POST", headers, body });
 }
 
-test("sync push chunks batches over 100 items and saves all of them", async () => {
+test("sync push: up to one D1 batch per request, saved all or nothing", async () => {
   const db = openDb();
   const env = envOf(db);
   const created = await signUpFully(handleRegister, env, { body: { email: "reader@example.com", password: "correct horse" } });
   const cookie = cookieHeader(created);
   const items = [];
-  for (let n = 0; n < 130; n += 1) {
+  for (let n = 0; n < SYNC_PUSH_MAX + 1; n += 1) {
     const itemId = `chunk-book-${n}`;
     items.push({
       kind: "shelf",
@@ -1682,11 +1702,31 @@ test("sync push chunks batches over 100 items and saves all of them", async () =
       data: { id: itemId, title: `Book ${n}`, author: "A", cloth: "cloth", createdAt: NOW, updatedAt: NOW },
     });
   }
-  const pushed = await call(handleSyncPush, env, { body: { items }, cookie });
+  // One more than a batch holds is refused: the page splits its upload (syncBatches) at this size.
+  const tooMany = await call(handleSyncPush, env, { body: { items }, cookie });
+  assert.equal(tooMany.status, 413);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM sync_items").get().n, 0);
+  const pushed = await call(handleSyncPush, env, { body: { items: items.slice(0, SYNC_PUSH_MAX) }, cookie });
   assert.equal(pushed.status, 200);
-  const saved = (await pushed.json()).items;
-  assert.equal(saved.length, 130);
-  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM sync_items").get().n, 130);
+  assert.equal((await pushed.json()).items.length, SYNC_PUSH_MAX);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM sync_items").get().n, SYNC_PUSH_MAX);
+
+  // A failing write rolls the whole push back: nothing half-saved.
+  const failing = {
+    ...env,
+    DB: {
+      ...env.DB,
+      prepare: env.DB.prepare,
+      async batch(list) {
+        if (list.length > 1 && list.length === SYNC_PUSH_MAX) throw new Error("write failed");
+        return env.DB.batch(list);
+      },
+    },
+  };
+  const more = items.slice(0, SYNC_PUSH_MAX).map((item) => ({ ...item, itemId: `second-${item.itemId}`, data: { ...item.data, id: `second-${item.itemId}` } }));
+  const broken = await call(handleSyncPush, failing, { body: { items: more }, cookie });
+  assert.equal(broken.status, 500);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM sync_items WHERE item_id LIKE 'second-%'").get().n, 0);
 });
 
 function putJson(path, cookie, body) {
@@ -2729,6 +2769,7 @@ test("a story summary is saved only by the admin, only for a book in the catalog
 });
 
 test("Send again gives a sign-up a new code without a new human check", async () => {
+  const tickets = {};
   const db = openDb();
   const env = envOf(db, { TURNSTILE_SECRET_KEY: "secret" });
   const sent = [];
@@ -2739,22 +2780,97 @@ test("Send again gives a sign-up a new code without a new human check", async ()
   const post = (path, body) => new Request(`http://localhost${path}`, { method: "POST", body: JSON.stringify(body) });
   const human = async () => new Response(JSON.stringify({ success: true, action: "signup", hostname: "inputread.site" }), { status: 200 });
   const started = await handleRegister(post("/api/auth/register", { email: "again@example.com", password: "correct horse", turnstileToken: "token-token-token" }), env, { now: NOW, sendCode, fetch: human });
+  if (started.status === 202) tickets["again@example.com"] = (await started.clone().json()).ticket;
   assert.equal(started.status, 202);
 
-  const tooSoon = await handleRegisterResend(post("/api/auth/register/resend", { email: "again@example.com" }), env, { now: NOW + 5_000, sendCode });
+  const tooSoon = await handleRegisterResend(post("/api/auth/register/resend", { email: "again@example.com", ticket: tickets["again@example.com"] }), env, { now: NOW + 5_000, sendCode });
   assert.equal((await tooSoon.json()).error, "code-wait");
-  const nothing = await handleRegisterResend(post("/api/auth/register/resend", { email: "nobody@example.com" }), env, { now: NOW + 61_000, sendCode });
+  const nothing = await handleRegisterResend(post("/api/auth/register/resend", { email: "nobody@example.com", ticket: tickets["nobody@example.com"] }), env, { now: NOW + 61_000, sendCode });
   assert.equal((await nothing.json()).error, "code-expired", "only a sign-up in progress gets a code");
 
-  const resent = await handleRegisterResend(post("/api/auth/register/resend", { email: "again@example.com" }), env, { now: NOW + 61_000, sendCode });
+  const resent = await handleRegisterResend(post("/api/auth/register/resend", { email: "again@example.com", ticket: tickets["again@example.com"] }), env, { now: NOW + 61_000, sendCode });
   assert.equal(resent.status, 200);
   assert.equal(sent.length, 2);
   if (sent[0].code !== sent[1].code) {
-    const old = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "again@example.com", code: sent[0].code }), env, { now: NOW + 62_000 });
+    const old = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "again@example.com", code: sent[0].code, ticket: tickets["again@example.com"] }), env, { now: NOW + 62_000 });
     assert.equal((await old.json()).error, "code", "the first code stopped working");
   }
-  const done = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "again@example.com", code: sent[1].code }), env, { now: NOW + 62_000 });
+  const done = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "again@example.com", code: sent[1].code, ticket: tickets["again@example.com"] }), env, { now: NOW + 62_000 });
   assert.equal(done.status, 201);
   const login = await call(handleLogin, env, { body: { email: "again@example.com", password: "correct horse" } });
   assert.equal(login.status, 200, "the password from the first step is kept");
+});
+
+test("word lists and private EPUBs: requests at the same moment cannot pass the limits", async () => {
+  const db = openDb();
+  const reader = await signUpFully(handleRegister, envOf(db), { body: { email: "race@example.com", password: "correct horse" } });
+  const cookie = cookieHeader(reader);
+  const readerId = (await reader.json()).user.id;
+  const files = new Map();
+  const text = (id) => new TextEncoder().encode(`{"glossary":{"${id}":{}}}`);
+  for (let n = 1; n <= 10; n += 1) files.set(`word-lists/race-${n}/glossary.json`, text(`race-${n}`));
+  // A slow bucket: every request is between its checks and its writes at the same time.
+  const slow = stubBucket(files);
+  const env = envOf(db, { BOOKS: { ...slow, get: async (key) => { await new Promise((r) => setTimeout(r, 5)); return slow.get(key); } } });
+  const opened = await Promise.all(
+    Array.from({ length: 10 }, (_, i) => handleGlossary(raw(`/api/glossary/race-${i + 1}`, cookie), env, `race-${i + 1}`, { now: NOW })),
+  );
+  const ok = opened.filter((r) => r.status === 200).length;
+  assert.equal(ok, GLOSSARY_WEEK_BOOKS, "only seven new books, however the requests overlap");
+  assert.equal(opened.filter((r) => r.status === 429).length, 10 - GLOSSARY_WEEK_BOOKS);
+  assert.equal(db.raw.prepare("SELECT COUNT(DISTINCT book_id) AS n FROM glossary_reads WHERE user_id = ?").get(readerId).n, GLOSSARY_WEEK_BOOKS);
+  // The same new book twice at once is one place, not two.
+  db.raw.prepare("DELETE FROM glossary_reads").run();
+  const twice = await Promise.all([1, 2].map(() => handleGlossary(raw("/api/glossary/race-1", cookie), env, "race-1", { now: NOW })));
+  assert.deepEqual(twice.map((r) => r.status), [200, 200]);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM glossary_reads").get().n, 1);
+
+  // Private EPUB: 30 a day, also when 35 requests overlap.
+  db.raw.prepare("UPDATE users SET role = 'trusted' WHERE id = ?").run(readerId);
+  const epubs = stubBucket(new Map([["great-book/book.epub", new Uint8Array([1, 2, 3])]]));
+  const privateEnv = envOf(db, { PRIVATE: { ...epubs, get: async (key) => { await new Promise((r) => setTimeout(r, 5)); return epubs.get(key); } } });
+  const relogin = cookieHeader(await call(handleLogin, envOf(db), { body: { email: "race@example.com", password: "correct horse" } }));
+  const downloads = await Promise.all(
+    Array.from({ length: 35 }, () => handleEpub(raw("/api/book/great-book/epub", relogin), privateEnv, "great-book", { now: NOW })),
+  );
+  assert.equal(downloads.filter((r) => r.status === 200).length, 30);
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM book_downloads").get().n, 30);
+});
+
+test("only the browser that started a sign-up can resend or finish it", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const sent = [];
+  const sendCode = async (message) => {
+    sent.push(message);
+    return { sent: true };
+  };
+  const post = (path, body) => new Request(`http://localhost${path}`, { method: "POST", body: JSON.stringify(body) });
+  const started = await handleRegister(post("/api/auth/register", { email: "mine@example.com", password: "correct horse" }), env, { now: NOW, sendCode });
+  const { ticket } = await started.json();
+  assert.match(ticket, /^[A-Za-z0-9_-]{40,}$/);
+  assert.notEqual(db.raw.prepare("SELECT ticket_hash FROM pending_signups").get().ticket_hash, ticket, "only a hash of the ticket is kept");
+
+  // Someone who knows the address but not the ticket: no new code, no account, attempts not reset.
+  const strangerResend = await handleRegisterResend(post("/api/auth/register/resend", { email: "mine@example.com", ticket: "x".repeat(43) }), env, { now: NOW + 61_000, sendCode });
+  assert.equal((await strangerResend.json()).error, "code-expired");
+  assert.equal(sent.length, 1);
+  const strangerConfirm = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "mine@example.com", code: sent[0].code }), env, { now: NOW });
+  assert.equal((await strangerConfirm.json()).error, "code-expired", "the right code without the ticket does not make the account");
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM users").get().n, 0);
+
+  const done = await handleRegisterConfirm(post("/api/auth/register/confirm", { email: "mine@example.com", code: sent[0].code, ticket }), env, { now: NOW });
+  assert.equal(done.status, 201);
+});
+
+test("a trusted month or year ends on the same day, or the last day of a short month", () => {
+  const at = (iso) => Date.parse(iso);
+  const day = (ms) => new Date(ms).toISOString().slice(0, 10);
+  assert.equal(day(trustedUntil("month", at("2026-01-31T10:00:00Z"))), "2026-02-28");
+  assert.equal(day(trustedUntil("month", at("2028-01-31T10:00:00Z"))), "2028-02-29");
+  assert.equal(day(trustedUntil("month", at("2026-03-15T10:00:00Z"))), "2026-04-15");
+  assert.equal(day(trustedUntil("quarter", at("2026-11-30T10:00:00Z"))), "2027-02-28");
+  assert.equal(day(trustedUntil("year", at("2028-02-29T10:00:00Z"))), "2029-02-28");
+  assert.equal(day(trustedUntil("month", at("2026-12-31T10:00:00Z"))), "2027-01-31");
+  assert.equal(new Date(trustedUntil("month", at("2026-01-31T10:00:00Z"))).toISOString().slice(11, 19), "10:00:00", "the time of day stays");
 });

@@ -10,8 +10,11 @@
  * server answers 413, too low and the client needlessly splits.
  */
 
-/** Items one `POST /api/sync` may carry. */
-export const SYNC_PUSH_MAX = 200;
+/**
+ * Items one `POST /api/sync` may carry. The server writes them in ONE D1 batch (one transaction),
+ * and a batch holds at most 100 statements, so a push is all-or-nothing.
+ */
+export const SYNC_PUSH_MAX = 100;
 
 /**
  * Characters one `POST /api/sync` body may hold. The Function refuses a larger body (413). A big

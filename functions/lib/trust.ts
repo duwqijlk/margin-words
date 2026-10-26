@@ -17,7 +17,13 @@ export function trustedUntil(term: TrustTerm, now: number): number | null {
   if (term === "week") return now + 7 * DAY_MS;
   const date = new Date(now);
   const months = term === "month" ? 1 : term === "quarter" ? 3 : 12;
+  const day = date.getUTCDate();
+  // Step to the 1st, add the months, then take the same day or the last day of that month:
+  // Jan 31 + 1 month is Feb 28 (or 29), not Mar 3; Feb 29 + 1 year is Feb 28.
+  date.setUTCDate(1);
   date.setUTCMonth(date.getUTCMonth() + months);
+  const last = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0)).getUTCDate();
+  date.setUTCDate(Math.min(day, last));
   return date.getTime();
 }
 

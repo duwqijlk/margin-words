@@ -20,15 +20,20 @@ export async function handleEpub(request: Request, env: Env, id: string, options
     const bucket = env.PRIVATE;
     if (!bucket) throw new HttpError(500, "no-private-bucket");
     if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(id)) throw new HttpError(400, "bad-id");
-    const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM book_downloads WHERE user_id = ? AND created_at > ?")
-      .bind(user.id, Date.now() - DAY_MS)
-      .first<{ n: number }>();
-    if ((recent?.n ?? 0) >= DAILY_LIMIT) throw new HttpError(429, "rate");
+    const now = options?.now ?? Date.now();
     const object = await bucket.get(`${id}/book.epub`);
     if (!object) throw new HttpError(404, "no-book");
-    await env.DB.prepare("INSERT INTO book_downloads (user_id, book_id, created_at) VALUES (?, ?, ?)")
-      .bind(user.id, id, Date.now())
-      .run();
+    // Log the download and check the cap in ONE statement: the row goes in only while fewer than
+    // DAILY_LIMIT were logged in the last day, so requests at the same moment cannot all pass.
+    const logged = await env.DB.prepare(
+      `INSERT INTO book_downloads (user_id, book_id, created_at)
+       SELECT ?1, ?2, ?3
+        WHERE (SELECT COUNT(*) FROM book_downloads WHERE user_id = ?1 AND created_at > ?4) < ?5
+       RETURNING created_at`,
+    )
+      .bind(user.id, id, now, now - DAY_MS, DAILY_LIMIT)
+      .first<{ created_at: number }>();
+    if (!logged) throw new HttpError(429, "rate");
     return new Response(object.body, {
       headers: {
         "content-type": "application/epub+zip",

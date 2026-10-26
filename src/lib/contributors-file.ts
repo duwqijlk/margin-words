@@ -3,6 +3,12 @@ export type Contributor = { id: string; name: string; helped: number; avatar?: n
 
 export const PUBLIC_ID = /^[a-z0-9]{12}$/;
 
+/** Where a reader's picture is on the books host: one file per version, never written twice. */
+export function avatarPath(id: string, version: number | undefined): string {
+  if (!version || !PUBLIC_ID.test(id)) return "";
+  return `avatars/${id}-${version}.webp`;
+}
+
 /** Only well-formed rows; anything else in the file is ignored. */
 export function parseContributors(data: unknown): Contributor[] {
   const people = (data as { people?: unknown } | null)?.people;

@@ -5,6 +5,7 @@ import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
 import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError, json } from "../../lib/http.ts";
 import { applyCategory, applySeries } from "../../lib/book-category.ts";
+import { publishWithCatalog, withCatalogLock } from "../../lib/catalog-lock.ts";
 import { sha256HexBytes } from "../../lib/password.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 
@@ -59,6 +60,11 @@ async function refuseDifferentBook(env: Env, id: string, glossary: FormDataEntry
 
 async function putCardCover(env: Env, id: string, coverBytes: Uint8Array | null): Promise<void> {
   if (!coverBytes) return;
+  if (!env.BOOKS) throw new HttpError(500, "no-books-bucket");
+  await withCatalogLock(env.DB, "word-lists/catalog.json", () => putCardCoverLocked(env, id, coverBytes));
+}
+
+async function putCardCoverLocked(env: Env, id: string, coverBytes: Uint8Array): Promise<void> {
   if (!env.BOOKS) throw new HttpError(500, "no-books-bucket");
   const catalogObject = await env.BOOKS.get("word-lists/catalog.json");
   if (!catalogObject) throw new HttpError(500, "no-catalog");
@@ -132,6 +138,7 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     const glossaryBytes = new Uint8Array(await glossary.arrayBuffer());
     const glossarySha = await sha256HexBytes(glossaryBytes);
 
+    return await withCatalogLock(env.DB, "public-books/catalog.json", async () => {
     const catalogObject = await bucket.get("public-books/catalog.json");
     if (!catalogObject) throw new HttpError(500, "no-catalog");
     const live = JSON.parse(new TextDecoder().decode(await catalogObject.arrayBuffer())) as {
@@ -140,8 +147,6 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     const row = (live.packs ?? []).find((item) => item && item.id === id);
     if (!row) throw new HttpError(404, "unknown-id");
 
-    await bucket.put(epubKey, epubBytes);
-    await bucket.put(`public-books/${id}/glossary.json`, glossaryBytes);
     row.epub = { url: `${id}/book.epub`, bytes: epubBytes.length, sha256: epubSha };
     const previous = previousGlossaryUpdated(row, glossarySha);
     if (previous) row.previousUpdated = previous;
@@ -150,12 +155,22 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     row.updated = new Date().toISOString();
     applyCategory(row, url.searchParams.get("category"));
     applySeries(row, url.searchParams);
-    await bucket.put("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
+    // The EPUB and glossary first, the catalog last; a failed catalog write puts the old files back.
+    await publishWithCatalog(
+      bucket,
+      [
+        { key: epubKey, bytes: epubBytes },
+        { key: `public-books/${id}/glossary.json`, bytes: glossaryBytes },
+      ],
+      "public-books/catalog.json",
+      new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`),
+    );
     return json({
       kind,
       epub: { bytes: epubBytes.length, sha256: epubSha },
       glossary: { bytes: glossaryBytes.length, sha256: glossarySha },
       cover: coverBytes ? { bytes: coverBytes.length, sha256: coverSha } : null,
+    });
     });
   } catch (error) {
     return errorResponse(error);
