@@ -27,8 +27,8 @@ words. Three things tell you a list needs work:
 - **Passage reports** (table `passage_feedback`): a reader selected a few words, a sentence or a
   short part of one paragraph and asked for help with it. `selected` is the exact text (at most
   600 characters, never across paragraphs); `before` / `after` are a few words around it;
-  `chapter` and `paragraph` are the reader's numbers (the same as an anchor's chapter and a
-  paragraph note's `paragraph`); `sel_start` / `sel_end` are its character offsets in that paragraph;
+  `chapter` and `paragraph` are the reader's own numbers in their copy of the book (see
+  "Chapter numbers" below); `sel_start` / `sel_end` are its character offsets in that paragraph;
   `span` is `sentence` when it holds a whole sentence. Reports that overlap on one paragraph share a
   `topic` (see "Passage topics" below). `reason`:
   - `hard`: "I don't understand this part".
@@ -80,12 +80,12 @@ If you cannot coordinate it, remain read-only and report. Details:
 Open taps and reports:
 
 ```sql
-SELECT book_title, word, form, chapter, occurrence, context, sentence, glossary_rev, tap_count
+SELECT book_title, word, form, chapter, chapters, occurrence, context, sentence, glossary_rev, tap_count
   FROM book_word_taps WHERE in_glossary = 0 AND status != 'resolved'
   ORDER BY tap_count DESC, last_tapped_at DESC LIMIT 500;
 
-SELECT f.id, f.book_title, f.word, f.form, f.reason, f.chapter, f.occurrence, f.context,
-       f.sentence, f.sense_index, f.sense_meaning, f.suggestion, f.glossary_rev, f.status,
+SELECT f.id, f.book_title, f.word, f.form, f.reason, f.chapter, f.chapters, f.occurrence,
+       f.context, f.sentence, f.sense_index, f.sense_meaning, f.suggestion, f.glossary_rev, f.status,
        u.public_id AS suggested_by
   FROM word_feedback f LEFT JOIN users u ON u.id = f.user_id
  WHERE f.status != 'resolved'
@@ -95,7 +95,7 @@ SELECT f.id, f.book_title, f.word, f.form, f.reason, f.chapter, f.occurrence, f.
 Open passage reports:
 
 ```sql
-SELECT p.id, p.topic, p.book_title, p.chapter, p.paragraph, p.sel_start, p.sel_end, p.span,
+SELECT p.id, p.topic, p.book_title, p.chapter, p.chapters, p.paragraph, p.sel_start, p.sel_end, p.span,
        p.selected, p.before, p.after, p.reason, p.suggestion, p.glossary_rev, p.status, p.created_at,
        u.public_id AS suggested_by
   FROM passage_feedback p LEFT JOIN users u ON u.id = p.user_id
@@ -120,6 +120,19 @@ in the live catalogs (R2 read, bucket `margin-words-books`):
 The book's list is `word-lists/<id>/glossary.json` or `public-books/<id>/glossary.json`. Its
 **revision** is the first 12 hex digits of `glossary.sha256`. A row whose `glossary_rev` is not the
 current revision was made on an older list: check whether the current list already fixed it.
+
+**Chapter numbers.** Readers import their own copy of the book, so a reported `chapter` is an index
+in **that** edition, not in the list's edition. Each row also carries `chapters`: how many chapters
+the reporting reader's copy has (`0` from an older page that did not send it). Compare it with the
+list's own `chapters`:
+
+- Same number (or `0`): the chapter number is normally the same as the list's, and
+  `chapter` + `occurrence` / `paragraph` locate the place.
+- Different number: the editions are split differently, often because of front matter, so the
+  chapter number may be off by a fixed amount. Do **not** trust it. Locate the place by the row's
+  `context` (and, for a passage, `paragraph` and `before` + `selected` + `after`) in the book, and
+  write the chapter that actually contains that text. A paragraph note's `paragraph` is also the
+  reader's edition's id: the `context` decides, the id only breaks ties.
 
 ## 4. Fix the list
 
@@ -147,8 +160,10 @@ is the entry schema. The parts you need:
 - The key is the lemma in lower case. A shape the book uses (`peeked`) can be its own key or go
   in `forms`.
 - An anchor is a place: `chapter` (0-based), `occurrence` (1-based count of that word form in the
-  chapter), `form`, and `context` (6 to 12 words copied exactly from the book). Copy them from
-  the tap or report row: they use the same numbers.
+  chapter), `form`, and `context` (6 to 12 words copied exactly from the book). `occurrence` and
+  `context` come from the row; the chapter is the one in the **list's** edition that holds that
+  text (see "Chapter numbers"). When the row's `chapters` differs from the list's, count the
+  occurrence in the list's chapter, not in the reader's.
 - `senseOnly: true` entries apply only at their anchors. Phrases live in `"phrases"`, keyed by the
   phrase, with their own `forms` and `anchors`.
 
@@ -160,13 +175,15 @@ What to do with each kind of item:
 | `too_hard` | Rewrite `meaning` (and `here`) in easier words, same sense | The meaning is already as easy as it can be |
 | `wrong_meaning` | Point the anchor at the right sense, add a sense, or remove the wrong phrase match / anchor | You cannot tell the right meaning without guessing the plot |
 
-What to do with a passage report. Find the place: in chapter `chapter`, paragraph `paragraph` must
-contain `before` + `selected` + `after` (spaces may differ). Then write the smallest note that helps:
+What to do with a passage report. Find the place by its text: one paragraph of the book must
+contain `before` + `selected` + `after` (spaces may differ). `chapter` and `paragraph` narrow the
+search only while the row's `chapters` matches the list's (see "Chapter numbers"); the text decides.
+Then write the smallest note that helps:
 
 | The selection is | Write | Notes |
 | --- | --- | --- |
 | 2 to 5 words that belong together (`phrase`, or a hard group) | a `phrases` entry (GLOSSARY_FORMAT.md 7.3), key = base form | Only when it is really a phrase (7.3's rule). A single hard word inside it is a word entry instead. |
-| One sentence, or most of one | a `sentences` note (7.2): `context` copied from that sentence, `simple`, one-line `grammar` when the grammar is the hard part | A figure of speech: say plainly what it means here. |
+| One sentence, or most of one | a `sentences` note (7.2): `context` copied from that sentence and `simple`; add the one-line `grammar` only when the grammar is the hard part (it is optional) | A figure of speech: say plainly what it means here. |
 | Several sentences of one paragraph | a `paragraphs` note (7.1) on that paragraph: `mainIdea` and `simple` | Only when no sentence note would do. |
 | `wrong` | fix the phrase, sentence or paragraph note shown there, or remove a wrong phrase match | |
 
@@ -256,6 +273,13 @@ in that chapter (split as GLOSSARY_FORMAT.md section 3 describes), the `occurren
 Compare with the live snapshot: every change must be one you meant to make for an item. Confirm
 these checks from the downloaded bytes; this API-token-only task does not require Node or a
 repository checkout. If you cannot verify an anchor, leave that item open.
+
+A malformed entry no longer hides the rest of the list: the reader drops that one entry or note and
+shows the others, and a list with no readable word entry still fails to load. So a bad note does
+not lock readers out, but it also fails silently — the note you wrote simply never appears. Keep
+the shape exact: a sentence note needs `context` and `simple` (`grammar` is optional, ONE line), a
+paragraph note needs `context`, `mainIdea` and `simple`, and an entry's fields are the ones
+GLOSSARY_FORMAT.md lists.
 
 **Every suggestion you will mark accepted must have its credit in the file.** Before you publish,
 go through each report you plan to mark `accepted` in step 7 and find, in the new file, the entry or

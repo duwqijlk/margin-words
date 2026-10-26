@@ -118,7 +118,8 @@ export function checkListAgainstBook(
   glossaryText: string,
   paragraphs: readonly string[],
 ): NewListCheck {
-  const check = validateGlossary(glossaryText);
+  // A list that is already published is read leniently: a bad entry is skipped, not fatal.
+  const check = validateGlossary(glossaryText, { lenient: true });
   if (!check.ok || !check.file) return { ok: false, problem: "unreadable", percent: 0 };
   const match = editionMatch(check.file, paragraphs);
   const percent = matchPercent(match);

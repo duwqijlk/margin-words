@@ -242,6 +242,50 @@ test("extras: paragraphs, sentences, phrases and coined are read", () => {
   assert.deepEqual([r.stats.paragraphs, r.stats.sentences, r.stats.phrases, r.stats.coined], [1, 1, 1, 1]);
 });
 
+test("a sentence note needs its easier sentence, not a grammar line", () => {
+  const r = ok({
+    version: 2,
+    glossary: { lantern: { meaning: "A light." } },
+    sentences: [
+      { chapter: 0, context: "one two three four five six", simple: "An easier sentence." },
+      { chapter: 0, context: "six five four three two one", simple: "Another.", grammar: "Past tense." },
+    ],
+  });
+  assert.equal(r.ok, true, r.errors.join("\n"));
+  assert.equal(r.file.sentences.length, 2);
+  assert.equal("grammar" in r.file.sentences[0], false);
+  assert.equal(r.file.sentences[1].grammar, "Past tense.");
+
+  const noSimple = ok({
+    version: 2,
+    glossary: { lantern: { meaning: "A light." } },
+    sentences: [{ chapter: 0, context: "one two three four five six", grammar: "Past tense." }],
+  });
+  assert.equal(noSimple.ok, false);
+  assert.match(noSimple.errors.join("\n"), /"simple"/);
+});
+
+test("a published list with one bad word still reads; strict checking still refuses it", () => {
+  const file = {
+    version: 2,
+    glossary: {
+      lantern: { meaning: "A light." },
+      broken: { meaning: 42 },
+    },
+  };
+  const strict = ok(file);
+  assert.equal(strict.ok, false);
+  const lenient = format.validateGlossary(file, { lenient: true });
+  assert.equal(lenient.ok, true, lenient.errors.join("\n"));
+  assert.deepEqual(Object.keys(lenient.file.glossary), ["lantern"]);
+  assert.ok(lenient.errors.length > 0);
+  // Nothing usable left is still a failure.
+  assert.equal(
+    format.validateGlossary({ version: 2, glossary: { broken: { meaning: 42 } } }, { lenient: true }).ok,
+    false,
+  );
+});
+
 test("extras: a comma may sit between words of a phrase", () => {
   const r = ok({
     version: 2,

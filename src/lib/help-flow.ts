@@ -22,8 +22,9 @@ function asSentence(value: unknown): SentenceView | null {
   if (!value || typeof value !== "object") return null;
   const row = value as Record<string, unknown>;
   const simple = clean(row.simple, 800);
+  // The easier sentence is the note; the grammar line is extra help and may be absent.
+  if (!simple) return null;
   const grammar = clean(row.grammar, 300);
-  if (!simple || !grammar) return null;
   const credit = typeof row.credit === "string" && /^[a-z0-9]{12}$/.test(row.credit) ? row.credit : undefined;
   return { simple, grammar, ...(credit ? { credit } : {}) };
 }

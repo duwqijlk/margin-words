@@ -18,6 +18,7 @@ export function PassageFeedback({
   bookId,
   bookTitle,
   chapter,
+  chapters,
   glossaryRev,
   enabled,
 }: {
@@ -26,6 +27,8 @@ export function PassageFeedback({
   bookId: string;
   bookTitle?: string;
   chapter: number;
+  /** How many chapters this copy of the book has, so a chapter number can be checked. */
+  chapters?: number;
   glossaryRev?: string;
   /** False while a word card or a help panel is open, or for a chapter with no fixed number. */
   enabled: boolean;
@@ -106,6 +109,7 @@ export function PassageFeedback({
           bookId,
           bookTitle,
           chapter,
+          chapters,
           paragraph: pick.paragraph,
           start: pick.start,
           end: pick.end,

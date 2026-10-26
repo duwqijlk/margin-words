@@ -212,11 +212,11 @@ type SentenceNote = {
   chapter: number | string; // >= 0, or an extra id "x0", "x1", … (section 5.3)
   context: string;      // 6-14 words copied exactly from the sentence (max 300 chars); it locates the note
   simple: string;       // the sentence in easier English, max 800
-  grammar: string;      // ONE line: what is special in how the sentence is built, max 400
+  grammar?: string;     // optional, ONE line: what is special in how the sentence is built, max 400
 };
 ```
 
-Write notes for 1 or 2 sentences with tricky grammar per chapter (inversion such as "Had she not been...", "The more..., the less...", long clauses).
+Write notes for 1 or 2 sentences with tricky grammar per chapter (inversion such as "Had she not been...", "The more..., the less...", long clauses). `simple` is what the reader always sees; add `grammar` only when the grammar itself is the hard part.
 
 ### 4.5 Phrase (phrasal verbs, idioms)
 
@@ -425,7 +425,7 @@ A file is accepted by the app when all of these hold (these are the exact error 
 3. Every entry is an object; `meaning` is a non-empty string unless `senses` is present; strings are within their length limits; `forms` is a list of strings; `coined` is a boolean.
 4. `senses` only with `version: 2`; 1 to 24 items; each has a non-empty `meaning`; at most one `default: true` per entry; no two senses share one (`chapter`, `form`, `occurrence`).
 5. Every anchor: `chapter` integer >= 0, `occurrence` integer >= 1, `occurrence` only together with `chapter`, and (`context` or `chapter`+`occurrence`) present; at most 60 anchors per sense.
-6. Paragraph notes have integer `chapter`/`paragraph` >= 0 and non-empty `context`, `mainIdea`, `simple`; `hardWords` is a list of at most 20 non-empty strings. Sentence notes have integer `chapter` >= 0 and non-empty `context`, `simple`, `grammar`. Phrases: key of two or more lower-case words with a space between them (a comma, full stop, number, or ellipsis may sit in the key), `meaning` present, `pos` one of the three values.
+6. Paragraph notes have integer `chapter`/`paragraph` >= 0 and non-empty `context`, `mainIdea`, `simple`; `hardWords` is a list of at most 20 non-empty strings. Sentence notes have integer `chapter` >= 0 and non-empty `context`, `simple` (`grammar` is optional). Phrases: key of two or more lower-case words with a space between them (a comma, full stop, number, or ellipsis may sit in the key), `meaning` present, `pos` one of the three values.
 
 Extra checks when the EPUB is available (`validate-glossary.mjs book.epub glossary.json`; the app only warns for these, the script makes them errors):
 7. The chapter exists; the form occurs at least `occurrence` times in that chapter; `context` is inside the paragraph that holds that occurrence.

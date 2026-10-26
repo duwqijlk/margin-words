@@ -76,7 +76,8 @@ export async function applyPackGlossary(
   }
   const rows = Object.entries(pack.glossary ?? {});
   if (rows.length === 0) throw new Error(tr("err.packListEmpty"));
-  let checked = pack.version === 2 ? validateGlossary(pack).file : null;
+  // Reading a published list is lenient: one bad entry is dropped, the rest still loads.
+  let checked = pack.version === 2 ? validateGlossary(pack, { lenient: true }).file : null;
   // If this copy of the book is split into a different number of chapters than the
   // list was written for, the chapter numbers cannot be trusted: keep only the context text.
   const full = checked?.chapters ? await loadStoredBook(bookId) : null;

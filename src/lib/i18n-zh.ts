@@ -1006,6 +1006,7 @@ export const zh: Record<Key, string> = {
   "admin.taps.prev": "上一页",
   "admin.taps.next": "下一页",
   "admin.taps.location": "第 {chapter} 章 · 第 {occurrence} 次出现",
+  "admin.taps.chapters": "全书共 {n} 章",
   "admin.taps.bookTitle": "《{title}》",
   "admin.taps.tabTaps": "生词点击追踪",
   "admin.taps.tabFeedback": "释义问题反馈",

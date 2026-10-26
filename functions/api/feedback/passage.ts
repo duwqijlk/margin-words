@@ -74,6 +74,9 @@ export async function handlePassageFeedbackPost(
     if (reason === "suggested" && !suggestion) throw new HttpError(400, "bad-reason");
 
     const chapter = Math.max(0, Math.floor(Number(body.chapter) || 0));
+    // The reader's edition may split the book into a different number of chapters than the
+    // word list; the count tells the patrol whether the chapter number can be trusted.
+    const chapters = Math.min(2000, Math.max(0, Math.floor(Number(body.chapters) || 0)));
     const paragraph = Math.max(0, Math.floor(Number(body.paragraph) || 0));
     const before = cleanBookText(body.before, 80);
     const after = cleanBookText(body.after, 80);
@@ -120,15 +123,16 @@ export async function handlePassageFeedbackPost(
 
     const inserted = await env.DB.prepare(
       `INSERT INTO passage_feedback (
-         book_id, book_title, chapter, paragraph, sel_start, sel_end, span, selected, before, after, reason,
+         book_id, book_title, chapter, chapters, paragraph, sel_start, sel_end, span, selected, before, after, reason,
          suggestion, glossary_rev, status, topic, user_id, ip, created_at
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?)
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?)
        RETURNING id`,
     )
       .bind(
         bookId,
         bookTitle,
         chapter,
+        chapters,
         paragraph,
         start,
         end,

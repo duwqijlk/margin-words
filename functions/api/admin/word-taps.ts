@@ -16,6 +16,7 @@ type TapRow = {
   word: string;
   form: string;
   chapter: number;
+  chapters: number;
   occurrence: number;
   paragraph: number;
   context: string;
@@ -86,6 +87,7 @@ export async function handleAdminWordTapsGet(
          word,
          form,
          chapter,
+         chapters,
          occurrence,
          paragraph,
          context,
@@ -121,6 +123,7 @@ export async function handleAdminWordTapsGet(
         word: row.word,
         form: row.form || row.word,
         chapter: row.chapter,
+        chapters: row.chapters,
         occurrence: row.occurrence,
         paragraph: row.paragraph,
         context: row.context,
