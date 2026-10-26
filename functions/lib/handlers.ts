@@ -93,6 +93,15 @@ async function sendEmailCode(env: Env, userId: string, email: string, now: numbe
   return (await send({ email, code })).sent;
 }
 
+/**
+ * Start a sign-up: check the form, keep it as a pending sign-up, and email a 6-digit code.
+ * No account exists yet and nothing is signed in. The account is made only when the code comes
+ * back (handleRegisterConfirm), so a mistyped address (gamil.com) leaves no account behind.
+ * Registering the same address again replaces the pending sign-up (new password, new code),
+ * at most once a minute.
+ *
+ *   POST /api/auth/register   { email, password, turnstileToken }   -> { pending: true, email, codeSent }
+ */
 export async function handleRegister(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
   try {
     const now = nowOf(options);
@@ -106,24 +115,116 @@ export async function handleRegister(request: Request, env: Env, options?: Handl
     if (!human) throw new HttpError(403, "turnstile");
     const existing = await env.DB.prepare("SELECT id FROM users WHERE email = ?").bind(email).first<{ id: string }>();
     if (existing) throw new HttpError(409, "email-taken");
+    // Pending sign-ups whose code ran out are gone; the address is free again.
+    await env.DB.prepare("DELETE FROM pending_signups WHERE expires_at <= ?").bind(now).run();
+    const last = await env.DB.prepare("SELECT created_at FROM pending_signups WHERE email = ?")
+      .bind(email)
+      .first<{ created_at: number }>();
+    if (last && now - last.created_at < 60_000) throw new HttpError(429, "code-wait");
     const hashed = await hashPassword(password);
+    const code = String(crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000).padStart(6, "0");
+    // The code is bound to the address, so its hash says nothing about another one.
+    const codeHash = await sha256Hex(`signup:${email}:${code}`);
+    await env.DB.prepare(
+      `INSERT INTO pending_signups (email, password_hash, password_salt, password_iters, code_hash, attempts, created_at, expires_at)
+       VALUES (?, ?, ?, ?, ?, 0, ?, ?)
+       ON CONFLICT(email) DO UPDATE SET password_hash = excluded.password_hash, password_salt = excluded.password_salt,
+         password_iters = excluded.password_iters, code_hash = excluded.code_hash, attempts = 0,
+         created_at = excluded.created_at, expires_at = excluded.expires_at`,
+    )
+      .bind(email, hashed.hash, hashed.salt, hashed.iterations, codeHash, now, now + CODE_MS)
+      .run();
+    const send = options?.sendCode ?? (env.RESEND_API_KEY ? resendCodeSender(env.RESEND_API_KEY) : deliverEmailCode);
+    const codeSent = (await send({ email, code })).sent;
+    if (!codeSent) {
+      // A code that never left cannot finish the sign-up: drop it, so trying again is not blocked.
+      await env.DB.prepare("DELETE FROM pending_signups WHERE email = ?").bind(email).run();
+      throw new HttpError(502, "code-send");
+    }
+    return json({ pending: true, email, codeSent }, 202);
+  } catch (error) {
+    return errorResponse(error);
+  }
+}
+
+/**
+ * A new code for a sign-up in progress ("Send again"). No human check: only an address with a
+ * pending sign-up gets one, at most once a minute and within the register limit, and the old code
+ * stops working. The password stays the one typed at the start.
+ *
+ *   POST /api/auth/register/resend   { email }   -> { pending: true, email, codeSent }
+ */
+export async function handleRegisterResend(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
+  try {
+    const now = nowOf(options);
+    const body = (await readJson(request, 2_000)) as Record<string, unknown>;
+    const email = normalizeEmail(body.email);
+    if (!email) throw new HttpError(400, "email");
+    await assertRateLimit(env.DB, "register", clientIp(request), email, now);
+    const row = await env.DB.prepare("SELECT created_at, expires_at FROM pending_signups WHERE email = ?")
+      .bind(email)
+      .first<{ created_at: number; expires_at: number }>();
+    // Nothing to resend: the reader starts the sign-up again (a 15-minute-old one is gone too).
+    if (!row || row.expires_at <= now) throw new HttpError(400, "code-expired");
+    if (now - row.created_at < 60_000) throw new HttpError(429, "code-wait");
+    const code = String(crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000).padStart(6, "0");
+    await env.DB.prepare(
+      "UPDATE pending_signups SET code_hash = ?, attempts = 0, created_at = ?, expires_at = ? WHERE email = ?",
+    )
+      .bind(await sha256Hex(`signup:${email}:${code}`), now, now + CODE_MS, email)
+      .run();
+    const send = options?.sendCode ?? (env.RESEND_API_KEY ? resendCodeSender(env.RESEND_API_KEY) : deliverEmailCode);
+    if (!(await send({ email, code })).sent) throw new HttpError(502, "code-send");
+    return json({ pending: true, email, codeSent: true });
+  } catch (error) {
+    return errorResponse(error);
+  }
+}
+
+/**
+ * Finish a sign-up with the emailed code: make the account (its email already checked) and sign in.
+ * Five wrong codes end the pending sign-up; the reader registers again for a new code.
+ *
+ *   POST /api/auth/register/confirm   { email, code }   -> 201 { user }, with the session cookie
+ */
+export async function handleRegisterConfirm(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
+  try {
+    const now = nowOf(options);
+    const body = (await readJson(request, 2_000)) as Record<string, unknown>;
+    const email = normalizeEmail(body.email);
+    if (!email) throw new HttpError(400, "email");
+    const code = typeof body.code === "string" ? body.code.replace(/\s+/g, "") : "";
+    if (!/^\d{6}$/.test(code)) throw new HttpError(400, "code");
+    // Its own limit: a reader who mistypes the code must not run into the sign-up limit. The code
+    // itself ends after CODE_ATTEMPTS wrong tries, so guessing six digits is not possible.
+    await assertRateLimit(env.DB, "signup-code", clientIp(request), email, now);
+    const row = await env.DB.prepare(
+      "SELECT password_hash, password_salt, password_iters, code_hash, attempts, expires_at FROM pending_signups WHERE email = ?",
+    )
+      .bind(email)
+      .first<{ password_hash: string; password_salt: string; password_iters: number; code_hash: string; attempts: number; expires_at: number }>();
+    if (!row || row.expires_at <= now || row.attempts >= CODE_ATTEMPTS) throw new HttpError(400, "code-expired");
+    if ((await sha256Hex(`signup:${email}:${code}`)) !== row.code_hash) {
+      await env.DB.prepare("UPDATE pending_signups SET attempts = attempts + 1 WHERE email = ?").bind(email).run();
+      throw new HttpError(400, "code");
+    }
     const id = crypto.randomUUID();
     const publicId = newPublicId();
     try {
       await env.DB.prepare(
-        "INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at, email_verified_at, public_id) VALUES (?, ?, ?, ?, ?, ?, NULL, ?)",
+        "INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at, email_verified_at, public_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       )
-        .bind(id, email, hashed.hash, hashed.salt, hashed.iterations, now, publicId)
+        .bind(id, email, row.password_hash, row.password_salt, row.password_iters, now, now, publicId)
         .run();
     } catch (error) {
+      // Someone finished the same address a moment earlier.
       if (error instanceof Error && /UNIQUE/i.test(error.message)) throw new HttpError(409, "email-taken");
       throw error;
     }
+    await env.DB.prepare("DELETE FROM pending_signups WHERE email = ?").bind(email).run();
     const cookie = await createSession(env.DB, id, request, now);
-    // The account works at once (shelf, sync). Word lists wait for the emailed code.
-    const codeSent = await sendEmailCode(env, id, email, now, options);
     return withCookie(
-      { user: publicUser({ id, email, created_at: now, nickname: null, role: "user", email_verified_at: null, public_id: publicId }, now), codeSent },
+      { user: publicUser({ id, email, created_at: now, nickname: null, role: "user", email_verified_at: now, public_id: publicId }, now) },
       201,
       cookie,
     );

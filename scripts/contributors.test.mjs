@@ -4,7 +4,7 @@ import { DatabaseSync } from "node:sqlite";
 import { dirname, join } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { handleRegister } from "../functions/lib/handlers.ts";
+import { handleRegister, handleRegisterConfirm } from "../functions/lib/handlers.ts";
 import { handleWordFeedbackPost } from "../functions/api/feedback/word.ts";
 import { handlePassageFeedbackPost } from "../functions/api/feedback/passage.ts";
 import { handleAvatarPut, isWebp } from "../functions/api/auth/avatar.ts";
@@ -19,6 +19,32 @@ const validateGlossary = (text) => format.validateGlossary(text);
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const NOW = 1_700_000_000_000;
 
+/** Register and finish with the emailed code: the account the tests used to get from one call. */
+async function signUpFully(handlerRegister, env, input, now = NOW) {
+  let code = "";
+  const opts = { now, sendCode: async (message) => { code = message.code; return { sent: true }; } };
+  const body = input.body ?? input;
+  const started = await handlerRegister(
+    new Request("http://localhost/api/auth/register", {
+      method: "POST",
+      headers: { "content-type": "application/json", ...(input.ip ? { "cf-connecting-ip": input.ip } : {}) },
+      body: JSON.stringify(body),
+    }),
+    env,
+    opts,
+  );
+  if (started.status !== 202) return started;
+  return handleRegisterConfirm(
+    new Request(`${input.https ? "https" : "http"}://localhost/api/auth/register/confirm`, {
+      method: "POST",
+      headers: { "content-type": "application/json", ...(input.ip ? { "cf-connecting-ip": input.ip } : {}) },
+      body: JSON.stringify({ email: body.email, code }),
+    }),
+    env,
+    { now },
+  );
+}
+
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
@@ -26,7 +52,7 @@ function openDb() {
     "0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql",
     "0006_shelf_grant.sql", "0007_word_taps.sql", "0008_word_feedback.sql", "0009_word_taps_location.sql",
     "0010_word_feedback_location.sql", "0011_word_analytics_rev_status.sql", "0012_email_verification.sql",
-    "0013_feedback_suggestion.sql", "0014_contributor_credit.sql", "0015_passage_feedback.sql",
+    "0013_feedback_suggestion.sql", "0014_contributor_credit.sql", "0015_passage_feedback.sql", "0016_pending_signups.sql",
   ]) db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   const wrap = (sql) => {
     const stmt = db.prepare(sql);
@@ -70,10 +96,7 @@ const request = (path, { method = "POST", cookie, body, ip = "9.9.9.9", raw } = 
   });
 
 async function signUp(env, email) {
-  const made = await handleRegister(request("/api/auth/register", { body: { email, password: "correct horse" } }), env, {
-    now: NOW,
-    sendCode: async () => ({ sent: true }),
-  });
+  const made = await signUpFully(handleRegister, env, { body: { email, password: "correct horse" } });
   const cookie = (made.headers.get("set-cookie") ?? "").split(";")[0];
   const user = (await made.json()).user;
   return { cookie, user };
@@ -131,6 +154,8 @@ test("an avatar must be a small WebP from a checked account, and goes to the pub
   assert.equal(isWebp(webp), true);
   assert.equal(isWebp(new TextEncoder().encode("<svg onload=alert(1)>")), false);
 
+  // Every new account is checked now; an older one may not be. Set it back to test the guard.
+  db.raw.prepare("UPDATE users SET email_verified_at = NULL WHERE email = 'pic@example.com'").run();
   const unchecked = await handleAvatarPut(request("/api/auth/avatar", { method: "PUT", cookie, raw: webp }), env, { now: NOW });
   assert.equal(unchecked.status, 403, "the email must be checked first");
   db.raw.prepare("UPDATE users SET email_verified_at = ? WHERE email = 'pic@example.com'").run(NOW);

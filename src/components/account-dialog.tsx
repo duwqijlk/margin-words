@@ -19,7 +19,10 @@ import {
   signIn,
   signOut,
   signUp,
+  finishSignUp,
+  resendSignUpCode,
 } from "@/lib/sync-engine";
+import { suggestEmail } from "@/lib/email-typo";
 import { navigate } from "@/lib/router";
 import { isSponsorAdmin } from "@/lib/sponsor";
 import { useT, type Key } from "@/lib/i18n";
@@ -334,7 +337,16 @@ function AvatarPicker({ name }: { name: string }) {
  * The 6-digit code sent to a new account's email. Until it is typed, the account works (shelf,
  * sync) but cannot open word lists. `onDone` runs after the right code.
  */
-function EmailCodeBox({ email, onDone }: { email: string; onDone?: () => void }) {
+function EmailCodeBox({
+  email,
+  onDone,
+  signup,
+}: {
+  email: string;
+  onDone?: () => void;
+  /** A sign-up in progress: the code makes the account, and Send again starts the sign-up over. */
+  signup?: { resend: () => Promise<void>; back: () => void };
+}) {
   const { t } = useT();
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -352,7 +364,8 @@ function EmailCodeBox({ email, onDone }: { email: string; onDone?: () => void })
     setBusy(true);
     setProblem("");
     try {
-      await confirmEmailCode(digits);
+      if (signup) await finishSignUp(email, digits);
+      else await confirmEmailCode(digits);
       onDone?.();
     } catch (error) {
       setProblem(t(errorKey(error)));
@@ -367,7 +380,8 @@ function EmailCodeBox({ email, onDone }: { email: string; onDone?: () => void })
     setProblem("");
     setNote("");
     try {
-      await sendEmailCode();
+      if (signup) await signup.resend();
+      else await sendEmailCode();
       setNote(t("account.codeResent"));
     } catch (error) {
       setProblem(t(errorKey(error)));
@@ -378,7 +392,7 @@ function EmailCodeBox({ email, onDone }: { email: string; onDone?: () => void })
 
   return (
     <form className="grid gap-3" onSubmit={(event) => void onConfirm(event)} data-email-code>
-      <p className="text-sm text-muted">{t("account.codeIntro", { email })}</p>
+      <p className="text-sm text-muted">{t(signup ? "account.codeIntroSignup" : "account.codeIntro", { email })}</p>
       <label className="grid gap-1 text-sm font-medium" htmlFor="account-email-code">
         {t("account.codeLabel")}
         <input
@@ -410,6 +424,17 @@ function EmailCodeBox({ email, onDone }: { email: string; onDone?: () => void })
         {t("account.codeResend")}
       </button>
       <p className="text-xs text-muted">{t("account.codeSpam")}</p>
+      {signup ? (
+        <button
+          type="button"
+          className="justify-self-start text-sm font-medium text-accent hover:underline"
+          disabled={busy}
+          onClick={signup.back}
+          data-email-code-back
+        >
+          {t("account.codeWrongAddress")}
+        </button>
+      ) : null}
     </form>
   );
 }
@@ -461,6 +486,8 @@ export function AccountDialog() {
   const openDialog = useAccount((state) => state.openDialog);
 
   const [email, setEmail] = useState("");
+  /** The address a sign-up code was sent to, until the code is typed. */
+  const [pendingSignup, setPendingSignup] = useState("");
   const [password, setPassword] = useState("");
   const [again, setAgain] = useState("");
   const [show, setShow] = useState(false);
@@ -542,8 +569,7 @@ export function AccountDialog() {
         setPassword("");
         setAgain("");
       } else if (mode === "register") {
-        await signUp(address, password, turnstileToken);
-        useAccount.getState().patch({ nicknamePrompt: true, dialogOpen: true });
+        setPendingSignup(await signUp(address, password, turnstileToken));
       } else {
         await signIn(address, password);
         closeDialog();
@@ -638,6 +664,8 @@ export function AccountDialog() {
   }
 
   const signedIn = phase === "in" && emailSaved && mode !== "reset";
+  const signingUp = Boolean(pendingSignup) && mode === "register" && !signedIn;
+  const emailHint = mode === "register" || mode === "login" ? suggestEmail(email) : "";
   // A new account types its emailed code first; the nickname question comes after.
   const checking = Boolean(signedIn && !emailVerified);
   const prompting = signedIn && nicknamePrompt && !checking;
@@ -656,7 +684,7 @@ export function AccountDialog() {
                 ? t("account.resetTitle")
                 : mode === "forgot"
                   ? t("account.forgotTitle")
-                  : checking
+                  : checking || signingUp
                     ? t("account.codeTitle")
                     : prompting
                       ? t("account.nicknamePromptTitle")
@@ -666,8 +694,8 @@ export function AccountDialog() {
               <X className="size-5" aria-hidden />
             </Dialog.Close>
           </div>
-          <Dialog.Description className={signedIn ? "sr-only" : "mt-2 text-sm text-muted"}>
-            {checking
+          <Dialog.Description className={signedIn || signingUp ? "sr-only" : "mt-2 text-sm text-muted"}>
+            {checking || signingUp
               ? t("account.codeTitle")
               : prompting
               ? t("account.nicknamePrompt")
@@ -678,7 +706,28 @@ export function AccountDialog() {
                   : t("account.desc")}
           </Dialog.Description>
 
-          {checking && emailSaved ? (
+          {signingUp ? (
+            <div className="mt-4">
+              <EmailCodeBox
+                email={pendingSignup}
+                signup={{
+                  // A fresh code without a new human check (the server allows one a minute).
+                  resend: () => resendSignUpCode(pendingSignup),
+                  back: () => {
+                    setPendingSignup("");
+                    resetTurnstile.current();
+                    setTurnstileToken("");
+                  },
+                }}
+                onDone={() => {
+                  setPendingSignup("");
+                  setPassword("");
+                  setAgain("");
+                  useAccount.getState().patch({ nicknamePrompt: true, dialogOpen: true });
+                }}
+              />
+            </div>
+          ) : checking && emailSaved ? (
             <div className="mt-4">
               <EmailCodeBox email={emailSaved} />
             </div>
@@ -880,6 +929,20 @@ export function AccountDialog() {
                     onChange={(event) => setEmail(event.target.value)}
                     data-account-email
                   />
+                  {emailHint ? (
+                    <span className="text-sm font-normal text-warn" role="status" data-account-email-hint>
+                      {t("account.emailDidYouMean")}{" "}
+                      <button
+                        type="button"
+                        className="font-semibold underline underline-offset-2"
+                        onClick={() => setEmail(emailHint)}
+                        data-account-email-fix
+                      >
+                        {emailHint}
+                      </button>
+                      ?
+                    </span>
+                  ) : null}
                 </label>
               )}
               <PasswordField

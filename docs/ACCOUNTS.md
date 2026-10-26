@@ -104,18 +104,18 @@ Do these in order, logged in to the Cloudflare account that owns the Pages proje
 Use a new email you control. Password at least 8 characters.
 
 1. Signed out. Open `https://inputread.site/shelf`. The shelf, Discover, and a book still open with no account. The person icon is in the top bar.
-2. Sign up. Person icon → Create account → email, password, password again. The dialog should say signed in and then "Synced" (Chinese UI: "已同步").
+2. Sign up. Person icon → Create account → email, password, password again. The dialog asks for the 6-digit code sent to that address; no account exists until it is typed. A mistyped host such as `gamil.com` shows "Did you mean …gmail.com?" under the email field. After the right code the dialog says signed in and then "Synced" (Chinese UI: "已同步").
 3. Log in. Sign out, then sign in with the same email and password. The dialog shows that email again.
 4. Sync. On this browser, change a setting (language or type size) or add a book to the shelf. Wait about two seconds until it says Synced. In a private window, or another device, open `https://inputread.site`, sign in with the same account, and confirm that change is there. Book files are not copied; a shelf card can show up before the EPUB does. Add the book again from Discover on the second device if the file is missing.
 5. Delete. In the account dialog, choose Delete account, enter the password, and confirm. Sign-in with that email and password then fails. Books already on the device stay on the device.
 
-A cookie check from a terminal (the `Set-Cookie` line must include `HttpOnly`, `Secure`, and `SameSite=Lax`):
+A cookie check from a terminal (the `Set-Cookie` line must include `HttpOnly`, `Secure`, and `SameSite=Lax`). Registering only sends the code (and needs a Turnstile token in production), so sign up in the browser first and check the cookie on login:
 
 ```bash
 curl -sS -D - -o /dev/null -c /tmp/mw.cookies \
   -H 'content-type: application/json' \
   -d '{"email":"you@example.com","password":"correct horse"}' \
-  https://inputread.site/api/auth/register
+  https://inputread.site/api/auth/login
 curl -sS -b /tmp/mw.cookies https://inputread.site/api/auth/me
 curl -sS -b /tmp/mw.cookies -H 'content-type: application/json' \
   -d '{"items":[]}' https://inputread.site/api/sync
@@ -157,7 +157,7 @@ npm run typecheck:functions
 
 ## Password reset hook
 
-Email reset is served by **Resend** (`https://api.resend.com/emails`, `Authorization: Bearer` with the Pages secret `RESEND_API_KEY`). Mail goes out from `no-reply@inputread.site`, so the domain must stay verified in the Resend dashboard (DKIM/CNAME records on Cloudflare DNS). Mainland China cannot rely on Google or GitHub login, and this app does not send any other mail.
+Email reset is served by **Resend** (`https://api.resend.com/emails`, `Authorization: Bearer` with the Pages secret `RESEND_API_KEY`). Mail goes out from `no-reply@inputread.site`, so the domain must stay verified in the Resend dashboard (DKIM/CNAME records on Cloudflare DNS). Mainland China cannot rely on Google or GitHub login. The only other mail is the 6-digit sign-up code (`resendCodeSender`).
 
 `functions/lib/email.ts` exports `resendSender(apiKey)`. `handlePasswordResetRequest` uses it when `RESEND_API_KEY` is set, and the no-op `deliverPasswordReset` otherwise. You receive `{ email, resetUrl, token, expiresAt }`. The link is:
 
@@ -175,7 +175,9 @@ All routes are same-origin. The service worker does not answer requests, so `/ap
 
 | Method | Path | |
 | --- | --- | --- |
-| POST | `/api/auth/register` | `{ email, password, turnstileToken? }` |
+| POST | `/api/auth/register` | `{ email, password, turnstileToken? }`: checks the form and emails a 6-digit code. `202 { pending: true, email, codeSent }`. **No account and no session yet**; one try a minute per address |
+| POST | `/api/auth/register/confirm` | `{ email, code }`: the right code makes the account (email already checked) and signs in. `201 { user }` with the cookie. Five wrong codes end the sign-up; a code lives 15 minutes |
+| POST | `/api/auth/register/resend` | `{ email }`: a new code for a sign-up in progress, no human check, once a minute; the old code stops working |
 | POST | `/api/auth/login` | `{ email, password, turnstileToken? }` |
 | POST | `/api/auth/logout` | clears the cookie |
 | GET | `/api/auth/me` | `200` and `{ user, resetEmail }` when signed in, `200` and `{ user: null, resetEmail }` when signed out. `user.nickname` is a string or null. `resetEmail` is the global flag for the reset-mail provider |
@@ -187,7 +189,7 @@ All routes are same-origin. The service worker does not answer requests, so `/ap
 | GET | `/api/sync` | all items (optional `?since=` unix ms) |
 | POST | `/api/sync` | `{ items: [...] }` merges and returns the stored rows |
 
-Login and register are rate-limited per IP and per email (15-minute window): login 20 per IP and 10 failed logins per email, register 10 per IP and 5 per email. A successful login does not add to the per-email count. IPv6 addresses share a bucket by their /64 prefix. Password reset uses the same window at 10 per IP and 5 per email.
+Login and register are rate-limited per IP and per email (15-minute window): login 20 per IP and 10 failed logins per email, register (and resend) 10 per IP and 5 per email, the sign-up code 30 per IP and 20 per email. A successful login does not add to the per-email count. IPv6 addresses share a bucket by their /64 prefix. Password reset uses the same window at 10 per IP and 5 per email.
 
 ## Client behavior
 
@@ -208,6 +210,7 @@ Signing out or deleting the account does not wipe the books on this device.
 - `password_resets` — token_hash, user_id, created_at, expires_at, used_at (cascade delete)
 - `sponsorships` — (`0003_sponsorship.sql`) id, user_id, method (`wechat`, `alipay`, or `crypto`), display_name, created_at, email_sent_at, amount_cents, listed_at, closed_at (cascade delete)
 - `book_downloads` — (`0004_roles.sql`) user_id, book_id, created_at. One row per private-library EPUB download, capped at 30 per user per day.
+- `pending_signups` — (`0016_pending_signups.sql`) email (primary key), password hash/salt/iterations, code_hash, attempts, created_at, expires_at. A sign-up waiting for its emailed code. The account (`users` row) is made only from this row and only with the right code, so a mistyped address leaves no account and does not hold the address. Expired rows are removed on the next sign-up. Accounts made before this change that never typed their code keep `email_verified_at` empty and still cannot open word lists (`/api/auth/email-code/*` still checks them).
 
 Apply `0003` before a deploy that serves the sponsorship functions, and `0004` before a deploy that serves the role-aware functions (every session lookup reads `users.role` from `0004` on):
 
