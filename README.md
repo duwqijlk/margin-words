@@ -83,73 +83,45 @@ The novels are a separate matter:
 
 Questions about a copyrighted excerpt: open an issue at <https://github.com/duwqijlk/margin-words/issues>.
 
-## Develop and host
+## Develop and operate
 
-### Where the book files live
+The live books and word lists are not maintained in this repository. `packs/` and `public-books/` are frozen snapshots; the live R2 buckets and D1 records are authoritative. Do not copy live content into git, commit book content, or open a book-content pull request. The current operational map is [docs/MAINTENANCE.md](docs/MAINTENANCE.md).
 
-> **The books are not maintained in git.** The live buckets (`margin-words-books`, `margin-words-private`) and the D1 database are the only source of books and word lists. `packs/` and `public-books/` here are a frozen snapshot and are not updated. To add a book or change a word list, upload it to R2 as [docs/BOOK_UPLOAD.md](docs/BOOK_UPLOAD.md) describes, or use the admin page. Do not commit book content or open a pull request for it. The commands below are the old way and are kept for the record.
+Start with the [maintenance map](docs/MAINTENANCE.md) for stores, versions/caches, publishing safety and recovery. Then choose your job:
 
-A clone of this repository has the word lists and the sample story. It does not have the novels. Copyrighted EPUBs belong in the private bucket `margin-words-private`. Public-domain EPUBs belong on `https://books.inputread.site`. The only EPUB in git is `examples/sample-book/the-lantern-seller.epub`.
+| Change | Entry point | Deploy? |
+| --- | --- | --- |
+| UI, reader or browser behavior | `src/`; [project instructions](AGENTS.md) | Yes |
+| API, authentication, permission or quota behavior | `functions/`; [Accounts](docs/ACCOUNTS.md) | Yes; schema prerequisites first |
+| Book, word list, cover, book series/category | [Book upload](docs/BOOK_UPLOAD.md) | No |
+| Discover's saved rows | Admin → Series; [series vs rows](docs/BOOK_UPLOAD.md#86-a-books-series-vs-a-discover-rail) | No |
+| Reader reports, corrections and credits | [Glossary patrol](docs/GLOSSARY_PATROL.md) | No |
+| Bilingual summary | [Book summaries](docs/BOOK_BLURBS.md) | No |
+| Account data and roles | [Accounts](docs/ACCOUNTS.md) | No for supported data-only operations |
+| Hosted work instructions | `docs/`; [documentation ownership](docs/MAINTENANCE.md#ownership) | Yes, to publish `/kit/*.md` |
 
-On a machine that also has the book files, the folders look like this:
+The map owns the one current [deployment procedure](docs/MAINTENANCE.md#deploy), not the book guides.
 
-```
-packs/catalog.json         list of the copyrighted titles
-packs/<id>/glossary.json   that title's word list
-packs/<id>/book.epub       local only; git ignores it
-public-books/              the free classics, same idea
-```
+Do not use retired local publishing recipes to update the live books. Publicly projected contributor names and avatar files are the documented R2 exception to the otherwise user-data-only-D1 rule; follow the maintenance map when that surface is involved.
 
-`npm run build:books` writes `dist-books/`: loose classic files, loose word lists, a card-sized cover when `packs/<id>/cover.jpg` exists, and the catalogs. No zip, and no copyrighted EPUB. A word-list book with no cover keeps the generated title-and-author cover in the app.
+The public site is [inputread.site](https://inputread.site). Older pull requests remain in the private archive [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive); see [docs/ARCHIVE.md](docs/ARCHIVE.md). Migration notes are historical and compatibility records in [MIGRATION.md](MIGRATION.md), not a current operations guide.
 
-`npm run build:private` writes `dist-private/` from a local `packs/<id>/book.epub` (the EPUB, its glossary, and its cover). Upload that folder only to `margin-words-private`. The app never fetches that bucket. Do not put `dist-private/` inside `dist/` or `dist-books/`.
+### Local checks
 
-Word-list format: [docs/GLOSSARY_FORMAT.md](docs/GLOSSARY_FORMAT.md). Pack folder: [docs/PACKS_FORMAT.md](docs/PACKS_FORMAT.md). Rebuild the local catalogs with `node scripts/build-packs.mjs`.
-
-### Put the site and the books online
-
-1. Build the front end with `npx vite build`. Deploy `dist/` to Cloudflare Pages. The production build fetches books from `https://books.inputread.site`. Set `VITE_BOOKS_BASE` to use another host.
-2. Build the book objects with `npm run build:books`, then upload each file with its path as the object key:
-
-   ```bash
-   cd dist-books && find . -type f | sed 's|^\./||' | while read -r key; do
-     npx wrangler r2 object put "$BUCKET/$key" --file "$key" --remote
-   done
-   ```
-
-   The bucket behind `https://books.inputread.site` must allow cross-origin reads from `https://inputread.site`, `https://www.inputread.site`, `https://margin-words.pages.dev`, and localhost. The page reads the book file from that response and stores it in the browser.
-3. Leave `packs/`, `site/`, and `dist-private/` off the public host. `node scripts/build-site.mjs` writes `site/` (`dist/` plus `packs/`) for a machine of your own.
-
-Addresses inside `catalog.json` are relative to the catalog file. The app loads the built-in catalog.
-
-### How a book gets onto a shelf
-
-1. Open the app. A new shelf is empty and shows one line of text, Add a book on Discover.
-2. Sign in. On Discover, tap the plus on a cover. The plus becomes a check (“On shelf”). Tap the check and choose “Remove from shelf” to take it off. A book you just added can be undone. A book you have started, or one that has your own EPUB, asks first.
-3. A public-domain book downloads when you add it. A word-list book downloads its word list and asks for your EPUB of the ISBN on the card. A match under 80% is shown before it is saved. The book and the word list are stored in the browser (IndexedDB).
-4. After that, the book and the word list stay on this device (IndexedDB). Opening the site needs the internet. The service worker does not serve the page.
-5. When a word list changes (a new `rev`), the book already on the shelf keeps the list it has. The shelf card and the Discover card show **Update**, and a notice says how many books are waiting. The new list is fetched only when you tap Update. The book file, reading place, saved words, and settings stay. A list you added or edited by hand is never replaced. If a new list matches your EPUB under 80%, the old list stays and the card says why.
-
-The shelf menu can still **Add word list** (a `.json` for a book that is already there).
-
-### Checks
+The usual local checks are:
 
 ```bash
 npx tsc --noEmit
 npm run check:cjk          # Chinese only in src/lib/i18n-zh.ts, docs/, and README.zh-CN.md
 npm run check:example
-node scripts/validate-glossary.mjs packs/twits/book.epub packs/twits/glossary.json
-node scripts/build-packs.mjs --check
 npm test
 ```
+
+A full glossary check needs the matching EPUB, which is not available in this checkout for live books. Run `node scripts/validate-glossary.mjs <book.epub> <glossary.json>` only when you have that legal local EPUB. `node scripts/build-packs.mjs --check` checks the frozen snapshot and does not publish it.
 
 ### Languages in the interface
 
 Every visible string lives in two dictionaries with the same keys: `src/lib/i18n-en.ts` and `src/lib/i18n-zh.ts`. A missing key fails `npx tsc --noEmit`. The first visit follows the browser language (Chinese to Chinese, anything else to English), and the choice is saved. Book content (meanings, notes, phrases, titles) is never translated.
-
-### This public repository
-
-Development happens here. Older pull requests stay in the private archive [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive). Record: [docs/ARCHIVE.md](docs/ARCHIVE.md). Moving the project: [MIGRATION.md](MIGRATION.md).
 
 ## Credit
 

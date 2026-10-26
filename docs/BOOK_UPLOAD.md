@@ -2,26 +2,25 @@
 
 Read this whole page before you start. It is the job description for an agent that puts a book on
 inputread.site, replaces the word list (词典) of a book that is already there, or moves books into a
-series, with **wrangler** and a Cloudflare login. It does the same job as the admin page's **Books**
-and **Series** tabs (`functions/api/admin/word-lists.ts`, `functions/api/admin/books.ts`,
-`functions/api/admin/discover-rails.ts`), so a book changed either way ends up the same. You do not
-need a site login, a build or a deploy. This page is in the repository as `docs/BOOK_UPLOAD.md` and
-on the site at `https://inputread.site/kit/book-upload.md`.
+series, with **wrangler** and a Cloudflare login. It targets the same live files as the admin
+page's **Books** and **Series** tabs, but **not the same safety mechanism**: direct R2 writes bypass
+the admin routes' cooperative D1 catalog lock. Follow the checkpoints in §3 before any write.
+You do not need a site login, a build or a deploy. This page is hosted at
+[book-upload.md](https://inputread.site/kit/book-upload.md).
 
-**The one sentence to remember:** a book on the site is **files in R2** plus **one row in a catalog
-JSON**. Upload the files first, then rewrite that one row and upload the catalog last. Nothing in
-git changes: `packs/` and `public-books/` in the repository are a frozen snapshot. Do not add the
-book to `packs/`, do not commit its files, and do not open a pull request for it.
+**The one sentence to remember:** upload the book's files first, then change only its row in the
+live catalog and upload the catalog last. The [maintenance map](https://inputread.site/kit/maintenance.md#storage)
+owns storage/source-of-truth rules: live R2 lists are not rebuilt from git; no book commits or PRs.
 
 Use this page for **one book at a time**. To fix readers' reports in a live list, follow
-`docs/GLOSSARY_PATROL.md` instead.
+[the patrol task](https://inputread.site/kit/patrol.md) instead.
 
 ## 0. Words this page uses
 
 | Term | What it means |
 | --- | --- |
 | **book** | One title a reader can add. It has files and one catalog row. |
-| **word list** (词典) | The `glossary.json` file: the words, meanings and help for one book. `docs/GLOSSARY_FORMAT.md` is its format. |
+| **word list** (词典) | The `glossary.json` file: the words, meanings and help for one book. [Glossary format](https://github.com/duwqijlk/margin-words/blob/main/docs/GLOSSARY_FORMAT.md). |
 | **catalog** | A JSON file that lists books. Discover reads only this, never a folder. |
 | **row** | One book's object inside a catalog: id, title, author, counts, series, cover address. |
 | **id** | The book's short name in addresses: lower-case letters, digits, `-`, `_`, starting with a letter or digit, at most 64 characters (`^[a-z0-9][a-z0-9_-]{0,63}$`). |
@@ -42,7 +41,7 @@ Use this page for **one book at a time**. To fix readers' reports in a live list
 | Change a book between **novel and speech** | §8.8 |
 | Add or replace the **cover** | §10 |
 | Add or rewrite the **story summary** (简介) | §11 |
-| Add a **new public-domain book** | Stop: only the offline build can (§5.0). Report it. |
+| Add a **new public-domain book** | Unsupported here: stop and escalate (§5.0). |
 
 ## 2. What a book is on the site
 
@@ -89,8 +88,27 @@ write  npx wrangler r2 object put "<bucket>/<key>" --file <local file> --content
 Content types: `application/json` for `.json`, `application/epub+zip` for `.epub`,
 `image/jpeg` for covers. A cover also gets `--cache-control "public, max-age=31536000, immutable"`.
 
-Work in a new empty folder. Download every file you change, edit the local copy, and upload that
-exact file. R2 has no "append" and no merge: the last write wins.
+Use a **new, trusted staging folder**, not a downloaded archive's extraction directory. Keep each
+untrusted download/extraction in its own separate empty directory. Copy only the selected data files
+(`book.epub`, JSON, cover) into staging; never copy executable files or dependency manifests there.
+Save the scripts you write below in staging's separate `scripts/` subfolder, and run commands from
+staging, not from an untrusted download directory. Relative data paths in the examples use staging.
+Before using any write command below, complete the
+[publishing checkpoints](https://inputread.site/kit/maintenance.md#publishing):
+
+- Coordinate an **exclusive window with all writers** (admin publishers, patrol and CLI/API agents).
+  Wrangler does not acquire the cooperative D1 lock; a last-second reread alone is not exclusion.
+- Snapshot the exact current bytes **and metadata** of every object you will change (record an
+  absent key too). Keep backups separate from the edited files.
+- Reread affected live objects immediately before publishing, including both catalogs for a new
+  book. If bytes or metadata changed since your snapshot, **abort and rebase** on fresh snapshots;
+  do not overwrite the change.
+- After writing, reread R2 and verify exact bytes, metadata, hashes/counts and preserved rows before
+  releasing the window or clearing a work mark. A successful upload command is not verification.
+
+If any stage fails, stop and follow [recovery](https://inputread.site/kit/maintenance.md#recovery).
+Direct writes have no automatic rollback; replacing an existing key can leave the live file and
+catalog hash inconsistent.
 
 ## 4. Check the files before you upload
 
@@ -117,10 +135,10 @@ summary. Change the names, keep the order.
 
 ### 5.0 What cannot be added this way
 
-A **brand-new public-domain book** cannot be added here: its row carries fields (`version`,
-`chapters`, `coined`) that come from the offline build
-(`node scripts/publish-public-book.mjs <id>`). If the id is not in `public-books/catalog.json`, stop
-and say so. You can still update the word list (§6) or the EPUB (§7) of a public book that is live.
+A **brand-new public-domain id** is unsupported by this procedure and the current admin publisher.
+If the id is not in `public-books/catalog.json`, **stop and escalate to the owner**. Do not use the
+[retired offline pipeline](https://inputread.site/kit/maintenance.md#retired) to invent or rebuild its
+row. You can still update the word list (§6) or the EPUB (§7) of a public book that is live.
 
 ### 5.1 Put the files in one folder
 
@@ -139,8 +157,8 @@ npx wrangler r2 object get "margin-words-books/word-lists/catalog.json" --file w
 npx wrangler r2 object get "margin-words-books/public-books/catalog.json" --file public-catalog.json --remote
 ```
 
-Then look for the id and the title in both. Save this as `find-book.mjs` and run
-`node find-book.mjs the-lantern-seller "The Lantern Seller"`:
+Then look for the id and the title in both. Save this as `scripts/find-book.mjs` and run from staging
+`node scripts/find-book.mjs the-lantern-seller "The Lantern Seller"`:
 
 ```js
 // Is this book already live? The title comparison is the one the site uses (§4.4).
@@ -195,9 +213,10 @@ A public book uses `covers/public-<id>.jpg`. Section 10 explains why the cache h
 ### 5.6 Write the row
 
 The row is built from the word list's own metadata (`title`, `author`, `lexile`, `isbn`, `series`,
-`seriesNumber`, `category`) plus the counts and the file hashes. Do not type the numbers by hand:
-use this script. Save it as `row.mjs` in the same folder, fill in `JOB`, run it, and upload the
-`catalog.next.json` it writes.
+`seriesNumber`, `category`) plus counts and exact-byte hashes, following the
+[shared count/version rules](https://inputread.site/kit/maintenance.md#versions). Do not type the
+numbers by hand: save this script as `scripts/row.mjs`, fill in `JOB`, run from staging, then publish
+`catalog.next.json` through §3's checkpoints. This local script does not lock, snapshot or upload.
 
 It works in three modes and **never touches another row**:
 
@@ -210,7 +229,7 @@ It works in three modes and **never touches another row**:
 ```js
 #!/usr/bin/env node
 // Rewrite ONE row of a live catalog. It never uploads and never touches another row.
-// 1. fill in JOB  2. node row.mjs  3. upload catalog.next.json as §5.7 says
+// 1. fill in JOB  2. node scripts/row.mjs  3. upload catalog.next.json as §5.7 says
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 
@@ -229,6 +248,7 @@ const JOB = {
 };
 
 const isPublic = JOB.kind === "public";
+if (isPublic && JOB.mode === "new") throw new Error("new public id unsupported: stop and escalate (§5.0)");
 const field = isPublic ? "packs" : "lists";
 const sha256 = (data) => createHash("sha256").update(data).digest("hex");
 const text = (value) => (typeof value === "string" && value.trim() ? value.trim() : "");
@@ -340,7 +360,7 @@ console.log(`\nUpload:\nnpx wrangler r2 object put "margin-words-books/${isPubli
 Run it and read what it prints. The row it shows is the row that will be live:
 
 ```
-node row.mjs
+node scripts/row.mjs
 ```
 
 The script checks ids and the other rows' hashes, but it cannot see the **other** catalog: the
@@ -352,7 +372,9 @@ title-clash check in §5.2 is the one that catches a second id for a book that i
 npx wrangler r2 object put "margin-words-books/word-lists/catalog.json" --file catalog.next.json --content-type application/json --remote
 ```
 
-The catalog goes last on purpose: readers only see the book when its files are already there.
+The catalog goes last so a **new row** is not advertised before its files exist. Replacing an
+existing file is not atomic with the catalog write: keep §3's exclusive window and verification,
+and use [recovery](https://inputread.site/kit/maintenance.md#recovery) if either write fails.
 
 ### 5.8 Write the summary (optional)
 
@@ -360,16 +382,20 @@ The catalog goes last on purpose: readers only see the book when its files are a
 npx wrangler r2 object put "margin-words-books/word-lists/the-lantern-seller/blurb.json" --file blurb.json --content-type application/json --remote
 ```
 
-Only after the row is live. Section 11 has the format and the writing rules.
+Only after the row is live. Section 11 links the summary format and writing rules.
 
 ### 5.9 Check the result from outside
+
+First reread the written objects through authenticated R2 access: compare glossary/EPUB/cover bytes
+and metadata with the intended files, catalog hashes and counts with those bytes, and all unrelated
+rows/fields with the snapshot (§3). Then check the reader-facing result:
 
 ```
 curl -s https://books.inputread.site/word-lists/catalog.json -o live-catalog.json
 node -e "console.log(require('./live-catalog.json').lists.find(r=>r.id==='the-lantern-seller'))"
 ```
 
-- The row shows the values the script printed, and the counts are not 0.
+- The row shows the values the script printed; counts match the file (optional note counts may be 0).
 - The cover opens at `<cover.url>?v=<first 12 of cover.sha256>` and answers
   `Cache-Control: public, max-age=31536000, immutable`:
   `curl -sI "https://books.inputread.site/covers/lists-the-lantern-seller.jpg?v=<12>" | grep -i cache-control`.
@@ -379,14 +405,16 @@ node -e "console.log(require('./live-catalog.json').lists.find(r=>r.id==='the-la
   get word lists only through the site's account API, which counts the weekly allowance.
 - Discover shows the book under its tab, and its detail sheet shows the series and number.
 
-The catalog can take a minute to refresh. A cover is cached for a year, which is why a replacement
-gets a new `?v=` (§10).
+Reader-facing checks are subject to cache and page state; they do not replace the R2 reread.
+See [cache/version behavior](https://inputread.site/kit/maintenance.md#versions). A cover replacement
+needs a new hash-derived `?v=` (§10); ordinary readers may need a full page reload for a changed summary.
 
 ### 5.10 Clear the work mark
 
-If `margin-words-books/word-lists/glossary-work.json` lists this book (`{"kind": "lists" or
-"public", "id": "<id>"}` in `items`), remove that item, set `updated` to now, and write the file
-back. It marks books an admin is still working on. A missing file is fine.
+Only after publication is verified, if `margin-words-books/word-lists/glossary-work.json` lists this
+book (`{"kind": "lists" or "public", "id": "<id>"}` in `items`), remove that item, set `updated` to now,
+and write the file back under §3's checkpoints (including snapshot, reread and verification of this
+file). It marks books an admin is still working on. A missing file is fine.
 
 ## 6. Job B — replace only the word list (词典)
 
@@ -405,8 +433,8 @@ npx wrangler r2 object get "margin-words-books/word-lists/<id>/glossary.json" --
 
 A public book uses `public-books/catalog.json` and `public-books/<id>/glossary.json`.
 
-2. **Compare before you overwrite.** Save this as `compare.mjs` and run
-   `node compare.mjs live-glossary.json glossary.json`:
+2. **Compare before you overwrite.** Save this as `scripts/compare.mjs` and run from staging
+   `node scripts/compare.mjs live-glossary.json glossary.json`:
 
 ```js
 import { readFileSync } from "node:fs";
@@ -435,7 +463,9 @@ console.log({ dropped, changed: changed.slice(0, 50), changedCount: changed.leng
    text, keep yours. When you cannot tell, keep the live entry and report the difference instead of
    guessing. Then run the comparison again.
 
-4. **Upload the merged word list**, then the row:
+4. **Reread and compare the live list and catalog to your snapshots** (§3). If either changed,
+   abort and redo the merge on fresh snapshots. Within the coordinated exclusive window, upload
+   the merged word list, then the row:
 
 ```
 npx wrangler r2 object put "margin-words-books/word-lists/<id>/glossary.json" --file glossary.json --content-type application/json --remote
@@ -460,7 +490,8 @@ is ordered by it.
 
 ## 7. Job C — replace the EPUB
 
-**Copyrighted book.** Put the new file at the same private key:
+Use §3's exclusive window, exact-byte/metadata snapshots, prewrite reread and postwrite verification
+for EPUB replacements too. **Copyrighted book.** Put the new file at the same private key:
 
 ```
 npx wrangler r2 object put "margin-words-private/<id>/book.epub" --file book.epub --content-type application/epub+zip --remote
@@ -569,7 +600,7 @@ A series of one or two books is kept everywhere; it just never gets an **automat
   the catalog, then:
 
 ```js
-// rename-series.mjs — change one series name on every row, and nothing else.
+// scripts/rename-series.mjs — change one series name on every row, and nothing else.
 import { readFileSync, writeFileSync } from "node:fs";
 const [file, field, oldName, newName] = process.argv.slice(2);
 const catalog = JSON.parse(readFileSync(file, "utf8"));
@@ -581,7 +612,8 @@ writeFileSync("catalog.next.json", `${JSON.stringify(catalog, null, 1)}\n`);
 console.log({ changed, rows: catalog[field].length });
 ```
 
-  Run `node rename-series.mjs word-lists-catalog.json lists "Lantern St." "Lantern Street"`, then
+  Save it in staging's `scripts/` folder and run
+  `node scripts/rename-series.mjs word-lists-catalog.json lists "Lantern St." "Lantern Street"`, then
   upload `catalog.next.json`. If a saved Discover rail names the old series, it must be renamed too
   (§8.6) or it will show nothing.
 - **Remove a series entirely**: take the name off every row. When fewer than three books are left,
@@ -655,7 +687,7 @@ its `updated` to now. Write the catalog as JSON with a one-space indent
 | `id` | The book's id. Never changes. |
 | `title`, `author` | From the word list's own `title` / `author`. A new book needs a title. |
 | `lexile`, `isbn` | Only when the word list has them. Never guess a measure or an edition. |
-| `words` | The file's `count` if it is a number above 0, else the number of keys in `glossary`. |
+| `words` | `Number(file.count) || Object.keys(file.glossary).length`, matching the admin publisher. Check the resulting count is intended; shared semantics: [versions](https://inputread.site/kit/maintenance.md#versions). |
 | `paragraphs`, `sentences` | Length of the file's `paragraphs` / `sentences` array, 0 when missing. |
 | `phrases` | Number of keys in the file's `phrases` object, 0 when missing. |
 | `glossary` | `{ "url": "<id>/glossary.json", "bytes": <n>, "sha256": "<hex>" }`; a public book also has `"rev"` = the first 12 digits of the sha256. |
@@ -667,7 +699,7 @@ its `updated` to now. Write the catalog as JSON with a one-space indent
 | `previousUpdated` | When the glossary sha256 changed: the row's old `updated`. Otherwise leave it as it is. |
 | `updated` | Now, as an ISO time (`2026-10-25T08:00:00.000Z`). |
 | `added` | When the book first came to the catalog. Set it only on a new row, and **never change** it on an existing row: the new-books rail is ordered by it. |
-| `version`, `chapters`, `coined`, `level`, `notes`, `zip` (public only) | From the offline build. Never change them. |
+| `version`, `chapters`, `coined`, `level`, `notes`, `zip` (public only) | Preserve the existing live values. They are not an instruction to rerun the retired build. |
 
 A **new** copyrighted row looks like this (the order `row.mjs` writes):
 
@@ -704,19 +736,13 @@ kept on the reader's device. The page loads it from
 https://books.inputread.site/covers/<lists or public>-<id>.jpg?v=<first 12 hex digits of cover.sha256>
 ```
 
-**Why the `?v=` matters.** Covers are cached for a year: by the browser and by Cloudflare's CDN
-(a cache rule on `/covers/`), because the file is stored with
-`Cache-Control: public, max-age=31536000, immutable`. A cached copy is never checked again. A
-replaced cover is seen only because its new `sha256` makes a new `?v=` address. So:
+**Replacement checkpoint.** Follow the [cache/version rules](https://inputread.site/kit/maintenance.md#versions):
+write the JPEG with `Cache-Control: public, max-age=31536000, immutable`, then set the catalog row's
+`cover.bytes` and `cover.sha256` from those exact bytes. The new hash supplies the new `?v=`; a
+same-key overwrite alone leaves readers using the old cached address.
 
-- To **add or replace** a cover: write the JPEG to the same key, then put its new `bytes` and
-  `sha256` (of exactly the uploaded bytes) in the catalog row. The page asks for the new address
-  and the old cached file is simply never asked for again. Forgetting the catalog update leaves
-  every reader on the old picture for up to a year.
-- To **remove** a cover: remove the row's `cover` field. Leave the file; nothing links to it.
-- Never write a cover without the cache header, and never point `cover.url` anywhere but
-  `https://books.inputread.site/covers/...` (not `word-lists/<id>/cover.jpg`: that old place is
-  not cached as above and is no longer used).
+To **remove** a cover, remove the row's `cover` field and leave the file. Keep `cover.url` under
+`https://books.inputread.site/covers/...`, not the old `word-lists/<id>/cover.jpg` location.
 
 **The file.** A JPEG, at most 400 px wide (the card is about 180 px; 400 covers sharp screens),
 quality about 80, under 5 MB (a card-sized one is usually 20–60 KB). Portrait, about 2:3. Only a
@@ -732,46 +758,22 @@ Then the row (§9): `"cover": { "url": "https://books.inputread.site/covers/list
 
 ## 11. The story summary
 
-Discover's book sheet shows a short summary of the story. It is one file per book, next to the
-word list, and it is **not** in the catalog, the word list or D1:
-
-```
-margin-words-books/word-lists/<id>/blurb.json      a word-list book
-margin-words-books/public-books/<id>/blurb.json    a public-domain book
-
-{ "format": 1, "zh": "中文简介", "en": "Simple English summary" }
-```
-
-- The sheet shows `zh` in the Chinese interface and `en` in the English one, never the other
-  language instead. A missing language shows no summary there. Write both.
-- Plain text, at most 600 characters each; line breaks are kept. No HTML, no Markdown
-  (`**`, `#`, `[..](..)`). `zh` must contain Chinese; `en` must not.
-- The `<id>` must already be in that catalog: write the summary after the catalog row exists.
-- Writing the file **replaces** the book's summary: keep the other language when you change one.
-- Upload with `--content-type application/json` and no special cache header (the sheet asks for it
-  fresh each time, so a change shows up at once).
-
-How to write it (the same rules as `docs/BOOK_BLURBS.md`):
-
-- `zh` for junior-high readers; `en` in simple English (CEFR A2–B1), like the word list's meanings.
-- 2–4 sentences: who the main character is, where the story starts, what the main problem is.
-- In your own words. Never copy a publisher's, a shop's or a review's text: they are copyrighted.
-- No ending, no twist, no praise ("a classic", "must read"). If you are not sure of a detail, leave
-  it out rather than guess.
-- For a speech: who speaks, to whom and when, and the one main idea.
+Follow [BOOK_BLURBS — format, bilingual replacement and writing rules](https://inputread.site/kit/book-blurbs.md)
+before preparing `blurb.json`. That page owns those rules and the admin/script alternatives.
+After the row exists, use §3's publishing checkpoints and upload:
 
 ```
 npx wrangler r2 object put "margin-words-books/word-lists/<id>/blurb.json" --file blurb.json \
   --content-type application/json --remote
 ```
 
-The admin page (`/admin/` → 简介) and `node scripts/publish-blurbs.mjs` write the same file with
-the same checks; use them when you have the repository or an admin login.
+For a public book use `public-books/<id>/blurb.json`. Verify the R2 readback; ordinary readers may
+need a full page reload, not just reopening the sheet. See [cache behavior](https://inputread.site/kit/maintenance.md#versions).
 
 ## 12. After the upload
 
-1. Clear the work mark (§5.10).
-2. Check the catalog, the cover header, the summary and the 403 word list (§5.9).
+1. Verify R2 readbacks and the reader-facing checks (§5.9).
+2. Only then clear and verify the work mark (§5.10).
 3. Readers who already have the book see **Update** on its card when the word list changed. New
    readers find it on Discover under its category.
 4. If you changed a series, open Discover: the book is in the rail and the detail sheet shows the

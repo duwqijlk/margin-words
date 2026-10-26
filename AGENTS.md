@@ -7,8 +7,12 @@ it cannot reach the Android e-ink readers some of these students use; v3 writes 
 physical properties. The theme tokens are the CSS variables in `src/styles.css`, each with an
 `-rgb` twin so `bg-paper/90` still works (see `tailwind.config.js`).
 Optional accounts (email, password, and sync of shelf, progress, saved words, and settings) are
-Cloudflare Pages Functions in `functions/` plus a D1 database. See docs/ACCOUNTS.md. Do not store user
-data in R2. Books and word lists come from **book packs** (see README.md, "Reader and book packs"). A pack is one `.zip` with exactly `book.epub` + `glossary.json` (docs/book-pack-spec.md, section 3; `src/lib/pack-check.ts`, used by the pack tools in `scripts/`). **The app has no file import**: books are added ONLY from the Discover page, and only by a signed-in reader (`canAddBooks` in `src/lib/can-add.ts`; signed-out visitors browse everything, the add button says "Sign in to add", and books already stored on the device stay readable). A word-list book takes the reader's own EPUB from its Discover card (the own-EPUB dialog with the 80% match check). A standalone EPUB is never imported as a new book.
+Cloudflare Pages Functions in `functions/` plus a D1 database. See [docs/ACCOUNTS.md](docs/ACCOUNTS.md).
+Do not store ordinary user data in R2. Publicly projected contributor names and avatars are the documented
+R2 exception; follow [docs/MAINTENANCE.md](docs/MAINTENANCE.md) for that surface. Books and word lists use
+book-pack format for compatibility, but live copies are not in git. **The app has no file import**: books
+are added only from Discover by a signed-in reader. A word-list book takes the reader's own EPUB from its
+Discover card; a standalone EPUB is never imported as a new book.
 
 ## Where to work
 
@@ -21,22 +25,22 @@ data in R2. Books and word lists come from **book packs** (see README.md, "Reade
 - The site is not connected to GitHub. The Cloudflare Pages project is `margin-words`. The domains are
   `https://inputread.site` and `https://www.inputread.site`. D1 and R2 do not follow the repository.
   Archiving the old repository does not take the site down.
-- **Books and word lists are not in git any more.** The live R2 buckets and D1 are the only source.
-  `packs/` and `public-books/` in this repository are a frozen snapshot: many live lists already differ
-  from them (the daily patrol edits the live lists), and they are never updated again. Do not add a book,
-  change a word list, or copy a live list into `packs/`, and do not open a pull request for a book.
-  - A new book, a new word list or a changed one goes straight to R2: `docs/BOOK_UPLOAD.md` (wrangler) or
-    the admin page's Books / Word lists tabs. Nothing in git changes, so there is nothing to commit.
-  - Readers' fixes to live lists: `docs/GLOSSARY_PATROL.md` (Cloudflare API only).
-  - Never rebuild or republish a live book from `packs/`: it would erase the patrol's fixes and readers' credits.
-  Pull requests are for the app (`src/`, `functions/`, `scripts/`, `docs/`), not for book content.
+- **Books and word lists are not in git any more.** The live R2 buckets and D1 are the only current source.
+  `packs/` and `public-books/` in this repository are frozen snapshots and are never updated again. Do not
+  add a book, change a word list, copy a live list into them, or open a pull request for book content.
+  - A new book, a new word list, or a changed one goes to R2 through [docs/BOOK_UPLOAD.md](docs/BOOK_UPLOAD.md)
+    or the admin page. Reader fixes go through [docs/GLOSSARY_PATROL.md](docs/GLOSSARY_PATROL.md).
+  - Never rebuild or republish a live book from `packs/`: it would erase patrol fixes and reader credits.
+  Pull requests are for the app and repository documentation, not live book content.
+- The current operational ownership and safety map is [docs/MAINTENANCE.md](docs/MAINTENANCE.md). It owns
+  stores, version and cache safety, direct-write and recovery rules, and deployment boundaries. Do not use
+  retired local publishing recipes.
 - Copyrighted EPUBs live only in the private bucket `margin-words-private`. Public-domain EPUBs live on
   `https://books.inputread.site`. Do not put a third-party EPUB in git. The only EPUB in this history is
   `examples/sample-book/the-lantern-seller.epub`.
-- Deploy stays manual, from this public repository: `npm run build` (leave `VITE_BOOKS_BASE` unset; an empty
-  value is `npm run build:local`, for tests only), then
-  `npx wrangler pages deploy dist --project-name margin-words --branch main`. That deploy uploads the built
-  site (`dist/` and `functions/`). Do not upload `dist-books/`, `packs/`, or `dist-private/` with it.
+- Deploy stays manual from this public repository and is covered by [docs/MAINTENANCE.md](docs/MAINTENANCE.md).
+  Leave `VITE_BOOKS_BASE` unset for production; the empty value is `npm run build:local`, for tests only.
+  Do not upload book objects, `packs/`, or `dist-private/` with the site deploy.
 
 ## Rules
 
@@ -67,19 +71,13 @@ data in R2. Books and word lists come from **book packs** (see README.md, "Reade
 
 - `npm run dev` : dev server (also serves `/packs/*`, `/public-books/*` and `/word-lists/*` from the repo; book URLs stay on this origin)
 - `npx vite build` (or `npm run build`) : static front end in `dist/` only (HTML, JS, CSS, fonts, guide). Book files are not in `dist/`. The build bakes `https://books.inputread.site` unless `VITE_BOOKS_BASE` is set. `npm run build:local` sets it empty so a preview server can serve the repo copies (used by e2e).
-- Retired for book updates (they start from `packs/` in git, which is frozen). Kept for the record and for
-  tests; do not use them to put a book or a word list online. Use `docs/BOOK_UPLOAD.md` instead.
-- `npm run build:books` : write `dist-books/`, the object keys to upload to the books bucket (loose `public-books/` epub, glossary, cover, catalog; loose `word-lists/` glossaries, card-sized `cover.jpg` when `packs/<id>/cover.jpg` exists, and catalog). No zip, no `all-packs.zip`, no copyrighted EPUB. A word-list book with no cover keeps the generated cover in the app.
-- `npm run build:private` : write `dist-private/`, every copyrighted pack's EPUB (when it has one) plus its glossary and cover. Upload that folder to the private R2 bucket `margin-words-private`. That bucket has no public access; the app reaches it only through `GET /api/book/<id>/epub`, which requires a signed-in `trusted` (or admin) account, logs every download, and caps them at 30 per user per day. Never put `dist-private/` inside `dist/` or `dist-books/`.
-- Upload (set `BUCKET` to the bucket for `https://books.inputread.site`): `cd dist-books && find . -type f | sed 's|^\./||' | while read -r key; do npx wrangler r2 object put "$BUCKET/$key" --file "$key" --remote; done`. The same keys work with the S3 API. The bucket must allow cross-origin reads from `https://inputread.site`, `https://www.inputread.site`, `https://margin-words.pages.dev` and localhost, or the page cannot read a book after it is opened. Do not use that full-folder upload for one new book. `dist-books/public-books/catalog.json` is rebuilt from every glossary in git, so uploading it retargets books whose files were not uploaded and those downloads fail the hash check.
-- One new or updated word list (the usual book update): `node scripts/publish-word-list.mjs <id> --out /tmp/word-list-publish`. It reads the live `word-lists/catalog.json`, keeps every other row and glossary hash, and adds or replaces only `<id>`. It also reads the live glossary of `<id>` from R2 and stops when the new file would drop a word, change an entry, drop a phrase or lose a reader `credit` (the daily patrol edits live lists); bring those into `packs/<id>/glossary.json`, or pass `--replace-live` when losing them is intended. `info.json` `category` `"speech"` puts the card on the Speeches tab; a missing category is a novel. Upload only the files the script prints to bucket `margin-words-books` (`word-lists/catalog.json`, that book's `glossary.json`, and `cover.jpg` only when printed). Do not upload the EPUB. Retired: it reads `packs/`, which is frozen; a book is never added to `packs/` or sent as a pull request now.
-- Uploading one book (new or updated, copyrighted or public domain, novel or speech) with wrangler and a Cloudflare login, no build or deploy: `docs/BOOK_UPLOAD.md`, also served at `https://inputread.site/kit/book-upload.md`. It writes the same R2 keys and catalog fields as the admin Books tab (`functions/api/admin/word-lists.ts`, `functions/api/admin/books.ts`); keep the two in step.
+- Retired book-update and live-publishing commands are not operational procedures. Use [docs/BOOK_UPLOAD.md](docs/BOOK_UPLOAD.md), [docs/GLOSSARY_PATROL.md](docs/GLOSSARY_PATROL.md), and [docs/MAINTENANCE.md](docs/MAINTENANCE.md) instead. The local pack commands below are only for frozen-snapshot checks or sample-pack work.
+- Book/list updates and new copyrighted word-list ids: [docs/BOOK_UPLOAD.md](docs/BOOK_UPLOAD.md), also [hosted](https://inputread.site/kit/book-upload.md). New public-domain ids are not supported by the current live workflow: stop and report, do not revive a retired publisher. Direct writes target the same objects as admin routes but do not share their locking/rollback; follow [publishing safety](docs/MAINTENANCE.md#publishing).
 - The daily word-list patrol (readers' taps and meaning reports into the live lists, with only a Cloudflare API token: D1 queries and R2 object reads/writes over `api.cloudflare.com`, no build or deploy): `docs/GLOSSARY_PATROL.md`, also served at `https://inputread.site/kit/patrol.md`. It may add entries and fix existing ones (too hard, wrong meaning, wrong phrase match). Keep that page in step with the tables, R2 keys and catalog fields it names.
-- Retired too: one new or updated public-domain book: `node scripts/publish-public-book.mjs <id> --out /tmp/public-publish`. It reads the live `public-books/catalog.json`, keeps every other book's EPUB and glossary hash, and replaces only `<id>`. Upload only the files it prints (`public-books/catalog.json`, that book's `glossary.json`, and `book.epub` or `cover.jpg` only when that file's hash changed). Do not upload a `public-books/catalog.json` produced by `build-packs` or `build:books` for this.
-- `node scripts/build-packs.mjs` : rebuild `packs/catalog.json` and the local sideload zips (not uploaded)
-- `node scripts/build-packs.mjs --out public-books` : rebuild the catalog and local zips of the free classics. The hosted catalog drops the zip entries.
-- `node scripts/build-site.mjs` : `site/` = `dist/` + `packs/` (private local folder, not the public books host)
-- `node scripts/validate-glossary.mjs packs/<id>/book.epub packs/<id>/glossary.json`
+- Retired publishing tools are classified in [the maintenance map](docs/MAINTENANCE.md#retired), not listed here as recipes.
+- `node scripts/build-packs.mjs --check` : check frozen local catalog fixtures without publishing or rewriting them.
+- `node scripts/build-site.mjs` : `site/` = `dist/` + `packs/` for private local tests only, never a public host.
+- `node scripts/validate-glossary.mjs <book.epub> <glossary.json>` : full check only when the matching legal EPUB is available locally; live books may not have one in this checkout.
 - `npx tsc --noEmit`, `npm run check:cjk`, `npm run check:example`, `npm test`
 - `node scripts/build-guide.mjs --check` : the tiny in-app page (`/kit/`: title, 2-3 lines, one Download button) is made from `docs/guide-chrome.json` at build time. It serves `/kit/book-pack-kit.zip`.
 - `npm run build:kit` : writes `book-pack-kit.zip` = `docs/book-pack-spec.md` + `examples/sample-book/` (EPUB + glossary.json) + `the-lantern-seller.pack.zip` (a ready-to-import pack).

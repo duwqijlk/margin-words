@@ -159,43 +159,25 @@ These are not slang. Before you leave neighbouring words out, put the textbook m
 The validator (step 5) checks that every `context` is in the right paragraph or chapter (errors), and that `simple`, `mainIdea`,
 `grammar` and phrase `meaning` use only common words (warnings that name the words: rewrite those parts with easier words, or leave a name or key word as it is).
 
-### 6. Put it on Discover
+### 6. Hand off the validated list
 
-The app has no zip import and no file import. After the validator says OK, publish this one list to Discover in the
-matching category. Do that before any pull request. A pull request is only the git copy and can wait until many books
-are ready. Do not open a new pull request for each book.
+The app has no zip import and no file import. After the validator says OK, hand the list to the current upload
+workflow in [docs/BOOK_UPLOAD.md](../../docs/BOOK_UPLOAD.md). Do not put it in `packs/`, `public-books/`, or any
+other frozen snapshot. Do not commit book content and do not open a book-content pull request.
 
-1. Save the list as `packs/<id>/glossary.json`. Add `packs/<id>/info.json` with a short card `title`, `author`,
-   `order`, and `category`. `category` is `"speech"` for a speech. Leave it out for a novel (Discover treats a missing
-   category as a novel). The glossary `title`, `author`, and `sha256` stay the full EPUB values so the reader's own
-   file still matches. Do not put a copyrighted EPUB in `packs/`, in git, or on the books host.
-2. Build only this book's row on top of the catalog that is already live. Do not rebuild `word-lists/catalog.json`
-   from git alone. Other lists in the checkout can be newer than the books host, and uploading that rebuild would
-   point Discover at files that were not uploaded.
+1. Keep the validated `glossary.json` in a separate working folder. Keep the title, author, EPUB hash, chapter
+   count, and category metadata from the extraction and validation steps. Do not copy the list into the repository.
+2. Follow [docs/BOOK_UPLOAD.md](../../docs/BOOK_UPLOAD.md) for the live catalog row, R2 keys, cover, and series
+   fields. It owns those row and file steps. Use the live catalog and preserve other rows and live patrol edits.
+3. If this is a reader-driven correction to a list already online, stop and use
+   [docs/GLOSSARY_PATROL.md](../../docs/GLOSSARY_PATROL.md) instead. The patrol owns editorial fixes, credits, and
+   resolving reader reports; it uses the Cloudflare API rather than the old local publishing scripts.
+4. Read [docs/BOOK_BLURBS.md](../../docs/BOOK_BLURBS.md) only when a separate bilingual Discover summary was
+   requested. It owns summary text and its upload.
 
-```
-node scripts/publish-word-list.mjs <id> --out /tmp/word-list-publish
-```
-
-The script reads `https://books.inputread.site/word-lists/catalog.json`, keeps every existing row and its glossary
-hash, and adds or replaces only `<id>`. It refuses to drop a book or to change another book's glossary hash.
-
-3. Upload only the files it prints, to bucket `margin-words-books`. Set the content type and a short cache.
-
-```
-npx wrangler r2 object put "margin-words-books/word-lists/catalog.json" --file /tmp/word-list-publish/word-lists/catalog.json --content-type application/json --cache-control "public, max-age=60" --remote
-npx wrangler r2 object put "margin-words-books/word-lists/<id>/glossary.json" --file /tmp/word-list-publish/word-lists/<id>/glossary.json --content-type application/json --cache-control "public, max-age=60" --remote
-```
-
-Upload `cover.jpg` only when the script prints that file. Never upload `book.epub`. Do not upload the rest of
-`dist-books/`.
-
-4. Fetch `https://books.inputread.site/word-lists/catalog.json` again (a browser User-Agent; plain clients can get
-   403). Check the new id, its category, and that every id that was live before is still there.
-
-Tell the user the card is on Discover in that category (Speeches, or Novels). A signed-in reader adds it
-from the card and pairs their own EPUB. Say how many words, how many have several meanings, and which
-`target_level` you used. The format is in `docs/book-pack-spec.md` (also inside `book-pack-kit.zip`).
+Report the list's title, category, word count, multi-sense count, target level, validator result, and whether a
+matching legal EPUB was available. The upload guide owns the live handoff; this skill does not prescribe a
+catalog-first command, a pack commit, or a retired publish recipe.
 
 ## Quality checklist
 
