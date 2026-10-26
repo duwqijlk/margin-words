@@ -35,6 +35,7 @@ export async function handleWordTapsPost(
       word: string;
       form: string;
       chapter: number;
+      chapters: number;
       occurrence: number;
       paragraph: number;
       context: string;
@@ -50,6 +51,7 @@ export async function handleWordTapsPost(
         word?: unknown;
         form?: unknown;
         chapter?: unknown;
+        chapters?: unknown;
         occurrence?: unknown;
         paragraph?: unknown;
         context?: unknown;
@@ -69,6 +71,12 @@ export async function handleWordTapsPost(
       const chapter =
         typeof record.chapter === "number" && Number.isInteger(record.chapter) && record.chapter >= 0
           ? Math.min(record.chapter, 2000)
+          : 0;
+      // The reader's own copy may be split into a different number of chapters than the
+      // word list; this count lets the patrol tell that the chapter number is not the list's.
+      const chapters =
+        typeof record.chapters === "number" && Number.isInteger(record.chapters) && record.chapters >= 0
+          ? Math.min(record.chapters, 2000)
           : 0;
       const occurrence =
         typeof record.occurrence === "number" && Number.isInteger(record.occurrence) && record.occurrence >= 1
@@ -97,6 +105,7 @@ export async function handleWordTapsPost(
         word: rawWord,
         form: rawForm,
         chapter,
+        chapters,
         occurrence,
         paragraph,
         context,
@@ -121,15 +130,16 @@ export async function handleWordTapsPost(
     const writeBatch = clean.map((item) =>
       env.DB.prepare(
         `INSERT INTO book_word_taps (
-           book_id, book_title, word, form, chapter, occurrence, paragraph, context, sentence,
+           book_id, book_title, word, form, chapter, chapters, occurrence, paragraph, context, sentence,
            glossary_rev, tap_count, in_glossary, last_tapped_at
-         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
          ON CONFLICT(book_id, word, chapter, occurrence) DO UPDATE SET
            tap_count = book_word_taps.tap_count + excluded.tap_count,
            in_glossary = CASE WHEN excluded.in_glossary = 1 THEN 1 ELSE book_word_taps.in_glossary END,
            status = CASE WHEN excluded.in_glossary = 1 THEN 'resolved' ELSE book_word_taps.status END,
            book_title = CASE WHEN excluded.book_title != '' THEN excluded.book_title ELSE book_word_taps.book_title END,
            form = CASE WHEN excluded.form != '' THEN excluded.form ELSE book_word_taps.form END,
+           chapters = CASE WHEN excluded.chapters > 0 THEN excluded.chapters ELSE book_word_taps.chapters END,
            paragraph = excluded.paragraph,
            context = CASE WHEN excluded.context != '' THEN excluded.context ELSE book_word_taps.context END,
            sentence = CASE WHEN excluded.sentence != '' THEN excluded.sentence ELSE book_word_taps.sentence END,
@@ -141,6 +151,7 @@ export async function handleWordTapsPost(
         item.word,
         item.form,
         item.chapter,
+        item.chapters,
         item.occurrence,
         item.paragraph,
         item.context,

@@ -1259,18 +1259,25 @@ function checkExtras(
         const where = `Sentence note ${at + 1}`;
         if (!isObject(raw)) {
           issues.error(
-            `${where} must be an object with "chapter", "context", "simple" and "grammar".`,
+            `${where} must be an object with "chapter", "context" and "simple" ("grammar" is optional).`,
           );
           return;
         }
         const chapter = noteChapter(raw.chapter, where);
         const ctx = context(where, raw.context);
         const simple = textField(issues, where, raw.simple, "simple", LIMITS.sentenceSimple, true);
-        const grammar = textField(issues, where, raw.grammar, "grammar", LIMITS.grammar, true);
-        if (chapter === null || !ctx || !simple || !grammar) return;
+        // Grammar is help, not the note itself: a note with only an easier sentence still shows.
+        const grammar = textField(issues, where, raw.grammar, "grammar", LIMITS.grammar, false);
+        if (chapter === null || !ctx || !simple) return;
         mark(`sentence ${chapter}/${at + 1}`, ctx, simple, grammar);
         const credit = creditField(issues, where, raw.credit);
-        list.push({ chapter, context: ctx, simple, grammar, ...(credit ? { credit } : {}) });
+        list.push({
+          chapter,
+          context: ctx,
+          simple,
+          ...(grammar ? { grammar } : {}),
+          ...(credit ? { credit } : {}),
+        });
       });
       if (list.length) out.sentences = list;
     }
@@ -1379,10 +1386,19 @@ export function oversizedGlossaryCheck(): GlossaryCheck {
 }
 
 /**
- * Check a word list (JSON text, or an already parsed value). Never throws.
- * `file` is the cleaned-up list when there are no errors.
+ * `lenient` is for reading a list that is already published. A bad word or note is then
+ * skipped and the rest of the list stays usable, instead of the whole book showing
+ * "the word list could not be read". Publishing and authoring use the strict check.
  */
-export function validateGlossary(input: unknown): GlossaryCheck {
+export type ValidateOptions = { lenient?: boolean };
+
+/**
+ * Check a word list (JSON text, or an already parsed value). Never throws.
+ * `file` is the cleaned-up list when there are no errors (in `lenient` mode, when the
+ * file structure is usable and at least one word survives).
+ */
+export function validateGlossary(input: unknown, options: ValidateOptions = {}): GlossaryCheck {
+  const lenient = options.lenient === true;
   const issues = new Issues();
   const stats: GlossaryCheck["stats"] = { words: 0, senses: 0, anchors: 0, chineseWords: [] };
   const fail = (): GlossaryCheck => ({
@@ -1502,6 +1518,7 @@ export function validateGlossary(input: unknown): GlossaryCheck {
     }
     seen.add(lemma);
     const where = `The word ${q(lemma)}`;
+    const errorsBefore = issues.errors.length;
     if (!isObject(raw)) {
       issues.error(`${where} must be an object with at least a "meaning".`);
       continue;
@@ -1567,10 +1584,7 @@ export function validateGlossary(input: unknown): GlossaryCheck {
     if (raw.coined !== undefined) {
       if (typeof raw.coined !== "boolean")
         issues.error(`${where}: "coined" must be true or false.`);
-      else if (raw.coined) {
-        entry.coined = true;
-        stats.coined = (stats.coined ?? 0) + 1;
-      }
+      else if (raw.coined) entry.coined = true;
     }
     if (raw.senseOnly !== undefined) {
       if (typeof raw.senseOnly !== "boolean")
@@ -1590,9 +1604,14 @@ export function validateGlossary(input: unknown): GlossaryCheck {
         if (!entry.pos) entry.pos = (senses[0] as GlossarySense).pos ?? "";
       }
       entry.senses = senses;
+    }
+    // Reading a published list: an entry with a problem is dropped, the rest stays.
+    if (lenient && issues.errors.length > errorsBefore) continue;
+    if (senses && senses.length) {
       stats.senses += senses.length;
       stats.anchors += senses.reduce((n, s) => n + (s.anchors?.length ?? 0), 0);
     }
+    if (entry.coined) stats.coined = (stats.coined ?? 0) + 1;
     const all = [
       entry.meaning,
       entry.here ?? "",
@@ -1605,11 +1624,21 @@ export function validateGlossary(input: unknown): GlossaryCheck {
     stats.words += 1;
   }
   checkExtras(issues, data, out, stats);
-  if (issues.errors.length) return fail();
+  if (issues.errors.length) {
+    // A published list with one bad entry stays readable: the bad item is dropped and
+    // the rest of the list is used. An empty result is still a failure.
+    if (!lenient || stats.words === 0) return fail();
+  }
   stats.paragraphs = out.paragraphs?.length ?? 0;
   stats.sentences = out.sentences?.length ?? 0;
   stats.phrases = Object.keys(out.phrases ?? {}).length;
-  return { ok: true, errors: [], warnings: issues.warnings, file: out, stats };
+  return {
+    ok: true,
+    errors: lenient ? issues.errors : [],
+    warnings: issues.warnings,
+    file: out,
+    stats,
+  };
 }
 
 /* ------------------------------------------------------------------ book check */

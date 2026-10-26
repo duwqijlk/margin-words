@@ -350,7 +350,7 @@ source files as the app).
 
 With a pack list (a file under `packs/`, or `--bundled`), Chinese or other non-English letters are an error.
 For a list of your own they are accepted (see section 5). The validator also checks that `simple`, `mainIdea`, `grammar`
-and phrase `meaning` use only common words (`src/lib/basic-words-data.ts`, about 2000 words, plus simple forms such as
+(when present) and phrase `meaning` use only common words (`src/lib/basic-words-data.ts`, about 2000 words, plus simple forms such as
 `-s`, `-ed`, `-ing`); words outside the list are **warnings** that name the words. Names, numbers and the phrase's own
 words are allowed. For the meanings of single words use `node scripts/check-definition-words.mjs` (counts per book).
 
@@ -393,7 +393,7 @@ How the reader finds the note: a note belongs to **one** paragraph of the book. 
 ]
 ```
 
-Optional `credit`: the public id of the reader whose explanation this note uses, as for a paragraph note; the sentence help shows "From <their nickname>". Found by `context` inside the sentence (same chapter first, longest snippet first). `chapter` may be an extra id such as `"x3"` (see 3.1); that note matches only while that extra is on screen. `simple` up to 800 letters; `grammar` is ONE line (up to 400 letters).
+`simple` is required. `grammar` is optional: add it only when the grammar is the hard part, as ONE line (up to 400 letters). Optional `credit`: the public id of the reader whose explanation this note uses, as for a paragraph note; the sentence help shows "From <their nickname>". Found by `context` inside the sentence (same chapter first, longest snippet first). `chapter` may be an extra id such as `"x3"` (see 3.1); that note matches only while that extra is on screen. `simple` up to 800 letters.
 
 ### 7.3 `phrases`: phrasal verbs and idioms
 

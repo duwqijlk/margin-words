@@ -12,6 +12,7 @@ export function WordExplanationFeedback({
   word,
   form,
   chapter,
+  chapters,
   occurrence,
   paragraph,
   context,
@@ -27,6 +28,8 @@ export function WordExplanationFeedback({
   word: string;
   form?: string;
   chapter?: number;
+  /** How many chapters this copy of the book has, so a chapter number can be checked. */
+  chapters?: number;
   occurrence?: number;
   paragraph?: number;
   context?: string;
@@ -75,6 +78,7 @@ export function WordExplanationFeedback({
           reason,
           form,
           chapter,
+          chapters,
           occurrence,
           paragraph,
           context,

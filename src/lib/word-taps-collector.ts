@@ -26,6 +26,12 @@ export type TapLocationContext = {
   bookTitle?: string;
   form?: string;
   chapter?: number;
+  /**
+   * How many chapters this device's copy of the book has. The word list has its own
+   * `chapters` count; when the two differ, `chapter` is only this edition's index and
+   * a reader of the taps must locate the place by `context` instead.
+   */
+  chapters?: number;
   occurrence?: number;
   paragraph?: number;
   context?: string;
@@ -39,6 +45,7 @@ type BufferedTap = {
   word: string;
   form: string;
   chapter: number;
+  chapters: number;
   occurrence: number;
   paragraph: number;
   context: string;
@@ -100,6 +107,7 @@ export function recordWordTap(
   if (!word || !bookId) return;
 
   const chapter = Math.max(0, meta?.chapter ?? 0);
+  const chapters = Math.max(0, meta?.chapters ?? 0);
   const occurrence = Math.max(1, meta?.occurrence ?? 1);
   const form = (meta?.form || surface).trim().toLowerCase().slice(0, 48) || word;
   const paragraph = Math.max(0, meta?.paragraph ?? 0);
@@ -113,6 +121,7 @@ export function recordWordTap(
   if (existing) {
     existing.count += 1;
     if (inGlossary) existing.inGlossary = true;
+    if (chapters && !existing.chapters) existing.chapters = chapters;
     if (context && !existing.context) existing.context = context;
     if (sentence && !existing.sentence) existing.sentence = sentence;
     if (bookTitle && !existing.bookTitle) existing.bookTitle = bookTitle;
@@ -125,6 +134,7 @@ export function recordWordTap(
       word,
       form,
       chapter,
+      chapters,
       occurrence,
       paragraph,
       context,
@@ -179,6 +189,7 @@ export async function flushWordTaps(): Promise<void> {
           word: t.word,
           form: t.form,
           chapter: t.chapter,
+          chapters: t.chapters,
           occurrence: t.occurrence,
           paragraph: t.paragraph,
           context: t.context,

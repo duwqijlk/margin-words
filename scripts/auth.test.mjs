@@ -1,6 +1,6 @@
 // Auth and sync handlers against the real migration SQL (node:sqlite standing in for D1).
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import { test } from "node:test";
 import { dirname, join } from "node:path";
@@ -73,23 +73,8 @@ async function signUpFully(handlerRegister, env, input, now = NOW) {
 function openDb() {
   const db = new DatabaseSync(":memory:");
   db.exec("PRAGMA foreign_keys = ON");
-  for (const name of [
-    "0001_init.sql",
-    "0002_nickname.sql",
-    "0003_sponsorship.sql",
-    "0004_roles.sql",
-    "0005_glossary_quota.sql",
-    "0006_shelf_grant.sql",
-    "0007_word_taps.sql",
-    "0008_word_feedback.sql",
-    "0009_word_taps_location.sql",
-    "0010_word_feedback_location.sql",
-    "0011_word_analytics_rev_status.sql",
-    "0012_email_verification.sql",
-    "0013_feedback_suggestion.sql",
-    "0014_contributor_credit.sql",
-    "0015_passage_feedback.sql", "0016_pending_signups.sql", "0017_catalog_locks.sql", "0018_signup_ticket.sql",
-  ]) {
+  // Every migration, in filename order: a hand-kept list here went stale once already.
+  for (const name of readdirSync(join(ROOT, "migrations")).filter((file) => file.endsWith(".sql")).sort()) {
     db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   }
   return {

@@ -21,6 +21,8 @@ type TapRow = {
   word: string;
   form: string;
   chapter: number;
+  /** How many chapters the reporting reader's copy has (0 when the client did not say). */
+  chapters: number;
   occurrence: number;
   paragraph: number;
   context: string;
@@ -59,6 +61,7 @@ function readTaps(value: unknown): TapRow[] {
       word: row.word,
       form: typeof row.form === "string" ? row.form : row.word,
       chapter: typeof row.chapter === "number" ? row.chapter : 0,
+      chapters: typeof row.chapters === "number" ? row.chapters : 0,
       occurrence: typeof row.occurrence === "number" ? row.occurrence : 1,
       paragraph: typeof row.paragraph === "number" ? row.paragraph : 0,
       context: typeof row.context === "string" ? row.context : "",
@@ -81,6 +84,7 @@ type FeedbackRow = {
   word: string;
   form: string;
   chapter: number;
+  chapters: number;
   occurrence: number;
   paragraph: number;
   context: string;
@@ -118,6 +122,7 @@ function readFeedback(value: unknown): FeedbackRow[] {
       word: row.word,
       form: typeof row.form === "string" ? row.form : row.word,
       chapter: typeof row.chapter === "number" ? row.chapter : 0,
+      chapters: typeof row.chapters === "number" ? row.chapters : 0,
       occurrence: typeof row.occurrence === "number" ? row.occurrence : 1,
       paragraph: typeof row.paragraph === "number" ? row.paragraph : 0,
       context: typeof row.context === "string" ? row.context : "",
@@ -470,6 +475,12 @@ function WordTapsSubView() {
                     <span className="rounded-md border border-accent/25 bg-accent-soft/60 px-2 py-0.5 text-[11px] font-medium text-accent">
                       {t("admin.taps.location", { chapter: row.chapter + 1, occurrence: row.occurrence })}
                     </span>
+
+                    {row.chapters > 0 ? (
+                      <span className="rounded-md border border-line/70 bg-line/10 px-2 py-0.5 text-[11px] text-muted">
+                        {t("admin.taps.chapters", { n: row.chapters })}
+                      </span>
+                    ) : null}
 
                     {row.glossaryRev ? (
                       <span className="rounded-md border border-line/70 bg-line/10 px-2 py-0.5 font-mono text-[11px] text-muted">
@@ -973,6 +984,12 @@ function WordFeedbackSubView() {
                     <span className="rounded-md border border-accent/25 bg-accent-soft/60 px-2 py-0.5 text-[11px] font-medium text-accent">
                       {t("admin.taps.location", { chapter: row.chapter + 1, occurrence: row.occurrence })}
                     </span>
+
+                    {row.chapters > 0 ? (
+                      <span className="rounded-md border border-line/70 bg-line/10 px-2 py-0.5 text-[11px] text-muted">
+                        {t("admin.taps.chapters", { n: row.chapters })}
+                      </span>
+                    ) : null}
 
                     {row.glossaryRev ? (
                       <span className="rounded-md border border-line/70 bg-line/10 px-2 py-0.5 font-mono text-[11px] text-muted">

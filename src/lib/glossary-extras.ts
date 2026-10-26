@@ -26,7 +26,7 @@ export type SentenceHelp = {
   chapter: NoteChapter;
   context: string; // 6-14 words copied exactly from the sentence
   simple: string; // the sentence in easier English
-  grammar: string; // ONE line naming the tricky grammar and what it means
+  grammar?: string; // ONE line naming the tricky grammar and what it means; optional
   credit?: string; // public id of the reader whose explanation this note uses
 };
 

@@ -379,12 +379,14 @@ export function ExplainSentence({
               {view.simple}
             </p>
           </section>
-          <section className="grid gap-0.5" aria-label={t("hp.grammar")}>
-            <h4 className="text-xs font-semibold text-muted">{t("hp.grammar")}</h4>
-            <p className="text-sm leading-snug" lang="en" data-part="grammar">
-              {view.grammar}
-            </p>
-          </section>
+          {view.grammar ? (
+            <section className="grid gap-0.5" aria-label={t("hp.grammar")}>
+              <h4 className="text-xs font-semibold text-muted">{t("hp.grammar")}</h4>
+              <p className="text-sm leading-snug" lang="en" data-part="grammar">
+                {view.grammar}
+              </p>
+            </section>
+          ) : null}
         </div>
       )}
     </div>

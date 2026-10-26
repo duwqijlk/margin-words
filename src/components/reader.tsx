@@ -1399,6 +1399,7 @@ export function ReaderScreen({
       bookTitle: book?.title,
       form: countSurface(surface),
       chapter: activeExtra ? 0 : safeIndex,
+      chapters: book?.chapters.length ?? 0,
       occurrence: nth,
       paragraph: Math.max(0, blockAt),
       context,
@@ -1763,6 +1764,7 @@ export function ReaderScreen({
           bookId={bookId}
           bookTitle={book?.title}
           chapter={viewChapter}
+          chapters={book?.chapters.length ?? 0}
           glossaryRev={glossaryRev}
           // Not in an extra (it has no fixed chapter number) or over an open card.
           enabled={viewChapter >= 0 && picked === null && help === null}
@@ -1848,6 +1850,7 @@ export function ReaderScreen({
           bookTitle={book?.title}
           noList={noList}
           chapter={viewChapter}
+          chapters={book?.chapters.length ?? 0}
           noteChapter={activeExtra?.fromToc ? activeExtra.id : viewChapter}
           anchor={anchor}
           onClose={closeWordCard}

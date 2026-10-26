@@ -1029,6 +1029,7 @@ export const en = {
   "admin.taps.prev": "Previous",
   "admin.taps.next": "Next",
   "admin.taps.location": "Ch {chapter} · #{occurrence}",
+  "admin.taps.chapters": "of {n} chapters",
   "admin.taps.bookTitle": "\"{title}\"",
   "admin.taps.tabTaps": "Word tap tracking",
   "admin.taps.tabFeedback": "Meaning feedback",

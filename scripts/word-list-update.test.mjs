@@ -162,3 +162,12 @@ test("a new list must still match the reader's own book", () => {
   assert.equal(broken.ok, false);
   assert.equal(broken.problem, "unreadable");
 });
+
+test("one bad word does not make a published list unreadable", () => {
+  const book = ["He lifted the paper lantern over the gate and smiled."];
+  const list = JSON.parse(listFor("lifted the paper lantern over"));
+  list.glossary.broken = { meaning: 42 };
+  const check = checkListAgainstBook(JSON.stringify(list), book);
+  assert.equal(check.ok, true);
+  assert.equal(check.percent, 100);
+});

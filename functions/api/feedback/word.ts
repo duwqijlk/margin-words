@@ -37,6 +37,7 @@ export async function handleWordFeedbackPost(
       reason?: unknown;
       form?: unknown;
       chapter?: unknown;
+      chapters?: unknown;
       occurrence?: unknown;
       paragraph?: unknown;
       context?: unknown;
@@ -73,6 +74,9 @@ export async function handleWordFeedbackPost(
 
     const form = typeof body.form === "string" ? body.form.trim().toLowerCase().slice(0, 48) : rawWord;
     const chapter = Math.max(0, Math.floor(Number(body.chapter) || 0));
+    // The reader's edition may split the book into a different number of chapters than the
+    // word list; the count tells the patrol whether the chapter number can be trusted.
+    const chapters = Math.min(2000, Math.max(0, Math.floor(Number(body.chapters) || 0)));
     const occurrence = Math.max(1, Math.floor(Number(body.occurrence) || 1));
     const paragraph = Math.max(0, Math.floor(Number(body.paragraph) || 0));
     const context = typeof body.context === "string" ? body.context.trim().slice(0, 300) : "";
@@ -141,10 +145,10 @@ export async function handleWordFeedbackPost(
 
     await env.DB.prepare(
       `INSERT INTO word_feedback (
-         book_id, book_title, word, reason, form, chapter, occurrence,
+         book_id, book_title, word, reason, form, chapter, chapters, occurrence,
          paragraph, context, sentence, sense_index, sense_meaning,
          glossary_rev, status, created_at, ip, suggestion, user_id
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
       .bind(
         bookId,
@@ -153,6 +157,7 @@ export async function handleWordFeedbackPost(
         reason,
         form || rawWord,
         chapter,
+        chapters,
         occurrence,
         paragraph,
         context,
