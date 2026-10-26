@@ -67,13 +67,25 @@ export function locateIn(whole: string, selected: string, near: number): number 
   return best;
 }
 
-/** True when `text` is at least one whole sentence: it ends a sentence and has a verb-sized length. */
+/**
+ * True when `text` is at least one whole sentence. Either it runs across a sentence end, or it
+ * starts where a sentence starts and reaches that sentence's end. Its final full stop does not have
+ * to be selected: on a phone the handle often stops just before it, and "The old habits were what
+ * mattered" without the "." is still the whole sentence. Fewer than five words stays a word group.
+ */
 export function holdsSentence(selected: string, whole: string, start: number): boolean {
-  const words = selected.trim().split(/\s+/).length;
+  const text = selected.trim();
+  const words = text.split(/\s+/).length;
   if (words < 5) return false;
+  if (/[.!?]["'”’)]?\s+\S/.test(text)) return true;
   const startsSentence = start === 0 || /[.!?]["'”’)]?\s*$/.test(whole.slice(0, start));
-  const endsSentence = /[.!?]["'”’)]?$/.test(selected.trim());
-  return (startsSentence && endsSentence) || /[.!?]["'”’)]?\s+\S/.test(selected);
+  if (!startsSentence) return false;
+  if (/[.!?]["'”’)]?$/.test(text)) return true;
+  // What follows the selection in the paragraph: only the sentence's own end mark (and a closing
+  // quote) before the next sentence or the end of the paragraph means the sentence is complete.
+  const at = whole.startsWith(text, start) ? start : whole.indexOf(text);
+  if (at < 0) return false;
+  return /^\s*[.!?]+["'”’)]*(\s|$)/.test(whole.slice(at + text.length));
 }
 
 /**
