@@ -384,7 +384,8 @@ function SentenceNote({
   const { t } = useT();
   return (
     <div
-      className={cn("-mx-2 grid gap-1.5 rounded-lg px-2 py-1.5 transition-colors", chosen && "bg-mark/45")}
+      // The yellow is the page's; the panel only says which note is chosen, with its line.
+      className="grid gap-1.5"
       data-sentence-note
       data-chosen={chosen ? "" : undefined}
     >
@@ -392,7 +393,10 @@ function SentenceNote({
         type="button"
         onClick={onChoose}
         aria-pressed={chosen}
-        className="border-l-2 border-mark pl-2.5 text-left font-display text-[0.92rem] leading-relaxed text-muted"
+        className={cn(
+          "pl-2.5 text-left font-display text-[0.92rem] leading-relaxed",
+          chosen ? "border-l-[3px] border-accent text-ink" : "border-l-2 border-line text-muted",
+        )}
         lang="en"
         data-part="sentence-context"
       >
