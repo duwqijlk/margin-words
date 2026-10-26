@@ -107,6 +107,34 @@ export function pickSentenceHelp(
   return best;
 }
 
+/**
+ * The sentence notes whose `context` is inside one paragraph, in reading order. The same chapter
+ * rule as pickSentenceHelp: an ordinary extra (-1) has none, an extra id matches only that id, and a
+ * numbered chapter takes every numbered note (the context decides, so another edition's chapter
+ * number still finds its sentence).
+ */
+export function sentenceNotesIn(
+  list: readonly SentenceHelp[],
+  chapter: number | string,
+  paragraphText: string,
+): SentenceHelp[] {
+  if (typeof chapter === "number" && chapter < 0) return [];
+  const text = looseText(paragraphText);
+  if (text === "") return [];
+  const found: { at: number; entry: SentenceHelp }[] = [];
+  for (const entry of list) {
+    if (typeof chapter === "string") {
+      if (entry.chapter !== chapter) continue;
+    } else if (typeof entry.chapter !== "number") continue;
+    const c = looseText(entry.context);
+    if (!c || !includesLoose(text, c)) continue;
+    // A match through glued words has no plain position; it keeps its list order at the end.
+    const at = ` ${text} `.indexOf(` ${c} `);
+    found.push({ at: at < 0 ? Number.MAX_SAFE_INTEGER : at, entry });
+  }
+  return found.sort((a, b) => a.at - b.at).map((item) => item.entry);
+}
+
 /* ------------------------------------------------------------------ verb forms */
 
 const IRREGULAR: Record<string, string[]> = {

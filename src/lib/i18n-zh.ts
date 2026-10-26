@@ -621,6 +621,7 @@ export const zh: Record<Key, string> = {
   "hp.lookingSentence": "正在找更简单的句子…",
   "hp.easier": "更简单的句子",
   "hp.grammar": "语法",
+  "hp.sentences": "难句",
 
   /* ---- notebook */
   "nb.title": "生词本",

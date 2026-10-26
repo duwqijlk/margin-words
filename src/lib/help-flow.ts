@@ -4,7 +4,7 @@
  * when the list has no note for a paragraph or sentence, the result is null and the screen
  * shows a friendly message.
  */
-import { getParagraphHelp, getSentenceHelp } from "@/lib/help-lookup";
+import { getParagraphHelp, getSentenceHelp, getSentenceNotesIn } from "@/lib/help-lookup";
 import { cleanNoteText, cleanParagraphNote, type ParagraphNote } from "@/lib/paragraph-note";
 
 export type ParagraphView = ParagraphNote;
@@ -14,6 +14,15 @@ export type SentenceView = {
   grammar: string;
   /** Public id of the reader whose explanation this note uses. */
   credit?: string;
+};
+
+/** A sentence note shown in the paragraph panel: the words that name the sentence, then its help. */
+export type SentenceInParagraph = SentenceView & { context: string };
+
+/** What the bulb of one paragraph opens: its paragraph note, its sentence notes, or both. */
+export type ParagraphHelpView = {
+  paragraph: ParagraphView | null;
+  sentences: SentenceInParagraph[];
 };
 
 const clean = cleanNoteText;
@@ -55,4 +64,24 @@ export async function loadSentenceView(args: {
   } catch {
     return null;
   }
+}
+
+/** Everything the bulb of paragraph `paragraph` opens, or null when it has no help at all. */
+export async function loadParagraphHelpView(args: {
+  bookId: string;
+  chapter: number | string;
+  paragraph: number;
+  texts: readonly string[];
+}): Promise<ParagraphHelpView | null> {
+  const [paragraph, notes] = await Promise.all([
+    loadParagraphView(args),
+    getSentenceNotesIn(args.bookId, args.chapter, args.texts[args.paragraph] ?? "").catch(() => []),
+  ]);
+  const sentences: SentenceInParagraph[] = [];
+  for (const note of notes) {
+    const view = asSentence(note);
+    const context = clean(note.context, 300);
+    if (view && context) sentences.push({ ...view, context });
+  }
+  return paragraph || sentences.length ? { paragraph, sentences } : null;
 }

@@ -190,6 +190,14 @@ Then write the smallest note that helps:
 Leave it open when the selection is a single easy word, a name, or text you cannot find in the book.
 Never copy more of the book than a note's `context` needs.
 
+**Where readers see each note.** A paragraph note and a sentence note open from the same place:
+a lightbulb beside the paragraph. The paragraph panel shows the paragraph note, then a "Hard
+sentences" list with every sentence note whose `context` is inside that paragraph. In the word card
+a sentence note is only a small "Explain this sentence" link that opens that panel. Copy the
+`context` exactly from ONE sentence: the bulb needs it inside one paragraph, and the word-card link
+needs it inside the tapped sentence. A `context` that is not in the book, or runs across two
+paragraphs, lights no bulb and shows nowhere.
+
 **Passage topics: one place, several readers.** All reports with the same `topic` overlap on one
 paragraph: a short selection inside a longer one (reader A selected the whole 10-word sentence,
 reader B only "as if the" inside it), or two that share words. Read the whole topic before you write:

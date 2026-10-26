@@ -58,3 +58,16 @@ test("background whole-chapter fallback participates in ambiguity checks", async
   lookup.shareStoredBook("fallback", book);
   assert.deepEqual(await lookup.getParagraphNoteFlags("fallback", 0, [repeated]), [false]);
 });
+
+test("a sentence note lights the bulb of the paragraph that holds its sentence", async () => {
+  const texts = ["The first paragraph has nothing.", "Then the old man walked slowly home."];
+  const book = { chapters: [{ html: texts.map((t) => `<p>${t}</p>`).join(""), paragraphs: texts }] };
+  const sentence = { chapter: 0, context: "the old man walked slowly", simple: "He went home slowly." };
+  globalThis.__helpLookupFixture = { book, notes: { paragraphs: [], sentences: [sentence], phrases: {} } };
+  lookup.shareStoredBook("sentence-bulb", book);
+  assert.deepEqual(await lookup.getParagraphNoteFlags("sentence-bulb", 0, texts), [false, true]);
+  assert.deepEqual(
+    (await lookup.getSentenceNotesIn("sentence-bulb", 0, texts[1])).map((n) => n.simple),
+    ["He went home slowly."],
+  );
+});
