@@ -680,6 +680,17 @@
       min-height: 96px;
       align-content: start;
     }
+    /* The sheet itself is the pull-to-close surface. A touch that starts anywhere on it must
+       never scroll the article behind it: native scrolling starts only in the parts that
+       really scroll (the title, the word body, a long suggestion box). */
+    [data-word-card] {
+      touch-action: none;
+    }
+    [data-word-card] [data-word-title],
+    [data-word-card] [data-word-body],
+    [data-word-card] textarea {
+      touch-action: pan-y;
+    }
     [data-word-card] [data-sheet-handle] {
       display: flex;
       align-items: center;
