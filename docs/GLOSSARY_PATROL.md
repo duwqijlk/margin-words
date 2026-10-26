@@ -113,10 +113,11 @@ wrote it (12 letters and digits; never an email). Use it for `credit` below.
 resolved. A reopened item means the last fix did not work: look at it first.
 
 `book_id` in these rows is the reader's device id and means nothing across devices. Find the book by
-**`catalog_id`**: the `id` of its row in one of the live catalogs below. It is `''` on rows from an
-older page and for a list the reader added by hand; only then find the book by **title**. Two books
-with the same title are told apart only by `catalog_id`. The catalogs (R2 read, bucket
-`margin-words-books`):
+**`catalog_id`**, `<catalog>:<id>`: `word-lists:<id>` is the row with that `id` in
+`word-lists/catalog.json`, `public-books:<id>` the row in `public-books/catalog.json`. Only when it is
+`''` (an older page, a list the reader added by hand, a book installed before this was recorded)
+find the book by **title**. Two books with the same title are told apart only by `catalog_id`. The
+catalogs (R2 read, bucket `margin-words-books`):
 
 - `word-lists/catalog.json`: `{ "lists": [ { "id", "title", "words", "phrases", "paragraphs",
   "sentences", "updated", "glossary": { "url", "bytes", "sha256" }, ... } ] }`

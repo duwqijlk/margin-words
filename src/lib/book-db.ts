@@ -47,6 +47,11 @@ export type BookExtras = {
   rev?: string;
   /** slug of the bundled list, or "custom" for a list the user added */
   source?: string;
+  /**
+   * Which catalog `source` is a row of. Reports name the book as `<catalog>:<source>`
+   * (src/lib/catalog-id.ts). Absent on books installed before it was recorded.
+   */
+  catalog?: "word-lists" | "public-books";
   paragraphs: ParagraphHelp[];
   sentences: SentenceHelp[];
   phrases: Record<string, PhraseEntry>;
@@ -448,6 +453,7 @@ export async function loadBookExtras(id: string): Promise<BookExtras | null> {
   return {
     ...(value.rev ? { rev: value.rev } : {}),
     ...(value.source ? { source: value.source } : {}),
+    ...(value.catalog === "word-lists" || value.catalog === "public-books" ? { catalog: value.catalog } : {}),
     paragraphs: Array.isArray(value.paragraphs) ? value.paragraphs : [],
     sentences: Array.isArray(value.sentences) ? value.sentences : [],
     phrases: value.phrases && typeof value.phrases === "object" ? value.phrases : {},

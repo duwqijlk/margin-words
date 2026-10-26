@@ -3,7 +3,7 @@ import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/ht
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertIpRateLimit } from "../../lib/rate-limit.ts";
 import { requireUser } from "../../lib/session.ts";
-import { cleanCatalogId } from "../../../src/lib/catalog-id.ts";
+import { cleanCatalogRef } from "../../../src/lib/catalog-id.ts";
 import { PASSAGE_MAX, PASSAGE_NOTE_MAX } from "../../../src/lib/limits.ts";
 
 /**
@@ -62,7 +62,7 @@ export async function handlePassageFeedbackPost(
     const bookId = typeof body.bookId === "string" ? body.bookId.trim().slice(0, 64) : "";
     if (!bookId || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(bookId)) throw new HttpError(400, "bad-book");
     const bookTitle = cleanBookText(body.bookTitle, 150);
-    const catalogId = cleanCatalogId(body.catalogId);
+    const catalogId = cleanCatalogRef(body.catalogId);
 
     // A selection longer than PASSAGE_MAX is refused, not cut: the page already stops it there.
     const raw = typeof body.selected === "string" ? body.selected.replace(/\s+/g, " ").trim() : "";

@@ -3,7 +3,7 @@ import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/ht
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertIpRateLimit } from "../../lib/rate-limit.ts";
 import { requireUser } from "../../lib/session.ts";
-import { cleanCatalogId } from "../../../src/lib/catalog-id.ts";
+import { cleanCatalogRef } from "../../../src/lib/catalog-id.ts";
 import { SUGGESTION_MAX } from "../../../src/lib/limits.ts";
 
 /**
@@ -56,7 +56,7 @@ export async function handleWordFeedbackPost(
 
     const bookTitle =
       typeof body.bookTitle === "string" ? body.bookTitle.trim().slice(0, 150) : "";
-    const catalogId = cleanCatalogId(body.catalogId);
+    const catalogId = cleanCatalogRef(body.catalogId);
 
     const rawWord = typeof body.word === "string" ? body.word.trim().toLowerCase() : "";
     if (!rawWord || !/^[a-z]+(?:[ '-][a-z]+)*$/.test(rawWord) || rawWord.length < 2 || rawWord.length > 48) {

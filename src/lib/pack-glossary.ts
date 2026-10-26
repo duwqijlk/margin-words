@@ -67,6 +67,8 @@ export async function applyPackGlossary(
   glossaryText: string,
   packId: string,
   rev: string,
+  /** The catalog `packId` is a row of; omitted for a list the reader added. */
+  catalog?: "word-lists" | "public-books",
 ): Promise<PackGlossaryResult> {
   let pack: PackFile;
   try {
@@ -85,6 +87,7 @@ export async function applyPackGlossary(
   await saveBookExtras(bookId, {
     ...(rev ? { rev } : {}),
     source: packId,
+    ...(catalog && packId !== "custom" ? { catalog } : {}),
     paragraphs: checked?.paragraphs ?? [],
     sentences: checked?.sentences ?? [],
     phrases: checked?.phrases ?? {},

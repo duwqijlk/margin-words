@@ -6,7 +6,7 @@
  */
 
 import { WORD_TAPS_MAX } from "@/lib/limits";
-import { cleanCatalogId } from "@/lib/catalog-id";
+import { cleanCatalogRef } from "@/lib/catalog-id";
 
 // Top English function words / stop-words that readers might accidentally tap.
 const STOP_WORDS = new Set([
@@ -25,7 +25,7 @@ const STOP_WORDS = new Set([
 
 export type TapLocationContext = {
   bookTitle?: string;
-  /** The book's id in the word-list or public-book catalog, "" for a book without one. */
+  /** The catalog book, `<catalog>:<id>` (src/lib/catalog-id.ts), "" for a book without one. */
   catalogId?: string;
   form?: string;
   chapter?: number;
@@ -118,7 +118,7 @@ export function recordWordTap(
   const context = (meta?.context ?? "").trim().slice(0, 300);
   const sentence = (meta?.sentence ?? "").trim().slice(0, 600);
   const bookTitle = (meta?.bookTitle ?? "").trim().slice(0, 150);
-  const catalogId = cleanCatalogId(meta?.catalogId);
+  const catalogId = cleanCatalogRef(meta?.catalogId);
   const glossaryRev = (meta?.glossaryRev ?? "").trim().slice(0, 100);
 
   const key = `${bookId}:${word}:${chapter}:${occurrence}`;

@@ -3,7 +3,7 @@ import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/ht
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertDailyWriteBudget, assertIpRateLimit } from "../../lib/rate-limit.ts";
 import { WORD_TAPS_MAX } from "../../../src/lib/limits.ts";
-import { cleanCatalogId } from "../../../src/lib/catalog-id.ts";
+import { cleanCatalogRef } from "../../../src/lib/catalog-id.ts";
 
 
 export const onRequestPost = (context: { request: Request; env: Env }) =>
@@ -28,7 +28,7 @@ export async function handleWordTapsPost(
 
     const bookTitle =
       typeof body.bookTitle === "string" ? body.bookTitle.trim().slice(0, 150) : "";
-    const catalogId = cleanCatalogId(body.catalogId);
+    const catalogId = cleanCatalogRef(body.catalogId);
 
     if (!Array.isArray(body.taps) || body.taps.length === 0 || body.taps.length > WORD_TAPS_MAX) {
       throw new HttpError(400, "bad-taps");

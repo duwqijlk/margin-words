@@ -185,7 +185,7 @@ async function updateWordListBook(record: PackRecord, pack: WordListPack): Promi
           ? tr("err.packListUnreadable")
           : tr("lists.matchWarn", { n: check.percent }),
       );
-    await applyPackGlossary(record.bookId, text, record.packId, rev);
+    await applyPackGlossary(record.bookId, text, record.packId, rev, "word-lists");
     useVocab.getState().setBookDetails([{ id: record.bookId, matchRate: check.percent }]);
   }
   if (actions.saveText) await storeWordListText(pack.id, text);

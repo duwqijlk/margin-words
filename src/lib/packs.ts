@@ -274,6 +274,11 @@ export async function loadCatalog(url = getCatalogUrl()): Promise<CatalogResult>
 
 export type InstallInput = {
   packId: string;
+  /**
+   * Which of the site's catalogs `packId` is a row of. `undefined` for a pack from another catalog
+   * address: reports about it then carry no catalog reference.
+   */
+  catalog: "word-lists" | "public-books" | undefined;
   rev: string;
   title: string;
   author: string;
@@ -457,8 +462,9 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
         ? (await loadBookExtras(bookId).catch(() => null))?.source === "custom"
         : false;
       if (!mine)
-        words = (await applyPackGlossary(bookId, input.glossaryText, input.packId, input.rev))
-          .words;
+        words = (
+          await applyPackGlossary(bookId, input.glossaryText, input.packId, input.rev, input.catalog)
+        ).words;
     }
     await savePackRecord({
       // A card that was found by what the book is keeps its catalog pack id, so Discover still shows it.
@@ -605,6 +611,9 @@ export async function downloadPack(
   onProgress({ stage: "saving", fraction: 0.96 });
   const result = await installPack({
     packId: pack.id,
+    // Only the site's own catalog is "public-books"; a pack from another catalog address the
+    // reader set is not a row there, and its reports must not claim one.
+    catalog: catalogUrl === BUNDLED_CATALOG_URL ? "public-books" : undefined,
     rev: pack.rev,
     title: pack.title,
     author: pack.author,

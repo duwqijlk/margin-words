@@ -109,6 +109,7 @@ export async function savePaired(preview: PairPreview): Promise<InstallResult> {
   const catalog = tagged ? "" : await catalogCoverData(pack);
   return installPack({
     packId: pack.id,
+    catalog: "word-lists",
     rev: pack.glossary.sha256.slice(0, 12),
     title: pack.title || parsed.title,
     author: pack.author || parsed.author,

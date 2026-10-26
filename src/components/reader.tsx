@@ -89,7 +89,7 @@ import {
   wholeSentence,
 } from "@/components/word-card";
 import { warmIpaFor } from "@/components/word-ipa";
-import { cleanCatalogId } from "@/lib/catalog-id";
+import { catalogRef } from "@/lib/catalog-id";
 import {
   calculatePageStep,
   isEinkScreen,
@@ -190,9 +190,10 @@ export function ReaderScreen({
   // Phrases live beside the word list. Empty until that record loads, then the dotted line appears.
   const [phraseList, setPhraseList] = useState<Record<string, PhraseEntry>>({});
   const [listSource, setListSource] = useState("");
-  // The book's id in the catalog it came from, sent with every report so the patrol and the
-  // per-book credits find the book without matching titles ("" for a list the reader added).
-  const catalogId = cleanCatalogId(listSource) || cleanCatalogId(book?.bundled);
+  // The catalog book this list is, as `<catalog>:<id>`, sent with every report so the patrol and
+  // the per-book credits find the book without matching titles. Only the list in use counts: a
+  // list the reader added ("custom") names no catalog book, even on a book that came from one.
+  const [catalogId, setCatalogId] = useState("");
   // The book whose phrase list has answered. The chapter is linked only after that: linking it
   // first without phrases and again with them built and laid out the whole chapter twice.
   const [phrasesFor, setPhrasesFor] = useState("");
@@ -352,6 +353,7 @@ export function ReaderScreen({
   useEffect(() => {
     let alive = true;
     setListSource("");
+    setCatalogId("");
     const pull = () => {
       void loadBookExtras(bookId)
         .then(async (extras) => {
@@ -359,6 +361,7 @@ export function ReaderScreen({
           setPhraseList(extras?.phrases ?? {});
           setPhrasesFor(bookId);
           setListSource(extras?.source ?? "");
+          setCatalogId(extras?.catalog ? catalogRef(extras.catalog, extras.source) : "");
           let rev = extras?.rev ?? "";
           if (!rev) {
             const pack = await loadPackRecord(bookId).catch(() => null);
