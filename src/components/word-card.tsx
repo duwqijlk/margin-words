@@ -188,6 +188,7 @@ export function WordCard({
   bookTitle,
   chapter,
   chapters,
+  catalogId,
   noteChapter,
   noList,
   anchor,
@@ -207,6 +208,8 @@ export function WordCard({
   chapter: number;
   /** How many chapters this copy of the book has (the word list has its own count). */
   chapters?: number;
+  /** The book's catalog id, "" for a list the reader added. */
+  catalogId?: string;
   noteChapter?: number | string;
   noList: boolean;
   saved: boolean;
@@ -455,6 +458,7 @@ export function WordCard({
             form={activePhrase ? activePhrase.matched.toLowerCase() : countSurface(state.surface)}
             chapter={state.chapter ?? (typeof noteChapter === "number" ? noteChapter : chapter)}
             chapters={chapters}
+            catalogId={catalogId}
             occurrence={state.occurrence ?? 1}
             paragraph={state.paragraph ?? 0}
             context={state.context ?? ""}

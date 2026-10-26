@@ -3,6 +3,7 @@ import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/ht
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertIpRateLimit } from "../../lib/rate-limit.ts";
 import { requireUser } from "../../lib/session.ts";
+import { cleanCatalogId } from "../../../src/lib/catalog-id.ts";
 import { SUGGESTION_MAX } from "../../../src/lib/limits.ts";
 
 /**
@@ -33,6 +34,7 @@ export async function handleWordFeedbackPost(
     const body = (await readJson(request)) as {
       bookId?: unknown;
       bookTitle?: unknown;
+      catalogId?: unknown;
       word?: unknown;
       reason?: unknown;
       form?: unknown;
@@ -54,6 +56,7 @@ export async function handleWordFeedbackPost(
 
     const bookTitle =
       typeof body.bookTitle === "string" ? body.bookTitle.trim().slice(0, 150) : "";
+    const catalogId = cleanCatalogId(body.catalogId);
 
     const rawWord = typeof body.word === "string" ? body.word.trim().toLowerCase() : "";
     if (!rawWord || !/^[a-z]+(?:[ '-][a-z]+)*$/.test(rawWord) || rawWord.length < 2 || rawWord.length > 48) {
@@ -145,14 +148,15 @@ export async function handleWordFeedbackPost(
 
     await env.DB.prepare(
       `INSERT INTO word_feedback (
-         book_id, book_title, word, reason, form, chapter, chapters, occurrence,
+         book_id, book_title, catalog_id, word, reason, form, chapter, chapters, occurrence,
          paragraph, context, sentence, sense_index, sense_meaning,
          glossary_rev, status, created_at, ip, suggestion, user_id
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
       .bind(
         bookId,
         bookTitle,
+        catalogId,
         rawWord,
         reason,
         form || rawWord,

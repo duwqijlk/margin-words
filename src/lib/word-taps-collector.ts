@@ -6,6 +6,7 @@
  */
 
 import { WORD_TAPS_MAX } from "@/lib/limits";
+import { cleanCatalogId } from "@/lib/catalog-id";
 
 // Top English function words / stop-words that readers might accidentally tap.
 const STOP_WORDS = new Set([
@@ -24,6 +25,8 @@ const STOP_WORDS = new Set([
 
 export type TapLocationContext = {
   bookTitle?: string;
+  /** The book's id in the word-list or public-book catalog, "" for a book without one. */
+  catalogId?: string;
   form?: string;
   chapter?: number;
   /**
@@ -42,6 +45,7 @@ export type TapLocationContext = {
 type BufferedTap = {
   bookId: string;
   bookTitle: string;
+  catalogId: string;
   word: string;
   form: string;
   chapter: number;
@@ -114,6 +118,7 @@ export function recordWordTap(
   const context = (meta?.context ?? "").trim().slice(0, 300);
   const sentence = (meta?.sentence ?? "").trim().slice(0, 600);
   const bookTitle = (meta?.bookTitle ?? "").trim().slice(0, 150);
+  const catalogId = cleanCatalogId(meta?.catalogId);
   const glossaryRev = (meta?.glossaryRev ?? "").trim().slice(0, 100);
 
   const key = `${bookId}:${word}:${chapter}:${occurrence}`;
@@ -125,12 +130,14 @@ export function recordWordTap(
     if (context && !existing.context) existing.context = context;
     if (sentence && !existing.sentence) existing.sentence = sentence;
     if (bookTitle && !existing.bookTitle) existing.bookTitle = bookTitle;
+    if (catalogId && !existing.catalogId) existing.catalogId = catalogId;
     if (glossaryRev && !existing.glossaryRev) existing.glossaryRev = glossaryRev;
   } else {
     if (buffer.size >= BUFFER_MAX) return; // Prevent unbound memory growth
     buffer.set(key, {
       bookId,
       bookTitle,
+      catalogId,
       word,
       form,
       chapter,
@@ -165,11 +172,12 @@ export async function flushWordTaps(): Promise<void> {
   if (buffer.size === 0) return;
 
   // Group taps by bookId
-  const byBook = new Map<string, { bookTitle: string; taps: BufferedTap[] }>();
+  const byBook = new Map<string, { bookTitle: string; catalogId: string; taps: BufferedTap[] }>();
   for (const tap of buffer.values()) {
-    const list = byBook.get(tap.bookId) ?? { bookTitle: tap.bookTitle, taps: [] };
+    const list = byBook.get(tap.bookId) ?? { bookTitle: tap.bookTitle, catalogId: tap.catalogId, taps: [] };
     list.taps.push(tap);
     if (tap.bookTitle && !list.bookTitle) list.bookTitle = tap.bookTitle;
+    if (tap.catalogId && !list.catalogId) list.catalogId = tap.catalogId;
     byBook.set(tap.bookId, list);
   }
   // Taken out of the buffer now, so a tap made while sending starts a new batch. A batch that
@@ -185,6 +193,7 @@ export async function flushWordTaps(): Promise<void> {
       const payload = JSON.stringify({
         bookId,
         bookTitle: entry.bookTitle,
+        ...(entry.catalogId ? { catalogId: entry.catalogId } : {}),
         taps: taps.slice(start, start + WORD_TAPS_MAX).map((t) => ({
           word: t.word,
           form: t.form,

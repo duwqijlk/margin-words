@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import { handleRegister, handleRegisterConfirm } from "../functions/lib/handlers.ts";
 import { handleWordFeedbackPost } from "../functions/api/feedback/word.ts";
 import { handlePassageFeedbackPost } from "../functions/api/feedback/passage.ts";
+import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
 import { handleAvatarDelete, handleAvatarPut, isWebp } from "../functions/api/auth/avatar.ts";
 import { handleContributorsRebuild } from "../functions/api/contributors/rebuild.ts";
 import { CONTRIBUTORS_KEY, publishContributors } from "../functions/lib/contributors.ts";
@@ -398,4 +399,40 @@ test("the page and the server use one versioned picture path", async () => {
   assert.equal(avatarKey("abc123def456", 1792900000), avatarPath("abc123def456", 1792900000));
   assert.equal(avatarPath("abc123def456", 0), "");
   assert.equal(avatarPath("not-an-id", 5), "");
+});
+
+test("every report keeps the book's catalog id, and drops anything that is not one", async () => {
+  const db = openDb();
+  const env = { DB: db };
+  const { cookie } = await signUp(env, "catalog@example.com");
+  const catalogId = "3_habits_to_practice_curiosity_-_and_escape_your_phone";
+  await handleWordFeedbackPost(request("/api/feedback/word", { cookie, body: { ...report, catalogId } }), env, { now: NOW });
+  await handleWordFeedbackPost(
+    request("/api/feedback/word", { cookie, ip: "8.8.8.1", body: { ...report, word: "plunge", catalogId: "custom" } }),
+    env,
+    { now: NOW },
+  );
+  await handleWordFeedbackPost(
+    request("/api/feedback/word", { cookie, ip: "8.8.8.2", body: { ...report, word: "swim", catalogId: "../evil<script>" } }),
+    env,
+    { now: NOW },
+  );
+  const words = db.raw.prepare("SELECT word, catalog_id FROM word_feedback ORDER BY word").all();
+  assert.deepEqual(
+    words.map((r) => [r.word, r.catalog_id]),
+    [["dive", catalogId], ["plunge", ""], ["swim", ""]],
+    "a hand-added list (custom) and a malformed id are stored as no catalog id",
+  );
+
+  await handlePassageFeedbackPost(request("/api/feedback/passage", { cookie, ip: "8.8.8.3", body: { ...passage, catalogId } }), env, { now: NOW });
+  assert.equal(db.raw.prepare("SELECT catalog_id FROM passage_feedback").get().catalog_id, catalogId);
+
+  const taps = { bookId: "device-book", bookTitle: "Curiosity", catalogId, taps: [{ word: "lantern", form: "lantern", chapter: 0, occurrence: 1, count: 1 }] };
+  assert.equal((await handleWordTapsPost(request("/api/analytics/word-taps", { ip: "8.8.8.4", body: taps }), env, { now: NOW })).status, 200);
+  // A later batch from an older page (no catalog id) keeps the id already known for that place.
+  const older = { ...taps, catalogId: undefined };
+  await handleWordTapsPost(request("/api/analytics/word-taps", { ip: "8.8.8.5", body: older }), env, { now: NOW + 1 });
+  const tap = db.raw.prepare("SELECT catalog_id, tap_count FROM book_word_taps").get();
+  assert.equal(tap.catalog_id, catalogId);
+  assert.equal(tap.tap_count, 2);
 });

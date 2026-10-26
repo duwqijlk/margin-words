@@ -3,6 +3,7 @@ import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/ht
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertIpRateLimit } from "../../lib/rate-limit.ts";
 import { requireUser } from "../../lib/session.ts";
+import { cleanCatalogId } from "../../../src/lib/catalog-id.ts";
 import { PASSAGE_MAX, PASSAGE_NOTE_MAX } from "../../../src/lib/limits.ts";
 
 /**
@@ -11,7 +12,7 @@ import { PASSAGE_MAX, PASSAGE_NOTE_MAX } from "../../../src/lib/limits.ts";
  * one into a phrase, sentence or paragraph note in the live word list.
  *
  *   POST /api/feedback/passage
- *   { bookId, bookTitle, chapter, paragraph, start, end, selected, before, after, reason, suggestion?, glossaryRev }
+ *   { bookId, bookTitle, catalogId?, chapter, chapters, paragraph, start, end, selected, before, after, reason, suggestion?, glossaryRev }
  *
  * A selection never crosses paragraphs (the page refuses that), and the text is short: only enough
  * of the book to find the place again. `start` / `end` are its character offsets in the paragraph.
@@ -61,6 +62,7 @@ export async function handlePassageFeedbackPost(
     const bookId = typeof body.bookId === "string" ? body.bookId.trim().slice(0, 64) : "";
     if (!bookId || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(bookId)) throw new HttpError(400, "bad-book");
     const bookTitle = cleanBookText(body.bookTitle, 150);
+    const catalogId = cleanCatalogId(body.catalogId);
 
     // A selection longer than PASSAGE_MAX is refused, not cut: the page already stops it there.
     const raw = typeof body.selected === "string" ? body.selected.replace(/\s+/g, " ").trim() : "";
@@ -123,14 +125,15 @@ export async function handlePassageFeedbackPost(
 
     const inserted = await env.DB.prepare(
       `INSERT INTO passage_feedback (
-         book_id, book_title, chapter, chapters, paragraph, sel_start, sel_end, span, selected, before, after, reason,
+         book_id, book_title, catalog_id, chapter, chapters, paragraph, sel_start, sel_end, span, selected, before, after, reason,
          suggestion, glossary_rev, status, topic, user_id, ip, created_at
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?)
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?)
        RETURNING id`,
     )
       .bind(
         bookId,
         bookTitle,
+        catalogId,
         chapter,
         chapters,
         paragraph,

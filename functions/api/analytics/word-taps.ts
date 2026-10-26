@@ -3,6 +3,7 @@ import { clientIp, errorResponse, HttpError, json, readJson } from "../../lib/ht
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { assertDailyWriteBudget, assertIpRateLimit } from "../../lib/rate-limit.ts";
 import { WORD_TAPS_MAX } from "../../../src/lib/limits.ts";
+import { cleanCatalogId } from "../../../src/lib/catalog-id.ts";
 
 
 export const onRequestPost = (context: { request: Request; env: Env }) =>
@@ -17,6 +18,7 @@ export async function handleWordTapsPost(
     const body = (await readJson(request)) as {
       bookId?: unknown;
       bookTitle?: unknown;
+      catalogId?: unknown;
       taps?: unknown;
     };
     const bookId = typeof body.bookId === "string" ? body.bookId.trim().slice(0, 64) : "";
@@ -26,6 +28,7 @@ export async function handleWordTapsPost(
 
     const bookTitle =
       typeof body.bookTitle === "string" ? body.bookTitle.trim().slice(0, 150) : "";
+    const catalogId = cleanCatalogId(body.catalogId);
 
     if (!Array.isArray(body.taps) || body.taps.length === 0 || body.taps.length > WORD_TAPS_MAX) {
       throw new HttpError(400, "bad-taps");
@@ -130,14 +133,15 @@ export async function handleWordTapsPost(
     const writeBatch = clean.map((item) =>
       env.DB.prepare(
         `INSERT INTO book_word_taps (
-           book_id, book_title, word, form, chapter, chapters, occurrence, paragraph, context, sentence,
+           book_id, book_title, catalog_id, word, form, chapter, chapters, occurrence, paragraph, context, sentence,
            glossary_rev, tap_count, in_glossary, last_tapped_at
-         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
          ON CONFLICT(book_id, word, chapter, occurrence) DO UPDATE SET
            tap_count = book_word_taps.tap_count + excluded.tap_count,
            in_glossary = CASE WHEN excluded.in_glossary = 1 THEN 1 ELSE book_word_taps.in_glossary END,
            status = CASE WHEN excluded.in_glossary = 1 THEN 'resolved' ELSE book_word_taps.status END,
            book_title = CASE WHEN excluded.book_title != '' THEN excluded.book_title ELSE book_word_taps.book_title END,
+           catalog_id = CASE WHEN excluded.catalog_id != '' THEN excluded.catalog_id ELSE book_word_taps.catalog_id END,
            form = CASE WHEN excluded.form != '' THEN excluded.form ELSE book_word_taps.form END,
            chapters = CASE WHEN excluded.chapters > 0 THEN excluded.chapters ELSE book_word_taps.chapters END,
            paragraph = excluded.paragraph,
@@ -148,6 +152,7 @@ export async function handleWordTapsPost(
       ).bind(
         bookId,
         bookTitle,
+        catalogId,
         item.word,
         item.form,
         item.chapter,

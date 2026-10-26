@@ -89,6 +89,7 @@ import {
   wholeSentence,
 } from "@/components/word-card";
 import { warmIpaFor } from "@/components/word-ipa";
+import { cleanCatalogId } from "@/lib/catalog-id";
 import {
   calculatePageStep,
   isEinkScreen,
@@ -189,6 +190,9 @@ export function ReaderScreen({
   // Phrases live beside the word list. Empty until that record loads, then the dotted line appears.
   const [phraseList, setPhraseList] = useState<Record<string, PhraseEntry>>({});
   const [listSource, setListSource] = useState("");
+  // The book's id in the catalog it came from, sent with every report so the patrol and the
+  // per-book credits find the book without matching titles ("" for a list the reader added).
+  const catalogId = cleanCatalogId(listSource) || cleanCatalogId(book?.bundled);
   // The book whose phrase list has answered. The chapter is linked only after that: linking it
   // first without phrases and again with them built and laid out the whole chapter twice.
   const [phrasesFor, setPhrasesFor] = useState("");
@@ -1430,6 +1434,7 @@ export function ReaderScreen({
       form: countSurface(surface),
       chapter: activeExtra ? 0 : safeIndex,
       chapters: book?.chapters.length ?? 0,
+      catalogId,
       occurrence: nth,
       paragraph: Math.max(0, blockAt),
       context,
@@ -1795,6 +1800,7 @@ export function ReaderScreen({
           bookTitle={book?.title}
           chapter={viewChapter}
           chapters={book?.chapters.length ?? 0}
+          catalogId={catalogId}
           glossaryRev={glossaryRev}
           // Not in an extra (it has no fixed chapter number) or over an open card.
           enabled={viewChapter >= 0 && picked === null && help === null}
@@ -1884,6 +1890,7 @@ export function ReaderScreen({
           noList={noList}
           chapter={viewChapter}
           chapters={book?.chapters.length ?? 0}
+          catalogId={catalogId}
           noteChapter={activeExtra?.fromToc ? activeExtra.id : viewChapter}
           // The sentence hint opens the same panel as the bulb of the tapped paragraph.
           onSentenceHelp={
