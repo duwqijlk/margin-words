@@ -9,6 +9,7 @@ import { clearGlossaryWork } from "../../lib/glossary-work-file.ts";
 import { previousGlossaryUpdated } from "../../lib/glossary-version.ts";
 import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../../lib/word-list-publish.ts";
 import { applyCategory, applySeries } from "../../lib/book-category.ts";
+import { publishWithCatalog, withCatalogLock } from "../../lib/catalog-lock.ts";
 
 /**
  * Publish word lists from the admin page: the request body is the glossary
@@ -98,11 +99,15 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     const counts = { words, paragraphs, sentences, phrases, bytes: bytes.byteLength, sha256 };
 
     if (url.searchParams.get("catalog") === "public") {
-      const row = await updatePublicGlossary(bucket, id, bytes, counts, url.searchParams);
+      const row = await withCatalogLock(env.DB, "public-books/catalog.json", () =>
+        updatePublicGlossary(bucket, id, bytes, counts, url.searchParams),
+      );
       await clearGlossaryWork(bucket, "public", id);
       return json({ row, catalog: "public" });
     }
 
+    // Read, change one row, write back: one publish at a time, or a second would drop the first's row.
+    return await withCatalogLock(env.DB, "word-lists/catalog.json", async () => {
     const current = await bucket.get("word-lists/catalog.json");
     if (!current) throw new HttpError(500, "no-catalog");
     const live = JSON.parse(new TextDecoder().decode(await current.arrayBuffer())) as WordListCatalog;
@@ -156,12 +161,12 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     const next = mergeWordListCatalog(live, row);
     const catalogBytes = new TextEncoder().encode(`${JSON.stringify(next, null, 1)}\n`);
 
-    // The glossary goes first: if the catalog write fails, Discover keeps
-    // pointing at the previous file, which is still on the host.
-    await bucket.put(`word-lists/${id}/glossary.json`, bytes);
-    await bucket.put("word-lists/catalog.json", catalogBytes);
+    // The glossary goes first, the catalog last. If the catalog write fails the old glossary is
+    // put back, so the file always matches the hash the catalog names.
+    await publishWithCatalog(bucket, [{ key: `word-lists/${id}/glossary.json`, bytes }], "word-lists/catalog.json", catalogBytes);
     await clearGlossaryWork(bucket, "lists", id);
     return json({ row, lists: next.lists.length });
+    });
   } catch (error) {
     return errorResponse(error);
   }
@@ -211,9 +216,13 @@ async function updatePublicGlossary(
   applyCategory(row, params.get("category"));
   applySeries(row, params);
   live.updated = row.updated;
-  // The glossary goes first: if the catalog write fails, Discover keeps the previous file.
-  await bucket.put(`public-books/${id}/glossary.json`, bytes);
-  await bucket.put("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
+  // The glossary goes first, the catalog last; a failed catalog write puts the old glossary back.
+  await publishWithCatalog(
+    bucket,
+    [{ key: `public-books/${id}/glossary.json`, bytes }],
+    "public-books/catalog.json",
+    new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`),
+  );
   return row;
 }
 

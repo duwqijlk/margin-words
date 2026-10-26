@@ -697,25 +697,32 @@ export async function signIn(email: string, password: string, turnstileToken?: s
  * nothing is signed in; finishSignUp with the code makes the account. Returns the address the code
  * went to (lower case, as the server keeps it).
  */
-export async function signUp(email: string, password: string, turnstileToken?: string): Promise<string> {
+export async function signUp(
+  email: string,
+  password: string,
+  turnstileToken?: string,
+): Promise<{ email: string; ticket: string }> {
   const payload = await accountRequest("/api/auth/register", {
     email,
     password,
     turnstileToken: turnstileToken || undefined,
   });
-  return typeof payload.email === "string" ? payload.email : email;
+  return {
+    email: typeof payload.email === "string" ? payload.email : email,
+    ticket: typeof payload.ticket === "string" ? payload.ticket : "",
+  };
 }
 
 /** A new code for a sign-up in progress. The first code stops working. */
-export async function resendSignUpCode(email: string): Promise<void> {
-  await accountRequest("/api/auth/register/resend", { email });
+export async function resendSignUpCode(email: string, ticket: string): Promise<void> {
+  await accountRequest("/api/auth/register/resend", { email, ticket });
 }
 
 /** Finish a sign-up with the emailed code: the account is made (already checked) and signed in. */
-export async function finishSignUp(email: string, code: string): Promise<void> {
+export async function finishSignUp(email: string, code: string, ticket: string): Promise<void> {
   await readyPromise();
   const epoch = ++sessionEpoch;
-  const payload = await accountRequest("/api/auth/register/confirm", { email, code });
+  const payload = await accountRequest("/api/auth/register/confirm", { email, code, ticket });
   if (epoch !== sessionEpoch) return;
   const fields = userFields(payload);
   useAccount.getState().patch({ emailVerified: fields.emailVerified, publicId: fields.publicId, avatar: fields.avatar });

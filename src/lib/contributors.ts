@@ -5,7 +5,7 @@
  */
 import { useEffect, useState } from "react";
 import { booksUrl } from "@/lib/books-base";
-import { parseContributors, PUBLIC_ID, type Contributor } from "@/lib/contributors-file";
+import { avatarPath, parseContributors, type Contributor } from "@/lib/contributors-file";
 
 export type { Contributor };
 
@@ -61,8 +61,11 @@ export function useContributor(id: string | undefined): Contributor | null {
   return people.find((person) => person.id === id) ?? null;
 }
 
-/** The avatar image of a reader, or "" when they have none. The version keeps a cached old one from showing. */
+/**
+ * The avatar image of a reader, or "" when they have none. Each picture has its own file
+ * (avatars/<id>-<version>.webp), so a cached address always shows the picture it named.
+ */
 export function avatarUrl(id: string, version: number | undefined): string {
-  if (!version || !PUBLIC_ID.test(id)) return "";
-  return booksUrl(`avatars/${id}.webp?v=${version}`);
+  const path = avatarPath(id, version);
+  return path ? booksUrl(path) : "";
 }

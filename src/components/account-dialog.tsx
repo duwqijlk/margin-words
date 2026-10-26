@@ -345,7 +345,7 @@ function EmailCodeBox({
   email: string;
   onDone?: () => void;
   /** A sign-up in progress: the code makes the account, and Send again starts the sign-up over. */
-  signup?: { resend: () => Promise<void>; back: () => void };
+  signup?: { ticket: string; resend: () => Promise<void>; back: () => void };
 }) {
   const { t } = useT();
   const [code, setCode] = useState("");
@@ -364,7 +364,7 @@ function EmailCodeBox({
     setBusy(true);
     setProblem("");
     try {
-      if (signup) await finishSignUp(email, digits);
+      if (signup) await finishSignUp(email, digits, signup.ticket);
       else await confirmEmailCode(digits);
       onDone?.();
     } catch (error) {
@@ -488,6 +488,8 @@ export function AccountDialog() {
   const [email, setEmail] = useState("");
   /** The address a sign-up code was sent to, until the code is typed. */
   const [pendingSignup, setPendingSignup] = useState("");
+  /** The ticket the server gave this sign-up; resending and finishing need it. */
+  const [signupTicket, setSignupTicket] = useState("");
   const [password, setPassword] = useState("");
   const [again, setAgain] = useState("");
   const [show, setShow] = useState(false);
@@ -569,7 +571,9 @@ export function AccountDialog() {
         setPassword("");
         setAgain("");
       } else if (mode === "register") {
-        setPendingSignup(await signUp(address, password, turnstileToken));
+        const started = await signUp(address, password, turnstileToken);
+        setSignupTicket(started.ticket);
+        setPendingSignup(started.email);
       } else {
         await signIn(address, password);
         closeDialog();
@@ -711,8 +715,9 @@ export function AccountDialog() {
               <EmailCodeBox
                 email={pendingSignup}
                 signup={{
+                  ticket: signupTicket,
                   // A fresh code without a new human check (the server allows one a minute).
-                  resend: () => resendSignUpCode(pendingSignup),
+                  resend: () => resendSignUpCode(pendingSignup, signupTicket),
                   back: () => {
                     setPendingSignup("");
                     resetTurnstile.current();

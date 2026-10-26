@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import { handleRegister, handleRegisterConfirm } from "../functions/lib/handlers.ts";
 import { handleWordFeedbackPost } from "../functions/api/feedback/word.ts";
 import { handlePassageFeedbackPost } from "../functions/api/feedback/passage.ts";
-import { handleAvatarPut, isWebp } from "../functions/api/auth/avatar.ts";
+import { handleAvatarDelete, handleAvatarPut, isWebp } from "../functions/api/auth/avatar.ts";
 import { handleContributorsRebuild } from "../functions/api/contributors/rebuild.ts";
 import { CONTRIBUTORS_KEY, publishContributors } from "../functions/lib/contributors.ts";
 import { parseContributors } from "../src/lib/contributors-file.ts";
@@ -34,11 +34,12 @@ async function signUpFully(handlerRegister, env, input, now = NOW) {
     opts,
   );
   if (started.status !== 202) return started;
+  const { ticket } = await started.json();
   return handleRegisterConfirm(
     new Request(`${input.https ? "https" : "http"}://localhost/api/auth/register/confirm`, {
       method: "POST",
       headers: { "content-type": "application/json", ...(input.ip ? { "cf-connecting-ip": input.ip } : {}) },
-      body: JSON.stringify({ email: body.email, code }),
+      body: JSON.stringify({ email: body.email, code, ticket }),
     }),
     env,
     { now },
@@ -52,7 +53,7 @@ function openDb() {
     "0001_init.sql", "0002_nickname.sql", "0003_sponsorship.sql", "0004_roles.sql", "0005_glossary_quota.sql",
     "0006_shelf_grant.sql", "0007_word_taps.sql", "0008_word_feedback.sql", "0009_word_taps_location.sql",
     "0010_word_feedback_location.sql", "0011_word_analytics_rev_status.sql", "0012_email_verification.sql",
-    "0013_feedback_suggestion.sql", "0014_contributor_credit.sql", "0015_passage_feedback.sql", "0016_pending_signups.sql",
+    "0013_feedback_suggestion.sql", "0014_contributor_credit.sql", "0015_passage_feedback.sql", "0016_pending_signups.sql", "0017_catalog_locks.sql", "0018_signup_ticket.sql",
   ]) db.exec(readFileSync(join(ROOT, "migrations", name), "utf8"));
   const wrap = (sql) => {
     const stmt = db.prepare(sql);
@@ -83,6 +84,11 @@ function bucket() {
     async put(key, value, options) {
       files.set(key, value);
       if (options?.httpMetadata) meta.set(key, options.httpMetadata);
+      return {};
+    },
+    async delete(key) {
+      files.delete(key);
+      meta.delete(key);
       return {};
     },
   };
@@ -168,9 +174,11 @@ test("an avatar must be a small WebP from a checked account, and goes to the pub
 
   const ok = await handleAvatarPut(request("/api/auth/avatar", { method: "PUT", cookie, raw: webp }), env, { now: NOW });
   assert.equal(ok.status, 200);
-  assert.ok(books.files.has(`avatars/${user.publicId}.webp`), "stored under the public id, not the account id");
+  const rev = (await ok.json()).avatar;
+  const key = `avatars/${user.publicId}-${rev}.webp`;
+  assert.ok(books.files.has(key), "stored under the public id and its version, not the account id");
   assert.deepEqual(
-    books.meta.get(`avatars/${user.publicId}.webp`),
+    books.meta.get(key),
     { contentType: "image/webp", cacheControl: "public, max-age=31536000, immutable" },
     "kept a year by the browser and the CDN: a new picture gets a new ?v= address",
   );
@@ -359,4 +367,38 @@ test("phrases, sentence notes and paragraph notes may carry a reader credit", ()
   assert.equal(ok.file.paragraphs[0].credit, id);
   const bad = validateGlossary(JSON.stringify({ ...list, sentences: [{ ...list.sentences[0], credit: "Ann" }] }));
   assert.equal(bad.ok, false, "a name is not a credit");
+});
+
+test("a new picture gets its own file and the old one is deleted; removing deletes the file", async () => {
+  const db = openDb();
+  const books = bucket();
+  const env = { DB: db, BOOKS: books };
+  const { cookie, user } = await signUp(env, "pics@example.com");
+  const webp = new Uint8Array(64);
+  webp.set(new TextEncoder().encode("RIFF"), 0);
+  webp.set(new TextEncoder().encode("WEBP"), 8);
+  const DAY = 24 * 60 * 60 * 1000;
+  const put = (now) => handleAvatarPut(request("/api/auth/avatar", { method: "PUT", cookie, raw: webp }), env, { now });
+  const avatars = () => [...books.files.keys()].filter((key) => key.startsWith("avatars/")).sort();
+
+  // A picture made before this change, at the one shared key.
+  books.files.set(`avatars/${user.publicId}.webp`, webp);
+  const first = (await (await put(NOW)).json()).avatar;
+  assert.deepEqual(avatars(), [`avatars/${user.publicId}-${first}.webp`], "the old shared key is deleted too");
+  const second = (await (await put(NOW + DAY)).json()).avatar;
+  assert.ok(second > first);
+  assert.deepEqual(avatars(), [`avatars/${user.publicId}-${second}.webp`], "only the newest picture stays");
+
+  const removed = await handleAvatarDelete(request("/api/auth/avatar", { method: "DELETE", cookie }), env, { now: NOW + DAY });
+  assert.equal(removed.status, 200);
+  assert.deepEqual(avatars(), [], "a removed picture is gone from the public host");
+});
+
+test("the page and the server use one versioned picture path", async () => {
+  const { avatarPath } = await import("../src/lib/contributors-file.ts");
+  const { avatarKey } = await import("../functions/api/auth/avatar.ts");
+  assert.equal(avatarPath("abc123def456", 1792900000), "avatars/abc123def456-1792900000.webp");
+  assert.equal(avatarKey("abc123def456", 1792900000), avatarPath("abc123def456", 1792900000));
+  assert.equal(avatarPath("abc123def456", 0), "");
+  assert.equal(avatarPath("not-an-id", 5), "");
 });

@@ -7,7 +7,7 @@ import type { D1Database, R2BucketLike } from "./db.ts";
  *       { "id": "<public_id>", "name": "<nickname>", "helped": 3, "avatar": 2 }, ... ] }
  *
  * One row per reader with at least one accepted meaning, most help first. `avatar` is the version
- * of `avatars/<id>.webp` (absent when there is none). No email, no internal id.
+ * of `avatars/<id>-<avatar>.webp` (absent when there is none). No email, no internal id.
  *
  * The card (credit on a meaning) and the Overview rank both read this one cached file, so showing
  * a credit costs no D1 read and no Function call. It is rebuilt after the daily patrol accepts

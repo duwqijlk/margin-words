@@ -93,14 +93,24 @@ async function sendEmailCode(env: Env, userId: string, email: string, now: numbe
   return (await send({ email, code })).sent;
 }
 
+/** True when `ticket` is the one this pending sign-up was given. */
+async function ticketMatches(ticket: unknown, ticketHash: string): Promise<boolean> {
+  if (typeof ticket !== "string" || ticket.length < 20 || ticket.length > 100 || !ticketHash) return false;
+  return (await sha256Hex(ticket)) === ticketHash;
+}
+
 /**
  * Start a sign-up: check the form, keep it as a pending sign-up, and email a 6-digit code.
  * No account exists yet and nothing is signed in. The account is made only when the code comes
  * back (handleRegisterConfirm), so a mistyped address (gamil.com) leaves no account behind.
- * Registering the same address again replaces the pending sign-up (new password, new code),
- * at most once a minute.
+ * Registering the same address again replaces the pending sign-up (new password, new code), at
+ * most once a minute, and always passes the human check again: so a stranger cannot keep
+ * replacing a reader's sign-up without solving it each time.
  *
- *   POST /api/auth/register   { email, password, turnstileToken }   -> { pending: true, email, codeSent }
+ * The answer carries a ticket (random, only its hash is kept). Send again and the code step need
+ * it, so only the browser that started this sign-up can resend or finish it.
+ *
+ *   POST /api/auth/register   { email, password, turnstileToken }   -> { pending, email, codeSent, ticket }
  */
 export async function handleRegister(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
   try {
@@ -125,14 +135,15 @@ export async function handleRegister(request: Request, env: Env, options?: Handl
     const code = String(crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000).padStart(6, "0");
     // The code is bound to the address, so its hash says nothing about another one.
     const codeHash = await sha256Hex(`signup:${email}:${code}`);
+    const ticket = randomToken();
     await env.DB.prepare(
-      `INSERT INTO pending_signups (email, password_hash, password_salt, password_iters, code_hash, attempts, created_at, expires_at)
-       VALUES (?, ?, ?, ?, ?, 0, ?, ?)
+      `INSERT INTO pending_signups (email, password_hash, password_salt, password_iters, code_hash, attempts, created_at, expires_at, ticket_hash)
+       VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)
        ON CONFLICT(email) DO UPDATE SET password_hash = excluded.password_hash, password_salt = excluded.password_salt,
          password_iters = excluded.password_iters, code_hash = excluded.code_hash, attempts = 0,
-         created_at = excluded.created_at, expires_at = excluded.expires_at`,
+         created_at = excluded.created_at, expires_at = excluded.expires_at, ticket_hash = excluded.ticket_hash`,
     )
-      .bind(email, hashed.hash, hashed.salt, hashed.iterations, codeHash, now, now + CODE_MS)
+      .bind(email, hashed.hash, hashed.salt, hashed.iterations, codeHash, now, now + CODE_MS, await sha256Hex(ticket))
       .run();
     const send = options?.sendCode ?? (env.RESEND_API_KEY ? resendCodeSender(env.RESEND_API_KEY) : deliverEmailCode);
     const codeSent = (await send({ email, code })).sent;
@@ -141,18 +152,19 @@ export async function handleRegister(request: Request, env: Env, options?: Handl
       await env.DB.prepare("DELETE FROM pending_signups WHERE email = ?").bind(email).run();
       throw new HttpError(502, "code-send");
     }
-    return json({ pending: true, email, codeSent }, 202);
+    return json({ pending: true, email, codeSent, ticket }, 202);
   } catch (error) {
     return errorResponse(error);
   }
 }
 
 /**
- * A new code for a sign-up in progress ("Send again"). No human check: only an address with a
- * pending sign-up gets one, at most once a minute and within the register limit, and the old code
- * stops working. The password stays the one typed at the start.
+ * A new code for a sign-up in progress ("Send again"). No human check, but it needs the ticket
+ * from registering: only the browser that started this sign-up can ask. At most once a minute,
+ * within the register limit; the old code stops working and the attempts start over only then.
+ * The password stays the one typed at the start.
  *
- *   POST /api/auth/register/resend   { email }   -> { pending: true, email, codeSent }
+ *   POST /api/auth/register/resend   { email, ticket }   -> { pending: true, email, codeSent }
  */
 export async function handleRegisterResend(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
   try {
@@ -161,11 +173,12 @@ export async function handleRegisterResend(request: Request, env: Env, options?:
     const email = normalizeEmail(body.email);
     if (!email) throw new HttpError(400, "email");
     await assertRateLimit(env.DB, "register", clientIp(request), email, now);
-    const row = await env.DB.prepare("SELECT created_at, expires_at FROM pending_signups WHERE email = ?")
+    const row = await env.DB.prepare("SELECT created_at, expires_at, ticket_hash FROM pending_signups WHERE email = ?")
       .bind(email)
-      .first<{ created_at: number; expires_at: number }>();
+      .first<{ created_at: number; expires_at: number; ticket_hash: string }>();
     // Nothing to resend: the reader starts the sign-up again (a 15-minute-old one is gone too).
     if (!row || row.expires_at <= now) throw new HttpError(400, "code-expired");
+    if (!(await ticketMatches(body.ticket, row.ticket_hash))) throw new HttpError(400, "code-expired");
     if (now - row.created_at < 60_000) throw new HttpError(429, "code-wait");
     const code = String(crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000).padStart(6, "0");
     await env.DB.prepare(
@@ -185,7 +198,7 @@ export async function handleRegisterResend(request: Request, env: Env, options?:
  * Finish a sign-up with the emailed code: make the account (its email already checked) and sign in.
  * Five wrong codes end the pending sign-up; the reader registers again for a new code.
  *
- *   POST /api/auth/register/confirm   { email, code }   -> 201 { user }, with the session cookie
+ *   POST /api/auth/register/confirm   { email, code, ticket }   -> 201 { user }, with the session cookie
  */
 export async function handleRegisterConfirm(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
   try {
@@ -199,11 +212,13 @@ export async function handleRegisterConfirm(request: Request, env: Env, options?
     // itself ends after CODE_ATTEMPTS wrong tries, so guessing six digits is not possible.
     await assertRateLimit(env.DB, "signup-code", clientIp(request), email, now);
     const row = await env.DB.prepare(
-      "SELECT password_hash, password_salt, password_iters, code_hash, attempts, expires_at FROM pending_signups WHERE email = ?",
+      "SELECT password_hash, password_salt, password_iters, code_hash, attempts, expires_at, ticket_hash FROM pending_signups WHERE email = ?",
     )
       .bind(email)
-      .first<{ password_hash: string; password_salt: string; password_iters: number; code_hash: string; attempts: number; expires_at: number }>();
+      .first<{ password_hash: string; password_salt: string; password_iters: number; code_hash: string; attempts: number; expires_at: number; ticket_hash: string }>();
     if (!row || row.expires_at <= now || row.attempts >= CODE_ATTEMPTS) throw new HttpError(400, "code-expired");
+    // The code alone is not enough: the ticket shows this is the browser that started the sign-up.
+    if (!(await ticketMatches(body.ticket, row.ticket_hash))) throw new HttpError(400, "code-expired");
     if ((await sha256Hex(`signup:${email}:${code}`)) !== row.code_hash) {
       await env.DB.prepare("UPDATE pending_signups SET attempts = attempts + 1 WHERE email = ?").bind(email).run();
       throw new HttpError(400, "code");
@@ -551,8 +566,8 @@ export async function handleSyncPush(request: Request, env: Env, options?: Handl
         .bind(user.id, item.kind, item.itemId),
     );
     const readResults = (await env.DB.batch(readBatch)) as D1Result<SyncRow>[];
-    // Phase 2: merge, then write everything as one atomic transaction. A failure
-    // mid-push now rolls back instead of leaving half the items saved.
+    // Phase 2: merge, then write everything as one atomic transaction (SYNC_PUSH_MAX is the size
+    // of one D1 batch). A failure mid-push rolls back instead of leaving half the items saved.
     const saved: SyncItem[] = [];
     const writeBatch = incoming.map((item, index) => {
       const rows = readResults[index]?.results ?? [];
@@ -569,9 +584,7 @@ export async function handleSyncPush(request: Request, env: Env, options?: Handl
       )
         .bind(user.id, merged.kind, merged.itemId, JSON.stringify(merged.data), merged.updatedAt, merged.deleted ? 1 : 0);
     });
-    for (let index = 0; index < writeBatch.length; index += 100) {
-      await env.DB.batch(writeBatch.slice(index, index + 100));
-    }
+    if (writeBatch.length > 0) await env.DB.batch(writeBatch);
     return json({ items: saved });
   } catch (error) {
     return errorResponse(error);

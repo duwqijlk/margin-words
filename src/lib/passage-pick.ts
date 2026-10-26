@@ -77,8 +77,23 @@ export function holdsSentence(selected: string, whole: string, start: number): b
 }
 
 /**
+ * The numbered paragraph (readerParagraphBlocks) that holds `block`, and its index, or null.
+ * A <p> inside a <blockquote> is not numbered: the blockquote is the paragraph, so walk up to it.
+ * A heading, a merge title or a one-letter block is not numbered at all: null.
+ */
+export function numberedParagraph(root: HTMLElement, block: Element): { block: Element; index: number } | null {
+  const numbered = readerParagraphBlocks(root);
+  for (let el: Element | null = block; el && el !== root; el = el.parentElement) {
+    const index = numbered.indexOf(el);
+    if (index >= 0) return { block: el, index };
+  }
+  return null;
+}
+
+/**
  * Read the current page selection. Null when nothing useful is selected. `{ crossed: true }` when
- * it runs over more than one paragraph or is longer than PASSAGE_MAX: the button then says so.
+ * it runs over more than one paragraph, is longer than PASSAGE_MAX, or sits in a block the reader
+ * does not number (a title): the button then says so instead of filing it under a wrong paragraph.
  */
 export function readPassage(root: HTMLElement): PassagePick | { crossed: true; x: number; y: number } | null {
   const selection = window.getSelection();
@@ -93,10 +108,14 @@ export function readPassage(root: HTMLElement): PassagePick | { crossed: true; x
   const y = rect.bottom + window.scrollY;
   const startBlock = blockOf(range.startContainer, root);
   const endBlock = blockOf(range.endContainer, root);
-  if (!startBlock || startBlock !== endBlock || [...raw].length > PASSAGE_MAX) return { crossed: true, x, y };
-  const paragraph = readerParagraphBlocks(root).indexOf(startBlock);
-  const whole = bookText(flowText(startBlock));
-  const head = bookText(flowTextBefore(startBlock, range.startContainer, range.startOffset));
+  if (!startBlock || !endBlock || [...raw].length > PASSAGE_MAX) return { crossed: true, x, y };
+  const first = numberedParagraph(root, startBlock);
+  const last = numberedParagraph(root, endBlock);
+  // Both ends in one numbered paragraph (two <p> of one quotation count as one paragraph).
+  if (!first || !last || first.block !== last.block) return { crossed: true, x, y };
+  const paragraph = first.index;
+  const whole = bookText(flowText(first.block));
+  const head = bookText(flowTextBefore(first.block, range.startContainer, range.startOffset));
   const found = locateIn(whole, raw, head.trimStart().length);
   const start = found >= 0 ? found : Math.min(head.trimStart().length, whole.length);
   const end = Math.min(whole.length, start + raw.length);
@@ -104,7 +123,7 @@ export function readPassage(root: HTMLElement): PassagePick | { crossed: true; x
     selected: raw,
     before: someWords(whole.slice(0, start), 60, true),
     after: someWords(whole.slice(end), 60, false),
-    paragraph: Math.max(0, paragraph),
+    paragraph,
     start,
     end,
     span: holdsSentence(raw, whole, start) ? "sentence" : "words",

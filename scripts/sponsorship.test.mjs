@@ -31,11 +31,12 @@ async function signUpFully(handlerRegister, env, input, now = NOW) {
     opts,
   );
   if (started.status !== 202) return started;
+  const { ticket } = await started.json();
   return handleRegisterConfirm(
     new Request(`${input.https ? "https" : "http"}://localhost/api/auth/register/confirm`, {
       method: "POST",
       headers: { "content-type": "application/json", ...(input.ip ? { "cf-connecting-ip": input.ip } : {}) },
-      body: JSON.stringify({ email: body.email, code }),
+      body: JSON.stringify({ email: body.email, code, ticket }),
     }),
     env,
     { now },
