@@ -692,14 +692,30 @@ export async function signIn(email: string, password: string, turnstileToken?: s
   await flush();
 }
 
-export async function signUp(email: string, password: string, turnstileToken?: string): Promise<void> {
-  await readyPromise();
-  const epoch = ++sessionEpoch;
+/**
+ * Start a sign-up: the server checks the form and emails a 6-digit code. No account exists yet and
+ * nothing is signed in; finishSignUp with the code makes the account. Returns the address the code
+ * went to (lower case, as the server keeps it).
+ */
+export async function signUp(email: string, password: string, turnstileToken?: string): Promise<string> {
   const payload = await accountRequest("/api/auth/register", {
     email,
     password,
     turnstileToken: turnstileToken || undefined,
   });
+  return typeof payload.email === "string" ? payload.email : email;
+}
+
+/** A new code for a sign-up in progress. The first code stops working. */
+export async function resendSignUpCode(email: string): Promise<void> {
+  await accountRequest("/api/auth/register/resend", { email });
+}
+
+/** Finish a sign-up with the emailed code: the account is made (already checked) and signed in. */
+export async function finishSignUp(email: string, code: string): Promise<void> {
+  await readyPromise();
+  const epoch = ++sessionEpoch;
+  const payload = await accountRequest("/api/auth/register/confirm", { email, code });
   if (epoch !== sessionEpoch) return;
   const fields = userFields(payload);
   useAccount.getState().patch({ emailVerified: fields.emailVerified, publicId: fields.publicId, avatar: fields.avatar });

@@ -11,6 +11,9 @@ export const RATE_LIMITS = {
   "register:email": 5,
   "reset:ip": 10,
   "reset:email": 5,
+  // Typing the sign-up code. The code itself ends after 5 wrong tries; this only stops a flood.
+  "signup-code:ip": 30,
+  "signup-code:email": 20,
   "sponsor:ip": 10,
   "sponsor:email": 5,
   "taps:ip": 60,
@@ -24,7 +27,7 @@ export const RATE_LIMITS = {
   "sync:user": 300,
 } as const;
 
-export type RateAction = "login" | "register" | "reset" | "sponsor";
+export type RateAction = "login" | "register" | "reset" | "sponsor" | "signup-code";
 export type IpRateAction = RateAction | "taps" | "feedback";
 export type UserRateAction = "glossary" | "sync" | "code-send" | "code-check";
 

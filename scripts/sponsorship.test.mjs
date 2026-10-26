@@ -4,7 +4,7 @@ import { DatabaseSync } from "node:sqlite";
 import test from "node:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { handleNickname, handleRegister } from "../functions/lib/handlers.ts";
+import { handleNickname, handleRegister, handleRegisterConfirm } from "../functions/lib/handlers.ts";
 import {
   handleAdminSponsorshipsGet,
   handleAdminSponsorshipsPost,
@@ -15,6 +15,32 @@ import {
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const NOW = Date.parse("2026-10-08T05:00:00Z");
+
+/** Register and finish with the emailed code: the account the tests used to get from one call. */
+async function signUpFully(handlerRegister, env, input, now = NOW) {
+  let code = "";
+  const opts = { now, sendCode: async (message) => { code = message.code; return { sent: true }; } };
+  const body = input.body ?? input;
+  const started = await handlerRegister(
+    new Request("http://localhost/api/auth/register", {
+      method: "POST",
+      headers: { "content-type": "application/json", ...(input.ip ? { "cf-connecting-ip": input.ip } : {}) },
+      body: JSON.stringify(body),
+    }),
+    env,
+    opts,
+  );
+  if (started.status !== 202) return started;
+  return handleRegisterConfirm(
+    new Request(`${input.https ? "https" : "http"}://localhost/api/auth/register/confirm`, {
+      method: "POST",
+      headers: { "content-type": "application/json", ...(input.ip ? { "cf-connecting-ip": input.ip } : {}) },
+      body: JSON.stringify({ email: body.email, code }),
+    }),
+    env,
+    { now },
+  );
+}
 const EARLIER = Date.parse("2026-09-15T04:00:00Z");
 
 function openDb() {
@@ -74,7 +100,7 @@ async function call(handler, env, { method = "POST", body, cookie, now = NOW } =
 
 test("crypto is the only way to give; WeChat and Alipay requests are refused", async () => {
   const env = { DB: openDb() };
-  const reader = await call(handleRegister, env, { body: { email: "giver@example.com", password: "correct horse" } });
+  const reader = await signUpFully(handleRegister, env, { body: { email: "giver@example.com", password: "correct horse" } });
   const cookie = cookieFrom(reader);
   await call(handleNickname, env, { cookie, body: { nickname: "Mei" } });
   for (const method of ["wechat", "alipay"]) {
@@ -88,12 +114,12 @@ test("crypto is the only way to give; WeChat and Alipay requests are refused", a
 test("a gift is hidden until the admin types dollars and ticks it", async () => {
   const db = openDb();
   const env = { DB: db };
-  const reader = await call(handleRegister, env, {
+  const reader = await signUpFully(handleRegister, env, {
     body: { email: "reader@example.com", password: "correct horse" },
   });
   const readerCookie = cookieFrom(reader);
   const readerPublicId = (await reader.clone().json()).user.publicId;
-  const admin = await call(handleRegister, env, {
+  const admin = await signUpFully(handleRegister, env, {
     body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
   });
   const adminCookie = cookieFrom(admin);
