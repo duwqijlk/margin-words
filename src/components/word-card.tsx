@@ -6,6 +6,7 @@ import { useT, type Key } from "@/lib/i18n";
 import { LOOKUP_SITES, lookupUrl, type LookupSite } from "@/lib/lookup-links";
 import { surfaceOffset } from "@/lib/text";
 import { FloatingAside } from "@/components/floating-card";
+import { ExplainSentence } from "@/components/help-panels";
 import { SIDE_PANEL } from "@/components/side-panel";
 import { btn, cn, Highlighted, SpeakButton } from "@/components/ui";
 import { WordExplanationFeedback } from "@/components/word-feedback";
@@ -220,6 +221,10 @@ export function WordCard({
   const targetPos = activePhrase ? activePhrase.entry.pos : state.pos;
   const targetHere = activePhrase ? activePhrase.entry.here : state.here;
   const targetMeaning = activePhrase ? activePhrase.entry.meaning : state.meaning;
+  // A sentence note belongs to a chapter, or to a recovered extra by its id. The tapped place's
+  // own chapter is the reader's edition index; for an extra, that id is the only usable key.
+  const sentenceChapter =
+    typeof noteChapter === "string" ? noteChapter : (state.chapter ?? noteChapter ?? chapter);
   const targetForm = activePhrase
     ? activePhrase.matched.toLowerCase() !== activePhrase.key.toLowerCase() ? activePhrase.matched : ""
     : state.key !== state.surface.toLowerCase()
@@ -416,7 +421,12 @@ export function WordCard({
             ) : null}
             {!activePhrase && state.coined ? <CoinedBadge /> : null}
           </div>
-
+          {/* The word list's sentence note for this sentence. It shows nothing when there is none. */}
+          <ExplainSentence
+            bookId={bookId}
+            chapter={sentenceChapter}
+            sentence={state.fullSentence ?? state.sentence}
+          />
         </div>
       </div>
       <div className="space-y-2 border-t border-line/60 pt-3" data-word-footer>
