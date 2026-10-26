@@ -54,12 +54,14 @@ export function applyCategory(row: Record<string, unknown>, value: string | null
 
 /**
  * ?series= and ?seriesNumber= on an admin upload. A name sets the series (and the number, when it is
- * a whole number above 0); an empty name removes both. No ?series= leaves the row as it is.
+ * a whole number from 1 to 99); an empty name removes both. No ?series= leaves the row as it is.
  * Discover groups a tab's books by this name, so speeches can have series too (a TED row).
+ * The range is the one the app reads (`seriesNumber` in src/lib/book-meta.ts): a number outside it
+ * would sit in the catalog and be ignored on every card, so it is not stored.
  */
 export function applySeries(row: Record<string, unknown>, params: URLSearchParams): void {
   if (!params.has("series")) return;
-  const name = (params.get("series") ?? "").replace(/s+/g, " ").trim().slice(0, 80);
+  const name = (params.get("series") ?? "").replace(/\s+/g, " ").trim().slice(0, 80);
   if (!name) {
     delete row.series;
     delete row.seriesNumber;
@@ -67,6 +69,6 @@ export function applySeries(row: Record<string, unknown>, params: URLSearchParam
   }
   row.series = name;
   const number = Number(params.get("seriesNumber"));
-  if (Number.isInteger(number) && number > 0 && number < 10_000) row.seriesNumber = number;
+  if (Number.isInteger(number) && number >= 1 && number <= 99) row.seriesNumber = number;
   else delete row.seriesNumber;
 }

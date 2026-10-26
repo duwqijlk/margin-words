@@ -17,7 +17,7 @@
 
 ## 写入方式
 
-只有 Cloudflare 登录、没有仓库的 agent，直接用 wrangler 写这个文件：见 `docs/BOOK_UPLOAD.md` 第 8 节（网站上 `/kit/book-upload.md`）。下面两种方式写的是同一个文件，检查规则也相同。
+只有 Cloudflare 登录、没有仓库的 agent，直接用 wrangler 写这个文件：见 `docs/BOOK_UPLOAD.md` 第 11 节（网站上 `/kit/book-upload.md`）。下面两种方式写的是同一个文件，检查规则也相同。
 
 
 ### 1. 后台界面（人工改一两本）
