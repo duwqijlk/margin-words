@@ -75,6 +75,13 @@
   height: 44px;
   margin-left: 8px;
 }
+/* The speaker's place while the card is still deciding word or phrase: same size, so nothing moves. */
+.word-ipa-locale .word-ipa-speak-slot {
+  display: block;
+  width: 44px;
+  height: 44px;
+  margin-left: 8px;
+}
 .word-ipa-locale [data-speak-error] {
   grid-column: 1 / -1;
   margin-top: 0.25rem;

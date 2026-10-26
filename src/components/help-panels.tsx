@@ -1,7 +1,7 @@
 import { ChevronDown, Lightbulb, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { getParagraphNoteFlags, paragraphBlocks } from "@/lib/help-lookup";
+import { getParagraphNoteFlags, paragraphBlocks, sentenceHelpNow } from "@/lib/help-lookup";
 import { useT } from "@/lib/i18n";
 import { loadSentenceView, type ParagraphHelpView, type SentenceInParagraph } from "@/lib/help-flow";
 import { FloatingAside } from "@/components/floating-card";
@@ -575,17 +575,27 @@ export function SentenceHint({
   onOpen: () => void;
 }) {
   const { t } = useT();
-  const [has, setHas] = useState(false);
+  // Known at once when the book's notes are in memory, so the link is part of the card's first
+  // frame instead of appearing a moment later and pushing the footer down.
+  const known = () => {
+    const now = sentenceHelpNow(bookId, chapter, sentence);
+    return now === undefined ? undefined : Boolean(now?.simple?.trim());
+  };
+  const [has, setHas] = useState<boolean>(() => known() ?? false);
 
   useEffect(() => {
     let live = true;
-    setHas(false);
+    const now = known();
+    setHas(now ?? false);
+    if (now !== undefined) return;
     void loadSentenceView({ bookId, chapter, text: sentence }).then((view) => {
       if (live) setHas(view !== null);
     });
     return () => {
       live = false;
     };
+    // `known` reads the same three values.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, sentence]);
 
   if (!has) return null;

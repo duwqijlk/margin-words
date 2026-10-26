@@ -6,19 +6,50 @@ import { version, loaders } from "virtual:local-ipa-data";
 
 const lookupLocalIpa = createIpaLookup(async () => ({ version, loaders }));
 
+/**
+ * Start loading the pronunciation shards a chapter's words need, before any word is tapped. Each
+ * shard is one first letter, 40-90 KB on the wire; fetched on the tap it arrived about a second after
+ * the card. Call with the chapter's text; only letters that start a word are asked for.
+ */
+export function warmIpaFor(text: string): void {
+  if (!version) return;
+  // Most frequent first letters first: they cover most taps, and the warm-up loads one at a time.
+  const counts = new Map<string, number>();
+  // exec in a loop, not matchAll: the e-ink readers run Chrome 69 (matchAll is 73).
+  const first = /\b([A-Za-z])/g;
+  for (let match = first.exec(text); match; match = first.exec(text)) {
+    const letter = (match[1] ?? "").toLowerCase();
+    counts.set(letter, (counts.get(letter) ?? 0) + 1);
+  }
+  lookupLocalIpa.warm([...counts.entries()].sort((a, b) => b[1] - a[1]).map(([letter]) => letter));
+}
+
 type LoadState = { word: string; status: "loading" | "ready" | "missing" | "error"; result?: IpaMatch };
 
 function Reading({ reading }: { reading: IpaReading }) {
   return <span className="break-words" lang="en" data-ipa-reading>/{reading.ipa}/</span>;
 }
 
-/** Each accent speaks the displayed word, never the IPA text. */
-export function WordIpa({ word }: { word: string }) {
+/** What is known about `word` without waiting: drawn on the card's first frame when the shard is here. */
+function initial(word: string): LoadState {
+  const now = lookupLocalIpa.now(word);
+  if (now === undefined) return { word, status: "loading" };
+  return now ? { word, status: "ready", result: now } : { word, status: "missing" };
+}
+
+/**
+ * Each accent speaks the displayed word, never the IPA text. The two accent rows are always drawn,
+ * so the card keeps one height: while the pronunciation loads, a faint bar holds the reading's place.
+ * `pending`: the card has not decided yet whether this is a word or a phrase; the rows stay, silent.
+ */
+export function WordIpa({ word, pending = false }: { word: string; pending?: boolean }) {
   const { t } = useT();
-  const [loaded, setLoaded] = useState<LoadState>({ word, status: "loading" });
+  const [loaded, setLoaded] = useState<LoadState>(() => initial(word));
   useEffect(() => {
     let current = true;
-    setLoaded({ word, status: "loading" });
+    const known = initial(word);
+    setLoaded(known);
+    if (known.status !== "loading") return;
     lookupLocalIpa(word).then(result => {
       if (current) setLoaded(result ? { word, status: "ready", result } : { word, status: "missing" });
     }).catch(() => {
@@ -26,25 +57,31 @@ export function WordIpa({ word }: { word: string }) {
     });
     return () => { current = false; };
   }, [word]);
-  const state = loaded.word === word ? loaded : { word, status: "loading" as const };
+  const state = loaded.word === word ? loaded : initial(word);
   return (
-    <section className="word-ipa grid min-w-0 gap-1.5 text-sm leading-relaxed" aria-label={t("ipa.title")} data-word-ipa data-ipa-word={word} data-ipa-status={state.status}>
+    <section className="word-ipa grid min-w-0 gap-1.5 text-sm leading-relaxed" aria-label={t("ipa.title")} aria-busy={state.status === "loading" || undefined} data-word-ipa data-ipa-word={word} data-ipa-status={state.status}>
       <div className="word-ipa-values">
         {(["UK", "US"] as const).map(locale => {
           const reading = state.status === "ready" ? state.result?.entry[locale][0] : undefined;
           return (
             <div key={locale} className="word-ipa-locale" data-ipa-locale={locale}>
               <span className="shrink-0 text-xs font-semibold text-muted">{t(locale === "UK" ? "ipa.uk" : "ipa.us")}</span>
-              {reading ? <div className="min-w-0"><Reading reading={reading} /></div> : state.status === "ready" ? <span className="text-xs text-muted">{t("ipa.unavailable")}</span> : null}
-              <SpeakButton text={word} accent={locale} compact />
+              {reading ? (
+                <div className="min-w-0"><Reading reading={reading} /></div>
+              ) : state.status === "loading" ? (
+                // Same line height as a reading, so the row does not grow when it arrives.
+                <span className="block h-[1.2em] w-[3.5em] max-w-full rounded bg-line/70" aria-hidden data-ipa-placeholder />
+              ) : (
+                <span className="text-xs text-muted">{t("ipa.unavailable")}</span>
+              )}
+              {pending ? <span className="word-ipa-speak-slot" aria-hidden /> : <SpeakButton text={word} accent={locale} compact />}
             </div>
           );
         })}
       </div>
-      {state.status !== "ready" ? (
-        <p className="text-xs text-muted" role="status">
-          {t(state.status === "loading" ? "ipa.loading" : state.status === "error" ? "ipa.failed" : "ipa.missing")}
-        </p>
+      {/* One reserved line for a problem only. A missing word says so in its rows ("Not available"). */}
+      {state.status === "error" ? (
+        <p className="text-xs text-muted" role="status">{t("ipa.failed")}</p>
       ) : null}
     </section>
   );

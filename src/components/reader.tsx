@@ -88,6 +88,7 @@ import {
   locateSentence,
   wholeSentence,
 } from "@/components/word-card";
+import { warmIpaFor } from "@/components/word-ipa";
 import {
   calculatePageStep,
   isEinkScreen,
@@ -520,6 +521,16 @@ export function ReaderScreen({
     next?.classList.add("book-on");
     selectedButton.current = next;
   }, [linkedHtml, pickedIndex]);
+
+  // Fetch the pronunciation shards this chapter's words need while the reader starts reading,
+  // so a word card shows its IPA on the first frame instead of a second later.
+  useEffect(() => {
+    if (!linkedHtml) return;
+    const root = articleRef.current;
+    if (!root) return;
+    const timer = window.setTimeout(() => warmIpaFor(root.textContent ?? ""), 50);
+    return () => window.clearTimeout(timer);
+  }, [linkedHtml]);
 
   // Restore the saved reading position once per chapter, after its text is on screen.
   useLayoutEffect(() => {
