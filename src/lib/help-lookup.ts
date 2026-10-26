@@ -23,6 +23,8 @@ export type { ParagraphHelp, PhraseEntry, SentenceHelp };
 export { paragraphBlocks } from "@/lib/help-match";
 
 const memory = new Map<string, { rev: number; data: Promise<BookExtras | null> }>();
+/** The same extras once they have arrived, so a card can decide on its first frame. */
+const settled = new Map<string, { rev: number; data: BookExtras | null }>();
 
 function extrasOf(bookId: string): Promise<BookExtras | null> {
   const rev = extrasRevision(bookId);
@@ -30,7 +32,16 @@ function extrasOf(bookId: string): Promise<BookExtras | null> {
   if (known && known.rev === rev) return known.data;
   const data = loadBookExtras(bookId).catch(() => null);
   memory.set(bookId, { rev, data });
+  void data.then((value) => {
+    if (memory.get(bookId)?.data === data) settled.set(bookId, { rev, data: value });
+  });
   return data;
+}
+
+/** The book's extras right now, or undefined while they are still loading (or stale). */
+function extrasNow(bookId: string): BookExtras | null | undefined {
+  const known = settled.get(bookId);
+  return known && known.rev === extrasRevision(bookId) ? known.data : undefined;
 }
 
 /** The text of every paragraph of a stored chapter, numbered the way the reader and the word lists number them. */
@@ -192,6 +203,21 @@ export async function getSentenceNotesIn(
   } catch {
     return [];
   }
+}
+
+/**
+ * The answer of getSentenceHelp without waiting, once the book's extras are in memory (the reader
+ * has loaded them for the bulbs by the time a word is tapped). `undefined`: not known yet.
+ */
+export function sentenceHelpNow(
+  bookId: string,
+  chapter: number | string,
+  sentenceText: string,
+): SentenceHelp | null | undefined {
+  const extras = extrasNow(bookId);
+  if (extras === undefined) return undefined;
+  if (!extras?.sentences.length) return null;
+  return pickSentenceHelp(extras.sentences, chapter, sentenceText);
 }
 
 /** Help for one sentence, or null. Matches by the `context` snippet inside the sentence. */

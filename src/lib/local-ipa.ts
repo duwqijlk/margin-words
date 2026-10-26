@@ -36,23 +36,24 @@ function validateShard(value: unknown, version: string, letter: string): Readonl
 export function createIpaLookup(loadData: () => Promise<IpaData>) {
   let data: Promise<IpaData> | undefined;
   const shards = new Map<string, Promise<ReadonlyMap<string, IpaEntry>>>();
+  /** Settled shards, so a card can draw a known word on its first frame instead of after a tick. */
+  const ready = new Map<string, ReadonlyMap<string, IpaEntry>>();
   function manifest() {
     if (!data) data = loadData().catch((error: unknown) => { data = undefined; throw error; });
     return data;
   }
-  return async (word: string): Promise<IpaMatch | null> => {
-    if (!WORD.test(word) || word.length > 96) return null;
-    const source = await manifest();
-    const letter = word[0].toLowerCase();
-    if (!owns(source.loaders, letter)) return null;
+  function shard(source: IpaData, letter: string): Promise<ReadonlyMap<string, IpaEntry>> {
     let pending = shards.get(letter);
     if (!pending) {
       pending = Promise.resolve().then(() => source.loaders[letter]())
         .then(value => validateShard(value, source.version, letter))
+        .then(entries => { ready.set(letter, entries); return entries; })
         .catch((error: unknown) => { shards.delete(letter); throw error; });
       shards.set(letter, pending);
     }
-    const entries = await pending;
+    return pending;
+  }
+  function pick(entries: ReadonlyMap<string, IpaEntry>, word: string): IpaMatch | null {
     const exact = entries.get(word);
     if (exact) return { word, match: "exact", entry: exact };
     if (/^[A-Z][a-z]+(?:[-'’][a-z]+)*$/.test(word)) {
@@ -61,5 +62,39 @@ export function createIpaLookup(loadData: () => Promise<IpaData>) {
       if (entry) return { word: lower, match: "lowercase-fallback", entry };
     }
     return null;
+  }
+  const lookup = async (word: string): Promise<IpaMatch | null> => {
+    if (!WORD.test(word) || word.length > 96) return null;
+    const source = await manifest();
+    const letter = word[0].toLowerCase();
+    if (!owns(source.loaders, letter)) return null;
+    return pick(await shard(source, letter), word);
   };
+  /**
+   * The answer right now when the word's shard is already in memory: a match, or null for a word
+   * the shard does not have. `undefined` means the shard has not arrived yet.
+   */
+  lookup.now = (word: string): IpaMatch | null | undefined => {
+    if (!WORD.test(word) || word.length > 96) return null;
+    const entries = ready.get(word[0].toLowerCase());
+    return entries ? pick(entries, word) : undefined;
+  };
+  /**
+   * Load the shards of these first letters (a-z) ahead of a tap, in the order given, a few at a
+   * time: one by one took 20 s for a chapter on a phone network (0.8 s each), so an early tap still
+   * waited. A failure is dropped here; the card's own lookup tries again and reports it.
+   */
+  lookup.warm = (letters: Iterable<string>, parallel = 4): void => {
+    const queue = [...new Set(letters)].filter(letter => /^[a-z]$/.test(letter));
+    void manifest().then(source => {
+      const next = async (): Promise<void> => {
+        for (let letter = queue.shift(); letter !== undefined; letter = queue.shift()) {
+          if (!owns(source.loaders, letter)) continue;
+          await (shards.get(letter) ?? shard(source, letter)).catch(() => undefined);
+        }
+      };
+      for (let i = 0; i < Math.max(1, parallel); i += 1) void next();
+    }).catch(() => undefined);
+  };
+  return lookup;
 }

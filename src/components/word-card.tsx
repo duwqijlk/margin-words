@@ -403,7 +403,11 @@ export function WordCard({
                 </div>
               ))}
             </div>
-          ) : localIpaVersion && !phrasePending ? <WordIpa key={`${selectionId}:${state.key}`} word={state.key} /> : null}
+          ) : localIpaVersion ? (
+            // Drawn from the first frame, also while the phrase check runs, so the card keeps its
+            // height: the IPA used to appear a beat later and push the meaning down under the finger.
+            <WordIpa key={`${selectionId}:${state.key}`} word={state.key} pending={phrasePending} />
+          ) : null}
           <div className="grid gap-2" data-word-primary>
             {!activePhrase && state.status === "ready" && state.credit ? <CreditLine id={state.credit} /> : null}
             {activePhrase?.entry.credit ? <CreditLine id={activePhrase.entry.credit} /> : null}

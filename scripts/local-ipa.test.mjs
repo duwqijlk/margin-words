@@ -49,3 +49,36 @@ test("IPA manifest failures retry and default empty data does not fetch", async 
   assert.equal(await lookup("book"), null);
   assert.equal(attempts, 2);
 });
+
+test("a word whose shard is in memory answers at once, so the card draws it on its first frame", async () => {
+  const lookup = createIpaLookup(async () => ({ version: "fixture", loaders: {
+    b: async () => shard({ book: entry("bʊk") }),
+  } }));
+  assert.equal(lookup.now("book"), undefined, "nothing is known before the shard arrives");
+  await lookup("book");
+  assert.equal(lookup.now("book").entry.UK[0].ipa, "bʊk");
+  assert.equal(lookup.now("Book").match, "lowercase-fallback");
+  assert.equal(lookup.now("bath"), null, "a word the shard does not have is known to be missing");
+  assert.equal(lookup.now("not a word"), null);
+});
+
+test("warming fetches each needed shard once, ahead of the tap, and a failure stays quiet", async () => {
+  const loads = { b: 0, w: 0 };
+  let failW = true;
+  const lookup = createIpaLookup(async () => ({ version: "fixture", loaders: {
+    b: async () => { loads.b++; return shard({ book: entry("bʊk") }); },
+    w: async () => { loads.w++; if (failW) throw Error("network"); return shard({ water: entry("ˈwɔːtə") }); },
+  } }));
+  lookup.warm(["b", "w", "b", "z", "?"]);
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  assert.equal(lookup.now("book").entry.UK[0].ipa, "bʊk", "warmed before any lookup");
+  assert.equal(loads.b, 1);
+  lookup.warm(["b"]);
+  await lookup("book");
+  assert.equal(loads.b, 1, "a warmed shard is not fetched again");
+  // the failed warm left no broken entry: a later lookup fetches again and succeeds
+  failW = false;
+  assert.equal((await lookup("water")).entry.UK[0].ipa, "ˈwɔːtə");
+  assert.equal(loads.w, 2);
+});
