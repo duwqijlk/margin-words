@@ -1,7 +1,8 @@
 /**
- * Sentence notes from a word list must reach the reader. The help panel for a sentence
- * existed from the first import but was never rendered, so a published sentence note
- * showed nowhere; the word card now asks for the note of the sentence around the tap.
+ * Sentence notes from a word list must reach the reader. A sentence note lights the bulb of the
+ * paragraph that holds its sentence, and the paragraph panel lists it; the word card only shows one
+ * small line that opens that panel. The original sentence panel was written with the first import
+ * and never rendered, so a published sentence note showed nowhere.
  */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -28,11 +29,30 @@ test("a note whose chapter is another edition's index still finds its sentence",
   assert.equal(help.pickSentenceHelp([note], 7, sentence)?.simple, "She is dealing with the car's problem.");
 });
 
-test("the word card renders the sentence help for the tapped sentence", () => {
+test("a paragraph lists the sentence notes inside it, in reading order", () => {
+  const second = { chapter: 0, context: "Reach out and touch someone.", simple: "Call someone." };
+  const paragraph = `(Video) Woman: Reach out and touch someone. ${sentence}`;
+  assert.deepEqual(
+    help.sentenceNotesIn([note, second], 0, paragraph).map((n) => n.simple),
+    ["Call someone.", "She is dealing with the car's problem."],
+  );
+  assert.deepEqual(help.sentenceNotesIn([note], 0, "A paragraph without it."), []);
+  // An ordinary extra page has no fixed chapter: no sentence note there.
+  assert.deepEqual(help.sentenceNotesIn([note], -1, paragraph), []);
+  // A note for a recovered extra matches only that extra.
+  const extra = { ...note, chapter: "x2" };
+  assert.equal(help.sentenceNotesIn([extra], "x2", paragraph).length, 1);
+  assert.equal(help.sentenceNotesIn([extra], 0, paragraph).length, 0);
+});
+
+test("the word card shows a small hint that opens the paragraph panel, not the whole note", () => {
   const card = readFileSync(new URL("../src/components/word-card.tsx", import.meta.url), "utf8");
-  assert.match(card, /import \{ ExplainSentence \} from "@\/components\/help-panels";/);
+  assert.match(card, /import \{ SentenceHint \} from "@\/components\/help-panels";/);
   assert.match(
     card,
-    /<ExplainSentence[\s\S]*?bookId=\{bookId\}[\s\S]*?chapter=\{sentenceChapter\}[\s\S]*?sentence=\{state\.fullSentence \?\? state\.sentence\}/,
+    /<SentenceHint[\s\S]*?bookId=\{bookId\}[\s\S]*?chapter=\{sentenceChapter\}[\s\S]*?sentence=\{state\.fullSentence \?\? state\.sentence\}[\s\S]*?onOpen=\{onSentenceHelp\}/,
   );
+  const reader = readFileSync(new URL("../src/components/reader.tsx", import.meta.url), "utf8");
+  assert.match(reader, /onSentenceHelp=\{picked \? \(\) => openHelp\(picked\.block\) : undefined\}/);
+  assert.match(reader, /loadParagraphHelpView\(/);
 });

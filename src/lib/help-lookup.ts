@@ -15,7 +15,7 @@ import {
 } from "@/lib/book-db";
 import { flowText } from "@/lib/flow-text";
 import type { ParagraphHelp, PhraseEntry, SentenceHelp } from "@/lib/glossary-extras";
-import { paragraphBlocks, pickPhrase, pickSentenceHelp } from "@/lib/help-match";
+import { paragraphBlocks, pickPhrase, pickSentenceHelp, sentenceNotesIn } from "@/lib/help-match";
 import { resolveParagraphNotesInBook } from "@/lib/paragraph-note";
 
 export type { ParagraphHelp, PhraseEntry, SentenceHelp };
@@ -156,16 +156,41 @@ export async function getParagraphHelp(
   }
 }
 
-/** For each paragraph text of a chapter: does that paragraph own a real paragraph explanation of the word list? */
+/**
+ * For each paragraph text of a chapter: does that paragraph have help to open from its bulb? That is
+ * a paragraph note it owns, or a sentence note whose context is inside it. One bulb serves both, so a
+ * reader learns one place to look.
+ */
 export async function getParagraphNoteFlags(
   bookId: string,
   chapter: number | string,
   texts: readonly string[],
 ): Promise<boolean[]> {
   try {
-    return (await noteOwnersOf(bookId, chapter, texts)).map((owner) => owner !== null);
+    const owners = await noteOwnersOf(bookId, chapter, texts);
+    const sentences = (await extrasOf(bookId))?.sentences ?? [];
+    return texts.map(
+      (text, index) =>
+        owners[index] != null ||
+        (sentences.length > 0 && sentenceNotesIn(sentences, chapter, text).length > 0),
+    );
   } catch {
     return texts.map(() => false);
+  }
+}
+
+/** The sentence notes inside one paragraph, in reading order (empty when there are none). */
+export async function getSentenceNotesIn(
+  bookId: string,
+  chapter: number | string,
+  paragraphText: string,
+): Promise<SentenceHelp[]> {
+  try {
+    const extras = await extrasOf(bookId);
+    if (!extras?.sentences.length) return [];
+    return sentenceNotesIn(extras.sentences, chapter, paragraphText);
+  } catch {
+    return [];
   }
 }
 

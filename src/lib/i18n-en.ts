@@ -631,6 +631,7 @@ export const en = {
   "hp.lookingSentence": "Looking for an easier sentence…",
   "hp.easier": "Easier sentence",
   "hp.grammar": "Grammar",
+  "hp.sentences": "Hard sentences",
 
   /* ---- notebook */
   "nb.title": "Notebook",

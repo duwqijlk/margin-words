@@ -42,7 +42,7 @@ import {
 import type { PhraseEntry } from "@/lib/glossary-extras";
 import { pickPhrase, phraseWordMarks } from "@/lib/help-match";
 import { findPhrase, shareStoredBook } from "@/lib/help-lookup";
-import { loadParagraphView } from "@/lib/help-flow";
+import { loadParagraphHelpView } from "@/lib/help-flow";
 import { useT, type Key } from "@/lib/i18n";
 import { useJump } from "@/lib/jump-store";
 import {
@@ -1342,7 +1342,7 @@ export function ReaderScreen({
     setHelpState({ status: "loading" });
     helpToken.current += 1;
     const token = helpToken.current;
-    void loadParagraphView({
+    void loadParagraphHelpView({
       bookId,
       chapter: activeExtra ? activeExtra.id : safeIndex,
       paragraph: index,
@@ -1852,6 +1852,8 @@ export function ReaderScreen({
           chapter={viewChapter}
           chapters={book?.chapters.length ?? 0}
           noteChapter={activeExtra?.fromToc ? activeExtra.id : viewChapter}
+          // The sentence hint opens the same panel as the bulb of the tapped paragraph.
+          onSentenceHelp={picked ? () => openHelp(picked.block) : undefined}
           anchor={anchor}
           onClose={closeWordCard}
           onToggle={() => {

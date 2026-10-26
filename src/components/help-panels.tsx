@@ -2,7 +2,7 @@ import { ChevronDown, Lightbulb, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getParagraphNoteFlags, paragraphBlocks } from "@/lib/help-lookup";
 import { useT } from "@/lib/i18n";
-import { loadSentenceView, type ParagraphView, type SentenceView } from "@/lib/help-flow";
+import { loadSentenceView, type ParagraphHelpView, type SentenceInParagraph } from "@/lib/help-flow";
 import { FloatingAside } from "@/components/floating-card";
 import { btn, cn } from "@/components/ui";
 import { CreditLine } from "@/components/credit-line";
@@ -191,7 +191,7 @@ export function ParagraphBulbs({
 /* ------------------------------------------------------------------ paragraph panel */
 
 export type ParagraphPanelState =
-  { status: "loading" } | { status: "none" } | { status: "ready"; view: ParagraphView };
+  { status: "loading" } | { status: "none" } | { status: "ready"; view: ParagraphHelpView };
 
 export function ParagraphPanel({
   state,
@@ -208,6 +208,8 @@ export function ParagraphPanel({
   const { t } = useT();
   // The simple retelling is what the bulb is for, so it is open as soon as the panel appears.
   const [open, setOpen] = useState(true);
+  const paragraph = state.status === "ready" ? state.view.paragraph : null;
+  const sentences = state.status === "ready" ? state.view.sentences : [];
   return (
     <FloatingAside
       anchor={anchor}
@@ -253,54 +255,71 @@ export function ParagraphPanel({
           </p>
         ) : (
           <>
-            {state.view.credit ? <CreditLine id={state.view.credit} /> : null}
-            <section className="grid gap-1" aria-label={t("hp.mainIdea")}>
-              <h3 className="text-xs font-semibold text-muted">{t("hp.mainIdea")}</h3>
-              <p className="text-[1.05rem] leading-relaxed" lang="en" data-part="main-idea">
-                {state.view.mainIdea}
-              </p>
-            </section>
+            {paragraph ? (
+              <>
+                {paragraph.credit ? <CreditLine id={paragraph.credit} /> : null}
+                <section className="grid gap-1" aria-label={t("hp.mainIdea")}>
+                  <h3 className="text-xs font-semibold text-muted">{t("hp.mainIdea")}</h3>
+                  <p className="text-[1.05rem] leading-relaxed" lang="en" data-part="main-idea">
+                    {paragraph.mainIdea}
+                  </p>
+                </section>
 
-            <section className="grid gap-1.5" aria-label={t("hp.simple")}>
-              <button
-                type="button"
-                aria-expanded={open}
-                onClick={() => setOpen((value) => !value)}
-                className="-mx-1 flex min-h-11 items-center justify-between gap-2 rounded-lg px-1 text-left text-sm font-semibold text-accent hover:bg-accent-soft/60"
+                <section className="grid gap-1.5" aria-label={t("hp.simple")}>
+                  <button
+                    type="button"
+                    aria-expanded={open}
+                    onClick={() => setOpen((value) => !value)}
+                    className="-mx-1 flex min-h-11 items-center justify-between gap-2 rounded-lg px-1 text-left text-sm font-semibold text-accent hover:bg-accent-soft/60"
+                  >
+                    <span>{t("hp.simple")}</span>
+                    <span className="flex items-center gap-1 font-normal text-muted">
+                      {open ? t("common.hide") : t("common.show")}
+                      <ChevronDown
+                        className={cn("size-4 transition-transform", open && "rotate-180")}
+                        aria-hidden
+                      />
+                    </span>
+                  </button>
+                  {open ? (
+                    <p className="text-[1.02rem] leading-relaxed" lang="en" data-part="simple">
+                      {paragraph.simple}
+                    </p>
+                  ) : null}
+                </section>
+
+                {paragraph.hardWords.length > 0 ? (
+                  <section className="grid gap-1.5" aria-label={t("hp.hardWords")}>
+                    <h3 className="text-xs font-semibold text-muted">{t("hp.hardHint")}</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {paragraph.hardWords.map((word) => (
+                        <button
+                          key={word}
+                          type="button"
+                          data-hard-word={word}
+                          onClick={() => onWord(word)}
+                          lang="en"
+                          className="min-h-10 rounded-full border border-line px-3.5 text-[0.95rem] font-medium hover:bg-accent-soft"
+                        >
+                          {word}
+                        </button>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
+              </>
+            ) : null}
+
+            {sentences.length > 0 ? (
+              <section
+                className={cn("grid gap-3", paragraph && "border-t border-line/70 pt-3")}
+                aria-label={t("hp.sentences")}
+                data-part="sentences"
               >
-                <span>{t("hp.simple")}</span>
-                <span className="flex items-center gap-1 font-normal text-muted">
-                  {open ? t("common.hide") : t("common.show")}
-                  <ChevronDown
-                    className={cn("size-4 transition-transform", open && "rotate-180")}
-                    aria-hidden
-                  />
-                </span>
-              </button>
-              {open ? (
-                <p className="text-[1.02rem] leading-relaxed" lang="en" data-part="simple">
-                  {state.view.simple}
-                </p>
-              ) : null}
-            </section>
-
-            {state.view.hardWords.length > 0 ? (
-              <section className="grid gap-1.5" aria-label={t("hp.hardWords")}>
-                <h3 className="text-xs font-semibold text-muted">{t("hp.hardHint")}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {state.view.hardWords.map((word) => (
-                    <button
-                      key={word}
-                      type="button"
-                      data-hard-word={word}
-                      onClick={() => onWord(word)}
-                      lang="en"
-                      className="min-h-10 rounded-full border border-line px-3.5 text-[0.95rem] font-medium hover:bg-accent-soft"
-                    >
-                      {word}
-                    </button>
-                  ))}
-                </div>
+                <h3 className="text-xs font-semibold text-muted">{t("hp.sentences")}</h3>
+                {sentences.map((note, at) => (
+                  <SentenceNote key={`${at}:${note.context}`} note={note} />
+                ))}
               </section>
             ) : null}
           </>
@@ -314,81 +333,75 @@ export function ParagraphPanel({
   );
 }
 
-/* ------------------------------------------------------------------ explain a sentence (inside the word card) */
+/** One sentence note in the paragraph panel: which sentence (its context), then the help. */
+function SentenceNote({ note }: { note: SentenceInParagraph }) {
+  const { t } = useT();
+  return (
+    <div className="grid gap-1.5" data-sentence-note>
+      <blockquote
+        className="border-l-2 border-line pl-2.5 font-display text-[0.92rem] leading-relaxed text-muted italic"
+        lang="en"
+        data-part="sentence-context"
+      >
+        {note.context}
+      </blockquote>
+      {note.credit ? <CreditLine id={note.credit} /> : null}
+      <p className="text-[1.02rem] leading-relaxed" lang="en" data-part="easier">
+        {note.simple}
+      </p>
+      {note.grammar ? (
+        <p className="text-sm leading-snug" lang="en" data-part="grammar">
+          <span className="mr-1.5 text-xs font-semibold text-muted">{t("hp.grammar")}</span>
+          {note.grammar}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ sentence hint (inside the word card) */
 
 /**
- * "Explain this sentence" only when the word list has a note for this sentence.
- * Most sentences have none, the same way most paragraphs have no simple version,
- * so the button stays off the word card until a note is found.
+ * One quiet line under the meaning when the word list has a note for this sentence. It takes no
+ * more room than a link: the note itself opens in the paragraph panel, the same place as the bulb,
+ * so a reader learns one place for paragraph and sentence help. Most sentences have no note, and
+ * then nothing is drawn.
  */
-export function ExplainSentence({
+export function SentenceHint({
   bookId,
   chapter,
   sentence,
+  onOpen,
 }: {
   bookId: string;
   chapter: number | string;
   sentence: string;
+  onOpen: () => void;
 }) {
   const { t } = useT();
-  const [state, setState] = useState<
-    | { status: "checking" }
-    | { status: "none" }
-    | { status: "closed"; view: SentenceView }
-    | { status: "open"; view: SentenceView }
-  >({ status: "checking" });
-  const box = useRef<HTMLDivElement | null>(null);
+  const [has, setHas] = useState(false);
 
   useEffect(() => {
     let live = true;
-    setState({ status: "checking" });
+    setHas(false);
     void loadSentenceView({ bookId, chapter, text: sentence }).then((view) => {
-      if (!live) return;
-      setState(view ? { status: "closed", view } : { status: "none" });
+      if (live) setHas(view !== null);
     });
     return () => {
       live = false;
     };
   }, [bookId, chapter, sentence]);
 
-  useEffect(() => {
-    if (state.status === "open") box.current?.scrollIntoView({ block: "nearest" });
-  }, [state.status]);
-
-  if (state.status !== "closed" && state.status !== "open") return null;
-
-  const view = state.view;
+  if (!has) return null;
   return (
-    <div className="grid gap-2" data-explain>
-      {state.status === "closed" ? (
-        <button
-          type="button"
-          className={cn(btn.quiet, "min-h-10 self-start text-sm")}
-          onClick={() => setState({ status: "open", view })}
-        >
-          <Lightbulb className="size-4 text-accent" aria-hidden />
-          {t("hp.explain")}
-        </button>
-      ) : (
-        <div ref={box} className="grid gap-2.5 border-t border-line/70 pt-2.5">
-          <span className="text-xs font-semibold text-muted">{t("hp.explain")}</span>
-          {view.credit ? <CreditLine id={view.credit} /> : null}
-          <section className="grid gap-0.5" aria-label={t("hp.easier")}>
-            <h4 className="text-xs font-semibold text-muted">{t("hp.easier")}</h4>
-            <p className="text-[0.98rem] leading-relaxed" lang="en" data-part="easier">
-              {view.simple}
-            </p>
-          </section>
-          {view.grammar ? (
-            <section className="grid gap-0.5" aria-label={t("hp.grammar")}>
-              <h4 className="text-xs font-semibold text-muted">{t("hp.grammar")}</h4>
-              <p className="text-sm leading-snug" lang="en" data-part="grammar">
-                {view.grammar}
-              </p>
-            </section>
-          ) : null}
-        </div>
-      )}
-    </div>
+    <button
+      type="button"
+      onClick={onOpen}
+      className="inline-flex min-h-8 items-center gap-1 justify-self-start self-start text-xs font-medium text-accent hover:underline"
+      data-sentence-hint
+    >
+      <Lightbulb className="size-3.5" aria-hidden />
+      {t("hp.explain")}
+    </button>
   );
 }
