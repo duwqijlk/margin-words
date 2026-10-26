@@ -395,7 +395,7 @@ How the reader finds the note: a note belongs to **one** paragraph of the book. 
 
 `simple` is required. `grammar` is optional: add it only when the grammar is the hard part, as ONE line (up to 400 letters). Optional `credit`: the public id of the reader whose explanation this note uses, as for a paragraph note; the sentence help shows "From <their nickname>". Found by `context` inside the sentence (same chapter first, longest snippet first). `chapter` may be an extra id such as `"x3"` (see 3.1); that note matches only while that extra is on screen. `simple` up to 800 letters.
 
-How the reader shows it: the paragraph that holds the `context` gets a lightbulb (the same bulb as a paragraph note), and its panel lists the sentence notes of that paragraph under "Hard sentences", after the paragraph note when there is one. A word card on that sentence shows one small "Explain this sentence" link that opens the same panel.
+How the reader shows it: the paragraph that holds the `context` gets a lightbulb (the same bulb as a paragraph note), and its panel lists the sentence notes of that paragraph under "Hard sentences", after the paragraph note when there is one. While the panel is open, the whole sentence that holds each `context` is marked in the page like a highlighter, so the reader can see which sentence a note explains. A word card on that sentence shows one small "Explain this sentence" link that opens the same panel with that sentence chosen.
 
 ### 7.3 `phrases`: phrasal verbs and idioms
 

@@ -53,6 +53,19 @@ test("the word card shows a small hint that opens the paragraph panel, not the w
     /<SentenceHint[\s\S]*?bookId=\{bookId\}[\s\S]*?chapter=\{sentenceChapter\}[\s\S]*?sentence=\{state\.fullSentence \?\? state\.sentence\}[\s\S]*?onOpen=\{onSentenceHelp\}/,
   );
   const reader = readFileSync(new URL("../src/components/reader.tsx", import.meta.url), "utf8");
-  assert.match(reader, /onSentenceHelp=\{picked \? \(\) => openHelp\(picked\.block\) : undefined\}/);
+  assert.match(reader, /openHelp\(picked\.block, card\.fullSentence \|\| card\.sentence\)/, "the tapped sentence starts selected");
   assert.match(reader, /loadParagraphHelpView\(/);
+});
+
+test("the panel marks the explained sentences in the page and keeps them in view", () => {
+  const panel = readFileSync(new URL("../src/components/help-panels.tsx", import.meta.url), "utf8");
+  assert.match(panel, /<SentenceMarks[\s\S]*?paragraphEl=\{paragraphEl\}[\s\S]*?chosen=\{chosen\}/);
+  assert.match(panel, /noteSentenceRange\(paragraphEl, context\)/);
+  // Drawn into the body: inside the transformed sheet a fixed box is placed against the sheet.
+  assert.match(panel, /createPortal\(/);
+  assert.match(panel, /setAttribute\("data-help-keep", ""\)/);
+  const reader = readFileSync(new URL("../src/components/reader.tsx", import.meta.url), "utf8");
+  assert.match(reader, /onRevealSentence=\{revealAboveSheet\}/);
+  const css = readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
+  assert.match(css, /\.book-body \{\s*\/\*[\s\S]*?\*\/\s*position: relative;\s*z-index: 2;/, "the text sits above the marks");
 });
