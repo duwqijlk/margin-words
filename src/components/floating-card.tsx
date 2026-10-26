@@ -289,8 +289,17 @@ function usePhoneSheetDismiss(panelRef: RefObject<HTMLElement | null>, onClose: 
         const dx = x - startX;
         lastY = y;
         if (mode === "undecided") {
+          const pull = dy > 0 && Math.abs(dy) > Math.abs(dx);
+          // A downward pull at the top belongs to the sheet. Claim it on the first pixels:
+          // once the browser starts panning the content (or the page under it), touchmove is
+          // no longer cancelable and the article scrolls instead of the sheet following the
+          // finger. The 8px threshold below still decides when the sheet starts to move.
+          if (pull && el.scrollTop <= 0 && Math.abs(dy) < 8) {
+            event.preventDefault();
+            return;
+          }
           if (Math.abs(dy) < 8 && Math.abs(dx) < 8) return;
-          if (dy > 0 && Math.abs(dy) > Math.abs(dx) && el.scrollTop <= 0) {
+          if (pull && el.scrollTop <= 0) {
             mode = "dismiss";
             el.style.animation = "none";
             el.style.transition = "none";

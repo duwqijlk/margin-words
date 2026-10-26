@@ -22,3 +22,8 @@ test("the title, the word body and a suggestion box keep native scrolling", () =
     "the scrollers inside the sheet still pan",
   );
 });
+
+test("a touch on the selection card or its ask button cannot scroll the article", () => {
+  assert.match(css, /\[data-passage-ui\],\s*\[data-passage-card\] \{\s*touch-action: none;/);
+  assert.match(css, /\[data-passage-card\] textarea \{\s*touch-action: pan-y;/);
+});

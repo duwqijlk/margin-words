@@ -650,6 +650,14 @@
   [data-word-card] [data-word-footer] > div {
     flex-wrap: wrap;
   }
+  /* The selection card floats over the article: a touch on it must not scroll the book. */
+  [data-passage-ui],
+  [data-passage-card] {
+    touch-action: none;
+  }
+  [data-passage-card] textarea {
+    touch-action: pan-y;
+  }
   .word-detail {
     border-top: 1px solid var(--line);
   }
