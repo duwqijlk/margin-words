@@ -23,6 +23,14 @@ test("the title, the word body and a suggestion box keep native scrolling", () =
   );
 });
 
+test("a swipe that starts on a speaker or another action does not pan the content or the page", () => {
+  assert.match(
+    phone,
+    /\[data-word-card\] button,\s*\[data-word-card\] a,\s*\[data-word-card\] summary \{\s*touch-action: none;/,
+    "actions inside the sheet keep their tap and never start a scroll",
+  );
+});
+
 test("a touch on the selection card or its ask button cannot scroll the article", () => {
   assert.match(css, /\[data-passage-ui\],\s*\[data-passage-card\] \{\s*touch-action: none;/);
   assert.match(css, /\[data-passage-card\] textarea \{\s*touch-action: pan-y;/);
