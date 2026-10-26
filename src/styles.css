@@ -699,6 +699,14 @@
     [data-word-card] textarea {
       touch-action: pan-y;
     }
+    /* A touch that starts on an action (a speaker, the close button, a link) keeps its tap and
+       must not pan the content or the page: the speakers sit inside the scrolling body, so
+       without this a swipe from one of them scrolled the article. */
+    [data-word-card] button,
+    [data-word-card] a,
+    [data-word-card] summary {
+      touch-action: none;
+    }
     [data-word-card] [data-sheet-handle] {
       display: flex;
       align-items: center;
