@@ -29,7 +29,10 @@ words. Three things tell you a list needs work:
   600 characters, never across paragraphs); `before` / `after` are a few words around it;
   `chapter` and `paragraph` are the reader's own numbers in their copy of the book (see
   "Chapter numbers" below); `sel_start` / `sel_end` are its character offsets in that paragraph;
-  `span` is `sentence` when it holds a whole sentence. Reports that overlap on one paragraph share a
+  `span` is `sentence` when it holds a whole sentence (its final full stop need not be selected),
+  else `words`: part of one sentence, of any length. `words` is not "a phrase": decide by the text
+  (the table below). Older rows labelled a whole sentence without its stop as `words`. Reports that
+  overlap on one paragraph share a
   `topic` (see "Passage topics" below). `reason`:
   - `hard`: "I don't understand this part".
   - `phrase`: "these words go together" (often a phrasal verb or an idiom the list does not have).
@@ -182,9 +185,9 @@ Then write the smallest note that helps:
 
 | The selection is | Write | Notes |
 | --- | --- | --- |
-| 2 to 5 words that belong together (`phrase`, or a hard group) | a `phrases` entry (GLOSSARY_FORMAT.md 7.3), key = base form | Only when it is really a phrase (7.3's rule). A single hard word inside it is a word entry instead. |
+| 2 to 5 words that belong together (`phrase`, or a hard group) | a `phrases` entry (GLOSSARY_FORMAT.md 7.3), key = base form | Only when it is really a fixed phrase (7.3's rule), judged by the words themselves, never by `span`. A single hard word inside it is a word entry instead. A longer group, or words that only make sense with the rest of their sentence, is a sentence note. |
 | One sentence, or most of one | a `sentences` note (7.2): `context` copied from that sentence and `simple`; add the one-line `grammar` only when the grammar is the hard part (it is optional) | A figure of speech: say plainly what it means here. |
-| Several sentences of one paragraph | a `paragraphs` note (7.1) on that paragraph: `mainIdea` and `simple` | Only when no sentence note would do. |
+| Several sentences of one paragraph | a `paragraphs` note (7.1) on that paragraph: `mainIdea` and `simple` | When the reader asked about the whole paragraph (or most of it), or no sentence note would do. |
 | `wrong` | fix the phrase, sentence or paragraph note shown there, or remove a wrong phrase match | |
 
 Leave it open when the selection is a single easy word, a name, or text you cannot find in the book.
@@ -206,7 +209,9 @@ reader B only "as if the" inside it), or two that share words. Read the whole to
 
 1. **Find what is really hard.** When most reports point at the same few words (B's "as if the" sits
    inside A's sentence, and C also marked "as if"), the hard part is those words. Several readers
-   marking the same small part is a strong signal; one reader marking a big part is a weak one.
+   marking the same small part is a strong signal; one reader marking a big part is a weak one
+   for WHERE the difficulty is. It is still a real question about that big part: a whole paragraph
+   asked about with an explanation gets its paragraph note (see step 2).
 2. **Write the smallest set of notes that answers every report**, never one note per report:
    - The short part is a phrase or an idiom: a `phrases` entry for it. If the longer selection is
      still hard once that phrase is explained, also a `sentences` note for the whole sentence. Its
@@ -215,6 +220,13 @@ reader B only "as if the" inside it), or two that share words. Read the whole to
      sentence. It answers B too; do not add a phrase entry that is not a real phrase.
    - Two reports that only share a few words and point at different hard parts: answer each part
      on its own.
+   - **A whole-paragraph report together with reports on sentences inside it** (reader A selected
+     the paragraph, readers B and C one sentence each): write **both** a `paragraphs` note for the
+     paragraph and a `sentences` note for each of those sentences, each credited to its own reader.
+     They answer different questions. The paragraph note says what the paragraph is about as a
+     whole; a sentence note explains only its sentence. Keep them consistent: the panel shows the
+     paragraph note first and the sentence notes under it. "Only when no sentence note would do"
+     does not apply when a reader asked about the whole paragraph and gave an explanation.
 3. **Explanations:** compare them with each other and with the sentence. Use the sense the best one
    gives, write it in your own words (writing rules below), and credit that reader. The table for
    "a new suggestion when a meaning already exists" below applies here too: a different sense of a
