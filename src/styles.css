@@ -231,6 +231,13 @@
     html {
       scrollbar-gutter: stable;
     }
+
+    @supports (scrollbar-gutter: stable) {
+      /* The root keeps the scrollbar slot while Radix locks scrolling. Do not reserve it twice. */
+      html body[data-scroll-locked] {
+        margin-right: 0 !important;
+      }
+    }
   }
 
   body {
