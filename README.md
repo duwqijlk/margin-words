@@ -1,7 +1,7 @@
 # Margin Words
 
 [![Live site](https://img.shields.io/badge/site-inputread.site-1E4A3A)](https://inputread.site)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm_Noncommercial_1.0.0-blue.svg)](LICENSE)
 
 > **Public repository.** Development, pushes, and pull requests happen here. The owner archived the private archive [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive) on 2026-10-04. It is read-only and stays private. Record: [docs/ARCHIVE.md](docs/ARCHIVE.md).
 
@@ -19,7 +19,7 @@ Tap a word in the story. A card shows a short meaning in simple English, written
 
 A book already on the device can be read with no account and, after the first download, with no network. New books are added only from Discover, and that step needs a sign-in. Public-domain classics download from the books host. A novel that is still under copyright is not hosted here: Discover gives a word list and an ISBN, and the reader adds their own legal EPUB.
 
-The live reader is [inputread.site](https://inputread.site). This repository is the source, under the [MIT license](LICENSE).
+The live reader is [inputread.site](https://inputread.site). The source is publicly available under [PolyForm Noncommercial 1.0.0](LICENSE), subject to the [scope and exceptions below](#license).
 
 ## What you can do
 
@@ -64,17 +64,19 @@ npm run check:example
 
 ## License
 
-The application source is released under the [MIT License](LICENSE).
+From the commit introducing this license change onward, the original application code, Pages Functions, tools, and documentation that XCRUN has the right to relicense are offered under [PolyForm Noncommercial License 1.0.0](LICENSE).
 
-Copyright (c) 2026 XCRUN.
+Required Notice: Copyright (c) 2026 XCRUN
 
-You may use, copy, and change the reader, the account functions, and the tools in this repository. Keep the copyright notice and this permission notice with the code.
+You may use, copy, distribute, and modify these materials for the permitted purposes defined in the license, including its express permissions for personal uses and noncommercial organizations. Commercial use outside those permitted purposes requires separate written authorization from the relevant rights holder(s); contact the maintainer through <https://github.com/duwqijlk/margin-words/issues>. When distributing, include the license (or its URL) and the Required Notice. This is publicly available source, not an OSI-approved open-source license.
+
+This change does not revoke the MIT permissions already granted for earlier versions. Copies obtained under MIT remain usable under that license; this does not grant MIT rights to subsequent changes released only under the new license. Third-party code, dependencies, fonts, icons, separately licensed examples, and contributions that XCRUN cannot relicense retain their own terms and notices. The root license does not replace those licenses.
 
 The novels are a separate matter:
 
 | Material | Terms |
 | --- | --- |
-| Reader, Pages Functions, and tools | [MIT License](LICENSE) |
+| Original reader, Pages Functions, tools, and documentation covered above | [PolyForm Noncommercial 1.0.0](LICENSE); scope and prior MIT grants as described above |
 | *The Lantern Seller*, the sample story | Original text, [CC0](https://creativecommons.org/publicdomain/zero/1.0/). See [docs/book-pack-spec.md](docs/book-pack-spec.md). |
 | Public-domain books | Public domain. Their files are not in git. The books host serves them. |
 | Books still under copyright | Not in this repository. This project does not host, sell, or share them. Discover lists a word list and an ISBN. The reader brings their own legal EPUB. |

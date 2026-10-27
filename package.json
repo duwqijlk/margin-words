@@ -1,7 +1,7 @@
 {
   "name": "margin-words",
   "private": true,
-  "license": "MIT",
+  "license": "PolyForm-Noncommercial-1.0.0",
   "author": "XCRUN",
   "engines": {
     "node": ">=22.12.0"

@@ -1,7 +1,7 @@
 # Margin Words（边注词典）
 
 [![网站](https://img.shields.io/badge/site-inputread.site-1E4A3A)](https://inputread.site)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm_Noncommercial_1.0.0-blue.svg)](LICENSE)
 
 > **公开仓库。** 以后的开发、推送和 Pull Request 都在这里。所有者已在 2026-10-04 归档私有档案 [duwqijlk/margin-words-archive](https://github.com/duwqijlk/margin-words-archive)。它只读，并保持私有。记录：[docs/ARCHIVE.zh-CN.md](docs/ARCHIVE.zh-CN.md)。
 
@@ -19,7 +19,7 @@ Margin Words 是一个英文小说阅读器，给正在开始读英文原著的�
 
 已经在这台设备上的书，不登录也能读；第一次下载之后，没有网络也能读。新书只能从“发现”添加，这一步需要登录。公版经典从书籍站点下载。仍有版权的小说不会放在这里：“发现”给出词表和书号，读者添加自己合法获得的 EPUB。
 
-可以直接打开 [inputread.site](https://inputread.site)。这个仓库是源代码，使用 [MIT 许可证](LICENSE)。
+可以直接打开 [inputread.site](https://inputread.site)。这个仓库公开提供源代码，使用 [PolyForm Noncommercial 1.0.0 非商业许可证](LICENSE)，[适用范围和例外见下文](#许可证)。
 
 ## 能做什么
 
@@ -64,17 +64,19 @@ npm run check:example
 
 ## 许可证
 
-应用的源代码使用 [MIT 许可证](LICENSE)。
+从引入本次许可变更的提交起，XCRUN 有权重新授权的本项目原创应用代码、Pages Functions、工具和文档，采用 [PolyForm Noncommercial License 1.0.0](LICENSE)。
 
-Copyright (c) 2026 XCRUN.
+Required Notice: Copyright (c) 2026 XCRUN
 
-你可以自由使用、复制和修改这个仓库里的阅读器、账号函数和工具。请保留版权声明和许可声明。
+你可以在许可证规定的允许用途内使用、复制、分发和修改这些内容，包括协议明确允许的个人用途和非商业组织用途。超出这些允许用途的商业使用，必须另行取得相关权利人的书面授权；可通过 <https://github.com/duwqijlk/margin-words/issues> 联系维护者。分发时须附带许可证（或其链接）及 Required Notice 声明。这是公开源代码的非商业许可，不是 OSI 认可的开源许可证。
+
+本次变更不能撤销此前版本已经授予的 MIT 权利。按 MIT 获得的旧版本仍可按原许可使用，但这不意味着之后仅按新许可发布的修改也适用 MIT。第三方代码、依赖、字体、图标、独立授权的示例，以及 XCRUN 无权重新授权的贡献，继续适用各自的许可和声明；根目录许可证不会替换这些许可。
 
 小说是另一回事：
 
 | 内容 | 许可 |
 | --- | --- |
-| 阅读器、Pages Functions 和工具 | [MIT 许可证](LICENSE) |
+| 上述范围内的原创阅读器、Pages Functions、工具和文档 | [PolyForm Noncommercial 1.0.0 非商业许可证](LICENSE)；适用范围及此前的 MIT 授权见上文 |
 | 示例故事 *The Lantern Seller* | 本项目原创，[CC0](https://creativecommons.org/publicdomain/zero/1.0/)。见 [docs/book-pack-spec.md](docs/book-pack-spec.md)。 |
 | 公版书 | 公有领域。文件不在 Git 里，由书籍站点提供。 |
 | 仍有版权的书 | 不在这个仓库里。本项目不托管、不出售、不分享这些书。“发现”只列出词表和书号。读者使用自己合法获得的 EPUB。 |

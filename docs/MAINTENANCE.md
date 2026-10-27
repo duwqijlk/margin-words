@@ -21,6 +21,9 @@ prove which DNS, cache rules, migrations or version are live in Cloudflare today
 
 A change to data **contents** does not deploy code. A change to a data **format or meaning** may
 need a coordinated parser/API change and migration. Decoupled storage is not an independent schema.
+Book id naming is not an id migration: keep existing ids, object paths and device/report references.
+Changing identity or the reserved `custom` semantics needs a separate coordinated migration, not a
+routine list upload; follow [identity and naming](https://inputread.site/kit/book-upload.md#identity-and-naming).
 
 <a id="storage"></a>
 ## Storage and access boundaries
