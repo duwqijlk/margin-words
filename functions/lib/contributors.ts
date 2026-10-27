@@ -21,7 +21,7 @@ import { bookMaintainers } from "./book-maintainers.ts";
  */
 export const CONTRIBUTORS_KEY = "contributors.json";
 
-export type ContributorRow = { id: string; name: string; helped: number; avatar?: number };
+export type ContributorRow = { id: string; name: string; helped: number; avatar?: number; rank?: number };
 
 export async function contributorRows(db: D1Database): Promise<ContributorRow[]> {
   const rows = await db
@@ -62,14 +62,20 @@ export async function publishContributors(db: D1Database, bucket: R2BucketLike, 
   const [people, { books, readers }] = await Promise.all([contributorRows(db), bookMaintainers(db, bucket)]);
   // `people` keeps the top 500 by help; a maintainer a cover shows must be named there too.
   const listed = new Set(people.map((person) => person.id));
-  for (const book of Object.values(books))
-    for (const id of book.top) {
-      const reader = readers.get(id);
-      if (reader && !listed.has(id)) {
-        people.push(reader);
-        listed.add(id);
-      }
+  const required = new Set(Object.values(books).flatMap((book) => book.top));
+  // Keep the original SQL top 500 and its tie order. Rank every remaining reader, including
+  // those not selected for a cover, before filtering; an extra's array index is not its rank.
+  let rank = people.length;
+  for (const [id, reader] of readers) {
+    if (listed.has(id)) continue;
+    rank++;
+    if (required.has(id)) {
+      people.push({ ...reader, rank });
+      listed.add(id);
     }
+  }
+  // Stable sorting preserves the original top 500 tie order ahead of added maintainers.
+  people.sort((a, b) => b.helped - a.helped);
   const file = { format: 1, updated: new Date(now).toISOString(), people, books };
   await bucket.put(CONTRIBUTORS_KEY, `${JSON.stringify(file)}\n`, { httpMetadata: CONTRIBUTORS_HTTP });
   return people.length;

@@ -76,6 +76,7 @@ export async function bookMaintainers(
   // place was reported with different titles or catalog references.
   const readerRows = new Map<string, ContributorRow>();
   const readerPlaces = new Map<string, Set<string>>();
+  const readerFirst = new Map<string, number>();
   const needsTitles = rows.results.some((row) => !row.ref);
   const byTitle = needsTitles ? await titleIndex(bucket) : new Map<string, string | null>();
   // book -> reader -> distinct places and earliest acceptance
@@ -84,6 +85,7 @@ export async function bookMaintainers(
     const places = readerPlaces.get(row.id) ?? new Set<string>();
     if (row.place !== null) places.add(row.place);
     readerPlaces.set(row.id, places);
+    readerFirst.set(row.id, Math.min(readerFirst.get(row.id) ?? Number.POSITIVE_INFINITY, row.first));
     readerRows.set(row.id, {
       id: row.id, name: row.name, helped: places.size,
       ...(row.avatar ? { avatar: row.avatar } : {}),
@@ -106,5 +108,9 @@ export async function bookMaintainers(
     );
     out[ref] = { count: ranked.length, top: ranked.slice(0, TOP_MAINTAINERS).map(([id]) => id) };
   }
-  return { books: out, readers: readerRows };
+  // Global help and first acceptance include unmatched rows, just like contributorRows.
+  const rankedReaders = [...readerRows.entries()].sort(
+    ([idA, a], [idB, b]) => b.helped - a.helped || readerFirst.get(idA)! - readerFirst.get(idB)! || idA.localeCompare(idB),
+  );
+  return { books: out, readers: new Map(rankedReaders) };
 }

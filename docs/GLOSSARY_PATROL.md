@@ -453,6 +453,12 @@ SELECT u.public_id AS id, COALESCE(u.nickname, '') AS name, u.avatar_rev AS avat
 - Every id in a `top` must also be in `people`. When the 500-row `people` query left one out, add
   that reader there with their `name`, `avatar` and total `helped`: the count of distinct
   non-NULL `place` across all their rows, including rows that cannot be matched to a book.
+  After merging, keep `people` sorted by total `helped` descending, not by book reference.
+  Added readers with equal help are ordered by their earliest acceptance across all rows, then
+  public id; preserve the original 500-row query order ahead of added readers with equal help.
+  Keep those original 500 rows unchanged. For each added reader, also write `rank`: their global
+  position after the original 500, counting **all** remaining readers in that order, including
+  readers not selected for any `top`. Its position in the filtered `people` array is not its rank.
 For this file too, keep the coordinated window, snapshot bytes/metadata, reread before overwriting
 and verify the R2 readback against the query result. If it changed, abort/rebase instead of dropping
 another writer's changes. Report a failed credit-file refresh; do not claim the public rank is updated.

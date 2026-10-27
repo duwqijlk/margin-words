@@ -563,8 +563,52 @@ test("maintainer aggregation deduplicates places across title variants and prese
   await publishContributors(db, books, NOW);
   const file = JSON.parse(books.files.get(CONTRIBUTORS_KEY));
   assert.deepEqual(file.books["word-lists:wonder"], { count: 1, top: ["aaaaaaaaaaaa"] });
-  assert.deepEqual(file.people.find((p) => p.id === "aaaaaaaaaaaa"), { id: "aaaaaaaaaaaa", name: "Target", helped: 2 });
+  assert.deepEqual(file.people.find((p) => p.id === "aaaaaaaaaaaa"), { id: "aaaaaaaaaaaa", name: "Target", helped: 2, rank: 501 });
   assert.equal(file.people.length, 501);
+});
+
+test("cover maintainers beyond 500 keep global help and earliest-acceptance order, not book order", async () => {
+  const db = openDb();
+  const books = bucket();
+  const addUser = db.raw.prepare("INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at, public_id) VALUES (?, ?, '', '', 1, 0, ?)");
+  const add = db.raw.prepare("INSERT INTO word_feedback (book_id, word, reason, created_at, ip, user_id, accepted_at, catalog_id) VALUES ('b', ?, '', 0, '', ?, ?, ?)");
+  for (let i = 0; i < 500; i++) {
+    const id = `u${i}`;
+    addUser.run(id, `${id}@example.com`, i.toString(16).padStart(12, "0"));
+    for (let j = 0; j < 10; j++) add.run(`word${j}`, id, 1, "word-lists:original");
+  }
+  // Book order and user insertion order deliberately disagree with global ranking.
+  const extras = [
+    ["low", "aaaaaaaaaaaa", 1, 1, "word-lists:a"],
+    ["late", "bbbbbbbbbbbb", 9, 4, "word-lists:b"],
+    ["tie-z", "ffffffffffff", 9, 3, "word-lists:c"],
+    ["tie-a", "eeeeeeeeeeee", 9, 3, "word-lists:d"],
+    ["early", "dddddddddddd", 9, 9, "word-lists:e"],
+    ["boundary", "cccccccccccc", 10, 2, "word-lists:z"],
+  ];
+  for (const [id, pub, helped, first, ref] of extras) {
+    addUser.run(id, `${id}@example.com`, pub);
+    for (let j = 0; j < helped; j++)
+      // The earliest global acceptance need not match any catalog book.
+      add.run(`word${j}`, id, id === "early" && j === 0 ? 2 : first, id === "early" && j === 0 ? "invalid:ref" : ref);
+  }
+  // A reader between the selected extras is not a top-three maintainer of this crowded book.
+  addUser.run("omitted", "omitted@example.com", "999999999999");
+  for (let j = 0; j < 9; j++) add.run(`word${j}`, "omitted", 1, "word-lists:original");
+  await publishContributors(db, books, NOW);
+  const file = JSON.parse(books.files.get(CONTRIBUTORS_KEY));
+  assert.equal(file.people.length, 506);
+  assert.ok(!file.people.some((person) => person.id === "999999999999"), "unselected readers need not appear in people");
+  assert.ok(file.people.slice(0, 500).every((person) => !("rank" in person)), "original rows retain their old shape");
+  assert.deepEqual(file.people.slice(500).map((person) => person.rank), [501, 503, 504, 505, 506, 507], "true extra ranks include the omitted reader, not their array positions");
+  assert.deepEqual(parseContributors(file).slice(500).map((person) => person.rank), [501, 503, 504, 505, 506, 507], "the client preserves extras-only true ranks");
+  assert.ok(file.people.slice(0, 500).every((person) => person.helped === 10 && !extras.some((extra) => extra[1] === person.id)), "original top 500 remain ahead of an added reader tied on help");
+  assert.deepEqual(file.people.slice(500).map(({ id, helped }) => [id, helped]), [
+    ["cccccccccccc", 10], ["dddddddddddd", 9], ["eeeeeeeeeeee", 9],
+    ["ffffffffffff", 9], ["bbbbbbbbbbbb", 9], ["aaaaaaaaaaaa", 1],
+  ], "extras use total help, global earliest acceptance, then public id");
+  const manual = readFileSync(join(ROOT, "docs/GLOSSARY_PATROL.md"), "utf8");
+  assert.ok(manual.includes("keep `people` sorted by total `helped` descending"));
 });
 
 test("maintainer aggregation does not truncate after 20000 grouped rows", async () => {

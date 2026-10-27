@@ -97,7 +97,7 @@ function ContributorRank() {
         >
           {me ? (
             <>
-              <span className="overview-mark font-semibold">{t("dashboard.rankMinePlace", { place: mine + 1 })}</span>{" "}
+              <span className="overview-mark font-semibold">{t("dashboard.rankMinePlace", { place: me.rank ?? mine + 1 })}</span>{" "}
               {t("dashboard.rankMineCount", { n: me.helped })}
             </>
           ) : (
