@@ -1,3 +1,4 @@
+import { checkAbort } from "./cancel-work.ts";
 import type JSZip from "jszip";
 import { CodedError } from "./errors.ts";
 import { normText, stripWordBreaks, stripWordBreaksIn } from "./glossary-format.ts";
@@ -945,20 +946,52 @@ export async function parseEpub(
   buffer: ArrayBuffer,
   options: {
     cover?: boolean;
+    signal?: AbortSignal;
     segmentation?: number;
     /** Parsing runs on the main thread; reports chapter progress so callers can keep the page honest. */
     onProgress?: (done: number, total: number) => void;
   } = {},
 ): Promise<ParsedEpub> {
-  const yieldToUi = () => new Promise<void>((resolve) => setTimeout(resolve, 0));
-  let zip: JSZip;
+  const check = () => checkAbort(options.signal);
+  check();
+  const docs = new Map<string, Document>();
+  const yieldToUi = async () => {
+    check();
+    await new Promise<void>((resolve) => setTimeout(resolve, 0));
+    check();
+  };
+  let zip!: JSZip;
   try {
     // Loaded when a book is opened, so the first screen does not carry the zip reader.
     const { default: Zip } = await import("jszip");
+    check();
+    // JSZip has no cancellation hook: one load/inflate cannot be preempted.
     zip = await Zip.loadAsync(buffer);
+    check();
   } catch {
+    if (options.signal?.aborted && zip) zip.files = {};
+    check();
     throw new CodedError("notValidEpub", "This file is not a valid EPUB book.");
   }
+  // Every document/image extraction checks both sides of JSZip's async boundary.
+  const originalFile = zip.file.bind(zip);
+  const wrapped = new Set<JSZip.JSZipObject>();
+  zip.file = ((name: string) => {
+    check();
+    const file = originalFile(name);
+    if (file && !wrapped.has(file)) {
+      wrapped.add(file);
+      const read = file.async.bind(file);
+      file.async = (async (...args: Parameters<typeof read>) => {
+        check();
+        const value = await read(...args);
+        check();
+        return value;
+      }) as typeof file.async;
+    }
+    return file;
+  }) as typeof zip.file;
+  try {
   const encryptionXml = await zip.file("META-INF/encryption.xml")?.async("string");
   if (encryptionXml && encryptionLocksBook(encryptionXml)) {
     throw new CodedError(
@@ -1016,13 +1049,15 @@ export async function parseEpub(
   }
   const spine = spineRefs.map(({ href, type, props }) => ({ href, type, props }));
 
-  const docs = new Map<string, Document>();
   async function loadDoc(path: string): Promise<Document | null> {
+    check();
     const cached = docs.get(path);
     if (cached) return cached;
     const file = zip.file(path);
     if (!file) return null;
-    const doc = parseHtml(await file.async("string"));
+    const content = await file.async("string");
+    check();
+    const doc = parseHtml(content);
     docs.set(path, doc);
     return doc;
   }
@@ -1381,6 +1416,7 @@ export async function parseEpub(
   let cover: string | null = null;
   let coverTagged = false;
   try {
+    check();
     if (options.cover !== false) {
       cover = await taggedCover(zip, opf, manifest, opfBase, loadDoc);
       coverTagged = Boolean(cover);
@@ -1390,6 +1426,7 @@ export async function parseEpub(
     cover = null;
     coverTagged = false;
   }
+  check();
   return {
     title,
     author,
@@ -1400,6 +1437,11 @@ export async function parseEpub(
     cover,
     coverTagged,
   };
+  } finally {
+    docs.clear();
+    wrapped.clear();
+    zip.files = {};
+  }
 }
 
 /** The first OPF identifier that names an ISBN, either by scheme or by ISBN-13 shape. */

@@ -56,7 +56,8 @@ export const zh: Record<Key, string> = {
   "notice.text": "本站不提供有版权的书。这类书请自己导入合法获得的 EPUB。",
   "notice.short": "本站不提供有版权的书，并会统计哪些词被点开。",
   "notice.dismiss": "关闭这条提示",
-  "privacyNote.text": "我们会统计哪些词被点开。上报内容包括这个单词、它在书中的位置，以及单词所在的句子。",
+  "privacyNote.text":
+    "我们会统计哪些词被点开。上报内容包括这个单词、它在书中的位置，以及单词所在的句子。",
   "privacyNote.link": "隐私说明",
   "error.title": "这个页面没能打开",
   "error.body": "页面显示时出了点问题。你的书、存的词和阅读位置都还在这个设备上。",
@@ -67,14 +68,16 @@ export const zh: Record<Key, string> = {
   "guide.title": "使用说明",
   "guide.github": "在 GitHub 上看源代码",
   "guide.addTitle": "把书加入书架",
-  "guide.addBody": "添加图书都在“发现”页，而且要先登录（点上方的人像图标）。登录后打开“发现”，点封面上的加号。加号会变成对勾，这个按钮叫“已在书架”。想把书拿下来，就点对勾，再选“移出书架”。在书架里，可以点书旁边的三点菜单。移出后可以马上撤销。",
+  "guide.addBody":
+    "添加图书都在“发现”页，而且要先登录（点上方的人像图标）。登录后打开“发现”，点封面上的加号。加号会变成对勾，这个按钮叫“已在书架”。想把书拿下来，就点对勾，再选“移出书架”。在书架里，可以点书旁边的三点菜单。移出后可以马上撤销。",
   "guide.offlineTitle": "打开网站需要网络",
   "guide.offlineBody":
     "打开这个网站需要网络。已经保存在这台设备上的书，还在这台设备上。登录以后，另一台设备会显示同一张书架卡片，但那台设备还要再拿到书的文件：公版书可以下载，其他书要添加你自己的电子书。登录后，阅读进度和生词本可以同步。",
 
   /* ---- dashboard */
   "dashboard.title": "概况",
-  "dashboard.intro": "这些数字是“发现”里的全部书：老师标出的单词、短语和笔记，还有哪些书是一个系列。",
+  "dashboard.intro":
+    "这些数字是“发现”里的全部书：老师标出的单词、短语和笔记，还有哪些书是一个系列。",
   "dashboard.books": "书",
   "dashboard.words": "标出的单词",
   "dashboard.paragraphs": "段落笔记",
@@ -102,7 +105,8 @@ export const zh: Record<Key, string> = {
   "dashboard.rankTop": "前三名",
   "dashboard.heroWords": "个标出的单词，每一个都在书里配好了释义",
   "dashboard.heroIn": "，分布在 {books} 本书里。",
-  "dashboard.rankMineNone": "读书时遇到解释不清的词，点问号写下你的理解，审核通过后就会署上你的名字。",
+  "dashboard.rankMineNone":
+    "读书时遇到解释不清的词，点问号写下你的理解，审核通过后就会署上你的名字。",
   "dashboard.rankEmpty": "还没有读者的解释被采纳。第一位就可以是你。",
   "dashboard.rankAll": "查看全部 {n} 位贡献者",
   "dashboard.rankLess": "收起",
@@ -133,6 +137,19 @@ export const zh: Record<Key, string> = {
   "shelf.moreAria": "《{title}》的更多操作",
   "shelf.moreAgain": "再点一次",
   "shelf.menuWords": "这本书的生词",
+  "shelf.info": "书籍信息",
+  "shelf.infoLocal": "保存在这台设备上的信息。",
+  "shelf.infoSeriesNumber": "第 {n} 本",
+  "shelf.infoMatch": "已记录的词表匹配率",
+  "shelf.infoMatchNote":
+    "这个已保存的百分比不代表版本已验证。记录为 100% 也可能是因为没有可对照的片段。",
+  "shelf.infoDue": "待复习生词",
+  "shelf.infoFile": "电子书文件",
+  "shelf.infoFileHere": "已在这台设备上",
+  "shelf.infoNotesOnly": "只有生词本，未附电子书",
+  "shelf.infoAvailability": "提供情况",
+  "shelf.infoLanguage": "语言提示",
+  "shelf.lowMatch": "词表匹配较低：{n}%",
   "shelf.menuAddList": "添加词表",
   "shelf.menuEdit": "修改书名",
   "shelf.sampleNotebook": "示例生词本",
@@ -241,13 +258,16 @@ export const zh: Record<Key, string> = {
   "discover.loadingMore": "正在加载更多…",
   "discover.add": "加入书架",
   "discover.signInToAdd": "登录后添加",
+  "discover.ambiguous": "有多个可能对应的书架项目。请先在书架核对，暂不添加或更新。",
+  "discover.missingCatalogIdentity": "不能确定所属目录，请先在书架核对。",
   "discover.remove": "移出书架",
   "discover.workingPct": "正在加入… {pct}%",
   "discover.retry": "重试",
   "discover.openBook": "打开这本书",
   "discover.added": "《{title}》已加入书架。",
   "discover.viewShelf": "去书架",
-  "discover.removeBodyWords": "这本书和你的阅读进度会从这台设备上删除。你从这本书存下的 {words} 会留在生词本里。删除后不能恢复。",
+  "discover.removeBodyWords":
+    "这本书和你的阅读进度会从这台设备上删除。你从这本书存下的 {words} 会留在生词本里。删除后不能恢复。",
   "discover.removed": "《{title}》已移出书架。",
   "discover.undo": "撤销",
   "discover.removeTitle": "要把《{title}》移出书架吗？",
@@ -273,7 +293,10 @@ export const zh: Record<Key, string> = {
   "lists.match": "词表里 {n}% 的原文片段能在你的电子书里找到。",
   "lists.matchWarn": "这看起来像另一个版本。只有 {n}% 的片段能对上，词表可能和你的电子书对不齐。",
   "lists.matchNone": "这份词表没有可对照的原文片段。",
-  "lists.add": "放进书架",
+  "lists.useFile": "仍然使用此文件",
+  "lists.retrySave": "重新保存",
+  "lists.downloading": "正在下载你的电子书…",
+  "lists.saving": "正在保存你的电子书…",
   "lists.working": "正在检查你的电子书…",
   "lists.checkProgress": "正在检查 {done}/{total}…",
   "lists.downloaded": "已下载 {mb} MB",
@@ -307,15 +330,18 @@ export const zh: Record<Key, string> = {
   "settings.title": "设置",
   "settings.desc": "选择语言、主题和默认发音。",
   "settings.pronunciation": "默认发音",
-  "settings.pronunciationHelp": "单词和短语优先尝试所选口音。词卡上的英音、美音按钮仍播放各自标注的口音。",
+  "settings.pronunciationHelp":
+    "单词和短语优先尝试所选口音。词卡上的英音、美音按钮仍播放各自标注的口音。",
   "settings.langTitle": "语言",
   "settings.guide": "怎样做图书包",
 
   /* ---- account */
   "account.manage": "账号",
   "account.title": "账号",
-  "account.desc": "登录后可以添加图书，书架、读到哪里和生词也会同步到其他设备。设备上已有的书，不登录也能读。",
-  "account.signedDesc": "你已经登录。书架、读到哪里、生词和设置会同步到其他设备。书的文件留在每台设备上。",
+  "account.desc":
+    "登录后可以添加图书，书架、读到哪里和生词也会同步到其他设备。设备上已有的书，不登录也能读。",
+  "account.signedDesc":
+    "你已经登录。书架、读到哪里、生词和设置会同步到其他设备。书的文件留在每台设备上。",
   "account.privacyTitle": "隐私说明",
   "account.privacy":
     "账号保存你的邮箱、加过密的密码，还有你自己填的昵称。昵称可以和别人一样。为了同步，还会保存书架、读到哪里、生词和设置。我们不要你的真实姓名、年龄、学校或电话。书的文件留在每台设备上。你可以随时导出或删除账号。",
@@ -334,7 +360,8 @@ export const zh: Record<Key, string> = {
   "account.login": "登录",
   "account.register": "注册",
   "account.logoutTitle": "退出并清空这台设备？",
-  "account.logoutBody": "退出后会清空这台设备上的书架、书籍文件和词表、阅读进度、生词本和设置，防止下一个登录的人看到或合并你的内容。已同步的内容留在云端，重新登录即可恢复；你自己导入的电子书文件不在云端，需要重新添加。",
+  "account.logoutBody":
+    "退出后会清空这台设备上的书架、书籍文件和词表、阅读进度、生词本和设置，防止下一个登录的人看到或合并你的内容。已同步的内容留在云端，重新登录即可恢复；你自己导入的电子书文件不在云端，需要重新添加。",
   "account.logoutConfirm": "退出并清空",
   "account.logout": "退出登录",
   "account.signedIn": "已登录：{email}",
@@ -404,7 +431,8 @@ export const zh: Record<Key, string> = {
   "account.codeTitle": "验证邮箱",
   "account.avatarChange": "更换头像",
   "account.avatarRemove": "移除",
-  "account.avatarHint": "头像会显示在你被采纳的释义旁边和贡献榜上，请勿上传他人照片或不当图片。每天只能更换一次。",
+  "account.avatarHint":
+    "头像会显示在你被采纳的释义旁边和贡献榜上，请勿上传他人照片或不当图片。每天只能更换一次。",
   "account.err.avatarType": "这张图片读不出来，请换一张 JPG、PNG 或 WebP 图片。",
   "account.err.avatarSize": "图片太大，请换一张。",
   "account.err.avatarDaily": "头像每天只能更换一次，请明天再试。",
@@ -744,16 +772,19 @@ export const zh: Record<Key, string> = {
   "nb.inBooks.one": "来自 {n} 本书",
   "nb.inBooks.other": "来自 {n} 本书",
   "reader.trickyHint": "词下面的波浪线：这个词你可能认识，但在这里是别的意思。点一点看看。",
-  "about.intro": "Margin Words 是一个英文小说阅读器。你读真正的原版书，点一个词，就能用简单的英文看到它的意思。",
+  "about.intro":
+    "Margin Words 是一个英文小说阅读器。你读真正的原版书，点一个词，就能用简单的英文看到它的意思。",
   "about.tapTitle": "点一个词",
-  "about.tapBody": "点有下划线的词，会打开一张卡片：用简单的英文写的意思、词性，还有这个词为什么难。书不会被翻译，你是在用英文学英文。",
+  "about.tapBody":
+    "点有下划线的词，会打开一张卡片：用简单的英文写的意思、词性，还有这个词为什么难。书不会被翻译，你是在用英文学英文。",
   "about.marksTitle": "文字里的标记",
   "about.markHard": "词下面的直线：一个难词。点一点看看。",
   "about.markPhrase": "词下面的点线：这个词属于一个短语。点一点看看。",
   "about.markTricky": "词下面的波浪线：这个词你可能认识，但在这里是别的意思。点一点看看。",
   "about.markBulb": "段落旁边的灯泡：这一段有一条说明，帮你读懂整段。",
   "about.listsTitle": "老师做的词表",
-  "about.listsBody": "每本书都有一份老师写的词表。老师挑出难词和短语，用简单的英文写出意思，并给难懂的段落写说明。你读书时，没有电脑在现场编造内容。",
+  "about.listsBody":
+    "每本书都有一份老师写的词表。老师挑出难词和短语，用简单的英文写出意思，并给难懂的段落写说明。你读书时，没有电脑在现场编造内容。",
   "about.booksTitle": "公有领域的书和你自己的书",
   "about.booksBody":
     "已进入公有领域的书（例如《爱丽丝梦游仙境》）放在我们的图书服务器上，在“发现”里点一下就能添加。仍有版权的书不在我们的服务器上，我们只提供词表和 ISBN。你需要自己合法获得这本书的 EPUB 文件，并在自己的设备上添加。词表改进后，在那本书上点“更新”。新词表不会自己换上。",
@@ -802,7 +833,8 @@ export const zh: Record<Key, string> = {
   "thanks.needNickname": "请先在账号里填写昵称。名单上用的就是这个名字。",
   "thanks.setNickname": "填写昵称",
   "thanks.submit": "我已转账，登记鸣谢",
-  "thanks.sentBody": "已登记。请把交易哈希（tx）和转账截图发到 {email}。核对后会把你的昵称加到名单上。",
+  "thanks.sentBody":
+    "已登记。请把交易哈希（tx）和转账截图发到 {email}。核对后会把你的昵称加到名单上。",
   "thanks.needSignIn": "转账后，请先登录再登记鸣谢。不登录也可以转账。",
   "thanks.signIn": "登录",
   "thanks.pending": "已登记。我们在等你的邮件：交易哈希（tx）和转账截图。",
@@ -827,7 +859,8 @@ export const zh: Record<Key, string> = {
   "thanks.wallet.qrSolana": "Solana 收款地址二维码",
   "thanks.wallet.copy": "复制地址",
   "thanks.wallet.copied": "已复制",
-  "thanks.wallet.warning": "转账前请核对地址的开头和结尾。三种网络的地址不能混用：EVM、Solana、Tron 的资产只能转到各自的地址，转错网络的资产无法找回。",
+  "thanks.wallet.warning":
+    "转账前请核对地址的开头和结尾。三种网络的地址不能混用：EVM、Solana、Tron 的资产只能转到各自的地址，转错网络的资产无法找回。",
   "thanks.err.rate": "提交太频繁。过一会儿再试。",
   "admin.title": "赞助申请",
   "admin.only": "这个页面只有管理员能看。",
@@ -862,7 +895,8 @@ export const zh: Record<Key, string> = {
   "admin.qq.bad": "群号是 5 到 12 位数字。",
   "admin.qq.duplicate": "这个群号已经在列表里。",
   "admin.tab.blurbs": "简介",
-  "admin.blurb.hint": "每本书的故事简介，显示在“发现”页的详情弹窗里。中文界面显示中文简介，英文界面显示英文简介；某种语言留空，就不显示简介。保存后直接写入书籍站点，不需要重新部署网站。",
+  "admin.blurb.hint":
+    "每本书的故事简介，显示在“发现”页的详情弹窗里。中文界面显示中文简介，英文界面显示英文简介；某种语言留空，就不显示简介。保存后直接写入书籍站点，不需要重新部署网站。",
   "admin.blurb.search": "搜书名、作者或 id",
   "admin.blurb.zh": "中文简介",
   "admin.blurb.en": "英文简介（简单英语）",
@@ -875,10 +909,12 @@ export const zh: Record<Key, string> = {
   "admin.blurb.err.enChinese": "英文简介里有中文。",
   "admin.blurb.err.tooLong": "简介超过了长度上限。",
   "admin.blurb.err.markup": "简介只能是纯文本，不能有 HTML 或 Markdown 符号。",
-  "admin.series.hint": "每个分区（小说、演讲……）各有自己的系列列，只显示在发现页的那个分区里。保存一份名单后，就由你决定显示哪些列，也可以把你挑的书放进一列。",
+  "admin.series.hint":
+    "每个分区（小说、演讲……）各有自己的系列列，只显示在发现页的那个分区里。保存一份名单后，就由你决定显示哪些列，也可以把你挑的书放进一列。",
   "admin.series.unsaved": "还没有保存。发现页仍按书上的系列，自动显示最大的三列。",
   "admin.series.empty": "现在没有系列列。保存之后，发现页不再自动加系列横条。",
-  "admin.series.emptyTab": "这个分区还没有系列列。可以用下面的两种方式手动建立：选一个书上已有的系列，或者自己挑书新建一列。",
+  "admin.series.emptyTab":
+    "这个分区还没有系列列。可以用下面的两种方式手动建立：选一个书上已有的系列，或者自己挑书新建一列。",
   "admin.series.addSeries": "加入书上已有的系列",
   "admin.series.addCustom": "新建一列，自己选书",
   "admin.series.name": "这一列的名字",
@@ -898,18 +934,22 @@ export const zh: Record<Key, string> = {
   "admin.series.error": "没有保存成功。过一会儿再试。",
   "admin.series.books": "{n} 本",
   "admin.series.kindSeries": "按书上的系列名",
-  "admin.books.hint": "词表文件名决定书目 id（a-book.glossary.json）。词表发布到发现页；EPUB 按类型进对应书库。ISBN 先读 EPUB 元数据，再读词表，也可手动填写或留空。",
+  "admin.books.hint":
+    "词表文件名决定书目 id（a-book.glossary.json）。词表发布到发现页；EPUB 按类型进对应书库。ISBN 先读 EPUB 元数据，再读词表，也可手动填写或留空。",
   "admin.books.kind": "书籍类型",
   "admin.books.category": "内容分类",
-  "admin.books.categoryHint": "决定书出现在发现页的哪个标签，以及计入哪一类每周名额（小说、演讲各 7 本）。",
-  "admin.books.categoryLive": "已按网站上这本书现在的分类选好。改了会同时改发现页标签和每周名额的归类。",
+  "admin.books.categoryHint":
+    "决定书出现在发现页的哪个标签，以及计入哪一类每周名额（小说、演讲各 7 本）。",
+  "admin.books.categoryLive":
+    "已按网站上这本书现在的分类选好。改了会同时改发现页标签和每周名额的归类。",
   "admin.books.categoryFile": "已按词表文件里的 category 选好，可以修改。",
   "admin.books.private": "版权书（进私有书库，trusted 读者可读）",
   "admin.books.public": "公版书（公共书库）",
   "admin.books.epub": "EPUB 文件",
   "admin.books.series": "系列（可留空）",
   "admin.books.seriesNumber": "第几本",
-  "admin.books.seriesHint": "同一系列的书在发现页会排成一行。小说和演讲都可以有系列，例如演讲填 TED。已上架的书会自动带出现在的系列；清空就是取消系列。",
+  "admin.books.seriesHint":
+    "同一系列的书在发现页会排成一行。小说和演讲都可以有系列，例如演讲填 TED。已上架的书会自动带出现在的系列；清空就是取消系列。",
   "admin.books.isbn": "ISBN（自动识别，可修改，可留空）",
   "admin.books.coverPick": "选择封面（点选一张图片）",
   "admin.books.noCover": "不用封面",
@@ -920,9 +960,15 @@ export const zh: Record<Key, string> = {
   "admin.books.publish": "上传书籍",
   "admin.books.wordsDone": "词表已发布。",
   "admin.books.bookDone": "书籍文件已上传。",
+  "admin.books.budgetUnconfirmed":
+    "公版书籍发布已暂停，需先确认服务器 CPU 预算。未发布任何文件。请联系网站维护者。",
+  "admin.books.partial": "词表已发布，但书籍上传未完成。请先核对当前文件，再重试。",
+  "admin.books.catalogFailed": "无法读取所选目录。请重试，读取成功后再上传。",
+  "admin.books.catalogBusy": "有其他上传正在使用这个目录。请稍候再试。",
   "admin.books.noEpub": "请选择 EPUB 文件。",
-  "admin.books.publicNew": "公版目录里还没有这个 id，新书仍需本地构建上架。",
-  "admin.lists.hint": "每一行可以标成制作中，也可以直接把新词典传到这本书。下面的文件框仍会自动对上已经上架的书。对不上时，你自己选一本书。线上还没有的书，可以当作新词表发布。",
+  "admin.books.publicNew": "这个 ID 还不在公版目录中。请停止上传并报告新增公版书籍流程缺口。",
+  "admin.lists.hint":
+    "每一行可以标成制作中，也可以直接把新词典传到这本书。下面的文件框仍会自动对上已经上架的书。对不上时，你自己选一本书。线上还没有的书，可以当作新词表发布。",
   "admin.lists.file": "词表 JSON 文件",
   "admin.lists.book": "这本书",
   "admin.lists.chooseBook": "选择一本书",
@@ -947,7 +993,8 @@ export const zh: Record<Key, string> = {
   "admin.lists.newWordList": "作为新词表发布（{id}）",
   "admin.lists.wordLists": "词表书",
   "admin.lists.publicBooks": "公版书",
-  "admin.lists.preview": "{words} 个词，{paragraphs} 条段落笔记，{sentences} 条句子笔记，{phrases} 条短语",
+  "admin.lists.preview":
+    "{words} 个词，{paragraphs} 条段落笔记，{sentences} 条句子笔记，{phrases} 条短语",
   "admin.lists.batch": "发布 {n} 个文件",
   "admin.lists.batchDone": "成功 {ok} 个，失败 {failed} 个。",
   "admin.lists.newBook": "新书",
@@ -955,7 +1002,8 @@ export const zh: Record<Key, string> = {
   "admin.lists.needsTitle": "线上还没有这本书，文件里也没有标题，无法上架。",
   "admin.lists.duplicateTitle": "已有同名书（{id}）。请选那本书，不要当成新词表。",
   "admin.lists.duplicate": "已有同名书。请选那本书。",
-  "admin.lists.differentBook": "这份词表和这个编号上的不是同一本书。请把词表文件改成新的编号后再上传。",
+  "admin.lists.differentBook":
+    "这份词表和这个编号上的不是同一本书。请把词表文件改成新的编号后再上传。",
   "admin.lists.publish": "发布",
   "admin.lists.published": "已发布，发现页立即生效。",
   "admin.lists.badGlossary": "这个文件不是词表 JSON。",
@@ -993,7 +1041,8 @@ export const zh: Record<Key, string> = {
   "admin.users.registeredCount": "{n} 位用户",
   "admin.tab.taps": "高频缺词",
   "admin.taps.title": "生词点击与遗漏统计",
-  "admin.taps.desc": "收集读者在阅读时主动点击的高频词汇，智能定位预制词表中遗漏的难词，供后续 Agent 自动化补充。",
+  "admin.taps.desc":
+    "收集读者在阅读时主动点击的高频词汇，智能定位预制词表中遗漏的难词，供后续 Agent 自动化补充。",
   "admin.taps.missingWords": "遗漏难词数",
   "admin.taps.totalWords": "已追踪词数",
   "admin.taps.totalTaps": "累计点击次数",
@@ -1036,7 +1085,8 @@ export const zh: Record<Key, string> = {
   "card.feedbackSend": "提交",
   "card.feedbackThanks": "感谢反馈，我们将针对性优化！",
   "admin.feedback.title": "释义问题反馈统计",
-  "admin.feedback.desc": "汇总读者在阅读时上报的释义太难或解释错误词条，方便后续 Agent 靶向优化与纠偏。",
+  "admin.feedback.desc":
+    "汇总读者在阅读时上报的释义太难或解释错误词条，方便后续 Agent 靶向优化与纠偏。",
   "admin.feedback.totalReports": "累计反馈次数",
   "admin.feedback.tooHardCount": "解释太难反馈",
   "admin.feedback.wrongMeaningCount": "解释错误反馈",
@@ -1060,7 +1110,10 @@ export const zh: Record<Key, string> = {
   "admin.status.pending": "待处理",
   "admin.status.resolved": "已解决",
   "admin.status.reopened": "再次异常",
-  "err.glossaryWeekSpeech": "普通读者每 7 天最多新开 7 篇演讲的词表。书架上已有的演讲可以重新下载。受信任的读者不受此限制。",
-  "err.glossaryWeek": "普通读者每 7 天最多新开 7 本小说的词表。书架上已有的书可以重新下载。受信任的读者不受此限制。",
-  "err.emailUnverified": "请先验证邮箱，再打开书的词表。验证码已发到你的注册邮箱，可以在账号里输入。",
+  "err.glossaryWeekSpeech":
+    "普通读者每 7 天最多新开 7 篇演讲的词表。书架上已有的演讲可以重新下载。受信任的读者不受此限制。",
+  "err.glossaryWeek":
+    "普通读者每 7 天最多新开 7 本小说的词表。书架上已有的书可以重新下载。受信任的读者不受此限制。",
+  "err.emailUnverified":
+    "请先验证邮箱，再打开书的词表。验证码已发到你的注册邮箱，可以在账号里输入。",
 };

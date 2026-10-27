@@ -9,8 +9,8 @@
  *   npm run build:local && npx vite preview --host 127.0.0.1 --port 8090
  * Preview serves ./public-books and ./word-lists from the repo. They are not inside dist/.
  * Runs in English and Chinese, at 1280px and 390px. Checks:
- *   - FIRST OPEN: the shelf is empty, with one button to Discover. Alice is added from Discover, with a cover, a Lexile measure and the
- *     "Public domain" label; it opens and a word can be looked up
+ *   - FIRST OPEN: the shelf is empty, with one button to Discover. Alice is added from Discover, with a cover and saved Lexile/public-domain facts in Book info;
+ *     it opens and a word can be looked up
  *   - DISCOVER: lists all 12 classics and the 10 word lists (covers, Lexile). Alice's button says "On shelf".
  *     "Add to shelf" adds Peter and Wendy and Looking-Glass; they open from the cover, and a normal reload still opens them
  *   - deleting Alice keeps it deleted after a reload (the "removed" flag); the shelf can be emptied
@@ -82,7 +82,26 @@ async function putAliceOnShelf(page, t) {
   if ((await add.getAttribute("data-shelf-state")) !== "on") await add.click();
   await page.locator('[data-pack="alice"] [data-shelf-state="on"]').waitFor({ timeout: 90000 });
   await page.getByRole("button", { name: t("nav.shelf"), exact: true }).first().click();
-  await page.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
+  await page.locator("li.book-card").first().waitFor({ timeout: 90000 });
+}
+
+/** Shelf facts live in Book info; phone corner menus still require two taps. */
+async function openShelfInfo(page, card, mobile) {
+  const trigger = card.locator("[data-shelf-more]");
+  await trigger.scrollIntoViewIfNeeded();
+  if (mobile) {
+    await trigger.tap();
+    await trigger.tap();
+  } else await trigger.click();
+  await page.locator("[data-shelf-info-menu]").click();
+  const dialog = page.locator("[data-shelf-book-info]");
+  await dialog.waitFor();
+  return dialog;
+}
+
+async function closeShelfInfo(page, dialog) {
+  await page.keyboard.press("Escape");
+  await dialog.waitFor({ state: "hidden" });
 }
 
 /* ---- fixtures: built in memory from the sample book and the Alice word list */
@@ -231,8 +250,8 @@ async function run(lang, size) {
   await page.locator("[data-discover]").waitFor({ timeout: 30000 });
   await putAliceOnShelf(page, t);
   ok(
-    (await page.locator("ul li [data-classic-label]").count()) === 1,
-    `${label}: Alice, added with one tap, shows with the "${t("shelf.classic")}" label`,
+    (await page.locator("li.book-card [data-classic-label], li.book-card [data-lexile]").count()) === 0,
+    `${label}: Alice keeps routine public-domain and Lexile facts off its shelf card`,
   );
   ok(
     (await page.getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") }).count()) >= 1,
@@ -244,14 +263,16 @@ async function run(lang, size) {
   );
   ok((await page.locator("ul li").count()) === 1, `${label}: exactly one book after adding Alice`);
   ok((await page.locator("ul li img").count()) >= 1, `${label}: Alice shows a cover picture`);
+  const aliceInfo = await openShelfInfo(page, page.locator("li.book-card").first(), mobile);
   ok(
-    (await page.getByText(t("shelf.classic"), { exact: true }).count()) === 1,
-    `${label}: "${t("shelf.classic")}" label text on Alice's card`,
+    (await aliceInfo.locator("[data-info-public-domain] dd").innerText()) === t("shelf.classic"),
+    `${label}: Alice's Book info shows "${t("shelf.classic")}"`,
   );
   ok(
-    (await page.locator('[data-lexile="880L"]').count()) >= 1,
-    `${label}: Alice's card shows its Lexile measure`,
+    (await aliceInfo.locator("[data-info-lexile] dd").innerText()) === "880L",
+    `${label}: Alice's Book info shows its Lexile measure`,
   );
+  await closeShelfInfo(page, aliceInfo);
   ok(
     (await page.getAttribute("html", "lang")) === (lang === "zh" ? "zh-CN" : "en"),
     `${label}: page language follows the browser`,
@@ -428,7 +449,7 @@ async function run(lang, size) {
   await toShelf(page);
   await page.locator("[data-needs-epub]").waitFor({ timeout: 15000 });
   ok(true, `${label}: the word list is on the shelf as needing an e-book`);
-  // The matching EPUB attaches to that card. It must not add a second one.
+  // This sample EPUB is not Charlie: only explicit low/no-comparison confirmation may attach it.
   await page.locator("ul li").first().locator("button").first().click();
   await page.getByRole("heading", { name: t("discover.promptTitle") }).waitFor({ timeout: 20000 });
   await page.locator("[data-own-epub]:not([disabled])").waitFor({ timeout: 20000 });
@@ -437,7 +458,7 @@ async function run(lang, size) {
     mimeType: "application/epub+zip",
     buffer: SAMPLE_EPUB,
   });
-  await page.getByRole("button", { name: t("lists.add") }).click({ timeout: 120000 });
+  await page.locator("[data-own-epub-confirm]").click({ timeout: 120000 });
   await page.getByRole("heading", { name: t("discover.promptTitle") }).waitFor({ state: "hidden", timeout: 120000 });
   await page.locator("article.book-body").waitFor({ timeout: 120000 });
   await toShelf(page);
@@ -693,7 +714,7 @@ async function run(lang, size) {
     await fp.goto(BASE);
     await fp.locator("[data-empty-discover]").waitFor({ timeout: 60000 });
     await putAliceOnShelf(fp, t);
-    await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
+    await fp.locator("li.book-card").first().waitFor({ timeout: 90000 });
     ok((await fp.locator("ul li").count()) === 1, `${label}: a new shelf has Alice (added with one tap)`);
     await fp.evaluate(() => navigator.serviceWorker.ready);
     const cachedBook = await fp.evaluate(async () => {
@@ -706,7 +727,7 @@ async function run(lang, size) {
       `${label}: the service worker did not cache Alice`,
     );
     await fp.reload();
-    await fp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 30000 });
+    await fp.locator("li.book-card").first().waitFor({ timeout: 30000 });
     await fp.getByRole("button", { name: labelRe(t("shelf.openAria"), "Alice") }).first().click();
     await fp.waitForSelector("[role=button][data-word].book-hard", { timeout: 30000 });
     await fp.locator("[role=button][data-word].book-hard").first().click();
@@ -746,7 +767,7 @@ async function run(lang, size) {
     await vp.locator("[data-empty-discover]").waitFor({ timeout: 60000 });
     ok((await vp.locator("ul li").count()) === 0, `${label}: first run installs nothing`);
     await putAliceOnShelf(vp, t);
-    await vp.locator("ul li [data-classic-label]").first().waitFor({ timeout: 90000 });
+    await vp.locator("li.book-card").first().waitFor({ timeout: 90000 });
     await vp.waitForTimeout(1500);
     ok((await vp.locator("ul li").count()) === 1, `${label}: the one-tap suggestion adds only Alice`);
     await vp.evaluate(() => navigator.serviceWorker.ready);
@@ -915,9 +936,17 @@ async function run(lang, size) {
     ok((await vp.locator("[data-series-stack]").count()) === 0, `${label}: books of one series stay separate cards`);
     ok((await vp.locator("li.book-card").count()) === 3, `${label}: shelf has Alice plus the two books that were added`);
     ok(
-      (await vp.locator("ul li [data-classic-label]").count()) === 3,
-      `${label}: the added classics carry the "${t("shelf.classic")}" label`,
+      (await vp.locator("li.book-card [data-classic-label], li.book-card [data-lexile]").count()) === 0,
+      `${label}: added classics keep routine facts out of their shelf cards`,
     );
+    for (let i = 0; i < 3; i += 1) {
+      const bookInfo = await openShelfInfo(vp, vp.locator("li.book-card").nth(i), mobile);
+      ok(
+        (await bookInfo.locator("[data-info-public-domain] dd").innerText()) === t("shelf.classic"),
+        `${label}: added classic ${i + 1} shows public-domain availability in Book info`,
+      );
+      await closeShelfInfo(vp, bookInfo);
+    }
     ok(
       (await vp.locator("ul li .cover-progress [role=progressbar]").count()) === 3,
       `${label}: reading progress sits on the cover`,

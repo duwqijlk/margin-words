@@ -1,3 +1,4 @@
+import { invalidateTarget, queueBookMutation } from "@/lib/book-mutation";
 /** One meaning of a word at certain places in the book (word list format version 2). */
 export type GlossSense = {
   pos?: string;
@@ -421,7 +422,12 @@ export async function loadBookMeta(id: string): Promise<BookMeta | null> {
   return meta;
 }
 
-export async function deleteStoredBook(id: string): Promise<void> {
+export function deleteStoredBook(id: string): Promise<void> {
+  invalidateTarget(id);
+  return queueBookMutation(id, () => deleteStoredBookNow(id));
+}
+
+async function deleteStoredBookNow(id: string): Promise<void> {
   const db = await openDb();
   const tx = db.transaction([STORE, COVERS, NOTES], "readwrite");
   const done = finish(tx, db);

@@ -1,3 +1,4 @@
+import { invalidateTarget } from "@/lib/book-mutation";
 /**
  * Taking a book off the shelf (Discover menu, or the book menu on the shelf).
  * A book the reader has not started leaves at once and can be undone for a few seconds.
@@ -66,6 +67,10 @@ export async function finishPendingRemoval(): Promise<void> {
 const timers = new Map<string, ReturnType<typeof setTimeout>>();
 
 export async function forgetBook(bookId: string): Promise<void> {
+  invalidateTarget(bookId);
+  // Visible removal is immediate; storage cleanup follows any active writer.
+  useProgress.getState().remove(bookId);
+  useVocab.getState().deleteBook(bookId);
   const timer = timers.get(bookId);
   if (timer) clearTimeout(timer);
   timers.delete(bookId);
@@ -75,18 +80,18 @@ export async function forgetBook(bookId: string): Promise<void> {
   } catch {
     // Nothing to clear.
   }
+  const removed = markPackRemoved(bookId);
+  const deletion = deleteStoredBook(bookId);
   try {
-    await markPackRemoved(bookId);
+    await removed;
   } catch {
     // The book still has to leave, even if the "do not reinstall" flag could not be saved.
   }
   try {
-    await deleteStoredBook(bookId);
+    await deletion;
   } catch {
     // Already gone.
   }
-  useProgress.getState().remove(bookId);
-  useVocab.getState().deleteBook(bookId);
 }
 
 function commit(bookId: string) {
@@ -120,6 +125,7 @@ export const useShelfRemove = create<RemoveState>()((set, get) => ({
       set({ confirm: { book, words } });
       return;
     }
+    invalidateTarget(book.id);
     get().dismissNotice();
     const previous = get().pending;
     if (previous) commit(previous.bookId);

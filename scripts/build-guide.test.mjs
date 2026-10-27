@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { EventEmitter } from "node:events";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 import JSZip from "jszip";
 import { buildGuide, checkDocumentLinks, HOSTED_DOCS } from "./build-guide.mjs";
 import { KIT_NAME } from "./build-kit.mjs";
+import { guideFolder } from "./vite-plugins.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -59,4 +61,54 @@ test("the authoring ZIP stays separate from maintenance instructions", async () 
   ]);
   const page = files.get("kit/index.html");
   assert.equal((page.match(/data-download/g) ?? []).length, 2);
+});
+
+test("guide generation has no shared mutable result between calls", async () => {
+  const first = await buildGuide();
+  first.set("kit/patrol.md", Buffer.from("stale caller copy"));
+  const second = await buildGuide();
+  assert.notEqual(first, second);
+  assert.deepEqual(second.get("kit/patrol.md"), readFileSync(join(ROOT, "docs/GLOSSARY_PATROL.md")));
+});
+
+test("dev guide cache follows source changes while preview never overrides dist", async () => {
+  const watcher = new EventEmitter();
+  const httpServer = new EventEmitter();
+  const watched = [];
+  watcher.add = (paths) => watched.push(...paths);
+  let middleware;
+  let builds = 0;
+  let text = "first";
+  const plugin = guideFolder({ build: async () => {
+    builds++;
+    return new Map([["kit/patrol.md", Buffer.from(text)]]);
+  } });
+  plugin.configureServer({ config: { root: ROOT }, watcher, httpServer,
+    middlewares: { use: (handler) => { middleware = handler; } } });
+  assert.equal(plugin.configurePreviewServer, undefined, "preview must serve built files, not current docs");
+  assert.deepEqual(watched, [join(ROOT, "docs"), join(ROOT, "examples/sample-book")]);
+  const request = async () => {
+    let body;
+    await middleware({ url: "/kit/patrol.md" }, { setHeader() {}, end: (value) => { body = value; } }, () => assert.fail("missing guide"));
+    return String(body);
+  };
+  assert.equal(await request(), "first");
+  assert.equal(await request(), "first");
+  assert.equal(builds, 1);
+  text = "changed";
+  watcher.emit("change", join(ROOT, "src/unrelated.ts"));
+  assert.equal(await request(), "first");
+  for (const [event, file] of [["change", "docs/GLOSSARY_PATROL.md"], ["add", "docs/new.md"],
+    ["unlink", "docs/old.md"], ["change", "examples/sample-book/glossary.json"]]) {
+    text = `${event}:${file}`;
+    watcher.emit(event, join(ROOT, file));
+    assert.equal(await request(), text);
+  }
+  assert.equal(builds, 5);
+  const emitted = [];
+  text = "fresh build";
+  await plugin.generateBundle.call({ emitFile: (asset) => emitted.push(asset) });
+  assert.equal(String(emitted[0].source), "fresh build", "build must not reuse the dev cache");
+  httpServer.emit("close");
+  assert.equal(watcher.listenerCount("change"), 0);
 });

@@ -1,5 +1,6 @@
 import { requireAdmin } from "../../lib/admin.ts";
-import { previousGlossaryUpdated } from "../../lib/glossary-version.ts";
+import { applyIsbn, assertPublicPublishBudget, checkPublicGlossary, fileRef, updatePublicRow } from "../../lib/public-book-publish.ts";
+import { clearGlossaryWork } from "../../lib/glossary-work-file.ts";
 import { replacesSameBook } from "../../lib/book-title.ts";
 import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
 import type { Env } from "../../lib/db.ts";
@@ -73,7 +74,7 @@ async function putCardCoverLocked(env: Env, id: string, coverBytes: Uint8Array):
   };
   const row = (live.lists ?? []).find((item) => item && item.id === id);
   if (!row) throw new HttpError(409, "cover-not-saved");
-  row.cover = await putPublicCover(env, "lists", id, coverBytes);
+  row.cover = { ...fileRef(row.cover), ...await putPublicCover(env, "lists", id, coverBytes) };
   await env.BOOKS.put("word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
 }
 
@@ -87,9 +88,7 @@ async function putCardCoverLocked(env: Env, id: string, coverBytes: Uint8Array):
  * `<id>/book.epub`, where only trusted accounts can stream it.
  * kind=public puts `public-books/<id>/book.epub`, `glossary.json`, and the cover
  * into the BOOKS bucket and updates that book's row in public-books/catalog.json
- * in place. A brand-new public book still needs the local build, because its
- * catalog row carries fields (rev, version, chapters, coined) that come from the
- * offline pipeline.
+ * in place, including revisions and counts. Only existing public ids are supported.
  */
 export const onRequestPost = (context: { request: Request; env: Env }) => handleUpload(context.request, context.env);
 
@@ -100,6 +99,7 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     const id = url.searchParams.get("id") ?? "";
     if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(id)) throw new HttpError(400, "bad-id");
     const kind = url.searchParams.get("kind") === "public" ? "public" : "private";
+    if (kind === "public") assertPublicPublishBudget(env);
 
     const form = await request.formData();
     const epub = form.get("epub");
@@ -136,36 +136,47 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     if (!(glossary instanceof File) || glossary.size === 0) throw new HttpError(400, "no-glossary");
     if (glossary.size > GLOSSARY_MAX) throw new HttpError(413, "too-large");
     const glossaryBytes = new Uint8Array(await glossary.arrayBuffer());
+    let glossaryData: unknown;
+    try { glossaryData = JSON.parse(new TextDecoder().decode(glossaryBytes)); }
+    catch { throw new HttpError(400, "bad-json"); }
+    const counts = checkPublicGlossary(glossaryData);
     const glossarySha = await sha256HexBytes(glossaryBytes);
 
     return await withCatalogLock(env.DB, "public-books/catalog.json", async () => {
     const catalogObject = await bucket.get("public-books/catalog.json");
     if (!catalogObject) throw new HttpError(500, "no-catalog");
     const live = JSON.parse(new TextDecoder().decode(await catalogObject.arrayBuffer())) as {
-      packs?: { id: string; epub?: unknown; glossary?: unknown; cover?: unknown; updated?: string; previousUpdated?: string }[];
+      packs?: (Record<string, unknown> & { id: string })[];
+      updated?: unknown;
     };
     const row = (live.packs ?? []).find((item) => item && item.id === id);
     if (!row) throw new HttpError(404, "unknown-id");
 
-    row.epub = { url: `${id}/book.epub`, bytes: epubBytes.length, sha256: epubSha };
-    const previous = previousGlossaryUpdated(row, glossarySha);
-    if (previous) row.previousUpdated = previous;
-    row.glossary = { url: `${id}/glossary.json`, bytes: glossaryBytes.length, sha256: glossarySha, rev: glossarySha.slice(0, 12) };
-    if (coverBytes) row.cover = await putPublicCover(env, "public", id, coverBytes);
-    row.updated = new Date().toISOString();
+    await updatePublicRow(row, glossaryData, { ...counts, bytes: glossaryBytes.length, sha256: glossarySha }, { bytes: epubBytes.length, sha256: epubSha });
+    if (coverBytes) row.cover = {
+      ...fileRef(row.cover),
+      url: `${BOOKS_HOST}/covers/public-${id}.jpg`, bytes: coverBytes.length, sha256: coverSha,
+    };
+    applyIsbn(row, url.searchParams);
     applyCategory(row, url.searchParams.get("category"));
     applySeries(row, url.searchParams);
-    // The EPUB and glossary first, the catalog last; a failed catalog write puts the old files back.
+    live.updated = row.updated;
+    // Content (including the chosen cover) first, catalog last; restoration is best effort.
     await publishWithCatalog(
       bucket,
       [
         { key: epubKey, bytes: epubBytes },
         { key: `public-books/${id}/glossary.json`, bytes: glossaryBytes },
+        ...(coverBytes ? [{ key: `covers/public-${id}.jpg`, bytes: coverBytes, options: {
+          httpMetadata: { contentType: "image/jpeg", cacheControl: "public, max-age=31536000, immutable" },
+        } }] : []),
       ],
       "public-books/catalog.json",
       new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`),
     );
+    await clearGlossaryWork(bucket, "public", id);
     return json({
+      row, rev: row.rev,
       kind,
       epub: { bytes: epubBytes.length, sha256: epubSha },
       glossary: { bytes: glossaryBytes.length, sha256: glossarySha },

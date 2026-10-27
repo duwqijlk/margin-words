@@ -4,6 +4,7 @@ import {
   BookOpen,
   BookPlus,
   FileJson,
+  Info,
   MoreVertical,
   Pencil,
   RotateCw,
@@ -31,6 +32,7 @@ import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import { SHELF_MENU_ARM_MS, shelfPressDown, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
 import { BookCover, type useCovers } from "@/components/book-cover";
+import { ShelfBookInfo } from "@/components/shelf-book-info";
 import { useSpeechBookIds } from "@/lib/speech-books";
 import { navigate } from "@/lib/router";
 import { BookTag, BookTags, OldFashionedTag } from "@/components/cover-marks";
@@ -38,7 +40,6 @@ import { btn, cn, field, ProgressBar } from "@/components/ui";
 import { compareLexile } from "@/lib/lexile";
 import { compareSeriesPlace } from "@/lib/discover-rails";
 import {
-  BookMetaLines,
   DifficultyControls,
   LexileBadge,
   matchesBand,
@@ -377,8 +378,8 @@ function BookCard({
   row: Row;
   cover?: string;
   classic: boolean;
-  /** false when the shelf card is here but the book file is not */
-  fileHere: boolean;
+  /** null until local file presence has been read; false when only the shelf card is here */
+  fileHere: boolean | null;
   offer: ListOffer | null;
   updating: boolean;
   onOpen: () => void;
@@ -394,6 +395,9 @@ function BookCard({
   const { book } = row;
   const hintId = useId();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
+  const infoPending = useRef(false);
+  const menuTrigger = useRef<HTMLButtonElement>(null);
   const [armed, setArmed] = useState(false);
   const press = useRef({
     arm: "idle" as "idle" | "wait" | "armed" | "scroll",
@@ -445,6 +449,7 @@ function BookCard({
           </button>
           <Menu.Root open={menuOpen} onOpenChange={setMenuOpen}>
             <Menu.Trigger
+              ref={menuTrigger}
               className={cn(
                 "relative inline-flex min-h-10 min-w-7 w-7 shrink-0 touch-manipulation items-center justify-center rounded-lg text-muted/75 select-none hover:bg-accent-soft hover:text-ink -mr-1 sm:w-8 sm:-mr-2 [-webkit-touch-callout:none]",
                 armed && "bg-accent-soft text-ink",
@@ -524,6 +529,13 @@ function BookCard({
             </Menu.Trigger>
             <Menu.Portal>
               <Menu.Content
+                onCloseAutoFocus={(event) => {
+                  if (!infoPending.current) return;
+                  // Let the menu unmount before the dialog takes focus (and the pointer lock).
+                  event.preventDefault();
+                  infoPending.current = false;
+                  setInfoOpen(true);
+                }}
                 align="end"
                 sideOffset={4}
                 className="anim-pop z-50 min-w-44 rounded-xl border border-line bg-card p-1.5 text-ink shadow-pop glass"
@@ -539,9 +551,22 @@ function BookCard({
                     {updating ? t("lists.updating") : t("pack.update")}
                   </Menu.Item>
                 ) : null}
+                <Menu.Item
+                  className={menuItem}
+                  onSelect={() => { infoPending.current = true; }}
+                  data-shelf-info-menu=""
+                >
+                  <Info className="size-4" aria-hidden />
+                  {t("shelf.info")}
+                </Menu.Item>
                 <Menu.Item className={menuItem} onSelect={onNotebook}>
                   <BookPlus className="size-4" aria-hidden />
                   {t("shelf.menuWords")}
+                  {row.due > 0 ? (
+                    <span className="ml-auto text-xs font-medium text-accent tabular-nums" data-shelf-menu-due="">
+                      {t("shelf.due", { n: row.due })}
+                    </span>
+                  ) : null}
                 </Menu.Item>
                 {book.source === "epub" ? (
                   <Menu.Item className={menuItem} onSelect={onAddList}>
@@ -564,7 +589,7 @@ function BookCard({
                         source: book.source,
                         needsEpub: book.needsEpub,
                         classic,
-                        savedWords: 0,
+                        savedWords: row.words,
                         progress: row.progress ?? null,
                       }),
                       row.words,
@@ -581,18 +606,19 @@ function BookCard({
         <p className={cardAuthorClass} lang="en">
           {book.author}
         </p>
-        {/* Facts about the book go here, not on the cover: tags there covered the art and its title. */}
-        {offer || row.due > 0 || book.oldFashioned || (classic && !book.needsEpub && !(book.source === "epub" && !fileHere)) ? (
+        <ShelfBookInfo
+          book={book}
+          classic={classic}
+          fileHere={fileHere}
+          due={row.due}
+          open={infoOpen}
+          onOpenChange={setInfoOpen}
+          onReturnFocus={() => menuTrigger.current?.focus({ preventScroll: true })}
+        />
+        {/* Keep only actionable or cautionary status on the card; facts live in Book info. */}
+        {offer || book.oldFashioned ? (
           <BookTags>
             {offer ? <UpdateTag title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} /> : null}
-            {row.due > 0 ? (
-              <BookTag tone="warn" data-shelf-due="">
-                {t("shelf.due", { n: row.due })}
-              </BookTag>
-            ) : null}
-            {!book.needsEpub && !(book.source === "epub" && !fileHere) && classic ? (
-              <BookTag data-classic-label="">{t("shelf.classic")}</BookTag>
-            ) : null}
             {book.oldFashioned ? <OldFashionedTag reason={book.oldFashionedReason} /> : null}
           </BookTags>
         ) : null}
@@ -600,7 +626,7 @@ function BookCard({
           <p className="text-xs leading-snug font-medium text-warn" data-needs-epub="">
             {t("shelf.needsEpub")}
           </p>
-        ) : book.source === "epub" && !fileHere ? (
+        ) : book.source === "epub" && fileHere === false ? (
           <p className="text-xs leading-snug font-medium text-warn" data-file-missing="">
             {t("shelf.fileMissing")}
           </p>
@@ -610,15 +636,11 @@ function BookCard({
             {offerLine(offer, t).text}
           </p>
         ) : null}
-        <div className="max-sm:hidden">
-          <BookMetaLines
-            lexile={book.lexile}
-            isbn={book.isbn}
-            series={book.series}
-            seriesNumber={book.seriesNumber}
-            matchRate={book.matchRate}
-          />
-        </div>
+        {typeof book.matchRate === "number" && Number.isFinite(book.matchRate) && book.matchRate >= 0 && book.matchRate < 80 ? (
+          <p className="text-xs leading-snug font-medium text-warn" data-shelf-low-match="">
+            {t("shelf.lowMatch", { n: Math.round(book.matchRate) })}
+          </p>
+        ) : null}
       </div>
       {book.source === "epub" || book.needsEpub ? null : (
         <p className="mt-auto flex min-h-11 items-center text-xs text-muted" data-card-actions>
@@ -680,9 +702,9 @@ export function Shelf({
   const offerByBook = useMemo(() => {
     const map = new Map<string, ListOffer>();
     for (const record of packRecords) {
-      const why = holds[record.packId];
+      const why = holds[`book:${record.bookId}`];
       if (!why || !holdOffersUpdate(why)) continue;
-      map.set(record.bookId, { why, failure: failures[record.packId] ?? "" });
+      map.set(record.bookId, { why, failure: failures[`book:${record.bookId}`] ?? "" });
     }
     return map;
   }, [packRecords, holds, failures]);
@@ -775,7 +797,7 @@ export function Shelf({
       row={row}
       cover={shelfCovers[row.book.id]}
       classic={classicIds.has(row.book.id)}
-      fileHere={storedIds === null || storedIds.has(row.book.id) || row.book.needsEpub === true}
+      fileHere={storedIds === null ? null : storedIds.has(row.book.id)}
       offer={offerByBook.get(row.book.id) ?? null}
       updating={updatingId === row.book.id}
       onOpen={() => onOpen(row.book.id)}

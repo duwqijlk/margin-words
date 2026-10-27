@@ -7,6 +7,25 @@ site login are required. This task is hosted at [patrol.md](https://inputread.si
 The [maintenance map](https://inputread.site/kit/maintenance.md) owns shared storage, count/version,
 publishing and recovery rules; the actionable API/D1 steps for this patrol are below.
 
+## Before each run: reread the sources
+
+Every round, reread this **whole patrol playbook**, the
+[maintenance map](https://inputread.site/kit/maintenance.md), and the glossary format/specification
+sections used below before reviewing reports or writing. Do not operate from a previous run's
+summary, an old copied page or the authoring ZIP. Do not guess a local checkout or specification
+path. If a required source is unreadable, stay read-only and report it.
+
+With a checkout, read its actual `docs/GLOSSARY_PATROL.md`, `docs/MAINTENANCE.md` and the required
+source specs; record the resolved checkout path, branch/commit and dirty state. Without one, read
+the hosted patrol/maintenance URLs above and their specification links afresh; record the actual
+URLs and retrieval times. A local checkout is not proof of the deployed instructions or app.
+Record SHA-256 of each source's **original bytes** where available. Compare local `.md` and its
+hosted `.md` only as comparable raw bytes, never HTML, a summary or reconstructed text. Record
+both sources/hashes and equality/mismatch if verified; otherwise explicitly record **unverified**.
+A mismatch needs reconciliation of the governing instructions/app version before writes, not an
+assumption that either copy is newer. No repository or Node is required to read the hosted sources.
+See [documentation authority](https://inputread.site/kit/maintenance.md#ownership).
+
 ## 1. The job
 
 Readers of inputread.site read English books with a word list (glossary) that explains hard
@@ -99,7 +118,7 @@ SELECT f.id, f.catalog_id, f.book_title, f.word, f.form, f.reason, f.chapter, f.
 Open passage reports:
 
 ```sql
-SELECT p.id, p.topic, p.catalog_id, p.book_title, p.chapter, p.chapters, p.paragraph, p.sel_start, p.sel_end, p.span,
+SELECT p.id, p.topic, p.book_id, p.catalog_id, p.book_title, p.chapter, p.chapters, p.paragraph, p.sel_start, p.sel_end, p.span,
        p.selected, p.before, p.after, p.reason, p.suggestion, p.glossary_rev, p.status, p.created_at,
        u.public_id AS suggested_by
   FROM passage_feedback p LEFT JOIN users u ON u.id = p.user_id
@@ -110,8 +129,61 @@ SELECT p.id, p.topic, p.catalog_id, p.book_title, p.chapter, p.chapters, p.parag
 `suggested_by` is set only on a report that carries a suggestion: the public id of the reader who
 wrote it (12 letters and digits; never an email). Use it for `credit` below.
 
-`status` is `pending`, or `reopened` when a reader reported the same place again after it was
-resolved. A reopened item means the last fix did not work: look at it first.
+**Statuses differ by source.** Word feedback can be `pending`, `reopened` or `resolved`;
+`reopened` is fresh work after a previous resolution, so prioritize it. Revision strings are not
+ordered versions: do not infer "newer" by comparing their hashes. Passage inserts are always
+`pending`, not `reopened`; a closed topic means all its reports are `resolved`, not a stored
+`closed` status. Later unsuppressed passage reports search for an open overlap or start a new topic.
+Missing-word taps do **not** automatically reopen after resolution (see §7). These three lifecycles
+must not be treated as one state machine.
+
+**Bounded topic discovery: do not let a deferred first topic starve later work.** The initial
+300-report query is only a triage sample, not the work queue or a cursor source. Discover distinct
+open topics independently of their report counts:
+
+```sql
+-- Passage topic discovery: ?1 = saved discovery_topic_cursor (initially 0).
+SELECT DISTINCT topic FROM passage_feedback
+ WHERE status != 'resolved' AND topic > ?1
+ ORDER BY topic ASC LIMIT 20;
+```
+
+Use at most **3 topic-discovery pages per run** (20 topics per page). Walk the returned topics in
+order, either reviewing through their cutoff below or explicitly recording why each is deferred.
+Advance and persist `discovery_topic_cursor` to the **last considered topic**, even if that topic
+was deferred; do not reset it just because no fixes were published. If the 10-book budget or other
+run limit stops you partway through a page, save only the last considered topic, not the page's
+last returned topic, so unconsidered topics reappear next run. Record pages used, cursor start/end
+and deferred topic ids/reasons in the run report; use that record to continue next run. If the
+saved record is unavailable, say so and restart at 0 rather than inventing a cursor. An empty page
+ends this discovery sweep: save cursor 0 for the **next run**, without wrapping again in this run.
+This eventually revisits old deferred topics and any newly open lower-numbered topics, while the
+finite page budget prevents endless discovery/polling. Topic discovery never authorizes closure.
+
+**LIMIT 300 is never a complete topic.** The initial report sample may cut one topic in half or
+omit others; the distinct-topic pages above avoid that starvation. For each discovered topic you will handle, record a fixed upper id
+before editing, then read **all** its reports up to that cutoff with keyset pagination (including
+already resolved rows for context):
+
+```sql
+-- Passage topic cutoff: ?1 = the discovered topic id. Save cutoff_id for this topic/run.
+SELECT MAX(id) AS cutoff_id FROM passage_feedback WHERE topic = ?1;
+
+-- Passage topic page: ?1 = topic, ?2 = last id read (initially 0), ?3 = saved cutoff_id.
+SELECT p.id, p.topic, p.book_id, p.catalog_id, p.book_title, p.chapter, p.chapters, p.paragraph,
+       p.sel_start, p.sel_end, p.span, p.selected, p.before, p.after, p.reason, p.suggestion,
+       p.glossary_rev, p.status, p.created_at, u.public_id AS suggested_by
+  FROM passage_feedback p LEFT JOIN users u ON u.id = p.user_id
+ WHERE p.topic = ?1 AND p.id > ?2 AND p.id <= ?3
+ ORDER BY p.id ASC LIMIT 300;
+```
+
+Use the last returned `id` for the next page; continue until an empty page (not just until you
+have 300 rows). Save the complete reviewed id list and each row's original association/revision.
+If there is no cutoff or any page cannot be read/reviewed, defer the topic. Never widen or refresh
+the cutoff during this review to pull in unseen reports. Reports inserted after the cutoff,
+including reports joining this same still-open topic, belong to later work; never resolve them
+as a side effect of this run. Bounded pagination is required, not unbounded polling.
 
 `book_id` in these rows is the reader's device id and means nothing across devices. Find the book by
 **`catalog_id`**, `<catalog>:<id>`: `word-lists:<id>` is the row with that `id` in
@@ -215,9 +287,20 @@ holds the note's `context`. Copy the
 needs it inside the tapped sentence. A `context` that is not in the book, or runs across two
 paragraphs, lights no bulb and shows nowhere.
 
-**Passage topics: one place, several readers.** All reports with the same `topic` overlap on one
-paragraph: a short selection inside a longer one (reader A selected the whole 10-word sentence,
-reader B only "as if the" inside it), or two that share words. Read the whole topic before you write:
+**Passage topics: device-local open overlap, not global book identity.**
+`functions/api/feedback/passage.ts` searches unresolved reports with the same device `book_id`,
+`chapter` and `paragraph`, then joins an overlapping selection's topic. Offsets use half-open
+character overlap; without offsets, one selected text must contain the other. This is not a global
+cross-device group, not guaranteed to collect every overlapping report, and the lookup currently
+does **not** separate `catalog_id`. Do not infer same book, edition or contributor from `topic`.
+A device association can change; verify **each report's** catalog reference, edition and context
+independently under §3, even inside one topic. Do not apply a report from another catalog to this
+book, or let one ambiguous/unmatched row silently inherit another row's identity. Other devices'
+reports may be useful separate evidence only after their own identity/context checks.
+
+Read every page through the saved cutoff (§3) before writing. Where those individually verified
+reports truly concern the same place (a short selection inside a longer one, or shared words),
+review them together:
 
 1. **Find what is really hard.** When most reports point at the same few words (B's "as if the" sits
    inside A's sentence, and C also marked "as if"), the hard part is those words. Several readers
@@ -244,12 +327,16 @@ reader B only "as if the" inside it), or two that share words. Read the whole to
    "a new suggestion when a meaning already exists" below applies here too: a different sense of a
    different part is its own note and its own credit; the same sense said better replaces the text
    and moves the credit.
-4. **Mark the whole topic.** Resolve every report in the topic that your notes answer. Mark
-   `accepted` only the reports whose explanation you really used, one credit per note. A report you
-   could not answer stays open (it keeps its topic).
+4. **Decide per reviewed report id, never close by topic.** After verified publication, resolve
+   only the ids read through the saved cutoff whose individual questions and book associations
+   your notes answer. Mark `accepted` only the reports whose explanation you really used, one
+   credit per note. Unanswered, unverified, mismatched and post-cutoff reports stay open. A topic
+   is a review aid, not authorization for a bulk UPDATE.
 
-A topic is closed once all its reports are resolved. A new report on that place later starts a new
-topic, so a fix that did not work comes back as fresh work.
+A topic is closed only when all its reports are resolved. A later report that survives duplicate
+suppression starts a new `pending` topic if no overlapping unresolved report is found; otherwise
+it can join an existing open topic. It never acquires word feedback's `reopened` status. A failed
+fix therefore comes back as fresh work, not necessarily the same topic id.
 
 Reviewing a reader's `suggestion`:
 
@@ -382,7 +469,7 @@ UPDATE word_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?
  WHERE id = ?3;
 
 UPDATE passage_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
- WHERE id = ?3;   -- or, for a topic you answered whole: WHERE topic = ?3 AND status != 'resolved'
+ WHERE id = ?3 AND topic = ?4 AND id <= ?5 AND status != 'resolved';
 ```
 
 `?1` = now in milliseconds, `?2` = verified live revision. For **taps**, bind `?3`–`?6` to the
@@ -392,10 +479,16 @@ selected row's full primary key (`book_id`, `word`, `chapter`, `occurrence`), `?
 the current live revision for `?8`. Execute once per verified location, never a `book_title + word`
 batch. Zero changed rows means the row changed or is already resolved: reread and re-evaluate,
 not a reason to broaden the WHERE. These guards avoid resolving a new tap or a changed catalog/list
-on that device while you worked. Word/passage feedback `?3` is its selected `id`.
-Word/passage feedback can reopen when a reader reports the same place on the resolved or a newer
-revision. **Missing-word taps do not currently reopen automatically**: the tap upsert keeps a
-resolved status even when its revision/time changes. Do not treat absence from the open-taps query
+on that device while you worked. Word feedback `?3` is its individually reviewed `id`.
+For passage feedback, execute **once per reviewed, answered id**: `?3` = that id, `?4` = its
+original topic, `?5` = the saved topic cutoff from §3. Do not use `WHERE topic = ...` as an
+alternative UPDATE, even when you believe you answered a whole topic: unseen/new rows can arrive
+while you work. Do not construct the id list from a fresh broad query after publishing. Zero changed
+rows requires a reread/re-evaluation, not a broader WHERE. Acceptance below also uses only these
+individually reviewed ids, after their resolution and credit have been verified.
+Word feedback may return as `reopened`; passage feedback instead inserts `pending` and joins an
+open overlap or starts a new topic. **Missing-word taps do not currently reopen automatically**:
+the tap upsert keeps a resolved status even when its revision/time changes. Do not treat absence from the open-taps query
 as proof that a previously resolved word is now covered; investigate repeat reports separately.
 
 For each **accepted** suggestion, also record it (this is what the rank counts):
@@ -485,10 +578,12 @@ another writer's changes. Report a failed credit-file refresh; do not claim the 
 
 ## 8. Limits
 
-- At most 10 books per run; reopened and reported items first (word and passage reports), then the
-  most-tapped words. Answer a passage topic whole or leave it for the next run.
+- At most 10 books per run; reopened word feedback and reported items first (word and passage
+  reports), then the most-tapped words. Fully read a passage topic through its saved cutoff before
+  deciding; resolve only its individually verified, answered ids. Defer it if review is incomplete.
 - D1 is on the Free plan (100,000 row writes a day for the whole site). The queries above read a
-  few thousand rows; each resolve writes a few. Do not loop queries.
+  few thousand rows; each resolve writes a few. Use only the bounded topic discovery and finite topic/cutoff pagination in §3;
+  do not poll, rerun discovery indefinitely or broaden writes to save queries.
 - No other SQL that writes. No `DELETE`, `DROP` or `ALTER`. No R2 writes except a glossary, its
   catalog, and `contributors.json`. Never write to `margin-words-private`, and never touch
   `avatars/`.
@@ -501,4 +596,8 @@ item that asked for it), which reader suggestions you accepted or rejected and w
 one: report id, word or passage, and the entry, sense or note that holds its `credit`), each passage
 topic you answered (its id, the reports in it, and the notes you wrote for it), what you
 skipped and why, the verified revision, the R2 verification/credit-file refresh result, and any error
-or unresolved recovery. Say so if nothing was open.
+or unresolved recovery. Include discovery pages used, start/end topic cursor and deferred topics
+for next-run continuation. Include each topic's saved cutoff, reviewed ids, resolved/accepted ids and
+unreviewed/deferred rows; do not claim the topic is closed from a partial query. Record the
+instruction sources, retrieval times, checkout commit/dirty state when applicable, original-byte
+hashes and comparable local/hosted result (or **unverified**). Say so if nothing was open.

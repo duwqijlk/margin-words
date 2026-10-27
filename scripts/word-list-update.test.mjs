@@ -8,6 +8,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
+import ts from "typescript";
 import { loadAppModules } from "./lib/app-modules.mjs";
 
 const { wordListPlan } = await loadAppModules();
@@ -170,4 +171,123 @@ test("one bad word does not make a published list unreadable", () => {
   const check = checkListAgainstBook(JSON.stringify(list), book);
   assert.equal(check.ok, true);
   assert.equal(check.percent, 100);
+});
+
+test("installed updates target the chosen live book, never the first record for its pack", () => {
+  const source = readFileSync(new URL("../src/lib/word-list-update.ts", import.meta.url), "utf8");
+  const update = source.slice(source.indexOf("export async function updateInstalledBook("), source.indexOf("let toastId"));
+  assert.match(update, /uniqueBookRecord\(records, bookId\)/);
+  assert.match(update, /books\.some\(\(book\) => book\.id === bookId\)/);
+  assert.match(update, /downloadPack\(classic\.url, classic\.pack, \(\) => undefined, bookId\)/);
+  assert.doesNotMatch(update, /records\.find/);
+  const retry = source.slice(source.indexOf("export async function retryWordListUpdate("), source.indexOf("type CatalogMaps"));
+  assert.match(retry, /targets\.size === 1/);
+  assert.match(retry, /live\.has\(item\.bookId\)/);
+  assert.match(source, /\[\.\.\.onShelf\]\.map\(\(id\) => uniqueBookRecord\(records, id\)\)/);
+});
+
+test("updates with duplicate pack records execute against the explicitly chosen live book", async () => {
+  const source = readFileSync(new URL("../src/lib/word-list-update.ts", import.meta.url), "utf8");
+  const js = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
+  const records = [
+    { bookId: "orphan", packId: "sample", rev: "old" },
+    { bookId: "one", packId: "sample", rev: "old" },
+    { bookId: "two", packId: "sample", rev: "old" },
+  ];
+  const calls = [];
+  const create = () => (initialize) => {
+    let state;
+    const store = { getState: () => state, setState: (patch) => { state = { ...state, ...(typeof patch === "function" ? patch(state) : patch) }; } };
+    state = initialize(store.setState);
+    return store;
+  };
+  const uniqueBookRecord = (rows, bookId) => {
+    const matches = rows.filter((row) => row.bookId === bookId);
+    return new Set(matches.map((row) => row.packId)).size === 1 ? matches[0] : undefined;
+  };
+  const stubs = {
+    zustand: { create },
+    "@/lib/catalog-id": await import("../src/lib/catalog-id.ts"),
+    "@/lib/book-db": { listPackRecords: async () => records, loadBookExtras: async () => null },
+    "@/lib/catalog-shelf-identity": { uniqueBookRecord },
+    "@/lib/vocab-store": { useVocab: { getState: () => ({ books: [{ id: "one" }, { id: "two" }] }) } },
+    "@/lib/packs": {
+      BUNDLED_CATALOG_URL: "https://example.test/catalog", getCatalogUrl: () => "https://example.test/catalog",
+      loadCatalog: async () => ({ catalog: { packs: [{ id: "sample", rev: "new" }] } }),
+      downloadPack: async (...args) => { calls.push(args); },
+    },
+    "@/lib/word-list-catalog": { loadWordListCatalog: async () => [] },
+    "@/lib/i18n": { tr: (key) => key, errorText: (reason) => String(reason) },
+  };
+  const module = { exports: {} };
+  new Function("module", "exports", "require", js)(module, module.exports, (id) => stubs[id] ?? {});
+  await module.exports.updateInstalledBook("two");
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0][3], "two");
+  await assert.rejects(module.exports.updateInstalledBook("orphan"));
+  await assert.rejects(module.exports.retryWordListUpdate({ id: "sample" }));
+  assert.equal(calls.length, 1, "ambiguous pack-only retry or an orphan cannot update the first live record");
+});
+
+test("stored catalog wins a raw-id collision; legacy collision refuses; SHA cycles still hold", async () => {
+  const source = readFileSync(new URL("../src/lib/word-list-update.ts", import.meta.url), "utf8");
+  const js = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
+  const record = { bookId: "private", packId: "shared", rev: "g1", sha256: "epub-0" };
+  let extras = { source: "shared", catalog: "word-lists", paragraphs: [], sentences: [], phrases: {} };
+  let classic = { id: "shared", rev: "g1", epub: { sha256: "epub-1" } };
+  let lists = [{ id: "shared", glossary: { url: "list.json", sha256: "" } }];
+  const writes = [];
+  let applyCount = 0;
+  const create = () => (init) => {
+    let state;
+    const store = { getState: () => state, setState: (patch) => { state = { ...state, ...(typeof patch === "function" ? patch(state) : patch) }; } };
+    state = init(store.setState);
+    return store;
+  };
+  const stubs = {
+    zustand: { create },
+    "@/lib/catalog-id": await import("../src/lib/catalog-id.ts"),
+    "@/lib/catalog-shelf-identity": { uniqueBookRecord: (rows, id) => rows.find((row) => row.bookId === id) },
+    "@/lib/book-db": {
+      listPackRecords: async () => [record], loadBookExtras: async () => extras,
+      loadStoredBook: async () => ({ chapters: [{ paragraphs: ["Original fixture prose."] }] }),
+      savePackRecord: async (row) => writes.push(row), loadBookMeta: async () => ({ glossary: {} }),
+    },
+    "@/lib/packs": {
+      BUNDLED_CATALOG_URL: "https://fixture.invalid/catalog", getCatalogUrl: () => "https://fixture.invalid/catalog",
+      loadCatalog: async () => ({ catalog: { packs: [classic] } }),
+      resolveAgainst: () => "https://fixture.invalid/list.json",
+      downloadPack: async () => { throw new Error("wrong public catalog update"); },
+    },
+    "@/lib/word-list-catalog": { loadWordListCatalog: async () => lists },
+    "@/lib/glossary-fetch": { remoteGlossaryId: () => null },
+    "@/lib/pack-glossary": { hashBytes: async () => "", applyPackGlossary: async () => { applyCount += 1; } },
+    "@/lib/pair-epub": { storeWordListText: async () => {} },
+    "@/lib/word-list-plan": { ...wordListPlan, checkListAgainstBook: () => ({ ok: true, percent: 100 }) },
+    "@/lib/vocab-store": { useVocab: { getState: () => ({ books: [{ id: "private" }], setBookDetails: () => {} }) } },
+    "@/lib/i18n": { tr: (key) => key, errorText: (error) => error.message },
+  };
+  const module = { exports: {} };
+  new Function("module", "exports", "require", js)(module, module.exports, (id) => stubs[id] ?? {});
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => ({ ok: true, arrayBuffer: async () => new TextEncoder().encode('{"version":2,"glossary":{}}').buffer });
+  try {
+    await module.exports.updateInstalledBook("private");
+    assert.equal(applyCount, 1, "private list applied instead of the colliding public pack");
+    assert.equal(writes[0].bookId, "private");
+    extras = null;
+    await assert.rejects(module.exports.updateInstalledBook("private"), /missingCatalogIdentity/);
+    assert.equal(applyCount, 1);
+    // An old G1 glossary revision is published again after E0/G1 -> E1/G1 -> E1/G2.
+    // The device still has E0/G1. Identical rev alone must not conceal the changed EPUB.
+    lists = [];
+    extras = { source: "shared", catalog: "public-books" };
+    for (const rev of ["g1", "combined-e1-g1", "g2", "g1", ""]) {
+      classic = { ...classic, rev };
+      await module.exports.autoUpdateWordLists();
+      assert.equal(module.exports.useListUpdates.getState().holds["book:private"], "bookChanged", `hold survives catalog rev ${JSON.stringify(rev)}`);
+      assert.equal(module.exports.useListUpdates.getState().waiting, 1);
+    }
+    assert.equal(applyCount, 1, "automatic check never writes a glossary");
+  } finally { globalThis.fetch = originalFetch; }
 });

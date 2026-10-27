@@ -18,6 +18,6 @@ export function coverCrossOrigin(src: string | undefined): "anonymous" | undefin
 }
 
 /** Fetch a cover. Bypasses the HTTP cache so a no-Origin <img> response cannot be reused. */
-export function fetchCover(url: string): Promise<Response> {
-  return fetch(url, { cache: "no-store" });
+export function fetchCover(url: string, signal?: AbortSignal): Promise<Response> {
+  return fetch(url, { cache: "no-store", signal });
 }

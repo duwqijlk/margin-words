@@ -5,8 +5,9 @@ Audience: an AI agent that is given an EPUB and must produce a word list (`gloss
 
 ## 1. Goal
 
-Margin Words is a static web reader for English books. It has no server and no AI. When a learner taps a word, the
-card shows text that was written in advance. All of that text comes from one JSON file per book: `glossary.json`.
+Margin Words is a browser reader for English books, with account and download services. It makes no runtime AI calls.
+When a learner taps a word, the card shows text that was written in advance. All of that text comes from one JSON file
+per book: `glossary.json`.
 
 - Learners: Chinese junior-high students, about CEFR A2 to B1.
 - Your job: read the book, pick the hard words, write short simple English help, and output valid JSON.
@@ -17,8 +18,12 @@ card shows text that was written in advance. All of that text comes from one JSO
 Deliverables, in this order of importance:
 
 1. `glossary.json` that passes the checks in section 9.
-2. If asked for a pack: ONE `.zip` that holds exactly `book.epub` and `glossary.json` (section 3). The app does NOT accept a
-   bare EPUB. Only a processed book (a pack) can be added.
+2. If asked for a pack: ONE `.pack.zip` that holds `book.epub` and `glossary.json` (section 3). This is a compatible
+   authoring/delivery format, not a reader import option. The current app adds books from Discover, not from ZIP files.
+
+For new catalog ids, complete official display names, edition identity and exact-byte rules, follow
+[docs/BOOK_UPLOAD.md#identity-and-naming](https://github.com/duwqijlk/margin-words/blob/main/docs/BOOK_UPLOAD.md#identity-and-naming).
+Legacy ids and paths stay unchanged. Do not edit or repackage the source EPUB to make it fit a name or catalog row.
 
 ## 2. Contents of this kit
 
@@ -27,9 +32,10 @@ Deliverables, in this order of importance:
 | `book-pack-spec.md` | This file. |
 | `the-lantern-seller.epub` | Sample book: 3 chapters, about 600 words, original text, CC0. |
 | `the-lantern-seller.glossary.json` | Finished word list for that book. It uses every feature. Copy its style. |
-| `the-lantern-seller.pack.zip` | The same two files as a ready-made book pack (`book.epub` + `glossary.json`). Packs are published on a books host (a catalog); readers add books from the app's Discover page. |
+| `the-lantern-seller.pack.zip` | The same two files as a format-compatible CC0 sample pack (`book.epub` + `glossary.json`), for authoring and pack-tool validation. It is not imported through the current reader UI. |
 
-The kit zip itself is NOT a pack (it holds a spec and loose files). Import `the-lantern-seller.pack.zip` from the kit.
+The kit zip itself is NOT a pack (it holds a spec and loose files). `the-lantern-seller.pack.zip` demonstrates the pack
+format. Keep it as a sample; the current reader has no ZIP import.
 
 ### 2.1 Where the command-line checker lives
 
@@ -51,12 +57,25 @@ node scripts/validate-glossary.mjs --json book.epub glossary.json
 
 ## 3. Book pack: required files
 
-**The app does not accept a standalone EPUB.** The only way to add your own book is a book pack. A book pack is a
-*processed book*: the book plus the word list that was written for it.
+A book pack is a *processed book*: the book plus the word list that was written for it. The `.pack.zip` format and
+command-line checks remain supported, but **the current reader does not import ZIP packs**.
+
+Current reader flow:
+
+- Sign in and add the catalog book from **Discover**. A standalone EPUB does not create a new book.
+- For a public-domain book, the app downloads the catalog's EPUB and word list separately.
+- For a word-list book, choose your matching EPUB from its Discover card. Trusted/admin readers may instead use
+  **Open from library**, when available, to download the EPUB from the private library.
+- If the book already has a shelf card but lacks its local file, supply the EPUB from that existing card. This completes
+  the same book, not a second shelf entry.
+- The reader compares the list's `context` snippets with the EPUB. A normal match (at least 80% of comparable snippets)
+  saves and opens automatically, including a trusted library download. A low match or no comparable snippets requires
+  explicit confirmation. This edition-fit check is separate from the ZIP tools' SHA/title checks below.
 
 ### 3.1 Required files
 
-A book pack is **one `.zip` file** with **exactly** these two files at the top level (one wrapping folder is tolerated):
+A book pack is **one `.pack.zip` file** (a ZIP archive) with these two required files at the top level
+(one wrapping folder is tolerated). The pack tools also accept a `.zip` filename:
 
 | File | Required | What it is |
 | --- | --- | --- |
@@ -65,9 +84,10 @@ A book pack is **one `.zip` file** with **exactly** these two files at the top l
 | `cover.jpg` | no | Cover picture (`cover.png` or `cover.webp` also work). Used only when the EPUB has no cover of its own. |
 | `pack.json` | no | `{ "id": "my-book", "title": "...", "author": "...", "rev": "1", "lexile": "880L", "isbn": "9780141960616", "series": "Wings of Fire", "seriesNumber": 1 }`. `id` matches `^[a-z0-9][a-z0-9_-]{0,63}$`. `lexile`, `isbn`, `series` and `seriesNumber` are optional. `isbn` is the ISBN-13 of the edition this list was written for. `series` may stand alone. `seriesNumber` is kept only with a series name. |
 
-Rules that the app checks at import (in this order). If one fails, **nothing is added** and the person sees a plain message:
+Pack-tool validation rules (`src/lib/pack-check.ts` and `scripts/make-pack.mjs` in a repository checkout), not a reader
+import sequence:
 
-1. The file is a `.zip`. A bare `.epub` is refused with a message and a link to the guide page (`/kit/`).
+1. The input is a ZIP archive. A bare EPUB is not a pack; it can still be used for the reader pairing flow above.
 2. The zip has one `.epub` and one word list. Zero or more than one of either is an error.
 3. `glossary.json` is valid (every rule of section 4 and 9). The first problems are shown by word name.
 4. The EPUB opens (valid EPUB, no DRM, has a table of contents, has English text).
@@ -76,9 +96,10 @@ Rules that the app checks at import (in this order). If one fails, **nothing is 
    ignored) and, when both have an author, the authors are equal too. A list with neither a matching `sha256` nor a
    `title` is refused. Always write `title`, `author` and `sha256` in `glossary.json`.
 
-**Title, author and cover come from the EPUB** (`pack.json` may override title and author). Do not repeat them anywhere else.
+**In pack tooling**, title, author and cover come from the EPUB (`pack.json` may override title and author). In current
+word-list pairing, shelf title and author prefer catalog metadata; an EPUB cover takes precedence over the catalog cover.
 
-Also accepted: a zip with several sub-folders, each holding one `book.epub` and one `glossary.json` (several books in one
+Also accepted by the pack tools: a zip with several sub-folders, each holding one `book.epub` and one `glossary.json` (several books in one
 file). Files such as `__MACOSX/`, dotfiles, `info.json`, `catalog.json` and `manifest.json` are ignored.
 
 Example of a correct pack:
@@ -91,18 +112,21 @@ my-book.pack.zip
 
 Make it: `zip my-book.pack.zip book.epub glossary.json` (put the two files at the top level, do not zip the folder).
 
-### 3.2 Not supported
+### 3.2 Reader and pack-tool boundaries
 
-- A bare `.epub` (or an `.epub` and a `.json` chosen together). Make a pack first.
-- A `.json` alone: it can only be added to a book that is already on the shelf (book menu -> "Add word list").
-- A pack without a word list, or with a word list made for another book.
+- No reader ZIP import, and no standalone EPUB import that creates a new shelf book. Use Discover and the EPUB pairing
+  or missing-file completion flow above; do not tell readers to make a ZIP first.
+- A `.json` alone is not a new book. It can be attached to a book already on the shelf (book menu -> "Add word list").
+- A pack without a word list, or with a word list made for another book, fails the pack-tool checks.
 
 ### 3.3 Hosting and copyright
 
-- Hosting a catalog (optional, for people who run a website): `catalog.json` = `{ "format": 1, "name": "...", "packs": [ { "id", "title", "author", "rev", "lexile": "880L", "isbn": "9780141960616", "series": "Alice", "seriesNumber": 1, "category": "novel", "epub": { "url", "bytes", "sha256" }, "glossary": { "url", "bytes", "sha256", "rev" } } ] }`. `lexile`, `isbn`, `series`, `seriesNumber` and `category` are optional. `series` may stand alone. `category` is `novel` (the default when it is missing) or `speech`. Discover uses it for its tabs. `url` is relative to the catalog or a full https address. The reader app downloads these packs for the learner (from their cards on Discover) and shows the measure and ISBN on the card.
-- A word-list catalog (no book file) is `{ "format": 1, "name": "...", "lists": [ { "id", "title", "author", "lexile", "isbn", "series", "seriesNumber", "category", "glossary": { "url", "bytes", "sha256" } } ] }`. It must not include an EPUB. `category` is the same optional Discover tab (`novel` or `speech`; missing means novel). The reader downloads `glossary.json` only. The person prepares their own e-book of that ISBN and pairs it in the app. The app then shows what share of the list's `context` snippets were found in that e-book.
+- Catalog format (for publishing/integration, not an automatic way to add an arbitrary host to Discover): `catalog.json` = `{ "format": 1, "name": "...", "packs": [ { "id", "title", "author", "rev", "lexile": "880L", "isbn": "9780141960616", "series": "Alice", "seriesNumber": 1, "category": "novel", "epub": { "url", "bytes", "sha256" }, "glossary": { "url", "bytes", "sha256", "rev" } } ] }`. `lexile`, `isbn`, `series`, `seriesNumber` and `category` are optional. `series` may stand alone. `category` is `novel` (the default when it is missing) or `speech`. Discover uses it for its tabs. `url` is relative to the catalog or a full https address. Discover loads the app-configured catalogs; adding a separate hosted catalog does not make it appear automatically. For a public-domain book, the reader downloads the EPUB and glossary separately, not a ZIP. Production glossary downloads use the account-authorized service. Edition metadata, including Lexile and ISBN when present, is available in book details.
+- A word-list catalog (no book file) is `{ "format": 1, "name": "...", "lists": [ { "id", "title", "author", "lexile", "isbn", "series", "seriesNumber", "category", "glossary": { "url", "bytes", "sha256" } } ] }`. It must not include an EPUB. `category` is the same optional Discover tab (`novel` or `speech`; missing means novel). For ordinary readers, the app downloads the word list and pairs it with their own EPUB of the intended edition. Trusted/admin readers may use the private-library download when available; its EPUB is not exposed in the public word-list catalog. Pairing uses the context-match and confirmation rules above.
 - Copyright: put the EPUB in a pack only if the book is public domain or the user owns the right to share it.
-  For a copyrighted book, deliver `glossary.json` alone and tell the user to build the pack on their own computer.
+  Without permission to redistribute a copyrighted EPUB, deliver `glossary.json` alone. Readers use the published
+  Discover word-list entry with their own matching EPUB; do not direct them to a ZIP import. Publication and private-library
+  access have separate authorization rules in the upload documentation linked in section 1.
 
 ## 4. `glossary.json` schema
 
@@ -418,7 +442,8 @@ Work chapter by chapter: take the chapter text, answer with the JSON pieces for 
 
 ## 9. Validation
 
-A file is accepted by the app when all of these hold (these are the exact error conditions of the app's validator):
+Authoring uses the strict glossary validator shared with the app. A file must satisfy these checks; production catalog
+lists may load leniently by dropping invalid entries, which is not a substitute for validating an authored list:
 
 1. Valid JSON; top level is an object with `version` (1 or 2) and `glossary` (an object, not a list, not empty).
 2. Every key is lower case, length <= 48, no duplicates after lower-casing. Letters or digits; an apostrophe, hyphen, or period may sit inside; `...` may join words (`either...or`). A space is refused.
@@ -433,7 +458,7 @@ Extra checks when the EPUB is available (`validate-glossary.mjs book.epub glossa
 
 Warnings (read them): title differs, chapter count differs, hyphenated key, context shorter than 4 words or longer than 30 (`the context is very short` / `the context is long`; this count is the words in the `context` string and does not change when `spine.merge` is applied), context without the word, `simple`/`mainIdea`/`grammar`/phrase meaning using words outside the 2000 basic words (names and numbers are fine), a `spine.merge` key or target that matches no spine item, and a `spine.merge` key that matches a spine item but merges nothing into or from that file.
 
-If you cannot run the script: re-check items 1-6 by reading the JSON, then re-check 7-8 by searching each `context` in the book text and re-counting each `occurrence`/`paragraph`. The app shows plain-English messages that name the exact word when it rejects a file, so a final import test is also a check.
+If you cannot run the script: re-check items 1-6 by reading the JSON, then re-check 7-8 by searching each `context` in the book text and re-counting each `occurrence`/`paragraph`. Record that the command-line check was not run. There is no reader ZIP-import test; testing an already-published Discover entry does not replace the strict authoring check.
 
 Typical failures: trailing comma or missing quote; `chapter` counted from 1 instead of 0; `occurrence` counted for the wrong spelling; `context` crossing a paragraph break or with fixed spelling; two `default` senses; sense `meaning` missing; Chinese text in a field.
 

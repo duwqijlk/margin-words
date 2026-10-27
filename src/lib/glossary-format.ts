@@ -1,3 +1,4 @@
+/// <reference lib="dom.iterable" />
 /**
  * Word list ("glossary") format, versions 1 and 2.
  *
@@ -12,10 +13,10 @@
  *            that meaning is used.
  */
 
-import type { ParagraphHelp, SentenceHelp, PhraseEntry } from "@/lib/glossary-extras";
-import { isbnDigits, readSeries, seriesNumber } from "@/lib/book-meta";
-import { lexileMeasure } from "@/lib/lexile";
-import { flowCutOffsets, flowText, flowTextBefore, includesLoose, squash, SQUASH_MIN } from "@/lib/flow-text";
+import type { ParagraphHelp, SentenceHelp, PhraseEntry } from "./glossary-extras.ts";
+import { isbnDigits, readSeries, seriesNumber } from "./book-meta.ts";
+import { lexileMeasure } from "./lexile.ts";
+import { flowCutOffsets, flowText, flowTextBefore, includesLoose, squash, SQUASH_MIN } from "./flow-text.ts";
 
 export type GlossaryAnchor = {
   /** 0-based index of the chapter, as the app splits the book (see docs). */
@@ -764,7 +765,7 @@ export function normText(text: string): string {
     .replace(/[\u201c\u201d]/g, '"')
     .replace(/[\u2013\u2014\u2212]/g, "-")
     .replace(/\u2026/g, "...")
-    .replace(/[\u00AD\u200B\u2060\u200C\u200D\uFEFF]/g, "")
+    .replace(/(?:\u00AD|\u200B|\u2060|\u200C|\u200D|\uFEFF)/g, "")
     .replace(/\s+/g, " ")
     .trim()
     .toLowerCase();
@@ -1128,7 +1129,7 @@ const PHRASE_POS = new Set(["phrasal verb", "idiom", "phrase"]);
  * (`don't`, `a.m.`, `y2k`, `911`). `...` may join two of those (`either...or`).
  * A space is still refused (`tree house`).
  */
-const LEMMA_ATOM = String.raw`[a-z0-9]+(?:['.\-][a-z0-9]+)*\.?`;
+const LEMMA_ATOM = String.raw`[a-z0-9]+(?:['.-][a-z0-9]+)*\.?`;
 const LEMMA_KEY = new RegExp(`^${LEMMA_ATOM}(?:\\.{3}${LEMMA_ATOM})*$`);
 /** A letter-only lemma, the shape occurrence counting already treats as one word. */
 const PLAIN_LEMMA = /^[a-z]+(?:['-][a-z]+)*$/;
@@ -1147,7 +1148,7 @@ function phraseKeyOk(key: string): boolean {
     if (!chunk) continue;
     const core = chunk.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, "");
     if (!core) continue;
-    if (!/^[\p{L}\p{N}]+(?:['.\-][\p{L}\p{N}]+)*$/u.test(core)) return false;
+    if (!/^[\p{L}\p{N}]+(?:['.-][\p{L}\p{N}]+)*$/u.test(core)) return false;
     words += 1;
   }
   return words >= 2;

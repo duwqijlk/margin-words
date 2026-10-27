@@ -39,6 +39,8 @@ export type Env = {
   BOOKS?: R2BucketLike;
   /** Private copyrighted-EPUB bucket. Never exposed without a trusted account. */
   PRIVATE?: R2BucketLike;
+  /** Public publishing stays closed until an operator confirms its runtime CPU budget. */
+  PUBLIC_BOOK_PUBLISH_CPU_CONFIRMED?: string;
   /** When set, register requires a Turnstile token. Unset means the check is off. */
   TURNSTILE_SECRET_KEY?: string;
   /** When set, password-reset requests send mail through Resend. Unset keeps the hook off. */

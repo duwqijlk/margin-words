@@ -12,6 +12,7 @@ prove which DNS, cache rules, migrations or version are live in Cloudflare today
 | Reader, layout, UI or browser behavior | `src/`; the [repository instructions](https://github.com/duwqijlk/margin-words/blob/main/AGENTS.md) | Yes |
 | Authentication, permissions, quotas or admin validation | `functions/`; [Accounts](https://github.com/duwqijlk/margin-words/blob/main/docs/ACCOUNTS.md) | Yes; apply required schema changes first |
 | New word-list book, an existing book's list/EPUB/cover/series/category | [Book upload](https://inputread.site/kit/book-upload.md) | No |
+| A public-domain EPUB replacement | API contract is implemented; CPU-budget gate defaults closed. Stop under Book upload §7 until separately confirmed | No improvised publishing path |
 | A brand-new public-domain catalog id | Not supported by the current live onboarding workflow; stop and report the gap | Do not revive a retired build pipeline |
 | Bilingual book summary | [Book blurbs](https://inputread.site/kit/book-blurbs.md) | No |
 | Reader reports, corrections, credit and accepted contributions | [Patrol](https://inputread.site/kit/patrol.md) | No |
@@ -75,14 +76,24 @@ establish its routes, bucket policy, CORS or CDN rules; verify those separately 
 - Hash **exact uploaded bytes**, not a parsed/reserialized equivalent. Store the byte count and full
   lower-case SHA-256 with the file reference. A formatting-only rewrite changes the hash too.
 - A word-list revision is the first 12 hex characters of `glossary.sha256`. Public books also use
-  the row's top-level `rev` and `glossary.rev`; keep the revision coherent when publishing a list.
-  Updating file hashes alone is not proof that an installed public book will get an Update offer.
+  the row's top-level `rev` (the installed public Update gate) and hash-derived `glossary.rev`.
+  A glossary-only change sets both to the glossary hash prefix. EPUB changes set top-level row
+  `rev` to `sha256(epubSHA + "\n" + glossarySHA).slice(0, 12)`; identical-byte retries preserve
+  the current revision. The reader also compares the installed EPUB SHA independently of row
+  revision, so a glossary rollback cannot hide a changed EPUB. `updated` alone is not an identity.
+  Books UI sends a single public multipart request, not a private-list request first. Both public
+  write endpoints default to 503 `publish-budget-unconfirmed` unless the operator separately
+  confirms target-runtime CPU budget and sets `PUBLIC_BOOK_PUBLISH_CPU_CONFIRMED=true`.
+  Local valid large JSON tests exceed 10 ms and are not Cloudflare CPU proof; the 16 MB cap is
+  not a Free-plan safety guarantee. No production setting is enabled by this code release.
+  See [Book upload §7](https://inputread.site/kit/book-upload.md#7-job-c--replace-the-epub).
 - `added` is the original listing time; preserve it on existing rows. `updated` records the applicable
   publication time. A metadata-only series change need not pretend a new list was published.
 - When a glossary hash changes, preserve the old row's `updated` as `previousUpdated`. This is a
   **timestamp, not file history or a rollback copy**. Backups must contain the bytes.
 - Catalog counts describe the final glossary: `words` follows the admin expression
-  `Number(file.count) || Object.keys(file.glossary).length`; paragraph/sentence counts are their
+  `Object.keys(file.glossary).length` for strictly validated public writes (private list publication
+  retains `Number(file.count) || Object.keys(file.glossary).length`); paragraph/sentence counts are their
   array lengths and phrases are object-key counts (missing optional parts count as zero). Keep an
   explicit `count` current when adding/removing entries; do not carry a stale total into the row.
 - Preserve all unrelated rows/fields and top-level metadata. Book upload owns the detailed field
@@ -257,6 +268,22 @@ restore D1, R2, or device data; verify schema and data compatibility before sele
 | Account configuration/auth/sync/routes and account-specific verification | [Accounts](https://github.com/duwqijlk/margin-words/blob/main/docs/ACCOUNTS.md) |
 | Glossary representation and anchoring | [Glossary format](https://github.com/duwqijlk/margin-words/blob/main/docs/GLOSSARY_FORMAT.md) and its linked schema |
 | Mandatory coding/UI constraints | [AGENTS.md](https://github.com/duwqijlk/margin-words/blob/main/AGENTS.md) |
+
+**Authority on every run:** reread the owning task playbook, this map and the required source
+specifications, not a previous summary, old copy or authoring ZIP. With a checkout, use its actual
+`docs/` files and record resolved path/commit/dirty state; without one, reload the hosted playbooks
+and linked specifications and record URLs/retrieval times. Never guess a local path. Local source
+and hosted instructions are different evidence: record original-byte SHA-256 and compare only
+comparable raw Markdown bytes. If not checked, label local/hosted parity **unverified**; if
+mismatched, reconcile governing instructions/app version before writes. Do not claim a deploy or
+live equivalence from a local preview. Missing required instructions means stop before writes.
+Detailed per-run provenance steps and report fields live in Book upload and Patrol.
+
+Patrol's topic is only a device-local open-overlap aid, not a global catalog identity. Read every
+report individually through a fixed topic/id cutoff with pagination, then resolve only reviewed,
+answered ids; no whole-topic UPDATE. Word feedback may be `reopened`; passage inserts are
+`pending` and later work can start a new topic; resolved taps do not auto-reopen. Patrol owns the
+exact SQL, tap snapshot guards and unchanged contribution aggregation.
 
 README is navigation, not another runbook. Keep brief safety checkpoints beside destructive steps,
 but link to the detailed rule rather than copying it. When changing a schema, key, API or cache

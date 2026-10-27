@@ -1,3 +1,4 @@
+import { checkAbort, requestScope } from "@/lib/cancel-work";
 /**
  * Word lists on the public books host are fetched through the account API,
  * which counts seven distinct books per week for a plain reader with a checked email.
@@ -26,14 +27,22 @@ export function remoteGlossaryId(absoluteUrl: string): string | null {
 }
 
 /** The bytes of one word list. `fallback` is the message for any failure except the weekly cap. */
-export async function fetchProtectedGlossary(bookId: string, fallback: string): Promise<Uint8Array> {
+export async function fetchProtectedGlossary(bookId: string, fallback: string, signal?: AbortSignal): Promise<Uint8Array> {
+  const scope = requestScope(signal);
+  try {
+  return await scope.run(fetchProtectedGlossaryNow(bookId, fallback, scope.signal));
+  } finally { scope.dispose(); }
+}
+
+async function fetchProtectedGlossaryNow(bookId: string, fallback: string, signal?: AbortSignal): Promise<Uint8Array> {
   let response: Response;
   try {
     response = await fetch(`/api/glossary/${encodeURIComponent(bookId)}`, {
       credentials: "same-origin",
-      cache: "no-store",
+      cache: "no-store", signal,
     });
   } catch {
+    checkAbort(signal);
     throw new Error(fallback);
   }
   // The weekly count changed (a new place used) or the server refused one: show the new numbers.

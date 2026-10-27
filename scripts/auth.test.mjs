@@ -1025,12 +1025,13 @@ test("public glossary update replaces the list and keeps the epub", async () => 
   };
   files.set("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(live, null, 1)}\n`));
   files.set("public-books/alice/book.epub", new Uint8Array([9, 9, 9, 9]));
-  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const env = envOf(db, { BOOKS: stubBucket(files), PUBLIC_BOOK_PUBLISH_CPU_CONFIRMED: "true" });
   const glossary = JSON.stringify({
+    version: 2,
     title: "Alice's Adventures in Wonderland",
     author: "Lewis Carroll",
-    glossary: { rabbit: {}, tea: {} },
-    phrases: { "the present": {} },
+    glossary: { rabbit: { meaning: "A small animal." }, tea: { meaning: "A hot drink." } },
+    phrases: { "the present": { pos: "phrase", meaning: "The time now." } },
   });
   const published = await handlePublish(
     raw("/api/admin/word-lists?id=alice&catalog=public", adminCookie, glossary),
@@ -1472,7 +1473,7 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
   assert.equal(privateOk.status, 200);
   const privateJson = await privateOk.json();
   assert.equal(privateJson.kind, "private");
-  assert.equal(new Uint8Array(privateFiles.get("great-book/book.epub"))[0], 80);
+  assert.deepEqual(privateFiles.get("great-book/book.epub"), epubBytes, "private EPUB preserves every original byte");
   assert.ok(privateFiles.has("great-book/cover.jpg"));
   const storedCardCatalog = JSON.parse(new TextDecoder().decode(cardFiles.get("word-lists/catalog.json")));
   // Card covers live under covers/ (no Worker on that path), named in the catalog by full address.
@@ -1546,7 +1547,7 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
     packs: [{ id: "alice", title: "Alice", glossary: { url: "alice/glossary.json", bytes: 1, sha256: "aaa" } }],
   };
   booksFiles.set("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(livePublic, null, 1)}\n`));
-  const publicEnv = envOf(db, { BOOKS: stubBucket(booksFiles) });
+  const publicEnv = envOf(db, { BOOKS: stubBucket(booksFiles), PUBLIC_BOOK_PUBLISH_CPU_CONFIRMED: "true" });
   const noGlossary = await handleUpload(
     form("/api/admin/books?id=alice&kind=public", adminCookie, formWith({ cover: false })),
     publicEnv,
@@ -1557,7 +1558,7 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
 
   // public unknown id is refused
   const unknownBook = await handleUpload(
-    form("/api/admin/books?id=nope&kind=public", adminCookie, formWith({ glossary: "{}" })),
+    form("/api/admin/books?id=nope&kind=public", adminCookie, formWith({ glossary: '{"version":2,"glossary":{"word":{"meaning":"A word."}}}' })),
     publicEnv,
     { now: NOW },
   );
@@ -1565,7 +1566,7 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
 
   // public happy path: epub + glossary + cover stored, row updated
   const okPublic = await handleUpload(
-    form("/api/admin/books?id=alice&kind=public", adminCookie, formWith({ cover: true, glossary: '{"glossary":{"a":{}}}' })),
+    form("/api/admin/books?id=alice&kind=public", adminCookie, formWith({ cover: true, glossary: '{"version":2,"glossary":{"a":{"meaning":"One thing."}}}' })),
     publicEnv,
     { now: NOW },
   );
@@ -1583,7 +1584,7 @@ test("book upload: private streams to PRIVATE, public updates its catalog row", 
   medium.set("epub", new File([epubBytes], "book.epub", { type: "application/epub+zip" }));
   medium.set(
     "glossary",
-    new File([new Uint8Array(4_000_001)], "glossary.json", { type: "application/json" }),
+    new File([validLargeGlossary(4_000_001)], "glossary.json", { type: "application/json" }),
   );
   const overOldCap = await handleUpload(
     form("/api/admin/books?id=alice&kind=public", adminCookie, medium),
@@ -1786,7 +1787,7 @@ test("in-progress marks stay until that book's glossary is published", async () 
   };
   files.set("word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(liveCatalog, null, 1)}\n`));
   files.set("public-books/catalog.json", new TextEncoder().encode(`${JSON.stringify(publicCatalog, null, 1)}\n`));
-  const env = envOf(db, { BOOKS: stubBucket(files) });
+  const env = envOf(db, { BOOKS: stubBucket(files), PUBLIC_BOOK_PUBLISH_CPU_CONFIRMED: "true" });
   const catalogBefore = files.get("word-lists/catalog.json");
 
   const empty = await handleGlossaryWorkGet(new Request("http://localhost/api/admin/glossary-work", { headers: { cookie: adminCookie } }), env, { now: NOW });
@@ -1817,7 +1818,7 @@ test("in-progress marks stay until that book's glossary is published", async () 
   const storedCatalog = JSON.parse(new TextDecoder().decode(files.get("word-lists/catalog.json")));
   assert.equal(storedCatalog.lists.find((item) => item.id === "george").glossary.sha256, "bbb");
 
-  const publicGlossary = JSON.stringify({ title: "Alice", glossary: { tea: {} }, count: 1 });
+  const publicGlossary = JSON.stringify({ version: 2, title: "Alice", glossary: { tea: { meaning: "A hot drink." } }, count: 1 });
   const publicPublished = await handlePublish(
     raw("/api/admin/word-lists?id=alice&catalog=public", adminCookie, publicGlossary),
     env,
@@ -2570,7 +2571,7 @@ test("word feedback: a reader's own meaning is cleaned, capped and kept for revi
   const stored = db.raw.prepare("SELECT suggestion FROM word_feedback").get().suggestion;
   assert.equal([...stored].length, 200, "at most 200 characters");
   assert.ok(stored.startsWith("To jump in b head first /b x"), "markup brackets and control characters become single spaces");
-  assert.doesNotMatch(stored, /[<>\u0000-\u001f]/);
+  assert.ok([...stored].every((char) => char !== "<" && char !== ">" && char.charCodeAt(0) >= 32));
 
   // The same place again from the same address: without a meaning it is a duplicate, with one it is kept.
   const plain = await handleWordFeedbackPost(postJson("/api/feedback/word", await readerCookie(env), base, "41.42.43.44"), env, { now: NOW + 1000 });
@@ -2858,4 +2859,230 @@ test("a trusted month or year ends on the same day, or the last day of a short m
   assert.equal(day(trustedUntil("year", at("2028-02-29T10:00:00Z"))), "2029-02-28");
   assert.equal(day(trustedUntil("month", at("2026-12-31T10:00:00Z"))), "2027-01-31");
   assert.equal(new Date(trustedUntil("month", at("2026-01-31T10:00:00Z"))).toISOString().slice(11, 19), "10:00:00", "the time of day stays");
+});
+
+function validLargeGlossary(length) {
+  const glossary = {};
+  for (let at = 0; at < 7000; at += 1) glossary[`word${at}`] = {
+    meaning: "A clear English explanation of one word. ".repeat(12),
+    whyHard: "An uncommon word in this story.",
+  };
+  const head = JSON.stringify({ version: 2, glossary, note: "" }).slice(0, -2);
+  const tail = String.fromCharCode(34, 125);
+  return head + "x".repeat(length - head.length - tail.length) + tail;
+}
+
+const publishText = (value) => new TextEncoder().encode(value);
+const readPublished = (files, key) => JSON.parse(new TextDecoder().decode(files.get(key)));
+const validPublicGlossary = (extra = {}) => JSON.stringify({
+  version: 2, title: "Great Book",
+  glossary: { word: { meaning: "A word.", futureEntry: { retain: true } } }, ...extra,
+});
+const hashPublished = async (bytes) => Buffer.from(await crypto.subtle.digest("SHA-256", bytes)).toString("hex");
+
+async function publicPublishFixture() {
+  const db = openDb();
+  const admin = await signUpFully(handleRegister, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const cookie = cookieHeader(admin);
+  const epub = publishText("ORIGINAL-EPUB");
+  const glossary = publishText(validPublicGlossary());
+  const epubHash = await hashPublished(epub);
+  const glossaryHash = await hashPublished(glossary);
+  const row = {
+    id: "great-book", title: "Great Book", rev: "legacyrowrev", version: 7, chapters: 8, coined: 3,
+    added: "2020-01-01", updated: "2026-10-01T00:00:00.000Z", previousUpdated: "2026-09-01",
+    isbn: "old-isbn", words: 999, paragraphs: 999, sentences: 999, phrases: 999,
+    futureRow: { keep: [1, 2, 3] },
+    epub: { url: "great-book/book.epub", bytes: epub.length, sha256: epubHash, futureEpub: "keep" },
+    glossary: { url: "great-book/glossary.json", bytes: glossary.length, sha256: glossaryHash, rev: glossaryHash.slice(0, 12), futureGlossary: "keep" },
+    cover: { url: "old-cover", bytes: 3, sha256: "oldcover", futureCover: "keep" },
+  };
+  const other = { id: "other", rev: "otherrev", futureOther: [1, { two: true }], glossary: { sha256: "otherhash", secret: "keep" } };
+  const catalog = { format: 1, updated: row.updated, futureTop: { keep: "yes" }, packs: [row, other] };
+  const files = new Map([
+    ["public-books/catalog.json", publishText(JSON.stringify(catalog))],
+    ["public-books/great-book/book.epub", epub],
+    ["public-books/great-book/glossary.json", glossary],
+    ["covers/public-great-book.jpg", publishText("OLD")],
+  ]);
+  const writes = [];
+  const backing = stubBucket(files);
+  const bucket = {
+    async get(key) {
+      if (key === "public-books/catalog.json") assert.ok(db.raw.prepare("SELECT owner FROM catalog_locks WHERE name = ?").get(key), "read fresh catalog under lock");
+      return backing.get(key);
+    },
+    async put(key, value, options) { writes.push(key); return backing.put(key, value, options); },
+  };
+  const env = envOf(db, { BOOKS: bucket, PUBLIC_BOOK_PUBLISH_CPU_CONFIRMED: "true" });
+  const upload = (book = epub, gloss = glossary, cover, params = "") => {
+    const body = new FormData();
+    body.set("epub", new File([book], "source.epub"));
+    body.set("glossary", new File([gloss], "source.json"));
+    if (cover) body.set("cover", new File([cover], "source.jpg"));
+    return handleUpload(form(`/api/admin/books?id=great-book&kind=public${params}`, cookie, body), env, { now: NOW });
+  };
+  const publish = (gloss = glossary, params = "") => handlePublish(raw(`/api/admin/word-lists?id=great-book&catalog=public${params}`, cookie, gloss), env, { now: NOW });
+  return { db, files, writes, bucket, backing, row, other, epub, glossary, upload, publish };
+}
+
+for (const mode of ["epub-only", "glossary-only", "both", "identical"]) {
+  test(`public multipart ${mode}: raw bytes, exact revisions, counts and unknown fields survive`, async () => {
+    const f = await publicPublishFixture();
+    const epub = mode === "epub-only" || mode === "both" ? publishText("CHANGED-EPUB") : f.epub;
+    const glossary = mode === "glossary-only" || mode === "both" ? publishText(validPublicGlossary({ count: 900, futureTop: { keep: "raw" } }) + "\n  ") : f.glossary;
+    const response = await f.upload(epub, glossary, publishText("NEW-COVER"), "&isbn=&series=Full+Series&seriesNumber=2&category=speech");
+    assert.equal(response.status, 200);
+    const result = await response.json();
+    const stored = readPublished(f.files, "public-books/catalog.json");
+    const row = stored.packs[0];
+    const epubHash = await hashPublished(epub);
+    const glossHash = await hashPublished(glossary);
+    const expectedRev = mode === "epub-only" || mode === "both"
+      ? (await hashPublished(publishText(`${epubHash}\n${glossHash}`))).slice(0, 12)
+      : mode === "glossary-only" ? glossHash.slice(0, 12) : f.row.rev;
+    assert.equal(row.rev, expectedRev);
+    assert.equal(result.rev, expectedRev);
+    assert.deepEqual(result.row, row);
+    assert.equal(row.glossary.rev, glossHash.slice(0, 12));
+    assert.equal(row.epub.sha256, epubHash);
+    assert.equal(row.glossary.sha256, glossHash);
+    assert.equal(row.words, 1, "stale declared count does not override real words");
+    assert.deepEqual([row.paragraphs, row.sentences, row.phrases], [0, 0, 0]);
+    assert.equal(row.previousUpdated, mode === "glossary-only" || mode === "both" ? f.row.updated : f.row.previousUpdated);
+    assert.equal(stored.updated, row.updated);
+    assert.equal(row.added, f.row.added);
+    for (const field of ["version", "chapters", "coined", "futureRow"]) assert.deepEqual(row[field], f.row[field]);
+    assert.equal(row.epub.futureEpub, "keep");
+    assert.equal(row.glossary.futureGlossary, "keep");
+    assert.equal(row.cover.futureCover, "keep");
+    assert.deepEqual(stored.packs[1], f.other);
+    assert.deepEqual(stored.futureTop, { keep: "yes" });
+    assert.equal("isbn" in row, false);
+    assert.equal(row.series, "Full Series");
+    assert.equal(row.seriesNumber, 2);
+    assert.equal(row.category, "speech");
+    assert.deepEqual(f.files.get("public-books/great-book/book.epub"), epub);
+    assert.deepEqual(f.files.get("public-books/great-book/glossary.json"), glossary);
+    assert.equal(f.writes.at(-1), "public-books/catalog.json", "content and optional cover publish before catalog");
+    const retry = await f.upload(epub, glossary);
+    assert.equal((await retry.json()).row.rev, expectedRev, "same-byte retry never resets a combined revision");
+    assert.equal(f.db.raw.prepare("SELECT COUNT(*) AS n FROM catalog_locks").get().n, 0);
+  });
+}
+
+test("public raw glossary uses strict counts, legacy no-title and no-op preserve combined row rev", async () => {
+  const f = await publicPublishFixture();
+  const text = validPublicGlossary({
+    title: undefined, count: 999, futureTop: "raw",
+    paragraphs: [{ chapter: 0, paragraph: 0, context: "One thing stood beside the door.", mainIdea: "Something is near a door.", simple: "One thing was by the door." }],
+    sentences: [{ chapter: 0, context: "One thing stood beside the door.", simple: "One thing was by the door." }],
+    phrases: { "one thing": { pos: "phrase", meaning: "A single thing." } },
+  }) + String.fromCharCode(13, 10);
+  const response = await f.publish(text, "&isbn=9780062285768");
+  assert.equal(response.status, 200);
+  const { row } = await response.json();
+  assert.equal(row.words, 1);
+  assert.deepEqual([row.paragraphs, row.sentences, row.phrases], [1, 1, 1]);
+  assert.equal(row.rev, row.glossary.sha256.slice(0, 12));
+  assert.equal(row.isbn, "9780062285768");
+  assert.equal(row.previousUpdated, f.row.updated);
+  assert.deepEqual(f.files.get("public-books/great-book/book.epub"), f.epub);
+  assert.equal(new TextDecoder().decode(f.files.get("public-books/great-book/glossary.json")), text);
+  assert.equal(row.glossary.futureGlossary, "keep");
+  const stored = readPublished(f.files, "public-books/catalog.json");
+  stored.packs[0].rev = "combined-legacy";
+  f.files.set("public-books/catalog.json", publishText(JSON.stringify(stored)));
+  const noop = await f.publish(text);
+  assert.equal((await noop.json()).row.rev, "combined-legacy");
+});
+
+test("public validation and same-book refusals write no content or catalogs, both routes", async () => {
+  const f = await publicPublishFixture();
+  const cases = [
+    [validPublicGlossary({ title: "Wrong Book" }), 409, "different-book"],
+    [validPublicGlossary({ title: "Great Book: Catching Fire" }), 409, "different-book"],
+    [validPublicGlossary({ glossary: {} }), 400, "bad-glossary"],
+    [validPublicGlossary({ glossary: { word: {} } }), 400, "bad-glossary"],
+    [validPublicGlossary({ paragraphs: [{ chapter: 0 }] }), 400, "bad-glossary"],
+    [validPublicGlossary({ phrases: { "one thing": {} } }), 400, "bad-glossary"],
+    [validPublicGlossary({ glossary: { word: { meaning: "A word.", credit: "bad" } } }), 400, "bad-glossary"],
+    ["not json", 400, "bad-json"],
+  ];
+  const before = new Map([...f.files].map(([key, value]) => [key, value.slice()]));
+  for (const [text, status, error] of cases) {
+    for (const response of [await f.upload(f.epub, text, publishText("COVER")), await f.publish(text)]) {
+      assert.equal(response.status, status, text);
+      assert.equal((await response.json()).error, error);
+    }
+    assert.deepEqual(f.files, before);
+    assert.deepEqual(f.writes, []);
+    assert.equal(f.db.raw.prepare("SELECT COUNT(*) AS n FROM catalog_locks").get().n, 0);
+  }
+  assert.equal((await f.upload(f.epub, validPublicGlossary({ title: "Great Book: A Novel" }))).status, 200);
+});
+
+test("public multipart catalog failure compensates EPUB, glossary and cover; restore failures remain best effort", async () => {
+  for (const failRestore of [false, true]) {
+    const f = await publicPublishFixture();
+    const before = new Map([...f.files].map(([key, value]) => [key, value.slice()]));
+    let catalogFailed = false;
+    f.bucket.put = async (key, value, options) => {
+      f.writes.push(key);
+      if (key === "public-books/catalog.json") { catalogFailed = true; throw new Error("catalog unavailable"); }
+      if (catalogFailed && failRestore && key.endsWith("book.epub")) throw new Error("EPUB restore unavailable");
+      return f.backing.put(key, value, options);
+    };
+    const response = await f.upload(publishText("NEW-EPUB"), validPublicGlossary({ future: "new" }), publishText("NEW-COVER"));
+    assert.equal(response.status, 500);
+    assert.equal((await response.json()).error, "server");
+    for (const [key, bytes] of before) {
+      if (failRestore && key.endsWith("book.epub")) assert.notDeepEqual(f.files.get(key), bytes);
+      else assert.deepEqual(f.files.get(key), bytes, key);
+    }
+    assert.equal(f.db.raw.prepare("SELECT COUNT(*) AS n FROM catalog_locks").get().n, 0, "failures always release lock");
+  }
+});
+
+test("word-list merge preserves unknown top, row and reference fields while metadata clearing works", async () => {
+  const { mergeWordListCatalog } = await import("../functions/lib/word-list-publish.ts");
+  const prior = { id: "one", future: { keep: true }, series: "Old", glossary: { sha256: "old", futureRef: 5 }, updated: "2026-01-01" };
+  const other = { id: "two", future: [1], glossary: { sha256: "other", futureRef: 6 } };
+  const live = { updated: "2026-01-01", futureTop: { keep: true }, lists: [prior, other] };
+  const next = mergeWordListCatalog(live, { id: "one", glossary: { sha256: "new" } }, "2026-10-01");
+  assert.deepEqual(next.futureTop, live.futureTop);
+  assert.deepEqual(next.lists[0].future, prior.future);
+  assert.equal(next.lists[0].glossary.futureRef, 5);
+  assert.equal("series" in next.lists[0], false);
+  assert.deepEqual(next.lists[1], other);
+});
+
+test("public publish budget is fail-closed after auth, before body parsing or storage access", async () => {
+  const db = openDb();
+  const admin = await signUpFully(handleRegister, envOf(db), {
+    body: { email: "xcrunnnn@outlook.com", password: "correct horse" },
+  });
+  const cookie = cookieHeader(admin);
+  const bucket = {
+    async get() { assert.fail("budget denial must not read storage"); },
+    async put() { assert.fail("budget denial must not write storage"); },
+  };
+  for (const setting of [undefined, "false", "TRUE", "1"]) {
+    const env = envOf(db, { BOOKS: bucket, PUBLIC_BOOK_PUBLISH_CPU_CONFIRMED: setting });
+    const multipart = raw("/api/admin/books?id=book&kind=public", cookie);
+    multipart.formData = async () => assert.fail("budget denial must not parse multipart");
+    const body = raw("/api/admin/word-lists?id=book&catalog=public", cookie);
+    body.arrayBuffer = async () => assert.fail("budget denial must not read raw glossary body");
+    for (const response of [await handleUpload(multipart, env, { now: NOW }), await handlePublish(body, env, { now: NOW })]) {
+      assert.equal(response.status, 503);
+      assert.equal((await response.json()).error, "publish-budget-unconfirmed");
+    }
+    assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM catalog_locks").get().n, 0);
+  }
+  for (const [handler, path] of [[handleUpload, "/api/admin/books?id=book&kind=public"], [handlePublish, "/api/admin/word-lists?id=book&catalog=public"]]) {
+    const unauthenticated = await handler(raw(path, ""), envOf(db, { BOOKS: bucket }), { now: NOW });
+    assert.equal(unauthenticated.status, 401, "auth precedes budget gate");
+  }
 });

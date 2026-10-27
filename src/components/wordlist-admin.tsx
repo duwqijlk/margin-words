@@ -142,6 +142,7 @@ function parseTarget(value: string): { kind: BookKind; id: string } | "new" | ""
 }
 
 const ERROR_KEYS: Record<string, string> = {
+  "publish-budget-unconfirmed": "admin.books.budgetUnconfirmed",
   "unknown-id": "admin.lists.needsTitle",
   "duplicate-title": "admin.lists.duplicate",
   "different-book": "admin.lists.differentBook",
@@ -235,10 +236,9 @@ export function WordListAdmin() {
     uploadInput.current?.click();
   }
 
-  async function uploadChosen(list: FileList | null) {
+  async function uploadChosen(file: File | null) {
     const book = uploadTarget.current;
     uploadTarget.current = null;
-    const file = list?.item(0);
     if (!book || !file || locked) return;
     const key = bookKey(book);
     const text = await file.text();
@@ -423,9 +423,9 @@ export function WordListAdmin() {
               accept=".json,application/json"
               data-admin-list-row-file
               onChange={(event) => {
-                const list = event.target.files;
+                const file = event.target.files?.item(0) ?? null;
                 event.target.value = "";
-                void uploadChosen(list);
+                void uploadChosen(file);
               }}
             />
 

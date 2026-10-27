@@ -40,7 +40,14 @@ Synced state is one JSON blob per item in `sync_items`, with `updated_at`:
 
 Last write wins per item. Two devices that each save a different word keep both words. The same word keeps the newer copy. A delete is a tombstone, so it is not undone by an older copy. Review counts keep the higher number for each day.
 
-The book file (EPUB) stays on the device. On a new device the shelf card can appear before the file does. Add the book again from Discover; the app folds the two cards into one.
+The book file (EPUB) stays on the device. On a new device the shelf card can appear before the file does.
+Open that existing shelf card to restore its file on this device. For a matching word-list book, select
+your EPUB in the file dialog (trusted/admin readers may also download it from the private library).
+A matching public-domain book offers its download in the reader. The app performs its normal file and
+edition checks first. A verifiable matching EPUB is automatically saved and opened; do not add the same
+book a second time. The restored file keeps the existing shelf card.
+If the match result is **low** or **none**, stop and ask the reader to confirm the title/edition before
+saving; never silently accept a low-confidence or no-match file.
 
 ## Commands the owner runs
 
@@ -112,7 +119,7 @@ Use a new email you control. Password at least 8 characters.
 1. Signed out. Open `https://inputread.site/shelf`. The shelf, Discover, and a book still open with no account. The person icon is in the top bar.
 2. Sign up. Person icon → Create account → email, password, password again. The dialog asks for the 6-digit code sent to that address; no account exists until it is typed. A mistyped host such as `gamil.com` shows "Did you mean …gmail.com?" under the email field. After the right code the dialog says signed in and then "Synced" (Chinese UI: "已同步").
 3. Log in. Sign out, then sign in with the same email and password. The dialog shows that email again.
-4. Sync. On this browser, change a setting (language or type size) or add a book to the shelf. Wait about two seconds until it says Synced. In a private window, or another device, open `https://inputread.site`, sign in with the same account, and confirm that change is there. Book files are not copied; a shelf card can show up before the EPUB does. Add the book again from Discover on the second device if the file is missing.
+4. Sync. On this browser, change a setting (language or type size) or add a book to the shelf. Wait about two seconds until it says Synced. In a private window, or another device, open `https://inputread.site`, sign in with the same account, and confirm that change is there. Book files are not copied; a shelf card can show up before the EPUB does. Open the existing shelf card on the second device: select your EPUB in the matching word-list book's file dialog (or use the private-library download if trusted/admin), or download a matching public-domain book in the reader. A verifiable matching EPUB is automatically saved and opened; do not add the book again as a second shelf item. If the match is low or none, ask the reader to confirm the title/edition before saving.
 5. Delete. In the account dialog, choose Delete account, enter the password, and confirm. Sign-in with that email and password then fails. Books already on the device stay on the device.
 
 A cookie check from a terminal (the `Set-Cookie` line must include `HttpOnly`, `Secure`, and `SameSite=Lax`). Registering only sends the code (and needs a Turnstile token in production), so sign up in the browser first and check the cookie on login:
@@ -227,7 +234,7 @@ npx wrangler d1 migrations apply margin-words --remote
 
 ## Roles
 
-`roleOf(user)` in `functions/lib/admin.ts`: `admin` is the role or the official email `xcrunnnn@outlook.com` (so the first admin needs no SQL); `trusted` may stream EPUBs from the private bucket; everyone else is `user`. `/api/auth/me` returns the role as `user.role`. `/admin` has three tabs: gift requests, the word-list publisher, and user management (search, grant/revoke `trusted`). Admin APIs answer 403 `forbidden` for anyone else; the owner row cannot be demoted there (`admin-locked`).
+`roleOf(user)` in `functions/lib/admin.ts`: `admin` is the role or the official email `xcrunnnn@outlook.com` (so the first admin needs no SQL); `trusted` may stream EPUBs from the private bucket; everyone else is `user`. `/api/auth/me` returns the role as `user.role`. `/admin` includes gift requests, word lists, books, blurbs, series, users, word taps and QQ groups. User management can search and grant/revoke `trusted`. Admin APIs answer 403 `forbidden` for anyone else; the owner row cannot be demoted there (`admin-locked`).
 
 | Method | Path | Who |
 | --- | --- | --- |
@@ -235,6 +242,13 @@ npx wrangler d1 migrations apply margin-words --remote
 | POST | `/api/admin/users` | admin; `{ id, role: "trusted" \| "user" }` |
 | POST | `/api/admin/word-lists?id=<id>` | admin; raw glossary JSON body. Hashes the bytes, writes the list to BOOKS and changes only its catalog row. Supports a **new copyrighted word-list id** from the file's own metadata (requires a title; rejects duplicate titles). `&catalog=public` updates an **existing** public id only. See the [book upload task](https://inputread.site/kit/book-upload.md) for validation and task steps. |
 | GET | `/api/book/<id>/epub` | signed in + trusted (or admin); streams `<id>/book.epub` from the PRIVATE bucket and logs one `book_downloads` row. 30 per user per day. |
+
+Public book/list publishing additionally requires the separately reviewed deployment CPU budget and
+`PUBLIC_BOOK_PUBLISH_CPU_CONFIRMED=true`. Without it, authenticated public writes answer 503
+`publish-budget-unconfirmed` before reading the body. This release does not enable that setting.
+Books sends one public EPUB+glossary multipart; private uploads remain a list step followed by the
+EPUB, with a partial-success warning if the second step fails. No UI success bypasses the
+[exclusive publishing window](https://inputread.site/kit/maintenance.md#publishing).
 
 The R2 bindings live in `wrangler.toml`: `BOOKS` → `margin-words-books` (public books host files), `PRIVATE` → `margin-words-private` (copyrighted EPUBs; no public access; every byte leaves it only through the checked endpoint above).
 

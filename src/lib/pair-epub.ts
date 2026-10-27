@@ -1,3 +1,5 @@
+import { captureTarget, type TargetMutation } from "@/lib/book-mutation";
+import { checkAbort, readBlobBuffer, requestScope } from "@/lib/cancel-work";
 /**
  * Pair an EPUB the reader already has with a word list from this app.
  * The word list is checked against the book. A low match is reported; it does not block the save
@@ -27,31 +29,38 @@ export async function storeWordListText(id: string, text: string): Promise<void>
   await saveCachedText(cacheKey(id), text);
 }
 
-async function readDirect(url: string): Promise<Uint8Array> {
-  const response = await fetch(url, { cache: "no-cache" });
+async function readDirect(url: string, signal?: AbortSignal): Promise<Uint8Array> {
+  const response = await fetch(url, { cache: "no-cache", signal });
   if (!response.ok) throw new Error(tr("err.bookAddFailed"));
   return new Uint8Array(await response.arrayBuffer());
 }
 
-export async function fetchWordList(pack: WordListPack, catalogUrl = WORD_LIST_CATALOG_URL): Promise<string> {
+export async function fetchWordList(pack: WordListPack, catalogUrl = WORD_LIST_CATALOG_URL, signal?: AbortSignal): Promise<string> {
+  checkAbort(signal);
+  const scope = requestScope(signal);
+  try {
   const want = pack.glossary.sha256;
   const saved = await cachedWordList(pack.id);
+  checkAbort(signal);
   // An older copy must not be paired just because it is still on the device.
   // The catalog revision would then say "current" while the stored list is the old one.
   if (saved) {
     const sha = want ? await hashBytes(new TextEncoder().encode(saved)) : "";
+    checkAbort(signal);
     if (savedListIsCurrent(sha, want)) return saved;
   }
   const glossaryUrl = resolveAgainst(catalogUrl, pack.glossary.url);
   const remoteId = remoteGlossaryId(glossaryUrl);
   const bytes = remoteId
-    ? await fetchProtectedGlossary(pack.id, tr("err.bookAddFailed"))
-    : await readDirect(glossaryUrl);
+    ? await scope.run(fetchProtectedGlossary(pack.id, tr("err.bookAddFailed"), scope.signal))
+    : await scope.run(readDirect(glossaryUrl, scope.signal));
   const sha = await hashBytes(bytes);
   if (want && sha && sha !== want) throw new Error(tr("err.damaged"));
   const text = new TextDecoder().decode(bytes);
   await saveCachedText(cacheKey(pack.id), text);
+  checkAbort(signal);
   return text;
+  } finally { scope.dispose(); }
 }
 
 export type PairPreview = {
@@ -71,22 +80,27 @@ export async function previewOwnEpub(
   pack: WordListPack,
   glossaryText: string,
   onProgress?: (done: number, total: number) => void,
+  signal?: AbortSignal,
 ): Promise<PairPreview> {
+  checkAbort(signal);
   const check = validateGlossary(glossaryText);
   if (!check.ok || !check.file) {
     const shown = check.errors.slice(0, 3).join(" ");
     throw new Error(tr("err.pack.listBad", { problems: shown || tr("err.packListUnreadable") }));
   }
-  const bytes = new Uint8Array(await file.arrayBuffer());
+  const bytes = new Uint8Array(await readBlobBuffer(file, signal));
+  checkAbort(signal);
   let parsed;
   try {
     parsed = await parseEpub(
       bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength),
-      { segmentation: check.file.segmentation, onProgress },
+      { segmentation: check.file.segmentation, onProgress, signal },
     );
   } catch (reason) {
+    checkAbort(signal);
     throw new Error(errorText(reason, "err.openFailed"));
   }
+  checkAbort(signal);
   const warnings = importSpineWarnings(check.file.spine?.merge, parsed);
   parsed = applySpineMerge(parsed, check.file.spine?.merge);
   const paragraphs = parsed.chapters.flatMap((chapter) => chapter.paragraphs);
@@ -95,19 +109,24 @@ export async function previewOwnEpub(
 }
 
 /** The catalog's card cover, when this word list has one. Empty if it cannot be fetched. */
-async function catalogCoverData(pack: WordListPack): Promise<string> {
+async function catalogCoverData(pack: WordListPack, signal?: AbortSignal): Promise<string> {
   if (!pack.cover?.url) return "";
-  return fetchCoverData(resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url), pack.cover.sha256);
+  return fetchCoverData(resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url), pack.cover.sha256, signal);
 }
 
 /** Store a preview the reader has already seen. */
-export async function savePaired(preview: PairPreview): Promise<InstallResult> {
+export async function savePaired(preview: PairPreview, options: { targetBookId?: string; signal?: AbortSignal; mutation?: TargetMutation; onWrite?: () => void } = {}): Promise<InstallResult> {
+  const mutation = options.mutation ?? (options.targetBookId ? captureTarget(options.targetBookId) : undefined);
+  checkAbort(options.signal);
   const { pack, parsed } = preview;
   const tagged = parsed.coverTagged ? parsed.cover ?? "" : "";
   // A tagged OPF cover wins. Otherwise the word-list cover. The portrait image
   // at the start of the book is filled in later, and only when nothing is stored.
-  const catalog = tagged ? "" : await catalogCoverData(pack);
+  const catalog = tagged ? "" : await catalogCoverData(pack, options.signal);
+  checkAbort(options.signal);
+  options.onWrite?.();
   return installPack({
+    targetBookId: options.targetBookId, mutation, signal: options.signal,
     packId: pack.id,
     catalog: "word-lists",
     rev: pack.glossary.sha256.slice(0, 12),
