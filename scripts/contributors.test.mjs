@@ -535,6 +535,7 @@ test("the cover shows a count after its faces, and the patrol builds books with 
   const squash = (text) => text.replace(/\s+/g, " ").trim();
   const code = readFileSync(join(ROOT, "functions/lib/book-maintainers.ts"), "utf8");
   const manual = readFileSync(join(ROOT, "docs/GLOSSARY_PATROL.md"), "utf8");
+  assert.ok(manual.includes("Cache-Control: public, max-age=300"), "the patrol preserves the public credit file cache metadata");
   const sql = (text, start) => {
     const at = text.indexOf("WITH accepted AS (", text.indexOf(start));
     const end = text.indexOf("GROUP BY u.id, a.catalog_id, a.book_title, a.place", at);

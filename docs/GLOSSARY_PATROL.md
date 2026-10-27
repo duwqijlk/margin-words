@@ -391,7 +391,8 @@ entry, sentence note or paragraph note whose text came from it (GLOSSARY_FORMAT.
 
 Then, once per run after the last accepted suggestion, refresh the public credit file. Read the
 rows with this query and write them as `contributors.json` to bucket `margin-words-books`
-(R2 write, `Content-Type: application/json`):
+(R2 write, `Content-Type: application/json`, `Cache-Control: public, max-age=300`; set and
+verify both metadata fields on every refresh):
 
 ```sql
 WITH accepted AS (
