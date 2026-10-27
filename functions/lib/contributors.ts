@@ -1,10 +1,12 @@
 import type { D1Database, R2BucketLike } from "./db.ts";
+import { bookMaintainers } from "./book-maintainers.ts";
 
 /**
  * The public file that credits readers: `contributors.json` on the books host.
  *
  *   { "format": 1, "updated": "<ISO>", "people": [
- *       { "id": "<public_id>", "name": "<nickname>", "helped": 3, "avatar": 2 }, ... ] }
+ *       { "id": "<public_id>", "name": "<nickname>", "helped": 3, "avatar": 2 }, ... ],
+ *     "books": { "word-lists:wonder": { "count": 12, "top": ["<public_id>", ...] }, ... } }
  *
  * One row per reader with at least one accepted meaning, most help first. `avatar` is the version
  * of `avatars/<id>-<avatar>.webp` (absent when there is none). No email, no internal id.
@@ -13,10 +15,13 @@ import type { D1Database, R2BucketLike } from "./db.ts";
  * a credit costs no D1 read and no Function call. It is rebuilt after the daily patrol accepts
  * meanings (POST /api/contributors/rebuild by an admin, or this function from a script) and when a
  * credited reader changes their nickname or avatar.
+ *
+ * `books` (book-maintainers.ts) lists, per catalog book, how many readers maintained it and the
+ * first three; a cover shows them, and their names and pictures come from `people`.
  */
 export const CONTRIBUTORS_KEY = "contributors.json";
 
-export type ContributorRow = { id: string; name: string; helped: number; avatar?: number };
+export type ContributorRow = { id: string; name: string; helped: number; avatar?: number; rank?: number };
 
 export async function contributorRows(db: D1Database): Promise<ContributorRow[]> {
   const rows = await db
@@ -54,8 +59,24 @@ export const CONTRIBUTORS_HTTP = { contentType: "application/json", cacheControl
 
 /** Write contributors.json. Returns how many readers it lists. */
 export async function publishContributors(db: D1Database, bucket: R2BucketLike, now = Date.now()): Promise<number> {
-  const people = await contributorRows(db);
-  const file = { format: 1, updated: new Date(now).toISOString(), people };
+  const [people, { books, readers }] = await Promise.all([contributorRows(db), bookMaintainers(db, bucket)]);
+  // `people` keeps the top 500 by help; a maintainer a cover shows must be named there too.
+  const listed = new Set(people.map((person) => person.id));
+  const required = new Set(Object.values(books).flatMap((book) => book.top));
+  // Keep the original SQL top 500 and its tie order. Rank every remaining reader, including
+  // those not selected for a cover, before filtering; an extra's array index is not its rank.
+  let rank = people.length;
+  for (const [id, reader] of readers) {
+    if (listed.has(id)) continue;
+    rank++;
+    if (required.has(id)) {
+      people.push({ ...reader, rank });
+      listed.add(id);
+    }
+  }
+  // Stable sorting preserves the original top 500 tie order ahead of added maintainers.
+  people.sort((a, b) => b.helped - a.helped);
+  const file = { format: 1, updated: new Date(now).toISOString(), people, books };
   await bucket.put(CONTRIBUTORS_KEY, `${JSON.stringify(file)}\n`, { httpMetadata: CONTRIBUTORS_HTTP });
   return people.length;
 }
