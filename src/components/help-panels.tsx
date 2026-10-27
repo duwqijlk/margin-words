@@ -285,68 +285,88 @@ export function ParagraphPanel({
           </p>
         ) : (
           <>
+            <p className="text-xs leading-relaxed text-muted" data-part="help-source-intro">
+              {t("hp.sourceIntro")}
+            </p>
             {paragraph ? (
-              <>
-                {paragraph.credit ? <CreditLine id={paragraph.credit} /> : null}
-                <section className="grid gap-1" aria-label={t("hp.mainIdea")}>
-                  <h3 className="text-xs font-semibold text-muted">{t("hp.mainIdea")}</h3>
-                  <p className="text-[1.05rem] leading-relaxed" lang="en" data-part="main-idea">
-                    {paragraph.mainIdea}
-                  </p>
-                </section>
-
-                <section className="grid gap-1.5" aria-label={t("hp.simple")}>
-                  <button
-                    type="button"
-                    aria-expanded={open}
-                    onClick={() => setOpen((value) => !value)}
-                    className="-mx-1 flex min-h-11 items-center justify-between gap-2 rounded-lg px-1 text-left text-sm font-semibold text-accent hover:bg-accent-soft/60"
-                  >
-                    <span>{t("hp.simple")}</span>
-                    <span className="flex items-center gap-1 font-normal text-muted">
-                      {open ? t("common.hide") : t("common.show")}
-                      <ChevronDown
-                        className={cn("size-4 transition-transform", open && "rotate-180")}
-                        aria-hidden
-                      />
-                    </span>
-                  </button>
-                  {open ? (
-                    <p className="text-[1.02rem] leading-relaxed" lang="en" data-part="simple">
-                      {paragraph.simple}
+              <section
+                className="grid min-w-0 gap-2"
+                aria-label={t("hp.paragraphSection")}
+                data-part="paragraph-help"
+              >
+                <h3 className="text-sm font-semibold">{t("hp.paragraphSection")}</h3>
+                <div className="grid min-w-0 gap-3 rounded-lg border border-line bg-paper/50 p-3">
+                  <HelpSource credit={paragraph.credit} />
+                  <section className="grid gap-1" aria-label={t("hp.mainIdea")}>
+                    <h4 className="text-xs font-semibold text-muted">{t("hp.mainIdea")}</h4>
+                    <p
+                      className="break-words text-[1.05rem] leading-relaxed"
+                      lang="en"
+                      data-part="main-idea"
+                    >
+                      {paragraph.mainIdea}
                     </p>
-                  ) : null}
-                </section>
-
-                {paragraph.hardWords.length > 0 ? (
-                  <section className="grid gap-1.5" aria-label={t("hp.hardWords")}>
-                    <h3 className="text-xs font-semibold text-muted">{t("hp.hardHint")}</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {paragraph.hardWords.map((word) => (
-                        <button
-                          key={word}
-                          type="button"
-                          data-hard-word={word}
-                          onClick={() => onWord(word)}
-                          lang="en"
-                          className="min-h-10 rounded-full border border-line px-3.5 text-[0.95rem] font-medium hover:bg-accent-soft"
-                        >
-                          {word}
-                        </button>
-                      ))}
-                    </div>
                   </section>
-                ) : null}
-              </>
+
+                  <section className="grid gap-1.5" aria-label={t("hp.simple")}>
+                    <h4>
+                      <button
+                        type="button"
+                        aria-expanded={open}
+                        onClick={() => setOpen((value) => !value)}
+                        className="-mx-1 flex min-h-11 w-[calc(100%+0.5rem)] items-center justify-between gap-2 rounded-lg px-1 text-left text-sm font-semibold text-accent hover:bg-accent-soft/60"
+                      >
+                        <span>{t("hp.simple")}</span>
+                        <span className="flex shrink-0 items-center gap-1 font-normal text-muted">
+                          {open ? t("common.hide") : t("common.show")}
+                          <ChevronDown
+                            className={cn("size-4 transition-transform", open && "rotate-180")}
+                            aria-hidden
+                          />
+                        </span>
+                      </button>
+                    </h4>
+                    {open ? (
+                      <p
+                        className="break-words text-[1.02rem] leading-relaxed"
+                        lang="en"
+                        data-part="simple"
+                      >
+                        {paragraph.simple}
+                      </p>
+                    ) : null}
+                  </section>
+
+                  {paragraph.hardWords.length > 0 ? (
+                    <section className="grid gap-1.5" aria-label={t("hp.hardWords")}>
+                      <h4 className="text-xs font-semibold text-muted">{t("hp.hardHint")}</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {paragraph.hardWords.map((word) => (
+                          <button
+                            key={word}
+                            type="button"
+                            data-hard-word={word}
+                            onClick={() => onWord(word)}
+                            lang="en"
+                            className="min-h-10 max-w-full break-words rounded-full border border-line px-3.5 text-[0.95rem] font-medium hover:bg-accent-soft"
+                          >
+                            {word}
+                          </button>
+                        ))}
+                      </div>
+                    </section>
+                  ) : null}
+                </div>
+              </section>
             ) : null}
 
             {sentences.length > 0 ? (
               <section
-                className={cn("grid gap-3", paragraph && "border-t border-line/70 pt-3")}
-                aria-label={t("hp.sentences")}
+                className="grid min-w-0 gap-2"
+                aria-label={t("hp.sentenceSection")}
                 data-part="sentences"
               >
-                <h3 className="text-xs font-semibold text-muted">{t("hp.sentences")}</h3>
+                <h3 className="text-sm font-semibold">{t("hp.sentenceSection")}</h3>
                 {sentences.map((note, at) => (
                   <SentenceNote
                     key={`${at}:${note.context}`}
@@ -360,11 +380,33 @@ export function ParagraphPanel({
           </>
         )}
 
-        <p className="border-t border-line pt-3 text-xs leading-snug text-muted">
+        <p
+          className="border-t border-line pt-3 text-xs leading-snug text-muted"
+          data-part="help-footer"
+        >
           {t("hp.footer")}
         </p>
       </div>
     </FloatingAside>
+  );
+}
+
+function HelpSource({ credit }: { credit?: string }) {
+  const { t } = useT();
+  return (
+    <div
+      className="flex min-w-0 flex-wrap items-center gap-x-2.5 gap-y-1 border-b border-line/70 pb-2 text-xs text-muted"
+      data-help-source={credit ? "reader" : "word-list"}
+    >
+      <span className="shrink-0 font-medium">
+        {t(credit ? "hp.sourceReader" : "hp.sourceBook")}
+      </span>
+      {credit ? (
+        <div className="min-w-0 max-w-full">
+          <CreditLine id={credit} />
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -385,33 +427,39 @@ function SentenceNote({
   return (
     <div
       // The yellow is the page's; the panel only says which note is chosen, with its line.
-      className="grid gap-1.5"
+      className="grid min-w-0 gap-3 rounded-lg border border-line bg-paper/50 p-3"
       data-sentence-note
       data-chosen={chosen ? "" : undefined}
     >
-      <button
-        type="button"
-        onClick={onChoose}
-        aria-pressed={chosen}
-        className={cn(
-          "pl-2.5 text-left font-display text-[0.92rem] leading-relaxed",
-          chosen ? "border-l-[3px] border-accent text-ink" : "border-l-2 border-line text-muted",
-        )}
-        lang="en"
-        data-part="sentence-context"
-      >
-        {note.context}
-      </button>
-      <p className="text-[1.02rem] leading-relaxed" lang="en" data-part="easier">
-        {note.simple}
-      </p>
+      <HelpSource credit={note.credit} />
+      <div className="grid min-w-0 gap-1">
+        <span className="text-xs font-semibold text-muted">{t("hp.original")}</span>
+        <button
+          type="button"
+          onClick={onChoose}
+          aria-pressed={chosen}
+          className={cn(
+            "min-h-11 break-words pl-2.5 text-left font-display text-[0.92rem] leading-relaxed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+            chosen ? "border-l-[3px] border-accent text-ink" : "border-l-2 border-line text-muted",
+          )}
+          lang="en"
+          data-part="sentence-context"
+        >
+          {note.context}
+        </button>
+      </div>
+      <div className="grid gap-1">
+        <span className="text-xs font-semibold text-muted">{t("hp.explanation")}</span>
+        <p className="break-words text-[1.02rem] leading-relaxed" lang="en" data-part="easier">
+          {note.simple}
+        </p>
+      </div>
       {note.grammar ? (
-        <p className="text-sm leading-snug" lang="en" data-part="grammar">
+        <p className="break-words text-sm leading-snug" lang="en" data-part="grammar">
           <span className="mr-1.5 text-xs font-semibold text-muted">{t("hp.grammar")}</span>
           {note.grammar}
         </p>
       ) : null}
-      {note.credit ? <CreditLine id={note.credit} /> : null}
     </div>
   );
 }
