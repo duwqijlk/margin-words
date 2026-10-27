@@ -198,6 +198,8 @@ export const zh: Record<Key, string> = {
   "browse.prev": "往前看",
   "browse.next": "往后看",
   "browse.openAria": "《{title}》的介绍",
+  "maintainers.aria": "{n} 位读者维护这本书的词表",
+  "maintainers.title": "维护者",
   "browse.featured": "本站新书",
   "browse.view": "看看这本书",
   "browse.wordsMarked": "标出 {n} 个单词",

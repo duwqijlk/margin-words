@@ -21,6 +21,13 @@ import type { CatalogPack } from "@/lib/packs";
 import type { WordListPack } from "@/lib/word-list-catalog";
 import { useT } from "@/lib/i18n";
 import { useBookBlurb } from "@/lib/book-blurbs";
+import { BookMaintainerList, BookMaintainers } from "@/components/book-maintainers";
+import { catalogRef } from "@/lib/catalog-id";
+
+/** The catalog book a Discover row is: a classic is a public-domain pack, a list a word-list book. */
+export function rowCatalogRef(row: Pick<DiscoverRow, "kind" | "id">): string {
+  return catalogRef(row.kind === "classic" ? "public-books" : "word-lists", row.id);
+}
 
 export type DiscoverRow = {
   key: string;
@@ -146,8 +153,9 @@ export function BookRail({
               aria-label={t("browse.openAria", { title: row.title })}
               data-rail-book={row.id}
             >
-              <span className="block transition-transform duration-200 group-hover:-translate-y-1">
+              <span className="relative block transition-transform duration-200 group-hover:-translate-y-1">
                 <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
+                <BookMaintainers bookRef={rowCatalogRef(row)} />
               </span>
               <span
                 className="overflow-hidden font-display text-[0.82rem] leading-snug font-semibold text-ink group-hover:text-accent transition-colors [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.92rem]"
@@ -370,6 +378,7 @@ export function BookDetail({
                   <p className="text-sm text-muted" lang="en">
                     {row.author}
                   </p>
+                  <BookMaintainerList bookRef={rowCatalogRef(row)} />
                   {row.series ? (
                     <p className="text-sm text-muted" data-detail-series>
                       <span lang="en">{row.series}</span>

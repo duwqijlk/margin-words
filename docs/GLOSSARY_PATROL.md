@@ -411,10 +411,47 @@ SELECT u.public_id AS id, COALESCE(u.nickname, '') AS name, u.avatar_rev AS avat
 (This is the same query the site uses in `functions/lib/contributors.ts`.)
 
 ```
-{ "format": 1, "updated": "<now, ISO>", "people": [ { "id": "...", "name": "...", "helped": 3, "avatar": 1792900000 } ] }
+{ "format": 1, "updated": "<now, ISO>", "people": [ { "id": "...", "name": "...", "helped": 3, "avatar": 1792900000 } ],
+  "books": { "word-lists:wonder": { "count": 12, "top": ["<id>", "<id>", "<id>"] } } }
 ```
 
 Leave out `avatar` when it is 0. Write nothing else into the file: no email, no internal id.
+
+**`books` is required.** Discover covers and book details show each book's maintainers from it: a
+file written without it removes them from every cover. Build it from this query (the same rule as
+`functions/lib/book-maintainers.ts`):
+
+```sql
+WITH accepted AS (
+  SELECT user_id, catalog_id, book_title,
+         'w:' || book_id || ':' || word || ':' || chapter || ':' || occurrence AS place, accepted_at
+    FROM word_feedback WHERE accepted_at > 0 AND user_id IS NOT NULL
+  UNION ALL
+  SELECT user_id, catalog_id, book_title,
+         'p:' || book_id || ':' || chapter || ':' || paragraph || ':' || selected AS place, accepted_at
+    FROM passage_feedback WHERE accepted_at > 0 AND user_id IS NOT NULL
+)
+SELECT u.public_id AS id, COALESCE(u.nickname, '') AS name, u.avatar_rev AS avatar,
+       a.catalog_id AS ref, a.book_title AS title,
+       a.place AS place, MIN(a.accepted_at) AS first
+  FROM accepted a JOIN users u ON u.id = a.user_id
+ WHERE u.public_id IS NOT NULL
+ GROUP BY u.id, a.catalog_id, a.book_title, a.place;
+```
+
+- The book of a row is its `ref` (`word-lists:<id>` / `public-books:<id>`). A row with `ref` `''` is an
+  older report: find its `title` in the two live catalogs (case, spaces and punctuation ignored).
+  Normalize using `normalizeTitle` in `src/lib/book-title.ts` (including its edition-label rule).
+  Use it only when the title names exactly **one** catalog book; otherwise leave that row out. If
+  either catalog cannot be read or parsed, abort the refresh rather than guess or lose credits.
+  Ignore malformed nonempty references; do not fall back to title for those.
+- Per book, count each reader's distinct non-NULL `place` after resolving the book, even when
+  multiple titles or references name it. `count` is how many readers the book
+  has; `top` is the public ids of the three with the most help (ties: the earlier `first`, then the
+  public id in alphabetical order, so the same data always gives the same faces).
+- Every id in a `top` must also be in `people`. When the 500-row `people` query left one out, add
+  that reader there with their `name`, `avatar` and total `helped`: the count of distinct
+  non-NULL `place` across all their rows, including rows that cannot be matched to a book.
 For this file too, keep the coordinated window, snapshot bytes/metadata, reread before overwriting
 and verify the R2 readback against the query result. If it changed, abort/rebase instead of dropping
 another writer's changes. Report a failed credit-file refresh; do not claim the public rank is updated.

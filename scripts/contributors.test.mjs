@@ -68,7 +68,10 @@ function openDb() {
 }
 
 function bucket() {
-  const files = new Map();
+  const files = new Map([
+    ["word-lists/catalog.json", JSON.stringify({ lists: [] })],
+    ["public-books/catalog.json", JSON.stringify({ packs: [] })],
+  ]);
   const meta = new Map();
   return {
     files,
@@ -468,4 +471,143 @@ test("a book names its catalog book from what the device knows, never for a hand
   assert.equal(await bookCatalogRef({ source: "elsewhere", catalogOf: inWordLists }), "");
   // A catalog that cannot be read is no answer, not an error.
   assert.equal(await bookCatalogRef({ source: "wonder", catalogOf: async () => { throw new Error("offline"); } }), "");
+});
+
+test("contributors.json lists each catalog book's maintainers, most help first, with old reports matched by title", async () => {
+  const db = openDb();
+  const books = bucket();
+  // Live catalogs: titles for reports made before catalog_id existed. "Twin" names two books.
+  books.files.set("word-lists/catalog.json", JSON.stringify({ lists: [
+    { id: "wonder", title: "Wonder" }, { id: "twin-a", title: "Twin" }, { id: "twin-b", title: "Twin" },
+  ] }));
+  books.files.set("public-books/catalog.json", JSON.stringify({ packs: [{ id: "alice", title: "Alice's Adventures" }] }));
+  const env = { DB: db, BOOKS: books };
+  const people = [];
+  for (const [n, nick] of ["Ann", "Ben", "Cat", "Dan", "Eve"].entries()) {
+    const who = await signUp(env, `m${n}@example.com`);
+    db.raw.prepare("UPDATE users SET nickname = ? WHERE email = ?").run(nick, `m${n}@example.com`);
+    people.push(who);
+  }
+  const say = async (who, word, extra, ip) =>
+    handleWordFeedbackPost(request("/api/feedback/word", { cookie: who.cookie, ip, body: { ...report, word, suggestion: `Meaning of ${word}.`, ...extra } }), env, { now: NOW });
+  const [ann, ben, cat, dan, eve] = people;
+  // Wonder: Ben helps three places, Ann two, Cat, Dan and Eve one each (five maintainers).
+  for (const [i, w] of ["dive", "swim", "float"].entries()) await say(ben, w, { catalogId: "word-lists:wonder" }, `b.${i}`);
+  for (const [i, w] of ["dive", "swim"].entries()) await say(ann, w, { catalogId: "word-lists:wonder" }, `a.${i}`);
+  await say(cat, "dive", { catalogId: "word-lists:wonder" }, "c.0");
+  await say(dan, "dive", { catalogId: "word-lists:wonder" }, "d.0");
+  // An old report with no catalog id: matched to Wonder by its title.
+  await say(eve, "sink", { bookTitle: "Wonder" }, "e.0");
+  // An old report whose title names two books: credited nowhere.
+  await say(eve, "rise", { bookTitle: "Twin" }, "e.1");
+  // A public-domain book, by catalog id.
+  await say(ann, "rabbit", { catalogId: "public-books:alice", bookTitle: "Alice" }, "a.9");
+  db.raw.prepare("UPDATE word_feedback SET accepted_at = ?").run(NOW);
+  await publishContributors(db, books, NOW);
+  const file = JSON.parse(books.files.get(CONTRIBUTORS_KEY));
+  const tied = [cat, dan, eve].map((who) => who.user.publicId).sort((a, b) => a.localeCompare(b));
+  assert.deepEqual(file.books["word-lists:wonder"], {
+    count: 5,
+    top: [ben.user.publicId, ann.user.publicId, tied[0]],
+  }, "five maintainers; the three who helped most; a tie (same help, same time) by public id");
+  assert.deepEqual(file.books["public-books:alice"], { count: 1, top: [ann.user.publicId] });
+  assert.equal(file.books["word-lists:twin-a"], undefined, "a title that names two books credits neither");
+  assert.equal(file.books["word-lists:twin-b"], undefined);
+  for (const id of file.books["word-lists:wonder"].top)
+    assert.ok(file.people.some((person) => person.id === id), "every maintainer on a cover is named in people");
+});
+
+test("the cover shows a count after its faces, and the patrol builds books with the site's query", async () => {
+  const { moreLabel, parseBookMaintainers } = await import("../src/lib/contributors-file.ts");
+  assert.equal(moreLabel(3, 3), "", "all shown: no count");
+  assert.equal(moreLabel(5, 3), "+2");
+  assert.equal(moreLabel(102, 3), "+99");
+  assert.equal(moreLabel(103, 3), "99+", "past 99 more");
+  assert.equal(moreLabel(2, 2), "");
+  const parsed = parseBookMaintainers({ books: {
+    "word-lists:wonder": { count: 7, top: ["abcdefghijkl", "bad id", "mnopqrstuvwx"] },
+    "elsewhere:x": { count: 2, top: ["abcdefghijkl"] },
+    "public-books:alice": { count: 0, top: [] },
+  } });
+  assert.deepEqual(parsed, { "word-lists:wonder": { count: 7, top: ["abcdefghijkl", "mnopqrstuvwx"] } });
+
+  // The patrol writes contributors.json by hand: its query must be the site's.
+  const squash = (text) => text.replace(/\s+/g, " ").trim();
+  const code = readFileSync(join(ROOT, "functions/lib/book-maintainers.ts"), "utf8");
+  const manual = readFileSync(join(ROOT, "docs/GLOSSARY_PATROL.md"), "utf8");
+  const sql = (text, start) => {
+    const at = text.indexOf("WITH accepted AS (", text.indexOf(start));
+    const end = text.indexOf("GROUP BY u.id, a.catalog_id, a.book_title, a.place", at);
+    return squash(text.slice(at, end + "GROUP BY u.id, a.catalog_id, a.book_title, a.place".length));
+  };
+  assert.equal(sql(manual, "**`books` is required.**"), sql(code, "export async function bookMaintainers"));
+});
+
+test("maintainer aggregation deduplicates places across title variants and preserves total help beyond the top 500", async () => {
+  const db = openDb();
+  const books = bucket();
+  books.files.set("word-lists/catalog.json", JSON.stringify({ lists: [{ id: "wonder", title: "Wonder" }] }));
+  const addUser = db.raw.prepare("INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at, public_id, nickname) VALUES (?, ?, '', '', 1, 0, ?, ?)");
+  const add = db.raw.prepare("INSERT INTO word_feedback (book_id, book_title, word, reason, created_at, ip, user_id, accepted_at, catalog_id) VALUES (?, ?, ?, '', 0, '', ?, ?, ?)");
+  addUser.run("target", "target@example.com", "aaaaaaaaaaaa", "Target");
+  // One place under multiple labels, plus an unmatched place: total is two, not three.
+  add.run("device", "Wonder", "one", "target", 2, "word-lists:wonder");
+  add.run("device", "Wonder: A Novel", "one", "target", 1, "");
+  add.run("device", "Unknown", "two", "target", 3, "");
+  for (let i = 0; i < 500; i++) {
+    const id = `u${i}`;
+    addUser.run(id, `${id}@example.com`, i.toString(16).padStart(12, "0"), id);
+    for (let j = 0; j < 3; j++) add.run(id, "", `word${j}`, id, 1, "word-lists:other");
+  }
+  await publishContributors(db, books, NOW);
+  const file = JSON.parse(books.files.get(CONTRIBUTORS_KEY));
+  assert.deepEqual(file.books["word-lists:wonder"], { count: 1, top: ["aaaaaaaaaaaa"] });
+  assert.deepEqual(file.people.find((p) => p.id === "aaaaaaaaaaaa"), { id: "aaaaaaaaaaaa", name: "Target", helped: 2 });
+  assert.equal(file.people.length, 501);
+});
+
+test("maintainer aggregation does not truncate after 20000 grouped rows", async () => {
+  const db = openDb();
+  const books = bucket();
+  db.raw.prepare("INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at, public_id) VALUES ('u', 'u@example.com', '', '', 1, 0, 'aaaaaaaaaaaa')").run();
+  const add = db.raw.prepare("INSERT INTO word_feedback (book_id, word, reason, created_at, ip, user_id, accepted_at, catalog_id) VALUES ('b', ?, '', 0, '', 'u', 1, ?)");
+  db.raw.exec("BEGIN");
+  for (let i = 0; i < 20001; i++) add.run(`word${i}`, i === 20000 ? "word-lists:last" : "word-lists:first");
+  db.raw.exec("COMMIT");
+  await publishContributors(db, books, NOW);
+  const file = JSON.parse(books.files.get(CONTRIBUTORS_KEY));
+  assert.deepEqual(file.books["word-lists:last"], { count: 1, top: ["aaaaaaaaaaaa"] });
+  assert.equal(file.people[0].helped, 20001);
+});
+
+test("an unreadable catalog aborts a legacy-title refresh without overwriting credits", async () => {
+  const db = openDb();
+  const books = bucket();
+  db.raw.prepare("INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at, public_id) VALUES ('u', 'u@example.com', '', '', 1, 0, 'aaaaaaaaaaaa')").run();
+  db.raw.prepare("INSERT INTO word_feedback (book_id, book_title, word, reason, created_at, ip, user_id, accepted_at) VALUES ('b', 'Wonder', 'word', '', 0, '', 'u', 1)").run();
+  books.files.set(CONTRIBUTORS_KEY, "previous credits");
+  for (const bad of [null, "not json", JSON.stringify({ packs: null })]) {
+    if (bad === null) books.files.delete("public-books/catalog.json");
+    else books.files.set("public-books/catalog.json", bad);
+    await assert.rejects(publishContributors(db, books, NOW), /Cannot read catalog public-books/);
+    assert.equal(books.files.get(CONTRIBUTORS_KEY), "previous credits");
+  }
+});
+
+test("book ranking deduplicates matched places, respects earliest acceptance, and rejects malformed references", async () => {
+  const db = openDb();
+  const books = bucket();
+  books.files.set("word-lists/catalog.json", JSON.stringify({ lists: [{ id: "wonder", title: "Wonder" }] }));
+  const addUser = db.raw.prepare("INSERT INTO users (id, email, password_hash, password_salt, password_iters, created_at, public_id) VALUES (?, ?, '', '', 1, 0, ?)");
+  const add = db.raw.prepare("INSERT INTO word_feedback (book_id, book_title, word, reason, created_at, ip, user_id, accepted_at, catalog_id) VALUES ('b', ?, ?, '', 0, '', ?, ?, ?)");
+  for (const [id, pub] of [["a", "aaaaaaaaaaaa"], ["b", "bbbbbbbbbbbb"], ["c", "cccccccccccc"]]) addUser.run(id, `${id}@example.com`, pub);
+  add.run("Wonder", "one", "a", 1, "word-lists:wonder");
+  add.run("Wonder: A Novel", "one", "a", 1, "");
+  add.run("Wonder", "one", "b", 2, "word-lists:wonder");
+  add.run("Wonder", "two", "b", 2, "word-lists:wonder");
+  add.run("Wonder", "one", "c", 3, "invalid:ref");
+  await publishContributors(db, books, NOW);
+  const file = JSON.parse(books.files.get(CONTRIBUTORS_KEY));
+  assert.deepEqual(file.books["word-lists:wonder"], { count: 2, top: ["bbbbbbbbbbbb", "aaaaaaaaaaaa"] });
+  assert.equal(file.books["invalid:ref"], undefined);
 });

@@ -198,6 +198,8 @@ export const en = {
   "browse.prev": "Earlier books",
   "browse.next": "More books",
   "browse.openAria": "About “{title}”",
+  "maintainers.aria": "Maintainers of this word list: {n}",
+  "maintainers.title": "Maintained by",
   "browse.featured": "New on inputread",
   "browse.view": "See the book",
   "browse.wordsMarked": "{n} marked words",

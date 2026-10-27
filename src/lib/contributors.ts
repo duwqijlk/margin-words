@@ -5,22 +5,35 @@
  */
 import { useEffect, useState } from "react";
 import { booksUrl } from "@/lib/books-base";
-import { avatarPath, parseContributors, type Contributor } from "@/lib/contributors-file";
+import {
+  avatarPath,
+  parseBookMaintainers,
+  parseContributors,
+  type BookMaintainers,
+  type Contributor,
+} from "@/lib/contributors-file";
 
-export type { Contributor };
+export type { BookMaintainers, Contributor };
 
-let loading: Promise<Contributor[]> | null = null;
+type File = { people: Contributor[]; books: Record<string, BookMaintainers> };
 
-export function loadContributors(): Promise<Contributor[]> {
+let loading: Promise<File> | null = null;
+
+/** contributors.json, once per page: the readers, and each catalog book's maintainers. */
+function loadFile(): Promise<File> {
   // The file is kept 5 minutes by the browser and the CDN (functions/lib/contributors.ts).
   loading ??= fetch(booksUrl("contributors.json"))
     .then((response) => (response.ok ? response.json() : null))
-    .then(parseContributors)
+    .then((data: unknown) => ({ people: parseContributors(data), books: parseBookMaintainers(data) }))
     .catch(() => {
       loading = null; // try again on the next card or visit
-      return [];
+      return { people: [], books: {} };
     });
   return loading;
+}
+
+export function loadContributors(): Promise<Contributor[]> {
+  return loadFile().then((file) => file.people);
 }
 
 /**
@@ -59,6 +72,21 @@ export function useContributor(id: string | undefined): Contributor | null {
   const people = useContributors();
   if (!id) return null;
   return people.find((person) => person.id === id) ?? null;
+}
+
+/** Every catalog book's maintainers, keyed by `<catalog>:<id>`. Empty until the file has loaded. */
+export function useBookMaintainers(): Record<string, BookMaintainers> {
+  const [books, setBooks] = useState<Record<string, BookMaintainers>>({});
+  useEffect(() => {
+    let alive = true;
+    void loadFile().then((file) => {
+      if (alive) setBooks(file.books);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return books;
 }
 
 /**

@@ -33,7 +33,7 @@ import { WeeklyQuota } from "@/components/weekly-quota";
 import { newestUpdates } from "@/lib/discover-recent";
 import { browseRails, compareSeriesPlace, RAIL_MIN, RAIL_SIZE, railsFor, type DiscoverRailSpec } from "@/lib/discover-rails";
 import { loadDiscoverRailFile } from "@/lib/discover-rail-config";
-import { BookDetail, BookRail, FeaturedBook, type CardModel, type DiscoverRow } from "@/components/discover-browse";
+import { BookDetail, BookRail, FeaturedBook, rowCatalogRef, type CardModel, type DiscoverRow } from "@/components/discover-browse";
 import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import {
   autoUpdateWordLists,
@@ -42,6 +42,7 @@ import {
   useListUpdates,
   wordListRev,
 } from "@/lib/word-list-update";
+import { BookMaintainers } from "@/components/book-maintainers";
 
 /** How many cards to mount at once. The rest of the catalog stays in memory for search and filters. */
 const DISCOVER_PAGE = 12;
@@ -548,6 +549,9 @@ export function DiscoverScreen({
               <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
             </button>
           )}
+          {/* Who maintains the word list, on the cover's top-left: the same place on every card,
+              whatever the title's length or the tags below. The add button keeps the bottom-right. */}
+          <BookMaintainers bookRef={rowCatalogRef(row)} />
           <div className="absolute right-1.5 bottom-1.5 z-[2]">
             <AddToShelfButton
               state={state}
