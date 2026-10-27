@@ -35,6 +35,8 @@ import { booksUrl } from "@/lib/books-base";
 import { isbnDigits, readSeries } from "@/lib/book-meta";
 import { readContentCategory, type ContentCategory } from "@/lib/content-category";
 import { lexileMeasure } from "@/lib/lexile";
+import { noteCatalogIds } from "@/lib/catalog-index";
+import type { CatalogName } from "@/lib/catalog-id";
 
 /* ------------------------------------------------------------------ catalog types */
 
@@ -262,9 +264,13 @@ export async function loadCatalog(url = getCatalogUrl()): Promise<CatalogResult>
       throw new Error("not a catalog");
     }
     writeCache(url, catalog);
+    // Reports name their book by catalog and id (src/lib/catalog-index.ts); only the site's own one.
+    if (url === BUNDLED_CATALOG_URL) noteCatalogIds("public-books", catalog.packs.map((pack) => pack.id));
     return { catalog, url, offline: false };
   } catch {
     const cached = readCache(url);
+    if (cached && url === BUNDLED_CATALOG_URL)
+      noteCatalogIds("public-books", cached.catalog.packs.map((pack) => pack.id));
     if (cached) return { catalog: cached.catalog, url, offline: true };
     throw new Error(failure);
   }
@@ -274,6 +280,11 @@ export async function loadCatalog(url = getCatalogUrl()): Promise<CatalogResult>
 
 export type InstallInput = {
   packId: string;
+  /**
+   * Which of the site's catalogs `packId` is a row of. `undefined` for a pack from another catalog
+   * address: reports about it then carry no catalog reference.
+   */
+  catalog: CatalogName | undefined;
   rev: string;
   title: string;
   author: string;
@@ -457,8 +468,9 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
         ? (await loadBookExtras(bookId).catch(() => null))?.source === "custom"
         : false;
       if (!mine)
-        words = (await applyPackGlossary(bookId, input.glossaryText, input.packId, input.rev))
-          .words;
+        words = (
+          await applyPackGlossary(bookId, input.glossaryText, input.packId, input.rev, input.catalog)
+        ).words;
     }
     await savePackRecord({
       // A card that was found by what the book is keeps its catalog pack id, so Discover still shows it.
@@ -605,6 +617,9 @@ export async function downloadPack(
   onProgress({ stage: "saving", fraction: 0.96 });
   const result = await installPack({
     packId: pack.id,
+    // Only the site's own catalog is "public-books"; a pack from another catalog address the
+    // reader set is not a row there, and its reports must not claim one.
+    catalog: catalogUrl === BUNDLED_CATALOG_URL ? "public-books" : undefined,
     rev: pack.rev,
     title: pack.title,
     author: pack.author,

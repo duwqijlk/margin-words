@@ -89,6 +89,8 @@ import {
   wholeSentence,
 } from "@/components/word-card";
 import { warmIpaFor } from "@/components/word-ipa";
+import { bookCatalogRef } from "@/lib/catalog-id";
+import { catalogOfId } from "@/lib/catalog-index";
 import {
   calculatePageStep,
   isEinkScreen,
@@ -189,6 +191,10 @@ export function ReaderScreen({
   // Phrases live beside the word list. Empty until that record loads, then the dotted line appears.
   const [phraseList, setPhraseList] = useState<Record<string, PhraseEntry>>({});
   const [listSource, setListSource] = useState("");
+  // The catalog book this list is, as `<catalog>:<id>`, sent with every report so the patrol and
+  // the per-book credits find the book without matching titles. Only the list in use counts: a
+  // list the reader added ("custom") names no catalog book, even on a book that came from one.
+  const [catalogId, setCatalogId] = useState("");
   // The book whose phrase list has answered. The chapter is linked only after that: linking it
   // first without phrases and again with them built and laid out the whole chapter twice.
   const [phrasesFor, setPhrasesFor] = useState("");
@@ -348,6 +354,7 @@ export function ReaderScreen({
   useEffect(() => {
     let alive = true;
     setListSource("");
+    setCatalogId("");
     const pull = () => {
       void loadBookExtras(bookId)
         .then(async (extras) => {
@@ -355,12 +362,18 @@ export function ReaderScreen({
           setPhraseList(extras?.phrases ?? {});
           setPhrasesFor(bookId);
           setListSource(extras?.source ?? "");
-          let rev = extras?.rev ?? "";
-          if (!rev) {
-            const pack = await loadPackRecord(bookId).catch(() => null);
-            if (pack?.rev) rev = pack.rev;
-          }
-          setGlossaryRev(rev);
+          const pack = await loadPackRecord(bookId).catch(() => null);
+          if (!alive) return;
+          setGlossaryRev(extras?.rev || pack?.rev || "");
+          // The catalog book reports name. Older installs did not record the catalog; the install
+          // record still names the book, and the catalogs the app has read say which one holds it.
+          const ref = await bookCatalogRef({
+            source: extras?.source,
+            recorded: extras?.catalog,
+            packId: pack?.packId,
+            catalogOf: catalogOfId,
+          });
+          if (alive) setCatalogId(ref);
         })
         .catch(() => {
           if (alive) setPhrasesFor(bookId);
@@ -1430,6 +1443,7 @@ export function ReaderScreen({
       form: countSurface(surface),
       chapter: activeExtra ? 0 : safeIndex,
       chapters: book?.chapters.length ?? 0,
+      catalogId,
       occurrence: nth,
       paragraph: Math.max(0, blockAt),
       context,
@@ -1795,6 +1809,7 @@ export function ReaderScreen({
           bookTitle={book?.title}
           chapter={viewChapter}
           chapters={book?.chapters.length ?? 0}
+          catalogId={catalogId}
           glossaryRev={glossaryRev}
           // Not in an extra (it has no fixed chapter number) or over an open card.
           enabled={viewChapter >= 0 && picked === null && help === null}
@@ -1884,6 +1899,7 @@ export function ReaderScreen({
           noList={noList}
           chapter={viewChapter}
           chapters={book?.chapters.length ?? 0}
+          catalogId={catalogId}
           noteChapter={activeExtra?.fromToc ? activeExtra.id : viewChapter}
           // The sentence hint opens the same panel as the bulb of the tapped paragraph.
           onSentenceHelp={

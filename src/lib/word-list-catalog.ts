@@ -10,6 +10,7 @@ export { matchWordListPack };
 import { readContentCategory, type ContentCategory } from "@/lib/content-category";
 import { lexileMeasure } from "@/lib/lexile";
 import { readUpdated } from "@/lib/list-updated";
+import { noteCatalogIds } from "@/lib/catalog-index";
 
 export const WORD_LIST_CATALOG_URL = booksUrl("word-lists/catalog.json");
 
@@ -104,5 +105,8 @@ export function parseWordListCatalog(value: unknown): WordListPack[] {
 export async function loadWordListCatalog(url = WORD_LIST_CATALOG_URL): Promise<WordListPack[]> {
   const response = await fetch(url, { cache: "no-cache" });
   if (!response.ok) throw new Error("word list catalog");
-  return parseWordListCatalog(await response.json());
+  const packs = parseWordListCatalog(await response.json());
+  // Reports name their book by catalog and id (src/lib/catalog-index.ts).
+  if (url === WORD_LIST_CATALOG_URL) noteCatalogIds("word-lists", packs.map((pack) => pack.id));
+  return packs;
 }

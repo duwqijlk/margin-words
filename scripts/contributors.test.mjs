@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import { handleRegister, handleRegisterConfirm } from "../functions/lib/handlers.ts";
 import { handleWordFeedbackPost } from "../functions/api/feedback/word.ts";
 import { handlePassageFeedbackPost } from "../functions/api/feedback/passage.ts";
+import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
 import { handleAvatarDelete, handleAvatarPut, isWebp } from "../functions/api/auth/avatar.ts";
 import { handleContributorsRebuild } from "../functions/api/contributors/rebuild.ts";
 import { CONTRIBUTORS_KEY, publishContributors } from "../functions/lib/contributors.ts";
@@ -398,4 +399,73 @@ test("the page and the server use one versioned picture path", async () => {
   assert.equal(avatarKey("abc123def456", 1792900000), avatarPath("abc123def456", 1792900000));
   assert.equal(avatarPath("abc123def456", 0), "");
   assert.equal(avatarPath("not-an-id", 5), "");
+});
+
+test("every report keeps the catalog book it is about, and drops anything that is not one", async () => {
+  const db = openDb();
+  const env = { DB: db };
+  const { cookie } = await signUp(env, "catalog@example.com");
+  const catalogId = "word-lists:3_habits_to_practice_curiosity_-_and_escape_your_phone";
+  await handleWordFeedbackPost(request("/api/feedback/word", { cookie, body: { ...report, catalogId } }), env, { now: NOW });
+  const bad = [
+    ["plunge", "word-lists:custom"],
+    ["swim", "../evil<script>"],
+    ["float", "3_habits_to_practice_curiosity_-_and_escape_your_phone"],
+    ["sink", "another-site:wonder"],
+  ];
+  for (const [at, [word, value]] of bad.entries())
+    await handleWordFeedbackPost(
+      request("/api/feedback/word", { cookie, ip: `8.8.8.${at + 1}`, body: { ...report, word, catalogId: value } }),
+      env,
+      { now: NOW },
+    );
+  const words = db.raw.prepare("SELECT word, catalog_id FROM word_feedback ORDER BY id").all();
+  assert.deepEqual(
+    words.map((r) => [r.word, r.catalog_id]),
+    [["dive", catalogId], ["plunge", ""], ["swim", ""], ["float", ""], ["sink", ""]],
+    "a hand-added list, a malformed value, an id without its catalog and an unknown catalog are no reference",
+  );
+
+  await handlePassageFeedbackPost(request("/api/feedback/passage", { cookie, ip: "8.8.9.1", body: { ...passage, catalogId } }), env, { now: NOW });
+  assert.equal(db.raw.prepare("SELECT catalog_id FROM passage_feedback").get().catalog_id, catalogId);
+
+  const taps = { bookId: "device-book", bookTitle: "Curiosity", catalogId, taps: [{ word: "lantern", form: "lantern", chapter: 0, occurrence: 1, count: 1 }] };
+  assert.equal((await handleWordTapsPost(request("/api/analytics/word-taps", { ip: "8.8.9.2", body: taps }), env, { now: NOW })).status, 200);
+  // A later batch from an older page (no reference) keeps the one already known for that place.
+  await handleWordTapsPost(request("/api/analytics/word-taps", { ip: "8.8.9.3", body: { ...taps, catalogId: undefined } }), env, { now: NOW + 1 });
+  const tap = db.raw.prepare("SELECT catalog_id, tap_count FROM book_word_taps").get();
+  assert.equal(tap.catalog_id, catalogId);
+  assert.equal(tap.tap_count, 2);
+  // The same device book now holds another catalog book's list: a new count for that book.
+  const other = "word-lists:wonder";
+  await handleWordTapsPost(request("/api/analytics/word-taps", { ip: "8.8.9.4", body: { ...taps, catalogId: other } }), env, { now: NOW + 2 });
+  const moved = db.raw.prepare("SELECT catalog_id, tap_count FROM book_word_taps").get();
+  assert.deepEqual([moved.catalog_id, moved.tap_count], [other, 1], "taps of book A are not counted for book B");
+});
+
+test("one id in both catalogs names two books", async () => {
+  const { catalogRef, cleanCatalogRef } = await import("../src/lib/catalog-id.ts");
+  assert.equal(catalogRef("word-lists", "alice"), "word-lists:alice");
+  assert.equal(catalogRef("public-books", "alice"), "public-books:alice");
+  assert.notEqual(catalogRef("word-lists", "alice"), catalogRef("public-books", "alice"));
+  assert.equal(catalogRef("word-lists", "custom"), "", "a list the reader added names no catalog book");
+  assert.equal(cleanCatalogRef("public-books:alice"), "public-books:alice");
+  assert.equal(cleanCatalogRef("alice"), "", "an id without its catalog is ambiguous");
+});
+
+test("a book names its catalog book from what the device knows, never for a hand-added list", async () => {
+  const { bookCatalogRef } = await import("../src/lib/catalog-id.ts");
+  const inWordLists = async (id) => (id === "wonder" ? "word-lists" : id === "alice" ? "public-books" : null);
+  // An install that recorded its catalog.
+  assert.equal(await bookCatalogRef({ source: "wonder", recorded: "word-lists", catalogOf: inWordLists }), "word-lists:wonder");
+  // An install from before the catalog was recorded: the catalogs say which one holds the id.
+  assert.equal(await bookCatalogRef({ source: "alice", catalogOf: inWordLists }), "public-books:alice");
+  // A word-list card still waiting for its e-book has only the install record.
+  assert.equal(await bookCatalogRef({ packId: "wonder", catalogOf: inWordLists }), "word-lists:wonder");
+  // The reader's own list on a book that came from a catalog: no catalog book.
+  assert.equal(await bookCatalogRef({ source: "custom", recorded: "word-lists", packId: "wonder", catalogOf: inWordLists }), "");
+  // An id no catalog of the site holds (another catalog address, a book that left the catalog).
+  assert.equal(await bookCatalogRef({ source: "elsewhere", catalogOf: inWordLists }), "");
+  // A catalog that cannot be read is no answer, not an error.
+  assert.equal(await bookCatalogRef({ source: "wonder", catalogOf: async () => { throw new Error("offline"); } }), "");
 });

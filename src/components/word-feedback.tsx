@@ -13,6 +13,7 @@ export function WordExplanationFeedback({
   form,
   chapter,
   chapters,
+  catalogId,
   occurrence,
   paragraph,
   context,
@@ -30,6 +31,8 @@ export function WordExplanationFeedback({
   chapter?: number;
   /** How many chapters this copy of the book has, so a chapter number can be checked. */
   chapters?: number;
+  /** The catalog book, `<catalog>:<id>` (src/lib/catalog-id.ts); "" for a list the reader added. */
+  catalogId?: string;
   occurrence?: number;
   paragraph?: number;
   context?: string;
@@ -79,6 +82,7 @@ export function WordExplanationFeedback({
           form,
           chapter,
           chapters,
+          ...(catalogId ? { catalogId } : {}),
           occurrence,
           paragraph,
           context,
