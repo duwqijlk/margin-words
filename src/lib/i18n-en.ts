@@ -66,7 +66,8 @@ export const en = {
   "guide.title": "Guide",
   "guide.github": "Source code on GitHub",
   "guide.addTitle": "Add a book to your shelf",
-  "guide.addBody": "Books are added on Discover, and adding needs an account: sign in first (the person icon at the top). Then open Discover and tap the plus on a book’s cover. The plus becomes a check, and the button is called “On shelf”. To take a book off, tap the check and choose “Remove from shelf”. On your shelf, use the three-dot menu on a book. You can undo right after.",
+  "guide.addBody":
+    "Books are added on Discover, and adding needs an account: sign in first (the person icon at the top). Then open Discover and tap the plus on a book’s cover. The plus becomes a check, and the button is called “On shelf”. To take a book off, tap the check and choose “Remove from shelf”. On your shelf, use the three-dot menu on a book. You can undo right after.",
   "guide.offlineTitle": "Opening the site needs the internet",
   "guide.offlineBody":
     "You need the internet to open this site. A book file that is already on this device stays on this device. Sign in, and another device shows the same shelf card, but that device still needs the book file: download a public-domain classic, or add your own e-book. Your progress and your notebook can sync when you are signed in.",
@@ -102,7 +103,8 @@ export const en = {
   "dashboard.rankTop": "Top three",
   "dashboard.heroWords": "marked words, each one explained where it appears",
   "dashboard.heroIn": " across {books} books.",
-  "dashboard.rankMineNone": "When a word is not explained well, tap the question mark and write your own meaning. Once it is reviewed, your name is shown with it.",
+  "dashboard.rankMineNone":
+    "When a word is not explained well, tap the question mark and write your own meaning. Once it is reviewed, your name is shown with it.",
   "dashboard.rankEmpty": "No reader's meaning has been added yet. Yours could be the first.",
   "dashboard.rankAll": "See all {n} contributors",
   "dashboard.rankLess": "Show less",
@@ -133,6 +135,19 @@ export const en = {
   "shelf.moreAria": "More actions for “{title}”",
   "shelf.moreAgain": "Tap again",
   "shelf.menuWords": "Words from this book",
+  "shelf.info": "Book info",
+  "shelf.infoLocal": "Details saved on this device.",
+  "shelf.infoSeriesNumber": "Book {n}",
+  "shelf.infoMatch": "Saved word-list match",
+  "shelf.infoMatchNote":
+    "This saved percentage is not proof of a verified edition. A saved 100% can also mean there were no snippets to compare.",
+  "shelf.infoDue": "Words due for review",
+  "shelf.infoFile": "Book file",
+  "shelf.infoFileHere": "On this device",
+  "shelf.infoNotesOnly": "Notebook only; no e-book attached",
+  "shelf.infoAvailability": "Availability",
+  "shelf.infoLanguage": "Language note",
+  "shelf.lowMatch": "Low word-list match: {n}%",
   "shelf.menuAddList": "Add word list",
   "shelf.menuEdit": "Edit title",
   "shelf.sampleNotebook": "Sample notebook",
@@ -241,6 +256,8 @@ export const en = {
   "discover.loadingMore": "Loading more…",
   "discover.add": "Add to shelf",
   "discover.signInToAdd": "Sign in to add",
+  "discover.ambiguous": "More than one shelf book may match. Check your shelf before adding or updating.",
+  "discover.missingCatalogIdentity": "We cannot tell which catalog this book belongs to. Check your shelf first.",
   "discover.remove": "Remove from shelf",
   "discover.workingPct": "Adding… {pct}%",
   "discover.retry": "Try again",
@@ -252,7 +269,8 @@ export const en = {
   "discover.removed": "“{title}” was removed from your shelf.",
   "discover.undo": "Undo",
   "discover.removeTitle": "Remove “{title}” from your shelf?",
-  "discover.removeBody": "The book and your reading place will be deleted from this device. This cannot be undone.",
+  "discover.removeBody":
+    "The book and your reading place will be deleted from this device. This cannot be undone.",
   "discover.removeConfirm": "Remove",
   "discover.working": "Adding…",
   "discover.onShelf": "On shelf",
@@ -261,9 +279,11 @@ export const en = {
   "discover.addEpubAria": "Add your e-book for “{title}”",
   "discover.promptTitle": "Your e-book",
   "discover.prompt": "Add your own e-book of ISBN {isbn}. The word list is already on your shelf.",
-  "discover.promptPlain": "Add your own e-book of this title. The word list is already on your shelf.",
+  "discover.promptPlain":
+    "Add your own e-book of this title. The word list is already on your shelf.",
   "lists.title": "Word lists",
-  "lists.hint": "Word lists only. Prepare your own e-book of the ISBN on the card, then add that file here.",
+  "lists.hint":
+    "Word lists only. Prepare your own e-book of the ISBN on the card, then add that file here.",
   "lists.prepare": "Prepare your own e-book of ISBN {isbn}.",
   "lists.preparePlain": "Prepare your own e-book of this title.",
   "lists.download": "Download word list",
@@ -272,9 +292,13 @@ export const en = {
   "lists.addMineAria": "Add your e-book for “{title}”",
   "lists.matchTitle": "Your e-book",
   "lists.match": "{n}% of the word list snippets were found in your e-book.",
-  "lists.matchWarn": "This looks like a different edition. Only {n}% of the snippets were found, so the word list may not line up.",
+  "lists.matchWarn":
+    "This looks like a different edition. Only {n}% of the snippets were found, so the word list may not line up.",
   "lists.matchNone": "This word list has no snippets to compare with your e-book.",
-  "lists.add": "Add to my shelf",
+  "lists.useFile": "Use this file anyway",
+  "lists.retrySave": "Try saving again",
+  "lists.downloading": "Downloading your e-book…",
+  "lists.saving": "Saving your e-book…",
   "lists.working": "Checking your e-book…",
   "lists.checkProgress": "Checking {done}/{total}…",
   "lists.downloaded": "Downloaded {mb} MB",
@@ -308,14 +332,16 @@ export const en = {
   "settings.title": "Settings",
   "settings.desc": "Language, theme, and default pronunciation.",
   "settings.pronunciation": "Default pronunciation",
-  "settings.pronunciationHelp": "Try this accent first for words and phrases. UK and US card buttons always play their labeled accent.",
+  "settings.pronunciationHelp":
+    "Try this accent first for words and phrases. UK and US card buttons always play their labeled accent.",
   "settings.langTitle": "Language",
   "settings.guide": "How to make a book pack",
 
   /* ---- account */
   "account.manage": "Account",
   "account.title": "Account",
-  "account.desc": "Sign in to add books, and to sync your shelf, reading place, and saved words. Books already on this device can be read without an account.",
+  "account.desc":
+    "Sign in to add books, and to sync your shelf, reading place, and saved words. Books already on this device can be read without an account.",
   "account.signedDesc":
     "You are signed in. Your shelf, reading place, saved words, and settings sync to your other devices. Book files stay on each device.",
   "account.privacyTitle": "Privacy",
@@ -336,7 +362,8 @@ export const en = {
   "account.login": "Sign in",
   "account.register": "Create account",
   "account.logoutTitle": "Sign out and clear this device?",
-  "account.logoutBody": "Signing out clears the shelf, book files and word lists, reading progress, wordbook and settings on this device, so the next person who signs in here does not see or merge your things. What was synced stays in the cloud and comes back when you sign in. E-book files you added yourself are not in the cloud, so add them again.",
+  "account.logoutBody":
+    "Signing out clears the shelf, book files and word lists, reading progress, wordbook and settings on this device, so the next person who signs in here does not see or merge your things. What was synced stays in the cloud and comes back when you sign in. E-book files you added yourself are not in the cloud, so add them again.",
   "account.logoutConfirm": "Sign out and clear",
   "account.logout": "Sign out",
   "account.signedIn": "Signed in as {email}",
@@ -345,9 +372,12 @@ export const en = {
   "quota.speeches": "Speeches {n}/{limit}",
   "quota.rulesOpen": "How the weekly limit works",
   "quota.rulesTitle": "Weekly word lists",
-  "quota.rule1": "Each 7 days you can open 7 new novels and 7 new speeches. The two are counted apart.",
-  "quota.rule2": "The 7 days roll: a place comes back 7 days after you used it, not on a fixed weekday.",
-  "quota.rule3": "A book you opened before, on any device, does not use a place. Books already on your shelf do not either.",
+  "quota.rule1":
+    "Each 7 days you can open 7 new novels and 7 new speeches. The two are counted apart.",
+  "quota.rule2":
+    "The 7 days roll: a place comes back 7 days after you used it, not on a fixed weekday.",
+  "quota.rule3":
+    "A book you opened before, on any device, does not use a place. Books already on your shelf do not either.",
   "quota.rule4": "The limit stops bulk downloads of the word lists. Trusted readers have no limit.",
   "quota.backOn": "One place comes back on {day}.",
   "quota.fullNovel": "No novel places left this week. One comes back on {day}.",
@@ -363,7 +393,8 @@ export const en = {
   "account.glossaryUnlimited": "No weekly limit",
   "account.glossaryNovels": "Novels",
   "account.glossarySpeeches": "Speeches",
-  "account.glossaryHint": "7 new novels and 7 new speeches in 7 days. A book already on your shelf does not use a place.",
+  "account.glossaryHint":
+    "7 new novels and 7 new speeches in 7 days. A book already on your shelf does not use a place.",
   "account.syncSaved": "Synced",
   "account.syncSaving": "Syncing…",
   "account.syncOffline": "Offline. Changes will sync when you are back online.",
@@ -372,16 +403,19 @@ export const en = {
   "account.export": "Export my data",
   "account.exportDone": "Download started",
   "account.delete": "Delete account",
-  "account.deleteWarn": "This deletes the account and everything stored for sync, and clears the books and word lists on this device too.",
+  "account.deleteWarn":
+    "This deletes the account and everything stored for sync, and clears the books and word lists on this device too.",
   "account.deleteConfirm": "Delete the account",
   "account.forgot": "Forgot password?",
   "account.forgotBody":
     "Password reset by email is not turned on yet, so this app cannot send a reset message. You can keep reading without an account.",
   "account.forgotEmail": "Your email",
   "account.forgotSend": "Send reset link",
-  "account.forgotSent": "If that email has an account, the reset link is on its way. The link works for one hour.",
+  "account.forgotSent":
+    "If that email has an account, the reset link is on its way. The link works for one hour.",
   "account.forgotTitle": "Reset your password",
-  "account.forgotIntro": "Enter the email you signed up with. We will send you a link to choose a new password.",
+  "account.forgotIntro":
+    "Enter the email you signed up with. We will send you a link to choose a new password.",
   "account.backToLogin": "Back to sign in",
   "account.resetTitle": "Choose a new password",
   "account.newPassword": "New password",
@@ -398,7 +432,8 @@ export const en = {
   "account.turnstileFailed":
     "The human check did not finish. Check your connection, then try again.",
   "account.turnstileRetry": "Reload the check",
-  "account.err.network": "The account service could not be reached. You can still read without signing in.",
+  "account.err.network":
+    "The account service could not be reached. You can still read without signing in.",
   "account.err.generic": "That did not work. Please try again.",
   "account.err.nickname": "Use 1 to 16 characters.",
   "account.err.code": "That code is not right. Check it and try again.",
@@ -408,11 +443,13 @@ export const en = {
   "account.codeTitle": "Check your email",
   "account.avatarChange": "Change picture",
   "account.avatarRemove": "Remove",
-  "account.avatarHint": "Your picture shows next to your accepted meanings and in the list of readers who helped. Do not use someone else's photo. You can change it once a day.",
+  "account.avatarHint":
+    "Your picture shows next to your accepted meanings and in the list of readers who helped. Do not use someone else's photo. You can change it once a day.",
   "account.err.avatarType": "This picture cannot be read. Try a JPG, PNG or WebP image.",
   "account.err.avatarSize": "This picture is too large. Try another one.",
   "account.err.avatarDaily": "You can change your picture once a day. Try again tomorrow.",
-  "account.err.avatarDailyAt": "You can change your picture once a day. You can change it again after {at}.",
+  "account.err.avatarDailyAt":
+    "You can change your picture once a day. You can change it again after {at}.",
   "account.err.avatarVerify": "Check your email before setting a picture.",
   "account.codeIntroSignup": "We sent a 6-digit code to {email}. Type it to make your account.",
   "account.codeWrongAddress": "Wrong address? Go back and fix it",
@@ -475,10 +512,10 @@ export const en = {
     "{missing} of {checked} places could not be found in this book. Those words will show their main meaning there.",
   "plan.missingNotes":
     "{missing} of {checked} paragraph or sentence notes do not match the text of this book. The reader will only show a note when its context text is found in the paragraph.",
-  "plan.spineKey": "spine.merge key \"{name}\" does not match a spine item in this book.",
-  "plan.spineTarget": "spine.merge target \"{name}\" does not match a spine item in this book.",
+  "plan.spineKey": 'spine.merge key "{name}" does not match a spine item in this book.',
+  "plan.spineTarget": 'spine.merge target "{name}" does not match a spine item in this book.',
   "plan.spineIdle":
-    "spine.merge key \"{name}\" matches a spine item but nothing is merged into or from it.",
+    'spine.merge key "{name}" matches a spine item but nothing is merged into or from it.',
 
   /* ---- add word list dialog */
   "wl.addTitle": "Add a word list",
@@ -769,8 +806,7 @@ export const en = {
   "about.markPhrase": "A dotted line under a word: it belongs to a phrase. Tap it.",
   "about.markTricky":
     "A wavy line under a word: you may know the word, but here it has another meaning. Tap it.",
-  "about.markBulb":
-    "A light bulb beside a paragraph: this paragraph has a note that explains it.",
+  "about.markBulb": "A light bulb beside a paragraph: this paragraph has a note that explains it.",
   "about.listsTitle": "Word lists made by our teachers",
   "about.listsBody":
     "Every book has a word list written by our teachers. They choose the hard words and phrases, write short meanings in simple English, and add notes for hard paragraphs. Nothing is made up by a computer while you read.",
@@ -803,7 +839,8 @@ export const en = {
   "thanks.title": "Thank you",
   "thanks.body": "These people support this reading app. Thank you.",
   "thanks.empty": "The list is not ready yet. Names will be added here.",
-  "thanks.gift": "A sponsorship is a public-interest donation, in cryptocurrency only. You choose the amount. This is not a purchase.",
+  "thanks.gift":
+    "A sponsorship is a public-interest donation, in cryptocurrency only. You choose the amount. This is not a purchase.",
   "thanks.sponsor": "Sponsor",
   "thanks.month": "This month",
   "thanks.total": "All time",
@@ -811,10 +848,12 @@ export const en = {
   "thanks.monthEmpty": "None this month.",
   "thanks.totalEmpty": "No one yet.",
   "thanks.dialogTitle": "Sponsor",
-  "thanks.step.email": "Email the transaction hash (tx) and a screenshot to {email}, with your nickname or account email.",
+  "thanks.step.email":
+    "Email the transaction hash (tx) and a screenshot to {email}, with your nickname or account email.",
   "thanks.steps": "How it works",
   "thanks.official": "Official email: {email}",
-  "thanks.officialOnly": "Trust only this address. We never ask you to send money and never give other receiving addresses.",
+  "thanks.officialOnly":
+    "Trust only this address. We never ask you to send money and never give other receiving addresses.",
   "thanks.method.wechat": "WeChat",
   "thanks.method.alipay": "Alipay",
   "thanks.method.crypto": "Cryptocurrency",
@@ -822,21 +861,27 @@ export const en = {
   "thanks.needNickname": "Add a nickname on your account first. The list uses that name.",
   "thanks.setNickname": "Add a nickname",
   "thanks.submit": "I have sent it, register me",
-  "thanks.sentBody": "Registered. Email the transaction hash (tx) and a screenshot to {email}. We add your nickname after we check it.",
-  "thanks.needSignIn": "After you send, sign in to register for the thank-you list. You can send without signing in.",
+  "thanks.sentBody":
+    "Registered. Email the transaction hash (tx) and a screenshot to {email}. We add your nickname after we check it.",
+  "thanks.needSignIn":
+    "After you send, sign in to register for the thank-you list. You can send without signing in.",
   "thanks.signIn": "Sign in",
-  "thanks.pending": "Registered. We are waiting for your email with the transaction hash (tx) and a screenshot.",
+  "thanks.pending":
+    "Registered. We are waiting for your email with the transaction hash (tx) and a screenshot.",
   "thanks.emailed": "We have checked your email. Your name will be on the list soon.",
   "thanks.openExists": "You already have a request that is not finished.",
   "thanks.err.network": "The request could not be sent. Try again in a moment.",
-  "thanks.step.send": "Choose the network, then send to the address shown above. Check the network and the address.",
-  "thanks.step.register": "Tap the button below to register. After we check the transfer, your nickname goes on the thank-you list.",
+  "thanks.step.send":
+    "Choose the network, then send to the address shown above. Check the network and the address.",
+  "thanks.step.register":
+    "Tap the button below to register. After we check the transfer, your nickname goes on the thank-you list.",
   "thanks.wallet.pick": "First choose the network you send on",
   "thanks.wallet.evmShort": "EVM",
   "thanks.wallet.solanaShort": "Solana",
   "thanks.wallet.evm": "EVM address",
   "thanks.wallet.evmChains": "Supported EVM networks",
-  "thanks.wallet.evmNote": "Ethereum mainnet, every L2, BNB Chain and other EVM networks all use this one address.",
+  "thanks.wallet.evmNote":
+    "Ethereum mainnet, every L2, BNB Chain and other EVM networks all use this one address.",
   "thanks.wallet.tronShort": "Tron",
   "thanks.wallet.tron": "Tron address",
   "thanks.wallet.tronNote": "For the Tron network only (TRC-20, for example USDT).",
@@ -847,7 +892,8 @@ export const en = {
   "thanks.wallet.qrSolana": "QR code of the Solana receiving address",
   "thanks.wallet.copy": "Copy address",
   "thanks.wallet.copied": "Copied",
-  "thanks.wallet.warning": "Check the start and the end of the address before you send. The three networks do not mix: EVM, Solana and Tron assets go only to their own address. Assets sent on the wrong network cannot be recovered.",
+  "thanks.wallet.warning":
+    "Check the start and the end of the address before you send. The three networks do not mix: EVM, Solana and Tron assets go only to their own address. Assets sent on the wrong network cannot be recovered.",
   "thanks.err.rate": "Too many requests. Try again in a moment.",
   "admin.title": "Sponsorship requests",
   "admin.only": "Only the admin can open this page.",
@@ -882,7 +928,8 @@ export const en = {
   "admin.qq.bad": "A group number is 5 to 12 digits.",
   "admin.qq.duplicate": "That number is already in the list.",
   "admin.tab.blurbs": "Summaries",
-  "admin.blurb.hint": "The story summary of each book, shown in its Discover sheet. A Chinese screen shows the Chinese summary and an English screen the English one; leave a language empty and no summary is shown. Saving writes to the books host at once, with no site deploy.",
+  "admin.blurb.hint":
+    "The story summary of each book, shown in its Discover sheet. A Chinese screen shows the Chinese summary and an English screen the English one; leave a language empty and no summary is shown. Saving writes to the books host at once, with no site deploy.",
   "admin.blurb.search": "Search title, author or id",
   "admin.blurb.zh": "Chinese summary",
   "admin.blurb.en": "English summary (simple English)",
@@ -890,16 +937,20 @@ export const en = {
   "admin.blurb.saved": "Saved. Open the book's Discover sheet again to see it.",
   "admin.blurb.err.load": "Could not read this book's summary. Try again in a moment.",
   "admin.blurb.err.save": "Could not save. Try again in a moment.",
-  "admin.blurb.err.catalog": "Could not read the catalogs, so no book can be found. Reload the page.",
+  "admin.blurb.err.catalog":
+    "Could not read the catalogs, so no book can be found. Reload the page.",
   "admin.blurb.err.zhNoChinese": "The Chinese summary has no Chinese.",
   "admin.blurb.err.enChinese": "The English summary has Chinese in it.",
   "admin.blurb.err.tooLong": "The summary is longer than the limit.",
   "admin.blurb.err.markup": "Plain text only: no HTML or Markdown marks.",
   "admin.series.hint":
     "Each Discover tab (Novels, Speeches, …) has its own series rows, shown only on that tab. Save a list here to choose which rows appear, and to add a row of books you pick.",
-  "admin.series.unsaved": "Nothing is saved yet. Discover still shows the three biggest series on its own.",
-  "admin.series.empty": "No series rows. After you save, Discover will not add a series strip on its own.",
-  "admin.series.emptyTab": "This tab has no series rows yet. Make one below: pick a series the books already have, or choose books for a new row.",
+  "admin.series.unsaved":
+    "Nothing is saved yet. Discover still shows the three biggest series on its own.",
+  "admin.series.empty":
+    "No series rows. After you save, Discover will not add a series strip on its own.",
+  "admin.series.emptyTab":
+    "This tab has no series rows yet. Make one below: pick a series the books already have, or choose books for a new row.",
   "admin.series.addSeries": "Add a series already on the books",
   "admin.series.addCustom": "New row of books you pick",
   "admin.series.name": "Name of this row",
@@ -923,15 +974,18 @@ export const en = {
     "The glossary file name picks the book id (a-book.glossary.json). The word list goes to Discover; the EPUB goes to the library you pick. The ISBN is read from the EPUB metadata, then the word list — or type one, or leave it empty.",
   "admin.books.kind": "Book kind",
   "admin.books.category": "Category",
-  "admin.books.categoryHint": "Sets the Discover tab and which weekly count the book uses (7 novels and 7 speeches).",
-  "admin.books.categoryLive": "Set from the current category of this book on the site. Changing it moves the Discover tab and the weekly count.",
+  "admin.books.categoryHint":
+    "Sets the Discover tab and which weekly count the book uses (7 novels and 7 speeches).",
+  "admin.books.categoryLive":
+    "Set from the current category of this book on the site. Changing it moves the Discover tab and the weekly count.",
   "admin.books.categoryFile": "Set from the category in the word-list file. You can change it.",
   "admin.books.private": "Copyrighted (private library, trusted readers)",
   "admin.books.public": "Public domain (public books host)",
   "admin.books.epub": "EPUB file",
   "admin.books.series": "Series (optional)",
   "admin.books.seriesNumber": "Book no.",
-  "admin.books.seriesHint": "Books in one series share a row on Discover. Novels and speeches can both have a series, for example TED for talks. A book already on the site shows its current series; clear it to remove the series.",
+  "admin.books.seriesHint":
+    "Books in one series share a row on Discover. Novels and speeches can both have a series, for example TED for talks. A book already on the site shows its current series; clear it to remove the series.",
   "admin.books.isbn": "ISBN (auto-detected, editable, may be empty)",
   "admin.books.coverPick": "Pick the cover (click one image)",
   "admin.books.noCover": "No cover",
@@ -942,8 +996,16 @@ export const en = {
   "admin.books.publish": "Upload book",
   "admin.books.wordsDone": "Word list published.",
   "admin.books.bookDone": "Book files uploaded.",
+  "admin.books.budgetUnconfirmed":
+    "Public-book publishing is paused until the server CPU budget is confirmed. No files were published. Contact the site maintainer.",
+  "admin.books.partial":
+    "The word list was published, but the book upload did not finish. Check the current files before retrying.",
+  "admin.books.catalogFailed":
+    "The selected catalog could not be read. Try again before uploading.",
+  "admin.books.catalogBusy": "Another upload is using this catalog. Wait, then try again.",
   "admin.books.noEpub": "Choose an EPUB file.",
-  "admin.books.publicNew": "This id is not in the public catalog yet. New public books still go through the local build.",
+  "admin.books.publicNew":
+    "This id is not in the public catalog. Stop and report the missing new-public-book workflow.",
   "admin.lists.hint":
     "Each row can be marked in progress, or you can upload a new glossary straight to that book. The file box below still matches a book already on the host. If nothing matches, pick the book yourself. A file for a book that is not here yet can be published as a new word list.",
   "admin.lists.file": "Glossary JSON file",
@@ -970,19 +1032,24 @@ export const en = {
   "admin.lists.newWordList": "New word list ({id})",
   "admin.lists.wordLists": "Word lists",
   "admin.lists.publicBooks": "Public-domain books",
-  "admin.lists.preview": "{words} words, {paragraphs} paragraph notes, {sentences} sentence notes, {phrases} phrases",
+  "admin.lists.preview":
+    "{words} words, {paragraphs} paragraph notes, {sentences} sentence notes, {phrases} phrases",
   "admin.lists.batch": "Publish {n} file(s)",
   "admin.lists.batchDone": "{ok} published, {failed} failed.",
   "admin.lists.newBook": "New book",
   "admin.lists.update": "Update",
-  "admin.lists.needsTitle": "This book is not on the host yet and the file has no title, so it cannot be onboarded.",
-  "admin.lists.duplicateTitle": "A book with this title already exists ({id}). Choose that book instead of a new word list.",
+  "admin.lists.needsTitle":
+    "This book is not on the host yet and the file has no title, so it cannot be onboarded.",
+  "admin.lists.duplicateTitle":
+    "A book with this title already exists ({id}). Choose that book instead of a new word list.",
   "admin.lists.duplicate": "A book with this title already exists. Choose that book.",
-  "admin.lists.differentBook": "This file is a different book from the one that already uses this id. Rename the word-list file so the id is new, then upload it again.",
+  "admin.lists.differentBook":
+    "This file is a different book from the one that already uses this id. Rename the word-list file so the id is new, then upload it again.",
   "admin.lists.publish": "Publish",
   "admin.lists.published": "Published. Discover picks it up right away.",
   "admin.lists.badGlossary": "That file is not a word-list JSON.",
-  "admin.lists.unknownId": "This book is not on the books host yet. Publish it once with publish-word-list.mjs first.",
+  "admin.lists.unknownId":
+    "This book is not on the books host yet. Publish it once with publish-word-list.mjs first.",
   "admin.lists.tooLarge": "That file is too large.",
   "admin.lists.error": "Publish failed.",
   "admin.users.search": "Search email or nickname",
@@ -1016,7 +1083,8 @@ export const en = {
   "admin.users.registeredCount": "{n} users",
   "admin.tab.taps": "Missing words",
   "admin.taps.title": "Word clicks & gap analytics",
-  "admin.taps.desc": "Aggregates words tapped by readers to identify vocabulary missing from pre-built glossaries for subsequent agent completion.",
+  "admin.taps.desc":
+    "Aggregates words tapped by readers to identify vocabulary missing from pre-built glossaries for subsequent agent completion.",
   "admin.taps.missingWords": "Missing words",
   "admin.taps.totalWords": "Tracked words",
   "admin.taps.totalTaps": "Total clicks",
@@ -1033,7 +1101,7 @@ export const en = {
   "admin.taps.next": "Next",
   "admin.taps.location": "Ch {chapter} · #{occurrence}",
   "admin.taps.chapters": "of {n} chapters",
-  "admin.taps.bookTitle": "\"{title}\"",
+  "admin.taps.bookTitle": '"{title}"',
   "admin.taps.tabTaps": "Word tap tracking",
   "admin.taps.tabFeedback": "Meaning feedback",
   "passage.ask": "Ask about this",
@@ -1059,7 +1127,8 @@ export const en = {
   "card.feedbackSend": "Send",
   "card.feedbackThanks": "Thanks for your feedback!",
   "admin.feedback.title": "Meaning feedback analytics",
-  "admin.feedback.desc": "Identifies difficult or incorrect word meanings reported by readers, enabling agents to simplify or fix them.",
+  "admin.feedback.desc":
+    "Identifies difficult or incorrect word meanings reported by readers, enabling agents to simplify or fix them.",
   "admin.feedback.totalReports": "Total reports",
   "admin.feedback.tooHardCount": "Too difficult",
   "admin.feedback.wrongMeaningCount": "Incorrect",
@@ -1083,9 +1152,12 @@ export const en = {
   "admin.status.pending": "Pending",
   "admin.status.resolved": "Resolved",
   "admin.status.reopened": "Reopened",
-  "err.glossaryWeekSpeech": "A reader can open 7 new speech word lists every 7 days. Speeches already on the shelf can be downloaded again. Trusted readers have no limit.",
-  "err.glossaryWeek": "A reader can open 7 new novel word lists every 7 days. Books already on the shelf can be downloaded again. Trusted readers have no limit.",
-  "err.emailUnverified": "Check your email before opening word lists. The code was sent to your sign-up email; type it in your account.",
+  "err.glossaryWeekSpeech":
+    "A reader can open 7 new speech word lists every 7 days. Speeches already on the shelf can be downloaded again. Trusted readers have no limit.",
+  "err.glossaryWeek":
+    "A reader can open 7 new novel word lists every 7 days. Books already on the shelf can be downloaded again. Trusted readers have no limit.",
+  "err.emailUnverified":
+    "Check your email before opening word lists. The code was sent to your sign-up email; type it in your account.",
 } as const;
 
 export type Key = keyof typeof en;

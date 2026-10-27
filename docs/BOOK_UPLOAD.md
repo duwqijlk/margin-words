@@ -15,6 +15,29 @@ owns storage/source-of-truth rules: live R2 lists are not rebuilt from git; no b
 Use this page for **one book at a time**. To fix readers' reports in a live list, follow
 [the patrol task](https://inputread.site/kit/patrol.md) instead.
 
+## Before each run: reload the instructions and record their source
+
+Reread this whole upload playbook, the [maintenance map](https://inputread.site/kit/maintenance.md),
+and the glossary format/specification sections needed for the job **on every run**, before deciding
+or writing. A previous run's notes, a summary, an old copied playbook or the authoring ZIP is not
+an operations source. Do not infer a local path from a machine name, title or a previous session.
+
+- With a checkout: read the actual `docs/BOOK_UPLOAD.md`, `docs/MAINTENANCE.md` and relevant source
+  specifications in that checkout; record its resolved path, branch/commit and dirty state. A commit
+  alone does not identify uncommitted document edits. These are local instructions, not proof of
+  what `/kit/` or the production app currently serves.
+- Without a checkout: read the hosted upload and maintenance URLs linked above and follow their
+  specification links. Record each actual URL and retrieval time. If a required source cannot be
+  read, stop before writes and report the missing source; do not substitute the ZIP or guess a path.
+- Record the SHA-256 of each source's **original bytes** when available. Only compare hashes of
+  comparable raw Markdown bytes (local `.md` versus the corresponding hosted `.md`, or the same
+  pinned raw specification), never rendered HTML, a summary, or parsed/reserialized text. Record
+  local/hosted byte equality or mismatch only after that comparison; otherwise say **unverified**,
+  not "current" or "in sync". Record both sources/hashes for a mismatch and stop to reconcile which
+  instructions/app version govern this job before publishing. This runbook's presence in a checkout
+  is not evidence that its safety fixes have been deployed. See
+  [documentation authority](https://inputread.site/kit/maintenance.md#ownership).
+
 ## 0. Words this page uses
 
 | Term | What it means |
@@ -39,16 +62,32 @@ Use this page for **one book at a time**. To fix readers' reports in a live list
 - **Device `book_id`** identifies one reader's installed book, not a catalog book across devices.
   Admin **`kind`** is `lists` or `public`, not a catalog prefix. Discover saved-row **keys** are
   `list:<id>` or `classic:<id>`, not report references.
-- **New ids**: use meaningful lower-case names with digits and single hyphens, at most 64
-  characters (`^[a-z0-9]+(?:-[a-z0-9]+)*$` plus the length limit). `custom` is reserved for
-  reader-edited lists; never publish it as a catalog id. The parser accepts underscores
-  (`^[a-z0-9][a-z0-9_-]{0,63}$`) for compatibility, not as a new naming recommendation.
-  **Do not rename or migrate old ids**, folders or references to tidy their spelling.
+- **New ids**: derive a meaningful lower-case slug from the book's complete official title (and
+  distinguishing series/number words when needed), with digits and single hyphens, at most 64
+  characters (`^[a-z0-9]+(?:-[a-z0-9]+)*$` plus the length limit). For example, *Magic Tree House
+  5: Night of the Ninjas* gets `magic-tree-house-5-night-of-the-ninjas`, never a new `mth05`.
+  `custom` is reserved for reader-edited lists; never publish it as a catalog id. The parser accepts
+  underscores (`^[a-z0-9][a-z0-9_-]{0,63}$`) for compatibility, not as a new naming recommendation.
+  **Do not rename or migrate old ids**, folders or references to tidy their spelling: a live legacy id
+  such as `mth05` and every path or report reference that uses it stays exactly as it is.
+- **Display names are complete official names.** New rows and series use the full official `title`
+  and `series` display names; do not abbreviate *Magic Tree House* as `MTH`. An official name that
+  is itself an abbreviation, such as the `TED` series, may remain abbreviated. Correcting an existing
+  series display name is a separate reviewed change, not part of new-id creation or an ordinary upload.
 - **Title, author and ISBN are evidence, not interchangeable ids.** Check that catalog and
   word-list metadata and the actual EPUB's metadata **and body** name the intended book/edition.
-  A filename is only a hint; renaming proves nothing. Title comparison uses `src/lib/book-title.ts`:
-  punctuation/case ignored, at most two trailing edition labels removed, real subtitles retained.
-  A title collision means stop and disambiguate (author, ISBN, body), not overwrite another book.
+  The source EPUB filename is only a hint; renaming it proves nothing. Do not rename, repackage, or
+  edit the EPUB to make its filename, internal bytes, or metadata fit a catalog row. Validate the
+  exact intended bytes you were given. Title comparison uses `src/lib/book-title.ts`: punctuation/case
+  ignored, at most two trailing edition labels removed, real subtitles retained. A title collision
+  means stop and disambiguate (author, ISBN, body), not overwrite another book.
+- **Glossary filenames and storage keys are different contracts.** For a new book submitted through
+  the admin Books page, name the selected glossary file `<id>.glossary.json`, where `<id>` is the
+  final new-title slug. This filename is an id hint and must still pass the catalog checks; it does
+  not override the title or edition evidence. In a trusted staging folder, use the neutral working
+  name `glossary.json`; the remote key is also `<id>/glossary.json`. The EPUB stays `book.epub` in
+  staging and at its remote key. The source EPUB filename is only a hint: preserve its exact bytes,
+  internal metadata and other contents unchanged.
 - Compare ISBN using the existing `isbnDigits` in `src/lib/book-meta.ts`: it validates check digits,
   converts valid ISBN-10 to ISBN-13, and returns `""` for invalid values. This is **not** just
   stripping punctuation. A matching ISBN/title does not prove that anchors fit this EPUB.
@@ -70,7 +109,7 @@ Use this page for **one book at a time**. To fix readers' reports in a live list
 | --- | --- |
 | Add a **new copyrighted book** (EPUB + word list, novel or speech) | §5 |
 | Replace or improve **only the word list** of a book that is live | §6 |
-| Replace the **EPUB** of a book that is live | §7 |
+| Replace the **EPUB** of a book that is live | §7; public API contract is implemented but CPU-budget gated |
 | Put a book **into a series**, move it to another series, or take it out | §8 |
 | Change a book between **novel and speech** | §8.8 |
 | Add or replace the **cover** | §10 |
@@ -502,38 +541,105 @@ npx wrangler r2 object get "margin-words-books/word-lists/<id>/glossary.json" --
 ```
 
 A public book uses `public-books/catalog.json` and `public-books/<id>/glossary.json`.
+The public admin write endpoint is CPU-budget gated as described in §7; do not use direct writes
+as a workaround for a closed deployment gate. A separately authorized direct workflow still
+requires its own complete validation and exclusive writer window.
 
 2. **Compare before you overwrite.** Save this as `scripts/compare.mjs` and run from staging
    `node scripts/compare.mjs live-glossary.json glossary.json`:
 
 ```js
+// Full structural comparison; this reports differences, it never merges or uploads.
 import { readFileSync } from "node:fs";
-const [live, next] = process.argv.slice(2).map((f) => JSON.parse(readFileSync(f, "utf8")));
-const words = (file) => file.glossary ?? {};
-const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-const dropped = Object.keys(words(live)).filter((w) => !(w in words(next)));
-const changed = Object.keys(words(live)).filter((w) => w in words(next) && !same(words(live)[w], words(next)[w]));
-const credits = (file) => {
-  const out = [];
-  for (const [w, entry] of Object.entries(words(file))) {
-    if (typeof entry?.credit === "string") out.push(`${w}=${entry.credit}`);
-    (entry?.senses ?? []).forEach((s, i) => { if (typeof s?.credit === "string") out.push(`${w}#${i + 1}=${s.credit}`); });
+const paths = process.argv.slice(2);
+if (paths.length !== 2) throw new Error("usage: compare.mjs live.json candidate.json");
+function readComparableJson(path) {
+  const raw = readFileSync(path, "utf8");
+  // Scan original tokens BEFORE JSON.parse can round numbers or turn overflow into Infinity.
+  // Match strings first, including escaped quotes/backslashes; their digits are not numbers.
+  const tokens = /"(?:[^"\\]|\\[\s\S])*"|-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?/g;
+  for (const match of raw.matchAll(tokens)) {
+    const token = match[0];
+    if (token.startsWith('"')) continue;
+    if (!/^-?(?:0|[1-9]\d*)$/.test(token) || !Number.isSafeInteger(Number(token)) || token === "-0") {
+      throw new Error(`${path}: unsupported numeric token at offset ${match.index}; stop for lossless comparison and manual review`);
+    }
+  }
+  return JSON.parse(raw); // Syntax validation remains JSON.parse's job.
+}
+const [live, next] = paths.map(readComparableJson);
+const pointer = (path, key) => `${path}/${String(key).replace(/~/g, "~0").replace(/\//g, "~1")}`;
+const kind = (value) => value === null ? "null" : Array.isArray(value) ? "array" : typeof value;
+const changes = [];
+function compare(before, after, path = "") {
+  if (kind(before) !== kind(after)) {
+    changes.push({ op: "changed", path, before, after });
+  } else if (before !== null && typeof before === "object") {
+    // Arrays are compared by index, not guessed identity. A move can change many paths.
+    const keys = new Set([...Object.keys(before), ...Object.keys(after)]);
+    for (const key of keys) {
+      const child = pointer(path, key);
+      if (!Object.hasOwn(after, key)) changes.push({ op: "deleted", path: child, before: before[key] });
+      else if (!Object.hasOwn(before, key)) changes.push({ op: "added", path: child, after: after[key] });
+      else compare(before[key], after[key], child);
+    }
+  } else if (before !== after) changes.push({ op: "changed", path, before, after });
+}
+function credits(value, path = "", out = new Map()) {
+  if (value !== null && typeof value === "object") {
+    for (const [key, child] of Object.entries(value)) {
+      const location = pointer(path, key);
+      if (key === "credit") out.set(location, child);
+      credits(child, location, out);
+    }
   }
   return out;
-};
-const kept = new Set(credits(next).map((c) => c.split("=")[1]));
-const lostCredits = credits(live).filter((c) => !kept.has(c.split("=")[1]));
-const lostPhrases = Object.keys(live.phrases ?? {}).filter((p) => !(p in (next.phrases ?? {})));
-console.log({ dropped, changed: changed.slice(0, 50), changedCount: changed.length, lostCredits, lostPhrases });
+}
+compare(live, next);
+const oldCredits = credits(live), newCredits = credits(next);
+const creditChanges = [];
+for (const path of new Set([...oldCredits.keys(), ...newCredits.keys()])) {
+  const had = oldCredits.has(path), has = newCredits.has(path);
+  const before = oldCredits.get(path), after = newCredits.get(path);
+  if (!has) creditChanges.push({ op: "deleted", path, before });
+  else if (!had) creditChanges.push({ op: "added", path, after });
+  else if (JSON.stringify(before) !== JSON.stringify(after)) creditChanges.push({ op: "changed", path, before, after });
+}
+// JSON serialization avoids console inspection's depth/array truncation. No sampling or slice.
+console.log(JSON.stringify({ changes, creditChanges }, null, 2));
 ```
 
-3. **Merge until every difference is intended.** For each dropped word, each lost credit and each
-   lost phrase, copy it from the live file into yours. For a word whose entry changed, look at both:
-   if the live meaning is the patrol's fix, keep the live entry; if your file is the intended new
-   text, keep yours. When you cannot tell, keep the live entry and report the difference instead of
-   guessing. Preserve unrelated top-level metadata and unknown fields from the live list too;
-   title/author/ISBN and edition settings are not replacement defaults. Revalidate the **merged**
-   file against the actual EPUB, reviewing warnings as above. Then run the comparison again.
+**Numeric fail-closed guard:** before parsing either file, the script checks raw JSON number
+tokens, not already-rounded JavaScript values. It permits only decimal safe-integer tokens
+(`-9007199254740991` through `9007199254740991`), rejecting fractional/exponent notation,
+unsafe integers and negative zero. Digits inside JSON strings are not numeric tokens. This is
+intentionally conservative: even `1.0` and `1e0` stop the comparison. A rejection is **not** a
+no-difference result: preserve the original bytes and stop for a lossless comparison and manual
+review; do not round, coerce, delete unknown fields or rewrite numeric tokens just to pass this
+helper. No upload is authorized until every original value/difference is verified.
+
+The output uses JSON Pointer paths (`~0` = `~`, `~1` = `/`; `""` = the root). It includes
+all additions, changes and deletions in words, senses, anchors, phrases, sentences, paragraphs,
+metadata and **unknown fields**. Added/deleted subtrees and type changes carry their complete
+values; array elements use their index paths, not a guessed semantic match. `creditChanges`
+separately checks **every credit at its own location**, even if the same public id survives on
+another entry, sense, phrase or note. This is a conservative audit of any field named `credit`,
+including unknown structures; that name alone does not establish a schema-valid contribution or
+justify acceptance. Array reordering can move a credit: inspect its meaning and
+anchor, never treat a matching public id somewhere else as preservation. Save the full output;
+there is no 50-item cap or truncated object inspection. A zero exit code means the comparison ran,
+**not** that a candidate is safe to publish.
+
+3. **Merge until every difference is intended — manual review is mandatory.** Review **every**
+   reported path, including additions and unknown fields, and record why it is in scope. Restore
+   deleted/changed live words, senses, phrases, sentence/paragraph notes, anchors and their credits
+   unless an explicitly reviewed intended change supersedes them. If the live meaning is a patrol
+   fix, keep it; if your file is the intended new text, keep yours only after reviewing its context
+   and credit. When uncertain, keep the live content and report the difference instead of guessing.
+   Preserve unrelated top-level metadata and unknown fields too; title/author/ISBN and edition
+   settings are not replacement defaults. The script is a structural report, not an automatic
+   merge, a schema validator or permission to delete. Revalidate the **merged** file against the
+   actual EPUB, reviewing warnings as above. Run the comparison again and review the final output.
    **Before any upload**, prepare `catalog.next.json` locally with `row.mjs` in list mode using
    step 5's settings; its same-book guard must pass before step 4 writes the glossary. A missing title
    still requires the manual identity check, not just a passing script.
@@ -577,14 +683,53 @@ EPUB to readers who already added the book; they keep the copy they downloaded. 
 changes the text, the word list must be rebuilt for it — and publishing that list (§6) is what
 offers readers an Update.
 
-**Public-domain book.** Put `public-books/<id>/book.epub`, then set the row's `epub` to
-`{ "url": "<id>/book.epub", "bytes": <n>, "sha256": "<hex>" }` and `updated` to now, and upload the
-catalog. `row.mjs` does not write `epub`; edit that one field by hand after the script, or use the
-admin **Books** tab.
+**Public-domain book: the implemented API is CPU-budget gated; stop before any write unless the operator has confirmed the deployment budget.**
+The admin **Books** tab now sends one multipart request to
+`POST /api/admin/books?id=<id>&kind=public`, with EPUB and glossary required and cover optional.
+It does not first publish to the private word-list catalog. Both this request and the public
+list-only endpoint (`/api/admin/word-lists?catalog=public`) require
+`PUBLIC_BOOK_PUBLISH_CPU_CONFIRMED=true` in the deployment; the default is HTTP 503
+`publish-budget-unconfirmed`, after authentication but before body parsing, hashing or writes.
+This code change does not enable that setting or authorize production book writes.
+
+A local Node test with valid 4 MB / 7,000-entry and 16 MB / 28,000-entry JSON took about 20 ms
+and 61 ms wall time for parse + strict validation alone. This is **not** Cloudflare CPU evidence
+and does not demonstrate safety under Pages Free's 10 ms budget. Do not guess a safe byte threshold,
+raise the budget, or enable the setting as part of a routine upload. The operator must separately
+verify the target runtime and paid CPU budget before enabling either public write path. Until then,
+remain read-only and report. The 16 MB size cap is not a CPU guarantee.
+
+Once separately enabled and authorized, the handler strictly validates the glossary and checks the
+live row's same-book title guard before any content write. It saves original uploaded bytes,
+preserves unknown fields, computes counts from validated content, and updates catalog timestamps.
+The title guard is not verification of EPUB text, edition or anchors; all editorial checks and the
+exclusive window with every writer still apply. A brand-new public id remains unsupported.
+
+**Version contract:** `glossary.rev` is the first 12 hex characters of the glossary SHA-256.
+When EPUB bytes change, top-level `row.rev` is the first 12 hex characters of
+`sha256(epubSHA + "\n" + glossarySHA)` (the two full lowercase hashes joined by one newline).
+A glossary-only change uses the glossary hash prefix for row `rev`; an identical-byte retry
+preserves the current row `rev`, including an existing combined revision. Reader update scans
+also compare EPUB SHA even when the row revision matches, so a glossary rollback cannot hide
+a changed book file. `updated` or
+`epub.sha256` alone cannot replace the reader's row revision gate. Exact references include URL,
+bytes and full SHA-256. `row.mjs` does not implement EPUB replacement: do not improvise a direct
+write or revive retired publishing tools. The catalog lock and content/cover compensation are
+best-effort, not a cross-object transaction; retain snapshots and verify readback before completion.
+Private Books uploads remain two steps: a saved word list followed by the EPUB. A second-step
+failure is explicitly partial success, not a complete publish; inspect live files before retrying.
+Implementation references: `src/components/books-admin.tsx`, `functions/api/admin/books.ts`,
+`functions/lib/public-book-publish.ts` and `src/lib/word-list-update.ts`.
+See [versions](https://inputread.site/kit/maintenance.md#versions).
 
 ## 8. Job D — series
 
 ### 8.1 What a series is
+
+A series display name is the complete official name, not a locally invented abbreviation. Use an
+official abbreviation only when that is the name itself (for example, `TED`). Do not turn `Magic Tree
+House` into `MTH`; correcting an existing series name requires a separate reviewed change across all
+affected rows and any saved rail, and is not part of an ordinary upload.
 
 A series is two fields on the row and nothing else:
 
@@ -592,6 +737,11 @@ A series is two fields on the row and nothing else:
 { "id": "mth05", "title": "Magic Tree House 5: Night of the Ninjas",
   "series": "Magic Tree House", "seriesNumber": 5 }
 ```
+
+This example deliberately shows a legacy id. Do not use `mth05` for a new row, and do not migrate
+this existing id or any reference/path that contains it. A new row for this complete title would use
+a meaningful full-title slug such as `magic-tree-house-5-night-of-the-ninjas` (subject to the 64-
+character and collision checks in [identity and naming](#identity-and-naming)).
 
 - `series` is the name. Every book in the series must carry **exactly the same string**. It is
   trimmed and its runs of spaces are collapsed when read; case still matters, so
@@ -610,14 +760,24 @@ in the tab and how many books it has:
 node -e "const c=require('./word-lists-catalog.json');const m={};for(const r of c.lists){const k=(r.category==='speech'?'speech: ':'novel: ')+(r.series||'(none)');m[k]=(m[k]??0)+1}console.log(m)"
 ```
 
-Use the name exactly as it appears (for example `Magic Tree House`), then run `row.mjs` from §5.6
-in mode `"series"`:
+**Legacy series-name conflict: stop and report.** If the existing series uses an old invented
+abbreviation such as `MTH`, adding a new row with the required complete name `Magic Tree House`
+would create a parallel series, while copying `MTH` would violate the new-name rule. Neither is an
+ordinary upload solution. Stop before publishing that new row and request a **separate reviewed
+series/rails migration** covering every affected existing row and saved Discover rail. Do not create
+a parallel `Magic Tree House` series, and do not silently rename old rows during an ordinary upload.
+Keep all legacy book ids and paths unchanged. Resume the new upload only after the reviewed
+series-name migration is complete and verified; official abbreviations such as `TED` are not this
+conflict.
+
+When the existing name satisfies the complete-official-name rule, use it exactly as it appears
+(for example `Magic Tree House`), then run `row.mjs` from §5.6 in mode `"series"`:
 
 ```js
 const JOB = {
   mode: "series",
   kind: "lists",
-  id: "mth05",
+  id: "mth05",                    // existing legacy id only; never use this for a new row
   catalog: "word-lists-catalog.json",
   glossary: "",
   cover: "",
@@ -766,7 +926,7 @@ its `updated` to now. Write the catalog as JSON with a one-space indent
 | `paragraphs`, `sentences` | Length of the file's `paragraphs` / `sentences` array, 0 when missing. |
 | `phrases` | Number of keys in the file's `phrases` object, 0 when missing. |
 | `glossary` | `{ "url": "<id>/glossary.json", "bytes": <n>, "sha256": "<hex>" }`; a public book also has `"rev"` = the first 12 digits of the sha256. |
-| `rev` (public only) | The same 12 digits. |
+| `rev` (public only) | Glossary-only update: the same 12 digits. EPUB changes use the combined hash; identical bytes preserve the current revision. CPU gate and procedure: §7. |
 | `epub` (public only, when it changed) | `{ "url": "<id>/book.epub", "bytes": <n>, "sha256": "<hex>" }`. |
 | `cover` (when you uploaded one) | `{ "url": "https://books.inputread.site/covers/<lists or public>-<id>.jpg", "bytes": <n>, "sha256": "<hex>" }`. |
 | `series`, `seriesNumber` | §8. A name alone is fine; a number is 1–99 and only with a name. |
@@ -875,4 +1035,6 @@ need a full page reload, not just reopening the sheet. See [cache behavior](http
 End with a short report: the book id and title, the kind and category, every key you wrote, the new
 glossary sha256 (first 12 digits), the cover sha256 (first 12) or "no cover", the series and number
 (or "no series"), whether you wrote a summary (zh, en), and anything you skipped or that failed.
-Never include the token or book text beyond a title.
+Include the instruction sources/retrieval time, checkout commit/dirty state when applicable,
+original-byte hashes and local/hosted comparison result (or **unverified**), plus manual comparison
+review and any fail-closed stop. Never include the token or book text beyond a title.

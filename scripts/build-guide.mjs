@@ -89,11 +89,8 @@ export function checkDocumentLinks(files) {
   return problems;
 }
 
-let cache = null;
-
-/** Returns Map<fileName inside dist, string | Buffer>. fileName starts with "kit/". */
+/** Returns fresh source bytes; dev middleware owns its short-lived, watched cache. */
 export async function buildGuide() {
-  if (cache) return cache;
   const chrome = readJson("docs/guide-chrome.json");
   const sections = ["en", "zh"].map((lang) => {
     const c = chrome[lang];
@@ -119,12 +116,11 @@ ${sections.join("\n")}
 </body>
 </html>
 `;
-  cache = new Map([
+  return new Map([
     ["kit/index.html", page],
     [`kit/${KIT_NAME}`, await buildKit()],
     ...HOSTED_DOCS.map(({ source, output }) => [output, readFileSync(join(ROOT, source))]),
   ]);
-  return cache;
 }
 
 async function check() {

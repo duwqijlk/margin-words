@@ -14,14 +14,14 @@ type DownloadState = {
   items: Record<string, DownloadItem>;
   /** goes up every time a pack finished, so screens know to read the list of packs again */
   finished: number;
-  start: (catalogUrl: string, pack: CatalogPack) => Promise<void>;
+  start: (catalogUrl: string, pack: CatalogPack, targetBookId?: string) => Promise<void>;
   dismiss: (packId: string) => void;
 };
 
 export const useDownloads = create<DownloadState>()((set, get) => ({
   items: {},
   finished: 0,
-  start: async (catalogUrl, pack) => {
+  start: async (catalogUrl, pack, targetBookId) => {
     const known = get().items[pack.id];
     if (known && !known.error) return;
     set((state) => ({
@@ -32,6 +32,7 @@ export const useDownloads = create<DownloadState>()((set, get) => ({
         set((state) => ({
           items: { ...state.items, [pack.id]: { ...progress, error: "" } },
         })),
+        targetBookId,
       );
       clearPackRemoved(pack.id);
       registerInstalled(result, {

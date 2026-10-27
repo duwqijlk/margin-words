@@ -21,6 +21,8 @@ import {
   type PackRecord,
   type StoredChapter,
 } from "@/lib/book-db";
+import { bookCatalogRef } from "@/lib/catalog-id";
+import { uniqueBookRecord } from "@/lib/catalog-shelf-identity";
 import { flowText } from "@/lib/flow-text";
 import { fetchProtectedGlossary, remoteGlossaryId } from "@/lib/glossary-fetch";
 import { errorText, tr } from "@/lib/i18n";
@@ -203,9 +205,15 @@ function markUpdated(packId: string): void {
 /** Retry one word-list book from its Discover card (the Update button). Throws on failure. */
 export async function retryWordListUpdate(pack: WordListPack): Promise<void> {
   const records = await listPackRecords();
-  const record = records.find((item) => item.packId === pack.id);
+  const live = new Set(useVocab.getState().books.map((book) => book.id));
+  const targets = new Set(records.filter((item) => item.packId === pack.id && live.has(item.bookId)).map((item) => item.bookId));
+  const record = targets.size === 1 ? uniqueBookRecord(records, [...targets][0]!) : undefined;
   if (!record) throw new Error(tr("err.bookGone"));
   try {
+    const maps = await loadCatalogMaps();
+    const extras = await loadBookExtras(record.bookId).catch(() => null);
+    const target = await catalogTarget(record, extras, maps);
+    if (target.list?.id !== pack.id) throw new Error(tr("discover.missingCatalogIdentity"));
     await updateWordListBook(record, pack);
     markUpdated(pack.id);
   } catch (reason) {
@@ -245,26 +253,46 @@ async function loadCatalogMaps(): Promise<CatalogMaps> {
   return { classics, lists };
 }
 
+/** Stored catalog identity wins; a legacy bare id shared by both catalogs is not evidence. */
+async function catalogTarget(record: PackRecord, extras: { source?: string; catalog?: "word-lists" | "public-books" } | null, maps: CatalogMaps) {
+  const source = extras?.source === "custom" ? undefined : extras?.source;
+  const id = source || record.packId;
+  const ref = await bookCatalogRef({
+    source, recorded: extras?.catalog, packId: record.packId,
+    catalogOf: async (candidate) => {
+      const classic = maps.classics.has(candidate);
+      const list = maps.lists.has(candidate);
+      return classic === list ? null : classic ? "public-books" : "word-lists";
+    },
+  });
+  if (!ref) throw new Error(tr("discover.missingCatalogIdentity"));
+  return {
+    classic: ref === `public-books:${id}` ? maps.classics.get(id) : undefined,
+    list: ref === `word-lists:${id}` ? maps.lists.get(id) : undefined,
+  };
+}
+
 /**
  * Apply the current catalog list to one book already on the shelf. The reader tapped Update.
  * Throws on failure. A hand-edited list is left as it is.
  */
 export async function updateInstalledBook(bookId: string): Promise<void> {
   const records = await listPackRecords();
-  const record = records.find((item) => item.bookId === bookId);
-  if (!record) throw new Error(tr("err.bookGone"));
-  const source = (await loadBookExtras(bookId).catch(() => null))?.source;
-  if (source === "custom") return;
-  const { classics, lists } = await loadCatalogMaps();
-  const classic = classics.get(record.packId);
-  const list = classic ? undefined : lists.get(record.packId);
+  const record = uniqueBookRecord(records, bookId);
+  if (!useVocab.getState().books.some((book) => book.id === bookId) || !record) throw new Error(tr("err.bookGone"));
+  const extras = await loadBookExtras(bookId).catch(() => null);
+  if (extras?.source === "custom") return;
+  const maps = await loadCatalogMaps();
   try {
-    if (classic) await downloadPack(classic.url, classic.pack, () => undefined);
-    else if (list) await updateWordListBook(record, list);
+    const { classic, list } = await catalogTarget(record, extras, maps);
+    if (classic) await downloadPack(classic.url, classic.pack, () => undefined, bookId);
+    else if (list) await updateWordListBook({ ...record, packId: list.id }, list);
     else throw new Error(tr("err.downloadFailed"));
+    useListUpdates.getState().clearFailure(`book:${record.bookId}`);
     markUpdated(record.packId);
   } catch (reason) {
     rememberFailure(record.packId, reason);
+    rememberFailure(`book:${record.bookId}`, reason);
     throw reason;
   }
 }
@@ -333,16 +361,20 @@ async function runUpdates(): Promise<void> {
   const records = await listPackRecords().catch(() => [] as PackRecord[]);
   if (records.length === 0) return;
   const onShelf = new Set(useVocab.getState().books.map((book) => book.id));
-  const live = records.filter((record) => onShelf.has(record.bookId));
+  const live = [...onShelf].map((id) => uniqueBookRecord(records, id)).filter((record): record is PackRecord => Boolean(record));
   if (live.length === 0) return;
 
-  const { classics, lists } = await loadCatalogMaps();
+  const maps = await loadCatalogMaps();
+  const { classics, lists } = maps;
   if (classics.size === 0 && lists.size === 0) return;
 
   let waiting = 0;
   for (const record of live) {
-    const classic = classics.get(record.packId);
-    const list = classic ? undefined : lists.get(record.packId);
+    const extras = await loadBookExtras(record.bookId).catch(() => null);
+    let target: Awaited<ReturnType<typeof catalogTarget>>;
+    try { target = await catalogTarget(record, extras, maps); }
+    catch (reason) { rememberFailure(`book:${record.bookId}`, reason); continue; }
+    const { classic, list } = target;
     if (!classic && !list) continue;
     const catalogRev = classic ? classic.pack.rev : wordListRev(list as WordListPack);
     const catalogWords = list?.words ?? 0;
@@ -355,12 +387,15 @@ async function runUpdates(): Promise<void> {
     }
     const countsMightDiffer =
       typeof installedWords === "number" && catalogWords > 0 && installedWords !== catalogWords;
-    if (record.rev === catalogRev && !countsMightDiffer) {
+    const shaDiffers = Boolean(classic?.pack.epub.sha256 && record.sha256 !== classic.pack.epub.sha256);
+    if (record.rev === catalogRev && !countsMightDiffer && !shaDiffers) {
       useListUpdates.getState().clearFailure(record.packId);
+      useListUpdates.getState().clearFailure(`book:${record.bookId}`);
       continue;
     }
-    const extras = await loadBookExtras(record.bookId).catch(() => null);
-    const plan = planListUpdate({
+    const plan = shaDiffers
+      ? { kind: "manual" as const, why: extras?.source === "custom" ? "ownList" as const : "bookChanged" as const }
+      : planListUpdate({
       installedRev: record.rev,
       catalogRev,
       listSource: extras?.source,
@@ -374,6 +409,7 @@ async function runUpdates(): Promise<void> {
       continue;
     }
     rememberHold(record.packId, plan.why);
+    rememberHold(`book:${record.bookId}`, plan.why);
     if (plan.why !== "ownList") waiting += 1;
   }
   useListUpdates.setState((prev) => ({

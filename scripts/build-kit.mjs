@@ -4,8 +4,8 @@
  *
  *   the-lantern-seller.epub            examples/sample-book/the-lantern-seller.epub   (sample book)
  *   the-lantern-seller.glossary.json   examples/sample-book/glossary.json             (its sample word list)
- *   the-lantern-seller.pack.zip        book.epub + glossary.json made from the two files above: a READY-TO-IMPORT
- *                                      book pack (Add book -> Choose .zip file). See docs/book-pack-spec.md, section 3.
+ *   the-lantern-seller.pack.zip        book.epub + glossary.json made from the two files above: a format-compatible
+ *                                      CC0 sample pack, not a reader import UI. See docs/book-pack-spec.md, section 3.
  *   book-pack-spec.md                  docs/book-pack-spec.md                         (the specification, written for an AI)
  *
  *   node scripts/build-kit.mjs                 write ./book-pack-kit.zip   (npm run build:kit)
@@ -16,7 +16,8 @@
  * The output is always the same bytes (fixed dates, fixed order). Nothing is copied by hand, so the kit cannot
  * go out of date: change the sources, rebuild.
  *
- * The kit zip itself is not a pack. Its file the-lantern-seller.pack.zip is: that is the one to import.
+ * The kit zip itself is not a pack. Its file the-lantern-seller.pack.zip demonstrates the pack format.
+ * Readers add books from Discover; the current app does not import ZIP files.
  */
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -58,7 +59,7 @@ export async function buildPack(epubPath, glossaryPath) {
   return zip.generateAsync({ type: "nodebuffer", platform: "UNIX", compression: "DEFLATE" });
 }
 
-/** The ready-to-import sample pack of the kit. */
+/** The format-compatible CC0 sample pack of the kit. */
 export function buildSamplePack() {
   return buildPack(
     join(ROOT, "examples/sample-book/the-lantern-seller.epub"),

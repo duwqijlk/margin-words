@@ -17,6 +17,7 @@ import {
   loadAllCoverInfo,
   loadAllCovers,
   loadCover,
+  loadBookExtras,
   loadStoredBook,
   saveCover,
   savePackRecord,
@@ -29,7 +30,8 @@ import { coverFromChapters } from "@/lib/epub";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst } from "@/lib/packs";
 import { coverPlan, type CoverTarget } from "@/lib/cover-plan";
 import { overallProgress, useProgress } from "@/lib/progress-store";
-import { planMerges, sameAuthor, titleKeys, type ShelfEntry } from "@/lib/shelf-identity";
+import { sameAuthor, titleKeys, type ShelfEntry } from "@/lib/shelf-identity";
+import { planSafeShelfMerges } from "@/lib/catalog-shelf-identity";
 import { useVocab } from "@/lib/vocab-store";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 
@@ -43,9 +45,20 @@ import { loadWordListCatalog, WORD_LIST_CATALOG_URL } from "@/lib/word-list-cata
 export async function repairShelf(): Promise<number> {
   const vocab = useVocab.getState();
   const stored = new Set((await listBookSummaries().catch(() => [])).map((book) => book.id));
+  const records = await listPackRecords();
+  const extras = new Map(await Promise.all(vocab.books.map(async (book) =>
+    [book.id, await loadBookExtras(book.id).catch(() => null)] as const,
+  )));
   const progress = useProgress.getState().items;
-  const entries: ShelfEntry[] = vocab.books.map((book) => ({
+  const entries = vocab.books.filter((book) =>
+    book.source === "epub" || book.needsEpub || records.some((record) => record.bookId === book.id),
+  ).map((book) => ({
     id: book.id,
+    catalogIds: [
+      ...records.filter((record) => record.bookId === book.id).map((record) => ({ id: record.packId, catalog: extras.get(book.id)?.catalog })),
+      ...(extras.get(book.id)?.source && extras.get(book.id)?.source !== "custom"
+        ? [{ id: extras.get(book.id)!.source!, catalog: extras.get(book.id)?.catalog }] : []),
+    ],
     title: book.title,
     author: book.author,
     isbn: book.isbn ?? "",
@@ -57,11 +70,10 @@ export async function repairShelf(): Promise<number> {
     createdAt: book.createdAt,
     updatedAt: book.updatedAt,
   }));
-  const plans = planMerges(entries);
+  const plans = planSafeShelfMerges(entries);
   if (plans.length === 0) return 0;
 
   let merged = 0;
-  const records = await listPackRecords();
   for (const plan of plans) {
     const keep = plan.keep;
     const keepTitle = titleKeys(keep.title)[0];
@@ -79,7 +91,7 @@ export async function repairShelf(): Promise<number> {
     const state = useVocab.getState();
     if (state.books.some((book) => book.id === keep.id)) {
       state.setBookDetails([
-        keep.stored || plan.drop.some((drop) => drop.stored)
+        keep.stored
           ? { id: keep.id, needsEpub: false, source: "epub" }
           : { id: keep.id },
       ]);

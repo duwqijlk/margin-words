@@ -14,7 +14,7 @@ function glossHash(row: unknown): string {
 
 export type CatalogRow = Record<string, unknown> & { id: string };
 
-export type WordListCatalog = {
+export type WordListCatalog = Record<string, unknown> & {
   format?: number;
   name?: string;
   updated: string;
@@ -72,7 +72,18 @@ export function mergeWordListCatalog(
   const index = lists.findIndex((item) => item.id === row.id);
   if (index >= 0) {
     const prior = lists[index];
-    const nextRow = keepAdded(prior, row);
+    const nextRow = keepAdded(prior, {
+      ...prior,
+      ...row,
+      glossary: {
+        ...((prior.glossary as Record<string, unknown>) ?? {}),
+        ...((row.glossary as Record<string, unknown>) ?? {}),
+      },
+    });
+    // These fields have explicit clear controls; absence in the prepared row means remove.
+    for (const field of ["series", "seriesNumber", "isbn", "category"]) {
+      if (!Object.hasOwn(row, field)) delete nextRow[field];
+    }
     const previous = previousGlossaryUpdated(prior, glossHash(nextRow));
     if (previous) nextRow.previousUpdated = previous;
     else delete nextRow.previousUpdated;
@@ -83,6 +94,7 @@ export function mergeWordListCatalog(
     lists.push(fresh);
   }
   const next: WordListCatalog = {
+    ...live,
     format: live.format ?? 1,
     name: typeof live.name === "string" ? live.name : "Word lists",
     updated,

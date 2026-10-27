@@ -80,7 +80,7 @@ export function MissingBook({
       return;
     }
     useDownloads.getState().dismiss(pack.id);
-    void start(BUNDLED_CATALOG_URL, pack);
+    void start(BUNDLED_CATALOG_URL, pack, book.id);
   }
 
   const offer = failed ? ({ kind: "discover" } as const) : resolved?.offer;

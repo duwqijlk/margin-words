@@ -13,13 +13,14 @@ import {
 import { btn, cn, field, subTabs } from "@/components/ui";
 import { listPackRecords, loadBookExtras, type PackRecord } from "@/lib/book-db";
 import { coverAddress } from "@/lib/covers";
-import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst, type CatalogPack } from "@/lib/packs";
+import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst } from "@/lib/packs";
 import { askToSignIn, useCanAddBooks } from "@/lib/can-add";
 import { useDownloads } from "@/lib/downloads";
 import { errorText, useT } from "@/lib/i18n";
 import { compareLexile, lexileMeasure } from "@/lib/lexile";
 import { placeWordList } from "@/lib/place-word-list";
-import { findOnShelf } from "@/lib/shelf-identity";
+import type { CatalogName } from "@/lib/catalog-id";
+import { discoverShelfBook } from "@/lib/discover-shelf";
 import { useProgress } from "@/lib/progress-store";
 import { bookHasUserWork } from "@/lib/shelf-work";
 import { useShelfRemove } from "@/lib/shelf-remove";
@@ -38,7 +39,7 @@ import { holdOffersUpdate, type ListHoldWhy } from "@/lib/word-list-plan";
 import {
   autoUpdateWordLists,
   announceListUpdate,
-  retryWordListUpdate,
+  updateInstalledBook,
   useListUpdates,
   wordListRev,
 } from "@/lib/word-list-update";
@@ -56,21 +57,25 @@ const discoverGrid =
 const discoverTitle =
   "overflow-hidden font-display text-[0.8rem] leading-snug font-semibold [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-[0.92rem]";
 
-/** Pack records plus the pack ids whose stored list the reader added or edited by hand. */
-async function loadDiscoverRecords(): Promise<{ records: PackRecord[]; custom: Set<string> }> {
+/** Pack records plus the shelf book ids whose list the reader added or edited by hand. */
+type DiscoverRecord = PackRecord & { catalog?: CatalogName; listSource?: string };
+
+async function loadDiscoverRecords(): Promise<{ records: DiscoverRecord[]; custom: Set<string> }> {
   const records = await listPackRecords();
+  const books = useVocab.getState().books;
   const sources = await Promise.all(
-    records.map((record) =>
-      loadBookExtras(record.bookId)
-        .then((extras) => extras?.source)
+    books.map((book) =>
+      loadBookExtras(book.id)
+        .then((extras) => extras)
         .catch(() => undefined),
     ),
   );
   const custom = new Set<string>();
-  records.forEach((record, index) => {
-    if (sources[index] === "custom") custom.add(record.packId);
+  books.forEach((book, index) => {
+    if (sources[index]?.source === "custom") custom.add(book.id);
   });
-  return { records, custom };
+  const extrasByBook = new Map(books.map((book, index) => [book.id, sources[index]]));
+  return { records: records.map((record) => ({ ...record, catalog: extrasByBook.get(record.bookId)?.catalog, listSource: extrasByBook.get(record.bookId)?.source })), custom };
 }
 
 function CardSkeleton() {
@@ -104,7 +109,7 @@ export function DiscoverScreen({
   /** null: no saved list, so the biggest series stay automatic. */
   const [railSpecs, setRailSpecs] = useState<DiscoverRailSpec[] | null>(null);
   const [ready, setReady] = useState(false);
-  const [records, setRecords] = useState<PackRecord[]>([]);
+  const [records, setRecords] = useState<DiscoverRecord[]>([]);
   const [customPacks, setCustomPacks] = useState<ReadonlySet<string>>(() => new Set());
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortChoice>("listed");
@@ -313,8 +318,6 @@ export function DiscoverScreen({
     return () => observer.disconnect();
   }, [hasMore, filterKey, limit]);
 
-  const shelfIds = useMemo(() => new Set(shelf.map((book) => book.id)), [shelf]);
-  const byPack = useMemo(() => new Map(records.map((record) => [record.packId, record])), [records]);
 
   async function addList(pack: WordListPack) {
     setListError((prev) => {
@@ -325,7 +328,7 @@ export function DiscoverScreen({
     setBusyId(pack.id);
     try {
       const bookId = await placeWordList(pack);
-      setRecords(await listPackRecords());
+      setRecords((await loadDiscoverRecords()).records);
       if (useVocab.getState().books.find((book) => book.id === bookId)?.needsEpub) onNeedsEpub(bookId);
       else onOpen(bookId);
     } catch (reason) {
@@ -339,28 +342,27 @@ export function DiscoverScreen({
   function update(row: Row) {
     // A hand-edited list has no Update action. This also covers a signed-out tap: add() checks
     // the update before it checks the account, and that tap must not replace the list.
-    const hold = useListUpdates.getState().holds[row.id];
-    if (customPacks.has(row.id) || hold === "ownList") return;
+    const model = cardModel(row);
+    if (!model.book || !model.updateReady || model.needs || customPacks.has(model.book.id)) return;
     useListUpdates.getState().clearFailure(row.id);
-    if (row.kind === "classic" && row.pack) {
-      const pack = row.pack;
-      useDownloads.getState().dismiss(pack.id);
-      void start(BUNDLED_CATALOG_URL, pack).then(() => {
-        const failed = Boolean(useDownloads.getState().items[pack.id]?.error);
-        announceListUpdate(failed ? [] : [row.title], failed ? 1 : 0);
-      });
-    } else if (row.list) {
-      const pack = row.list;
-      setBusyId(pack.id);
-      void retryWordListUpdate(pack)
-        .then(() => announceListUpdate([row.title], 0))
-        .catch(() => announceListUpdate([], 1))
-        .finally(() => setBusyId(""));
-    }
+    setListError((prev) => {
+      const next = { ...prev };
+      delete next[row.id];
+      return next;
+    });
+    setBusyId(row.id);
+    void updateInstalledBook(model.book.id)
+      .then(() => announceListUpdate([row.title], 0))
+      .catch((reason) => {
+        setListError((prev) => ({ ...prev, [row.id]: errorText(reason, "err.downloadFailed") }));
+        announceListUpdate([], 1);
+      })
+      .finally(() => setBusyId(""));
   }
 
-  function add(row: Row, record: PackRecord | undefined, updateReady: boolean) {
-    if (record && pendingId === record.bookId) {
+  function add(row: Row, book: Book | undefined, updateReady: boolean) {
+    if (cardModel(row).ambiguous) return;
+    if (book && pendingId === book.id) {
       useShelfRemove.getState().undo();
       return;
     }
@@ -390,8 +392,8 @@ export function DiscoverScreen({
     } else if (row.list) void addList(row.list);
   }
 
-  function remove(row: Row, record: PackRecord | undefined, book: Book | undefined) {
-    if (!record || !book) return;
+  function remove(row: Row, book: Book | undefined) {
+    if (!book) return;
     const savedWords = countFromBook(useVocab.getState().words, book);
     useShelfRemove.getState().ask(
       book,
@@ -399,58 +401,44 @@ export function DiscoverScreen({
         source: book.source,
         needsEpub: book.needsEpub,
         classic: row.kind === "classic",
-        savedWords: 0,
+        savedWords,
         progress: useProgress.getState().items[book.id] ?? null,
       }),
       savedWords,
     );
   }
 
-  /**
-   * The pack record of a row. A book that was imported from a .zip has a made-up pack id, so when no record
-   * carries this row's id, the shelf card that IS this book (same ISBN, or title and author) stands in.
-   */
-  function recordFor(row: Row): PackRecord | undefined {
-    const direct = byPack.get(row.id);
-    if (direct) return direct;
-    const known = new Set(records.map((record) => record.bookId));
-    const hit = findOnShelf(
-      shelf.map((book) => ({ ...book, stored: known.has(book.id) && book.source === "epub" && !book.needsEpub })),
-      { title: row.title, author: row.author, isbn: row.isbn },
-    );
-    const mine = hit ? records.find((record) => record.bookId === hit.id) : undefined;
-    return hit && mine ? { ...mine, packId: row.id } : undefined;
-  }
-
   function cardModel(row: Row) {
-    const record = recordFor(row);
-    const held = Boolean(record && shelfIds.has(record.bookId) && pendingId !== record.bookId);
-    const book = record ? shelf.find((item) => item.id === record.bookId) : undefined;
+    const { record, book, ambiguous } = discoverShelfBook(shelf, records, {
+      ...row, catalog: row.kind === "classic" ? "public-books" : "word-lists",
+      catalogCollision: rows.some((other) => other.id === row.id && other.kind !== row.kind),
+    });
+    const held = Boolean(book && pendingId !== book.id);
     const needs = Boolean(held && book?.needsEpub);
     const item = row.kind === "classic" ? items[row.id] : undefined;
     const busy = Boolean(item && !item.error) || busyId === row.id;
-    const cardError = busy ? "" : item?.error || listError[row.id] || "";
+    const cardError = ambiguous ? t("discover.ambiguous") : busy ? "" : item?.error || listError[row.id] || "";
     // A newer list stays until the reader taps Update. A hand-edited list stays "On shelf"
     // and the card says that list is kept. A changed book file, or a list that matches this
     // e-book under 80%, keeps Update and says why. A hold of "newList" also counts when the
     // revision string already matches: the stored list can be an older file of a different size.
-    const direct = byPack.get(row.id);
+    const direct = record && (record.listSource && record.listSource !== "custom" ? record.listSource : record.packId) === row.id ? record : undefined;
     const catalogRev = row.kind === "classic" ? (row.pack?.rev ?? "") : row.list ? wordListRev(row.list) : "";
-    const revDiffers = Boolean(held && direct && catalogRev && direct.rev !== catalogRev);
+    const revDiffers = Boolean(held && !needs && direct && catalogRev && direct.rev !== catalogRev);
     const shaDiffers = Boolean(
       row.kind === "classic" && direct?.sha256 && row.pack?.epub.sha256 && direct.sha256 !== row.pack.epub.sha256,
     );
-    const hold = updateHolds[row.id];
-    const failure = updateFailures[row.id] ?? "";
-    const staleList = Boolean(held && !revDiffers && hold === "newList");
-    const why: ListHoldWhy | null =
-      revDiffers && (customPacks.has(row.id) || hold === "ownList")
+    const hold = direct ? updateHolds[`book:${book!.id}`] : undefined;
+    const failure = direct ? updateFailures[`book:${book!.id}`] ?? "" : "";
+    const why: ListHoldWhy | null = !held || needs
+      ? null
+      : (book && customPacks.has(book.id)) || hold === "ownList"
         ? "ownList"
-        : revDiffers && (hold === "bookChanged" || shaDiffers)
+        : hold === "bookChanged" || shaDiffers
           ? "bookChanged"
-          : revDiffers && hold === "mismatch"
+          : hold === "mismatch"
             ? "mismatch"
-            : revDiffers || staleList
+            : revDiffers || hold === "newList"
               ? "newList"
               : null;
     const updateReady = Boolean(why && holdOffersUpdate(why));
@@ -481,13 +469,14 @@ export function DiscoverScreen({
           : held
             ? "on"
             : "off";
-    return { record, held, book, needs, item, busy, cardError, why, updateReady, note, reason, lexile, state };
+    return { record, held, book, ambiguous, needs, item, busy, cardError, why, updateReady, note, reason, lexile, state };
   }
 
   function detailModel(row: Row): CardModel {
     const m = cardModel(row);
     return {
       state: m.state,
+      blocked: m.ambiguous,
       fraction: m.busy && m.item ? m.item.fraction : undefined,
       held: m.held,
       needs: m.needs,
@@ -499,20 +488,20 @@ export function DiscoverScreen({
 
   function detailAction(row: Row) {
     const m = cardModel(row);
-    if (m.state === "busy") return;
+    if (m.ambiguous || m.state === "busy") return;
     if (m.state === "on") {
-      if (m.record) {
+      if (m.book) {
         setDetailId("");
-        onOpen(m.record.bookId);
+        onOpen(m.book.id);
       }
       return;
     }
     if (!canAdd && m.state === "off") setDetailId("");
-    add(row, m.record, m.updateReady);
+    add(row, m.book, m.updateReady);
   }
 
   function renderCard(row: Row) {
-    const { record, book, needs, item, busy, cardError, why, updateReady, note, reason, lexile, state } = cardModel(row);
+    const { book, ambiguous, needs, item, busy, cardError, why, updateReady, note, reason, lexile, state } = cardModel(row);
     return (
       <li
         key={row.key}
@@ -542,15 +531,17 @@ export function DiscoverScreen({
               whatever the title's length or the tags below. The add button keeps the bottom-right. */}
           <BookMaintainers bookRef={rowCatalogRef(row)} />
           <div className="absolute right-1.5 bottom-1.5 z-[2]">
-            <AddToShelfButton
+            <fieldset disabled={ambiguous} className="contents" data-identity-ambiguous={ambiguous ? "" : undefined}>
+              <AddToShelfButton
               state={state}
               fraction={busy && item ? item.fraction : undefined}
               title={row.title}
               signedOut={!canAdd}
-              onAdd={() => add(row, record, updateReady)}
-              onOpen={() => record && onOpen(record.bookId)}
-              onRemove={() => remove(row, record, book)}
+              onAdd={() => add(row, book, updateReady)}
+              onOpen={() => book && onOpen(book.id)}
+              onRemove={() => remove(row, book)}
             />
+            </fieldset>
           </div>
           {busy && item?.fraction != null ? (
             <span
@@ -814,15 +805,15 @@ export function DiscoverScreen({
         onOpen={() => {
           if (!detailRow) return;
           const m = cardModel(detailRow);
-          if (!m.held || !m.record) return;
+          if (!m.held || !m.book) return;
           setDetailId("");
-          onOpen(m.record.bookId);
+          onOpen(m.book.id);
         }}
         onRemove={() => {
           if (!detailRow) return;
           const m = cardModel(detailRow);
           setDetailId("");
-          remove(detailRow, m.record, m.book);
+          remove(detailRow, m.book);
         }}
       />
     </div>

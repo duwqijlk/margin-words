@@ -6,7 +6,7 @@ import type { HandlerOptions } from "../../lib/handlers.ts";
 import { normalizeTitle, replacesSameBook } from "../../lib/book-title.ts";
 import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
 import { clearGlossaryWork } from "../../lib/glossary-work-file.ts";
-import { previousGlossaryUpdated } from "../../lib/glossary-version.ts";
+import { applyIsbn, assertPublicPublishBudget, checkPublicGlossary, fileRef, updatePublicRow } from "../../lib/public-book-publish.ts";
 import { mergeWordListCatalog, type CatalogRow, type WordListCatalog } from "../../lib/word-list-publish.ts";
 import { applyCategory, applySeries } from "../../lib/book-category.ts";
 import { publishWithCatalog, withCatalogLock } from "../../lib/catalog-lock.ts";
@@ -70,8 +70,11 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     const url = new URL(request.url);
     const id = url.searchParams.get("id") ?? "";
     if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(id)) throw new HttpError(400, "bad-id");
-    const text = await request.text();
-    if (!text || text.length > GLOSSARY_MAX) throw new HttpError(413, "too-large");
+    const isPublic = url.searchParams.get("catalog") === "public";
+    if (isPublic) assertPublicPublishBudget(env);
+    const bytes = new Uint8Array(await request.arrayBuffer());
+    const text = new TextDecoder().decode(bytes);
+    if (!bytes.length || bytes.length > GLOSSARY_MAX) throw new HttpError(413, "too-large");
     let data: unknown;
     try {
       data = JSON.parse(text);
@@ -94,13 +97,12 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     const sentences = Array.isArray(record.sentences) ? record.sentences.length : 0;
     const phrases = record.phrases && typeof record.phrases === "object" ? Object.keys(record.phrases).length : 0;
 
-    const bytes = new TextEncoder().encode(text);
     const sha256 = await sha256HexBytes(bytes);
-    const counts = { words, paragraphs, sentences, phrases, bytes: bytes.byteLength, sha256 };
+    const counts = { ...(isPublic ? checkPublicGlossary(data) : { words, paragraphs, sentences, phrases }), bytes: bytes.byteLength, sha256 };
 
     if (url.searchParams.get("catalog") === "public") {
       const row = await withCatalogLock(env.DB, "public-books/catalog.json", () =>
-        updatePublicGlossary(bucket, id, bytes, counts, url.searchParams),
+        updatePublicGlossary(bucket, id, bytes, counts, url.searchParams, data),
       );
       await clearGlossaryWork(bucket, "public", id);
       return json({ row, catalog: "public" });
@@ -140,7 +142,7 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
           sentences,
           phrases,
           updated: new Date().toISOString(),
-          glossary: { url: `${id}/glossary.json`, bytes: bytes.byteLength, sha256 },
+          glossary: { ...fileRef(existing.glossary), url: `${id}/glossary.json`, bytes: bytes.byteLength, sha256 },
         }
       : rowFromGlossary(id, record as Record<string, unknown>, {
           words,
@@ -150,12 +152,7 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
           bytes: bytes.byteLength,
           sha256,
         });
-    // ?isbn= overrides the edition number: a value sets it, an empty value clears it.
-    if (url.searchParams.has("isbn")) {
-      const isbn = (url.searchParams.get("isbn") ?? "").trim();
-      if (isbn) row.isbn = isbn;
-      else delete row.isbn;
-    }
+    applyIsbn(row, url.searchParams);
     applyCategory(row, url.searchParams.get("category"));
     applySeries(row, url.searchParams);
     const next = mergeWordListCatalog(live, row);
@@ -172,7 +169,7 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
   }
 }
 
-type PublicPack = {
+type PublicPack = Record<string, unknown> & {
   id: string;
   title?: string;
   rev?: string;
@@ -197,22 +194,15 @@ async function updatePublicGlossary(
   bytes: Uint8Array,
   counts: { words: number; paragraphs: number; sentences: number; phrases: number; bytes: number; sha256: string },
   params: URLSearchParams,
+  data: unknown,
 ): Promise<PublicPack> {
   const current = await bucket.get("public-books/catalog.json");
   if (!current) throw new HttpError(500, "no-catalog");
   const live = JSON.parse(new TextDecoder().decode(await current.arrayBuffer())) as { packs?: PublicPack[]; updated?: string };
   const row = (live.packs ?? []).find((item) => item && item.id === id);
   if (!row) throw new HttpError(404, "unknown-id");
-  const rev = counts.sha256.slice(0, 12);
-  row.words = counts.words;
-  row.paragraphs = counts.paragraphs;
-  row.sentences = counts.sentences;
-  row.phrases = counts.phrases;
-  const previous = previousGlossaryUpdated(row, counts.sha256);
-  if (previous) row.previousUpdated = previous;
-  row.updated = new Date().toISOString();
-  row.rev = rev;
-  row.glossary = { url: `${id}/glossary.json`, bytes: counts.bytes, sha256: counts.sha256, rev };
+  await updatePublicRow(row, data, counts);
+  applyIsbn(row, params);
   applyCategory(row, params.get("category"));
   applySeries(row, params);
   live.updated = row.updated;

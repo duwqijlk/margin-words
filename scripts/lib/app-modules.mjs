@@ -15,7 +15,7 @@ import { createRequire } from "node:module";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const require = createRequire(join(ROOT, "package.json"));
 
-const FILES = ["shelf-identity", "cover-plan", "cover-request", "covers", "cloud-cover", "router", "flow-text", "errors", "epub", "lexile", "book-meta", "glossary-format", "pack-check", "text", "easy-words", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "word-list-plan", "paragraph-bulbs", "can-add", "account-store", "file-offer", "hyphenate", "gloss-point", "gloss-ref", "list-updated", "chapter-link"];
+const FILES = ["cancel-work", "shelf-identity", "cover-plan", "cover-request", "covers", "cloud-cover", "router", "flow-text", "errors", "epub", "lexile", "book-meta", "glossary-format", "pack-check", "text", "easy-words", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "word-list-plan", "paragraph-bulbs", "can-add", "account-store", "file-offer", "hyphenate", "gloss-point", "gloss-ref", "list-updated", "chapter-link"];
 
 function installDom() {
   let JSDOM;

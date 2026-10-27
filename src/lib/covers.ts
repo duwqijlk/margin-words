@@ -1,3 +1,4 @@
+import { checkAbort, requestScope } from "@/lib/cancel-work";
 /**
  * Fetching a catalog cover. The books host serves cover.jpg with a long browser cache (4 hours), so a
  * changed cover would not show up in time. The catalog gives every cover a sha256; it is added to the
@@ -27,12 +28,16 @@ export function coverAddress(url: string, sha256: string): string {
 }
 
 /** The cover as a data URL, or "" when it cannot be fetched. Never throws. */
-export async function fetchCoverData(url: string, sha256: string): Promise<string> {
+export async function fetchCoverData(url: string, sha256: string, signal?: AbortSignal): Promise<string> {
+  const scope = requestScope(signal, 10000);
   try {
-    const response = await fetchCover(coverAddress(url, sha256));
+    const response = await scope.run(fetchCover(coverAddress(url, sha256), scope.signal));
     if (!response.ok) return "";
-    return await dataUrlOf(await response.blob());
+    return await scope.run(response.blob().then(dataUrlOf));
   } catch {
+    checkAbort(signal);
     return "";
+  } finally {
+    scope.dispose();
   }
 }

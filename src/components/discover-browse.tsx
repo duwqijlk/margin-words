@@ -53,6 +53,7 @@ export type DiscoverRow = {
 
 /** What a card or the detail sheet shows about one book on this device. */
 export type CardModel = {
+  blocked?: boolean;
   state: ShelfState;
   fraction?: number;
   held: boolean;
@@ -445,7 +446,7 @@ export function BookDetail({
                   type="button"
                   className={cn(btn.primary, "w-full sm:w-auto sm:min-w-48 sm:px-6")}
                   onClick={onAction}
-                  disabled={model.state === "busy"}
+                  disabled={model.blocked || model.state === "busy"}
                   data-detail-action={model.state}
                 >
                   <Icon

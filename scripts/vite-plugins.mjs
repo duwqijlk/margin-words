@@ -19,7 +19,7 @@
  */
 import { createHash } from "node:crypto";
 import { createReadStream, existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { extname, join, normalize, sep } from "node:path";
+import { extname, isAbsolute, join, normalize, relative, resolve, sep } from "node:path";
 import postcss from "postcss";
 import { buildGuide } from "./build-guide.mjs";
 import { buildWordLists } from "./lib/word-lists.mjs";
@@ -157,9 +157,10 @@ export function publicBooks() {
  * guideFolder(): the tiny offline page at /kit/ (title, a few lines, one Download button) and the download
  * /kit/book-pack-kit.zip. (/guide is the Guide screen of the app, a route of the single-page app.) They are made by scripts/build-guide.mjs and scripts/build-kit.mjs from docs/ and
  * examples/, so the Chinese text never sits in public/. In the build the files are emitted into dist/kit/;
- * in `vite dev` and `vite preview` they are served from memory.
+ * in `vite dev` they are served from watched source. Preview serves only the built dist/kit files.
  */
-export function guideFolder() {
+export function guideFolder({ build = buildGuide } = {}) {
+  let generated = null;
   const MIME = {
     ".html": "text/html; charset=utf-8",
     ".json": "application/json; charset=utf-8",
@@ -175,7 +176,9 @@ export function guideFolder() {
       return res.end();
     }
     const rel = decodeURIComponent(url.slice(1)).replace(/\/$/, "/index.html");
-    const hit = (await buildGuide()).get(rel);
+    // Cache only within dev; file events invalidate even an in-flight build for the next request.
+    if (!generated) generated = build().catch((error) => { generated = null; throw error; });
+    const hit = (await generated).get(rel);
     if (hit === undefined) return next();
     res.setHeader("content-type", MIME[extname(rel)] ?? "application/octet-stream");
     res.setHeader("cache-control", "no-cache");
@@ -184,13 +187,22 @@ export function guideFolder() {
   return {
     name: "margin-words:guide",
     configureServer(server) {
-      server.middlewares.use(middleware);
-    },
-    configurePreviewServer(server) {
+      const inputs = [resolve(server.config.root, "docs"), resolve(server.config.root, "examples/sample-book")];
+      const invalidate = (file) => {
+        if (inputs.some((dir) => {
+          const path = relative(dir, resolve(file));
+          return path === "" || (!path.startsWith(`..${sep}`) && path !== ".." && !isAbsolute(path));
+        })) generated = null;
+      };
+      server.watcher.add(inputs);
+      server.watcher.on("add", invalidate).on("change", invalidate).on("unlink", invalidate);
+      server.httpServer?.once("close", () => {
+        for (const event of ["add", "change", "unlink"]) server.watcher.off(event, invalidate);
+      });
       server.middlewares.use(middleware);
     },
     async generateBundle() {
-      for (const [fileName, source] of await buildGuide()) this.emitFile({ type: "asset", fileName, source });
+      for (const [fileName, source] of await build()) this.emitFile({ type: "asset", fileName, source });
     },
   };
 }

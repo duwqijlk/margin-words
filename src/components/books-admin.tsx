@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import JSZip from "jszip";
 import { errorText, useT } from "@/lib/i18n";
 import { preferredCoverPath } from "@/lib/cover-choice";
@@ -8,43 +8,40 @@ import { btn, cn, field } from "@/components/ui";
 import { BUNDLED_CATALOG_URL } from "@/lib/packs";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 import type { ContentCategory } from "@/lib/content-category";
+import { publishAdminBook, type AdminBookKind } from "@/lib/admin-book-upload";
 
 type GlossaryInfo = {
   id: string;
   name: string;
   text: string;
+  file: File;
   words: number;
   isbn: string;
+  category: ContentCategory | null;
+  series: string;
+  seriesNumber: number;
 };
 
 type LiveRow = { category: ContentCategory; series: string; seriesNumber: number };
 
 /** What a live catalog row already says about this id (category, series), or null when the id is new. */
-async function catalogRow(id: string): Promise<LiveRow | null> {
-  for (const [url, key] of [
-    [WORD_LIST_CATALOG_URL, "lists"],
-    [BUNDLED_CATALOG_URL, "packs"],
-  ] as const) {
-    try {
-      const response = await fetch(url, { cache: "no-cache" });
-      if (!response.ok) continue;
-      const rows = ((await response.json()) as Record<string, unknown>)[key];
-      if (!Array.isArray(rows)) continue;
-      const row = rows.find((item) => item && typeof item === "object" && (item as { id?: unknown }).id === id) as
-        | { category?: unknown; series?: unknown; seriesNumber?: unknown }
-        | undefined;
-      if (row) {
-        return {
-          category: row.category === "speech" ? "speech" : "novel",
-          series: typeof row.series === "string" ? row.series : "",
-          seriesNumber: typeof row.seriesNumber === "number" ? row.seriesNumber : 0,
-        };
+async function catalogRow(id: string, kind: AdminBookKind): Promise<LiveRow | null> {
+  const [url, key] =
+    kind === "public" ? [BUNDLED_CATALOG_URL, "packs"] : [WORD_LIST_CATALOG_URL, "lists"];
+  const response = await fetch(url, { cache: "no-cache" });
+  if (!response.ok) throw new Error("catalog-unavailable");
+  const rows = ((await response.json()) as Record<string, unknown>)[key];
+  if (!Array.isArray(rows)) throw new Error("catalog-unavailable");
+  const row = rows.find(
+    (item) => item && typeof item === "object" && (item as { id?: unknown }).id === id,
+  ) as { category?: unknown; series?: unknown; seriesNumber?: unknown } | undefined;
+  return row
+    ? {
+        category: row.category === "speech" ? "speech" : "novel",
+        series: typeof row.series === "string" ? row.series : "",
+        seriesNumber: typeof row.seriesNumber === "number" ? row.seriesNumber : 0,
       }
-    } catch {
-      // The other catalog may still know the book.
-    }
-  }
-  return null;
+    : null;
 }
 
 /** `jpeg` is the card file prepared while the thumbnail was drawn. */
@@ -54,6 +51,10 @@ const ERROR_KEYS: Record<string, string> = {
   "unknown-id": "admin.books.publicNew",
   "no-epub": "admin.books.noEpub",
   "no-glossary": "admin.lists.badGlossary",
+  "bad-json": "admin.lists.badGlossary",
+  "bad-glossary": "admin.lists.badGlossary",
+  "publish-budget-unconfirmed": "admin.books.budgetUnconfirmed",
+  "catalog-busy": "admin.books.catalogBusy",
   "too-large": "admin.lists.tooLarge",
   "no-books-bucket": "admin.error",
   "no-private-bucket": "admin.error",
@@ -76,14 +77,24 @@ function dataUrlBytes(dataUrl: string): Uint8Array | null {
 }
 
 /** JPEG data URL. Card width is at most 400px, the same limit as scripts/resize-cover.py. */
-function canvasJpeg(bitmap: ImageBitmap, box: { height?: number; maxWidth?: number }, quality: number): string | null {
+function canvasJpeg(
+  bitmap: ImageBitmap,
+  box: { height?: number; maxWidth?: number },
+  quality: number,
+): string | null {
   const canvas = document.createElement("canvas");
   if (box.height) {
     canvas.height = box.height;
-    canvas.width = Math.max(1, Math.round((bitmap.width * box.height) / Math.max(1, bitmap.height)));
+    canvas.width = Math.max(
+      1,
+      Math.round((bitmap.width * box.height) / Math.max(1, bitmap.height)),
+    );
   } else {
     canvas.width = Math.min(box.maxWidth ?? bitmap.width, bitmap.width);
-    canvas.height = Math.max(1, Math.round((bitmap.height * canvas.width) / Math.max(1, bitmap.width)));
+    canvas.height = Math.max(
+      1,
+      Math.round((bitmap.height * canvas.width) / Math.max(1, bitmap.width)),
+    );
   }
   const context = canvas.getContext("2d");
   if (!context) return null;
@@ -132,14 +143,13 @@ export function BooksAdmin() {
   const { t } = useT();
   const [glossary, setGlossary] = useState<GlossaryInfo | null>(null);
   const [epubFile, setEpubFile] = useState<File | null>(null);
-  const [epubName, setEpubName] = useState("");
   const [epubBusy, setEpubBusy] = useState(false);
   const [epubError, setEpubError] = useState("");
   const [parsedTitle, setParsedTitle] = useState("");
   const [parsedAuthor, setParsedAuthor] = useState("");
   const [covers, setCovers] = useState<CoverCandidate[]>([]);
   const [coverChoice, setCoverChoice] = useState<string | null>(null);
-  const [kind, setKind] = useState<"private" | "public">("private");
+  const [kind, setKind] = useState<AdminBookKind>("private");
   const [category, setCategory] = useState<ContentCategory>("novel");
   /** Where the preselected category came from, shown under the choice. */
   const [categoryFrom, setCategoryFrom] = useState<"file" | "catalog" | "">("");
@@ -152,6 +162,43 @@ export function BooksAdmin() {
   const [note, setNote] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const publishLock = useRef(false);
+  const glossaryRead = useRef(0);
+  const epubRead = useRef(0);
+  const [metadataAttempt, setMetadataAttempt] = useState(0);
+  const [metadataBusy, setMetadataBusy] = useState(false);
+  const [metadataError, setMetadataError] = useState(false);
+  const [metadataFor, setMetadataFor] = useState<{
+    glossary: GlossaryInfo;
+    kind: AdminBookKind;
+  } | null>(null);
+
+  useEffect(() => {
+    if (!glossary) return;
+    let alive = true;
+    setMetadataBusy(true);
+    setMetadataError(false);
+    void catalogRow(glossary.id, kind)
+      .then((live) => {
+        if (!alive) return;
+        setCategory(live?.category ?? glossary.category ?? "novel");
+        setCategoryFrom(live ? "catalog" : glossary.category ? "file" : "");
+        const name = live ? live.series : glossary.series;
+        const number = live ? live.seriesNumber : glossary.seriesNumber;
+        setSeries(name);
+        setSeriesNumber(name && number > 0 ? String(number) : "");
+        setMetadataFor({ glossary, kind });
+      })
+      .catch(() => {
+        if (alive) setMetadataError(true);
+      })
+      .finally(() => {
+        if (alive) setMetadataBusy(false);
+      });
+    return () => {
+      alive = false;
+    };
+  }, [glossary, kind, metadataAttempt]);
 
   useEffect(() => {
     if (isbnTouched || !glossary?.isbn) return;
@@ -163,8 +210,21 @@ export function BooksAdmin() {
     if (!file) return;
     setNote("");
     setError("");
-    const id = file.name.replace(/\.(glossary)?\.json$/i, "").trim().toLowerCase();
-    const text = await file.text();
+    const read = ++glossaryRead.current;
+    setGlossary(null);
+    setStep("");
+    const id = file.name
+      .replace(/\.(glossary)?\.json$/i, "")
+      .trim()
+      .toLowerCase();
+    let text: string;
+    try {
+      text = await file.text();
+    } catch {
+      if (read === glossaryRead.current) setError(t("admin.lists.badGlossary"));
+      return;
+    }
+    if (read !== glossaryRead.current) return;
     let isbn = "";
     let words = 0;
     let fileCategory: ContentCategory | null = null;
@@ -180,25 +240,30 @@ export function BooksAdmin() {
         seriesNumber?: unknown;
       };
       isbn = typeof data.isbn === "string" ? data.isbn.trim() : "";
-      words = Number(data.count) || Object.keys(data.glossary ?? {}).length;
+      words = Object.keys(data.glossary ?? {}).length;
       if (data.category === "speech" || data.category === "novel") fileCategory = data.category;
       if (typeof data.series === "string") fileSeries = data.series.trim();
-      if (typeof data.seriesNumber === "number" && data.seriesNumber > 0) fileNumber = data.seriesNumber;
+      if (typeof data.seriesNumber === "number" && data.seriesNumber > 0)
+        fileNumber = data.seriesNumber;
     } catch {
       setError(t("admin.lists.badGlossary"));
       return;
     }
-    setGlossary({ id, name: file.name, text, isbn, words });
-    // A book already on the site keeps its tab unless the admin changes it here.
-    const live = await catalogRow(id);
-    setCategory(live?.category ?? fileCategory ?? "novel");
-    setCategoryFrom(live ? "catalog" : fileCategory ? "file" : "");
-    const liveSeries = live ? live.series : fileSeries;
-    setSeries(liveSeries);
-    setSeriesNumber(liveSeries && (live ? live.seriesNumber : fileNumber) ? String(live ? live.seriesNumber : fileNumber) : "");
+    setGlossary({
+      id,
+      name: file.name,
+      text,
+      file,
+      isbn,
+      words,
+      category: fileCategory,
+      series: fileSeries,
+      seriesNumber: fileNumber,
+    });
   }
 
   async function onEpub(file: File | undefined) {
+    const read = ++epubRead.current;
     setEpubError("");
     setParsedTitle("");
     setParsedAuthor("");
@@ -206,11 +271,10 @@ export function BooksAdmin() {
     setCoverChoice(null);
     if (!file) {
       setEpubFile(null);
-      setEpubName("");
+      setEpubBusy(false);
       return;
     }
     setEpubFile(file);
-    setEpubName(file.name);
     setEpubBusy(true);
     try {
       const bytes = new Uint8Array(await file.arrayBuffer());
@@ -218,23 +282,38 @@ export function BooksAdmin() {
         bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength),
         {},
       );
+      if (read !== epubRead.current) return;
       setParsedTitle(parsed.title);
       setParsedAuthor(parsed.author);
       if (!isbnTouched && parsed.isbn) setIsbn(parsed.isbn);
       const candidates = await extractCoverCandidates(file);
+      if (read !== epubRead.current) return;
       setCovers(candidates);
       setCoverChoice(preferredCoverPath(candidates));
     } catch (reason) {
       // The parse only fills in metadata; the file itself is still publishable.
-      setEpubError(errorText(reason, "err.openFailed"));
+      if (read === epubRead.current) setEpubError(errorText(reason, "err.openFailed"));
     } finally {
-      setEpubBusy(false);
+      if (read === epubRead.current) setEpubBusy(false);
     }
   }
 
   async function publish() {
-    if (!glossary || !epubFile || busy) return;
+    if (
+      !glossary ||
+      !epubFile ||
+      publishLock.current ||
+      metadataBusy ||
+      metadataError ||
+      epubBusy ||
+      metadataFor?.glossary !== glossary ||
+      metadataFor?.kind !== kind
+    )
+      return;
+    publishLock.current = true;
+    let wordsPublished = false;
     setBusy(true);
+    setStep("");
     setNote("");
     setError("");
     try {
@@ -243,37 +322,55 @@ export function BooksAdmin() {
         setError(t("admin.books.coverFailed"));
         return;
       }
-      const isbnParam = isbn.trim() ? encodeURIComponent(isbn.trim()) : "";
-      // Always sent: an empty name removes the series from the row.
-      const seriesParams = new URLSearchParams({ series: series.trim(), seriesNumber: series.trim() ? seriesNumber.trim() : "" }).toString();
-      await accountPostRaw(
-        `/api/admin/word-lists?id=${encodeURIComponent(glossary.id)}&isbn=${isbnParam}&category=${category}&${seriesParams}`,
-        glossary.text,
-      );
-      setStep(t("admin.books.wordsDone"));
       const form = new FormData();
       form.set("epub", epubFile, "book.epub");
-      form.set("glossary", new File([glossary.text], "glossary.json", { type: "application/json" }), "glossary.json");
+      form.set("glossary", glossary.file, "glossary.json");
       if (chosen) {
         const copy = new ArrayBuffer(chosen.jpeg.byteLength);
         new Uint8Array(copy).set(chosen.jpeg);
         form.set("cover", new File([copy], "cover.jpg", { type: "image/jpeg" }));
       }
-      await accountPostForm(
-        `/api/admin/books?id=${encodeURIComponent(glossary.id)}&kind=${kind}&category=${category}&${seriesParams}`,
-        form,
+      await publishAdminBook(
+        {
+          id: glossary.id,
+          kind,
+          category,
+          isbn,
+          series,
+          seriesNumber,
+          glossaryText: glossary.text,
+          form,
+        },
+        {
+          raw: accountPostRaw,
+          form: accountPostForm,
+          wordsSaved: () => {
+            wordsPublished = true;
+            setStep(t("admin.books.wordsDone"));
+          },
+        },
       );
       setStep(t("admin.books.bookDone"));
       setNote(t("admin.lists.published"));
     } catch (caught) {
       const code = caught instanceof Error ? caught.message : "";
-      setError(t((ERROR_KEYS[code] ?? "admin.lists.error") as Parameters<typeof t>[0]));
+      const message = t((ERROR_KEYS[code] ?? "admin.lists.error") as Parameters<typeof t>[0]);
+      setError(wordsPublished ? `${t("admin.books.partial")} ${message}` : message);
     } finally {
+      publishLock.current = false;
       setBusy(false);
     }
   }
 
-  const ready = Boolean(glossary && epubFile && !epubBusy);
+  const ready = Boolean(
+    glossary &&
+    epubFile &&
+    !epubBusy &&
+    !metadataBusy &&
+    !metadataError &&
+    metadataFor?.glossary === glossary &&
+    metadataFor?.kind === kind,
+  );
 
   return (
     <div className="grid gap-6" data-admin-books>
@@ -296,9 +393,12 @@ export function BooksAdmin() {
               <input
                 type="radio"
                 name="book-kind"
+                disabled={busy}
                 className="size-3.5 accent-accent"
                 checked={kind === "private"}
-                onChange={() => setKind("private")}
+                onChange={() => {
+                  setKind("private");
+                }}
               />
               {t("admin.books.private")}
             </label>
@@ -313,9 +413,12 @@ export function BooksAdmin() {
               <input
                 type="radio"
                 name="book-kind"
+                disabled={busy}
                 className="size-3.5 accent-accent"
                 checked={kind === "public"}
-                onChange={() => setKind("public")}
+                onChange={() => {
+                  setKind("public");
+                }}
               />
               {t("admin.books.public")}
             </label>
@@ -340,6 +443,7 @@ export function BooksAdmin() {
                 <input
                   type="radio"
                   name="book-category"
+                  disabled={busy || metadataBusy}
                   className="size-3.5 accent-accent"
                   checked={category === value}
                   onChange={() => setCategory(value)}
@@ -361,7 +465,10 @@ export function BooksAdmin() {
 
       <div className="grid gap-5 rounded-2xl border border-line/80 bg-card p-5 shadow-2xs sm:p-6">
         <div className="grid gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-muted" htmlFor="admin-books-glossary">
+          <label
+            className="text-xs font-bold uppercase tracking-wider text-muted"
+            htmlFor="admin-books-glossary"
+          >
             {t("admin.lists.file")}
           </label>
           <input
@@ -393,7 +500,10 @@ export function BooksAdmin() {
         </div>
 
         <div className="grid gap-2 border-t border-line/50 pt-4">
-          <label className="text-xs font-bold uppercase tracking-wider text-muted" htmlFor="admin-books-epub">
+          <label
+            className="text-xs font-bold uppercase tracking-wider text-muted"
+            htmlFor="admin-books-epub"
+          >
             {t("admin.books.epub")}
           </label>
           <input
@@ -410,7 +520,10 @@ export function BooksAdmin() {
           />
           {epubBusy ? <p className="text-xs text-muted">{t("admin.books.parsing")}</p> : null}
           {epubError ? (
-            <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn" role="alert">
+            <p
+              className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn"
+              role="alert"
+            >
               {epubError}
             </p>
           ) : null}
@@ -446,6 +559,7 @@ export function BooksAdmin() {
                     <input
                       type="radio"
                       name="admin-cover"
+                      disabled={busy}
                       className="sr-only"
                       checked={isSelected}
                       onChange={() => setCoverChoice(candidate.path)}
@@ -457,8 +571,18 @@ export function BooksAdmin() {
                     />
                     {isSelected ? (
                       <span className="absolute top-2 right-2 rounded-full bg-accent p-0.5 text-accent-ink shadow-xs">
-                        <svg className="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        <svg
+                          className="size-3"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={3}
+                            d="M5 13l4 4L19 7"
+                          />
                         </svg>
                       </span>
                     ) : null}
@@ -480,7 +604,10 @@ export function BooksAdmin() {
         ) : null}
 
         <div className="grid gap-2 border-t border-line/50 pt-4" data-admin-books-series>
-          <label className="text-xs font-bold uppercase tracking-wider text-muted" htmlFor="admin-books-series">
+          <label
+            className="text-xs font-bold uppercase tracking-wider text-muted"
+            htmlFor="admin-books-series"
+          >
             {t("admin.books.series")}
           </label>
           <div className="flex flex-wrap gap-2">
@@ -492,6 +619,7 @@ export function BooksAdmin() {
               autoComplete="off"
               placeholder={category === "speech" ? "TED" : "Magic Tree House"}
               lang="en"
+              disabled={busy || metadataBusy}
               data-admin-books-series-name
               onChange={(event) => setSeries(event.target.value)}
             />
@@ -502,16 +630,21 @@ export function BooksAdmin() {
               autoComplete="off"
               aria-label={t("admin.books.seriesNumber")}
               placeholder={t("admin.books.seriesNumber")}
-              disabled={!series.trim()}
+              disabled={busy || metadataBusy || !series.trim()}
               data-admin-books-series-number
-              onChange={(event) => setSeriesNumber(event.target.value.replace(/[^0-9]/g, "").slice(0, 4))}
+              onChange={(event) =>
+                setSeriesNumber(event.target.value.replace(/[^0-9]/g, "").slice(0, 4))
+              }
             />
           </div>
           <p className="text-xs text-muted">{t("admin.books.seriesHint")}</p>
         </div>
 
         <div className="grid gap-2 border-t border-line/50 pt-4">
-          <label className="text-xs font-bold uppercase tracking-wider text-muted" htmlFor="admin-books-isbn">
+          <label
+            className="text-xs font-bold uppercase tracking-wider text-muted"
+            htmlFor="admin-books-isbn"
+          >
             {t("admin.books.isbn")}
           </label>
           <input
@@ -520,6 +653,7 @@ export function BooksAdmin() {
             value={isbn}
             inputMode="numeric"
             autoComplete="off"
+            disabled={busy}
             data-admin-books-isbn
             onChange={(event) => {
               setIsbnTouched(true);
@@ -528,10 +662,29 @@ export function BooksAdmin() {
           />
         </div>
 
+        {metadataBusy ? <p className="text-xs text-muted">{t("account.working")}</p> : null}
+        {metadataError ? (
+          <div className="grid gap-2" role="alert">
+            <p className="text-xs text-warn">{t("admin.books.catalogFailed")}</p>
+            <button
+              type="button"
+              className={cn(btn.primary, "justify-self-start")}
+              onClick={() => {
+                setMetadataBusy(true);
+                setMetadataAttempt((value) => value + 1);
+              }}
+            >
+              {t("dashboard.retry")}
+            </button>
+          </div>
+        ) : null}
         {step ? <p className="text-xs text-muted">{step}</p> : null}
         {note ? <p className="text-xs font-semibold text-accent">{note}</p> : null}
         {error ? (
-          <p className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn" role="alert">
+          <p
+            className="rounded-xl border border-warn/30 bg-warn-soft/40 p-3 text-xs text-warn"
+            role="alert"
+          >
             {error}
           </p>
         ) : null}

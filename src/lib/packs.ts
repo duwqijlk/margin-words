@@ -1,3 +1,5 @@
+import { captureTarget, queueBookMutation, targetIsCurrent, type TargetMutation } from "@/lib/book-mutation";
+import { checkAbort } from "@/lib/cancel-work";
 /**
  * Book packs: the way books and their word lists reach the reader.
  *
@@ -279,6 +281,13 @@ export async function loadCatalog(url = getCatalogUrl()): Promise<CatalogResult>
 /* ------------------------------------------------------------------ installing */
 
 export type InstallInput = {
+  /** Exact existing card; never fall back to another card or a new UUID. */
+  targetBookId?: string;
+  /** Capture before network preparation, not after it completes. */
+  mutation?: TargetMutation;
+  /** Conservative absence proof from before network preparation. */
+  initialTargets?: TargetMutation[];
+  signal?: AbortSignal;
   packId: string;
   /**
    * Which of the site's catalogs `packId` is a row of. `undefined` for a pack from another catalog
@@ -308,6 +317,7 @@ export type InstallInput = {
 };
 
 export type InstallResult = {
+  mutation?: TargetMutation;
   bookId: string;
   title: string;
   author: string;
@@ -352,9 +362,23 @@ function bufferOf(bytes: Uint8Array): ArrayBuffer {
   return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
 }
 
-async function packRecordFor(packId: string): Promise<PackRecord | null> {
-  const all = await listPackRecords();
-  return all.find((record) => record.packId === packId) ?? null;
+/** Bare pack ids are scoped by catalog; an absent legacy catalog is not a known conflict. */
+async function matchesInstallCatalog(bookId: string, catalog: CatalogName | undefined): Promise<boolean> {
+  const saved = await loadBookExtras(bookId).catch(() => null);
+  return !catalog || !saved?.catalog || saved.catalog === catalog;
+}
+
+async function packRecordFor(packId: string, catalog?: CatalogName, shelf = useVocab.getState().books, records?: PackRecord[]): Promise<PackRecord | null> {
+  const live = new Set(shelf.map((book) => book.id));
+  const candidates = (records ?? await listPackRecords()).filter((record) => record.packId === packId && live.has(record.bookId));
+  const matching: PackRecord[] = [];
+  for (const record of candidates) {
+    if (await matchesInstallCatalog(record.bookId, catalog)) matching.push(record);
+  }
+  // Never make array order decide which live shelf card receives a body.
+  if (new Set(matching.map((record) => record.bookId)).size > 1)
+    throw new Error(tr("err.bookAddFailed"));
+  return matching[0] ?? null;
 }
 
 /**
@@ -362,14 +386,24 @@ async function packRecordFor(packId: string): Promise<PackRecord | null> {
  * author): a pack .zip often carries a made-up pack id, and a "needs your e-book" card from Discover has
  * the catalog id, so the pack id alone would put the same book on the shelf twice.
  */
-async function findInstalled(input: InstallInput): Promise<PackRecord | null> {
+async function findInstalled(input: Pick<InstallInput, "targetBookId" | "packId" | "catalog" | "title" | "author" | "isbn" | "also" | "parsed">, initialShelf = useVocab.getState().books): Promise<PackRecord | null> {
   const records = await listPackRecords();
-  const byId = records.find((record) => record.packId === input.packId);
+  if (input.targetBookId) {
+    if (!useVocab.getState().books.some((book) => book.id === input.targetBookId))
+      throw new Error(tr("err.bookGone"));
+    if (!(await matchesInstallCatalog(input.targetBookId, input.catalog)))
+      throw new Error(tr("err.bookAddFailed"));
+    return records.find((record) => record.bookId === input.targetBookId) ?? {
+      bookId: input.targetBookId, packId: input.packId, rev: "", sha256: "", installedAt: Date.now(),
+    };
+  }
+  const byId = await packRecordFor(input.packId, input.catalog, initialShelf, records);
   if (byId) return byId;
   const stored = new Set((await listBookSummaries().catch(() => [])).map((book) => book.id));
-  const shelf = useVocab
-    .getState()
-    .books.map((book) => ({ ...book, stored: stored.has(book.id) }));
+  const shelf = [];
+  for (const book of initialShelf) {
+    if (await matchesInstallCatalog(book.id, input.catalog)) shelf.push({ ...book, stored: stored.has(book.id) });
+  }
   const names: Identity[] = [{ title: input.title, author: input.author, isbn: input.isbn ?? "" }];
   if (input.also) names.push({ ...input.also, isbn: input.isbn ?? "" });
   if (input.parsed) names.push({ title: input.parsed.title, author: input.parsed.author, isbn: input.isbn ?? "" });
@@ -403,14 +437,49 @@ let installTail: Promise<unknown> = Promise.resolve();
 
 /** Store a pack in this browser. One install runs at a time. Throws a plain-English Error. */
 export function installPack(input: InstallInput): Promise<InstallResult> {
-  const run = installTail.then(() => installNow(input));
+  // Snapshot before any lookup/queue await: deletion + same-id recreation cannot renew old work.
+  const initialShelf = [...useVocab.getState().books];
+  const targets = new Map(initialShelf.map((book) => [book.id, captureTarget(book.id)]));
+  const initialTargets = input.initialTargets ?? [...targets.values()];
+  const mutation = input.mutation ?? (input.targetBookId ? captureTarget(input.targetBookId) : undefined);
+  if (mutation && input.targetBookId && mutation.bookId !== input.targetBookId)
+    return Promise.reject(new Error(tr("err.bookGone")));
+  const run = installTail.then(async () => {
+    let prepared = { ...input, mutation, initialTargets };
+    if (!prepared.mutation) {
+      const existing = await findInstalled(input, initialShelf);
+      if (existing) {
+        const token = targets.get(existing.bookId);
+        if (!token) throw new Error(tr("err.bookGone"));
+        prepared = { ...prepared, targetBookId: existing.bookId, mutation: token };
+      } else if (initialTargets.some((target) => !targetIsCurrent(target))) {
+        throw new Error(tr("err.bookGone"));
+      }
+    }
+    return prepared.mutation
+      ? queueBookMutation(prepared.mutation.bookId, () => installNow(prepared))
+      : installNow(prepared);
+  });
   installTail = run.catch(() => undefined);
   return run;
 }
 
 async function installNow(input: InstallInput): Promise<InstallResult> {
+  let writing = false;
+  const check = () => {
+    if (!writing) checkAbort(input.signal);
+    if (!input.mutation && input.initialTargets?.some((target) => !targetIsCurrent(target)))
+      throw new Error(tr("err.bookGone"));
+    if (input.mutation && (!targetIsCurrent(input.mutation) ||
+        !useVocab.getState().books.some((book) => book.id === input.mutation?.bookId)))
+      throw new Error(tr("err.bookGone"));
+  };
+  check();
   void requestPersistentStorage();
   const existing = await findInstalled(input);
+  // An implicit lookup that changed while queued must be retried, never written without its lock.
+  if (existing && !input.mutation) throw new Error(tr("err.bookGone"));
+  check();
   const sameBook = Boolean(existing && existing.sha256 && existing.sha256 === input.epubSha256);
   let bookId = existing?.bookId ?? "";
   let title = input.title;
@@ -422,13 +491,16 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
     const segChanged = (storedNow?.segmentation === 2) !== (segmentation === 2);
     let parsed = input.parsed;
     if ((!existing || !sameBook || spineMerge || segChanged) && !parsed)
-      parsed = await parseEpub(bufferOf(input.epub), { segmentation });
+      parsed = await parseEpub(bufferOf(input.epub), { segmentation, signal: input.signal });
+    check();
     if (parsed && spineMerge) parsed = applySpineMerge(parsed, spineMerge);
     if (!existing || !sameBook) {
       if (!parsed) throw new Error(tr("err.openFailed"));
       title = input.title || parsed.title;
       author = input.author || parsed.author;
       bookId = existing?.bookId ?? crypto.randomUUID();
+      check();
+      writing = true;
       await saveStoredBook({
         id: bookId,
         title,
@@ -453,6 +525,8 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
         };
         if (segmentation === 2) next.segmentation = 2;
         else delete next.segmentation;
+        check();
+        writing = true;
         await saveStoredBook(next);
       }
       if (!(await loadCover(bookId)))
@@ -461,6 +535,8 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
       // The same book again (for example the pack is imported once more): fill in a cover that is missing.
       await storeImportedCover(bookId, input.cover, input.coverInfo, input.parsed);
     }
+    check();
+    writing = true;
     let words = 0;
     if (input.glossaryText) {
       // A word list the user added to this book by hand is theirs: an update never replaces it.
@@ -472,6 +548,7 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
           await applyPackGlossary(bookId, input.glossaryText, input.packId, input.rev, input.catalog)
         ).words;
     }
+    check();
     await savePackRecord({
       // A card that was found by what the book is keeps its catalog pack id, so Discover still shows it.
       packId: existing?.packId ?? input.packId,
@@ -480,8 +557,10 @@ async function installNow(input: InstallInput): Promise<InstallResult> {
       sha256: input.epubSha256,
       installedAt: Date.now(),
     });
+    check();
     const series = readSeries(input.series, input.seriesNumber);
     return {
+      ...(input.mutation ? { mutation: input.mutation } : {}),
       bookId,
       title,
       author,
@@ -556,10 +635,25 @@ export async function downloadPack(
   catalogUrl: string,
   pack: CatalogPack,
   onProgress: (progress: DownloadProgress) => void,
+  targetBookId?: string,
 ): Promise<InstallResult> {
+  const initialShelf = [...useVocab.getState().books];
+  const targets = new Map(initialShelf.map((book) => [book.id, captureTarget(book.id)]));
+  let mutation = targetBookId ? captureTarget(targetBookId) : undefined;
+  if (!targetBookId) {
+    const existing = await findInstalled({ packId: pack.id, title: pack.title, author: pack.author,
+      isbn: pack.isbn, catalog: catalogUrl === BUNDLED_CATALOG_URL ? "public-books" : undefined }, initialShelf);
+    if (existing) {
+      targetBookId = existing.bookId;
+      mutation = targets.get(existing.bookId);
+      if (!mutation || !targetIsCurrent(mutation)) throw new Error(tr("err.bookGone"));
+    } else if ([...targets.values()].some((target) => !targetIsCurrent(target))) {
+      throw new Error(tr("err.bookGone"));
+    }
+  }
   onProgress({ stage: "book", fraction: 0 });
   // An update of the word list does not need the book again when the book file is the same.
-  const have = await packRecordFor(pack.id);
+  const have = targetBookId ? await loadPackRecord(targetBookId) : await packRecordFor(pack.id, catalogUrl === BUNDLED_CATALOG_URL ? "public-books" : undefined);
   const keepBook = Boolean(have && have.sha256 && have.sha256 === pack.epub.sha256);
   let epub: Uint8Array = new Uint8Array(0);
   let epubSha = pack.epub.sha256;
@@ -616,6 +710,7 @@ export async function downloadPack(
 
   onProgress({ stage: "saving", fraction: 0.96 });
   const result = await installPack({
+    targetBookId, mutation, initialTargets: [...targets.values()],
     packId: pack.id,
     // Only the site's own catalog is "public-books"; a pack from another catalog address the
     // reader set is not a row there, and its reports must not claim one.
