@@ -310,13 +310,14 @@ function actionLabel(model: CardModel, canAdd: boolean, t: ReturnType<typeof use
   }
 }
 
-/** The detail sheet: everything about one book, and the one thing to do with it. */
+/** The detail sheet: book information, shelf actions, and access to an installed copy. */
 export function BookDetail({
   row,
   model,
   canAdd,
   onClose,
   onAction,
+  onOpen,
   onRemove,
 }: {
   row: DiscoverRow | null;
@@ -324,6 +325,7 @@ export function BookDetail({
   canAdd: boolean;
   onClose: () => void;
   onAction: () => void;
+  onOpen: () => void;
   onRemove: () => void;
 }) {
   const { t, locale } = useT();
@@ -452,6 +454,17 @@ export function BookDetail({
                   />
                   {actionLabel(model, canAdd, t)}
                 </button>
+                {model.held && model.state !== "on" ? (
+                  <button
+                    type="button"
+                    className={cn(btn.quiet, "w-full sm:w-auto")}
+                    onClick={onOpen}
+                    data-detail-open
+                  >
+                    <BookOpen className="size-4" aria-hidden />
+                    {model.needs ? t("discover.addEpub") : t("discover.openBook")}
+                  </button>
+                ) : null}
                 {model.held ? (
                   <button
                     type="button"

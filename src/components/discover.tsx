@@ -512,7 +512,7 @@ export function DiscoverScreen({
   }
 
   function renderCard(row: Row) {
-    const { record, held, book, needs, item, busy, cardError, why, updateReady, note, reason, lexile, state } = cardModel(row);
+    const { record, book, needs, item, busy, cardError, why, updateReady, note, reason, lexile, state } = cardModel(row);
     return (
       <li
         key={row.key}
@@ -529,26 +529,15 @@ export function DiscoverScreen({
         data-lexile-measure={lexile || "unrated"}
       >
         <div className="relative">
-          {held && record ? (
-            <button
-              type="button"
-              onClick={() => onOpen(record.bookId)}
-              className="block w-full rounded-md text-left"
-              aria-label={t("pack.openAria", { title: row.title })}
-            >
-              <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setDetailId(row.key)}
-              className="block w-full rounded-md text-left"
-              aria-label={t("browse.openAria", { title: row.title })}
-              data-card-detail
-            >
-              <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => setDetailId(row.key)}
+            className="block w-full rounded-md text-left"
+            aria-label={t("browse.openAria", { title: row.title })}
+            data-card-detail
+          >
+            <BookCover title={row.title} author={row.author} cover={row.coverUrl} whenVisible look={row.category === "speech" ? "talk" : "book"} />
+          </button>
           {/* Who maintains the word list, on the cover's top-left: the same place on every card,
               whatever the title's length or the tags below. The add button keeps the bottom-right. */}
           <BookMaintainers bookRef={rowCatalogRef(row)} />
@@ -574,23 +563,13 @@ export function DiscoverScreen({
         </div>
         <div className="grid min-w-0 flex-1 content-start gap-0.5">
           <h3 className={discoverTitle} lang="en" title={row.title}>
-            {held && record ? (
-              <button
-                type="button"
-                onClick={() => onOpen(record.bookId)}
-                className="w-full text-left font-[inherit] text-inherit"
-              >
-                {row.title}
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setDetailId(row.key)}
-                className="w-full text-left font-[inherit] text-inherit"
-              >
-                {row.title}
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => setDetailId(row.key)}
+              className="w-full text-left font-[inherit] text-inherit"
+            >
+              {row.title}
+            </button>
           </h3>
           <p className="flex min-w-0 items-baseline gap-2 text-xs leading-5 text-muted">
             <span className="min-w-0 flex-1 truncate" lang="en">
@@ -832,6 +811,13 @@ export function DiscoverScreen({
         canAdd={canAdd}
         onClose={() => setDetailId("")}
         onAction={() => detailRow && detailAction(detailRow)}
+        onOpen={() => {
+          if (!detailRow) return;
+          const m = cardModel(detailRow);
+          if (!m.held || !m.record) return;
+          setDetailId("");
+          onOpen(m.record.bookId);
+        }}
         onRemove={() => {
           if (!detailRow) return;
           const m = cardModel(detailRow);

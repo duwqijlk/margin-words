@@ -23,12 +23,46 @@ Use this page for **one book at a time**. To fix readers' reports in a live list
 | **word list** (词典) | The `glossary.json` file: the words, meanings and help for one book. [Glossary format](https://github.com/duwqijlk/margin-words/blob/main/docs/GLOSSARY_FORMAT.md). |
 | **catalog** | A JSON file that lists books. Discover reads only this, never a folder. |
 | **row** | One book's object inside a catalog: id, title, author, counts, series, cover address. |
-| **id** | The book's short name in addresses: lower-case letters, digits, `-`, `_`, starting with a letter or digit, at most 64 characters (`^[a-z0-9][a-z0-9_-]{0,63}$`). |
+| **id** | A stable catalog row id, not a title or device id. New ids use lower-case hyphenated names; existing ids stay unchanged. See [identity and naming](#identity-and-naming). |
 | **kind** | `lists` = a copyrighted book (trusted readers only). `public` = a public-domain book (everyone). |
 | **category** | `"speech"` for a talk, address or lecture; nothing at all for a novel. Picks the Discover tab and the weekly allowance. |
 | **series** | Two fields on the row, `series` (a name) and `seriesNumber` (1, 2, 3 …). Books with the same name are one series. |
 | **Discover rail** | A sideways row of covers on Discover. The three largest series get one automatically; an admin can also save its own rows. |
 | **books host** | `https://books.inputread.site`, the public address of the `margin-words-books` bucket. |
+
+<a id="identity-and-naming"></a>
+## Identity and naming
+
+- **Catalog identity** is `<catalog>:<id>`: `word-lists:the-lantern-seller` or
+  `public-books:alice`. The two catalogs allocate ids independently; an id alone is not a global
+  identity. Reports store this reference in `catalog_id`.
+- **Device `book_id`** identifies one reader's installed book, not a catalog book across devices.
+  Admin **`kind`** is `lists` or `public`, not a catalog prefix. Discover saved-row **keys** are
+  `list:<id>` or `classic:<id>`, not report references.
+- **New ids**: use meaningful lower-case names with digits and single hyphens, at most 64
+  characters (`^[a-z0-9]+(?:-[a-z0-9]+)*$` plus the length limit). `custom` is reserved for
+  reader-edited lists; never publish it as a catalog id. The parser accepts underscores
+  (`^[a-z0-9][a-z0-9_-]{0,63}$`) for compatibility, not as a new naming recommendation.
+  **Do not rename or migrate old ids**, folders or references to tidy their spelling.
+- **Title, author and ISBN are evidence, not interchangeable ids.** Check that catalog and
+  word-list metadata and the actual EPUB's metadata **and body** name the intended book/edition.
+  A filename is only a hint; renaming proves nothing. Title comparison uses `src/lib/book-title.ts`:
+  punctuation/case ignored, at most two trailing edition labels removed, real subtitles retained.
+  A title collision means stop and disambiguate (author, ISBN, body), not overwrite another book.
+- Compare ISBN using the existing `isbnDigits` in `src/lib/book-meta.ts`: it validates check digits,
+  converts valid ISBN-10 to ISBN-13, and returns `""` for invalid values. This is **not** just
+  stripping punctuation. A matching ISBN/title does not prove that anchors fit this EPUB.
+- Validate the **exact intended EPUB bytes** against the final list (anchors/context, chapter
+  count, `sha256`, `spine.merge`, `segmentation`); inspect body/front matter for the edition.
+  `node scripts/validate-glossary.mjs book.epub glossary.json` may exit **0 with warnings**.
+  Review every warning, especially title, hash, chapter and spine differences; explain or fix it
+  before publication. Exit 0 alone is not approval. Without the validator, manual anchor checks
+  must establish the same book/edition; uncertainty means stop, not upload.
+- Old lists without `title` pass `replacesSameBook` for compatibility only: this is **not an
+  identity guarantee**. Verify live metadata and the actual EPUB yourself. Updates preserve all
+  unrelated catalog and word-list metadata, including unknown fields, author, ISBN, edition/anchor
+  settings and reader credits. Do not rebuild metadata from filenames or apply new-book defaults
+  to an existing row; deliberate metadata changes need separate review.
 
 ## 1. Pick your job
 
@@ -121,11 +155,13 @@ catalog hash inconsistent.
    own cover; that is fine.
 4. **Same book, not a new one.** When `<id>` is already in the catalog, the file's `title` must
    name that same book. Compare the titles in lower case with only letters and digits kept, after
-   dropping a trailing edition label (`: A Novel`, `: A Memoir`, `(A Novel)` and the like). A file
-   with no `title` counts as the same book. If the titles differ, stop: the file is another book and
-   needs its own id.
+   dropping at most two trailing edition labels (`: A Novel`, `: A Memoir`, `(A Novel)` and the
+   like), never a real subtitle. Missing `title` is legacy compatibility, not proof of identity:
+   follow [identity and naming](#identity-and-naming). If titles differ, stop and investigate;
+   another book needs its own id, not an overwrite.
 5. **No second id for one book.** For a new `<id>`, no row in either catalog may have the same
-   title (compared the same way). If one does, the id is wrong: use that row's id.
+   title (compared the same way). If one does, stop and disambiguate; reuse its id only after
+   proving it is the same book, never a different book with the same title.
 
 ## 5. Job A — a new copyrighted book, end to end
 
@@ -157,30 +193,56 @@ npx wrangler r2 object get "margin-words-books/word-lists/catalog.json" --file w
 npx wrangler r2 object get "margin-words-books/public-books/catalog.json" --file public-catalog.json --remote
 ```
 
-Then look for the id and the title in both. Save this as `scripts/find-book.mjs` and run from staging
-`node scripts/find-book.mjs the-lantern-seller "The Lantern Seller"`:
+Create a `scripts/` folder in staging (not inside an untrusted download). Save this shared helper
+as `scripts/book-identity.mjs`; both local examples below use it. It matches
+`normalizeTitle` / `replacesSameBook` in `src/lib/book-title.ts`.
 
 ```js
-// Is this book already live? The title comparison is the one the site uses (§4.4).
-import { readFileSync } from "node:fs";
+// Staging helper: scripts/book-identity.mjs
 const EDITION = "a novel|a memoir|a biography|a true story|an autobiography|a novella|a graphic novel";
-const norm = (value) => String(value)
-  .replace(new RegExp(`\\s*[:：]\\s*(?:${EDITION})\\s*$`, "i"), "")
-  .replace(new RegExp(`\\s*[-–—]\\s*(?:${EDITION})\\s*$`, "i"), "")
-  .replace(new RegExp(`\\s*\\((?:${EDITION})\\)\\s*$`, "i"), "")
-  .toLowerCase().replace(/[^a-z0-9]+/g, "");
-const [id, title] = process.argv.slice(2);
-for (const file of ["word-lists-catalog.json", "public-catalog.json"]) {
-  const catalog = JSON.parse(readFileSync(file, "utf8"));
-  const rows = catalog.lists ?? catalog.packs;
-  const hit = rows.find((row) => row.id === id || norm(row.title) === norm(title));
-  console.log(file, hit ? `TAKEN: ${hit.id} — ${hit.title}` : "free");
+const EDITION_TAIL = new RegExp(
+  `(?:\\s*[:：]\\s*(?:${EDITION})|\\s+[-–—]\\s*(?:${EDITION})|\\s*\\((?:${EDITION})\\))\\s*$`, "i",
+);
+export function norm(value) {
+  let title = value.trim();
+  for (let pass = 0; pass < 2; pass += 1) {
+    const next = title.replace(EDITION_TAIL, "").trim();
+    if (!next || next === title) break;
+    title = next;
+  }
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+export function replacesSameBook(existingTitle, incomingTitle) {
+  if (typeof incomingTitle !== "string" || !incomingTitle.trim()) return true;
+  return norm(incomingTitle) === norm(typeof existingTitle === "string" ? existingTitle : "");
 }
 ```
 
-- Both say `free`: it is a new book. Continue.
-- The id is taken and the title is the same book: it is not new. Go to §6 (word list) or §7 (EPUB).
-- The title is taken under **another id**: use that id. One book, one id.
+Then look for the id and the title in **both** fresh catalogs. Save this as `scripts/find-book.mjs`
+and run from staging `node scripts/find-book.mjs the-lantern-seller "The Lantern Seller"`:
+
+```js
+// Is this book already live? Print every collision, not just the first.
+import { readFileSync } from "node:fs";
+import { norm } from "./book-identity.mjs";
+const [id, title] = process.argv.slice(2);
+if (!id || !title?.trim()) throw new Error("usage: find-book.mjs <id> <title>");
+for (const file of ["word-lists-catalog.json", "public-catalog.json"]) {
+  const catalog = JSON.parse(readFileSync(file, "utf8"));
+  const rows = catalog.lists ?? catalog.packs;
+  const missing = rows.filter((row) => typeof row.title !== "string" || !row.title.trim());
+  if (missing.length) throw new Error(`${file}: verify missing titles for ids ${missing.map((row) => row.id).join(", ")} before publication`);
+  const hits = rows.filter((row) => row.id === id || norm(row.title) === norm(title));
+  console.log(file, hits.length ? hits.map((row) => `TAKEN: ${row.id} — ${row.title}`).join("\n") : "free");
+}
+```
+
+- A missing-title diagnostic is a preflight stop, not a `free` result: inspect those live rows and
+  establish their identities with the owner. Do not rename old ids or invent titles to pass the check.
+- Both say `free`: it is a new book. Continue after the identity/edition checks above.
+- The id is taken and verified to name the same book: it is not new. Go to §6 (list) or §7 (EPUB).
+- The title is taken under **another id**: verify author, ISBN and actual body. Reuse that id only
+  for the same book; ambiguous or same-title different books require owner review.
 - The id is taken by a **different** book: pick a new id; never overwrite another book.
 
 ### 5.3 Upload the EPUB
@@ -212,8 +274,9 @@ A public book uses `covers/public-<id>.jpg`. Section 10 explains why the cache h
 
 ### 5.6 Write the row
 
-The row is built from the word list's own metadata (`title`, `author`, `lexile`, `isbn`, `series`,
-`seriesNumber`, `category`) plus counts and exact-byte hashes, following the
+A **new** row is built from the word list's metadata (`title`, `author`, `lexile`, `isbn`, `series`,
+`seriesNumber`, `category`). Updates preserve unrelated live metadata and change only job fields,
+plus counts and exact-byte hashes, following the
 [shared count/version rules](https://inputread.site/kit/maintenance.md#versions). Do not type the
 numbers by hand: save this script as `scripts/row.mjs`, fill in `JOB`, run from staging, then publish
 `catalog.next.json` through §3's checkpoints. This local script does not lock, snapshot or upload.
@@ -232,6 +295,7 @@ It works in three modes and **never touches another row**:
 // 1. fill in JOB  2. node scripts/row.mjs  3. upload catalog.next.json as §5.7 says
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
+import { replacesSameBook } from "./book-identity.mjs";
 
 const JOB = {
   mode: "new",                 // "new" | "list" | "series"
@@ -247,6 +311,8 @@ const JOB = {
   now: new Date().toISOString(),
 };
 
+if (JOB.mode === "new" && (JOB.id === "custom" || JOB.id.length > 64 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(JOB.id)))
+  throw new Error("new ids must be lower-case hyphenated names, not custom");
 const isPublic = JOB.kind === "public";
 if (isPublic && JOB.mode === "new") throw new Error("new public id unsupported: stop and escalate (§5.0)");
 const field = isPublic ? "packs" : "lists";
@@ -265,6 +331,8 @@ const row = at >= 0 ? { ...rows[at] } : { id: JOB.id };
 if (JOB.glossary) {
   const bytes = readFileSync(JOB.glossary);
   const file = JSON.parse(bytes.toString("utf8"));
+  if (JOB.mode === "list" && !replacesSameBook(row.title, file.title))
+    throw new Error("incoming title names another book: stop and investigate (identity-and-naming)");
   const entries = file.glossary;
   if (!entries || typeof entries !== "object" || Array.isArray(entries) || Object.keys(entries).length === 0)
     throw new Error("the word list has no glossary object");
@@ -289,7 +357,7 @@ if (JOB.glossary) {
   row.paragraphs = Array.isArray(file.paragraphs) ? file.paragraphs.length : 0;
   row.sentences = Array.isArray(file.sentences) ? file.sentences.length : 0;
   row.phrases = file.phrases && typeof file.phrases === "object" ? Object.keys(file.phrases).length : 0;
-  row.glossary = { url: `${JOB.id}/glossary.json`, bytes: bytes.length, sha256: sha };
+  row.glossary = { ...row.glossary, url: `${JOB.id}/glossary.json`, bytes: bytes.length, sha256: sha };
   if (isPublic) row.rev = row.glossary.rev = sha.slice(0, 12);
   row.updated = JOB.now;
 }
@@ -363,8 +431,10 @@ Run it and read what it prints. The row it shows is the row that will be live:
 node scripts/row.mjs
 ```
 
-The script checks ids and the other rows' hashes, but it cannot see the **other** catalog: the
-title-clash check in §5.2 is the one that catches a second id for a book that is already live.
+Before running `row.mjs` in **any** mode, complete the identity/edition preflight above; for a new
+book, run §5.2 against both catalogs using the final glossary title. The script checks same-book
+titles in list mode (legacy missing titles still need manual verification), ids and other rows'
+hashes, but cannot see the **other** catalog or verify the actual EPUB body for you.
 
 ### 5.7 Upload the catalog last
 
@@ -461,7 +531,12 @@ console.log({ dropped, changed: changed.slice(0, 50), changedCount: changed.leng
    lost phrase, copy it from the live file into yours. For a word whose entry changed, look at both:
    if the live meaning is the patrol's fix, keep the live entry; if your file is the intended new
    text, keep yours. When you cannot tell, keep the live entry and report the difference instead of
-   guessing. Then run the comparison again.
+   guessing. Preserve unrelated top-level metadata and unknown fields from the live list too;
+   title/author/ISBN and edition settings are not replacement defaults. Revalidate the **merged**
+   file against the actual EPUB, reviewing warnings as above. Then run the comparison again.
+   **Before any upload**, prepare `catalog.next.json` locally with `row.mjs` in list mode using
+   step 5's settings; its same-book guard must pass before step 4 writes the glossary. A missing title
+   still requires the manual identity check, not just a passing script.
 
 4. **Reread and compare the live list and catalog to your snapshots** (§3). If either changed,
    abort and redo the merge on fresh snapshots. Within the coordinated exclusive window, upload
@@ -685,8 +760,8 @@ its `updated` to now. Write the catalog as JSON with a one-space indent
 | Field | Value |
 | --- | --- |
 | `id` | The book's id. Never changes. |
-| `title`, `author` | From the word list's own `title` / `author`. A new book needs a title. |
-| `lexile`, `isbn` | Only when the word list has them. Never guess a measure or an edition. |
+| `title`, `author` | **New row only:** from the word list's own `title` / `author`; title required. Updates preserve live values, not incoming glossary metadata. |
+| `lexile`, `isbn` | New row: only when the word list has them. Updates preserve live values unless explicitly reviewed for change. Never guess a measure or edition; compare ISBN with `isbnDigits`. |
 | `words` | `Number(file.count) || Object.keys(file.glossary).length`, matching the admin publisher. Check the resulting count is intended; shared semantics: [versions](https://inputread.site/kit/maintenance.md#versions). |
 | `paragraphs`, `sentences` | Length of the file's `paragraphs` / `sentences` array, 0 when missing. |
 | `phrases` | Number of keys in the file's `phrases` object, 0 when missing. |

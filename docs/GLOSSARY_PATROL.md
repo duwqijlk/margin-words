@@ -83,7 +83,8 @@ If you cannot coordinate it, remain read-only and report. Details:
 Open taps and reports:
 
 ```sql
-SELECT catalog_id, book_title, word, form, chapter, chapters, occurrence, context, sentence, glossary_rev, tap_count
+SELECT book_id, word, chapter, occurrence, catalog_id, book_title, form, chapters, context, sentence,
+       glossary_rev, last_tapped_at, tap_count
   FROM book_word_taps WHERE in_glossary = 0 AND status != 'resolved'
   ORDER BY tap_count DESC, last_tapped_at DESC LIMIT 500;
 
@@ -116,7 +117,14 @@ resolved. A reopened item means the last fix did not work: look at it first.
 **`catalog_id`**, `<catalog>:<id>`: `word-lists:<id>` is the row with that `id` in
 `word-lists/catalog.json`, `public-books:<id>` the row in `public-books/catalog.json`. Only when it is
 `''` (an older page, a list the reader added by hand, a book installed before this was recorded)
-find the book by **title**. Two books with the same title are told apart only by `catalog_id`. The
+consider a **title fallback only if normalization matches exactly one row across both live
+catalogs**, using `normalizeTitle` in `src/lib/book-title.ts` (at most two edition-label passes,
+real subtitles retained). Zero matches or ambiguity: leave it pending and report it. A malformed
+or unknown **nonempty** reference must never fall back to title; leave it pending too. An empty
+reference may also be a custom list: title uniqueness alone does not prove the report concerns the
+published list; check context and edition before acting. See
+[identity and naming](https://inputread.site/kit/book-upload.md#identity-and-naming).
+Two same-title books are told apart by `catalog_id`, not device id. The
 catalogs (R2 read, bucket `margin-words-books`):
 
 - `word-lists/catalog.json`: `{ "lists": [ { "id", "title", "words", "phrases", "paragraphs",
@@ -366,7 +374,9 @@ there is no need to rewrite identical bytes.
 
 ```sql
 UPDATE book_word_taps SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
- WHERE book_title = ?3 AND word = ?4 AND in_glossary = 0 AND status != 'resolved';
+ WHERE book_id = ?3 AND word = ?4 AND chapter = ?5 AND occurrence = ?6
+   AND catalog_id = ?7 AND glossary_rev = ?8 AND last_tapped_at = ?9
+   AND in_glossary = 0 AND status != 'resolved';
 
 UPDATE word_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev = ?2
  WHERE id = ?3;
@@ -375,8 +385,18 @@ UPDATE passage_feedback SET status = 'resolved', resolved_at = ?1, resolved_rev 
  WHERE id = ?3;   -- or, for a topic you answered whole: WHERE topic = ?3 AND status != 'resolved'
 ```
 
-`?1` = now in milliseconds, `?2` = new revision. If a reader reports the same place again on the
-new revision, the site reopens the item by itself.
+`?1` = now in milliseconds, `?2` = verified live revision. For **taps**, bind `?3`–`?6` to the
+selected row's full primary key (`book_id`, `word`, `chapter`, `occurrence`), `?7` to its **original**
+`catalog_id` (keep `''` for a verified legacy fallback), `?8` to its selected `glossary_rev`, and
+`?9` to its selected `last_tapped_at`. Save these snapshots when reading §3; do not substitute
+the current live revision for `?8`. Execute once per verified location, never a `book_title + word`
+batch. Zero changed rows means the row changed or is already resolved: reread and re-evaluate,
+not a reason to broaden the WHERE. These guards avoid resolving a new tap or a changed catalog/list
+on that device while you worked. Word/passage feedback `?3` is its selected `id`.
+Word/passage feedback can reopen when a reader reports the same place on the resolved or a newer
+revision. **Missing-word taps do not currently reopen automatically**: the tap upsert keeps a
+resolved status even when its revision/time changes. Do not treat absence from the open-taps query
+as proof that a previously resolved word is now covered; investigate repeat reports separately.
 
 For each **accepted** suggestion, also record it (this is what the rank counts):
 
