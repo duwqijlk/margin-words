@@ -137,7 +137,12 @@ export async function handleWordTapsPost(
            glossary_rev, tap_count, in_glossary, last_tapped_at
          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
          ON CONFLICT(book_id, word, chapter, occurrence) DO UPDATE SET
-           tap_count = book_word_taps.tap_count + excluded.tap_count,
+           -- The same device book now holds another catalog book's list: its taps are a new
+           -- count, not more taps on the old book.
+           tap_count = CASE
+             WHEN excluded.catalog_id != '' AND book_word_taps.catalog_id != ''
+                  AND excluded.catalog_id != book_word_taps.catalog_id THEN excluded.tap_count
+             ELSE book_word_taps.tap_count + excluded.tap_count END,
            in_glossary = CASE WHEN excluded.in_glossary = 1 THEN 1 ELSE book_word_taps.in_glossary END,
            status = CASE WHEN excluded.in_glossary = 1 THEN 'resolved' ELSE book_word_taps.status END,
            book_title = CASE WHEN excluded.book_title != '' THEN excluded.book_title ELSE book_word_taps.book_title END,

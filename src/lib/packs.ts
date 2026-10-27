@@ -35,6 +35,8 @@ import { booksUrl } from "@/lib/books-base";
 import { isbnDigits, readSeries } from "@/lib/book-meta";
 import { readContentCategory, type ContentCategory } from "@/lib/content-category";
 import { lexileMeasure } from "@/lib/lexile";
+import { noteCatalogIds } from "@/lib/catalog-index";
+import type { CatalogName } from "@/lib/catalog-id";
 
 /* ------------------------------------------------------------------ catalog types */
 
@@ -262,9 +264,13 @@ export async function loadCatalog(url = getCatalogUrl()): Promise<CatalogResult>
       throw new Error("not a catalog");
     }
     writeCache(url, catalog);
+    // Reports name their book by catalog and id (src/lib/catalog-index.ts); only the site's own one.
+    if (url === BUNDLED_CATALOG_URL) noteCatalogIds("public-books", catalog.packs.map((pack) => pack.id));
     return { catalog, url, offline: false };
   } catch {
     const cached = readCache(url);
+    if (cached && url === BUNDLED_CATALOG_URL)
+      noteCatalogIds("public-books", cached.catalog.packs.map((pack) => pack.id));
     if (cached) return { catalog: cached.catalog, url, offline: true };
     throw new Error(failure);
   }
@@ -278,7 +284,7 @@ export type InstallInput = {
    * Which of the site's catalogs `packId` is a row of. `undefined` for a pack from another catalog
    * address: reports about it then carry no catalog reference.
    */
-  catalog: "word-lists" | "public-books" | undefined;
+  catalog: CatalogName | undefined;
   rev: string;
   title: string;
   author: string;

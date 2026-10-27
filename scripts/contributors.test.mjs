@@ -436,6 +436,11 @@ test("every report keeps the catalog book it is about, and drops anything that i
   const tap = db.raw.prepare("SELECT catalog_id, tap_count FROM book_word_taps").get();
   assert.equal(tap.catalog_id, catalogId);
   assert.equal(tap.tap_count, 2);
+  // The same device book now holds another catalog book's list: a new count for that book.
+  const other = "word-lists:wonder";
+  await handleWordTapsPost(request("/api/analytics/word-taps", { ip: "8.8.9.4", body: { ...taps, catalogId: other } }), env, { now: NOW + 2 });
+  const moved = db.raw.prepare("SELECT catalog_id, tap_count FROM book_word_taps").get();
+  assert.deepEqual([moved.catalog_id, moved.tap_count], [other, 1], "taps of book A are not counted for book B");
 });
 
 test("one id in both catalogs names two books", async () => {
@@ -446,4 +451,21 @@ test("one id in both catalogs names two books", async () => {
   assert.equal(catalogRef("word-lists", "custom"), "", "a list the reader added names no catalog book");
   assert.equal(cleanCatalogRef("public-books:alice"), "public-books:alice");
   assert.equal(cleanCatalogRef("alice"), "", "an id without its catalog is ambiguous");
+});
+
+test("a book names its catalog book from what the device knows, never for a hand-added list", async () => {
+  const { bookCatalogRef } = await import("../src/lib/catalog-id.ts");
+  const inWordLists = async (id) => (id === "wonder" ? "word-lists" : id === "alice" ? "public-books" : null);
+  // An install that recorded its catalog.
+  assert.equal(await bookCatalogRef({ source: "wonder", recorded: "word-lists", catalogOf: inWordLists }), "word-lists:wonder");
+  // An install from before the catalog was recorded: the catalogs say which one holds the id.
+  assert.equal(await bookCatalogRef({ source: "alice", catalogOf: inWordLists }), "public-books:alice");
+  // A word-list card still waiting for its e-book has only the install record.
+  assert.equal(await bookCatalogRef({ packId: "wonder", catalogOf: inWordLists }), "word-lists:wonder");
+  // The reader's own list on a book that came from a catalog: no catalog book.
+  assert.equal(await bookCatalogRef({ source: "custom", recorded: "word-lists", packId: "wonder", catalogOf: inWordLists }), "");
+  // An id no catalog of the site holds (another catalog address, a book that left the catalog).
+  assert.equal(await bookCatalogRef({ source: "elsewhere", catalogOf: inWordLists }), "");
+  // A catalog that cannot be read is no answer, not an error.
+  assert.equal(await bookCatalogRef({ source: "wonder", catalogOf: async () => { throw new Error("offline"); } }), "");
 });

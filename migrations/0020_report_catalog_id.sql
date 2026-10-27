@@ -11,3 +11,4 @@ ALTER TABLE passage_feedback ADD COLUMN catalog_id TEXT NOT NULL DEFAULT '';
 
 CREATE INDEX IF NOT EXISTS word_feedback_catalog ON word_feedback(catalog_id) WHERE catalog_id != '';
 CREATE INDEX IF NOT EXISTS passage_feedback_catalog ON passage_feedback(catalog_id) WHERE catalog_id != '';
+CREATE INDEX IF NOT EXISTS book_word_taps_catalog ON book_word_taps(catalog_id) WHERE catalog_id != '';

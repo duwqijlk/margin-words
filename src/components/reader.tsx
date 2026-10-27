@@ -89,7 +89,8 @@ import {
   wholeSentence,
 } from "@/components/word-card";
 import { warmIpaFor } from "@/components/word-ipa";
-import { catalogRef } from "@/lib/catalog-id";
+import { bookCatalogRef } from "@/lib/catalog-id";
+import { catalogOfId } from "@/lib/catalog-index";
 import {
   calculatePageStep,
   isEinkScreen,
@@ -361,13 +362,18 @@ export function ReaderScreen({
           setPhraseList(extras?.phrases ?? {});
           setPhrasesFor(bookId);
           setListSource(extras?.source ?? "");
-          setCatalogId(extras?.catalog ? catalogRef(extras.catalog, extras.source) : "");
-          let rev = extras?.rev ?? "";
-          if (!rev) {
-            const pack = await loadPackRecord(bookId).catch(() => null);
-            if (pack?.rev) rev = pack.rev;
-          }
-          setGlossaryRev(rev);
+          const pack = await loadPackRecord(bookId).catch(() => null);
+          if (!alive) return;
+          setGlossaryRev(extras?.rev || pack?.rev || "");
+          // The catalog book reports name. Older installs did not record the catalog; the install
+          // record still names the book, and the catalogs the app has read say which one holds it.
+          const ref = await bookCatalogRef({
+            source: extras?.source,
+            recorded: extras?.catalog,
+            packId: pack?.packId,
+            catalogOf: catalogOfId,
+          });
+          if (alive) setCatalogId(ref);
         })
         .catch(() => {
           if (alive) setPhrasesFor(bookId);

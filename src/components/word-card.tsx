@@ -208,7 +208,7 @@ export function WordCard({
   chapter: number;
   /** How many chapters this copy of the book has (the word list has its own count). */
   chapters?: number;
-  /** The book's catalog id, "" for a list the reader added. */
+  /** The catalog book, `<catalog>:<id>` (src/lib/catalog-id.ts); "" for a list the reader added. */
   catalogId?: string;
   noteChapter?: number | string;
   noList: boolean;
