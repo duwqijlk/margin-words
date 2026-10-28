@@ -43,6 +43,7 @@ import { rehomeForeignSources } from "@/lib/wordbook";
 import { useVocab } from "@/lib/vocab-store";
 import type { Book, VocabEntry, WordSource } from "@/lib/vocab-model";
 import { claimDevice, ownedByAnother, PENDING_KEY, startDeviceWipe } from "@/lib/device-wipe";
+import { afterPull, afterPush, needsUpload, pullAfter, readView, SYNC_VIEW_KEY, type SyncView } from "@/lib/sync-view";
 
 const META_KEY = "cibian-sync-meta-v1";
 const EMAIL_KEY = "cibian-account-email-v1";
@@ -50,6 +51,8 @@ const NICK_KEY = "cibian-account-nickname-v1";
 const ROLE_KEY = "cibian-account-role-v1";
 const DIRTY_KEY = "cibian-sync-dirty-v1";
 const PUSH_DELAY_MS = 1500;
+/** Coming back to the tab pulls again only after this long (a pending edit still syncs at once). */
+const FOCUS_PULL_MS = 30_000;
 
 let meta: SyncMeta = emptyMeta();
 let prev: LocalSnapshot | null = null;
@@ -117,6 +120,8 @@ function capture(): LocalSnapshot {
 
 function rememberEmail(email: string | null, nickname?: string | null, role?: AccountRole) {
   writeStorage(EMAIL_KEY, email);
+  // The record of what the server holds belongs to one account (sync-view.ts).
+  if (!email) writeStorage(SYNC_VIEW_KEY, null);
   if (!email) writeStorage(ROLE_KEY, null);
   else if (role !== undefined) writeStorage(ROLE_KEY, role);
   const nextNick = email ? (nickname === undefined ? useAccount.getState().nickname : nickname) : null;
@@ -275,9 +280,21 @@ function online(): boolean {
   return typeof navigator === "undefined" || navigator.onLine !== false;
 }
 
-async function pullItems(): Promise<SyncItem[]> {
-  const payload = await accountRequest("/api/sync");
-  return asItems(payload.items);
+/**
+ * Read what the server holds: only what changed since this device's cursor when it has one, the
+ * whole account otherwise (sync-view.ts says when). Returns the items and the updated record.
+ */
+async function pullItems(): Promise<{ items: SyncItem[]; full: boolean; view: SyncView | null }> {
+  const email = useAccount.getState().email;
+  const known = readView(readStorage(SYNC_VIEW_KEY), email);
+  const after = pullAfter(known, email, Date.now());
+  const payload = await accountRequest(after === null ? "/api/sync" : `/api/sync?after=${after}`);
+  const items = asItems(payload.items);
+  // A server without cursors answers every pull in full and sends no cursor: then there is no
+  // record, and the upload is decided against this full answer as before.
+  const full = after === null || typeof payload.cursor !== "number";
+  const view = email ? afterPull(known, email, items, payload.cursor, full, Date.now()) : null;
+  return { items, full, view };
 }
 
 async function pushItems(items: SyncItem[]): Promise<SyncItem[]> {
@@ -485,8 +502,12 @@ async function flush() {
   lastRun = Date.now();
   useAccount.getState().patch({ sync: "saving" });
   try {
-    const remote = await pullItems();
+    const pulled = await pullItems();
+    const remote = pulled.items;
+    let view = pulled.view;
     // Per-book `words` items from older versions are read as part of the wordbook; they are never rewritten.
+    // A partial pull is merged the same way: mergeSnapshots joins per item, and an item the pull
+    // did not return keeps its local value.
     const folded = foldLegacyWords(remote);
     const local = buildSyncItems(capture(), meta);
     const merged = mergeSnapshots(folded, local);
@@ -497,12 +518,16 @@ async function flush() {
       });
     if (differs(local)) await applyMerged(merged);
     const after = buildSyncItems(capture(), meta);
+    // Upload what the server does not hold yet. With a record, that is decided against the
+    // signatures it keeps for every item; without one, against the full pull just made.
     const upload = after.filter((item) => {
+      if (view && !pulled.full) return needsUpload(view, item);
       const prior = remote.find((other) => itemKey(other) === itemKey(item));
       return !prior || !sameSyncItem(prior, item);
     });
     if (upload.length > 0) {
       const saved = await pushItems(upload);
+      view = afterPush(view, saved);
       const againLocal = buildSyncItems(capture(), meta);
       const reconciled = mergeSnapshots(foldLegacyWords(saved), againLocal);
       const needApply = reconciled.some((item) => {
@@ -511,6 +536,9 @@ async function flush() {
       });
       if (needApply) await applyMerged(reconciled);
     }
+    // Only after a whole round: a failed push leaves the old cursor, and the next pull returns
+    // whatever did reach the server (its writes are newer than that cursor).
+    if (view && view.email === useAccount.getState().email) writeStorage(SYNC_VIEW_KEY, JSON.stringify(view));
     clearDirty();
     useAccount.getState().patch({ sync: "saved" });
   } catch (error) {
@@ -608,7 +636,7 @@ function onFocus() {
     return;
   }
   if (useAccount.getState().phase !== "in") return;
-  if (Date.now() - lastRun < 4000 && !dirty) return;
+  if (Date.now() - lastRun < FOCUS_PULL_MS && !dirty) return;
   void flush();
 }
 

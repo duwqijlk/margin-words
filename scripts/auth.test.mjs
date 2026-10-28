@@ -32,7 +32,7 @@ import { handleGet as handleBlurbGet, handlePut as handleBlurbPut } from "../fun
 import { handleGlossary } from "../functions/api/glossary/[id].ts";
 import { GLOSSARY_MAX } from "../functions/lib/glossary-limit.ts";
 import { GLOSSARY_WEEK_BOOKS, GLOSSARY_WEEK_MS, GLOSSARY_WEEK_SPEECHES, trustedUntil } from "../functions/lib/trust.ts";
-import { SYNC_PUSH_MAX } from "../src/lib/limits.ts";
+import { SYNC_CURSOR_OVERLAP_MS, SYNC_PUSH_MAX } from "../src/lib/limits.ts";
 import { handleEpub } from "../functions/api/book/[id]/epub.ts";
 import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
 import { handleAdminWordTapsGet, handleAdminWordTapsPost } from "../functions/api/admin/word-taps.ts";
@@ -599,6 +599,68 @@ test("sync merges word blobs and keeps the newer shelf card", async () => {
 
   const anon = await call(handleSyncPull, env, { method: "GET", path: "/api/sync" });
   assert.equal(anon.status, 401);
+});
+
+test("an `after` pull returns only rows the server wrote since the cursor, whatever the item clock says", async () => {
+  const db = openDb();
+  const env = envOf(db);
+  const created = await signUpFully(handleRegister, env, {
+    body: { email: "reader@example.com", password: "correct horse" },
+  });
+  const cookie = cookieHeader(created);
+  const at = (handler, now, { method = "POST", path = "/api/sync", body } = {}) =>
+    handler(
+      new Request(`http://localhost${path}`, {
+        method,
+        headers: { cookie },
+        body: body === undefined ? undefined : JSON.stringify(body),
+      }),
+      env,
+      { now },
+    );
+  const shelf = (key, updatedAt, title) => ({
+    kind: "shelf",
+    itemId: key,
+    updatedAt,
+    deleted: false,
+    data: { id: `card-${key}`, title, author: "A", cloth: "cloth", createdAt: 1, updatedAt },
+  });
+  const T0 = NOW;
+  assert.equal((await at(handleSyncPush, T0, { body: { items: [shelf("book:a", 50, "A"), shelf("book:b", 50, "B")] } })).status, 200);
+
+  // The first pull of a device reads everything and gets a cursor that reaches back by the overlap.
+  const full = await (await at(handleSyncPull, T0 + 10 * 60_000, { method: "GET" })).json();
+  assert.equal(full.items.length, 2);
+  assert.equal(full.full, true);
+  assert.equal(full.cursor, T0 + 10 * 60_000 - SYNC_CURSOR_OVERLAP_MS);
+
+  // Nothing written since: an empty answer, not the whole account.
+  const quiet = await (await at(handleSyncPull, T0 + 11 * 60_000, { method: "GET", path: `/api/sync?after=${full.cursor}` })).json();
+  assert.deepEqual(quiet.items, []);
+  assert.equal(quiet.full, false);
+
+  // Another device with a slow clock changes book:a: its item time (20) is far behind every cursor,
+  // but the server stamps the write, so the next `after` pull still sees it.
+  assert.equal((await at(handleSyncPush, T0 + 12 * 60_000, { body: { items: [shelf("book:a", 20, "A from a slow clock")] } })).status, 200);
+  // Pulled half an overlap after that write, so the write is still inside the next cursor's window.
+  const next = await (await at(handleSyncPull, T0 + 12 * 60_000 + SYNC_CURSOR_OVERLAP_MS / 2, { method: "GET", path: `/api/sync?after=${quiet.cursor}` })).json();
+  assert.deepEqual(next.items.map((item) => item.itemId), ["book:a"]);
+
+  // A write inside the overlap window is returned again by the next pull; merging it twice is harmless.
+  const repeat = await (await at(handleSyncPull, T0 + 18 * 60_000, { method: "GET", path: `/api/sync?after=${next.cursor}` })).json();
+  assert.deepEqual(repeat.items.map((item) => item.itemId), ["book:a"]);
+
+  // A delete is a write too.
+  assert.equal((await at(handleSyncPush, T0 + 20 * 60_000, { body: { items: [{ ...shelf("book:b", 60, "B"), deleted: true, data: {} }] } })).status, 200);
+  const gone = await (await at(handleSyncPull, T0 + 21 * 60_000, { method: "GET", path: `/api/sync?after=${repeat.cursor}` })).json();
+  assert.deepEqual(gone.items.map((item) => [item.itemId, item.deleted]), [["book:b", true]]);
+
+  // A row from before migration 0021 (server_at 0) is only in a full pull.
+  db.prepare("UPDATE sync_items SET server_at = 0 WHERE item_id = 'book:a'").run();
+  const old = await (await at(handleSyncPull, T0 + 22 * 60_000, { method: "GET", path: "/api/sync?after=0" })).json();
+  assert.deepEqual(old.items.map((item) => item.itemId), ["book:b"]);
+  const again = await (await at(handleSyncPull, T0 + 22 * 60_000, { method: "GET" })).json();
+  assert.equal(again.items.length, 2);
 });
 
 test("a nickname is optional, can be shared by two accounts, and is not a password", async () => {

@@ -199,7 +199,7 @@ All routes are same-origin. The service worker does not answer requests, so `/ap
 | GET | `/api/auth/export` | email, created time, nickname, and sync items (no password hash) |
 | POST | `/api/auth/password-reset/request` | `{ email, turnstileToken? }` |
 | POST | `/api/auth/password-reset/confirm` | `{ token, password }` |
-| GET | `/api/sync` | all items (optional `?since=` unix ms) |
+| GET | `/api/sync` | all items, plus `cursor` (server ms) for the next pull. `?after=<cursor>`: only rows the server wrote after it (`server_at`, migration 0021). `?since=` (item time, unix ms) is kept for older clients |
 | POST | `/api/sync` | `{ items: [...] }` merges and returns the stored rows |
 
 Login and register are rate-limited per IP and per email (15-minute window): login 20 per IP and 10 failed logins per email, register (and resend) 10 per IP and 5 per email, the sign-up code 30 per IP and 20 per email. A successful login does not add to the per-email count. IPv6 addresses share a bucket by their /64 prefix. Password reset uses the same window at 10 per IP and 5 per email.
@@ -208,7 +208,9 @@ Login and register are rate-limited per IP and per email (15-minute window): log
 
 On launch the app rehydrates the local stores, then asks `/api/auth/me`. `{ user: null }` means signed out. If that call fails because the functions are not deployed, the app stays signed out and keeps working.
 
-On sign-in it pulls the server copy, merges it with this device (union, then last-write-wins), and pushes anything the server did not already have. Later edits are pushed about 1.5 seconds after the last change, and also when the page is hidden. A pull runs on start and when the tab becomes visible. If the network is down, the change stays queued in this browser and is sent on the next successful sync.
+On sign-in it pulls the server copy, merges it with this device (union, then last-write-wins), and pushes anything the server did not already have. Later edits are pushed about 1.5 seconds after the last change, and also when the page is hidden. A pull runs on start, before each push, and when the tab becomes visible again after at least 30 seconds.
+
+Pulls are incremental (`src/lib/sync-view.ts`). The device keeps the server's `cursor` and a short signature of every item the server holds (`cibian-sync-server-v1` in localStorage), asks for `?after=<cursor>`, and uploads only items whose signature differs. The cursor is the server's clock minus a one-minute overlap (`SYNC_CURSOR_OVERLAP_MS`); rows written in that window come back twice, which merges to the same result. A full pull still runs on the first sync of an account on a device, once a day, after sign-out, and against a server that sends no cursor. Item times (`updated_at`) come from device clocks and are never the cursor. If the network is down, the change stays queued in this browser and is sent on the next successful sync.
 
 Signing out or deleting the account does not wipe the books on this device.
 

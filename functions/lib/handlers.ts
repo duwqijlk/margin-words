@@ -1,5 +1,5 @@
 import { cleanNickname } from "../../src/lib/nickname.ts";
-import { SYNC_BODY_MAX, SYNC_PUSH_MAX } from "../../src/lib/limits.ts";
+import { SYNC_BODY_MAX, SYNC_CURSOR_OVERLAP_MS, SYNC_PUSH_MAX } from "../../src/lib/limits.ts";
 import { mergeItem, normalizeItem, type SyncItem } from "../../src/lib/sync-merge.ts";
 import { effectiveRole } from "./admin.ts";
 import { isContributor, publishContributors } from "./contributors.ts";
@@ -522,22 +522,35 @@ function rowToItem(row: SyncRow): SyncItem {
   );
 }
 
+/**
+ * GET /api/sync                 every row of the account (a device's first pull, or a periodic check)
+ * GET /api/sync?after=<cursor>  only rows the server wrote after the cursor: the usual pull
+ * GET /api/sync?since=<ms>      rows whose item time is newer (older clients; kept as it was)
+ *
+ * Every answer carries `cursor` for the next `after`. A full pull of a large word book is several
+ * MB of JSON to parse and write again, which is what ran past the Free plan's 10ms of CPU; a pull
+ * with `after` reads only what changed.
+ */
 export async function handleSyncPull(request: Request, env: Env, options?: HandlerOptions): Promise<Response> {
   try {
     const now = nowOf(options);
     const user = await requireUser(env.DB, request, now);
     await assertUserRateLimit(env.DB, "sync", user.id, now);
     const url = new URL(request.url);
+    const after = Number(url.searchParams.get("after") ?? "");
     const since = Number(url.searchParams.get("since") ?? "0");
-    const hasSince = Number.isFinite(since) && since > 0;
-    const query = hasSince
-      ? "SELECT kind, item_id, data, updated_at, deleted FROM sync_items WHERE user_id = ? AND updated_at > ? ORDER BY kind, item_id"
-      : "SELECT kind, item_id, data, updated_at, deleted FROM sync_items WHERE user_id = ? ORDER BY kind, item_id";
-    const statement = env.DB.prepare(query);
-    const items = hasSince
-      ? await statement.bind(user.id, since).all<SyncRow>()
-      : await statement.bind(user.id).all<SyncRow>();
-    return json({ items: items.results.map(rowToItem) });
+    const hasAfter = url.searchParams.has("after") && Number.isFinite(after) && after >= 0;
+    const hasSince = !hasAfter && Number.isFinite(since) && since > 0;
+    const columns = "SELECT kind, item_id, data, updated_at, deleted FROM sync_items";
+    const items = hasAfter
+      ? await env.DB.prepare(`${columns} WHERE user_id = ? AND server_at > ? ORDER BY kind, item_id`).bind(user.id, after).all<SyncRow>()
+      : hasSince
+        ? await env.DB.prepare(`${columns} WHERE user_id = ? AND updated_at > ? ORDER BY kind, item_id`).bind(user.id, since).all<SyncRow>()
+        : await env.DB.prepare(`${columns} WHERE user_id = ? ORDER BY kind, item_id`).bind(user.id).all<SyncRow>();
+    // Read before the rows: a write stamped later is in the next pull; the overlap covers one
+    // stamped a moment earlier that was still committing (see SYNC_CURSOR_OVERLAP_MS).
+    const cursor = Math.max(0, now - SYNC_CURSOR_OVERLAP_MS);
+    return json({ items: items.results.map(rowToItem), cursor, full: !hasAfter && !hasSince });
   } catch (error) {
     return errorResponse(error);
   }
@@ -575,14 +588,16 @@ export async function handleSyncPush(request: Request, env: Env, options?: Handl
       const merged = mergeItem(existing, item) ?? item;
       saved.push(merged);
       return env.DB.prepare(
-        `INSERT INTO sync_items (user_id, kind, item_id, data, updated_at, deleted)
-         VALUES (?, ?, ?, ?, ?, ?)
+        `INSERT INTO sync_items (user_id, kind, item_id, data, updated_at, deleted, server_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?)
          ON CONFLICT(user_id, kind, item_id) DO UPDATE SET
            data = excluded.data,
            updated_at = excluded.updated_at,
-           deleted = excluded.deleted`,
+           deleted = excluded.deleted,
+           server_at = excluded.server_at`,
       )
-        .bind(user.id, merged.kind, merged.itemId, JSON.stringify(merged.data), merged.updatedAt, merged.deleted ? 1 : 0);
+        // server_at is this server's clock, the cursor other devices pull from (migration 0021).
+        .bind(user.id, merged.kind, merged.itemId, JSON.stringify(merged.data), merged.updatedAt, merged.deleted ? 1 : 0, now);
     });
     if (writeBatch.length > 0) await env.DB.batch(writeBatch);
     return json({ items: saved });
