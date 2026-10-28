@@ -1,0 +1,59 @@
+{
+  "$comment": "What search engines read before the app starts. scripts/seo-plugin.mjs builds it into dist/index.html: the <head> tags, the JSON-LD and a plain-HTML introduction inside #root that the app replaces when it mounts. Chinese may live only in docs/ (AGENTS.md), so the copy is here. Order of the keywords is the order of importance: English reader, then original-book reader, then comprehensible-input reader.",
+  "site": "https://inputread.site",
+  "lang": "zh-CN",
+  "title": "英语阅读器 inputread｜英语原著阅读器 · 可理解输入阅读器",
+  "description": "inputread 是免费的在线英语阅读器，也是英语原著阅读器和可理解输入阅读器：读英文原著和经典小说，点一下生词就能看到简单的英文释义和音标，存进生词本按间隔重复复习。手机、电脑和 Kindle 浏览器都能用。",
+  "keywords": [
+    "英语阅读器",
+    "英语原著阅读器",
+    "可理解输入阅读器",
+    "可理解输入",
+    "英文原著阅读",
+    "英语原版书",
+    "英文小说在线阅读",
+    "英英释义",
+    "英语生词本",
+    "间隔重复",
+    "蓝思分级阅读",
+    "EPUB 阅读器",
+    "初中英语阅读",
+    "英语泛读",
+    "Kindle 英语阅读",
+    "English reader",
+    "comprehensible input"
+  ],
+  "ogTitle": "inputread 英语阅读器：读英语原著，点词看英文释义",
+  "ogDescription": "免费的英语原著阅读器和可理解输入阅读器。点一下生词，看简单的英文释义和音标，存进生词本复习。",
+  "englishName": "inputread English reader",
+  "englishDescription": "A free English reader for original English books. Tap a word to see a simple English meaning and its pronunciation, save it to a word book, and review it with spaced repetition.",
+  "alternateNames": ["英语阅读器", "英语原著阅读器", "可理解输入阅读器", "inputread English reader"],
+  "intro": {
+    "h1": "inputread 英语阅读器",
+    "lead": "一个专门读英文书的英语阅读器。读英语原著时，点一下不认识的词，就能看到它在这句话里的简单英文释义和音标。",
+    "sections": [
+      {
+        "h2": "英语原著阅读器",
+        "p": "在“发现”里可以读公版的英文原著和经典小说。每本书都有老师标出的难词、短语和段落笔记，还标了蓝思难度。有版权的书，可以导入你自己合法获得的 EPUB，再配上现成的词表。"
+      },
+      {
+        "h2": "可理解输入阅读器",
+        "p": "可理解输入（Comprehensible Input）就是多读自己基本能读懂的英文。inputread 只给难词画线，用简单的英文解释它，不逐句翻译。你可以一直读下去，在上下文里记住单词。"
+      },
+      {
+        "h2": "生词本和复习",
+        "p": "点过的词可以存进生词本，按 1、2、4、7、15、30 天的间隔重复复习，有闪卡、选词填空和拼写三种方式。登录后，阅读进度和生词本可以在手机和电脑之间同步。"
+      },
+      {
+        "h2": "在哪里都能读",
+        "p": "打开网页就能用，不用安装。手机、平板、电脑都可以，也支持 Kindle 和墨水屏阅读器的浏览器。网站免费使用，源代码公开在 GitHub。"
+      }
+    ],
+    "links": [
+      { "href": "/discover/", "text": "发现英文原著" },
+      { "href": "/guide/", "text": "使用说明" },
+      { "href": "/dashboard/", "text": "网站数据" }
+    ]
+  },
+  "sitemap": ["/", "/discover/", "/guide/", "/dashboard/"]
+}

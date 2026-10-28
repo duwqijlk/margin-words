@@ -102,3 +102,10 @@
 # The only long cache in the project: a hashed file never changes under its own name.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Preview deployments are copies of the site: keep them out of search results. The live site is
+# https://inputread.site; the app also points each public page there (src/lib/page-meta.ts).
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex

@@ -4,6 +4,8 @@ import { fileURLToPath } from "node:url";
 import { localIpaData } from "./scripts/ipa-data-plugin.mjs";
 import viteReact from "@vitejs/plugin-react";
 import legacy from "@vitejs/plugin-legacy";
+// @ts-expect-error build-only JS plugin
+import { seoPages } from "./scripts/seo-plugin.mjs";
 // @ts-expect-error plain JS plugins next to the TS config
 import {
   dvhFallbacks,
@@ -49,6 +51,9 @@ export default defineConfig(({ mode }) => ({
     publicBooks(),
     wordLists(),
     guideFolder(),
+    // Title, description, keywords, JSON-LD and a plain-HTML introduction for search engines
+    // (docs/seo.json), plus dist/sitemap.xml.
+    seoPages(),
     viteReact(),
     /**
      * A second, ES5 copy of the app for engines that do not understand `<script type="module">`

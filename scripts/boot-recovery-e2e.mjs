@@ -69,7 +69,8 @@ await page.waitForTimeout(3500);
 
 const state = await page.evaluate(() => ({
   url: location.href,
-  mounted: (document.querySelector("#root")?.childNodes.length ?? 0) > 0,
+  // The search-engine introduction sits in #root until React replaces it (scripts/seo-plugin.mjs).
+  mounted: (document.querySelector("#root")?.childNodes.length ?? 0) > 0 && !document.getElementById("seo-intro"),
   notice: !document.getElementById("boot-help")?.hidden,
 }));
 
@@ -95,7 +96,8 @@ if (process.env.LOOP === "1") {
   await stuck.goto(`${BASE}shelf`);
   await stuck.waitForTimeout(14000);
   const again = await stuck.evaluate(() => ({
-    mounted: (document.querySelector("#root")?.childNodes.length ?? 0) > 0,
+    // The search-engine introduction sits in #root until React replaces it (scripts/seo-plugin.mjs).
+  mounted: (document.querySelector("#root")?.childNodes.length ?? 0) > 0 && !document.getElementById("seo-intro"),
     notice: !document.getElementById("boot-help")?.hidden,
   }));
   check(served <= 2, "a broken deploy is not retried in a loop", `${served} page load(s)`);

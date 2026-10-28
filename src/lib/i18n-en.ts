@@ -62,6 +62,16 @@ export const en = {
   "error.reload": "Reload the page",
   "nav.dueAria": "{n} to review",
 
+  /* ---- page titles (src/lib/page-meta.ts). The home page keeps the title index.html ships with. */
+  "seo.title.discover": "Discover English books · inputread English reader",
+  "seo.title.guide": "Guide · inputread English reader",
+  "seo.title.dashboard": "Overview · inputread English reader",
+  "seo.title.words": "Notebook · inputread",
+  "seo.title.review": "Review · inputread",
+  "seo.title.admin": "Admin · inputread",
+  "seo.title.read": "{title} · inputread",
+  "seo.title.reading": "Reading · inputread",
+
   /* ---- guide */
   "guide.title": "Guide",
   "guide.github": "Source code on GitHub",

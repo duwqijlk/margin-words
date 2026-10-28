@@ -1,7 +1,7 @@
 {
   "name": "inputread",
   "short_name": "inputread",
-  "description": "Read English books. Tap a word to see a simple English meaning.",
+  "description": "An English reader for original English books. Tap a word to see a simple English meaning, save it, and review it.",
   "start_url": "/shelf/",
   "scope": "/",
   "display": "standalone",
