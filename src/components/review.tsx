@@ -14,6 +14,7 @@ import { reviewDueIntent } from "@/lib/router";
 import { bookSyncKey } from "@/lib/sync-merge";
 import { isDue, type Book, type VocabEntry } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
+import { holdSyncPushes } from "@/lib/sync-engine";
 import { hasSourceFrom } from "@/lib/wordbook";
 import { usePresentedWord } from "@/components/presented-word";
 import { WordSources } from "@/components/word-sources";
@@ -372,6 +373,9 @@ function Session({
   const [typed, setTyped] = useState("");
   const [spell, setSpell] = useState<null | "yes" | "no">(null);
   const spellRef = useRef<HTMLInputElement | null>(null);
+
+  // One upload per few answers instead of one per answer (sync-pace.ts); leaving uploads the rest.
+  useEffect(() => holdSyncPushes(), []);
 
   const byId = useMemo(() => new Map(allWords.map((word) => [word.id, word])), [allWords]);
   const currentId = queue[index];

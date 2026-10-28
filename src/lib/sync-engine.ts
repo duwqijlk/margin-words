@@ -44,13 +44,13 @@ import { useVocab } from "@/lib/vocab-store";
 import type { Book, VocabEntry, WordSource } from "@/lib/vocab-model";
 import { claimDevice, ownedByAnother, PENDING_KEY, startDeviceWipe } from "@/lib/device-wipe";
 import { afterPull, afterPush, needsUpload, pullAfter, readView, SYNC_VIEW_KEY, type SyncView } from "@/lib/sync-view";
+import { canSkipPull, type LastPull, PUSH_DELAY_MS, pushDelay } from "@/lib/sync-pace";
 
 const META_KEY = "cibian-sync-meta-v1";
 const EMAIL_KEY = "cibian-account-email-v1";
 const NICK_KEY = "cibian-account-nickname-v1";
 const ROLE_KEY = "cibian-account-role-v1";
 const DIRTY_KEY = "cibian-sync-dirty-v1";
-const PUSH_DELAY_MS = 1500;
 /** Coming back to the tab pulls again only after this long (a pending edit still syncs at once). */
 const FOCUS_PULL_MS = 30_000;
 
@@ -63,6 +63,10 @@ let again = false;
 let dirty = false;
 let timer: ReturnType<typeof setTimeout> | null = null;
 let lastRun = 0;
+/** Review sessions holding uploads (holdSyncPushes), edits waiting since the last sync, the last pull. */
+let holds = 0;
+let waiting = 0;
+let lastPull: LastPull = null;
 let started = false;
 let readyWait: Array<() => void> = [];
 let ready = false;
@@ -475,10 +479,12 @@ function onStore() {
   meta = changed;
   prev = next;
   saveMeta();
+  waiting += 1;
   if (useAccount.getState().phase === "in") schedulePush();
 }
 
-function schedulePush(delay = PUSH_DELAY_MS) {
+/** sync-pace.ts says how long an edit waits: longer while a review session holds uploads. */
+function schedulePush(delay = pushDelay(holds > 0, waiting)) {
   if (useAccount.getState().phase !== "in") return;
   markDirty();
   if (timer) clearTimeout(timer);
@@ -500,9 +506,16 @@ async function flush() {
   }
   running = true;
   lastRun = Date.now();
+  waiting = 0;
   useAccount.getState().patch({ sync: "saving" });
   try {
-    const pulled = await pullItems();
+    // Right after another sync the pull is skipped (sync-pace.ts): the upload is decided against
+    // the cursor record, and the server merges what it is sent. Nothing to upload, no request.
+    const email = useAccount.getState().email;
+    const known = readView(readStorage(SYNC_VIEW_KEY), email);
+    const skip = canSkipPull(known, email, lastPull, lastRun);
+    const pulled = skip ? { items: [] as SyncItem[], full: false, view: known } : await pullItems();
+    if (!skip) lastPull = email && pulled.view ? { email, at: lastRun } : null;
     const remote = pulled.items;
     let view = pulled.view;
     // Per-book `words` items from older versions are read as part of the wordbook; they are never rewritten.
@@ -638,6 +651,22 @@ function onFocus() {
   if (useAccount.getState().phase !== "in") return;
   if (Date.now() - lastRun < FOCUS_PULL_MS && !dirty) return;
   void flush();
+}
+
+/**
+ * While a review session is open, edits are uploaded in batches (sync-pace.ts) instead of one sync
+ * per answer. Returns the release; releasing uploads what is waiting. Hiding or closing the page
+ * still uploads at once (onFocus, onPageHide).
+ */
+export function holdSyncPushes(): () => void {
+  holds += 1;
+  let released = false;
+  return () => {
+    if (released) return;
+    released = true;
+    holds = Math.max(0, holds - 1);
+    if (holds === 0 && timer) schedulePush(PUSH_DELAY_MS);
+  };
 }
 
 /** Call once the notebook, progress and settings stores have rehydrated. */
