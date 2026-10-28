@@ -69,3 +69,18 @@ test("the panel marks the explained sentences in the page and keeps them in view
   const css = readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
   assert.match(css, /\.book-body \{\s*\/\*[\s\S]*?\*\/\s*position: relative;\s*z-index: 2;/, "the text sits above the marks");
 });
+
+test("paragraph and sentence explanations own their source labels", () => {
+  const panel = readFileSync(new URL("../src/components/help-panels.tsx", import.meta.url), "utf8");
+  assert.match(panel, /data-part="paragraph-help"[\s\S]*?<HelpSource credit=\{paragraph\.credit\} \/>[\s\S]*?data-part="main-idea"/);
+  assert.match(panel, /data-part="sentences"[\s\S]*?<SentenceNote/);
+  const source = panel.slice(panel.indexOf("function HelpSource"), panel.indexOf("function SentenceNote"));
+  assert.match(source, /data-help-source=\{credit \? "reader" : "word-list"\}/);
+  assert.match(source, /t\(credit \? "hp\.sourceReader" : "hp\.sourceBook"\)/);
+  assert.match(source, /<CreditLine id=\{credit\} \/>/);
+  assert.doesNotMatch(source, /useContributor|person\.|XCrun/, "source kind must not depend on loaded public profiles or a nickname");
+  const sentence = panel.slice(panel.indexOf("function SentenceNote"), panel.indexOf("type MarkBox"));
+  assert.match(sentence, /<HelpSource credit=\{note\.credit\} \/>[\s\S]*?hp\.original[\s\S]*?<button[\s\S]*?aria-pressed=\{chosen\}[\s\S]*?data-part="sentence-context"/);
+  assert.match(sentence, /hp\.explanation[\s\S]*?data-part="easier"/);
+  assert.match(panel, /data-part="help-footer"/);
+});
