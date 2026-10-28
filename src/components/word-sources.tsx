@@ -98,7 +98,7 @@ export function WordSources({
           return (
             <li key={sourceRowKey(source)} className="grid min-w-0 gap-1.5" data-word-source>
               {sentence ? (
-                <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed break-words text-ink">
+                <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed wrap-any text-ink">
                   <Highlighted sentence={sentence} surface={surface} />
                 </p>
               ) : null}
@@ -112,7 +112,7 @@ export function WordSources({
                     </div>
                   ) : null}
                   {meaning ? (
-                    <p className="text-[1.02rem] leading-relaxed" lang="en" data-source-meaning>
+                    <p className="text-[1.02rem] leading-relaxed wrap-any" lang="en" data-source-meaning>
                       {meaning}
                     </p>
                   ) : null}
@@ -121,7 +121,7 @@ export function WordSources({
               <p className="flex min-w-0 items-center gap-x-2 pl-3 text-xs text-muted sm:flex-wrap sm:items-start sm:gap-y-1">
                 <BookMarked className="size-3.5 shrink-0 sm:mt-0.5" aria-hidden />
                 <span
-                  className="min-w-0 flex-1 truncate sm:overflow-visible sm:whitespace-normal sm:break-words"
+                  className="min-w-0 flex-1 truncate sm:overflow-visible sm:whitespace-normal sm:wrap-any"
                   lang="en"
                   data-source-place
                   title={[title, chapter].filter(Boolean).join(" · ")}

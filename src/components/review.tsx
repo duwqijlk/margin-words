@@ -176,7 +176,7 @@ function Overview({
   const hint = nextDueText(scoped);
 
   return (
-    <div className="mx-auto grid max-w-3xl gap-6 px-4 py-6 sm:px-6 sm:py-10">
+    <div className="mx-auto grid w-full max-w-3xl gap-6 overflow-x-clip px-4 py-6 sm:px-6 sm:py-10">
       <button type="button" className={cn(btn.ghost, "-ml-3 self-start")} onClick={onBack}>
         <ArrowLeft className="size-4" aria-hidden />
         {t("nav.notebook")}
@@ -478,7 +478,7 @@ function Session({
   return (
     <div
       className={cn(
-        "mx-auto grid max-w-2xl gap-4 px-4 pt-4 pb-4 sm:px-6 sm:pt-8 sm:pb-8",
+        "mx-auto grid w-full max-w-2xl gap-4 overflow-x-clip px-4 pt-4 pb-4 sm:px-6 sm:pt-8 sm:pb-8",
         actions && "max-sm:pb-36",
       )}
     >
@@ -508,7 +508,7 @@ function Session({
         {mode === "cards" ? (
           <>
             <div className="grid gap-1.5 text-center">
-              <h1 className="font-display text-5xl font-semibold break-words sm:text-6xl" lang="en">
+              <h1 className="font-display text-5xl font-semibold wrap-any sm:text-6xl" lang="en">
                 {current.lemma}
               </h1>
               {current.surface.toLowerCase() !== current.lemma.toLowerCase() ? (
@@ -531,7 +531,7 @@ function Session({
             {shown.sources.length > 0 ? (
               <WordSources word={shown} books={books} showMeaning={revealed} />
             ) : shown.sentence ? (
-              <p className="border-l-2 border-accent/40 pl-3 text-left font-display text-[1.05rem] leading-relaxed text-ink">
+              <p className="border-l-2 border-accent/40 pl-3 text-left font-display text-[1.05rem] leading-relaxed wrap-any text-ink">
                 <Highlighted sentence={shown.sentence} surface={shown.surface} />
               </p>
             ) : null}
@@ -545,7 +545,7 @@ function Session({
                   </div>
                 ) : null}
                 {shown.meaning ? (
-                  <p className="text-xl leading-relaxed" lang="en" data-source-meaning>
+                  <p className="text-xl leading-relaxed wrap-any" lang="en" data-source-meaning>
                     {shown.meaning}
                   </p>
                 ) : null}
@@ -557,7 +557,7 @@ function Session({
         {mode === "cloze" ? (
           <div className="grid gap-4">
             <p className="text-sm font-semibold text-muted">{t("rv.which")}</p>
-            <p className="font-display text-2xl leading-snug" lang="en">
+            <p className="font-display text-2xl leading-snug wrap-any" lang="en">
               {picked ? (
                 <Highlighted sentence={shown.sentence} surface={shown.surface} />
               ) : (
