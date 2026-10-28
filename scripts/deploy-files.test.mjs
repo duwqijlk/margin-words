@@ -76,8 +76,25 @@ test("every address of the app is listed in _redirects, and no rule catches the 
       `/${head} is a route of the app and needs a line in _redirects`,
     );
   }
-  assert.ok(sources.includes("/"), "the root still opens the app");
   assert.ok(sources.includes("/read/*"), "the reader address carries a book id");
+  // Pages drops a rule that rewrites to /index.html (it becomes / and looks like a loop). With
+  // 404.html in place nothing else would open these screens.
+  const rewrites = rules.filter((rule) => rule.split(/\s+/)[2] === "200");
+  assert.ok(rewrites.length > 0);
+  for (const rule of rewrites) {
+    assert.notEqual(rule.split(/\s+/)[1], "/index.html", `${rule}: rewrite to /, not /index.html`);
+  }
+  assert.ok(existsSync(join(ROOT, "public/404.html")), "a miss is a 404, not the app page");
+});
+
+test("a missing file or address answers 404, not the app page", () => {
+  // Without a top-level 404.html, Pages answers every miss with index.html and status 200, so a
+  // missing /assets/<hash>.js came back as the page under the one-year immutable rule.
+  const page = read("public/404.html");
+  assert.match(page, /<!doctype html>/i);
+  assert.doesNotMatch(page, /<script/i, "it must show on engines that run no script");
+  assert.doesNotMatch(page, /(?:src|href)="(?:https?:)?\/\//i, "no outside file");
+  assert.match(page, /href="\/shelf\/"/, "a way back into the app");
 });
 
 test("files the reader never opens are not in the site folder", () => {
