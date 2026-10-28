@@ -70,17 +70,30 @@ test("the panel marks the explained sentences in the page and keeps them in view
   assert.match(css, /\.book-body \{\s*\/\*[\s\S]*?\*\/\s*position: relative;\s*z-index: 2;/, "the text sits above the marks");
 });
 
-test("paragraph and sentence explanations own their source labels", () => {
+test("paragraph and sentence explanations credit a reader under the text, and tabs split the two kinds", () => {
   const panel = readFileSync(new URL("../src/components/help-panels.tsx", import.meta.url), "utf8");
-  assert.match(panel, /data-part="paragraph-help"[\s\S]*?<HelpSource credit=\{paragraph\.credit\} \/>[\s\S]*?data-part="main-idea"/);
+  // The source line follows the explanation it credits.
+  assert.match(panel, /data-part="paragraph-help"[\s\S]*?data-part="main-idea"[\s\S]*?<HelpSource credit=\{paragraph\.credit\} \/>/);
   assert.match(panel, /data-part="sentences"[\s\S]*?<SentenceNote/);
   const source = panel.slice(panel.indexOf("function HelpSource"), panel.indexOf("function SentenceNote"));
-  assert.match(source, /data-help-source=\{credit \? "reader" : "word-list"\}/);
-  assert.match(source, /t\(credit \? "hp\.sourceReader" : "hp\.sourceBook"\)/);
+  assert.match(source, /if \(!credit\) return null;/, "an explanation from the word list carries no label");
+  assert.match(source, /data-help-source="reader"/);
   assert.match(source, /<CreditLine id=\{credit\} \/>/);
   assert.doesNotMatch(source, /useContributor|person\.|XCrun/, "source kind must not depend on loaded public profiles or a nickname");
   const sentence = panel.slice(panel.indexOf("function SentenceNote"), panel.indexOf("type MarkBox"));
-  assert.match(sentence, /<HelpSource credit=\{note\.credit\} \/>[\s\S]*?hp\.original[\s\S]*?<button[\s\S]*?aria-pressed=\{chosen\}[\s\S]*?data-part="sentence-context"/);
-  assert.match(sentence, /hp\.explanation[\s\S]*?data-part="easier"/);
+  assert.match(sentence, /<button[\s\S]*?aria-pressed=\{chosen\}[\s\S]*?data-part="sentence-context"[\s\S]*?data-part="easier"[\s\S]*?<HelpSource credit=\{note\.credit\} \/>/);
+  // Both kinds: one tab each; a word card's sentence opens on the sentence tab.
+  assert.match(panel, /role="tablist"[\s\S]*?data-part="help-tabs"/);
+  assert.match(panel, /setChosen\(at\);\s*setTab\("sentences"\);/);
   assert.match(panel, /data-part="help-footer"/);
+});
+
+test("the help mark is an empty span after the last word, drawn by CSS, with no scroll measuring", () => {
+  const panel = readFileSync(new URL("../src/components/help-panels.tsx", import.meta.url), "utf8");
+  const marks = panel.slice(panel.indexOf("export function ParagraphMarks"), panel.indexOf("export type ParagraphPanelState"));
+  assert.match(marks, /createElement\("span"\)/);
+  assert.doesNotMatch(marks, /textContent|createTextNode|innerText|innerHTML/, "the mark must stay empty: its text would join the paragraph's");
+  assert.doesNotMatch(marks, /addEventListener\("scroll"|ResizeObserver|requestAnimationFrame|getBoundingClientRect/, "nothing is measured");
+  const css = readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
+  assert.match(css, /\.book-body \[data-para-marker\]::before \{\s*content: "\\2726";/);
 });

@@ -309,10 +309,71 @@
     margin: 0 0 var(--reader-gap, 1.1em);
   }
 
+  /* The ✦ after a paragraph that has help (ParagraphMarks in help-panels.tsx). The span is empty
+     on purpose: the glyph lives here, so it is never part of the paragraph's text (flowText,
+     sentence ranges, reading anchors, a selection). It flows with the last line like a word, so
+     nothing is measured on scroll. The tap area grows through ::after, which takes no room. */
+  .book-body [data-para-marker] {
+    position: relative;
+    margin-left: 0.2em;
+    padding: 0 0.15em;
+    border-radius: 0.3em;
+    color: var(--accent);
+    font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", "Apple Symbols", "DejaVu Sans", sans-serif;
+    font-size: 0.78em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .book-body [data-para-marker]::before {
+    content: "\2726";
+  }
+  .book-body [data-para-marker]::after {
+    content: "";
+    position: absolute;
+    top: -0.55em;
+    right: -0.45em;
+    bottom: -0.55em;
+    left: -0.45em;
+  }
+  .book-body [data-para-marker]:hover {
+    background: var(--accent-soft);
+  }
+  .book-body [data-para-marker]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  /* Help open: colour only, the same size, so the line does not move. */
+  .book-body [data-para-marker][data-active] {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  /* The paragraph the open help is about: a thin bar in its left margin. Absolutely placed against
+     the paragraph (position: relative moves nothing), so it takes no room and needs no measuring. */
+  .book-body [data-para-active] {
+    position: relative;
+  }
+  .book-body [data-para-active]::before {
+    content: "";
+    position: absolute;
+    top: 0.15em;
+    bottom: 0.15em;
+    left: -10px;
+    width: 3px;
+    border-radius: 3px;
+    background: var(--accent);
+    pointer-events: none;
+  }
+
   /* Phone novel pages, the way Kindle and Apple Books set them: full lines share
      one word space and meet both edges. A long word breaks at a soft hyphen
      (see hyphenate.ts) instead of stretching the spaces in front of it. The last
-     line of a paragraph stays short. The lightbulb still sits after its last word. */
+     line of a paragraph stays short. The ✦ help mark still sits after its last word. */
   @media (max-width: 47.99rem) {
     .book-body p,
     .book-body li,

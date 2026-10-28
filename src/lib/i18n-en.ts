@@ -653,10 +653,10 @@ export const en = {
   "other.chapters.other": "chapters {list}",
 
   /* ---- paragraph and sentence help */
-  "hp.sourceIntro": "Explanations are saved in the word list. Reader contributions are credited.",
   "hp.paragraphSection": "Paragraph explanation",
   "hp.sentenceSection": "Sentence explanations",
-  "hp.sourceBook": "From this word list",
+  "hp.tabParagraph": "Paragraph",
+  "hp.tabSentences": "Sentences",
   "hp.sourceReader": "Reader contribution",
   "hp.original": "Original",
   "hp.explanation": "Explanation",
@@ -813,7 +813,7 @@ export const en = {
   "about.markPhrase": "A dotted line under a word: it belongs to a phrase. Tap it.",
   "about.markTricky":
     "A wavy line under a word: you may know the word, but here it has another meaning. Tap it.",
-  "about.markBulb": "A light bulb beside a paragraph: this paragraph has a note that explains it.",
+  "about.markBulb": "A ✦ at the end of a paragraph: tap it to read a note that explains the paragraph or a hard sentence in it.",
   "about.listsTitle": "Word lists made by our teachers",
   "about.listsBody":
     "Every book has a word list written by our teachers. They choose the hard words and phrases, write short meanings in simple English, and add notes for hard paragraphs. Nothing is made up by a computer while you read.",

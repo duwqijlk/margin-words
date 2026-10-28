@@ -4,7 +4,6 @@ import {
   Hand,
   Highlighter,
   Library,
-  Lightbulb,
   NotebookPen,
   Scale,
   SearchCheck,
@@ -94,7 +93,9 @@ function Marks() {
         {t("about.markTricky")}
       </li>
       <li>
-        <Lightbulb className="mr-1 inline size-4 text-accent" aria-hidden />
+        <span className="mr-1 text-accent" aria-hidden>
+          ✦
+        </span>
         {t("about.markBulb")}
       </li>
     </ul>

@@ -23,8 +23,8 @@ const CASES = [
   [1280, 900, "en", "clear", "paragraph", "uncredited"], [390, 844, "zh", "dark", "both", "delayed"],
 ];
 const LABELS = {
-  en: ["Reading help", "Paragraph explanation", "Sentence explanations", "Reader contribution", "From this word list", "Original", "Explanation"],
-  zh: ["\u9605\u8bfb\u89e3\u6790", "\u6bb5\u843d\u89e3\u6790", "\u53e5\u5b50\u89e3\u6790", "\u8bfb\u8005\u8d21\u732e", "\u8bcd\u8868\u89e3\u6790", "\u539f\u6587", "\u89e3\u91ca"],
+  en: ["Reading help", "Paragraph", "Sentences"],
+  zh: ["\u9605\u8bfb\u89e3\u6790", "\u6bb5\u843d", "\u96be\u53e5"],
 };
 function fixture(kind, profiles) {
   return {
@@ -96,31 +96,40 @@ async function run(browser, row) {
     await article.locator("p").nth(8).evaluate(el => window.scrollBy(0, el.getBoundingClientRect().top - 120)); await settle(page);
     const bulb = page.locator('[data-para-marker="8"]'); await bulb.waitFor({ state: "visible" });
     const before = await geometry(page); await bulb.click();
-    const panel = page.locator("[data-para-panel]"); await panel.waitFor({ state: "visible" }); await panel.locator("[data-help-source]").first().waitFor(); await settle(page);
+    const panel = page.locator("[data-para-panel]"); await panel.waitFor({ state: "visible" }); await settle(page);
     const words = LABELS[locale];
-    assert.equal(await panel.locator("h2").innerText(), words[0]); assert.equal(await panel.getAttribute("aria-label"), words[0]);
+    assert.equal(await panel.locator('h2 [data-part="help-title"]').textContent(), words[0]); assert.equal(await panel.getAttribute("aria-label"), words[0]);
     assert.equal(await page.locator("html").getAttribute("data-theme"), theme);
+    assert.equal(await bulb.getAttribute("data-active"), "", "the open paragraph's mark is active");
+    assert.equal(await article.locator("p").nth(8).getAttribute("data-para-active"), "");
+    assert.equal(await article.locator("p").nth(8).evaluate(el => el.textContent.includes("\u2726")), false, "the mark adds no text");
+    // Both kinds: one tab each, paragraph first. One kind: no tabs.
+    const tabs = panel.locator('[data-part="help-tabs"] [role="tab"]');
+    assert.equal(await tabs.count(), kind === "both" ? 2 : 0);
+    if (kind === "both") {
+      assert.equal(await tabs.nth(0).innerText(), words[1]); assert.ok((await tabs.nth(1).innerText()).startsWith(words[2]));
+      assert.equal(await tabs.nth(0).getAttribute("aria-selected"), "true");
+    }
     assert.equal(await panel.locator('[data-part="paragraph-help"]').count(), kind === "sentence" ? 0 : 1);
-    assert.equal(await panel.locator('[data-part="sentences"]').count(), kind === "paragraph" ? 0 : 1);
+    assert.equal(await panel.locator('[data-part="sentences"]').count(), kind === "sentence" ? 1 : 0);
+    // A source line only for a reader's contribution, under the text it credits, never an action.
+    assert.equal(await panel.locator('[data-help-source="word-list"]').count(), 0);
     for (const source of await panel.locator("[data-help-source]").all()) {
-      const value = await source.getAttribute("data-help-source"); assert.equal(await source.locator(":scope > span").innerText(), words[value === "reader" ? 3 : 4]);
+      assert.equal(await source.getAttribute("data-help-source"), "reader");
       assert.equal(await source.locator("button,a").count(), 0, "source is not an action");
     }
     if (kind !== "sentence") {
-      const para = panel.locator('[data-part="paragraph-help"]'); assert.equal(await para.locator("h3").innerText(), words[1]);
-      assert.equal(await para.locator("[data-help-source]").getAttribute("data-help-source"), profiles === "uncredited" ? "word-list" : "reader");
-      assert.ok(await para.evaluate(el => !!(el.querySelector("[data-help-source]").compareDocumentPosition(el.querySelector('[data-part="main-idea"]')) & Node.DOCUMENT_POSITION_FOLLOWING)));
+      const para = panel.locator('[data-part="paragraph-help"]');
+      assert.equal(await para.locator("[data-help-source]").count(), profiles === "uncredited" ? 0 : 1);
+      if (profiles !== "uncredited") assert.ok(await para.evaluate(el => !!(el.querySelector('[data-part="main-idea"]').compareDocumentPosition(el.querySelector("[data-help-source]")) & Node.DOCUMENT_POSITION_FOLLOWING)));
     }
+    if (kind === "both") { await tabs.nth(1).click(); await panel.locator('[data-part="sentences"]').waitFor(); assert.equal(await panel.locator('[data-part="paragraph-help"]').count(), 0); await settle(page); unchanged(before, await geometry(page), "tab"); }
     if (kind !== "paragraph") {
-      assert.equal(await panel.locator('[data-part="sentences"] > h3').innerText(), words[2]);
       const notes = panel.locator("[data-sentence-note]"); assert.equal(await notes.count(), 2);
       assert.equal(await notes.nth(0).locator("[data-help-source]").getAttribute("data-help-source"), "reader");
-      assert.equal(await notes.nth(1).locator("[data-help-source]").getAttribute("data-help-source"), "word-list");
+      assert.equal(await notes.nth(1).locator("[data-help-source]").count(), 0);
       assert.equal(await notes.nth(0).locator('[data-part="grammar"]').count(), 0); assert.equal(await notes.nth(1).locator('[data-part="grammar"]').count(), 1);
-      for (const note of await notes.all()) {
-        assert.ok((await note.innerText()).includes(words[5])); assert.ok((await note.innerText()).includes(words[6]));
-        assert.ok(await note.evaluate(el => !!(el.querySelector("[data-help-source]").compareDocumentPosition(el.querySelector('[data-part="sentence-context"]')) & Node.DOCUMENT_POSITION_FOLLOWING)));
-      }
+      assert.ok(await notes.nth(0).evaluate(el => !!(el.querySelector('[data-part="easier"]').compareDocumentPosition(el.querySelector("[data-help-source]")) & Node.DOCUMENT_POSITION_FOLLOWING)));
     }
     if (profiles === "delayed") {
       assert.equal(await panel.locator('[data-part="credit"]').count(), 0); assert.ok(await panel.locator('[data-help-source="reader"]').count() > 0);
@@ -130,18 +139,20 @@ async function run(browser, row) {
       assert.equal(await panel.locator('[data-part="credit"]').count(), 0); assert.equal((await panel.innerText()).includes(UNKNOWN), false, "no private ID in text");
     } else if (profiles !== "uncredited") {
       await panel.locator('[data-credit]').first().waitFor();
-      if (kind !== "sentence") assert.equal(await panel.locator('[data-part="paragraph-help"] [data-credit]').getAttribute("data-credit"), A);
+      if (kind === "paragraph") assert.equal(await panel.locator('[data-part="paragraph-help"] [data-credit]').getAttribute("data-credit"), A);
       if (kind !== "paragraph") assert.equal(await panel.locator('[data-sentence-note] [data-credit]').getAttribute("data-credit"), B);
     }
     unchanged(before, await geometry(page), "open/profile");
+    if (kind === "both") { await tabs.nth(0).click(); await panel.locator('[data-part="paragraph-help"]').waitFor(); }
     if (kind !== "sentence") {
       const toggle = panel.locator('[aria-expanded]'); assert.equal(await toggle.getAttribute("aria-expanded"), "true"); await toggle.click();
       assert.equal(await panel.locator('[data-part="simple"]').count(), 0); unchanged(before, await geometry(page), "collapse"); await toggle.click(); await panel.locator('[data-part="simple"]').waitFor();
     }
+    if (kind === "both") { await tabs.nth(1).click(); await panel.locator('[data-part="sentences"]').waitFor(); }
     if (kind !== "paragraph") {
       const button = panel.locator('[data-part="sentence-context"]').first(); await button.click(); assert.equal(await button.getAttribute("aria-pressed"), "true");
       await page.locator('[data-sentence-mark="0"][data-chosen]').first().waitFor({ state: "attached" });
-      await panel.locator('[data-sentence-note]').first().locator('[data-help-source] > span').click(); assert.equal(await button.getAttribute("aria-pressed"), "true", "source click does not select/deselect");
+      if (profiles !== "uncredited" && profiles !== "missing") { await panel.locator('[data-sentence-note]').first().locator('[data-help-source]').click(); assert.equal(await button.getAttribute("aria-pressed"), "true", "source click does not select/deselect"); }
       await button.click(); assert.equal(await button.getAttribute("aria-pressed"), "false"); assert.equal(await page.locator('[data-sentence-mark][data-chosen]').count(), 0);
       unchanged(before, await geometry(page), "select/deselect");
     }
@@ -153,6 +164,7 @@ async function run(browser, row) {
     await page.keyboard.press("Escape"); await panel.waitFor({ state: "detached" }); await settle(page);
     assert.equal(await page.evaluate(() => document.activeElement?.isConnected && !document.activeElement.closest("[data-para-panel]")), true, "no focus remains in a detached panel");
     unchanged(before, await geometry(page), "close"); assert.equal(await page.locator('[data-sentence-mark]').count(), 0); assert.equal(await article.locator('[data-help-keep]').count(), 0);
+    assert.equal(await article.locator('[data-para-active], [data-para-marker][data-active]').count(), 0, "closing clears the active paragraph");
     assert.ok(profileRequests <= 1, "shared profile request"); assert.deepEqual(errors, []); assert.deepEqual(unexpected, []);
     console.log(`PASS ${label}: grouping, sources, controls, marks, footer, text geometry`);
   } finally { release(); await context.close(); }

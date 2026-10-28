@@ -1,5 +1,5 @@
-import { ChevronDown, Lightbulb, X } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronDown, X } from "lucide-react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { getParagraphNoteFlags, paragraphBlocks, sentenceHelpNow } from "@/lib/help-lookup";
 import { useT } from "@/lib/i18n";
@@ -8,35 +8,33 @@ import { FloatingAside } from "@/components/floating-card";
 import { btn, cn } from "@/components/ui";
 import { CreditLine } from "@/components/credit-line";
 import { flowText } from "@/lib/flow-text";
-import { lastLineBox, planBulbs, MARGIN_BULB_SIZE, type BulbSpot } from "@/lib/paragraph-bulbs";
 import { containsContext } from "@/lib/help-match";
 import { noteSentenceRange } from "@/lib/note-sentence";
 import { SIDE_PANEL } from "@/components/side-panel";
 
 /*
- * Help for paragraphs and sentences. Everything here is an overlay (position: fixed):
- * nothing is added to the reading text, so the text can never move when help opens.
+ * Help for paragraphs and sentences. The panels are overlays (position: fixed), so the text never
+ * moves when help opens. The only thing put into the page is the ✦ mark after a paragraph that has
+ * help, once per chapter (ParagraphMarks below).
  */
 
-/* ------------------------------------------------------------------ bulbs next to the paragraphs */
-
-type Block = { el: Element; ok: boolean };
-type Geo = {
-  bulbs: BulbSpot[];
-  bar: { top: number; height: number; left: number } | null;
-};
+/* ------------------------------------------------------------------ ✦ marks at the end of the paragraphs */
 
 /**
- * A permanent bulb beside the last line of each paragraph that owns a real note. Prefer the
- * last word's right margin; a narrow phone can use a smaller margin bulb instead. If neither
- * margin safely fits, omit the bulb rather than cover text. No hover is needed, and paragraphs
- * without notes show nothing. The bulbs are position: fixed overlays, so they
- * take no room in the page and the text never moves. Which spots to draw is pure geometry
- * (planBulbs in src/lib/paragraph-bulbs.ts). While help is open, a thin bar in the margin shows
- * which paragraph it is about.
+ * A ✦ after the last word of each paragraph that has help (a paragraph note, or a sentence note
+ * inside it). It is part of the text flow, so the browser places it with the line: nothing is
+ * measured on scroll, resize or turn, which is what made the old fixed lightbulbs stutter on phones.
+ *
+ * The mark is an EMPTY span; the glyph is drawn by CSS (`[data-para-marker]::before` in styles.css).
+ * With no text node of its own it never reaches flowText, sentence ranges, reading anchors, word
+ * counts or a selection's text, so every index computed from the page stays what it was.
+ *
+ * The marks are put in once per chapter text and word list (after the notes answer). Opening or
+ * closing help only flips `data-active` on the mark and `data-para-active` on its paragraph; both
+ * change colour and a box-shadow, never a size, so the page does not move.
  */
 
-export function ParagraphBulbs({
+export function ParagraphMarks({
   articleRef,
   version,
   bookId,
@@ -57,138 +55,128 @@ export function ParagraphBulbs({
   onOpen: (index: number) => void;
 }) {
   const { t } = useT();
-  const blocks = useRef<Block[]>([]);
-  const active = useRef<number | null>(activeIndex);
+  const label = t("hp.simplifyAria");
+  const open = useRef(onOpen);
+  open.current = onOpen;
+  const active = useRef(activeIndex);
   active.current = activeIndex;
-  const frame = useRef(0);
-  const [geo, setGeo] = useState<Geo>({ bulbs: [], bar: null });
+  const blocks = useRef<Element[]>([]);
+  const [placed, setPlaced] = useState(0);
 
-  const measure = useCallback(() => {
-    frame.current = 0;
-    const art = articleRef.current;
-    if (!art) return;
-    const ar = art.getBoundingClientRect();
-    const vw = document.documentElement.clientWidth;
-    const vh = window.innerHeight;
-    const header = document.querySelector("header")?.getBoundingClientRect().bottom ?? 0;
-    const viewport = { width: vw, height: vh, headerHeight: Math.max(0, Math.round(header)) };
-    const rects = blocks.current.map((block) => (block.ok ? lastLineBox(block.el, viewport) : null));
-    const bulbs = planBulbs({
-      flags: blocks.current.map((block) => block.ok),
-      rects,
-      viewportWidth: vw,
-      viewportHeight: vh,
-      headerHeight: Math.max(0, Math.round(header)),
-    });
-    let bar: Geo["bar"] = null;
-    if (active.current !== null) {
-      const r = blocks.current[active.current]?.el.getBoundingClientRect();
-      if (r && r.bottom > 56 && r.top < vh) {
-        const top = Math.max(r.top, 56);
-        bar = {
-          top: Math.round(top),
-          height: Math.round(Math.min(r.bottom, vh) - top),
-          left: Math.round(Math.max(4, ar.left - 10)),
-        };
-      }
-    }
-    const next: Geo = { bulbs, bar };
-    setGeo((prev) => (JSON.stringify(prev) === JSON.stringify(next) ? prev : next));
-  }, [articleRef]);
-
-  const schedule = useCallback(() => {
-    if (!frame.current) frame.current = requestAnimationFrame(measure);
-  }, [measure]);
-
-  // The paragraph list: numbered with the shared rule (the same as the word lists use). A bulb
-  // belongs only to a paragraph that has a real paragraph explanation in the word list; paragraphs
-  // that only hold word or phrase entries get none. Until the list has answered, no paragraph has one.
+  // The paragraph list: numbered with the shared rule (the same as the word lists use). A mark
+  // belongs only to a paragraph that has real help in the word list. Until the list has answered,
+  // no paragraph has one.
   useEffect(() => {
     const root = articleRef.current;
     if (!root) return;
-    const list = paragraphBlocks(root).map((el) => ({
-      el,
-      text: flowText(el),
-    }));
-    blocks.current = list.map(({ el }) => ({ el, ok: false }));
-    schedule();
+    const list = paragraphBlocks(root);
+    blocks.current = list;
     let alive = true;
+    const added: Element[] = [];
     void getParagraphNoteFlags(
       bookId,
       chapter,
-      list.map((item) => item.text),
+      list.map((el) => flowText(el)),
     ).then((flags) => {
       if (!alive) return;
-      blocks.current = list.map((item, index) => ({
-        el: item.el,
-        ok: flags[index] === true,
-      }));
-      schedule();
+      list.forEach((el, index) => {
+        if (flags[index] !== true || !el.isConnected) return;
+        const mark = el.ownerDocument.createElement("span");
+        mark.setAttribute("data-para-ui", "");
+        mark.setAttribute("data-para-marker", String(index));
+        mark.setAttribute("role", "button");
+        mark.setAttribute("tabindex", "0");
+        mark.setAttribute("aria-label", label);
+        mark.setAttribute("title", label);
+        placeMark(el, mark);
+        added.push(mark);
+      });
+      setPlaced((n) => n + 1);
     });
     return () => {
       alive = false;
+      for (const mark of added) mark.remove();
+      root.querySelector("[data-para-active]")?.removeAttribute("data-para-active");
     };
-  }, [articleRef, version, bookId, chapter, notesVersion, schedule]);
+  }, [articleRef, version, bookId, chapter, notesVersion, label]);
 
+  // One listener for every mark. Capture, so it runs before the reader's own tap handling (which
+  // ignores [data-para-ui]) and before a link the mark may sit next to.
   useEffect(() => {
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    const art = articleRef.current;
-    const observer = art ? new ResizeObserver(schedule) : null;
-    if (art) observer?.observe(art);
+    const root = articleRef.current;
+    if (!root) return;
+    const markOf = (event: Event) =>
+      (event.target as Element | null)?.closest?.("[data-para-marker]") ?? null;
+    const fire = (mark: Element, event: Event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const index = Number(mark.getAttribute("data-para-marker"));
+      if (Number.isInteger(index) && index >= 0) open.current(index);
+    };
+    const onClick = (event: MouseEvent) => {
+      const mark = markOf(event);
+      if (mark) fire(mark, event);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const mark = markOf(event);
+      // Space would also turn the page: the mark keeps it.
+      if (mark) fire(mark, event);
+    };
+    root.addEventListener("click", onClick, true);
+    root.addEventListener("keydown", onKey, true);
     return () => {
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      observer?.disconnect();
-      if (frame.current) cancelAnimationFrame(frame.current);
-      frame.current = 0;
+      root.removeEventListener("click", onClick, true);
+      root.removeEventListener("keydown", onKey, true);
     };
-  }, [articleRef, schedule, version]);
+  }, [articleRef, version]);
 
-  // The bar and the bulbs follow the page when help opens or closes.
+  // Which paragraph the open help is about: colour only.
   useEffect(() => {
-    schedule();
-  }, [activeIndex, schedule]);
+    const root = articleRef.current;
+    if (!root) return;
+    for (const mark of Array.from(root.querySelectorAll("[data-para-marker]"))) {
+      if (Number(mark.getAttribute("data-para-marker")) === activeIndex) mark.setAttribute("data-active", "");
+      else mark.removeAttribute("data-active");
+    }
+    const block = activeIndex === null ? null : blocks.current[activeIndex];
+    root.querySelector("[data-para-active]")?.removeAttribute("data-para-active");
+    block?.setAttribute("data-para-active", "");
+  }, [articleRef, activeIndex, placed]);
 
-  return (
-    <>
-      {geo.bar ? (
-        <div
-          aria-hidden
-          data-para-ui
-          className="pointer-events-none fixed z-20 w-[3px] rounded-full bg-accent"
-          style={{ top: geo.bar.top, height: geo.bar.height, left: geo.bar.left }}
-        />
-      ) : null}
-      {geo.bulbs.map((spot) => (
-        <button
-          key={spot.index}
-          type="button"
-          data-para-ui
-          data-para-marker={spot.index}
-          aria-label={t("hp.simplifyAria")}
-          title={t("hp.simplifyAria")}
-          onClick={() => onOpen(spot.index)}
-          className={cn(
-            "fixed z-20 inline-flex items-center justify-center rounded-full transition-colors",
-            spot.index === activeIndex
-              ? "border-2 border-accent bg-accent text-accent-ink"
-              : "border border-line bg-card text-accent hover:bg-accent-soft",
-            // Do not let a shadow/focus ring spend the narrow fallback's 2px text gap.
-            spot.size === MARGIN_BULB_SIZE
-              ? "focus-visible:outline-offset-0"
-              : spot.index === activeIndex ? "shadow-sm" : "shadow-xs",
-          )}
-          style={{ top: spot.top, left: spot.left, width: spot.size, height: spot.size }}
-        >
-          <Lightbulb
-            className={spot.size === MARGIN_BULB_SIZE ? "size-3" : spot.small ? "size-[0.95rem]" : "size-[1.05rem]"}
-            aria-hidden
-          />
-        </button>
-      ))}
-    </>
-  );
+  return null;
+}
+
+/** Tags that start their own line: the mark never leaves the paragraph through one of these. */
+const BLOCK_TAGS = /^(P|DIV|LI|UL|OL|BLOCKQUOTE|H[1-6]|FIGURE|SECTION|ARTICLE|TABLE|PRE)$/;
+
+/**
+ * Put `mark` right after the last visible character of `block`. It steps out of a word button and
+ * of inline wrappers (em, a, span) that end the paragraph, so the mark is neither italic nor a
+ * link, but it never steps out of a nested block: a blockquote whose last child is a <p> gets the
+ * mark at the end of that <p>, not on a line of its own.
+ */
+function placeMark(block: Element, mark: Element): void {
+  const walker = block.ownerDocument.createTreeWalker(block, NodeFilter.SHOW_TEXT);
+  let last: Node | null = null;
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    if (node.nodeValue && /\S/.test(node.nodeValue) && !node.parentElement?.closest("[data-para-ui]")) last = node;
+  }
+  if (!last) {
+    block.appendChild(mark);
+    return;
+  }
+  let at: Node = last;
+  for (;;) {
+    const parent: Element | null = at.parentElement;
+    if (!parent || parent === block || BLOCK_TAGS.test(parent.tagName)) break;
+    // Only climb when nothing visible follows inside the wrapper.
+    let rest = at.nextSibling;
+    while (rest && rest.nodeType === 3 && !/\S/.test(rest.nodeValue ?? "")) rest = rest.nextSibling;
+    if (rest) break;
+    at = parent;
+  }
+  at.parentNode?.insertBefore(mark, at.nextSibling);
 }
 
 /* ------------------------------------------------------------------ paragraph panel */
@@ -218,19 +206,38 @@ export function ParagraphPanel({
   onWord: (word: string) => void;
 }) {
   const { t } = useT();
-  // The simple retelling is what the bulb is for, so it is open as soon as the panel appears.
+  // The simple retelling is what the ✦ is for, so it is open as soon as the panel appears.
   const [open, setOpen] = useState(true);
   const paragraph = state.status === "ready" ? state.view.paragraph : null;
   const sentences = state.status === "ready" ? state.view.sentences : [];
   const [chosen, setChosen] = useState<number | null>(null);
+  // Both kinds of help: one tab each, so a phone sheet shows one at a time instead of a long stack.
+  const both = Boolean(paragraph) && sentences.length > 0;
+  const [tab, setTab] = useState<"paragraph" | "sentences">("paragraph");
   // Coming from a word card, the note of that sentence is the one the reader asked about.
   useEffect(() => {
     if (!startSentence || sentences.length === 0) return;
     const at = sentences.findIndex((note) => containsContext(startSentence, note.context));
-    if (at >= 0) setChosen(at);
+    if (at >= 0) {
+      setChosen(at);
+      setTab("sentences");
+    }
     // Only when the notes arrive: a later click picks freely.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sentences.length, startSentence]);
+  const showParagraph = Boolean(paragraph) && (!both || tab === "paragraph");
+  const showSentences = sentences.length > 0 && (!both || tab === "sentences");
+  // With no sentence marked, keep the paragraph itself in view above a phone sheet. (The marks
+  // reveal their own sentence when the sentence tab is on.)
+  const ready = state.status !== "loading";
+  useEffect(() => {
+    if (!ready || showSentences || !paragraphEl || !onRevealSentence) return;
+    const frame = requestAnimationFrame(() => {
+      const box = paragraphEl.getBoundingClientRect();
+      onRevealSentence(box.top, box.bottom);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [ready, showSentences, paragraphEl, onRevealSentence]);
   return (
     <FloatingAside
       anchor={anchor}
@@ -238,14 +245,15 @@ export function ParagraphPanel({
       label={t("hp.panelAria")}
       kind="para"
       className={cn(
-        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop glass",
+        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain [overflow-anchor:none] border-line bg-card px-5 text-ink shadow-pop glass",
         "inset-x-0 bottom-0 max-h-[52dvh] rounded-t-3xl border-t pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]",
         SIDE_PANEL,
         "md:bottom-auto md:max-h-[calc(100dvh-6.5rem)] md:pb-5",
       )}
     >
       <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-line md:hidden" aria-hidden />
-      {paragraphEl && sentences.length > 0 ? (
+      {paragraphEl ? <KeepClear el={paragraphEl} /> : null}
+      {paragraphEl && showSentences ? (
         <SentenceMarks
           paragraphEl={paragraphEl}
           contexts={sentences.map((note) => note.context)}
@@ -254,14 +262,17 @@ export function ParagraphPanel({
           onReveal={onRevealSentence}
         />
       ) : null}
-      <div className="grid gap-3.5">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex min-w-0 flex-wrap items-center gap-x-2.5 gap-y-1">
-            <h2 className="font-display text-xl leading-tight font-semibold">{t("hp.title")}</h2>
-          </div>
+      <div className="grid gap-4">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="flex min-w-0 items-center gap-2 font-display text-lg leading-tight font-semibold">
+            <span className="text-accent" aria-hidden>
+              ✦
+            </span>
+            <span data-part="help-title">{t("hp.title")}</span>
+          </h2>
           <button
             type="button"
-            className={cn(btn.icon, "-mt-2 -mr-2")}
+            className={cn(btn.icon, "-my-2 -mr-2")}
             onClick={onClose}
             aria-label={t("hp.close")}
             data-panel-close
@@ -285,88 +296,115 @@ export function ParagraphPanel({
           </p>
         ) : (
           <>
-            <p className="text-xs leading-relaxed text-muted" data-part="help-source-intro">
-              {t("hp.sourceIntro")}
-            </p>
-            {paragraph ? (
+            {both ? (
+              <div
+                role="tablist"
+                aria-label={t("hp.panelAria")}
+                className="grid grid-cols-2 gap-1 rounded-xl bg-paper/70 p-1"
+                data-part="help-tabs"
+              >
+                {(["paragraph", "sentences"] as const).map((kind) => (
+                  <button
+                    key={kind}
+                    type="button"
+                    role="tab"
+                    aria-selected={tab === kind}
+                    data-tab={kind}
+                    onClick={(event) => {
+                      setTab(kind);
+                      // A new tab starts at its top; the browser's scroll anchoring would keep the old offset.
+                      event.currentTarget.closest("aside")?.scrollTo?.(0, 0);
+                    }}
+                    className={cn(
+                      "min-h-10 rounded-lg px-3 text-sm font-medium transition-colors",
+                      tab === kind ? "bg-card text-ink shadow-xs" : "text-muted hover:text-ink",
+                    )}
+                  >
+                    {kind === "paragraph"
+                      ? t("hp.tabParagraph")
+                      : `${t("hp.tabSentences")} · ${sentences.length}`}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+
+            {showParagraph && paragraph ? (
               <section
-                className="grid min-w-0 gap-2"
+                className="grid min-w-0 gap-4"
                 aria-label={t("hp.paragraphSection")}
                 data-part="paragraph-help"
               >
-                <h3 className="text-sm font-semibold">{t("hp.paragraphSection")}</h3>
-                <div className="grid min-w-0 gap-3 rounded-lg border border-line bg-paper/50 p-3">
-                  <HelpSource credit={paragraph.credit} />
-                  <section className="grid gap-1" aria-label={t("hp.mainIdea")}>
-                    <h4 className="text-xs font-semibold text-muted">{t("hp.mainIdea")}</h4>
-                    <p
-                      className="break-words text-[1.05rem] leading-relaxed"
-                      lang="en"
-                      data-part="main-idea"
+                {both ? null : <h3 className="sr-only">{t("hp.paragraphSection")}</h3>}
+                <section className="grid gap-1" aria-label={t("hp.mainIdea")}>
+                  <h4 className="text-xs font-semibold tracking-wide text-accent">{t("hp.mainIdea")}</h4>
+                  <p
+                    className="break-words text-[1.05rem] leading-relaxed font-medium"
+                    lang="en"
+                    data-part="main-idea"
+                  >
+                    {paragraph.mainIdea}
+                  </p>
+                </section>
+
+                <section className="grid gap-1" aria-label={t("hp.simple")}>
+                  <h4>
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      onClick={() => setOpen((value) => !value)}
+                      className="-mx-1 flex min-h-9 w-[calc(100%+0.5rem)] items-center justify-between gap-2 rounded-lg px-1 text-left text-xs font-semibold tracking-wide text-accent hover:bg-accent-soft/60"
                     >
-                      {paragraph.mainIdea}
+                      <span>{t("hp.simple")}</span>
+                      <span className="flex shrink-0 items-center gap-1 font-normal text-muted">
+                        {open ? t("common.hide") : t("common.show")}
+                        <ChevronDown
+                          className={cn("size-4 transition-transform", open && "rotate-180")}
+                          aria-hidden
+                        />
+                      </span>
+                    </button>
+                  </h4>
+                  {open ? (
+                    <p
+                      className="break-words text-[1.02rem] leading-relaxed"
+                      lang="en"
+                      data-part="simple"
+                    >
+                      {paragraph.simple}
                     </p>
-                  </section>
-
-                  <section className="grid gap-1.5" aria-label={t("hp.simple")}>
-                    <h4>
-                      <button
-                        type="button"
-                        aria-expanded={open}
-                        onClick={() => setOpen((value) => !value)}
-                        className="-mx-1 flex min-h-11 w-[calc(100%+0.5rem)] items-center justify-between gap-2 rounded-lg px-1 text-left text-sm font-semibold text-accent hover:bg-accent-soft/60"
-                      >
-                        <span>{t("hp.simple")}</span>
-                        <span className="flex shrink-0 items-center gap-1 font-normal text-muted">
-                          {open ? t("common.hide") : t("common.show")}
-                          <ChevronDown
-                            className={cn("size-4 transition-transform", open && "rotate-180")}
-                            aria-hidden
-                          />
-                        </span>
-                      </button>
-                    </h4>
-                    {open ? (
-                      <p
-                        className="break-words text-[1.02rem] leading-relaxed"
-                        lang="en"
-                        data-part="simple"
-                      >
-                        {paragraph.simple}
-                      </p>
-                    ) : null}
-                  </section>
-
-                  {paragraph.hardWords.length > 0 ? (
-                    <section className="grid gap-1.5" aria-label={t("hp.hardWords")}>
-                      <h4 className="text-xs font-semibold text-muted">{t("hp.hardHint")}</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {paragraph.hardWords.map((word) => (
-                          <button
-                            key={word}
-                            type="button"
-                            data-hard-word={word}
-                            onClick={() => onWord(word)}
-                            lang="en"
-                            className="min-h-10 max-w-full break-words rounded-full border border-line px-3.5 text-[0.95rem] font-medium hover:bg-accent-soft"
-                          >
-                            {word}
-                          </button>
-                        ))}
-                      </div>
-                    </section>
                   ) : null}
-                </div>
+                </section>
+
+                {paragraph.hardWords.length > 0 ? (
+                  <section className="grid gap-1.5" aria-label={t("hp.hardWords")}>
+                    <h4 className="text-xs font-semibold tracking-wide text-accent">{t("hp.hardHint")}</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {paragraph.hardWords.map((word) => (
+                        <button
+                          key={word}
+                          type="button"
+                          data-hard-word={word}
+                          onClick={() => onWord(word)}
+                          lang="en"
+                          className="min-h-9 max-w-full break-words rounded-full border border-line px-3.5 text-[0.95rem] font-medium hover:bg-accent-soft"
+                        >
+                          {word}
+                        </button>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
+                <HelpSource credit={paragraph.credit} />
               </section>
             ) : null}
 
-            {sentences.length > 0 ? (
+            {showSentences ? (
               <section
-                className="grid min-w-0 gap-2"
+                className="grid min-w-0"
                 aria-label={t("hp.sentenceSection")}
                 data-part="sentences"
               >
-                <h3 className="text-sm font-semibold">{t("hp.sentenceSection")}</h3>
+                {both ? null : <h3 className="sr-only">{t("hp.sentenceSection")}</h3>}
                 {sentences.map((note, at) => (
                   <SentenceNote
                     key={`${at}:${note.context}`}
@@ -391,28 +429,36 @@ export function ParagraphPanel({
   );
 }
 
+/**
+ * While help is open, the floating card keeps clear of the paragraph it explains (anchorBox in
+ * floating-panel.ts reads `data-help-keep`). A layout effect in a child of the card, so the mark is
+ * there before the card places itself on its first frame.
+ */
+function KeepClear({ el }: { el: Element }) {
+  useLayoutEffect(() => {
+    el.setAttribute("data-help-keep", "");
+    return () => el.removeAttribute("data-help-keep");
+  }, [el]);
+  return null;
+}
+
+/**
+ * Who wrote this explanation, as one quiet line under it. Only a reader's accepted contribution
+ * is credited by name; an explanation that came with the word list needs no label on every block.
+ */
 function HelpSource({ credit }: { credit?: string }) {
-  const { t } = useT();
+  if (!credit) return null;
   return (
-    <div
-      className="flex min-w-0 flex-wrap items-center gap-x-2.5 gap-y-1 border-b border-line/70 pb-2 text-xs text-muted"
-      data-help-source={credit ? "reader" : "word-list"}
-    >
-      <span className="shrink-0 font-medium">
-        {t(credit ? "hp.sourceReader" : "hp.sourceBook")}
-      </span>
-      {credit ? (
-        <div className="min-w-0 max-w-full">
-          <CreditLine id={credit} />
-        </div>
-      ) : null}
+    <div className="min-w-0 max-w-full" data-help-source="reader">
+      <CreditLine id={credit} />
     </div>
   );
 }
 
 /**
- * One sentence note in the paragraph panel: which sentence (its context), then the help. A tap
- * marks that sentence more strongly in the page, so the reader can see which one it explains.
+ * One sentence note in the paragraph panel: the original sentence as a quote, then the help. A tap
+ * on the quote marks that sentence more strongly in the page, so the reader can see which one it
+ * explains. Notes are separated by a rule, not boxed, so a phone sheet keeps its width for text.
  */
 function SentenceNote({
   note,
@@ -426,40 +472,36 @@ function SentenceNote({
   const { t } = useT();
   return (
     <div
-      // The yellow is the page's; the panel only says which note is chosen, with its line.
-      className="grid min-w-0 gap-3 rounded-lg border border-line bg-paper/50 p-3"
+      className="grid min-w-0 gap-2 border-t border-line/70 py-3.5 first:border-t-0 first:pt-0 last:pb-0"
       data-sentence-note
       data-chosen={chosen ? "" : undefined}
     >
-      <HelpSource credit={note.credit} />
-      <div className="grid min-w-0 gap-1">
-        <span className="text-xs font-semibold text-muted">{t("hp.original")}</span>
-        <button
-          type="button"
-          onClick={onChoose}
-          aria-pressed={chosen}
-          className={cn(
-            "min-h-11 break-words pl-2.5 text-left font-display text-[0.92rem] leading-relaxed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-            chosen ? "border-l-[3px] border-accent text-ink" : "border-l-2 border-line text-muted",
-          )}
-          lang="en"
-          data-part="sentence-context"
-        >
-          {note.context}
-        </button>
-      </div>
-      <div className="grid gap-1">
-        <span className="text-xs font-semibold text-muted">{t("hp.explanation")}</span>
-        <p className="break-words text-[1.02rem] leading-relaxed" lang="en" data-part="easier">
-          {note.simple}
-        </p>
-      </div>
+      <button
+        type="button"
+        onClick={onChoose}
+        aria-pressed={chosen}
+        aria-label={`${t("hp.original")}: ${note.context}`}
+        className={cn(
+          "min-h-11 break-words rounded-r-md py-1 pr-1 pl-3 text-left font-display text-[0.95rem] leading-relaxed italic transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+          chosen
+            ? "border-l-[3px] border-accent bg-mark/35 text-ink"
+            : "border-l-[3px] border-line text-muted hover:text-ink",
+        )}
+        lang="en"
+        data-part="sentence-context"
+      >
+        {note.context}
+      </button>
+      <p className="break-words text-[1.02rem] leading-relaxed" lang="en" data-part="easier">
+        {note.simple}
+      </p>
       {note.grammar ? (
-        <p className="break-words text-sm leading-snug" lang="en" data-part="grammar">
-          <span className="mr-1.5 text-xs font-semibold text-muted">{t("hp.grammar")}</span>
+        <p className="break-words rounded-md bg-paper/70 px-2.5 py-1.5 text-sm leading-snug" lang="en" data-part="grammar">
+          <span className="mr-1.5 text-xs font-semibold text-accent">{t("hp.grammar")}</span>
           {note.grammar}
         </p>
       ) : null}
+      <HelpSource credit={note.credit} />
     </div>
   );
 }
@@ -502,8 +544,6 @@ function SentenceMarks({
 
   useEffect(() => {
     let frame = 0;
-    // The floating card keeps clear of a paragraph marked this way (anchorBox in floating-panel.ts).
-    paragraphEl.setAttribute("data-help-keep", "");
     const ranges = contexts.map((context) => noteSentenceRange(paragraphEl, context));
     const measure = () => {
       frame = 0;
@@ -548,7 +588,6 @@ function SentenceMarks({
     const observer = typeof ResizeObserver === "function" ? new ResizeObserver(schedule) : null;
     observer?.observe(paragraphEl);
     return () => {
-      paragraphEl.removeAttribute("data-help-keep");
       window.removeEventListener("scroll", schedule, true);
       window.removeEventListener("resize", schedule);
       observer?.disconnect();
@@ -607,7 +646,7 @@ function SentenceMarks({
 
 /**
  * One quiet line under the meaning when the word list has a note for this sentence. It takes no
- * more room than a link: the note itself opens in the paragraph panel, the same place as the bulb,
+ * more room than a link: the note itself opens in the paragraph panel, the same place as the ✦ mark,
  * so a reader learns one place for paragraph and sentence help. Most sentences have no note, and
  * then nothing is drawn.
  */
@@ -654,7 +693,7 @@ export function SentenceHint({
       className="inline-flex min-h-8 items-center gap-1 justify-self-start self-start text-xs font-medium text-accent hover:underline"
       data-sentence-hint
     >
-      <Lightbulb className="size-3.5" aria-hidden />
+      <span aria-hidden>✦</span>
       {t("hp.explain")}
     </button>
   );

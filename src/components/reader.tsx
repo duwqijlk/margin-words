@@ -72,7 +72,7 @@ import { MissingBook } from "@/components/missing-book";
 import { READER_GUTTER, SIDE_PANEL } from "@/components/side-panel";
 import { btn, cn, ProgressBar, speakEnglish } from "@/components/ui";
 import {
-  ParagraphBulbs,
+  ParagraphMarks,
   ParagraphPanel,
   type ParagraphPanelState,
 } from "@/components/help-panels";
@@ -1855,7 +1855,7 @@ export function ReaderScreen({
 
 
       {linkedHtml ? (
-        <ParagraphBulbs
+        <ParagraphMarks
           articleRef={articleRef}
           version={linkedHtml}
           bookId={bookId}
@@ -1901,7 +1901,7 @@ export function ReaderScreen({
           chapters={book?.chapters.length ?? 0}
           catalogId={catalogId}
           noteChapter={activeExtra?.fromToc ? activeExtra.id : viewChapter}
-          // The sentence hint opens the same panel as the bulb of the tapped paragraph.
+          // The sentence hint opens the same panel as the ✦ of the tapped paragraph.
           onSentenceHelp={
             picked ? () => openHelp(picked.block, card.fullSentence || card.sentence) : undefined
           }
