@@ -4,6 +4,7 @@ import { errorResponse, HttpError, json } from "../../lib/http.ts";
 import { sha256HexBytes } from "../../lib/password.ts";
 import type { HandlerOptions } from "../../lib/handlers.ts";
 import { normalizeTitle, replacesSameBook } from "../../lib/book-title.ts";
+import { isNewIdShape, LEGACY_ID } from "../../lib/book-id.ts";
 import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
 import { clearGlossaryWork } from "../../lib/glossary-work-file.ts";
 import { applyIsbn, assertPublicPublishBudget, checkPublicGlossary, fileRef, updatePublicRow } from "../../lib/public-book-publish.ts";
@@ -69,7 +70,7 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
     if (!bucket) throw new HttpError(500, "no-books-bucket");
     const url = new URL(request.url);
     const id = url.searchParams.get("id") ?? "";
-    if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(id)) throw new HttpError(400, "bad-id");
+    if (!LEGACY_ID.test(id)) throw new HttpError(400, "bad-id");
     const isPublic = url.searchParams.get("catalog") === "public";
     if (isPublic) assertPublicPublishBudget(env);
     const bytes = new Uint8Array(await request.arrayBuffer());
@@ -122,6 +123,9 @@ export async function handlePublish(request: Request, env: Env, options?: Handle
       throw new HttpError(404, "unknown-id");
     }
     if (!existing) {
+      // Old ids keep any spelling the parser accepts; a new row needs a title slug
+      // (docs/BOOK_UPLOAD.md): no underscores, capitals or the reserved `custom`.
+      if (!isNewIdShape(id)) throw new HttpError(400, "bad-new-id");
       // A new id must not shadow a book that is already on the host under
       // another id: the same title means the file name is wrong, not that
       // this is a new book.

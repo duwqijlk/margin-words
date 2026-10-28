@@ -1045,6 +1045,25 @@ test("word-list publish: hash computed once, other rows untouched, unknown id re
   assert.equal(refusedSize.status, 413);
   assert.equal((await refusedSize.json()).error, "too-large");
   assert.equal(new TextDecoder().decode(files.get("word-lists/charlie/glossary.json")), beforeHuge);
+
+  // A NEW row needs a title slug; an old id keeps whatever spelling it already has.
+  const fresh = (title) => JSON.stringify({ title, glossary: { z: {} }, count: 1 });
+  for (const id of ["new_book", "custom", "mth--05"]) {
+    const refusedId = await handlePublish(raw(`/api/admin/word-lists?id=${id}`, adminCookie, fresh(`Fresh ${id}`)), env, { now: NOW });
+    assert.equal(refusedId.status, 400, id);
+    assert.equal((await refusedId.json()).error, "bad-new-id", id);
+    assert.equal(stored().lists.some((item) => item.id === id), false, id);
+  }
+  const legacy = stored();
+  legacy.lists.push({ id: "mth_05", title: "Night of the Ninjas", words: 1, glossary: { url: "mth_05/glossary.json", bytes: 1, sha256: "x" } });
+  files.set("word-lists/catalog.json", new TextEncoder().encode(`${JSON.stringify(legacy, null, 1)}\n`));
+  const legacyUpdate = await handlePublish(
+    raw("/api/admin/word-lists?id=mth_05", adminCookie, fresh("Night of the Ninjas")),
+    env,
+    { now: NOW },
+  );
+  assert.equal(legacyUpdate.status, 200, "an existing legacy id is still updated");
+  assert.equal(stored().lists.find((item) => item.id === "mth_05").words, 1);
 });
 
 function glossaryOfLength(length) {

@@ -70,6 +70,14 @@ an operations source. Do not infer a local path from a machine name, title or a 
   underscores (`^[a-z0-9][a-z0-9_-]{0,63}$`) for compatibility, not as a new naming recommendation.
   **Do not rename or migrate old ids**, folders or references to tidy their spelling: a live legacy id
   such as `mth05` and every path or report reference that uses it stays exactly as it is.
+- **The admin pages make the new id for you.** For a file that matches no existing book (by
+  file-name id, then by title), the Word lists and Books pages show the title slug
+  (`src/lib/book-id.ts` `idFromTitle`: series and number first when the title does not already name
+  the series) and publish under it; the file name does not set it. On the Word lists page the id can
+  be edited: a non-slug id cannot be published, and an id with words that are not in the title or
+  series (an abbreviation such as `mth05`) needs a ticked confirmation. The server refuses a new row
+  whose id is not a slug or is `custom` (`bad-new-id`); updates to existing ids, old spellings
+  included, are unchanged.
 - **Display names are complete official names.** New rows and series use the full official `title`
   and `series` display names; do not abbreviate *Magic Tree House* as `MTH`. An official name that
   is itself an abbreviation, such as the `TED` series, may remain abbreviated. Correcting an existing

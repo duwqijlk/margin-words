@@ -2,6 +2,7 @@ import { requireAdmin } from "../../lib/admin.ts";
 import { applyIsbn, assertPublicPublishBudget, checkPublicGlossary, fileRef, updatePublicRow } from "../../lib/public-book-publish.ts";
 import { clearGlossaryWork } from "../../lib/glossary-work-file.ts";
 import { replacesSameBook } from "../../lib/book-title.ts";
+import { LEGACY_ID } from "../../lib/book-id.ts";
 import { GLOSSARY_MAX } from "../../lib/glossary-limit.ts";
 import type { Env } from "../../lib/db.ts";
 import { errorResponse, HttpError, json } from "../../lib/http.ts";
@@ -97,7 +98,7 @@ export async function handleUpload(request: Request, env: Env, options?: Handler
     await requireAdmin(env.DB, request, options);
     const url = new URL(request.url);
     const id = url.searchParams.get("id") ?? "";
-    if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(id)) throw new HttpError(400, "bad-id");
+    if (!LEGACY_ID.test(id)) throw new HttpError(400, "bad-id");
     const kind = url.searchParams.get("kind") === "public" ? "public" : "private";
     if (kind === "public") assertPublicPublishBudget(env);
 
