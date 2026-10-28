@@ -78,7 +78,7 @@ function WordRow({
     <li className="grid gap-3 rounded-2xl bg-card p-3 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
         <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="w-full font-display text-xl font-semibold break-words sm:w-auto sm:text-2xl" lang="en">
+          <h3 className="w-full font-display text-xl font-semibold wrap-any sm:w-auto sm:text-2xl" lang="en">
             {word.lemma}
           </h3>
           {word.surface.toLowerCase() !== word.lemma.toLowerCase() ? (
@@ -120,7 +120,7 @@ function WordRow({
       ) : (
         <div className="grid gap-1.5">
           {shown.sentence ? (
-            <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed break-words text-ink">
+            <p className="border-l-2 border-accent/40 pl-3 font-display text-[1.02rem] leading-relaxed wrap-any text-ink">
               <Highlighted sentence={focusSentence(shown.sentence, shown.surface || shown.lemma)} surface={shown.surface || shown.lemma} />
             </p>
           ) : null}
@@ -133,7 +133,7 @@ function WordRow({
           ) : null}
           {shown.meaning ? (
             <p
-              className={cn("text-[1.02rem] leading-relaxed", shown.sentence && "pl-3")}
+              className={cn("text-[1.02rem] leading-relaxed wrap-any", shown.sentence && "pl-3")}
               lang="en"
               data-source-meaning
             >
@@ -260,7 +260,7 @@ export function Notebook({
   };
 
   return (
-    <div className="mx-auto grid max-w-3xl gap-6 px-4 py-6 sm:px-6 sm:py-10">
+    <div className="mx-auto grid w-full max-w-3xl gap-6 overflow-x-clip px-4 py-6 sm:px-6 sm:py-10">
       <header className="grid gap-3 sm:flex sm:flex-wrap sm:items-end sm:justify-between">
         <div className="grid gap-1">
           <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("nb.title")}</h1>

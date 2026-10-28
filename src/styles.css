@@ -1238,3 +1238,16 @@
   .help-demo-done { animation: help-done 8s ease-out infinite; }
 
 }
+
+/*
+ * Text a reader saved (a word, its sentence, its meaning) can hold a long run with no break point:
+ * a sentence glued at a line break of the e-book, a link, "word—word—word". `break-words`
+ * (overflow-wrap: break-word) breaks it only when it is drawn and still lets it widen a grid or flex
+ * column, so the whole page became wider than a phone and had to be pinched smaller, bottom bar
+ * and all. `anywhere` also lowers the column's minimum width. `word-break: break-word` is the same
+ * for the old e-ink Chrome (69), which does not know `anywhere`.
+ */
+.wrap-any {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
