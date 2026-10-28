@@ -99,13 +99,41 @@ If you cannot coordinate it, remain read-only and report. Details:
 
 ## 3. Find the work (read only)
 
-Open taps and reports:
+**Taps: rank first, then read only the words worth a run.** Many taps are one reader opening a
+word once; they arrive by the hundred each day, far more than a run can answer. First rank the
+open words per book by how many readers tapped them. `book_id` is one reader's device, so
+`COUNT(DISTINCT book_id)` is the number of devices:
+
+```sql
+SELECT CASE WHEN catalog_id != '' THEN catalog_id ELSE 'title:' || book_title END AS book,
+       word, COUNT(DISTINCT book_id) AS readers, SUM(tap_count) AS taps, MAX(last_tapped_at) AS last
+  FROM book_word_taps WHERE in_glossary = 0 AND status != 'resolved'
+ GROUP BY book, word
+HAVING readers >= 2 OR taps >= 2 OR last > ?1
+ ORDER BY readers DESC, taps DESC, last DESC LIMIT 200;
+```
+
+`?1` = now minus 14 days, in milliseconds. A word on this list is worth checking: several
+readers, several taps, or a recent single tap. A word tapped once by one reader more than 14
+days ago is not on it. Leave those rows **pending**: do not resolve them to clear the queue, and do
+not delete them (§8). They cost nothing while they wait, and a later tap from another reader lifts
+the word back onto the list. A `book` of the form `title:<title>` is an older row without
+`catalog_id`; match it to a catalog book by title only when the title names exactly one book.
+
+Then read the locations of each word you chose (`?1` = its `book` value from the list above,
+`?2` = the word). The `book` expression is the same, so a `title:` book works too:
 
 ```sql
 SELECT book_id, word, chapter, occurrence, catalog_id, book_title, form, chapters, context, sentence,
        glossary_rev, last_tapped_at, tap_count
   FROM book_word_taps WHERE in_glossary = 0 AND status != 'resolved'
-  ORDER BY tap_count DESC, last_tapped_at DESC LIMIT 500;
+   AND (CASE WHEN catalog_id != '' THEN catalog_id ELSE 'title:' || book_title END) = ?1 AND word = ?2
+  ORDER BY tap_count DESC, last_tapped_at DESC LIMIT 50;
+```
+
+Open reports:
+
+```sql
 
 SELECT f.id, f.catalog_id, f.book_title, f.word, f.form, f.reason, f.chapter, f.chapters, f.occurrence,
        f.context, f.sentence, f.sense_index, f.sense_meaning, f.suggestion, f.glossary_rev, f.status,
@@ -579,7 +607,7 @@ another writer's changes. Report a failed credit-file refresh; do not claim the 
 ## 8. Limits
 
 - At most 10 books per run; reopened word feedback and reported items first (word and passage
-  reports), then the most-tapped words. Fully read a passage topic through its saved cutoff before
+  reports), then the words at the top of the ranked tap list in §3 (most readers first). Fully read a passage topic through its saved cutoff before
   deciding; resolve only its individually verified, answered ids. Defer it if review is incomplete.
 - D1 is on the Free plan (100,000 row writes a day for the whole site). The queries above read a
   few thousand rows; each resolve writes a few. Use only the bounded topic discovery and finite topic/cutoff pagination in §3;
