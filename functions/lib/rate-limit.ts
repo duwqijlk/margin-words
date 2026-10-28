@@ -58,16 +58,28 @@ export const DAILY_WRITE_BUDGET = {
  * Clearing out old rows is housekeeping, not part of counting: a row only counts for its own
  * (bucket, window_start), so an expired row left a little longer changes no limit. It used to run
  * on EVERY limited request, two DELETEs that scan the whole table, and it was the largest D1 reader
- * of the site (about 1.5 million rows read a week, more than half of all reads). Now each running
- * instance clears at most once per PRUNE_EVERY_MS; many instances still keep the table small.
+ * of the site (about 1.5 million rows read a week, more than half of all reads). A per-instance
+ * PRUNE_EVERY_MS alone was not enough: Cloudflare runs many short-lived instances, and each one
+ * cleared on its first request (about 4,000 clears a day). Now a limited request clears with a
+ * chance of 1 in PRUNE_ONE_IN, and still at most once per PRUNE_EVERY_MS per instance.
  */
 export const PRUNE_EVERY_MS = 5 * 60 * 1000;
+export const PRUNE_ONE_IN = 50;
 /** Per running instance (module scope), not per binding object, which need not be reused. */
 let lastPrune = Number.NEGATIVE_INFINITY;
+let pruneRoll: () => number = Math.random;
+
+/** Tests only: make the 1-in-PRUNE_ONE_IN draw predictable. Returns the previous draw. */
+export function setPruneRoll(roll: () => number): () => number {
+  const before = pruneRoll;
+  pruneRoll = roll;
+  return before;
+}
 
 async function prune(db: D1Database, now: number): Promise<void> {
   // A clock that went back (or a test time earlier than the last one) prunes again.
   if (now >= lastPrune && now - lastPrune < PRUNE_EVERY_MS) return;
+  if (pruneRoll() * PRUNE_ONE_IN >= 1) return;
   lastPrune = now;
   await db
     .prepare(`DELETE FROM rate_limits WHERE bucket NOT LIKE '${DAILY_PREFIX}%' AND window_start < ?`)
@@ -200,6 +212,26 @@ export async function takeAvatarChange(db: D1Database, userId: string, now: numb
   if ((row?.hits ?? 1) > AVATAR_PER_DAY) throw new AvatarDailyError(dayStart + DAY_MS);
 }
 
+/**
+ * Actions counted in batches: frequent, cheap to repeat, and limited only so one account cannot
+ * loop them to spend the site's quota. Writing one D1 row per sync was about a third of all D1
+ * writes. An instance keeps a local count and adds it to D1 every USER_BATCH requests; the first
+ * request of an account in an instance reads the shared count instead of writing. The limit is
+ * then approximate: each running instance may let through up to USER_BATCH - 1 requests that D1
+ * has not seen yet, and a count lost with a stopped instance is never added. Sign-in, codes,
+ * sponsorship, feedback and taps are still counted on every request.
+ */
+const BATCHED: ReadonlySet<UserRateAction> = new Set(["sync", "glossary"]);
+export const USER_BATCH = 10;
+type Tally = { windowStart: number; known: number; pending: number };
+/** Per running instance: bucket -> what this instance knows and has not written yet. */
+const tallies = new Map<string, Tally>();
+
+/** Tests only: forget the counts this instance holds. */
+export function resetUserTallies(): void {
+  tallies.clear();
+}
+
 /** Limit an endpoint that needs a signed-in account, per account rather than per address. */
 export async function assertUserRateLimit(
   db: D1Database,
@@ -208,6 +240,36 @@ export async function assertUserRateLimit(
   now: number,
 ): Promise<void> {
   const windowStart = windowStartOf(now);
+  const bucket = `${action}:user:${userId}`;
+  const limit = RATE_LIMITS[`${action}:user`];
   await prune(db, now);
-  await addHit(db, `${action}:user:${userId}`, windowStart, RATE_LIMITS[`${action}:user`]);
+  if (!BATCHED.has(action)) {
+    await addHit(db, bucket, windowStart, limit);
+    return;
+  }
+  let tally = tallies.get(bucket);
+  if (!tally || tally.windowStart !== windowStart) {
+    if (tallies.size > 2000) {
+      for (const [key, value] of tallies) if (value.windowStart !== windowStart) tallies.delete(key);
+    }
+    // First request of this account in this window here: one read, no write.
+    tally = { windowStart, known: await hitsOf(db, bucket, windowStart), pending: 0 };
+    tallies.set(bucket, tally);
+  }
+  tally.pending += 1;
+  if (tally.pending >= USER_BATCH) {
+    const by = tally.pending;
+    tally.pending = 0;
+    const row = await db
+      .prepare(
+        `INSERT INTO rate_limits (bucket, window_start, hits)
+         VALUES (?, ?, ?)
+         ON CONFLICT(bucket, window_start) DO UPDATE SET hits = hits + excluded.hits
+         RETURNING hits`,
+      )
+      .bind(bucket, windowStart, by)
+      .first<{ hits: number }>();
+    tally.known = row?.hits ?? tally.known + by;
+  }
+  if (tally.known + tally.pending > limit) throw new HttpError(429, "rate");
 }
