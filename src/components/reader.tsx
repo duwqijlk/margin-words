@@ -89,6 +89,7 @@ import {
   wholeSentence,
 } from "@/components/word-card";
 import { warmIpaFor } from "@/components/word-ipa";
+import { firstReadingChapter } from "@/lib/first-chapter";
 import { bookCatalogRef } from "@/lib/catalog-id";
 import { catalogOfId } from "@/lib/catalog-index";
 import {
@@ -392,17 +393,12 @@ export function ReaderScreen({
   }, [bookId]);
 
   const lastChapter = book ? Math.max(book.chapters.length - 1, 0) : 0;
-  // A book opened for the first time starts at the first chapter with real text,
-  // skipping the cover, title page and contents.
-  const firstReal = useMemo(() => {
-    if (!bookChaptersRaw) return 0;
-    // "Real" prose = enough text, in paragraph-sized pieces (a contents page is many short lines).
-    const at = bookChaptersRaw.findIndex((item) => {
-      const chars = item.paragraphs.join(" ").length;
-      return chars > 1200 && chars / Math.max(1, item.paragraphs.length) > 60;
-    });
-    return at < 0 ? 0 : at;
-  }, [bookChaptersRaw]);
+  // A book opened for the first time starts at the first chapter that is not front matter
+  // (cover, title page, copyright, contents); see first-chapter.ts.
+  const firstReal = useMemo(
+    () => (bookChaptersRaw ? firstReadingChapter(bookChaptersRaw, book?.title ?? "") : 0),
+    [bookChaptersRaw, book?.title],
+  );
   const safeIndex = Math.min(chapterIndex < 0 ? firstReal : chapterIndex, lastChapter);
   const chapter = book?.chapters[safeIndex];
   const activeExtra = book?.extras?.find((item) => item.id === extraId) ?? null;
