@@ -38,7 +38,7 @@ import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
 import { handleAdminWordTapsGet, handleAdminWordTapsPost } from "../functions/api/admin/word-taps.ts";
 import { handleWordFeedbackPost } from "../functions/api/feedback/word.ts";
 import { handleAdminWordFeedbackGet, handleAdminWordFeedbackPost } from "../functions/api/admin/word-feedback.ts";
-import { assertIpRateLimit, DAILY_WRITE_BUDGET, PRUNE_EVERY_MS, RATE_WINDOW_MS } from "../functions/lib/rate-limit.ts";
+import { assertIpRateLimit, assertUserRateLimit, DAILY_WRITE_BUDGET, PRUNE_EVERY_MS, RATE_WINDOW_MS, resetUserTallies, setPruneRoll, USER_BATCH } from "../functions/lib/rate-limit.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const NOW = 1_700_000_000_000;
@@ -2773,6 +2773,7 @@ test("the day's telemetry budget is a hard fuse, and a spent one writes nothing"
 
 test("old rate-limit rows are still cleared, but at most once per PRUNE_EVERY_MS per instance", async () => {
   const db = openDb();
+  const before = setPruneRoll(() => 0); // the 1-in-PRUNE_ONE_IN draw always wins here
   const day = 24 * 60 * 60 * 1000;
   // Far after every other test's clock, so this instance's last prune is not in the way.
   const T = NOW + 400 * day;
@@ -2791,8 +2792,40 @@ test("old rate-limit rows are still cleared, but at most once per PRUNE_EVERY_MS
   put("login:ip:later", T - 5 * RATE_WINDOW_MS);
   await assertIpRateLimit(db, "taps", "1.2.3.4", T + 60_000);
   assert.equal(has("login:ip:later"), true, "no second clear within PRUNE_EVERY_MS");
-  await assertIpRateLimit(db, "taps", "1.2.3.4", T + PRUNE_EVERY_MS);
-  assert.equal(has("login:ip:later"), false, "cleared again once it has passed");
+  setPruneRoll(() => 0.5);
+  await assertIpRateLimit(db, "taps", "1.2.3.4", T + 2 * PRUNE_EVERY_MS);
+  assert.equal(has("login:ip:later"), true, "a lost draw does not clear");
+  setPruneRoll(() => 0);
+  await assertIpRateLimit(db, "taps", "1.2.3.4", T + 3 * PRUNE_EVERY_MS);
+  assert.equal(has("login:ip:later"), false, "cleared again once it has passed and the draw wins");
+  setPruneRoll(before);
+});
+
+test("sync and word-list limits are counted in batches, and still stop a loop", async () => {
+  resetUserTallies();
+  const db = openDb();
+  const before = setPruneRoll(() => 0.99);
+  const hits = (bucket) => db.raw.prepare("SELECT hits FROM rate_limits WHERE bucket = ?").get(bucket)?.hits ?? 0;
+  const windowStart = Math.floor(NOW / RATE_WINDOW_MS) * RATE_WINDOW_MS;
+  for (let i = 1; i < USER_BATCH; i += 1) await assertUserRateLimit(db, "sync", "u1", NOW);
+  assert.equal(hits("sync:user:u1"), 0, "nothing written before a full batch");
+  await assertUserRateLimit(db, "sync", "u1", NOW);
+  assert.equal(hits("sync:user:u1"), USER_BATCH, "one write adds the whole batch");
+  // Another account already at its limit (counted by other instances) is refused on its first call here.
+  db.raw.prepare("INSERT INTO rate_limits (bucket, window_start, hits) VALUES (?, ?, ?)").run("sync:user:u2", windowStart, 300);
+  await assert.rejects(assertUserRateLimit(db, "sync", "u2", NOW), (error) => error.status === 429);
+  // A loop in one instance is stopped by the local count, before D1 hears about all of it.
+  resetUserTallies();
+  let refused = 0;
+  for (let i = 0; i < 130; i += 1) {
+    try { await assertUserRateLimit(db, "glossary", "u3", NOW); } catch (error) { if (error.status === 429) refused += 1; else throw error; }
+  }
+  assert.equal(refused, 10, "the 121st to 130th call are refused");
+  // Codes are still counted one by one.
+  await assertUserRateLimit(db, "code-send", "u4", NOW);
+  assert.equal(hits("code-send:user:u4"), 1);
+  setPruneRoll(before);
+  resetUserTallies();
 });
 
 test("a signed-in account cannot loop the word-list endpoint", async () => {
