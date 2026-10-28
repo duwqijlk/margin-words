@@ -332,12 +332,14 @@ export function DashboardScreen() {
 
   return (
     <div
-      className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-4 py-8 sm:px-6 sm:py-12"
+      // The same page frame as Discover (width, gutters, top space), so the sub-tabs sit in the same
+      // place on both pages. The content below keeps its narrower reading width, aligned with the tabs.
+      className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-5 px-4 py-6 sm:gap-6 sm:px-6"
       data-dashboard
       data-dashboard-state={state}
     >
-      <div className="grid gap-6">
-        <OverviewTabs tab={tab} onChange={chooseTab} />
+      <OverviewTabs tab={tab} onChange={chooseTab} />
+      <div className="grid w-full max-w-3xl gap-6" data-dashboard-body>
         <div key={tab} role="tabpanel" id={`overview-panel-${tab}`} aria-labelledby={`overview-tab-${tab}`} data-overview-panel={tab}>
           {tab === "library" ? (
             <div className="grid gap-6">
@@ -422,6 +424,9 @@ export function DashboardScreen() {
             </section>
           )}
         </div>
+      </div>
+      {/* The page links stay centred on the page, under the narrower content. */}
+      <div className="pt-1 sm:pt-2">
         <DashboardLinks onSponsor={() => setOpen(true)} />
       </div>
       <SponsorDialog open={open} onOpenChange={setOpen} onSubmitted={() => setReload((n) => n + 1)} />
