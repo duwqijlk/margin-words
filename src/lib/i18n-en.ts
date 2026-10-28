@@ -655,8 +655,6 @@ export const en = {
   /* ---- paragraph and sentence help */
   "hp.paragraphSection": "Paragraph explanation",
   "hp.sentenceSection": "Sentence explanations",
-  "hp.tabParagraph": "Paragraph",
-  "hp.tabSentences": "Sentences",
   "hp.sourceReader": "Reader contribution",
   "hp.original": "Original",
   "hp.explanation": "Explanation",

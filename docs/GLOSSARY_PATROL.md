@@ -277,12 +277,17 @@ Then write the smallest note that helps:
 Leave it open when the selection is a single easy word, a name, or text you cannot find in the book.
 Never copy more of the book than a note's `context` needs.
 
-**Where readers see each note.** A paragraph note and a sentence note open from the same place:
-a ✦ after the paragraph's last word. The paragraph panel shows the paragraph note and, on a second tab,
-every sentence note whose `context` is inside that paragraph. In the word card
-a sentence note is only a small "Explain this sentence" link that opens that panel. While the panel
-is open, the sentence each note explains is marked in the page like a highlighter: the sentence that
-holds the note's `context`. Copy the
+**Where readers see each note.** The help panel shows **one kind of note at a time**, never a
+paragraph note and the sentence notes inside it together:
+
+- The ✦ after a paragraph's last word opens the **paragraph note**. Only a paragraph that has no
+  paragraph note shows its sentence notes there.
+- A word card on a sentence that has a sentence note shows a small "Explain this sentence" link. It
+  opens **only that sentence's note**, with the sentence marked in the page like a highlighter.
+
+So a sentence note inside a paragraph that has a paragraph note is reached only from the word card.
+Write it only when that sentence needs help the paragraph note does not give (see "One place, one
+explanation" below). Copy the
 `context` exactly from ONE sentence: the ✦ needs it inside one paragraph, and the word-card link
 needs it inside the tapped sentence. A `context` that is not in the book, or runs across two
 paragraphs, gets no ✦ and shows nowhere.
@@ -316,18 +321,31 @@ review them together:
    - Two reports that only share a few words and point at different hard parts: answer each part
      on its own.
    - **A whole-paragraph report together with reports on sentences inside it** (reader A selected
-     the paragraph, readers B and C one sentence each): write **both** a `paragraphs` note for the
-     paragraph and a `sentences` note for each of those sentences, each credited to its own reader.
-     They answer different questions. The paragraph note says what the paragraph is about as a
-     whole; a sentence note explains only its sentence. Keep them consistent: the panel shows the
-     paragraph note first and the sentence notes under it. "Only when no sentence note would do"
-     does not apply when a reader asked about the whole paragraph and gave an explanation.
-3. **Explanations:** compare them with each other and with the sentence. Use the sense the best one
+     the paragraph, readers B and C one sentence each): write the `paragraphs` note for the
+     paragraph (credit A). Add a `sentences` note for B's or C's sentence **only when** that sentence
+     is still hard after reading the paragraph note: a figure of speech, hard grammar, or a meaning
+     the paragraph note does not give. If the paragraph note already explains it, B's and C's
+     reports are answered by it: resolve them, and mark one accepted only when you really used that
+     reader's explanation in the paragraph note. "Only when no sentence note would do" does not
+     apply when a reader asked about the whole paragraph and gave an explanation.
+3. **One place, one explanation.** One report is answered by ONE note, at the level the reader
+   asked about: never copy the same explanation into a paragraph note and a sentence note. Before
+   writing, read the notes this place already has:
+   - The paragraph already has a paragraph note and the reader rewrote the whole paragraph: **replace**
+     that note's `mainIdea`/`simple` (same sense said better moves its `credit` to the reader, as in
+     the table below). Never add a second `paragraphs` note for the same paragraph: the reader shows
+     only the first one, so a second note is invisible and only grows the file.
+   - The sentence already has a sentence note: replace it the same way; never add a second one with
+     the same `context`.
+   - A sentence note whose `simple` only repeats what the paragraph note of its paragraph already
+     says adds nothing. When your work touches that paragraph, delete that sentence note (keep the
+     paragraph note), and say so in your report. Do not go looking for such pairs in other books.
+4. **Explanations:** compare them with each other and with the sentence. Use the sense the best one
    gives, write it in your own words (writing rules below), and credit that reader. The table for
    "a new suggestion when a meaning already exists" below applies here too: a different sense of a
    different part is its own note and its own credit; the same sense said better replaces the text
    and moves the credit.
-4. **Decide per reviewed report id, never close by topic.** After verified publication, resolve
+5. **Decide per reviewed report id, never close by topic.** After verified publication, resolve
    only the ids read through the saved cutoff whose individual questions and book associations
    your notes answer. Mark `accepted` only the reports whose explanation you really used, one
    credit per note. Unanswered, unverified, mismatched and post-cutoff reports stay open. A topic

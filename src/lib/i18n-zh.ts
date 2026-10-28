@@ -636,8 +636,6 @@ export const zh: Record<Key, string> = {
   /* ---- paragraph and sentence help */
   "hp.paragraphSection": "段落解析",
   "hp.sentenceSection": "句子解析",
-  "hp.tabParagraph": "段落",
-  "hp.tabSentences": "难句",
   "hp.sourceReader": "读者贡献",
   "hp.original": "原文",
   "hp.explanation": "解释",

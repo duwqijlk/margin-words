@@ -70,7 +70,7 @@ test("the panel marks the explained sentences in the page and keeps them in view
   assert.match(css, /\.book-body \{\s*\/\*[\s\S]*?\*\/\s*position: relative;\s*z-index: 2;/, "the text sits above the marks");
 });
 
-test("paragraph and sentence explanations credit a reader under the text, and tabs split the two kinds", () => {
+test("paragraph and sentence explanations credit a reader under the text, and show one kind at a time", () => {
   const panel = readFileSync(new URL("../src/components/help-panels.tsx", import.meta.url), "utf8");
   // The source line follows the explanation it credits.
   assert.match(panel, /data-part="paragraph-help"[\s\S]*?data-part="main-idea"[\s\S]*?<HelpSource credit=\{paragraph\.credit\} \/>/);
@@ -82,9 +82,11 @@ test("paragraph and sentence explanations credit a reader under the text, and ta
   assert.doesNotMatch(source, /useContributor|person\.|XCrun/, "source kind must not depend on loaded public profiles or a nickname");
   const sentence = panel.slice(panel.indexOf("function SentenceNote"), panel.indexOf("type MarkBox"));
   assert.match(sentence, /<button[\s\S]*?aria-pressed=\{chosen\}[\s\S]*?data-part="sentence-context"[\s\S]*?data-part="easier"[\s\S]*?<HelpSource credit=\{note\.credit\} \/>/);
-  // Both kinds: one tab each; a word card's sentence opens on the sentence tab.
-  assert.match(panel, /role="tablist"[\s\S]*?data-part="help-tabs"/);
-  assert.match(panel, /setChosen\(at\);\s*setTab\("sentences"\);/);
+  // One kind of help at a time, by where the reader came from: never a paragraph note and the
+  // sentence notes inside it together (they often say the same thing twice).
+  assert.doesNotMatch(panel, /role="tablist"/);
+  assert.match(panel, /asked\.length > 0 \? "sentence" : paragraph \? "paragraph" : "sentences"/);
+  assert.match(panel, /const showParagraph = mode === "paragraph";/);
   assert.match(panel, /data-part="help-footer"/);
 });
 

@@ -209,26 +209,26 @@ export function ParagraphPanel({
   // The simple retelling is what the ✦ is for, so it is open as soon as the panel appears.
   const [open, setOpen] = useState(true);
   const paragraph = state.status === "ready" ? state.view.paragraph : null;
-  const sentences = state.status === "ready" ? state.view.sentences : [];
+  const allSentences = state.status === "ready" ? state.view.sentences : [];
+  // ONE kind of help at a time, chosen by where the reader came from, so the same idea is never
+  // shown twice (a paragraph note and a sentence note inside it often say the same thing):
+  // - the word card's "Explain this sentence": only the note of that sentence;
+  // - the ✦: the paragraph note, or the paragraph's sentence notes when it has no paragraph note.
+  const asked = startSentence
+    ? allSentences.filter((note) => containsContext(startSentence, note.context))
+    : [];
+  const mode: "sentence" | "paragraph" | "sentences" =
+    asked.length > 0 ? "sentence" : paragraph ? "paragraph" : "sentences";
+  const sentences = mode === "sentence" ? asked : mode === "sentences" ? allSentences : [];
   const [chosen, setChosen] = useState<number | null>(null);
-  // Both kinds of help: one tab each, so a phone sheet shows one at a time instead of a long stack.
-  const both = Boolean(paragraph) && sentences.length > 0;
-  const [tab, setTab] = useState<"paragraph" | "sentences">("paragraph");
-  // Coming from a word card, the note of that sentence is the one the reader asked about.
+  // The sentence the reader asked about starts chosen, so it is marked strongly in the page.
   useEffect(() => {
-    if (!startSentence || sentences.length === 0) return;
-    const at = sentences.findIndex((note) => containsContext(startSentence, note.context));
-    if (at >= 0) {
-      setChosen(at);
-      setTab("sentences");
-    }
-    // Only when the notes arrive: a later click picks freely.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sentences.length, startSentence]);
-  const showParagraph = Boolean(paragraph) && (!both || tab === "paragraph");
-  const showSentences = sentences.length > 0 && (!both || tab === "sentences");
+    if (mode === "sentence") setChosen(0);
+  }, [mode]);
+  const showParagraph = mode === "paragraph";
+  const showSentences = sentences.length > 0;
   // With no sentence marked, keep the paragraph itself in view above a phone sheet. (The marks
-  // reveal their own sentence when the sentence tab is on.)
+  // reveal their own sentence.)
   const ready = state.status !== "loading";
   useEffect(() => {
     if (!ready || showSentences || !paragraphEl || !onRevealSentence) return;
@@ -296,45 +296,13 @@ export function ParagraphPanel({
           </p>
         ) : (
           <>
-            {both ? (
-              <div
-                role="tablist"
-                aria-label={t("hp.panelAria")}
-                className="grid grid-cols-2 gap-1 rounded-xl bg-paper/70 p-1"
-                data-part="help-tabs"
-              >
-                {(["paragraph", "sentences"] as const).map((kind) => (
-                  <button
-                    key={kind}
-                    type="button"
-                    role="tab"
-                    aria-selected={tab === kind}
-                    data-tab={kind}
-                    onClick={(event) => {
-                      setTab(kind);
-                      // A new tab starts at its top; the browser's scroll anchoring would keep the old offset.
-                      event.currentTarget.closest("aside")?.scrollTo?.(0, 0);
-                    }}
-                    className={cn(
-                      "min-h-10 rounded-lg px-3 text-sm font-medium transition-colors",
-                      tab === kind ? "bg-card text-ink shadow-xs" : "text-muted hover:text-ink",
-                    )}
-                  >
-                    {kind === "paragraph"
-                      ? t("hp.tabParagraph")
-                      : `${t("hp.tabSentences")} · ${sentences.length}`}
-                  </button>
-                ))}
-              </div>
-            ) : null}
-
             {showParagraph && paragraph ? (
               <section
                 className="grid min-w-0 gap-4"
                 aria-label={t("hp.paragraphSection")}
                 data-part="paragraph-help"
               >
-                {both ? null : <h3 className="sr-only">{t("hp.paragraphSection")}</h3>}
+                <h3 className="sr-only">{t("hp.paragraphSection")}</h3>
                 <section className="grid gap-1" aria-label={t("hp.mainIdea")}>
                   <h4 className="text-xs font-semibold tracking-wide text-accent">{t("hp.mainIdea")}</h4>
                   <p
@@ -404,7 +372,7 @@ export function ParagraphPanel({
                 aria-label={t("hp.sentenceSection")}
                 data-part="sentences"
               >
-                {both ? null : <h3 className="sr-only">{t("hp.sentenceSection")}</h3>}
+                <h3 className="sr-only">{t("hp.sentenceSection")}</h3>
                 {sentences.map((note, at) => (
                   <SentenceNote
                     key={`${at}:${note.context}`}
