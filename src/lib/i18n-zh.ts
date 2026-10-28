@@ -634,10 +634,10 @@ export const zh: Record<Key, string> = {
   "other.chapters.other": "第 {list} 章",
 
   /* ---- paragraph and sentence help */
-  "hp.sourceIntro": "解析保存在词表中，采用的读者贡献会单独署名。",
   "hp.paragraphSection": "段落解析",
   "hp.sentenceSection": "句子解析",
-  "hp.sourceBook": "词表解析",
+  "hp.tabParagraph": "段落",
+  "hp.tabSentences": "难句",
   "hp.sourceReader": "读者贡献",
   "hp.original": "原文",
   "hp.explanation": "解释",
@@ -788,7 +788,7 @@ export const zh: Record<Key, string> = {
   "about.markHard": "词下面的直线：一个难词。点一点看看。",
   "about.markPhrase": "词下面的点线：这个词属于一个短语。点一点看看。",
   "about.markTricky": "词下面的波浪线：这个词你可能认识，但在这里是别的意思。点一点看看。",
-  "about.markBulb": "段落旁边的灯泡：这一段有一条说明，帮你读懂整段。",
+  "about.markBulb": "段落末尾的 ✦：点一下，看这一段或段中难句的解析。",
   "about.listsTitle": "老师做的词表",
   "about.listsBody":
     "每本书都有一份老师写的词表。老师挑出难词和短语，用简单的英文写出意思，并给难懂的段落写说明。你读书时，没有电脑在现场编造内容。",

@@ -15,7 +15,7 @@ import { createRequire } from "node:module";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const require = createRequire(join(ROOT, "package.json"));
 
-const FILES = ["cancel-work", "shelf-identity", "cover-plan", "cover-request", "covers", "cloud-cover", "router", "flow-text", "errors", "epub", "lexile", "book-meta", "glossary-format", "pack-check", "text", "easy-words", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "word-list-plan", "paragraph-bulbs", "can-add", "account-store", "file-offer", "hyphenate", "gloss-point", "gloss-ref", "list-updated", "chapter-link"];
+const FILES = ["cancel-work", "shelf-identity", "cover-plan", "cover-request", "covers", "cloud-cover", "router", "flow-text", "errors", "epub", "lexile", "book-meta", "glossary-format", "pack-check", "text", "easy-words", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "word-list-plan", "can-add", "account-store", "file-offer", "hyphenate", "gloss-point", "gloss-ref", "list-updated", "chapter-link"];
 
 function installDom() {
   let JSDOM;
@@ -87,14 +87,14 @@ async function initialize() {
     // Stay below node_modules so epub.js can still lazily import jszip.
     // Settle every import before removing failed output; sibling imports may still be reading it.
     const loaded = await Promise.allSettled(
-      ["epub", "glossary-format", "text", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "pack-check", "book-meta", "flow-text", "shelf-identity", "cover-plan", "covers", "router", "word-list-plan", "paragraph-bulbs", "can-add", "account-store", "file-offer", "hyphenate", "gloss-ref", "list-updated", "chapter-link", "cloud-cover"].map((name) =>
+      ["epub", "glossary-format", "text", "help-match", "paragraph-note", "edition-match", "basic-words-data", "basic-words", "pack-check", "book-meta", "flow-text", "shelf-identity", "cover-plan", "covers", "router", "word-list-plan", "can-add", "account-store", "file-offer", "hyphenate", "gloss-ref", "list-updated", "chapter-link", "cloud-cover"].map((name) =>
         import(pathToFileURL(join(out, `${name}.js`)).href),
       ),
     );
     const failed = loaded.find((result) => result.status === "rejected");
     if (failed) throw failed.reason;
-    const [epub, format, text, help, paragraphNote, edition, basicData, basic, packCheck, meta, flow, identity, coverPlan, covers, router, wordListPlan, bulbs, canAdd, accountStore, fileOffer, hyphenate, glossRef, listUpdated, chapterLink, cloudCover] = loaded.map((result) => result.value);
-    return { cloudCover, epub, format, text, help, paragraphNote, edition, basic: { ...basicData, ...basic }, packCheck, meta, flow, identity, coverPlan, covers, router, wordListPlan, bulbs, canAdd, accountStore, fileOffer, hyphenate, glossRef, listUpdated, chapterLink };
+    const [epub, format, text, help, paragraphNote, edition, basicData, basic, packCheck, meta, flow, identity, coverPlan, covers, router, wordListPlan, canAdd, accountStore, fileOffer, hyphenate, glossRef, listUpdated, chapterLink, cloudCover] = loaded.map((result) => result.value);
+    return { cloudCover, epub, format, text, help, paragraphNote, edition, basic: { ...basicData, ...basic }, packCheck, meta, flow, identity, coverPlan, covers, router, wordListPlan, canAdd, accountStore, fileOffer, hyphenate, glossRef, listUpdated, chapterLink };
   } catch (error) {
     cleanup();
     if (generatedDir === out) generatedDir = undefined;

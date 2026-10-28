@@ -62,18 +62,21 @@ try {
     assert.equal(typography.weatherFont, "normal");
     assert.deepEqual(typography.words, ["unbelievable", "weather", "today"]);
     const geometry = await page.evaluate(() => {
-      const bulb = document.querySelector("[data-para-marker]");
-      const rect = bulb.getBoundingClientRect();
-      const paragraph = document.querySelectorAll("article p")[Number(bulb.dataset.paraMarker)];
-      const range = document.createRange();
-      range.selectNodeContents(paragraph);
+      // The ✦ is an empty span after the paragraph's last word, on that word's line.
+      const mark = document.querySelector("[data-para-marker]");
+      const rect = mark.getBoundingClientRect();
+      const paragraph = document.querySelectorAll("article p")[Number(mark.dataset.paraMarker)];
+      const words = paragraph.querySelectorAll("[role=button][data-word]");
+      const last = words[words.length - 1].getBoundingClientRect();
       return {
         inside: rect.left >= 0 && rect.right <= innerWidth,
-        overlap: [...range.getClientRects()].some(r => r.width > 0 && r.height > 0 && rect.left < r.right && rect.right > r.left && rect.top < r.bottom && rect.bottom > r.top),
+        owned: paragraph.contains(mark) && mark.textContent === "",
+        afterLastWord: rect.left >= last.right - 1 && Math.abs((rect.top + rect.bottom) / 2 - (last.top + last.bottom) / 2) < last.height / 2,
       };
     });
     assert.equal(geometry.inside, true);
-    assert.equal(geometry.overlap, false);
+    assert.equal(geometry.owned, true);
+    assert.equal(geometry.afterLastWord, true);
     const position = await page.locator("article").boundingBox();
     await page.locator('[role=button][data-word="lantern"] .book-tap').first().click();
     await page.waitForSelector("[data-word-card]");
@@ -84,7 +87,7 @@ try {
     await page.waitForSelector("[data-word-card]", { state: "detached" });
     assert.equal(await page.locator("[role=button][data-word].book-on").count(), 0);
     assert.deepEqual(errors, []);
-    console.log(`PASS ${width}px: centered text, inline-word formatting, bulbs, selection and overlay stability`);
+    console.log(`PASS ${width}px: centered text, inline-word formatting, help marks, selection and overlay stability`);
     await page.close();
   }
 } finally {
