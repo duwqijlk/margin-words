@@ -1,0 +1,51 @@
+<!doctype html>
+<!--
+  Cloudflare Pages answers every address it cannot match with this page and status 404.
+
+  Without a top-level 404.html, Pages treats the site as a single-page app and answers a missing
+  address with index.html and status 200. A missing /assets/<hash>.js then got the app page instead
+  of a 404, under /assets/*'s one-year immutable cache rule. The app's own addresses are listed one
+  by one in _redirects (see the note there), so they still open the app; only a real miss lands here.
+
+  Plain HTML, no script, no outside file: it must show on the oldest e-ink browser too. English only,
+  because Chinese text may not live in public/ (AGENTS.md); the reader UI's languages are in the app.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Page not found · inputread</title>
+    <style>
+      html { background: #f8f6f0; color: #1f1d1a; }
+      body {
+        margin: 0;
+        padding: 18vh 24px 48px;
+        font-family: Georgia, "Times New Roman", serif;
+        text-align: center;
+      }
+      h1 { margin: 0 0 12px; font-size: 28px; font-weight: 600; }
+      p { margin: 0 0 28px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 16px; line-height: 1.6; color: #6b665e; }
+      a {
+        display: inline-block;
+        padding: 10px 22px;
+        border-radius: 999px;
+        background: #235948;
+        color: #ffffff;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 15px;
+        text-decoration: none;
+      }
+      @media (prefers-color-scheme: dark) {
+        html { background: #17191c; color: #ece8e1; }
+        p { color: #a39d93; }
+        a { background: #7fc6a8; color: #10221b; }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Page not found</h1>
+    <p>This address is not part of inputread.</p>
+    <a href="/shelf/">Open your shelf</a>
+  </body>
+</html>
