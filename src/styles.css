@@ -1118,3 +1118,123 @@
     transform: translateY(-2px);
   }
 }
+
+/*
+ * Overview contributors (overview-people.tsx). The still state below is the finished picture, so it is
+ * what reduced motion and older browsers show; the animations only play under no-preference.
+ */
+.credit-bar {
+  transform: scaleX(var(--share, 1));
+  transform-origin: left center;
+}
+.credit-face-lead::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 2px solid rgb(var(--mark-rgb));
+  pointer-events: none;
+}
+.credit-cover {
+  transform: rotate(calc((var(--k, 0) - 1) * 3deg));
+  transition: margin 0.25s ease, transform 0.25s ease;
+}
+.credit-cover + .credit-cover {
+  margin-left: -0.5rem;
+}
+@media (min-width: 40rem) {
+  .credit-cover + .credit-cover {
+    margin-left: -0.7rem;
+  }
+}
+.credit-row:hover .credit-cover + .credit-cover {
+  margin-left: 0.2rem;
+}
+.credit-row:hover .credit-cover {
+  transform: rotate(0deg) translateY(-2px);
+}
+
+/* The demo: a tapped word, its card, a meaning typed in, then reviewed. */
+.help-demo-word {
+  border-bottom: 2px solid rgb(var(--accent-rgb) / 0.55);
+  background: rgb(var(--mark-rgb) / 0.7);
+  border-radius: 2px;
+}
+.help-demo-word::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  margin: -1.1rem 0 0 -1.1rem;
+  border-radius: 9999px;
+  background: rgb(var(--accent-rgb) / 0.25);
+  opacity: 0;
+  pointer-events: none;
+}
+.help-demo-card {
+  transform-origin: 30% 0;
+}
+
+@keyframes credit-grow {
+  from { transform: scaleX(0); }
+}
+@keyframes credit-ring {
+  0% { opacity: 0; transform: scale(0.7); }
+  60% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes credit-fan {
+  from { opacity: 0; transform: translateY(10px) rotate(-10deg); }
+}
+@keyframes help-tap {
+  0%, 4% { opacity: 0; transform: scale(0.3); }
+  8% { opacity: 1; transform: scale(1); }
+  14%, 100% { opacity: 0; transform: scale(1.6); }
+}
+@keyframes help-word {
+  0%, 5% { background-color: transparent; }
+  9%, 92% { background-color: rgb(var(--mark-rgb) / 0.7); }
+  100% { background-color: transparent; }
+}
+@keyframes help-card {
+  0%, 10% { opacity: 0; transform: translateY(6px) scale(0.96); }
+  16%, 92% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(6px) scale(0.98); }
+}
+@keyframes help-ask {
+  0%, 20% { transform: none; color: rgb(var(--muted-rgb)); }
+  24% { transform: scale(1.35); color: rgb(var(--accent-rgb)); }
+  28%, 100% { transform: none; color: rgb(var(--accent-rgb)); }
+}
+@keyframes help-type {
+  0%, 30% { clip-path: inset(0 100% 0 0); }
+  56%, 100% { clip-path: inset(0 0 0 0); }
+}
+@keyframes help-done {
+  0%, 62% { opacity: 0; transform: translateY(4px); }
+  67%, 92% { opacity: 1; transform: none; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .credit-bar {
+    animation: credit-grow 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 60ms + 250ms);
+  }
+  .credit-face-lead::after {
+    animation: credit-ring 0.8s 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .credit-cover {
+    animation: credit-fan 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 60ms + var(--k, 0) * 90ms + 300ms);
+  }
+  .help-demo-word { animation: help-word 8s ease-in-out infinite; }
+  .help-demo-word::after { animation: help-tap 8s ease-out infinite; }
+  .help-demo-card { animation: help-card 8s cubic-bezier(0.2, 0.7, 0.2, 1) infinite; }
+  .help-demo-ask { animation: help-ask 8s ease-in-out infinite; }
+  .help-demo-type { animation: help-type 8s steps(14, end) infinite; }
+  .help-demo-done { animation: help-done 8s ease-out infinite; }
+
+}
