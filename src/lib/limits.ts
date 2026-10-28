@@ -24,6 +24,13 @@ export const SYNC_BODY_MAX = 1_500_000;
 /** The client's own target per request, leaving room under SYNC_BODY_MAX. */
 export const SYNC_BODY_TARGET = 900_000;
 
+/**
+ * How far back a sync cursor reaches before the moment of the pull. A write stamped just before a
+ * pull can still be committing while the pull reads; the next pull asks again for this window, and
+ * reading the same rows twice is harmless (merging an item with itself changes nothing).
+ */
+export const SYNC_CURSOR_OVERLAP_MS = 60_000;
+
 /** Longest meaning a reader may suggest with a word report, in characters. */
 export const SUGGESTION_MAX = 200;
 
