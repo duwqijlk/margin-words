@@ -14,7 +14,7 @@ test("IPA lookup is exact before controlled initial-capital fallback", async () 
   assert.equal((await lookup("Bow")).entry.UK[0].ipa, "bəʊ");
   assert.equal((await lookup("Bath")).match, "lowercase-fallback");
   assert.deepEqual((await lookup("Water")).entry.US, []);
-  for (const word of ["BOW", "bOw", "baths", "bath time", "__proto__", "", "constructor"]) assert.equal(await lookup(word), null, word);
+  for (const word of ["BOW", "bOw", "bath time", "__proto__", "", "constructor"]) assert.equal(await lookup(word), null, word);
 });
 
 test("IPA shares a shard in flight and after success", async () => {
@@ -81,4 +81,47 @@ test("warming fetches each needed shard once, ahead of the tap, and a failure st
   failW = false;
   assert.equal((await lookup("water")).entry.UK[0].ipa, "ˈwɔːtə");
   assert.equal(loads.w, 2);
+});
+
+test("a lower-case word with no entry uses its capitalised one; an existing lower-case entry wins", async () => {
+  const lookup = createIpaLookup(async () => ({ version: "fixture", loaders: {
+    f: async () => shard({ French: entry("frentʃ") }),
+    p: async () => shard({ polish: entry("ˈpɒlɪʃ", "ˈpɑːlɪʃ"), Polish: entry("ˈpəʊlɪʃ", "ˈpoʊlɪʃ") }),
+  } }));
+  assert.deepEqual(await lookup("french"), { word: "French", match: "capital-fallback", entry: entry("frentʃ") });
+  assert.equal((await lookup("polish")).entry.UK[0].ipa, "ˈpɒlɪʃ");
+});
+
+test("a key cut short by the plural rule gets the tapped word's reading", async () => {
+  const lookup = createIpaLookup(async () => ({ version: "fixture", loaders: {
+    p: async () => shard({ perhaps: entry("pəˈhæps", "pərˈhæps") }),
+  } }));
+  assert.equal(await lookup("perhap"), null);
+  const found = await lookup("perhap", "Perhaps");
+  assert.equal(found.word, "perhaps");
+  assert.equal(found.entry.UK[0].ipa, "pəˈhæps");
+  assert.equal(lookup.now("perhap", "Perhaps").word, "perhaps");
+});
+
+test("regular endings are worked out from the base word, per accent, and marked derived", async () => {
+  const lookup = createIpaLookup(async () => ({ version: "fixture", loaders: {
+    p: async () => shard({ peer: entry("pɪə(r)", "pɪr") }),
+    g: async () => shard({ glance: entry("ɡlɑːns", "ɡlæns") }),
+    w: async () => shard({ wait: entry("weɪt"), watch: entry("wɒtʃ", "wɑːtʃ") }),
+    m: async () => shard({ mutter: entry("ˈmʌtə(r)", "ˈmʌtər") }),
+    t: async () => shard({ tiny: entry("ˈtaɪni") }),
+    d: async () => shard({ dip: entry("dɪp"), dog: entry("dɒɡ", "dɔːɡ") }),
+  } }));
+  const read = async (word) => { const found = await lookup(word); return found && [found.match, found.entry.UK[0]?.ipa, found.entry.US[0]?.ipa]; };
+  assert.deepEqual(await read("peered"), ["derived", "pɪəd", "pɪrd"]);
+  assert.deepEqual(await read("peering"), ["derived", "ˈpɪərɪŋ", "ˈpɪrɪŋ"]);
+  assert.deepEqual(await read("glanced"), ["derived", "ɡlɑːnst", "ɡlænst"]);
+  assert.deepEqual(await read("waited"), ["derived", "ˈweɪtɪd", "ˈweɪtɪd"]);
+  assert.deepEqual(await read("watches"), ["derived", "ˈwɒtʃɪz", "ˈwɑːtʃɪz"]);
+  assert.deepEqual(await read("muttered"), ["derived", "ˈmʌtəd", "ˈmʌtərd"]);
+  assert.deepEqual(await read("muttering"), ["derived", "ˈmʌtərɪŋ", "ˈmʌtərɪŋ"]);
+  assert.deepEqual(await read("tiniest"), ["derived", "ˈtaɪniɪst", "ˈtaɪniɪst"]);
+  assert.deepEqual(await read("dipped"), ["derived", "dɪpt", "dɪpt"]);
+  assert.deepEqual(await read("dogs"), ["derived", "dɒɡz", "dɔːɡz"]);
+  assert.equal(await lookup("pear"), null, "no base, no guess");
 });

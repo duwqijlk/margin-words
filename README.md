@@ -81,6 +81,7 @@ The novels are a separate matter:
 | Public-domain books | Public domain. Their files are not in git. The books host serves them. |
 | Books still under copyright | Not in this repository. This project does not host, sell, or share them. Discover lists a word list and an ISBN. The reader brings their own legal EPUB. |
 | Word lists (`glossary.json`) | Study notes for this app. A short quotation in a note stays with its author and publisher. |
+| Pronunciation data (`src/data/ipa/`) | A cleaned snapshot redistributed with permission ([docs/LOCAL_IPA_DATA.md](docs/LOCAL_IPA_DATA.md)). American readings it lacked are filled from [CMUdict](https://github.com/cmusphinx/cmudict), Copyright (C) 1993-2015 Carnegie Mellon University, BSD-2-Clause; the notice is in [public/licenses/cmudict.txt](public/licenses/cmudict.txt). |
 | [English Read](https://github.com/bitbw/english-read) | A separate project, Copyright (c) 2026 English Read contributors, [MIT](https://github.com/bitbw/english-read/blob/main/LICENSE). Margin Words was inspired by it and is its own app. |
 
 Questions about a copyrighted excerpt: open an issue at <https://github.com/duwqijlk/margin-words/issues>.

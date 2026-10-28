@@ -21,7 +21,9 @@ function validateReadings(value, location) {
     if (item.pos !== undefined && (typeof item.pos !== "string" || item.pos.length > 40)) {
       invalid(`${location}[${index}] has invalid annotation`);
     }
-    if (Object.keys(item).some(key => key !== "ipa" && key !== "pos")) invalid(`${location}[${index}] has an unknown field`);
+    // `src: "cmu"` marks an American reading filled from CMUdict (scripts/ipa-cmudict.py).
+    if (item.src !== undefined && item.src !== "cmu") invalid(`${location}[${index}] has an unknown source`);
+    if (Object.keys(item).some(key => key !== "ipa" && key !== "pos" && key !== "src")) invalid(`${location}[${index}] has an unknown field`);
   }
 }
 

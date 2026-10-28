@@ -619,6 +619,7 @@ export const en = {
   "ipa.loading": "Loading pronunciation…",
   "ipa.missing": "No local pronunciation found.",
   "ipa.failed": "Pronunciation could not load. Reopen this card to retry.",
+  "ipa.derived": "Worked out from the base word",
   "ipa.unavailable": "Not available",
   "ipa.listenUk": "Play British pronunciation",
   "ipa.listenUs": "Play American pronunciation",

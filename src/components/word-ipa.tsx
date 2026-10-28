@@ -26,13 +26,20 @@ export function warmIpaFor(text: string): void {
 
 type LoadState = { word: string; status: "loading" | "ready" | "missing" | "error"; result?: IpaMatch };
 
-function Reading({ reading }: { reading: IpaReading }) {
-  return <span className="break-words" lang="en" data-ipa-reading>/{reading.ipa}/</span>;
+function Reading({ reading, derived }: { reading: IpaReading; derived: boolean }) {
+  const { t } = useT();
+  return (
+    <span className="break-words" lang="en" data-ipa-reading data-ipa-derived={derived || undefined}>
+      {/* Worked out from the base word by a regular ending, not read from a dictionary. */}
+      {derived ? <span className="mr-0.5 text-muted" title={t("ipa.derived")} aria-label={t("ipa.derived")}>≈</span> : null}
+      /{reading.ipa}/
+    </span>
+  );
 }
 
 /** What is known about `word` without waiting: drawn on the card's first frame when the shard is here. */
-function initial(word: string): LoadState {
-  const now = lookupLocalIpa.now(word);
+function initial(word: string, also?: string): LoadState {
+  const now = lookupLocalIpa.now(word, also);
   if (now === undefined) return { word, status: "loading" };
   return now ? { word, status: "ready", result: now } : { word, status: "missing" };
 }
@@ -42,22 +49,24 @@ function initial(word: string): LoadState {
  * so the card keeps one height: while the pronunciation loads, a faint bar holds the reading's place.
  * `pending`: the card has not decided yet whether this is a word or a phrase; the rows stay, silent.
  */
-export function WordIpa({ word, pending = false }: { word: string; pending?: boolean }) {
+export function WordIpa({ word, surface, pending = false }: { word: string; surface?: string; pending?: boolean }) {
   const { t } = useT();
-  const [loaded, setLoaded] = useState<LoadState>(() => initial(word));
+  // The tapped spelling, tried when the list's key has no reading (perhap is the key for perhaps).
+  const also = surface?.replace(/^[^A-Za-z]+|[^A-Za-z]+$/g, "") || undefined;
+  const [loaded, setLoaded] = useState<LoadState>(() => initial(word, also));
   useEffect(() => {
     let current = true;
-    const known = initial(word);
+    const known = initial(word, also);
     setLoaded(known);
     if (known.status !== "loading") return;
-    lookupLocalIpa(word).then(result => {
+    lookupLocalIpa(word, also).then(result => {
       if (current) setLoaded(result ? { word, status: "ready", result } : { word, status: "missing" });
     }).catch(() => {
       if (current) setLoaded({ word, status: "error" });
     });
     return () => { current = false; };
-  }, [word]);
-  const state = loaded.word === word ? loaded : initial(word);
+  }, [word, also]);
+  const state = loaded.word === word ? loaded : initial(word, also);
   return (
     <section className="word-ipa grid min-w-0 gap-1.5 text-sm leading-relaxed" aria-label={t("ipa.title")} aria-busy={state.status === "loading" || undefined} data-word-ipa data-ipa-word={word} data-ipa-status={state.status}>
       <div className="word-ipa-values">
@@ -67,14 +76,14 @@ export function WordIpa({ word, pending = false }: { word: string; pending?: boo
             <div key={locale} className="word-ipa-locale" data-ipa-locale={locale}>
               <span className="shrink-0 text-xs font-semibold text-muted">{t(locale === "UK" ? "ipa.uk" : "ipa.us")}</span>
               {reading ? (
-                <div className="min-w-0"><Reading reading={reading} /></div>
+                <div className="min-w-0"><Reading reading={reading} derived={reading.derived === true} /></div>
               ) : state.status === "loading" ? (
                 // Same line height as a reading, so the row does not grow when it arrives.
                 <span className="block h-[1.2em] w-[3.5em] max-w-full rounded bg-line/70" aria-hidden data-ipa-placeholder />
               ) : (
                 <span className="text-xs text-muted">{t("ipa.unavailable")}</span>
               )}
-              {pending ? <span className="word-ipa-speak-slot" aria-hidden /> : <SpeakButton text={word} accent={locale} compact />}
+              {pending ? <span className="word-ipa-speak-slot" aria-hidden /> : <SpeakButton text={state.status === "ready" && state.result ? state.result.word : word} accent={locale} compact />}
             </div>
           );
         })}
