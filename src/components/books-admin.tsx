@@ -7,11 +7,15 @@ import { parseEpub } from "@/lib/epub";
 import { btn, cn, field } from "@/components/ui";
 import { BUNDLED_CATALOG_URL } from "@/lib/packs";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
+import { normalizeTitle, replacesSameBook } from "@/lib/book-title";
+import { idFromTitle, isNewIdShape } from "@/lib/book-id";
 import type { ContentCategory } from "@/lib/content-category";
 import { publishAdminBook, type AdminBookKind } from "@/lib/admin-book-upload";
 
 type GlossaryInfo = {
+  /** Id hint from the file name. It finds an existing book; a new book's id comes from the title. */
   id: string;
+  title: string;
   name: string;
   text: string;
   file: File;
@@ -24,24 +28,40 @@ type GlossaryInfo = {
 
 type LiveRow = { category: ContentCategory; series: string; seriesNumber: number };
 
-/** What a live catalog row already says about this id (category, series), or null when the id is new. */
-async function catalogRow(id: string, kind: AdminBookKind): Promise<LiveRow | null> {
+/**
+ * The catalog row this glossary updates, found by the file-name id and then by title, or a new id
+ * made from the title (docs/BOOK_UPLOAD.md). An existing id is used as it is, however it is spelled.
+ */
+type Target = { id: string; isNew: boolean; live: LiveRow | null };
+
+async function catalogTarget(glossary: GlossaryInfo, kind: AdminBookKind): Promise<Target> {
   const [url, key] =
     kind === "public" ? [BUNDLED_CATALOG_URL, "packs"] : [WORD_LIST_CATALOG_URL, "lists"];
   const response = await fetch(url, { cache: "no-cache" });
   if (!response.ok) throw new Error("catalog-unavailable");
   const rows = ((await response.json()) as Record<string, unknown>)[key];
   if (!Array.isArray(rows)) throw new Error("catalog-unavailable");
-  const row = rows.find(
-    (item) => item && typeof item === "object" && (item as { id?: unknown }).id === id,
-  ) as { category?: unknown; series?: unknown; seriesNumber?: unknown } | undefined;
-  return row
-    ? {
+  type Row = { id?: unknown; title?: unknown; category?: unknown; series?: unknown; seriesNumber?: unknown };
+  const list = rows.filter((item): item is Row => Boolean(item) && typeof item === "object");
+  const titleKey = glossary.title ? normalizeTitle(glossary.title) : "";
+  const row =
+    // A file name that points at another book is ignored; the title decides.
+    list.find((item) => item.id === glossary.id && replacesSameBook(item.title, glossary.title)) ??
+    (titleKey ? list.find((item) => typeof item.title === "string" && normalizeTitle(item.title) === titleKey) : undefined);
+  if (row && typeof row.id === "string") {
+    return {
+      id: row.id,
+      isNew: false,
+      live: {
         category: row.category === "speech" ? "speech" : "novel",
         series: typeof row.series === "string" ? row.series : "",
         seriesNumber: typeof row.seriesNumber === "number" ? row.seriesNumber : 0,
-      }
-    : null;
+      },
+    };
+  }
+  // Public books are only updated here; the server answers unknown-id for a new one.
+  if (kind === "public") return { id: glossary.id, isNew: true, live: null };
+  return { id: idFromTitle(glossary.title, glossary.series, glossary.seriesNumber), isNew: true, live: null };
 }
 
 /** `jpeg` is the card file prepared while the thumbnail was drawn. */
@@ -61,6 +81,7 @@ const ERROR_KEYS: Record<string, string> = {
   "no-catalog": "admin.error",
   "cover-not-saved": "admin.books.coverFailed",
   "different-book": "admin.lists.differentBook",
+  "bad-new-id": "admin.lists.badNewId",
 };
 
 function dataUrlBytes(dataUrl: string): Uint8Array | null {
@@ -171,6 +192,9 @@ export function BooksAdmin() {
   const [metadataFor, setMetadataFor] = useState<{
     glossary: GlossaryInfo;
     kind: AdminBookKind;
+    /** The id this upload writes: the existing row's, or the new title slug. */
+    id: string;
+    isNew: boolean;
   } | null>(null);
 
   useEffect(() => {
@@ -178,16 +202,17 @@ export function BooksAdmin() {
     let alive = true;
     setMetadataBusy(true);
     setMetadataError(false);
-    void catalogRow(glossary.id, kind)
-      .then((live) => {
+    void catalogTarget(glossary, kind)
+      .then((target) => {
         if (!alive) return;
+        const live = target.live;
         setCategory(live?.category ?? glossary.category ?? "novel");
         setCategoryFrom(live ? "catalog" : glossary.category ? "file" : "");
         const name = live ? live.series : glossary.series;
         const number = live ? live.seriesNumber : glossary.seriesNumber;
         setSeries(name);
         setSeriesNumber(name && number > 0 ? String(number) : "");
-        setMetadataFor({ glossary, kind });
+        setMetadataFor({ glossary, kind, id: target.id, isNew: target.isNew });
       })
       .catch(() => {
         if (alive) setMetadataError(true);
@@ -226,6 +251,7 @@ export function BooksAdmin() {
     }
     if (read !== glossaryRead.current) return;
     let isbn = "";
+    let title = "";
     let words = 0;
     let fileCategory: ContentCategory | null = null;
     let fileSeries = "";
@@ -233,6 +259,7 @@ export function BooksAdmin() {
     try {
       const data = JSON.parse(text) as {
         isbn?: unknown;
+        title?: unknown;
         count?: unknown;
         glossary?: Record<string, unknown>;
         category?: unknown;
@@ -240,6 +267,7 @@ export function BooksAdmin() {
         seriesNumber?: unknown;
       };
       isbn = typeof data.isbn === "string" ? data.isbn.trim() : "";
+      title = typeof data.title === "string" ? data.title.trim() : "";
       words = Object.keys(data.glossary ?? {}).length;
       if (data.category === "speech" || data.category === "novel") fileCategory = data.category;
       if (typeof data.series === "string") fileSeries = data.series.trim();
@@ -251,6 +279,7 @@ export function BooksAdmin() {
     }
     setGlossary({
       id,
+      title,
       name: file.name,
       text,
       file,
@@ -298,6 +327,11 @@ export function BooksAdmin() {
     }
   }
 
+  const current = metadataFor && metadataFor.glossary === glossary && metadataFor.kind === kind ? metadataFor : null;
+  /** A new private book needs a title to name it; its title slug is always a valid new id. */
+  const targetProblem =
+    current?.isNew && kind === "private" && !isNewIdShape(current.id) ? "admin.lists.needsTitle" : "";
+
   async function publish() {
     if (
       !glossary ||
@@ -307,7 +341,8 @@ export function BooksAdmin() {
       metadataError ||
       epubBusy ||
       metadataFor?.glossary !== glossary ||
-      metadataFor?.kind !== kind
+      metadataFor?.kind !== kind ||
+      targetProblem
     )
       return;
     publishLock.current = true;
@@ -332,7 +367,7 @@ export function BooksAdmin() {
       }
       await publishAdminBook(
         {
-          id: glossary.id,
+          id: metadataFor.id,
           kind,
           category,
           isbn,
@@ -363,6 +398,7 @@ export function BooksAdmin() {
   }
 
   const ready = Boolean(
+    !targetProblem &&
     glossary &&
     epubFile &&
     !epubBusy &&
@@ -488,7 +524,13 @@ export function BooksAdmin() {
               className="mt-1 flex items-center gap-2 rounded-xl border border-accent/20 bg-accent-soft/60 px-3 py-2 text-xs font-semibold text-accent"
               data-admin-books-glossary-info
             >
-              <span>{glossary.id}</span>
+              <span data-admin-books-id>{current?.id || glossary.id}</span>
+              {current?.isNew && kind === "private" && !targetProblem ? (
+                <>
+                  <span className="text-muted/60">·</span>
+                  <span data-admin-books-new-id>{t("admin.books.newFromTitle")}</span>
+                </>
+              ) : null}
               <span className="text-muted/60">·</span>
               <span>{t("admin.books.words", { n: glossary.words })}</span>
               <span className="text-muted/60">·</span>
@@ -496,6 +538,11 @@ export function BooksAdmin() {
                 {t(category === "speech" ? "discover.cat.speech" : "discover.cat.novel")}
               </span>
             </div>
+          ) : null}
+          {targetProblem ? (
+            <p className="mt-1 text-xs text-warn" role="alert" data-admin-books-id-problem>
+              {t(targetProblem)}
+            </p>
           ) : null}
         </div>
 

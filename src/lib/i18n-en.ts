@@ -978,7 +978,7 @@ export const en = {
   "admin.series.books": "{n} books",
   "admin.series.kindSeries": "From the series name on the books",
   "admin.books.hint":
-    "The glossary file name picks the book id (a-book.glossary.json). The word list goes to Discover; the EPUB goes to the library you pick. The ISBN is read from the EPUB metadata, then the word list — or type one, or leave it empty.",
+    "A book already on the host is found by the glossary file name or its title; a new book gets an id made from its title, not from the file name. The word list goes to Discover; the EPUB goes to the library you pick. The ISBN is read from the EPUB metadata, then the word list — or type one, or leave it empty.",
   "admin.books.kind": "Book kind",
   "admin.books.category": "Category",
   "admin.books.categoryHint":
@@ -1044,6 +1044,13 @@ export const en = {
   "admin.lists.batch": "Publish {n} file(s)",
   "admin.lists.batchDone": "{ok} published, {failed} failed.",
   "admin.lists.newBook": "New book",
+  "admin.lists.newId": "New book id",
+  "admin.lists.newIdFromTitle": "Made from the title in the file. The file name is not used.",
+  "admin.lists.newIdShape": "Use lower-case letters and digits joined by single hyphens, up to 64 characters (no underscores, no \"custom\").",
+  "admin.lists.newIdNotTitle": "This id has words that are not in the title, like an abbreviation. The title gives \"{id}\". Tick to publish this id anyway.",
+  "admin.lists.fileNameIgnored": "The file name ({name}) is only a hint and does not set the id.",
+  "admin.lists.badNewId": "A new book needs an id made from its title: lower-case letters and digits joined by hyphens.",
+  "admin.books.newFromTitle": "new book, id from title",
   "admin.lists.update": "Update",
   "admin.lists.needsTitle":
     "This book is not on the host yet and the file has no title, so it cannot be onboarded.",
@@ -1051,7 +1058,7 @@ export const en = {
     "A book with this title already exists ({id}). Choose that book instead of a new word list.",
   "admin.lists.duplicate": "A book with this title already exists. Choose that book.",
   "admin.lists.differentBook":
-    "This file is a different book from the one that already uses this id. Rename the word-list file so the id is new, then upload it again.",
+    "This file is a different book from the one that already uses this id. Publish it as a new word list instead; its id comes from its title.",
   "admin.lists.publish": "Publish",
   "admin.lists.published": "Published. Discover picks it up right away.",
   "admin.lists.badGlossary": "That file is not a word-list JSON.",

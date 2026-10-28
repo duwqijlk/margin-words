@@ -6,16 +6,21 @@ import { accountPostRaw } from "@/lib/sync-engine";
 import { BUNDLED_CATALOG_URL } from "@/lib/packs";
 import { WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 import { normalizeTitle } from "@/lib/book-title";
+import { idFromTitle, LEGACY_ID, newIdProblem } from "@/lib/book-id";
 import { bookKey, matchGlossaryBook, type BookKind, type KnownBook } from "@/lib/glossary-target";
 import { btn, cn, field, selectCls } from "@/components/ui";
 
 type Preview =
-  | { ok: true; words: number; paragraphs: number; sentences: number; phrases: number; bytes: number; title: string; author: string; isbn: string }
+  | { ok: true; words: number; paragraphs: number; sentences: number; phrases: number; bytes: number; title: string; author: string; isbn: string; series: string; seriesNumber: number }
   | { ok: false; problem: string };
 
 type PendingFile = {
-  /** Id taken from the file name. Used only when this file is published as a new word list. */
+  /** Id taken from the file name: a hint for matching an existing book, and this row's key. */
   id: string;
+  /** The id a NEW word list gets: the title slug, which the admin may edit. The file name never decides it. */
+  newId: string;
+  /** The admin confirmed a new id that is not made of the title's words (an abbreviation). */
+  newIdConfirmed: boolean;
   name: string;
   text: string;
   preview: Preview;
@@ -26,7 +31,7 @@ type PendingFile = {
 };
 
 const NEW_TARGET = "new";
-const ID_PATTERN = /^[a-z0-9][a-z0-9_-]{0,63}$/;
+const ID_PATTERN = LEGACY_ID;
 type RowNote = { tone: "ok" | "warn"; text: string };
 type SortKey = "now" | "prev";
 
@@ -51,6 +56,8 @@ function previewOf(text: string): Preview {
     title?: unknown;
     author?: unknown;
     isbn?: unknown;
+    series?: unknown;
+    seriesNumber?: unknown;
     glossary: Record<string, unknown>;
     paragraphs?: unknown;
     sentences?: unknown;
@@ -61,6 +68,8 @@ function previewOf(text: string): Preview {
     title: textOf(record.title),
     author: textOf(record.author),
     isbn: textOf(record.isbn),
+    series: textOf(record.series),
+    seriesNumber: typeof record.seriesNumber === "number" && record.seriesNumber > 0 ? record.seriesNumber : 0,
     words: Number(record.count) || Object.keys(record.glossary).length,
     paragraphs: Array.isArray(record.paragraphs) ? record.paragraphs.length : 0,
     sentences: Array.isArray(record.sentences) ? record.sentences.length : 0,
@@ -69,7 +78,7 @@ function previewOf(text: string): Preview {
   };
 }
 
-/** a-book.glossary.json or a-book.json names the book id. */
+/** a-book.glossary.json or a-book.json hints at the book id. Only an existing book is found this way. */
 function idFromName(name: string): string {
   const base = name.replace(/\.(glossary)?\.json$/i, "");
   return base.trim().toLowerCase();
@@ -149,6 +158,7 @@ const ERROR_KEYS: Record<string, string> = {
   "bad-glossary": "admin.lists.badGlossary",
   "bad-json": "admin.lists.badGlossary",
   "bad-id": "admin.lists.error",
+  "bad-new-id": "admin.lists.badNewId",
   "too-large": "admin.lists.tooLarge",
   "no-books-bucket": "admin.error",
   "no-catalog": "admin.error",
@@ -305,6 +315,13 @@ export function WordListAdmin() {
     return byKey.get(file.target) ?? "";
   }
 
+  /** "" when the new id may be published as is; otherwise why not yet. */
+  function newIdIssue(file: PendingFile): "" | "shape" | "title" {
+    if (file.preview.ok !== true) return "shape";
+    const problem = newIdProblem(file.newId, file.preview.title, file.preview.series, file.preview.seriesNumber);
+    return problem === "title" && file.newIdConfirmed ? "" : problem;
+  }
+
   /** A new word list whose title is already on the host is a file aimed at the wrong book. */
   function blocked(file: PendingFile): KnownBook | undefined {
     if (chosen(file) !== "new") return undefined;
@@ -315,7 +332,7 @@ export function WordListAdmin() {
     if (file.preview.ok !== true || blocked(file)) return false;
     const pick = chosen(file);
     if (pick === "") return false;
-    if (pick === "new") return ID_PATTERN.test(file.id);
+    if (pick === "new") return newIdIssue(file) === "";
     return true;
   });
 
@@ -331,7 +348,8 @@ export function WordListAdmin() {
         preview.ok === true
           ? matchGlossaryBook(books, { fileId: id, title: preview.title, author: preview.author, isbn: preview.isbn })
           : null;
-      incoming.push({ id, name: file.name, text, preview, target: match ? bookKey(match) : "" });
+      const newId = preview.ok === true ? idFromTitle(preview.title, preview.series, preview.seriesNumber) : "";
+      incoming.push({ id, newId, newIdConfirmed: false, name: file.name, text, preview, target: match ? bookKey(match) : "" });
     }
     setFiles((current) => {
       const byId = new Map(current.map((file) => [file.id, file]));
@@ -346,6 +364,18 @@ export function WordListAdmin() {
     );
   }
 
+  function setNewId(fileId: string, newId: string) {
+    setFiles((current) =>
+      current.map((item) =>
+        item.id === fileId ? { ...item, newId, newIdConfirmed: false, result: undefined, resultNote: undefined } : item,
+      ),
+    );
+  }
+
+  function confirmNewId(fileId: string, confirmed: boolean) {
+    setFiles((current) => current.map((item) => (item.id === fileId ? { ...item, newIdConfirmed: confirmed } : item)));
+  }
+
   async function publish() {
     if (busy || publishable.length === 0) return;
     setBusy(true);
@@ -353,7 +383,7 @@ export function WordListAdmin() {
     let failed = 0;
     for (const file of publishable) {
       const pick = chosen(file);
-      const id = pick === "new" ? file.id : pick === "" ? "" : pick.id;
+      const id = pick === "new" ? file.newId : pick === "" ? "" : pick.id;
       const catalog = pick !== "new" && pick !== "" && pick.kind === "public" ? "&catalog=public" : "";
       try {
         await accountPostRaw(`/api/admin/word-lists?id=${encodeURIComponent(id)}${catalog}`, file.text);
@@ -555,7 +585,14 @@ export function WordListAdmin() {
             {files.map((file) => {
               const pick = chosen(file);
               const clash = blocked(file);
-              const canBeNew = file.preview.ok === true && file.preview.title && ID_PATTERN.test(file.id);
+              const canBeNew = file.preview.ok === true && Boolean(file.preview.title);
+              const idIssue = pick === "new" ? newIdIssue(file) : "";
+              const idWarn = pick === "new" && file.preview.ok === true
+                ? newIdProblem(file.newId, file.preview.title, file.preview.series, file.preview.seriesNumber)
+                : "";
+              const suggested = file.preview.ok === true
+                ? idFromTitle(file.preview.title, file.preview.series, file.preview.seriesNumber)
+                : "";
               return (
                 <li key={file.id} className="grid gap-2.5 rounded-xl border border-line/80 bg-paper/50 p-4 shadow-2xs" data-admin-list-item={file.id}>
                   <p className="font-mono text-sm font-bold text-ink">{file.name}</p>
@@ -586,7 +623,7 @@ export function WordListAdmin() {
                         onChange={(event) => setTarget(file.id, event.target.value)}
                       >
                         <option value="">{t("admin.lists.chooseBook")}</option>
-                        {canBeNew ? <option value={NEW_TARGET}>{t("admin.lists.newWordList", { id: file.id })}</option> : null}
+                        {canBeNew ? <option value={NEW_TARGET}>{t("admin.lists.newWordList", { id: file.newId })}</option> : null}
                         {lists.length > 0 ? (
                           <optgroup label={t("admin.lists.wordLists")}>
                             {lists.map((book) => (
@@ -628,6 +665,49 @@ export function WordListAdmin() {
                     </div>
                   ) : null}
                   {pick === "new" && !clash ? <p className="text-xs font-semibold text-accent">{t("admin.lists.newBook")}</p> : null}
+                  {pick === "new" && !clash ? (
+                    <div className="grid gap-1.5" data-admin-list-new-id={file.id}>
+                      <label className="grid gap-1 text-xs font-semibold text-muted" htmlFor={`admin-list-new-id-${file.id}`}>
+                        {t("admin.lists.newId")}
+                        <input
+                          id={`admin-list-new-id-${file.id}`}
+                          className={cn(field, "h-10 min-h-0 font-mono text-xs")}
+                          value={file.newId}
+                          maxLength={64}
+                          spellCheck={false}
+                          autoCapitalize="off"
+                          autoCorrect="off"
+                          disabled={busy}
+                          data-admin-list-new-id-input={file.id}
+                          onChange={(event) => setNewId(file.id, event.target.value.trim())}
+                        />
+                      </label>
+                      <p className="text-xs text-muted">{t("admin.lists.newIdFromTitle")}</p>
+                      {idWarn === "shape" ? (
+                        <p className="text-xs text-warn" role="alert" data-admin-list-new-id-problem="shape">
+                          {t("admin.lists.newIdShape")}
+                        </p>
+                      ) : null}
+                      {idWarn === "title" ? (
+                        <label className="flex items-start gap-2 text-xs text-warn" data-admin-list-new-id-problem="title">
+                          <input
+                            type="checkbox"
+                            className="mt-0.5"
+                            checked={file.newIdConfirmed}
+                            disabled={busy}
+                            data-admin-list-new-id-confirm={file.id}
+                            onChange={(event) => confirmNewId(file.id, event.target.checked)}
+                          />
+                          <span>{t("admin.lists.newIdNotTitle", { id: suggested })}</span>
+                        </label>
+                      ) : null}
+                      {idIssue === "" && file.newId !== file.id ? (
+                        <p className="text-xs text-muted" data-admin-list-file-hint={file.id}>
+                          {t("admin.lists.fileNameIgnored", { name: file.name })}
+                        </p>
+                      ) : null}
+                    </div>
+                  ) : null}
                   {file.preview.ok && pick === "" ? <p className="text-xs text-warn">{t("admin.lists.needBook")}</p> : null}
                   {clash ? (
                     <p className="text-xs text-warn" role="alert" data-admin-list-clash>
