@@ -54,7 +54,21 @@ export const DAILY_WRITE_BUDGET = {
   taps: 20_000,
 } as const;
 
+/**
+ * Clearing out old rows is housekeeping, not part of counting: a row only counts for its own
+ * (bucket, window_start), so an expired row left a little longer changes no limit. It used to run
+ * on EVERY limited request, two DELETEs that scan the whole table, and it was the largest D1 reader
+ * of the site (about 1.5 million rows read a week, more than half of all reads). Now each running
+ * instance clears at most once per PRUNE_EVERY_MS; many instances still keep the table small.
+ */
+export const PRUNE_EVERY_MS = 5 * 60 * 1000;
+/** Per running instance (module scope), not per binding object, which need not be reused. */
+let lastPrune = Number.NEGATIVE_INFINITY;
+
 async function prune(db: D1Database, now: number): Promise<void> {
+  // A clock that went back (or a test time earlier than the last one) prunes again.
+  if (now >= lastPrune && now - lastPrune < PRUNE_EVERY_MS) return;
+  lastPrune = now;
   await db
     .prepare(`DELETE FROM rate_limits WHERE bucket NOT LIKE '${DAILY_PREFIX}%' AND window_start < ?`)
     .bind(now - RATE_WINDOW_MS * 4)

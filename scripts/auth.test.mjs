@@ -38,7 +38,7 @@ import { handleWordTapsPost } from "../functions/api/analytics/word-taps.ts";
 import { handleAdminWordTapsGet, handleAdminWordTapsPost } from "../functions/api/admin/word-taps.ts";
 import { handleWordFeedbackPost } from "../functions/api/feedback/word.ts";
 import { handleAdminWordFeedbackGet, handleAdminWordFeedbackPost } from "../functions/api/admin/word-feedback.ts";
-import { DAILY_WRITE_BUDGET } from "../functions/lib/rate-limit.ts";
+import { assertIpRateLimit, DAILY_WRITE_BUDGET, PRUNE_EVERY_MS, RATE_WINDOW_MS } from "../functions/lib/rate-limit.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const NOW = 1_700_000_000_000;
@@ -2688,6 +2688,30 @@ test("the day's telemetry budget is a hard fuse, and a spent one writes nothing"
   );
   assert.equal(response.status, 429);
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS n FROM book_word_taps").get().n, 0, "nothing is written");
+});
+
+test("old rate-limit rows are still cleared, but at most once per PRUNE_EVERY_MS per instance", async () => {
+  const db = openDb();
+  const day = 24 * 60 * 60 * 1000;
+  // Far after every other test's clock, so this instance's last prune is not in the way.
+  const T = NOW + 400 * day;
+  const today = Math.floor(T / day) * day;
+  const put = (bucket, at) => db.raw.prepare("INSERT INTO rate_limits (bucket, window_start, hits) VALUES (?, ?, 1)").run(bucket, at);
+  const has = (bucket) => db.raw.prepare("SELECT COUNT(*) AS n FROM rate_limits WHERE bucket = ?").get(bucket).n > 0;
+  put("login:ip:old", T - 5 * RATE_WINDOW_MS);
+  put(`budget:taps:${today}`, today);
+  put("budget:taps:old", today - 3 * day);
+
+  await assertIpRateLimit(db, "taps", "1.2.3.4", T);
+  assert.equal(has("login:ip:old"), false, "an expired window is cleared");
+  assert.equal(has("budget:taps:old"), false, "a daily row from before yesterday is cleared");
+  assert.equal(has(`budget:taps:${today}`), true, "today's daily row stays");
+
+  put("login:ip:later", T - 5 * RATE_WINDOW_MS);
+  await assertIpRateLimit(db, "taps", "1.2.3.4", T + 60_000);
+  assert.equal(has("login:ip:later"), true, "no second clear within PRUNE_EVERY_MS");
+  await assertIpRateLimit(db, "taps", "1.2.3.4", T + PRUNE_EVERY_MS);
+  assert.equal(has("login:ip:later"), false, "cleared again once it has passed");
 });
 
 test("a signed-in account cannot loop the word-list endpoint", async () => {
