@@ -273,7 +273,9 @@ is the entry schema. The parts you need:
 ```
 
 - The key is the lemma in lower case. A shape the book uses (`peeked`) can be its own key or go
-  in `forms`.
+  in `forms`. A key is a real word, never a spelling cut short by the plural rule (`perhap`,
+  `themselve`, `sery`, `freez`). When you touch an entry with such a key, rename it to the real
+  word and put the book's shape in `forms` when it differs (GLOSSARY_FORMAT.md, after the field table).
 - An anchor is a place: `chapter` (0-based), `occurrence` (1-based count of that word form in the
   chapter), `form`, and `context` (6 to 12 words copied exactly from the book). `occurrence` and
   `context` come from the row; the chapter is the one in the **list's** edition that holds that

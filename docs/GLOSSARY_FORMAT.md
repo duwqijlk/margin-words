@@ -68,6 +68,13 @@ app finds the lemma of a tapped word with its own rules (plural `-s`, `-ies`, so
 nouns). If your word is shown as another shape (for example `cried` is its own entry, not `cry`),
 use the shape the book uses, or list it in `forms`.
 
+A key is a real word. That plural rule only cuts letters off: `perhaps` becomes `perhap`,
+`series` becomes `sery`, `freezes` becomes `freez`. Never write such a cut-off spelling as a key.
+The card shows the key as the headword and looks its pronunciation up by it. Write the real word
+(`perhaps`, `series`, `themselves`). When the book's shape is different from the key (`freezes` for
+`freeze`), list that shape in `forms`. A tap first tries the cut spelling, then the word as written,
+then `forms`, so the real key is found.
+
 ### Sense (one meaning)
 
 | Field | Needed | Meaning |

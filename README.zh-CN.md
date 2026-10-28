@@ -81,6 +81,7 @@ Required Notice: Copyright (c) 2026 XCRUN
 | 公版书 | 公有领域。文件不在 Git 里，由书籍站点提供。 |
 | 仍有版权的书 | 不在这个仓库里。本项目不托管、不出售、不分享这些书。“发现”只列出词表和书号。读者使用自己合法获得的 EPUB。 |
 | 词表（`glossary.json`） | 本应用的学习笔记。笔记里的短引文仍属于原作者和出版社。 |
+| 音标数据（`src/data/ipa/`） | 经授权再分发的清洗快照（见 [docs/LOCAL_IPA_DATA.md](docs/LOCAL_IPA_DATA.md)）。快照缺的美音由 [CMUdict](https://github.com/cmusphinx/cmudict) 补充，Copyright (C) 1993-2015 Carnegie Mellon University，BSD-2-Clause；许可原文见 [public/licenses/cmudict.txt](public/licenses/cmudict.txt)。 |
 | [English Read](https://github.com/bitbw/english-read) | 另一个项目，Copyright (c) 2026 English Read contributors，[MIT](https://github.com/bitbw/english-read/blob/main/LICENSE)。Margin Words 受到它的启发，但是独立的应用。 |
 
 如果某段引文不该出现在这里，请到 <https://github.com/duwqijlk/margin-words/issues> 告诉我们。

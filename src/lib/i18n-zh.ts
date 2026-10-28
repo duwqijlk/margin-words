@@ -601,6 +601,7 @@ export const zh: Record<Key, string> = {
   "ipa.loading": "正在加载音标…",
   "ipa.missing": "本地暂无此词音标。",
   "ipa.failed": "音标加载失败，重新打开词卡可重试。",
+  "ipa.derived": "根据原形推导",
   "ipa.unavailable": "暂无",
   "ipa.listenUk": "播放英音",
   "ipa.listenUs": "播放美音",

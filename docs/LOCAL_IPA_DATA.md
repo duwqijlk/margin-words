@@ -141,6 +141,33 @@ BNC 某些记录的 `word` 与 `headword` 不同，而发音可能仍是词元�
 
 主读音样例：运行时 `read` UK/US 均为 `riːd`，`wind` 均为 `wɪnd`，`record` UK 为 BNC 先到的 `ˈrekɔːd`、US 为 `ˈrekərd`，`use` UK/US 均为 `juːz`。`red`、`waɪnd`、`record` 的动词候选、`use` 的 /s/ 候选等仍可在原始审计中追溯，**不会展示在词卡**。不保证这个固定首选适合每个上下文含义，也不保证经独立验证的金标准准确率。选择首个显式候选只是收敛展示策略，不是新造音、全局音系替换或语言学纠错。
 
+## CMUdict 美音补充（`scripts/ipa-cmudict.py`）
+
+在上面的清洗快照之上，只补美音，不改已有读音：
+
+- 来源：[CMUdict](https://github.com/cmusphinx/cmudict)（Carnegie Mellon University Pronouncing Dictionary，BSD-2-Clause）。许可原文随网站发布在 `public/licenses/cmudict.txt`（`/licenses/cmudict.txt`），README 许可表有记录。英音从不取自 CMUdict，也不从美音转换。
+- 只取每个词的第一个读音，ARPAbet 转成快照的美音写法：`ɑː`、`ɔː`、`ɜːr`、`ər`、`e`、`oʊ`；重音号放在音节前（最大首音原则），单音节不标；主重音之后、紧挨主重音之前的次重音去掉；`IY` 在 `R` 前写 `ɪ`（here `hɪr`）；词尾清辅音后的 `AH0 L/N` 写 `(ə)l`/`(ə)n`；`ER0` 在元音前拆成 `ə` + 后一音节的 `r`。与快照已有美音对照：常用前 1 万词完全一致 75%，忽略次重音、`ə/ɪ`、`(ə)` 后 84%；差异多来自快照本身的混合写法（`ɚ`、`ɛ`、`g`）或词典间的正常异读。
+- 填入规则：快照词条没有美音时补上；快照没有的词，只在它属于常用词表（运行时 `--keep-list`，频率表只作筛选、不进数据）或出现在目录词表的键/forms/anchor form 里时新增（UK 为空）。与快照词条只差大小写的不加（不让 `french` 盖住 `French` 的英音）；词表里被复数规则截短的键（`goe`，因为 `goes` 存在）不取 CMUdict 里同拼写的罕见词。
+- 每条补充读音带 `"src":"cmu"`；脚本每次从去掉 `src:cmu` 的快照重新开始，结果可重复，`--check` 逐字节核对。版本变为 `local-ipa-primary-v2-cmudict-us-supplement-v1-<hash>`。
+- 当前结果：补美音 1,045 个词条，新增 16,003 个词（共 79,300 键）；26 个分片逐文件 gzip 合计约 951 KB（原 799 KB）。
+
+```sh
+python -I scripts/ipa-cmudict.py --cmudict /abs/cmudict.dict --keep-list /abs/en_50k.txt --glossaries /abs/glossaries-dir
+python -I scripts/ipa-cmudict.py --cmudict /abs/cmudict.dict --keep-list /abs/en_50k.txt --glossaries /abs/glossaries-dir --check
+python -I scripts/ipa-cmudict.py --cmudict /abs/cmudict.dict --compare
+```
+
+`--glossaries` 是一个目录，放目录书词表的 `glossary.json`（线上 R2 的 word-lists 与 public-books 加上 `packs/`）；新书上线后可重跑一次，让它们的生词也有美音。
+
+## 运行时查找顺序（`src/lib/local-ipa.ts`）
+
+1. 词表键原样；首字母大写的词回退全小写（Bath → bath）；**新增**：全小写且无此词条时回退首字母大写（french → French）。已有的小写词条始终优先（polish 不变成 Polish）。
+2. **新增**：键找不到时，试读者点的原词（`perhap` 是 perhaps 被复数规则截短的键，就用 `perhaps` 的读音；朗读也读这个词）。
+3. **新增**：仍找不到，或某一口音为空时，按规则词尾从原形推出（`src/lib/ipa-derive.ts`）：-ed 在 t/d 后读 /ɪd/、清辅音后 /t/、其余 /d/；-s 在 s z ʃ ʒ 后 /ɪz/、清辅音后 /s/、其余 /z/；-ing /ɪŋ/（英音 `(r)` 结尾补连音 r）；-er 英 `ə(r)`/美 `ər`；-est `ɪst`；重音不变。只用同一分片里存在的原形，不猜。推出的读音在词卡上前面加淡色 `≈`（“根据原形推导”）。不规则音变（baths /bɑːðz/）这些规则看不到，所以标出。
+4. 都没有时仍显示“暂无”，朗读按钮照常可用。
+
+覆盖（线上 218 个目录词表、482,843 个键，用运行时代码实测，不含第 2 步的原词回退）：任一口音有读音 88.72% → 96.29%；美音 87.88% → 96.21%；英音 86.76% → 94.58%。
+
 ## 生产构建与本地预览
 
 普通 `npm run build` 和 `npm run build:local` 使用已提交的 `src/data/ipa/` 快照，并把 26 个分片作为同源、内容哈希的 JSON 资源输出；运行时仍按首字母懒加载需要的分片。它们不需要 `LOCAL_IPA_DATA_DIR`，也不会把研究审计或合成预览入口放进生产输出。
