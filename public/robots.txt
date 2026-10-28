@@ -1,0 +1,11 @@
+# The public pages are the home page, Discover, the Guide and the Overview (see /sitemap.xml).
+# The word book, review, reader and admin screens belong to one reader's device and say nothing
+# to a search engine; /api/ is the account server.
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /words/
+Disallow: /review/
+Disallow: /read/
+
+Sitemap: https://inputread.site/sitemap.xml

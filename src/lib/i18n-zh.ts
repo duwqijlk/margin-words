@@ -64,6 +64,16 @@ export const zh: Record<Key, string> = {
   "error.reload": "重新加载页面",
   "nav.dueAria": "有 {n} 个词要复习",
 
+  /* ---- page titles */
+  "seo.title.discover": "发现英文原著 · inputread 英语阅读器",
+  "seo.title.guide": "使用说明 · inputread 英语阅读器",
+  "seo.title.dashboard": "网站数据 · inputread 英语阅读器",
+  "seo.title.words": "生词本 · inputread",
+  "seo.title.review": "复习 · inputread",
+  "seo.title.admin": "管理 · inputread",
+  "seo.title.read": "《{title}》 · inputread 阅读器",
+  "seo.title.reading": "阅读 · inputread",
+
   /* ---- guide */
   "guide.title": "使用说明",
   "guide.github": "在 GitHub 上看源代码",

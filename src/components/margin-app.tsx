@@ -36,6 +36,7 @@ import { AccountDialog } from "@/components/account-dialog";
 import { autoUpdateWordLists, useListUpdates } from "@/lib/word-list-update";
 import { rememberListPack, resolveFileOffer } from "@/lib/file-gap";
 import { useLiveGlossMeanings } from "@/components/presented-word";
+import { applyPageMeta, pageMeta } from "@/lib/page-meta";
 
 type Screen = Route;
 
@@ -329,6 +330,14 @@ export function MarginApp() {
     wasReading.current = screen.kind === "read";
     if (leftReader) void autoUpdateWordLists();
   }, [screen.kind]);
+  // Tab title, canonical address and index rule of the screen (src/lib/page-meta.ts).
+  const readTitle = screen.kind === "read" ? (books.find((book) => book.id === screen.bookId)?.title ?? "") : "";
+  const meta = pageMeta(screen, Boolean(readTitle));
+  const metaTitle = meta.titleKey ? t(meta.titleKey, { title: readTitle }) : null;
+  useEffect(() => {
+    applyPageMeta(meta, metaTitle);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [metaTitle, meta.canonical, meta.index]);
   const reading = screen.kind === "read";
   const menu = menuOf(screen);
   const tabs = [

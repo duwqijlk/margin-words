@@ -13,6 +13,7 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icons/icon-180.png" />
     <script>
+      document.documentElement.setAttribute("data-js","");
       try{var p=JSON.parse(localStorage.getItem("cibian-prefs-v1")||"{}");var t=p.state&&p.state.theme;if(t==="dark"||t==="sepia"||t==="light"||t==="clear")document.documentElement.setAttribute("data-theme",t)}catch(e){}
       try{if(window.fetch)fetch("/admin",{cache:"reload"}).catch(function(){});}catch(e){}
     </script>
@@ -50,8 +51,10 @@
         function record(text) {
           if (text && seen.length < 3) seen.push(String(text));
         }
+        // The build puts a plain-HTML introduction for search engines in #root (scripts/seo-plugin.mjs).
+        // React replaces it when the app mounts, so "mounted" means it is gone.
         function mounted() {
-          return root.childNodes.length > 0;
+          return root.childNodes.length > 0 && !document.getElementById("seo-intro");
         }
 
         /**

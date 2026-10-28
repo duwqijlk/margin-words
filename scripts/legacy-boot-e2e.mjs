@@ -97,7 +97,8 @@ async function boot(noModules) {
   await page.goto(BASE + "shelf", { waitUntil: "load" });
   await page.waitForTimeout(4000);
   const state = await page.evaluate(() => ({
-    children: document.getElementById("root")?.childElementCount ?? -1,
+    // The search-engine introduction (scripts/seo-plugin.mjs) is not the app: it must be gone.
+    children: document.getElementById("seo-intro") ? 0 : document.getElementById("root")?.childElementCount ?? -1,
     text: (document.getElementById("root")?.textContent ?? "").replace(/\s+/g, " ").trim().slice(0, 60),
     systemLoaded: typeof window.System !== "undefined",
     helpShown: document.getElementById("boot-help")?.hidden === false,
