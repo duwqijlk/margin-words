@@ -6,13 +6,15 @@ import { SponsorDialog } from "@/components/sponsor-dialog";
 import { btn, cn, subTabs } from "@/components/ui";
 import { trn, useT } from "@/lib/i18n";
 import { groupDigits, libraryTotals, type LibraryTotals } from "@/lib/library-totals";
-import { BUNDLED_CATALOG_URL, loadCatalog } from "@/lib/packs";
+import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst } from "@/lib/packs";
 import { loadQqGroups } from "@/lib/qq-groups-config";
 import { readSponsorLines } from "@/lib/sponsor";
 import { REPO_URL, TELEGRAM_URL } from "@/lib/site-info";
-import { useContributors } from "@/lib/contributors";
+import { useBookMaintainers, useContributors } from "@/lib/contributors";
+import { ContributorsPanel, type BookFace } from "@/components/overview-people";
+import { coverAddress } from "@/lib/covers";
 import { useAccount } from "@/lib/account-store";
-import { loadWordListCatalog } from "@/lib/word-list-catalog";
+import { loadWordListCatalog, WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 
 type LoadState = "loading" | "ready" | "error";
 
@@ -68,137 +70,6 @@ function OverviewTabs({ tab, onChange }: { tab: OverviewTab; onChange: (tab: Ove
   );
 }
 
-/**
- * Readers whose own meanings went into word lists, most help first (contributors.json, one cached
- * file). Hidden until someone has been credited.
- */
-function ContributorRank() {
-  const { t } = useT();
-  const people = useContributors();
-  const myId = useAccount((state) => state.publicId);
-  const signedIn = useAccount((state) => state.phase === "in");
-  const [everyone, setEveryone] = useState(false);
-  const mine = myId ? people.findIndex((person) => person.id === myId) : -1;
-  const me = mine >= 0 ? people[mine] : undefined;
-  const podium = people.slice(0, 3);
-  const rows = people.slice(3, 10);
-  const rest = people.slice(10);
-  const nameOf = (person: { name: string }) => person.name || t("card.creditAnon");
-  // Second, first, third: the leader stands in the middle and highest.
-  const stand = [podium[1], podium[0], podium[2]];
-  return (
-    <section className="grid gap-7" aria-label={t("dashboard.rankTitle")} data-contributor-rank>
-      <p className="overview-rise max-w-prose px-1 text-[0.95rem] leading-7 text-muted">{t("dashboard.rankIntro")}</p>
-      {signedIn ? (
-        <p
-          className="overview-rise rounded-2xl border border-line/70 px-4 py-3.5 text-sm leading-6"
-          style={{ "--i": 1 } as CSSProperties}
-          data-rank-mine
-        >
-          {me ? (
-            <>
-              <span className="overview-mark font-semibold">{t("dashboard.rankMinePlace", { place: me.rank ?? mine + 1 })}</span>{" "}
-              {t("dashboard.rankMineCount", { n: me.helped })}
-            </>
-          ) : (
-            t("dashboard.rankMineNone")
-          )}
-        </p>
-      ) : null}
-      {people.length === 0 ? (
-        <p className="overview-rise px-1 py-10 text-center font-display text-lg text-muted" data-rank-empty>
-          {t("dashboard.rankEmpty")}
-        </p>
-      ) : (
-        <>
-          <ol className="grid grid-cols-3 items-end gap-2 sm:gap-4" aria-label={t("dashboard.rankTop")} data-rank-podium>
-            {stand.map((person, slot) => {
-              if (!person) return <li key={`empty-${slot}`} aria-hidden />;
-              const place = people.indexOf(person) + 1;
-              const first = place === 1;
-              return (
-                <li
-                  key={person.id}
-                  className={cn(
-                    "overview-rise overview-lift grid justify-items-center gap-2 rounded-3xl px-2 pt-5 pb-4 text-center",
-                    first ? "bg-card pb-6 shadow-sm" : "bg-card/60",
-                    person.id === myId && "ring-2 ring-accent/40",
-                  )}
-                  style={{ "--i": slot + 2 } as CSSProperties}
-                  data-rank-row={person.id}
-                >
-                  <span className={cn("font-display tabular-nums", first ? "text-3xl font-semibold" : "text-xl text-muted")}>
-                    {place}
-                  </span>
-                  <Avatar id={person.id} name={person.name} version={person.avatar} size={first ? 64 : 48} />
-                  <span className="max-w-full truncate text-sm font-semibold">{nameOf(person)}</span>
-                  <span className="text-xs tabular-nums text-muted" data-rank-helped>
-                    {trn("count.meaningHelped", person.helped)}
-                  </span>
-                </li>
-              );
-            })}
-          </ol>
-          {rows.length > 0 ? (
-            <ol className="grid" start={4}>
-              {rows.map((person, index) => (
-                <li
-                  key={person.id}
-                  className={cn(
-                    "overview-rise flex items-center gap-3 border-b border-line/50 px-2 py-3 last:border-0",
-                    person.id === myId && "rounded-xl bg-accent-soft/60",
-                  )}
-                  style={{ "--i": index + 5 } as CSSProperties}
-                  data-rank-row={person.id}
-                >
-                  <span className="w-6 shrink-0 text-right font-display text-sm tabular-nums text-muted">{index + 4}</span>
-                  <Avatar id={person.id} name={person.name} version={person.avatar} size={36} />
-                  <span className="min-w-0 flex-1 truncate text-sm font-medium">{nameOf(person)}</span>
-                  <span className="shrink-0 text-sm tabular-nums text-muted" data-rank-helped>
-                    {trn("count.meaningHelped", person.helped)}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          ) : null}
-        </>
-      )}
-      {rest.length > 0 ? (
-        <div className="grid gap-4">
-          <button
-            type="button"
-            className="justify-self-center rounded-full border border-line px-5 py-2 text-sm font-medium transition-colors hover:bg-card"
-            aria-expanded={everyone}
-            onClick={() => setEveryone((open) => !open)}
-            data-rank-everyone
-          >
-            {everyone ? t("dashboard.rankLess") : t("dashboard.rankAll", { n: people.length })}
-          </button>
-          {everyone ? (
-            <ul
-              className="scroll-thin grid max-h-[26rem] grid-cols-4 gap-x-2 gap-y-5 overflow-y-auto overscroll-contain rounded-2xl p-1 sm:grid-cols-6"
-              data-rank-grid
-            >
-              {rest.map((person, index) => (
-                <li
-                  key={person.id}
-                  className="overview-rise grid justify-items-center gap-1.5 text-center"
-                  style={{ "--i": Math.min(index, 12) } as CSSProperties}
-                  title={`${nameOf(person)} · ${trn("count.meaningHelped", person.helped)}`}
-                  data-rank-cell={person.id}
-                >
-                  <Avatar id={person.id} name={person.name} version={person.avatar} size={44} />
-                  <span className="max-w-full truncate text-xs font-medium">{nameOf(person)}</span>
-                  <span className="text-[0.7rem] tabular-nums text-muted">{person.helped}</span>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-      ) : null}
-    </section>
-  );
-}
 
 const CARDS: ReadonlyArray<{
   id: "books" | "words" | "paragraphs" | "sentences" | "phrases" | "series";
@@ -272,6 +143,10 @@ export function DashboardScreen() {
   const [attempt, setAttempt] = useState(0);
   const [state, setState] = useState<LoadState>("loading");
   const [totals, setTotals] = useState<LibraryTotals | null>(null);
+  /** Covers for the Contributors tab, keyed `public-books:<id>` / `word-lists:<id>`. */
+  const [faces, setFaces] = useState<ReadonlyMap<string, BookFace>>(() => new Map());
+  const people = useContributors();
+  const maintainers = useBookMaintainers();
   /** Supporters, all time first (the larger gifts), with their public id for the avatar when known. */
   const [names, setNames] = useState<Array<{ name: string; publicId?: string; avatar?: number }> | null>(null);
   const [open, setOpen] = useState(false);
@@ -285,6 +160,24 @@ export function DashboardScreen() {
         const [catalog, lists] = await Promise.all([loadCatalog(BUNDLED_CATALOG_URL), loadWordListCatalog()]);
         if (!alive) return;
         setTotals(libraryTotals(catalog.catalog.packs, lists));
+        const next = new Map<string, BookFace>();
+        for (const pack of catalog.catalog.packs) {
+          next.set(`public-books:${pack.id}`, {
+            title: pack.title,
+            author: pack.author,
+            coverUrl: pack.cover?.url ? coverAddress(resolveAgainst(BUNDLED_CATALOG_URL, pack.cover.url), pack.cover.sha256) : undefined,
+            look: pack.category === "speech" ? "talk" : "book",
+          });
+        }
+        for (const pack of lists) {
+          next.set(`word-lists:${pack.id}`, {
+            title: pack.title,
+            author: pack.author,
+            coverUrl: pack.cover?.url ? coverAddress(resolveAgainst(WORD_LIST_CATALOG_URL, pack.cover.url), pack.cover.sha256) : undefined,
+            look: pack.category === "speech" ? "talk" : "book",
+          });
+        }
+        setFaces(next);
         setState("ready");
       } catch {
         if (!alive) return;
@@ -394,7 +287,7 @@ export function DashboardScreen() {
           )}
             </div>
           ) : tab === "contributors" ? (
-            <ContributorRank />
+            <ContributorsPanel people={people} books={maintainers} faces={faces} />
           ) : (
             <section className="grid gap-7" aria-label={t("dashboard.tabSupporters")} data-supporters>
               <p className="overview-rise max-w-prose px-1 text-[0.95rem] leading-7 text-muted">{t("dashboard.supportersIntro")}</p>
