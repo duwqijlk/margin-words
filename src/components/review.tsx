@@ -176,7 +176,7 @@ function Overview({
   const hint = nextDueText(scoped);
 
   return (
-    <div className="mx-auto grid w-full max-w-3xl gap-6 overflow-x-clip px-4 py-6 sm:px-6 sm:py-10">
+    <div className="mx-auto grid w-full max-w-3xl grid-cols-[minmax(0,1fr)] gap-6 px-4 py-6 sm:px-6 sm:py-10">
       <button type="button" className={cn(btn.ghost, "-ml-3 self-start")} onClick={onBack}>
         <ArrowLeft className="size-4" aria-hidden />
         {t("nav.notebook")}
@@ -478,7 +478,7 @@ function Session({
   return (
     <div
       className={cn(
-        "mx-auto grid w-full max-w-2xl gap-4 overflow-x-clip px-4 pt-4 pb-4 sm:px-6 sm:pt-8 sm:pb-8",
+        "mx-auto grid w-full max-w-2xl grid-cols-[minmax(0,1fr)] gap-4 px-4 pt-4 pb-4 sm:px-6 sm:pt-8 sm:pb-8",
         actions && "max-sm:pb-36",
       )}
     >

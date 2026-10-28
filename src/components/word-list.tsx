@@ -228,7 +228,7 @@ export function WordListDialog({
             <label className="grid gap-1 text-sm font-medium">
               {t("wl.which")}
               <select
-                className="min-h-11 rounded-lg border border-line bg-card px-3 text-base text-ink"
+                className="min-h-11 w-full min-w-0 rounded-lg border border-line bg-card px-3 text-base text-ink"
                 value={bookId}
                 onChange={(event) => setBookId(event.target.value)}
               >

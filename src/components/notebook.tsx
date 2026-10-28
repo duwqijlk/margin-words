@@ -260,7 +260,7 @@ export function Notebook({
   };
 
   return (
-    <div className="mx-auto grid w-full max-w-3xl gap-6 overflow-x-clip px-4 py-6 sm:px-6 sm:py-10">
+    <div className="mx-auto grid w-full max-w-3xl grid-cols-[minmax(0,1fr)] gap-6 px-4 py-6 sm:px-6 sm:py-10">
       <header className="grid gap-3 sm:flex sm:flex-wrap sm:items-end sm:justify-between">
         <div className="grid gap-1">
           <h1 className="font-display text-3xl font-semibold sm:text-4xl">{t("nb.title")}</h1>
@@ -345,7 +345,7 @@ export function Notebook({
               </label>
               <select
                 id="word-book"
-                className={cn(selectCls, "sm:max-w-56")}
+                className={cn(selectCls, "w-full min-w-0 sm:w-auto sm:max-w-56")}
                 value={bookId ?? ""}
                 onChange={(event) => {
                   onBookChange(event.target.value || null);
@@ -364,7 +364,7 @@ export function Notebook({
               </label>
               <select
                 id="word-order"
-                className={selectCls}
+                className={cn(selectCls, "w-full min-w-0 sm:w-auto")}
                 value={order}
                 onChange={(event) => setOrder(event.target.value as Order)}
               >
