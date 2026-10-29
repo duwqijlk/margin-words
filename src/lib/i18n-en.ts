@@ -1205,7 +1205,7 @@ export const en = {
   "card.feedbackPrompt": "Meaning feedback",
   "card.feedbackTooHard": "Too difficult",
   "card.feedbackWrong": "Incorrect",
-  "card.feedbackMissing": "Meaning missing",
+  "card.feedbackMissing": "Too difficult",
   "card.creditBy": "From {name}",
   "card.creditAnon": "a reader",
   "card.feedbackAddMeaning": "Add my meaning",
