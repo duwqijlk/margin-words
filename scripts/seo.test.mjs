@@ -1,7 +1,7 @@
 // What search engines read: the head and introduction built into index.html (scripts/seo-plugin.mjs),
 // robots.txt, the sitemap, and the title / canonical / index rule of each screen (src/lib/page-meta.ts).
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { applySeo, escapeHtml, INTRO_ID, readSeo, sitemapXml } from "./seo-plugin.mjs";
 import { pageMeta, SITE } from "../src/lib/page-meta.ts";
@@ -26,6 +26,10 @@ test("index.html carries the title, description, keywords and Open Graph tags", 
   assert.ok(html.includes(`<meta name="description" content="${escapeHtml(seo.description)}" />`));
   assert.ok(html.includes(`<meta name="keywords" content="${escapeHtml(seo.keywords.join(","))}" />`));
   assert.ok(html.includes(`<meta property="og:url" content="${SITE}/" />`));
+  // A link pasted into a chat shows the site's picture, large.
+  assert.ok(html.includes(`<meta property="og:image" content="${SITE}/social/og.png" />`));
+  assert.ok(html.includes('<meta name="twitter:card" content="summary_large_image" />'));
+  assert.ok(existsSync(new URL("public/social/og.png", ROOT)), "the preview picture is in the site");
   assert.equal((html.match(/<meta\s+name="description"/g) ?? []).length, 1, "one description");
   // Every address answers with this file: a fixed canonical would make /discover/ a copy of home.
   assert.doesNotMatch(html, /rel="canonical"/);
@@ -49,7 +53,7 @@ test("the introduction sits inside #root with one h1, headings and links to the 
   assert.ok(root.includes(`id="${INTRO_ID}"`), "introduction inside #root (React replaces it)");
   assert.equal((html.match(/<h1[\s>]/g) ?? []).length, 1);
   assert.equal((root.match(/<h2[\s>]/g) ?? []).length, seo.intro.sections.length);
-  for (const href of ["/discover/", "/guide/", "/dashboard/"]) assert.ok(root.includes(`href="${href}"`), href);
+  for (const href of ["/discover/novels/", "/discover/speeches/", "/guide/", "/dashboard/"]) assert.ok(root.includes(`href="${href}"`), href);
   // A browser that runs scripts never paints it; the boot notice does not take it for the app.
   assert.ok(html.includes(`html[data-js] #${INTRO_ID}{display:none}`));
   assert.ok(html.includes('document.documentElement.setAttribute("data-js","")'));

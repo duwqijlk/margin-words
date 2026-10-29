@@ -38,6 +38,12 @@
 /discover
   Cache-Control: no-cache
   CDN-Cache-Control: no-store
+/discover/*
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
+/book/*
+  Cache-Control: no-cache
+  CDN-Cache-Control: no-store
 /discover/
   Cache-Control: no-cache
   CDN-Cache-Control: no-store

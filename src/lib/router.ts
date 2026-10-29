@@ -3,6 +3,9 @@
  * a link to a page all work:
  *
  *   /shelf/           Bookshelf        /discover/        Discover
+ *   /discover/novels/, /discover/speeches/   Discover on one tab
+ *   /book/<id>/       Discover with that catalog book's detail open. A static page per book answers
+ *                     this address (scripts/seo-pages.mjs) so a shared link shows the book's preview.
  *   /dashboard/       Overview: how many books, marked words, and notes, plus the thank-you list
  *   /admin/           Sponsorship requests. Not a menu item. Only the admin account can use it.
  *   /guide/           Guide (how to use the app, and about the site). Opened from Settings.
@@ -22,7 +25,8 @@ import { useSyncExternalStore } from "react";
 
 export type Route =
   | { kind: "shelf" }
-  | { kind: "discover" }
+  | { kind: "discover"; category?: "novel" | "speech" }
+  | { kind: "book"; bookId: string }
   | { kind: "dashboard" }
   | { kind: "admin" }
   | { kind: "guide" }
@@ -58,7 +62,12 @@ export function parsePath(pathname: string): Route | null {
       // The old add-book page: books are added on Discover now.
       return rest === undefined ? { kind: "discover" } : null;
     case "discover":
-      return rest === undefined ? { kind: "discover" } : null;
+      if (rest === undefined) return { kind: "discover" };
+      if (decoded === "novels") return { kind: "discover", category: "novel" };
+      if (decoded === "speeches") return { kind: "discover", category: "speech" };
+      return null;
+    case "book":
+      return id === null ? null : { kind: "book", bookId: id };
     case "dashboard":
       return rest === undefined ? { kind: "dashboard" } : null;
     case "admin":
@@ -96,6 +105,10 @@ export function pathFor(route: Route): string {
       return route.bookId ? `/review/${encodeURIComponent(route.bookId)}` : "/review/";
     case "read":
       return `/read/${encodeURIComponent(route.bookId)}`;
+    case "book":
+      return `/book/${encodeURIComponent(route.bookId)}/`;
+    case "discover":
+      return route.category ? `/discover/${route.category === "speech" ? "speeches" : "novels"}/` : "/discover/";
     default:
       return `/${route.kind}/`;
   }
@@ -105,6 +118,7 @@ export function pathFor(route: Route): string {
 export function menuOf(route: Route): "shelf" | "discover" | "dashboard" | "guide" | "words" | "admin" {
   switch (route.kind) {
     case "discover":
+    case "book":
       return "discover";
     case "dashboard":
       return "dashboard";

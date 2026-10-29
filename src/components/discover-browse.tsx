@@ -1,8 +1,10 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import {
   BookOpen,
+  Check,
   ChevronLeft,
   ChevronRight,
+  Link2,
   Loader2,
   Plus,
   RotateCw,
@@ -23,6 +25,58 @@ import { useT } from "@/lib/i18n";
 import { useBookBlurb } from "@/lib/book-blurbs";
 import { BookMaintainerList, BookMaintainers } from "@/components/book-maintainers";
 import { catalogRef } from "@/lib/catalog-id";
+import { SITE } from "@/lib/page-meta";
+
+/**
+ * The book's own address, https://inputread.site/book/<id>/: a static page with the cover, title and
+ * summary as its link preview (scripts/seo-pages.mjs). The system share sheet where there is one,
+ * else the link is copied, else shown to copy by hand.
+ */
+function ShareBookLink({ id, title }: { id: string; title: string }) {
+  const { t } = useT();
+  const [state, setState] = useState<"idle" | "copied" | "show">("idle");
+  const url = `${SITE}/book/${encodeURIComponent(id)}/`;
+  async function share() {
+    if (typeof navigator.share === "function") {
+      try {
+        await navigator.share({ title, url });
+        return;
+      } catch (error) {
+        if (error instanceof Error && error.name === "AbortError") return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setState("copied");
+      window.setTimeout(() => setState("idle"), 2000);
+    } catch {
+      setState("show");
+    }
+  }
+  return (
+    <div className="grid gap-1.5 sm:ml-auto">
+      <button
+        type="button"
+        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-3 text-sm font-semibold text-accent hover:bg-accent-soft/60"
+        onClick={() => void share()}
+        data-detail-share={state}
+      >
+        {state === "copied" ? <Check className="size-4" aria-hidden /> : <Link2 className="size-4" aria-hidden />}
+        {state === "copied" ? t("browse.linkCopied") : t("browse.shareLink")}
+      </button>
+      {state === "show" ? (
+        <input
+          readOnly
+          value={url}
+          onFocus={(event) => event.currentTarget.select()}
+          className="w-full min-w-0 rounded-lg border border-line bg-paper px-2 py-1.5 text-base text-ink sm:text-xs"
+          aria-label={t("browse.shareLink")}
+          data-detail-share-url
+        />
+      ) : null}
+    </div>
+  );
+}
 
 /** The catalog book a Discover row is: a classic is a public-domain pack, a list a word-list book. */
 export function rowCatalogRef(row: Pick<DiscoverRow, "kind" | "id">): string {
@@ -476,6 +530,7 @@ export function BookDetail({
                     {t("discover.remove")}
                   </button>
                 ) : null}
+                <ShareBookLink id={row.id} title={row.title} />
               </div>
             </>
           ) : null}

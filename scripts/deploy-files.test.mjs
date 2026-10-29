@@ -5,6 +5,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { test } from "node:test";
+import { STATIC_PAGE_HEADS, STATIC_PAGE_SOURCES } from "./seo-pages.mjs";
 import { fileURLToPath } from "node:url";
 import { isShellFile } from "./vite-plugins.mjs";
 
@@ -68,13 +69,20 @@ test("every address of the app is listed in _redirects, and no rule catches the 
     [],
     "files are served by Pages, never rewritten",
   );
-  // A screen without a line here answers 404 instead of opening the app.
+  // A screen without a line here answers 404 instead of opening the app, unless the build writes a
+  // page for each of its addresses (scripts/seo-pages.mjs). Those must have no rewrite: Pages applies
+  // a rule even when the file exists, so it would hide the page and its link preview.
   const heads = new Set([...read("src/lib/router.ts").matchAll(/case "([a-z]+)":/g)].map((match) => match[1]));
   for (const head of heads) {
+    if (STATIC_PAGE_HEADS.includes(head)) continue;
     assert.ok(
       sources.includes(`/${head}`) || sources.includes(`/${head}/*`),
       `/${head} is a route of the app and needs a line in _redirects`,
     );
+  }
+  for (const rule of rules) {
+    const [source, , code] = rule.split(/\s+/);
+    if (code === "200") assert.ok(!STATIC_PAGE_SOURCES.includes(source), `${rule}: would hide a built page`);
   }
   assert.ok(sources.includes("/read/*"), "the reader address carries a book id");
   // Pages drops a rule that rewrites to /index.html (it becomes / and looks like a loop). With
