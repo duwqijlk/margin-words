@@ -24,7 +24,9 @@
 /add /discover/ 302
 /add/ / 200
 /discover /discover/ 302
-/discover/ / 200
+# /discover/, /discover/novels/, /discover/speeches/ and /book/<id>/ have no rewrite: the build writes
+# a page for each (scripts/seo-pages.mjs), and Pages applies a rule here even when a file exists, so a
+# rewrite would hide that page and its link preview.
 /dashboard /dashboard/ 302
 /dashboard/ / 200
 /admin /admin/ 302

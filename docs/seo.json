@@ -1,5 +1,5 @@
 {
-  "$comment": "What search engines read before the app starts. scripts/seo-plugin.mjs builds it into dist/index.html: the <head> tags, the JSON-LD and a plain-HTML introduction inside #root that the app replaces when it mounts. Chinese may live only in docs/ (AGENTS.md), so the copy is here. Order of the keywords is the order of importance: English reader, then original-book reader, then comprehensible-input reader.",
+  "$comment": "What search engines read before the app starts. scripts/seo-plugin.mjs builds it into dist/index.html: the <head> tags, the JSON-LD and a plain-HTML introduction inside #root that the app replaces when it mounts. Chinese may live only in docs/ (AGENTS.md), so the copy is here. Order of the keywords is the order of importance: English reader, then original-book reader, then comprehensible-input reader. The Discover category pages and one page per catalog book are built from the copy under \"pages\" and \"book\" (scripts/seo-pages.mjs); {title}, {author}, {lexile} and {n} are filled in.",
   "site": "https://inputread.site",
   "lang": "zh-CN",
   "title": "英语阅读器 inputread｜英语原著阅读器 · 可理解输入阅读器",
@@ -27,7 +27,12 @@
   "ogDescription": "免费的英语原著阅读器和可理解输入阅读器。点一下生词，看简单的英文释义和音标，存进生词本复习。",
   "englishName": "inputread English reader",
   "englishDescription": "A free English reader for original English books. Tap a word to see a simple English meaning and its pronunciation, save it to a word book, and review it with spaced repetition.",
-  "alternateNames": ["英语阅读器", "英语原著阅读器", "可理解输入阅读器", "inputread English reader"],
+  "alternateNames": [
+    "英语阅读器",
+    "英语原著阅读器",
+    "可理解输入阅读器",
+    "inputread English reader"
+  ],
   "intro": {
     "h1": "inputread 英语阅读器",
     "lead": "一个专门读英文书的英语阅读器。读英语原著时，点一下不认识的词，就能看到它在这句话里的简单英文释义和音标。",
@@ -50,10 +55,77 @@
       }
     ],
     "links": [
-      { "href": "/discover/", "text": "发现英文原著" },
-      { "href": "/guide/", "text": "使用说明" },
-      { "href": "/dashboard/", "text": "网站数据" }
+      {
+        "href": "/discover/novels/",
+        "text": "英文原著小说"
+      },
+      {
+        "href": "/discover/speeches/",
+        "text": "英文演讲"
+      },
+      {
+        "href": "/guide/",
+        "text": "使用说明"
+      },
+      {
+        "href": "/dashboard/",
+        "text": "网站数据"
+      }
     ]
   },
-  "sitemap": ["/", "/discover/", "/guide/", "/dashboard/"]
+  "sitemap": [
+    "/",
+    "/discover/",
+    "/discover/novels/",
+    "/discover/speeches/",
+    "/guide/",
+    "/dashboard/"
+  ],
+  "ogImage": "/social/og.png",
+  "ogImageText": {
+    "headline": "英语阅读器",
+    "sub": "读英语原著 · 可理解输入",
+    "line": "点一下生词，就看到简单的英文释义和音标",
+    "sentence": "Perhaps the keeper peered at the boats.",
+    "word": "peered",
+    "ipa": "/pɪəd/",
+    "meaning": "Looked closely, as if it was hard to see."
+  },
+  "pages": {
+    "discover": {
+      "title": "发现英文原著 · inputread 英语阅读器",
+      "description": "在 inputread 发现英文原著和英文演讲：公版经典可以直接在线读，热门英文小说有老师做好的词表，可以按蓝思难度挑书。点一下生词，就看到简单的英文释义和音标。",
+      "h1": "发现英文原著",
+      "lead": "这里是 inputread 的全部图书：公版经典可以直接在线读，有版权的书配有词表，导入你自己的 EPUB 就能用。",
+      "listHeading": "全部 {n} 本"
+    },
+    "novels": {
+      "title": "英文原著小说在线阅读 · inputread 英语阅读器",
+      "description": "英文原著小说阅读：公版经典直接在线读，热门英文小说有现成的词表，按蓝思难度挑书。读的时候点一下生词，就看到简单的英文释义和音标，存进生词本复习。",
+      "h1": "英文原著小说",
+      "lead": "按蓝思难度挑一本英文原著小说开始读。每本书都有老师标出的难词和短语，点一下就看到简单的英文释义。",
+      "listHeading": "{n} 本小说"
+    },
+    "speeches": {
+      "title": "英文演讲阅读 · inputread 英语阅读器",
+      "description": "读英文演讲：难词和短语都已经标好，点一下就看到简单的英文释义和音标。适合用可理解输入的方法练英语阅读。",
+      "h1": "英文演讲",
+      "lead": "精选英文演讲，难词和短语都已经标好。读懂一篇演讲，比背一页单词表记得更牢。",
+      "listHeading": "{n} 篇演讲"
+    }
+  },
+  "book": {
+    "titleClassic": "{title} 英文原著在线阅读 · inputread 英语阅读器",
+    "titleList": "{title} 英文原版阅读 · inputread 英语阅读器",
+    "titleSpeech": "{title} 英文演讲阅读 · inputread 英语阅读器",
+    "descClassic": "在线读 {author} 的英文原著《{title}》{lexile}。点一下生词，就看到简单的英文释义和音标，存进生词本复习。",
+    "descList": "读 {author} 的英文原版《{title}》{lexile}：老师标好了难词和短语，点一下就看到简单的英文释义。本站不提供这本书的电子书，需要导入你自己合法获得的 EPUB。",
+    "descSpeech": "读 {author} 的英文演讲《{title}》{lexile}：难词和短语都已经标好，点一下就看到简单的英文释义和音标。",
+    "lexile": "，蓝思难度 {lexile}",
+    "facts": "标出 {words} 个难词、{phrases} 个短语",
+    "blurbHeading": "故事简介",
+    "noteClassic": "这本书是公版书，在 inputread 上可以直接在线读。",
+    "noteList": "本站不提供这本书的电子书。导入你自己合法获得的 EPUB 以后，就能用老师做好的词表来读。",
+    "more": "发现更多英文书"
+  }
 }

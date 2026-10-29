@@ -234,7 +234,8 @@ export function MarginApp() {
   // If the book on screen was deleted (here or in another tab), fall back to the shelf.
   useEffect(() => {
     if (!ready) return;
-    if ("bookId" in screen && screen.bookId && !books.some((book) => book.id === screen.bookId)) {
+    // /book/<id>/ names a catalog book, not a shelf card: it is never on the shelf by that id.
+    if (screen.kind !== "book" && "bookId" in screen && screen.bookId && !books.some((book) => book.id === screen.bookId)) {
       navigate(DEFAULT_ROUTE, { replace: true });
     }
   }, [ready, books, screen]);
@@ -541,11 +542,13 @@ export function MarginApp() {
             <AdminPage />
           ) : screen.kind === "guide" ? (
             <GuideScreen />
-          ) : screen.kind === "discover" ? (
+          ) : screen.kind === "discover" || screen.kind === "book" ? (
             <DiscoverScreen
               shelf={orderedBooks}
               onOpen={openBook}
               onNeedsEpub={askForEpub}
+              routeCategory={screen.kind === "discover" ? screen.category : undefined}
+              routeBookId={screen.kind === "book" ? screen.bookId : undefined}
             />
           ) : screen.kind === "words" ? (
             <Notebook

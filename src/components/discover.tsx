@@ -26,6 +26,7 @@ import { bookHasUserWork } from "@/lib/shelf-work";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import type { Book } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
+import { navigate } from "@/lib/router";
 import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category";
@@ -99,10 +100,16 @@ export function DiscoverScreen({
   shelf,
   onOpen,
   onNeedsEpub,
+  routeCategory,
+  routeBookId,
 }: {
   shelf: Book[];
   onOpen: (bookId: string) => void;
   onNeedsEpub: (bookId: string) => void;
+  /** The tab in the address (/discover/novels/, /discover/speeches/), when it names one. */
+  routeCategory?: ContentCategory;
+  /** A catalog book id from /book/<id>/: its detail opens once the catalogs are read. */
+  routeBookId?: string;
 }) {
   const { t, tn } = useT();
   const [rows, setRows] = useState<Row[]>([]);
@@ -116,7 +123,11 @@ export function DiscoverScreen({
   const [band, setBand] = useState<BandChoice>("all");
   const [author, setAuthor] = useState("all");
   const [series, setSeries] = useState<SeriesChoice>("all");
-  const [category, setCategory] = useState<ContentCategory>("novel");
+  const [category, setCategory] = useState<ContentCategory>(routeCategory ?? "novel");
+  // Back and forward between /discover/novels/ and /discover/speeches/ change the tab too.
+  useEffect(() => {
+    if (routeCategory) setCategory(routeCategory);
+  }, [routeCategory]);
   /** A row opened with "See all": "new", "classic", "series:<name>" or "curated:<name>". "" is the browse page. */
   const [collection, setCollection] = useState("");
   /** The row key of the book in the detail sheet. */
@@ -232,6 +243,21 @@ export function DiscoverScreen({
       card.querySelector<HTMLButtonElement>("[data-shelf-add]")?.focus();
     });
   }, [canAdd]);
+
+  // /book/<id>/: open that book once the catalogs are in (the public book first, as the cards are).
+  const openedFor = useRef("");
+  useEffect(() => {
+    if (!routeBookId) {
+      openedFor.current = "";
+      return;
+    }
+    if (openedFor.current === routeBookId || rows.length === 0) return;
+    const row = rows.find((item) => item.key === `classic:${routeBookId}`) ?? rows.find((item) => item.key === `list:${routeBookId}`);
+    if (!row) return;
+    openedFor.current = routeBookId;
+    setCategory(row.category);
+    setDetailId(row.key);
+  }, [routeBookId, rows]);
 
   const inCategory = useMemo(() => rows.filter((item) => item.category === category), [rows, category]);
   const newest = useMemo(() => newestUpdates(inCategory, new Date(), RAIL_SIZE), [inCategory]);
@@ -657,6 +683,8 @@ export function DiscoverScreen({
                   setCategory(id);
                   setAuthor("all");
                   setSeries("all");
+                  // One address per tab, so a tab can be linked and found by a search engine.
+                  navigate({ kind: "discover", category: id }, { replace: true });
                 }}
               >
                 {t(`discover.cat.${id}`)}
@@ -800,7 +828,11 @@ export function DiscoverScreen({
         row={detailRow}
         model={detailRow ? detailModel(detailRow) : null}
         canAdd={canAdd}
-        onClose={() => setDetailId("")}
+        onClose={() => {
+          setDetailId("");
+          // Closing a book that was opened from its own address leaves that address.
+          if (routeBookId) navigate({ kind: "discover", category }, { replace: true });
+        }}
         onAction={() => detailRow && detailAction(detailRow)}
         onOpen={() => {
           if (!detailRow) return;

@@ -66,6 +66,8 @@ export const zh: Record<Key, string> = {
 
   /* ---- page titles */
   "seo.title.discover": "发现英文原著 · inputread 英语阅读器",
+  "seo.title.discoverNovels": "英文原著小说 · inputread 英语阅读器",
+  "seo.title.discoverSpeeches": "英文演讲 · inputread 英语阅读器",
   "seo.title.guide": "使用说明 · inputread 英语阅读器",
   "seo.title.dashboard": "网站数据 · inputread 英语阅读器",
   "seo.title.words": "生词本 · inputread",
@@ -293,6 +295,8 @@ export const zh: Record<Key, string> = {
   "browse.fact.notes": "笔记",
   "browse.classicNote": "公版书。整本书和词表会一起下载。",
   "browse.listNote": "这里只有词表。加入书架后，再导入你自己这个版本的电子书。",
+  "browse.shareLink": "分享这本书",
+  "browse.linkCopied": "链接已复制",
   "browse.blurbTitle": "故事简介",
   "browse.isbn": "书号（ISBN）：{isbn}",
   "list.filter": "筛选",
