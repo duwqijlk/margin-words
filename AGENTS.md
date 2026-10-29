@@ -23,8 +23,8 @@ from 2026-10-29): it changes how things look, not where they are. Being rolled o
 - Floating layers (dialogs, popovers, drawers): `bg-paper`, `rounded-2xl`, 1px `border-line`, `shadow-lift`,
   overlay `bg-black/[0.32]`. The word card has its own soft, wide `shadow-pop`. No frosted glass anywhere.
 - Fonts: the book's own words (book titles, text, headwords, meanings, example sentences) are Literata
-  (`font-display`); the interface, including page, section and dialog titles and numbers, is Atkinson
-  Hyperlegible, titles and numbers `font-bold tracking-[-0.02em]` (400/700 only: `font-medium` renders 400,
+  (`font-display`), and so are big numbers (`font-display font-bold`, lining tabular figures); the
+  interface, including page, section and dialog titles, is Atkinson Hyperlegible, titles `font-bold tracking-[-0.02em]` (400/700 only: `font-medium` renders 400,
   `font-semibold` 700). Literata falls back to a self-hosted Noto Serif SC subset for any Chinese (`src/fonts-zh-serif.css`, made by
   `scripts/subset-zh-serif.py` from the characters in `i18n-zh.ts`; characters added later fall back to the
   system serif until it is run again). Inter stays for IPA only.

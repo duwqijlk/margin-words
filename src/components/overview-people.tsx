@@ -108,7 +108,7 @@ export function ContributorsPanel({
     <section className="grid gap-9" aria-label={t("dashboard.rankTitle")} data-contributor-rank>
       {people.length > 0 ? (
         <div className="overview-rise grid gap-2 px-1" data-rank-hero>
-          <p className="font-bold tracking-[-0.02em] text-[3.4rem] leading-none tabular-nums sm:text-[5rem]">
+          <p className="font-display font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] text-[3.4rem] leading-none tabular-nums sm:text-[5rem]">
             <span className="overview-mark" aria-hidden>{groupDigits(counted)}</span>
             <span className="sr-only">{groupDigits(total)}</span>
           </p>
@@ -155,7 +155,7 @@ export function ContributorsPanel({
               >
                 <span
                   className={cn(
-                    "text-right font-bold tracking-[-0.02em] tabular-nums leading-none",
+                    "text-right font-display font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] tabular-nums leading-none",
                     first ? "text-2xl font-semibold sm:text-3xl" : "text-lg text-muted sm:text-xl",
                   )}
                 >

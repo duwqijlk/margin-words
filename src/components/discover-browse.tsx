@@ -508,7 +508,7 @@ export function BookDetail({
                 ].map((fact) => (
                   <div key={fact.label} className="grid content-start gap-2 rounded-2xl bg-sheet px-4 pt-3 pb-3.5">
                     <dt className="text-[0.8125rem] whitespace-nowrap text-faint">{fact.label}</dt>
-                    <dd className={cn("text-[1.75rem] leading-none font-bold tracking-[-0.02em] tabular-nums text-ink", fact.lexile && "flex h-7 items-center")}>
+                    <dd className={cn("text-[1.75rem] leading-none font-display font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] tabular-nums text-ink", fact.lexile && "flex h-7 items-center")}>
                       {fact.value}
                     </dd>
                   </div>
