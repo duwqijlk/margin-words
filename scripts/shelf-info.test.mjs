@@ -145,7 +145,7 @@ const { BookCard } = loadComponent(`${shelfSource}\nexport { BookCard };`, {
     asFinishedAt: (value) => (typeof value === "number" && value > 0 ? value : undefined),
     matchesFinished: () => true,
   },
-  "@/components/reading-overview": { ReadingOverviewLine: () => null },
+  "@/components/share-button": { LazyShareDialog: () => null },
 });
 const card = (extra = {}, props = {}) => renderToStaticMarkup(React.createElement(BookCard, {
   row: { book: book(extra), fraction: 0, words: 4, due: 3 }, classic: true, fileHere: true,
@@ -158,6 +158,8 @@ test("a finished book shows the badge and the menu offers to take the mark away;
   assert.match(done, /data-shelf-finished=""/);
   assert.ok(done.includes(en["finished.badge"]));
   assert.match(done, /data-shelf-finish-menu="undo"/);
+  assert.match(done, /data-shelf-share-menu=""/, "a finished book can share its card from the menu");
+  assert.doesNotMatch(card(), /data-shelf-share-menu=/);
   assert.ok(done.includes(en["finished.unmark"]));
   const open = card();
   assert.doesNotMatch(open, /data-shelf-finished=/);

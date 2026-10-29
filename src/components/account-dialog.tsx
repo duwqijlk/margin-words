@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useAccount, type AccountMode, type SyncStatus } from "@/lib/account-store";
 import { Avatar } from "@/components/avatar";
 import { cleanNickname } from "@/lib/nickname";
+import { ReadingOverviewPanel } from "@/components/reading-overview";
 import {
   accountRequest,
   confirmEmailCode,
@@ -770,6 +771,7 @@ export function AccountDialog() {
                 {t("account.signedIn", { email: emailSaved })}
               </p>
               <AvatarPicker name={nickname || emailSaved || ""} />
+              <ReadingOverviewPanel />
               <GlossaryAllowance />
               <form className="mt-5 grid gap-2" onSubmit={(event) => void onSaveNickname(event)}>
                 <label className="grid gap-1 text-sm font-medium" htmlFor="account-nickname-edit">

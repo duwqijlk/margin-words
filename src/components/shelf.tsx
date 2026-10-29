@@ -11,6 +11,7 @@ import {
   Pencil,
   RotateCw,
   Search,
+  Share2,
   Trash2,
 } from "lucide-react";
 import { useEffect, useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
@@ -42,7 +43,7 @@ import { btn, cn, field, ProgressBar, selectCls } from "@/components/ui";
 import { compareLexile } from "@/lib/lexile";
 import { compareSeriesPlace } from "@/lib/discover-rails";
 import { asFinishedAt, matchesFinished, type FinishedFilter } from "@/lib/reading-stats";
-import { ReadingOverviewLine } from "@/components/reading-overview";
+import { LazyShareDialog } from "@/components/share-button";
 import {
   DifficultyControls,
   LexileBadge,
@@ -414,6 +415,7 @@ function BookCard({
   const pct = Math.round(row.fraction * 100);
   const finished = asFinishedAt(book.finishedAt) !== undefined;
   const setBookFinished = useVocab((state) => state.setBookFinished);
+  const [sharing, setSharing] = useState(false);
   return (
     <li className={bookCardShell}>
       <div className="relative">
@@ -598,6 +600,12 @@ function BookCard({
                   <CheckCircle2 className="size-4" aria-hidden />
                   {finished ? t("finished.unmark") : t("finished.mark")}
                 </Menu.Item>
+                {finished ? (
+                  <Menu.Item className={menuItem} onSelect={() => setSharing(true)} data-shelf-share-menu="">
+                    <Share2 className="size-4" aria-hidden />
+                    {t("share.menuFinished")}
+                  </Menu.Item>
+                ) : null}
                 <Menu.Item className={menuItem} onSelect={onRename}>
                   <Pencil className="size-4" aria-hidden />
                   {t("shelf.menuEdit")}
@@ -630,6 +638,7 @@ function BookCard({
         <p className={cardAuthorClass} lang="en">
           {book.author}
         </p>
+        <LazyShareDialog what={{ kind: "book", bookId: book.id }} open={sharing} onOpenChange={setSharing} />
         <ShelfBookInfo
           book={book}
           classic={classic}
@@ -886,8 +895,6 @@ export function Shelf({
               onUpdate={() => updateBook(hero.book.id)}
             />
           ) : null}
-
-          {!q ? <ReadingOverviewLine /> : null}
 
           <section className="grid gap-4" aria-label={t("shelf.all")}>
             <div className="grid gap-3">

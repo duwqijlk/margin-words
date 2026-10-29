@@ -10,6 +10,8 @@ import {
   SHARE_THEMES,
   SHARE_URL,
   PALETTES,
+  type BookCardData,
+  type OverviewCardData,
   type ShareCardData,
   type ShareTheme,
 } from "@/lib/share-card";
@@ -20,6 +22,7 @@ import { useCovers } from "@/components/book-cover";
 import { btn, cn } from "@/components/ui";
 
 const THEME_KEY = "cibian-share-theme-v1";
+const COVER_WAIT_MS = 1500;
 
 function savedTheme(): ShareTheme {
   try {
@@ -28,6 +31,12 @@ function savedTheme(): ShareTheme {
   } catch {
     return "paper";
   }
+}
+
+/** The seal's date: digits only, the same in every language (2026.10.28). */
+function sealDate(time: number): string {
+  const d = new Date(time);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
 }
 
 export type ShareWhat = { kind: "book"; bookId: string } | { kind: "overview" };
@@ -55,7 +64,7 @@ export default function ShareDialog({ what, open, onOpenChange }: { what: ShareW
     [t],
   );
 
-  const data = useMemo<Omit<ShareCardData, "cover"> | null>(() => {
+  const data = useMemo<Omit<BookCardData, "cover"> | OverviewCardData | null>(() => {
     if (what.kind === "book") {
       if (!book) return null;
       const finishedAt = asFinishedAt(book.finishedAt) ?? Date.now();
@@ -65,8 +74,9 @@ export default function ShareDialog({ what, open, onOpenChange }: { what: ShareW
         headline: t("share.bookHeadline"),
         title: book.title,
         author: book.author,
-        finishedLine: t("finished.doneOn", { date: finishedDate(finishedAt, locale) }),
         wordsLine: saved > 0 ? tn("share.bookWords", saved) : "",
+        seal: t("share.seal"),
+        sealDate: sealDate(finishedAt),
         footer,
       };
     }
@@ -74,14 +84,14 @@ export default function ShareDialog({ what, open, onOpenChange }: { what: ShareW
     return {
       kind: "overview",
       headline: t("share.overviewHeadline"),
-      stats: [
-        { value: overview.finished.length, label: t("share.statFinished") },
-        { value: overview.readDays, label: t("share.statDays") },
-        { value: overview.words, label: t("share.statWords") },
+      asOf: t("share.asOf", { date: finishedDate(Date.now(), locale) }),
+      rows: [
+        { label: t("share.statFinished"), value: overview.finished.length, unit: tn("share.unitBooks", overview.finished.length) },
+        { label: t("share.statDays"), value: overview.readDays, unit: tn("share.unitDays", overview.readDays) },
+        { label: t("share.statWords"), value: overview.words, unit: tn("share.unitWords", overview.words) },
       ],
       note: overview.mastered > 0 ? tn("share.mastered", overview.mastered) : "",
-      recentLabel: t("share.recent"),
-      recent: overview.finished.slice(0, 4).map((item) => ({ title: item.title, author: item.author })),
+      shelf: overview.finished.slice(0, 12).map((item) => ({ title: item.title })),
       footer,
     };
   }, [what.kind, book, books, words, readDays, t, tn, locale, footer]);
@@ -92,7 +102,10 @@ export default function ShareDialog({ what, open, onOpenChange }: { what: ShareW
     let made: string | null = null;
     setFailed(false);
     setImage(null);
-    void (async () => {
+    // The cover's address comes with the catalogs, a moment after the dialog opens. Wait a little
+    // for it, so the card is not drawn once with a made-up cover and again with the real one.
+    const wait = data.kind === "book" && !coverUrl ? COVER_WAIT_MS : 0;
+    const timer = window.setTimeout(() => void (async () => {
       await loadCardFonts();
       const cover = data.kind === "book" ? await loadCover(coverUrl) : null;
       const full = (data.kind === "book" ? { ...data, cover } : data) as ShareCardData;
@@ -107,9 +120,10 @@ export default function ShareDialog({ what, open, onOpenChange }: { what: ShareW
       }
       made = URL.createObjectURL(blob);
       setImage({ url: made, blob });
-    })();
+    })(), wait);
     return () => {
       alive = false;
+      window.clearTimeout(timer);
       if (made) URL.revokeObjectURL(made);
     };
   }, [open, data, theme, coverUrl]);

@@ -1,40 +1,40 @@
-import { CheckCircle2 } from "lucide-react";
 import { useMemo } from "react";
 import { useT } from "@/lib/i18n";
 import { readingOverview } from "@/lib/reading-stats";
 import { useVocab } from "@/lib/vocab-store";
-import { cn } from "@/components/ui";
 import { ShareButton } from "@/components/share-button";
 
-/** "Finished 3 books · 12 days of reading · 245 words saved" on the shelf. Hidden until there is something to count. */
-export function ReadingOverviewLine({ className }: { className?: string }) {
-  const { t, tn } = useT();
+/**
+ * "My reading" in the account dialog: books finished, days of reading, words saved, and the share
+ * card for them. It lived above the shelf's search field and crowded the shelf, so it moved here.
+ */
+export function ReadingOverviewPanel() {
+  const { t } = useT();
   const books = useVocab((state) => state.books);
   const words = useVocab((state) => state.words);
   const readDays = useVocab((state) => state.readDays);
   const overview = useMemo(() => readingOverview(books, words, readDays), [books, words, readDays]);
-  if (overview.finished.length === 0 && overview.readDays === 0 && overview.words === 0) return null;
-  const parts = [
-    tn("overview.finished", overview.finished.length),
-    tn("overview.days", overview.readDays),
-    tn("overview.words", overview.words),
+  const facts = [
+    { value: overview.finished.length, label: t("share.statFinished") },
+    { value: overview.readDays, label: t("share.statDays") },
+    { value: overview.words, label: t("share.statWords") },
   ];
   return (
-    <section
-      className={cn("flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted", className)}
-      aria-label={t("overview.title")}
-      data-reading-overview
-    >
-      <span className="inline-flex items-center gap-1.5 font-semibold text-ink">
-        <CheckCircle2 className="size-4 text-accent" aria-hidden />
-        {t("overview.title")}
-      </span>
-      {parts.map((part, index) => (
-        <span key={index} className="tabular-nums" data-overview-part={index}>
-          {part}
-        </span>
-      ))}
-      <ShareButton what={{ kind: "overview" }} quiet className="ml-auto min-h-8 px-3 text-xs" />
+    <section className="mt-5 rounded-xl border border-line px-4 py-3" aria-labelledby="account-reading-title" data-reading-overview>
+      <div className="flex items-center justify-between gap-2">
+        <h3 id="account-reading-title" className="text-sm font-semibold">
+          {t("overview.title")}
+        </h3>
+        <ShareButton what={{ kind: "overview" }} quiet className="min-h-9 px-3 text-xs" />
+      </div>
+      <dl className="mt-2 grid grid-cols-3 gap-2">
+        {facts.map((fact, index) => (
+          <div key={fact.label} className="grid gap-0.5" data-overview-part={index}>
+            <dd className="font-display text-xl font-semibold tabular-nums text-ink">{fact.value}</dd>
+            <dt className="order-first text-xs text-muted">{fact.label}</dt>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }
