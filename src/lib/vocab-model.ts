@@ -41,6 +41,8 @@ export type Book = {
   oldFashioned?: boolean;
   /** Short English reason from the catalog. Book content, so it stays English. */
   oldFashionedReason?: string;
+  /** When the reader marked the book as finished (reading-stats.ts). Not the reading position. */
+  finishedAt?: number;
 };
 
 /**

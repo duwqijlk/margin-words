@@ -13,7 +13,8 @@ import {
   type WordSource,
 } from "@/lib/vocab-model";
 import type { TextAnchor } from "@/lib/position";
-import { bookSyncKey } from "@/lib/sync-merge";
+import { asFinishedAt, bookSyncKey } from "@/lib/sync-merge";
+import { addReadDay, asReadDays } from "@/lib/reading-stats";
 import { adoptWord, type GlossFileView } from "@/lib/gloss-ref";
 import {
   addSourceTo,
@@ -102,6 +103,12 @@ type VocabState = {
   words: VocabEntry[];
   /** answers per local day, for the streak and "reviewed today" numbers */
   log: Record<string, ReviewDay>;
+  /** Local days the reader moved through a book (reading-stats.ts). */
+  readDays: readonly string[];
+  /** Note today as a reading day. Does nothing when it is already noted. */
+  markReadDay: (now?: number) => void;
+  /** The reader's own "finished" mark. It does not move the book on the shelf or touch the progress. */
+  setBookFinished: (id: string, finished: boolean, now?: number) => void;
   addBook: (title: string, author: string, source?: "epub" | "notes", id?: string) => string;
   /** Write Lexile measures onto books already on the shelf. Does not move them. */
   setBookLexiles: (pairs: Array<{ id: string; lexile: string }>) => void;
@@ -211,6 +218,24 @@ export const useVocab = create<VocabState>()(
       books: [],
       words: [],
       log: {},
+      readDays: [],
+      markReadDay: (now = Date.now()) => {
+        const days = get().readDays;
+        const next = addReadDay(days, dayKey(now));
+        if (next !== days) set({ readDays: next });
+      },
+      setBookFinished: (id, finished, now = Date.now()) => {
+        set((state) => ({
+          books: state.books.map((book) => {
+            if (book.id !== id) return book;
+            if (finished === (asFinishedAt(book.finishedAt) !== undefined)) return book;
+            const next: Book = { ...book };
+            if (finished) next.finishedAt = now;
+            else delete next.finishedAt;
+            return next;
+          }),
+        }));
+      },
       addBook: (title, author, source, id) => {
         const bookId = id ?? crypto.randomUUID();
         const now = Date.now();
@@ -566,6 +591,7 @@ export const useVocab = create<VocabState>()(
           // Per-book cards from earlier versions become the one global wordbook here (see wordbook.ts).
           words: Array.isArray(saved.words) ? normalizeWordbook(saved.words, books) : current.words,
           log: saved.log && typeof saved.log === "object" ? saved.log : current.log,
+          readDays: asReadDays(saved.readDays),
         };
       },
       storage: createJSONStorage(browserStorage),
