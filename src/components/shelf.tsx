@@ -319,7 +319,7 @@ function ContinueCard({
           <p className="text-[0.9375rem] font-bold">{tn("shelf.chaptersTotal", chapters)}</p>
         ) : null}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <button type="button" className={cn(btn.primary, "w-full px-6 sm:w-fit")} onClick={onOpen} data-continue-open>
+          <button type="button" className={cn(btn.primary, "flex-[1_0_auto] px-6 sm:flex-none")} onClick={onOpen} data-continue-open>
             <BookOpen className="size-5" aria-hidden />
             {started ? t("shelf.continue") : t("shelf.start")}
           </button>

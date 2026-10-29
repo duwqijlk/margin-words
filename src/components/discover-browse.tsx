@@ -14,13 +14,13 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { BookCover, talkCoverTone } from "@/components/book-cover";
-import { LexileBadge } from "@/components/lexile-ui";
 import { useBookTone } from "@/lib/cover-tone";
 import { bump } from "@/lib/motion";
 import type { ShelfState } from "@/components/shelf-actions";
 import { btn, cn } from "@/components/ui";
 import type { ContentCategory } from "@/lib/content-category";
 import { groupDigits } from "@/lib/library-totals";
+import { lexileMeasure } from "@/lib/lexile";
 import type { CatalogPack } from "@/lib/packs";
 import type { WordListPack } from "@/lib/word-list-catalog";
 import { useT } from "@/lib/i18n";
@@ -28,6 +28,19 @@ import { useBookBlurb } from "@/lib/book-blurbs";
 import { BookMaintainerList, BookMaintainers } from "@/components/book-maintainers";
 import { catalogRef } from "@/lib/catalog-id";
 import { SITE } from "@/lib/page-meta";
+
+/** A Lexile measure as a number like the detail's other numbers: "790" with a smaller "L" ("BR100L", "HL600L" keep their prefix). */
+function LexileNumber({ measure }: { measure: string }) {
+  const { t } = useT();
+  return (
+    <span aria-label={t("lexile.aria", { measure })}>
+      <span aria-hidden>
+        {measure.slice(0, -1)}
+        <small className="ml-px text-[0.55em] font-bold">L</small>
+      </span>
+    </span>
+  );
+}
 
 /**
  * The book's own address, https://inputread.site/book/<id>/: a static page with the cover, title and
@@ -56,10 +69,10 @@ function ShareBookLink({ id, title }: { id: string; title: string }) {
     }
   }
   return (
-    <div className="grid gap-1.5 sm:ml-auto">
+    <div className="ml-auto grid gap-1.5">
       <button
         type="button"
-        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-3 text-sm font-semibold text-accent hover:bg-accent-soft/60"
+        className="inline-flex min-h-11 items-center justify-center gap-2 rounded px-3 text-sm font-semibold whitespace-nowrap text-accent hover:bg-accent-soft/60"
         onClick={() => void share()}
         data-detail-share={state}
       >
@@ -419,6 +432,8 @@ export function BookDetail({
   const { t, locale } = useT();
   const open = row !== null && model !== null;
   const facts = row ? counts(row) : { words: 0, phrases: 0, notes: 0 };
+  // The detail shows only a well-formed measure (790L, BR100L, HL600L); anything else, no Lexile tile.
+  const lexile = model ? lexileMeasure(model.lexile) : "";
   const speech = row?.category === "speech";
   const tone = useBookTone(row?.coverUrl, row && speech && !row.coverUrl ? talkCoverTone(row.title, row.author) : undefined);
   // Adding (busy -> on): the main button turns into "Open this book" with a small spring.
@@ -508,17 +523,21 @@ export function BookDetail({
                 </section>
               ) : null}
 
-              {/* Numbers in soft tiles. The Lexile measure shows here and nowhere else; none, no tile. */}
-              <dl className={cn("grid gap-1.5", model.lexile ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3")} data-detail-facts>
+              {/* Numbers in soft tiles. The Lexile measure shows here and nowhere else, as a number like the
+                  other three (790 with a smaller L, design system BookDetail v36); none, no tile. */}
+              <dl className={cn("grid gap-1.5", lexile ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3")} data-detail-facts>
                 {[
-                  ...(model.lexile ? [{ label: t("browse.fact.level"), value: <LexileBadge measure={model.lexile} />, lexile: true }] : []),
+                  ...(lexile ? [{ label: t("browse.fact.level"), value: <LexileNumber measure={lexile} />, lexile: true }] : []),
                   { label: t("dashboard.words"), value: groupDigits(facts.words), lexile: false },
                   { label: t("dashboard.phrases"), value: groupDigits(facts.phrases), lexile: false },
                   { label: t("browse.fact.notes"), value: groupDigits(facts.notes), lexile: false },
                 ].map((fact) => (
-                  <div key={fact.label} className="grid content-start gap-2 rounded-2xl bg-sheet px-4 pt-3 pb-3.5">
+                  <div key={fact.label} className="grid min-w-0 content-start gap-2 rounded-2xl bg-sheet px-4 pt-3 pb-3.5">
                     <dt className="text-[0.8125rem] whitespace-nowrap text-faint">{fact.label}</dt>
-                    <dd className={cn("text-[1.75rem] leading-none font-display font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] tabular-nums text-ink", fact.lexile && "flex h-7 items-center")}>
+                    <dd
+                      className="text-[1.75rem] leading-none font-display font-bold tracking-[-0.02em] whitespace-nowrap [font-variant-numeric:lining-nums_tabular-nums] tabular-nums text-ink"
+                      data-detail-lexile={fact.lexile ? lexile : undefined}
+                    >
                       {fact.value}
                     </dd>
                   </div>
@@ -544,13 +563,15 @@ export function BookDetail({
                 </p>
               ) : null}
 
-              <div className="grid gap-2 sm:flex sm:items-center">
+              {/* Whole buttons wrap to the next line when they do not fit; their text never wraps (English
+                  labels run about twice as long as Chinese ones). */}
+              <div className="flex flex-wrap items-center gap-2" data-detail-actions>
                 <button
                   ref={actionRef}
                   type="button"
                   className={cn(
                     btn.primary,
-                    "relative w-full overflow-hidden sm:w-auto sm:min-w-48 sm:px-6",
+                    "relative flex-[1_0_auto] overflow-hidden px-6 sm:flex-none sm:min-w-48",
                     // Adding: the progress shows inside the button, with a line along its bottom edge.
                     model.state === "busy" && "disabled:opacity-100 bg-accent-soft text-accent",
                   )}
@@ -573,7 +594,7 @@ export function BookDetail({
                 {model.held && model.state !== "on" ? (
                   <button
                     type="button"
-                    className={cn(btn.quiet, "w-full sm:w-auto")}
+                    className={cn(btn.quiet, "flex-[1_0_auto] sm:flex-none")}
                     onClick={onOpen}
                     data-detail-open
                   >
@@ -584,7 +605,7 @@ export function BookDetail({
                 {model.held ? (
                   <button
                     type="button"
-                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded px-3 text-[0.9375rem] font-bold text-warn hover:underline hover:underline-offset-4"
+                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded px-3 text-[0.9375rem] font-bold whitespace-nowrap text-warn hover:underline hover:underline-offset-4"
                     onClick={onRemove}
                   >
                     <Trash2 className="size-4" aria-hidden />

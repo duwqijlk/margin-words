@@ -491,8 +491,8 @@ export const en = {
   "account.logout": "Sign out",
   "account.signedIn": "Signed in as {email}",
   "quota.left": "New this week:",
-  "quota.novels": "Novels {n}/{limit}",
-  "quota.speeches": "Speeches {n}/{limit}",
+  "quota.novels": "Novels",
+  "quota.speeches": "Speeches",
   "quota.rulesOpen": "How the weekly limit works",
   "quota.rulesTitle": "Weekly word lists",
   "quota.rule1":
