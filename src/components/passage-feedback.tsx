@@ -13,6 +13,10 @@ type PassageReason = "hard" | "phrase" | "wrong" | "suggested";
  * The card sends the selected words with their place (chapter, paragraph, a few words around) to
  * /api/feedback/passage. Taps on single words are untouched: those open the word card.
  */
+/** Widest the open card gets (22rem), and the gap it keeps from each screen edge. */
+const CARD_MAX = 352;
+const EDGE = 12;
+
 export function PassageFeedback({
   rootRef,
   bookId,
@@ -136,9 +140,16 @@ export function PassageFeedback({
   const place = open ? pick : (pick ?? crossed);
   if (!place) return null;
   // Under the selection, so it never sits on the phone's own copy menu (that opens above it).
+  // Centred on the selection but kept on screen: the open card is as wide as the screen allows
+  // (CARD_MAX, less a margin each side), so its centre must stay half that width plus the margin
+  // from either edge. A fixed 150px let a 352px card hang 26px off a 390px phone.
+  const screenWidth = document.documentElement.clientWidth;
+  const cardWidth = Math.min(CARD_MAX, screenWidth - 2 * EDGE);
+  const half = open ? cardWidth / 2 + EDGE : 150;
   const style = {
-    left: Math.min(Math.max(place.x, 150), window.scrollX + document.documentElement.clientWidth - 150),
+    left: Math.min(Math.max(place.x, window.scrollX + half), window.scrollX + screenWidth - half),
     top: place.y + 10,
+    ...(open ? { width: cardWidth } : {}),
   };
 
   if (!open) {
@@ -186,7 +197,7 @@ export function PassageFeedback({
 
   return createPortal(
     <div
-      className="absolute z-40 w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 rounded-2xl border border-line bg-card p-4 text-ink shadow-pop"
+      className="absolute z-40 -translate-x-1/2 rounded-2xl border border-line bg-card p-4 text-ink shadow-pop"
       style={style}
       role="dialog"
       aria-label={t("passage.title")}
@@ -224,7 +235,8 @@ export function PassageFeedback({
             {reasonButton("wrong", t("passage.wrong"))}
           </div>
           <textarea
-            className="mt-3 min-h-16 w-full resize-none rounded-lg border border-line/80 bg-card px-2.5 py-2 text-sm text-ink placeholder:text-muted/60 focus:border-accent focus:outline-none"
+            // 16px on phones: iOS Safari zooms the whole page into a smaller field and stays zoomed.
+            className="mt-3 min-h-16 w-full resize-none rounded-lg border border-line/80 bg-card px-2.5 py-2 text-base text-ink sm:text-sm placeholder:text-muted/60 focus:border-accent focus:outline-none"
             value={text}
             maxLength={noteMax}
             rows={pick?.span === "sentence" ? 4 : 2}
