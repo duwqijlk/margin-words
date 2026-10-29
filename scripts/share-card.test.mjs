@@ -27,8 +27,8 @@ test("a word wider than the line is cut by characters; Chinese breaks between ch
   const long = wrapLines(measure, "Supercalifragilistic", 80, 4);
   for (const line of long) assert.ok(measure(line) <= 80, line);
   assert.equal(long.join("").replace(/…$/, ""), "Supercalifragilistic".slice(0, long.join("").replace(/…$/, "").length));
-  const zh = wrapLines(measure, "我读完了一本英文原著", 40, 3);
-  assert.deepEqual(zh, ["我读完了", "一本英文", "原著"]);
+  const zh = wrapLines(measure, "\u6211\u8bfb\u5b8c\u4e86\u4e00\u672c\u82f1\u6587\u539f\u8457", 40, 3);
+  assert.deepEqual(zh, ["\u6211\u8bfb\u5b8c\u4e86", "\u4e00\u672c\u82f1\u6587", "\u539f\u8457"]);
   assert.deepEqual(wrapLines(measure, "   ", 100, 2), []);
 });
 
