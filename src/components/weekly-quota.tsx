@@ -41,7 +41,7 @@ export function WeeklyQuota() {
   }, [canAdd]);
   if (!canAdd || !quota || quota.unlimited) return null;
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted" data-weekly-quota>
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.8125rem] text-muted" data-weekly-quota>
       <span>{t("quota.left")}</span>
       <Count count={quota.novel} label="quota.novels" />
       {quota.speech ? (

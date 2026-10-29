@@ -46,6 +46,42 @@ export const subTabs = {
   off: "border-transparent text-muted hover:text-ink",
 } as const;
 
+/**
+ * The line under the selected sub-tab, sliding to a new tab with a little spring (design system Tabs /
+ * PressFeedback). Put it inside a `relative` tab row; it finds the `[aria-selected="true"]` tab.
+ * While it is there the tabs' own 2px line is hidden (`[data-tab-ink]` in styles.css), so an engine
+ * that cannot run it still shows the plain line.
+ */
+export function TabInk({ selected }: { selected: string }) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const [box, setBox] = useState<{ left: number; width: number } | null>(null);
+  useEffect(() => {
+    const ink = ref.current;
+    const row = ink?.parentElement;
+    if (!ink || !row) return;
+    row.setAttribute("data-tab-ink", "");
+    const measure = () => {
+      const tab = row.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]');
+      if (tab) setBox({ left: tab.offsetLeft, width: tab.offsetWidth });
+    };
+    measure();
+    const observer = typeof ResizeObserver === "function" ? new ResizeObserver(measure) : null;
+    observer?.observe(row);
+    return () => {
+      observer?.disconnect();
+      row.removeAttribute("data-tab-ink");
+    };
+  }, [selected]);
+  return (
+    <span
+      ref={ref}
+      aria-hidden
+      className="tab-ink pointer-events-none absolute bottom-0 left-0 h-0.5 bg-accent"
+      style={box ? { width: box.width, transform: `translateX(${box.left}px)` } : { width: 0 }}
+    />
+  );
+}
+
 /* ---------------------------------------------------------------- pronunciation */
 
 export type PronunciationAccent = "UK" | "US";
@@ -596,6 +632,37 @@ export function Highlighted({ sentence, surface }: { sentence: string; surface: 
         {sentence.slice(index, index + length)}
       </mark>
       {sentence.slice(index + length)}
+    </span>
+  );
+}
+
+/**
+ * A 48px reading ring (design system ContinueReading): brand on a faint track, the percent in the
+ * middle. It draws itself once (off with reduced motion and on e-ink).
+ */
+export function ProgressRing({ value, label }: { value: number; label: string }) {
+  const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
+  const length = 2 * Math.PI * 20;
+  return (
+    <span className="relative grid size-12 shrink-0 place-items-center" role="img" aria-label={label} data-progress-ring>
+      <svg viewBox="0 0 48 48" className="absolute inset-0 size-12 -rotate-90" aria-hidden>
+        <circle cx="24" cy="24" r="20" fill="none" strokeWidth="4" className="stroke-ink/10" />
+        <circle
+          cx="24"
+          cy="24"
+          r="20"
+          fill="none"
+          strokeWidth="4"
+          strokeLinecap="round"
+          className="ring-draw stroke-accent"
+          strokeDasharray={`${((length * pct) / 100).toFixed(1)} ${length.toFixed(1)}`}
+          style={{ ["--ring-length" as string]: length.toFixed(1) }}
+        />
+      </svg>
+      <b className="relative text-[0.8125rem] font-bold tabular-nums">
+        {pct}
+        <small className="text-[0.625rem]">%</small>
+      </b>
     </span>
   );
 }

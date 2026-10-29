@@ -65,6 +65,8 @@ export default {
         cover: "0 1px 2px rgb(0 0 0 / 0.14), 0 6px 14px -6px rgb(0 0 0 / 0.2)",
         // The one shadow for things that float (dialogs, popovers, phone panels). The word card keeps pop.
         lift: "0 1px 0 rgb(0 0 0 / 0.04), 0 12px 32px -12px rgb(0 0 0 / 0.24)",
+        // The few hero cards (continue reading, the review launcher): a soft drop.
+        hero: "0 1px 2px rgb(0 0 0 / 0.04), 0 16px 32px -20px rgb(0 0 0 / 0.35)",
         // The word card: a soft, wide shadow.
         pop: "0 2px 6px rgb(0 0 0 / 0.06), 0 24px 48px -16px rgb(0 0 0 / 0.22)",
       },

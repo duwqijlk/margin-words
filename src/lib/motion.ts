@@ -129,3 +129,75 @@ export function celebrateSave(parts: { heart?: Element | null; word?: Element | 
   sweepSave(parts.word);
   flyTo(parts.word ?? parts.heart, parts.notebook);
 }
+
+/* ---- Covers (design system BookOpen) */
+
+let lastCover: HTMLElement | null = null;
+let tiltInstalled = false;
+
+/**
+ * Covers inside `[data-tilt]` lean towards the pointer (at most 6°, lifted 4px) with a soft sheen
+ * that follows it. Only with a mouse or pen on a device that can hover; never on touch, e-ink or with
+ * reduced motion. One listener for the whole page, installed once.
+ */
+export function installCoverTilt(): void {
+  if (tiltInstalled || typeof document === "undefined") return;
+  tiltInstalled = true;
+  let current: HTMLElement | null = null;
+  const reset = () => {
+    if (!current) return;
+    current.style.transform = "";
+    current.removeAttribute("data-tilting");
+    current = null;
+  };
+  document.addEventListener("pointerdown", (event) => {
+    const host = (event.target as Element | null)?.closest?.("[data-tilt]");
+    lastCover = host?.querySelector<HTMLElement>(".cover-frame") ?? null;
+  }, true);
+  document.addEventListener("pointermove", (event) => {
+    if (event.pointerType === "touch" || motionOff()) return reset();
+    const host = (event.target as Element | null)?.closest?.("[data-tilt]");
+    const frame = host?.querySelector<HTMLElement>(".cover-frame") ?? null;
+    if (frame !== current) reset();
+    if (!frame) return;
+    current = frame;
+    const box = frame.getBoundingClientRect();
+    const x = Math.max(-0.5, Math.min(0.5, (event.clientX - box.left) / box.width - 0.5));
+    const y = Math.max(-0.5, Math.min(0.5, (event.clientY - box.top) / box.height - 0.5));
+    frame.setAttribute("data-tilting", "");
+    frame.style.transform = `perspective(700px) rotateY(${(x * 12).toFixed(2)}deg) rotateX(${(-y * 12).toFixed(2)}deg) translateY(-4px)`;
+    frame.style.setProperty("--sx", `${((x + 0.5) * 100).toFixed(1)}%`);
+    frame.style.setProperty("--sy", `${((y + 0.5) * 100).toFixed(1)}%`);
+  }, { passive: true });
+  document.addEventListener("pointerleave", reset, true);
+}
+
+type TransitionDocument = Document & { startViewTransition?: (update: () => void) => unknown };
+
+/**
+ * Opening a book from its cover: the cover grows into the page (a View Transition, Chrome 111+).
+ * Elsewhere, and on e-ink or with reduced motion, the page just changes.
+ */
+export function openFromCover(update: () => void): void {
+  const doc = document as TransitionDocument;
+  const cover = lastCover;
+  lastCover = null;
+  if (!cover || !cover.isConnected || typeof doc.startViewTransition !== "function" || motionOff()) {
+    update();
+    return;
+  }
+  cover.style.setProperty("view-transition-name", "book-cover");
+  doc.startViewTransition(() => {
+    cover.style.removeProperty("view-transition-name");
+    update();
+  });
+}
+
+/** The Shelf tab that is on screen: the phone tab bar, or the top navigation. */
+export function shelfTabTarget(): Element | null {
+  for (const el of document.querySelectorAll('[data-nav="shelf"]')) {
+    const box = el.getBoundingClientRect();
+    if (box.width > 0 && box.height > 0) return el;
+  }
+  return null;
+}

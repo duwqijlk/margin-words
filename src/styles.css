@@ -1461,3 +1461,140 @@
   text-decoration-thickness: 1.5px;
   text-underline-offset: 0.22em;
 }
+
+/* ---- Covers (design system BookCover / BookOpen) */
+/* Loading: a soft light sweeps right to left over the rule ground. */
+.cover-shimmer {
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%) var(--line);
+  background-size: 220% 100%;
+  animation: cover-shimmer 1.4s linear infinite;
+}
+@keyframes cover-shimmer {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+/* A cover that leans towards the pointer (installCoverTilt in src/lib/motion.ts): quick to follow, with a sheen. */
+.cover-frame[data-tilting] {
+  transition-duration: 100ms;
+}
+.cover-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--sx, 50%) var(--sy, 50%), rgb(255 255 255 / 0.28), transparent 55%);
+  opacity: 0;
+  transition: opacity 180ms;
+}
+.cover-frame[data-tilting]::after {
+  opacity: 1;
+}
+/* Opening a book: the cover grows into the page while the page fades in (openFromCover). */
+::view-transition-old(book-cover) {
+  animation: cover-grow 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+::view-transition-new(root) {
+  animation: page-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes cover-grow {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-shimmer {
+    animation: none;
+  }
+}
+/* The reading ring draws its arc once. */
+.ring-draw {
+  animation: ring-draw 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes ring-draw {
+  from {
+    stroke-dasharray: 0 var(--ring-length, 126);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ring-draw {
+    animation: none;
+  }
+}
+/* A book's own colour (src/lib/cover-tone.ts): the ground of the parts that belong to one book. */
+.tone-ground {
+  background: radial-gradient(120% 140% at 0% 0%, var(--book-tint, var(--sheet)), var(--book-wash, var(--sheet)) 62%);
+}
+.tone-cover .cover-frame {
+  box-shadow:
+    0 2px 4px rgb(var(--book-shadow-rgb, 0 0 0) / 0.3),
+    0 24px 40px -16px rgb(var(--book-shadow-rgb, 0 0 0) / 0.75);
+}
+/* The page edges of a standing book, on the right of the cover. */
+.tone-cover::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  right: -6px;
+  width: 6px;
+  border-radius: 0 2px 2px 0;
+  background: repeating-linear-gradient(to right, var(--card) 0 1px, rgb(var(--ink-rgb) / 0.14) 1px 2px);
+}
+/* The empty shelf's arrow: a small push to the right every few seconds. */
+.nudge-x {
+  animation: nudge-x 3.2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+@keyframes nudge-x {
+  0%,
+  80%,
+  100% {
+    transform: none;
+  }
+  88% {
+    transform: translateX(5px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nudge-x {
+    animation: none;
+  }
+}
+/* The sliding line under the selected sub-tab (TabInk in ui.tsx). */
+[data-tab-ink] [role="tab"] {
+  border-bottom-color: transparent;
+}
+.tab-ink {
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), width 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* A row's page dashes: the current one widens with a spring. */
+.rail-dash {
+  transition: width 280ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 100ms;
+}
+/* Discover's new book: its cover rises in once. */
+.cover-rise {
+  animation: cover-rise 420ms cubic-bezier(0.34, 1.56, 0.64, 1) 120ms both;
+}
+@keyframes cover-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-rise,
+  .tab-ink,
+  .rail-dash {
+    animation: none;
+    transition: none;
+  }
+}

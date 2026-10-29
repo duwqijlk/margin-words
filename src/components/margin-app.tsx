@@ -1,5 +1,6 @@
 import { AlertCircle, CheckCircle2, Compass, LayoutDashboard, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import {
   bookFileExists,
   checkBookStorage,
@@ -30,6 +31,7 @@ import { SiteNotice } from "@/components/site-notice";
 import { canonicalPath, DEFAULT_ROUTE, menuOf, navigate, pathNeedsRedirect, useRoute, type Route } from "@/lib/router";
 import { repairShelf } from "@/lib/shelf-repair";
 import { useAccount } from "@/lib/account-store";
+import { installCoverTilt, openFromCover } from "@/lib/motion";
 import { feedbackTipSeen, shouldOfferTutorial, tutorialSeen, useFeedbackTip, useTutorial } from "@/lib/tutorial";
 import { notifySyncReady, startAccountSync } from "@/lib/sync-engine";
 import { takeLoginAfterWipe } from "@/lib/device-wipe";
@@ -112,6 +114,8 @@ export function MarginApp() {
   // The previous screen, so closing the reader can retry a word-list update that waited.
   const wasReading = useRef(false);
 
+  // Covers lean towards the pointer on devices that can hover (design system BookOpen).
+  useEffect(() => installCoverTilt(), []);
   useEffect(() => {
     applyTheme(theme);
   }, [theme]);
@@ -302,7 +306,8 @@ export function MarginApp() {
       if (!book) return;
       const here = await bookFileExists(bookId).catch(() => false);
       if (here) {
-        setScreen({ kind: "read", bookId });
+        // From a cover on the shelf, the cover grows into the page (src/lib/motion.ts).
+        openFromCover(() => flushSync(() => setScreen({ kind: "read", bookId })));
         return;
       }
       // An unpaired word list is also stored as notes, but still needs its EPUB.
@@ -431,7 +436,7 @@ export function MarginApp() {
             </button>
             <nav className="hidden min-w-0 flex-1 items-center gap-6 pl-4 sm:flex" aria-label={t("nav.main")}>
               {tabs.map((tab) => (
-                <NavButton key={tab.id} active={tab.active} onClick={tab.go}>
+                <NavButton key={tab.id} id={tab.id} active={tab.active} onClick={tab.go}>
                   {tab.label}
                 </NavButton>
               ))}
@@ -483,6 +488,7 @@ export function MarginApp() {
                 type="button"
                 onClick={tab.go}
                 aria-current={tab.active ? "page" : undefined}
+                data-nav={tab.id}
                 className={cn(
                   // The current tab: brand and bold, with a short 2px brand line at the top (no pill).
                   "relative flex min-h-[4.25rem] flex-col items-center justify-center gap-1 px-1 text-[0.72rem] leading-none transition-colors duration-100",
@@ -695,10 +701,12 @@ function Banner({
 }
 
 function NavButton({
+  id,
   active,
   onClick,
   children,
 }: {
+  id: string;
   active: boolean;
   onClick: () => void;
   children: React.ReactNode;
@@ -708,6 +716,7 @@ function NavButton({
       type="button"
       onClick={onClick}
       aria-current={active ? "page" : undefined}
+      data-nav={id}
       className={cn(
         // The current section: ink, bold, with a 2px brand line under it (design system TopBar).
         "inline-flex min-h-11 shrink-0 items-center border-b-2 px-1 text-[0.9375rem] transition-colors duration-100",

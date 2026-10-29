@@ -2,6 +2,7 @@ import * as Popover from "@radix-ui/react-popover";
 import { AlertCircle, BookOpen, Check, Loader2, Plus, RotateCw, Trash2, Undo2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { ConfirmDialog, cn } from "@/components/ui";
+import { flyTo, shelfTabTarget } from "@/lib/motion";
 import { useT, type Key } from "@/lib/i18n";
 import { listUpdatedParts } from "@/lib/list-updated";
 import { forgetBook, useShelfRemove } from "@/lib/shelf-remove";
@@ -118,6 +119,14 @@ export function AddToShelfButton({
   const [open, setOpen] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
   const pct = fraction == null ? null : Math.round(Math.min(1, Math.max(0, fraction)) * 100);
+  // Done adding (busy -> on): the check springs in and a "+1" flies to the Shelf tab (AddToShelf).
+  const before = useRef(state);
+  useEffect(() => {
+    if (before.current === "busy" && state === "on") {
+      flyTo(button.current, shelfTabTarget());
+    }
+    before.current = state;
+  }, [state]);
   const needsSignIn = signedOut && (state === "off" || state === "error");
   const label =
     state === "on"
@@ -153,10 +162,11 @@ export function AddToShelfButton({
           aria-expanded={state === "on" ? open : undefined}
           className={cn(
             // Drawn small so it does not cover the art; the ::before below keeps a 40px place to tap.
-            "shelf-add relative inline-flex size-7 items-center justify-center rounded-full border shadow-sm transition-colors before:absolute before:-inset-1.5 before:content-['']",
-            (state === "off" || state === "update") && "border-black/10 bg-paper/85 text-accent hover:bg-paper",
-            state === "on" && "border-transparent bg-accent text-accent-ink hover:opacity-90",
-            state === "busy" && "cursor-progress border-line bg-paper/95 text-muted",
+            "shelf-add relative inline-flex size-7 items-center justify-center rounded-full border shadow-sm transition-[background-color,border-color,transform] duration-100 before:absolute before:-inset-1.5 before:content-[''] active:scale-[0.92]",
+            (state === "off" || state === "update") && "border-black/10 bg-paper text-accent hover:bg-accent hover:text-accent-ink",
+            // Already on the shelf: an outlined check.
+            state === "on" && "border-accent bg-paper text-accent",
+            state === "busy" && "cursor-progress border-transparent bg-paper text-accent",
             state === "error" && "border-warn bg-warn-soft text-warn hover:opacity-90",
           )}
           onClick={() => {
@@ -164,12 +174,30 @@ export function AddToShelfButton({
             else if (state === "on") setOpen((value) => !value);
           }}
         >
-          <Icon
-            key={state}
-            className={cn("size-3.5", state === "busy" && "animate-spin", state === "on" && "shelf-check")}
-            strokeWidth={state === "on" ? 2.75 : 2.25}
-            aria-hidden
-          />
+          {state === "busy" ? (
+            // The plus becomes a ring that fills with the real download (a turning arc when a word
+            // list has no byte count).
+            <svg viewBox="0 0 28 28" className={cn("absolute inset-0 size-7 -rotate-90", pct == null && "animate-spin")} aria-hidden>
+              <circle cx="14" cy="14" r="11" fill="none" strokeWidth="2.5" className="stroke-line" />
+              <circle
+                cx="14"
+                cy="14"
+                r="11"
+                fill="none"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                className="stroke-accent transition-[stroke-dasharray] duration-200"
+                strokeDasharray={`${((2 * Math.PI * 11 * (pct ?? 28)) / 100).toFixed(1)} 100`}
+              />
+            </svg>
+          ) : (
+            <Icon
+              key={state}
+              className={cn("size-3.5", state === "on" && "shelf-check")}
+              strokeWidth={state === "on" ? 2.75 : 2.25}
+              aria-hidden
+            />
+          )}
           {state === "busy" ? (
             <span
               className="sr-only"
@@ -243,17 +271,23 @@ export function ShelfToastHost({
   const dismissNotice = useShelfRemove((state) => state.dismissNotice);
   const listToast = useListUpdates((state) => state.toast);
   const dismissListToast = useListUpdates((state) => state.dismissToast);
+  // "Added to your shelf" rises from the bottom and fades after 2.6s (AddToShelf).
+  useEffect(() => {
+    if (!notice) return;
+    const timer = window.setTimeout(dismissNotice, 2600);
+    return () => window.clearTimeout(timer);
+  }, [notice, dismissNotice]);
   useEffect(() => {
     if (!listToast) return;
     const timer = window.setTimeout(dismissListToast, listToast.failed > 0 ? 9000 : 5000);
     return () => window.clearTimeout(timer);
   }, [listToast, dismissListToast]);
   const shell = cn(
-    "toast-in fixed inset-x-4 z-50 mx-auto flex max-w-md items-center gap-3 rounded-2xl bg-ink py-2.5 pr-2.5 pl-4 text-sm font-medium text-paper shadow-lift",
+    "toast-in fixed inset-x-4 z-50 mx-auto flex max-w-md items-center gap-3 rounded bg-ink py-2.5 pr-2.5 pl-4 text-sm text-paper shadow-lift",
     aboveTabs ? "bottom-[calc(4.75rem+env(safe-area-inset-bottom))] sm:bottom-4" : "bottom-[calc(1rem+env(safe-area-inset-bottom))]",
   );
   const action =
-    "inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-xl px-3 font-semibold text-accent-soft hover:bg-paper/15";
+    "inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded px-3 font-bold text-mark hover:bg-paper/15";
   return (
     <>
       {pending ? (

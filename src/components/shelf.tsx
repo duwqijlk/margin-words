@@ -1,9 +1,11 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Menu from "@radix-ui/react-dropdown-menu";
 import {
+  ArrowRight,
   BookOpen,
   BookPlus,
   Check,
+  ChevronRight,
   CheckCircle2,
   FileJson,
   Info,
@@ -34,19 +36,19 @@ import { bookSyncKey } from "@/lib/sync-merge";
 import { wordsFromBook } from "@/lib/wordbook";
 import { useShelfRemove } from "@/lib/shelf-remove";
 import { SHELF_MENU_ARM_MS, shelfPressDown, shelfPressMove, shelfPressRelease } from "@/lib/phone-gestures";
-import { BookCover, type useCovers } from "@/components/book-cover";
+import { BookCover, talkCoverTone, type useCovers } from "@/components/book-cover";
+import { useBookTone } from "@/lib/cover-tone";
 import { ShelfBookInfo } from "@/components/shelf-book-info";
 import { useSpeechBookIds } from "@/lib/speech-books";
 import { navigate } from "@/lib/router";
 import { BookTag, BookTags, OldFashionedTag } from "@/components/cover-marks";
-import { btn, cn, field, ProgressBar, selectCls } from "@/components/ui";
+import { btn, cn, field, ProgressBar, ProgressRing, selectCls } from "@/components/ui";
 import { compareLexile } from "@/lib/lexile";
 import { compareSeriesPlace } from "@/lib/discover-rails";
 import { asFinishedAt, matchesFinished, type FinishedFilter } from "@/lib/reading-stats";
 import { LazyShareDialog } from "@/components/share-button";
 import {
   DifficultyControls,
-  LexileBadge,
   matchesBand,
   type BandChoice,
   type SortChoice,
@@ -228,6 +230,12 @@ function RenameDialog({ book, onClose }: { book: Book | null; onClose: () => voi
   );
 }
 
+/**
+ * The shelf's hero (design system ContinueReading): the book being read, on a ground in its own
+ * colour (src/lib/cover-tone.ts). The cover stands like a book (page edges, a shadow in the book's
+ * colour), the title in Literata, a reading ring with the chapter, then "Keep reading" and the words
+ * saved from this book. On a phone it shows too: the cover on the left, the rest under it full width.
+ */
 function ContinueCard({
   row,
   cover,
@@ -235,6 +243,7 @@ function ContinueCard({
   updating,
   onOpen,
   onUpdate,
+  onNotebook,
 }: {
   row: Row;
   cover?: string;
@@ -242,73 +251,89 @@ function ContinueCard({
   updating: boolean;
   onOpen: () => void;
   onUpdate: () => void;
+  onNotebook: () => void;
 }) {
   const speeches = useSpeechBookIds();
-  const { t } = useT();
+  const { t, tn } = useT();
   const { book, progress, fraction } = row;
+  const look = lookOf(speeches, book.id);
+  const tone = useBookTone(cover, look === "talk" && !cover ? talkCoverTone(book.title, book.author) : undefined);
   const started = Boolean(progress && progress.updatedAt > 0 && fraction > 0);
-  const pct = Math.round(fraction * 100);
+  const chapters = progress?.chapters ?? 0;
+  const left = progress ? Math.max(0, chapters - (progress.chapter + 1)) : 0;
   return (
     <section
       aria-label={t("shelf.continueReading")}
-      className="group relative hidden sm:grid sm:grid-cols-[auto_1fr] sm:items-center sm:gap-6 lg:gap-9 overflow-hidden rounded-3xl bg-card p-5 sm:p-6 lg:p-7"
+      className="tone-ground relative grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-4 gap-y-4 rounded-2xl p-4 shadow-hero sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-11 sm:gap-y-3 sm:px-11 sm:py-9"
+      style={tone}
+      data-continue-card
     >
-      <div className="relative w-28 h-[10.5rem] sm:w-36 sm:h-[13.5rem] shrink-0 transition-transform duration-300 group-hover:scale-[1.02]">
+      <div className="tone-cover relative sm:row-span-2" data-tilt>
         <button
           type="button"
           onClick={onOpen}
-          className="block h-full w-full rounded-md text-left"
+          className="block w-full rounded-cover text-left"
           aria-label={t("shelf.openAria", { title: book.title })}
         >
-          <BookCover title={book.title} author={book.author} cover={cover} className="h-full w-full" look={lookOf(speeches, book.id)} />
+          <BookCover title={book.title} author={book.author} cover={cover} look={look} />
         </button>
       </div>
-      <div className="grid min-w-0 flex-1 content-center gap-2 sm:gap-2.5">
-        <div className="flex items-center gap-2">
-          <span className="size-1.5 rounded-full bg-accent" aria-hidden />
-          <p className="text-sm font-medium text-accent">
-            {started ? t("shelf.continueReading") : t("shelf.startReading")}
-          </p>
-        </div>
+      <div className="grid min-w-0 content-end gap-1.5 sm:gap-2">
+        <p className="flex items-center gap-2 text-[0.8125rem] font-bold text-[var(--book-deep)]">
+          <span className="size-1.5 rounded-full bg-current" aria-hidden />
+          {started ? t("shelf.continueReading") : t("shelf.startReading")}
+        </p>
         <h2
-          className="font-display text-[1.35rem] leading-snug font-semibold tracking-tight text-ink sm:text-2xl sm:leading-tight lg:text-[2rem] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
+          className="font-display text-[1.875rem] leading-[1.1] font-bold tracking-[-0.015em] text-ink sm:text-[2.5rem] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
           lang="en"
         >
           {book.title}
         </h2>
-        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-          {book.author ? (
-            <p className="truncate text-sm font-medium text-muted" lang="en">
-              {book.author}
-            </p>
-          ) : null}
-          <div className="w-fit">
-            <LexileBadge measure={book.lexile} />
-          </div>
-          {offer ? (
-            <BookTags>
-              <UpdateTag title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} />
-            </BookTags>
-          ) : null}
-        </div>
-        {started && progress ? (
-          <div className="grid gap-1.5 pt-0.5 sm:pt-1">
-            <ProgressBar value={fraction} label={t("shelf.progress")} />
-            <p className="text-xs font-medium text-muted tabular-nums">
-              {t("shelf.chapterOf", { n: progress.chapter + 1, total: progress.chapters })} · {pct}%
-              {progress.updatedAt ? ` · ${relativeTime(progress.updatedAt)}` : ""}
-            </p>
-          </div>
+        {book.author ? (
+          <p className="truncate text-[0.9375rem] text-muted" lang="en">
+            {book.author}
+          </p>
         ) : null}
-        <div className="pt-1 sm:pt-2">
-          <button
-            type="button"
-            className={cn(btn.primary, "w-fit px-6")}
-            onClick={onOpen}
-          >
-            <BookOpen className="size-4" aria-hidden />
+        {offer ? (
+          <BookTags>
+            <UpdateTag title={book.title} offer={offer} busy={updating} onUpdate={onUpdate} />
+          </BookTags>
+        ) : null}
+      </div>
+      <div className="col-span-2 grid gap-3.5 sm:col-span-1 sm:col-start-2 sm:content-start">
+        {started && progress ? (
+          <div className="flex items-center gap-3.5" data-continue-progress>
+            <ProgressRing value={fraction} label={t("shelf.readPct", { n: Math.round(fraction * 100) })} />
+            <div className="grid gap-0.5">
+              <b className="text-[0.9375rem] font-bold tabular-nums">
+                {t("shelf.chapterOf", { n: progress.chapter + 1, total: chapters })}
+              </b>
+              <span className="text-[0.8125rem] text-muted">
+                {[tn("shelf.chaptersLeft", left), progress.updatedAt ? t("shelf.readAgo", { time: relativeTime(progress.updatedAt) }) : ""]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </span>
+            </div>
+          </div>
+        ) : chapters > 0 ? (
+          <p className="text-[0.9375rem] font-bold">{tn("shelf.chaptersTotal", chapters)}</p>
+        ) : null}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          <button type="button" className={cn(btn.primary, "w-full px-6 sm:w-fit")} onClick={onOpen} data-continue-open>
+            <BookOpen className="size-5" aria-hidden />
             {started ? t("shelf.continue") : t("shelf.start")}
           </button>
+          {row.words > 0 ? (
+            <button
+              type="button"
+              className="inline-flex min-h-11 items-center gap-1 px-1.5 text-[0.9375rem] font-bold text-accent hover:underline hover:underline-offset-4"
+              onClick={onNotebook}
+              data-continue-words
+            >
+              {tn("shelf.bookWords", row.words)}
+              <ChevronRight className="size-4" aria-hidden />
+            </button>
+          ) : null}
         </div>
       </div>
     </section>
@@ -318,7 +343,7 @@ function ContinueCard({
 function ShelfSkeleton() {
   return (
     <div className="grid gap-6 sm:gap-8" aria-busy="true">
-      <div className="hidden h-60 animate-pulse rounded-3xl bg-line sm:block" />
+      <div className="h-56 animate-pulse rounded-2xl bg-sheet sm:h-72" />
       <div className={bookCardGrid}>
         {Array.from({ length: 6 }, (_, index) => (
           <div key={index} className="grid gap-2">
@@ -336,13 +361,15 @@ function EmptyShelf({ onDiscover }: { onDiscover: () => void }) {
   const { t } = useT();
   return (
     <div className="flex min-h-[50dvh] items-center justify-center">
+      {/* One line in the book's voice; the arrow nudges right now and then (EmptyStates). */}
       <button
         type="button"
-        className="min-h-11 text-base font-semibold text-accent underline underline-offset-4"
+        className="inline-flex min-h-11 items-center gap-2 font-display text-xl text-accent hover:underline hover:underline-offset-4"
         onClick={onDiscover}
         data-empty-discover
       >
         {t("shelf.findBooks")}
+        <ArrowRight className="nudge-x size-5" aria-hidden />
       </button>
     </div>
   );
@@ -422,15 +449,16 @@ function BookCard({
         <button
           type="button"
           onClick={onOpen}
-          className="block w-full rounded-md text-left transition-transform duration-200 group-hover:-translate-y-1"
+          className="block w-full rounded-cover text-left"
           aria-label={t("shelf.openAria", { title: book.title })}
+          data-tilt
         >
           <BookCover title={book.title} author={book.author} cover={cover} look={lookOf(speeches, book.id)} />
         </button>
         {finished ? (
           // The reader's own mark. The progress bar below is the reading place and does not change.
           <span
-            className="pointer-events-none absolute top-1.5 left-1.5 z-[1] inline-flex items-center gap-0.5 rounded bg-black/60 px-1.5 py-0.5 text-[0.62rem] leading-4 font-semibold text-white"
+            className="pointer-events-none absolute top-1.5 left-1.5 z-[1] inline-flex items-center gap-0.5 rounded-sm bg-mark px-1.5 py-0.5 text-[0.62rem] leading-4 font-bold text-ink"
             data-shelf-finished=""
           >
             <Check className="size-3 stroke-[3]" aria-hidden />
@@ -469,8 +497,8 @@ function BookCard({
             <Menu.Trigger
               ref={menuTrigger}
               className={cn(
-                "relative inline-flex min-h-10 min-w-7 w-7 shrink-0 touch-manipulation items-center justify-center rounded-lg text-muted/75 select-none hover:bg-accent-soft hover:text-ink -mr-1 sm:w-8 sm:-mr-2 [-webkit-touch-callout:none]",
-                armed && "bg-accent-soft text-ink",
+                "relative inline-flex min-h-10 min-w-7 w-7 shrink-0 touch-manipulation items-center justify-center rounded text-faint select-none hover:bg-sheet hover:text-ink -mr-1 sm:w-8 sm:-mr-2 [-webkit-touch-callout:none]",
+                armed && "bg-sheet text-ink",
               )}
               aria-label={t("shelf.moreAria", { title: book.title })}
               aria-describedby={armed ? hintId : undefined}
@@ -893,17 +921,19 @@ export function Shelf({
               updating={updatingId === hero.book.id}
               onOpen={() => onOpen(hero.book.id)}
               onUpdate={() => updateBook(hero.book.id)}
+              onNotebook={() => onNotebook(hero.book.id)}
             />
           ) : null}
 
           <section className="grid gap-4" aria-label={t("shelf.all")}>
-            <div className="grid gap-3">
+            {/* One row: the "All books" title (wide screens), then the search field and the Filter button. */}
+            <div className="flex items-center gap-2 sm:gap-3">
               {hero && !q && !filtering ? (
-                <h2 className="hidden font-bold tracking-[-0.02em] text-xl sm:block">{t("shelf.all")}</h2>
+                <h2 className="mr-auto hidden text-xl font-bold tracking-[-0.02em] sm:block">{t("shelf.all")}</h2>
               ) : null}
               {liveBooks.length >= 2 ? (
-                <div className="flex items-center gap-2">
-                  <label className="relative block min-w-0 flex-1">
+                <div className="flex min-w-0 flex-1 items-center gap-2 sm:flex-none">
+                  <label className="relative block min-w-0 flex-1 sm:w-64 sm:flex-none">
                     <span className="sr-only">{t("shelf.search")}</span>
                     <Search
                       className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted"
