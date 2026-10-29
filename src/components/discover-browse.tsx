@@ -155,7 +155,7 @@ export function BookRail({
     const node = strip.current;
     if (!node) return;
     const target = Math.max(0, Math.min(pages - 1, index));
-    node.scrollTo({ left: Math.min(target * node.clientWidth, node.scrollWidth - node.clientWidth), behavior: "smooth" });
+    node.scrollTo({ left: Math.min(target * railStep(node), node.scrollWidth - node.clientWidth), behavior: "smooth" });
   };
   return (
     <section className="grid min-w-0 gap-3" aria-label={title} data-discover-rail={rail}>
@@ -203,10 +203,13 @@ export function BookRail({
       <ul
         ref={strip}
         // A phone row runs off the screen edge and shows part of the next book; no arrows, no dashes.
-        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pt-1 [scrollbar-width:none] sm:mx-0 sm:scroll-px-0 sm:gap-5 sm:px-0 [&::-webkit-scrollbar]:hidden"
+        // On a wider screen a page holds exactly 4, 5 or 6 whole books (`.rail-row` in styles.css):
+        // no sliver of the next one, since the arrows and dashes already say there is more.
+        className="rail-row -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pt-1 [scrollbar-width:none] sm:mx-0 sm:scroll-px-0 sm:gap-5 sm:px-0 [&::-webkit-scrollbar]:hidden"
+        data-rail-row
       >
         {rows.map((row) => (
-          <li key={row.key} className="relative w-[6.6rem] shrink-0 snap-start sm:w-32 lg:w-[8.6rem]">
+          <li key={row.key} className="rail-item relative w-[6.6rem] shrink-0 snap-start">
             <button
               type="button"
               className="group grid w-full gap-1.5 rounded-cover text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
@@ -268,6 +271,12 @@ export function BookRail({
  * How many screen-wide pages a sideways row has, and which one is showing.
  * Updates while the reader swipes, and when the window size changes.
  */
+/** One page of a rail: its width plus the gap before the next page's first book. */
+function railStep(node: HTMLElement): number {
+  const gap = parseFloat(getComputedStyle(node).columnGap) || 0;
+  return (node.clientWidth || 1) + gap;
+}
+
 function useRailPages(ref: React.RefObject<HTMLElement | null>, count: number): { pages: number; page: number } {
   const [state, setState] = useState({ pages: 1, page: 0 });
   useEffect(() => {
@@ -278,9 +287,10 @@ function useRailPages(ref: React.RefObject<HTMLElement | null>, count: number): 
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         const width = node.clientWidth || 1;
+        const step = railStep(node);
         const max = Math.max(0, node.scrollWidth - width);
-        const pages = max <= 1 ? 1 : Math.ceil(max / width) + 1;
-        const page = node.scrollLeft >= max - 2 ? pages - 1 : Math.min(pages - 1, Math.round(node.scrollLeft / width));
+        const pages = max <= 1 ? 1 : Math.ceil((max - 2) / step) + 1;
+        const page = node.scrollLeft >= max - 2 ? pages - 1 : Math.min(pages - 1, Math.round(node.scrollLeft / step));
         setState((prev) => (prev.pages === pages && prev.page === page ? prev : { pages, page }));
       });
     };

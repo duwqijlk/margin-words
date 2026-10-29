@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle2, Compass, LayoutDashboard, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
+import { AlertCircle, CheckCircle2, Compass, Library, NotebookPen, Settings, UserRound, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import {
@@ -384,7 +384,7 @@ export function MarginApp() {
     {
       id: "dashboard",
       label: t("nav.dashboard"),
-      Icon: LayoutDashboard,
+      Icon: OverviewIcon,
       active: menu === "dashboard",
       go: () => setScreen({ kind: "dashboard" }),
     },
@@ -393,7 +393,7 @@ export function MarginApp() {
     <div
       className={cn(
         "min-h-dvh bg-paper text-ink",
-        !reading && "flex flex-col max-sm:pb-[calc(4.25rem+env(safe-area-inset-bottom))]",
+        !reading && "flex flex-col max-sm:pb-[calc(3.75rem+env(safe-area-inset-bottom))]",
       )}
     >
       {/* The only file input of the app: a word list (.json) for a book that is already on the shelf.
@@ -434,7 +434,7 @@ export function MarginApp() {
             >
               {t("common.brand")}
             </button>
-            <nav className="hidden min-w-0 flex-1 items-center gap-6 pl-4 sm:flex" aria-label={t("nav.main")}>
+            <nav className="hidden min-w-0 flex-1 items-stretch gap-6 self-stretch pl-4 sm:flex" aria-label={t("nav.main")}>
               {tabs.map((tab) => (
                 <NavButton key={tab.id} id={tab.id} active={tab.active} onClick={tab.go}>
                   {tab.label}
@@ -490,15 +490,14 @@ export function MarginApp() {
                 aria-current={tab.active ? "page" : undefined}
                 data-nav={tab.id}
                 className={cn(
-                  // The current tab: brand and bold, with a short 2px brand line at the top (no pill).
-                  "relative flex min-h-[4.25rem] flex-col items-center justify-center gap-1 px-1 text-[0.72rem] leading-none transition-colors duration-100",
-                  tab.active ? "font-bold text-accent" : "text-muted active:text-ink",
+                  // Design system TopBar: icon over label, ink-3; the current tab brand and bold with a
+                  // 2px brand line over the bar's top rule, 40% of the tab wide (no pill).
+                  "relative flex h-[3.75rem] flex-col items-center justify-start gap-[3px] px-1 pt-2.5 pb-2 text-xs leading-4 transition-colors duration-100",
+                  tab.active ? "font-bold text-accent" : "text-faint active:text-ink",
                 )}
               >
-                {tab.active ? <span className="absolute top-0 left-1/2 h-0.5 w-8 -translate-x-1/2 bg-accent" aria-hidden /> : null}
-                <span className="flex h-8 items-center justify-center">
-                  <tab.Icon className="size-[1.35rem]" aria-hidden />
-                </span>
+                {tab.active ? <span className="absolute -top-px right-[30%] left-[30%] h-0.5 bg-accent" aria-hidden /> : null}
+                <tab.Icon className="size-[22px] shrink-0" aria-hidden />
                 <span className="max-w-full truncate">{tab.label}</span>
               </button>
             ))}
@@ -701,6 +700,28 @@ function Banner({
   );
 }
 
+/** The Overview tab's icon from the design (a column chart on its axes), drawn like a Lucide icon. */
+function OverviewIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={cn("lucide", className)}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+      <path d="M7 16h.01" />
+      <path d="M11 16V9" />
+      <path d="M15 16v-5" />
+      <path d="M19 16V5" />
+    </svg>
+  );
+}
+
 function NavButton({
   id,
   active,
@@ -719,9 +740,10 @@ function NavButton({
       aria-current={active ? "page" : undefined}
       data-nav={id}
       className={cn(
-        // The current section: ink, bold, with a 2px brand line under it (design system TopBar).
-        "inline-flex min-h-11 shrink-0 items-center border-b-2 px-1 text-[0.9375rem] transition-colors duration-100",
-        active ? "border-accent font-bold text-ink" : "border-transparent text-muted hover:text-ink",
+        // Section names in bold; the current one in ink with a 2px brand line along the bottom of the
+        // bar, the others ink-3 (design system TopBar).
+        "inline-flex h-14 shrink-0 items-center border-y-2 border-t-transparent px-1 text-[0.95rem] font-bold transition-colors duration-100",
+        active ? "border-b-accent text-ink" : "border-b-transparent text-faint hover:text-ink",
       )}
     >
       {children}

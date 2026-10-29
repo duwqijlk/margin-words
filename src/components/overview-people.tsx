@@ -48,6 +48,8 @@ export function HeroNumber({ value, ready }: { value: number; ready: boolean }) 
 
 const LISTED = 10;
 const COVERS = 4;
+/** On a phone the covers stay small and fewer, so the row fits the screen. */
+const MOBILE_COVERS = 3;
 /** The demo's meaning. Contributed meanings are accepted in English only, so it is English in every locale. */
 const DEMO_MEANING = "a safe place where boats stay";
 
@@ -126,7 +128,7 @@ export function ContributorsPanel({
               <li
                 key={person.id}
                 className={cn(
-                  "credit-row overview-rise group grid grid-cols-[2rem_40px_minmax(0,1fr)] items-center gap-x-3.5 border-b border-line py-3 sm:grid-cols-[2.5rem_44px_minmax(0,1fr)_6.5rem]",
+                  "credit-row overview-rise group grid grid-cols-[2rem_40px_minmax(0,1fr)_auto] items-center gap-x-2.5 border-b border-line py-3 sm:grid-cols-[2.5rem_44px_minmax(0,1fr)_auto] sm:gap-x-3.5",
                   person.id === myId && "bg-accent-soft/60",
                 )}
                 style={vars({ "--i": index + 2, "--share": Math.max(0.04, person.helped / lead) })}
@@ -156,22 +158,31 @@ export function ContributorsPanel({
                   </span>
                 </span>
                 {refs.length > 0 ? (
+                  // A fixed-width column at the row's end, so the row never runs off a phone screen:
+                  // at most 3 small covers on a phone and 4 on a wide screen, then "+n" (design system ContributorRank).
                   <span
-                    className="credit-covers hidden items-center justify-end sm:flex"
+                    className="credit-covers flex shrink-0 items-center justify-end"
                     aria-label={t("dashboard.rankBooks", { titles: refs.map((ref) => faces.get(ref)?.title).join(", ") })}
                     role="img"
+                    data-rank-books
                   >
                     {refs.slice(0, COVERS).map((ref, k) => {
                       const face = faces.get(ref)!;
                       return (
-                        <span key={ref} className="credit-cover block w-[2.1rem]" style={vars({ "--k": k })} title={face.title}>
+                        <span key={ref} className={cn("credit-cover block w-6 shrink-0 sm:w-[2.1rem]", k >= MOBILE_COVERS && "max-sm:hidden")} style={vars({ "--k": k })} title={face.title}>
                           <BookCover title={face.title} author={face.author} cover={face.coverUrl} look={face.look} whenVisible />
                         </span>
                       );
                     })}
+                    {refs.length > MOBILE_COVERS ? (
+                      <em className="ml-1.5 text-xs text-faint not-italic [font-variant-numeric:tabular-nums] sm:hidden">+{refs.length - MOBILE_COVERS}</em>
+                    ) : null}
+                    {refs.length > COVERS ? (
+                      <em className="ml-1.5 hidden text-xs text-faint not-italic [font-variant-numeric:tabular-nums] sm:inline">+{refs.length - COVERS}</em>
+                    ) : null}
                   </span>
                 ) : (
-                  <span className="hidden sm:block" aria-hidden />
+                  <span aria-hidden />
                 )}
               </li>
             );

@@ -48,7 +48,7 @@ export function SiteNotice() {
   };
   return (
     <div
-      className="fixed inset-x-0 bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-30 px-3 sm:bottom-4"
+      className="fixed inset-x-0 bottom-[calc(3.75rem+env(safe-area-inset-bottom))] z-30 px-3 sm:bottom-4"
       role="note"
       data-site-notice
     >

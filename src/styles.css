@@ -800,6 +800,7 @@
     padding-bottom: 4px;
     max-height: 20vh;
     max-height: 20dvh;
+    overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
   }
@@ -807,11 +808,41 @@
     max-width: 100%;
     overflow-wrap: anywhere;
   }
+  /* Only the middle (IPA, meaning, credit, feedback) scrolls (design system WordCard). It has 10px of
+     padding taken back by -10px margins, so the speakers' and the ?'s wider tap areas reach into the
+     padding and never make it overflow; it never scrolls sideways (overflow-y: auto alone makes x
+     auto too, which is what put scrollbars on all four sides); a thin rule-coloured bar with no
+     arrows shows only when the content really is taller. */
   [data-word-card] [data-word-body] {
     min-height: 0;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 10px;
+    overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+  [data-word-card] [data-word-body]::-webkit-scrollbar {
+    width: 8px;
+    height: 0;
+  }
+  [data-word-card] [data-word-body]::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  [data-word-card] [data-word-body]::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: var(--line) padding-box;
+  }
+  @media (min-width: 768px) {
+    [data-word-card] [data-word-body] {
+      max-height: min(50vh, 22rem);
+    }
   }
   [data-word-card] [data-look-target-group] {
     min-width: 0;
@@ -1757,5 +1788,26 @@
   }
   .step-finish {
     animation: none;
+  }
+}
+
+/* Discover rows (design system BookRail): from a tablet up a page holds exactly --n whole books, 20px
+   apart, so no sliver of the next book shows; phones keep 6.6rem books running off the edge. */
+@media (min-width: 640px) {
+  .rail-row {
+    --n: 4;
+  }
+  .rail-row > .rail-item {
+    width: calc((100% - (var(--n) - 1) * 20px) / var(--n));
+  }
+}
+@media (min-width: 897px) {
+  .rail-row {
+    --n: 5;
+  }
+}
+@media (min-width: 1025px) {
+  .rail-row {
+    --n: 6;
   }
 }
