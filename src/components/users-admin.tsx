@@ -410,7 +410,7 @@ export function UsersAdmin() {
                       <div className="flex flex-wrap items-center gap-2 pt-0.5">
                         <span
                           className={cn(
-                            "inline-flex items-center rounded-full px-2 py-0.5 text-[0.7rem] font-bold tracking-wide uppercase",
+                            "inline-flex items-center rounded px-2 py-0.5 text-[0.7rem] font-bold tracking-wide uppercase",
                             row.role === "admin"
                               ? "border border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300"
                               : row.role === "trusted"

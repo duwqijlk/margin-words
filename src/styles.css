@@ -4,8 +4,9 @@
 
 /*
  * Fonts are self-hosted (public/fonts) so the app looks the same offline and in
- * regions where Google Fonts is slow or blocked. Latin subset only: the book text
- * is English; Chinese UI labels fall back to the system CJK font.
+ * regions where Google Fonts is slow or blocked. Latin subsets: the book text is English.
+ * Chinese titles in the book voice use a small self-hosted Noto Serif SC subset
+ * (src/fonts-zh-serif.css, scripts/subset-zh-serif.py); other Chinese labels use the system sans.
  */
 @font-face {
   font-family: "Literata";
@@ -35,6 +36,30 @@
   font-display: swap;
   src: url("/fonts/lora-italic.woff2") format("woff2");
 }
+/* The interface face: built for legibility (I / l / 1 and O / 0 are easy to tell apart), which suits
+   readers who are still learning English. Chinese labels fall back to the system sans. */
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/atkinson-hyperlegible-normal-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/atkinson-hyperlegible-normal-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/atkinson-hyperlegible-italic-400.woff2") format("woff2");
+}
+/* Inter is kept for IPA only: it has every IPA letter, Atkinson does not. */
 @font-face {
   font-family: "Inter";
   font-style: normal;
@@ -87,112 +112,138 @@
   margin-top: 0.25rem;
 }
 
-/* Theme tokens. The reader themes (light / sepia / dark) restyle the whole app. */
+/*
+ * Theme tokens, from the design system "Keep reading". Four reading themes restyle the whole
+ * app: paper (the default, data-theme="light"), sepia, dark and e-ink.
+ * Only paper and ink change between themes; the brand green stays (lighter at night, black on
+ * e-ink). App names → design names: muted = ink-2, faint = ink-3, line = rule, accent = brand,
+ * accent-ink = brand-ink, accent-soft = brand-tint, warn-soft = warn-tint. `card` is for the word
+ * card; `sheet` is the layer laid on the page. Each colour has an -rgb twin for Tailwind opacity.
+ */
 :root,
 [data-theme="light"] {
   color-scheme: light;
-  --paper: #f8f6f0;
-  --paper-rgb: 248 246 240;
+  --paper: #faf8f3;
+  --paper-rgb: 250 248 243;
+  --sheet: #f2eee5;
+  --sheet-rgb: 242 238 229;
   --card: #ffffff;
   --card-rgb: 255 255 255;
-  --ink: #181715;
-  --ink-rgb: 24 23 21;
-  --muted: #6b655c;
-  --muted-rgb: 107 101 92;
-  --line: #e8e3d8;
-  --line-rgb: 232 227 216;
-  --accent: #235948;
-  --accent-rgb: 35 89 72;
+  --ink: #1b1a17;
+  --ink-rgb: 27 26 23;
+  --muted: #5c574d;
+  --muted-rgb: 92 87 77;
+  --faint: #6c665a;
+  --faint-rgb: 108 102 90;
+  --line: #ddd7ca;
+  --line-rgb: 221 215 202;
+  --edge: #8f887a;
+  --edge-rgb: 143 136 122;
+  --accent: #1e4a3a;
+  --accent-rgb: 30 74 58;
   --accent-ink: #ffffff;
   --accent-ink-rgb: 255 255 255;
-  --accent-soft: #e6f0ea;
-  --accent-soft-rgb: 230 240 234;
-  --warn: #a9481f;
-  --warn-rgb: 169 72 31;
-  --warn-soft: #f8e7dd;
-  --warn-soft-rgb: 248 231 221;
-  --mark: #f6d860;
-  --mark-rgb: 246 216 96;
+  --accent-soft: #e2ebe5;
+  --accent-soft-rgb: 226 235 229;
+  --mark: #f6d54e;
+  --mark-rgb: 246 213 78;
+  --warn: #b42318;
+  --warn-rgb: 180 35 24;
+  --warn-soft: #fbe8e5;
+  --warn-soft-rgb: 251 232 229;
 }
 [data-theme="sepia"] {
   color-scheme: light;
-  --paper: #f7f1e5;
-  --paper-rgb: 247 241 229;
+  --paper: #f4ecdc;
+  --paper-rgb: 244 236 220;
+  --sheet: #ebe1cc;
+  --sheet-rgb: 235 225 204;
   --card: #fdfaf3;
   --card-rgb: 253 250 243;
-  --ink: #332517;
-  --ink-rgb: 51 37 23;
-  --muted: #756550;
-  --muted-rgb: 117 101 80;
-  --line: #e6dbcb;
-  --line-rgb: 230 219 203;
-  --accent: #7b4b24;
-  --accent-rgb: 123 75 36;
-  --accent-ink: #fdf8ee;
-  --accent-ink-rgb: 253 248 238;
-  --accent-soft: #efe4cf;
-  --accent-soft-rgb: 239 228 207;
-  --warn: #9c3f26;
-  --warn-rgb: 156 63 38;
-  --warn-soft: #f5dfcf;
-  --warn-soft-rgb: 245 223 207;
-  --mark: #f3dd94;
-  --mark-rgb: 243 221 148;
+  --ink: #2c2318;
+  --ink-rgb: 44 35 24;
+  --muted: #5e5040;
+  --muted-rgb: 94 80 64;
+  --faint: #685a45;
+  --faint-rgb: 104 90 69;
+  --line: #d8cab0;
+  --line-rgb: 216 202 176;
+  --edge: #8c7b60;
+  --edge-rgb: 140 123 96;
+  --accent: #1e4a3a;
+  --accent-rgb: 30 74 58;
+  --accent-ink: #ffffff;
+  --accent-ink-rgb: 255 255 255;
+  --accent-soft: #dde3d0;
+  --accent-soft-rgb: 221 227 208;
+  --mark: #efcd62;
+  --mark-rgb: 239 205 98;
+  --warn: #a3261c;
+  --warn-rgb: 163 38 28;
+  --warn-soft: #f3dccf;
+  --warn-soft-rgb: 243 220 207;
 }
 [data-theme="dark"] {
-  color-scheme: dark;
-  --paper: #14161a;
-  --paper-rgb: 20 22 26;
+  --paper: #121412;
+  --paper-rgb: 18 20 18;
+  --sheet: #1b1e1b;
+  --sheet-rgb: 27 30 27;
   --card: #1d2025;
   --card-rgb: 29 32 37;
-  --ink: #e9e6df;
-  --ink-rgb: 233 230 223;
-  --muted: #9b9a94;
-  --muted-rgb: 155 154 148;
-  --line: #2d3137;
-  --line-rgb: 45 49 55;
-  --accent: #74c4a2;
-  --accent-rgb: 116 196 162;
-  --accent-ink: #0d1f18;
-  --accent-ink-rgb: 13 31 24;
-  --accent-soft: #1e3a30;
-  --accent-soft-rgb: 30 58 48;
-  --warn: #e69069;
-  --warn-rgb: 230 144 105;
-  --warn-soft: #3a2519;
-  --warn-soft-rgb: 58 37 25;
-  --mark: #5b4a17;
-  --mark-rgb: 91 74 23;
+  --ink: #e7e4dc;
+  --ink-rgb: 231 228 220;
+  --muted: #a6a298;
+  --muted-rgb: 166 162 152;
+  --faint: #8d897f;
+  --faint-rgb: 141 137 127;
+  --line: #2f332f;
+  --line-rgb: 47 51 47;
+  --edge: #6b716b;
+  --edge-rgb: 107 113 107;
+  --accent: #86c9aa;
+  --accent-rgb: 134 201 170;
+  --accent-ink: #0b1d15;
+  --accent-ink-rgb: 11 29 21;
+  --accent-soft: #1d3329;
+  --accent-soft-rgb: 29 51 41;
+  --mark: #6e5c1a;
+  --mark-rgb: 110 92 26;
+  --warn: #f28b7c;
+  --warn-rgb: 242 139 124;
+  --warn-soft: #3b1e1a;
+  --warn-soft-rgb: 59 30 26;
+  color-scheme: dark;
 }
-/*
- * Clear: black, white and glass, after Apple's current look. White pages, near-black text, black
- * for what can be tapped, and floating layers (bars, cards, menus, dialogs) in frosted glass; see
- * `.glass` below. The three themes above stay as they are.
- */
-[data-theme="clear"] {
+[data-theme="eink"] {
   color-scheme: light;
   --paper: #ffffff;
   --paper-rgb: 255 255 255;
-  --card: #f5f5f7;
-  --card-rgb: 245 245 247;
-  --ink: #1d1d1f;
-  --ink-rgb: 29 29 31;
-  --muted: #6e6e73;
-  --muted-rgb: 110 110 115;
-  --line: #e5e5ea;
-  --line-rgb: 229 229 234;
-  --accent: #1d1d1f;
-  --accent-rgb: 29 29 31;
+  --sheet: #f2f2f2;
+  --sheet-rgb: 242 242 242;
+  --card: #ffffff;
+  --card-rgb: 255 255 255;
+  --ink: #000000;
+  --ink-rgb: 0 0 0;
+  --muted: #333333;
+  --muted-rgb: 51 51 51;
+  --faint: #555555;
+  --faint-rgb: 85 85 85;
+  --line: #8c8c8c;
+  --line-rgb: 140 140 140;
+  --edge: #555555;
+  --edge-rgb: 85 85 85;
+  --accent: #000000;
+  --accent-rgb: 0 0 0;
   --accent-ink: #ffffff;
   --accent-ink-rgb: 255 255 255;
-  --accent-soft: #ededf0;
-  --accent-soft-rgb: 237 237 240;
-  --warn: #ff3b30;
-  --warn-rgb: 255 59 48;
-  --warn-soft: #ffe9e7;
-  --warn-soft-rgb: 255 233 231;
-  --mark: #fff3b0;
-  --mark-rgb: 255 243 176;
+  --accent-soft: #e6e6e6;
+  --accent-soft-rgb: 230 230 230;
+  --mark: #d0d0d0;
+  --mark-rgb: 208 208 208;
+  --warn: #000000;
+  --warn-rgb: 0 0 0;
+  --warn-soft: #e6e6e6;
+  --warn-soft-rgb: 230 230 230;
 }
 
 /*
@@ -202,17 +253,12 @@
  * live here.
  */
 :root {
-  --font-display: "Literata", "Iowan Old Style", Georgia, "Noto Serif SC", serif;
+  /* The book voice: book text, chapter and page titles, book titles, the word card's headword, big numbers. */
+  --font-display: "Literata", "inputread Serif SC", "Noto Serif SC", "Songti SC", "STSong", Georgia, serif;
+  /* The interface. */
   --font-sans:
-    "Inter", system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
-}
-/* Clear uses the system face first: SF on Apple devices, Segoe UI Variable on Windows. */
-[data-theme="clear"] {
-  --font-sans:
-    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Inter", system-ui,
-    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC",
-    sans-serif;
+    "Atkinson Hyperlegible", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+    "Noto Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 @layer base {
@@ -1063,22 +1109,6 @@
 }
 
 /*
- * Floating layers in the Clear theme are frosted glass: the page shows through, blurred. Other
- * themes ignore the class and keep their solid card colour. Browsers without backdrop-filter (the
- * old e-ink WebView) keep the solid colour too, so text never sits on a see-through panel.
- */
-[data-theme="clear"] .glass {
-  border-color: rgb(0 0 0 / 0.08);
-}
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  [data-theme="clear"] .glass {
-    background-color: rgb(255 255 255 / 0.72);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
-    backdrop-filter: blur(28px) saturate(180%);
-  }
-}
-
-/*
  * Overview. One signature: the highlighter stroke a reader uses in a book, under the current tab
  * and behind the big numbers, in each theme's own --mark colour. The rest is quiet: content rises
  * in once when a tab opens. Every motion here is off under prefers-reduced-motion.
@@ -1350,4 +1380,32 @@
 @keyframes tut-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 @media (prefers-reduced-motion: reduce) {
   .tut-art * { animation: none !important; }
+}
+
+/*
+ * Design system "Keep reading", shared rules.
+ * Icons: Lucide, one stroke width (1.5) everywhere. In the components layer, so a utility such as
+ * stroke-[2.5] on one icon still wins.
+ */
+@layer components {
+  .lucide {
+    stroke-width: 1.5;
+  }
+}
+
+/*
+ * E-ink: the screen redraws slowly and ghosts, so nothing moves. Every animation and transition is
+ * off and only the end state shows (a saved word still turns into a saved word; a number shows its
+ * value). Book covers keep their shadow; nothing else floats.
+ */
+[data-theme="eink"] *,
+[data-theme="eink"] *::before,
+[data-theme="eink"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+/* Night: every book cover is dimmed a little, so a bright cover does not glare. */
+[data-theme="dark"] .cover-frame > img {
+  filter: brightness(0.82);
 }

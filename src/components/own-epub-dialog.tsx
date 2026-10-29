@@ -161,9 +161,9 @@ function OwnEpubSession({ bookId, onClose, onSaved }: Props & { bookId: string }
   return (
     <Dialog.Root open onOpenChange={(open) => { if (!open) close(); }}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content
-          className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-line bg-card p-5 text-ink shadow-pop glass"
+          className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift "
           data-own-epub-phase={error ? "error" : state.phase}
           aria-busy={busy}
           onEscapeKeyDown={(event) => { if (saving) event.preventDefault(); }}

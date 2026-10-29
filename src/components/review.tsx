@@ -672,7 +672,7 @@ function Session({
       {actions ? (
         <div
           data-review-actions
-          className="max-sm:fixed max-sm:inset-x-0 max-sm:bottom-[calc(4.25rem+env(safe-area-inset-bottom))] max-sm:z-30 max-sm:border-t max-sm:border-line max-sm:bg-paper/95 max-sm:px-4 max-sm:py-3 max-sm:backdrop-blur"
+          className="max-sm:fixed max-sm:inset-x-0 max-sm:bottom-[calc(4.25rem+env(safe-area-inset-bottom))] max-sm:z-30 max-sm:border-t max-sm:border-line max-sm:bg-paper max-sm:px-4 max-sm:py-3"
         >
           <div className="mx-auto grid max-w-2xl gap-2">
             {mode === "cards" && !revealed ? (

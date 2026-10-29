@@ -22,8 +22,13 @@ export default {
         paper: withAlpha("paper"),
         card: withAlpha("card"),
         ink: withAlpha("ink"),
+        // ink-2: secondary text. faint (ink-3): meta only. line (rule): hairlines. edge: control borders.
         muted: withAlpha("muted"),
+        faint: withAlpha("faint"),
         line: withAlpha("line"),
+        edge: withAlpha("edge"),
+        // sheet: the layer laid on the page (continue card, notices, hover ground). card: the word card.
+        sheet: withAlpha("sheet"),
         accent: withAlpha("accent"),
         "accent-ink": withAlpha("accent-ink"),
         "accent-soft": withAlpha("accent-soft"),
@@ -37,17 +42,28 @@ export default {
         display: "var(--font-display)",
         sans: "var(--font-sans)",
       },
+      // Three radii (design system "Keep reading"): 2px marks on text, 4px controls and covers,
+      // 8px things that float. `card` and `sheet` are the word card's own (floating, phone sheet).
+      // Pills are gone: rounded-full is for dots, switches and avatars only.
       borderRadius: {
-        md: "0.625rem",
-        lg: "0.875rem",
-        xl: "1.25rem",
+        sm: "2px",
+        DEFAULT: "4px",
+        md: "4px",
+        lg: "4px",
+        xl: "4px",
+        "2xl": "8px",
+        "3xl": "8px",
+        card: "1.25rem",
+        sheet: "1.5rem",
       },
       // v4 renamed these (`shadow-xs` became its `sm`, and `2xs` is new). The class names are
       // used in 81 places, so the keys are defined here rather than renamed in the components.
       boxShadow: {
         "2xs": "0 1px 2px rgb(0 0 0 / 0.05)",
         xs: "0 1px 2px rgb(0 0 0 / 0.05)",
-        cover: "0 2px 5px rgb(0 0 0 / 0.08), 0 8px 20px -4px rgb(0 0 0 / 0.16)",
+        cover: "0 1px 2px rgb(0 0 0 / 0.14), 0 6px 14px -6px rgb(0 0 0 / 0.2)",
+        // The one shadow for things that float (dialogs, popovers, phone panels). The word card keeps pop.
+        lift: "0 1px 0 rgb(0 0 0 / 0.04), 0 12px 32px -12px rgb(0 0 0 / 0.24)",
         pop: "0 10px 40px -8px rgb(0 0 0 / 0.28), 0 2px 6px rgb(0 0 0 / 0.1)",
       },
     },

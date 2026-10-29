@@ -31,7 +31,7 @@ export function BookMaintainers({ bookRef, className }: { bookRef: string; class
       className={cn(
         // Top-left: the add button holds the bottom-right, and on a 320px phone a Discover cover is
         // 88px wide, too narrow for both in one row. Here it has the cover's whole width.
-        "pointer-events-none absolute top-1.5 left-1.5 z-[2] flex max-w-[calc(100%-0.75rem)] items-center gap-0.5 rounded-full leading-none bg-black/45 py-0.5 pr-1 pl-0.5 backdrop-blur-sm",
+        "pointer-events-none absolute top-1.5 left-1.5 z-[2] flex max-w-[calc(100%-0.75rem)] items-center gap-0.5 rounded-full leading-none bg-black/45 py-0.5 pr-1 pl-0.5",
         !more && "pr-0.5",
         className,
       )}

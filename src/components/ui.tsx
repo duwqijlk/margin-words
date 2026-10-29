@@ -8,26 +8,31 @@ export function cn(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(" ");
 }
 
+// Buttons (design system "Keep reading"): 44px high, 4px corners, 15px bold labels. One primary per
+// screen; secondary is a 1px edge outline; disabled is 40% opacity.
 const btnBase =
-  "inline-flex min-h-11 select-none items-center justify-center gap-2 rounded-xl px-4 text-[0.92rem] font-semibold transition-all duration-150 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100";
+  "inline-flex min-h-11 select-none items-center justify-center gap-2 rounded px-4 text-[0.9375rem] leading-tight font-bold transition-[background-color,border-color,color,transform] duration-100 active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100";
 
 export const btn = {
   primary: cn(btnBase, "bg-accent text-accent-ink hover:bg-accent/90"),
-  // A filled tint, not a white box with a border.
-  quiet: cn(btnBase, "bg-ink/[0.06] text-ink hover:bg-ink/10"),
-  ghost: cn(btnBase, "text-ink hover:bg-accent-soft/60"),
-  danger: cn(btnBase, "bg-warn text-accent-ink hover:opacity-90"),
-  icon: "inline-flex size-11 shrink-0 items-center justify-center rounded-xl text-ink transition-colors hover:bg-black/5 disabled:opacity-45",
+  /** Secondary: transparent with a 1px edge border; the sheet ground on hover. */
+  quiet: cn(btnBase, "border border-edge text-ink hover:bg-sheet"),
+  ghost: cn(btnBase, "text-ink hover:bg-sheet"),
+  danger: cn(btnBase, "bg-warn text-accent-ink hover:bg-warn/90"),
+  /** 44×44, ink-2; the current one turns brand (aria-current / text-accent), never filled. */
+  icon: "inline-flex size-11 shrink-0 items-center justify-center rounded text-muted transition-colors duration-100 hover:bg-sheet hover:text-ink disabled:opacity-40",
 } as const;
 
+// Inputs, selects and search fields look the same: paper ground, 1px edge border, 4px corners.
+// Focused, the border and an inner ring turn brand (2px of brand in all).
 export const field =
-  "min-h-11 w-full rounded-xl border border-line/80 bg-card px-3.5 text-base text-ink placeholder:text-muted/60 transition-all focus:border-accent focus:outline-none";
+  "min-h-11 w-full rounded border border-edge bg-paper px-3 text-base text-ink placeholder:text-faint transition-[border-color,box-shadow] duration-100 focus:border-accent focus:shadow-[inset_0_0_0_1px_rgb(var(--accent-rgb))] focus:outline-none";
 
 export const selectCls =
-  "min-h-11 rounded-xl border border-line/80 bg-card px-3.5 text-base text-ink transition-all focus:border-accent focus:outline-none";
+  "min-h-11 rounded border border-edge bg-paper px-3 text-base text-ink transition-[border-color,box-shadow] duration-100 focus:border-accent focus:shadow-[inset_0_0_0_1px_rgb(var(--accent-rgb))] focus:outline-none";
 
 export const chip =
-  "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold leading-5";
+  "inline-flex items-center rounded px-2 py-0.5 text-xs font-bold leading-5";
 
 /**
  * Second-level tabs as plain text (Discover's Novels / Speeches, Overview's sections): the row has a
@@ -35,10 +40,10 @@ export const chip =
  */
 export const subTabs = {
   // No scrolling: two or three short words always fit, and a scroll box showed a scrollbar for the 1px overlap.
-  row: "flex gap-5 border-b border-line/60",
-  tab: "-mb-px inline-flex min-h-10 shrink-0 items-center border-b-2 text-[0.9rem] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-  on: "border-ink font-semibold text-ink",
-  off: "border-transparent font-medium text-muted hover:text-ink",
+  row: "flex gap-6 border-b border-line",
+  tab: "-mb-px inline-flex min-h-11 shrink-0 items-center border-b-2 text-[0.9375rem] transition-colors duration-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+  on: "border-accent font-bold text-ink",
+  off: "border-transparent text-muted hover:text-ink",
 } as const;
 
 /* ---------------------------------------------------------------- pronunciation */
@@ -596,10 +601,10 @@ export function ProgressBar({
       aria-valuemax={100}
       aria-valuenow={pct}
       aria-label={label}
-      className={cn("h-1.5 overflow-hidden rounded-full bg-line", className)}
+      className={cn("h-0.5 overflow-hidden bg-line", className)}
     >
       <div
-        className="h-full rounded-full bg-accent transition-[width] duration-300"
+        className="h-full bg-accent transition-[width] duration-300"
         style={{ width: `${pct}%` }}
       />
     </div>
@@ -659,8 +664,8 @@ export function Segmented<T extends string | number>({
       aria-label={label}
       className={cn(
         wrap
-          ? "grid grid-cols-2 gap-1.5 sm:flex sm:rounded-xl sm:bg-line/40 sm:p-1"
-          : "flex rounded-xl bg-ink/[0.06] p-1",
+          ? "grid grid-cols-2 gap-1.5 sm:flex sm:gap-0 sm:divide-x sm:divide-line sm:overflow-hidden sm:rounded sm:border sm:border-edge"
+          : "flex divide-x divide-line overflow-hidden rounded border border-edge",
       )}
     >
       {options.map((option) => (
@@ -670,14 +675,11 @@ export function Segmented<T extends string | number>({
           aria-pressed={option.value === value}
           onClick={() => onChange(option.value)}
           className={cn(
-            "min-h-10 rounded-lg px-3 text-sm font-medium transition-all duration-150",
+            "min-h-10 min-w-16 px-3 text-sm transition-colors duration-100",
             wrap
-              ? "border border-line/60 whitespace-normal sm:flex-1 sm:border-0 sm:whitespace-nowrap"
+              ? "rounded border border-edge whitespace-normal sm:flex-1 sm:rounded-none sm:border-0 sm:whitespace-nowrap"
               : "flex-1 whitespace-nowrap",
-            option.value === value
-              ? "bg-card text-ink shadow-2xs font-semibold"
-              : "text-muted hover:text-ink",
-            wrap && option.value !== value && "bg-card/40 sm:bg-transparent",
+            option.value === value ? "bg-accent-soft font-bold text-accent" : "text-muted hover:bg-sheet hover:text-ink",
           )}
         >
           {option.label}
@@ -706,8 +708,8 @@ export function ConfirmDialog({
   return (
     <AlertDialog.Root open={open} onOpenChange={onOpenChange}>
       <AlertDialog.Portal>
-        <AlertDialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
-        <AlertDialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-card p-5 text-ink shadow-pop glass">
+        <AlertDialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
+        <AlertDialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-paper p-5 text-ink shadow-lift ">
           <AlertDialog.Title className="text-lg font-semibold">
             {title}
           </AlertDialog.Title>

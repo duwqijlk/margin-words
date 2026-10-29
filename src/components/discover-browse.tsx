@@ -319,7 +319,7 @@ export function FeaturedBook({
         onClick={() => onOpen(row)}
         aria-label={t("browse.openAria", { title: row.title })}
       >
-        <span className="w-24 shrink-0 shadow-pop transition-transform duration-300 group-hover:scale-[1.03] sm:w-36">
+        <span className="w-24 shrink-0 shadow-lift transition-transform duration-300 group-hover:scale-[1.03] sm:w-36">
           <BookCover title={row.title} author={row.author} cover={row.coverUrl} look={row.category === "speech" ? "talk" : "book"} />
         </span>
         <span className="grid min-w-0 gap-1.5 sm:gap-2.5">
@@ -338,7 +338,7 @@ export function FeaturedBook({
             {words > 0 ? <span>{t("browse.wordsMarked", { n: groupDigits(words) })}</span> : null}
             <span>{row.kind === "classic" ? t("shelf.classic") : t("discover.kindList")}</span>
           </span>
-          <span className="mt-1 inline-flex w-fit items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-900 shadow-sm transition-all group-hover:bg-white group-hover:shadow-md max-sm:hidden">
+          <span className="mt-1 inline-flex w-fit items-center gap-1.5 rounded bg-white px-4 py-2 text-sm font-semibold text-neutral-900 shadow-sm transition-all group-hover:bg-white group-hover:shadow-md max-sm:hidden">
             {t("browse.view")}
             <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
           </span>
@@ -399,10 +399,10 @@ export function BookDetail({
   return (
     <Dialog.Root open={open} onOpenChange={(next) => !next && onClose()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content
           className={cn(
-            "fixed z-50 grid max-h-[calc(100dvh-1rem)] gap-5 overflow-y-auto border border-line bg-card p-5 text-ink shadow-pop glass",
+            "fixed z-50 grid max-h-[calc(100dvh-1rem)] gap-5 overflow-y-auto border border-line bg-paper p-5 text-ink shadow-lift ",
             "inset-x-0 bottom-0 rounded-t-3xl pb-[max(1.25rem,env(safe-area-inset-bottom))]",
             "anim-pop sm:inset-auto sm:top-1/2 sm:left-1/2 sm:w-[min(36rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl sm:p-6",
           )}

@@ -17,10 +17,10 @@ const SECOND = "The patient keeper watched the clouds because the next journey d
 const TEXT = `${FIRST} ${SECOND}`;
 const CASES = [
   [1280, 900, "en", "light", "both", "known"], [1280, 900, "zh", "dark", "both", "delayed"],
-  [768, 1024, "en", "sepia", "both", "missing"], [768, 1024, "zh", "clear", "sentence", "known"],
-  [390, 844, "en", "clear", "both", "known"], [390, 844, "zh", "sepia", "paragraph", "known"],
+  [768, 1024, "en", "sepia", "both", "missing"], [768, 1024, "zh", "eink", "sentence", "known"],
+  [390, 844, "en", "eink", "both", "known"], [390, 844, "zh", "sepia", "paragraph", "known"],
   [320, 700, "zh", "light", "both", "missing"], [320, 700, "en", "dark", "sentence", "known"],
-  [1280, 900, "en", "clear", "paragraph", "uncredited"], [390, 844, "zh", "dark", "both", "delayed"],
+  [1280, 900, "en", "eink", "paragraph", "uncredited"], [390, 844, "zh", "dark", "both", "delayed"],
 ];
 const LABELS = {
   en: ["Reading help", "Paragraph", "Sentences"],

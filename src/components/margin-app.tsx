@@ -419,7 +419,7 @@ export function MarginApp() {
           reader, where it would sit over the words. */}
       {reading ? null : <SiteNotice />}
       {reading ? null : (
-        <header className="glass sticky top-0 z-40 bg-paper/80 backdrop-blur-xl">
+        <header className="sticky top-0 z-40 bg-paper">
           <div className="mx-auto flex h-14 max-w-6xl items-center gap-1 px-2 sm:gap-2 sm:px-6">
             <button
               type="button"
@@ -429,7 +429,7 @@ export function MarginApp() {
             >
               {t("common.brand")}
             </button>
-            <nav className="hidden min-w-0 flex-1 items-center gap-1 sm:flex" aria-label={t("nav.main")}>
+            <nav className="hidden min-w-0 flex-1 items-center gap-6 pl-4 sm:flex" aria-label={t("nav.main")}>
               {tabs.map((tab) => (
                 <NavButton key={tab.id} active={tab.active} onClick={tab.go}>
                   {tab.label}
@@ -472,7 +472,7 @@ export function MarginApp() {
 
       {reading ? null : (
         <nav
-          className="glass fixed inset-x-0 bottom-0 z-40 border-t border-line/60 bg-paper/80 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl sm:hidden"
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper pb-[env(safe-area-inset-bottom)] sm:hidden"
           aria-label={t("nav.main")}
           data-tab-bar
         >
@@ -484,17 +484,14 @@ export function MarginApp() {
                 onClick={tab.go}
                 aria-current={tab.active ? "page" : undefined}
                 className={cn(
-                  "group flex min-h-[4.25rem] flex-col items-center justify-center gap-1 px-1 text-[0.72rem] leading-none font-semibold transition-colors",
-                  tab.active ? "text-accent" : "text-muted active:text-ink",
+                  // The current tab: brand and bold, with a short 2px brand line at the top (no pill).
+                  "relative flex min-h-[4.25rem] flex-col items-center justify-center gap-1 px-1 text-[0.72rem] leading-none transition-colors duration-100",
+                  tab.active ? "font-bold text-accent" : "text-muted active:text-ink",
                 )}
               >
-                <span
-                  className={cn(
-                    "flex h-8 w-14 items-center justify-center rounded-full transition-colors",
-                    tab.active ? "bg-accent-soft" : "group-active:bg-accent-soft/60",
-                  )}
-                >
-                  <tab.Icon className="size-[1.35rem]" strokeWidth={tab.active ? 2.4 : 2} aria-hidden />
+                {tab.active ? <span className="absolute top-0 left-1/2 h-0.5 w-8 -translate-x-1/2 bg-accent" aria-hidden /> : null}
+                <span className="flex h-8 items-center justify-center">
+                  <tab.Icon className="size-[1.35rem]" aria-hidden />
                 </span>
                 <span className="max-w-full truncate">{tab.label}</span>
               </button>
@@ -712,8 +709,9 @@ function NavButton({
       onClick={onClick}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "inline-flex min-h-11 shrink-0 items-center px-3 text-[0.95rem] font-semibold transition-colors sm:px-3.5",
-        active ? "text-accent" : "text-muted hover:text-ink",
+        // The current section: ink, bold, with a 2px brand line under it (design system TopBar).
+        "inline-flex min-h-11 shrink-0 items-center border-b-2 px-1 text-[0.9375rem] transition-colors duration-100",
+        active ? "border-accent font-bold text-ink" : "border-transparent text-muted hover:text-ink",
       )}
     >
       {children}

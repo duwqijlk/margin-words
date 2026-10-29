@@ -209,7 +209,7 @@ export function ContributorsPanel({
         <div className="grid gap-4">
           <button
             type="button"
-            className="justify-self-center rounded-full border border-line px-5 py-2 text-sm font-medium transition-colors hover:bg-card"
+            className="justify-self-center rounded border border-line px-5 py-2 text-sm font-medium transition-colors hover:bg-card"
             aria-expanded={everyone}
             onClick={() => setEveryone((open) => !open)}
             data-rank-everyone
@@ -257,7 +257,7 @@ function HowToHelp({ delay }: { delay: number }) {
         <p className="font-display text-[1.05rem] leading-8">
           The boats waited in the quiet <span className="help-demo-word relative">harbor</span> for the tide.
         </p>
-        <div className="help-demo-card mt-3 grid gap-2.5 rounded-2xl border border-line bg-card p-3.5 shadow-pop">
+        <div className="help-demo-card mt-3 grid gap-2.5 rounded-2xl border border-line bg-card p-3.5 shadow-lift">
           <div className="flex items-baseline justify-between gap-2">
             <span className="font-display text-lg font-semibold">harbor</span>
             <MessageCircleQuestion className="help-demo-ask size-4 text-muted" />

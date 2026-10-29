@@ -13,7 +13,7 @@ export function LexileBadge({ measure }: { measure?: string }) {
   if (!clean) return null;
   return (
     <p
-      className="inline-flex min-h-6 items-center gap-1 rounded-full bg-accent-soft px-2 text-[0.7rem] font-semibold text-accent"
+      className="inline-flex min-h-6 items-center gap-1 rounded bg-accent-soft px-2 text-[0.7rem] font-semibold text-accent"
       data-lexile={clean}
       aria-label={t("lexile.aria", { measure: clean })}
     >

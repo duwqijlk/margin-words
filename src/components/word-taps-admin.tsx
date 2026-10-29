@@ -447,7 +447,7 @@ function WordTapsSubView() {
 
                     <span
                       className={cn(
-                        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
+                        "inline-flex items-center rounded px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
                         row.status === "resolved"
                           ? "border border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
                           : row.inGlossary
@@ -510,7 +510,7 @@ function WordTapsSubView() {
                       </span>
                     )}
 
-                    <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
+                    <span className="rounded bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
                       {t("admin.taps.clickCount", { n: row.tapCount })}
                     </span>
                     <span className="text-xs text-muted">
@@ -925,7 +925,7 @@ function WordFeedbackSubView() {
                     {/* Status badge */}
                     <span
                       className={cn(
-                        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
+                        "inline-flex items-center rounded px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
                         row.status === "reopened"
                           ? "border border-red-500/30 bg-red-500/15 text-red-700 dark:text-red-300"
                           : row.status === "resolved"
@@ -942,7 +942,7 @@ function WordFeedbackSubView() {
 
                     <span
                       className={cn(
-                        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
+                        "inline-flex items-center rounded px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide",
                         row.reason === "too_hard"
                           ? "border border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300"
                           : row.reason === "missing_meaning"
@@ -963,7 +963,7 @@ function WordFeedbackSubView() {
 
                     <span
                       className={cn(
-                        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide border border-accent/25 bg-accent-soft text-accent",
+                        "inline-flex items-center rounded px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide border border-accent/25 bg-accent-soft text-accent",
                       )}
                     >
                       {row.senseIndex >= 0
@@ -1019,7 +1019,7 @@ function WordFeedbackSubView() {
                       </span>
                     )}
 
-                    <span className="rounded-full bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
+                    <span className="rounded bg-accent-soft px-3 py-1 font-display text-xs font-bold text-accent">
                       {t("admin.feedback.reportCount", { n: row.count })}
                     </span>
                     <span className="text-xs text-muted">

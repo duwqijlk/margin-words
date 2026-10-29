@@ -158,7 +158,7 @@ export function PassageFeedback({
         {pick ? (
           <button
             type="button"
-            className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-ink px-3.5 text-xs font-semibold text-paper shadow-pop"
+            className="inline-flex min-h-10 items-center gap-1.5 rounded bg-ink px-3.5 text-xs font-semibold text-paper shadow-lift"
             // Keep the selection: a press would clear it before the click.
             onPointerDown={(event) => event.preventDefault()}
             onClick={() => setOpen(true)}
@@ -168,7 +168,7 @@ export function PassageFeedback({
             {t("passage.ask")}
           </button>
         ) : (
-          <p className="rounded-full bg-ink/85 px-3 py-1.5 text-xs text-paper shadow-pop" role="status" data-passage-crossed>
+          <p className="rounded bg-ink/85 px-3 py-1.5 text-xs text-paper shadow-lift" role="status" data-passage-crossed>
             {t("passage.oneParagraph")}
           </p>
         )}
@@ -197,7 +197,7 @@ export function PassageFeedback({
 
   return createPortal(
     <div
-      className="absolute z-40 -translate-x-1/2 rounded-2xl border border-line bg-card p-4 text-ink shadow-pop"
+      className="absolute z-40 -translate-x-1/2 rounded-2xl border border-line bg-paper p-4 text-ink shadow-lift"
       style={style}
       role="dialog"
       aria-label={t("passage.title")}

@@ -5,6 +5,7 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { MarginApp } from "@/components/margin-app";
 import { RELOAD_QUIET_MS, RELOAD_STOP, reloadPlan } from "@/lib/reload-guard";
 import { finishDeviceWipe } from "@/lib/device-wipe";
+import "./fonts-zh-serif.css";
 import "./styles.css";
 
 // Before anything renders. The call (not the import) is what keeps this in the bundle:

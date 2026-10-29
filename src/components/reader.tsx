@@ -1692,7 +1692,7 @@ export function ReaderScreen({
         ref={headerRef}
         data-reader-bar={barHidden ? "hidden" : "shown"}
         className={cn(
-          "glass sticky top-0 z-30 border-b border-line/60 bg-paper/80 backdrop-blur-xl transition-transform duration-300",
+          "sticky top-0 z-30 border-b border-line/60 bg-paper transition-transform duration-300",
           (focus || barHidden) && "-translate-y-full",
         )}
       >
@@ -1736,7 +1736,7 @@ export function ReaderScreen({
         <button
           type="button"
           onClick={() => prefs.set({ focus: false })}
-          className="fixed top-3 right-3 z-30 inline-flex min-h-10 items-center gap-1.5 rounded-full border border-line bg-card/90 px-3 text-xs font-semibold text-muted opacity-60 shadow-sm backdrop-blur transition-opacity hover:opacity-100 focus-visible:opacity-100"
+          className="fixed top-3 right-3 z-30 inline-flex min-h-10 items-center gap-1.5 rounded border border-line bg-card/90 px-3 text-xs font-semibold text-muted opacity-60 shadow-sm transition-opacity hover:opacity-100 focus-visible:opacity-100"
         >
           <Focus className="size-3.5" aria-hidden />
           {t("reader.exitFocus")}
@@ -1747,7 +1747,7 @@ export function ReaderScreen({
         <p
           role="tooltip"
           data-word-hover={hover.word}
-          className="pointer-events-none fixed z-40 max-w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-full rounded-lg border border-line bg-card px-3 py-1.5 text-sm leading-snug text-ink shadow-pop glass"
+          className="pointer-events-none fixed z-40 max-w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-full rounded-lg border border-line bg-paper px-3 py-1.5 text-sm leading-snug text-ink shadow-lift "
           style={{ left: Math.min(Math.max(hover.left, 180), window.innerWidth - 180), top: hover.top - 8 }}
           lang="en"
         >

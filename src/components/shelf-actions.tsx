@@ -153,7 +153,7 @@ export function AddToShelfButton({
           aria-expanded={state === "on" ? open : undefined}
           className={cn(
             // Drawn small so it does not cover the art; the ::before below keeps a 40px place to tap.
-            "shelf-add relative inline-flex size-7 items-center justify-center rounded-full border shadow-sm backdrop-blur-sm transition-colors before:absolute before:-inset-1.5 before:content-['']",
+            "shelf-add relative inline-flex size-7 items-center justify-center rounded-full border shadow-sm transition-colors before:absolute before:-inset-1.5 before:content-['']",
             (state === "off" || state === "update") && "border-black/10 bg-paper/85 text-accent hover:bg-paper",
             state === "on" && "border-transparent bg-accent text-accent-ink hover:opacity-90",
             state === "busy" && "cursor-progress border-line bg-paper/95 text-muted",
@@ -191,7 +191,7 @@ export function AddToShelfButton({
             event.preventDefault();
             button.current?.focus();
           }}
-          className="anim-pop z-50 grid min-w-48 gap-0.5 rounded-xl border border-line bg-card p-1.5 text-ink shadow-pop glass"
+          className="anim-pop z-50 grid min-w-48 gap-0.5 rounded-2xl border border-line bg-paper p-1.5 text-ink shadow-lift "
         >
             <button
               type="button"
@@ -249,7 +249,7 @@ export function ShelfToastHost({
     return () => window.clearTimeout(timer);
   }, [listToast, dismissListToast]);
   const shell = cn(
-    "toast-in fixed inset-x-4 z-50 mx-auto flex max-w-md items-center gap-3 rounded-2xl bg-ink py-2.5 pr-2.5 pl-4 text-sm font-medium text-paper shadow-pop",
+    "toast-in fixed inset-x-4 z-50 mx-auto flex max-w-md items-center gap-3 rounded-2xl bg-ink py-2.5 pr-2.5 pl-4 text-sm font-medium text-paper shadow-lift",
     aboveTabs ? "bottom-[calc(4.75rem+env(safe-area-inset-bottom))] sm:bottom-4" : "bottom-[calc(1rem+env(safe-area-inset-bottom))]",
   );
   const action =

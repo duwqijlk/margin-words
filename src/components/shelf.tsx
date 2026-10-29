@@ -181,8 +181,8 @@ function RenameDialog({ book, onClose }: { book: Book | null; onClose: () => voi
   return (
     <Dialog.Root open={book !== null} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
-        <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-line bg-card p-5 text-ink shadow-pop glass">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
+        <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 w-[min(26rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift ">
           <Dialog.Title className="font-display text-xl font-semibold">
             {t("rename.title")}
           </Dialog.Title>
@@ -293,7 +293,7 @@ function ContinueCard({
         </div>
         {started && progress ? (
           <div className="grid gap-1.5 pt-0.5 sm:pt-1">
-            <ProgressBar value={fraction} className="h-1.5 rounded-full bg-line/60" label={t("shelf.progress")} />
+            <ProgressBar value={fraction} label={t("shelf.progress")} />
             <p className="text-xs font-medium text-muted tabular-nums">
               {t("shelf.chapterOf", { n: progress.chapter + 1, total: progress.chapters })} · {pct}%
               {progress.updatedAt ? ` · ${relativeTime(progress.updatedAt)}` : ""}
@@ -303,7 +303,7 @@ function ContinueCard({
         <div className="pt-1 sm:pt-2">
           <button
             type="button"
-            className={cn(btn.primary, "w-fit rounded-full px-6 py-2.5 shadow-xs hover:shadow-md")}
+            className={cn(btn.primary, "w-fit px-6")}
             onClick={onOpen}
           >
             <BookOpen className="size-4" aria-hidden />
@@ -430,7 +430,7 @@ function BookCard({
         {finished ? (
           // The reader's own mark. The progress bar below is the reading place and does not change.
           <span
-            className="pointer-events-none absolute top-1.5 left-1.5 z-[1] inline-flex items-center gap-0.5 rounded-full bg-black/60 px-1.5 py-0.5 text-[0.62rem] leading-4 font-semibold text-white"
+            className="pointer-events-none absolute top-1.5 left-1.5 z-[1] inline-flex items-center gap-0.5 rounded bg-black/60 px-1.5 py-0.5 text-[0.62rem] leading-4 font-semibold text-white"
             data-shelf-finished=""
           >
             <Check className="size-3 stroke-[3]" aria-hidden />
@@ -556,7 +556,7 @@ function BookCard({
                 }}
                 align="end"
                 sideOffset={4}
-                className="anim-pop z-50 min-w-44 rounded-xl border border-line bg-card p-1.5 text-ink shadow-pop glass"
+                className="anim-pop z-50 min-w-44 rounded-2xl border border-line bg-paper p-1.5 text-ink shadow-lift "
               >
                 {offer ? (
                   <Menu.Item

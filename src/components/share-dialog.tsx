@@ -160,9 +160,9 @@ export default function ShareDialog({ what, open, onOpenChange }: { what: ShareW
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content
-          className="anim-pop fixed top-1/2 left-1/2 z-50 grid w-[calc(100vw-2rem)] max-w-md max-h-[calc(100vh-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-xl border border-line bg-card p-5 text-ink shadow-pop"
+          className="anim-pop fixed top-1/2 left-1/2 z-50 grid w-[calc(100vw-2rem)] max-w-md max-h-[calc(100vh-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift"
           data-share-dialog={what.kind}
         >
           <div className="flex items-start justify-between gap-2">

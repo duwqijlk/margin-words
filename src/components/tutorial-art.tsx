@@ -69,7 +69,7 @@ export function ArtWordList({ label, tag }: { label: string; tag: string }) {
           Aa
         </text>
         <rect x="226" y="150" width="70" height="20" rx="10" className="fill-paper stroke-accent" strokeWidth="1.5" />
-        <text x="261" y="164" textAnchor="middle" className="fill-accent" style={{ font: "600 10px Inter, sans-serif" }}>
+        <text x="261" y="164" textAnchor="middle" className="fill-accent" style={{ font: "600 10px var(--font-sans)" }}>
           {tag}
         </text>
       </g>
@@ -79,7 +79,7 @@ export function ArtWordList({ label, tag }: { label: string; tag: string }) {
         <text x="158" y="38" className="fill-ink" style={{ font: "700 12px Literata, Georgia, serif" }}>
           peered
         </text>
-        <text x="158" y="52" className="fill-ink" opacity="0.7" style={{ font: "500 9.5px Inter, sans-serif" }}>
+        <text x="158" y="52" className="fill-ink" opacity="0.7" style={{ font: "500 9.5px var(--font-sans)" }}>
           looked closely
         </text>
       </g>
@@ -118,7 +118,7 @@ export function ArtDiscover({ label, tag }: { label: string; tag: string }) {
       </g>
       <g className="tut-tag">
         <rect x="232" y="76" width="74" height="22" rx="11" className="fill-accent" />
-        <text x="269" y="91" textAnchor="middle" className="fill-paper" style={{ font: "600 10px Inter, sans-serif" }}>
+        <text x="269" y="91" textAnchor="middle" className="fill-paper" style={{ font: "600 10px var(--font-sans)" }}>
           {tag}
         </text>
       </g>
@@ -144,7 +144,7 @@ export function ArtEpub({ label, tag }: { label: string; tag: string }) {
         <path d="M222 40 h40 l14 14 v52 a4 4 0 0 1 -4 4 h-50 a4 4 0 0 1 -4 -4 v-62 a4 4 0 0 1 4 -4z" className="fill-card stroke-ink" strokeWidth="1.8" />
         <path d="M262 40 v14 h14" className="fill-none stroke-ink" strokeWidth="1.8" />
         <rect x="226" y="76" width="44" height="16" rx="3" className="fill-accent" />
-        <text x="248" y="88" textAnchor="middle" className="fill-paper" style={{ font: "700 10px Inter, sans-serif" }}>
+        <text x="248" y="88" textAnchor="middle" className="fill-paper" style={{ font: "700 10px var(--font-sans)" }}>
           EPUB
         </text>
       </g>
@@ -156,7 +156,7 @@ export function ArtEpub({ label, tag }: { label: string; tag: string }) {
       </g>
       <g className="tut-tag">
         <rect x="70" y="164" width="78" height="22" rx="11" className="fill-accent" />
-        <text x="109" y="179" textAnchor="middle" className="fill-paper" style={{ font: "600 10px Inter, sans-serif" }}>
+        <text x="109" y="179" textAnchor="middle" className="fill-paper" style={{ font: "600 10px var(--font-sans)" }}>
           {tag}
         </text>
       </g>
@@ -182,13 +182,13 @@ export function ArtTapWord({ label }: { label: string }) {
         <text x="88" y="140" className="fill-ink" style={{ font: "700 17px Literata, Georgia, serif" }}>
           peered
         </text>
-        <text x="152" y="140" className="fill-ink" opacity="0.55" style={{ font: "500 10px Inter, sans-serif" }}>
+        <text x="152" y="140" className="fill-ink" opacity="0.55" style={{ font: "500 10px var(--font-sans)" }}>
           /pɪəd/
         </text>
-        <text x="88" y="160" className="fill-ink" style={{ font: "500 10.5px Inter, sans-serif" }}>
+        <text x="88" y="160" className="fill-ink" style={{ font: "500 10.5px var(--font-sans)" }}>
           Looked closely, as if it was
         </text>
-        <text x="88" y="174" className="fill-ink" style={{ font: "500 10.5px Inter, sans-serif" }}>
+        <text x="88" y="174" className="fill-ink" style={{ font: "500 10.5px var(--font-sans)" }}>
           hard to see.
         </text>
         <path d="M226 128 a5 5 0 0 1 10 0 q0 6 -5 10 q-5 -4 -5 -10z" className="fill-none stroke-accent" strokeWidth="1.6" />
@@ -209,23 +209,23 @@ export function ArtFeedbackHard({ label, tooHard, addMine, thanks }: { label: st
       <Lines x={80} y={48} widths={[150, 118]} gap={10} />
       <rect x="80" y="76" width="160" height="1.5" className="fill-line" />
       <circle cx="232" cy="92" r="10" className="fill-paper stroke-accent tut-pulse" strokeWidth="2" />
-      <text x="232" y="96.5" textAnchor="middle" className="fill-accent" style={{ font: "700 12px Inter, sans-serif" }}>
+      <text x="232" y="96.5" textAnchor="middle" className="fill-accent" style={{ font: "700 12px var(--font-sans)" }}>
         ?
       </text>
       <g className="tut-pop">
         <rect x="76" y="108" width="168" height="56" rx="10" className="fill-paper stroke-line" strokeWidth="1.5" />
         <rect x="86" y="116" width="72" height="20" rx="6" className="fill-card stroke-line" strokeWidth="1.2" />
-        <text x="122" y="130" textAnchor="middle" className="fill-ink" style={{ font: "600 9.5px Inter, sans-serif" }}>
+        <text x="122" y="130" textAnchor="middle" className="fill-ink" style={{ font: "600 9.5px var(--font-sans)" }}>
           {tooHard}
         </text>
         <rect x="86" y="140" width="148" height="18" rx="6" className="fill-none stroke-accent" strokeWidth="1.2" strokeDasharray="3 3" />
-        <text x="160" y="152.5" textAnchor="middle" className="fill-accent" style={{ font: "600 9px Inter, sans-serif" }}>
+        <text x="160" y="152.5" textAnchor="middle" className="fill-accent" style={{ font: "600 9px var(--font-sans)" }}>
           {addMine}
         </text>
       </g>
       <g className="tut-late">
         <rect x="86" y="116" width="72" height="20" rx="6" className="fill-accent" />
-        <text x="122" y="130" textAnchor="middle" className="fill-paper" style={{ font: "600 9.5px Inter, sans-serif" }}>
+        <text x="122" y="130" textAnchor="middle" className="fill-paper" style={{ font: "600 9.5px var(--font-sans)" }}>
           {tooHard}
         </text>
       </g>
@@ -234,7 +234,7 @@ export function ArtFeedbackHard({ label, tooHard, addMine, thanks }: { label: st
       </g>
       <g className="tut-thanks">
         <rect x="186" y="176" width="110" height="20" rx="10" className="fill-emerald-600" />
-        <text x="241" y="190" textAnchor="middle" className="fill-white" style={{ font: "600 9px Inter, sans-serif" }}>
+        <text x="241" y="190" textAnchor="middle" className="fill-white" style={{ font: "600 9px var(--font-sans)" }}>
           {thanks}
         </text>
       </g>
@@ -264,27 +264,27 @@ export function ArtFeedbackMissing({ label, missing, addMine, thanks }: { label:
           harbor
         </text>
         <circle cx="224" cy="117" r="8" className="fill-card stroke-accent" strokeWidth="1.6" />
-        <text x="224" y="121" textAnchor="middle" className="fill-accent" style={{ font: "700 10px Inter, sans-serif" }}>
+        <text x="224" y="121" textAnchor="middle" className="fill-accent" style={{ font: "700 10px var(--font-sans)" }}>
           ?
         </text>
         <rect x="86" y="134" width="86" height="20" rx="6" className="fill-card stroke-line" strokeWidth="1.2" />
-        <text x="129" y="148" textAnchor="middle" className="fill-ink" style={{ font: "600 9.5px Inter, sans-serif" }}>
+        <text x="129" y="148" textAnchor="middle" className="fill-ink" style={{ font: "600 9.5px var(--font-sans)" }}>
           {missing}
         </text>
         <rect x="86" y="160" width="148" height="18" rx="6" className="fill-none stroke-accent" strokeWidth="1.2" strokeDasharray="3 3" />
-        <text x="160" y="172.5" textAnchor="middle" className="fill-accent" style={{ font: "600 9px Inter, sans-serif" }}>
+        <text x="160" y="172.5" textAnchor="middle" className="fill-accent" style={{ font: "600 9px var(--font-sans)" }}>
           {addMine}
         </text>
       </g>
       <g className="tut-late">
         <rect x="86" y="134" width="86" height="20" rx="6" className="fill-accent" />
-        <text x="129" y="148" textAnchor="middle" className="fill-paper" style={{ font: "600 9.5px Inter, sans-serif" }}>
+        <text x="129" y="148" textAnchor="middle" className="fill-paper" style={{ font: "600 9.5px var(--font-sans)" }}>
           {missing}
         </text>
       </g>
       <g className="tut-thanks">
         <rect x="186" y="176" width="110" height="20" rx="10" className="fill-emerald-600" />
-        <text x="241" y="190" textAnchor="middle" className="fill-white" style={{ font: "600 9px Inter, sans-serif" }}>
+        <text x="241" y="190" textAnchor="middle" className="fill-white" style={{ font: "600 9px var(--font-sans)" }}>
           {thanks}
         </text>
       </g>

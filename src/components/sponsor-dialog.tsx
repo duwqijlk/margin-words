@@ -55,7 +55,7 @@ function WalletCard({ wallet }: { wallet: SponsorWallet }) {
             {EVM_CHAINS.map((chain) => (
               <li
                 key={chain.icon}
-                className="inline-flex items-center gap-1 rounded-full border border-line bg-card py-0.5 pr-2 pl-0.5 text-xs leading-5"
+                className="inline-flex items-center gap-1 rounded border border-line bg-card py-0.5 pr-2 pl-0.5 text-xs leading-5"
                 data-sponsor-chain={chain.icon}
               >
                 <img src={`/sponsor/${chain.icon}.svg`} alt="" className="size-5" aria-hidden />
@@ -166,9 +166,9 @@ export function SponsorDialog({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content
-          className="anim-pop fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-2rem)] w-[min(30rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-xl border border-line bg-card p-5 text-ink shadow-pop glass"
+          className="anim-pop fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-2rem)] w-[min(30rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift "
           data-sponsor-dialog
         >
           <div className="flex items-start justify-between gap-3">

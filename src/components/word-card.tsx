@@ -166,7 +166,7 @@ export function CoinedBadge() {
   const { t } = useT();
   return (
     <p
-      className="inline-flex items-center gap-1.5 self-start rounded-full bg-mark/60 px-2.5 py-0.5 text-xs font-semibold text-ink"
+      className="inline-flex items-center gap-1.5 self-start rounded-sm bg-mark/60 px-2.5 py-0.5 text-xs font-semibold text-ink"
       data-coined
     >
       <Sparkles className="size-3" aria-hidden />
@@ -286,9 +286,9 @@ export function WordCard({
       kind="word"
       desktopWidth={24 * 16}
       className={cn(
-        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop glass",
+        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain border-line bg-card px-5 text-ink shadow-pop ",
         targetHere ? "word-sheet-context" : "word-sheet-plain",
-        "inset-x-0 bottom-0 rounded-t-3xl border-t pt-3.5 pb-5 md:pb-6",
+        "inset-x-0 bottom-0 rounded-t-sheet border-t pt-3.5 pb-5 md:pb-6",
         SIDE_PANEL,
       )}
     >

@@ -52,7 +52,7 @@ export function WeeklyQuota() {
       ) : null}
       <Popover.Root>
         <Popover.Trigger
-          className="-m-2 inline-flex size-11 items-center justify-center rounded-full text-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-accent"
+          className="-m-2 inline-flex size-11 items-center justify-center rounded text-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-accent"
           aria-label={t("quota.rulesOpen")}
           data-quota-rules
         >
@@ -63,7 +63,7 @@ export function WeeklyQuota() {
             align="start"
             sideOffset={6}
             collisionPadding={8}
-            className="anim-pop z-50 grid w-[min(22rem,calc(100vw-1rem))] gap-2 rounded-2xl border border-line bg-card p-4 text-sm text-ink shadow-pop glass"
+            className="anim-pop z-50 grid w-[min(22rem,calc(100vw-1rem))] gap-2 rounded-2xl border border-line bg-paper p-4 text-sm text-ink shadow-lift "
           >
             <h3 className="font-semibold">{t("quota.rulesTitle")}</h3>
             <ul className="grid list-disc gap-1.5 pl-4 leading-snug text-muted">

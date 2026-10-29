@@ -6,6 +6,29 @@ Tailwind 3 + zustand single-page app. It has no AI calls. The reader works fully
 it cannot reach the Android e-ink readers some of these students use; v3 writes plain CSS with
 physical properties. The theme tokens are the CSS variables in `src/styles.css`, each with an
 `-rgb` twin so `bg-paper/90` still works (see `tailwind.config.js`).
+**Visual design** follows the design system "Keep reading" (the user's claude.ai design-system artifact,
+from 2026-10-29): it changes how things look, not where they are. Being rolled out in batches; batch 1
+(foundation) is in. Its rules, in the code:
+- Four reading themes on `<html data-theme>`: `light` (paper, default), `sepia`, `dark`, `eink`. The Clear
+  theme was retired and reads as `light` (prefs merge, boot script, `asSettings`). Only paper and ink change
+  between themes; the brand green (`accent`) is the same on paper and sepia, lighter at night, black on e-ink.
+- Token names in the app vs the design: `muted` = ink-2 (secondary text), `faint` = ink-3 (meta only),
+  `line` = rule (hairlines), `edge` (control borders, 3:1), `sheet` (the layer laid on the page), `card`
+  (the word card), `accent` = brand, `accent-soft` = brand-tint, `mark` = saved / understood (never a
+  selection colour), `warn` only for what needs the reader.
+- Radii: `rounded-sm` 2px (marks on text), `rounded`/`md`/`lg`/`xl` 4px (buttons, fields, covers, chips,
+  notices), `rounded-2xl`/`3xl` 8px (dialogs, popovers), `rounded-card` / `rounded-t-sheet` for the word
+  card only. No pills: `rounded-full` is for dots, switches, avatars and the spinner.
+- Floating layers (dialogs, popovers, drawers): `bg-paper`, `rounded-2xl`, 1px `border-line`, `shadow-lift`,
+  overlay `bg-black/[0.32]`. The word card keeps `shadow-pop`. No frosted glass anywhere.
+- Fonts: interface Atkinson Hyperlegible (400/700; `font-medium` renders 400, `font-semibold` 700), book
+  voice Literata with a self-hosted Noto Serif SC subset for Chinese titles (`src/fonts-zh-serif.css`, made by
+  `scripts/subset-zh-serif.py` from the characters in `i18n-zh.ts`; characters added later fall back to the
+  system serif until it is run again). Inter stays for IPA only.
+- Icons: Lucide, stroke 1.5 everywhere (`.lucide` in styles.css). Current items turn `accent`, never filled.
+- Current top-nav item: ink, bold, 2px accent line under it. Phone tab bar: accent + bold with a short 2px
+  accent line at the top, no pill. Sub-tabs: 2px accent line. Progress: a 2px line, square ends.
+- E-ink: every animation and transition is off (end states only). Night: covers dim to 82%.
 Optional accounts (email, password, and sync of shelf, progress, saved words, and settings) are
 Cloudflare Pages Functions in `functions/` plus a D1 database. See [docs/ACCOUNTS.md](docs/ACCOUNTS.md).
 Do not store ordinary user data in R2. Publicly projected contributor names and avatars are the documented

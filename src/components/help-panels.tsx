@@ -245,7 +245,7 @@ export function ParagraphPanel({
       label={t("hp.panelAria")}
       kind="para"
       className={cn(
-        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain [overflow-anchor:none] border-line bg-card px-5 text-ink shadow-pop glass",
+        "scroll-thin fixed z-40 overflow-y-auto overscroll-contain [overflow-anchor:none] border-line bg-card px-5 text-ink shadow-pop ",
         "inset-x-0 bottom-0 max-h-[52dvh] rounded-t-3xl border-t pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]",
         SIDE_PANEL,
         "md:bottom-auto md:max-h-[calc(100dvh-6.5rem)] md:pb-5",
@@ -386,7 +386,7 @@ export function ParagraphPanel({
                           data-hard-word={word}
                           onClick={() => onWord(word)}
                           lang="en"
-                          className="min-h-9 max-w-full break-words rounded-full border border-line px-3.5 text-[0.95rem] font-medium hover:bg-accent-soft"
+                          className="min-h-9 max-w-full break-words rounded border border-line px-3.5 text-[0.95rem] font-medium hover:bg-accent-soft"
                         >
                           {word}
                         </button>

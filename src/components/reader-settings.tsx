@@ -15,10 +15,10 @@ import {
 import { btn, cn, Segmented } from "@/components/ui";
 
 const THEMES: Array<{ value: Theme; label: Key; bg: string; fg: string }> = [
-  { value: "light", label: "rs.theme.light", bg: "#f6f4ee", fg: "#1f1d1a" },
-  { value: "sepia", label: "rs.theme.sepia", bg: "#f7f1e5", fg: "#332517" },
-  { value: "dark", label: "rs.theme.dark", bg: "#14161a", fg: "#e9e6df" },
-  { value: "clear", label: "rs.theme.clear", bg: "#ffffff", fg: "#1d1d1f" },
+  { value: "light", label: "rs.theme.light", bg: "#faf8f3", fg: "#1b1a17" },
+  { value: "sepia", label: "rs.theme.sepia", bg: "#f4ecdc", fg: "#2c2318" },
+  { value: "dark", label: "rs.theme.dark", bg: "#121412", fg: "#e7e4dc" },
+  { value: "eink", label: "rs.theme.eink", bg: "#ffffff", fg: "#000000" },
 ];
 
 const LEADING_LABEL: Record<number, Key> = {
@@ -41,7 +41,7 @@ export function ReaderSettings() {
           align="end"
           sideOffset={8}
           collisionPadding={8}
-          className="anim-pop z-50 grid w-[min(22rem,calc(100vw-1rem))] gap-4 rounded-2xl border border-line bg-card p-4 text-ink shadow-pop glass"
+          className="anim-pop z-50 grid w-[min(22rem,calc(100vw-1rem))] gap-4 rounded-2xl border border-line bg-paper p-4 text-ink shadow-lift "
         >
           <section className="grid gap-2" aria-label={t("rs.theme")}>
             <h3 className="text-xs font-semibold text-muted">{t("rs.theme")}</h3>
