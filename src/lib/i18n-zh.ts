@@ -1163,7 +1163,7 @@ export const zh: Record<Key, string> = {
   "card.feedbackPrompt": "释义反馈",
   "card.feedbackTooHard": "解释太难",
   "card.feedbackWrong": "解释错误",
-  "card.feedbackMissing": "这个词太难",
+  "card.feedbackMissing": "缺少释义",
   "card.creditBy": "由 {name} 提供",
   "card.creditAnon": "一位读者",
   "card.feedbackAddMeaning": "附上我的解释",

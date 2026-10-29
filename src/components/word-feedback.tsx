@@ -40,10 +40,7 @@ export function WordExplanationFeedback({
   senseIndex?: number;
   senseMeaning?: string;
   glossaryRev?: string;
-  /**
-   * The book has no meaning for this word. The one report is "this word is too hard" (sent as
-   * missing_meaning, so a teacher adds it to the list), with or without the reader's own meaning.
-   */
+  /** The book has no meaning for this word: the only report is that it is missing. */
   missing?: boolean;
   className?: string;
 }) {
