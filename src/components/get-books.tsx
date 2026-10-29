@@ -8,6 +8,7 @@ import { isSponsorAdmin } from "@/lib/sponsor";
 import { navigate } from "@/lib/router";
 import { LanguageSwitch } from "@/components/language";
 import { guideUrl } from "@/lib/guide";
+import { useTutorial } from "@/lib/tutorial";
 
 /*
  * Settings. Books themselves are added on Discover only: public-domain packs download from their
@@ -90,6 +91,17 @@ export function SettingsDialog({
             }}
           >
             {t("nav.guide")}
+          </button>
+          <button
+            type="button"
+            className={cn(btn.quiet, "mt-2 w-full justify-start")}
+            data-settings-tutorial
+            onClick={() => {
+              onOpenChange(false);
+              useTutorial.getState().show();
+            }}
+          >
+            {t("settings.tutorial")}
           </button>
           {isAdmin ? (
             <button

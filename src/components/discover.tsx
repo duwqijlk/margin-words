@@ -27,6 +27,7 @@ import { useShelfRemove } from "@/lib/shelf-remove";
 import type { Book } from "@/lib/vocab-model";
 import { useVocab } from "@/lib/vocab-store";
 import { navigate } from "@/lib/router";
+import { useDiscoverIntent } from "@/lib/tutorial";
 import { countFromBook } from "@/lib/wordbook";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL, type WordListPack } from "@/lib/word-list-catalog";
 import { CONTENT_CATEGORIES, type ContentCategory } from "@/lib/content-category";
@@ -269,8 +270,25 @@ export function DiscoverScreen({
   const inCollection = useMemo(() => {
     if (!collection) return inCategory;
     if (collection === "new") return newestUpdates(inCategory, new Date(), inCategory.length);
-    return rails.find((rail) => rail.id === collection)?.all ?? [];
+    const rail = rails.find((item) => item.id === collection);
+    if (rail) return rail.all;
+    // A series opened from outside (the tutorial) when it has no row of its own on this tab.
+    if (collection.startsWith("series:")) {
+      const name = collection.slice("series:".length);
+      return inCategory.filter((row) => row.series === name).sort(compareSeriesPlace);
+    }
+    return [];
   }, [inCategory, collection, rails]);
+  // The tutorial's "See Magic Tree House": open that series as its "See all" list.
+  const pendingSeries = useDiscoverIntent((state) => state.series);
+  useEffect(() => {
+    if (!pendingSeries || rows.length === 0) return;
+    const name = useDiscoverIntent.getState().take();
+    if (!name) return;
+    setCategory("novel");
+    setCollection(`series:${name}`);
+    window.scrollTo({ top: 0 });
+  }, [pendingSeries, rows.length]);
   const authors = useMemo(
     () => [...new Set(inCategory.map((item) => item.author).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
     [inCategory],
