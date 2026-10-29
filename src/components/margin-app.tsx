@@ -579,7 +579,8 @@ export function MarginApp() {
               words={words}
               bookId={screen.bookId}
               onBookChange={(bookId) => setScreen({ kind: "words", bookId })}
-              onReview={(bookId) => setScreen({ kind: "review", bookId }, { state: { review: "due" } })}
+              onReview={(bookId, pool, mode) => setScreen({ kind: "review", bookId }, { state: { review: pool, mode } })}
+              onReviewData={(bookId) => setScreen({ kind: "review", bookId }, { state: { review: "overview" } })}
               onOpenBook={openBook}
             />
           ) : screen.kind === "review" ? (

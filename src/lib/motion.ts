@@ -193,6 +193,118 @@ export function openFromCover(update: () => void): void {
   });
 }
 
+/* ---- Review (design system ReviewFlip, RoundComplete) */
+
+const wait = (ms: number) => new Promise<void>((resolve) => window.setTimeout(resolve, ms));
+
+/** Resolves when an animation ends. `Animation.finished` needs Chrome 84, so this uses `onfinish`, with a timer as a backstop. */
+function ended(run: Animation, ms: number): Promise<void> {
+  return new Promise<void>((resolve) => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      resolve();
+    };
+    run.onfinish = finish;
+    run.oncancel = finish;
+    window.setTimeout(finish, ms + 120);
+  });
+}
+
+/** A short side-to-side shake: "not yet", never a punishment (no red flash). */
+export function shake(el: Element | null | undefined): Promise<void> {
+  if (!el || motionOff()) return Promise.resolve();
+  const run = el.animate(
+    [
+      { transform: "translateX(0)" },
+      { transform: "translateX(-8px)", offset: 0.2 },
+      { transform: "translateX(7px)", offset: 0.45 },
+      { transform: "translateX(-4px)", offset: 0.7 },
+      { transform: "translateX(0)" },
+    ],
+    { duration: DUR.base, easing: EASE.standard },
+  );
+  return ended(run, DUR.base);
+}
+
+/** The card leaves to one side (right = known, left = not yet); the next one rises in by CSS. */
+export function slideOut(el: Element | null | undefined, side: "left" | "right"): Promise<void> {
+  if (!el || motionOff()) return Promise.resolve();
+  const run = el.animate(
+    [
+      { transform: "translateX(0)", opacity: 1 },
+      { transform: `translateX(${side === "right" ? 48 : -48}px)`, opacity: 0 },
+    ],
+    { duration: DUR.base, easing: EASE.in, fill: "forwards" },
+  );
+  return ended(run, DUR.base);
+}
+
+/** Wait while the check stamp lands (it is drawn by CSS); nothing to wait for when motion is off. */
+export function stampPause(): Promise<void> {
+  return motionOff() ? Promise.resolve() : wait(DUR.base);
+}
+
+/**
+ * Counts a number up from 0 in `DUR.celebrate`, writing it into `el`. With motion off the final
+ * number is written at once. Returns a stop function.
+ */
+export function countUp(el: HTMLElement | null | undefined, to: number, done?: () => void): () => void {
+  if (!el) return () => undefined;
+  if (motionOff() || to <= 0) {
+    el.textContent = String(to);
+    done?.();
+    return () => undefined;
+  }
+  let frame = 0;
+  const start = performance.now();
+  const step = (now: number) => {
+    const t = Math.min(1, (now - start) / DUR.celebrate);
+    // ease-out cubic
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = String(Math.round(to * eased));
+    if (t < 1) frame = requestAnimationFrame(step);
+    else done?.();
+  };
+  el.textContent = "0";
+  frame = requestAnimationFrame(step);
+  return () => cancelAnimationFrame(frame);
+}
+
+/**
+ * One fall of confetti (about 36 pieces in brand, highlighter, ink and pale green) over the top of
+ * the screen, gone within `DUR.celebrate`. Only for the end of a review round, the one big moment.
+ */
+export function confetti(from: Element | null | undefined, pieces = 36): void {
+  if (!from || motionOff()) return;
+  const box = from.getBoundingClientRect();
+  const host = layer();
+  const colours = ["var(--accent)", "var(--mark)", "var(--ink)", "rgb(var(--accent-rgb) / 0.35)"];
+  for (let i = 0; i < pieces; i += 1) {
+    const bit = document.createElement("i");
+    const w = 6 + (i % 3) * 2;
+    const h = i % 2 ? 10 : 6;
+    const x = box.left + box.width * (0.15 + 0.7 * Math.random());
+    const y = box.top + Math.min(40, box.height / 3);
+    bit.style.cssText = `position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:1px;background:${colours[i % colours.length]}`;
+    host.appendChild(bit);
+    const dx = (Math.random() - 0.5) * 320;
+    const rise = 60 + Math.random() * 90;
+    const fall = 180 + Math.random() * 200;
+    const spin = (Math.random() - 0.5) * 720;
+    bit.animate(
+      [
+        { transform: "translate(0, 0) rotate(0deg)", opacity: 1 },
+        { transform: `translate(${dx * 0.5}px, ${-rise}px) rotate(${spin * 0.4}deg)`, opacity: 1, offset: 0.3 },
+        { transform: `translate(${dx}px, ${fall}px) rotate(${spin}deg)`, opacity: 0 },
+      ],
+      { duration: DUR.celebrate - 100 + Math.random() * 100, easing: EASE.out, fill: "forwards", delay: Math.random() * 80 },
+    );
+  }
+  window.setTimeout(() => host.remove(), DUR.celebrate + 300);
+}
+
 /** The Shelf tab that is on screen: the phone tab bar, or the top navigation. */
 export function shelfTabTarget(): Element | null {
   for (const el of document.querySelectorAll('[data-nav="shelf"]')) {

@@ -70,6 +70,11 @@ async function scenario(lang, size) {
   const t = T[lang];
   const { viewport, mobile } = SIZES[size];
   const ctx = await browser.newContext({ viewport, isMobile: mobile, hasTouch: mobile, locale: lang === "zh" ? "zh-CN" : "en-US" });
+  // The first-run tutorial and the feedback tip are dialogs of their own (tutorial e2e); keep them out of this flow.
+  await ctx.addInitScript(() => {
+    localStorage.setItem("cibian-tutorial-v1", "seen");
+    localStorage.setItem("cibian-feedback-tip-v1", "seen");
+  });
   const page = await ctx.newPage();
   const errors = [];
   page.on("pageerror", (e) => errors.push(String(e).slice(0, 200)));
@@ -222,11 +227,12 @@ async function scenario(lang, size) {
   await page.locator("article h1[lang=en]").waitFor();
   ok((await page.getByRole("heading", { name: t("rv.next7") }).count()) === 0, `${label}: review opens on the card, not the chart`);
   await page.locator("article [data-word-source] mark").first().waitFor();
-  ok((await page.locator("article [data-source-meaning]").count()) === 0, `${label}: the review card shows the sentence before the meaning`);
+  // The back of the card is laid out from the first frame (so the card keeps one size) but hidden until it turns.
+  ok(!(await page.locator("article [data-source-meaning]").first().isVisible()), `${label}: the review card shows the sentence before the meaning`);
   await page.getByRole("button", { name: t("rv.showMeaning") }).click();
-  await page.locator("article [data-source-meaning]").first().waitFor();
-  const marks = await page.locator("article [data-word-source] mark").count();
-  const bookLine = await page.locator("article [data-word-source]").first().innerText();
+  await page.locator("article [data-review-back] [data-source-meaning]").first().waitFor({ state: "visible" });
+  const marks = await page.locator("article [data-review-back] [data-word-source] mark").count();
+  const bookLine = await page.locator("article [data-review-back] [data-word-source]").first().innerText();
   ok(marks >= 1, `${label}: the word stays highlighted in its sentence`);
   ok(/Alice|Lantern/.test(bookLine), `${label}: and the book is named ("${bookLine.replace(/\n/g, " | ").slice(0, 70)}")`);
   if (size === "phone") {
@@ -235,7 +241,7 @@ async function scenario(lang, size) {
       return box.height > 0 && box.top >= 0 && box.bottom <= window.innerHeight + 1;
     });
     ok(actionsInView, `${label}: know / don't know stay on screen after the meaning`);
-    const lines = await page.locator("article [data-source-place]").first().evaluate((el) => el.getClientRects().length);
+    const lines = await page.locator("article [data-review-back] [data-source-place]").first().evaluate((el) => el.getClientRects().length);
     ok(lines === 1, `${label}: the book and chapter stay on one line (${lines})`);
   }
   ok(!(await overflow()), `${label}: no horizontal overflow (review card)`);
@@ -246,7 +252,7 @@ async function scenario(lang, size) {
   await page.locator("#word-book").selectOption(aliceId);
   const target = page.locator("li:has([data-word-source]) [data-source-open]").first();
   await target.waitFor();
-  const sentenceBefore = await target.locator("xpath=ancestor::li[@data-word-source]//p[1]").innerText();
+  const sentenceBefore = await target.locator("xpath=ancestor::li[@data-word-source]//p[@data-source-sentence]").innerText();
   await target.click();
   await page.waitForSelector("article.book-body", { timeout: 60000 });
   ok(new URL(page.url()).pathname === `/read/${aliceId}`, `${label}: "Go to this place" opens the book`);

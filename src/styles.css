@@ -1598,3 +1598,150 @@
     transition: none;
   }
 }
+
+/*
+ * Notebook and review (design system NotebookScreen, WordRow, Stats, ReviewFlip, RoundComplete).
+ */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* A highlighter under a number or a headword: yellow = understood. */
+.num-mark,
+.head-mark {
+  padding: 0 2px;
+  background: linear-gradient(transparent 60%, var(--mark) 60%, var(--mark) 92%, transparent 92%);
+}
+/* The italic sentence of a notebook row keeps its marked word upright. */
+.source-sentence mark {
+  font-style: normal;
+}
+[data-theme="eink"] .stat-tile {
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+/* Mastered / Relearn / Delete appear on hover or focus where there is a mouse; always on touch. */
+@media (hover: hover) and (pointer: fine) {
+  .nb-actions {
+    opacity: 0;
+    transition: opacity 100ms;
+  }
+  .nb-row:hover .nb-actions,
+  .nb-row:focus-within .nb-actions {
+    opacity: 1;
+  }
+}
+/* The spelling picture's caret blinks. */
+.mode-caret {
+  animation: mode-caret 1s steps(1) infinite;
+}
+@keyframes mode-caret {
+  50% {
+    opacity: 0;
+  }
+}
+.mode-word {
+  font-size: 17px;
+}
+.mode-cloze {
+  font-size: 11px;
+}
+@media (min-width: 640px) {
+  .mode-word {
+    font-size: 20px;
+  }
+  .mode-cloze {
+    font-size: 13px;
+  }
+}
+.review-ipa .word-ipa-values {
+  justify-content: center;
+}
+/* The flash card turns over in 3D; its size stays the same because both faces share one cell. */
+.review-flip {
+  perspective: 1200px;
+}
+.review-flip-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.review-flip-inner > .review-face {
+  grid-area: 1 / 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.review-flip-inner > .review-back {
+  transform: rotateY(180deg);
+}
+.review-flip.is-flipped .review-flip-inner {
+  transform: rotateY(180deg);
+}
+/* The next card rises in; the check stamp lands with a spring; progress moves on with a spring. */
+.review-enter {
+  animation: review-enter 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes review-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+.review-stamp > i {
+  animation: review-stamp 280ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes review-stamp {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+.review-progress > div {
+  transition: width 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* Round complete: the highlighter is drawn under "Known" once the number has counted up. */
+.num-grow {
+  position: relative;
+  display: inline-block;
+  padding: 0 2px;
+}
+.num-grow > span {
+  position: relative;
+  z-index: 1;
+}
+.num-grow > i {
+  position: absolute;
+  left: 0;
+  bottom: 6%;
+  height: 34%;
+  width: 0;
+  background: var(--mark);
+  transition: width 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.num-grow[data-on] > i {
+  width: 100%;
+}
+.streak-pop {
+  animation: streak-pop 280ms cubic-bezier(0.34, 1.56, 0.64, 1) 600ms both;
+}
+@keyframes streak-pop {
+  50% {
+    transform: scale(1.5);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .review-flip-inner,
+  .review-progress > div,
+  .num-grow > i,
+  .nb-actions {
+    transition: none;
+  }
+  .review-enter,
+  .review-stamp > i,
+  .streak-pop,
+  .mode-caret {
+    animation: none;
+  }
+}

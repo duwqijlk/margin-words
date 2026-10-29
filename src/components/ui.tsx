@@ -18,6 +18,8 @@ export const btn = {
   /** Secondary: transparent with a 1px edge border; the sheet ground on hover. */
   quiet: cn(btnBase, "border border-edge text-ink hover:bg-sheet"),
   ghost: cn(btnBase, "text-ink hover:bg-sheet"),
+  /** A ghost button that takes its colour from the caller (text-accent, text-muted, text-faint). */
+  bare: cn(btnBase, "hover:bg-sheet"),
   danger: cn(btnBase, "bg-warn text-accent-ink hover:bg-warn/90"),
   /** 44×44, ink-2; the current one turns brand (aria-current / text-accent), never filled. */
   icon: "inline-flex size-11 shrink-0 items-center justify-center rounded text-muted transition-colors duration-100 hover:bg-sheet hover:text-ink disabled:opacity-40",
@@ -695,31 +697,43 @@ export function ProgressBar({
 }
 
 /** A quiet row of numbers (notebook, review). One card, thin dividers; two columns on a phone. */
+/**
+ * A row of numbers (design system Stats): each on a soft `sheet` tile, the label small above, the
+ * number in Literata bold with lining figures. The "understood" number (mastered) gets a highlighter
+ * under it, a number that needs the reader is `warn`, everything else ink. `pair` lays them two by
+ * two (the review data column); otherwise four in a row on every screen, smaller on a phone.
+ */
 export function StatRow({
   items,
+  pair = false,
 }: {
   items: ReadonlyArray<{
     label: string;
     value: number | string;
-    tone?: "plain" | "warn" | "good";
+    tone?: "plain" | "warn" | "mark";
     hint?: string;
   }>;
+  pair?: boolean;
 }) {
   return (
-    <dl className="grid grid-cols-2 overflow-hidden rounded-2xl bg-card sm:grid-cols-4 [&>div]:border-line/60 max-sm:[&>div:nth-child(n+3)]:border-t max-sm:[&>div:nth-child(even)]:border-l sm:[&>div:not(:first-child)]:border-l">
+    <dl className={cn("m-0 grid gap-1.5", pair ? "grid-cols-2" : "grid-cols-4")} data-stat-row>
       {items.map((item) => (
-        <div key={item.label} className="grid content-start gap-1 p-4 sm:p-5">
-          <dt className="text-xs text-muted">{item.label}</dt>
+        <div
+          key={item.label}
+          className={cn("stat-tile grid min-w-0 content-start rounded-2xl bg-sheet", pair ? "px-3.5 pt-3 pb-3.5" : "px-2 pt-2.5 pb-3 sm:px-5 sm:pt-4 sm:pb-[18px]")}
+        >
+          <dt className="truncate text-xs text-faint sm:text-[13px]">{item.label}</dt>
           <dd
             className={cn(
-              "text-2xl leading-none font-semibold tabular-nums tracking-tight sm:text-3xl",
+              "m-0 mt-1.5 font-display leading-none font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] sm:mt-2",
+              pair ? "text-[28px]" : "text-[22px] sm:text-4xl",
               item.tone === "warn" && "text-warn",
-              item.tone === "good" && "text-accent",
             )}
+            data-stat-tone={item.tone ?? "plain"}
           >
-            {item.value}
+            {item.tone === "mark" ? <span className="num-mark">{item.value}</span> : item.value}
           </dd>
-          {item.hint ? <dd className="text-xs text-muted/80">{item.hint}</dd> : null}
+          {item.hint ? <dd className="m-0 mt-1.5 text-xs text-faint">{item.hint}</dd> : null}
         </div>
       ))}
     </dl>
