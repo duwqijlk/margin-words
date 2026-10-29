@@ -198,7 +198,8 @@ export function WordExplanationFeedback({
       {expanded && writing ? (
         <div className="grid basis-full gap-1" data-feedback-suggestion>
           <textarea
-            className="min-h-16 w-full resize-none rounded-lg border border-line/80 bg-card px-2.5 py-2 text-sm text-ink placeholder:text-muted/60 focus:border-accent focus:outline-none"
+            // 16px on phones: iOS Safari zooms the whole page into a smaller field and stays zoomed.
+            className="min-h-16 w-full resize-none rounded-lg border border-line/80 bg-card px-2.5 py-2 text-base text-ink sm:text-sm placeholder:text-muted/60 focus:border-accent focus:outline-none"
             value={suggestion}
             maxLength={SUGGESTION_MAX}
             rows={2}
