@@ -3,7 +3,8 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { Avatar } from "@/components/avatar";
 import { QqDialog } from "@/components/qq-dialog";
 import { SponsorDialog } from "@/components/sponsor-dialog";
-import { btn, cn, subTabs } from "@/components/ui";
+import { btn, cn, subTabs, TabInk } from "@/components/ui";
+import { useCountUp } from "@/lib/count-up";
 import { trn, useT } from "@/lib/i18n";
 import { groupDigits, libraryTotals, type LibraryTotals } from "@/lib/library-totals";
 import { BUNDLED_CATALOG_URL, loadCatalog, resolveAgainst } from "@/lib/packs";
@@ -11,9 +12,8 @@ import { loadQqGroups } from "@/lib/qq-groups-config";
 import { readSponsorLines } from "@/lib/sponsor";
 import { REPO_URL, TELEGRAM_URL } from "@/lib/site-info";
 import { useBookMaintainers, useContributors } from "@/lib/contributors";
-import { ContributorsPanel, type BookFace } from "@/components/overview-people";
+import { ContributorsPanel, HeroNumber, type BookFace } from "@/components/overview-people";
 import { coverAddress } from "@/lib/covers";
-import { useAccount } from "@/lib/account-store";
 import { loadWordListCatalog, WORD_LIST_CATALOG_URL } from "@/lib/word-list-catalog";
 
 type LoadState = "loading" | "ready" | "error";
@@ -36,7 +36,8 @@ function tabFromUrl(): OverviewTab {
 function OverviewTabs({ tab, onChange }: { tab: OverviewTab; onChange: (tab: OverviewTab) => void }) {
   const { t } = useT();
   return (
-    <div role="tablist" aria-label={t("dashboard.title")} className={subTabs.row} data-overview-tabs>
+    <div role="tablist" aria-label={t("dashboard.title")} className={cn(subTabs.row, "relative")} data-overview-tabs>
+      <TabInk selected={tab} />
       {TABS.map((item) => {
         const on = item.id === tab;
         return (
@@ -90,7 +91,7 @@ function DashboardLinks({ onSponsor }: { onSponsor: () => void }) {
   const [qqOpen, setQqOpen] = useState(false);
   const [groups, setGroups] = useState<string[] | null>(null);
   const linkClass =
-    "inline-flex min-h-11 items-center gap-1.5 px-1 text-sm text-muted underline-offset-4 hover:text-ink hover:underline";
+    "inline-flex min-h-11 items-center gap-1.5 text-sm text-muted underline-offset-4 hover:text-ink hover:underline";
 
   useEffect(() => {
     let alive = true;
@@ -103,7 +104,7 @@ function DashboardLinks({ onSponsor }: { onSponsor: () => void }) {
   }, []);
 
   return (
-    <nav className="flex flex-wrap items-center justify-center gap-4" aria-label={t("dashboard.links")} data-dashboard-links>
+    <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 border-t border-line pt-5" aria-label={t("dashboard.links")} data-dashboard-links>
       <a className={linkClass} href={REPO_URL} target="_blank" rel="noopener noreferrer" data-dashboard-github>
         <Github className="size-4" strokeWidth={1.5} aria-hidden />
         {t("dashboard.github")}
@@ -122,14 +123,46 @@ function DashboardLinks({ onSponsor }: { onSponsor: () => void }) {
       {/* Its own line under the links, on every tab: plain words that open the sponsor dialog. */}
       <button
         type="button"
-        className="inline-flex min-h-11 basis-full items-center justify-center gap-1.5 text-sm font-medium text-accent underline-offset-4 hover:underline"
+        className="inline-flex min-h-11 basis-full items-center justify-center gap-1.5 text-sm font-bold text-accent underline-offset-4 hover:underline"
         onClick={onSponsor}
         data-sponsor-link
       >
-        <Heart className="size-4" strokeWidth={1.5} aria-hidden />
+        <Heart className="size-4 text-warn" strokeWidth={1.5} aria-hidden />
         {t("dashboard.sponsorProject")}
       </button>
     </nav>
+  );
+}
+
+function MixLegend({ text, n }: { text: string; n: number }) {
+  const [before, after] = text.split("\u0001");
+  return (
+    <span>
+      {before}
+      <b className="font-display text-[15px] font-bold text-ink [font-variant-numeric:lining-nums_tabular-nums]">{groupDigits(n)}</b>
+      {after}
+    </span>
+  );
+}
+
+/** One count of the ledger: label over a Literata number that rolls in after its neighbours (70ms apart). */
+function LedgerCell({ label, value, ready, index, aria, id }: { label: string; value: number; ready: boolean; index: number; aria: string; id: string }) {
+  const { shown } = useCountUp(ready ? value : 0, index * 70);
+  return (
+    <div
+      className="overview-rise border-b border-line py-4 pr-4 [&:nth-child(even)]:border-l [&:nth-child(even)]:pl-4 sm:py-[18px] sm:pr-5 sm:pb-5 sm:[&:nth-child(even)]:border-l-0 sm:[&:nth-child(even)]:pl-0 sm:[&:not(:nth-child(3n+1))]:border-l sm:[&:not(:nth-child(3n+1))]:pl-5"
+      style={{ "--i": index + 1 } as CSSProperties}
+      data-dash={id}
+      data-dash-value={ready ? value : undefined}
+      aria-label={aria}
+    >
+      <dt className="text-[13px] text-faint" aria-hidden>
+        {label}
+      </dt>
+      <dd className="m-0 mt-1.5 font-display text-[28px] leading-none font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] sm:text-4xl" aria-hidden>
+        {ready ? groupDigits(shown) : "…"}
+      </dd>
+    </div>
   );
 }
 
@@ -227,12 +260,12 @@ export function DashboardScreen() {
     <div
       // The same page frame as Discover (width, gutters, top space), so the sub-tabs sit in the same
       // place on both pages. The content below keeps its narrower reading width, aligned with the tabs.
-      className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-5 px-4 py-6 sm:gap-6 sm:px-6"
+      className="mx-auto flex w-full max-w-[52rem] flex-1 flex-col gap-5 px-4 pt-4 pb-8 sm:gap-9 sm:px-6 sm:pt-5 sm:pb-14"
       data-dashboard
       data-dashboard-state={state}
     >
       <OverviewTabs tab={tab} onChange={chooseTab} />
-      <div className="grid w-full max-w-3xl gap-6" data-dashboard-body>
+      <div className="grid w-full gap-6" data-dashboard-body>
         <div key={tab} role="tabpanel" id={`overview-panel-${tab}`} aria-labelledby={`overview-tab-${tab}`} data-overview-panel={tab}>
           {tab === "library" ? (
             <div className="grid gap-6">
@@ -244,44 +277,49 @@ export function DashboardScreen() {
               </button>
             </div>
           ) : (
-            <div className="grid gap-8">
-              {/* The one large thing: how many words are explained, with the highlighter behind it. */}
-              <div className="overview-rise grid gap-2 px-1" data-dashboard-hero>
-                <p className="font-display font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] text-[3.4rem] leading-none tabular-nums sm:text-[5.5rem]">
-                  <span className="overview-mark">{state === "ready" && totals ? groupDigits(totals.words) : "…"}</span>
-                </p>
-                <p className="max-w-md text-[0.95rem] leading-7 text-muted sm:text-base">
+            <div className="grid gap-9">
+              {/* The one large thing: how many words are explained, with the highlighter under it. */}
+              <div className="overview-rise grid gap-3" data-dashboard-hero>
+                <HeroNumber value={totals?.words ?? 0} ready={state === "ready" && totals !== null} />
+                <p className="m-0 max-w-[30rem] text-sm leading-relaxed text-muted sm:text-base">
                   {t("dashboard.heroWords")}
                   {state === "ready" && totals ? t("dashboard.heroIn", { books: groupDigits(totals.books) }) : ""}
                 </p>
               </div>
-              <ul className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-5" data-dashboard-counts>
-                {CARDS.filter((card) => card.id !== "words").map((card, index) => {
+              <dl className="m-0 grid grid-cols-2 border-t border-line sm:grid-cols-3" data-dashboard-counts>
+                {CARDS.map((card, index) => {
                   const n = card.id === "series" ? (totals?.series.length ?? 0) : (totals?.[card.id] ?? 0);
                   const shown = state === "ready";
                   return (
-                    <li
+                    <LedgerCell
                       key={card.id}
-                      className="overview-rise grid gap-1 border-l-2 border-line/80 pl-3"
-                      style={{ "--i": index + 1 } as CSSProperties}
-                      data-dash={card.id}
-                      data-dash-value={shown ? n : undefined}
-                      aria-label={shown ? trn(card.count, n) : t("dashboard.loading")}
-                    >
-                      <p className="font-display font-bold tracking-[-0.02em] [font-variant-numeric:lining-nums_tabular-nums] text-[1.6rem] leading-tight tabular-nums sm:text-[1.9rem]" aria-hidden>
-                        {shown ? groupDigits(n) : "…"}
-                      </p>
-                      <p className="text-xs text-muted sm:text-sm" aria-hidden>
-                        {t(card.label)}
-                      </p>
-                    </li>
+                      id={card.id}
+                      index={index}
+                      label={t(card.label)}
+                      value={n}
+                      ready={shown}
+                      aria={shown ? trn(card.count, n) : t("dashboard.loading")}
+                    />
                   );
                 })}
-              </ul>
+              </dl>
               {state === "ready" && totals ? (
-                <p className="px-1 text-xs leading-5 text-muted sm:text-sm" data-dashboard-mix>
-                  {t("dashboard.mix", { classics: groupDigits(totals.classics), lists: groupDigits(totals.lists) })}
-                </p>
+                <div className="overview-rise grid gap-2.5" style={{ "--i": 7 } as CSSProperties} data-dashboard-mix>
+                  <div className="flex h-2.5 gap-0.5" role="img" aria-label={t("dashboard.mix", { classics: groupDigits(totals.classics), lists: groupDigits(totals.lists) })}>
+                    <i className="mix-part block h-full rounded-l-sm bg-accent" style={{ flexGrow: totals.classics }} />
+                    <i className="mix-part block h-full rounded-r-sm bg-mark" style={{ flexGrow: totals.lists }} />
+                  </div>
+                  <p className="m-0 flex flex-wrap gap-x-6 gap-y-1.5 text-[13px] text-muted" aria-hidden>
+                    <span className="inline-flex items-center gap-1.5">
+                      <i className="inline-block size-2.5 rounded-sm bg-accent" />
+                      <MixLegend text={t("dashboard.mixClassics", { n: "\u0001" })} n={totals.classics} />
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <i className="inline-block size-2.5 rounded-sm bg-mark" />
+                      <MixLegend text={t("dashboard.mixLists", { n: "\u0001" })} n={totals.lists} />
+                    </span>
+                  </p>
+                </div>
               ) : null}
             </div>
           )}
@@ -289,37 +327,37 @@ export function DashboardScreen() {
           ) : tab === "contributors" ? (
             <ContributorsPanel people={people} books={maintainers} faces={faces} />
           ) : (
-            <section className="grid gap-7" aria-label={t("dashboard.tabSupporters")} data-supporters>
-              <p className="overview-rise max-w-prose px-1 text-[0.95rem] leading-7 text-muted">{t("dashboard.supportersIntro")}</p>
+            <section className="grid gap-8" aria-label={t("dashboard.tabSupporters")} data-supporters>
+              <p className="overview-rise m-0 max-w-prose text-[15px] leading-7 text-muted">{t("dashboard.supportersIntro")}</p>
               {names !== null && names.length > 0 ? (
-                <div className="grid gap-5">
-                  <p className="overview-rise px-1 font-bold tracking-[-0.02em] text-xl" data-supporter-count>
-                    <span className="overview-mark">{trn("count.supporter", names.length)}</span>
-                  </p>
-                  {/* No card around each person: a dense wall, so a long list of supporters stays short. */}
-                  <ul className="grid grid-cols-5 gap-x-1 gap-y-4 sm:grid-cols-8" data-supporter-names>
+                <div className="grid gap-6">
+                  <div className="overview-rise grid gap-2" style={{ "--i": 1 } as CSSProperties} data-supporter-count>
+                    <HeroNumber value={names.length} ready />
+                    <p className="m-0 text-sm text-muted sm:text-base">{t("dashboard.supporterCount")}</p>
+                  </div>
+                  <ul className="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(4.5rem,1fr))] gap-x-2 gap-y-5 p-0" data-supporter-names>
                     {names.map((person, index) => (
                       <li
                         key={person.publicId ?? person.name}
                         className="overview-rise grid justify-items-center gap-1.5 text-center"
-                        style={{ "--i": Math.min(index, 12) + 1 } as CSSProperties}
+                        style={{ "--i": Math.min(index, 12) + 2 } as CSSProperties}
                         data-supporter={person.publicId ?? ""}
                       >
-                        <Avatar id={person.publicId ?? `name:${person.name}`} name={person.name} version={person.publicId ? person.avatar : undefined} size={40} />
-                        <span className="max-w-full truncate text-xs font-medium" title={person.name}>{person.name}</span>
+                        <Avatar id={person.publicId ?? `name:${person.name}`} name={person.name} version={person.publicId ? person.avatar : undefined} size={44} />
+                        <span className="max-w-full truncate text-xs font-bold" title={person.name}>{person.name}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               ) : names !== null ? (
-                <p className="px-1 py-10 text-center font-bold tracking-[-0.02em] text-lg text-muted">{t("dashboard.supportersEmpty")}</p>
+                <p className="m-0 py-10 text-center text-[15px] text-muted">{t("dashboard.supportersEmpty")}</p>
               ) : null}
             </section>
           )}
         </div>
       </div>
       {/* The page links stay centred on the page, under the narrower content. */}
-      <div className="pt-1 sm:pt-2">
+      <div>
         <DashboardLinks onSponsor={() => setOpen(true)} />
       </div>
       <SponsorDialog open={open} onOpenChange={setOpen} onSubmitted={() => setReload((n) => n + 1)} />

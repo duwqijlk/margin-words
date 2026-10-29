@@ -45,7 +45,7 @@ export function StepDialog({
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
         <Dialog.Content
-          className="anim-pop fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-1.5rem)] w-[min(26rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-3xl border border-line bg-paper p-5 text-ink shadow-lift outline-none"
+          className="anim-pop fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-1.5rem)] w-[min(26rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift outline-none"
           {...data()}
           {...{ [`data-${name}-step`]: step }}
           // Focus the dialog itself, not Skip: a ring around Skip read as the thing to press.
@@ -72,10 +72,13 @@ export function StepDialog({
           }}
         >
           <div className="flex h-8 items-center justify-between gap-2">
-            <Dialog.Title className="truncate text-sm font-semibold text-muted">{title}</Dialog.Title>
+            <Dialog.Title className="sr-only">{title}</Dialog.Title>
+            <span className="truncate text-sm font-bold text-faint" aria-hidden {...data("count")}>
+              {t("tutorial.step", { n: step + 1, total: steps.length })}
+            </span>
             <button
               type="button"
-              className="-mr-2 inline-flex min-h-10 shrink-0 items-center rounded-lg px-2 text-sm font-medium text-muted hover:text-ink"
+              className="-mr-2 inline-flex min-h-10 shrink-0 items-center rounded px-2 text-sm text-faint hover:text-ink"
               onClick={onClose}
               {...data("skip")}
             >
@@ -83,7 +86,7 @@ export function StepDialog({
             </button>
           </div>
 
-          <div className="grid aspect-[8/5] place-items-center overflow-hidden rounded-2xl bg-paper" {...data("art")}>
+          <div key={step} className="grid aspect-[8/5] place-items-center overflow-hidden rounded-2xl bg-sheet" {...data("art")}>
             {steps[step]?.art}
           </div>
 
@@ -91,13 +94,17 @@ export function StepDialog({
             {steps.map((item, index) => (
               <div
                 key={item.heading}
-                className={cn("col-start-1 row-start-1 grid content-start gap-1.5", index !== step && "invisible")}
+                className={cn(
+                  "step-text col-start-1 row-start-1 grid content-start gap-1",
+                  index !== step && "invisible opacity-0",
+                  index !== step && (index < step ? "-translate-x-3" : "translate-x-3"),
+                )}
                 aria-hidden={index !== step}
               >
-                <h2 className="font-bold tracking-[-0.02em] text-xl leading-snug" {...(index === step ? data("heading") : {})}>
+                <h2 className="m-0 text-[21px] leading-snug font-bold tracking-[-0.02em]" {...(index === step ? data("heading") : {})}>
                   {item.heading}
                 </h2>
-                <p className="text-sm leading-relaxed text-muted">{item.body}</p>
+                <p className="m-0 text-sm leading-relaxed text-muted">{item.body}</p>
               </div>
             ))}
           </div>
@@ -114,7 +121,7 @@ export function StepDialog({
                 onClick={() => go(index)}
                 className="grid size-6 place-items-center"
               >
-                <span className={cn("h-1.5 rounded-full transition-all", index === step ? "w-5 bg-accent" : "w-1.5 bg-line")} />
+                <span className={cn("step-dot h-1", index === step ? "w-5 bg-accent" : "w-1.5 bg-line")} />
               </button>
             ))}
           </div>
@@ -131,7 +138,7 @@ export function StepDialog({
               <ChevronLeft className="size-5" aria-hidden />
             </button>
             {last ? (
-              <button type="button" className={cn(btn.primary, "min-h-11")} onClick={finish.onClick} {...{ [finish.data]: "" }}>
+              <button type="button" className={cn(btn.primary, "step-finish min-h-11")} onClick={finish.onClick} {...{ [finish.data]: "" }}>
                 {finish.label}
               </button>
             ) : (
