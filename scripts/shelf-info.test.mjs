@@ -141,12 +141,29 @@ const { BookCard } = loadComponent(`${shelfSource}\nexport { BookCard };`, {
   "@/components/book-cover": { BookCover: () => React.createElement("span", { "data-cover": "" }) },
   "@/components/shelf-book-info": { ShelfBookInfo: () => null },
   "@/components/cover-marks": { BookTags: fragment, BookTag: element("span"), OldFashionedTag: () => React.createElement("span", null, "old-warning") },
+  "@/lib/reading-stats": {
+    asFinishedAt: (value) => (typeof value === "number" && value > 0 ? value : undefined),
+    matchesFinished: () => true,
+  },
+  "@/components/reading-overview": { ReadingOverviewLine: () => null },
 });
 const card = (extra = {}, props = {}) => renderToStaticMarkup(React.createElement(BookCard, {
   row: { book: book(extra), fraction: 0, words: 4, due: 3 }, classic: true, fileHere: true,
   offer: null, updating: false, phoneMenu: false,
   onOpen: () => {}, onNotebook: () => {}, onAddList: () => {}, onRename: () => {}, onUpdate: () => {}, ...props,
 }));
+
+test("a finished book shows the badge and the menu offers to take the mark away; the progress bar stays", () => {
+  const done = card({ finishedAt: 1_800_000_000_000 });
+  assert.match(done, /data-shelf-finished=""/);
+  assert.ok(done.includes(en["finished.badge"]));
+  assert.match(done, /data-shelf-finish-menu="undo"/);
+  assert.ok(done.includes(en["finished.unmark"]));
+  const open = card();
+  assert.doesNotMatch(open, /data-shelf-finished=/);
+  assert.match(open, /data-shelf-finish-menu="mark"/);
+  assert.equal((done.match(/cover-progress-bar/g) ?? []).length, (open.match(/cover-progress-bar/g) ?? []).length);
+});
 
 test("normal card omits metadata, public-domain label and due badge but menu has positive due count", () => {
   const html = card({ lexile: "880L", isbn: "9780306406157", series: "A Series", matchRate: 90 });

@@ -103,6 +103,7 @@ import {
 } from "@/lib/reader-paging";
 import { preloadContributors } from "@/lib/contributors";
 import { PassageFeedback } from "@/components/passage-feedback";
+import { FinishBook } from "@/components/finish-book";
 import { watchPageMoves, type PageMove } from "@/lib/page-guard";
 import { AUTO_HIDE_QUERY, barStart, nextBarState } from "@/lib/reader-bar";
 import {
@@ -146,6 +147,8 @@ export function ReaderScreen({
   const saveProgress = useCallback(
     (id: string, patch: Parameters<typeof storeSave>[1], touch?: boolean) => {
       savingOwn.current = true;
+      // A real move (not a write-back of the same place) makes today a reading day.
+      if (touch !== false) useVocab.getState().markReadDay();
       try {
         storeSave(id, patch, touch);
       } finally {
@@ -1846,6 +1849,10 @@ export function ReaderScreen({
                   pct: Math.round(fraction * 100),
                 })}
           </p>
+          {/* After the last chapter: the reader's own "finished" mark (finish-book.tsx). */}
+          {(slots ? slotIndex >= slots.length - 1 : safeIndex >= book.chapters.length - 1) ? (
+            <FinishBook bookId={bookId} />
+          ) : null}
         </nav>
       </main>
 

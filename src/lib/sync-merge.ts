@@ -121,6 +121,8 @@ export type ShelfData = {
   needsEpub?: boolean;
   oldFashioned?: boolean;
   oldFashionedReason?: string;
+  /** The reader's own "finished" mark (reading-stats.ts). Absent when not marked. */
+  finishedAt?: number;
 };
 
 export type ProgressData = {
@@ -154,7 +156,31 @@ export type SettingsData = {
   quietMarks?: boolean;
   locale: "en" | "zh";
   reviewLog: Record<string, ReviewDay>;
+  /** Local days (YYYY-MM-DD) the reader moved through a book. Merged as a union. Older devices omit it. */
+  readDays?: string[];
 };
+
+/** About eleven years of daily reading. Older days are dropped first. */
+export const READ_DAYS_MAX = 4000;
+const DAY_KEY = /^\d{4}-\d{2}-\d{2}$/;
+
+/** Valid day keys (YYYY-MM-DD, local), sorted, no repeats, at most READ_DAYS_MAX (the newest). */
+export function asReadDays(raw: unknown): string[] {
+  if (!Array.isArray(raw)) return [];
+  const days = new Set<string>();
+  for (const value of raw) if (typeof value === "string" && DAY_KEY.test(value)) days.add(value);
+  return [...days].sort().slice(-READ_DAYS_MAX);
+}
+
+/** Days from both sides. A day is never lost by a merge. */
+export function mergeReadDays(left: readonly string[] | undefined, right: readonly string[] | undefined): string[] {
+  return asReadDays([...(left ?? []), ...(right ?? [])]);
+}
+
+/** A "finished" mark from storage or sync: a positive whole number of ms, or undefined. */
+export function asFinishedAt(raw: unknown): number | undefined {
+  return typeof raw === "number" && Number.isFinite(raw) && raw > 0 ? Math.floor(raw) : undefined;
+}
 
 const ITEM_ID = /^[a-z0-9][a-z0-9:._|-]{0,180}$/;
 const CLOTHS = new Set(["cloth", "ribbon", "ink", "sage"]);
@@ -556,6 +582,8 @@ export function asShelf(data: unknown): ShelfData | null {
     const reason = text(raw.oldFashionedReason, 240);
     if (reason) shelf.oldFashionedReason = reason;
   }
+  const finishedAt = asFinishedAt(raw.finishedAt);
+  if (finishedAt !== undefined) shelf.finishedAt = finishedAt;
   return shelf;
 }
 
@@ -595,6 +623,7 @@ export function asSettings(data: unknown): SettingsData {
     quietMarks: raw.quietMarks === true,
     locale,
     reviewLog: asReviewLog(raw.reviewLog),
+    readDays: asReadDays(raw.readDays),
   };
 }
 
@@ -753,7 +782,11 @@ export function mergeItem(base: SyncItem | undefined, preferred: SyncItem | unde
       itemId: "main",
       deleted: false,
       updatedAt: Math.max(base.updatedAt, preferred.updatedAt),
-      data: { ...prefs, reviewLog: mergeReviewLogs(left.reviewLog, right.reviewLog) },
+      data: {
+        ...prefs,
+        reviewLog: mergeReviewLogs(left.reviewLog, right.reviewLog),
+        readDays: mergeReadDays(left.readDays, right.readDays),
+      },
     };
   }
 

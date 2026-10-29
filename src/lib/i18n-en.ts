@@ -136,6 +136,25 @@ export const en = {
   "dashboard.qqCopy": "Copy",
   "dashboard.qqCopied": "Copied",
 
+  /* ---- finished books and the reader's own record (reading-stats.ts) */
+  "finished.mark": "Mark as finished",
+  "finished.unmark": "Not finished yet",
+  "finished.badge": "Finished",
+  "finished.filterLabel": "Status",
+  "finished.filter.all": "All books",
+  "finished.filter.finished": "Finished",
+  "finished.filter.unfinished": "Not finished",
+  "finished.endTitle": "Finished this book?",
+  "finished.endBody": "Mark it as finished to keep a record and find it on your shelf. Your reading place stays as it is.",
+  "finished.doneOn": "Finished on {date}",
+  "overview.title": "My reading",
+  "overview.finished.one": "{n} book finished",
+  "overview.finished.other": "{n} books finished",
+  "overview.days.one": "{n} day of reading",
+  "overview.days.other": "{n} days of reading",
+  "overview.words.one": "{n} word saved",
+  "overview.words.other": "{n} words saved",
+
   /* ---- shelf */
   "shelf.title": "Shelf",
   "shelf.search": "Search by title or author",
