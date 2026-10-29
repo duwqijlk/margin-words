@@ -149,6 +149,9 @@ export function applyTheme(theme: Theme) {
   const color =
     theme === "dark" ? "#0f1211" : theme === "sepia" ? "#f4ecdc" : "#ffffff";
   meta?.setAttribute("content", color);
+  // The tab icon: the green mark everywhere (it brings its own dark ground), the one-colour mark on e-ink.
+  const icon = document.querySelector('link[rel="icon"]');
+  icon?.setAttribute("href", theme === "eink" ? "/brand/inputread-mark-mono.svg" : "/favicon.svg");
 }
 
 /** CSS variables the reading surface reads (see `.book-body` in styles.css). */
