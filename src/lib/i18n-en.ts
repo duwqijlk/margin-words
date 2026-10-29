@@ -212,7 +212,7 @@ export const en = {
   "share.statWords": "Words saved",
   "share.mastered.one": "{n} word mastered",
   "share.mastered.other": "{n} words mastered",
-  "share.seal": "Read",
+  "share.seal": "Finished",
   "share.asOf": "As of {date}",
   "share.unitBooks.one": "book",
   "share.unitBooks.other": "books",
