@@ -35,8 +35,9 @@ test("paper is pure white with a fresh brand green, and the theme picker offers 
   assert.equal(token('[data-theme="light"]', "paper"), "#ffffff");
   assert.equal(token('[data-theme="light"]', "accent"), "#17804f");
   assert.equal(token('[data-theme="eink"]', "accent"), "#000000");
-  assert.match(read("src/components/reader-settings.tsx"), /value: "eink"/);
-  assert.match(read("src/components/get-books.tsx"), /value: "eink" as const/);
+  assert.match(read("src/components/ui.tsx"), /\{ value: "eink", bg: "#ffffff", fg: "#000000", brand: "#000000" \}/);
+  assert.match(read("src/components/reader-settings.tsx"), /<ThemeTiles/);
+  assert.match(read("src/components/get-books.tsx"), /<ThemeTiles/);
 });
 
 test("a reader who had the Clear theme reads on paper, also from an older device's sync", () => {
@@ -90,7 +91,10 @@ test("one icon stroke, and nothing moves on e-ink", () => {
 
 test("interface titles and numbers use the bold interface font; the book's own words stay in Literata", () => {
   // Dialog and page titles: the interface face, bold, -0.02em.
-  for (const [file, text] of [["get-books", '{t("settings.title")}'], ["step-dialog", 'data("heading") : {})}>'], ["shelf-book-info", '{t("shelf.info")}']]) {
+  // Settings and the account share the panel's title style.
+  assert.match(read("src/components/get-books.tsx"), /<Dialog\.Title className=\{panel\.title\}>\{t\("settings\.title"\)\}/);
+  assert.match(read("src/components/ui.tsx"), /title: "m-0 text-2xl leading-tight font-bold tracking-\[-0\.02em\]"/);
+  for (const [file, text] of [["step-dialog", 'data("heading") : {})}>'], ["shelf-book-info", '{t("shelf.info")}']]) {
     const body = read(`src/components/${file}.tsx`);
     const at = body.indexOf(text);
     const line = body.slice(body.lastIndexOf("\n", body.lastIndexOf("className", at)), at);

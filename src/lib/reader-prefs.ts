@@ -9,7 +9,8 @@ export type WidthKey = "narrow" | "medium" | "wide";
 export const FONT_STACKS: Record<FontKey, { label: string; css: string }> = {
   literata: { label: "Literata", css: '"Literata", "Iowan Old Style", Georgia, serif' },
   lora: { label: "Lora", css: '"Lora", Georgia, "Times New Roman", serif' },
-  sans: { label: "Inter", css: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif' },
+  // The sans choice is the interface face, Atkinson Hyperlegible (design system ReaderSettings); it used to be Inter.
+  sans: { label: "Atkinson", css: '"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif' },
 };
 
 export const WIDTHS: Record<WidthKey, { label: string; rem: number }> = {

@@ -439,6 +439,8 @@ export const zh: Record<Key, string> = {
   "lists.tagAria": "更新《{title}》的词表",
 
   /* ---- settings */
+  "settings.general": "通用",
+  "settings.help": "帮助",
   "settings.title": "设置",
   "settings.desc": "选择语言、主题和默认发音。",
   "settings.pronunciation": "默认发音",
@@ -457,6 +459,12 @@ export const zh: Record<Key, string> = {
   "account.privacyTitle": "隐私说明",
   "account.privacy":
     "账号保存你的邮箱、加过密的密码，还有你自己填的昵称。昵称可以和别人一样。为了同步，还会保存书架、读到哪里、生词和设置。我们不要你的真实姓名、年龄、学校或电话。书的文件留在每台设备上。你可以随时导出或删除账号。",
+  "account.save": "保存",
+  "account.editNickname": "修改昵称",
+  "account.nicknameHintLong": "最多 16 个字，可以和别人一样。会显示在你被采纳的释义旁边和贡献榜上。",
+  "account.avatarRemoveLong": "移除头像",
+  "account.syncNote": "书架、读到哪里、生词和设置会同步到其他设备。书的文件留在每台设备上。",
+  "account.mastered": "已经掌握 {n} 个生词",
   "account.nickname": "昵称",
   "account.nicknameHint": "最多 16 个字。可以和别人用同一个昵称。",
   "account.nicknameSave": "保存昵称",
@@ -670,6 +678,7 @@ export const zh: Record<Key, string> = {
   "reader.chapterOf": "第 {n} 章，共 {total} 章 · 已读全书的 {pct}%",
   "reader.extra": "附页",
   "reader.extraOf": "附页 · 已读全书的 {pct}%",
+  "rs.title": "阅读设置",
   "rs.aria": "阅读设置：字体、大小、主题",
   "rs.theme": "主题",
   "rs.theme.light": "纸白",

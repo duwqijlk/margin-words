@@ -441,6 +441,8 @@ export const en = {
   "lists.tagAria": "Update the word list of “{title}”",
 
   /* ---- settings */
+  "settings.general": "General",
+  "settings.help": "Help",
   "settings.title": "Settings",
   "settings.desc": "Language, theme, and default pronunciation.",
   "settings.pronunciation": "Default pronunciation",
@@ -459,6 +461,12 @@ export const en = {
   "account.privacyTitle": "Privacy",
   "account.privacy":
     "An account stores your email, a scrambled password, and a nickname if you add one. A nickname can be the same as someone else's. To sync, it also stores your shelf, reading place, saved words, and settings. We do not ask for your real name, age, school, or phone number. Book files stay on each device. You can export or delete the account at any time.",
+  "account.save": "Save",
+  "account.editNickname": "Change nickname",
+  "account.nicknameHintLong": "Up to 16 characters, and it can be the same as someone else's. It shows next to your accepted meanings and on the contributors list.",
+  "account.avatarRemoveLong": "Remove photo",
+  "account.syncNote": "Your shelf, reading places, saved words and settings sync to your other devices. Book files stay on each device.",
+  "account.mastered": "{n} words mastered",
   "account.nickname": "Nickname",
   "account.nicknameHint": "Up to 16 characters. Someone else can use the same nickname.",
   "account.nicknameSave": "Save nickname",
@@ -688,6 +696,7 @@ export const en = {
   "reader.chapterOf": "Chapter {n} of {total} · {pct}% of the book read",
   "reader.extra": "Extra",
   "reader.extraOf": "Extra · {pct}% of the book read",
+  "rs.title": "Reading settings",
   "rs.aria": "Reading settings: font, size, theme",
   "rs.theme": "Theme",
   "rs.theme.light": "Paper",

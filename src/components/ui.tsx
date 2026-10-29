@@ -1,6 +1,6 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { Volume2 } from "lucide-react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { useT } from "@/lib/i18n";
 import { usePrefs } from "@/lib/reader-prefs";
 
@@ -740,17 +740,146 @@ export function StatRow({
   );
 }
 
+/**
+ * Settings and the account (design system SettingsDialog, AccountDialog): a centred panel on a wide
+ * screen, a bottom sheet with a drag bar on a phone. Settings sit in groups: a small label over a
+ * soft `sheet` box of 52px rows split by hairlines, with a note under it.
+ */
+export const panel = {
+  overlay: "fixed inset-0 z-50 bg-black/[0.32]",
+  content:
+    "panel-in fixed z-50 grid content-start gap-4 overflow-y-auto overscroll-contain bg-paper text-ink max-sm:inset-x-0 max-sm:bottom-0 max-sm:max-h-[92dvh] max-sm:rounded-t-sheet max-sm:border-t max-sm:border-line max-sm:px-4 max-sm:pb-[calc(20px+env(safe-area-inset-bottom))] max-sm:shadow-[0_-8px_32px_-12px_rgb(0_0_0/0.25)] sm:top-1/2 sm:left-1/2 sm:max-h-[90dvh] sm:w-[min(30rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:gap-5 sm:rounded-2xl sm:border sm:border-line sm:px-6 sm:pt-5 sm:pb-6 sm:shadow-lift",
+  head: "flex items-center justify-between gap-3",
+  title: "m-0 text-2xl leading-tight font-bold tracking-[-0.02em]",
+  desc: "-mt-2 text-sm leading-relaxed text-muted",
+  group: "grid gap-2",
+  groupTitle: "m-0 px-1 text-[13px] font-bold text-faint",
+  box: "grid rounded-2xl bg-sheet px-4 py-1 [&>*+*]:border-t [&>*+*]:border-line",
+  note: "m-0 px-1 text-[13px] leading-relaxed text-faint",
+  row: "group/row flex min-h-[52px] w-full items-center justify-between gap-3 text-left text-[15px] text-ink",
+  rowLabel: "min-w-0 group-hover/row:text-accent",
+  rowIcon: "size-[18px] shrink-0 text-faint",
+} as const;
+
+/** The drag bar at the top of a phone sheet; hidden on a wide screen. */
+export function PanelHandle() {
+  return (
+    <div className="-mb-2 flex h-7 items-center justify-center sm:hidden" aria-hidden>
+      <i className="block h-1 w-10 rounded-full bg-line" />
+    </div>
+  );
+}
+
+/** Each theme's own paper, ink and brand green, for the theme tiles. */
+export const THEME_SAMPLES = [
+  { value: "light", bg: "#ffffff", fg: "#111513", brand: "#17804f" },
+  { value: "sepia", bg: "#f4ecdc", fg: "#2c2318", brand: "#146f45" },
+  { value: "dark", bg: "#0f1211", fg: "#eef2f0", brand: "#4cc98b" },
+  { value: "eink", bg: "#ffffff", fg: "#000000", brand: "#000000" },
+] as const;
+
+/**
+ * The four reading themes as small pages ("Aa" and a brand line in that theme's own colours), so
+ * the reader sees what each looks like; the chosen one gets a brand ring (design system
+ * SettingsDialog, ReaderSettings).
+ */
+export function ThemeTiles<T extends string>({
+  value,
+  onChange,
+  labels,
+  label,
+  small = false,
+}: {
+  value: T;
+  onChange: (value: T) => void;
+  labels: Record<string, string>;
+  label: string;
+  small?: boolean;
+}) {
+  return (
+    <div role="group" aria-label={label} className={cn("grid grid-cols-4", small ? "gap-2" : "gap-2.5")} data-theme-tiles>
+      {THEME_SAMPLES.map((theme) => {
+        const on = value === theme.value;
+        return (
+          <button
+            key={theme.value}
+            type="button"
+            aria-pressed={on}
+            onClick={() => onChange(theme.value as T)}
+            data-theme-tile={theme.value}
+            className={cn("grid min-w-0 justify-items-center gap-1.5 text-[13px] transition-transform duration-100 active:scale-[0.96]", on ? "font-bold text-accent" : "text-muted")}
+          >
+            <span
+              className={cn(
+                "grid w-full content-center justify-items-center gap-1.5 font-display leading-none font-bold",
+                small ? "aspect-[5/4] rounded text-lg" : "aspect-[4/3] rounded-xl text-xl",
+              )}
+              style={{
+                background: theme.bg,
+                color: theme.fg,
+                boxShadow: on ? "0 0 0 2px var(--paper), 0 0 0 4px var(--accent)" : "inset 0 0 0 1px rgb(0 0 0 / 0.1)",
+              }}
+            >
+              Aa
+              <i className="block h-[3px] w-1/2 rounded-sm" style={{ background: theme.brand }} />
+            </span>
+            {labels[theme.value]}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** An on / off switch (design system Toggle): 40×24, brand when on. */
+export function Switch({
+  checked,
+  onChange,
+  label,
+  ...rest
+}: {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  label: string;
+} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onChange">) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      aria-label={label}
+      onClick={() => onChange(!checked)}
+      className={cn(
+        "switch relative h-6 w-10 shrink-0 rounded-full border p-0",
+        checked ? "border-accent bg-accent" : "border-edge bg-paper",
+      )}
+      {...rest}
+    >
+      <span
+        aria-hidden
+        className={cn(
+          "switch-knob absolute top-[3px] left-[3px] size-4 rounded-full",
+          checked ? "translate-x-4 bg-accent-ink" : "bg-muted",
+        )}
+      />
+    </button>
+  );
+}
+
 export function Segmented<T extends string | number>({
   value,
   options,
   onChange,
   label,
   layout = "bar",
+  compact = false,
 }: {
   value: T;
   options: ReadonlyArray<{ value: T; label: ReactNode }>;
   onChange: (value: T) => void;
   label: string;
+  /** The smaller one that sits at the right end of a settings row, on paper. */
+  compact?: boolean;
   /** `wrap` gives each option its own cell on a phone, so four labels are not squeezed onto one line. */
   layout?: "bar" | "wrap";
 }) {
@@ -763,6 +892,7 @@ export function Segmented<T extends string | number>({
         wrap
           ? "grid grid-cols-2 gap-1.5 sm:flex sm:gap-0 sm:divide-x sm:divide-line sm:overflow-hidden sm:rounded sm:border sm:border-edge"
           : "flex divide-x divide-line overflow-hidden rounded border border-edge",
+        compact && "shrink-0 bg-paper",
       )}
     >
       {options.map((option) => (
@@ -772,7 +902,7 @@ export function Segmented<T extends string | number>({
           aria-pressed={option.value === value}
           onClick={() => onChange(option.value)}
           className={cn(
-            "min-h-10 min-w-16 px-3 text-sm transition-colors duration-100",
+            compact ? "min-h-9 px-3.5 text-sm transition-colors duration-100" : "min-h-10 min-w-16 px-3 text-sm transition-colors duration-100",
             wrap
               ? "rounded border border-edge whitespace-normal sm:flex-1 sm:rounded-none sm:border-0 sm:whitespace-nowrap"
               : "flex-1 whitespace-nowrap",

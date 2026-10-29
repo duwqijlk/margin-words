@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
+import { ChevronRight, ExternalLink, X } from "lucide-react";
 import { useT } from "@/lib/i18n";
-import { btn, cn, Segmented } from "@/components/ui";
+import { btn, cn, panel, PanelHandle, Segmented, ThemeTiles } from "@/components/ui";
 import { usePrefs } from "@/lib/reader-prefs";
 import { useAccount } from "@/lib/account-store";
 import { isSponsorAdmin } from "@/lib/sponsor";
@@ -35,96 +35,103 @@ export function SettingsDialog({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/[0.32]" />
-        <Dialog.Content className="anim-pop fixed top-1/2 left-1/2 z-50 max-h-[90dvh] w-[min(30rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-line bg-paper p-5 text-ink shadow-lift sm:p-6">
-          <div className="flex items-start justify-between gap-3">
-            <Dialog.Title className="font-bold tracking-[-0.02em] text-2xl">
-              {t("settings.title")}
-            </Dialog.Title>
-            <Dialog.Close className={cn(btn.icon, "-mt-1 -mr-2")} aria-label={t("common.close")}>
+        <Dialog.Overlay className={panel.overlay} />
+        <Dialog.Content className={panel.content} data-settings-panel>
+          <PanelHandle />
+          <div className={panel.head}>
+            <Dialog.Title className={panel.title}>{t("settings.title")}</Dialog.Title>
+            <Dialog.Close className={cn(btn.icon, "-mr-2.5")} aria-label={t("common.close")}>
               <X className="size-5" aria-hidden />
             </Dialog.Close>
           </div>
           <Dialog.Description className="sr-only">{t("settings.desc")}</Dialog.Description>
-          <section
-            className="mt-5 grid gap-2"
-            aria-label={t("settings.langTitle")}
-            data-settings-language
-          >
-            <h3 className="text-sm font-semibold">{t("settings.langTitle")}</h3>
-            <LanguageSwitch />
-          </section>
-          <section className="mt-5 grid gap-2" aria-label={t("rs.theme")} data-settings-theme>
-            <h3 className="text-sm font-semibold">{t("rs.theme")}</h3>
-            <Segmented
+
+          <section className={panel.group} aria-label={t("rs.theme")} data-settings-theme>
+            <h3 className={panel.groupTitle}>{t("rs.theme")}</h3>
+            <ThemeTiles
               label={t("rs.theme")}
               value={theme}
               onChange={(next) => setPrefs({ theme: next })}
-              options={[
-                { value: "light" as const, label: t("rs.theme.light") },
-                { value: "sepia" as const, label: t("rs.theme.sepia") },
-                { value: "dark" as const, label: t("rs.theme.dark") },
-                { value: "eink" as const, label: t("rs.theme.eink") },
-              ]}
-            />
-          </section>
-          <section className="mt-5 grid gap-2" aria-label={t("settings.pronunciation")} data-settings-pronunciation>
-            <h3 className="text-sm font-semibold">{t("settings.pronunciation")}</h3>
-            <Segmented
-              label={t("settings.pronunciation")}
-              value={pronunciationAccent}
-              onChange={(next) => setPrefs({ pronunciationAccent: next })}
-              options={[
-                { value: "UK" as const, label: t("ipa.uk") },
-                { value: "US" as const, label: t("ipa.us") },
-              ]}
-            />
-            <p className="text-xs leading-relaxed text-muted">{t("settings.pronunciationHelp")}</p>
-          </section>
-          <button
-            type="button"
-            className={cn(btn.quiet, "mt-5 w-full justify-start")}
-            data-settings-guide
-            onClick={() => {
-              onOpenChange(false);
-              onOpenGuide();
-            }}
-          >
-            {t("nav.guide")}
-          </button>
-          <button
-            type="button"
-            className={cn(btn.quiet, "mt-2 w-full justify-start")}
-            data-settings-tutorial
-            onClick={() => {
-              onOpenChange(false);
-              useTutorial.getState().show();
-            }}
-          >
-            {t("settings.tutorial")}
-          </button>
-          {isAdmin ? (
-            <button
-              type="button"
-              className={cn(btn.quiet, "mt-2 w-full justify-start font-semibold text-accent")}
-              data-settings-admin
-              onClick={() => {
-                onOpenChange(false);
-                navigate({ kind: "admin" });
+              labels={{
+                light: t("rs.theme.light"),
+                sepia: t("rs.theme.sepia"),
+                dark: t("rs.theme.dark"),
+                eink: t("rs.theme.eink"),
               }}
-            >
-              {t("admin.title")}
-            </button>
-          ) : null}
-          <a
-            className="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-accent underline"
-            href={guideUrl()}
-            target="_blank"
-            rel="noopener"
-            data-guide-link
-          >
-            {t("settings.guide")}
-          </a>
+            />
+          </section>
+
+          <section className={panel.group} aria-label={t("settings.general")}>
+            <h3 className={panel.groupTitle}>{t("settings.general")}</h3>
+            <div className={panel.box}>
+              <div className={panel.row} data-settings-language>
+                <span>{t("settings.langTitle")}</span>
+                <LanguageSwitch compact />
+              </div>
+              <div className={panel.row} data-settings-pronunciation>
+                <span>{t("settings.pronunciation")}</span>
+                <Segmented
+                  compact
+                  label={t("settings.pronunciation")}
+                  value={pronunciationAccent}
+                  onChange={(next) => setPrefs({ pronunciationAccent: next })}
+                  options={[
+                    { value: "UK" as const, label: t("ipa.uk") },
+                    { value: "US" as const, label: t("ipa.us") },
+                  ]}
+                />
+              </div>
+            </div>
+            <p className={panel.note}>{t("settings.pronunciationHelp")}</p>
+          </section>
+
+          <section className={panel.group} aria-label={t("settings.help")}>
+            <h3 className={panel.groupTitle}>{t("settings.help")}</h3>
+            <div className={panel.box}>
+              <button
+                type="button"
+                className={panel.row}
+                data-settings-guide
+                onClick={() => {
+                  onOpenChange(false);
+                  onOpenGuide();
+                }}
+              >
+                <span className={panel.rowLabel}>{t("nav.guide")}</span>
+                <ChevronRight className={panel.rowIcon} aria-hidden />
+              </button>
+              <button
+                type="button"
+                className={panel.row}
+                data-settings-tutorial
+                onClick={() => {
+                  onOpenChange(false);
+                  useTutorial.getState().show();
+                }}
+              >
+                <span className={panel.rowLabel}>{t("settings.tutorial")}</span>
+                <ChevronRight className={panel.rowIcon} aria-hidden />
+              </button>
+              <a className={panel.row} href={guideUrl()} target="_blank" rel="noopener" data-guide-link>
+                <span className={panel.rowLabel}>{t("settings.guide")}</span>
+                <ExternalLink className={panel.rowIcon} aria-hidden />
+              </a>
+              {isAdmin ? (
+                <button
+                  type="button"
+                  className={panel.row}
+                  data-settings-admin
+                  onClick={() => {
+                    onOpenChange(false);
+                    navigate({ kind: "admin" });
+                  }}
+                >
+                  <span className={cn(panel.rowLabel, "font-bold text-accent")}>{t("admin.title")}</span>
+                  <ChevronRight className={panel.rowIcon} aria-hidden />
+                </button>
+              ) : null}
+            </div>
+          </section>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
